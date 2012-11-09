@@ -30,7 +30,13 @@ public final class Jdom2 {
             return null;
         }
         Text htmlText = (Text) content;
-        return htmlText.getValue();
+        return normalized(htmlText.getValue());
+    }
+    
+
+    private static String normalized(String value) {
+        String replaceAll = value.replaceAll("\\s+", " ");
+        return replaceAll;
     }
 
     public static Function<Element, String> textValue() {

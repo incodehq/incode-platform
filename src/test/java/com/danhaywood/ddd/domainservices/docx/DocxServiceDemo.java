@@ -20,7 +20,7 @@ public class DocxServiceDemo {
         URL templateUrl = Resources.getResource(DocxServiceDemo.class, "TypicalDocument.docx");
         ByteArrayInputStream docxTemplateIs = new ByteArrayInputStream(Resources.toByteArray(templateUrl));
         
-        java.io.File targetFile = new java.io.File(System.getProperty("user.dir") + "/target/Generated.docx");
+        java.io.File targetFile = new java.io.File(System.getProperty("user.dir") + "/Generated.docx");
         FileOutputStream targetFos = new FileOutputStream(targetFile);
 
         DocxService docxService = new DocxService();
