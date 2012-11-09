@@ -38,7 +38,7 @@ The `WordprocessingMLPackage` can be obtained from a supplementary API method:
             InputStream docxTemplate) 
         throws LoadTemplateException
 
-This exists because the parsing of the input stream into a `WordprocessingMLPackage` is not particularly quick.  Therefore clients may wish to cache this in-memory object structure.  In this case the service performs a defensive copy of the template.
+This exists because the parsing of the input stream into a `WordprocessingMLPackage` is not particularly quick.  Therefore clients may wish to cache this in-memory object structure.  If calling the overloaded version of `merge(...)` that accepts the `WordprocessingMLPackage` then the service performs a defensive copy of the template.
 
 
 ## .docx template ##
