@@ -112,10 +112,11 @@ A sample HTML can be found [here](https://github.com/danhaywood/docx-service/blo
 
 For simple data types such as plain text, rich text and date, the service simply substitutes the input data into the placeholder fields in the `.docx`.
 
-For lists, the service expects the contents of the placeholder to be a bulleted list, with an optional second paragraph of a different style.  The service clones the paragraphs for each item in the input list.  If the input specifies more than one paragraph for a list item, then 
+For lists, the service expects the contents of the placeholder to be a bulleted list, with an optional second paragraph of a different style.  The service clones the paragraphs for each item in the input list.  If the input specifies more than one paragraph in the list item, then the second paragraph from the template is used for those additional paragraphs.
 
-For tables, the service expects the placeholder to be a table, with a header and either one or two body rows.  The header is left untouched, the body rows are used as the template for the input data.  Any surplus cells in the input data is ignored.
+For tables, the service expects the placeholder to be a table, with a header and either one or two body rows.  The header is left untouched, the body rows are used as the template for the input data.  Any surplus cells in the input data are ignored.
 
+A sample HTML can be found [here](https://github.com/danhaywood/docx-service/blob/master/src/test/resources/com/danhaywood/ddd/domainservices/docx/GeneratedOutput.docx?raw=true)
 
  
 
