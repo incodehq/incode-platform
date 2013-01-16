@@ -1,0 +1,10 @@
+.collectionContentsAsLocatables>div {
+/* TODO: trying to apply this through stylesheet failing; applied directly in HTML instead 
+	display: inline;
+	margin-left: auto; 
+	margin-right: auto; 
+	*/
+	width: 800px; 
+	height: 500px;
+}
+	
