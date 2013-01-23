@@ -18,7 +18,7 @@
  */
 
 
-package org.apache.isis.extensions.wicket.view.gmap2.applib;
+package com.danhaywood.isis.wicket.gmap2.applib;
 
 
 public interface Locatable {

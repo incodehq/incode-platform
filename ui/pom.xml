@@ -44,7 +44,7 @@
 
         <dependency>
             <groupId>org.wicketstuff</groupId>
-            <artifactId>gmap2</artifactId>
+            <artifactId>wicketstuff-gmap3</artifactId>
         </dependency>
 
     </dependencies>

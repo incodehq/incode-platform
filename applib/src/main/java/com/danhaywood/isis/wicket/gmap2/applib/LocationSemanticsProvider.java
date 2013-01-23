@@ -18,7 +18,7 @@
  */
 
 
-package org.apache.isis.extensions.wicket.view.gmap2.applib;
+package com.danhaywood.isis.wicket.gmap2.applib;
 
 import org.apache.isis.applib.adapters.DefaultsProvider;
 import org.apache.isis.applib.adapters.EncoderDecoder;

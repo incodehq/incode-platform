@@ -24,8 +24,9 @@ import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-import org.apache.isis.extensions.wicket.view.gmap2.applib.Location;
 import org.junit.Test;
+
+import com.danhaywood.isis.wicket.gmap2.applib.Location;
 
 public class LocationTest {
 

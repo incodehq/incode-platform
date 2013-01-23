@@ -1,0 +1,23 @@
+.collectionContentsAsLocatables>div {
+	height: 400px;
+}
+	
+.collectionContentsAsLocatables {
+	margin-top: 10px;
+}
+
+a span.ViewLinkItem.map {
+    background-image:url('icon_gmap3_off.png');
+    background-position: center center;
+    background-repeat:no-repeat;
+}
+
+span.ViewLinkItem.map {
+    background-image:url('icon_gmap3_on.png');
+    background-position: center center;
+    background-repeat:no-repeat;
+}
+
+.collectionContentsAsLocatables .collection-contents-as-locatables-invisible {
+    display:none;
+}
