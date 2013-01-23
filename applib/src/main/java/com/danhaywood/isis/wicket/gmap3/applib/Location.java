@@ -18,7 +18,7 @@
  */
 
 
-package com.danhaywood.isis.wicket.gmap2.applib;
+package com.danhaywood.isis.wicket.gmap3.applib;
 
 import java.io.Serializable;
 

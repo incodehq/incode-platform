@@ -18,7 +18,7 @@
  */
 
 
-package com.danhaywood.isis.wicket.ui.components.collectioncontents.gmap2;
+package com.danhaywood.isis.wicket.ui.components.collectioncontents.gmap3;
 
 import org.apache.isis.core.metamodel.spec.ObjectSpecification;
 import org.apache.isis.core.metamodel.spec.SpecificationLoader;
@@ -39,7 +39,7 @@ import org.apache.wicket.request.Response;
 import org.wicketstuff.gmap.GMap;
 import org.wicketstuff.gmap.GMapHeaderContributor;
 
-import com.danhaywood.isis.wicket.gmap2.applib.Locatable;
+import com.danhaywood.isis.wicket.gmap3.applib.Locatable;
 
 public class CollectionOfEntitiesAsLocatablesFactory extends ComponentFactoryAbstract /*implements HeaderContributorProvider */{
 

@@ -18,7 +18,7 @@
  */
 
 
-package com.danhaywood.isis.wicket.ui.components.collectioncontents.gmap2;
+package com.danhaywood.isis.wicket.ui.components.collectioncontents.gmap3;
 
 import java.util.List;
 
@@ -47,8 +47,8 @@ import org.wicketstuff.gmap.api.GLatLng;
 import org.wicketstuff.gmap.api.GMarker;
 import org.wicketstuff.gmap.api.GMarkerOptions;
 
-import com.danhaywood.isis.wicket.gmap2.applib.Locatable;
-import com.danhaywood.isis.wicket.gmap2.applib.Location;
+import com.danhaywood.isis.wicket.gmap3.applib.Locatable;
+import com.danhaywood.isis.wicket.gmap3.applib.Location;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 

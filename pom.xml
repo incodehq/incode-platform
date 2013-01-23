@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.danhaywood.isis.wicket.ui.components</groupId>
-    <artifactId>danhaywood-isis-wicket-gmap2</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>danhaywood-isis-wicket-gmap3</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
 
-    <name>Isis Wicket Viewer Gmap2 Component</name>
+    <name>Isis Wicket Viewer Gmap3 Component</name>
 
     <packaging>pom</packaging>
 
@@ -61,14 +61,14 @@
 
             <dependency>
                 <groupId>com.danhaywood.isis.wicket.ui.components</groupId>
-                <artifactId>danhaywood-isis-wicket-gmap2-applib</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <artifactId>danhaywood-isis-wicket-gmap3-applib</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.danhaywood.isis.wicket.ui.components</groupId>
-                <artifactId>danhaywood-isis-wicket-gmap2-ui</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <artifactId>danhaywood-isis-wicket-gmap3-ui</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>

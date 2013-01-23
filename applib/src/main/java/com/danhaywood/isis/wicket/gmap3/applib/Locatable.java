@@ -18,31 +18,11 @@
  */
 
 
-package org.apache.isis.extensions.wicket.applib;
-
-import static org.hamcrest.Matchers.closeTo;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-
-import org.junit.Test;
-
-import com.danhaywood.isis.wicket.gmap2.applib.Location;
-
-public class LocationTest {
+package com.danhaywood.isis.wicket.gmap3.applib;
 
 
-	@Test
-	public void testFromString() {
-		final Location location = Location.fromString("123.456;-30.415");
-		assertThat(location.getLatitude(), is(closeTo(123.456, 0.0001)));
-		assertThat(location.getLongitude(), is(closeTo(-30.415, 0.0001)));
-	}
+public interface Locatable {
 
-	@Test
-	public void testToString() {
-		final Location location = new Location(123.456, -30.415);
-		final String string = location.toString();
-		assertThat(string, is("123.456000;-30.415000"));
-	}
-
+	Location getLocation();
+	
 }
