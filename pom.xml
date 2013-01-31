@@ -12,8 +12,8 @@
     <packaging>pom</packaging>
 
     <properties>
-        <isis.version>1.0.1-SNAPSHOT</isis.version>
-        <isis-viewer-wicket.version>1.0.1-SNAPSHOT</isis-viewer-wicket.version>
+        <isis.version>1.1.0</isis.version>
+        <isis-viewer-wicket.version>1.1.0</isis-viewer-wicket.version>
     </properties>
 
     <build>
@@ -47,6 +47,20 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <!-- also for benefit of application developers, using scope=import -->
+            <dependency>
+                <groupId>com.danhaywood.isis.wicket.ui.components</groupId>
+                <artifactId>danhaywood-isis-wicket-gmap3-applib</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.danhaywood.isis.wicket.ui.components</groupId>
+                <artifactId>danhaywood-isis-wicket-gmap3-ui</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+
+
             <dependency>
                 <groupId>org.apache.isis.core</groupId>
                 <artifactId>isis-core-applib</artifactId>
@@ -57,18 +71,6 @@
                 <groupId>org.apache.isis.viewer</groupId>
                 <artifactId>isis-viewer-wicket-ui</artifactId>
                 <version>${isis-viewer-wicket.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.danhaywood.isis.wicket.ui.components</groupId>
-                <artifactId>danhaywood-isis-wicket-gmap3-applib</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.danhaywood.isis.wicket.ui.components</groupId>
-                <artifactId>danhaywood-isis-wicket-gmap3-ui</artifactId>
-                <version>${project.version}</version>
             </dependency>
 
             <dependency>
