@@ -47,7 +47,19 @@ In your project's DOM `pom.xml`, add a dependency on the `applib` module:
         ...
     </dependencies> 
 
-In your project's webapp `pom.xml`, add a dependency on the `ui` module:
+Although not mandatory, you might also want to use the `LocationLookupService` that's provided, allowing for simple descriptions (eg "10 Downing Street, London") to be converted into `Location`s.  Add this dependency in your project's DOM `pom.xml`:
+
+    <dependencies>
+        ...
+        <dependency>
+            <groupId>com.danhaywood.isis.wicket.ui.components</groupId>
+            <artifactId>danhaywood-isis-wicket-gmap3-service</artifactId>
+        </dependency>
+        ...
+    </dependencies> 
+
+
+Finally, there is a required dependency in your project's webapp `pom.xml` to the `ui` module:
 
     <dependencies>
         ...
@@ -61,7 +73,7 @@ In your project's webapp `pom.xml`, add a dependency on the `ui` module:
 
 ### Usage
 
-Make your entity implement `com.danhaywood.isis.wicket.gmap2.applib.Locatable`, so that it provides a `Location` property of type `com.danhaywood.isis.wicket.gmap2.applib.Location`.
+Make your entity implement `com.danhaywood.isis.wicket.gmap3.applib.Locatable`, so that it provides a `Location` property of type `com.danhaywood.isis.wicket.gmap3.applib.Location`.
 
 If using the JDO objectstore, then this property will need to be annotated as `@Persistent`.  Other objectstores (at least, those that use the facilities of Isis' `ValueSemanticsProvider` API) should require no additional configuration.
 
@@ -96,7 +108,15 @@ You should then find that any collections of entities that have date properties 
 
 ### End-user entry of `Location`s
 
-The `Location` value type supports input as a string.  The format is:
+If you have configured the `LocationLookupService` (recommended), then you can write an action to lookup the `Location` using the service injected into some entity.  For example:
+
+<pre>
+    public void lookupLocation(@Named("Description") String description) {
+        setLocation(locationLookupService.lookup(description));
+    }
+</pre>
+
+Alternatively, you can allow the `Location` to be specified as a string.  The format is:
 
      mmm.mmm;nnn.nnn
 
@@ -104,3 +124,4 @@ where:
 
 * `mmm.mmm` is the latitute, and
 * `nnn.nnn` is the longitude 
+

@@ -48,7 +48,7 @@
     <dependencyManagement>
         <dependencies>
 
-            <!-- also for benefit of application developers, using scope=import -->
+            <!-- also for benefit of application developers, using scope=import, type=pom -->
             <dependency>
                 <groupId>com.danhaywood.isis.wicket.ui.components</groupId>
                 <artifactId>danhaywood-isis-wicket-gmap3-applib</artifactId>
@@ -56,10 +56,14 @@
             </dependency>
             <dependency>
                 <groupId>com.danhaywood.isis.wicket.ui.components</groupId>
+                <artifactId>danhaywood-isis-wicket-gmap3-service</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.danhaywood.isis.wicket.ui.components</groupId>
                 <artifactId>danhaywood-isis-wicket-gmap3-ui</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
-
 
             <dependency>
                 <groupId>org.apache.isis.core</groupId>
@@ -98,6 +102,7 @@
 
     <modules>
         <module>applib</module>
+        <module>service</module>
         <module>ui</module>
     </modules>
 
