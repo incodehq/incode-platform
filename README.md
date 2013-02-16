@@ -123,3 +123,5 @@ public class ToDoItems {
 
 }
 </pre>
+
+While the demo shows a simple line graph, any chart supported by Wicket Charts (see their [showcase](http://wicked-charts.appspot.com/) app) should work.
