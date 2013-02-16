@@ -125,3 +125,24 @@ public class ToDoItems {
 </pre>
 
 While the demo shows a simple line graph, any chart supported by Wicket Charts (see their [showcase](http://wicked-charts.appspot.com/) app) should work.
+
+# Limitations
+
+Although the `WickedChart` has value semantics, it will not render as a chart if used as an entity property.
+
+Such a property should be persistable, however.  Therefore a workaround is to hide the property and instead provide an action to show the chart.  For example:
+
+<pre>
+public class MyEntity {
+
+    private WickedChart chart;
+    @Hidden
+    public WickedChart getChart() { ... }
+    public void setChart(WickedChart chart) { ... }
+
+    public WickedChart showChart() {
+        return getChart();
+    }
+}
+</pre>
+    
