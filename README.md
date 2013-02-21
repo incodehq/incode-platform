@@ -1,7 +1,7 @@
 isis-wicket-gmap3
 =================
 
-Extension for Apache Isis' Wicket Viewer, to render a collection of entities within a map (using [gmap3](https://developers.google.com/maps/documentation/javascript/)).  
+An extension for [Apache Isis](http://isis.apache.org)' [Wicket viewer](http://isis.apache.org/components/viewers/wicket/about.html), to render a collection of entities within a map (using google's [gmap3](https://developers.google.com/maps/documentation/javascript/) API).  
 
 ### Screenshots
 
@@ -104,7 +104,7 @@ public class ToDoItem implements Locatable {
 }
 </pre>
 
-You should then find that any collections of entities that have date properties (either returned from an action, or as a parented collection) will be rendered in a map.
+You should then find that any collections of entities that have `Locatable` properties (either returned from an action, or as a parented collection) will be rendered in a map.
 
 ### End-user entry of `Location`s
 
