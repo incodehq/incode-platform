@@ -21,6 +21,11 @@
 package com.danhaywood.isis.wicket.gmap3.applib;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Arrays;
+import java.util.Locale;
 
 import org.apache.isis.applib.annotation.Value;
 
@@ -41,15 +46,41 @@ public class Location implements Serializable {
 	 * @see #toString()
 	 */
 	public static Location fromString(String encodedString) {
-		final String[] split = encodedString.split(";");
-		try {
-			double latitude = Double.parseDouble(split[0]);
-			double longitude = Double.parseDouble(split[1]);
-			return new Location(latitude, longitude);
-		} catch (Exception e) {
-			return null;
-		}
+	    if(encodedString == null) {
+	        return null;
+	    }
+	    final String[] split = encodedString.split(";");
+	    if(split.length != 2) {
+	        return null;
+	    }
+	    for (Locale locale : Arrays.asList(Locale.getDefault(), Locale.ENGLISH, Locale.FRENCH, Locale.JAPANESE, Locale.CHINESE)) {
+	        try {
+	            String latStr = split[0];
+	            String longStr = split[1];
+
+	            return parse(locale, latStr, longStr);
+	        } catch (Exception e) {
+	            continue;
+	        }
+        }
+	    return null;
 	}
+
+    private static Location parse(Locale locale, String latStr, String longStr) throws ParseException {
+        NumberFormat nf = getNumberFormat(locale);
+        double latitude = (Double) nf.parse(latStr);
+        double longitude = (Double) nf.parse(longStr);
+        return new Location(latitude, longitude);
+    }
+
+    protected static Location parse(NumberFormat nf, String latStr, String longStr) throws ParseException {
+        nf.setMinimumFractionDigits(6);
+        nf.setMaximumFractionDigits(6);
+        
+        double latitude = (Double) nf.parse(latStr);
+        double longitude = (Double) nf.parse(longStr);
+        return new Location(latitude, longitude);
+    }
 	
 	private double latitude;
 	private double longitude;
@@ -97,6 +128,7 @@ public class Location implements Serializable {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -120,8 +152,22 @@ public class Location implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return String.format("%6f;%6f", latitude, longitude);
+        NumberFormat nf = getNumberFormat(Locale.getDefault());
+        String locStr = nf.format(123.456) + ";" + nf.format(-30.415);
+        
+        // and not:
+        //    String locStr = String.format("%6f;%6f", 123.456, -30.415);
+        // because it is a different string for Arabic !!!
+
+        return locStr;
 	}
+
+    private static NumberFormat getNumberFormat(Locale locale) {
+        NumberFormat nf = NumberFormat.getInstance(locale);
+        nf.setMinimumFractionDigits(6);
+        nf.setMaximumFractionDigits(6);
+        return nf;
+    }
 
 	public static int typicalLength() {
 		// latitude and longitude are each up to -NNN.NNNNNN (11 chars); plus 1 for the ';'
