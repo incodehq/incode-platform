@@ -91,9 +91,15 @@ public class LocationTest {
 
     @Test
     public void testToString() {
+		final NumberFormat nf = NumberFormat.getInstance();
+		nf.setMinimumFractionDigits(6);
+		nf.setMaximumFractionDigits(6);
+
+		final String expectedResult = nf.format(123.456) + ";" + nf.format(-30.415);
         final Location location = new Location(123.456, -30.415);
         final String string = location.toString();
-        assertThat(string, is("123.456000;-30.415000"));
+
+        assertThat(string, is(expectedResult));
     }
 
 

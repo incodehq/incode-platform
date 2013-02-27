@@ -21,7 +21,6 @@
 package com.danhaywood.isis.wicket.gmap3.applib;
 
 import java.io.Serializable;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Arrays;
@@ -153,7 +152,7 @@ public class Location implements Serializable {
 	@Override
 	public String toString() {
         NumberFormat nf = getNumberFormat(Locale.getDefault());
-        String locStr = nf.format(123.456) + ";" + nf.format(-30.415);
+        String locStr = nf.format(latitude) + ";" + nf.format(longitude);
         
         // and not:
         //    String locStr = String.format("%6f;%6f", 123.456, -30.415);
