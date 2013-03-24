@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
 
 import org.apache.commons.io.IOUtils;
 import org.docx4j.XmlUtils;
@@ -33,6 +36,10 @@ import com.google.common.collect.Lists;
 
 public class DocxService {
 
+    @PostConstruct
+    public void init(Map<String,String> properties) {
+    }
+    
     public enum MatchingPolicy {
         STRICT(false,false),
         ALLOW_UNMATCHED_INPUT(true,false),
@@ -334,7 +341,4 @@ public class DocxService {
             throw new MergeException("Unable to create temporary working file", ex);
         }
     }
-
-
-
 }
