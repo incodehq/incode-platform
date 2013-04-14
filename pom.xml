@@ -22,8 +22,8 @@
     <name>Isis Wicket Viewer Wicket-Charts Component</name>
 
     <properties>
-        <isis.version>1.1.0</isis.version>
-        <isis-viewer-wicket.version>1.1.0</isis-viewer-wicket.version>
+        <isis.version>1.1.1-SNAPSHOT</isis.version>
+        <isis-viewer-wicket.version>1.1.1-SNAPSHOT</isis-viewer-wicket.version>
         <wicked-charts.version>1.4.2</wicked-charts.version>
 
         <compileSource>1.6</compileSource>
@@ -75,7 +75,12 @@
             </dependency>
             <dependency>
                 <groupId>com.danhaywood.isis.wicket.ui.components</groupId>
-                <artifactId>danhaywood-isis-wicket-wickedcharts-ui</artifactId>
+                <artifactId>danhaywood-isis-wicket-wickedcharts-scalarchart</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.danhaywood.isis.wicket.ui.components</groupId>
+                <artifactId>danhaywood-isis-wicket-wickedcharts-summarycharts</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
 
@@ -123,7 +128,8 @@
     
     <modules>
         <module>applib</module>
-        <module>ui</module>
+        <module>scalarchart</module>
+        <module>summarycharts</module>
     </modules>
     
     <profiles>

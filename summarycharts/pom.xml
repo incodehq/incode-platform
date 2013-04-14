@@ -20,8 +20,8 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     
-    <artifactId>danhaywood-isis-wicket-wickedcharts-ui</artifactId>
-    <name>Isis Wicket Viewer Wicked-Charts UI</name>
+    <artifactId>danhaywood-isis-wicket-wickedcharts-summarycharts</artifactId>
+    <name>Isis Wicket Viewer Wicked-Charts Summary Charts</name>
 
     <dependencies>
         <dependency>
@@ -32,6 +32,10 @@
         <dependency>
             <groupId>com.danhaywood.isis.wicket.ui.components</groupId>
             <artifactId>danhaywood-isis-wicket-wickedcharts-applib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.danhaywood.isis.wicket.ui.components</groupId>
+            <artifactId>danhaywood-isis-wicket-wickedcharts-scalarchart</artifactId>
         </dependency>
     </dependencies>
 
