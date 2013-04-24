@@ -47,7 +47,7 @@ public class LocationLookupServiceTest {
 
 	@Test
 	public void whenInvalid() {
-		Location location = locationLookupService.lookup("£$%$%^Y%^fgnsdlfk glfg");
+		Location location = locationLookupService.lookup("$%$%^Y%^fgnsdlfk glfg");
 		assertThat(location, is(nullValue()));
 	}
 
