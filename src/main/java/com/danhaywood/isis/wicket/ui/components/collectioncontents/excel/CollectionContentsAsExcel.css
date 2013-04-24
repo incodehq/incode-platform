@@ -39,10 +39,12 @@ a span.ViewLinkItem.excel {
     background-image:url('icon_excel_off.png');
     background-position: center center;
     background-repeat:no-repeat;
+    background-size: 16px 16px;
 }
 
 span.ViewLinkItem.excel {
     background-image:url('icon_excel_on.png');
     background-position: center center;
     background-repeat:no-repeat;
+    background-size: 16px 16px;
 }
