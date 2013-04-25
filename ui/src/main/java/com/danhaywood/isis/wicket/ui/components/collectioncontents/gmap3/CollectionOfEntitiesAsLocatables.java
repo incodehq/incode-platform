@@ -81,10 +81,15 @@ public class CollectionOfEntitiesAsLocatables extends
         map.setPanControlEnabled(true);
         map.setDoubleClickZoomEnabled(true);
 
-        if(!adapterList.isEmpty()) {
-            GLatLng first = asGLatLng((Locatable)adapterList.get(0).getObject());
-            map.setCenter(first);  
+        // centre the map on the first object that has a location.
+        for (ObjectAdapter adapter : adapterList) {
+            GLatLng latLng = asGLatLng((Locatable)adapterList.get(0).getObject());
+            if(latLng != null) {
+                map.setCenter(latLng);
+                break;
+            }
         }
+        
         addOrReplace(map);
         applyCssVisibility(map, !adapterList.isEmpty());
         
@@ -106,11 +111,11 @@ public class CollectionOfEntitiesAsLocatables extends
         for (ObjectAdapter adapter : adapterList) {
 
             final GMarker gMarker = createGMarker(map, adapter);
-
-            map.addOverlay(gMarker);
-            addClickListener(gMarker, adapter);
-
-            glatLngsToShow.add(gMarker.getLatLng());
+            if(gMarker != null) {
+                map.addOverlay(gMarker);
+                addClickListener(gMarker, adapter);
+                glatLngsToShow.add(gMarker.getLatLng());
+            }
         }
 
         map.fitMarkers(glatLngsToShow);
@@ -118,6 +123,8 @@ public class CollectionOfEntitiesAsLocatables extends
 
     private GMarker createGMarker(GMap map, ObjectAdapter adapter) {
         GMarkerOptions markerOptions = buildMarkerOptions(map, adapter);
+        if(markerOptions == null)
+            return null;
         return new GMarker(markerOptions);
     }
 
@@ -130,15 +137,19 @@ public class CollectionOfEntitiesAsLocatables extends
         @SuppressWarnings("unused")
         final GIcon gicon = new GIcon(urlFor);
         
+        GLatLng gLatLng = asGLatLng(locatable);
+        if(gLatLng == null) {
+            return null;
+        }
         final GMarkerOptions markerOptions = new GMarkerOptions(
-                map, asGLatLng(locatable), 
+                map, gLatLng, 
                 adapter.titleString()   ).draggable(false);
         return markerOptions;
     }
 
     private GLatLng asGLatLng(Locatable locatable) {
         final Location location = locatable.getLocation();
-        return new GLatLng(location.getLatitude(), location.getLongitude());
+        return location!=null?new GLatLng(location.getLatitude(), location.getLongitude()):null;
     }
 
     private ResourceReference determineImageResource(ObjectAdapter adapter) {

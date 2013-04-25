@@ -27,6 +27,8 @@
         <wicketstuff-gmap3.version>6.0-SNAPSHOT</wicketstuff-gmap3.version>
         <compileSource>1.6</compileSource>
         <compileTarget>1.6</compileTarget>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <build>
