@@ -24,7 +24,7 @@
     <properties>
         <isis.version>1.1.1-SNAPSHOT</isis.version>
         <isis-viewer-wicket.version>1.1.1-SNAPSHOT</isis-viewer-wicket.version>
-        <wicked-charts.version>1.4.2</wicked-charts.version>
+        <wicked-charts.version>1.4.3</wicked-charts.version>
 
         <compileSource>1.6</compileSource>
         <compileTarget>1.6</compileTarget>
