@@ -21,7 +21,7 @@
     <name>Isis Wicket Viewer Excel Component</name>
 
     <properties>
-        <isis-viewer-wicket.version>1.1.1-SNAPSHOT</isis-viewer-wicket.version>
+        <isis-viewer-wicket.version>1.2.0-SNAPSHOT</isis-viewer-wicket.version>
         <poi.version>3.9</poi.version>
 
         <compileSource>1.6</compileSource>
