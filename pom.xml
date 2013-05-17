@@ -22,8 +22,8 @@
     <name>Isis Wicket Viewer Gmap3 Component</name>
 
     <properties>
-        <isis.version>1.1.0</isis.version>
-        <isis-viewer-wicket.version>1.1.0</isis-viewer-wicket.version>
+        <isis.version>1.2.0-SNAPSHOT</isis.version>
+        <isis-viewer-wicket.version>1.2.0-SNAPSHOT</isis-viewer-wicket.version>
         <wicketstuff-gmap3.version>6.0-SNAPSHOT</wicketstuff-gmap3.version>
         <wicket.version>6.7.0</wicket.version>
         <compileSource>1.6</compileSource>
