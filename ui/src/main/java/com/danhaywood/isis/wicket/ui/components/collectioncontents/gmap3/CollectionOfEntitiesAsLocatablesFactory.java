@@ -47,9 +47,6 @@ public class CollectionOfEntitiesAsLocatablesFactory extends ComponentFactoryAbs
         }
 
         EntityCollectionModel entityCollectionModel = (EntityCollectionModel) model;
-        if (entityCollectionModel.hasSelectionHandler()) {
-            return ApplicationAdvice.DOES_NOT_APPLY;
-        }
 
         ObjectSpecification typeOfSpec = entityCollectionModel.getTypeOfSpecification();
         ObjectSpecification locatableSpec = getSpecificationLoader().loadSpecification(Locatable.class);
