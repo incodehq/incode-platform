@@ -21,6 +21,7 @@
 package com.danhaywood.isis.wicket.gmap3.service;
 
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
@@ -41,8 +42,8 @@ public class LocationLookupServiceTest {
 	public void whenValid() {
 		Location location = locationLookupService.lookup("10 Downing Street,London,UK");
 		assertThat(location, is(not(nullValue())));
-		assertThat(location.getLatitude(), is(51.5033549));
-		assertThat(location.getLongitude(), is(-0.1275645));
+		assertEquals(51.503, location.getLatitude(), 0.01);
+		assertEquals(-0.128, location.getLongitude(), 0.01);
 	}
 
 	@Test
