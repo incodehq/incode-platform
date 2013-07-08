@@ -1,4 +1,4 @@
-# docx-service #
+# isis-domainservice-docx #
 
 This is a domain service to generate Word `.docx` from an initial `.docx` template and input data; in other words, a mail merge.
 
