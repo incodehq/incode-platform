@@ -1,4 +1,4 @@
-package com.danhaywood.ddd.domainservices.docx;
+package com.danhaywood.isis.domainservice.docx;
 
 public class DocxServiceException extends Exception {
     public DocxServiceException(String message) {

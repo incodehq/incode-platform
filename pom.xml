@@ -7,7 +7,7 @@
         <version>7</version>
     </parent>
 
-    <groupId>com.danhaywood.isis.domainservices</groupId>
+    <groupId>com.danhaywood.isis.domainservice</groupId>
     <artifactId>danhaywood-isis-domainservice-docx</artifactId>
     <version>1.2.0-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -171,16 +171,20 @@
 
     <dependencies>
         <dependency>
+            <!-- ASL v2.0 -->
             <groupId>org.docx4j</groupId>
             <artifactId>docx4j</artifactId>
             <version>2.8.1</version>
         </dependency>
         <dependency>
+            <!-- ASL v2.0 -->
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>13.0.1</version>
         </dependency>
         <dependency>
+            <!-- https://raw.github.com/hunterhacker/jdom/master/LICENSE.txt -->
+            <!-- Similar to Apache License but with the acknowledgment clause removed -->
             <groupId>org.jdom</groupId>
             <artifactId>jdom2</artifactId>
             <version>2.0.3</version>

@@ -1,4 +1,4 @@
-package com.danhaywood.ddd.domainservices.docx;
+package com.danhaywood.isis.domainservice.docx;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,11 +26,11 @@ import org.jdom2.Content;
 import org.jdom2.Element;
 import org.jdom2.input.DOMBuilder;
 
-import com.danhaywood.ddd.domainservices.docx.traverse.AllMatches;
-import com.danhaywood.ddd.domainservices.docx.traverse.FirstMatch;
-import com.danhaywood.ddd.domainservices.docx.util.Docx;
-import com.danhaywood.ddd.domainservices.docx.util.Jdom2;
-import com.danhaywood.ddd.domainservices.docx.util.Types;
+import com.danhaywood.isis.domainservice.docx.traverse.AllMatches;
+import com.danhaywood.isis.domainservice.docx.traverse.FirstMatch;
+import com.danhaywood.isis.domainservice.docx.util.Docx;
+import com.danhaywood.isis.domainservice.docx.util.Jdom2;
+import com.danhaywood.isis.domainservice.docx.util.Types;
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 

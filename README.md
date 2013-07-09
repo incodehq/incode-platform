@@ -10,7 +10,9 @@ Several data types are supported:
   - bulleted list
   - tables
 
-The implementation uses [docx4j](http://www.docx4java.org) and [jdom2](http://www.jdom.org).  Databinding to custom XML parts (the `.docx` file format's in-built support) is *not* used because this feature did not support repeating datasets prior to 2013.
+The implementation uses [docx4j](http://www.docx4java.org), [guava](https://code.google.com/p/guava-libraries/) and [jdom2](http://www.jdom.org).  Databinding to custom XML parts (the `.docx` file format's in-built support) is *not* used because this feature did not support repeating datasets prior to 2013.
+
+This domain service was originally written to integrate with [Apache Isis](http://isis.apache.org).  However it has no dependencies on Isis and can be used as a standalone utility. 
 
 ## API ##
 
@@ -45,7 +47,7 @@ This exists because the parsing of the input stream into a `WordprocessingMLPack
 
 The template .docx is marked up using smart tags, as specified on the [DEVELOPER](http://msdn.microsoft.com/en-us/library/bb608625.aspx "How to show the DEVELOPER tab in Word") tab.  
 
-A sample .docx can be found [here](https://github.com/danhaywood/docx-service/blob/master/src/test/resources/com/danhaywood/ddd/domainservices/docx/TypicalDocument.docx?raw=true).
+A sample .docx can be found [here](https://github.com/danhaywood/isis-domainservice-docx/blob/master/src/test/resources/com/danhaywood/isis/domainservice/docx/TypicalDocument.docx?raw=true).
 
 
 ## input HTML ##
@@ -104,7 +106,7 @@ To specify a **table** field, use:
         </tr>
     </table>
 
-A sample HTML can be found [here](https://github.com/danhaywood/docx-service/blob/master/src/test/resources/com/danhaywood/ddd/domainservices/docx/input.html?raw=true)
+A sample HTML can be found [here](https://github.com/danhaywood/isis-domainservice-docx/blob/master/src/test/resources/com/danhaywood/isis/domainservice/docx/input.html?raw=true)
 
 
 
@@ -116,7 +118,52 @@ For lists, the service expects the contents of the placeholder to be a bulleted 
 
 For tables, the service expects the placeholder to be a table, with a header and either one or two body rows.  The header is left untouched, the body rows are used as the template for the input data.  Any surplus cells in the input data are ignored.
 
-A sample generated document can be found [here](https://github.com/danhaywood/docx-service/blob/master/src/test/resources/com/danhaywood/ddd/domainservices/docx/ExampleGenerated.docx?raw=true)
+A sample generated document can be found [here](https://github.com/danhaywood/isis-domainservice-docx/blob/master/src/test/resources/com/danhaywood/isis/domainservice/docx/ExampleGenerated.docx?raw=true)
 
+
+## Legal Stuff ##
  
+### License ###
+
+    Copyright 2013 Dan Haywood
+
+    Licensed under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+
+### Dependencies
+
+    <dependencies>
+        <dependency>
+            <!-- ASL v2.0 -->
+            <groupId>org.docx4j</groupId>
+            <artifactId>docx4j</artifactId>
+            <version>2.8.1</version>
+        </dependency>
+        <dependency>
+            <!-- ASL v2.0 -->
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>13.0.1</version>
+        </dependency>
+        <dependency>
+            <!-- https://raw.github.com/hunterhacker/jdom/master/LICENSE.txt -->
+            <!-- Similar to Apache License but with the acknowledgment clause removed -->
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom2</artifactId>
+            <version>2.0.3</version>
+        </dependency>
+    </dependencies>
+
+
 

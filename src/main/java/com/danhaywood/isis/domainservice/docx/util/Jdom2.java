@@ -1,4 +1,4 @@
-package com.danhaywood.ddd.domainservices.docx.util;
+package com.danhaywood.isis.domainservice.docx.util;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -12,8 +12,8 @@ import org.jdom2.JDOMException;
 import org.jdom2.Text;
 import org.jdom2.input.SAXBuilder;
 
-import com.danhaywood.ddd.domainservices.docx.LoadInputException;
-import com.danhaywood.ddd.domainservices.docx.MergeException;
+import com.danhaywood.isis.domainservice.docx.LoadInputException;
+import com.danhaywood.isis.domainservice.docx.MergeException;
 import com.google.common.base.Function;
 
 public final class Jdom2 {

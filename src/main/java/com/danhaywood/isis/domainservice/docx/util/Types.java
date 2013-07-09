@@ -1,4 +1,4 @@
-package com.danhaywood.ddd.domainservices.docx.util;
+package com.danhaywood.isis.domainservice.docx.util;
 
 import com.google.common.base.Predicate;
 

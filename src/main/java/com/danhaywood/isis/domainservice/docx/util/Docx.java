@@ -1,4 +1,4 @@
-package com.danhaywood.ddd.domainservices.docx.util;
+package com.danhaywood.isis.domainservice.docx.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -16,7 +16,7 @@ import org.docx4j.wml.R;
 import org.docx4j.wml.SdtElement;
 import org.docx4j.wml.Tag;
 
-import com.danhaywood.ddd.domainservices.docx.MergeException;
+import com.danhaywood.isis.domainservice.docx.MergeException;
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;

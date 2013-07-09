@@ -1,4 +1,4 @@
-package com.danhaywood.ddd.domainservices.docx.traverse;
+package com.danhaywood.isis.domainservice.docx.traverse;
 
 import java.util.List;
 

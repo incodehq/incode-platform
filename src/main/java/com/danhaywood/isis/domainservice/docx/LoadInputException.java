@@ -1,4 +1,4 @@
-package com.danhaywood.ddd.domainservices.docx;
+package com.danhaywood.isis.domainservice.docx;
 
 public class LoadInputException extends DocxServiceException {
     private static final long serialVersionUID = 1L;
