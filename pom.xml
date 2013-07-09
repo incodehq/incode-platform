@@ -25,7 +25,7 @@ language governing permissions and limitations under the License.
 
     <groupId>com.danhaywood.isis.domainservice</groupId>
     <artifactId>danhaywood-isis-domainservice-docx</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Docx domainservice for Apache Isis</name>
