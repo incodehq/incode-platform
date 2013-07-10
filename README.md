@@ -54,9 +54,9 @@ In your project's parent `pom.xml`, add to the `<dependencyManagement>` section:
         <dependencies>
             ...
             <dependency>
-                <groupId>com.danhaywood.isis.wicket.ui.components</groupId>
+                <groupId>com.danhaywood.isis.wicket</groupId>
                 <artifactId>danhaywood-isis-wicket-wickedcharts</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>x.y.z</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -64,12 +64,15 @@ In your project's parent `pom.xml`, add to the `<dependencyManagement>` section:
         </dependencies>
     </dependencyManagement>
 
+where `x.y.z` is the latest available version (search the [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-wickedcharts)).
+
+
 Add a dependency on the `applib` module In your project's DOM `pom.xml`:
 
     <dependencies>
         ...
         <dependency>
-            <groupId>com.danhaywood.isis.wicket.ui.components</groupId>
+            <groupId>com.danhaywood.isis.wicket</groupId>
             <artifactId>danhaywood-isis-wicket-wickedcharts-applib</artifactId>
         </dependency>
         ...
@@ -80,7 +83,7 @@ Finally, there is a required dependency in your project's webapp `pom.xml` to th
     <dependencies>
         ...
         <dependency>
-            <groupId>com.danhaywood.isis.wicket.ui.components</groupId>
+            <groupId>com.danhaywood.isis.wicket</groupId>
             <artifactId>danhaywood-isis-wicket-wickedcharts-scalarchart</artifactId>
         </dependency>
         ...
@@ -206,3 +209,61 @@ Then, add the dependency in your project's webapp `pom.xml` to the `summarychart
 #### Usage
 
 There is no special usage; a standalone collection of any entity with one or more properties of type `BigDecimal` will be rendered using the `summarycharts` extension.
+
+
+## Legal Stuff
+
+### License
+
+    Copyright 2013 Dan Haywood
+
+    Licensed under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+### Dependencies
+
+    <dependencies>
+
+        <dependency>
+            <!-- ASL v2.0 -->
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-applib</artifactId>
+            <version>${isis.version}</version>
+        </dependency>
+
+        <dependency>
+            <!-- ASL v2.0 -->
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.7</version>
+        </dependency>
+
+        <dependency>
+            <!-- ASL v2.0 -->
+            <groupId>org.apache.isis.viewer</groupId>
+            <artifactId>isis-viewer-wicket-ui</artifactId>
+            <version>${isis-viewer-wicket.version}</version>
+        </dependency>
+
+        <dependency>
+            <!-- ASL v2.0 -->
+            <!-- in turn, depends on: 
+                 * http://highcharts.com/license 
+                   (commercial license required unless personal/open source project)  
+             -->
+            <groupId>com.googlecode.wicked-charts</groupId>
+            <artifactId>wicked-charts-wicket6</artifactId>
+            <version>${wicked-charts.version}</version>
+        </dependency>
+
+    </dependencies>

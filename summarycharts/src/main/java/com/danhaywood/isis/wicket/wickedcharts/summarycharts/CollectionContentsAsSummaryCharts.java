@@ -1,9 +1,7 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
+ *  Copyright 2013 Dan Haywood
+ *
+ *  Licensed under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
  *
@@ -16,15 +14,14 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-
-package com.danhaywood.isis.wicket.ui.components.collectioncontents.wicked;
+package com.danhaywood.isis.wicket.wickedcharts.summarycharts;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
-import com.danhaywood.isis.wicket.ui.components.scalars.wicked.StandaloneValueAsWickedChart;
 import com.danhaywood.isis.wicket.wickedcharts.applib.WickedChart;
+import com.danhaywood.isis.wicket.wickedcharts.scalarchart.StandaloneValueAsWickedChart;
 import com.googlecode.wickedcharts.highcharts.options.Axis;
 import com.googlecode.wickedcharts.highcharts.options.ChartOptions;
 import com.googlecode.wickedcharts.highcharts.options.Function;
