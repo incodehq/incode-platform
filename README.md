@@ -12,7 +12,6 @@ Any chart supported by *Wicked Charts* (see their [showcase](http://wicked-chart
 The library provides two separate components/extensions for the Wicket viewer:
 
 * `scalarchart`: renders a standalone scalar value as a chart
-* 
 * `summarycharts`: render a standalone collection with `BigDecimal` properties as a a chart (one chart per `BigDecimal` property)
 
 The `summarycharts` component can be thought of as an enhancement of the base `summary` view provided by Wicket UI viewer.
