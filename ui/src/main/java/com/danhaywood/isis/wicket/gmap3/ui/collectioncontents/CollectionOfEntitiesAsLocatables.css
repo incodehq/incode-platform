@@ -14,11 +14,29 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package com.danhaywood.isis.wicket.gmap3.applib;
 
-
-public interface Locatable {
-
-	Location getLocation();
+.collectionContentsAsLocatables>div {
+	height: 400px;
+}
 	
+.collectionContentsAsLocatables {
+	margin-top: 10px;
+}
+
+a span.ViewLinkItem.map {
+    background-image:url('icon_gmap3_off.png');
+    background-position: center center;
+    background-repeat:no-repeat;
+    background-size: 16px 16px;
+}
+
+span.ViewLinkItem.map {
+    background-image:url('icon_gmap3_on.png');
+    background-position: center center;
+    background-repeat:no-repeat;
+    background-size: 16px 16px;
+}
+
+.collectionContentsAsLocatables .collection-contents-as-locatables-invisible {
+    display:none;
 }
