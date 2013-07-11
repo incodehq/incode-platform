@@ -21,7 +21,7 @@ language governing permissions and limitations under the License.
     <parent>
         <groupId>com.danhaywood.isis.wicket</groupId>
         <artifactId>danhaywood-isis-wicket-wickedcharts</artifactId>
-        <version>1.2.0</version>
+        <version>1.2.1-SNAPSHOT</version>
     </parent>
     
     <artifactId>danhaywood-isis-wicket-wickedcharts-summarycharts</artifactId>
