@@ -1,6 +1,8 @@
 isis-wicket-excel
 =================
 
+[![Build Status](https://travis-ci.org/danhaywood/isis-wicket-excel.png?branch=master)](https://travis-ci.org/danhaywood/isis-wicket-excel)
+
 Integrates with [Apache Isis](http://isis/apache.org)' Wicket Viewer, to allow a collection of entities to be downloaded as an Excel spreadsheet (using [Apache POI](http://poi.apache.org)).
 
 ### Usage
