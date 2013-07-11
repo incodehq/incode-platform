@@ -1,6 +1,8 @@
 isis-wicket-wickedcharts
 ========================
 
+[![Build Status](https://travis-ci.org/danhaywood/isis-wicket-wickedcharts.png?branch=master)](https://travis-ci.org/danhaywood/isis-wicket-wickedcharts)
+
 An extension for [Apache Isis](http://isis.apache.org)' [Wicket viewer](http://isis.apache.org/components/viewers/wicket/about.html) with [Wicked Charts](https://code.google.com/p/wicked-charts/).  *Wicked Charts* is in turn an integration between [Apache Wicket](http://wicket.apache.org) and the [Highcharts](http://www.highcharts.com/) JS charting library).
 
 Any chart supported by *Wicked Charts* (see their [showcase](http://wicked-charts.appspot.com/) app) should work.
