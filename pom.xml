@@ -38,7 +38,7 @@ language governing permissions and limitations under the License.
         HighCharts license is required for any commercial usage.
     </description>
 
-    <url>https://github.com/danhaywood/isis-wicket-gmap3</url>
+    <url>https://github.com/danhaywood/isis-wicket-wickedcharts</url>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -47,9 +47,9 @@ language governing permissions and limitations under the License.
         </license>
     </licenses>
     <scm>
-        <connection>scm:git:https://github.com/danhaywood/isis-wicket-gmap3.git</connection>
-        <developerConnection>scm:git:https://github.com/danhaywood/isis-wicket-gmap3.git</developerConnection>
-        <url>https://github.com/danhaywood/isis-wicket-gmap3.git</url>
+        <connection>scm:git:https://github.com/danhaywood/isis-wicket-wickedcharts.git</connection>
+        <developerConnection>scm:git:https://github.com/danhaywood/isis-wicket-wickedcharts.git</developerConnection>
+        <url>https://github.com/danhaywood/isis-wicket-wickedcharts.git</url>
     </scm>
     <developers>
         <developer>
