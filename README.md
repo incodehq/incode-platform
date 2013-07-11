@@ -1,6 +1,8 @@
 isis-wicket-gmap3
 =================
 
+[![Build Status](https://travis-ci.org/danhaywood/isis-wicket-gmap3.png?branch=master)](https://travis-ci.org/danhaywood/isis-wicket-gmap3)
+
 An extension for [Apache Isis](http://isis.apache.org)' [Wicket viewer](http://isis.apache.org/components/viewers/wicket/about.html), to render a collection of entities within a map (using google's [gmap3](https://developers.google.com/maps/documentation/javascript/) API).  
 
 ### Screenshots
