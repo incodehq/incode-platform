@@ -27,6 +27,14 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import com.danhaywood.isis.domainservice.docx.traverse.AllMatches;
+import com.danhaywood.isis.domainservice.docx.traverse.FirstMatch;
+import com.danhaywood.isis.domainservice.docx.util.Docx;
+import com.danhaywood.isis.domainservice.docx.util.Jdom2;
+import com.danhaywood.isis.domainservice.docx.util.Types;
+import com.google.common.base.Objects;
+import com.google.common.collect.Lists;
+
 import org.apache.commons.io.IOUtils;
 import org.docx4j.XmlUtils;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
@@ -41,14 +49,6 @@ import org.docx4j.wml.Tr;
 import org.jdom2.Content;
 import org.jdom2.Element;
 import org.jdom2.input.DOMBuilder;
-
-import com.danhaywood.isis.domainservice.docx.traverse.AllMatches;
-import com.danhaywood.isis.domainservice.docx.traverse.FirstMatch;
-import com.danhaywood.isis.domainservice.docx.util.Docx;
-import com.danhaywood.isis.domainservice.docx.util.Jdom2;
-import com.danhaywood.isis.domainservice.docx.util.Types;
-import com.google.common.base.Objects;
-import com.google.common.collect.Lists;
 
 public class DocxService {
 

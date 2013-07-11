@@ -1,5 +1,7 @@
 # isis-domainservice-docx #
 
+[![Build Status](https://travis-ci.org/danhaywood/isis-domainservice-docx.png?branch=master)](https://travis-ci.org/danhaywood/isis-domainservice-docx)
+
 This is a domain service to generate Word `.docx` from an initial `.docx` template and input data; in other words, a mail merge.
 
 Several data types are supported:

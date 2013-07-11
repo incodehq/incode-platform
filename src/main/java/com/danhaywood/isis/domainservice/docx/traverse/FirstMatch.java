@@ -18,10 +18,10 @@ package com.danhaywood.isis.domainservice.docx.traverse;
 
 import java.util.List;
 
+import com.google.common.base.Predicate;
+
 import org.docx4j.TraversalUtil;
 import org.docx4j.XmlUtils;
-
-import com.google.common.base.Predicate;
 
 
 public class FirstMatch<T> extends CallbackAbstract {

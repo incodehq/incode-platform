@@ -18,11 +18,11 @@ package com.danhaywood.isis.domainservice.docx.traverse;
 
 import java.util.List;
 
-import org.docx4j.TraversalUtil;
-import org.docx4j.XmlUtils;
-
 import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
+
+import org.docx4j.TraversalUtil;
+import org.docx4j.XmlUtils;
 
 public class AllMatches<T> extends CallbackAbstract {
 

@@ -21,11 +21,10 @@ import java.io.FileOutputStream;
 import java.net.URL;
 import java.nio.charset.Charset;
 
-import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
-
-import com.danhaywood.isis.domainservice.docx.DocxService;
 import com.danhaywood.isis.domainservice.docx.DocxService.MatchingPolicy;
 import com.google.common.io.Resources;
+
+import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 
 public class DocxServiceDemo {
 

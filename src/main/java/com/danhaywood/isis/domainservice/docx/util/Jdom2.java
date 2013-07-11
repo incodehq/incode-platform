@@ -20,6 +20,10 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.List;
 
+import com.danhaywood.isis.domainservice.docx.LoadInputException;
+import com.danhaywood.isis.domainservice.docx.MergeException;
+import com.google.common.base.Function;
+
 import org.jdom2.Attribute;
 import org.jdom2.Content;
 import org.jdom2.Document;
@@ -27,10 +31,6 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.Text;
 import org.jdom2.input.SAXBuilder;
-
-import com.danhaywood.isis.domainservice.docx.LoadInputException;
-import com.danhaywood.isis.domainservice.docx.MergeException;
-import com.google.common.base.Function;
 
 public final class Jdom2 {
     

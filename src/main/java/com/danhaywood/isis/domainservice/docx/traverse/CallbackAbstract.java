@@ -19,8 +19,8 @@ package com.danhaywood.isis.domainservice.docx.traverse;
 import java.util.List;
 
 import org.docx4j.TraversalUtil;
-import org.docx4j.XmlUtils;
 import org.docx4j.TraversalUtil.Callback;
+import org.docx4j.XmlUtils;
 
 public abstract class CallbackAbstract implements Callback {
     public void walkJAXBElements(Object parent) {

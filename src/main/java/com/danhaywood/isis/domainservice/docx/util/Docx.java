@@ -22,6 +22,11 @@ import java.util.List;
 
 import javax.xml.bind.JAXBException;
 
+import com.danhaywood.isis.domainservice.docx.MergeException;
+import com.google.common.base.Function;
+import com.google.common.base.Objects;
+import com.google.common.base.Predicate;
+
 import org.docx4j.convert.in.FlatOpcXmlImporter;
 import org.docx4j.convert.out.flatOpcXml.FlatOpcXmlCreator;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
@@ -31,11 +36,6 @@ import org.docx4j.wml.Body;
 import org.docx4j.wml.R;
 import org.docx4j.wml.SdtElement;
 import org.docx4j.wml.Tag;
-
-import com.danhaywood.isis.domainservice.docx.MergeException;
-import com.google.common.base.Function;
-import com.google.common.base.Objects;
-import com.google.common.base.Predicate;
 
 public final class Docx {
     private Docx() {
