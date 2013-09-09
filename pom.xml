@@ -26,7 +26,7 @@ language governing permissions and limitations under the License.
 
     <groupId>com.danhaywood.isis.wicket</groupId>
     <artifactId>danhaywood-isis-wicket-gmap3</artifactId>
-    <version>1.2.1</version>
+    <version>1.2.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Isis Wicket Viewer Gmap3 Component</name>
@@ -200,17 +200,17 @@ language governing permissions and limitations under the License.
             <dependency>
                 <groupId>com.danhaywood.isis.wicket</groupId>
                 <artifactId>danhaywood-isis-wicket-gmap3-applib</artifactId>
-                <version>1.2.1</version>
+                <version>1.2.2-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.danhaywood.isis.wicket</groupId>
                 <artifactId>danhaywood-isis-wicket-gmap3-service</artifactId>
-                <version>1.2.1</version>
+                <version>1.2.2-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.danhaywood.isis.wicket</groupId>
                 <artifactId>danhaywood-isis-wicket-gmap3-ui</artifactId>
-                <version>1.2.1</version>
+                <version>1.2.2-SNAPSHOT</version>
             </dependency>
 
             <dependency>
