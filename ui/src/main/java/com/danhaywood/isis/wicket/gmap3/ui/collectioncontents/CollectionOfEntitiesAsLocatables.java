@@ -139,7 +139,7 @@ public class CollectionOfEntitiesAsLocatables extends
         }
         final GMarkerOptions markerOptions = new GMarkerOptions(
                 map, gLatLng, 
-                adapter.titleString()   ).draggable(false);
+                adapter.titleString(null)   ).draggable(false);
         return markerOptions;
     }
 
