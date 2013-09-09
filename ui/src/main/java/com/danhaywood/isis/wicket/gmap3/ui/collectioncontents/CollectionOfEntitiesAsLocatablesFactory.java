@@ -40,8 +40,8 @@ public class CollectionOfEntitiesAsLocatablesFactory extends ComponentFactoryAbs
 
     private static final String ID_MAP = "map";
 
-    private boolean determinedWhetherWebserviceAvailable;
-    private boolean webserviceAvailable;
+    private boolean determinedWhetherInternetReachable;
+    private boolean internetReachable;
 
     public CollectionOfEntitiesAsLocatablesFactory() {
         super(ComponentType.COLLECTION_CONTENTS, ID_MAP);
@@ -50,7 +50,7 @@ public class CollectionOfEntitiesAsLocatablesFactory extends ComponentFactoryAbs
     @Override
     public ApplicationAdvice appliesTo(IModel<?> model) {
         
-        if(!webserviceAvailable()) {
+        if(!internetReachable()) {
             return ApplicationAdvice.DOES_NOT_APPLY;
         }
         
@@ -65,12 +65,12 @@ public class CollectionOfEntitiesAsLocatablesFactory extends ComponentFactoryAbs
         return appliesIf(typeOfSpec.isOfType(locatableSpec));
     }
 
-    private boolean webserviceAvailable() {
-        if(!determinedWhetherWebserviceAvailable) {
-            webserviceAvailable = isInternetReachable();
-            determinedWhetherWebserviceAvailable = true;
+    private boolean internetReachable() {
+        if(!determinedWhetherInternetReachable) {
+            internetReachable = isInternetReachable();
+            determinedWhetherInternetReachable = true;
         }
-        return webserviceAvailable;
+        return internetReachable;
     }
     
     /**
