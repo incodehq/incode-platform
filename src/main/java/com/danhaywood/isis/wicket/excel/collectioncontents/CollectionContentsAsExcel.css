@@ -46,3 +46,8 @@ span.ViewLinkItem.excel {
     background-repeat:no-repeat;
     background-size: 16px 16px;
 }
+
+div.collectionContentsAsExcel .downloadLink {
+    display: block;
+    padding-top: 30px;
+}

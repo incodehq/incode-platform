@@ -19,9 +19,6 @@ package com.danhaywood.isis.wicket.excel.collectioncontents;
 import org.apache.wicket.Component;
 import org.apache.wicket.model.IModel;
 
-import org.apache.isis.applib.filter.Filter;
-import org.apache.isis.core.metamodel.spec.feature.ObjectAssociation;
-import org.apache.isis.core.progmodel.facets.value.date.DateValueFacet;
 import org.apache.isis.viewer.wicket.model.models.EntityCollectionModel;
 import org.apache.isis.viewer.wicket.ui.ComponentFactory;
 import org.apache.isis.viewer.wicket.ui.ComponentFactoryAbstract;
@@ -35,12 +32,6 @@ public class CollectionContentsAsExcelFactory extends ComponentFactoryAbstract {
     private static final long serialVersionUID = 1L;
 
     private static final String NAME = "excel";
-
-    final static Filter<ObjectAssociation> OF_TYPE_DATE = new Filter<ObjectAssociation>(){
-
-        public boolean accept(final ObjectAssociation objectAssoc) {
-            return objectAssoc.getSpecification().containsDoOpFacet(DateValueFacet.class);
-        }};
 
     public CollectionContentsAsExcelFactory() {
         super(ComponentType.COLLECTION_CONTENTS, NAME);
