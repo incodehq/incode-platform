@@ -61,8 +61,8 @@ language governing permissions and limitations under the License.
         <isis-viewer-wicket.version>1.3.0</isis-viewer-wicket.version>
         <wicket-fullcalendar.version>2.1</wicket-fullcalendar.version>
         <wicket.version>6.11.0</wicket.version>
-        <compileSource>1.7</compileSource>
-        <compileTarget>1.7</compileTarget>
+        <compileSource>1.6</compileSource>
+        <compileTarget>1.6</compileTarget>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
