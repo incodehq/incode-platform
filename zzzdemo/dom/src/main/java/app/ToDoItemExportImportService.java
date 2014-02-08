@@ -34,7 +34,6 @@ import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
-import org.apache.isis.applib.services.memento.MementoService;
 import org.apache.isis.applib.value.Blob;
 
 @Named("Bulk Edit")
@@ -49,9 +48,6 @@ public class ToDoItemExportImportService {
     public void init() {
         if(bookmarkService == null) {
             throw new IllegalStateException("Require BookmarkService to be configured");
-        }
-        if(mementoService == null) {
-            throw new IllegalStateException("Require MementoService to be configured");
         }
         if(excelService == null) {
             throw new IllegalStateException("Require ExcelService to be configured");
@@ -119,6 +115,4 @@ public class ToDoItemExportImportService {
     @javax.inject.Inject
     private BookmarkService bookmarkService;
 
-    @javax.inject.Inject
-    private MementoService mementoService;
 }
