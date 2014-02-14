@@ -33,7 +33,7 @@ import javax.jdo.JDOHelper;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 
-import com.danhaywood.isis.domainservice.excel.ExcelService;
+import com.danhaywood.isis.domainservice.excel.applib.ExcelService;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Ordering;

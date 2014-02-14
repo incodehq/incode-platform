@@ -14,11 +14,13 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package com.danhaywood.isis.domainservice.excel;
+package com.danhaywood.isis.domainservice.excel.impl;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+
+import com.danhaywood.isis.domainservice.excel.applib.ExcelService;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 

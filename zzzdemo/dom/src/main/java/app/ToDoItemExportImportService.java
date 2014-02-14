@@ -22,7 +22,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import com.danhaywood.isis.domainservice.excel.ExcelService;
+import com.danhaywood.isis.domainservice.excel.applib.ExcelService;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
@@ -79,9 +79,9 @@ public class ToDoItemExportImportService {
     // //////////////////////////////////////
 
     @Named("Import")
-    public void importBlob(@Named("Excel spreadsheet") Blob excel) {
+    public void importBlob(final @Named("Excel spreadsheet") Blob spreadsheet) {
         List<ToDoItemExportImportLineItem> lineItems = 
-                excelService.fromExcel(excel, ToDoItemExportImportLineItem.class);
+                excelService.fromExcel(spreadsheet, ToDoItemExportImportLineItem.class);
         container.informUser(lineItems.size() + " items imported");
     }
     
