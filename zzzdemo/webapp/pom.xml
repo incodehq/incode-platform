@@ -76,7 +76,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.5</version>
+                <version>1.8</version>
                   <executions>
                     <execution>
                       <phase>validate</phase>
@@ -89,6 +89,7 @@
 
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
                 <configuration>
                     <warName>quickstart</warName>
                     <archive>

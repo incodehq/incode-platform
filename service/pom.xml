@@ -89,7 +89,7 @@ language governing permissions and limitations under the License.
             <plugins>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.3.1</version>
+                    <version>3.1</version>
                     <configuration>
                         <showDeprecation>false</showDeprecation>
                         <showWarnings>false</showWarnings>
@@ -99,7 +99,7 @@ language governing permissions and limitations under the License.
                 </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.3.1</version>
+                    <version>2.4</version>
                     <inherited>true</inherited>
                     <executions>
                         <execution>
@@ -122,7 +122,7 @@ language governing permissions and limitations under the License.
 
                 <plugin>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>2.1.2</version>
+                    <version>2.2.1</version>
                     <inherited>true</inherited>
                     <executions>
                         <execution>
@@ -144,7 +144,7 @@ language governing permissions and limitations under the License.
 
                 <plugin>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.8</version>
+                    <version>2.9.1</version>
                     <inherited>true</inherited>
                     <executions>
                         <execution>
