@@ -6,3 +6,5 @@ target-ide/
 
 *.class
 *.jar
+
+*.log
