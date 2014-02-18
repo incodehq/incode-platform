@@ -3,23 +3,91 @@ isis-wicket-fullcalendar2
 
 [![Build Status](https://travis-ci.org/danhaywood/isis-wicket-fullcalendar2.png?branch=master)](https://travis-ci.org/danhaywood/isis-wicket-fullcalendar2)
 
-Extension for Apache Isis' Wicket Viewer, to render events for a collection of entities within a fullpage calendar.  Uses https://github.com/42Lines/wicket-fullcalendar 
+Extension for Apache Isis' Wicket Viewer, to render events for a collection of entities within a fullpage calendar.  Underneath the covers it uses this [fullcalendar](https://github.com/42Lines/wicket-fullcalendar) widget.
 
-Each entity must implement either the `Calendarable` or the `CalendarEventable` interface:
+## Screenshots
 
-* the `Calendarable` interface allows the object to return a number of `CalenderEvent`s; each is qualified (identified) by a `calendarName`
+The following screenshots are taken from the `zzzdemo` app (adapted from Isis' quickstart archetype).  See below for further details.
 
-* the `CalendarEventable` interface is more straightforward, allowing the object to return a single `CalendarEvent`. 
+### Standalone collection
 
-The `CalendarEvent` is a value type representing the data to be rendered on the calender.   As well as a date (obviously) and title, each event also has a `calendarName` such that sets of events in a given named calendar can be toggled on or off.
+![](https://raw.github.com/danhaywood/isis-wicket-fullcalendar/master/images/standalone-collection.png)
+
+### Parented collection in a custom dashboard view model
+
+![](https://raw.github.com/danhaywood/isis-wicket-fullcalendar/master/images/dashboard.png)
+
+### Parented collection in a regular entity
+
+![](https://raw.github.com/danhaywood/isis-wicket-fullcalendar/master/images/parented-collection.png)
 
 
-### Screenshots
+## API & Usage
 
-TODO
+Each entity must implement either the `CalendarEventable` interface or the `Calendarable` interface:
+
+### `CalendarEventable` interface
+
+Of the two interfaces, `CalendarEventable` interface is the simpler, allowing the object to return a single `CalendarEvent`:
+
+    public interface CalendarEventable {
+
+        String getCalendarName();
+        CalendarEvent toCalendarEvent();
+
+    }
+
+where:
+
+* the `getCalendarName()` is used to group similar events together; in the UI these correspond to checkboxes rendered near the top.
+* the `toCalendarEvent()` returns a `CalendarEvent` value type representing the data to be rendered on the calender. 
+
+`CalendarEvent` itself is:
+
+    public class CalendarEvent implements Serializable {
+
+        private final DateTime dateTime;
+        private final String calendarName;
+        private final String title;
+        private final String notes;
+        
+        public CalendarEvent(
+                final DateTime dateTime, 
+                final String calendarName, 
+                final String title) {
+            this(dateTime, calendarName, title, null);
+        }
+
+        public CalendarEvent(
+                final DateTime dateTime, 
+                final String calendarName, 
+                final String title, 
+                final String notes) {
+            this.dateTime = dateTime;
+            this.calendarName = calendarName;
+            this.title = title;
+            this.notes = notes;
+        }
+
+        ...
+    }
+
+In the demo app, the `ToDoItem` implements `CalendarEventable`.
+
+### `Calendarable` interface
+
+While the `CalendarEventable` interface will fit many requirements, sometimes an object will have several dates associated with it.  For example, one could imagine an object with start/stop dates, or optionExercise/optionExpiry dates.
+
+The `Calendarable` interface therefore allows the object to return a number of `CalenderEvent`s; each is qualified (identified) by a `calendarName`:
+
+    public interface Calendarable {
+
+        Set<String> getCalendarNames();
+        ImmutableMap<String, CalendarEventable> getCalendarEvents();
+    }
 
 
-### Configuration
+## Maven Configuration
 
 In your project's parent `pom.xml`, add to the `<dependencyManagement>` section:
 
@@ -60,13 +128,6 @@ In your project's webapp `pom.xml`, add a dependency on the `ui` module:
         </dependency>
         ...
     </dependencies> 
-
-
-### Usage
-
-Your entity can either implement  `com.danhaywood.isis.wicket.fullcalendar2.applib.Calendarable` or it can implement `com.danhaywood.isis.wicket.fullcalendar2.applib.CalendarEventable`.  
-
-TODO... examples
 
 
 
