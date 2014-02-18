@@ -71,7 +71,7 @@ In the root `pom.xml`, add:
         <scope>import</scope>
     </dependency>
 
-where `x.y.z` currently is 1.4.0-SNAPSHOT (though the plan is to release this code into the Maven central repo; search the [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-domainservice-excel)).
+where `x.y.z` currently is 1.4.0-SNAPSHOT (though the plan is to release this code into the [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-domainservice-excel)).
 
 In the `pom.xml` for your "dom" module, add:
     
@@ -91,10 +91,10 @@ In the `pom.xml` for your "webapp" module, add:
 
 In the `WEB-INF\isis.properties` file, add:
 
-isis.services = ...,\
-                # Excel domain service, \
-                com.danhaywood.isis.domainservice.excel.impl.ExcelServiceImpl,\
-                ...
+    isis.services = ...,\
+                    # Excel domain service, \
+                    com.danhaywood.isis.domainservice.excel.impl.ExcelServiceImpl,\
+                    ...
 
 ## Legal Stuff
 
