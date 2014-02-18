@@ -7,4 +7,5 @@ target-ide/
 *.class
 *.jar
 
+*.log
 rebel.xml
