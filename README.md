@@ -117,6 +117,8 @@ In the `WEB-INF\isis.properties` file, add:
 
 ### Dependencies
 
+This module depends upon the following:
+
     <dependencies>
         <dependency>
             <!-- ASL v2.0 -->
