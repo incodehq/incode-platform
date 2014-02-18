@@ -5,9 +5,21 @@ isis-wicket-excel
 
 Integrates with [Apache Isis](http://isis/apache.org)' Wicket Viewer, to allow a collection of entities to be downloaded as an Excel spreadsheet (using [Apache POI](http://poi.apache.org)).
 
-### Usage
+See also the [Excel domain service](https://github.com/danhaywood/isis-domainservice-excel), which allows programmatic export and import, eg to support bulk updating/inserting.
 
-Add this component to your classpath, eg:
+## Screenshots
+
+The following screenshots are taken from the `zzzdemo` app (adapted from Isis' quickstart archetype).
+
+![](https://raw.github.com/danhaywood/isis-wicket-excel/master/images/excel-tab.png)
+
+![](https://raw.github.com/danhaywood/isis-wicket-excel/master/images/download-link.png)
+
+![](https://raw.github.com/danhaywood/isis-wicket-excel/master/images/excel.png)
+
+## Maven Configuration
+
+Simply add this component to your classpath, eg:
 
     <dependency>
         <groupId>com.danhaywood.isis.wicket</groupId>
@@ -19,12 +31,11 @@ where `x.y.z` is the latest available version (search the [Maven Central Repo](h
 
 You should then find that a new view is provided for all collections of entities (either as returned from an action, or as a parented collection), from which a link to download the spreadsheet can be accessed.
 
-
 ## Legal Stuff
 
 ### License
 
-    Copyright 2013 Dan Haywood
+    Copyright 2013~2014 Dan Haywood
 
     Licensed under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
