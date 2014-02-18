@@ -21,18 +21,18 @@ language governing permissions and limitations under the License.
 	<parent>
         <groupId>com.danhaywood.isis.wicket</groupId>
         <artifactId>danhaywood-isis-wicket-gmap3</artifactId>
-        <version>1.3.0-SNAPSHOT</version>
+        <version>1.4.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>danhaywood-isis-wicket-gmap3-applib</artifactId>
+	<artifactId>danhaywood-isis-wicket-gmap3-service</artifactId>
     <packaging>jar</packaging>
     
-	<name>Isis Wicket Viewer Gmap3 AppLib</name>
+	<name>Isis Wicket Viewer Gmap3 Domain Service</name>
     <description>
-        Application library, defining the Locatable interface and Location value type.  Entities must implement
-        the Locatable interface in order to be rendered on a map. 
+        Optional domain service (LocationLookupService) that uses gmap3 web service 
+        to lookup locations.
     </description>
-
+    
     <build>
         <plugins>
             <plugin>
@@ -43,11 +43,11 @@ language governing permissions and limitations under the License.
             </plugin>
         </plugins>
     </build>
-    
+
 	<dependencies>
 		<dependency>
-            <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-applib</artifactId>
+            <groupId>com.danhaywood.isis.wicket</groupId>
+            <artifactId>danhaywood-isis-wicket-gmap3-applib</artifactId>
 		</dependency>
 
         <dependency>
@@ -61,6 +61,25 @@ language governing permissions and limitations under the License.
             <artifactId>jmock</artifactId>
             <scope>test</scope>
         </dependency>
+
+       <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
+            <scope>test</scope>
+        </dependency>
+       
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom</artifactId>
+            <version>2.0.2</version>
+        </dependency>
+
 	</dependencies>
 
 </project>
