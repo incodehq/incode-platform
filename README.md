@@ -11,15 +11,15 @@ The following screenshots are taken from the `zzzdemo` app (adapted from Isis' q
 
 ### Standalone collection
 
-![](https://raw.github.com/danhaywood/isis-wicket-fullcalendar/master/images/standalone-collection.png)
+![](https://raw.github.com/danhaywood/isis-wicket-fullcalendar2/master/images/standalone-collection.png)
 
 ### Parented collection in a custom dashboard view model
 
-![](https://raw.github.com/danhaywood/isis-wicket-fullcalendar/master/images/dashboard.png)
+![](https://raw2.github.com/danhaywood/isis-wicket-fullcalendar2/master/images/dashboard.png)
 
 ### Parented collection in a regular entity
 
-![](https://raw.github.com/danhaywood/isis-wicket-fullcalendar/master/images/parented-collection.png)
+![](https://raw.github.com/danhaywood/isis-wicket-fullcalendar2/master/images/parented-collection.png)
 
 
 ## API & Usage
