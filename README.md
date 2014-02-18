@@ -5,19 +5,96 @@ isis-domainservice-excel
 
 Integrates with [Apache Isis](http://isis/apache.org)', providing a domain service so that a collection of (view model) object scan be exported to an Excel spreadsheet, or recreated by importing from Excel.  The underlying technology used is [Apache POI](http://poi.apache.org).
 
-### Usage
+## API
 
-Add this component to your classpath, eg:
+    public interface ExcelService {
+
+        public static class Exception extends RuntimeException { ... }
+        
+        @Programmatic
+        public <T> Blob toExcel(
+            final List<T> domainObjects, 
+            final Class<T> cls, final 
+            String fileName) 
+            throws ExcelService.Exception;
+
+        @Programmatic
+        public <T extends ViewModel> List<T> fromExcel(
+            final Blob excelBlob, 
+            final Class<T> cls) 
+            throws ExcelService.Exception;
+    }
+
+## Usage
+
+Given:
+
+    public class ToDoItemExportImportLineItem extends AbstractViewModel { ... }
+
+which are wrappers around `ToDoItem` entities:
+
+    final List<ToDoItem> items = ...;
+    final List<ToDoItemExportImportLineItem> toDoItemViewModels = 
+        Lists.transform(items, toLineItem());
+
+with `toLineItem()` being a guava function:
+
+    private Function<ToDoItem, ToDoItemExportImportLineItem> toLineItem() {
+        return new Function<ToDoItem, ToDoItemExportImportLineItem>(){
+            @Override
+            public ToDoItemExportImportLineItem apply(final ToDoItem toDoItem) {
+                return container.newViewModelInstance(ToDoItemExportImportLineItem.class, identifierFor(toDoItem));
+            }};
+    }
+
+then the following creates an Isis `Blob` (bytestream) containing the spreadsheet:
+
+    return excelService.toExcel(toDoItemViewModels, ToDoItemExportImportLineItem.class, fileName);
+
+and conversely:
+
+    Blob spreadsheet = ...;
+    List<ToDoItemExportImportLineItem> lineItems = 
+        excelService.fromExcel(spreadsheet, ToDoItemExportImportLineItem.class);
+
+recreates view models from a spreadsheet.
+
+## Dependencies
+
+In the root `pom.xml`, add:
 
     <dependency>
         <groupId>com.danhaywood.isis.domainservice</groupId>
         <artifactId>danhaywood-isis-domainservice-excel</artifactId>
         <version>x.y.z</version>
+        <type>pom</type>
+        <scope>import</scope>
     </dependency>
 
-where `x.y.z` is the latest available version (search the [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-domainservice-excel)).
+where `x.y.z` currently is 1.4.0-SNAPSHOT (though the plan is to release this code into the Maven central repo; search the [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-domainservice-excel)).
 
+In the `pom.xml` for your "dom" module, add:
+    
+    <dependency>
+        <groupId>com.danhaywood.isis.domainservice</groupId>
+        <artifactId>danhaywood-isis-domainservice-excel-applib</artifactId>
+    </dependency>
 
+In the `pom.xml` for your "webapp" module, add:
+
+    <dependency>
+        <groupId>com.danhaywood.isis.domainservice</groupId>
+        <artifactId>danhaywood-isis-domainservice-excel-impl</artifactId>
+    </dependency>
+
+## Registering the service
+
+In the `WEB-INF\isis.properties` file, add:
+
+isis.services = ...,\
+                # Excel domain service, \
+                com.danhaywood.isis.domainservice.excel.impl.ExcelServiceImpl,\
+                ...
 
 ## Legal Stuff
 
