@@ -135,7 +135,7 @@ In your project's webapp `pom.xml`, add a dependency on the `ui` module:
 
 ### License
 
-    Copyright 2013 Dan Haywood
+    Copyright 2013~2014 Dan Haywood
 
     Licensed under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
