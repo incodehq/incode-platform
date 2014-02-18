@@ -39,19 +39,17 @@ which are wrappers around `ToDoItem` entities:
 
     final List<ToDoItem> items = ...;
     final List<ToDoItemExportImportLineItem> toDoItemViewModels = 
-        Lists.transform(items, toLineItem());
+        Lists.transform(items, 
+            new Function<ToDoItem, ToDoItemExportImportLineItem>(){
+                @Override
+                public ToDoItemExportImportLineItem apply(final ToDoItem toDoItem) {
+                    return container.newViewModelInstance(
+                        ToDoItemExportImportLineItem.class, 
+                        bookmarkService.bookmarkFor(toDoItem).getIdentifier());
+                }
+            });
 
-with `toLineItem()` being a guava function:
-
-    private Function<ToDoItem, ToDoItemExportImportLineItem> toLineItem() {
-        return new Function<ToDoItem, ToDoItemExportImportLineItem>(){
-            @Override
-            public ToDoItemExportImportLineItem apply(final ToDoItem toDoItem) {
-                return container.newViewModelInstance(ToDoItemExportImportLineItem.class, identifierFor(toDoItem));
-            }};
-    }
-
-then the following creates an Isis `Blob` (bytestream) containing the spreadsheet:
+then the following creates an Isis `Blob` (bytestream) containing the spreadsheet of these view models:
 
     return excelService.toExcel(toDoItemViewModels, ToDoItemExportImportLineItem.class, fileName);
 
