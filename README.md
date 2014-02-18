@@ -156,6 +156,8 @@ Such a property should be persistable, however.  Therefore a workaround is to hi
 
 ## Legal Stuff
 
+**Please note that while this project and *Wicked Charts* are licensed under Apache 2.0 License, *Highcharts* itself is only free for non-commercial use.  See [here](http://shop.highsoft.com/highcharts.html) for further details.**
+
 ### License
 
     Copyright 2013~2014 Dan Haywood
