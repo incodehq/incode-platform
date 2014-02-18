@@ -5,7 +5,9 @@ isis-domainservice-excel
 
 Integrates with [Apache Isis](http://isis/apache.org)', providing a domain service so that a collection of (view model) object scan be exported to an Excel spreadsheet, or recreated by importing from Excel.  The underlying technology used is [Apache POI](http://poi.apache.org).
 
-## API
+## API & Implementation
+
+The API exposed by `ExcelService` is:
 
     public interface ExcelService {
 
@@ -24,6 +26,8 @@ Integrates with [Apache Isis](http://isis/apache.org)', providing a domain servi
             final Class<T> cls) 
             throws ExcelService.Exception;
     }
+
+The class that implements this API is `com.danhaywood.isis.domainservice.excel.impl.ExcelServiceImpl`.    
 
 ## Usage
 
@@ -59,7 +63,7 @@ and conversely:
 
 recreates view models from a spreadsheet.
 
-## Dependencies
+## Maven Configuration
 
 In the root `pom.xml`, add:
 
