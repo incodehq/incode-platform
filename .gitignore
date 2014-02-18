@@ -8,3 +8,4 @@ target-ide/
 *.jar
 
 *.log
+rebel.xml

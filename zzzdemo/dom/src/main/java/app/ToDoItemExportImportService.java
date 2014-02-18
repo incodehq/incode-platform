@@ -79,10 +79,11 @@ public class ToDoItemExportImportService {
     // //////////////////////////////////////
 
     @Named("Import")
-    public void importBlob(final @Named("Excel spreadsheet") Blob spreadsheet) {
+    public List<ToDoItemExportImportLineItem> importBlob(final @Named("Excel spreadsheet") Blob spreadsheet) {
         List<ToDoItemExportImportLineItem> lineItems = 
                 excelService.fromExcel(spreadsheet, ToDoItemExportImportLineItem.class);
         container.informUser(lineItems.size() + " items imported");
+        return lineItems;
     }
     
     // //////////////////////////////////////

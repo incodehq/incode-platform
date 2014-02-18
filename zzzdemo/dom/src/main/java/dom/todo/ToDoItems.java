@@ -19,25 +19,23 @@
 package dom.todo;
 
 import java.math.BigDecimal;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 
-import com.google.common.base.Objects;
-import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
 import dom.todo.ToDoItem.Category;
 import dom.todo.ToDoItem.Subcategory;
 
 import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.annotation.Bookmarkable;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.NotContributed;
 import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.RegEx;
@@ -111,46 +109,6 @@ public class ToDoItems {
 
 
     // //////////////////////////////////////
-    // categorized (action)
-    // //////////////////////////////////////
-
-	@SuppressWarnings("unchecked")
-	@Bookmarkable
-    @ActionSemantics(Of.SAFE)
-    @MemberOrder(sequence = "30")
-    public List<ToDoItem> categorized(
-    		@Named("Category") final Category category,
-    		@Named("Subcategory") final Subcategory subcategory,
-    		@Named("Completed?") final boolean completed) {
-    	// a naive implementation
-        return container.allMatches(ToDoItem.class, 
-                Predicates.and(
-                    ToDoItem.Predicates.thoseOwnedBy(currentUserName()), 
-                    ToDoItem.Predicates.thoseCompleted(completed),
-                    ToDoItem.Predicates.thoseCategorised(category, subcategory)));
-    }
-    public Category default0Categorized() {
-        return Category.Professional;
-    }
-    public Subcategory default1Categorized() {
-        return default0Categorized().subcategories().get(0);
-    }
-    public boolean default2Categorized() {
-    	return false;
-    }
-    public List<Subcategory> choices1Categorized(
-            final Category category) {
-        return Subcategory.listFor(category);
-    }
-    public String validateCategorized(
-            final Category category, 
-            final Subcategory subcategory, 
-            final boolean completed) {
-        return Subcategory.validate(category, subcategory);
-    }
-
-
-    // //////////////////////////////////////
     // NewToDo (action)
     // //////////////////////////////////////
 
@@ -206,20 +164,11 @@ public class ToDoItems {
 
     @Programmatic // not part of metamodel
     public List<ToDoItem> autoComplete(final String description) {
-        if(false) {
-            // the naive implementation ...
-            return container.allMatches(ToDoItem.class, 
-                    Predicates.and(
-                        ToDoItem.Predicates.thoseOwnedBy(currentUserName()), 
-                        ToDoItem.Predicates.thoseWithSimilarDescription(description)));
-        } else {
-            // the JDO implementation ...
-            return container.allMatches(
-                    new QueryDefault<ToDoItem>(ToDoItem.class, 
-                            "todo_autoComplete", 
-                            "ownedBy", currentUserName(), 
-                            "description", description));
-        }
+        return container.allMatches(
+                new QueryDefault<ToDoItem>(ToDoItem.class, 
+                        "todo_autoComplete", 
+                        "ownedBy", currentUserName(), 
+                        "description", description));
     }
 
 
@@ -242,22 +191,12 @@ public class ToDoItems {
         toDoItem.setDueBy(dueBy);
         toDoItem.setCost(cost);
 
-        // 
-        // GMAP3: uncomment to use https://github.com/danhaywood/isis-wicket-gmap3        
-        // toDoItem.setLocation(
-        //    new Location(51.5172+random(-0.05, +0.05), 0.1182 + random(-0.05, +0.05)));
-        //
-        
         container.persist(toDoItem);
         container.flush();
 
         return toDoItem;
     }
     
-    private static double random(double from, double to) {
-        return Math.random() * (to-from) + from;
-    }
-
     private String currentUserName() {
         return container.getUser().getName();
     }

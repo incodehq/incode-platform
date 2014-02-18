@@ -38,6 +38,12 @@ public class DeveloperUtilities extends DeveloperUtilitiesServiceDefault {
     public Blob downloadLayouts() {
         return super.downloadLayouts();
     }
+    
+    @MemberOrder(name="Prototyping", sequence="90.2")
+    @Override
+    public void refreshServices() {
+        super.refreshServices();
+    }
 
 }
 

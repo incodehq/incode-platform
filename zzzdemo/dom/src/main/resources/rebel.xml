@@ -2,10 +2,7 @@
 <application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.zeroturnaround.com" xsi:schemaLocation="http://www.zeroturnaround.com http://www.zeroturnaround.com/alderaan/rebel-2_0.xsd">
 
 	<classpath>
-		<dir name="C:\GITHUB\danhaywood\isis-domainservice-excel\zzzdemo\dom/target-ide/classes">
-            <include name="app/**"/>
-            <include name="dom/**"/>
-            <include name="services/**"/>
+		<dir name="C:/GITHUB/danhaywood/isis-domainservice-excel/zzzdemo/dom/target-ide/classes">
 		</dir>
 	</classpath>
 
