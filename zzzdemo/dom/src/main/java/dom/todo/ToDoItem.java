@@ -29,6 +29,7 @@ import javax.jdo.annotations.VersionStrategy;
 
 import com.danhaywood.isis.wicket.gmap3.applib.Locatable;
 import com.danhaywood.isis.wicket.gmap3.applib.Location;
+import com.danhaywood.isis.wicket.gmap3.service.LocationLookupService;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Ordering;
@@ -40,14 +41,14 @@ import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.MinLength;
+import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.ObjectType;
 import org.apache.isis.applib.annotation.Optional;
-import org.apache.isis.applib.annotation.PublishedAction;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.Render;
+import org.apache.isis.applib.annotation.Render.Type;
 import org.apache.isis.applib.annotation.SortedBy;
 import org.apache.isis.applib.annotation.TypicalLength;
-import org.apache.isis.applib.annotation.Render.Type;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
 
@@ -204,6 +205,12 @@ public class ToDoItem implements Comparable<ToDoItem>, Locatable {
         this.location = location;
     }
 
+    @MemberOrder(name="location", sequence="1")
+    public ToDoItem updateLocation(@Named("Address") final String address) {
+        final Location location = this.locationLookupService.lookup(address);
+        setLocation(location);
+        return this;
+    }
 
     // //////////////////////////////////////
     // Dependencies (collection), 
@@ -380,5 +387,10 @@ public class ToDoItem implements Comparable<ToDoItem>, Locatable {
     @javax.inject.Inject
     @SuppressWarnings("unused")
     private ClockService clockService;
+
+    @javax.inject.Inject
+    @SuppressWarnings("unused")
+    private LocationLookupService locationLookupService;
+    
     
 }

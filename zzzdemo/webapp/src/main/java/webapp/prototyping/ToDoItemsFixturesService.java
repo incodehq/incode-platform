@@ -27,6 +27,7 @@ import dom.todo.ToDoItems;
 import fixture.todo.ToDoItemsFixture;
 
 import org.apache.isis.applib.AbstractService;
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Prototype;
 import org.apache.isis.core.runtime.fixtures.FixturesInstallerDelegate;
@@ -37,6 +38,7 @@ import org.apache.isis.core.runtime.fixtures.FixturesInstallerDelegate;
 @Named("Prototyping") // has the effect of defining a "Prototyping" menu item
 public class ToDoItemsFixturesService extends AbstractService {
 
+    @MemberOrder(name="Prototyping", sequence="10.1")
     @Prototype
     public String installFixtures() {
         installFixturesFor(null); // ie current user
@@ -45,6 +47,7 @@ public class ToDoItemsFixturesService extends AbstractService {
 
     // //////////////////////////////////////
 
+    @MemberOrder(name="Prototyping", sequence="10.3")
     @Prototype
     public String installFixturesForUser(@Named("User") String user) {
         installFixturesFor(user);
@@ -59,6 +62,7 @@ public class ToDoItemsFixturesService extends AbstractService {
 
     // //////////////////////////////////////
 
+    @MemberOrder(name="Prototyping", sequence="10.2")
     @Prototype
     public ToDoItem installFixturesAndReturnFirst() {
         installFixtures();

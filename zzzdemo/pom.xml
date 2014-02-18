@@ -30,7 +30,7 @@
     <packaging>pom</packaging>
 
 	<properties>
-		<danhaywood-isis-domainservice-excel.version>1.4.0-SNAPSHOT</danhaywood-isis-domainservice-excel.version>
+		<danhaywood-isis-wicket-gmap3.version>1.4.0-SNAPSHOT</danhaywood-isis-wicket-gmap3.version>
 
         <isis.version>1.4.0-SNAPSHOT</isis.version>
 		<isis-objectstore-jdo.version>1.4.0-SNAPSHOT</isis-objectstore-jdo.version>
@@ -338,7 +338,7 @@
             <dependency>
                 <groupId>com.danhaywood.isis.wicket</groupId>
                 <artifactId>danhaywood-isis-wicket-gmap3</artifactId>
-                <version>1.2.0</version>
+                <version>${danhaywood-isis-wicket-gmap3.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
