@@ -28,7 +28,7 @@ The screenshot below shows the object acting as the source of the data.  The "do
 
 The template docx uses MS Word smart tags feature to identify the fields:
 
-![](https://raw.github.com/danhaywood/isis-domainservice-docx/master/images/generated-docx.png)
+![](https://raw.github.com/danhaywood/isis-domainservice-docx/master/images/template.png)
 
 Any styling in the template document is preserved on generation.
 
@@ -36,7 +36,7 @@ Any styling in the template document is preserved on generation.
 
 The generated docx merges in the data from the object into the template.  
 
-![](https://raw.github.com/danhaywood/isis-domainservice-docx/master/images/template.png)
+![](https://raw.github.com/danhaywood/isis-domainservice-docx/master/images/generated-docx.png)
 
 Note how the bulleted list is repeated for each dependency of the `ToDoItem`.  Tables work similarly.
 
