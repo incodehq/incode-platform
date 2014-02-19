@@ -11,3 +11,6 @@ target-ide/
 *.ear
 
 Generated.docx
+
+*.log
+rebel.xml
