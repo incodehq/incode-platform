@@ -58,13 +58,14 @@ public class ToDoItemsFixture extends AbstractFixture {
 
     private void installFor(String user) {
 
-        createToDoItemForUser("Buy milk", Category.Domestic, Subcategory.Shopping, user, daysFromToday(0), new BigDecimal("0.75"));
-        createToDoItemForUser("Buy bread", Category.Domestic, Subcategory.Shopping, user, daysFromToday(0), new BigDecimal("1.75"));
-        createToDoItemForUser("Buy stamps", Category.Domestic, Subcategory.Shopping, user, daysFromToday(0), new BigDecimal("10.00")).setComplete(true);
-        createToDoItemForUser("Pick up laundry", Category.Domestic, Subcategory.Chores, user, daysFromToday(6), new BigDecimal("7.50"));
-        createToDoItemForUser("Mow lawn", Category.Domestic, Subcategory.Garden, user, daysFromToday(6), null);
-        createToDoItemForUser("Vacuum house", Category.Domestic, Subcategory.Housework, user, daysFromToday(3), null);
-        createToDoItemForUser("Sharpen knives", Category.Domestic, Subcategory.Chores, user, daysFromToday(14), null);
+        ToDoItem t1 = createToDoItemForUser("Buy milk", Category.Domestic, Subcategory.Shopping, user, daysFromToday(0), new BigDecimal("0.75"));
+        ToDoItem t2 = createToDoItemForUser("Buy bread", Category.Domestic, Subcategory.Shopping, user, daysFromToday(0), new BigDecimal("1.75"));
+        ToDoItem t3 = createToDoItemForUser("Buy stamps", Category.Domestic, Subcategory.Shopping, user, daysFromToday(0), new BigDecimal("10.00"));
+        t3.setComplete(true);
+        ToDoItem t4 = createToDoItemForUser("Pick up laundry", Category.Domestic, Subcategory.Chores, user, daysFromToday(6), new BigDecimal("7.50"));
+        ToDoItem t5 = createToDoItemForUser("Mow lawn", Category.Domestic, Subcategory.Garden, user, daysFromToday(6), null);
+        ToDoItem t6 = createToDoItemForUser("Vacuum house", Category.Domestic, Subcategory.Housework, user, daysFromToday(3), null);
+        ToDoItem t7 = createToDoItemForUser("Sharpen knives", Category.Domestic, Subcategory.Chores, user, daysFromToday(14), null);
         
         createToDoItemForUser("Write to penpal", Category.Other, Subcategory.Other, user, null, null);
         
@@ -73,6 +74,17 @@ public class ToDoItemsFixture extends AbstractFixture {
         createToDoItemForUser("Submit conference session", Category.Professional, Subcategory.Education, user, daysFromToday(21), null);
         createToDoItemForUser("Stage Isis release", Category.Professional, Subcategory.OpenSource, user, null, null);
 
+        t1.add(t2);
+        t1.add(t3);
+        t1.add(t4);
+        t1.add(t5);
+        
+        t2.add(t3);
+        t2.add(t4);
+        t2.add(t5);
+        
+        t3.add(t4);
+        
         getContainer().flush();
     }
 

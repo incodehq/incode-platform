@@ -51,3 +51,21 @@ div.collectionContentsAsExcel .downloadLink {
     display: block;
     padding-top: 30px;
 }
+
+.collectionContentsAsExcel a.download {
+    background-color: #F0EFEA;
+    border-radius: 4px 4px 4px 4px;
+    display: inline-block;
+    font-size: 0.85em;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.collectionContentsAsExcel a.download:hover {
+    background-color:#20B5C2;
+    color:#FFFFFF;
+}

@@ -86,7 +86,7 @@ class ExcelFileModel extends LoadableDetachableModel<File> {
         private File createFile() throws IOException, FileNotFoundException {
             final Workbook wb = new XSSFWorkbook();
             String sheetName = model.getName();
-            final File tempFile = File.createTempFile("/tmp", sheetName + ".xlsx");
+            final File tempFile = File.createTempFile(ExcelFileModel.class.getCanonicalName(), sheetName + ".xlsx");
             final FileOutputStream fos = new FileOutputStream(tempFile);
             final Sheet sheet = wb.createSheet(sheetName);
             
