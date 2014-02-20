@@ -23,6 +23,14 @@ import java.util.Date;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.ClientAnchor;
+import org.apache.poi.ss.usermodel.Comment;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.Drawing;
+import org.apache.poi.ss.usermodel.RichTextString;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
@@ -61,6 +69,7 @@ public final class CellMarshaller {
         
         final ObjectSpecification propertySpec = otoa.getSpecification();
         final Object propertyAsObj = propertyAdapter.getObject();
+        final String propertyAsTitle = propertyAdapter.titleString(null);
         
         // value types
         if(propertySpec.isValue()) {
@@ -71,14 +80,12 @@ public final class CellMarshaller {
         
         // reference types
         if(!propertySpec.isParentedOrFreeCollection()) {
-            Bookmark bookmark = bookmarkService.bookmarkFor(propertyAsObj);
-            setCellValueForString(cell, bookmark.toString());
+            setCellValueForBookmark(cell, propertyAsObj, propertyAsTitle);
             return;
         }
 
         // fallback, best effort
-        final String objectAsStr = propertyAdapter.titleString(null);
-        setCellValueForString(cell, objectAsStr);
+        setCellValueForString(cell, propertyAsTitle);
         return;
     }
 
@@ -194,6 +201,35 @@ public final class CellMarshaller {
         cell.setCellType(HSSFCell.CELL_TYPE_STRING);
     }
 
+    private void setCellValueForBookmark(final Cell cell, final Object propertyAsObject, final String propertyAsTitle) {
+        Bookmark bookmark = bookmarkService.bookmarkFor(propertyAsObject);
+        setCellComment(cell, bookmark.toString());
+        
+        cell.setCellValue(propertyAsTitle);
+        cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+    }
+
+    private static void setCellComment(final Cell cell, final String commentText) {
+        Sheet sheet = cell.getSheet();
+        Row row = cell.getRow();
+        Workbook workbook = sheet.getWorkbook();
+        CreationHelper creationHelper = workbook.getCreationHelper();
+        ClientAnchor anchor = creationHelper.createClientAnchor();
+        anchor.setCol1(cell.getColumnIndex());
+        anchor.setCol2(cell.getColumnIndex()+1);
+        anchor.setRow1(row.getRowNum());
+        anchor.setRow2(row.getRowNum()+3);
+        
+        Drawing drawing = sheet.createDrawingPatriarch();
+        Comment comment1 = drawing.createCellComment(anchor);
+        
+        RichTextString commentRtf = creationHelper.createRichTextString(commentText);
+        
+        comment1.setString(commentRtf);
+        Comment comment = comment1;
+        cell.setCellComment(comment);
+    }
+
     private static <E extends Enum<E>> void setCellValueForEnum(final Cell cell, final Enum<E> objectAsStr) {
         cell.setCellValue(objectAsStr.name());
         cell.setCellType(HSSFCell.CELL_TYPE_STRING);
@@ -231,14 +267,12 @@ public final class CellMarshaller {
         
         // reference types
         if(!propertySpec.isParentedOrFreeCollection()) {
-            String bookmarkStr = getCellValue(cell, String.class);
-            Bookmark bookmark = new Bookmark(bookmarkStr);
-            return bookmarkService.lookup(bookmark, requiredType);
+            return getCellComment(cell, requiredType);
         }
         
         return null;
     }
-    
+
     @SuppressWarnings("unchecked")
     private <T> T getCellValue(final Cell cell, final Class<T> requiredType) {
         final int cellType = cell.getCellType();
@@ -375,5 +409,19 @@ public final class CellMarshaller {
         return null;
     }
 
+    private Object getCellComment(final Cell cell, final Class<?> requiredType) {
+        final Comment comment = cell.getCellComment();
+        if(comment == null) {
+            return null;
+        } 
+        final RichTextString commentRts = comment.getString();
+        if(commentRts == null) {
+            return null;
+        }
+        final String bookmarkStr = commentRts.getString();
+        final Bookmark bookmark = new Bookmark(bookmarkStr);
+        return bookmarkService.lookup(bookmark, requiredType);
+    }
+    
 
 }
