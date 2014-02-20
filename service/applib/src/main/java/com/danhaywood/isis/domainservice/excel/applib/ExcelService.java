@@ -35,7 +35,6 @@ public interface ExcelService {
         public Exception(final Throwable ex) {
             super(ex);
         }
-        
     }
     
     @Programmatic

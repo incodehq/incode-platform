@@ -84,6 +84,12 @@ import services.ClockService;
                     + "WHERE ownedBy == :ownedBy "
                     + "   && complete == false"),
     @javax.jdo.annotations.Query(
+            name = "findByDescription", language = "JDOQL",
+            value = "SELECT "
+                    + "FROM dom.todo.ToDoItem "
+                    + "WHERE ownedBy == :ownedBy "
+                    + "   && description == :description"),
+    @javax.jdo.annotations.Query(
             name = "todo_complete", language = "JDOQL",
             value = "SELECT "
                     + "FROM dom.todo.ToDoItem "
@@ -208,7 +214,7 @@ public class ToDoItem implements Comparable<ToDoItem> {
             return category != null? category.subcategories(): Collections.<Subcategory>emptyList();
         }
 
-        static String validate(final Category category, final Subcategory subcategory) {
+        public static String validate(final Category category, final Subcategory subcategory) {
             if(category == null) {
                 return "Enter category first";
             }

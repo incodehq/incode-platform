@@ -83,7 +83,20 @@ public class ToDoItems {
                         "todo_notYetComplete", 
                         "ownedBy", currentUserName()));
     }
+    
+    
+    // //////////////////////////////////////
+    // findByDescription (action)
+    // //////////////////////////////////////
 
+    @Programmatic
+    public ToDoItem findByDescription(String description) {
+        return container.firstMatch(
+                new QueryDefault<ToDoItem>(ToDoItem.class, 
+                        "findByDescription",
+                        "description", description,
+                        "ownedBy", currentUserName()));
+    }
 
     // //////////////////////////////////////
     // Complete (action)
@@ -211,5 +224,6 @@ public class ToDoItems {
 
     @javax.inject.Inject
     private ClockService clockService;
+
 
 }

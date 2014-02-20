@@ -24,6 +24,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -42,6 +43,8 @@ import org.apache.isis.applib.ViewModel;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.filter.Filter;
 import org.apache.isis.applib.filter.Filters;
+import org.apache.isis.applib.services.bookmark.BookmarkService;
+import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
 import org.apache.isis.core.metamodel.adapter.mgr.AdapterManager;
 import org.apache.isis.core.metamodel.adapter.oid.RootOid;
@@ -55,7 +58,8 @@ import org.apache.isis.core.metamodel.spec.feature.OneToOneAssociation;
 public class ExcelConverter {
 
     private static final String XLSX_SUFFIX = ".xlsx";
-    @SuppressWarnings("unchecked")
+    
+    @SuppressWarnings({ "unchecked", "deprecation" })
     private static final Filter<ObjectAssociation> VISIBLE_PROPERTIES = Filters.and(
             ObjectAssociation.Filters.PROPERTIES, 
             ObjectAssociation.Filters.staticallyVisible(Where.STANDALONE_TABLES));
@@ -78,19 +82,25 @@ public class ExcelConverter {
 
     private final SpecificationLoader specificationLoader;
     private final AdapterManager adapterManager;
+    private final BookmarkService bookmarkService;
 
     public ExcelConverter(
             final SpecificationLoader specificationLoader,
-            final AdapterManager adapterManager) {
+            final AdapterManager adapterManager,
+            final BookmarkService bookmarkService) {
         this.specificationLoader = specificationLoader;
         this.adapterManager = adapterManager;
+        this.bookmarkService = bookmarkService;
     }
-
+    
+    
     // //////////////////////////////////////
 
     public <T> File toFile(final Class<T> cls, final List<T> domainObjects) throws IOException {
 
         final ObjectSpecification objectSpec = specificationLoader.loadSpecification(cls);
+        
+        @SuppressWarnings("unused")
         final ViewModelFacet viewModelFacet = objectSpec.getFacet(ViewModelFacet.class);
         
         final List<ObjectAdapter> adapters = Lists.transform(domainObjects, ObjectAdapter.Functions.adapterForUsing(adapterManager));
@@ -114,10 +124,6 @@ public class ExcelConverter {
             final Cell cell = headerRow.createCell((short) i++);
             cell.setCellValue(property.getName());
         }
-        if(viewModelFacet != null) {
-            final Cell cell = headerRow.createCell((short) i++);
-            cell.setCellValue("viewModelMemento");
-        }
         
         final CellMarshaller cellMarshaller = newCellMarshaller(wb);
         
@@ -125,14 +131,10 @@ public class ExcelConverter {
         for (final ObjectAdapter objectAdapter : adapters) {
             final Row detailRow = rowFactory.newRow();
             i=0;
-            for (final ObjectAssociation property : propertyList) {
+            for (final ObjectAssociation oa : propertyList) {
                 final Cell cell = detailRow.createCell((short) i++);
-                cellMarshaller.setCellValue(objectAdapter, property, cell);
-            }
-            if(viewModelFacet != null) {
-                final Cell cell = detailRow.createCell((short) i++);
-                RootOid oid = (RootOid) objectAdapter.getOid();
-                cell.setCellValue(oid.asBookmark().getIdentifier());
+                final OneToOneAssociation otoa = (OneToOneAssociation) oa;
+                cellMarshaller.setCellValue(objectAdapter, otoa, cell);
             }
         }
         
@@ -166,45 +168,43 @@ public class ExcelConverter {
         
         boolean header = true;
         final Map<Integer, Property> propertyByColumn = Maps.newHashMap();
+
         for(final Row row: sheet) {
             if(header) {
                 for(final Cell cell: row) {
                     int columnIndex = cell.getColumnIndex();
-                    final String propertyName = cellMarshaller.getCellValue(cell, String.class);
-                    if(!"viewModelMemento".equals(propertyName)) {
-                        final OneToOneAssociation property = getAssociation(objectSpec, propertyName);
-                        if(property != null) {
-                            final Class<?> propertyType = property.getSpecification().getCorrespondingClass();
-                            propertyByColumn.put(columnIndex, new Property(propertyName, property, propertyType));
-                        }
+                    final String propertyName = cellMarshaller.getStringCellValue(cell);
+                    final OneToOneAssociation property = getAssociation(objectSpec, propertyName);
+                    if(property != null) {
+                        final Class<?> propertyType = property.getSpecification().getCorrespondingClass();
+                        propertyByColumn.put(columnIndex, new Property(propertyName, property, propertyType));
                     }
                 }
                 header = false;
             } else {
                 // detail
-                String identifier = null;
+
+                // copy the row into the template object
+                final T template = container.newTransientInstance(cls);
+                final ObjectAdapter templateAdapter = adapterManager.adapterFor(template);
+                
                 for(final Cell cell: row) {
-                    cell.getColumnIndex();
                     int columnIndex = cell.getColumnIndex();
                     final Property property = propertyByColumn.get(columnIndex);
                     if(property != null) {
-                        final Object cellValue = cellMarshaller.getCellValue(cell, property.getType());
-                        if(cellValue != null) {
-                            property.setCurrentValue(cellValue);
+                        final OneToOneAssociation otoa = property.getOneToOneAssociation();
+                        final Object value = cellMarshaller.getCellValue(cell, otoa);
+                        if(value != null) {
+                            final ObjectAdapter valueAdapter = adapterManager.adapterFor(value);
+                            otoa.set(templateAdapter, valueAdapter);
                         }
                     } else {
-                        identifier = cellMarshaller.getCellValue(cell, String.class);
+                        // not expected; just ignore.
                     }
                 }
-                final T viewModel = container.newViewModelInstance(cls, identifier);
-                final ObjectAdapter viewModelAdapter = adapterManager.adapterFor(viewModel);
-                for(final Property property: propertyByColumn.values()) {
-                    final Object value = property.getCurrentValue();
-                    if(value != null) {
-                        final ObjectAdapter valueAdapter = adapterManager.adapterFor(value);
-                        property.getOneToOneAssociation().set(viewModelAdapter, valueAdapter);
-                    }
-                }
+                
+                final String memento = viewModelFacet.memento(template);
+                final T viewModel = container.newViewModelInstance(cls, memento);
                 viewModels.add(viewModel);
             }
         }
@@ -248,6 +248,10 @@ public class ExcelConverter {
         public void setCurrentValue(Object currentValue) {
             this.currentValue = currentValue;
         }
+        @Override
+        public String toString() {
+            return ObjectContracts.toString(this, "name,type,currentValue");
+        }
     }
     
     @SuppressWarnings("unused")
@@ -259,10 +263,9 @@ public class ExcelConverter {
 
     // //////////////////////////////////////
 
-    
     protected CellMarshaller newCellMarshaller(final Workbook wb) {
         final CellStyle dateCellStyle = createDateFormatCellStyle(wb);
-        final CellMarshaller cellMarshaller = new CellMarshaller(dateCellStyle);
+        final CellMarshaller cellMarshaller = new CellMarshaller(bookmarkService, dateCellStyle);
         return cellMarshaller;
     }
     
@@ -275,6 +278,5 @@ public class ExcelConverter {
         dateCellStyle.setDataFormat(dateFormat);
         return dateCellStyle;
     }
-
 
 }

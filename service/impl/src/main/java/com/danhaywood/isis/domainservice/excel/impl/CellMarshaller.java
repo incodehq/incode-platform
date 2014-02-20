@@ -27,36 +27,58 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
+import org.apache.isis.applib.services.bookmark.Bookmark;
+import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
+import org.apache.isis.core.metamodel.spec.ObjectSpecification;
 import org.apache.isis.core.metamodel.spec.feature.ObjectAssociation;
+import org.apache.isis.core.metamodel.spec.feature.OneToOneAssociation;
 
 public final class CellMarshaller {
 
-    private CellStyle dateCellStyle;
+    private final CellStyle dateCellStyle;
+    private final BookmarkService bookmarkService;
 
-    CellMarshaller(final CellStyle dateCellStyle){
-        this.dateCellStyle = dateCellStyle;}
+    CellMarshaller(
+            final BookmarkService bookmarkService, 
+            final CellStyle dateCellStyle){
+        this.bookmarkService = bookmarkService;
+        this.dateCellStyle = dateCellStyle;
+    }
     
     void setCellValue(
             final ObjectAdapter objectAdapter, 
-            final ObjectAssociation property, 
+            final OneToOneAssociation otoa, 
             final Cell cell) {
         
-        final ObjectAdapter valueAdapter = property.get(objectAdapter);
+        final ObjectAdapter propertyAdapter = otoa.get(objectAdapter);
         
         // null
-        if (valueAdapter == null) {
+        if (propertyAdapter == null) {
             cell.setCellType(HSSFCell.CELL_TYPE_BLANK);
             return;
         }
         
-        final Object valueAsObj = valueAdapter.getObject();
-        if(setCellValue(cell, valueAsObj)) {
-            return;
+        final ObjectSpecification propertySpec = otoa.getSpecification();
+        final Object propertyAsObj = propertyAdapter.getObject();
+        
+        // value types
+        if(propertySpec.isValue()) {
+            if(setCellValue(cell, propertyAsObj)) {
+                return;
+            }
         }
         
-        final String objectAsStr = valueAdapter.titleString(null);
-        setCellValueAsString(cell, objectAsStr);
+        // reference types
+        if(!propertySpec.isParentedOrFreeCollection()) {
+            Bookmark bookmark = bookmarkService.bookmarkFor(propertyAsObj);
+            setCellValueForString(cell, bookmark.toString());
+            return;
+        }
+
+        // fallback, best effort
+        final String objectAsStr = propertyAdapter.titleString(null);
+        setCellValueForString(cell, objectAsStr);
         return;
     }
 
@@ -66,6 +88,13 @@ public final class CellMarshaller {
             return true;
         }
         
+        // string
+        if(valueAsObj instanceof String) {
+            String value = (String) valueAsObj;
+            setCellValueForString(cell, value);
+            return true;
+        } 
+
         // boolean
         if(valueAsObj instanceof Boolean) {
             Boolean value = (Boolean) valueAsObj;
@@ -73,7 +102,7 @@ public final class CellMarshaller {
             cell.setCellType(HSSFCell.CELL_TYPE_BOOLEAN);
             return true;
         } 
-
+        
         // date
         if(valueAsObj instanceof Date) {
             Date value = (Date) valueAsObj;
@@ -152,16 +181,26 @@ public final class CellMarshaller {
             setCellValueForDouble(cell, (double)value);
             return true;
         }
+        if(valueAsObj instanceof Enum) {
+            Enum<?> value = (Enum<?>) valueAsObj;
+            setCellValueForEnum(cell, (Enum<?>)value);
+            return true;
+        }
         return false;
     }
 
-    private static void setCellValueAsString(final Cell cell, final String objectAsStr) {
+    private static void setCellValueForString(final Cell cell, final String objectAsStr) {
         cell.setCellValue(objectAsStr);
         cell.setCellType(HSSFCell.CELL_TYPE_STRING);
     }
 
-    private static void setCellValueForDouble(final Cell cell, double value2) {
-        cell.setCellValue(value2);
+    private static <E extends Enum<E>> void setCellValueForEnum(final Cell cell, final Enum<E> objectAsStr) {
+        cell.setCellValue(objectAsStr.name());
+        cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+    }
+    
+    private static void setCellValueForDouble(final Cell cell, double value) {
+        cell.setCellValue(value);
         cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
     }
 
@@ -170,13 +209,39 @@ public final class CellMarshaller {
         cell.setCellStyle(dateCellStyle);
     }
 
-    @SuppressWarnings("unchecked")
-    public <T> T getCellValue(final Cell cell, final Class<T> requiredType) {
+    public String getStringCellValue(Cell cell) {
+        return getCellValue(cell, String.class);
+    }
+
+    public Object getCellValue(final Cell cell, final OneToOneAssociation otoa) {
+
         final int cellType = cell.getCellType();
 
         if(cellType == HSSFCell.CELL_TYPE_BLANK) {
             return null;
         }
+
+        final ObjectSpecification propertySpec = otoa.getSpecification();
+        Class<?> requiredType = propertySpec.getCorrespondingClass();
+        
+        // value types
+        if(propertySpec.isValue()) {
+            return getCellValue(cell, requiredType);
+        }
+        
+        // reference types
+        if(!propertySpec.isParentedOrFreeCollection()) {
+            String bookmarkStr = getCellValue(cell, String.class);
+            Bookmark bookmark = new Bookmark(bookmarkStr);
+            return bookmarkService.lookup(bookmark, requiredType);
+        }
+        
+        return null;
+    }
+    
+    @SuppressWarnings("unchecked")
+    private <T> T getCellValue(final Cell cell, final Class<T> requiredType) {
+        final int cellType = cell.getCellType();
 
         if(requiredType == boolean.class || requiredType == Boolean.class) {
             if(cellType == HSSFCell.CELL_TYPE_BOOLEAN) {
@@ -187,12 +252,20 @@ public final class CellMarshaller {
             }
         }
         
+        // enum
+        if(Enum.class.isAssignableFrom(requiredType)) {
+            String stringCellValue = cell.getStringCellValue();
+            @SuppressWarnings("rawtypes")
+            Class rawType = requiredType;
+            return (T) Enum.valueOf(rawType, stringCellValue);
+        }
+        
+        // date
         if(requiredType == java.util.Date.class) {
             java.util.Date dateCellValue = cell.getDateCellValue();
             return (T) dateCellValue;
         }
 
-        // date
         if(requiredType == org.apache.isis.applib.value.Date.class) {
             java.util.Date dateCellValue = cell.getDateCellValue();
             return (T)new org.apache.isis.applib.value.Date(dateCellValue);
@@ -301,5 +374,6 @@ public final class CellMarshaller {
         }
         return null;
     }
+
 
 }

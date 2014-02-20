@@ -21,35 +21,65 @@ package app;
 import java.math.BigDecimal;
 
 import dom.todo.ToDoItem;
+import dom.todo.ToDoItems;
 import dom.todo.ToDoItem.Category;
 import dom.todo.ToDoItem.Subcategory;
 
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.AbstractViewModel;
+import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.Bookmarkable;
-import org.apache.isis.applib.services.bookmark.BookmarkService;
+import org.apache.isis.applib.annotation.Bulk;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.ActionSemantics.Of;
 
 @Bookmarkable
-public class ToDoItemExportImportLineItem 
+public class ToDoItemBulkUpdateLineItem 
         extends AbstractViewModel 
-        implements Comparable<ToDoItemExportImportLineItem> {
+        implements Comparable<ToDoItemBulkUpdateLineItem> {
 
+
+    public String title() {
+        final ToDoItem existingItem = getToDoItem();
+        if(existingItem != null) {
+            return "EXISTING: " + getContainer().titleOf(existingItem);
+        }
+        return "NEW: " + getDescription();
+    }
+    
     
     // //////////////////////////////////////
     // ViewModel implementation
     // //////////////////////////////////////
     
-    private ToDoItem toDoItem;
 
     @Override
     public String viewModelMemento() {
-        return toDoItemsExcelContributions.identifierFor(toDoItem);
+        return toDoItemExportImportService.mementoFor(this);
     }
 
     @Override
-    public void viewModelInit(String memento) {
-        this.toDoItem = toDoItemsExcelContributions.lookupByIdentifier(memento);
+    public void viewModelInit(final String mementoStr) {
+        toDoItemExportImportService.init(mementoStr, this);
+    }
+
+    
+    // //////////////////////////////////////
+    // ToDoItem (optional property)
+    // //////////////////////////////////////
+    
+    private ToDoItem toDoItem;
+
+    @MemberOrder(sequence="1")
+    public ToDoItem getToDoItem() {
+        return toDoItem;
+    }
+    public void setToDoItem(ToDoItem toDoItem) {
+        this.toDoItem = toDoItem;
+    }
+    public void modifyToDoItem(ToDoItem toDoItem) {
+        setToDoItem(toDoItem);
         setDescription(toDoItem.getDescription());
         setCategory(toDoItem.getCategory());
         setSubcategory(toDoItem.getSubcategory());
@@ -60,12 +90,14 @@ public class ToDoItemExportImportLineItem
         setOwnedBy(toDoItem.getOwnedBy());
     }
 
+    
     // //////////////////////////////////////
     // Description (property)
     // //////////////////////////////////////
     
     private String description;
 
+    @MemberOrder(sequence="2")
     public String getDescription() {
         return description;
     }
@@ -75,26 +107,12 @@ public class ToDoItemExportImportLineItem
     }
 
     // //////////////////////////////////////
-    // DueBy (property)
-    // //////////////////////////////////////
-
-    private LocalDate dueBy;
-
-    public LocalDate getDueBy() {
-        return dueBy;
-    }
-
-    public void setDueBy(final LocalDate dueBy) {
-        this.dueBy = dueBy;
-    }
-
-    
-    // //////////////////////////////////////
     // Category and Subcategory (property)
     // //////////////////////////////////////
 
     private Category category;
 
+    @MemberOrder(sequence="3")
     public Category getCategory() {
         return category;
     }
@@ -107,6 +125,7 @@ public class ToDoItemExportImportLineItem
 
     private Subcategory subcategory;
 
+    @MemberOrder(sequence="4")
     public Subcategory getSubcategory() {
         return subcategory;
     }
@@ -120,6 +139,7 @@ public class ToDoItemExportImportLineItem
     
     private String ownedBy;
 
+    @MemberOrder(sequence="5")
     public String getOwnedBy() {
         return ownedBy;
     }
@@ -130,12 +150,29 @@ public class ToDoItemExportImportLineItem
 
 
     // //////////////////////////////////////
+    // DueBy (property)
+    // //////////////////////////////////////
+
+    private LocalDate dueBy;
+
+    @MemberOrder(sequence="6")
+    public LocalDate getDueBy() {
+        return dueBy;
+    }
+
+    public void setDueBy(final LocalDate dueBy) {
+        this.dueBy = dueBy;
+    }
+
+    
+    // //////////////////////////////////////
     // Complete (property), 
     // Done (action), Undo (action)
     // //////////////////////////////////////
 
     private boolean complete;
 
+    @MemberOrder(sequence="7")
     public boolean isComplete() {
         return complete;
     }
@@ -176,11 +213,48 @@ public class ToDoItemExportImportLineItem
 
 
     // //////////////////////////////////////
+    // apply
+    // //////////////////////////////////////
+
+    @ActionSemantics(Of.IDEMPOTENT)
+    @Bulk
+    public ToDoItem apply() {
+        ToDoItem item = getToDoItem();
+        if(item == null) {
+            // description must be unique, so check
+            item = toDoItems.findByDescription(getDescription());
+            if(item != null) {
+                getContainer().warnUser("Item already exists with description '" + getDescription() + "'");
+            } else {
+                // create new item
+                // (since this is just a demo, haven't bothered to validate new values)
+                item = toDoItems.newToDo(getDescription(), getCategory(), getSubcategory(), getDueBy(), getCost());
+                item.setNotes(getNotes());
+                item.setOwnedBy(getOwnedBy());
+                item.setComplete(isComplete());
+            }
+        } else {
+            // copy over new values
+            // (since this is just a demo, haven't bothered to validate new values)
+            item.setDescription(getDescription());
+            item.setCategory(getCategory());
+            item.setSubcategory(getSubcategory());
+            item.setDueBy(getDueBy());
+            item.setCost(getCost());
+            item.setNotes(getNotes());
+            item.setOwnedBy(getOwnedBy());
+            item.setComplete(isComplete());
+        }
+        return bulkInteractionContext.getInvokedAs().isBulk()? null: item;
+    }
+
+    
+    // //////////////////////////////////////
     // compareTo
     // //////////////////////////////////////
 
     @Override
-    public int compareTo(ToDoItemExportImportLineItem other) {
+    public int compareTo(ToDoItemBulkUpdateLineItem other) {
         return this.toDoItem.compareTo(other.toDoItem);
     }
 
@@ -190,8 +264,11 @@ public class ToDoItemExportImportLineItem
     // //////////////////////////////////////
     
     @javax.inject.Inject
-    private BookmarkService bookmarkService;
+    private ToDoItemBulkUpdateService toDoItemExportImportService;
+    
+    @javax.inject.Inject
+    private ToDoItems toDoItems;
 
     @javax.inject.Inject
-    private ToDoItemExportImportService toDoItemsExcelContributions;
+    private Bulk.InteractionContext bulkInteractionContext;
 }
