@@ -121,6 +121,29 @@ The service also provides a "strict" mode, which is useful for testing expressio
     
 If enabled, then an exception is thrown instead.
 
+
+## Maven Configuration
+
+In the `pom.xml` for your "dom" module, add:
+    
+    <dependency>
+        <groupId>com.danhaywood.isis.domainservice</groupId>
+        <artifactId>danhaywood-isis-domainservice-stringinterpolator</artifactId>
+        <version>x.y.z</version>
+    </dependency>
+
+where `x.y.z` currently is 1.4.0-SNAPSHOT (though the plan is to release this code into the [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-domainservice-stringinterpolator)).
+
+## Registering the service
+
+In the `WEB-INF\isis.properties` file, add:
+
+    isis.services = ...,\
+                    com.danhaywood.isis.domainservice.stringinterpolator.StringInterpolatorService,\
+                    ...
+
+
+
 ## Legal Stuff ##
  
 ### License ###
