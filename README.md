@@ -28,7 +28,9 @@ The main API is:
 
 ## Usage ##
 
-The following are adapted  from the service's unit tests.
+The interpolation replaces each occurrence of `${...}` with its interpolated value.  The expression in within the braces is interpreted using [OGNL](http://commons.apache.org/proper/commons-ognl/).
+
+The examples below are adapted from the service's unit tests.
 
 #### Property Interpolation
 
@@ -57,6 +59,8 @@ These tests only interpolate the Isis properties, and so pass in `null` for the 
     }
 
 #### Object graph interpolation
+
+These tests interpolate an instance of the `Customer` class, that in turn has relationships to the `Address` class:
 
     static class Customer {
         private String firstName;
