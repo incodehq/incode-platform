@@ -230,6 +230,29 @@ Finally, the `DocxService` is used to merge the input HTML against the .docx tem
     }
 
 
+## Maven Configuration
+
+In the `pom.xml` for your "dom" module, add:
+    
+    <dependency>
+        <groupId>com.danhaywood.isis.domainservice</groupId>
+        <artifactId>danhaywood-isis-domainservice-docx</artifactId>
+        <version>x.y.z</version>
+    </dependency>
+
+where `x.y.z` is the latest available in the [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-domainservice-docx)).
+
+
+## Registering the service
+
+In the `WEB-INF\isis.properties` file, add:
+
+    isis.services = ...,\
+                    com.danhaywood.isis.domainservice.docx.DocxService,\
+                    ...
+
+    
+    
 
 ## Legal Stuff ##
  
