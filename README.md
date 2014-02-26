@@ -74,7 +74,7 @@ This exists because the parsing of the input stream into a `WordprocessingMLPack
 
 The template `.docx` is marked up using smart tags, as specified on the [DEVELOPER](http://msdn.microsoft.com/en-us/library/bb608625.aspx "How to show the DEVELOPER tab in Word") tab.  
 
-A sample `.docx` can be found [here](https://github.com/danhaywood/isis-domainservice-docx/blob/master/src/test/resources/com/danhaywood/isis/domainservice/docx/TypicalDocument.docx?raw=true).
+A sample `.docx` can be found [here](https://github.com/danhaywood/isis-domainservice-docx/blob/master/service/src/test/resources/com/danhaywood/isis/domainservice/docx/TypicalDocument.docx?raw=true).
 
 
 ## input HTML ##
@@ -133,7 +133,7 @@ To specify a **table** field, use:
         </tr>
     </table>
 
-A sample HTML can be found [here](https://github.com/danhaywood/isis-domainservice-docx/blob/master/src/test/resources/com/danhaywood/isis/domainservice/docx/input.html?raw=true)
+A sample HTML can be found [here](https://github.com/danhaywood/isis-domainservice-docx/blob/master/service/src/test/resources/com/danhaywood/isis/domainservice/docx/input.html?raw=true)
 
 
 ## Generated output ##
@@ -144,7 +144,7 @@ For lists, the service expects the contents of the placeholder to be a bulleted 
 
 For tables, the service expects the placeholder to be a table, with a header and either one or two body rows.  The header is left untouched, the body rows are used as the template for the input data.  Any surplus cells in the input data are ignored.
 
-A sample generated document can be found [here](https://github.com/danhaywood/isis-domainservice-docx/blob/master/src/test/resources/com/danhaywood/isis/domainservice/docx/ExampleGenerated.docx?raw=true)
+A sample generated document can be found [here](https://github.com/danhaywood/isis-domainservice-docx/blob/master/service/src/test/resources/com/danhaywood/isis/domainservice/docx/ExampleGenerated.docx?raw=true)
 
 
 ## Demo App ##
