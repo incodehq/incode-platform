@@ -20,6 +20,8 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import com.danhaywood.isis.domainservice.stringinterpolator.StringInterpolatorService.Root;
+
 import ognl.Ognl;
 import ognl.OgnlException;
 
@@ -28,13 +30,13 @@ import org.apache.isis.applib.annotation.Programmatic;
 class StringInterpolatorHelper {
 
     private final String template;
-    private final Model model;
     private final boolean strict;
+    private Root root;
 
-    StringInterpolatorHelper(String template, Map<String, String> properties, Object domainObject, boolean strict) {
+    StringInterpolatorHelper(final String template, final Root root, final boolean strict) {
         this.template = template;
+        this.root = root;
         this.strict = strict;
-        this.model = new Model(domainObject, properties);
     }
 
     String interpolate() {
@@ -81,7 +83,7 @@ class StringInterpolatorHelper {
 
     private String evaluateOgnl(final String expression) {
         try {
-            Object value = Ognl.getValue(expression, model);
+            Object value = Ognl.getValue(expression, root);
             return value != null? value.toString(): "";
         } catch (OgnlException ex) {
             if(strict) {
@@ -89,7 +91,7 @@ class StringInterpolatorHelper {
             }
             return null;
         }
-    }    
+    }
 
     private void appendRemainder(final StringBuilder buffer, final int pos) {
         if (pos < template.length()) {

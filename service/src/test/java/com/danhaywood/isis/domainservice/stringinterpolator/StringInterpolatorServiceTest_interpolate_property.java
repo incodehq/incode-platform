@@ -26,7 +26,7 @@ import com.google.common.collect.ImmutableMap;
 import org.junit.Before;
 import org.junit.Test;
 
-public class StringInterpolatorServiceTest_propertyInterpolation {
+public class StringInterpolatorServiceTest_interpolate_property {
 
     private StringInterpolatorService service;
     private Map<String, String> properties;

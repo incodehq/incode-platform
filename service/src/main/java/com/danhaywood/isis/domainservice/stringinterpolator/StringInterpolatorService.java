@@ -20,12 +20,25 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
-import com.google.common.collect.Sets;
-
 import org.apache.isis.applib.annotation.Programmatic;
 
 public class StringInterpolatorService {
 
+    public static class Root {
+        private final Object _this;
+        private Map<String, String> properties;
+
+        public Root(final Object context) {
+            this._this = context;
+        }
+        public Object getThis() { return _this; }
+        public Map<String,String> getProperties() { return properties; }
+        Root withProperties(Map<String, String> properties) {
+            this.properties = properties;
+            return this;
+        }
+    }
+    
     private Map<String, String> properties;
     private boolean strict;
     
@@ -51,7 +64,13 @@ public class StringInterpolatorService {
 
     @Programmatic
     public String interpolate(final Object domainObject, final String template) {
-        return new StringInterpolatorHelper(template, properties, domainObject, strict).interpolate();
+        return interpolate(new Root(domainObject), template);
+    }
+    
+    @Programmatic
+    public String interpolate(final Root root, final String template) {
+        final Root rootNoNull = root != null? root: new Root(null);
+        return new StringInterpolatorHelper(template, rootNoNull.withProperties(properties), strict).interpolate();
     }
    
 }

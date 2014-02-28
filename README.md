@@ -24,8 +24,33 @@ The main API is:
 
         // public API
         public String interpolate(Object domainObject, String template) { ... }
+        
+        ...
     }
 
+Using this API makes `domainObject` available as `this` in the template.
+
+The service also offers a lower-level API which allows multiple objects to be made accessible from the context:
+
+    public class StringInterpolatorService {
+
+        public static class Root {
+            ...
+            public Root(final Object context) {
+                this._this = context;
+            }
+            public Object getThis() { return _this; }
+            ...
+        }
+
+        // public API
+        public String interpolate(Root root, String template) { ... }
+        
+        ...
+    }
+
+The `Root` class can be extended as necessary.
+    
 ## Usage ##
 
 The interpolation replaces each occurrence of `${...}` with its interpolated value.  The expression in within the braces is interpreted using [OGNL](http://commons.apache.org/proper/commons-ognl/).
@@ -120,6 +145,31 @@ The service also provides a "strict" mode, which is useful for testing expressio
     StringInterpolatorService service = new StringInterpolatorService().withStrict(true);
     
 If enabled, then an exception is thrown instead.
+
+#### Object graph interpolation (using the lower-level API)
+
+To use the lower-level API, create a custom subclass of the `Root` class:
+
+    final class CustomRoot extends StringInterpolatorService.Root {
+        private Customer customer;
+        public CustomRoot(Object context, Customer customer) {
+            super(context);
+            this.customer = customer;
+        }
+        public Customer getCustomer() {
+            return customer;
+        }
+    }
+
+The example above exposes the `customer` property.  This can then be used in the template:
+
+    @Test
+    public void simple() throws Exception {
+        String interpolated = service.interpolate(
+            new CustomRoot(null, customer), "${customer.firstName}");
+        assertThat(interpolated, is("Fred"));
+    }
+
 
 
 ## Maven Configuration

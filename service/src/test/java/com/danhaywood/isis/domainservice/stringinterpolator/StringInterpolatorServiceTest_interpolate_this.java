@@ -27,7 +27,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-public class StringInterpolatorServiceTest_graphInterpolation {
+public class StringInterpolatorServiceTest_interpolate_this {
 
     private StringInterpolatorService service;
     private Map<String, String> properties;
@@ -35,63 +35,6 @@ public class StringInterpolatorServiceTest_graphInterpolation {
     
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
-    
-    static class Customer {
-        private String firstName;
-        public String getFirstName() {
-            return firstName;
-        }
-        public void setFirstName(String firstName) {
-            this.firstName = firstName;
-        }
-        
-        private String lastName;
-        public String getLastName() {
-            return lastName;
-        }
-        public void setLastName(String lastName) {
-            this.lastName = lastName;
-        }
-        
-        private Address address;
-        public Address getAddress() {
-            return address;
-        }
-        public void setAddress(Address address) {
-            this.address = address;
-        }
-        
-        private Address billingAddress;
-        public Address getBillingAddress() {
-            return billingAddress;
-        }
-        public void setBillingAddress(Address billingAddress) {
-            this.billingAddress = billingAddress;
-        }
-    }
-    static class Address {
-        private int houseNumber;
-        public int getHouseNumber() {
-            return houseNumber;
-        }
-        public void setHouseNumber(int houseNumber) {
-            this.houseNumber = houseNumber;
-        }
-        private String town;
-        public String getTown() {
-            return town;
-        }
-        public void setTown(String town) {
-            this.town = town;
-        }
-        private String postalCode;
-        public String getPostalCode() {
-            return postalCode;
-        }
-        public void setPostalCode(String postalCode) {
-            this.postalCode = postalCode;
-        }
-    }
     
     @Before
     public void setUp() throws Exception {
