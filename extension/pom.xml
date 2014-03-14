@@ -57,12 +57,15 @@ language governing permissions and limitations under the License.
     </developers>
 
     <properties>
-        <isis.version>1.4.0-SNAPSHOT</isis.version>
-        <isis-viewer-wicket.version>1.4.0-SNAPSHOT</isis-viewer-wicket.version>
+        <isis.version>1.4.0</isis.version>
+        <isis-viewer-wicket.version>1.4.0</isis-viewer-wicket.version>
+        
         <wicket-fullcalendar.version>2.1</wicket-fullcalendar.version>
         <wicket.version>6.13.0</wicket.version>
+        
         <compileSource>1.6</compileSource>
         <compileTarget>1.6</compileTarget>
+        
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
