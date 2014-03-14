@@ -58,11 +58,11 @@ language governing permissions and limitations under the License.
     </developers>
     
     <properties>
-        <isis-viewer-wicket.version>1.2.0</isis-viewer-wicket.version>
+        <isis-viewer-wicket.version>1.4.0</isis-viewer-wicket.version>
         <poi.version>3.9</poi.version>
 
-        <compileSource>1.7</compileSource>
-        <compileTarget>1.7</compileTarget>
+        <compileSource>1.6</compileSource>
+        <compileTarget>1.6</compileTarget>
     </properties>
 
     <build>

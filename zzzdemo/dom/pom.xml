@@ -23,7 +23,7 @@
 	<parent>
     	<groupId>com.danhaywood.isis.wicket</groupId>
     	<artifactId>danhaywood-isis-wicket-excel-zzzdemo</artifactId>
-        <version>1.4.0-SNAPSHOT</version>
+        <version>0.0.1-DO_NOT_RELEASE-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>danhaywood-isis-wicket-excel-zzzdemo-dom</artifactId>
