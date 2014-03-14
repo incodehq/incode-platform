@@ -7,6 +7,7 @@ Integrates with [Apache Isis](http://isis/apache.org)', providing a domain servi
 
 See also the [Excel wicket extension](https://github.com/danhaywood/isis-wicket-excel), which makes every collection downloadable as an Excel spreadsheet.
 
+
 ## API & Implementation
 
 The API exposed by `ExcelService` is:
