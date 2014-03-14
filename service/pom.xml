@@ -59,11 +59,11 @@ language governing permissions and limitations under the License.
     </developers>
     
     <properties>
-        <isis.version>1.4.0-SNAPSHOT</isis.version>
+        <isis.version>1.4.0</isis.version>
         <poi.version>3.9</poi.version>
 
-        <compileSource>1.7</compileSource>
-        <compileTarget>1.7</compileTarget>
+        <compileSource>1.6</compileSource>
+        <compileTarget>1.6</compileTarget>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
