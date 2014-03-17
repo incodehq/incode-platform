@@ -26,7 +26,7 @@ language governing permissions and limitations under the License.
 
     <groupId>com.danhaywood.isis.wicket</groupId>
     <artifactId>danhaywood-isis-wicket-fullcalendar2</artifactId>
-    <version>1.4.0-SNAPSHOT</version>
+    <version>1.4.0</version>
     <packaging>pom</packaging>
 
     <name>Isis Wicket Viewer FullCalendar2 Component</name>
@@ -203,12 +203,12 @@ language governing permissions and limitations under the License.
             <dependency>
                 <groupId>com.danhaywood.isis.wicket</groupId>
                 <artifactId>danhaywood-isis-wicket-fullcalendar2-applib</artifactId>
-                <version>1.4.0-SNAPSHOT</version>
+                <version>1.4.0</version>
             </dependency>
             <dependency>
                 <groupId>com.danhaywood.isis.wicket</groupId>
                 <artifactId>danhaywood-isis-wicket-fullcalendar2-ui</artifactId>
-                <version>1.4.0-SNAPSHOT</version>
+                <version>1.4.0</version>
             </dependency>
 
             <dependency>
