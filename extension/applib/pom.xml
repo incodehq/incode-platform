@@ -21,7 +21,7 @@ language governing permissions and limitations under the License.
 	<parent>
         <groupId>com.danhaywood.isis.wicket</groupId>
         <artifactId>danhaywood-isis-wicket-gmap3</artifactId>
-        <version>1.4.0</version>
+        <version>1.4.1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>danhaywood-isis-wicket-gmap3-applib</artifactId>
