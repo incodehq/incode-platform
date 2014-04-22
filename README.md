@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/danhaywood/isis-domainservice-stringinterpolator.png?branch=master)](https://travis-ci.org/danhaywood/isis-domainservice-stringinterpolator)
 
+
 The StringInterpolatorService, intended for use within [Apache Isis](http://isis.apache.org), will interpolate string templates with either Isis system properties or values obtained from a domain object (possibly walking relationships).
 
 One use case for this service (and the original use case) is in building URLs based on an object's state, parameterized by environment (prod/test/dev etc).  These URLs could be anything; in the original use case they were to a reporting service:
