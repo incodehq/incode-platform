@@ -171,3 +171,4 @@ In your project's webapp `pom.xml`, add a dependency on the `ui` module:
             <version>${wicket-fullcalendar.version}</version>
         </dependency>
     </dependencies>
+
