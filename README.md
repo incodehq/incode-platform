@@ -3,6 +3,7 @@ isis-domainservice-excel
 
 [![Build Status](https://travis-ci.org/danhaywood/isis-domainservice-excel.png?branch=master)](https://travis-ci.org/danhaywood/isis-domainservice-excel)
 
+
 Integrates with [Apache Isis](http://isis/apache.org)', providing a domain service so that a collection of (view model) object scan be exported to an Excel spreadsheet, or recreated by importing from Excel.  The underlying technology used is [Apache POI](http://poi.apache.org).
 
 See also the [Excel wicket extension](https://github.com/danhaywood/isis-wicket-excel), which makes every collection downloadable as an Excel spreadsheet.
