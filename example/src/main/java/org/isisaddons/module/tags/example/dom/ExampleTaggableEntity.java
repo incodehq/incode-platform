@@ -85,7 +85,8 @@ public class ExampleTaggableEntity {
 
 
     @javax.jdo.annotations.NotPersistent
-    @Mandatory // Isis 1.5.0 throws an exception if optional ... :-(
+//    @Optional
+    @Disabled
     @MemberOrder(sequence="2")
     public String getBrand() {
         final Tag existingTag = getBrandTag();
@@ -98,7 +99,24 @@ public class ExampleTaggableEntity {
         setBrandTag(tag);
     }
 
-    public List<String> choicesBrand() {
+//    public List<String> choicesBrand() {
+//        return tags.choices(this, TAG_NAME_BRAND);
+//    }
+
+    // //////////////////////////////////////
+
+    @MemberOrder(name="brand", sequence = "2")
+    public ExampleTaggableEntity updateBrand(
+            final @Named("Tag") @Optional String brand) {
+        setBrand(brand);
+        return this;
+    }
+
+    public String default0UpdateBrand() {
+        return getBrand();
+    }
+
+    public List<String> choices0UpdateBrand() {
         return tags.choices(this, TAG_NAME_BRAND);
     }
 
@@ -133,7 +151,8 @@ public class ExampleTaggableEntity {
     // //////////////////////////////////////
 
     @javax.jdo.annotations.NotPersistent
-    @Mandatory // Isis 1.5.0 throws an exception if optional ... :-(
+//    @Optional
+    @Disabled
     @MemberOrder(sequence="2")
     public String getSector() {
         final Tag existingTag = getSectorTag();
@@ -146,7 +165,24 @@ public class ExampleTaggableEntity {
         setSectorTag(tag);
     }
 
-    public List<String> choicesSector() {
+//    public List<String> choicesSector() {
+//        return tags.choices(this, TAG_NAME_SECTOR);
+//    }
+
+    // //////////////////////////////////////
+
+    @MemberOrder(name="sector", sequence = "2")
+    public ExampleTaggableEntity updateSector(
+            final @Named("Tag") @Optional String sector) {
+        setSector(sector);
+        return this;
+    }
+
+    public String default0UpdateSector() {
+        return getSector();
+    }
+
+    public List<String> choices0UpdateSector() {
         return tags.choices(this, TAG_NAME_SECTOR);
     }
 

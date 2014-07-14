@@ -32,16 +32,19 @@ public class ExampleTaggableEntitiesAppSetUpFixture extends DiscoverableFixtureS
         execute(new ExampleTaggableEntitiesAppTearDownFixture(), executionContext);
 
         // create
-        create("Foo", "Coca Cola", "Drink");
-        create("Bar", "Pepsi", "Drink");
-        create("Baz", "McDonalds", "Fast food");
-        create("Bop", "Levi's", "Clothing");
+        create("Foo", "Coca Cola", "Drink", executionContext);
+        create("Bar", "Pepsi", "Drink", executionContext);
+        create("Baz", "McDonalds", "Fast food", executionContext);
+        create("Bop", "Levi's", "Clothing", executionContext);
     }
 
     // //////////////////////////////////////
 
-    private ExampleTaggableEntity create(String name, final String brand, String sector) {
+    private ExampleTaggableEntity create(
+            final String name, final String brand, final String sector,
+            final ExecutionContext executionContext) {
         final ExampleTaggableEntity entity = exampleTaggableEntities.create(name, brand, sector);
+        executionContext.add(this, name, entity);
         return entity;
     }
 
