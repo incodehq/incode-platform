@@ -20,6 +20,7 @@ package org.isisaddons.module.tags.example.webapp;
 
 import java.util.List;
 import org.isisaddons.module.tags.example.fixture.ExampleTaggableEntitiesAppSetUpFixture;
+import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Prototype;
@@ -31,6 +32,7 @@ import org.apache.isis.applib.fixturescripts.SimpleFixtureScript;
 /**
  * Enables fixtures to be installed from the application.
  */
+@DomainService(menuOrder = "20")
 @Named("Prototyping")
 public class TaggedObjectsFixturesService extends FixtureScripts {
 

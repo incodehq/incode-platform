@@ -22,12 +22,13 @@ import java.util.List;
 import javax.jdo.Query;
 import com.google.common.base.Strings;
 import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
-import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
+import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-//@DomainService (in 1.6.0)
+@DomainService
 public class Tags {
 
     // //////////////////////////////////////
@@ -54,56 +55,48 @@ public class Tags {
         final Query q = isisJdoSupport.getJdoPersistenceManager().newNamedQuery(Tag.class, "findValuesByObjectTypeAndKey");
         final List<String> results = (List<String>) q.execute(objectType, tagKey);
         return results;
-//        final List<Tag> tags = doChoices(taggedObject, tagKey);
-//        final Iterable<String> tagValues = Iterables.transform(tags, Tag.Functions.GET_VALUE);
-//        final TreeSet<String> uniqueSortedTagValues = Sets.newTreeSet(tagValues);
-//        return Lists.newArrayList(uniqueSortedTagValues);
     }
-
-//    protected List<Tag> doChoices(final Object taggedObject, final String tagKey) {
-//        return container.allMatches(Tag.class, appliesTo(taggedObject, tagKey));
-//    }
-
-//    private Predicate<Tag> appliesTo(final Object taggedObject, final String tagKey) {
-//        return new Predicate<Tag>(){
-//            @Override
-//            public boolean apply(final Tag t) {
-//                final Bookmark bookmark = bookmarkService.bookmarkFor(taggedObject);
-//                return Objects.equal(t.getTaggedObjectType(), bookmark.getObjectType()) &&
-//                       Objects.equal(t.getKey(), tagKey);
-//            }
-//        };
-//    }
 
     @Programmatic
     public Tag tagFor(
             final Tag tag, 
             final Object taggedObject,
             final String tagName, final String tagValue) {
+
         if(Strings.isNullOrEmpty(tagValue)) {
-            if(tag != null) {
-                // remove existing
-                container.remove(tag);
-            }
-            return null;
+            return removeExisting(tag);
+        } else if(tag == null) {
+            return createNew(taggedObject, tagName, tagValue);
         } else {
-            if(tag == null) {
-                // create new
-                Tag newTag = container.newTransientInstance(Tag.class);
-                newTag.setTaggedObject(taggedObject);
-                newTag.setTaggedObjectType(determineObjectTypeFor(taggedObject));
-                newTag.setKey(tagName);
-                newTag.setValue(tagValue);
-                container.persist(newTag);
-                return newTag;
-            } else {
-                // update existing
-                tag.setValue(tagValue);
-                return tag;
-            }
+            return updateExisting(tag, tagValue);
         }
     }
-    
+
+    private Tag createNew(Object taggedObject, String tagName, String tagValue) {
+        // create new
+        Tag newTag = container.newTransientInstance(Tag.class);
+        newTag.setTaggedObject(taggedObject);
+        newTag.setTaggedObjectType(determineObjectTypeFor(taggedObject));
+        newTag.setKey(tagName);
+        newTag.setValue(tagValue);
+        container.persist(newTag);
+        return newTag;
+    }
+
+    private static Tag updateExisting(Tag tag, String tagValue) {
+        // update existing
+        tag.setValue(tagValue);
+        return tag;
+    }
+
+    private Tag removeExisting(Tag tag) {
+        if(tag != null) {
+            // remove existing
+            container.remove(tag);
+        }
+        return null;
+    }
+
     private String determineObjectTypeFor(final Object taggedObject) {
         if (taggedObject == null) {
             return null;

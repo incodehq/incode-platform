@@ -28,7 +28,7 @@ public abstract class ExampleTaggableEntitiesAppIntegTest extends IntegrationTes
     @BeforeClass
     public static void initClass() {
         org.apache.log4j.PropertyConfigurator.configure("logging.properties");
-        ExampleTaggableEntitiesAppSystemInitializer.initIsft();
+        ExampleTaggedObjectsAppSystemInitializer.initIsft();
         
         // instantiating will install onto ThreadLocal
         new ScenarioExecutionForIntegration();

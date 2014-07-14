@@ -203,10 +203,6 @@
             <artifactId>isis-core-applib</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.isis.objectstore</groupId>
-			<artifactId>isis-objectstore-jdo-applib</artifactId>
-		</dependency>
 
 
         <!-- isis core -->
@@ -224,29 +220,28 @@
         </dependency>
         <dependency>
             <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-wrapper</artifactId>
+            <artifactId>isis-core-objectstore-jdo-datanucleus</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-viewer-restfulobjects-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-security-shiro</artifactId>
+        </dependency>
 
         <!-- isis components -->
-        <dependency>
-            <groupId>org.apache.isis.objectstore</groupId>
-            <artifactId>isis-objectstore-jdo-datanucleus</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.apache.isis.viewer</groupId>
             <artifactId>isis-viewer-wicket-impl</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.isis.viewer</groupId>
-            <artifactId>isis-viewer-restfulobjects-server</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.isis.security</groupId>
-            <artifactId>isis-security-shiro</artifactId>
-        </dependency>
 
-
+        <!-- isis components -->
+        <dependency>
+            <groupId>org.apache.isis.module</groupId>
+            <artifactId>isis-module-wrapper</artifactId>
+        </dependency>
 
         <!-- isis testing libraries -->
         <dependency>
@@ -257,13 +252,6 @@
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-integtestsupport</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Bytecode libraries (for mocking) -->
-        <dependency>
-            <groupId>org.objenesis</groupId>
-            <artifactId>objenesis</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -292,6 +280,10 @@
             <artifactId>hamcrest-library</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+        </dependency>
 
 
         <!--

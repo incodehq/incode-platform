@@ -43,10 +43,10 @@ public class ExampleTaggableEntityTest_listAll_and_create extends ExampleTaggabl
     public void listAll() throws Exception {
 
         final List<ExampleTaggableEntity> all = wrap(exampleTaggableEntities).listAll();
-        assertThat(all.size(), is(3));
+        assertThat(all.size(), is(4));
         
         ExampleTaggableEntity exampleTaggableEntity = wrap(all.get(0));
-        assertThat(exampleTaggableEntity.getBrand(), is("Foo"));
+        assertThat(exampleTaggableEntity.getBrand(), is("Coca Cola"));
     }
     
     @Test
@@ -55,7 +55,7 @@ public class ExampleTaggableEntityTest_listAll_and_create extends ExampleTaggabl
         wrap(exampleTaggableEntities).create("Faz", "Pepsi", "Drink");
         
         final List<ExampleTaggableEntity> all = wrap(exampleTaggableEntities).listAll();
-        assertThat(all.size(), is(4));
+        assertThat(all.size(), is(5));
     }
 
 }

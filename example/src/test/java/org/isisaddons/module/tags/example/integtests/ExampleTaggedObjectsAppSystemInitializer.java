@@ -16,45 +16,48 @@
  */
 package org.isisaddons.module.tags.example.integtests;
 
-import org.isisaddons.module.tags.example.dom.ExampleTaggableEntities;
-
 import org.apache.isis.core.commons.config.IsisConfiguration;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
-import org.apache.isis.core.wrapper.WrapperFactoryDefault;
 import org.apache.isis.objectstore.jdo.datanucleus.DataNucleusPersistenceMechanismInstaller;
 import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegTests;
-import org.apache.isis.objectstore.jdo.datanucleus.service.support.IsisJdoSupportImpl;
 
 /**
  * Holds an instance of an {@link IsisSystemForTest} as a {@link ThreadLocal} on the current thread,
  * initialized with ToDo app's domain services. 
  */
-public class ExampleTaggableEntitiesAppSystemInitializer {
+public class ExampleTaggedObjectsAppSystemInitializer {
     
-    private ExampleTaggableEntitiesAppSystemInitializer(){}
+    private ExampleTaggedObjectsAppSystemInitializer(){}
 
     public static IsisSystemForTest initIsft() {
         IsisSystemForTest isft = IsisSystemForTest.getElseNull();
         if(isft == null) {
-            isft = new SimpleAppSystemBuilder().build().setUpSystem();
+            isft = new ExampleTaggedObjectsAppSystemBuilder().build().setUpSystem();
             IsisSystemForTest.set(isft);
         }
         return isft;
     }
 
-    private static class SimpleAppSystemBuilder extends IsisSystemForTest.Builder {
+    private static class ExampleTaggedObjectsAppSystemBuilder extends IsisSystemForTest.Builder {
 
-        public SimpleAppSystemBuilder() {
-            //withFixtures( ... reference data fixtures ...); // if we had any...
+        public ExampleTaggedObjectsAppSystemBuilder() {
             withLoggingAt(org.apache.log4j.Level.INFO);
             with(testConfiguration());
             with(new DataNucleusPersistenceMechanismInstaller());
-            
-            withServices(
-                    new ExampleTaggableEntities(),
-                    new WrapperFactoryDefault(),
-                    new IsisJdoSupportImpl()
-                    );
+
+            // services annotated with @DomainService
+            withServicesIn(
+                    "org.isisaddons.module.tags.dom"
+                    ,"org.isisaddons.module.tags.example"
+                    ,"org.apache.isis.core.wrapper"
+                    ,"org.apache.isis.applib"
+                    ,"org.apache.isis.core.metamodel.services"
+                    ,"org.apache.isis.core.runtime.services"
+                    ,"org.apache.isis.objectstore.jdo.datanucleus.service.support" // IsisJdoSupportImpl
+                    ,"org.apache.isis.objectstore.jdo.datanucleus.service.eventbus" // EventBusServiceJdo
+            );
+
+            withServices( /* nothing extra */);
         }
 
         private static IsisConfiguration testConfiguration() {
