@@ -19,7 +19,7 @@
 package org.isisaddons.module.tags.example.webapp;
 
 import java.util.List;
-import org.isisaddons.module.tags.example.fixture.ExampleTaggableEntitiesAppSetUpFixture;
+import org.isisaddons.module.tags.example.fixture.DemoSetUpFixture;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
@@ -61,7 +61,7 @@ public class TaggedObjectsFixturesService extends FixtureScripts {
     @Prototype
     @MemberOrder(sequence="20")
     public Object installFixturesAndReturnFirst() {
-        final List<FixtureResult> run = findFixtureScriptFor(ExampleTaggableEntitiesAppSetUpFixture.class).run(null);
+        final List<FixtureResult> run = findFixtureScriptFor(DemoSetUpFixture.class).run(null);
         return run.get(0).getObject();
     }
 

@@ -85,8 +85,6 @@ public class ExampleTaggableEntity {
 
 
     @javax.jdo.annotations.NotPersistent
-//    @Optional
-    @Disabled
     @MemberOrder(sequence="2")
     public String getBrand() {
         final Tag existingTag = getBrandTag();
@@ -99,9 +97,9 @@ public class ExampleTaggableEntity {
         setBrandTag(tag);
     }
 
-//    public List<String> choicesBrand() {
-//        return tags.choices(this, TAG_NAME_BRAND);
-//    }
+    public List<String> choicesBrand() {
+        return tags.choices(this, TAG_NAME_BRAND);
+    }
 
     // //////////////////////////////////////
 
@@ -151,8 +149,6 @@ public class ExampleTaggableEntity {
     // //////////////////////////////////////
 
     @javax.jdo.annotations.NotPersistent
-//    @Optional
-    @Disabled
     @MemberOrder(sequence="2")
     public String getSector() {
         final Tag existingTag = getSectorTag();
@@ -165,9 +161,9 @@ public class ExampleTaggableEntity {
         setSectorTag(tag);
     }
 
-//    public List<String> choicesSector() {
-//        return tags.choices(this, TAG_NAME_SECTOR);
-//    }
+    public List<String> choicesSector() {
+        return tags.choices(this, TAG_NAME_SECTOR);
+    }
 
     // //////////////////////////////////////
 

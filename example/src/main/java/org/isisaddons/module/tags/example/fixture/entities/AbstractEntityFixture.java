@@ -17,38 +17,21 @@
  *  under the License.
  */
 
-package org.isisaddons.module.tags.example.fixture;
+package org.isisaddons.module.tags.example.fixture.entities;
 
 import org.isisaddons.module.tags.example.dom.ExampleTaggableEntities;
 import org.isisaddons.module.tags.example.dom.ExampleTaggableEntity;
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-public class ExampleTaggableEntitiesAppSetUpFixture extends DiscoverableFixtureScript {
+public abstract class AbstractEntityFixture extends FixtureScript {
 
-    @Override
-    protected void execute(ExecutionContext executionContext) {
-
-        // prereqs
-        execute(new ExampleTaggableEntitiesAppTearDownFixture(), executionContext);
-
-        // create
-        create("Foo", "Coca Cola", "Drink", executionContext);
-        create("Bar", "Pepsi", "Drink", executionContext);
-        create("Baz", "McDonalds", "Fast food", executionContext);
-        create("Bop", "Levi's", "Clothing", executionContext);
-    }
-
-    // //////////////////////////////////////
-
-    private ExampleTaggableEntity create(
+    protected ExampleTaggableEntity create(
             final String name, final String brand, final String sector,
             final ExecutionContext executionContext) {
         final ExampleTaggableEntity entity = exampleTaggableEntities.create(name, brand, sector);
         executionContext.add(this, name, entity);
         return entity;
     }
-
-    // //////////////////////////////////////
 
     @javax.inject.Inject
     private ExampleTaggableEntities exampleTaggableEntities;

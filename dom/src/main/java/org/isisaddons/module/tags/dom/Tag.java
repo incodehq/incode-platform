@@ -217,6 +217,12 @@ public class Tag extends AbstractDomainObject
     public static class Functions {
         private Functions(){}
 
+        public static final Function<Tag, String> GET_KEY = new Function<Tag, String>() {
+            public String apply(final Tag tag) {
+                return tag != null ? tag.getKey() : null;
+            }
+        };
+
         public static final Function<Tag, String> GET_VALUE = new Function<Tag, String>() {
             public String apply(final Tag tag) {
                 return tag != null ? tag.getValue() : null;

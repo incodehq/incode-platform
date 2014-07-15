@@ -27,6 +27,7 @@
 
 	<artifactId>isisaddons-module-tags-example</artifactId>
 	<name>IsisAddons Module Tags Example App</name>
+    <packaging>war</packaging>
 
 	<build>
         <resources>

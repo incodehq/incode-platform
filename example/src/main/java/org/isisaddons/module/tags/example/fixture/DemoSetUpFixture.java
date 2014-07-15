@@ -19,19 +19,29 @@
 
 package org.isisaddons.module.tags.example.fixture;
 
-import org.apache.isis.applib.fixturescripts.FixtureScript;
-import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
+import org.isisaddons.module.tags.example.dom.ExampleTaggableEntities;
+import org.isisaddons.module.tags.example.fixture.entities.Bar_Pepsi_Drink;
+import org.isisaddons.module.tags.example.fixture.entities.Baz_McDonalds_FastFood;
+import org.isisaddons.module.tags.example.fixture.entities.Bip_CocaCola_Drink;
+import org.isisaddons.module.tags.example.fixture.entities.Bop_Levis_Clothing;
+import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
-public class ExampleTaggableEntitiesAppTearDownFixture extends FixtureScript {
+public class DemoSetUpFixture extends DiscoverableFixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"ExampleTaggableEntity\"");
-        isisJdoSupport.executeUpdate("delete from \"IsisAddonsTag\"");
+
+        execute(new TearDownFixture(), executionContext);
+
+        execute(new Bip_CocaCola_Drink(), executionContext);
+        execute(new Bar_Pepsi_Drink(), executionContext);
+        execute(new Baz_McDonalds_FastFood(), executionContext);
+        execute(new Bop_Levis_Clothing(), executionContext);
     }
 
+    // //////////////////////////////////////
 
     @javax.inject.Inject
-    private IsisJdoSupport isisJdoSupport;
+    private ExampleTaggableEntities exampleTaggableEntities;
 
 }
