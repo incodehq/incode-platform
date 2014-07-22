@@ -1,6 +1,6 @@
 # isis-domainservice-docx #
 
-[![Build Status](https://travis-ci.org/danhaywood/isis-domainservice-docx.png?branch=master)](https://travis-ci.org/danhaywood/isis-domainservice-docx)
+[![Build Status](https://travis-ci.org/isisaddons/isis-module-docx.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-docx)
 
 The docx domain service, for use in [Apache Isis](http://isis.apache.org), generates Word `.docx` from an initial `.docx` template, providing a mail merge/reporting capability.  A simplified HTML is used as the input to the service.
 
@@ -22,13 +22,13 @@ The following screenshots are taken from the `zzzdemo` app (adapted from Isis' q
 
 The screenshot below shows the object acting as the source of the data.  The "download as doc" action calls the service.
 
-![](https://raw.github.com/danhaywood/isis-domainservice-docx/master/images/contributed-action.png)
+![](https://raw.github.com/isisaddons/isis-module-docx/master/images/contributed-action.png)
 
 #### Template
 
 The template docx uses MS Word smart tags feature to identify the fields:
 
-![](https://raw.github.com/danhaywood/isis-domainservice-docx/master/images/template.png)
+![](https://raw.github.com/isisaddons/isis-module-docx/master/images/template.png)
 
 Any styling in the template document is preserved on generation.
 
@@ -36,7 +36,7 @@ Any styling in the template document is preserved on generation.
 
 The generated docx merges in the data from the object into the template.  
 
-![](https://raw.github.com/danhaywood/isis-domainservice-docx/master/images/generated-docx.png)
+![](https://raw.github.com/isisaddons/isis-module-docx/master/images/generated-docx.png)
 
 Note how the bulleted list is repeated for each dependency of the `ToDoItem`.  Tables work similarly.
 
@@ -74,7 +74,7 @@ This exists because the parsing of the input stream into a `WordprocessingMLPack
 
 The template `.docx` is marked up using smart tags, as specified on the [DEVELOPER](http://msdn.microsoft.com/en-us/library/bb608625.aspx "How to show the DEVELOPER tab in Word") tab.  
 
-A sample `.docx` can be found [here](https://github.com/danhaywood/isis-domainservice-docx/blob/master/service/src/test/resources/com/danhaywood/isis/domainservice/docx/TypicalDocument.docx?raw=true).
+A sample `.docx` can be found [here](https://github.com/isisaddons/isis-module-docx/blob/master/service/src/test/resources/org/isisaddons/module/docx/TypicalDocument.docx?raw=true).
 
 
 ## input HTML ##
@@ -133,7 +133,7 @@ To specify a **table** field, use:
         </tr>
     </table>
 
-A sample HTML can be found [here](https://github.com/danhaywood/isis-domainservice-docx/blob/master/service/src/test/resources/com/danhaywood/isis/domainservice/docx/input.html?raw=true)
+A sample HTML can be found [here](https://github.com/isisaddons/isis-module-docx/blob/master/service/src/test/resources/org/isisaddons/module/docx/input.html?raw=true)
 
 
 ## Generated output ##
@@ -144,7 +144,7 @@ For lists, the service expects the contents of the placeholder to be a bulleted 
 
 For tables, the service expects the placeholder to be a table, with a header and either one or two body rows.  The header is left untouched, the body rows are used as the template for the input data.  Any surplus cells in the input data are ignored.
 
-A sample generated document can be found [here](https://github.com/danhaywood/isis-domainservice-docx/blob/master/service/src/test/resources/com/danhaywood/isis/domainservice/docx/ExampleGenerated.docx?raw=true)
+A sample generated document can be found [here](https://github.com/isisaddons/isis-module-docx/blob/master/service/src/test/resources/org/isisaddons/module/docx/ExampleGenerated.docx?raw=true)
 
 
 ## Demo App ##
@@ -235,21 +235,18 @@ Finally, the `DocxService` is used to merge the input HTML against the .docx tem
 In the `pom.xml` for your "dom" module, add:
     
     <dependency>
-        <groupId>com.danhaywood.isis.domainservice</groupId>
-        <artifactId>danhaywood-isis-domainservice-docx</artifactId>
+        <groupId>org.isisaddons.module.docx</groupId>
+        <artifactId>isis-module-docx</artifactId>
         <version>x.y.z</version>
     </dependency>
 
-where `x.y.z` is the latest available in the [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-domainservice-docx)).
+where `x.y.z` is the latest available in the [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-docx)).
 
 
 ## Registering the service
 
-In the `WEB-INF\isis.properties` file, add:
-
-    isis.services = ...,\
-                    com.danhaywood.isis.domainservice.docx.DocxService,\
-                    ...
+The `DocxService` is annotated with `@DomainService` and so will be 
+automatically registered as a service.
 
     
     
