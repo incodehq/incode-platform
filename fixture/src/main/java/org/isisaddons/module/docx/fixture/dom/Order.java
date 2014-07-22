@@ -38,6 +38,7 @@ import org.apache.isis.applib.util.ObjectContracts;
         column="version")
 @ObjectType("ORDER")
 @Bookmarkable
+@MemberGroupLayout(columnSpans = {6,0,0,6})
 public class Order implements Comparable<Order> {
 
     //region > number (property)

@@ -186,8 +186,6 @@ public class CustomerConfirmation {
         Element table = new Element("table");
         body.addContent(table);
         table.setAttribute("id", id);
-        Element tr = new Element("tr");
-        table.addContent(tr);
         return table;
     }
 
