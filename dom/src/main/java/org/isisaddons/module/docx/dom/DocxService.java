@@ -110,11 +110,12 @@ public class DocxService {
     @Programmatic
     public void merge(org.w3c.dom.Document htmlDoc, InputStream docxTemplate, OutputStream docxTarget, MatchingPolicy matchingPolicy) throws MergeException, LoadTemplateException {
         WordprocessingMLPackage docxPkg = loadPackage(docxTemplate);
-        merge(htmlDoc, docxPkg, docxTarget, matchingPolicy, DefensiveCopy.NOT_REQUIRED);
+        org.jdom2.Document htmlJdomDoc = new DOMBuilder().build(htmlDoc);
+        merge(htmlJdomDoc, docxPkg, docxTarget, matchingPolicy, DefensiveCopy.NOT_REQUIRED);
     }
 
     @Programmatic
-    public void merge(org.w3c.dom.Document htmlDoc, WordprocessingMLPackage docxTemplate, OutputStream docxTarget, MatchingPolicy matchingPolicy, DefensiveCopy defensiveCopy) throws MergeException {
+    public void merge(org.w3c.dom.Document htmlDoc, WordprocessingMLPackage docxTemplate, OutputStream docxTarget, MatchingPolicy matchingPolicy) throws MergeException {
         org.jdom2.Document htmlJdomDoc = new DOMBuilder().build(htmlDoc);
         merge(htmlJdomDoc, docxTemplate, docxTarget, matchingPolicy, DefensiveCopy.REQUIRED);
     }

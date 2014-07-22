@@ -16,24 +16,22 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.docx.integration.tests;
 
-import org.isisaddons.module.docx.integration.DocxModuleSystemInitializer;
+package org.isisaddons.module.docx.fixture.scripts;
 
-import org.junit.BeforeClass;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
 
-import org.apache.isis.core.integtestsupport.IntegrationTestAbstract;
-import org.apache.isis.core.integtestsupport.scenarios.ScenarioExecutionForIntegration;
+public class OrdersTearDownFixture extends FixtureScript {
 
-public abstract class DocxModuleIntegTest extends IntegrationTestAbstract {
-
-    @BeforeClass
-    public static void initClass() {
-        org.apache.log4j.PropertyConfigurator.configure("logging.properties");
-        DocxModuleSystemInitializer.initIsft();
-        
-        // instantiating will install onto ThreadLocal
-        new ScenarioExecutionForIntegration();
+    @Override
+    protected void execute(ExecutionContext executionContext) {
+        isisJdoSupport.executeUpdate("delete from \"OrderLine\"");
+        isisJdoSupport.executeUpdate("delete from \"Order\"");
     }
+
+
+    @javax.inject.Inject
+    private IsisJdoSupport isisJdoSupport;
 
 }

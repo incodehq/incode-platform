@@ -16,10 +16,7 @@
  */
 package org.isisaddons.module.docx.dom;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -35,9 +32,17 @@ public class IoHelper {
     }
 
     public byte[] asBytes(String fileName) throws IOException {
-        final ByteArrayOutputStream baos2 = asBaos(fileName);
-        return baos2.toByteArray();
+        final ByteArrayOutputStream baos = asBaos(fileName);
+        return baos.toByteArray();
     }
+
+    public byte[] asBytes(File file) throws IOException {
+        final FileInputStream fis = new FileInputStream(file);
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ByteStreams.copy(fis, baos);
+        return baos.toByteArray();
+    }
+
 
     public ByteArrayOutputStream asBaos(String fileName) throws IOException {
         final ByteArrayInputStream bais = asBais(fileName);
@@ -60,10 +65,26 @@ public class IoHelper {
         return Resources.getResource(baseClass, fileName);
     }
 
-    public File asFileInSameDir(final String existingFile, String newFile) {
-        final File dir = toFile(asUrl(existingFile)).getParentFile();
+    public File asFile(String fileName) {
+        return toFile(asUrl(fileName));
+    }
+
+    public File asFileInSameDir(final String existingFileName, String newFile) {
+        final File existingFile = asFile(existingFileName);
+        return asFileInSameDir(existingFile, newFile);
+    }
+
+    public File asFileInSameDir(File existingFile, String newFile) {
+        final File dir = existingFile.getParentFile();
         return new File(dir, newFile);
     }
+
+
+    public void write(byte[] bytes, File file) throws IOException {
+        final FileOutputStream targetFos = new FileOutputStream(file);
+        ByteStreams.copy(new ByteArrayInputStream(bytes), targetFos);
+    }
+
 
     static File toFile(URL url) {
         File file;

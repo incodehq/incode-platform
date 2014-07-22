@@ -19,12 +19,13 @@
 package org.isisaddons.module.docx.fixture.dom;
 
 import java.util.List;
+import org.joda.time.LocalDate;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 
-@DomainService(menuOrder = "10", repositoryFor = SimpleObject.class)
-public class SimpleObjects {
+@DomainService(menuOrder = "10", repositoryFor = Order.class)
+public class Orders {
 
     //region > identification in the UI
     // //////////////////////////////////////
@@ -45,8 +46,8 @@ public class SimpleObjects {
     @Bookmarkable
     @ActionSemantics(Of.SAFE)
     @MemberOrder(sequence = "1")
-    public List<SimpleObject> listAll() {
-        return container.allInstances(SimpleObject.class);
+    public List<Order> listAll() {
+        return container.allInstances(Order.class);
     }
 
     //endregion
@@ -55,10 +56,16 @@ public class SimpleObjects {
     // //////////////////////////////////////
     
     @MemberOrder(sequence = "2")
-    public SimpleObject create(
-            final @Named("Name") String name) {
-        final SimpleObject obj = container.newTransientInstance(SimpleObject.class);
-        obj.setName(name);
+    public Order create(
+            final @Named("Order Number") String number,
+            final @Named("Customer Name") String customerName,
+            final @Named("Order Date") LocalDate date,
+            final @Named("Preferences") @Optional String preferences) {
+        final Order obj = container.newTransientInstance(Order.class);
+        obj.setNumber(number);
+        obj.setDate(date);
+        obj.setCustomerName(customerName);
+        obj.setPreferences(preferences);
         container.persistIfNotAlready(obj);
         return obj;
     }

@@ -26,22 +26,21 @@ import org.apache.isis.applib.annotation.Prototype;
 import org.apache.isis.applib.fixturescripts.FixtureResult;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
-import org.apache.isis.applib.fixturescripts.SimpleFixtureScript;
 
 /**
  * Enables fixtures to be installed from the application.
  */
 @Named("Prototyping")
 @DomainService(menuOrder = "20")
-public class SimpleObjectsFixturesService extends FixtureScripts {
+public class DocxModuleAppFixturesService extends FixtureScripts {
 
-    public SimpleObjectsFixturesService() {
-        super("fixture.simple");
+    public DocxModuleAppFixturesService() {
+        super("org.isisaddons.module.docx.fixture.scripts");
     }
 
-    //@Override // compatibility with core 1.5.0
+    @Override
     public FixtureScript default0RunFixtureScript() {
-        return findFixtureScriptFor(SimpleFixtureScript.class);
+        return findFixtureScriptFor(OrdersFixture.class);
     }
 
     /**
@@ -59,7 +58,7 @@ public class SimpleObjectsFixturesService extends FixtureScripts {
     @Prototype
     @MemberOrder(sequence="20")
     public Object installFixturesAndReturnFirst() {
-        final List<FixtureResult> run = findFixtureScriptFor(SimpleObjectsFixture.class).run(null);
+        final List<FixtureResult> run = findFixtureScriptFor(OrdersFixture.class).run(null);
         return run.get(0).getObject();
     }
 

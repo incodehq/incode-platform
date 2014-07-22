@@ -19,14 +19,17 @@
 
 package org.isisaddons.module.docx.fixture.scripts;
 
-import org.isisaddons.module.docx.fixture.dom.SimpleObject;
-import org.isisaddons.module.docx.fixture.dom.SimpleObjects;
+import java.math.BigDecimal;
+import org.isisaddons.module.docx.fixture.dom.Order;
+import org.isisaddons.module.docx.fixture.dom.Orders;
+import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.services.clock.ClockService;
 
-public class SimpleObjectsFixture extends FixtureScript {
+public class OrdersFixture extends FixtureScript {
 
-    public SimpleObjectsFixture() {
+    public OrdersFixture() {
         withDiscoverability(Discoverability.DISCOVERABLE);
     }
 
@@ -34,23 +37,34 @@ public class SimpleObjectsFixture extends FixtureScript {
     protected void execute(ExecutionContext executionContext) {
 
         // prereqs
-        execute(new SimpleObjectsTearDownFixture(), executionContext);
+        execute(new OrdersTearDownFixture(), executionContext);
 
         // create
-        create("Foo", executionContext);
-        create("Bar", executionContext);
-        create("Baz", executionContext);
+        final Order order = create("1234", "Joe Smith", clockService.now().minusDays(5), "leave in the porch if out, don't deliver after 5pm, expedite if possible", executionContext);
+
+        order.add("TV", BigDecimal.valueOf(543.21), 1);
+        order.add("X-Men", BigDecimal.valueOf(12.34), 1);
+        order.add("Battery pack", BigDecimal.valueOf(9.99), 3);
+        order.add("LED lamp", BigDecimal.valueOf(2.99), 12);
     }
 
     // //////////////////////////////////////
 
-    private SimpleObject create(final String name, ExecutionContext executionContext) {
-        return executionContext.add(this, simpleObjects.create(name));
+    private Order create(
+            final String number,
+            final String customerName,
+            final LocalDate date,
+            final String preferences,
+            final ExecutionContext executionContext) {
+        return executionContext.add(this, orders.create(number, customerName, date, preferences));
     }
 
     // //////////////////////////////////////
 
     @javax.inject.Inject
-    private SimpleObjects simpleObjects;
+    private Orders orders;
+
+    @javax.inject.Inject
+    private ClockService clockService;
 
 }
