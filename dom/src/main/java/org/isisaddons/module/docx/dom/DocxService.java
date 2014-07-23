@@ -62,7 +62,7 @@ public class DocxService {
         }
 
         public void unmatchedInputs(List<String> unmatched) throws MergeException {
-            if(!allowUnmatchedInput) {
+            if(!allowUnmatchedInput && !unmatched.isEmpty()) {
                 throw new MergeException("Input elements " + unmatched + " were not matched to placeholders");
             }
         }
@@ -163,7 +163,7 @@ public class DocxService {
             if(!(input instanceof Element)) {
                 continue;
             }
-            mergeInto((Element) input, docXBody, matchingPolicy, matchedInputIds, unmatchedInputIds);
+            mergeInto((Element) input, docXBody, matchedInputIds, unmatchedInputIds);
         }
 
         List<String> unmatchedPlaceHolders = unmatchedPlaceholders(docXBody, matchedInputIds);
@@ -172,7 +172,7 @@ public class DocxService {
         matchingPolicy.unmatchedPlaceholders(unmatchedPlaceHolders);
     }
 
-    private static void mergeInto(Element input, Body docXBody, MatchingPolicy matchingPolicy, List<String> matchedInputs, List<String> unmatchedInputs) throws MergeException {
+    private static void mergeInto(Element input, Body docXBody, List<String> matchedInputs, List<String> unmatchedInputs) throws MergeException {
         
         String id = Jdom2.attrOf(input, "id");
         if(id == null) {
