@@ -19,11 +19,11 @@
 --><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.isisaddons.module</groupId>
-    <artifactId>isisaddons-module-tags</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>org.isisaddons.module.tags</groupId>
+    <artifactId>isis-module-tags</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
 
-    <name>IsisAddons Module Tags</name>
+    <name>Isis Addons Tags Module</name>
 
     <packaging>pom</packaging>
 
@@ -32,8 +32,8 @@
     </prerequisites>
 
 	<properties>
-        <isis.version>1.6.0-SNAPSHOT</isis.version>
-        <isis-viewer-wicket.version>1.6.0-SNAPSHOT</isis-viewer-wicket.version>
+        <isis.version>1.6.0</isis.version>
+        <isis-viewer-wicket.version>1.6.0</isis-viewer-wicket.version>
 
         <!-- must be consistent with the versions defined by the JDO Objectstore -->
         <datanucleus-accessplatform-jdo-rdbms.version>3.3.6</datanucleus-accessplatform-jdo-rdbms.version>
@@ -316,13 +316,18 @@
             <!-- this project's own modules -->
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>isisaddons-module-tags-dom</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <artifactId>isis-module-tags-dom</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>isisaddons-module-tags-example</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <artifactId>isis-module-tags-fixture</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>isis-module-tags-webapp</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -344,6 +349,8 @@
 
   <modules>
     <module>dom</module>
-    <module>example</module>
+    <module>fixture</module>
+    <module>integtests</module>
+    <module>webapp</module>
   </modules>
 </project>
