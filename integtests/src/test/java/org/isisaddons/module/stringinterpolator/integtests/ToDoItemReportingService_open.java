@@ -18,13 +18,20 @@
  */
 package org.isisaddons.module.stringinterpolator.integtests;
 
+import java.net.URL;
 import javax.inject.Inject;
+import org.isisaddons.module.stringinterpolator.fixture.dom.ToDoItem;
+import org.isisaddons.module.stringinterpolator.fixture.dom.ToDoItemReportingService;
 import org.isisaddons.module.stringinterpolator.fixture.dom.ToDoItems;
 import org.isisaddons.module.stringinterpolator.fixture.scripts.ToDoItemsFixture;
 import org.junit.Before;
 import org.junit.Test;
+import org.apache.isis.core.runtime.system.context.IsisContext;
 
-public class ToDoItemsTest_stuff extends StringInterpolatorIntegTest {
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+public class ToDoItemReportingService_open extends StringInterpolatorIntegTest {
 
     @Before
     public void setUpData() throws Exception {
@@ -34,9 +41,24 @@ public class ToDoItemsTest_stuff extends StringInterpolatorIntegTest {
     @Inject
     private ToDoItems toDoItems;
 
-    @Test
-    public void xxx() throws Exception {
+    @Inject
+    private ToDoItemReportingService toDoItemReportingService;
 
+    @Test
+    public void happyCase() throws Exception {
+
+        // given
+        assertThat(IsisContext.getConfiguration().getString("isis.website"), is("http://isis.apache.org"));
+        assertThat(toDoItemReportingService.TEMPLATE, is("${properties['isis.website']}/${this.documentationPage}"));
+
+        final ToDoItem toDoItem = toDoItems.allToDos().get(0);
+        assertThat(toDoItem.getDocumentationPage(), is("documentation.html"));
+
+        // when
+        final URL url = toDoItemReportingService.open(toDoItem);
+
+        // then
+        assertThat(url.toExternalForm(), is("http://isis.apache.org/documentation.html"));
     }
 
 }

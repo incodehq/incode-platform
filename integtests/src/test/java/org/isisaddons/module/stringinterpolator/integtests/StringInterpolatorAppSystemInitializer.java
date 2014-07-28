@@ -59,6 +59,7 @@ public class StringInterpolatorAppSystemInitializer {
         private static IsisConfiguration testConfiguration() {
             final IsisConfigurationForJdoIntegTests testConfiguration = new IsisConfigurationForJdoIntegTests();
             testConfiguration.addRegisterEntitiesPackagePrefix("dom");
+            testConfiguration.add("isis.website", "http://isis.apache.org");
             return testConfiguration;
         }
     }

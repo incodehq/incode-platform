@@ -1,17 +1,22 @@
-# isis-domainservice-stringinterpolator #
+# isis-module-stringinterpolator #
 
-[![Build Status](https://travis-ci.org/danhaywood/isis-domainservice-stringinterpolator.png?branch=master)](https://travis-ci.org/danhaywood/isis-domainservice-stringinterpolator)
+[![Build Status](https://travis-ci.org/isisaddons/isis-module-stringinterpolator.png?branch=master)](https://travis-ci.org/danhaywood/isis-module-stringinterpolator)
 
 
-The StringInterpolatorService, intended for use within [Apache Isis](http://isis.apache.org), will interpolate string templates with either Isis system properties or values obtained from a domain object (possibly walking relationships).
+The `StringInterpolatorService`, intended for use within [Apache Isis](http://isis.apache.org), will interpolate string
+templates with either Isis system properties or values obtained from a domain object (possibly walking relationships).
 
-One use case for this service (and the original use case) is in building URLs based on an object's state, parameterized by environment (prod/test/dev etc).  These URLs could be anything; in the original use case they were to a reporting service:
+One use case for this service (and the original use case) is in building URLs based on an object's state, parameterized
+by environment (prod/test/dev etc).  These URLs could be anything; in the original use case they were to a reporting
+service:
 
     ${property['reportServerBase']}/ReportServer/Pages/ReportViewer.aspx?/Estatio/Invoices&dueDate=${dueDate}&propertyId=${this.property.id}
 
-where the context for the evaluation of the URL (`this`) is a domain object that has a `property` field, which in turn has an `id` field:
+where the context for the evaluation of the URL (`this`) is a domain object that has a `property` field, which in turn
+has an `id` field.
 
-When initialized by Isis, the Isis system properties are exposed as the `properties` map, while the target object is exposed as the `this` object.
+When initialized by Isis, the Isis system properties are exposed as the `properties` map, while the target object is
+exposed as the `this` object.
 
 ## API ##
 
@@ -54,7 +59,8 @@ The `Root` class can be extended as necessary.
     
 ## Usage ##
 
-The interpolation replaces each occurrence of `${...}` with its interpolated value.  The expression in within the braces is interpreted using [OGNL](http://commons.apache.org/proper/commons-ognl/).
+The interpolation replaces each occurrence of `${...}` with its interpolated value.  The expression in within the
+braces is interpreted using [OGNL](http://commons.apache.org/proper/commons-ognl/).
 
 The examples below are adapted from the service's unit tests.
 
@@ -139,7 +145,8 @@ These tests interpolate an instance of the `Customer` class, that in turn has re
         assertThat(interpolated, is("Fred lives at 34, AB12 34DF"));
     }
 
-By default, any expression that cannot be parsed or would generate an exception (eg null pointer exception) is instead returned unchanged in the interpolated string.
+By default, any expression that cannot be parsed or would generate an exception (eg null pointer exception) is instead
+returned unchanged in the interpolated string.
 
 The service also provides a "strict" mode, which is useful for testing expressions:
 
@@ -172,27 +179,27 @@ The example above exposes the `customer` property.  This can then be used in the
     }
 
 
-
 ## Maven Configuration
 
 In the `pom.xml` for your "dom" module, add:
     
     <dependency>
-        <groupId>com.danhaywood.isis.domainservice</groupId>
-        <artifactId>danhaywood-isis-domainservice-stringinterpolator</artifactId>
+        <groupId>org.isisaddons.module.stringinterpolator</groupId>
+        <artifactId>isis-module-stringinterpolator</artifactId>
         <version>x.y.z</version>
     </dependency>
 
-where `x.y.z` currently is 1.4.0-SNAPSHOT (though the plan is to release this code into the [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-domainservice-stringinterpolator)).
+where `x.y.z` currently is 1.6.0-SNAPSHOT (though the plan is to release this code into the [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-stringinterpolator)).
 
 ## Registering the service
 
-In the `WEB-INF\isis.properties` file, add:
+The `StringInterpolatorService` is annotated with `@DomainService`, so `WEB-INF\isis.properties` file, add to the
+`packagePrefix` key:
 
-    isis.services = ...,\
-                    com.danhaywood.isis.domainservice.stringinterpolator.StringInterpolatorService,\
-                    ...
-
+    isis.services-installer=configuration-and-annotation
+    isis.services.ServicesInstallerFromAnnotation.packagePrefix=...,\
+                                                                org.isisaddons.module.stringinterpolator.dom,\
+                                                                ...
 
 
 ## Legal Stuff ##
