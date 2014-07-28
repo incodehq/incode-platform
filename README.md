@@ -2,9 +2,8 @@
 
 [![Build Status](https://travis-ci.org/isisaddons/isis-module-stringinterpolator.png?branch=master)](https://travis-ci.org/danhaywood/isis-module-stringinterpolator)
 
-
-The `StringInterpolatorService`, intended for use within [Apache Isis](http://isis.apache.org), will interpolate string
-templates with either Isis system properties or values obtained from a domain object (possibly walking relationships).
+This module, intended for use within [Apache Isis](http://isis.apache.org), provides a mechanism to interpolate string 
+templates with either Isis system properties or values obtained from a domain object.
 
 One use case for this service (and the original use case) is in building URLs based on an object's state, parameterized
 by environment (prod/test/dev etc).  These URLs could be anything; in the original use case they were to a reporting
@@ -18,9 +17,10 @@ has an `id` field.
 When initialized by Isis, the Isis system properties are exposed as the `properties` map, while the target object is
 exposed as the `this` object.
 
+
 ## API ##
 
-The main API is:
+The module consists of a single domain service, `StringInterpolatorService`.  The main API exposed by this service is:
  
     public class StringInterpolatorService {
 
