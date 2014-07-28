@@ -185,11 +185,11 @@ In the `pom.xml` for your "dom" module, add:
     
     <dependency>
         <groupId>org.isisaddons.module.stringinterpolator</groupId>
-        <artifactId>isis-module-stringinterpolator</artifactId>
+        <artifactId>isis-module-stringinterpolator-dom</artifactId>
         <version>x.y.z</version>
     </dependency>
 
-where `x.y.z` currently is 1.6.0-SNAPSHOT (though the plan is to release this code into the [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-stringinterpolator)).
+where `x.y.z` currently is 1.6.0-SNAPSHOT (though the plan is to release this code into the [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-stringinterpolator-dom)).
 
 ## Registering the service
 
