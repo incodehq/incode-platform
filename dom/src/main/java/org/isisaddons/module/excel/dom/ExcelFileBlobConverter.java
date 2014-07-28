@@ -1,23 +1,19 @@
-package com.danhaywood.isis.domainservice.excel.impl;
+package org.isisaddons.module.excel.dom;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-
-import com.danhaywood.isis.domainservice.excel.applib.ExcelService;
-
 import org.apache.poi.util.IOUtils;
-
 import org.apache.isis.applib.value.Blob;
 
-public class ExcelFileBlobConverter {
+class ExcelFileBlobConverter {
 
     private final String xslxMimeType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
     // //////////////////////////////////////
     
-    public Blob toBlob(final String name, final File file) {
+    Blob toBlob(final String name, final File file) {
         FileInputStream fis = null;
         ByteArrayOutputStream baos = null;
         try {

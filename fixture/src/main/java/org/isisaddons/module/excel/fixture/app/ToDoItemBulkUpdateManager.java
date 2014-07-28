@@ -16,35 +16,21 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package app;
+package org.isisaddons.module.excel.fixture.app;
 
 import java.util.List;
-
-import com.danhaywood.isis.domainservice.excel.applib.ExcelService;
 import com.google.common.base.Function;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Lists;
-
-import dom.todo.ToDoItem;
-import dom.todo.ToDoItems;
-import dom.todo.ToDoItem.Category;
-import dom.todo.ToDoItem.Subcategory;
-
+import org.isisaddons.module.excel.dom.ExcelService;
+import org.isisaddons.module.excel.fixture.dom.ToDoItem;
+import org.isisaddons.module.excel.fixture.dom.ToDoItem.Category;
+import org.isisaddons.module.excel.fixture.dom.ToDoItem.Subcategory;
 import org.apache.isis.applib.AbstractViewModel;
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.Identifier;
-import org.apache.isis.applib.annotation.ActionSemantics;
+import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
-import org.apache.isis.applib.annotation.MemberGroupLayout;
-import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.Render.Type;
-import org.apache.isis.applib.annotation.Bookmarkable;
-import org.apache.isis.applib.annotation.Disabled;
-import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.Render;
-import org.apache.isis.applib.services.bookmark.BookmarkService;
-import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.applib.value.Blob;
 
 @MemberGroupLayout(left={"File", "Criteria"})

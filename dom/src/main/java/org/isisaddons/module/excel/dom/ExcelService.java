@@ -14,22 +14,17 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package com.danhaywood.isis.domainservice.excel.impl;
+package org.isisaddons.module.excel.dom;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.PostConstruct;
-
-import com.danhaywood.isis.domainservice.excel.applib.ExcelService;
-
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.ViewModel;
+import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.value.Blob;
@@ -39,14 +34,29 @@ import org.apache.isis.core.metamodel.spec.SpecificationLoaderSpi;
 import org.apache.isis.core.runtime.system.context.IsisContext;
 import org.apache.isis.core.runtime.system.persistence.PersistenceSession;
 
-public class ExcelServiceImpl implements ExcelService {
-    
+@DomainService
+public class ExcelService {
+
+    public static class Exception extends RuntimeException {
+
+        private static final long serialVersionUID = 1L;
+
+        public Exception(final String msg, final Throwable ex) {
+            super(msg, ex);
+        }
+
+        public Exception(final Throwable ex) {
+            super(ex);
+        }
+    }
+
+
     // //////////////////////////////////////
 
     private final ExcelFileBlobConverter excelFileBlobConverter;
     private BookmarkService bookmarkService;
     
-    public ExcelServiceImpl() {
+    public ExcelService() {
         excelFileBlobConverter = new ExcelFileBlobConverter();
     }
 
@@ -60,7 +70,7 @@ public class ExcelServiceImpl implements ExcelService {
 
     // //////////////////////////////////////
 
-    @Override
+    @Programmatic
     public <T> Blob toExcel(
             final List<T> domainObjects, 
             final Class<T> cls, 
@@ -73,7 +83,7 @@ public class ExcelServiceImpl implements ExcelService {
         }
     }
 
-    @Override
+    @Programmatic
     public <T extends ViewModel> List<T> fromExcel(
             final Blob excelBlob, 
             final Class<T> cls) throws ExcelService.Exception {

@@ -16,38 +16,32 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package app;
+package org.isisaddons.module.excel.fixture.app;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import com.danhaywood.isis.domainservice.excel.applib.ExcelService;
-import com.google.common.base.Function;
-import com.google.common.collect.Lists;
+import org.isisaddons.module.excel.dom.ExcelService;
 
-import dom.todo.ToDoItem;
-import dom.todo.ToDoItem.Category;
-import dom.todo.ToDoItem.Subcategory;
+import org.isisaddons.module.excel.fixture.dom.ToDoItem;
+import org.isisaddons.module.excel.fixture.dom.ToDoItem.Category;
+import org.isisaddons.module.excel.fixture.dom.ToDoItem.Subcategory;
 
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.ActionSemantics;
+import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
-import org.apache.isis.applib.annotation.Bulk;
-import org.apache.isis.applib.annotation.Hidden;
-import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.NotContributed;
 import org.apache.isis.applib.annotation.NotContributed.As;
-import org.apache.isis.applib.annotation.NotInServiceMenu;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.memento.MementoService;
 import org.apache.isis.applib.services.memento.MementoService.Memento;
 import org.apache.isis.applib.value.Blob;
 
+@DomainService
 public class ToDoItemBulkUpdateService {
 
     @PostConstruct

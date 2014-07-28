@@ -17,22 +17,19 @@
  *  under the License.
  */
 
-package fixture.todo;
+package org.isisaddons.module.excel.fixture.scripts;
 
 import java.math.BigDecimal;
-
-import dom.todo.ToDoItem;
-import dom.todo.ToDoItem.Category;
-import dom.todo.ToDoItem.Subcategory;
-import dom.todo.ToDoItems;
-
+import org.isisaddons.module.excel.fixture.dom.ToDoItem;
+import org.isisaddons.module.excel.fixture.dom.ToDoItem.Category;
+import org.isisaddons.module.excel.fixture.dom.ToDoItem.Subcategory;
+import org.isisaddons.module.excel.fixture.dom.ToDoItems;
 import org.joda.time.LocalDate;
-
 import org.apache.isis.applib.clock.Clock;
-import org.apache.isis.applib.fixtures.AbstractFixture;
+import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
 
-public class ToDoItemsFixture extends AbstractFixture {
+public class ToDoItemsFixture extends DiscoverableFixtureScript {
 
     private final String user;
 
@@ -45,7 +42,7 @@ public class ToDoItemsFixture extends AbstractFixture {
     }
     
     @Override
-    public void install() {
+    public void execute(ExecutionContext executionContext) {
 
         final String ownedBy = this.user != null? this.user : getContainer().getUser().getName();
         

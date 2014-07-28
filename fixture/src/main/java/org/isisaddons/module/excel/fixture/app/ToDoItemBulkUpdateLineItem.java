@@ -16,14 +16,14 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package app;
+package org.isisaddons.module.excel.fixture.app;
 
 import java.math.BigDecimal;
 
-import dom.todo.ToDoItem;
-import dom.todo.ToDoItems;
-import dom.todo.ToDoItem.Category;
-import dom.todo.ToDoItem.Subcategory;
+import org.isisaddons.module.excel.fixture.dom.ToDoItem;
+import org.isisaddons.module.excel.fixture.dom.ToDoItems;
+import org.isisaddons.module.excel.fixture.dom.ToDoItem.Category;
+import org.isisaddons.module.excel.fixture.dom.ToDoItem.Subcategory;
 
 import org.joda.time.LocalDate;
 

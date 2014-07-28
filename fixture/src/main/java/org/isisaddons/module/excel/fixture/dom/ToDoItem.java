@@ -16,48 +16,24 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dom.todo;
+package org.isisaddons.module.excel.fixture.dom;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
+import java.util.*;
 import javax.jdo.JDOHelper;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
-
-import com.danhaywood.isis.domainservice.excel.applib.ExcelService;
+import org.isisaddons.module.excel.dom.ExcelService;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Ordering;
-
 import org.joda.time.LocalDate;
-
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.AutoComplete;
-import org.apache.isis.applib.annotation.Bookmarkable;
-import org.apache.isis.applib.annotation.Bulk;
-import org.apache.isis.applib.annotation.Disabled;
-import org.apache.isis.applib.annotation.MinLength;
-import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.ObjectType;
-import org.apache.isis.applib.annotation.Optional;
-import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.annotation.PublishedAction;
-import org.apache.isis.applib.annotation.RegEx;
-import org.apache.isis.applib.annotation.SortedBy;
-import org.apache.isis.applib.annotation.TypicalLength;
+import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.clock.Clock;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.applib.value.Blob;
-
-import services.ClockService;
 
 @javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
 @javax.jdo.annotations.DatastoreIdentity(
@@ -633,10 +609,6 @@ public class ToDoItem implements Comparable<ToDoItem> {
     @javax.inject.Inject
     private ToDoItems toDoItems;
 
-    @javax.inject.Inject
-    @SuppressWarnings("unused")
-    private ClockService clockService;
-    
     @javax.inject.Inject
     private ExcelService excelService;
 

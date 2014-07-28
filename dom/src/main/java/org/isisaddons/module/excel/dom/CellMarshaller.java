@@ -14,35 +14,23 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package com.danhaywood.isis.domainservice.excel.impl;
+package org.isisaddons.module.excel.dom;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
-
 import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.ClientAnchor;
-import org.apache.poi.ss.usermodel.Comment;
-import org.apache.poi.ss.usermodel.CreationHelper;
-import org.apache.poi.ss.usermodel.Drawing;
-import org.apache.poi.ss.usermodel.RichTextString;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
-
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
 import org.apache.isis.core.metamodel.spec.ObjectSpecification;
-import org.apache.isis.core.metamodel.spec.feature.ObjectAssociation;
 import org.apache.isis.core.metamodel.spec.feature.OneToOneAssociation;
 
-public final class CellMarshaller {
+final class CellMarshaller {
 
     private final CellStyle dateCellStyle;
     private final BookmarkService bookmarkService;
@@ -245,11 +233,11 @@ public final class CellMarshaller {
         cell.setCellStyle(dateCellStyle);
     }
 
-    public String getStringCellValue(Cell cell) {
+    String getStringCellValue(Cell cell) {
         return getCellValue(cell, String.class);
     }
 
-    public Object getCellValue(final Cell cell, final OneToOneAssociation otoa) {
+    Object getCellValue(final Cell cell, final OneToOneAssociation otoa) {
 
         final int cellType = cell.getCellType();
 

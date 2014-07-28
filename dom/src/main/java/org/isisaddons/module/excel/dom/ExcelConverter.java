@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package com.danhaywood.isis.domainservice.excel.impl;
+package org.isisaddons.module.excel.dom;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -24,20 +24,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
-
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.CreationHelper;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.ViewModel;
 import org.apache.isis.applib.annotation.Where;
@@ -47,7 +38,6 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
 import org.apache.isis.core.metamodel.adapter.mgr.AdapterManager;
-import org.apache.isis.core.metamodel.adapter.oid.RootOid;
 import org.apache.isis.core.metamodel.facets.object.viewmodel.ViewModelFacet;
 import org.apache.isis.core.metamodel.spec.ObjectSpecification;
 import org.apache.isis.core.metamodel.spec.SpecificationLoader;
@@ -55,7 +45,7 @@ import org.apache.isis.core.metamodel.spec.feature.Contributed;
 import org.apache.isis.core.metamodel.spec.feature.ObjectAssociation;
 import org.apache.isis.core.metamodel.spec.feature.OneToOneAssociation;
 
-public class ExcelConverter {
+class ExcelConverter {
 
     private static final String XLSX_SUFFIX = ".xlsx";
     
@@ -84,7 +74,7 @@ public class ExcelConverter {
     private final AdapterManager adapterManager;
     private final BookmarkService bookmarkService;
 
-    public ExcelConverter(
+    ExcelConverter(
             final SpecificationLoader specificationLoader,
             final AdapterManager adapterManager,
             final BookmarkService bookmarkService) {
@@ -96,7 +86,7 @@ public class ExcelConverter {
     
     // //////////////////////////////////////
 
-    public <T> File toFile(final Class<T> cls, final List<T> domainObjects) throws IOException {
+    <T> File toFile(final Class<T> cls, final List<T> domainObjects) throws IOException {
 
         final ObjectSpecification objectSpec = specificationLoader.loadSpecification(cls);
         
@@ -146,7 +136,7 @@ public class ExcelConverter {
         return tempFile;
     }
 
-    public <T extends ViewModel> List<T> fromBytes(
+    <T extends ViewModel> List<T> fromBytes(
             final Class<T> cls,
             final byte[] bs, 
             final DomainObjectContainer container) throws IOException, InvalidFormatException {

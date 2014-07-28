@@ -16,33 +16,21 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dom.todo;
+package org.isisaddons.module.excel.fixture.dom;
 
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
-
-import com.google.common.base.Predicates;
-
-import dom.todo.ToDoItem.Category;
-import dom.todo.ToDoItem.Subcategory;
-
+import org.isisaddons.module.excel.fixture.dom.ToDoItem.Category;
+import org.isisaddons.module.excel.fixture.dom.ToDoItem.Subcategory;
 import org.joda.time.LocalDate;
-
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.ActionSemantics;
+import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
-import org.apache.isis.applib.annotation.Bookmarkable;
-import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.NotContributed;
-import org.apache.isis.applib.annotation.Optional;
-import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.query.QueryDefault;
+import org.apache.isis.applib.services.clock.ClockService;
 
-import services.ClockService;
-
+@DomainService
 @Named("ToDos")
 public class ToDoItems {
 

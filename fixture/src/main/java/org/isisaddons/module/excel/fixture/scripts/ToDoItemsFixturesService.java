@@ -16,18 +16,24 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package webapp;
+package org.isisaddons.module.excel.fixture.scripts;
 
-import com.google.inject.Singleton;
+import java.util.List;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
-import org.apache.isis.viewer.wicket.viewer.registries.components.ComponentFactoryRegistrarDefault;
+@DomainService
+@Named("Prototyping") // has the effect of defining a "Prototyping" menu item
+public class ToDoItemsFixturesService extends FixtureScripts {
 
-@Singleton
-public class ComponentFactoryRegistrarForToDoApp extends ComponentFactoryRegistrarDefault {
+    public ToDoItemsFixturesService() {
+        super("org.isisaddons.module.excel.fixture.scripts");
+    }
 
     @Override
-    public void addComponentFactories(ComponentFactoryList componentFactories) {
-        super.addComponentFactories(componentFactories);
-        // currently no replacements
+    public List<FixtureScript> choices0RunFixtureScript() {
+        return super.choices0RunFixtureScript();
     }
 }

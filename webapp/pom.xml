@@ -52,25 +52,11 @@
                         </goals>
                         <configuration>
                             <backgroundImage>${basedir}/src/main/jettyconsole/isis-banner.png</backgroundImage>
+                            <destinationFile>${project.build.directory}/${project.build.finalName}-jetty-console.jar</destinationFile>
                         </configuration>
                         <phase>package</phase>
                     </execution>
                 </executions>
-            </plugin>
-
-            <!-- prereqs: mvn package -->
-            <!-- mvn antrun:run -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <configuration>
-                    <tasks>
-                        <exec executable="java" failonerror="true">
-                            <arg value="-jar" />
-                            <arg value="${project.build.directory}/${project.build.finalName}-jetty-console.war" />
-                        </exec>
-                    </tasks>
-                </configuration>
             </plugin>
 
             <plugin>
@@ -193,13 +179,49 @@
         </dependency>
         <dependency>
             <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-wrapper</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-profilestore</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-security</artifactId>
         </dependency>
-        
+
+
+        <!-- isis modules -->
+        <dependency>
+            <groupId>org.apache.isis.module</groupId>
+            <artifactId>isis-module-background</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.module</groupId>
+            <artifactId>isis-module-devutils-impl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.module</groupId>
+            <artifactId>isis-module-audit-jdo</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.module</groupId>
+            <artifactId>isis-module-command-jdo</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.module</groupId>
+            <artifactId>isis-module-publishing-jdo</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.module</groupId>
+            <artifactId>isis-module-publishingeventserializer-ro</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.module</groupId>
+            <artifactId>isis-module-settings-impl-jdo</artifactId>
+        </dependency>
+
+
         <!-- to run using WebServer (optional) -->
         <dependency>
             <groupId>org.apache.isis.core</groupId>
@@ -212,7 +234,11 @@
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-servlet_2.5_spec</artifactId>
+            <!--
+            removed so can run o.a.i.WebServer from within IntelliJ;
+            can rely on servlet container to ignore this in war file
             <scope>provided</scope>
+            -->
         </dependency>
 
         <!-- 
@@ -236,5 +262,33 @@
         </dependency>
          
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>self-host</id>
+            <build>
+                <plugins>
+                    <!-- 
+                    mvn -P self-host antrun:run
+                    -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <configuration>
+                            <tasks>
+                                <exec executable="java" failonerror="true">
+                                    <arg value="-jar" />
+                                    <arg value="${project.build.directory}/${project.build.finalName}-jetty-console.jar" />
+                                </exec>
+                            </tasks>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
+
+
 
 </project>
