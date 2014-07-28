@@ -202,11 +202,11 @@ In the `pom.xml` for your "dom" module, add:
     
     <dependency>
         <groupId>org.isisaddons.module.docx</groupId>
-        <artifactId>isis-module-docx</artifactId>
+        <artifactId>isis-module-docx-dom</artifactId>
         <version>x.y.z</version>
     </dependency>
 
-where `x.y.z` is the latest available in the [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-docx)).
+where `x.y.z` is the latest available in the [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-docx-dom)).
 
 
 ## Registering the service
