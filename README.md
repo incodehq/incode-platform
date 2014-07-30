@@ -128,7 +128,7 @@ Finally, there is a required dependency in your project's webapp `pom.xml` to th
 In the `WEB-INF\isis.properties` file, add:
 
     isis.services = ...,\
-                    com.danhaywood.isis.wicket.gmap3.LocationLookupService,\
+                    com.danhaywood.isis.wicket.gmap3.service.LocationLookupService,\
                     ...
 
 ## Legal Stuff
