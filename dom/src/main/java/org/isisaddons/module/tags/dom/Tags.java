@@ -31,8 +31,6 @@ import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 @DomainService
 public class Tags {
 
-    // //////////////////////////////////////
-
     /**
      * Returns the list of available values for a particular Tag key for other entities of the same
      * {@link org.apache.isis.applib.services.bookmark.Bookmark#getObjectType() object type} as the provided object.
@@ -59,37 +57,38 @@ public class Tags {
 
     @Programmatic
     public Tag tagFor(
-            final Tag tag, 
             final Object taggedObject,
-            final String tagName, final String tagValue) {
+            final Tag existingTag,
+            final String tagKey,
+            final String tagValue) {
 
         if(Strings.isNullOrEmpty(tagValue)) {
-            return removeExisting(tag);
-        } else if(tag == null) {
-            return createNew(taggedObject, tagName, tagValue);
+            return removeExisting(existingTag);
+        } else if(existingTag == null) {
+            return createNew(taggedObject, tagKey, tagValue);
         } else {
-            return updateExisting(tag, tagValue);
+            return updateExisting(existingTag, tagValue);
         }
     }
 
-    private Tag createNew(Object taggedObject, String tagName, String tagValue) {
+    private Tag createNew(final Object taggedObject, final String tagKey, final String tagValue) {
         // create new
         Tag newTag = container.newTransientInstance(Tag.class);
         newTag.setTaggedObject(taggedObject);
         newTag.setTaggedObjectType(determineObjectTypeFor(taggedObject));
-        newTag.setKey(tagName);
+        newTag.setKey(tagKey);
         newTag.setValue(tagValue);
         container.persist(newTag);
         return newTag;
     }
 
-    private static Tag updateExisting(Tag tag, String tagValue) {
+    private static Tag updateExisting(final Tag tag, final String tagValue) {
         // update existing
         tag.setValue(tagValue);
         return tag;
     }
 
-    private Tag removeExisting(Tag tag) {
+    private Tag removeExisting(final Tag tag) {
         if(tag != null) {
             // remove existing
             container.remove(tag);

@@ -93,7 +93,7 @@ public class ExampleTaggableEntity {
 
     public void setBrand(final String brand) {
         final Tag existingTag = getBrandTag();
-        Tag tag = tags.tagFor(existingTag, this, TAG_NAME_BRAND, brand);
+        Tag tag = tags.tagFor(this, existingTag, TAG_NAME_BRAND, brand);
         setBrandTag(tag);
     }
 
@@ -157,7 +157,7 @@ public class ExampleTaggableEntity {
 
     public void setSector(final String sector) {
         final Tag existingTag = getSectorTag();
-        Tag tag = tags.tagFor(existingTag, this, TAG_NAME_SECTOR, sector);
+        Tag tag = tags.tagFor(this, existingTag, TAG_NAME_SECTOR, sector);
         setSectorTag(tag);
     }
 

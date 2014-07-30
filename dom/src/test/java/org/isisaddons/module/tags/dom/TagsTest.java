@@ -70,7 +70,7 @@ public class TagsTest {
                     }
                 });
 
-                tag = tags.tagFor(tag, mockCustomer, "someTag", null);
+                tag = tags.tagFor(mockCustomer, tag, "someTag", null);
                 Assert.assertThat(tag, is(nullValue()));
             }
 
@@ -82,26 +82,26 @@ public class TagsTest {
                     }
                 });
 
-                tag = tags.tagFor(tag, mockCustomer, "theme", "");
+                tag = tags.tagFor(mockCustomer, tag, "theme", "");
                 Assert.assertThat(tag, is(nullValue()));
             }
 
             @Test
             public void whenTagNotNull_andTagValueIsNotNull_thenTagsValueIsUpdated() {
-                tag = tags.tagFor(tag, mockCustomer, "theme", "darkTheme");
+                tag = tags.tagFor(mockCustomer, tag, "theme", "darkTheme");
                 Assert.assertThat(tag, is(not(nullValue())));
                 Assert.assertThat(tag.getValue(), is("darkTheme"));
             }
 
             @Test
             public void whenTagIsNull_andTagValueIsNull_thenNothing() {
-                tag = tags.tagFor(null, mockCustomer, "theme", null);
+                tag = tags.tagFor(mockCustomer, null, "theme", null);
                 Assert.assertThat(tag, is(nullValue()));
             }
 
             @Test
             public void whenTagIsNull_andTagValueIsEmptyString_thenNothing() {
-                tag = tags.tagFor(null, mockCustomer, "theme", "");
+                tag = tags.tagFor(mockCustomer, null, "theme", "");
                 Assert.assertThat(tag, is(nullValue()));
             }
 
@@ -121,7 +121,7 @@ public class TagsTest {
                     }
                 });
 
-                tag = tags.tagFor(null, mockCustomer, "theme", "darkTheme");
+                tag = tags.tagFor(mockCustomer, null, "theme", "darkTheme");
                 Assert.assertThat(tag, is(not(nullValue())));
                 Assert.assertThat(tag.getTaggedObject(), is(mockCustomer));
                 Assert.assertThat(tag.getKey(), is("theme"));
