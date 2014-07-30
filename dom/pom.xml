@@ -58,8 +58,8 @@ language governing permissions and limitations under the License.
 
     <properties>
         <isis.version>1.6.0</isis.version>
-        <compileSource>1.6</compileSource>
-        <compileTarget>1.6</compileTarget>
+        <compileSource>1.7</compileSource>
+        <compileTarget>1.7</compileTarget>
     </properties>
 
     <build>
