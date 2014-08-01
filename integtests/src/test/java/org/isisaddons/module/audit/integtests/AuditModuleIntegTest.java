@@ -16,21 +16,22 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
+package org.isisaddons.module.audit.integtests;
 
-package org.isisaddons.module.audit.fixture.scripts;
+import org.junit.BeforeClass;
 
-import org.apache.isis.applib.fixturescripts.FixtureScript;
-import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
+import org.apache.isis.core.integtestsupport.IntegrationTestAbstract;
+import org.apache.isis.core.integtestsupport.scenarios.ScenarioExecutionForIntegration;
 
-public class SimpleObjectsTearDownFixture extends FixtureScript {
+public abstract class AuditModuleIntegTest extends IntegrationTestAbstract {
 
-    @Override
-    protected void execute(ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"SimpleObject\"");
+    @BeforeClass
+    public static void initClass() {
+        org.apache.log4j.PropertyConfigurator.configure("logging.properties");
+        AuditModuleSystemInitializer.initIsft();
+        
+        // instantiating will install onto ThreadLocal
+        new ScenarioExecutionForIntegration();
     }
-
-
-    @javax.inject.Inject
-    private IsisJdoSupport isisJdoSupport;
 
 }

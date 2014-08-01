@@ -21,10 +21,7 @@ package org.isisaddons.module.audit.fixture.dom;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.Bookmarkable;
-import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.ObjectType;
-import org.apache.isis.applib.annotation.Title;
+import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.util.ObjectContracts;
 
 @javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
@@ -34,9 +31,10 @@ import org.apache.isis.applib.util.ObjectContracts;
 @javax.jdo.annotations.Version(
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
-@ObjectType("SIMPLE")
+@ObjectType("SOME_AUDITED_OBJECT")
 @Bookmarkable
-public class SimpleObject implements Comparable<SimpleObject> {
+@Audited
+public class SomeAuditedObject implements Comparable<SomeAuditedObject> {
 
     //region > name (property)
     // //////////////////////////////////////
@@ -57,11 +55,27 @@ public class SimpleObject implements Comparable<SimpleObject> {
     //endregion
 
 
+
+    //region > number
+    // //////////////////////////////////////
+    private Integer number;
+
+    @javax.jdo.annotations.Column(allowsNull = "true")
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(final Integer number) {
+        this.number = number;
+    }
+    //endregion
+
+
     //region > compareTo
     // //////////////////////////////////////
 
     @Override
-    public int compareTo(SimpleObject other) {
+    public int compareTo(SomeAuditedObject other) {
         return ObjectContracts.compare(this, other, "name");
     }
 
@@ -75,5 +89,7 @@ public class SimpleObject implements Comparable<SimpleObject> {
     private DomainObjectContainer container;
 
     //endregion
+
+
 
 }

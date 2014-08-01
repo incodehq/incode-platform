@@ -16,21 +16,18 @@
  */
 package org.isisaddons.module.audit.fixture.dom;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.assertThat;
-import org.isisaddons.module.audit.fixture.dom.SimpleObject;
-
-import org.isisaddons.module.audit.fixture.dom.SimpleObjects;
 import org.jmock.Expectations;
 import org.jmock.Sequence;
 import org.jmock.auto.Mock;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.core.unittestsupport.jmocking.JUnitRuleMockery2;
 import org.apache.isis.core.unittestsupport.jmocking.JUnitRuleMockery2.Mode;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class SimpleObjectsTest_create {
 
@@ -40,37 +37,37 @@ public class SimpleObjectsTest_create {
     @Mock
     private DomainObjectContainer mockContainer;
     
-    private SimpleObjects simpleObjects;
+    private SomeAuditedObjects someAuditedObjects;
 
     @Before
     public void setUp() throws Exception {
-        simpleObjects = new SimpleObjects();
-        simpleObjects.container = mockContainer;
+        someAuditedObjects = new SomeAuditedObjects();
+        someAuditedObjects.container = mockContainer;
     }
     
     @Test
     public void happyCase() throws Exception {
         
         // given
-        final SimpleObject simpleObject = new SimpleObject();
+        final SomeAuditedObject someAuditedObject = new SomeAuditedObject();
         
         final Sequence seq = context.sequence("create");
         context.checking(new Expectations() {
             {
-                oneOf(mockContainer).newTransientInstance(SimpleObject.class);
+                oneOf(mockContainer).newTransientInstance(SomeAuditedObject.class);
                 inSequence(seq);
-                will(returnValue(simpleObject));
+                will(returnValue(someAuditedObject));
                 
-                oneOf(mockContainer).persistIfNotAlready(simpleObject);
+                oneOf(mockContainer).persistIfNotAlready(someAuditedObject);
                 inSequence(seq);
             }
         });
         
         // when
-        final SimpleObject obj = simpleObjects.create("Foobar");
+        final SomeAuditedObject obj = someAuditedObjects.create("Foobar");
         
         // then
-        assertThat(obj, is(simpleObject));
+        assertThat(obj, is(someAuditedObject));
         assertThat(obj.getName(), is("Foobar"));
     }
 

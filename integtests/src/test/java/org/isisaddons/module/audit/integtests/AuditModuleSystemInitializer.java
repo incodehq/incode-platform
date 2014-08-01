@@ -18,35 +18,37 @@ package org.isisaddons.module.audit.integtests;
 
 import org.apache.isis.core.commons.config.IsisConfiguration;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
+import org.apache.isis.objectstore.jdo.applib.service.audit.AuditingServiceJdoContributions;
 import org.apache.isis.objectstore.jdo.datanucleus.DataNucleusPersistenceMechanismInstaller;
 import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegTests;
 
 /**
  * Holds an instance of an {@link IsisSystemForTest} as a {@link ThreadLocal} on the current thread,
- * initialized with ToDo app's domain services. 
+ * initialized with the app's domain services.
  */
-public class CommandModuleSystemInitializer {
+public class AuditModuleSystemInitializer {
     
-    private CommandModuleSystemInitializer(){}
+    private AuditModuleSystemInitializer(){}
 
     public static IsisSystemForTest initIsft() {
         IsisSystemForTest isft = IsisSystemForTest.getElseNull();
         if(isft == null) {
-            isft = new SimpleAppSystemBuilder().build().setUpSystem();
+            isft = new AuditModuleAppSystemBuilder().build().setUpSystem();
             IsisSystemForTest.set(isft);
         }
         return isft;
     }
 
-    private static class SimpleAppSystemBuilder extends IsisSystemForTest.Builder {
+    private static class AuditModuleAppSystemBuilder extends IsisSystemForTest.Builder {
 
-        public SimpleAppSystemBuilder() {
+        public AuditModuleAppSystemBuilder() {
             withLoggingAt(org.apache.log4j.Level.INFO);
             with(testConfiguration());
             with(new DataNucleusPersistenceMechanismInstaller());
 
             // services annotated with @DomainService
             withServicesIn( "org.isisaddons.module.audit"
+                            ,"org.apache.isis.objectstore.jdo.applib.service.audit" // AuditingServiceJdo, AuditingServiceJdoRepository
                             ,"org.apache.isis.core.wrapper"
                             ,"org.apache.isis.applib"
                             ,"org.apache.isis.core.metamodel.services"
@@ -54,11 +56,13 @@ public class CommandModuleSystemInitializer {
                             ,"org.apache.isis.objectstore.jdo.datanucleus.service.support" // IsisJdoSupportImpl
                             ,"org.apache.isis.objectstore.jdo.datanucleus.service.eventbus" // EventBusServiceJdo
                             );
+
+            withServices(new AuditingServiceJdoContributions());
         }
 
         private static IsisConfiguration testConfiguration() {
             final IsisConfigurationForJdoIntegTests testConfiguration = new IsisConfigurationForJdoIntegTests();
-            testConfiguration.addRegisterEntitiesPackagePrefix("dom");
+            testConfiguration.addRegisterEntitiesPackagePrefix("org.apache.isis.objectstore.jdo.applib");
             return testConfiguration;
         }
     }

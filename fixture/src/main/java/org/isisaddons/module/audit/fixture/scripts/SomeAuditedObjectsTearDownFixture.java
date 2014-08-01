@@ -19,37 +19,19 @@
 
 package org.isisaddons.module.audit.fixture.scripts;
 
-import org.isisaddons.module.audit.fixture.dom.SimpleObject;
-import org.isisaddons.module.audit.fixture.dom.SimpleObjects;
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-public class SimpleObjectsFixture extends DiscoverableFixtureScript {
-
-    public SimpleObjectsFixture() {
-        withDiscoverability(Discoverability.DISCOVERABLE);
-    }
+public class SomeAuditedObjectsTearDownFixture extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-
-        // prereqs
-        execute(new SimpleObjectsTearDownFixture(), executionContext);
-
-        // create
-        create("Foo", executionContext);
-        create("Bar", executionContext);
-        create("Baz", executionContext);
+        isisJdoSupport.executeUpdate("delete from \"IsisAuditEntry\"");
+        isisJdoSupport.executeUpdate("delete from \"SomeAuditedObject\"");
     }
 
-    // //////////////////////////////////////
-
-    private SimpleObject create(final String name, ExecutionContext executionContext) {
-        return executionContext.add(this, simpleObjects.create(name));
-    }
-
-    // //////////////////////////////////////
 
     @javax.inject.Inject
-    private SimpleObjects simpleObjects;
+    private IsisJdoSupport isisJdoSupport;
 
 }

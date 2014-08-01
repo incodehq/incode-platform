@@ -23,8 +23,6 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
-import org.isisaddons.module.audit.fixture.dom.SimpleObject;
-import org.isisaddons.module.audit.fixture.dom.SimpleObjects;
 import org.jmock.Expectations;
 import org.jmock.auto.Mock;
 import org.junit.Before;
@@ -43,29 +41,29 @@ public class SimpleObjectsTest_listAll {
     @Mock
     private DomainObjectContainer mockContainer;
     
-    private SimpleObjects simpleObjects;
+    private SomeAuditedObjects someAuditedObjects;
 
     @Before
     public void setUp() throws Exception {
-        simpleObjects = new SimpleObjects();
-        simpleObjects.container = mockContainer;
+        someAuditedObjects = new SomeAuditedObjects();
+        someAuditedObjects.container = mockContainer;
     }
     
     @Test
     public void happyCase() throws Exception {
         
         // given
-        final List<SimpleObject> all = Lists.newArrayList();
+        final List<SomeAuditedObject> all = Lists.newArrayList();
         
         context.checking(new Expectations() {
             {
-                oneOf(mockContainer).allInstances(SimpleObject.class);
+                oneOf(mockContainer).allInstances(SomeAuditedObject.class);
                 will(returnValue(all));
             }
         });
         
         // when
-        final List<SimpleObject> list = simpleObjects.listAll();
+        final List<SomeAuditedObject> list = someAuditedObjects.listAll();
         
         // then
         assertThat(list, is(all));

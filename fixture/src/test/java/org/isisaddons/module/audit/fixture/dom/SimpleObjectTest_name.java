@@ -18,30 +18,29 @@ package org.isisaddons.module.audit.fixture.dom;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
-import org.isisaddons.module.audit.fixture.dom.SimpleObject;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class SimpleObjectTest_name {
 
-    private SimpleObject simpleObject;
+    private SomeAuditedObject someAuditedObject;
 
     @Before
     public void setUp() throws Exception {
-        simpleObject = new SimpleObject();
+        someAuditedObject = new SomeAuditedObject();
     }
     
     @Test
     public void happyCase() throws Exception {
         // given
-        assertThat(simpleObject.getName(), is(nullValue()));
+        assertThat(someAuditedObject.getName(), is(nullValue()));
         
         // when
-        simpleObject.setName("Foobar");
+        someAuditedObject.setName("Foobar");
         
         // then
-        assertThat(simpleObject.getName(), is("Foobar"));
+        assertThat(someAuditedObject.getName(), is("Foobar"));
     }
     
 }
