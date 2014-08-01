@@ -18,44 +18,43 @@
  */
 package org.isisaddons.module.command.integtests;
 
-import org.isisaddons.module.command.fixture.dom.SimpleObject;
-import org.isisaddons.module.command.fixture.dom.SimpleObjects;
-import org.isisaddons.module.command.fixture.scripts.SimpleObjectsFixture;
-
 import java.util.List;
 import javax.inject.Inject;
+import org.isisaddons.module.command.fixture.dom.SomeCommandAnnotatedObject;
+import org.isisaddons.module.command.fixture.dom.SomeCommandAnnotatedObjects;
+import org.isisaddons.module.command.fixture.scripts.SomeCommandAnnotatedObjectsFixture;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class SimpleObjectsTest_listAll_and_create extends CommandModuleIntegTest {
+public class SomeCommandAnnotatedObjectsTest extends CommandModuleIntegTest {
 
     @Before
     public void setUpData() throws Exception {
-        scenarioExecution().install(new SimpleObjectsFixture());
+        scenarioExecution().install(new SomeCommandAnnotatedObjectsFixture());
     }
 
     @Inject
-    private SimpleObjects simpleObjects;
+    private SomeCommandAnnotatedObjects someCommandAnnotatedObjects;
 
     @Test
     public void listAll() throws Exception {
 
-        final List<SimpleObject> all = wrap(simpleObjects).listAll();
+        final List<SomeCommandAnnotatedObject> all = wrap(someCommandAnnotatedObjects).listAll();
         assertThat(all.size(), is(3));
         
-        SimpleObject simpleObject = wrap(all.get(0));
-        assertThat(simpleObject.getName(), is("Foo"));
+        SomeCommandAnnotatedObject someCommandAnnotatedObject = wrap(all.get(0));
+        assertThat(someCommandAnnotatedObject.getName(), is("Foo"));
     }
     
     @Test
     public void create() throws Exception {
 
-        wrap(simpleObjects).create("Faz");
+        wrap(someCommandAnnotatedObjects).create("Faz");
         
-        final List<SimpleObject> all = wrap(simpleObjects).listAll();
+        final List<SomeCommandAnnotatedObject> all = wrap(someCommandAnnotatedObjects).listAll();
         assertThat(all.size(), is(4));
     }
 

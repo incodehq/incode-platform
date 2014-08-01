@@ -33,7 +33,7 @@ language governing permissions and limitations under the License.
         extended auditing capabilities.
     </description>
 
-    <url>https://github.com/isisaddons/isis-module-docx</url>
+    <url>https://github.com/isisaddons/isis-module-command</url>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -240,6 +240,11 @@ language governing permissions and limitations under the License.
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-applib</artifactId>
+            <version>${isis.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.module</groupId>
+            <artifactId>isis-module-background</artifactId>
             <version>${isis.version}</version>
         </dependency>
 

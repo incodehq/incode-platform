@@ -23,8 +23,8 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 
-@DomainService(menuOrder = "10", repositoryFor = SimpleObject.class)
-public class SimpleObjects {
+@DomainService(menuOrder = "10", repositoryFor = SomeCommandAnnotatedObject.class)
+public class SomeCommandAnnotatedObjects {
 
     //region > identification in the UI
     // //////////////////////////////////////
@@ -45,8 +45,8 @@ public class SimpleObjects {
     @Bookmarkable
     @ActionSemantics(Of.SAFE)
     @MemberOrder(sequence = "1")
-    public List<SimpleObject> listAll() {
-        return container.allInstances(SimpleObject.class);
+    public List<SomeCommandAnnotatedObject> listAll() {
+        return container.allInstances(SomeCommandAnnotatedObject.class);
     }
 
     //endregion
@@ -55,9 +55,9 @@ public class SimpleObjects {
     // //////////////////////////////////////
     
     @MemberOrder(sequence = "2")
-    public SimpleObject create(
+    public SomeCommandAnnotatedObject create(
             final @Named("Name") String name) {
-        final SimpleObject obj = container.newTransientInstance(SimpleObject.class);
+        final SomeCommandAnnotatedObject obj = container.newTransientInstance(SomeCommandAnnotatedObject.class);
         obj.setName(name);
         container.persistIfNotAlready(obj);
         return obj;

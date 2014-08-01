@@ -19,13 +19,13 @@
 
 package org.isisaddons.module.command.fixture.scripts;
 
-import org.isisaddons.module.command.fixture.dom.SimpleObject;
-import org.isisaddons.module.command.fixture.dom.SimpleObjects;
+import org.isisaddons.module.command.fixture.dom.SomeCommandAnnotatedObject;
+import org.isisaddons.module.command.fixture.dom.SomeCommandAnnotatedObjects;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
-public class SimpleObjectsFixture extends DiscoverableFixtureScript {
+public class SomeCommandAnnotatedObjectsFixture extends DiscoverableFixtureScript {
 
-    public SimpleObjectsFixture() {
+    public SomeCommandAnnotatedObjectsFixture() {
         withDiscoverability(Discoverability.DISCOVERABLE);
     }
 
@@ -33,7 +33,7 @@ public class SimpleObjectsFixture extends DiscoverableFixtureScript {
     protected void execute(ExecutionContext executionContext) {
 
         // prereqs
-        execute(new SimpleObjectsTearDownFixture(), executionContext);
+        execute(new SomeCommandAnnotatedObjectsTearDownFixture(), executionContext);
 
         // create
         create("Foo", executionContext);
@@ -43,13 +43,13 @@ public class SimpleObjectsFixture extends DiscoverableFixtureScript {
 
     // //////////////////////////////////////
 
-    private SimpleObject create(final String name, ExecutionContext executionContext) {
-        return executionContext.add(this, simpleObjects.create(name));
+    private SomeCommandAnnotatedObject create(final String name, ExecutionContext executionContext) {
+        return executionContext.add(this, someCommandAnnotatedObjects.create(name));
     }
 
     // //////////////////////////////////////
 
     @javax.inject.Inject
-    private SimpleObjects simpleObjects;
+    private SomeCommandAnnotatedObjects someCommandAnnotatedObjects;
 
 }
