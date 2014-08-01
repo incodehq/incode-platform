@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.apache.isis.objectstore.jdo.applib.service.audit;
+package org.isisaddons.module.audit;
 
 import java.util.UUID;
 import org.apache.isis.applib.AbstractService;
@@ -26,7 +26,7 @@ import org.apache.isis.applib.services.audit.AuditingService3;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 
 @DomainService
-public class AuditingServiceJdo extends AbstractService implements AuditingService3 {
+public class AuditingService extends AbstractService implements AuditingService3 {
 
     @Programmatic
     public void audit(
@@ -35,7 +35,7 @@ public class AuditingServiceJdo extends AbstractService implements AuditingServi
             final String preValue, final String postValue, 
             final String user, final java.sql.Timestamp timestamp) {
         
-        final AuditEntryJdo auditEntry = newTransientInstance(AuditEntryJdo.class);
+        final AuditEntry auditEntry = newTransientInstance(AuditEntry.class);
         
         auditEntry.setTimestamp(timestamp);
         auditEntry.setUser(user);

@@ -19,10 +19,11 @@
 package org.isisaddons.module.audit.integtests;
 
 import java.sql.Timestamp;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import javax.inject.Inject;
+import org.isisaddons.module.audit.AuditEntry;
+import org.isisaddons.module.audit.AuditingServiceContributions;
+import org.isisaddons.module.audit.AuditingServiceRepository;
 import org.isisaddons.module.audit.fixture.dom.SomeAuditedObject;
 import org.isisaddons.module.audit.fixture.dom.SomeAuditedObjects;
 import org.isisaddons.module.audit.fixture.scripts.SomeAuditedObjectsFixture;
@@ -34,9 +35,6 @@ import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 import org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract;
-import org.apache.isis.objectstore.jdo.applib.service.audit.AuditEntryJdo;
-import org.apache.isis.objectstore.jdo.applib.service.audit.AuditingServiceJdoContributions;
-import org.apache.isis.objectstore.jdo.applib.service.audit.AuditingServiceJdoRepository;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -58,10 +56,10 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
     private AuditingService3 auditingService3;
 
     @Inject
-    private AuditingServiceJdoRepository auditingServiceJdoRepository;
+    private AuditingServiceRepository auditingServiceRepository;
 
     @Inject
-    private AuditingServiceJdoContributions auditingServiceJdoContributions;
+    private AuditingServiceContributions auditingServiceContributions;
 
     @Inject
     private BookmarkService bookmarkService;
@@ -112,10 +110,10 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
         final List<Map<String, Object>> after = isisJdoSupport.executeSql("SELECT * FROM \"IsisAuditEntry\"");
         assertThat(after.size(), is(2));
 
-        final List<AuditEntryJdo> auditEntries = auditingServiceJdoRepository.findByTargetAndFromAndTo(bookmark, null, null);
+        final List<AuditEntry> auditEntries = sorted(auditingServiceRepository.findByTargetAndFromAndTo(bookmark, null, null));
         assertThat(auditEntries.size(), is(2));
 
-        final AuditEntryJdo auditEntry1 = auditEntries.get(1);
+        final AuditEntry auditEntry1 = auditEntries.get(0);
 
         final Timestamp timestamp = auditEntry1.getTimestamp();
         final UUID transactionId = auditEntry1.getTransactionId();
@@ -131,7 +129,7 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
         assertThat(auditEntry1.getPostValue(), is("Faz"));
         assertThat(auditEntry1.getType(), is(DomainChangeJdoAbstract.ChangeType.AUDIT_ENTRY));
 
-        final AuditEntryJdo auditEntry2 = auditEntries.get(0);
+        final AuditEntry auditEntry2 = auditEntries.get(1);
 
         assertThat(auditEntry2.getUser(), is("tester"));
         final Timestamp timestamp2 = auditEntry2.getTimestamp();
@@ -169,10 +167,10 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
 
         // then
 
-        final List<AuditEntryJdo> auditEntries = auditingServiceJdoRepository.findByTargetAndFromAndTo(bookmark, null, null);
+        final List<AuditEntry> auditEntries = sorted(auditingServiceRepository.findByTargetAndFromAndTo(bookmark, null, null));
         assertThat(auditEntries.size(), is(2));
 
-        final AuditEntryJdo auditEntry1 = auditEntries.get(1);
+        final AuditEntry auditEntry1 = auditEntries.get(0);
 
         final Timestamp timestamp = auditEntry1.getTimestamp();
         final UUID transactionId = auditEntry1.getTransactionId();
@@ -188,7 +186,7 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
         assertThat(auditEntry1.getPostValue(), is("Bob"));
         assertThat(auditEntry1.getType(), is(DomainChangeJdoAbstract.ChangeType.AUDIT_ENTRY));
 
-        final AuditEntryJdo auditEntry2 = auditEntries.get(0);
+        final AuditEntry auditEntry2 = auditEntries.get(1);
 
         assertThat(auditEntry2.getUser(), is("tester"));
         final Timestamp timestamp2 = auditEntry2.getTimestamp();
@@ -203,5 +201,16 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
         assertThat(auditEntry2.getPostValue(), is("123"));
         assertThat(auditEntry2.getType(), is(DomainChangeJdoAbstract.ChangeType.AUDIT_ENTRY));
     }
+
+    private static List<AuditEntry> sorted(List<AuditEntry> auditEntries) {
+        Collections.sort(auditEntries, new Comparator<AuditEntry>() {
+            @Override
+            public int compare(AuditEntry o1, AuditEntry o2) {
+                return o1.getMemberIdentifier().compareTo(o2.getMemberIdentifier());
+            }
+        });
+        return auditEntries;
+    }
+
 
 }

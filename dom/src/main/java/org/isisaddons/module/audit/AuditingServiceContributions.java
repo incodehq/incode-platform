@@ -14,7 +14,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.apache.isis.objectstore.jdo.applib.service.audit;
+package org.isisaddons.module.audit;
 
 import java.util.List;
 
@@ -37,19 +37,19 @@ import org.apache.isis.applib.services.HasTransactionId;
  * Because this service influences the UI, it must be explicitly registered as a service
  * (eg using <tt>isis.properties</tt>).
  */
-public class AuditingServiceJdoContributions extends AbstractService {
+public class AuditingServiceContributions extends AbstractService {
 
     @ActionSemantics(Of.SAFE)
     @NotInServiceMenu
     @NotContributed(As.ACTION) // ie contribute as collection
     @Render(Type.EAGERLY)
-    public List<AuditEntryJdo> auditEntries(final HasTransactionId hasTransactionId) {
+    public List<AuditEntry> auditEntries(final HasTransactionId hasTransactionId) {
         return auditEntryRepository.findByTransactionId(hasTransactionId.getTransactionId());
     }
     
     // //////////////////////////////////////
 
     @javax.inject.Inject
-    private AuditingServiceJdoRepository auditEntryRepository;
+    private AuditingServiceRepository auditEntryRepository;
 
 }

@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.apache.isis.objectstore.jdo.applib.service.audit;
+package org.isisaddons.module.audit;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -33,7 +33,7 @@ import org.apache.isis.applib.services.bookmark.Bookmark;
 
 /**
  * Provides supporting functionality for querying
- * {@link org.apache.isis.objectstore.jdo.applib.service.audit.AuditEntryJdo audit entry} entities.
+ * {@link AuditEntry audit entry} entities.
  *
  * <p>
  * This supporting service with no UI and no side-effects, and is there are no other implementations of the service,
@@ -41,18 +41,18 @@ import org.apache.isis.applib.services.bookmark.Bookmark;
  * need to explicitly register it as a service (eg in <tt>isis.properties</tt>).
  */
 @DomainService
-public class AuditingServiceJdoRepository extends AbstractFactoryAndRepository {
+public class AuditingServiceRepository extends AbstractFactoryAndRepository {
     
     @Programmatic
-    public List<AuditEntryJdo> findByTransactionId(final UUID transactionId) {
+    public List<AuditEntry> findByTransactionId(final UUID transactionId) {
         return allMatches(
-                new QueryDefault<AuditEntryJdo>(AuditEntryJdo.class, 
+                new QueryDefault<AuditEntry>(AuditEntry.class,
                         "findByTransactionId", 
                         "transactionId", transactionId));
     }
 
     @Programmatic
-    public List<AuditEntryJdo> findByTargetAndFromAndTo(
+    public List<AuditEntry> findByTargetAndFromAndTo(
             final Bookmark target, 
             final LocalDate from, 
             final LocalDate to) {
@@ -60,28 +60,28 @@ public class AuditingServiceJdoRepository extends AbstractFactoryAndRepository {
         final Timestamp fromTs = toTimestampStartOfDayWithOffset(from, 0);
         final Timestamp toTs = toTimestampStartOfDayWithOffset(to, 1);
         
-        final Query<AuditEntryJdo> query;
+        final Query<AuditEntry> query;
         if(from != null) {
             if(to != null) {
-                query = new QueryDefault<AuditEntryJdo>(AuditEntryJdo.class, 
+                query = new QueryDefault<AuditEntry>(AuditEntry.class,
                         "findByTargetAndTimestampBetween", 
                         "targetStr", targetStr,
                         "from", fromTs,
                         "to", toTs);
             } else {
-                query = new QueryDefault<AuditEntryJdo>(AuditEntryJdo.class, 
+                query = new QueryDefault<AuditEntry>(AuditEntry.class,
                         "findByTargetAndTimestampAfter", 
                         "targetStr", targetStr,
                         "from", fromTs);
             }
         } else {
             if(to != null) {
-                query = new QueryDefault<AuditEntryJdo>(AuditEntryJdo.class, 
+                query = new QueryDefault<AuditEntry>(AuditEntry.class,
                         "findByTargetAndTimestampBefore", 
                         "targetStr", targetStr,
                         "to", toTs);
             } else {
-                query = new QueryDefault<AuditEntryJdo>(AuditEntryJdo.class, 
+                query = new QueryDefault<AuditEntry>(AuditEntry.class,
                         "findByTarget", 
                         "targetStr", targetStr);
             }
@@ -90,31 +90,31 @@ public class AuditingServiceJdoRepository extends AbstractFactoryAndRepository {
     }
 
     @Programmatic
-    public List<AuditEntryJdo> findByFromAndTo(
+    public List<AuditEntry> findByFromAndTo(
             final LocalDate from, 
             final LocalDate to) {
         final Timestamp fromTs = toTimestampStartOfDayWithOffset(from, 0);
         final Timestamp toTs = toTimestampStartOfDayWithOffset(to, 1);
         
-        final Query<AuditEntryJdo> query;
+        final Query<AuditEntry> query;
         if(from != null) {
             if(to != null) {
-                query = new QueryDefault<AuditEntryJdo>(AuditEntryJdo.class, 
+                query = new QueryDefault<AuditEntry>(AuditEntry.class,
                         "findByTimestampBetween", 
                         "from", fromTs,
                         "to", toTs);
             } else {
-                query = new QueryDefault<AuditEntryJdo>(AuditEntryJdo.class, 
+                query = new QueryDefault<AuditEntry>(AuditEntry.class,
                         "findByTimestampAfter", 
                         "from", fromTs);
             }
         } else {
             if(to != null) {
-                query = new QueryDefault<AuditEntryJdo>(AuditEntryJdo.class, 
+                query = new QueryDefault<AuditEntry>(AuditEntry.class,
                         "findByTimestampBefore", 
                         "to", toTs);
             } else {
-                query = new QueryDefault<AuditEntryJdo>(AuditEntryJdo.class, 
+                query = new QueryDefault<AuditEntry>(AuditEntry.class,
                         "find");
             }
         }

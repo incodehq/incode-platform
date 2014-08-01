@@ -2,11 +2,9 @@
 
 [![Build Status](https://travis-ci.org/isisaddons/isis-module-audit.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-audit)
 
-This module, intended for use within [Apache Isis](http://isis.apache.org), 
-provides an implementation of Isis' `AuditingService3` API that persists
-audit entries using Isis' own (JDO) objectstore.  Typically this will be to
-a relational database; the module's `AuditEntryJdo` entity is mapped to the
-"IsisAuditEntry" table.
+This module, intended for use within [Apache Isis](http://isis.apache.org), provides an implementation of Isis' 
+`AuditingService3` API that persists audit entries using Isis' own (JDO) objectstore.  Typically this will be to a 
+relational database; the module's `AuditEntry` entity is mapped to the "IsisAuditEntry" table.
 
 ## Screenshots ##
 
@@ -39,8 +37,7 @@ The following screenshots show an example app's usage of the module.
 
 ## How to Configure/Use ##
 
-You can either use this module "out-of-the-box", or you can fork this repo
-and extend to your own requirements. 
+You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
 
 To use "out-of-the-box:
 
@@ -62,14 +59,13 @@ To use "out-of-the-box:
                                                                 ...
 
     isis.services = ...,\
-                    org.apache.isis.objectstore.jdo.applib.service.audit.AuditingServiceJdoContributions,\
+                    org.isisaddons.module.audit.AuditingServiceContributions,\
                     ...
 
-The `AuditingServiceJdoContributions` service is optional but recommended;
-see below for more information.
+The `AuditingServiceJdoContributions` service is optional but recommended; see below for more information.
 
-If instead you want to extend this module's functionality, then we recommend 
-that you fork this repo.  The repo is structured as follows:
+If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is 
+structured as follows:
 
 * `pom.xml`    // parent pom
 * `dom`        // the module implementation, depends on Isis applib
@@ -77,9 +73,8 @@ that you fork this repo.  The repo is structured as follows:
 * `integtests` // integration tests for the module; depends on `fixture`
 * `webapp`     // demo webapp (see above screenshots); depends on `dom` and `fixture`
 
-Only the `dom` project is released to Maven central repo.  The versions of the
-other modules are purposely left at `0.0.1-SNAPSHOT` because they are not intended
-to be released.
+Only the `dom` project is released to Maven central repo.  The versions of the other modules are purposely left at 
+`0.0.1-SNAPSHOT` because they are not intended to be released.
 
 ## API ##
 
@@ -97,23 +92,20 @@ The `AuditingService3` defines the following API:
             final String user, 
             final java.sql.Timestamp timestamp);
 
-Isis will automatically call this method on the service implementation if 
-configured.  The method is called often, once for every individual
-property of a domain object that is changed.
+Isis will automatically call this method on the service implementation if configured.  The method is called often, once 
+for every individual property of a domain object that is changed.
 
 ## Implementation ##
 
-* This implementation was originally developed within Isis itself, as part of
-the JDO Objectstore.  This implementation is identical (is a copy of) the
-`org.apache.isis.module:isis-module-audit-jdo:1.6.0` Maven artifact; only the
-package names have been changed.*
+* This implementation was originally developed within Isis itself, as part of the JDO Objectstore.  This implementation 
+is identical (is a copy of) the `org.apache.isis.module:isis-module-audit-jdo:1.6.0` Maven artifact; only the package 
+names have been changed.*
 
-The `AuditingService3` API is implemented in this module by the 
-`org.apache.isis.objectstore.jdo.applib.service.audit.AuditingServiceJdo` 
-class.  This implementation simply persists an audit entry (`AuditEntryJdo`) 
-each time it is called.   This results in a fine-grained audit trail.
+The `AuditingService3` API is implemented in this module by the `org.isisaddons.module.audit.AuditingService` class.  
+This implementation simply persists an audit entry (`AuditEntry`) each time it is called.   This results in a 
+fine-grained audit trail.
 
-The persisted `AuditEntryJdo` directly maps to the `AuditingService3` API:
+The `AuditEntry` properties directly correspond to parameters of the `AuditingService3` `audit()` API:
 
     public class AuditEntryJdo 
         ... 
@@ -131,91 +123,68 @@ The persisted `AuditEntryJdo` directly maps to the `AuditingService3` API:
 
 where:
 
-* `transactionId` is a unique identifier (a GUID) of the transaction 
-  in which this audit entry was persisted.
+* `transactionId` is a unique identifier (a GUID) of the transaction in which this audit entry was persisted.
 * `timestamp` is the timestamp for the transaction
-* `targetClass` holds the class of the audited object, eg 
-  `com.mycompany.myapp.Customer`
-* `targetStr` stores a serialized form of the `Bookmark`, in other words a
-  provides a mechanism to look up the audited object, eg `CUS:L_1234` to 
-  identify customer with id 1234.  ("CUS" corresponds to the `@ObjectType` 
-  annotation/facet).
-* `memberIdentifier` is the fully-qualified class and property Id (similar to
-  the way that Javadoc words, eg `com.mycompany.myapp.Customer#firstName`)
+* `targetClass` holds the class of the audited object, eg `com.mycompany.myapp.Customer`
+* `targetStr` stores a serialized form of the `Bookmark`, in other words a provides a mechanism to look up the audited 
+  object, eg `CUS:L_1234` to identify customer with id 1234.  ("CUS" corresponds to the `@ObjectType` annotation/facet).
+* `memberIdentifier` is the fully-qualified class and property Id (similar to the way that Javadoc words, 
+   eg `com.mycompany.myapp.Customer#firstName`)
 * `propertyId` is the property identifier, eg `firstName`
-* `preValue` holds a string representation of the property's value prior to it 
-  being changed.  f the object has been created then it holds the value 
-  "[NEW]".  If the string is too long, it will be truncated with ellipses 
-  '...'.
-* `preValue` holds a string representation of the property's value after it
-  was changed.  f the object has been deleted  then it holds the value 
-  "[DELETED]".  If the string is too long, it will be truncated with ellipses
-  '...'.
+* `preValue` holds a string representation of the property's value prior to it being changed.  If the object has been 
+  created then it holds the value "[NEW]".  If the string is too long, it will be truncated with ellipses '...'.
+* `postValue` holds a string representation of the property's value after it was changed.  If the object has been 
+  deleted  then it holds the value "[DELETED]".  If the string is too long, it will be truncated with ellipses '...'.
 
-The combination of `transactionId`, `targetStr` and `propertyId` make up
-an alternative key to uniquely identify an audit entry.  However, there is 
-(deliberately) no uniqueness constraint to enforce this rule.
+The combination of `transactionId`, `targetStr` and `propertyId` make up an alternative key to uniquely identify an 
+audit entry.  However, there is (deliberately) no uniqueness constraint to enforce this rule.
 
-The `AuditEntryJdo` entity is designed such that it can be rendered on an
-Isis user interface if required.
+The `AuditEntry` entity is designed such that it can be rendered on an Isis user interface if required.
     
 ## Relationship to other services ##
 
-As well as defining the `AuditingService3` API, Isis' applib also defines
-several other closely related services.
+As well as defining the `AuditingService3` API, Isis' applib also defines several other closely related services.
 
-The `CommandContext` defines the `Command` class which provides request-scoped
-information about an action invocation.  Commands can be thought of as being
-the cause of an action; they are created "before the fact".  Some of the 
-parameters passed to `AuditingService3` - such as `target`, `user`, and 
-`timestamp` - correspond exactly to the `Command` class.
+The `CommandContext` defines the `Command` class which provides request-scoped information about an action invocation.  
+Commands can be thought of as being the cause of an action; they are created "before the fact".  Some of the 
+parameters passed to `AuditingService3` - such as `target`, `user`, and `timestamp` - correspond exactly to the 
+`Command` class.
 
-The `CommandService` service is an optional service that acts as a `Command`
-factory and allows `Command`s to be persisted.  `CommandService`'s
-API introduces the concept of a `transactionId`; once again this is the same
+The `CommandService` service is an optional service that acts as a `Command` factory and allows `Command`s to be 
+persisted.  `CommandService`'s API introduces the concept of a `transactionId`; once again this is the same
 value as is passed to the `AuditingService3`.
 
-The `PublishingService` is another optional service that allows an 
-event to be published when either an object has changed or an actions has
-been invoked.   There are some similarities between publishing to auditing;
-they both occur "after the fact".  However the publishing service's 
-primary use case is to enable inter-system co-ordination (in DDD terminology,
-between bounded contexts).  As such, publishing is much coarser-grained than 
-auditing, and not every change need be published.  Publishing also uses the 
-`transactionId`.
+The `PublishingService` is another optional service that allows an event to be published when either an object has 
+changed or an actions has been invoked.   There are some similarities between publishing to auditing; they both occur 
+"after the fact".  However the publishing service's primary use case is to enable inter-system co-ordination (in DDD 
+terminology, between bounded contexts).  As such, publishing is much coarser-grained than auditing, and not every 
+change need be published.  Publishing also uses the `transactionId`.
 
-The `CommandService` and `PublishingService` are optional; as with the 
-`AuditingService3`, Isis will automatically use call each if the service
-implementation if discovered on the classpath. 
+The `CommandService` and `PublishingService` are optional; as with the `AuditingService3`, Isis will automatically use 
+call each if the service implementation if discovered on the classpath. 
 
-If all these services are configured - such that  commands, audit entries and
-published events are all persisted, then the `transactionId` that is common
-to all enables seamless navigation between each.  (This is implemented 
-through contributed actions/properties/collections; `AuditEntryJdo` 
-implements the `HasTransactionId` interface in Isis' applib, and it is this
-interface that each module has services that contribute to).
+If all these services are configured - such that  commands, audit entries and published events are all persisted, then 
+the `transactionId` that is common to all enables seamless navigation between each.  (This is implemented through 
+contributed actions/properties/collections; `AuditEntry` implements the `HasTransactionId` interface in Isis' applib, 
+and it is this interface that each module has services that contribute to).
 
 ## Complementary Services ##
 
-As well as the `AuditingServiceJdo` service (that implements the
-`AuditingService3` API), the module also provides two further domain services:
+As well as the `AuditingService` service (that implements the `AuditingService3` API), the module also provides two 
+further domain services:
 
-* `AuditingServiceJdoRepository` provides the ability to search for persisted
-  (`AuditEntryJdo`) audit entries.  None of its actions are visible in the
-  user interface (they are all `@Programmatic`) and so this service is
-  automatically registered.
+* `AuditingServiceRepository` provides the ability to search for persisted (`AuditEntry`) audit entries.  None of its 
+  actions are visible in the user interface (they are all `@Programmatic`) and so this service is automatically 
+  registered.
 
-* `AuditingServiceJdoContributions` provides the `auditEntries` contributed 
-  collection to the `HasTransactionId` interface.  This will therefore 
-  display all audit entries that occurred in a given transaction, in other
-  words whenever a command, a published event or another audit entry is
-  displayed.
+* `AuditingServiceContributions` provides the `auditEntries` contributed collection to the `HasTransactionId` interface.
+  This will therefore display all audit entries that occurred in a given transaction, in other words whenever a command,
+  a published event or another audit entry is displayed.
   
 ## Known issues ##
 
-In `1.6.0` a call to `DomainObjectContainer#flush()` is required in order that
-any newly created objects are populated.  Note that a flush is performed
-prior to any repository call, so there may not be any need to call.         
+In `1.6.0` a call to `DomainObjectContainer#flush()` is required in order that any newly created objects are populated.
+Note that a flush is performed prior to any repository call, so there may not be any need to call.         
 
 ## Legal Stuff ##
  

@@ -20,12 +20,12 @@ package org.isisaddons.module.audit.fixture.dom;
 
 import java.util.List;
 import javax.inject.Inject;
+import org.isisaddons.module.audit.AuditEntry;
+import org.isisaddons.module.audit.AuditingServiceRepository;
 import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.services.HasTransactionId;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
-import org.apache.isis.objectstore.jdo.applib.service.audit.AuditEntryJdo;
-import org.apache.isis.objectstore.jdo.applib.service.audit.AuditingServiceJdoRepository;
 
 @DomainService
 public class AnyEntityContributedAuditEntries {
@@ -34,13 +34,13 @@ public class AnyEntityContributedAuditEntries {
     @Render(Render.Type.EAGERLY)
     @NotContributed(NotContributed.As.ACTION) // ie contributed as collection
     @ActionSemantics(ActionSemantics.Of.SAFE)
-    public List<AuditEntryJdo> auditEntries(Object entity) {
+    public List<AuditEntry> auditEntries(Object entity) {
         final Bookmark bookmark = bookmarkService.bookmarkFor(entity);
-        return auditingServiceJdoRepository.findByTargetAndFromAndTo(bookmark, null, null);
+        return auditingServiceRepository.findByTargetAndFromAndTo(bookmark, null, null);
     }
 
     public boolean hideAuditEntries(Object entity) {
-        // because AuditServiceJdoContributions already contributes to HasTransactionId
+        // because AuditServiceContributions already contributes to HasTransactionId
         return entity instanceof HasTransactionId;
     }
 
@@ -48,6 +48,6 @@ public class AnyEntityContributedAuditEntries {
     private BookmarkService bookmarkService;
 
     @Inject
-    private AuditingServiceJdoRepository auditingServiceJdoRepository;
+    private AuditingServiceRepository auditingServiceRepository;
 
 }
