@@ -8,6 +8,48 @@ audit entries using Isis' own (JDO) objectstore.  Typically this will be to
 a relational database; the module's `AuditEntryJdo` entity is mapped to the
 `IsisAuditEntry` table.
 
+## Screenshots ##
+
+
+
+
+
+## How to Configure/Use ##
+
+You can either use this module "out-of-the-box", or you can fork this repo
+and extend to your own requirements. 
+
+To use "out-of-the-box:
+
+* update your classpath:
+
+
+
+* update your isis.properties:
+
+
+
+The `AuditingServiceJdoContributions` service is optional but is recommended;
+see below for more information.
+
+If you want to extend this module, we recommend that you fork this repo.  The
+repo is structured as follows:
+
+* `pom.xml`    // parent pom
+* `dom`        // the module implementation, depends on Isis applib
+* `fixture`    // fixtures, holding a sample domain objects and fixture scripts; depends on `dom`
+* `integtests` // integration tests for the module; depends on `fixture`
+* `webapp`     // demo webapp (see above screenshots); depends on `dom` and `fixture`
+
+Only the `dom` project is released to Maven central repo.  The versions of the
+other modules are purposely left at `0.0.1-SNAPSHOT` because they are not intended
+to be released.
+
+## Using by extending (fork this repo) ##
+
+TODO
+
+
 ## API ##
 
 The `AuditingService3` defines the following API:
@@ -29,6 +71,11 @@ configured.  The method is called often, once for every individual
 property of a domain object that is changed.
 
 ## Implementation ##
+
+* This implementation was originally developed within Isis itself, as part of
+the JDO Objectstore.  This implementation is identical (is a copy of) the
+`org.apache.isis.module:isis-module-audit-jdo:1.6.0` Maven artifact; only the
+package names have been changed.*
 
 The `AuditingService3` API is implemented in this module by the 
 `org.apache.isis.objectstore.jdo.applib.service.audit.AuditingServiceJdo` 
@@ -137,12 +184,7 @@ As well as the `AuditingServiceJdo` service (that implements the
 
 In `1.6.0` a call to `DomainObjectContainer#flush()` is required in order that
 any newly created objects are populated.  Note that a flush is performed
-prior to any repository call, so there may not be any need to call.
-         
-## Screenshots ##
-
-
-## Configuring ##
+prior to any repository call, so there may not be any need to call.         
 
 ## Legal Stuff ##
  

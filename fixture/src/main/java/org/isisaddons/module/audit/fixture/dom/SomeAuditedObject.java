@@ -43,7 +43,6 @@ public class SomeAuditedObject implements Comparable<SomeAuditedObject> {
 
     @javax.jdo.annotations.Column(allowsNull="false")
     @Title(sequence="1")
-    @MemberOrder(sequence="1")
     public String getName() {
         return name;
     }
