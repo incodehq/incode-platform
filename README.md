@@ -6,12 +6,35 @@ This module, intended for use within [Apache Isis](http://isis.apache.org),
 provides an implementation of Isis' `AuditingService3` API that persists
 audit entries using Isis' own (JDO) objectstore.  Typically this will be to
 a relational database; the module's `AuditEntryJdo` entity is mapped to the
-`IsisAuditEntry` table.
+"IsisAuditEntry" table.
 
 ## Screenshots ##
 
+The following screenshots show an example app's usage of the module.
 
+#### Installing the Fixture Data
 
+![](https://raw.github.com/isisaddons/isis-module-audit/master/images/01-install-fixtures.png)
+
+#### Object with initial (creation) audit entries
+
+![](https://raw.github.com/isisaddons/isis-module-audit/master/images/02-first-object-with-initial-audit-entries.png)
+
+#### Changing two properties on an object...
+
+![](https://raw.github.com/isisaddons/isis-module-audit/master/images/03-changing-two-properties-on-object.png)
+
+#### ... two audit entries created
+
+![](https://raw.github.com/isisaddons/isis-module-audit/master/images/04-two-audit-entries-created.png)
+
+#### Navigate to audit entry, view other audit entries, and navigate ...
+
+![](https://raw.github.com/isisaddons/isis-module-audit/master/images/05-navigate-to-audit-entry-see-other-audit-entries.png)
+
+#### ... back to audited object
+
+![](https://raw.github.com/isisaddons/isis-module-audit/master/images/06-navigate-back-to-audited-object.png)
 
 
 ## How to Configure/Use ##
@@ -21,19 +44,32 @@ and extend to your own requirements.
 
 To use "out-of-the-box:
 
-* update your classpath:
+* update your classpath by adding this dependency in your dom project's `pom.xml`:
 
+    <dependency>
+        <groupId>org.isisaddons.module.audit</groupId>
+        <artifactId>isis-module-audit-dom</artifactId>
+        <version>x.y.z</version>
+    </dependency>
 
+    * where `x.y.z` is the latest available in the [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-audit-dom)).
 
-* update your isis.properties:
+* update your `WEB-INF/isis.properties`:
 
+    isis.services-installer=configuration-and-annotation
+    isis.services.ServicesInstallerFromAnnotation.packagePrefix=...,\
+                                                                org.isisaddons.module.audit.dom,\
+                                                                ...
 
+    isis.services = ...,\
+                    org.apache.isis.objectstore.jdo.applib.service.audit.AuditingServiceJdoContributions,\
+                    ...
 
-The `AuditingServiceJdoContributions` service is optional but is recommended;
+The `AuditingServiceJdoContributions` service is optional but recommended;
 see below for more information.
 
-If you want to extend this module, we recommend that you fork this repo.  The
-repo is structured as follows:
+If instead you want to extend this module's functionality, then we recommend 
+that you fork this repo.  The repo is structured as follows:
 
 * `pom.xml`    // parent pom
 * `dom`        // the module implementation, depends on Isis applib
@@ -44,11 +80,6 @@ repo is structured as follows:
 Only the `dom` project is released to Maven central repo.  The versions of the
 other modules are purposely left at `0.0.1-SNAPSHOT` because they are not intended
 to be released.
-
-## Using by extending (fork this repo) ##
-
-TODO
-
 
 ## API ##
 
@@ -188,7 +219,7 @@ prior to any repository call, so there may not be any need to call.
 
 ## Legal Stuff ##
  
-### License ###
+#### License ####
 
     Copyright 2014 Dan Haywood
 
@@ -205,7 +236,6 @@ prior to any repository call, so there may not be any need to call.
     specific language governing permissions and limitations
     under the License.
 
-
-### Dependencies
+#### Dependencies ####
 
 There are no third-party dependencies.
