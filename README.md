@@ -2,7 +2,8 @@
 
 [![Build Status](https://travis-ci.org/isisaddons/isis-module-docx.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-docx)
 
-This module (intended for use with [Apache Isis](http://isis.apache.org)) provides a mail-merge capability of input data into an MS Word `.docx` template.
+This module, intended for use with [Apache Isis](http://isis.apache.org), provides a mail-merge capability of input 
+data into an MS Word `.docx` template.
 
 The module consists of a single domain service, `DocxService`.  This provides an API to merge a `.docx` template
 against its input data.  The input data is represented as a simple HTML file.
@@ -20,32 +21,9 @@ The implementation uses [docx4j](http://www.docx4java.org), [guava](https://code
 used (as repeating datasets - required for lists and tables - was not supported prior to Word 2013).
 
 
-## Using the module ##
-
-The repo contains the following Maven modules:
-
-- `pom.xml`             // parent
-- `dom/pom.xml`
-- `fixture/pom.xml`
-- `integtests/pom.xml`
-- `webapp/pom.xml`
-
-The `dom` module contains the service implementation plus its unit tests, and is released to Maven central.  The
-remaining modules provide a simple application demonstrating the use of the service, and are *not* released to
-Maven central.
-
-If the module's "out-of-the-box" functionality matches your requirements exactly, simply reference the `dom` module
-directly in your application.
-
-If instead you wish to customize and extend the service then we recommend you fork this repo.  You can then make enhance
-the implementation in the `dom` module as you require, and use the `fixture`, `integtests` and `webapp` modules as a
-starting point for writing additional tests for your new functionality.  If your enhancements could be reused by others,
-please consider raising a pull request to fold your enhancements back into this repo.
-
-
 ## Screenshots ##
 
-The following screenshots show the example app's usage of the module.
+The following screenshots show an example app's usage of the module.
 
 #### Installing the Fixture Data
 
@@ -84,6 +62,45 @@ The second is a prototype action to inspect the input HTML document that is fed 
 
 Note how the table rows are repeated for each `OrderLine` item, and similarly a new bullet list for each `Order`
 preference.
+
+
+## How to configure/use ##
+
+You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
+
+To use "out-of-the-box":
+
+* update your classpath by adding this dependency in your dom project's `pom.xml`:
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.isisaddons.module.docx&lt;/groupId&gt;
+        &lt;artifactId&gt;isis-module-docx-dom&lt;/artifactId&gt;
+        &lt;version&gt;x.y.z&lt;/version&gt;
+    &lt;/dependency&gt;
+
+* update your `WEB-INF/isis.properties`:
+
+    isis.services-installer=configuration-and-annotation
+    isis.services.ServicesInstallerFromAnnotation.packagePrefix=...,\
+                                                                org.isisaddons.module.docx.dom,\
+                                                                ...
+
+If instead you want to extend this module's functionality, then we recommend 
+that you fork this repo.  The repo is structured as follows:
+
+* `pom.xml`    // parent pom
+* `dom`        // the module implementation, depends on Isis applib
+* `fixture`    // fixtures, holding a sample domain objects and fixture scripts; depends on `dom`
+* `integtests` // integration tests for the module; depends on `fixture`
+* `webapp`     // demo webapp (see above screenshots); depends on `dom` and `fixture`
+
+Only the `dom` project is released to [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-docx-dom)).
+The versions of the other modules are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
+
+If you are enhancing the implementation, make your enhancements in the `dom` module as you require, and use the 
+`fixture`, `integtests` and `webapp` modules as a starting point for writing additional tests for your new  
+functionality.  If your enhancements could be reused by others, please consider raising a pull request to fold your 
+enhancements back into this repo.
 
 
 ## API ##
@@ -191,33 +208,6 @@ than one paragraph in the list item, then the second paragraph from the template
 For tables, the service expects the placeholder to be a table, with a header and either one or two body rows.  The
 header is left untouched, the body rows are used as the template for the input data.  Any surplus cells in the input
 data are ignored.
-
-
-
-
-
-## Maven Configuration
-
-In the `pom.xml` for your "dom" module, add:
-    
-    <dependency>
-        <groupId>org.isisaddons.module.docx</groupId>
-        <artifactId>isis-module-docx-dom</artifactId>
-        <version>x.y.z</version>
-    </dependency>
-
-where `x.y.z` is the latest available in the [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-docx-dom)).
-
-
-## Registering the service
-
-The `DocxService` is annotated with `@DomainService`, so add to the `packagePrefix` key:
-
-    isis.services-installer=configuration-and-annotation
-    isis.services.ServicesInstallerFromAnnotation.packagePrefix=...,\
-                                                                org.isisaddons.module.docx.dom,\
-                                                                ...
-
     
     
 
