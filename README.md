@@ -43,14 +43,17 @@ To use "out-of-the-box:
 
 * update your classpath by adding this dependency in your dom project's `pom.xml`:
 
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.isisaddons.module.audit&lt;/groupId&gt;
-        &lt;artifactId&gt;isis-module-audit-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.6.0&lt;/version&gt;
-    &lt;/dependency&gt;
+<pre>
+    <dependency>
+        <groupId>org.isisaddons.module.audit</groupId>
+        <artifactId>isis-module-audit-dom</artifactId>
+        <version>1.6.0</version>
+    </dependency>
+</pre>
 
 * update your `WEB-INF/isis.properties`:
 
+<pre>
     isis.services-installer=configuration-and-annotation
     isis.services.ServicesInstallerFromAnnotation.packagePrefix=...,\
                                                                 org.isisaddons.module.audit.dom,\
@@ -59,6 +62,7 @@ To use "out-of-the-box:
     isis.services = ...,\
                     org.isisaddons.module.audit.AuditingServiceContributions,\
                     ...
+</pre>
 
 The `AuditingServiceContributions` service is optional but recommended; see below for more information.
 
