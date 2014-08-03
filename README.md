@@ -44,20 +44,21 @@ To use "out-of-the-box:
 * update your classpath by adding this dependency in your dom project's `pom.xml`:
 
 <pre>
-    <dependency>
-        <groupId>org.isisaddons.module.audit</groupId>
-        <artifactId>isis-module-audit-dom</artifactId>
-        <version>1.6.0</version>
-    </dependency>
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.isisaddons.module.audit&lt;/groupId&gt;
+        &lt;artifactId&gt;isis-module-audit-dom&lt;/artifactId&gt;
+        &lt;version&gt;1.6.0&lt;/version&gt;
+    &lt;/dependency&gt;
 </pre>
 
 * update your `WEB-INF/isis.properties`:
 
 <pre>
     isis.services-installer=configuration-and-annotation
-    isis.services.ServicesInstallerFromAnnotation.packagePrefix=...,\
-                                                                org.isisaddons.module.audit.dom,\
-                                                                ...
+    isis.services.ServicesInstallerFromAnnotation.packagePrefix=\
+                    ...,\
+                    org.isisaddons.module.audit.dom,\
+                    ...
 
     isis.services = ...,\
                     org.isisaddons.module.audit.AuditingServiceContributions,\
@@ -69,11 +70,11 @@ The `AuditingServiceContributions` service is optional but recommended; see belo
 If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is 
 structured as follows:
 
-* `pom.xml`    // parent pom
-* `dom`        // the module implementation, depends on Isis applib
-* `fixture`    // fixtures, holding a sample domain objects and fixture scripts; depends on `dom`
-* `integtests` // integration tests for the module; depends on `fixture`
-* `webapp`     // demo webapp (see above screenshots); depends on `dom` and `fixture`
+* `pom.xml   ` - parent pom
+* `dom       ` - the module implementation, depends on Isis applib
+* `fixture   ` - fixtures, holding a sample domain objects and fixture scripts; depends on `dom`
+* `integtests` - integration tests for the module; depends on `fixture`
+* `webapp    ` - demo webapp (see above screenshots); depends on `dom` and `fixture`
 
 Only the `dom` project is released to     Check for versions available in the 
 [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-audit-dom)).  The versions of the other modules 
@@ -100,7 +101,7 @@ for every individual property of a domain object that is changed.
 
 ## Implementation ##
 
-* This implementation was originally developed within Isis itself, as part of the JDO Objectstore.  This implementation 
+*This implementation was originally developed within Isis itself, as part of the JDO Objectstore.  This implementation 
 is identical (is a copy of) the `org.apache.isis.module:isis-module-audit-jdo:1.6.0` Maven artifact; only the package 
 names have been changed.*
 
@@ -131,8 +132,8 @@ where:
 * `targetClass` holds the class of the audited object, eg `com.mycompany.myapp.Customer`
 * `targetStr` stores a serialized form of the `Bookmark`, in other words a provides a mechanism to look up the audited 
   object, eg `CUS:L_1234` to identify customer with id 1234.  ("CUS" corresponds to the `@ObjectType` annotation/facet).
-* `memberIdentifier` is the fully-qualified class and property Id (similar to the way that Javadoc words, 
-   eg `com.mycompany.myapp.Customer#firstName`)
+* `memberIdentifier` is the fully-qualified class and property Id, similar to the way that Javadoc words, eg 
+   `com.mycompany.myapp.Customer#firstName`
 * `propertyId` is the property identifier, eg `firstName`
 * `preValue` holds a string representation of the property's value prior to it being changed.  If the object has been 
   created then it holds the value "[NEW]".  If the string is too long, it will be truncated with ellipses '...'.
