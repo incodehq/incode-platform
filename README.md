@@ -43,13 +43,11 @@ To use "out-of-the-box:
 
 * update your classpath by adding this dependency in your dom project's `pom.xml`:
 
-    <dependency>
-        <groupId>org.isisaddons.module.audit</groupId>
-        <artifactId>isis-module-audit-dom</artifactId>
-        <version>x.y.z</version>
-    </dependency>
-
-    * where `x.y.z` is the latest available in the [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-audit-dom)).
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.isisaddons.module.audit&lt;/groupId&gt;
+        &lt;artifactId&gt;isis-module-audit-dom&lt;/artifactId&gt;
+        &lt;version&gt;1.6.0&lt;/version&gt;
+    &lt;/dependency&gt;
 
 * update your `WEB-INF/isis.properties`:
 
@@ -62,7 +60,7 @@ To use "out-of-the-box:
                     org.isisaddons.module.audit.AuditingServiceContributions,\
                     ...
 
-The `AuditingServiceJdoContributions` service is optional but recommended; see below for more information.
+The `AuditingServiceContributions` service is optional but recommended; see below for more information.
 
 If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is 
 structured as follows:
@@ -73,8 +71,9 @@ structured as follows:
 * `integtests` // integration tests for the module; depends on `fixture`
 * `webapp`     // demo webapp (see above screenshots); depends on `dom` and `fixture`
 
-Only the `dom` project is released to Maven central repo.  The versions of the other modules are purposely left at 
-`0.0.1-SNAPSHOT` because they are not intended to be released.
+Only the `dom` project is released to     Check for versions available in the 
+[Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-audit-dom)).  The versions of the other modules 
+are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
 
 ## API ##
 
@@ -107,7 +106,7 @@ fine-grained audit trail.
 
 The `AuditEntry` properties directly correspond to parameters of the `AuditingService3` `audit()` API:
 
-    public class AuditEntryJdo 
+    public class AuditEntry 
         ... 
         private UUID transactionId;
         private String targetClass;
