@@ -39,7 +39,7 @@ The following screenshots show an example app's usage of the module.
 
 You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
 
-To use "out-of-the-box:
+To use "out-of-the-box":
 
 * update your classpath by adding this dependency in your dom project's `pom.xml`:
 
@@ -145,7 +145,7 @@ audit entry.  However, there is (deliberately) no uniqueness constraint to enfor
 
 The `AuditEntry` entity is designed such that it can be rendered on an Isis user interface if required.
     
-## Complementary Services ##
+## Supporting Services ##
 
 As well as the `AuditingService` service (that implements the `AuditingService3` API), the module also provides two 
 further domain services:
