@@ -145,9 +145,23 @@ audit entry.  However, there is (deliberately) no uniqueness constraint to enfor
 
 The `AuditEntry` entity is designed such that it can be rendered on an Isis user interface if required.
     
-## Relationship to other services ##
+## Complementary Services ##
+
+As well as the `AuditingService` service (that implements the `AuditingService3` API), the module also provides two 
+further domain services:
+
+* `AuditingServiceRepository` provides the ability to search for persisted (`AuditEntry`) audit entries.  None of its 
+  actions are visible in the user interface (they are all `@Programmatic`) and so this service is automatically 
+  registered.
+
+* `AuditingServiceContributions` provides the `auditEntries` contributed collection to the `HasTransactionId` interface.
+  This will therefore display all audit entries that occurred in a given transaction, in other words whenever a command,
+  a published event or another audit entry is displayed.
+
+## Related Modules/Services ##
 
 As well as defining the `AuditingService3` API, Isis' applib also defines several other closely related services.
+Implementations of these services are referenced by the [Isis Add-ons](http://www.isisaddons.org) website.
 
 The `CommandContext` defines the `Command` class which provides request-scoped information about an action invocation.  
 Commands can be thought of as being the cause of an action; they are created "before the fact".  Some of the 
@@ -171,20 +185,8 @@ If all these services are configured - such that  commands, audit entries and pu
 the `transactionId` that is common to all enables seamless navigation between each.  (This is implemented through 
 contributed actions/properties/collections; `AuditEntry` implements the `HasTransactionId` interface in Isis' applib, 
 and it is this interface that each module has services that contribute to).
+ 
 
-## Complementary Services ##
-
-As well as the `AuditingService` service (that implements the `AuditingService3` API), the module also provides two 
-further domain services:
-
-* `AuditingServiceRepository` provides the ability to search for persisted (`AuditEntry`) audit entries.  None of its 
-  actions are visible in the user interface (they are all `@Programmatic`) and so this service is automatically 
-  registered.
-
-* `AuditingServiceContributions` provides the `auditEntries` contributed collection to the `HasTransactionId` interface.
-  This will therefore display all audit entries that occurred in a given transaction, in other words whenever a command,
-  a published event or another audit entry is displayed.
-  
 ## Known issues ##
 
 In `1.6.0` a call to `DomainObjectContainer#flush()` is required in order that any newly created objects are populated.
