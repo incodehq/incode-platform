@@ -33,9 +33,9 @@ import org.apache.isis.applib.fixturescripts.SimpleFixtureScript;
  */
 @DomainService(menuOrder = "20")
 @Named("Prototyping")
-public class TaggedObjectsFixturesService extends FixtureScripts {
+public class ExampleTaggableEntitiesFixturesService extends FixtureScripts {
 
-    public TaggedObjectsFixturesService() {
+    public ExampleTaggableEntitiesFixturesService() {
         super("org.isisaddons.module.tags.fixture.scripts");
     }
 
@@ -60,7 +60,7 @@ public class TaggedObjectsFixturesService extends FixtureScripts {
     @Prototype
     @MemberOrder(sequence="20")
     public Object installFixturesAndReturnFirst() {
-        final List<FixtureResult> run = findFixtureScriptFor(DemoSetUpFixture.class).run(null);
+        final List<FixtureResult> run = findFixtureScriptFor(ExampleTaggableEntitiesSetUpFixture.class).run(null);
         return run.get(0).getObject();
     }
 

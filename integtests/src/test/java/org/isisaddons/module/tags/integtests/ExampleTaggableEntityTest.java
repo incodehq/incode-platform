@@ -28,7 +28,7 @@ import org.isisaddons.module.tags.dom.Tag;
 import org.isisaddons.module.tags.dom.Tags;
 import org.isisaddons.module.tags.fixture.dom.ExampleTaggableEntities;
 import org.isisaddons.module.tags.fixture.dom.ExampleTaggableEntity;
-import org.isisaddons.module.tags.fixture.scripts.TearDownFixture;
+import org.isisaddons.module.tags.fixture.scripts.ExampleTaggableEntitiesTearDownFixture;
 import org.isisaddons.module.tags.fixture.scripts.entities.Bar_Pepsi_Drink;
 import org.isisaddons.module.tags.fixture.scripts.entities.Baz_McDonalds_FastFood;
 import org.isisaddons.module.tags.fixture.scripts.entities.Bip_CocaCola_Drink;
@@ -42,14 +42,14 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 
-public class ExampleTaggableEntityTest_changeTag extends ExampleTaggableEntitiesAppIntegTest {
+public class ExampleTaggableEntityTest extends ExampleTaggableEntitiesAppIntegTest {
 
-    private ExampleTaggableEntity entity;
+    ExampleTaggableEntity entity;
 
     @Before
     public void setUpData() throws Exception {
         scenarioExecution().install(
-                new TearDownFixture(),
+                new ExampleTaggableEntitiesTearDownFixture(),
                 new Bip_CocaCola_Drink(),
                 new Bar_Pepsi_Drink(),
                 new Baz_McDonalds_FastFood(),
@@ -58,13 +58,13 @@ public class ExampleTaggableEntityTest_changeTag extends ExampleTaggableEntities
     }
 
     @Inject
-    private ExampleTaggableEntities exampleTaggableEntities;
+    ExampleTaggableEntities exampleTaggableEntities;
 
     @Inject
-    private Tags tags;
+    Tags tags;
 
     @Inject
-    private IsisJdoSupport isisJdoSupport;
+    IsisJdoSupport isisJdoSupport;
 
     @Before
     public void setUp() throws Exception {
@@ -76,50 +76,54 @@ public class ExampleTaggableEntityTest_changeTag extends ExampleTaggableEntities
         assertThat(entity.getSector(), is("Drink"));
     }
 
-    @Test
-    public void whenOthersUseTheTag() throws Exception {
+    public static class ChangeTag extends ExampleTaggableEntityTest {
 
-        // given
-        assertThat(entity.choicesSector(), containsInAnyOrder("Drink", "Fast food", "Clothing"));
-        assertThat(uniqueValuesOf(tagsWithKey("Sector")), hasSize(3));
-        assertThat(entity.getSector(), is("Drink")); // 2 using Drink
+        @Test
+        public void whenOthersUseTheTag() throws Exception {
 
-        // when
-        entity.setSector("Fast food");
-        nextTransaction();
+            // given
+            assertThat(entity.choicesSector(), containsInAnyOrder("Drink", "Fast food", "Clothing"));
+            assertThat(uniqueValuesOf(tagsWithKey("Sector")), hasSize(3));
+            assertThat(entity.getSector(), is("Drink")); // 2 using Drink
 
-        // then updated...
-        assertThat(entity.getSector(), is("Fast food"));
-        // but no tags removed
-        assertThat(entity.choicesSector(), containsInAnyOrder("Drink", "Fast food", "Clothing"));
-        assertThat(uniqueValuesOf(tagsWithKey("Sector")), hasSize(3));
-    }
+            // when
+            entity.setSector("Fast food");
+            nextTransaction();
 
-    @Test
-    public void whenNoOthersUseTheTag() throws Exception {
+            // then updated...
+            assertThat(entity.getSector(), is("Fast food"));
+            // but no tags removed
+            assertThat(entity.choicesSector(), containsInAnyOrder("Drink", "Fast food", "Clothing"));
+            assertThat(uniqueValuesOf(tagsWithKey("Sector")), hasSize(3));
+        }
 
-        // given
-        assertThat(entity.choicesBrand(), containsInAnyOrder("Coca Cola", "Levi's", "McDonalds", "Pepsi"));
-        assertThat(uniqueValuesOf(tagsWithKey("Brand")), hasSize(4));
+        @Test
+        public void whenNoOthersUseTheTag() throws Exception {
 
-        // when
-        entity.setBrand("Pepsi");
-        nextTransaction();
+            // given
+            assertThat(entity.choicesBrand(), containsInAnyOrder("Coca Cola", "Levi's", "McDonalds", "Pepsi"));
+            assertThat(uniqueValuesOf(tagsWithKey("Brand")), hasSize(4));
 
-        // then updated...
-        assertThat(entity.getBrand(), is("Pepsi"));
-        // then tag removed
-        assertThat(entity.choicesBrand(), containsInAnyOrder("Levi's", "McDonalds", "Pepsi"));
-        assertThat(uniqueValuesOf(tagsWithKey("Brand")), hasSize(3));
-    }
+            // when
+            entity.setBrand("Pepsi");
+            nextTransaction();
 
-    private List<Tag> tagsWithKey(String key) {
-        final Query query = isisJdoSupport.getJdoPersistenceManager().newQuery("SELECT FROM " + Tag.class.getName() + " where key == :key");
-        return (List<Tag>) query.execute(key);
-    }
+            // then updated...
+            assertThat(entity.getBrand(), is("Pepsi"));
+            // then tag removed
+            assertThat(entity.choicesBrand(), containsInAnyOrder("Levi's", "McDonalds", "Pepsi"));
+            assertThat(uniqueValuesOf(tagsWithKey("Brand")), hasSize(3));
+        }
 
-    private static Set<String> uniqueValuesOf(List<Tag> tags) {
-        return Sets.newTreeSet(Iterables.transform(tags, Tag.Functions.GET_VALUE));
+        private List<Tag> tagsWithKey(String key) {
+            final Query query = isisJdoSupport.getJdoPersistenceManager().newQuery("SELECT FROM " + Tag.class.getName() + " where key == :key");
+            return (List<Tag>) query.execute(key);
+        }
+
+        private static Set<String> uniqueValuesOf(List<Tag> tags) {
+            return Sets.newTreeSet(Iterables.transform(tags, Tag.Functions.GET_VALUE));
+        }
+
     }
 
 
