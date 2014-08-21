@@ -17,14 +17,14 @@
  *  under the License.
  */
 
-package org.apache.isis.objectstore.jdo.applib.service.command;
+package org.isisaddons.module.command.dom;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-import org.apache.isis.objectstore.jdo.applib.service.command.CommandJdo;
+import org.isisaddons.module.command.dom.CommandJdo;
 
 public class CommandJdoTest_next {
 

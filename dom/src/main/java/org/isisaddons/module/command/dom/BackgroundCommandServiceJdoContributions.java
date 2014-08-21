@@ -14,7 +14,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.apache.isis.objectstore.jdo.applib.service.background;
+package org.isisaddons.module.command.dom;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,7 +28,6 @@ import org.apache.isis.applib.annotation.NotInServiceMenu;
 import org.apache.isis.applib.annotation.Render;
 import org.apache.isis.applib.annotation.Render.Type;
 import org.apache.isis.applib.services.command.Command;
-import org.apache.isis.objectstore.jdo.applib.service.command.CommandJdo;
 
 
 /**

@@ -14,7 +14,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.apache.isis.objectstore.jdo.applib.service.background;
+package org.isisaddons.module.command.dom;
 
 import java.util.List;
 import java.util.UUID;
@@ -26,11 +26,10 @@ import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
-import org.apache.isis.objectstore.jdo.applib.service.command.CommandJdo;
 
 /**
  * Provides supporting functionality for querying
- * {@link org.apache.isis.objectstore.jdo.applib.service.command.CommandJdo command} entities that have been persisted
+ * {@link CommandJdo command} entities that have been persisted
  * to execute in the background.
  *
  * <p>

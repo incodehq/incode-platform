@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.apache.isis.objectstore.jdo.service;
+package org.isisaddons.module.command.dom;
 
 import java.util.List;
 
@@ -25,8 +25,6 @@ import org.slf4j.LoggerFactory;
 
 import org.apache.isis.applib.services.command.Command;
 import org.apache.isis.core.runtime.services.background.BackgroundCommandExecution;
-import org.apache.isis.objectstore.jdo.applib.service.background.BackgroundCommandServiceJdoRepository;
-import org.apache.isis.objectstore.jdo.applib.service.command.CommandJdo;
 
 /**
  * If used, ensure that <code>org.apache.isis.module:isis-module-background</code> is also included on classpath.

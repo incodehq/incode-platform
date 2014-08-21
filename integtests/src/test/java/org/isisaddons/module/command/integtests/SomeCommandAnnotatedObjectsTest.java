@@ -28,9 +28,9 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
-import org.apache.isis.objectstore.jdo.applib.service.background.BackgroundCommandServiceJdoRepository;
-import org.apache.isis.objectstore.jdo.applib.service.command.CommandJdo;
-import org.apache.isis.objectstore.jdo.applib.service.command.CommandServiceJdoRepository;
+import org.isisaddons.module.command.dom.BackgroundCommandServiceJdoRepository;
+import org.isisaddons.module.command.dom.CommandJdo;
+import org.isisaddons.module.command.dom.CommandServiceJdoRepository;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.empty;

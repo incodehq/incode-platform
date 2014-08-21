@@ -14,7 +14,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.apache.isis.objectstore.jdo.applib.service.background;
+package org.isisaddons.module.command.dom;
 
 import java.util.UUID;
 import org.slf4j.Logger;
@@ -27,12 +27,11 @@ import org.apache.isis.applib.clock.Clock;
 import org.apache.isis.applib.services.background.ActionInvocationMemento;
 import org.apache.isis.applib.services.background.BackgroundCommandService;
 import org.apache.isis.applib.services.command.Command;
-import org.apache.isis.objectstore.jdo.applib.service.command.CommandJdo;
 
 /**
  * Persists a {@link ActionInvocationMemento memento-ized} action such that it can be executed asynchronously,
  * for example through a Quartz scheduler (using
- * {@link org.apache.isis.objectstore.jdo.service.BackgroundCommandExecutionFromBackgroundCommandServiceJdo}).
+ * {@link BackgroundCommandExecutionFromBackgroundCommandServiceJdo}).
  *
  * <p>
  * This implementation has no UI and there are no other implementations of the service API, and so it annotated

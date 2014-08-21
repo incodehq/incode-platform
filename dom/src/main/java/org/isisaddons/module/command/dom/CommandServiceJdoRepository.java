@@ -14,7 +14,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.apache.isis.objectstore.jdo.applib.service.command;
+package org.isisaddons.module.command.dom;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -34,7 +34,7 @@ import org.apache.isis.applib.services.command.CommandContext;
 
 /**
  * Provides supporting functionality for querying and persisting
- * {@link org.apache.isis.objectstore.jdo.applib.service.command.CommandJdo command} entities.
+ * {@link CommandJdo command} entities.
  *
  * <p>
  * This supporting service with no UI and no side-effects, and is there are no other implementations of the service,

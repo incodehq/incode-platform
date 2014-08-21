@@ -14,7 +14,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.apache.isis.objectstore.jdo.applib.service.command;
+package org.isisaddons.module.command.dom;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -33,7 +33,6 @@ import org.slf4j.LoggerFactory;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
-import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Command.ExecuteIn;
 import org.apache.isis.applib.annotation.Command.Persistence;
 import org.apache.isis.applib.annotation.Hidden;
@@ -55,7 +54,6 @@ import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 import org.apache.isis.objectstore.jdo.applib.service.Util;
-import org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract.ChangeType;
 
 
 @javax.jdo.annotations.PersistenceCapable(
@@ -65,24 +63,24 @@ import org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract.Ch
     @javax.jdo.annotations.Query(
             name="findByTransactionId", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.command.CommandJdo "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE transactionId == :transactionId "),
     @javax.jdo.annotations.Query(
             name="findBackgroundCommandByTransactionId", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.command.CommandJdo "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE transactionId == :transactionId "
                     + "&& executeIn == 'BACKGROUND'"),
     @javax.jdo.annotations.Query(
             name="findBackgroundCommandsByParent", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.command.CommandJdo "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE parent == :parent "
                     + "&& executeIn == 'BACKGROUND'"),
     @javax.jdo.annotations.Query(
             name="findBackgroundCommandsNotYetStarted", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.command.CommandJdo "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE executeIn == 'BACKGROUND' "
                     + "&& startedAt == null "
                     + "ORDER BY timestamp ASC "
@@ -90,20 +88,20 @@ import org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract.Ch
     @javax.jdo.annotations.Query(
             name="findCurrent", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.command.CommandJdo "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE completedAt == null "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findCompleted", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.command.CommandJdo "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE completedAt != null "
                     + "&& executeIn == 'FOREGROUND' "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTargetAndTimestampBetween", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.audit.AuditEntryJdo "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE targetStr == :targetStr " 
                     + "&& timestamp >= :from " 
                     + "&& timestamp <= :to "
@@ -111,46 +109,46 @@ import org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract.Ch
     @javax.jdo.annotations.Query(
             name="findByTargetAndTimestampAfter", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.audit.AuditEntryJdo "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE targetStr == :targetStr " 
                     + "&& timestamp >= :from "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTargetAndTimestampBefore", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.audit.AuditEntryJdo "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE targetStr == :targetStr " 
                     + "&& timestamp <= :to "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTarget", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.audit.AuditEntryJdo "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE targetStr == :targetStr " 
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTimestampBetween", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.audit.AuditEntryJdo "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE timestamp >= :from " 
                     + "&&    timestamp <= :to "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTimestampAfter", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.audit.AuditEntryJdo "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE timestamp >= :from "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTimestampBefore", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.audit.AuditEntryJdo "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE timestamp <= :to "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="find", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.audit.AuditEntryJdo "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "ORDER BY timestamp DESC")
 })
 @ObjectType("IsisCommand")

@@ -119,6 +119,22 @@ public void changeNameExplicitlyInBackground(final String newName) {
 ![](https://raw.github.com/isisaddons/isis-module-command/master/images/21-change-not-persisted-results.png)
 
 
+## Relationship to Apache Isis Core ##
+
+Isis Core 1.6.0 included the `org.apache.isis.core:isis-module-command-jdo:1.6.0` Maven artifact.  This module is a
+direct copy of that code, with the following changes:
+
+* package names have been altered from `org.apache.isis` to `org.isisaddons.module.command`
+* the `persistent-unit` (in the JDO manifest) has changed from `isis-module-command-jdo` to 
+  `org-isisaddons-module-command-dom`
+* a copy-n-paste error in some of the JDO queries for `CommandJdo` have been fixed
+
+
+Otherwise the functionality is identical; warts and all!
+
+At the time of writing the plan is to remove this module from Isis Core (so it won't be in Isis 1.7.0), and instead 
+continue to develop it solely as one of the [Isis Addons](http://www.isisaddons.org) modules.
+
 ## How to configure/use ##
 
 You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
@@ -140,14 +156,14 @@ To use "out-of-the-box":
 <pre>
     isis.services-installer=configuration-and-annotation
     isis.services.ServicesInstallerFromAnnotation.packagePrefix=
-                    ...,\
-                    org.isisaddons.module.command.dom,\
-                    ...
+                ...,\
+                org.isisaddons.module.command.dom,\
+                ...
 
     isis.services = ...,\
-                    org.isisaddons.module.command.CommandServiceContributions,\
-                    org.isisaddons.module.command.BackgroundCommandServiceContributions,\
-                    ...
+                org.isisaddons.module.command.dom.CommandServiceContributions,\
+                org.isisaddons.module.command.dom.BackgroundCommandServiceContributions,\
+                ...
 </pre>
 
 The `CommandServiceContributions` and `BackgroundCommandServiceContributions` services are optional but recommended; 
