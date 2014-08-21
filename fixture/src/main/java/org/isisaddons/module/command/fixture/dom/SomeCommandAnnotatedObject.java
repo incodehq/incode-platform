@@ -58,7 +58,7 @@ public class SomeCommandAnnotatedObject implements Comparable<SomeCommandAnnotat
     @ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
     @Command
     public SomeCommandAnnotatedObject changeName(final String newName) {
-        setName(name);
+        setName(newName);
         return this;
     }
 
@@ -81,7 +81,7 @@ public class SomeCommandAnnotatedObject implements Comparable<SomeCommandAnnotat
     @ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
     @Command(executeIn = Command.ExecuteIn.BACKGROUND)
     public SomeCommandAnnotatedObject changeNameImplicitlyInBackground(final String newName) {
-        setName(name);
+        setName(newName);
         return this;
     }
 
@@ -93,7 +93,7 @@ public class SomeCommandAnnotatedObject implements Comparable<SomeCommandAnnotat
     @ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
     @Command(persistence = Command.Persistence.NOT_PERSISTED)
     public SomeCommandAnnotatedObject changeNameCommandNotPersisted(final String newName) {
-        setName(name);
+        setName(newName);
         return this;
     }
 

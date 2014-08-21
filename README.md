@@ -2,9 +2,20 @@
 
 [![Build Status](https://travis-ci.org/isisaddons/isis-module-command.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-command)
 
-This module, intended for use with [Apache Isis](http://isis.apache.org), provides 
+This module, intended for use with [Apache Isis](http://isis.apache.org), provides an implementation of Isis'
+`CommandService` API that enables action invocations (`Command`s) to be persisted using Isis' own (JDO) objectstore.  
+This supports two main use cases:
 
-The module consists of ...
+* profiling: determine which actions are invoked most frequently, what is the elapsed time for each command)
+
+* enhanced auditing: the command represents the "cause" of a change to the system, while the related 
+  [Audit module](http://isisaddons.org) captures the "effect" of the change.  The two are correlated together using a
+  unique transaction Id (GUI).
+   
+In addition, this module also provides an implementation of the `BackgroundCommandService` API.  This enables 
+commands to be persisted but the action not invoked.  A scheduler can then be used to pick up the scheduled background
+commands and invoke them at some later time.  The module provides a subclass of the `BackgroundCommandExecution` class
+(in Isis core) to make it easy to write such scheduler jobs.
 
 ## Screenshots ##
 
@@ -12,7 +23,100 @@ The following screenshots show an example app's usage of the module.
 
 #### Installing the Fixture Data
 
+![](https://raw.github.com/isisaddons/isis-module-command/master/images/01-install-fixtures.png)
 
+#### Example object with list of commands (contributed collection)
+
+![](https://raw.github.com/isisaddons/isis-module-command/master/images/02-example-object.png)
+
+#### Change name ...
+
+<pre>
+    @ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
+    @Command
+    public SomeCommandAnnotatedObject changeName(final String newName) {
+        setName(newName);
+        return this;
+    }
+</pre>
+
+![](https://raw.github.com/isisaddons/isis-module-command/master/images/03-change-name.png)
+![](https://raw.github.com/isisaddons/isis-module-command/master/images/04-change-name-args.png)
+
+#### ... results in persisted command
+
+![](https://raw.github.com/isisaddons/isis-module-command/master/images/05-change-name-results.png)
+
+#### which identifies the action, captures the target and action arguments, also timings and user
+
+![](https://raw.github.com/isisaddons/isis-module-command/master/images/06-change-name-command-persisted.png)
+
+#### Schedule action...
+
+<pre>
+    @Named("Schedule")
+    @ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
+    @Command
+    public void changeNameExplicitlyInBackground(final String newName) {
+        backgroundService.execute(this).changeName(newName);
+    }
+</pre>
+
+![](https://raw.github.com/isisaddons/isis-module-command/master/images/07-schedule.png)
+![](https://raw.github.com/isisaddons/isis-module-command/master/images/08-schedule-args.png)
+
+#### ... results in <i>two</i> persisted commands, a foreground and background
+
+![](https://raw.github.com/isisaddons/isis-module-command/master/images/11-schedule-commands.png)
+
+#### the foreground command has been executed
+
+![](https://raw.github.com/isisaddons/isis-module-command/master/images/13-schedule-foreground-command-with-background-command.png)
+
+#### the background command has not yet
+
+![](https://raw.github.com/isisaddons/isis-module-command/master/images/14-schedule-background-command-not-yet-run.png)
+
+#### Schedule implicitly action...
+
+<pre>
+    @Named("Schedule implicitly")
+    @ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
+    @Command(executeIn = Command.ExecuteIn.BACKGROUND)
+    public SomeCommandAnnotatedObject changeNameImplicitlyInBackground(final String newName) {
+        setName(newName);
+        return this;
+    }
+</pre>
+
+![](https://raw.github.com/isisaddons/isis-module-command/master/images/15-schedule-implicitly.png)
+![](https://raw.github.com/isisaddons/isis-module-command/master/images/16-schedule-implicitly-args.png)
+
+#### ... when invoked returns the persisted background command
+![](https://raw.github.com/isisaddons/isis-module-command/master/images/17-schedule-implicitly-direct-to-results.png)
+
+#### only a single background command is created (no foreground command at all)
+
+![](https://raw.github.com/isisaddons/isis-module-command/master/images/18-schedule-implicitly-only-one-command.png)
+
+#### Actions can be excluded...
+
+<pre>
+    @Named("Change (not persisted)")
+    @ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
+    @Command(persistence = Command.Persistence.NOT_PERSISTED)
+    public SomeCommandAnnotatedObject changeNameCommandNotPersisted(final String newName) {
+        setName(newName);
+        return this;
+    }
+</pre>
+
+![](https://raw.github.com/isisaddons/isis-module-command/master/images/19-change-not-persisted.png)
+![](https://raw.github.com/isisaddons/isis-module-command/master/images/20-change-not-persisted-args.png)
+
+#### ... has no commands persisted
+
+![](https://raw.github.com/isisaddons/isis-module-command/master/images/21-change-not-persisted-results.png)
 
 
 ## How to configure/use ##
@@ -44,8 +148,10 @@ To use "out-of-the-box":
                     org.isisaddons.module.command.CommandServiceContributions,\
                     org.isisaddons.module.command.BackgroundCommandServiceContributions,\
                     ...
+</pre>
 
-The `CommandServiceContributions` and `BackgroundCommandServiceContributions` services are optional but recommended; see below for more information.
+The `CommandServiceContributions` and `BackgroundCommandServiceContributions` services are optional but recommended; 
+see below for more information.
 
 If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is 
 structured as follows:
@@ -62,15 +168,174 @@ are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be relea
 
 ## API ##
 
+This module implements two service APIs, `CommandService` and `BackgroundCommandService`.  It also provides the
+`BackgroundCommandExecutionFromBackgroundCommandServiceJdo` to retrieve background commands for a scheduler to execute.
 
-## Implementation ##
+### `CommandService`
+
+The `CommandService` defines the following API:
+
+<pre>
+    public interface CommandService {
+    
+        Command create();
+        
+        void startTransaction(
+            final Command command, 
+            final UUID transactionId);
+            
+        void complete(
+            final Command command);
+            
+        boolean persistIfPossible(
+            final Command command);        
+    }
+</pre>
+
+Isis will call this service (if available) to create an instance of (the module's implementation of) `Command`
+and to indicate when the transaction wrapping the action is starting and completing.
+
+### `BackgroundCommandService`
+
+The `BackgroundCommandService` defines the following API:
+
+<pre>
+    public interface BackgroundCommandService {
+
+        void schedule(
+            final ActionInvocationMemento aim, 
+            final Command command, 
+            final String targetClassName, final String targetActionName, final String targetArgs);
+    }
+</pre>
+
+The implementation is responsible for persisting the command such that it can be executed asynchronously.
+
+### BackgroundCommandExecutionFromBackgroundCommandServiceJdo
+
+The `BackgroundCommandExecutionFromBackgroundCommandServiceJdo` utility class ultimately extends from Isis Core's 
+`AbstractIsisSessionTemplate`, responsible for setting up an Isis session and obtaining commands.
+
+For example, a Quartz scheduler can be configured to run a job that uses this utility class:
+
+<pre>
+    public class BackgroundCommandExecutionQuartzJob extends AbstractIsisQuartzJob {
+
+        public BackgroundCommandExecutionQuartzJob() {
+            super(new BackgroundCommandExecutionFromBackgroundCommandServiceJdo());   
+        }
+
+    }
+</pre>
+
+where `AbstractIsisQuartzJob` is the following boilerplate:
+
+<pre>
+    public class AbstractIsisQuartzJob implements Job {
+
+        public static enum ConcurrentInstancesPolicy {
+            /**
+             * Only a single instance of this job is allowed to run.  
+             * 
+             * <p>
+             * That is, if the job is invoked again before a previous instance has completed, then silently skips.
+             */
+            SINGLE_INSTANCE_ONLY,
+            /**
+             * Multiple instances of this job are allowed to run concurrently.
+             * 
+             * <p>
+             * That is, it is not required for the previous instance of this job to have completed before this one starts.
+             */
+            MULTIPLE_INSTANCES
+        }
+        
+        private final AbstractIsisSessionTemplate isisRunnable;
+
+        private final ConcurrentInstancesPolicy concurrentInstancesPolicy;
+        private boolean executing;
+
+        public AbstractIsisQuartzJob(AbstractIsisSessionTemplate isisRunnable) {
+            this(isisRunnable, ConcurrentInstancesPolicy.SINGLE_INSTANCE_ONLY);
+        }
+        public AbstractIsisQuartzJob(AbstractIsisSessionTemplate isisRunnable, ConcurrentInstancesPolicy concurrentInstancesPolicy) {
+            this.isisRunnable = isisRunnable;
+            this.concurrentInstancesPolicy = concurrentInstancesPolicy;
+        }
+
+        // //////////////////////////////////////
+
+        /**
+         * Sets up an {@link IsisSession} then delegates to the {@link #doExecute(JobExecutionContext) hook}. 
+         */
+        public void execute(final JobExecutionContext context) throws JobExecutionException {
+            final AuthenticationSession authSession = newAuthSession(context);
+            try {
+                if(concurrentInstancesPolicy == ConcurrentInstancesPolicy.SINGLE_INSTANCE_ONLY && executing) {
+                    return;
+                }
+                executing = true;
+
+                isisRunnable.execute(authSession, context);
+            } finally {
+                executing = false;
+            }
+        }
+
+        AuthenticationSession newAuthSession(JobExecutionContext context) {
+            String user = getKey(context, SchedulerConstants.USER_KEY);
+            String rolesStr = getKey(context, SchedulerConstants.ROLES_KEY);
+            String[] roles = Iterables.toArray(
+                    Splitter.on(",").split(rolesStr), String.class);
+            return new SimpleSession(user, roles);
+        }
+
+        String getKey(JobExecutionContext context, String key) {
+            return context.getMergedJobDataMap().getString(key);
+        }
+    }
+</pre>
+
 
 ## Supporting Services ##
 
+As well as the `CommandService` and `BackgroundCommandService` implementations, the module also a number of other
+domain services:
+
+* `CommandServiceJdoRepository` provides the ability to search for persisted (foreground) `Command`s.  None 
+   of its actions are visible in the user interface (they are all `@Programmatic`) and so this service is automatically 
+   registered.
+
+* `BackgroundCommandServiceJdoRepository` provides the ability to search for persisted (background) `Command`s.  None 
+   of its actions are visible in the user interface (they are all `@Programmatic`) and so this service is automatically 
+   registered.
+
+* `CommandServiceJdoContributions` provides the `commands` contributed collection to the `HasTransactionId` interface.
+   This will therefore display all commands that occurred in a given transaction, in other words whenever a command,
+   or also (if configured) a published event or an audit entry is displayed.
+
+* `BackgroundCommandServiceJdoContributions` provides the `childCommands` and `siblingCommands` contributed collections
+   to the `HasTransactionId` interface.  These collections will therefore display for any command, published event
+   or audit entry.
+
 ## Related Modules/Services ##
 
-... referenced by the [Isis Add-ons](http://www.isisaddons.org) website.
+As well as defining the `CommandService` and `BackgroundCommandService` APIs, Isis' applib defines several other
+closely related services.  Implementations of these services are referenced by the 
+[Isis Add-ons](http://www.isisaddons.org) website.
 
+The `AuditingService3` service enables audit entries to be persisted for any change to any object.  The command can
+be thought of as the "cause" of a change, the audit entries as the "effect".  
+
+The `PublishingService` is another optional service that allows an event to be published when either an object has 
+changed or an actions has been invoked.   There are some similarities between publishing to auditing, but the 
+publishing service's primary use case is to enable inter-system co-ordination (in DDD terminology, between bounded 
+contexts).
+
+If the all these services are configured - such that  commands, audit entries and published events are all persisted, then 
+the `transactionId` that is common to all enables seamless navigation between each.  (This is implemented through 
+contributed actions/properties/collections; `Command` implements the `HasTransactionId` interface in Isis' applib, 
+and it is this interface that each module has services that contribute to).
 
 
 ## Legal Stuff ##
