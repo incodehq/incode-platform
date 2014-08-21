@@ -38,12 +38,14 @@
 	        memberGroups: {}
 	    },
 	    {
-	        span: 0,
+	        span: 6,
 	        memberGroups: {}
 	    },
 	    {
-	        span: 6,
-	        collections: {}
+	        span: 12,
+	        collections: {
+              commands: {}
+          }
 	    }
     ],
     actions: {}
