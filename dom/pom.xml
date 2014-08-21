@@ -152,7 +152,7 @@ language governing permissions and limitations under the License.
                 <configuration>
                     <serverId>ossrh</serverId>
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
             
@@ -271,6 +271,7 @@ language governing permissions and limitations under the License.
                         </configuration>
                     </plugin>
 
+                    <!-- http://kohsuke.org/pgp-maven-plugin/secretkey.html instead of maven-gpg-plugin -->
                     <plugin>
                         <groupId>org.kohsuke</groupId>
                         <artifactId>pgp-maven-plugin</artifactId>
@@ -285,23 +286,6 @@ language governing permissions and limitations under the License.
                             </execution>
                         </executions>
                     </plugin>
-
-                    <!--
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.5</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    -->
                 </plugins>
             </build>
         </profile>

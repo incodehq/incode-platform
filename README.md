@@ -381,15 +381,21 @@ The artifacts should be available in [Sonatype's Snapshot Repo](https://oss.sona
 
 #### Release to Maven Central
 
-First manually update the release:
+First manually update the release and tag, eg:
 
     mvn versions:set -DnewVersion=1.6.0
+    mvn tag 1.6.0
+    mvn commit -am "bumping to 1.6.0 for release"
     
 Then release:
 
     mvn clean deploy -P release \
-        -Dpgp.secretKey=keyring:keyring= ~/.gnupg/secring.gpg&id=A0C7C6DE \
-        -Dpgp.passphrase=file:~/.A0C7C6DE-passphrase.txt
+        -Dpgp.secretkey=keyring:id=dan@haywood-associates.co.uk \
+        -Dpgp.passphrase="literal:this is not really my passphrase"
+
+where (for example) "dan@haywood-associates.co.uk" is the email of the secret key (`~/.gnupg/secring.gpg`) to use
+for signing, and the pass phrase is as specified as a literal.  (Other ways of specifying the key and passphrase are 
+available, see the `pgp-maven-plugin`'s [documentation](http://kohsuke.org/pgp-maven-plugin/secretkey.html)).
 
 If `autoReleaseAfterClose` is set to true for the `nexus-staging-maven-plugin`, then the above command will 
 automatically stage, close and the release the repo.  Sync'ing to Maven Central should happen automatically.
@@ -399,10 +405,9 @@ onto the [Sonatype's OSS staging repo](https://oss.sonatype.org) or alternativel
 
     mvn nexus-staging:release
 
-
-
-Finally, don't forget to update the release to next snapshot:
+Finally, don't forget to update the release to next snapshot, eg:
 
     mvn versions:set -DnewVersion=1.6.1-SNAPSHOT
+    mvn commit -am "bumping to 1.6.1-SNAPSHOT for development"
 
 and commit and push changes.
