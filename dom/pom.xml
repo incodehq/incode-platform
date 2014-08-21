@@ -62,14 +62,6 @@ language governing permissions and limitations under the License.
         <junit.version>4.11</junit.version>
     </properties>
 
-    <!-- http://central.sonatype.org/pages/apache-maven.html -->
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
-
     <build>
         <resources>
             <resource>
@@ -222,21 +214,17 @@ language governing permissions and limitations under the License.
 
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>m2e</id>
-            <activation>
-                <property>
-                    <name>m2e.version</name>
-                </property>
-            </activation>
-            <build>
-                <directory>target-ide</directory>
-            </build>
-        </profile>
+    <!-- http://central.sonatype.org/pages/apache-maven.html -->
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 
+    <profiles>
+        <!-- http://central.sonatype.org/pages/apache-maven.html -->
         <profile> 
-            <!-- http://central.sonatype.org/pages/apache-maven.html -->
             <id>release</id>
             <build>
                 <plugins>
@@ -297,6 +285,17 @@ language governing permissions and limitations under the License.
                         </executions>
                     </plugin>
                 </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>m2e</id>
+            <activation>
+                <property>
+                    <name>m2e.version</name>
+                </property>
+            </activation>
+            <build>
+                <directory>target-ide</directory>
             </build>
         </profile>
     </profiles>

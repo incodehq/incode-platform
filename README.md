@@ -342,7 +342,6 @@ the `transactionId` that is common to all enables seamless navigation between ea
 contributed actions/properties/collections; `Command` implements the `HasTransactionId` interface in Isis' applib, 
 and it is this interface that each module has services that contribute to).
 
-
 ## Legal Stuff ##
  
 #### License ####
@@ -366,3 +365,34 @@ and it is this interface that each module has services that contribute to).
 #### Dependencies ####
 
 There are no third-party dependencies.
+
+##  Maven deploy notes
+
+Only the `dom` module is deployed, and is done so using Sonatype's OSS support (see [user guide](http://central.sonatype.org/pages/apache-maven.html)).
+
+#### Release to Sonatype's Snapshot Repo
+
+To deploy a snapshot, use:
+
+    cd dom
+    mvn clean deploy
+
+The artifacts should be available in [Sonatype's Snapshot Repo](https://oss.sonatype.org/content/repositories/snapshots).
+
+#### Release to Maven Central
+
+First manually update the release:
+
+    mvn versions:set -DnewVersion=1.6.0
+    
+Then release
+
+    mvn clean deploy -P release
+    
+This will automatically stage, close and the release the repo.  Sync'ing to Maven Central should happen automatically.
+
+Finally, don't forget to update the release to next snapshot:
+
+    mvn versions:set -DnewVersion=1.6.1-SNAPSHOT
+
+and commit and push changes.
