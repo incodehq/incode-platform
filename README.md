@@ -384,8 +384,8 @@ The artifacts should be available in [Sonatype's Snapshot Repo](https://oss.sona
 First manually update the release and tag, eg:
 
     mvn versions:set -DnewVersion=1.6.0
-    mvn tag 1.6.0
-    mvn commit -am "bumping to 1.6.0 for release"
+    git tag 1.6.0
+    git commit -am "bumping to 1.6.0 for release"
     
 Then release:
 
@@ -408,6 +408,6 @@ onto the [Sonatype's OSS staging repo](https://oss.sonatype.org) or alternativel
 Finally, don't forget to update the release to next snapshot, eg:
 
     mvn versions:set -DnewVersion=1.6.1-SNAPSHOT
-    mvn commit -am "bumping to 1.6.1-SNAPSHOT for development"
+    git commit -am "bumping to 1.6.1-SNAPSHOT for development"
 
 and commit and push changes.
