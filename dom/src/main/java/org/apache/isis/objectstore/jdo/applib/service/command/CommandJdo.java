@@ -21,16 +21,32 @@ import java.sql.Timestamp;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
+
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.NotPersistent;
+
 import com.google.common.collect.Maps;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.*;
+import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Command.ExecuteIn;
 import org.apache.isis.applib.annotation.Command.Persistence;
+import org.apache.isis.applib.annotation.Hidden;
+import org.apache.isis.applib.annotation.Immutable;
+import org.apache.isis.applib.annotation.Mandatory;
+import org.apache.isis.applib.annotation.MemberGroupLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.MultiLine;
+import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.ObjectType;
+import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.TypicalLength;
+import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.command.Command;
@@ -39,6 +55,7 @@ import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 import org.apache.isis.objectstore.jdo.applib.service.Util;
+import org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract.ChangeType;
 
 
 @javax.jdo.annotations.PersistenceCapable(
@@ -86,7 +103,7 @@ import org.apache.isis.objectstore.jdo.applib.service.Util;
     @javax.jdo.annotations.Query(
             name="findByTargetAndTimestampBetween", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.command.CommandJdo "
+                    + "FROM org.apache.isis.objectstore.jdo.applib.service.audit.AuditEntryJdo "
                     + "WHERE targetStr == :targetStr " 
                     + "&& timestamp >= :from " 
                     + "&& timestamp <= :to "
@@ -94,46 +111,46 @@ import org.apache.isis.objectstore.jdo.applib.service.Util;
     @javax.jdo.annotations.Query(
             name="findByTargetAndTimestampAfter", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.command.CommandJdo "
+                    + "FROM org.apache.isis.objectstore.jdo.applib.service.audit.AuditEntryJdo "
                     + "WHERE targetStr == :targetStr " 
                     + "&& timestamp >= :from "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTargetAndTimestampBefore", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.command.CommandJdo "
+                    + "FROM org.apache.isis.objectstore.jdo.applib.service.audit.AuditEntryJdo "
                     + "WHERE targetStr == :targetStr " 
                     + "&& timestamp <= :to "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTarget", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.command.CommandJdo "
+                    + "FROM org.apache.isis.objectstore.jdo.applib.service.audit.AuditEntryJdo "
                     + "WHERE targetStr == :targetStr " 
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTimestampBetween", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.command.CommandJdo "
+                    + "FROM org.apache.isis.objectstore.jdo.applib.service.audit.AuditEntryJdo "
                     + "WHERE timestamp >= :from " 
                     + "&&    timestamp <= :to "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTimestampAfter", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.command.CommandJdo "
+                    + "FROM org.apache.isis.objectstore.jdo.applib.service.audit.AuditEntryJdo "
                     + "WHERE timestamp >= :from "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTimestampBefore", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.command.CommandJdo "
+                    + "FROM org.apache.isis.objectstore.jdo.applib.service.audit.AuditEntryJdo "
                     + "WHERE timestamp <= :to "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="find", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.command.CommandJdo "
+                    + "FROM org.apache.isis.objectstore.jdo.applib.service.audit.AuditEntryJdo "
                     + "ORDER BY timestamp DESC")
 })
 @ObjectType("IsisCommand")
