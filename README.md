@@ -385,11 +385,21 @@ First manually update the release:
 
     mvn versions:set -DnewVersion=1.6.0
     
-Then release
+Then release:
 
-    mvn clean deploy -P release
-    
-This will automatically stage, close and the release the repo.  Sync'ing to Maven Central should happen automatically.
+    mvn clean deploy -P release \
+        -Dpgp.secretKey=keyring:keyring= ~/.gnupg/secring.gpg&id=A0C7C6DE \
+        -Dpgp.passphrase=file:~/.A0C7C6DE-passphrase.txt
+
+If `autoReleaseAfterClose` is set to true for the `nexus-staging-maven-plugin`, then the above command will 
+automatically stage, close and the release the repo.  Sync'ing to Maven Central should happen automatically.
+
+If `autoReleaseAfterClose` is set to false, then the repo will require manually closing and releasing either by logging
+onto the [Sonatype's OSS staging repo](https://oss.sonatype.org) or alternatively by releasing from the command line:
+
+    mvn nexus-staging:release
+
+
 
 Finally, don't forget to update the release to next snapshot:
 
