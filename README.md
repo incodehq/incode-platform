@@ -32,12 +32,12 @@ The following screenshots show an example app's usage of the module.
 #### Change name ...
 
 <pre>
-    @ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
-    @Command
-    public SomeCommandAnnotatedObject changeName(final String newName) {
-        setName(newName);
-        return this;
-    }
+@ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
+@Command
+public SomeCommandAnnotatedObject changeName(final String newName) {
+    setName(newName);
+    return this;
+}
 </pre>
 
 ![](https://raw.github.com/isisaddons/isis-module-command/master/images/03-change-name.png)
@@ -54,12 +54,12 @@ The following screenshots show an example app's usage of the module.
 #### Schedule action...
 
 <pre>
-    @Named("Schedule")
-    @ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
-    @Command
-    public void changeNameExplicitlyInBackground(final String newName) {
-        backgroundService.execute(this).changeName(newName);
-    }
+@Named("Schedule")
+@ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
+@Command
+public void changeNameExplicitlyInBackground(final String newName) {
+    backgroundService.execute(this).changeName(newName);
+}
 </pre>
 
 ![](https://raw.github.com/isisaddons/isis-module-command/master/images/07-schedule.png)
@@ -176,20 +176,19 @@ This module implements two service APIs, `CommandService` and `BackgroundCommand
 The `CommandService` defines the following API:
 
 <pre>
-    public interface CommandService {
+public interface CommandService {
+    Command create();
     
-        Command create();
+    void startTransaction(
+        final Command command, 
+        final UUID transactionId);
         
-        void startTransaction(
-            final Command command, 
-            final UUID transactionId);
-            
-        void complete(
-            final Command command);
-            
-        boolean persistIfPossible(
-            final Command command);        
-    }
+    void complete(
+        final Command command);
+        
+    boolean persistIfPossible(
+        final Command command);        
+}
 </pre>
 
 Isis will call this service (if available) to create an instance of (the module's implementation of) `Command`
@@ -200,13 +199,14 @@ and to indicate when the transaction wrapping the action is starting and complet
 The `BackgroundCommandService` defines the following API:
 
 <pre>
-    public interface BackgroundCommandService {
-
-        void schedule(
-            final ActionInvocationMemento aim, 
-            final Command command, 
-            final String targetClassName, final String targetActionName, final String targetArgs);
-    }
+public interface BackgroundCommandService {
+    void schedule(
+        final ActionInvocationMemento aim, 
+        final Command command, 
+        final String targetClassName, 
+        final String targetActionName, 
+        final String targetArgs);
+}
 </pre>
 
 The implementation is responsible for persisting the command such that it can be executed asynchronously.
@@ -219,81 +219,70 @@ The `BackgroundCommandExecutionFromBackgroundCommandServiceJdo` utility class ul
 For example, a Quartz scheduler can be configured to run a job that uses this utility class:
 
 <pre>
-    public class BackgroundCommandExecutionQuartzJob extends AbstractIsisQuartzJob {
-
-        public BackgroundCommandExecutionQuartzJob() {
-            super(new BackgroundCommandExecutionFromBackgroundCommandServiceJdo());   
-        }
-
+public class BackgroundCommandExecutionQuartzJob extends AbstractIsisQuartzJob {
+    public BackgroundCommandExecutionQuartzJob() {
+        super(new BackgroundCommandExecutionFromBackgroundCommandServiceJdo());   
     }
+}
 </pre>
 
 where `AbstractIsisQuartzJob` is the following boilerplate:
 
 <pre>
-    public class AbstractIsisQuartzJob implements Job {
+public class AbstractIsisQuartzJob implements Job {
 
-        public static enum ConcurrentInstancesPolicy {
-            /**
-             * Only a single instance of this job is allowed to run.  
-             * 
-             * <p>
-             * That is, if the job is invoked again before a previous instance has completed, then silently skips.
-             */
-            SINGLE_INSTANCE_ONLY,
-            /**
-             * Multiple instances of this job are allowed to run concurrently.
-             * 
-             * <p>
-             * That is, it is not required for the previous instance of this job to have completed before this one starts.
-             */
-            MULTIPLE_INSTANCES
-        }
-        
-        private final AbstractIsisSessionTemplate isisRunnable;
+    public static enum ConcurrentInstancesPolicy {
+        SINGLE_INSTANCE_ONLY,
+        MULTIPLE_INSTANCES
+    }
+    
+    private final AbstractIsisSessionTemplate isisRunnable;
 
-        private final ConcurrentInstancesPolicy concurrentInstancesPolicy;
-        private boolean executing;
+    private final ConcurrentInstancesPolicy concurrentInstancesPolicy;
+    private boolean executing;
 
-        public AbstractIsisQuartzJob(AbstractIsisSessionTemplate isisRunnable) {
-            this(isisRunnable, ConcurrentInstancesPolicy.SINGLE_INSTANCE_ONLY);
-        }
-        public AbstractIsisQuartzJob(AbstractIsisSessionTemplate isisRunnable, ConcurrentInstancesPolicy concurrentInstancesPolicy) {
-            this.isisRunnable = isisRunnable;
-            this.concurrentInstancesPolicy = concurrentInstancesPolicy;
-        }
+    public AbstractIsisQuartzJob(AbstractIsisSessionTemplate isisRunnable) {
+        this(isisRunnable, ConcurrentInstancesPolicy.SINGLE_INSTANCE_ONLY);
+    }
+    public AbstractIsisQuartzJob(
+            AbstractIsisSessionTemplate isisRunnable, 
+            ConcurrentInstancesPolicy concurrentInstancesPolicy) {
+        this.isisRunnable = isisRunnable;
+        this.concurrentInstancesPolicy = concurrentInstancesPolicy;
+    }
 
-        // //////////////////////////////////////
-
-        /**
-         * Sets up an {@link IsisSession} then delegates to the {@link #doExecute(JobExecutionContext) hook}. 
-         */
-        public void execute(final JobExecutionContext context) throws JobExecutionException {
-            final AuthenticationSession authSession = newAuthSession(context);
-            try {
-                if(concurrentInstancesPolicy == ConcurrentInstancesPolicy.SINGLE_INSTANCE_ONLY && executing) {
-                    return;
-                }
-                executing = true;
-
-                isisRunnable.execute(authSession, context);
-            } finally {
-                executing = false;
+    /**
+     * Sets up an {@link IsisSession} then delegates to the 
+     * {@link #doExecute(JobExecutionContext) hook}. 
+     */
+    public void execute(final JobExecutionContext context) throws JobExecutionException {
+        final AuthenticationSession authSession = newAuthSession(context);
+        try {
+            if(concurrentInstancesPolicy == 
+                   ConcurrentInstancesPolicy.SINGLE_INSTANCE_ONLY && 
+               executing) {
+                return;
             }
-        }
+            executing = true;
 
-        AuthenticationSession newAuthSession(JobExecutionContext context) {
-            String user = getKey(context, SchedulerConstants.USER_KEY);
-            String rolesStr = getKey(context, SchedulerConstants.ROLES_KEY);
-            String[] roles = Iterables.toArray(
-                    Splitter.on(",").split(rolesStr), String.class);
-            return new SimpleSession(user, roles);
-        }
-
-        String getKey(JobExecutionContext context, String key) {
-            return context.getMergedJobDataMap().getString(key);
+            isisRunnable.execute(authSession, context);
+        } finally {
+            executing = false;
         }
     }
+
+    AuthenticationSession newAuthSession(JobExecutionContext context) {
+        String user = getKey(context, SchedulerConstants.USER_KEY);
+        String rolesStr = getKey(context, SchedulerConstants.ROLES_KEY);
+        String[] roles = Iterables.toArray(
+                Splitter.on(",").split(rolesStr), String.class);
+        return new SimpleSession(user, roles);
+    }
+
+    String getKey(JobExecutionContext context, String key) {
+        return context.getMergedJobDataMap().getString(key);
+    }
+}
 </pre>
 
 
