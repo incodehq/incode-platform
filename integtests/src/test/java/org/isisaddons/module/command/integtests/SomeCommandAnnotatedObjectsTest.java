@@ -24,12 +24,21 @@ import org.isisaddons.module.command.fixture.dom.SomeCommandAnnotatedObject;
 import org.isisaddons.module.command.fixture.dom.SomeCommandAnnotatedObjects;
 import org.isisaddons.module.command.fixture.scripts.SomeCommandAnnotatedObjectsFixture;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.apache.isis.applib.services.bookmark.Bookmark;
+import org.apache.isis.applib.services.bookmark.BookmarkService;
+import org.apache.isis.objectstore.jdo.applib.service.background.BackgroundCommandServiceJdoRepository;
+import org.apache.isis.objectstore.jdo.applib.service.command.CommandJdo;
+import org.apache.isis.objectstore.jdo.applib.service.command.CommandServiceJdoRepository;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 
 public class SomeCommandAnnotatedObjectsTest extends CommandModuleIntegTest {
+
 
     @Before
     public void setUpData() throws Exception {
@@ -39,23 +48,59 @@ public class SomeCommandAnnotatedObjectsTest extends CommandModuleIntegTest {
     @Inject
     private SomeCommandAnnotatedObjects someCommandAnnotatedObjects;
 
-    @Test
-    public void listAll() throws Exception {
+    @Inject
+    CommandServiceJdoRepository commandServiceJdoRepository;
 
+    @Inject
+    BackgroundCommandServiceJdoRepository backgroundCommandServiceJdoRepository;
+
+    @Inject
+    BookmarkService bookmarkService;
+
+    SomeCommandAnnotatedObject entity;
+    Bookmark bookmark;
+
+    @Before
+    public void setUp() throws Exception {
         final List<SomeCommandAnnotatedObject> all = wrap(someCommandAnnotatedObjects).listAll();
         assertThat(all.size(), is(3));
-        
-        SomeCommandAnnotatedObject someCommandAnnotatedObject = wrap(all.get(0));
-        assertThat(someCommandAnnotatedObject.getName(), is("Foo"));
-    }
-    
-    @Test
-    public void create() throws Exception {
 
-        wrap(someCommandAnnotatedObjects).create("Faz");
-        
-        final List<SomeCommandAnnotatedObject> all = wrap(someCommandAnnotatedObjects).listAll();
-        assertThat(all.size(), is(4));
+        entity = wrap(all.get(0));
+        assertThat(entity.getName(), is("Foo"));
+
+        bookmark = bookmarkService.bookmarkFor(entity);
+
+        final List<CommandJdo> commands = commandServiceJdoRepository.findByTargetAndFromAndTo(bookmark, null, null);
+        assertThat(commands, is(empty()));
+    }
+
+    public static class ChangeName extends SomeCommandAnnotatedObjectsTest {
+
+        @Ignore("currently not possible to test this using the wrapper, because the Command's executor is left as OTHER rather than USER")
+        @Test
+        public void happyCase() throws Exception {
+            // when
+            entity.changeName("Fizz");
+            nextTransaction();
+
+            // then
+            final List<CommandJdo> commands = commandServiceJdoRepository.findByTargetAndFromAndTo(bookmark, null, null);
+            assertThat(commands, is(not(empty())));
+        }
+    }
+
+    public static class ChangeNameExplicitlyInBackground extends SomeCommandAnnotatedObjectsTest {
+
+        @Test
+        public void happyCase() throws Exception {
+            // when
+            entity.changeNameExplicitlyInBackground("Foo");
+            nextTransaction();
+
+            // then
+            final List<CommandJdo> commands = backgroundCommandServiceJdoRepository.findBackgroundCommandsNotYetStarted();
+            assertThat(commands, is(not(empty())));
+        }
     }
 
 }

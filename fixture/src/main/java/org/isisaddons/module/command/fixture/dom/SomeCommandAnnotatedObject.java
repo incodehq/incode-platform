@@ -21,10 +21,8 @@ package org.isisaddons.module.command.fixture.dom;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.Bookmarkable;
-import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.ObjectType;
-import org.apache.isis.applib.annotation.Title;
+import org.apache.isis.applib.annotation.*;
+import org.apache.isis.applib.services.background.BackgroundService;
 import org.apache.isis.applib.util.ObjectContracts;
 
 @javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
@@ -39,8 +37,7 @@ import org.apache.isis.applib.util.ObjectContracts;
 public class SomeCommandAnnotatedObject implements Comparable<SomeCommandAnnotatedObject> {
 
     //region > name (property)
-    // //////////////////////////////////////
-    
+
     private String name;
 
     @javax.jdo.annotations.Column(allowsNull="false")
@@ -56,9 +53,53 @@ public class SomeCommandAnnotatedObject implements Comparable<SomeCommandAnnotat
 
     //endregion
 
+    //region > changeName (action)
+
+    @ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
+    @Command
+    public SomeCommandAnnotatedObject changeName(final String newName) {
+        setName(name);
+        return this;
+    }
+
+    //endregion
+
+    //region > changeNameExplicitlyInBackground (action)
+
+    @Named("Schedule")
+    @ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
+    @Command
+    public void changeNameExplicitlyInBackground(final String newName) {
+        backgroundService.execute(this).changeName(newName);
+    }
+
+    //endregion
+
+    //region > changeNameImplicitlyInBackground (action)
+
+    @Named("Schedule implicitly")
+    @ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
+    @Command(executeIn = Command.ExecuteIn.BACKGROUND)
+    public SomeCommandAnnotatedObject changeNameImplicitlyInBackground(final String newName) {
+        setName(name);
+        return this;
+    }
+
+    //endregion
+
+    //region > changeNameCommandNotPersisted (action)
+
+    @Named("Change (not persisted)")
+    @ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
+    @Command(persistence = Command.Persistence.NOT_PERSISTED)
+    public SomeCommandAnnotatedObject changeNameCommandNotPersisted(final String newName) {
+        setName(name);
+        return this;
+    }
+
+    //endregion
 
     //region > compareTo
-    // //////////////////////////////////////
 
     @Override
     public int compareTo(SomeCommandAnnotatedObject other) {
@@ -68,12 +109,12 @@ public class SomeCommandAnnotatedObject implements Comparable<SomeCommandAnnotat
     //endregion
 
     //region > injected services
-    // //////////////////////////////////////
 
     @javax.inject.Inject
-    @SuppressWarnings("unused")
     private DomainObjectContainer container;
 
+    @javax.inject.Inject
+    private BackgroundService backgroundService;
     //endregion
 
 }

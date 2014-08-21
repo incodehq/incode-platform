@@ -47,6 +47,8 @@ public class CommandModuleSystemInitializer {
 
             // services annotated with @DomainService
             withServicesIn( "org.isisaddons.module.command"
+                            ,"org.apache.isis.objectstore.jdo.applib.service.command"
+                            ,"org.apache.isis.objectstore.jdo.applib.service.background"
                             ,"org.apache.isis.core.wrapper"
                             ,"org.apache.isis.applib"
                             ,"org.apache.isis.core.metamodel.services"

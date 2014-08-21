@@ -21,7 +21,14 @@
 	        memberGroups: {
 	            General: {
 	                members: {
-	                    name: {}
+	                    name: {
+                        actions: {
+                          changeName: {},
+                          changeNameExplicitlyInBackground: {},
+                          changeNameImplicitlyInBackground: {},
+                          changeNameCommandNotPersisted: {}
+                        }
+                     }
 	                }
 	            }
 	        }
