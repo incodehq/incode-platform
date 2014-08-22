@@ -10,7 +10,7 @@ This supports two main use cases:
 
 * enhanced auditing: the command represents the "cause" of a change to the system, while the related 
   [Audit module](http://isisaddons.org) captures the "effect" of the change.  The two are correlated together using a
-  unique transaction Id (GUI).
+  unique transaction Id (a GUID).
    
 In addition, this module also provides an implementation of the `BackgroundCommandService` API.  This enables 
 commands to be persisted but the action not invoked.  A scheduler can then be used to pick up the scheduled background
