@@ -383,7 +383,12 @@ The artifacts should be available in [Sonatype's Snapshot Repo](https://oss.sona
 
 First manually update the release and tag, eg:
 
+    vi pom.xml
+    # change ${isis-module-command.version} to 1.6.0
+
+    cd dom
     mvn versions:set -DnewVersion=1.6.0
+
     git tag 1.6.0
     git commit -am "bumping to 1.6.0 for release"
     
@@ -407,7 +412,12 @@ onto the [Sonatype's OSS staging repo](https://oss.sonatype.org) or alternativel
 
 Finally, don't forget to update the release to next snapshot, eg:
 
+    vi pom.xml
+    # change ${isis-module-command.version} to 1.6.1-SNAPSHOT
+
+    cd dom    
     mvn versions:set -DnewVersion=1.6.1-SNAPSHOT
+
     git commit -am "bumping to 1.6.1-SNAPSHOT for development"
 
 and commit and push changes.
