@@ -367,7 +367,7 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command {
     // //////////////////////////////////////
 
     private String targetStr;
-    @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.BOOKMARK, name="target")
+    @javax.jdo.annotations.Column(allowsNull="true", length=JdoColumnLength.BOOKMARK, name="target")
     @Hidden(where=Where.ALL_TABLES)
     @MemberOrder(name="Target", sequence="30")
     @Named("Object")

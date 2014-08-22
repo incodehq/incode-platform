@@ -30,6 +30,7 @@ import org.apache.isis.applib.clock.Clock;
 import org.apache.isis.applib.services.command.Command;
 import org.apache.isis.applib.services.command.Command.Executor;
 import org.apache.isis.applib.services.command.spi.CommandService;
+import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 
 /**
  *
@@ -84,6 +85,10 @@ public class CommandServiceJdo extends AbstractService implements CommandService
             return;
         }
             
+        // can't store target if too long (eg view models)
+        if (commandJdo.getTargetStr() != null && commandJdo.getTargetStr().length() > JdoColumnLength.BOOKMARK) {
+            commandJdo.setTargetStr(null);
+        }
         commandJdo.setCompletedAt(Clock.getTimeAsJavaSqlTimestamp());
         persistIfNotAlready(commandJdo);
     }
