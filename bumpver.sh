@@ -12,9 +12,9 @@ mv pom.xml.$$.sed pom.xml
 
 # edit dom's pom.xml
 echo "editing dom's pom.xml"
-pushd dom
+pushd dom >/dev/null
 mvn versions:set -DnewVersion=$VERSION > /dev/null
-popd
+popd >/dev/null
 
 echo "Committing changes"
 git commit -am "bumping to $VERSION"
