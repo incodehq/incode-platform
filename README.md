@@ -391,11 +391,17 @@ This will:
 * commit the changes
 * if a SNAPSHOT, then tag
 
-Then release:
+Next, do a quick sanity check:
 
+    mvn clean install -o
+    
+All being well, then release from the `dom` module:
+
+    pushd dom
     mvn clean deploy -P release \
         -Dpgp.secretkey=keyring:id=dan@haywood-associates.co.uk \
         -Dpgp.passphrase="literal:this is not really my passphrase"
+    popd dom
 
 where (for example) "dan@haywood-associates.co.uk" is the email of the secret key (`~/.gnupg/secring.gpg`) to use
 for signing, and the pass phrase is as specified as a literal.  (Other ways of specifying the key and passphrase are 
@@ -406,12 +412,11 @@ automatically stage, close and the release the repo.  Sync'ing to Maven Central 
 to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update [search](http://search.maven.org).
 
 If `autoReleaseAfterClose` is set to `false`, then the repo will require manually closing and releasing either by logging
-onto the [Sonatype's OSS staging repo](https://oss.sonatype.org) or alternatively by releasing from the command line:
-
-    mvn nexus-staging:release
+onto the [Sonatype's OSS staging repo](https://oss.sonatype.org) or alternatively by releasing from the command line 
+using `mvn nexus-staging:release`.
 
 Finally, don't forget to update the release to next snapshot, eg:
 
     sh bumpver.sh 1.6.2-SNAPSHOT
 
-and finally, push changes.
+and then push changes.
