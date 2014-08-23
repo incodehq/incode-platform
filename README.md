@@ -401,10 +401,11 @@ where (for example) "dan@haywood-associates.co.uk" is the email of the secret ke
 for signing, and the pass phrase is as specified as a literal.  (Other ways of specifying the key and passphrase are 
 available, see the `pgp-maven-plugin`'s [documentation](http://kohsuke.org/pgp-maven-plugin/secretkey.html)).
 
-If `autoReleaseAfterClose` is set to true for the `nexus-staging-maven-plugin`, then the above command will 
-automatically stage, close and the release the repo.  Sync'ing to Maven Central should happen automatically.
+If `autoReleaseAfterClose` is set to `true` for the `nexus-staging-maven-plugin`, then the above command will 
+automatically stage, close and the release the repo.  Sync'ing to Maven Central should happen automatically.  According
+to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update [search](http://search.maven.org).
 
-If `autoReleaseAfterClose` is set to false, then the repo will require manually closing and releasing either by logging
+If `autoReleaseAfterClose` is set to `false`, then the repo will require manually closing and releasing either by logging
 onto the [Sonatype's OSS staging repo](https://oss.sonatype.org) or alternatively by releasing from the command line:
 
     mvn nexus-staging:release
