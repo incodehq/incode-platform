@@ -383,15 +383,14 @@ The artifacts should be available in [Sonatype's Snapshot Repo](https://oss.sona
 
 First manually update the release and tag, eg:
 
-    vi pom.xml
-    # change ${isis-module-command.version} to 1.6.0
+    sh bumpver.sh 1.6.1
 
-    cd dom
-    mvn versions:set -DnewVersion=1.6.0
+This will:
+* edit the parent `pom.xml`, to change `${isis-module-command.version}` to version
+* edit the `dom` module's pom.xml version
+* commit the changes
+* if a SNAPSHOT, then tag
 
-    git tag 1.6.0
-    git commit -am "bumping to 1.6.0 for release"
-    
 Then release:
 
     mvn clean deploy -P release \
@@ -412,12 +411,6 @@ onto the [Sonatype's OSS staging repo](https://oss.sonatype.org) or alternativel
 
 Finally, don't forget to update the release to next snapshot, eg:
 
-    vi pom.xml
-    # change ${isis-module-command.version} to 1.6.1-SNAPSHOT
+    sh bumpver.sh 1.6.2-SNAPSHOT
 
-    cd dom    
-    mvn versions:set -DnewVersion=1.6.1-SNAPSHOT
-
-    git commit -am "bumping to 1.6.1-SNAPSHOT for development"
-
-and commit and push changes.
+and finally, push changes.
