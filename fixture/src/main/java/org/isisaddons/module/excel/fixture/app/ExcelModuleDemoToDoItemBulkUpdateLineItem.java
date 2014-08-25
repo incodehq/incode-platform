@@ -19,29 +19,24 @@
 package org.isisaddons.module.excel.fixture.app;
 
 import java.math.BigDecimal;
-
-import org.isisaddons.module.excel.fixture.dom.ToDoItem;
-import org.isisaddons.module.excel.fixture.dom.ToDoItems;
-import org.isisaddons.module.excel.fixture.dom.ToDoItem.Category;
-import org.isisaddons.module.excel.fixture.dom.ToDoItem.Subcategory;
-
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Category;
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Subcategory;
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItems;
 import org.joda.time.LocalDate;
-
 import org.apache.isis.applib.AbstractViewModel;
-import org.apache.isis.applib.annotation.ActionSemantics;
-import org.apache.isis.applib.annotation.Bookmarkable;
-import org.apache.isis.applib.annotation.Bulk;
-import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 
+@Named("Bulk update line item")
 @Bookmarkable
-public class ToDoItemBulkUpdateLineItem 
+public class ExcelModuleDemoToDoItemBulkUpdateLineItem
         extends AbstractViewModel 
-        implements Comparable<ToDoItemBulkUpdateLineItem> {
+        implements Comparable<ExcelModuleDemoToDoItemBulkUpdateLineItem> {
 
 
     public String title() {
-        final ToDoItem existingItem = getToDoItem();
+        final ExcelModuleDemoToDoItem existingItem = getToDoItem();
         if(existingItem != null) {
             return "EXISTING: " + getContainer().titleOf(existingItem);
         }
@@ -69,16 +64,16 @@ public class ToDoItemBulkUpdateLineItem
     // ToDoItem (optional property)
     // //////////////////////////////////////
     
-    private ToDoItem toDoItem;
+    private ExcelModuleDemoToDoItem toDoItem;
 
     @MemberOrder(sequence="1")
-    public ToDoItem getToDoItem() {
+    public ExcelModuleDemoToDoItem getToDoItem() {
         return toDoItem;
     }
-    public void setToDoItem(ToDoItem toDoItem) {
+    public void setToDoItem(ExcelModuleDemoToDoItem toDoItem) {
         this.toDoItem = toDoItem;
     }
-    public void modifyToDoItem(ToDoItem toDoItem) {
+    public void modifyToDoItem(ExcelModuleDemoToDoItem toDoItem) {
         setToDoItem(toDoItem);
         setDescription(toDoItem.getDescription());
         setCategory(toDoItem.getCategory());
@@ -218,8 +213,8 @@ public class ToDoItemBulkUpdateLineItem
 
     @ActionSemantics(Of.IDEMPOTENT)
     @Bulk
-    public ToDoItem apply() {
-        ToDoItem item = getToDoItem();
+    public ExcelModuleDemoToDoItem apply() {
+        ExcelModuleDemoToDoItem item = getToDoItem();
         if(item == null) {
             // description must be unique, so check
             item = toDoItems.findByDescription(getDescription());
@@ -254,7 +249,7 @@ public class ToDoItemBulkUpdateLineItem
     // //////////////////////////////////////
 
     @Override
-    public int compareTo(ToDoItemBulkUpdateLineItem other) {
+    public int compareTo(ExcelModuleDemoToDoItemBulkUpdateLineItem other) {
         return this.toDoItem.compareTo(other.toDoItem);
     }
 
@@ -264,10 +259,10 @@ public class ToDoItemBulkUpdateLineItem
     // //////////////////////////////////////
     
     @javax.inject.Inject
-    private ToDoItemBulkUpdateService toDoItemExportImportService;
+    private ExcelModuleDemoToDoItemBulkUpdateService toDoItemExportImportService;
     
     @javax.inject.Inject
-    private ToDoItems toDoItems;
+    private ExcelModuleDemoToDoItems toDoItems;
 
     @javax.inject.Inject
     private Bulk.InteractionContext bulkInteractionContext;

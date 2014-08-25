@@ -21,8 +21,8 @@ package org.isisaddons.module.excel.fixture.dom;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
-import org.isisaddons.module.excel.fixture.dom.ToDoItem.Category;
-import org.isisaddons.module.excel.fixture.dom.ToDoItem.Subcategory;
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Category;
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Subcategory;
 import org.joda.time.LocalDate;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.*;
@@ -32,9 +32,9 @@ import org.apache.isis.applib.services.clock.ClockService;
 
 @DomainService
 @Named("ToDos")
-public class ToDoItems {
+public class ExcelModuleDemoToDoItems {
 
-    public ToDoItems() {
+    public ExcelModuleDemoToDoItems() {
     }
     
     // //////////////////////////////////////
@@ -46,7 +46,7 @@ public class ToDoItems {
     }
 
     public String iconName() {
-        return "ToDoItem";
+        return "ExcelModuleDemoToDoItem";
     }
 
     // //////////////////////////////////////
@@ -56,8 +56,8 @@ public class ToDoItems {
     @Bookmarkable
     @ActionSemantics(Of.SAFE)
     @MemberOrder(sequence = "1")
-    public List<ToDoItem> notYetComplete() {
-        final List<ToDoItem> items = notYetCompleteNoUi();
+    public List<ExcelModuleDemoToDoItem> notYetComplete() {
+        final List<ExcelModuleDemoToDoItem> items = notYetCompleteNoUi();
         if(items.isEmpty()) {
             container.informUser("All to-do items have been completed :-)");
         }
@@ -65,9 +65,9 @@ public class ToDoItems {
     }
 
     @Programmatic
-    public List<ToDoItem> notYetCompleteNoUi() {
+    public List<ExcelModuleDemoToDoItem> notYetCompleteNoUi() {
         return container.allMatches(
-                new QueryDefault<ToDoItem>(ToDoItem.class, 
+                new QueryDefault<ExcelModuleDemoToDoItem>(ExcelModuleDemoToDoItem.class,
                         "todo_notYetComplete", 
                         "ownedBy", currentUserName()));
     }
@@ -78,9 +78,9 @@ public class ToDoItems {
     // //////////////////////////////////////
 
     @Programmatic
-    public ToDoItem findByDescription(String description) {
+    public ExcelModuleDemoToDoItem findByDescription(String description) {
         return container.firstMatch(
-                new QueryDefault<ToDoItem>(ToDoItem.class, 
+                new QueryDefault<ExcelModuleDemoToDoItem>(ExcelModuleDemoToDoItem.class,
                         "findByDescription",
                         "description", description,
                         "ownedBy", currentUserName()));
@@ -92,8 +92,8 @@ public class ToDoItems {
     
     @ActionSemantics(Of.SAFE)
     @MemberOrder(sequence = "3")
-    public List<ToDoItem> complete() {
-        final List<ToDoItem> items = completeNoUi();
+    public List<ExcelModuleDemoToDoItem> complete() {
+        final List<ExcelModuleDemoToDoItem> items = completeNoUi();
         if(items.isEmpty()) {
             container.informUser("No to-do items have yet been completed :-(");
         }
@@ -101,9 +101,9 @@ public class ToDoItems {
     }
 
     @Programmatic
-    public List<ToDoItem> completeNoUi() {
+    public List<ExcelModuleDemoToDoItem> completeNoUi() {
         return container.allMatches(
-            new QueryDefault<ToDoItem>(ToDoItem.class, 
+            new QueryDefault<ExcelModuleDemoToDoItem>(ExcelModuleDemoToDoItem.class,
                     "todo_complete", 
                     "ownedBy", currentUserName()));
     }
@@ -114,7 +114,7 @@ public class ToDoItems {
     // //////////////////////////////////////
 
     @MemberOrder(sequence = "40")
-    public ToDoItem newToDo(
+    public ExcelModuleDemoToDoItem newToDo(
             final @RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*") @Named("Description") String description, 
             final @Named("Category") Category category,
             final @Named("Subcategory") Subcategory subcategory,
@@ -149,9 +149,9 @@ public class ToDoItems {
 
     @ActionSemantics(Of.SAFE)
     @MemberOrder(sequence = "50")
-    public List<ToDoItem> allToDos() {
+    public List<ExcelModuleDemoToDoItem> allToDos() {
         final String currentUser = currentUserName();
-        final List<ToDoItem> items = container.allMatches(ToDoItem.class, ToDoItem.Predicates.thoseOwnedBy(currentUser));
+        final List<ExcelModuleDemoToDoItem> items = container.allMatches(ExcelModuleDemoToDoItem.class, ExcelModuleDemoToDoItem.Predicates.thoseOwnedBy(currentUser));
         Collections.sort(items);
         if(items.isEmpty()) {
             container.warnUser("No to-do items found.");
@@ -164,9 +164,9 @@ public class ToDoItems {
     // //////////////////////////////////////
 
     @Programmatic // not part of metamodel
-    public List<ToDoItem> autoComplete(final String description) {
+    public List<ExcelModuleDemoToDoItem> autoComplete(final String description) {
         return container.allMatches(
-                new QueryDefault<ToDoItem>(ToDoItem.class, 
+                new QueryDefault<ExcelModuleDemoToDoItem>(ExcelModuleDemoToDoItem.class,
                         "todo_autoComplete", 
                         "ownedBy", currentUserName(), 
                         "description", description));
@@ -178,13 +178,13 @@ public class ToDoItems {
     // //////////////////////////////////////
 
     @Programmatic // for use by fixtures
-    public ToDoItem newToDo(
+    public ExcelModuleDemoToDoItem newToDo(
             final String description, 
             final Category category, 
             final Subcategory subcategory,
             final String userName, 
             final LocalDate dueBy, final BigDecimal cost) {
-        final ToDoItem toDoItem = container.newTransientInstance(ToDoItem.class);
+        final ExcelModuleDemoToDoItem toDoItem = container.newTransientInstance(ExcelModuleDemoToDoItem.class);
         toDoItem.setDescription(description);
         toDoItem.setCategory(category);
         toDoItem.setSubcategory(subcategory);

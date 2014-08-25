@@ -20,20 +20,38 @@ package org.isisaddons.module.excel.fixture.scripts;
 
 import java.util.List;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.Prototype;
+import org.apache.isis.applib.fixturescripts.FixtureResult;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
 @DomainService
 @Named("Prototyping") // has the effect of defining a "Prototyping" menu item
-public class ToDoItemsFixturesService extends FixtureScripts {
+public class ExcelModuleDemoToDoItemsFixturesService extends FixtureScripts {
 
-    public ToDoItemsFixturesService() {
+    public ExcelModuleDemoToDoItemsFixturesService() {
         super("org.isisaddons.module.excel.fixture.scripts");
+    }
+
+    @Override
+    public FixtureScript default0RunFixtureScript() {
+        return findFixtureScriptFor(ExcelModuleDemoToDoItemsFixture.class);
     }
 
     @Override
     public List<FixtureScript> choices0RunFixtureScript() {
         return super.choices0RunFixtureScript();
     }
+
+
+    @Prototype
+    @MemberOrder(sequence="20")
+    public Object installFixturesAndReturnFirst() {
+        final List<FixtureResult> run = findFixtureScriptFor(ExcelModuleDemoToDoItemsFixture.class).run(null);
+        return run.get(0).getObject();
+    }
+
+
 }

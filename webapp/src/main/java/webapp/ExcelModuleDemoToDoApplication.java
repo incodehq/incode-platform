@@ -50,7 +50,7 @@ import org.apache.isis.viewer.wicket.viewer.integration.wicket.AuthenticatedWebS
  * </pre>
  * 
  */
-public class ToDoApplication extends IsisWicketApplication {
+public class ExcelModuleDemoToDoApplication extends IsisWicketApplication {
 
     private static final long serialVersionUID = 1L;
 

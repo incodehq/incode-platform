@@ -25,9 +25,9 @@ import javax.annotation.PostConstruct;
 
 import org.isisaddons.module.excel.dom.ExcelService;
 
-import org.isisaddons.module.excel.fixture.dom.ToDoItem;
-import org.isisaddons.module.excel.fixture.dom.ToDoItem.Category;
-import org.isisaddons.module.excel.fixture.dom.ToDoItem.Subcategory;
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Category;
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Subcategory;
 
 import org.joda.time.LocalDate;
 
@@ -42,7 +42,7 @@ import org.apache.isis.applib.services.memento.MementoService.Memento;
 import org.apache.isis.applib.value.Blob;
 
 @DomainService
-public class ToDoItemBulkUpdateService {
+public class ExcelModuleDemoToDoItemBulkUpdateService {
 
     @PostConstruct
     public void init() {
@@ -63,8 +63,8 @@ public class ToDoItemBulkUpdateService {
 
     @MemberOrder(name="ToDos", sequence="90.1")
     @ActionSemantics(Of.IDEMPOTENT)
-    public ToDoItemBulkUpdateManager bulkUpdateManager() {
-        ToDoItemBulkUpdateManager template = new ToDoItemBulkUpdateManager();
+    public ExcelModuleDemoToDoItemBulkUpdateManager bulkUpdateManager() {
+        ExcelModuleDemoToDoItemBulkUpdateManager template = new ExcelModuleDemoToDoItemBulkUpdateManager();
         template.setFileName("toDoItems.xlsx");
         template.setCategory(Category.Domestic);
         template.setSubcategory(Subcategory.Shopping);
@@ -77,7 +77,7 @@ public class ToDoItemBulkUpdateService {
     // memento for manager
     // //////////////////////////////////////
     
-    String mementoFor(final ToDoItemBulkUpdateManager tdieim) {
+    String mementoFor(final ExcelModuleDemoToDoItemBulkUpdateManager tdieim) {
         final Memento memento = mementoService.create();
         memento.set("fileName", tdieim.getFileName());
         memento.set("category", tdieim.getCategory());
@@ -86,7 +86,7 @@ public class ToDoItemBulkUpdateService {
         return memento.asString();
     }
     
-    void initOf(final String mementoStr, final ToDoItemBulkUpdateManager manager) {
+    void initOf(final String mementoStr, final ExcelModuleDemoToDoItemBulkUpdateManager manager) {
         final Memento memento = mementoService.parse(mementoStr);
         manager.setFileName(memento.get("fileName", String.class));
         manager.setCategory(memento.get("category", Category.class));
@@ -94,15 +94,15 @@ public class ToDoItemBulkUpdateService {
         manager.setComplete(memento.get("completed", boolean.class));
     }
 
-    ToDoItemBulkUpdateManager newBulkUpdateManager(ToDoItemBulkUpdateManager manager) {
-        return container.newViewModelInstance(ToDoItemBulkUpdateManager.class, mementoFor(manager));
+    ExcelModuleDemoToDoItemBulkUpdateManager newBulkUpdateManager(ExcelModuleDemoToDoItemBulkUpdateManager manager) {
+        return container.newViewModelInstance(ExcelModuleDemoToDoItemBulkUpdateManager.class, mementoFor(manager));
     }
     
     // //////////////////////////////////////
     // memento for line item
     // //////////////////////////////////////
     
-    String mementoFor(ToDoItemBulkUpdateLineItem lineItem) {
+    String mementoFor(ExcelModuleDemoToDoItemBulkUpdateLineItem lineItem) {
         final Memento memento = mementoService.create();
         memento.set("toDoItem", bookmarkService.bookmarkFor(lineItem.getToDoItem()));
         memento.set("description", lineItem.getDescription());
@@ -116,9 +116,9 @@ public class ToDoItemBulkUpdateService {
         return memento.asString();
     }
 
-    void init(String mementoStr, ToDoItemBulkUpdateLineItem lineItem) {
+    void init(String mementoStr, ExcelModuleDemoToDoItemBulkUpdateLineItem lineItem) {
         final Memento memento = mementoService.parse(mementoStr);
-        lineItem.setToDoItem(bookmarkService.lookup(memento.get("toDoItem", Bookmark.class), ToDoItem.class));
+        lineItem.setToDoItem(bookmarkService.lookup(memento.get("toDoItem", Bookmark.class), ExcelModuleDemoToDoItem.class));
         lineItem.setDescription(memento.get("description", String.class));
         lineItem.setCategory(memento.get("category", Category.class));
         lineItem.setSubcategory(memento.get("subcategory", Subcategory.class));
@@ -129,8 +129,8 @@ public class ToDoItemBulkUpdateService {
         lineItem.setOwnedBy(memento.get("ownedBy", String.class));
     }
     
-    ToDoItemBulkUpdateLineItem newLineItem(ToDoItemBulkUpdateLineItem lineItem) {
-        return container.newViewModelInstance(ToDoItemBulkUpdateLineItem.class, mementoFor(lineItem));
+    ExcelModuleDemoToDoItemBulkUpdateLineItem newLineItem(ExcelModuleDemoToDoItemBulkUpdateLineItem lineItem) {
+        return container.newViewModelInstance(ExcelModuleDemoToDoItemBulkUpdateLineItem.class, mementoFor(lineItem));
     }
 
     // //////////////////////////////////////
@@ -145,10 +145,10 @@ public class ToDoItemBulkUpdateService {
     @NotContributed(As.ASSOCIATION) // ie contributed as action
     @Bulk
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public Blob export(final ToDoItem toDoItem) {
+    public Blob export(final ExcelModuleDemoToDoItem toDoItem) {
         if(bulkInteractionContext.isLast()) {
             List toDoItems = bulkInteractionContext.getDomainObjects();
-            return excelService.toExcel(toDoItems, ToDoItem.class, "toDoItems.xlsx");
+            return excelService.toExcel(toDoItems, ExcelModuleDemoToDoItem.class, "toDoItems.xlsx");
         } else {
             return null;
         }

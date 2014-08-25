@@ -27,7 +27,7 @@
 	</parent>
 
 	<artifactId>isis-module-excel-fixture</artifactId>
-	<name>Isis Excel Module Fixtures</name>
+	<name>Isis Addons Excel Module Fixtures</name>
 
 	<build>
         <resources>

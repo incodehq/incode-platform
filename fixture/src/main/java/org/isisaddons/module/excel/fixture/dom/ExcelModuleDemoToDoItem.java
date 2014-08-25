@@ -23,10 +23,10 @@ import java.util.*;
 import javax.jdo.JDOHelper;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
-import org.isisaddons.module.excel.dom.ExcelService;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Ordering;
+import org.isisaddons.module.excel.dom.ExcelService;
 import org.joda.time.LocalDate;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.*;
@@ -85,9 +85,10 @@ import org.apache.isis.applib.value.Blob;
                     + "description.indexOf(:description) >= 0")
 })
 @ObjectType("TODO")
-@AutoComplete(repository=ToDoItems.class, action="autoComplete")
+@AutoComplete(repository=ExcelModuleDemoToDoItems.class, action="autoComplete")
 @Bookmarkable
-public class ToDoItem implements Comparable<ToDoItem> {
+@Named("To Do Item")
+public class ExcelModuleDemoToDoItem implements Comparable<ExcelModuleDemoToDoItem> {
 
     // //////////////////////////////////////
     // Identification in the UI
@@ -107,7 +108,7 @@ public class ToDoItem implements Comparable<ToDoItem> {
     }
     
     public String iconName() {
-        return "ToDoItem-" + (!isComplete() ? "todo" : "done");
+        return "ExcelModuleDemoToDoItem-" + (!isComplete() ? "todo" : "done");
     }
 
     // //////////////////////////////////////
@@ -269,7 +270,7 @@ public class ToDoItem implements Comparable<ToDoItem> {
         this.complete = complete;
     }
 
-    public ToDoItem completed() {
+    public ExcelModuleDemoToDoItem completed() {
         setComplete(true);
         return this;
     }
@@ -278,7 +279,7 @@ public class ToDoItem implements Comparable<ToDoItem> {
         return isComplete() ? "Already completed" : null;
     }
 
-    public ToDoItem notYetCompleted() {
+    public ExcelModuleDemoToDoItem notYetCompleted() {
         setComplete(false);
 
         return this;
@@ -305,7 +306,7 @@ public class ToDoItem implements Comparable<ToDoItem> {
         this.cost = cost!=null?cost.setScale(2):null;
     }
     
-    public ToDoItem updateCost(
+    public ExcelModuleDemoToDoItem updateCost(
             @Named("New cost") 
             @javax.validation.constraints.Digits(integer=10, fraction=2) 
             @Optional 
@@ -379,16 +380,16 @@ public class ToDoItem implements Comparable<ToDoItem> {
     // //////////////////////////////////////
 
     // overrides the natural ordering
-    public static class DependenciesComparator implements Comparator<ToDoItem> {
+    public static class DependenciesComparator implements Comparator<ExcelModuleDemoToDoItem> {
         @Override
-        public int compare(ToDoItem p, ToDoItem q) {
-            Ordering<ToDoItem> byDescription = new Ordering<ToDoItem>() {
-                public int compare(final ToDoItem p, final ToDoItem q) {
+        public int compare(ExcelModuleDemoToDoItem p, ExcelModuleDemoToDoItem q) {
+            Ordering<ExcelModuleDemoToDoItem> byDescription = new Ordering<ExcelModuleDemoToDoItem>() {
+                public int compare(final ExcelModuleDemoToDoItem p, final ExcelModuleDemoToDoItem q) {
                     return Ordering.natural().nullsFirst().compare(p.getDescription(), q.getDescription());
                 }
             };
             return byDescription
-                    .compound(Ordering.<ToDoItem>natural())
+                    .compound(Ordering.<ExcelModuleDemoToDoItem>natural())
                     .compare(p, q);
         }
     }
@@ -398,40 +399,40 @@ public class ToDoItem implements Comparable<ToDoItem> {
     @javax.jdo.annotations.Persistent(table="ToDoItemDependencies")
     @javax.jdo.annotations.Join(column="dependingId")
     @javax.jdo.annotations.Element(column="dependentId")
-    private SortedSet<ToDoItem> dependencies = new TreeSet<ToDoItem>();
+    private SortedSet<ExcelModuleDemoToDoItem> dependencies = new TreeSet<ExcelModuleDemoToDoItem>();
 
     @SortedBy(DependenciesComparator.class)
-    public SortedSet<ToDoItem> getDependencies() {
+    public SortedSet<ExcelModuleDemoToDoItem> getDependencies() {
         return dependencies;
     }
 
-    public void setDependencies(final SortedSet<ToDoItem> dependencies) {
+    public void setDependencies(final SortedSet<ExcelModuleDemoToDoItem> dependencies) {
         this.dependencies = dependencies;
     }
 
     
     @PublishedAction
-    public ToDoItem add(
+    public ExcelModuleDemoToDoItem add(
             @TypicalLength(20)
-            final ToDoItem toDoItem) {
+            final ExcelModuleDemoToDoItem toDoItem) {
         getDependencies().add(toDoItem);
         return this;
     }
-    public List<ToDoItem> autoComplete0Add(final @MinLength(2) String search) {
-        final List<ToDoItem> list = toDoItems.autoComplete(search);
+    public List<ExcelModuleDemoToDoItem> autoComplete0Add(final @MinLength(2) String search) {
+        final List<ExcelModuleDemoToDoItem> list = toDoItems.autoComplete(search);
         list.removeAll(getDependencies());
         list.remove(this);
         return list;
     }
 
-    public String disableAdd(final ToDoItem toDoItem) {
+    public String disableAdd(final ExcelModuleDemoToDoItem toDoItem) {
         if(isComplete()) {
             return "Cannot add dependencies for items that are complete";
         }
         return null;
     }
     // validate the provided argument prior to invoking action
-    public String validateAdd(final ToDoItem toDoItem) {
+    public String validateAdd(final ExcelModuleDemoToDoItem toDoItem) {
         if(getDependencies().contains(toDoItem)) {
             return "Already a dependency";
         }
@@ -441,28 +442,28 @@ public class ToDoItem implements Comparable<ToDoItem> {
         return null;
     }
 
-    public ToDoItem remove(
+    public ExcelModuleDemoToDoItem remove(
             @TypicalLength(20)
-            final ToDoItem toDoItem) {
+            final ExcelModuleDemoToDoItem toDoItem) {
         getDependencies().remove(toDoItem);
         return this;
     }
     // disable action dependent on state of object
-    public String disableRemove(final ToDoItem toDoItem) {
+    public String disableRemove(final ExcelModuleDemoToDoItem toDoItem) {
         if(isComplete()) {
             return "Cannot remove dependencies for items that are complete";
         }
         return getDependencies().isEmpty()? "No dependencies to remove": null;
     }
     // validate the provided argument prior to invoking action
-    public String validateRemove(final ToDoItem toDoItem) {
+    public String validateRemove(final ExcelModuleDemoToDoItem toDoItem) {
         if(!getDependencies().contains(toDoItem)) {
             return "Not a dependency";
         }
         return null;
     }
     // provide a drop-down
-    public Collection<ToDoItem> choices0Remove() {
+    public Collection<ExcelModuleDemoToDoItem> choices0Remove() {
         return getDependencies();
     }
     
@@ -472,7 +473,7 @@ public class ToDoItem implements Comparable<ToDoItem> {
     // //////////////////////////////////////
 
     @Bulk
-    public List<ToDoItem> delete() {
+    public List<ExcelModuleDemoToDoItem> delete() {
         container.removeIfNotAlready(this);
         container.informUser("Deleted " + container.titleOf(this));
         // invalid to return 'this' (cannot render a deleted object)
@@ -505,71 +506,71 @@ public class ToDoItem implements Comparable<ToDoItem> {
 
     public static class Predicates {
         
-        public static Predicate<ToDoItem> thoseOwnedBy(final String currentUser) {
-            return new Predicate<ToDoItem>() {
+        public static Predicate<ExcelModuleDemoToDoItem> thoseOwnedBy(final String currentUser) {
+            return new Predicate<ExcelModuleDemoToDoItem>() {
                 @Override
-                public boolean apply(final ToDoItem toDoItem) {
+                public boolean apply(final ExcelModuleDemoToDoItem toDoItem) {
                     return Objects.equal(toDoItem.getOwnedBy(), currentUser);
                 }
             };
         }
 
-		public static Predicate<ToDoItem> thoseCompleted(
+		public static Predicate<ExcelModuleDemoToDoItem> thoseCompleted(
 				final boolean completed) {
-            return new Predicate<ToDoItem>() {
+            return new Predicate<ExcelModuleDemoToDoItem>() {
                 @Override
-                public boolean apply(final ToDoItem t) {
+                public boolean apply(final ExcelModuleDemoToDoItem t) {
                     return Objects.equal(t.isComplete(), completed);
                 }
             };
 		}
 
-        public static Predicate<ToDoItem> thoseWithSimilarDescription(final String description) {
-            return new Predicate<ToDoItem>() {
+        public static Predicate<ExcelModuleDemoToDoItem> thoseWithSimilarDescription(final String description) {
+            return new Predicate<ExcelModuleDemoToDoItem>() {
                 @Override
-                public boolean apply(final ToDoItem t) {
+                public boolean apply(final ExcelModuleDemoToDoItem t) {
                     return t.getDescription().contains(description);
                 }
             };
         }
 
         @SuppressWarnings("unchecked")
-        public static Predicate<ToDoItem> thoseSimilarTo(final ToDoItem toDoItem) {
+        public static Predicate<ExcelModuleDemoToDoItem> thoseSimilarTo(final ExcelModuleDemoToDoItem toDoItem) {
             return com.google.common.base.Predicates.and(
                     thoseNot(toDoItem),
                     thoseOwnedBy(toDoItem.getOwnedBy()),
                     thoseCategorised(toDoItem.getCategory()));
         }
 
-        public static Predicate<ToDoItem> thoseNot(final ToDoItem toDoItem) {
-            return new Predicate<ToDoItem>() {
+        public static Predicate<ExcelModuleDemoToDoItem> thoseNot(final ExcelModuleDemoToDoItem toDoItem) {
+            return new Predicate<ExcelModuleDemoToDoItem>() {
                 @Override
-                public boolean apply(final ToDoItem t) {
+                public boolean apply(final ExcelModuleDemoToDoItem t) {
                     return t != toDoItem;
                 }
             };
         }
 
-        public static Predicate<ToDoItem> thoseCategorised(final Category category) {
-            return new Predicate<ToDoItem>() {
+        public static Predicate<ExcelModuleDemoToDoItem> thoseCategorised(final Category category) {
+            return new Predicate<ExcelModuleDemoToDoItem>() {
                 @Override
-                public boolean apply(final ToDoItem toDoItem) {
+                public boolean apply(final ExcelModuleDemoToDoItem toDoItem) {
                     return Objects.equal(toDoItem.getCategory(), category);
                 }
             };
         }
 
-        public static Predicate<ToDoItem> thoseSubcategorised(
+        public static Predicate<ExcelModuleDemoToDoItem> thoseSubcategorised(
                 final Subcategory subcategory) {
-            return new Predicate<ToDoItem>() {
+            return new Predicate<ExcelModuleDemoToDoItem>() {
                 @Override
-                public boolean apply(final ToDoItem t) {
+                public boolean apply(final ExcelModuleDemoToDoItem t) {
                     return Objects.equal(t.getSubcategory(), subcategory);
                 }
             };
         }
 
-        public static Predicate<ToDoItem> thoseCategorised(
+        public static Predicate<ExcelModuleDemoToDoItem> thoseCategorised(
                 final Category category, final Subcategory subcategory) {
             return com.google.common.base.Predicates.and(
                     thoseCategorised(category), 
@@ -595,7 +596,7 @@ public class ToDoItem implements Comparable<ToDoItem> {
      * Required so can store in {@link SortedSet sorted set}s (eg {@link #getDependencies()}). 
      */
     @Override
-    public int compareTo(final ToDoItem other) {
+    public int compareTo(final ExcelModuleDemoToDoItem other) {
         return ObjectContracts.compare(this, other, "complete,dueBy,description");
     }
 
@@ -607,7 +608,7 @@ public class ToDoItem implements Comparable<ToDoItem> {
     private DomainObjectContainer container;
 
     @javax.inject.Inject
-    private ToDoItems toDoItems;
+    private ExcelModuleDemoToDoItems toDoItems;
 
     @javax.inject.Inject
     private ExcelService excelService;

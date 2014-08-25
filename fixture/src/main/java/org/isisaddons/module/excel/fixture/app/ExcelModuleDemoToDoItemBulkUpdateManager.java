@@ -23,9 +23,9 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Lists;
 import org.isisaddons.module.excel.dom.ExcelService;
-import org.isisaddons.module.excel.fixture.dom.ToDoItem;
-import org.isisaddons.module.excel.fixture.dom.ToDoItem.Category;
-import org.isisaddons.module.excel.fixture.dom.ToDoItem.Subcategory;
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Category;
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Subcategory;
 import org.apache.isis.applib.AbstractViewModel;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.*;
@@ -33,9 +33,10 @@ import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.annotation.Render.Type;
 import org.apache.isis.applib.value.Blob;
 
+@Named("Import/export manager")
 @MemberGroupLayout(left={"File", "Criteria"})
 @Bookmarkable
-public class ToDoItemBulkUpdateManager extends AbstractViewModel {
+public class ExcelModuleDemoToDoItemBulkUpdateManager extends AbstractViewModel {
 
     // //////////////////////////////////////
     
@@ -79,7 +80,7 @@ public class ToDoItemBulkUpdateManager extends AbstractViewModel {
     @ActionSemantics(Of.IDEMPOTENT)
     @Named("Change")
     @MemberOrder(name="fileName", sequence="1")
-    public ToDoItemBulkUpdateManager changeFileName(final String fileName) {
+    public ExcelModuleDemoToDoItemBulkUpdateManager changeFileName(final String fileName) {
         setFileName(fileName);
         return toDoItemExportImportService.newBulkUpdateManager(this);
     }
@@ -134,7 +135,7 @@ public class ToDoItemBulkUpdateManager extends AbstractViewModel {
 
     @Named("Change")
     @MemberOrder(name="complete", sequence="1")
-    public ToDoItemBulkUpdateManager select(
+    public ExcelModuleDemoToDoItemBulkUpdateManager select(
             @Named("Category") final Category category,
             @Named("Subcategory") @Optional final Subcategory subcategory,
             @Named("Completed?") final boolean completed) {
@@ -174,12 +175,12 @@ public class ToDoItemBulkUpdateManager extends AbstractViewModel {
 
     @SuppressWarnings("unchecked")
     @Render(Type.EAGERLY)
-    public List<ToDoItem> getToDoItems() {
-        return container.allMatches(ToDoItem.class, 
+    public List<ExcelModuleDemoToDoItem> getToDoItems() {
+        return container.allMatches(ExcelModuleDemoToDoItem.class,
                 Predicates.and(
-                    ToDoItem.Predicates.thoseOwnedBy(currentUserName()), 
-                    ToDoItem.Predicates.thoseCompleted(isComplete()),
-                    ToDoItem.Predicates.thoseCategorised(getCategory(), getSubcategory())));
+                    ExcelModuleDemoToDoItem.Predicates.thoseOwnedBy(currentUserName()),
+                    ExcelModuleDemoToDoItem.Predicates.thoseCompleted(isComplete()),
+                    ExcelModuleDemoToDoItem.Predicates.thoseCategorised(getCategory(), getSubcategory())));
     }
 
 
@@ -191,7 +192,7 @@ public class ToDoItemBulkUpdateManager extends AbstractViewModel {
     @ActionSemantics(Of.SAFE)
     public Blob export() {
         final String fileName = withExtension(getFileName(), ".xlsx");
-        final List<ToDoItem> items = getToDoItems();
+        final List<ExcelModuleDemoToDoItem> items = getToDoItems();
         return toExcel(fileName, items);
     }
 
@@ -203,16 +204,16 @@ public class ToDoItemBulkUpdateManager extends AbstractViewModel {
         return fileName.endsWith(fileExtension) ? fileName : fileName + fileExtension;
     }
 
-    private Blob toExcel(final String fileName, final List<ToDoItem> items) {
-        final List<ToDoItemBulkUpdateLineItem> toDoItemViewModels = Lists.transform(items, toLineItem());
-        return excelService.toExcel(toDoItemViewModels, ToDoItemBulkUpdateLineItem.class, fileName);
+    private Blob toExcel(final String fileName, final List<ExcelModuleDemoToDoItem> items) {
+        final List<ExcelModuleDemoToDoItemBulkUpdateLineItem> toDoItemViewModels = Lists.transform(items, toLineItem());
+        return excelService.toExcel(toDoItemViewModels, ExcelModuleDemoToDoItemBulkUpdateLineItem.class, fileName);
     }
 
-    private Function<ToDoItem, ToDoItemBulkUpdateLineItem> toLineItem() {
-        return new Function<ToDoItem, ToDoItemBulkUpdateLineItem>(){
+    private Function<ExcelModuleDemoToDoItem, ExcelModuleDemoToDoItemBulkUpdateLineItem> toLineItem() {
+        return new Function<ExcelModuleDemoToDoItem, ExcelModuleDemoToDoItemBulkUpdateLineItem>(){
             @Override
-            public ToDoItemBulkUpdateLineItem apply(final ToDoItem toDoItem) {
-                ToDoItemBulkUpdateLineItem template = new ToDoItemBulkUpdateLineItem();
+            public ExcelModuleDemoToDoItemBulkUpdateLineItem apply(final ExcelModuleDemoToDoItem toDoItem) {
+                ExcelModuleDemoToDoItemBulkUpdateLineItem template = new ExcelModuleDemoToDoItemBulkUpdateLineItem();
                 template.modifyToDoItem(toDoItem);
                 return toDoItemExportImportService.newLineItem(template);
             }
@@ -226,10 +227,10 @@ public class ToDoItemBulkUpdateManager extends AbstractViewModel {
 
     @MemberOrder(name="toDoItems", sequence="2")
     @Named("Import")
-    public List<ToDoItemBulkUpdateLineItem> importBlob(
+    public List<ExcelModuleDemoToDoItemBulkUpdateLineItem> importBlob(
             final @Named("Excel spreadsheet") Blob spreadsheet) {
-        List<ToDoItemBulkUpdateLineItem> lineItems = 
-                excelService.fromExcel(spreadsheet, ToDoItemBulkUpdateLineItem.class);
+        List<ExcelModuleDemoToDoItemBulkUpdateLineItem> lineItems =
+                excelService.fromExcel(spreadsheet, ExcelModuleDemoToDoItemBulkUpdateLineItem.class);
         container.informUser(lineItems.size() + " items imported");
         return lineItems;
     }
@@ -246,6 +247,6 @@ public class ToDoItemBulkUpdateManager extends AbstractViewModel {
     private ExcelService excelService;
 
     @javax.inject.Inject
-    private ToDoItemBulkUpdateService toDoItemExportImportService;
+    private ExcelModuleDemoToDoItemBulkUpdateService toDoItemExportImportService;
 
 }
