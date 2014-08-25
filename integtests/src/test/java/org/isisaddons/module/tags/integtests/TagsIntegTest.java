@@ -42,7 +42,7 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 
-public class ExampleTaggableEntityTest extends ExampleTaggableEntitiesAppIntegTest {
+public class TagsIntegTest extends TagsModuleAppIntegTest {
 
     ExampleTaggableEntity entity;
 
@@ -76,7 +76,7 @@ public class ExampleTaggableEntityTest extends ExampleTaggableEntitiesAppIntegTe
         assertThat(entity.getSector(), is("Drink"));
     }
 
-    public static class ChangeTag extends ExampleTaggableEntityTest {
+    public static class TagsFor extends TagsIntegTest {
 
         @Test
         public void whenOthersUseTheTag() throws Exception {

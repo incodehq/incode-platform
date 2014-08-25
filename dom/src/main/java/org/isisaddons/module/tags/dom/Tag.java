@@ -179,7 +179,7 @@ public class Tag extends AbstractDomainObject
 
     private static ObjectContracts OBJECT_CONTRACTS = new ObjectContracts().with(WithNameGetter.ToString.evaluator());
 
-    private final static String KEY_PROPERTIES = "taggable, name";
+    private final static String KEY_PROPERTIES = "taggedObjectType, taggedIdentifier, key";
 
     // //////////////////////////////////////
 
@@ -210,7 +210,7 @@ public class Tag extends AbstractDomainObject
     // //////////////////////////////////////
 
     @javax.inject.Inject
-    private BookmarkService bookmarkService;
+    BookmarkService bookmarkService;
 
     // //////////////////////////////////////
 

@@ -41,20 +41,33 @@ public class TagsTest {
             public JUnitRuleMockery2 context = JUnitRuleMockery2.createFor(JUnitRuleMockery2.Mode.INTERFACES_AND_CLASSES);
 
             private Tag tag;
-            @Mock
-            private Object mockCustomer;
+            private Object customer;
             @Mock
             private DomainObjectContainer mockContainer;
             @Mock
             private BookmarkService mockBookmarkService;
+            private Bookmark bookmarkForCustomer;
 
             private Tags tags;
 
             @Before
             public void setup() {
+
+                customer = new Object();
+                bookmarkForCustomer = new Bookmark("Customer", "123");
+
+                context.checking(new Expectations() {{
+                    allowing(mockBookmarkService).bookmarkFor(customer);
+                    will(returnValue(bookmarkForCustomer));
+
+                    allowing(mockBookmarkService).lookup(bookmarkForCustomer);
+                    will(returnValue(customer));
+                }});
+
                 tag = new Tag();
+                tag.bookmarkService = mockBookmarkService;
                 tag.setKey("theme");
-                tag.setTaggedObject(mockCustomer);
+                tag.setTaggedObject(customer);
                 tag.setValue("lightTheme");
 
                 tags = new Tags();
@@ -70,7 +83,7 @@ public class TagsTest {
                     }
                 });
 
-                tag = tags.tagFor(mockCustomer, tag, "someTag", null);
+                tag = tags.tagFor(customer, tag, "someTag", null);
                 Assert.assertThat(tag, is(nullValue()));
             }
 
@@ -82,48 +95,46 @@ public class TagsTest {
                     }
                 });
 
-                tag = tags.tagFor(mockCustomer, tag, "theme", "");
+                tag = tags.tagFor(customer, tag, "theme", "");
                 Assert.assertThat(tag, is(nullValue()));
             }
 
             @Test
             public void whenTagNotNull_andTagValueIsNotNull_thenTagsValueIsUpdated() {
-                tag = tags.tagFor(mockCustomer, tag, "theme", "darkTheme");
+                tag = tags.tagFor(customer, tag, "theme", "darkTheme");
                 Assert.assertThat(tag, is(not(nullValue())));
                 Assert.assertThat(tag.getValue(), is("darkTheme"));
             }
 
             @Test
             public void whenTagIsNull_andTagValueIsNull_thenNothing() {
-                tag = tags.tagFor(mockCustomer, null, "theme", null);
+                tag = tags.tagFor(customer, null, "theme", null);
                 Assert.assertThat(tag, is(nullValue()));
             }
 
             @Test
             public void whenTagIsNull_andTagValueIsEmptyString_thenNothing() {
-                tag = tags.tagFor(mockCustomer, null, "theme", "");
+                tag = tags.tagFor(customer, null, "theme", "");
                 Assert.assertThat(tag, is(nullValue()));
             }
 
             @Test
             public void whenTagIsNull_andTagValueIsNotNull_thenTagCreatedAndSet() {
                 final Tag newTag = new Tag();
+                newTag.bookmarkService = mockBookmarkService;
 
                 context.checking(new Expectations() {
                     {
                         oneOf(mockContainer).newTransientInstance(Tag.class);
                         will(returnValue(newTag));
 
-                        oneOf(mockBookmarkService).bookmarkFor(mockCustomer);
-                        will(returnValue(new Bookmark("CXS", "456")));
-
                         oneOf(mockContainer).persist(newTag);
                     }
                 });
 
-                tag = tags.tagFor(mockCustomer, null, "theme", "darkTheme");
+                tag = tags.tagFor(customer, null, "theme", "darkTheme");
                 Assert.assertThat(tag, is(not(nullValue())));
-                Assert.assertThat(tag.getTaggedObject(), is(mockCustomer));
+                Assert.assertThat(tag.getTaggedObject(), is(customer));
                 Assert.assertThat(tag.getKey(), is("theme"));
                 Assert.assertThat(tag.getValue(), is("darkTheme"));
             }
