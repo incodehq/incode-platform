@@ -187,7 +187,7 @@ are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be relea
 This module implements two service APIs, `CommandService` and `BackgroundCommandService`.  It also provides the
 `BackgroundCommandExecutionFromBackgroundCommandServiceJdo` to retrieve background commands for a scheduler to execute.
 
-### `CommandService`
+### `CommandService` ###
 
 The `CommandService` defines the following API:
 
@@ -210,7 +210,7 @@ public interface CommandService {
 Isis will call this service (if available) to create an instance of (the module's implementation of) `Command`
 and to indicate when the transaction wrapping the action is starting and completing.
 
-### `BackgroundCommandService`
+### `BackgroundCommandService` ###
 
 The `BackgroundCommandService` defines the following API:
 
@@ -337,8 +337,8 @@ changed or an actions has been invoked.   There are some similarities between pu
 publishing service's primary use case is to enable inter-system co-ordination (in DDD terminology, between bounded 
 contexts).
 
-If the all these services are configured - such that  commands, audit entries and published events are all persisted, then 
-the `transactionId` that is common to all enables seamless navigation between each.  (This is implemented through 
+If the all these services are configured - such that  commands, audit entries and published events are all persisted,
+then the `transactionId` that is common to all enables seamless navigation between each.  (This is implemented through 
 contributed actions/properties/collections; `Command` implements the `HasTransactionId` interface in Isis' applib, 
 and it is this interface that each module has services that contribute to).
 
@@ -368,24 +368,56 @@ There are no third-party dependencies.
 
 ##  Maven deploy notes
 
-Only the `dom` module is deployed, and is done so using Sonatype's OSS support (see [user guide](http://central.sonatype.org/pages/apache-maven.html)).
+Only the `dom` module is deployed, and is done so using Sonatype's OSS support (see 
+[user guide](http://central.sonatype.org/pages/apache-maven.html)).
 
-#### Release to Sonatype's Snapshot Repo
+#### Release to Sonatype's Snapshot Repo ####
 
 To deploy a snapshot, use:
 
-    cd dom
+    pushd dom
     mvn clean deploy
+    popd
 
-The artifacts should be available in [Sonatype's Snapshot Repo](https://oss.sonatype.org/content/repositories/snapshots).
+The artifacts should be available in Sonatype's 
+[Snapshot Repo](https://oss.sonatype.org/content/repositories/snapshots).
 
-#### Release to Maven Central
+#### Release to Maven Central (scripted process) ####
 
-First manually update the release and tag, eg:
+The `release.sh` script automates the release process.  It performs the following:
 
-    sh bumpver.sh 1.6.1
+* perform sanity check (`mvn clean install -o`) that everything builds ok
+* bump the `pom.xml` to a specified release version, and tag
+* perform a double check (`mvn clean install -o`) that everything still builds ok
+* release the code using `mvn clean deploy`
+* bump the `pom.xml` to a specified release version
 
-This will:
+For example:
+
+    sh release.sh 1.6.1 1.6.2-SNAPSHOT dan@haywood-associates.co.uk "this is not really my passphrase"
+    
+where
+* `$1` is the release version
+* `$2` is the snapshot version
+* `$3` is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
+* `$4` is the corresponding passphrase for that secret key.
+
+If the script completes successfully, then push changes:
+
+    git push
+    
+If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
+before trying again.
+
+#### Release to Maven Central (manual process) ####
+
+If you don't want to use `release.sh`, then the steps can be performed manually.
+
+To start, call `bumpver.sh` to bump up to the release version, eg:
+
+     `sh bumpver.sh 1.6.1`
+
+which:
 * edit the parent `pom.xml`, to change `${isis-module-command.version}` to version
 * edit the `dom` module's pom.xml version
 * commit the changes
@@ -401,19 +433,23 @@ All being well, then release from the `dom` module:
     mvn clean deploy -P release \
         -Dpgp.secretkey=keyring:id=dan@haywood-associates.co.uk \
         -Dpgp.passphrase="literal:this is not really my passphrase"
-    popd dom
+    popd
 
-where (for example) "dan@haywood-associates.co.uk" is the email of the secret key (`~/.gnupg/secring.gpg`) to use
-for signing, and the pass phrase is as specified as a literal.  (Other ways of specifying the key and passphrase are 
-available, see the `pgp-maven-plugin`'s [documentation](http://kohsuke.org/pgp-maven-plugin/secretkey.html)).
+where (for example):
+* "dan@haywood-associates.co.uk" is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
+* the pass phrase is as specified as a literal
 
-If `autoReleaseAfterClose` is set to `true` for the `nexus-staging-maven-plugin`, then the above command will 
-automatically stage, close and the release the repo.  Sync'ing to Maven Central should happen automatically.  According
-to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update [search](http://search.maven.org).
+Other ways of specifying the key and passphrase are available, see the `pgp-maven-plugin`'s 
+[documentation](http://kohsuke.org/pgp-maven-plugin/secretkey.html)).
 
-If `autoReleaseAfterClose` is set to `false`, then the repo will require manually closing and releasing either by logging
-onto the [Sonatype's OSS staging repo](https://oss.sonatype.org) or alternatively by releasing from the command line 
-using `mvn nexus-staging:release`.
+If (in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the `autoReleaseAfterClose` setting set to `true`,
+then the above command will automatically stage, close and the release the repo.  Sync'ing to Maven Central should 
+happen automatically.  According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update 
+[search](http://search.maven.org).
+
+If instead the `autoReleaseAfterClose` setting is set to `false`, then the repo will require manually closing and 
+releasing either by logging onto the [Sonatype's OSS staging repo](https://oss.sonatype.org) or alternatively by 
+releasing from the command line using `mvn nexus-staging:release`.
 
 Finally, don't forget to update the release to next snapshot, eg:
 

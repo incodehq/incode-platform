@@ -15,15 +15,15 @@ either express or implied. See the License for the specific
 language governing permissions and limitations under the License.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.isisaddons.module.command</groupId>
-	<artifactId>isis-module-command-dom</artifactId>
+    <artifactId>isis-module-command-dom</artifactId>
     <version>1.6.2-SNAPSHOT</version>
 
     <packaging>jar</packaging>
 
-	<name>Isis Addons Command Module DOM</name>
+    <name>Isis Addons Command Module DOM</name>
     <description>
         A module providing command persistence, enabling profiling, background execution and
         extended auditing capabilities.
@@ -58,8 +58,8 @@ language governing permissions and limitations under the License.
 
         <datanucleus-maven-plugin.version>3.3.2</datanucleus-maven-plugin.version>
 
-        <objenesis.version>1.4</objenesis.version>
-        <junit.version>4.11</junit.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <build>
@@ -83,7 +83,7 @@ language governing permissions and limitations under the License.
             <plugins>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.5.1</version>
+                    <version>3.1</version>
                     <configuration>
                         <showDeprecation>false</showDeprecation>
                         <showWarnings>false</showWarnings>
@@ -93,7 +93,8 @@ language governing permissions and limitations under the License.
                 </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.3.1</version>
+                    <version>2.4</version>
+                    <inherited>true</inherited>
                     <executions>
                         <execution>
                             <id>package-test-jar</id>
@@ -112,36 +113,77 @@ language governing permissions and limitations under the License.
                         </archive>
                     </configuration>
                 </plugin>
-
-               
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.datanucleus</groupId>
-										<artifactId>datanucleus-maven-plugin</artifactId>
-										<versionRange>[3.2.0-release,)</versionRange>
-										<goals>
-											<goal>enhance</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore></ignore>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.16</version>
+                    <configuration>
+                        <includes>
+                            <include>**/*Test.java</include>
+                            <include>**/*Test$*.java</include>
+                            <include>**/*Test*_*.java</include>
+                            <include>**/*Spec*.java</include>
+                        </includes>
+                        <excludes>
+                            <exclude>**/*ForTesting.java</exclude>
+                            <exclude>**/*Abstract*.java</exclude>
+                        </excludes>
+                        <useFile>true</useFile>
+                        <printSummary>true</printSummary>
+                        <outputDirectory>${project.build.directory}/surefire-reports</outputDirectory>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-report-plugin</artifactId>
+                    <version>2.16</version>
+                    <configuration>
+                        <includes>
+                            <include>**/*Test.java</include>
+                            <include>**/*Test$*.java</include>
+                            <include>**/*Test*_*.java</include>
+                            <include>**/*Spec*.java</include>
+                        </includes>
+                        <excludes>
+                            <exclude>**/*ForTesting.java</exclude>
+                            <exclude>**/*Abstract*.java</exclude>
+                        </excludes>
+                        <showSuccess>false</showSuccess>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>test</phase>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                                <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.datanucleus</groupId>
+                                        <artifactId>datanucleus-maven-plugin</artifactId>
+                                        <versionRange>[3.2.0-release,)</versionRange>
+                                        <goals>
+                                            <goal>enhance</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
-        
+
         <plugins>
             <!-- http://central.sonatype.org/pages/apache-maven.html -->
             <plugin>
@@ -155,7 +197,6 @@ language governing permissions and limitations under the License.
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
-            
             <plugin>
                 <groupId>org.datanucleus</groupId>
                 <artifactId>datanucleus-maven-plugin</artifactId>
@@ -189,29 +230,12 @@ language governing permissions and limitations under the License.
             <artifactId>isis-module-background</artifactId>
             <version>${isis.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.isis.core</groupId>
              <artifactId>isis-core-unittestsupport</artifactId>
             <version>${isis.version}</version>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Bytecode libraries (for mocking) -->
-        <dependency>
-            <groupId>org.objenesis</groupId>
-            <artifactId>objenesis</artifactId>
-            <version>${objenesis.version}</version>
-            <scope>test</scope>
-        </dependency>
-
     </dependencies>
 
     <!-- http://central.sonatype.org/pages/apache-maven.html -->

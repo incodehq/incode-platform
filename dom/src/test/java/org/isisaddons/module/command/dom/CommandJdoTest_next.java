@@ -19,12 +19,10 @@
 
 package org.isisaddons.module.command.dom;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
 import org.junit.Test;
 
-import org.isisaddons.module.command.dom.CommandJdo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class CommandJdoTest_next {
 
