@@ -55,7 +55,7 @@ import org.apache.isis.viewer.wicket.viewer.integration.wicket.AuthenticatedWebS
  * </pre>
  * 
  */
-public class ToDoApplication extends IsisWicketApplication {
+public class StringInterpolatorDemoApplication extends IsisWicketApplication {
 
     private static final long serialVersionUID = 1L;
 
@@ -121,7 +121,7 @@ public class ToDoApplication extends IsisWicketApplication {
 
     private static String readLines(final String resourceName) {
         try {
-            List<String> readLines = Resources.readLines(Resources.getResource(ToDoApplication.class, resourceName), Charset.defaultCharset());
+            List<String> readLines = Resources.readLines(Resources.getResource(StringInterpolatorDemoApplication.class, resourceName), Charset.defaultCharset());
             final String aboutText = Joiner.on("\n").join(readLines);
             return aboutText;
         } catch (IOException e) {

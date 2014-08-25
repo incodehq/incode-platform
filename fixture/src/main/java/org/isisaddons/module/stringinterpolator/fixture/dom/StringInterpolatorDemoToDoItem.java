@@ -36,9 +36,10 @@ import org.apache.isis.applib.util.ObjectContracts;
             name="ToDoItem_description_must_be_unique", 
             members={"description"})
 })
+@Named("To Do Item")
 @ObjectType("TODO")
 @Bookmarkable
-public class ToDoItem implements Comparable<ToDoItem> {
+public class StringInterpolatorDemoToDoItem implements Comparable<StringInterpolatorDemoToDoItem> {
 
     //region > description
     private String description;
@@ -78,7 +79,7 @@ public class ToDoItem implements Comparable<ToDoItem> {
     }
 
     @Override
-    public int compareTo(final ToDoItem other) {
+    public int compareTo(final StringInterpolatorDemoToDoItem other) {
         return ObjectContracts.compare(this, other, "description");
     }
     //endregion
@@ -89,6 +90,6 @@ public class ToDoItem implements Comparable<ToDoItem> {
     private DomainObjectContainer container;
 
     @javax.inject.Inject
-    private ToDoItems toDoItems;
+    private StringInterpolatorDemoToDoItems toDoItems;
     //endregion
 }

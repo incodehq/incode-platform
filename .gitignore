@@ -36,6 +36,4 @@ pom.xml.versionsBackup
 *.jdproj
 JArchitectOut/
 
-*.iml
-
 rebel.xml

@@ -25,7 +25,7 @@ import org.apache.isis.applib.annotation.ActionSemantics.Of;
 
 @DomainService
 @Named("ToDos")
-public class ToDoItems {
+public class StringInterpolatorDemoToDoItems {
 
 
     //region > identification
@@ -43,11 +43,11 @@ public class ToDoItems {
     //region > newToDo (action)
 
     @MemberOrder(sequence = "40")
-    public ToDoItem newToDo(
+    public StringInterpolatorDemoToDoItem newToDo(
             final @RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*") @Named("Description") String description,
             final @Named("Documentation page") String documentationPage) {
 
-        final ToDoItem toDoItem = container.newTransientInstance(ToDoItem.class);
+        final StringInterpolatorDemoToDoItem toDoItem = container.newTransientInstance(StringInterpolatorDemoToDoItem.class);
         toDoItem.setDescription(description);
         toDoItem.setDocumentationPage(documentationPage);
 
@@ -63,8 +63,8 @@ public class ToDoItems {
 
     @ActionSemantics(Of.SAFE)
     @MemberOrder(sequence = "50")
-    public List<ToDoItem> allToDos() {
-        return container.allInstances(ToDoItem.class);
+    public List<StringInterpolatorDemoToDoItem> allToDos() {
+        return container.allInstances(StringInterpolatorDemoToDoItem.class);
     }
 
     //endregion

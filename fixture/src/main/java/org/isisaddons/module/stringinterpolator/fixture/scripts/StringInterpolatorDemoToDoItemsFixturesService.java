@@ -32,15 +32,15 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
  */
 @DomainService
 @Named("Prototyping") // has the effect of defining a "Prototyping" menu item
-public class ToDoItemsFixturesService extends FixtureScripts {
+public class StringInterpolatorDemoToDoItemsFixturesService extends FixtureScripts {
 
-    public ToDoItemsFixturesService() {
+    public StringInterpolatorDemoToDoItemsFixturesService() {
         super("org.isisaddons.module.stringinterpolator.fixture.scripts");
     }
 
     //@Override // compatibility with core 1.5.0
     public FixtureScript default0RunFixtureScript() {
-        return findFixtureScriptFor(ToDoItemsFixture.class);
+        return findFixtureScriptFor(StringInterpolatorDemoToDoItemsFixture.class);
     }
 
     /**
@@ -58,7 +58,7 @@ public class ToDoItemsFixturesService extends FixtureScripts {
     @Prototype
     @MemberOrder(sequence="20")
     public Object installFixturesAndReturnFirst() {
-        final List<FixtureResult> run = findFixtureScriptFor(ToDoItemsFixture.class).run(null);
+        final List<FixtureResult> run = findFixtureScriptFor(StringInterpolatorDemoToDoItemsFixture.class).run(null);
         return run.get(0).getObject();
     }
 

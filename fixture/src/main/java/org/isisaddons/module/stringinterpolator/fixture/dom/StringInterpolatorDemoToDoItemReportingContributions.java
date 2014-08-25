@@ -9,13 +9,13 @@ import org.apache.isis.applib.annotation.NotContributed.As;
 import org.apache.isis.applib.annotation.NotInServiceMenu;
 
 @DomainService
-public class ToDoItemReportingService {
+public class StringInterpolatorDemoToDoItemReportingContributions {
 
     public static final String TEMPLATE = "${properties['isis.website']}/${this.documentationPage}";
 
     @NotInServiceMenu
     @NotContributed(As.ASSOCIATION) // ie contributed as action
-    public URL open(ToDoItem toDoItem) throws MalformedURLException {
+    public URL open(StringInterpolatorDemoToDoItem toDoItem) throws MalformedURLException {
         String urlStr = stringInterpolatorService.interpolate(toDoItem, TEMPLATE);
         return new URL(urlStr);
     }

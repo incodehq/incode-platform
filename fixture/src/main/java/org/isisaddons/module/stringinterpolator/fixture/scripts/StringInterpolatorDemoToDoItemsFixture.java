@@ -19,28 +19,28 @@
 
 package org.isisaddons.module.stringinterpolator.fixture.scripts;
 
-import org.isisaddons.module.stringinterpolator.fixture.dom.ToDoItem;
-import org.isisaddons.module.stringinterpolator.fixture.dom.ToDoItems;
+import org.isisaddons.module.stringinterpolator.fixture.dom.StringInterpolatorDemoToDoItem;
+import org.isisaddons.module.stringinterpolator.fixture.dom.StringInterpolatorDemoToDoItems;
 
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
 
-public class ToDoItemsFixture extends DiscoverableFixtureScript {
+public class StringInterpolatorDemoToDoItemsFixture extends DiscoverableFixtureScript {
 
     private final String user;
 
-    public ToDoItemsFixture() {
+    public StringInterpolatorDemoToDoItemsFixture() {
         this(null);
     }
     
-    public ToDoItemsFixture(String ownedBy) {
+    public StringInterpolatorDemoToDoItemsFixture(String ownedBy) {
         this.user = ownedBy;
     }
     
     @Override
     public void execute(ExecutionContext executionContext) {
 
-        isisJdoSupport.executeUpdate("delete from \"ToDoItem\"");
+        isisJdoSupport.executeUpdate("delete from \"StringInterpolatorDemoToDoItem\"");
 
         installFor(executionContext);
         
@@ -60,7 +60,7 @@ public class ToDoItemsFixture extends DiscoverableFixtureScript {
 
     // //////////////////////////////////////
 
-    private ToDoItem createToDoItem(final String description, final String documentationPage) {
+    private StringInterpolatorDemoToDoItem createToDoItem(final String description, final String documentationPage) {
         return toDoItems.newToDo(description, documentationPage);
     }
 
@@ -70,7 +70,7 @@ public class ToDoItemsFixture extends DiscoverableFixtureScript {
     // //////////////////////////////////////
 
     @javax.inject.Inject
-    private ToDoItems toDoItems;
+    private StringInterpolatorDemoToDoItems toDoItems;
 
     @javax.inject.Inject
     private IsisJdoSupport isisJdoSupport;

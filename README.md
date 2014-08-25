@@ -64,7 +64,7 @@ braces is interpreted using [OGNL](http://commons.apache.org/proper/commons-ognl
 
 The examples below are adapted from the service's unit tests.
 
-#### Property Interpolation
+#### Property Interpolation ####
 
 These tests only interpolate the Isis properties, and so pass in `null` for the object context:
 
@@ -90,7 +90,7 @@ These tests only interpolate the Isis properties, and so pass in `null` for the 
         }
     }
 
-#### Object graph interpolation
+#### Object graph interpolation ####
 
 These tests interpolate an instance of the `Customer` class, that in turn has relationships to the `Address` class:
 
@@ -154,7 +154,7 @@ The service also provides a "strict" mode, which is useful for testing expressio
     
 If enabled, then an exception is thrown instead.
 
-#### Object graph interpolation (using the lower-level API)
+#### Object graph interpolation (using the lower-level API) ####
 
 To use the lower-level API, create a custom subclass of the `Root` class:
 
@@ -179,7 +179,7 @@ The example above exposes the `customer` property.  This can then be used in the
     }
 
 
-## Maven Configuration
+## Maven Configuration ##
 
 In the `pom.xml` for your "dom" module, add:
     
@@ -191,7 +191,7 @@ In the `pom.xml` for your "dom" module, add:
 
 where `x.y.z` currently is 1.6.0-SNAPSHOT (though the plan is to release this code into the [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-stringinterpolator-dom)).
 
-## Registering the service
+## Registering the service ##
 
 The `StringInterpolatorService` is annotated with `@DomainService`, so `WEB-INF\isis.properties` file, add to the
 `packagePrefix` key:
@@ -204,7 +204,7 @@ The `StringInterpolatorService` is annotated with `@DomainService`, so `WEB-INF\
 
 ## Legal Stuff ##
  
-### License ###
+#### License ####
 
     Copyright 2014 Dan Haywood
 
@@ -222,5 +222,97 @@ The `StringInterpolatorService` is annotated with `@DomainService`, so `WEB-INF\
     under the License.
 
 
-### Dependencies
+#### Dependencies ####
 
+*** TODO
+
+##  Maven deploy notes
+
+Only the `dom` module is deployed, and is done so using Sonatype's OSS support (see 
+[user guide](http://central.sonatype.org/pages/apache-maven.html)).
+
+#### Release to Sonatype's Snapshot Repo ####
+
+To deploy a snapshot, use:
+
+    pushd dom
+    mvn clean deploy
+    popd
+
+The artifacts should be available in Sonatype's 
+[Snapshot Repo](https://oss.sonatype.org/content/repositories/snapshots).
+
+#### Release to Maven Central (scripted process) ####
+
+The `release.sh` script automates the release process.  It performs the following:
+
+* perform sanity check (`mvn clean install -o`) that everything builds ok
+* bump the `pom.xml` to a specified release version, and tag
+* perform a double check (`mvn clean install -o`) that everything still builds ok
+* release the code using `mvn clean deploy`
+* bump the `pom.xml` to a specified release version
+
+For example:
+
+    sh release.sh 1.6.1 1.6.2-SNAPSHOT dan@haywood-associates.co.uk "this is not really my passphrase"
+    
+where
+* `$1` is the release version
+* `$2` is the snapshot version
+* `$3` is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
+* `$4` is the corresponding passphrase for that secret key.
+
+If the script completes successfully, then push changes:
+
+    git push
+    
+If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
+before trying again.
+
+#### Release to Maven Central (manual process) ####
+
+If you don't want to use `release.sh`, then the steps can be performed manually.
+
+To start, call `bumpver.sh` to bump up to the release version, eg:
+
+     `sh bumpver.sh 1.6.1`
+
+which:
+* edit the parent `pom.xml`, to change `${isis-module-command.version}` to version
+* edit the `dom` module's pom.xml version
+* commit the changes
+* if a SNAPSHOT, then tag
+
+Next, do a quick sanity check:
+
+    mvn clean install -o
+    
+All being well, then release from the `dom` module:
+
+    pushd dom
+    mvn clean deploy -P release \
+        -Dpgp.secretkey=keyring:id=dan@haywood-associates.co.uk \
+        -Dpgp.passphrase="literal:this is not really my passphrase"
+    popd
+
+where (for example):
+* "dan@haywood-associates.co.uk" is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
+* the pass phrase is as specified as a literal
+
+Other ways of specifying the key and passphrase are available, see the `pgp-maven-plugin`'s 
+[documentation](http://kohsuke.org/pgp-maven-plugin/secretkey.html)).
+
+If (in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the `autoReleaseAfterClose` setting set to `true`,
+then the above command will automatically stage, close and the release the repo.  Sync'ing to Maven Central should 
+happen automatically.  According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update 
+[search](http://search.maven.org).
+
+If instead the `autoReleaseAfterClose` setting is set to `false`, then the repo will require manually closing and 
+releasing either by logging onto the [Sonatype's OSS staging repo](https://oss.sonatype.org) or alternatively by 
+releasing from the command line using `mvn nexus-staging:release`.
+
+Finally, don't forget to update the release to next snapshot, eg:
+
+    sh bumpver.sh 1.6.2-SNAPSHOT
+
+and then push changes.
