@@ -50,7 +50,7 @@ import org.apache.isis.viewer.wicket.viewer.integration.wicket.AuthenticatedWebS
  * </pre>
  * 
  */
-public class CommandModuleApplication extends IsisWicketApplication {
+public class SettingsModuleApplication extends IsisWicketApplication {
 
     private static final long serialVersionUID = 1L;
 

@@ -33,9 +33,9 @@ import org.apache.isis.applib.fixturescripts.SimpleFixtureScript;
  */
 @Named("Prototyping")
 @DomainService(menuOrder = "20")
-public class SimpleObjectsFixturesService extends FixtureScripts {
+public class SettingsDemoObjectsFixturesService extends FixtureScripts {
 
-    public SimpleObjectsFixturesService() {
+    public SettingsDemoObjectsFixturesService() {
         super("org.isisaddons.module.settings.fixture.scripts");
     }
 
@@ -59,7 +59,7 @@ public class SimpleObjectsFixturesService extends FixtureScripts {
     @Prototype
     @MemberOrder(sequence="20")
     public Object installFixturesAndReturnFirst() {
-        final List<FixtureResult> run = findFixtureScriptFor(SimpleObjectsFixture.class).run(null);
+        final List<FixtureResult> run = findFixtureScriptFor(SettingsDemoObjectsFixture.class).run(null);
         return run.get(0).getObject();
     }
 

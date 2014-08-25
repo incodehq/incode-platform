@@ -18,9 +18,9 @@
  */
 package org.isisaddons.module.settings.integtests;
 
-import org.isisaddons.module.settings.fixture.dom.SimpleObject;
-import org.isisaddons.module.settings.fixture.dom.SimpleObjects;
-import org.isisaddons.module.settings.fixture.scripts.SimpleObjectsFixture;
+import org.isisaddons.module.settings.fixture.dom.SettingsDemoObject;
+import org.isisaddons.module.settings.fixture.dom.SettingsDemoObjects;
+import org.isisaddons.module.settings.fixture.scripts.SettingsDemoObjectsFixture;
 
 import java.util.List;
 import javax.inject.Inject;
@@ -30,32 +30,32 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class SimpleObjectsTest_listAll_and_create extends CommandModuleIntegTest {
+public class SettingsDemoObjectsTest extends SettingsModuleIntegTest {
 
     @Before
     public void setUpData() throws Exception {
-        scenarioExecution().install(new SimpleObjectsFixture());
+        scenarioExecution().install(new SettingsDemoObjectsFixture());
     }
 
     @Inject
-    private SimpleObjects simpleObjects;
+    private SettingsDemoObjects settingsDemoObjects;
 
     @Test
     public void listAll() throws Exception {
 
-        final List<SimpleObject> all = wrap(simpleObjects).listAll();
+        final List<SettingsDemoObject> all = wrap(settingsDemoObjects).listAll();
         assertThat(all.size(), is(3));
         
-        SimpleObject simpleObject = wrap(all.get(0));
-        assertThat(simpleObject.getName(), is("Foo"));
+        SettingsDemoObject settingsDemoObject = wrap(all.get(0));
+        assertThat(settingsDemoObject.getName(), is("Foo"));
     }
     
     @Test
     public void create() throws Exception {
 
-        wrap(simpleObjects).create("Faz");
+        wrap(settingsDemoObjects).create("Faz");
         
-        final List<SimpleObject> all = wrap(simpleObjects).listAll();
+        final List<SettingsDemoObject> all = wrap(settingsDemoObjects).listAll();
         assertThat(all.size(), is(4));
     }
 
