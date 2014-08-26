@@ -82,12 +82,19 @@ To use "out-of-the-box":
 
 * update your `WEB-INF/isis.properties`:
 
+<pre>
     isis.services-installer=configuration-and-annotation
     isis.services.ServicesInstallerFromAnnotation.packagePrefix=
                     ...,\
                     org.isisaddons.module.docx.dom,\
                     ...
+</pre>
 
+Notes:
+* Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-docx-dom)).
+
+If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is 
+structured as follows:
 
 * `pom.xml`    // parent pom
 * `dom`        // the module implementation, depends on Isis applib
@@ -95,8 +102,8 @@ To use "out-of-the-box":
 * `integtests` // integration tests for the module; depends on `fixture`
 * `webapp`     // demo webapp (see above screenshots); depends on `dom` and `fixture`
 
-Only the `dom` project is released to [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-docx-dom)).
-The versions of the other modules are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
+Only the `dom` project is released to Maven Central Repo.  The versions of the other modules are purposely left at 
+`0.0.1-SNAPSHOT` because they are not intended to be released.
 
 
 ## API & Implementation ##
@@ -284,7 +291,10 @@ The `release.sh` script automates the release process.  It performs the followin
 
 For example:
 
-    sh release.sh 1.6.1 1.6.2-SNAPSHOT dan@haywood-associates.co.uk "this is not really my passphrase"
+    sh release.sh 1.6.1 \
+                  1.6.2-SNAPSHOT \
+                  dan@haywood-associates.co.uk \
+                  "this is not really my passphrase"
     
 where
 * `$1` is the release version
