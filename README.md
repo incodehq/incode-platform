@@ -147,7 +147,7 @@ To use "out-of-the-box":
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.command&lt;/groupId&gt;
         &lt;artifactId&gt;isis-module-command-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.6.0&lt;/version&gt;
+        &lt;version&gt;1.6.1&lt;/version&gt;
     &lt;/dependency&gt;
 </pre>
 
@@ -166,8 +166,9 @@ To use "out-of-the-box":
                 ...
 </pre>
 
-The `CommandServiceContributions` and `BackgroundCommandServiceContributions` services are optional but recommended; 
-see below for more information.
+Notes:
+* Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-command-dom)).
+* The `CommandServiceContributions` and `BackgroundCommandServiceContributions` services are optional but recommended; see below for more information.
 
 If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is 
 structured as follows:
@@ -178,9 +179,8 @@ structured as follows:
 * `integtests` - integration tests for the module; depends on `fixture`
 * `webapp    ` - demo webapp (see above screenshots); depends on `dom` and `fixture`
 
-Only the `dom` project is released to     Check for versions available in the 
-[Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-audit-dom)).  The versions of the other modules 
-are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
+Only the `dom` project is released to Maven Central Repo.  The versions of the other modules are purposely left at 
+`0.0.1-SNAPSHOT` because they are not intended to be released.
 
 ## API ##
 
@@ -394,7 +394,10 @@ The `release.sh` script automates the release process.  It performs the followin
 
 For example:
 
-    sh release.sh 1.6.1 1.6.2-SNAPSHOT dan@haywood-associates.co.uk "this is not really my passphrase"
+    sh release.sh 1.6.1 \
+                  1.6.2-SNAPSHOT \
+                  dan@haywood-associates.co.uk \
+                  "this is not really my passphrase"
     
 where
 * `$1` is the release version
