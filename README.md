@@ -56,7 +56,7 @@ You can either use this module "out-of-the-box", or you can fork this repo and e
 
 To use "out-of-the-box":
 
-* update your classpath by adding this dependency in your dom project's `pom.xml`:
+* update your classpath by adding this dependency in your project's `dom` module's `pom.xml`:
 
 <pre>
     &lt;dependency&gt;
@@ -81,7 +81,7 @@ To use "out-of-the-box":
 </pre>
 
 Notes:
-* Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-audit-dom)).
+* Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-audit-dom).
 * The `AuditingServiceContributions` service is optional but recommended; see below for more information.
 
 If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is 
@@ -116,10 +116,6 @@ Isis will automatically call this method on the service implementation if config
 for every individual property of a domain object that is changed.
 
 ## Implementation ##
-
-*This implementation was originally developed within Isis itself, as part of the JDO Objectstore.  This implementation 
-is identical (is a copy of) the `org.apache.isis.module:isis-module-audit-jdo:1.6.0` Maven artifact; only the package 
-names have been changed.*
 
 The `AuditingService3` API is implemented in this module by the `org.isisaddons.module.audit.AuditingService` class.  
 This implementation simply persists an audit entry (`AuditEntry`) each time it is called.   This results in a 
@@ -179,9 +175,9 @@ further domain services:
 As well as defining the `AuditingService3` API, Isis' applib also defines several other closely related services.
 Implementations of these services are referenced by the [Isis Add-ons](http://www.isisaddons.org) website.
 
-The `CommandContext` defines the `Command` class which provides request-scoped information about an action invocation.  
-Commands can be thought of as being the cause of an action; they are created "before the fact".  Some of the 
-parameters passed to `AuditingService3` - such as `target`, `user`, and `timestamp` - correspond exactly to the 
+The `CommandContext` defines the `Command` class which provides request-scoped information about an action 
+invocation.  Commands can be thought of as being the cause of an action; they are created "before the fact".  Some 
+of the  parameters passed to `AuditingService3` - such as `target`, `user`, and `timestamp` - correspond exactly to the 
 `Command` class.
 
 The `CommandService` service is an optional service that acts as a `Command` factory and allows `Command`s to be 
@@ -260,7 +256,10 @@ The `release.sh` script automates the release process.  It performs the followin
 
 For example:
 
-    sh release.sh 1.6.1 1.6.2-SNAPSHOT dan@haywood-associates.co.uk "this is not really my passphrase"
+    sh release.sh 1.6.1 \
+                  1.6.2-SNAPSHOT \
+                  dan@haywood-associates.co.uk \
+                  "this is not really my passphrase"
     
 where
 * `$1` is the release version
