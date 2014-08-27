@@ -1,39 +1,56 @@
-isis-wicket-excel
-=================
+# isis-wicket-excel #
 
-[![Build Status](https://travis-ci.org/danhaywood/isis-wicket-excel.png?branch=master)](https://travis-ci.org/danhaywood/isis-wicket-excel)
+[![Build Status](https://travis-ci.org/isisaddons/isis-wicket-excel.png?branch=master)](https://travis-ci.org/isisaddons/isis-wicket-excel)
 
-Integrates with [Apache Isis](http://isis/apache.org)' Wicket Viewer, to allow a collection of entities to be downloaded as an Excel spreadsheet (using [Apache POI](http://poi.apache.org)).
+This component, intended for use with [Apache Isis](http://isis.apache.org)'s Wicket viewer, allows a collection of 
+entities to be downloaded as an Excel spreadsheet (using [Apache POI](http://poi.apache.org)).
 
-See also the [Excel domain service](https://github.com/danhaywood/isis-domainservice-excel), which allows programmatic export and import, eg to support bulk updating/inserting.
+See also the [Isis Addons Excel module](https://github.com/isisaddons/isis-module-excel), which allows programmatic 
+export and import, eg to support bulk updating/inserting.
 
-## Screenshots
+## Screenshots ##
 
-The following screenshots are taken from the `zzzdemo` app (adapted from Isis' quickstart archetype).
+The following screenshots show an example app's usage of the component.
 
-![](https://raw.github.com/danhaywood/isis-wicket-excel/master/images/excel-tab.png)
+![](https://raw.github.com/isisaddons/isis-wicket-excel/master/images/excel-tab.png)
 
-![](https://raw.github.com/danhaywood/isis-wicket-excel/master/images/download-link.png)
+![](https://raw.github.com/isisaddons/isis-wicket-excel/master/images/download-link.png)
 
-![](https://raw.github.com/danhaywood/isis-wicket-excel/master/images/excel.png)
+![](https://raw.github.com/isisaddons/isis-wicket-excel/master/images/excel.png)
 
-## Maven Configuration
+## How to configure/use ##
 
-Simply add this component to your classpath, eg:
+You can either use this extension "out-of-the-box", or you can fork this repo and extend to your own requirements. 
 
-    <dependency>
-        <groupId>com.danhaywood.isis.wicket</groupId>
-        <artifactId>danhaywood-isis-wicket-excel</artifactId>
-        <version>x.y.z</version>
-    </dependency>
+To use "out-of-the-box", simply add this component to your classpath, eg:
 
-where `x.y.z` is the latest available version (search the [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-excel)).
+<pre>
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.isisaddons.wicket.excel&lt;/groupId&gt;
+        &lt;artifactId&gt;isis-wicket-excel-cpt&lt;/artifactId&gt;
+        &lt;version&gt;1.6.0&lt;/version&gt;
+    &lt;/dependency&gt;
+</pre>
 
-You should then find that a new view is provided for all collections of entities (either as returned from an action, or as a parented collection), from which a link to download the spreadsheet can be accessed.
+You should then find that a new view is provided for all collections of entities (either as returned from an action, 
+or as a parented collection), from which a link to download the spreadsheet can be accessed.  Check for later releases 
+by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-excel-cpt).
 
-## Legal Stuff
+If instead you want to extend this component's functionality, then we recommend that you fork this repo.  The repo is 
+structured as follows:
 
-### License
+* `pom.xml    ` - parent pom
+* `cpt        ` - the component' implementation
+* `fixture    ` - fixtures, holding a sample domain objects and fixture scripts
+* `webapp     ` - demo webapp (see above screenshots) plus UI tests; depends on `ext` and `fixture`
+
+Only the `cpt` project is released to Maven central.  The versions of the other modules 
+are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
+
+
+## Legal Stuff ##
+
+#### License ####
 
     Copyright 2013~2014 Dan Haywood
 
@@ -50,32 +67,105 @@ You should then find that a new view is provided for all collections of entities
     specific language governing permissions and limitations
     under the License.
 
-### Dependencies
+#### Dependencies ####
 
-    <dependencies>
-        <dependency>
-            <!-- ASL v2.0 -->
-            <groupId>org.apache.isis.viewer</groupId>
-            <artifactId>isis-viewer-wicket-ui</artifactId>
-            <version>${isis-viewer-wicket.version}</version>
-        </dependency>
+In addition to Apache Isis, this component depends on:
 
-        <dependency>
-            <!-- ASL v2.0 -->
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
-            <version>${poi.version}</version>
-        </dependency>
-        <dependency>
-            <!-- ASL v2.0 -->
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>${poi.version}</version>
-        </dependency>
-        <dependency>
-            <!-- ASL v2.0 -->
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml-schemas</artifactId>
-            <version>${poi.version}</version>
-        </dependency>        
-    </dependencies>
+* `org.apache.poi:poi` (ASL v2.0 License)
+* `org.apache.poi:poi-ooxml` (ASL v2.0 License)
+* `org.apache.poi:poi-ooxml-schemas` (ASL v2.0 License)
+
+
+##  Maven deploy notes ##
+
+Only the `dom` module is deployed, and is done so using Sonatype's OSS support (see 
+[user guide](http://central.sonatype.org/pages/apache-maven.html)).
+
+#### Release to Sonatype's Snapshot Repo ####
+
+To deploy a snapshot, use:
+
+    pushd cpt
+    mvn clean deploy
+    popd
+
+The artifacts should be available in Sonatype's 
+[Snapshot Repo](https://oss.sonatype.org/content/repositories/snapshots).
+
+#### Release to Maven Central (scripted process) ####
+
+The `release.sh` script automates the release process.  It performs the following:
+
+* perform sanity check (`mvn clean install -o`) that everything builds ok
+* bump the `pom.xml` to a specified release version, and tag
+* perform a double check (`mvn clean install -o`) that everything still builds ok
+* release the code using `mvn clean deploy`
+* bump the `pom.xml` to a specified release version
+
+For example:
+
+    sh release.sh 1.6.1 \
+                  1.6.2-SNAPSHOT \
+                  dan@haywood-associates.co.uk \
+                  "this is not really my passphrase"
+    
+where
+* `$1` is the release version
+* `$2` is the snapshot version
+* `$3` is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
+* `$4` is the corresponding passphrase for that secret key.
+
+If the script completes successfully, then push changes:
+
+    git push
+    
+If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
+before trying again.
+
+#### Release to Maven Central (manual process) ####
+
+If you don't want to use `release.sh`, then the steps can be performed manually.
+
+To start, call `bumpver.sh` to bump up to the release version, eg:
+
+     `sh bumpver.sh 1.6.1`
+
+which:
+* edit the parent `pom.xml`, to change `${isis-module-command.version}` to version
+* edit the `dom` module's pom.xml version
+* commit the changes
+* if a SNAPSHOT, then tag
+
+Next, do a quick sanity check:
+
+    mvn clean install -o
+    
+All being well, then release from the `cpt` module:
+
+    pushd cpt
+    mvn clean deploy -P release \
+        -Dpgp.secretkey=keyring:id=dan@haywood-associates.co.uk \
+        -Dpgp.passphrase="literal:this is not really my passphrase"
+    popd
+
+where (for example):
+* "dan@haywood-associates.co.uk" is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
+* the pass phrase is as specified as a literal
+
+Other ways of specifying the key and passphrase are available, see the `pgp-maven-plugin`'s 
+[documentation](http://kohsuke.org/pgp-maven-plugin/secretkey.html)).
+
+If (in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the `autoReleaseAfterClose` setting set to `true`,
+then the above command will automatically stage, close and the release the repo.  Sync'ing to Maven Central should 
+happen automatically.  According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update 
+[search](http://search.maven.org).
+
+If instead the `autoReleaseAfterClose` setting is set to `false`, then the repo will require manually closing and 
+releasing either by logging onto the [Sonatype's OSS staging repo](https://oss.sonatype.org) or alternatively by 
+releasing from the command line using `mvn nexus-staging:release`.
+
+Finally, don't forget to update the release to next snapshot, eg:
+
+    sh bumpver.sh 1.6.2-SNAPSHOT
+
+and then push changes.
