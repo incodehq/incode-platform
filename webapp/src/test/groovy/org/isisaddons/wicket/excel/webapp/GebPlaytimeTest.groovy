@@ -1,4 +1,5 @@
 package org.isisaddons.wicket.excel.webapp
+
 import geb.junit4.GebReportingTest
 import org.junit.Before
 import org.junit.Rule
@@ -8,6 +9,9 @@ class GebPlaytimeTest extends GebReportingTest  {
 
     @Rule
     public IsisWebServerRule webServerRule = new IsisWebServerRule();
+
+    @Rule
+    public ScreenshotRule screenshotRule = new ScreenshotRule();
 
     @Before
     public void setUp() throws Exception {
@@ -19,10 +23,13 @@ class GebPlaytimeTest extends GebReportingTest  {
         to LoginPage
         report("at login page")
 
+        screenshotRule.assertMatches(browser, "abc");
+
         login "sven", "pass"
         report("after login")
 
 
     }
+
 
 }

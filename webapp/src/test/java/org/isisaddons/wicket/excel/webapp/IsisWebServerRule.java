@@ -53,28 +53,4 @@ public class IsisWebServerRule implements MethodRule {
         IsisContext.testReset();
     }
 
-//    public RestfulClient getClient() {
-//        if(client == null) {
-//            final WebServer webServer = getWebServer();
-//            client = new RestfulClient(webServer.getBase());
-//        }
-//        return client;
-//    }
-//
-//    public RestfulClient getClient(HttpClient httpClient) {
-//        if(client == null) {
-//            final WebServer webServer = getWebServer();
-//            client = new RestfulClient(webServer.getBase(), httpClient);
-//        }
-//        return client;
-//    }
-//
-//    public RestfulClient getClient(ClientExecutor clientExecutor) {
-//        if(client == null) {
-//            final WebServer webServer = getWebServer();
-//            client = new RestfulClient(webServer.getBase(), clientExecutor);
-//        }
-//        return client;
-//    }
-    
 }
