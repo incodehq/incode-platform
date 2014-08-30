@@ -173,29 +173,33 @@ class ExcelConverter {
                 header = false;
             } else {
                 // detail
+                try {
 
-                // copy the row into the template object
-                final T template = container.newTransientInstance(cls);
-                final ObjectAdapter templateAdapter = adapterManager.adapterFor(template);
+                    // copy the row into the template object
+                    final T template = container.newTransientInstance(cls);
+                    final ObjectAdapter templateAdapter = adapterManager.adapterFor(template);
                 
-                for(final Cell cell: row) {
-                    int columnIndex = cell.getColumnIndex();
-                    final Property property = propertyByColumn.get(columnIndex);
-                    if(property != null) {
-                        final OneToOneAssociation otoa = property.getOneToOneAssociation();
-                        final Object value = cellMarshaller.getCellValue(cell, otoa);
-                        if(value != null) {
-                            final ObjectAdapter valueAdapter = adapterManager.adapterFor(value);
-                            otoa.set(templateAdapter, valueAdapter);
+                    for(final Cell cell: row) {
+                        int columnIndex = cell.getColumnIndex();
+                        final Property property = propertyByColumn.get(columnIndex);
+                        if(property != null) {
+                            final OneToOneAssociation otoa = property.getOneToOneAssociation();
+                            final Object value = cellMarshaller.getCellValue(cell, otoa);
+                            if(value != null) {
+                                final ObjectAdapter valueAdapter = adapterManager.adapterFor(value);
+                                otoa.set(templateAdapter, valueAdapter);
+                            }
+                        } else {
+                            // not expected; just ignore.
                         }
-                    } else {
-                        // not expected; just ignore.
                     }
-                }
                 
-                final String memento = viewModelFacet.memento(template);
-                final T viewModel = container.newViewModelInstance(cls, memento);
-                viewModels.add(viewModel);
+                    final String memento = viewModelFacet.memento(template);
+                    final T viewModel = container.newViewModelInstance(cls, memento);
+                    viewModels.add(viewModel);
+                } catch (final Exception e) {
+                    throw new ExcelService.Exception(String.format("Error processing Excel row nr. %d. Message: %s", row.getRowNum(), e.getMessage()), e);
+                }
             }
         }
         
