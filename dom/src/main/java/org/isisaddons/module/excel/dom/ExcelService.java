@@ -37,7 +37,7 @@ import org.apache.isis.core.runtime.system.persistence.PersistenceSession;
 @DomainService
 public class ExcelService {
 
-    public static class Exception extends RuntimeException {
+    public static class Exception extends RecoverableException {
 
         private static final long serialVersionUID = 1L;
 
