@@ -190,38 +190,6 @@
             <artifactId>isis-core-security</artifactId>
         </dependency>
 
-
-        <!-- isis modules -->
-        <dependency>
-            <groupId>org.apache.isis.module</groupId>
-            <artifactId>isis-module-background</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.isis.module</groupId>
-            <artifactId>isis-module-devutils-impl</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.isis.module</groupId>
-            <artifactId>isis-module-audit-jdo</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.isis.module</groupId>
-            <artifactId>isis-module-command-jdo</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.isis.module</groupId>
-            <artifactId>isis-module-publishing-jdo</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.isis.module</groupId>
-            <artifactId>isis-module-publishingeventserializer-ro</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.isis.module</groupId>
-            <artifactId>isis-module-settings-impl-jdo</artifactId>
-        </dependency>
-
-
         <!-- to run using WebServer (optional) -->
         <dependency>
             <groupId>org.apache.isis.core</groupId>

@@ -20,14 +20,17 @@
 package org.isisaddons.module.excel.fixture.scripts;
 
 import java.math.BigDecimal;
+
+import org.joda.time.LocalDate;
+
+import org.apache.isis.applib.clock.Clock;
+import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
+
 import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
 import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Category;
 import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Subcategory;
 import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItems;
-import org.joda.time.LocalDate;
-import org.apache.isis.applib.clock.Clock;
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
-import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
 
 public class ExcelModuleDemoToDoItemsFixture extends DiscoverableFixtureScript {
 
@@ -36,20 +39,20 @@ public class ExcelModuleDemoToDoItemsFixture extends DiscoverableFixtureScript {
     public ExcelModuleDemoToDoItemsFixture() {
         this(null);
     }
-    
+
     public ExcelModuleDemoToDoItemsFixture(String ownedBy) {
         this.user = ownedBy;
     }
-    
+
     @Override
     public void execute(ExecutionContext executionContext) {
 
-        final String ownedBy = this.user != null? this.user : getContainer().getUser().getName();
-        
-        isisJdoSupport.executeUpdate("delete from \"ToDoItem\" where \"ownedBy\" = '" + ownedBy + "'");
+        final String ownedBy = this.user != null ? this.user : getContainer().getUser().getName();
+
+        isisJdoSupport.executeUpdate(String.format("delete from \"%s\" where \"ownedBy\" = '%s'", ExcelModuleDemoToDoItem.class.getSimpleName(), ownedBy));
 
         installFor(ownedBy, executionContext);
-        
+
         getContainer().flush();
     }
 
@@ -62,9 +65,9 @@ public class ExcelModuleDemoToDoItemsFixture extends DiscoverableFixtureScript {
         createToDoItemForUser("Mow lawn", Category.Domestic, Subcategory.Garden, user, daysFromToday(6), null, executionContext);
         createToDoItemForUser("Vacuum house", Category.Domestic, Subcategory.Housework, user, daysFromToday(3), null, executionContext);
         createToDoItemForUser("Sharpen knives", Category.Domestic, Subcategory.Chores, user, daysFromToday(14), null, executionContext);
-        
+
         createToDoItemForUser("Write to penpal", Category.Other, Subcategory.Other, user, null, null, executionContext);
-        
+
         createToDoItemForUser("Write blog post", Category.Professional, Subcategory.Marketing, user, daysFromToday(7), null, executionContext).setComplete(true);
         createToDoItemForUser("Organize brown bag", Category.Professional, Subcategory.Consulting, user, daysFromToday(14), null, executionContext);
         createToDoItemForUser("Submit conference session", Category.Professional, Subcategory.Education, user, daysFromToday(21), null, executionContext);
@@ -72,7 +75,6 @@ public class ExcelModuleDemoToDoItemsFixture extends DiscoverableFixtureScript {
 
         getContainer().flush();
     }
-
 
     // //////////////////////////////////////
 
@@ -86,7 +88,6 @@ public class ExcelModuleDemoToDoItemsFixture extends DiscoverableFixtureScript {
         final LocalDate date = new LocalDate(Clock.getTimeAsDateTime());
         return date.plusDays(i);
     }
-
 
     // //////////////////////////////////////
     // Injected services
