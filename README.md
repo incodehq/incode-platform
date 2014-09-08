@@ -21,9 +21,9 @@ The implementation uses [docx4j](http://www.docx4java.org), [guava](https://code
 used (as repeating datasets - required for lists and tables - was not supported prior to Word 2013).
 
 
-## Screenshots ##
+## Screenshots and Usage ##
 
-The following screenshots show an example app's usage of the module.
+The following screenshots and code fragments show an example app's usage of the module.
 
 #### Installing the Fixture Data ####
 
@@ -47,7 +47,7 @@ The template `.docx` itself is marked up using smart tags, as specified on the
 
 The actual `.docx` can be found [here](https://github.com/isisaddons/isis-module-docx/blob/master/fixture/src/main/java/org/isisaddons/module/docx/fixture/dom/templates/CustomerConfirmation.docx?raw=true).
 
-#### Generated Document ####
+#### Generating the Document ####
 
 In the example app's design the `CustomerConfirmation` example domain service is in essence an intelligent wrapper
 around the `CustomerConfirmation.docx` template.  It contributes contributes two actions to `Order`, the more 
@@ -86,10 +86,12 @@ Then, in the `downloadCustomerConfirmation` contributed action the `CustomerConf
         final org.w3c.dom.Document w3cDocument = asInputW3cDocument(order);
 
         final ByteArrayOutputStream docxTarget = new ByteArrayOutputStream();
-        docxService.merge(w3cDocument, wordprocessingMLPackage, docxTarget, DocxService.MatchingPolicy.LAX);
+        docxService.merge(
+            w3cDocument, wordprocessingMLPackage, docxTarget, DocxService.MatchingPolicy.LAX);
 
         final String blobName = "customerConfirmation-" + order.getNumber() + ".docx";
-        final String blobMimeType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+        final String blobMimeType = 
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
         final byte[] blobBytes = docxTarget.toByteArray();
 
         return new Blob(blobName, blobMimeType, blobBytes);
@@ -99,12 +101,18 @@ Then, in the `downloadCustomerConfirmation` contributed action the `CustomerConf
 Invoking this action is shown below:
 
 ![](https://raw.github.com/isisaddons/isis-module-docx/master/images/customer-confirmation-generated-download.png)
+
+which when opened in MS Word looks like:
+
 ![](https://raw.github.com/isisaddons/isis-module-docx/master/images/customer-confirmation-generated-view.png)
 
 The `CustomerConfirmation` service also contributes a second (prototype) action to allow the input HTML document
 (fed into the `DocxService`) to be inspected:
 
 ![](https://raw.github.com/isisaddons/isis-module-docx/master/images/customer-confirmation-input-download.png)
+
+which when opened in a simple text editor looks like:
+
 ![](https://raw.github.com/isisaddons/isis-module-docx/master/images/customer-confirmation-input-view.png)
 
 Note how the table rows are repeated for each `OrderLine` item, and similarly a new bullet list for each `Order`
