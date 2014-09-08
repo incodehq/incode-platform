@@ -31,9 +31,7 @@ Installing fixture data...
 
 ![](https://raw.github.com/isisaddons/isis-module-docx/master/images/example-app-install-fixtures.png)
 
-... creates a single demo `Order` entity, with properties of different data types and a collection of child 
-
-(`OrderLine`) entities: 
+... creates a single demo `Order` entity, with properties of different data types and a collection of child (`OrderLine`) entities: 
 
 ![](https://raw.github.com/isisaddons/isis-module-docx/master/images/example-app-order-entity.png)
 
@@ -45,7 +43,7 @@ The template `.docx` itself is marked up using smart tags, as specified on the
 
 ![](https://raw.github.com/isisaddons/isis-module-docx/master/images/customer-confirmation-docx-template.png)
 
-The actual `.docx` can be found [here](https://github.com/isisaddons/isis-module-docx/blob/master/fixture/src/main/java/org/isisaddons/module/docx/fixture/dom/templates/CustomerConfirmation.docx?raw=true).
+The actual `.docx` used in the example app can be found [here](https://github.com/isisaddons/isis-module-docx/blob/master/fixture/src/main/java/org/isisaddons/module/docx/fixture/dom/templates/CustomerConfirmation.docx?raw=true).
 
 #### Generating the Document ####
 
@@ -71,31 +69,33 @@ public class CustomerConfirmation {
 }
 </pre>
   
-A more sophisticated service implementation could perhaps have retrieved and cached template from a 
-`CommunicationTemplate` entity, say.
+A more sophisticated service implementation could perhaps have retrieved and cached the .docx template bytes from a 
+`Blob` property of a `CommunicationTemplate` entity, say.
 
 Then, in the `downloadCustomerConfirmation` contributed action the `CustomerConfirmation` performs several steps:
 * it converts the `Order` into the HTML input for the `DocxService`
 * it calls the `DocxService` to convert this HTML into a `.docx` file
 * finally it emits the generated `.docx` as a Blob; in the web browser this is then downloaded:
 
+This can be seen below:
+
 <pre>
-    public Blob downloadCustomerConfirmation(
-            final Order order) throws IOException, JDOMException, MergeException {
+public Blob downloadCustomerConfirmation(
+        final Order order) throws IOException, JDOMException, MergeException {
 
-        final org.w3c.dom.Document w3cDocument = asInputW3cDocument(order);
+    final org.w3c.dom.Document w3cDocument = asInputW3cDocument(order);
 
-        final ByteArrayOutputStream docxTarget = new ByteArrayOutputStream();
-        docxService.merge(
-            w3cDocument, wordprocessingMLPackage, docxTarget, DocxService.MatchingPolicy.LAX);
+    final ByteArrayOutputStream docxTarget = new ByteArrayOutputStream();
+    docxService.merge(
+        w3cDocument, wordprocessingMLPackage, docxTarget, DocxService.MatchingPolicy.LAX);
 
-        final String blobName = "customerConfirmation-" + order.getNumber() + ".docx";
-        final String blobMimeType = 
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-        final byte[] blobBytes = docxTarget.toByteArray();
+    final String blobName = "customerConfirmation-" + order.getNumber() + ".docx";
+    final String blobMimeType = 
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+    final byte[] blobBytes = docxTarget.toByteArray();
 
-        return new Blob(blobName, blobMimeType, blobBytes);
-    }
+    return new Blob(blobName, blobMimeType, blobBytes);
+}
 </pre>
 
 Invoking this action is shown below:
