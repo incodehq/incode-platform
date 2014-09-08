@@ -25,40 +25,87 @@ used (as repeating datasets - required for lists and tables - was not supported 
 
 The following screenshots show an example app's usage of the module.
 
-#### Installing the Fixture Data
+#### Installing the Fixture Data ####
 
-![](https://raw.github.com/isisaddons/isis-module-docx/master/images/example-app-home-page.png)
+Installing fixture data...
+
 ![](https://raw.github.com/isisaddons/isis-module-docx/master/images/example-app-install-fixtures.png)
+
+... creates a single demo `Order` entity, with properties of different data types and a collection of child 
+
+(`OrderLine`) entities: 
+
 ![](https://raw.github.com/isisaddons/isis-module-docx/master/images/example-app-order-entity.png)
 
-#### The .docx template
 
-The `CustomerConfirmation` example domain service acts as an intelligent wrapper around the `CustomerConfirmation.docx`
-template (in this example, loaded as a simple resource from the classpath).  The `CustomerConfirmation`'s
- responsibilities are to convert an `Order` into the HTML input for the `DocxService`, and then to actually call the
- `DocxService`.
+#### The .docx template ####
+
+The template `.docx` itself is marked up using smart tags, as specified on the
+[DEVELOPER](http://msdn.microsoft.com/en-us/library/bb608625.aspx "How to show the DEVELOPER tab in Word") tab.
 
 ![](https://raw.github.com/isisaddons/isis-module-docx/master/images/customer-confirmation-docx-template.png)
 
-The template `.docx` is marked up using smart tags, as specified on the
-[DEVELOPER](http://msdn.microsoft.com/en-us/library/bb608625.aspx "How to show the DEVELOPER tab in Word") tab.
-
 The actual `.docx` can be found [here](https://github.com/isisaddons/isis-module-docx/blob/master/fixture/src/main/java/org/isisaddons/module/docx/fixture/dom/templates/CustomerConfirmation.docx?raw=true).
 
-### Generated Document
+#### Generated Document ####
 
-The `CustomerConfirmation` service contributes two actions to the `Order` entity.
+In the example app's design the `CustomerConfirmation` example domain service is in essence an intelligent wrapper
+around the `CustomerConfirmation.docx` template.  It contributes contributes two actions to `Order`, the more 
+significant of which is `downloadCustomerConfirmation()`.  
 
-The first is to generate the `.docx` document:
+The `.docx` is simply loaded as a simple resource from the classpath:
+  
+<pre>
+@DomainService
+public class CustomerConfirmation {
+
+    private WordprocessingMLPackage wordprocessingMLPackage;
+
+    @PostConstruct
+    public void init() throws IOException, LoadTemplateException {
+        final byte[] bytes = Resources.toByteArray(Resources.getResource(
+                                this.getClass(), "CustomerConfirmation.docx"));
+        wordprocessingMLPackage = docxService.loadPackage(new ByteArrayInputStream(bytes));
+    }
+    ...
+}
+</pre>
+  
+A more sophisticated service implementation could perhaps have retrieved and cached template from a 
+`CommunicationTemplate` entity, say.
+
+Then, in the `downloadCustomerConfirmation` contributed action the `CustomerConfirmation` performs several steps:
+* it converts the `Order` into the HTML input for the `DocxService`
+* it calls the `DocxService` to convert this HTML into a `.docx` file
+* finally it emits the generated `.docx` as a Blob; in the web browser this is then downloaded:
+
+<pre>
+    public Blob downloadCustomerConfirmation(
+            final Order order) throws IOException, JDOMException, MergeException {
+
+        final org.w3c.dom.Document w3cDocument = asInputW3cDocument(order);
+
+        final ByteArrayOutputStream docxTarget = new ByteArrayOutputStream();
+        docxService.merge(w3cDocument, wordprocessingMLPackage, docxTarget, DocxService.MatchingPolicy.LAX);
+
+        final String blobName = "customerConfirmation-" + order.getNumber() + ".docx";
+        final String blobMimeType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+        final byte[] blobBytes = docxTarget.toByteArray();
+
+        return new Blob(blobName, blobMimeType, blobBytes);
+    }
+</pre>
+
+Invoking this action is shown below:
 
 ![](https://raw.github.com/isisaddons/isis-module-docx/master/images/customer-confirmation-generated-download.png)
 ![](https://raw.github.com/isisaddons/isis-module-docx/master/images/customer-confirmation-generated-view.png)
 
-The second is a prototype action to inspect the input HTML document that is fed into the `DocxService`:
+The `CustomerConfirmation` service also contributes a second (prototype) action to allow the input HTML document
+(fed into the `DocxService`) to be inspected:
 
 ![](https://raw.github.com/isisaddons/isis-module-docx/master/images/customer-confirmation-input-download.png)
 ![](https://raw.github.com/isisaddons/isis-module-docx/master/images/customer-confirmation-input-view.png)
-
 
 Note how the table rows are repeated for each `OrderLine` item, and similarly a new bullet list for each `Order`
 preference.
@@ -240,28 +287,10 @@ Other modules can be found at the [Isis Add-ons](http://www.isisaddons.org) webs
 
 #### Dependencies ####
 
-    <dependencies>
-        <dependency>
-            <!-- ASL v2.0 -->
-            <groupId>org.docx4j</groupId>
-            <artifactId>docx4j</artifactId>
-            <version>2.8.1</version>
-        </dependency>
-        <dependency>
-            <!-- ASL v2.0 -->
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>16.0.1</version>
-        </dependency>
-        <dependency>
-            <!-- https://raw.github.com/hunterhacker/jdom/master/LICENSE.txt -->
-            <!-- Similar to Apache License but with the acknowledgment clause removed -->
-            <groupId>org.jdom</groupId>
-            <artifactId>jdom2</artifactId>
-            <version>2.0.3</version>
-        </dependency>
-    </dependencies>
+In addition to Apache Isis, this module depends on:
 
+* `org.docx4j:docx4j` (ASL v2.0 License)
+* `org.jdom:jdom2` (ASL v2.0 License)
     
 ##  Maven deploy notes
 
@@ -291,8 +320,8 @@ The `release.sh` script automates the release process.  It performs the followin
 
 For example:
 
-    sh release.sh 1.6.1 \
-                  1.6.2-SNAPSHOT \
+    sh release.sh 1.6.0 \
+                  1.6.1-SNAPSHOT \
                   dan@haywood-associates.co.uk \
                   "this is not really my passphrase"
     
@@ -315,7 +344,7 @@ If you don't want to use `release.sh`, then the steps can be performed manually.
 
 To start, call `bumpver.sh` to bump up to the release version, eg:
 
-     `sh bumpver.sh 1.6.1`
+     `sh bumpver.sh 1.6.0`
 
 which:
 * edit the parent `pom.xml`, to change `${isis-module-command.version}` to version
@@ -342,7 +371,7 @@ where (for example):
 Other ways of specifying the key and passphrase are available, see the `pgp-maven-plugin`'s 
 [documentation](http://kohsuke.org/pgp-maven-plugin/secretkey.html)).
 
-If (in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the `autoReleaseAfterClose` setting set to `true`,
+If (in the `dom`'s `pom.xml`) the `nexus-staging-maven-plugin` has the `autoReleaseAfterClose` setting set to `true`,
 then the above command will automatically stage, close and the release the repo.  Sync'ing to Maven Central should 
 happen automatically.  According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update 
 [search](http://search.maven.org).
@@ -353,6 +382,6 @@ releasing from the command line using `mvn nexus-staging:release`.
 
 Finally, don't forget to update the release to next snapshot, eg:
 
-    sh bumpver.sh 1.6.2-SNAPSHOT
+    sh bumpver.sh 1.6.1-SNAPSHOT
 
 and then push changes.

@@ -68,10 +68,7 @@ public class CustomerConfirmation {
     public Blob downloadCustomerConfirmation(
             final Order order) throws IOException, JDOMException, MergeException {
 
-        Document document = asInputDocument(order);
-
-        DOMOutputter domOutputter = new DOMOutputter();
-        final org.w3c.dom.Document w3cDocument = domOutputter.output(document);
+        final org.w3c.dom.Document w3cDocument = asInputW3cDocument(order);
 
         final ByteArrayOutputStream docxTarget = new ByteArrayOutputStream();
         docxService.merge(w3cDocument, wordprocessingMLPackage, docxTarget, DocxService.MatchingPolicy.LAX);
@@ -91,18 +88,25 @@ public class CustomerConfirmation {
     public Clob downloadCustomerConfirmationInputHtml(
             final Order order) throws IOException, JDOMException, MergeException {
 
-        Document document = asInputDocument(order);
+        Document orderAsHtmlJdomDoc = asInputDocument(order);
 
         XMLOutputter xmlOutput = new XMLOutputter();
         xmlOutput.setFormat(Format.getPrettyFormat());
 
-        final String html = xmlOutput.outputString(document);
+        final String html = xmlOutput.outputString(orderAsHtmlJdomDoc);
 
         final String clobName = "customerConfirmation-" + order.getNumber() + ".html";
         final String clobMimeType = "text/html";
         final String clobBytes = html;
 
         return new Clob(clobName, clobMimeType, clobBytes);
+    }
+
+    private static org.w3c.dom.Document asInputW3cDocument(Order order) throws JDOMException {
+        Document orderAsHtmlJdomDoc = asInputDocument(order);
+
+        DOMOutputter domOutputter = new DOMOutputter();
+        return domOutputter.output(orderAsHtmlJdomDoc);
     }
 
     private static Document asInputDocument(Order order) {
