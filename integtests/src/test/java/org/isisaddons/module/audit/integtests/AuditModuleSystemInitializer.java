@@ -18,7 +18,7 @@ package org.isisaddons.module.audit.integtests;
 
 import org.apache.isis.core.commons.config.IsisConfiguration;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
-import org.isisaddons.module.audit.AuditingServiceContributions;
+import org.isisaddons.module.audit.dom.AuditingServiceContributions;
 import org.apache.isis.objectstore.jdo.datanucleus.DataNucleusPersistenceMechanismInstaller;
 import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegTests;
 

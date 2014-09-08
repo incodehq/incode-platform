@@ -37,8 +37,7 @@ import org.apache.isis.applib.util.ObjectContracts;
 public class SomeAuditedObject implements Comparable<SomeAuditedObject> {
 
     //region > name (property)
-    // //////////////////////////////////////
-    
+
     private String name;
 
     @javax.jdo.annotations.Column(allowsNull="false")
@@ -53,10 +52,7 @@ public class SomeAuditedObject implements Comparable<SomeAuditedObject> {
 
     //endregion
 
-
-
-    //region > number
-    // //////////////////////////////////////
+    //region > number (property)
     private Integer number;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
@@ -69,9 +65,7 @@ public class SomeAuditedObject implements Comparable<SomeAuditedObject> {
     }
     //endregion
 
-
     //region > compareTo
-    // //////////////////////////////////////
 
     @Override
     public int compareTo(SomeAuditedObject other) {
@@ -81,14 +75,11 @@ public class SomeAuditedObject implements Comparable<SomeAuditedObject> {
     //endregion
 
     //region > injected services
-    // //////////////////////////////////////
 
     @javax.inject.Inject
     @SuppressWarnings("unused")
     private DomainObjectContainer container;
 
     //endregion
-
-
 
 }

@@ -18,8 +18,13 @@
  */
 package org.isisaddons.module.audit.webapp;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import com.google.common.base.Joiner;
+import com.google.common.io.Resources;
 import com.google.inject.AbstractModule;
 import com.google.inject.Module;
 import com.google.inject.name.Names;
@@ -50,7 +55,7 @@ import org.apache.isis.viewer.wicket.viewer.integration.wicket.AuthenticatedWebS
  * </pre>
  * 
  */
-public class CommandModuleApplication extends IsisWicketApplication {
+public class AuditModuleApplication extends IsisWicketApplication {
 
     private static final long serialVersionUID = 1L;
 
@@ -100,19 +105,29 @@ public class CommandModuleApplication extends IsisWicketApplication {
     protected Module newIsisWicketModule() {
         final Module isisDefaults = super.newIsisWicketModule();
         
-        final Module simpleOverrides = new AbstractModule() {
+        final Module overrides = new AbstractModule() {
             @Override
             protected void configure() {
-
                 bind(String.class).annotatedWith(Names.named("applicationName")).toInstance("Simple App");
                 bind(String.class).annotatedWith(Names.named("applicationCss")).toInstance("css/application.css");
                 bind(String.class).annotatedWith(Names.named("applicationJs")).toInstance("scripts/application.js");
+                bind(String.class).annotatedWith(Names.named("welcomeMessage")).toInstance(readLines("welcome.html"));
                 bind(String.class).annotatedWith(Names.named("aboutMessage")).toInstance("Simple App");
                 bind(InputStream.class).annotatedWith(Names.named("metaInfManifest")).toProvider(Providers.of(getServletContext().getResourceAsStream("/META-INF/MANIFEST.MF")));
             }
         };
 
-        return Modules.override(isisDefaults).with(simpleOverrides);
+        return Modules.override(isisDefaults).with(overrides);
+    }
+
+    private static String readLines(final String resourceName) {
+        try {
+            List<String> readLines = Resources.readLines(Resources.getResource(AuditModuleApplication.class, resourceName), Charset.defaultCharset());
+            final String aboutText = Joiner.on("\n").join(readLines);
+            return aboutText;
+        } catch (IOException e) {
+            return "This is Quick Start";
+        }
     }
 
 }

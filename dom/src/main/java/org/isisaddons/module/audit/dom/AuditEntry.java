@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.audit;
+package org.isisaddons.module.audit.dom;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -45,12 +45,12 @@ import org.apache.isis.objectstore.jdo.applib.service.Util;
     @javax.jdo.annotations.Query(
             name="findByTransactionId", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.isisaddons.module.audit.AuditEntry "
+                    + "FROM org.isisaddons.module.audit.dom.AuditEntry "
                     + "WHERE transactionId == :transactionId"),
     @javax.jdo.annotations.Query(
             name="findByTargetAndTimestampBetween", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.isisaddons.module.audit.AuditEntry "
+                    + "FROM org.isisaddons.module.audit.dom.AuditEntry "
                     + "WHERE targetStr == :targetStr " 
                     + "&& timestamp >= :from " 
                     + "&& timestamp <= :to "
@@ -58,46 +58,46 @@ import org.apache.isis.objectstore.jdo.applib.service.Util;
     @javax.jdo.annotations.Query(
             name="findByTargetAndTimestampAfter", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.isisaddons.module.audit.AuditEntry "
+                    + "FROM org.isisaddons.module.audit.dom.AuditEntry "
                     + "WHERE targetStr == :targetStr " 
                     + "&& timestamp >= :from "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTargetAndTimestampBefore", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.isisaddons.module.audit.AuditEntry "
+                    + "FROM org.isisaddons.module.audit.dom.AuditEntry "
                     + "WHERE targetStr == :targetStr " 
                     + "&& timestamp <= :to "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTarget", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.isisaddons.module.audit.AuditEntry "
+                    + "FROM org.isisaddons.module.audit.dom.AuditEntry "
                     + "WHERE targetStr == :targetStr " 
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTimestampBetween", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.isisaddons.module.audit.AuditEntry "
+                    + "FROM org.isisaddons.module.audit.dom.AuditEntry "
                     + "WHERE timestamp >= :from " 
                     + "&&    timestamp <= :to "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTimestampAfter", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.isisaddons.module.audit.AuditEntry "
+                    + "FROM org.isisaddons.module.audit.dom.AuditEntry "
                     + "WHERE timestamp >= :from "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTimestampBefore", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.isisaddons.module.audit.AuditEntry "
+                    + "FROM org.isisaddons.module.audit.dom.AuditEntry "
                     + "WHERE timestamp <= :to "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="find", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.isisaddons.module.audit.AuditEntry "
+                    + "FROM org.isisaddons.module.audit.dom.AuditEntry "
                     + "ORDER BY timestamp DESC")
 })
 @Indices({

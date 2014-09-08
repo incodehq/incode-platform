@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.audit;
+package org.isisaddons.module.audit.dom;
 
 import java.sql.Timestamp;
 import java.util.List;

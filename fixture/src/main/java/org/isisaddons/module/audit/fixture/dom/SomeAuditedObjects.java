@@ -27,7 +27,6 @@ import org.apache.isis.applib.annotation.ActionSemantics.Of;
 public class SomeAuditedObjects {
 
     //region > identification in the UI
-    // //////////////////////////////////////
 
     public String getId() {
         return "simple";
@@ -40,7 +39,6 @@ public class SomeAuditedObjects {
     //endregion
 
     //region > listAll (action)
-    // //////////////////////////////////////
 
     @Bookmarkable
     @ActionSemantics(Of.SAFE)
@@ -52,8 +50,7 @@ public class SomeAuditedObjects {
     //endregion
 
     //region > create (action)
-    // //////////////////////////////////////
-    
+
     @MemberOrder(sequence = "2")
     public SomeAuditedObject create(
             final @Named("Name") String name) {
@@ -61,6 +58,19 @@ public class SomeAuditedObjects {
         obj.setName(name);
         container.persistIfNotAlready(obj);
         return obj;
+    }
+
+    //endregion
+
+    //region > delete (action)
+
+    @NotInServiceMenu
+    @MemberOrder(sequence = "3")
+    public List<SomeAuditedObject> delete(
+            final SomeAuditedObject object) {
+        container.removeIfNotAlready(object);
+        container.flush();
+        return listAll();
     }
 
     //endregion
