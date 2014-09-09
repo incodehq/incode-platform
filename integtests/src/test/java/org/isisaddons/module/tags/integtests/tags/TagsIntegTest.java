@@ -1,9 +1,7 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
+ *  Copyright 2013~2014 Dan Haywood
+ *
+ *  Licensed under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
  *
@@ -16,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.tags.integtests;
+package org.isisaddons.module.tags.integtests.tags;
 
 import java.util.List;
 import java.util.Set;
@@ -33,6 +31,7 @@ import org.isisaddons.module.tags.fixture.scripts.entities.Bar_Pepsi_Drink;
 import org.isisaddons.module.tags.fixture.scripts.entities.Baz_McDonalds_FastFood;
 import org.isisaddons.module.tags.fixture.scripts.entities.Bip_CocaCola_Drink;
 import org.isisaddons.module.tags.fixture.scripts.entities.Bop_Levis_Clothing;
+import org.isisaddons.module.tags.integtests.TagsModuleAppIntegTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;

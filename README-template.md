@@ -1,69 +1,37 @@
-# isis-module-tags #
+# isis-module-xxx #
 
-[![Build Status](https://travis-ci.org/isisaddons/isis-module-tags.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-tags)
+[![Build Status](https://travis-ci.org/isisaddons/isis-module-xxx.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-xxx)
 
-This module, intended for use within [Apache Isis](http://isis.apache.org), provides the ability to add multiple tags
-(or labels) to any entity.
+This module, intended for use with [Apache Isis](http://isis.apache.org), provides ...
 
-For example, an `Email` entity could be associated with a `priority` tag of 'urgent', 'normal' or 'low', and could also
-have a `category` tag of 'work', 'family', 'friends'.
-
-The idea is to allow a user to label an entity by offering a choice of other existing tags associated with other 
-entities of the same type and also tag type.   That is, the combination of the entity type (eg `com.mycompany.myapp.Email`) and the tag type 
-(eg `priority`) creates a named set of available tags (eg 'urgent', 'normal', low').
-
-As well as listing existing tags, new tags can of course also be created, and existing tags updated or removed.  
-
+The module consists of ...
 
 ## Screenshots ##
 
-The screenshots below show an example app's usage of the tags module:
+The following screenshots show an example app's usage of the module.
 
-#### Install example fixtures ####
+#### Installing the Fixture Data ####
 
-![](https://raw.github.com/isisaddons/isis-module-tags/master/images/010-install-fixtures.png)
 
-... returning an example entity "Bip".  The class of this entity is not of interest, what _is_of interest is that it
-has two properties, `brand` and `sector`, that correspond to `Tag`s:
+#### yada ####
 
-![](https://raw.github.com/isisaddons/isis-module-tags/master/images/020-example-entity-with-two-tag-categories.png)
 
-#### Update tag ####
+#### yada ####
 
-Using the action, can update tag:
 
-![](https://raw.github.com/isisaddons/isis-module-tags/master/images/030-update-brand-tag.png)
+## Relationship to Apache Isis Core ##
 
-The `Tags` service provides a list of available tag (names) for this entity type and tag name ("brand"):
+Isis Core 1.6.0 included the `org.apache.isis.core:isis-module-xxx:1.6.0` Maven artifact.  This module is a
+direct copy of that code, with the following changes:
 
-![](https://raw.github.com/isisaddons/isis-module-tags/master/images/040-available-tags-for-brand.png)
+* package names have been altered from `org.apache.isis` to `org.isisaddons.module.command`
+* the `persistent-unit` (in the JDO manifest) has changed from `isis-module-xxx` to 
+  `org-isisaddons-module-xxx-dom`
 
-The tag can then be saved:
+Otherwise the functionality is identical; warts and all!
 
-![](https://raw.github.com/isisaddons/isis-module-tags/master/images/050-updated-brand.png)
-
-If the tag is updated once more, note that the original tag ("Coca Cola") is no longer listed.  This is because there
-are no other entities that have this label:
-
-![](https://raw.github.com/isisaddons/isis-module-tags/master/images/060-previous-brand-removed.png)
-
-#### New tags ####
-
-New tags can also be created:
-
-![](https://raw.github.com/isisaddons/isis-module-tags/master/images/070-new-brand.png)
-
-Enter the tag name:
-
-![](https://raw.github.com/isisaddons/isis-module-tags/master/images/080-new-brand-specified.png)
-
-The tag is saved:
-
-![](https://raw.github.com/isisaddons/isis-module-tags/master/images/090-new-brand-saved.png)
-
-... and is available as a choice for this or any other entity of the same type:
-
-![](https://raw.github.com/isisaddons/isis-module-tags/master/images/100-new-brand-available-as-choice.png)
+At the time of writing the plan is to remove this module from Isis Core (so it won't be in Isis 1.7.0), and instead 
+continue to develop it solely as one of the [Isis Addons](http://www.isisaddons.org) modules.
 
 
 ## How to configure/use ##
@@ -76,8 +44,8 @@ To use "out-of-the-box":
 
 <pre>
     &lt;dependency&gt;
-        &lt;groupId&gt;org.isisaddons.module.tags&lt;/groupId&gt;
-        &lt;artifactId&gt;isis-module-tags-dom&lt;/artifactId&gt;
+        &lt;groupId&gt;org.isisaddons.module.xxx&lt;/groupId&gt;
+        &lt;artifactId&gt;isis-module-xxx-dom&lt;/artifactId&gt;
         &lt;version&gt;1.6.0&lt;/version&gt;
     &lt;/dependency&gt;
 </pre>
@@ -88,58 +56,52 @@ To use "out-of-the-box":
     isis.services-installer=configuration-and-annotation
     isis.services.ServicesInstallerFromAnnotation.packagePrefix=
                     ...,\
-                    org.isisaddons.module.tags.dom,\
+                    org.isisaddons.module.xxx.xxx,\
+                    ...
+
+    isis.services = ...,\
+                    org.isisaddons.module.xxx.XxxContributions,\
                     ...
 </pre>
 
-
 Notes:
-* Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-docx-dom).
+* Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-tags-dom).
+* The `XxxContributions` service is optional but recommended; see below for more information.
 
 If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is 
 structured as follows:
 
-* `pom.xml`    // parent pom
-* `dom`        // the module implementation, depends on Isis applib
-* `fixture`    // fixtures, holding a sample domain objects and fixture scripts; depends on `dom`
-* `integtests` // integration tests for the module; depends on `fixture`
-* `webapp`     // demo webapp (see above screenshots); depends on `dom` and `fixture`
+* `pom.xml   ` - parent pom
+* `dom       ` - the module implementation, depends on Isis applib
+* `fixture   ` - fixtures, holding a sample domain objects and fixture scripts; depends on `dom`
+* `integtests` - integration tests for the module; depends on `fixture`
+* `webapp    ` - demo webapp (see above screenshots); depends on `dom` and `fixture`
 
 Only the `dom` project is released to Maven Central Repo.  The versions of the other modules are purposely left at 
 `0.0.1-SNAPSHOT` because they are not intended to be released.
-    
 
 ## API ##
 
-The main functionality is exposed through the `Tags` domain service, which provides two methods:
+### XxxService ###
 
-    public class Tags {
-    
-        @Programmatic
-        public List<String> choices(final Object taggedObject, final String tagKey) { ... }
+The `XxxService` defines the following API:
 
-        @Programmatic
-        public Tag tagFor(
-                final Object taggedObject,
-                final Tag existingTag, 
-                final String tagKey, final String tagValue) { ... }
-    }
+<pre>
+public interface XxxService {
+}
+</pre>
 
-where:
 
-* `choices(...)` returns a list of tags as strings for the object being tagged (eg `Email`) and for the tag key 
-   (eg `priority`)
+## Implementation ##
 
-* `tagFor(...)` will create/update a tag for the object being tagged (eg `Email`), the tag key (eg `priority`)
-   and the tag value (eg 'urgent').  The existing tag (if any) is passed in so that it can be removed if the tag value 
-   is left as null. 
-   
-   
+## Supporting Services ##
+
 ## Related Modules/Services ##
 
-Other modules can be found at the [Isis Add-ons](http://www.isisaddons.org) website.
+... referenced by the [Isis Add-ons](http://www.isisaddons.org) website.
 
-   
+
+
 ## Legal Stuff ##
  
 #### License ####
@@ -164,8 +126,7 @@ Other modules can be found at the [Isis Add-ons](http://www.isisaddons.org) webs
 
 There are no third-party dependencies.
 
-
-##  Maven deploy notes
+##  Maven deploy notes ##
 
 Only the `dom` module is deployed, and is done so using Sonatype's OSS support (see 
 [user guide](http://central.sonatype.org/pages/apache-maven.html)).
@@ -193,8 +154,8 @@ The `release.sh` script automates the release process.  It performs the followin
 
 For example:
 
-    sh release.sh 1.6.0 \
-                  1.6.1-SNAPSHOT \
+    sh release.sh 1.6.1 \
+                  1.6.2-SNAPSHOT \
                   dan@haywood-associates.co.uk \
                   "this is not really my passphrase"
     
@@ -217,7 +178,7 @@ If you don't want to use `release.sh`, then the steps can be performed manually.
 
 To start, call `bumpver.sh` to bump up to the release version, eg:
 
-     `sh bumpver.sh 1.6.0`
+     `sh bumpver.sh 1.6.1`
 
 which:
 * edit the parent `pom.xml`, to change `${isis-module-command.version}` to version
@@ -244,7 +205,7 @@ where (for example):
 Other ways of specifying the key and passphrase are available, see the `pgp-maven-plugin`'s 
 [documentation](http://kohsuke.org/pgp-maven-plugin/secretkey.html)).
 
-If (in the `dom`'s `pom.xml`) the `nexus-staging-maven-plugin` has the `autoReleaseAfterClose` setting set to `true`,
+If (in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the `autoReleaseAfterClose` setting set to `true`,
 then the above command will automatically stage, close and the release the repo.  Sync'ing to Maven Central should 
 happen automatically.  According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update 
 [search](http://search.maven.org).
@@ -255,6 +216,6 @@ releasing from the command line using `mvn nexus-staging:release`.
 
 Finally, don't forget to update the release to next snapshot, eg:
 
-    sh bumpver.sh 1.6.1-SNAPSHOT
+    sh bumpver.sh 1.6.2-SNAPSHOT
 
 and then push changes.
