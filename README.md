@@ -167,7 +167,7 @@ To use "out-of-the-box":
 </pre>
 
 Notes:
-* Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-command-dom)).
+* Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-command-dom).
 * The `CommandServiceContributions` and `BackgroundCommandServiceContributions` services are optional but recommended; see below for more information.
 
 If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is 
@@ -445,7 +445,7 @@ where (for example):
 Other ways of specifying the key and passphrase are available, see the `pgp-maven-plugin`'s 
 [documentation](http://kohsuke.org/pgp-maven-plugin/secretkey.html)).
 
-If (in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the `autoReleaseAfterClose` setting set to `true`,
+If (in the `dom`'s `pom.xml`) the `nexus-staging-maven-plugin` has the `autoReleaseAfterClose` setting set to `true`,
 then the above command will automatically stage, close and the release the repo.  Sync'ing to Maven Central should 
 happen automatically.  According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update 
 [search](http://search.maven.org).

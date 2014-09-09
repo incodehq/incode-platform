@@ -1,9 +1,7 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
+ *  Copyright 2013~2014 Dan Haywood
+ *
+ *  Licensed under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
  *
@@ -18,8 +16,13 @@
  */
 package org.isisaddons.module.command.webapp;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import com.google.common.base.Joiner;
+import com.google.common.io.Resources;
 import com.google.inject.AbstractModule;
 import com.google.inject.Module;
 import com.google.inject.name.Names;
@@ -107,12 +110,23 @@ public class CommandModuleApplication extends IsisWicketApplication {
                 bind(String.class).annotatedWith(Names.named("applicationName")).toInstance("Simple App");
                 bind(String.class).annotatedWith(Names.named("applicationCss")).toInstance("css/application.css");
                 bind(String.class).annotatedWith(Names.named("applicationJs")).toInstance("scripts/application.js");
+                bind(String.class).annotatedWith(Names.named("welcomeMessage")).toInstance(readLines(getClass(), "welcome.html"));
                 bind(String.class).annotatedWith(Names.named("aboutMessage")).toInstance("Simple App");
                 bind(InputStream.class).annotatedWith(Names.named("metaInfManifest")).toProvider(Providers.of(getServletContext().getResourceAsStream("/META-INF/MANIFEST.MF")));
             }
         };
 
         return Modules.override(isisDefaults).with(simpleOverrides);
+    }
+
+    private static String readLines(final Class<?> contextClass, final String resourceName) {
+        try {
+            List<String> readLines = Resources.readLines(Resources.getResource(contextClass, resourceName), Charset.defaultCharset());
+            final String aboutText = Joiner.on("\n").join(readLines);
+            return aboutText;
+        } catch (IOException e) {
+            return "This is Quick Start";
+        }
     }
 
 }

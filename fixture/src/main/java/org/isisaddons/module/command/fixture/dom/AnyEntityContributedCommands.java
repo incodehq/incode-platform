@@ -1,9 +1,7 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
+ *  Copyright 2013~2014 Dan Haywood
+ *
+ *  Licensed under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
  *
@@ -20,13 +18,13 @@ package org.isisaddons.module.command.fixture.dom;
 
 import java.util.List;
 import javax.inject.Inject;
+import org.isisaddons.module.command.dom.BackgroundCommandServiceJdoRepository;
+import org.isisaddons.module.command.dom.CommandJdo;
+import org.isisaddons.module.command.dom.CommandServiceJdoRepository;
 import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.services.HasTransactionId;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
-import org.isisaddons.module.command.dom.BackgroundCommandServiceJdoRepository;
-import org.isisaddons.module.command.dom.CommandJdo;
-import org.isisaddons.module.command.dom.CommandServiceJdoRepository;
 
 @DomainService
 public class AnyEntityContributedCommands {
