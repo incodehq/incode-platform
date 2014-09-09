@@ -17,31 +17,25 @@
 {
     columns: [
       {
-          span: 4,
+          span: 12,
           memberGroups: {
               General: {
                   members: {
                       description: {
                           typicalLength: { value: 50 }
+                      },
+                      documentationPage: {
+                          typicalLength: { value: 100 },
+                          actions: {
+                             open: {}
+                          }
                       }
                   }
               }
           }
       },
       {
-          span: 8,
-          memberGroups: {
-              Docs: {
-                  members: {
-                      documentationPage: {
-                          typicalLength: { value: 100 },
-                          actions: {
-                              open: {}
-                          }
-                      }
-                  }
-              }
-          }
+          span: 0
       },
       {
           span: 0

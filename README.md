@@ -5,17 +5,19 @@
 This module, intended for use within [Apache Isis](http://isis.apache.org), provides a mechanism to interpolate string 
 templates with either Isis system properties or values obtained from a domain object.
 
-One use case for this service (and the original use case) is in building URLs based on an object's state, parameterized
-by environment (prod/test/dev etc).  These URLs could be anything; in the original use case they were to a reporting
-service:
+One use case for this service is in building URLs based on an object's state, parameterized
+by environment (prod/test/dev etc).  These URLs could be anything; for example, to a reporting service:
 
-    ${property['reportServerBase']}/ReportServer/Pages/ReportViewer.aspx?/Estatio/Invoices&dueDate=${dueDate}&propertyId=${this.property.id}
+    ${property['reportServerBase']}/ReportViewer.aspx?/Invoices&propertyId=${this.property.id}&dueDate=${this.dueDate}
 
-where the context for the evaluation of the URL (`this`) is a domain object that has a `property` field, which in turn
-has an `id` field.
+where:
 
-When initialized by Isis, the Isis system properties are exposed as the `properties` map, while the target object is
-exposed as the `this` object.
+* `${property['reportServerBase']}` is an Isis system property
+* `${this.property.id}` is an expression that is evaluated in the context of a domain object (`this`), returning
+   `this.getProperty().getId()`
+* `${this.dueDate}` similarly is an expression evaluating to `this.getDueDate()`.
+
+Isis system properties are exposed as the `properties` map, while the target object is exposed as the `this` object.
 
 
 ## API ##
@@ -189,7 +191,7 @@ In the `pom.xml` for your "dom" module, add:
         <version>x.y.z</version>
     </dependency>
 
-where `x.y.z` currently is 1.6.0-SNAPSHOT (though the plan is to release this code into the [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-stringinterpolator-dom)).
+where `x.y.z` currently is 1.6.0-SNAPSHOT (though the plan is to release this code into the [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-stringinterpolator-dom).
 
 ## Registering the service ##
 
@@ -254,7 +256,10 @@ The `release.sh` script automates the release process.  It performs the followin
 
 For example:
 
-    sh release.sh 1.6.1 1.6.2-SNAPSHOT dan@haywood-associates.co.uk "this is not really my passphrase"
+    sh release.sh 1.6.1 \
+                  1.6.2-SNAPSHOT \
+                  dan@haywood-associates.co.uk \
+                  "this is not really my passphrase"
     
 where
 * `$1` is the release version
@@ -302,7 +307,7 @@ where (for example):
 Other ways of specifying the key and passphrase are available, see the `pgp-maven-plugin`'s 
 [documentation](http://kohsuke.org/pgp-maven-plugin/secretkey.html)).
 
-If (in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the `autoReleaseAfterClose` setting set to `true`,
+If (in the `dom`'s `pom.xml`) the `nexus-staging-maven-plugin` has the `autoReleaseAfterClose` setting set to `true`,
 then the above command will automatically stage, close and the release the repo.  Sync'ing to Maven Central should 
 happen automatically.  According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update 
 [search](http://search.maven.org).
