@@ -1,9 +1,7 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
+ *  Copyright 2013~2014 Dan Haywood
+ *
+ *  Licensed under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
  *
@@ -16,7 +14,6 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-
 package org.isisaddons.module.docx.fixture.scripts;
 
 import java.math.BigDecimal;
@@ -27,9 +24,9 @@ import org.joda.time.LocalDate;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.clock.ClockService;
 
-public class OrdersFixture extends FixtureScript {
+public class DocxModuleAppSetupFixture extends FixtureScript {
 
-    public OrdersFixture() {
+    public DocxModuleAppSetupFixture() {
         withDiscoverability(Discoverability.DISCOVERABLE);
     }
 
@@ -37,7 +34,7 @@ public class OrdersFixture extends FixtureScript {
     protected void execute(ExecutionContext executionContext) {
 
         // prereqs
-        execute(new OrdersTearDownFixture(), executionContext);
+        execute(new DocxModuleAppTeardownFixture(), executionContext);
 
         // create
         final Order order = create("1234", "Joe Smith", clockService.now().minusDays(5), "leave in the porch if out, don't deliver after 5pm, expedite if possible", executionContext);

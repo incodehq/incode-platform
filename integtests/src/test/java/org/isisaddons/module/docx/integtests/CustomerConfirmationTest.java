@@ -1,9 +1,7 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
+ *  Copyright 2013~2014 Dan Haywood
+ *
+ *  Licensed under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
  *
@@ -23,7 +21,7 @@ import javax.inject.Inject;
 import org.isisaddons.module.docx.fixture.dom.Order;
 import org.isisaddons.module.docx.fixture.dom.Orders;
 import org.isisaddons.module.docx.fixture.dom.templates.CustomerConfirmation;
-import org.isisaddons.module.docx.fixture.scripts.OrdersFixture;
+import org.isisaddons.module.docx.fixture.scripts.DocxModuleAppSetupFixture;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +36,7 @@ public class CustomerConfirmationTest extends DocxModuleIntegTest {
 
     @Before
     public void setUpData() throws Exception {
-        scenarioExecution().install(new OrdersFixture());
+        scenarioExecution().install(new DocxModuleAppSetupFixture());
     }
 
     @Inject

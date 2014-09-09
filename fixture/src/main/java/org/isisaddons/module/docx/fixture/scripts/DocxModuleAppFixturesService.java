@@ -1,9 +1,7 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
+ *  Copyright 2013~2014 Dan Haywood
+ *
+ *  Licensed under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
  *
@@ -40,7 +38,7 @@ public class DocxModuleAppFixturesService extends FixtureScripts {
 
     @Override
     public FixtureScript default0RunFixtureScript() {
-        return findFixtureScriptFor(OrdersFixture.class);
+        return findFixtureScriptFor(DocxModuleAppSetupFixture.class);
     }
 
     /**
@@ -58,7 +56,7 @@ public class DocxModuleAppFixturesService extends FixtureScripts {
     @Prototype
     @MemberOrder(sequence="20")
     public Object installFixturesAndReturnFirst() {
-        final List<FixtureResult> run = findFixtureScriptFor(OrdersFixture.class).run(null);
+        final List<FixtureResult> run = findFixtureScriptFor(DocxModuleAppSetupFixture.class).run(null);
         return run.get(0).getObject();
     }
 
