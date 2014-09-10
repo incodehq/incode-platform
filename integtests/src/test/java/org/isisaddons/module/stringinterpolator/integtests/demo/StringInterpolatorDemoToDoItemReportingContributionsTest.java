@@ -1,9 +1,7 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
+ *  Copyright 2014 Dan Haywood
+ *
+ *  Licensed under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
  *
@@ -16,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.stringinterpolator.integtests;
+package org.isisaddons.module.stringinterpolator.integtests.demo;
 
 import java.net.URL;
 import javax.inject.Inject;
@@ -24,6 +22,7 @@ import org.isisaddons.module.stringinterpolator.fixture.dom.StringInterpolatorDe
 import org.isisaddons.module.stringinterpolator.fixture.dom.StringInterpolatorDemoToDoItemReportingContributions;
 import org.isisaddons.module.stringinterpolator.fixture.dom.StringInterpolatorDemoToDoItems;
 import org.isisaddons.module.stringinterpolator.fixture.scripts.StringInterpolatorDemoToDoItemsFixture;
+import org.isisaddons.module.stringinterpolator.integtests.StringInterpolatorDemoIntegTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.apache.isis.core.runtime.system.context.IsisContext;
