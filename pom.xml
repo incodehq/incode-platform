@@ -85,6 +85,7 @@ language governing permissions and limitations under the License.
                     <configuration>
                         <includes>
                             <include>**/*Test.java</include>
+                            <include>**/*Test$*.java</include>
                             <include>**/*Test_*.java</include>
                             <include>**/*Spec*.java</include>
                         </includes>
@@ -106,6 +107,7 @@ language governing permissions and limitations under the License.
                     <configuration>
                         <includes>
                             <include>**/*Test.java</include>
+                            <include>**/*Test$*.java</include>
                             <include>**/*Test_*.java</include>
                             <include>**/*Spec*.java</include>
                         </includes>
