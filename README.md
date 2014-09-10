@@ -93,8 +93,7 @@ To use "out-of-the-box":
 </pre>
 
 
-Notes:
-* Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-docx-dom).
+Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-tags-dom).
 
 If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is 
 structured as follows:
