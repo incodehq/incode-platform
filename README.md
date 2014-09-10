@@ -20,9 +20,101 @@ where:
 Isis system properties are exposed as the `properties` map, while the target object is exposed as the `this` object.
 
 
-## API ##
+## Screenshots ##
 
-The module consists of a single domain service, `StringInterpolatorService`.  The main API exposed by this service is:
+The screenshots below show an example app's usage of the stringinterpolator module:
+
+#### Install example fixtures ####
+
+![](https://raw.github.com/isisaddons/isis-module-stringinterpolator/master/images/010-install-fixtures.png)
+
+... returning an example entity:
+
+![](https://raw.github.com/isisaddons/isis-module-stringinterpolator/master/images/020-example-entity.png)
+
+The `Open` (contributed) action is in essence:
+
+    public static final String TEMPLATE = ;
+
+    public URL open(ToDoItem toDoItem) throws MalformedURLException {
+        String urlStr = stringInterpolatorService.interpolate(
+            toDoItem, "${properties['isis.website']}/${this.documentationPage}");
+        return new URL(urlStr);
+    }
+
+where `WEB-INF/isis.properties` contains:
+
+    isis.website=http://isis.apache.org
+
+and where (as the screenshot shows) `ToDoItem` entity has the structure:
+
+    public class ToDoItem ... {
+    
+        private String description;
+        private String documentationPage;
+
+        // getters and setters omitted 
+    }
+
+
+Invoking the `Open` action computes the `urlStr` local variable as "http://isis.apache.og/documentation.html", in this
+case (because a `URL` is returned) resulting in the browser opening the appropriate web page:
+
+![](https://raw.github.com/isisaddons/isis-module-stringinterpolator/master/images/030-opened-page.png)
+
+
+## How to configure/use ##
+
+You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
+
+To use "out-of-the-box":
+
+* update your classpath by adding this dependency in your dom project's `pom.xml`:
+
+<pre>
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.isisaddons.module.stringinterpolator&lt;/groupId&gt;
+        &lt;artifactId&gt;isis-module-stringinterpolator-dom&lt;/artifactId&gt;
+        &lt;version&gt;1.6.0&lt;/version&gt;
+    &lt;/dependency&gt;
+</pre>
+
+* update your `WEB-INF/isis.properties`:
+
+<pre>
+    isis.services-installer=configuration-and-annotation
+    isis.services.ServicesInstallerFromAnnotation.packagePrefix=
+                    ...,\
+                    org.isisaddons.module.stringinterpolator.dom,\
+                    ...
+</pre>
+
+Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-stringinterpolator-dom).
+
+If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is 
+structured as follows:
+
+* `pom.xml`    // parent pom
+* `dom`        // the module implementation, depends on Isis applib
+* `fixture`    // fixtures, holding a sample domain objects and fixture scripts; depends on `dom`
+* `integtests` // integration tests for the module; depends on `fixture`
+* `webapp`     // demo webapp (see above screenshots); depends on `dom` and `fixture`
+
+Only the `dom` project is released to Maven Central Repo.  The versions of the other modules are purposely left at 
+`0.0.1-SNAPSHOT` because they are not intended to be released.
+    
+
+
+## API and Usage ##
+
+The module consists of a single domain service, `StringInterpolatorService`.  
+
+The interpolation replaces each occurrence of `${...}` with its interpolated value.  The expression in within the
+braces is interpreted using [OGNL](http://commons.apache.org/proper/commons-ognl/).
+ 
+#### Object graph interpolation ####
+
+The main API exposed by this service provides object-graph interpolation:
  
     public class StringInterpolatorService {
 
@@ -37,6 +129,39 @@ The module consists of a single domain service, `StringInterpolatorService`.  Th
     }
 
 Using this API makes `domainObject` available as `this` in the template.
+
+For example, assuming an instance of the `Customer` class, that in turn has relationships to the `Address` class:
+
+    static class Customer {
+        private String firstName;
+        private String lastName;
+        private Address address;
+        private Address billingAddress;
+        // getters and setters omitted
+    }
+    static class Address {
+        private int houseNumber;
+        private String town;
+        private String postalCode;
+        // getters and setters omitted
+    }
+
+then the following are valid expressions:
+
+* `${this.firstName}`
+* `${this.address.houseNumber}`
+* `${this.firstName}${this.lastName != null? this.lastName : ''}`
+
+By default, any expression that cannot be parsed or would generate an exception (eg null pointer exception) is instead
+returned unchanged in the interpolated string.
+
+The service also provides a "strict" mode, which is useful for testing expressions:
+
+    StringInterpolatorService service = new StringInterpolatorService().withStrict(true);
+    
+If enabled, then an exception is thrown instead.
+
+#### Object graph interpolation (using the lower-level API) ####
 
 The service also offers a lower-level API which allows multiple objects to be made accessible from the context:
 
@@ -58,107 +183,8 @@ The service also offers a lower-level API which allows multiple objects to be ma
     }
 
 The `Root` class can be extended as necessary.
-    
-## Usage ##
 
-The interpolation replaces each occurrence of `${...}` with its interpolated value.  The expression in within the
-braces is interpreted using [OGNL](http://commons.apache.org/proper/commons-ognl/).
-
-The examples below are adapted from the service's unit tests.
-
-#### Property Interpolation ####
-
-These tests only interpolate the Isis properties, and so pass in `null` for the object context:
-
-        private StringInterpolatorService service;
-        private Map<String, String> properties;
-        
-        @Before
-        public void setUp() throws Exception {
-            service = new StringInterpolatorService();
-            
-            properties = ImmutableMap.of(
-                    "isis.asf.website.noScheme", "isis.apache.org", 
-                    "isis.asf.website.documentationPage", "documentation.html");
-                    
-            service.init(properties);
-        }
-        
-        @Test
-        public void complex() throws Exception {
-            String interpolated = service.interpolate(
-                null, "http://${properties['isis.asf.website.noScheme']}/${properties['isis.asf.website.documentationPage']}#Core");
-            assertThat(interpolated, is("http://isis.apache.org/documentation.html#Core"));
-        }
-    }
-
-#### Object graph interpolation ####
-
-These tests interpolate an instance of the `Customer` class, that in turn has relationships to the `Address` class:
-
-    static class Customer {
-        private String firstName;
-        private String lastName;
-        private Address address;
-        private Address billingAddress;
-        // getters and setters omitted
-    }
-    static class Address {
-        private int houseNumber;
-        private String town;
-        private String postalCode;
-        // getters and setters omitted
-    }
-    
-    @Before
-    public void setUp() throws Exception {
-        service = new StringInterpolatorService();
-        
-        customer = new Customer();
-        customer.setFirstName("Fred");
-        
-        Address address = new Address();
-        address.setHouseNumber(34);
-        address.setPostalCode("AB12 34DF");
-        customer.setAddress(address);
-                
-        service.init(properties);
-    }
-    
-    @Test
-    public void simple() throws Exception {
-        String interpolated = service.interpolate(customer, "${this.firstName}");
-        assertThat(interpolated, is("Fred"));
-    }
-
-    @Test
-    public void walkGraph() throws Exception {
-        String interpolated = service.interpolate(customer, "${this.address.houseNumber}");
-        assertThat(interpolated, is("34"));
-    }
-    
-    @Test
-    public void conditionals() throws Exception {
-        String interpolated = service.withStrict(true).interpolate(customer, 
-                "${this.firstName}"
-                + "${this.lastName != null? this.lastName : ''}"
-                + "${this.address != null? ' lives at ' + this.address.houseNumber + ', ' + this.address.postalCode: ''}"
-                + "${this.billingAddress != null? ' , bill to ' + this.billingAddress.postTown : ''}");
-        assertThat(interpolated, is("Fred lives at 34, AB12 34DF"));
-    }
-
-By default, any expression that cannot be parsed or would generate an exception (eg null pointer exception) is instead
-returned unchanged in the interpolated string.
-
-The service also provides a "strict" mode, which is useful for testing expressions:
-
-    StringInterpolatorService service = new StringInterpolatorService().withStrict(true);
-    
-If enabled, then an exception is thrown instead.
-
-#### Object graph interpolation (using the lower-level API) ####
-
-To use the lower-level API, create a custom subclass of the `Root` class:
+For example, create a custom subclass of the `Root` class:
 
     final class CustomRoot extends StringInterpolatorService.Root {
         private Customer customer;
@@ -171,7 +197,7 @@ To use the lower-level API, create a custom subclass of the `Root` class:
         }
     }
 
-The example above exposes the `customer` property.  This can then be used in the template:
+The example above exposes the `customer` property.  This can then be used in the template, eg:
 
     @Test
     public void simple() throws Exception {
@@ -180,28 +206,9 @@ The example above exposes the `customer` property.  This can then be used in the
         assertThat(interpolated, is("Fred"));
     }
 
+## Related Modules/Services ##
 
-## Maven Configuration ##
-
-In the `pom.xml` for your "dom" module, add:
-    
-    <dependency>
-        <groupId>org.isisaddons.module.stringinterpolator</groupId>
-        <artifactId>isis-module-stringinterpolator-dom</artifactId>
-        <version>x.y.z</version>
-    </dependency>
-
-where `x.y.z` currently is 1.6.0-SNAPSHOT (though the plan is to release this code into the [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-stringinterpolator-dom).
-
-## Registering the service ##
-
-The `StringInterpolatorService` is annotated with `@DomainService`, so `WEB-INF\isis.properties` file, add to the
-`packagePrefix` key:
-
-    isis.services-installer=configuration-and-annotation
-    isis.services.ServicesInstallerFromAnnotation.packagePrefix=...,\
-                                                                org.isisaddons.module.stringinterpolator.dom,\
-                                                                ...
+Other modules can be found at the [Isis Add-ons](http://www.isisaddons.org) website.
 
 
 ## Legal Stuff ##
@@ -256,8 +263,8 @@ The `release.sh` script automates the release process.  It performs the followin
 
 For example:
 
-    sh release.sh 1.6.1 \
-                  1.6.2-SNAPSHOT \
+    sh release.sh 1.6.0 \
+                  1.6.1-SNAPSHOT \
                   dan@haywood-associates.co.uk \
                   "this is not really my passphrase"
     
@@ -280,7 +287,7 @@ If you don't want to use `release.sh`, then the steps can be performed manually.
 
 To start, call `bumpver.sh` to bump up to the release version, eg:
 
-     `sh bumpver.sh 1.6.1`
+     `sh bumpver.sh 1.6.0`
 
 which:
 * edit the parent `pom.xml`, to change `${isis-module-command.version}` to version
@@ -318,6 +325,6 @@ releasing from the command line using `mvn nexus-staging:release`.
 
 Finally, don't forget to update the release to next snapshot, eg:
 
-    sh bumpver.sh 1.6.2-SNAPSHOT
+    sh bumpver.sh 1.6.1-SNAPSHOT
 
 and then push changes.
