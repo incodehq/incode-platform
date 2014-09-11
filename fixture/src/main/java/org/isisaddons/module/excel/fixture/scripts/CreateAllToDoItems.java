@@ -1,9 +1,7 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
+ *  Copyright 2014 Dan Haywood
+ *
+ *  Licensed under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
  *
@@ -16,31 +14,27 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-
 package org.isisaddons.module.excel.fixture.scripts;
 
 import java.math.BigDecimal;
-
-import org.joda.time.LocalDate;
-
-import org.apache.isis.applib.clock.Clock;
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
-import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
-
 import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
 import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Category;
 import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Subcategory;
 import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItems;
+import org.joda.time.LocalDate;
+import org.apache.isis.applib.clock.Clock;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
 
-public class ExcelModuleDemoToDoItemsFixture extends DiscoverableFixtureScript {
+public class CreateAllToDoItems extends FixtureScript {
 
     private final String user;
 
-    public ExcelModuleDemoToDoItemsFixture() {
+    public CreateAllToDoItems() {
         this(null);
     }
 
-    public ExcelModuleDemoToDoItemsFixture(String ownedBy) {
+    public CreateAllToDoItems(String ownedBy) {
         this.user = ownedBy;
     }
 
@@ -48,8 +42,6 @@ public class ExcelModuleDemoToDoItemsFixture extends DiscoverableFixtureScript {
     public void execute(ExecutionContext executionContext) {
 
         final String ownedBy = this.user != null ? this.user : getContainer().getUser().getName();
-
-        isisJdoSupport.executeUpdate(String.format("delete from \"%s\" where \"ownedBy\" = '%s'", ExcelModuleDemoToDoItem.class.getSimpleName(), ownedBy));
 
         installFor(ownedBy, executionContext);
 
