@@ -1,7 +1,7 @@
 isis-module-excel
 ========================
 
-[![Build Status](https://travis-ci.org/isiaddons/isis-module-excel.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-excel)
+[![Build Status](https://travis-ci.org/isisaddons/isis-module-excel.svg?branch=master)](https://travis-ci.org/isisaddons/isis-module-excel)
 
 This module, intended for use with [Apache Isis](http://isis.apache.org), provides a domain service so that a 
 collection of (view model) object scan be exported to an Excel spreadsheet, or recreated by importing from Excel.
