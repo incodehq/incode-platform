@@ -152,7 +152,8 @@ which are wrappers around `ToDoItem` entities:
 
 then the following creates an Isis `Blob` (bytestream) containing the spreadsheet of these view models:
 
-    return excelService.toExcel(toDoItemViewModels, ToDoItemExportImportLineItem.class, fileName);
+    return excelService.toExcel(
+             toDoItemViewModels, ToDoItemExportImportLineItem.class, fileName);
 
 and conversely:
 
@@ -173,7 +174,7 @@ downloadable as an Excel spreadsheet.
 
 #### License ####
 
-    Copyright 2013~2014 Dan Haywood
+    Copyright 2014 Dan Haywood
 
     Licensed under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
