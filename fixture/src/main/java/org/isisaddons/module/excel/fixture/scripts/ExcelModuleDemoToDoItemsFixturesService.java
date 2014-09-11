@@ -1,9 +1,7 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
+ *  Copyright 2014 Dan Haywood
+ *
+ *  Licensed under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
  *
@@ -37,7 +35,7 @@ public class ExcelModuleDemoToDoItemsFixturesService extends FixtureScripts {
 
     @Override
     public FixtureScript default0RunFixtureScript() {
-        return findFixtureScriptFor(ExcelModuleDemoToDoItemsFixture.class);
+        return findFixtureScriptFor(RecreateToDoItems.class);
     }
 
     @Override
@@ -49,8 +47,14 @@ public class ExcelModuleDemoToDoItemsFixturesService extends FixtureScripts {
     @Prototype
     @MemberOrder(sequence="20")
     public Object installFixturesAndReturnFirst() {
-        final List<FixtureResult> run = findFixtureScriptFor(ExcelModuleDemoToDoItemsFixture.class).run(null);
-        return run.get(0).getObject();
+        final List<FixtureResult> results = runFixtureScript(new RecreateToDoItems(), null);
+        return results.get(0).getObject();
+    }
+
+    @Prototype
+    @MemberOrder(sequence="30")
+    public void deleteAll() {
+        runFixtureScript(new DeleteAllToDoItems(), null);
     }
 
 

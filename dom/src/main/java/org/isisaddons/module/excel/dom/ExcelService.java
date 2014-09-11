@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013~2014 Dan Haywood
+ *  Copyright 2014 Dan Haywood
  *
  *  Licensed under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
@@ -40,6 +40,8 @@ import org.apache.isis.core.runtime.system.persistence.PersistenceSession;
 
 @DomainService
 public class ExcelService {
+
+    public static final String XSLX_MIME_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
     public static class Exception extends RecoverableException {
 

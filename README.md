@@ -1,7 +1,7 @@
 isis-module-excel
 ========================
 
-[![Build Status](https://travis-ci.org/isiaddons/isis-module-excel.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-excel)
+[![Build Status](https://travis-ci.org/isisaddons/isis-module-excel.svg?branch=master)](https://travis-ci.org/isisaddons/isis-module-excel)
 
 This module, intended for use with [Apache Isis](http://isis.apache.org), provides a domain service so that a 
 collection of (view model) object scan be exported to an Excel spreadsheet, or recreated by importing from Excel.
@@ -14,7 +14,55 @@ The following screenshots show an example app's usage of the module.
 
 #### Installing the Fixture Data ####
 
-...TODO...
+The fixture data creates a set of todo items in various categories:
+
+![](https://raw.github.com/isisaddons/isis-module-excel/master/images/010-install-fixtures.png)
+
+#### Exporting items using the (example) bulk update manager ####
+
+The example app has a bulk update manager as a wrapper around the ExcelService:
+
+![](https://raw.github.com/isisaddons/isis-module-excel/master/images/020-run-bulk-update-manager.png)
+
+The (example) bulk update manager allows the end-user to define a criteria to exporting a (sub)set of items:
+
+![](https://raw.github.com/isisaddons/isis-module-excel/master/images/030-export.png)
+
+which are then downloaded ...
+
+![](https://raw.github.com/isisaddons/isis-module-excel/master/images/040-open-xlsx.png)
+
+... and can be viewed in Microsoft Excel:
+
+![](https://raw.github.com/isisaddons/isis-module-excel/master/images/050-xlsx.png)
+
+#### Importing Exporting Excel ####
+
+Using Excel the user can update data:
+
+![](https://raw.github.com/isisaddons/isis-module-excel/master/images/060-xlsx-updated.png)
+
+... and the use the (example) bulk update manager to import:
+
+![](https://raw.github.com/isisaddons/isis-module-excel/master/images/070-import.png)
+
+specifying the updated spreadsheet in the dialog:
+
+![](https://raw.github.com/isisaddons/isis-module-excel/master/images/080-import-dialog.png)
+
+#### View models represent the Excel rows ####
+
+For each row in the spreadsheet the `ExcelService` instantiates a corresponding view model.
+
+![](https://raw.github.com/isisaddons/isis-module-excel/master/images/090-line-items.png)
+
+The view model can then provide a bulk `apply` action... 
+
+![](https://raw.github.com/isisaddons/isis-module-excel/master/images/100-bulk-apply.png)
+
+ to update the corresponding entity:
+ 
+![](https://raw.github.com/isisaddons/isis-module-excel/master/images/110-updated-todo-item.png)
 
 
 
@@ -104,7 +152,8 @@ which are wrappers around `ToDoItem` entities:
 
 then the following creates an Isis `Blob` (bytestream) containing the spreadsheet of these view models:
 
-    return excelService.toExcel(toDoItemViewModels, ToDoItemExportImportLineItem.class, fileName);
+    return excelService.toExcel(
+             toDoItemViewModels, ToDoItemExportImportLineItem.class, fileName);
 
 and conversely:
 
@@ -125,7 +174,7 @@ downloadable as an Excel spreadsheet.
 
 #### License ####
 
-    Copyright 2013~2014 Dan Haywood
+    Copyright 2014 Dan Haywood
 
     Licensed under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance

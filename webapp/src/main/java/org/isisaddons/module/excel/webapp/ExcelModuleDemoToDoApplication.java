@@ -16,10 +16,15 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package webapp;
+package org.isisaddons.module.excel.webapp;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import com.google.common.base.Joiner;
+import com.google.common.io.Resources;
 import com.google.inject.AbstractModule;
 import com.google.inject.Module;
 import com.google.inject.name.Names;
@@ -106,12 +111,23 @@ public class ExcelModuleDemoToDoApplication extends IsisWicketApplication {
                 bind(String.class).annotatedWith(Names.named("applicationName")).toInstance("ToDo App");
                 bind(String.class).annotatedWith(Names.named("applicationCss")).toInstance("css/application.css");
                 bind(String.class).annotatedWith(Names.named("applicationJs")).toInstance("scripts/application.js");
-                bind(String.class).annotatedWith(Names.named("aboutMessage")).toInstance("ToDo App");
+                bind(String.class).annotatedWith(Names.named("welcomeMessage")).toInstance(readLines(getClass(), "welcome.html"));
+                bind(String.class).annotatedWith(Names.named("aboutMessage")).toInstance("Excel Module demo app");
                 bind(InputStream.class).annotatedWith(Names.named("metaInfManifest")).toProvider(Providers.of(getServletContext().getResourceAsStream("/META-INF/MANIFEST.MF")));
             }
         };
 
         return Modules.override(isisDefaults).with(overrides);
+    }
+
+    private static String readLines(final Class<?> contextClass, final String resourceName) {
+        try {
+            List<String> readLines = Resources.readLines(Resources.getResource(contextClass, resourceName), Charset.defaultCharset());
+            final String aboutText = Joiner.on("\n").join(readLines);
+            return aboutText;
+        } catch (IOException e) {
+            return "This is Quick Start";
+        }
     }
 
 }
