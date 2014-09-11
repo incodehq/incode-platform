@@ -31,7 +31,7 @@ language governing permissions and limitations under the License.
     </prerequisites>
 
 	<properties>
-		<isis-module-excel.version>1.6.0</isis-module-excel.version>
+		<isis-module-excel.version>1.6.1-SNAPSHOT</isis-module-excel.version>
 
         <isis.version>1.6.0</isis.version>
 		<isis-viewer-wicket.version>1.6.0</isis-viewer-wicket.version>
