@@ -14,31 +14,21 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-{
-    columns: [
-	    {
-	        span: 6,
-	        memberGroups: {
-	            General: {
-	                members: {
-	                    name: {}
-	                }
-	            }
-	        }
-	    },
-	    {
-	        span: 0,
-	        memberGroups: {}
-	    },
-	    {
-	        span: 0,
-	        memberGroups: {}
-	    },
-	    {
-	        span: 6,
-	        collections: {}
-	    }
-    ],
-    actions: {}
+package org.isisaddons.module.settings.fixture.scripts;
+
+import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
+
+public class SettingsModuleAppTearDownFixture extends FixtureScript {
+
+    @Override
+    protected void execute(ExecutionContext executionContext) {
+        isisJdoSupport.executeUpdate("delete from \"IsisUserSetting\"");
+        isisJdoSupport.executeUpdate("delete from \"IsisApplicationSetting\"");
+    }
+
+
+    @javax.inject.Inject
+    private IsisJdoSupport isisJdoSupport;
+
 }
- 

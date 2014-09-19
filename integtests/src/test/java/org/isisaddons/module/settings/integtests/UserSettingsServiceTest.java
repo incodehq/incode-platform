@@ -17,43 +17,40 @@
 package org.isisaddons.module.settings.integtests;
 
 import java.util.List;
-import javax.inject.Inject;
-import org.isisaddons.module.settings.fixture.dom.SettingsDemoObject;
-import org.isisaddons.module.settings.fixture.dom.SettingsDemoObjects;
-import org.isisaddons.module.settings.fixture.scripts.SettingsDemoObjectsFixture;
+import org.isisaddons.module.settings.dom.UserSetting;
+import org.isisaddons.module.settings.dom.UserSettingsServiceRW;
+import org.isisaddons.module.settings.fixture.scripts.SettingsModuleAppSetUpFixture;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class SettingsDemoObjectsTest extends SettingsModuleIntegTest {
+public class UserSettingsServiceTest extends SettingsModuleIntegTest {
 
     @Before
     public void setUpData() throws Exception {
-        scenarioExecution().install(new SettingsDemoObjectsFixture());
+        scenarioExecution().install(new SettingsModuleAppSetUpFixture());
     }
 
-    @Inject
-    private SettingsDemoObjects settingsDemoObjects;
+    @javax.inject.Inject
+    private UserSettingsServiceRW userSettingsServiceRW;
 
     @Test
     public void listAll() throws Exception {
 
-        final List<SettingsDemoObject> all = wrap(settingsDemoObjects).listAll();
-        assertThat(all.size(), is(3));
-        
-        SettingsDemoObject settingsDemoObject = wrap(all.get(0));
-        assertThat(settingsDemoObject.getName(), is("Foo"));
-    }
-    
-    @Test
-    public void create() throws Exception {
+        final List<UserSetting> all = wrap(userSettingsServiceRW).listAll();
 
-        wrap(settingsDemoObjects).create("Faz");
-        
-        final List<SettingsDemoObject> all = wrap(settingsDemoObjects).listAll();
-        assertThat(all.size(), is(4));
+        assertThat(all.size(), is(6));
     }
+
+    @Test
+    public void listAllFor() throws Exception {
+
+        final List<UserSetting> all = wrap(userSettingsServiceRW).listAllFor("sven");
+
+        assertThat(all.size(), is(5));
+    }
+
 
 }

@@ -21,7 +21,6 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Prototype;
-import org.apache.isis.applib.fixturescripts.FixtureResult;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.fixturescripts.SimpleFixtureScript;
@@ -31,13 +30,13 @@ import org.apache.isis.applib.fixturescripts.SimpleFixtureScript;
  */
 @Named("Prototyping")
 @DomainService(menuOrder = "20")
-public class SettingsDemoObjectsFixturesService extends FixtureScripts {
+public class SettingsModuleAppFixturesService extends FixtureScripts {
 
-    public SettingsDemoObjectsFixturesService() {
+    public SettingsModuleAppFixturesService() {
         super("org.isisaddons.module.settings.fixture.scripts");
     }
 
-    @Override // compatibility with core 1.5.0
+    @Override
     public FixtureScript default0RunFixtureScript() {
         return findFixtureScriptFor(SimpleFixtureScript.class);
     }
@@ -56,9 +55,8 @@ public class SettingsDemoObjectsFixturesService extends FixtureScripts {
 
     @Prototype
     @MemberOrder(sequence="20")
-    public Object installFixturesAndReturnFirst() {
-        final List<FixtureResult> run = findFixtureScriptFor(SettingsDemoObjectsFixture.class).run(null);
-        return run.get(0).getObject();
+    public void installFixtures() {
+        findFixtureScriptFor(SettingsModuleAppSetUpFixture.class).run(null);
     }
 
 

@@ -16,6 +16,8 @@
  */
 package org.isisaddons.module.settings.integtests;
 
+import org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo;
+import org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo;
 import org.apache.isis.core.commons.config.IsisConfiguration;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
 import org.apache.isis.objectstore.jdo.datanucleus.DataNucleusPersistenceMechanismInstaller;
@@ -54,11 +56,15 @@ public class SettingsModuleSystemInitializer {
                             ,"org.apache.isis.objectstore.jdo.datanucleus.service.support" // IsisJdoSupportImpl
                             ,"org.apache.isis.objectstore.jdo.datanucleus.service.eventbus" // EventBusServiceJdo
                             );
+
+            withServices(
+                    new ApplicationSettingsServiceJdo(),
+                    new UserSettingsServiceJdo());
         }
 
         private static IsisConfiguration testConfiguration() {
             final IsisConfigurationForJdoIntegTests testConfiguration = new IsisConfigurationForJdoIntegTests();
-            testConfiguration.addRegisterEntitiesPackagePrefix("dom");
+            testConfiguration.addRegisterEntitiesPackagePrefix("org.isisaddons.module.settings.dom");
             return testConfiguration;
         }
     }

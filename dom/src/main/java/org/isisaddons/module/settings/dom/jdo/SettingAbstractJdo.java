@@ -27,7 +27,7 @@ import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
 
 /**
- * Factors out common implementation; however this is annotated with {@link PersistenceCapable},
+ * Factors out common implementation; however this is not annotated with {@link PersistenceCapable},
  * so that each subclass is its own root entity.
  */
 public abstract class SettingAbstractJdo extends SettingAbstract implements ApplicationSetting {

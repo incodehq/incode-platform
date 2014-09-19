@@ -17,10 +17,9 @@
 package org.isisaddons.module.settings.dom.jdo;
 
 import javax.jdo.annotations.IdentityType;
-
-import org.apache.isis.applib.annotation.Named;
 import org.isisaddons.module.settings.dom.ApplicationSetting;
 import org.isisaddons.module.settings.dom.SettingType;
+import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 
 @javax.jdo.annotations.PersistenceCapable(
@@ -30,12 +29,12 @@ import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
      @javax.jdo.annotations.Query(
              name = "findByKey", language = "JDOQL", 
              value = "SELECT "
-                     + "FROM org.apache.isis.objectstore.jdo.applib.service.settings.ApplicationSettingJdo "
+                     + "FROM org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo "
                      + "WHERE key == :key"),
      @javax.jdo.annotations.Query(
             name = "findAll", language = "JDOQL", 
             value = "SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.settings.ApplicationSettingJdo "
+                    + "FROM org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo "
                     + "ORDER BY key")
 })
 @Named("Application Setting")

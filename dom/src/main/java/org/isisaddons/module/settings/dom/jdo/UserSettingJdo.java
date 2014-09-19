@@ -33,19 +33,19 @@ import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
     @javax.jdo.annotations.Query(
             name = "findByUserAndKey", language = "JDOQL", 
             value = "SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.settings.UserSettingJdo "
+                    + "FROM org.isisaddons.module.settings.dom.jdo.UserSettingJdo "
                     + "WHERE user == :user "
                     + "&& key == :key ") 
     ,@javax.jdo.annotations.Query(
             name = "findByUser", language = "JDOQL", 
             value = "SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.settings.UserSettingJdo "
+                    + "FROM org.isisaddons.module.settings.dom.jdo.UserSettingJdo "
                     + "WHERE user == :user "
                     + "ORDER BY key") 
     ,@javax.jdo.annotations.Query(
             name = "findAll", language = "JDOQL", 
             value = "SELECT "
-                    + "FROM org.apache.isis.objectstore.jdo.applib.service.settings.UserSettingJdo "
+                    + "FROM org.isisaddons.module.settings.dom.jdo.UserSettingJdo "
                     + "ORDER BY user, key") 
 })
 // can't see how to specify this order in the primary key; however HSQLDB objects :-(

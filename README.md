@@ -12,25 +12,53 @@ The following screenshots show an example app's usage of the module.
 
 #### Installing the Fixture Data ####
 
+Install sample fixtures:
 
-#### yada ####
+![](https://raw.github.com/isisaddons/isis-module-security/master/images/010-install-fixtures.png)
 
+#### App Settings ####
 
-#### yada ####
+List all (demo) application settings:
+
+![](https://raw.github.com/isisaddons/isis-module-security/master/images/020-list-appsettings.png)
+
+... listed in a table:
+
+![](https://raw.github.com/isisaddons/isis-module-security/master/images/030-appsettings.png)
+
+... and inspect detail:
+
+![](https://raw.github.com/isisaddons/isis-module-security/master/images/040-appsetting-detail.png)
+
+#### User Settings ####
+
+List all (demo) user settings:
+
+![](https://raw.github.com/isisaddons/isis-module-security/master/images/050-list-usersettings.png)
+
+... listed in a table:
+
+![](https://raw.github.com/isisaddons/isis-module-security/master/images/060-usersettings.png)
+
+... and inspect detail:
+
+![](https://raw.github.com/isisaddons/isis-module-security/master/images/070-usersetting-detail.png)
 
 
 ## Relationship to Apache Isis Core ##
 
-Isis Core 1.6.0 included the `org.apache.isis.core:isis-module-xxx:1.6.0` Maven artifact.  This module is a
-direct copy of that code, with the following changes:
+Isis Core 1.6.0 included the `org.apache.isis.core:isis-module-settings:1.6.0` Maven artifact (and its submodules,
+`isis-module-settings-applib` and `isis-module-settings-impl-jdo`.  This module is a direct copy of that code, with 
+the following changes:
 
-* package names have been altered from `org.apache.isis` to `org.isisaddons.module.command`
-* the `persistent-unit` (in the JDO manifest) has changed from `isis-module-xxx` to 
-  `org-isisaddons-module-xxx-dom`
-
+* package names have been altered from `org.apache.isis` to `org.isisaddons.module.settings`
+* the `persistent-unit` (in the JDO manifest) has changed from `isis-module-settings` to 
+  `org-isisaddons-module-settings-dom`
+* for simplicity, the applib and impl submodules have been combined into a single module
+  
 Otherwise the functionality is identical; warts and all!
 
-At the time of writing the plan is to remove this module from Isis Core (so it won't be in Isis 1.7.0), and instead 
+At the time of writing the plan is to remove these modules from Isis Core (so it won't be in Isis 1.7.0), and instead 
 continue to develop it solely as one of the [Isis Addons](http://www.isisaddons.org) modules.
 
 
@@ -44,8 +72,8 @@ To use "out-of-the-box":
 
 <pre>
     &lt;dependency&gt;
-        &lt;groupId&gt;org.isisaddons.module.xxx&lt;/groupId&gt;
-        &lt;artifactId&gt;isis-module-xxx-dom&lt;/artifactId&gt;
+        &lt;groupId&gt;org.isisaddons.module.settings&lt;/groupId&gt;
+        &lt;artifactId&gt;isis-module-settings-dom&lt;/artifactId&gt;
         &lt;version&gt;1.6.0&lt;/version&gt;
     &lt;/dependency&gt;
 </pre>
@@ -53,17 +81,25 @@ To use "out-of-the-box":
 * update your `WEB-INF/isis.properties`:
 
 <pre>
-    isis.services-installer=configuration-and-annotation
-    isis.services.ServicesInstallerFromAnnotation.packagePrefix=
-                    ...,\
-                    org.isisaddons.module.xxx.xxx,\
-                    ...
-
     isis.services = ...,\
-                    org.isisaddons.module.audit.XxxContributions,\
-                    ...
-                    
-The `XxxContributions` service is optional but recommended; see below for more information.
+            org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo,\
+            org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo,\
+            ...
+</pre>
+
+As the screenshots above show, these two services appear in the user interface.  If instead you want to interact
+with the services programmatically, you can _instead_ register:
+
+<pre>
+    isis.services = ...,\
+            org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdoHidden,\
+            org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdoHidden,\
+            ...
+</pre>
+
+Note that none of these services are annotated with `@DomainService` (to enable the above choice); hence the necessity 
+to register the appropriate implementation in `isis.properties`.
+
 
 If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is 
 structured as follows:
@@ -74,35 +110,82 @@ structured as follows:
 * `integtests` - integration tests for the module; depends on `fixture`
 * `webapp    ` - demo webapp (see above screenshots); depends on `dom` and `fixture`
 
-Xxx
 
 ## API ##
 
-### XxxService ###
+### ApplicationSettingsService and ApplicationSettingsServiceRW ###
 
-The `XxxService` defines the following API:
+The module defines two interfaces for application settings.  The first, `ApplicationSettingsService`, provides read-only access:
 
 <pre>
-public interface XxxService {
+    public interface ApplicationSettingsService {
+        ApplicationSetting find(String key);
+        List<ApplicationSetting> listAll();
+    }
+</pre>
+
+The second, `ApplicationSettingsServiceRW`, extends the first and allows settings to be created:
+
+<pre>
+public interface ApplicationSettingsServiceRW extends ApplicationSettingsService {
+    ApplicationSetting newBoolean(String name, String description, Boolean defaultValue);
+    ApplicationSetting newString(String name, String description, String defaultValue);
+    ApplicationSetting newLocalDate(String name, String description, LocalDate defaultValue);
+    ApplicationSetting newInt(String name, String description, Integer defaultValue);
+    ApplicationSetting newLong(String name, String description, Long defaultValue);
 }
 </pre>
 
+### UserSettingsService and UserSettingsServiceRW ###
+
+The module defines two interfaces for user settings.  These are almost identical to the application settings above, the 
+significant difference being each setting is additional identified by the username that 'owns' it.
+
+The first interface, `UserSettingsService`, provides read-only access:
+
+<pre>
+public interface UserSettingsService {
+    UserSetting find(String user, String key);
+    List<UserSetting> listAll();
+    List<UserSetting> listAllFor(String user);
+}
+</pre>
+
+The second, `UserSettingsServiceRW`, extends the first and allows settings to be created:
+
+<pre>
+public interface UserSettingsServiceRW extends UserSettingsService {
+    UserSetting newBoolean(String user, String name, String description, Boolean defaultValue);
+    UserSetting newString(String user, String name, String description, String defaultValue);
+    UserSetting newLocalDate(String user, String name, String description, LocalDate defaultValue);
+    UserSetting newInt(String user, String name, String description, Integer defaultValue);
+    UserSetting newLong(String user, String name, String description, Long defaultValue);
+}
+</pre>
 
 ## Implementation ##
 
-## Supporting Services ##
+The `ApplicationSettingsServiceJdo` implements `ApplicationSettingsServiceRW` (and therefore also `ApplicationSettingsService`.
+
+The `ApplicationSettingsServiceJdoHidden` is implemented as a subclass of `ApplicationSettingsServiceJdo`; it hides all 
+ actions from the user interface.
+ 
+Similarly, the `UserSettingsServiceJdo` implements `UserSettingsServiceRW` (and therefore also `UserSettingsService`.
+
+The `UserSettingsServiceJdoHidden` is implemented as a subclass of `UserSettingsServiceJdo`; it hides all 
+ actions from the user interface.
+
 
 ## Related Modules/Services ##
 
-... referenced by the [Isis Add-ons](http://www.isisaddons.org) website.
-
+Other add-ons for Isis can be found at the [Isis Add-ons](http://www.isisaddons.org) website.
 
 
 ## Legal Stuff ##
  
 #### License ####
 
-    Copyright 2014 Dan Haywood
+    Copyright 2013~2014 Dan Haywood
 
     Licensed under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
@@ -138,20 +221,20 @@ To deploy a snapshot, use:
 The artifacts should be available in Sonatype's 
 [Snapshot Repo](https://oss.sonatype.org/content/repositories/snapshots).
 
-#### Release to Maven Central (scripted process) ####
+#### Release to Maven Central ####
 
 The `release.sh` script automates the release process.  It performs the following:
 
-* perform sanity check (`mvn clean install -o`) that everything builds ok
-* bump the `pom.xml` to a specified release version, and tag
-* perform a double check (`mvn clean install -o`) that everything still builds ok
-* release the code using `mvn clean deploy`
-* bump the `pom.xml` to a specified release version
+* performs a sanity check (`mvn clean install -o`) that everything builds ok
+* bumps the `pom.xml` to a specified release version, and tag
+* performs a double check (`mvn clean install -o`) that everything still builds ok
+* releases the code using `mvn clean deploy`
+* bumps the `pom.xml` to a specified release version
 
 For example:
 
-    sh release.sh 1.6.1 \
-                  1.6.2-SNAPSHOT \
+    sh release.sh 1.6.0 \
+                  1.6.1-SNAPSHOT \
                   dan@haywood-associates.co.uk \
                   "this is not really my passphrase"
     
@@ -161,57 +244,17 @@ where
 * `$3` is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
 * `$4` is the corresponding passphrase for that secret key.
 
-If the script completes successfully, then push changes:
-
-    git push
-    
-If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
-before trying again.
-
-#### Release to Maven Central (manual process) ####
-
-If you don't want to use `release.sh`, then the steps can be performed manually.
-
-To start, call `bumpver.sh` to bump up to the release version, eg:
-
-     `sh bumpver.sh 1.6.1`
-
-which:
-* edit the parent `pom.xml`, to change `${isis-module-command.version}` to version
-* edit the `dom` module's pom.xml version
-* commit the changes
-* if a SNAPSHOT, then tag
-
-Next, do a quick sanity check:
-
-    mvn clean install -o
-    
-All being well, then release from the `dom` module:
-
-    pushd dom
-    mvn clean deploy -P release \
-        -Dpgp.secretkey=keyring:id=dan@haywood-associates.co.uk \
-        -Dpgp.passphrase="literal:this is not really my passphrase"
-    popd
-
-where (for example):
-* "dan@haywood-associates.co.uk" is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
-* the pass phrase is as specified as a literal
-
 Other ways of specifying the key and passphrase are available, see the `pgp-maven-plugin`'s 
 [documentation](http://kohsuke.org/pgp-maven-plugin/secretkey.html)).
 
-If (in the `dom`'s `pom.xml`) the `nexus-staging-maven-plugin` has the `autoReleaseAfterClose` setting set to `true`,
-then the above command will automatically stage, close and the release the repo.  Sync'ing to Maven Central should 
-happen automatically.  According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update 
-[search](http://search.maven.org).
+If the script completes successfully, then push changes:
 
-If instead the `autoReleaseAfterClose` setting is set to `false`, then the repo will require manually closing and 
-releasing either by logging onto the [Sonatype's OSS staging repo](https://oss.sonatype.org) or alternatively by 
-releasing from the command line using `mvn nexus-staging:release`.
+    git push
 
-Finally, don't forget to update the release to next snapshot, eg:
+If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
+before trying again.  Note that in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the 
+`autoReleaseAfterClose` setting set to `true` (to automatically stage, close and the release the repo).  You may want
+to set this to `false` if debugging an issue.
+ 
+According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update [search](http://search.maven.org).
 
-    sh bumpver.sh 1.6.2-SNAPSHOT
-
-and then push changes.
