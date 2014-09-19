@@ -19,35 +19,35 @@ The following screenshots show an example app's usage of the module.
 
 Install sample fixtures:
 
-![](https://raw.github.com/isisaddons/isis-module-security/master/images/010-install-fixtures.png)
+![](https://raw.github.com/isisaddons/isis-module-settings/master/images/010-install-fixtures.png)
 
 #### App Settings ####
 
 List all (demo) application settings:
 
-![](https://raw.github.com/isisaddons/isis-module-security/master/images/020-list-appsettings.png)
+![](https://raw.github.com/isisaddons/isis-module-settings/master/images/020-list-appsettings.png)
 
 ... listed in a table:
 
-![](https://raw.github.com/isisaddons/isis-module-security/master/images/030-appsettings.png)
+![](https://raw.github.com/isisaddons/isis-module-settings/master/images/030-appsettings.png)
 
 ... and inspect detail:
 
-![](https://raw.github.com/isisaddons/isis-module-security/master/images/040-appsetting-detail.png)
+![](https://raw.github.com/isisaddons/isis-module-settings/master/images/040-appsetting-detail.png)
 
 #### User Settings ####
 
 List all (demo) user settings:
 
-![](https://raw.github.com/isisaddons/isis-module-security/master/images/050-list-usersettings.png)
+![](https://raw.github.com/isisaddons/isis-module-settings/master/images/050-list-usersettings.png)
 
 ... listed in a table:
 
-![](https://raw.github.com/isisaddons/isis-module-security/master/images/060-usersettings.png)
+![](https://raw.github.com/isisaddons/isis-module-settings/master/images/060-usersettings.png)
 
 ... and inspect detail:
 
-![](https://raw.github.com/isisaddons/isis-module-security/master/images/070-usersetting-detail.png)
+![](https://raw.github.com/isisaddons/isis-module-settings/master/images/070-usersetting-detail.png)
 
 
 ## Relationship to Apache Isis Core ##
