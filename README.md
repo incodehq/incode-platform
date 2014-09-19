@@ -2,9 +2,14 @@
 
 [![Build Status](https://travis-ci.org/isisaddons/isis-module-settings.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-settings)
 
-This module, intended for use with [Apache Isis](http://isis.apache.org), provides 
+This module, intended for use with [Apache Isis](http://isis.apache.org), is a provides two services provide the 
+ability to persist configuration settings using Isis' own JDO Objectstore.
 
-The module consists of ...
+With `ApplicationSettingsService` these settings have global scope; for the `UserSettingsService` the settings are 
+scoped per user.
+
+The settings themselves are keyed by a simple string, and can store any of boolean, String, int, long and `LocalDate`. 
+The implementation persists these values in a single raw format, but the API exposed by the services aims to be type-safe. 
 
 ## Screenshots ##
 
