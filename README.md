@@ -1,6 +1,6 @@
-# isis-module-xxx #
+# isis-module-settings #
 
-[![Build Status](https://travis-ci.org/isisaddons/isis-module-xxx.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-xxx)
+[![Build Status](https://travis-ci.org/isisaddons/isis-module-settings.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-settings)
 
 This module, intended for use with [Apache Isis](http://isis.apache.org), provides 
 
@@ -74,9 +74,7 @@ structured as follows:
 * `integtests` - integration tests for the module; depends on `fixture`
 * `webapp    ` - demo webapp (see above screenshots); depends on `dom` and `fixture`
 
-Only the `dom` project is released to     Check for versions available in the 
-[Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-audit-dom)).  The versions of the other modules 
-are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
+Xxx
 
 ## API ##
 
@@ -152,7 +150,10 @@ The `release.sh` script automates the release process.  It performs the followin
 
 For example:
 
-    sh release.sh 1.6.1 1.6.2-SNAPSHOT dan@haywood-associates.co.uk "this is not really my passphrase"
+    sh release.sh 1.6.1 \
+                  1.6.2-SNAPSHOT \
+                  dan@haywood-associates.co.uk \
+                  "this is not really my passphrase"
     
 where
 * `$1` is the release version
@@ -200,7 +201,7 @@ where (for example):
 Other ways of specifying the key and passphrase are available, see the `pgp-maven-plugin`'s 
 [documentation](http://kohsuke.org/pgp-maven-plugin/secretkey.html)).
 
-If (in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the `autoReleaseAfterClose` setting set to `true`,
+If (in the `dom`'s `pom.xml`) the `nexus-staging-maven-plugin` has the `autoReleaseAfterClose` setting set to `true`,
 then the above command will automatically stage, close and the release the repo.  Sync'ing to Maven Central should 
 happen automatically.  According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update 
 [search](http://search.maven.org).
