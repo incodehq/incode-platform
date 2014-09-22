@@ -23,13 +23,20 @@ The following screenshots show an example app's usage of the module.
 
 #### Installing the Fixture Data
 
+Install some sample fixture data ...
+
 ![](https://raw.github.com/isisaddons/isis-module-command/master/images/01-install-fixtures.png)
 
-#### Example object with list of commands (contributed collection)
+#### Commands ####
+
+Commands can be associated with any object (as a polymorphic association utilizing the `BookmarkService`), and so the
+demo app lists the commands associated with the example entity:
 
 ![](https://raw.github.com/isisaddons/isis-module-command/master/images/02-example-object.png)
 
-#### Change name ...
+#### Commands created for action invocations ####
+
+In the example entity the `changeName` action is annotated with `@Command`:
 
 <pre>
 @ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
@@ -40,18 +47,26 @@ public SomeCommandAnnotatedObject changeName(final String newName) {
 }
 </pre>
 
+which means that when the `changeName` action is invoked:
+
 ![](https://raw.github.com/isisaddons/isis-module-command/master/images/03-change-name.png)
+
+... with some argument ...
+
 ![](https://raw.github.com/isisaddons/isis-module-command/master/images/04-change-name-args.png)
 
-#### ... results in persisted command
+... then a command object is created:
 
 ![](https://raw.github.com/isisaddons/isis-module-command/master/images/05-change-name-results.png)
 
-#### which identifies the action, captures the target and action arguments, also timings and user
+... identifying the action, captures the target and action arguments, also timings and user:
 
 ![](https://raw.github.com/isisaddons/isis-module-command/master/images/06-change-name-command-persisted.png)
 
-#### Schedule action...
+#### Background Commands using the Background Service ####
+
+Commands are also the basis for Isis' support of background commands.  The usual way to accomplish this is to call Isis'
+`BackgroundService`:
 
 <pre>
 @Named("Schedule")
@@ -62,22 +77,33 @@ public void changeNameExplicitlyInBackground(final String newName) {
 }
 </pre>
 
+In the screenshots below the action (labelled "Schedule" in the UI) is called:
+
 ![](https://raw.github.com/isisaddons/isis-module-command/master/images/07-schedule.png)
+
+... with arguments:
+
 ![](https://raw.github.com/isisaddons/isis-module-command/master/images/08-schedule-args.png)
 
-#### ... results in <i>two</i> persisted commands, a foreground and background
+This results in _two_ persisted commands, a foreground command and a background command:
 
 ![](https://raw.github.com/isisaddons/isis-module-command/master/images/11-schedule-commands.png)
 
-#### the foreground command has been executed
+The foreground command has been executed:
 
 ![](https://raw.github.com/isisaddons/isis-module-command/master/images/13-schedule-foreground-command-with-background-command.png)
 
-#### the background command has not yet
+The background command has not (yet):
 
 ![](https://raw.github.com/isisaddons/isis-module-command/master/images/14-schedule-background-command-not-yet-run.png)
 
-#### Schedule implicitly action...
+The background command can then be invoked through a separate process, for example using a Quartz Scheduler.  The module
+provides the `BackgroundCommandExecutionFromBackgroundCommandServiceJdo` class which can be executed periodically to
+process any queued background commands; more information below.
+
+#### Background Commands scheduled implicitly ####
+
+The other way to create background commands is implicitly, using the `@Command` annotation:
 
 <pre>
     @Named("Schedule implicitly")
@@ -89,34 +115,22 @@ public void changeNameExplicitlyInBackground(final String newName) {
     }
 </pre>
 
+If invoked:
+
 ![](https://raw.github.com/isisaddons/isis-module-command/master/images/15-schedule-implicitly.png)
+
+... Isis will gather the arguments as usual:
+
 ![](https://raw.github.com/isisaddons/isis-module-command/master/images/16-schedule-implicitly-args.png)
 
-#### ... when invoked returns the persisted background command
+... but then does _not_ invoke the action, but instead creates the and returns the persisted background command:
+
 ![](https://raw.github.com/isisaddons/isis-module-command/master/images/17-schedule-implicitly-direct-to-results.png)
 
-#### only a single background command is created (no foreground command at all)
+As the screenshot below shows, with this approach only a single background command is created (no foreground command 
+at all):
 
 ![](https://raw.github.com/isisaddons/isis-module-command/master/images/18-schedule-implicitly-only-one-command.png)
-
-#### Actions can be excluded...
-
-<pre>
-    @Named("Change (not persisted)")
-    @ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
-    @Command(persistence = Command.Persistence.NOT_PERSISTED)
-    public SomeCommandAnnotatedObject changeNameCommandNotPersisted(final String newName) {
-        setName(newName);
-        return this;
-    }
-</pre>
-
-![](https://raw.github.com/isisaddons/isis-module-command/master/images/19-change-not-persisted.png)
-![](https://raw.github.com/isisaddons/isis-module-command/master/images/20-change-not-persisted-args.png)
-
-#### ... has no commands persisted
-
-![](https://raw.github.com/isisaddons/isis-module-command/master/images/21-change-not-persisted-results.png)
 
 
 ## Relationship to Apache Isis Core ##
@@ -138,6 +152,8 @@ continue to develop it solely as one of the [Isis Addons](http://www.isisaddons.
 ## How to configure/use ##
 
 You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
+
+#### "Out-of-the-box" ####
 
 To use "out-of-the-box":
 
@@ -161,14 +177,34 @@ To use "out-of-the-box":
                 ...
 
     isis.services = ...,\
-                org.isisaddons.module.command.dom.CommandServiceContributions,\
-                org.isisaddons.module.command.dom.BackgroundCommandServiceContributions,\
+                org.isisaddons.module.command.dom.CommandServiceJdoContributions,\
+                org.isisaddons.module.command.dom.BackgroundCommandServiceJdoContributions,\
                 ...
 </pre>
 
 Notes:
 * Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-command-dom).
 * The `CommandServiceContributions` and `BackgroundCommandServiceContributions` services are optional but recommended; see below for more information.
+
+Commands are only created for actions that indicate a command is to be created.  There are two main options, "opt-in" or "opt-out":
+
+* the default is "opt-in", that is for no actions to be treated as being a command unless explicitly annotated using `@Command`.  This is the option used in the example app described above.
+
+* the alternative is "opt-out", that is, to configure for all actions to be treated as commands unless otherwise specified.  This is done by adding the following to `isis.properties`:
+
+<pre>
+    isis.services.command.actions=all
+</pre>
+
+  This will create commands even for query-only (action semantics = SAFE) actions.  If these are to be excluded, then use:
+
+<pre>
+    isis.services.command.actions=ignoreQueryOnly
+</pre>
+
+If commands are enabled by default, then an individual action can be explicitly excluded using `@Command(disabled=true)`.
+
+### Forking the repo ###
 
 If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is 
 structured as follows:
