@@ -12,25 +12,37 @@ The following screenshots show an example app's usage of the module.
 
 #### Installing the Fixture Data
 
+Install some sample fixture data ...
+
 ![](https://raw.github.com/isisaddons/isis-module-audit/master/images/01-install-fixtures.png)
 
-#### Object with initial (creation) audit entries
+#### Object with initial (creation) audit entries ####
+
+Because the example entity is annotated with `@Audited`, the initial creation of that object already results in
+some audit entries:
 
 ![](https://raw.github.com/isisaddons/isis-module-audit/master/images/02-first-object-with-initial-audit-entries.png)
 
-#### Changing two properties on an object...
+As the screenshot shows, the demo app lists the audit entries for the example entity (a polymorphic association 
+utilizing the `BookmarkService`).
+
+#### Audit Entry for each changed property ####
+
+Changing two properties on an object:
 
 ![](https://raw.github.com/isisaddons/isis-module-audit/master/images/03-changing-two-properties-on-object.png)
 
-#### ... two audit entries created
+... results in _two_ audit entries created, one for each property:
 
 ![](https://raw.github.com/isisaddons/isis-module-audit/master/images/04-two-audit-entries-created.png)
 
-#### Navigate to audit entry, view other audit entries, and navigate ...
+#### Audit entry ####
+
+The audit entry is an immutable record, can also inspect other audit entries created in the same transaction:
 
 ![](https://raw.github.com/isisaddons/isis-module-audit/master/images/05-navigate-to-audit-entry-see-other-audit-entries.png)
 
-#### ... back to audited object
+It is of course also possible to navigate back to audited object:
 
 ![](https://raw.github.com/isisaddons/isis-module-audit/master/images/06-navigate-back-to-audited-object.png)
 
@@ -54,6 +66,8 @@ continue to develop it solely as one of the [Isis Addons](http://www.isisaddons.
 
 You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
 
+#### "Out-of-the-box" ####
+
 To use "out-of-the-box":
 
 * update your classpath by adding this dependency in your project's `dom` module's `pom.xml`:
@@ -76,13 +90,28 @@ To use "out-of-the-box":
                     ...
 
     isis.services = ...,\
-                    org.isisaddons.module.audit.AuditingServiceContributions,\
+                    org.isisaddons.module.audit.dom.AuditingServiceContributions,\
                     ...
 </pre>
 
 Notes:
 * Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-audit-dom).
 * The `AuditingServiceContributions` service is optional but recommended; see below for more information.
+
+For audit entries to be created when an object is changed, some configuration is required.  This can be either on a case-by-case basis, or globally:
+
+* by default no object is treated as being audited unless it has explicitly annotated using `@Audited`.  This is the option used in the example app described above.
+
+* alternatively, auditing can be globally enabled by adding a key to `isis.properties`:
+
+<pre>
+    isis.services.audit.objects=all
+</pre>
+
+An individual entity can then be explicitly excluded from being audited using `@Audited(disabled=true)`.
+
+
+#### Forking the repo ####
 
 If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is 
 structured as follows:
