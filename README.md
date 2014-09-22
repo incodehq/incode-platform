@@ -186,25 +186,25 @@ Notes:
 * Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-command-dom).
 * The `CommandServiceContributions` and `BackgroundCommandServiceContributions` services are optional but recommended; see below for more information.
 
-Commands are only created for actions that indicate a command is to be created.  There are two main options, "opt-in" or "opt-out":
+For commands to be created when actions are invoked, some configuration is required.  This can be either on a case-by-case basis, or globally:
 
-* the default is "opt-in", that is for no actions to be treated as being a command unless explicitly annotated using `@Command`.  This is the option used in the example app described above.
+* by default no action is treated as being a command unless it has explicitly annotated using `@Command`.  This is the option used in the example app described above.
 
-* the alternative is "opt-out", that is, to configure for all actions to be treated as commands unless otherwise specified.  This is done by adding the following to `isis.properties`:
+* alternatively, commands can be globally enabled by adding a key to `isis.properties`:
 
 <pre>
     isis.services.command.actions=all
 </pre>
 
-  This will create commands even for query-only (action semantics = SAFE) actions.  If these are to be excluded, then use:
+This will create commands even for query-only (`@ActionSemantics(Of.SAFE)`) actions.  If these are to be excluded, then use:
 
 <pre>
     isis.services.command.actions=ignoreQueryOnly
 </pre>
 
-If commands are enabled by default, then an individual action can be explicitly excluded using `@Command(disabled=true)`.
+An individual action can then be explicitly excluded from having a persisted command using `@Command(disabled=true)`.
 
-### Forking the repo ###
+#### Forking the repo ####
 
 If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is 
 structured as follows:
