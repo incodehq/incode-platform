@@ -40,9 +40,9 @@ If instead you want to extend this component's functionality, then we recommend 
 structured as follows:
 
 * `pom.xml    ` - parent pom
-* `cpt        ` - the component' implementation
-* `fixture    ` - fixtures, holding a sample domain objects and fixture scripts
-* `webapp     ` - demo webapp (see above screenshots) plus UI tests; depends on `ext` and `fixture`
+* `cpt        ` - the component implementation
+* `fixture    ` - fixtures, containing sample domain object classes and fixture scripts
+* `webapp     ` - demo webapp (see above screenshots)
 
 Only the `cpt` project is released to Maven central.  The versions of the other modules 
 are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.

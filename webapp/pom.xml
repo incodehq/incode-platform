@@ -92,40 +92,6 @@ language governing permissions and limitations under the License.
                 </configuration>
             </plugin>
 
-
-            <plugin>
-                <groupId>org.codehaus.gmaven</groupId>
-                <artifactId>gmaven-plugin</artifactId>
-                <version>1.5</version>
-                <configuration>
-                    <providerSelection>1.8</providerSelection>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>testCompile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.codehaus.gmaven.runtime</groupId>
-                        <artifactId>gmaven-runtime-1.8</artifactId>
-                        <version>1.5</version>
-                        <exclusions>
-                            <exclusion>
-                                <groupId>org.codehaus.groovy</groupId>
-                                <artifactId>groovy-all</artifactId>
-                            </exclusion>
-                        </exclusions>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-all</artifactId>
-                        <version>1.8.9</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
@@ -158,31 +124,12 @@ language governing permissions and limitations under the License.
         </pluginManagement>
     </build>
 
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>4.3.3</version>
-            </dependency>
-        </dependencies>
-
-    </dependencyManagement>
-
     <dependencies>
     
         <!-- other modules in this project -->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>isis-wicket-excel-cpt</artifactId>
-            <exclusions>
-                <exclusion>
-                    <!-- so don't pick up transitive dependency to asm 4.0.0 -->
-                    <groupId>org.datanucleus</groupId>
-                    <artifactId>datanucleus-enhancer</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -244,7 +191,7 @@ language governing permissions and limitations under the License.
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-webserver</artifactId>
-            <scope>test</scope>
+            <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
 
@@ -268,55 +215,7 @@ language governing permissions and limitations under the License.
             <artifactId>hsqldb</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.spockframework</groupId>
-            <artifactId>spock-core</artifactId>
-            <version>0.6-groovy-1.8</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.gebish</groupId>
-            <artifactId>geb-spock</artifactId>
-            <version>0.9.2</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.gebish</groupId>
-            <artifactId>geb-junit4</artifactId>
-            <version>0.9.2</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.gebish</groupId>
-            <artifactId>geb-core</artifactId>
-            <version>0.9.2</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-support</artifactId>
-            <version>2.41.0</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-firefox-driver</artifactId>
-            <version>2.41.0</version>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>xml-apis</groupId>
-                    <artifactId>xml-apis</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <!--
+        <!-- 
         <dependency>
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>

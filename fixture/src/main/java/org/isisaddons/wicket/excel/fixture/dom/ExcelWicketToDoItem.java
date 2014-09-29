@@ -51,30 +51,30 @@ import org.apache.isis.applib.value.Blob;
     @javax.jdo.annotations.Query(
             name = "todo_all", language = "JDOQL",
             value = "SELECT "
-                    + "FROM dom.todo.ToDoItem "
+                    + "FROM org.isisaddons.wicket.excel.fixture.dom.ExcelWicketToDoItem "
                     + "WHERE ownedBy == :ownedBy"),
     @javax.jdo.annotations.Query(
             name = "todo_notYetComplete", language = "JDOQL",
             value = "SELECT "
-                    + "FROM dom.todo.ToDoItem "
+                    + "FROM org.isisaddons.wicket.excel.fixture.dom.ExcelWicketToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "   && complete == false"),
     @javax.jdo.annotations.Query(
             name = "todo_complete", language = "JDOQL",
             value = "SELECT "
-                    + "FROM dom.todo.ToDoItem "
+                    + "FROM org.isisaddons.wicket.excel.fixture.dom.ExcelWicketToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "&& complete == true"),
     @javax.jdo.annotations.Query(
             name = "todo_similarTo", language = "JDOQL",
             value = "SELECT "
-                    + "FROM dom.todo.ToDoItem "
+                    + "FROM org.isisaddons.wicket.excel.fixture.dom.ExcelWicketToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "&& category == :category"),
     @javax.jdo.annotations.Query(
             name = "todo_autoComplete", language = "JDOQL",
             value = "SELECT "
-                    + "FROM dom.todo.ToDoItem "
+                    + "FROM org.isisaddons.wicket.excel.fixture.dom.ExcelWicketToDoItem "
                     + "WHERE ownedBy == :ownedBy && "
                     + "description.indexOf(:description) >= 0")
 })
