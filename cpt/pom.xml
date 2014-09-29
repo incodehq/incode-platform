@@ -23,13 +23,13 @@ language governing permissions and limitations under the License.
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons Wicket Excel Component</name>
+    <name>Isis Addons Excel Wicket Cpt Component</name>
     <description>
         A component for Apache Isis' Wicket viewer, allowing tables to be
         downloaded as Excel spreadsheets.
     </description>
 
-    <url>https://github.com/isisaddons/isis-module-command</url>
+    <url>https://github.com/isisaddons/isis-wicket-excel</url>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
