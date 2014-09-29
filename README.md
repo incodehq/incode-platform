@@ -1,32 +1,32 @@
-isis-wicket-fullcalendar2
-=========================
+# isis-wicket-fullcalendar2 #
 
-[![Build Status](https://travis-ci.org/danhaywood/isis-wicket-fullcalendar2.png?branch=master)](https://travis-ci.org/danhaywood/isis-wicket-fullcalendar2)
+[![Build Status](https://travis-ci.org/isisaddons/isis-wicket-fullcalendar2.png?branch=master)](https://travis-ci.org/isisaddons/isis-wicket-fullcalendar2)
 
-Extension for Apache Isis' Wicket Viewer, to render events for a collection of entities within a fullpage calendar.  Underneath the covers it uses this [fullcalendar](https://github.com/42Lines/wicket-fullcalendar) widget.
+This component, intended for use with [Apache Isis](http://isis.apache.org)'s Wicket viewer, renders events for a collection of 
+entities within a fullpage calendar.  Underneath the covers it uses this [fullcalendar](https://github.com/42Lines/wicket-fullcalendar) widget.
 
-## Screenshots
+## Screenshots ##
 
-The following screenshots are taken from the `zzzdemo` app (adapted from Isis' quickstart archetype).  See below for further details.
+The following screenshots show an example app's usage of the component.
 
-### Standalone collection
+#### Standalone collection ####
 
-![](https://raw.github.com/danhaywood/isis-wicket-fullcalendar2/master/images/standalone-collection.png)
+![](https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/standalone-collection.png)
 
-### Parented collection in a custom dashboard view model
+#### Parented collection in a custom dashboard view model ####
 
-![](https://raw2.github.com/danhaywood/isis-wicket-fullcalendar2/master/images/dashboard.png)
+![](https://raw2.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/dashboard.png)
 
-### Parented collection in a regular entity
+#### Parented collection in a regular entity ####
 
-![](https://raw.github.com/danhaywood/isis-wicket-fullcalendar2/master/images/parented-collection.png)
+![](https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/parented-collection.png)
 
 
-## API & Usage
+## API & Usage ##
 
 Each entity must implement either the `CalendarEventable` interface or the `Calendarable` interface:
 
-### `CalendarEventable` interface
+### `CalendarEventable` interface ###
 
 Of the two interfaces, `CalendarEventable` interface is the simpler, allowing the object to return a single `CalendarEvent`:
 
@@ -74,7 +74,7 @@ where:
 
 In the demo app, the `ToDoItem` implements `CalendarEventable`.
 
-### `Calendarable` interface
+### `Calendarable` interface ###
 
 While the `CalendarEventable` interface will fit many requirements, sometimes an object will have several dates associated with it.  For example, one could imagine an object with start/stop dates, or optionExercise/optionExpiry dates.
 
@@ -87,53 +87,42 @@ The `Calendarable` interface therefore allows the object to return a number of `
     }
 
 
-## Maven Configuration
+## How to configure/use ##
 
-In your project's parent `pom.xml`, add to the `<dependencyManagement>` section:
+You can either use this extension "out-of-the-box", or you can fork this repo and extend to your own requirements. 
 
-    <dependencyManagement>
-        <dependencies>
-            ...
-            <dependency>
-                <groupId>com.danhaywood.isis.wicket</groupId>
-                <artifactId>danhaywood-isis-wicket-fullcalendar2</artifactId>
-                <version>x.y.z</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            ...
-        </dependencies>
-    </dependencyManagement>
+To use "out-of-the-box", add this component to your `dom` project's pom.xml, eg:
 
-where `x.y.z` is the latest available version (search the [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-fullcalendar2)).
-
-In your project's DOM `pom.xml`, add a dependency on the `applib` module:
-
-    <dependencies>
-        ...
-        <dependency>
-            <groupId>com.danhaywood.isis.wicket</groupId>
-            <artifactId>danhaywood-isis-wicket-fullcalendar2-applib</artifactId>
-        </dependency>
-        ...
-    </dependencies> 
-
-In your project's webapp `pom.xml`, add a dependency on the `ui` module:
-
-    <dependencies>
-        ...
-        <dependency>
-            <groupId>com.danhaywood.isis.wicket</groupId>
-            <artifactId>danhaywood-isis-wicket-fullcalendar2-ui</artifactId>
-        </dependency>
-        ...
-    </dependencies> 
+<pre>
+    &lt;dependencyManagement&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.isisaddons.wicket.fullcalendar2&lt;/groupId&gt;
+            &lt;artifactId&gt;isis-wicket-fullcalendar2-cpt&lt;/artifactId&gt;
+            &lt;version&gt;1.6.0&lt;/version&gt;
+        &lt;/dependency&gt;
+        ....
+    &lt;/dependencyManagement&gt;
+</pre>
 
 
 
-## Legal Stuff
+Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-fullcalendar2-cpt).
 
-### License
+If instead you want to extend this component's functionality, then we recommend that you fork this repo.  The repo is 
+structured as follows:
+
+* `pom.xml    ` - parent pom
+* `cpt        ` - the component implementation
+* `fixture    ` - fixtures, holding sample domain object classes and fixture scripts
+* `webapp     ` - demo webapp (see above screenshots)
+
+Only the `cpt` project is released to Maven central.  The versions of the other modules 
+are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
+
+
+## Legal Stuff ##
+
+#### License ####
 
     Copyright 2013~2014 Dan Haywood
 
@@ -150,25 +139,64 @@ In your project's webapp `pom.xml`, add a dependency on the `ui` module:
     specific language governing permissions and limitations
     under the License.
 
-### Dependencies
+#### Dependencies ####
 
-    <dependencies>
-        <dependency>
-            <!-- ASL v2.0 -->
-            <groupId>org.apache.isis.viewer</groupId>
-            <artifactId>isis-viewer-wicket-ui</artifactId>
-            <version>${isis-viewer-wicket.version}</version>
-        </dependency>
+In addition to Apache Isis, this component depends on:
 
-        <dependency>
-            <!-- ASL v2.0 -->
-            <!-- in turn, depends on: 
-                 * http://arshaw.com/fullcalendar/ (MIT License)
-                 * http://jquery.com (MIT License)  
-             -->
-            <groupId>net.ftlines.wicket-fullcalendar</groupId>
-            <artifactId>wicket-fullcalendar-core</artifactId>
-            <version>${wicket-fullcalendar.version}</version>
-        </dependency>
-    </dependencies>
+* `net.ftlines.wicket-fullcalendar:wicket-fullcalendar-core` (ASL v2.0 License)
+* http://arshaw.com/fullcalendar/ (MIT License)
+* http://jquery.com (MIT License)  
 
+
+##  Maven deploy notes ##
+
+Only the `dom` module is deployed, and is done so using Sonatype's OSS support (see 
+[user guide](http://central.sonatype.org/pages/apache-maven.html)).
+
+#### Release to Sonatype's Snapshot Repo ####
+
+To deploy a snapshot, use:
+
+    pushd cpt
+    mvn clean deploy
+    popd
+
+The artifacts should be available in Sonatype's 
+[Snapshot Repo](https://oss.sonatype.org/content/repositories/snapshots).
+
+#### Release to Maven Central ####
+
+The `release.sh` script automates the release process.  It performs the following:
+
+* performs a sanity check (`mvn clean install -o`) that everything builds ok
+* bumps the `pom.xml` to a specified release version, and tag
+* performs a double check (`mvn clean install -o`) that everything still builds ok
+* releases the code using `mvn clean deploy`
+* bumps the `pom.xml` to a specified release version
+
+For example:
+
+    sh release.sh 1.6.0 \
+                  1.6.1-SNAPSHOT \
+                  dan@haywood-associates.co.uk \
+                  "this is not really my passphrase"
+    
+where
+* `$1` is the release version
+* `$2` is the snapshot version
+* `$3` is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
+* `$4` is the corresponding passphrase for that secret key.
+
+Other ways of specifying the key and passphrase are available, see the `pgp-maven-plugin`'s 
+[documentation](http://kohsuke.org/pgp-maven-plugin/secretkey.html)).
+
+If the script completes successfully, then push changes:
+
+    git push
+
+If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
+before trying again.  Note that in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the 
+`autoReleaseAfterClose` setting set to `true` (to automatically stage, close and the release the repo).  You may want
+to set this to `false` if debugging an issue.
+ 
+According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update [search](http://search.maven.org).

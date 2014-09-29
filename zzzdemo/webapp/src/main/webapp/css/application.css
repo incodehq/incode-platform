@@ -77,4 +77,13 @@ li.x-highlight a {
 div.x-key span.scalarName {
 	color: red;
 }
+
+
+.entityActions .cssMenuPanel .menuh li.cssSubMenuItem a.prototype:link,
+.entityActions .cssMenuPanel .menuh li.cssSubMenuItem a.prototype:active,
+.entityActions .cssMenuPanel .menuh li.cssSubMenuItem a.prototype:visited {
+    display: none;
 }
+
+
+
