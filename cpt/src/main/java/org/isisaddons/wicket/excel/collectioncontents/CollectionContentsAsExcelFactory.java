@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package com.danhaywood.isis.wicket.excel.collectioncontents;
+package org.isisaddons.wicket.excel.collectioncontents;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.model.IModel;

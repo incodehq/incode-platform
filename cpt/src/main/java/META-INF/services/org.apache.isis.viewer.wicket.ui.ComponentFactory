@@ -1,1 +1,1 @@
-com.danhaywood.isis.wicket.excel.collectioncontents.CollectionContentsAsExcelFactory
+org.isisaddons.wicket.excel.collectioncontents.CollectionContentsAsExcelFactory
