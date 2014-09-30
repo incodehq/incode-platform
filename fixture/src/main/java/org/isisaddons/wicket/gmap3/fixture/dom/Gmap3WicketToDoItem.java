@@ -21,12 +21,12 @@ package org.isisaddons.wicket.gmap3.fixture.dom;
 import java.util.*;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
-import com.danhaywood.isis.wicket.gmap3.applib.Locatable;
-import com.danhaywood.isis.wicket.gmap3.applib.Location;
-import com.danhaywood.isis.wicket.gmap3.service.LocationLookupService;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Ordering;
+import org.isisaddons.wicket.gmap3.cpt.applib.Locatable;
+import org.isisaddons.wicket.gmap3.cpt.applib.Location;
+import org.isisaddons.wicket.gmap3.cpt.service.LocationLookupService;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.annotation.Render.Type;
@@ -77,10 +77,7 @@ import org.apache.isis.applib.util.TitleBuffer;
 @Named("ToDo Item")
 public class Gmap3WicketToDoItem implements Comparable<Gmap3WicketToDoItem>, Locatable {
 
-
-    // //////////////////////////////////////
-    // Identification in the UI
-    // //////////////////////////////////////
+    //region > identification in the UI
 
     public String title() {
         final TitleBuffer buf = new TitleBuffer();
@@ -95,10 +92,10 @@ public class Gmap3WicketToDoItem implements Comparable<Gmap3WicketToDoItem>, Loc
         return "ToDoItem-" + (!isComplete() ? "todo" : "done");
     }
 
-    // //////////////////////////////////////
-    // Description (property)
-    // //////////////////////////////////////
-    
+    //endregion
+
+    //region > description (property)
+
     private String description;
 
     @javax.jdo.annotations.Column(allowsNull="false", length=100)
@@ -113,11 +110,10 @@ public class Gmap3WicketToDoItem implements Comparable<Gmap3WicketToDoItem>, Loc
         this.description = description;
     }
 
+    //endregion
 
-    // //////////////////////////////////////
-    // OwnedBy (property)
-    // //////////////////////////////////////
-    
+    //region > ownedBy (property)
+
     private String ownedBy;
 
     @javax.jdo.annotations.Column(allowsNull="false")
@@ -130,12 +126,10 @@ public class Gmap3WicketToDoItem implements Comparable<Gmap3WicketToDoItem>, Loc
         this.ownedBy = ownedBy;
     }
 
+    //endregion
 
-    // //////////////////////////////////////
-    // Complete (property), 
-    // Done (action), Undo (action)
-    // //////////////////////////////////////
-
+    //region > complete (property), completed (action), notYetCompleted (action)
+    
     private boolean complete;
 
     @Disabled
@@ -169,21 +163,21 @@ public class Gmap3WicketToDoItem implements Comparable<Gmap3WicketToDoItem>, Loc
         return !complete ? "Not yet completed" : null;
     }
 
+    //endregion
 
-    // //////////////////////////////////////
-    // Location
-    // //////////////////////////////////////
+    //region > location
 
-    @javax.jdo.annotations.Persistent
-    private Location location;
-    
+    private Double locationLatitude;
+    private Double locationLongitude;
+
     @Optional
     @MemberOrder(sequence="3")
     public Location getLocation() {
-        return location;
+        return locationLatitude != null && locationLongitude != null? new Location(locationLatitude, locationLongitude): null;
     }
     public void setLocation(Location location) {
-        this.location = location;
+        locationLongitude = location != null ? location.getLongitude() : null;
+        locationLatitude = location != null ? location.getLatitude() : null;
     }
 
     @MemberOrder(name="location", sequence="1")
@@ -193,10 +187,9 @@ public class Gmap3WicketToDoItem implements Comparable<Gmap3WicketToDoItem>, Loc
         return this;
     }
 
-    // //////////////////////////////////////
-    // Dependencies (collection), 
-    // Add (action), Remove (action)
-    // //////////////////////////////////////
+    //endregion
+
+    //region > dependencies (collection), add (action), remove (action)
 
     // overrides the natural ordering
     public static class DependenciesComparator implements Comparator<Gmap3WicketToDoItem> {
@@ -287,12 +280,10 @@ public class Gmap3WicketToDoItem implements Comparable<Gmap3WicketToDoItem>, Loc
     public Collection<Gmap3WicketToDoItem> choices0Remove() {
         return getDependencies();
     }
-    
 
+    //endregion
 
-    // //////////////////////////////////////
-    // Predicates
-    // //////////////////////////////////////
+    //region > predicates
 
     public static class Predicates {
         
@@ -334,29 +325,24 @@ public class Gmap3WicketToDoItem implements Comparable<Gmap3WicketToDoItem>, Loc
         }
 
     }
-    
-    // //////////////////////////////////////
-    // toString
-    // //////////////////////////////////////
+
+    //endregion
+
+    //region > toString, compareTo
 
     @Override
     public String toString() {
         return ObjectContracts.toString(this, "description,complete,ownedBy");
     }
         
-    // //////////////////////////////////////
-    // compareTo
-    // //////////////////////////////////////
-
     @Override
     public int compareTo(final Gmap3WicketToDoItem other) {
         return ObjectContracts.compare(this, other, "complete,description");
     }
 
-    
-    // //////////////////////////////////////
-    // Injected Services
-    // //////////////////////////////////////
+    //endregion
+
+    //region > injected services
 
     @javax.inject.Inject
     @SuppressWarnings("unused")
@@ -370,8 +356,8 @@ public class Gmap3WicketToDoItem implements Comparable<Gmap3WicketToDoItem>, Loc
     private ClockService clockService;
 
     @javax.inject.Inject
-    @SuppressWarnings("unused")
     private LocationLookupService locationLookupService;
-    
-    
+
+    //endregion
+
 }

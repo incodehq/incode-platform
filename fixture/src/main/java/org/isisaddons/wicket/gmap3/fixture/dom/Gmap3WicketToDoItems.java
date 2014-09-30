@@ -20,7 +20,7 @@ package org.isisaddons.wicket.gmap3.fixture.dom;
 
 import java.util.Collections;
 import java.util.List;
-import com.danhaywood.isis.wicket.gmap3.applib.Location;
+import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
@@ -31,12 +31,8 @@ import org.apache.isis.applib.services.clock.ClockService;
 @Named("ToDos")
 public class Gmap3WicketToDoItems {
 
-    public Gmap3WicketToDoItems() {
-    }
-    
-    // //////////////////////////////////////
-    // Identification in the UI
-    // //////////////////////////////////////
+
+    //region > identification in the UI
 
     public String getId() {
         return "toDoItems";
@@ -46,9 +42,9 @@ public class Gmap3WicketToDoItems {
         return "ToDoItem";
     }
 
-    // //////////////////////////////////////
-    // NotYetComplete (action)
-    // //////////////////////////////////////
+    //endregion
+
+    //region > notYetComplete (action)
 
     @Bookmarkable
     @ActionSemantics(Of.SAFE)
@@ -69,11 +65,10 @@ public class Gmap3WicketToDoItems {
                         "ownedBy", currentUserName()));
     }
 
+    //endregion
 
-    // //////////////////////////////////////
-    // Complete (action)
-    // //////////////////////////////////////
-    
+    //region > complete (action)
+
     @ActionSemantics(Of.SAFE)
     @MemberOrder(sequence = "3")
     public List<Gmap3WicketToDoItem> complete() {
@@ -92,10 +87,9 @@ public class Gmap3WicketToDoItems {
                     "ownedBy", currentUserName()));
     }
 
+    //endregion
 
-    // //////////////////////////////////////
-    // NewToDo (action)
-    // //////////////////////////////////////
+    //region > newToDo (action)
 
     @MemberOrder(sequence = "40")
     public Gmap3WicketToDoItem newToDo(
@@ -104,9 +98,9 @@ public class Gmap3WicketToDoItems {
         return newToDo(description, ownedBy);
     }
 
-    // //////////////////////////////////////
-    // AllToDos (action)
-    // //////////////////////////////////////
+    //endregion
+
+    //region > allToDos (action)
 
     @ActionSemantics(Of.SAFE)
     @MemberOrder(sequence = "50")
@@ -120,10 +114,9 @@ public class Gmap3WicketToDoItems {
         return items;
     }
 
-    
-    // //////////////////////////////////////
-    // AutoComplete
-    // //////////////////////////////////////
+    //endregion
+
+    //region > autoComplete
 
     @Programmatic // not part of metamodel
     public List<Gmap3WicketToDoItem> autoComplete(final String description) {
@@ -135,10 +128,9 @@ public class Gmap3WicketToDoItems {
                         "description", description));
     }
 
+    //endregion
 
-    // //////////////////////////////////////
-    // Programmatic Helpers
-    // //////////////////////////////////////
+    //region > programmatic helpers
 
     @Programmatic // for use by fixtures
     public Gmap3WicketToDoItem newToDo(
@@ -165,10 +157,10 @@ public class Gmap3WicketToDoItems {
         return container.getUser().getName();
     }
 
-    
-    // //////////////////////////////////////
-    // Injected Services
-    // //////////////////////////////////////
+    //endregion
+
+    //region > injected services
+
 
     @javax.inject.Inject
     private DomainObjectContainer container;
@@ -176,5 +168,7 @@ public class Gmap3WicketToDoItems {
     @SuppressWarnings("unused")
     @javax.inject.Inject
     private ClockService clockService;
+
+    //endregion
 
 }

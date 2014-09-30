@@ -1,1 +1,1 @@
-com.danhaywood.isis.wicket.gmap3.ui.collectioncontents.CollectionOfEntitiesAsLocatablesFactory
+org.isisaddons.wicket.gmap3.cpt.ui.CollectionOfEntitiesAsLocatablesFactory

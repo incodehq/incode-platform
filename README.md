@@ -24,8 +24,8 @@ This property will need to be annotated as `@javax.jdo.annotations.Persistent`.
 
 For example:
 
-    import org.isisaddons.wicket.gmap3.applib.Locatable;
-    import org.isisaddons.wicket.gmap3.applib.Location;
+    import org.isisaddons.wicket.gmap3.cpt.applib.Locatable;
+    import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 
     public class ToDoItem implements Locatable {
 
@@ -48,19 +48,20 @@ You should then find that any collections of entities that have `Locatable` prop
 
 ### End-user entry of `Location`s ###
 
-If you have configured the `LocationLookupService` (recommended), then you can write an action to lookup the `Location` using the service injected into some entity.  For example:
+By injecting the provided `LocationLookupService` domain service, you can write an action to lookup the `Location`.
+For example:
 
     public void lookupLocation(@Named("Description") String description) {
         setLocation(locationLookupService.lookup(description));
     }
 
-Alternatively, you can allow the `Location` to be specified as a string.  The format is:
+Alternatively, the `Location` can also be specified directly as a string.  The format is:
 
      mmm.mmm;nnn.nnn
 
 where:
 
-* `mmm.mmm` is the latitute, and
+* `mmm.mmm` is the latitude, and
 * `nnn.nnn` is the longitude 
 
 
@@ -68,78 +69,25 @@ where:
 
 You can either use this component "out-of-the-box", or you can fork this repo and extend to your own requirements. 
 
-To use "out-of-the-box", first add this component to your classpath:
+To use "out-of-the-box", add the component to your project's `dom` module's `pom.xml`:
 
-* in your project's parent module's `pom.xml`, add to the `<dependencyManagement>` section:
+    <dependency>
+        <groupId>org.isisaddons.wicket.gmap3</groupId>
+        <artifactId>isis-wicket-gmap3-cpt</artifactId>
+        <version>1.6.0</version>
+    </dependency>
 
-<pre>
-    &lt;dependencyManagement&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.isisaddons.wicket.gmap3&lt;/groupId&gt;
-            &lt;artifactId&gt;isis-wicket-gmap3-cpt&lt;/artifactId&gt;
-            &lt;version&gt;1.6.0&lt;/version&gt;
-            &lt;type&gt;pom&lt;/type&gt;
-            &lt;scope&gt;import&lt;/scope&gt;
-        &lt;/dependency&gt;
-        ....
-    &lt;/dependencyManagement&gt;
-</pre>
-
-
-* in your project's `dom` module's `pom.xml`, add a dependency on the `applib` module:
-
-<pre>
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.isisaddons.wicket.gmap3&lt;/groupId&gt;
-        &lt;artifactId&gt;isis-wicket-gmap3-cpt-applib&lt;/artifactId&gt;
-    &lt;/dependency&gt;
-</pre>
-
-* in your project's `webapp` module's `pom.xml`, add a dependency on the `ui` module:
-
-<pre>
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.isisaddons.wicket.gmap3&lt;/groupId&gt;
-        &lt;artifactId&gt;isis-wicket-gmap3-cpt-ui&lt;/artifactId&gt;
-    &lt;/dependency&gt;
-</pre>
-
-* although not mandatory, you might also want to use the `LocationLookupService` that's provided, allowing for simple descriptions (eg "10 Downing Street, London") to be converted into `Location`s.  Add this dependency in your project's own `dom` module's `pom.xml`:
-
-<pre>
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.isisaddons.wicket.gmap3&lt;/groupId&gt;
-        &lt;artifactId&gt;isis-wicket-gmap3-cpt-dom&lt;/artifactId&gt;
-    &lt;/dependency&gt;
-</pre>
-
-Notes:
-* check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-gmap3-cpt).
-
-
-
-
-If using the `LocationLookupService`, then update the `WEB-INF\isis.properties` file:
-
-<pre>
-    isis.services = ...,\
-                    org.isisaddons.wicket.gmap3.service.LocationLookupService,\
-                    ...
-</pre>
+Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-gmap3-cpt).
 
 If instead you want to extend this component's functionality, then we recommend that you fork this repo.  The repo is 
 structured as follows:
 
 * `pom.xml    ` - parent pom
-* `cpt        ` - the component' own parent pom
-* `    applib ` - the component's API (to reference from `dom` project)
-* `    dom    ` - the component's service implementation (to optionally reference from `dom` project)
-* `    ui     ` - the component's UI implementation
-* `fixture    ` - fixtures, holding a sample domain objects and fixture scripts
-* `webapp     ` - demo webapp (see above screenshots); depends on `ext` and `fixture`
-* `webapptests` - UI tests for the component; depends on `webapp`
+* `cpt        ` - the component implementation
+* `fixture    ` - fixtures, holding sample domain object classes and fixture scripts
+* `webapp     ` - demo webapp (see above screenshots)
 
-Only the `cpt` project (and its submodules) is released to Maven central.  The versions of the other modules 
+Only the `cpt` project is released to Maven central.  The versions of the other modules 
 are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
 
 ## Legal Stuff ##
@@ -170,7 +118,7 @@ In addition to Apache Isis, this component depends on:
 
 ##  Maven deploy notes ##
 
-Only the `dom` module is deployed, and is done so using Sonatype's OSS support (see 
+Only the `cpt` module is deployed, and is done so using Sonatype's OSS support (see 
 [user guide](http://central.sonatype.org/pages/apache-maven.html)).
 
 #### Release to Sonatype's Snapshot Repo ####
@@ -184,20 +132,20 @@ To deploy a snapshot, use:
 The artifacts should be available in Sonatype's 
 [Snapshot Repo](https://oss.sonatype.org/content/repositories/snapshots).
 
-#### Release to Maven Central (scripted process) ####
+#### Release to Maven Central ####
 
 The `release.sh` script automates the release process.  It performs the following:
 
-* perform sanity check (`mvn clean install -o`) that everything builds ok
-* bump the `pom.xml` to a specified release version, and tag
-* perform a double check (`mvn clean install -o`) that everything still builds ok
-* release the code using `mvn clean deploy`
-* bump the `pom.xml` to a specified release version
+* performs a sanity check (`mvn clean install -o`) that everything builds ok
+* bumps the `pom.xml` to a specified release version, and tag
+* performs a double check (`mvn clean install -o`) that everything still builds ok
+* releases the code using `mvn clean deploy`
+* bumps the `pom.xml` to a specified release version
 
 For example:
 
-    sh release.sh 1.6.1 \
-                  1.6.2-SNAPSHOT \
+    sh release.sh 1.6.0 \
+                  1.6.1-SNAPSHOT \
                   dan@haywood-associates.co.uk \
                   "this is not really my passphrase"
     
@@ -207,58 +155,16 @@ where
 * `$3` is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
 * `$4` is the corresponding passphrase for that secret key.
 
-If the script completes successfully, then push changes:
-
-    git push
-    
-If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
-before trying again.
-
-#### Release to Maven Central (manual process) ####
-
-If you don't want to use `release.sh`, then the steps can be performed manually.
-
-To start, call `bumpver.sh` to bump up to the release version, eg:
-
-     `sh bumpver.sh 1.6.1`
-
-which:
-* edit the parent `pom.xml`, to change `${isis-module-command.version}` to version
-* edit the `dom` module's pom.xml version
-* commit the changes
-* if a SNAPSHOT, then tag
-
-Next, do a quick sanity check:
-
-    mvn clean install -o
-    
-All being well, then release from the `cpt` module:
-
-    pushd cpt
-    mvn clean deploy -P release \
-        -Dpgp.secretkey=keyring:id=dan@haywood-associates.co.uk \
-        -Dpgp.passphrase="literal:this is not really my passphrase"
-    popd
-
-where (for example):
-* "dan@haywood-associates.co.uk" is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
-* the pass phrase is as specified as a literal
-
 Other ways of specifying the key and passphrase are available, see the `pgp-maven-plugin`'s 
 [documentation](http://kohsuke.org/pgp-maven-plugin/secretkey.html)).
 
-If (in the `dom`'s `pom.xml`) the `nexus-staging-maven-plugin` has the `autoReleaseAfterClose` setting set to `true`,
-then the above command will automatically stage, close and the release the repo.  Sync'ing to Maven Central should 
-happen automatically.  According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update 
-[search](http://search.maven.org).
+If the script completes successfully, then push changes:
 
-If instead the `autoReleaseAfterClose` setting is set to `false`, then the repo will require manually closing and 
-releasing either by logging onto the [Sonatype's OSS staging repo](https://oss.sonatype.org) or alternatively by 
-releasing from the command line using `mvn nexus-staging:release`.
+    git push
 
-Finally, don't forget to update the release to next snapshot, eg:
-
-    sh bumpver.sh 1.6.2-SNAPSHOT
-
-and then push changes.
-
+If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
+before trying again.  Note that in the `cpt`'s `pom.xml` the `nexus-staging-maven-plugin` has the 
+`autoReleaseAfterClose` setting set to `true` (to automatically stage, close and the release the repo).  You may want
+to set this to `false` if debugging an issue.
+ 
+According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update [search](http://search.maven.org).

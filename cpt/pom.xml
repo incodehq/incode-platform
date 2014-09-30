@@ -257,12 +257,6 @@ language governing permissions and limitations under the License.
         <dependency>
             <groupId>org.wicketstuff</groupId>
             <artifactId>wicketstuff-gmap3</artifactId>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.wicketstuff</groupId>
-            <artifactId>wicketstuff-gmap3</artifactId>
             <version>${wicketstuff-gmap3.version}</version>
         </dependency>
 
