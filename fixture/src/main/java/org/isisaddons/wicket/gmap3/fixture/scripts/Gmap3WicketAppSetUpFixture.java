@@ -17,20 +17,27 @@
  *  under the License.
  */
 
-package org.isisaddons.module.xxx.fixture.scripts;
+package org.isisaddons.wicket.gmap3.fixture.scripts;
 
-import org.apache.isis.applib.fixturescripts.FixtureScript;
-import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
+import org.isisaddons.wicket.gmap3.fixture.scripts.todo.ToDoItemsFixture;
+import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
-public class XxxDemoObjectsTearDownFixture extends FixtureScript {
+public class Gmap3WicketAppSetUpFixture extends DiscoverableFixtureScript {
 
-    @Override
-    protected void execute(ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"XxxDemoObject\"");
+    private final String ownedBy;
+
+    public Gmap3WicketAppSetUpFixture() {
+        this(null);
     }
 
+    public Gmap3WicketAppSetUpFixture(String ownedBy) {
+        this.ownedBy = ownedBy;
+    }
 
-    @javax.inject.Inject
-    private IsisJdoSupport isisJdoSupport;
+    @Override
+    public void execute(ExecutionContext executionContext) {
+        execute(new Gmap3WicketAppTearDownFixture(ownedBy), executionContext);
+        execute(new ToDoItemsFixture(), executionContext);
+    }
 
 }

@@ -16,29 +16,22 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dom.todo;
+package org.isisaddons.wicket.gmap3.fixture.dom;
 
 import java.util.Collections;
 import java.util.List;
-
 import com.danhaywood.isis.wicket.gmap3.applib.Location;
-
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.ActionSemantics;
+import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
-import org.apache.isis.applib.annotation.Bookmarkable;
-import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.query.QueryDefault;
+import org.apache.isis.applib.services.clock.ClockService;
 
-import services.ClockService;
-
+@DomainService(menuOrder = "10")
 @Named("ToDos")
-public class ToDoItems {
+public class Gmap3WicketToDoItems {
 
-    public ToDoItems() {
+    public Gmap3WicketToDoItems() {
     }
     
     // //////////////////////////////////////
@@ -60,8 +53,8 @@ public class ToDoItems {
     @Bookmarkable
     @ActionSemantics(Of.SAFE)
     @MemberOrder(sequence = "1")
-    public List<ToDoItem> notYetComplete() {
-        final List<ToDoItem> items = notYetCompleteNoUi();
+    public List<Gmap3WicketToDoItem> notYetComplete() {
+        final List<Gmap3WicketToDoItem> items = notYetCompleteNoUi();
         if(items.isEmpty()) {
             container.informUser("All to-do items have been completed :-)");
         }
@@ -69,9 +62,9 @@ public class ToDoItems {
     }
 
     @Programmatic
-    public List<ToDoItem> notYetCompleteNoUi() {
+    public List<Gmap3WicketToDoItem> notYetCompleteNoUi() {
         return container.allMatches(
-                new QueryDefault<ToDoItem>(ToDoItem.class, 
+                new QueryDefault<Gmap3WicketToDoItem>(Gmap3WicketToDoItem.class,
                         "todo_notYetComplete", 
                         "ownedBy", currentUserName()));
     }
@@ -83,8 +76,8 @@ public class ToDoItems {
     
     @ActionSemantics(Of.SAFE)
     @MemberOrder(sequence = "3")
-    public List<ToDoItem> complete() {
-        final List<ToDoItem> items = completeNoUi();
+    public List<Gmap3WicketToDoItem> complete() {
+        final List<Gmap3WicketToDoItem> items = completeNoUi();
         if(items.isEmpty()) {
             container.informUser("No to-do items have yet been completed :-(");
         }
@@ -92,9 +85,9 @@ public class ToDoItems {
     }
 
     @Programmatic
-    public List<ToDoItem> completeNoUi() {
+    public List<Gmap3WicketToDoItem> completeNoUi() {
         return container.allMatches(
-            new QueryDefault<ToDoItem>(ToDoItem.class, 
+            new QueryDefault<Gmap3WicketToDoItem>(Gmap3WicketToDoItem.class,
                     "todo_complete", 
                     "ownedBy", currentUserName()));
     }
@@ -105,7 +98,7 @@ public class ToDoItems {
     // //////////////////////////////////////
 
     @MemberOrder(sequence = "40")
-    public ToDoItem newToDo(
+    public Gmap3WicketToDoItem newToDo(
             final @RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*") @Named("Description") String description) {
         final String ownedBy = currentUserName();
         return newToDo(description, ownedBy);
@@ -117,9 +110,9 @@ public class ToDoItems {
 
     @ActionSemantics(Of.SAFE)
     @MemberOrder(sequence = "50")
-    public List<ToDoItem> allToDos() {
+    public List<Gmap3WicketToDoItem> allToDos() {
         final String currentUser = currentUserName();
-        final List<ToDoItem> items = container.allMatches(ToDoItem.class, ToDoItem.Predicates.thoseOwnedBy(currentUser));
+        final List<Gmap3WicketToDoItem> items = container.allMatches(Gmap3WicketToDoItem.class, Gmap3WicketToDoItem.Predicates.thoseOwnedBy(currentUser));
         Collections.sort(items);
         if(items.isEmpty()) {
             container.warnUser("No to-do items found.");
@@ -133,10 +126,10 @@ public class ToDoItems {
     // //////////////////////////////////////
 
     @Programmatic // not part of metamodel
-    public List<ToDoItem> autoComplete(final String description) {
+    public List<Gmap3WicketToDoItem> autoComplete(final String description) {
         // the JDO implementation ...
         return container.allMatches(
-                new QueryDefault<ToDoItem>(ToDoItem.class, 
+                new QueryDefault<Gmap3WicketToDoItem>(Gmap3WicketToDoItem.class,
                         "todo_autoComplete", 
                         "ownedBy", currentUserName(), 
                         "description", description));
@@ -148,10 +141,10 @@ public class ToDoItems {
     // //////////////////////////////////////
 
     @Programmatic // for use by fixtures
-    public ToDoItem newToDo(
+    public Gmap3WicketToDoItem newToDo(
             final String description, 
             final String userName) {
-        final ToDoItem toDoItem = container.newTransientInstance(ToDoItem.class);
+        final Gmap3WicketToDoItem toDoItem = container.newTransientInstance(Gmap3WicketToDoItem.class);
         toDoItem.setDescription(description);
         toDoItem.setOwnedBy(userName);
 

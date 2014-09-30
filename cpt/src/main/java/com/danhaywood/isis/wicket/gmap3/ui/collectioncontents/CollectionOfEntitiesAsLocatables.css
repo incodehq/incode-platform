@@ -16,11 +16,12 @@
  */
 
 .collectionContentsAsLocatables>div {
-	height: 400px;
+	height: 600px;
 }
 	
 .collectionContentsAsLocatables {
-	margin-top: 10px;
+    margin-top: 0px;
+    padding-top: 45px;
 }
 
 a span.ViewLinkItem.map {

@@ -16,43 +16,23 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dom.todo;
+package org.isisaddons.wicket.gmap3.fixture.dom;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
+import java.util.*;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
-
 import com.danhaywood.isis.wicket.gmap3.applib.Locatable;
 import com.danhaywood.isis.wicket.gmap3.applib.Location;
 import com.danhaywood.isis.wicket.gmap3.service.LocationLookupService;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Ordering;
-
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.AutoComplete;
-import org.apache.isis.applib.annotation.Bookmarkable;
-import org.apache.isis.applib.annotation.Disabled;
-import org.apache.isis.applib.annotation.Hidden;
-import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.MinLength;
-import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.ObjectType;
-import org.apache.isis.applib.annotation.Optional;
-import org.apache.isis.applib.annotation.RegEx;
-import org.apache.isis.applib.annotation.Render;
+import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.annotation.Render.Type;
-import org.apache.isis.applib.annotation.SortedBy;
-import org.apache.isis.applib.annotation.TypicalLength;
+import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
-
-import services.ClockService;
 
 @javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
 @javax.jdo.annotations.DatastoreIdentity(
@@ -92,9 +72,10 @@ import services.ClockService;
                     + "description.indexOf(:description) >= 0")
 })
 @ObjectType("TODO")
-@AutoComplete(repository=ToDoItems.class, action="autoComplete")
+@AutoComplete(repository=Gmap3WicketToDoItems.class, action="autoComplete")
 @Bookmarkable
-public class ToDoItem implements Comparable<ToDoItem>, Locatable {
+@Named("ToDo Item")
+public class Gmap3WicketToDoItem implements Comparable<Gmap3WicketToDoItem>, Locatable {
 
 
     // //////////////////////////////////////
@@ -168,7 +149,7 @@ public class ToDoItem implements Comparable<ToDoItem>, Locatable {
     }
 
     @MemberOrder(name="complete", sequence="1")
-    public ToDoItem completed() {
+    public Gmap3WicketToDoItem completed() {
         setComplete(true);
         return this;
     }
@@ -178,7 +159,7 @@ public class ToDoItem implements Comparable<ToDoItem>, Locatable {
     }
 
     @MemberOrder(name="complete", sequence="2")
-    public ToDoItem notYetCompleted() {
+    public Gmap3WicketToDoItem notYetCompleted() {
         setComplete(false);
 
         return this;
@@ -206,7 +187,7 @@ public class ToDoItem implements Comparable<ToDoItem>, Locatable {
     }
 
     @MemberOrder(name="location", sequence="1")
-    public ToDoItem updateLocation(@Named("Address") final String address) {
+    public Gmap3WicketToDoItem updateLocation(@Named("Address") final String address) {
         final Location location = this.locationLookupService.lookup(address);
         setLocation(location);
         return this;
@@ -218,60 +199,60 @@ public class ToDoItem implements Comparable<ToDoItem>, Locatable {
     // //////////////////////////////////////
 
     // overrides the natural ordering
-    public static class DependenciesComparator implements Comparator<ToDoItem> {
+    public static class DependenciesComparator implements Comparator<Gmap3WicketToDoItem> {
         @Override
-        public int compare(ToDoItem p, ToDoItem q) {
-            Ordering<ToDoItem> byDescription = new Ordering<ToDoItem>() {
-                public int compare(final ToDoItem p, final ToDoItem q) {
+        public int compare(Gmap3WicketToDoItem p, Gmap3WicketToDoItem q) {
+            Ordering<Gmap3WicketToDoItem> byDescription = new Ordering<Gmap3WicketToDoItem>() {
+                public int compare(final Gmap3WicketToDoItem p, final Gmap3WicketToDoItem q) {
                     return Ordering.natural().nullsFirst().compare(p.getDescription(), q.getDescription());
                 }
             };
             return byDescription
-                    .compound(Ordering.<ToDoItem>natural())
+                    .compound(Ordering.<Gmap3WicketToDoItem>natural())
                     .compare(p, q);
         }
     }
 
-    
 
-    @javax.jdo.annotations.Persistent(table="ToDoItemDependencies")
+
+    @javax.jdo.annotations.Persistent(table="Gmap3WicketToDoItemDependencies")
     @javax.jdo.annotations.Join(column="dependingId")
     @javax.jdo.annotations.Element(column="dependentId")
-    private SortedSet<ToDoItem> dependencies = new TreeSet<ToDoItem>();
+    private SortedSet<Gmap3WicketToDoItem> dependencies = new TreeSet<Gmap3WicketToDoItem>();
 
     @SortedBy(DependenciesComparator.class)
     @Render(Type.EAGERLY)
-    public SortedSet<ToDoItem> getDependencies() {
+    public SortedSet<Gmap3WicketToDoItem> getDependencies() {
         return dependencies;
     }
 
-    public void setDependencies(final SortedSet<ToDoItem> dependencies) {
+    public void setDependencies(final SortedSet<Gmap3WicketToDoItem> dependencies) {
         this.dependencies = dependencies;
     }
 
     
     @MemberOrder(name="dependencies", sequence="1")
-    public ToDoItem add(
+    public Gmap3WicketToDoItem add(
             @TypicalLength(20)
-            final ToDoItem toDoItem) {
+            final Gmap3WicketToDoItem toDoItem) {
         getDependencies().add(toDoItem);
         return this;
     }
-    public List<ToDoItem> autoComplete0Add(final @MinLength(2) String search) {
-        final List<ToDoItem> list = toDoItems.autoComplete(search);
+    public List<Gmap3WicketToDoItem> autoComplete0Add(final @MinLength(2) String search) {
+        final List<Gmap3WicketToDoItem> list = toDoItems.autoComplete(search);
         list.removeAll(getDependencies());
         list.remove(this);
         return list;
     }
 
-    public String disableAdd(final ToDoItem toDoItem) {
+    public String disableAdd(final Gmap3WicketToDoItem toDoItem) {
         if(isComplete()) {
             return "Cannot add dependencies for items that are complete";
         }
         return null;
     }
     // validate the provided argument prior to invoking action
-    public String validateAdd(final ToDoItem toDoItem) {
+    public String validateAdd(final Gmap3WicketToDoItem toDoItem) {
         if(getDependencies().contains(toDoItem)) {
             return "Already a dependency";
         }
@@ -282,28 +263,28 @@ public class ToDoItem implements Comparable<ToDoItem>, Locatable {
     }
 
     @MemberOrder(name="dependencies", sequence="2")
-    public ToDoItem remove(
+    public Gmap3WicketToDoItem remove(
             @TypicalLength(20)
-            final ToDoItem toDoItem) {
+            final Gmap3WicketToDoItem toDoItem) {
         getDependencies().remove(toDoItem);
         return this;
     }
     // disable action dependent on state of object
-    public String disableRemove(final ToDoItem toDoItem) {
+    public String disableRemove(final Gmap3WicketToDoItem toDoItem) {
         if(isComplete()) {
             return "Cannot remove dependencies for items that are complete";
         }
         return getDependencies().isEmpty()? "No dependencies to remove": null;
     }
     // validate the provided argument prior to invoking action
-    public String validateRemove(final ToDoItem toDoItem) {
+    public String validateRemove(final Gmap3WicketToDoItem toDoItem) {
         if(!getDependencies().contains(toDoItem)) {
             return "Not a dependency";
         }
         return null;
     }
     // provide a drop-down
-    public Collection<ToDoItem> choices0Remove() {
+    public Collection<Gmap3WicketToDoItem> choices0Remove() {
         return getDependencies();
     }
     
@@ -315,38 +296,38 @@ public class ToDoItem implements Comparable<ToDoItem>, Locatable {
 
     public static class Predicates {
         
-        public static Predicate<ToDoItem> thoseOwnedBy(final String currentUser) {
-            return new Predicate<ToDoItem>() {
+        public static Predicate<Gmap3WicketToDoItem> thoseOwnedBy(final String currentUser) {
+            return new Predicate<Gmap3WicketToDoItem>() {
                 @Override
-                public boolean apply(final ToDoItem toDoItem) {
+                public boolean apply(final Gmap3WicketToDoItem toDoItem) {
                     return Objects.equal(toDoItem.getOwnedBy(), currentUser);
                 }
             };
         }
 
-		public static Predicate<ToDoItem> thoseCompleted(
+		public static Predicate<Gmap3WicketToDoItem> thoseCompleted(
 				final boolean completed) {
-            return new Predicate<ToDoItem>() {
+            return new Predicate<Gmap3WicketToDoItem>() {
                 @Override
-                public boolean apply(final ToDoItem t) {
+                public boolean apply(final Gmap3WicketToDoItem t) {
                     return Objects.equal(t.isComplete(), completed);
                 }
             };
 		}
 
-        public static Predicate<ToDoItem> thoseWithSimilarDescription(final String description) {
-            return new Predicate<ToDoItem>() {
+        public static Predicate<Gmap3WicketToDoItem> thoseWithSimilarDescription(final String description) {
+            return new Predicate<Gmap3WicketToDoItem>() {
                 @Override
-                public boolean apply(final ToDoItem t) {
+                public boolean apply(final Gmap3WicketToDoItem t) {
                     return t.getDescription().contains(description);
                 }
             };
         }
 
-        public static Predicate<ToDoItem> thoseNot(final ToDoItem toDoItem) {
-            return new Predicate<ToDoItem>() {
+        public static Predicate<Gmap3WicketToDoItem> thoseNot(final Gmap3WicketToDoItem toDoItem) {
+            return new Predicate<Gmap3WicketToDoItem>() {
                 @Override
-                public boolean apply(final ToDoItem t) {
+                public boolean apply(final Gmap3WicketToDoItem t) {
                     return t != toDoItem;
                 }
             };
@@ -368,7 +349,7 @@ public class ToDoItem implements Comparable<ToDoItem>, Locatable {
     // //////////////////////////////////////
 
     @Override
-    public int compareTo(final ToDoItem other) {
+    public int compareTo(final Gmap3WicketToDoItem other) {
         return ObjectContracts.compare(this, other, "complete,description");
     }
 
@@ -382,7 +363,7 @@ public class ToDoItem implements Comparable<ToDoItem>, Locatable {
     private DomainObjectContainer container;
 
     @javax.inject.Inject
-    private ToDoItems toDoItems;
+    private Gmap3WicketToDoItems toDoItems;
 
     @javax.inject.Inject
     @SuppressWarnings("unused")

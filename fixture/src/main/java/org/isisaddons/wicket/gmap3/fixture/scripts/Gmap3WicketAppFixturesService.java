@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.xxx.fixture.scripts;
+package org.isisaddons.wicket.gmap3.fixture.scripts;
 
 import java.util.List;
 import org.apache.isis.applib.annotation.DomainService;
@@ -32,11 +32,11 @@ import org.apache.isis.applib.fixturescripts.SimpleFixtureScript;
  * Enables fixtures to be installed from the application.
  */
 @Named("Prototyping")
-@DomainService(menuOrder = "20")
-public class XxxDemoObjectsFixturesService extends FixtureScripts {
+@DomainService(menuOrder = "90")
+public class Gmap3WicketAppFixturesService extends FixtureScripts {
 
-    public XxxDemoObjectsFixturesService() {
-        super("org.isisaddons.module.xxx.fixture.scripts");
+    public Gmap3WicketAppFixturesService() {
+        super("org.isisaddons.wicket.gmap3.fixture.scripts");
     }
 
     @Override // compatibility with core 1.5.0
@@ -59,7 +59,7 @@ public class XxxDemoObjectsFixturesService extends FixtureScripts {
     @Prototype
     @MemberOrder(sequence="20")
     public Object installFixturesAndReturnFirst() {
-        final List<FixtureResult> run = findFixtureScriptFor(XxxDemoObjectsFixture.class).run(null);
+        final List<FixtureResult> run = findFixtureScriptFor(Gmap3WicketAppSetUpFixture.class).run(null);
         return run.get(0).getObject();
     }
 
