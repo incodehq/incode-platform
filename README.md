@@ -78,7 +78,7 @@ In addition to Apache Isis, this component depends on:
 
 ##  Maven deploy notes ##
 
-Only the `dom` module is deployed, and is done so using Sonatype's OSS support (see 
+Only the `cpt` module is deployed, and is done so using Sonatype's OSS support (see 
 [user guide](http://central.sonatype.org/pages/apache-maven.html)).
 
 #### Release to Sonatype's Snapshot Repo ####
@@ -123,7 +123,7 @@ If the script completes successfully, then push changes:
     git push
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
-before trying again.  Note that in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the 
+before trying again.  Note that in the `cpt`'s `pom.xml` the `nexus-staging-maven-plugin` has the 
 `autoReleaseAfterClose` setting set to `true` (to automatically stage, close and the release the repo).  You may want
 to set this to `false` if debugging an issue.
  
