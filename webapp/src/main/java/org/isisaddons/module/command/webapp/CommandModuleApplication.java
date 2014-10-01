@@ -98,7 +98,9 @@ public class CommandModuleApplication extends IsisWicketApplication {
         WebRequest request = super.newWebRequest(servletRequest, filterPath);
         return request;
     }
-    
+
+    private static final String APP_NAME = "Command Module Example App";
+
     @Override
     protected Module newIsisWicketModule() {
         final Module isisDefaults = super.newIsisWicketModule();
@@ -107,11 +109,11 @@ public class CommandModuleApplication extends IsisWicketApplication {
             @Override
             protected void configure() {
 
-                bind(String.class).annotatedWith(Names.named("applicationName")).toInstance("Simple App");
+                bind(String.class).annotatedWith(Names.named("applicationName")).toInstance(APP_NAME);
                 bind(String.class).annotatedWith(Names.named("applicationCss")).toInstance("css/application.css");
                 bind(String.class).annotatedWith(Names.named("applicationJs")).toInstance("scripts/application.js");
                 bind(String.class).annotatedWith(Names.named("welcomeMessage")).toInstance(readLines(getClass(), "welcome.html"));
-                bind(String.class).annotatedWith(Names.named("aboutMessage")).toInstance("Simple App");
+                bind(String.class).annotatedWith(Names.named("aboutMessage")).toInstance(APP_NAME);
                 bind(InputStream.class).annotatedWith(Names.named("metaInfManifest")).toProvider(Providers.of(getServletContext().getResourceAsStream("/META-INF/MANIFEST.MF")));
             }
         };
@@ -125,7 +127,7 @@ public class CommandModuleApplication extends IsisWicketApplication {
             final String aboutText = Joiner.on("\n").join(readLines);
             return aboutText;
         } catch (IOException e) {
-            return "This is Quick Start";
+            return APP_NAME;
         }
     }
 
