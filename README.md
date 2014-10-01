@@ -181,9 +181,10 @@ The `UserSettingsServiceJdoHidden` is implemented as a subclass of `UserSettings
  actions from the user interface.
 
 
-## Related Modules/Services ##
+## Change Log ##
 
-Other add-ons for Isis can be found at the [Isis Add-ons](http://www.isisaddons.org) website.
+* `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.settings`
+
 
 
 ## Legal Stuff ##
