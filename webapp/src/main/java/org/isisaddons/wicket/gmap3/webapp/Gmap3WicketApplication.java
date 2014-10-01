@@ -100,7 +100,9 @@ public class Gmap3WicketApplication extends IsisWicketApplication {
         WebRequest request = super.newWebRequest(servletRequest, filterPath);
         return request;
     }
-    
+
+    private static final String APP_NAME = "Gmap3 (Wicket Component) Example App";
+
     @Override
     protected Module newIsisWicketModule() {
         final Module isisDefaults = super.newIsisWicketModule();
@@ -109,11 +111,11 @@ public class Gmap3WicketApplication extends IsisWicketApplication {
             @Override
             protected void configure() {
 
-                bind(String.class).annotatedWith(Names.named("applicationName")).toInstance("Gmap3 (Wickt Cpt) Example App");
+                bind(String.class).annotatedWith(Names.named("applicationName")).toInstance(APP_NAME);
                 bind(String.class).annotatedWith(Names.named("applicationCss")).toInstance("css/application.css");
                 bind(String.class).annotatedWith(Names.named("applicationJs")).toInstance("scripts/application.js");
                 bind(String.class).annotatedWith(Names.named("welcomeMessage")).toInstance(readLines(getClass(), "welcome.html"));
-                bind(String.class).annotatedWith(Names.named("aboutMessage")).toInstance("Gmap3 (Wicket Cpt) Example App");
+                bind(String.class).annotatedWith(Names.named("aboutMessage")).toInstance(APP_NAME);
                 bind(InputStream.class).annotatedWith(Names.named("metaInfManifest")).toProvider(Providers.of(getServletContext().getResourceAsStream("/META-INF/MANIFEST.MF")));
             }
         };
@@ -127,7 +129,7 @@ public class Gmap3WicketApplication extends IsisWicketApplication {
             final String aboutText = Joiner.on("\n").join(readLines);
             return aboutText;
         } catch (IOException e) {
-            return "This is GMap3 (Wicket Cpt) Example App";
+            return APP_NAME;
         }
     }
 }
