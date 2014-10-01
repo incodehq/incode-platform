@@ -1,6 +1,6 @@
 # isis-module-servletapi #
 
-_STATUS: WORK-IN-PROGRESS_
+*THIS MODULE IS STILL WORK-IN-PROGRESS, HAS NOT YET BEEN RELEASED*
 
 [![Build Status](https://travis-ci.org/isisaddons/isis-module-servletapi.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-servletapi)
 
@@ -72,6 +72,10 @@ public interface ServletContextProvider {
 </pre>
 
 
+## Change Log ##
+
+* `x.x.x` - ... not yet released ...
+
 
 ## Legal Stuff ##
  
@@ -112,6 +116,7 @@ To deploy a snapshot, use:
 
 The artifacts should be available in Sonatype's 
 [Snapshot Repo](https://oss.sonatype.org/content/repositories/snapshots).
+
 
 #### Release to Maven Central ####
 
