@@ -231,7 +231,15 @@ and it is this interface that each module has services that contribute to).
 ## Known issues ##
 
 In `1.6.0` a call to `DomainObjectContainer#flush()` is required in order that any newly created objects are populated.
-Note that a flush is performed prior to any repository call, so there may not be any need to call.         
+Note that Isis automatically performs a flush prior to any repository call, so in many cases there may not be any need 
+to call flush explicitly.         
+
+
+## Change Log ##
+
+* `1.6.1` - ...
+* `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.audit`
+
 
 ## Legal Stuff ##
  
