@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.wicket.fullcalendar2.collectioncontents;
+package org.isisaddons.wicket.fullcalendar2.cpt.ui;
 
 import java.util.Collection;
 import java.util.Set;

@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.wicket.fullcalendar2.applib;
+package org.isisaddons.wicket.fullcalendar2.cpt.applib;
 
 import java.util.Set;
 
@@ -27,12 +27,10 @@ public interface Calendarable {
      * The names of unique &quot;calendar&quot;s provided by this object.
      * 
      * <p>
-     * The &quot;calendar&quot; is a string identifier that indicates the nature of this event.  These are expected
-     * to be uniquely identifiable for all and any events that might be created.  They therefore typically (always?)
-     * include information relating to the type/class of the event's {@link #getSubject() subject}.
+     * The &quot;calendar&quot; is a string identifier that indicates the nature of this event.
      * 
      * <p>
-     * For example, an event whose subject is a lease's <tt>FixedBreakOption</tt> has three dates: the <i>break date</i>, 
+     * For example, an event of a lease's <code>FixedBreakOption</code> has three dates: the <i>break date</i>,
      * the <i>exercise date</i> and the <i>reminder date</i>.  These therefore correspond to three different 
      * calendar names, respectively <i>Fixed break</i>, <i>Fixed break exercise</i> and 
      * <i>Fixed break exercise reminder</i>.

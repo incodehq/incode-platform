@@ -1,2 +1,2 @@
-org.isisaddons.wicket.fullcalendar2.collectioncontents.CalendarableCollectionAsFullCalendar2Factory
-org.isisaddons.wicket.fullcalendar2.collectioncontents.CalendarEventableCollectionAsFullCalendar2Factory
+org.isisaddons.wicket.fullcalendar2.cpt.ui.CalendarableCollectionAsFullCalendar2Factory
+org.isisaddons.wicket.fullcalendar2.cpt.ui.CalendarEventableCollectionAsFullCalendar2Factory

@@ -9,17 +9,66 @@ entities within a fullpage calendar.  Underneath the covers it uses this [fullca
 
 The following screenshots show an example app's usage of the component.
 
-#### Standalone collection ####
+#### Install fixtures ####
 
-![](https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/standalone-collection.png)
+Install fixtures for the example app:
 
-#### Parented collection in a custom dashboard view model ####
+![](https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/010-install-fixtures.png)
 
-![](https://raw2.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/dashboard.png)
+#### Parented collection as calendar ####
 
-#### Parented collection in a regular entity ####
+The todo item's collection contains a list of `Calendarable` entities (also todo items); this is indicated through a button to switch the view:
 
-![](https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/parented-collection.png)
+![](https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/020-calendar-button-for-parented-collection.png)
+
+Clicking the button shows the same entities on a fullpage calendar:
+
+![](https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/030-view-items-in-calendar.png)
+
+#### Drill down ####
+
+Clicking on the event in the calendar drills down to the corresponding entity:
+
+![](https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/040-drill-down.png)
+
+#### Standalone collection as calendar
+
+Invoking an action that returns a list of `Calendarable` entities:
+
+![](https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/050-view-all.png)
+
+... also results in the button to view in a fullpage calendar:
+
+![](https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/060-calendar-button-for-standalone-collection.png)
+
+Each item is shown in the calendar view:
+
+![](https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/070-toggle-calendars.png)
+
+#### Calendars ####
+
+Each entity can provides dates to either a single calendar or to multiple calendars.  In the example app each todo item
+exposes its `dueBy` date to a single calendar, named after its `category`:
+
+    @Programmatic
+    @Override
+    public String getCalendarName() {
+        return getCategory().name();
+    }
+
+    @Programmatic
+    @Override
+    public CalendarEvent toCalendarEvent() {
+        if(getDueBy() == null) {
+            return null;
+        }
+        return new CalendarEvent(getDueBy().toDateTimeAtStartOfDay(), getCalendarName(), container.titleOf(this));
+    }
+
+The full page calendar uses colour coding to indicate the calendars, as well as checkboxes to show/hide each calendar.
+Unchecking the calendar toggle hides all events in that calendar:
+
+![](https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/080-calendar-updated.png)
 
 
 ## API & Usage ##
@@ -91,20 +140,13 @@ The `Calendarable` interface therefore allows the object to return a number of `
 
 You can either use this extension "out-of-the-box", or you can fork this repo and extend to your own requirements. 
 
-To use "out-of-the-box", add this component to your `dom` project's pom.xml, eg:
+To use "out-of-the-box", add this component to your project's `dom` module's `pom.xml`, eg:
 
-<pre>
-    &lt;dependencyManagement&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.isisaddons.wicket.fullcalendar2&lt;/groupId&gt;
-            &lt;artifactId&gt;isis-wicket-fullcalendar2-cpt&lt;/artifactId&gt;
-            &lt;version&gt;1.6.0&lt;/version&gt;
-        &lt;/dependency&gt;
-        ....
-    &lt;/dependencyManagement&gt;
-</pre>
-
-
+    <dependency>
+        <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
+        <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
+        <version>1.6.0</version>
+    </dependency>
 
 Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-fullcalendar2-cpt).
 
@@ -119,6 +161,11 @@ structured as follows:
 Only the `cpt` project is released to Maven central.  The versions of the other modules 
 are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
 
+
+## Change Log ##
+
+* `1.6.1` - (breaking change) changed package names for API to `org.isisaddons.wicket.fullcalendar2.cpt.applib`
+* `1.6.0` - re-released as part of isisaddons, changed package names for API to `org.isisaddons.wicket.fullcalendar2.applib`
 
 ## Legal Stuff ##
 
@@ -176,8 +223,8 @@ The `release.sh` script automates the release process.  It performs the followin
 
 For example:
 
-    sh release.sh 1.6.0 \
-                  1.6.1-SNAPSHOT \
+    sh release.sh 1.6.1 \
+                  1.6.2-SNAPSHOT \
                   dan@haywood-associates.co.uk \
                   "this is not really my passphrase"
     

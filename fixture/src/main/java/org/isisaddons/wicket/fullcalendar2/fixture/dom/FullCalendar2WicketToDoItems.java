@@ -28,13 +28,8 @@ import org.apache.isis.applib.services.clock.ClockService;
 @Named("ToDos")
 public class FullCalendar2WicketToDoItems {
 
-    public FullCalendar2WicketToDoItems() {
-    }
+    //region > identification in the UI
     
-    // //////////////////////////////////////
-    // Identification in the UI
-    // //////////////////////////////////////
-
     public String getId() {
         return "toDoItems";
     }
@@ -43,9 +38,9 @@ public class FullCalendar2WicketToDoItems {
         return "ToDoItem";
     }
 
-    // //////////////////////////////////////
-    // NotYetComplete (action)
-    // //////////////////////////////////////
+    //endregion
+
+    //region > notYetComplete (action)
 
     @Bookmarkable
     @ActionSemantics(Of.SAFE)
@@ -65,12 +60,10 @@ public class FullCalendar2WicketToDoItems {
                         "todo_notYetComplete", 
                         "ownedBy", currentUserName()));
     }
+    //endregion
 
+    //region > complete (action)
 
-    // //////////////////////////////////////
-    // Complete (action)
-    // //////////////////////////////////////
-    
     @ActionSemantics(Of.SAFE)
     @MemberOrder(sequence = "3")
     public List<FullCalendar2WicketToDoItem> complete() {
@@ -89,10 +82,9 @@ public class FullCalendar2WicketToDoItems {
                     "ownedBy", currentUserName()));
     }
 
+    //endregion
 
-    // //////////////////////////////////////
-    // NewToDo (action)
-    // //////////////////////////////////////
+    //region > newToDo (action)
 
     @MemberOrder(sequence = "40")
     public FullCalendar2WicketToDoItem newToDo(
@@ -101,9 +93,9 @@ public class FullCalendar2WicketToDoItems {
         return newToDo(description, ownedBy);
     }
 
-    // //////////////////////////////////////
-    // AllToDos (action)
-    // //////////////////////////////////////
+    //endregion
+
+    //region > allToDos (action)
 
     @ActionSemantics(Of.SAFE)
     @MemberOrder(sequence = "50")
@@ -117,10 +109,10 @@ public class FullCalendar2WicketToDoItems {
         return items;
     }
 
-    
-    // //////////////////////////////////////
-    // AutoComplete
-    // //////////////////////////////////////
+    //endregion
+
+    //region > autoComplete (action)
+
 
     @Programmatic // not part of metamodel
     public List<FullCalendar2WicketToDoItem> autoComplete(final String description) {
@@ -132,10 +124,9 @@ public class FullCalendar2WicketToDoItems {
                         "description", description));
     }
 
+    //endregion
 
-    // //////////////////////////////////////
-    // Programmatic Helpers
-    // //////////////////////////////////////
+    //region > helpers
 
     @Programmatic // for use by fixtures
     public FullCalendar2WicketToDoItem newToDo(
@@ -155,9 +146,9 @@ public class FullCalendar2WicketToDoItems {
         return container.getUser().getName();
     }
 
-    // //////////////////////////////////////
-    // Injected Services
-    // //////////////////////////////////////
+    //endregion
+
+    //region > injected services
 
     @javax.inject.Inject
     private DomainObjectContainer container;
@@ -165,5 +156,7 @@ public class FullCalendar2WicketToDoItems {
     @SuppressWarnings("unused")
     @javax.inject.Inject
     private ClockService clockService;
+
+    //endregion
 
 }

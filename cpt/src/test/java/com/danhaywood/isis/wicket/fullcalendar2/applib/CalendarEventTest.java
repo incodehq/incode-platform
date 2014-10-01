@@ -19,7 +19,7 @@ package com.danhaywood.isis.wicket.fullcalendar2.applib;
 import java.util.Locale;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
-import org.isisaddons.wicket.fullcalendar2.applib.CalendarEvent;
+import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEvent;
 import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Assert;

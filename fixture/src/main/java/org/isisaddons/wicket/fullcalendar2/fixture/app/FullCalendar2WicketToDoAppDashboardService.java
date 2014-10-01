@@ -27,6 +27,8 @@ import org.apache.isis.applib.annotation.HomePage;
 @Hidden
 public class FullCalendar2WicketToDoAppDashboardService {
 
+    //region > identification in the UI
+
     private static final String ID = "dashboard";
 
     public String getId() {
@@ -37,7 +39,9 @@ public class FullCalendar2WicketToDoAppDashboardService {
         return ID;
     }
 
-    // //////////////////////////////////////
+    //endregion
+
+    //region > homePage
 
     @ActionSemantics(Of.SAFE)
     @HomePage
@@ -45,12 +49,12 @@ public class FullCalendar2WicketToDoAppDashboardService {
         return container.newViewModelInstance(FullCalendar2WicketToDoAppDashboard.class, ID);
     }
 
-    
-    // //////////////////////////////////////
-    // Injected services
-    // //////////////////////////////////////
+    //endregion
+
+    //region > injected services
 
     @javax.inject.Inject
     private DomainObjectContainer container;
 
+    //endregion
 }

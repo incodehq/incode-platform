@@ -22,8 +22,8 @@ import javax.jdo.annotations.VersionStrategy;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Ordering;
-import org.isisaddons.wicket.fullcalendar2.applib.CalendarEvent;
-import org.isisaddons.wicket.fullcalendar2.applib.CalendarEventable;
+import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEvent;
+import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
 import org.joda.time.LocalDate;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.*;
@@ -75,10 +75,7 @@ import org.apache.isis.applib.util.TitleBuffer;
 @Named("ToDo Item")
 public class FullCalendar2WicketToDoItem implements Comparable<FullCalendar2WicketToDoItem>, CalendarEventable {
 
-
-    // //////////////////////////////////////
-    // Identification in the UI
-    // //////////////////////////////////////
+    //region > identification in the UI
 
     public String title() {
         final TitleBuffer buf = new TitleBuffer();
@@ -93,9 +90,9 @@ public class FullCalendar2WicketToDoItem implements Comparable<FullCalendar2Wick
         return "ToDoItem-" + (!isComplete() ? "todo" : "done");
     }
 
-    // //////////////////////////////////////
-    // Description (property)
-    // //////////////////////////////////////
+    //endregion
+
+    //region > description (property)
     
     private String description;
 
@@ -111,11 +108,10 @@ public class FullCalendar2WicketToDoItem implements Comparable<FullCalendar2Wick
         this.description = description;
     }
 
+    //endregion
 
-    // //////////////////////////////////////
-    // OwnedBy (property)
-    // //////////////////////////////////////
-    
+    //region > ownedBy (property)
+
     private String ownedBy;
 
     @javax.jdo.annotations.Column(allowsNull="false")
@@ -128,10 +124,9 @@ public class FullCalendar2WicketToDoItem implements Comparable<FullCalendar2Wick
         this.ownedBy = ownedBy;
     }
 
+    //endregion
 
-    // //////////////////////////////////////
-    // DueBy (property)
-    // //////////////////////////////////////
+    //region > dueBy (property)
 
     private LocalDate dueBy;
 
@@ -149,12 +144,9 @@ public class FullCalendar2WicketToDoItem implements Comparable<FullCalendar2Wick
         setDueBy(null);
     }
 
-    
-    
-    // //////////////////////////////////////
-    // Complete (property), 
-    // Done (action), Undo (action)
-    // //////////////////////////////////////
+    //endregion
+
+    //region > complete (property), completed (action), notYetCompleted (action)
 
     private boolean complete;
 
@@ -189,11 +181,10 @@ public class FullCalendar2WicketToDoItem implements Comparable<FullCalendar2Wick
         return !complete ? "Not yet completed" : null;
     }
 
+    //endregion
 
-    // //////////////////////////////////////
-    // Category (property)
-    // //////////////////////////////////////
-
+    //region > category (property)
+    
     public static enum Category {
         Professional,
         Domestic, 
@@ -212,11 +203,9 @@ public class FullCalendar2WicketToDoItem implements Comparable<FullCalendar2Wick
         this.category = category;
     }
 
+    //endregion
 
-    // //////////////////////////////////////
-    // Dependencies (collection), 
-    // Add (action), Remove (action)
-    // //////////////////////////////////////
+    //region > dependencies (collection), add (action), remove (action)
 
     // overrides the natural ordering
     public static class DependenciesComparator implements Comparator<FullCalendar2WicketToDoItem> {
@@ -307,12 +296,10 @@ public class FullCalendar2WicketToDoItem implements Comparable<FullCalendar2Wick
     public Collection<FullCalendar2WicketToDoItem> choices0Remove() {
         return getDependencies();
     }
-    
 
+    //endregion
 
-    // //////////////////////////////////////
-    // Predicates
-    // //////////////////////////////////////
+    //region > Predicates
 
     public static class Predicates {
         
@@ -354,30 +341,25 @@ public class FullCalendar2WicketToDoItem implements Comparable<FullCalendar2Wick
         }
 
     }
-    
-    // //////////////////////////////////////
-    // toString
-    // //////////////////////////////////////
+
+    //endregion
+
+    //region > toString, compareTo
 
     @Override
     public String toString() {
         return ObjectContracts.toString(this, "description,complete,ownedBy");
     }
         
-    // //////////////////////////////////////
-    // compareTo
-    // //////////////////////////////////////
-
     @Override
     public int compareTo(final FullCalendar2WicketToDoItem other) {
         return ObjectContracts.compare(this, other, "complete,description");
     }
 
-    
-    // //////////////////////////////////////
-    // CalendarEventable impl
-    // //////////////////////////////////////
-    
+    //endregion
+
+    //region > CalendarEventable impl
+
     @Programmatic
     @Override
     public String getCalendarName() {
@@ -393,10 +375,9 @@ public class FullCalendar2WicketToDoItem implements Comparable<FullCalendar2Wick
         return new CalendarEvent(getDueBy().toDateTimeAtStartOfDay(), getCalendarName(), container.titleOf(this));
     }
 
-    
-    // //////////////////////////////////////
-    // Injected Services
-    // //////////////////////////////////////
+    //endregion
+
+    //region > injected services
 
     @javax.inject.Inject
     @SuppressWarnings("unused")
@@ -409,8 +390,6 @@ public class FullCalendar2WicketToDoItem implements Comparable<FullCalendar2Wick
     @SuppressWarnings("unused")
     private ClockService clockService;
 
-    
+    //endregion
 
-    
-    
 }

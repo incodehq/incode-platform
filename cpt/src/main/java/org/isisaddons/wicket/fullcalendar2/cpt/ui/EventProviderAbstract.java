@@ -14,12 +14,12 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.wicket.fullcalendar2.collectioncontents;
+package org.isisaddons.wicket.fullcalendar2.cpt.ui;
 
 import java.util.Collection;
 import java.util.Map;
 
-import org.isisaddons.wicket.fullcalendar2.applib.CalendarEvent;
+import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEvent;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
