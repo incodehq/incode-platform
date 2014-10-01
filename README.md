@@ -48,6 +48,12 @@ Only the `cpt` project is released to Maven central.  The versions of the other 
 are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
 
 
+## Related Modules ##
+
+See also the [Excel module](https://github.com/isisaddons/isis-module-excel), which provides programmatic ability to
+export or import objects to/from an Excel spreadsheet.
+
+
 ## Change Log ##
 
 * `1.6.1` - (breaking change) changed package names for API to `org.isisaddons.wicket.excel.cpt.applib`

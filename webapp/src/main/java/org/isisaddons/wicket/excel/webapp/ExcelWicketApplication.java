@@ -100,7 +100,9 @@ public class ExcelWicketApplication extends IsisWicketApplication {
         WebRequest request = super.newWebRequest(servletRequest, filterPath);
         return request;
     }
-    
+
+    private static final String APP_NAME = "Excel (Wicket Component) Example App";
+
     @Override
     protected Module newIsisWicketModule() {
         final Module isisDefaults = super.newIsisWicketModule();
@@ -109,11 +111,11 @@ public class ExcelWicketApplication extends IsisWicketApplication {
             @Override
             protected void configure() {
 
-                bind(String.class).annotatedWith(Names.named("applicationName")).toInstance("Excel (Wicket Component) App");
+                bind(String.class).annotatedWith(Names.named("applicationName")).toInstance(APP_NAME);
                 bind(String.class).annotatedWith(Names.named("applicationCss")).toInstance("css/application.css");
                 bind(String.class).annotatedWith(Names.named("applicationJs")).toInstance("scripts/application.js");
                 bind(String.class).annotatedWith(Names.named("welcomeMessage")).toInstance(readLines(getClass(), "welcome.html"));
-                bind(String.class).annotatedWith(Names.named("aboutMessage")).toInstance("Excel (Wicket Component) App");
+                bind(String.class).annotatedWith(Names.named("aboutMessage")).toInstance(APP_NAME);
                 bind(InputStream.class).annotatedWith(Names.named("metaInfManifest")).toProvider(Providers.of(getServletContext().getResourceAsStream("/META-INF/MANIFEST.MF")));
             }
         };
@@ -126,7 +128,7 @@ public class ExcelWicketApplication extends IsisWicketApplication {
             List<String> readLines = Resources.readLines(Resources.getResource(contextClass, resourceName), Charset.defaultCharset());
             return Joiner.on("\n").join(readLines);
         } catch (IOException e) {
-            return "This is Quick Start";
+            return APP_NAME;
         }
     }
 
