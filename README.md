@@ -48,6 +48,12 @@ Only the `cpt` project is released to Maven central.  The versions of the other 
 are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
 
 
+## Change Log ##
+
+* `1.6.1` - (breaking change) changed package names for API to `org.isisaddons.wicket.excel.cpt.applib`
+* `1.6.0` - re-released as part of isisaddons, changed package names for API to `org.isisaddons.wicket.excel.applib`
+
+
 ## Legal Stuff ##
 
 #### License ####
@@ -104,8 +110,8 @@ The `release.sh` script automates the release process.  It performs the followin
 
 For example:
 
-    sh release.sh 1.6.0 \
-                  1.6.1-SNAPSHOT \
+    sh release.sh 1.6.1 \
+                  1.6.2-SNAPSHOT \
                   dan@haywood-associates.co.uk \
                   "this is not really my passphrase"
     
