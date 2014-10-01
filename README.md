@@ -7,12 +7,61 @@ entities to be rendered within a map (using google's [gmap3](https://developers.
 
 ## Screenshots ##
 
-The following screenshots show an example app's usage of the component.
+The following screenshots show the example app's usage of the component.
 
-![](https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/screenshot-1.png)
+#### Install fixtures ####
 
-![](https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/screenshot-2.png)
+Start by installing fixtures:
 
+![](https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/010-install-fixtures.png)
+
+#### Parented collection as gmap ####
+
+The todo item's collection contains a list of `Locatable` entities (also todo items); this is indicated through a button to switch the view:
+
+![](https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/020-gmap-button-available-on-parented-collection.png)
+
+Clicking the button shows the same entities on a gmap3:
+
+![](https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/030-view-collection-in-gmap3-next-update-location.png)
+
+#### Update location using service ####
+
+The previous screensot shows the todo item also provides an "update location" action:
+
+    public Gmap3WicketToDoItem updateLocation(@Named("Address") final String address) {
+        final Location location = this.locationLookupService.lookup(address);
+        setLocation(location);
+        return this;
+    }
+
+When invoked:
+
+![](https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/040-update-location-invoke.png)
+
+... updates the location:
+
+![](https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/050-location-updated.png)
+
+#### Standalone location as gmap ####
+
+Invoking an action that returns a list of `Locatable` entities:
+
+![](https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/060-view-all-items.png)
+
+... also results in the button to view in a gmap3:
+
+![](https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/070-gmap-button-available-on-standalone-collection.png)
+
+... which then renders the items in a map.  Note the tooltips:
+
+![](https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/080-view-collection-in-gmap3.png)
+
+#### Click through ####
+
+Clicking on a map marker drills down to the entity:
+
+![](https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/090-click-through-to-entity.png)
 
 ## API & Usage ##
 
