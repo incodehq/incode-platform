@@ -19,7 +19,7 @@ language governing permissions and limitations under the License.
 
     <groupId>org.isisaddons.wicket.gmap3</groupId>
     <artifactId>isis-wicket-gmap3</artifactId>
-    <version>1.6.0</version>
+    <version>1.6.1-SNAPSHOT</version>
 
     <name>Isis Addons GMap3 Wicket Cpt</name>
 
@@ -322,12 +322,12 @@ language governing permissions and limitations under the License.
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-wicket-gmap3-fixture</artifactId>
-                <version>1.6.0</version>
+                <version>1.6.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-wicket-gmap3-webapp</artifactId>
-                <version>1.6.0</version>
+                <version>1.6.1-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
