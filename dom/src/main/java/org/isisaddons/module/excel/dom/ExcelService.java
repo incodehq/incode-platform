@@ -27,7 +27,6 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.RecoverableException;
-import org.apache.isis.applib.ViewModel;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
@@ -90,7 +89,7 @@ public class ExcelService {
     }
 
     @Programmatic
-    public <T extends ViewModel> List<T> fromExcel(
+    public <T> List<T> fromExcel(
             final Blob excelBlob, 
             final Class<T> cls) throws ExcelService.Exception {
         try {

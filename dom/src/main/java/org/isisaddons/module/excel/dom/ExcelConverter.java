@@ -24,13 +24,20 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
+
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.ViewModel;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.filter.Filter;
 import org.apache.isis.applib.filter.Filters;
@@ -48,10 +55,10 @@ import org.apache.isis.core.metamodel.spec.feature.OneToOneAssociation;
 class ExcelConverter {
 
     private static final String XLSX_SUFFIX = ".xlsx";
-    
+
     @SuppressWarnings({ "unchecked", "deprecation" })
     private static final Filter<ObjectAssociation> VISIBLE_PROPERTIES = Filters.and(
-            ObjectAssociation.Filters.PROPERTIES, 
+            ObjectAssociation.Filters.PROPERTIES,
             ObjectAssociation.Filters.staticallyVisible(Where.STANDALONE_TABLES));
 
     static class RowFactory {
@@ -69,7 +76,6 @@ class ExcelConverter {
 
     // //////////////////////////////////////
 
-
     private final SpecificationLoader specificationLoader;
     private final AdapterManager adapterManager;
     private final BookmarkService bookmarkService;
@@ -82,90 +88,89 @@ class ExcelConverter {
         this.adapterManager = adapterManager;
         this.bookmarkService = bookmarkService;
     }
-    
-    
+
     // //////////////////////////////////////
 
     <T> File toFile(final Class<T> cls, final List<T> domainObjects) throws IOException {
 
         final ObjectSpecification objectSpec = specificationLoader.loadSpecification(cls);
-        
+
         @SuppressWarnings("unused")
         final ViewModelFacet viewModelFacet = objectSpec.getFacet(ViewModelFacet.class);
-        
+
         final List<ObjectAdapter> adapters = Lists.transform(domainObjects, ObjectAdapter.Functions.adapterForUsing(adapterManager));
-        
+
         @SuppressWarnings("deprecation")
         final List<? extends ObjectAssociation> propertyList = objectSpec.getAssociations(VISIBLE_PROPERTIES);
-        
+
         final Workbook wb = new XSSFWorkbook();
-        final String sheetName =  cls.getSimpleName();
+        final String sheetName = cls.getSimpleName();
         final File tempFile = File.createTempFile(ExcelConverter.class.getName(), sheetName + XLSX_SUFFIX);
 
         final FileOutputStream fos = new FileOutputStream(tempFile);
         final Sheet sheet = wb.createSheet(sheetName);
-        
+
         final ExcelConverter.RowFactory rowFactory = new RowFactory(sheet);
         final Row headerRow = rowFactory.newRow();
-        
+
         // header row
-        int i=0;
+        int i = 0;
         for (ObjectAssociation property : propertyList) {
             final Cell cell = headerRow.createCell((short) i++);
             cell.setCellValue(property.getName());
         }
-        
+
         final CellMarshaller cellMarshaller = newCellMarshaller(wb);
-        
+
         // detail rows
         for (final ObjectAdapter objectAdapter : adapters) {
             final Row detailRow = rowFactory.newRow();
-            i=0;
+            i = 0;
             for (final ObjectAssociation oa : propertyList) {
                 final Cell cell = detailRow.createCell((short) i++);
                 final OneToOneAssociation otoa = (OneToOneAssociation) oa;
                 cellMarshaller.setCellValue(objectAdapter, otoa, cell);
             }
         }
-        
+
         // freeze panes
         sheet.createFreezePane(0, 1);
-        
+
         wb.write(fos);
         fos.close();
         return tempFile;
     }
 
-    <T extends ViewModel> List<T> fromBytes(
+    <T> List<T> fromBytes(
             final Class<T> cls,
-            final byte[] bs, 
+            final byte[] bs,
             final DomainObjectContainer container) throws IOException, InvalidFormatException {
 
         final List<T> viewModels = Lists.newArrayList();
-        
+
         final ObjectSpecification objectSpec = specificationLoader.loadSpecification(cls);
         final ViewModelFacet viewModelFacet = objectSpec.getFacet(ViewModelFacet.class);
 
-        if(viewModelFacet == null) {
+        if (viewModelFacet == null) {
             throw new IllegalArgumentException("Class '" + objectSpec.getCssClass() + "' is not a view model");
         }
-        
+
         final ByteArrayInputStream bais = new ByteArrayInputStream(bs);
         final Workbook wb = org.apache.poi.ss.usermodel.WorkbookFactory.create(bais);
         final CellMarshaller cellMarshaller = newCellMarshaller(wb);
 
         final Sheet sheet = wb.getSheetAt(0);
-        
+
         boolean header = true;
         final Map<Integer, Property> propertyByColumn = Maps.newHashMap();
 
-        for(final Row row: sheet) {
-            if(header) {
-                for(final Cell cell: row) {
+        for (final Row row : sheet) {
+            if (header) {
+                for (final Cell cell : row) {
                     int columnIndex = cell.getColumnIndex();
                     final String propertyName = cellMarshaller.getStringCellValue(cell);
                     final OneToOneAssociation property = getAssociation(objectSpec, propertyName);
-                    if(property != null) {
+                    if (property != null) {
                         final Class<?> propertyType = property.getSpecification().getCorrespondingClass();
                         propertyByColumn.put(columnIndex, new Property(propertyName, property, propertyType));
                     }
@@ -178,14 +183,14 @@ class ExcelConverter {
                     // copy the row into the template object
                     final T template = container.newTransientInstance(cls);
                     final ObjectAdapter templateAdapter = adapterManager.adapterFor(template);
-                
-                    for(final Cell cell: row) {
+
+                    for (final Cell cell : row) {
                         int columnIndex = cell.getColumnIndex();
                         final Property property = propertyByColumn.get(columnIndex);
-                        if(property != null) {
+                        if (property != null) {
                             final OneToOneAssociation otoa = property.getOneToOneAssociation();
                             final Object value = cellMarshaller.getCellValue(cell, otoa);
-                            if(value != null) {
+                            if (value != null) {
                                 final ObjectAdapter valueAdapter = adapterManager.adapterFor(value);
                                 otoa.set(templateAdapter, valueAdapter);
                             }
@@ -193,24 +198,22 @@ class ExcelConverter {
                             // not expected; just ignore.
                         }
                     }
-                
-                    final String memento = viewModelFacet.memento(template);
-                    final T viewModel = container.newViewModelInstance(cls, memento);
-                    viewModels.add(viewModel);
+
+                    viewModels.add(template);
                 } catch (final Exception e) {
                     throw new ExcelService.Exception(String.format("Error processing Excel row nr. %d. Message: %s", row.getRowNum(), e.getMessage()), e);
                 }
             }
         }
-        
+
         return viewModels;
     }
 
     private OneToOneAssociation getAssociation(final ObjectSpecification objectSpec, final String propertyName) {
         final List<ObjectAssociation> associations = objectSpec.getAssociations(Contributed.INCLUDED);
         for (final ObjectAssociation association : associations) {
-            if(propertyName.equals(association.getName()) && association instanceof OneToOneAssociation) {
-                return (OneToOneAssociation)association;
+            if (propertyName.equals(association.getName()) && association instanceof OneToOneAssociation) {
+                return (OneToOneAssociation) association;
             }
         }
         return null;
@@ -221,36 +224,42 @@ class ExcelConverter {
         private final Class<?> type;
         private final OneToOneAssociation property;
         private Object currentValue;
-        
+
         public Property(String name, OneToOneAssociation property, Class<?> type) {
             this.name = name;
             this.property = property;
             this.type = type;
         }
+
         public String getName() {
             return name;
         }
+
         public OneToOneAssociation getOneToOneAssociation() {
             return property;
         }
+
         public Class<?> getType() {
             return type;
         }
+
         public Object getCurrentValue() {
             return currentValue;
         }
+
         public void setCurrentValue(Object currentValue) {
             this.currentValue = currentValue;
         }
+
         @Override
         public String toString() {
             return ObjectContracts.toString(this, "name,type,currentValue");
         }
     }
-    
+
     @SuppressWarnings("unused")
     private void autoSize(final Sheet sh, int numProps) {
-        for(int prop=0; prop<numProps; prop++) {
+        for (int prop = 0; prop < numProps; prop++) {
             sh.autoSizeColumn(prop);
         }
     }
@@ -262,7 +271,7 @@ class ExcelConverter {
         final CellMarshaller cellMarshaller = new CellMarshaller(bookmarkService, dateCellStyle);
         return cellMarshaller;
     }
-    
+
     protected CellStyle createDateFormatCellStyle(final Workbook wb) {
         final CreationHelper createHelper = wb.getCreationHelper();
         final SimpleDateFormat dateInstance = (SimpleDateFormat) DateFormat.getDateInstance(DateFormat.MEDIUM);
