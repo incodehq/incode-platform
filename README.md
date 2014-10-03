@@ -81,16 +81,15 @@ Any chart supported by *Wicked Charts* (see their [showcase](http://wicked-chart
 
 ## How to configure/use ##
 
-* In your project's `dom` module's `pom.xml`, add:
+You can either use this component "out-of-the-box", or you can fork this repo and extend to your own requirements.
+
+To use "out-of-the-box", add the component to your project's `dom` module's `pom.xml`:
 
     <dependency>
         <groupId>org.isisaddons.wicket.wickedcharts</groupId>
         <artifactId>isis-wicket-wickedcharts-cpt</artifactId>
         <version>1.6.0</version>
-        <type>pom</type>
-        <scope>import</scope>
     </dependency>
-    ....
 
 Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-wickedcharts-cpt).
 
