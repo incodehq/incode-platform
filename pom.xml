@@ -32,7 +32,7 @@ language governing permissions and limitations under the License.
 	<properties>
         <isis.version>1.6.0</isis.version>
         <isis-viewer-wicket.version>1.6.0</isis-viewer-wicket.version>
-        <isis-wicket-excel.version>1.6.1</isis-wicket-excel.version>
+        <isis-wicket-excel.version>1.6.2-SNAPSHOT</isis-wicket-excel.version>
 
         <!-- must be consistent with the versions defined by the JDO Objectstore -->
         <datanucleus-accessplatform-jdo-rdbms.version>3.3.6</datanucleus-accessplatform-jdo-rdbms.version>
