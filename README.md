@@ -27,7 +27,7 @@ To use "out-of-the-box", simply add this component to your classpath, eg:
     <dependency>
         <groupId>org.isisaddons.wicket.excel</groupId>
         <artifactId>isis-wicket-excel-cpt</artifactId>
-        <version>1.6.0</version>
+        <version>1.6.1</version>
     </dependency>
 
 Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-excel-cpt).
