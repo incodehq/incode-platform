@@ -118,5 +118,5 @@ language governing permissions and limitations under the License.
             <scope>test</scope>
         </dependency>
 
-	</dependencies>
+    </dependencies>
 </project>
