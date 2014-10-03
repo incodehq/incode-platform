@@ -24,13 +24,13 @@ You can either use this extension "out-of-the-box", or you can fork this repo an
 
 To use "out-of-the-box", simply add this component to your classpath, eg:
 
-<pre>
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.isisaddons.wicket.excel&lt;/groupId&gt;
-        &lt;artifactId&gt;isis-wicket-excel-cpt&lt;/artifactId&gt;
-        &lt;version&gt;1.6.0&lt;/version&gt;
-    &lt;/dependency&gt;
-</pre>
+    <dependency>
+        <groupId>org.isisaddons.wicket.excel</groupId>
+        <artifactId>isis-wicket-excel-cpt</artifactId>
+        <version>1.6.0</version>
+    </dependency>
+
+Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-excel-cpt).
 
 You should then find that a new view is provided for all collections of entities (either as returned from an action, 
 or as a parented collection), from which a link to download the spreadsheet can be accessed.  Check for later releases 
