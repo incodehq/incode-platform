@@ -120,10 +120,5 @@ language governing permissions and limitations under the License.
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.isisaddons.wicket.wickedcharts</groupId>
-            <artifactId>isis-wicket-wickedcharts-cpt</artifactId>
-        </dependency>
-        
-	</dependencies>
+    </dependencies>
 </project>
