@@ -145,7 +145,7 @@ To use "out-of-the-box", add this component to your project's `dom` module's `po
     <dependency>
         <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
         <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
-        <version>1.6.0</version>
+        <version>1.6.1</version>
     </dependency>
 
 Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-fullcalendar2-cpt).
