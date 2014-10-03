@@ -1,7 +1,5 @@
 # isis-wicket-wickedcharts #
 
-*THIS COMPONENT IS STILL WORK-IN-PROGRESS, HAS NOT YET BEEN RELEASED*
-
 [![Build Status](https://travis-ci.org/isisaddons/isis-wicket-wickedcharts.png?branch=master)](https://travis-ci.org/isisaddons/isis-wicket-wickedcharts)
 
 This component, intended for use with [Apache Isis](http://isis.apache.org)'s Wicket viewer, integrates [Wicked Charts](https://code.google.com/p/wicked-charts/).  
@@ -9,48 +7,64 @@ This component, intended for use with [Apache Isis](http://isis.apache.org)'s Wi
 
 **Please note that while this project and *Wicked Charts* are licensed under Apache 2.0 License, *Highcharts* itself is only free for non-commercial use.  See [here](http://shop.highsoft.com/highcharts.html) for further details.**
 
-
-
 There are in fact two separate components:
 
-* `summarycharts`: render a standalone collection with `BigDecimal` properties as a chart.  (This component can be thought of as an enhancement of the base `summary` view provided by Wicket UI viewer).
+* `summarycharts`: render a standalone collection with `BigDecimal` properties as a chart.  (This component can be thought of as an enhancement of the base `summary` view provided by Isis Wicket viewer).
 
 * `scalarchart`: renders a standalone scalar value (from an action invocation) as a chart
-
-**Please note that while this project and *Wicked Charts* are licensed under Apache 2.0 License, *Highcharts* itself is only free for non-commercial use.  See [here](http://shop.highsoft.com/highcharts.html) for further details.**
 
 
 ## Screenshots ##
 
 The following screenshots show an example app's usage of the component.
 
-### Summary Charts ###
+#### Install fixtures ####
 
-A collection with `BigDecimal` properties:
-![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/summarychart-tab.png)
+Install fixtures for the example app:
 
-renders the returned chart with associated summary data:
+![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/010-install-fixtures.png)
 
-![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/summarychart.png)
+Note that the example entity (todo item) has two numeric (`BigDecimal`) properties: 
 
+![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/020-entity-with-numeric-properties.png)
 
-### Scalar Chart ###
+#### Summary Charts ####
 
-Result of an action to analyze `ToDoItem`s by their category:
+Invoking an action that returns a collection of entities:
 
-![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/piechart.png)
+![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/030-all-entities.png)
+
+... shows an additional button to view those entities in a summary chart:
+
+![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/040-standalone-collection-additional-button-for-summary-chart.png)
+
+Clicking on the button renders a chart where the values of all numeric (`BigDecimal`) properties are plotted:
+
+![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/050-summary-chart.png)
+
+#### Scalar Charts ####
+
+Arbitrary charts can be returned from any action.  For example this action:
+
+![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/060-arbitrary-charts.png)
+
+... renders a pie chart splitting out the example Todo entities by their category:
+
+![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/070-scalar-chart.png)
 
 
 ## API & Usage ##
 
 ### Summary Charts ###
 
-There is no special usage; a standalone collection of any entity with one or more properties of type `BigDecimal` will be rendered using the `summarycharts` extension.
+There is no special usage; a standalone collection of any entity with one or more properties of type `BigDecimal` 
+will be rendered using the `summarycharts` extension.
 
 
 ### Scalar Chart ###
 
-Any action returning the `WickedChart` value type should be rendered as a chart.  The `WickedChart` value type is simply a wrapper around the wicked chart's `Options` class:
+Any action returning the `WickedChart` value type should be rendered as a chart.  The `WickedChart` value type is 
+simply a wrapper around the wicked chart's `Options` class:
 
     import com.googlecode.wickedcharts.highcharts.options.Options;
 
@@ -69,37 +83,33 @@ Any chart supported by *Wicked Charts* (see their [showcase](http://wicked-chart
 
 * In your project's `dom` module's `pom.xml`, add:
 
-<pre>
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.isisaddons.wicket.wickedcharts&lt;/groupId&gt;
-            &lt;artifactId&gt;isis-wicket-wickedcharts-cpt&lt;/artifactId&gt;
-            &lt;version&gt;1.6.0&lt;/version&gt;
-            &lt;type&gt;pom&lt;/type&gt;
-            &lt;scope&gt;import&lt;/scope&gt;
-        &lt;/dependency&gt;
-        ....
-    &lt;/dependencyManagement&gt;
-</pre>
+    <dependency>
+        <groupId>org.isisaddons.wicket.wickedcharts</groupId>
+        <artifactId>isis-wicket-wickedcharts-cpt</artifactId>
+        <version>1.6.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+    </dependency>
+    ....
 
-
+Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-wickedcharts-cpt).
 
 If instead you want to extend these components' functionality, then we recommend that you fork this repo.  The repo is 
 structured as follows:
 
-* `pom.xml           ` - parent pom
-* `cpt               ` - the components' own parent pom
-* `fixture           ` - fixtures, holding a sample domain objects and fixture scripts
-* `webapp            ` - demo webapp (see above screenshots); depends on `ext` and `fixture`
+* `pom.xml    ` - parent pom
+* `cpt        ` - the component implementation
+* `fixture    ` - fixtures, holding a sample domain objects and fixture scripts
+* `webapp     ` - demo webapp (see above screenshots)
 
 Only the `cpt` project (and its submodules) is released to Maven central.  The versions of the other modules 
 are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
 
 
-
-
 ## Limitations ##
 
-Although the `WickedChart` class (in the `scalarchart`'s API) has value semantics, it will not render as a chart if used as an entity property.
+Although the `WickedChart` class (in the `scalarchart`'s API) has value semantics, it will (currently) not render as a 
+chart if used as an entity property.
 
 Such a property should be persistable, however.  
 
@@ -122,12 +132,13 @@ For example:
 
 ## Change Log ##
 
-* `x.x.x` - ... not yet released ...
+* `1.6.0` - re-released as part of isisaddons, changed package names for API to `org.isisaddons.wicket.wickedcharts`
 
 
 ## Legal Stuff ##
 
-**Please note that while this project and *Wicked Charts* are licensed under Apache 2.0 License, *Highcharts* itself is only free for non-commercial use.  See [here](http://shop.highsoft.com/highcharts.html) for further details.**
+**Please note that while this project and *Wicked Charts* are licensed under Apache 2.0 License, *Highcharts* itself 
+is only free for non-commercial use.  See [here](http://shop.highsoft.com/highcharts.html) for further details.**
 
 #### License ####
 
@@ -157,7 +168,7 @@ In addition to Apache Isis, this component depends on:
 
 ##  Maven deploy notes ##
 
-Only the `dom` module is deployed, and is done so using Sonatype's OSS support (see 
+Only the `cpt` module is deployed, and is done so using Sonatype's OSS support (see 
 [user guide](http://central.sonatype.org/pages/apache-maven.html)).
 
 #### Release to Sonatype's Snapshot Repo ####

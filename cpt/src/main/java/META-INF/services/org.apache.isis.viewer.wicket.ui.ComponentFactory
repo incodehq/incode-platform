@@ -1,1 +1,2 @@
-com.danhaywood.isis.wicket.wickedcharts.scalarchart.StandaloneValueAsWickedChartFactory
+org.isisaddons.wicket.wickedcharts.cpt.ui.scalarchart.StandaloneValueAsWickedChartFactory
+org.isisaddons.wicket.wickedcharts.cpt.ui.summarychart.CollectionContentsAsSummaryChartFactory
