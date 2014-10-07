@@ -21,34 +21,21 @@ import java.sql.Timestamp;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.NotPersistent;
-
 import com.google.common.collect.Maps;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.ActionSemantics;
+import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.annotation.Command.ExecuteIn;
 import org.apache.isis.applib.annotation.Command.Persistence;
-import org.apache.isis.applib.annotation.Hidden;
-import org.apache.isis.applib.annotation.Immutable;
-import org.apache.isis.applib.annotation.Mandatory;
-import org.apache.isis.applib.annotation.MemberGroupLayout;
-import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.MultiLine;
-import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.ObjectType;
-import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.annotation.TypicalLength;
-import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.command.Command;
+import org.apache.isis.applib.services.command.Command2;
+import org.apache.isis.applib.services.eventbus.ActionInteractionEvent;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract;
@@ -158,7 +145,7 @@ import org.apache.isis.objectstore.jdo.applib.service.Util;
         right={"Detail","Timings","Results"})
 @Named("Command")
 @Immutable
-public class CommandJdo extends DomainChangeJdoAbstract implements Command {
+public class CommandJdo extends DomainChangeJdoAbstract implements Command2 {
 
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(CommandJdo.class);
@@ -638,6 +625,25 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command {
     }
 
 
+
+    // //////////////////////////////////////
+    // ActionInteractionEvent (Command2 impl)
+    // //////////////////////////////////////
+
+    private ActionInteractionEvent<?> event;
+
+    @Programmatic
+    @Override
+    public ActionInteractionEvent<?> getActionInteractionEvent() {
+        return event;
+    }
+
+    @Override
+    public void setActionInteractionEvent(ActionInteractionEvent<?> event) {
+        this.event = event;
+    }
+
+
     // //////////////////////////////////////
     // next(...) impl
     // //////////////////////////////////////
@@ -697,7 +703,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command {
         this.persistHint = persistHint;
     }
 
-    
     // //////////////////////////////////////
     
     @Programmatic

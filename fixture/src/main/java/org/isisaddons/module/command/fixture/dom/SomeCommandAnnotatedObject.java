@@ -55,9 +55,28 @@ public class SomeCommandAnnotatedObject implements Comparable<SomeCommandAnnotat
 
     @ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
     @Command
-    public SomeCommandAnnotatedObject changeName(final String newName) {
+    public SomeCommandAnnotatedObject changeName(final @Named("New name") String newName) {
         setName(newName);
         return this;
+    }
+
+    public String default0ChangeName() {
+        return getName();
+    }
+
+    //endregion
+
+    //region > changeNameWithSafeSemantics (action)
+
+    @DescribedAs("'Mistakenly' annotated as being invoked with safe semantics, not annotated as a Command; should persist anyway")
+    @ActionSemantics(ActionSemantics.Of.SAFE) // obviously, a mistake
+    public SomeCommandAnnotatedObject changeNameWithSafeSemantics(final @Named("New name") String newName) {
+        setName(newName);
+        return this;
+    }
+
+    public String default0ChangeNameWithSafeSemantics() {
+        return getName();
     }
 
     //endregion
@@ -67,8 +86,12 @@ public class SomeCommandAnnotatedObject implements Comparable<SomeCommandAnnotat
     @Named("Schedule")
     @ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
     @Command
-    public void changeNameExplicitlyInBackground(final String newName) {
+    public void changeNameExplicitlyInBackground(final @Named("New name") String newName) {
         backgroundService.execute(this).changeName(newName);
+    }
+
+    public String default0ChangeNameExplicitlyInBackground() {
+        return getName();
     }
 
     //endregion
@@ -78,9 +101,13 @@ public class SomeCommandAnnotatedObject implements Comparable<SomeCommandAnnotat
     @Named("Schedule implicitly")
     @ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
     @Command(executeIn = Command.ExecuteIn.BACKGROUND)
-    public SomeCommandAnnotatedObject changeNameImplicitlyInBackground(final String newName) {
+    public SomeCommandAnnotatedObject changeNameImplicitlyInBackground(final @Named("New name") String newName) {
         setName(newName);
         return this;
+    }
+
+    public String default0ChangeNameImplicitlyInBackground() {
+        return getName();
     }
 
     //endregion
@@ -90,9 +117,13 @@ public class SomeCommandAnnotatedObject implements Comparable<SomeCommandAnnotat
     @Named("Change (not persisted)")
     @ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
     @Command(persistence = Command.Persistence.NOT_PERSISTED)
-    public SomeCommandAnnotatedObject changeNameCommandNotPersisted(final String newName) {
+    public SomeCommandAnnotatedObject changeNameCommandNotPersisted(final @Named("New name") String newName) {
         setName(newName);
         return this;
+    }
+
+    public String default0ChangeNameCommandNotPersisted() {
+        return getName();
     }
 
     //endregion
