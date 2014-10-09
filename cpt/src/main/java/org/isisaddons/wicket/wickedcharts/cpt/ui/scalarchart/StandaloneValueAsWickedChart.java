@@ -16,13 +16,12 @@
  */
 package org.isisaddons.wicket.wickedcharts.cpt.ui.scalarchart;
 
+import com.googlecode.wickedcharts.highcharts.options.Options;
+import com.googlecode.wickedcharts.wicket6.highcharts.Chart;
+import org.isisaddons.wicket.wickedcharts.cpt.applib.WickedChart;
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
 import org.apache.isis.viewer.wicket.model.models.ValueModel;
 import org.apache.isis.viewer.wicket.ui.panels.PanelAbstract;
-
-import org.isisaddons.wicket.wickedcharts.cpt.applib.WickedChart;
-import com.googlecode.wickedcharts.highcharts.options.Options;
-import com.googlecode.wickedcharts.wicket6.highcharts.Chart;
 
 public class StandaloneValueAsWickedChart extends PanelAbstract<ValueModel> {
 
@@ -49,6 +48,4 @@ public class StandaloneValueAsWickedChart extends PanelAbstract<ValueModel> {
     protected void onModelChanged() {
         buildGui();
     }
-
-
 }

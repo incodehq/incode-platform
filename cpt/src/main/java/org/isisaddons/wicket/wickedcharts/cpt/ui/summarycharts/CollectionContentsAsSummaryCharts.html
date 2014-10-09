@@ -14,30 +14,30 @@ software distributed under the License is distributed on an
 either express or implied. See the License for the specific
 language governing permissions and limitations under the License.
 -->
-<html>
-	<body>
-		<wicket:panel>
-			<div class="collectionContentsAsSummaryCharts">
-		        <div wicket:id="feedback"></div>
+<html xmlns:wicket="http://wicket.apache.org">
+    <body>
+        <wicket:panel>
+            <div class="collectionContentsAsSummaryCharts">
+                <div wicket:id="feedback"></div>
 
-                <table cellspacing="0">
+                <table class="table table-condensed table-bordered table-striped">
                     <tr wicket:id="repeatingSummaryCharts">
                         <td class="propertyNameCell">
                             <span class="propertyName" wicket:id="propertyName">[propertyName]</span>
                         </td>
                         <td class="aggregatesCell">
-                            <table cellspacing="0">
+                            <table class="table table-condensed">
                                 <tr>
-                                    <td class="aggregateName">Sum:</td><td><input class="numberValue" type="text" disabled="true" wicket:id="sum"></input></td>
+                                    <td class="aggregateName">Sum:</td><td><input class="numberValue" type="text" disabled="true" wicket:id="sum"/></td>
                                 </tr>
                                 <tr>
-                                    <td class="aggregateName">Avg:</td><td><input class="numberValue" type="text" disabled="true" wicket:id="avg"></input></td>
+                                    <td class="aggregateName">Avg:</td><td><input class="numberValue" type="text" disabled="true" wicket:id="avg"/></td>
                                 </tr>
                                 <tr>
-                                    <td class="aggregateName">Min:</td><td><input class="numberValue" type="text" disabled="true" wicket:id="min"></input></td>
+                                    <td class="aggregateName">Min:</td><td><input class="numberValue" type="text" disabled="true" wicket:id="min"/></td>
                                 </tr>
                                 <tr>
-                                    <td class="aggregateName">Max:</td><td><input class="numberValue" type="text" disabled="true" wicket:id="max"></input></td>
+                                    <td class="aggregateName">Max:</td><td><input class="numberValue" type="text" disabled="true" wicket:id="max"/></td>
                                 </tr>
                             </table>
                         </td>
@@ -46,7 +46,7 @@ language governing permissions and limitations under the License.
                         </td>
                     </tr>
                 </table>
-			</div>
-		</wicket:panel>
-	</body>
+            </div>
+        </wicket:panel>
+    </body>
 </html>

@@ -19,6 +19,7 @@ package org.isisaddons.wicket.wickedcharts.cpt.ui.summarychart;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.apache.wicket.markup.head.IHeaderResponse;
 import org.isisaddons.wicket.wickedcharts.cpt.applib.WickedChart;
 import org.isisaddons.wicket.wickedcharts.cpt.ui.scalarchart.StandaloneValueAsWickedChart;
 import com.google.common.collect.Lists;
@@ -50,6 +51,7 @@ import org.apache.isis.viewer.wicket.model.models.ValueModel;
 import org.apache.isis.viewer.wicket.ui.components.collectioncontents.summary.CollectionContentsAsSummary;
 import org.apache.isis.viewer.wicket.ui.components.collectioncontents.summary.CollectionContentsAsSummary.Summary;
 import org.apache.isis.viewer.wicket.ui.panels.PanelAbstract;
+import org.apache.isis.viewer.wicket.ui.panels.PanelUtil;
 
 /**
  * {@link PanelAbstract Panel} that represents a {@link EntityCollectionModel
@@ -57,8 +59,6 @@ import org.apache.isis.viewer.wicket.ui.panels.PanelAbstract;
  * chart alongside.
  */
 public class CollectionContentsAsSummaryChart extends PanelAbstract<EntityCollectionModel> {
-
-    private static final String ID_PROPERTY_NAME = "propertyName";
 
     private static final String ID_CHART = "chart";
 
@@ -156,11 +156,19 @@ public class CollectionContentsAsSummaryChart extends PanelAbstract<EntityCollec
     }
 
     private BigDecimal maxOf(BigDecimal max, final BigDecimal summaryMax) {
-        return max != null ? max.max(summaryMax) : summaryMax;
+        return max != null
+            ? summaryMax != null
+                ? max.max(summaryMax)
+                : max
+            : BigDecimal.ZERO;
     }
 
     private BigDecimal minOf(BigDecimal min, final BigDecimal summaryMin) {
-        return min != null ? min.min(summaryMin) : summaryMin;
+        return min != null
+            ? summaryMin != null
+                ? min.min(summaryMin)
+                : min
+            : BigDecimal.ZERO;
     }
 
     @Override
@@ -168,4 +176,10 @@ public class CollectionContentsAsSummaryChart extends PanelAbstract<EntityCollec
         buildGui();
     }
 
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+
+        PanelUtil.renderHead(response, CollectionContentsAsSummaryChart.class);
+    }
 }
