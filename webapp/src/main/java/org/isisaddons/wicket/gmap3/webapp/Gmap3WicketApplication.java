@@ -123,6 +123,14 @@ public class Gmap3WicketApplication extends IsisWicketApplication {
         return Modules.override(isisDefaults).with(simpleOverrides);
     }
 
+    @Override
+    protected void init() {
+        super.init();
+
+        getMarkupSettings().setStripWicketTags(true);
+        getDebugSettings().setAjaxDebugModeEnabled(false);
+    }
+
     private static String readLines(final Class<?> contextClass, final String resourceName) {
         try {
             List<String> readLines = Resources.readLines(Resources.getResource(contextClass, resourceName), Charset.defaultCharset());
