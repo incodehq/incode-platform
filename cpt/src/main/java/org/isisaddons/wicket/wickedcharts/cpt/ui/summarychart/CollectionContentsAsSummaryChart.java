@@ -160,7 +160,7 @@ public class CollectionContentsAsSummaryChart extends PanelAbstract<EntityCollec
             ? summaryMax != null
                 ? max.max(summaryMax)
                 : max
-            : BigDecimal.ZERO;
+            : null;
     }
 
     private BigDecimal minOf(BigDecimal min, final BigDecimal summaryMin) {
@@ -168,7 +168,7 @@ public class CollectionContentsAsSummaryChart extends PanelAbstract<EntityCollec
             ? summaryMin != null
                 ? min.min(summaryMin)
                 : min
-            : BigDecimal.ZERO;
+            : null;
     }
 
     @Override
