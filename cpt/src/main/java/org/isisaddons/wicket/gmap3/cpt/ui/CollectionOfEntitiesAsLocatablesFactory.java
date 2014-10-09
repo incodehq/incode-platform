@@ -82,6 +82,7 @@ public class CollectionOfEntitiesAsLocatablesFactory extends ComponentFactoryAbs
             final HttpURLConnection urlConnect = (HttpURLConnection)url.openConnection();
             urlConnect.setConnectTimeout(1000);
             urlConnect.getContent();
+            urlConnect.disconnect();
         } catch (UnknownHostException e) {
             return false;
         } catch (IOException e) {
