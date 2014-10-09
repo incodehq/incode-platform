@@ -15,10 +15,6 @@
  *  under the License.
  */
 
-.calendarEventableCollectionAsFullCalendar2 {
-	width: 99%
-}
-
 .calendarEventableCollectionAsFullCalendar2 .selector {
 	float: right;
 	margin-bottom: -25px;
@@ -30,7 +26,7 @@
 }
 
 .calendarEventableCollectionAsFullCalendar2 div.fc-event-inner {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 a span.ViewLinkItem.calendar {
