@@ -8,6 +8,7 @@ collection of (view model) object scan be exported to an Excel spreadsheet, or r
 
 The underlying technology used is [Apache POI](http://poi.apache.org).
 
+
 ## Screenshots ##
 
 The following screenshots show an example app's usage of the module.
@@ -64,6 +65,24 @@ The view model can then provide a bulk `apply` action...
  
 ![](https://raw.github.com/isisaddons/isis-module-excel/master/images/110-updated-todo-item.png)
 
+
+## How to run the Demo App ##
+
+The prerequisite software is:
+
+* Java JDK 7 (nb: Isis currently does not support JDK 8)
+* [maven 3](http://maven.apache.org) (3.2.x is recommended).
+
+To build the demo app:
+
+    git clone https://github.com/isisaddons/isis-module-excel.git
+    mvn clean install
+
+To run the demo app:
+
+    mvn antrun:run -P self-host
+    
+Then log on using user: `sven`, password: `pass`
 
 
 ## How to configure/use ##
