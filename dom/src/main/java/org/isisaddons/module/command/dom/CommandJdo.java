@@ -18,11 +18,11 @@ package org.isisaddons.module.command.dom;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.NotPersistent;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -630,19 +630,33 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command2 {
     // ActionInteractionEvent (Command2 impl)
     // //////////////////////////////////////
 
-    private ActionInteractionEvent<?> event;
+    private final LinkedList<ActionInteractionEvent<?>> actionInteractionEvents = Lists.newLinkedList();
+
+    @Override
+    public ActionInteractionEvent<?> peekActionInteractionEvent() {
+        return actionInteractionEvents.isEmpty()? null: actionInteractionEvents.getLast();
+    }
+
+    @Override
+    public void pushActionInteractionEvent(ActionInteractionEvent<?> event) {
+        if(peekActionInteractionEvent() == event) {
+            return;
+        }
+        this.actionInteractionEvents.add(event);
+    }
+
+    @Override
+    public ActionInteractionEvent popActionInteractionEvent() {
+        return !actionInteractionEvents.isEmpty() ? actionInteractionEvents.removeLast() : null;
+    }
 
     @Programmatic
-    @Override
-    public ActionInteractionEvent<?> getActionInteractionEvent() {
-        return event;
+    public List<ActionInteractionEvent<?>> flushActionInteractionEvents() {
+        final List<ActionInteractionEvent<?>> events =
+                Collections.unmodifiableList(Lists.newArrayList(actionInteractionEvents));
+        actionInteractionEvents.clear();
+        return events;
     }
-
-    @Override
-    public void setActionInteractionEvent(ActionInteractionEvent<?> event) {
-        this.event = event;
-    }
-
 
     // //////////////////////////////////////
     // next(...) impl

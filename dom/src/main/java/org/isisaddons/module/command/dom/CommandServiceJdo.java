@@ -90,6 +90,7 @@ public class CommandServiceJdo extends AbstractService implements CommandService
             commandJdo.setTargetStr(null);
         }
         commandJdo.setCompletedAt(Clock.getTimeAsJavaSqlTimestamp());
+
         persistIfNotAlready(commandJdo);
     }
 

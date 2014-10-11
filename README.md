@@ -133,6 +133,25 @@ at all):
 ![](https://raw.github.com/isisaddons/isis-module-command/master/images/18-schedule-implicitly-only-one-command.png)
 
 
+## How to run the Demo App ##
+
+The prerequisite software is:
+
+* Java JDK 7 (nb: Isis currently does not support JDK 8)
+* [maven 3](http://maven.apache.org) (3.2.x is recommended).
+
+To build the demo app:
+
+    git clone https://github.com/isisaddons/isis-module-command.git
+    mvn clean install
+
+To run the demo app:
+
+    mvn antrun:run -P self-host
+    
+Then log on using user: `sven`, password: `pass`
+
+
 ## Relationship to Apache Isis Core ##
 
 Isis Core 1.6.0 included the `org.apache.isis.core:isis-module-command-jdo:1.6.0` Maven artifact.  This module is a
@@ -148,6 +167,7 @@ Otherwise the functionality is identical; warts and all!
 
 At the time of writing the plan is to remove this module from Isis Core (so it won't be in Isis 1.7.0), and instead 
 continue to develop it solely as one of the [Isis Addons](http://www.isisaddons.org) modules.
+
 
 ## How to configure/use ##
 

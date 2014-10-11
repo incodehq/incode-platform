@@ -226,9 +226,11 @@ language governing permissions and limitations under the License.
             <version>${isis.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.isis.module</groupId>
-            <artifactId>isis-module-background</artifactId>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-runtime</artifactId>
             <version>${isis.version}</version>
+            <!-- to avoid polluting the classpath of any referencing projects -->
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.apache.isis.core</groupId>

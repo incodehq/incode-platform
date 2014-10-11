@@ -30,7 +30,7 @@ public class SomeCommandAnnotatedObjectsFixture extends DiscoverableFixtureScrip
     protected void execute(ExecutionContext executionContext) {
 
         // prereqs
-        execute(new SomeCommandAnnotatedObjectsTearDownFixture(), executionContext);
+        executeChild(new SomeCommandAnnotatedObjectsTearDownFixture(), executionContext);
 
         // create
         create("Foo", executionContext);
