@@ -55,7 +55,7 @@
         <compileSource>1.7</compileSource>
         <compileTarget>1.7</compileTarget>
 
-        <isis.version>1.6.0</isis.version>
+        <isis.version>1.7.0-SNAPSHOT</isis.version>
 
         <docx4j.version>2.8.1</docx4j.version>
         <jdom2.version>2.0.3</jdom2.version>
