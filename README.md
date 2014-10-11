@@ -66,6 +66,25 @@ The tag is saved:
 ![](https://raw.github.com/isisaddons/isis-module-tags/master/images/100-new-brand-available-as-choice.png)
 
 
+## How to run the Demo App ##
+
+The prerequisite software is:
+
+* Java JDK 7 (nb: Isis currently does not support JDK 8)
+* [maven 3](http://maven.apache.org) (3.2.x is recommended).
+
+To build the demo app:
+
+    git clone https://github.com/isisaddons/isis-module-tags.git
+    mvn clean install
+
+To run the demo app:
+
+    mvn antrun:run -P self-host
+    
+Then log on using user: `sven`, password: `pass`
+
+
 ## How to configure/use ##
 
 You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
