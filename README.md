@@ -63,6 +63,26 @@ Clicking on a map marker drills down to the entity:
 
 ![](https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/090-click-through-to-entity.png)
 
+
+## How to run the Demo App ##
+
+The prerequisite software is:
+
+* Java JDK 7 (nb: Isis currently does not support JDK 8)
+* [maven 3](http://maven.apache.org) (3.2.x is recommended).
+
+To build the demo app:
+
+    git clone https://github.com/isisaddons/isis-wicket-gmap3.git
+    mvn clean install
+
+To run the demo app:
+
+    mvn antrun:run -P self-host
+    
+Then log on using user: `sven`, password: `pass`
+
+
 ## API & Usage ##
 
 ### Rendering objects on a map ###
