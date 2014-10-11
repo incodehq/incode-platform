@@ -71,6 +71,25 @@ Unchecking the calendar toggle hides all events in that calendar:
 ![](https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/080-calendar-updated.png)
 
 
+## How to run the Demo App ##
+
+The prerequisite software is:
+
+* Java JDK 7 (nb: Isis currently does not support JDK 8)
+* [maven 3](http://maven.apache.org) (3.2.x is recommended).
+
+To build the demo app:
+
+    git clone https://github.com/isisaddons/isis-wicket-fullcalendar2.git
+    mvn clean install
+
+To run the demo app:
+
+    mvn antrun:run -P self-host
+    
+Then log on using user: `sven`, password: `pass`
+
+
 ## API & Usage ##
 
 Each entity must implement either the `CalendarEventable` interface or the `Calendarable` interface:
