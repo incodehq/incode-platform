@@ -32,7 +32,7 @@ language governing permissions and limitations under the License.
 	<properties>
         <isis.version>2.0.0-SNAPSHOT</isis.version>
         <isis-viewer-wicket.version>2.0.0-SNAPSHOT</isis-viewer-wicket.version>
-        <isis-wicket-fullcalendar2.version>1.6.2-SNAPSHOT</isis-wicket-fullcalendar2.version>
+        <isis-wicket-fullcalendar2.version>1.8.0-SNAPSHOT</isis-wicket-fullcalendar2.version>
 
         <!-- must be consistent with the versions defined by the JDO Objectstore -->
         <datanucleus-accessplatform-jdo-rdbms.version>3.3.6</datanucleus-accessplatform-jdo-rdbms.version>
