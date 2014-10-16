@@ -18,13 +18,15 @@ package org.isisaddons.wicket.fullcalendar2.cpt.ui;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 
 import org.apache.isis.core.metamodel.spec.ObjectSpecification;
 import org.apache.isis.viewer.wicket.model.models.EntityCollectionModel;
+import org.apache.isis.viewer.wicket.ui.CollectionContentsAsFactory;
 import org.apache.isis.viewer.wicket.ui.ComponentFactoryAbstract;
 import org.apache.isis.viewer.wicket.ui.ComponentType;
 
-public abstract class CalendaredCollectionFactoryAbstract extends ComponentFactoryAbstract {
+public abstract class CalendaredCollectionFactoryAbstract extends ComponentFactoryAbstract implements CollectionContentsAsFactory {
 
     private static final long serialVersionUID = 1L;
 
@@ -57,4 +59,15 @@ public abstract class CalendaredCollectionFactoryAbstract extends ComponentFacto
     }
 
     protected abstract Component newComponent(final String id, final EntityCollectionModel collectionModel);
+
+
+    @Override
+    public IModel<String> getTitleLabel() {
+        return Model.of("Calendar");
+    }
+
+    @Override
+    public IModel<String> getCssClass() {
+        return Model.of("fa fa-calendar");
+    }
 }
