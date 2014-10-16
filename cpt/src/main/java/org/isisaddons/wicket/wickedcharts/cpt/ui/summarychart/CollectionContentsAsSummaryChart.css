@@ -28,18 +28,4 @@
     margin-right: 20px;
     display: inline-block;
     min-width: 960px;
-    width: 99%;
-}
-
-
-a span.ViewLinkItem.summarychart {
-    background-image:url('icon_summarychart_off.png');
-    background-position: center center;
-    background-repeat:no-repeat;
-}
-
-span.ViewLinkItem.summarychart {
-    background-image:url('icon_summarychart_on.png');
-    background-position: center center;
-    background-repeat:no-repeat;
 }

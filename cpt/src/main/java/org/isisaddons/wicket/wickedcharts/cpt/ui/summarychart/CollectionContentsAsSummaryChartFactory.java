@@ -19,11 +19,13 @@ package org.isisaddons.wicket.wickedcharts.cpt.ui.summarychart;
 import java.util.List;
 import org.apache.wicket.Component;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.isis.applib.filter.Filter;
 import org.apache.isis.core.metamodel.facets.value.bigdecimal.BigDecimalValueFacet;
 import org.apache.isis.core.metamodel.spec.ObjectSpecification;
 import org.apache.isis.core.metamodel.spec.feature.ObjectAssociation;
 import org.apache.isis.viewer.wicket.model.models.EntityCollectionModel;
+import org.apache.isis.viewer.wicket.ui.CollectionContentsAsFactory;
 import org.apache.isis.viewer.wicket.ui.ComponentFactory;
 import org.apache.isis.viewer.wicket.ui.ComponentFactoryAbstract;
 import org.apache.isis.viewer.wicket.ui.ComponentType;
@@ -31,7 +33,7 @@ import org.apache.isis.viewer.wicket.ui.ComponentType;
 /**
  * {@link ComponentFactory} for {@link CollectionContentsAsSummaryChart}.
  */
-public class CollectionContentsAsSummaryChartFactory extends ComponentFactoryAbstract {
+public class CollectionContentsAsSummaryChartFactory extends ComponentFactoryAbstract implements CollectionContentsAsFactory {
 
     private static final long serialVersionUID = 1L;
 
@@ -67,5 +69,15 @@ public class CollectionContentsAsSummaryChartFactory extends ComponentFactoryAbs
     public Component createComponent(final String id, final IModel<?> model) {
         final EntityCollectionModel collectionModel = (EntityCollectionModel) model;
         return new CollectionContentsAsSummaryChart(id, collectionModel);
+    }
+
+    @Override
+    public IModel<String> getTitleLabel() {
+        return Model.of("Summary Chart");
+    }
+
+    @Override
+    public IModel<String> getCssClass() {
+        return Model.of("fa fa-bar-chart");
     }
 }
