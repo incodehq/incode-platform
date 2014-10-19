@@ -19,7 +19,7 @@ language governing permissions and limitations under the License.
 
     <groupId>org.isisaddons.wicket.wickedcharts</groupId>
     <artifactId>isis-wicket-wickedcharts-cpt</artifactId>
-    <version>1.7.1-SNAPSHOT</version>
+    <version>1.8.0-SNAPSHOT</version>
 
     <packaging>jar</packaging>
 
@@ -56,8 +56,8 @@ language governing permissions and limitations under the License.
         <compileSource>1.7</compileSource>
         <compileTarget>1.7</compileTarget>
 
-        <isis.version>1.7.0</isis.version>
-        <isis-viewer-wicket.version>1.7.0</isis-viewer-wicket.version>
+        <isis.version>1.8.0-SNAPSHOT</isis.version>
+        <isis-viewer-wicket.version>${isis.version}</isis-viewer-wicket.version>
         
         <wicked-charts.version>1.5.0</wicked-charts.version>
 

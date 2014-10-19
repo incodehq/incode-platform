@@ -15,14 +15,9 @@
  *  under the License.
  */
 
-.collectionContentsAsSummaryChart {
-	width: 99%
-}
-
-
 .collectionContentsAsSummaryChart .numberValue {
     text-align: right;
-    margin: 5px 10px 5px 0px;
+    margin: 5px 10px 5px 0;
     width: 80px;
 }
 
@@ -33,18 +28,4 @@
     margin-right: 20px;
     display: inline-block;
     min-width: 960px;
-    width: 99%;
-}
-
-
-a span.ViewLinkItem.summarychart {
-    background-image:url('icon_summarychart_off.png');
-    background-position: center center;
-    background-repeat:no-repeat;
-}
-
-span.ViewLinkItem.summarychart {
-    background-image:url('icon_summarychart_on.png');
-    background-position: center center;
-    background-repeat:no-repeat;
 }
