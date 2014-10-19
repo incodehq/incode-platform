@@ -25,15 +25,17 @@ import org.apache.isis.core.metamodel.spec.ObjectSpecification;
 import org.apache.isis.core.metamodel.spec.SpecificationLoader;
 import org.apache.isis.core.runtime.system.context.IsisContext;
 import org.apache.isis.viewer.wicket.model.models.EntityCollectionModel;
+import org.apache.isis.viewer.wicket.ui.CollectionContentsAsFactory;
 import org.apache.isis.viewer.wicket.ui.ComponentFactoryAbstract;
 import org.apache.isis.viewer.wicket.ui.ComponentType;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.model.IModel;
 
+import org.apache.wicket.model.Model;
 import org.isisaddons.wicket.gmap3.cpt.applib.Locatable;
 
-public class CollectionOfEntitiesAsLocatablesFactory extends ComponentFactoryAbstract {
+public class CollectionOfEntitiesAsLocatablesFactory extends ComponentFactoryAbstract implements CollectionContentsAsFactory {
 
     private static final long serialVersionUID = 1L;
 
@@ -82,6 +84,7 @@ public class CollectionOfEntitiesAsLocatablesFactory extends ComponentFactoryAbs
             final HttpURLConnection urlConnect = (HttpURLConnection)url.openConnection();
             urlConnect.setConnectTimeout(1000);
             urlConnect.getContent();
+            urlConnect.disconnect();
         } catch (UnknownHostException e) {
             return false;
         } catch (IOException e) {
@@ -98,4 +101,15 @@ public class CollectionOfEntitiesAsLocatablesFactory extends ComponentFactoryAbs
     protected SpecificationLoader getSpecificationLoader() {
         return IsisContext.getSpecificationLoader();
     }
+
+    @Override
+    public IModel<String> getTitleLabel() {
+        return Model.of("Map");
+    }
+
+    @Override
+    public IModel<String> getCssClass() {
+        return Model.of("fa fa-map-marker");
+    }
+
 }

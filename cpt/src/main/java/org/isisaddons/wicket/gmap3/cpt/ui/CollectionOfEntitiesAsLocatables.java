@@ -18,6 +18,7 @@ package org.isisaddons.wicket.gmap3.cpt.ui;
 
 import java.util.List;
 import javax.inject.Inject;
+import org.apache.wicket.markup.head.IHeaderResponse;
 import org.isisaddons.wicket.gmap3.cpt.applib.Locatable;
 import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 import com.google.common.collect.Lists;
@@ -37,6 +38,7 @@ import org.apache.isis.viewer.wicket.model.models.ImageResourceCache;
 import org.apache.isis.viewer.wicket.model.models.PageType;
 import org.apache.isis.viewer.wicket.ui.pages.PageClassRegistry;
 import org.apache.isis.viewer.wicket.ui.panels.PanelAbstract;
+import org.apache.isis.viewer.wicket.ui.panels.PanelUtil;
 
 public class CollectionOfEntitiesAsLocatables extends
         PanelAbstract<EntityCollectionModel> {
@@ -182,5 +184,10 @@ public class CollectionOfEntitiesAsLocatables extends
         return pageClassRegistry;
     }
 
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
 
+        PanelUtil.renderHead(response, CollectionOfEntitiesAsLocatables.class);
+    }
 }
