@@ -456,8 +456,8 @@ The `release.sh` script automates the release process.  It performs the followin
 
 For example:
 
-    sh release.sh 1.6.1 \
-                  1.6.2-SNAPSHOT \
+    sh release.sh 1.7.0 \
+                  1.7.1-SNAPSHOT \
                   dan@haywood-associates.co.uk \
                   "this is not really my passphrase"
     
