@@ -54,7 +54,7 @@ language governing permissions and limitations under the License.
         <compileSource>1.7</compileSource>
         <compileTarget>1.7</compileTarget>
 
-        <isis-viewer-wicket.version>1.6.0</isis-viewer-wicket.version>
+        <isis-viewer-wicket.version>1.7.0</isis-viewer-wicket.version>
 
         <wicket-fullcalendar.version>2.1</wicket-fullcalendar.version>
         <wicket.version>6.17.0</wicket.version>
