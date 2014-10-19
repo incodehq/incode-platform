@@ -162,11 +162,9 @@ direct copy of that code, with the following changes:
   `org-isisaddons-module-command-dom`
 * a copy-n-paste error in some of the JDO queries for `CommandJdo` have been fixed
 
-
 Otherwise the functionality is identical; warts and all!
 
-At the time of writing the plan is to remove this module from Isis Core (so it won't be in Isis 1.7.0), and instead 
-continue to develop it solely as one of the [Isis Addons](http://www.isisaddons.org) modules.
+Isis 1.7.0 no longer ships with `org.apache.isis.core-isis-module-command-jdo`; use this addon module instead.
 
 
 ## How to configure/use ##
@@ -183,7 +181,7 @@ To use "out-of-the-box":
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.command&lt;/groupId&gt;
         &lt;artifactId&gt;isis-module-command-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.6.1&lt;/version&gt;
+        &lt;version&gt;1.7.0&lt;/version&gt;
     &lt;/dependency&gt;
 </pre>
 
@@ -401,6 +399,7 @@ and it is this interface that each module has services that contribute to).
 
 ## Change Log ##
 
+* `1.7.0` - released against Isis 1.7.0.
 * `1.6.1` - [#1](https://github.com/isisaddons/isis-module-command/issues/1) (don't store bookmarks beyond 2000 characters)
 * `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.command`
 
