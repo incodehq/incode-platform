@@ -26,11 +26,13 @@ import net.ftlines.wicket.fullcalendar.FullCalendar;
 import net.ftlines.wicket.fullcalendar.selector.EventSourceSelector;
 
 import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFallbackDefaultDataTable;
+import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
 import org.apache.isis.viewer.wicket.model.models.EntityCollectionModel;
 import org.apache.isis.viewer.wicket.ui.panels.PanelAbstract;
+import org.apache.isis.viewer.wicket.ui.panels.PanelUtil;
 
 /**
  * {@link PanelAbstract Panel} that represents a {@link EntityCollectionModel
@@ -107,4 +109,10 @@ public abstract class CalendaredCollectionAbstract extends PanelAbstract<EntityC
         buildGui();
     }
 
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+
+        PanelUtil.renderHead(response, getClass());
+    }
 }

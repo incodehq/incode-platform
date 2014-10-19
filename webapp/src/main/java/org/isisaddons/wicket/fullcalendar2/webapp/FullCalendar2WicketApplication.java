@@ -121,6 +121,13 @@ public class FullCalendar2WicketApplication extends IsisWicketApplication {
         return Modules.override(isisDefaults).with(simpleOverrides);
     }
 
+    @Override
+    protected void init() {
+        super.init();
+
+        getMarkupSettings().setStripWicketTags(true);
+        getDebugSettings().setAjaxDebugModeEnabled(false);
+    }
 
     private static String readLines(final Class<?> contextClass, final String resourceName) {
         try {
