@@ -56,8 +56,8 @@ language governing permissions and limitations under the License.
         <compileSource>1.7</compileSource>
         <compileTarget>1.7</compileTarget>
 
-        <isis.version>1.7.0-SNAPSHOT</isis.version>
-        <isis-viewer-wicket.version>1.7.0-SNAPSHOT</isis-viewer-wicket.version>
+        <isis.version>1.7.0</isis.version>
+        <isis-viewer-wicket.version>1.7.0</isis-viewer-wicket.version>
         
         <wicked-charts.version>1.5.0</wicked-charts.version>
 

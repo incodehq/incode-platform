@@ -107,7 +107,7 @@ To use "out-of-the-box", add the component to your project's `dom` module's `pom
     <dependency>
         <groupId>org.isisaddons.wicket.wickedcharts</groupId>
         <artifactId>isis-wicket-wickedcharts-cpt</artifactId>
-        <version>1.6.0</version>
+        <version>1.7.0</version>
     </dependency>
 
 Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-wickedcharts-cpt).
@@ -150,6 +150,7 @@ For example:
 
 ## Change Log ##
 
+* `1.7.0` - released against Isis 1.7.0
 * `1.6.0` - re-released as part of isisaddons, changed package names for API to `org.isisaddons.wicket.wickedcharts`
 
 
@@ -212,8 +213,8 @@ The `release.sh` script automates the release process.  It performs the followin
 
 For example:
 
-    sh release.sh 1.6.0 \
-                  1.6.1-SNAPSHOT \
+    sh release.sh 1.7.0 \
+                  1.7.1-SNAPSHOT \
                   dan@haywood-associates.co.uk \
                   "this is not really my passphrase"
     
