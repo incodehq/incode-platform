@@ -77,8 +77,7 @@ direct copy of that code, with the following changes:
 
 Otherwise the functionality is identical; warts and all!
 
-At the time of writing the plan is to remove this module from Isis Core (so it won't be in Isis 1.7.0), and instead 
-continue to develop it solely as one of the [Isis Addons](http://www.isisaddons.org) modules.
+Isis 1.7.0 no longer ships the `org.apache.isis.core:isis-module-audit-jdo` module; use this addon module instead.
 
 
 ## How to Configure/Use ##
@@ -95,7 +94,7 @@ To use "out-of-the-box":
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.audit&lt;/groupId&gt;
         &lt;artifactId&gt;isis-module-audit-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.6.0&lt;/version&gt;
+        &lt;version&gt;1.7.0&lt;/version&gt;
     &lt;/dependency&gt;
 </pre>
 
@@ -249,14 +248,14 @@ and it is this interface that each module has services that contribute to).
 
 ## Known issues ##
 
-In `1.6.0` a call to `DomainObjectContainer#flush()` is required in order that any newly created objects are populated.
+In `1.6.0` and `1.7.0` a call to `DomainObjectContainer#flush()` is required in order that any newly created objects are populated.
 Note that Isis automatically performs a flush prior to any repository call, so in many cases there may not be any need 
 to call flush explicitly.         
 
 
 ## Change Log ##
 
-* `1.6.1` - ...
+* `1.7.0` - released against Isis 1.7.0.
 * `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.audit`
 
 
@@ -312,8 +311,8 @@ The `release.sh` script automates the release process.  It performs the followin
 
 For example:
 
-    sh release.sh 1.6.1 \
-                  1.6.2-SNAPSHOT \
+    sh release.sh 1.7.0 \
+                  1.7.1-SNAPSHOT \
                   dan@haywood-associates.co.uk \
                   "this is not really my passphrase"
     
