@@ -15,10 +15,6 @@
  *  under the License.
  */
 
-.collectionContentsAsExcel {
-	width: 99%
-}
-
 .collectionContentsAsExcel .selector {
 	float: right;
 	margin-bottom: -25px;
@@ -31,41 +27,4 @@
 
 .collectionContentsAsExcel div.fc-event-inner {
   cursor: pointer;
-}
-
-a span.ViewLinkItem.excel {
-    background-image:url('icon_excel_off.png');
-    background-position: center center;
-    background-repeat:no-repeat;
-    background-size: 16px 16px;
-}
-
-span.ViewLinkItem.excel {
-    background-image:url('icon_excel_on.png');
-    background-position: center center;
-    background-repeat:no-repeat;
-    background-size: 16px 16px;
-}
-
-div.collectionContentsAsExcel .downloadLink {
-    display: block;
-    padding-top: 30px;
-}
-
-.collectionContentsAsExcel a.download {
-    background-color: #F0EFEA;
-    border-radius: 4px 4px 4px 4px;
-    display: inline-block;
-    font-size: 0.85em;
-    font-weight: bold;
-    height: 30px;
-    line-height: 30px;
-    padding: 0 10px;
-    text-decoration: none;
-    text-transform: uppercase;
-}
-
-.collectionContentsAsExcel a.download:hover {
-    background-color:#20B5C2;
-    color:#FFFFFF;
 }

@@ -14,15 +14,15 @@ software distributed under the License is distributed on an
 either express or implied. See the License for the specific
 language governing permissions and limitations under the License.
 -->
-<html>
+<html xmlns:wicket="http://wicket.apache.org">
 	<body>
 		<wicket:panel>
-			<div class="collectionContentsAsExcel">
-		        <div wicket:id="feedback"></div>
-                <div class="clear"/>
-                <div class="downloadLink">
-                    <a href="#" wicket:id="download" class="download" title="Download">Download</a>
-                </div>
+			<div class="collectionContentsAsExcel well">
+				<div wicket:id="feedback"></div>
+				<div class="clearfix"></div>
+				<div class="downloadLink">
+					<a href="#" wicket:id="download" class="download btn btn-sm btn-primary" title="Download">Download as Excel</a>
+				</div>
 			</div>
 		</wicket:panel>
 	</body>
