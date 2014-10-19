@@ -26,7 +26,7 @@ language governing permissions and limitations under the License.
     <packaging>pom</packaging>
 
 	<properties>
-		<isis-module-stringinterpolator.version>1.7.0</isis-module-stringinterpolator.version>
+		<isis-module-stringinterpolator.version>1.7.1-SNAPSHOT</isis-module-stringinterpolator.version>
 
         <isis.version>1.7.0</isis.version>
         <isis-viewer-wicket.version>1.7.0</isis-viewer-wicket.version>
