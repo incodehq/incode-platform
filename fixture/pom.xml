@@ -103,7 +103,7 @@
 		<dependency>
 			<groupId>org.isisaddons.module.docx</groupId>
 			<artifactId>isis-module-docx-dom</artifactId>
-            <version>1.6.1-SNAPSHOT</version>
+            <version>1.7.0</version>
         </dependency>
 
 		<dependency>
