@@ -55,7 +55,7 @@ language governing permissions and limitations under the License.
         <compileSource>1.7</compileSource>
         <compileTarget>1.7</compileTarget>
 
-        <isis.version>1.7.0-SNAPSHOT</isis.version>
+        <isis.version>1.7.0</isis.version>
 
             <ognl.version>3.0.8</ognl.version>
 
