@@ -317,7 +317,7 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-audit-dom</artifactId>
-                <version>1.6.1-SNAPSHOT</version>
+                <version>1.7.0</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>

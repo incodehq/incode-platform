@@ -102,7 +102,7 @@
         <dependency>
             <groupId>org.isisaddons.module.audit</groupId>
             <artifactId>isis-module-audit-dom</artifactId>
-            <version>1.6.1-SNAPSHOT</version>
+            <version>1.7.0</version>
         </dependency>
 
         <dependency>
