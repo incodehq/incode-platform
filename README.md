@@ -97,7 +97,7 @@ To use "out-of-the-box":
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.excel&lt;/groupId&gt;
         &lt;artifactId&gt;isis-module-excel-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.6.0&lt;/version&gt;
+        &lt;version&gt;1.7.0&lt;/version&gt;
     &lt;/dependency&gt;
 </pre>
 
@@ -191,6 +191,7 @@ downloadable as an Excel spreadsheet.
 
 ## Change Log ##
 
+* `1.7.0` - released against Isis 1.7.0
 * `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.excel`
 
 
@@ -238,36 +239,6 @@ To deploy a snapshot, use:
 The artifacts should be available in Sonatype's 
 [Snapshot Repo](https://oss.sonatype.org/content/repositories/snapshots).
 
-#### Release to Maven Central (scripted process) ####
-
-The `release.sh` script automates the release process.  It performs the following:
-
-* perform sanity check (`mvn clean install -o`) that everything builds ok
-* bump the `pom.xml` to a specified release version, and tag
-* perform a double check (`mvn clean install -o`) that everything still builds ok
-* release the code using `mvn clean deploy`
-* bump the `pom.xml` to a specified release version
-
-For example:
-
-    sh release.sh 1.6.0 \
-                  1.6.1-SNAPSHOT \
-                  dan@haywood-associates.co.uk \
-                  "this is not really my passphrase"
-    
-where
-* `$1` is the release version
-* `$2` is the snapshot version
-* `$3` is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
-* `$4` is the corresponding passphrase for that secret key.
-
-If the script completes successfully, then push changes:
-
-    git push
-    
-If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
-before trying again.
-
 #### Release to Maven Central ####
 
 The `release.sh` script automates the release process.  It performs the following:
@@ -280,8 +251,8 @@ The `release.sh` script automates the release process.  It performs the followin
 
 For example:
 
-    sh release.sh 1.6.1 \
-                  1.6.2-SNAPSHOT \
+    sh release.sh 1.7.0 \
+                  1.7.1-SNAPSHOT \
                   dan@haywood-associates.co.uk \
                   "this is not really my passphrase"
     
