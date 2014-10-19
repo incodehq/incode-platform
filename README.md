@@ -68,7 +68,7 @@ Then log on using user: `sven`, password: `pass`
 
 ## Relationship to Apache Isis Core ##
 
-Isis Core 1.6.0 included the `org.apache.isis.core:isis-module-audit-jdo:1.6.0` Maven artifact.  This module is a
+Isis Core 1.6.0 included the `org.apache.isis.module:isis-module-audit-jdo:1.6.0` Maven artifact.  This module is a
 direct copy of that code, with the following changes:
 
 * package names have been altered from `org.apache.isis` to `org.isisaddons.module.audit`
@@ -77,7 +77,7 @@ direct copy of that code, with the following changes:
 
 Otherwise the functionality is identical; warts and all!
 
-Isis 1.7.0 no longer ships the `org.apache.isis.core:isis-module-audit-jdo` module; use this addon module instead.
+Isis 1.7.0 no longer ships the `org.apache.isis.module:isis-module-audit-jdo` module; use this addon module instead.
 
 
 ## How to Configure/Use ##
