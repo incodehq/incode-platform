@@ -71,9 +71,7 @@ Then log on using user: `sven`, password: `pass`
 
 ## Relationship to Apache Isis Core ##
 
-Isis Core 1.6.0 included the `org.apache.isis.core:isis-module-settings:1.6.0` Maven artifact (and its submodules,
-`isis-module-settings-applib` and `isis-module-settings-impl-jdo`.  This module is a direct copy of that code, with 
-the following changes:
+Isis Core 1.6.0 included the `org.apache.isis.module:isis-module-settings:1.6.0` Maven artifact (and its submodules, `isis-module-settings-applib` and `isis-module-settings-impl-jdo`.  This module is a direct copy of that code, with the following changes:
 
 * package names have been altered from `org.apache.isis` to `org.isisaddons.module.settings`
 * the `persistent-unit` (in the JDO manifest) has changed from `isis-module-settings` to 
@@ -82,8 +80,7 @@ the following changes:
   
 Otherwise the functionality is identical; warts and all!
 
-At the time of writing the plan is to remove these modules from Isis Core (so it won't be in Isis 1.7.0), and instead 
-continue to develop it solely as one of the [Isis Addons](http://www.isisaddons.org) modules.
+Isis 1.7.0 no longer ships with `org.apache.isis.module:isis-module-settings`; instead use this addon module.
 
 
 ## How to configure/use ##
@@ -98,7 +95,7 @@ To use "out-of-the-box":
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.settings&lt;/groupId&gt;
         &lt;artifactId&gt;isis-module-settings-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.6.0&lt;/version&gt;
+        &lt;version&gt;1.7.0&lt;/version&gt;
     &lt;/dependency&gt;
 </pre>
 
@@ -202,6 +199,7 @@ The `UserSettingsServiceJdoHidden` is implemented as a subclass of `UserSettings
 
 ## Change Log ##
 
+* `1.7.0` - released against Isis 1.7.0
 * `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.settings`
 
 
@@ -258,8 +256,8 @@ The `release.sh` script automates the release process.  It performs the followin
 
 For example:
 
-    sh release.sh 1.6.0 \
-                  1.6.1-SNAPSHOT \
+    sh release.sh 1.7.0 \
+                  1.7.1-SNAPSHOT \
                   dan@haywood-associates.co.uk \
                   "this is not really my passphrase"
     
