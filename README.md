@@ -150,7 +150,7 @@ To use "out-of-the-box":
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.docx&lt;/groupId&gt;
         &lt;artifactId&gt;isis-module-docx-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.6.0&lt;/version&gt;
+        &lt;version&gt;1.7.0&lt;/version&gt;
     &lt;/dependency&gt;
 </pre>
 
@@ -290,6 +290,7 @@ data are ignored.
         
 ## Change Log ##
 
+* `1.7.0` - released against Isis 1.7.0
 * `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.docx`
 
 
@@ -348,8 +349,8 @@ The `release.sh` script automates the release process.  It performs the followin
 
 For example:
 
-    sh release.sh 1.6.1 \
-                  1.6.2-SNAPSHOT \
+    sh release.sh 1.7.0 \
+                  1.7.1-SNAPSHOT \
                   dan@haywood-associates.co.uk \
                   "this is not really my passphrase"
     
