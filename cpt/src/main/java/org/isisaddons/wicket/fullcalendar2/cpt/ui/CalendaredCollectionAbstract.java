@@ -19,6 +19,7 @@ package org.isisaddons.wicket.fullcalendar2.cpt.ui;
 import java.util.Collection;
 import java.util.Set;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 import net.ftlines.wicket.fullcalendar.Config;
 import net.ftlines.wicket.fullcalendar.EventProvider;
 import net.ftlines.wicket.fullcalendar.EventSource;
@@ -27,7 +28,6 @@ import net.ftlines.wicket.fullcalendar.selector.EventSourceSelector;
 
 import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFallbackDefaultDataTable;
 import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
 import org.apache.isis.viewer.wicket.model.models.EntityCollectionModel;
@@ -60,7 +60,7 @@ public abstract class CalendaredCollectionAbstract extends PanelAbstract<EntityC
 
         final EntityCollectionModel model = getModel();
         
-        final FeedbackPanel feedback = new FeedbackPanel(ID_FEEDBACK);
+        final NotificationPanel feedback = new NotificationPanel(ID_FEEDBACK);
         feedback.setOutputMarkupId(true);
         addOrReplace(feedback);
 

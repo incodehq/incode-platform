@@ -16,13 +16,13 @@
  */
 package org.isisaddons.wicket.fullcalendar2.cpt.ui;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 import net.ftlines.wicket.fullcalendar.CalendarResponse;
 import net.ftlines.wicket.fullcalendar.Config;
 import net.ftlines.wicket.fullcalendar.FullCalendar;
 import net.ftlines.wicket.fullcalendar.callback.ClickedEvent;
 
 import org.apache.wicket.RestartResponseException;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
@@ -38,10 +38,10 @@ import org.apache.isis.viewer.wicket.ui.pages.entity.EntityPage;
 final class FullCalendarWithEventHandling extends FullCalendar {
     
     @SuppressWarnings("unused")
-	private final FeedbackPanel feedback;
+	private final NotificationPanel feedback;
     private static final long serialVersionUID = 1L;
 
-    FullCalendarWithEventHandling(String id, Config config, FeedbackPanel feedback) {
+    FullCalendarWithEventHandling(String id, Config config, NotificationPanel feedback) {
         super(id, config);
         this.feedback = feedback;
     }
