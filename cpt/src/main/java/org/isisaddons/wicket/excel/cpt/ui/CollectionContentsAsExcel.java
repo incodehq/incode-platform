@@ -16,12 +16,13 @@
  */
 package org.isisaddons.wicket.excel.cpt.ui;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
+
 import java.io.File;
 
 import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFallbackDefaultDataTable;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.link.DownloadLink;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.LoadableDetachableModel;
 
 import org.apache.isis.viewer.wicket.model.models.EntityCollectionModel;
@@ -49,7 +50,7 @@ public class CollectionContentsAsExcel extends PanelAbstract<EntityCollectionMod
 
         final EntityCollectionModel model = getModel();
         
-        final FeedbackPanel feedback = new FeedbackPanel(ID_FEEDBACK);
+        final NotificationPanel feedback = new NotificationPanel(ID_FEEDBACK);
         feedback.setOutputMarkupId(true);
         addOrReplace(feedback);
 
