@@ -16,6 +16,8 @@
  */
 package org.isisaddons.wicket.wickedcharts.cpt.ui.summarychart;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -41,7 +43,6 @@ import com.googlecode.wickedcharts.highcharts.options.series.Series;
 import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
 
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
 import org.apache.isis.core.metamodel.spec.ObjectSpecification;
@@ -77,7 +78,7 @@ public class CollectionContentsAsSummaryChart extends PanelAbstract<EntityCollec
 
         final ObjectSpecification elementSpec = model.getTypeOfSpecification();
 
-        final FeedbackPanel feedback = new FeedbackPanel(ID_FEEDBACK);
+        final NotificationPanel feedback = new NotificationPanel(ID_FEEDBACK);
         feedback.setOutputMarkupId(true);
         addOrReplace(feedback);
 
