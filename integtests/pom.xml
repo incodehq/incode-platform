@@ -14,7 +14,8 @@ software distributed under the License is distributed on an
 either express or implied. See the License for the specific
 language governing permissions and limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -40,7 +41,7 @@ language governing permissions and limitations under the License.
                     <exclude>**/*.java</exclude>
                 </excludes>
             </testResource>
-        </testResources>  
+        </testResources>
     </build>
     <dependencies>
 
@@ -63,7 +64,7 @@ language governing permissions and limitations under the License.
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-specsupport</artifactId>
         </dependency>
-        
+
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-library</artifactId>
@@ -72,10 +73,6 @@ language governing permissions and limitations under the License.
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-wrapper</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-objectstore-jdo-datanucleus</artifactId>
         </dependency>
 
         <dependency>
