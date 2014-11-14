@@ -14,24 +14,25 @@ software distributed under the License is distributed on an
 either express or implied. See the License for the specific
 language governing permissions and limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-    	<groupId>org.isisaddons.module.excel</groupId>
-    	<artifactId>isis-module-excel</artifactId>
+    <parent>
+        <groupId>org.isisaddons.module.excel</groupId>
+        <artifactId>isis-module-excel</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-	</parent>
+    </parent>
 
-	<artifactId>isis-module-excel-webapp</artifactId>
-	<name>Isis Addons Excel Module Webapp</name>
+    <artifactId>isis-module-excel-webapp</artifactId>
+    <name>Isis Addons Excel Module Webapp</name>
 
     <packaging>war</packaging>
 
     <properties>
         <siteBaseDir>..</siteBaseDir>
     </properties>
-    
+
     <build>
         <plugins>
             <plugin>
@@ -50,7 +51,8 @@ language governing permissions and limitations under the License.
                         </goals>
                         <configuration>
                             <backgroundImage>${basedir}/src/main/jettyconsole/isis-banner.png</backgroundImage>
-                            <destinationFile>${project.build.directory}/${project.build.finalName}-jetty-console.jar</destinationFile>
+                            <destinationFile>${project.build.directory}/${project.build.finalName}-jetty-console.jar
+                            </destinationFile>
                         </configuration>
                         <phase>package</phase>
                     </execution>
@@ -61,14 +63,14 @@ language governing permissions and limitations under the License.
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <version>1.8</version>
-                  <executions>
+                <executions>
                     <execution>
-                      <phase>validate</phase>
-                      <goals>
-                        <goal>maven-version</goal>
-                      </goals>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>maven-version</goal>
+                        </goals>
                     </execution>
-                  </executions>
+                </executions>
             </plugin>
 
             <plugin>
@@ -138,7 +140,7 @@ language governing permissions and limitations under the License.
             <groupId>org.isisaddons.module.excel</groupId>
             <artifactId>isis-module-excel-dom</artifactId>
         </dependency>
-    
+
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>isis-module-excel-fixture</artifactId>
@@ -150,12 +152,8 @@ language governing permissions and limitations under the License.
                 </exclusion>
             </exclusions>
         </dependency>
-        
+
         <!-- other isis components -->
-        <dependency>
-            <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-objectstore-jdo-datanucleus</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.apache.isis.viewer</groupId>
             <artifactId>isis-viewer-wicket-impl</artifactId>
@@ -213,16 +211,16 @@ language governing permissions and limitations under the License.
         </dependency>
 
         <dependency>
-          <groupId>org.lazyluke</groupId>
-          <artifactId>log4jdbc-remix</artifactId>
-          <exclusions>
-            <exclusion>
-              <groupId>org.slf4j</groupId>
-              <artifactId>slf4j-api</artifactId>
-            </exclusion>
-          </exclusions>
+            <groupId>org.lazyluke</groupId>
+            <artifactId>log4jdbc-remix</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-         
+
     </dependencies>
 
     <profiles>
@@ -239,8 +237,8 @@ language governing permissions and limitations under the License.
                         <configuration>
                             <tasks>
                                 <exec executable="java" failonerror="true">
-                                    <arg value="-jar" />
-                                    <arg value="${project.build.directory}/${project.build.finalName}-jetty-console.jar" />
+                                    <arg value="-jar"/>
+                                    <arg value="${project.build.directory}/${project.build.finalName}-jetty-console.jar"/>
                                 </exec>
                             </tasks>
                         </configuration>
@@ -250,7 +248,6 @@ language governing permissions and limitations under the License.
         </profile>
 
     </profiles>
-
 
 
 </project>
