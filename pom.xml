@@ -14,7 +14,8 @@
   either express or implied. See the License for the specific
   language governing permissions and limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.isisaddons.module.audit</groupId>
@@ -29,9 +30,9 @@
         <maven>3.0.4</maven>
     </prerequisites>
 
-	<properties>
-        <isis.version>1.7.0</isis.version>
-        <isis-viewer-wicket.version>1.7.0</isis-viewer-wicket.version>
+    <properties>
+        <isis.version>1.8.0-SNAPSHOT</isis.version>
+        <isis-viewer-wicket.version>1.8.0-SNAPSHOT</isis-viewer-wicket.version>
 
         <!-- must be consistent with the versions defined by the JDO Objectstore -->
         <datanucleus-accessplatform-jdo-rdbms.version>3.3.6</datanucleus-accessplatform-jdo-rdbms.version>
@@ -39,19 +40,19 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-	</properties>
-    
+    </properties>
+
     <repositories>
         <repository>
-              <id>apache.snapshots</id>
-              <name>Apache Snapshots</name>
-              <url>https://repository.apache.org/content/repositories/snapshots/</url>
-              <releases>
-                  <enabled>false</enabled>
-              </releases>
-              <snapshots>
-              </snapshots>
-          </repository>
+            <id>snapshots-repo</id>
+            <url>https://repository-estatio.forge.cloudbees.com/snapshot/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
     </repositories>
 
     <build>
@@ -213,69 +214,71 @@
                             <exclude>**/*.js</exclude>
                         </excludes>
                         <licenses>
-                          <license implementation="org.apache.rat.analysis.license.SimplePatternBasedLicense">
-                            <licenseFamilyCategory>AL2</licenseFamilyCategory>
-                            <licenseFamilyName>Apache License 2.0</licenseFamilyName>
-                            <notes/>
-                            <patterns>
-                              <pattern>Licensed to the Apache Software Foundation (ASF) under one</pattern>
-                            </patterns>
-                          </license>
-                          <license implementation="org.apache.rat.analysis.license.SimplePatternBasedLicense">
-                            <licenseFamilyCategory>JQRY</licenseFamilyCategory>
-                            <licenseFamilyName>MIT</licenseFamilyName>
-                            <notes/>
-                            <patterns>
-                              <pattern>Dual licensed under the MIT or GPL Version 2 licenses.</pattern>
-                            </patterns>
-                          </license>
-                          <license implementation="org.apache.rat.analysis.license.SimplePatternBasedLicense">
-                            <licenseFamilyCategory>JMOCK</licenseFamilyCategory>
-                            <licenseFamilyName>JMock</licenseFamilyName>
-                            <notes/>
-                            <patterns>
-                              <pattern>Copyright (c) 2000-2007, jMock.org</pattern>
-                            </patterns>
-                          </license>
-                          <license implementation="org.apache.rat.analysis.license.SimplePatternBasedLicense">
-                            <licenseFamilyCategory>DOCBK</licenseFamilyCategory>
-                            <licenseFamilyName>DocBook 4.5</licenseFamilyName>
-                            <notes/>
-                            <patterns>
-                              <pattern>Permission to copy in any form is granted for use</pattern>
-                              <pattern>Permission to use, copy, modify and distribute the DocBook DTD</pattern>
-                              <pattern>is hereby granted in perpetuity, provided that the above copyright</pattern>
-                              <pattern>This is the catalog data file for DocBook XML V4.5. It is provided as</pattern>
-                              <pattern>XML Catalog data for DocBook XML V4.5</pattern>
-                              <pattern>DocBook additional general entities V4.5</pattern>
-                              <pattern>XML EXCHANGE TABLE MODEL DECLARATION MODULE</pattern>
-                            </patterns>
-                          </license>
-                          <license implementation="org.apache.rat.analysis.license.SimplePatternBasedLicense">
-                            <licenseFamilyCategory>W3C</licenseFamilyCategory>
-                            <licenseFamilyName>XHTML</licenseFamilyName>
-                            <notes/>
-                            <patterns>
-                              <pattern>Copyright (c) 1998-2002 W3C (MIT, INRIA, Keio),</pattern>
-                            </patterns>
-                          </license>
+                            <license implementation="org.apache.rat.analysis.license.SimplePatternBasedLicense">
+                                <licenseFamilyCategory>AL2</licenseFamilyCategory>
+                                <licenseFamilyName>Apache License 2.0</licenseFamilyName>
+                                <notes/>
+                                <patterns>
+                                    <pattern>Licensed to the Apache Software Foundation (ASF) under one</pattern>
+                                </patterns>
+                            </license>
+                            <license implementation="org.apache.rat.analysis.license.SimplePatternBasedLicense">
+                                <licenseFamilyCategory>JQRY</licenseFamilyCategory>
+                                <licenseFamilyName>MIT</licenseFamilyName>
+                                <notes/>
+                                <patterns>
+                                    <pattern>Dual licensed under the MIT or GPL Version 2 licenses.</pattern>
+                                </patterns>
+                            </license>
+                            <license implementation="org.apache.rat.analysis.license.SimplePatternBasedLicense">
+                                <licenseFamilyCategory>JMOCK</licenseFamilyCategory>
+                                <licenseFamilyName>JMock</licenseFamilyName>
+                                <notes/>
+                                <patterns>
+                                    <pattern>Copyright (c) 2000-2007, jMock.org</pattern>
+                                </patterns>
+                            </license>
+                            <license implementation="org.apache.rat.analysis.license.SimplePatternBasedLicense">
+                                <licenseFamilyCategory>DOCBK</licenseFamilyCategory>
+                                <licenseFamilyName>DocBook 4.5</licenseFamilyName>
+                                <notes/>
+                                <patterns>
+                                    <pattern>Permission to copy in any form is granted for use</pattern>
+                                    <pattern>Permission to use, copy, modify and distribute the DocBook DTD</pattern>
+                                    <pattern>is hereby granted in perpetuity, provided that the above copyright
+                                    </pattern>
+                                    <pattern>This is the catalog data file for DocBook XML V4.5. It is provided as
+                                    </pattern>
+                                    <pattern>XML Catalog data for DocBook XML V4.5</pattern>
+                                    <pattern>DocBook additional general entities V4.5</pattern>
+                                    <pattern>XML EXCHANGE TABLE MODEL DECLARATION MODULE</pattern>
+                                </patterns>
+                            </license>
+                            <license implementation="org.apache.rat.analysis.license.SimplePatternBasedLicense">
+                                <licenseFamilyCategory>W3C</licenseFamilyCategory>
+                                <licenseFamilyName>XHTML</licenseFamilyName>
+                                <notes/>
+                                <patterns>
+                                    <pattern>Copyright (c) 1998-2002 W3C (MIT, INRIA, Keio),</pattern>
+                                </patterns>
+                            </license>
                         </licenses>
                         <licenseFamilies>
-                          <licenseFamily implementation="org.apache.rat.license.SimpleLicenseFamily">
-                            <familyName>Apache License 2.0</familyName>
-                          </licenseFamily>
-                          <licenseFamily implementation="org.apache.rat.license.SimpleLicenseFamily">
-                            <familyName>MIT</familyName>
-                          </licenseFamily>
-                          <licenseFamily implementation="org.apache.rat.license.SimpleLicenseFamily">
-                            <familyName>JMock</familyName>
-                          </licenseFamily>
-                          <licenseFamily implementation="org.apache.rat.license.SimpleLicenseFamily">
-                            <familyName>DocBook 4.5</familyName>
-                          </licenseFamily>
-                          <licenseFamily implementation="org.apache.rat.license.SimpleLicenseFamily">
-                            <familyName>XHTML</familyName>
-                          </licenseFamily>
+                            <licenseFamily implementation="org.apache.rat.license.SimpleLicenseFamily">
+                                <familyName>Apache License 2.0</familyName>
+                            </licenseFamily>
+                            <licenseFamily implementation="org.apache.rat.license.SimpleLicenseFamily">
+                                <familyName>MIT</familyName>
+                            </licenseFamily>
+                            <licenseFamily implementation="org.apache.rat.license.SimpleLicenseFamily">
+                                <familyName>JMock</familyName>
+                            </licenseFamily>
+                            <licenseFamily implementation="org.apache.rat.license.SimpleLicenseFamily">
+                                <familyName>DocBook 4.5</familyName>
+                            </licenseFamily>
+                            <licenseFamily implementation="org.apache.rat.license.SimpleLicenseFamily">
+                                <familyName>XHTML</familyName>
+                            </licenseFamily>
                         </licenseFamilies>
                     </configuration>
                 </plugin>
@@ -292,7 +295,7 @@
             </plugin>
         </plugins>
     </build>
-	
+
     <dependencyManagement>
         <dependencies>
 
@@ -317,7 +320,7 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-audit-dom</artifactId>
-                <version>1.7.1-SNAPSHOT</version>
+                <version>1.8.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
@@ -331,9 +334,27 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    
+
 
     <profiles>
+        <profile>
+            <id>cloudbees-snapshots</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>snapshots-repo</id>
+                    <url>https://repository-estatio.forge.cloudbees.com/snapshot/</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+        </profile>
         <profile>
             <id>m2e</id>
             <activation>
@@ -347,10 +368,11 @@
         </profile>
     </profiles>
 
-  <modules>
-    <module>dom</module>
-    <module>fixture</module>
-    <module>integtests</module>
-    <module>webapp</module>
-  </modules>
+    <modules>
+        <module>dom</module>
+        <module>fixture</module>
+        <module>integtests</module>
+        <module>webapp</module>
+    </modules>
+
 </project>
