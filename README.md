@@ -131,11 +131,15 @@ An individual entity can then be explicitly excluded from being audited using `@
 
 #### "Out-of-the-box" (-SNAPSHOT) ####
 
-If you want to use the current `-SNAPSHOT`, then:
+If you want to use the current `-SNAPSHOT`, then the steps are the same as above, except:
 
-* update your classpath as above, but specify the appropriate -SNAPSHOT version
+* when updating the classpath, specify the appropriate -SNAPSHOT version:
 
-* add our snapshot repo (hosted on Cloudbees); we suggest using a profile:
+<pre>
+    &lt;version&gt;1.8.0-SNAPSHOT&lt;/version&gt;
+</pre>
+
+* add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
 
 <pre>
     &lt;profile&gt;
