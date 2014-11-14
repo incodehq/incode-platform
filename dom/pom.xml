@@ -252,7 +252,7 @@
             <repositories>
                 <repository>
                     <id>snapshots-repo</id>
-                    <url>https://repository-estatio.forge.cloudbees.com/snapshot/</url>
+                    <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
                     <releases>
                         <enabled>false</enabled>
                     </releases>

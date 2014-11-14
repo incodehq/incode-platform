@@ -129,6 +129,35 @@ For audit entries to be created when an object is changed, some configuration is
 An individual entity can then be explicitly excluded from being audited using `@Audited(disabled=true)`.
 
 
+#### "Out-of-the-box" (-SNAPSHOT) ####
+
+If you want to use the current `-SNAPSHOT`, then:
+
+* update your classpath as above, but specify the appropriate -SNAPSHOT version
+
+* add our snapshot repo (hosted on Cloudbees); we suggest using a profile:
+
+<pre>
+    &lt;profile&gt;
+        &lt;id&gt;cloudbees-snapshots&lt;/id&gt;
+        &lt;activation&gt;
+            &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
+        &lt;/activation&gt;
+        &lt;repositories&gt;
+            &lt;repository&gt;
+                &lt;id&gt;snapshots-repo&lt;/id&gt;
+                &lt;url&gt;http://repository-estatio.forge.cloudbees.com/snapshot/&lt;/url&gt;
+                &lt;releases&gt;
+                    &lt;enabled&gt;false&lt;/enabled&gt;
+                &lt;/releases&gt;
+                &lt;snapshots&gt;
+                    &lt;enabled&gt;true&lt;/enabled&gt;
+                &lt;/snapshots&gt;
+            &lt;/repository&gt;
+        &lt;/repositories&gt;
+    &lt;/profile&gt;
+</pre>
+
 #### Forking the repo ####
 
 If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is 
@@ -311,8 +340,8 @@ The `release.sh` script automates the release process.  It performs the followin
 
 For example:
 
-    sh release.sh 1.7.0 \
-                  1.7.1-SNAPSHOT \
+    sh release.sh 1.8.0 \
+                  1.9.0-SNAPSHOT \
                   dan@haywood-associates.co.uk \
                   "this is not really my passphrase"
     
