@@ -21,7 +21,7 @@ language governing permissions and limitations under the License.
     <artifactId>isis-module-servletapi</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>Isis Addons ServletAPI Module</name>
+    <name>Isis Addons Servlet API Module</name>
 
     <packaging>pom</packaging>
 
@@ -30,8 +30,10 @@ language governing permissions and limitations under the License.
     </prerequisites>
 
 	<properties>
-        <isis.version>1.7.0-SNAPSHOT</isis.version>
-        <isis-viewer-wicket.version>1.7.0-SNAPSHOT</isis-viewer-wicket.version>
+        <isis.version>1.8.0-SNAPSHOT</isis.version>
+        <isis-viewer-wicket.version>1.8.0-SNAPSHOT</isis-viewer-wicket.version>
+
+        <isis-module-servletapi.version>1.8.0-SNAPSHOT</isis-module-servletapi.version>
 
         <!-- must be consistent with the versions defined by the JDO Objectstore -->
         <datanucleus-accessplatform-jdo-rdbms.version>3.3.6</datanucleus-accessplatform-jdo-rdbms.version>
@@ -315,7 +317,7 @@ language governing permissions and limitations under the License.
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-servletapi-dom</artifactId>
-                <version>1.6.0-SNAPSHOT</version>
+                <version>${isis-module-servletapi.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
@@ -332,6 +334,24 @@ language governing permissions and limitations under the License.
     
 
     <profiles>
+        <profile>
+            <id>cloudbees-snapshots</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>snapshots-repo</id>
+                    <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+        </profile>
         <profile>
             <id>m2e</id>
             <activation>
