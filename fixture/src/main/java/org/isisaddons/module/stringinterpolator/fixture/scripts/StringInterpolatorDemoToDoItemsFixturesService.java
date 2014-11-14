@@ -54,7 +54,7 @@ public class StringInterpolatorDemoToDoItemsFixturesService extends FixtureScrip
     // //////////////////////////////////////
 
     @Prototype
-    @MemberOrder(sequence="20")
+    @MemberOrder(sequence = "20")
     public Object installFixturesAndReturnFirst() {
         final List<FixtureResult> run = findFixtureScriptFor(StringInterpolatorDemoToDoItemsFixture.class).run(null);
         return run.get(0).getObject();

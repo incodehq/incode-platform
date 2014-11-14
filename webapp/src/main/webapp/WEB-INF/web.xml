@@ -15,8 +15,8 @@ either express or implied. See the License for the specific
 language governing permissions and limitations under the License.
 -->
 <web-app id="WebApp_ID" version="2.4"
-    xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+         xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
     <display-name>Quickstart Wicket/RestfulObjects app</display-name>
 
@@ -38,7 +38,6 @@ language governing permissions and limitations under the License.
         <filter-name>ShiroFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
 
 
     <!-- which configuration directory to read overloaded property files from -->
@@ -71,8 +70,6 @@ language governing permissions and limitations under the License.
         <param-name>isis.viewers</param-name>
         <param-value>wicket,restfulobjects</param-value>
     </context-param>
-
-
 
 
     <!-- cache static resources for 1 day -->
@@ -112,7 +109,7 @@ language governing permissions and limitations under the License.
         <filter-name>ResourceCachingFilter</filter-name>
         <url-pattern>*.swf</url-pattern>
     </filter-mapping>
-    
+
     <servlet>
         <servlet-name>Resource</servlet-name>
         <servlet-class>org.apache.isis.core.webapp.content.ResourceServlet</servlet-class>
@@ -145,7 +142,6 @@ language governing permissions and limitations under the License.
         <servlet-name>Resource</servlet-name>
         <url-pattern>*.swf</url-pattern>
     </servlet-mapping>
-    
 
 
     <!--
@@ -174,8 +170,8 @@ language governing permissions and limitations under the License.
          -->
         <param-value>development</param-value>
     </context-param>
-    
-   
+
+
     <!--
     -
     - config specific to the restfulobjects-viewer
@@ -199,8 +195,8 @@ language governing permissions and limitations under the License.
         <param-name>isis.viewers</param-name>
         <param-value>restfulobjects</param-value>
     </context-param>    
-    -->    
-    
+    -->
+
     <!-- bootstrap the RestEasy framework -->
     <listener>
         <listener-class>org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap</listener-class>
@@ -211,12 +207,12 @@ language governing permissions and limitations under the License.
         <param-name>javax.ws.rs.Application</param-name>
         <param-value>org.apache.isis.viewer.restfulobjects.server.RestfulObjectsApplication</param-value>
     </context-param>
-    
+
     <context-param>
         <param-name>resteasy.servlet.mapping.prefix</param-name>
         <param-value>/restful/</param-value>
     </context-param>
-    
+
 
     <!-- authenticate user, set up an Isis session -->
     <filter>
@@ -225,7 +221,9 @@ language governing permissions and limitations under the License.
         <!-- authentication required for REST -->
         <init-param>
             <param-name>authenticationSessionStrategy</param-name>
-            <param-value>org.apache.isis.viewer.restfulobjects.server.authentication.AuthenticationSessionStrategyBasicAuth</param-value>
+            <param-value>
+                org.apache.isis.viewer.restfulobjects.server.authentication.AuthenticationSessionStrategyBasicAuth
+            </param-value>
         </init-param>
         <init-param>
             <!-- what to do if no session was found; we indicate to issue a 401 basic authentication challenge -->
@@ -242,7 +240,8 @@ language governing permissions and limitations under the License.
 
     <filter>
         <filter-name>IsisTransactionFilterForRestfulObjects</filter-name>
-        <filter-class>org.apache.isis.viewer.restfulobjects.server.webapp.IsisTransactionFilterForRestfulObjects</filter-class>
+        <filter-class>org.apache.isis.viewer.restfulobjects.server.webapp.IsisTransactionFilterForRestfulObjects
+        </filter-class>
     </filter>
     <filter-mapping>
         <filter-name>IsisTransactionFilterForRestfulObjects</filter-name>

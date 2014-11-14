@@ -31,20 +31,27 @@ public class StringInterpolatorService {
         public Root(final Object context) {
             this._this = context;
         }
-        public Object getThis() { return _this; }
-        public Map<String,String> getProperties() { return properties; }
+
+        public Object getThis() {
+            return _this;
+        }
+
+        public Map<String, String> getProperties() {
+            return properties;
+        }
+
         Root withProperties(Map<String, String> properties) {
             this.properties = properties;
             return this;
         }
     }
-    
+
     private Map<String, String> properties;
     private boolean strict;
-    
+
     @Programmatic
     @PostConstruct
-    public void init(final Map<String,String> properties) {
+    public void init(final Map<String, String> properties) {
         this.properties = properties;
     }
 
@@ -55,24 +62,25 @@ public class StringInterpolatorService {
     public boolean isStrict() {
         return strict;
     }
+
     @Programmatic
     public StringInterpolatorService withStrict(boolean strict) {
         this.strict = strict;
         return this;
     }
-    
+
 
     @Programmatic
     public String interpolate(final Object domainObject, final String template) {
         return interpolate(new Root(domainObject), template);
     }
-    
+
     @Programmatic
     public String interpolate(final Root root, final String template) {
-        final Root rootNoNull = root != null? root: new Root(null);
+        final Root rootNoNull = root != null ? root : new Root(null);
         return new StringInterpolatorHelper(template, rootNoNull.withProperties(properties), strict).interpolate();
     }
-   
+
 }
 
 

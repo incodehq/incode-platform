@@ -38,8 +38,8 @@ import org.apache.isis.viewer.wicket.viewer.integration.wicket.AuthenticatedWebS
 
 /**
  * As specified in <tt>web.xml</tt>.
- * 
- * <p>
+ * <p/>
+ * <p/>
  * See:
  * <pre>
  * &lt;filter>
@@ -51,7 +51,6 @@ import org.apache.isis.viewer.wicket.viewer.integration.wicket.AuthenticatedWebS
  *    &lt;/init-param>
  * &lt;/filter>
  * </pre>
- * 
  */
 public class StringInterpolatorDemoApplication extends IsisWicketApplication {
 
@@ -59,20 +58,20 @@ public class StringInterpolatorDemoApplication extends IsisWicketApplication {
 
     /**
      * uncomment for a (slightly hacky) way of allowing logins using query args, eg:
-     * 
+     * <p/>
      * <tt>?user=sven&pass=pass</tt>
-     * 
-     * <p>
+     * <p/>
+     * <p/>
      * for demos only, obvious.
      */
     private final static boolean DEMO_MODE_USING_CREDENTIALS_AS_QUERYARGS = false;
-    
+
     @Override
     public Session newSession(final Request request, final Response response) {
-        if(!DEMO_MODE_USING_CREDENTIALS_AS_QUERYARGS) {
+        if (!DEMO_MODE_USING_CREDENTIALS_AS_QUERYARGS) {
             return super.newSession(request, response);
-        } 
-        
+        }
+
         // else demo mode
         final AuthenticatedWebSessionForIsis s = (AuthenticatedWebSessionForIsis) super.newSession(request, response);
         final org.apache.wicket.util.string.StringValue user = request.getRequestParameters().getParameterValue("user");
@@ -83,9 +82,9 @@ public class StringInterpolatorDemoApplication extends IsisWicketApplication {
 
     @Override
     public WebRequest newWebRequest(HttpServletRequest servletRequest, String filterPath) {
-        if(!DEMO_MODE_USING_CREDENTIALS_AS_QUERYARGS) {
+        if (!DEMO_MODE_USING_CREDENTIALS_AS_QUERYARGS) {
             return super.newWebRequest(servletRequest, filterPath);
-        } 
+        }
 
         // else demo mode
         try {
@@ -104,7 +103,7 @@ public class StringInterpolatorDemoApplication extends IsisWicketApplication {
     @Override
     protected Module newIsisWicketModule() {
         final Module isisDefaults = super.newIsisWicketModule();
-        
+
         final Module overrides = new AbstractModule() {
             @Override
             protected void configure() {

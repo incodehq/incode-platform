@@ -52,7 +52,7 @@ class StringInterpolatorHelper {
             if (endExpressionPos == -1) {
                 break;
             }
-            
+
             pos = interpolate(buffer, startExpressionPos, endExpressionPos);
         }
 
@@ -76,9 +76,9 @@ class StringInterpolatorHelper {
     private String evaluateOgnl(final String expression) {
         try {
             Object value = Ognl.getValue(expression, root);
-            return value != null? value.toString(): "";
+            return value != null ? value.toString() : "";
         } catch (OgnlException ex) {
-            if(strict) {
+            if (strict) {
                 throw new RuntimeException("could not parse: " + expression, ex);
             }
             return null;

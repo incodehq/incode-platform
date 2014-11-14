@@ -22,17 +22,17 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.util.ObjectContracts;
 
-@javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
+@javax.jdo.annotations.PersistenceCapable(identityType = IdentityType.DATASTORE)
 @javax.jdo.annotations.DatastoreIdentity(
-        strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-         column="id")
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id")
 @javax.jdo.annotations.Version(
-        strategy=VersionStrategy.VERSION_NUMBER, 
-        column="version")
+        strategy = VersionStrategy.VERSION_NUMBER,
+        column = "version")
 @javax.jdo.annotations.Uniques({
-    @javax.jdo.annotations.Unique(
-            name="ToDoItem_description_must_be_unique", 
-            members={"description"})
+        @javax.jdo.annotations.Unique(
+                name = "ToDoItem_description_must_be_unique",
+                members = {"description"})
 })
 @Named("To Do Item")
 @ObjectType("TODO")
@@ -43,7 +43,7 @@ public class StringInterpolatorDemoToDoItem implements Comparable<StringInterpol
     private String description;
 
     @Title
-    @javax.jdo.annotations.Column(allowsNull="false", length=100)
+    @javax.jdo.annotations.Column(allowsNull = "false", length = 100)
     @RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
     @TypicalLength(50)
     public String getDescription() {
@@ -59,7 +59,7 @@ public class StringInterpolatorDemoToDoItem implements Comparable<StringInterpol
 
     private String documentationPage;
 
-    @javax.jdo.annotations.Column(allowsNull="true", length=255)
+    @javax.jdo.annotations.Column(allowsNull = "true", length = 255)
     public String getDocumentationPage() {
         return documentationPage;
     }

@@ -29,18 +29,18 @@ public class StringInterpolatorDemoToDoItemsFixture extends DiscoverableFixtureS
     public StringInterpolatorDemoToDoItemsFixture() {
         this(null);
     }
-    
+
     public StringInterpolatorDemoToDoItemsFixture(String ownedBy) {
         this.user = ownedBy;
     }
-    
+
     @Override
     public void execute(ExecutionContext executionContext) {
 
         isisJdoSupport.executeUpdate("delete from \"StringInterpolatorDemoToDoItem\"");
 
         installFor(executionContext);
-        
+
         getContainer().flush();
     }
 

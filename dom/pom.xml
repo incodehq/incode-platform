@@ -14,19 +14,20 @@ software distributed under the License is distributed on an
 either express or implied. See the License for the specific
 language governing permissions and limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.isisaddons.module.stringinterpolator</groupId>
     <artifactId>isis-module-stringinterpolator-dom</artifactId>
-    <version>1.7.1-SNAPSHOT</version>
+    <version>1.8.0-SNAPSHOT</version>
 
     <packaging>jar</packaging>
 
     <name>Isis Addons StringInterpolator Module DOM</name>
     <description>
         A module for generating (mail-merging) .stringinterpolator files
-        based on a template .stringinterpolator and an input XML file.  Designed for use within
+        based on a template .stringinterpolator and an input XML file. Designed for use within
         Apache Isis.
     </description>
 
@@ -40,7 +41,8 @@ language governing permissions and limitations under the License.
     </licenses>
     <scm>
         <connection>scm:git:git@github.com:isisaddons/isis-domainservice-stringinterpolator.git</connection>
-        <developerConnection>scm:git:git@github.com:isisaddons/isis-domainservice-stringinterpolator.git</developerConnection>
+        <developerConnection>scm:git:git@github.com:isisaddons/isis-domainservice-stringinterpolator.git
+        </developerConnection>
         <url>git@github.com:isisaddons/isis-domainservice-stringinterpolator.git</url>
     </scm>
     <developers>
@@ -55,9 +57,9 @@ language governing permissions and limitations under the License.
         <compileSource>1.7</compileSource>
         <compileTarget>1.7</compileTarget>
 
-        <isis.version>1.7.0</isis.version>
+        <isis.version>1.8.0-SNAPSHOT</isis.version>
 
-            <ognl.version>3.0.8</ognl.version>
+        <ognl.version>3.0.8</ognl.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -184,7 +186,7 @@ language governing permissions and limitations under the License.
         </dependency>
         <dependency>
             <groupId>org.apache.isis.core</groupId>
-             <artifactId>isis-core-unittestsupport</artifactId>
+            <artifactId>isis-core-unittestsupport</artifactId>
             <version>${isis.version}</version>
             <scope>test</scope>
         </dependency>
@@ -204,8 +206,26 @@ language governing permissions and limitations under the License.
     </distributionManagement>
 
     <profiles>
+        <profile>
+            <id>cloudbees-snapshots</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>snapshots-repo</id>
+                    <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+        </profile>
         <!-- http://central.sonatype.org/pages/apache-maven.html -->
-        <profile> 
+        <profile>
             <id>release</id>
             <build>
                 <plugins>

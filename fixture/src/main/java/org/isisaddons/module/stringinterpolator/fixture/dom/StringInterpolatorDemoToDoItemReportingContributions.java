@@ -37,7 +37,7 @@ public class StringInterpolatorDemoToDoItemReportingContributions {
     }
 
     // //////////////////////////////////////
-    
+
     @javax.inject.Inject
     private StringInterpolatorService stringInterpolatorService;
 }

@@ -23,15 +23,16 @@ import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegT
 
 /**
  * Holds an instance of an {@link IsisSystemForTest} as a {@link ThreadLocal} on the current thread,
- * initialized with ToDo app's domain services. 
+ * initialized with ToDo app's domain services.
  */
 public class StringInterpolatorDemoSystemInitializer {
-    
-    private StringInterpolatorDemoSystemInitializer(){}
+
+    private StringInterpolatorDemoSystemInitializer() {
+    }
 
     public static IsisSystemForTest initIsft() {
         IsisSystemForTest isft = IsisSystemForTest.getElseNull();
-        if(isft == null) {
+        if (isft == null) {
             isft = new SimpleAppSystemBuilder().build().setUpSystem();
             IsisSystemForTest.set(isft);
         }
@@ -46,14 +47,14 @@ public class StringInterpolatorDemoSystemInitializer {
             with(new DataNucleusPersistenceMechanismInstaller());
 
             // services annotated with @DomainService
-            withServicesIn( "org.isisaddons.module.stringinterpolator.dom"
-                            ,"org.isisaddons.module.stringinterpolator.fixture"
-                            ,"org.apache.isis.core.wrapper"
-                            ,"org.apache.isis.applib"
-                            ,"org.apache.isis.core.metamodel.services"
-                            ,"org.apache.isis.core.runtime.services"
-                            ,"org.apache.isis.objectstore.jdo.datanucleus.service.support" // IsisJdoSupportImpl
-                            );
+            withServicesIn("org.isisaddons.module.stringinterpolator.dom"
+                    , "org.isisaddons.module.stringinterpolator.fixture"
+                    , "org.apache.isis.core.wrapper"
+                    , "org.apache.isis.applib"
+                    , "org.apache.isis.core.metamodel.services"
+                    , "org.apache.isis.core.runtime.services"
+                    , "org.apache.isis.objectstore.jdo.datanucleus.service.support" // IsisJdoSupportImpl
+            );
         }
 
         private static IsisConfiguration testConfiguration() {
