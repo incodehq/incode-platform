@@ -152,7 +152,7 @@ class ExcelConverter {
         final ViewModelFacet viewModelFacet = objectSpec.getFacet(ViewModelFacet.class);
 
         if (viewModelFacet == null) {
-            throw new IllegalArgumentException("Class '" + objectSpec.getCssClass() + "' is not a view model");
+            throw new IllegalArgumentException(String.format("Class '%s' is not a view model", objectSpec.getClass()));
         }
 
         final ByteArrayInputStream bais = new ByteArrayInputStream(bs);
