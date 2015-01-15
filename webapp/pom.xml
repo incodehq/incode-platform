@@ -19,11 +19,11 @@
 
     <parent>
         <groupId>org.isisaddons.module.session</groupId>
-        <artifactId>isis-module-session-logger</artifactId>
+        <artifactId>isis-module-sessionlogger</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>isis-module-session-logger-webapp</artifactId>
+    <artifactId>isis-module-sessionlogger-webapp</artifactId>
     <name>Isis Addons Session Logger Module Webapp</name>
 
     <packaging>war</packaging>
@@ -129,7 +129,7 @@
         <!-- other modules in this project -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-session-logger-dom</artifactId>
+            <artifactId>isis-module-sessionlogger-dom</artifactId>
             <exclusions>
                 <exclusion>
                     <!-- so don't pick up transitive dependency to asm 4.0.0 -->
@@ -140,7 +140,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-session-logger-fixture</artifactId>
+            <artifactId>isis-module-sessionlogger-fixture</artifactId>
             <exclusions>
                 <exclusion>
                     <!-- so don't pick up transitive dependency to asm 4.0.0 -->

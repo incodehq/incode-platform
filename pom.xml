@@ -19,7 +19,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.isisaddons.module.session</groupId>
-    <artifactId>isis-module-session-logger</artifactId>
+    <artifactId>isis-module-sessionlogger</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <name>Isis Addons Session Logger Module</name>
@@ -34,7 +34,7 @@
         <isis.version>1.8.0-SNAPSHOT</isis.version>
         <isis-viewer-wicket.version>1.8.0-SNAPSHOT</isis-viewer-wicket.version>
 
-        <isis-module-session-logger.version>1.8.0-SNAPSHOT</isis-module-session-logger.version>
+        <isis-module-sessionlogger.version>1.8.0-SNAPSHOT</isis-module-sessionlogger.version>
 
         <!-- must be consistent with the versions defined by the JDO Objectstore -->
         <datanucleus-accessplatform-jdo-rdbms.version>3.3.6</datanucleus-accessplatform-jdo-rdbms.version>
@@ -321,17 +321,17 @@
             <!-- this project's own modules -->
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>isis-module-session-logger-dom</artifactId>
-                <version>${isis-module-session-logger.version}</version>
+                <artifactId>isis-module-sessionlogger-dom</artifactId>
+                <version>${isis-module-sessionlogger.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>isis-module-session-logger-fixture</artifactId>
+                <artifactId>isis-module-sessionlogger-fixture</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>isis-module-session-logger-webapp</artifactId>
+                <artifactId>isis-module-sessionlogger-webapp</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
         </dependencies>

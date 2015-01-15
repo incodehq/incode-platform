@@ -20,11 +20,11 @@
 
     <parent>
         <groupId>org.isisaddons.module.session</groupId>
-        <artifactId>isis-module-session-logger</artifactId>
+        <artifactId>isis-module-sessionlogger</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>isis-module-session-logger-integtests</artifactId>
+    <artifactId>isis-module-sessionlogger-integtests</artifactId>
     <name>Isis Addons Session Logger Module IntegTests</name>
 
     <build>
@@ -48,7 +48,7 @@
         <!-- other modules in this project -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-session-logger-fixture</artifactId>
+            <artifactId>isis-module-sessionlogger-fixture</artifactId>
         </dependency>
 
         <dependency>

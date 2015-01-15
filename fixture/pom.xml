@@ -19,11 +19,11 @@
 
     <parent>
         <groupId>org.isisaddons.module.session</groupId>
-        <artifactId>isis-module-session-logger</artifactId>
+        <artifactId>isis-module-sessionlogger</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-	<artifactId>isis-module-session-logger-fixture</artifactId>
+	<artifactId>isis-module-sessionlogger-fixture</artifactId>
     <name>Isis Addons Session Logger Module Fixtures</name>
 
 	<build>
@@ -101,7 +101,7 @@
 
         <dependency>
             <groupId>org.isisaddons.module.session</groupId>
-            <artifactId>isis-module-session-logger-dom</artifactId>
+            <artifactId>isis-module-sessionlogger-dom</artifactId>
         </dependency>
 
         <dependency>
