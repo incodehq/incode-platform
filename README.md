@@ -1,51 +1,14 @@
-# isis-module-audit #
+# isis-module-sessionlogger #
 
-[![Build Status](https://travis-ci.org/isisaddons/isis-module-audit.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-audit)
+[![Build Status](https://travis-ci.org/isisaddons/isis-module-sessionlogger.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-sessionlogger)
 
 This module, intended for use within [Apache Isis](http://isis.apache.org), provides an implementation of Isis' 
-`AuditingService3` API that persists audit entries using Isis' own (JDO) objectstore.  Typically this will be to a 
-relational database; the module's `AuditEntry` entity is mapped to the "IsisAuditEntry" table.
+`SessionLoggingService` API that persists audit entries using Isis' own (JDO) objectstore.  Typically this will be to a
+relational database; the module's `SessionLogEntry` entity is mapped to the "IsisSessionLogEntry" table.
 
 ## Screenshots ##
 
-The following screenshots show an example app's usage of the module.
-
-#### Installing the Fixture Data
-
-Install some sample fixture data ...
-
-![](https://raw.github.com/isisaddons/isis-module-audit/master/images/01-install-fixtures.png)
-
-#### Object with initial (creation) audit entries ####
-
-Because the example entity is annotated with `@Audited`, the initial creation of that object already results in
-some audit entries:
-
-![](https://raw.github.com/isisaddons/isis-module-audit/master/images/02-first-object-with-initial-audit-entries.png)
-
-As the screenshot shows, the demo app lists the audit entries for the example entity (a polymorphic association 
-utilizing the `BookmarkService`).
-
-#### Audit Entry for each changed property ####
-
-Changing two properties on an object:
-
-![](https://raw.github.com/isisaddons/isis-module-audit/master/images/03-changing-two-properties-on-object.png)
-
-... results in _two_ audit entries created, one for each property:
-
-![](https://raw.github.com/isisaddons/isis-module-audit/master/images/04-two-audit-entries-created.png)
-
-#### Audit entry ####
-
-The audit entry is an immutable record, can also inspect other audit entries created in the same transaction:
-
-![](https://raw.github.com/isisaddons/isis-module-audit/master/images/05-navigate-to-audit-entry-see-other-audit-entries.png)
-
-It is of course also possible to navigate back to audited object:
-
-![](https://raw.github.com/isisaddons/isis-module-audit/master/images/06-navigate-back-to-audited-object.png)
-
+TODO
 
 ## How to run the Demo App ##
 
@@ -66,20 +29,6 @@ To run the demo app:
 Then log on using user: `sven`, password: `pass`
 
 
-## Relationship to Apache Isis Core ##
-
-Isis Core 1.6.0 included the `org.apache.isis.module:isis-module-audit-jdo:1.6.0` Maven artifact.  This module is a
-direct copy of that code, with the following changes:
-
-* package names have been altered from `org.apache.isis` to `org.isisaddons.module.audit`
-* the `persistent-unit` (in the JDO manifest) has changed from `isis-module-audit-jdo` to 
-  `org-isisaddons-module-audit-dom`
-
-Otherwise the functionality is identical; warts and all!
-
-Isis 1.7.0 no longer ships the `org.apache.isis.module:isis-module-audit-jdo` module; use this addon module instead.
-
-
 ## How to Configure/Use ##
 
 You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
@@ -92,41 +41,19 @@ To use "out-of-the-box":
 
 <pre>
     &lt;dependency&gt;
-        &lt;groupId&gt;org.isisaddons.module.audit&lt;/groupId&gt;
-        &lt;artifactId&gt;isis-module-audit-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.7.0&lt;/version&gt;
+        &lt;groupId&gt;org.isisaddons.module.sessionlogger&lt;/groupId&gt;
+        &lt;artifactId&gt;isis-module-sessionlogger-dom&lt;/artifactId&gt;
+        &lt;version&gt;1.8.0&lt;/version&gt;
     &lt;/dependency&gt;
 </pre>
 
-* update your `WEB-INF/isis.properties`:
+nb: at the time of writing 1.8.0 has not yet been released.
 
-<pre>
-    isis.services-installer=configuration-and-annotation
-    isis.services.ServicesInstallerFromAnnotation.packagePrefix=\
-                    ...,\
-                    org.isisaddons.module.audit.dom,\
-                    ...
+Remaining steps to configure:
 
-    isis.services = ...,\
-                    org.isisaddons.module.audit.dom.AuditingServiceContributions,\
-                    ...
-</pre>
+TODO
 
-Notes:
-* Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-audit-dom).
-* The `AuditingServiceContributions` service is optional but recommended; see below for more information.
 
-For audit entries to be created when an object is changed, some configuration is required.  This can be either on a case-by-case basis, or globally:
-
-* by default no object is treated as being audited unless it has explicitly annotated using `@Audited`.  This is the option used in the example app described above.
-
-* alternatively, auditing can be globally enabled by adding a key to `isis.properties`:
-
-<pre>
-    isis.services.audit.objects=all
-</pre>
-
-An individual entity can then be explicitly excluded from being audited using `@Audited(disabled=true)`.
 
 
 #### "Out-of-the-box" (-SNAPSHOT) ####
@@ -178,125 +105,80 @@ Only the `dom` project is released to Maven Central Repo.  The versions of the o
 
 ## API ##
 
-The `AuditingService3` defines the following API:
+The `SessionLoggingService` defines the following API:
 
-    @Programmatic
-    public void audit(
-            final UUID transactionId, 
-            final String targetClass, 
-            final Bookmark target, 
-            final String memberIdentifier, 
-            final String propertyId,
-            final String preValue, 
-            final String postValue, 
-            final String user, 
-            final java.sql.Timestamp timestamp);
+    public interface SessionLoggingService {
 
-Isis will automatically call this method on the service implementation if configured.  The method is called often, once 
-for every individual property of a domain object that is changed.
+        public enum Type {
+            LOGIN,
+            LOGOUT
+        }
+
+        public enum CausedBy {
+            USER,
+            SESSION_EXPIRATION
+        }
+
+        @Programmatic
+        void log(Type type, String username, Date date, CausedBy causedBy);
+
+    }
+
+
+Isis will automatically call this method on the service implementation if configured to run the Wicket viewer.  (The
+Restful Objects viewer currently does not support this service).
 
 ## Implementation ##
 
-The `AuditingService3` API is implemented in this module by the `org.isisaddons.module.audit.AuditingService` class.  
-This implementation simply persists an audit entry (`AuditEntry`) each time it is called.   This results in a 
-fine-grained audit trail.
+The `SessionLoggingService` API is implemented in this module by the `org.isisaddons.module.session.logger.SessionLoggingServiceDefault` class.
+This implementation simply inserts a session log entry (`SessionLogEntry`) when either a user logs on, logs out or if
+their session expires.
 
-The `AuditEntry` properties directly correspond to parameters of the `AuditingService3` `audit()` API:
+The `SessionLogEntry` properties directly correspond to parameters of the `SessionLoggingService` `log()` API:
 
-    public class AuditEntry 
+    public class SessionLogEntry
         ... 
-        private UUID transactionId;
-        private String targetClass;
-        private String targetStr;
-        private String memberIdentifier;
-        private String propertyId;
-        private String preValue;
-        private String postValue;
-        private String user;
+        private String username;
+        private SessionLoggingService.Type type;
         private Timestamp timestamp;
-        ... 
+        private SessionLoggingService.CausedBy causedBy;
+        ...
     }
 
 where:
 
-* `transactionId` is a unique identifier (a GUID) of the transaction in which this audit entry was persisted.
-* `timestamp` is the timestamp for the transaction
-* `targetClass` holds the class of the audited object, eg `com.mycompany.myapp.Customer`
-* `targetStr` stores a serialized form of the `Bookmark`, in other words a provides a mechanism to look up the audited 
-  object, eg `CUS:L_1234` to identify customer with id 1234.  ("CUS" corresponds to the `@ObjectType` annotation/facet).
-* `memberIdentifier` is the fully-qualified class and property Id, similar to the way that Javadoc words, eg 
-   `com.mycompany.myapp.Customer#firstName`
-* `propertyId` is the property identifier, eg `firstName`
-* `preValue` holds a string representation of the property's value prior to it being changed.  If the object has been 
-  created then it holds the value "[NEW]".  If the string is too long, it will be truncated with ellipses '...'.
-* `postValue` holds a string representation of the property's value after it was changed.  If the object has been 
-  deleted  then it holds the value "[DELETED]".  If the string is too long, it will be truncated with ellipses '...'.
-
-The combination of `transactionId`, `targetStr` and `propertyId` make up an alternative key to uniquely identify an 
-audit entry.  However, there is (deliberately) no uniqueness constraint to enforce this rule.
+* `username` identifies the user that has logged in/out
+* `type` determines whether this was a login or logout.
+* `timestamp` is the date that the event occurred
+* `causedBy`indicates whether the session was logged out due to session expiry
 
 The `AuditEntry` entity is designed such that it can be rendered on an Isis user interface if required.
     
 ## Supporting Services ##
 
-As well as the `AuditingService` service (that implements the `AuditingService3` API), the module also provides two 
-further domain services:
-
-* `AuditingServiceRepository` provides the ability to search for persisted (`AuditEntry`) audit entries.  None of its 
-  actions are visible in the user interface (they are all `@Programmatic`) and so this service is automatically 
-  registered.
-
-* `AuditingServiceContributions` provides the `auditEntries` contributed collection to the `HasTransactionId` interface.
-  This will therefore display all audit entries that occurred in a given transaction, in other words whenever a command,
-  a published event or another audit entry is displayed.
+TODO
 
 ## Related Modules/Services ##
 
-As well as defining the `AuditingService3` API, Isis' applib also defines several other closely related services.
-Implementations of these services are referenced by the [Isis Add-ons](http://www.isisaddons.org) website.
+There is some overlap with the`AuditingService3` API, which audits changes to entities by end-users.  Implementations
+of this service are referenced by the [Isis Add-ons](http://www.isisaddons.org) website.
 
-The `CommandContext` defines the `Command` class which provides request-scoped information about an action 
-invocation.  Commands can be thought of as being the cause of an action; they are created "before the fact".  Some 
-of the  parameters passed to `AuditingService3` - such as `target`, `user`, and `timestamp` - correspond exactly to the 
-`Command` class.
-
-The `CommandService` service is an optional service that acts as a `Command` factory and allows `Command`s to be 
-persisted.  `CommandService`'s API introduces the concept of a `transactionId`; once again this is the same
-value as is passed to the `AuditingService3`.
-
-The `PublishingService` is another optional service that allows an event to be published when either an object has 
-changed or an actions has been invoked.   There are some similarities between publishing to auditing; they both occur 
-"after the fact".  However the publishing service's primary use case is to enable inter-system co-ordination (in DDD 
-terminology, between bounded contexts).  As such, publishing is much coarser-grained than auditing, and not every 
-change need be published.  Publishing also uses the `transactionId`.
-
-The `CommandService` and `PublishingService` are optional; as with the `AuditingService3`, Isis will automatically use 
-call each if the service implementation if discovered on the classpath. 
-
-If all these services are configured - such that  commands, audit entries and published events are all persisted, then 
-the `transactionId` that is common to all enables seamless navigation between each.  (This is implemented through 
-contributed actions/properties/collections; `AuditEntry` implements the `HasTransactionId` interface in Isis' applib, 
-and it is this interface that each module has services that contribute to).
- 
 
 ## Known issues ##
 
-In `1.6.0` and `1.7.0` a call to `DomainObjectContainer#flush()` is required in order that any newly created objects are populated.
-Note that Isis automatically performs a flush prior to any repository call, so in many cases there may not be any need 
-to call flush explicitly.         
+NONE
 
 
 ## Change Log ##
 
-* `1.7.0` - released against Isis 1.7.0.
-* `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.audit`
+* `1.8.0` - to be released.
 
 
 ## Legal Stuff ##
  
 #### License ####
 
-    Copyright 2014 Dan Haywood
+    Copyright 2015 Martin Grigorov
 
     Licensed under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
