@@ -24,7 +24,7 @@
     </parent>
 
     <artifactId>isis-module-sessionlogger-webapp</artifactId>
-    <name>Isis Addons Session Logger Module Webapp</name>
+    <name>Isis Addons SessionLogger Module Webapp</name>
 
     <packaging>war</packaging>
 

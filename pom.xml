@@ -22,7 +22,7 @@
     <artifactId>isis-module-sessionlogger</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>Isis Addons Session Logger Module</name>
+    <name>Isis Addons SessionLogger Module</name>
 
     <packaging>pom</packaging>
 

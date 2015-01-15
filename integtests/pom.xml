@@ -25,7 +25,7 @@
     </parent>
 
     <artifactId>isis-module-sessionlogger-integtests</artifactId>
-    <name>Isis Addons Session Logger Module IntegTests</name>
+    <name>Isis Addons SessionLogger Module IntegTests</name>
 
     <build>
         <testResources>

@@ -175,7 +175,7 @@
         <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
         <init-param>
             <param-name>applicationClassName</param-name>
-            <param-value>org.isisaddons.module.audit.webapp.AuditModuleApplication</param-value>
+            <param-value>org.isisaddons.module.sessionlogger.webapp.SessionLoggerModuleApplication</param-value>
         </init-param>
     </filter>
     <filter-mapping>

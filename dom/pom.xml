@@ -24,13 +24,12 @@
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons Session Logger Module DOM</name>
+    <name>Isis Addons SessionLogger Module DOM</name>
     <description>
-        A module providing audit persistence, enabling profiling, background execution and
-        extended auditing capabilities.
+        A module to log when a user logs in or logs out, or when a user session timeout occurs.
     </description>
 
-    <url>https://github.com/isisaddons/isis-module-session-logger</url>
+    <url>https://github.com/isisaddons/isis-module-sessionlogger</url>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -39,15 +38,20 @@
         </license>
     </licenses>
     <scm>
-        <connection>scm:git:git@github.com:isisaddons/isis-module-session-logger.git</connection>
-        <developerConnection>scm:git:git@github.com:isisaddons/isis-module-session-logger.git</developerConnection>
-        <url>git@github.com:isisaddons/isis-module-session-logger.git</url>
+        <connection>scm:git:git@github.com:isisaddons/isis-module-sessionlogger.git</connection>
+        <developerConnection>scm:git:git@github.com:isisaddons/isis-module-sessionlogger.git</developerConnection>
+        <url>git@github.com:isisaddons/isis-module-sessionlogger.git</url>
     </scm>
     <developers>
         <developer>
             <id>mgrigorov</id>
             <name>Martin Grigorov</name>
             <email>mgrigorov@apache.org</email>
+        </developer>
+        <developer>
+            <id>danhaywood</id>
+            <name>Dan haywood</name>
+            <email>danhaywood@apache.org</email>
         </developer>
     </developers>
 

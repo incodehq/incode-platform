@@ -24,7 +24,7 @@
     </parent>
 
 	<artifactId>isis-module-sessionlogger-fixture</artifactId>
-    <name>Isis Addons Session Logger Module Fixtures</name>
+    <name>Isis Addons SessionLogger Module Fixtures</name>
 
 	<build>
         <resources>

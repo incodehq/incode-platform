@@ -51,9 +51,24 @@ nb: at the time of writing 1.8.0 has not yet been released.
 
 Remaining steps to configure:
 
-TODO
+* update your `WEB-INF/isis.properties`:
 
+<pre>
+    isis.services-installer=configuration-and-annotation
+    isis.services.ServicesInstallerFromAnnotation.packagePrefix=\
+                    ...,\
+                    org.isisaddons.module.sessionlogger.dom,\
+                    ...
 
+    isis.services = ...,\
+                    org.isisaddons.module.sessionlogger.dom.SessionLoggingServiceMenu,\
+                    ...
+
+</pre>
+
+Notes:
+* Check for releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-sessionlogger-dom).
+* The `SessionLoggingServiceMenu` service is optional but recommended; see below for more information.
 
 
 #### "Out-of-the-box" (-SNAPSHOT) ####
@@ -121,7 +136,6 @@ The `SessionLoggingService` defines the following API:
 
         @Programmatic
         void log(Type type, String username, Date date, CausedBy causedBy);
-
     }
 
 
@@ -130,7 +144,7 @@ Restful Objects viewer currently does not support this service).
 
 ## Implementation ##
 
-The `SessionLoggingService` API is implemented in this module by the `org.isisaddons.module.session.logger.SessionLoggingServiceDefault` class.
+The `SessionLoggingService` API is implemented in this module by the `org.isisaddons.module.sessionlogger.SessionLoggingServiceDefault` class.
 This implementation simply inserts a session log entry (`SessionLogEntry`) when either a user logs on, logs out or if
 their session expires.
 
@@ -152,11 +166,22 @@ where:
 * `timestamp` is the date that the event occurred
 * `causedBy`indicates whether the session was logged out due to session expiry
 
-The `AuditEntry` entity is designed such that it can be rendered on an Isis user interface if required.
+The `SessionLogEntry` entity is designed such that it can be rendered on an Isis user interface if required.
     
 ## Supporting Services ##
 
-TODO
+As well as the `SessionLoggingServiceDefault` service (that implements the `SessionLoggingService` API), the module
+also provides two further domain services:
+
+* `SessionLogEntryRepository` provides the ability to search for persisted (`SessionLogEntry`) entries.  None of its
+  actions are visible in the user interface (they are all `@Programmatic`) and so this service is automatically
+  registered.
+
+* `SessionLoggingServiceMenu` provides the secondary "Sessions" menu for searching for session entries by user and
+   by date.
+
+Because the `SessionLoggingServiceMenu` influences the UI, it must be explicitly registered in `isis.properties`.
+
 
 ## Related Modules/Services ##
 
@@ -178,7 +203,7 @@ NONE
  
 #### License ####
 
-    Copyright 2015 Martin Grigorov
+    Copyright 2015 Martin Grigorov & Dan Haywood
 
     Licensed under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance

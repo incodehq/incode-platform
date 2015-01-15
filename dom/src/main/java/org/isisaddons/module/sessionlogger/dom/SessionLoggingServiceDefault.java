@@ -1,26 +1,24 @@
-package org.isisaddons.module.session.logger.dom;
-
-import org.apache.isis.applib.AbstractService;
-import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.DomainServiceLayout;
-import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.services.session.SessionLoggingService;
+package org.isisaddons.module.sessionlogger.dom;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
+import org.apache.isis.applib.AbstractService;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.services.session.SessionLoggingService;
 
 /**
- *
+ * Implementation of the Isis {@link org.apache.isis.applib.services.session.SessionLoggingService} creates a log
+ * entry to the database (the {@link org.isisaddons.module.sessionlogger.dom.SessionLogEntry} entity) each time a
+ * user either logs on or logs out, or if their session expires.
  */
 @DomainService
-@DomainServiceLayout(menuBar = DomainServiceLayout.MenuBar.SECONDARY, named = "Session history")
 public class SessionLoggingServiceDefault extends AbstractService implements SessionLoggingService {
 
     @Programmatic
     @Override
-    public void log(Type type, String username, Date date, CausedBy causedBy) {
-        SessionLogEntry sessionLogEntry = newTransientInstance(SessionLogEntry.class);
+    public void log(final Type type, final String username, final Date date, final CausedBy causedBy) {
+        final SessionLogEntry sessionLogEntry = newTransientInstance(SessionLogEntry.class);
         sessionLogEntry.setType(type);
         sessionLogEntry.setUsername(username);
         sessionLogEntry.setTimestamp(new Timestamp(new Date().getTime()));
@@ -28,7 +26,4 @@ public class SessionLoggingServiceDefault extends AbstractService implements Ses
         persistIfNotAlready(sessionLogEntry);
     }
 
-    public List<SessionLogEntry> allEntries() {
-        return allInstances(SessionLogEntry.class);
-    }
 }

@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.audit.webapp;
+package org.isisaddons.module.sessionlogger.webapp;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,7 +53,7 @@ import org.apache.isis.viewer.wicket.viewer.integration.wicket.AuthenticatedWebS
  * </pre>
  * 
  */
-public class AuditModuleApplication extends IsisWicketApplication {
+public class SessionLoggerModuleApplication extends IsisWicketApplication {
 
     private static final long serialVersionUID = 1L;
 
@@ -99,7 +99,7 @@ public class AuditModuleApplication extends IsisWicketApplication {
         return request;
     }
 
-    private static final String APP_NAME = "Audit Module Example App";
+    private static final String APP_NAME = "SessionLogger Module Example App";
 
     @Override
     protected Module newIsisWicketModule() {
