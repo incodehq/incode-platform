@@ -34,7 +34,7 @@ import org.apache.isis.applib.services.bookmark.Bookmark;
  * {@link AuditEntry audit entry} entities.
  *
  * <p>
- * This supporting service with no UI and no side-effects, and is there are no other implementations of the service,
+ * This supporting service with no UI and no side-effects, and there are no other implementations of the service,
  * thus has been annotated with {@link org.apache.isis.applib.annotation.DomainService}.  This means that there is no
  * need to explicitly register it as a service (eg in <tt>isis.properties</tt>).
  */
@@ -44,7 +44,7 @@ public class AuditingServiceRepository extends AbstractFactoryAndRepository {
     @Programmatic
     public List<AuditEntry> findByTransactionId(final UUID transactionId) {
         return allMatches(
-                new QueryDefault<AuditEntry>(AuditEntry.class,
+                new QueryDefault<>(AuditEntry.class,
                         "findByTransactionId", 
                         "transactionId", transactionId));
     }
@@ -61,25 +61,25 @@ public class AuditingServiceRepository extends AbstractFactoryAndRepository {
         final Query<AuditEntry> query;
         if(from != null) {
             if(to != null) {
-                query = new QueryDefault<AuditEntry>(AuditEntry.class,
+                query = new QueryDefault<>(AuditEntry.class,
                         "findByTargetAndTimestampBetween", 
                         "targetStr", targetStr,
                         "from", fromTs,
                         "to", toTs);
             } else {
-                query = new QueryDefault<AuditEntry>(AuditEntry.class,
+                query = new QueryDefault<>(AuditEntry.class,
                         "findByTargetAndTimestampAfter", 
                         "targetStr", targetStr,
                         "from", fromTs);
             }
         } else {
             if(to != null) {
-                query = new QueryDefault<AuditEntry>(AuditEntry.class,
+                query = new QueryDefault<>(AuditEntry.class,
                         "findByTargetAndTimestampBefore", 
                         "targetStr", targetStr,
                         "to", toTs);
             } else {
-                query = new QueryDefault<AuditEntry>(AuditEntry.class,
+                query = new QueryDefault<>(AuditEntry.class,
                         "findByTarget", 
                         "targetStr", targetStr);
             }
@@ -97,29 +97,29 @@ public class AuditingServiceRepository extends AbstractFactoryAndRepository {
         final Query<AuditEntry> query;
         if(from != null) {
             if(to != null) {
-                query = new QueryDefault<AuditEntry>(AuditEntry.class,
+                query = new QueryDefault<>(AuditEntry.class,
                         "findByTimestampBetween", 
                         "from", fromTs,
                         "to", toTs);
             } else {
-                query = new QueryDefault<AuditEntry>(AuditEntry.class,
+                query = new QueryDefault<>(AuditEntry.class,
                         "findByTimestampAfter", 
                         "from", fromTs);
             }
         } else {
             if(to != null) {
-                query = new QueryDefault<AuditEntry>(AuditEntry.class,
+                query = new QueryDefault<>(AuditEntry.class,
                         "findByTimestampBefore", 
                         "to", toTs);
             } else {
-                query = new QueryDefault<AuditEntry>(AuditEntry.class,
+                query = new QueryDefault<>(AuditEntry.class,
                         "find");
             }
         }
         return allMatches(query);
     }
 
-    private static Timestamp toTimestampStartOfDayWithOffset(final LocalDate dt, int daysOffset) {
+    private static Timestamp toTimestampStartOfDayWithOffset(final LocalDate dt, final int daysOffset) {
         return dt!=null
                 ?new java.sql.Timestamp(dt.toDateTimeAtStartOfDay().plusDays(daysOffset).getMillis())
                 :null;
