@@ -95,9 +95,6 @@ class ExcelConverter {
 
         final ObjectSpecification objectSpec = specificationLoader.loadSpecification(cls);
 
-        @SuppressWarnings("unused")
-        final ViewModelFacet viewModelFacet = objectSpec.getFacet(ViewModelFacet.class);
-
         final List<ObjectAdapter> adapters = Lists.transform(domainObjects, ObjectAdapter.Functions.adapterForUsing(adapterManager));
 
         @SuppressWarnings("deprecation")
@@ -146,14 +143,10 @@ class ExcelConverter {
             final byte[] bs,
             final DomainObjectContainer container) throws IOException, InvalidFormatException {
 
-        final List<T> viewModels = Lists.newArrayList();
+        final List<T> importedItems = Lists.newArrayList();
 
         final ObjectSpecification objectSpec = specificationLoader.loadSpecification(cls);
         final ViewModelFacet viewModelFacet = objectSpec.getFacet(ViewModelFacet.class);
-
-        if (viewModelFacet == null) {
-            throw new IllegalArgumentException(String.format("Class '%s' is not a view model", objectSpec.getClass()));
-        }
 
         final ByteArrayInputStream bais = new ByteArrayInputStream(bs);
         final Workbook wb = org.apache.poi.ss.usermodel.WorkbookFactory.create(bais);
@@ -180,9 +173,9 @@ class ExcelConverter {
                 // detail
                 try {
 
-                    // copy the row into the template object
-                    final T template = container.newTransientInstance(cls);
-                    final ObjectAdapter templateAdapter = adapterManager.adapterFor(template);
+                    // copy the row into a new object
+                    final T imported = container.newTransientInstance(cls);
+                    final ObjectAdapter templateAdapter = adapterManager.adapterFor(imported);
 
                     for (final Cell cell : row) {
                         int columnIndex = cell.getColumnIndex();
@@ -199,14 +192,23 @@ class ExcelConverter {
                         }
                     }
 
-                    viewModels.add(template);
+                    if(viewModelFacet != null) {
+                        // if there is a view model, then use the imported object as a template
+                        // in order to create a regular view model.
+                        final String memento = viewModelFacet.memento(imported);
+                        final T viewModel = container.newViewModelInstance(cls, memento);
+                        importedItems.add(viewModel);
+                    } else {
+                        // else, just return the imported items as simple transient instances.
+                        importedItems.add(imported);
+                    }
                 } catch (final Exception e) {
                     throw new ExcelService.Exception(String.format("Error processing Excel row nr. %d. Message: %s", row.getRowNum(), e.getMessage()), e);
                 }
             }
         }
 
-        return viewModels;
+        return importedItems;
     }
 
     private OneToOneAssociation getAssociation(final ObjectSpecification objectSpec, final String propertyName) {

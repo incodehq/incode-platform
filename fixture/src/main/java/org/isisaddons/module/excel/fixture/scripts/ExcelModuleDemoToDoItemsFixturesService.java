@@ -18,6 +18,7 @@ package org.isisaddons.module.excel.fixture.scripts;
 
 import java.util.List;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Prototype;
@@ -26,7 +27,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
 @DomainService
-@Named("Prototyping") // has the effect of defining a "Prototyping" menu item
+@DomainServiceLayout(named = "Prototyping", menuBar = DomainServiceLayout.MenuBar.SECONDARY)
 public class ExcelModuleDemoToDoItemsFixturesService extends FixtureScripts {
 
     public ExcelModuleDemoToDoItemsFixturesService() {

@@ -69,34 +69,53 @@ public class ExcelService {
 
     @Programmatic
     @PostConstruct
-    public void init(Map<String,String> properties) {
+    public void init(final Map<String,String> properties) {
         bookmarkService = getServicesInjector().lookupService(BookmarkService.class);
     }
 
     // //////////////////////////////////////
 
+    /**
+     * Creates a Blob holding a spreadsheet of the domain objects.
+     *
+     * <p>
+     *     There are no specific restrictions on the domain objects; they can be either persistable entities or
+     *     view models.  Do be aware though that if imported back using {@link #fromExcel(org.apache.isis.applib.value.Blob, Class)},
+     *     then new instances are always created.  It is generally better therefore to work with view models than to
+     *     work with entities.  This also makes it easier to maintain backward compatibility in the future if the
+     *     persistence model changes; using view models represents a stable API for import/export.
+     * </p>
+     */
     @Programmatic
     public <T> Blob toExcel(
             final List<T> domainObjects, 
             final Class<T> cls, 
             final String fileName) throws ExcelService.Exception {
         try {
-            File file = newExcelConverter().toFile(cls, domainObjects);
+            final File file = newExcelConverter().toFile(cls, domainObjects);
             return excelFileBlobConverter.toBlob(fileName, file);
-        } catch (IOException ex) {
+        } catch (final IOException ex) {
             throw new ExcelService.Exception(ex);
         }
     }
 
+    /**
+     * Returns a list of objects for each line in the spreadsheet, of the specified type.
+     *
+     * <p>
+     *     If the class is a view model then the objects will be properly instantiated (that is, using
+     *     {@link org.apache.isis.applib.DomainObjectContainer#newViewModelInstance(Class, String)}, with the correct
+     *     view model memento); otherwise the objects will be simple transient objects (that is, using
+     *     {@link org.apache.isis.applib.DomainObjectContainer#newTransientInstance(Class)}).
+     * </p>
+     */
     @Programmatic
     public <T> List<T> fromExcel(
             final Blob excelBlob, 
             final Class<T> cls) throws ExcelService.Exception {
         try {
             return newExcelConverter().fromBytes(cls, excelBlob.getBytes(), container);
-        } catch (IOException e) {
-            throw new ExcelService.Exception(e);
-        } catch (InvalidFormatException e) {
+        } catch (final IOException | InvalidFormatException e) {
             throw new ExcelService.Exception(e);
         }
     }
