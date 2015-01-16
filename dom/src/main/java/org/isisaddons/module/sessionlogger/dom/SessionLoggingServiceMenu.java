@@ -37,9 +37,14 @@ import org.apache.isis.applib.annotation.ParameterLayout;
         named = "Sessions"
 )
 public class SessionLoggingServiceMenu extends AbstractService {
-
     @ActionSemantics(ActionSemantics.Of.SAFE)
     @MemberOrder(sequence = "1")
+    public List<SessionLogEntry> listAllActive() {
+        return sessionLogEntryRepository.listAllActiveSessions();
+    }
+
+    @ActionSemantics(ActionSemantics.Of.SAFE)
+    @MemberOrder(sequence = "2")
     public List<SessionLogEntry> find(
             @ParameterLayout(named = "Username") @Optional
             final String username,

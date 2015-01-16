@@ -154,7 +154,7 @@ The `SessionLogEntry` properties directly correspond to parameters of the `Sessi
         ... 
         private String username;
         private SessionLoggingService.Type type;
-        private Timestamp timestamp;
+        private Timestamp loginTimestamp;
         private SessionLoggingService.CausedBy causedBy;
         ...
     }
@@ -163,7 +163,7 @@ where:
 
 * `username` identifies the user that has logged in/out
 * `type` determines whether this was a login or logout.
-* `timestamp` is the date that the event occurred
+* `loginTimestamp` is the date that the event occurred
 * `causedBy`indicates whether the session was logged out due to session expiry
 
 The `SessionLogEntry` entity is designed such that it can be rendered on an Isis user interface if required.

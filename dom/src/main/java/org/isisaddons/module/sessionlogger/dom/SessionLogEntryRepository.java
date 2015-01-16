@@ -40,7 +40,7 @@ public class SessionLogEntryRepository extends AbstractFactoryAndRepository {
     @Programmatic
     public List<SessionLogEntry> findByUsername(final String username) {
         return allMatches(
-                new QueryDefault<SessionLogEntry>(SessionLogEntry.class,
+                new QueryDefault<>(SessionLogEntry.class,
                         "findByUsername",
                         "username", username));
     }
@@ -136,6 +136,12 @@ public class SessionLogEntryRepository extends AbstractFactoryAndRepository {
                 "from", from));
     }
 
+
+    @Programmatic
+    public List<SessionLogEntry> listAllActiveSessions() {
+
+        return allMatches(new QueryDefault<>(SessionLogEntry.class,"listAllActiveSessions"));
+    }
 
 
     private static Timestamp toTimestampStartOfDayWithOffset(final LocalDate dt, final int daysOffset) {

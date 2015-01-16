@@ -33,78 +33,86 @@ import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 
 @javax.jdo.annotations.PersistenceCapable(
-        identityType=IdentityType.DATASTORE,
+        identityType=IdentityType.APPLICATION,
         table="IsisSessionLogEntry")
-@javax.jdo.annotations.DatastoreIdentity(
-        strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-        column="id")
 @javax.jdo.annotations.Queries( {
+        @javax.jdo.annotations.Query(
+                name="findBySessionId", language="JDOQL",
+                value="SELECT "
+                      + "FROM org.isisaddons.module.sessionlogger.dom.SessionLogEntry "
+                      + "WHERE sessionId == :sessionId"),
         @javax.jdo.annotations.Query(
                 name="findByUsernameAndTimestampBetween", language="JDOQL",
                 value="SELECT "
                         + "FROM org.isisaddons.module.sessionlogger.dom.SessionLogEntry "
                         + "WHERE username == :username "
-                        + "&& timestamp >= :from "
-                        + "&& timestamp <= :to "
-                        + "ORDER BY timestamp DESC"),
+                        + "&& loginTimestamp >= :from "
+                        + "&& logoutTimestamp <= :to "
+                        + "ORDER BY loginTimestamp DESC"),
         @javax.jdo.annotations.Query(
                 name="findByUsernameAndTimestampAfter", language="JDOQL",
                 value="SELECT "
                         + "FROM org.isisaddons.module.sessionlogger.dom.SessionLogEntry "
                         + "WHERE username == :username "
-                        + "&& timestamp >= :from "
-                        + "ORDER BY timestamp DESC"),
+                        + "&& loginTimestamp >= :from "
+                        + "ORDER BY loginTimestamp DESC"),
         @javax.jdo.annotations.Query(
                 name="findByUsernameAndTimestampBefore", language="JDOQL",
                 value="SELECT "
                         + "FROM org.isisaddons.module.sessionlogger.dom.SessionLogEntry "
                         + "WHERE username == :username "
-                        + "&& timestamp <= :from "
-                        + "ORDER BY timestamp DESC"),
+                        + "&& loginTimestamp <= :from "
+                        + "ORDER BY loginTimestamp DESC"),
         @javax.jdo.annotations.Query(
                 name="findByUsername", language="JDOQL",
                 value="SELECT "
                         + "FROM org.isisaddons.module.sessionlogger.dom.SessionLogEntry "
                         + "WHERE username == :username "
-                        + "ORDER BY timestamp DESC"),
+                        + "ORDER BY loginTimestamp DESC"),
         @javax.jdo.annotations.Query(
                 name="findByTimestampBetween", language="JDOQL",
                 value="SELECT "
                         + "FROM org.isisaddons.module.sessionlogger.dom.SessionLogEntry "
-                        + "WHERE timestamp >= :from "
-                        + "&&    timestamp <= :to "
-                        + "ORDER BY timestamp DESC"),
+                        + "WHERE loginTimestamp >= :from "
+                        + "&&    logoutTimestamp <= :to "
+                        + "ORDER BY loginTimestamp DESC"),
         @javax.jdo.annotations.Query(
                 name="findByTimestampAfter", language="JDOQL",
                 value="SELECT "
                         + "FROM org.isisaddons.module.sessionlogger.dom.SessionLogEntry "
-                        + "WHERE timestamp >= :from "
-                        + "ORDER BY timestamp DESC"),
+                        + "WHERE loginTimestamp >= :from "
+                        + "ORDER BY loginTimestamp DESC"),
         @javax.jdo.annotations.Query(
                 name="findByTimestampBefore", language="JDOQL",
                 value="SELECT "
                         + "FROM org.isisaddons.module.sessionlogger.dom.SessionLogEntry "
-                        + "WHERE timestamp <= :to "
-                        + "ORDER BY timestamp DESC"),
+                        + "WHERE loginTimestamp <= :to "
+                        + "ORDER BY loginTimestamp DESC"),
         @javax.jdo.annotations.Query(
                 name="find", language="JDOQL",
                 value="SELECT "
                         + "FROM org.isisaddons.module.sessionlogger.dom.SessionLogEntry "
-                        + "ORDER BY timestamp DESC"),
+                        + "ORDER BY loginTimestamp DESC"),
         @javax.jdo.annotations.Query(
                 name="findByUsernameAndTimestampStrictlyBefore", language="JDOQL",
                 value="SELECT "
                         + "FROM org.isisaddons.module.sessionlogger.dom.SessionLogEntry "
                         + "WHERE username == :username "
-                        + "&& timestamp < :from "
-                        + "ORDER BY timestamp DESC"),
+                        + "&& loginTimestamp < :from "
+                        + "ORDER BY loginTimestamp DESC"),
         @javax.jdo.annotations.Query(
                 name="findByUsernameAndTimestampStrictlyAfter", language="JDOQL",
                 value="SELECT "
                         + "FROM org.isisaddons.module.sessionlogger.dom.SessionLogEntry "
                         + "WHERE username == :username "
-                        + "&& timestamp > :from "
-                        + "ORDER BY timestamp ASC")
+                        + "&& loginTimestamp > :from "
+                        + "ORDER BY loginTimestamp ASC"),
+        @javax.jdo.annotations.Query(
+                name="listAllActiveSessions", language="JDOQL",
+                value="SELECT "
+                      + "FROM org.isisaddons.module.sessionlogger.dom.SessionLogEntry "
+                      + "WHERE logoutTimestamp == null "
+                      + "ORDER BY loginTimestamp ASC")
 })
 @Immutable
 @DomainObjectLayout(named = "Session Log Entry")
@@ -117,9 +125,9 @@ public class SessionLogEntry {
 
     public String title() {
         return String.format("%s: %s logged %s %s",
-                getTimestamp(),
+                getLoginTimestamp(),
                 getUsername(),
-                getType() == SessionLoggingService.Type.LOGIN? "in": "out",
+                getLogoutTimestamp() == null ? "in": "out",
                 getCausedBy() == SessionLoggingService.CausedBy.SESSION_EXPIRATION ? "(session expired)" : "");
     }
 
@@ -128,12 +136,29 @@ public class SessionLogEntry {
     }
 
     public String iconName() {
-        return getType() == SessionLoggingService.Type.LOGIN
+        return getLogoutTimestamp() == null
                 ? "login"
                 :getCausedBy() != SessionLoggingService.CausedBy.SESSION_EXPIRATION
                     ? "logout"
                     : "expired";
     }
+    // //////////////////////////////////////
+    // sessionId (property)
+    // //////////////////////////////////////
+
+    private String sessionId;
+
+    @javax.jdo.annotations.PrimaryKey
+    @javax.jdo.annotations.Column(allowsNull="false", length=15)
+    @MemberOrder(name="Identifiers",sequence = "12")
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
 
     // //////////////////////////////////////
     // user (property)
@@ -153,35 +178,35 @@ public class SessionLogEntry {
 
 
     // //////////////////////////////////////
-    // timestamp (property)
+    // loginTimestamp (property)
     // //////////////////////////////////////
 
-    private Timestamp timestamp;
+    private Timestamp loginTimestamp;
 
     @javax.jdo.annotations.Column(allowsNull="false")
     @MemberOrder(name="Identifiers",sequence = "20")
-    public Timestamp getTimestamp() {
-        return timestamp;
+    public Timestamp getLoginTimestamp() {
+        return loginTimestamp;
     }
 
-    public void setTimestamp(final Timestamp timestamp) {
-        this.timestamp = timestamp;
+    public void setLoginTimestamp(final Timestamp loginTimestamp) {
+        this.loginTimestamp = loginTimestamp;
     }
 
     // //////////////////////////////////////
-    // type (property)
+    // logoutTimestamp (property)
     // //////////////////////////////////////
 
-    private SessionLoggingService.Type type;
+    private Timestamp logoutTimestamp;
 
-    @javax.jdo.annotations.Column(allowsNull="false", length = 6)
-    @MemberOrder(name="Detail",sequence = "10")
-    public SessionLoggingService.Type getType() {
-        return type;
+    @javax.jdo.annotations.Column(allowsNull="true")
+    @MemberOrder(name="Identifiers",sequence = "20")
+    public Timestamp getLogoutTimestamp() {
+        return logoutTimestamp;
     }
 
-    public void setType(final SessionLoggingService.Type type) {
-        this.type = type;
+    public void setLogoutTimestamp(final Timestamp logoutTimestamp) {
+        this.logoutTimestamp = logoutTimestamp;
     }
 
     // //////////////////////////////////////
@@ -206,7 +231,7 @@ public class SessionLogEntry {
 
     @Override
     public String toString() {
-        return ObjectContracts.toString(this, "type,username,timestamp,causedBy");
+        return ObjectContracts.toString(this, "type,username,loginTimestamp,causedBy");
     }
 
     
@@ -220,7 +245,7 @@ public class SessionLogEntry {
     )
     @MemberOrder(sequence = "2")
     public SessionLogEntry next() {
-        final List<SessionLogEntry> after = sessionLogEntryRepository.findByUsernameAndStrictlyAfter(getUsername(), getTimestamp());
+        final List<SessionLogEntry> after = sessionLogEntryRepository.findByUsernameAndStrictlyAfter(getUsername(), getLoginTimestamp());
         return !after.isEmpty() ? after.get(0) : this;
     }
 
@@ -234,7 +259,7 @@ public class SessionLogEntry {
     )
     @MemberOrder(sequence = "1")
     public SessionLogEntry previous() {
-        final List<SessionLogEntry> before = sessionLogEntryRepository.findByUsernameAndStrictlyBefore(getUsername(), getTimestamp());
+        final List<SessionLogEntry> before = sessionLogEntryRepository.findByUsernameAndStrictlyBefore(getUsername(), getLoginTimestamp());
         return !before.isEmpty() ? before.get(0) : this;
     }
 
