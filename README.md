@@ -151,19 +151,23 @@ their session expires.
 The `SessionLogEntry` properties directly correspond to parameters of the `SessionLoggingService` `log()` API:
 
     public class SessionLogEntry
-        ... 
+        ...
+        private String sessionId;
         private String username;
         private SessionLoggingService.Type type;
         private Timestamp loginTimestamp;
+        private Timestamp logoutTimestamp;
         private SessionLoggingService.CausedBy causedBy;
         ...
     }
 
 where:
 
+* `sessionId` identifies the user's session. Primary key. (*Note*: it is not the http session id!)
 * `username` identifies the user that has logged in/out
 * `type` determines whether this was a login or logout.
-* `loginTimestamp` is the date that the event occurred
+* `loginTimestamp` is the date that the login of the session event occurred
+* `logoutTimestamp` is the date that the logout of the session event occurred
 * `causedBy`indicates whether the session was logged out due to session expiry
 
 The `SessionLogEntry` entity is designed such that it can be rendered on an Isis user interface if required.
@@ -177,7 +181,7 @@ also provides two further domain services:
   actions are visible in the user interface (they are all `@Programmatic`) and so this service is automatically
   registered.
 
-* `SessionLoggingServiceMenu` provides the secondary "Sessions" menu for searching for session entries by user and
+* `SessionLoggingServiceMenu` provides the secondary "Sessions" menu for listing all active sessions and for searching for session entries by user and
    by date.
 
 Because the `SessionLoggingServiceMenu` influences the UI, it must be explicitly registered in `isis.properties`.
