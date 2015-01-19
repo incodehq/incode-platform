@@ -137,9 +137,7 @@ class ExcelFileModel extends LoadableDetachableModel<File> {
 
         protected CellStyle createDateFormatCellStyle(final Workbook wb) {
             CreationHelper createHelper = wb.getCreationHelper();
-            SimpleDateFormat dateInstance = (SimpleDateFormat) DateFormat.getDateInstance(DateFormat.MEDIUM);
-            String pattern = dateInstance.toPattern();
-            short dateFormat = createHelper.createDataFormat().getFormat(pattern);
+            short dateFormat = createHelper.createDataFormat().getFormat("yyyy-mm-dd");
             CellStyle dateCellStyle = wb.createCellStyle();
             dateCellStyle.setDataFormat(dateFormat);
             return dateCellStyle;
