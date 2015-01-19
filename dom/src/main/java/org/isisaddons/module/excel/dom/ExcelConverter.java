@@ -29,6 +29,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.BuiltinFormats;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
@@ -276,9 +277,7 @@ class ExcelConverter {
 
     protected CellStyle createDateFormatCellStyle(final Workbook wb) {
         final CreationHelper createHelper = wb.getCreationHelper();
-        final SimpleDateFormat dateInstance = (SimpleDateFormat) DateFormat.getDateInstance(DateFormat.MEDIUM);
-        final String pattern = dateInstance.toPattern();
-        short dateFormat = createHelper.createDataFormat().getFormat(pattern);
+        short dateFormat = createHelper.createDataFormat().getFormat("yyyy-mm-dd");
         final CellStyle dateCellStyle = wb.createCellStyle();
         dateCellStyle.setDataFormat(dateFormat);
         return dateCellStyle;
