@@ -461,7 +461,7 @@ public class ExcelModuleDemoToDoItem implements Comparable<ExcelModuleDemoToDoIt
         return null;
     }
     // provide a drop-down
-    public Collection<ExcelModuleDemoToDoItem> choices0Remove() {
+    public SortedSet<ExcelModuleDemoToDoItem> choices0Remove() {
         return getDependencies();
     }
     
