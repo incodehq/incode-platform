@@ -19,6 +19,7 @@
 package org.isisaddons.wicket.gmap3.fixture.dom;
 
 import java.util.*;
+import java.util.Collection;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 import com.google.common.base.Objects;
