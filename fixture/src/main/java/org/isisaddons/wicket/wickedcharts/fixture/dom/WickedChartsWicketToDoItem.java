@@ -18,6 +18,7 @@ package org.isisaddons.wicket.wickedcharts.fixture.dom;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.Collection;
 import javax.jdo.JDOHelper;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
