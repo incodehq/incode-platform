@@ -48,7 +48,7 @@ The actual `.docx` used in the example app can be found [here](https://github.co
 #### Generating the Document ####
 
 In the example app's design the `CustomerConfirmation` example domain service is in essence an intelligent wrapper
-around the `CustomerConfirmation.docx` template.  It contributes contributes two actions to `Order`, the more 
+around the `CustomerConfirmation.docx` template.  It contributes two actions to `Order`, the more
 significant of which is `downloadCustomerConfirmation()`.  
 
 The `.docx` is simply loaded as a simple resource from the classpath:
