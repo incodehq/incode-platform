@@ -18,7 +18,11 @@ package org.isisaddons.module.command.dom;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.NotPersistent;
@@ -27,14 +31,26 @@ import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.*;
+import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.annotation.Command.ExecuteIn;
 import org.apache.isis.applib.annotation.Command.Persistence;
+import org.apache.isis.applib.annotation.Hidden;
+import org.apache.isis.applib.annotation.Immutable;
+import org.apache.isis.applib.annotation.Mandatory;
+import org.apache.isis.applib.annotation.MemberGroupLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.MultiLine;
+import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.ObjectType;
+import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.TypicalLength;
+import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.command.Command;
-import org.apache.isis.applib.services.command.Command2;
+import org.apache.isis.applib.services.command.Command3;
+import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 import org.apache.isis.applib.services.eventbus.ActionInteractionEvent;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
@@ -145,7 +161,7 @@ import org.apache.isis.objectstore.jdo.applib.service.Util;
         right={"Detail","Timings","Results"})
 @Named("Command")
 @Immutable
-public class CommandJdo extends DomainChangeJdoAbstract implements Command2 {
+public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
 
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(CommandJdo.class);
@@ -630,33 +646,77 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command2 {
     // ActionInteractionEvent (Command2 impl)
     // //////////////////////////////////////
 
-    private final LinkedList<ActionInteractionEvent<?>> actionInteractionEvents = Lists.newLinkedList();
-
+    @Deprecated
     @Override
     public ActionInteractionEvent<?> peekActionInteractionEvent() {
-        return actionInteractionEvents.isEmpty()? null: actionInteractionEvents.getLast();
+        final ActionDomainEvent<?> actionDomainEvent = peekActionDomainEvent();
+        if (actionDomainEvent != null && !(actionDomainEvent instanceof ActionInteractionEvent)) {
+            throw new IllegalStateException("Most recently pushed event was not an instance of ActionInteractionEvent; use either ActionDomainEvent or the (deprecated) ActionInteractionEvent consistently");
+        }
+        return (ActionInteractionEvent<?>) actionDomainEvent;
     }
 
+    @Deprecated
     @Override
     public void pushActionInteractionEvent(ActionInteractionEvent<?> event) {
-        if(peekActionInteractionEvent() == event) {
-            return;
+        pushActionDomainEvent(event);
+    }
+
+    @Deprecated
+    @Override
+    public ActionInteractionEvent popActionInteractionEvent() {
+        final ActionDomainEvent<?> actionDomainEvent = popActionDomainEvent();
+        if (actionDomainEvent != null  && !(actionDomainEvent instanceof ActionInteractionEvent)) {
+            throw new IllegalStateException("Most recently pushed event was not an instance of ActionInteractionEvent; use either ActionDomainEvent or the (deprecated) ActionInteractionEvent consistently");
         }
-        this.actionInteractionEvents.add(event);
+        return (ActionInteractionEvent<?>) actionDomainEvent;
+    }
+
+    @Deprecated
+    @Programmatic
+    public List<ActionInteractionEvent<?>> flushActionInteractionEvents() {
+        final List<ActionDomainEvent<?>> actionDomainEvents = flushActionDomainEvents();
+        for (ActionDomainEvent<?> actionDomainEvent : actionDomainEvents) {
+            if (!(actionDomainEvent instanceof ActionInteractionEvent)) {
+                throw new IllegalStateException("List of events includes at least one event that is not an instance of ActionInteractionEvent; use either ActionDomainEvent or the (deprecated) ActionInteractionEvent consistently");
+            }
+        }
+        return (List)actionDomainEvents;
+    }
+
+
+    // //////////////////////////////////////
+    // ActionDomainEvent (Command3 impl)
+    // //////////////////////////////////////
+
+    private final LinkedList<ActionDomainEvent<?>> actionDomainEvents = Lists.newLinkedList();
+
+    @Override
+    public ActionDomainEvent<?> peekActionDomainEvent() {
+        return actionDomainEvents.isEmpty()? null: actionDomainEvents.getLast();
     }
 
     @Override
-    public ActionInteractionEvent popActionInteractionEvent() {
-        return !actionInteractionEvents.isEmpty() ? actionInteractionEvents.removeLast() : null;
+    public void pushActionDomainEvent(ActionDomainEvent<?> event) {
+        if(peekActionDomainEvent() == event) {
+            return;
+        }
+        this.actionDomainEvents.add(event);
+    }
+
+    @Override
+    public ActionDomainEvent popActionDomainEvent() {
+        return !actionDomainEvents.isEmpty() ? actionDomainEvents.removeLast() : null;
     }
 
     @Programmatic
-    public List<ActionInteractionEvent<?>> flushActionInteractionEvents() {
-        final List<ActionInteractionEvent<?>> events =
-                Collections.unmodifiableList(Lists.newArrayList(actionInteractionEvents));
-        actionInteractionEvents.clear();
+    public List<ActionDomainEvent<?>> flushActionDomainEvents() {
+        final List<ActionDomainEvent<?>> events =
+                Collections.unmodifiableList(Lists.newArrayList(actionDomainEvents));
+        actionDomainEvents.clear();
         return events;
     }
+
 
     // //////////////////////////////////////
     // next(...) impl
