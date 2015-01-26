@@ -29,6 +29,10 @@ public class SessionLoggingServiceDefault extends AbstractService implements Ses
             sessionLogEntry.setSessionId(sessionId);
         } else {
             sessionLogEntry = firstMatch(new QueryDefault<>(SessionLogEntry.class, "findBySessionId", "sessionId", sessionId));
+            if (sessionLogEntry == null) {
+                // invalidation of a never authenticated session
+                return;
+            }
             sessionLogEntry.setLogoutTimestamp(timestamp);
         }
         sessionLogEntry.setCausedBy(causedBy);
