@@ -18,7 +18,7 @@ package org.isisaddons.module.command.dom;
 
 import java.util.List;
 import java.util.UUID;
-import org.isisaddons.module.command.CommandModuleActionDomainEvent;
+import org.isisaddons.module.command.CommandModule;
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
@@ -41,7 +41,7 @@ import org.apache.isis.applib.services.command.Command;
 )
 public class CommandServiceJdoContributions extends AbstractFactoryAndRepository {
 
-    public static abstract class ActionDomainEvent extends CommandModuleActionDomainEvent<CommandServiceJdoContributions> {
+    public static abstract class ActionDomainEvent extends CommandModule.ActionDomainEvent<CommandServiceJdoContributions> {
         public ActionDomainEvent(final CommandServiceJdoContributions source, final Identifier identifier) {
             super(source, identifier);
         }

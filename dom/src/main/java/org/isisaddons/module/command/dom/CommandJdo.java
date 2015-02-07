@@ -28,8 +28,7 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.NotPersistent;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import org.isisaddons.module.command.CommandModuleActionDomainEvent;
-import org.isisaddons.module.command.CommandModulePropertyDomainEvent;
+import org.isisaddons.module.command.CommandModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.isis.applib.DomainObjectContainer;
@@ -174,7 +173,7 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
 
     // //////////////////////////////////////
 
-    public static abstract class PropertyDomainEvent<T> extends CommandModulePropertyDomainEvent<CommandJdo, T> {
+    public static abstract class PropertyDomainEvent<T> extends CommandModule.PropertyDomainEvent<CommandJdo, T> {
         public PropertyDomainEvent(final CommandJdo source, final Identifier identifier) {
             super(source, identifier);
         }
@@ -184,7 +183,7 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
         }
     }
 
-    public static abstract class ActionDomainEvent extends CommandModuleActionDomainEvent<CommandJdo> {
+    public static abstract class ActionDomainEvent extends CommandModule.ActionDomainEvent<CommandJdo> {
         public ActionDomainEvent(final CommandJdo source, final Identifier identifier) {
             super(source, identifier);
         }

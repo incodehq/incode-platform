@@ -18,7 +18,7 @@ package org.isisaddons.module.command.dom;
 
 import java.util.Collections;
 import java.util.List;
-import org.isisaddons.module.command.CommandModuleActionDomainEvent;
+import org.isisaddons.module.command.CommandModule;
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
@@ -41,7 +41,7 @@ import org.apache.isis.applib.services.command.Command;
 )
 public class BackgroundCommandServiceJdoContributions extends AbstractFactoryAndRepository {
 
-    public static abstract class ActionDomainEvent extends CommandModuleActionDomainEvent<BackgroundCommandServiceJdoContributions> {
+    public static abstract class ActionDomainEvent extends CommandModule.ActionDomainEvent<BackgroundCommandServiceJdoContributions> {
         public ActionDomainEvent(BackgroundCommandServiceJdoContributions source, Identifier identifier, Object... args) {
             super(source, identifier, args);
         }
