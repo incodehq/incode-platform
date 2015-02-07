@@ -29,9 +29,13 @@ import org.apache.isis.applib.util.ObjectContracts;
 @javax.jdo.annotations.Version(
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
-@ObjectType("SOME_AUDITED_OBJECT")
-@Bookmarkable
-@Audited
+@DomainObject(
+        objectType = "SOME_AUDITED_OBJECT",
+        auditing = Auditing.ENABLED
+)
+@DomainObjectLayout(
+        bookmarking = BookmarkPolicy.AS_ROOT
+)
 public class SomeAuditedObject implements Comparable<SomeAuditedObject> {
 
     //region > name (property)

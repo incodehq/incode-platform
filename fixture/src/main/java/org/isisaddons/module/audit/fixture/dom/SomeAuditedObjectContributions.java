@@ -24,51 +24,25 @@ import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.NotInServiceMenu;
 import org.apache.isis.applib.annotation.ParameterLayout;
-import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService (
-        repositoryFor = SomeAuditedObject.class
+        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
 )
 @DomainServiceLayout(
         menuOrder = "10"
 )
-public class SomeAuditedObjects {
-
-    //region > listAll (action)
-
-    @Action(semantics = SemanticsOf.SAFE)
-    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
-    @MemberOrder(sequence = "1")
-    public List<SomeAuditedObject> listAll() {
-        return container.allInstances(SomeAuditedObject.class);
-    }
-
-    //endregion
-
-    //region > create (action)
-
-    @MemberOrder(sequence = "2")
-    public SomeAuditedObject create(
-            @ParameterLayout(named = "Name")
-            final String name) {
-        final SomeAuditedObject obj = container.newTransientInstance(SomeAuditedObject.class);
-        obj.setName(name);
-        container.persistIfNotAlready(obj);
-        return obj;
-    }
-
-    //endregion
+public class SomeAuditedObjectContributions {
 
     //region > delete (action)
 
-    @Programmatic
+    @MemberOrder(sequence = "3")
     public List<SomeAuditedObject> delete(
             final SomeAuditedObject object) {
-        container.removeIfNotAlready(object);
-        container.flush();
-        return listAll();
+        return someAuditedObjects.delete(object);
     }
 
     //endregion
@@ -78,6 +52,9 @@ public class SomeAuditedObjects {
 
     @javax.inject.Inject 
     DomainObjectContainer container;
+
+    @javax.inject.Inject
+    SomeAuditedObjects someAuditedObjects;
 
     //endregion
 

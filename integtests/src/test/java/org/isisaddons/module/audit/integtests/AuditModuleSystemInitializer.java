@@ -16,7 +16,6 @@
  */
 package org.isisaddons.module.audit.integtests;
 
-import org.isisaddons.module.audit.dom.AuditingServiceContributions;
 import org.apache.isis.core.commons.config.IsisConfiguration;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
 import org.apache.isis.objectstore.jdo.datanucleus.DataNucleusPersistenceMechanismInstaller;
@@ -56,8 +55,6 @@ public class AuditModuleSystemInitializer {
                             ,"org.apache.isis.objectstore.jdo.datanucleus.service.support" // IsisJdoSupportImpl
                             ,"org.apache.isis.objectstore.jdo.datanucleus.service.eventbus" // EventBusServiceJdo
                             );
-
-            withServices(new AuditingServiceContributions());
         }
 
         private static IsisConfiguration testConfiguration() {

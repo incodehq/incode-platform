@@ -20,18 +20,34 @@ import java.util.List;
 import org.isisaddons.module.audit.dom.AuditEntry;
 import org.isisaddons.module.audit.dom.AuditingServiceRepository;
 import org.joda.time.LocalDate;
-import org.apache.isis.applib.annotation.ActionSemantics;
+import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.Parameter;
+import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.SemanticsOf;
 
-@DomainService(menuOrder = "20")
+@DomainServiceLayout(
+        menuBar = DomainServiceLayout.MenuBar.SECONDARY,
+        named = "Changes"
+)
+@DomainService(
+        nature = NatureOfService.VIEW_MENU_ONLY
+)
 public class AuditEntries {
 
-    @ActionSemantics(ActionSemantics.Of.SAFE)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
     public List<AuditEntry> listAuditEntries(
-            final @Named("From") @Optional LocalDate from,
-            final @Named("To") @Optional LocalDate to) {
+            @ParameterLayout(named = "From")
+            @Parameter(optionality = Optionality.OPTIONAL)
+            final LocalDate from,
+            @ParameterLayout(named = "To")
+            @Parameter(optionality = Optionality.OPTIONAL)
+            final LocalDate to) {
         return auditingServiceRepository.findByFromAndTo(from, to);
     }
 

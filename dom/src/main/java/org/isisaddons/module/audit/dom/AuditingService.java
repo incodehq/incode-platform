@@ -19,11 +19,14 @@ package org.isisaddons.module.audit.dom;
 import java.util.UUID;
 import org.apache.isis.applib.AbstractService;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.audit.AuditingService3;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 
-@DomainService
+@DomainService(
+        nature = NatureOfService.DOMAIN
+)
 public class AuditingService extends AbstractService implements AuditingService3 {
 
     @Programmatic

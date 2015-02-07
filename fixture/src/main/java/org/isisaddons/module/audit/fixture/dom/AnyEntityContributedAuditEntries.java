@@ -24,13 +24,21 @@ import org.apache.isis.applib.services.HasTransactionId;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 
-@DomainService
+@DomainService(
+        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
+)
 public class AnyEntityContributedAuditEntries {
 
-    @NotInServiceMenu
-    @Render(Render.Type.EAGERLY)
-    @NotContributed(NotContributed.As.ACTION) // ie contributed as collection
-    @ActionSemantics(ActionSemantics.Of.SAFE)
+
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            contributed = Contributed.AS_ASSOCIATION
+    )
+    @CollectionLayout(
+            render = RenderType.EAGERLY
+    )
     public List<AuditEntry> auditEntries(Object entity) {
         final Bookmark bookmark = bookmarkService.bookmarkFor(entity);
         return auditingServiceRepository.findByTargetAndFromAndTo(bookmark, null, null);

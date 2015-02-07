@@ -18,8 +18,8 @@ Install some sample fixture data ...
 
 #### Object with initial (creation) audit entries ####
 
-Because the example entity is annotated with `@Audited`, the initial creation of that object already results in
-some audit entries:
+Because the example entity is annotated with `@DomainObject(auditing = Auditing.ENABLED)`, the initial creation of
+that object already results in some audit entries:
 
 ![](https://raw.github.com/isisaddons/isis-module-audit/master/images/02-first-object-with-initial-audit-entries.png)
 
@@ -106,15 +106,10 @@ To use "out-of-the-box":
                     ...,\
                     org.isisaddons.module.audit.dom,\
                     ...
-
-    isis.services = ...,\
-                    org.isisaddons.module.audit.dom.AuditingServiceContributions,\
-                    ...
 </pre>
 
 Notes:
 * Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-audit-dom).
-* The `AuditingServiceContributions` service is optional but recommended; see below for more information.
 
 For audit entries to be created when an object is changed, some configuration is required.  This can be either on a case-by-case basis, or globally:
 
@@ -250,6 +245,10 @@ further domain services:
   This will therefore display all audit entries that occurred in a given transaction, in other words whenever a command,
   a published event or another audit entry is displayed.
 
+In 1.7.0, it is necessary to explicitly register `AuditingServiceContributions` in `isis.properties` (the
+rationale being that it appears in the user interface).  In 1.8.0-SNAPSHOT this policy is reversed, and the service is
+automatically registered (it is annotated with `@DomainService`).  Use security to suppress its contributions if required.
+
 ## Related Modules/Services ##
 
 As well as defining the `AuditingService3` API, Isis' applib also defines several other closely related services.
@@ -281,13 +280,14 @@ and it is this interface that each module has services that contribute to).
 
 ## Known issues ##
 
-In `1.6.0` and `1.7.0` a call to `DomainObjectContainer#flush()` is required in order that any newly created objects are populated.
-Note that Isis automatically performs a flush prior to any repository call, so in many cases there may not be any need 
-to call flush explicitly.         
+In `1.6.0` through `1.8.0-SNAPSHOT` a call to `DomainObjectContainer#flush()` is required in order that any newly
+created objects are populated.  Note that Isis automatically performs a flush prior to any repository call, so in many
+cases there may not be any need to call flush explicitly.
 
 
 ## Change Log ##
 
+* `1.8.0-SNAPSHOT` - in development against Isis 1.8.0-SNAPSHOT.
 * `1.7.0` - released against Isis 1.7.0.
 * `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.audit`
 
@@ -296,7 +296,7 @@ to call flush explicitly.
  
 #### License ####
 
-    Copyright 2014 Dan Haywood
+    Copyright 2014-2015 Dan Haywood
 
     Licensed under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance

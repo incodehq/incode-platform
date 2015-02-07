@@ -17,16 +17,18 @@
 package org.isisaddons.module.audit.dom;
 
 import java.util.List;
-
 import org.apache.isis.applib.AbstractService;
-import org.apache.isis.applib.annotation.ActionSemantics;
-import org.apache.isis.applib.annotation.ActionSemantics.Of;
-import org.apache.isis.applib.annotation.NotContributed;
-import org.apache.isis.applib.annotation.NotContributed.As;
-import org.apache.isis.applib.annotation.NotInServiceMenu;
-import org.apache.isis.applib.annotation.Render;
-import org.apache.isis.applib.annotation.Render.Type;
+import org.apache.isis.applib.Identifier;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.CollectionLayout;
+import org.apache.isis.applib.annotation.Contributed;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.RenderType;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.HasTransactionId;
+import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 
 /**
  * This service contributes an <tt>auditEntries</tt> collection to any implementation of
@@ -34,15 +36,37 @@ import org.apache.isis.applib.services.HasTransactionId;
  * events.  This allows the user to navigate to other audited effects of the given command.
  *
  * <p>
- * Because this service influences the UI, it must be explicitly registered as a service
- * (eg using <tt>isis.properties</tt>).
+ * Note that this service influences the UI.  If not required, use security or a vetoing subscriber to hide.
  */
+@DomainService(
+        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
+)
 public class AuditingServiceContributions extends AbstractService {
 
-    @ActionSemantics(Of.SAFE)
-    @NotInServiceMenu
-    @NotContributed(As.ACTION) // ie contribute as collection
-    @Render(Type.EAGERLY)
+    public static abstract class AbstractActionEvent extends ActionDomainEvent<AuditingServiceContributions> {
+        public AbstractActionEvent(AuditingServiceContributions source, Identifier identifier, Object... args) {
+            super(source, identifier, args);
+        }
+    }
+
+    // //////////////////////////////////////
+
+    public static class AuditEntriesEvent extends AbstractActionEvent {
+        public AuditEntriesEvent(AuditingServiceContributions source, Identifier identifier, Object... args) {
+            super(source, identifier, args);
+        }
+    }
+
+    @Action(
+            domainEvent = AuditEntriesEvent.class,
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            contributed = Contributed.AS_ASSOCIATION
+    )
+    @CollectionLayout(
+            render = RenderType.EAGERLY
+    )
     public List<AuditEntry> auditEntries(final HasTransactionId hasTransactionId) {
         return auditEntryRepository.findByTransactionId(hasTransactionId.getTransactionId());
     }
