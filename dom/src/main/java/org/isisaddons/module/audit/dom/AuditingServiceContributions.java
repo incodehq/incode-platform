@@ -17,7 +17,7 @@
 package org.isisaddons.module.audit.dom;
 
 import java.util.List;
-import org.isisaddons.module.audit.AuditModuleCollectionDomainEvent;
+import org.isisaddons.module.audit.AuditModule;
 import org.apache.isis.applib.AbstractService;
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
@@ -44,7 +44,7 @@ import org.apache.isis.applib.services.HasTransactionId;
 )
 public class AuditingServiceContributions extends AbstractService {
 
-    public static abstract class CollectionDomainEvent<T> extends AuditModuleCollectionDomainEvent<AuditingServiceContributions,T> {
+    public static abstract class CollectionDomainEvent<T> extends AuditModule.CollectionDomainEvent<AuditingServiceContributions,T> {
         public CollectionDomainEvent(final AuditingServiceContributions source, final Identifier identifier, final Of of) {
             super(source, identifier, of);
         }
@@ -55,7 +55,7 @@ public class AuditingServiceContributions extends AbstractService {
 
     // //////////////////////////////////////
 
-    public static class AuditEntriesDomainEvent extends CollectionDomainEvent<AuditEntry> {
+    public static class AuditEntriesDomainEvent extends AuditModule.CollectionDomainEvent<AuditingServiceContributions, AuditEntry> {
         public AuditEntriesDomainEvent(final AuditingServiceContributions source, final Identifier identifier, final Of of) {
             super(source, identifier, of);
         }

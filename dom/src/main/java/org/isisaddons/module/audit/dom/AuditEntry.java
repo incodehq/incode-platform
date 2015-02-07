@@ -22,7 +22,7 @@ import java.util.UUID;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Index;
 import javax.jdo.annotations.Indices;
-import org.isisaddons.module.audit.AuditModulePropertyDomainEvent;
+import org.isisaddons.module.audit.AuditModule;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.DomainObject;
@@ -123,7 +123,7 @@ import org.apache.isis.objectstore.jdo.applib.service.Util;
         right={"Detail"})
 public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactionId {
 
-    public static abstract class PropertyDomainEvent<T> extends AuditModulePropertyDomainEvent<AuditEntry, T> {
+    public static abstract class PropertyDomainEvent<T> extends AuditModule.PropertyDomainEvent<AuditEntry, T> {
         public PropertyDomainEvent(final AuditEntry source, final Identifier identifier) {
             super(source, identifier);
         }
