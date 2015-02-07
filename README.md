@@ -77,7 +77,7 @@ direct copy of that code, with the following changes:
 
 Otherwise the functionality is identical; warts and all!
 
-Isis 1.7.0 no longer ships the `org.apache.isis.module:isis-module-audit-jdo` module; use this addon module instead.
+Isis 1.7.0 (and later) no longer ships the `org.apache.isis.module:isis-module-audit-jdo` module; use this addon module instead.
 
 
 ## How to Configure/Use ##
@@ -246,8 +246,9 @@ further domain services:
   a published event or another audit entry is displayed.
 
 In 1.7.0, it is necessary to explicitly register `AuditingServiceContributions` in `isis.properties` (the
-rationale being that it appears in the user interface).  In 1.8.0-SNAPSHOT this policy is reversed, and the service is
-automatically registered (it is annotated with `@DomainService`).  Use security to suppress its contributions if required.
+rationale being that this service contributes functionality that appears in the user interface).  In 1.8.0-SNAPSHOT this
+policy is reversed, and the service is automatically registered using `@DomainService`.  Use security to suppress its
+contributions if required.
 
 ## Related Modules/Services ##
 

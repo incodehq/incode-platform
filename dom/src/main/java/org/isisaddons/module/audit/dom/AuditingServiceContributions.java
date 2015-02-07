@@ -17,10 +17,12 @@
 package org.isisaddons.module.audit.dom;
 
 import java.util.List;
+import org.isisaddons.module.audit.AuditModuleCollectionDomainEvent;
 import org.apache.isis.applib.AbstractService;
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.Collection;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.DomainService;
@@ -28,7 +30,6 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.HasTransactionId;
-import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 
 /**
  * This service contributes an <tt>auditEntries</tt> collection to any implementation of
@@ -43,26 +44,34 @@ import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 )
 public class AuditingServiceContributions extends AbstractService {
 
-    public static abstract class AbstractActionEvent extends ActionDomainEvent<AuditingServiceContributions> {
-        public AbstractActionEvent(AuditingServiceContributions source, Identifier identifier, Object... args) {
-            super(source, identifier, args);
+    public static abstract class CollectionDomainEvent<T> extends AuditModuleCollectionDomainEvent<AuditingServiceContributions,T> {
+        public CollectionDomainEvent(final AuditingServiceContributions source, final Identifier identifier, final Of of) {
+            super(source, identifier, of);
+        }
+        public CollectionDomainEvent(final AuditingServiceContributions source, final Identifier identifier, final Of of, final T value) {
+            super(source, identifier, of, value);
         }
     }
 
     // //////////////////////////////////////
 
-    public static class AuditEntriesEvent extends AbstractActionEvent {
-        public AuditEntriesEvent(AuditingServiceContributions source, Identifier identifier, Object... args) {
-            super(source, identifier, args);
+    public static class AuditEntriesDomainEvent extends CollectionDomainEvent<AuditEntry> {
+        public AuditEntriesDomainEvent(final AuditingServiceContributions source, final Identifier identifier, final Of of) {
+            super(source, identifier, of);
+        }
+        public AuditEntriesDomainEvent(final AuditingServiceContributions source, final Identifier identifier, final Of of, final AuditEntry value) {
+            super(source, identifier, of, value);
         }
     }
 
     @Action(
-            domainEvent = AuditEntriesEvent.class,
             semantics = SemanticsOf.SAFE
     )
     @ActionLayout(
             contributed = Contributed.AS_ASSOCIATION
+    )
+    @Collection(
+            domainEvent = AuditEntriesDomainEvent.class
     )
     @CollectionLayout(
             render = RenderType.EAGERLY
