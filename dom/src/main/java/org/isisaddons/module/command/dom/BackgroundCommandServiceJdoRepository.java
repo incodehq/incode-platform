@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 
@@ -37,7 +38,9 @@ import org.apache.isis.applib.query.QueryDefault;
  * thus has been annotated with {@link org.apache.isis.applib.annotation.DomainService}.  This means that there is no
  * need to explicitly register it as a service (eg in <tt>isis.properties</tt>).
  */
-@DomainService
+@DomainService(
+        nature = NatureOfService.DOMAIN
+)
 public class BackgroundCommandServiceJdoRepository extends AbstractFactoryAndRepository {
 
     @SuppressWarnings("unused")

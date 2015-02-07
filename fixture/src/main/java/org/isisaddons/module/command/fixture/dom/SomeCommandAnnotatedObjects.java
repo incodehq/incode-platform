@@ -18,14 +18,22 @@ package org.isisaddons.module.command.fixture.dom;
 
 import java.util.List;
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.*;
-import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.SemanticsOf;
 
-@DomainService(menuOrder = "10", repositoryFor = SomeCommandAnnotatedObject.class)
+@DomainService(repositoryFor = SomeCommandAnnotatedObject.class)
+@DomainServiceLayout(
+        menuOrder = "10"
+)
 public class SomeCommandAnnotatedObjects {
 
     //region > identification in the UI
-    // //////////////////////////////////////
 
     public String getId() {
         return "simple";
@@ -38,10 +46,13 @@ public class SomeCommandAnnotatedObjects {
     //endregion
 
     //region > listAll (action)
-    // //////////////////////////////////////
 
-    @Bookmarkable
-    @ActionSemantics(Of.SAFE)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            bookmarking = BookmarkPolicy.AS_ROOT
+    )
     @MemberOrder(sequence = "1")
     public List<SomeCommandAnnotatedObject> listAll() {
         return container.allInstances(SomeCommandAnnotatedObject.class);
@@ -50,11 +61,11 @@ public class SomeCommandAnnotatedObjects {
     //endregion
 
     //region > create (action)
-    // //////////////////////////////////////
-    
+
     @MemberOrder(sequence = "2")
     public SomeCommandAnnotatedObject create(
-            final @Named("Name") String name) {
+            @ParameterLayout(named = "Name")
+            final String name) {
         final SomeCommandAnnotatedObject obj = container.newTransientInstance(SomeCommandAnnotatedObject.class);
         obj.setName(name);
         container.persistIfNotAlready(obj);
@@ -64,7 +75,6 @@ public class SomeCommandAnnotatedObjects {
     //endregion
 
     //region > injected services
-    // //////////////////////////////////////
 
     @javax.inject.Inject 
     DomainObjectContainer container;

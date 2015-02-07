@@ -18,40 +18,75 @@ package org.isisaddons.module.command.dom;
 
 import java.util.Collections;
 import java.util.List;
-
+import org.isisaddons.module.command.CommandModuleActionDomainEvent;
 import org.apache.isis.applib.AbstractFactoryAndRepository;
-import org.apache.isis.applib.annotation.ActionSemantics;
-import org.apache.isis.applib.annotation.ActionSemantics.Of;
-import org.apache.isis.applib.annotation.NotContributed;
-import org.apache.isis.applib.annotation.NotContributed.As;
-import org.apache.isis.applib.annotation.NotInServiceMenu;
-import org.apache.isis.applib.annotation.Render;
-import org.apache.isis.applib.annotation.Render.Type;
+import org.apache.isis.applib.Identifier;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.CollectionLayout;
+import org.apache.isis.applib.annotation.Contributed;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.RenderType;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.command.Command;
 
 
 /**
  * This service contributes a <tt>childCommands</tt> collection and a <tt>sublingCommands</tt> collection to
  * any {@link CommandJdo} entity.
- *
- * <p>
- * Because this service influences the UI, it must be explicitly registered as a service
- * (eg using <tt>isis.properties</tt>).
  */
+@DomainService(
+        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
+)
 public class BackgroundCommandServiceJdoContributions extends AbstractFactoryAndRepository {
 
-    @ActionSemantics(Of.SAFE)
-    @NotInServiceMenu
-    @NotContributed(As.ACTION)
-    @Render(Type.EAGERLY)
+    public static abstract class ActionDomainEvent extends CommandModuleActionDomainEvent<BackgroundCommandServiceJdoContributions> {
+        public ActionDomainEvent(BackgroundCommandServiceJdoContributions source, Identifier identifier, Object... args) {
+            super(source, identifier, args);
+        }
+    }
+
+    // //////////////////////////////////////
+
+    public static class ChildCommandsDomainEvent extends ActionDomainEvent {
+        public ChildCommandsDomainEvent(BackgroundCommandServiceJdoContributions source, Identifier identifier, Object... args) {
+            super(source, identifier, args);
+        }
+    }
+
+    @Action(
+            domainEvent = ChildCommandsDomainEvent.class,
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            contributed = Contributed.AS_ASSOCIATION
+    )
+    @CollectionLayout(
+            render = RenderType.EAGERLY
+    )
     public List<CommandJdo> childCommands(final CommandJdo parent) {
         return backgroundCommandRepository.findByParent(parent);
     }
 
-    @ActionSemantics(Of.SAFE)
-    @NotInServiceMenu
-    @NotContributed(As.ACTION)
-    @Render(Type.EAGERLY)
+    // //////////////////////////////////////
+
+    public static class SiblingCommandsDomainEvent extends ActionDomainEvent {
+        public SiblingCommandsDomainEvent(final BackgroundCommandServiceJdoContributions source, final Identifier identifier, final Object... args) {
+            super(source, identifier, args);
+        }
+    }
+
+    @Action(
+            domainEvent = SiblingCommandsDomainEvent.class,
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            contributed = Contributed.AS_ASSOCIATION
+    )
+    @CollectionLayout(
+            render = RenderType.EAGERLY
+    )
     public List<CommandJdo> siblingCommands(final CommandJdo siblingCommand) {
         final Command parent = siblingCommand.getParent();
         if(parent == null || !(parent instanceof CommandJdo)) {
@@ -62,7 +97,6 @@ public class BackgroundCommandServiceJdoContributions extends AbstractFactoryAnd
         siblingCommands.remove(siblingCommand);
         return siblingCommands;
     }
-
 
     // //////////////////////////////////////
 

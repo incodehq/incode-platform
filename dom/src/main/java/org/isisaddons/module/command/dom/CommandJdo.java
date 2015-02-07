@@ -28,29 +28,31 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.NotPersistent;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import org.isisaddons.module.command.CommandModuleActionDomainEvent;
+import org.isisaddons.module.command.CommandModulePropertyDomainEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.ActionSemantics;
-import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.Identifier;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Command.ExecuteIn;
 import org.apache.isis.applib.annotation.Command.Persistence;
-import org.apache.isis.applib.annotation.Hidden;
-import org.apache.isis.applib.annotation.Immutable;
-import org.apache.isis.applib.annotation.Mandatory;
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
+import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.MemberGroupLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.MultiLine;
-import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.ObjectType;
+import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.annotation.TypicalLength;
+import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.PropertyLayout;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.command.Command;
 import org.apache.isis.applib.services.command.Command3;
-import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 import org.apache.isis.applib.services.eventbus.ActionInteractionEvent;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
@@ -154,23 +156,53 @@ import org.apache.isis.objectstore.jdo.applib.service.Util;
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "ORDER BY timestamp DESC")
 })
-@ObjectType("IsisCommand")
+@DomainObject(
+        objectType = "IsisCommand",
+        editing = Editing.DISABLED
+)
+@DomainObjectLayout(
+        named = "Command"
+)
 @MemberGroupLayout(
         columnSpans={6,0,6,12}, 
         left={"Identifiers","Target","Notes"},
         right={"Detail","Timings","Results"})
-@Named("Command")
-@Immutable
 public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
 
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(CommandJdo.class);
 
+    // //////////////////////////////////////
+
+    public static abstract class PropertyDomainEvent<T> extends CommandModulePropertyDomainEvent<CommandJdo, T> {
+        public PropertyDomainEvent(final CommandJdo source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public PropertyDomainEvent(final CommandJdo source, final Identifier identifier, final T oldValue, final T newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
+    public static abstract class ActionDomainEvent extends CommandModuleActionDomainEvent<CommandJdo> {
+        public ActionDomainEvent(final CommandJdo source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public ActionDomainEvent(final CommandJdo source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+
+        public ActionDomainEvent(final CommandJdo source, final Identifier identifier, final List<Object> arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+
+    // //////////////////////////////////////
+
     public CommandJdo() {
         super(ChangeType.COMMAND);
     }
-
-
 
     // //////////////////////////////////////
     // Identification
@@ -183,15 +215,25 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
         return buf.toString();
     }
 
-
-
     // //////////////////////////////////////
     // user (property)
     // //////////////////////////////////////
 
+    public static class UserDomainEvent extends PropertyDomainEvent<String> {
+        public UserDomainEvent(final CommandJdo source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public UserDomainEvent(final CommandJdo source, final Identifier identifier, final String oldValue, final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private String user;
 
     @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.USER_NAME)
+    @Property(
+            domainEvent = UserDomainEvent.class
+    )
     @MemberOrder(name="Identifiers", sequence = "10")
     public String getUser() {
         return user;
@@ -207,6 +249,15 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
     // timestamp (property)
     // //////////////////////////////////////
 
+    public static class TimestampDomainEvent extends PropertyDomainEvent<Timestamp> {
+        public TimestampDomainEvent(final CommandJdo source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public TimestampDomainEvent(final CommandJdo source, final Identifier identifier, final Timestamp oldValue, final Timestamp newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private Timestamp timestamp;
 
     /**
@@ -214,6 +265,9 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
      */
     @javax.jdo.annotations.Persistent
     @javax.jdo.annotations.Column(allowsNull="false")
+    @Property(
+            domainEvent = TimestampDomainEvent.class
+    )
     @MemberOrder(name="Identifiers", sequence = "20")
     public Timestamp getTimestamp() {
         return timestamp;
@@ -241,13 +295,22 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
     }
 
     @Override
-    public void setExecutor(Executor nature) {
+    public void setExecutor(final Executor nature) {
         this.executor = nature;
     }
 
     // //////////////////////////////////////
     // executeIn (property)
     // //////////////////////////////////////
+
+    public static class ExecuteInDomainEvent extends PropertyDomainEvent<ExecuteIn> {
+        public ExecuteInDomainEvent(final CommandJdo source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public ExecuteInDomainEvent(final CommandJdo source, final Identifier identifier, final ExecuteIn oldValue, final ExecuteIn newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
 
     private ExecuteIn executeIn;
 
@@ -257,6 +320,9 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
      * get-after-post).
      */
     @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.Command.EXECUTE_IN)
+    @Property(
+            domainEvent = ExecuteInDomainEvent.class
+    )
     @MemberOrder(name="Identifiers", sequence = "32")
     @Override
     public ExecuteIn getExecuteIn() {
@@ -267,8 +333,8 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
      * <b>NOT API</b>: intended to be called only by the framework.
      */
     @Override
-    public void setExecuteIn(ExecuteIn nature) {
-        this.executeIn = nature;
+    public void setExecuteIn(final ExecuteIn executeIn) {
+        this.executeIn = executeIn;
     }
 
 
@@ -276,19 +342,33 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
     // parent (property)
     // //////////////////////////////////////
 
+    public static class ParentDomainEvent extends PropertyDomainEvent<Command> {
+        public ParentDomainEvent(final CommandJdo source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public ParentDomainEvent(final CommandJdo source, final Identifier identifier, final Command oldValue, final Command newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private Command parent;
     
     @Override
     @javax.jdo.annotations.Persistent
     @javax.jdo.annotations.Column(name="parentTransactionId", allowsNull="true")
-    @Hidden(where=Where.PARENTED_TABLES)
+    @Property(
+            domainEvent = ParentDomainEvent.class
+    )
+    @PropertyLayout(
+            hidden = Where.PARENTED_TABLES
+    )
     @MemberOrder(name="Identifiers",sequence = "40")
     public Command getParent() {
         return parent;
     }
 
     @Override
-    public void setParent(Command parent) {
+    public void setParent(final Command parent) {
         this.parent = parent;
     }
 
@@ -297,7 +377,17 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
     // transactionId (property)
     // //////////////////////////////////////
 
-        
+    public static class TransactionIdDomainEvent extends PropertyDomainEvent<UUID> {
+        public TransactionIdDomainEvent(final CommandJdo source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public TransactionIdDomainEvent(final CommandJdo source, final Identifier identifier, final UUID oldValue, final UUID newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
+
     private UUID transactionId;
 
     /**
@@ -305,7 +395,12 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
      */
     @javax.jdo.annotations.PrimaryKey
     @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.TRANSACTION_ID)
-    @TypicalLength(JdoColumnLength.TRANSACTION_ID)
+    @Property(
+            domainEvent = TransactionIdDomainEvent.class
+    )
+    @PropertyLayout(
+            typicalLength = JdoColumnLength.TRANSACTION_ID
+    )
     @MemberOrder(name="Identifiers",sequence = "50")
     @Override
     public UUID getTransactionId() {
@@ -328,12 +423,26 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
     // targetClass (property)
     // //////////////////////////////////////
 
+    public static class TargetClassDomainEvent extends PropertyDomainEvent<String> {
+        public TargetClassDomainEvent(final CommandJdo source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public TargetClassDomainEvent(final CommandJdo source, final Identifier identifier, final String oldValue, final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private String targetClass;
 
     @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.TARGET_CLASS)
-    @TypicalLength(30)
+    @Property(
+            domainEvent = TargetClassDomainEvent.class
+    )
+    @PropertyLayout(
+            named="Class",
+            typicalLength = 30
+    )
     @MemberOrder(name="Target", sequence = "10")
-    @Named("Class")
     public String getTargetClass() {
         return targetClass;
     }
@@ -346,15 +455,29 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
     // //////////////////////////////////////
     // targetAction (property)
     // //////////////////////////////////////
-    
+
+    public static class TargetActionDomainEvent extends PropertyDomainEvent<String> {
+        public TargetActionDomainEvent(final CommandJdo source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public TargetActionDomainEvent(final CommandJdo source, final Identifier identifier, final String oldValue, final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private String targetAction;
     
     @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.TARGET_ACTION)
-    @Mandatory
-    @Hidden(where=Where.NOWHERE)
-    @TypicalLength(30)
+    @Property(
+            domainEvent = TargetActionDomainEvent.class,
+            optionality = Optionality.MANDATORY
+    )
+    @PropertyLayout(
+            hidden = Where.NOWHERE,
+            typicalLength = 30,
+            named = "Action"
+    )
     @MemberOrder(name="Target", sequence = "20")
-    @Named("Action")
     public String getTargetAction() {
         return targetAction;
     }
@@ -369,11 +492,26 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
     // openTargetObject (action)
     // //////////////////////////////////////
 
+    public static class TargetStrDomainEvent extends PropertyDomainEvent<String> {
+        public TargetStrDomainEvent(final CommandJdo source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public TargetStrDomainEvent(final CommandJdo source, final Identifier identifier, final String oldValue, final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private String targetStr;
+
     @javax.jdo.annotations.Column(allowsNull="true", length=JdoColumnLength.BOOKMARK, name="target")
-    @Hidden(where=Where.ALL_TABLES)
+    @Property(
+            domainEvent = TargetStrDomainEvent.class
+    )
+    @PropertyLayout(
+            hidden = Where.ALL_TABLES,
+            named = "Object"
+    )
     @MemberOrder(name="Target", sequence="30")
-    @Named("Object")
     public String getTargetStr() {
         return targetStr;
     }
@@ -385,12 +523,26 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
     // //////////////////////////////////////
     // arguments (property)
     // //////////////////////////////////////
-    
+
+    public static class ArgumentsDomainEvent extends PropertyDomainEvent<String> {
+        public ArgumentsDomainEvent(final CommandJdo source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public ArgumentsDomainEvent(final CommandJdo source, final Identifier identifier, final String oldValue, final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private String arguments;
     
     @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB")
-    @MultiLine(numberOfLines=7)
-    @Hidden(where=Where.ALL_TABLES)
+    @Property(
+            domainEvent = ArgumentsDomainEvent.class
+    )
+    @PropertyLayout(
+            multiLine = 7,
+            hidden = Where.ALL_TABLES
+    )
     @MemberOrder(name="Target",sequence = "40")
     public String getArguments() {
         return arguments;
@@ -406,11 +558,25 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
     // memberIdentifier (property)
     // //////////////////////////////////////
 
+    public static class MemberIdentifierDomainEvent extends PropertyDomainEvent<String> {
+        public MemberIdentifierDomainEvent(final CommandJdo source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public MemberIdentifierDomainEvent(final CommandJdo source, final Identifier identifier, final String oldValue, final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private String memberIdentifier;
     
     @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.MEMBER_IDENTIFIER)
-    @TypicalLength(60)
-    @Hidden(where=Where.ALL_TABLES)
+    @Property(
+            domainEvent = MemberIdentifierDomainEvent.class
+    )
+    @PropertyLayout(
+            typicalLength = 60,
+            hidden = Where.ALL_TABLES
+    )
     @MemberOrder(name="Detail",sequence = "1")
     public String getMemberIdentifier() {
         return memberIdentifier;
@@ -421,16 +587,29 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
     }
 
 
-
     // //////////////////////////////////////
     // memento (property)
     // //////////////////////////////////////
-    
+
+    public static class MementoDomainEvent extends PropertyDomainEvent<String> {
+        public MementoDomainEvent(final CommandJdo source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public MementoDomainEvent(final CommandJdo source, final Identifier identifier, final String oldValue, final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private String memento;
     
     @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB")
-    @MultiLine(numberOfLines=9)
-    @Hidden(where=Where.ALL_TABLES)
+    @Property(
+            domainEvent = MementoDomainEvent.class
+    )
+    @PropertyLayout(
+            multiLine = 9,
+            hidden = Where.ALL_TABLES
+    )
     @MemberOrder(name="Detail",sequence = "30")
     public String getMemento() {
         return memento;
@@ -443,13 +622,25 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
 
 
     // //////////////////////////////////////
-    // startedAt (derived property)
+    // startedAt (property)
     // //////////////////////////////////////
-    
+
+    public static class StartedAtDomainEvent extends PropertyDomainEvent<Timestamp> {
+        public StartedAtDomainEvent(final CommandJdo source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public StartedAtDomainEvent(final CommandJdo source, final Identifier identifier, final Timestamp oldValue, final Timestamp newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private Timestamp startedAt;
 
     @javax.jdo.annotations.Persistent
     @javax.jdo.annotations.Column(allowsNull="true")
+    @Property(
+            domainEvent = StartedAtDomainEvent.class
+    )
     @MemberOrder(name="Timings", sequence = "3")
     public Timestamp getStartedAt() {
         return startedAt;
@@ -468,6 +659,15 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
     // completedAt (property)
     // //////////////////////////////////////
 
+    public static class CompletedAtDomainEvent extends PropertyDomainEvent<Timestamp> {
+        public CompletedAtDomainEvent(final CommandJdo source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public CompletedAtDomainEvent(final CommandJdo source, final Identifier identifier, final Timestamp oldValue, final Timestamp newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private Timestamp completedAt;
 
     /**
@@ -475,6 +675,9 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
      */
     @javax.jdo.annotations.Persistent
     @javax.jdo.annotations.Column(allowsNull="true")
+    @Property(
+            domainEvent = CompletedAtDomainEvent.class
+    )
     @MemberOrder(name="Timings", sequence = "4")
     @Override
     public Timestamp getCompletedAt() {
@@ -491,6 +694,15 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
     // duration (derived property)
     // //////////////////////////////////////
 
+    public static class DurationDomainEvent extends PropertyDomainEvent<BigDecimal> {
+        public DurationDomainEvent(final CommandJdo source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public DurationDomainEvent(final CommandJdo source, final Identifier identifier, final BigDecimal oldValue, final BigDecimal newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     /**
      * The number of seconds (to 3 decimal places) that this interaction lasted.
      * 
@@ -498,7 +710,12 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
      * Populated only if it has {@link #getCompletedAt() completed}.
      */
     @javax.validation.constraints.Digits(integer=5, fraction=3)
-    @Named("Duration")
+    @Property(
+            domainEvent = DurationDomainEvent.class
+    )
+    @PropertyLayout(
+            named = "Duration"
+    )
     @MemberOrder(name="Timings", sequence = "7")
     public BigDecimal getDuration() {
         return Util.durationBetween(getStartedAt(), getCompletedAt());
@@ -509,25 +726,51 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
     // //////////////////////////////////////
     // complete (derived property)
     // //////////////////////////////////////
-    
+
+    public static class IsCompleteDomainEvent extends PropertyDomainEvent<Boolean> {
+        public IsCompleteDomainEvent(final CommandJdo source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public IsCompleteDomainEvent(final CommandJdo source, final Identifier identifier, final Boolean oldValue, final Boolean newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
 
     @javax.jdo.annotations.NotPersistent
+    @Property(
+            domainEvent = IsCompleteDomainEvent.class
+    )
+    @PropertyLayout(
+            hidden = Where.OBJECT_FORMS
+    )
     @MemberOrder(name="Timings", sequence = "8")
-    @Hidden(where=Where.OBJECT_FORMS)
     public boolean isComplete() {
         return getCompletedAt() != null;
     }
 
-    
-    
+
     // //////////////////////////////////////
-    // state (derived property)
+    // resultSummary (derived property)
     // //////////////////////////////////////
+
+    public static class ResultSummaryDomainEvent extends PropertyDomainEvent<String> {
+        public ResultSummaryDomainEvent(final CommandJdo source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public ResultSummaryDomainEvent(final CommandJdo source, final Identifier identifier, final String oldValue, final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
 
     @javax.jdo.annotations.NotPersistent
     @MemberOrder(name="Results",sequence = "10")
-    @Hidden(where=Where.OBJECT_FORMS)
-    @Named("Result")
+    @Property(
+            domainEvent = ResultSummaryDomainEvent.class
+    )
+    @PropertyLayout(
+            hidden = Where.OBJECT_FORMS,
+            named = "Result"
+    )
     public String getResultSummary() {
         if(getCompletedAt() == null) {
             return "";
@@ -556,17 +799,31 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
 
     @Programmatic
     @Override
-    public void setResult(Bookmark result) {
+    public void setResult(final Bookmark result) {
         setResultStr(Util.asString(result));
     }
 
     // //////////////////////////////////////
-    
+
+    public static class ResultStrDomainEvent extends PropertyDomainEvent<String> {
+        public ResultStrDomainEvent(final CommandJdo source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public ResultStrDomainEvent(final CommandJdo source, final Identifier identifier, final String oldValue, final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private String resultStr;
 
     @javax.jdo.annotations.Column(allowsNull="true", length=JdoColumnLength.BOOKMARK, name="result")
-    @Hidden(where=Where.ALL_TABLES)
-    @Named("Result Bookmark")
+    @Property(
+            domainEvent = ResultStrDomainEvent.class
+    )
+    @PropertyLayout(
+            hidden = Where.ALL_TABLES,
+            named = "Result Bookmark"
+    )
     @MemberOrder(name="Results", sequence="25")
     public String getResultStr() {
         return resultStr;
@@ -578,9 +835,26 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
 
     // //////////////////////////////////////
 
-    @ActionSemantics(Of.SAFE)
+    public static class OpenResultObjectDomainEvent extends ActionDomainEvent {
+        public OpenResultObjectDomainEvent(final CommandJdo source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public OpenResultObjectDomainEvent(final CommandJdo source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+        public OpenResultObjectDomainEvent(final CommandJdo source, final Identifier identifier, final List<Object> arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+
+    @Action(
+            semantics = SemanticsOf.SAFE,
+            domainEvent = OpenResultObjectDomainEvent.class
+    )
+    @ActionLayout(
+            named = "Open"
+    )
     @MemberOrder(name="ResultStr", sequence="1")
-    @Named("Open")
     public Object openResultObject() {
         return Util.lookupBookmark(getResult(), bookmarkService, container);
     }
@@ -590,9 +864,7 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
 
 
     // //////////////////////////////////////
-    // exception (property)
-    // causedException (derived property)
-    // showException (associated action)
+    // exception (property), causedException (derived property), showException (associated action)
     // //////////////////////////////////////
 
     private String exception;
@@ -607,7 +879,7 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
      * and so there's no object that can be accessed to be annotated.
      */
     @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB")
-    @Hidden
+    @Programmatic
     @Override
     public String getException() {
         return exception;
@@ -620,18 +892,47 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
     
     
     // //////////////////////////////////////
-    
+
+    public static class IsCausedExceptionDomainEvent extends PropertyDomainEvent<Boolean> {
+        public IsCausedExceptionDomainEvent(final CommandJdo source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public IsCausedExceptionDomainEvent(final CommandJdo source, final Identifier identifier, final Boolean oldValue, final Boolean newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     @javax.jdo.annotations.NotPersistent
+    @Property(
+            domainEvent = IsCausedExceptionDomainEvent.class
+    )
+    @PropertyLayout(
+            hidden = Where.ALL_TABLES
+    )
     @MemberOrder(name="Results",sequence = "30")
-    @Hidden(where=Where.ALL_TABLES)
     public boolean isCausedException() {
         return getException() != null;
     }
 
     
     // //////////////////////////////////////
-    
-    @ActionSemantics(Of.SAFE)
+
+    public static class ShowExceptionDomainEvent extends ActionDomainEvent {
+        public ShowExceptionDomainEvent(final CommandJdo source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public ShowExceptionDomainEvent(final CommandJdo source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+        public ShowExceptionDomainEvent(final CommandJdo source, final Identifier identifier, final List<Object> arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+
+    @Action(
+            domainEvent = ShowExceptionDomainEvent.class,
+            semantics = SemanticsOf.SAFE
+    )
     @MemberOrder(name="causedException", sequence = "1")
     public String showException() {
         return getException();
@@ -641,15 +942,15 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
     }
 
 
-
     // //////////////////////////////////////
     // ActionInteractionEvent (Command2 impl)
     // //////////////////////////////////////
 
     @Deprecated
+    @Programmatic
     @Override
     public ActionInteractionEvent<?> peekActionInteractionEvent() {
-        final ActionDomainEvent<?> actionDomainEvent = peekActionDomainEvent();
+        final org.apache.isis.applib.services.eventbus.ActionDomainEvent<?> actionDomainEvent = peekActionDomainEvent();
         if (actionDomainEvent != null && !(actionDomainEvent instanceof ActionInteractionEvent)) {
             throw new IllegalStateException("Most recently pushed event was not an instance of ActionInteractionEvent; use either ActionDomainEvent or the (deprecated) ActionInteractionEvent consistently");
         }
@@ -657,15 +958,17 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
     }
 
     @Deprecated
+    @Programmatic
     @Override
-    public void pushActionInteractionEvent(ActionInteractionEvent<?> event) {
+    public void pushActionInteractionEvent(final ActionInteractionEvent<?> event) {
         pushActionDomainEvent(event);
     }
 
     @Deprecated
+    @Programmatic
     @Override
     public ActionInteractionEvent popActionInteractionEvent() {
-        final ActionDomainEvent<?> actionDomainEvent = popActionDomainEvent();
+        final org.apache.isis.applib.services.eventbus.ActionDomainEvent<?> actionDomainEvent = popActionDomainEvent();
         if (actionDomainEvent != null  && !(actionDomainEvent instanceof ActionInteractionEvent)) {
             throw new IllegalStateException("Most recently pushed event was not an instance of ActionInteractionEvent; use either ActionDomainEvent or the (deprecated) ActionInteractionEvent consistently");
         }
@@ -674,9 +977,10 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
 
     @Deprecated
     @Programmatic
+    @Override
     public List<ActionInteractionEvent<?>> flushActionInteractionEvents() {
-        final List<ActionDomainEvent<?>> actionDomainEvents = flushActionDomainEvents();
-        for (ActionDomainEvent<?> actionDomainEvent : actionDomainEvents) {
+        final List<org.apache.isis.applib.services.eventbus.ActionDomainEvent<?>> actionDomainEvents = flushActionDomainEvents();
+        for (final org.apache.isis.applib.services.eventbus.ActionDomainEvent<?> actionDomainEvent : actionDomainEvents) {
             if (!(actionDomainEvent instanceof ActionInteractionEvent)) {
                 throw new IllegalStateException("List of events includes at least one event that is not an instance of ActionInteractionEvent; use either ActionDomainEvent or the (deprecated) ActionInteractionEvent consistently");
             }
@@ -689,29 +993,33 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
     // ActionDomainEvent (Command3 impl)
     // //////////////////////////////////////
 
-    private final LinkedList<ActionDomainEvent<?>> actionDomainEvents = Lists.newLinkedList();
+    private final LinkedList<org.apache.isis.applib.services.eventbus.ActionDomainEvent<?>> actionDomainEvents = Lists.newLinkedList();
 
+    @Programmatic
     @Override
-    public ActionDomainEvent<?> peekActionDomainEvent() {
+    public org.apache.isis.applib.services.eventbus.ActionDomainEvent<?> peekActionDomainEvent() {
         return actionDomainEvents.isEmpty()? null: actionDomainEvents.getLast();
     }
 
+    @Programmatic
     @Override
-    public void pushActionDomainEvent(ActionDomainEvent<?> event) {
+    public void pushActionDomainEvent(final org.apache.isis.applib.services.eventbus.ActionDomainEvent<?> event) {
         if(peekActionDomainEvent() == event) {
             return;
         }
         this.actionDomainEvents.add(event);
     }
 
+    @Programmatic
     @Override
-    public ActionDomainEvent popActionDomainEvent() {
+    public org.apache.isis.applib.services.eventbus.ActionDomainEvent<?> popActionDomainEvent() {
         return !actionDomainEvents.isEmpty() ? actionDomainEvents.removeLast() : null;
     }
 
     @Programmatic
-    public List<ActionDomainEvent<?>> flushActionDomainEvents() {
-        final List<ActionDomainEvent<?>> events =
+    @Override
+    public List<org.apache.isis.applib.services.eventbus.ActionDomainEvent<?>> flushActionDomainEvents() {
+        final List<org.apache.isis.applib.services.eventbus.ActionDomainEvent<?>> events =
                 Collections.unmodifiableList(Lists.newArrayList(actionDomainEvents));
         actionDomainEvents.clear();
         return events;
@@ -724,11 +1032,9 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
 
     private final Map<String, AtomicInteger> sequenceByName = Maps.newHashMap();
 
-
-
     @Programmatic
     @Override
-    public int next(String sequenceName) {
+    public int next(final String sequenceName) {
         AtomicInteger next = sequenceByName.get(sequenceName);
         if(next == null) {
             next = new AtomicInteger(0);
@@ -754,7 +1060,7 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
     }
 
     @Override
-    public void setPersistence(Persistence persistence) {
+    public void setPersistence(final Persistence persistence) {
         this.persistence = persistence;
     }
 
@@ -773,7 +1079,7 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
     
     @Programmatic
     @Override
-    public void setPersistHint(boolean persistHint) {
+    public void setPersistHint(final boolean persistHint) {
         this.persistHint = persistHint;
     }
 
@@ -801,8 +1107,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
         return ObjectContracts.toString(this, "targetStr,memberIdentifier,user,startedAt,completedAt,duration,transactionId");
     }
 
-    
-    
     // //////////////////////////////////////
     // dependencies
     // //////////////////////////////////////

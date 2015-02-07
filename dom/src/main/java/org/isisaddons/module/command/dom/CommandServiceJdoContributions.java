@@ -16,12 +16,17 @@
  */
 package org.isisaddons.module.command.dom;
 
+import java.util.List;
 import java.util.UUID;
+import org.isisaddons.module.command.CommandModuleActionDomainEvent;
 import org.apache.isis.applib.AbstractFactoryAndRepository;
+import org.apache.isis.applib.Identifier;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.Contributed;
+import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.NotContributed;
-import org.apache.isis.applib.annotation.NotContributed.As;
-import org.apache.isis.applib.annotation.NotInServiceMenu;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.HasTransactionId;
 import org.apache.isis.applib.services.command.Command;
 
@@ -30,15 +35,44 @@ import org.apache.isis.applib.services.command.Command;
  * This service contributes a <tt>command</tt> action to any (non-command) implementation of
  * {@link org.apache.isis.applib.services.HasTransactionId}; that is: audit entries, and published events.  Thus, it
  * is possible to navigate from the effect back to the cause.
- *
- * <p>
- * Because this service influences the UI, it must be explicitly registered as a service
- * (eg using <tt>isis.properties</tt>).
  */
+@DomainService(
+        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
+)
 public class CommandServiceJdoContributions extends AbstractFactoryAndRepository {
 
-    @NotInServiceMenu
-    @NotContributed(As.ASSOCIATION) // ie contributed as an action
+    public static abstract class ActionDomainEvent extends CommandModuleActionDomainEvent<CommandServiceJdoContributions> {
+        public ActionDomainEvent(final CommandServiceJdoContributions source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public ActionDomainEvent(final CommandServiceJdoContributions source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+        public ActionDomainEvent(final CommandServiceJdoContributions source, final Identifier identifier, final List<Object> arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+
+    // //////////////////////////////////////
+
+    public static class CommandDomainEvent extends ActionDomainEvent {
+        public CommandDomainEvent(final CommandServiceJdoContributions source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public CommandDomainEvent(final CommandServiceJdoContributions source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+        public CommandDomainEvent(final CommandServiceJdoContributions source, final Identifier identifier, final List<Object> arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+
+    @Action(
+            domainEvent = CommandDomainEvent.class
+    )
+    @ActionLayout(
+            contributed = Contributed.AS_ACTION
+    )
     @MemberOrder(name="transactionId", sequence="1")
     public CommandJdo command(final HasTransactionId hasTransactionId) {
         return commandServiceRepository.findByTransactionId(hasTransactionId.getTransactionId());
@@ -58,7 +92,6 @@ public class CommandServiceJdoContributions extends AbstractFactoryAndRepository
         final boolean command = commandServiceRepository.findByTransactionId(transactionId) == null;
         return command? "No command found for transaction Id": null;
     }
-
 
     // //////////////////////////////////////
 

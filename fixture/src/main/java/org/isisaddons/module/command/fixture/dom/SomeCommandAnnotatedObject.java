@@ -30,8 +30,12 @@ import org.apache.isis.applib.util.ObjectContracts;
 @javax.jdo.annotations.Version(
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
-@ObjectType("COMMAND_ANNOTATED_OBJECT")
-@Bookmarkable
+@DomainObject(
+        objectType = "COMMAND_ANNOTATED_OBJECT"
+)
+@DomainObjectLayout(
+        bookmarking = BookmarkPolicy.AS_ROOT
+)
 public class SomeCommandAnnotatedObject implements Comparable<SomeCommandAnnotatedObject> {
 
     //region > name (property)
@@ -53,9 +57,13 @@ public class SomeCommandAnnotatedObject implements Comparable<SomeCommandAnnotat
 
     //region > changeName (action)
 
-    @ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
-    @Command
-    public SomeCommandAnnotatedObject changeName(final @Named("New name") String newName) {
+    @Action(
+            semantics = SemanticsOf.IDEMPOTENT,
+            command = CommandReification.ENABLED
+    )
+    public SomeCommandAnnotatedObject changeName(
+            @ParameterLayout(named = "New name")
+            final String newName) {
         setName(newName);
         return this;
     }
@@ -68,9 +76,15 @@ public class SomeCommandAnnotatedObject implements Comparable<SomeCommandAnnotat
 
     //region > changeNameWithSafeSemantics (action)
 
-    @DescribedAs("'Mistakenly' annotated as being invoked with safe semantics, not annotated as a Command; should persist anyway")
-    @ActionSemantics(ActionSemantics.Of.SAFE) // obviously, a mistake
-    public SomeCommandAnnotatedObject changeNameWithSafeSemantics(final @Named("New name") String newName) {
+    @Action(
+            semantics = SemanticsOf.SAFE // obviously, a mistake
+    )
+    @ActionLayout(
+            describedAs = "'Mistakenly' annotated as being invoked with safe semantics, not annotated as a Command; should persist anyway"
+    )
+    public SomeCommandAnnotatedObject changeNameWithSafeSemantics(
+            @ParameterLayout(named = "New name")
+            final String newName) {
         setName(newName);
         return this;
     }
@@ -83,10 +97,16 @@ public class SomeCommandAnnotatedObject implements Comparable<SomeCommandAnnotat
 
     //region > changeNameExplicitlyInBackground (action)
 
-    @Named("Schedule")
-    @ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
-    @Command
-    public void changeNameExplicitlyInBackground(final @Named("New name") String newName) {
+    @Action(
+            semantics = SemanticsOf.IDEMPOTENT,
+            command = CommandReification.ENABLED
+    )
+    @ActionLayout(
+            named = "Schedule"
+    )
+    public void changeNameExplicitlyInBackground(
+            @ParameterLayout(named = "New name")
+            final String newName) {
         backgroundService.execute(this).changeName(newName);
     }
 
@@ -98,10 +118,17 @@ public class SomeCommandAnnotatedObject implements Comparable<SomeCommandAnnotat
 
     //region > changeNameImplicitlyInBackground (action)
 
-    @Named("Schedule implicitly")
-    @ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
-    @Command(executeIn = Command.ExecuteIn.BACKGROUND)
-    public SomeCommandAnnotatedObject changeNameImplicitlyInBackground(final @Named("New name") String newName) {
+    @Action(
+            semantics = SemanticsOf.IDEMPOTENT,
+            command = CommandReification.ENABLED,
+            commandExecuteIn = CommandExecuteIn.BACKGROUND
+    )
+    @ActionLayout(
+            named = "Schedule implicitly"
+    )
+    public SomeCommandAnnotatedObject changeNameImplicitlyInBackground(
+            @ParameterLayout(named = "New name")
+            final String newName) {
         setName(newName);
         return this;
     }
@@ -114,10 +141,17 @@ public class SomeCommandAnnotatedObject implements Comparable<SomeCommandAnnotat
 
     //region > changeNameCommandNotPersisted (action)
 
-    @Named("Change (not persisted)")
-    @ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
-    @Command(persistence = Command.Persistence.NOT_PERSISTED)
-    public SomeCommandAnnotatedObject changeNameCommandNotPersisted(final @Named("New name") String newName) {
+    @Action(
+            semantics = SemanticsOf.IDEMPOTENT,
+            command = CommandReification.ENABLED,
+            commandPersistence = CommandPersistence.NOT_PERSISTED
+    )
+    @ActionLayout(
+            named = "Change (not persisted)"
+    )
+    public SomeCommandAnnotatedObject changeNameCommandNotPersisted(
+            @ParameterLayout(named = "New name")
+            final String newName) {
         setName(newName);
         return this;
     }
@@ -131,7 +165,7 @@ public class SomeCommandAnnotatedObject implements Comparable<SomeCommandAnnotat
     //region > compareTo
 
     @Override
-    public int compareTo(SomeCommandAnnotatedObject other) {
+    public int compareTo(final SomeCommandAnnotatedObject other) {
         return ObjectContracts.compare(this, other, "name");
     }
 

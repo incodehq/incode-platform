@@ -24,6 +24,7 @@ import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.Query;
 import org.apache.isis.applib.query.QueryDefault;
@@ -41,7 +42,9 @@ import org.apache.isis.applib.services.command.CommandContext;
  * thus has been annotated with {@link org.apache.isis.applib.annotation.DomainService}.  This means that there is no
  * need to explicitly register it as a service (eg in <tt>isis.properties</tt>).
  */
-@DomainService
+@DomainService(
+        nature = NatureOfService.DOMAIN
+)
 public class CommandServiceJdoRepository extends AbstractFactoryAndRepository {
 
     @Programmatic
@@ -75,6 +78,7 @@ public class CommandServiceJdoRepository extends AbstractFactoryAndRepository {
         return allMatches(query);
     }
 
+    // //////////////////////////////////////
 
     @Programmatic
     public CommandJdo findByTransactionId(final UUID transactionId) {
@@ -85,13 +89,17 @@ public class CommandServiceJdoRepository extends AbstractFactoryAndRepository {
                         "transactionId", transactionId));
     }
 
+    // //////////////////////////////////////
+
     @Programmatic
     public List<CommandJdo> findCurrent() {
         persistCurrentCommandIfRequired();
         return allMatches(
                 new QueryDefault<CommandJdo>(CommandJdo.class, "findCurrent"));
     }
-    
+
+    // //////////////////////////////////////
+
     @Programmatic
     public List<CommandJdo> findCompleted() {
         persistCurrentCommandIfRequired();
@@ -158,7 +166,6 @@ public class CommandServiceJdoRepository extends AbstractFactoryAndRepository {
 
     // //////////////////////////////////////
 
-    
     @javax.inject.Inject
     private CommandServiceJdo commandService;
     

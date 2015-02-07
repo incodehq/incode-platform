@@ -25,6 +25,7 @@ import org.apache.isis.applib.AbstractService;
 import org.apache.isis.applib.annotation.Command.ExecuteIn;
 import org.apache.isis.applib.annotation.Command.Persistence;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.clock.Clock;
 import org.apache.isis.applib.services.command.Command;
@@ -35,16 +36,20 @@ import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 /**
  *
  */
-@DomainService
+@DomainService(
+        nature = NatureOfService.DOMAIN
+)
 public class CommandServiceJdo extends AbstractService implements CommandService {
 
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(CommandServiceJdo.class);
 
+    // //////////////////////////////////////
+
     /**
      * Creates an {@link CommandJdo}, initializing its 
-     * {@link Command#setExecuteIn(Command.ExecuteIn) nature} to be
-     * {@link Command.ExecuteIn#OTHER rendering}.
+     * {@link Command#setExecuteIn(org.apache.isis.applib.annotation.Command.ExecuteIn)} nature} to be
+     * {@link org.apache.isis.applib.services.command.Command.Executor#OTHER rendering}.
      */
     @Programmatic
     @Override
@@ -54,6 +59,8 @@ public class CommandServiceJdo extends AbstractService implements CommandService
         command.setPersistence(Persistence.IF_HINTED);
         return command;
     }
+
+    // //////////////////////////////////////
 
     @Programmatic
     @Override
@@ -70,6 +77,8 @@ public class CommandServiceJdo extends AbstractService implements CommandService
             commandJdo.setTransactionId(transactionId);
         }
     }
+
+    // //////////////////////////////////////
 
     @Programmatic
     @Override
@@ -104,8 +113,9 @@ public class CommandServiceJdo extends AbstractService implements CommandService
         persistIfNotAlready(commandJdo);
         return true;
     }
-    
-    
+
+    // //////////////////////////////////////
+
     /**
      * Not API, also used by {@link CommandServiceJdoRepository}.
      */

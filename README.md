@@ -36,22 +36,20 @@ demo app lists the commands associated with the example entity:
 
 #### Commands created for action invocations ####
 
-In the example entity the `changeName` action is annotated with `@Command`:
+In the example entity the `changeName` action is annotated with `@Action(command=CommandReification.ENABLED)`:
 
 <pre>
-@ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
-@Command
+    @Action(
+            semantics = SemanticsOf.IDEMPOTENT,
+            command = CommandReification.ENABLED
+    )
 public SomeCommandAnnotatedObject changeName(final String newName) {
     setName(newName);
     return this;
 }
 </pre>
 
-which means that when the `changeName` action is invoked:
-
-![](https://raw.github.com/isisaddons/isis-module-command/master/images/03-change-name.png)
-
-... with some argument ...
+which means that when the `changeName` action is invoked with some argument ...
 
 ![](https://raw.github.com/isisaddons/isis-module-command/master/images/04-change-name-args.png)
 
@@ -69,19 +67,21 @@ Commands are also the basis for Isis' support of background commands.  The usual
 `BackgroundService`:
 
 <pre>
-@Named("Schedule")
-@ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
-@Command
-public void changeNameExplicitlyInBackground(final String newName) {
+@Action(
+        semantics = SemanticsOf.IDEMPOTENT,
+        command = CommandReification.ENABLED
+)
+@ActionLayout(
+        named = "Schedule"
+)
+public void changeNameExplicitlyInBackground(
+        @ParameterLayout(named = "New name")
+        final String newName) {
     backgroundService.execute(this).changeName(newName);
 }
 </pre>
 
-In the screenshots below the action (labelled "Schedule" in the UI) is called:
-
-![](https://raw.github.com/isisaddons/isis-module-command/master/images/07-schedule.png)
-
-... with arguments:
+In the screenshots below the action (labelled "Schedule" in the UI) is called with arguments:
 
 ![](https://raw.github.com/isisaddons/isis-module-command/master/images/08-schedule-args.png)
 
@@ -103,23 +103,26 @@ process any queued background commands; more information below.
 
 #### Background Commands scheduled implicitly ####
 
-The other way to create background commands is implicitly, using the `@Command` annotation:
+The other way to create background commands is implicitly, using `@Action(commandExecuteIn=CommandExecuteIn.BACKGROUND)`:
 
 <pre>
-    @Named("Schedule implicitly")
-    @ActionSemantics(ActionSemantics.Of.IDEMPOTENT)
-    @Command(executeIn = Command.ExecuteIn.BACKGROUND)
-    public SomeCommandAnnotatedObject changeNameImplicitlyInBackground(final String newName) {
-        setName(newName);
-        return this;
-    }
+@Action(
+        semantics = SemanticsOf.IDEMPOTENT,
+        command = CommandReification.ENABLED,
+        commandExecuteIn = CommandExecuteIn.BACKGROUND
+)
+@ActionLayout(
+        named = "Schedule implicitly"
+)
+public SomeCommandAnnotatedObject changeNameImplicitlyInBackground(
+        @ParameterLayout(named = "New name")
+        final String newName) {
+    setName(newName);
+    return this;
+}
 </pre>
 
-If invoked:
-
-![](https://raw.github.com/isisaddons/isis-module-command/master/images/15-schedule-implicitly.png)
-
-... Isis will gather the arguments as usual:
+If invoked Isis will gather the arguments as usual:
 
 ![](https://raw.github.com/isisaddons/isis-module-command/master/images/16-schedule-implicitly-args.png)
 
@@ -164,7 +167,7 @@ direct copy of that code, with the following changes:
 
 Otherwise the functionality is identical; warts and all!
 
-Isis 1.7.0 no longer ships with `org.apache.isis.module:isis-module-command-jdo`; use this addon module instead.
+Isis 1.7.0 (and later) no longer ships with `org.apache.isis.module:isis-module-command-jdo`; use this addon module instead.
 
 
 ## How to configure/use ##
@@ -193,20 +196,14 @@ To use "out-of-the-box":
                 ...,\
                 org.isisaddons.module.command.dom,\
                 ...
-
-    isis.services = ...,\
-                org.isisaddons.module.command.dom.CommandServiceJdoContributions,\
-                org.isisaddons.module.command.dom.BackgroundCommandServiceJdoContributions,\
-                ...
 </pre>
 
 Notes:
 * Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-command-dom).
-* The `CommandServiceContributions` and `BackgroundCommandServiceContributions` services are optional but recommended; see below for more information.
 
 For commands to be created when actions are invoked, some configuration is required.  This can be either on a case-by-case basis, or globally:
 
-* by default no action is treated as being a command unless it has explicitly annotated using `@Command`.  This is the option used in the example app described above.
+* by default no action is treated as being a command unless it has explicitly annotated using `@Action(command=CommandReification.ENABLED)`.  This is the option used in the example app described above.
 
 * alternatively, commands can be globally enabled by adding a key to `isis.properties`:
 
@@ -220,7 +217,7 @@ This will create commands even for query-only (`@ActionSemantics(Of.SAFE)`) acti
     isis.services.command.actions=ignoreQueryOnly
 </pre>
 
-An individual action can then be explicitly excluded from having a persisted command using `@Command(disabled=true)`.
+An individual action can then be explicitly excluded from having a persisted command using `@Action(command=CommandReification.DISABLED)`.
 
 
 #### "Out-of-the-box" (-SNAPSHOT) ####
@@ -412,6 +409,11 @@ domain services:
    to the `HasTransactionId` interface.  These collections will therefore display for any command, published event
    or audit entry.
 
+In 1.7.0, it is necessary to explicitly register `CommandServiceJdoContributions` and
+`BackgroundCommandServiceJdoContributions` in `isis.properties` (the rationale being that this service contributes
+functionality that appears in the user interface).  In 1.8.0-SNAPSHOT this policy is reversed, and the services are
+ automatically registered using `@DomainService`.  Use security to suppress its contributions if required.
+
 ## Related Modules/Services ##
 
 As well as defining the `CommandService` and `BackgroundCommandService` APIs, Isis' applib defines several other
@@ -434,6 +436,7 @@ and it is this interface that each module has services that contribute to).
 
 ## Change Log ##
 
+* `1.8.0-SNAPSHOT` - in development against Isis 1.8.0-SNAPSHOT.
 * `1.7.0` - released against Isis 1.7.0.
 * `1.6.1` - [#1](https://github.com/isisaddons/isis-module-command/issues/1) (don't store bookmarks beyond 2000 characters)
 * `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.command`
@@ -443,7 +446,7 @@ and it is this interface that each module has services that contribute to).
  
 #### License ####
 
-    Copyright 2014 Dan Haywood
+    Copyright 2014-2015 Dan Haywood
 
     Licensed under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance

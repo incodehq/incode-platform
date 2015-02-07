@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.apache.isis.applib.AbstractService;
 import org.apache.isis.applib.annotation.Command.ExecuteIn;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.clock.Clock;
 import org.apache.isis.applib.services.background.ActionInvocationMemento;
@@ -43,7 +44,9 @@ import org.apache.isis.applib.services.command.Command;
  * (That said, do note that other services in the <tt>o.a.i.module:isis-module-command-jdo</tt> do require explicit
  * registration as services, eg in <tt>isis.properties</tt>).
  */
-@DomainService
+@DomainService(
+        nature = NatureOfService.DOMAIN
+)
 public class BackgroundCommandServiceJdo extends AbstractService implements BackgroundCommandService {
 
     @SuppressWarnings("unused")
