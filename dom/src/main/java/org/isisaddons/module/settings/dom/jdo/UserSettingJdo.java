@@ -20,8 +20,10 @@ package org.isisaddons.module.settings.dom.jdo;
 import javax.jdo.annotations.IdentityType;
 import org.isisaddons.module.settings.dom.SettingType;
 import org.isisaddons.module.settings.dom.UserSetting;
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
+import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 
@@ -50,7 +52,13 @@ import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 })
 // can't see how to specify this order in the primary key; however HSQLDB objects :-(
 //@javax.jdo.annotations.Unique(name="USER_KEY_IDX", members={"user","key"}) 
-@Named("User Setting")
+@DomainObject(
+        objectType = "IsisUserSetting",
+        editing = Editing.DISABLED
+)
+@DomainObjectLayout(
+        named="User Setting"
+)
 public class UserSettingJdo extends SettingAbstractJdo implements UserSetting {
 
     

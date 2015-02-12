@@ -19,62 +19,66 @@ package org.isisaddons.module.settings.dom.jdo;
 import java.util.List;
 import org.isisaddons.module.settings.dom.UserSetting;
 import org.joda.time.LocalDate;
-import org.apache.isis.applib.annotation.Hidden;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.Where;
 
 /**
  * An implementation intended to be hidden in the UI, and delegated to by other services.
+ *
+ * @deprecated - instead use {@link org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo}.  If the action items need to be hidden, use either security or a vetoing subscriber.
  */
+@Deprecated
 public class UserSettingsServiceJdoHidden extends UserSettingsServiceJdo {
 
-    @Hidden
+    @Action(hidden = Where.EVERYWHERE)
     @Override
-    public UserSetting find(String user, String key) {
+    public UserSetting find(final String user, final String key) {
         return super.find(user, key);
     }
 
     // //////////////////////////////////////
 
-    @Hidden
+    @Action(hidden = Where.EVERYWHERE)
     @Override
     public List<UserSetting> listAll() {
         return super.listAll();
     }
 
-    @Hidden
+    @Action(hidden = Where.EVERYWHERE)
     @Override
-    public List<UserSetting> listAllFor(String user) {
+    public List<UserSetting> listAllFor(final String user) {
         return super.listAllFor(user);
     }
 
     // //////////////////////////////////////
-    
-    @Hidden
+
+    @Action(hidden = Where.EVERYWHERE)
     @Override
-    public UserSettingJdo newString(String user, String key, String description, String value) {
+    public UserSettingJdo newString(final String user, final String key, final String description, final String value) {
         return super.newString(user, key, description, value);
     }
 
-    @Hidden
+    @Action(hidden = Where.EVERYWHERE)
     @Override
-    public UserSettingJdo newInt(String user, String key, String description, Integer value) {
+    public UserSettingJdo newInt(final String user, final String key, final String description, final Integer value) {
         return super.newInt(user, key, description, value);
     }
 
-    @Hidden
+    @Action(hidden = Where.EVERYWHERE)
     @Override
-    public UserSettingJdo newLong(String user, String key, String description, Long value) {
+    public UserSettingJdo newLong(final String user, final String key, final String description, final Long value) {
         return super.newLong(user, key, description, value);
     }
 
-    @Hidden
+    @Action(hidden = Where.EVERYWHERE)
     @Override
-    public UserSettingJdo newLocalDate(String user, String key, String description, LocalDate value) {
+    public UserSettingJdo newLocalDate(final String user, final String key, final String description, final LocalDate value) {
         return super.newLocalDate(user, key, description, value);
     }
 
-    @Hidden
+    @Action(hidden = Where.EVERYWHERE)
     @Override
-    public UserSettingJdo newBoolean(String user, String key, String description, Boolean value) {
+    public UserSettingJdo newBoolean(final String user, final String key, final String description, final Boolean value) {
         return super.newBoolean(user, key, description, value);
     }
 

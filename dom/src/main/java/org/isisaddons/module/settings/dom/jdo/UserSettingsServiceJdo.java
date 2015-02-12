@@ -21,27 +21,93 @@ import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import org.isisaddons.module.settings.dom.*;
+import org.isisaddons.module.settings.SettingsModule;
+import org.isisaddons.module.settings.dom.SettingAbstract;
+import org.isisaddons.module.settings.dom.SettingType;
+import org.isisaddons.module.settings.dom.UserSetting;
+import org.isisaddons.module.settings.dom.UserSettingsService;
+import org.isisaddons.module.settings.dom.UserSettingsServiceRW;
 import org.joda.time.LocalDate;
 import org.apache.isis.applib.AbstractService;
+import org.apache.isis.applib.Identifier;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.Parameter;
+import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.query.QueryDefault;
 
 /**
  * An implementation of {@link UserSettingsService} that persists settings
  * as entities into a JDO-backed database.
  */
-@Named("User Settings")
+@DomainService(
+        nature = NatureOfService.VIEW_MENU_ONLY
+)
+@DomainServiceLayout(
+        named = "Settings",
+        menuBar = DomainServiceLayout.MenuBar.SECONDARY
+)
 public class UserSettingsServiceJdo extends AbstractService implements UserSettingsServiceRW {
 
+    public static abstract class PropertyDomainEvent<T> extends SettingsModule.PropertyDomainEvent<UserSettingsServiceJdo, T> {
+        public PropertyDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public PropertyDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final T oldValue, final T newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
+    public static abstract class CollectionDomainEvent<T> extends SettingsModule.CollectionDomainEvent<UserSettingsServiceJdo, T> {
+        public CollectionDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of) {
+            super(source, identifier, of);
+        }
+
+        public CollectionDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
+            super(source, identifier, of, value);
+        }
+    }
+
+    public static abstract class ActionDomainEvent extends SettingsModule.ActionDomainEvent<UserSettingsServiceJdo> {
+        public ActionDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public ActionDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+
+        public ActionDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final List<Object> arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+
+    // //////////////////////////////////////
+
+    public static class FindDomainEvent extends ActionDomainEvent {
+        public FindDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+
+    @Action(
+            domainEvent = FindDomainEvent.class,
+            semantics = SemanticsOf.SAFE
+    )
     @Override
     public UserSetting find(
-            @Named("User") String user, 
-            @Named("Key") String key) {
+            @ParameterLayout(named="User")
+            final String user,
+            @ParameterLayout(named="Key")
+            final String key) {
         return firstMatch(
-                new QueryDefault<UserSettingJdo>(UserSettingJdo.class, 
+                new QueryDefault<>(UserSettingJdo.class,
                         "findByUserAndKey", 
                         "user",user,
                         "key", key));
@@ -50,10 +116,22 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
 
     // //////////////////////////////////////
 
+    public static class ListAllForDomainEvent extends ActionDomainEvent {
+        public ListAllForDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+
+    @Action(
+            domainEvent = ListAllForDomainEvent.class,
+            semantics = SemanticsOf.SAFE
+    )
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public List<UserSetting> listAllFor(String user) {
+    public List<UserSetting> listAllFor(
+            @ParameterLayout(named="User")
+            final String user) {
         return (List)allMatches(
-                new QueryDefault<UserSettingJdo>(UserSettingJdo.class, 
+                new QueryDefault<>(UserSettingJdo.class,
                         "findByUser", 
                         "user", user));
     }
@@ -67,85 +145,178 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
     }
 
     private final static Function<UserSetting, String> GET_USER = new Function<UserSetting, String>() {
-        public String apply(UserSetting input) {
+        public String apply(final UserSetting input) {
             return input.getUser();
         }
     };
 
     // //////////////////////////////////////
 
+    public static class ListAllDomainEvent extends ActionDomainEvent {
+        public ListAllDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+
+    @Action(
+            domainEvent = ListAllDomainEvent.class,
+            semantics = SemanticsOf.SAFE
+    )
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public List<UserSetting> listAll() {
         return (List)allMatches(
-                new QueryDefault<UserSettingJdo>(UserSettingJdo.class, 
+                new QueryDefault<>(UserSettingJdo.class,
                         "findAll"));
     }
 
 
     // //////////////////////////////////////
-    
+
+    public static class NewStringDomainEvent extends ActionDomainEvent {
+        public NewStringDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+
+    @Action(
+            domainEvent = NewStringDomainEvent.class,
+            semantics = SemanticsOf.NON_IDEMPOTENT
+    )
     @MemberOrder(sequence="10")
     public UserSettingJdo newString(
-            @Named("User") String user, 
-            @Named("Key") String key, 
-            @Named("Description") @Optional String description, 
-            @Named("Value") String value) {
+            @ParameterLayout(named="User")
+            final String user,
+            @ParameterLayout(named="Key")
+            final String key,
+            @Parameter(optionality= Optionality.OPTIONAL)
+            @ParameterLayout(named="Description")
+            final String description,
+            @ParameterLayout(named="Value") final String value) {
         return newSetting(user, key, description, SettingType.STRING, value);
     }
     public String default0NewString() {
         return getContainer().getUser().getName();
     }
 
+    // //////////////////////////////////////
+
+    public static class NewIntDomainEvent extends ActionDomainEvent {
+        public NewIntDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+
+    @Action(
+            domainEvent = NewIntDomainEvent.class,
+            semantics = SemanticsOf.NON_IDEMPOTENT
+    )
     @MemberOrder(sequence="11")
     public UserSettingJdo newInt(
-            @Named("User") String user, 
-            @Named("Key") String key, 
-            @Named("Description") @Optional String description, 
-            @Named("Value") Integer value) {
+            @ParameterLayout(named="User")
+            final String user,
+            @ParameterLayout(named="Key")
+            final String key,
+            @Parameter(optionality=Optionality.OPTIONAL)
+            @ParameterLayout(named="Description")
+            final String description,
+            @ParameterLayout(named="Value") final Integer value) {
         return newSetting(user, key, description, SettingType.INT, value.toString());
     }
     public String default0NewInt() {
         return getContainer().getUser().getName();
     }
 
+    // //////////////////////////////////////
+
+    public static class NewLongDomainEvent extends ActionDomainEvent {
+        public NewLongDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+
+    @Action(
+            domainEvent = NewLongDomainEvent.class,
+            semantics = SemanticsOf.NON_IDEMPOTENT
+    )
     @MemberOrder(sequence="12")
     public UserSettingJdo newLong(
-            @Named("User") String user, 
-            @Named("Key") String key, 
-            @Named("Description") @Optional String description, 
-            @Named("Value") Long value) {
+            @ParameterLayout(named="User")
+            final String user,
+            @ParameterLayout(named="Key")
+            final String key,
+            @Parameter(optionality=Optionality.OPTIONAL)
+            @ParameterLayout(named="Description")
+            final String description,
+            @ParameterLayout(named="Value") final Long value) {
         return newSetting(user, key, description, SettingType.LONG, value.toString());
     }
     public String default0NewLong() {
         return getContainer().getUser().getName();
     }
 
+    // //////////////////////////////////////
+
+    public static class NewLocalDateDomainEvent extends ActionDomainEvent {
+        public NewLocalDateDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+
+    @Action(
+            domainEvent = NewLocalDateDomainEvent.class,
+            semantics = SemanticsOf.NON_IDEMPOTENT
+    )
     @MemberOrder(sequence="13")
     public UserSettingJdo newLocalDate(
-            @Named("User") String user, 
-            @Named("Key") String key, 
-            @Named("Description") @Optional String description, 
-            @Named("Value") LocalDate value) {
+            @ParameterLayout(named="User")
+            final String user,
+            @ParameterLayout(named="Key")
+            final String key,
+            @Parameter(optionality=Optionality.OPTIONAL)
+            @ParameterLayout(named="Description")
+            final String description,
+            @ParameterLayout(named="Value") final LocalDate value) {
         return newSetting(user, key, description, SettingType.LOCAL_DATE, value.toString(SettingAbstract.DATE_FORMATTER));
     }
     public String default0NewLocalDate() {
         return getContainer().getUser().getName();
     }
 
+    // //////////////////////////////////////
+
+    public static class NewBooleanDomainEvent extends ActionDomainEvent {
+        public NewBooleanDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+
+    @Action(
+            domainEvent = NewBooleanDomainEvent.class,
+            semantics = SemanticsOf.NON_IDEMPOTENT
+    )
     @MemberOrder(sequence="14")
     public UserSettingJdo newBoolean(
-            @Named("User") String user, 
-            @Named("Key") String key, 
-            @Named("Description") @Optional String description, 
-            @Named("Value") @Optional Boolean value) {
-        return newSetting(user, key, description, SettingType.BOOLEAN, new Boolean(value != null && value).toString());
+            @ParameterLayout(named="User")
+            final String user,
+            @ParameterLayout(named="Key")
+            final String key,
+            @Parameter(optionality=Optionality.OPTIONAL)
+            @ParameterLayout(named="Description")
+            final String description,
+            @ParameterLayout(named="Value")
+            @Parameter(optionality=Optionality.OPTIONAL)
+            final Boolean value) {
+        return newSetting(user, key, description, SettingType.BOOLEAN, Boolean.toString(value != null && value));
     }
     public String default0NewBoolean() {
         return getContainer().getUser().getName();
     }
 
+    // //////////////////////////////////////
+
     private UserSettingJdo newSetting(
-            String user, String key, String description, SettingType settingType, final String valueRaw) {
+            final String user,
+            final String key, final String description, final SettingType settingType, final String valueRaw) {
         final UserSettingJdo setting = newTransientInstance(UserSettingJdo.class);
         setting.setUser(user);
         setting.setKey(key);
@@ -155,6 +326,5 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
         persist(setting);
         return setting;
     }
-    
 
 }

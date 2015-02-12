@@ -23,8 +23,10 @@ import org.isisaddons.module.settings.dom.SettingType;
 import org.joda.time.LocalDate;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.Parameter;
+import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.PropertyLayout;
 
 /**
  * Factors out common implementation; however this is not annotated with {@link PersistenceCapable},
@@ -55,9 +57,14 @@ public abstract class SettingAbstractJdo extends SettingAbstract implements Appl
         this.description = description;
     }
 
+    @PropertyLayout(
+            named = "Update"
+    )
     @MemberOrder(name="Description", sequence="1")
-    @Named("Update")
-    public SettingAbstractJdo updateDescription(@Named("Description") @Optional String description) {
+    public SettingAbstractJdo updateDescription(
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "Description")
+            final String description) {
         setDescription(description);
         return this;
     }
@@ -92,10 +99,14 @@ public abstract class SettingAbstractJdo extends SettingAbstract implements Appl
     }
 
     // //////////////////////////////////////
-    
+
+    @PropertyLayout(
+            named = "Update"
+    )
     @MemberOrder(name="ValueAsString", sequence="1")
-    @Named("Update")
-    public SettingAbstractJdo updateAsString(@Named("Value") String value) {
+    public SettingAbstractJdo updateAsString(
+            @ParameterLayout(named = "Value")
+            final String value) {
         setValueRaw(value);
         return this;
     }
@@ -105,10 +116,16 @@ public abstract class SettingAbstractJdo extends SettingAbstract implements Appl
     public boolean hideUpdateAsString() {
         return typeIsNot(SettingType.STRING);
     }
-    
+
+    // //////////////////////////////////////
+
+    @PropertyLayout(
+            named = "Update"
+    )
     @MemberOrder(name="ValueAsInt", sequence="1")
-    @Named("Update")
-    public SettingAbstractJdo updateAsInt(@Named("Value") Integer value) {
+    public SettingAbstractJdo updateAsInt(
+            @ParameterLayout(named = "Value")
+            final Integer value) {
         setValueRaw(value.toString());
         return this;
     }
@@ -118,10 +135,16 @@ public abstract class SettingAbstractJdo extends SettingAbstract implements Appl
     public boolean hideUpdateAsInt() {
         return typeIsNot(SettingType.INT);
     }
-    
+
+    // //////////////////////////////////////
+
+    @PropertyLayout(
+            named = "Update"
+    )
     @MemberOrder(name="ValueAsLong", sequence="1")
-    @Named("Update")
-    public SettingAbstractJdo updateAsLong(@Named("Value") Long value) {
+    public SettingAbstractJdo updateAsLong(
+            @ParameterLayout(named = "Value") final
+            Long value) {
         setValueRaw(value.toString());
         return this;
     }
@@ -131,10 +154,16 @@ public abstract class SettingAbstractJdo extends SettingAbstract implements Appl
     public boolean hideUpdateAsLong() {
         return typeIsNot(SettingType.LONG);
     }
-    
+
+    // //////////////////////////////////////
+
+    @PropertyLayout(
+            named = "Update"
+    )
     @MemberOrder(name="ValueAsLocalDate", sequence="1")
-    @Named("Update")
-    public SettingAbstractJdo updateAsLocalDate(@Named("Value") LocalDate value) {
+    public SettingAbstractJdo updateAsLocalDate(
+            @ParameterLayout(named = "Value")
+            final LocalDate value) {
         setValueRaw(value.toString(DATE_FORMATTER));
         return this;
     }
@@ -145,9 +174,15 @@ public abstract class SettingAbstractJdo extends SettingAbstract implements Appl
         return typeIsNot(SettingType.LOCAL_DATE);
     }
 
+    // //////////////////////////////////////
+
+    @PropertyLayout(
+            named = "Update"
+    )
     @MemberOrder(name="ValueAsBoolean", sequence="1")
-    @Named("Update")
-    public SettingAbstractJdo updateAsBoolean(@Named("Value") Boolean value) {
+    public SettingAbstractJdo updateAsBoolean(
+            @ParameterLayout(named = "Value")
+            final Boolean value) {
         setValueRaw(value.toString());
         return this;
     }
@@ -159,10 +194,11 @@ public abstract class SettingAbstractJdo extends SettingAbstract implements Appl
     }
     
     // //////////////////////////////////////
-    
-    
+
     public SettingAbstractJdo delete(
-            @Named("Are you sure?") @Optional Boolean confirm) {
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "Are you sure?")
+            final Boolean confirm) {
         if(confirm == null || !confirm) {
             container.informUser("Setting NOT deleted");
             return this;
@@ -173,8 +209,6 @@ public abstract class SettingAbstractJdo extends SettingAbstract implements Appl
     }
     
 
-    
- 
     // //////////////////////////////////////
     
     private DomainObjectContainer container;

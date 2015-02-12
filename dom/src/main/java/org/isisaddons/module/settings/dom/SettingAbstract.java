@@ -19,13 +19,13 @@ package org.isisaddons.module.settings.dom;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-
-import org.apache.isis.applib.annotation.Hidden;
-import org.apache.isis.applib.annotation.Immutable;
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.Where;
 
@@ -33,7 +33,9 @@ import org.apache.isis.applib.annotation.Where;
 /**
  * Convenience class to implement {@link Setting}.
  */
-@Immutable
+@DomainObject(
+        editing = Editing.DISABLED
+)
 public abstract class SettingAbstract implements Setting {
 
     public final static DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd");
@@ -42,7 +44,9 @@ public abstract class SettingAbstract implements Setting {
     @MemberOrder(sequence="10")
     public abstract String getKey();
 
-    @Optional
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @MemberOrder(sequence="80")
     public abstract String getDescription();
 
@@ -52,8 +56,10 @@ public abstract class SettingAbstract implements Setting {
     // //////////////////////////////////////
 
     @Title(prepend=" = ", sequence="30")
+    @Property(
+            hidden = Where.OBJECT_FORMS
+    )
     @MemberOrder(sequence="30")
-    @Hidden(where=Where.OBJECT_FORMS)
     public abstract String getValueRaw();
 
     // //////////////////////////////////////
@@ -114,9 +120,13 @@ public abstract class SettingAbstract implements Setting {
 
     // //////////////////////////////////////
     
+    @Property(
+            hidden = Where.ALL_TABLES
+    )
+    @PropertyLayout(
+            named = "Value"
+    )
     @MemberOrder(sequence="30")
-    @Hidden(where=Where.ALL_TABLES)
-    @Named("Value")
     public String getValueAsString() {
         return getValueRaw();
     }
@@ -125,10 +135,14 @@ public abstract class SettingAbstract implements Setting {
     }
 
     // //////////////////////////////////////
-    
+
+    @Property(
+            hidden = Where.ALL_TABLES
+    )
+    @PropertyLayout(
+            named = "Value"
+    )
     @MemberOrder(sequence="30")
-    @Hidden(where=Where.ALL_TABLES)
-    @Named("Value")
     public LocalDate getValueAsLocalDate() {
         return parseValueAsLocalDate();
     }
@@ -137,11 +151,15 @@ public abstract class SettingAbstract implements Setting {
     }
     
     // //////////////////////////////////////
-    
-    
+
+
+    @Property(
+            hidden = Where.ALL_TABLES
+    )
+    @PropertyLayout(
+            named = "Value"
+    )
     @MemberOrder(sequence="30")
-    @Hidden(where=Where.ALL_TABLES)
-    @Named("Value")
     public Integer getValueAsInt() {
         return parseValueAsInt();
     }
@@ -150,12 +168,16 @@ public abstract class SettingAbstract implements Setting {
     }
     
     // //////////////////////////////////////
-    
-    
-    
+
+
+
+    @Property(
+            hidden = Where.ALL_TABLES
+    )
+    @PropertyLayout(
+            named = "Value"
+    )
     @MemberOrder(sequence="30")
-    @Hidden(where=Where.ALL_TABLES)
-    @Named("Value")
     public Long getValueAsLong() {
         return parseValueAsLong();
     }
@@ -164,12 +186,16 @@ public abstract class SettingAbstract implements Setting {
     }
 
     // //////////////////////////////////////
-    
-    
-    
+
+
+
+    @Property(
+            hidden = Where.ALL_TABLES
+    )
+    @PropertyLayout(
+            named = "Value"
+    )
     @MemberOrder(sequence="30")
-    @Hidden(where=Where.ALL_TABLES)
-    @Named("Value")
     public Boolean getValueAsBoolean() {
         return parseValueAsBoolean();
     }

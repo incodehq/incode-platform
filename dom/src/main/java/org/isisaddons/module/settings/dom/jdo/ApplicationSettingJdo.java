@@ -19,7 +19,9 @@ package org.isisaddons.module.settings.dom.jdo;
 import javax.jdo.annotations.IdentityType;
 import org.isisaddons.module.settings.dom.ApplicationSetting;
 import org.isisaddons.module.settings.dom.SettingType;
-import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
+import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 
 @javax.jdo.annotations.PersistenceCapable(
@@ -37,7 +39,13 @@ import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
                     + "FROM org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo "
                     + "ORDER BY key")
 })
-@Named("Application Setting")
+@DomainObject(
+        objectType = "IsisApplicationSetting",
+        editing = Editing.DISABLED
+)
+@DomainObjectLayout(
+        named="Application Setting"
+)
 public class ApplicationSettingJdo extends SettingAbstractJdo implements ApplicationSetting {
 
 
