@@ -43,38 +43,38 @@ import org.apache.isis.applib.services.clock.ClockService;
         menuBar = DomainServiceLayout.MenuBar.SECONDARY,
         menuOrder = "20"
 )
-public class CommandsServiceMenu extends AbstractService {
+public class CommandServiceMenu extends AbstractService {
 
-    public static abstract class PropertyDomainEvent<T> extends CommandModule.PropertyDomainEvent<CommandsServiceMenu, T> {
-        public PropertyDomainEvent(final CommandsServiceMenu source, final Identifier identifier) {
+    public static abstract class PropertyDomainEvent<T> extends CommandModule.PropertyDomainEvent<CommandServiceMenu, T> {
+        public PropertyDomainEvent(final CommandServiceMenu source, final Identifier identifier) {
             super(source, identifier);
         }
 
-        public PropertyDomainEvent(final CommandsServiceMenu source, final Identifier identifier, final T oldValue, final T newValue) {
+        public PropertyDomainEvent(final CommandServiceMenu source, final Identifier identifier, final T oldValue, final T newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
 
-    public static abstract class CollectionDomainEvent<T> extends CommandModule.CollectionDomainEvent<CommandsServiceMenu, T> {
-        public CollectionDomainEvent(final CommandsServiceMenu source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of) {
+    public static abstract class CollectionDomainEvent<T> extends CommandModule.CollectionDomainEvent<CommandServiceMenu, T> {
+        public CollectionDomainEvent(final CommandServiceMenu source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of) {
             super(source, identifier, of);
         }
 
-        public CollectionDomainEvent(final CommandsServiceMenu source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
+        public CollectionDomainEvent(final CommandServiceMenu source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
             super(source, identifier, of, value);
         }
     }
 
-    public static abstract class ActionDomainEvent extends CommandModule.ActionDomainEvent<CommandsServiceMenu> {
-        public ActionDomainEvent(final CommandsServiceMenu source, final Identifier identifier) {
+    public static abstract class ActionDomainEvent extends CommandModule.ActionDomainEvent<CommandServiceMenu> {
+        public ActionDomainEvent(final CommandServiceMenu source, final Identifier identifier) {
             super(source, identifier);
         }
 
-        public ActionDomainEvent(final CommandsServiceMenu source, final Identifier identifier, final Object... arguments) {
+        public ActionDomainEvent(final CommandServiceMenu source, final Identifier identifier, final Object... arguments) {
             super(source, identifier, arguments);
         }
 
-        public ActionDomainEvent(final CommandsServiceMenu source, final Identifier identifier, final List<Object> arguments) {
+        public ActionDomainEvent(final CommandServiceMenu source, final Identifier identifier, final List<Object> arguments) {
             super(source, identifier, arguments);
         }
     }
@@ -82,7 +82,7 @@ public class CommandsServiceMenu extends AbstractService {
     // //////////////////////////////////////
 
     public static class CommandsCurrentlyRunningDomainEvent extends ActionDomainEvent {
-        public CommandsCurrentlyRunningDomainEvent(final CommandsServiceMenu source, final Identifier identifier, final Object... args) {
+        public CommandsCurrentlyRunningDomainEvent(final CommandServiceMenu source, final Identifier identifier, final Object... args) {
             super(source, identifier, args);
         }
     }
@@ -106,7 +106,7 @@ public class CommandsServiceMenu extends AbstractService {
     // //////////////////////////////////////
 
     public static class FindCommandsDomainEvent extends ActionDomainEvent {
-        public FindCommandsDomainEvent(final CommandsServiceMenu source, final Identifier identifier, final Object... args) {
+        public FindCommandsDomainEvent(final CommandServiceMenu source, final Identifier identifier, final Object... args) {
             super(source, identifier, args);
         }
     }
@@ -141,7 +141,7 @@ public class CommandsServiceMenu extends AbstractService {
     // //////////////////////////////////////
 
     public static class FindCommandByIdDomainEvent extends ActionDomainEvent {
-        public FindCommandByIdDomainEvent(final CommandsServiceMenu source, final Identifier identifier, final Object... args) {
+        public FindCommandByIdDomainEvent(final CommandServiceMenu source, final Identifier identifier, final Object... args) {
             super(source, identifier, args);
         }
     }
