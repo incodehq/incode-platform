@@ -397,7 +397,10 @@ domain services:
    of its actions are visible in the user interface (they are all `@Programmatic`) and so this service is automatically 
    registered.
 
-* `BackgroundCommandServiceJdoRepository` provides the ability to search for persisted (background) `Command`s.  None 
+* (In 1.8.0-SNAPSHOT, the) `CommandServiceMenu` provides actions to search for `Command`s, underneath an 'Activity' menu on the
+secondary menu bar.
+
+* `BackgroundCommandServiceJdoRepository` provides the ability to search for persisted (background) `Command`s.  None
    of its actions are visible in the user interface (they are all `@Programmatic`) and so this service is automatically 
    registered.
 
@@ -413,6 +416,28 @@ In 1.7.0, it is necessary to explicitly register `CommandServiceJdoContributions
 `BackgroundCommandServiceJdoContributions` in `isis.properties` (the rationale being that this service contributes
 functionality that appears in the user interface).  In 1.8.0-SNAPSHOT this policy is reversed, and the services are
  automatically registered using `@DomainService`.  Use security to suppress its contributions if required.
+
+In 1.8.0-SNAPSHOT the above policy is reversed: the `CommandServiceMenu`, `CommandServiceJdoContributions` and
+`BackgroundCommandServiceJdoContributions`  and `AuditingServiceContributions` services are all automatically registered,
+and all provide functionality that will appear in the user interface.  If this is not required, then either use security
+permissions or write a vetoing subscriber on the event bus to hide this functionality, eg:
+
+    @DomainService(nature = NatureOfService.DOMAIN)
+    public class HideIsisAddonsCommandFunctionality {
+
+        @Programmatic @PostConstruct
+        public void postConstruct() { eventBusService.register(this); }
+
+        @Programmatic @PreDestroy
+        public void preDestroy() { eventBusService.unregister(this); }
+
+        @Programmatic @Subscribe
+        public void on(final CommandModule.ActionDomainEvent<?> event) { event.hide(); }
+
+        @Inject
+        private EventBusService eventBusService;
+    }
+
 
 ## Related Modules/Services ##
 
