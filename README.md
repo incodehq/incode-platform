@@ -237,7 +237,10 @@ The `AuditEntry` entity is designed such that it can be rendered on an Isis user
 As well as the `AuditingService` service (that implements the `AuditingService3` API), the module also provides two 
 further domain services:
 
-* `AuditingServiceRepository` provides the ability to search for persisted (`AuditEntry`) audit entries.  None of its 
+* (In 1.8.0-SNAPSHOT, the) `AuditingServiceMenu` provides actions to search for `AuditEntry`s, underneath an 'Activity' menu on the
+secondary menu bar.
+
+* `AuditingServiceRepository` provides the ability to search for persisted (`AuditEntry`) audit entries.  None of its
   actions are visible in the user interface (they are all `@Programmatic`) and so this service is automatically 
   registered.
 
@@ -245,10 +248,29 @@ further domain services:
   This will therefore display all audit entries that occurred in a given transaction, in other words whenever a command,
   a published event or another audit entry is displayed.
 
-In 1.7.0, it is necessary to explicitly register `AuditingServiceContributions` in `isis.properties` (the
-rationale being that this service contributes functionality that appears in the user interface).  In 1.8.0-SNAPSHOT this
-policy is reversed, and the service is automatically registered using `@DomainService`.  Use security to suppress its
-contributions if required.
+In 1.7.0, it is necessary to explicitly register `AuditingServiceContributions` in `isis.properties`, the
+rationale being that this service contributes functionality that appears in the user interface.
+
+In 1.8.0-SNAPSHOT the above policy is reversed: the `AuditingServiceMenu` and `AuditingServiceContributions` services
+are both automatically registered, and both provide functionality that will appear in the user interface.  If this is
+not required, then either use security permissions or write a vetoing subscriber on the event bus to hide this functionality, eg:
+
+    @DomainService(nature = NatureOfService.DOMAIN)
+    public class HideIsisAddonsAuditingFunctionality {
+
+        @Programmatic @PostConstruct
+        public void postConstruct() { eventBusService.register(this); }
+
+        @Programmatic @PreDestroy
+        public void preDestroy() { eventBusService.unregister(this); }
+
+        @Programmatic @Subscribe
+        public void on(final AuditingModule.ActionDomainEvent<?> event) { event.hide(); }
+
+        @Inject
+        private EventBusService eventBusService;
+    }
+
 
 ## Related Modules/Services ##
 
