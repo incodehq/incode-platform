@@ -55,7 +55,7 @@ public class AuditingServiceContributions extends AbstractService {
 
     // //////////////////////////////////////
 
-    public static class AuditEntriesDomainEvent extends AuditModule.CollectionDomainEvent<AuditingServiceContributions, AuditEntry> {
+    public static class AuditEntriesDomainEvent extends CollectionDomainEvent<AuditEntry> {
         public AuditEntriesDomainEvent(final AuditingServiceContributions source, final Identifier identifier, final Of of) {
             super(source, identifier, of);
         }
