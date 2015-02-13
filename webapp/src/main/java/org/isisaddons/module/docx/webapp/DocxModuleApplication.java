@@ -99,7 +99,7 @@ public class DocxModuleApplication extends IsisWicketApplication {
         return request;
     }
 
-    private static final String APP_NAME = "DevUtils Module Example App";
+    private static final String APP_NAME = "Docx4j Module Example App";
 
     @Override
     protected Module newIsisWicketModule() {
