@@ -3,10 +3,10 @@
 [![Build Status](https://travis-ci.org/isisaddons/isis-module-docx.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-docx)
 
 This module, intended for use with [Apache Isis](http://isis.apache.org), provides a mail-merge capability of input 
-data into an MS Word `.docx` template.
+data into an MS Word `.docx` and `.pdf` templates.
 
 The module consists of a single domain service, `DocxService`.  This provides an API to merge a `.docx` template
-against its input data.  The input data is represented as a simple HTML file.
+against its input data. The input data is represented as a simple HTML file.
 
 The service supports several data types:
 
@@ -227,13 +227,16 @@ The main API is:
              String html, 
              InputStream docxTemplate, 
              OutputStream docxTarget, 
-             MatchingPolicy matchingPolicy) 
+             MatchingPolicy matchingPolicy,
+             OutputType outputType)
          throws LoadInputException, 
                 LoadTemplateException, 
                 MergeException
 
 The `MatchingPolicy` specifies whether unmatched input values or unmatched placeholders in the template are allowed
 or should be considered as a failure.
+The `OutputType` specifies the type of the generated output. Two possible types are supported: `DOCX` and `PDF`.
+*Note*: exporting to PDF requires more memory, both heap and permgen. If the PDF generation hangs then increase the memory settings (`-Xmx` and/or `-XX:MaxPermSize`).
 
 Overloaded versions of the `merge(...)` method exist:
 
