@@ -56,10 +56,6 @@ public class SettingsModuleSystemInitializer {
                             ,"org.apache.isis.objectstore.jdo.datanucleus.service.support" // IsisJdoSupportImpl
                             ,"org.apache.isis.objectstore.jdo.datanucleus.service.eventbus" // EventBusServiceJdo
                             );
-
-            withServices(
-                    new ApplicationSettingsServiceJdo(),
-                    new UserSettingsServiceJdo());
         }
 
         private static IsisConfiguration testConfiguration() {
