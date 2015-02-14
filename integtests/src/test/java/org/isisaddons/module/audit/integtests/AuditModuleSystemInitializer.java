@@ -55,8 +55,6 @@ public class AuditModuleSystemInitializer {
                             ,"org.apache.isis.objectstore.jdo.datanucleus.service.support" // IsisJdoSupportImpl
                             ,"org.apache.isis.objectstore.jdo.datanucleus.service.eventbus" // EventBusServiceJdo
                             );
-
-//            withServices(new AuditingServiceContributions());
         }
 
         private static IsisConfiguration testConfiguration() {

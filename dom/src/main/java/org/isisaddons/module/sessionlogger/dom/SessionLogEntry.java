@@ -18,16 +18,18 @@ package org.isisaddons.module.sessionlogger.dom;
 
 import java.sql.Timestamp;
 import java.util.List;
-
 import javax.jdo.annotations.IdentityType;
-
+import org.isisaddons.module.sessionlogger.SessionLoggerModule;
+import org.apache.isis.applib.Identifier;
+import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
-import org.apache.isis.applib.annotation.ActionSemantics;
+import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
-import org.apache.isis.applib.annotation.Immutable;
+import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.MemberGroupLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.ObjectType;
+import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.session.SessionLoggingService;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
@@ -114,14 +116,52 @@ import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
                       + "WHERE logoutTimestamp == null "
                       + "ORDER BY loginTimestamp ASC")
 })
-@Immutable
+@DomainObject(
+        objectType = "IsisSessionLogEntry",
+        editing = Editing.DISABLED
+)
 @DomainObjectLayout(named = "Session Log Entry")
-@ObjectType("IsisSessionLogEntry")
 @MemberGroupLayout(
         columnSpans={6,0,6},
         left={"Identifiers"},
         right={"Detail"})
 public class SessionLogEntry {
+
+    public static abstract class PropertyDomainEvent<T> extends SessionLoggerModule.PropertyDomainEvent<SessionLogEntry, T> {
+        public PropertyDomainEvent(final SessionLogEntry source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public PropertyDomainEvent(final SessionLogEntry source, final Identifier identifier, final T oldValue, final T newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
+    public static abstract class CollectionDomainEvent<T> extends SessionLoggerModule.CollectionDomainEvent<SessionLogEntry, T> {
+        public CollectionDomainEvent(final SessionLogEntry source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of) {
+            super(source, identifier, of);
+        }
+
+        public CollectionDomainEvent(final SessionLogEntry source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
+            super(source, identifier, of, value);
+        }
+    }
+
+    public static abstract class ActionDomainEvent extends SessionLoggerModule.ActionDomainEvent<SessionLogEntry> {
+        public ActionDomainEvent(final SessionLogEntry source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public ActionDomainEvent(final SessionLogEntry source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+
+        public ActionDomainEvent(final SessionLogEntry source, final Identifier identifier, final List<Object> arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+
+    // //////////////////////////////////////
 
     public String title() {
         return String.format("%s: %s logged %s %s",
@@ -142,14 +182,27 @@ public class SessionLogEntry {
                     ? "logout"
                     : "expired";
     }
+
     // //////////////////////////////////////
     // sessionId (property)
     // //////////////////////////////////////
+
+    public static class SessionIdDomainEvent extends PropertyDomainEvent<String> {
+        public SessionIdDomainEvent(final SessionLogEntry source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public SessionIdDomainEvent(final SessionLogEntry source, final Identifier identifier, final String oldValue, final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
 
     private String sessionId;
 
     @javax.jdo.annotations.PrimaryKey
     @javax.jdo.annotations.Column(allowsNull="false", length=15)
+    @Property(
+            domainEvent = CausedByDomainEvent.class
+    )
     @MemberOrder(name="Identifiers",sequence = "12")
     public String getSessionId() {
         return sessionId;
@@ -164,9 +217,21 @@ public class SessionLogEntry {
     // user (property)
     // //////////////////////////////////////
 
+    public static class UsernameDomainEvent extends PropertyDomainEvent<String> {
+        public UsernameDomainEvent(final SessionLogEntry source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public UsernameDomainEvent(final SessionLogEntry source, final Identifier identifier, final String oldValue, final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private String username;
 
     @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.USER_NAME)
+    @Property(
+            domainEvent = UsernameDomainEvent.class
+    )
     @MemberOrder(name="Identifiers",sequence = "10")
     public String getUsername() {
         return username;
@@ -181,9 +246,21 @@ public class SessionLogEntry {
     // loginTimestamp (property)
     // //////////////////////////////////////
 
+    public static class LoginTimestampDomainEvent extends PropertyDomainEvent<Timestamp> {
+        public LoginTimestampDomainEvent(final SessionLogEntry source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public LoginTimestampDomainEvent(final SessionLogEntry source, final Identifier identifier, final Timestamp oldValue, final Timestamp newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private Timestamp loginTimestamp;
 
     @javax.jdo.annotations.Column(allowsNull="false")
+    @Property(
+            domainEvent = LoginTimestampDomainEvent.class
+    )
     @MemberOrder(name="Identifiers",sequence = "20")
     public Timestamp getLoginTimestamp() {
         return loginTimestamp;
@@ -197,9 +274,21 @@ public class SessionLogEntry {
     // logoutTimestamp (property)
     // //////////////////////////////////////
 
+    public static class LogoutTimestampDomainEvent extends PropertyDomainEvent<Timestamp> {
+        public LogoutTimestampDomainEvent(final SessionLogEntry source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public LogoutTimestampDomainEvent(final SessionLogEntry source, final Identifier identifier, final Timestamp oldValue, final Timestamp newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private Timestamp logoutTimestamp;
 
     @javax.jdo.annotations.Column(allowsNull="true")
+    @Property(
+            domainEvent = LogoutTimestampDomainEvent.class
+    )
     @MemberOrder(name="Identifiers",sequence = "20")
     public Timestamp getLogoutTimestamp() {
         return logoutTimestamp;
@@ -213,9 +302,23 @@ public class SessionLogEntry {
     // causedBy (property)
     // //////////////////////////////////////
 
+    public static class CausedByDomainEvent extends PropertyDomainEvent<SessionLoggingService.CausedBy> {
+        public CausedByDomainEvent(final SessionLogEntry source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public CausedByDomainEvent(
+                final SessionLogEntry source, final Identifier identifier,
+                final SessionLoggingService.CausedBy oldValue, final SessionLoggingService.CausedBy newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private SessionLoggingService.CausedBy causedBy;
 
     @javax.jdo.annotations.Column(allowsNull="false", length=18)
+    @Property(
+            domainEvent = CausedByDomainEvent.class
+    )
     @MemberOrder(name="Detail",sequence = "20")
     public SessionLoggingService.CausedBy getCausedBy() {
         return causedBy;
@@ -239,7 +342,16 @@ public class SessionLogEntry {
     // next, previous
     // //////////////////////////////////////
 
-    @ActionSemantics(ActionSemantics.Of.SAFE)
+    public static class NextDomainEvent extends ActionDomainEvent {
+        public NextDomainEvent(final SessionLogEntry source, final Identifier identifier, final Object... args) {
+            super(source, identifier, args);
+        }
+    }
+
+    @Action(
+            domainEvent = NextDomainEvent.class,
+            semantics = SemanticsOf.SAFE
+    )
     @ActionLayout(
             cssClassFa = "fa-step-forward"
     )
@@ -253,7 +365,18 @@ public class SessionLogEntry {
         return next() == this? "None after": null;
     }
 
-    @ActionSemantics(ActionSemantics.Of.SAFE)
+    // //////////////////////////////////////
+
+    public static class PreviousDomainEvent extends ActionDomainEvent {
+        public PreviousDomainEvent(final SessionLogEntry source, final Identifier identifier, final Object... args) {
+            super(source, identifier, args);
+        }
+    }
+
+    @Action(
+            domainEvent = PreviousDomainEvent.class,
+            semantics = SemanticsOf.SAFE
+    )
     @ActionLayout(
             cssClassFa = "fa-step-backward"
     )

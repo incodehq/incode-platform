@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.apache.isis.applib.AbstractService;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.session.SessionLoggingService;
@@ -14,7 +15,9 @@ import org.apache.isis.applib.services.session.SessionLoggingService;
  * entry to the database (the {@link org.isisaddons.module.sessionlogger.dom.SessionLogEntry} entity) each time a
  * user either logs on or logs out, or if their session expires.
  */
-@DomainService
+@DomainService(
+        nature = NatureOfService.DOMAIN
+)
 public class SessionLoggingServiceDefault extends AbstractService implements SessionLoggingService {
 
     @Programmatic

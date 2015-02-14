@@ -17,13 +17,21 @@
 package org.isisaddons.module.sessionlogger.dom;
 
 import java.util.List;
+import org.isisaddons.module.sessionlogger.SessionLoggerModule;
 import org.joda.time.LocalDate;
 import org.apache.isis.applib.AbstractService;
-import org.apache.isis.applib.annotation.ActionSemantics;
+import org.apache.isis.applib.Identifier;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.SemanticsOf;
 
 /**
  * This service exposes a &lt;Sessions&gt; menu to the secondary menu bar for searching for sessions.
@@ -32,25 +40,74 @@ import org.apache.isis.applib.annotation.ParameterLayout;
  * Because this service influences the UI, it must be explicitly registered as a service
  * (eg using <tt>isis.properties</tt>).
  */
+@DomainService(
+        nature = NatureOfService.VIEW_MENU_ONLY
+)
 @DomainServiceLayout(
         menuBar = DomainServiceLayout.MenuBar.SECONDARY,
-        named = "Sessions"
+        named = "Activity",
+        menuOrder = "10"
 )
 public class SessionLoggingServiceMenu extends AbstractService {
-    @ActionSemantics(ActionSemantics.Of.SAFE)
-    @MemberOrder(sequence = "1")
-    public List<SessionLogEntry> listAllActive() {
+
+    public static abstract class ActionDomainEvent extends SessionLoggerModule.ActionDomainEvent<SessionLoggingServiceMenu> {
+        public ActionDomainEvent(final SessionLoggingServiceMenu source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+
+    // //////////////////////////////////////
+
+    public static class ListAllActiveDomainEvent extends ActionDomainEvent {
+        public ListAllActiveDomainEvent(final SessionLoggingServiceMenu source, final Identifier identifier, final Object... args) {
+            super(source, identifier, args);
+        }
+    }
+
+    @Action(
+            domainEvent = ListAllActiveDomainEvent.class,
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            bookmarking = BookmarkPolicy.AS_ROOT,
+            cssClassFa = "fa-bolt"
+    )
+    @MemberOrder(sequence = "10")
+    public List<SessionLogEntry> activeSessions() {
         return sessionLogEntryRepository.listAllActiveSessions();
     }
 
-    @ActionSemantics(ActionSemantics.Of.SAFE)
-    @MemberOrder(sequence = "2")
-    public List<SessionLogEntry> find(
-            @ParameterLayout(named = "Username") @Optional
+    // //////////////////////////////////////
+
+    public static class FindSessionsDomainEvent extends ActionDomainEvent {
+        public FindSessionsDomainEvent(final SessionLoggingServiceMenu source, final Identifier identifier, final Object... args) {
+            super(source, identifier, args);
+        }
+    }
+
+    @Action(
+            domainEvent = FindSessionsDomainEvent.class,
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            cssClassFa = "fa-search"
+    )
+    @MemberOrder(sequence = "20")
+    public List<SessionLogEntry> findSessions(
+            @Parameter(
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(named = "Username")
             final String username,
-            @ParameterLayout(named = "From") @Optional
+            @Parameter(
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(named = "From")
             final LocalDate from,
-            @ParameterLayout(named = "To") @Optional
+            @Parameter(
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(named = "To")
             final LocalDate to) {
 
         if(username == null) {

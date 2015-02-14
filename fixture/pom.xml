@@ -18,7 +18,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.isisaddons.module.session</groupId>
+        <groupId>org.isisaddons.module.sessionlogger</groupId>
         <artifactId>isis-module-sessionlogger</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
@@ -100,7 +100,7 @@
         </dependency>
 
         <dependency>
-            <groupId>org.isisaddons.module.session</groupId>
+            <groupId>org.isisaddons.module.sessionlogger</groupId>
             <artifactId>isis-module-sessionlogger-dom</artifactId>
         </dependency>
 
