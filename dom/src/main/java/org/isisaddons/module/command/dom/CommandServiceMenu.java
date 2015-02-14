@@ -116,7 +116,7 @@ public class CommandServiceMenu extends AbstractService {
             semantics = SemanticsOf.SAFE
     )
     @ActionLayout(
-            cssClassFa = "fa-filter"
+            cssClassFa = "fa-search"
     )
     @MemberOrder(sequence="20")
     public List<CommandJdo> findCommands(
@@ -151,7 +151,7 @@ public class CommandServiceMenu extends AbstractService {
             semantics = SemanticsOf.SAFE
     )
     @ActionLayout(
-            cssClassFa = "fa-search"
+            cssClassFa = "fa-crosshairs"
     )
     @MemberOrder(sequence="30")
     public CommandJdo findCommandById(
