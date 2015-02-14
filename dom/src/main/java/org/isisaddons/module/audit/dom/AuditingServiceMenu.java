@@ -90,7 +90,7 @@ public class AuditingServiceMenu extends AbstractService {
             semantics = SemanticsOf.SAFE
     )
     @ActionLayout(
-            cssClassFa = "fa-filter"
+            cssClassFa = "fa-search"
     )
     @MemberOrder(sequence="10")
     public List<AuditEntry> findAuditEntries(
