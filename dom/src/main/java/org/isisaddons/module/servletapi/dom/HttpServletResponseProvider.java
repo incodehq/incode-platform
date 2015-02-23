@@ -1,10 +1,3 @@
-package org.isisaddons.module.servletapi.dom;
-
-import javax.servlet.http.HttpServletResponse;
-import org.apache.wicket.request.cycle.RequestCycle;
-import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.Programmatic;
-
 /*
  *  Copyright 2013~2014 Dan Haywood
  *
@@ -21,7 +14,17 @@ import org.apache.isis.applib.annotation.Programmatic;
  *  specific language governing permissions and limitations
  *  under the License.
  */
-@DomainService
+package org.isisaddons.module.servletapi.dom;
+
+import javax.servlet.http.HttpServletResponse;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Programmatic;
+
+@DomainService(
+        nature = NatureOfService.DOMAIN
+)
 public class HttpServletResponseProvider {
 
     @Programmatic
