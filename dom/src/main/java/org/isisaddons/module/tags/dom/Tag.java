@@ -16,13 +16,23 @@
  */
 package org.isisaddons.module.tags.dom;
 
+import java.util.List;
 import javax.jdo.JDOHelper;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 import com.google.common.base.Function;
+import org.isisaddons.module.tags.TagsModule;
 import org.apache.isis.applib.AbstractDomainObject;
-import org.apache.isis.applib.annotation.*;
+import org.apache.isis.applib.Identifier;
+import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.Immutable;
+import org.apache.isis.applib.annotation.MemberGroupLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.PropertyLayout;
+import org.apache.isis.applib.annotation.Title;
+import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.util.ObjectContracts;
@@ -85,7 +95,51 @@ import org.apache.isis.applib.util.ObjectContracts;
 public class Tag extends AbstractDomainObject
         implements Comparable<Tag>, WithNameGetter {
 
+    public static abstract class PropertyDomainEvent<T> extends TagsModule.PropertyDomainEvent<Tag, T> {
+        public PropertyDomainEvent(final Tag source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public PropertyDomainEvent(final Tag source, final Identifier identifier, final T oldValue, final T newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
+    public static abstract class CollectionDomainEvent<T> extends TagsModule.CollectionDomainEvent<Tag, T> {
+        public CollectionDomainEvent(final Tag source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of) {
+            super(source, identifier, of);
+        }
+
+        public CollectionDomainEvent(final Tag source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
+            super(source, identifier, of, value);
+        }
+    }
+
+    public static abstract class ActionDomainEvent extends TagsModule.ActionDomainEvent<Tag> {
+        public ActionDomainEvent(final Tag source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public ActionDomainEvent(final Tag source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+
+        public ActionDomainEvent(final Tag source, final Identifier identifier, final List<Object> arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+
     // //////////////////////////////////////
+
+    public static class KeyDomainEvent extends PropertyDomainEvent<String> {
+        public KeyDomainEvent(final Tag source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public KeyDomainEvent(final Tag source, final Identifier identifier, final String oldValue, final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
 
     private String key;
 
@@ -96,8 +150,11 @@ public class Tag extends AbstractDomainObject
      * The combination of ({@link #getTaggedObjectType() objectType}, {@link #getKey() key}) is unique.
      */
     @MemberOrder(name = "General", sequence = "1")
-    @javax.jdo.annotations.Column(allowsNull = "false", length=JdoColumnLength.NAME)
-    @Disabled
+    @javax.jdo.annotations.Column(allowsNull = "false", length= JdoColumnLength.NAME)
+    @Property(
+            domainEvent = KeyDomainEvent.class,
+            editing = Editing.DISABLED
+    )
     public String getKey() {
         return key;
     }
@@ -108,12 +165,27 @@ public class Tag extends AbstractDomainObject
 
     // //////////////////////////////////////
 
+    public static class TaggedObjectDomainEvent extends PropertyDomainEvent<Object> {
+        public TaggedObjectDomainEvent(final Tag source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public TaggedObjectDomainEvent(final Tag source, final Identifier identifier, final Object oldValue, final Object newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     /**
      * Derived (polymorphic) association to any object.
      */
     @javax.jdo.annotations.NotPersistent
+    @Property(
+            domainEvent = TaggedObjectDomainEvent.class
+    )
+    @PropertyLayout(
+            named = "Object"
+    )
     @MemberOrder(name = "Tagged", sequence = "1")
-    @Named("Object")
     public Object getTaggedObject() {
         return bookmarkService.lookup(new Bookmark(getTaggedObjectType(), getTaggedIdentifier()));
     }
@@ -126,10 +198,23 @@ public class Tag extends AbstractDomainObject
 
     // //////////////////////////////////////
 
+    public static class TaggedObjectTypeDomainEvent extends PropertyDomainEvent<String> {
+        public TaggedObjectTypeDomainEvent(final Tag source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public TaggedObjectTypeDomainEvent(final Tag source, final Identifier identifier, final String oldValue, final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private String taggedObjectType;
 
     @javax.jdo.annotations.Column(allowsNull = "false", length=JdoColumnLength.FQCN)
-    @Hidden
+    @Property(
+            domainEvent = TaggedObjectTypeDomainEvent.class,
+            hidden = Where.EVERYWHERE
+    )
     public String getTaggedObjectType() {
         return taggedObjectType;
     }
@@ -140,10 +225,24 @@ public class Tag extends AbstractDomainObject
 
     // //////////////////////////////////////
 
+    public static class TaggedIdentifierDomainEvent extends PropertyDomainEvent<String> {
+        public TaggedIdentifierDomainEvent(final Tag source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public TaggedIdentifierDomainEvent(final Tag source, final Identifier identifier, final String oldValue, final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
+
     private String taggedIdentifier;
 
     @javax.jdo.annotations.Column(allowsNull = "false", length=JdoColumnLength.IDENTIFIER)
-    @Hidden
+    @Property(
+            domainEvent = TaggedIdentifierDomainEvent.class,
+            hidden = Where.EVERYWHERE
+    )
     public String getTaggedIdentifier() {
         return taggedIdentifier;
     }
@@ -154,9 +253,22 @@ public class Tag extends AbstractDomainObject
 
     // //////////////////////////////////////
 
+    public static class ValueDomainEvent extends PropertyDomainEvent<String> {
+        public ValueDomainEvent(final Tag source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public ValueDomainEvent(final Tag source, final Identifier identifier, final String oldValue, final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private String value;
 
     @javax.jdo.annotations.Column(allowsNull = "false", length=JdoColumnLength.VALUE)
+    @Property(
+            domainEvent = ValueDomainEvent.class
+    )
     @Title
     public String getValue() {
         return value;
@@ -181,7 +293,9 @@ public class Tag extends AbstractDomainObject
 
     // //////////////////////////////////////
 
-    @Hidden
+    @Property(
+            hidden = Where.EVERYWHERE
+    )
     public String getId() {
         Object objectId = JDOHelper.getObjectId(this);
         if(objectId == null) {
@@ -192,7 +306,9 @@ public class Tag extends AbstractDomainObject
         return id;
     }
 
-    @Hidden
+    @Property(
+            hidden = Where.EVERYWHERE
+    )
     public Long getVersionSequence() {
         final Long version = (Long) JDOHelper.getVersion(this);
         return version;
@@ -227,5 +343,4 @@ public class Tag extends AbstractDomainObject
             }
         };
     }
-
 }
