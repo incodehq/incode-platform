@@ -21,12 +21,15 @@ import javax.jdo.Query;
 import com.google.common.base.Strings;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-@DomainService
+@DomainService(
+        nature = NatureOfService.DOMAIN
+)
 public class Tags {
 
     /**
