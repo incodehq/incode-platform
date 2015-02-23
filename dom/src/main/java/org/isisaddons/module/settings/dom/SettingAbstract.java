@@ -21,7 +21,6 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
-import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
@@ -41,16 +40,14 @@ public abstract class SettingAbstract implements Setting {
     public final static DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd");
 
     @Title(sequence="10")
-    @MemberOrder(sequence="10")
     public abstract String getKey();
+
 
     @Property(
             optionality = Optionality.OPTIONAL
     )
-    @MemberOrder(sequence="80")
     public abstract String getDescription();
 
-    @MemberOrder(sequence="90")
     public abstract SettingType getType();
 
     // //////////////////////////////////////
@@ -59,7 +56,6 @@ public abstract class SettingAbstract implements Setting {
     @Property(
             hidden = Where.OBJECT_FORMS
     )
-    @MemberOrder(sequence="30")
     public abstract String getValueRaw();
 
     // //////////////////////////////////////
@@ -123,10 +119,6 @@ public abstract class SettingAbstract implements Setting {
     @Property(
             hidden = Where.ALL_TABLES
     )
-    @PropertyLayout(
-            named = "Value"
-    )
-    @MemberOrder(sequence="30")
     public String getValueAsString() {
         return getValueRaw();
     }
@@ -139,10 +131,6 @@ public abstract class SettingAbstract implements Setting {
     @Property(
             hidden = Where.ALL_TABLES
     )
-    @PropertyLayout(
-            named = "Value"
-    )
-    @MemberOrder(sequence="30")
     public LocalDate getValueAsLocalDate() {
         return parseValueAsLocalDate();
     }
@@ -156,10 +144,6 @@ public abstract class SettingAbstract implements Setting {
     @Property(
             hidden = Where.ALL_TABLES
     )
-    @PropertyLayout(
-            named = "Value"
-    )
-    @MemberOrder(sequence="30")
     public Integer getValueAsInt() {
         return parseValueAsInt();
     }
@@ -174,10 +158,6 @@ public abstract class SettingAbstract implements Setting {
     @Property(
             hidden = Where.ALL_TABLES
     )
-    @PropertyLayout(
-            named = "Value"
-    )
-    @MemberOrder(sequence="30")
     public Long getValueAsLong() {
         return parseValueAsLong();
     }
@@ -195,7 +175,6 @@ public abstract class SettingAbstract implements Setting {
     @PropertyLayout(
             named = "Value"
     )
-    @MemberOrder(sequence="30")
     public Boolean getValueAsBoolean() {
         return parseValueAsBoolean();
     }
