@@ -59,38 +59,38 @@ import org.apache.isis.applib.query.QueryDefault;
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
 )
-public class UserSettingContributions extends AbstractService {
+public class UserSettingPreviousNextContributions extends AbstractService {
 
-    public static abstract class PropertyDomainEvent<T> extends SettingsModule.PropertyDomainEvent<UserSettingContributions, T> {
-        public PropertyDomainEvent(final UserSettingContributions source, final Identifier identifier) {
+    public static abstract class PropertyDomainEvent<T> extends SettingsModule.PropertyDomainEvent<UserSettingPreviousNextContributions, T> {
+        public PropertyDomainEvent(final UserSettingPreviousNextContributions source, final Identifier identifier) {
             super(source, identifier);
         }
 
-        public PropertyDomainEvent(final UserSettingContributions source, final Identifier identifier, final T oldValue, final T newValue) {
+        public PropertyDomainEvent(final UserSettingPreviousNextContributions source, final Identifier identifier, final T oldValue, final T newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
 
-    public static abstract class CollectionDomainEvent<T> extends SettingsModule.CollectionDomainEvent<UserSettingContributions, T> {
-        public CollectionDomainEvent(final UserSettingContributions source, final Identifier identifier, final Of of) {
+    public static abstract class CollectionDomainEvent<T> extends SettingsModule.CollectionDomainEvent<UserSettingPreviousNextContributions, T> {
+        public CollectionDomainEvent(final UserSettingPreviousNextContributions source, final Identifier identifier, final Of of) {
             super(source, identifier, of);
         }
 
-        public CollectionDomainEvent(final UserSettingContributions source, final Identifier identifier, final Of of, final T value) {
+        public CollectionDomainEvent(final UserSettingPreviousNextContributions source, final Identifier identifier, final Of of, final T value) {
             super(source, identifier, of, value);
         }
     }
 
-    public static abstract class ActionDomainEvent extends SettingsModule.ActionDomainEvent<UserSettingContributions> {
-        public ActionDomainEvent(final UserSettingContributions source, final Identifier identifier) {
+    public static abstract class ActionDomainEvent extends SettingsModule.ActionDomainEvent<UserSettingPreviousNextContributions> {
+        public ActionDomainEvent(final UserSettingPreviousNextContributions source, final Identifier identifier) {
             super(source, identifier);
         }
 
-        public ActionDomainEvent(final UserSettingContributions source, final Identifier identifier, final Object... arguments) {
+        public ActionDomainEvent(final UserSettingPreviousNextContributions source, final Identifier identifier, final Object... arguments) {
             super(source, identifier, arguments);
         }
 
-        public ActionDomainEvent(final UserSettingContributions source, final Identifier identifier, final List<Object> arguments) {
+        public ActionDomainEvent(final UserSettingPreviousNextContributions source, final Identifier identifier, final List<Object> arguments) {
             super(source, identifier, arguments);
         }
     }
@@ -98,7 +98,7 @@ public class UserSettingContributions extends AbstractService {
     // //////////////////////////////////////
 
     public static class FindNextDomainEvent extends ActionDomainEvent {
-        public FindNextDomainEvent(final UserSettingContributions source, final Identifier identifier, final Object... arguments) {
+        public FindNextDomainEvent(final UserSettingPreviousNextContributions source, final Identifier identifier, final Object... arguments) {
             super(source, identifier, arguments);
         }
     }
@@ -125,7 +125,7 @@ public class UserSettingContributions extends AbstractService {
     // //////////////////////////////////////
 
     public static class FindPreviousDomainEvent extends ActionDomainEvent {
-        public FindPreviousDomainEvent(final UserSettingContributions source, final Identifier identifier, final Object... arguments) {
+        public FindPreviousDomainEvent(final UserSettingPreviousNextContributions source, final Identifier identifier, final Object... arguments) {
             super(source, identifier, arguments);
         }
     }

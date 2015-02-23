@@ -17,17 +17,12 @@
 package org.isisaddons.module.settings.dom;
 
 import java.util.List;
-import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.ParameterLayout;
 
 public interface UserSettingsService {
 
-    @MemberOrder(sequence="1")
-    UserSetting find(@ParameterLayout(named="User") String user, @ParameterLayout(named="Key") String key);
+    UserSetting find(String user, String key);
     
-    @MemberOrder(sequence="2")
     List<UserSetting> listAll();
 
-    @MemberOrder(sequence="3")
-    List<UserSetting> listAllFor(@ParameterLayout(named="User") String user);
+    List<UserSetting> listAllFor(String user);
 }

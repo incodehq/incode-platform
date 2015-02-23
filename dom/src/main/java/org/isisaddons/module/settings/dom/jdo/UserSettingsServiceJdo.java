@@ -31,6 +31,7 @@ import org.joda.time.LocalDate;
 import org.apache.isis.applib.AbstractService;
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -50,6 +51,7 @@ import org.apache.isis.applib.query.QueryDefault;
 )
 @DomainServiceLayout(
         named = "Settings",
+        menuOrder = "400.2",
         menuBar = DomainServiceLayout.MenuBar.SECONDARY
 )
 public class UserSettingsServiceJdo extends AbstractService implements UserSettingsServiceRW {
@@ -100,6 +102,11 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
             domainEvent = FindDomainEvent.class,
             semantics = SemanticsOf.SAFE
     )
+    @ActionLayout(
+            named = "Find User Setting",
+            cssClassFa = "search"
+    )
+    @MemberOrder(sequence = "2.1")
     @Override
     public UserSetting find(
             @ParameterLayout(named="User")
@@ -126,6 +133,11 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
             domainEvent = ListAllForDomainEvent.class,
             semantics = SemanticsOf.SAFE
     )
+    @ActionLayout(
+            named = "List All Settings For User",
+            cssClassFa = "user"
+    )
+    @MemberOrder(sequence="2.2")
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public List<UserSetting> listAllFor(
             @ParameterLayout(named="User")
@@ -162,6 +174,11 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
             domainEvent = ListAllDomainEvent.class,
             semantics = SemanticsOf.SAFE
     )
+    @ActionLayout(
+            named = "List All User Settings",
+            cssClassFa = "list"
+    )
+    @MemberOrder(sequence="2.3")
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public List<UserSetting> listAll() {
         return (List)allMatches(
@@ -182,7 +199,10 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
             domainEvent = NewStringDomainEvent.class,
             semantics = SemanticsOf.NON_IDEMPOTENT
     )
-    @MemberOrder(sequence="10")
+    @ActionLayout(
+            cssClassFa = "plus"
+    )
+    @MemberOrder(sequence = "2.3.1")
     public UserSettingJdo newString(
             @ParameterLayout(named="User")
             final String user,
@@ -210,7 +230,10 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
             domainEvent = NewIntDomainEvent.class,
             semantics = SemanticsOf.NON_IDEMPOTENT
     )
-    @MemberOrder(sequence="11")
+    @ActionLayout(
+            cssClassFa = "plus"
+    )
+    @MemberOrder(sequence = "2.3.2")
     public UserSettingJdo newInt(
             @ParameterLayout(named="User")
             final String user,
@@ -238,7 +261,10 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
             domainEvent = NewLongDomainEvent.class,
             semantics = SemanticsOf.NON_IDEMPOTENT
     )
-    @MemberOrder(sequence="12")
+    @ActionLayout(
+            cssClassFa = "plus"
+    )
+    @MemberOrder(sequence = "2.3.3")
     public UserSettingJdo newLong(
             @ParameterLayout(named="User")
             final String user,
@@ -266,7 +292,10 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
             domainEvent = NewLocalDateDomainEvent.class,
             semantics = SemanticsOf.NON_IDEMPOTENT
     )
-    @MemberOrder(sequence="13")
+    @ActionLayout(
+            cssClassFa = "plus"
+    )
+    @MemberOrder(sequence = "2.3.4")
     public UserSettingJdo newLocalDate(
             @ParameterLayout(named="User")
             final String user,
@@ -294,7 +323,10 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
             domainEvent = NewBooleanDomainEvent.class,
             semantics = SemanticsOf.NON_IDEMPOTENT
     )
-    @MemberOrder(sequence="14")
+    @ActionLayout(
+            cssClassFa = "plus"
+    )
+    @MemberOrder(sequence = "2.3.5")
     public UserSettingJdo newBoolean(
             @ParameterLayout(named="User")
             final String user,

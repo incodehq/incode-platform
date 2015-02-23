@@ -59,38 +59,38 @@ import org.apache.isis.applib.query.QueryDefault;
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
 )
-public class ApplicationSettingContributions extends AbstractService {
+public class ApplicationSettingPreviousNextContributions extends AbstractService {
 
-    public static abstract class PropertyDomainEvent<T> extends SettingsModule.PropertyDomainEvent<ApplicationSettingContributions, T> {
-        public PropertyDomainEvent(final ApplicationSettingContributions source, final Identifier identifier) {
+    public static abstract class PropertyDomainEvent<T> extends SettingsModule.PropertyDomainEvent<ApplicationSettingPreviousNextContributions, T> {
+        public PropertyDomainEvent(final ApplicationSettingPreviousNextContributions source, final Identifier identifier) {
             super(source, identifier);
         }
 
-        public PropertyDomainEvent(final ApplicationSettingContributions source, final Identifier identifier, final T oldValue, final T newValue) {
+        public PropertyDomainEvent(final ApplicationSettingPreviousNextContributions source, final Identifier identifier, final T oldValue, final T newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
 
-    public static abstract class CollectionDomainEvent<T> extends SettingsModule.CollectionDomainEvent<ApplicationSettingContributions, T> {
-        public CollectionDomainEvent(final ApplicationSettingContributions source, final Identifier identifier, final Of of) {
+    public static abstract class CollectionDomainEvent<T> extends SettingsModule.CollectionDomainEvent<ApplicationSettingPreviousNextContributions, T> {
+        public CollectionDomainEvent(final ApplicationSettingPreviousNextContributions source, final Identifier identifier, final Of of) {
             super(source, identifier, of);
         }
 
-        public CollectionDomainEvent(final ApplicationSettingContributions source, final Identifier identifier, final Of of, final T value) {
+        public CollectionDomainEvent(final ApplicationSettingPreviousNextContributions source, final Identifier identifier, final Of of, final T value) {
             super(source, identifier, of, value);
         }
     }
 
-    public static abstract class ActionDomainEvent extends SettingsModule.ActionDomainEvent<ApplicationSettingContributions> {
-        public ActionDomainEvent(final ApplicationSettingContributions source, final Identifier identifier) {
+    public static abstract class ActionDomainEvent extends SettingsModule.ActionDomainEvent<ApplicationSettingPreviousNextContributions> {
+        public ActionDomainEvent(final ApplicationSettingPreviousNextContributions source, final Identifier identifier) {
             super(source, identifier);
         }
 
-        public ActionDomainEvent(final ApplicationSettingContributions source, final Identifier identifier, final Object... arguments) {
+        public ActionDomainEvent(final ApplicationSettingPreviousNextContributions source, final Identifier identifier, final Object... arguments) {
             super(source, identifier, arguments);
         }
 
-        public ActionDomainEvent(final ApplicationSettingContributions source, final Identifier identifier, final List<Object> arguments) {
+        public ActionDomainEvent(final ApplicationSettingPreviousNextContributions source, final Identifier identifier, final List<Object> arguments) {
             super(source, identifier, arguments);
         }
     }
@@ -98,7 +98,7 @@ public class ApplicationSettingContributions extends AbstractService {
     // //////////////////////////////////////
 
     public static class FindNextDomainEvent extends ActionDomainEvent {
-        public FindNextDomainEvent(final ApplicationSettingContributions source, final Identifier identifier, final Object... arguments) {
+        public FindNextDomainEvent(final ApplicationSettingPreviousNextContributions source, final Identifier identifier, final Object... arguments) {
             super(source, identifier, arguments);
         }
     }
@@ -124,7 +124,7 @@ public class ApplicationSettingContributions extends AbstractService {
     // //////////////////////////////////////
 
     public static class FindPreviousDomainEvent extends ActionDomainEvent {
-        public FindPreviousDomainEvent(final ApplicationSettingContributions source, final Identifier identifier, final Object... arguments) {
+        public FindPreviousDomainEvent(final ApplicationSettingPreviousNextContributions source, final Identifier identifier, final Object... arguments) {
             super(source, identifier, arguments);
         }
     }

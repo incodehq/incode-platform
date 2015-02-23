@@ -27,6 +27,7 @@ import org.joda.time.LocalDate;
 import org.apache.isis.applib.AbstractService;
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -69,6 +70,7 @@ import org.apache.isis.applib.query.QueryDefault;
 )
 @DomainServiceLayout(
         named = "Settings",
+        menuOrder = "400.1",
         menuBar = DomainServiceLayout.MenuBar.SECONDARY
 )
 public class ApplicationSettingsServiceJdo extends AbstractService implements ApplicationSettingsServiceRW {
@@ -119,6 +121,11 @@ public class ApplicationSettingsServiceJdo extends AbstractService implements Ap
             domainEvent = FindDomainEvent.class,
             semantics = SemanticsOf.SAFE
     )
+    @ActionLayout(
+            named = "Find Application Setting",
+            cssClassFa = "search"
+    )
+    @MemberOrder(sequence = "1.1")
     @Override
     public ApplicationSetting find(@ParameterLayout(named="Key") final String key) {
         return firstMatch(
@@ -139,7 +146,11 @@ public class ApplicationSettingsServiceJdo extends AbstractService implements Ap
             domainEvent = ListAllDomainEvent.class,
             semantics = SemanticsOf.SAFE
     )
-    @MemberOrder(sequence="1")
+    @ActionLayout(
+            named = "List All Application Settings",
+            cssClassFa = "list"
+    )
+    @MemberOrder(sequence="1.2")
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public List<ApplicationSetting> listAll() {
         return (List)allMatches(
@@ -159,7 +170,10 @@ public class ApplicationSettingsServiceJdo extends AbstractService implements Ap
             domainEvent = NewStringDomainEvent.class,
             semantics = SemanticsOf.NON_IDEMPOTENT
     )
-    @MemberOrder(sequence="10")
+    @ActionLayout(
+            cssClassFa = "plus"
+    )
+    @MemberOrder(sequence = "1.3.1")
     @Override
     public ApplicationSetting newString(
             @ParameterLayout(named="Key")
@@ -184,7 +198,10 @@ public class ApplicationSettingsServiceJdo extends AbstractService implements Ap
             domainEvent = NewIntDomainEvent.class,
             semantics = SemanticsOf.NON_IDEMPOTENT
     )
-    @MemberOrder(sequence="11")
+    @ActionLayout(
+            cssClassFa = "plus"
+    )
+    @MemberOrder(sequence="1.3.2")
     @Override
     public ApplicationSettingJdo newInt(
             @ParameterLayout(named="Key")
@@ -209,8 +226,10 @@ public class ApplicationSettingsServiceJdo extends AbstractService implements Ap
             domainEvent = NewLongDomainEvent.class,
             semantics = SemanticsOf.NON_IDEMPOTENT
     )
-
-    @MemberOrder(sequence="12")
+    @ActionLayout(
+            cssClassFa = "plus"
+    )
+    @MemberOrder(sequence="1.3.3")
     @Override
     public ApplicationSettingJdo newLong(
             @ParameterLayout(named="Key")
@@ -235,7 +254,10 @@ public class ApplicationSettingsServiceJdo extends AbstractService implements Ap
             domainEvent = NewLocalDateDomainEvent.class,
             semantics = SemanticsOf.NON_IDEMPOTENT
     )
-    @MemberOrder(sequence="13")
+    @ActionLayout(
+            cssClassFa = "plus"
+    )
+    @MemberOrder(sequence = "1.3.4")
     @Override
     public ApplicationSettingJdo newLocalDate(
             @ParameterLayout(named="Key")
@@ -260,7 +282,10 @@ public class ApplicationSettingsServiceJdo extends AbstractService implements Ap
             domainEvent = NewBooleanDomainEvent.class,
             semantics = SemanticsOf.NON_IDEMPOTENT
     )
-    @MemberOrder(sequence="14")
+    @ActionLayout(
+            cssClassFa = "plus"
+    )
+    @MemberOrder(sequence = "1.3.5")
     @Override
     public ApplicationSettingJdo newBoolean(
             @ParameterLayout(named="Key")
