@@ -49,9 +49,12 @@ import org.jdom2.Content;
 import org.jdom2.Element;
 import org.jdom2.input.DOMBuilder;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
-@DomainService
+@DomainService(
+        nature = NatureOfService.DOMAIN
+)
 public class DocxService {
 
     @Programmatic
