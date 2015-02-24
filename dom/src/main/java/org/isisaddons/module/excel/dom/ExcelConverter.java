@@ -146,65 +146,81 @@ class ExcelConverter {
 
         final List<T> importedItems = Lists.newArrayList();
 
-        final ObjectSpecification objectSpec = specificationLoader.loadSpecification(cls);
+        final ObjectSpecification objectSpec = this.specificationLoader.loadSpecification(cls);
         final ViewModelFacet viewModelFacet = objectSpec.getFacet(ViewModelFacet.class);
 
-        final ByteArrayInputStream bais = new ByteArrayInputStream(bs);
-        final Workbook wb = org.apache.poi.ss.usermodel.WorkbookFactory.create(bais);
-        final CellMarshaller cellMarshaller = newCellMarshaller(wb);
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(bs)) {
+            final Workbook wb = org.apache.poi.ss.usermodel.WorkbookFactory.create(bais);
+            final CellMarshaller cellMarshaller = this.newCellMarshaller(wb);
 
-        final Sheet sheet = wb.getSheetAt(0);
+            final Sheet sheet = wb.getSheetAt(0);
 
-        boolean header = true;
-        final Map<Integer, Property> propertyByColumn = Maps.newHashMap();
+            boolean header = true;
+            final Map<Integer, Property> propertyByColumn = Maps.newHashMap();
 
-        for (final Row row : sheet) {
-            if (header) {
-                for (final Cell cell : row) {
-                    int columnIndex = cell.getColumnIndex();
-                    final String propertyName = cellMarshaller.getStringCellValue(cell);
-                    final OneToOneAssociation property = getAssociation(objectSpec, propertyName);
-                    if (property != null) {
-                        final Class<?> propertyType = property.getSpecification().getCorrespondingClass();
-                        propertyByColumn.put(columnIndex, new Property(propertyName, property, propertyType));
-                    }
-                }
-                header = false;
-            } else {
-                // detail
-                try {
-
-                    // copy the row into a new object
-                    final T imported = container.newTransientInstance(cls);
-                    final ObjectAdapter templateAdapter = adapterManager.adapterFor(imported);
-
+            for (final Row row : sheet) {
+                if (header) {
                     for (final Cell cell : row) {
-                        int columnIndex = cell.getColumnIndex();
-                        final Property property = propertyByColumn.get(columnIndex);
+                        final int columnIndex = cell.getColumnIndex();
+                        final String propertyName = cellMarshaller.getStringCellValue(cell);
+                        final OneToOneAssociation property = this.getAssociation(objectSpec, propertyName);
                         if (property != null) {
-                            final OneToOneAssociation otoa = property.getOneToOneAssociation();
-                            final Object value = cellMarshaller.getCellValue(cell, otoa);
-                            if (value != null) {
-                                final ObjectAdapter valueAdapter = adapterManager.adapterFor(value);
-                                otoa.set(templateAdapter, valueAdapter);
-                            }
-                        } else {
-                            // not expected; just ignore.
+                            final Class<?> propertyType = property.getSpecification().getCorrespondingClass();
+                            propertyByColumn.put(columnIndex, new Property(propertyName, property, propertyType));
                         }
                     }
+                    header = false;
+                } else {
+                    // detail
+                    try {
 
-                    if(viewModelFacet != null) {
-                        // if there is a view model, then use the imported object as a template
-                        // in order to create a regular view model.
-                        final String memento = viewModelFacet.memento(imported);
-                        final T viewModel = container.newViewModelInstance(cls, memento);
-                        importedItems.add(viewModel);
-                    } else {
-                        // else, just return the imported items as simple transient instances.
-                        importedItems.add(imported);
+                        // Let's require at least one column to be not null for
+                        // detecting a blank row.
+                        // Excel can have physical rows with cells empty that
+                        // would
+                        // seem as not existent for the user.
+                        ObjectAdapter templateAdapter = null;
+                        T imported = null;
+                        for (final Cell cell : row) {
+                            final int columnIndex = cell.getColumnIndex();
+                            final Property property = propertyByColumn.get(columnIndex);
+                            if (property != null) {
+                                final OneToOneAssociation otoa = property.getOneToOneAssociation();
+                                final Object value = cellMarshaller.getCellValue(cell, otoa);
+                                if (value != null) {
+                                    if (imported == null) {
+                                        // copy the row into a new object
+                                        imported = container.newTransientInstance(cls);
+                                        templateAdapter = this.adapterManager.adapterFor(imported);
+                                    }
+                                    final ObjectAdapter valueAdapter = this.adapterManager.adapterFor(value);
+                                    otoa.set(templateAdapter, valueAdapter);
+                                }
+                            } else {
+                                // not expected; just ignore.
+                            }
+                        }
+
+                        if (imported != null) {
+                            if (viewModelFacet != null) {
+                                // if there is a view model, then use the
+                                // imported
+                                // object as a template
+                                // in order to create a regular view model.
+                                final String memento = viewModelFacet.memento(imported);
+                                final T viewModel = container.newViewModelInstance(cls, memento);
+                                importedItems.add(viewModel);
+                            } else {
+                                // else, just return the imported items as
+                                // simple
+                                // transient instances.
+                                importedItems.add(imported);
+                            }
+                        }
+                    } catch (final Exception e) {
+                        bais.close();
+                        throw new ExcelService.Exception(String.format("Error processing Excel row nr. %d. Message: %s", row.getRowNum(), e.getMessage()), e);
                     }
-                } catch (final Exception e) {
-                    throw new ExcelService.Exception(String.format("Error processing Excel row nr. %d. Message: %s", row.getRowNum(), e.getMessage()), e);
                 }
             }
         }
