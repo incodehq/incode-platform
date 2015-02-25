@@ -205,7 +205,7 @@ public class DocxService {
             throw new MergeException("unable to write to target file", e);
         } catch (final FileNotFoundException e) {
             throw new MergeException("unable to read back from target file", e);
-        } catch (final Exception e) {
+        } catch (final IOException e) {
             throw new MergeException("unable to generate output stream from temporary file", e);
         }
     }
