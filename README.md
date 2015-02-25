@@ -131,7 +131,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 * when updating the classpath, specify the appropriate -SNAPSHOT version:
 
 <pre>
-    &lt;version&gt;1.8.0-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;1.9.0-SNAPSHOT&lt;/version&gt;
 </pre>
 
 * add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
@@ -237,7 +237,7 @@ The `AuditEntry` entity is designed such that it can be rendered on an Isis user
 As well as the `AuditingService` service (that implements the `AuditingService3` API), the module also provides two 
 further domain services:
 
-* (In 1.8.0-SNAPSHOT, the) `AuditingServiceMenu` provides actions to search for `AuditEntry`s, underneath an 'Activity' menu on the
+* The `AuditingServiceMenu` provides actions to search for `AuditEntry`s, underneath an 'Activity' menu on the
 secondary menu bar.
 
 * `AuditingServiceRepository` provides the ability to search for persisted (`AuditEntry`) audit entries.  None of its
@@ -248,10 +248,10 @@ secondary menu bar.
   This will therefore display all audit entries that occurred in a given transaction, in other words whenever a command,
   a published event or another audit entry is displayed.
 
-In 1.7.0, it is necessary to explicitly register `AuditingServiceContributions` in `isis.properties`, the
+In 1.7.0, it was necessary to explicitly register `AuditingServiceContributions` in `isis.properties`, the
 rationale being that this service contributes functionality that appears in the user interface.
 
-In 1.8.0-SNAPSHOT the above policy is reversed: the `AuditingServiceMenu` and `AuditingServiceContributions` services
+In 1.8.0 the above policy is reversed: the `AuditingServiceMenu` and `AuditingServiceContributions` services
 are both automatically registered, and both provide functionality that will appear in the user interface.  If this is
 not required, then either use security permissions or write a vetoing subscriber on the event bus to hide this functionality, eg:
 
@@ -303,14 +303,14 @@ and it is this interface that each module has services that contribute to).
 
 ## Known issues ##
 
-In `1.6.0` through `1.8.0-SNAPSHOT` a call to `DomainObjectContainer#flush()` is required in order that any newly
+In `1.6.0` through `1.8.0` a call to `DomainObjectContainer#flush()` is required in order that any newly
 created objects are populated.  Note that Isis automatically performs a flush prior to any repository call, so in many
 cases there may not be any need to call flush explicitly.
 
 
 ## Change Log ##
 
-* `1.8.0-SNAPSHOT` - in development against Isis 1.8.0-SNAPSHOT.
+* `1.8.0` - released against Isis 1.8.0.
 * `1.7.0` - released against Isis 1.7.0.
 * `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.audit`
 
