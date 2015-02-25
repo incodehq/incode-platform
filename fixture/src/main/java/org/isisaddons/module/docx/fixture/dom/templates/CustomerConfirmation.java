@@ -39,16 +39,19 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.NotContributed;
-import org.apache.isis.applib.annotation.NotInServiceMenu;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.RestrictTo;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
 
-@DomainService
+@DomainService(
+        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
+)
 public class CustomerConfirmation {
 
     //region > init
@@ -64,9 +67,12 @@ public class CustomerConfirmation {
 
     //region > downloadCustomerConfirmation (action)
 
-    @NotContributed(NotContributed.As.ASSOCIATION) // ie contributed as action
-    @NotInServiceMenu
-    @Action(semantics = SemanticsOf.SAFE)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            contributed = Contributed.AS_ACTION
+    )
     @MemberOrder(sequence = "10")
     public Blob downloadCustomerConfirmation(
             final Order order) throws IOException, JDOMException, MergeException {
@@ -83,16 +89,20 @@ public class CustomerConfirmation {
         return new Blob(blobName, blobMimeType, blobBytes);
     }
 
-    @NotContributed(NotContributed.As.ASSOCIATION) // ie contributed as action
-    @NotInServiceMenu
-    @Action(semantics = SemanticsOf.SAFE, restrictTo = RestrictTo.PROTOTYPING)
+    @Action(
+            semantics = SemanticsOf.SAFE,
+            restrictTo = RestrictTo.PROTOTYPING
+    )
+    @ActionLayout(
+            contributed = Contributed.AS_ACTION
+    )
     @MemberOrder(sequence = "11")
     public Clob downloadCustomerConfirmationInputHtml(
             final Order order) throws IOException, JDOMException, MergeException {
 
-        Document orderAsHtmlJdomDoc = asInputDocument(order);
+        final Document orderAsHtmlJdomDoc = asInputDocument(order);
 
-        XMLOutputter xmlOutput = new XMLOutputter();
+        final XMLOutputter xmlOutput = new XMLOutputter();
         xmlOutput.setFormat(Format.getPrettyFormat());
 
         final String html = xmlOutput.outputString(orderAsHtmlJdomDoc);
@@ -106,9 +116,12 @@ public class CustomerConfirmation {
 
     //region > downloadCustomerConfirmationAsPdf (action)
 
-    @NotContributed(NotContributed.As.ASSOCIATION) // ie contributed as action
-    @NotInServiceMenu
-    @Action(semantics = SemanticsOf.SAFE)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            contributed = Contributed.AS_ACTION
+    )
     @MemberOrder(sequence = "10")
     public Blob downloadCustomerConfirmationAsPdf(
             final Order order) throws IOException, JDOMException, MergeException {
@@ -125,18 +138,18 @@ public class CustomerConfirmation {
         return new Blob(blobName, blobMimeType, blobBytes);
     }
 
-    private static org.w3c.dom.Document asInputW3cDocument(Order order) throws JDOMException {
-        Document orderAsHtmlJdomDoc = asInputDocument(order);
+    private static org.w3c.dom.Document asInputW3cDocument(final Order order) throws JDOMException {
+        final Document orderAsHtmlJdomDoc = asInputDocument(order);
 
-        DOMOutputter domOutputter = new DOMOutputter();
+        final DOMOutputter domOutputter = new DOMOutputter();
         return domOutputter.output(orderAsHtmlJdomDoc);
     }
 
-    private static Document asInputDocument(Order order) {
-        Element html = new Element("html");
-        Document document = new Document(html);
+    private static Document asInputDocument(final Order order) {
+        final Element html = new Element("html");
+        final Document document = new Document(html);
 
-        Element body = new Element("body");
+        final Element body = new Element("body");
         html.addContent(body);
 
         addPara(body, "OrderNum", "plain", order.getNumber());
@@ -144,13 +157,13 @@ public class CustomerConfirmation {
         addPara(body, "CustomerName", "plain", order.getCustomerName());
         addPara(body, "Message", "plain", "Thank you for shopping with us!");
 
-        Element table = addTable(body, "Products");
-        for(OrderLine orderLine: order.getOrderLines()) {
+        final Element table = addTable(body, "Products");
+        for(final OrderLine orderLine: order.getOrderLines()) {
             addTableRow(table, new String[]{orderLine.getDescription(), orderLine.getCost().toString(), ""+orderLine.getQuantity()});
         }
 
-        Element ul = addList(body, "OrderPreferences");
-        for(String preference: preferencesFor(order)) {
+        final Element ul = addList(body, "OrderPreferences");
+        for(final String preference: preferencesFor(order)) {
             addListItem(ul, preference);
         }
         return document;
@@ -162,12 +175,12 @@ public class CustomerConfirmation {
 
     private static final Function<String, String> TRIM = new Function<String, String>() {
         @Override
-        public String apply(String input) {
+        public String apply(final String input) {
             return input.trim();
         }
     };
 
-    private static Iterable<String> preferencesFor(Order order) {
+    private static Iterable<String> preferencesFor(final Order order) {
         final String preferences = order.getPreferences();
         if(preferences == null) {
             return Collections.emptyList();
@@ -176,51 +189,51 @@ public class CustomerConfirmation {
     }
 
 
-    private static void addPara(Element body, String id, String clazz, String text) {
-        Element p = new Element("p");
+    private static void addPara(final Element body, final String id, final String clazz, final String text) {
+        final Element p = new Element("p");
         body.addContent(p);
         p.setAttribute("id", id);
         p.setAttribute("class", clazz);
         p.setText(text);
     }
 
-    private static Element addList(Element body, String id) {
-        Element ul = new Element("ul");
+    private static Element addList(final Element body, final String id) {
+        final Element ul = new Element("ul");
         body.addContent(ul);
         ul.setAttribute("id", id);
         return ul;
     }
 
-    private static Element addListItem(Element ul, String... paras) {
-        Element li = new Element("li");
+    private static Element addListItem(final Element ul, final String... paras) {
+        final Element li = new Element("li");
         ul.addContent(li);
-        for (String para : paras) {
+        for (final String para : paras) {
             addPara(li, para);
         }
         return ul;
     }
 
-    private static void addPara(Element li, String text) {
+    private static void addPara(final Element li, final String text) {
         if(text == null) {
             return;
         }
-        Element p = new Element("p");
+        final Element p = new Element("p");
         li.addContent(p);
         p.setText(text);
     }
 
-    private static Element addTable(Element body, String id) {
-        Element table = new Element("table");
+    private static Element addTable(final Element body, final String id) {
+        final Element table = new Element("table");
         body.addContent(table);
         table.setAttribute("id", id);
         return table;
     }
 
-    private static void addTableRow(Element table, String[] cells) {
-        Element tr = new Element("tr");
+    private static void addTableRow(final Element table, final String[] cells) {
+        final Element tr = new Element("tr");
         table.addContent(tr);
-        for (String columnName : cells) {
-            Element td = new Element("td");
+        for (final String columnName : cells) {
+            final Element td = new Element("td");
             tr.addContent(td);
             td.setText(columnName);
         }

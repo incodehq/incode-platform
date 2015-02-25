@@ -34,8 +34,12 @@ import org.apache.isis.applib.util.ObjectContracts;
 @javax.jdo.annotations.Version(
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
-@ObjectType("ORDER")
-@Bookmarkable
+@DomainObject(
+    objectType = "ORDER"
+)
+@DomainObjectLayout(
+        bookmarking = BookmarkPolicy.AS_ROOT
+)
 @MemberGroupLayout(columnSpans = {6,0,0,6})
 public class Order implements Comparable<Order> {
 
@@ -92,8 +96,10 @@ public class Order implements Comparable<Order> {
     private String preferences;
 
     @javax.jdo.annotations.Column(allowsNull="true")
+    @PropertyLayout(
+            multiLine = 6
+    )
     @MemberOrder(sequence = "4")
-    @MultiLine(numberOfLines = 6)
     public String getPreferences() {
         return preferences;
     }
@@ -108,7 +114,9 @@ public class Order implements Comparable<Order> {
     @javax.jdo.annotations.Persistent(mappedBy = "order")
     private SortedSet<OrderLine> orderLines = new TreeSet<OrderLine>();
 
-    @Render(Render.Type.EAGERLY)
+    @CollectionLayout(
+            render = RenderType.EAGERLY
+    )
     public SortedSet<OrderLine> getOrderLines() {
         return orderLines;
     }
@@ -126,9 +134,12 @@ public class Order implements Comparable<Order> {
 
     @MemberOrder(name = "orderLines", sequence = "1")
     public Order add(
-            final @Named("Description") String description,
-            final @Named("Cost") BigDecimal cost,
-            final @Named("Quantity") int quantity) {
+            @ParameterLayout(named="Description")
+            final String description,
+            @ParameterLayout(named="Cost")
+            final BigDecimal cost,
+            @ParameterLayout(named="Quantity")
+            final int quantity) {
 
         final OrderLine orderLine = container.newTransientInstance(OrderLine.class);
         orderLine.setCost(cost);

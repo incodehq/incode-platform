@@ -19,10 +19,25 @@ package org.isisaddons.module.docx.fixture.dom;
 import java.util.List;
 import org.joda.time.LocalDate;
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.*;
-import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.Parameter;
+import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.SemanticsOf;
 
-@DomainService(menuOrder = "10", repositoryFor = Order.class)
+@DomainService(
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        repositoryFor = Order.class
+)
+@DomainServiceLayout(
+        menuOrder = "10"
+)
 public class Orders {
 
     //region > identification in the UI
@@ -41,8 +56,12 @@ public class Orders {
     //region > listAll (action)
     // //////////////////////////////////////
 
-    @Bookmarkable
-    @ActionSemantics(Of.SAFE)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            bookmarking = BookmarkPolicy.AS_ROOT
+    )
     @MemberOrder(sequence = "1")
     public List<Order> listAll() {
         return container.allInstances(Order.class);
@@ -55,10 +74,15 @@ public class Orders {
     
     @MemberOrder(sequence = "2")
     public Order create(
-            final @Named("Order Number") String number,
-            final @Named("Customer Name") String customerName,
-            final @Named("Order Date") LocalDate date,
-            final @Named("Preferences") @Optional String preferences) {
+            @ParameterLayout(named="Order Number")
+            final String number,
+            @ParameterLayout(named="Customer Name")
+            final String customerName,
+            @ParameterLayout(named="Order Date")
+            final LocalDate date,
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named="Preferences")
+            final String preferences) {
         final Order obj = container.newTransientInstance(Order.class);
         obj.setNumber(number);
         obj.setDate(date);

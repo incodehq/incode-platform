@@ -30,8 +30,12 @@ import org.apache.isis.applib.util.ObjectContracts;
 @javax.jdo.annotations.Version(
         strategy=VersionStrategy.VERSION_NUMBER,
         column="version")
-@ObjectType("ORDERLINE")
-@Bookmarkable
+@DomainObject(
+        objectType = "ORDERLINE"
+)
+@DomainObjectLayout(
+        bookmarking = BookmarkPolicy.AS_CHILD
+)
 public class OrderLine implements Comparable<OrderLine> {
 
     //region > order (property)
@@ -39,7 +43,9 @@ public class OrderLine implements Comparable<OrderLine> {
     private Order order;
 
     @javax.jdo.annotations.Column(allowsNull="false")
-    @Hidden(where = Where.REFERENCES_PARENT)
+    @Property(
+            hidden = Where.REFERENCES_PARENT
+    )
     @MemberOrder(sequence = "1")
     public Order getOrder() {
         return order;

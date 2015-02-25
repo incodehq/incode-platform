@@ -3,7 +3,9 @@
 [![Build Status](https://travis-ci.org/isisaddons/isis-module-docx.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-docx)
 
 This module, intended for use with [Apache Isis](http://isis.apache.org), provides a mail-merge capability of input 
-data into an MS Word `.docx` and `.pdf` templates.
+data into an MS Word `.docx` templates.  The generated output document is either Word `.docx` or Acrobat `.pdf`.
+
+> Note: exporting to PDF requires more memory, both heap and permgen. If the PDF generation hangs then increase the memory settings, eg `-Xmx1024m -XX:MaxPermSize=128m`
 
 The module consists of a single domain service, `DocxService`.  This provides an API to merge a `.docx` template
 against its input data. The input data is represented as a simple HTML file.
@@ -105,6 +107,14 @@ Invoking this action is shown below:
 which when opened in MS Word looks like:
 
 ![](https://raw.github.com/isisaddons/isis-module-docx/master/images/customer-confirmation-generated-view.png)
+
+A similar action downloads the generated document as a PDF:
+
+![](https://raw.github.com/isisaddons/isis-module-docx/master/images/customer-confirmation-generated-download-pdf.png)
+
+which when opened in Acrobat looks like:
+
+![](https://raw.github.com/isisaddons/isis-module-docx/master/images/customer-confirmation-generated-view-pdf.png)
 
 The `CustomerConfirmation` service also contributes a second (prototype) action to allow the input HTML document
 (fed into the `DocxService`) to be inspected:
@@ -236,7 +246,8 @@ The main API is:
 The `MatchingPolicy` specifies whether unmatched input values or unmatched placeholders in the template are allowed
 or should be considered as a failure.
 The `OutputType` specifies the type of the generated output. Two possible types are supported: `DOCX` and `PDF`.
-*Note*: exporting to PDF requires more memory, both heap and permgen. If the PDF generation hangs then increase the memory settings (`-Xmx` and/or `-XX:MaxPermSize`).
+
+> Note: exporting to PDF requires more memory, both heap and permgen. If the PDF generation hangs then increase the memory settings, eg `-Xmx1024m -XX:MaxPermSize=128m`
 
 Overloaded versions of the `merge(...)` method exist:
 

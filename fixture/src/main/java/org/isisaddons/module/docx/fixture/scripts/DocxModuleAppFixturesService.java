@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013~2014 Dan Haywood
+ *  Copyright 2013~2015 Dan Haywood
  *
  *  Licensed under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
@@ -17,10 +17,12 @@
 package org.isisaddons.module.docx.fixture.scripts;
 
 import java.util.List;
+import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.Prototype;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.RestrictTo;
 import org.apache.isis.applib.fixturescripts.FixtureResult;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
@@ -28,12 +30,18 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 /**
  * Enables fixtures to be installed from the application.
  */
-@Named("Prototyping")
-@DomainService(menuOrder = "20")
+@DomainService(
+        nature = NatureOfService.VIEW_MENU_ONLY
+)
+@DomainServiceLayout(
+        named="Prototyping",
+        menuBar = DomainServiceLayout.MenuBar.SECONDARY,
+        menuOrder = "400"
+)
 public class DocxModuleAppFixturesService extends FixtureScripts {
 
     public DocxModuleAppFixturesService() {
-        super("org.isisaddons.module.docx.fixture.scripts");
+        super(DocxModuleAppFixturesService.class.getPackage().getName());
     }
 
     @Override
@@ -53,7 +61,9 @@ public class DocxModuleAppFixturesService extends FixtureScripts {
 
     // //////////////////////////////////////
 
-    @Prototype
+    @Action(
+            restrictTo = RestrictTo.PROTOTYPING
+    )
     @MemberOrder(sequence="20")
     public Object installFixturesAndReturnFirst() {
         final List<FixtureResult> run = findFixtureScriptFor(DocxModuleAppSetupFixture.class).run(null);
