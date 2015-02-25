@@ -16,17 +16,30 @@
  */
 package org.isisaddons.module.docx.dom;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 import org.apache.commons.io.IOUtils;
+import org.docx4j.Docx4J;
 import org.docx4j.XmlUtils;
+import org.docx4j.convert.out.FOSettings;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
-import org.docx4j.wml.*;
+import org.docx4j.wml.Body;
+import org.docx4j.wml.P;
+import org.docx4j.wml.R;
+import org.docx4j.wml.SdtElement;
+import org.docx4j.wml.Tbl;
+import org.docx4j.wml.Tc;
+import org.docx4j.wml.Tr;
 import org.isisaddons.module.docx.dom.traverse.AllMatches;
 import org.isisaddons.module.docx.dom.traverse.FirstMatch;
 import org.isisaddons.module.docx.dom.util.Docx;
@@ -81,7 +94,7 @@ public class DocxService {
      * quite slow.  Thus, clients can use this method to cache the in-memory
      * structure, and pass in to either
      *  {@link #merge(String, WordprocessingMLPackage, OutputStream, MatchingPolicy)}
-     *  or {@link #merge(org.w3c.dom.Document, WordprocessingMLPackage, OutputStream, MatchingPolicy, DefensiveCopy)}
+     *  or {@link #merge(org.w3c.dom.Document, org.docx4j.openpackaging.packages.WordprocessingMLPackage, java.io.OutputStream, org.isisaddons.module.docx.dom.DocxService.MatchingPolicy, org.isisaddons.module.docx.dom.DocxService.OutputType)}
      */
     @Programmatic
     public WordprocessingMLPackage loadPackage(InputStream docxTemplate) throws LoadTemplateException {
@@ -98,59 +111,83 @@ public class DocxService {
     public void merge(String html, InputStream docxTemplate, OutputStream docxTarget, MatchingPolicy matchingPolicy) throws LoadInputException, LoadTemplateException, MergeException {
         org.jdom2.Document htmlJdomDoc = Jdom2.loadInput(html);
         WordprocessingMLPackage docxPkg = loadPackage(docxTemplate);
-        merge(htmlJdomDoc, docxPkg, docxTarget, matchingPolicy, DefensiveCopy.NOT_REQUIRED);
+        merge(htmlJdomDoc, docxPkg, docxTarget, matchingPolicy, DefensiveCopy.NOT_REQUIRED, OutputType.DOCX);
     }
     
     @Programmatic
     public void merge(String html, WordprocessingMLPackage docxTemplate, OutputStream docxTarget, MatchingPolicy matchingPolicy) throws MergeException, LoadInputException {
         org.jdom2.Document htmlJdomDoc = Jdom2.loadInput(html);
-        merge(htmlJdomDoc, docxTemplate, docxTarget, matchingPolicy, DefensiveCopy.REQUIRED);
+        merge(htmlJdomDoc, docxTemplate, docxTarget, matchingPolicy, DefensiveCopy.REQUIRED, OutputType.DOCX);
     }
 
     @Programmatic
     public void merge(org.w3c.dom.Document htmlDoc, InputStream docxTemplate, OutputStream docxTarget, MatchingPolicy matchingPolicy) throws MergeException, LoadTemplateException {
         WordprocessingMLPackage docxPkg = loadPackage(docxTemplate);
         org.jdom2.Document htmlJdomDoc = new DOMBuilder().build(htmlDoc);
-        merge(htmlJdomDoc, docxPkg, docxTarget, matchingPolicy, DefensiveCopy.NOT_REQUIRED);
+        merge(htmlJdomDoc, docxPkg, docxTarget, matchingPolicy, DefensiveCopy.NOT_REQUIRED, OutputType.DOCX);
     }
 
     @Programmatic
     public void merge(org.w3c.dom.Document htmlDoc, WordprocessingMLPackage docxTemplate, OutputStream docxTarget, MatchingPolicy matchingPolicy) throws MergeException {
         org.jdom2.Document htmlJdomDoc = new DOMBuilder().build(htmlDoc);
-        merge(htmlJdomDoc, docxTemplate, docxTarget, matchingPolicy, DefensiveCopy.REQUIRED);
+        merge(htmlJdomDoc, docxTemplate, docxTarget, matchingPolicy, DefensiveCopy.REQUIRED, OutputType.DOCX);
+    }
+
+    @Programmatic
+    public void merge(org.w3c.dom.Document htmlDoc, WordprocessingMLPackage docxTemplate, OutputStream docxTarget, MatchingPolicy matchingPolicy, OutputType outputType) throws MergeException {
+        org.jdom2.Document htmlJdomDoc = new DOMBuilder().build(htmlDoc);
+        merge(htmlJdomDoc, docxTemplate, docxTarget, matchingPolicy, DefensiveCopy.REQUIRED, outputType);
     }
 
     private enum DefensiveCopy {
         REQUIRED,
         NOT_REQUIRED
     }
+
+    /**
+     * The type of the file to generate
+     */
+    public enum OutputType {
+        DOCX,
+        PDF
+    }
     
-    private void merge(org.jdom2.Document htmlDoc, WordprocessingMLPackage docxTemplate, OutputStream docxTarget, MatchingPolicy matchingPolicy, DefensiveCopy defensiveCopy) throws MergeException {
+    private void merge(org.jdom2.Document htmlDoc, WordprocessingMLPackage docxTemplate, OutputStream docxTarget, MatchingPolicy matchingPolicy, DefensiveCopy defensiveCopy, OutputType outputType) throws MergeException {
     
         if(defensiveCopy == DefensiveCopy.REQUIRED) {
             docxTemplate = Docx.clone(docxTemplate);
         }
-        
-        File tempTargetFile = createTempFile();
-        FileInputStream tempTargetFis = null;
+
         try {
             Element bodyEl = Jdom2.htmlBodyFor(htmlDoc);
             Body docXBody = Docx.docxBodyFor(docxTemplate);
 
             merge(bodyEl, docXBody, matchingPolicy);
 
-            docxTemplate.save(tempTargetFile);
-            tempTargetFis = new FileInputStream(tempTargetFile);
-            IOUtils.copy(tempTargetFis, docxTarget);
+            if (outputType == OutputType.PDF) {
+                FOSettings foSettings = Docx4J.createFOSettings();
+                foSettings.setWmlPackage(docxTemplate);
+                // according to the documentation/examples the XSL transformartion
+                // is slower but more feature complete than Docx4J.FLAG_EXPORT_PREFER_NONXSL
+                Docx4J.toFO(foSettings, docxTarget, Docx4J.FLAG_EXPORT_PREFER_XSL);
+            } else {
+                File tempTargetFile = createTempFile();
+                FileInputStream tempTargetFis = null;
+                try {
+                    docxTemplate.save(tempTargetFile);
+                    tempTargetFis = new FileInputStream(tempTargetFile);
+                    IOUtils.copy(tempTargetFis, docxTarget);
+                } finally {
+                    IOUtils.closeQuietly(tempTargetFis);
+                    tempTargetFile.delete();
+                }
+            }
         } catch (Docx4JException e) {
             throw new MergeException("unable to write to target file", e);
         } catch (FileNotFoundException e) {
             throw new MergeException("unable to read back from target file", e);
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new MergeException("unable to generate output stream from temporary file", e);
-        } finally {
-            IOUtils.closeQuietly(tempTargetFis);
-            tempTargetFile.delete();
         }
     }
 

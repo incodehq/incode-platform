@@ -38,8 +38,13 @@ import org.jdom2.output.DOMOutputter;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.*;
-import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.NotContributed;
+import org.apache.isis.applib.annotation.NotInServiceMenu;
+import org.apache.isis.applib.annotation.RestrictTo;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
 
@@ -61,7 +66,7 @@ public class CustomerConfirmation {
 
     @NotContributed(NotContributed.As.ASSOCIATION) // ie contributed as action
     @NotInServiceMenu
-    @ActionSemantics(Of.SAFE)
+    @Action(semantics = SemanticsOf.SAFE)
     @MemberOrder(sequence = "10")
     public Blob downloadCustomerConfirmation(
             final Order order) throws IOException, JDOMException, MergeException {
@@ -79,9 +84,8 @@ public class CustomerConfirmation {
     }
 
     @NotContributed(NotContributed.As.ASSOCIATION) // ie contributed as action
-    @Prototype
     @NotInServiceMenu
-    @ActionSemantics(Of.SAFE)
+    @Action(semantics = SemanticsOf.SAFE, restrictTo = RestrictTo.PROTOTYPING)
     @MemberOrder(sequence = "11")
     public Clob downloadCustomerConfirmationInputHtml(
             final Order order) throws IOException, JDOMException, MergeException {
@@ -98,6 +102,27 @@ public class CustomerConfirmation {
         final String clobBytes = html;
 
         return new Clob(clobName, clobMimeType, clobBytes);
+    }
+
+    //region > downloadCustomerConfirmationAsPdf (action)
+
+    @NotContributed(NotContributed.As.ASSOCIATION) // ie contributed as action
+    @NotInServiceMenu
+    @Action(semantics = SemanticsOf.SAFE)
+    @MemberOrder(sequence = "10")
+    public Blob downloadCustomerConfirmationAsPdf(
+            final Order order) throws IOException, JDOMException, MergeException {
+
+        final org.w3c.dom.Document w3cDocument = asInputW3cDocument(order);
+
+        final ByteArrayOutputStream docxTarget = new ByteArrayOutputStream();
+        docxService.merge(w3cDocument, wordprocessingMLPackage, docxTarget, DocxService.MatchingPolicy.LAX, DocxService.OutputType.PDF);
+
+        final String blobName = "customerConfirmation-" + order.getNumber() + ".pdf";
+        final String blobMimeType = "application/pdf";
+        final byte[] blobBytes = docxTarget.toByteArray();
+
+        return new Blob(blobName, blobMimeType, blobBytes);
     }
 
     private static org.w3c.dom.Document asInputW3cDocument(Order order) throws JDOMException {

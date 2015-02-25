@@ -81,7 +81,7 @@ public class DocxServiceTest {
             // no differences; for now just do a heuristic check on file size
             final byte[] expected = io.asBytes(expectedFile);
 
-            assertThat(actual.length, isWithin(expected.length, 1));
+            assertThat(actual.length, isWithin(expected.length, 5));
         }
 
         @Test
