@@ -152,7 +152,7 @@ To use "out-of-the-box":
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.docx&lt;/groupId&gt;
         &lt;artifactId&gt;isis-module-docx-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.7.0&lt;/version&gt;
+        &lt;version&gt;1.8.0&lt;/version&gt;
     &lt;/dependency&gt;
 </pre>
 
@@ -177,7 +177,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 * when updating the classpath, specify the appropriate -SNAPSHOT version:
 
 <pre>
-    &lt;version&gt;1.8.0-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;1.9.0-SNAPSHOT&lt;/version&gt;
 </pre>
 
 * add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
@@ -332,6 +332,7 @@ data are ignored.
         
 ## Change Log ##
 
+* `1.8.0` - released against Isis 1.8.0, support for generate PDF
 * `1.7.0` - released against Isis 1.7.0
 * `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.docx`
 
@@ -340,7 +341,7 @@ data are ignored.
  
 #### License ####
 
-    Copyright 2014 Dan Haywood
+    Copyright 2014-2015 Dan Haywood
 
     Licensed under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
@@ -391,8 +392,8 @@ The `release.sh` script automates the release process.  It performs the followin
 
 For example:
 
-    sh release.sh 1.8.0 \
-                  1.9.0-SNAPSHOT \
+    sh release.sh 1.9.0 \
+                  1.10.0-SNAPSHOT \
                   dan@haywood-associates.co.uk \
                   "this is not really my passphrase"
     
@@ -407,7 +408,8 @@ Other ways of specifying the key and passphrase are available, see the `pgp-mave
 
 If the script completes successfully, then push changes:
 
-    git push
+    git push origin master
+    git push origin 1.9.0
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
 before trying again.  Note that in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the 
