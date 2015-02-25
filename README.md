@@ -227,7 +227,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 * when updating the classpath, specify the appropriate -SNAPSHOT version:
 
 <pre>
-    &lt;version&gt;1.8.0-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;1.8.0&lt;/version&gt;
 </pre>
 
 * add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
@@ -397,7 +397,7 @@ domain services:
    of its actions are visible in the user interface (they are all `@Programmatic`) and so this service is automatically 
    registered.
 
-* (In 1.8.0-SNAPSHOT, the) `CommandServiceMenu` provides actions to search for `Command`s, underneath an 'Activity' menu on the
+* In 1.8.0, the `CommandServiceMenu` provides actions to search for `Command`s, underneath an 'Activity' menu on the
 secondary menu bar.
 
 * `BackgroundCommandServiceJdoRepository` provides the ability to search for persisted (background) `Command`s.  None
@@ -414,10 +414,9 @@ secondary menu bar.
 
 In 1.7.0, it is necessary to explicitly register `CommandServiceJdoContributions` and
 `BackgroundCommandServiceJdoContributions` in `isis.properties` (the rationale being that this service contributes
-functionality that appears in the user interface).  In 1.8.0-SNAPSHOT this policy is reversed, and the services are
- automatically registered using `@DomainService`.  Use security to suppress its contributions if required.
+functionality that appears in the user interface).  
 
-In 1.8.0-SNAPSHOT the above policy is reversed: the `CommandServiceMenu`, `CommandServiceJdoContributions` and
+In 1.8.0 the above policy is reversed: the `CommandServiceMenu`, `CommandServiceJdoContributions` and
 `BackgroundCommandServiceJdoContributions`  and `AuditingServiceContributions` services are all automatically registered,
 and all provide functionality that will appear in the user interface.  If this is not required, then either use security
 permissions or write a vetoing subscriber on the event bus to hide this functionality, eg:
@@ -461,7 +460,7 @@ and it is this interface that each module has services that contribute to).
 
 ## Change Log ##
 
-* `1.8.0-SNAPSHOT` - in development against Isis 1.8.0-SNAPSHOT.
+* `1.8.0` - released against Isis 1.8.0.
 * `1.7.0` - released against Isis 1.7.0.
 * `1.6.1` - [#1](https://github.com/isisaddons/isis-module-command/issues/1) (don't store bookmarks beyond 2000 characters)
 * `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.command`
