@@ -18,8 +18,11 @@
  */
 package org.isisaddons.wicket.gmap3.fixture.dom;
 
-import java.util.*;
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 import com.google.common.base.Objects;
@@ -29,8 +32,19 @@ import org.isisaddons.wicket.gmap3.cpt.applib.Locatable;
 import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 import org.isisaddons.wicket.gmap3.cpt.service.LocationLookupService;
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.*;
-import org.apache.isis.applib.annotation.Render.Type;
+import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.CollectionLayout;
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
+import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.MinLength;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.PropertyLayout;
+import org.apache.isis.applib.annotation.RenderType;
+import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
@@ -72,10 +86,15 @@ import org.apache.isis.applib.util.TitleBuffer;
                     + "WHERE ownedBy == :ownedBy && "
                     + "description.indexOf(:description) >= 0")
 })
-@ObjectType("TODO")
-@AutoComplete(repository=Gmap3WicketToDoItems.class, action="autoComplete")
-@Bookmarkable
-@Named("ToDo Item")
+@DomainObject(
+        objectType = "TODO",
+        autoCompleteRepository = Gmap3WicketToDoItems.class,
+        autoCompleteAction = "autoComplete"
+)
+@DomainObjectLayout(
+        named = "ToDo Item",
+        bookmarking = BookmarkPolicy.AS_ROOT
+)
 public class Gmap3WicketToDoItem implements Comparable<Gmap3WicketToDoItem>, Locatable {
 
     //region > identification in the UI
@@ -101,8 +120,12 @@ public class Gmap3WicketToDoItem implements Comparable<Gmap3WicketToDoItem>, Loc
 
     @javax.jdo.annotations.Column(allowsNull="false", length=100)
     @MemberOrder(sequence="1")
-    @RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*") 
-    @TypicalLength(50)
+    @Property(
+            regexPattern = "\\w[@&:\\-\\,\\.\\+ \\w]*"
+    )
+    @PropertyLayout(
+            typicalLength = 50
+    )
     public String getDescription() {
         return description;
     }
@@ -118,7 +141,9 @@ public class Gmap3WicketToDoItem implements Comparable<Gmap3WicketToDoItem>, Loc
     private String ownedBy;
 
     @javax.jdo.annotations.Column(allowsNull="false")
-    @Hidden
+    @Property(
+            hidden = Where.EVERYWHERE
+    )
     public String getOwnedBy() {
         return ownedBy;
     }
@@ -133,7 +158,9 @@ public class Gmap3WicketToDoItem implements Comparable<Gmap3WicketToDoItem>, Loc
     
     private boolean complete;
 
-    @Disabled
+    @Property(
+            editing = Editing.DISABLED
+    )
     @MemberOrder(sequence="2")
     public boolean isComplete() {
         return complete;
@@ -171,18 +198,21 @@ public class Gmap3WicketToDoItem implements Comparable<Gmap3WicketToDoItem>, Loc
     private Double locationLatitude;
     private Double locationLongitude;
 
-    @Optional
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @MemberOrder(sequence="3")
     public Location getLocation() {
         return locationLatitude != null && locationLongitude != null? new Location(locationLatitude, locationLongitude): null;
     }
-    public void setLocation(Location location) {
+    public void setLocation(final Location location) {
         locationLongitude = location != null ? location.getLongitude() : null;
         locationLatitude = location != null ? location.getLatitude() : null;
     }
 
     @MemberOrder(name="location", sequence="1")
-    public Gmap3WicketToDoItem updateLocation(@Named("Address") final String address) {
+    public Gmap3WicketToDoItem updateLocation(
+            @ParameterLayout(named="Address") final String address) {
         final Location location = this.locationLookupService.lookup(address);
         setLocation(location);
         return this;
@@ -195,8 +225,8 @@ public class Gmap3WicketToDoItem implements Comparable<Gmap3WicketToDoItem>, Loc
     // overrides the natural ordering
     public static class DependenciesComparator implements Comparator<Gmap3WicketToDoItem> {
         @Override
-        public int compare(Gmap3WicketToDoItem p, Gmap3WicketToDoItem q) {
-            Ordering<Gmap3WicketToDoItem> byDescription = new Ordering<Gmap3WicketToDoItem>() {
+        public int compare(final Gmap3WicketToDoItem p, final Gmap3WicketToDoItem q) {
+            final Ordering<Gmap3WicketToDoItem> byDescription = new Ordering<Gmap3WicketToDoItem>() {
                 public int compare(final Gmap3WicketToDoItem p, final Gmap3WicketToDoItem q) {
                     return Ordering.natural().nullsFirst().compare(p.getDescription(), q.getDescription());
                 }
@@ -212,10 +242,12 @@ public class Gmap3WicketToDoItem implements Comparable<Gmap3WicketToDoItem>, Loc
     @javax.jdo.annotations.Persistent(table="Gmap3WicketToDoItemDependencies")
     @javax.jdo.annotations.Join(column="dependingId")
     @javax.jdo.annotations.Element(column="dependentId")
-    private SortedSet<Gmap3WicketToDoItem> dependencies = new TreeSet<Gmap3WicketToDoItem>();
+    private SortedSet<Gmap3WicketToDoItem> dependencies = new TreeSet<>();
 
-    @SortedBy(DependenciesComparator.class)
-    @Render(Type.EAGERLY)
+    @CollectionLayout(
+            sortedBy = DependenciesComparator.class,
+            render = RenderType.EAGERLY
+    )
     public SortedSet<Gmap3WicketToDoItem> getDependencies() {
         return dependencies;
     }
@@ -226,9 +258,7 @@ public class Gmap3WicketToDoItem implements Comparable<Gmap3WicketToDoItem>, Loc
 
     
     @MemberOrder(name="dependencies", sequence="1")
-    public Gmap3WicketToDoItem add(
-            @TypicalLength(20)
-            final Gmap3WicketToDoItem toDoItem) {
+    public Gmap3WicketToDoItem add(final Gmap3WicketToDoItem toDoItem) {
         getDependencies().add(toDoItem);
         return this;
     }
@@ -257,9 +287,7 @@ public class Gmap3WicketToDoItem implements Comparable<Gmap3WicketToDoItem>, Loc
     }
 
     @MemberOrder(name="dependencies", sequence="2")
-    public Gmap3WicketToDoItem remove(
-            @TypicalLength(20)
-            final Gmap3WicketToDoItem toDoItem) {
+    public Gmap3WicketToDoItem remove(final Gmap3WicketToDoItem toDoItem) {
         getDependencies().remove(toDoItem);
         return this;
     }
@@ -297,15 +325,15 @@ public class Gmap3WicketToDoItem implements Comparable<Gmap3WicketToDoItem>, Loc
             };
         }
 
-		public static Predicate<Gmap3WicketToDoItem> thoseCompleted(
-				final boolean completed) {
+        public static Predicate<Gmap3WicketToDoItem> thoseCompleted(
+                final boolean completed) {
             return new Predicate<Gmap3WicketToDoItem>() {
                 @Override
                 public boolean apply(final Gmap3WicketToDoItem t) {
                     return Objects.equal(t.isComplete(), completed);
                 }
             };
-		}
+        }
 
         public static Predicate<Gmap3WicketToDoItem> thoseWithSimilarDescription(final String description) {
             return new Predicate<Gmap3WicketToDoItem>() {

@@ -24,7 +24,7 @@ import org.isisaddons.wicket.gmap3.fixture.dom.Gmap3WicketToDoItems;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
 
-public class ToDoItemsFixture extends FixtureScript {
+public class Gmap3WicketToDoItemsFixture extends FixtureScript {
 
     @Override
     public void execute(ExecutionContext executionContext) {

@@ -19,10 +19,11 @@
 package org.isisaddons.wicket.gmap3.fixture.scripts;
 
 import java.util.List;
+import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.Prototype;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.fixturescripts.FixtureResult;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
@@ -31,12 +32,16 @@ import org.apache.isis.applib.fixturescripts.SimpleFixtureScript;
 /**
  * Enables fixtures to be installed from the application.
  */
-@Named("Prototyping")
-@DomainService(menuOrder = "90")
+@DomainService()
+@DomainServiceLayout(
+        named = "Prototyping",
+        menuBar = DomainServiceLayout.MenuBar.SECONDARY,
+        menuOrder = "499"
+)
 public class Gmap3WicketAppFixturesService extends FixtureScripts {
 
     public Gmap3WicketAppFixturesService() {
-        super("org.isisaddons.wicket.gmap3.fixture.scripts");
+        super(Gmap3WicketAppFixturesService.class.getPackage().getName());
     }
 
     @Override // compatibility with core 1.5.0
@@ -56,7 +61,9 @@ public class Gmap3WicketAppFixturesService extends FixtureScripts {
 
     // //////////////////////////////////////
 
-    @Prototype
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
     @MemberOrder(sequence="20")
     public Object installFixturesAndReturnFirst() {
         final List<FixtureResult> run = findFixtureScriptFor(Gmap3WicketAppSetUpFixture.class).run(null);

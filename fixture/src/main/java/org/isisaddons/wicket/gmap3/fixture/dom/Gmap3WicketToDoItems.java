@@ -22,13 +22,23 @@ import java.util.Collections;
 import java.util.List;
 import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.*;
-import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Parameter;
+import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.clock.ClockService;
 
 @DomainService(menuOrder = "10")
-@Named("ToDos")
+@DomainServiceLayout(
+        named = "ToDos"
+)
 public class Gmap3WicketToDoItems {
 
 
@@ -46,8 +56,12 @@ public class Gmap3WicketToDoItems {
 
     //region > notYetComplete (action)
 
-    @Bookmarkable
-    @ActionSemantics(Of.SAFE)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            bookmarking = BookmarkPolicy.AS_ROOT
+    )
     @MemberOrder(sequence = "1")
     public List<Gmap3WicketToDoItem> notYetComplete() {
         final List<Gmap3WicketToDoItem> items = notYetCompleteNoUi();
@@ -60,7 +74,7 @@ public class Gmap3WicketToDoItems {
     @Programmatic
     public List<Gmap3WicketToDoItem> notYetCompleteNoUi() {
         return container.allMatches(
-                new QueryDefault<Gmap3WicketToDoItem>(Gmap3WicketToDoItem.class,
+                new QueryDefault<>(Gmap3WicketToDoItem.class,
                         "todo_notYetComplete", 
                         "ownedBy", currentUserName()));
     }
@@ -69,7 +83,9 @@ public class Gmap3WicketToDoItems {
 
     //region > complete (action)
 
-    @ActionSemantics(Of.SAFE)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
     @MemberOrder(sequence = "3")
     public List<Gmap3WicketToDoItem> complete() {
         final List<Gmap3WicketToDoItem> items = completeNoUi();
@@ -82,7 +98,7 @@ public class Gmap3WicketToDoItems {
     @Programmatic
     public List<Gmap3WicketToDoItem> completeNoUi() {
         return container.allMatches(
-            new QueryDefault<Gmap3WicketToDoItem>(Gmap3WicketToDoItem.class,
+            new QueryDefault<>(Gmap3WicketToDoItem.class,
                     "todo_complete", 
                     "ownedBy", currentUserName()));
     }
@@ -93,7 +109,9 @@ public class Gmap3WicketToDoItems {
 
     @MemberOrder(sequence = "40")
     public Gmap3WicketToDoItem newToDo(
-            final @RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*") @Named("Description") String description) {
+            @ParameterLayout(named = "Description")
+            @Parameter(regexPattern = "\\w[@&:\\-\\,\\.\\+ \\w]*") final
+            String description) {
         final String ownedBy = currentUserName();
         return newToDo(description, ownedBy);
     }
@@ -102,7 +120,9 @@ public class Gmap3WicketToDoItems {
 
     //region > allToDos (action)
 
-    @ActionSemantics(Of.SAFE)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
     @MemberOrder(sequence = "50")
     public List<Gmap3WicketToDoItem> allToDos() {
         final String currentUser = currentUserName();
@@ -122,7 +142,7 @@ public class Gmap3WicketToDoItems {
     public List<Gmap3WicketToDoItem> autoComplete(final String description) {
         // the JDO implementation ...
         return container.allMatches(
-                new QueryDefault<Gmap3WicketToDoItem>(Gmap3WicketToDoItem.class,
+                new QueryDefault<>(Gmap3WicketToDoItem.class,
                         "todo_autoComplete", 
                         "ownedBy", currentUserName(), 
                         "description", description));
@@ -149,7 +169,7 @@ public class Gmap3WicketToDoItems {
         return toDoItem;
     }
     
-    private static double random(double from, double to) {
+    private static double random(final double from, final double to) {
         return Math.random() * (to-from) + from;
     }
 

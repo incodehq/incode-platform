@@ -19,7 +19,7 @@
 
 package org.isisaddons.wicket.gmap3.fixture.scripts;
 
-import org.isisaddons.wicket.gmap3.fixture.scripts.todo.ToDoItemsFixture;
+import org.isisaddons.wicket.gmap3.fixture.scripts.todo.Gmap3WicketToDoItemsFixture;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
 public class Gmap3WicketAppSetUpFixture extends DiscoverableFixtureScript {
@@ -37,7 +37,7 @@ public class Gmap3WicketAppSetUpFixture extends DiscoverableFixtureScript {
     @Override
     public void execute(ExecutionContext executionContext) {
         execute(new Gmap3WicketAppTearDownFixture(ownedBy), executionContext);
-        execute(new ToDoItemsFixture(), executionContext);
+        execute(new Gmap3WicketToDoItemsFixture(), executionContext);
     }
 
 }

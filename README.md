@@ -7,13 +7,7 @@ entities to be rendered within a map (using google's [gmap3](https://developers.
 
 ## Screenshots ##
 
-> These screenshots are for Apache Isis 1.7.0.  In 1.8.0-SNAPSHOT the UI has been substantially improved.
-
-The following screenshots show the example app's usage of the component.
-
-#### Install fixtures ####
-
-Start by installing fixtures:
+The following screenshots show the example app's usage of the component with some sample fixture data:
 
 ![](https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/010-install-fixtures.png)
 
@@ -31,7 +25,9 @@ Clicking the button shows the same entities on a gmap3:
 
 The previous screensot shows the todo item also provides an "update location" action:
 
-    public Gmap3WicketToDoItem updateLocation(@Named("Address") final String address) {
+    public Gmap3WicketToDoItem updateLocation(
+            @ParameterLayout(named="Address")
+            final String address) {
         final Location location = this.locationLookupService.lookup(address);
         setLocation(location);
         return this;
@@ -99,9 +95,7 @@ For example:
     import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 
     public class ToDoItem implements Locatable {
-
         ...
-
         @javax.jdo.annotations.Persistent
         private Location location;
         
@@ -147,7 +141,7 @@ To use "out-of-the-box", add the component to your project's `dom` module's `pom
     <dependency>
         <groupId>org.isisaddons.wicket.gmap3</groupId>
         <artifactId>isis-wicket-gmap3-cpt</artifactId>
-        <version>1.7.0</version>
+        <version>1.8.0</version>
     </dependency>
 
 Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-gmap3-cpt).
@@ -160,7 +154,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 * when updating the classpath, specify the appropriate -SNAPSHOT version:
 
 <pre>
-    &lt;version&gt;1.8.0-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;1.9.0-SNAPSHOT&lt;/version&gt;
 </pre>
 
 * add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
@@ -203,6 +197,7 @@ are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be relea
 
 ## Change Log ##
 
+* `1.8.0` - released against Isis 1.8.0
 * `1.7.0` - released against Isis 1.7.0
 * `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.wicket.gmap3`
 
@@ -211,7 +206,7 @@ are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be relea
 
 #### License ####
 
-    Copyright 2013~2014 Dan Haywood
+    Copyright 2013~2015 Dan Haywood
 
     Licensed under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
