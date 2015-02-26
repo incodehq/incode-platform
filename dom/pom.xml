@@ -20,7 +20,7 @@
 
     <groupId>org.isisaddons.module.audit</groupId>
     <artifactId>isis-module-audit-dom</artifactId>
-    <version>1.8.1-SNAPSHOT</version>
+    <version>1.8.1</version>
 
     <packaging>jar</packaging>
 
