@@ -31,8 +31,7 @@ language governing permissions and limitations under the License.
     </prerequisites>
 
     <properties>
-        <isis.version>1.8.0-SNAPSHOT</isis.version>
-        <isis-viewer-wicket.version>1.8.0-SNAPSHOT</isis-viewer-wicket.version>
+        <isis.version>1.8.0</isis.version>
 
         <isis-wicket-gmap3.version>1.8.0-SNAPSHOT</isis-wicket-gmap3.version>
 
@@ -312,7 +311,7 @@ language governing permissions and limitations under the License.
             <dependency>
                 <groupId>org.apache.isis.viewer</groupId>
                 <artifactId>isis-viewer-wicket</artifactId>
-                <version>${isis-viewer-wicket.version}</version>
+                <version>${isis.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

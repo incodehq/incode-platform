@@ -7,6 +7,8 @@ entities to be rendered within a map (using google's [gmap3](https://developers.
 
 ## Screenshots ##
 
+> These screenshots are for Apache Isis 1.7.0.  In 1.8.0-SNAPSHOT the UI has been substantially improved.
+
 The following screenshots show the example app's usage of the component.
 
 #### Install fixtures ####
@@ -275,7 +277,8 @@ Other ways of specifying the key and passphrase are available, see the `pgp-mave
 
 If the script completes successfully, then push changes:
 
-    git push
+    git push origin master
+    git push origin 1.8.0
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
 before trying again.  Note that in the `cpt`'s `pom.xml` the `nexus-staging-maven-plugin` has the 
