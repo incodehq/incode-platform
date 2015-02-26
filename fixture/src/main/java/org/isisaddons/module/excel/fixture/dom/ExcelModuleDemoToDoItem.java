@@ -17,7 +17,12 @@
 package org.isisaddons.module.excel.fixture.dom;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import javax.jdo.JDOHelper;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
@@ -27,7 +32,20 @@ import com.google.common.collect.Ordering;
 import org.isisaddons.module.excel.dom.ExcelService;
 import org.joda.time.LocalDate;
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.*;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.CollectionLayout;
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
+import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.InvokeOn;
+import org.apache.isis.applib.annotation.MinLength;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.Parameter;
+import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.clock.Clock;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
@@ -82,10 +100,15 @@ import org.apache.isis.applib.value.Blob;
                     + "WHERE ownedBy == :ownedBy && "
                     + "description.indexOf(:description) >= 0")
 })
-@ObjectType("TODO")
-@AutoComplete(repository=ExcelModuleDemoToDoItems.class, action="autoComplete")
-@Bookmarkable
-@Named("To Do Item")
+@DomainObject(
+        objectType = "TODO",
+        autoCompleteRepository = ExcelModuleDemoToDoItems.class,
+        autoCompleteAction = "autoComplete"
+)
+@DomainObjectLayout(
+        named = "To Do Item",
+        bookmarking = BookmarkPolicy.AS_ROOT
+)
 public class ExcelModuleDemoToDoItem implements Comparable<ExcelModuleDemoToDoItem> {
 
     // //////////////////////////////////////
@@ -116,8 +139,12 @@ public class ExcelModuleDemoToDoItem implements Comparable<ExcelModuleDemoToDoIt
     private String description;
 
     @javax.jdo.annotations.Column(allowsNull="false", length=100)
-    @RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*") 
-    @TypicalLength(50)
+    @Property(
+            regexPattern = "\\w[@&:\\-\\,\\.\\+ \\w]*"
+    )
+    @PropertyLayout(
+            typicalLength = 50
+    )
     public String getDescription() {
         return description;
     }
@@ -185,7 +212,7 @@ public class ExcelModuleDemoToDoItem implements Comparable<ExcelModuleDemoToDoIt
         // other
         Other;
 
-        public static List<Subcategory> listFor(Category category) {
+        public static List<Subcategory> listFor(final Category category) {
             return category != null? category.subcategories(): Collections.<Subcategory>emptyList();
         }
 
@@ -202,7 +229,7 @@ public class ExcelModuleDemoToDoItem implements Comparable<ExcelModuleDemoToDoIt
             return new Predicate<Subcategory>() {
 
                 @Override
-                public boolean apply(Subcategory subcategory) {
+                public boolean apply(final Subcategory subcategory) {
                     return category.subcategories().contains(subcategory);
                 }
             };
@@ -259,7 +286,9 @@ public class ExcelModuleDemoToDoItem implements Comparable<ExcelModuleDemoToDoIt
 
     private boolean complete;
 
-    @Disabled
+    @Property(
+            editing = Editing.DISABLED
+    )
     public boolean isComplete() {
         return complete;
     }
@@ -295,19 +324,21 @@ public class ExcelModuleDemoToDoItem implements Comparable<ExcelModuleDemoToDoIt
 
     @javax.jdo.annotations.Column(allowsNull="true", scale=2)
     @javax.validation.constraints.Digits(integer=10, fraction=2)
-    @Disabled(reason="Update using action")
+    @Property(
+            editing = Editing.DISABLED,
+            editingDisabledReason = "Update using action"
+    )
     public BigDecimal getCost() {
         return cost;
     }
 
     public void setCost(final BigDecimal cost) {
-        this.cost = cost!=null?cost.setScale(2):null;
+        this.cost = cost!=null?cost.setScale(2, BigDecimal.ROUND_HALF_EVEN):null;
     }
     
     public ExcelModuleDemoToDoItem updateCost(
-            @Named("New cost") 
-            @javax.validation.constraints.Digits(integer=10, fraction=2) 
-            @Optional 
+            @javax.validation.constraints.Digits(integer=10, fraction=2)
+            @ParameterLayout(named="New cost") @Parameter(optionality = Optionality.OPTIONAL)
             final BigDecimal cost) {
         setCost(cost);
         return this;
@@ -363,7 +394,7 @@ public class ExcelModuleDemoToDoItem implements Comparable<ExcelModuleDemoToDoIt
         if(!(this instanceof javax.jdo.spi.PersistenceCapable)) {
             return null;
         } 
-        javax.jdo.spi.PersistenceCapable persistenceCapable = (javax.jdo.spi.PersistenceCapable) this;
+        final javax.jdo.spi.PersistenceCapable persistenceCapable = (javax.jdo.spi.PersistenceCapable) this;
         final Long version = (Long) JDOHelper.getVersion(persistenceCapable);
         return version;
     }
@@ -380,8 +411,8 @@ public class ExcelModuleDemoToDoItem implements Comparable<ExcelModuleDemoToDoIt
     // overrides the natural ordering
     public static class DependenciesComparator implements Comparator<ExcelModuleDemoToDoItem> {
         @Override
-        public int compare(ExcelModuleDemoToDoItem p, ExcelModuleDemoToDoItem q) {
-            Ordering<ExcelModuleDemoToDoItem> byDescription = new Ordering<ExcelModuleDemoToDoItem>() {
+        public int compare(final ExcelModuleDemoToDoItem p, final ExcelModuleDemoToDoItem q) {
+            final Ordering<ExcelModuleDemoToDoItem> byDescription = new Ordering<ExcelModuleDemoToDoItem>() {
                 public int compare(final ExcelModuleDemoToDoItem p, final ExcelModuleDemoToDoItem q) {
                     return Ordering.natural().nullsFirst().compare(p.getDescription(), q.getDescription());
                 }
@@ -397,9 +428,11 @@ public class ExcelModuleDemoToDoItem implements Comparable<ExcelModuleDemoToDoIt
     @javax.jdo.annotations.Persistent(table="ToDoItemDependencies")
     @javax.jdo.annotations.Join(column="dependingId")
     @javax.jdo.annotations.Element(column="dependentId")
-    private SortedSet<ExcelModuleDemoToDoItem> dependencies = new TreeSet<ExcelModuleDemoToDoItem>();
+    private SortedSet<ExcelModuleDemoToDoItem> dependencies = new TreeSet<>();
 
-    @SortedBy(DependenciesComparator.class)
+    @CollectionLayout(
+            sortedBy = DependenciesComparator.class
+    )
     public SortedSet<ExcelModuleDemoToDoItem> getDependencies() {
         return dependencies;
     }
@@ -408,10 +441,8 @@ public class ExcelModuleDemoToDoItem implements Comparable<ExcelModuleDemoToDoIt
         this.dependencies = dependencies;
     }
 
-    
-    @PublishedAction
+
     public ExcelModuleDemoToDoItem add(
-            @TypicalLength(20)
             final ExcelModuleDemoToDoItem toDoItem) {
         getDependencies().add(toDoItem);
         return this;
@@ -440,8 +471,9 @@ public class ExcelModuleDemoToDoItem implements Comparable<ExcelModuleDemoToDoIt
         return null;
     }
 
+    // //////////////////////////////////////
+
     public ExcelModuleDemoToDoItem remove(
-            @TypicalLength(20)
             final ExcelModuleDemoToDoItem toDoItem) {
         getDependencies().remove(toDoItem);
         return this;
@@ -470,7 +502,9 @@ public class ExcelModuleDemoToDoItem implements Comparable<ExcelModuleDemoToDoIt
     // Delete (action)
     // //////////////////////////////////////
 
-    @Bulk
+    @Action(
+            invokeOn = InvokeOn.OBJECT_AND_COLLECTION
+    )
     public List<ExcelModuleDemoToDoItem> delete() {
         container.removeIfNotAlready(this);
         container.informUser("Deleted " + container.titleOf(this));
@@ -513,15 +547,15 @@ public class ExcelModuleDemoToDoItem implements Comparable<ExcelModuleDemoToDoIt
             };
         }
 
-		public static Predicate<ExcelModuleDemoToDoItem> thoseCompleted(
-				final boolean completed) {
+        public static Predicate<ExcelModuleDemoToDoItem> thoseCompleted(
+                final boolean completed) {
             return new Predicate<ExcelModuleDemoToDoItem>() {
                 @Override
                 public boolean apply(final ExcelModuleDemoToDoItem t) {
                     return Objects.equal(t.isComplete(), completed);
                 }
             };
-		}
+        }
 
         public static Predicate<ExcelModuleDemoToDoItem> thoseWithSimilarDescription(final String description) {
             return new Predicate<ExcelModuleDemoToDoItem>() {

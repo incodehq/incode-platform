@@ -26,14 +26,31 @@ import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Category;
 import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Subcategory;
 import org.apache.isis.applib.AbstractViewModel;
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.*;
-import org.apache.isis.applib.annotation.ActionSemantics.Of;
-import org.apache.isis.applib.annotation.Render.Type;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.Collection;
+import org.apache.isis.applib.annotation.CollectionLayout;
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
+import org.apache.isis.applib.annotation.MemberGroupLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Nature;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.Parameter;
+import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.RenderType;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.value.Blob;
 
-@Named("Import/export manager")
+@DomainObject(
+        nature = Nature.VIEW_MODEL
+)
+@DomainObjectLayout(
+        named ="Import/export manager",
+        bookmarking = BookmarkPolicy.AS_ROOT
+)
 @MemberGroupLayout(left={"File", "Criteria"})
-@Bookmarkable
 public class ExcelModuleDemoToDoItemBulkUpdateManager extends AbstractViewModel {
 
     // //////////////////////////////////////
@@ -53,7 +70,7 @@ public class ExcelModuleDemoToDoItemBulkUpdateManager extends AbstractViewModel 
     }
 
     @Override
-    public void viewModelInit(String mementoStr) {
+    public void viewModelInit(final String mementoStr) {
         toDoItemExportImportService.initOf(mementoStr, this);
     }
 
@@ -69,14 +86,18 @@ public class ExcelModuleDemoToDoItemBulkUpdateManager extends AbstractViewModel 
     public String getFileName() {
         return fileName;
     }
-    public void setFileName(String fileName) {
+    public void setFileName(final String fileName) {
         this.fileName = fileName;
     }
 
     // //////////////////////////////////////
 
-    @ActionSemantics(Of.IDEMPOTENT)
-    @Named("Change")
+    @Action(
+            semantics = SemanticsOf.IDEMPOTENT
+    )
+    @ActionLayout(
+            named = "Change"
+    )
     @MemberOrder(name="fileName", sequence="1")
     public ExcelModuleDemoToDoItemBulkUpdateManager changeFileName(final String fileName) {
         setFileName(fileName);
@@ -125,18 +146,21 @@ public class ExcelModuleDemoToDoItemBulkUpdateManager extends AbstractViewModel 
     public boolean isComplete() {
         return complete;
     }
-    public void setComplete(boolean completed) {
+    public void setComplete(final boolean completed) {
         this.complete = completed;
     }
     
     // //////////////////////////////////////
 
-    @Named("Change")
+    @Action
+    @ActionLayout(
+            named = "Change"
+    )
     @MemberOrder(name="complete", sequence="1")
     public ExcelModuleDemoToDoItemBulkUpdateManager select(
-            @Named("Category") final Category category,
-            @Named("Subcategory") @Optional final Subcategory subcategory,
-            @Named("Completed?") final boolean completed) {
+            @ParameterLayout(named="Category") final Category category,
+            @ParameterLayout(named="Subcategory") @Parameter(optionality = Optionality.OPTIONAL) final Subcategory subcategory,
+            @ParameterLayout(named="Completed?") final boolean completed) {
         setCategory(category);
         setSubcategory(subcategory);
         setComplete(completed);
@@ -172,7 +196,10 @@ public class ExcelModuleDemoToDoItemBulkUpdateManager extends AbstractViewModel 
     // //////////////////////////////////////
 
     @SuppressWarnings("unchecked")
-    @Render(Type.EAGERLY)
+    @Collection
+    @CollectionLayout(
+            render = RenderType.EAGERLY
+    )
     public List<ExcelModuleDemoToDoItem> getToDoItems() {
         return container.allMatches(ExcelModuleDemoToDoItem.class,
                 Predicates.and(
@@ -186,8 +213,10 @@ public class ExcelModuleDemoToDoItemBulkUpdateManager extends AbstractViewModel 
     // export (action)
     // //////////////////////////////////////
     
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
     @MemberOrder(name="toDoItems", sequence="1")
-    @ActionSemantics(Of.SAFE)
     public Blob export() {
         final String fileName = withExtension(getFileName(), ".xlsx");
         final List<ExcelModuleDemoToDoItem> items = getToDoItems();
@@ -198,7 +227,7 @@ public class ExcelModuleDemoToDoItemBulkUpdateManager extends AbstractViewModel 
         return getFileName() == null? "file name is required": null;
     }
 
-    private static String withExtension(String fileName, String fileExtension) {
+    private static String withExtension(final String fileName, final String fileExtension) {
         return fileName.endsWith(fileExtension) ? fileName : fileName + fileExtension;
     }
 
@@ -211,7 +240,7 @@ public class ExcelModuleDemoToDoItemBulkUpdateManager extends AbstractViewModel 
         return new Function<ExcelModuleDemoToDoItem, ExcelModuleDemoToDoItemBulkUpdateLineItem>(){
             @Override
             public ExcelModuleDemoToDoItemBulkUpdateLineItem apply(final ExcelModuleDemoToDoItem toDoItem) {
-                ExcelModuleDemoToDoItemBulkUpdateLineItem template = new ExcelModuleDemoToDoItemBulkUpdateLineItem();
+                final ExcelModuleDemoToDoItemBulkUpdateLineItem template = new ExcelModuleDemoToDoItemBulkUpdateLineItem();
                 template.modifyToDoItem(toDoItem);
                 return toDoItemExportImportService.newLineItem(template);
             }
@@ -223,11 +252,14 @@ public class ExcelModuleDemoToDoItemBulkUpdateManager extends AbstractViewModel 
     // import (action)
     // //////////////////////////////////////
 
+    @Action
+    @ActionLayout(
+            named = "Import"
+    )
     @MemberOrder(name="toDoItems", sequence="2")
-    @Named("Import")
     public List<ExcelModuleDemoToDoItemBulkUpdateLineItem> importBlob(
-            final @Named("Excel spreadsheet") Blob spreadsheet) {
-        List<ExcelModuleDemoToDoItemBulkUpdateLineItem> lineItems =
+            @ParameterLayout(named="Excel spreadsheet") final Blob spreadsheet) {
+        final List<ExcelModuleDemoToDoItemBulkUpdateLineItem> lineItems =
                 excelService.fromExcel(spreadsheet, ExcelModuleDemoToDoItemBulkUpdateLineItem.class);
         container.informUser(lineItems.size() + " items imported");
         return lineItems;
@@ -245,6 +277,6 @@ public class ExcelModuleDemoToDoItemBulkUpdateManager extends AbstractViewModel 
     private ExcelService excelService;
 
     @javax.inject.Inject
-    private ExcelModuleDemoToDoItemBulkUpdateService toDoItemExportImportService;
+    private ExcelModuleDemoToDoItemBulkUpdateMenu toDoItemExportImportService;
 
 }

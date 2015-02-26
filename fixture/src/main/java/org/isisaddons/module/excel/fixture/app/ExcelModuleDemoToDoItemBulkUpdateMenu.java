@@ -17,39 +17,27 @@
 package org.isisaddons.module.excel.fixture.app;
 
 import java.math.BigDecimal;
-import java.util.List;
-
 import javax.annotation.PostConstruct;
-
 import org.isisaddons.module.excel.dom.ExcelService;
-
 import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
 import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Category;
 import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Subcategory;
-
 import org.joda.time.LocalDate;
-
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.*;
-import org.apache.isis.applib.annotation.ActionSemantics.Of;
-import org.apache.isis.applib.annotation.NotContributed.As;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.memento.MementoService;
 import org.apache.isis.applib.services.memento.MementoService.Memento;
-import org.apache.isis.applib.value.Blob;
 
 @DomainService
-public class ExcelModuleDemoToDoItemBulkUpdateService {
+public class ExcelModuleDemoToDoItemBulkUpdateMenu {
 
     @PostConstruct
     public void init() {
-        if(bookmarkService == null) {
-            throw new IllegalStateException("Require BookmarkService to be configured");
-        }
-        if(mementoService == null) {
-            throw new IllegalStateException("Require MementoService to be configured");
-        }
         if(excelService == null) {
             throw new IllegalStateException("Require ExcelService to be configured");
         }
@@ -59,8 +47,10 @@ public class ExcelModuleDemoToDoItemBulkUpdateService {
     // bulk update manager (action)
     // //////////////////////////////////////
 
+    @Action(
+            semantics = SemanticsOf.IDEMPOTENT
+    )
     @MemberOrder(name="ToDos", sequence="90.1")
-    @ActionSemantics(Of.IDEMPOTENT)
     public ExcelModuleDemoToDoItemBulkUpdateManager bulkUpdateManager() {
         ExcelModuleDemoToDoItemBulkUpdateManager template = new ExcelModuleDemoToDoItemBulkUpdateManager();
         template.setFileName("toDoItems.xlsx");
@@ -131,28 +121,7 @@ public class ExcelModuleDemoToDoItemBulkUpdateService {
         return container.newViewModelInstance(ExcelModuleDemoToDoItemBulkUpdateLineItem.class, mementoFor(lineItem));
     }
 
-    // //////////////////////////////////////
 
-    /**
-     * Bulk actions of this type are not yet supported, hence have hidden...
-     * 
-     * @see https://issues.apache.org/jira/browse/ISIS-705.
-     */
-    @Hidden
-    @NotInServiceMenu
-    @NotContributed(As.ASSOCIATION) // ie contributed as action
-    @Bulk
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    public Blob export(final ExcelModuleDemoToDoItem toDoItem) {
-        if(bulkInteractionContext.isLast()) {
-            List toDoItems = bulkInteractionContext.getDomainObjects();
-            return excelService.toExcel(toDoItems, ExcelModuleDemoToDoItem.class, "toDoItems.xlsx");
-        } else {
-            return null;
-        }
-    }
-
-    
     // //////////////////////////////////////
     // Injected Services
     // //////////////////////////////////////
@@ -168,8 +137,5 @@ public class ExcelModuleDemoToDoItemBulkUpdateService {
     
     @javax.inject.Inject
     private MementoService mementoService;
-
-    @javax.inject.Inject
-    private Bulk.InteractionContext bulkInteractionContext;
 
 }

@@ -33,11 +33,10 @@ public class RecreateToDoItems extends DiscoverableFixtureScript {
     @Override
     public void execute(ExecutionContext executionContext) {
 
-
         final String ownedBy = this.user != null ? this.user : getContainer().getUser().getName();
 
-        execute(new DeleteAllToDoItems(ownedBy), executionContext);
-        execute(new CreateAllToDoItems(ownedBy), executionContext);
+        executionContext.executeChild(this, new DeleteAllToDoItems(ownedBy));
+        executionContext.executeChild(this, new CreateAllToDoItems(ownedBy));
 
         getContainer().flush();
     }

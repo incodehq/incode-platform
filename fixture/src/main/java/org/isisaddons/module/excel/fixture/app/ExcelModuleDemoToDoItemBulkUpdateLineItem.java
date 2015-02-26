@@ -23,11 +23,20 @@ import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Subcatego
 import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItems;
 import org.joda.time.LocalDate;
 import org.apache.isis.applib.AbstractViewModel;
-import org.apache.isis.applib.annotation.*;
-import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
+import org.apache.isis.applib.annotation.InvokeOn;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.services.actinvoc.ActionInvocationContext;
 
-@Named("Bulk update line item")
-@Bookmarkable
+@DomainObject
+@DomainObjectLayout(
+        named = "Bulk update line item",
+        bookmarking = BookmarkPolicy.AS_ROOT
+)
 public class ExcelModuleDemoToDoItemBulkUpdateLineItem
         extends AbstractViewModel 
         implements Comparable<ExcelModuleDemoToDoItemBulkUpdateLineItem> {
@@ -68,10 +77,10 @@ public class ExcelModuleDemoToDoItemBulkUpdateLineItem
     public ExcelModuleDemoToDoItem getToDoItem() {
         return toDoItem;
     }
-    public void setToDoItem(ExcelModuleDemoToDoItem toDoItem) {
+    public void setToDoItem(final ExcelModuleDemoToDoItem toDoItem) {
         this.toDoItem = toDoItem;
     }
-    public void modifyToDoItem(ExcelModuleDemoToDoItem toDoItem) {
+    public void modifyToDoItem(final ExcelModuleDemoToDoItem toDoItem) {
         setToDoItem(toDoItem);
         setDescription(toDoItem.getDescription());
         setCategory(toDoItem.getCategory());
@@ -186,7 +195,7 @@ public class ExcelModuleDemoToDoItemBulkUpdateLineItem
     }
 
     public void setCost(final BigDecimal cost) {
-        this.cost = cost!=null?cost.setScale(2):null;
+        this.cost = cost!=null?cost.setScale(2, BigDecimal.ROUND_HALF_EVEN):null;
     }
     
 
@@ -209,8 +218,10 @@ public class ExcelModuleDemoToDoItemBulkUpdateLineItem
     // apply
     // //////////////////////////////////////
 
-    @ActionSemantics(Of.IDEMPOTENT)
-    @Bulk
+    @Action(
+            semantics = SemanticsOf.IDEMPOTENT,
+            invokeOn = InvokeOn.OBJECT_AND_COLLECTION
+    )
     public ExcelModuleDemoToDoItem apply() {
         ExcelModuleDemoToDoItem item = getToDoItem();
         if(item == null) {
@@ -238,7 +249,7 @@ public class ExcelModuleDemoToDoItemBulkUpdateLineItem
             item.setOwnedBy(getOwnedBy());
             item.setComplete(isComplete());
         }
-        return bulkInteractionContext.getInvokedAs().isBulk()? null: item;
+        return actionInvocationContext.getInvokedOn().isCollection()? null: item;
     }
 
     
@@ -247,7 +258,7 @@ public class ExcelModuleDemoToDoItemBulkUpdateLineItem
     // //////////////////////////////////////
 
     @Override
-    public int compareTo(ExcelModuleDemoToDoItemBulkUpdateLineItem other) {
+    public int compareTo(final ExcelModuleDemoToDoItemBulkUpdateLineItem other) {
         return this.toDoItem.compareTo(other.toDoItem);
     }
 
@@ -257,11 +268,11 @@ public class ExcelModuleDemoToDoItemBulkUpdateLineItem
     // //////////////////////////////////////
     
     @javax.inject.Inject
-    private ExcelModuleDemoToDoItemBulkUpdateService toDoItemExportImportService;
+    private ExcelModuleDemoToDoItemBulkUpdateMenu toDoItemExportImportService;
     
     @javax.inject.Inject
     private ExcelModuleDemoToDoItems toDoItems;
 
     @javax.inject.Inject
-    private Bulk.InteractionContext bulkInteractionContext;
+    private ActionInvocationContext actionInvocationContext;
 }

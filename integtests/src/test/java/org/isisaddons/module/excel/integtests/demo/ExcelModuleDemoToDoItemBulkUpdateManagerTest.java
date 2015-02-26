@@ -28,7 +28,7 @@ import org.hamcrest.TypeSafeMatcher;
 import org.isisaddons.module.excel.dom.ExcelService;
 import org.isisaddons.module.excel.fixture.app.ExcelModuleDemoToDoItemBulkUpdateLineItem;
 import org.isisaddons.module.excel.fixture.app.ExcelModuleDemoToDoItemBulkUpdateManager;
-import org.isisaddons.module.excel.fixture.app.ExcelModuleDemoToDoItemBulkUpdateService;
+import org.isisaddons.module.excel.fixture.app.ExcelModuleDemoToDoItemBulkUpdateMenu;
 import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItems;
 import org.isisaddons.module.excel.fixture.scripts.RecreateToDoItems;
 import org.isisaddons.module.excel.integtests.ExcelModuleModuleIntegTest;
@@ -50,7 +50,7 @@ public class ExcelModuleDemoToDoItemBulkUpdateManagerTest extends ExcelModuleMod
     private ExcelModuleDemoToDoItems toDoItems;
 
     @javax.inject.Inject
-    private ExcelModuleDemoToDoItemBulkUpdateService exportImportService;
+    private ExcelModuleDemoToDoItemBulkUpdateMenu exportImportService;
 
     private ExcelModuleDemoToDoItemBulkUpdateManager bulkUpdateManager;
 
