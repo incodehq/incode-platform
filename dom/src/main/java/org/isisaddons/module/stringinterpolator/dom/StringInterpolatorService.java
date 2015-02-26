@@ -19,9 +19,12 @@ package org.isisaddons.module.stringinterpolator.dom;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
-@DomainService
+@DomainService(
+        nature = NatureOfService.DOMAIN
+)
 public class StringInterpolatorService {
 
     public static class Root {

@@ -30,12 +30,12 @@ public class StringInterpolatorDemoToDoItemsFixture extends DiscoverableFixtureS
         this(null);
     }
 
-    public StringInterpolatorDemoToDoItemsFixture(String ownedBy) {
+    public StringInterpolatorDemoToDoItemsFixture(final String ownedBy) {
         this.user = ownedBy;
     }
 
     @Override
-    public void execute(ExecutionContext executionContext) {
+    public void execute(final ExecutionContext executionContext) {
 
         isisJdoSupport.executeUpdate("delete from \"StringInterpolatorDemoToDoItem\"");
 
@@ -44,7 +44,7 @@ public class StringInterpolatorDemoToDoItemsFixture extends DiscoverableFixtureS
         getContainer().flush();
     }
 
-    private void installFor(ExecutionContext executionContext) {
+    private void installFor(final ExecutionContext executionContext) {
 
         executionContext.add(this, createToDoItem("Documentation page - Review main Isis doc page", "documentation.html"));
         executionContext.add(this, createToDoItem("Screenshots - Review Isis screenshots", "intro/elevator-pitch/isis-in-pictures.html"));

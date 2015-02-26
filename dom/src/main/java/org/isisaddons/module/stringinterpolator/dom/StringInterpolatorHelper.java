@@ -90,8 +90,5 @@ class StringInterpolatorHelper {
             buffer.append(template.substring(pos));
         }
     }
-
-
 }
-
 

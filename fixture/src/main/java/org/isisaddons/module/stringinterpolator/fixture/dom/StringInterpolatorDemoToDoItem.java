@@ -34,9 +34,13 @@ import org.apache.isis.applib.util.ObjectContracts;
                 name = "ToDoItem_description_must_be_unique",
                 members = {"description"})
 })
-@Named("To Do Item")
-@ObjectType("TODO")
-@Bookmarkable
+@DomainObject(
+        objectType = "TODO"
+)
+@DomainObjectLayout(
+        named = "To Do Item",
+        bookmarking = BookmarkPolicy.AS_ROOT
+)
 public class StringInterpolatorDemoToDoItem implements Comparable<StringInterpolatorDemoToDoItem> {
 
     //region > description
@@ -44,8 +48,12 @@ public class StringInterpolatorDemoToDoItem implements Comparable<StringInterpol
 
     @Title
     @javax.jdo.annotations.Column(allowsNull = "false", length = 100)
-    @RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
-    @TypicalLength(50)
+    @Property(
+            regexPattern = "\\w[@&:\\-\\,\\.\\+ \\w]*"
+    )
+    @PropertyLayout(
+            typicalLength = 50
+    )
     public String getDescription() {
         return description;
     }

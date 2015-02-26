@@ -94,7 +94,7 @@ To use "out-of-the-box":
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.stringinterpolator&lt;/groupId&gt;
         &lt;artifactId&gt;isis-module-stringinterpolator-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.7.0&lt;/version&gt;
+        &lt;version&gt;1.8.0&lt;/version&gt;
     &lt;/dependency&gt;
 </pre>
 
@@ -118,7 +118,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 * when updating the classpath, specify the appropriate -SNAPSHOT version:
 
 <pre>
-    &lt;version&gt;1.8.0-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;1.9.0-SNAPSHOT&lt;/version&gt;
 </pre>
 
 * add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
@@ -275,6 +275,7 @@ Other modules can be found at the [Isis Add-ons](http://www.isisaddons.org) webs
 
 ## Change Log ##
 
+* `1.8.0` - released against Isis 1.8.0
 * `1.7.0` - released against Isis 1.7.0
 * `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.stringinterpolator`
 
@@ -283,7 +284,7 @@ Other modules can be found at the [Isis Add-ons](http://www.isisaddons.org) webs
  
 #### License ####
 
-    Copyright 2014 Dan Haywood
+    Copyright 2014~2015 Dan Haywood
 
     Licensed under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
