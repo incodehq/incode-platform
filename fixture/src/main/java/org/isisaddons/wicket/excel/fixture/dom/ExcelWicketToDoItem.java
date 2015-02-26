@@ -79,10 +79,15 @@ import org.apache.isis.applib.value.Blob;
                     + "WHERE ownedBy == :ownedBy && "
                     + "description.indexOf(:description) >= 0")
 })
-@ObjectType("TODO")
-@AutoComplete(repository=ExcelWicketToDoItems.class, action="autoComplete")
-@Bookmarkable
-@Named("ToDo Item")
+@DomainObject(
+        objectType = "TODO",
+        autoCompleteRepository = ExcelWicketToDoItems.class,
+        autoCompleteAction = "autoComplete"
+)
+@DomainObjectLayout(
+        bookmarking = BookmarkPolicy.AS_ROOT,
+        named = "ToDo Item"
+)
 public class ExcelWicketToDoItem implements Comparable<ExcelWicketToDoItem> {
 
     // //////////////////////////////////////
@@ -113,8 +118,12 @@ public class ExcelWicketToDoItem implements Comparable<ExcelWicketToDoItem> {
     private String description;
 
     @javax.jdo.annotations.Column(allowsNull="false", length=100)
-    @RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*") 
-    @TypicalLength(50)
+    @Property(
+            regexPattern = "\\w[@&:\\-\\,\\.\\+ \\w]*"
+    )
+    @PropertyLayout(
+            typicalLength = 50
+    )
     public String getDescription() {
         return description;
     }
@@ -182,7 +191,7 @@ public class ExcelWicketToDoItem implements Comparable<ExcelWicketToDoItem> {
         // other
         Other;
 
-        public static List<Subcategory> listFor(Category category) {
+        public static List<Subcategory> listFor(final Category category) {
             return category != null? category.subcategories(): Collections.<Subcategory>emptyList();
         }
 
@@ -199,7 +208,7 @@ public class ExcelWicketToDoItem implements Comparable<ExcelWicketToDoItem> {
             return new Predicate<Subcategory>() {
 
                 @Override
-                public boolean apply(Subcategory subcategory) {
+                public boolean apply(final Subcategory subcategory) {
                     return category.subcategories().contains(subcategory);
                 }
             };
@@ -256,7 +265,9 @@ public class ExcelWicketToDoItem implements Comparable<ExcelWicketToDoItem> {
 
     private boolean complete;
 
-    @Disabled
+    @Property(
+            editing = Editing.DISABLED
+    )
     public boolean isComplete() {
         return complete;
     }
@@ -292,19 +303,22 @@ public class ExcelWicketToDoItem implements Comparable<ExcelWicketToDoItem> {
 
     @javax.jdo.annotations.Column(allowsNull="true", scale=2)
     @javax.validation.constraints.Digits(integer=10, fraction=2)
-    @Disabled(reason="Update using action")
+    @Property(
+            editing = Editing.DISABLED,
+            editingDisabledReason = "Update using action"
+    )
     public BigDecimal getCost() {
         return cost;
     }
 
     public void setCost(final BigDecimal cost) {
-        this.cost = cost!=null?cost.setScale(2):null;
+        this.cost = cost!=null?cost.setScale(2,BigDecimal.ROUND_HALF_EVEN):null;
     }
     
     public ExcelWicketToDoItem updateCost(
-            @Named("New cost") 
-            @javax.validation.constraints.Digits(integer=10, fraction=2) 
-            @Optional 
+            @javax.validation.constraints.Digits(integer=10, fraction=2)
+            @ParameterLayout(named="New cost")
+            @Parameter(optionality = Optionality.OPTIONAL)
             final BigDecimal cost) {
         setCost(cost);
         return this;
@@ -360,7 +374,7 @@ public class ExcelWicketToDoItem implements Comparable<ExcelWicketToDoItem> {
         if(!(this instanceof javax.jdo.spi.PersistenceCapable)) {
             return null;
         } 
-        javax.jdo.spi.PersistenceCapable persistenceCapable = (javax.jdo.spi.PersistenceCapable) this;
+        final javax.jdo.spi.PersistenceCapable persistenceCapable = (javax.jdo.spi.PersistenceCapable) this;
         final Long version = (Long) JDOHelper.getVersion(persistenceCapable);
         return version;
     }
@@ -377,8 +391,8 @@ public class ExcelWicketToDoItem implements Comparable<ExcelWicketToDoItem> {
     // overrides the natural ordering
     public static class DependenciesComparator implements Comparator<ExcelWicketToDoItem> {
         @Override
-        public int compare(ExcelWicketToDoItem p, ExcelWicketToDoItem q) {
-            Ordering<ExcelWicketToDoItem> byDescription = new Ordering<ExcelWicketToDoItem>() {
+        public int compare(final ExcelWicketToDoItem p, final ExcelWicketToDoItem q) {
+            final Ordering<ExcelWicketToDoItem> byDescription = new Ordering<ExcelWicketToDoItem>() {
                 public int compare(final ExcelWicketToDoItem p, final ExcelWicketToDoItem q) {
                     return Ordering.natural().nullsFirst().compare(p.getDescription(), q.getDescription());
                 }
@@ -394,9 +408,11 @@ public class ExcelWicketToDoItem implements Comparable<ExcelWicketToDoItem> {
     @javax.jdo.annotations.Persistent(table="ExcelWicketToDoItemDependencies")
     @javax.jdo.annotations.Join(column="dependingId")
     @javax.jdo.annotations.Element(column="dependentId")
-    private SortedSet<ExcelWicketToDoItem> dependencies = new TreeSet<ExcelWicketToDoItem>();
+    private SortedSet<ExcelWicketToDoItem> dependencies = new TreeSet<>();
 
-    @SortedBy(DependenciesComparator.class)
+    @CollectionLayout(
+            sortedBy = DependenciesComparator.class
+    )
     public SortedSet<ExcelWicketToDoItem> getDependencies() {
         return dependencies;
     }
@@ -405,11 +421,8 @@ public class ExcelWicketToDoItem implements Comparable<ExcelWicketToDoItem> {
         this.dependencies = dependencies;
     }
 
-    
-    @PublishedAction
-    public ExcelWicketToDoItem add(
-            @TypicalLength(20)
-            final ExcelWicketToDoItem toDoItem) {
+
+    public ExcelWicketToDoItem add(final ExcelWicketToDoItem toDoItem) {
         getDependencies().add(toDoItem);
         return this;
     }
@@ -437,9 +450,7 @@ public class ExcelWicketToDoItem implements Comparable<ExcelWicketToDoItem> {
         return null;
     }
 
-    public ExcelWicketToDoItem remove(
-            @TypicalLength(20)
-            final ExcelWicketToDoItem toDoItem) {
+    public ExcelWicketToDoItem remove(final ExcelWicketToDoItem toDoItem) {
         getDependencies().remove(toDoItem);
         return this;
     }
@@ -467,7 +478,9 @@ public class ExcelWicketToDoItem implements Comparable<ExcelWicketToDoItem> {
     // Delete (action)
     // //////////////////////////////////////
 
-    @Bulk
+    @Action(
+            invokeOn = InvokeOn.OBJECT_AND_COLLECTION
+    )
     public List<ExcelWicketToDoItem> delete() {
         container.removeIfNotAlready(this);
         container.informUser("Deleted " + container.titleOf(this));
@@ -510,15 +523,15 @@ public class ExcelWicketToDoItem implements Comparable<ExcelWicketToDoItem> {
             };
         }
 
-		public static Predicate<ExcelWicketToDoItem> thoseCompleted(
-				final boolean completed) {
+        public static Predicate<ExcelWicketToDoItem> thoseCompleted(
+              final boolean completed) {
             return new Predicate<ExcelWicketToDoItem>() {
                 @Override
                 public boolean apply(final ExcelWicketToDoItem t) {
                     return Objects.equal(t.isComplete(), completed);
                 }
             };
-		}
+        }
 
         public static Predicate<ExcelWicketToDoItem> thoseWithSimilarDescription(final String description) {
             return new Predicate<ExcelWicketToDoItem>() {

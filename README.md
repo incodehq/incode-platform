@@ -10,15 +10,24 @@ export and import, eg to support bulk updating/inserting.
 
 ## Screenshots ##
 
-> These screenshots are for Apache Isis 1.7.0.  In 1.8.0-SNAPSHOT the UI has been substantially improved.
+The module contributes an additional "view" for both standalone and parented collections:
 
-The following screenshots show an example app's usage of the component.
+For example, assuming some fixtures have been installed:
 
-![](https://raw.github.com/isisaddons/isis-wicket-excel/master/images/excel-tab.png)
+![](https://raw.github.com/isisaddons/isis-wicket-excel/master/images/010-install-fixtures.png)
 
-![](https://raw.github.com/isisaddons/isis-wicket-excel/master/images/download-link.png)
+Then the standalone collection of all incomplete todo items shows
+an additional link to select the excel view:
 
-![](https://raw.github.com/isisaddons/isis-wicket-excel/master/images/excel.png)
+![](https://raw.github.com/isisaddons/isis-wicket-excel/master/images/020-excel-tab.png)
+
+In both cases this view is simply a button to download the collection as an Excel spreadsheet:
+
+![](https://raw.github.com/isisaddons/isis-wicket-excel/master/images/030-download-link.png)
+
+And the spreadsheet contains the contents of the collection:
+
+![](https://raw.github.com/isisaddons/isis-wicket-excel/master/images/040-excel.png)
 
 
 ## How to run the Demo App ##
@@ -51,7 +60,7 @@ To use "out-of-the-box", simply add this component to your classpath, eg:
     <dependency>
         <groupId>org.isisaddons.wicket.excel</groupId>
         <artifactId>isis-wicket-excel-cpt</artifactId>
-        <version>1.7.0</version>
+        <version>1.8.0</version>
     </dependency>
 
 Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-excel-cpt).
@@ -68,7 +77,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 * when updating the classpath, specify the appropriate -SNAPSHOT version:
 
 <pre>
-    &lt;version&gt;1.8.0-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;1.9.0-SNAPSHOT&lt;/version&gt;
 </pre>
 
 * add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
@@ -117,6 +126,7 @@ export or import objects to/from an Excel spreadsheet.
 
 ## Change Log ##
 
+* `1.8.0` - released against Isis 1.8.0
 * `1.7.0` - released against Isis 1.7.0
 * `1.6.1` - (breaking change) changed package names for API to `org.isisaddons.wicket.excel.cpt.applib`
 * `1.6.0` - re-released as part of isisaddons, changed package names for API to `org.isisaddons.wicket.excel.applib`
@@ -126,7 +136,7 @@ export or import objects to/from an Excel spreadsheet.
 
 #### License ####
 
-    Copyright 2013~2014 Dan Haywood
+    Copyright 2013~2015 Dan Haywood
 
     Licensed under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance

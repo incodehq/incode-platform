@@ -19,10 +19,13 @@
 package org.isisaddons.wicket.excel.fixture.scripts;
 
 import java.util.List;
+import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.Prototype;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.RestrictTo;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.fixturescripts.FixtureResult;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
@@ -30,12 +33,18 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 /**
  * Enables fixtures to be installed from the application.
  */
-@Named("Prototyping")
-@DomainService(menuOrder = "20")
+@DomainService(
+        nature = NatureOfService.VIEW_MENU_ONLY
+)
+@DomainServiceLayout(
+        named = "Prototyping",
+        menuBar = DomainServiceLayout.MenuBar.SECONDARY,
+        menuOrder = "499"
+)
 public class ExcelWicketFixturesService extends FixtureScripts {
 
     public ExcelWicketFixturesService() {
-        super("org.isisaddons.wicket.excel.fixture.scripts");
+        super(ExcelWicketFixturesService.class.getPackage().getName());
     }
 
     @Override
@@ -55,7 +64,10 @@ public class ExcelWicketFixturesService extends FixtureScripts {
 
     // //////////////////////////////////////
 
-    @Prototype
+    @Action(
+            semantics = SemanticsOf.IDEMPOTENT,
+            restrictTo = RestrictTo.PROTOTYPING
+    )
     @MemberOrder(sequence="20")
     public Object installFixturesAndReturnFirst() {
         final List<FixtureResult> run = findFixtureScriptFor(ExcelWicketSetUpFixture.class).run(null);

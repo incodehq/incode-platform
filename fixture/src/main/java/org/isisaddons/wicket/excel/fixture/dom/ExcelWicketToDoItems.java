@@ -25,13 +25,25 @@ import org.isisaddons.wicket.excel.fixture.dom.ExcelWicketToDoItem.Category;
 import org.isisaddons.wicket.excel.fixture.dom.ExcelWicketToDoItem.Subcategory;
 import org.joda.time.LocalDate;
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.*;
-import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.Parameter;
+import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.clock.ClockService;
 
-@Named("ToDos")
-@DomainService(menuOrder = "10")
+@DomainService
+@DomainServiceLayout(
+        named = "ToDos",
+        menuOrder = "10"
+)
 public class ExcelWicketToDoItems {
 
     public ExcelWicketToDoItems() {
@@ -53,8 +65,12 @@ public class ExcelWicketToDoItems {
     // NotYetComplete (action)
     // //////////////////////////////////////
 
-    @Bookmarkable
-    @ActionSemantics(Of.SAFE)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            bookmarking = BookmarkPolicy.AS_ROOT
+    )
     @MemberOrder(sequence = "1")
     public List<ExcelWicketToDoItem> notYetComplete() {
         final List<ExcelWicketToDoItem> items = notYetCompleteNoUi();
@@ -67,7 +83,7 @@ public class ExcelWicketToDoItems {
     @Programmatic
     public List<ExcelWicketToDoItem> notYetCompleteNoUi() {
         return container.allMatches(
-                new QueryDefault<ExcelWicketToDoItem>(ExcelWicketToDoItem.class,
+                new QueryDefault<>(ExcelWicketToDoItem.class,
                         "todo_notYetComplete", 
                         "ownedBy", currentUserName()));
     }
@@ -76,8 +92,10 @@ public class ExcelWicketToDoItems {
     // //////////////////////////////////////
     // Complete (action)
     // //////////////////////////////////////
-    
-    @ActionSemantics(Of.SAFE)
+
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
     @MemberOrder(sequence = "3")
     public List<ExcelWicketToDoItem> complete() {
         final List<ExcelWicketToDoItem> items = completeNoUi();
@@ -90,7 +108,7 @@ public class ExcelWicketToDoItems {
     @Programmatic
     public List<ExcelWicketToDoItem> completeNoUi() {
         return container.allMatches(
-            new QueryDefault<ExcelWicketToDoItem>(ExcelWicketToDoItem.class,
+            new QueryDefault<>(ExcelWicketToDoItem.class,
                     "todo_complete", 
                     "ownedBy", currentUserName()));
     }
@@ -102,11 +120,16 @@ public class ExcelWicketToDoItems {
 
     @MemberOrder(sequence = "40")
     public ExcelWicketToDoItem newToDo(
-            final @RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*") @Named("Description") String description, 
-            final @Named("Category") Category category,
-            final @Named("Subcategory") Subcategory subcategory,
-            final @Optional @Named("Due by") LocalDate dueBy,
-            final @Optional @Named("Cost") BigDecimal cost) {
+            @ParameterLayout(named = "Description") @Parameter(regexPattern = "\\w[@&:\\-\\,\\.\\+ \\w]*")
+            final String description,
+            @ParameterLayout(named = "Category")
+            final Category category,
+            @ParameterLayout(named = "Subcategory")
+            final Subcategory subcategory,
+            @ParameterLayout(named = "Due by") @Parameter(optionality = Optionality.OPTIONAL)
+            final LocalDate dueBy,
+            @ParameterLayout(named = "Cost") @Parameter(optionality = Optionality.OPTIONAL)
+            final BigDecimal cost) {
         final String ownedBy = currentUserName();
         return newToDo(description, category, subcategory, ownedBy, dueBy, cost);
     }
@@ -134,7 +157,9 @@ public class ExcelWicketToDoItems {
     // AllToDos (action)
     // //////////////////////////////////////
 
-    @ActionSemantics(Of.SAFE)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
     @MemberOrder(sequence = "50")
     public List<ExcelWicketToDoItem> allToDos() {
         final String currentUser = currentUserName();
@@ -153,7 +178,7 @@ public class ExcelWicketToDoItems {
     @Programmatic // not part of metamodel
     public List<ExcelWicketToDoItem> autoComplete(final String description) {
         return container.allMatches(
-                new QueryDefault<ExcelWicketToDoItem>(ExcelWicketToDoItem.class,
+                new QueryDefault<>(ExcelWicketToDoItem.class,
                         "todo_autoComplete", 
                         "ownedBy", currentUserName(), 
                         "description", description));
