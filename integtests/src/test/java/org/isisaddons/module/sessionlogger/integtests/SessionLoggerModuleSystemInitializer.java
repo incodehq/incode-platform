@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.audit.integtests;
+package org.isisaddons.module.sessionlogger.integtests;
 
 import org.apache.isis.core.commons.config.IsisConfiguration;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
@@ -25,36 +25,28 @@ import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegT
  * Holds an instance of an {@link IsisSystemForTest} as a {@link ThreadLocal} on the current thread,
  * initialized with the app's domain services.
  */
-public class AuditModuleSystemInitializer {
+public class SessionLoggerModuleSystemInitializer {
     
-    private AuditModuleSystemInitializer(){}
+    private SessionLoggerModuleSystemInitializer(){}
 
     public static IsisSystemForTest initIsft() {
         IsisSystemForTest isft = IsisSystemForTest.getElseNull();
         if(isft == null) {
-            isft = new AuditModuleAppSystemBuilder().build().setUpSystem();
+            isft = new SessionLoggerModuleAppSystemBuilder().build().setUpSystem();
             IsisSystemForTest.set(isft);
         }
         return isft;
     }
 
-    private static class AuditModuleAppSystemBuilder extends IsisSystemForTest.Builder {
+    private static class SessionLoggerModuleAppSystemBuilder extends IsisSystemForTest.Builder {
 
-        public AuditModuleAppSystemBuilder() {
+        public SessionLoggerModuleAppSystemBuilder() {
             withLoggingAt(org.apache.log4j.Level.INFO);
             with(testConfiguration());
             with(new DataNucleusPersistenceMechanismInstaller());
 
             // services annotated with @DomainService
-            withServicesIn( "org.isisaddons.module.audit"
-                            ,"org.apache.isis.objectstore.jdo.applib.service.audit" // AuditingServiceJdo, AuditingServiceJdoRepository
-                            ,"org.apache.isis.core.wrapper"
-                            ,"org.apache.isis.applib"
-                            ,"org.apache.isis.core.metamodel.services"
-                            ,"org.apache.isis.core.runtime.services"
-                            ,"org.apache.isis.objectstore.jdo.datanucleus.service.support" // IsisJdoSupportImpl
-                            ,"org.apache.isis.objectstore.jdo.datanucleus.service.eventbus" // EventBusServiceJdo
-                            );
+            withServicesIn( "org.isisaddons.module.sessionlogger" );
         }
 
         private static IsisConfiguration testConfiguration() {

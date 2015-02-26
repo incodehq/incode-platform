@@ -7,7 +7,7 @@ fi
 
 # edit parent pom.xml's reference
 echo "editing parent's pom.xml (reference to dom module)"
-cat pom.xml | sed "s/<isis-module-audit.version>.*</<isis-module-audit.version>$VERSION</" > pom.xml.$$.sed
+cat pom.xml | sed "s/<isis-module-sessionlogger.version>.*</<isis-module-sessionlogger.version>$VERSION</" > pom.xml.$$.sed
 mv pom.xml.$$.sed pom.xml
 
 # edit dom's pom.xml

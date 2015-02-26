@@ -1,4 +1,4 @@
-/*
+package org.isisaddons.module.sessionlogger.fixture;/*
  *  Copyright 2013~2014 Dan Haywood
  *
  *  Licensed under the Apache License, Version 2.0 (the
@@ -14,22 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.audit.integtests;
 
-import org.junit.BeforeClass;
-
-import org.apache.isis.core.integtestsupport.IntegrationTestAbstract;
-import org.apache.isis.core.integtestsupport.scenarios.ScenarioExecutionForIntegration;
-
-public abstract class AuditModuleIntegTest extends IntegrationTestAbstract {
-
-    @BeforeClass
-    public static void initClass() {
-        org.apache.log4j.PropertyConfigurator.configure("logging.properties");
-        AuditModuleSystemInitializer.initIsft();
-        
-        // instantiating will install onto ThreadLocal
-        new ScenarioExecutionForIntegration();
-    }
+public class Dummy {
 
 }
