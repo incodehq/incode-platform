@@ -20,16 +20,11 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
-
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.BuiltinFormats;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
@@ -37,7 +32,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.filter.Filter;
@@ -66,7 +60,7 @@ class ExcelConverter {
         private final Sheet sheet;
         private int rowNum;
 
-        RowFactory(Sheet sheet) {
+        RowFactory(final Sheet sheet) {
             this.sheet = sheet;
         }
 
@@ -113,7 +107,7 @@ class ExcelConverter {
 
         // header row
         int i = 0;
-        for (ObjectAssociation property : propertyList) {
+        for (final ObjectAssociation property : propertyList) {
             final Cell cell = headerRow.createCell((short) i++);
             cell.setCellValue(property.getName());
         }
@@ -146,7 +140,7 @@ class ExcelConverter {
 
         final List<T> importedItems = Lists.newArrayList();
 
-        final ObjectSpecification objectSpec = this.specificationLoader.loadSpecification(cls);
+        final ObjectSpecification objectSpec = specificationLoader.loadSpecification(cls);
         final ViewModelFacet viewModelFacet = objectSpec.getFacet(ViewModelFacet.class);
 
         try (ByteArrayInputStream bais = new ByteArrayInputStream(bs)) {
@@ -163,7 +157,7 @@ class ExcelConverter {
                     for (final Cell cell : row) {
                         final int columnIndex = cell.getColumnIndex();
                         final String propertyName = cellMarshaller.getStringCellValue(cell);
-                        final OneToOneAssociation property = this.getAssociation(objectSpec, propertyName);
+                        final OneToOneAssociation property = getAssociation(objectSpec, propertyName);
                         if (property != null) {
                             final Class<?> propertyType = property.getSpecification().getCorrespondingClass();
                             propertyByColumn.put(columnIndex, new Property(propertyName, property, propertyType));
@@ -174,11 +168,8 @@ class ExcelConverter {
                     // detail
                     try {
 
-                        // Let's require at least one column to be not null for
-                        // detecting a blank row.
-                        // Excel can have physical rows with cells empty that
-                        // would
-                        // seem as not existent for the user.
+                        // Let's require at least one column to be not null for detecting a blank row.
+                        // Excel can have physical rows with cells empty that it seem do not existent for the user.
                         ObjectAdapter templateAdapter = null;
                         T imported = null;
                         for (final Cell cell : row) {
@@ -203,17 +194,13 @@ class ExcelConverter {
 
                         if (imported != null) {
                             if (viewModelFacet != null) {
-                                // if there is a view model, then use the
-                                // imported
-                                // object as a template
+                                // if there is a view model, then use the imported object as a template
                                 // in order to create a regular view model.
                                 final String memento = viewModelFacet.memento(imported);
                                 final T viewModel = container.newViewModelInstance(cls, memento);
                                 importedItems.add(viewModel);
                             } else {
-                                // else, just return the imported items as
-                                // simple
-                                // transient instances.
+                                // else, just return the imported items as simple transient instances.
                                 importedItems.add(imported);
                             }
                         }
@@ -244,7 +231,7 @@ class ExcelConverter {
         private final OneToOneAssociation property;
         private Object currentValue;
 
-        public Property(String name, OneToOneAssociation property, Class<?> type) {
+        public Property(final String name, final OneToOneAssociation property, final Class<?> type) {
             this.name = name;
             this.property = property;
             this.type = type;
@@ -266,7 +253,7 @@ class ExcelConverter {
             return currentValue;
         }
 
-        public void setCurrentValue(Object currentValue) {
+        public void setCurrentValue(final Object currentValue) {
             this.currentValue = currentValue;
         }
 
@@ -277,7 +264,7 @@ class ExcelConverter {
     }
 
     @SuppressWarnings("unused")
-    private void autoSize(final Sheet sh, int numProps) {
+    private void autoSize(final Sheet sh, final int numProps) {
         for (int prop = 0; prop < numProps; prop++) {
             sh.autoSizeColumn(prop);
         }
@@ -293,7 +280,7 @@ class ExcelConverter {
 
     protected CellStyle createDateFormatCellStyle(final Workbook wb) {
         final CreationHelper createHelper = wb.getCreationHelper();
-        short dateFormat = createHelper.createDataFormat().getFormat("yyyy-mm-dd");
+        final short dateFormat = createHelper.createDataFormat().getFormat("yyyy-mm-dd");
         final CellStyle dateCellStyle = wb.createCellStyle();
         dateCellStyle.setDataFormat(dateFormat);
         return dateCellStyle;
