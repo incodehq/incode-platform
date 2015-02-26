@@ -97,31 +97,20 @@ To use "out-of-the-box":
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.settings&lt;/groupId&gt;
         &lt;artifactId&gt;isis-module-settings-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.7.0&lt;/version&gt;
+        &lt;version&gt;1.8.0&lt;/version&gt;
     &lt;/dependency&gt;
 </pre>
 
 * update your `WEB-INF/isis.properties`:
 
 <pre>
-    isis.services = ...,\
-            org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo,\
-            org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo,\
+
+    isis.services-installer=configuration-and-annotation
+    isis.services.ServicesInstallerFromAnnotation.packagePrefix=
+            ...,\
+            org.isisaddons.module.settings,\
             ...
 </pre>
-
-As the screenshots above show, these two services appear in the user interface.  If instead you want to interact
-with the services programmatically, you can _instead_ register:
-
-<pre>
-    isis.services = ...,\
-            org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdoHidden,\
-            org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdoHidden,\
-            ...
-</pre>
-
-Note that none of these services are annotated with `@DomainService` (to enable the above choice); hence the necessity 
-to register the appropriate implementation in `isis.properties`.
 
 
 #### "Out-of-the-box" (-SNAPSHOT) ####
@@ -131,7 +120,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 * when updating the classpath, specify the appropriate -SNAPSHOT version:
 
 <pre>
-    &lt;version&gt;1.8.0-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;1.9.0-SNAPSHOT&lt;/version&gt;
 </pre>
 
 * add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
@@ -224,19 +213,43 @@ public interface UserSettingsServiceRW extends UserSettingsService {
 
 ## Implementation ##
 
-The `ApplicationSettingsServiceJdo` implements `ApplicationSettingsServiceRW` (and therefore also `ApplicationSettingsService`.
+The `ApplicationSettingsServiceJdo` implements `ApplicationSettingsServiceRW` (and therefore also `ApplicationSettingsService`).
 
-The `ApplicationSettingsServiceJdoHidden` is implemented as a subclass of `ApplicationSettingsServiceJdo`; it hides all 
- actions from the user interface.
- 
 Similarly, the `UserSettingsServiceJdo` implements `UserSettingsServiceRW` (and therefore also `UserSettingsService`.
 
-The `UserSettingsServiceJdoHidden` is implemented as a subclass of `UserSettingsServiceJdo`; it hides all 
- actions from the user interface.
+In 1.7.0, it was necessary to explicitly register these services in `isis.properties`, rationale being that the service
+contributes functionality that appears in the user interface.  The module also provided "hidden" equivalents
+(`ApplicationSettingsServiceJdoHidden` and `UserSettingsServiceJdoHidden`) which could be registered which also
+implement the same services, but do not contribute actions to the UI.
+
+In 1.8.0 the above policy is reversed: the `ApplicationSettingsServiceJdo` and `UserSettingsServiceJdo`
+services are both automatically registered, and both will provide functionality that will appear in the user interface.
+If this is not required, then either use security permissions or write a vetoing subscriber on the event bus to hide
+this functionality, eg:
+
+    @DomainService(nature = NatureOfService.DOMAIN)
+    public class HideIsisAddonsSettingsFunctionality {
+
+        @Programmatic @PostConstruct
+        public void postConstruct() { eventBusService.register(this); }
+
+        @Programmatic @PreDestroy
+        public void preDestroy() { eventBusService.unregister(this); }
+
+        @Programmatic @Subscribe
+        public void on(final SettingsModule.ActionDomainEvent<?> event) { event.hide(); }
+
+        @Inject
+        private EventBusService eventBusService;
+    }
+
+
+The two "hidden" equivalent services are deprecated in 1.8.0.
 
 
 ## Change Log ##
 
+* `1.8.0` - released against Isis 1.8.0.  Services are automatically registered; their UI can be suppressed using subscriptions.
 * `1.7.0` - released against Isis 1.7.0
 * `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.settings`
 
@@ -246,7 +259,7 @@ The `UserSettingsServiceJdoHidden` is implemented as a subclass of `UserSettings
  
 #### License ####
 
-    Copyright 2013~2014 Dan Haywood
+    Copyright 2013~2015 Dan Haywood
 
     Licensed under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
