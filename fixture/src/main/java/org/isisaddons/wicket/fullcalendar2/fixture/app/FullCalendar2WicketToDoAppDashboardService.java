@@ -17,14 +17,15 @@
 package org.isisaddons.wicket.fullcalendar2.fixture.app;
 
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.ActionSemantics;
-import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.HomePage;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.SemanticsOf;
 
-@DomainService
-@Hidden
+@DomainService(
+        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY // trick
+)
 public class FullCalendar2WicketToDoAppDashboardService {
 
     //region > identification in the UI
@@ -43,7 +44,9 @@ public class FullCalendar2WicketToDoAppDashboardService {
 
     //region > homePage
 
-    @ActionSemantics(Of.SAFE)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
     @HomePage
     public FullCalendar2WicketToDoAppDashboard lookup() {
         return container.newViewModelInstance(FullCalendar2WicketToDoAppDashboard.class, ID);

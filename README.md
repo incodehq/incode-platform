@@ -7,8 +7,6 @@ entities within a fullpage calendar.  Underneath the covers it uses this [fullca
 
 ## Screenshots ##
 
-> These screenshots are for Apache Isis 1.7.0.  In 1.8.0-SNAPSHOT the UI has been substantially improved.
-
 The following screenshots show an example app's usage of the component.
 
 #### Install fixtures ####
@@ -168,7 +166,7 @@ To use "out-of-the-box", add this component to your project's `dom` module's `po
     <dependency>
         <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
         <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
-        <version>1.7.0</version>
+        <version>1.8.0</version>
     </dependency>
 
 Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-fullcalendar2-cpt).
@@ -181,7 +179,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 * when updating the classpath, specify the appropriate -SNAPSHOT version:
 
 <pre>
-    &lt;version&gt;1.8.0-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;1.9.0-SNAPSHOT&lt;/version&gt;
 </pre>
 
 * add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
@@ -224,6 +222,7 @@ are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be relea
 
 ## Change Log ##
 
+* `1.8.0` - released against Isis 1.8.0
 * `1.7.0` - released against Isis 1.7.0
 * `1.6.1` - (breaking change) changed package names for API to `org.isisaddons.wicket.fullcalendar2.cpt.applib`
 * `1.6.0` - re-released as part of isisaddons, changed package names for API to `org.isisaddons.wicket.fullcalendar2.applib`
@@ -232,7 +231,7 @@ are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be relea
 
 #### License ####
 
-    Copyright 2013~2014 Dan Haywood
+    Copyright 2013~2015 Dan Haywood
 
     Licensed under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance

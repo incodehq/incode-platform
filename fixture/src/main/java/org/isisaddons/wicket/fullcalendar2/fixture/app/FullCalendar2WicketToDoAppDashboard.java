@@ -20,12 +20,19 @@ import java.util.List;
 import org.isisaddons.wicket.fullcalendar2.fixture.dom.FullCalendar2WicketToDoItem;
 import org.isisaddons.wicket.fullcalendar2.fixture.dom.FullCalendar2WicketToDoItems;
 import org.apache.isis.applib.AbstractViewModel;
+import org.apache.isis.applib.annotation.CollectionLayout;
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.MemberGroupLayout;
-import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.Render;
-import org.apache.isis.applib.annotation.Render.Type;
+import org.apache.isis.applib.annotation.Nature;
+import org.apache.isis.applib.annotation.RenderType;
 
-@Named("Dashboard")
+@DomainObject(
+        nature = Nature.VIEW_MODEL
+)
+@DomainObjectLayout(
+        named = "Dashboard"
+)
 @MemberGroupLayout(columnSpans={0,0,0,12})
 public class FullCalendar2WicketToDoAppDashboard extends AbstractViewModel {
 
@@ -55,7 +62,9 @@ public class FullCalendar2WicketToDoAppDashboard extends AbstractViewModel {
 
     //region > notYetComplete (derived collection)
 
-    @Render(Type.EAGERLY)
+    @CollectionLayout(
+            render = RenderType.EAGERLY
+    )
     public List<FullCalendar2WicketToDoItem> getNotYetComplete() {
         return toDoItems.notYetCompleteNoUi();
     }

@@ -16,7 +16,10 @@
  */
 package org.isisaddons.wicket.fullcalendar2.fixture.dom;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 import com.google.common.base.Objects;
@@ -26,8 +29,18 @@ import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEvent;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
 import org.joda.time.LocalDate;
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.*;
-import org.apache.isis.applib.annotation.Render.Type;
+import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.CollectionLayout;
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
+import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.MinLength;
+import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.PropertyLayout;
+import org.apache.isis.applib.annotation.RenderType;
+import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
@@ -69,10 +82,15 @@ import org.apache.isis.applib.util.TitleBuffer;
                     + "WHERE ownedBy == :ownedBy && "
                     + "description.indexOf(:description) >= 0")
 })
-@ObjectType("TODO")
-@AutoComplete(repository=FullCalendar2WicketToDoItems.class, action="autoComplete")
-@Bookmarkable
-@Named("ToDo Item")
+@DomainObject(
+        objectType = "TODO",
+        autoCompleteRepository = FullCalendar2WicketToDoItems.class,
+        autoCompleteAction = "autoComplete"
+)
+@DomainObjectLayout(
+        named = "ToDo Item",
+        bookmarking = BookmarkPolicy.AS_ROOT
+)
 public class FullCalendar2WicketToDoItem implements Comparable<FullCalendar2WicketToDoItem>, CalendarEventable {
 
     //region > identification in the UI
@@ -97,9 +115,13 @@ public class FullCalendar2WicketToDoItem implements Comparable<FullCalendar2Wick
     private String description;
 
     @javax.jdo.annotations.Column(allowsNull="false", length=100)
+    @Property(
+            regexPattern = "\\w[@&:\\-\\,\\.\\+ \\w]*"
+    )
+    @PropertyLayout(
+            typicalLength = 50
+    )
     @MemberOrder(sequence="1")
-    @RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*") 
-    @TypicalLength(50)
     public String getDescription() {
         return description;
     }
@@ -115,7 +137,9 @@ public class FullCalendar2WicketToDoItem implements Comparable<FullCalendar2Wick
     private String ownedBy;
 
     @javax.jdo.annotations.Column(allowsNull="false")
-    @Hidden
+    @Property(
+            hidden = Where.EVERYWHERE
+    )
     public String getOwnedBy() {
         return ownedBy;
     }
@@ -150,7 +174,9 @@ public class FullCalendar2WicketToDoItem implements Comparable<FullCalendar2Wick
 
     private boolean complete;
 
-    @Disabled
+    @Property(
+            editing = Editing.DISABLED
+    )
     @MemberOrder(sequence="4")
     public boolean isComplete() {
         return complete;
@@ -210,8 +236,8 @@ public class FullCalendar2WicketToDoItem implements Comparable<FullCalendar2Wick
     // overrides the natural ordering
     public static class DependenciesComparator implements Comparator<FullCalendar2WicketToDoItem> {
         @Override
-        public int compare(FullCalendar2WicketToDoItem p, FullCalendar2WicketToDoItem q) {
-            Ordering<FullCalendar2WicketToDoItem> byDescription = new Ordering<FullCalendar2WicketToDoItem>() {
+        public int compare(final FullCalendar2WicketToDoItem p, final FullCalendar2WicketToDoItem q) {
+            final Ordering<FullCalendar2WicketToDoItem> byDescription = new Ordering<FullCalendar2WicketToDoItem>() {
                 public int compare(final FullCalendar2WicketToDoItem p, final FullCalendar2WicketToDoItem q) {
                     return Ordering.natural().nullsFirst().compare(p.getDescription(), q.getDescription());
                 }
@@ -227,10 +253,12 @@ public class FullCalendar2WicketToDoItem implements Comparable<FullCalendar2Wick
     @javax.jdo.annotations.Persistent(table="FullCalendar2WicketToDoItemDependencies")
     @javax.jdo.annotations.Join(column="dependingId")
     @javax.jdo.annotations.Element(column="dependentId")
-    private SortedSet<FullCalendar2WicketToDoItem> dependencies = new TreeSet<FullCalendar2WicketToDoItem>();
+    private SortedSet<FullCalendar2WicketToDoItem> dependencies = new TreeSet<>();
 
-    @SortedBy(DependenciesComparator.class)
-    @Render(Type.EAGERLY)
+    @CollectionLayout(
+            sortedBy = DependenciesComparator.class,
+            render = RenderType.EAGERLY
+    )
     public SortedSet<FullCalendar2WicketToDoItem> getDependencies() {
         return dependencies;
     }
@@ -241,9 +269,7 @@ public class FullCalendar2WicketToDoItem implements Comparable<FullCalendar2Wick
 
     
     @MemberOrder(name="dependencies", sequence="1")
-    public FullCalendar2WicketToDoItem add(
-            @TypicalLength(20)
-            final FullCalendar2WicketToDoItem toDoItem) {
+    public FullCalendar2WicketToDoItem add(final FullCalendar2WicketToDoItem toDoItem) {
         getDependencies().add(toDoItem);
         return this;
     }
@@ -272,9 +298,7 @@ public class FullCalendar2WicketToDoItem implements Comparable<FullCalendar2Wick
     }
 
     @MemberOrder(name="dependencies", sequence="2")
-    public FullCalendar2WicketToDoItem remove(
-            @TypicalLength(20)
-            final FullCalendar2WicketToDoItem toDoItem) {
+    public FullCalendar2WicketToDoItem remove(final FullCalendar2WicketToDoItem toDoItem) {
         getDependencies().remove(toDoItem);
         return this;
     }
@@ -293,7 +317,7 @@ public class FullCalendar2WicketToDoItem implements Comparable<FullCalendar2Wick
         return null;
     }
     // provide a drop-down
-    public Collection<FullCalendar2WicketToDoItem> choices0Remove() {
+    public java.util.Collection<FullCalendar2WicketToDoItem> choices0Remove() {
         return getDependencies();
     }
 
@@ -312,15 +336,15 @@ public class FullCalendar2WicketToDoItem implements Comparable<FullCalendar2Wick
             };
         }
 
-		public static Predicate<FullCalendar2WicketToDoItem> thoseCompleted(
-				final boolean completed) {
+        public static Predicate<FullCalendar2WicketToDoItem>thoseCompleted(
+            final boolean completed) {
             return new Predicate<FullCalendar2WicketToDoItem>() {
                 @Override
                 public boolean apply(final FullCalendar2WicketToDoItem t) {
                     return Objects.equal(t.isComplete(), completed);
                 }
             };
-		}
+        }
 
         public static Predicate<FullCalendar2WicketToDoItem> thoseWithSimilarDescription(final String description) {
             return new Predicate<FullCalendar2WicketToDoItem>() {

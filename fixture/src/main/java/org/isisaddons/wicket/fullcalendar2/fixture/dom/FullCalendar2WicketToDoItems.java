@@ -19,13 +19,23 @@ package org.isisaddons.wicket.fullcalendar2.fixture.dom;
 import java.util.Collections;
 import java.util.List;
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.*;
-import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Parameter;
+import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.clock.ClockService;
 
 @DomainService(menuOrder = "10")
-@Named("ToDos")
+@DomainServiceLayout(
+        named = "ToDos"
+)
 public class FullCalendar2WicketToDoItems {
 
     //region > identification in the UI
@@ -42,8 +52,12 @@ public class FullCalendar2WicketToDoItems {
 
     //region > notYetComplete (action)
 
-    @Bookmarkable
-    @ActionSemantics(Of.SAFE)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            bookmarking = BookmarkPolicy.AS_ROOT
+    )
     @MemberOrder(sequence = "1")
     public List<FullCalendar2WicketToDoItem> notYetComplete() {
         final List<FullCalendar2WicketToDoItem> items = notYetCompleteNoUi();
@@ -56,7 +70,7 @@ public class FullCalendar2WicketToDoItems {
     @Programmatic
     public List<FullCalendar2WicketToDoItem> notYetCompleteNoUi() {
         return container.allMatches(
-                new QueryDefault<FullCalendar2WicketToDoItem>(FullCalendar2WicketToDoItem.class,
+                new QueryDefault<>(FullCalendar2WicketToDoItem.class,
                         "todo_notYetComplete", 
                         "ownedBy", currentUserName()));
     }
@@ -64,7 +78,9 @@ public class FullCalendar2WicketToDoItems {
 
     //region > complete (action)
 
-    @ActionSemantics(Of.SAFE)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
     @MemberOrder(sequence = "3")
     public List<FullCalendar2WicketToDoItem> complete() {
         final List<FullCalendar2WicketToDoItem> items = completeNoUi();
@@ -77,7 +93,7 @@ public class FullCalendar2WicketToDoItems {
     @Programmatic
     public List<FullCalendar2WicketToDoItem> completeNoUi() {
         return container.allMatches(
-            new QueryDefault<FullCalendar2WicketToDoItem>(FullCalendar2WicketToDoItem.class,
+            new QueryDefault<>(FullCalendar2WicketToDoItem.class,
                     "todo_complete", 
                     "ownedBy", currentUserName()));
     }
@@ -88,7 +104,9 @@ public class FullCalendar2WicketToDoItems {
 
     @MemberOrder(sequence = "40")
     public FullCalendar2WicketToDoItem newToDo(
-            final @RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*") @Named("Description") String description) {
+            @ParameterLayout(named = "Description")
+            @Parameter(regexPattern = "\\w[@&:\\-\\,\\.\\+ \\w]*")
+            final String description) {
         final String ownedBy = currentUserName();
         return newToDo(description, ownedBy);
     }
@@ -97,7 +115,9 @@ public class FullCalendar2WicketToDoItems {
 
     //region > allToDos (action)
 
-    @ActionSemantics(Of.SAFE)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
     @MemberOrder(sequence = "50")
     public List<FullCalendar2WicketToDoItem> allToDos() {
         final String currentUser = currentUserName();
@@ -118,7 +138,7 @@ public class FullCalendar2WicketToDoItems {
     public List<FullCalendar2WicketToDoItem> autoComplete(final String description) {
         // the JDO implementation ...
         return container.allMatches(
-                new QueryDefault<FullCalendar2WicketToDoItem>(FullCalendar2WicketToDoItem.class,
+                new QueryDefault<>(FullCalendar2WicketToDoItem.class,
                         "todo_autoComplete", 
                         "ownedBy", currentUserName(), 
                         "description", description));
