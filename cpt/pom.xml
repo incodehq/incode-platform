@@ -56,8 +56,7 @@ language governing permissions and limitations under the License.
         <compileSource>1.7</compileSource>
         <compileTarget>1.7</compileTarget>
 
-        <isis.version>1.8.0-SNAPSHOT</isis.version>
-        <isis-viewer-wicket.version>${isis.version}</isis-viewer-wicket.version>
+        <isis.version>1.8.0</isis.version>
         
         <wicked-charts.version>1.5.0</wicked-charts.version>
 
@@ -257,7 +256,7 @@ language governing permissions and limitations under the License.
             <!-- ASL v2.0 -->
             <groupId>org.apache.isis.viewer</groupId>
             <artifactId>isis-viewer-wicket-ui</artifactId>
-            <version>${isis-viewer-wicket.version}</version>
+            <version>${isis.version}</version>
             <!-- to minimize pollution of classpath -->
             <optional>true</optional>
         </dependency>
