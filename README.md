@@ -94,7 +94,7 @@ To use "out-of-the-box":
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.audit&lt;/groupId&gt;
         &lt;artifactId&gt;isis-module-audit-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.8.0&lt;/version&gt;
+        &lt;version&gt;1.8.1&lt;/version&gt;
     &lt;/dependency&gt;
 </pre>
 
@@ -251,7 +251,7 @@ secondary menu bar.
 In 1.7.0, it was necessary to explicitly register `AuditingServiceContributions` in `isis.properties`, the
 rationale being that this service contributes functionality that appears in the user interface.
 
-In 1.8.0 the above policy is reversed: the `AuditingServiceMenu` and `AuditingServiceContributions` services
+In 1.8.x the above policy is reversed: the `AuditingServiceMenu` and `AuditingServiceContributions` services
 are both automatically registered, and both provide functionality that will appear in the user interface.  If this is
 not required, then either use security permissions or write a vetoing subscriber on the event bus to hide this functionality, eg:
 
@@ -303,14 +303,15 @@ and it is this interface that each module has services that contribute to).
 
 ## Known issues ##
 
-In `1.6.0` through `1.8.0` a call to `DomainObjectContainer#flush()` is required in order that any newly
+In `1.6.0` through `1.8.x` a call to `DomainObjectContainer#flush()` is required in order that any newly
 created objects are populated.  Note that Isis automatically performs a flush prior to any repository call, so in many
 cases there may not be any need to call flush explicitly.
 
 
 ## Change Log ##
 
-* `1.8.0` - released against Isis 1.8.0.
+* `1.8.1` - released against Isis 1.8.0 (fixed).
+* `1.8.0` - released against Isis 1.8.0 (nb: this was a bad release, incorrectly referenced -SNAPSHOT version of Isis core).
 * `1.7.0` - released against Isis 1.7.0.
 * `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.audit`
 
@@ -367,8 +368,8 @@ The `release.sh` script automates the release process.  It performs the followin
 
 For example:
 
-    sh release.sh 1.9.0 \
-                  1.10.0-SNAPSHOT \
+    sh release.sh 1.8.1 \
+                  1.9.0-SNAPSHOT \
                   dan@haywood-associates.co.uk \
                   "this is not really my passphrase"
     
@@ -384,7 +385,7 @@ Other ways of specifying the key and passphrase are available, see the `pgp-mave
 If the script completes successfully, then push changes:
 
     git push origin master
-    git push origin 1.9.0
+    git push origin 1.8.1
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
 before trying again.  Note that in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the 
