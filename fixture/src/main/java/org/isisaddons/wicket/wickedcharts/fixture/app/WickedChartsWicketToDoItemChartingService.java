@@ -19,9 +19,16 @@ package org.isisaddons.wicket.wickedcharts.fixture.app;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
-import org.isisaddons.wicket.wickedcharts.cpt.applib.WickedChart;
 import com.google.common.collect.Maps;
-import com.googlecode.wickedcharts.highcharts.options.*;
+import com.googlecode.wickedcharts.highcharts.options.ChartOptions;
+import com.googlecode.wickedcharts.highcharts.options.Cursor;
+import com.googlecode.wickedcharts.highcharts.options.DataLabels;
+import com.googlecode.wickedcharts.highcharts.options.Options;
+import com.googlecode.wickedcharts.highcharts.options.PlotOptions;
+import com.googlecode.wickedcharts.highcharts.options.PlotOptionsChoice;
+import com.googlecode.wickedcharts.highcharts.options.SeriesType;
+import com.googlecode.wickedcharts.highcharts.options.Title;
+import com.googlecode.wickedcharts.highcharts.options.Tooltip;
 import com.googlecode.wickedcharts.highcharts.options.color.HexColor;
 import com.googlecode.wickedcharts.highcharts.options.color.HighchartsColor;
 import com.googlecode.wickedcharts.highcharts.options.color.NullColor;
@@ -30,19 +37,25 @@ import com.googlecode.wickedcharts.highcharts.options.functions.PercentageFormat
 import com.googlecode.wickedcharts.highcharts.options.series.Point;
 import com.googlecode.wickedcharts.highcharts.options.series.PointSeries;
 import com.googlecode.wickedcharts.highcharts.options.series.Series;
+import org.isisaddons.wicket.wickedcharts.cpt.applib.WickedChart;
 import org.isisaddons.wicket.wickedcharts.fixture.dom.WickedChartsWicketToDoItem;
 import org.isisaddons.wicket.wickedcharts.fixture.dom.WickedChartsWicketToDoItem.Category;
 import org.isisaddons.wicket.wickedcharts.fixture.dom.WickedChartsWicketToDoItems;
-import org.apache.isis.applib.annotation.ActionSemantics;
-import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.SemanticsOf;
 
-@Named("Charts")
-@DomainService(menuOrder = "15")
+@DomainService()
+@DomainServiceLayout(
+        named = "Charts",
+        menuOrder = "15"
+)
 public class WickedChartsWicketToDoItemChartingService {
 
-    @ActionSemantics(Of.SAFE)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
     public WickedChart pieChart() {
         
         Map<Category, AtomicInteger> byCategory = Maps.newTreeMap();

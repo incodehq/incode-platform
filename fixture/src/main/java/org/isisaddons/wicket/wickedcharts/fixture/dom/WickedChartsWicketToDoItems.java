@@ -23,13 +23,24 @@ import org.isisaddons.wicket.wickedcharts.fixture.dom.WickedChartsWicketToDoItem
 import org.isisaddons.wicket.wickedcharts.fixture.dom.WickedChartsWicketToDoItem.Subcategory;
 import org.joda.time.LocalDate;
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.*;
-import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.Parameter;
+import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.clock.ClockService;
 
 @DomainService(menuOrder = "10")
-@Named("ToDos")
+@DomainServiceLayout(
+        named = "ToDos"
+)
 public class WickedChartsWicketToDoItems {
 
     public WickedChartsWicketToDoItems() {
@@ -51,8 +62,12 @@ public class WickedChartsWicketToDoItems {
     // NotYetComplete (action)
     // //////////////////////////////////////
 
-    @Bookmarkable
-    @ActionSemantics(Of.SAFE)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            bookmarking = BookmarkPolicy.AS_ROOT
+    )
     @MemberOrder(sequence = "1")
     public List<WickedChartsWicketToDoItem> notYetComplete() {
         final List<WickedChartsWicketToDoItem> items = notYetCompleteNoUi();
@@ -65,7 +80,7 @@ public class WickedChartsWicketToDoItems {
     @Programmatic
     public List<WickedChartsWicketToDoItem> notYetCompleteNoUi() {
         return container.allMatches(
-                new QueryDefault<WickedChartsWicketToDoItem>(WickedChartsWicketToDoItem.class,
+                new QueryDefault<>(WickedChartsWicketToDoItem.class,
                         "todo_notYetComplete", 
                         "ownedBy", currentUserName()));
     }
@@ -74,8 +89,10 @@ public class WickedChartsWicketToDoItems {
     // //////////////////////////////////////
     // Complete (action)
     // //////////////////////////////////////
-    
-    @ActionSemantics(Of.SAFE)
+
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
     @MemberOrder(sequence = "3")
     public List<WickedChartsWicketToDoItem> complete() {
         final List<WickedChartsWicketToDoItem> items = completeNoUi();
@@ -88,7 +105,7 @@ public class WickedChartsWicketToDoItems {
     @Programmatic
     public List<WickedChartsWicketToDoItem> completeNoUi() {
         return container.allMatches(
-            new QueryDefault<WickedChartsWicketToDoItem>(WickedChartsWicketToDoItem.class,
+            new QueryDefault<>(WickedChartsWicketToDoItem.class,
                     "todo_complete", 
                     "ownedBy", currentUserName()));
     }
@@ -100,12 +117,18 @@ public class WickedChartsWicketToDoItems {
 
     @MemberOrder(sequence = "40")
     public WickedChartsWicketToDoItem newToDo(
-            final @RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*") @Named("Description") String description, 
-            final @Named("Category") Category category,
-            final @Named("Subcategory") Subcategory subcategory,
-            final @Optional @Named("Due by") LocalDate dueBy,
-            final @Optional @Named("Cost") BigDecimal cost, 
-            final @Optional @Named("Previous cost") BigDecimal previousCost) {
+            @ParameterLayout(named="Description") @Parameter(regexPattern = "\\w[@&:\\-\\,\\.\\+ \\w]*")
+            final String description,
+            @ParameterLayout(named="Category")
+            final Category category,
+            @ParameterLayout(named="Subcategory")
+            final Subcategory subcategory,
+            @ParameterLayout(named="Due by") @Parameter(optionality = Optionality.OPTIONAL)
+            final LocalDate dueBy,
+            @ParameterLayout(named="Cost") @Parameter(optionality = Optionality.OPTIONAL)
+            final BigDecimal cost,
+            @ParameterLayout(named="Previous cost") @Parameter(optionality = Optionality.OPTIONAL)
+            final BigDecimal previousCost) {
         final String ownedBy = currentUserName();
         return newToDo(description, category, subcategory, ownedBy, dueBy, cost, previousCost);
     }
@@ -136,7 +159,9 @@ public class WickedChartsWicketToDoItems {
     // AllToDos (action)
     // //////////////////////////////////////
 
-    @ActionSemantics(Of.SAFE)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
     @MemberOrder(sequence = "50")
     public List<WickedChartsWicketToDoItem> allToDos() {
         final String currentUser = currentUserName();
@@ -155,7 +180,7 @@ public class WickedChartsWicketToDoItems {
     @Programmatic // not part of metamodel
     public List<WickedChartsWicketToDoItem> autoComplete(final String description) {
         return container.allMatches(
-                new QueryDefault<WickedChartsWicketToDoItem>(WickedChartsWicketToDoItem.class,
+                new QueryDefault<>(WickedChartsWicketToDoItem.class,
                         "todo_autoComplete", 
                         "ownedBy", currentUserName(), 
                         "description", description));
@@ -173,7 +198,8 @@ public class WickedChartsWicketToDoItems {
             final Subcategory subcategory,
             final String userName, 
             final LocalDate dueBy, 
-            final BigDecimal cost, BigDecimal previousCost) {
+            final BigDecimal cost,
+            final BigDecimal previousCost) {
         final WickedChartsWicketToDoItem toDoItem = container.newTransientInstance(WickedChartsWicketToDoItem.class);
         toDoItem.setDescription(description);
         toDoItem.setCategory(category);

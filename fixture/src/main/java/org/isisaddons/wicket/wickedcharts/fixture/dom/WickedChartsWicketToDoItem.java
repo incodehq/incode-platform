@@ -77,10 +77,14 @@ import org.apache.isis.applib.value.Blob;
                     + "WHERE ownedBy == :ownedBy && "
                     + "description.indexOf(:description) >= 0")
 })
-@ObjectType("TODO")
-@AutoComplete(repository=WickedChartsWicketToDoItems.class, action="autoComplete")
-@Bookmarkable
-@Named("ToDo Item")
+@DomainObject(
+        objectType = "TODO",
+        autoCompleteRepository = WickedChartsWicketToDoItems.class,
+        autoCompleteAction = "autoComplete"
+)
+@DomainObjectLayout(
+        named = "ToDo Item"
+)
 public class WickedChartsWicketToDoItem implements Comparable<WickedChartsWicketToDoItem> {
 
     // //////////////////////////////////////
@@ -111,8 +115,12 @@ public class WickedChartsWicketToDoItem implements Comparable<WickedChartsWicket
     private String description;
 
     @javax.jdo.annotations.Column(allowsNull="false", length=100)
-    @RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*") 
-    @TypicalLength(50)
+    @Property(
+            regexPattern = "\\w[@&:\\-\\,\\.\\+ \\w]*"
+    )
+    @PropertyLayout(
+            typicalLength = 50
+    )
     public String getDescription() {
         return description;
     }
@@ -180,7 +188,7 @@ public class WickedChartsWicketToDoItem implements Comparable<WickedChartsWicket
         // other
         Other;
 
-        public static List<Subcategory> listFor(Category category) {
+        public static List<Subcategory> listFor(final Category category) {
             return category != null? category.subcategories(): Collections.<Subcategory>emptyList();
         }
 
@@ -197,7 +205,7 @@ public class WickedChartsWicketToDoItem implements Comparable<WickedChartsWicket
             return new Predicate<Subcategory>() {
 
                 @Override
-                public boolean apply(Subcategory subcategory) {
+                public boolean apply(final Subcategory subcategory) {
                     return category.subcategories().contains(subcategory);
                 }
             };
@@ -254,7 +262,9 @@ public class WickedChartsWicketToDoItem implements Comparable<WickedChartsWicket
 
     private boolean complete;
 
-    @Disabled
+    @Property(
+            editing = Editing.DISABLED
+    )
     public boolean isComplete() {
         return complete;
     }
@@ -290,13 +300,16 @@ public class WickedChartsWicketToDoItem implements Comparable<WickedChartsWicket
 
     @javax.jdo.annotations.Column(allowsNull="true", scale=2)
     @javax.validation.constraints.Digits(integer=10, fraction=2)
-    @Disabled(reason="Update using action")
+    @Property(
+            editing = Editing.DISABLED,
+            editingDisabledReason = "Update using action"
+    )
     public BigDecimal getCost() {
         return cost;
     }
 
     public void setCost(final BigDecimal cost) {
-        this.cost = cost!=null?cost.setScale(2):null;
+        this.cost = cost!=null?cost.setScale(2, BigDecimal.ROUND_HALF_EVEN):null;
     }
     
     // //////////////////////////////////////
@@ -305,25 +318,28 @@ public class WickedChartsWicketToDoItem implements Comparable<WickedChartsWicket
     
     @javax.jdo.annotations.Column(allowsNull="true", scale=2)
     @javax.validation.constraints.Digits(integer=10, fraction=2)
-    @Disabled(reason="Update using action")
+    @Property(
+            editing = Editing.DISABLED,
+            editingDisabledReason = "Update using action"
+    )
     public BigDecimal getPreviousCost() {
         return previousCost;
     }
     
     public void setPreviousCost(final BigDecimal previousCost) {
-        this.previousCost = previousCost!=null?previousCost.setScale(2):null;
+        this.previousCost = previousCost!=null?previousCost.setScale(2, BigDecimal.ROUND_HALF_EVEN):null;
     }
 
     // //////////////////////////////////////
 
     public WickedChartsWicketToDoItem updateCosts(
-            @Named("Cost") 
-            @javax.validation.constraints.Digits(integer=10, fraction=2) 
-            @Optional 
+            @ParameterLayout(named="Cost")
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @javax.validation.constraints.Digits(integer=10, fraction=2)
             final BigDecimal cost,
-            @Named("Previous cost") 
-            @javax.validation.constraints.Digits(integer=10, fraction=2) 
-            @Optional 
+            @ParameterLayout(named="Previous cost")
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @javax.validation.constraints.Digits(integer=10, fraction=2)
             final BigDecimal previousCost
             ) {
         setCost(cost);
@@ -391,7 +407,7 @@ public class WickedChartsWicketToDoItem implements Comparable<WickedChartsWicket
         if(!(this instanceof javax.jdo.spi.PersistenceCapable)) {
             return null;
         } 
-        javax.jdo.spi.PersistenceCapable persistenceCapable = (javax.jdo.spi.PersistenceCapable) this;
+        final javax.jdo.spi.PersistenceCapable persistenceCapable = (javax.jdo.spi.PersistenceCapable) this;
         final Long version = (Long) JDOHelper.getVersion(persistenceCapable);
         return version;
     }
@@ -408,8 +424,8 @@ public class WickedChartsWicketToDoItem implements Comparable<WickedChartsWicket
     // overrides the natural ordering
     public static class DependenciesComparator implements Comparator<WickedChartsWicketToDoItem> {
         @Override
-        public int compare(WickedChartsWicketToDoItem p, WickedChartsWicketToDoItem q) {
-            Ordering<WickedChartsWicketToDoItem> byDescription = new Ordering<WickedChartsWicketToDoItem>() {
+        public int compare(final WickedChartsWicketToDoItem p, final WickedChartsWicketToDoItem q) {
+            final Ordering<WickedChartsWicketToDoItem> byDescription = new Ordering<WickedChartsWicketToDoItem>() {
                 public int compare(final WickedChartsWicketToDoItem p, final WickedChartsWicketToDoItem q) {
                     return Ordering.natural().nullsFirst().compare(p.getDescription(), q.getDescription());
                 }
@@ -425,9 +441,11 @@ public class WickedChartsWicketToDoItem implements Comparable<WickedChartsWicket
     @javax.jdo.annotations.Persistent(table="WickedChartsWicketToDoItemDependencies")
     @javax.jdo.annotations.Join(column="dependingId")
     @javax.jdo.annotations.Element(column="dependentId")
-    private SortedSet<WickedChartsWicketToDoItem> dependencies = new TreeSet<WickedChartsWicketToDoItem>();
+    private SortedSet<WickedChartsWicketToDoItem> dependencies = new TreeSet<>();
 
-    @SortedBy(DependenciesComparator.class)
+    @CollectionLayout(
+            sortedBy = DependenciesComparator.class
+    )
     public SortedSet<WickedChartsWicketToDoItem> getDependencies() {
         return dependencies;
     }
@@ -437,10 +455,7 @@ public class WickedChartsWicketToDoItem implements Comparable<WickedChartsWicket
     }
 
     
-    @PublishedAction
-    public WickedChartsWicketToDoItem add(
-            @TypicalLength(20)
-            final WickedChartsWicketToDoItem toDoItem) {
+    public WickedChartsWicketToDoItem add(final WickedChartsWicketToDoItem toDoItem) {
         getDependencies().add(toDoItem);
         return this;
     }
@@ -468,9 +483,7 @@ public class WickedChartsWicketToDoItem implements Comparable<WickedChartsWicket
         return null;
     }
 
-    public WickedChartsWicketToDoItem remove(
-            @TypicalLength(20)
-            final WickedChartsWicketToDoItem toDoItem) {
+    public WickedChartsWicketToDoItem remove(final WickedChartsWicketToDoItem toDoItem) {
         getDependencies().remove(toDoItem);
         return this;
     }
@@ -498,7 +511,9 @@ public class WickedChartsWicketToDoItem implements Comparable<WickedChartsWicket
     // Delete (action)
     // //////////////////////////////////////
 
-    @Bulk
+    @Action(
+            invokeOn = InvokeOn.OBJECT_AND_COLLECTION
+    )
     public List<WickedChartsWicketToDoItem> delete() {
         container.removeIfNotAlready(this);
         container.informUser("Deleted " + container.titleOf(this));
@@ -541,15 +556,15 @@ public class WickedChartsWicketToDoItem implements Comparable<WickedChartsWicket
             };
         }
 
-		public static Predicate<WickedChartsWicketToDoItem> thoseCompleted(
-				final boolean completed) {
+        public static Predicate<WickedChartsWicketToDoItem> thoseCompleted(
+                final boolean completed) {
             return new Predicate<WickedChartsWicketToDoItem>() {
                 @Override
                 public boolean apply(final WickedChartsWicketToDoItem t) {
                     return Objects.equal(t.isComplete(), completed);
                 }
             };
-		}
+        }
 
         public static Predicate<WickedChartsWicketToDoItem> thoseWithSimilarDescription(final String description) {
             return new Predicate<WickedChartsWicketToDoItem>() {
