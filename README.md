@@ -8,7 +8,26 @@ relational database; the module's `SessionLogEntry` entity is mapped to the "Isi
 
 ## Screenshots ##
 
-TODO
+The sessionlogger module automatically creates log entries whenever a user logs on or logs out.  The currently logged on users of the application (that is: those for whom there is a valid non-expired HTTP session) can be found from the activity menu:
+
+![](https://raw.github.com/isisaddons/isis-module-sessionlogger/master/images/010-active-sessions.png)
+
+In the screenshot below there are two currently active users:
+
+![](https://raw.github.com/isisaddons/isis-module-sessionlogger/master/images/020-active-sessions-listed.png)
+
+The module also allows current and previously active sessions to be searched for:
+
+![](https://raw.github.com/isisaddons/isis-module-sessionlogger/master/images/030-find-sessions.png)
+
+The list of sessions can optionally be filtered by user and date range:
+
+![](https://raw.github.com/isisaddons/isis-module-sessionlogger/master/images/040-find-sessions-prompt.png)
+
+... returning matching sessions:
+
+![](https://raw.github.com/isisaddons/isis-module-sessionlogger/master/images/050-find-sessions-listed.png)
+
 
 ## How to run the Demo App ##
 
@@ -47,8 +66,6 @@ To use "out-of-the-box":
     &lt;/dependency&gt;
 </pre>
 
-nb: at the time of writing 1.8.0 has not yet been released.
-
 Remaining steps to configure:
 
 * update your `WEB-INF/isis.properties`:
@@ -58,10 +75,6 @@ Remaining steps to configure:
     isis.services.ServicesInstallerFromAnnotation.packagePrefix=\
                     ...,\
                     org.isisaddons.module.sessionlogger.dom,\
-                    ...
-
-    isis.services = ...,\
-                    org.isisaddons.module.sessionlogger.dom.SessionLoggingServiceMenu,\
                     ...
 
 </pre>
@@ -78,7 +91,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 * when updating the classpath, specify the appropriate -SNAPSHOT version:
 
 <pre>
-    &lt;version&gt;1.8.0-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;1.9.0-SNAPSHOT&lt;/version&gt;
 </pre>
 
 * add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
@@ -139,8 +152,7 @@ The `SessionLoggingService` defines the following API:
     }
 
 
-Isis will automatically call this method on the service implementation if configured to run the Wicket viewer.  (The
-Restful Objects viewer currently does not support this service).
+Isis will automatically call this method on the service implementation if configured to run the Wicket viewer.
 
 ## Implementation ##
 
@@ -181,10 +193,27 @@ also provides two further domain services:
   actions are visible in the user interface (they are all `@Programmatic`) and so this service is automatically
   registered.
 
-* `SessionLoggingServiceMenu` provides the secondary "Sessions" menu for listing all active sessions and for searching for session entries by user and
-   by date.
+* `SessionLoggingServiceMenu` provides the secondary "Activity" menu for listing all active sessions and for searching for session entries by user and by date.
 
-Because the `SessionLoggingServiceMenu` influences the UI, it must be explicitly registered in `isis.properties`.
+The `SessionLoggingServiceMenu` is automatically registered as a domain service; as such its actions will appear in the
+user interface. If this is not required, then either use security permissions or write a vetoing subscriber on the
+event bus to hide this functionality, eg:
+
+    @DomainService(nature = NatureOfService.DOMAIN)
+    public class HideIsisAddonsSessionLoggerFunctionality {
+
+        @Programmatic @PostConstruct
+        public void postConstruct() { eventBusService.register(this); }
+
+        @Programmatic @PreDestroy
+        public void preDestroy() { eventBusService.unregister(this); }
+
+        @Programmatic @Subscribe
+        public void on(final SessionLoggerModule.ActionDomainEvent<?> event) { event.hide(); }
+
+        @Inject
+        private EventBusService eventBusService;
+    }
 
 
 ## Related Modules/Services ##
@@ -193,14 +222,14 @@ There is some overlap with the`AuditingService3` API, which audits changes to en
 of this service are referenced by the [Isis Add-ons](http://www.isisaddons.org) website.
 
 
-## Known issues ##
+## Known issues or Limitations ##
 
-NONE
+The Restful Objects viewer currently does not support this service.
 
 
 ## Change Log ##
 
-* `1.8.0` - to be released.
+* `1.8.0` - against Isis 1.8.0
 
 
 ## Legal Stuff ##
