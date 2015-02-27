@@ -17,24 +17,21 @@ As well as listing existing tags, new tags can of course also be created, and ex
 
 ## Screenshots ##
 
-The screenshots below show an example app's usage of the tags module:
+The following screenshots show an example app's usage of the module with some sample fixture data:
 
 #### Install example fixtures ####
 
 ![](https://raw.github.com/isisaddons/isis-module-tags/master/images/010-install-fixtures.png)
 
-... returning an example entity "Bip".  The class of this entity is not of interest, what _is_of interest is that it
+... returning an example entity "Bip".  The class of this entity is not of interest, what _is_ of interest is that it
 has two properties, `brand` and `sector`, that correspond to `Tag`s:
 
 ![](https://raw.github.com/isisaddons/isis-module-tags/master/images/020-example-entity-with-two-tag-categories.png)
 
 #### Update tag ####
 
-Using the action, can update tag:
-
-![](https://raw.github.com/isisaddons/isis-module-tags/master/images/030-update-brand-tag.png)
-
-The `Tags` service provides a list of available tag (names) for this entity type and tag name ("brand"):
+Using the action, can update tag.  The `Tags` service provides a list of available tag (names) for this entity type
+and tag name ("brand"):
 
 ![](https://raw.github.com/isisaddons/isis-module-tags/master/images/040-available-tags-for-brand.png)
 
@@ -49,11 +46,7 @@ are no other entities that have this label:
 
 #### New tags ####
 
-New tags can also be created:
-
-![](https://raw.github.com/isisaddons/isis-module-tags/master/images/070-new-brand.png)
-
-Enter the tag name:
+New tags can also be created.  Enter the tag name:
 
 ![](https://raw.github.com/isisaddons/isis-module-tags/master/images/080-new-brand-specified.png)
 
@@ -99,7 +92,7 @@ To use "out-of-the-box":
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.tags&lt;/groupId&gt;
         &lt;artifactId&gt;isis-module-tags-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.7.0&lt;/version&gt;
+        &lt;version&gt;1.8.0&lt;/version&gt;
     &lt;/dependency&gt;
 </pre>
 
@@ -124,7 +117,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 * when updating the classpath, specify the appropriate -SNAPSHOT version:
 
 <pre>
-    &lt;version&gt;1.8.0-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;1.9.0-SNAPSHOT&lt;/version&gt;
 </pre>
 
 * add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
@@ -194,6 +187,7 @@ where:
    
 ## Change Log ##
 
+* `1.8.0` - released against Isis 1.8.0
 * `1.7.0` - released against Isis 1.7.0
 * `1.6.0` - first release, with classes under package `org.isisaddons.module.tags`
 

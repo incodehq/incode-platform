@@ -70,7 +70,9 @@ public class ExampleTaggableEntity {
     private Tag brandTag;
 
     @javax.jdo.annotations.Column(name = "BRANDTAG_ID", allowsNull="true")
-    @Hidden
+    @Property(
+            hidden = Where.EVERYWHERE
+    )
     public Tag getBrandTag() {
         return brandTag;
     }
@@ -103,7 +105,8 @@ public class ExampleTaggableEntity {
 
     @MemberOrder(name="brand", sequence = "2")
     public ExampleTaggableEntity updateBrand(
-            final @Named("Tag") @Optional String brand) {
+            @ParameterLayout(named="Tag") @Parameter(optionality = Optionality.OPTIONAL)
+            final String brand) {
         setBrand(brand);
         return this;
     }
@@ -120,7 +123,8 @@ public class ExampleTaggableEntity {
 
     @MemberOrder(name="brand", sequence = "1")
     public ExampleTaggableEntity newBrand(
-            final @Named("Tag") @Optional String brand) {
+            @ParameterLayout(named="Tag") @Parameter(optionality = Optionality.OPTIONAL)
+            final String brand) {
         setBrand(brand);
         return this;
     }
@@ -135,7 +139,9 @@ public class ExampleTaggableEntity {
     private Tag sectorTag;
 
     @javax.jdo.annotations.Column(name = "SECTORTAG_ID", allowsNull="true")
-    @Hidden
+    @Property(
+            hidden = Where.EVERYWHERE
+    )
     public Tag getSectorTag() {
         return sectorTag;
     }
@@ -167,7 +173,8 @@ public class ExampleTaggableEntity {
 
     @MemberOrder(name="sector", sequence = "2")
     public ExampleTaggableEntity updateSector(
-            final @Named("Tag") @Optional String sector) {
+            @ParameterLayout(named="Tag") @Parameter(optionality = Optionality.OPTIONAL)
+            final String sector) {
         setSector(sector);
         return this;
     }
@@ -184,7 +191,8 @@ public class ExampleTaggableEntity {
 
     @MemberOrder(name="sector", sequence = "1")
     public ExampleTaggableEntity newSector(
-            final @Named("Tag") @Optional String sector) {
+            @ParameterLayout(named="Tag") @Parameter(optionality = Optionality.OPTIONAL)
+            final String sector) {
         setSector(sector);
         return this;
     }

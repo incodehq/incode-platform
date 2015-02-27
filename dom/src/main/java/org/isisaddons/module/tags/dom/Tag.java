@@ -25,8 +25,8 @@ import com.google.common.base.Function;
 import org.isisaddons.module.tags.TagsModule;
 import org.apache.isis.applib.AbstractDomainObject;
 import org.apache.isis.applib.Identifier;
+import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
-import org.apache.isis.applib.annotation.Immutable;
 import org.apache.isis.applib.annotation.MemberGroupLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Property;
@@ -91,7 +91,9 @@ import org.apache.isis.applib.util.ObjectContracts;
     middle = {"Tagged"},
     right = {"Value"}
 )
-@Immutable
+@DomainObject(
+        editing = Editing.DISABLED
+)
 public class Tag extends AbstractDomainObject
         implements Comparable<Tag>, WithNameGetter {
 
@@ -297,11 +299,11 @@ public class Tag extends AbstractDomainObject
             hidden = Where.EVERYWHERE
     )
     public String getId() {
-        Object objectId = JDOHelper.getObjectId(this);
+        final Object objectId = JDOHelper.getObjectId(this);
         if(objectId == null) {
             return "";
         }
-        String objectIdStr = objectId.toString();
+        final String objectIdStr = objectId.toString();
         final String id = objectIdStr.split("\\[OID\\]")[0];
         return id;
     }
