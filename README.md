@@ -310,6 +310,7 @@ cases there may not be any need to call flush explicitly.
 
 ## Change Log ##
 
+* `1.8.2` - released against Isis 1.8.0; closes <a href="https://github.com/isisaddons/isis-module-audit/issues/1">#1</a>
 * `1.8.1` - released against Isis 1.8.0 (fixed).
 * `1.8.0` - released against Isis 1.8.0 (nb: this was a bad release, incorrectly referenced -SNAPSHOT version of Isis core).
 * `1.7.0` - released against Isis 1.7.0.
