@@ -17,12 +17,20 @@
 package org.isisaddons.module.servletapi.fixture.dom;
 
 import java.util.List;
-import org.isisaddons.module.servletapi.fixture.dom.ServletApiDemoObject;
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.*;
-import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.SemanticsOf;
 
-@DomainService(menuOrder = "10", repositoryFor = ServletApiDemoObject.class)
+@DomainService(repositoryFor = ServletApiDemoObject.class)
+@DomainServiceLayout(
+        menuOrder = "10"
+)
 public class ServletApiDemoObjects {
 
     //region > identification in the UI
@@ -41,8 +49,12 @@ public class ServletApiDemoObjects {
     //region > listAll (action)
     // //////////////////////////////////////
 
-    @Bookmarkable
-    @ActionSemantics(Of.SAFE)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            bookmarking = BookmarkPolicy.AS_ROOT
+    )
     @MemberOrder(sequence = "1")
     public List<ServletApiDemoObject> listAll() {
         return container.allInstances(ServletApiDemoObject.class);
@@ -55,7 +67,8 @@ public class ServletApiDemoObjects {
     
     @MemberOrder(sequence = "2")
     public ServletApiDemoObject create(
-            final @Named("Name") String name) {
+            @ParameterLayout(named="Name")
+            final String name) {
         final ServletApiDemoObject obj = container.newTransientInstance(ServletApiDemoObject.class);
         obj.setName(name);
         container.persistIfNotAlready(obj);

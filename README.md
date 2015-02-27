@@ -1,24 +1,31 @@
 # isis-module-servletapi #
 
-*THIS MODULE IS STILL WORK-IN-PROGRESS, HAS NOT YET BEEN RELEASED*
-
 [![Build Status](https://travis-ci.org/isisaddons/isis-module-servletapi.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-servletapi)
 
 This module, intended for use with [Apache Isis](http://isis.apache.org), provides access to various elements of the 
-Servlet API.
+Servlet API, namely the `ServletContext`, the `HttpServletRequest` and the `HttpServletResponse`.
+
+For each of these APIs a corresponding "provider" domain service exists; for example `ServletContextProvider` service
+provides access to the `ServletContext`.
 
 ## Screenshots ##
 
-The following screenshots show an example app's usage of the module.
+The following screenshots show an example app's usage of the module with some sample data:
 
-#### Installing the Fixture Data ####
+![](https://raw.github.com/isisaddons/isis-module-servletapi/master/images/010-install-fixtures.png)
 
-TODO
+The demo object has all of the various "provider" domain serviecs injected into it.  It uses the `ServletContextProvider`
+ and the `HttpServletRequestProvider` services to simply show the servlet context name and user's locale:
 
-#### Accessing the ServletContext ####
+![](https://raw.github.com/isisaddons/isis-module-servletapi/master/images/020-servlet-and-request.png)
 
-TODO
+To demonstrate the use of the `HttpServletResponseProvider`, the demo object provides an "addHeader" action:
 
+![](https://raw.github.com/isisaddons/isis-module-servletapi/master/images/030-response.png)
+
+When invoked, this adds a HTTP header to the response:
+
+![](https://raw.github.com/isisaddons/isis-module-servletapi/master/images/040-response-header.png)
 
 ## How to run the Demo App ##
 
@@ -72,7 +79,7 @@ To use "out-of-the-box":
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.servletapi&lt;/groupId&gt;
         &lt;artifactId&gt;isis-module-servletapi-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.6.0&lt;/version&gt;
+        &lt;version&gt;1.8.0&lt;/version&gt;
     &lt;/dependency&gt;
 </pre>
 
@@ -96,7 +103,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 * when updating the classpath, specify the appropriate -SNAPSHOT version:
 
 <pre>
-    &lt;version&gt;1.8.0-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;1.9.0-SNAPSHOT&lt;/version&gt;
 </pre>
 
 * add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
@@ -137,29 +144,44 @@ structured as follows:
 Only the `dom` project is released to Maven Central Repo.  The versions of the other modules are purposely left at 
 `0.0.1-SNAPSHOT` because they are not intended to be released.
 
-## API ##
-
-### ServletContextProvider Service ###
+## API & Implementation ##
 
 The `ServletContextProvider` defines the following API:
 
 <pre>
-public interface ServletContextProvider {
-    public ServletContext getServletContext();
+public class ServletContextProvider {
+    public ServletContext getServletContext() { ... }
 }
 </pre>
 
+The `HttpServletRequestProvider` defines the following API:
+
+<pre>
+public class HttpServletRequestProvider {
+    public HttpServletRequest getHttpServletRequest() { ... }
+}
+</pre>
+
+And finally the `HttpServletResponseProvider` defines the following API:
+
+<pre>
+public class HttpServletResponseProvider {
+    public HttpServletResponse getHttpServletResponse() { ... }
+}
+</pre>
+
+These actions are all programmatic and do not appear in the UI.
 
 ## Change Log ##
 
-* `x.x.x` - ... not yet released ...
+* `1.8.0` - released against Isis 1.8.0
 
 
 ## Legal Stuff ##
  
 #### License ####
 
-    Copyright 2014 Dan Haywood
+    Copyright 2015 Dan Haywood
 
     Licensed under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance

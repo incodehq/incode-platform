@@ -17,10 +17,11 @@
 package org.isisaddons.module.servletapi.fixture.scripts;
 
 import java.util.List;
+import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.Prototype;
+import org.apache.isis.applib.annotation.RestrictTo;
 import org.apache.isis.applib.fixturescripts.FixtureResult;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
@@ -29,12 +30,16 @@ import org.apache.isis.applib.fixturescripts.SimpleFixtureScript;
 /**
  * Enables fixtures to be installed from the application.
  */
-@Named("Prototyping")
-@DomainService(menuOrder = "20")
+@DomainService()
+@DomainServiceLayout(
+        named = "Prototyping",
+        menuBar = DomainServiceLayout.MenuBar.SECONDARY,
+        menuOrder = "499"
+)
 public class ServletApiDemoObjectsFixturesService extends FixtureScripts {
 
     public ServletApiDemoObjectsFixturesService() {
-        super("org.isisaddons.module.servletapi.fixture.scripts");
+        super(ServletApiDemoObjectsFixturesService.class.getPackage().getName());
     }
 
     @Override
@@ -54,7 +59,9 @@ public class ServletApiDemoObjectsFixturesService extends FixtureScripts {
 
     // //////////////////////////////////////
 
-    @Prototype
+    @Action(
+            restrictTo = RestrictTo.PROTOTYPING
+    )
     @MemberOrder(sequence="20")
     public Object installFixturesAndReturnFirst() {
         final List<FixtureResult> run = findFixtureScriptFor(ServletApiDemoObjectsFixture.class).run(null);

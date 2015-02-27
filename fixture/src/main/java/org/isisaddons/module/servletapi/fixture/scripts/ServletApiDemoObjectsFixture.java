@@ -27,10 +27,10 @@ public class ServletApiDemoObjectsFixture extends DiscoverableFixtureScript {
     }
 
     @Override
-    protected void execute(ExecutionContext executionContext) {
+    protected void execute(final ExecutionContext executionContext) {
 
         // prereqs
-        execute(new ServletApiDemoObjectsTearDownFixture(), executionContext);
+        executionContext.executeChild(this, new ServletApiDemoObjectsTearDownFixture());
 
         // create
         create("Foo", executionContext);
@@ -40,8 +40,8 @@ public class ServletApiDemoObjectsFixture extends DiscoverableFixtureScript {
 
     // //////////////////////////////////////
 
-    private ServletApiDemoObject create(final String name, ExecutionContext executionContext) {
-        return executionContext.add(this, servletApiDemoObjects.create(name));
+    private ServletApiDemoObject create(final String name, final ExecutionContext executionContext) {
+        return executionContext.addResult(this, servletApiDemoObjects.create(name));
     }
 
     // //////////////////////////////////////
