@@ -29,8 +29,8 @@ language governing permissions and limitations under the License.
         <maven>3.0.4</maven>
     </prerequisites>
 
-	<properties>
-        <isis.version>1.8.0</isis.version>
+    <properties>
+        <isis.version>1.9.0-SNAPSHOT</isis.version>
 
         <isis-module-settings.version>1.9.0-SNAPSHOT</isis-module-settings.version>
 
@@ -40,7 +40,7 @@ language governing permissions and limitations under the License.
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-	</properties>
+    </properties>
     
     <repositories>
         <repository>

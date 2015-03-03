@@ -23,8 +23,8 @@ public class SettingsModuleAppTearDownFixture extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"IsisUserSetting\"");
-        isisJdoSupport.executeUpdate("delete from \"IsisApplicationSetting\"");
+        isisJdoSupport.executeUpdate("delete from IsisAddonsSettings.\"UserSetting\"");
+        isisJdoSupport.executeUpdate("delete from IsisAddonsSettings.\"ApplicationSetting\"");
     }
 
 
