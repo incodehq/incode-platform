@@ -61,8 +61,9 @@ import org.apache.isis.objectstore.jdo.applib.service.Util;
 
 
 @javax.jdo.annotations.PersistenceCapable(
-        identityType=IdentityType.APPLICATION, 
-        table="IsisCommand")
+        identityType=IdentityType.APPLICATION,
+        schema = "IsisAddonsCommand",
+        table="Command")
 @javax.jdo.annotations.Queries( {
     @javax.jdo.annotations.Query(
             name="findByTransactionId", language="JDOQL",  
@@ -156,7 +157,7 @@ import org.apache.isis.objectstore.jdo.applib.service.Util;
                     + "ORDER BY timestamp DESC")
 })
 @DomainObject(
-        objectType = "IsisCommand",
+        objectType = "IsisAddonsCommand_Command",
         editing = Editing.DISABLED
 )
 @DomainObjectLayout(
