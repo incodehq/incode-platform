@@ -42,7 +42,8 @@ import org.apache.isis.objectstore.jdo.applib.service.Util;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
-        table="IsisAuditEntry")
+        schema = "IsisAddonsAudit",
+        table="AuditEntry")
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column="id")
@@ -106,7 +107,7 @@ import org.apache.isis.objectstore.jdo.applib.service.Util;
                     + "ORDER BY timestamp DESC")
 })
 @Indices({
-    @Index(name="IsisAuditEntry_ak", unique="true", 
+    @Index(name="AuditEntry_ak", unique="true",
             columns={
                 @javax.jdo.annotations.Column(name="transactionId"),
                 @javax.jdo.annotations.Column(name="target"),
@@ -115,7 +116,7 @@ import org.apache.isis.objectstore.jdo.applib.service.Util;
 })
 @DomainObject(
         editing = Editing.DISABLED,
-        objectType = "IsisAuditEntry"
+        objectType = "IsisAddonsAudit_AuditEntry"
 )
 @MemberGroupLayout(
         columnSpans={6,0,6},
