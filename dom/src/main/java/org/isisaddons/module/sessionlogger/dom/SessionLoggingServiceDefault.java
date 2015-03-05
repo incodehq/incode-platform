@@ -27,7 +27,7 @@ public class SessionLoggingServiceDefault extends AbstractService implements Ses
         final SessionLogEntry sessionLogEntry;
         if (type == Type.LOGIN) {
             sessionLogEntry = newTransientInstance(SessionLogEntry.class);
-            sessionLogEntry.setUsername(username);
+            sessionLogEntry.setUser(username);
             sessionLogEntry.setLoginTimestamp(timestamp);
             sessionLogEntry.setSessionId(sessionId);
         } else {

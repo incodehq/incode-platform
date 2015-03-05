@@ -41,16 +41,16 @@ import org.apache.isis.applib.query.QueryDefault;
 public class SessionLogEntryRepository extends AbstractFactoryAndRepository {
 
     @Programmatic
-    public List<SessionLogEntry> findByUsername(final String username) {
+    public List<SessionLogEntry> findByUser(final String user) {
         return allMatches(
                 new QueryDefault<>(SessionLogEntry.class,
-                        "findByUsername",
-                        "username", username));
+                        "findByUser",
+                        "user", user));
     }
 
     @Programmatic
-    public List<SessionLogEntry> findByUsernameAndFromAndTo(
-            final String username,
+    public List<SessionLogEntry> findByUserAndFromAndTo(
+            final String user,
             final LocalDate from,
             final LocalDate to) {
         final Timestamp fromTs = toTimestampStartOfDayWithOffset(from, 0);
@@ -60,26 +60,26 @@ public class SessionLogEntryRepository extends AbstractFactoryAndRepository {
         if(from != null) {
             if(to != null) {
                 query = new QueryDefault<>(SessionLogEntry.class,
-                        "findByUsernameAndTimestampBetween",
-                        "username", username,
+                        "findByUserAndTimestampBetween",
+                        "user", user,
                         "from", fromTs,
                         "to", toTs);
             } else {
                 query = new QueryDefault<>(SessionLogEntry.class,
-                        "findByUsernameAndTimestampAfter",
-                        "username", username,
+                        "findByUserAndTimestampAfter",
+                        "user", user,
                         "from", fromTs);
             }
         } else {
             if(to != null) {
                 query = new QueryDefault<>(SessionLogEntry.class,
-                        "findByUsernameAndTimestampBefore",
-                        "username", username,
+                        "findByUserAndTimestampBefore",
+                        "user", user,
                         "to", toTs);
             } else {
                 query = new QueryDefault<>(SessionLogEntry.class,
-                        "findByUsername",
-                        "username", username);
+                        "findByUser",
+                        "user", user);
             }
         }
         return allMatches(query);
@@ -118,24 +118,24 @@ public class SessionLogEntryRepository extends AbstractFactoryAndRepository {
     }
 
     @Programmatic
-    public List<SessionLogEntry> findByUsernameAndStrictlyBefore(
-            final String username,
+    public List<SessionLogEntry> findByUserAndStrictlyBefore(
+            final String user,
             final Timestamp from) {
 
         return allMatches(new QueryDefault<>(SessionLogEntry.class,
-                "findByUsernameAndTimestampStrictlyBefore",
-                "username", username,
+                "findByUserAndTimestampStrictlyBefore",
+                "user", user,
                 "from", from));
     }
 
     @Programmatic
-    public List<SessionLogEntry> findByUsernameAndStrictlyAfter(
-            final String username,
+    public List<SessionLogEntry> findByUserAndStrictlyAfter(
+            final String user,
             final Timestamp from) {
 
         return allMatches(new QueryDefault<>(SessionLogEntry.class,
-                "findByUsernameAndTimestampStrictlyAfter",
-                "username", username,
+                "findByUserAndTimestampStrictlyAfter",
+                "user", user,
                 "from", from));
     }
 

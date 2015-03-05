@@ -97,7 +97,7 @@ public class SessionLoggingServiceMenu extends AbstractService {
             @Parameter(
                     optionality = Optionality.OPTIONAL
             )
-            @ParameterLayout(named = "Username")
+            @ParameterLayout(named = "User")
             final String username,
             @Parameter(
                     optionality = Optionality.OPTIONAL
@@ -113,7 +113,7 @@ public class SessionLoggingServiceMenu extends AbstractService {
         if(username == null) {
             return sessionLogEntryRepository.findByFromAndTo(from, to);
         } else {
-            return sessionLogEntryRepository.findByUsernameAndFromAndTo(username, from, to);
+            return sessionLogEntryRepository.findByUserAndFromAndTo(username, from, to);
         }
     }
 
