@@ -48,6 +48,7 @@ import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Where;
+import org.apache.isis.applib.services.HasUsername;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.command.Command;
@@ -151,10 +152,17 @@ import org.apache.isis.objectstore.jdo.applib.service.Util;
                     + "WHERE timestamp <= :to "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
-            name="find", language="JDOQL",  
+            name="find", language="JDOQL",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
-                    + "ORDER BY timestamp DESC")
+                    + "ORDER BY timestamp DESC"),
+    @javax.jdo.annotations.Query(
+            name="findRecentByUser", language="JDOQL",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
+                    + "WHERE user == :user "
+                    + "ORDER BY timestamp DESC "
+                    + "RANGE 0,10")
 })
 @DomainObject(
         objectType = "IsisAddonsCommand_Command",
@@ -167,7 +175,7 @@ import org.apache.isis.objectstore.jdo.applib.service.Util;
         columnSpans={6,0,6,12}, 
         left={"Identifiers","Target","Notes"},
         right={"Detail","Timings","Results"})
-public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
+public class CommandJdo extends DomainChangeJdoAbstract implements Command3, HasUsername {
 
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(CommandJdo.class);
@@ -243,6 +251,11 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3 {
         this.user = user;
     }
 
+
+    @Programmatic
+    public String getUsername() {
+        return getUser();
+    }
 
 
     // //////////////////////////////////////
