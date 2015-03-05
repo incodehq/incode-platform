@@ -26,6 +26,7 @@ import org.apache.isis.applib.annotation.Collection;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.SemanticsOf;
@@ -76,6 +77,7 @@ public class AuditingServiceContributions extends AbstractService {
     @CollectionLayout(
             render = RenderType.EAGERLY
     )
+    @MemberOrder(sequence = "50.100")
     public List<AuditEntry> auditEntries(final HasTransactionId hasTransactionId) {
         return auditEntryRepository.findByTransactionId(hasTransactionId.getTransactionId());
     }

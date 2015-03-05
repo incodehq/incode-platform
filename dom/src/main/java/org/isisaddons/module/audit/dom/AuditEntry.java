@@ -29,10 +29,12 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.MemberGroupLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.HasTransactionId;
+import org.apache.isis.applib.services.HasUsername;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
@@ -122,7 +124,7 @@ import org.apache.isis.objectstore.jdo.applib.service.Util;
         columnSpans={6,0,6},
         left={"Identifiers","Target"},
         right={"Detail"})
-public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactionId {
+public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactionId, HasUsername {
 
     public static abstract class PropertyDomainEvent<T> extends AuditModule.PropertyDomainEvent<AuditEntry, T> {
         public PropertyDomainEvent(final AuditEntry source, final Identifier identifier) {
@@ -168,6 +170,7 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
         }
     }
 
+
     private String user;
 
     @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.USER_NAME)
@@ -185,7 +188,11 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
     public void setUser(final String user) {
         this.user = user;
     }
-    
+
+    @Programmatic
+    public String getUsername() {
+        return getUser();
+    }
 
     // //////////////////////////////////////
     // timestamp (property)
