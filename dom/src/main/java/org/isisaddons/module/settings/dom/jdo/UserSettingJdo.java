@@ -26,8 +26,10 @@ import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.Title;
+import org.apache.isis.applib.services.HasUsername;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 
 @javax.jdo.annotations.PersistenceCapable(
@@ -77,7 +79,7 @@ import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 @DomainObjectLayout(
         named="User Setting"
 )
-public class UserSettingJdo extends SettingAbstractJdo implements UserSetting {
+public class UserSettingJdo extends SettingAbstractJdo implements UserSetting, HasUsername {
 
 
     public static class PropertyDomainEvent<T> extends SettingsModule.PropertyDomainEvent<UserSettingJdo, T> {
@@ -140,6 +142,12 @@ public class UserSettingJdo extends SettingAbstractJdo implements UserSetting {
 
     public void setUser(final String user) {
         this.user = user;
+    }
+
+
+    @Programmatic
+    public String getUsername() {
+        return getUser();
     }
 
     // //////////////////////////////////////
