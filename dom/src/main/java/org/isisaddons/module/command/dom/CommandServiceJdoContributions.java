@@ -23,15 +23,12 @@ import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
-import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.HasTransactionId;
-import org.apache.isis.applib.services.HasUsername;
 import org.apache.isis.applib.services.command.Command;
 
 
@@ -99,33 +96,6 @@ public class CommandServiceJdoContributions extends AbstractFactoryAndRepository
     }
 
     // //////////////////////////////////////
-
-    public static class RecentCommandsByUserDomainEvent extends ActionDomainEvent {
-        public RecentCommandsByUserDomainEvent(final CommandServiceJdoContributions source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public RecentCommandsByUserDomainEvent(final CommandServiceJdoContributions source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-        public RecentCommandsByUserDomainEvent(final CommandServiceJdoContributions source, final Identifier identifier, final List<Object> arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
-    @Action(
-            semantics = SemanticsOf.SAFE,
-            domainEvent = RecentCommandsByUserDomainEvent.class
-    )
-    @ActionLayout(
-            contributed = Contributed.AS_ASSOCIATION
-    )
-    @CollectionLayout(
-            render = RenderType.EAGERLY
-    )
-    @MemberOrder(sequence = "200.100")
-    public List<CommandJdo> recentCommandsByUser(final HasUsername hasUsername) {
-        return commandServiceRepository.findRecentByUser(hasUsername.getUsername());
-    }
 
     // //////////////////////////////////////
 

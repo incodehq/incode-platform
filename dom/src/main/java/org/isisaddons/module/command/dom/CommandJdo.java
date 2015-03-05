@@ -192,6 +192,16 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
         }
     }
 
+    public static abstract class CollectionDomainEvent<T> extends CommandModule.CollectionDomainEvent<CommandJdo, T> {
+        public CollectionDomainEvent(final CommandJdo source, final Identifier identifier, final Of of) {
+            super(source, identifier, of);
+        }
+
+        public CollectionDomainEvent(final CommandJdo source, final Identifier identifier, final Of of, final T value) {
+            super(source, identifier, of, value);
+        }
+    }
+
     public static abstract class ActionDomainEvent extends CommandModule.ActionDomainEvent<CommandJdo> {
         public ActionDomainEvent(final CommandJdo source, final Identifier identifier) {
             super(source, identifier);
