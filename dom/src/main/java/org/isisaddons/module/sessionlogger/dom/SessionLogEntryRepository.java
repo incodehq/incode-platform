@@ -147,9 +147,22 @@ public class SessionLogEntryRepository extends AbstractFactoryAndRepository {
     }
 
 
+    // //////////////////////////////////////
+
+    @Programmatic
+    public List<SessionLogEntry> findRecentByUser(final String user) {
+        return allMatches(
+                new QueryDefault<>(SessionLogEntry.class, "findRecentByUser", "user", user));
+
+    }
+
+
     private static Timestamp toTimestampStartOfDayWithOffset(final LocalDate dt, final int daysOffset) {
         return dt!=null
                 ?new Timestamp(dt.toDateTimeAtStartOfDay().plusDays(daysOffset).getMillis())
                 :null;
     }
+
+
+
 }

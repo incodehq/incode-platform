@@ -117,7 +117,14 @@ import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
                 value="SELECT "
                       + "FROM org.isisaddons.module.sessionlogger.dom.SessionLogEntry "
                       + "WHERE logoutTimestamp == null "
-                      + "ORDER BY loginTimestamp ASC")
+                      + "ORDER BY loginTimestamp ASC"),
+        @javax.jdo.annotations.Query(
+                name="findRecentByUser", language="JDOQL",
+                value="SELECT "
+                        + "FROM org.isisaddons.module.sessionlogger.dom.SessionLogEntry "
+                        + "WHERE user == :user "
+                        + "ORDER BY loginTimestamp DESC "
+                        + "RANGE 0,10")
 })
 @DomainObject(
         objectType = "IsisAddonsSessionLogger_SessionLogEntry",
