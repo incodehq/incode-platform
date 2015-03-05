@@ -56,22 +56,22 @@ public class CommandServiceJdoRepository extends AbstractFactoryAndRepository {
         final Query<CommandJdo> query;
         if(from != null) {
             if(to != null) {
-                query = new QueryDefault<CommandJdo>(CommandJdo.class, 
+                query = new QueryDefault<>(CommandJdo.class,
                         "findByTimestampBetween", 
                         "from", fromTs,
                         "to", toTs);
             } else {
-                query = new QueryDefault<CommandJdo>(CommandJdo.class, 
+                query = new QueryDefault<>(CommandJdo.class,
                         "findByTimestampAfter", 
                         "from", fromTs);
             }
         } else {
             if(to != null) {
-                query = new QueryDefault<CommandJdo>(CommandJdo.class, 
+                query = new QueryDefault<>(CommandJdo.class,
                         "findByTimestampBefore", 
                         "to", toTs);
             } else {
-                query = new QueryDefault<CommandJdo>(CommandJdo.class, 
+                query = new QueryDefault<>(CommandJdo.class,
                         "find");
             }
         }
@@ -84,7 +84,7 @@ public class CommandServiceJdoRepository extends AbstractFactoryAndRepository {
     public CommandJdo findByTransactionId(final UUID transactionId) {
         persistCurrentCommandIfRequired();
         return firstMatch(
-                new QueryDefault<CommandJdo>(CommandJdo.class, 
+                new QueryDefault<>(CommandJdo.class,
                         "findByTransactionId", 
                         "transactionId", transactionId));
     }
@@ -95,7 +95,7 @@ public class CommandServiceJdoRepository extends AbstractFactoryAndRepository {
     public List<CommandJdo> findCurrent() {
         persistCurrentCommandIfRequired();
         return allMatches(
-                new QueryDefault<CommandJdo>(CommandJdo.class, "findCurrent"));
+                new QueryDefault<>(CommandJdo.class, "findCurrent"));
     }
 
     // //////////////////////////////////////
@@ -104,7 +104,7 @@ public class CommandServiceJdoRepository extends AbstractFactoryAndRepository {
     public List<CommandJdo> findCompleted() {
         persistCurrentCommandIfRequired();
         return allMatches(
-                new QueryDefault<CommandJdo>(CommandJdo.class, "findCompleted"));
+                new QueryDefault<>(CommandJdo.class, "findCompleted"));
     }
 
     private void persistCurrentCommandIfRequired() {
@@ -132,25 +132,25 @@ public class CommandServiceJdoRepository extends AbstractFactoryAndRepository {
         final Query<CommandJdo> query;
         if(from != null) {
             if(to != null) {
-                query = new QueryDefault<CommandJdo>(CommandJdo.class, 
+                query = new QueryDefault<>(CommandJdo.class,
                         "findByTargetAndTimestampBetween", 
                         "targetStr", targetStr,
                         "from", fromTs,
                         "to", toTs);
             } else {
-                query = new QueryDefault<CommandJdo>(CommandJdo.class, 
+                query = new QueryDefault<>(CommandJdo.class,
                         "findByTargetAndTimestampAfter", 
                         "targetStr", targetStr,
                         "from", fromTs);
             }
         } else {
             if(to != null) {
-                query = new QueryDefault<CommandJdo>(CommandJdo.class, 
+                query = new QueryDefault<>(CommandJdo.class,
                         "findByTargetAndTimestampBefore", 
                         "targetStr", targetStr,
                         "to", toTs);
             } else {
-                query = new QueryDefault<CommandJdo>(CommandJdo.class, 
+                query = new QueryDefault<>(CommandJdo.class,
                         "findByTarget", 
                         "targetStr", targetStr);
             }
@@ -162,6 +162,15 @@ public class CommandServiceJdoRepository extends AbstractFactoryAndRepository {
         return dt!=null
                 ?new java.sql.Timestamp(dt.toDateTimeAtStartOfDay().plusDays(daysOffset).getMillis())
                 :null;
+    }
+
+    // //////////////////////////////////////
+
+    @Programmatic
+    public List<CommandJdo> findRecentByUser(final String user) {
+        return allMatches(
+                new QueryDefault<>(CommandJdo.class, "findRecentByUser", "user", user));
+
     }
 
     // //////////////////////////////////////

@@ -26,6 +26,7 @@ import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.SemanticsOf;
@@ -65,6 +66,7 @@ public class BackgroundCommandServiceJdoContributions extends AbstractFactoryAnd
     @CollectionLayout(
             render = RenderType.EAGERLY
     )
+    @MemberOrder(sequence = "100.100")
     public List<CommandJdo> childCommands(final CommandJdo parent) {
         return backgroundCommandRepository.findByParent(parent);
     }
@@ -87,6 +89,7 @@ public class BackgroundCommandServiceJdoContributions extends AbstractFactoryAnd
     @CollectionLayout(
             render = RenderType.EAGERLY
     )
+    @MemberOrder(sequence = "100.110")
     public List<CommandJdo> siblingCommands(final CommandJdo siblingCommand) {
         final Command parent = siblingCommand.getParent();
         if(parent == null || !(parent instanceof CommandJdo)) {
@@ -96,6 +99,10 @@ public class BackgroundCommandServiceJdoContributions extends AbstractFactoryAnd
         final List<CommandJdo> siblingCommands = backgroundCommandRepository.findByParent(parentJdo);
         siblingCommands.remove(siblingCommand);
         return siblingCommands;
+    }
+    public boolean hideSiblingCommands(final CommandJdo siblingCommand) {
+        final Command parent = siblingCommand.getParent();
+        return parent == null || !(parent instanceof CommandJdo);
     }
 
     // //////////////////////////////////////

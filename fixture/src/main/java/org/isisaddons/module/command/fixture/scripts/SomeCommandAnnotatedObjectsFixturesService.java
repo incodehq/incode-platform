@@ -34,7 +34,7 @@ import org.apache.isis.applib.fixturescripts.SimpleFixtureScript;
 @DomainServiceLayout(
         menuBar = DomainServiceLayout.MenuBar.SECONDARY,
         named = "Prototyping",
-        menuOrder = "20"
+        menuOrder = "500"
 )
 public class SomeCommandAnnotatedObjectsFixturesService extends FixtureScripts {
 
