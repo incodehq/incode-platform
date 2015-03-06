@@ -18,64 +18,23 @@
  */
 package domainapp.dom.modules.party;
 
-import domainapp.dom.modules.comms.CommunicationChannelOwner;
 import domainapp.dom.modules.comms.CommunicationChannelOwnerLink;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import com.google.common.eventbus.Subscribe;
-import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.services.eventbus.EventBusService;
 
 @DomainService(nature = NatureOfService.DOMAIN)
-public class CommunicationChannelOwnerLinkForParties {
-
-    //region > postConstruct, preDestroy
-
-    @Programmatic
-    @PostConstruct
-    public void postConstruct() {
-        eventBusService.register(this);
-    }
-
-    @Programmatic
-    @PreDestroy
-    public void preDestroy() {
-        eventBusService.unregister(this);
-    }
-    //endregion
-
+public class CommunicationChannelOwnerLinkForParties extends AbstractSubscriber {
 
     @Programmatic
     @Subscribe
-    public void on(final CommunicationChannelOwnerLink.PersistingEvent ev) {
-        ev.addRunnable(new Runnable() {
-            @Override
-            public void run() {
-                final CommunicationChannelOwner to = ev.getTo();
-                if(to instanceof Party) {
-                    final CommunicationChannelOwnerLink link = ev.getLink();
-                    final Party party = (Party) to;
-                    final CommunicationChannelOwnerLinkForParty ccolfp =
-                            container.newTransientInstance(CommunicationChannelOwnerLinkForParty.class);
-                    ccolfp.setLink(link);
-                    ccolfp.setParty(party);
-                }
-
-            }
-        });
+    public void on(final CommunicationChannelOwnerLink.InstantiateEvent ev) {
+        if(ev.getTo() instanceof Party) {
+            ev.setSubtype(CommunicationChannelOwnerLinkForParty.class);
+        }
     }
-
-
-    //region > injected services
-    @javax.inject.Inject
-    private DomainObjectContainer container;
-
-    @javax.inject.Inject
-    private EventBusService eventBusService;
-    //endregion
 
 }

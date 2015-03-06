@@ -17,23 +17,50 @@
  *  under the License.
  */
 
-package domainapp.fixture.modules;
+package domainapp.fixture.modules.party;
+
+import domainapp.dom.modules.party.Parties;
+import domainapp.dom.modules.party.Party;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
-import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-public class PolyAppTearDown extends FixtureScript {
+public class PartyCreate extends FixtureScript {
 
-    @Override
-    protected void execute(ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"CommunicationChannelOwnerLinkForParty\"");
-        isisJdoSupport.executeUpdate("delete from \"CommunicationChannelOwnerLink\"");
-        isisJdoSupport.executeUpdate("delete from \"Party\"");
-        isisJdoSupport.executeUpdate("delete from \"CommunicationChannel\"");
+    //region > name (input)
+    private String name;
+    public String getName() {
+        return name;
     }
 
+    public PartyCreate setName(final String name) {
+        this.name = name;
+        return this;
+    }
+    //endregion
+
+    //region > party (output)
+    private Party party;
+
+    /**
+     * The created communication channel (output).
+     */
+    public Party getParty() {
+        return party;
+    }
+    //endregion
+
+    @Override
+    protected void execute(final ExecutionContext ec) {
+
+        final String name = checkParam("name", ec, String.class);
+
+        this.party = parties.create(name);
+
+        // also make available to UI
+        ec.addResult(this, party);
+    }
 
     @javax.inject.Inject
-    private IsisJdoSupport isisJdoSupport;
+    private Parties parties;
 
 }

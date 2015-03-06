@@ -42,9 +42,14 @@
             "span": 6,
             "memberGroups": {
                 "Owner": {
-                    "ownerLink": {
-                    },
-                    "owner": {
+                    "members": {
+                        "owner": {
+                        },
+                        "ownerLink": {
+                            "propertyLayout": {
+                                "hidden": "NOWHERE"
+                            }
+                        }
                     }
                 }
             }

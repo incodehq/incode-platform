@@ -71,7 +71,7 @@ public class CommunicationChannelsTest {
             });
 
             // when
-            final CommunicationChannel obj = communicationChannels.create("Foobar", mockCommunicationChannelOwner);
+            final CommunicationChannel obj = communicationChannels.add("Foobar", mockCommunicationChannelOwner);
 
             // then
             assertThat(obj, is(communicationChannel));

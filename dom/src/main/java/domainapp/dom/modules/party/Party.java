@@ -50,7 +50,8 @@ import org.apache.isis.applib.util.ObjectContracts;
 })
 @javax.jdo.annotations.Unique(name="Party_name_UNQ", members = {"name"})
 @DomainObject(
-        objectType = "PARTY"
+        objectType = "PARTY",
+        bounded = true
 )
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
@@ -59,7 +60,7 @@ public class Party implements CommunicationChannelOwner, Comparable<Party> {
 
     //region > identification
     public TranslatableString title() {
-        return TranslatableString.tr("Object: {name}", "name", getName());
+        return TranslatableString.tr("{name}", "name", getName());
     }
     //endregion
 
@@ -111,7 +112,6 @@ public class Party implements CommunicationChannelOwner, Comparable<Party> {
     //region > injected services
 
     @javax.inject.Inject
-    @SuppressWarnings("unused")
     private DomainObjectContainer container;
 
     //endregion

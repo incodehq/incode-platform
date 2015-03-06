@@ -24,7 +24,7 @@ import org.apache.isis.core.integtestsupport.IsisSystemForTest;
 import org.apache.isis.objectstore.jdo.datanucleus.DataNucleusPersistenceMechanismInstaller;
 import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegTests;
 
-public class SimpleAppSystemInitializer extends IntegrationTestAbstract {
+public class PolyAppSystemInitializer extends IntegrationTestAbstract {
 
     public static void initIsft() {
         IsisSystemForTest isft = IsisSystemForTest.getElseNull();

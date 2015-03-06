@@ -18,7 +18,7 @@
  */
 package domainapp.fixture;
 
-import domainapp.fixture.scenarios.RecreateDemo;
+import domainapp.fixture.scenarios.RecreateParties;
 
 import java.util.List;
 import org.apache.isis.applib.annotation.Action;
@@ -68,7 +68,7 @@ public class PolyAppFixturesService extends FixtureScripts {
     )
     @MemberOrder(sequence="20")
     public Object recreateObjectsAndReturnFirst() {
-        final List<FixtureResult> run = findFixtureScriptFor(RecreateDemo.class).run(null);
+        final List<FixtureResult> run = findFixtureScriptFor(RecreateParties.class).run(null);
         return run.get(0).getObject();
     }
 

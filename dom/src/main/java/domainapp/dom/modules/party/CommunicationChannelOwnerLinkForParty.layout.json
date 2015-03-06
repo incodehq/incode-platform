@@ -19,15 +19,11 @@
         {
             "span": 6,
             "memberGroups": {
-                "General": {
+                "From": {
                     "members": {
-                        "name": {
-                            "actions": {
-                                "updateName": {
-                                    "actionLayout": {
-                                        "position": "BOTTOM"
-                                    }
-                                }
+                        "from": {
+                            "propertyLayout": {
+                                "named": "Communication Channel"
                             }
                         }
                     }
@@ -41,13 +37,25 @@
         {
             "span": 6,
             "memberGroups": {
-                "Comms": {
+                "To": {
                     "members": {
-                        "communicationChannel": {
-                            "actions": {
-                                "create": {}
+                        "toObjectType": {
+                            "propertyLayout": {
+                                "named": "Object Type",
+                                "labelPosition": "LEFT"
+                            }
+                        },
+                        "toIdentifier": {
+                            "propertyLayout": {
+                                "named": "Identifier",
+                                "labelPosition": "LEFT"
                             }
                         }
+                    }
+                },
+                "Subtype": {
+                    "members": {
+                        "party": {}
                     }
                 }
             }

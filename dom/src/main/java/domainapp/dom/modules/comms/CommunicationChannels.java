@@ -20,14 +20,16 @@ package domainapp.dom.modules.comms;
 
 import java.util.List;
 import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.NonRecoverableException;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.services.eventbus.EventBusService;
 
 @DomainService(repositoryFor = CommunicationChannel.class)
 @DomainServiceLayout(menuOrder = "10")
@@ -46,31 +48,59 @@ public class CommunicationChannels {
     }
     //endregion
 
-
-    //region > create (action)
-    @MemberOrder(sequence = "3")
-    public CommunicationChannel create(
-            final @ParameterLayout(named = "Name") String name,
+    //region > add (programmatic)
+    @Programmatic
+    public CommunicationChannel add(
+            final String details,
             final CommunicationChannelOwner owner) {
         final CommunicationChannel communicationChannel = container.newTransientInstance(CommunicationChannel.class);
-        communicationChannel.setDetails(name);
+        communicationChannel.setDetails(details);
 
-        final CommunicationChannelOwnerLink ownerLink = container.newTransientInstance(CommunicationChannelOwnerLink.class);
-        ownerLink.setFrom(communicationChannel);
+        final CommunicationChannelOwnerLink.InstantiateEvent event = new CommunicationChannelOwnerLink.InstantiateEvent(this, communicationChannel, owner);
+        eventBusService.post(event);
+
+        final Class<? extends CommunicationChannelOwnerLink> subtype = event.getSubtype();
+        if(subtype == null) {
+            throw new NonRecoverableException("Cannot create link to " + container.titleOf(owner) + ", no subtype provided");
+        }
+
+        final CommunicationChannelOwnerLink ownerLink = container.newTransientInstance(subtype);
+        ownerLink.setTo(owner);
+
+        // persist the link
+        container.persist(ownerLink);
+        container.flush();
+
+        // first half of the 1:1 rel, commChannel -> link
         communicationChannel.setOwnerLink(ownerLink);
-        ownerLink.join(owner);
+        container.persist(communicationChannel);
 
-        // should persist both
-        container.persistIfNotAlready(communicationChannel);
+        // second half of the 1:1 rel, link -> commChannel
+        ownerLink.setFrom(communicationChannel);
+
         return communicationChannel;
     }
+    //endregion
 
+    //region > add (programmatic)
+    @Programmatic
+    public void remove(final CommunicationChannel communicationChannel) {
+        final CommunicationChannelOwnerLink ownerLink = communicationChannel.getOwnerLink();
+        ownerLink.setFrom(null);
+        container.flush();
+        container.removeIfNotAlready(communicationChannel);
+        container.removeIfNotAlready(ownerLink);
+    }
     //endregion
 
     //region > injected services
 
     @javax.inject.Inject 
     DomainObjectContainer container;
+
+    @javax.inject.Inject
+    private EventBusService eventBusService;
+
 
     //endregion
 }

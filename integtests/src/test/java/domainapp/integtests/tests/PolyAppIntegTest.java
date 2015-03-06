@@ -18,18 +18,18 @@
  */
 package domainapp.integtests.tests;
 
-import domainapp.integtests.bootstrap.SimpleAppSystemInitializer;
+import domainapp.integtests.bootstrap.PolyAppSystemInitializer;
 
 import org.junit.BeforeClass;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract;
 import org.apache.isis.core.integtestsupport.scenarios.ScenarioExecutionForIntegration;
 
-public abstract class SimpleAppIntegTest extends IntegrationTestAbstract {
+public abstract class PolyAppIntegTest extends IntegrationTestAbstract {
 
     @BeforeClass
     public static void initClass() {
         org.apache.log4j.PropertyConfigurator.configure("logging.properties");
-        SimpleAppSystemInitializer.initIsft();
+        PolyAppSystemInitializer.initIsft();
         
         // instantiating will install onto ThreadLocal
         new ScenarioExecutionForIntegration();

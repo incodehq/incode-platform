@@ -18,12 +18,11 @@
  */
 package domainapp.dom.modules.comms;
 
-import java.util.List;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.VersionStrategy;
-import com.google.common.collect.Lists;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.LabelPosition;
@@ -32,31 +31,92 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
-import org.apache.isis.applib.services.eventbus.EventBusService;
+import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.util.ObjectContracts;
 
 @javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
 @javax.jdo.annotations.DatastoreIdentity(strategy = IdGeneratorStrategy.IDENTITY)
+@javax.jdo.annotations.Inheritance(
+        strategy = InheritanceStrategy.NEW_TABLE)
 @javax.jdo.annotations.Version(
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
 @javax.jdo.annotations.Queries({
         @javax.jdo.annotations.Query(
-                name = "findByCommunicationChannel", language = "JDOQL",
+                name = "findByFrom", language = "JDOQL",
                 value = "SELECT "
                         + "FROM domainapp.dom.modules.comms.CommunicationChannelOwnerLink "
-                        + "WHERE communicationChannel == :communicationChannel")
+                        + "WHERE from == :from"),
+        @javax.jdo.annotations.Query(
+                name = "findByTo", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM domainapp.dom.modules.comms.CommunicationChannelOwnerLink "
+                        + "WHERE toObjectType == :toObjectType "
+                        + "   && toIdentifier == :toIdentifier ")
 })
 @javax.jdo.annotations.Unique(name="CommunicationChannelOwnerLink_source_destination_UNQ", members = {"source,destinationObjectType,destinationIdentifier"})
 @DomainObject(
         objectType = "comms.CommunicationChannelOwnerLink"
 )
-public class CommunicationChannelOwnerLink implements Comparable<CommunicationChannelOwnerLink> {
+public abstract class CommunicationChannelOwnerLink implements Comparable<CommunicationChannelOwnerLink> {
+
+    public static class InstantiateEvent extends java.util.EventObject {
+
+        private final CommunicationChannel from;
+        private final CommunicationChannelOwner to;
+
+        private Class<? extends CommunicationChannelOwnerLink> subtype;
+
+        public InstantiateEvent(final Object source, final CommunicationChannel from, final CommunicationChannelOwner to) {
+            super(source);
+            this.from = from;
+            this.to = to;
+        }
+
+        public CommunicationChannel getFrom() {
+            return from;
+        }
+
+        public CommunicationChannelOwner getTo() {
+            return to;
+        }
+
+        /**
+         * For the factory (that will actually instantiate the link) to call.
+         */
+        public Class<? extends CommunicationChannelOwnerLink> getSubtype() {
+            return subtype;
+        }
+
+        /**
+         * For the subscriber (that wishes to specify the subtype to use) to call.
+         */
+        public void setSubtype(final Class<? extends CommunicationChannelOwnerLink> subtype) {
+            if(this.subtype != null) {
+                throw new IllegalArgumentException(String.format("A subtype ('%s') has already been set", subtype.getName()));
+            }
+            this.subtype = subtype;
+        }
+
+    }
+
+    //region > identificatiom
+    public TranslatableString title() {
+        return TranslatableString.tr(
+                "{from} owns {to}",
+                "from", container.titleOf(getTo()),
+                "to", container.titleOf(getFrom()));
+    }
+    //endregion
+
 
     //region > from (property)
     private CommunicationChannel from;
 
-    @Column(allowsNull = "false", name = "communicationChannel_id")
+    @Column(
+            allowsNull = "true", // only because we have a 1:1 relationship between two tables; one must be optional
+            name = "communicationChannel_id"
+    )
     @MemberOrder(sequence = "10")
     public CommunicationChannel getFrom() {
         return from;
@@ -70,6 +130,7 @@ public class CommunicationChannelOwnerLink implements Comparable<CommunicationCh
     //region > toObjectType (property)
     private String toObjectType;
 
+    @Column(allowsNull = "false", length = 255)
     @PropertyLayout(
             labelPosition = LabelPosition.TOP
     )
@@ -86,6 +147,7 @@ public class CommunicationChannelOwnerLink implements Comparable<CommunicationCh
     //region > toIdentifier (property)
     private String toIdentifier;
 
+    @Column(allowsNull = "false", length = 255)
     @PropertyLayout(
             labelPosition = LabelPosition.NONE
     )
@@ -101,88 +163,21 @@ public class CommunicationChannelOwnerLink implements Comparable<CommunicationCh
 
     //region > to (derived property)
 
-    @javax.jdo.annotations.NotPersistent
-    private transient CommunicationChannelOwner to;
-
     @Programmatic
     public CommunicationChannelOwner getTo() {
-        if (this.to == null) {
-            final Bookmark bookmark = new Bookmark(getToObjectType(), getToIdentifier());
-            this.to = (CommunicationChannelOwner) bookmarkService.lookup(bookmark);
-        }
+        final Bookmark bookmark = new Bookmark(getToObjectType(), getToIdentifier());
+        CommunicationChannelOwner to = (CommunicationChannelOwner) bookmarkService.lookup(bookmark);
         return to;
     }
 
+    /**
+     * Subclasses should optionally override in order to set the type-safe equivalent.
+     */
     @Programmatic
     public void setTo(final CommunicationChannelOwner to) {
-        this.to = to;
         final Bookmark bookmark = bookmarkService.bookmarkFor(to);
         setToObjectType(bookmark.getObjectType());
         setToIdentifier(bookmark.getIdentifier());
-    }
-
-    public static class PersistingEvent extends java.util.EventObject {
-
-        private final List<Runnable> runnables = Lists.newArrayList();
-        private final CommunicationChannelOwnerLink link;
-        private final CommunicationChannel from;
-        private final CommunicationChannelOwner to;
-
-        public PersistingEvent(
-                final CommunicationChannelOwnerLink source,
-                final CommunicationChannel from,
-                final CommunicationChannelOwner to) {
-            super(source);
-            link = source;
-            this.from = from;
-            this.to = to;
-        }
-
-        public CommunicationChannelOwnerLink getLink() {
-            return link;
-        }
-
-        public CommunicationChannel getFrom() {
-            return from;
-        }
-
-        public CommunicationChannelOwner getTo() {
-            return to;
-        }
-
-        void runRunnables(final DomainObjectContainer container) {
-            for (Runnable runnable : runnables) {
-                container.injectServicesInto(runnable);
-                runnable.run();
-            }
-        }
-
-        /**
-         * Provides a mechanism for subscribers to attach additional behaviour to be exercised on the
-         * persist.
-         *
-         * <p>
-         *     The publisher of this event guarantees to all runnables, and will also automatically inject services
-         *     into any provided runnables using the
-         *     {@link org.apache.isis.applib.DomainObjectContainer#injectServicesInto(Object) domain object container}.
-         * </p>
-         * <p>
-         *     Subscribers should make no assumptions as
-         *     to the order in which any runnables are run.
-         * </p>
-         */
-        public void addRunnable(final Runnable runnable) {
-            runnables.add(runnable);
-        }
-    }
-
-
-    @Programmatic
-    public void persisting() {
-        final PersistingEvent event = new PersistingEvent(this, getFrom(), getTo());
-        eventBusService.post(event);
-
-        event.runRunnables(container);
     }
 
     //endregion
@@ -204,8 +199,6 @@ public class CommunicationChannelOwnerLink implements Comparable<CommunicationCh
     @javax.inject.Inject
     private BookmarkService bookmarkService;
 
-    @javax.inject.Inject
-    private EventBusService eventBusService;
     //endregion
 
 }

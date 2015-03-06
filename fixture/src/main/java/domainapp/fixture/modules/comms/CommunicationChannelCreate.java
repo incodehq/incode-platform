@@ -71,13 +71,13 @@ public class CommunicationChannelCreate extends FixtureScript {
         final String details = checkParam("details", ec, String.class);
         final CommunicationChannelOwner owner = checkParam("owner", ec, CommunicationChannelOwner.class);
 
-        this.communicationChannel = simplecommunicationChannels.create(details, owner);
+        this.communicationChannel = communicationChannels.add(details, owner);
 
         // also make available to UI
         ec.addResult(this, communicationChannel);
     }
 
     @javax.inject.Inject
-    private CommunicationChannels simplecommunicationChannels;
+    private CommunicationChannels communicationChannels;
 
 }

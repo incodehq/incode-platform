@@ -16,50 +16,35 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.dom.modules.party;
+package domainapp.dom.modules.comms;
 
-import domainapp.dom.modules.comms.CommunicationChannelOwner;
-import domainapp.dom.modules.comms.CommunicationChannelOwnerLink;
-
-import javax.jdo.annotations.InheritanceStrategy;
-import org.apache.isis.applib.annotation.DomainObject;
-import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.query.QueryDefault;
+import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 
-@javax.jdo.annotations.PersistenceCapable()
-@javax.jdo.annotations.Inheritance(
-        strategy = InheritanceStrategy.NEW_TABLE)
-@DomainObject(
-        objectType = "party.CommunicationChannelOwnerLinkForParty"
-)
-public class CommunicationChannelOwnerLinkForParty extends CommunicationChannelOwnerLink {
+@DomainService(nature = NatureOfService.DOMAIN, repositoryFor = CommunicationChannelOwnerLink.class)
+public class CommunicationChannelOwnerLinks {
 
-
-    @Override
-    public void setTo(final CommunicationChannelOwner to) {
-        super.setTo(to);
-        setParty((Party) to);
-    }
-
-    //region > party (property)
-    private Party party;
-
-    @MemberOrder(sequence = "1")
-    public Party getParty() {
-        return party;
-    }
-
-    public void setParty(final Party party) {
-        this.party = party;
+    //region > findByTo (action)
+    public CommunicationChannelOwnerLink findByTo(final CommunicationChannelOwner to) {
+        final Bookmark bookmark = bookmarkService.bookmarkFor(to);
+        return container.firstMatch(
+                new QueryDefault<>(CommunicationChannelOwnerLink.class,
+                        "findByTo",
+                        "toObjectType", bookmark.getObjectType(),
+                        "toIdentifier", bookmark.getIdentifier()));
     }
     //endregion
 
-
     //region > injected services
+    @javax.inject.Inject
+    private DomainObjectContainer container;
 
     @javax.inject.Inject
     private BookmarkService bookmarkService;
-
     //endregion
 
 }

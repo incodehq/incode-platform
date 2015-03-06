@@ -63,7 +63,7 @@ public class CommunicationChannel implements Comparable<CommunicationChannel> {
 
     //region > identificatiom
     public TranslatableString title() {
-        return TranslatableString.tr("Object: {details}", "details", getDetails());
+        return TranslatableString.tr("{details}", "details", getDetails());
     }
     //endregion
 
@@ -96,12 +96,8 @@ public class CommunicationChannel implements Comparable<CommunicationChannel> {
         return this;
     }
 
-    public String default0UpdateName() {
+    public String default0UpdateDetails() {
         return getDetails();
-    }
-
-    public TranslatableString validateUpdateName(final String name) {
-        return name.contains("!")? TranslatableString.tr("Exclamation mark is not allowed"): null;
     }
 
     //endregion
@@ -121,6 +117,7 @@ public class CommunicationChannel implements Comparable<CommunicationChannel> {
         this.ownerLink = ownerLink;
     }
     //endregion
+
 
     //region > compareTo
 

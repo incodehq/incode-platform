@@ -16,13 +16,13 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.integtests.tests.modules.simple;
+package domainapp.integtests.tests.modules.comms;
 
 import domainapp.dom.modules.comms.CommunicationChannel;
 import domainapp.dom.modules.comms.CommunicationChannels;
-import domainapp.fixture.modules.PolyAppTearDown;
-import domainapp.fixture.scenarios.RecreateDemo;
-import domainapp.integtests.tests.SimpleAppIntegTest;
+import domainapp.dom.modules.party.Party;
+import domainapp.fixture.scenarios.RecreateParties;
+import domainapp.integtests.tests.PolyAppIntegTest;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
@@ -34,13 +34,12 @@ import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class SimpleObjectsIntegTest extends SimpleAppIntegTest {
+public class CommunicationChannelsIntegTest extends PolyAppIntegTest {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
@@ -48,59 +47,25 @@ public class SimpleObjectsIntegTest extends SimpleAppIntegTest {
     @Inject
     FixtureScripts fixtureScripts;
     @Inject
-    CommunicationChannels simpleObjects;
+    CommunicationChannels communicationChannels;
 
-    public static class ListAll extends SimpleObjectsIntegTest {
-
-        @Test
-        public void happyCase() throws Exception {
-
-            // given
-            RecreateDemo fs = new RecreateDemo();
-            fixtureScripts.runFixtureScript(fs, null);
-            nextTransaction();
-
-            // when
-            final List<CommunicationChannel> all = wrap(simpleObjects).listAll();
-
-            // then
-            assertThat(all.size(), is(fs.getCommunicationChannels().size()));
-
-            CommunicationChannel communicationChannel = wrap(all.get(0));
-            assertThat(communicationChannel.getDetails(), is(fs.getCommunicationChannels().get(0).getDetails()));
-        }
-
-        @Test
-        public void whenNone() throws Exception {
-
-            // given
-            FixtureScript fs = new PolyAppTearDown();
-            fixtureScripts.runFixtureScript(fs, null);
-            nextTransaction();
-
-            // when
-            final List<CommunicationChannel> all = wrap(simpleObjects).listAll();
-
-            // then
-            assertThat(all.size(), is(0));
-        }
-    }
-
-    public static class Create extends SimpleObjectsIntegTest {
+    public static class Create extends CommunicationChannelsIntegTest {
 
         @Test
         public void happyCase() throws Exception {
 
             // given
-            FixtureScript fs = new PolyAppTearDown();
+            RecreateParties fs = new RecreateParties();
             fixtureScripts.runFixtureScript(fs, null);
             nextTransaction();
 
+            final Party party = fs.getParties().get(0);
+
             // when
-            wrap(simpleObjects).create("Faz", );
+            wrap(communicationChannels).add("0207 123 4567", party);
 
             // then
-            final List<CommunicationChannel> all = wrap(simpleObjects).listAll();
+            final List<CommunicationChannel> all = wrap(communicationChannels).listAll();
             assertThat(all.size(), is(1));
         }
 
@@ -108,17 +73,20 @@ public class SimpleObjectsIntegTest extends SimpleAppIntegTest {
         public void whenAlreadyExists() throws Exception {
 
             // given
-            FixtureScript fs = new PolyAppTearDown();
+            RecreateParties fs = new RecreateParties();
             fixtureScripts.runFixtureScript(fs, null);
             nextTransaction();
-            wrap(simpleObjects).create("Faz", );
+
+            final Party party = fs.getParties().get(0);
+
+            wrap(communicationChannels).add("0207 123 4567", party);
             nextTransaction();
 
             // then
             expectedException.expectCause(causalChainContains(SQLIntegrityConstraintViolationException.class));
 
             // when
-            wrap(simpleObjects).create("Faz", );
+            wrap(communicationChannels).add("0207 123 4567", party);
             nextTransaction();
         }
 
