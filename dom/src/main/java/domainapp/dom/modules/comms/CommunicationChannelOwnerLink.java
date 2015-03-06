@@ -18,10 +18,13 @@
  */
 package domainapp.dom.modules.comms;
 
+import java.util.List;
+import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
-import org.apache.isis.applib.Identifier;
+import com.google.common.collect.Lists;
+import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.LabelPosition;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -30,7 +33,6 @@ import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.eventbus.EventBusService;
-import org.apache.isis.applib.services.eventbus.PropertyDomainEvent;
 import org.apache.isis.applib.util.ObjectContracts;
 
 @javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
@@ -51,79 +53,136 @@ import org.apache.isis.applib.util.ObjectContracts;
 )
 public class CommunicationChannelOwnerLink implements Comparable<CommunicationChannelOwnerLink> {
 
-    //region > CommunicationChannel (property)
-    private CommunicationChannel source;
+    //region > from (property)
+    private CommunicationChannel from;
 
+    @Column(allowsNull = "false", name = "communicationChannel_id")
     @MemberOrder(sequence = "10")
-    public CommunicationChannel getSource() {
-        return source;
+    public CommunicationChannel getFrom() {
+        return from;
     }
 
-    public void setSource(final CommunicationChannel CommunicationChannel) {
-        this.source = CommunicationChannel;
+    public void setFrom(final CommunicationChannel CommunicationChannel) {
+        this.from = CommunicationChannel;
     }
     //endregion
 
-    //region > destinationObjectType (property)
-    private String destinationObjectType;
+    //region > toObjectType (property)
+    private String toObjectType;
 
     @PropertyLayout(
             labelPosition = LabelPosition.TOP
     )
     @MemberOrder(sequence = "20")
-    public String getDestinationObjectType() {
-        return destinationObjectType;
+    public String getToObjectType() {
+        return toObjectType;
     }
 
-    public void setDestinationObjectType(final String destinationObjectType) {
-        this.destinationObjectType = destinationObjectType;
+    public void setToObjectType(final String toObjectType) {
+        this.toObjectType = toObjectType;
     }
     //endregion
 
-    //region > destinationId (property)
-    private String destinationIdentifier;
+    //region > toIdentifier (property)
+    private String toIdentifier;
 
     @PropertyLayout(
             labelPosition = LabelPosition.NONE
     )
     @MemberOrder(sequence = "22")
-    public String getDestinationIdentifier() {
-        return destinationIdentifier;
+    public String getToIdentifier() {
+        return toIdentifier;
     }
 
-    public void setDestinationIdentifier(final String destinationIdentifier) {
-        this.destinationIdentifier = destinationIdentifier;
+    public void setToIdentifier(final String toIdentifier) {
+        this.toIdentifier = toIdentifier;
     }
     //endregion
 
-    //region > destination (programmatic property)
+    //region > to (derived property)
+
+    @javax.jdo.annotations.NotPersistent
+    private transient CommunicationChannelOwner to;
+
     @Programmatic
-    public CommunicationChannelOwner getDestination() {
-        final Bookmark bookmark = new Bookmark(getDestinationObjectType(), getDestinationIdentifier());
-        return (CommunicationChannelOwner) bookmarkService.lookup(bookmark);
-    }
-
-    public static class DestinationDomainEvent extends PropertyDomainEvent<CommunicationChannelOwnerLink, CommunicationChannelOwner> {
-
-        public DestinationDomainEvent(final CommunicationChannelOwnerLink source, final Identifier identifier) {
-            super(source, identifier);
+    public CommunicationChannelOwner getTo() {
+        if (this.to == null) {
+            final Bookmark bookmark = new Bookmark(getToObjectType(), getToIdentifier());
+            this.to = (CommunicationChannelOwner) bookmarkService.lookup(bookmark);
         }
-
-        public DestinationDomainEvent(final CommunicationChannelOwnerLink source, final Identifier identifier, final CommunicationChannelOwner oldValue, final CommunicationChannelOwner newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
+        return to;
     }
 
     @Programmatic
-    public void setDestination(final CommunicationChannelOwner destination) {
-        final Bookmark bookmark = bookmarkService.bookmarkFor(destination);
-        setDestinationObjectType(bookmark.getObjectType());
-        setDestinationIdentifier(bookmark.getIdentifier());
+    public void setTo(final CommunicationChannelOwner to) {
+        this.to = to;
+        final Bookmark bookmark = bookmarkService.bookmarkFor(to);
+        setToObjectType(bookmark.getObjectType());
+        setToIdentifier(bookmark.getIdentifier());
+    }
 
-        final Identifier identifier = Identifier.propertyOrCollectionIdentifier(CommunicationChannelOwnerLink.class, "destination");
-        final DestinationDomainEvent domainEvent =
-                new DestinationDomainEvent(this, identifier, null, destination);
-        eventBusService.post(domainEvent);
+    public static class PersistingEvent extends java.util.EventObject {
+
+        private final List<Runnable> runnables = Lists.newArrayList();
+        private final CommunicationChannelOwnerLink link;
+        private final CommunicationChannel from;
+        private final CommunicationChannelOwner to;
+
+        public PersistingEvent(
+                final CommunicationChannelOwnerLink source,
+                final CommunicationChannel from,
+                final CommunicationChannelOwner to) {
+            super(source);
+            link = source;
+            this.from = from;
+            this.to = to;
+        }
+
+        public CommunicationChannelOwnerLink getLink() {
+            return link;
+        }
+
+        public CommunicationChannel getFrom() {
+            return from;
+        }
+
+        public CommunicationChannelOwner getTo() {
+            return to;
+        }
+
+        void runRunnables(final DomainObjectContainer container) {
+            for (Runnable runnable : runnables) {
+                container.injectServicesInto(runnable);
+                runnable.run();
+            }
+        }
+
+        /**
+         * Provides a mechanism for subscribers to attach additional behaviour to be exercised on the
+         * persist.
+         *
+         * <p>
+         *     The publisher of this event guarantees to all runnables, and will also automatically inject services
+         *     into any provided runnables using the
+         *     {@link org.apache.isis.applib.DomainObjectContainer#injectServicesInto(Object) domain object container}.
+         * </p>
+         * <p>
+         *     Subscribers should make no assumptions as
+         *     to the order in which any runnables are run.
+         * </p>
+         */
+        public void addRunnable(final Runnable runnable) {
+            runnables.add(runnable);
+        }
+    }
+
+
+    @Programmatic
+    public void persisting() {
+        final PersistingEvent event = new PersistingEvent(this, getFrom(), getTo());
+        eventBusService.post(event);
+
+        event.runRunnables(container);
     }
 
     //endregion
@@ -138,6 +197,9 @@ public class CommunicationChannelOwnerLink implements Comparable<CommunicationCh
     //endregion
 
     //region > injected services
+
+    @javax.inject.Inject
+    private DomainObjectContainer container;
 
     @javax.inject.Inject
     private BookmarkService bookmarkService;

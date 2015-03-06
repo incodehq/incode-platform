@@ -51,18 +51,22 @@ public class CommunicationChannelOwnerLinkForParties {
 
     @Programmatic
     @Subscribe
-    public void on(final CommunicationChannelOwnerLink.DestinationDomainEvent ev) {
-        switch (ev.getEventPhase()) {
-            case EXECUTED:
-                final CommunicationChannelOwner destination = ev.getNewValue();
-                if(destination instanceof Party) {
-                    final CommunicationChannelOwnerLink source = ev.getSource();
-                    final Party party = (Party) destination;
+    public void on(final CommunicationChannelOwnerLink.PersistingEvent ev) {
+        ev.addRunnable(new Runnable() {
+            @Override
+            public void run() {
+                final CommunicationChannelOwner to = ev.getTo();
+                if(to instanceof Party) {
+                    final CommunicationChannelOwnerLink link = ev.getLink();
+                    final Party party = (Party) to;
                     final CommunicationChannelOwnerLinkForParty ccolfp =
                             container.newTransientInstance(CommunicationChannelOwnerLinkForParty.class);
+                    ccolfp.setLink(link);
                     ccolfp.setParty(party);
                 }
-        }
+
+            }
+        });
     }
 
 

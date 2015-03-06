@@ -20,7 +20,6 @@ package domainapp.dom.modules.party;
 
 import domainapp.dom.modules.comms.CommunicationChannelOwnerLink;
 
-import javax.jdo.annotations.InheritanceStrategy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
@@ -32,6 +31,8 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
         objectType = "party.CommunicationChannelOwnerLinkForParty"
 )
 public class CommunicationChannelOwnerLinkForParty extends CommunicationChannelOwnerLink {
+
+
 
     //region > party (property)
     private Party party;

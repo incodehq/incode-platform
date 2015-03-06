@@ -56,9 +56,9 @@ public class CommunicationChannels {
         communicationChannel.setDetails(name);
 
         final CommunicationChannelOwnerLink ownerLink = container.newTransientInstance(CommunicationChannelOwnerLink.class);
-        ownerLink.setSource(communicationChannel);
+        ownerLink.setFrom(communicationChannel);
         communicationChannel.setOwnerLink(ownerLink);
-        ownerLink.setDestination(owner);
+        ownerLink.join(owner);
 
         // should persist both
         container.persistIfNotAlready(communicationChannel);
