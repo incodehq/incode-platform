@@ -26,7 +26,7 @@
     </parent>
 
     <artifactId>polyapp-fixture</artifactId>
-    <name>Simple App Fixtures</name>
+    <name>Poly App Fixtures</name>
 
     <dependencies>
         <dependency>

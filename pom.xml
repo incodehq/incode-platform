@@ -23,7 +23,7 @@
     <artifactId>polyapp</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>Simple App</name>
+    <name>Poly App</name>
 
     <packaging>pom</packaging>
 
