@@ -19,13 +19,9 @@
 package domainapp.dom.modules.comms;
 
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.Action;
-import org.apache.isis.applib.annotation.ActionLayout;
-import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
@@ -64,35 +60,6 @@ public class CommunicationChannelOwnerLinks {
     }
     //endregion
 
-    //region > owner (derived property)
-
-    @Action(
-            semantics = SemanticsOf.SAFE
-    )
-    @ActionLayout(
-            contributed = Contributed.AS_ASSOCIATION
-    )
-    public CommunicationChannelOwner owner(final CommunicationChannel communicationChannel) {
-        final CommunicationChannelOwnerLink ownerLink = findBySubject(communicationChannel);
-        return ownerLink != null? ownerLink.getPolymorphicReference(): null;
-    }
-
-    //endregion
-
-    //region > communicationChannel (derived property)
-    private CommunicationChannel communicationChannel;
-
-    @Action(
-            semantics = SemanticsOf.SAFE
-    )
-    @ActionLayout(
-            contributed = Contributed.AS_ASSOCIATION
-    )
-    public CommunicationChannel communicationChannel(final CommunicationChannelOwner communicationChannelOwner) {
-        final CommunicationChannelOwnerLink link = findByPolymorphicReference(communicationChannelOwner);
-        return link != null? link.getSubject(): null;
-    }
-    //endregion
 
     //region > injected services
     @javax.inject.Inject

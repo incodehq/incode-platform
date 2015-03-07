@@ -25,7 +25,7 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.util.ObjectContracts;
 
-public abstract class SubjectPolymorphicReferenceLink<L extends SubjectPolymorphicReferenceLink<L,S,PR>, S, PR>  implements Comparable<L> {
+public abstract class SubjectPolymorphicReferenceLink<S, PR, L extends SubjectPolymorphicReferenceLink<S,PR,L>>  implements Comparable<L> {
 
     private final String titlePattern;
 
@@ -38,14 +38,15 @@ public abstract class SubjectPolymorphicReferenceLink<L extends SubjectPolymorph
         return TranslatableString.tr(
                 titlePattern,
                 "polymorphicReference", container.titleOf(getPolymorphicReference()),
-                "subject", container.titleOf(getSubject()));
+                "subject", container.titleOf(getSubjectObj()));
     }
     //endregion
 
     //region > subject (property)
-    public abstract S getSubject();
-
-    public abstract void setSubject(final S subject);
+    @Programmatic
+    public abstract S getSubjectObj();
+    @Programmatic
+    public abstract void setSubjectObj(S subjectObj);
     //endregion
 
     //region > polymorphicReferenceObjectType (property)

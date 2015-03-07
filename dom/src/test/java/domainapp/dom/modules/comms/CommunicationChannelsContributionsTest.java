@@ -16,6 +16,8 @@
  */
 package domainapp.dom.modules.comms;
 
+import domainapp.dom.modules.poly.PolymorphicLinkHelper;
+
 import org.jmock.Expectations;
 import org.jmock.Sequence;
 import org.jmock.auto.Mock;
@@ -40,13 +42,18 @@ public class CommunicationChannelsContributionsTest {
     @Mock
     CommunicationChannelOwner mockCommunicationChannelOwner;
 
+    @Mock
+    PolymorphicLinkHelper<CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink, CommunicationChannelsContributions.CommunicationChannelOwnerLinkInstantiateEvent> mockHelper;
+
     CommunicationChannelsContributions communicationChannelsContributions;
-    CommunicationChannelsMenu communicationChannelsMenu;
+
 
     @Before
     public void setUp() throws Exception {
         communicationChannelsContributions = new CommunicationChannelsContributions();
         communicationChannelsContributions.container = mockContainer;
+
+        communicationChannelsContributions.ownerLinkHelper = mockHelper;
     }
 
     public static class Create extends CommunicationChannelsContributionsTest {
@@ -56,6 +63,7 @@ public class CommunicationChannelsContributionsTest {
 
             // given
             final CommunicationChannel communicationChannel = new CommunicationChannel();
+            final CommunicationChannelOwnerLink ownerLink = new CommunicationChannelOwnerLink(){};
 
             final Sequence seq = context.sequence("create");
             context.checking(new Expectations() {
@@ -64,7 +72,13 @@ public class CommunicationChannelsContributionsTest {
                     inSequence(seq);
                     will(returnValue(communicationChannel));
 
-                    oneOf(mockContainer).persistIfNotAlready(communicationChannel);
+                    oneOf(mockContainer).persist(communicationChannel);
+                    inSequence(seq);
+
+                    oneOf(mockContainer).flush();
+                    inSequence(seq);
+
+                    oneOf(mockHelper).createLink(communicationChannel, mockCommunicationChannelOwner);
                     inSequence(seq);
                 }
             });

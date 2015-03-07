@@ -34,7 +34,6 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 )
 public class CommunicationChannelOwnerLinkForParty extends CommunicationChannelOwnerLink {
 
-
     @Override
     public void setPolymorphicReference(final CommunicationChannelOwner polymorphicReference) {
         super.setPolymorphicReference(polymorphicReference);
@@ -56,10 +55,8 @@ public class CommunicationChannelOwnerLinkForParty extends CommunicationChannelO
 
 
     //region > injected services
-
     @javax.inject.Inject
     private BookmarkService bookmarkService;
-
     //endregion
 
 }

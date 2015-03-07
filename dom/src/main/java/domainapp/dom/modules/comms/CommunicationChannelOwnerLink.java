@@ -24,16 +24,12 @@ import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
-import javax.jdo.annotations.VersionStrategy;
 import org.apache.isis.applib.annotation.DomainObject;
 
 @javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
 @javax.jdo.annotations.DatastoreIdentity(strategy = IdGeneratorStrategy.IDENTITY)
 @javax.jdo.annotations.Inheritance(
         strategy = InheritanceStrategy.NEW_TABLE)
-@javax.jdo.annotations.Version(
-        strategy=VersionStrategy.VERSION_NUMBER, 
-        column="version")
 @javax.jdo.annotations.Queries({
         @javax.jdo.annotations.Query(
                 name = "findBySubject", language = "JDOQL",
@@ -51,7 +47,7 @@ import org.apache.isis.applib.annotation.DomainObject;
 @DomainObject(
         objectType = "comms.CommunicationChannelOwnerLink"
 )
-public abstract class CommunicationChannelOwnerLink extends SubjectPolymorphicReferenceLink<CommunicationChannelOwnerLink, CommunicationChannel, CommunicationChannelOwner> {
+public abstract class CommunicationChannelOwnerLink extends SubjectPolymorphicReferenceLink<CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink> {
 
     //region > constructor
     public CommunicationChannelOwnerLink() {
@@ -60,6 +56,16 @@ public abstract class CommunicationChannelOwnerLink extends SubjectPolymorphicRe
     //endregion
 
     //region > subject (property)
+    @Override
+    public CommunicationChannel getSubjectObj() {
+        return getSubject();
+    }
+
+    @Override
+    public void setSubjectObj(final CommunicationChannel subjectObj) {
+        setSubject(subjectObj);
+    }
+
     private CommunicationChannel subject;
     @Column(
             allowsNull = "false",

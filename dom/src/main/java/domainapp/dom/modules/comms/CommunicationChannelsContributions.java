@@ -18,10 +18,12 @@
  */
 package domainapp.dom.modules.comms;
 
+import domainapp.dom.modules.poly.PolymorphicLinkHelper;
 import domainapp.dom.modules.poly.PolymorphicLinkInstantiateEvent;
 
+import javax.annotation.PostConstruct;
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.NonRecoverableException;
+import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.DomainService;
@@ -29,7 +31,7 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.ParameterLayout;
-import org.apache.isis.applib.services.eventbus.EventBusService;
+import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
@@ -37,16 +39,32 @@ import org.apache.isis.applib.services.eventbus.EventBusService;
 @DomainServiceLayout(menuOrder = "10")
 public class CommunicationChannelsContributions {
 
-    //region > createCommunicationChannel (action)
-
+    //region > init
     public static class CommunicationChannelOwnerLinkInstantiateEvent
-            extends PolymorphicLinkInstantiateEvent<CommunicationChannelOwnerLink, CommunicationChannel, CommunicationChannelOwner> {
+            extends PolymorphicLinkInstantiateEvent<CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink> {
 
         public CommunicationChannelOwnerLinkInstantiateEvent(final Object source, final CommunicationChannel subject, final CommunicationChannelOwner owner) {
             super(CommunicationChannelOwnerLink.class, source, subject, owner);
         }
     }
 
+    PolymorphicLinkHelper<CommunicationChannel,CommunicationChannelOwner,CommunicationChannelOwnerLink,CommunicationChannelOwnerLinkInstantiateEvent> ownerLinkHelper;
+
+    @PostConstruct
+    public void init() {
+        ownerLinkHelper = container.injectServicesInto(
+                new PolymorphicLinkHelper<>(
+                        this,
+                        CommunicationChannel.class,
+                        CommunicationChannelOwner.class,
+                        CommunicationChannelOwnerLink.class,
+                        CommunicationChannelOwnerLinkInstantiateEvent.class
+                ));
+
+    }
+    //endregion
+
+    //region > createCommunicationChannel (contributed action)
 
     @ActionLayout(
             contributed = Contributed.AS_ACTION
@@ -59,38 +77,25 @@ public class CommunicationChannelsContributions {
 
         final CommunicationChannel communicationChannel = container.newTransientInstance(CommunicationChannel.class);
         communicationChannel.setDetails(details);
-
-        final CommunicationChannelOwnerLinkInstantiateEvent event =
-                new CommunicationChannelOwnerLinkInstantiateEvent(this, communicationChannel, owner);
-        eventBusService.post(event);
-
-        final Class<? extends CommunicationChannelOwnerLink> subtype = event.getSubtype();
-        if(subtype == null) {
-            throw new NonRecoverableException("Cannot create link to " + container.titleOf(owner) + ", no subtype provided");
-        }
-
-        final CommunicationChannelOwnerLink ownerLink = container.newTransientInstance(subtype);
-        ownerLink.setPolymorphicReference(owner);
-
-        // must persist the channel first
         container.persist(communicationChannel);
         container.flush();
 
-        // second half of the 1:1 rel, link -> commChannel
-        ownerLink.setSubject(communicationChannel);
-        container.persist(ownerLink);
-
+        ownerLinkHelper.createLink(communicationChannel, owner);
         return communicationChannel;
     }
 
     public String disableCreateCommunicationChannel(
             final CommunicationChannelOwner owner,
             final String details) {
-        return communicationChannelOwnerLinks.communicationChannel(owner) != null? "Already owns a communication channel": null;
+        return communicationChannel(owner) != null? "Already owns a communication channel": null;
+    }
+
+    public String validateCreateCommunicationChannel(final CommunicationChannelOwner owner, final String details) {
+        return details.contains("!")? "No exclamation marks allowed in details": null;
     }
     //endregion
 
-    //region > deleteCommunicationChannel (action)
+    //region > deleteCommunicationChannel (contributed action)
     @ActionLayout(
             contributed = Contributed.AS_ACTION
     )
@@ -102,16 +107,41 @@ public class CommunicationChannelsContributions {
                 communicationChannelOwnerLinks.findByPolymorphicReference(owner);
         final CommunicationChannel communicationChannel = ownerLink.getSubject();
 
-        ownerLink.setSubject(null);
-        container.flush();
-        container.removeIfNotAlready(communicationChannel);
         container.removeIfNotAlready(ownerLink);
+        container.removeIfNotAlready(communicationChannel);
 
         return owner;
     }
 
     public String disableDeleteCommunicationChannel(final CommunicationChannelOwner owner) {
-        return communicationChannelOwnerLinks.communicationChannel(owner) == null? "Does not own a communication channel": null;
+        return communicationChannel(owner) == null? "Does not own a communication channel": null;
+    }
+    //endregion
+
+    //region > owner (contributed derived property)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            contributed = Contributed.AS_ASSOCIATION
+    )
+    public CommunicationChannelOwner owner(final CommunicationChannel communicationChannel) {
+        final CommunicationChannelOwnerLink ownerLink = communicationChannelOwnerLinks.findBySubject(communicationChannel);
+        return ownerLink != null? ownerLink.getPolymorphicReference(): null;
+    }
+
+    //endregion
+
+    //region > communicationChannel (contributed derived property)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            contributed = Contributed.AS_ASSOCIATION
+    )
+    public CommunicationChannel communicationChannel(final CommunicationChannelOwner communicationChannelOwner) {
+        final CommunicationChannelOwnerLink link = communicationChannelOwnerLinks.findByPolymorphicReference(communicationChannelOwner);
+        return link != null? link.getSubject(): null;
     }
     //endregion
 
@@ -121,10 +151,7 @@ public class CommunicationChannelsContributions {
     DomainObjectContainer container;
 
     @javax.inject.Inject
-    EventBusService eventBusService;
-
-    @javax.inject.Inject
     CommunicationChannelOwnerLinks communicationChannelOwnerLinks;
-
     //endregion
+
 }

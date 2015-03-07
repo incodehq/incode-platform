@@ -25,17 +25,14 @@ import domainapp.dom.modules.party.Party;
 import domainapp.fixture.scenarios.RecreateParties;
 import domainapp.integtests.tests.PolyAppIntegTest;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import javax.inject.Inject;
-import com.google.common.base.Throwables;
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
+import org.apache.isis.applib.services.wrapper.DisabledException;
+import org.apache.isis.applib.services.wrapper.InvalidException;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -85,32 +82,75 @@ public class CommunicationChannelsIntegTest extends PolyAppIntegTest {
             wrap(communicationChannelsContributions).createCommunicationChannel(party, "0207 123 4567");
             nextTransaction();
 
-            // then
-            expectedException.expectCause(causalChainContains(SQLIntegrityConstraintViolationException.class));
+            // then expect
+            expectedException.expect(DisabledException.class);
+            expectedException.expectMessage("Already owns a communication channel");
 
             // when
             wrap(communicationChannelsContributions).createCommunicationChannel(party, "0207 123 4567");
             nextTransaction();
         }
 
-        private static Matcher<? extends Throwable> causalChainContains(final Class<?> cls) {
-            return new TypeSafeMatcher<Throwable>() {
-                @Override
-                protected boolean matchesSafely(Throwable item) {
-                    final List<Throwable> causalChain = Throwables.getCausalChain(item);
-                    for (Throwable throwable : causalChain) {
-                        if(cls.isAssignableFrom(throwable.getClass())){
-                            return true;
-                        }
-                    }
-                    return false;
-                }
+        @Test
+        public void whenFailsValidation() throws Exception {
 
-                @Override
-                public void describeTo(Description description) {
-                    description.appendText("exception with causal chain containing " + cls.getSimpleName());
-                }
-            };
+            // given
+            final RecreateParties fs = new RecreateParties();
+            fixtureScripts.runFixtureScript(fs, null);
+            nextTransaction();
+
+            final Party party = fs.getParties().get(0);
+
+            // then expect
+            expectedException.expect(InvalidException.class);
+            expectedException.expectMessage("No exclamation marks allowed in details");
+
+            // when
+            wrap(communicationChannelsContributions).createCommunicationChannel(party, "&?!*!$");
+        }
+    }
+
+    public static class Delete extends CommunicationChannelsIntegTest {
+
+        @Test
+        public void whenExists() throws Exception {
+
+            // given
+            RecreateParties fs = new RecreateParties();
+            fixtureScripts.runFixtureScript(fs, null);
+            nextTransaction();
+
+            final Party party = fs.getParties().get(0);
+
+            wrap(communicationChannelsContributions).createCommunicationChannel(party, "0207 123 4567");
+            nextTransaction();
+
+            assertThat(wrap(communicationChannelsMenu).listAll().size(), is(1));
+
+            // when
+            wrap(communicationChannelsContributions).deleteCommunicationChannel(party);
+            nextTransaction();
+
+            // then
+            assertThat(wrap(communicationChannelsMenu).listAll().size(), is(0));
+        }
+
+        @Test
+        public void whenDoesNotExist() throws Exception {
+
+            // given
+            final RecreateParties fs = new RecreateParties();
+            fixtureScripts.runFixtureScript(fs, null);
+            nextTransaction();
+
+            final Party party = fs.getParties().get(0);
+
+            // then expect
+            expectedException.expect(DisabledException.class);
+            expectedException.expectMessage("Does not own a communication channel");
+
+            // when
+            wrap(communicationChannelsContributions).deleteCommunicationChannel(party);
         }
     }
 
