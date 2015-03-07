@@ -16,8 +16,6 @@
  */
 package domainapp.dom.modules.comms;
 
-import java.util.List;
-import com.google.common.collect.Lists;
 import org.jmock.Expectations;
 import org.jmock.Sequence;
 import org.jmock.auto.Mock;
@@ -31,7 +29,7 @@ import org.apache.isis.core.unittestsupport.jmocking.JUnitRuleMockery2.Mode;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class CommunicationChannelsTest {
+public class CommunicationChannelsContributionsTest {
 
     @Rule
     public JUnitRuleMockery2 context = JUnitRuleMockery2.createFor(Mode.INTERFACES_AND_CLASSES);
@@ -42,15 +40,16 @@ public class CommunicationChannelsTest {
     @Mock
     CommunicationChannelOwner mockCommunicationChannelOwner;
 
-    CommunicationChannels communicationChannels;
+    CommunicationChannelsContributions communicationChannelsContributions;
+    CommunicationChannelsMenu communicationChannelsMenu;
 
     @Before
     public void setUp() throws Exception {
-        communicationChannels = new CommunicationChannels();
-        communicationChannels.container = mockContainer;
+        communicationChannelsContributions = new CommunicationChannelsContributions();
+        communicationChannelsContributions.container = mockContainer;
     }
 
-    public static class Create extends CommunicationChannelsTest {
+    public static class Create extends CommunicationChannelsContributionsTest {
 
         @Test
         public void happyCase() throws Exception {
@@ -71,35 +70,13 @@ public class CommunicationChannelsTest {
             });
 
             // when
-            final CommunicationChannel obj = communicationChannels.add("Foobar", mockCommunicationChannelOwner);
+            final CommunicationChannel obj = communicationChannelsContributions.createCommunicationChannel(mockCommunicationChannelOwner, "01-234-5678");
 
             // then
             assertThat(obj, is(communicationChannel));
-            assertThat(obj.getDetails(), is("Foobar"));
+            assertThat(obj.getDetails(), is("01-234-5678"));
         }
 
     }
 
-    public static class ListAll extends CommunicationChannelsTest {
-
-        @Test
-        public void happyCase() throws Exception {
-
-            // given
-            final List<CommunicationChannel> all = Lists.newArrayList();
-
-            context.checking(new Expectations() {
-                {
-                    oneOf(mockContainer).allInstances(CommunicationChannel.class);
-                    will(returnValue(all));
-                }
-            });
-
-            // when
-            final List<CommunicationChannel> list = communicationChannels.listAll();
-
-            // then
-            assertThat(list, is(all));
-        }
-    }
 }

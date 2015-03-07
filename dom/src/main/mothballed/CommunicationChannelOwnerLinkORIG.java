@@ -18,14 +18,23 @@
  */
 package domainapp.dom.modules.comms;
 
-import domainapp.dom.modules.poly.SubjectPolymorphicReferenceLink;
+import domainapp.dom.modules.poly.PolymorphicLinkInstantiateEvent;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.VersionStrategy;
+import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.LabelPosition;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.PropertyLayout;
+import org.apache.isis.applib.services.bookmark.Bookmark;
+import org.apache.isis.applib.services.bookmark.BookmarkService;
+import org.apache.isis.applib.services.i18n.TranslatableString;
+import org.apache.isis.applib.util.ObjectContracts;
 
 @javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
 @javax.jdo.annotations.DatastoreIdentity(strategy = IdGeneratorStrategy.IDENTITY)
@@ -51,26 +60,38 @@ import org.apache.isis.applib.annotation.DomainObject;
 @DomainObject(
         objectType = "comms.CommunicationChannelOwnerLink"
 )
-public abstract class CommunicationChannelOwnerLink extends SubjectPolymorphicReferenceLink<CommunicationChannelOwnerLink, CommunicationChannel, CommunicationChannelOwner> {
+public abstract class CommunicationChannelOwnerLinkORIG implements Comparable<CommunicationChannelOwnerLinkORIG> {
 
-    //region > constructor
-    public CommunicationChannelOwnerLink() {
-        super("{polymorphicReference} owns {subject}");
+    public static class InstantiateEvent extends PolymorphicLinkInstantiateEvent<CommunicationChannelOwnerLinkORIG, CommunicationChannel, CommunicationChannelOwner> {
+
+        public InstantiateEvent(final Object source, final CommunicationChannel subject, final CommunicationChannelOwner owner) {
+            super(CommunicationChannelOwnerLinkORIG.class, source, subject, owner);
+        }
+    }
+
+    //region > identificatiom
+    public TranslatableString title() {
+        return TranslatableString.tr(
+                "{polymorphicReference} owns {subject}",
+                "polymorphicReference", container.titleOf(getPolymorphicReference()),
+                "subject", container.titleOf(getSubject()));
     }
     //endregion
 
     //region > subject (property)
     private CommunicationChannel subject;
+
     @Column(
             allowsNull = "false",
             name = "communicationChannel_id"
     )
+    @MemberOrder(sequence = "10")
     public CommunicationChannel getSubject() {
         return subject;
     }
 
-    public void setSubject(final CommunicationChannel subject) {
-        this.subject = subject;
+    public void setSubject(final CommunicationChannel CommunicationChannel) {
+        this.subject = CommunicationChannel;
     }
     //endregion
 
@@ -78,6 +99,10 @@ public abstract class CommunicationChannelOwnerLink extends SubjectPolymorphicRe
     private String polymorphicReferenceObjectType;
 
     @Column(allowsNull = "false", length = 255)
+    @PropertyLayout(
+            labelPosition = LabelPosition.TOP
+    )
+    @MemberOrder(sequence = "20")
     public String getPolymorphicReferenceObjectType() {
         return polymorphicReferenceObjectType;
     }
@@ -85,13 +110,16 @@ public abstract class CommunicationChannelOwnerLink extends SubjectPolymorphicRe
     public void setPolymorphicReferenceObjectType(final String polymorphicReferenceObjectType) {
         this.polymorphicReferenceObjectType = polymorphicReferenceObjectType;
     }
-
     //endregion
 
     //region > polymorphicReferenceIdentifier (property)
     private String polymorphicReferenceIdentifier;
 
     @Column(allowsNull = "false", length = 255)
+    @PropertyLayout(
+            labelPosition = LabelPosition.NONE
+    )
+    @MemberOrder(sequence = "22")
     public String getPolymorphicReferenceIdentifier() {
         return polymorphicReferenceIdentifier;
     }
@@ -99,6 +127,45 @@ public abstract class CommunicationChannelOwnerLink extends SubjectPolymorphicRe
     public void setPolymorphicReferenceIdentifier(final String polymorphicReferenceIdentifier) {
         this.polymorphicReferenceIdentifier = polymorphicReferenceIdentifier;
     }
+    //endregion
+
+    //region > polymorphicReference (derived property)
+
+    @Programmatic
+    public CommunicationChannelOwner getPolymorphicReference() {
+        final Bookmark bookmark = new Bookmark(getPolymorphicReferenceObjectType(), getPolymorphicReferenceIdentifier());
+        return (CommunicationChannelOwner) bookmarkService.lookup(bookmark);
+    }
+
+    /**
+     * Subclasses should optionally override in order to set the type-safe equivalent.
+     */
+    @Programmatic
+    public void setPolymorphicReference(final CommunicationChannelOwner polymorphicReference) {
+        final Bookmark bookmark = bookmarkService.bookmarkFor(polymorphicReference);
+        setPolymorphicReferenceObjectType(bookmark.getObjectType());
+        setPolymorphicReferenceIdentifier(bookmark.getIdentifier());
+    }
+
+    //endregion
+
+    //region > compareTo
+
+    @Override
+    public int compareTo(final CommunicationChannelOwnerLinkORIG other) {
+        return ObjectContracts.compare(this, other, "subject,polymorphicReferenceObjectType,polymorphicReferenceIdentifier");
+    }
+
+    //endregion
+
+    //region > injected services
+
+    @javax.inject.Inject
+    private DomainObjectContainer container;
+
+    @javax.inject.Inject
+    private BookmarkService bookmarkService;
+
     //endregion
 
 }

@@ -18,7 +18,6 @@
  */
 package domainapp.dom.modules.comms;
 
-import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 import org.apache.isis.applib.DomainObjectContainer;
@@ -60,7 +59,6 @@ import org.apache.isis.applib.util.ObjectContracts;
 )
 public class CommunicationChannel implements Comparable<CommunicationChannel> {
 
-
     //region > identificatiom
     public TranslatableString title() {
         return TranslatableString.tr("{details}", "details", getDetails());
@@ -101,23 +99,6 @@ public class CommunicationChannel implements Comparable<CommunicationChannel> {
     }
 
     //endregion
-
-    //region > ownerLink (property)
-    private CommunicationChannelOwnerLink ownerLink;
-
-    @Property(
-            //hidden = Where.EVERYWHERE // uncomment once working
-    )
-    @Column(allowsNull = "false")
-    public CommunicationChannelOwnerLink getOwnerLink() {
-        return ownerLink;
-    }
-
-    public void setOwnerLink(final CommunicationChannelOwnerLink ownerLink) {
-        this.ownerLink = ownerLink;
-    }
-    //endregion
-
 
     //region > compareTo
 

@@ -99,7 +99,6 @@ public class Party implements CommunicationChannelOwner, Comparable<Party> {
 
     //endregion
 
-
     //region > compareTo
 
     @Override

@@ -19,7 +19,7 @@
 package domainapp.dom.app.homepage;
 
 import domainapp.dom.modules.comms.CommunicationChannel;
-import domainapp.dom.modules.comms.CommunicationChannels;
+import domainapp.dom.modules.comms.CommunicationChannelsMenu;
 
 import java.util.List;
 import org.apache.isis.applib.annotation.ViewModel;
@@ -36,14 +36,14 @@ public class HomePageViewModel {
     //region > object (collection)
     @org.apache.isis.applib.annotation.HomePage
     public List<CommunicationChannel> getObjects() {
-        return communicationChannels.listAll();
+        return communicationChannelsMenu.listAll();
     }
     //endregion
 
     //region > injected services
 
     @javax.inject.Inject
-    CommunicationChannels communicationChannels;
+    CommunicationChannelsMenu communicationChannelsMenu;
 
     //endregion
 }

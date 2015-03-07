@@ -45,7 +45,16 @@
                     "members": {
                         "communicationChannel": {
                             "actions": {
-                                "create": {}
+                                "createCommunicationChannel": {
+                                    "actionLayout": {
+                                        "named": "Create"
+                                    }
+                                },
+                                "deleteCommunicationChannel": {
+                                    "actionLayout": {
+                                        "named": "Delete"
+                                    }
+                                }
                             }
                         }
                     }

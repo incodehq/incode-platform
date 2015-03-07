@@ -36,9 +36,9 @@ public class CommunicationChannelOwnerLinkForParty extends CommunicationChannelO
 
 
     @Override
-    public void setTo(final CommunicationChannelOwner to) {
-        super.setTo(to);
-        setParty((Party) to);
+    public void setPolymorphicReference(final CommunicationChannelOwner polymorphicReference) {
+        super.setPolymorphicReference(polymorphicReference);
+        setParty((Party) polymorphicReference);
     }
 
     //region > party (property)

@@ -18,7 +18,8 @@
  */
 package domainapp.dom.modules.party;
 
-import domainapp.dom.modules.comms.CommunicationChannelOwnerLink;
+
+import domainapp.dom.modules.comms.CommunicationChannelsContributions;
 
 import com.google.common.eventbus.Subscribe;
 import org.apache.isis.applib.AbstractSubscriber;
@@ -31,8 +32,8 @@ public class CommunicationChannelOwnerLinkForParties extends AbstractSubscriber 
 
     @Programmatic
     @Subscribe
-    public void on(final CommunicationChannelOwnerLink.InstantiateEvent ev) {
-        if(ev.getTo() instanceof Party) {
+    public void on(final CommunicationChannelsContributions.CommunicationChannelOwnerLinkInstantiateEvent ev) {
+        if(ev.getPolymorphicReference() instanceof Party) {
             ev.setSubtype(CommunicationChannelOwnerLinkForParty.class);
         }
     }

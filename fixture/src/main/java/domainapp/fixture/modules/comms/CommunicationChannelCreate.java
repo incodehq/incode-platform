@@ -21,7 +21,7 @@ package domainapp.fixture.modules.comms;
 
 import domainapp.dom.modules.comms.CommunicationChannel;
 import domainapp.dom.modules.comms.CommunicationChannelOwner;
-import domainapp.dom.modules.comms.CommunicationChannels;
+import domainapp.dom.modules.comms.CommunicationChannelsContributions;
 
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
@@ -71,13 +71,13 @@ public class CommunicationChannelCreate extends FixtureScript {
         final String details = checkParam("details", ec, String.class);
         final CommunicationChannelOwner owner = checkParam("owner", ec, CommunicationChannelOwner.class);
 
-        this.communicationChannel = communicationChannels.add(details, owner);
+        this.communicationChannel = communicationChannelsContributions.createCommunicationChannel(owner, details);
 
         // also make available to UI
         ec.addResult(this, communicationChannel);
     }
 
     @javax.inject.Inject
-    private CommunicationChannels communicationChannels;
+    private CommunicationChannelsContributions communicationChannelsContributions;
 
 }

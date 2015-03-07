@@ -19,7 +19,8 @@
 package domainapp.integtests.tests.modules.comms;
 
 import domainapp.dom.modules.comms.CommunicationChannel;
-import domainapp.dom.modules.comms.CommunicationChannels;
+import domainapp.dom.modules.comms.CommunicationChannelsContributions;
+import domainapp.dom.modules.comms.CommunicationChannelsMenu;
 import domainapp.dom.modules.party.Party;
 import domainapp.fixture.scenarios.RecreateParties;
 import domainapp.integtests.tests.PolyAppIntegTest;
@@ -47,7 +48,9 @@ public class CommunicationChannelsIntegTest extends PolyAppIntegTest {
     @Inject
     FixtureScripts fixtureScripts;
     @Inject
-    CommunicationChannels communicationChannels;
+    CommunicationChannelsContributions communicationChannelsContributions;
+    @Inject
+    CommunicationChannelsMenu communicationChannelsMenu;
 
     public static class Create extends CommunicationChannelsIntegTest {
 
@@ -62,10 +65,10 @@ public class CommunicationChannelsIntegTest extends PolyAppIntegTest {
             final Party party = fs.getParties().get(0);
 
             // when
-            wrap(communicationChannels).add("0207 123 4567", party);
+            wrap(communicationChannelsContributions).createCommunicationChannel(party, "0207 123 4567");
 
             // then
-            final List<CommunicationChannel> all = wrap(communicationChannels).listAll();
+            final List<CommunicationChannel> all = wrap(communicationChannelsMenu).listAll();
             assertThat(all.size(), is(1));
         }
 
@@ -73,20 +76,20 @@ public class CommunicationChannelsIntegTest extends PolyAppIntegTest {
         public void whenAlreadyExists() throws Exception {
 
             // given
-            RecreateParties fs = new RecreateParties();
+            final RecreateParties fs = new RecreateParties();
             fixtureScripts.runFixtureScript(fs, null);
             nextTransaction();
 
             final Party party = fs.getParties().get(0);
 
-            wrap(communicationChannels).add("0207 123 4567", party);
+            wrap(communicationChannelsContributions).createCommunicationChannel(party, "0207 123 4567");
             nextTransaction();
 
             // then
             expectedException.expectCause(causalChainContains(SQLIntegrityConstraintViolationException.class));
 
             // when
-            wrap(communicationChannels).add("0207 123 4567", party);
+            wrap(communicationChannelsContributions).createCommunicationChannel(party, "0207 123 4567");
             nextTransaction();
         }
 

@@ -19,32 +19,91 @@
 package domainapp.dom.modules.comms;
 
 import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 
-@DomainService(nature = NatureOfService.DOMAIN, repositoryFor = CommunicationChannelOwnerLink.class)
+@DomainService(
+        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY,
+        repositoryFor = CommunicationChannelOwnerLink.class
+)
 public class CommunicationChannelOwnerLinks {
 
-    //region > findByTo (action)
-    public CommunicationChannelOwnerLink findByTo(final CommunicationChannelOwner to) {
-        final Bookmark bookmark = bookmarkService.bookmarkFor(to);
+    //region > findBySubject (programmatic)
+    @Programmatic
+    public CommunicationChannelOwnerLink findBySubject(final CommunicationChannel communicationChannel) {
         return container.firstMatch(
                 new QueryDefault<>(CommunicationChannelOwnerLink.class,
-                        "findByTo",
-                        "toObjectType", bookmark.getObjectType(),
-                        "toIdentifier", bookmark.getIdentifier()));
+                        "findBySubject",
+                        "subject", communicationChannel));
+    }
+    //endregion
+
+    //region > findByPolymorphicReference (programmatic)
+    @Programmatic
+    public CommunicationChannelOwnerLink findByPolymorphicReference(final CommunicationChannelOwner polymorphicReference) {
+        if(polymorphicReference == null) {
+            return null;
+        }
+        final Bookmark bookmark = bookmarkService.bookmarkFor(polymorphicReference);
+        if(bookmark == null) {
+            return null;
+        }
+        return container.firstMatch(
+                new QueryDefault<>(CommunicationChannelOwnerLink.class,
+                        "findByPolymorphicReference",
+                        "polymorphicReferenceObjectType", bookmark.getObjectType(),
+                        "polymorphicReferenceIdentifier", bookmark.getIdentifier()));
+    }
+    //endregion
+
+    //region > owner (derived property)
+
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            contributed = Contributed.AS_ASSOCIATION
+    )
+    public CommunicationChannelOwner owner(final CommunicationChannel communicationChannel) {
+        final CommunicationChannelOwnerLink ownerLink = findBySubject(communicationChannel);
+        return ownerLink != null? ownerLink.getPolymorphicReference(): null;
+    }
+
+    //endregion
+
+    //region > communicationChannel (derived property)
+    private CommunicationChannel communicationChannel;
+
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            contributed = Contributed.AS_ASSOCIATION
+    )
+    public CommunicationChannel communicationChannel(final CommunicationChannelOwner communicationChannelOwner) {
+        final CommunicationChannelOwnerLink link = findByPolymorphicReference(communicationChannelOwner);
+        return link != null? link.getSubject(): null;
     }
     //endregion
 
     //region > injected services
     @javax.inject.Inject
+    private CommunicationChannelsContributions communicationChannels;
+
+    @javax.inject.Inject
     private DomainObjectContainer container;
 
     @javax.inject.Inject
     private BookmarkService bookmarkService;
+
     //endregion
 
 }
