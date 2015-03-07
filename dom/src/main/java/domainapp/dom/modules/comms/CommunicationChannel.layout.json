@@ -44,10 +44,12 @@
                 "Owner": {
                     "members": {
                         "owner": {
-                        },
-                        "ownerLink": {
-                            "propertyLayout": {
-                                "hidden": "NOWHERE"
+                            "actions": {
+                                "ownerLink": {
+                                    "actionLayout": {
+                                        "hidden": "NOWHERE"
+                                    }
+                                }
                             }
                         }
                     }

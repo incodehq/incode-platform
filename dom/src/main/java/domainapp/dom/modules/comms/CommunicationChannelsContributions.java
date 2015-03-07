@@ -126,8 +126,21 @@ public class CommunicationChannelsContributions {
             contributed = Contributed.AS_ASSOCIATION
     )
     public CommunicationChannelOwner owner(final CommunicationChannel communicationChannel) {
-        final CommunicationChannelOwnerLink ownerLink = communicationChannelOwnerLinks.findBySubject(communicationChannel);
+        final CommunicationChannelOwnerLink ownerLink = ownerLink(communicationChannel);
         return ownerLink != null? ownerLink.getPolymorphicReference(): null;
+    }
+
+    //endregion
+
+    //region > owner (contributed derived property)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            contributed = Contributed.AS_ACTION
+    )
+    public CommunicationChannelOwnerLink ownerLink(final CommunicationChannel communicationChannel) {
+        return communicationChannelOwnerLinks.findBySubject(communicationChannel);
     }
 
     //endregion

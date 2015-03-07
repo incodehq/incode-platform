@@ -21,7 +21,7 @@
             "memberGroups": {
                 "From": {
                     "members": {
-                        "from": {
+                        "subject": {
                             "propertyLayout": {
                                 "named": "Communication Channel"
                             }
@@ -39,13 +39,13 @@
             "memberGroups": {
                 "To": {
                     "members": {
-                        "toObjectType": {
+                        "polymorphicReferenceObjectType": {
                             "propertyLayout": {
                                 "named": "Object Type",
                                 "labelPosition": "LEFT"
                             }
                         },
-                        "toIdentifier": {
+                        "polymorphicReferenceIdentifier": {
                             "propertyLayout": {
                                 "named": "Identifier",
                                 "labelPosition": "LEFT"
@@ -53,7 +53,7 @@
                         }
                     }
                 },
-                "Subtype": {
+                "To (subtype)": {
                     "members": {
                         "party": {}
                     }
