@@ -31,7 +31,17 @@
         {
             "span": 12,
             "collections": {
-                "objects": {
+                "parties": {
+                    "collectionLayout": {
+                        "render": "EAGERLY"
+                    }
+                },
+                "fixedAssets": {
+                    "collectionLayout": {
+                        "render": "EAGERLY"
+                    }
+                },
+                "communicationChannels": {
                     "collectionLayout": {
                         "render": "EAGERLY"
                     }

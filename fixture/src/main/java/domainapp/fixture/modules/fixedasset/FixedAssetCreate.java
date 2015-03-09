@@ -17,14 +17,14 @@
  *  under the License.
  */
 
-package domainapp.fixture.modules.party;
+package domainapp.fixture.modules.fixedasset;
 
-import domainapp.dom.modules.party.Parties;
-import domainapp.dom.modules.party.Party;
+import domainapp.dom.modules.fixedasset.FixedAsset;
+import domainapp.dom.modules.fixedasset.FixedAssets;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-public class PartyCreate extends FixtureScript {
+public class FixedAssetCreate extends FixtureScript {
 
     //region > name (input)
     private String name;
@@ -32,20 +32,20 @@ public class PartyCreate extends FixtureScript {
         return name;
     }
 
-    public PartyCreate setName(final String name) {
+    public FixedAssetCreate setName(final String name) {
         this.name = name;
         return this;
     }
     //endregion
 
     //region > party (output)
-    private Party party;
+    private FixedAsset fixedAsset;
 
     /**
-     * The created party (output).
+     * The created fixed asset (output).
      */
-    public Party getParty() {
-        return party;
+    public FixedAsset getFixedAsset() {
+        return fixedAsset;
     }
     //endregion
 
@@ -54,13 +54,13 @@ public class PartyCreate extends FixtureScript {
 
         final String name = checkParam("name", ec, String.class);
 
-        this.party = parties.create(name);
+        this.fixedAsset = fixedAssets.create(name);
 
         // also make available to UI
-        ec.addResult(this, party);
+        ec.addResult(this, fixedAsset);
     }
 
     @javax.inject.Inject
-    private Parties parties;
+    private FixedAssets fixedAssets;
 
 }

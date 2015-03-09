@@ -27,7 +27,9 @@ public class PolyAppTearDown extends FixtureScript {
     @Override
     protected void execute(ExecutionContext executionContext) {
         isisJdoSupport.executeUpdate("delete from \"CommunicationChannelOwnerLinkForParty\"");
+        isisJdoSupport.executeUpdate("delete from \"CommunicationChannelOwnerLinkForFixedAsset\"");
         isisJdoSupport.executeUpdate("delete from \"CommunicationChannelOwnerLink\"");
+        isisJdoSupport.executeUpdate("delete from \"FixedAsset\"");
         isisJdoSupport.executeUpdate("delete from \"Party\"");
         isisJdoSupport.executeUpdate("delete from \"CommunicationChannel\"");
     }

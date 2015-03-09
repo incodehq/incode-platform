@@ -19,9 +19,9 @@
 
 package domainapp.fixture.scenarios;
 
-import domainapp.dom.modules.party.Party;
+import domainapp.dom.modules.fixedasset.FixedAsset;
 import domainapp.fixture.modules.PolyAppTearDown;
-import domainapp.fixture.modules.party.PartyCreate;
+import domainapp.fixture.modules.fixedasset.FixedAssetCreate;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -29,17 +29,14 @@ import java.util.List;
 import com.google.common.collect.Lists;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-public class RecreateParties extends FixtureScript {
+public class RecreateFixedAssets extends FixtureScript {
 
-    public final List<String> PARTY_NAMES = Collections.unmodifiableList(Arrays.asList(
-            "Mary", "Mungo", "Midge"));
     public final List<String> FIXED_ASSET_NAMES = Collections.unmodifiableList(Arrays.asList(
             "Westgate Centre, Oxford", "Bond Street, London", "Arndale Centre, Manchester"));
 
-    public RecreateParties() {
+    public RecreateFixedAssets() {
         withDiscoverability(Discoverability.DISCOVERABLE);
     }
-
 
     //region > teardown (input)
 
@@ -52,20 +49,20 @@ public class RecreateParties extends FixtureScript {
         return teardown;
     }
 
-    public RecreateParties setTeardown(final Boolean teardown) {
+    public RecreateFixedAssets setTeardown(final Boolean teardown) {
         this.teardown = teardown;
         return this;
     }
     //endregion
 
-    //region > parties (output)
-    private final List<Party> parties = Lists.newArrayList();
+    //region > fixedAssets (output)
+    private final List<FixedAsset> fixedAssets = Lists.newArrayList();
 
     /**
-     * The {@link domainapp.dom.modules.party.Party}s created by this fixture (output).
+     * The {@link domainapp.dom.modules.fixedasset.FixedAsset}s created by this fixture (output).
      */
-    public List<Party> getParties() {
-        return parties;
+    public List<FixedAsset> getFixedAssets() {
+        return fixedAssets;
     }
     //endregion
 
@@ -82,11 +79,12 @@ public class RecreateParties extends FixtureScript {
             ec.executeChild(this, new PolyAppTearDown());
         }
 
-        for (int i = 0; i < PARTY_NAMES.size(); i++) {
-            final PartyCreate fs = new PartyCreate().setName(PARTY_NAMES.get(i));
+        for (int i = 0; i < FIXED_ASSET_NAMES.size(); i++) {
+            final FixedAssetCreate fs = new FixedAssetCreate().setName(FIXED_ASSET_NAMES.get(i));
             ec.executeChild(this, fs.getName(), fs);
-            parties.add(fs.getParty());
+            fixedAssets.add(fs.getFixedAsset());
         }
 
     }
+
 }

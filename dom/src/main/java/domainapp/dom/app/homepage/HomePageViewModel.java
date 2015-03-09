@@ -20,6 +20,10 @@ package domainapp.dom.app.homepage;
 
 import domainapp.dom.modules.comms.CommunicationChannel;
 import domainapp.dom.modules.comms.CommunicationChannelsMenu;
+import domainapp.dom.modules.fixedasset.FixedAsset;
+import domainapp.dom.modules.fixedasset.FixedAssets;
+import domainapp.dom.modules.party.Parties;
+import domainapp.dom.modules.party.Party;
 
 import java.util.List;
 import org.apache.isis.applib.annotation.ViewModel;
@@ -29,21 +33,28 @@ public class HomePageViewModel {
 
     //region > title
     public String title() {
-        return getObjects().size() + " objects";
+        return getParties().size() + " parties, " + getFixedAssets().size() + " fixed assets, " + getCommunicationChannels().size() + " comm channels";
     }
     //endregion
 
-    //region > object (collection)
-    @org.apache.isis.applib.annotation.HomePage
-    public List<CommunicationChannel> getObjects() {
+    public List<CommunicationChannel> getCommunicationChannels() {
         return communicationChannelsMenu.listAll();
     }
-    //endregion
 
-    //region > injected services
+    public List<Party> getParties() {
+        return parties.listAll();
+    }
+
+    public List<FixedAsset> getFixedAssets() {
+        return fixedAssets.listAll();
+    }
 
     @javax.inject.Inject
     CommunicationChannelsMenu communicationChannelsMenu;
 
-    //endregion
+    @javax.inject.Inject
+    Parties parties;
+
+    @javax.inject.Inject
+    FixedAssets fixedAssets;
 }

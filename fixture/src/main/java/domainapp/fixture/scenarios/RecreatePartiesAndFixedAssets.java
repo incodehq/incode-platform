@@ -19,74 +19,52 @@
 
 package domainapp.fixture.scenarios;
 
+import domainapp.dom.modules.fixedasset.FixedAsset;
 import domainapp.dom.modules.party.Party;
 import domainapp.fixture.modules.PolyAppTearDown;
-import domainapp.fixture.modules.party.PartyCreate;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import com.google.common.collect.Lists;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-public class RecreateParties extends FixtureScript {
+public class RecreatePartiesAndFixedAssets extends FixtureScript {
 
-    public final List<String> PARTY_NAMES = Collections.unmodifiableList(Arrays.asList(
-            "Mary", "Mungo", "Midge"));
-    public final List<String> FIXED_ASSET_NAMES = Collections.unmodifiableList(Arrays.asList(
-            "Westgate Centre, Oxford", "Bond Street, London", "Arndale Centre, Manchester"));
+    private RecreateFixedAssets recreateFixedAssets;
+    private RecreateParties recreateParties;
 
-    public RecreateParties() {
+    public RecreatePartiesAndFixedAssets() {
         withDiscoverability(Discoverability.DISCOVERABLE);
     }
 
-
-    //region > teardown (input)
-
-    private Boolean teardown;
-
+    //region > fixedAssets (output)
     /**
-     * Defaults to true
+     * The {@link domainapp.dom.modules.fixedasset.FixedAsset}s created by this fixture (output).
      */
-    public Boolean getTeardown() {
-        return teardown;
-    }
-
-    public RecreateParties setTeardown(final Boolean teardown) {
-        this.teardown = teardown;
-        return this;
+    public List<FixedAsset> getFixedAssets() {
+        return recreateFixedAssets.getFixedAssets();
     }
     //endregion
 
-    //region > parties (output)
-    private final List<Party> parties = Lists.newArrayList();
-
+    //region > fixedAssets (output)
     /**
      * The {@link domainapp.dom.modules.party.Party}s created by this fixture (output).
      */
     public List<Party> getParties() {
-        return parties;
+        return recreateParties.getParties();
     }
     //endregion
 
     @Override
     protected void execute(final ExecutionContext ec) {
 
-        // defaults
-        defaultParam("teardown", ec, true);
+        recreateFixedAssets = new RecreateFixedAssets().setTeardown(false);
+        recreateParties = new RecreateParties().setTeardown(false);
 
         //
         // execute
         //
-        if(getTeardown()) {
-            ec.executeChild(this, new PolyAppTearDown());
-        }
-
-        for (int i = 0; i < PARTY_NAMES.size(); i++) {
-            final PartyCreate fs = new PartyCreate().setName(PARTY_NAMES.get(i));
-            ec.executeChild(this, fs.getName(), fs);
-            parties.add(fs.getParty());
-        }
+        ec.executeChild(this, new PolyAppTearDown());
+        ec.executeChild(this, recreateFixedAssets);
+        ec.executeChild(this, recreateParties);
 
     }
 }

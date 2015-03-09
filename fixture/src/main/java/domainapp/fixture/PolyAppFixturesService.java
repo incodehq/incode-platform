@@ -18,9 +18,11 @@
  */
 package domainapp.fixture;
 
-import domainapp.fixture.scenarios.RecreateParties;
+import domainapp.dom.app.homepage.HomePageService;
+import domainapp.fixture.scenarios.RecreatePartiesAndFixedAssets;
 
 import java.util.List;
+import javax.inject.Inject;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.DomainService;
@@ -67,10 +69,12 @@ public class PolyAppFixturesService extends FixtureScripts {
             cssClassFa="fa fa-refresh"
     )
     @MemberOrder(sequence="20")
-    public Object recreateObjectsAndReturnFirst() {
-        final List<FixtureResult> run = findFixtureScriptFor(RecreateParties.class).run(null);
-        return run.get(0).getObject();
+    public Object recreateObjectsThenBackToHomePage() {
+        final List<FixtureResult> run = findFixtureScriptFor(RecreatePartiesAndFixedAssets.class).run(null);
+        return homePageService.homePage();
     }
 
+    @Inject
+    private HomePageService homePageService;
 
 }
