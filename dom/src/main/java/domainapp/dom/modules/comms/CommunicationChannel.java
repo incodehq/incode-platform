@@ -21,6 +21,7 @@ package domainapp.dom.modules.comms;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
@@ -28,6 +29,8 @@ import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.RestrictTo;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.util.ObjectContracts;
@@ -50,7 +53,6 @@ import org.apache.isis.applib.util.ObjectContracts;
                         + "FROM domainapp.dom.modules.comms.CommunicationChannel "
                         + "WHERE name.indexOf(:name) >= 0 ")
 })
-@javax.jdo.annotations.Unique(name="CommunicationChannel_details_UNQ", members = {"details"})
 @DomainObject(
         objectType = "comms.CommunicationChannel"
 )
@@ -100,6 +102,23 @@ public class CommunicationChannel implements Comparable<CommunicationChannel> {
 
     //endregion
 
+    //region > owner (derived property)
+    public CommunicationChannelOwner getOwner() {
+        final CommunicationChannelOwnerLink ownerLink = ownerLink();
+        return ownerLink != null? ownerLink.getPolymorphicReference(): null;
+    }
+    //endregion
+
+    //region > ownerLink
+    @Action(
+            semantics = SemanticsOf.SAFE,
+            restrictTo = RestrictTo.PROTOTYPING
+    )
+    public CommunicationChannelOwnerLink ownerLink() {
+        return communicationChannelOwnerLinks.findBySubject(this);
+    }
+    //endregion
+
     //region > compareTo
 
     @Override
@@ -115,6 +134,8 @@ public class CommunicationChannel implements Comparable<CommunicationChannel> {
     @SuppressWarnings("unused")
     private DomainObjectContainer container;
 
+    @javax.inject.Inject
+    CommunicationChannelOwnerLinks communicationChannelOwnerLinks;
     //endregion
 
 }

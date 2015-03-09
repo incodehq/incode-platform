@@ -71,7 +71,7 @@ public class CommunicationChannelCreate extends FixtureScript {
         final String details = checkParam("details", ec, String.class);
         final CommunicationChannelOwner owner = checkParam("owner", ec, CommunicationChannelOwner.class);
 
-        this.communicationChannel = communicationChannelsContributions.createCommunicationChannel(owner, details);
+//        this.communicationChannel = communicationChannelsContributions.createCommunicationChannel(owner, details);
 
         // also make available to UI
         ec.addResult(this, communicationChannel);

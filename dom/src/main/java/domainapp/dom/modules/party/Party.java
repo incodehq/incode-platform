@@ -18,19 +18,28 @@
  */
 package domainapp.dom.modules.party;
 
+import domainapp.dom.modules.comms.CommunicationChannel;
 import domainapp.dom.modules.comms.CommunicationChannelOwner;
+import domainapp.dom.modules.comms.CommunicationChannelOwnerLink;
+import domainapp.dom.modules.comms.CommunicationChannelOwnerLinks;
 
+import java.util.List;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.util.ObjectContracts;
@@ -99,6 +108,89 @@ public class Party implements CommunicationChannelOwner, Comparable<Party> {
 
     //endregion
 
+
+    //region > communicationChannels (derived collection)
+    @CollectionLayout(
+            render = RenderType.EAGERLY
+    )
+    public List<CommunicationChannel> getCommunicationChannels() {
+        final List<CommunicationChannelOwnerLink> ownerLinks =
+                communicationChannelOwnerLinks.findByPolymorphicReference(this);
+        return Lists.newArrayList(
+                Iterables.transform(ownerLinks, CommunicationChannelOwnerLink.Functions.GET_SUBJECT)
+        );
+    }
+    //endregion
+
+    //region > createCommunicationChannel (action)
+    @MemberOrder(name="CommunicationChannel",sequence = "3")
+    public CommunicationChannelOwner addCommunicationChannel(
+            @ParameterLayout(named = "Details")
+            final String details) {
+
+        final CommunicationChannel communicationChannel = container.newTransientInstance(CommunicationChannel.class);
+        communicationChannel.setDetails(details);
+        container.persist(communicationChannel);
+        container.flush();
+
+        communicationChannelOwnerLinks.createLink(communicationChannel, this);
+        return this;
+    }
+
+    public String validate0AddCommunicationChannel(
+            final String details) {
+        final List<CommunicationChannel> communicationChannels = getCommunicationChannels();
+        for (CommunicationChannel communicationChannel : communicationChannels) {
+            if(communicationChannel.getDetails().equals(details)) {
+                return "Already have a communication channel with those details";
+            }
+        }
+        return null;
+    }
+
+    //endregion
+
+    //region > removeCommunicationChannel (action)
+    @MemberOrder(name="CommunicationChannel", sequence = "4")
+    public CommunicationChannelOwner removeCommunicationChannel(
+            final CommunicationChannel communicationChannel) {
+
+        final List<CommunicationChannelOwnerLink> ownerLinks =
+                communicationChannelOwnerLinks.findByPolymorphicReference(this);
+        final CommunicationChannelOwnerLink ownerLink = communicationChannelOwnerLinks.findBySubject(communicationChannel);
+
+        if(ownerLinks.contains(ownerLink)) {
+            container.removeIfNotAlready(ownerLink);
+            container.removeIfNotAlready(communicationChannel);
+        }
+
+        return this;
+    }
+
+    public String disableRemoveCommunicationChannel(final CommunicationChannel communicationChannel) {
+        final List<CommunicationChannelOwnerLink> ownerLinks =
+                communicationChannelOwnerLinks.findByPolymorphicReference(this);
+        return ownerLinks.isEmpty()? "Does not own a communication channel": null;
+    }
+    public String validate0RemoveCommunicationChannel(final CommunicationChannel communicationChannel) {
+        final List<CommunicationChannelOwnerLink> ownerLinks =
+                communicationChannelOwnerLinks.findByPolymorphicReference(this);
+        final CommunicationChannelOwnerLink ownerLink = communicationChannelOwnerLinks.findBySubject(communicationChannel);
+        return ownerLinks.contains(ownerLink)? null: "Not a communication channel of this party";
+    }
+
+    public List<CommunicationChannel> choices0RemoveCommunicationChannel() {
+        final List<CommunicationChannelOwnerLink> ownerLinks =
+                communicationChannelOwnerLinks.findByPolymorphicReference(this);
+        return Lists.newArrayList(
+                Iterables.transform(ownerLinks, CommunicationChannelOwnerLink.Functions.GET_SUBJECT)
+        );
+    }
+
+    //endregion
+
+
+
     //region > compareTo
 
     @Override
@@ -112,6 +204,9 @@ public class Party implements CommunicationChannelOwner, Comparable<Party> {
 
     @javax.inject.Inject
     private DomainObjectContainer container;
+
+    @javax.inject.Inject
+    CommunicationChannelOwnerLinks communicationChannelOwnerLinks;
 
     //endregion
 

@@ -18,6 +18,11 @@
  */
 package domainapp.dom.modules.comms;
 
+import domainapp.dom.modules.poly.PolymorphicLinkHelper;
+import domainapp.dom.modules.poly.PolymorphicLinkInstantiateEvent;
+
+import java.util.List;
+import javax.annotation.PostConstruct;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -32,6 +37,31 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 )
 public class CommunicationChannelOwnerLinks {
 
+    //region > init
+    public static class InstantiateEvent
+            extends PolymorphicLinkInstantiateEvent<CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink> {
+
+        public InstantiateEvent(final Object source, final CommunicationChannel subject, final CommunicationChannelOwner owner) {
+            super(CommunicationChannelOwnerLink.class, source, subject, owner);
+        }
+    }
+
+    PolymorphicLinkHelper<CommunicationChannel,CommunicationChannelOwner,CommunicationChannelOwnerLink,InstantiateEvent> ownerLinkHelper;
+
+    @PostConstruct
+    public void init() {
+        ownerLinkHelper = container.injectServicesInto(
+                new PolymorphicLinkHelper<>(
+                        this,
+                        CommunicationChannel.class,
+                        CommunicationChannelOwner.class,
+                        CommunicationChannelOwnerLink.class,
+                        InstantiateEvent.class
+                ));
+
+    }
+    //endregion
+
     //region > findBySubject (programmatic)
     @Programmatic
     public CommunicationChannelOwnerLink findBySubject(final CommunicationChannel communicationChannel) {
@@ -44,7 +74,7 @@ public class CommunicationChannelOwnerLinks {
 
     //region > findByPolymorphicReference (programmatic)
     @Programmatic
-    public CommunicationChannelOwnerLink findByPolymorphicReference(final CommunicationChannelOwner polymorphicReference) {
+    public List<CommunicationChannelOwnerLink> findByPolymorphicReference(final CommunicationChannelOwner polymorphicReference) {
         if(polymorphicReference == null) {
             return null;
         }
@@ -52,13 +82,18 @@ public class CommunicationChannelOwnerLinks {
         if(bookmark == null) {
             return null;
         }
-        return container.firstMatch(
+        return container.allMatches(
                 new QueryDefault<>(CommunicationChannelOwnerLink.class,
                         "findByPolymorphicReference",
                         "polymorphicReferenceObjectType", bookmark.getObjectType(),
                         "polymorphicReferenceIdentifier", bookmark.getIdentifier()));
     }
     //endregion
+
+    @Programmatic
+    public void createLink(final CommunicationChannel communicationChannel, final CommunicationChannelOwner owner) {
+        ownerLinkHelper.createLink(communicationChannel, owner);
+    }
 
 
     //region > injected services

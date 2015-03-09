@@ -39,31 +39,28 @@
             "memberGroups": {}
         },
         {
-            "span": 6,
+            "span": 0,
             "memberGroups": {
-                "Comms": {
-                    "members": {
-                        "communicationChannel": {
-                            "actions": {
-                                "createCommunicationChannel": {
-                                    "actionLayout": {
-                                        "named": "Create"
-                                    }
-                                },
-                                "deleteCommunicationChannel": {
-                                    "actionLayout": {
-                                        "named": "Delete"
-                                    }
-                                }
+            }
+        },
+        {
+            "span": 6,
+            "collections": {
+                "communicationChannels": {
+                    "actions": {
+                        "addCommunicationChannel": {
+                            "actionLayout": {
+                                "named": "Add"
+                            }
+                        },
+                        "removeCommunicationChannel": {
+                            "actionLayout": {
+                                "named": "Remove"
                             }
                         }
                     }
                 }
             }
-        },
-        {
-            "span": 12,
-            "collections": {}
         }
     ],
     "actions": {}

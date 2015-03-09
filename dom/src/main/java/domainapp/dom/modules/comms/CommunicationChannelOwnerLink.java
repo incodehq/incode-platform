@@ -24,6 +24,7 @@ import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
+import com.google.common.base.Function;
 import org.apache.isis.applib.annotation.DomainObject;
 
 @javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
@@ -43,7 +44,7 @@ import org.apache.isis.applib.annotation.DomainObject;
                         + "WHERE polymorphicReferenceObjectType == :polymorphicReferenceObjectType "
                         + "   && polymorphicReferenceIdentifier == :polymorphicReferenceIdentifier ")
 })
-@javax.jdo.annotations.Unique(name="CommunicationChannelOwnerLink_source_destination_UNQ", members = {"source,destinationObjectType,destinationIdentifier"})
+@javax.jdo.annotations.Unique(name="CommunicationChannelOwnerLink_subject_polyref_UNQ", members = {"subject,polymorphicReferenceObjectType,polymorphicReferenceIdentifier"})
 @DomainObject(
         objectType = "comms.CommunicationChannelOwnerLink"
 )
@@ -106,5 +107,15 @@ public abstract class CommunicationChannelOwnerLink extends SubjectPolymorphicRe
         this.polymorphicReferenceIdentifier = polymorphicReferenceIdentifier;
     }
     //endregion
+
+    public static class Functions {
+        public static Function<CommunicationChannelOwnerLink, CommunicationChannel> GET_SUBJECT = new Function<CommunicationChannelOwnerLink, CommunicationChannel>() {
+            @Override
+            public CommunicationChannel apply(final CommunicationChannelOwnerLink input) {
+                return input.getSubject();
+            }
+        };
+
+    }
 
 }

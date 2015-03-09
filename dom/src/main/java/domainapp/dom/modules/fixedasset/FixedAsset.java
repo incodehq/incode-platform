@@ -18,16 +18,23 @@
  */
 package domainapp.dom.modules.fixedasset;
 
+import domainapp.dom.modules.comms.CommunicationChannel;
 import domainapp.dom.modules.comms.CommunicationChannelOwner;
+import domainapp.dom.modules.comms.CommunicationChannelOwnerLink;
+import domainapp.dom.modules.comms.CommunicationChannelOwnerLinks;
 
+import java.util.List;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Property;
@@ -99,6 +106,68 @@ public class FixedAsset implements CommunicationChannelOwner, Comparable<FixedAs
 
     //endregion
 
+
+    //region > createCommunicationChannel (contributed action)
+    @ActionLayout(
+            contributed = Contributed.AS_ACTION
+    )
+    @MemberOrder(name="CommunicationChannel",sequence = "3")
+    public CommunicationChannelOwner createCommunicationChannel(
+            @ParameterLayout(named = "Details")
+            final String details) {
+
+        final CommunicationChannel communicationChannel = container.newTransientInstance(CommunicationChannel.class);
+        communicationChannel.setDetails(details);
+        container.persist(communicationChannel);
+        container.flush();
+
+        communicationChannelOwnerLinks.createLink(communicationChannel, this);
+        return this;
+    }
+
+    public String disableCreateCommunicationChannel(
+            final String details) {
+        return getCommunicationChannel() != null? "Already owns a communication channel": null;
+    }
+
+    public String validateCreateCommunicationChannel(final String details) {
+        return details.contains("!")? "No exclamation marks allowed in details": null;
+    }
+    //endregion
+
+    //region > deleteCommunicationChannel (contributed action)
+    @ActionLayout(
+            contributed = Contributed.AS_ACTION
+    )
+    @MemberOrder(name="CommunicationChannel", sequence = "4")
+    public CommunicationChannelOwner deleteCommunicationChannel() {
+
+        final CommunicationChannelOwnerLink ownerLink = getCommunicationChannelOwnerLink();
+        final CommunicationChannel communicationChannel = getCommunicationChannel();
+
+        container.removeIfNotAlready(ownerLink);
+        container.removeIfNotAlready(communicationChannel);
+
+        return this;
+    }
+
+    public String disableDeleteCommunicationChannel() {
+        return getCommunicationChannelOwnerLink() == null? "Does not own a communication channel": null;
+    }
+    //endregion
+
+
+    //region > communicationChannel (derived property)
+    public CommunicationChannel getCommunicationChannel() {
+        final CommunicationChannelOwnerLink ownerLink = getCommunicationChannelOwnerLink();
+        return ownerLink != null? ownerLink.getSubject(): null;
+    }
+    private CommunicationChannelOwnerLink getCommunicationChannelOwnerLink() {
+        final List<CommunicationChannelOwnerLink> link = communicationChannelOwnerLinks.findByPolymorphicReference(this);
+        return link.size() == 1? link.get(0): null;
+    }
+    //endregion
+
     //region > compareTo
 
     @Override
@@ -111,7 +180,10 @@ public class FixedAsset implements CommunicationChannelOwner, Comparable<FixedAs
     //region > injected services
 
     @javax.inject.Inject
-    private DomainObjectContainer container;
+    DomainObjectContainer container;
+
+    @javax.inject.Inject
+    CommunicationChannelOwnerLinks communicationChannelOwnerLinks;
 
     //endregion
 
