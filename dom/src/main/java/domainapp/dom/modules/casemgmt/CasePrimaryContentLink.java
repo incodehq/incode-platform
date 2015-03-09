@@ -36,24 +36,31 @@ import org.apache.isis.applib.annotation.Programmatic;
         @javax.jdo.annotations.Query(
                 name = "findByCase", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM domainapp.dom.modules.casemgmt.CaseContentLink "
+                        + "FROM domainapp.dom.modules.casemgmt.CasePrimaryContentLink "
                         + "WHERE case == :case"),
         @javax.jdo.annotations.Query(
                 name = "findByContent", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM domainapp.dom.modules.casemgmt.CaseContentLink "
+                        + "FROM domainapp.dom.modules.casemgmt.CasePrimaryContentLink "
                         + "WHERE contentObjectType == :contentObjectType "
+                        + "   && contentIdentifier == :contentIdentifier "),
+        @javax.jdo.annotations.Query(
+                name = "findByCaseAndContent", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM domainapp.dom.modules.casemgmt.CasePrimaryContentLink "
+                        + "WHERE case == :case "
+                        + "   && contentObjectType == :contentObjectType "
                         + "   && contentIdentifier == :contentIdentifier ")
 })
-@javax.jdo.annotations.Unique(name="CaseContentLink_case_content_UNQ", members = {"case,contentObjectType,contentIdentifier"})
+@javax.jdo.annotations.Unique(name="CasePrimaryContentLink_case_content_UNQ", members = {"case,contentObjectType,contentIdentifier"})
 @DomainObject(
-        objectType = "casemgmt.CaseContentLink"
+        objectType = "casemgmt.CasePrimaryContentLink"
 )
-public abstract class CaseContentLink extends SubjectPolymorphicReferenceLink<Case, CaseContent, CaseContentLink> {
+public abstract class CasePrimaryContentLink extends SubjectPolymorphicReferenceLink<Case, CaseContent, CasePrimaryContentLink> {
 
     //region > constructor
-    public CaseContentLink() {
-        super("{subject} contains {polymorphicReference}");
+    public CasePrimaryContentLink() {
+        super("{subject} primary {polymorphicReference}");
     }
     //endregion
 
@@ -137,15 +144,15 @@ public abstract class CaseContentLink extends SubjectPolymorphicReferenceLink<Ca
     //endregion
 
     public static class Functions {
-        public static Function<CaseContentLink, Case> GET_CASE = new Function<CaseContentLink, Case>() {
+        public static Function<CasePrimaryContentLink, Case> GET_CASE = new Function<CasePrimaryContentLink, Case>() {
             @Override
-            public Case apply(final CaseContentLink input) {
+            public Case apply(final CasePrimaryContentLink input) {
                 return input.getSubject();
             }
         };
-        public static Function<CaseContentLink, CaseContent> GET_CONTENT = new Function<CaseContentLink, CaseContent>() {
+        public static Function<CasePrimaryContentLink, CaseContent> GET_CONTENT = new Function<CasePrimaryContentLink, CaseContent>() {
             @Override
-            public CaseContent apply(final CaseContentLink input) {
+            public CaseContent apply(final CasePrimaryContentLink input) {
                 return input.getPolymorphicReference();
             }
         };

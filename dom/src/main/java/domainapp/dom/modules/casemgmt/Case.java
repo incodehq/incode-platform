@@ -18,11 +18,8 @@
  */
 package domainapp.dom.modules.casemgmt;
 
-import java.util.List;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
@@ -101,13 +98,6 @@ public class Case implements Comparable<Case> {
         return getName();
     }
 
-    //endregion
-
-
-    //region > primary (derived property)
-    public CaseContent getPrimary() {
-        return null;
-    }
     //endregion
 
 

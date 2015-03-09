@@ -23,12 +23,14 @@ import javax.inject.Inject;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
@@ -52,6 +54,21 @@ public class CaseContentContributions {
     }
 
 
+    public static class RemoveFromCaseDomainEvent extends ActionDomainEvent<CaseContentContributions> {
+        public RemoveFromCaseDomainEvent(final CaseContentContributions source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+        public Case getCase() {
+            return (Case) getArguments().get(0);
+        }
+        public CaseContent getContent() {
+            return (CaseContent) getArguments().get(1);
+        }
+    }
+
+    @Action(
+            domainEvent = RemoveFromCaseDomainEvent.class
+    )
     @ActionLayout(
             contributed = Contributed.AS_ACTION
     )

@@ -31,7 +31,20 @@
                                 }
                             }
                         },
-                        "primary": {}
+                        "primary": {
+                            "actions": {
+                                "makePrimary": {
+                                    "actionLayout": {
+                                        "named": "Set"
+                                    }
+                                },
+                                "resetPrimary": {
+                                    "actionLayout": {
+                                        "named": "Clear"
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

@@ -20,11 +20,14 @@
 package domainapp.fixture.scenarios;
 
 import domainapp.dom.modules.casemgmt.Case;
+import domainapp.dom.modules.casemgmt.CaseContentContributions;
+import domainapp.dom.modules.casemgmt.CasePrimaryContentContributions;
 import domainapp.dom.modules.fixedasset.FixedAsset;
 import domainapp.dom.modules.party.Party;
 import domainapp.fixture.modules.PolyAppTearDown;
 
 import java.util.List;
+import javax.inject.Inject;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 public class RecreateAll extends FixtureScript {
@@ -79,5 +82,49 @@ public class RecreateAll extends FixtureScript {
         ec.executeChild(this, recreateParties);
         ec.executeChild(this, recreateCases);
 
+        final List<Party> parties = recreateParties.getParties();
+        final List<FixedAsset> fixedAssets = recreateFixedAssets.getFixedAssets();
+        final List<Case> cases = recreateCases.getCases();
+
+        // create comm channels
+        int i=0;
+        parties.get(0).addCommunicationChannel(detailsFor(i++));
+        parties.get(1).addCommunicationChannel(detailsFor(i++));
+        parties.get(1).addCommunicationChannel(detailsFor(i++));
+        parties.get(2).addCommunicationChannel(detailsFor(i++));
+        parties.get(2).addCommunicationChannel(detailsFor(i++));
+        parties.get(2).addCommunicationChannel(detailsFor(i++));
+
+        fixedAssets.get(0).createCommunicationChannel(detailsFor(i++));
+        fixedAssets.get(1).createCommunicationChannel(detailsFor(i++));
+        fixedAssets.get(2).createCommunicationChannel(detailsFor(i++));
+
+        // add content to cases
+        caseContentContributions.addToCase(cases.get(0), parties.get(0));
+        caseContentContributions.addToCase(cases.get(0), parties.get(1));
+        caseContentContributions.addToCase(cases.get(0), fixedAssets.get(0));
+        caseContentContributions.addToCase(cases.get(0), fixedAssets.get(1));
+
+        caseContentContributions.addToCase(cases.get(1), parties.get(1));
+        caseContentContributions.addToCase(cases.get(1), fixedAssets.get(1));
+
+        caseContentContributions.addToCase(cases.get(2), parties.get(2));
+        caseContentContributions.addToCase(cases.get(2), fixedAssets.get(2));
+
+        // assign a primary content for cases
+        casePrimaryContentContributions.makePrimary(cases.get(0), parties.get(1));
+        casePrimaryContentContributions.makePrimary(cases.get(1), fixedAssets.get(0));
+    }
+
+
+    @Inject
+    private CaseContentContributions caseContentContributions;
+
+    @Inject
+    private CasePrimaryContentContributions casePrimaryContentContributions;
+
+
+    private String detailsFor(final int i) {
+        return String.format("0207 100 1%03d", i);
     }
 }
