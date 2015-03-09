@@ -26,6 +26,7 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
 import com.google.common.base.Function;
 import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.Programmatic;
 
 @javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
 @javax.jdo.annotations.DatastoreIdentity(strategy = IdGeneratorStrategy.IDENTITY)
@@ -33,18 +34,18 @@ import org.apache.isis.applib.annotation.DomainObject;
         strategy = InheritanceStrategy.NEW_TABLE)
 @javax.jdo.annotations.Queries({
         @javax.jdo.annotations.Query(
-                name = "findBySubject", language = "JDOQL",
+                name = "findByCommunicationChannel", language = "JDOQL",
                 value = "SELECT "
                         + "FROM domainapp.dom.modules.comms.CommunicationChannelOwnerLink "
-                        + "WHERE subject == :subject"),
+                        + "WHERE communicationChannel == :communicationChannel"),
         @javax.jdo.annotations.Query(
-                name = "findByPolymorphicReference", language = "JDOQL",
+                name = "findByOwner", language = "JDOQL",
                 value = "SELECT "
                         + "FROM domainapp.dom.modules.comms.CommunicationChannelOwnerLink "
-                        + "WHERE polymorphicReferenceObjectType == :polymorphicReferenceObjectType "
-                        + "   && polymorphicReferenceIdentifier == :polymorphicReferenceIdentifier ")
+                        + "WHERE ownerObjectType == :ownerObjectType "
+                        + "   && ownerIdentifier == :ownerIdentifier ")
 })
-@javax.jdo.annotations.Unique(name="CommunicationChannelOwnerLink_subject_polyref_UNQ", members = {"subject,polymorphicReferenceObjectType,polymorphicReferenceIdentifier"})
+@javax.jdo.annotations.Unique(name="CommunicationChannelOwnerLink_commchannel_owner_UNQ", members = {"communicationChannel,ownerObjectType,ownerIdentifier"})
 @DomainObject(
         objectType = "comms.CommunicationChannelOwnerLink"
 )
@@ -56,55 +57,82 @@ public abstract class CommunicationChannelOwnerLink extends SubjectPolymorphicRe
     }
     //endregion
 
+    //region > SubjectPolymorphicReferenceLink API
+    @Override
+    @Programmatic
+    public CommunicationChannel getSubject() {
+        return getCommunicationChannel();
+    }
+
+    @Override
+    @Programmatic
+    public void setSubject(final CommunicationChannel subject) {
+        setCommunicationChannel(subject);
+    }
+
+    @Override
+    @Programmatic
+    public String getPolymorphicReferenceObjectType() {
+        return getOwnerObjectType();
+    }
+
+    @Override
+    @Programmatic
+    public void setPolymorphicReferenceObjectType(final String polymorphicReferenceObjectType) {
+        setOwnerObjectType(polymorphicReferenceObjectType);
+    }
+
+    @Override
+    @Programmatic
+    public String getPolymorphicReferenceIdentifier() {
+        return getOwnerIdentifier();
+    }
+
+    @Override
+    @Programmatic
+    public void setPolymorphicReferenceIdentifier(final String polymorphicReferenceIdentifier) {
+        setOwnerIdentifier(polymorphicReferenceIdentifier);
+    }
+    //endregion
+
     //region > subject (property)
-    @Override
-    public CommunicationChannel getSubjectObj() {
-        return getSubject();
-    }
-
-    @Override
-    public void setSubjectObj(final CommunicationChannel subjectObj) {
-        setSubject(subjectObj);
-    }
-
-    private CommunicationChannel subject;
+    private CommunicationChannel communicationChannel;
     @Column(
             allowsNull = "false",
             name = "communicationChannel_id"
     )
-    public CommunicationChannel getSubject() {
-        return subject;
+    public CommunicationChannel getCommunicationChannel() {
+        return communicationChannel;
     }
 
-    public void setSubject(final CommunicationChannel subject) {
-        this.subject = subject;
+    public void setCommunicationChannel(final CommunicationChannel communicationChannel) {
+        this.communicationChannel = communicationChannel;
     }
     //endregion
 
-    //region > polymorphicReferenceObjectType (property)
-    private String polymorphicReferenceObjectType;
+    //region > ownerObjectType (property)
+    private String ownerObjectType;
 
     @Column(allowsNull = "false", length = 255)
-    public String getPolymorphicReferenceObjectType() {
-        return polymorphicReferenceObjectType;
+    public String getOwnerObjectType() {
+        return ownerObjectType;
     }
 
-    public void setPolymorphicReferenceObjectType(final String polymorphicReferenceObjectType) {
-        this.polymorphicReferenceObjectType = polymorphicReferenceObjectType;
+    public void setOwnerObjectType(final String ownerObjectType) {
+        this.ownerObjectType = ownerObjectType;
     }
-
     //endregion
 
-    //region > polymorphicReferenceIdentifier (property)
-    private String polymorphicReferenceIdentifier;
+    //region > ownerIdentifier (property)
+    private String ownerIdentifier;
 
     @Column(allowsNull = "false", length = 255)
-    public String getPolymorphicReferenceIdentifier() {
-        return polymorphicReferenceIdentifier;
+    public String getOwnerIdentifier() {
+        return ownerIdentifier;
     }
 
-    public void setPolymorphicReferenceIdentifier(final String polymorphicReferenceIdentifier) {
-        this.polymorphicReferenceIdentifier = polymorphicReferenceIdentifier;
+    public void setOwnerIdentifier(final String ownerIdentifier) {
+        this.ownerIdentifier = ownerIdentifier;
     }
     //endregion
 
@@ -112,7 +140,7 @@ public abstract class CommunicationChannelOwnerLink extends SubjectPolymorphicRe
         public static Function<CommunicationChannelOwnerLink, CommunicationChannel> GET_SUBJECT = new Function<CommunicationChannelOwnerLink, CommunicationChannel>() {
             @Override
             public CommunicationChannel apply(final CommunicationChannelOwnerLink input) {
-                return input.getSubject();
+                return input.getCommunicationChannel();
             }
         };
 

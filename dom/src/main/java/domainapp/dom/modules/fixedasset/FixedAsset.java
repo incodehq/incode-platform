@@ -160,10 +160,10 @@ public class FixedAsset implements CommunicationChannelOwner, Comparable<FixedAs
     //region > communicationChannel (derived property)
     public CommunicationChannel getCommunicationChannel() {
         final CommunicationChannelOwnerLink ownerLink = getCommunicationChannelOwnerLink();
-        return ownerLink != null? ownerLink.getSubject(): null;
+        return ownerLink != null? ownerLink.getCommunicationChannel(): null;
     }
     private CommunicationChannelOwnerLink getCommunicationChannelOwnerLink() {
-        final List<CommunicationChannelOwnerLink> link = communicationChannelOwnerLinks.findByPolymorphicReference(this);
+        final List<CommunicationChannelOwnerLink> link = communicationChannelOwnerLinks.findByOwner(this);
         return link.size() == 1? link.get(0): null;
     }
     //endregion

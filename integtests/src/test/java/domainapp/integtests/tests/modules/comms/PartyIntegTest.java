@@ -19,7 +19,6 @@
 package domainapp.integtests.tests.modules.comms;
 
 import domainapp.dom.modules.comms.CommunicationChannel;
-import domainapp.dom.modules.comms.CommunicationChannelsContributions;
 import domainapp.dom.modules.comms.CommunicationChannelsMenu;
 import domainapp.dom.modules.party.Party;
 import domainapp.fixture.scenarios.RecreateParties;
@@ -44,8 +43,6 @@ public class PartyIntegTest extends PolyAppIntegTest {
 
     @Inject
     FixtureScripts fixtureScripts;
-    @Inject
-    CommunicationChannelsContributions communicationChannelsContributions;
     @Inject
     CommunicationChannelsMenu communicationChannelsMenu;
 

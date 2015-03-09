@@ -19,7 +19,6 @@
 package domainapp.integtests.tests.modules.comms;
 
 import domainapp.dom.modules.comms.CommunicationChannel;
-import domainapp.dom.modules.comms.CommunicationChannelsContributions;
 import domainapp.dom.modules.comms.CommunicationChannelsMenu;
 import domainapp.dom.modules.fixedasset.FixedAsset;
 import domainapp.fixture.scenarios.RecreateFixedAssets;
@@ -47,8 +46,6 @@ public class FixedAssetIntegTest extends PolyAppIntegTest {
     @Inject
     FixtureScripts fixtureScripts;
     @Inject
-    CommunicationChannelsContributions communicationChannelsContributions;
-    @Inject
     CommunicationChannelsMenu communicationChannelsMenu;
 
     RecreateFixedAssets fs;
@@ -72,6 +69,7 @@ public class FixedAssetIntegTest extends PolyAppIntegTest {
 
             // when
             wrap(fixedAsset).createCommunicationChannel("0207 123 4567");
+            nextTransaction();
 
             // then
             final List<CommunicationChannel> all = communicationChannelsMenu.listAll();

@@ -115,7 +115,7 @@ public class CommunicationChannel implements Comparable<CommunicationChannel> {
             restrictTo = RestrictTo.PROTOTYPING
     )
     public CommunicationChannelOwnerLink ownerLink() {
-        return communicationChannelOwnerLinks.findBySubject(this);
+        return communicationChannelOwnerLinks.findByCommunicationChannel(this);
     }
     //endregion
 

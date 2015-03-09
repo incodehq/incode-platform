@@ -115,7 +115,7 @@ public class Party implements CommunicationChannelOwner, Comparable<Party> {
     )
     public List<CommunicationChannel> getCommunicationChannels() {
         final List<CommunicationChannelOwnerLink> ownerLinks =
-                communicationChannelOwnerLinks.findByPolymorphicReference(this);
+                communicationChannelOwnerLinks.findByOwner(this);
         return Lists.newArrayList(
                 Iterables.transform(ownerLinks, CommunicationChannelOwnerLink.Functions.GET_SUBJECT)
         );
@@ -156,8 +156,8 @@ public class Party implements CommunicationChannelOwner, Comparable<Party> {
             final CommunicationChannel communicationChannel) {
 
         final List<CommunicationChannelOwnerLink> ownerLinks =
-                communicationChannelOwnerLinks.findByPolymorphicReference(this);
-        final CommunicationChannelOwnerLink ownerLink = communicationChannelOwnerLinks.findBySubject(communicationChannel);
+                communicationChannelOwnerLinks.findByOwner(this);
+        final CommunicationChannelOwnerLink ownerLink = communicationChannelOwnerLinks.findByCommunicationChannel(communicationChannel);
 
         if(ownerLinks.contains(ownerLink)) {
             container.removeIfNotAlready(ownerLink);
@@ -169,19 +169,19 @@ public class Party implements CommunicationChannelOwner, Comparable<Party> {
 
     public String disableRemoveCommunicationChannel(final CommunicationChannel communicationChannel) {
         final List<CommunicationChannelOwnerLink> ownerLinks =
-                communicationChannelOwnerLinks.findByPolymorphicReference(this);
+                communicationChannelOwnerLinks.findByOwner(this);
         return ownerLinks.isEmpty()? "Does not own a communication channel": null;
     }
     public String validate0RemoveCommunicationChannel(final CommunicationChannel communicationChannel) {
         final List<CommunicationChannelOwnerLink> ownerLinks =
-                communicationChannelOwnerLinks.findByPolymorphicReference(this);
-        final CommunicationChannelOwnerLink ownerLink = communicationChannelOwnerLinks.findBySubject(communicationChannel);
+                communicationChannelOwnerLinks.findByOwner(this);
+        final CommunicationChannelOwnerLink ownerLink = communicationChannelOwnerLinks.findByCommunicationChannel(communicationChannel);
         return ownerLinks.contains(ownerLink)? null: "Not a communication channel of this party";
     }
 
     public List<CommunicationChannel> choices0RemoveCommunicationChannel() {
         final List<CommunicationChannelOwnerLink> ownerLinks =
-                communicationChannelOwnerLinks.findByPolymorphicReference(this);
+                communicationChannelOwnerLinks.findByOwner(this);
         return Lists.newArrayList(
                 Iterables.transform(ownerLinks, CommunicationChannelOwnerLink.Functions.GET_SUBJECT)
         );

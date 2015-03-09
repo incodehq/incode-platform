@@ -2,6 +2,7 @@ package domainapp.dom.modules.poly;
 
 public abstract class PolymorphicLinkInstantiateEvent<S,PR,L> extends java.util.EventObject {
 
+    private final Class<L> linkType;
     private final S subject;
     private final PR polymorphicReference;
 
@@ -9,6 +10,7 @@ public abstract class PolymorphicLinkInstantiateEvent<S,PR,L> extends java.util.
 
     public PolymorphicLinkInstantiateEvent(final Class<L> linkType, final Object source, final S subject, final PR polymorphicReference) {
         super(source);
+        this.linkType = linkType;
         this.subject = subject;
         this.polymorphicReference = polymorphicReference;
     }

@@ -62,31 +62,31 @@ public class CommunicationChannelOwnerLinks {
     }
     //endregion
 
-    //region > findBySubject (programmatic)
+    //region > findByCommunicationChannel (programmatic)
     @Programmatic
-    public CommunicationChannelOwnerLink findBySubject(final CommunicationChannel communicationChannel) {
+    public CommunicationChannelOwnerLink findByCommunicationChannel(final CommunicationChannel communicationChannel) {
         return container.firstMatch(
                 new QueryDefault<>(CommunicationChannelOwnerLink.class,
-                        "findBySubject",
-                        "subject", communicationChannel));
+                        "findByCommunicationChannel",
+                        "communicationChannel", communicationChannel));
     }
     //endregion
 
     //region > findByPolymorphicReference (programmatic)
     @Programmatic
-    public List<CommunicationChannelOwnerLink> findByPolymorphicReference(final CommunicationChannelOwner polymorphicReference) {
-        if(polymorphicReference == null) {
+    public List<CommunicationChannelOwnerLink> findByOwner(final CommunicationChannelOwner owner) {
+        if(owner == null) {
             return null;
         }
-        final Bookmark bookmark = bookmarkService.bookmarkFor(polymorphicReference);
+        final Bookmark bookmark = bookmarkService.bookmarkFor(owner);
         if(bookmark == null) {
             return null;
         }
         return container.allMatches(
                 new QueryDefault<>(CommunicationChannelOwnerLink.class,
-                        "findByPolymorphicReference",
-                        "polymorphicReferenceObjectType", bookmark.getObjectType(),
-                        "polymorphicReferenceIdentifier", bookmark.getIdentifier()));
+                        "findByOwner",
+                        "ownerObjectType", bookmark.getObjectType(),
+                        "ownerIdentifier", bookmark.getIdentifier()));
     }
     //endregion
 
@@ -97,8 +97,6 @@ public class CommunicationChannelOwnerLinks {
 
 
     //region > injected services
-    @javax.inject.Inject
-    private CommunicationChannelsContributions communicationChannels;
 
     @javax.inject.Inject
     private DomainObjectContainer container;

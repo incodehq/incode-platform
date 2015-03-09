@@ -38,26 +38,30 @@ public abstract class SubjectPolymorphicReferenceLink<S, PR, L extends SubjectPo
         return TranslatableString.tr(
                 titlePattern,
                 "polymorphicReference", container.titleOf(getPolymorphicReference()),
-                "subject", container.titleOf(getSubjectObj()));
+                "subject", container.titleOf(getSubject()));
     }
     //endregion
 
     //region > subject (property)
     @Programmatic
-    public abstract S getSubjectObj();
+    public abstract S getSubject();
     @Programmatic
-    public abstract void setSubjectObj(S subjectObj);
+    public abstract void setSubject(S subjectObj);
     //endregion
 
     //region > polymorphicReferenceObjectType (property)
+    @Programmatic
     public abstract String getPolymorphicReferenceObjectType();
 
+    @Programmatic
     public abstract void setPolymorphicReferenceObjectType(final String polymorphicReferenceObjectType);
     //endregion
 
     //region > polymorphicReferenceIdentifier (property)
+    @Programmatic
     public abstract String getPolymorphicReferenceIdentifier();
 
+    @Programmatic
     public abstract void setPolymorphicReferenceIdentifier(final String polymorphicReferenceIdentifier);
     //endregion
 

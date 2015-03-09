@@ -53,7 +53,7 @@ public class PolymorphicLinkHelper<S,PR,L extends SubjectPolymorphicReferenceLin
         final L ownerLink = container.newTransientInstance(subtype);
         ownerLink.setPolymorphicReference(polymorphicReference);
 
-        ownerLink.setSubjectObj(subject);
+        ownerLink.setSubject(subject);
         container.persist(ownerLink);
     }
 
