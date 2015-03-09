@@ -19,7 +19,7 @@
 package domainapp.fixture;
 
 import domainapp.dom.app.homepage.HomePageService;
-import domainapp.fixture.scenarios.RecreatePartiesAndFixedAssets;
+import domainapp.fixture.scenarios.RecreateAll;
 
 import java.util.List;
 import javax.inject.Inject;
@@ -70,7 +70,7 @@ public class PolyAppFixturesService extends FixtureScripts {
     )
     @MemberOrder(sequence="20")
     public Object recreateObjectsThenBackToHomePage() {
-        final List<FixtureResult> run = findFixtureScriptFor(RecreatePartiesAndFixedAssets.class).run(null);
+        final List<FixtureResult> run = findFixtureScriptFor(RecreateAll.class).run(null);
         return homePageService.homePage();
     }
 

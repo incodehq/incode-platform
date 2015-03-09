@@ -16,35 +16,26 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.dom.app.homepage;
+package domainapp.dom.modules.party;
 
-import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.Action;
+
+import domainapp.dom.modules.casemgmt.CaseContentLinks;
+
+import com.google.common.eventbus.Subscribe;
+import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.annotation.Programmatic;
 
-@DomainService(
-        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY // trick to suppress the actions from the top-level menu
-)
-public class HomePageService {
+@DomainService(nature = NatureOfService.DOMAIN)
+public class CaseContentLinkForParties extends AbstractSubscriber {
 
-    //region > homePage (action)
-
-    @Action(
-            semantics = SemanticsOf.SAFE
-    )
-    @org.apache.isis.applib.annotation.HomePage
-    public HomePage homePage() {
-        return container.injectServicesInto(new HomePage());
+    @Programmatic
+    @Subscribe
+    public void on(final CaseContentLinks.InstantiateEvent ev) {
+        if(ev.getPolymorphicReference() instanceof Party) {
+            ev.setSubtype(CaseContentLinkForParty.class);
+        }
     }
 
-    //endregion
-
-    //region > injected services
-
-    @javax.inject.Inject
-    DomainObjectContainer container;
-
-    //endregion
 }

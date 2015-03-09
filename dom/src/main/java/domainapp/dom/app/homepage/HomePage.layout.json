@@ -41,6 +41,11 @@
                         "render": "EAGERLY"
                     }
                 },
+                "cases": {
+                    "collectionLayout": {
+                        "render": "EAGERLY"
+                    }
+                },
                 "communicationChannels": {
                     "collectionLayout": {
                         "render": "EAGERLY"

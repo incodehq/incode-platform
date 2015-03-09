@@ -25,11 +25,13 @@
                             "actions": {
                                 "updateName": {
                                     "actionLayout": {
-                                        "position": "BOTTOM"
+                                        "position": "BOTTOM",
+                                        "named": "Update"
                                     }
                                 }
                             }
-                        }
+                        },
+                        "primary": {}
                     }
                 }
             }
@@ -40,37 +42,22 @@
         },
         {
             "span": 0,
-            "memberGroups": {
-            }
+            "memberGroups": {}
         },
         {
             "span": 6,
             "collections": {
-                "communicationChannels": {
-                    "actions": {
-                        "addCommunicationChannel": {
-                            "actionLayout": {
-                                "named": "Add"
-                            }
-                        },
-                        "removeCommunicationChannel": {
-                            "actionLayout": {
-                                "named": "Remove"
-                            }
-                        }
-                    }
-                },
-                "cases": {
+                "contents": {
                     "collectionLayout": {
                         "render": "EAGERLY"
                     },
                     "actions": {
-                        "addToCase": {
+                        "addToCase" : {
                             "actionLayout": {
                                 "named": "Add"
                             }
                         },
-                        "removeFromCase": {
+                        "removeFromCase" : {
                             "actionLayout": {
                                 "named": "Remove"
                             }

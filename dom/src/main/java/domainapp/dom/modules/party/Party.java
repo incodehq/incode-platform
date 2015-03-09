@@ -18,6 +18,7 @@
  */
 package domainapp.dom.modules.party;
 
+import domainapp.dom.modules.casemgmt.CaseContent;
 import domainapp.dom.modules.comms.CommunicationChannel;
 import domainapp.dom.modules.comms.CommunicationChannelOwner;
 import domainapp.dom.modules.comms.CommunicationChannelOwnerLink;
@@ -65,7 +66,7 @@ import org.apache.isis.applib.util.ObjectContracts;
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
 )
-public class Party implements CommunicationChannelOwner, Comparable<Party> {
+public class Party implements CommunicationChannelOwner, CaseContent, Comparable<Party> {
 
     //region > identification
     public TranslatableString title() {
@@ -117,7 +118,7 @@ public class Party implements CommunicationChannelOwner, Comparable<Party> {
         final List<CommunicationChannelOwnerLink> ownerLinks =
                 communicationChannelOwnerLinks.findByOwner(this);
         return Lists.newArrayList(
-                Iterables.transform(ownerLinks, CommunicationChannelOwnerLink.Functions.GET_SUBJECT)
+                Iterables.transform(ownerLinks, CommunicationChannelOwnerLink.Functions.GET_COMMUNICATION_CHANNEL)
         );
     }
     //endregion
@@ -183,7 +184,7 @@ public class Party implements CommunicationChannelOwner, Comparable<Party> {
         final List<CommunicationChannelOwnerLink> ownerLinks =
                 communicationChannelOwnerLinks.findByOwner(this);
         return Lists.newArrayList(
-                Iterables.transform(ownerLinks, CommunicationChannelOwnerLink.Functions.GET_SUBJECT)
+                Iterables.transform(ownerLinks, CommunicationChannelOwnerLink.Functions.GET_COMMUNICATION_CHANNEL)
         );
     }
 

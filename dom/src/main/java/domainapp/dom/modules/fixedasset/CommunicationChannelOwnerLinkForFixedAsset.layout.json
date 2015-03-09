@@ -19,13 +19,9 @@
         {
             "span": 6,
             "memberGroups": {
-                "From": {
+                "Communication Channel": {
                     "members": {
-                        "subject": {
-                            "propertyLayout": {
-                                "named": "Communication Channel"
-                            }
-                        }
+                        "communicationChannel": {}
                     }
                 }
             }
@@ -37,15 +33,15 @@
         {
             "span": 6,
             "memberGroups": {
-                "To": {
+                "Owner": {
                     "members": {
-                        "polymorphicReferenceObjectType": {
+                        "ownerObjectType": {
                             "propertyLayout": {
                                 "named": "Object Type",
                                 "labelPosition": "LEFT"
                             }
                         },
-                        "polymorphicReferenceIdentifier": {
+                        "ownerIdentifier": {
                             "propertyLayout": {
                                 "named": "Identifier",
                                 "labelPosition": "LEFT"
@@ -53,7 +49,7 @@
                         }
                     }
                 },
-                "To (subtype)": {
+                "Owner (subtype)": {
                     "members": {
                         "fixedAsset": {}
                     }

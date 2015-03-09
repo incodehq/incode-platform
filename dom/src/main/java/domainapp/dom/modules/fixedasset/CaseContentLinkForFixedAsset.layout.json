@@ -19,9 +19,10 @@
         {
             "span": 6,
             "memberGroups": {
-                "Communication Channel": {
+                "Case": {
                     "members": {
-                        "communicationChannel": {}
+                        "case": {
+                        }
                     }
                 }
             }
@@ -33,15 +34,15 @@
         {
             "span": 6,
             "memberGroups": {
-                "Owner": {
+                "Content": {
                     "members": {
-                        "ownerObjectType": {
+                        "contentObjectType": {
                             "propertyLayout": {
                                 "named": "Object Type",
                                 "labelPosition": "LEFT"
                             }
                         },
-                        "ownerIdentifier": {
+                        "contentIdentifier": {
                             "propertyLayout": {
                                 "named": "Identifier",
                                 "labelPosition": "LEFT"
@@ -49,9 +50,9 @@
                         }
                     }
                 },
-                "Owner (subtype)": {
+                "Content (subtype)": {
                     "members": {
-                        "party": {}
+                        "fixedAsset": {}
                     }
                 }
             }

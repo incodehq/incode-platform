@@ -18,6 +18,7 @@
  */
 package domainapp.dom.modules.fixedasset;
 
+import domainapp.dom.modules.casemgmt.CaseContent;
 import domainapp.dom.modules.comms.CommunicationChannel;
 import domainapp.dom.modules.comms.CommunicationChannelOwner;
 import domainapp.dom.modules.comms.CommunicationChannelOwnerLink;
@@ -63,7 +64,7 @@ import org.apache.isis.applib.util.ObjectContracts;
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
 )
-public class FixedAsset implements CommunicationChannelOwner, Comparable<FixedAsset> {
+public class FixedAsset implements CommunicationChannelOwner, CaseContent, Comparable<FixedAsset> {
 
     //region > identification
     public TranslatableString title() {

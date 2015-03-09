@@ -17,7 +17,7 @@
 {
     "columns": [
         {
-            "span": 6,
+            "span": 4,
             "memberGroups": {
                 "General": {
                     "members": {
@@ -35,11 +35,7 @@
             }
         },
         {
-            "span": 0,
-            "memberGroups": {}
-        },
-        {
-            "span": 6,
+            "span": 4,
             "memberGroups": {
                 "Comms": {
                     "members": {
@@ -62,8 +58,31 @@
             }
         },
         {
-            "span": 12,
-            "collections": {}
+            "span": 0,
+            "memberGroups": {
+            }
+        },
+        {
+            "span": 4,
+            "collections": {
+                "cases": {
+                    "collectionLayout": {
+                        "render": "EAGERLY"
+                    },
+                    "actions": {
+                        "addToCase": {
+                            "actionLayout": {
+                                "named": "Add"
+                            }
+                        },
+                        "removeFromCase": {
+                            "actionLayout": {
+                                "named": "Remove"
+                            }
+                        }
+                    }
+                }
+            }
         }
     ],
     "actions": {}

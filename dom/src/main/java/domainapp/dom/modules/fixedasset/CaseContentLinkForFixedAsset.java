@@ -18,8 +18,8 @@
  */
 package domainapp.dom.modules.fixedasset;
 
-import domainapp.dom.modules.comms.CommunicationChannelOwner;
-import domainapp.dom.modules.comms.CommunicationChannelOwnerLink;
+import domainapp.dom.modules.casemgmt.CaseContent;
+import domainapp.dom.modules.casemgmt.CaseContentLink;
 
 import javax.jdo.annotations.InheritanceStrategy;
 import org.apache.isis.applib.annotation.DomainObject;
@@ -30,12 +30,12 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 @javax.jdo.annotations.Inheritance(
         strategy = InheritanceStrategy.NEW_TABLE)
 @DomainObject(
-        objectType = "fixedasset.CommunicationChannelOwnerLinkForFixedAsset"
+        objectType = "fixedasset.CaseContentLinkForFixedAsset"
 )
-public class CommunicationChannelOwnerLinkForFixedAsset extends CommunicationChannelOwnerLink {
+public class CaseContentLinkForFixedAsset extends CaseContentLink {
 
     @Override
-    public void setPolymorphicReference(final CommunicationChannelOwner polymorphicReference) {
+    public void setPolymorphicReference(final CaseContent polymorphicReference) {
         super.setPolymorphicReference(polymorphicReference);
         setFixedAsset((FixedAsset) polymorphicReference);
     }

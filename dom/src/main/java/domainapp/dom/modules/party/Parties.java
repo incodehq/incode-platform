@@ -19,12 +19,9 @@
 package domainapp.dom.modules.party;
 
 import domainapp.dom.modules.comms.CommunicationChannel;
-import domainapp.dom.modules.comms.CommunicationChannelOwner;
-import domainapp.dom.modules.comms.CommunicationChannelOwnerLink;
 
 import java.util.List;
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
@@ -33,10 +30,9 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
-import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 
 @DomainService(repositoryFor = CommunicationChannel.class)
-@DomainServiceLayout(menuOrder = "10")
+@DomainServiceLayout(menuOrder = "20")
 public class Parties {
 
     //region > listAll (action)

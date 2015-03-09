@@ -18,8 +18,10 @@
  */
 package domainapp.dom.app.homepage;
 
+import domainapp.dom.modules.casemgmt.Case;
+import domainapp.dom.modules.casemgmt.Cases;
 import domainapp.dom.modules.comms.CommunicationChannel;
-import domainapp.dom.modules.comms.CommunicationChannelsMenu;
+import domainapp.dom.modules.comms.CommunicationChannels;
 import domainapp.dom.modules.fixedasset.FixedAsset;
 import domainapp.dom.modules.fixedasset.FixedAssets;
 import domainapp.dom.modules.party.Parties;
@@ -29,11 +31,11 @@ import java.util.List;
 import org.apache.isis.applib.annotation.ViewModel;
 
 @ViewModel
-public class HomePageViewModel {
+public class HomePage {
 
     //region > title
     public String title() {
-        return getParties().size() + " parties, " + getFixedAssets().size() + " fixed assets, " + getCommunicationChannels().size() + " comm channels";
+        return getParties().size() + " parties, " + getFixedAssets().size() + " fixed assets, "+ getCases().size() + " cases, " +  getCommunicationChannels().size() + " comm channels";
     }
     //endregion
 
@@ -49,12 +51,20 @@ public class HomePageViewModel {
         return fixedAssets.listAll();
     }
 
+    public List<Case> getCases() {
+        return cases.listAll();
+    }
+
     @javax.inject.Inject
-    CommunicationChannelsMenu communicationChannelsMenu;
+    CommunicationChannels communicationChannelsMenu;
 
     @javax.inject.Inject
     Parties parties;
 
     @javax.inject.Inject
     FixedAssets fixedAssets;
+
+    @javax.inject.Inject
+    Cases cases;
 }
+

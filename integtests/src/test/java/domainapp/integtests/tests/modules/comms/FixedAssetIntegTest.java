@@ -19,7 +19,7 @@
 package domainapp.integtests.tests.modules.comms;
 
 import domainapp.dom.modules.comms.CommunicationChannel;
-import domainapp.dom.modules.comms.CommunicationChannelsMenu;
+import domainapp.dom.modules.comms.CommunicationChannels;
 import domainapp.dom.modules.fixedasset.FixedAsset;
 import domainapp.fixture.scenarios.RecreateFixedAssets;
 import domainapp.integtests.tests.PolyAppIntegTest;
@@ -46,7 +46,7 @@ public class FixedAssetIntegTest extends PolyAppIntegTest {
     @Inject
     FixtureScripts fixtureScripts;
     @Inject
-    CommunicationChannelsMenu communicationChannelsMenu;
+    CommunicationChannels communicationChannelsMenu;
 
     RecreateFixedAssets fs;
     FixedAsset fixedAsset;

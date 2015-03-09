@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.dom.modules.comms;
+package domainapp.dom.modules.casemgmt;
 
 import domainapp.dom.modules.poly.PolymorphicLinkHelper;
 import domainapp.dom.modules.poly.PolymorphicLinkInstantiateEvent;
@@ -33,70 +33,69 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
-        repositoryFor = CommunicationChannelOwnerLink.class
+        repositoryFor = CaseContentLink.class
 )
-public class CommunicationChannelOwnerLinks {
+public class CaseContentLinks {
 
     //region > init
     public static class InstantiateEvent
-            extends PolymorphicLinkInstantiateEvent<CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink> {
+            extends PolymorphicLinkInstantiateEvent<Case, CaseContent, CaseContentLink> {
 
-        public InstantiateEvent(final Object source, final CommunicationChannel subject, final CommunicationChannelOwner owner) {
-            super(CommunicationChannelOwnerLink.class, source, subject, owner);
+        public InstantiateEvent(final Object source, final Case aCase, final CaseContent content) {
+            super(CaseContentLink.class, source, aCase, content);
         }
     }
 
-    PolymorphicLinkHelper<CommunicationChannel,CommunicationChannelOwner,CommunicationChannelOwnerLink,InstantiateEvent> ownerLinkHelper;
+    PolymorphicLinkHelper<Case,CaseContent,CaseContentLink,InstantiateEvent> ownerLinkHelper;
 
     @PostConstruct
     public void init() {
         ownerLinkHelper = container.injectServicesInto(
                 new PolymorphicLinkHelper<>(
                         this,
-                        CommunicationChannel.class,
-                        CommunicationChannelOwner.class,
-                        CommunicationChannelOwnerLink.class,
+                        Case.class,
+                        CaseContent.class,
+                        CaseContentLink.class,
                         InstantiateEvent.class
                 ));
 
     }
     //endregion
 
-    //region > findByCommunicationChannel (programmatic)
+    //region > findByCase (programmatic)
     @Programmatic
-    public CommunicationChannelOwnerLink findByCommunicationChannel(final CommunicationChannel communicationChannel) {
-        return container.firstMatch(
-                new QueryDefault<>(CommunicationChannelOwnerLink.class,
-                        "findByCommunicationChannel",
-                        "communicationChannel", communicationChannel));
+    public List<CaseContentLink> findByCase(final Case aCase) {
+        return container.allMatches(
+                new QueryDefault<>(CaseContentLink.class,
+                        "findByCase",
+                        "case", aCase));
     }
     //endregion
 
-    //region > findByOwner (programmatic)
+    //region > findByContent (programmatic)
     @Programmatic
-    public List<CommunicationChannelOwnerLink> findByOwner(final CommunicationChannelOwner owner) {
-        if(owner == null) {
+    public List<CaseContentLink> findByContent(final CaseContent caseContent) {
+        if(caseContent == null) {
             return null;
         }
-        final Bookmark bookmark = bookmarkService.bookmarkFor(owner);
+        final Bookmark bookmark = bookmarkService.bookmarkFor(caseContent);
         if(bookmark == null) {
             return null;
         }
         return container.allMatches(
-                new QueryDefault<>(CommunicationChannelOwnerLink.class,
-                        "findByOwner",
-                        "ownerObjectType", bookmark.getObjectType(),
-                        "ownerIdentifier", bookmark.getIdentifier()));
+                new QueryDefault<>(CaseContentLink.class,
+                        "findByContent",
+                        "contentObjectType", bookmark.getObjectType(),
+                        "contentIdentifier", bookmark.getIdentifier()));
     }
     //endregion
 
-    //region > createLink (programmatic)
+    //region > createLink
     @Programmatic
-    public void createLink(final CommunicationChannel communicationChannel, final CommunicationChannelOwner owner) {
-        ownerLinkHelper.createLink(communicationChannel, owner);
+    public void createLink(final Case aCase, final CaseContent content) {
+        ownerLinkHelper.createLink(aCase, content);
     }
     //endregion
-
 
     //region > injected services
 

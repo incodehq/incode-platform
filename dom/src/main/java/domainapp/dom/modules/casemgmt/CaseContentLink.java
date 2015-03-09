@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.dom.modules.comms;
+package domainapp.dom.modules.casemgmt;
 
 import domainapp.dom.modules.poly.SubjectPolymorphicReferenceLink;
 
@@ -34,116 +34,121 @@ import org.apache.isis.applib.annotation.Programmatic;
         strategy = InheritanceStrategy.NEW_TABLE)
 @javax.jdo.annotations.Queries({
         @javax.jdo.annotations.Query(
-                name = "findByCommunicationChannel", language = "JDOQL",
+                name = "findByCase", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM domainapp.dom.modules.comms.CommunicationChannelOwnerLink "
-                        + "WHERE communicationChannel == :communicationChannel"),
+                        + "FROM domainapp.dom.modules.casemgmt.CaseContentLink "
+                        + "WHERE case == :case"),
         @javax.jdo.annotations.Query(
-                name = "findByOwner", language = "JDOQL",
+                name = "findByContent", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM domainapp.dom.modules.comms.CommunicationChannelOwnerLink "
-                        + "WHERE ownerObjectType == :ownerObjectType "
-                        + "   && ownerIdentifier == :ownerIdentifier ")
+                        + "FROM domainapp.dom.modules.casemgmt.CaseContentLink "
+                        + "WHERE contentObjectType == :contentObjectType "
+                        + "   && contentIdentifier == :contentIdentifier ")
 })
-@javax.jdo.annotations.Unique(name="CommunicationChannelOwnerLink_commchannel_owner_UNQ", members = {"communicationChannel,ownerObjectType,ownerIdentifier"})
+@javax.jdo.annotations.Unique(name="CaseContentLink_case_content_UNQ", members = {"case,contentObjectType,contentIdentifier"})
 @DomainObject(
-        objectType = "comms.CommunicationChannelOwnerLink"
+        objectType = "casemgmt.CaseContentLink"
 )
-public abstract class CommunicationChannelOwnerLink extends SubjectPolymorphicReferenceLink<CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink> {
+public abstract class CaseContentLink extends SubjectPolymorphicReferenceLink<Case, CaseContent, CaseContentLink> {
 
     //region > constructor
-    public CommunicationChannelOwnerLink() {
-        super("{polymorphicReference} owns {subject}");
+    public CaseContentLink() {
+        super("{subject} contains {polymorphicReference}");
     }
     //endregion
 
     //region > SubjectPolymorphicReferenceLink API
     @Override
     @Programmatic
-    public CommunicationChannel getSubject() {
-        return getCommunicationChannel();
+    public Case getSubject() {
+        return getCase();
     }
 
     @Override
     @Programmatic
-    public void setSubject(final CommunicationChannel subject) {
-        setCommunicationChannel(subject);
+    public void setSubject(final Case subject) {
+        setCase(subject);
     }
 
     @Override
     @Programmatic
     public String getPolymorphicReferenceObjectType() {
-        return getOwnerObjectType();
+        return getContentObjectType();
     }
 
     @Override
     @Programmatic
     public void setPolymorphicReferenceObjectType(final String polymorphicReferenceObjectType) {
-        setOwnerObjectType(polymorphicReferenceObjectType);
+        setContentObjectType(polymorphicReferenceObjectType);
     }
 
     @Override
     @Programmatic
     public String getPolymorphicReferenceIdentifier() {
-        return getOwnerIdentifier();
+        return getContentIdentifier();
     }
 
     @Override
     @Programmatic
     public void setPolymorphicReferenceIdentifier(final String polymorphicReferenceIdentifier) {
-        setOwnerIdentifier(polymorphicReferenceIdentifier);
+        setContentIdentifier(polymorphicReferenceIdentifier);
     }
     //endregion
 
-    //region > communicationChannel (property)
-    private CommunicationChannel communicationChannel;
+    //region > case (property)
+    private Case aCase;
     @Column(
             allowsNull = "false",
             name = "communicationChannel_id"
     )
-    public CommunicationChannel getCommunicationChannel() {
-        return communicationChannel;
+    public Case getCase() {
+        return aCase;
     }
 
-    public void setCommunicationChannel(final CommunicationChannel communicationChannel) {
-        this.communicationChannel = communicationChannel;
-    }
-    //endregion
-
-    //region > ownerObjectType (property)
-    private String ownerObjectType;
-
-    @Column(allowsNull = "false", length = 255)
-    public String getOwnerObjectType() {
-        return ownerObjectType;
-    }
-
-    public void setOwnerObjectType(final String ownerObjectType) {
-        this.ownerObjectType = ownerObjectType;
+    public void setCase(final Case aCase) {
+        this.aCase = aCase;
     }
     //endregion
 
-    //region > ownerIdentifier (property)
-    private String ownerIdentifier;
+    //region > contentObjectType (property)
+    private String contentObjectType;
 
     @Column(allowsNull = "false", length = 255)
-    public String getOwnerIdentifier() {
-        return ownerIdentifier;
+    public String getContentObjectType() {
+        return contentObjectType;
     }
 
-    public void setOwnerIdentifier(final String ownerIdentifier) {
-        this.ownerIdentifier = ownerIdentifier;
+    public void setContentObjectType(final String contentObjectType) {
+        this.contentObjectType = contentObjectType;
+    }
+    //endregion
+
+    //region > contentIdentifier (property)
+    private String contentIdentifier;
+
+    @Column(allowsNull = "false", length = 255)
+    public String getContentIdentifier() {
+        return contentIdentifier;
+    }
+
+    public void setContentIdentifier(final String contentIdentifier) {
+        this.contentIdentifier = contentIdentifier;
     }
     //endregion
 
     public static class Functions {
-        public static Function<CommunicationChannelOwnerLink, CommunicationChannel> GET_COMMUNICATION_CHANNEL = new Function<CommunicationChannelOwnerLink, CommunicationChannel>() {
+        public static Function<CaseContentLink, Case> GET_CASE = new Function<CaseContentLink, Case>() {
             @Override
-            public CommunicationChannel apply(final CommunicationChannelOwnerLink input) {
-                return input.getCommunicationChannel();
+            public Case apply(final CaseContentLink input) {
+                return input.getSubject();
             }
         };
-
+        public static Function<CaseContentLink, CaseContent> GET_CONTENT = new Function<CaseContentLink, CaseContent>() {
+            @Override
+            public CaseContent apply(final CaseContentLink input) {
+                return input.getPolymorphicReference();
+            }
+        };
     }
 
 }

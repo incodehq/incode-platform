@@ -16,10 +16,10 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.dom.modules.fixedasset;
+package domainapp.dom.modules.party;
 
-import domainapp.dom.modules.comms.CommunicationChannelOwner;
-import domainapp.dom.modules.comms.CommunicationChannelOwnerLink;
+import domainapp.dom.modules.casemgmt.CaseContent;
+import domainapp.dom.modules.casemgmt.CaseContentLink;
 
 import javax.jdo.annotations.InheritanceStrategy;
 import org.apache.isis.applib.annotation.DomainObject;
@@ -30,29 +30,28 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 @javax.jdo.annotations.Inheritance(
         strategy = InheritanceStrategy.NEW_TABLE)
 @DomainObject(
-        objectType = "fixedasset.CommunicationChannelOwnerLinkForFixedAsset"
+        objectType = "party.CaseContentLinkForParty"
 )
-public class CommunicationChannelOwnerLinkForFixedAsset extends CommunicationChannelOwnerLink {
+public class CaseContentLinkForParty extends CaseContentLink {
 
     @Override
-    public void setPolymorphicReference(final CommunicationChannelOwner polymorphicReference) {
+    public void setPolymorphicReference(final CaseContent polymorphicReference) {
         super.setPolymorphicReference(polymorphicReference);
-        setFixedAsset((FixedAsset) polymorphicReference);
+        setParty((Party) polymorphicReference);
     }
 
     //region > party (property)
-    private FixedAsset fixedAsset;
+    private Party party;
 
     @MemberOrder(sequence = "1")
-    public FixedAsset getFixedAsset() {
-        return fixedAsset;
+    public Party getParty() {
+        return party;
     }
 
-    public void setFixedAsset(final FixedAsset fixedAsset) {
-        this.fixedAsset = fixedAsset;
+    public void setParty(final Party party) {
+        this.party = party;
     }
     //endregion
-
 
     //region > injected services
     @javax.inject.Inject

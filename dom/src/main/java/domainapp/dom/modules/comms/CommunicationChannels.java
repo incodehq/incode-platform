@@ -16,34 +16,38 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.dom.app.homepage;
+package domainapp.dom.modules.comms;
 
+import java.util.List;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-@DomainService(
-        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY // trick to suppress the actions from the top-level menu
-)
-public class HomePageService {
+@DomainService(repositoryFor = CommunicationChannel.class )
+@DomainServiceLayout(menuOrder = "40")
+public class CommunicationChannels {
 
-    //region > homePage (action)
-
+    //region > listAll (action)
     @Action(
             semantics = SemanticsOf.SAFE
     )
-    @org.apache.isis.applib.annotation.HomePage
-    public HomePage homePage() {
-        return container.injectServicesInto(new HomePage());
+    @ActionLayout(
+            bookmarking = BookmarkPolicy.AS_ROOT
+    )
+    @MemberOrder(sequence = "1")
+    public List<CommunicationChannel> listAll() {
+        return container.allInstances(CommunicationChannel.class);
     }
-
     //endregion
 
     //region > injected services
 
-    @javax.inject.Inject
+    @javax.inject.Inject 
     DomainObjectContainer container;
 
     //endregion
