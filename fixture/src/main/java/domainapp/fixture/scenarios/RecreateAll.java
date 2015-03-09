@@ -41,27 +41,18 @@ public class RecreateAll extends FixtureScript {
     }
 
     //region > fixedAssets (output)
-    /**
-     * The {@link domainapp.dom.modules.fixedasset.FixedAsset}s created by this fixture (output).
-     */
     public List<FixedAsset> getFixedAssets() {
         return recreateFixedAssets.getFixedAssets();
     }
     //endregion
 
     //region > parties (output)
-    /**
-     * The {@link domainapp.dom.modules.party.Party}s created by this fixture (output).
-     */
     public List<Party> getParties() {
         return recreateParties.getParties();
     }
     //endregion
 
     //region > cases (output)
-    /**
-     * The {@link domainapp.dom.modules.casemgmt.Case}s created by this fixture (output).
-     */
     public List<Case> getCases() {
         return recreateCases.getCases();
     }
@@ -88,16 +79,16 @@ public class RecreateAll extends FixtureScript {
 
         // create comm channels
         int i=0;
-        parties.get(0).addCommunicationChannel(detailsFor(i++));
-        parties.get(1).addCommunicationChannel(detailsFor(i++));
-        parties.get(1).addCommunicationChannel(detailsFor(i++));
-        parties.get(2).addCommunicationChannel(detailsFor(i++));
-        parties.get(2).addCommunicationChannel(detailsFor(i++));
-        parties.get(2).addCommunicationChannel(detailsFor(i++));
+        parties.get(0).addCommunicationChannel(commChannelDetailsFor(i++));
+        parties.get(1).addCommunicationChannel(commChannelDetailsFor(i++));
+        parties.get(1).addCommunicationChannel(commChannelDetailsFor(i++));
+        parties.get(2).addCommunicationChannel(commChannelDetailsFor(i++));
+        parties.get(2).addCommunicationChannel(commChannelDetailsFor(i++));
+        parties.get(2).addCommunicationChannel(commChannelDetailsFor(i++));
 
-        fixedAssets.get(0).createCommunicationChannel(detailsFor(i++));
-        fixedAssets.get(1).createCommunicationChannel(detailsFor(i++));
-        fixedAssets.get(2).createCommunicationChannel(detailsFor(i++));
+        fixedAssets.get(0).createCommunicationChannel(commChannelDetailsFor(i++));
+        fixedAssets.get(1).createCommunicationChannel(commChannelDetailsFor(i++));
+        fixedAssets.get(2).createCommunicationChannel(commChannelDetailsFor(i++));
 
         // add content to cases
         caseContentContributions.addToCase(cases.get(0), parties.get(0));
@@ -116,15 +107,13 @@ public class RecreateAll extends FixtureScript {
         casePrimaryContentContributions.makePrimary(cases.get(1), fixedAssets.get(0));
     }
 
+    private static String commChannelDetailsFor(final int i) {
+        return String.format("0207 100 1%03d", i);
+    }
 
     @Inject
     private CaseContentContributions caseContentContributions;
-
     @Inject
     private CasePrimaryContentContributions casePrimaryContentContributions;
 
-
-    private String detailsFor(final int i) {
-        return String.format("0207 100 1%03d", i);
-    }
 }
