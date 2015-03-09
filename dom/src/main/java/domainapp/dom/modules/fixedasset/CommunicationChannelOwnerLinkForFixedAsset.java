@@ -21,6 +21,7 @@ package domainapp.dom.modules.fixedasset;
 import domainapp.dom.modules.comms.CommunicationChannelOwner;
 import domainapp.dom.modules.comms.CommunicationChannelOwnerLink;
 
+import javax.jdo.annotations.Column;
 import javax.jdo.annotations.InheritanceStrategy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -43,6 +44,10 @@ public class CommunicationChannelOwnerLinkForFixedAsset extends CommunicationCha
     //region > party (property)
     private FixedAsset fixedAsset;
 
+    @Column(
+            allowsNull = "false",
+            name = "fixedAsset_id"
+    )
     @MemberOrder(sequence = "1")
     public FixedAsset getFixedAsset() {
         return fixedAsset;

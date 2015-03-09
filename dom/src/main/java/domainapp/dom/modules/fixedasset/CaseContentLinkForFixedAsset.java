@@ -21,6 +21,7 @@ package domainapp.dom.modules.fixedasset;
 import domainapp.dom.modules.casemgmt.CaseContent;
 import domainapp.dom.modules.casemgmt.CaseContentLink;
 
+import javax.jdo.annotations.Column;
 import javax.jdo.annotations.InheritanceStrategy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -43,6 +44,10 @@ public class CaseContentLinkForFixedAsset extends CaseContentLink {
     //region > party (property)
     private FixedAsset fixedAsset;
 
+    @Column(
+            allowsNull = "false",
+            name = "fixedAsset_id"
+    )
     @MemberOrder(sequence = "1")
     public FixedAsset getFixedAsset() {
         return fixedAsset;

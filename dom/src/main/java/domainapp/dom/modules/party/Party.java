@@ -40,8 +40,10 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.Title;
+import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.util.ObjectContracts;
 
@@ -72,6 +74,7 @@ public class Party implements CommunicationChannelOwner, CaseContent, Comparable
     public TranslatableString title() {
         return TranslatableString.tr("{name}", "name", getName());
     }
+
     //endregion
 
     //region > name (property)
@@ -82,6 +85,10 @@ public class Party implements CommunicationChannelOwner, CaseContent, Comparable
     @Title(sequence="1")
     @Property(
             editing = Editing.DISABLED
+    )
+    @PropertyLayout(
+            // contributed 'title' property (from CaseContentContributions) is shown instead on tables
+            hidden = Where.ALL_TABLES
     )
     public String getName() {
         return name;

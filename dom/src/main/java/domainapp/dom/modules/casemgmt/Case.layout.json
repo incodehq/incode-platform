@@ -17,7 +17,7 @@
 {
     "columns": [
         {
-            "span": 6,
+            "span": 4,
             "memberGroups": {
                 "General": {
                     "members": {
@@ -30,7 +30,16 @@
                                     }
                                 }
                             }
-                        },
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "span": 4,
+            "memberGroups": {
+                "Primary Content": {
+                    "members": {
                         "primary": {
                             "actions": {
                                 "makePrimary": {
@@ -54,11 +63,7 @@
             "memberGroups": {}
         },
         {
-            "span": 0,
-            "memberGroups": {}
-        },
-        {
-            "span": 6,
+            "span": 4,
             "collections": {
                 "contents": {
                     "collectionLayout": {

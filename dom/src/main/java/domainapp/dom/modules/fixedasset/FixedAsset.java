@@ -39,7 +39,9 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Title;
+import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.util.ObjectContracts;
 
@@ -70,6 +72,7 @@ public class FixedAsset implements CommunicationChannelOwner, CaseContent, Compa
     public TranslatableString title() {
         return TranslatableString.tr("{name}", "name", getName());
     }
+
     //endregion
 
     //region > name (property)
@@ -80,6 +83,10 @@ public class FixedAsset implements CommunicationChannelOwner, CaseContent, Compa
     @Title(sequence="1")
     @Property(
             editing = Editing.DISABLED
+    )
+    @PropertyLayout(
+            // contributed 'title' property (from CaseContentContributions) is shown instead on tables
+            hidden = Where.ALL_TABLES
     )
     public String getName() {
         return name;
@@ -185,6 +192,7 @@ public class FixedAsset implements CommunicationChannelOwner, CaseContent, Compa
 
     @javax.inject.Inject
     CommunicationChannelOwnerLinks communicationChannelOwnerLinks;
+
 
     //endregion
 

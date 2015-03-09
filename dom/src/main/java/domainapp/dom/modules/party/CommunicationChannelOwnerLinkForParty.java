@@ -21,6 +21,7 @@ package domainapp.dom.modules.party;
 import domainapp.dom.modules.comms.CommunicationChannelOwner;
 import domainapp.dom.modules.comms.CommunicationChannelOwnerLink;
 
+import javax.jdo.annotations.Column;
 import javax.jdo.annotations.InheritanceStrategy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -43,6 +44,10 @@ public class CommunicationChannelOwnerLinkForParty extends CommunicationChannelO
     //region > party (property)
     private Party party;
 
+    @Column(
+            allowsNull = "false",
+            name = "party_id"
+    )
     @MemberOrder(sequence = "1")
     public Party getParty() {
         return party;

@@ -24,12 +24,13 @@ import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.NotPersistent;
 import com.google.common.base.Function;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Programmatic;
 
 @javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
-@javax.jdo.annotations.DatastoreIdentity(strategy = IdGeneratorStrategy.IDENTITY)
+@javax.jdo.annotations.DatastoreIdentity(strategy = IdGeneratorStrategy.IDENTITY, column = "id")
 @javax.jdo.annotations.Inheritance(
         strategy = InheritanceStrategy.NEW_TABLE)
 @javax.jdo.annotations.Queries({
@@ -103,17 +104,18 @@ public abstract class CasePrimaryContentLink extends SubjectPolymorphicReference
     //endregion
 
     //region > case (property)
-    private Case aCase;
+    @NotPersistent // because we (have to) have a non-standard name for this field
+    private Case _case;
     @Column(
             allowsNull = "false",
             name = "case_id"
     )
     public Case getCase() {
-        return aCase;
+        return _case;
     }
 
     public void setCase(final Case aCase) {
-        this.aCase = aCase;
+        this._case = aCase;
     }
     //endregion
 

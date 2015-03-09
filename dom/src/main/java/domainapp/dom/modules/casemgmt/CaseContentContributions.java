@@ -29,7 +29,9 @@ import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 
 @DomainService(
@@ -141,10 +143,26 @@ public class CaseContentContributions {
     }
     //endregion
 
+    //region > title (derived property)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            contributed = Contributed.AS_ASSOCIATION
+    )
+    @PropertyLayout(
+            hidden = Where.OBJECT_FORMS
+    )
+    public String title(final CaseContent caseContent) {
+        return container.titleOf(caseContent);
+    }
+    //endregion
 
 
 
-    @Inject
+
+
+        @Inject
     private CaseContentLinks caseContentLinks;
     @Inject
     private DomainObjectContainer container;

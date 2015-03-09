@@ -21,8 +21,12 @@
             "memberGroups": {
                 "Case": {
                     "members": {
-                        "case": {
-                        }
+                        "contentTitle": {
+                            "propertyLayout": {
+                                "hidden": "NOWHERE"
+                            }
+                        },
+                        "case": {}
                     }
                 }
             }

@@ -19,15 +19,9 @@
         {
             "span": 6,
             "memberGroups": {
-                "Case": {
+                "General": {
                     "members": {
-                        "contentTitle": {
-                            "propertyLayout": {
-                                "hidden": "NOWHERE"
-                            }
-                        },
-                        "case": {
-                        }
+                        "contentTitle": {}
                     }
                 }
             }
@@ -39,27 +33,6 @@
         {
             "span": 6,
             "memberGroups": {
-                "Content": {
-                    "members": {
-                        "contentObjectType": {
-                            "propertyLayout": {
-                                "named": "Object Type",
-                                "labelPosition": "LEFT"
-                            }
-                        },
-                        "contentIdentifier": {
-                            "propertyLayout": {
-                                "named": "Identifier",
-                                "labelPosition": "LEFT"
-                            }
-                        }
-                    }
-                },
-                "Content (subtype)": {
-                    "members": {
-                        "party": {}
-                    }
-                }
             }
         },
         {
