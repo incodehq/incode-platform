@@ -238,10 +238,12 @@ The key design idea within the helper classes provided by this module is to leve
 
 The recipe is:
 
-Step | owner | case contents | primary content
-------------- | ------------- | --- | ---
-create an interface for the target of the association | `CommunicationChannelOwner` | `CaseContent` | `CaseContent` |
-create a persistent entity corresponding to the association | `CommunicationChannelOwnerLink` | `CaseContentLink` | `CasePrimaryContentLink`
+Step | Examples
+------------- | ----
+create an interface for the target of the association | `CommunicationChannelOwner` and `CaseContent`
+create a persistent entity corresponding to the association | `CommunicationChannelOwnerLink` for the `CommunicationChannel`/"owner" association
+ | `CaseContentLink` for `Case`/"contents" association
+ | `CasePrimaryContentLink` for `Case`/"primary content" association
 
 
 create an interface for the target of the association
