@@ -273,7 +273,7 @@ Example
     2
 </td>
 <td>
-    create a persistent entity corresponding to the association
+    Create a persistent entity corresponding to the association
 </td>
 <td>
     <ul>
@@ -292,7 +292,7 @@ Example
     3
 </td>
 <td>
-    create a corresponding repository service for that link persistent entity:
+    Create a corresponding repository service for that link persistent entity:
 </td>
 <td>
     <ul>
@@ -331,7 +331,7 @@ Example
     5
 </td>
 <td>
-    create a subtype for each implementation of the target interface:
+    Create a subtype for each implementation of the target interface:
 </td>
 <td>
     <ul>
@@ -350,7 +350,8 @@ Example
     6
 </td>
 <td>
-    create a subscriber to the event.  We suggest using a nested static class of the subtype:
+    Create a subscriber to the event.  <p/>
+    We suggest using a nested static class of the subtype:
 </td>
 <td>
     <ul>
