@@ -79,13 +79,11 @@ is also a further `CasePrimaryContentLink` persistent entity, again with subtype
 In the demo application the [NEW_TABLE](http://www.datanucleus.org/products/datanucleus/jdo/orm/inheritance.html#newtable)
   strategy is used for both, giving rise to these tables for the "case content" association:
 
-![](https://raw.github.com/isisaddons/isis-module-poly/master/images/case-content-contents-rdbms.png)
+<img src="https://raw.github.com/isisaddons/isis-module-poly/master/images/case-content-contents-rdbms.png" width="600">
 
 and also to these for the "primary content" association:
 
-The corresponding RDBMS tables for the 1:1 "primary contents" relationship are almost identical:
-
-![](https://raw.github.com/isisaddons/isis-module-poly/master/images/case-content-primary-rdbms.png)
+<img src="https://raw.github.com/isisaddons/isis-module-poly/master/images/case-content-primary-rdbms.png" width="600">
 
 
 ## Screenshots ##
