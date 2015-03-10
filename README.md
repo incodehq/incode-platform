@@ -292,7 +292,7 @@ Example
     3
 </td>
 <td>
-    create a corresponding repository service for that link persistent entity
+    create a corresponding repository service for that link persistent entity:
 </td>
 <td>
     <ul>
@@ -315,11 +315,11 @@ Example
 </td>
 <td>
     <ul>
-    <li><code>CommunicationChannelOwnerLink.InstantiateEvent</code>
+    <li><code>CommunicationChannelOwnerLink.</code> <code>InstantiateEvent</code>
     </li>
-    <li><code>CaseContentLink.InstantiateEvent</code>
+    <li><code>CaseContentLink.</code> <code>InstantiateEvent</code>
     </li>
-    <li><code>CasePrimaryContentLink.InstantiateEvent</code>
+    <li><code>CasePrimaryContentLink.</code> <code>InstantiateEvent</code>
     </li>
     </ul>
 </td>
