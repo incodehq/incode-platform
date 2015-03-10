@@ -18,13 +18,13 @@
  */
 package org.isisaddons.module.poly.fixture.dom.modules.comms;
 
-import org.isisaddons.module.poly.dom.SubjectPolymorphicReferenceLink;
-
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
 import com.google.common.base.Function;
+import org.isisaddons.module.poly.dom.PolymorphicAssociationInstantiateEvent;
+import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Programmatic;
 
@@ -49,7 +49,16 @@ import org.apache.isis.applib.annotation.Programmatic;
 @DomainObject(
         objectType = "comms.CommunicationChannelOwnerLink"
 )
-public abstract class CommunicationChannelOwnerLink extends SubjectPolymorphicReferenceLink<CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink> {
+public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociationLink<CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink> {
+
+
+    public static class InstantiateEvent
+            extends PolymorphicAssociationInstantiateEvent<CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink> {
+
+        public InstantiateEvent(final Object source, final CommunicationChannel subject, final CommunicationChannelOwner owner) {
+            super(CommunicationChannelOwnerLink.class, source, subject, owner);
+        }
+    }
 
     //region > constructor
     public CommunicationChannelOwnerLink() {
@@ -72,26 +81,26 @@ public abstract class CommunicationChannelOwnerLink extends SubjectPolymorphicRe
 
     @Override
     @Programmatic
-    public String getPolymorphicReferenceObjectType() {
+    public String getPolymorphicObjectType() {
         return getOwnerObjectType();
     }
 
     @Override
     @Programmatic
-    public void setPolymorphicReferenceObjectType(final String polymorphicReferenceObjectType) {
-        setOwnerObjectType(polymorphicReferenceObjectType);
+    public void setPolymorphicObjectType(final String polymorphicObjectType) {
+        setOwnerObjectType(polymorphicObjectType);
     }
 
     @Override
     @Programmatic
-    public String getPolymorphicReferenceIdentifier() {
+    public String getPolymorphicIdentifier() {
         return getOwnerIdentifier();
     }
 
     @Override
     @Programmatic
-    public void setPolymorphicReferenceIdentifier(final String polymorphicReferenceIdentifier) {
-        setOwnerIdentifier(polymorphicReferenceIdentifier);
+    public void setPolymorphicIdentifier(final String polymorphicIdentifier) {
+        setOwnerIdentifier(polymorphicIdentifier);
     }
     //endregion
 

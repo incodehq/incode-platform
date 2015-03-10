@@ -25,11 +25,11 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.util.ObjectContracts;
 
-public abstract class SubjectPolymorphicReferenceLink<S, PR, L extends SubjectPolymorphicReferenceLink<S,PR,L>>  implements Comparable<L> {
+public abstract class PolymorphicAssociationLink<S, PR, L extends PolymorphicAssociationLink<S,PR,L>>  implements Comparable<L> {
 
     private final String titlePattern;
 
-    protected SubjectPolymorphicReferenceLink(final String titlePattern) {
+    protected PolymorphicAssociationLink(final String titlePattern) {
         this.titlePattern = titlePattern;
     }
 
@@ -49,27 +49,27 @@ public abstract class SubjectPolymorphicReferenceLink<S, PR, L extends SubjectPo
     public abstract void setSubject(S subjectObj);
     //endregion
 
-    //region > polymorphicReferenceObjectType (property)
+    //region > polymorphicObjectType (property)
     @Programmatic
-    public abstract String getPolymorphicReferenceObjectType();
+    public abstract String getPolymorphicObjectType();
 
     @Programmatic
-    public abstract void setPolymorphicReferenceObjectType(final String polymorphicReferenceObjectType);
+    public abstract void setPolymorphicObjectType(final String polymorphicObjectType);
     //endregion
 
-    //region > polymorphicReferenceIdentifier (property)
+    //region > polymorphicIdentifier (property)
     @Programmatic
-    public abstract String getPolymorphicReferenceIdentifier();
+    public abstract String getPolymorphicIdentifier();
 
     @Programmatic
-    public abstract void setPolymorphicReferenceIdentifier(final String polymorphicReferenceIdentifier);
+    public abstract void setPolymorphicIdentifier(final String polymorphicIdentifier);
     //endregion
 
     //region > polymorphicReference (derived property)
 
     @Programmatic
     public PR getPolymorphicReference() {
-        final Bookmark bookmark = new Bookmark(getPolymorphicReferenceObjectType(), getPolymorphicReferenceIdentifier());
+        final Bookmark bookmark = new Bookmark(getPolymorphicObjectType(), getPolymorphicIdentifier());
         return (PR) bookmarkService.lookup(bookmark);
     }
 
@@ -79,8 +79,8 @@ public abstract class SubjectPolymorphicReferenceLink<S, PR, L extends SubjectPo
     @Programmatic
     public void setPolymorphicReference(final PR polymorphicReference) {
         final Bookmark bookmark = bookmarkService.bookmarkFor(polymorphicReference);
-        setPolymorphicReferenceObjectType(bookmark.getObjectType());
-        setPolymorphicReferenceIdentifier(bookmark.getIdentifier());
+        setPolymorphicObjectType(bookmark.getObjectType());
+        setPolymorphicIdentifier(bookmark.getIdentifier());
     }
 
     //endregion
@@ -88,7 +88,7 @@ public abstract class SubjectPolymorphicReferenceLink<S, PR, L extends SubjectPo
     //region > compareTo
 
     @Override
-    public int compareTo(final SubjectPolymorphicReferenceLink other) {
+    public int compareTo(final PolymorphicAssociationLink other) {
         return ObjectContracts.compare(this, other, "subject,polymorphicReferenceObjectType,polymorphicReferenceIdentifier");
     }
 

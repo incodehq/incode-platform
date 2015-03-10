@@ -88,12 +88,45 @@ and also to these for the "primary content" association:
 
 ## Screenshots ##
 
-The screenshots below show the demo app's usage of the _poly_ module:
+The screenshots below show the demo app's usage of the _poly_ module.  We start by installing some fixture data:
 
-#### Install example fixtures ####
+![](https://raw.github.com/isisaddons/isis-module-poly/master/images/010-install-fixtures.png)
 
-![](https://raw.github.com/isisaddons/isis-module-poly/master/images/010-xxx.png)
+This sets up 3 parties, 3 fixed assets which between them have 9 communication channels.  There are also 3 cases and
+   the parties and fixed assets are variously contained within.  This is summarized on the home page:
 
+![](https://raw.github.com/isisaddons/isis-module-poly/master/images/010-dashboard.png)
+
+If we navigate to the `Party` entity, we can see that it shows a collection of `CommunicationChannel`s that the party
+owns, and also a collection of the `Case`s within which the party is contained:
+
+![](https://raw.github.com/isisaddons/isis-module-poly/master/images/030-party.png)
+
+The `FixedAsset` entity is similar in that it also has a collection of `Case`s.  However, in our demo app we have a
+business rule that the fixed asset to reference only a single `CommunicationChannel`.
+
+![](https://raw.github.com/isisaddons/isis-module-poly/master/images/040-fixed-asset.png)
+
+On the `Party` entity we can add (and remove) `CommunicationChannel`s:
+
+![](https://raw.github.com/isisaddons/isis-module-poly/master/images/050-party-add-comm-channel.png)
+
+In this demo app, because communication channels are _not_ shared by entities, this will actually create and persist
+the corresponding `CommunicationChannel`.
+
+We can also add (or remove) from `Case`s:
+
+![](https://raw.github.com/isisaddons/isis-module-poly/master/images/060-party-add-to-case.png)
+
+Here the rule is slightly different: the `Case` already exists and so the party is merely associated with an existing case.
+
+From the `Case` entity's perspective, we can see its contents and also its primary content:
+
+![](https://raw.github.com/isisaddons/isis-module-poly/master/images/070-case.png)
+
+As might be expected, we have an action to set (or clear) the primary content:
+
+![](https://raw.github.com/isisaddons/isis-module-poly/master/images/080-case-set-primary-contents.png)
 
 
 ## How to run the Demo App ##
@@ -199,8 +232,69 @@ Only the `dom` project is released to Maven Central Repo.  The versions of the o
 
 ## API and Usage ##
 
-The module consists of XXX.
+The key design idea within the helper classes provided by this module is to leverage Isis' [event bus service](http://isis.apache.org/reference/services/event-bus-service.html) to determine which concrete subtype should be created and persisted to hold the association.  When the association needs to be created, an event is posted to the event bus.
+  The subscriber updates the event with the details of the subtype to be persisted.  (If no subscriber updates the
+  event, then the association cannot be created).
 
+The recipe is:
+
+Step | owner | case contents | primary content
+------------- | -------------
+create an interface for the target of the association | `CommunicationChannelOwner` | `CaseContent` | `CaseContent` |
+create a persistent entity corresponding to the association | `CommunicationChannelOwnerLink` | `CaseContentLink` | `CasePrimaryContentLink`
+
+
+create an interface for the target of the association
+    * `CommunicationChannelOwner`
+    * `CaseContent`
+
+* create a persistent entity corresponding to the association
+    * `CommunicationChannelOwnerLink` for the `CommunicationChannel`/"owner" association
+    * `CaseContentLink` for `Case`/"contents" association
+    * `CasePrimaryContentLink` for `Case`/"primary content" association
+
+* create a corresponding repository service for that link persistent entity:
+    * `CommunicationChannelOwnerLinks`
+    * `CaseContentLinks`
+    * `CasePrimaryContentLinks`
+
+* create an "instantiate event".  We suggest using a nested static class of the link entity:
+    * `CommunicationChannelOwnerLink.InstantiateEvent`
+    * `CaseContentLink.InstantiateEvent`
+    * `CasePrimaryContentLink.InstantiateEvent`
+
+* create a subtype for each implementation of the target interface:
+    * `CommunicationChannelOwnerLinkForFixedAsset` and `CommunicationChannelOwnerLinkForParty`
+    * `CaseContentLinkForFixedAsset` and `CaseContentLinkForParty`
+    * `CasePrimaryContentLinkForFixedAsset` and `CasePrimaryContentLinkForParty`
+
+* create a subscriber to the event.  We suggest using a nested static class of the subtype:
+    * `CommunicationChannelOwnerLinkForFixedAsset.InstantiateSubscriber` and `CommunicationChannelOwnerLinkForParty.InstantiateSubscriber`
+    * `CaseContentLinkForFixedAsset.InstantiateSubscriber` and `CaseContentLinkForParty.InstantiateSubscriber`
+    * `CasePrimaryContentLinkForFixedAsset.InstantiateSubscriber` and `CasePrimaryContentLinkForParty.InstantiateSubscriber`
+
+As noted in the introduction, most of the value of this module comes from understanding how the "table-of-two-halves"
+pattern works.  The helper classes in the module are quite minimal, but they do provide some structure to the pattern.
+
+### API
+
+Specifically, the helpers provide:
+
+* `PolymorphicAssociationLink` - an abstract class from which to derive the `*Link` entity
+* `PolymorphicAssociationInstantiateEvent` - a superclass for the "instantiate event"
+* `PolymorphicAssociationFactory` - a utility class that broadcasts the event and persists the appropriate subtype
+
+### Worked Example
+
+
+
+
+
+### Some quick aside ###
+
+TODO: talk about how use the event bus to cascade delete on the primary contents association.
+
+TODO: use of the contributed "contentTitle" property, and hidden where=ALL_TABLES/OBJECT_FORMS
 
 
 ## Change Log ##

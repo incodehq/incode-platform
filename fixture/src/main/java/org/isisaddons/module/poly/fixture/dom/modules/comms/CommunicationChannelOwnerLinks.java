@@ -18,11 +18,9 @@
  */
 package org.isisaddons.module.poly.fixture.dom.modules.comms;
 
-import org.isisaddons.module.poly.dom.PolymorphicLinkHelper;
-import org.isisaddons.module.poly.dom.PolymorphicLinkInstantiateEvent;
-
 import java.util.List;
 import javax.annotation.PostConstruct;
+import org.isisaddons.module.poly.dom.PolymorphicAssociationFactory;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -38,25 +36,17 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 public class CommunicationChannelOwnerLinks {
 
     //region > init
-    public static class InstantiateEvent
-            extends PolymorphicLinkInstantiateEvent<CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink> {
-
-        public InstantiateEvent(final Object source, final CommunicationChannel subject, final CommunicationChannelOwner owner) {
-            super(CommunicationChannelOwnerLink.class, source, subject, owner);
-        }
-    }
-
-    PolymorphicLinkHelper<CommunicationChannel,CommunicationChannelOwner,CommunicationChannelOwnerLink,InstantiateEvent> ownerLinkHelper;
+    PolymorphicAssociationFactory<CommunicationChannel,CommunicationChannelOwner,CommunicationChannelOwnerLink,CommunicationChannelOwnerLink.InstantiateEvent> ownerLinkHelper;
 
     @PostConstruct
     public void init() {
         ownerLinkHelper = container.injectServicesInto(
-                new PolymorphicLinkHelper<>(
+                new PolymorphicAssociationFactory<>(
                         this,
                         CommunicationChannel.class,
                         CommunicationChannelOwner.class,
                         CommunicationChannelOwnerLink.class,
-                        InstantiateEvent.class
+                        CommunicationChannelOwnerLink.InstantiateEvent.class
                 ));
 
     }

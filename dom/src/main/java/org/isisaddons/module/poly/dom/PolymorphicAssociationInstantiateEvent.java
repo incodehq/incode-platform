@@ -1,6 +1,6 @@
 package org.isisaddons.module.poly.dom;
 
-public abstract class PolymorphicLinkInstantiateEvent<S,PR,L> extends java.util.EventObject {
+public abstract class PolymorphicAssociationInstantiateEvent<S,PR,L> extends java.util.EventObject {
 
     private final Class<L> linkType;
     private final S subject;
@@ -8,7 +8,7 @@ public abstract class PolymorphicLinkInstantiateEvent<S,PR,L> extends java.util.
 
     private Class<? extends L> subtype;
 
-    public PolymorphicLinkInstantiateEvent(final Class<L> linkType, final Object source, final S subject, final PR polymorphicReference) {
+    public PolymorphicAssociationInstantiateEvent(final Class<L> linkType, final Object source, final S subject, final PR polymorphicReference) {
         super(source);
         this.linkType = linkType;
         this.subject = subject;

@@ -18,14 +18,14 @@
  */
 package org.isisaddons.module.poly.fixture.dom.modules.casemgmt;
 
-import org.isisaddons.module.poly.dom.SubjectPolymorphicReferenceLink;
-
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.NotPersistent;
 import com.google.common.base.Function;
+import org.isisaddons.module.poly.dom.PolymorphicAssociationInstantiateEvent;
+import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Programmatic;
 
@@ -57,7 +57,15 @@ import org.apache.isis.applib.annotation.Programmatic;
 @DomainObject(
         objectType = "casemgmt.CasePrimaryContentLink"
 )
-public abstract class CasePrimaryContentLink extends SubjectPolymorphicReferenceLink<Case, CaseContent, CasePrimaryContentLink> {
+public abstract class CasePrimaryContentLink extends PolymorphicAssociationLink<Case, CaseContent, CasePrimaryContentLink> {
+
+    public static class InstantiateEvent
+            extends PolymorphicAssociationInstantiateEvent<Case, CaseContent, CasePrimaryContentLink> {
+
+        public InstantiateEvent(final Object source, final Case aCase, final CaseContent content) {
+            super(CasePrimaryContentLink.class, source, aCase, content);
+        }
+    }
 
     //region > constructor
     public CasePrimaryContentLink() {
@@ -80,26 +88,26 @@ public abstract class CasePrimaryContentLink extends SubjectPolymorphicReference
 
     @Override
     @Programmatic
-    public String getPolymorphicReferenceObjectType() {
+    public String getPolymorphicObjectType() {
         return getContentObjectType();
     }
 
     @Override
     @Programmatic
-    public void setPolymorphicReferenceObjectType(final String polymorphicReferenceObjectType) {
-        setContentObjectType(polymorphicReferenceObjectType);
+    public void setPolymorphicObjectType(final String polymorphicObjectType) {
+        setContentObjectType(polymorphicObjectType);
     }
 
     @Override
     @Programmatic
-    public String getPolymorphicReferenceIdentifier() {
+    public String getPolymorphicIdentifier() {
         return getContentIdentifier();
     }
 
     @Override
     @Programmatic
-    public void setPolymorphicReferenceIdentifier(final String polymorphicReferenceIdentifier) {
-        setContentIdentifier(polymorphicReferenceIdentifier);
+    public void setPolymorphicIdentifier(final String polymorphicIdentifier) {
+        setContentIdentifier(polymorphicIdentifier);
     }
     //endregion
 

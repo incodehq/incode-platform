@@ -7,7 +7,7 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.NonRecoverableException;
 import org.apache.isis.applib.services.eventbus.EventBusService;
 
-public class PolymorphicLinkHelper<S,PR,L extends SubjectPolymorphicReferenceLink<S,PR,L>,E extends PolymorphicLinkInstantiateEvent<S,PR,L>> {
+public class PolymorphicAssociationFactory<S,PR,L extends PolymorphicAssociationLink<S,PR,L>,E extends PolymorphicAssociationInstantiateEvent<S,PR,L>> {
 
     private final Object factory;
     private final Class<E> eventType;
@@ -17,7 +17,7 @@ public class PolymorphicLinkHelper<S,PR,L extends SubjectPolymorphicReferenceLin
 
     final Constructor<E> eventConstructor;
 
-    public PolymorphicLinkHelper(
+    public PolymorphicAssociationFactory(
             final Object factory,
             final Class<S> subjectType,
             final Class<PR> polymorphicReferenceType,

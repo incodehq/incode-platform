@@ -18,11 +18,9 @@
  */
 package org.isisaddons.module.poly.fixture.dom.modules.casemgmt;
 
-import org.isisaddons.module.poly.dom.PolymorphicLinkHelper;
-import org.isisaddons.module.poly.dom.PolymorphicLinkInstantiateEvent;
-
 import java.util.List;
 import javax.annotation.PostConstruct;
+import org.isisaddons.module.poly.dom.PolymorphicAssociationFactory;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -38,25 +36,17 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 public class CasePrimaryContentLinks {
 
     //region > init
-    public static class InstantiateEvent
-            extends PolymorphicLinkInstantiateEvent<Case, CaseContent, CasePrimaryContentLink> {
-
-        public InstantiateEvent(final Object source, final Case aCase, final CaseContent content) {
-            super(CasePrimaryContentLink.class, source, aCase, content);
-        }
-    }
-
-    PolymorphicLinkHelper<Case,CaseContent,CasePrimaryContentLink,InstantiateEvent> ownerLinkHelper;
+    PolymorphicAssociationFactory<Case,CaseContent,CasePrimaryContentLink,CasePrimaryContentLink.InstantiateEvent> ownerLinkHelper;
 
     @PostConstruct
     public void init() {
         ownerLinkHelper = container.injectServicesInto(
-                new PolymorphicLinkHelper<>(
+                new PolymorphicAssociationFactory<>(
                         this,
                         Case.class,
                         CaseContent.class,
                         CasePrimaryContentLink.class,
-                        InstantiateEvent.class
+                        CasePrimaryContentLink.InstantiateEvent.class
                 ));
 
     }
