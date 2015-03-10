@@ -240,13 +240,13 @@ The recipe is:
 
 <table>
 <tr>
-<th style="width:10%">
+<th style="width:10%;">
 #
 </th>
-<th style="width:50%">
+<th style="width:50%;">
 Step
 </th>
-<th style="width:30%">
+<th style="width:30%;">
 Example
 </th>
 </tr>
