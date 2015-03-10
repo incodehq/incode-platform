@@ -43,11 +43,11 @@ interfaces.  Each `FixedAsset` may own a single `CommunicationChannel`, while a 
 The following UML diagram shows the "logical" polymorphic association between `CommunicationChannel` and its owning
 `CommunicationChannelOwner`:
 
-![](https://raw.github.com/isisaddons/isis-module-poly/master/images/comm-channel-uml.png)
+<img src="https://raw.github.com/isisaddons/isis-module-poly/master/images/comm-channel-uml.png" width="600">
 
 This is realized using the following entities:
 
-![](https://raw.github.com/isisaddons/isis-module-poly/master/images/comm-channel-link-uml.png)
+<img src="https://raw.github.com/isisaddons/isis-module-poly/master/images/comm-channel-link-uml.png" width="600">
 
 Here the `CommunicationChannelOwnerLink` is a persistent entity that has subtypes for each of the implementations of
  the `CommunicationChannelOwner` interface, namely `CommunicationChannelOwnerLinkForFixedAsset` and
@@ -56,7 +56,7 @@ Here the `CommunicationChannelOwnerLink` is a persistent entity that has subtype
  JDO/DataNucleus.  In the demo application the [NEW_TABLE](http://www.datanucleus.org/products/datanucleus/jdo/orm/inheritance.html#newtable)
  strategy is used, giving rise to these tables:
 
-![](https://raw.github.com/isisaddons/isis-module-poly/master/images/comm-channel-rdbms.png)
+<img src="https://raw.github.com/isisaddons/isis-module-poly/master/images/comm-channel-rdbms.png" width="600">
 
 #### Case Contents
 
