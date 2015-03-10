@@ -19,21 +19,18 @@
 --><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.isisaddons.app</groupId>
-    <artifactId>polyapp</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>org.isisaddons.module.poly</groupId>
+    <artifactId>isis-module-poly</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
 
-    <name>Poly App</name>
+    <name>Isis Addons Poly Module</name>
 
     <packaging>pom</packaging>
 
-    <prerequisites>
-        <maven>3.0.4</maven>
-    </prerequisites>
-
     <properties>
-        <!--<isis.version>1.8.0</isis.version>-->
         <isis.version>1.9.0-SNAPSHOT</isis.version>
+
+        <isis-module-poly.version>1.9.0-SNAPSHOT</isis-module-poly.version>
 
         <!-- must be consistent with the versions defined by the JDO Objectstore -->
         <datanucleus-accessplatform-jdo-rdbms.version>3.3.6</datanucleus-accessplatform-jdo-rdbms.version>
@@ -52,16 +49,8 @@
                 <enabled>false</enabled>
             </releases>
             <snapshots>
+                <enabled>true</enabled>
             </snapshots>
-        </repository>
-        <repository>
-            <id>Cloudbees snapshots</id>
-            <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
-            <snapshots>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
         </repository>
     </repositories>
 
@@ -133,35 +122,6 @@
                             <phase>test</phase>
                         </execution>
                     </executions>
-                </plugin>
-
-                <plugin>
-                    <artifactId>maven-clean-plugin</artifactId>
-                    <version>2.5</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-resources-plugin</artifactId>
-                    <version>2.6</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.4</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>2.5.1</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.8.1</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-site-plugin</artifactId>
-                    <version>3.3</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>2.4</version>
                 </plugin>
 
                 <plugin>
@@ -259,8 +219,10 @@
                                 <patterns>
                                     <pattern>Permission to copy in any form is granted for use</pattern>
                                     <pattern>Permission to use, copy, modify and distribute the DocBook DTD</pattern>
-                                    <pattern>is hereby granted in perpetuity, provided that the above copyright</pattern>
-                                    <pattern>This is the catalog data file for DocBook XML V4.5. It is provided as</pattern>
+                                    <pattern>is hereby granted in perpetuity, provided that the above copyright
+                                    </pattern>
+                                    <pattern>This is the catalog data file for DocBook XML V4.5. It is provided as
+                                    </pattern>
                                     <pattern>XML Catalog data for DocBook XML V4.5</pattern>
                                     <pattern>DocBook additional general entities V4.5</pattern>
                                     <pattern>XML EXCHANGE TABLE MODEL DECLARATION MODULE</pattern>
@@ -308,6 +270,13 @@
         </plugins>
     </build>
 
+    <modules>
+        <module>dom</module>
+        <module>fixture</module>
+        <module>integtests</module>
+        <module>webapp</module>
+    </modules>
+
     <dependencyManagement>
         <dependencies>
 
@@ -331,18 +300,18 @@
             <!-- this project's own modules -->
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>polyapp-dom</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <artifactId>isis-module-poly-dom</artifactId>
+                <version>${isis-module-poly.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>polyapp-fixture</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <artifactId>isis-module-poly-fixture</artifactId>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>polyapp-webapp</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <artifactId>isis-module-poly-webapp</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
 
@@ -351,6 +320,24 @@
 
 
     <profiles>
+        <profile>
+            <id>cloudbees-snapshots</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>snapshots-repo</id>
+                    <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+        </profile>
         <profile>
             <id>m2e</id>
             <activation>
@@ -364,10 +351,4 @@
         </profile>
     </profiles>
 
-  <modules>
-    <module>dom</module>
-    <module>fixture</module>
-    <module>integtests</module>
-    <module>webapp</module>
-  </modules>
 </project>

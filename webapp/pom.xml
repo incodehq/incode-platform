@@ -1,34 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Licensed to the Apache Software Foundation (ASF) under one
-  or more contributor license agreements.  See the NOTICE file
-  distributed with this work for additional information
-  regarding copyright ownership.  The ASF licenses this file
-  to you under the Apache License, Version 2.0 (the
-  "License"); you may not use this file except in compliance
-  with the License.  You may obtain a copy of the License at
-  
-         http://www.apache.org/licenses/LICENSE-2.0
-         
-  Unless required by applicable law or agreed to in writing,
-  software distributed under the License is distributed on an
-  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-  KIND, either express or implied.  See the License for the
-  specific language governing permissions and limitations
-  under the License.
---><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+Copyright 2015 Dan Haywood
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific
+language governing permissions and limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.isisaddons.app</groupId>
-        <artifactId>polyapp</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <groupId>org.isisaddons.module.poly</groupId>
+        <artifactId>isis-module-poly</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>polyapp-webapp</artifactId>
-    <name>Poly App Webapp</name>
-
-    <description>This module runs both the Wicket viewer and the Restfulobjects viewer in a single webapp configured to run using the datanucleus object store.</description>
+    <artifactId>isis-module-poly-webapp</artifactId>
+    <name>Isis Addons Poly Module Webapp</name>
 
     <packaging>war</packaging>
 
@@ -60,25 +57,25 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <version>1.8</version>
-                  <executions>
+                <executions>
                     <execution>
-                      <phase>validate</phase>
-                      <goals>
-                        <goal>maven-version</goal>
-                      </goals>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>maven-version</goal>
+                        </goals>
                     </execution>
-                  </executions>
+                </executions>
             </plugin>
 
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
                 <configuration>
-                    <warName>simpleapp</warName>
+                    <warName>isis-module-poly-webapp</warName>
                     <archive>
                         <manifest>
                             <addClasspath>false</addClasspath>
@@ -109,9 +106,15 @@
                             <pluginExecutions>
                                 <pluginExecution>
                                     <pluginExecutionFilter>
-                                        <groupId>org.codehaus.mojo</groupId>
-                                        <artifactId>build-helper-maven-plugin</artifactId>
-                                        <versionRange>[1.5,)</versionRange>
+                                        <groupId>
+                                            org.codehaus.mojo
+                                        </groupId>
+                                        <artifactId>
+                                            build-helper-maven-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [1.5,)
+                                        </versionRange>
                                         <goals>
                                             <goal>maven-version</goal>
                                         </goals>
@@ -129,11 +132,11 @@
     </build>
 
     <dependencies>
-    
+
         <!-- other modules in this project -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>polyapp-dom</artifactId>
+            <artifactId>isis-module-poly-dom</artifactId>
             <exclusions>
                 <exclusion>
                     <!-- so don't pick up transitive dependency to asm 4.0.0 -->
@@ -144,7 +147,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>polyapp-fixture</artifactId>
+            <artifactId>isis-module-poly-fixture</artifactId>
             <exclusions>
                 <exclusion>
                     <!-- so don't pick up transitive dependency to asm 4.0.0 -->
@@ -153,7 +156,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        
+
         <!-- other isis components -->
         <dependency>
             <groupId>org.apache.isis.viewer</groupId>
@@ -182,7 +185,6 @@
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-security</artifactId>
         </dependency>
-
 
         <!-- to run using WebServer (optional) -->
         <dependency>
@@ -236,14 +238,14 @@
           -->
 
         <dependency>
-          <groupId>org.lazyluke</groupId>
-          <artifactId>log4jdbc-remix</artifactId>
-          <exclusions>
-            <exclusion>
-              <groupId>org.slf4j</groupId>
-              <artifactId>slf4j-api</artifactId>
-            </exclusion>
-          </exclusions>
+            <groupId>org.lazyluke</groupId>
+            <artifactId>log4jdbc-remix</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>
@@ -262,8 +264,8 @@
                         <configuration>
                             <tasks>
                                 <exec executable="java" failonerror="true">
-                                    <arg value="-jar" />
-                                    <arg value="${project.build.directory}/${project.build.finalName}-jetty-console.jar" />
+                                    <arg value="-jar"/>
+                                    <arg value="${project.build.directory}/${project.build.finalName}-jetty-console.jar"/>
                                 </exec>
                             </tasks>
                         </configuration>
@@ -271,76 +273,6 @@
                 </plugins>
             </build>
         </profile>
-
-        <profile>
-            <id>jrebel</id>
-            <properties>
-                <!-- as used in the rebel.xml in the dom project -->
-                <target.dir>target</target.dir>
-                <isis-jrebel-plugin.packagePrefix>dom.simple,org.apache.isis.objectstore.jdo.applib</isis-jrebel-plugin.packagePrefix>
-                <isis-jrebel-plugin.loggingLevel>warn</isis-jrebel-plugin.loggingLevel>
-            </properties>
-            <build>
-                <plugins>
-                    <!--
-                    mvn -P jrebel antrun:run \
-                        -Djrebel.jar="C:/Users/Dan/.IdeaIC13/config/plugins/jr-ide-idea/lib/jrebel/jrebel.jar" \
-                        -Disis_jrebel_plugin.jar="C:/github/danhaywood/isis-jrebel-plugin/target/danhaywood-isis-jrebel-plugin-1.0.0-SNAPSHOT.jar"
-                    -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <configuration>
-                            <target>
-                                <property name="compile_classpath" refid="maven.compile.classpath" />
-                                <property name="runtime_classpath" refid="maven.runtime.classpath" />
-                                <property name="test_classpath" refid="maven.test.classpath" />
-                                <property name="plugin_classpath" refid="maven.plugin.classpath" />
-
-                                <echo message="" />
-                                <echo message="" />
-                                <echo message="jrebel.jar             = ${jrebel.jar}" />
-                                <echo message="isis_jrebel_plugin.jar = ${isis_jrebel_plugin.jar}" />
-                                <echo message="target.dir             = ${target.dir}" />
-                                <echo message="" />
-                                <echo message="" />
-
-                                <exec executable="java" failonerror="true">
-                                    <arg value="-javaagent:${jrebel.jar}" />
-                                    <arg value="-Drebel.log=false" />
-                                    <arg value="-Drebel.check_class_hash=true" />
-                                    <arg value="-Drebel.packages_exclude=org.apache.isis" />
-
-                                    <!-- as used in the rebel.xml in the dom project -->
-                                    <arg value="-Dproject.root=${project.basedir}/.." />
-                                    <arg value="-Dtarget.dir=${target.dir}" />
-
-                                    <arg value="-Drebel.plugins=${isis_jrebel_plugin.jar}" />
-                                    <arg value="-Disis-jrebel-plugin.packagePrefix=${isis-jrebel-plugin.packagePrefix}" />
-                                    <arg value="-Disis-jrebel-plugin.loggingLevel=${isis-jrebel-plugin.loggingLevel}" />
-                                    <arg value="-XX:MaxPermSize=128m" />
-                                    <arg value="-classpath" />
-                                    <arg value="${runtime_classpath}" />
-                                    <arg value="org.apache.isis.WebServer" />
-                                </exec>
-                            </target>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>neo4j</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.datanucleus</groupId>
-                    <artifactId>datanucleus-neo4j</artifactId>
-                    <version>3.2.3</version>
-                </dependency>
-            </dependencies>
-        </profile>
     </profiles>
-
-
 
 </project>

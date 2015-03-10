@@ -18,8 +18,8 @@
  */
 package domainapp.fixture;
 
-import domainapp.dom.app.homepage.HomePageService;
-import domainapp.fixture.scenarios.RecreateAll;
+import domainapp.fixture.dom.app.homepage.HomePageService;
+import domainapp.fixture.scripts.scenarios.RecreateAll;
 
 import java.util.List;
 import javax.inject.Inject;

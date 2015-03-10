@@ -18,10 +18,10 @@
  */
 package domainapp.integtests.tests.modules.comms;
 
-import domainapp.dom.modules.comms.CommunicationChannel;
-import domainapp.dom.modules.comms.CommunicationChannels;
-import domainapp.dom.modules.fixedasset.FixedAsset;
-import domainapp.fixture.scenarios.RecreateFixedAssets;
+import domainapp.fixture.dom.modules.comms.CommunicationChannel;
+import domainapp.fixture.dom.modules.comms.CommunicationChannels;
+import domainapp.fixture.dom.modules.fixedasset.FixedAsset;
+import domainapp.fixture.scripts.scenarios.RecreateFixedAssets;
 import domainapp.integtests.tests.PolyAppIntegTest;
 
 import java.util.List;

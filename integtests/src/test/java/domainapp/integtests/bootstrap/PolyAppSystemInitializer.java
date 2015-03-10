@@ -48,7 +48,7 @@ public class PolyAppSystemInitializer extends IntegrationTestAbstract {
         private static IsisConfiguration testConfiguration() {
             final IsisConfigurationForJdoIntegTests testConfiguration = new IsisConfigurationForJdoIntegTests();
 
-            testConfiguration.addRegisterEntitiesPackagePrefix("domainapp.dom.modules");
+            testConfiguration.addRegisterEntitiesPackagePrefix("domainapp.fixture.dom.modules");
             return testConfiguration;
         }
     }

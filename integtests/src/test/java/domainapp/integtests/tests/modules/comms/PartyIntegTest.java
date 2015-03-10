@@ -18,10 +18,10 @@
  */
 package domainapp.integtests.tests.modules.comms;
 
-import domainapp.dom.modules.comms.CommunicationChannel;
-import domainapp.dom.modules.comms.CommunicationChannels;
-import domainapp.dom.modules.party.Party;
-import domainapp.fixture.scenarios.RecreateParties;
+import domainapp.fixture.dom.modules.comms.CommunicationChannel;
+import domainapp.fixture.dom.modules.comms.CommunicationChannels;
+import domainapp.fixture.dom.modules.party.Party;
+import domainapp.fixture.scripts.scenarios.RecreateParties;
 import domainapp.integtests.tests.PolyAppIntegTest;
 
 import java.util.List;
