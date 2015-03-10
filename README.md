@@ -7,22 +7,40 @@ definition of polymorphic relationships using the "table of two halves" pattern.
 
 Polymorphic relationships (references to interfaces) are important because they allow decoupling between modules.
 The "table of two halves" pattern achieves this whilst still preserving strict referential integrity.  This is accomplished
-by modelling the relationship itself as a class hierarchy: the foreign key is held within the subtype.
+by modelling the relationship itself as a class hierarchy: the foreign key is held within the subtype.  The name
+"table-of-two-halves" arises from the fact that the supertype (and corresponding table) is fully generic, while the
+subtypes (and corresponding tables) have the type-safety (referential integrity).
+
+It is quite possible to implement the "table of two halves" pattern without using the helpers provided by this module;
+indeed arguably there's more value in the demo application that accompanies this module (discussed below) than in the
+helpers themselves.  Still, the helpers do provide some structure to follow.
+
+## Demo Application ##
 
 This module also has a comprehensive demo application that demonstrates four different polymorphic relationships:
 
-- 1-to-1: `FixedAsset` (a `CommunicationChannelOwner`) may own a single `CommunicationChannel`
-- 1-to-n: `Party` (a `CommunicationChannelOwner`) may own multiple `CommunicationChannel`s
-- n-to-1: `FixedAsset` or `Party` (`CaseContent`) may be contained within a `Case`
-- 1-to-1: `FixedAsset` or `Party` (`CaseContent`) may be the primary content within a `Case`.
+- 1-to-1 and n-to-1: a `CommunicationChannel` may be owned by a `CommunicationChannelOwner`.
+- 1-to-n: a `Case` may contain multiple `CaseContent`s
+- 1-to-1: a `Case` may have a primary `CaseContent`.
 
-In the above examples the relationships to `FixedAsset` and `Party` are polymorphic; neither `CommunicationChannel` nor `Case`)
-have any dependency on (respectively) their `CommunicationChannelOwner` nor `CaseContent`.
+In the above examples the `CommunicationChannelOwner` and `CaseContent` are interfaces.  The demo app has two entities,
+`FixedAsset` and `Party`, that both implement each of these interfaces; each `FixedAsset` may own a single `CommunicationChannel`,
+while a `Party` may own multiple `CommunicationChannel`s.  However neither `CommunicationChannel` nor `Case`
+has any direct dependency on these entities.
 
-It is quite possible to implement the "table of two halves" pattern without using the helpers provided by this module;
-indeed arguably there's more value in the demo application than in the helpers.  Still, the helpers do provide some
-structure to follow.
+#### Communication Channel
 
+![](https://raw.github.com/isisaddons/isis-module-poly/master/images/comm-channel-uml.png)
+
+![](https://raw.github.com/isisaddons/isis-module-poly/master/images/comm-channel-rdbms.png)
+
+#### Case Contents
+
+![](https://raw.github.com/isisaddons/isis-module-poly/master/images/case-content-uml.png)
+
+![](https://raw.github.com/isisaddons/isis-module-poly/master/images/case-content-contents-rdbms.png)
+
+![](https://raw.github.com/isisaddons/isis-module-poly/master/images/case-content-primary-rdbms.png)
 
 ## Screenshots ##
 
