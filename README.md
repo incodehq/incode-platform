@@ -238,42 +238,132 @@ The key design idea within the helper classes provided by this module is to leve
 
 The recipe is:
 
-Step | Examples
-------------- | ----
-create an interface for the target of the association | `CommunicationChannelOwner` and `CaseContent`
-create a persistent entity corresponding to the association | `CommunicationChannelOwnerLink` for the `CommunicationChannel`/"owner" association
- | `CaseContentLink` for `Case`/"contents" association
- | `CasePrimaryContentLink` for `Case`/"primary content" association
+<table>
+<tr>
+<th>
+#
+</th>
+<th>
+Step
+</th>
+<th>
+Example
+</th>
+</tr>
 
+<tr>
+<td>
+    1
+</td>
+<td>
+    Create an interface for the target of the association
+</td>
+<td>
+    <ul>
+    <li><code>CommunicationChannelOwner<code>
+    </li>
+    <li><code>CaseContent<code>
+    </li>
+    </ul>
+</td>
+</tr>
 
-create an interface for the target of the association
-    * `CommunicationChannelOwner`
-    * `CaseContent`
+<tr>
+<td>
+    2
+</td>
+<td>
+    create a persistent entity corresponding to the association
+</td>
+<td>
+    <ul>
+    <li><code>CommunicationChannelOwnerLink<code> for the <code>CommunicationChannel<code>/"owner" association
+    </li>
+    <li><code>CaseContentLink<code> for <code>Case<code>/"contents" association
+    </li>
+    <li><code>CasePrimaryContentLink<code> for <code>Case<code>/"primary content" association
+    </li>
+    </ul>
+</td>
+</tr>
 
-* create a persistent entity corresponding to the association
-    * `CommunicationChannelOwnerLink` for the `CommunicationChannel`/"owner" association
-    * `CaseContentLink` for `Case`/"contents" association
-    * `CasePrimaryContentLink` for `Case`/"primary content" association
+<tr>
+<td>
+    3
+</td>
+<td>
+    create a corresponding repository service for that link persistent entity
+</td>
+<td>
+    <ul>
+    <li><code>CommunicationChannelOwnerLinks<code>
+    </li>
+    <li><code>CaseContentLinks<code>
+    </li>
+    <li><code>CasePrimaryContentLinks<code>
+    </li>
+    </ul>
+</td>
+</tr>
 
-* create a corresponding repository service for that link persistent entity:
-    * `CommunicationChannelOwnerLinks`
-    * `CaseContentLinks`
-    * `CasePrimaryContentLinks`
+<tr>
+<td>
+    4
+</td>
+<td>
+    create an "instantiate event".  We suggest using a nested static class of the link entity:
+</td>
+<td>
+    <ul>
+    <li><code>CommunicationChannelOwnerLink.InstantiateEvent<code>
+    </li>
+    <li><code>CaseContentLink.InstantiateEvent<code>
+    </li>
+    <li><code>CasePrimaryContentLink.InstantiateEvent<code>
+    </li>
+    </ul>
+</td>
+</tr>
 
-* create an "instantiate event".  We suggest using a nested static class of the link entity:
-    * `CommunicationChannelOwnerLink.InstantiateEvent`
-    * `CaseContentLink.InstantiateEvent`
-    * `CasePrimaryContentLink.InstantiateEvent`
+<tr>
+<td>
+    5
+</td>
+<td>
+    create a subtype for each implementation of the target interface:
+</td>
+<td>
+    <ul>
+    <li><code>CommunicationChannelOwnerLinkForFixedAsset<code> and <code>CommunicationChannelOwnerLinkForParty<code>
+    </li>
+    <li><code>CaseContentLinkForFixedAsset<code> and <code>CaseContentLinkForParty<code>
+    </li>
+    <li><code>CasePrimaryContentLinkForFixedAsset<code> and <code>CasePrimaryContentLinkForParty<code>
+    </li>
+    </ul>
+</td>
+</tr>
 
-* create a subtype for each implementation of the target interface:
-    * `CommunicationChannelOwnerLinkForFixedAsset` and `CommunicationChannelOwnerLinkForParty`
-    * `CaseContentLinkForFixedAsset` and `CaseContentLinkForParty`
-    * `CasePrimaryContentLinkForFixedAsset` and `CasePrimaryContentLinkForParty`
+<tr>
+<td>
+    6
+</td>
+<td>
+    create a subscriber to the event.  We suggest using a nested static class of the subtype:
+</td>
+<td>
+    <ul>
+    <li><code>CommunicationChannelOwnerLinkForFixedAsset.InstantiateSubscriber<code> and <code>CommunicationChannelOwnerLinkForParty.InstantiateSubscriber<code>
+    </li>
+    <li><code>CaseContentLinkForFixedAsset.InstantiateSubscriber<code> and <code>CaseContentLinkForParty.InstantiateSubscriber<code>
+    </li>
+    <li><code>CasePrimaryContentLinkForFixedAsset.InstantiateSubscriber<code> and <code>CasePrimaryContentLinkForParty.InstantiateSubscriber<code>
+    </li>
+    </ul>
+</td>
+</tr>
+</table>
 
-* create a subscriber to the event.  We suggest using a nested static class of the subtype:
-    * `CommunicationChannelOwnerLinkForFixedAsset.InstantiateSubscriber` and `CommunicationChannelOwnerLinkForParty.InstantiateSubscriber`
-    * `CaseContentLinkForFixedAsset.InstantiateSubscriber` and `CaseContentLinkForParty.InstantiateSubscriber`
-    * `CasePrimaryContentLinkForFixedAsset.InstantiateSubscriber` and `CasePrimaryContentLinkForParty.InstantiateSubscriber`
 
 As noted in the introduction, most of the value of this module comes from understanding how the "table-of-two-halves"
 pattern works.  The helper classes in the module are quite minimal, but they do provide some structure to the pattern.
