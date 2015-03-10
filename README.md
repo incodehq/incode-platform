@@ -260,9 +260,9 @@ Example
 </td>
 <td>
     <ul>
-    <li><code>CommunicationChannelOwner<code>
+    <li><code>CommunicationChannelOwner</code>
     </li>
-    <li><code>CaseContent<code>
+    <li><code>CaseContent</code>
     </li>
     </ul>
 </td>
@@ -277,11 +277,11 @@ Example
 </td>
 <td>
     <ul>
-    <li><code>CommunicationChannelOwnerLink<code> for the <code>CommunicationChannel<code>/"owner" association
+    <li><code>CommunicationChannelOwnerLink</code> for the <code>CommunicationChannel</code>/"owner" association
     </li>
-    <li><code>CaseContentLink<code> for <code>Case<code>/"contents" association
+    <li><code>CaseContentLink</code> for <code>Case</code>/"contents" association
     </li>
-    <li><code>CasePrimaryContentLink<code> for <code>Case<code>/"primary content" association
+    <li><code>CasePrimaryContentLink</code> for <code>Case</code>/"primary content" association
     </li>
     </ul>
 </td>
@@ -296,11 +296,11 @@ Example
 </td>
 <td>
     <ul>
-    <li><code>CommunicationChannelOwnerLinks<code>
+    <li><code>CommunicationChannelOwnerLinks</code>
     </li>
-    <li><code>CaseContentLinks<code>
+    <li><code>CaseContentLinks</code>
     </li>
-    <li><code>CasePrimaryContentLinks<code>
+    <li><code>CasePrimaryContentLinks</code>
     </li>
     </ul>
 </td>
@@ -315,11 +315,11 @@ Example
 </td>
 <td>
     <ul>
-    <li><code>CommunicationChannelOwnerLink.InstantiateEvent<code>
+    <li><code>CommunicationChannelOwnerLink.InstantiateEvent</code>
     </li>
-    <li><code>CaseContentLink.InstantiateEvent<code>
+    <li><code>CaseContentLink.InstantiateEvent</code>
     </li>
-    <li><code>CasePrimaryContentLink.InstantiateEvent<code>
+    <li><code>CasePrimaryContentLink.InstantiateEvent</code>
     </li>
     </ul>
 </td>
@@ -334,11 +334,11 @@ Example
 </td>
 <td>
     <ul>
-    <li><code>CommunicationChannelOwnerLinkForFixedAsset<code> and <code>CommunicationChannelOwnerLinkForParty<code>
+    <li><code>CommunicationChannelOwnerLinkForFixedAsset</code> and <code>CommunicationChannelOwnerLinkForParty</code>
     </li>
-    <li><code>CaseContentLinkForFixedAsset<code> and <code>CaseContentLinkForParty<code>
+    <li><code>CaseContentLinkForFixedAsset</code> and <code>CaseContentLinkForParty</code>
     </li>
-    <li><code>CasePrimaryContentLinkForFixedAsset<code> and <code>CasePrimaryContentLinkForParty<code>
+    <li><code>CasePrimaryContentLinkForFixedAsset</code> and <code>CasePrimaryContentLinkForParty</code>
     </li>
     </ul>
 </td>
@@ -353,11 +353,11 @@ Example
 </td>
 <td>
     <ul>
-    <li><code>CommunicationChannelOwnerLinkForFixedAsset.InstantiateSubscriber<code> and <code>CommunicationChannelOwnerLinkForParty.InstantiateSubscriber<code>
+    <li><code>CommunicationChannelOwnerLinkForFixedAsset.InstantiateSubscriber</code> and <code>CommunicationChannelOwnerLinkForParty.InstantiateSubscriber</code>
     </li>
-    <li><code>CaseContentLinkForFixedAsset.InstantiateSubscriber<code> and <code>CaseContentLinkForParty.InstantiateSubscriber<code>
+    <li><code>CaseContentLinkForFixedAsset.InstantiateSubscriber</code> and <code>CaseContentLinkForParty.InstantiateSubscriber</code>
     </li>
-    <li><code>CasePrimaryContentLinkForFixedAsset.InstantiateSubscriber<code> and <code>CasePrimaryContentLinkForParty.InstantiateSubscriber<code>
+    <li><code>CasePrimaryContentLinkForFixedAsset.InstantiateSubscriber</code> and <code>CasePrimaryContentLinkForParty.InstantiateSubscriber</code>
     </li>
     </ul>
 </td>
