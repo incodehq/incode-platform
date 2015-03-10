@@ -20,6 +20,7 @@ package org.isisaddons.module.poly.fixture.dom.modules.casemgmt;
 
 import java.util.List;
 import javax.inject.Inject;
+import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import org.apache.isis.applib.DomainObjectContainer;
@@ -53,6 +54,22 @@ public class CaseContentContributions {
         } else {
             return null;
         }
+    }
+
+    public List<Case> choices0AddToCase(final Case aCase, final CaseContent caseContent) {
+        final List<Case> caseList = Lists.newArrayList(cases.listAll());
+        final List<Case> currentCases = choices0RemoveFromCase(null, caseContent);
+        caseList.removeAll(currentCases);
+        return caseList;
+    }
+
+    private static Predicate<Case> notSameAs(final Case aCase) {
+        return new Predicate<Case>() {
+            @Override
+            public boolean apply(final Case input) {
+                return input == aCase;
+            }
+        };
     }
 
 
@@ -162,7 +179,9 @@ public class CaseContentContributions {
 
 
 
-        @Inject
+    @Inject
+    private Cases cases;
+    @Inject
     private CaseContentLinks caseContentLinks;
     @Inject
     private DomainObjectContainer container;

@@ -3,38 +3,58 @@
 [![Build Status](https://travis-ci.org/isisaddons/isis-module-poly.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-poly)
 
 This module, intended for use within [Apache Isis](http://isis.apache.org), provides a set of helpers to support the
-definition of polymorphic relationships using the "table of two halves" pattern.
+definition of polymorphic associations; that is: relationships from one persistent entity to another by means of a
+(Java) interface.
 
-Polymorphic relationships (references to interfaces) are important because they allow decoupling between modules.
-The "table of two halves" pattern achieves this whilst still preserving strict referential integrity.  This is accomplished
-by modelling the relationship itself as a class hierarchy: the foreign key is held within the subtype.  The name
-"table-of-two-halves" arises from the fact that the supertype (and corresponding table) is fully generic, while the
-subtypes (and corresponding tables) have the type-safety (referential integrity).
+Persistable polymorphic associations are important because they allow decoupling between classes using the
+[dependency inversion principle](http://en.wikipedia.org/wiki/Dependency_inversion_principle); module dependencies can
+therefore by kept acyclic.  This is key to long-term maintainability of the codebase (avoiding the [big ball of mud](http://en.wikipedia.org/wiki/Big_ball_of_mud) anti-pattern).
+
+While JDO/DataNucleus has several [built-in strategies](http://www.datanucleus.org/products/datanucleus/jdo/orm/interfaces.html)
+to support polymorphic associations, none allow both a persisted reference to be arbitrarily extensible as well as
+supporting foreign keys (for RDBMS-enforced referential integrity).  The purpose of this module is therefore to provide
+helper classes that use a different approach, namely the "table of two halves" pattern.
+
+#### Table of Two Halves Pattern
+
+The "table of two halves" pattern models the relationship tuple itself as a class hierarchy.  The supertype table holds
+a generic polymorphic reference to the target object (leveraging Isis' [Bookmark Service](http://isis.apache.org/reference/services/bookmark-service.html))
+while the subtyype table holds a foreign key is held within the subtype.
 
 It is quite possible to implement the "table of two halves" pattern without using the helpers provided by this module;
 indeed arguably there's more value in the demo application that accompanies this module (discussed below) than in the
-helpers themselves.  Still, the helpers do provide some structure to follow.
+helpers themselves.  Still, the helpers do provide useful structure to help implement the pattern.
 
 ## Demo Application ##
 
-This module also has a comprehensive demo application that demonstrates four different polymorphic relationships:
+This module has a comprehensive demo application that demonstrates four different polymorphic associations:
 
 - 1-to-1 and n-to-1: a `CommunicationChannel` may be owned by a `CommunicationChannelOwner`.
 - 1-to-n: a `Case` may contain multiple `CaseContent`s
 - 1-to-1: a `Case` may have a primary `CaseContent`.
 
-In the above examples the `CommunicationChannelOwner` and `CaseContent` are interfaces.  The demo app has two entities,
-`FixedAsset` and `Party`, that both implement each of these interfaces; each `FixedAsset` may own a single `CommunicationChannel`,
-while a `Party` may own multiple `CommunicationChannel`s.  However neither `CommunicationChannel` nor `Case`
-has any direct dependency on these entities.
+The `CommunicationChannel` and `Case` are regular entities, while `CommunicationChannelOwner` and `CaseContent` are
+(Java) interfaces.  The demo app has two entities, `FixedAsset` and `Party`, that both implement each of these
+interfaces.  Each `FixedAsset` may own a single `CommunicationChannel`, while a `Party` may own multiple
+`CommunicationChannel`s.  Meanwhile both `FixedAsset` and `Party` can be added as the contents of multiple `Case`s.
 
 #### Communication Channel
 
-UML:
+The following UML diagram shows the "logical" polymorphic association between `CommunicationChannel` and its owning
+`CommunicationChannelOwner`:
 
 ![](https://raw.github.com/isisaddons/isis-module-poly/master/images/comm-channel-uml.png)
 
-Corresponding RDBMS:
+This is realized using the following entities:
+
+![](https://raw.github.com/isisaddons/isis-module-poly/master/images/comm-channel-link-uml.png)
+
+Here the `CommunicationChannelOwnerLink` is a persistent entity that has subtypes for each of the implementations of
+ the `CommunicationChannelOwner` interface, namely `CommunicationChannelOwnerLinkForFixedAsset` and
+ `CommunicationChannelOwnerLinkForParty`.   This inheritance hierarchy can be persisted using any of the
+ [standard strategies](http://www.datanucleus.org/products/datanucleus/jdo/orm/inheritance.html) supported by
+ JDO/DataNucleus.  In the demo application the [NEW_TABLE](http://www.datanucleus.org/products/datanucleus/jdo/orm/inheritance.html#newtable)
+ strategy is used, giving rise to these tables:
 
 ![](https://raw.github.com/isisaddons/isis-module-poly/master/images/comm-channel-rdbms.png)
 
@@ -42,6 +62,8 @@ Corresponding RDBMS:
 
 UML:
 ![](https://raw.github.com/isisaddons/isis-module-poly/master/images/case-content-uml.png)
+
+![](https://raw.github.com/isisaddons/isis-module-poly/master/images/case-content-link-uml.png)
 
 The corresponding RDBMS tables for the 1:n contents relationship are:
 

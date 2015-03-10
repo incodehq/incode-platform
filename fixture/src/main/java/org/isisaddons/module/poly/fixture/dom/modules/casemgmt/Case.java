@@ -51,8 +51,7 @@ import org.apache.isis.applib.util.ObjectContracts;
                         + "WHERE name.indexOf(:name) >= 0 ")
 })
 @DomainObject(
-        objectType = "casemgmt.Case",
-        bounded = true
+        objectType = "casemgmt.Case"
 )
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
