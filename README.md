@@ -53,27 +53,40 @@ Here the `CommunicationChannelOwnerLink` is a persistent entity that has subtype
  the `CommunicationChannelOwner` interface, namely `CommunicationChannelOwnerLinkForFixedAsset` and
  `CommunicationChannelOwnerLinkForParty`.   This inheritance hierarchy can be persisted using any of the
  [standard strategies](http://www.datanucleus.org/products/datanucleus/jdo/orm/inheritance.html) supported by
- JDO/DataNucleus.  In the demo application the [NEW_TABLE](http://www.datanucleus.org/products/datanucleus/jdo/orm/inheritance.html#newtable)
+ JDO/DataNucleus.
+
+In the demo application the [NEW_TABLE](http://www.datanucleus.org/products/datanucleus/jdo/orm/inheritance.html#newtable)
  strategy is used, giving rise to these tables:
 
 <img src="https://raw.github.com/isisaddons/isis-module-poly/master/images/comm-channel-rdbms.png" width="600">
 
 #### Case Contents
 
-UML:
-![](https://raw.github.com/isisaddons/isis-module-poly/master/images/case-content-uml.png)
+The following UML diagram shows the (two) "logical" polymorphic assocations between `Case` and its `CaseContent`s:
 
-![](https://raw.github.com/isisaddons/isis-module-poly/master/images/case-content-link-uml.png)
+<img src="https://raw.github.com/isisaddons/isis-module-poly/master/images/case-content-uml.png" width="600">
 
-The corresponding RDBMS tables for the 1:n contents relationship are:
+Note how `Case` actually has _two_ polymorphic associations: a 1:n to its contents, and a 1:1 to its primary content.
+
+This is realized using the following entities:
+
+<img src="https://raw.github.com/isisaddons/isis-module-poly/master/images/case-content-link-uml.png" width="600">
+
+Here the `CaseContentLink` is a persistent entity that (as for communication channels) has subtypes for each of the
+implementations of the `CaseContent` interface.  But because `Case` actually has two associations to `CaseContent`, there
+is also a further `CasePrimaryContentLink` persistent entity, again with subtypes.
+
+In the demo application the [NEW_TABLE](http://www.datanucleus.org/products/datanucleus/jdo/orm/inheritance.html#newtable)
+  strategy is used for both, giving rise to these tables for the "case content" association:
 
 ![](https://raw.github.com/isisaddons/isis-module-poly/master/images/case-content-contents-rdbms.png)
+
+and also to these for the "primary content" association:
 
 The corresponding RDBMS tables for the 1:1 "primary contents" relationship are almost identical:
 
 ![](https://raw.github.com/isisaddons/isis-module-poly/master/images/case-content-primary-rdbms.png)
 
-The only difference is the (implied) cardinality in the relationship to the link table.
 
 ## Screenshots ##
 
