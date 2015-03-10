@@ -17,28 +17,56 @@ msgid ".pot file name"
 msgstr ""
 
 
+#: org.isisaddons.module.poly.fixture.dom.modules.fixedasset.FixedAsset#addToCase()
+#: org.isisaddons.module.poly.fixture.dom.modules.party.Party#addCommunicationChannel()
+#: org.isisaddons.module.poly.fixture.dom.modules.party.Party#addToCase()
+msgid "Add"
+msgstr ""
+
+
+#: org.isisaddons.module.poly.fixture.dom.modules.casemgmt.CaseContentContributions#addToCase()
+msgid "Add To Case"
+msgstr ""
+
+
+#: org.isisaddons.module.poly.fixture.dom.modules.casemgmt.CaseContentContributions#cases()
+msgid "Cases"
+msgstr ""
+
+
 #: org.apache.isis.core.runtime.services.i18n.po.TranslationServicePoMenu#resetTranslationCache()
 msgid "Clear translation cache"
 msgstr ""
 
 
-#: domainapp.dom.modules.simple.SimpleObjects#create()
+#: org.isisaddons.module.poly.fixture.dom.modules.casemgmt.CaseContentContributions#contents()
+msgid "Contents"
+msgstr ""
+
+
+#: java.lang.String#create()
+#: org.isisaddons.module.poly.fixture.dom.modules.casemgmt.Cases#create()
+#: org.isisaddons.module.poly.fixture.dom.modules.fixedasset.FixedAsset#createCommunicationChannel()
+#: org.isisaddons.module.poly.fixture.dom.modules.fixedasset.FixedAssets#create()
+#: org.isisaddons.module.poly.fixture.dom.modules.party.Parties#create()
 msgid "Create"
 msgstr ""
 
 
+#: org.isisaddons.module.poly.fixture.dom.modules.fixedasset.FixedAsset#deleteCommunicationChannel()
+msgid "Delete"
+msgstr ""
+
+
+#: org.isisaddons.module.poly.fixture.dom.modules.fixedasset.FixedAsset#createCommunicationChannel(java.lang.String)
+#: org.isisaddons.module.poly.fixture.dom.modules.party.Party#addCommunicationChannel(java.lang.String)
+msgid "Details"
+msgstr ""
+
+
+#: java.lang.String#downloadTranslations()
 #: org.apache.isis.core.runtime.services.i18n.po.TranslationServicePoMenu#downloadTranslations()
 msgid "Download Translations"
-msgstr ""
-
-
-#: domainapp.dom.modules.simple.SimpleObject#updateName()
-msgid "Exclamation mark is not allowed"
-msgstr ""
-
-
-#: domainapp.dom.modules.simple.SimpleObjects#findByName()
-msgid "Find By Name"
 msgstr ""
 
 
@@ -47,30 +75,61 @@ msgid "Fixture script"
 msgstr ""
 
 
-#: domainapp.dom.app.homepage.HomePageService#homePage()
+#: org.isisaddons.module.poly.fixture.dom.app.homepage.HomePageService#homePage()
 msgid "Home Page"
 msgstr ""
 
 
-#: domainapp.dom.modules.simple.SimpleObjects#listAll()
+#: org.isisaddons.module.poly.fixture.dom.modules.fixedasset.CaseContentLinkForFixedAsset#contentIdentifier
+#: org.isisaddons.module.poly.fixture.dom.modules.fixedasset.CasePrimaryContentLinkForFixedAsset#contentIdentifier
+#: org.isisaddons.module.poly.fixture.dom.modules.fixedasset.CommunicationChannelOwnerLinkForFixedAsset#ownerIdentifier
+#: org.isisaddons.module.poly.fixture.dom.modules.party.CaseContentLinkForParty#contentIdentifier
+#: org.isisaddons.module.poly.fixture.dom.modules.party.CasePrimaryContentLinkForParty#contentIdentifier
+#: org.isisaddons.module.poly.fixture.dom.modules.party.CommunicationChannelOwnerLinkForParty#ownerIdentifier
+msgid "Identifier"
+msgstr ""
+
+
+#: org.isisaddons.module.poly.fixture.dom.modules.casemgmt.Cases#listAll()
+#: org.isisaddons.module.poly.fixture.dom.modules.comms.CommunicationChannels#listAll()
+#: org.isisaddons.module.poly.fixture.dom.modules.fixedasset.FixedAssets#listAll()
+#: org.isisaddons.module.poly.fixture.dom.modules.party.Parties#listAll()
 msgid "List All"
 msgstr ""
 
 
-#: domainapp.fixture.scenarios.RecreateSimpleObjects#lookup()
 #: org.apache.isis.applib.fixturescripts.FixtureScript#lookup()
 #: org.apache.isis.applib.services.bookmark.BookmarkHolderActionContributions#lookup()
+#: org.isisaddons.module.poly.fixture.scripts.scenarios.RecreateAll#lookup()
+#: org.isisaddons.module.poly.fixture.scripts.scenarios.RecreateCases#lookup()
+#: org.isisaddons.module.poly.fixture.scripts.scenarios.RecreateFixedAssets#lookup()
+#: org.isisaddons.module.poly.fixture.scripts.scenarios.RecreateParties#lookup()
 msgid "Lookup"
 msgstr ""
 
 
-#: domainapp.dom.modules.simple.SimpleObjects#create(java.lang.String)
-#: domainapp.dom.modules.simple.SimpleObjects#findByName(java.lang.String)
+#: org.isisaddons.module.poly.fixture.dom.modules.casemgmt.CasePrimaryContentContributions#makePrimary()
+#: org.isisaddons.module.poly.fixture.dom.modules.fixedasset.FixedAsset#makePrimary()
+#: org.isisaddons.module.poly.fixture.dom.modules.party.Party#makePrimary()
+msgid "Make Primary"
+msgstr ""
+
+
+#: org.isisaddons.module.poly.fixture.dom.modules.casemgmt.Cases#create(java.lang.String)
+#: org.isisaddons.module.poly.fixture.dom.modules.fixedasset.FixedAssets#create(java.lang.String)
+#: org.isisaddons.module.poly.fixture.dom.modules.party.Parties#create(java.lang.String)
 msgid "Name"
 msgstr ""
 
 
-#: domainapp.dom.modules.simple.SimpleObject#updateName(java.lang.String)
+#: org.isisaddons.module.poly.fixture.dom.modules.comms.CommunicationChannel#updateDetails(java.lang.String)
+msgid "New details"
+msgstr ""
+
+
+#: org.isisaddons.module.poly.fixture.dom.modules.casemgmt.Case#updateName(java.lang.String)
+#: org.isisaddons.module.poly.fixture.dom.modules.fixedasset.FixedAsset#updateName(java.lang.String)
+#: org.isisaddons.module.poly.fixture.dom.modules.party.Party#updateName(java.lang.String)
 msgid "New name"
 msgstr ""
 
@@ -80,25 +139,57 @@ msgid "Object"
 msgstr ""
 
 
-#: domainapp.dom.modules.simple.SimpleObject#title()
-msgid "Object: {name}"
+#: org.isisaddons.module.poly.fixture.dom.modules.fixedasset.CaseContentLinkForFixedAsset#contentObjectType
+#: org.isisaddons.module.poly.fixture.dom.modules.fixedasset.CasePrimaryContentLinkForFixedAsset#contentObjectType
+#: org.isisaddons.module.poly.fixture.dom.modules.fixedasset.CommunicationChannelOwnerLinkForFixedAsset#ownerObjectType
+#: org.isisaddons.module.poly.fixture.dom.modules.party.CaseContentLinkForParty#contentObjectType
+#: org.isisaddons.module.poly.fixture.dom.modules.party.CasePrimaryContentLinkForParty#contentObjectType
+#: org.isisaddons.module.poly.fixture.dom.modules.party.CommunicationChannelOwnerLinkForParty#ownerObjectType
+msgid "Object Type"
 msgstr ""
 
 
-#: domainapp.fixture.DomainAppFixturesService#runFixtureScript(org.apache.isis.applib.fixturescripts.FixtureScript,java.lang.String)
+#: org.isisaddons.module.poly.fixture.dom.modules.comms.CommunicationChannel#ownerLink()
+msgid "Owner Link"
+msgstr ""
+
+
 #: org.apache.isis.applib.fixturescripts.FixtureScripts#runFixtureScript(org.apache.isis.applib.fixturescripts.FixtureScript,java.lang.String)
+#: org.isisaddons.module.poly.fixture.PolyAppFixturesService#runFixtureScript(org.apache.isis.applib.fixturescripts.FixtureScript,java.lang.String)
 msgid "Parameters"
 msgstr ""
 
 
-#: domainapp.fixture.DomainAppFixturesService
+#: org.isisaddons.module.poly.fixture.dom.modules.casemgmt.CasePrimaryContentContributions#primary()
+msgid "Primary"
+msgstr ""
+
+
 #: org.apache.isis.core.runtime.services.i18n.po.TranslationServicePoMenu
+#: org.isisaddons.module.poly.fixture.PolyAppFixturesService
 msgid "Prototyping"
 msgstr ""
 
 
-#: domainapp.fixture.DomainAppFixturesService#recreateObjectsAndReturnFirst()
-msgid "Recreate Objects And Return First"
+#: org.isisaddons.module.poly.fixture.PolyAppFixturesService#recreateObjectsThenBackToHomePage()
+msgid "Recreate Objects Then Back To Home Page"
+msgstr ""
+
+
+#: org.isisaddons.module.poly.fixture.dom.modules.fixedasset.FixedAsset#removeFromCase()
+#: org.isisaddons.module.poly.fixture.dom.modules.party.Party#removeCommunicationChannel()
+#: org.isisaddons.module.poly.fixture.dom.modules.party.Party#removeFromCase()
+msgid "Remove"
+msgstr ""
+
+
+#: org.isisaddons.module.poly.fixture.dom.modules.casemgmt.CaseContentContributions#removeFromCase()
+msgid "Remove From Case"
+msgstr ""
+
+
+#: org.isisaddons.module.poly.fixture.dom.modules.casemgmt.CasePrimaryContentContributions#resetPrimary()
+msgid "Reset Primary"
 msgstr ""
 
 
@@ -117,32 +208,61 @@ msgid "Result key"
 msgstr ""
 
 
-#: domainapp.fixture.DomainAppFixturesService#runFixtureScript()
+#: java.lang.String#runFixtureScript()
 #: org.apache.isis.applib.fixturescripts.FixtureScripts#runFixtureScript()
+#: org.isisaddons.module.poly.fixture.PolyAppFixturesService#runFixtureScript()
 msgid "Run Fixture Script"
 msgstr ""
 
 
-#: domainapp.fixture.scenarios.RecreateSimpleObjects
 #: org.apache.isis.applib.fixturescripts.FixtureScript
+#: org.isisaddons.module.poly.fixture.scripts.scenarios.RecreateAll
+#: org.isisaddons.module.poly.fixture.scripts.scenarios.RecreateCases
+#: org.isisaddons.module.poly.fixture.scripts.scenarios.RecreateFixedAssets
+#: org.isisaddons.module.poly.fixture.scripts.scenarios.RecreateParties
 msgid "Script"
 msgstr ""
 
 
-#: domainapp.fixture.DomainAppFixturesService#runFixtureScript(org.apache.isis.applib.fixturescripts.FixtureScript,java.lang.String)
 #: org.apache.isis.applib.fixturescripts.FixtureScripts#runFixtureScript(org.apache.isis.applib.fixturescripts.FixtureScript,java.lang.String)
+#: org.isisaddons.module.poly.fixture.PolyAppFixturesService#runFixtureScript(org.apache.isis.applib.fixturescripts.FixtureScript,java.lang.String)
 msgid "Script-specific parameters (if any).  The format depends on the script implementation (eg key=value, CSV, JSON, XML etc)"
 msgstr ""
 
 
-#: domainapp.dom.modules.simple.SimpleObject#updateName()
+#: org.isisaddons.module.poly.fixture.dom.modules.casemgmt.CaseContentContributions#title()
+msgid "Title"
+msgstr ""
+
+
+#: org.isisaddons.module.poly.fixture.dom.modules.casemgmt.Case#updateName()
+msgid "Update"
+msgstr ""
+
+
+#: org.isisaddons.module.poly.fixture.dom.modules.comms.CommunicationChannel#updateDetails()
+msgid "Update Details"
+msgstr ""
+
+
+#: org.isisaddons.module.poly.fixture.dom.modules.fixedasset.FixedAsset#updateName()
+#: org.isisaddons.module.poly.fixture.dom.modules.party.Party#updateName()
 msgid "Update Name"
 msgstr ""
 
 
-#: domainapp.fixture.scenarios.RecreateSimpleObjects#withDiscoverability()
 #: org.apache.isis.applib.fixturescripts.FixtureScript#withDiscoverability()
+#: org.isisaddons.module.poly.fixture.scripts.scenarios.RecreateAll#withDiscoverability()
+#: org.isisaddons.module.poly.fixture.scripts.scenarios.RecreateCases#withDiscoverability()
+#: org.isisaddons.module.poly.fixture.scripts.scenarios.RecreateFixedAssets#withDiscoverability()
+#: org.isisaddons.module.poly.fixture.scripts.scenarios.RecreateParties#withDiscoverability()
 msgid "With Discoverability"
+msgstr ""
+
+
+#: org.isisaddons.module.poly.fixture.dom.modules.fixedasset.FixedAsset#title()
+#: org.isisaddons.module.poly.fixture.dom.modules.party.Party#title()
+msgid "{name}"
 msgstr ""
 
 
