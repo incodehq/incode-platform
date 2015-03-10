@@ -240,13 +240,13 @@ The recipe is:
 
 <table>
 <tr>
-<th style="width:10%;">
+<th>
 #
 </th>
-<th style="width:60%;">
+<th>
 Step
 </th>
-<th style="width:30%;">
+<th>
 Example
 </th>
 </tr>
@@ -311,7 +311,8 @@ Example
     4
 </td>
 <td>
-    create an "instantiate event".  We suggest using a nested static class of the link entity:
+    Create an "instantiate event".  <p/>
+    We suggest using a nested static class of the link entity:
 </td>
 <td>
     <ul>
