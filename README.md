@@ -240,19 +240,19 @@ The recipe is:
 
 <table>
 <tr>
-<th>
+<th style="width:10%">
 #
 </th>
-<th>
+<th style="width:50%">
 Step
 </th>
-<th>
+<th style="width:30%">
 Example
 </th>
 </tr>
 
 <tr>
-<td>
+<td style="width:10%">
     1
 </td>
 <td>
