@@ -243,7 +243,7 @@ The recipe is:
 <th style="width:10%;">
 #
 </th>
-<th style="width:50%;">
+<th style="width:60%;">
 Step
 </th>
 <th style="width:30%;">
@@ -252,7 +252,7 @@ Example
 </tr>
 
 <tr>
-<td style="width:10%">
+<td>
     1
 </td>
 <td>
