@@ -30,17 +30,28 @@ has any direct dependency on these entities.
 
 #### Communication Channel
 
+UML:
+
 ![](https://raw.github.com/isisaddons/isis-module-poly/master/images/comm-channel-uml.png)
+
+Corresponding RDBMS:
 
 ![](https://raw.github.com/isisaddons/isis-module-poly/master/images/comm-channel-rdbms.png)
 
 #### Case Contents
 
+UML:
 ![](https://raw.github.com/isisaddons/isis-module-poly/master/images/case-content-uml.png)
+
+The corresponding RDBMS tables for the 1:n contents relationship are:
 
 ![](https://raw.github.com/isisaddons/isis-module-poly/master/images/case-content-contents-rdbms.png)
 
+The corresponding RDBMS tables for the 1:1 "primary contents" relationship are almost identical:
+
 ![](https://raw.github.com/isisaddons/isis-module-poly/master/images/case-content-primary-rdbms.png)
+
+The only difference is the (implied) cardinality in the relationship to the link table.
 
 ## Screenshots ##
 
