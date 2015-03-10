@@ -353,11 +353,11 @@ Example
 </td>
 <td>
     <ul>
-    <li><code>CommunicationChannelOwnerLinkForFixedAsset.</code><code>InstantiateSubscriber</code> and <code>CommunicationChannelOwnerLinkForParty.</code><code>InstantiateSubscriber</code>
+    <li><code>CommunicationChannelOwnerLinkForFixedAsset.</code> <code>InstantiateSubscriber</code> and <code>CommunicationChannelOwnerLinkForParty.</code> <code>InstantiateSubscriber</code>
     </li>
-    <li><code>CaseContentLinkForFixedAsset.</code><code>InstantiateSubscriber</code> and <code>CaseContentLinkForParty.</code><code>InstantiateSubscriber</code>
+    <li><code>CaseContentLinkForFixedAsset.</code> <code>InstantiateSubscriber</code> and <code>CaseContentLinkForParty.</code><code>InstantiateSubscriber</code>
     </li>
-    <li><code>CasePrimaryContentLinkForFixedAsset.</code><code>InstantiateSubscriber</code> and <code>CasePrimaryContentLinkForParty.</code><code>InstantiateSubscriber</code>
+    <li><code>CasePrimaryContentLinkForFixedAsset.</code> <code>InstantiateSubscriber</code> and <code>CasePrimaryContentLinkForParty.</code> <code>InstantiateSubscriber</code>
     </li>
     </ul>
 </td>
