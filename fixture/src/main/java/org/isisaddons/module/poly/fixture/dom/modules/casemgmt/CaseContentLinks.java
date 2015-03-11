@@ -20,7 +20,7 @@ package org.isisaddons.module.poly.fixture.dom.modules.casemgmt;
 
 import java.util.List;
 import javax.annotation.PostConstruct;
-import org.isisaddons.module.poly.dom.PolymorphicAssociationFactory;
+import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -36,12 +36,12 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 public class CaseContentLinks {
 
     //region > init
-    PolymorphicAssociationFactory<Case,CaseContent,CaseContentLink,CaseContentLink.InstantiateEvent> ownerLinkHelper;
+    PolymorphicAssociationLink.Factory<Case,CaseContent,CaseContentLink,CaseContentLink.InstantiateEvent> linkFactory;
 
     @PostConstruct
     public void init() {
-        ownerLinkHelper = container.injectServicesInto(
-                new PolymorphicAssociationFactory<>(
+        linkFactory = container.injectServicesInto(
+                new PolymorphicAssociationLink.Factory<>(
                         this,
                         Case.class,
                         CaseContent.class,
@@ -83,7 +83,7 @@ public class CaseContentLinks {
     //region > createLink
     @Programmatic
     public void createLink(final Case aCase, final CaseContent content) {
-        ownerLinkHelper.createLink(aCase, content);
+        linkFactory.createLink(aCase, content);
     }
     //endregion
 

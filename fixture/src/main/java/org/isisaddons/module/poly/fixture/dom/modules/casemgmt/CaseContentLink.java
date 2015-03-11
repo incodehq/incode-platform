@@ -24,7 +24,6 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.NotPersistent;
 import com.google.common.base.Function;
-import org.isisaddons.module.poly.dom.PolymorphicAssociationInstantiateEvent;
 import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -53,7 +52,7 @@ import org.apache.isis.applib.annotation.Programmatic;
 public abstract class CaseContentLink extends PolymorphicAssociationLink<Case, CaseContent, CaseContentLink> {
 
     public static class InstantiateEvent
-            extends PolymorphicAssociationInstantiateEvent<Case, CaseContent, CaseContentLink> {
+            extends PolymorphicAssociationLink.InstantiateEvent<Case, CaseContent, CaseContentLink> {
 
         public InstantiateEvent(final Object source, final Case aCase, final CaseContent content) {
             super(CaseContentLink.class, source, aCase, content);

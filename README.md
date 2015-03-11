@@ -149,94 +149,19 @@ Then log on using user: `sven`, password: `pass`
 
 
 
-## How to configure/use ##
+## Design
 
-You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
+The key design idea is to leverage Isis' [event bus service](http://isis.apache.org/reference/services/event-bus-service.html) to determine which concrete subtype should be created and persisted to hold the association.
 
-#### "Out-of-the-box" ####
+* when the association needs to be created, an event is posted to the event bus
+* the subscriber updates the event with the details of the subtype to be persisted.
+* if no subscriber updates the event, then the association cannot be created and an exception is thrown.
 
-To use "out-of-the-box":
+The helper classes provided by this module factor out some of the boilerplate relating to this design, however there
+is (necessarily) quite a lot of domain-specific code.  What's important is understanding the design and how to replicate
+it.
 
-* update your classpath by adding this dependency in your dom project's `pom.xml`:
-
-<pre>
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.isisaddons.module.poly&lt;/groupId&gt;
-        &lt;artifactId&gt;isis-module-poly-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.9.0-SNAPSHOT&lt;/version&gt;
-    &lt;/dependency&gt;
-</pre>
-
-* update your `WEB-INF/isis.properties`:
-
-<pre>
-    isis.services-installer=configuration-and-annotation
-    isis.services.ServicesInstallerFromAnnotation.packagePrefix=
-                    ...,\
-                    org.isisaddons.module.poly.dom,\
-                    ...
-</pre>
-
-Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-poly-dom).
-
-
-#### "Out-of-the-box" (-SNAPSHOT) ####
-
-If you want to use the current `-SNAPSHOT`, then the steps are the same as above, except:
-
-* when updating the classpath, specify the appropriate -SNAPSHOT version:
-
-<pre>
-    &lt;version&gt;1.9.0-SNAPSHOT&lt;/version&gt;
-</pre>
-
-* add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
-
-<pre>
-    &lt;profile&gt;
-        &lt;id&gt;cloudbees-snapshots&lt;/id&gt;
-        &lt;activation&gt;
-            &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
-        &lt;/activation&gt;
-        &lt;repositories&gt;
-            &lt;repository&gt;
-                &lt;id&gt;snapshots-repo&lt;/id&gt;
-                &lt;url&gt;http://repository-estatio.forge.cloudbees.com/snapshot/&lt;/url&gt;
-                &lt;releases&gt;
-                    &lt;enabled&gt;false&lt;/enabled&gt;
-                &lt;/releases&gt;
-                &lt;snapshots&gt;
-                    &lt;enabled&gt;true&lt;/enabled&gt;
-                &lt;/snapshots&gt;
-            &lt;/repository&gt;
-        &lt;/repositories&gt;
-    &lt;/profile&gt;
-</pre>
-
-
-#### Forking the repo ####
-
-If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is 
-structured as follows:
-
-* `pom.xml`    // parent pom
-* `dom`        // the module implementation, depends on Isis applib
-* `fixture`    // fixtures, holding a sample domain objects and fixture scripts; depends on `dom`
-* `integtests` // integration tests for the module; depends on `fixture`
-* `webapp`     // demo webapp (see above screenshots); depends on `dom` and `fixture`
-
-Only the `dom` project is released to Maven Central Repo.  The versions of the other modules are purposely left at 
-`0.0.1-SNAPSHOT` because they are not intended to be released.
-    
-
-
-## API and Usage ##
-
-The key design idea within the helper classes provided by this module is to leverage Isis' [event bus service](http://isis.apache.org/reference/services/event-bus-service.html) to determine which concrete subtype should be created and persisted to hold the association.  When the association needs to be created, an event is posted to the event bus.
-  The subscriber updates the event with the details of the subtype to be persisted.  (If no subscriber updates the
-  event, then the association cannot be created).
-
-The recipe is:
+The recipe for the pattern is:
 
 <table>
 <tr>
@@ -316,11 +241,11 @@ Example
 </td>
 <td>
     <ul>
-    <li><code>CommunicationChannelOwnerLink.</code> <code>InstantiateEvent</code>
+    <li><code>CommunicationChannelOwnerLink.InstantiateEvent</code>
     </li>
-    <li><code>CaseContentLink.</code> <code>InstantiateEvent</code>
+    <li><code>CaseContentLink.InstantiateEvent</code>
     </li>
-    <li><code>CasePrimaryContentLink.</code> <code>InstantiateEvent</code>
+    <li><code>CasePrimaryContentLink.InstantiateEvent</code>
     </li>
     </ul>
 </td>
@@ -367,28 +292,294 @@ Example
 </table>
 
 
-As noted in the introduction, most of the value of this module comes from understanding how the "table-of-two-halves"
-pattern works.  The helper classes in the module are quite minimal, but they do provide some structure to the pattern.
+## API and Usage
 
-### API
-
-Specifically, the helpers provide:
+The module classes itself consist of the following:
 
 * `PolymorphicAssociationLink` - an abstract class from which to derive the `*Link` entity
-* `PolymorphicAssociationInstantiateEvent` - a superclass for the "instantiate event"
-* `PolymorphicAssociationFactory` - a utility class that broadcasts the event and persists the appropriate subtype
+* `PolymorphicAssociationLink.InstantiateEvent` - a superclass for the "instantiate event"
+* `PolymorphicAssociationLink.Factory` - a utility class that broadcasts the event and persists the link using the requested subtype
 
-### Worked Example
+Let's look at each in more detail, relating back to the "communication channel owner" association in the demo app.
+
+### PolymorphicAssociationLink
+
+The `PolymorphicAssociationLink` class is intended to be used base class for all `*Link` entities.  A link is in essence
+a tuple between two entities.  One of these links is direct "subject"; the other is the polymorphic reference.
+
+The class has the following structure:
+
+    public abstract class PolymorphicAssociationLink<S, P, L extends PolymorphicAssociationLink<S, P, L>>
+            implements Comparable<L> {
+
+        protected PolymorphicAssociationLink(final String titlePattern) { ... }
+
+        public abstract S getSubject();
+        public abstract void setSubject(S subject);
+
+        public abstract String getPolymorphicObjectType();
+        public abstract void setPolymorphicObjectType(final String polymorphicObjectType);
+
+        public abstract String getPolymorphicIdentifier();
+        public abstract void setPolymorphicIdentifier(final String polymorphicIdentifier);
+
+        public P getPolymorphicReference() { ... }
+        public void setPolymorphicReference(final P polymorphicReference) { ... }
+
+        public int compareTo(final PolymorphicAssociationLink other) { ... }
+    }
+
+The subclass is required to implement the `subject`, `polymorphicObjectType` and the `polymorphicIdentifier` properties;
+these should delegate to the "concrete" properties.
+
+For example, the `CommunicationChannelOwnerLink` looks like:
+
+    public abstract class CommunicationChannelOwnerLink
+            extends PolymorphicAssociationLink<CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink> {
+
+        public CommunicationChannelOwnerLink() { super("{polymorphicReference} owns {subject}"); }
+
+        public CommunicationChannel getSubject() { return getCommunicationChannel(); }
+        public void setSubject(final CommunicationChannel subject) { setCommunicationChannel(subject); }
+
+        public String getPolymorphicObjectType() { return getOwnerObjectType(); }
+        public void setPolymorphicObjectType(final String polymorphicObjectType) { setOwnerObjectType(polymorphicObjectType); }
+
+        public String getPolymorphicIdentifier() { return getOwnerIdentifier(); }
+        public void setPolymorphicIdentifier(final String polymorphicIdentifier) { setOwnerIdentifier(polymorphicIdentifier); }
+
+        // JDO persisted property
+        private CommunicationChannel communicationChannel;
+
+        // JDO persisted property
+        private String ownerObjectType;
+
+        // JDO persisted property
+        private String ownerIdentifier;
+    }
+
+Thus, the abstract properties defined by `PolymorphicAssociationLink` just delegate to corresponding persisted (JDO annotated)
+properties in `CommunicationChannelOwnerLink`.
+
+Also note the pattern passed to the constructor; this is used to generate a title.
 
 
+### PolymorphicAssociationLink.InstantiateEvent
+
+The `PolymorphicAssociationLink.InstantiateEvent` is the base class to derive an instantiate event type for each
+polymorphic association.  Having derived event classes means that the event subscribers need only receive the exact
+events that they care about.
+
+The `InstantiateEvent` has the following structure:
+
+    public abstract static class InstantiateEvent<S, P, L extends PolymorphicAssociationLink<S, P, L>>
+            extends java.util.EventObject {
+
+        protected InstantiateEvent(final Class<L> linkType, final Object source, final S subject, final P polymorphicReference) { ... }
+
+        public S getSubject() { ... }
+        public P getPolymorphicReference() { ... }
+
+        public Class<? extends L> getSubtype() { ... }
+        public void setSubtype(final Class<? extends L> subtype) { ... }
+    }
+
+Any subclass is required to have the same four parameters (the event is instantiated reflectively by `PolymorphicAssociationLink.Factory`).
+
+For example, the `CommunicationChannelOwnerLink.InstantiateEvent` is simply:
+
+        public static class InstantiateEvent
+                extends PolymorphicAssociationLink.InstantiateEvent<CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink> {
+
+            public InstantiateEvent(final Object source, final CommunicationChannel subject, final CommunicationChannelOwner owner) {
+                super(CommunicationChannelOwnerLink.class, source, subject, owner);
+            }
+        }
 
 
+### PolymorphicAssociationLink.Factory
 
-### Some quick aside ###
+The final class `PolymorphicAssociationLink.Factory` is responsible for broadcasting the event and then persisting the
+appropriate subtype for the link.  It has the following structure:
 
-TODO: talk about how use the event bus to cascade delete on the primary contents association.
+    public static class Factory<S,PR,L extends PolymorphicAssociationLink<S,PR,L>,E extends InstantiateEvent<S,PR,L>> {
 
-TODO: use of the contributed "contentTitle" property, and hidden where=ALL_TABLES/OBJECT_FORMS
+        public Factory(
+                final Object eventSource,
+                final Class<S> subjectType,
+                final Class<PR> polymorphicReferenceType,
+                final Class<L> linkType, final Class<E> eventType) { ... }
+
+        public void createLink(final S subject, final PR polymorphicReference) { ... }
+
+    }
+
+Unlike the other two classes, the factory is not subclassed.  Instead, it should be instantiated as appropriate.  Typically
+this will be in a repository service for the `*Link` entity.
+
+For example, with the communication channel example the `Factory` is instantiated in the `CommunicationChannelOwnerLinks`
+repository service:
+
+    public class CommunicationChannelOwnerLinks {
+
+        PolymorphicAssociationLink.Factory<CommunicationChannel,CommunicationChannelOwner,CommunicationChannelOwnerLink,CommunicationChannelOwnerLink.InstantiateEvent> linkFactory;
+
+        @PostConstruct
+        public void init() {
+            linkFactory = container.injectServicesInto(
+                    new PolymorphicAssociationLink.Factory<>(
+                            this,
+                            CommunicationChannel.class,
+                            CommunicationChannelOwner.class,
+                            CommunicationChannelOwnerLink.class,
+                            CommunicationChannelOwnerLink.InstantiateEvent.class
+                    ));
+
+        }
+
+        public void createLink(final CommunicationChannel communicationChannel, final CommunicationChannelOwner owner) {
+            linkFactory.createLink(communicationChannel, owner);
+        }
+    }
+
+Note that it is necessary to inject services into the factory.
+
+
+### Some quick asides
+
+The demo application has a couple of other interesting implementation details - not to do with polymorphic associations -
+but noteworthy nonetheless.
+
+#### Use of event bus for cascade delete
+
+With the `Case` class there is a "case contents" and a "primary case content"; the idea being that the primary content
+should be one in the "contents" collection.
+
+If the case content object that happens to be primary is dissociated from the case, then a
+`CaseContentContributions.RemoveFromCaseDomainEvent` domain event is broadcast.  A subscriber listens on this to
+delete the primary case link:
+
+    public class CasePrimaryContentSubscriber extends AbstractSubscriber {
+
+        @Subscribe
+        public void on(final CaseContentContributions.RemoveFromCaseDomainEvent ev) {
+            switch (ev.getEventPhase()) {
+                case EXECUTING:
+                    final CasePrimaryContentLink link = casePrimaryContentLinks.findByCaseAndContent(ev.getCase(), ev.getContent());
+                    if(link != null) {
+                        container.remove(link);
+                    }
+                    break;
+            }
+        }
+    }
+
+
+#### Contributed properties for collections of an interface type
+
+It (currently) isn't possible to define (fully abstract) properties on interfaces, meaning that by default a collection
+of objects implementing an interface (eg `Case`'s "caseContents" collection) would normally only show the icon of
+the object; not particularly satisfactory.
+
+However, Isis *does* support the notion of contributed properties to interfaces.  The demo application uses this trick
+for the "caseContents" in the `CaseContentContributions` domain service:
+
+    public class CaseContentContributions {
+
+        @Action( semantics = SemanticsOf.SAFE )
+        @ActionLayout( contributed = Contributed.AS_ASSOCIATION )
+        @PropertyLayout( hidden = Where.OBJECT_FORMS )
+        public String title(final CaseContent caseContent) {
+            return container.titleOf(caseContent);
+        }
+
+    }
+
+Moreover, this trick contributes to all implementations (`FixedAsset` and `Party`).
+
+There is however a small gotcha, in that we only want this contributed property to be viewed on tables.  The
+`@Property(hidden=Where.OBJECT_FORMS)` ensures that it is not shown anywhere else.
+
+
+## How to configure/use ##
+
+You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
+
+#### "Out-of-the-box" ####
+
+To use "out-of-the-box":
+
+* update your classpath by adding this dependency in your dom project's `pom.xml`:
+
+<pre>
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.isisaddons.module.poly&lt;/groupId&gt;
+        &lt;artifactId&gt;isis-module-poly-dom&lt;/artifactId&gt;
+        &lt;version&gt;1.9.0-SNAPSHOT&lt;/version&gt;
+    &lt;/dependency&gt;
+</pre>
+
+* update your `WEB-INF/isis.properties`:
+
+<pre>
+    isis.services-installer=configuration-and-annotation
+    isis.services.ServicesInstallerFromAnnotation.packagePrefix=
+                    ...,\
+                    org.isisaddons.module.poly.dom,\
+                    ...
+</pre>
+
+Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-poly-dom).
+
+
+#### "Out-of-the-box" (-SNAPSHOT) ####
+
+If you want to use the current `-SNAPSHOT`, then the steps are the same as above, except:
+
+* when updating the classpath, specify the appropriate -SNAPSHOT version:
+
+<pre>
+    &lt;version&gt;1.9.0-SNAPSHOT&lt;/version&gt;
+</pre>
+
+* add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
+
+<pre>
+    &lt;profile&gt;
+        &lt;id&gt;cloudbees-snapshots&lt;/id&gt;
+        &lt;activation&gt;
+            &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
+        &lt;/activation&gt;
+        &lt;repositories&gt;
+            &lt;repository&gt;
+                &lt;id&gt;snapshots-repo&lt;/id&gt;
+                &lt;url&gt;http://repository-estatio.forge.cloudbees.com/snapshot/&lt;/url&gt;
+                &lt;releases&gt;
+                    &lt;enabled&gt;false&lt;/enabled&gt;
+                &lt;/releases&gt;
+                &lt;snapshots&gt;
+                    &lt;enabled&gt;true&lt;/enabled&gt;
+                &lt;/snapshots&gt;
+            &lt;/repository&gt;
+        &lt;/repositories&gt;
+    &lt;/profile&gt;
+</pre>
+
+
+#### Forking the repo ####
+
+If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is 
+structured as follows:
+
+* `pom.xml`    // parent pom
+* `dom`        // the module implementation, depends on Isis applib
+* `fixture`    // fixtures, holding a sample domain objects and fixture scripts; depends on `dom`
+* `integtests` // integration tests for the module; depends on `fixture`
+* `webapp`     // demo webapp (see above screenshots); depends on `dom` and `fixture`
+
+Only the `dom` project is released to Maven Central Repo.  The versions of the other modules are purposely left at 
+`0.0.1-SNAPSHOT` because they are not intended to be released.
+    
 
 
 ## Change Log ##

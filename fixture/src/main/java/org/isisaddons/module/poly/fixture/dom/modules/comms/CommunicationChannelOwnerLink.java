@@ -23,7 +23,6 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
 import com.google.common.base.Function;
-import org.isisaddons.module.poly.dom.PolymorphicAssociationInstantiateEvent;
 import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -53,7 +52,7 @@ public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociati
 
 
     public static class InstantiateEvent
-            extends PolymorphicAssociationInstantiateEvent<CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink> {
+            extends PolymorphicAssociationLink.InstantiateEvent<CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink> {
 
         public InstantiateEvent(final Object source, final CommunicationChannel subject, final CommunicationChannelOwner owner) {
             super(CommunicationChannelOwnerLink.class, source, subject, owner);

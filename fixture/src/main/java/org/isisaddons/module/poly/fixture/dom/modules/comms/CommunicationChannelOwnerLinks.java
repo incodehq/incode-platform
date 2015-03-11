@@ -20,7 +20,7 @@ package org.isisaddons.module.poly.fixture.dom.modules.comms;
 
 import java.util.List;
 import javax.annotation.PostConstruct;
-import org.isisaddons.module.poly.dom.PolymorphicAssociationFactory;
+import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -36,12 +36,12 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 public class CommunicationChannelOwnerLinks {
 
     //region > init
-    PolymorphicAssociationFactory<CommunicationChannel,CommunicationChannelOwner,CommunicationChannelOwnerLink,CommunicationChannelOwnerLink.InstantiateEvent> ownerLinkHelper;
+    PolymorphicAssociationLink.Factory<CommunicationChannel,CommunicationChannelOwner,CommunicationChannelOwnerLink,CommunicationChannelOwnerLink.InstantiateEvent> linkFactory;
 
     @PostConstruct
     public void init() {
-        ownerLinkHelper = container.injectServicesInto(
-                new PolymorphicAssociationFactory<>(
+        linkFactory = container.injectServicesInto(
+                new PolymorphicAssociationLink.Factory<>(
                         this,
                         CommunicationChannel.class,
                         CommunicationChannelOwner.class,
@@ -83,7 +83,7 @@ public class CommunicationChannelOwnerLinks {
     //region > createLink (programmatic)
     @Programmatic
     public void createLink(final CommunicationChannel communicationChannel, final CommunicationChannelOwner owner) {
-        ownerLinkHelper.createLink(communicationChannel, owner);
+        linkFactory.createLink(communicationChannel, owner);
     }
     //endregion
 
