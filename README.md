@@ -548,7 +548,8 @@ delete the primary case link:
         public void on(final CaseContentContributions.RemoveFromCaseDomainEvent ev) {
             switch (ev.getEventPhase()) {
                 case EXECUTING:
-                    final CasePrimaryContentLink link = casePrimaryContentLinks.findByCaseAndContent(ev.getCase(), ev.getContent());
+                    final CasePrimaryContentLink link =
+                                casePrimaryContentLinks.findByCaseAndContent(ev.getCase(), ev.getContent());
                     if(link != null) {
                         container.remove(link);
                     }
