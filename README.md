@@ -39,8 +39,9 @@ The `CommunicationChannel` and `Case` are regular entities, while `Communication
 (Java) interfaces.
 
 The demo app also has two entities, `FixedAsset` and `Party`, that both implement each of these
-interfaces.  Each `FixedAsset` may own a single `CommunicationChannel`, while a `Party` may own multiple
-`CommunicationChannel`s.  Meanwhile both `FixedAsset` and `Party` can be added as the contents of multiple `Case`s.
+interfaces.  Each `FixedAsset` may "own" a single `CommunicationChannel`, while a `Party` may "own" multiple
+`CommunicationChannel`s.  Meanwhile both `FixedAsset` and `Party` can be added as the "contents" of multiple `Case`s, and
+either can be used as a `Case`'s "primary content".
 
 #### Communication Channel
 
