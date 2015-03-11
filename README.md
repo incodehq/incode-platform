@@ -6,6 +6,8 @@ This module, intended for use within [Apache Isis](http://isis.apache.org), prov
 definition of polymorphic associations; that is: relationships from one persistent entity to another by means of a
 (Java) interface.
 
+#### Rationale
+
 Persistable polymorphic associations are important because they allow decoupling between classes using the
 [dependency inversion principle](http://en.wikipedia.org/wiki/Dependency_inversion_principle); module dependencies can
 therefore by kept acyclic.  This is key to long-term maintainability of the codebase (avoiding the [big ball of mud](http://en.wikipedia.org/wiki/Big_ball_of_mud) anti-pattern).
