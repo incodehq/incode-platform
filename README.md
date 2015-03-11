@@ -374,7 +374,8 @@ events that they care about.
 
 The `InstantiateEvent` has the following structure:
 
-    public abstract static class InstantiateEvent<S, P, L extends PolymorphicAssociationLink<S, P, L>>
+    public abstract static class InstantiateEvent<
+                                    S, P, L extends PolymorphicAssociationLink<S, P, L>>
             extends java.util.EventObject {
 
         protected InstantiateEvent(final Class<L> linkType, final Object source, final S subject, final P polymorphicReference) { ... }
@@ -392,7 +393,8 @@ For example, the `CommunicationChannelOwnerLink.InstantiateEvent` is simply:
 
         public static class InstantiateEvent
                 extends PolymorphicAssociationLink.InstantiateEvent<
-                            CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink> {
+                            CommunicationChannel, CommunicationChannelOwner,
+                            CommunicationChannelOwnerLink> {
 
             public InstantiateEvent(final Object source, final CommunicationChannel subject, final CommunicationChannelOwner owner) {
                 super(CommunicationChannelOwnerLink.class, source, subject, owner);
