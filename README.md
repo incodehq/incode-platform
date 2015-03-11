@@ -280,7 +280,7 @@ Example
     6
 </td>
 <td>
-    Create a subscriber to the event.  <p/>
+    Create a subscriber to the event for each implementation of the target interface.<p/>
     We suggest using a nested static class of the subtype:
 </td>
 <td>
