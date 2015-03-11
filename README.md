@@ -577,7 +577,6 @@ for the "caseContents" in the `CaseContentContributions` domain service:
         public String title(final CaseContent caseContent) {
             return container.titleOf(caseContent);
         }
-
     }
 
 Moreover, this trick contributes to all implementations (`FixedAsset` and `Party`).
