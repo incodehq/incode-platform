@@ -36,7 +36,9 @@ This module has a comprehensive demo application that demonstrates four differen
 - 1-to-1: a `Case` may have a primary `CaseContent`.
 
 The `CommunicationChannel` and `Case` are regular entities, while `CommunicationChannelOwner` and `CaseContent` are
-(Java) interfaces.  The demo app has two entities, `FixedAsset` and `Party`, that both implement each of these
+(Java) interfaces.
+
+The demo app has two entities, `FixedAsset` and `Party`, that both implement each of these
 interfaces.  Each `FixedAsset` may own a single `CommunicationChannel`, while a `Party` may own multiple
 `CommunicationChannel`s.  Meanwhile both `FixedAsset` and `Party` can be added as the contents of multiple `Case`s.
 
