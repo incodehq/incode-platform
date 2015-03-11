@@ -337,18 +337,34 @@ these should delegate to the "concrete" properties.
 For example, the `CommunicationChannelOwnerLink` looks like:
 
     public abstract class CommunicationChannelOwnerLink
-            extends PolymorphicAssociationLink<CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink> {
+            extends PolymorphicAssociationLink<
+                        CommunicationChannel, CommunicationChannelOwner,
+                        CommunicationChannelOwnerLink> {
 
-        public CommunicationChannelOwnerLink() { super("{polymorphicReference} owns {subject}"); }
+        public CommunicationChannelOwnerLink() {
+            super("{polymorphicReference} owns {subject}");
+        }
 
-        public CommunicationChannel getSubject() { return getCommunicationChannel(); }
-        public void setSubject(final CommunicationChannel subject) { setCommunicationChannel(subject); }
+        public CommunicationChannel getSubject() {
+            return getCommunicationChannel();
+        }
+        public void setSubject(final CommunicationChannel subject) {
+            setCommunicationChannel(subject);
+        }
 
-        public String getPolymorphicObjectType() { return getOwnerObjectType(); }
-        public void setPolymorphicObjectType(final String polymorphicObjectType) { setOwnerObjectType(polymorphicObjectType); }
+        public String getPolymorphicObjectType() {
+            return getOwnerObjectType();
+        }
+        public void setPolymorphicObjectType(final String polymorphicObjectType) {
+            setOwnerObjectType(polymorphicObjectType);
+        }
 
-        public String getPolymorphicIdentifier() { return getOwnerIdentifier(); }
-        public void setPolymorphicIdentifier(final String polymorphicIdentifier) { setOwnerIdentifier(polymorphicIdentifier); }
+        public String getPolymorphicIdentifier() {
+            return getOwnerIdentifier();
+        }
+        public void setPolymorphicIdentifier(final String polymorphicIdentifier) {
+            setOwnerIdentifier(polymorphicIdentifier);
+        }
 
         // JDO persisted property
         private CommunicationChannel communicationChannel;
