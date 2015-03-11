@@ -21,7 +21,7 @@ helper classes that use a different approach, namely the "table of two halves" p
 
 The "table of two halves" pattern models the relationship tuple itself as a class hierarchy.  The supertype table holds
 a generic polymorphic reference to the target object (leveraging Isis' [Bookmark Service](http://isis.apache.org/reference/services/bookmark-service.html))
-while the subtyype table holds a foreign key is held within the subtype.
+while the subtype table holds a foreign key is held within the subtype.
 
 It is quite possible to implement the "table of two halves" pattern without using the helpers provided by this module;
 indeed arguably there's more value in the demo application that accompanies this module (discussed below) than in the
