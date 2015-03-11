@@ -378,7 +378,11 @@ The `InstantiateEvent` has the following structure:
                                     S, P, L extends PolymorphicAssociationLink<S, P, L>>
             extends java.util.EventObject {
 
-        protected InstantiateEvent(final Class<L> linkType, final Object source, final S subject, final P polymorphicReference) { ... }
+        protected InstantiateEvent(
+                final Class<L> linkType,
+                final Object source,
+                final S subject,
+                final P polymorphicReference) { ... }
 
         public S getSubject() { ... }
         public P getPolymorphicReference() { ... }
