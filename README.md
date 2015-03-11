@@ -452,8 +452,11 @@ repository service:
 
     public class CommunicationChannelOwnerLinks {
 
-        PolymorphicAssociationLink.Factory<CommunicationChannel,CommunicationChannelOwner,
-                CommunicationChannelOwnerLink,CommunicationChannelOwnerLink.InstantiateEvent> linkFactory;
+        PolymorphicAssociationLink.Factory<
+                CommunicationChannel,
+                CommunicationChannelOwner,
+                CommunicationChannelOwnerLink,
+                CommunicationChannelOwnerLink.InstantiateEvent> linkFactory;
 
         @PostConstruct
         public void init() {
