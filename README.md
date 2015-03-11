@@ -299,7 +299,7 @@ Example
 
 ## API and Usage
 
-The module classes itself consist of the following:
+The module itself consist of the following classes:
 
 * `PolymorphicAssociationLink` - an abstract class from which to derive the `*Link` entity
 * `PolymorphicAssociationLink.InstantiateEvent` - a superclass for the "instantiate event"
