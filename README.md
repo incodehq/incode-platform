@@ -471,7 +471,9 @@ repository service:
 
         }
 
-        public void createLink(final CommunicationChannel communicationChannel, final CommunicationChannelOwner owner) {
+        public void createLink(
+                final CommunicationChannel communicationChannel,
+                final CommunicationChannelOwner owner) {
             linkFactory.createLink(communicationChannel, owner);
         }
     }
