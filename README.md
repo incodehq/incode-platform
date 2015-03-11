@@ -100,7 +100,7 @@ The screenshots below show the demo app's usage of the _poly_ module.  We start 
 This sets up 3 parties, 3 fixed assets which between them have 9 communication channels.  There are also 3 cases and
    the parties and fixed assets are variously contained within.  This is summarized on the home page:
 
-![](https://raw.github.com/isisaddons/isis-module-poly/master/images/010-dashboard.png)
+![](https://raw.github.com/isisaddons/isis-module-poly/master/images/020-dashboard.png)
 
 If we navigate to the `Party` entity, we can see that it shows a collection of `CommunicationChannel`s that the party
 owns, and also a collection of the `Case`s within which the party is contained:
