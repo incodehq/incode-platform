@@ -71,7 +71,7 @@ The following UML diagram shows the (two) "logical" polymorphic assocations betw
 
 <img src="https://raw.github.com/isisaddons/isis-module-poly/master/images/case-content-uml.png" width="600">
 
-Note how `Case` actually has _two_ polymorphic associations: a 1:n to its contents, and a 1:1 to its primary content.
+Note how `Case` actually has _two_ polymorphic associations: a 1:n to its "contents", and a 1:1 to its "primary content".
 
 This is realized using the following entities:
 
