@@ -108,7 +108,7 @@ owns, and also a collection of the `Case`s within which the party is contained:
 ![](https://raw.github.com/isisaddons/isis-module-poly/master/images/030-party.png)
 
 The `FixedAsset` entity is similar in that it also has a collection of `Case`s.  However, in our demo app we have a
-business rule that the fixed asset to reference only a single `CommunicationChannel`.
+business rule that the fixed asset can own only a single `CommunicationChannel`.
 
 ![](https://raw.github.com/isisaddons/isis-module-poly/master/images/040-fixed-asset.png)
 
