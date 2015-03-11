@@ -408,7 +408,7 @@ The `InstantiateEvent` has the following structure:
         public void setSubtype(final Class<? extends L> subtype) { ... }
     }
 
-Any subclass is required to have the same four parameters (the event is instantiated reflectively by `PolymorphicAssociationLink.Factory`).
+Any subclass is required to take the last three parameters in its constructor; the event is instantiated reflectively by `PolymorphicAssociationLink.Factory`.
 
 For example, the `CommunicationChannelOwnerLink.InstantiateEvent` is simply:
 
@@ -417,7 +417,10 @@ For example, the `CommunicationChannelOwnerLink.InstantiateEvent` is simply:
                             CommunicationChannel, CommunicationChannelOwner,
                             CommunicationChannelOwnerLink> {
 
-            public InstantiateEvent(final Object source, final CommunicationChannel subject, final CommunicationChannelOwner owner) {
+            public InstantiateEvent(
+                    final Object source,
+                    final CommunicationChannel subject,
+                    final CommunicationChannelOwner owner) {
                 super(CommunicationChannelOwnerLink.class, source, subject, owner);
             }
         }
