@@ -311,7 +311,8 @@ Let's look at each in more detail, relating back to the "communication channel o
 
 A link is in essence a tuple between two entities.  One of these links is direct "subject"; the other is the polymorphic reference.  The `PolymorphicAssociationLink` class is intended to be used base class for all `*Link` entities (step 2 in the pattern recipe), and defines this structure:
 
-    public abstract class PolymorphicAssociationLink<S, P, L extends PolymorphicAssociationLink<S, P, L>>
+    public abstract class PolymorphicAssociationLink<
+                                S, P, L extends PolymorphicAssociationLink<S, P, L>>
             implements Comparable<L> {
 
         protected PolymorphicAssociationLink(final String titlePattern) { ... }
