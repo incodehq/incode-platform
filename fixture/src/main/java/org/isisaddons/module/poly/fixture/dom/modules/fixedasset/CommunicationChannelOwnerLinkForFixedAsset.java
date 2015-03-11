@@ -44,7 +44,7 @@ public class CommunicationChannelOwnerLinkForFixedAsset extends CommunicationCha
 
         @Programmatic
         @Subscribe
-        public void on(final InstantiateEvent ev) {
+        public void on(final CommunicationChannelOwnerLink.InstantiateEvent ev) {
             if(ev.getPolymorphicReference() instanceof FixedAsset) {
                 ev.setSubtype(CommunicationChannelOwnerLinkForFixedAsset.class);
             }

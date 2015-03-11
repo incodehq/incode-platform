@@ -217,25 +217,6 @@ Example
     3
 </td>
 <td>
-    Create a corresponding repository service for that link persistent entity:
-</td>
-<td>
-    <ul>
-    <li><code>CommunicationChannelOwnerLinks</code>
-    </li>
-    <li><code>CaseContentLinks</code>
-    </li>
-    <li><code>CasePrimaryContentLinks</code>
-    </li>
-    </ul>
-</td>
-</tr>
-
-<tr>
-<td>
-    4
-</td>
-<td>
     Create an "instantiate event".  <p/>
     We suggest using a nested static class of the link entity:
 </td>
@@ -246,6 +227,25 @@ Example
     <li><code>CaseContentLink.InstantiateEvent</code>
     </li>
     <li><code>CasePrimaryContentLink.InstantiateEvent</code>
+    </li>
+    </ul>
+</td>
+</tr>
+
+<tr>
+<td>
+    4
+</td>
+<td>
+    Create a corresponding repository service for that link persistent entity:
+</td>
+<td>
+    <ul>
+    <li><code>CommunicationChannelOwnerLinks</code>
+    </li>
+    <li><code>CaseContentLinks</code>
+    </li>
+    <li><code>CasePrimaryContentLinks</code>
     </li>
     </ul>
 </td>
@@ -304,7 +304,7 @@ Let's look at each in more detail, relating back to the "communication channel o
 
 ### PolymorphicAssociationLink
 
-The `PolymorphicAssociationLink` class is intended to be used base class for all `*Link` entities.  A link is in essence
+The `PolymorphicAssociationLink` class is intended to be used base class for all `*Link` entities (step 2 in the pattern recipe).  A link is in essence
 a tuple between two entities.  One of these links is direct "subject"; the other is the polymorphic reference.
 
 The class has the following structure:
@@ -367,7 +367,7 @@ Also note the pattern passed to the constructor; this is used to generate a titl
 ### PolymorphicAssociationLink.InstantiateEvent
 
 The `PolymorphicAssociationLink.InstantiateEvent` is the base class to derive an instantiate event type for each
-polymorphic association.  Having derived event classes means that the event subscribers need only receive the exact
+polymorphic association (step 3 in the pattern recipe).  Having derived event classes means that the event subscribers need only receive the exact
 events that they care about.
 
 The `InstantiateEvent` has the following structure:
@@ -415,7 +415,7 @@ appropriate subtype for the link.  It has the following structure:
     }
 
 Unlike the other two classes, the factory is not subclassed.  Instead, it should be instantiated as appropriate.  Typically
-this will be in a repository service for the `*Link` entity.
+this will be in a repository service for the `*Link` entity (step 4 in the pattern recipe).
 
 For example, with the communication channel example the `Factory` is instantiated in the `CommunicationChannelOwnerLinks`
 repository service:
@@ -445,7 +445,52 @@ repository service:
 Note that it is necessary to inject services into the factory.
 
 
-### Some quick asides
+### Completing the Pattern
+
+The helper classes provided by this module are actually only used by the "subject" domain entity (or the containing package for said entity); steps 1 through 4 in the pattern recipe.  But what about the implementation for an entity (such as `FixedAsset`) that wishes to be used in such a polymorphic association, ie the final steps 5 and 6?
+
+Step 5 of the pattern requires a subtype of the `*Link` entity specific to the subtype to be reference.  For example,
+for `FixedAsset` this looks like:
+
+    public class CommunicationChannelOwnerLinkForFixedAsset extends CommunicationChannelOwnerLink {
+
+        @Override
+        public void setPolymorphicReference(final CommunicationChannelOwner polymorphicReference) {
+            super.setPolymorphicReference(polymorphicReference);
+            setFixedAsset((FixedAsset) polymorphicReference);
+        }
+
+        // JDO persisted property
+        private FixedAsset fixedAsset;
+
+    }
+
+where the inherited `setPolymorphicReference(...)` method is overridden to also populate the JDO persisted property
+(`fixedAsset` in this case).
+
+And, finally, step 6 defines a subscriber on the instantiate event.  We recommend this is a nested static class of the
+`*Link` subtype, and so:
+
+    public class CommunicationChannelOwnerLinkForFixedAsset extends CommunicationChannelOwnerLink {
+
+        @DomainService(nature = NatureOfService.DOMAIN)
+        public static class InstantiationSubscriber extends AbstractSubscriber {
+
+            @Programmatic
+            @Subscribe
+            public void on(final CommunicationChannelOwnerLink.InstantiateEvent ev) {
+                if(ev.getPolymorphicReference() instanceof FixedAsset) {
+                    ev.setSubtype(CommunicationChannelOwnerLinkForFixedAsset.class);
+                }
+            }
+        }
+    }
+
+The thing to note is that although there are quite a few steps (1 through 4, in fact) to make an association polymorphic,
+the steps to then reuse that polymorphic association (steps 5 and 6) are really rather trivial.
+
+
+## Some quick asides
 
 The demo application has a couple of other interesting implementation details - not to do with polymorphic associations -
 but noteworthy nonetheless.
