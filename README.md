@@ -391,7 +391,8 @@ Any subclass is required to have the same four parameters (the event is instanti
 For example, the `CommunicationChannelOwnerLink.InstantiateEvent` is simply:
 
         public static class InstantiateEvent
-                extends PolymorphicAssociationLink.InstantiateEvent<CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink> {
+                extends PolymorphicAssociationLink.InstantiateEvent<
+                            CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink> {
 
             public InstantiateEvent(final Object source, final CommunicationChannel subject, final CommunicationChannelOwner owner) {
                 super(CommunicationChannelOwnerLink.class, source, subject, owner);
@@ -404,15 +405,16 @@ For example, the `CommunicationChannelOwnerLink.InstantiateEvent` is simply:
 The final class `PolymorphicAssociationLink.Factory` is responsible for broadcasting the event and then persisting the
 appropriate subtype for the link.  It has the following structure:
 
-    public static class Factory<S,PR,L extends PolymorphicAssociationLink<S,PR,L>,E extends InstantiateEvent<S,PR,L>> {
+    public static class Factory<S,P,L extends PolymorphicAssociationLink<S,P,L>,
+                                E extends InstantiateEvent<S,P,L>> {
 
         public Factory(
                 final Object eventSource,
                 final Class<S> subjectType,
-                final Class<PR> polymorphicReferenceType,
+                final Class<P> polymorphicReferenceType,
                 final Class<L> linkType, final Class<E> eventType) { ... }
 
-        public void createLink(final S subject, final PR polymorphicReference) { ... }
+        public void createLink(final S subject, final P polymorphicReference) { ... }
 
     }
 
@@ -424,7 +426,8 @@ repository service:
 
     public class CommunicationChannelOwnerLinks {
 
-        PolymorphicAssociationLink.Factory<CommunicationChannel,CommunicationChannelOwner,CommunicationChannelOwnerLink,CommunicationChannelOwnerLink.InstantiateEvent> linkFactory;
+        PolymorphicAssociationLink.Factory<CommunicationChannel,CommunicationChannelOwner,
+                CommunicationChannelOwnerLink,CommunicationChannelOwnerLink.InstantiateEvent> linkFactory;
 
         @PostConstruct
         public void init() {
@@ -454,7 +457,8 @@ The helper classes provided by this module are actually only used by the "subjec
 Step 5 of the pattern requires a subtype of the `*Link` entity specific to the subtype to be reference.  For example,
 for `FixedAsset` this looks like:
 
-    public class CommunicationChannelOwnerLinkForFixedAsset extends CommunicationChannelOwnerLink {
+    public class CommunicationChannelOwnerLinkForFixedAsset
+            extends CommunicationChannelOwnerLink {
 
         @Override
         public void setPolymorphicReference(final CommunicationChannelOwner polymorphicReference) {
