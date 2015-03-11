@@ -490,9 +490,9 @@ for `FixedAsset` this looks like:
             extends CommunicationChannelOwnerLink {
 
         @Override
-        public void setPolymorphicReference(final CommunicationChannelOwner polymorphicReference) {
-            super.setPolymorphicReference(polymorphicReference);
-            setFixedAsset((FixedAsset) polymorphicReference);
+        public void setPolymorphicReference(final CommunicationChannelOwner polyReference) {
+            super.setPolymorphicReference(polyReference);
+            setFixedAsset((FixedAsset) polyReference);
         }
 
         // JDO persisted property
@@ -506,7 +506,8 @@ where the inherited `setPolymorphicReference(...)` method is overridden to also 
 And, finally, step 6 defines a subscriber on the instantiate event.  We recommend this is a nested static class of the
 `*Link` subtype, and so:
 
-    public class CommunicationChannelOwnerLinkForFixedAsset extends CommunicationChannelOwnerLink {
+    public class CommunicationChannelOwnerLinkForFixedAsset
+                            extends CommunicationChannelOwnerLink {
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class InstantiationSubscriber extends AbstractSubscriber {
