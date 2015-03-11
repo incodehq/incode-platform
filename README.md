@@ -444,7 +444,7 @@ repository service:
         }
     }
 
-Note that it is necessary to inject services into the factory.
+Note that it is necessary to inject services into the factory (`container.injectServicesInto(...)`).
 
 
 ### Completing the Pattern
