@@ -218,7 +218,7 @@ where:
 * `timestamp` is the timestamp for the transaction
 * `targetClass` holds the class of the audited object, eg `com.mycompany.myapp.Customer`
 * `targetStr` stores a serialized form of the `Bookmark`, in other words a provides a mechanism to look up the audited 
-  object, eg `CUS:L_1234` to identify customer with id 1234.  ("CUS" corresponds to the `@ObjectType` annotation/facet).
+  object, eg `CUS:1234` to identify customer with id 1234.  ("CUS" corresponds to the `@ObjectType` annotation/facet).
 * `memberIdentifier` is the fully-qualified class and property Id, similar to the way that Javadoc words, eg 
    `com.mycompany.myapp.Customer#firstName`
 * `propertyId` is the property identifier, eg `firstName`
