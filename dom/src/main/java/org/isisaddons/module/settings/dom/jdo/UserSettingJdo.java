@@ -35,7 +35,7 @@ import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 @javax.jdo.annotations.PersistenceCapable(
         identityType = IdentityType.APPLICATION, 
         objectIdClass=UserSettingJdoPK.class,
-        schema = "IsisAddonsSettings",
+        schema = "isissettings",
         table="UserSetting")
 @javax.jdo.annotations.Queries({ 
     @javax.jdo.annotations.Query(
@@ -73,7 +73,7 @@ import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 // can't see how to specify this order in the primary key; however HSQLDB objects :-(
 //@javax.jdo.annotations.Unique(name="USER_KEY_IDX", members={"user","key"}) 
 @DomainObject(
-        objectType = "IsisAddonsSettings_UserSetting",
+        objectType = "isissettings.UserSetting",
         editing = Editing.DISABLED
 )
 @DomainObjectLayout(

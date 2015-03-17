@@ -30,7 +30,7 @@ import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType = IdentityType.APPLICATION,
-        schema = "IsisAddonsSettings",
+        schema = "isissettings",
         table="ApplicationSetting")
 @javax.jdo.annotations.Queries({ 
      @javax.jdo.annotations.Query(
@@ -57,7 +57,7 @@ import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
                     + "ORDER BY key")
 })
 @DomainObject(
-        objectType = "IsisAddonsSettings_ApplicationSetting",
+        objectType = "isissettings.ApplicationSetting",
         editing = Editing.DISABLED
 )
 @DomainObjectLayout(
