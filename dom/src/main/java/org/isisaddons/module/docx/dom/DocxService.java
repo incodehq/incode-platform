@@ -31,6 +31,8 @@ import org.apache.commons.io.IOUtils;
 import org.docx4j.Docx4J;
 import org.docx4j.XmlUtils;
 import org.docx4j.convert.out.FOSettings;
+import org.docx4j.fonts.IdentityPlusMapper;
+import org.docx4j.fonts.Mapper;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.wml.Body;
@@ -137,6 +139,26 @@ public class DocxService {
     }
 
     @Programmatic
+    public void merge(final String html, final InputStream docxTemplate, final OutputStream docxTarget, final MatchingPolicy matchingPolicy, final OutputType outputType) throws MergeException, LoadInputException, LoadTemplateException {
+        final org.jdom2.Document htmlJdomDoc = Jdom2.loadInput(html);
+        final WordprocessingMLPackage docxPkg = loadPackage(docxTemplate);
+        merge(htmlJdomDoc, docxPkg, docxTarget, matchingPolicy, DefensiveCopy.REQUIRED, outputType);
+    }
+
+    @Programmatic
+    public void merge(final String html, final WordprocessingMLPackage docxTemplate, final OutputStream docxTarget, final MatchingPolicy matchingPolicy, final OutputType outputType) throws MergeException, LoadInputException {
+        final org.jdom2.Document htmlJdomDoc = Jdom2.loadInput(html);
+        merge(htmlJdomDoc, docxTemplate, docxTarget, matchingPolicy, DefensiveCopy.REQUIRED, outputType);
+    }
+
+    @Programmatic
+    public void merge(final org.w3c.dom.Document htmlDoc, final InputStream docxTemplate, final OutputStream docxTarget, final MatchingPolicy matchingPolicy, final OutputType outputType) throws MergeException, LoadTemplateException {
+        final org.jdom2.Document htmlJdomDoc = new DOMBuilder().build(htmlDoc);
+        final WordprocessingMLPackage docxPkg = loadPackage(docxTemplate);
+        merge(htmlJdomDoc, docxPkg, docxTarget, matchingPolicy, DefensiveCopy.REQUIRED, outputType);
+    }
+
+    @Programmatic
     public void merge(final org.w3c.dom.Document htmlDoc, final WordprocessingMLPackage docxTemplate, final OutputStream docxTarget, final MatchingPolicy matchingPolicy, final OutputType outputType) throws MergeException {
         final org.jdom2.Document htmlJdomDoc = new DOMBuilder().build(htmlDoc);
         merge(htmlJdomDoc, docxTemplate, docxTarget, matchingPolicy, DefensiveCopy.REQUIRED, outputType);
@@ -179,8 +201,13 @@ public class DocxService {
             merge(bodyEl, docXBody, matchingPolicy);
 
             if (outputType == OutputType.PDF) {
+
+                Mapper fontMapper = new IdentityPlusMapper();
+
                 final FOSettings foSettings = Docx4J.createFOSettings();
                 foSettings.setWmlPackage(docxTemplate);
+
+                docxTemplate.setFontMapper(new IdentityPlusMapper(), true);
 
                 // according to the documentation/examples the XSL transformation
                 // is slower but more feature complete than Docx4J.FLAG_EXPORT_PREFER_NONXSL
@@ -206,6 +233,8 @@ public class DocxService {
         } catch (final FileNotFoundException e) {
             throw new MergeException("unable to read back from target file", e);
         } catch (final IOException e) {
+            throw new MergeException("unable to generate output stream from temporary file", e);
+        } catch (Exception e) {
             throw new MergeException("unable to generate output stream from temporary file", e);
         }
     }

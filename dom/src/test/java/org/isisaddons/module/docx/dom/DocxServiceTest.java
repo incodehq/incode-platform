@@ -19,6 +19,9 @@ package org.isisaddons.module.docx.dom;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -39,6 +42,9 @@ public class DocxServiceTest {
 
     @org.junit.Before
     public void setUp() throws Exception {
+        BasicConfigurator.configure();
+        Logger.getRootLogger().setLevel(Level.WARN);
+
         docxService = new DocxService();
 
         // given
@@ -59,29 +65,41 @@ public class DocxServiceTest {
 
             // when
             final String html = io.asString("input-exact-match.html");
-            final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            final ByteArrayOutputStream docxBaos = new ByteArrayOutputStream();
+            final ByteArrayOutputStream pdfBaos = new ByteArrayOutputStream();
 
-            docxService.merge(html, docxTemplate, baos, matchingPolicy);
+            docxService.merge(html, docxTemplate, docxBaos, matchingPolicy, DocxService.OutputType.DOCX);
+            docxService.merge(html, docxTemplate, pdfBaos, matchingPolicy, DocxService.OutputType.PDF);
 
             // then
-            final byte[] actual = baos.toByteArray();
+            final byte[] docxActual = docxBaos.toByteArray();
+            final byte[] pdfActual = pdfBaos.toByteArray();
 
             // ... for manual inspection
-            final File expectedFile = io.asFile("Output-Expected.docx");
+            final File docxExpectedFile = io.asFile("Output-Expected.docx");
+            final File pdfExpectedFile = io.asFile("Output-Expected.pdf");
 
-            final File actualFile = io.asFileInSameDir(expectedFile, "Output-Actual.docx");
-            io.write(actual, actualFile);
+            final File docxActualFile = io.asFileInSameDir(docxExpectedFile, "Output-Actual.docx");
+            io.write(docxActual, docxActualFile);
 
-            System.out.println("expected: " + expectedFile.getAbsolutePath());
-            System.out.println("actual: " + actualFile.getAbsolutePath());
+            final File pdfActualFile = io.asFileInSameDir(pdfExpectedFile, "Output-Actual.pdf");
+            io.write(pdfActual, pdfActualFile);
+
+            System.out.println("docx expected: " + docxExpectedFile.getAbsolutePath());
+            System.out.println("docx actual: " + docxActualFile.getAbsolutePath());
+
+            System.out.println("pdf expected: " + pdfExpectedFile.getAbsolutePath());
+            System.out.println("pdf actual: " + pdfActualFile.getAbsolutePath());
 
 
             // ... and automated
             // a simple binary comparison finds differences, even though a manual check using MS Word itself shows
             // no differences; for now just do a heuristic check on file size
-            final byte[] expected = io.asBytes(expectedFile);
+            final byte[] docxExpected = io.asBytes(docxExpectedFile);
+            assertThat(docxActual.length, isWithin(docxExpected.length, 5));
 
-            assertThat(actual.length, isWithin(expected.length, 5));
+            final byte[] pdfExpected = io.asBytes(pdfExpectedFile);
+            assertThat(pdfActual.length, isWithin(pdfExpected.length, 5));
         }
 
         @Test
