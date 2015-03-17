@@ -23,7 +23,7 @@ public class SomeAuditedObjectsTearDownFixture extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from IsisAddonsAudit.\"AuditEntry\"");
+        isisJdoSupport.executeUpdate("delete from isisaudit.\"AuditEntry\"");
         isisJdoSupport.executeUpdate("delete from \"SomeAuditedObject\"");
     }
 

@@ -44,7 +44,7 @@ import org.apache.isis.objectstore.jdo.applib.service.Util;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
-        schema = "IsisAddonsAudit",
+        schema = "isisaudit",
         table="AuditEntry")
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
@@ -118,7 +118,7 @@ import org.apache.isis.objectstore.jdo.applib.service.Util;
 })
 @DomainObject(
         editing = Editing.DISABLED,
-        objectType = "IsisAddonsAudit_AuditEntry"
+        objectType = "isisaudit.AuditEntry"
 )
 @MemberGroupLayout(
         columnSpans={6,0,6},
