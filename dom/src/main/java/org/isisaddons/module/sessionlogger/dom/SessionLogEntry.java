@@ -38,7 +38,7 @@ import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.APPLICATION,
-        schema = "IsisAddonsSessionLogger",
+        schema = "isissessionlogger",
         table="SessionLogEntry")
 @javax.jdo.annotations.Queries( {
         @javax.jdo.annotations.Query(
@@ -127,7 +127,7 @@ import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
                         + "RANGE 0,10")
 })
 @DomainObject(
-        objectType = "IsisAddonsSessionLogger_SessionLogEntry",
+        objectType = "isissessionlogger.SessionLogEntry",
         editing = Editing.DISABLED
 )
 @DomainObjectLayout(named = "Session Log Entry")
