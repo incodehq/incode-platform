@@ -65,7 +65,7 @@ import org.apache.isis.applib.util.ObjectContracts;
  */
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
-        schema = "IsisAddonsTags",
+        schema = "isistags",
         table = "Tag")
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=IdGeneratorStrategy.NATIVE, 
@@ -93,7 +93,7 @@ import org.apache.isis.applib.util.ObjectContracts;
     right = {"Value"}
 )
 @DomainObject(
-        objectType = "IsisAddonsTags_Tag",
+        objectType = "isistags.Tag",
         editing = Editing.DISABLED
 )
 public class Tag extends AbstractDomainObject
