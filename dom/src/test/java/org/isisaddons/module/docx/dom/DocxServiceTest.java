@@ -264,8 +264,10 @@ public class DocxServiceTest {
         @Before
         public void setUp() throws Exception {
             super.setUp();
-            // :-( font mapping issues on Travis
+
+            // :-( font mapping issues on Travis and CloudBees
             assumeThat(System.getenv("TRAVIS"), is(nullValue()));
+            assumeThat(System.getenv("JENKINS_URL"), is(nullValue()));
         }
 
         @Test
