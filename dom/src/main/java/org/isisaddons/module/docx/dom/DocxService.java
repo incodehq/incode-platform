@@ -202,12 +202,16 @@ public class DocxService {
 
             if (outputType == OutputType.PDF) {
 
-                Mapper fontMapper = new IdentityPlusMapper();
 
                 final FOSettings foSettings = Docx4J.createFOSettings();
                 foSettings.setWmlPackage(docxTemplate);
 
-                docxTemplate.setFontMapper(new IdentityPlusMapper(), true);
+                try {
+                    final Mapper fontMapper = new IdentityPlusMapper();
+                    docxTemplate.setFontMapper(fontMapper, true);
+                } catch (final Exception e) {
+                    throw new MergeException("unable to set font mapper for PDF generation", e);
+                }
 
                 // according to the documentation/examples the XSL transformation
                 // is slower but more feature complete than Docx4J.FLAG_EXPORT_PREFER_NONXSL
@@ -233,8 +237,6 @@ public class DocxService {
         } catch (final FileNotFoundException e) {
             throw new MergeException("unable to read back from target file", e);
         } catch (final IOException e) {
-            throw new MergeException("unable to generate output stream from temporary file", e);
-        } catch (Exception e) {
             throw new MergeException("unable to generate output stream from temporary file", e);
         }
     }

@@ -66,30 +66,20 @@ public class DocxServiceTest {
             // when
             final String html = io.asString("input-exact-match.html");
             final ByteArrayOutputStream docxBaos = new ByteArrayOutputStream();
-            final ByteArrayOutputStream pdfBaos = new ByteArrayOutputStream();
 
             docxService.merge(html, docxTemplate, docxBaos, matchingPolicy, DocxService.OutputType.DOCX);
-            docxService.merge(html, docxTemplate, pdfBaos, matchingPolicy, DocxService.OutputType.PDF);
 
             // then
             final byte[] docxActual = docxBaos.toByteArray();
-            final byte[] pdfActual = pdfBaos.toByteArray();
 
             // ... for manual inspection
             final File docxExpectedFile = io.asFile("Output-Expected.docx");
-            final File pdfExpectedFile = io.asFile("Output-Expected.pdf");
 
             final File docxActualFile = io.asFileInSameDir(docxExpectedFile, "Output-Actual.docx");
             io.write(docxActual, docxActualFile);
 
-            final File pdfActualFile = io.asFileInSameDir(pdfExpectedFile, "Output-Actual.pdf");
-            io.write(pdfActual, pdfActualFile);
-
             System.out.println("docx expected: " + docxExpectedFile.getAbsolutePath());
             System.out.println("docx actual: " + docxActualFile.getAbsolutePath());
-
-            System.out.println("pdf expected: " + pdfExpectedFile.getAbsolutePath());
-            System.out.println("pdf actual: " + pdfActualFile.getAbsolutePath());
 
 
             // ... and automated
@@ -97,9 +87,6 @@ public class DocxServiceTest {
             // no differences; for now just do a heuristic check on file size
             final byte[] docxExpected = io.asBytes(docxExpectedFile);
             assertThat(docxActual.length, isWithin(docxExpected.length, 5));
-
-            final byte[] pdfExpected = io.asBytes(pdfExpectedFile);
-            assertThat(pdfActual.length, isWithin(pdfExpected.length, 5));
         }
 
         @Test
@@ -264,6 +251,41 @@ public class DocxServiceTest {
             final String html = io.asString("input-malformed.html");
             docxService.merge(html, docxTemplate, new ByteArrayOutputStream(), DocxService.MatchingPolicy.LAX);
         }
+    }
+
+    public static class GeneratePdf extends DocxServiceTest {
+
+        private DocxService.MatchingPolicy matchingPolicy = DocxService.MatchingPolicy.STRICT;
+
+        @Test
+        public void exactMatch() throws Exception {
+
+            // when
+            final String html = io.asString("input-exact-match.html");
+            final ByteArrayOutputStream pdfBaos = new ByteArrayOutputStream();
+
+            docxService.merge(html, docxTemplate, pdfBaos, matchingPolicy, DocxService.OutputType.PDF);
+
+            // then
+            final byte[] pdfActual = pdfBaos.toByteArray();
+
+            // ... for manual inspection
+            final File pdfExpectedFile = io.asFile("Output-Expected.pdf");
+
+            final File pdfActualFile = io.asFileInSameDir(pdfExpectedFile, "Output-Actual.pdf");
+            io.write(pdfActual, pdfActualFile);
+
+            System.out.println("pdf expected: " + pdfExpectedFile.getAbsolutePath());
+            System.out.println("pdf actual: " + pdfActualFile.getAbsolutePath());
+
+
+            // ... and automated
+            // a simple binary comparison finds differences, even though a manual check using MS Word itself shows
+            // no differences; for now just do a heuristic check on file size
+            final byte[] pdfExpected = io.asBytes(pdfExpectedFile);
+            assertThat(pdfActual.length, isWithin(pdfExpected.length, 5));
+        }
+
     }
 
     private static Matcher<Integer> isWithin(final Integer expected, final int tolerance) {
