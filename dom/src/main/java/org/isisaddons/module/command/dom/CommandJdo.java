@@ -63,7 +63,7 @@ import org.apache.isis.objectstore.jdo.applib.service.Util;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.APPLICATION,
-        schema = "IsisAddonsCommand",
+        schema = "isiscommand",
         table="Command")
 @javax.jdo.annotations.Queries( {
     @javax.jdo.annotations.Query(
@@ -165,7 +165,7 @@ import org.apache.isis.objectstore.jdo.applib.service.Util;
                     + "RANGE 0,10")
 })
 @DomainObject(
-        objectType = "IsisAddonsCommand_Command",
+        objectType = "isiscommand.Command",
         editing = Editing.DISABLED
 )
 @DomainObjectLayout(
