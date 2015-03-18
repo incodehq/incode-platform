@@ -77,6 +77,13 @@ public abstract class PolymorphicAssociationLink<S, P, L extends PolymorphicAsso
 
     public static class Factory<S,PR,L extends PolymorphicAssociationLink<S,PR,L>,E extends InstantiateEvent<S,PR,L>> {
 
+        public enum PersistStrategy {
+            AUTOMATIC,
+            MANUAL
+        }
+
+        private PersistStrategy persistStrategy;
+
         private final Object eventSource;
         private final Class<E> eventType;
         private final Class<L> linkType;
@@ -90,11 +97,21 @@ public abstract class PolymorphicAssociationLink<S, P, L extends PolymorphicAsso
                 final Class<S> subjectType,
                 final Class<PR> polymorphicReferenceType,
                 final Class<L> linkType, final Class<E> eventType) {
+            this(eventSource, subjectType, polymorphicReferenceType, linkType, eventType, PersistStrategy.AUTOMATIC);
+        }
+
+        public Factory(
+                final Object eventSource,
+                final Class<S> subjectType,
+                final Class<PR> polymorphicReferenceType,
+                final Class<L> linkType, final Class<E> eventType,
+                final PersistStrategy persistStrategy) {
             this.eventSource = eventSource;
             this.subjectType = subjectType;
             this.polymorphicReferenceType = polymorphicReferenceType;
             this.eventType = eventType;
             this.linkType = linkType;
+            this.persistStrategy = persistStrategy;
 
             try {
                 eventConstructor = eventType.getConstructor(Object.class, subjectType, polymorphicReferenceType);
@@ -108,7 +125,15 @@ public abstract class PolymorphicAssociationLink<S, P, L extends PolymorphicAsso
             }
         }
 
-        public void createLink(final S subject, final PR polymorphicReference) {
+        /**
+         * Instantiates the appropriate link entity (using the subtype specified by subscriber) and persists.
+         *
+         * <p>
+         *     Note that although the link is persisted (using {@link org.apache.isis.applib.DomainObjectContainer#persist(Object)}), the transaction is <i>NOT</i> flushed.
+         *     This means that the caller can set additional state on the object.
+         * </p>
+         */
+        public L createLink(final S subject, final PR polymorphicReference) {
 
             final E event = instantiateEvent(eventSource, subject, polymorphicReference);
             eventBusService.post(event);
@@ -118,11 +143,30 @@ public abstract class PolymorphicAssociationLink<S, P, L extends PolymorphicAsso
                 throw new NonRecoverableException("Cannot create link to " + container.titleOf(polymorphicReference) + ", no subtype provided");
             }
 
-            final L ownerLink = container.newTransientInstance(subtype);
-            ownerLink.setPolymorphicReference(polymorphicReference);
+            if(persistStrategy == PersistStrategy.AUTOMATIC) {
+                if(!container.isPersistent(subject) || !container.isPersistent(polymorphicReference)) {
+                    // in case there are persists pending
+                    container.flush();
 
-            ownerLink.setSubject(subject);
-            container.persist(ownerLink);
+                    if(!container.isPersistent(subject)) {
+                        throw new NonRecoverableException("Link's subject " +  container.titleOf(subject) + " is not persistent");
+                    }
+                    if(!container.isPersistent(polymorphicReference)) {
+                        throw new NonRecoverableException("Link's polymorphic reference " +  container.titleOf(polymorphicReference) + " is not persistent");
+                    }
+                }
+            }
+
+            final L link = container.newTransientInstance(subtype);
+            link.setPolymorphicReference(polymorphicReference);
+
+            link.setSubject(subject);
+
+            if(persistStrategy == PersistStrategy.AUTOMATIC) {
+                container.persist(link);
+            }
+
+            return link;
         }
 
         private E instantiateEvent(final Object eventSource, final S subject, final PR polymorphicReference) {
