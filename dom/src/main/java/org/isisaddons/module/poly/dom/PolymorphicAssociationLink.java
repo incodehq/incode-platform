@@ -144,13 +144,9 @@ public abstract class PolymorphicAssociationLink<S, P, L extends PolymorphicAsso
             }
 
             if(persistStrategy == PersistStrategy.AUTOMATIC) {
-                if(!container.isPersistent(subject) || !container.isPersistent(polymorphicReference)) {
+                if(!container.isPersistent(polymorphicReference)) {
                     // in case there are persists pending
                     container.flush();
-
-                    if(!container.isPersistent(subject)) {
-                        throw new NonRecoverableException("Link's subject " +  container.titleOf(subject) + " is not persistent");
-                    }
                     if(!container.isPersistent(polymorphicReference)) {
                         throw new NonRecoverableException("Link's polymorphic reference " +  container.titleOf(polymorphicReference) + " is not persistent");
                     }
