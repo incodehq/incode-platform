@@ -32,7 +32,7 @@ language governing permissions and limitations under the License.
 
     <properties>
 
-        <isis.version>1.8.0</isis.version>
+        <isis.version>1.9.0-SNAPSHOT</isis.version>
 
         <isis-module-excel.version>1.9.0-SNAPSHOT</isis-module-excel.version>
 
