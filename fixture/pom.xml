@@ -120,8 +120,8 @@ language governing permissions and limitations under the License.
 
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-servlet_2.5_spec</artifactId>
-            <version>1.2</version>
+            <artifactId>geronimo-servlet_3.0_spec</artifactId>
+            <version>1.0</version>
             <optional>true</optional>
         </dependency>
 
