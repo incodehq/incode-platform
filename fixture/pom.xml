@@ -76,7 +76,7 @@ language governing permissions and limitations under the License.
                                 <pluginExecutionFilter>
                                     <groupId>org.datanucleus</groupId>
                                     <artifactId>datanucleus-maven-plugin</artifactId>
-                                    <versionRange>[3.2.0-release,)</versionRange>
+                                    <versionRange>[${datanucleus-maven-plugin.version},)</versionRange>
                                     <goals>
                                         <goal>enhance</goal>
                                     </goals>
