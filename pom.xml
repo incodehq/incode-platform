@@ -35,11 +35,6 @@ language governing permissions and limitations under the License.
 
         <isis-module-command.version>1.9.0_dn4-SNAPSHOT</isis-module-command.version>
 
-        <!-- must be consistent with the versions defined by the JDO Objectstore -->
-        <datanucleus-accessplatform-jdo-rdbms.version>4.0.4</datanucleus-accessplatform-jdo-rdbms.version>
-        <datanucleus-jodatime.version>4.0.4</datanucleus-jodatime.version>
-        <datanucleus-maven-plugin.version>4.0.0-release</datanucleus-maven-plugin.version>
-
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
