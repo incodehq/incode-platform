@@ -23,10 +23,10 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-	<artifactId>isis-module-sessionlogger-fixture</artifactId>
+    <artifactId>isis-module-sessionlogger-fixture</artifactId>
     <name>Isis Addons SessionLogger Module Fixtures</name>
 
-	<build>
+    <build>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
