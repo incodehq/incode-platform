@@ -411,11 +411,13 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     }
 
 
+    private UUID transactionId;
 
     /**
      * The unique identifier (a GUID) of the transaction in which this command occurred.
      */
-    @javax.jdo.annotations.NotPersistent
+    @javax.jdo.annotations.PrimaryKey
+    @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.TRANSACTION_ID)
     @Property(
             domainEvent = TransactionIdDomainEvent.class
     )
@@ -425,7 +427,7 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     @MemberOrder(name="Identifiers",sequence = "50")
     @Override
     public UUID getTransactionId() {
-        return getTransactionUuid() != null? UUID.fromString(getTransactionUuid()): null;
+        return transactionId;
     }
 
     /**
@@ -436,34 +438,10 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
      */
     @Override
     public void setTransactionId(final UUID transactionId) {
-        setTransactionUuid(transactionId != null ? transactionId.toString(): null);
+        this.transactionId = transactionId;
     }
 
-    // //////////////////////////////////////
-
-    private String transactionUuid;
-
-    /**
-     * The unique identifier (a GUID) of the transaction in which this command occurred.
-     */
-    @javax.jdo.annotations.PrimaryKey
-    @javax.jdo.annotations.Column(allowsNull="false", name="transactionId", length=JdoColumnLength.TRANSACTION_ID)
-    @Programmatic
-    public String getTransactionUuid() {
-        return transactionUuid;
-    }
-
-    /**
-     * <b>NOT API</b>: intended to be called only by the framework.
-     *
-     * <p>
-     * Implementation notes: copied over from the Isis transaction when the command is persisted.
-     */
-    public void setTransactionUuid(final String transactionUuid) {
-        this.transactionUuid = transactionUuid;
-    }
-
-
+    
     // //////////////////////////////////////
     // targetClass (property)
     // //////////////////////////////////////
