@@ -150,8 +150,11 @@ Check for later releases by searching [Maven Central Repo](http://search.maven.o
 If you wish to use this the `LocationLookupService`, this needs to be registered; update the `isis.properties` file:
 
     isis.services-installer=configuration-and-annotation
-    isis.services.ServicesInstallerFromAnnotation.packagePrefix=org.isisaddons.wicket.gmap3.cpt,\
-                                                                org.isisaddons.wicket.gmap3.fixture
+    isis.services.ServicesInstallerFromAnnotation.packagePrefix=\
+                                    ...,
+                                    org.isisaddons.wicket.gmap3.cpt,
+                                    ...,
+                                                 
 
 And if you have integration tests then register the services' package using `IsisSystemForTest.Builder#withServicesIn(...)` method.
 
