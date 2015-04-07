@@ -129,6 +129,7 @@ where:
 * `mmm.mmm` is the latitude, and
 * `nnn.nnn` is the longitude 
 
+To use this the `LocationLookupService` needs to be registered; see below.
 
 ## How to configure/use ##
 
@@ -145,6 +146,14 @@ To use "out-of-the-box", add the component to your project's `dom` module's `pom
     </dependency>
 
 Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-gmap3-cpt).
+
+If you wish to use this the `LocationLookupService`, this needs to be registered; update the `isis.properties` file:
+
+    isis.services-installer=configuration-and-annotation
+    isis.services.ServicesInstallerFromAnnotation.packagePrefix=org.isisaddons.wicket.gmap3.cpt,\
+                                                                org.isisaddons.wicket.gmap3.fixture
+
+And if you have integration tests then register the services' package using `IsisSystemForTest.Builder#withServicesIn(...)` method.
 
 
 #### "Out-of-the-box" (-SNAPSHOT) ####
