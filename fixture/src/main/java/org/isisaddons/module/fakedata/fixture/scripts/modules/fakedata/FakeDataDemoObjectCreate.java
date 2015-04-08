@@ -19,12 +19,14 @@ package org.isisaddons.module.fakedata.fixture.scripts.modules.fakedata;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 import org.isisaddons.module.fakedata.fixture.dom.FakeDataDemoObject;
 import org.isisaddons.module.fakedata.fixture.dom.FakeDataDemoObjects;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
 public class FakeDataDemoObjectCreate extends DiscoverableFixtureScript {
 
     //region > name (input property)
     private String name;
+    @Programmatic
     public String getName() {
         return name;
     }
@@ -35,6 +37,7 @@ public class FakeDataDemoObjectCreate extends DiscoverableFixtureScript {
 
     //region > someBoolean (input property)
     private Boolean someBoolean;
+    @Programmatic
     public Boolean getSomeBoolean() {
         return someBoolean;
     }
@@ -45,6 +48,7 @@ public class FakeDataDemoObjectCreate extends DiscoverableFixtureScript {
     
     //region > someChar (input property)
     private Character someChar;
+    @Programmatic
     public Character getSomeChar() {
         return someChar;
     }
@@ -55,6 +59,7 @@ public class FakeDataDemoObjectCreate extends DiscoverableFixtureScript {
     
     //region > someByte (input property)
     private Byte someByte;
+    @Programmatic
     public Byte getSomeByte() {
         return someByte;
     }
@@ -65,6 +70,7 @@ public class FakeDataDemoObjectCreate extends DiscoverableFixtureScript {
     
     //region > someShort (input property)
     private Short someShort;
+    @Programmatic
     public Short getSomeShort() {
         return someShort;
     }
@@ -75,6 +81,7 @@ public class FakeDataDemoObjectCreate extends DiscoverableFixtureScript {
 
     //region > someInt (input property)
     private Integer someInt;
+    @Programmatic
     public Integer getSomeInt() {
         return someInt;
     }
@@ -85,6 +92,7 @@ public class FakeDataDemoObjectCreate extends DiscoverableFixtureScript {
 
     //region > someLong (input property)
     private Long someLong;
+    @Programmatic
     public Long getSomeLong() {
         return someLong;
     }
@@ -95,6 +103,7 @@ public class FakeDataDemoObjectCreate extends DiscoverableFixtureScript {
 
     //region > someFloat (input property)
     private Float someFloat;
+    @Programmatic
     public Float getSomeFloat() {
         return someFloat;
     }
@@ -105,6 +114,7 @@ public class FakeDataDemoObjectCreate extends DiscoverableFixtureScript {
 
     //region > someDouble (input property)
     private Double someDouble;
+    @Programmatic
     public Double getSomeDouble() {
         return someDouble;
     }
@@ -138,7 +148,7 @@ public class FakeDataDemoObjectCreate extends DiscoverableFixtureScript {
 
         // create
         this.fakeDataDemoObject =
-                fakeDataDemoObjects.create(getName(), getSomeBoolean(), getSomeChar(), getSomeByte(), getSomeShort(), getSomeInt(), getSomeLong(), getSomeFloat(), getSomeDouble());
+                wrap(fakeDataDemoObjects).create(getName(), getSomeBoolean(), getSomeChar(), getSomeByte(), getSomeShort(), getSomeInt(), getSomeLong(), getSomeFloat(), getSomeDouble());
 
         executionContext.addResult(this, fakeDataDemoObject);
     }

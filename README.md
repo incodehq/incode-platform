@@ -8,17 +8,112 @@ fake random data.  The random values generated can then be used within unit and 
 The module consists of a single domain service `FakeDataDomainService`.  This can be injected into fixtures and
 integration tests just like any other domain service.
 
+> This module also acts as a useful regression suite for DataNucleus' persistence of value (including along with Isis' custom mappings of Isis' own value types).
+
 ## Screenshots ##
 
-The following screenshots show an example app's usage of the module.
+The example app consists of a single domain entity that has a property for each of the value types supported by Isis.
 
-#### Installing the Fixture Data ####
+Installing the fixture scenario:
+
+![](https://raw.github.com/isisaddons/isis-module-poly/master/images/010-install-fixtures.png)
+
+will return an example demo object:
+
+![](https://raw.github.com/isisaddons/isis-module-poly/master/images/020-demo-object.png)
 
 
-#### yada ####
+## Fixtures and Integration Tests
+
+Probably of more interest are the example app's fixtures and integration tests that actually use the `FakeDataService`. 
+
+For example the `FakeDataDemoObjectUpdate` will update the demo object, using the values set on the provided properties
+of the fixture script itself.   However, if no value has been set by the calling test, then a random value will be 
+obtained from the `fakeDataService`: 
+
+    public class FakeDataDemoObjectUpdate extends DiscoverableFixtureScript {
+
+        private FakeDataDemoObject fakeDataDemoObject; 
+        public FakeDataDemoObject getFakeDataDemoObject() { return fakeDataDemoObject; }
+        public void setFakeDataDemoObject(final FakeDataDemoObject fakeDataDemoObject) { this.fakeDataDemoObject = fakeDataDemoObject; }
+    
+        private Boolean someBoolean;
+        public Boolean getSomeBoolean() { return someBoolean; }
+        public void setSomeBoolean(final Boolean someBoolean) { this.someBoolean = someBoolean; }
+
+        private Character someChar;
+        public Character getSomeChar() { return someChar; }
+        public void setSomeChar(final Character someChar) { this.someChar = someChar; }
+        
+        private Byte someByte;
+        public Byte getSomeByte() { return someByte; }
+        public void setSomeByte(final Byte someByte) { this.someByte = someByte; }
+
+        ...
+        
+        protected void execute(final ExecutionContext executionContext) {
+
+            ...
+            this.defaultParam("someBoolean", executionContext, fakeDataService.booleans().any());
+            this.defaultParam("someChar", executionContext, fakeDataService.chars().any());
+            this.defaultParam("someByte", executionContext, fakeDataService.bytes().any());
+            ...
+    
+            // updates
+            final FakeDataDemoObject fakeDataDemoObject = this.fakeDataDemoObject;
+            
+            wrap(fakeDataDemoObject).updateSomeBoolean(getSomeBoolean());
+            wrap(fakeDataDemoObject).updateSomeBooleanWrapper(getSomeBoolean());
+    
+            wrap(fakeDataDemoObject).updateSomeByte(getSomeByte());
+            wrap(fakeDataDemoObject).updateSomeByteWrapper(getSomeByte());
+    
+            wrap(fakeDataDemoObject).updateSomeShort(getSomeShort());
+            wrap(fakeDataDemoObject).updateSomeShortWrapper(getSomeShort());
+    
+            ... 
+        }
+    
+        @javax.inject.Inject
+        private FakeDataDemoObjects fakeDataDemoObjects;
+    
+        @javax.inject.Inject
+        private FakeDataService fakeDataService;
+    }
+
+The following test within (`FakeDataDemoObjectsTest$Update`) shows one of the fixture script's properties 
+(`someByte`) set to a specific value (`(byte)123`); the other properties will be defaulted to random values:
+
+        @Test
+        public void when_byte() throws Exception {
+
+            //
+            // given
+            //
+            Assertions.assertThat(fakeDataDemoObject.getSomeByteWrapper()).isNull();
+
+            final byte theByte = (byte) 123;
 
 
-#### yada ####
+            //
+            // when
+            //
+            updateScript.setFakeDataDemoObject(fakeDataDemoObject);
+            updateScript.setSomeByte(theByte);
+            fixtureScripts.runFixtureScript(updateScript, null);
+
+            nextTransaction();
+
+
+            //
+            // then
+            //
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+
+            Assertions.assertThat(fakeDataDemoObject.getSomeByte()).isEqualTo(theByte);
+            Assertions.assertThat(fakeDataDemoObject.getSomeByteWrapper()).isEqualTo(theByte);
+        }
+
 
 
 ## How to run the Demo App ##

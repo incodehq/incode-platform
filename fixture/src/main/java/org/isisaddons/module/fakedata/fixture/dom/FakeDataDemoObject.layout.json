@@ -17,25 +17,421 @@
 {
   "columns": [
     {
-      "span": 6,
+      "span": 4,
       "memberGroups": {
-        "General": {
+        "Id": {
           "members": {
-            "name": {}
+            "name": {
+              "propertyLayout": {
+                "hidden": "OBJECT_FORMS"
+              }
+            }
+          }
+        },
+        "Primitives": {
+          "members": {
+            "someBoolean": {
+              "actions": {
+                "updateSomeBoolean": {}
+              }
+            },
+            "someChar": {
+              "actions": {
+                "updateSomeChar": {}
+              }
+            },
+            "someByte": {
+              "actions": {
+                "updateSomeByte": {}
+              }
+            },
+            "someShort": {
+              "actions": {
+                "updateSomeShort": {}
+              }
+            },
+            "someInt": {
+              "actions": {
+                "updateSomeInt": {}
+              }
+            },
+            "someLong": {
+              "actions": {
+                "updateSomeLong": {}
+              }
+            },
+            "someFloat": {
+              "actions": {
+                "updateSomeFloat": {}
+              }
+            },
+            "someDouble": {
+              "actions": {
+                "updateSomeDouble": {}
+              }
+            }
+          }
+        },
+        "Math": {
+          "members": {
+            "someBigDecimal": {
+              "actions": {
+                "updateSomeBigDecimal" : {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                },
+                "resetSomeBigDecimal" : {
+                  "actionLayout": {
+                    "named": "Reset"
+                  }
+                }
+              }
+            },
+            "someBigInteger": {
+              "actions": {
+                "updateSomeBigInteger" : {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                },
+                "resetSomeBigInteger" : {
+                  "actionLayout": {
+                    "named": "Reset"
+                  }
+                }
+              }
+            },
+            "someMoney": {
+              "actions": {
+                "updateSomeMoney" : {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                },
+                "resetSomeMoney" : {
+                  "actionLayout": {
+                    "named": "Reset"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "span": 4,
+      "memberGroups": {
+        "Wrappers": {
+          "members": {
+            "someBooleanWrapper": {
+              "actions": {
+                "updateSomeBooleanWrapper" : {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                },
+                "resetSomeBooleanWrapper" : {
+                  "actionLayout": {
+                    "named": "Reset"
+                  }
+                }
+              }
+            },
+            "someCharacterWrapper": {
+              "actions": {
+                "updateSomeCharacterWrapper" : {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                },
+                "resetSomeCharacterWrapper" : {
+                  "actionLayout": {
+                    "named": "Reset"
+                  }
+                }
+              }
+            },
+            "someByteWrapper": {
+              "actions": {
+                "updateSomeByteWrapper" : {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                },
+                "resetSomeByteWrapper" : {
+                  "actionLayout": {
+                    "named": "Reset"
+                  }
+                }
+              }
+            },
+            "someShortWrapper": {
+              "actions": {
+                "updateSomeShortWrapper" : {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                },
+                "resetSomeShortWrapper" : {
+                  "actionLayout": {
+                    "named": "Reset"
+                  }
+                }
+              }
+            },
+            "someIntegerWrapper": {
+              "actions": {
+                "updateSomeIntegerWrapper" : {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                },
+                "resetSomeIntegerWrapper" : {
+                  "actionLayout": {
+                    "named": "Reset"
+                  }
+                }
+              }
+            },
+            "someLongWrapper": {
+              "actions": {
+                "updateSomeLongWrapper" : {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                },
+                "resetSomeLongWrapper" : {
+                  "actionLayout": {
+                    "named": "Reset"
+                  }
+                }
+              }
+            },
+            "someFloatWrapper": {
+              "actions": {
+                "updateSomeFloatWrapper" : {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                },
+                "resetSomeFloatWrapper" : {
+                  "actionLayout": {
+                    "named": "Reset"
+                  }
+                }
+              }
+            },
+            "someDoubleWrapper": {
+              "actions": {
+                "updateSomeDoubleWrapper" : {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                },
+                "resetSomeDoubleWrapper" : {
+                  "actionLayout": {
+                    "named": "Reset"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Dates and Times": {
+          "members": {
+            "someJavaUtilDate": {
+              "actions": {
+                "updateSomeJavaUtilDate" : {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                },
+                "resetSomeJavaUtilDate" : {
+                  "actionLayout": {
+                    "named": "Reset"
+                  }
+                }
+              }
+            },
+            "someJavaSqlDate": {
+              "actions": {
+                "updateSomeJavaSqlDate" : {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                },
+                "resetSomeJavaSqlDate" : {
+                  "actionLayout": {
+                    "named": "Reset"
+                  }
+                }
+              }
+            },
+            "someJavaSqlTimestamp": {
+              "actions": {
+                "updateSomeJavaSqlTimestamp" : {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                },
+                "resetSomeJavaSqlTimestamp" : {
+                  "actionLayout": {
+                    "named": "Reset"
+                  }
+                }
+              }
+            },
+            "someJodaDateTime": {
+              "actions": {
+                "updateSomeJodaDateTime" : {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                },
+                "resetSomeJodaDateTime" : {
+                  "actionLayout": {
+                    "named": "Reset"
+                  }
+                }
+              }
+            },
+            "someJodaLocalDate": {
+              "actions": {
+                "updateSomeJodaLocalDate" : {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                },
+                "resetSomeJodaLocalDate" : {
+                  "actionLayout": {
+                    "named": "Reset"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "span": 4,
+      "memberGroups": {
+        "Strings and Passwords": {
+          "members": {
+            "someString": {
+              "actions": {
+                "updateSomeString": {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                },
+                "resetSomeString": {
+                  "actionLayout": {
+                    "named": "Reset"
+                  }
+                }
+              }
+            },
+            "somePassword": {
+              "actions": {
+                "updateSomePassword": {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                },
+                "resetSomePassword": {
+                  "actionLayout": {
+                    "named": "Reset"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Blobs and Clobs": {
+          "members": {
+            "someBlob": {
+              "actions": {
+                "updateSomeBlob" : {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                },
+                "resetSomeBlob" : {
+                  "actionLayout": {
+                    "named": "Reset"
+                  }
+                }
+              }
+            },
+            "someClob": {
+              "actions": {
+                "updateSomeClob" : {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                },
+                "resetSomeClob" : {
+                  "actionLayout": {
+                    "named": "Reset"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Misc": {
+          "members": {
+            "someUrl": {
+              "actions": {
+                "updateSomeUrl" : {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                },
+                "resetSomeUrl" : {
+                  "actionLayout": {
+                    "named": "Reset"
+                  }
+                }
+              }
+            },
+            "someUuid": {
+              "actions": {
+                "updateSomeUuid" : {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                },
+                "resetSomeUuid" : {
+                  "actionLayout": {
+                    "named": "Reset"
+                  }
+                }
+              }
+            },
+            "someEnumOf3": {
+              "actions": {
+                "updateSomeEnumOf3" : {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                },
+                "resetSomeEnumOf3" : {
+                  "actionLayout": {
+                    "named": "Reset"
+                  }
+                }
+              }
+            }
           }
         }
       }
     },
     {
       "span": 0,
-      "memberGroups": {}
-    },
-    {
-      "span": 0,
-      "memberGroups": {}
-    },
-    {
-      "span": 6,
       "collections": {}
     }
   ],

@@ -204,7 +204,7 @@ public class FakeDataDemoObjectUpdate extends DiscoverableFixtureScript {
     public LocalDate getSomeJodaLocalDate() {
         return someJodaLocalDate;
     }
-    public void setJodaSomeLocalDate(final LocalDate someJodaLocalDate) {
+    public void setSomeJodaLocalDate(final LocalDate someJodaLocalDate) {
         this.someJodaLocalDate = someJodaLocalDate;
     }
     //endregion
@@ -306,7 +306,7 @@ public class FakeDataDemoObjectUpdate extends DiscoverableFixtureScript {
         this.defaultParam("someFloat", executionContext, fakeDataService.floats().any());
         this.defaultParam("someDouble", executionContext, fakeDataService.doubles().any());
 
-        this.defaultParam("someString", executionContext, fakeDataService.lorem().words());
+        this.defaultParam("someString", executionContext, fakeDataService.lorem().sentence());
         this.defaultParam("somePassword", executionContext, fakeDataService.isisPasswords().any());
 
         this.defaultParam("someBlob", executionContext, fakeDataService.isisBlobs().any());
@@ -316,9 +316,9 @@ public class FakeDataDemoObjectUpdate extends DiscoverableFixtureScript {
         this.defaultParam("someJavaSqlDate", executionContext, fakeDataService.javaSqlDates().any());
         this.defaultParam("someJodaLocalDate", executionContext, fakeDataService.jodaLocalDates().any());
         this.defaultParam("someJodaDateTime", executionContext, fakeDataService.jodaDateTimes().any());
-        this.defaultParam("someJavaSqlTimestamps", executionContext, fakeDataService.javaSqlTimestamps().any());
+        this.defaultParam("someJavaSqlTimestamp", executionContext, fakeDataService.javaSqlTimestamps().any());
 
-        this.defaultParam("someBigDecimal", executionContext, fakeDataService.bigDecimals().any());
+        this.defaultParam("someBigDecimal", executionContext, fakeDataService.bigDecimals().any(14,4));
         this.defaultParam("someBigInteger", executionContext, fakeDataService.bigIntegers().any());
 
         this.defaultParam("someUrl", executionContext, fakeDataService.urls().any());
@@ -327,56 +327,55 @@ public class FakeDataDemoObjectUpdate extends DiscoverableFixtureScript {
         this.defaultParam("someEnumOf3", executionContext, fakeDataService.enums().anyOf(EnumOf3.class));
 
         // updates
-        this.fakeDataDemoObject.updateSomeBoolean(getSomeBoolean());
-        this.fakeDataDemoObject.updateSomeBooleanWrapperOptional(getSomeBoolean());
+        final FakeDataDemoObject fakeDataDemoObject = this.fakeDataDemoObject;
+        
+        wrap(fakeDataDemoObject).updateSomeBoolean(getSomeBoolean());
+        wrap(fakeDataDemoObject).updateSomeBooleanWrapper(getSomeBoolean());
 
-        this.fakeDataDemoObject.updateSomeByte(getSomeByte());
-        this.fakeDataDemoObject.updateSomeByteWrapperOptional(getSomeByte());
+        wrap(fakeDataDemoObject).updateSomeByte(getSomeByte());
+        wrap(fakeDataDemoObject).updateSomeByteWrapper(getSomeByte());
 
-        this.fakeDataDemoObject.updateSomeShort(getSomeShort());
-        this.fakeDataDemoObject.updateSomeShortWrapperOptional(getSomeShort());
+        wrap(fakeDataDemoObject).updateSomeShort(getSomeShort());
+        wrap(fakeDataDemoObject).updateSomeShortWrapper(getSomeShort());
 
-        this.fakeDataDemoObject.updateSomeInt(getSomeInt());
-        this.fakeDataDemoObject.updateSomeIntegerWrapperOptional(getSomeInt());
+        wrap(fakeDataDemoObject).updateSomeInt(getSomeInt());
+        wrap(fakeDataDemoObject).updateSomeIntegerWrapper(getSomeInt());
 
-        this.fakeDataDemoObject.updateSomeLong(getSomeLong());
-        this.fakeDataDemoObject.updateSomeLongWrapperOptional(getSomeLong());
+        wrap(fakeDataDemoObject).updateSomeLong(getSomeLong());
+        wrap(fakeDataDemoObject).updateSomeLongWrapper(getSomeLong());
 
-        this.fakeDataDemoObject.updateSomeFloat(getSomeFloat());
-        this.fakeDataDemoObject.updateSomeFloatWrapperOptional(getSomeFloat());
+        wrap(fakeDataDemoObject).updateSomeFloat(getSomeFloat());
+        wrap(fakeDataDemoObject).updateSomeFloatWrapper(getSomeFloat());
 
-        this.fakeDataDemoObject.updateSomeDouble(getSomeDouble());
-        this.fakeDataDemoObject.updateSomeDoubleWrapperOptional(getSomeDouble());
+        wrap(fakeDataDemoObject).updateSomeDouble(getSomeDouble());
+        wrap(fakeDataDemoObject).updateSomeDoubleWrapper(getSomeDouble());
 
-        this.fakeDataDemoObject.updateSomeChar(getSomeChar());
-        this.fakeDataDemoObject.updateSomeCharacterWrapperOptional(getSomeChar());
+        wrap(fakeDataDemoObject).updateSomeChar(getSomeChar());
+        wrap(fakeDataDemoObject).updateSomeCharacterWrapper(getSomeChar());
 
-        this.fakeDataDemoObject.updateSomeStringOptional(getSomeString());
-        this.fakeDataDemoObject.updateSomePasswordOptional(getSomePassword());
+        wrap(fakeDataDemoObject).updateSomeString(getSomeString());
+        wrap(fakeDataDemoObject).updateSomePassword(getSomePassword());
 
-        this.fakeDataDemoObject.updateSomeBlob(getSomeBlob());
-        this.fakeDataDemoObject.updateSomeClob(getSomeClob());
+        wrap(fakeDataDemoObject).updateSomeBlob(getSomeBlob());
+        wrap(fakeDataDemoObject).updateSomeClob(getSomeClob());
 
-        this.fakeDataDemoObject.updateSomeJavaUtilDateOptional(getSomeJavaUtilDate());
-        this.fakeDataDemoObject.updateSomeJavaSqlDateOptional(getSomeJavaSqlDate());
-        this.fakeDataDemoObject.updateSomeJodaLocalDateOptional(getSomeJodaLocalDate());
-        this.fakeDataDemoObject.updateSomeJodaDateTimeOptional(getSomeJodaDateTime());
-        this.fakeDataDemoObject.updateSomeJavaSqlTimestampOptional(getSomeJavaSqlTimestamp());
+        wrap(fakeDataDemoObject).updateSomeJavaUtilDate(getSomeJavaUtilDate());
+        wrap(fakeDataDemoObject).updateSomeJavaSqlDate(getSomeJavaSqlDate());
+        wrap(fakeDataDemoObject).updateSomeJodaLocalDate(getSomeJodaLocalDate());
+        wrap(fakeDataDemoObject).updateSomeJodaDateTime(getSomeJodaDateTime());
+        wrap(fakeDataDemoObject).updateSomeJavaSqlTimestamp(getSomeJavaSqlTimestamp());
 
-        this.fakeDataDemoObject.updateSomeBigDecimalOptional(getSomeBigDecimal());
-        this.fakeDataDemoObject.updateSomeBigIntegerOptional(getSomeBigInteger());
+        wrap(fakeDataDemoObject).updateSomeBigDecimal(getSomeBigDecimal());
+        wrap(fakeDataDemoObject).updateSomeBigInteger(getSomeBigInteger());
 
-        this.fakeDataDemoObject.updateSomeUrlOptional(getSomeUrl());
-        this.fakeDataDemoObject.updateSomeUuidOptional(getSomeUuid());
-        this.fakeDataDemoObject.updateSomeMoneyOptional(getSomeMoney());
+        wrap(fakeDataDemoObject).updateSomeUrl(getSomeUrl());
+        wrap(fakeDataDemoObject).updateSomeUuid(getSomeUuid());
+        wrap(fakeDataDemoObject).updateSomeMoney(getSomeMoney());
 
-        this.fakeDataDemoObject.updateSomeEnumOf3Optional(getSomeEnumOf3());
+        wrap(fakeDataDemoObject).updateSomeEnumOf3(getSomeEnumOf3());
 
-
-        executionContext.addResult(this, fakeDataDemoObject);
+        executionContext.addResult(this, this.fakeDataDemoObject);
     }
-
-    // //////////////////////////////////////
 
     // //////////////////////////////////////
 

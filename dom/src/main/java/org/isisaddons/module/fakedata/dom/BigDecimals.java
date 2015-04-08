@@ -32,4 +32,12 @@ public class BigDecimals extends AbstractRandomValueGenerator{
         return new BigDecimal(String.format("%d.%d", x, y));
     }
 
+    @Programmatic
+    public BigDecimal any(final int precision, final int scale) {
+        final String sign = fake.booleans().coinFlip()? "": "-";
+        final String x = fake.strings().digits(precision-scale);
+        final String y = fake.strings().digits(scale);
+        return new BigDecimal(String.format("%s%s.%s", sign, x, y));
+    }
+
 }

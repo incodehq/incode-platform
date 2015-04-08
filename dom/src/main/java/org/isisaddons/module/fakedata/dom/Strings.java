@@ -34,8 +34,16 @@ public class Strings extends AbstractRandomValueGenerator{
     }
 
     @Programmatic
-    public String fixed(int numChars) {
+    public String fixed(final int numChars) {
         return fake.lorem().javaFakerLorem.fixedString(numChars);
     }
 
+    @Programmatic
+    public String digits(final int numDigits) {
+        final StringBuilder buf = new StringBuilder();
+        for (int i = 0; i < numDigits; i++) {
+            buf.append(fake.chars().digit());
+        }
+        return buf.toString();
+    }
 }

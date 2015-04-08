@@ -25,6 +25,7 @@ import java.util.UUID;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
+import javax.validation.constraints.Digits;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.apache.isis.applib.DomainObjectContainer;
@@ -32,10 +33,10 @@ import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
+import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
-import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
@@ -56,7 +57,8 @@ import org.apache.isis.applib.value.Password;
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
 @DomainObject(
-        objectType = "FAKEDATA_DEMO_OBJECT"
+        objectType = "FAKEDATA_DEMO_OBJECT",
+        editing = Editing.DISABLED
 )
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
@@ -252,304 +254,296 @@ public class FakeDataDemoObject implements Comparable<FakeDataDemoObject> {
 
 
     //region > someBooleanWrapperOptional (property)
-    private Boolean someBooleanWrapperOptional;
+    private Boolean someBooleanWrapper;
 
     @Column(allowsNull = "true")
-    public Boolean getSomeBooleanWrapperOptional() {
-        return someBooleanWrapperOptional;
+    public Boolean getSomeBooleanWrapper() {
+        return someBooleanWrapper;
     }
 
-    public void setSomeBooleanWrapperOptional(final Boolean someBooleanWrapperOptional) {
-        this.someBooleanWrapperOptional = someBooleanWrapperOptional;
+    public void setSomeBooleanWrapper(final Boolean someBooleanWrapper) {
+        this.someBooleanWrapper = someBooleanWrapper;
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject updateSomeBooleanWrapperOptional(
+    public FakeDataDemoObject updateSomeBooleanWrapper(
             @Parameter(optionality = Optionality.OPTIONAL)
             final Boolean i) {
-        setSomeBooleanWrapperOptional(i);
+        setSomeBooleanWrapper(i);
         return this;
     }
-    public Boolean default0UpdateSomeBooleanWrapperOptional() {
-        return getSomeBooleanWrapperOptional();
+    public Boolean default0UpdateSomeBooleanWrapper() {
+        return getSomeBooleanWrapper();
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject resetSomeBooleanWrapperOptional() {
-        setSomeBooleanWrapperOptional(null);
+    public FakeDataDemoObject resetSomeBooleanWrapper() {
+        setSomeBooleanWrapper(null);
         return this;
     }
     //endregion
 
     //region > someByteWrapperOptional (property)
-    private Byte someByteWrapperOptional;
+    private Byte someByteWrapper;
 
     @Column(allowsNull = "true")
-    public Byte getSomeByteWrapperOptional() {
-        return someByteWrapperOptional;
+    public Byte getSomeByteWrapper() {
+        return someByteWrapper;
     }
 
-    public void setSomeByteWrapperOptional(final Byte someByteWrapperOptional) {
-        this.someByteWrapperOptional = someByteWrapperOptional;
+    public void setSomeByteWrapper(final Byte someByteWrapper) {
+        this.someByteWrapper = someByteWrapper;
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject updateSomeByteWrapperOptional(@Parameter(optionality = Optionality.OPTIONAL) final Byte b) {
-        setSomeByteWrapperOptional(b);
+    public FakeDataDemoObject updateSomeByteWrapper(@Parameter(optionality = Optionality.OPTIONAL) final Byte b) {
+        setSomeByteWrapper(b);
         return this;
     }
 
-    public Byte default0UpdateSomeByteWrapperOptional() {
-        return getSomeByteWrapperOptional();
+    public Byte default0UpdateSomeByteWrapper() {
+        return getSomeByteWrapper();
     }
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject resetSomeByteWrapperOptional() {
-        setSomeByteWrapperOptional(null);
+    public FakeDataDemoObject resetSomeByteWrapper() {
+        setSomeByteWrapper(null);
         return this;
     }
     //endregion
 
     //region > someShortWrapperOptional (property)
-    private Short someShortWrapperOptional;
+    private Short someShortWrapper;
 
     @Column(allowsNull = "true")
-    public Short getSomeShortWrapperOptional() {
-        return someShortWrapperOptional;
+    public Short getSomeShortWrapper() {
+        return someShortWrapper;
     }
 
-    public void setSomeShortWrapperOptional(final Short someShortWrapperOptional) {
-        this.someShortWrapperOptional = someShortWrapperOptional;
+    public void setSomeShortWrapper(final Short someShortWrapper) {
+        this.someShortWrapper = someShortWrapper;
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject updateSomeShortWrapperOptional(@Parameter(optionality = Optionality.OPTIONAL) final Short s) {
-        setSomeShortWrapperOptional(s);
+    public FakeDataDemoObject updateSomeShortWrapper(@Parameter(optionality = Optionality.OPTIONAL) final Short s) {
+        setSomeShortWrapper(s);
         return this;
     }
-    public Short default0UpdateSomeShortWrapperOptional() {
-        return getSomeShortWrapperOptional();
+    public Short default0UpdateSomeShortWrapper() {
+        return getSomeShortWrapper();
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject resetSomeShortWrapperOptional() {
-        setSomeShortWrapperOptional(null);
+    public FakeDataDemoObject resetSomeShortWrapper() {
+        setSomeShortWrapper(null);
         return this;
     }
     //endregion
 
     //region > someIntegerWrapperOptional (property)
-    private Integer someIntegerWrapperOptional;
+    private Integer someIntegerWrapper;
 
     @Column(allowsNull = "true")
-    public Integer getSomeIntegerWrapperOptional() {
-        return someIntegerWrapperOptional;
+    public Integer getSomeIntegerWrapper() {
+        return someIntegerWrapper;
     }
 
-    public void setSomeIntegerWrapperOptional(final Integer someIntegerWrapperOptional) {
-        this.someIntegerWrapperOptional = someIntegerWrapperOptional;
+    public void setSomeIntegerWrapper(final Integer someIntegerWrapper) {
+        this.someIntegerWrapper = someIntegerWrapper;
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject updateSomeIntegerWrapperOptional(@Parameter(optionality = Optionality.OPTIONAL) final Integer i) {
-        setSomeIntegerWrapperOptional(i);
+    public FakeDataDemoObject updateSomeIntegerWrapper(@Parameter(optionality = Optionality.OPTIONAL) final Integer i) {
+        setSomeIntegerWrapper(i);
         return this;
     }
-    public Integer default0UpdateSomeIntegerWrapperOptional() {
-        return getSomeIntegerWrapperOptional();
+    public Integer default0UpdateSomeIntegerWrapper() {
+        return getSomeIntegerWrapper();
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject resetSomeIntegerWrapperOptional() {
-        setSomeIntegerWrapperOptional(null);
+    public FakeDataDemoObject resetSomeIntegerWrapper() {
+        setSomeIntegerWrapper(null);
         return this;
     }
     //endregion
 
     //region > someLongWrapperOptional (property)
-    private Long someLongWrapperOptional;
+    private Long someLongWrapper;
 
     @Column(allowsNull = "true")
-    public Long getSomeLongWrapperOptional() {
-        return someLongWrapperOptional;
+    public Long getSomeLongWrapper() {
+        return someLongWrapper;
     }
 
-    public void setSomeLongWrapperOptional(final Long someLongWrapperOptional) {
-        this.someLongWrapperOptional = someLongWrapperOptional;
+    public void setSomeLongWrapper(final Long someLongWrapper) {
+        this.someLongWrapper = someLongWrapper;
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject updateSomeLongWrapperOptional(@Parameter(optionality = Optionality.OPTIONAL) final Long l) {
-        setSomeLongWrapperOptional(l);
+    public FakeDataDemoObject updateSomeLongWrapper(@Parameter(optionality = Optionality.OPTIONAL) final Long l) {
+        setSomeLongWrapper(l);
         return this;
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject resetSomeLongWrapperOptional() {
-        setSomeLongWrapperOptional(null);
+    public FakeDataDemoObject resetSomeLongWrapper() {
+        setSomeLongWrapper(null);
         return this;
     }
     //endregion
 
     //region > someFloatWrapperOptional (property)
-    private Float someFloatWrapperOptional;
+    private Float someFloatWrapper;
 
     @Column(allowsNull = "true")
-    public Float getSomeFloatWrapperOptional() {
-        return someFloatWrapperOptional;
+    public Float getSomeFloatWrapper() {
+        return someFloatWrapper;
     }
 
-    public void setSomeFloatWrapperOptional(final Float someFloatWrapperOptional) {
-        this.someFloatWrapperOptional = someFloatWrapperOptional;
+    public void setSomeFloatWrapper(final Float someFloatWrapper) {
+        this.someFloatWrapper = someFloatWrapper;
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject updateSomeFloatWrapperOptional(@Parameter(optionality = Optionality.OPTIONAL) final Float f) {
-        setSomeFloatWrapperOptional(f);
+    public FakeDataDemoObject updateSomeFloatWrapper(@Parameter(optionality = Optionality.OPTIONAL) final Float f) {
+        setSomeFloatWrapper(f);
         return this;
     }
-    public Float default0UpdateSomeFloatWrapperOptional() {
-        return getSomeFloatWrapperOptional();
+    public Float default0UpdateSomeFloatWrapper() {
+        return getSomeFloatWrapper();
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject resetSomeFloatWrapperOptional() {
-        setSomeFloatWrapperOptional(null);
+    public FakeDataDemoObject resetSomeFloatWrapper() {
+        setSomeFloatWrapper(null);
         return this;
     }
     //endregion
 
     //region > someDoubleWrapperOptional (property)
-    private Double someDoubleWrapperOptional;
+    private Double someDoubleWrapper;
 
     @Column(allowsNull = "true")
-    public Double getSomeDoubleWrapperOptional() {
-        return someDoubleWrapperOptional;
+    public Double getSomeDoubleWrapper() {
+        return someDoubleWrapper;
     }
 
-    public void setSomeDoubleWrapperOptional(final Double someDoubleWrapperOptional) {
-        this.someDoubleWrapperOptional = someDoubleWrapperOptional;
+    public void setSomeDoubleWrapper(final Double someDoubleWrapper) {
+        this.someDoubleWrapper = someDoubleWrapper;
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject updateSomeDoubleWrapperOptional(@Parameter(optionality = Optionality.OPTIONAL) final Double d) {
-        setSomeDoubleWrapperOptional(d);
+    public FakeDataDemoObject updateSomeDoubleWrapper(@Parameter(optionality = Optionality.OPTIONAL) final Double d) {
+        setSomeDoubleWrapper(d);
         return this;
     }
-    public Double default0UpdateSomeDoubleWrapperOptional() {
-        return getSomeDoubleWrapperOptional();
+    public Double default0UpdateSomeDoubleWrapper() {
+        return getSomeDoubleWrapper();
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject resetSomeDoubleWrapperOptional() {
-        setSomeDoubleWrapperOptional(null);
+    public FakeDataDemoObject resetSomeDoubleWrapper() {
+        setSomeDoubleWrapper(null);
         return this;
     }
     //endregion
 
     //region > someCharacterWrapperOptional (property)
-    private Character someCharacterWrapperOptional;
+    private Character someCharacterWrapper;
 
     @Column(allowsNull = "true")
-    public Character getSomeCharacterWrapperOptional() {
-        return someCharacterWrapperOptional;
+    public Character getSomeCharacterWrapper() {
+        return someCharacterWrapper;
     }
 
-    public void setSomeCharacterWrapperOptional(final Character someCharacterWrapperOptional) {
-        this.someCharacterWrapperOptional = someCharacterWrapperOptional;
+    public void setSomeCharacterWrapper(final Character someCharacterWrapper) {
+        this.someCharacterWrapper = someCharacterWrapper;
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject updateSomeCharacterWrapperOptional(@Parameter(optionality = Optionality.OPTIONAL) final Character i) {
-        setSomeCharacterWrapperOptional(i);
+    public FakeDataDemoObject updateSomeCharacterWrapper(@Parameter(optionality = Optionality.OPTIONAL) final Character i) {
+        setSomeCharacterWrapper(i);
         return this;
     }
-    public Character default0UpdateSomeCharacterWrapperOptional() {
-        return getSomeCharacterWrapperOptional();
+    public Character default0UpdateSomeCharacterWrapper() {
+        return getSomeCharacterWrapper();
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject resetSomeCharacterWrapperOptional() {
-        setSomeCharacterWrapperOptional(null);
+    public FakeDataDemoObject resetSomeCharacterWrapper() {
+        setSomeCharacterWrapper(null);
         return this;
     }
     //endregion
 
 
     //region > someStringOptional (property)
-    private String someStringOptional;
+    private String someString;
 
     @Column(allowsNull = "true")
-    public String getSomeStringOptional() {
-        return someStringOptional;
+    public String getSomeString() {
+        return someString;
     }
 
-    public void setSomeStringOptional(final String someStringOptional) {
-        this.someStringOptional = someStringOptional;
+    public void setSomeString(final String someString) {
+        this.someString = someString;
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject updateSomeStringOptional(@Parameter(optionality = Optionality.OPTIONAL) final String i) {
-        setSomeStringOptional(i);
+    public FakeDataDemoObject updateSomeString(@Parameter(optionality = Optionality.OPTIONAL) final String i) {
+        setSomeString(i);
         return this;
     }
-    public String default0UpdateSomeStringOptional() {
-        return getSomeStringOptional();
+    public String default0UpdateSomeString() {
+        return getSomeString();
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject resetSomeStringOptional() {
-        setSomeStringOptional(null);
+    public FakeDataDemoObject resetSomeString() {
+        setSomeString(null);
         return this;
     }
     //endregion
 
     //region > somePasswordOptional (property)
-    private String somePasswordOptionalStr;
+    private Password somePassword;
 
+    @javax.jdo.annotations.Persistent(
+    )
     @Column(allowsNull = "true")
-    @Programmatic
-    public String getSomePasswordOptionalStr() {
-        return somePasswordOptionalStr;
-    }
-
-    public void setSomePasswordOptionalStr(final String somePasswordOptionalStr) {
-        this.somePasswordOptionalStr = somePasswordOptionalStr;
-    }
-
-    @javax.jdo.annotations.NotPersistent
     @Property(optionality=Optionality.OPTIONAL)
-    public Password getSomePasswordOptional() {
-        return new Password(somePasswordOptionalStr);
+    public Password getSomePassword() {
+        return somePassword;
     }
-    public void setSomePasswordOptional(final Password somePasswordOptional) {
-        this.somePasswordOptionalStr = somePasswordOptional != null? somePasswordOptional.getPassword(): null;
+    public void setSomePassword(final Password somePassword) {
+        this.somePassword = somePassword;
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject updateSomePasswordOptional(@Parameter(optionality = Optionality.OPTIONAL) final Password password) {
-        setSomePasswordOptional(password);
+    public FakeDataDemoObject updateSomePassword(@Parameter(optionality = Optionality.OPTIONAL) final Password password) {
+        setSomePassword(password);
         return this;
     }
-    public Password default0UpdateSomePasswordOptional() {
-        return getSomePasswordOptional();
+    public Password default0UpdateSomePassword() {
+        return getSomePassword();
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject resetSomePasswordOptional() {
-        setSomePasswordOptionalStr(null);
+    public FakeDataDemoObject resetSomePassword() {
+        setSomePassword(null);
         return this;
     }
     //endregion
 
 
     //region > someBlob (property)
+    private Blob someBlob;
+
     @javax.jdo.annotations.Persistent(defaultFetchGroup="false", columns = {
             @javax.jdo.annotations.Column(name = "someBlob_name"),
             @javax.jdo.annotations.Column(name = "someBlob_mimetype"),
             @javax.jdo.annotations.Column(name = "someBlob_bytes", jdbcType = "BLOB", sqlType = "BLOB")
     })
-    private Blob someBlob;
-
     @Property(optionality = Optionality.OPTIONAL)
     public Blob getSomeBlob() {
         return someBlob;
@@ -575,13 +569,13 @@ public class FakeDataDemoObject implements Comparable<FakeDataDemoObject> {
     //endregion
 
     //region > someClob (property)
-    @javax.jdo.annotations.Persistent(defaultFetchGroup="false", columns = {
-            @javax.jdo.annotations.Column(name = "someClob_name"),
-            @javax.jdo.annotations.Column(name = "someClob_mimetype"),
-            @javax.jdo.annotations.Column(name = "someClob_chars", jdbcType = "CLOB", sqlType = "CLOB")
-    })
     private Clob someClob;
 
+    @javax.jdo.annotations.Persistent(defaultFetchGroup="false", columns = {
+        @javax.jdo.annotations.Column(name = "someClob_name"),
+        @javax.jdo.annotations.Column(name = "someClob_mimetype"),
+        @javax.jdo.annotations.Column(name = "someClob_chars", jdbcType = "CLOB", sqlType = "CLOB")
+    })
     @Property(optionality=Optionality.OPTIONAL)
     public Clob getSomeClob() {
         return someClob;
@@ -608,86 +602,86 @@ public class FakeDataDemoObject implements Comparable<FakeDataDemoObject> {
 
 
     //region > someJavaUtilDateOptional (property)
-    private java.util.Date someJavaUtilDateOptional;
+    private java.util.Date someJavaUtilDate;
 
     @Column(allowsNull = "true")
-    public java.util.Date getSomeJavaUtilDateOptional() {
-        return someJavaUtilDateOptional;
+    public java.util.Date getSomeJavaUtilDate() {
+        return someJavaUtilDate;
     }
 
-    public void setSomeJavaUtilDateOptional(final java.util.Date someJavaUtilDateOptional) {
-        this.someJavaUtilDateOptional = someJavaUtilDateOptional;
+    public void setSomeJavaUtilDate(final java.util.Date someJavaUtilDate) {
+        this.someJavaUtilDate = someJavaUtilDate;
     }
 
     @Action(semantics = SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject updateSomeJavaUtilDateOptional(@Parameter(optionality = Optionality.OPTIONAL) final Date i) {
-        setSomeJavaUtilDateOptional(i);
+    public FakeDataDemoObject updateSomeJavaUtilDate(@Parameter(optionality = Optionality.OPTIONAL) final Date i) {
+        setSomeJavaUtilDate(i);
         return this;
     }
-    public java.util.Date default0UpdateSomeJavaUtilDateOptional() {
-        return getSomeJavaUtilDateOptional();
+    public java.util.Date default0UpdateSomeJavaUtilDate() {
+        return getSomeJavaUtilDate();
     }
 
     @Action(semantics = SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject resetSomeJavaUtilDateOptional() {
-        setSomeJavaUtilDateOptional(null);
+    public FakeDataDemoObject resetSomeJavaUtilDate() {
+        setSomeJavaUtilDate(null);
         return this;
     }
     //endregion
 
     //region > someJavaSqlDateOptional (property)
-    private java.sql.Date someJavaSqlDateOptional;
+    private java.sql.Date someJavaSqlDate;
 
     @Column(allowsNull = "true")
-    public java.sql.Date getSomeJavaSqlDateOptional() {
-        return someJavaSqlDateOptional;
+    public java.sql.Date getSomeJavaSqlDate() {
+        return someJavaSqlDate;
     }
 
-    public void setSomeJavaSqlDateOptional(final java.sql.Date someJavaSqlDateOptional) {
-        this.someJavaSqlDateOptional = someJavaSqlDateOptional;
+    public void setSomeJavaSqlDate(final java.sql.Date someJavaSqlDate) {
+        this.someJavaSqlDate = someJavaSqlDate;
     }
 
     @Action(semantics = SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject updateSomeJavaSqlDateOptional(@Parameter(optionality = Optionality.OPTIONAL) final java.sql.Date i) {
-        setSomeJavaSqlDateOptional(i);
+    public FakeDataDemoObject updateSomeJavaSqlDate(@Parameter(optionality = Optionality.OPTIONAL) final java.sql.Date i) {
+        setSomeJavaSqlDate(i);
         return this;
     }
-    public java.sql.Date default0UpdateSomeJavaSqlDateOptional() {
-        return getSomeJavaSqlDateOptional();
+    public java.sql.Date default0UpdateSomeJavaSqlDate() {
+        return getSomeJavaSqlDate();
     }
 
     @Action(semantics = SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject resetSomeJavaSqlDateOptional() {
-        setSomeJavaSqlDateOptional(null);
+    public FakeDataDemoObject resetSomeJavaSqlDate() {
+        setSomeJavaSqlDate(null);
         return this;
     }
     //endregion
 
     //region > someJodaLocalDateOptional (property)
-    private org.joda.time.LocalDate someJodaLocalDateOptional;
+    private org.joda.time.LocalDate someJodaLocalDate;
 
     @Column(allowsNull = "true")
     @javax.jdo.annotations.Persistent(defaultFetchGroup="true")
-    public org.joda.time.LocalDate getSomeJodaLocalDateOptional() {
-        return someJodaLocalDateOptional;
+    public org.joda.time.LocalDate getSomeJodaLocalDate() {
+        return someJodaLocalDate;
     }
 
-    public void setSomeJodaLocalDateOptional(final org.joda.time.LocalDate someJodaLocalDateOptional) {
-        this.someJodaLocalDateOptional = someJodaLocalDateOptional;
+    public void setSomeJodaLocalDate(final org.joda.time.LocalDate someJodaLocalDate) {
+        this.someJodaLocalDate = someJodaLocalDate;
     }
 
     @Action(semantics = SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject updateSomeJodaLocalDateOptional(@Parameter(optionality = Optionality.OPTIONAL) final LocalDate i) {
-        setSomeJodaLocalDateOptional(i);
+    public FakeDataDemoObject updateSomeJodaLocalDate(@Parameter(optionality = Optionality.OPTIONAL) final LocalDate i) {
+        setSomeJodaLocalDate(i);
         return this;
     }
-    public org.joda.time.LocalDate default0UpdateSomeJodaLocalDateOptional() {
-        return getSomeJodaLocalDateOptional();
+    public org.joda.time.LocalDate default0UpdateSomeJodaLocalDate() {
+        return getSomeJodaLocalDate();
     }
 
     @Action(semantics = SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject resetSomeJodaLocalDateOptional() {
-        setSomeJodaLocalDateOptional(null);
+    public FakeDataDemoObject resetSomeJodaLocalDate() {
+        setSomeJodaLocalDate(null);
         return this;
     }
     //endregion
@@ -696,54 +690,31 @@ public class FakeDataDemoObject implements Comparable<FakeDataDemoObject> {
 
     /*
 
-    //region > someJodaLocalDateTimeMandatory (property)
-    private org.joda.time.LocalDateTime someJodaLocalDateTimeMandatory;
-
-    @Column(allowsNull = "false")
-    @javax.jdo.annotations.Persistent(defaultFetchGroup="true")
-    public org.joda.time.LocalDateTime getSomeJodaLocalDateTimeMandatory() {
-        return someJodaLocalDateTimeMandatory;
-    }
-
-    public void setSomeJodaLocalDateTimeMandatory(final org.joda.time.LocalDateTime someJodaLocalDateTimeMandatory) {
-        this.someJodaLocalDateTimeMandatory = someJodaLocalDateTimeMandatory;
-    }
-
-    @Action(semantics = SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject updateSomeJodaLocalDateTimeMandatory(final LocalDateTime i) {
-        setSomeJodaLocalDateTimeMandatory(i);
-        return this;
-    }
-    public org.joda.time.LocalDateTime default0UpdateSomeJodaLocalDateTimeMandatory() {
-        return getSomeJodaLocalDateTimeMandatory();
-    }
-    //endregion
-
-    //region > someJodaLocalDateTimeOptional (property)
-    private org.joda.time.LocalDateTime someJodaLocalDateTimeOptional;
+    //region > someJodaLocalDateTime (property)
+    private org.joda.time.LocalDateTime someJodaLocalDateTime;
 
     @javax.jdo.annotations.Persistent(defaultFetchGroup="true")
     @Column(allowsNull = "true")
-    public org.joda.time.LocalDateTime getSomeJodaLocalDateTimeOptional() {
-        return someJodaLocalDateTimeOptional;
+    public org.joda.time.LocalDateTime getSomeJodaLocalDateTime() {
+        return someJodaLocalDateTime;
     }
 
-    public void setSomeJodaLocalDateTimeOptional(final org.joda.time.LocalDateTime someJodaLocalDateTimeOptional) {
-        this.someJodaLocalDateTimeOptional = someJodaLocalDateTimeOptional;
+    public void setSomeJodaLocalDateTime(final org.joda.time.LocalDateTime someJodaLocalDateTime) {
+        this.someJodaLocalDateTime = someJodaLocalDateTime;
     }
 
     @Action(semantics = SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject updateSomeJodaLocalDateTimeOptional(@Parameter(optionality = Optionality.OPTIONAL) final LocalDateTime i) {
-        setSomeJodaLocalDateTimeOptional(i);
+    public FakeDataDemoObject updateSomeJodaLocalDateTime(@Parameter(ity = ity.) final LocalDateTime i) {
+        setSomeJodaLocalDateTime(i);
         return this;
     }
-    public org.joda.time.LocalDateTime default0UpdateSomeJodaLocalDateTimeOptional() {
-        return getSomeJodaLocalDateTimeOptional();
+    public org.joda.time.LocalDateTime default0UpdateSomeJodaLocalDateTime() {
+        return getSomeJodaLocalDateTime();
     }
 
     @Action(semantics = SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject resetSomeJodaLocalDateTimeOptional() {
-        setSomeJodaLocalDateTimeOptional(null);
+    public FakeDataDemoObject resetSomeJodaLocalDateTime() {
+        setSomeJodaLocalDateTime(null);
         return this;
     }
     //endregion
@@ -756,235 +727,236 @@ public class FakeDataDemoObject implements Comparable<FakeDataDemoObject> {
     //
 
     //region > someJodaDateTimeOptional (property)
-    @javax.jdo.annotations.Persistent(defaultFetchGroup="true")
-    private org.joda.time.DateTime someJodaDateTimeOptional;
+    private org.joda.time.DateTime someJodaDateTime;
 
     @Column(allowsNull = "true")
-    public org.joda.time.DateTime getSomeJodaDateTimeOptional() {
-        return someJodaDateTimeOptional;
+    @javax.jdo.annotations.Persistent(defaultFetchGroup="true")
+    public org.joda.time.DateTime getSomeJodaDateTime() {
+        return someJodaDateTime;
     }
 
-    public void setSomeJodaDateTimeOptional(final org.joda.time.DateTime someJodaDateTimeOptional) {
-        this.someJodaDateTimeOptional = someJodaDateTimeOptional;
+    public void setSomeJodaDateTime(final org.joda.time.DateTime someJodaDateTime) {
+        this.someJodaDateTime = someJodaDateTime;
     }
 
     @Action(semantics = SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject updateSomeJodaDateTimeOptional(@Parameter(optionality = Optionality.OPTIONAL) final DateTime i) {
-        setSomeJodaDateTimeOptional(i);
+    public FakeDataDemoObject updateSomeJodaDateTime(@Parameter(optionality = Optionality.OPTIONAL) final DateTime i) {
+        setSomeJodaDateTime(i);
         return this;
     }
-    public org.joda.time.DateTime default0UpdateSomeJodaDateTimeOptional() {
-        return getSomeJodaDateTimeOptional();
+    public org.joda.time.DateTime default0UpdateSomeJodaDateTime() {
+        return getSomeJodaDateTime();
     }
 
     @Action(semantics = SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject resetSomeJodaDateTimeOptional() {
-        setSomeJodaDateTimeOptional(null);
+    public FakeDataDemoObject resetSomeJodaDateTime() {
+        setSomeJodaDateTime(null);
         return this;
     }
     //endregion
 
     //region > someJavaSqlTimestampOptional (property)
-    private java.sql.Timestamp someJavaSqlTimestampOptional;
+    private java.sql.Timestamp someJavaSqlTimestamp;
 
     @Column(allowsNull = "true")
-    public java.sql.Timestamp getSomeJavaSqlTimestampOptional() {
-        return someJavaSqlTimestampOptional;
+    public java.sql.Timestamp getSomeJavaSqlTimestamp() {
+        return someJavaSqlTimestamp;
     }
 
-    public void setSomeJavaSqlTimestampOptional(final java.sql.Timestamp someJavaSqlTimestampOptional) {
-        this.someJavaSqlTimestampOptional = someJavaSqlTimestampOptional;
+    public void setSomeJavaSqlTimestamp(final java.sql.Timestamp someJavaSqlTimestamp) {
+        this.someJavaSqlTimestamp = someJavaSqlTimestamp;
     }
 
     @Action(semantics = SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject updateSomeJavaSqlTimestampOptional(@Parameter(optionality = Optionality.OPTIONAL) final Timestamp i) {
-        setSomeJavaSqlTimestampOptional(i);
+    public FakeDataDemoObject updateSomeJavaSqlTimestamp(@Parameter(optionality = Optionality.OPTIONAL) final Timestamp i) {
+        setSomeJavaSqlTimestamp(i);
         return this;
     }
-    public java.sql.Timestamp default0UpdateSomeJavaSqlTimestampOptional() {
-        return getSomeJavaSqlTimestampOptional();
+    public java.sql.Timestamp default0UpdateSomeJavaSqlTimestamp() {
+        return getSomeJavaSqlTimestamp();
     }
 
     @Action(semantics = SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject resetSomeJavaSqlTimestampOptional() {
-        setSomeJavaSqlTimestampOptional(null);
+    public FakeDataDemoObject resetSomeJavaSqlTimestamp() {
+        setSomeJavaSqlTimestamp(null);
         return this;
     }
     //endregion
 
 
     //region > someBigIntegerOptional (property)
-    private BigInteger someBigIntegerOptional;
+    private BigInteger someBigInteger;
 
     @Column(allowsNull = "true")
-    public BigInteger getSomeBigIntegerOptional() {
-        return someBigIntegerOptional;
+    public BigInteger getSomeBigInteger() {
+        return someBigInteger;
     }
 
-    public void setSomeBigIntegerOptional(final BigInteger someBigIntegerOptional) {
-        this.someBigIntegerOptional = someBigIntegerOptional;
+    public void setSomeBigInteger(final BigInteger someBigInteger) {
+        this.someBigInteger = someBigInteger;
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject updateSomeBigIntegerOptional(
+    public FakeDataDemoObject updateSomeBigInteger(
             @Parameter(optionality = Optionality.OPTIONAL)
             final BigInteger d) {
-        setSomeBigIntegerOptional(d);
+        setSomeBigInteger(d);
         return this;
     }
-    public BigInteger default0UpdateSomeBigIntegerOptional() {
-        return getSomeBigIntegerOptional();
+    public BigInteger default0UpdateSomeBigInteger() {
+        return getSomeBigInteger();
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject resetSomeBigIntegerOptional() {
-        setSomeBigIntegerOptional(null);
+    public FakeDataDemoObject resetSomeBigInteger() {
+        setSomeBigInteger(null);
         return this;
     }
     //endregion
 
     //region > someBigDecimalOptional (property)
-    private BigDecimal someBigDecimalOptional;
+    private BigDecimal someBigDecimal;
 
-    @Column(allowsNull = "true")
-    public BigDecimal getSomeBigDecimalOptional() {
-        return someBigDecimalOptional;
+    @Column(allowsNull = "true", length = 14, scale = 4)
+    public BigDecimal getSomeBigDecimal() {
+        return someBigDecimal;
     }
 
-    public void setSomeBigDecimalOptional(final BigDecimal someBigDecimalOptional) {
-        this.someBigDecimalOptional = someBigDecimalOptional;
+    public void setSomeBigDecimal(final BigDecimal someBigDecimal) {
+        this.someBigDecimal = someBigDecimal;
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject updateSomeBigDecimalOptional(@Parameter(optionality = Optionality.OPTIONAL) final BigDecimal d) {
-        setSomeBigDecimalOptional(d);
+    public FakeDataDemoObject updateSomeBigDecimal(
+            @Parameter(optionality = Optionality.OPTIONAL) @Digits(integer = 10, fraction = 4) final BigDecimal d) {
+        setSomeBigDecimal(d);
         return this;
     }
-    public BigDecimal default0UpdateSomeBigDecimalOptional() {
-        return getSomeBigDecimalOptional();
+    public BigDecimal default0UpdateSomeBigDecimal() {
+        return getSomeBigDecimal();
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject resetSomeBigDecimalOptional() {
-        setSomeBigDecimalOptional(null);
+    public FakeDataDemoObject resetSomeBigDecimal() {
+        setSomeBigDecimal(null);
         return this;
     }
     //endregion
 
 
     //region > someUrlOptional (property)
-    private java.net.URL someUrlOptional;
+    private java.net.URL someUrl;
 
     @Column(allowsNull = "true")
-    public java.net.URL getSomeUrlOptional() {
-        return someUrlOptional;
+    public java.net.URL getSomeUrl() {
+        return someUrl;
     }
 
-    public void setSomeUrlOptional(final java.net.URL someUrlOptional) {
-        this.someUrlOptional = someUrlOptional;
+    public void setSomeUrl(final java.net.URL someUrl) {
+        this.someUrl = someUrl;
     }
 
     @Action(semantics= SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject updateSomeUrlOptional(@Parameter(optionality = Optionality.OPTIONAL) final URL i) {
-        setSomeUrlOptional(i);
+    public FakeDataDemoObject updateSomeUrl(@Parameter(optionality = Optionality.OPTIONAL) final URL i) {
+        setSomeUrl(i);
         return this;
     }
-    public java.net.URL default0UpdateSomeUrlOptional() {
-        return getSomeUrlOptional();
+    public java.net.URL default0UpdateSomeUrl() {
+        return getSomeUrl();
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject resetSomeUrlOptional() {
-        setSomeUrlOptional(null);
+    public FakeDataDemoObject resetSomeUrl() {
+        setSomeUrl(null);
         return this;
     }
     //endregion
 
     //region > someUuidOptional (property)
-    private java.util.UUID someUuidOptional;
+    private java.util.UUID someUuid;
 
     @Column(allowsNull = "true")
-    public java.util.UUID getSomeUuidOptional() {
-        return someUuidOptional;
+    public java.util.UUID getSomeUuid() {
+        return someUuid;
     }
 
-    public void setSomeUuidOptional(final java.util.UUID someUuidOptional) {
-        this.someUuidOptional = someUuidOptional;
+    public void setSomeUuid(final java.util.UUID someUuid) {
+        this.someUuid = someUuid;
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject updateSomeUuidOptional(@Parameter(optionality = Optionality.OPTIONAL) final UUID i) {
-        setSomeUuidOptional(i);
+    public FakeDataDemoObject updateSomeUuid(@Parameter(optionality = Optionality.OPTIONAL) final UUID i) {
+        setSomeUuid(i);
         return this;
     }
-    public java.util.UUID default0UpdateSomeUuidOptional() {
-        return getSomeUuidOptional();
+    public java.util.UUID default0UpdateSomeUuid() {
+        return getSomeUuid();
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject resetSomeUuidOptional() {
-        setSomeUuidOptional(null);
+    public FakeDataDemoObject resetSomeUuid() {
+        setSomeUuid(null);
         return this;
     }
     //endregion
 
     //region > someMoneyOptional (property)
-    private Money someMoneyOptional;
+    private Money someMoney;
 
     @javax.jdo.annotations.Persistent(defaultFetchGroup="true", columns = {
             @javax.jdo.annotations.Column(name = "someMoneyOptional_amount"),
             @javax.jdo.annotations.Column(name = "someMoneyOptional_currency")
     })
-    @Column(allowsNull = "true")
-    public Money getSomeMoneyOptional() {
-        return someMoneyOptional;
+    @Property(optionality = Optionality.OPTIONAL)
+    public Money getSomeMoney() {
+        return someMoney;
     }
 
-    public void setSomeMoneyOptional(final Money someMoneyOptional) {
-        this.someMoneyOptional = someMoneyOptional;
+    public void setSomeMoney(final Money someMoney) {
+        this.someMoney = someMoney;
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject updateSomeMoneyOptional(@Parameter(optionality = Optionality.OPTIONAL) final Money i) {
-        setSomeMoneyOptional(i);
+    public FakeDataDemoObject updateSomeMoney(@Parameter(optionality = Optionality.OPTIONAL) final Money i) {
+        setSomeMoney(i);
         return this;
     }
-    public Money default0UpdateSomeMoneyOptional() {
-        return getSomeMoneyOptional();
+    public Money default0UpdateSomeMoney() {
+        return getSomeMoney();
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject resetSomeMoneyOptional() {
-        setSomeMoneyOptional(null);
+    public FakeDataDemoObject resetSomeMoney() {
+        setSomeMoney(null);
         return this;
     }
     //endregion
 
 
     //region > someEnumOf3Optional (property)
-    private EnumOf3 someEnumOf3Optional;
+    private EnumOf3 someEnumOf3;
 
     @Column(allowsNull = "true")
-    public EnumOf3 getSomeEnumOf3Optional() {
-        return someEnumOf3Optional;
+    public EnumOf3 getSomeEnumOf3() {
+        return someEnumOf3;
     }
 
-    public void setSomeEnumOf3Optional(final EnumOf3 someEnumOf3Optional) {
-        this.someEnumOf3Optional = someEnumOf3Optional;
+    public void setSomeEnumOf3(final EnumOf3 someEnumOf3) {
+        this.someEnumOf3 = someEnumOf3;
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject updateSomeEnumOf3Optional(@Parameter(optionality = Optionality.OPTIONAL) final EnumOf3 i) {
-        setSomeEnumOf3Optional(i);
+    public FakeDataDemoObject updateSomeEnumOf3(@Parameter(optionality = Optionality.OPTIONAL) final EnumOf3 i) {
+        setSomeEnumOf3(i);
         return this;
     }
-    public EnumOf3 default0UpdateSomeEnumOf3Optional() {
-        return getSomeEnumOf3Optional();
+    public EnumOf3 default0UpdateSomeEnumOf3() {
+        return getSomeEnumOf3();
     }
 
     @Action(semantics=SemanticsOf.IDEMPOTENT)
-    public FakeDataDemoObject resetSomeEnumOf3Optional() {
-        setSomeEnumOf3Optional(null);
+    public FakeDataDemoObject resetSomeEnumOf3() {
+        setSomeEnumOf3(null);
         return this;
     }
     //endregion
@@ -994,7 +966,7 @@ public class FakeDataDemoObject implements Comparable<FakeDataDemoObject> {
     //region > compareTo
 
     @Override
-    public int compareTo(FakeDataDemoObject other) {
+    public int compareTo(final FakeDataDemoObject other) {
         return ObjectContracts.compare(this, other, "name");
     }
 

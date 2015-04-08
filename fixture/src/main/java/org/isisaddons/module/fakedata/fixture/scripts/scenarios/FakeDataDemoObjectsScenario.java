@@ -22,6 +22,7 @@ import org.isisaddons.module.fakedata.dom.FakeDataService;
 import org.isisaddons.module.fakedata.fixture.dom.FakeDataDemoObject;
 import org.isisaddons.module.fakedata.fixture.scripts.FakeDataDemoObjectsTearDownFixture;
 import org.isisaddons.module.fakedata.fixture.scripts.modules.fakedata.FakeDataDemoObjectCreate;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
 public class FakeDataDemoObjectsScenario extends DiscoverableFixtureScript {
@@ -32,6 +33,7 @@ public class FakeDataDemoObjectsScenario extends DiscoverableFixtureScript {
 
     //region > numberToCreate (input property)
     private Integer numberToCreate;
+    @Programmatic
     public Integer getNumberToCreate() {
         return numberToCreate;
     }
@@ -43,6 +45,7 @@ public class FakeDataDemoObjectsScenario extends DiscoverableFixtureScript {
     //region > fakeDataDemoObjects (output property)
     private List<FakeDataDemoObject> fakeDataDemoObjects = Lists.newArrayList();
 
+    @Programmatic
     public List<FakeDataDemoObject> getFakeDataDemoObjects() {
         return fakeDataDemoObjects;
     }
@@ -51,7 +54,7 @@ public class FakeDataDemoObjectsScenario extends DiscoverableFixtureScript {
     @Override
     protected void execute(final ExecutionContext executionContext) {
 
-        this.defaultParam("numberToCreate", executionContext, 3);
+        this.defaultParam("numberToCreate", executionContext, new Integer(3));
 
         // prereqs
         executionContext.executeChild(this, new FakeDataDemoObjectsTearDownFixture());

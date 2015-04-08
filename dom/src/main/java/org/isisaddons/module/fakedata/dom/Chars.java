@@ -26,8 +26,12 @@ public class Chars extends AbstractRandomValueGenerator{
 
     @Programmatic
     public char upper() {
-        final char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
-        return fake.collections().anyOf(chars);
+        return anyOf("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+    }
+
+    @Programmatic
+    public char lower() {
+        return anyOf("abcdefghijklmonpqrstuvwxyz");
     }
 
     @Programmatic
@@ -36,4 +40,16 @@ public class Chars extends AbstractRandomValueGenerator{
         final int i = any - Short.MIN_VALUE;
         return (char) i;
     }
+
+    @Programmatic
+    public char digit() {
+        return anyOf("0123456789");
+    }
+
+
+    private char anyOf(final String s) {
+        final char[] chars = s.toCharArray();
+        return fake.collections().anyOf(chars);
+    }
+
 }
