@@ -23,10 +23,10 @@ Copyright 2014~2015 Dan Haywood
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-	<artifactId>isis-module-fakedata-fixture</artifactId>
+    <artifactId>isis-module-fakedata-fixture</artifactId>
     <name>Isis Addons FakeData Module Fixtures</name>
 
-	<build>
+    <build>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>

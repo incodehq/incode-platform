@@ -8,7 +8,8 @@ fake random data.  The random values generated can then be used within unit and 
 The module consists of a single domain service `FakeDataDomainService`.  This can be injected into fixtures and
 integration tests just like any other domain service.
 
-> This module also acts as a useful regression suite for DataNucleus' persistence of value (including along with Isis' custom mappings of Isis' own value types).
+In addition, this module also acts as a useful regression suite for DataNucleus' persistence of value types (including 
+our custom mappings of Isis' own value types).
 
 ## Screenshots ##
 
@@ -16,39 +17,39 @@ The example app consists of a single domain entity that has a property for each 
 
 Installing the fixture scenario:
 
-![](https://raw.github.com/isisaddons/isis-module-poly/master/images/010-install-fixtures.png)
+![](https://raw.github.com/isisaddons/isis-module-fakedata/master/images/010-install-fixtures.png)
 
 will return an example demo object:
 
-![](https://raw.github.com/isisaddons/isis-module-poly/master/images/020-demo-object.png)
+![](https://raw.github.com/isisaddons/isis-module-fakedata/master/images/020-demo-object.png)
 
 
 ## Fixtures and Integration Tests
 
-Probably of more interest are the example app's fixtures and integration tests that actually use the `FakeDataService`. 
+Probably of more interest are the fixtures and integration tests that actually use the `FakeDataService`. 
 
-For example the `FakeDataDemoObjectUpdate` will update the demo object, using the values set on the provided properties
-of the fixture script itself.   However, if no value has been set by the calling test, then a random value will be 
-obtained from the `fakeDataService`: 
-
+For example the `FakeDataDemoObjectUpdate` fixture script will update a demo object using the provided values (set as 
+properties of the fixture script itself).   However, if no value has been set by the calling test, then a random value,
+obtained from `FakeDataService`, will be used instead:
+ 
     public class FakeDataDemoObjectUpdate extends DiscoverableFixtureScript {
 
         private FakeDataDemoObject fakeDataDemoObject; 
-        public FakeDataDemoObject getFakeDataDemoObject() { return fakeDataDemoObject; }
-        public void setFakeDataDemoObject(final FakeDataDemoObject fakeDataDemoObject) { this.fakeDataDemoObject = fakeDataDemoObject; }
-    
+        public FakeDataDemoObject getFakeDataDemoObject() { ... }
+        public void setFakeDataDemoObject(final FakeDataDemoObject fakeDataDemoObject) { ... }
+
+        ...
         private Boolean someBoolean;
-        public Boolean getSomeBoolean() { return someBoolean; }
-        public void setSomeBoolean(final Boolean someBoolean) { this.someBoolean = someBoolean; }
+        public Boolean getSomeBoolean() { ... }
+        public void setSomeBoolean(final Boolean someBoolean) { ... }
 
         private Character someChar;
-        public Character getSomeChar() { return someChar; }
-        public void setSomeChar(final Character someChar) { this.someChar = someChar; }
+        public Character getSomeChar() { ... }
+        public void setSomeChar(final Character someChar) { ... }
         
         private Byte someByte;
-        public Byte getSomeByte() { return someByte; }
-        public void setSomeByte(final Byte someByte) { this.someByte = someByte; }
-
+        public Byte getSomeByte() { ... }
+        public void setSomeByte(final Byte someByte) { ... }
         ...
         
         protected void execute(final ExecutionContext executionContext) {
@@ -60,61 +61,48 @@ obtained from the `fakeDataService`:
             ...
     
             // updates
-            final FakeDataDemoObject fakeDataDemoObject = this.fakeDataDemoObject;
+            final FakeDataDemoObject fakeDataDemoObject = getFakeDataDemoObject();
             
+            ...
             wrap(fakeDataDemoObject).updateSomeBoolean(getSomeBoolean());
-            wrap(fakeDataDemoObject).updateSomeBooleanWrapper(getSomeBoolean());
-    
             wrap(fakeDataDemoObject).updateSomeByte(getSomeByte());
-            wrap(fakeDataDemoObject).updateSomeByteWrapper(getSomeByte());
-    
             wrap(fakeDataDemoObject).updateSomeShort(getSomeShort());
-            wrap(fakeDataDemoObject).updateSomeShortWrapper(getSomeShort());
-    
             ... 
         }
-    
-        @javax.inject.Inject
-        private FakeDataDemoObjects fakeDataDemoObjects;
     
         @javax.inject.Inject
         private FakeDataService fakeDataService;
     }
 
-The following test within (`FakeDataDemoObjectsTest$Update`) shows one of the fixture script's properties 
-(`someByte`) set to a specific value (`(byte)123`); the other properties will be defaulted to random values:
+The `FakeDataService` can also be used within integration tests.  For example, in `FakeDataDemoObjectsTest` a fake
+value is used to obtain a blob for update:
 
         @Test
-        public void when_byte() throws Exception {
+        public void when_blob() throws Exception {
 
-            //
             // given
-            //
-            Assertions.assertThat(fakeDataDemoObject.getSomeByteWrapper()).isNull();
+            Assertions.assertThat(fakeDataDemoObject.getSomeBlob()).isNull();
 
-            final byte theByte = (byte) 123;
+            final Blob theBlob = fakeDataService.isisBlobs().anyPdf();
 
 
-            //
             // when
-            //
             updateScript.setFakeDataDemoObject(fakeDataDemoObject);
-            updateScript.setSomeByte(theByte);
+            updateScript.setSomeBlob(theBlob);
+
             fixtureScripts.runFixtureScript(updateScript, null);
 
             nextTransaction();
 
 
-            //
             // then
-            //
             fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
 
-            Assertions.assertThat(fakeDataDemoObject.getSomeByte()).isEqualTo(theByte);
-            Assertions.assertThat(fakeDataDemoObject.getSomeByteWrapper()).isEqualTo(theByte);
+            Assertions.assertThat(fakeDataDemoObject.getSomeBlob()).isNotNull();
+            Assertions.assertThat(fakeDataDemoObject.getSomeBlob().getMimeType().toString()).isEqualTo("application/pdf");
         }
 
-
+Note the use of `FakeDataService` in the "given" to obtain a PDF blob.
 
 ## How to run the Demo App ##
 
@@ -152,6 +140,8 @@ To use "out-of-the-box":
         &lt;version&gt;1.9.0&lt;/version&gt;
     &lt;/dependency&gt;
 </pre>
+
+NB: not yet released, use -SNAPSHOT (below)
 
 * update your `WEB-INF/isis.properties`:
 
@@ -213,33 +203,79 @@ structured as follows:
 Only the `dom` project is released to Maven Central Repo.  The versions of the other modules are purposely left at 
 `0.0.1-SNAPSHOT` because they are not intended to be released.
 
-## API ##
-
-### FakeDataService ###
+## API and Implementation##
 
 The `FakeDataService` defines the following API:
 
-<pre>
-public interface FakeDataService {
-}
-</pre>
+    public interface FakeDataService {
+    }
+        public Name name() { ... }
+        public Comms comms() { ... }
+        public Lorem lorem() { ... }
+        public Address address() { ... }
+        public CreditCard creditCard() { ... }
+        public Book book() { ... }
+    
+        public Bytes bytes() { ... }
+        public Shorts shorts() { ... }
+        public Integers ints() { ... }
+        public Longs longs() { ... }
+        public Floats floats() { ... }
+        public Doubles doubles() { ... }
+        public Chars chars() { ... }
+        public Booleans booleans() { ... }
+    
+        public Strings strings() { ... }
+        
+        public Collections collections() { ... }
+        public Enums enums() { ... }
 
+        public JavaUtilDates javaUtilDates() { ... }
+        public JavaSqlDates javaSqlDates() { ... }
+        public JavaSqlTimestamps javaSqlTimestamps() { ... }
+        public JodaLocalDates jodaLocalDates() { ... }
+        public JodaDateTimes jodaDateTimes() { ... }
+        public JodaPeriods jodaPeriods() { ... }
 
-## Implementation ##
+        public BigDecimals bigDecimals() { ... }
+        public BigIntegers bigIntegers() { ... }
+        
+        public Urls urls() { ... }
+        public Uuids uuids() { ... }
 
-## Supporting Services ##
+        public IsisPasswords isisPasswords() { ... }
+        public IsisMoneys isisMoneys() { ... }
+        public IsisBlobs isisBlobs() { ... }
+        public IsisClobs isisClobs() { ... }
+        
+    }
+    
+where each of the returned classes then provides suitable methods for obtaining values within that domain of values.
+For example, `Names` provides:
 
-## Related Modules/Services ##
+    public class Names ... {
+        public String fullName() { ... }
+        public String firstName() { ... }
+        public String lastName() { ... }
+        public String prefix() { ... }
+        public String suffix() { ... }
+    }
 
-... referenced by the [Isis Add-ons](http://www.isisaddons.org) website.
+while `IsisBlobs` provides:
 
+    public class IsisBlobs ... {
+        public Blob any() { ... }
+        public Blob anyJpg() { ... }
+        public Blob anyPdf() { ... }
+    }
 
 ## Known issues ##
 
+None currently.
 
 ## Change Log ##
 
-* `1.x.x` - released against Isis 1.x.x.
+* Not yet released to Maven
 
 
 ## Legal Stuff ##

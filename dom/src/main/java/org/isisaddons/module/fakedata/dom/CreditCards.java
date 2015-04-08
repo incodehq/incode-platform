@@ -16,38 +16,26 @@
  */
 package org.isisaddons.module.fakedata.dom;
 
+import com.github.javafaker.service.FakeValuesService;
 import org.apache.isis.applib.annotation.Programmatic;
 
-public class Name extends AbstractRandomValueGenerator {
-    com.github.javafaker.Name javaFakerName;
+public class CreditCards extends AbstractRandomValueGenerator {
 
-    Name(final FakeDataService fakeDataService) {
+    final com.github.javafaker.Business javaFakerBusiness;
+
+    CreditCards(final FakeDataService fakeDataService, final FakeValuesService fakeValuesService) {
         super(fakeDataService);
-        javaFakerName = new com.github.javafaker.Name(fakeDataService.fakeValuesService);
+        javaFakerBusiness = new com.github.javafaker.Business(fakeValuesService);
     }
 
     @Programmatic
-    public String fullName() {
-        return javaFakerName.name();
+    public String number() {
+        return fake.fakeValuesService.fetchString("business.credit_card_numbers");
     }
 
     @Programmatic
-    public String firstName() {
-        return javaFakerName.firstName();
+    public String type() {
+        return fake.fakeValuesService.fetchString("business.credit_card_types");
     }
 
-    @Programmatic
-    public String lastName() {
-        return javaFakerName.lastName();
-    }
-
-    @Programmatic
-    public String prefix() {
-        return javaFakerName.prefix();
-    }
-
-    @Programmatic
-    public String suffix() {
-        return javaFakerName.suffix();
-    }
 }

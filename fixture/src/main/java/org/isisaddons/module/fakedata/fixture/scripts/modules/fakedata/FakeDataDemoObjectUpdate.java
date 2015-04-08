@@ -25,7 +25,6 @@ import java.util.UUID;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 import org.isisaddons.module.fakedata.fixture.dom.EnumOf3;
 import org.isisaddons.module.fakedata.fixture.dom.FakeDataDemoObject;
-import org.isisaddons.module.fakedata.fixture.dom.FakeDataDemoObjects;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
@@ -327,7 +326,7 @@ public class FakeDataDemoObjectUpdate extends DiscoverableFixtureScript {
         this.defaultParam("someEnumOf3", executionContext, fakeDataService.enums().anyOf(EnumOf3.class));
 
         // updates
-        final FakeDataDemoObject fakeDataDemoObject = this.fakeDataDemoObject;
+        final FakeDataDemoObject fakeDataDemoObject = getFakeDataDemoObject();
         
         wrap(fakeDataDemoObject).updateSomeBoolean(getSomeBoolean());
         wrap(fakeDataDemoObject).updateSomeBooleanWrapper(getSomeBoolean());
@@ -376,11 +375,6 @@ public class FakeDataDemoObjectUpdate extends DiscoverableFixtureScript {
 
         executionContext.addResult(this, this.fakeDataDemoObject);
     }
-
-    // //////////////////////////////////////
-
-    @javax.inject.Inject
-    private FakeDataDemoObjects fakeDataDemoObjects;
 
     @javax.inject.Inject
     private FakeDataService fakeDataService;

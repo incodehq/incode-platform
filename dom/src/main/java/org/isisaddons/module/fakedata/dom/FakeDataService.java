@@ -52,11 +52,11 @@ public class FakeDataService {
         fakeValuesService = new FakeValuesService(Locale.ENGLISH, randomService);
 
         // (slightly refactored) wrappers for the javafaker subclasses
-        this.name = new Name(this);
+        this.names = new Names(this);
         this.comms = new Comms(this);
         this.lorem = new Lorem(this);
         this.address = new Address(this);
-        this.creditCard = new CreditCard(this, fakeValuesService);
+        this.creditCards = new CreditCards(this, fakeValuesService);
         this.book = new Book(this);
 
         this.strings = new Strings(this);
@@ -90,11 +90,11 @@ public class FakeDataService {
         this.isisClobs = new IsisClobs(this);
     }
 
-    private Name name;
+    private Names names;
     private Comms comms;
     private Lorem lorem;
     private Address address;
-    private CreditCard creditCard;
+    private CreditCards creditCards;
     private Book book;
 
     private Strings strings;
@@ -138,8 +138,8 @@ public class FakeDataService {
     // //////////////////////////////////////
 
     @Programmatic
-    public Name name() {
-        return name;
+    public Names name() {
+        return names;
     }
 
     @Programmatic
@@ -158,8 +158,8 @@ public class FakeDataService {
     }
 
     @Programmatic
-    public CreditCard creditCard() {
-        return creditCard;
+    public CreditCards creditCard() {
+        return creditCards;
     }
 
     @Programmatic
