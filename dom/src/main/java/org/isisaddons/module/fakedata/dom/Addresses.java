@@ -18,11 +18,11 @@ package org.isisaddons.module.fakedata.dom;
 
 import org.apache.isis.applib.annotation.Programmatic;
 
-public class Address extends AbstractRandomValueGenerator {
+public class Addresses extends AbstractRandomValueGenerator {
 
     com.github.javafaker.Address javaFakerAddress;
 
-    Address(final FakeDataService fakeDataService) {
+    Addresses(final FakeDataService fakeDataService) {
         super(fakeDataService);
         javaFakerAddress = new com.github.javafaker.Address(
                 fakeDataService.name().javaFakerName,

@@ -99,7 +99,8 @@ value is used to obtain a blob for update:
             fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeBlob()).isNotNull();
-            Assertions.assertThat(fakeDataDemoObject.getSomeBlob().getMimeType().toString()).isEqualTo("application/pdf");
+            Assertions.assertThat(fakeDataDemoObject.getSomeBlob().getMimeType().toString())
+                      .isEqualTo("application/pdf");
         }
 
 Note the use of `FakeDataService` in the "given" to obtain a PDF blob.
@@ -208,13 +209,13 @@ Only the `dom` project is released to Maven Central Repo.  The versions of the o
 The `FakeDataService` defines the following API:
 
     public interface FakeDataService {
-    }
-        public Name name() { ... }
+    
+        public Names name() { ... }
         public Comms comms() { ... }
         public Lorem lorem() { ... }
-        public Address address() { ... }
-        public CreditCard creditCard() { ... }
-        public Book book() { ... }
+        public Addresses addresses() { ... }
+        public CreditCards creditCard() { ... }
+        public Books books() { ... }
     
         public Bytes bytes() { ... }
         public Shorts shorts() { ... }
@@ -251,6 +252,7 @@ The `FakeDataService` defines the following API:
     }
     
 where each of the returned classes then provides suitable methods for obtaining values within that domain of values.
+
 For example, `Names` provides:
 
     public class Names ... {

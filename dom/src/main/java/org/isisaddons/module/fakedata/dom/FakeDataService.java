@@ -55,9 +55,9 @@ public class FakeDataService {
         this.names = new Names(this);
         this.comms = new Comms(this);
         this.lorem = new Lorem(this);
-        this.address = new Address(this);
+        this.addresses = new Addresses(this);
         this.creditCards = new CreditCards(this, fakeValuesService);
-        this.book = new Book(this);
+        this.books = new Books(this);
 
         this.strings = new Strings(this);
         this.bytes = new Bytes(this);
@@ -93,9 +93,9 @@ public class FakeDataService {
     private Names names;
     private Comms comms;
     private Lorem lorem;
-    private Address address;
+    private Addresses addresses;
     private CreditCards creditCards;
-    private Book book;
+    private Books books;
 
     private Strings strings;
     private Bytes bytes;
@@ -153,18 +153,18 @@ public class FakeDataService {
     }
 
     @Programmatic
-    public Address address() {
-        return address;
+    public Addresses addresses() {
+        return addresses;
     }
 
     @Programmatic
-    public CreditCards creditCard() {
+    public CreditCards creditCards() {
         return creditCards;
     }
 
     @Programmatic
-    public Book book() {
-        return book;
+    public Books books() {
+        return books;
     }
 
     // //////////////////////////////////////
