@@ -27,14 +27,15 @@ public class Integers extends AbstractRandomValueGenerator{
 
     @Programmatic
     public int upTo(final int upTo) {
-        return fakeDataService.randomService.nextInt(upTo);
+        return fake.randomService.nextInt(upTo);
     }
 
     @Programmatic
     public int between(final int min, final int max) {
-        return min + fakeDataService.randomService.nextInt(max - min);
+        return min + fake.randomService.nextInt(max - min);
     }
 
+    @Programmatic
     public int any() {
         return RandomUtils.nextInt();
     }

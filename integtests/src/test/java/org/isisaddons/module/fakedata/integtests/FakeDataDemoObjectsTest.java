@@ -20,7 +20,7 @@ import java.util.List;
 import javax.inject.Inject;
 import org.isisaddons.module.fakedata.fixture.dom.FakeDataDemoObject;
 import org.isisaddons.module.fakedata.fixture.dom.FakeDataDemoObjects;
-import org.isisaddons.module.fakedata.fixture.scripts.FakeDataDemoObjectsFixture;
+import org.isisaddons.module.fakedata.fixture.scripts.scenarios.FakeDataDemoObjectsScenario;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,7 +31,7 @@ public class FakeDataDemoObjectsTest extends FakeDataModuleIntegTest {
 
     @Before
     public void setUpData() throws Exception {
-        scenarioExecution().install(new FakeDataDemoObjectsFixture());
+        scenarioExecution().install(new FakeDataDemoObjectsScenario());
     }
 
     @Inject

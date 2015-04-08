@@ -24,13 +24,29 @@ public class Booleans extends AbstractRandomValueGenerator {
         super(fakeDataService);
     }
 
+    /**
+     * Same as {@link #any()}.
+     */
     @Programmatic
     public boolean coinFlip() {
-        return fakeDataService.randomService.nextDouble() < 0.5;
+        return any();
+    }
+
+    /**
+     * Same as {@link #any()}.
+     */
+    @Programmatic
+    public boolean either() {
+        return any();
     }
 
     @Programmatic
     public boolean diceRollOf6() {
-        return fakeDataService.ints().upTo(6) == 5;
+        return fake.ints().upTo(6) == 5;
+    }
+
+    @Programmatic
+    public boolean any() {
+        return fake.randomService.nextDouble() < 0.5;
     }
 }

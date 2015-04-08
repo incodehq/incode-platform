@@ -72,7 +72,7 @@ public class Address extends AbstractRandomValueGenerator {
 
     @Programmatic
     public String city() {
-        return cityPrefix() + " " + fakeDataService.name().firstName() + " " + citySuffix();
+        return cityPrefix() + " " + fake.name().firstName() + " " + citySuffix();
     }
 
     @Programmatic

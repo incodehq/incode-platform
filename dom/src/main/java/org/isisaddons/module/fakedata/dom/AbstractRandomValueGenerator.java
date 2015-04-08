@@ -18,10 +18,10 @@ package org.isisaddons.module.fakedata.dom;
 
 abstract class AbstractRandomValueGenerator {
 
-    final FakeDataService fakeDataService;
+    final FakeDataService fake;
 
-    AbstractRandomValueGenerator(final FakeDataService fakeDataService) {
-        this.fakeDataService = fakeDataService;
+    AbstractRandomValueGenerator(final FakeDataService fake) {
+        this.fake = fake;
     }
 
 }

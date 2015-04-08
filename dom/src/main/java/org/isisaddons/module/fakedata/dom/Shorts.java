@@ -26,15 +26,16 @@ public class Shorts extends AbstractRandomValueGenerator{
 
     @Programmatic
     public short upTo(final short upTo) {
-        return (short) fakeDataService.ints().upTo(upTo);
+        return (short) fake.ints().upTo(upTo);
     }
 
     @Programmatic
     public short between(final short min, final short max) {
-        return (short) fakeDataService.ints().between(min, max);
+        return (short) fake.ints().between(min, max);
     }
 
+    @Programmatic
     public short any() {
-        return (short) fakeDataService.ints().any();
+        return (short) fake.ints().any();
     }
 }

@@ -28,14 +28,14 @@ public class Strings extends AbstractRandomValueGenerator{
     public String upper(final int numChars) {
         final StringBuilder buf = new StringBuilder();
         for (int i = 0; i < numChars; i++) {
-            buf.append(fakeDataService.chars().upper());
+            buf.append(fake.chars().upper());
         }
         return buf.toString();
     }
 
     @Programmatic
     public String fixed(int numChars) {
-        return fakeDataService.lorem().javaFakerLorem.fixedString(numChars);
+        return fake.lorem().javaFakerLorem.fixedString(numChars);
     }
 
 }

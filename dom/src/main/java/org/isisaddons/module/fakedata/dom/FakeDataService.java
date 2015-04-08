@@ -51,12 +51,12 @@ public class FakeDataService {
         randomService = new RandomService(random);
         fakeValuesService = new FakeValuesService(Locale.ENGLISH, randomService);
 
-        // wrappers for the javafaker subclasses
+        // (slightly refactored) wrappers for the javafaker subclasses
         this.name = new Name(this);
         this.comms = new Comms(this);
         this.lorem = new Lorem(this);
         this.address = new Address(this);
-        this.creditCard = new CreditCard(fakeValuesService);
+        this.creditCard = new CreditCard(this, fakeValuesService);
         this.book = new Book(this);
 
         this.strings = new Strings(this);
@@ -70,8 +70,24 @@ public class FakeDataService {
         this.booleans = new Booleans(this);
 
         this.collections = new Collections(this);
-        this.localDates = new LocalDates(this);
-        this.periods = new Periods(this);
+        this.enums = new Enums(this);
+
+        this.javaUtilDates = new JavaUtilDates(this);
+        this.javaSqlDates = new JavaSqlDates(this);
+        this.javaSqlTimestamps = new JavaSqlTimestamps(this);
+        this.jodaDateTimes = new JodaDateTimes(this);
+        this.jodaLocalDates = new JodaLocalDates(this);
+        this.jodaPeriods = new JodaPeriods(this);
+
+        this.bigDecimals = new BigDecimals(this);
+        this.bigIntegers = new BigIntegers(this);
+        this.urls = new Urls(this);
+        this.uuids = new Uuids(this);
+
+        this.isisPasswords = new IsisPasswords(this);
+        this.isisMoneys = new IsisMoneys(this);
+        this.isisBlobs = new IsisBlobs(this);
+        this.isisClobs = new IsisClobs(this);
     }
 
     private Name name;
@@ -90,9 +106,27 @@ public class FakeDataService {
     private Doubles doubles;
     private Chars chars;
     private Booleans booleans;
+
     private Collections collections;
-    private LocalDates localDates;
-    private Periods periods;
+    private Enums enums;
+
+    private JavaUtilDates javaUtilDates;
+    private JavaSqlDates javaSqlDates;
+    private JavaSqlTimestamps javaSqlTimestamps;
+
+    private JodaDateTimes jodaDateTimes;
+    private JodaLocalDates jodaLocalDates;
+    private JodaPeriods jodaPeriods;
+
+    private BigDecimals bigDecimals;
+    private BigIntegers bigIntegers;
+    private Urls urls;
+    private Uuids uuids;
+
+    private IsisPasswords isisPasswords;
+    private IsisMoneys isisMoneys;
+    private IsisBlobs isisBlobs;
+    private IsisClobs isisClobs;
 
 
     /**
@@ -175,6 +209,8 @@ public class FakeDataService {
         return booleans;
     }
 
+    // //////////////////////////////////////
+
     @Programmatic
     public Strings strings() {
         return strings;
@@ -188,35 +224,87 @@ public class FakeDataService {
     }
 
     @Programmatic
-    public LocalDates localDates() {
-        return localDates;
-    }
-
-    @Programmatic
-    public Periods periods() {
-        return periods;
+    public Enums enums() {
+        return enums;
     }
 
     // //////////////////////////////////////
 
-    public class CreditCard {
-        com.github.javafaker.Business javaFakerBusiness;
-        CreditCard(final FakeValuesService fakeValuesService) {
-            javaFakerBusiness = new com.github.javafaker.Business(fakeValuesService);
-        }
-
-        @Programmatic
-        public String number() {
-            return fakeValuesService.fetchString("business.credit_card_numbers");
-        }
-
-        @Programmatic
-        public String type() {
-            return fakeValuesService.fetchString("business.credit_card_types");
-        }
-
+    @Programmatic
+    public JavaUtilDates javaUtilDates() {
+        return javaUtilDates;
     }
 
+    @Programmatic
+    public JavaSqlDates javaSqlDates() {
+        return javaSqlDates;
+    }
+
+    @Programmatic
+    public JavaSqlTimestamps javaSqlTimestamps() {
+        return javaSqlTimestamps;
+    }
+
+    @Programmatic
+    public JodaLocalDates jodaLocalDates() {
+        return jodaLocalDates;
+    }
+
+    @Programmatic
+    public JodaDateTimes jodaDateTimes() {
+        return jodaDateTimes;
+    }
+
+    @Programmatic
+    public JodaPeriods jodaPeriods() {
+        return jodaPeriods;
+    }
+
+    // //////////////////////////////////////
+
+    @Programmatic
+    public BigDecimals bigDecimals() {
+        return bigDecimals;
+    }
+
+    @Programmatic
+    public BigIntegers bigIntegers() {
+        return bigIntegers;
+    }
+
+    @Programmatic
+    public Urls urls() {
+        return urls;
+    }
+
+    @Programmatic
+    public Uuids uuids() {
+        return uuids;
+    }
+
+    // //////////////////////////////////////
+
+    @Programmatic
+    public IsisPasswords isisPasswords() {
+        return isisPasswords;
+    }
+
+    @Programmatic
+    public IsisMoneys isisMoneys() {
+        return isisMoneys;
+    }
+
+    @Programmatic
+    public IsisBlobs isisBlobs() {
+        return isisBlobs;
+    }
+
+    @Programmatic
+    public IsisClobs isisClobs() {
+        return isisClobs;
+    }
+
+    // //////////////////////////////////////
 
     // //////////////////////////////////////
 
@@ -225,6 +313,5 @@ public class FakeDataService {
 
     @Inject
     DomainObjectContainer container;
-
 
 }

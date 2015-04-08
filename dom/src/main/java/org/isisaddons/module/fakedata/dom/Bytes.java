@@ -26,15 +26,16 @@ public class Bytes extends AbstractRandomValueGenerator{
 
     @Programmatic
     public byte upTo(final byte upTo) {
-        return (byte) fakeDataService.ints().upTo(upTo);
+        return (byte) fake.ints().upTo(upTo);
     }
 
     @Programmatic
     public byte between(final byte min, final byte max) {
-        return (byte) fakeDataService.ints().between(min, max);
+        return (byte) fake.ints().between(min, max);
     }
 
+    @Programmatic
     public byte any() {
-        return (byte) fakeDataService.ints().any();
+        return (byte) fake.ints().any();
     }
 }

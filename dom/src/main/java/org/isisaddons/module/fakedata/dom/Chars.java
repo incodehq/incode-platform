@@ -27,11 +27,12 @@ public class Chars extends AbstractRandomValueGenerator{
     @Programmatic
     public char upper() {
         final char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
-        return fakeDataService.collections().randomElement(chars);
+        return fake.collections().anyOf(chars);
     }
 
+    @Programmatic
     public char any() {
-        final int any = fakeDataService.shorts().any();
+        final int any = fake.shorts().any();
         final int i = any - Short.MIN_VALUE;
         return (char) i;
     }

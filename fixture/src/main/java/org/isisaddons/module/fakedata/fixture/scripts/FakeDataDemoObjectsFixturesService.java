@@ -17,6 +17,7 @@
 package org.isisaddons.module.fakedata.fixture.scripts;
 
 import java.util.List;
+import org.isisaddons.module.fakedata.fixture.scripts.scenarios.FakeDataDemoObjectsScenario;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
@@ -57,7 +58,7 @@ public class FakeDataDemoObjectsFixturesService extends FixtureScripts {
     @Prototype
     @MemberOrder(sequence="20")
     public Object installFixturesAndReturnFirst() {
-        final List<FixtureResult> run = findFixtureScriptFor(FakeDataDemoObjectsFixture.class).run(null);
+        final List<FixtureResult> run = findFixtureScriptFor(FakeDataDemoObjectsScenario.class).run(null);
         return run.get(0).getObject();
     }
 

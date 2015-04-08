@@ -17,6 +17,7 @@
 package org.isisaddons.module.fakedata.dom;
 
 import org.apache.commons.lang.math.RandomUtils;
+import org.apache.isis.applib.annotation.Programmatic;
 
 public class Longs extends AbstractRandomValueGenerator{
 
@@ -24,7 +25,8 @@ public class Longs extends AbstractRandomValueGenerator{
         super(fakeDataService);
     }
 
+    @Programmatic
     public long any() {
-        return RandomUtils.nextLong(fakeDataService.random);
+        return RandomUtils.nextLong(fake.random);
     }
 }

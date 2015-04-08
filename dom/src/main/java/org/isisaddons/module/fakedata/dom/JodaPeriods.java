@@ -19,15 +19,15 @@ package org.isisaddons.module.fakedata.dom;
 import org.joda.time.Period;
 import org.apache.isis.applib.annotation.Programmatic;
 
-public class Periods extends AbstractRandomValueGenerator{
+public class JodaPeriods extends AbstractRandomValueGenerator{
 
-    public Periods(final FakeDataService fakeDataService) {
+    public JodaPeriods(final FakeDataService fakeDataService) {
         super(fakeDataService);
     }
 
     @Programmatic
     public Period daysBetween(final int minDays, final int maxDays) {
-        return Period.days(fakeDataService.ints().between(minDays, maxDays));
+        return Period.days(fake.ints().between(minDays, maxDays));
     }
 
     @Programmatic
@@ -37,7 +37,7 @@ public class Periods extends AbstractRandomValueGenerator{
 
     @Programmatic
     public Period monthsBetween(final int minMonths, final int maxMonths) {
-        return Period.months(fakeDataService.ints().between(minMonths, maxMonths));
+        return Period.months(fake.ints().between(minMonths, maxMonths));
     }
 
     @Programmatic
@@ -47,7 +47,7 @@ public class Periods extends AbstractRandomValueGenerator{
 
     @Programmatic
     public Period yearsBetween(final int minYears, final int maxYears) {
-        return Period.years(fakeDataService.ints().between(minYears, maxYears));
+        return Period.years(fake.ints().between(minYears, maxYears));
     }
 
     @Programmatic

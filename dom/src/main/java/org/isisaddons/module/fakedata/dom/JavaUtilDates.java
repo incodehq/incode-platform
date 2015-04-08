@@ -16,32 +16,18 @@
  */
 package org.isisaddons.module.fakedata.dom;
 
-import org.joda.time.LocalDate;
-import org.joda.time.Period;
+import org.joda.time.DateTime;
 import org.apache.isis.applib.annotation.Programmatic;
 
-public class LocalDates extends AbstractRandomValueGenerator{
+public class JavaUtilDates extends AbstractRandomValueGenerator{
 
-    public LocalDates(final FakeDataService fakeDataService) {
+    public JavaUtilDates(final FakeDataService fakeDataService) {
         super(fakeDataService);
     }
 
     @Programmatic
-    public LocalDate around(final Period period) {
-        final LocalDate now = fakeDataService.clockService.now();
-        return fakeDataService.booleans().coinFlip() ? before(period) : after(period);
+    public java.util.Date any() {
+        final DateTime dateTime = fake.jodaDateTimes().any();
+        return dateTime.toDate();
     }
-
-    @Programmatic
-    public LocalDate before(final Period period) {
-        final LocalDate now = fakeDataService.clockService.now();
-        return now.minus(period);
-    }
-
-    @Programmatic
-    public LocalDate after(final Period period) {
-        final LocalDate now = fakeDataService.clockService.now();
-        return now.plus(period);
-    }
-
 }

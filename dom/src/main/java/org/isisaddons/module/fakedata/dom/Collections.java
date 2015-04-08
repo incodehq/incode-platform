@@ -28,72 +28,73 @@ public class Collections extends AbstractRandomValueGenerator{
     @Programmatic
     public <E extends Enum<E>> E randomEnum(final Class<E> enumType) {
         final E[] enumConstants = enumType.getEnumConstants();
-        return enumConstants[fakeDataService.ints().upTo(enumConstants.length)];
+        return enumConstants[fake.ints().upTo(enumConstants.length)];
     }
 
     @Programmatic
     public <T> T randomBounded(final Class<T> cls) {
-        final List<T> list = fakeDataService.container.allInstances(cls);
-        return randomElement(list);
+        final List<T> list = fake.container.allInstances(cls);
+        return anyOf(list);
     }
 
     @Programmatic
-    public <T> T randomElement(final List<T> list) {
-        final int randomIdx = fakeDataService.ints().upTo(list.size());
+    public <T> T anyOf(final List<T> list) {
+        final int randomIdx = fake.ints().upTo(list.size());
         return list.get(randomIdx);
     }
 
     @Programmatic
-    public char randomElement(final char[] elements) {
-        final int randomIdx = fakeDataService.ints().upTo(elements.length);
+    public char anyOf(final char... elements) {
+        final int randomIdx = fake.ints().upTo(elements.length);
         return elements[randomIdx];
     }
 
     @Programmatic
-    public byte randomElement(final byte[] elements) {
-        final int randomIdx = fakeDataService.ints().upTo(elements.length);
+    public byte anyOf(final byte... elements) {
+        final int randomIdx = fake.ints().upTo(elements.length);
         return elements[randomIdx];
     }
 
     @Programmatic
-    public short randomElement(final short[] elements) {
-        final int randomIdx = fakeDataService.ints().upTo(elements.length);
+    public short anyOf(final short... elements) {
+        final int randomIdx = fake.ints().upTo(elements.length);
         return elements[randomIdx];
     }
 
     @Programmatic
-    public int randomElement(final int[] elements) {
-        final int randomIdx = fakeDataService.ints().upTo(elements.length);
+    public int anyOf(final int... elements) {
+        final int randomIdx = fake.ints().upTo(elements.length);
         return elements[randomIdx];
     }
 
     @Programmatic
-    public long randomElement(final long[] elements) {
-        final int randomIdx = fakeDataService.ints().upTo(elements.length);
+    public long anyOf(final long... elements) {
+        final int randomIdx = fake.ints().upTo(elements.length);
         return elements[randomIdx];
     }
 
     @Programmatic
-    public float randomElement(final float[] elements) {
-        final int randomIdx = fakeDataService.ints().upTo(elements.length);
+    public float anyOf(final float... elements) {
+        final int randomIdx = fake.ints().upTo(elements.length);
         return elements[randomIdx];
     }
 
     @Programmatic
-    public double randomElement(final double[] elements) {
-        final int randomIdx = fakeDataService.ints().upTo(elements.length);
+    public double anyOf(final double... elements) {
+        final int randomIdx = fake.ints().upTo(elements.length);
         return elements[randomIdx];
     }
 
     @Programmatic
-    public boolean randomElement(final boolean[] elements) {
-        final int randomIdx = fakeDataService.ints().upTo(elements.length);
+    public boolean anyOf(final boolean... elements) {
+        final int randomIdx = fake.ints().upTo(elements.length);
         return elements[randomIdx];
     }
 
     @Programmatic
-    public <T> T randomElement(final T[] elements) {
-        final int randomIdx = fakeDataService.ints().upTo(elements.length);
+    public <T> T anyOf(final T... elements) {
+        final int randomIdx = fake.ints().upTo(elements.length);
         return elements[randomIdx];
     }
+
 }
