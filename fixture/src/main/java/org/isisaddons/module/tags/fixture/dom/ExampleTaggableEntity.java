@@ -37,7 +37,7 @@ import org.apache.isis.applib.annotation.*;
         column = "version")
 @javax.jdo.annotations.Uniques({
         @javax.jdo.annotations.Unique(
-                name = "Tag_taggable_name_UNQ", members = { "taggable", "name" })
+                name = "Tag_name_UNQ", members = { "name" })
 })
 @MemberGroupLayout(columnSpans = {4,4,4,12},
         left = {"General"},
