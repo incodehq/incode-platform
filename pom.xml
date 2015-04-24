@@ -35,10 +35,6 @@ language governing permissions and limitations under the License.
 
         <isis-module-command.version>1.9.0-SNAPSHOT</isis-module-command.version>
 
-        <!-- must be consistent with the versions defined by the JDO Objectstore -->
-        <datanucleus-accessplatform-jdo-rdbms.version>3.3.6</datanucleus-accessplatform-jdo-rdbms.version>
-        <datanucleus-maven-plugin.version>3.3.2</datanucleus-maven-plugin.version>
-
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -183,8 +179,7 @@ language governing permissions and limitations under the License.
                 <plugin>
                     <groupId>org.simplericity.jettyconsole</groupId>
                     <artifactId>jetty-console-maven-plugin</artifactId>
-                    <!-- update to 1.54 reversed,since seems compiled against 1.7 (major.minor version 51.0) -->
-                    <version>1.43</version>
+                    <version>1.56</version>
                 </plugin>
 
                 <!-- Apache Release Audit Tool -->
