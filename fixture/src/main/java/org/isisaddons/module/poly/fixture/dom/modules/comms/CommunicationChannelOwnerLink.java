@@ -44,7 +44,7 @@ import org.apache.isis.applib.annotation.Programmatic;
                         + "WHERE ownerObjectType == :ownerObjectType "
                         + "   && ownerIdentifier == :ownerIdentifier ")
 })
-@javax.jdo.annotations.Unique(name="CommunicationChannelOwnerLink_commchannel_owner_UNQ", members = {"communicationChannel,ownerObjectType,ownerIdentifier"})
+@javax.jdo.annotations.Unique(name="CommunicationChannelOwnerLink_commchannel_owner_UNQ", members = {"communicationChannel","ownerObjectType","ownerIdentifier"})
 @DomainObject(
         objectType = "comms.CommunicationChannelOwnerLink"
 )

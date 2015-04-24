@@ -45,7 +45,7 @@ import org.apache.isis.applib.annotation.Programmatic;
                         + "WHERE contentObjectType == :contentObjectType "
                         + "   && contentIdentifier == :contentIdentifier ")
 })
-@javax.jdo.annotations.Unique(name="CaseContentLink_case_content_UNQ", members = {"case,contentObjectType,contentIdentifier"})
+@javax.jdo.annotations.Unique(name="CaseContentLink_case_content_UNQ", members = {"case","contentObjectType","contentIdentifier"})
 @DomainObject(
         objectType = "casemgmt.CaseContentLink"
 )
