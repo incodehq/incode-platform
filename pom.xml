@@ -96,6 +96,7 @@ language governing permissions and limitations under the License.
                     <configuration>
                         <source>1.8</source>
                         <target>1.8</target>
+                        <compilerArgument>-parameters</compilerArgument>
                     </configuration>
                     <executions>
                         <execution>

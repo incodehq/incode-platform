@@ -3,8 +3,6 @@
 [![Build Status](https://travis-ci.org/isisaddons/isis-metamodel-paraname8.png?branch=master)](https://travis-ci.org/isisaddons/isis-metamodel-paraname8)
 
 
-
-
 ## How to run the Demo App ##
 
 The prerequisite software is:

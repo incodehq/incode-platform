@@ -19,15 +19,25 @@
 package org.isisaddons.metamodel.paraname8.fixture.dom;
 
 import java.util.List;
-import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.*;
-import org.apache.isis.applib.annotation.ActionSemantics.Of;
 
-@DomainService(menuOrder = "10", repositoryFor = Paraname8DemoObject.class)
+import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.SemanticsOf;
+
+@DomainService(
+        repositoryFor = Paraname8DemoObject.class
+)
+@DomainServiceLayout(
+        menuOrder = "10"
+)
 public class Paraname8DemoObjects {
 
     //region > identification in the UI
-    // //////////////////////////////////////
 
     public String getId() {
         return "paraname8Demo";
@@ -40,10 +50,13 @@ public class Paraname8DemoObjects {
     //endregion
 
     //region > listAll (action)
-    // //////////////////////////////////////
 
-    @Bookmarkable
-    @ActionSemantics(Of.SAFE)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            bookmarking = BookmarkPolicy.AS_ROOT
+    )
     @MemberOrder(sequence = "1")
     public List<Paraname8DemoObject> listAll() {
         return container.allInstances(Paraname8DemoObject.class);
@@ -52,8 +65,7 @@ public class Paraname8DemoObjects {
     //endregion
 
     //region > create (action)
-    // //////////////////////////////////////
-    
+
     @MemberOrder(sequence = "2")
     public Paraname8DemoObject create(
             final /* @Named("Name") */ String name) {
@@ -66,7 +78,6 @@ public class Paraname8DemoObjects {
     //endregion
 
     //region > injected services
-    // //////////////////////////////////////
 
     @javax.inject.Inject 
     DomainObjectContainer container;
