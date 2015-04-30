@@ -2,6 +2,15 @@
 
 [![Build Status](https://travis-ci.org/isisaddons/isis-metamodel-paraname8.png?branch=master)](https://travis-ci.org/isisaddons/isis-metamodel-paraname8)
 
+Enables Isis to infer action parameter names using reflection (rather than relying on `@ParameterLayout(named=...)` or `@Named(...)`.
+
+Note that this requires Java 8.
+
+
+## Screenshot and Corresponding Code ##
+
+TODO
+
 
 ## How to run the Demo App ##
 
@@ -21,6 +30,14 @@ To run the demo app:
     
 Then log on using user: `sven`, password: `pass`
 
+
+## Configuration ##
+
+TODO 
+
+* configure pom dependency to reference this module (in webapp module is sufficient)
+* configure maven-compiler-plugin `<compilerArgs>-parameters</compilerArgs>
+* update isis.properties to reference the facet factory provided by this extension.
 
 
 ## Legal Stuff ##
