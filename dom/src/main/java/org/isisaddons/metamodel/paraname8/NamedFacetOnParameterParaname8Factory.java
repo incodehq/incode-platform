@@ -2,6 +2,8 @@ package org.isisaddons.metamodel.paraname8;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+
+import org.apache.isis.core.commons.lang.StringExtensions;
 import org.apache.isis.core.metamodel.facetapi.FacetHolder;
 import org.apache.isis.core.metamodel.facetapi.FacetUtil;
 import org.apache.isis.core.metamodel.facetapi.FeatureType;
@@ -22,7 +24,9 @@ public class NamedFacetOnParameterParaname8Factory extends FacetFactoryAbstract 
         final Parameter parameter = parameters[paramNum];
         final String parameterName = parameter.getName();
 
-        FacetUtil.addFacet(create(parameterName, processParameterContext.getFacetHolder()));
+        String naturalName = StringExtensions.asNaturalName2(parameterName);
+
+        FacetUtil.addFacet(create(naturalName, processParameterContext.getFacetHolder()));
     }
 
     private NamedFacet create(final String parameterName, final FacetHolder holder) {
