@@ -17,20 +17,16 @@ This module provides an implemenation of Apache Isis' `FacetFactory` for Apache 
 
 From the demo app, here's the screenshot of an action to create a new object:
 
-![](https://raw.github.com/isisaddons/isis-module-audit/master/images/01-create-menu.png)
+![](https://raw.github.com/isisaddons/isis-metamodel-paraname8/master/images/01-create-menu.png)
 
 which renders the following prompt:
 
-![](https://raw.github.com/isisaddons/isis-module-audit/master/images/01-create-menu.png)
+![](https://raw.github.com/isisaddons/isis-metamodel-paraname8/master/images/01-create-menu.png)
 
 The corresponding code is simply:
     
-    public Paraname8DemoObject create(
-            final String name) {
-        final Paraname8DemoObject obj = container.newTransientInstance(Paraname8DemoObject.class);
-        obj.setName(name);
-        container.persistIfNotAlready(obj);
-        return obj;
+    public Paraname8DemoObject create(final String name) {
+        ...
     }
 
 Compare this to the "normal" way, which required using either the `@ParameterLayout(named=...)` annotation:
@@ -52,7 +48,7 @@ or alternatively the older `@Named(...)` annotation:
 
 The prerequisite software is:
 
-* Java JDK 8
+* Java JDK 8 (8.0.5 or later is required; `-parameters` was broken in very early builds of Java 8)
 * [maven 3](http://maven.apache.org) (3.2.1 or later is recommended).
 
 To build the demo app:
@@ -116,7 +112,8 @@ To use "out-of-the-box":
 
 <pre>
     private static IsisConfiguration testConfiguration() {
-        final IsisConfigurationForJdoIntegTests testConfiguration = new IsisConfigurationForJdoIntegTests();
+        final IsisConfigurationForJdoIntegTests testConfiguration = 
+            new IsisConfigurationForJdoIntegTests();
         
         ...
 
