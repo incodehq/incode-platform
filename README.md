@@ -129,6 +129,17 @@ Notes:
 * Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-audit-dom).
 
 
+## Configuring your IDE ##
+
+Most IDEs compile the Java source code independently of Maven; this is certainly the case with both IntelliJ IDEA and Eclipse.  You will therefore need to ensure that the IDE is set up to build using the `-parameters` flag.
+ 
+For IntelliJ IDEA, for example, this can be found under the "Settings" dialog:
+ 
+![](https://raw.github.com/isisaddons/isis-metamodel-paraname8/master/images/03-intellij-support.png)
+ 
+Other IDEs should have similar dialogues.
+
+You'll also need to make sure that the IDE is set up to build and run with JDK8.  In IntelliJ, this can be found under the "Project Structure" dialog.
 
 ## Legal Stuff ##
  
