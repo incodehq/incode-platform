@@ -2,22 +2,58 @@
 
 [![Build Status](https://travis-ci.org/isisaddons/isis-metamodel-paraname8.png?branch=master)](https://travis-ci.org/isisaddons/isis-metamodel-paraname8)
 
-Enables Isis to infer action parameter names using reflection (rather than relying on `@ParameterLayout(named=...)` or `@Named(...)`.
+This extension for Apache Isis' metamodel support means that the name of action parameters can be inferred from the parameter name itself; that is, there is no need to annotate the parameter.
 
-Note that this requires Java 8.
+## Background
+
+Prior to Java 8 it was not possible to obtain the parameter names of methods using reflection.  Since Isis builds the UI from the code features, this required the parameters to be annotated with `@ParameterLayout(named=...)` or `@Named(...)`.
+
+In Java 8 the Reflections API has been extended so that the parameter name is available (with the proviso that the code must also be compiled with a new `-parameters` compile flag).
+
+This module provides an implemenation of Apache Isis' `FacetFactory` for Apache Isis so that this parameter name can be used, thereby avoiding the need to annotate action parameters. 
 
 
 ## Screenshot and Corresponding Code ##
 
-TODO
+From the demo app, here's the screenshot of an action to create a new object:
+
+![](https://raw.github.com/isisaddons/isis-module-audit/master/images/01-create-menu.png)
+
+which renders the following prompt:
+
+![](https://raw.github.com/isisaddons/isis-module-audit/master/images/01-create-menu.png)
+
+The corresponding code is simply:
+    
+    public Paraname8DemoObject create(
+            final String name) {
+        final Paraname8DemoObject obj = container.newTransientInstance(Paraname8DemoObject.class);
+        obj.setName(name);
+        container.persistIfNotAlready(obj);
+        return obj;
+    }
+
+Compare this to the "normal" way, which required using either the `@ParameterLayout(named=...)` annotation:
+
+    public Paraname8DemoObject create(
+            final @ParameterLayout(named="Name") String name) {
+        ...
+    }
+    
+or alternatively the older `@Named(...)` annotation:
+
+    public Paraname8DemoObject create(
+            final @Named("Name") String name) {
+        ...
+    }
 
 
 ## How to run the Demo App ##
 
 The prerequisite software is:
 
-* Java JDK 7 (nb: Isis currently does not support JDK 8)
-* [maven 3](http://maven.apache.org) (3.2.x is recommended).
+* Java JDK 8
+* [maven 3](http://maven.apache.org) (3.2.1 or later is recommended).
 
 To build the demo app:
 
@@ -31,20 +67,77 @@ To run the demo app:
 Then log on using user: `sven`, password: `pass`
 
 
-## Configuration ##
+## How to Configure/Use ##
 
-TODO 
+To use "out-of-the-box":
 
-* configure pom dependency to reference this module (in webapp module is sufficient)
-* configure maven-compiler-plugin `<compilerArgs>-parameters</compilerArgs>
-* update isis.properties to reference the facet factory provided by this extension.
+* in your project's root `pom.xml`, update the `maven-compiler-plugin` definition (in `<build>/<pluginManagement>/<plugins>`) to compile with JDK8, and specify the `-parameters` argument:
+
+<pre>
+    &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.1&lt;/version&gt;
+        &lt;configuration&gt;
+            &lt;source&gt;1.8&lt;/source&gt;
+            &lt;target&gt;1.8&lt;/target&gt;
+            &lt;compilerArgument&gt;-parameters&lt;/compilerArgument&gt;
+        &lt;/configuration&gt;
+        &lt;executions&gt;
+            &lt;execution&gt;
+                &lt;id&gt;source&lt;/id&gt;
+                &lt;phase&gt;compile&lt;/phase&gt;
+            &lt;/execution&gt;
+            &lt;execution&gt;
+                &lt;id&gt;test&lt;/id&gt;
+                &lt;phase&gt;test-compile&lt;/phase&gt;
+            &lt;/execution&gt;
+        &lt;/executions&gt;
+    &lt;/plugin&gt;
+</pre>
+
+* update your classpath in the `pom.xml` of your project's `integtests` module and also its `webapp` module:
+
+<pre>
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.isisaddons.metamodel.paraname8&lt;/groupId&gt;
+        &lt;artifactId&gt;isis-metamodel-paraname8-dom&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+</pre>
+
+* in your project's `webapp` module, update your `WEB-INF/isis.properties`:
+
+<pre>
+    isis.reflector.facets.include=\
+                org.isisaddons.metamodel.paraname8.NamedFacetOnParameterParaname8Factory
+</pre>
+
+* in your project's `integtest` module, update your bootstrapping code to also install this facet factory:
+
+<pre>
+    private static IsisConfiguration testConfiguration() {
+        final IsisConfigurationForJdoIntegTests testConfiguration = new IsisConfigurationForJdoIntegTests();
+        
+        ...
+
+        testConfiguration.put(
+                "isis.reflector.facets.include",
+                "org.isisaddons.metamodel.paraname8.NamedFacetOnParameterParaname8Factory");
+
+        return testConfiguration;
+    }
+</pre>
+
+Notes:
+* Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-audit-dom).
+
 
 
 ## Legal Stuff ##
  
 #### License ####
 
-    Copyright 2014 Dan Haywood
+    Copyright 2015 Dan Haywood
 
     Licensed under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
@@ -62,3 +155,59 @@ TODO
 #### Dependencies ####
 
 There are no third-party dependencies.
+
+
+##  Maven deploy notes
+
+Only the `dom` module is deployed, and is done so using Sonatype's OSS support (see 
+[user guide](http://central.sonatype.org/pages/apache-maven.html)).
+
+#### Release to Sonatype's Snapshot Repo ####
+
+To deploy a snapshot, use:
+
+    pushd dom
+    mvn clean deploy
+    popd
+
+The artifacts should be available in Sonatype's 
+[Snapshot Repo](https://oss.sonatype.org/content/repositories/snapshots).
+
+#### Release to Maven Central ####
+
+The `release.sh` script automates the release process.  It performs the following:
+
+* performs a sanity check (`mvn clean install -o`) that everything builds ok
+* bumps the `pom.xml` to a specified release version, and tag
+* performs a double check (`mvn clean install -o`) that everything still builds ok
+* releases the code using `mvn clean deploy`
+* bumps the `pom.xml` to a specified release version
+
+For example:
+
+    sh release.sh 1.9.0 \
+                  1.10.0-SNAPSHOT \
+                  dan@haywood-associates.co.uk \
+                  "this is not really my passphrase"
+    
+where
+* `$1` is the release version
+* `$2` is the snapshot version
+* `$3` is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
+* `$4` is the corresponding passphrase for that secret key.
+
+Other ways of specifying the key and passphrase are available, see the `pgp-maven-plugin`'s 
+[documentation](http://kohsuke.org/pgp-maven-plugin/secretkey.html)).
+
+If the script completes successfully, then push changes:
+
+    git push origin master
+    git push origin 1.9.0
+
+If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
+before trying again.  Note that in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the 
+`autoReleaseAfterClose` setting set to `true` (to automatically stage, close and the release the repo).  You may want
+to set this to `false` if debugging an issue.
+ 
+According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update [search](http://search.maven.org).
+            
