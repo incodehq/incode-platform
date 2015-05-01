@@ -21,7 +21,7 @@ From the demo app, here's the screenshot of an action to create a new object:
 
 which renders the following prompt:
 
-![](https://raw.github.com/isisaddons/isis-metamodel-paraname8/master/images/01-create-menu.png)
+![](https://raw.github.com/isisaddons/isis-metamodel-paraname8/master/images/02-create-menu.png)
 
 The corresponding code is simply:
     
