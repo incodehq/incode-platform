@@ -58,7 +58,12 @@ public class Paraname8ModuleSystemInitializer {
 
         private static IsisConfiguration testConfiguration() {
             final IsisConfigurationForJdoIntegTests testConfiguration = new IsisConfigurationForJdoIntegTests();
-            testConfiguration.addRegisterEntitiesPackagePrefix("dom");
+            testConfiguration.addRegisterEntitiesPackagePrefix("org.isisaddons.metamodel.paraname8.fixture.dom");
+
+            testConfiguration.put(
+                    "isis.reflector.facets.include",
+                    "org.isisaddons.metamodel.paraname8.NamedFacetOnParameterParaname8Factory");
+
             return testConfiguration;
         }
     }

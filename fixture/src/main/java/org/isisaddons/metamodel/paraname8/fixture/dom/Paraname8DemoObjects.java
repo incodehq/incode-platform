@@ -68,7 +68,7 @@ public class Paraname8DemoObjects {
 
     @MemberOrder(sequence = "2")
     public Paraname8DemoObject create(
-            final /* @Named("Name") */ String name) {
+            final /* @ParameterLayout(named="Name") */ String name) {
         final Paraname8DemoObject obj = container.newTransientInstance(Paraname8DemoObject.class);
         obj.setName(name);
         container.persistIfNotAlready(obj);
