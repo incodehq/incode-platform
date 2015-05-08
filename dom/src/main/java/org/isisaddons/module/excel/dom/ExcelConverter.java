@@ -155,12 +155,14 @@ class ExcelConverter {
             for (final Row row : sheet) {
                 if (header) {
                     for (final Cell cell : row) {
-                        final int columnIndex = cell.getColumnIndex();
-                        final String propertyName = cellMarshaller.getStringCellValue(cell);
-                        final OneToOneAssociation property = getAssociation(objectSpec, propertyName);
-                        if (property != null) {
-                            final Class<?> propertyType = property.getSpecification().getCorrespondingClass();
-                            propertyByColumn.put(columnIndex, new Property(propertyName, property, propertyType));
+                        if (cell.getCellType() != Cell.CELL_TYPE_BLANK) {
+                            final int columnIndex = cell.getColumnIndex();
+                            final String propertyName = cellMarshaller.getStringCellValue(cell);
+                            final OneToOneAssociation property = getAssociation(objectSpec, propertyName);
+                            if (property != null) {
+                                final Class<?> propertyType = property.getSpecification().getCorrespondingClass();
+                                propertyByColumn.put(columnIndex, new Property(propertyName, property, propertyType));
+                            }
                         }
                     }
                     header = false;
