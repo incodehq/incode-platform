@@ -52,7 +52,6 @@ public abstract class SettingAbstract implements Setting {
 
     // //////////////////////////////////////
 
-    @Title(prepend=" = ", sequence="30")
     @Property(
             hidden = Where.OBJECT_FORMS
     )

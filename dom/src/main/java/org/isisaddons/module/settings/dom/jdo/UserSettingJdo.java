@@ -18,10 +18,9 @@ package org.isisaddons.module.settings.dom.jdo;
 
 
 import java.util.List;
+
 import javax.jdo.annotations.IdentityType;
-import org.isisaddons.module.settings.SettingsModule;
-import org.isisaddons.module.settings.dom.SettingType;
-import org.isisaddons.module.settings.dom.UserSetting;
+
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
@@ -31,6 +30,10 @@ import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.services.HasUsername;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
+
+import org.isisaddons.module.settings.SettingsModule;
+import org.isisaddons.module.settings.dom.SettingType;
+import org.isisaddons.module.settings.dom.UserSetting;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType = IdentityType.APPLICATION, 
@@ -220,7 +223,6 @@ public class UserSettingJdo extends SettingAbstractJdo implements UserSetting, H
     @Property(
             domainEvent = ValueRawDomainEvent.class
     )
-    @Title(prepend=" = ", sequence="30")
     @Override
     public String getValueRaw() {
         return super.getValueRaw();
