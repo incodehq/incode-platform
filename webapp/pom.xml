@@ -129,7 +129,7 @@ language governing permissions and limitations under the License.
         <!-- other modules in this project -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-togglz-dom</artifactId>
+            <artifactId>isis-module-togglz-glue</artifactId>
             <exclusions>
                 <exclusion>
                     <!-- so don't pick up transitive dependency to asm 4.0.0 -->

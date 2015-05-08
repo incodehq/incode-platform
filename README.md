@@ -46,12 +46,12 @@ You can either use this module "out-of-the-box", or you can fork this repo and e
 
 To use "out-of-the-box":
 
-* update your classpath by adding this dependency in your project's `dom` module's `pom.xml`:
+* update your classpath by adding this dependency in your project's `webapp` (*not* `dom` !) module's `pom.xml`:
 
 <pre>
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.togglz&lt;/groupId&gt;
-        &lt;artifactId&gt;isis-module-togglz-dom&lt;/artifactId&gt;
+        &lt;artifactId&gt;isis-module-togglz-glue&lt;/artifactId&gt;
         &lt;version&gt;1.9.0&lt;/version&gt;
     &lt;/dependency&gt;
 </pre>

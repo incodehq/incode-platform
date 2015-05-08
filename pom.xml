@@ -354,7 +354,7 @@ language governing permissions and limitations under the License.
             <!-- this project's own modules -->
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>isis-module-togglz-dom</artifactId>
+                <artifactId>isis-module-togglz-glue</artifactId>
                 <version>${isis-module-togglz.version}</version>
             </dependency>
             <dependency>
@@ -431,7 +431,7 @@ language governing permissions and limitations under the License.
     </profiles>
 
     <modules>
-        <module>dom</module>
+        <module>glue</module>
         <module>fixture</module>
         <module>integtests</module>
         <module>webapp</module>
