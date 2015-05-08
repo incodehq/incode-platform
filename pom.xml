@@ -61,7 +61,7 @@ language governing permissions and limitations under the License.
                     <configuration>
                         <rules>
                             <requireMavenVersion>
-                                <version>[3.2.1,)</version>
+                                <version>[3.0.5,)</version>
                             </requireMavenVersion>
                             <requireJavaVersion>
                                 <version>[1.8.0,)</version>
@@ -213,8 +213,7 @@ language governing permissions and limitations under the License.
                 <plugin>
                     <groupId>org.simplericity.jettyconsole</groupId>
                     <artifactId>jetty-console-maven-plugin</artifactId>
-                    <!-- update to 1.54 reversed,since seems compiled against 1.7 (major.minor version 51.0) -->
-                    <version>1.43</version>
+                    <version>1.56</version>
                 </plugin>
 
                 <!-- Apache Release Audit Tool -->
