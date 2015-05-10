@@ -132,39 +132,60 @@ To use "out-of-the-box":
   }
 </pre>
 
+* in your `integtests` module, update the `pom.xml` for togglz's JUnit support:
+
+<pre>
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.togglz&lt;/groupId&gt;
+        &lt;artifactId&gt;togglz-junit&lt;/artifactId&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+</pre>
+
+* also in your `integtests` module, make sure that the `TogglzRule` (documented [here](http://www.togglz.org/documentation/testing.html) on the togglz website)  is enabled for any tests that depend on features.
+
+  In the demo app, this means adding the following to `TogglzModuleIntegTest` base class:
+
+<pre>
+  @Rule
+  public TogglzRule togglzRule = TogglzRule.allEnabled(TogglzDemoFeature.class);
+</pre>
+
 * update your classpath by adding this dependency in your project's `webapp` (*not* `dom` !) module's `pom.xml`:
 
 <pre>
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.togglz&lt;/groupId&gt;
         &lt;artifactId&gt;isis-module-togglz-glue&lt;/artifactId&gt;
-        &lt;version&gt;1.9.0&lt;/version&gt;
+        &lt;version&gt;1.9.0-SNAPSHOT&lt;/version&gt;
     &lt;/dependency&gt;
-
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.security&lt;/groupId&gt;
         &lt;artifactId&gt;isis-module-security-dom&lt;/artifactId&gt;
-        &lt;version&gt;${isis-module-security.version}&lt;/version&gt;
+        &lt;version&gt;1.9.0-SNAPSHOT&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.settings&lt;/groupId&gt;
         &lt;artifactId&gt;isis-module-settings-dom&lt;/artifactId&gt;
-        &lt;version&gt;${isis-module-settings.version}&lt;/version&gt;
+        &lt;version&gt;1.9.0-SNAPSHOT&lt;/version&gt;
     &lt;/dependency&gt;
 
 </pre>
 
+  (This module has not yet been released to Maven snapshot).
+
 * in your project's `webapp` module, write a subclass of `TogglzModuleFeatureManagerProviderAbstract` (provided by this module) that registers your feature enum:
 
 <pre>
-  public class CustomTogglzModuleFeatureManagerProvider extends TogglzModuleFeatureManagerProviderAbstract {
+  public class CustomTogglzModuleFeatureManagerProvider 
+      extends TogglzModuleFeatureManagerProviderAbstract {
     protected CustomTogglzModuleFeatureManagerProvider() {
       super(TogglzDemoFeature.class);
     }
   }
 </pre>
 
-* in your project's `webapp` module, in `src/main/resources`, register the provider by creating a file `META-INF/services/org.togglz.core.spi.FeatureManagerProvider` whose contents is the fully qualified class name of your feature manager provider implementation.
+* in your project's `webapp` module, in `src/main/resources`, register the provider by creating a file `META-INF/services/org.togglz.core.spi.FeatureManagerProvider`.  Its contents is the fully qualified class name of your feature manager provider implementation.
 
   For example, the demo app's file consists of:
   
@@ -189,7 +210,8 @@ To use "out-of-the-box":
     &lt;!-- bootstrap Togglz --&gt;
     &lt;context-param&gt;
         &lt;param-name&gt;org.togglz.FEATURE_MANAGER_PROVIDED&lt;/param-name&gt;
-        &lt;!-- prevent the filter from bootstrapping so is done lazily later once Isis has itself bootstrapped --&gt;
+        &lt;!-- prevent the filter from bootstrapping 
+              so is done lazily later once Isis has itself bootstrapped --&gt;
         &lt;param-value&gt;true&lt;/param-value&gt;
     &lt;/context-param&gt;
 
@@ -201,25 +223,6 @@ To use "out-of-the-box":
         &lt;filter-name&gt;TogglzFilter&lt;/filter-name&gt;
         &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
     &lt;/filter-mapping&gt;
-</pre>
-
-* in your `integtests` module, update the `pom.xml` for togglz's JUnit support:
-
-<pre>
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.togglz&lt;/groupId&gt;
-        &lt;artifactId&gt;togglz-junit&lt;/artifactId&gt;
-        &lt;scope&gt;test&lt;/scope&gt;
-    &lt;/dependency&gt;
-</pre>
-
-* also in your `integtests` module, make sure that the `TogglzRule` (documented [here](http://www.togglz.org/documentation/testing.html) on the togglz website)  is enabled for any tests that depend on features.
-
-  In the demo app, this means adding the following to `TogglzModuleIntegTest` base class:
-
-<pre>
-  @Rule
-  public TogglzRule togglzRule = TogglzRule.allEnabled(TogglzDemoFeature.class);
 </pre>
 
 * optional: if you want to install the Togglz console, then in your project's `webapp` module, update your `WEB-INF/web.xml`:
@@ -301,40 +304,20 @@ structured as follows:
 Only the `dom` project is released to Maven Central Repo.  The versions of the other modules are purposely left at 
 `0.0.1-SNAPSHOT` because they are not intended to be released.
 
-## API ##
-
-### TogglzService ###
-
-The `TogglzService` defines the following API:
-
-<pre>
-public interface TogglzService {
-}
-</pre>
-
-
-## Implementation ##
-
-## Supporting Services ##
-
 ## Related Modules/Services ##
 
-... referenced by the [Isis Add-ons](http://www.isisaddons.org) website.
-
-
-## Known issues ##
-
+This service uses the Isis Addons' [settings module](http://github.com/isisaddons/isis-module-settings) for feature persistence.
 
 ## Change Log ##
 
-* `1.x.x` - released against Isis 1.x.x.
+* `1.9.0-SNAPSHOT` - to be released against Isis 1.9.0
 
 
 ## Legal Stuff ##
  
 #### License ####
 
-    Copyright 2014-2015 Dan Haywood
+    Copyright 2015 Dan Haywood
 
     Licensed under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
