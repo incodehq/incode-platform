@@ -18,8 +18,8 @@ package org.isisaddons.module.togglz.fixture.scripts.scenarios;
 
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
-import org.isisaddons.module.togglz.fixture.dom.TogglzDemoObject;
-import org.isisaddons.module.togglz.fixture.dom.TogglzDemoObjects;
+import org.isisaddons.module.togglz.fixture.dom.module.demo.TogglzDemoObject;
+import org.isisaddons.module.togglz.fixture.dom.module.demo.TogglzDemoObjects;
 import org.isisaddons.module.togglz.fixture.scripts.teardown.TogglzDemoObjectsTearDownFixture;
 
 public class TogglzDemoObjectsFixture extends DiscoverableFixtureScript {

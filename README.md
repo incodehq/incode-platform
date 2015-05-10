@@ -10,20 +10,52 @@ The module consists of ...
 
 The following screenshots show an example app's usage of the module.
 
-#### Installing the Fixture Data ####
+#### Login as administrator ####
 
+![](https://raw.github.com/isisaddons/isis-module-togglz/master/images/010-login-as-admin.png)
 
-#### yada ####
+#### Feature disabled ####
 
+In the demo app the "Togglz Demo Objects" service has three actions, all of which are protected behind features.  Two of these (for "create" and "listAll") are enabled by default, but one (for "findByName") is disabled by default, meaning that the action is suppressed from the UI:
 
-#### yada ####
+![](https://raw.github.com/isisaddons/isis-module-togglz/master/images/020-findByName-feature-disabled.png)
+
+#### Togglz Console ####
+
+Users with the appropriate role ("isis-module-togglz-admin" can access the Togglz console, which lists all features:
+
+![](https://raw.github.com/isisaddons/isis-module-togglz/master/images/030-togglz-console-list-all.png)
+
+Using the console, we can edit the feature:
+
+![](https://raw.github.com/isisaddons/isis-module-togglz/master/images/040-enable-feature.png)
+
+so it is now enabled:
+
+![](https://raw.github.com/isisaddons/isis-module-togglz/master/images/050-feature-enabled.png)
+
+#### Feature enabled ####
+
+Back in the demo app the feature ("findByName") is now visible:
+
+![](https://raw.github.com/isisaddons/isis-module-togglz/master/images/060-findByName-feature-enabled.png)
+
+#### Feature persistence ####
+
+The module uses Isis addons' [settings module](http://github.com/isisaddons/isis-module-settings) for feature persistence.  
+
+![](https://raw.github.com/isisaddons/isis-module-togglz/master/images/070-list-app-settings.png)
+
+Each feature's state is serialized to/from JSON:
+
+![](https://raw.github.com/isisaddons/isis-module-togglz/master/images/080-setting-created-for-feature.png)
 
 
 ## How to run the Demo App ##
 
 The prerequisite software is:
 
-* Java JDK 7 (nb: Isis currently does not support JDK 8)
+* Java JDK 8
 * [maven 3](http://maven.apache.org) (3.2.x is recommended).
 
 To build the demo app:
@@ -46,6 +78,58 @@ You can either use this module "out-of-the-box", or you can fork this repo and e
 
 To use "out-of-the-box":
 
+* update the classpath in your project's `dom` module `pom.xml` to reference the togglz library:
+
+<pre>
+    &lt;properties&gt;
+        &lt;togglz.version&gt;2.1.0.Final&lt;/togglz.version&gt;
+    &lt;/properties&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.togglz&lt;/groupId&gt;
+        &lt;artifactId&gt;togglz-core&lt;/artifactId&gt;
+        &lt;version&gt;${togglz.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+</pre>
+
+
+* as described in the [Togglz documentation](http://www.togglz.org/documentation/overview.html), create a "feature enum" class that enumerates your features.  This should extend from `org.togglz.core.Feature`.  
+
+  For example, the demo app's feature enum class is:
+
+<pre>
+  public enum TogglzDemoFeature implements org.togglz.core.Feature {
+    
+    @Label("Enable create")
+    @EnabledByDefault
+    create,
+
+    @Label("Enable findByName")
+    findByName,
+
+    @Label("Enable listAll")
+    @EnabledByDefault
+    listAll;
+
+    public boolean isActive() {
+      return FeatureContext.getFeatureManager().isActive(this);
+    }
+  }
+</pre>
+
+* use your feature class in your app as required.
+
+  For example, the demo app uses its feature enum to selectively hide actions of the `TogglzDemoObjects` domain service:
+
+<pre>
+  public class TogglzDemoObjects {
+    ...
+    public List<TogglzDemoObject> listAll() { ... }
+    public boolean hideListAll() {
+      return !TogglzDemoFeature.listAll.isActive();
+    }
+  }
+</pre>
+
 * update your classpath by adding this dependency in your project's `webapp` (*not* `dom` !) module's `pom.xml`:
 
 <pre>
@@ -54,20 +138,118 @@ To use "out-of-the-box":
         &lt;artifactId&gt;isis-module-togglz-glue&lt;/artifactId&gt;
         &lt;version&gt;1.9.0&lt;/version&gt;
     &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.isisaddons.module.security&lt;/groupId&gt;
+        &lt;artifactId&gt;isis-module-security-dom&lt;/artifactId&gt;
+        &lt;version&gt;${isis-module-security.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.isisaddons.module.settings&lt;/groupId&gt;
+        &lt;artifactId&gt;isis-module-settings-dom&lt;/artifactId&gt;
+        &lt;version&gt;${isis-module-settings.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+
 </pre>
 
-* update your `WEB-INF/isis.properties`:
+* in your project's `webapp` module, write a subclass of `TogglzModuleFeatureManagerProviderAbstract` (provided by this module) that registers your feature enum:
 
 <pre>
-    isis.services-installer=configuration-and-annotation
-    isis.services.ServicesInstallerFromAnnotation.packagePrefix=
-                    ...,\
-                    org.isisaddons.module.togglz.dom,\
-                    ...
+  public class CustomTogglzModuleFeatureManagerProvider extends TogglzModuleFeatureManagerProviderAbstract {
+    protected CustomTogglzModuleFeatureManagerProvider() {
+      super(TogglzDemoFeature.class);
+    }
+  }
 </pre>
 
+* in your project's `webapp` module, in `src/main/resources`, register the provider by creating a file `META-INF/services/org.togglz.core.spi.FeatureManagerProvider` whose contents is the fully qualified class name of your feature manager provider implementation.
+
+  For example, the demo app's file consists of:
+  
+<pre>
+  org.isisaddons.module.togglz.webapp.CustomTogglzModuleFeatureManagerProvider
+</pre>
+
+* in your project's `webapp` module, update your `WEB-INF/isis.properties`.
+
+  This module uses Isis Addons' [settings module](https://github.com/isisaddons/isis-module-settings) for feature persistence:
+
+<pre>
+  isis.services.ServicesInstallerFromAnnotation.packagePrefix=\
+                                ...\        
+                                org.isisaddons.module.settings,\
+                                ...
+</pre>
+
+* in your project's `webapp` module, update your `WEB-INF/web.xml`, after the Shiro configuration but before Isis' configuration (so that the filters are applied in the order Shiro -> Togglz -> Isis):
+
+<pre>
+    &lt;!-- bootstrap Togglz --&gt;
+    &lt;context-param&gt;
+        &lt;param-name&gt;org.togglz.FEATURE_MANAGER_PROVIDED&lt;/param-name&gt;
+        &lt;!-- prevent the filter from bootstrapping so is done lazily later once Isis has itself bootstrapped --&gt;
+        &lt;param-value&gt;true&lt;/param-value&gt;
+    &lt;/context-param&gt;
+
+    &lt;filter&gt;
+        &lt;filter-name&gt;TogglzFilter&lt;/filter-name&gt;
+        &lt;filter-class&gt;org.togglz.servlet.TogglzFilter&lt;/filter-class&gt;
+    &lt;/filter&gt;
+    &lt;filter-mapping&gt;
+        &lt;filter-name&gt;TogglzFilter&lt;/filter-name&gt;
+        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+    &lt;/filter-mapping&gt;
+</pre>
+
+* in your `integtests` module, update the `pom.xml` for togglz's JUnit support:
+
+<pre>
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.togglz&lt;/groupId&gt;
+        &lt;artifactId&gt;togglz-junit&lt;/artifactId&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+</pre>
+
+* also in your `integtests` module, make sure that the `TogglzRule` (documented [here](http://www.togglz.org/documentation/testing.html) on the togglz website)  is enabled for any tests that depend on features.
+
+  In the demo app, this means adding the following to `TogglzModuleIntegTest` base class:
+
+<pre>
+  @Rule
+  public TogglzRule togglzRule = TogglzRule.allEnabled(TogglzDemoFeature.class);
+</pre>
+
+* optional: if you want to install the Togglz console, then in your project's `webapp` module, update your `WEB-INF/web.xml`:
+
+<pre>
+    &lt;!-- enable the togglz console (for FeatureToggleService) --&gt;
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;TogglzConsoleServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;org.togglz.console.TogglzConsoleServlet&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;TogglzConsoleServlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/togglz/*&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+</pre>
+
+  The togglz console will be available at http://localhost:8080/togglz/index
+
+* if you have configured the Togglz console (above), then you'll also need to setup users to have `isis-module-togglz-admin` role.
+
+  The demo app uses simple Shiro-based configuration, which means updating the `WEB-INF/shiro.ini` file, eg:
+  
+<pre>
+  sven = pass, admin_role, isis-module-togglz-admin
+</pre>
+
+  If you are using some other security mechanism, eg Isis addons [security module](https://github.com/isisaddons/isis-module-security), then define a role with the same name and grant to users.
+
+
 Notes:
-* Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-togglz-dom)).
+* Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-togglz-glue)).
+* Make sure the `togglz.version` defined in your `dom` module matches the one used in the version of the `isis-module-togglz-glue` module (currently `2.1.0.Final`).
 
 #### "Out-of-the-box" (-SNAPSHOT) ####
 
@@ -101,6 +283,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
         &lt;/repositories&gt;
     &lt;/profile&gt;
 </pre>
+
 
 #### Forking the repo ####
 

@@ -26,8 +26,8 @@ import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
-import org.isisaddons.module.togglz.fixture.dom.TogglzDemoObject;
-import org.isisaddons.module.togglz.fixture.dom.TogglzDemoObjects;
+import org.isisaddons.module.togglz.fixture.dom.module.demo.TogglzDemoObject;
+import org.isisaddons.module.togglz.fixture.dom.module.demo.TogglzDemoObjects;
 import org.isisaddons.module.togglz.fixture.scripts.scenarios.TogglzDemoObjectsFixture;
 
 

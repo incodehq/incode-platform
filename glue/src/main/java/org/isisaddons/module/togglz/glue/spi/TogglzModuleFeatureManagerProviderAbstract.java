@@ -15,7 +15,7 @@ public abstract class TogglzModuleFeatureManagerProviderAbstract implements Feat
     protected static FeatureManager featureManager;
     protected final Class<? extends Feature>[] featureEnumClass;
 
-    protected TogglzModuleFeatureManagerProviderAbstract(
+    public TogglzModuleFeatureManagerProviderAbstract(
             final Class<? extends Feature> featureEnum,
             final Class<? extends Feature>... additionalFeatureEnum) {
 
