@@ -2,9 +2,11 @@
 
 [![Build Status](https://travis-ci.org/isisaddons/isis-module-togglz.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-togglz)
 
-This module, intended for use with [Apache Isis](http://isis.apache.org), provides ...
+This module, intended for use with [Apache Isis](http://isis.apache.org), provides an integration with [Togglz](http://www.togglz.org) to provide a [feature toggle](http://martinfowler.com/bliki/FeatureToggle.html) capability.  
 
-The module consists of ...
+Courtesy of Togglz, this integration has an embedded console and has support for integration testing through a custom JUnit rule.
+
+The module integrates both Togglz and uses Isis Addons' [settings module](http://github.com/isisaddons/isis-module-settings) for feature persistence.
 
 ## Screenshots ##
 
