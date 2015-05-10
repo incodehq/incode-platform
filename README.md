@@ -337,6 +337,7 @@ This service uses the Isis Addons' [settings module](http://github.com/isisaddon
 
 There are no third-party dependencies.
 
+
 ##  Maven deploy notes ##
 
 Only the `dom` module is deployed, and is done so using Sonatype's OSS support (see 
