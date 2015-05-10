@@ -18,6 +18,9 @@ package org.isisaddons.module.togglz.fixture.dom.module.demo;
 
 import java.util.List;
 
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
@@ -67,8 +70,9 @@ public class TogglzDemoObjects {
     )
     @MemberOrder(sequence = "2")
     public List<TogglzDemoObject> findByName(final String name) {
-        final QTogglzDemoObject q = QTogglzDemoObject.candidate();
-        return isisJdoSupport.executeQuery(TogglzDemoObject.class, q.name.indexOf(name).gt(0));
+        return Lists.newArrayList(
+                Iterables.filter(listAll(), o -> o.getName() != null && o.getName().contains(name))
+        );
     }
     public boolean hideFindByName() {
         return !TogglzDemoFeature.findByName.isActive();
