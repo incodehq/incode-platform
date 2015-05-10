@@ -53,7 +53,7 @@ Arbitrary charts can be returned from any action.  For example this action:
 
 The prerequisite software is:
 
-* Java JDK 7 (nb: Isis currently does not support JDK 8)
+* Java JDK 8 (>= 1.9.0) or Java JDK 7 (<= 1.8.0)
 * [maven 3](http://maven.apache.org) (3.2.x is recommended).
 
 To build the demo app:
