@@ -24,9 +24,14 @@ public class NamedFacetOnParameterParaname8Factory extends FacetFactoryAbstract 
         final Parameter parameter = parameters[paramNum];
         final String parameterName = parameter.getName();
 
-        String naturalName = StringExtensions.asNaturalName2(parameterName);
+        if (parameterName.matches("arg\\d+")){
+            // Use default when the parameter name isn't available
+            super.processParams(processParameterContext);
+        } else {
+            String naturalName = StringExtensions.asNaturalName2(parameterName);
+            FacetUtil.addFacet(create(naturalName, processParameterContext.getFacetHolder()));
+        }
 
-        FacetUtil.addFacet(create(naturalName, processParameterContext.getFacetHolder()));
     }
 
     private NamedFacet create(final String parameterName, final FacetHolder holder) {
