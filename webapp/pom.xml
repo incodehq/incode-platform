@@ -39,23 +39,6 @@ language governing permissions and limitations under the License.
                 <artifactId>maven-jetty-plugin</artifactId>
             </plugin>
 
-            <!-- mvn package -->
-            <plugin>
-                <groupId>org.simplericity.jettyconsole</groupId>
-                <artifactId>jetty-console-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>createconsole</goal>
-                        </goals>
-                        <configuration>
-                            <backgroundImage>${basedir}/src/main/jettyconsole/isis-banner.png</backgroundImage>
-                            <destinationFile>${project.build.directory}/${project.build.finalName}-jetty-console.jar</destinationFile>
-                        </configuration>
-                        <phase>package</phase>
-                    </execution>
-                </executions>
-            </plugin>
 
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -74,7 +57,7 @@ language governing permissions and limitations under the License.
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <warName>simple</warName>
+                    <!--<warName>simple</warName>-->
                     <archive>
                         <manifest>
                             <addClasspath>false</addClasspath>
@@ -244,7 +227,24 @@ language governing permissions and limitations under the License.
             <id>self-host</id>
             <build>
                 <plugins>
-                    <!-- 
+                    <!-- mvn package -->
+                    <plugin>
+                        <groupId>org.simplericity.jettyconsole</groupId>
+                        <artifactId>jetty-console-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>createconsole</goal>
+                                </goals>
+                                <configuration>
+                                    <backgroundImage>${basedir}/src/main/jettyconsole/isis-banner.png</backgroundImage>
+                                    <destinationFile>${project.build.directory}/${project.build.finalName}-jetty-console.jar</destinationFile>
+                                </configuration>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!--
                     mvn -P self-host antrun:run
                     -->
                     <plugin>
@@ -338,6 +338,174 @@ language governing permissions and limitations under the License.
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>tomee</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.openejb.maven</groupId>
+                        <artifactId>tomee-maven-plugin</artifactId>
+                        <version>1.7.1</version>
+                        <configuration>
+                            <tomeeVersion>1.7.1</tomeeVersion>
+                            <tomeeClassifier>plus</tomeeClassifier>
+
+                            <webapps>
+                                <webapp>org.isisaddons.module.publishmq:isis-module-publishmq-webapp:0.0.1-SNAPSHOT?name=ROOT</webapp>
+                            </webapps>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>activemq-camel</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+            <properties>
+                <camel.version>2.10.4</camel.version>
+                <slf4j.version>1.6.6</slf4j.version>
+
+                <cxf.version>2.7.3</cxf.version>
+                <cxf.xjc-utils.version>2.6.0</cxf.xjc-utils.version>
+            </properties>
+
+            <dependencyManagement>
+                <dependencies>
+
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-web</artifactId>
+                        <version>${camel.version}</version>
+                        <type>war</type>
+                        <scope>runtime</scope>
+                    </dependency>
+
+                    <!-- Dependencies for using ActiveMQ -->
+                    <dependency>
+                        <groupId>org.apache.activemq</groupId>
+                        <artifactId>activemq-camel</artifactId>
+                        <version>5.7.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.geronimo.specs</groupId>
+                        <artifactId>geronimo-jms_1.1_spec</artifactId>
+                        <version>1.1.1</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.xbean</groupId>
+                        <artifactId>xbean-spring</artifactId>
+                        <version>3.12</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-jms</artifactId>
+                        <version>${camel.version}</version>
+                    </dependency>
+
+                    <!-- Dependencies for stream processing in Camel http://camel.apache.org/stream.html -->
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-stream</artifactId>
+                        <version>${camel.version}</version>
+                    </dependency>
+
+                    <!-- Routing, Filtering, Transforming -->
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-ognl</artifactId>
+                        <version>${camel.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-jackson</artifactId>
+                        <version>${camel.version}</version>
+                    </dependency>
+
+
+                    <!-- CXF -->
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-cxf</artifactId>
+                        <version>${camel.version}</version>
+                    </dependency>
+
+                    <dependency>
+                        <groupId>org.apache.cxf</groupId>
+                        <artifactId>cxf-rt-frontend-jaxws</artifactId>
+                        <version>${cxf.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.cxf</groupId>
+                        <artifactId>cxf-rt-transports-http</artifactId>
+                        <version>${cxf.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.cxf</groupId>
+                        <artifactId>cxf-rt-transports-http-jetty</artifactId>
+                        <version>${cxf.version}</version>
+                    </dependency>
+
+                    <dependency>
+                        <groupId>org.apache.cxf.xjc-utils</groupId>
+                        <artifactId>cxf-xjc-runtime</artifactId>
+                        <version>${cxf.xjc-utils.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-web</artifactId>
+                        <version>3.0.7.RELEASE</version>
+                    </dependency>
+
+                </dependencies>
+            </dependencyManagement>
+
+            <dependencies>
+                <!-- Dependencies for using ActiveMQ -->
+                <dependency>
+                    <groupId>org.apache.activemq</groupId>
+                    <artifactId>activemq-camel</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.geronimo.specs</groupId>
+                    <artifactId>geronimo-jms_1.1_spec</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.xbean</groupId>
+                    <artifactId>xbean-spring</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-jms</artifactId>
+                </dependency>
+
+                <!-- Dependencies for stream processing in Camel http://camel.apache.org/stream.html -->
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-stream</artifactId>
+                </dependency>
+
+                <!-- Routing, Filtering, Transforming -->
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-ognl</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-jackson</artifactId>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-cxf</artifactId>
+                </dependency>
+
+            </dependencies>
+        </profile>
+
     </profiles>
 
 

@@ -19,10 +19,14 @@ package org.isisaddons.module.publishmq.fixture.dom;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Publishing;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.util.ObjectContracts;
 
@@ -59,6 +63,18 @@ public class PublishMqDemoObject implements Comparable<PublishMqDemoObject> {
     }
 
     //endregion
+
+    @Action(
+            semantics = SemanticsOf.IDEMPOTENT,
+            publishing = Publishing.ENABLED
+    )
+    public PublishMqDemoObject updateName(
+            @ParameterLayout(named="Name")
+            final String name) {
+        setName(name);
+        return this;
+    }
+
 
 
     //region > compareTo
