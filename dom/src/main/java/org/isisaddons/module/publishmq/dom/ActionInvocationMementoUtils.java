@@ -104,122 +104,79 @@ public class ActionInvocationMementoUtils {
 
     //endregion
 
-    //region > addArgReference
+    //region > addArgValue, addArgReference
     public static boolean addArgValue(final ActionInvocationMementoDto aim, final String parameterName, final Class<?> parameterType, final Object arg) {
+
+        ParamDto paramDto = null;
         if(parameterType == String.class) {
-            addArgValue(aim, parameterName, (String) arg);
+            paramDto = newParamDto(aim, parameterName, ParameterType.STRING, arg);
         } else
         if(parameterType == byte.class || parameterType == Byte.class) {
-            addArgValue(aim, parameterName, (Byte) arg);
+            paramDto = newParamDto(aim, parameterName, ParameterType.BYTE, arg);
         } else
         if(parameterType == short.class || parameterType == Short.class) {
-            addArgValue(aim, parameterName, (Short) arg);
+            paramDto = newParamDto(aim, parameterName, ParameterType.SHORT, arg);
         }else
         if(parameterType == int.class || parameterType == Integer.class) {
-            addArgValue(aim, parameterName, (Integer) arg);
+            paramDto = newParamDto(aim, parameterName, ParameterType.INT, arg);
         }else
         if(parameterType == long.class || parameterType == Long.class) {
-            addArgValue(aim, parameterName, (Long) arg);
+            paramDto = newParamDto(aim, parameterName, ParameterType.LONG, arg);
+        }else
+        if(parameterType == char.class || parameterType == Character.class) {
+            paramDto = newParamDto(aim, parameterName, ParameterType.CHAR, arg);
+        }else
+        if(parameterType == boolean.class || parameterType == Boolean.class) {
+            paramDto = newParamDto(aim, parameterName, ParameterType.BOOLEAN, arg);
         }else
         if(parameterType == float.class || parameterType == Float.class) {
-            addArgValue(aim, parameterName, (Float) arg);
+            paramDto = newParamDto(aim, parameterName, ParameterType.FLOAT, arg);
         }else
         if(parameterType == double.class || parameterType == Double.class) {
-            addArgValue(aim, parameterName, (Double) arg);
+            paramDto = newParamDto(aim, parameterName, ParameterType.DOUBLE, arg);
         }else
         if(parameterType == BigInteger.class) {
-            addArgValue(aim, parameterName, (BigInteger) arg);
+            paramDto = newParamDto(aim, parameterName, ParameterType.BIG_INTEGER, arg);
         }else
         if(parameterType == BigDecimal.class) {
-            addArgValue(aim, parameterName, (BigDecimal) arg);
+            paramDto = newParamDto(aim, parameterName, ParameterType.BIG_DECIMAL, arg);
         }else
         if(parameterType == DateTime.class) {
-            addArgValue(aim, parameterName, (DateTime) arg);
+            paramDto = newParamDto(aim, parameterName, ParameterType.JODA_DATE_TIME, arg);
         }else
         if(parameterType == LocalDateTime.class) {
-            addArgValue(aim, parameterName, (LocalDateTime) arg);
+            paramDto = newParamDto(aim, parameterName, ParameterType.JODA_LOCAL_DATE_TIME, arg);
         }else
         if(parameterType == LocalDate.class) {
-            addArgValue(aim, parameterName, (LocalDate) arg);
+            paramDto = newParamDto(aim, parameterName, ParameterType.JODA_LOCAL_DATE, arg);
         }else
         if(parameterType == LocalTime.class) {
-            addArgValue(aim, parameterName, (LocalTime) arg);
-        }else
-        {
-            // none of the supported value types
-            return false;
+            paramDto = newParamDto(aim, parameterName, ParameterType.JODA_LOCAL_TIME, arg);
         }
-        return true;
-    }
 
-
-    public static void addArgValue(final ActionInvocationMementoDto aim, final String parameterName, final String argValue) {
-        newParamDto(aim, parameterName, ParameterType.STRING, argValue).setString(argValue);
-    }
-
-    public static void addArgValue(final ActionInvocationMementoDto aim, final String parameterName, final Byte argValue) {
-        newParamDto(aim, parameterName, ParameterType.BYTE, argValue).setByte(argValue);
-    }
-
-    public static void addArgValue(final ActionInvocationMementoDto aim, final String parameterName, final Short argValue) {
-        newParamDto(aim, parameterName, ParameterType.SHORT, argValue).setShort(argValue);
-    }
-
-    public static void addArgValue(final ActionInvocationMementoDto aim, final String parameterName, final Integer argValue) {
-        newParamDto(aim, parameterName, ParameterType.INT, argValue).setInt(argValue);
-    }
-
-    public static void addArgValue(final ActionInvocationMementoDto aim, final String parameterName, final Long argValue) {
-        newParamDto(aim, parameterName, ParameterType.LONG, argValue).setLong(argValue);
-    }
-
-    public static void addArgValue(final ActionInvocationMementoDto aim, final String parameterName, final Float argValue) {
-        newParamDto(aim, parameterName, ParameterType.FLOAT, argValue).setFloat(argValue);
-    }
-
-    public static void addArgValue(final ActionInvocationMementoDto aim, final String parameterName, final Double argValue) {
-        newParamDto(aim, parameterName, ParameterType.DOUBLE, argValue).setDouble(argValue);
-    }
-
-    public static void addArgValue(final ActionInvocationMementoDto aim, final String parameterName, final Boolean argValue) {
-        newParamDto(aim, parameterName, ParameterType.BOOLEAN, argValue).setBoolean(argValue);
-    }
-
-    public static void addArgValue(final ActionInvocationMementoDto aim, final String parameterName, final Character argValue) {
-        final ParamDto paramDto = newParamDto(aim, parameterName, ParameterType.CHAR, argValue);
-        if(argValue != null) {
-            paramDto.setChar(argValue + "");
+        if(paramDto != null) {
+            final ValueDto valueDto = valueDtoFor(paramDto);
+            setValue(valueDto, parameterType, arg);
+            return true;
         }
+
+        // none of the supported value types
+        return false;
     }
 
-    public static void addArgValue(final ActionInvocationMementoDto aim, final String parameterName, final BigDecimal argValue) {
-        newParamDto(aim, parameterName, ParameterType.BIG_DECIMAL, argValue).setBigDecimal(argValue);
-    }
-
-    public static void addArgValue(final ActionInvocationMementoDto aim, final String parameterName, final BigInteger argValue) {
-        newParamDto(aim, parameterName, ParameterType.BIG_INTEGER, argValue).setBigInteger(argValue);
-    }
-
-    public static void addArgValue(final ActionInvocationMementoDto aim, final String parameterName, final DateTime argValue) {
-        newParamDto(aim, parameterName, ParameterType.JODA_DATE_TIME, argValue).setDateTime(JodaDateTimeXMLGregorianCalendarAdapter.print(argValue));
-    }
-
-    public static void addArgValue(final ActionInvocationMementoDto aim, final String parameterName, final LocalDate argValue) {
-        newParamDto(aim, parameterName, ParameterType.JODA_LOCAL_DATE, argValue).setLocalDate(JodaLocalDateXMLGregorianCalendarAdapter.print(argValue));
-    }
-
-    public static void addArgValue(final ActionInvocationMementoDto aim, final String parameterName, final LocalDateTime argValue) {
-        newParamDto(aim, parameterName, ParameterType.JODA_LOCAL_DATE_TIME, argValue).setLocalDateTime(JodaLocalDateTimeXMLGregorianCalendarAdapter.print(argValue));
-    }
-
-    public static void addArgValue(final ActionInvocationMementoDto aim, final String parameterName, final LocalTime argValue) {
-        newParamDto(aim, parameterName, ParameterType.JODA_LOCAL_TIME, argValue).setLocalTime(JodaLocalTimeXMLGregorianCalendarAdapter.print(argValue));
-    }
 
     public static void addArgReference(
             final ActionInvocationMementoDto aim,
             final String parameterName,
-            final Bookmark reference) {
+            final Bookmark bookmark) {
+        final ParamDto paramDto = newParamDto(aim, parameterName, ParameterType.REFERENCE, bookmark);
+        final ValueDto valueDto = valueDtoFor(paramDto);
+        OidDto argValue = asOidDto(bookmark);
+        valueDto.setReference(argValue);
+    }
+
+
+    private static OidDto asOidDto(final Bookmark reference) {
         OidDto argValue;
         if(reference != null) {
             argValue = new OidDto();
@@ -229,7 +186,7 @@ public class ActionInvocationMementoUtils {
         } else {
             argValue = null;
         }
-        newParamDto(aim, parameterName, ParameterType.REFERENCE, argValue).setReference(argValue);
+        return argValue;
     }
 
     private static BookmarkObjectState bookmarkObjectStateOf(final Bookmark reference) {
@@ -246,10 +203,20 @@ public class ActionInvocationMementoUtils {
             final String parameterName,
             final ParameterType parameterType, final Object value) {
         final ActionInvocationMementoDto.Payload.Parameters params = getParametersHolderAutoCreate(aim);
-        final ParamDto argDto = newParamDto(parameterName, parameterType);
-        argDto.setNull(value == null);
-        addArgValue(params, argDto);
-        return argDto;
+        final ParamDto paramDto = newParamDto(parameterName, parameterType);
+        paramDto.setNull(value == null);
+        addParamNum(params, paramDto);
+        return paramDto;
+    }
+
+    // lazily creates if required
+    private static ValueDto valueDtoFor(final ParamDto paramDto) {
+        ValueDto valueDto = paramDto.getValue();
+        if(valueDto == null) {
+            valueDto = new ValueDto();
+        }
+        paramDto.setValue(valueDto);
+        return valueDto;
     }
 
     private static ParamDto newParamDto(final String parameterName, final ParameterType parameterType) {
@@ -260,6 +227,26 @@ public class ActionInvocationMementoUtils {
     }
 
     //endregion
+
+    //region > addReturnValue, addReturnReference
+    public static boolean addReturnValue(
+            final ActionInvocationMementoDto aim,
+            final Class<?> returnType,
+            final Object returnVal) {
+        final ValueDto valueDto = returnValueDtoFor(aim);
+        return setValue(valueDto, returnType, returnVal);
+    }
+
+    public static void addReturnReference(final ActionInvocationMementoDto aim, final Bookmark bookmark) {
+        final ValueDto valueDto = returnValueDtoFor(aim);
+        OidDto argValue = asOidDto(bookmark);
+        valueDto.setReference(argValue);
+    }
+
+    //endregion
+
+
+
 
     //region > getNumberOfParameters, getParameters, getParameterNames, getParameterTypes
     public static int getNumberOfParameters(final ActionInvocationMementoDto aim) {
@@ -296,6 +283,13 @@ public class ActionInvocationMementoUtils {
         final List<ParamDto> parameters = getParameters(aim);
         return parameters.get(paramNum);
     }
+
+    public static ValueDto getParameterValue(final ActionInvocationMementoDto aim, final int paramNum) {
+        final ParamDto paramDto = getParameter(aim, paramNum);
+        return valueDtoFor(paramDto);
+    }
+
+
     public static String getParameterName(final ActionInvocationMementoDto aim, final int paramNum) {
         return PARAM_DTO_TO_NAME.apply(getParameter(aim, paramNum));
     }
@@ -314,41 +308,42 @@ public class ActionInvocationMementoUtils {
         if(paramDto.isNull()) {
             return null;
         }
+        final ValueDto valueDto = valueDtoFor(paramDto);
         switch(paramDto.getParameterType()) {
         case STRING:
-            return (T) paramDto.getString();
+            return (T) valueDto.getString();
         case BYTE:
-            return (T) paramDto.getByte();
+            return (T) valueDto.getByte();
         case SHORT:
-            return (T) paramDto.getShort();
+            return (T) valueDto.getShort();
         case INT:
-            return (T) paramDto.getInt();
+            return (T) valueDto.getInt();
         case LONG:
-            return (T) paramDto.getLong();
+            return (T) valueDto.getLong();
         case FLOAT:
-            return (T) paramDto.getFloat();
+            return (T) valueDto.getFloat();
         case DOUBLE:
-            return (T) paramDto.getDouble();
+            return (T) valueDto.getDouble();
         case BOOLEAN:
-            return (T) paramDto.isBoolean();
+            return (T) valueDto.isBoolean();
         case CHAR:
-            final String aChar = paramDto.getChar();
+            final String aChar = valueDto.getChar();
             if(Strings.isNullOrEmpty(aChar)) { return null; }
             return (T) (Object)aChar.charAt(0);
         case BIG_DECIMAL:
-            return (T) paramDto.getBigDecimal();
+            return (T) valueDto.getBigDecimal();
         case BIG_INTEGER:
-            return (T) paramDto.getBigInteger();
+            return (T) valueDto.getBigInteger();
         case JODA_DATE_TIME:
-            return (T) JodaDateTimeXMLGregorianCalendarAdapter.parse(paramDto.getDateTime());
+            return (T) JodaDateTimeXMLGregorianCalendarAdapter.parse(valueDto.getDateTime());
         case JODA_LOCAL_DATE:
-            return (T) JodaLocalDateXMLGregorianCalendarAdapter.parse(paramDto.getLocalDate());
+            return (T) JodaLocalDateXMLGregorianCalendarAdapter.parse(valueDto.getLocalDate());
         case JODA_LOCAL_DATE_TIME:
-            return (T) JodaLocalDateTimeXMLGregorianCalendarAdapter.parse(paramDto.getLocalDateTime());
+            return (T) JodaLocalDateTimeXMLGregorianCalendarAdapter.parse(valueDto.getLocalDateTime());
         case JODA_LOCAL_TIME:
-            return (T) JodaLocalTimeXMLGregorianCalendarAdapter.parse(paramDto.getLocalTime());
+            return (T) JodaLocalTimeXMLGregorianCalendarAdapter.parse(valueDto.getLocalTime());
         case REFERENCE:
-            return (T) paramDto.getReference();
+            return (T) valueDto.getReference();
         }
         throw new IllegalStateException("Parameter type was not recognised (possible bug)");
     }
@@ -390,7 +385,7 @@ public class ActionInvocationMementoUtils {
     //endregion
 
     //region > helpers
-    private static void addArgValue(final ActionInvocationMementoDto.Payload.Parameters params, final ParamDto arg) {
+    private static void addParamNum(final ActionInvocationMementoDto.Payload.Parameters params, final ParamDto arg) {
         params.getParam().add(arg);
         Integer num = params.getNum();
         if(num == null) {
@@ -418,6 +413,16 @@ public class ActionInvocationMementoUtils {
         return params;
     }
 
+    private static ValueDto returnValueDtoFor(final ActionInvocationMementoDto aim) {
+        final ActionInvocationMementoDto.Payload payload = getPayloadAutoCreate(aim);
+        ValueDto valueDto = payload.getReturn();
+        if(valueDto == null) {
+            valueDto = new ValueDto();
+            payload.setReturn(valueDto);
+        }
+        return valueDto;
+    }
+
     private static ActionInvocationMementoDto.Payload getPayloadAutoCreate(final ActionInvocationMementoDto aim) {
         ActionInvocationMementoDto.Payload payload = aim.getPayload();
         if(payload == null) {
@@ -443,8 +448,75 @@ public class ActionInvocationMementoUtils {
         );
     }
 
-    //endregion
 
+    private static boolean setValue(final ValueDto valueDto, final Class<?> type, final Object returnVal) {
+        if(type == String.class) {
+            final String argValue = (String) returnVal;
+            valueDto.setString(argValue);
+        } else
+        if(type == byte.class || type == Byte.class) {
+            final Byte argValue = (Byte) returnVal;
+            valueDto.setByte(argValue);
+        } else
+        if(type == short.class || type == Short.class) {
+            final Short argValue = (Short) returnVal;
+            valueDto.setShort(argValue);
+        }else
+        if(type == int.class || type == Integer.class) {
+            final Integer argValue = (Integer) returnVal;
+            valueDto.setInt(argValue);
+        }else
+        if(type == long.class || type == Long.class) {
+            final Long argValue = (Long) returnVal;
+            valueDto.setLong(argValue);
+        }else
+        if(type == char.class || type == Character.class) {
+            final Character argValue = (Character) returnVal;
+            valueDto.setChar("" + argValue);
+        }else
+        if(type == boolean.class || type == Boolean.class) {
+            final Boolean argValue = (Boolean) returnVal;
+            valueDto.setBoolean(argValue);
+        }else
+        if(type == float.class || type == Float.class) {
+            final Float argValue = (Float) returnVal;
+            valueDto.setFloat(argValue);
+        }else
+        if(type == double.class || type == Double.class) {
+            final Double argValue = (Double) returnVal;
+            valueDto.setDouble(argValue);
+        }else
+        if(type == BigInteger.class) {
+            final BigInteger argValue = (BigInteger) returnVal;
+            valueDto.setBigInteger(argValue);
+        }else
+        if(type == BigDecimal.class) {
+            final BigDecimal argValue = (BigDecimal) returnVal;
+            valueDto.setBigDecimal(argValue);
+        }else
+        if(type == DateTime.class) {
+            final DateTime argValue = (DateTime) returnVal;
+            valueDto.setDateTime(JodaDateTimeXMLGregorianCalendarAdapter.print(argValue));
+        }else
+        if(type == LocalDateTime.class) {
+            final LocalDateTime argValue = (LocalDateTime) returnVal;
+            valueDto.setLocalDateTime(JodaLocalDateTimeXMLGregorianCalendarAdapter.print(argValue));
+        }else
+        if(type == LocalDate.class) {
+            final LocalDate argValue = (LocalDate) returnVal;
+            valueDto.setLocalDate(JodaLocalDateXMLGregorianCalendarAdapter.print(argValue));
+        }else
+        if(type == LocalTime.class) {
+            final LocalTime argValue = (LocalTime) returnVal;
+            valueDto.setLocalTime(JodaLocalTimeXMLGregorianCalendarAdapter.print(argValue));
+        }else
+        {
+            // none of the supported value types
+            return false;
+        }
+        return true;
+    }
+    //endregion
 
 
 }

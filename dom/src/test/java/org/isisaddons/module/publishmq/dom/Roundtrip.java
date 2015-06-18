@@ -33,50 +33,50 @@ public class Roundtrip {
                 "com.mycompany.myapp.Customer", "placeOrder", "com.mycompany.myapp.Customer#placeOrder",
                 "CUS", "12345", "John Customer", "freddyUser");
 
-        ActionInvocationMementoUtils.addArgValue(aim, "aString", "Fred");
-        ActionInvocationMementoUtils.addArgValue(aim, "nullString", (String) null);
+        ActionInvocationMementoUtils.addArgValue(aim, "aString", String.class, "Fred");
+        ActionInvocationMementoUtils.addArgValue(aim, "nullString", String.class, (String) null);
 
-        ActionInvocationMementoUtils.addArgValue(aim, "aByte", (byte) 123);
-        ActionInvocationMementoUtils.addArgValue(aim, "nullByte", (Byte) null);
+        ActionInvocationMementoUtils.addArgValue(aim, "aByte", Byte.class, (Byte)(byte)123);
+        ActionInvocationMementoUtils.addArgValue(aim, "nullByte", Byte.class, (Byte) null);
 
-        ActionInvocationMementoUtils.addArgValue(aim, "aShort", (short) 32123);
-        ActionInvocationMementoUtils.addArgValue(aim, "nullShort", (Short) null);
+        ActionInvocationMementoUtils.addArgValue(aim, "aShort", Short.class, (Short)(short)32123);
+        ActionInvocationMementoUtils.addArgValue(aim, "nullShort", Short.class, (Short) null);
 
-        ActionInvocationMementoUtils.addArgValue(aim, "anInt", 123454321);
-        ActionInvocationMementoUtils.addArgValue(aim, "nullInt", (Integer) null);
+        ActionInvocationMementoUtils.addArgValue(aim, "anInt", Integer.class, 123454321);
+        ActionInvocationMementoUtils.addArgValue(aim, "nullInt", Integer.class, (Integer) null);
 
-        ActionInvocationMementoUtils.addArgValue(aim, "aLong", 1234567654321L);
-        ActionInvocationMementoUtils.addArgValue(aim, "nullLong", (Long) null);
+        ActionInvocationMementoUtils.addArgValue(aim, "aLong", Long.class, 1234567654321L);
+        ActionInvocationMementoUtils.addArgValue(aim, "nullLong", Long.class, (Long) null);
 
-        ActionInvocationMementoUtils.addArgValue(aim, "aFloat", 12345.6789F);
-        ActionInvocationMementoUtils.addArgValue(aim, "nullFloat", (Float) null);
+        ActionInvocationMementoUtils.addArgValue(aim, "aFloat", Float.class, 12345.6789F);
+        ActionInvocationMementoUtils.addArgValue(aim, "nullFloat", Float.class, (Float) null);
 
-        ActionInvocationMementoUtils.addArgValue(aim, "aDouble", 12345678.90123);
-        ActionInvocationMementoUtils.addArgValue(aim, "nullDouble", (Double) null);
+        ActionInvocationMementoUtils.addArgValue(aim, "aDouble", Double.class, 12345678.90123);
+        ActionInvocationMementoUtils.addArgValue(aim, "nullDouble", Double.class, (Double) null);
 
-        ActionInvocationMementoUtils.addArgValue(aim, "aBoolean", true);
-        ActionInvocationMementoUtils.addArgValue(aim, "nullBoolean", (Boolean) null);
+        ActionInvocationMementoUtils.addArgValue(aim, "aBoolean", Boolean.class, true);
+        ActionInvocationMementoUtils.addArgValue(aim, "nullBoolean", Boolean.class, (Boolean) null);
 
-        ActionInvocationMementoUtils.addArgValue(aim, "aChar", 'x');
-        ActionInvocationMementoUtils.addArgValue(aim, "nullChar", (Character) null);
+        ActionInvocationMementoUtils.addArgValue(aim, "aChar", Character.class, 'x');
+        ActionInvocationMementoUtils.addArgValue(aim, "nullChar", Character.class, (Character) null);
 
-        ActionInvocationMementoUtils.addArgValue(aim, "aBigInteger", new java.math.BigInteger("12345678901234567890"));
-        ActionInvocationMementoUtils.addArgValue(aim, "nullBigInteger", (java.math.BigInteger) null);
+        ActionInvocationMementoUtils.addArgValue(aim, "aBigInteger", java.math.BigInteger.class, new java.math.BigInteger("12345678901234567890"));
+        ActionInvocationMementoUtils.addArgValue(aim, "nullBigInteger", java.math.BigInteger.class, (java.math.BigInteger) null);
 
-        ActionInvocationMementoUtils.addArgValue(aim, "aBigDecimal", new java.math.BigDecimal("12345678901234567890"));
-        ActionInvocationMementoUtils.addArgValue(aim, "nullBigDecimal", (java.math.BigDecimal) null);
+        ActionInvocationMementoUtils.addArgValue(aim, "aBigDecimal", java.math.BigDecimal.class, new java.math.BigDecimal("12345678901234567890"));
+        ActionInvocationMementoUtils.addArgValue(aim, "nullBigDecimal", java.math.BigDecimal.class, (java.math.BigDecimal) null);
 
-        ActionInvocationMementoUtils.addArgValue(aim, "aJodaDateTime", new org.joda.time.DateTime(2015, 5, 23, 9, 54, 1));
-        ActionInvocationMementoUtils.addArgValue(aim, "nullJodaDateTime", (org.joda.time.DateTime) null);
+        ActionInvocationMementoUtils.addArgValue(aim, "aJodaDateTime", org.joda.time.DateTime.class, new org.joda.time.DateTime(2015, 5, 23, 9, 54, 1));
+        ActionInvocationMementoUtils.addArgValue(aim, "nullJodaDateTime", org.joda.time.DateTime.class, (org.joda.time.DateTime) null);
 
-        ActionInvocationMementoUtils.addArgValue(aim, "aJodaLocalDate", new org.joda.time.LocalDate(2015, 5, 23));
-        ActionInvocationMementoUtils.addArgValue(aim, "nullJodaLocalDate", (org.joda.time.LocalDate) null);
+        ActionInvocationMementoUtils.addArgValue(aim, "aJodaLocalDate", org.joda.time.LocalDate.class, new org.joda.time.LocalDate(2015, 5, 23));
+        ActionInvocationMementoUtils.addArgValue(aim, "nullJodaLocalDate", org.joda.time.LocalDate.class, (org.joda.time.LocalDate) null);
 
-        ActionInvocationMementoUtils.addArgValue(aim, "aJodaLocalDateTime", new org.joda.time.LocalDateTime(2015, 5, 23, 9, 54, 1));
-        ActionInvocationMementoUtils.addArgValue(aim, "nullJodaLocalDateTime", (org.joda.time.LocalDateTime) null);
+        ActionInvocationMementoUtils.addArgValue(aim, "aJodaLocalDateTime", org.joda.time.LocalDateTime.class,  new org.joda.time.LocalDateTime(2015, 5, 23, 9, 54, 1));
+        ActionInvocationMementoUtils.addArgValue(aim, "nullJodaLocalDateTime", org.joda.time.LocalDateTime.class, (org.joda.time.LocalDateTime) null);
 
-        ActionInvocationMementoUtils.addArgValue(aim, "aJodaLocalTime", new org.joda.time.LocalTime(9, 54, 1));
-        ActionInvocationMementoUtils.addArgValue(aim, "nullJodaLocalTime", (org.joda.time.LocalTime) null);
+        ActionInvocationMementoUtils.addArgValue(aim, "aJodaLocalTime", org.joda.time.LocalTime.class,  new org.joda.time.LocalTime(9, 54, 1));
+        ActionInvocationMementoUtils.addArgValue(aim, "nullJodaLocalTime", org.joda.time.LocalTime.class, (org.joda.time.LocalTime) null);
 
         ActionInvocationMementoUtils.addArgReference(aim, "aReference", new Bookmark("ORD", "12345"));
         ActionInvocationMementoUtils.addArgReference(aim, "nullReference", null);
