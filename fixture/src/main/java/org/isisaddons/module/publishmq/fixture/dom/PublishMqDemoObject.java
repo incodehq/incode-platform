@@ -40,7 +40,7 @@ import org.apache.isis.applib.util.ObjectContracts;
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
 @DomainObject(
-        objectType = "XXX_DEMO_OBJECT"
+        objectType = "PUBLISH_MQ_DEMO_OBJECT"
 )
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
@@ -64,6 +64,7 @@ public class PublishMqDemoObject implements Comparable<PublishMqDemoObject> {
 
     //endregion
 
+    //region > updateName (action)
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
             publishing = Publishing.ENABLED
@@ -74,8 +75,10 @@ public class PublishMqDemoObject implements Comparable<PublishMqDemoObject> {
         setName(name);
         return this;
     }
-
-
+    public String default0UpdateName() {
+        return getName();
+    }
+    //endregion
 
     //region > compareTo
 

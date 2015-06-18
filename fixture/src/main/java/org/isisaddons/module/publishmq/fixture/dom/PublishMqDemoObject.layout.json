@@ -21,7 +21,15 @@
       "memberGroups": {
         "General": {
           "members": {
-            "name": {}
+            "name": {
+              "actions": {
+                "updateName": {
+                  "actionLayout": {
+                    "name": "update"
+                  }
+                }
+              }
+            }
           }
         }
       }

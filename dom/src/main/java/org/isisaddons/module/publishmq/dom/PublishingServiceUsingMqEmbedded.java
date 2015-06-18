@@ -12,16 +12,16 @@ import javax.jms.ConnectionFactory;
 import javax.jms.DeliveryMode;
 import javax.jms.Destination;
 import javax.jms.JMSException;
+import javax.jms.MessageConsumer;
+import javax.jms.MessageListener;
 import javax.jms.MessageProducer;
+import javax.jms.Queue;
 import javax.jms.Session;
 import javax.jms.TextMessage;
-import javax.naming.InitialContext;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.activemq.broker.BrokerPlugin;
 import org.apache.activemq.broker.BrokerService;
 import org.apache.activemq.broker.TransportConnector;
-import org.apache.activemq.security.JaasAuthenticationPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,112 +49,88 @@ public class PublishingServiceUsingMqEmbedded implements PublishingService {
 
     private static final String ROOT = PublishMqModule.class.getPackage().getName() + ".";
 
-    private static final String JAVA_NAMING_FACTORY_INITIAL = "java.naming.factory.initial";
-    private static final String JAVA_NAMING_PROVIDER_URL = "java.naming.provider.url";
 
-    private final static String NAMING_FACTORY = ROOT + JAVA_NAMING_FACTORY_INITIAL;
-    private final static String PROVIDER_URL = ROOT + JAVA_NAMING_PROVIDER_URL;
-    
-    private static final String CONNECTION_FACTORY = ROOT + "connectionFactory";
-    private static final String CONNECTION_FACTORY_DEFAULT = "ConnectionFactory";
-    
-    private final static String QUEUE = ROOT + "queue";
-    private final static String QUEUE_DEFAULT = "queue";
+    public static final String KEY_BROKER = "isis.services." + PublishingServiceUsingMqEmbedded.class.getSimpleName() + ".broker";
+    public static final String KEY_BROKER_DEFAULT = "broker";
 
+    public static final String KEY_QUEUE = "isis.services." + PublishingServiceUsingMqEmbedded.class.getSimpleName() + ".queue";
+    public static final String KEY_QUEUE_DEFAULT = "queue";
 
-    private InitialContext jndiContext;
-    
+    /**
+     * eg "http://localhost:8161"
+     */
+    public static final String KEY_TRANSPORT_URI = "isis.services." + PublishingServiceUsingMqEmbedded.class.getSimpleName() + ".transportUri";
+    public static final String KEY_TRANSPORT_VM_OPTIONS_DEFAULT = "?marshal=false&create=false&waitForStart=3000";
+
+    private BrokerService broker;
     private ConnectionFactory jmsConnectionFactory;
     private Connection jmsConnection;
 
+    private static boolean transacted = true;
+
+    private String queueName;
+    private String brokerName;
+
+    // unused.
     private EventSerializer eventSerializer;
+    private String vmTransportUrl;
+    private String transportUri;
 
-    private String queue;
-
-    private boolean transacted = true;
-    
     @Programmatic
     @PostConstruct
     public void init(Map<String,String> properties) {
-        
-//        final String namingFactory = properties.get(NAMING_FACTORY);
-//        if (namingFactory == null) {
-//            LOG.info("Naming factory not configured, skipping");
-//        }
-//        final String providerUrl = properties.get(PROVIDER_URL);
-//        if (providerUrl == null) {
-//            LOG.info("Provider URL not configured, skipping");
-//        }
-//        String connectionFactory = properties.get(CONNECTION_FACTORY);
-//        if (connectionFactory == null) {
-//            LOG.info("Provider URL not configured, using default");
-//            connectionFactory = CONNECTION_FACTORY_DEFAULT;
-//        }
-//        queue = properties.get(QUEUE);
-//        if(queue == null) {
-//            LOG.info("Queue name not configured, using default");
-//            queue = QUEUE_DEFAULT;
-//        }
-//
-//        LOG.info("Naming factory    : " + namingFactory);
-//        LOG.info("Provider URL      : " + providerUrl);
-//        LOG.info("Connection factory: " + connectionFactory);
-//        LOG.info("Queue             : " + queue);
-//
-//        Hashtable<String, String> ctxProps = new Hashtable<String, String>();
-//        if (namingFactory != null) {
-//            ctxProps.put(JAVA_NAMING_FACTORY_INITIAL, namingFactory);
-//        }
-//        if (providerUrl != null) {
-//            ctxProps.put(JAVA_NAMING_PROVIDER_URL, providerUrl);
-//        }
-//
-//        try {
-//            jndiContext = new InitialContext(ctxProps);
-//        } catch (NamingException e) {
-//            LOG.error(e.getExplanation());
-//            return;
-//        }
-//        try {
-//            jmsConnectionFactory = (ConnectionFactory) jndiContext.lookup(connectionFactory);
-//        } catch (NamingException e) {
-//            LOG.error(e.getExplanation(), e);
-//            return;
-//        }
-//        LOG.info("Successfully looked up '" + connectionFactory + "'");
 
-        BrokerService broker = new BrokerService();
-        broker.setBrokerName("fred");
-        broker.setUseShutdownHook(false);
+        brokerName = properties.getOrDefault(KEY_BROKER, KEY_BROKER_DEFAULT);
+        queueName = properties.getOrDefault(KEY_QUEUE, KEY_QUEUE_DEFAULT);
+        transportUri = properties.getOrDefault(KEY_TRANSPORT_URI, null);
+
+        // see http://activemq.apache.org/vm-transport-reference.html
+        vmTransportUrl = "vm://" + brokerName + KEY_TRANSPORT_VM_OPTIONS_DEFAULT;
+
+        broker = new BrokerService();
+        broker.setBrokerName(brokerName);
+        broker.setUseShutdownHook(true);
+        broker.setPersistent(false);
+
         //Add plugin
-        broker.setPlugins(new BrokerPlugin[]{new JaasAuthenticationPlugin()});
-        //Add a network connection
+        //broker.setPlugins(new BrokerPlugin[]{new JaasAuthenticationPlugin()});
+
+        //Add a network connection (for external clients to connect)
+        if(transportUri != null) {
+            try {
+                TransportConnector connector = new TransportConnector();
+                connector.setUri(new URI(transportUri));
+                broker.addConnector(connector);
+            } catch (Exception e) {
+                LOG.error("Unable to add transport connector", e);
+                throw new RuntimeException(e);
+            }
+        }
 
         try {
-            TransportConnector connector = new TransportConnector();
-            connector.setUri(new URI("tcp://localhost:61616"));
-            broker.addConnector(connector);
             broker.start();
-
         } catch (Exception e) {
+            LOG.error("Unable to start broker", e);
             throw new RuntimeException(e);
         }
 
-        ActiveMQConnectionFactory jmsConnectionFactory = new ActiveMQConnectionFactory("vm://localhost?broker.persistent=false");
-
+        jmsConnectionFactory = new ActiveMQConnectionFactory(vmTransportUrl);
         try {
             jmsConnection = jmsConnectionFactory.createConnection();
         } catch (JMSException e) {
             LOG.error("Unable to create connection", e);
-            return;
+            throw new RuntimeException(e);
         }
-        
+
         try {
             jmsConnection.start();
         } catch (JMSException e) {
             LOG.error("Unable to start connection", e);
             closeSafely(jmsConnection);
             jmsConnection = null;
+
+            stopSafely(broker);
+            throw new RuntimeException(e);
         }
     }
 
@@ -162,12 +138,12 @@ public class PublishingServiceUsingMqEmbedded implements PublishingService {
     @PreDestroy
     public void shutdown() {
         closeSafely(jmsConnection);
+        stopSafely(broker);
     }
 
 
     @Programmatic
     public void publish(final EventMetadata metadata, final EventPayload payload) {
-        //String message = eventSerializer.serialize(metadata, payload).toString();
 
         if(payload instanceof EventPayloadForActionInvocation) {
             publishActionInvocation(metadata, (EventPayloadForActionInvocation) payload);
@@ -201,6 +177,7 @@ public class PublishingServiceUsingMqEmbedded implements PublishingService {
 
         final List<String> parameterNames = metadata.getActionParameterNames();
         final List<Class<?>> parameterTypes = metadata.getActionParameterTypes();
+        final Class<?> returnType = metadata.getActionReturnType();
         final List<Object> arguments = payload.getArguments();
         for (int paramNum = 0; paramNum < parameterNames.size(); paramNum++) {
             final String parameterName = parameterNames.get(paramNum);
@@ -210,8 +187,16 @@ public class PublishingServiceUsingMqEmbedded implements PublishingService {
                 ActionInvocationMementoUtils.addArgReference(aim, parameterName, bookmarkService.bookmarkFor(arg));
             }
         }
+        final Object result = payload.getResult();
+        if(result != null) {
+            metadata.getActionParameterTypes();
+        }
+        if(!ActionInvocationMementoUtils.addReturnValue(aim, returnType, result)) {
+            ActionInvocationMementoUtils.addReturnReference(aim, bookmarkService.bookmarkFor(result));
+        }
+
         final String xml = ActionInvocationMementoUtils.toXml(aim);
-        publishMessage(xml);
+        publish(xml, metadata);
     }
 
     private void publishObjectChanged(
@@ -220,37 +205,30 @@ public class PublishingServiceUsingMqEmbedded implements PublishingService {
         // currently a no-op
     }
 
-    @Programmatic
-    void publishMessage(
-            final String messageStr) {
-        if(jmsConnection == null) {
-            throw new ApplicationException("Unable to publish (init failed, no JMS connection)");
-        }
-
-        publish(messageStr, null);
+    private void publish(final String messageStr, final EventMetadata metadata) {
+        publishTextMessage(messageStr, metadata != null ? metadata.getId() : null);
     }
 
-    private void publish(final String messageStr, final EventMetadata metadata) {
+    void publishTextMessage(final String textMessage, final String messageId) {
         Session session = null;
         try {
             // TODO: hacking...
-//            session = jmsConnection.createSession(transacted, Session.SESSION_TRANSACTED);
-            session = jmsConnection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            Destination destination = session.createQueue(queue);
-    
+            session = jmsConnection.createSession(transacted, Session.SESSION_TRANSACTED);
+            Destination destination = session.createQueue(queueName);
+
             MessageProducer producer = session.createProducer(destination);
             producer.setDeliveryMode(DeliveryMode.PERSISTENT);
-            
-            TextMessage message = session.createTextMessage(messageStr);
-            if(metadata != null) {
-                message.setJMSMessageID(metadata.getId());
+
+            TextMessage message = session.createTextMessage(textMessage);
+            if(messageId != null) {
+                message.setJMSMessageID(messageId);
             }
-    
-            LOG.info("Sent message: "+ message.hashCode());
+
+            LOG.info("Sent message id:" + messageId);
             producer.send(message);
-            
+
             session.commit();
-    
+
         } catch (JMSException e) {
             rollback(session);
             throw new ApplicationException("Failed to publish message", e);
@@ -272,9 +250,94 @@ public class PublishingServiceUsingMqEmbedded implements PublishingService {
     }
 
     ///////////////////////////////////////////////////
+    //
+    ///////////////////////////////////////////////////
+
+
+    public static interface Handle {
+        public void close();
+    }
+
+    static class CSQC implements Handle {
+        private final Connection connection;
+        private final Session session;
+        private final Queue queue;
+        private final MessageConsumer messageConsumer;
+
+        public CSQC(final Connection connection, final Session session, final Queue queue, final MessageConsumer messageConsumer) {
+            this.connection = connection;
+            this.session = session;
+            this.queue = queue;
+            this.messageConsumer = messageConsumer;
+        }
+
+        public Connection getConnection() {
+            return connection;
+        }
+
+        public Session getSession() {
+            return session;
+        }
+
+        public Queue getQueue() {
+            return queue;
+        }
+
+        public MessageConsumer getMessageConsumer() {
+            return messageConsumer;
+        }
+
+        public void close() {
+            if(getMessageConsumer() != null) {
+                try {
+                    getMessageConsumer().close();
+                } catch (JMSException e) {
+                }
+            }
+            if(getSession() != null) {
+                try {
+                    getSession().close();
+                } catch (JMSException e) {
+                }
+            }
+            if(getConnection() != null) {
+                try {
+                    getConnection().close();
+                } catch (JMSException e) {
+                }
+            }
+        }
+    }
+
+    /**
+     * not API
+     */
+    @Programmatic
+    public Handle listen(final MessageListener messageListener) throws JMSException {
+
+        // TODO: experimenting
+
+        final Connection connection = jmsConnectionFactory.createConnection();
+
+        final Session session = jmsConnection.createSession(transacted, Session.SESSION_TRANSACTED);
+        Queue queue = session.createQueue(queueName);
+
+        final MessageConsumer consumer = session.createConsumer(queue);
+        consumer.setMessageListener(messageListener);
+
+        return new CSQC(connection, session, queue, consumer);
+    }
+
+    public void unlisten(final Handle handle) {
+        handle.close();
+    }
+
+
+
+    ///////////////////////////////////////////////////
     // Helper
     ///////////////////////////////////////////////////
-    
+
     private static void closeSafely(Connection connection) {
         if(connection != null) {
             try {
@@ -284,7 +347,7 @@ public class PublishingServiceUsingMqEmbedded implements PublishingService {
             }
         }
     }
-    
+
     private static void closeSafely(Session session) {
         try {
             session.close();
@@ -293,12 +356,22 @@ public class PublishingServiceUsingMqEmbedded implements PublishingService {
         }
     }
 
-    
+    private static void stopSafely(final BrokerService broker) {
+        if(broker==null) {
+            return;
+        }
+        try {
+            broker.stop();
+        } catch (Exception ignore) {
+        }
+    }
+
+
     ///////////////////////////////////////////////////
     // Dependencies
     ///////////////////////////////////////////////////
 
-    
+
     @Hidden
     public void setEventSerializer(EventSerializer eventSerializer) {
         this.eventSerializer = eventSerializer;

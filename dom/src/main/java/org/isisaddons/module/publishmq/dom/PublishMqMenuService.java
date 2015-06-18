@@ -33,8 +33,10 @@ public class PublishMqMenuService {
     )
     public void publishMessage(
             @ParameterLayout(named="Message")
-            final String messageStr) {
-        publishingServiceUsingActiveMqRa.publishMessage(messageStr);
+            final String messageStr,
+            @ParameterLayout(named="Message Id")
+            final String messageId) {
+        publishingServiceUsingActiveMqRa.publishTextMessage(messageStr, messageId);
     }
 
 }
