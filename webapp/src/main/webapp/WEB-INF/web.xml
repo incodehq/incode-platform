@@ -24,15 +24,21 @@ Copyright 2014~2015 Dan Haywood
         <welcome-file>about/index.html</welcome-file>
     </welcome-file-list>
 
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 
     <context-param>
-        <param-name>brokerURI</param-name>
-        <param-value>/WEB-INF/activemq.xml</param-value>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:activemq.xml
+        </param-value>
+        <!--<param-value>-->
+        <!--classpath:activemq.xml,-->
+        <!--classpath:camel-config.xml-->
+        <!--</param-value>-->
     </context-param>
 
-    <listener>
-        <listener-class>org.apache.activemq.web.SpringBrokerContextListener</listener-class>
-    </listener>
 
     <servlet>
         <servlet-name>jolokia-agent</servlet-name>

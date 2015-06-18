@@ -105,6 +105,7 @@ public class DemoSubscriber implements MessageListener {
             received.add(messageViewModel);
             messageViewModel.setCorrelationId(message.getJMSMessageID());
             messageViewModel.setXml(((TextMessage)message).getText());
+            message.acknowledge();
         } catch (JMSException e) {
             // TODO: log this; anything else?
         }
