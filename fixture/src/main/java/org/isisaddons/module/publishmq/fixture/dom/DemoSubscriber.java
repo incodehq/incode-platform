@@ -48,46 +48,43 @@ import org.isisaddons.module.publishmq.dom.PublishingServiceUsingMqEmbedded;
 public class DemoSubscriber implements MessageListener {
 
 
-
     private PublishingServiceUsingMqEmbedded.Handle handle;
 
 
     @Action(semantics = SemanticsOf.IDEMPOTENT)
     @MemberOrder(sequence = "1")
-    public void listen() {
+    public void subscribe() {
         try {
-            handle = publishingService.listen(this);
+            handle = publishingService.subscribe(this);
         } catch (JMSException e) {
             e.printStackTrace();
         }
     }
 
-    public String disableListen() {
-        return handle != null? "Already listening": null;
+    public String disableSubscribe() {
+        return handle != null? "Already subscribed": null;
     }
 
 
     @Action(semantics = SemanticsOf.IDEMPOTENT)
     @MemberOrder(sequence = "2")
-    public void unlisten() {
-        publishingService.unlisten(handle);
+    public void unsubscribe() {
+        publishingService.unsubscribe(handle);
     }
 
-    public String disableUnlisten() {
-        return handle == null? "Not yet listening": null;
+    public String disableUnsubscribe() {
+        return handle == null? "Not yet subscribed": null;
     }
 
 
 
     private List<MessageViewModel> received = Lists.newArrayList();
 
-
     @Action(semantics = SemanticsOf.SAFE)
     @MemberOrder(sequence = "3")
     public List<MessageViewModel> received() {
         return received;
     }
-
 
 
     @Action(semantics = SemanticsOf.IDEMPOTENT)

@@ -24,6 +24,39 @@ Copyright 2014~2015 Dan Haywood
         <welcome-file>about/index.html</welcome-file>
     </welcome-file-list>
 
+
+    <context-param>
+        <param-name>brokerURI</param-name>
+        <param-value>/WEB-INF/activemq.xml</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>org.apache.activemq.web.SpringBrokerContextListener</listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>jolokia-agent</servlet-name>
+        <servlet-class>org.jolokia.http.AgentServlet</servlet-class>
+        <init-param>
+            <param-name>discoveryEnabled</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <init-param>
+            <param-name>agentDescription</param-name>
+            <param-value>Apache ActiveMQ</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>jolokia-agent</servlet-name>
+        <!-- using same convention as standalone ActiveMQ -->
+        <url-pattern>/api/jolokia/*</url-pattern>
+    </servlet-mapping>
+
+
+
+
     <!-- shiro security configuration -->
     <listener>
         <listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
