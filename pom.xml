@@ -215,7 +215,6 @@ language governing permissions and limitations under the License.
                 <plugin>
                     <groupId>org.simplericity.jettyconsole</groupId>
                     <artifactId>jetty-console-maven-plugin</artifactId>
-                    <!-- update to 1.54 reversed,since seems compiled against 1.7 (major.minor version 51.0) -->
                     <version>1.56</version>
                 </plugin>
 
@@ -362,6 +361,16 @@ language governing permissions and limitations under the License.
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
+                <artifactId>isis-module-publishmq-soapsubscriber</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>isis-module-publishmq-soapsubscriberfakeserver</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-publishmq-webapp</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
@@ -373,11 +382,60 @@ language governing permissions and limitations under the License.
                 <scope>test</scope>
             </dependency>
 
+
         </dependencies>
     </dependencyManagement>
 
 
     <profiles>
+
+        <profile>
+            <id>soapsubscriber</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+            <properties>
+                <cxf.version>2.7.3</cxf.version>
+                <cxf.xjc-utils.version>2.6.0</cxf.xjc-utils.version>
+            </properties>
+
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.cxf</groupId>
+                        <artifactId>cxf-rt-frontend-jaxws</artifactId>
+                        <version>${cxf.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.cxf</groupId>
+                        <artifactId>cxf-rt-transports-http</artifactId>
+                        <version>${cxf.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.cxf</groupId>
+                        <artifactId>cxf-rt-transports-http-jetty</artifactId>
+                        <version>${cxf.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.cxf.xjc-utils</groupId>
+                        <artifactId>cxf-xjc-runtime</artifactId>
+                        <version>${cxf.xjc-utils.version}</version>
+                    </dependency>
+
+
+                    <dependency>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-web</artifactId>
+                        <version>4.1.6.RELEASE</version>
+                    </dependency>
+
+                </dependencies>
+
+
+            </dependencyManagement>
+        </profile>
+
         <profile>
             <id>cloudbees-snapshots</id>
             <activation>
@@ -412,6 +470,8 @@ language governing permissions and limitations under the License.
     <modules>
         <module>dom</module>
         <module>fixture</module>
+        <module>soapsubscriber</module>
+        <module>soapsubscriberfakeserver</module>
         <module>integtests</module>
         <module>webapp</module>
     </modules>

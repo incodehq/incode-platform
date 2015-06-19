@@ -25,9 +25,28 @@
               "actions": {
                 "updateName": {
                   "actionLayout": {
-                    "name": "update"
+                    "named": "update"
                   }
                 }
+              }
+            },
+            "description": {
+              "actions": {
+                "updateDescription": {
+                  "actionLayout": {
+                    "named": "update"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Misc": {
+          "members": {
+            "versionSequence": {
+              "propertyLayout": {
+                  "named": "version",
+                  "hidden": "ALL_TABLES"
               }
             }
           }

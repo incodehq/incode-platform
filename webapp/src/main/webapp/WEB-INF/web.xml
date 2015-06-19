@@ -31,12 +31,9 @@ Copyright 2014~2015 Dan Haywood
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            classpath:activemq.xml
+        classpath:activemq.xml,
+        classpath:camel-config.xml
         </param-value>
-        <!--<param-value>-->
-        <!--classpath:activemq.xml,-->
-        <!--classpath:camel-config.xml-->
-        <!--</param-value>-->
     </context-param>
 
 

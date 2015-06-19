@@ -24,8 +24,7 @@
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <!--<value>file:${activemq.conf}/credentials-UNUSED.properties</value>-->
-                <value>classpath:activemq-configuration.properties</value>
+                <value>classpath:activemq.properties</value>
             </list>
         </property>
     </bean>

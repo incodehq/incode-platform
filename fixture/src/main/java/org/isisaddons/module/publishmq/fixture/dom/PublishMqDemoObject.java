@@ -16,6 +16,7 @@
  */
 package org.isisaddons.module.publishmq.fixture.dom;
 
+import javax.jdo.JDOHelper;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 import org.apache.isis.applib.DomainObjectContainer;
@@ -77,6 +78,44 @@ public class PublishMqDemoObject implements Comparable<PublishMqDemoObject> {
     }
     public String default0UpdateName() {
         return getName();
+    }
+    //endregion
+
+    //region > description (property)
+
+    private String description;
+
+    @javax.jdo.annotations.Column(allowsNull="true")
+    @MemberOrder(sequence="2")
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(final String description) {
+        this.description = description;
+    }
+
+    //endregion
+
+    //region > updateDescription (action)
+    @Action(
+            semantics = SemanticsOf.IDEMPOTENT,
+            publishing = Publishing.ENABLED
+    )
+    public PublishMqDemoObject updateDescription(
+            @ParameterLayout(named="Description")
+            final String description) {
+        setDescription(description);
+        return this;
+    }
+    public String default0UpdateDescription() {
+        return getDescription();
+    }
+    //endregion
+
+    //region > version (derived property)
+    public Long getVersionSequence() {
+        return (Long) JDOHelper.getVersion(this);
     }
     //endregion
 

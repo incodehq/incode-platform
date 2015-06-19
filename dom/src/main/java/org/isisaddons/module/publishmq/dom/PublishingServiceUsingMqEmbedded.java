@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.DeliveryMode;
-import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
@@ -107,6 +106,11 @@ public class PublishingServiceUsingMqEmbedded implements PublishingService {
             final EventMetadata metadata,
             final EventPayloadForActionInvocation payload) {
 
+        final ActionInvocationMementoDto aim = asActionInvocationMementoDto(metadata, payload);
+        send(metadata, aim);
+    }
+
+    private ActionInvocationMementoDto asActionInvocationMementoDto(final EventMetadata metadata, final EventPayloadForActionInvocation payload) {
         final ActionInvocationMementoDto aim = ActionInvocationMementoUtils.newDto();
 
         final String actionIdentifier = metadata.getActionIdentifier();
@@ -143,41 +147,24 @@ public class PublishingServiceUsingMqEmbedded implements PublishingService {
         if(!ActionInvocationMementoUtils.addReturnValue(aim, returnType, result)) {
             ActionInvocationMementoUtils.addReturnReference(aim, bookmarkService.bookmarkFor(result));
         }
-
-        final String xml = ActionInvocationMementoUtils.toXml(aim);
-        publish(xml, metadata, actionInvocationsQueueName);
+        return aim;
     }
 
-    private void publishObjectChanged(
-            final EventMetadata metadata,
-            final EventPayloadForObjectChanged payload) {
-        // currently a no-op
-    }
-
-    private void publish(final String messageStr, final EventMetadata metadata, final String queueName) {
-        publishTextMessage(messageStr, messageIdFor(metadata), queueName);
-    }
-
-    private String messageIdFor(final EventMetadata metadata) {
-        return metadata != null ? metadata.getId() : null;
-    }
-
-    void publishTextMessage(final String textMessage, final String messageId, final String queueName) {
+    private void send(final EventMetadata metadata, final ActionInvocationMementoDto aim) {
         Session session = null;
         try {
-            // TODO: hacking...
+
+            final String aimXml = ActionInvocationMementoUtils.toXml(aim);
             session = jmsConnection.createSession(transacted, Session.SESSION_TRANSACTED);
-            Destination destination = session.createQueue(queueName);
+            TextMessage message = session.createTextMessage(aimXml);
 
-            MessageProducer producer = session.createProducer(destination);
+            message.setJMSMessageID(metadata.getId());
+            message.setJMSType(metadata.getActionIdentifier());
+
+            LOG.info("Sending JMS message, id:" + metadata.getId() + "; type:" + message.getJMSType());
+            final Queue queue = session.createQueue(actionInvocationsQueueName);
+            MessageProducer producer = session.createProducer(queue);
             producer.setDeliveryMode(DeliveryMode.PERSISTENT);
-
-            TextMessage message = session.createTextMessage(textMessage);
-            if(messageId != null) {
-                message.setJMSMessageID(messageId);
-            }
-
-            LOG.info("Sent message id:" + messageId);
             producer.send(message);
 
             session.commit();
@@ -190,6 +177,13 @@ public class PublishingServiceUsingMqEmbedded implements PublishingService {
                 closeSafely(session);
             }
         }
+    }
+
+
+    private void publishObjectChanged(
+            final EventMetadata metadata,
+            final EventPayloadForObjectChanged payload) {
+        // currently a no-op
     }
 
     private static void rollback(final Session session) {
