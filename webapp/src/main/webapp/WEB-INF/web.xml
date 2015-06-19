@@ -31,10 +31,23 @@ Copyright 2014~2015 Dan Haywood
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-        classpath:activemq.xml,
-        classpath:camel-config.xml
+            classpath:activemq.xml,
+            classpath:camel-config.xml,
+            classpath:soapsubscriber-fakeserver.xml
         </param-value>
     </context-param>
+
+
+    <servlet>
+        <servlet-name>cxf</servlet-name>
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>cxf</servlet-name>
+        <url-pattern>/soap/*</url-pattern>
+    </servlet-mapping>
 
 
     <servlet>

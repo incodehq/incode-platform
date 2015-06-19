@@ -361,12 +361,17 @@ language governing permissions and limitations under the License.
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>isis-module-publishmq-soapsubscriber</artifactId>
+                <artifactId>isis-module-publishmq-soapsubscriber-wsdl</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>isis-module-publishmq-soapsubscriberfakeserver</artifactId>
+                <artifactId>isis-module-publishmq-soapsubscriber-client</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>isis-module-publishmq-soapsubscriber-fakeserver</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
@@ -396,8 +401,8 @@ language governing permissions and limitations under the License.
             </activation>
 
             <properties>
-                <cxf.version>2.7.3</cxf.version>
-                <cxf.xjc-utils.version>2.6.0</cxf.xjc-utils.version>
+                <cxf.version>3.1.1</cxf.version>
+                <cxf.xjc-utils.version>3.0.3</cxf.xjc-utils.version>
             </properties>
 
             <dependencyManagement>
@@ -422,7 +427,6 @@ language governing permissions and limitations under the License.
                         <artifactId>cxf-xjc-runtime</artifactId>
                         <version>${cxf.xjc-utils.version}</version>
                     </dependency>
-
 
                     <dependency>
                         <groupId>org.springframework</groupId>
@@ -470,8 +474,9 @@ language governing permissions and limitations under the License.
     <modules>
         <module>dom</module>
         <module>fixture</module>
-        <module>soapsubscriber</module>
-        <module>soapsubscriberfakeserver</module>
+        <module>soapsubscriber-wsdl</module>
+        <module>soapsubscriber-client</module>
+        <module>soapsubscriber-fakeserver</module>
         <module>integtests</module>
         <module>webapp</module>
     </modules>

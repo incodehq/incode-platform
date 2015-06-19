@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Copyright 2014~2015 Dan Haywood
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+  either express or implied. See the License for the specific
+  language governing permissions and limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.isisaddons.module.publishmq</groupId>
+    <artifactId>isis-module-publishmq-canonical</artifactId>
+    <version>1.9.0-SNAPSHOT</version>
+
+    <packaging>jar</packaging>
+
+    <name>Isis Addons PublishMq Module Canonical (for Fixture DOM)</name>
+    <description>
+        Canonical DTOs for the fixture DOM 
+        (ie, is part of the demo app, not the publishmq module itself)
+    </description>
+
+    <url>https://github.com/isisaddons/isis-module-publishmq</url>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <connection>scm:git:git@github.com:isisaddons/isis-module-publishmq.git</connection>
+        <developerConnection>scm:git:git@github.com:isisaddons/isis-module-publishmq.git</developerConnection>
+        <url>git@github.com:isisaddons/isis-module-publishmq.git</url>
+    </scm>
+    <developers>
+        <developer>
+            <id>danhaywood</id>
+            <name>Dan Haywood</name>
+            <email>dan@haywood-associates.co.uk</email>
+        </developer>
+    </developers>
+
+    <properties>
+        <compileSource>1.8</compileSource>
+        <compileTarget>1.8</compileTarget>
+
+        <isis.version>1.9.0-SNAPSHOT</isis.version>
+        <assertj-core.version>2.0.0</assertj-core.version>
+
+        <activemq.version>5.11.1</activemq.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <camel.version>2.15.2</camel.version>
+    </properties>
+
+    <build>
+        <resources>
+            <resource>
+                <filtering>false</filtering>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <filtering>false</filtering>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>
+
+</project>

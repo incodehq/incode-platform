@@ -225,6 +225,19 @@ language governing permissions and limitations under the License.
 
     <profiles>
         <profile>
+            <id>soapsubscriber-fakeserver</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.isisaddons.module.publishmq</groupId>
+                    <artifactId>isis-module-publishmq-soapsubscriber-fakeserver</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
             <id>self-host</id>
             <build>
                 <plugins>
