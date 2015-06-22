@@ -4,7 +4,7 @@
  * This class is not complete
  */
 
-package org.isisaddons.module.publishmq.soapsubscriber;
+package org.isisaddons.module.publishmq.soapsubscriber.fakeserver;
 
 import java.util.logging.Logger;
 

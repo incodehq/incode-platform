@@ -1,5 +1,5 @@
 
-package org.isisaddons.module.publishmq.soapsubscriber;
+package org.isisaddons.module.publishmq.soapsubscriber.fakeserver;
 
 import javax.xml.ws.Endpoint;
 

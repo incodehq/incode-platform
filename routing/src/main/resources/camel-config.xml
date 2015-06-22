@@ -71,7 +71,8 @@
     </camelContext>
 
     <bean id="addExchangeHeaders" class="org.isisaddons.module.publishmq.dom.camel.AddExchangeHeaders"/>
-    <bean id="enrich" class="org.isisaddons.module.publishmq.dom.camel.EnrichWithDomDto"/>
+
+    <bean id="enrich" class="org.isisaddons.module.publishmq.routing.EnrichWithCanonicalDto"/>
 
     <bean id="activemq-broker" class="org.apache.activemq.camel.component.ActiveMQComponent">
         <property name="brokerURL" value="vm://broker?create=false&amp;waitForStart=5000"/>

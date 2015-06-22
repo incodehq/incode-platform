@@ -10,23 +10,8 @@
          http://cxf.apache.org/jaxrs
          http://cxf.apache.org/schemas/jaxrs.xsd">
 
-    <bean id="demoObject" class="org.isisaddons.module.publishmq.soapsubscriber.DemoObjectImpl"/>
+    <bean id="demoObject" class="org.isisaddons.module.publishmq.soapsubscriber.fakeserver.DemoObjectOverSOAPImpl"/>
 
-    <jaxws:endpoint id="helloWorld" implementor="#demoObject" address="/SoapSubscriber/DemoObject"/>
-
-    <!--
-    <import resource="classpath:META-INF/cxf/cxf.xml"/>
-    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
-    <import resource="classpath:META-INF/cxf/cxf-extension-jaxrs-binding.xml"/>
-    <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
-
-    <jaxws:endpoint id="demoObject"
-                    implementor="org.isisaddons.module.publishmq.soapsubscriber.DemoObjectImpl"
-                    address="/DemoObject"/>
-
-    <jaxrs:server id="demoObjectRest"
-                  serviceClass="org.isisaddons.module.publishmq.soapsubscriber.DemoObjectImpl"
-                  address="/DemoObjectRest"/>
--->
+    <jaxws:endpoint id="demoObjectFakeServer" implementor="#demoObject" address="/SoapSubscriber/DemoObject"/>
 
 </beans>

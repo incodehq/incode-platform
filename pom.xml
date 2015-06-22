@@ -352,7 +352,6 @@ language governing permissions and limitations under the License.
                 <scope>import</scope>
             </dependency>
 
-
             <!-- this project's own modules -->
             <dependency>
                 <groupId>${project.groupId}</groupId>
@@ -381,8 +380,6 @@ language governing permissions and limitations under the License.
                 <artifactId>isis-module-publishmq-routing</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
-
-
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-publishmq-webapp</artifactId>
@@ -442,10 +439,7 @@ language governing permissions and limitations under the License.
                         <artifactId>spring-web</artifactId>
                         <version>4.1.6.RELEASE</version>
                     </dependency>
-
                 </dependencies>
-
-
             </dependencyManagement>
         </profile>
 
