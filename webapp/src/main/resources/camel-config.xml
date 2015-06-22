@@ -55,6 +55,7 @@
                 <camel:when>
                     <camel:simple>${header.actionIdentifier} == 'org.isisaddons.module.publishmq.fixture.dom.PublishMqDemoObject#updateName()'</camel:simple>
                     <log message="updateName() received... ${body}"/>
+
                     <camel:to uri="stream:out"/>
                     <!--<camel:to uri="cxf:bean:subscriberEndpoint"/>-->
                 </camel:when>
@@ -70,6 +71,7 @@
     </camelContext>
 
     <bean id="addExchangeHeaders" class="org.isisaddons.module.publishmq.dom.camel.AddExchangeHeaders"/>
+    <bean id="enrich" class="org.isisaddons.module.publishmq.dom.camel.EnrichWithDomDto"/>
 
     <bean id="activemq-broker" class="org.apache.activemq.camel.component.ActiveMQComponent">
         <property name="brokerURL" value="vm://broker?create=false&amp;waitForStart=5000"/>

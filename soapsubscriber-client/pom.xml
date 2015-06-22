@@ -75,7 +75,7 @@
 
         <dependency>
             <groupId>org.isisaddons.module.publishmq</groupId>
-            <artifactId>isis-module-publishmq-dom</artifactId>
+            <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
         </dependency>
 
         <dependency>

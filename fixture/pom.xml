@@ -50,9 +50,13 @@ Copyright 2014~2015 Dan Haywood
         </dependency>
 
         <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>isis-module-publishmq-canonical</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.isisaddons.module.publishmq</groupId>
-            <artifactId>isis-module-publishmq-dom</artifactId>
-            <version>1.9.0-SNAPSHOT</version>
+            <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
         </dependency>
 
         <dependency>

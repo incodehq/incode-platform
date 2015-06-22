@@ -19,9 +19,7 @@ Copyright 2014~2015 Dan Haywood
 
     <groupId>org.isisaddons.module.publishmq</groupId>
     <artifactId>isis-module-publishmq-canonical</artifactId>
-    <version>1.9.0-SNAPSHOT</version>
-
-    <packaging>jar</packaging>
+    <version>0.0.1-SNAPSHOT</version>
 
     <name>Isis Addons PublishMq Module Canonical (for Fixture DOM)</name>
     <description>
@@ -29,58 +27,48 @@ Copyright 2014~2015 Dan Haywood
         (ie, is part of the demo app, not the publishmq module itself)
     </description>
 
-    <url>https://github.com/isisaddons/isis-module-publishmq</url>
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-    <scm>
-        <connection>scm:git:git@github.com:isisaddons/isis-module-publishmq.git</connection>
-        <developerConnection>scm:git:git@github.com:isisaddons/isis-module-publishmq.git</developerConnection>
-        <url>git@github.com:isisaddons/isis-module-publishmq.git</url>
-    </scm>
-    <developers>
-        <developer>
-            <id>danhaywood</id>
-            <name>Dan Haywood</name>
-            <email>dan@haywood-associates.co.uk</email>
-        </developer>
-    </developers>
+    <packaging>jar</packaging>
 
-    <properties>
-        <compileSource>1.8</compileSource>
-        <compileTarget>1.8</compileTarget>
-
-        <isis.version>1.9.0-SNAPSHOT</isis.version>
-        <assertj-core.version>2.0.0</assertj-core.version>
-
-        <activemq.version>5.11.1</activemq.version>
-
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <camel.version>2.15.2</camel.version>
-    </properties>
 
     <build>
-        <resources>
-            <resource>
-                <filtering>false</filtering>
-                <directory>src/main/resources</directory>
-            </resource>
-            <resource>
-                <filtering>false</filtering>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**</include>
-                </includes>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.jvnet.jaxb2.maven2</groupId>
+                <artifactId>maven-jaxb2-plugin</artifactId>
+                <version>0.12.3</version>
+                <executions>
+                    <execution>
+                        <id>xjc-generate</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <removeOldOutput>true</removeOldOutput>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.9.1</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>target/generated-sources/xjc</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 
 </project>

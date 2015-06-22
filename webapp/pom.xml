@@ -30,9 +30,10 @@ language governing permissions and limitations under the License.
 
     <properties>
         <siteBaseDir>..</siteBaseDir>
-        <camel.version>2.15.2</camel.version>
     </properties>
-    
+
+
+
     <build>
         <plugins>
             <plugin>
@@ -110,18 +111,6 @@ language governing permissions and limitations under the License.
 
     <dependencies>
     
-        <!-- other modules in this project -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-publishmq-dom</artifactId>
-            <exclusions>
-                <exclusion>
-                    <!-- so don't pick up transitive dependency to asm 4.0.0 -->
-                    <groupId>org.datanucleus</groupId>
-                    <artifactId>datanucleus-enhancer</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>isis-module-publishmq-fixture</artifactId>
@@ -133,7 +122,15 @@ language governing permissions and limitations under the License.
                 </exclusion>
             </exclusions>
         </dependency>
-        
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>isis-module-publishmq-soapsubscriber-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>isis-module-publishmq-routing</artifactId>
+        </dependency>
+
         <!-- other isis components -->
         <dependency>
             <groupId>org.apache.isis.viewer</groupId>

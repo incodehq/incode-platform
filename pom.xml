@@ -30,6 +30,9 @@ language governing permissions and limitations under the License.
     </prerequisites>
 
     <properties>
+        <compileSource>1.8</compileSource>
+        <compileTarget>1.8</compileTarget>
+
         <isis.version>1.9.0-SNAPSHOT</isis.version>
 
         <isis-module-publishmq.version>1.9.0-SNAPSHOT</isis-module-publishmq.version>
@@ -37,6 +40,8 @@ language governing permissions and limitations under the License.
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <camel.version>2.15.2</camel.version>
     </properties>
 
     <repositories>
@@ -353,10 +358,27 @@ language governing permissions and limitations under the License.
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-publishmq-dom</artifactId>
                 <version>${isis-module-publishmq.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
+                <version>${isis-module-publishmq.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>isis-module-publishmq-canonical</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-publishmq-fixture</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>isis-module-publishmq-routing</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
@@ -473,7 +495,9 @@ language governing permissions and limitations under the License.
 
     <modules>
         <module>dom</module>
+        <module>canonical</module>
         <module>fixture</module>
+        <module>routing</module>
         <module>soapsubscriber-wsdl</module>
         <module>soapsubscriber-client</module>
         <module>soapsubscriber-fakeserver</module>
