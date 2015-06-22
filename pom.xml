@@ -381,21 +381,8 @@ language governing permissions and limitations under the License.
                 <artifactId>isis-module-publishmq-routing</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>isis-module-publishmq-soapsubscriber-wsdl</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>isis-module-publishmq-soapsubscriber-client</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>isis-module-publishmq-soapsubscriber-fakeserver</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-            </dependency>
+
+
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-publishmq-webapp</artifactId>
@@ -498,9 +485,7 @@ language governing permissions and limitations under the License.
         <module>fixcanonical</module>
         <module>fixture</module>
         <module>routing</module>
-        <module>soapsubscriber-wsdl</module>
-        <module>soapsubscriber-client</module>
-        <module>soapsubscriber-fakeserver</module>
+        <module>soapsubscriber</module>
         <module>integtests</module>
         <module>webapp</module>
     </modules>
