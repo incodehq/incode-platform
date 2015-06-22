@@ -51,7 +51,7 @@ Copyright 2014~2015 Dan Haywood
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-publishmq-canonical</artifactId>
+            <artifactId>isis-module-publishmq-fixcanonical</artifactId>
         </dependency>
 
         <dependency>

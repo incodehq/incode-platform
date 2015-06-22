@@ -34,7 +34,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.isisaddons.module.publishmq.dom.PublishingServiceUsingMqEmbedded;
+import org.isisaddons.module.publishmq.dom.servicespi.PublishingServiceUsingMqEmbedded;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,

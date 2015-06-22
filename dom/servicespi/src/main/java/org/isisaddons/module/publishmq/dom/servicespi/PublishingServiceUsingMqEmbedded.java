@@ -1,4 +1,4 @@
-package org.isisaddons.module.publishmq.dom;
+package org.isisaddons.module.publishmq.dom.servicespi;
 
 import java.util.List;
 import java.util.Map;
@@ -35,6 +35,8 @@ import org.apache.isis.applib.services.publish.EventSerializer;
 import org.apache.isis.applib.services.publish.PublishingService;
 
 import org.isisaddons.module.publishmq.PublishMqModule;
+import org.isisaddons.module.publishmq.dom.ActionInvocationMementoDto;
+import org.isisaddons.module.publishmq.dom.ActionInvocationMementoUtils;
 
 @DomainService(
         nature = NatureOfService.DOMAIN

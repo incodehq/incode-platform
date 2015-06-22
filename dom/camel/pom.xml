@@ -22,13 +22,13 @@ Copyright 2014~2015 Dan Haywood
         <artifactId>isis-module-publishmq-dom</artifactId>
         <version>1.9.0-SNAPSHOT</version>
     </parent>
-    <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
+    <artifactId>isis-module-publishmq-dom-camel</artifactId>
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons PublishMq Module DOM Service SPI</name>
+    <name>Isis Addons PublishMq Module DOM Camel support</name>
     <description>
-        A module providing publishmq service SPI implementation
+        A module providing helper classes for Camel routing
     </description>
 
     <dependencyManagement>
@@ -43,11 +43,8 @@ Copyright 2014~2015 Dan Haywood
         </dependencies>
     </dependencyManagement>
 
+   
     <dependencies>
-        <dependency>
-            <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-applib</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.isisaddons.module.publishmq</groupId>
@@ -65,12 +62,20 @@ Copyright 2014~2015 Dan Haywood
             <scope>test</scope>
         </dependency>
 
+        <!-- camel -->
         <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-all</artifactId>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jms</artifactId>
+        </dependency>
+
     </dependencies>
-
-
 
 </project>

@@ -368,7 +368,7 @@ language governing permissions and limitations under the License.
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>isis-module-publishmq-canonical</artifactId>
+                <artifactId>isis-module-publishmq-fixcanonical</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
@@ -495,7 +495,7 @@ language governing permissions and limitations under the License.
 
     <modules>
         <module>dom</module>
-        <module>canonical</module>
+        <module>fixcanonical</module>
         <module>fixture</module>
         <module>routing</module>
         <module>soapsubscriber-wsdl</module>
@@ -504,7 +504,5 @@ language governing permissions and limitations under the License.
         <module>integtests</module>
         <module>webapp</module>
     </modules>
-
-
 
 </project>
