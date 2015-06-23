@@ -6,13 +6,15 @@
 
 package org.isisaddons.module.publishmq.soapsubscriber.fakeserver;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.jws.WebService;
 
 import org.isisaddons.module.publishmq.soapsubscriber.demoobject.DemoObject;
-import org.isisaddons.module.publishmq.soapsubscriber.demoobject.Processed;
-import org.isisaddons.module.publishmq.soapsubscriber.demoobject.ProcessedResponse;
+import org.isisaddons.module.publishmq.soapsubscriber.demoobject.PostResponse;
+import org.isisaddons.module.publishmq.soapsubscriber.demoobject.Update;
 
 @WebService(
                       serviceName = "DemoObjectService",
@@ -25,12 +27,18 @@ public class DemoObjectOverSOAPImpl implements DemoObject {
 
     private static final Logger LOG = Logger.getLogger(DemoObjectOverSOAPImpl.class.getName());
 
-    public org.isisaddons.module.publishmq.soapsubscriber.demoobject.ProcessedResponse processed(Processed body) {
+    private List<Update> updates = new ArrayList<>();
+
+    public org.isisaddons.module.publishmq.soapsubscriber.demoobject.PostResponse post(Update update) {
         LOG.info("Executing operation processed");
-        System.out.println(body);
+        System.out.println(update);
         try {
-            ProcessedResponse response = new ProcessedResponse();
-            response.setOut("name=" + body.getName() + ", description=" + body.getDescription());
+            updates.add(update);
+
+            PostResponse response = new PostResponse();
+            response.setInternalId(updates.size());
+            response.setMessageId(update.getMessageId());
+
             return response;
         } catch (Exception ex) {
             ex.printStackTrace();

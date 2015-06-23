@@ -20,13 +20,14 @@ package org.isisaddons.module.publishmq.soapsubscriber;
 
 import java.io.File;
 import java.net.URL;
+import java.util.UUID;
 
 import javax.xml.ws.BindingProvider;
 
 import org.isisaddons.module.publishmq.soapsubscriber.demoobject.DemoObject;
 import org.isisaddons.module.publishmq.soapsubscriber.demoobject.DemoObjectService;
-import org.isisaddons.module.publishmq.soapsubscriber.demoobject.Processed;
-import org.isisaddons.module.publishmq.soapsubscriber.demoobject.ProcessedResponse;
+import org.isisaddons.module.publishmq.soapsubscriber.demoobject.PostResponse;
+import org.isisaddons.module.publishmq.soapsubscriber.demoobject.Update;
 
 public class DemoObjectClient {
     protected DemoObjectClient() {
@@ -58,11 +59,15 @@ public class DemoObjectClient {
 
         // test the service
 
-        final Processed processed = new Processed();
-        processed.setName("Fred");
-        processed.setDescription("Freddie Mercury");
-        ProcessedResponse response = demoObject.processed(processed);
-        System.out.println(response.getOut());
+        final Update update = new Update();
+        update.setMessageId(UUID.randomUUID().toString());
+        update.setName("Fred");
+        update.setDescription("Freddie Mercury");
+
+        PostResponse response = demoObject.post(update);
+
+        System.out.println("internal Id: " + response.getInternalId());
+        System.out.println("message Id: " + response.getMessageId());
 
         System.exit(0);
     }

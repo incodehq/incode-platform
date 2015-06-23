@@ -1,5 +1,7 @@
 package org.isisaddons.module.publishmq.routing;
 
+import java.util.Map;
+
 import javax.activation.DataHandler;
 import javax.xml.ws.BindingProvider;
 
@@ -7,13 +9,11 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
 
-import org.apache.isis.applib.services.background.ActionInvocationMemento;
-
 import org.isisaddons.module.publishmq.canonical.demoobject.DemoObjectDto;
 import org.isisaddons.module.publishmq.soapsubscriber.demoobject.DemoObject;
 import org.isisaddons.module.publishmq.soapsubscriber.demoobject.DemoObjectService;
-import org.isisaddons.module.publishmq.soapsubscriber.demoobject.Processed;
-import org.isisaddons.module.publishmq.soapsubscriber.demoobject.ProcessedResponse;
+import org.isisaddons.module.publishmq.soapsubscriber.demoobject.PostResponse;
+import org.isisaddons.module.publishmq.soapsubscriber.demoobject.Update;
 
 public class UpdateSoapSubscriber implements Processor {
 
@@ -45,22 +45,27 @@ public class UpdateSoapSubscriber implements Processor {
 
         final Message message = exchange.getIn();
 
-        final ActionInvocationMemento aim = (ActionInvocationMemento) message.getBody();
+        Map<String, Object> aimHeader = (Map<String, Object>) message.getHeader("aim");
+        final String messageId = (String) aimHeader.get("messageId");
 
         final DataHandler dataHandler = message.getAttachment(EnrichWithCanonicalDto.class.getName());
         final DemoObjectDto demoObjectDto = (DemoObjectDto) dataHandler.getContent();
 
-        final Processed processed = new Processed();
+        final Update update = new Update();
 
+        update.setMessageId(messageId);
+        update.setName(demoObjectDto.getName());
+        update.setDescription(demoObjectDto.getDescription());
 
-        processed.setName(demoObjectDto.getName());
-        processed.setDescription(demoObjectDto.getDescription());
+        PostResponse response = demoObject.post(update);
 
-        ProcessedResponse response = demoObject.processed(processed);
-        System.out.println(response.getOut());
+        final int soapSubscriberInternalId = response.getInternalId();
+        final String responseTransactionId = response.getMessageId();
 
-        System.exit(0);
+//        System.out.println("internal Id: " + soapSubscriberInternalId);
+//        System.out.println("transaction Id: " + responseTransactionId);
 
+        message.setHeader("soapSubscriberInternalId", soapSubscriberInternalId);
     }
 
 }

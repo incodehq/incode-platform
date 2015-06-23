@@ -1,5 +1,7 @@
 package org.isisaddons.module.publishmq.dom.camel;
 
+import com.google.common.collect.ImmutableMap;
+
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
@@ -8,11 +10,11 @@ import org.isisaddons.module.publishmq.dom.canonical.aim.ActionInvocationMemento
 
 /**
  * A Camel {@link Processor} that can unmarshal a {@link Message} whose {@link Message#getBody() body}
- * contains a {@link org.isisaddons.module.publishmq.aim.ActionInvocationMementoDto}, and attaches a
- * number of headers from the AIM's metadata for downstream routing.
+ * contains a {@link org.isisaddons.module.publishmq.dom.canonical.aim.ActionInvocationMementoDto}, and attaches a
+ * single 'aim' header which is a map of AIM's metadata, for downstream routing.
  *
  * <p>
- * The headers that are attached are:
+ * The header's keys are attached are:
  * <ul>
  *      <li><tt>messageId</tt> - a String, the concatentation of <tt>transactionId</tt>:<tt>sequence</tt></li>
  *      <li><tt>transactionId</tt> - a String, representing the Isis transaction in which this event was published</li>
@@ -34,7 +36,7 @@ import org.isisaddons.module.publishmq.dom.canonical.aim.ActionInvocationMemento
  *   &lt;camel:process ref=&quot;addExchangeHeaders&quot;/&gt;
  *   &lt;camel:choice&gt;
  *       &lt;camel:when&gt;
- *           &lt;camel:simple&gt;${header.actionIdentifier} == 'dom.todo.ToDoItem#completed()'&lt;/camel:simple&gt;
+ *           &lt;camel:simple&gt;${header.aim[actionIdentifier]} == 'dom.todo.ToDoItem#completed()'&lt;/camel:simple&gt;
  *           ...
  *      &lt;/camel:when&gt;
  *  &lt;/camel:choice&gt;
@@ -53,12 +55,17 @@ public class AddExchangeHeaders implements Processor {
         final ActionInvocationMementoDto aim = (ActionInvocationMementoDto)body;
 
         final ActionInvocationMementoDto.Metadata metadata = aim.getMetadata();
-        inMessage.setHeader("messageId", metadata.getTransactionId() + ":" + metadata.getSequence());
-        inMessage.setHeader("transactionId", metadata.getTransactionId());
-        inMessage.setHeader("sequence", metadata.getSequence());
-        inMessage.setHeader("actionIdentifier", metadata.getActionIdentifier());
-        inMessage.setHeader("timestamp", metadata.getTimestamp());
-        inMessage.setHeader("user", metadata.getUser());
+
+        final ImmutableMap<String, Object> aimHeader = ImmutableMap.<String,Object>builder()
+                .put("messageId", metadata.getTransactionId() + ":" + metadata.getSequence())
+                .put("transactionId", metadata.getTransactionId())
+                .put("sequence", metadata.getSequence())
+                .put("actionIdentifier", metadata.getActionIdentifier())
+                .put("timestamp", metadata.getTimestamp())
+                .put("user", metadata.getUser())
+                .build();
+
+        inMessage.setHeader("aim", aimHeader);
     }
 
 
