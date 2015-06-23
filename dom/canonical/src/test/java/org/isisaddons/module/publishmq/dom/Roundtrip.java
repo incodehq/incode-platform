@@ -14,6 +14,10 @@ import org.junit.Test;
 
 import org.apache.isis.applib.services.bookmark.Bookmark;
 
+import org.isisaddons.module.publishmq.dom.canonical.aim.ActionInvocationMementoDto;
+import org.isisaddons.module.publishmq.dom.canonical.common.OidDto;
+import org.isisaddons.module.publishmq.dom.canonical.common.ValueType;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
@@ -100,141 +104,141 @@ public class Roundtrip {
 
         int param = 0;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("aString");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.STRING);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.STRING);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isFalse();
         Assertions.assertThat(ActionInvocationMementoUtils.getArg(recreated, param, String.class)).isEqualTo("Fred");
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("nullString");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.STRING);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.STRING);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isTrue();
         Assertions.assertThat(ActionInvocationMementoUtils.getArg(recreated, param, String.class)).isNull();
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("aByte");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.BYTE);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.BYTE);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isFalse();
         Assertions.assertThat(ActionInvocationMementoUtils.getArg(recreated, param, Byte.class)).isEqualTo((byte)123);
 
         param++;
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.BYTE);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.BYTE);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isTrue();
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("nullByte");
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("aShort");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.SHORT);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.SHORT);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isFalse();
         Assertions.assertThat(ActionInvocationMementoUtils.getArg(recreated, param, Short.class)).isEqualTo((short)32123);
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("nullShort");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.SHORT);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.SHORT);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isTrue();
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("anInt");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.INT);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.INT);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isFalse();
         Assertions.assertThat(ActionInvocationMementoUtils.getArg(recreated, param, int.class)).isEqualTo((int)123454321);
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("nullInt");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.INT);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.INT);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isTrue();
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("aLong");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.LONG);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.LONG);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isFalse();
         Assertions.assertThat(ActionInvocationMementoUtils.getArg(recreated, param, long.class)).isEqualTo((long)1234567654321L);
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("nullLong");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.LONG);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.LONG);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isTrue();
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("aFloat");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.FLOAT);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.FLOAT);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isFalse();
         Assertions.assertThat(ActionInvocationMementoUtils.getArg(recreated, param, float.class)).isEqualTo((float)12345.6789F);
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("nullFloat");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.FLOAT);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.FLOAT);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isTrue();
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("aDouble");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.DOUBLE);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.DOUBLE);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isFalse();
         Assertions.assertThat(ActionInvocationMementoUtils.getArg(recreated, param, double.class)).isEqualTo(12345678.90123);
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("nullDouble");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.DOUBLE);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.DOUBLE);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isTrue();
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("aBoolean");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.BOOLEAN);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.BOOLEAN);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isFalse();
         Assertions.assertThat(ActionInvocationMementoUtils.getArg(recreated, param, boolean.class)).isTrue();
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("nullBoolean");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.BOOLEAN);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.BOOLEAN);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isTrue();
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("aChar");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.CHAR);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.CHAR);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isFalse();
         Assertions.assertThat(ActionInvocationMementoUtils.getArg(recreated, param, char.class)).isEqualTo('x');
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("nullChar");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.CHAR);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.CHAR);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isTrue();
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("aBigInteger");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.BIG_INTEGER);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.BIG_INTEGER);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isFalse();
         Assertions.assertThat(ActionInvocationMementoUtils.getArg(recreated, param, BigInteger.class)).isEqualTo(new java.math.BigInteger("12345678901234567890"));
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("nullBigInteger");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.BIG_INTEGER);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.BIG_INTEGER);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isTrue();
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("aBigDecimal");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.BIG_DECIMAL);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.BIG_DECIMAL);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isFalse();
         Assertions.assertThat(ActionInvocationMementoUtils.getArg(recreated, param, BigDecimal.class)).isEqualTo(new java.math.BigDecimal("12345678901234567890"));
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("nullBigDecimal");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.BIG_DECIMAL);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.BIG_DECIMAL);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isTrue();
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("aJodaDateTime");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.JODA_DATE_TIME);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.JODA_DATE_TIME);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isFalse();
         // bit hacky... regular comparison fails but toString() works... must be some additional data that differs, not sure what tho'
         Assertions.assertThat(ActionInvocationMementoUtils.getArg(recreated, param, DateTime.class).toString()).isEqualTo(new DateTime(2015, 5, 23, 9, 54, 1).toString());
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("nullJodaDateTime");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.JODA_DATE_TIME);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.JODA_DATE_TIME);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isTrue();
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("aJodaLocalDate");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.JODA_LOCAL_DATE);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.JODA_LOCAL_DATE);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isFalse();
         final LocalDate actual = ActionInvocationMementoUtils.getArg(recreated, param, LocalDate.class);
         final LocalDate expected = new LocalDate(2015, 5, 23);
@@ -242,41 +246,41 @@ public class Roundtrip {
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("nullJodaLocalDate");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.JODA_LOCAL_DATE);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.JODA_LOCAL_DATE);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isTrue();
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("aJodaLocalDateTime");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.JODA_LOCAL_DATE_TIME);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.JODA_LOCAL_DATE_TIME);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isFalse();
         Assertions.assertThat(ActionInvocationMementoUtils.getArg(recreated, param, LocalDateTime.class)).isEqualTo(new org.joda.time.LocalDateTime(2015, 5, 23, 9, 54, 1));
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("nullJodaLocalDateTime");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.JODA_LOCAL_DATE_TIME);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.JODA_LOCAL_DATE_TIME);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isTrue();
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("aJodaLocalTime");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.JODA_LOCAL_TIME);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.JODA_LOCAL_TIME);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isFalse();
         Assertions.assertThat(ActionInvocationMementoUtils.getArg(recreated, param, LocalDateTime.class)).isEqualTo(new org.joda.time.LocalTime(9, 54, 1));
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("nullJodaLocalTime");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.JODA_LOCAL_TIME);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.JODA_LOCAL_TIME);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isTrue();
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("aReference");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.REFERENCE);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.REFERENCE);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isFalse();
         Assertions.assertThat(ActionInvocationMementoUtils.getArg(recreated, param, OidDto.class).getObjectType()).isEqualTo("ORD");
         Assertions.assertThat(ActionInvocationMementoUtils.getArg(recreated, param, OidDto.class).getObjectIdentifier()).isEqualTo("12345");
 
         param++;
         Assertions.assertThat(ActionInvocationMementoUtils.getParameterName(recreated, param)).isEqualTo("nullReference");
-        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ParameterType.REFERENCE);
+        Assertions.assertThat(ActionInvocationMementoUtils.getParameterType(recreated, param)).isEqualTo(ValueType.REFERENCE);
         Assertions.assertThat(ActionInvocationMementoUtils.isNull(recreated, param)).isTrue();
 
         param++;

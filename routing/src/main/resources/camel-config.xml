@@ -47,23 +47,30 @@
         <route id="inToOutRoute">
             <from uri="activemq-broker:queue:actionInvocationsQueue"/>
             <unmarshal>
-                <jaxb contextPath="org.isisaddons.module.publishmq.dom" prettyPrint="true"/>
+                <jaxb contextPath="org.isisaddons.module.publishmq.dom.canonical.aim" prettyPrint="true"/>
             </unmarshal>
             <camel:process ref="addExchangeHeaders"/>
 
             <camel:choice>
                 <camel:when>
                     <camel:simple>${header.actionIdentifier} == 'org.isisaddons.module.publishmq.fixture.dom.PublishMqDemoObject#updateName()'</camel:simple>
+
                     <log message="updateName() received... ${body}"/>
+
+                    <camel:process ref="enrich"/>
+                    <camel:process ref="enrich"/>
 
                     <camel:to uri="stream:out"/>
                     <!--<camel:to uri="cxf:bean:subscriberEndpoint"/>-->
                 </camel:when>
                 <camel:when>
                     <camel:simple>${header.actionIdentifier} == 'org.isisaddons.module.publishmq.fixture.dom.PublishMqDemoObject#updateDescription()'</camel:simple>
+
                     <log message="updateDescription() received... ${body}"/>
+                    <camel:process ref="enrich"/>
                     <camel:to uri="stream:out"/>
                     <!--<camel:to uri="cxf:bean:subscriberEndpoint"/>-->
+
                 </camel:when>
             </camel:choice>
 
@@ -71,8 +78,8 @@
     </camelContext>
 
     <bean id="addExchangeHeaders" class="org.isisaddons.module.publishmq.dom.camel.AddExchangeHeaders"/>
-
     <bean id="enrich" class="org.isisaddons.module.publishmq.routing.EnrichWithCanonicalDto"/>
+    <bean id="updateSoapSubscriber" class="org.isisaddons.module.publishmq.routing.UpdateSoapSubscriber"/>
 
     <bean id="activemq-broker" class="org.apache.activemq.camel.component.ActiveMQComponent">
         <property name="brokerURL" value="vm://broker?create=false&amp;waitForStart=5000"/>

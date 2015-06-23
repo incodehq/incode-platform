@@ -76,6 +76,7 @@
                                     <frontEnd>jaxws21</frontEnd>
                                     <faultSerialVersionUID>1</faultSerialVersionUID>
                                     <!--
+                                    unused...
                                     <bindingFiles>
                                         <bindingFile>src/main/resources/binding.xml</bindingFile>
                                     </bindingFiles>

@@ -47,6 +47,11 @@ Copyright 2014~2015 Dan Haywood
                 </executions>
                 <configuration>
                     <removeOldOutput>true</removeOldOutput>
+
+                    <!-- http://confluence.highsource.org/display/MJIIP/User+Guide#UserGuide-Separateschemacompilation -->
+                    <extension>true</extension>
+                    <episodeFile>src/main/resources/publishmq-dom-canonical.episode</episodeFile>
+
                 </configuration>
             </plugin>
             <plugin>
@@ -70,5 +75,15 @@ Copyright 2014~2015 Dan Haywood
             </plugin>
         </plugins>
     </build>
+
+    <dependencies>
+        <!--
+        <dependency>
+            <groupId>org.isisaddons.module.publishmq</groupId>
+            <artifactId>isis-module-publishmq-dom-canonical</artifactId>
+            <version>1.9.0-SNAPSHOT</version>
+        </dependency>
+        -->
+    </dependencies>
 
 </project>

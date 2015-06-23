@@ -35,8 +35,8 @@ import org.apache.isis.applib.services.publish.EventSerializer;
 import org.apache.isis.applib.services.publish.PublishingService;
 
 import org.isisaddons.module.publishmq.PublishMqModule;
-import org.isisaddons.module.publishmq.dom.ActionInvocationMementoDto;
 import org.isisaddons.module.publishmq.dom.ActionInvocationMementoUtils;
+import org.isisaddons.module.publishmq.dom.canonical.aim.ActionInvocationMementoDto;
 
 @DomainService(
         nature = NatureOfService.DOMAIN

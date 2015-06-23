@@ -28,6 +28,12 @@ import org.joda.time.LocalTime;
 
 import org.apache.isis.applib.services.bookmark.Bookmark;
 
+import org.isisaddons.module.publishmq.dom.canonical.aim.ActionInvocationMementoDto;
+import org.isisaddons.module.publishmq.dom.canonical.aim.ParamDto;
+import org.isisaddons.module.publishmq.dom.canonical.common.BookmarkObjectState;
+import org.isisaddons.module.publishmq.dom.canonical.common.OidDto;
+import org.isisaddons.module.publishmq.dom.canonical.common.ValueDto;
+import org.isisaddons.module.publishmq.dom.canonical.common.ValueType;
 import org.isisaddons.module.publishmq.dom.jaxbadapters.JavaSqlTimestampXmlGregorianCalendarAdapter;
 import org.isisaddons.module.publishmq.dom.jaxbadapters.JodaDateTimeXMLGregorianCalendarAdapter;
 import org.isisaddons.module.publishmq.dom.jaxbadapters.JodaLocalDateTimeXMLGregorianCalendarAdapter;
@@ -42,8 +48,8 @@ public class ActionInvocationMementoUtils {
             return input.getParameterName();
         }
     };
-    private static final Function<ParamDto, ParameterType> PARAM_DTO_TO_TYPE = new Function<ParamDto, ParameterType>() {
-        @Override public ParameterType apply(final ParamDto input) {
+    private static final Function<ParamDto, ValueType> PARAM_DTO_TO_TYPE = new Function<ParamDto, ValueType>() {
+        @Override public ValueType apply(final ParamDto input) {
             return input.getParameterType();
         }
     };
@@ -109,49 +115,49 @@ public class ActionInvocationMementoUtils {
 
         ParamDto paramDto = null;
         if(parameterType == String.class) {
-            paramDto = newParamDto(aim, parameterName, ParameterType.STRING, arg);
+            paramDto = newParamDto(aim, parameterName, ValueType.STRING, arg);
         } else
         if(parameterType == byte.class || parameterType == Byte.class) {
-            paramDto = newParamDto(aim, parameterName, ParameterType.BYTE, arg);
+            paramDto = newParamDto(aim, parameterName, ValueType.BYTE, arg);
         } else
         if(parameterType == short.class || parameterType == Short.class) {
-            paramDto = newParamDto(aim, parameterName, ParameterType.SHORT, arg);
+            paramDto = newParamDto(aim, parameterName, ValueType.SHORT, arg);
         }else
         if(parameterType == int.class || parameterType == Integer.class) {
-            paramDto = newParamDto(aim, parameterName, ParameterType.INT, arg);
+            paramDto = newParamDto(aim, parameterName, ValueType.INT, arg);
         }else
         if(parameterType == long.class || parameterType == Long.class) {
-            paramDto = newParamDto(aim, parameterName, ParameterType.LONG, arg);
+            paramDto = newParamDto(aim, parameterName, ValueType.LONG, arg);
         }else
         if(parameterType == char.class || parameterType == Character.class) {
-            paramDto = newParamDto(aim, parameterName, ParameterType.CHAR, arg);
+            paramDto = newParamDto(aim, parameterName, ValueType.CHAR, arg);
         }else
         if(parameterType == boolean.class || parameterType == Boolean.class) {
-            paramDto = newParamDto(aim, parameterName, ParameterType.BOOLEAN, arg);
+            paramDto = newParamDto(aim, parameterName, ValueType.BOOLEAN, arg);
         }else
         if(parameterType == float.class || parameterType == Float.class) {
-            paramDto = newParamDto(aim, parameterName, ParameterType.FLOAT, arg);
+            paramDto = newParamDto(aim, parameterName, ValueType.FLOAT, arg);
         }else
         if(parameterType == double.class || parameterType == Double.class) {
-            paramDto = newParamDto(aim, parameterName, ParameterType.DOUBLE, arg);
+            paramDto = newParamDto(aim, parameterName, ValueType.DOUBLE, arg);
         }else
         if(parameterType == BigInteger.class) {
-            paramDto = newParamDto(aim, parameterName, ParameterType.BIG_INTEGER, arg);
+            paramDto = newParamDto(aim, parameterName, ValueType.BIG_INTEGER, arg);
         }else
         if(parameterType == BigDecimal.class) {
-            paramDto = newParamDto(aim, parameterName, ParameterType.BIG_DECIMAL, arg);
+            paramDto = newParamDto(aim, parameterName, ValueType.BIG_DECIMAL, arg);
         }else
         if(parameterType == DateTime.class) {
-            paramDto = newParamDto(aim, parameterName, ParameterType.JODA_DATE_TIME, arg);
+            paramDto = newParamDto(aim, parameterName, ValueType.JODA_DATE_TIME, arg);
         }else
         if(parameterType == LocalDateTime.class) {
-            paramDto = newParamDto(aim, parameterName, ParameterType.JODA_LOCAL_DATE_TIME, arg);
+            paramDto = newParamDto(aim, parameterName, ValueType.JODA_LOCAL_DATE_TIME, arg);
         }else
         if(parameterType == LocalDate.class) {
-            paramDto = newParamDto(aim, parameterName, ParameterType.JODA_LOCAL_DATE, arg);
+            paramDto = newParamDto(aim, parameterName, ValueType.JODA_LOCAL_DATE, arg);
         }else
         if(parameterType == LocalTime.class) {
-            paramDto = newParamDto(aim, parameterName, ParameterType.JODA_LOCAL_TIME, arg);
+            paramDto = newParamDto(aim, parameterName, ValueType.JODA_LOCAL_TIME, arg);
         }
 
         if(paramDto != null) {
@@ -169,7 +175,7 @@ public class ActionInvocationMementoUtils {
             final ActionInvocationMementoDto aim,
             final String parameterName,
             final Bookmark bookmark) {
-        final ParamDto paramDto = newParamDto(aim, parameterName, ParameterType.REFERENCE, bookmark);
+        final ParamDto paramDto = newParamDto(aim, parameterName, ValueType.REFERENCE, bookmark);
         final ValueDto valueDto = valueDtoFor(paramDto);
         OidDto argValue = asOidDto(bookmark);
         valueDto.setReference(argValue);
@@ -201,7 +207,7 @@ public class ActionInvocationMementoUtils {
     private static ParamDto newParamDto(
             final ActionInvocationMementoDto aim,
             final String parameterName,
-            final ParameterType parameterType, final Object value) {
+            final ValueType parameterType, final Object value) {
         final ActionInvocationMementoDto.Payload.Parameters params = getParametersHolderAutoCreate(aim);
         final ParamDto paramDto = newParamDto(parameterName, parameterType);
         paramDto.setNull(value == null);
@@ -219,7 +225,7 @@ public class ActionInvocationMementoUtils {
         return valueDto;
     }
 
-    private static ParamDto newParamDto(final String parameterName, final ParameterType parameterType) {
+    private static ParamDto newParamDto(final String parameterName, final ValueType parameterType) {
         final ParamDto argDto = new ParamDto();
         argDto.setParameterName(parameterName);
         argDto.setParameterType(parameterType);
@@ -269,7 +275,7 @@ public class ActionInvocationMementoUtils {
     public static List<String> getParameterNames(final ActionInvocationMementoDto aim) {
         return immutableList(Iterables.transform(getParameters(aim), PARAM_DTO_TO_NAME));
     }
-    public static List<ParameterType> getParameterTypes(final ActionInvocationMementoDto aim) {
+    public static List<ValueType> getParameterTypes(final ActionInvocationMementoDto aim) {
         return immutableList(Iterables.transform(getParameters(aim), PARAM_DTO_TO_TYPE));
     }
     //endregion
@@ -293,7 +299,7 @@ public class ActionInvocationMementoUtils {
     public static String getParameterName(final ActionInvocationMementoDto aim, final int paramNum) {
         return PARAM_DTO_TO_NAME.apply(getParameter(aim, paramNum));
     }
-    public static ParameterType getParameterType(final ActionInvocationMementoDto aim, final int paramNum) {
+    public static ValueType getParameterType(final ActionInvocationMementoDto aim, final int paramNum) {
         return PARAM_DTO_TO_TYPE.apply(getParameter(aim, paramNum));
     }
     public static boolean isNull(final ActionInvocationMementoDto aim, int paramNum) {

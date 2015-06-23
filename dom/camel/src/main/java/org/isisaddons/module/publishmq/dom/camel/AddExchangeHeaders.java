@@ -4,11 +4,11 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
 
-import org.isisaddons.module.publishmq.dom.ActionInvocationMementoDto;
+import org.isisaddons.module.publishmq.dom.canonical.aim.ActionInvocationMementoDto;
 
 /**
  * A Camel {@link Processor} that can unmarshal a {@link Message} whose {@link Message#getBody() body}
- * contains a {@link org.isisaddons.module.publishmq.dom.ActionInvocationMementoDto}, and attaches a
+ * contains a {@link org.isisaddons.module.publishmq.aim.ActionInvocationMementoDto}, and attaches a
  * number of headers from the AIM's metadata for downstream routing.
  *
  * <p>
@@ -28,7 +28,7 @@ import org.isisaddons.module.publishmq.dom.ActionInvocationMementoDto;
  * </pre>
  * 
  * <p>
- * Then, for a route where the message contains an {@link org.isisaddons.module.publishmq.dom.ActionInvocationMementoDto}, route using something like:
+ * Then, for a route where the message contains an {@link org.isisaddons.module.publishmq.dom.canonical.aim.ActionInvocationMementoDto}, route using something like:
  * <pre>
  *   ...
  *   &lt;camel:process ref=&quot;addExchangeHeaders&quot;/&gt;
@@ -59,7 +59,6 @@ public class AddExchangeHeaders implements Processor {
         inMessage.setHeader("actionIdentifier", metadata.getActionIdentifier());
         inMessage.setHeader("timestamp", metadata.getTimestamp());
         inMessage.setHeader("user", metadata.getUser());
-
     }
 
 

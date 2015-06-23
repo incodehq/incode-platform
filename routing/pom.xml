@@ -46,39 +46,8 @@ Copyright 2014~2015 Dan Haywood
     <dependencies>
 
         <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-spring</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-jms</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-stream</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-ognl</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-jaxb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-jackson</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-cxf</artifactId>
+            <groupId>org.isisaddons.module.publishmq</groupId>
+            <artifactId>isis-module-publishmq-fixcanonical</artifactId>
         </dependency>
 
         <dependency>
@@ -86,6 +55,109 @@ Copyright 2014~2015 Dan Haywood
             <artifactId>isis-module-publishmq-soapsubscriber-client</artifactId>
         </dependency>
 
+
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!--
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
+        -->
+
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>camel-with-cxf-overrides</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+            <properties>
+                <cxf-core.version>3.1.1</cxf-core.version>
+            </properties>
+
+            <dependencies>
+
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-core</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-spring</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-jms</artifactId>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-stream</artifactId>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-ognl</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-jaxb</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-jackson</artifactId>
+                </dependency>
+
+                <!-- override old dependencies in org.apache.camel:camel-cxf:jar -->
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-cxf</artifactId>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>org.apache.cxf</groupId>
+                            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>org.apache.cxf</groupId>
+                            <artifactId>cxf-rt-bindings-soap</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>org.apache.cxf</groupId>
+                            <artifactId>cxf-rt-rs-client</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.cxf</groupId>
+                    <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+                    <version>${cxf-core.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.cxf</groupId>
+                    <artifactId>cxf-rt-bindings-soap</artifactId>
+                    <version>${cxf-core.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.cxf</groupId>
+                    <artifactId>cxf-rt-rs-client</artifactId>
+                    <version>${cxf-core.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+
+
 
 </project>

@@ -127,6 +127,11 @@ language governing permissions and limitations under the License.
             <groupId>${project.groupId}</groupId>
             <artifactId>isis-module-publishmq-routing</artifactId>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>isis-module-publishmq-fixcanonicalmappings</artifactId>
+        </dependency>
+
 
         <!-- other isis components -->
         <dependency>
@@ -329,37 +334,6 @@ language governing permissions and limitations under the License.
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-
-        <profile>
-            <id>cxf</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-
-            <properties>
-                <cxf-core.version>3.1.1</cxf-core.version>
-            </properties>
-
-            <dependencyManagement>
-                <dependencies>
-                </dependencies>
-            </dependencyManagement>
-
-            <dependencies>
-                <!-- override old dependency in org.apache.camel:camel-cxf:jar -->
-                <dependency>
-                    <groupId>org.apache.cxf</groupId>
-                    <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-                    <version>${cxf-core.version}</version>
-                </dependency>
-
-                <dependency>
-                    <groupId>org.apache.cxf</groupId>
-                    <artifactId>cxf-rt-bindings-soap</artifactId>
-                    <version>${cxf-core.version}</version>
-                </dependency>
-            </dependencies>
         </profile>
 
         <profile>

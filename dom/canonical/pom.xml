@@ -60,6 +60,7 @@ Copyright 2014~2015 Dan Haywood
                 </executions>
                 <configuration>
                     <removeOldOutput>true</removeOldOutput>
+                    <episode>true</episode>
                 </configuration>
             </plugin>
             <plugin>

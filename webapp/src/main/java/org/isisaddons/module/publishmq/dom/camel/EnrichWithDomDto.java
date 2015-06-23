@@ -4,7 +4,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
 
-import org.isisaddons.module.publishmq.dom.ActionInvocationMementoDto;
+import org.isisaddons.module.publishmq.dom.canonical.aim.ActionInvocationMementoDto;
 
 /**
  * A Camel {@link Processor} that can unmarshal a {@link Message} whose {@link Message#getBody() body}
