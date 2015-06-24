@@ -25,6 +25,22 @@
                 </xsd:complexType>
             </xsd:element>
 
+            <xsd:element name="Get">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="internalId" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="internalId" type="xsd:string"/>
+                        <xsd:element name="update" type="tns:Update"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
         </xsd:schema>
     </wsdl:types>
     <wsdl:message name="PostRequest">
@@ -33,10 +49,20 @@
     <wsdl:message name="PostResponse">
         <wsdl:part element="tns:PostResponse" name="body"/>
     </wsdl:message>
+    <wsdl:message name="GetRequest">
+        <wsdl:part element="tns:Get" name="body"/>
+    </wsdl:message>
+    <wsdl:message name="GetResponse">
+        <wsdl:part element="tns:GetResponse" name="body"/>
+    </wsdl:message>
     <wsdl:portType name="DemoObject">
         <wsdl:operation name="Post">
             <wsdl:input message="tns:PostRequest"/>
             <wsdl:output message="tns:PostResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="Get">
+            <wsdl:input message="tns:GetRequest"/>
+            <wsdl:output message="tns:GetResponse"/>
         </wsdl:operation>
     </wsdl:portType>
     <wsdl:binding name="DemoObjectSOAP" type="tns:DemoObject">
@@ -45,6 +71,16 @@
         <wsdl:operation name="Post">
             <soap:operation
                     soapAction="http://isisaddons.org/module/publishmq/soapsubscriber/DemoObject/Post"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Get">
+            <soap:operation
+                    soapAction="http://isisaddons.org/module/publishmq/soapsubscriber/DemoObject/Get"/>
             <wsdl:input>
                 <soap:body use="literal"/>
             </wsdl:input>

@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.jws.WebParam;
 import javax.jws.WebService;
+import javax.xml.ws.Holder;
 
 import org.isisaddons.module.publishmq.soapsubscriber.demoobject.DemoObject;
 import org.isisaddons.module.publishmq.soapsubscriber.demoobject.PostResponse;
@@ -28,6 +30,11 @@ public class DemoObjectOverSOAPImpl implements DemoObject {
     private static final Logger LOG = Logger.getLogger(DemoObjectOverSOAPImpl.class.getName());
 
     private List<Update> updates = new ArrayList<>();
+
+    @Override public void get(
+            @WebParam(mode = WebParam.Mode.INOUT, name = "internalId", targetNamespace = "") final Holder<String> internalId, @WebParam(mode = WebParam.Mode.OUT, name = "update", targetNamespace = "") final Holder<Update> update) {
+        update.value = updates.get(Integer.parseInt(internalId.value));
+    }
 
     public org.isisaddons.module.publishmq.soapsubscriber.demoobject.PostResponse post(Update update) {
         LOG.info("Executing operation processed");

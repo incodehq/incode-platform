@@ -42,6 +42,7 @@ import org.isisaddons.module.publishmq.dom.canonical.aim.ActionInvocationMemento
  */
 public class EnrichWithDomDto implements Processor {
 
+    // TODO: UNUSED - DELETE !!!
     @Override
     public void process(Exchange exchange) throws Exception {
         Message inMessage = exchange.getIn();
