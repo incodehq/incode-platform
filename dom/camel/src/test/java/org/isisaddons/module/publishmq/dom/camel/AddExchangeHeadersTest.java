@@ -1,0 +1,47 @@
+package org.isisaddons.module.publishmq.dom.camel;
+
+import org.apache.camel.EndpointInject;
+import org.apache.camel.Produce;
+import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.test.junit4.TestSupport;
+import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ContextConfiguration;
+
+
+@RunWith(CamelSpringJUnit4ClassRunner.class)
+@ContextConfiguration
+public class AddExchangeHeadersTest  extends TestSupport {
+
+    @EndpointInject(uri = "mock:result")
+    protected MockEndpoint resultEndpoint;
+
+    @Produce(uri = "direct:start")
+    protected ProducerTemplate template;
+
+    @DirtiesContext
+    @Test
+    public void testSendMatchingMessage() throws Exception {
+        String expectedBody = "<matched/>";
+
+        resultEndpoint.expectedBodiesReceived(expectedBody);
+
+        template.sendBodyAndHeader(expectedBody, "foo", "bar");
+
+        resultEndpoint.assertIsSatisfied();
+    }
+
+    @DirtiesContext
+    @Test
+    public void testSendNotMatchingMessage() throws Exception {
+        resultEndpoint.expectedMessageCount(0);
+
+        template.sendBodyAndHeader("<notMatched/>", "foo", "notMatchedHeaderValue");
+
+        resultEndpoint.assertIsSatisfied();
+    }
+
+}
