@@ -25,9 +25,9 @@ import org.isisaddons.module.publishmq.soapsubscriber.demoobject.Update;
                       wsdlLocation = "classpath:DemoObject.wsdl",
                       endpointInterface = "org.isisaddons.module.publishmq.soapsubscriber.demoobject.DemoObject")
 
-public class DemoObjectOverSOAPImpl implements DemoObject {
+public class SoapSubscriberFakeServer implements DemoObject {
 
-    private static final Logger LOG = Logger.getLogger(DemoObjectOverSOAPImpl.class.getName());
+    private static final Logger LOG = Logger.getLogger(SoapSubscriberFakeServer.class.getName());
 
     private List<Update> updates = new ArrayList<>();
 

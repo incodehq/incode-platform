@@ -1,11 +1,15 @@
 package org.isisaddons.module.publishmq.dom;
 
 import java.io.CharArrayWriter;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.io.Reader;
+import java.io.StringReader;
 import java.io.Writer;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.URL;
+import java.nio.charset.Charset;
 import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.List;
@@ -20,6 +24,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.google.common.io.Resources;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
@@ -366,6 +371,15 @@ public class ActionInvocationMementoUtils {
         }
     }
 
+    public static ActionInvocationMementoDto fromXml(
+            final Class<?> contextClass,
+            final String resourceName,
+            final Charset charset) throws IOException {
+        final URL url = Resources.getResource(contextClass, resourceName);
+        final String s = Resources.toString(url, charset);
+        return fromXml(new StringReader(s));
+    }
+
     public static String toXml(final ActionInvocationMementoDto aim) {
         final CharArrayWriter caw = new CharArrayWriter();
         toXml(aim, caw);
@@ -522,6 +536,7 @@ public class ActionInvocationMementoUtils {
         }
         return true;
     }
+
     //endregion
 
 

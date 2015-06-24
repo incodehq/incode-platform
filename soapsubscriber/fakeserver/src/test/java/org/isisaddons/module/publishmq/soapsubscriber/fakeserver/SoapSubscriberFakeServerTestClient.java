@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.isisaddons.module.publishmq.soapsubscriber;
+package org.isisaddons.module.publishmq.soapsubscriber.fakeserver;
 
 import java.io.File;
 import java.net.URL;
@@ -29,8 +29,8 @@ import org.isisaddons.module.publishmq.soapsubscriber.demoobject.DemoObjectServi
 import org.isisaddons.module.publishmq.soapsubscriber.demoobject.PostResponse;
 import org.isisaddons.module.publishmq.soapsubscriber.demoobject.Update;
 
-public class DemoObjectClient {
-    protected DemoObjectClient() {
+public class SoapSubscriberFakeServerTestClient {
+    protected SoapSubscriberFakeServerTestClient() {
     }
     
     public static void main(String args[]) throws Exception {

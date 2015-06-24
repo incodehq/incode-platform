@@ -7,10 +7,9 @@
          http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
          http://cxf.apache.org/jaxws
          http://cxf.apache.org/schemas/jaxws.xsd
-         http://cxf.apache.org/jaxrs
-         http://cxf.apache.org/schemas/jaxrs.xsd">
+         ">
 
-    <bean id="demoObject" class="org.isisaddons.module.publishmq.soapsubscriber.fakeserver.DemoObjectOverSOAPImpl"/>
+    <bean id="demoObject" class="org.isisaddons.module.publishmq.soapsubscriber.fakeserver.SoapSubscriberFakeServer"/>
 
     <jaxws:endpoint id="demoObjectFakeServer" implementor="#demoObject" address="/SoapSubscriber/DemoObject"/>
 

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<actionInvocationMementoDto xmlns="http://canonical.dom.publishmq.module.isisaddons.org/aim.xsd" xmlns:ns2="http://canonical.dom.publishmq.module.isisaddons.org/common.xsd">
+    <metadata>
+        <transactionId>001e2a6b-5f24-4844-a107-8ed3eeca3223</transactionId>
+        <sequence>0</sequence>
+        <timestamp>2015-06-24T17:03:27.030+01:00</timestamp>
+        <target>
+            <ns2:objectType>PUBLISH_MQ_DEMO_OBJECT</ns2:objectType>
+            <ns2:objectIdentifier>0</ns2:objectIdentifier>
+        </target>
+        <targetClass>Publish Mq Demo Object</targetClass>
+        <targetAction>update</targetAction>
+        <actionIdentifier>org.isisaddons.module.publishmq.fixture.dom.PublishMqDemoObject#updateDescription()</actionIdentifier>
+        <user>sven</user>
+        <title>PUBLISH_MQ_DEMO_OBJECT:0^1:sven:: updateDescription(java.lang.String)</title>
+    </metadata>
+    <payload>
+        <parameters num="1">
+            <param parameterName="Description" parameterType="string" null="false">
+                <value>
+                    <ns2:string>Foo description</ns2:string>
+                </value>
+            </param>
+        </parameters>
+        <return>
+            <ns2:reference objectState="persistent">
+                <ns2:objectType>PUBLISH_MQ_DEMO_OBJECT</ns2:objectType>
+                <ns2:objectIdentifier>0</ns2:objectIdentifier>
+            </ns2:reference>
+        </return>
+    </payload>
+</actionInvocationMementoDto>

@@ -21,7 +21,7 @@ Copyright 2014~2015 Dan Haywood
     <artifactId>isis-module-publishmq-fixcanonical</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>Isis Addons PublishMq Module Canonical (for Fixture DOM)</name>
+    <name>Isis Addons PublishMq Module Fixture DOM Canonical DTOs</name>
     <description>
         Canonical DTOs for the fixture DOM 
         (ie, is part of the demo app, not the publishmq module itself)
@@ -29,61 +29,62 @@ Copyright 2014~2015 Dan Haywood
 
     <packaging>jar</packaging>
 
+    <profiles>
+        <profile>
+            <id>xsd-to-java</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.jvnet.jaxb2.maven2</groupId>
-                <artifactId>maven-jaxb2-plugin</artifactId>
-                <version>0.12.3</version>
-                <executions>
-                    <execution>
-                        <id>xjc-generate</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <removeOldOutput>true</removeOldOutput>
-
-                    <!-- http://confluence.highsource.org/display/MJIIP/User+Guide#UserGuide-Separateschemacompilation -->
-                    <extension>true</extension>
-                    <episodeFile>src/main/resources/publishmq-dom-canonical.episode</episodeFile>
-
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.9.1</version>
-                <executions>
-                    <execution>
-                        <id>add-source</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                        </goals>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jvnet.jaxb2.maven2</groupId>
+                        <artifactId>maven-jaxb2-plugin</artifactId>
+                        <version>0.12.3</version>
+                        <executions>
+                            <execution>
+                                <id>xjc-generate</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                         <configuration>
-                            <sources>
-                                <source>target/generated-sources/xjc</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+                            <removeOldOutput>true</removeOldOutput>
 
-    <dependencies>
-        <!--
-        <dependency>
-            <groupId>org.isisaddons.module.publishmq</groupId>
-            <artifactId>isis-module-publishmq-dom-canonical</artifactId>
-            <version>1.9.0-SNAPSHOT</version>
-        </dependency>
-        -->
-    </dependencies>
+                            <!--
+                            http://confluence.highsource.org/display/MJIIP/User+Guide#UserGuide-Separateschemacompilation
+                            ... doesn't seem to work, however: the canonical.dom.common classes are still generated
+                            -->
+                            <extension>true</extension>
+                            <useDependenciesAsEpisodes>true</useDependenciesAsEpisodes>
+
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>1.9.1</version>
+                        <executions>
+                            <execution>
+                                <id>add-source</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>add-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>target/generated-sources/xjc</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

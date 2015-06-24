@@ -41,7 +41,7 @@ import ma.glasnost.orika.impl.DefaultMapperFactory;
 @DomainService(
         nature = NatureOfService.DOMAIN
 )
-public class CustomContentMappingService implements ContentMappingService {
+public class PublishMqDemoContentMappingService implements ContentMappingService {
 
     private MapperFactory mapperFactory;
 

@@ -26,36 +26,14 @@ Copyright 2014~2015 Dan Haywood
     <artifactId>isis-module-publishmq-fixcanonicalmappings</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>Isis Addons PublishMq Module Canonical Mappings for Fixture DOM</name>
+    <name>Isis Addons PublishMq Module Fixture DOM's Canonical Mappings</name>
     <description>
         Contains mappings from fixture DOM entities to DTOs defined in fixcanonical
     </description>
 
     <packaging>jar</packaging>
 
-    <properties>
-        <orika-core.version>1.4.5</orika-core.version>
-    </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>ma.glasnost.orika</groupId>
-                <artifactId>orika-core</artifactId>
-                <version>${orika-core.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
-        <dependency>
-            <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-applib</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-viewer-restfulobjects-rendering</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.isisaddons.module.publishmq</groupId>
             <artifactId>isis-module-publishmq-fixture</artifactId>
@@ -64,11 +42,52 @@ Copyright 2014~2015 Dan Haywood
             <groupId>org.isisaddons.module.publishmq</groupId>
             <artifactId>isis-module-publishmq-fixcanonical</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>ma.glasnost.orika</groupId>
-            <artifactId>orika-core</artifactId>
-        </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>isis</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.isis.core</groupId>
+                    <artifactId>isis-core-applib</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.isis.core</groupId>
+                    <artifactId>isis-core-viewer-restfulobjects-rendering</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>mapping-library</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+            <properties>
+                <orika-core.version>1.4.5</orika-core.version>
+            </properties>
+
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>ma.glasnost.orika</groupId>
+                        <artifactId>orika-core</artifactId>
+                        <version>${orika-core.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+
+            <dependencies>
+                <dependency>
+                    <groupId>ma.glasnost.orika</groupId>
+                    <artifactId>orika-core</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 
 </project>

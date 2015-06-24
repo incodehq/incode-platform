@@ -53,7 +53,6 @@ public class AddExchangeHeaders implements Processor {
             throw new IllegalArgumentException("Expected body to contain a PublishedEvent");
         } 
         final ActionInvocationMementoDto aim = (ActionInvocationMementoDto)body;
-
         final ActionInvocationMementoDto.Metadata metadata = aim.getMetadata();
 
         final ImmutableMap<String, Object> aimHeader = ImmutableMap.<String,Object>builder()
