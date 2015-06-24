@@ -38,10 +38,11 @@ language governing permissions and limitations under the License.
         <isis-module-publishmq.version>1.9.0-SNAPSHOT</isis-module-publishmq.version>
         <assertj-core.version>2.0.0</assertj-core.version>
 
+        <camel.version>2.15.2</camel.version>
+        <spring.version>4.1.6.RELEASE</spring.version>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-        <camel.version>2.15.2</camel.version>
     </properties>
 
     <repositories>
@@ -442,7 +443,7 @@ language governing permissions and limitations under the License.
                     <dependency>
                         <groupId>org.springframework</groupId>
                         <artifactId>spring-web</artifactId>
-                        <version>4.1.6.RELEASE</version>
+                        <version>${spring.version}</version>
                     </dependency>
                 </dependencies>
             </dependencyManagement>

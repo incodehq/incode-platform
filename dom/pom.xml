@@ -57,10 +57,12 @@ Copyright 2014~2015 Dan Haywood
         <assertj-core.version>2.0.0</assertj-core.version>
 
         <activemq.version>5.11.1</activemq.version>
+        <camel.version>2.15.2</camel.version>
+        <spring.version>4.1.6.RELEASE</spring.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <camel.version>2.15.2</camel.version>
+
     </properties>
 
     <build>
@@ -309,6 +311,7 @@ Copyright 2014~2015 Dan Haywood
         </profile>
 
 
+
         <profile>
             <id>camel</id>
             <activation>
@@ -356,12 +359,48 @@ Copyright 2014~2015 Dan Haywood
 
                     <dependency>
                         <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-spring-javaconfig</artifactId>
+                        <version>${camel.version}</version>
+                    </dependency>
+
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
                         <artifactId>camel-cxf</artifactId>
                         <version>${camel.version}</version>
+                    </dependency>
+
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>camel-test</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-test</artifactId>
+                        <version>${camel.version}</version>
+                        <scope>test</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-test-spring</artifactId>
+                        <version>${camel.version}</version>
+                        <scope>test</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-test</artifactId>
+                        <version>${spring.version}</version>
+                        <scope>test</scope>
                     </dependency>
                 </dependencies>
             </dependencyManagement>
         </profile>
+
     </profiles>
 
 </project>

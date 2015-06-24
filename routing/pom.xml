@@ -75,6 +75,46 @@ Copyright 2014~2015 Dan Haywood
 
     <profiles>
         <profile>
+            <id>camel-test</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+            <properties>
+            </properties>
+
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-test</artifactId>
+                    <scope>test</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-spring</artifactId>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-spring-javaconfig</artifactId>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-test-spring</artifactId>
+                    <scope>test</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-test</artifactId>
+                    <scope>test</scope>
+                </dependency>
+        </dependencies>
+        </profile>
+
+        <profile>
             <id>camel-with-cxf-overrides</id>
             <activation>
                 <activeByDefault>true</activeByDefault>

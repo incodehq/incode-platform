@@ -10,6 +10,7 @@ import javax.ws.rs.core.UriBuilder;
 
 import com.google.common.collect.ImmutableMap;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.isisaddons.module.publishmq.canonical.demoobject.DemoObjectDto;
@@ -19,6 +20,7 @@ import static org.junit.Assert.assertThat;
 
 public class TestRo  {
 
+    @Ignore // not self-contained, requires webapp to be running
     @Test
     public void process() throws Exception {
 
