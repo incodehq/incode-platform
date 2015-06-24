@@ -33,29 +33,26 @@ Copyright 2014~2015 Dan Haywood
 
     <packaging>jar</packaging>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>isis-module-publishmq-soapsubscriber-client</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
 
         <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-applib</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.isisaddons.module.publishmq</groupId>
-            <artifactId>isis-module-publishmq-fixcanonical</artifactId>
+            <artifactId>isis-module-publishmq-dom-canonical</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.isisaddons.module.publishmq</groupId>
+            <artifactId>isis-module-publishmq-fix-canonical</artifactId>
         </dependency>
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-publishmq-soapsubscriber-client</artifactId>
+            <artifactId>isis-module-publishmq-soapsubscriber-wsdlgen</artifactId>
         </dependency>
-
-
 
         <dependency>
             <groupId>junit</groupId>

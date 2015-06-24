@@ -114,7 +114,8 @@ language governing permissions and limitations under the License.
     
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-publishmq-fixture</artifactId>
+            <artifactId>isis-module-publishmq-fix-scripts</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
             <exclusions>
                 <exclusion>
                     <!-- so don't pick up transitive dependency to asm 4.0.0 -->
@@ -125,11 +126,11 @@ language governing permissions and limitations under the License.
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-publishmq-routing</artifactId>
+            <artifactId>isis-module-publishmq-fix-canonicalmappings</artifactId>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-publishmq-fixcanonicalmappings</artifactId>
+            <artifactId>isis-module-publishmq-routing</artifactId>
         </dependency>
 
 

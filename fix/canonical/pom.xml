@@ -17,11 +17,15 @@ Copyright 2014~2015 Dan Haywood
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.isisaddons.module.publishmq</groupId>
-    <artifactId>isis-module-publishmq-fixcanonical</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <parent>
+        <groupId>org.isisaddons.module.publishmq</groupId>
+        <artifactId>isis-module-publishmq-fix</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>isis-module-publishmq-fix-canonical</artifactId>
+    
 
-    <name>Isis Addons PublishMq Module Fixture DOM Canonical DTOs</name>
+    <name>Isis Addons PublishMq Module Fixture Canonical DTOs</name>
     <description>
         Canonical DTOs for the fixture DOM 
         (ie, is part of the demo app, not the publishmq module itself)

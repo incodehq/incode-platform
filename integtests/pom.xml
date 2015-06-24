@@ -48,7 +48,13 @@ Copyright 2014~2015 Dan Haywood
         <!-- other modules in this project -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-publishmq-fixture</artifactId>
+            <artifactId>isis-module-publishmq-fix-scripts</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>isis-module-publishmq-fix-canonicalmappings</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>

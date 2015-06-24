@@ -5,10 +5,10 @@
             xmlns:xs="http://www.w3.org/2001/XMLSchema"
             xmlns:common="http://canonical.dom.publishmq.module.isisaddons.org/common.xsd"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://canonical.dom.publishmq.module.isisaddons.org/common.xsd ../../../../dom/canonical/src/main/resources/common.xsd"
+            xsi:schemaLocation="http://canonical.dom.publishmq.module.isisaddons.org/common.xsd ../../../../../dom/canonical/src/main/resources/common.xsd"
         >
 
-    <xs:import namespace="http://canonical.dom.publishmq.module.isisaddons.org/common.xsd" schemaLocation="../../../../dom/canonical/src/main/resources/common.xsd"/>
+    <xs:import namespace="http://canonical.dom.publishmq.module.isisaddons.org/common.xsd" schemaLocation="../../../../../dom/canonical/src/main/resources/common.xsd"/>
 
     <xs:element name="demoObjectDto">
         <xs:complexType>
