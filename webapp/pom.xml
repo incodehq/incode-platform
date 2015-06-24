@@ -130,7 +130,7 @@ language governing permissions and limitations under the License.
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-publishmq-routing</artifactId>
+            <artifactId>isis-module-publishmq-fix-routing</artifactId>
         </dependency>
 
 

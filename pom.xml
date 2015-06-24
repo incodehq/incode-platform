@@ -415,12 +415,12 @@ language governing permissions and limitations under the License.
                 <artifactId>isis-module-publishmq-fix-scripts</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
-
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>isis-module-publishmq-routing</artifactId>
+                <artifactId>isis-module-publishmq-fix-routing</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
+
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-publishmq-webapp</artifactId>
@@ -518,7 +518,6 @@ language governing permissions and limitations under the License.
     <modules>
         <module>dom</module>
         <module>fix</module>
-        <module>routing</module>
         <module>soapsubscriber</module>
         <module>integtests</module>
         <module>webapp</module>

@@ -35,6 +35,7 @@
         <module>canonicalmappings</module>
         <module>dom</module>
         <module>scripts</module>
+        <module>routing</module>
     </modules>
 
     <dependencyManagement>
