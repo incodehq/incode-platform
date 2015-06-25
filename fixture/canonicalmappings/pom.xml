@@ -19,11 +19,11 @@ Copyright 2014~2015 Dan Haywood
 
     <parent>
         <groupId>org.isisaddons.module.publishmq</groupId>
-        <artifactId>isis-module-publishmq-fix</artifactId>
+        <artifactId>isis-module-publishmq-fixture</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>isis-module-publishmq-fix-canonicalmappings</artifactId>
+    <artifactId>isis-module-publishmq-fixture-canonicalmappings</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <name>Isis Addons PublishMq Module Fixture Canonical Mappings</name>
@@ -36,11 +36,11 @@ Copyright 2014~2015 Dan Haywood
     <dependencies>
         <dependency>
             <groupId>org.isisaddons.module.publishmq</groupId>
-            <artifactId>isis-module-publishmq-fix-dom</artifactId>
+            <artifactId>isis-module-publishmq-fixture-dom</artifactId>
         </dependency>
         <dependency>
             <groupId>org.isisaddons.module.publishmq</groupId>
-            <artifactId>isis-module-publishmq-fix-canonical</artifactId>
+            <artifactId>isis-module-publishmq-fixture-canonical</artifactId>
         </dependency>
     </dependencies>
 

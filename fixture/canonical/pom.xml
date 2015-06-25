@@ -19,10 +19,10 @@ Copyright 2014~2015 Dan Haywood
 
     <parent>
         <groupId>org.isisaddons.module.publishmq</groupId>
-        <artifactId>isis-module-publishmq-fix</artifactId>
+        <artifactId>isis-module-publishmq-fixture</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>isis-module-publishmq-fix-canonical</artifactId>
+    <artifactId>isis-module-publishmq-fixture-canonical</artifactId>
     
 
     <name>Isis Addons PublishMq Module Fixture Canonical DTOs</name>

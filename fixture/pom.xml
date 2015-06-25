@@ -25,7 +25,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>isis-module-publishmq-fix</artifactId>
+    <artifactId>isis-module-publishmq-fixture</artifactId>
     <name>Isis Addons PublishMq Module Fixture (parent)</name>
     
     <packaging>pom</packaging>
@@ -42,22 +42,22 @@
         <dependencies>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
-                <artifactId>isis-module-publishmq-fix-canonical</artifactId>
+                <artifactId>isis-module-publishmq-fixture-canonical</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
-                <artifactId>isis-module-publishmq-fix-canonicalmappings</artifactId>
+                <artifactId>isis-module-publishmq-fixture-canonicalmappings</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
-                <artifactId>isis-module-publishmq-fix-dom</artifactId>
+                <artifactId>isis-module-publishmq-fixture-dom</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
-                <artifactId>isis-module-publishmq-fix-scripts</artifactId>
+                <artifactId>isis-module-publishmq-fixture-scripts</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
         </dependencies>

@@ -19,11 +19,11 @@ Copyright 2014~2015 Dan Haywood
 
     <parent>
         <groupId>org.isisaddons.module.publishmq</groupId>
-        <artifactId>isis-module-publishmq-fix</artifactId>
+        <artifactId>isis-module-publishmq-fixture</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-	<artifactId>isis-module-publishmq-fix-dom</artifactId>
+	<artifactId>isis-module-publishmq-fixture-dom</artifactId>
     <name>Isis Addons PublishMq Module Fixture DOM</name>
 
 	<build>
@@ -51,7 +51,7 @@ Copyright 2014~2015 Dan Haywood
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-publishmq-fix-canonical</artifactId>
+            <artifactId>isis-module-publishmq-fixture-canonical</artifactId>
         </dependency>
 
         <dependency>
