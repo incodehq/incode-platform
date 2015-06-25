@@ -20,34 +20,37 @@ import org.isisaddons.module.publishmq.dom.canonical.aim.ActionInvocationMemento
 
 public class EnrichWithCanonicalDto implements Processor {
 
-    private final ClientBuilder clientBuilder;
     public static final MediaType MEDIA_TYPE = new MediaType("application", "xml",
             ImmutableMap.of(
                     "profile", "urn:org.restfulobjects:repr-types/object",
                     "x-ro-domain-type", DemoObjectDto.class.getName()));
 
+    private final ClientBuilder clientBuilder;
     private UriBuilder uriBuilder;
+
+    public EnrichWithCanonicalDto() {
+        clientBuilder = ClientBuilder.newBuilder();
+    }
 
     private String username;
     private String password;
     private String base;
 
-    public EnrichWithCanonicalDto() {
-        clientBuilder = ClientBuilder.newBuilder();
-
-        init();
+    public void setBase(final String base) {
+        this.base = base;
     }
 
-    private void init() {
+    public void setUsername(final String username) {
+        this.username = username;
+    }
 
-        // TODO: need to parameterize
-        base = "http://localhost:7070/restful/";
-        username = "sven";
-        password = "pass";
+    public void setPassword(final String password) {
+        this.password = password;
+    }
 
-        uriBuilder = UriBuilder.fromUri(base
-                + "objects/{objectType}/{objectInstance}");
 
+    public void init() {
+        uriBuilder = UriBuilder.fromUri(base + "objects/{objectType}/{objectInstance}");
     }
 
     @Override

@@ -20,24 +20,19 @@ public class UpdateSoapSubscriber implements Processor {
     private String endpointAddress;
     private DemoObject demoObject;
 
-    public UpdateSoapSubscriber() {
-        init();
+    public void setEndpointAddress(final String endpointAddress) {
+        this.endpointAddress = endpointAddress;
     }
 
-    private void init() {
-        // TODO
-        endpointAddress = "http://localhost:7070/soap/SoapSubscriber/DemoObject";
-
+    public void init() {
         // although jax-ws proxies are not specified to be thread-safe
         // the CXF implementation is thread-safe in MOST situations (including this)
-        // see
-        // http://cxf.apache.org/faq.html#FAQ-AreJAX-WSclientproxiesthreadsafe?
+        // see http://cxf.apache.org/faq.html#FAQ-AreJAX-WSclientproxiesthreadsafe?
         DemoObjectService demoObjectService = new DemoObjectService();
         demoObject = demoObjectService.getDemoObjectOverSOAP();
 
         BindingProvider provider = (BindingProvider) demoObject;
         provider.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointAddress);
-
     }
 
     @Override
@@ -61,9 +56,6 @@ public class UpdateSoapSubscriber implements Processor {
 
         final int soapSubscriberInternalId = response.getInternalId();
         final String responseTransactionId = response.getMessageId();
-
-//        System.out.println("internal Id: " + soapSubscriberInternalId);
-//        System.out.println("transaction Id: " + responseTransactionId);
 
         message.setHeader("soapSubscriberInternalId", soapSubscriberInternalId);
     }

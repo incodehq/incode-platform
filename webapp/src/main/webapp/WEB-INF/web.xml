@@ -31,10 +31,17 @@ Copyright 2014~2015 Dan Haywood
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            classpath:activemq.xml,
+            classpath:activemq-config.xml,
             classpath:camel-config.xml,
-            classpath:soapsubscriber-fakeserver.xml
+            classpath:soapSubscriberFakeServer-config.xml,
+            classpath:propertyPlaceholderConfigurer-config.xml
         </param-value>
+    </context-param>
+
+
+    <context-param>
+        <param-name>spring.config.file</param-name>
+        <param-value>classpath:spring.properties</param-value>
     </context-param>
 
 

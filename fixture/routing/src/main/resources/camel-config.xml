@@ -16,8 +16,6 @@
     limitations under the License.
 -->
 
-<!-- START SNIPPET: e1 -->
-<!-- this is a spring XML file where we have Camel embedded -->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:camel="http://camel.apache.org/schema/spring"
@@ -26,23 +24,6 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
     <camelContext xmlns="http://camel.apache.org/schema/spring">
-
-        <!--
-        <route id="timerToInRoute">
-            <from uri="timer:foo?period=1s"/>
-            <transform>
-                <simple>Message at ${date:now:yyyy-MM-dd HH:mm:ss}</simple>
-            </transform>
-            <to uri="activemq-broker:queue:inbox"/>
-        </route>
-
-        <route id="inToOutRoute">
-            <from uri="activemq:queue:inbox"/>
-            <log message="Routing message from inbox to outbox queue with data ${body}"/>
-            <to uri="activemq-broker:queue:outbox"/>
-        </route>
-        -->
-
 
         <route id="inToOutRoute">
             <from uri="activemq-broker:queue:actionInvocationsQueue"/>
@@ -71,7 +52,6 @@
                     <log message="updateDescription() received... "/>
 
                     <camel:process ref="enrich"/>
-
                     <camel:process ref="updateSoapSubscriber"/>
                     <!--<camel:to uri="cxf:bean:subscriberEndpoint"/>-->
 
@@ -84,12 +64,22 @@
     </camelContext>
 
     <bean id="addExchangeHeaders" class="org.isisaddons.module.publishmq.dom.camel.AddExchangeHeaders"/>
-    <bean id="enrich" class="org.isisaddons.module.publishmq.routing.EnrichWithCanonicalDto"/>
-    <bean id="updateSoapSubscriber" class="org.isisaddons.module.publishmq.routing.UpdateSoapSubscriber"/>
+
+    <bean id="enrich" class="org.isisaddons.module.publishmq.routing.EnrichWithCanonicalDto" init-method="init">
+        <!-- see propertyPlaceholderConfigurer-config.xml -->
+        <property name="base" value="${enrichWithCanonicalDto.base}"/>
+        <property name="username" value="${enrichWithCanonicalDto.username}"/>
+        <property name="password" value="${enrichWithCanonicalDto.password}"/>
+    </bean>
+
+    <bean id="updateSoapSubscriber" class="org.isisaddons.module.publishmq.routing.UpdateSoapSubscriber" init-method="init">
+        <!-- see propertyPlaceholderConfigurer-config.xml -->
+        <property name="endpointAddress" value="${updateSoapSubscriber.endpointAddress}"/>
+    </bean>
 
     <bean id="activemq-broker" class="org.apache.activemq.camel.component.ActiveMQComponent">
         <property name="brokerURL" value="vm://broker?create=false&amp;waitForStart=5000"/>
     </bean>
 
+
 </beans>
-        <!-- END SNIPPET: e1 -->
