@@ -43,7 +43,7 @@ public class UpdateSoapSubscriber implements Processor {
         Map<String, Object> aimHeader = (Map<String, Object>) message.getHeader("aim");
         final String messageId = (String) aimHeader.get("messageId");
 
-        final DataHandler dataHandler = message.getAttachment(EnrichWithCanonicalDto.class.getName());
+        final DataHandler dataHandler = message.getAttachment(UpdateSoapSubscriber.class.getName());
         final DemoObjectDto demoObjectDto = (DemoObjectDto) dataHandler.getContent();
 
         final Update update = new Update();

@@ -86,7 +86,7 @@ public class EnrichWithCanonicalDto implements Processor {
             final DemoObjectDto entity = response.readEntity(DemoObjectDto.class);
 
             final DataHandler entityDataHandler = new DataHandler(entity, response.getMediaType().toString());
-            inMessage.addAttachment(EnrichWithCanonicalDto.class.getName(), entityDataHandler);
+            inMessage.addAttachment(UpdateSoapSubscriber.class.getName(), entityDataHandler);
 
         } finally {
             closeQuietly(client);
