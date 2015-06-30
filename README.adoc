@@ -68,12 +68,12 @@ image::images/040-demo-object-updated.png[width=800,height=469,link="https://raw
 
 === Camel routing
 
-The example app defines the following Camel route:
+The example app defines the following Camel route (link:fixture/routing/src/main/resources/camel-config.xml[camel-config.xml]):
 
 [source,xml]
 ----
 <camelContext xmlns="http://camel.apache.org/schema/spring">
-  <route id="inToOutRoute">
+  <route id="updateFakeSoapServiceRoute">
     <from uri="activemq-broker:queue:actionInvocationsQueue"/>                  <!-- 1 -->
     <unmarshal>
       <jaxb contextPath="org.apache.isis.schema.aim.v1_0" prettyPrint="true"/>  <!-- 2 -->
@@ -141,7 +141,7 @@ image::images/050-camel-route-logging.png[width=800,height=469,link="https://raw
 
 The screenshot also highlights the two important pieces of information used by the route: the action identifier metadata -- added as a Camel header for routing -- and the target object has was updated.
 
-Second, we can query the fake SOAP service to se the data that was posted to it.  The screenshot below uses link:http://www.soapui.org/[SOAP UI], which can generate stub requests from the fake SOAP service's WSDL ( http://localhost:8080/soap/SoapSubscriber/DemoObject?wsdl[http://localhost:8080/soap/SoapSubscriber/DemoObject?wsdl]):
+Second, we can query the fake SOAP service to se the data that was posted to it.  The screenshot below uses link:http://www.soapui.org/[SOAP UI], which can generate stub requests from the fake SOAP service's WSDL (http://localhost:8080/soap/SoapSubscriber/DemoObject?wsdl[http://localhost:8080/soap/SoapSubscriber/DemoObject?wsdl]):
 
 image::images/060-query-fake-server.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/060-query-fake-server.png"]
 
@@ -154,7 +154,7 @@ image::images/110-proxy-restful-objects.png[width=800,height=469,link="https://r
 
 We can similarly do the same for port 7070, also forwarding onto port 8080.
 
-Then, we can reconfigure the app to use these different ports by editing link:blob/master/webapp/src/main/resources/spring.properties[`spring.properties`]:
+Then, we can reconfigure the app to use these different ports by editing link:webapp/src/main/resources/spring.properties[`spring.properties`]:
 
 [source,ini]
 ----
@@ -351,7 +351,7 @@ In the example app all the Camel routing can be found in the `-fixture-routing` 
 
 * configure ActiveMQ so that the publishing service implementation can post to a queue called `actionInvocationsQueue`. +
 +
-In the example app this is done using Spring (link:blob/master/webapp/src/main/resources/activemq-config.xml[activemq-config.xml]):
+In the example app this is done using Spring (link:webapp/src/main/resources/activemq-config.xml[activemq-config.xml]):
 +
 [source,xml]
 ----
@@ -426,6 +426,51 @@ structured as follows:
 * `webapp` - demo webapp (see above screenshots); depends on `dom` and `fixture`
 
 Only the `dom` module (with its submodules) is released to Maven Central Repo. The versions of the other modules are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
+
+
+
+== Also of note
+
+The example app contains a few other little tricks that may be useful if you are looking to deploy a similar architecture for your own application.
+
+=== Generate Canonical DTO referencing Apache Isis' DTOs
+
+As of 1.9.0 Apache Isis includes the link:http://isis.apache.org/schema/aim/aim.xsd[`aim.xsd`] (action invocation memento) and http://isis.apache.org/schema/common/common.xsd[`common.xsd`] (common data types) schemas.  The `PublishingServiceMq` uses the `aim.xsd` schema (or rather, its Java JAXB equivalent, `ActionInvocationMemento`, directly.  The `common.xsd` schema is referenced both by `aim.xsd` for its definition of bookmarks (oids) to objects.
+
+The `common.xsd` is _also_ used by the example app in the construction of its own canonical `DemoObjectDto`, because it is `xs:import`'ed into the corresponding link:fixture/canonical/src/main/resources/org/isisaddons/module/publishmq/fixture/canonical/demoobject.xsd[`demoobject.xsd`] schema (from which `DemoObjectDto` is generated).   A link:fixture/canonical/src/main/resources/org/isisaddons/module/publishmq/fixture/canonical/demoobject-binding.xml[binding file] is used to ensure that classes for the imported `common.xsd` are not regenerated, and that the Java import statements refer to the correct package.   This is all configured in the corresponding link:fixture/canonical/pom.xml#L65[`pom.xml`] file.
+
+
+=== Centralized Spring configuration
+
+In the example app Spring is used to bootstrap ActiveMQ (link:webapp/src/main/resources/activemq-config.xml[`activemq-config.xml`), and Camel (link:fixture/routing/src/main/resources/camel-config.xml[`camel-config.xml`], and also the fake SOAP Subscriber (link:webapp/src/main/resources/soapSubscriberFakeServer-config.xml[`soapSubscriberFakeServer-config.xml`]).  The configuration for all is centralized through a propertyPlaceholderConfigurer bean (defined in link:webapp/src/main/resources/propertyPlaceholderConfigurer-config.xml#L23[`propertyPlaceholderConfigurer-config.xml`]).
+
+The location of the property file is specified in the link:webapp/src/main/webapp/WEB-INF/web.xml#L44[`web.xml`]:
+
+[source,xml]
+----
+<context-param>
+    <param-name>spring.config.file</param-name>
+    <param-value>classpath:spring.properties</param-value>
+</context-param>
+----
+
+where link:webapp/src/main/resources/spring.properties[`spring.properties`] is:
+
+[source,ini]
+----
+activemq.data=activemq-data
+enrichWithCanonicalDto.base=http://localhost:8080/restful/
+enrichWithCanonicalDto.username=sven
+enrichWithCanonicalDto.password=pass
+updateSoapSubscriber.endpointAddress=http://localhost:8080/soap/SoapSubscriber/DemoObject
+----
+
+If necessary the location of this config file can be overridden; see link:http://isis.apache.org/guides/ug.html#_ug_deployment_externalized-configuration[this topic] in the Apache Isis user guide.
+
+
+=== WSDL to Java
+
+Similar to the way in which the .xsd schemas are converted to Java, `wsdl2java` is used to convert the fake server's WSDL to Java stubs.  This WSDL can be found link:soapsubscriber/wsdl/src/main/resources/DemoObject.wsdl[here]; the `pom.xml` configuration can be found link:https://github.com/isisaddons/isis-module-publishmq/blob/master/soapsubscriber/wsdlgen/pom.xml#L76[here].
 
 
 

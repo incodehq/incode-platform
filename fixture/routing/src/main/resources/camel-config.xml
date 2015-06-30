@@ -25,7 +25,7 @@
 
     <camelContext xmlns="http://camel.apache.org/schema/spring">
 
-        <route id="inToOutRoute">
+        <route id="updateFakeSoapServiceRoute">
             <from uri="activemq-broker:queue:actionInvocationsQueue"/>
             <unmarshal>
                 <jaxb contextPath="org.apache.isis.schema.aim.v1_0" prettyPrint="true"/>

@@ -65,15 +65,6 @@ Copyright 2015 Dan Haywood
                         <configuration>
                             <removeOldOutput>true</removeOldOutput>
 
-                            <!--
-                            http://confluence.highsource.org/display/MJIIP/User+Guide#UserGuide-Separateschemacompilation
-                            ... doesn't seem to work, however: the canonical.dom.common classes are still generated
-                            -->
-<!--
-                            <extension>true</extension>
-                            <useDependenciesAsEpisodes>true</useDependenciesAsEpisodes>
--->
-
                             <schemaDirectory>src/main/resources/org/isisaddons/module/publishmq/fixture/canonical</schemaDirectory>
                             <schemaIncludes>
                                 <schemaInclude>demoobject.xsd</schemaInclude>
