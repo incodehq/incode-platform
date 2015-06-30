@@ -33,7 +33,7 @@ public class SoapSubscriberFakeServer implements DemoObject {
 
     @Override public void get(
             @WebParam(mode = WebParam.Mode.INOUT, name = "internalId", targetNamespace = "") final Holder<String> internalId, @WebParam(mode = WebParam.Mode.OUT, name = "update", targetNamespace = "") final Holder<Update> update) {
-        update.value = updates.get(Integer.parseInt(internalId.value));
+        update.value = updates.get(Integer.parseInt(internalId.value) - 1);
     }
 
     public org.isisaddons.module.publishmq.soapsubscriber.demoobject.PostResponse post(Update update) {

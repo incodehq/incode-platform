@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-Copyright 2014~2015 Dan Haywood
+Copyright 2015 Dan Haywood
 
 Licensed under the Apache License, Version 2.0 (the "License"); 
 you may not use this file except in compliance with the License. 
@@ -353,7 +353,6 @@ language governing permissions and limitations under the License.
                 <scope>import</scope>
             </dependency>
 
-            <!-- this project's own modules -->
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-publishmq-dom</artifactId>
@@ -361,11 +360,8 @@ language governing permissions and limitations under the License.
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
-                <version>${isis-module-publishmq.version}</version>
-            </dependency>
+
+            <!-- this project's own modules -->
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-publishmq-soapsubscriber</artifactId>

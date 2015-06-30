@@ -6,15 +6,15 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
 
-import org.isisaddons.module.publishmq.dom.canonical.aim.ActionInvocationMementoDto;
+import org.apache.isis.schema.aim.v1_0.ActionInvocationMementoDto;
 
 /**
  * A Camel {@link Processor} that can unmarshal a {@link Message} whose {@link Message#getBody() body}
- * contains a {@link org.isisaddons.module.publishmq.dom.canonical.aim.ActionInvocationMementoDto}, and attaches a
+ * contains a {@link ActionInvocationMementoDto}, and attaches a
  * single 'aim' header which is a map of AIM's metadata, for downstream routing.
  *
  * <p>
- * The header's keys are attached are:
+ * The header's keys that are attached are:
  * <ul>
  *      <li><tt>messageId</tt> - a String, the concatentation of <tt>transactionId</tt>:<tt>sequence</tt></li>
  *      <li><tt>transactionId</tt> - a String, representing the Isis transaction in which this event was published</li>
@@ -30,7 +30,7 @@ import org.isisaddons.module.publishmq.dom.canonical.aim.ActionInvocationMemento
  * </pre>
  * 
  * <p>
- * Then, for a route where the message contains an {@link org.isisaddons.module.publishmq.dom.canonical.aim.ActionInvocationMementoDto}, route using something like:
+ * Then, for a route where the message contains a {@link ActionInvocationMementoDto}, route using something like:
  * <pre>
  *   ...
  *   &lt;camel:process ref=&quot;addExchangeHeaders&quot;/&gt;

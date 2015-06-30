@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<actionInvocationMementoDto xmlns="http://canonical.dom.publishmq.module.isisaddons.org/aim.xsd" xmlns:ns2="http://canonical.dom.publishmq.module.isisaddons.org/common.xsd">
+<actionInvocationMementoDto xmlns="http://isis.apache.org/schema/aim" xmlns:ns2="http://isis.apache.org/schema/common">
     <metadata>
         <transactionId>001e2a6b-5f24-4844-a107-8ed3eeca3223</transactionId>
         <sequence>0</sequence>

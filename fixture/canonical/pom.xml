@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-Copyright 2014~2015 Dan Haywood
+Copyright 2015 Dan Haywood
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -33,6 +33,13 @@ Copyright 2014~2015 Dan Haywood
 
     <packaging>jar</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-schema</artifactId>
+        </dependency>
+    </dependencies>
+
     <profiles>
         <profile>
             <id>xsd-to-java</id>
@@ -62,8 +69,20 @@ Copyright 2014~2015 Dan Haywood
                             http://confluence.highsource.org/display/MJIIP/User+Guide#UserGuide-Separateschemacompilation
                             ... doesn't seem to work, however: the canonical.dom.common classes are still generated
                             -->
+<!--
                             <extension>true</extension>
                             <useDependenciesAsEpisodes>true</useDependenciesAsEpisodes>
+-->
+
+                            <schemaDirectory>src/main/resources/org/isisaddons/module/publishmq/fixture/canonical</schemaDirectory>
+                            <schemaIncludes>
+                                <schemaInclude>demoobject.xsd</schemaInclude>
+                            </schemaIncludes>
+
+                            <bindingDirectory>src/main/resources/org/isisaddons/module/publishmq/fixture/canonical</bindingDirectory>
+                            <bindingIncludes>
+                                <bindingInclude>demoobject-binding.xml</bindingInclude>
+                            </bindingIncludes>
 
                         </configuration>
                     </plugin>

@@ -15,8 +15,8 @@ import org.junit.runner.RunWith;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 
-import org.isisaddons.module.publishmq.dom.ActionInvocationMementoUtils;
-import org.isisaddons.module.publishmq.dom.canonical.aim.ActionInvocationMementoDto;
+import org.apache.isis.schema.aim.v1_0.ActionInvocationMementoDto;
+import org.apache.isis.schema.utils.ActionInvocationMementoDtoUtils;
 
 @RunWith(CamelSpringJUnit4ClassRunner.class)
 @ContextConfiguration
@@ -36,7 +36,7 @@ public class AddExchangeHeadersTest  extends TestSupport {
     @Test
     public void happyCase() throws Exception {
 
-        final ActionInvocationMementoDto aim = ActionInvocationMementoUtils.fromXml(getClass(), "actionInvocationMementoDto-example.xml", Charsets.UTF_8);
+        final ActionInvocationMementoDto aim = ActionInvocationMementoDtoUtils.fromXml(getClass(), "actionInvocationMementoDto-example.xml", Charsets.UTF_8);
         final ActionInvocationMementoDto.Metadata metadata = aim.getMetadata();
         final ImmutableMap<String, Object> aimHeader = ImmutableMap.<String,Object>builder()
                 .put("messageId", metadata.getTransactionId() + ":" + metadata.getSequence())

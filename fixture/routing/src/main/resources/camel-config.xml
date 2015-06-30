@@ -28,7 +28,7 @@
         <route id="inToOutRoute">
             <from uri="activemq-broker:queue:actionInvocationsQueue"/>
             <unmarshal>
-                <jaxb contextPath="org.isisaddons.module.publishmq.dom.canonical.aim" prettyPrint="true"/>
+                <jaxb contextPath="org.apache.isis.schema.aim.v1_0" prettyPrint="true"/>
             </unmarshal>
             <camel:process ref="addExchangeHeaders"/>
 
@@ -38,10 +38,8 @@
 
                     <log message="updateName() received... "/>
 
-                    <camel:process ref="enrich"/>
-
-                    <camel:process ref="updateSoapSubscriber"/>
-                    <!--<camel:to uri="cxf:bean:subscriberEndpoint"/>-->
+                    <camel:process ref="attachDtoFromRestfulObjects"/>
+                    <camel:process ref="postToFakeExternalSoapService"/>
 
                     <log message="internalId: ${header.soapSubscriberInternalId}"/>
                     <camel:to uri="stream:out"/>
@@ -51,9 +49,8 @@
 
                     <log message="updateDescription() received... "/>
 
-                    <camel:process ref="enrich"/>
-                    <camel:process ref="updateSoapSubscriber"/>
-                    <!--<camel:to uri="cxf:bean:subscriberEndpoint"/>-->
+                    <camel:process ref="attachDtoFromRestfulObjects"/>
+                    <camel:process ref="postToFakeExternalSoapService"/>
 
                     <log message="internalId: ${header.soapSubscriberInternalId}"/>
                     <camel:to uri="stream:out" />
@@ -63,23 +60,27 @@
         </route>
     </camelContext>
 
-    <bean id="addExchangeHeaders" class="org.isisaddons.module.publishmq.dom.camel.AddExchangeHeaders"/>
+    <bean id="activemq-broker"
+          class="org.apache.activemq.camel.component.ActiveMQComponent">
+        <property name="brokerURL" value="vm://broker?create=false&amp;waitForStart=5000"/>
+    </bean>
 
-    <bean id="enrich" class="org.isisaddons.module.publishmq.routing.EnrichWithCanonicalDto" init-method="init">
+    <bean id="addExchangeHeaders"
+          class="org.isisaddons.module.publishmq.dom.camel.AddExchangeHeaders"/>
+
+    <bean id="attachDtoFromRestfulObjects"
+          class="org.isisaddons.module.publishmq.fixture.routing.AttachDemoObjectDto"
+          init-method="init">
         <!-- see propertyPlaceholderConfigurer-config.xml -->
         <property name="base" value="${enrichWithCanonicalDto.base}"/>
         <property name="username" value="${enrichWithCanonicalDto.username}"/>
         <property name="password" value="${enrichWithCanonicalDto.password}"/>
     </bean>
 
-    <bean id="updateSoapSubscriber" class="org.isisaddons.module.publishmq.routing.UpdateSoapSubscriber" init-method="init">
+    <bean id="postToFakeExternalSoapService"
+          class="org.isisaddons.module.publishmq.fixture.routing.PostToExternalWebServiceUsingSoap"
+          init-method="init">
         <!-- see propertyPlaceholderConfigurer-config.xml -->
         <property name="endpointAddress" value="${updateSoapSubscriber.endpointAddress}"/>
     </bean>
-
-    <bean id="activemq-broker" class="org.apache.activemq.camel.component.ActiveMQComponent">
-        <property name="brokerURL" value="vm://broker?create=false&amp;waitForStart=5000"/>
-    </bean>
-
-
 </beans>

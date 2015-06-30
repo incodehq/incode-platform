@@ -28,11 +28,11 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
+import org.apache.isis.schema.common.v1_0.OidDto;
 import org.apache.isis.viewer.restfulobjects.applib.RepresentationType;
 import org.apache.isis.viewer.restfulobjects.rendering.service.conmap.ContentMappingService;
 
 import org.isisaddons.module.publishmq.canonical.demoobject.DemoObjectDto;
-import org.isisaddons.module.publishmq.dom.canonical.common.OidDto;
 import org.isisaddons.module.publishmq.fixture.dom.PublishMqDemoObject;
 
 import ma.glasnost.orika.MapperFactory;
@@ -45,7 +45,6 @@ public class PublishMqDemoContentMappingService implements ContentMappingService
 
     private MapperFactory mapperFactory;
 
-    @Programmatic
     @PostConstruct
     public void init() {
         mapperFactory = new DefaultMapperFactory.Builder().build();
