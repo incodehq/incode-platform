@@ -92,37 +92,11 @@ The example app defines the following Camel route:
         <camel:to uri="stream:out"/>                                            <!-- 9 -->
       </camel:when>
       <camel:when>
-        <camel:simple>                                                          <!-- 5 -->
-          ${header.aim[actionIdentifier]} ==
-          'org.isisaddons.module.publishmq.fixture.dom.PublishMqDemoObject#updateDescription()'
-        </camel:simple>
-        <log message="updateDescription() received... "/>
-        <camel:process ref="attachDtoFromRestfulObjects"/>                      <!-- 6 -->
-        <camel:process ref="postToFakeExternalSoapService"/>                    <!-- 7 -->
-        <log message="internalId: ${header.soapSubscriberInternalId}"/>         <!-- 8 -->
-        <camel:to uri="stream:out" />                                           <!-- 9 -->
+        ...
       </camel:when>
     </camel:choice>
   </route>
 </camelContext>
-<bean id="activemq-broker"
-      class="org.apache.activemq.camel.component.ActiveMQComponent">
-    <property name="brokerURL" value="vm://broker?create=false&amp;waitForStart=5000"/> <!-- 1 -->
-</bean>
-<bean id="addExchangeHeaders"
-      class="org.isisaddons.module.publishmq.dom.camel.AddExchangeHeaders"/>            <!-- 3 -->
-<bean id="attachDtoFromRestfulObjects"
-     class="org.isisaddons.module.publishmq.fixture.routing.AttachDemoObjectDto"
-     init-method="init">                                                                <!-- 6 -->
-    <property name="base" value="${enrichWithCanonicalDto.base}"/>
-    <property name="username" value="${enrichWithCanonicalDto.username}"/>
-    <property name="password" value="${enrichWithCanonicalDto.password}"/>
-</bean>
-<bean id="postToFakeExternalSoapService"
-      class="org.isisaddons.module.publishmq.fixture.routing.PostToExternalWebServiceUsingSoap"
-      init-method="init">                                                               <!-- 7 -->
-    <property name="endpointAddress" value="${updateSoapSubscriber.endpointAddress}"/>
-</bean>
 ----
 <1> subscribe to ActiveMQ for incoming action invocation events (in XML form).  This uses the internal `vm://` protocol for speed
 <2> unmarshal to a (JAXB annotated) `ActionInvocationMemento` object
@@ -133,6 +107,32 @@ The example app defines the following Camel route:
 <7> Use a processor (implemented in the example app) to post a message to the fake external SOAP service.
 <8> Log the id allocated by the fake server to the console.  This will increment for each call
 <9> Log the message payload to the console.  Note that this does not include any attachments
+
+Where the beans are:
+[source,xml]
+----
+<bean id="activemq-broker"
+      class="org.apache.activemq.camel.component.ActiveMQComponent">
+    <property name="brokerURL" value="vm://broker?create=false&amp;waitForStart=5000"/>
+</bean>
+<bean id="addExchangeHeaders"
+      class="org.isisaddons.module.publishmq.dom.camel.AddExchangeHeaders"/>   <!--1-->
+<bean id="attachDtoFromRestfulObjects"
+     class="org.isisaddons.module.publishmq.fixture.routing.AttachDemoObjectDto"
+     init-method="init">                                                       <!--2-->
+    <property name="base" value="${enrichWithCanonicalDto.base}"/>
+    <property name="username" value="${enrichWithCanonicalDto.username}"/>
+    <property name="password" value="${enrichWithCanonicalDto.password}"/>
+</bean>
+<bean id="postToFakeExternalSoapService"
+      class="org.isisaddons.module.publishmq.fixture.routing.PostToExternalWebServiceUsingSoap"
+      init-method="init">                                                     <!--3-->
+    <property name="endpointAddress" value="${updateSoapSubscriber.endpointAddress}"/>
+</bean>
+----
+<1> adds the exchange headers for routing (step 3 in the route, above)
+<2> calls Restful Objects to obtain a DTO representing the updated entity (step 6 in the route)
+<3> calls fake SOAP service (step 7 in the route)
 
 There are two observable side-effects from the execution of this route.  Firstly, when the fake SOAP service is called, it should return an internal Id.  This, along with the rest of the message payload, are logged to the console:
 
