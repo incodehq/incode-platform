@@ -108,7 +108,8 @@ The example app defines the following Camel route:
 <8> Log the id allocated by the fake server to the console.  This will increment for each call
 <9> Log the message payload to the console.  Note that this does not include any attachments
 
-Where the beans are:
+The referenced beans are defined as:
+
 [source,xml]
 ----
 <bean id="activemq-broker"
@@ -138,9 +139,9 @@ There are two observable side-effects from the execution of this route.  Firstly
 
 image::images/050-camel-route-logging.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/050-camel-route-logging.png"]
 
-(The action identifier metadata that is added to the Camel header for routing has also been annotated).
+The screenshot also highlights the two important pieces of information used by the route: the action identifier metadata -- added as a Camel header for routing -- and the target object has was updated.
 
-Second, because the fake SOAP service _is_ called, we can query it to check that the data was posted.  The screenshot below uses link:http://www.soapui.org/[SOAP UI], which can generate stub requests from the WSDL (available at http://localhost:8080/soap/SoapSubscriber/DemoObject?wsdl[http://localhost:8080/soap/SoapSubscriber/DemoObject?wsdl]):
+Second, we can query the fake SOAP service to se the data that was posted to it.  The screenshot below uses link:http://www.soapui.org/[SOAP UI], which can generate stub requests from the fake SOAP service's WSDL ( http://localhost:8080/soap/SoapSubscriber/DemoObject?wsdl[http://localhost:8080/soap/SoapSubscriber/DemoObject?wsdl]):
 
 image::images/060-query-fake-server.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/060-query-fake-server.png"]
 
@@ -153,7 +154,7 @@ image::images/110-proxy-restful-objects.png[width=800,height=469,link="https://r
 
 We can similarly do the same for port 7070, also forwarding onto port 8080.
 
-Then, we can reconfigure the app to use these different ports by editing `spring.properties`:
+Then, we can reconfigure the app to use these different ports by editing link:blob/master/webapp/src/main/resources/spring.properties[`spring.properties`]:
 
 [source,ini]
 ----
@@ -339,7 +340,7 @@ To use "out-of-the-box":
 <dependencies>
     <dependency>
         <groupId>org.isisaddons.module.publishmq</groupId>
-        <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
+        <artifactId>isis-module-publishmq-dom-camel</artifactId>
     </dependency>
     ...
 </dependencies>
@@ -350,7 +351,7 @@ In the example app all the Camel routing can be found in the `-fixture-routing` 
 
 * configure ActiveMQ so that the publishing service implementation can post to a queue called `actionInvocationsQueue`. +
 +
-In the example app this is done using Spring:
+In the example app this is done using Spring (link:blob/master/webapp/src/main/resources/activemq-config.xml[activemq-config.xml]):
 +
 [source,xml]
 ----
