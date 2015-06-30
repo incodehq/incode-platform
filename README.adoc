@@ -34,31 +34,27 @@ First, install sample data:
 
 image::images/010-install-fixtures.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/010-install-fixtures.png"]
 
-This returns the first demo object (an instance of `PublishMqDemoObjectt`:
+This returns the first demo object (an instance of `PublishMqDemoObject`):
 
 image::images/020-update-demo-object.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/020-update-demo-object.png"]
 
 === Invoke an action
 
-The `#updateName()` action is defined as:
+The `updateName()` action is defined as:
 
 [source,java]
 ----
 @Action(
-        semantics = SemanticsOf.IDEMPOTENT,
-        publishing = Publishing.ENABLED     // <1>
+    semantics = SemanticsOf.IDEMPOTENT,
+    publishing = Publishing.ENABLED     // <1>
 )
 public PublishMqDemoObject updateName(
-        @ParameterLayout(named="Name")
-        final String name) {
+        @ParameterLayout(named="Name") final String name) {
     setName(name);
     return this;
 }
-public String default0UpdateName() {
-    return getName();
-}
 ----
-<1> invocations of this action will be published to the configured implementation of `PublishingService` SPI.
+<1> invocations of this action will be published to the configured implementation of `PublishingService`.
 
 
 Invoke the action:
@@ -77,35 +73,37 @@ The example app defines the following Camel route:
 [source,xml]
 ----
 <camelContext xmlns="http://camel.apache.org/schema/spring">
-    <route id="inToOutRoute">
-        <from uri="activemq-broker:queue:actionInvocationsQueue"/>                      <!-- 1 -->
-        <unmarshal>
-            <jaxb contextPath="org.apache.isis.schema.aim.v1_0" prettyPrint="true"/>    <!-- 2 -->
-        </unmarshal>
-        <camel:process ref="addExchangeHeaders"/>                                       <!-- 3 -->
-        <camel:choice>
-            <camel:when>                                                                <!-- 4 -->
-                <camel:simple>                                                          <!-- 5 -->
-    ${header.aim[actionIdentifier]} == 'org.isisaddons.module.publishmq.fixture.dom.PublishMqDemoObject#updateName()'
-                </camel:simple>
-                <log message="updateName() received... "/>
-                <camel:process ref="attachDtoFromRestfulObjects"/>                      <!-- 6 -->
-                <camel:process ref="postToFakeExternalSoapService"/>                    <!-- 7 -->
-                <log message="internalId: ${header.soapSubscriberInternalId}"/>         <!-- 8 -->
-                <camel:to uri="stream:out"/>                                            <!-- 9 -->
-            </camel:when>
-            <camel:when>
-                <camel:simple>                                                          <!-- 5 -->
-    ${header.aim[actionIdentifier]} == 'org.isisaddons.module.publishmq.fixture.dom.PublishMqDemoObject#updateDescription()'
-                </camel:simple>
-                <log message="updateDescription() received... "/>
-                <camel:process ref="attachDtoFromRestfulObjects"/>                      <!-- 6 -->
-                <camel:process ref="postToFakeExternalSoapService"/>                    <!-- 7 -->
-                <log message="internalId: ${header.soapSubscriberInternalId}"/>         <!-- 8 -->
-                <camel:to uri="stream:out" />                                           <!-- 9 -->
-            </camel:when>
-        </camel:choice>
-    </route>
+  <route id="inToOutRoute">
+    <from uri="activemq-broker:queue:actionInvocationsQueue"/>                  <!-- 1 -->
+    <unmarshal>
+      <jaxb contextPath="org.apache.isis.schema.aim.v1_0" prettyPrint="true"/>  <!-- 2 -->
+    </unmarshal>
+    <camel:process ref="addExchangeHeaders"/>                                   <!-- 3 -->
+    <camel:choice>
+      <camel:when>                                                              <!-- 4 -->
+        <camel:simple>                                                          <!-- 5 -->
+          ${header.aim[actionIdentifier]} ==
+          'org.isisaddons.module.publishmq.fixture.dom.PublishMqDemoObject#updateName()'
+        </camel:simple>
+        <log message="updateName() received... "/>
+        <camel:process ref="attachDtoFromRestfulObjects"/>                      <!-- 6 -->
+        <camel:process ref="postToFakeExternalSoapService"/>                    <!-- 7 -->
+        <log message="internalId: ${header.soapSubscriberInternalId}"/>         <!-- 8 -->
+        <camel:to uri="stream:out"/>                                            <!-- 9 -->
+      </camel:when>
+      <camel:when>
+        <camel:simple>                                                          <!-- 5 -->
+          ${header.aim[actionIdentifier]} ==
+          'org.isisaddons.module.publishmq.fixture.dom.PublishMqDemoObject#updateDescription()'
+        </camel:simple>
+        <log message="updateDescription() received... "/>
+        <camel:process ref="attachDtoFromRestfulObjects"/>                      <!-- 6 -->
+        <camel:process ref="postToFakeExternalSoapService"/>                    <!-- 7 -->
+        <log message="internalId: ${header.soapSubscriberInternalId}"/>         <!-- 8 -->
+        <camel:to uri="stream:out" />                                           <!-- 9 -->
+      </camel:when>
+    </camel:choice>
+  </route>
 </camelContext>
 <bean id="activemq-broker"
       class="org.apache.activemq.camel.component.ActiveMQComponent">
