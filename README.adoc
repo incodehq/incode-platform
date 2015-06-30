@@ -3,11 +3,14 @@
 
 image:https://travis-ci.org/isisaddons/isis-module-publishmq.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-publishmq]
 
-This module, intended for use with http://isis.apache.org[Apache Isis], provides an implementation of Apache Isis` link:http://isis.apache.org/guides/rg.html#_rg_services-spi_manpage-PublishingService[`PublishingService`] SPI, submits (Apache Isis' standard XML representation of an) link:https://github.com/apache/isis/blob/master/core/schema/src/main/resources/org/apache/isis/schema/aim/aim-1.0.xsd[`ActionInvocationMemento`]s to an link:http://activemq.apache.org[ActiveMQ] queue.
+This module, intended for use with http://isis.apache.org[Apache Isis], provides an implementation of Apache Isis` link:http://isis.apache.org/guides/rg.html#_rg_services-spi_manpage-PublishingService[`PublishingService`] SPI that submits an XML representation of an link:https://github.com/apache/isis/blob/master/core/schema/src/main/resources/org/apache/isis/schema/aim/aim-1.0.xsd[`ActionInvocationMemento`]s to an link:http://activemq.apache.org[ActiveMQ] queue.
 
-The example app itself then routes this action invocation using link:http://camel.apache.org[Apache Camel], enriching the     payload using Apache Isis' own link:http://isis.apache.org/guides/ug.html#_ug_restfulobjects-viewer[Restful Objects] viewer.  Finally the enriched, transformed message is posted to a (fake) external General Ledger via SOAP.
+The example app itself also demonstrates how this action invocation event can be routed using link:http://camel.apache.org[Apache Camel]:
 
-In addition, the example app configures link:https://jolokia.org/[Jolokia], allowing the ActiveMQ, Camel and other JMX beans to be administered from an external console such as link:hawt.io[Hawt.io].  The Jolokia API is mounted at `/api/jolokia`.
+* the payload is enriched using Apache Isis' own link:http://isis.apache.org/guides/ug.html#_ug_restfulobjects-viewer[Restful Objects] viewer (obtaining additional information).
+* the enriched message is used to post to a (fake) external SOAP, eg representing a General Ledger.
+
+In addition, the example app configures link:https://jolokia.org/[Jolokia], allowing the ActiveMQ, Camel and other JMX beans to be administered from an external console such as link:hawt.io[Hawt.io].
 
 The diagram below shows the moving parts:
 
