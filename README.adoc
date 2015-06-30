@@ -442,7 +442,7 @@ The `common.xsd` is _also_ used by the example app in the construction of its ow
 
 === Centralized Spring configuration
 
-In the example app Spring is used to bootstrap ActiveMQ (link:webapp/src/main/resources/activemq-config.xml[`activemq-config.xml`), and Camel (link:fixture/routing/src/main/resources/camel-config.xml[`camel-config.xml`], and also the fake SOAP Subscriber (link:webapp/src/main/resources/soapSubscriberFakeServer-config.xml[`soapSubscriberFakeServer-config.xml`]).  The configuration for all is centralized through a propertyPlaceholderConfigurer bean (defined in link:webapp/src/main/resources/propertyPlaceholderConfigurer-config.xml#L23[`propertyPlaceholderConfigurer-config.xml`]).
+In the example app Spring is used to bootstrap ActiveMQ (link:webapp/src/main/resources/activemq-config.xml[`activemq-config.xml`]), and Camel (link:fixture/routing/src/main/resources/camel-config.xml[`camel-config.xml`]), and also the fake SOAP Subscriber (link:webapp/src/main/resources/soapSubscriberFakeServer-config.xml[`soapSubscriberFakeServer-config.xml`]).  The configuration for all is centralized through a propertyPlaceholderConfigurer bean (defined in link:webapp/src/main/resources/propertyPlaceholderConfigurer-config.xml#L23[`propertyPlaceholderConfigurer-config.xml`]).
 
 The location of the property file is specified in the link:webapp/src/main/webapp/WEB-INF/web.xml#L44[`web.xml`]:
 
