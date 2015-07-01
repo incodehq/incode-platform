@@ -10,7 +10,7 @@
         </target>
         <targetClass>Publish Mq Demo Object</targetClass>
         <targetAction>update</targetAction>
-        <actionIdentifier>org.isisaddons.module.publishmq.fixture.dom.PublishMqDemoObject#updateDescription()</actionIdentifier>
+        <actionIdentifier>org.isisaddons.module.publishmq.fixture.dom.DemoBankAccount#updateDescription()</actionIdentifier>
         <user>sven</user>
         <title>PUBLISH_MQ_DEMO_OBJECT:0^1:sven:: updateDescription(java.lang.String)</title>
     </metadata>

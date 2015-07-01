@@ -230,14 +230,14 @@ language governing permissions and limitations under the License.
 
     <profiles>
         <profile>
-            <id>soapsubscriber-fakeserver</id>
+            <id>externalsystemadapter-fakeserver</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <dependencies>
                 <dependency>
                     <groupId>org.isisaddons.module.publishmq</groupId>
-                    <artifactId>isis-module-publishmq-soapsubscriber-fakeserver</artifactId>
+                    <artifactId>isis-module-publishmq-externalsystemadapter-fakeserver</artifactId>
                     <version>0.0.1-SNAPSHOT</version>
                     <exclusions>
                         <exclusion>

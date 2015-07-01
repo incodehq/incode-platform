@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  targetNamespace="http://isisaddons.org/module/publishmq/externalsystemadapter/DemoObject/"
+                  xmlns:tns="http://isisaddons.org/module/publishmq/externalsystemadapter/DemoObject/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  name="DemoObject">
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://isisaddons.org/module/publishmq/externalsystemadapter/DemoObject/">
+            <xsd:complexType name="Update">
+                <xsd:sequence>
+                    <xsd:element name="messageId" type="xsd:string"/>
+                    <xsd:element name="name" type="xsd:string"/>
+                    <xsd:element name="description" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:element name="Post" type="tns:Update"/>
+            <xsd:element name="PostResponse">
+                <xsd:complexType>
+                    <xsd:all>
+                        <xsd:element name="messageId" type="xsd:string"/>
+                        <xsd:element name="internalId" type="xsd:int"/>
+                    </xsd:all>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="Get">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="internalId" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="internalId" type="xsd:string"/>
+                        <xsd:element name="update" type="tns:Update"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="PostRequest">
+        <wsdl:part element="tns:Post" name="body"/>
+    </wsdl:message>
+    <wsdl:message name="PostResponse">
+        <wsdl:part element="tns:PostResponse" name="body"/>
+    </wsdl:message>
+    <wsdl:message name="GetRequest">
+        <wsdl:part element="tns:Get" name="body"/>
+    </wsdl:message>
+    <wsdl:message name="GetResponse">
+        <wsdl:part element="tns:GetResponse" name="body"/>
+    </wsdl:message>
+    <wsdl:portType name="DemoObject">
+        <wsdl:operation name="Post">
+            <wsdl:input message="tns:PostRequest"/>
+            <wsdl:output message="tns:PostResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="Get">
+            <wsdl:input message="tns:GetRequest"/>
+            <wsdl:output message="tns:GetResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="DemoObjectSOAP" type="tns:DemoObject">
+        <soap:binding style="document"
+                      transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Post">
+            <soap:operation
+                    soapAction="http://isisaddons.org/module/publishmq/externalsystemadapter/DemoObject/Post"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Get">
+            <soap:operation
+                    soapAction="http://isisaddons.org/module/publishmq/externalsystemadapter/DemoObject/Get"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="DemoObjectService">
+        <wsdl:port binding="tns:DemoObjectSOAP" name="DemoObjectOverSOAP">
+            <soap:address location="http://localhost:8080/soap/SoapSubscriber/DemoObject"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

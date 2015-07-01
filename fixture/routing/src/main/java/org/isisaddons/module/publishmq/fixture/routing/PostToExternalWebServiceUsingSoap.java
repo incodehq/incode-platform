@@ -10,10 +10,10 @@ import org.apache.camel.Message;
 import org.apache.camel.Processor;
 
 import org.isisaddons.module.publishmq.canonical.demoobject.DemoObjectDto;
-import org.isisaddons.module.publishmq.soapsubscriber.demoobject.DemoObject;
-import org.isisaddons.module.publishmq.soapsubscriber.demoobject.DemoObjectService;
-import org.isisaddons.module.publishmq.soapsubscriber.demoobject.PostResponse;
-import org.isisaddons.module.publishmq.soapsubscriber.demoobject.Update;
+import org.isisaddons.module.publishmq.externalsystemadapter.demoobject.DemoObject;
+import org.isisaddons.module.publishmq.externalsystemadapter.demoobject.DemoObjectService;
+import org.isisaddons.module.publishmq.externalsystemadapter.demoobject.PostResponse;
+import org.isisaddons.module.publishmq.externalsystemadapter.demoobject.Update;
 
 public class PostToExternalWebServiceUsingSoap implements Processor {
 

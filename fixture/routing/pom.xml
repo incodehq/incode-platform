@@ -51,7 +51,7 @@ Copyright 2015 Dan Haywood
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-publishmq-soapsubscriber-wsdlgen</artifactId>
+            <artifactId>isis-module-publishmq-externalsystemadapter-wsdlgen</artifactId>
         </dependency>
 
         <dependency>

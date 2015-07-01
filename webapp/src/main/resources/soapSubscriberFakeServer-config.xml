@@ -9,7 +9,7 @@
          http://cxf.apache.org/schemas/jaxws.xsd
          ">
 
-    <bean id="demoObject" class="org.isisaddons.module.publishmq.soapsubscriber.fakeserver.SoapSubscriberFakeServer"/>
+    <bean id="demoObject" class="org.isisaddons.module.publishmq.externalsystemadapter.fakeserver.ExternalSystemFakeServer"/>
 
     <jaxws:endpoint id="demoObjectFakeServer" implementor="#demoObject" address="/SoapSubscriber/DemoObject"/>
 

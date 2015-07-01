@@ -418,10 +418,10 @@ structured as follows:
 ** `fixture-canonical` - defines the canonical `DemoObjectDto`, as queried for using Restful Objects.  This uses `xjc` to convert the XSD into the Java DTO.
 ** `fixture-canonicalmappings` - contains the implementation of `ContentMappingService` to map the `PublishMqDemoObject` entity to `DemoObjectDto` DTO
 ** `fixture-routing` - contains the example Camel rout
-* `soapsubscriber` - parent module for the fake SOAP subscriber:
-** `soapsubscriber-wsdl` - defines the WSDL for the fake SOAP service
-** `soapsubscriber-wsdlgen` - generates the stub classes for both client and server
-** `soapsubscriber-fakeserver` - implementation of the fake server (embedded in the example webapp for convenience/testing)
+* `externalsystemadapter` - parent module for the fake external system exposing a SOAP web service:
+** `externalsystemadapter-wsdl` - defines the WSDL for the fake SOAP service
+** `externalsystemadapter-wsdlgen` - generates the stub classes for both client and server
+** `externalsystemadapter-fakeserver` - implementation of the fake server (embedded in the example webapp for convenience/testing)
 * `integtests` - (TODO) integration tests for the module; depends on `fixture-dom`
 * `webapp` - demo webapp (see above screenshots); depends on `dom` and `fixture`
 
@@ -470,7 +470,7 @@ If necessary the location of this config file can be overridden; see link:http:/
 
 === WSDL to Java
 
-Similar to the way in which the .xsd schemas are converted to Java, `wsdl2java` is used to convert the fake server's WSDL to Java stubs.  This WSDL can be found link:soapsubscriber/wsdl/src/main/resources/DemoObject.wsdl[here]; the `pom.xml` configuration can be found link:https://github.com/isisaddons/isis-module-publishmq/blob/master/soapsubscriber/wsdlgen/pom.xml#L76[here].
+Similar to the way in which the .xsd schemas are converted to Java, `wsdl2java` is used to convert the fake server's WSDL to Java stubs.  This WSDL can be found link:externalsystemadapter/wsdl/src/main/resources/org/isisaddons/module/publishmq/externalsystemadapter/wsdl/DemoObject.wsdl[here]; the `pom.xml` configuration can be found link:https://github.com/isisaddons/isis-module-publishmq/blob/master/externalsystemadapter/wsdlgen/pom.xml#L76[here].
 
 
 
