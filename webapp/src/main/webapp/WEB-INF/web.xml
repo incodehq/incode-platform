@@ -33,7 +33,7 @@ Copyright 2015 Dan Haywood
         <param-value>
             classpath:activemq-config.xml,
             classpath:camel-config.xml,
-            classpath:soapSubscriberFakeServer-config.xml,
+            classpath:externalSystemFakeServer-config.xml,
             classpath:propertyPlaceholderConfigurer-config.xml
         </param-value>
     </context-param>

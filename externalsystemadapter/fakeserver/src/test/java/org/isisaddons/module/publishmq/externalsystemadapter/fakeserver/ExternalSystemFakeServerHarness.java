@@ -15,7 +15,7 @@ public class ExternalSystemFakeServerHarness {
     protected ExternalSystemFakeServerHarness() throws java.lang.Exception {
         System.out.println("Starting Server");
         Object implementor = new ExternalSystemFakeServer();
-        String address = "http://localhost:8080/soap/SoapSubscriber/DemoObject";
+        String address = "http://localhost:8080/soap/ExternalSystemAdapter/DemoObject";
         Endpoint.publish(address, implementor);
     }
     

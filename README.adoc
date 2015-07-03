@@ -19,7 +19,7 @@ image::webapp/src/main/webapp/images/overview.png[link="https://raw.githubuserco
 
 One of the design objectives for the PublishMq module is to allow the ActiveMQ queue (and therefore any Camel routing) to be either embedded (as in the example app) or to be remote.  This is one of the reasons why the payload posted to the queue is the XML representation of a JAXB object (the `ActionInvocationMemento`).
 
-To make the example app easier to run, the fake SOAP service representing the external system is actually deployed as a CXF servlet within the example app itself, mounted at `/soap/SoapSubscriber/DemoObject`.   It exposes an API for the Camel routing to post to, and also exposes a query API that simply lists the messages received.  Of course, "in real life" this external system would be running somewhere else on the network (as the diagram shows).
+To make the example app easier to run, the fake SOAP service representing the external system is actually deployed as a CXF servlet within the example app itself, mounted at `/soap/ExternalSystemAdapter/DemoObject`.   It exposes an API for the Camel routing to post to, and also exposes a query API that simply lists the messages received.  Of course, "in real life" this external system would be running somewhere else on the network (as the diagram shows).
 
 
 
@@ -88,7 +88,7 @@ The example app defines the following Camel route (link:fixture/routing/src/main
         <log message="updateName() received... "/>
         <camel:process ref="attachDtoFromRestfulObjects"/>                      <!-- 6 -->
         <camel:process ref="postToFakeExternalSoapService"/>                    <!-- 7 -->
-        <log message="internalId: ${header.soapSubscriberInternalId}"/>         <!-- 8 -->
+        <log message="internalId: ${header.externalSystemInternalId}"/>         <!-- 8 -->
         <camel:to uri="stream:out"/>                                            <!-- 9 -->
       </camel:when>
       <camel:when>
@@ -128,7 +128,7 @@ The referenced beans are defined as:
 <bean id="postToFakeExternalSoapService"
       class="org.isisaddons.module.publishmq.fixture.routing.PostToExternalWebServiceUsingSoap"
       init-method="init">                                                     <!--3-->
-    <property name="endpointAddress" value="${updateSoapSubscriber.endpointAddress}"/>
+    <property name="endpointAddress" value="${updateExternalSystemAdapter.endpointAddress}"/>
 </bean>
 ----
 <1> adds the exchange headers for routing (step 3 in the route, above)
@@ -141,7 +141,7 @@ image::images/050-camel-route-logging.png[width=800,height=469,link="https://raw
 
 The screenshot also highlights the two important pieces of information used by the route: the action identifier metadata -- added as a Camel header for routing -- and the target object has was updated.
 
-Second, we can query the fake SOAP service to se the data that was posted to it.  The screenshot below uses link:http://www.soapui.org/[SOAP UI], which can generate stub requests from the fake SOAP service's WSDL (http://localhost:8080/soap/SoapSubscriber/DemoObject?wsdl[http://localhost:8080/soap/SoapSubscriber/DemoObject?wsdl]):
+Second, we can query the fake SOAP service to se the data that was posted to it.  The screenshot below uses link:http://www.soapui.org/[SOAP UI], which can generate stub requests from the fake SOAP service's WSDL (http://localhost:8080/soap/ExternalSystemAdapter/DemoObject?wsdl[http://localhost:8080/soap/ExternalSystemAdapter/DemoObject?wsdl]):
 
 image::images/060-query-fake-server.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/060-query-fake-server.png"]
 
@@ -159,7 +159,7 @@ Then, we can reconfigure the app to use these different ports by editing link:we
 [source,ini]
 ----
 enrichWithCanonicalDto.base=http://localhost:6060/restful/
-updateSoapSubscriber.endpointAddress=http://localhost:7070/soap/SoapSubscriber/DemoObject
+updateExternalSystemAdapter.endpointAddress=http://localhost:7070/soap/ExternalSystemAdapter/DemoObject
 ...
 ----
 
@@ -442,7 +442,7 @@ The `common.xsd` is _also_ used by the example app in the construction of its ow
 
 === Centralized Spring configuration
 
-In the example app Spring is used to bootstrap ActiveMQ (link:webapp/src/main/resources/activemq-config.xml[`activemq-config.xml`]), and Camel (link:fixture/routing/src/main/resources/camel-config.xml[`camel-config.xml`]), and also the fake SOAP Subscriber (link:webapp/src/main/resources/soapSubscriberFakeServer-config.xml[`soapSubscriberFakeServer-config.xml`]).  The configuration for all is centralized through a propertyPlaceholderConfigurer bean (defined in link:webapp/src/main/resources/propertyPlaceholderConfigurer-config.xml#L23[`propertyPlaceholderConfigurer-config.xml`]).
+In the example app Spring is used to bootstrap ActiveMQ (link:webapp/src/main/resources/activemq-config.xml[`activemq-config.xml`]), and Camel (link:fixture/routing/src/main/resources/camel-config.xml[`camel-config.xml`]), and also the fake SOAP Subscriber (link:webapp/src/main/resources/externalSystemFakeServer-config.xml[`externalSystemFakeServer-config.xml`]).  The configuration for all is centralized through a propertyPlaceholderConfigurer bean (defined in link:webapp/src/main/resources/propertyPlaceholderConfigurer-config.xml#L23[`propertyPlaceholderConfigurer-config.xml`]).
 
 The location of the property file is specified in the link:webapp/src/main/webapp/WEB-INF/web.xml#L44[`web.xml`]:
 
@@ -462,7 +462,7 @@ activemq.data=activemq-data
 enrichWithCanonicalDto.base=http://localhost:8080/restful/
 enrichWithCanonicalDto.username=sven
 enrichWithCanonicalDto.password=pass
-updateSoapSubscriber.endpointAddress=http://localhost:8080/soap/SoapSubscriber/DemoObject
+updateExternalSystemAdapter.endpointAddress=http://localhost:8080/soap/ExternalSystemAdapter/DemoObject
 ----
 
 If necessary the location of this config file can be overridden; see link:http://isis.apache.org/guides/ug.html#_ug_deployment_externalized-configuration[this topic] in the Apache Isis user guide.

@@ -55,7 +55,7 @@ public class ExternalSystemFakeServerTestClient {
         BindingProvider provider = (BindingProvider)demoObject;
         provider.getRequestContext().put(
                 BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-                "http://localhost:7070/soap/SoapSubscriber/DemoObject");
+                "http://localhost:7070/soap/ExternalSystemAdapter/DemoObject");
 
         // test the service
 

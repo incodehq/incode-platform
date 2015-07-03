@@ -54,10 +54,10 @@ public class PostToExternalWebServiceUsingSoap implements Processor {
 
         PostResponse response = demoObject.post(update);
 
-        final int soapSubscriberInternalId = response.getInternalId();
+        final int externalSystemInternalId = response.getInternalId();
         final String responseTransactionId = response.getMessageId();
 
-        message.setHeader("soapSubscriberInternalId", soapSubscriberInternalId);
+        message.setHeader("externalSystemInternalId", externalSystemInternalId);
     }
 
 }

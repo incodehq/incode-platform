@@ -29,21 +29,33 @@ public class ExternalSystemFakeServer implements DemoObject {
 
     private static final Logger LOG = Logger.getLogger(ExternalSystemFakeServer.class.getName());
 
-    private List<Update> updates = new ArrayList<>();
+    public class Control {
+        private List<Update> updates = new ArrayList<>();
+        public List<Update> getUpdates() {
+            return updates;
+        }
+        public void clear() {
+            updates.clear();
+        }
+    }
+
+    private Control control = new Control();
+
+    public Control control() { return control; }
 
     @Override public void get(
             @WebParam(mode = WebParam.Mode.INOUT, name = "internalId", targetNamespace = "") final Holder<String> internalId, @WebParam(mode = WebParam.Mode.OUT, name = "update", targetNamespace = "") final Holder<Update> update) {
-        update.value = updates.get(Integer.parseInt(internalId.value) - 1);
+        update.value = control().updates.get(Integer.parseInt(internalId.value) - 1);
     }
 
     public org.isisaddons.module.publishmq.externalsystemadapter.demoobject.PostResponse post(Update update) {
         LOG.info("Executing operation processed");
         System.out.println(update);
         try {
-            updates.add(update);
+            control().updates.add(update);
 
             PostResponse response = new PostResponse();
-            response.setInternalId(updates.size());
+            response.setInternalId(control().updates.size());
             response.setMessageId(update.getMessageId());
 
             return response;

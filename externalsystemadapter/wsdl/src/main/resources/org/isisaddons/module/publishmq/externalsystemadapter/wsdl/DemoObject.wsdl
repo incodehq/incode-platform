@@ -91,7 +91,7 @@
     </wsdl:binding>
     <wsdl:service name="DemoObjectService">
         <wsdl:port binding="tns:DemoObjectSOAP" name="DemoObjectOverSOAP">
-            <soap:address location="http://localhost:8080/soap/SoapSubscriber/DemoObject"/>
+            <soap:address location="http://localhost:8080/soap/ExternalSystemAdapter/DemoObject"/>
         </wsdl:port>
     </wsdl:service>
 </wsdl:definitions>

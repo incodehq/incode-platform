@@ -7,11 +7,11 @@ import java.net.URL;
  */
 public class ExternalSystemWsdl {
 
-    public static final String DEMO_OBJECT_WSDL = "org/isisaddons/module/publishmq/externalsystemadapter/wsdl/DemoObject.wsdl";
+    public static final String WSDL = "org/isisaddons/module/publishmq/externalsystemadapter/wsdl/DemoObject.wsdl";
 
     private ExternalSystemWsdl(){}
 
-    public static URL getDemoObjectWsdl() {
-        return ExternalSystemWsdl.class.getClassLoader().getResource(DEMO_OBJECT_WSDL);
+    public static URL getWsdl() {
+        return ExternalSystemWsdl.class.getClassLoader().getResource(WSDL);
     }
 }
