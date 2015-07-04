@@ -288,8 +288,8 @@ Hawt.io is a standalone utility that is _not_ integrated into the example webapp
 
 
 
-== How to configure/use
 
+== How to configure/use
 
 You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements.
 
