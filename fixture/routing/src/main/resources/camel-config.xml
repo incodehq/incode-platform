@@ -38,7 +38,7 @@
 
                     <log message="updateName() received... "/>
 
-                    <camel:process ref="attachDtoFromRestfulObjects"/>
+                    <camel:process ref="attachDomCanonicalDtoUsingRestfulObjects"/>
                     <camel:process ref="postToFakeExternalSoapService"/>
 
                     <log message="internalId: ${header.externalSystemInternalId}"/>
@@ -49,7 +49,7 @@
 
                     <log message="updateDescription() received... "/>
 
-                    <camel:process ref="attachDtoFromRestfulObjects"/>
+                    <camel:process ref="attachDomCanonicalDtoUsingRestfulObjects"/>
                     <camel:process ref="postToFakeExternalSoapService"/>
 
                     <log message="internalId: ${header.externalSystemInternalId}"/>
@@ -68,19 +68,22 @@
     <bean id="addExchangeHeaders"
           class="org.isisaddons.module.publishmq.dom.camel.AddExchangeHeaders"/>
 
-    <bean id="attachDtoFromRestfulObjects"
+    <bean id="attachDomCanonicalDtoUsingRestfulObjects"
           class="org.isisaddons.module.publishmq.fixture.routing.AttachDemoObjectDto"
           init-method="init">
         <!-- see propertyPlaceholderConfigurer-config.xml -->
-        <property name="base" value="${enrichWithCanonicalDto.base}"/>
-        <property name="username" value="${enrichWithCanonicalDto.username}"/>
-        <property name="password" value="${enrichWithCanonicalDto.password}"/>
+        <property name="base" value="${attachDomCanonicalDto.base}"/>
+        <property name="username" value="${attachDomCanonicalDto.username}"/>
+        <property name="password" value="${attachDomCanonicalDto.password}"/>
     </bean>
 
     <bean id="postToFakeExternalSoapService"
           class="org.isisaddons.module.publishmq.fixture.routing.PostToExternalWebServiceUsingSoap"
           init-method="init">
         <!-- see propertyPlaceholderConfigurer-config.xml -->
-        <property name="endpointAddress" value="${updateExternalSystemAdapter.endpointAddress}"/>
+        <property name="endpointAddressBase"
+                  value="${updateExternalSystemAdapter.endpointAddressBase}"/>
+        <property name="endpointAddressSuffix"
+                  value="${updateExternalSystemAdapter.endpointAddressSuffix}"/>
     </bean>
 </beans>

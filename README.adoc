@@ -86,7 +86,7 @@ The example app defines the following Camel route (link:fixture/routing/src/main
           'org.isisaddons.module.publishmq.fixture.dom.PublishMqDemoObject#updateName()'
         </camel:simple>
         <log message="updateName() received... "/>
-        <camel:process ref="attachDtoFromRestfulObjects"/>                      <!-- 6 -->
+        <camel:process ref="attachDomCanonicalDtoUsingRestfulObjects"/>         <!-- 6 -->
         <camel:process ref="postToFakeExternalSoapService"/>                    <!-- 7 -->
         <log message="internalId: ${header.externalSystemInternalId}"/>         <!-- 8 -->
         <camel:to uri="stream:out"/>                                            <!-- 9 -->
@@ -118,17 +118,20 @@ The referenced beans are defined as:
 </bean>
 <bean id="addExchangeHeaders"
       class="org.isisaddons.module.publishmq.dom.camel.AddExchangeHeaders"/>   <!--1-->
-<bean id="attachDtoFromRestfulObjects"
+<bean id="attachDomCanonicalDtoUsingRestfulObjects"
      class="org.isisaddons.module.publishmq.fixture.routing.AttachDemoObjectDto"
      init-method="init">                                                       <!--2-->
-    <property name="base" value="${enrichWithCanonicalDto.base}"/>
-    <property name="username" value="${enrichWithCanonicalDto.username}"/>
-    <property name="password" value="${enrichWithCanonicalDto.password}"/>
+    <property name="base" value="${attachDomCanonicalDto.base}"/>
+    <property name="username" value="${attachDomCanonicalDto.username}"/>
+    <property name="password" value="${attachDomCanonicalDto.password}"/>
 </bean>
 <bean id="postToFakeExternalSoapService"
       class="org.isisaddons.module.publishmq.fixture.routing.PostToExternalWebServiceUsingSoap"
       init-method="init">                                                     <!--3-->
-    <property name="endpointAddress" value="${updateExternalSystemAdapter.endpointAddress}"/>
+    <property name="endpointAddressBase"
+              value="${updateExternalSystemAdapter.endpointAddressBase}"/>
+    <property name="endpointAddressSuffix"
+              value="${updateExternalSystemAdapter.endpointAddressSuffix}"/>
 </bean>
 ----
 <1> adds the exchange headers for routing (step 3 in the route, above)
@@ -158,8 +161,8 @@ Then, we can reconfigure the app to use these different ports by editing link:we
 
 [source,ini]
 ----
-enrichWithCanonicalDto.base=http://localhost:6060/restful/
-updateExternalSystemAdapter.endpointAddress=http://localhost:7070/soap/ExternalSystemAdapter/DemoObject
+attachDomCanonicalDto.base=http://localhost:6060/restful/
+updateExternalSystemAdapter.endpointAddressBase=http://localhost:7070/soap/
 ...
 ----
 

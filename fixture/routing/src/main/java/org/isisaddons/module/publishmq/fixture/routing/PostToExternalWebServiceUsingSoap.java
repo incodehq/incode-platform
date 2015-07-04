@@ -17,12 +17,23 @@ import org.isisaddons.module.publishmq.externalsystemadapter.demoobject.Update;
 
 public class PostToExternalWebServiceUsingSoap implements Processor {
 
-    private String endpointAddress;
-    private DemoObject demoObject;
-
-    public void setEndpointAddress(final String endpointAddress) {
-        this.endpointAddress = endpointAddress;
+    private String endpointAddressBase;
+    public void setEndpointAddressBase(final String endpointAddressBase) {
+        this.endpointAddressBase = endpointAddressBase;
     }
+    private String endpointAddressSuffix;
+    public void setEndpointAddressSuffix(final String endpointAddressSuffix) {
+        this.endpointAddressSuffix = endpointAddressSuffix;
+    }
+
+    /**
+     * Derived from {@link #setEndpointAddressBase(String) base} and {@link #setEndpointAddressSuffix(String) suffix}.
+     */
+    String getEndpointAddress() {
+        return endpointAddressBase + endpointAddressSuffix;
+    }
+
+    private DemoObject demoObject;
 
     public void init() {
         // although jax-ws proxies are not specified to be thread-safe
@@ -32,7 +43,7 @@ public class PostToExternalWebServiceUsingSoap implements Processor {
         demoObject = demoObjectService.getDemoObjectOverSOAP();
 
         BindingProvider provider = (BindingProvider) demoObject;
-        provider.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointAddress);
+        provider.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, getEndpointAddress());
     }
 
     @Override

@@ -30,6 +30,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runners.MethodSorters;
 
+import org.apache.isis.core.unittestsupport.soap.SoapEndpointPublishingRule;
+
 import org.isisaddons.module.publishmq.externalsystemadapter.demoobject.DemoObject;
 import org.isisaddons.module.publishmq.externalsystemadapter.demoobject.DemoObjectService;
 import org.isisaddons.module.publishmq.externalsystemadapter.demoobject.PostResponse;
@@ -44,7 +46,8 @@ import static org.junit.Assert.assertThat;
 public class ExternalSystemFakeServerRuleTest {
 
     @Rule
-    public ExternalSystemFakeServerRule serverRule = new ExternalSystemFakeServerRule();
+    public SoapEndpointPublishingRule serverRule =
+            new SoapEndpointPublishingRule(ExternalSystemFakeServer.class);
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
@@ -55,18 +58,19 @@ public class ExternalSystemFakeServerRuleTest {
     @Before
     public void setUp() throws Exception {
 
+        externalSystemFakeServer = serverRule.getEndpointImplementor(ExternalSystemFakeServer.class);
+        final String endpointAddress = serverRule.getEndpointAddress(ExternalSystemFakeServer.class);
+
         final DemoObjectService externalSystemService =
                 new DemoObjectService(ExternalSystemWsdl.getWsdl());
-
         externalSystemContract = externalSystemService.getDemoObjectOverSOAP();
 
         BindingProvider provider = (BindingProvider) externalSystemContract;
         provider.getRequestContext().put(
                 BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-                serverRule.getEndpointAddress()
+                endpointAddress
         );
 
-        externalSystemFakeServer = serverRule.getPublishedEndpoint();
     }
 
     @Test
