@@ -558,7 +558,7 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
 
     private String arguments;
     
-    @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB")
+    @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB", sqlType="LONGVARCHAR")
     @Property(
             domainEvent = ArgumentsDomainEvent.class
     )
