@@ -542,7 +542,7 @@ public class FakeDataDemoObject implements Comparable<FakeDataDemoObject> {
     @javax.jdo.annotations.Persistent(defaultFetchGroup="false", columns = {
             @javax.jdo.annotations.Column(name = "someBlob_name"),
             @javax.jdo.annotations.Column(name = "someBlob_mimetype"),
-            @javax.jdo.annotations.Column(name = "someBlob_bytes", jdbcType = "BLOB", sqlType = "BLOB")
+            @javax.jdo.annotations.Column(name = "someBlob_bytes", jdbcType = "BLOB", sqlType = "LONGVARBINARY")
     })
     @Property(optionality = Optionality.OPTIONAL)
     public Blob getSomeBlob() {
@@ -574,7 +574,7 @@ public class FakeDataDemoObject implements Comparable<FakeDataDemoObject> {
     @javax.jdo.annotations.Persistent(defaultFetchGroup="false", columns = {
         @javax.jdo.annotations.Column(name = "someClob_name"),
         @javax.jdo.annotations.Column(name = "someClob_mimetype"),
-        @javax.jdo.annotations.Column(name = "someClob_chars", jdbcType = "CLOB", sqlType = "CLOB")
+        @javax.jdo.annotations.Column(name = "someClob_chars", jdbcType = "CLOB", sqlType = "LONGVARCHAR")
     })
     @Property(optionality=Optionality.OPTIONAL)
     public Clob getSomeClob() {
