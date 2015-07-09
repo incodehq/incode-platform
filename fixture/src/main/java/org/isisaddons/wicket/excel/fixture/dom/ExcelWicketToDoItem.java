@@ -357,7 +357,7 @@ public class ExcelWicketToDoItem implements Comparable<ExcelWicketToDoItem> {
     private Blob attachment;
 
     @javax.jdo.annotations.Persistent(defaultFetchGroup="false")
-    @javax.jdo.annotations.Column(allowsNull="true")
+    @javax.jdo.annotations.Column(allowsNull="true", jdbcType="BLOB", sqlType="LONGBINARY")
     public Blob getAttachment() {
         return attachment;
     }
