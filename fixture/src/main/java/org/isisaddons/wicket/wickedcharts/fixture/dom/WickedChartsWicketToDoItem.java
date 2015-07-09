@@ -390,7 +390,7 @@ public class WickedChartsWicketToDoItem implements Comparable<WickedChartsWicket
     private Blob attachment;
 
     @javax.jdo.annotations.Persistent(defaultFetchGroup="false")
-    @javax.jdo.annotations.Column(allowsNull="true")
+    @javax.jdo.annotations.Column(allowsNull="true", jdbcType="BLOB", sqlType="LONGBINARY")
     public Blob getAttachment() {
         return attachment;
     }
