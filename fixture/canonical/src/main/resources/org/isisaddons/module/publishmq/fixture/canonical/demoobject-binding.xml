@@ -23,16 +23,16 @@
 
     <jaxb:bindings scd="x-schema::tns" xmlns:tns="http://isis.apache.org/schema/common">
         <jaxb:bindings scd="~tns:valueDto">
-            <jaxb:class ref="org.apache.isis.schema.common.v1_0.ValueDto"/>
+            <jaxb:class ref="org.apache.isis.schema.common.v1.ValueDto"/>
         </jaxb:bindings>
         <jaxb:bindings scd="~tns:oidDto">
-            <jaxb:class ref="org.apache.isis.schema.common.v1_0.OidDto"/>
+            <jaxb:class ref="org.apache.isis.schema.common.v1.OidDto"/>
         </jaxb:bindings>
         <jaxb:bindings scd="~tns:bookmarkObjectState">
-            <jaxb:typesafeEnumClass ref="org.apache.isis.schema.common.v1_0.BookmarkObjectState"/>
+            <jaxb:typesafeEnumClass ref="org.apache.isis.schema.common.v1.BookmarkObjectState"/>
         </jaxb:bindings>
         <jaxb:bindings scd="~tns:valueType">
-            <jaxb:typesafeEnumClass ref="org.apache.isis.schema.common.v1_0.ValueType"/>
+            <jaxb:typesafeEnumClass ref="org.apache.isis.schema.common.v1.ValueType"/>
         </jaxb:bindings>
     </jaxb:bindings>
 

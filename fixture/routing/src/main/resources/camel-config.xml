@@ -28,7 +28,7 @@
         <route id="updateFakeSoapServiceRoute">
             <from uri="activemq-broker:queue:actionInvocationsQueue"/>
             <unmarshal>
-                <jaxb contextPath="org.apache.isis.schema.aim.v1_0" prettyPrint="true"/>
+                <jaxb contextPath="org.apache.isis.schema.aim.v1" prettyPrint="true"/>
             </unmarshal>
             <camel:process ref="addExchangeHeaders"/>
 
