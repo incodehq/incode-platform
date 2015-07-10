@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 
-import org.apache.isis.schema.aim.v1_0.ActionInvocationMementoDto;
+import org.apache.isis.schema.aim.v1.ActionInvocationMementoDto;
 import org.apache.isis.schema.utils.ActionInvocationMementoDtoUtils;
 
 @RunWith(CamelSpringJUnit4ClassRunner.class)

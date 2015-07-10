@@ -15,7 +15,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
 
-import org.apache.isis.schema.aim.v1_0.ActionInvocationMementoDto;
+import org.apache.isis.schema.aim.v1.ActionInvocationMementoDto;
 
 import org.isisaddons.module.publishmq.canonical.demoobject.DemoObjectDto;
 

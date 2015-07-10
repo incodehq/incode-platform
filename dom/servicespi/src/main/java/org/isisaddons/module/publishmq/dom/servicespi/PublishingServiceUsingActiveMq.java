@@ -31,7 +31,7 @@ import org.apache.isis.applib.services.publish.EventPayloadForActionInvocation;
 import org.apache.isis.applib.services.publish.EventPayloadForObjectChanged;
 import org.apache.isis.applib.services.publish.EventSerializer;
 import org.apache.isis.applib.services.publish.PublishingService;
-import org.apache.isis.schema.aim.v1_0.ActionInvocationMementoDto;
+import org.apache.isis.schema.aim.v1.ActionInvocationMementoDto;
 import org.apache.isis.schema.utils.ActionInvocationMementoDtoUtils;
 
 import org.isisaddons.module.publishmq.PublishMqModule;
