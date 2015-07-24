@@ -236,6 +236,19 @@ Copyright 2015 Dan Haywood
                 </snapshotRepository>
             </distributionManagement>
 
+            <repositories>
+                <repository>
+                    <id>snapshots-repo</id>
+                    <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+
         </profile>
 
         <profile>
