@@ -195,7 +195,7 @@ To use "out-of-the-box":
 
 * in your project's `webapp` module, update your `WEB-INF/isis.properties`.
 
-  This module uses Isis Addons' [settings module](https://github.com/isisaddons/isis-module-settings) for feature persistence:
+  This module uses Isis Addons' [settings module](https://github.com/isisaddons/isis-module-settings) for feature persistence.  (It does not however provide any domain services of its own, so there is no need to include `org.isisaddons.module.togglz` in the package list):
 
 <pre>
   isis.services.ServicesInstallerFromAnnotation.packagePrefix=\
