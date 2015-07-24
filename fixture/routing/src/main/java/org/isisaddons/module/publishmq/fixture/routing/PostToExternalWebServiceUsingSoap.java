@@ -2,7 +2,6 @@ package org.isisaddons.module.publishmq.fixture.routing;
 
 import java.util.Map;
 
-import javax.activation.DataHandler;
 import javax.xml.ws.BindingProvider;
 
 import org.apache.camel.Exchange;
@@ -16,6 +15,8 @@ import org.isisaddons.module.publishmq.externalsystemadapter.demoobject.PostResp
 import org.isisaddons.module.publishmq.externalsystemadapter.demoobject.Update;
 
 public class PostToExternalWebServiceUsingSoap implements Processor {
+
+    public static final String HEADER_EXTERNAL_SYSTEM_INTERNAL_ID = "externalSystemInternalId";
 
     private String endpointAddressBase;
     public void setEndpointAddressBase(final String endpointAddressBase) {
@@ -54,8 +55,8 @@ public class PostToExternalWebServiceUsingSoap implements Processor {
         Map<String, Object> aimHeader = (Map<String, Object>) message.getHeader("aim");
         final String messageId = (String) aimHeader.get("messageId");
 
-        final DataHandler dataHandler = message.getAttachment(PostToExternalWebServiceUsingSoap.class.getName());
-        final DemoObjectDto demoObjectDto = (DemoObjectDto) dataHandler.getContent();
+        final DemoObjectDto demoObjectDto =
+                (DemoObjectDto) message.getHeader(DemoObjectDto.class.getName());
 
         final Update update = new Update();
 
@@ -66,9 +67,10 @@ public class PostToExternalWebServiceUsingSoap implements Processor {
         PostResponse response = demoObject.post(update);
 
         final int externalSystemInternalId = response.getInternalId();
+        // unused
         final String responseTransactionId = response.getMessageId();
 
-        message.setHeader("externalSystemInternalId", externalSystemInternalId);
+        message.setHeader(HEADER_EXTERNAL_SYSTEM_INTERNAL_ID, externalSystemInternalId);
     }
 
 }

@@ -1,6 +1,5 @@
 package org.isisaddons.module.publishmq.fixture.routing;
 
-import javax.activation.DataHandler;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
@@ -84,9 +83,7 @@ public class AttachDemoObjectDto implements Processor {
             }
 
             final DemoObjectDto entity = response.readEntity(DemoObjectDto.class);
-
-            final DataHandler entityDataHandler = new DataHandler(entity, response.getMediaType().toString());
-            inMessage.addAttachment(PostToExternalWebServiceUsingSoap.class.getName(), entityDataHandler);
+            inMessage.setHeader(DemoObjectDto.class.getName(), entity);
 
         } finally {
             closeQuietly(client);
