@@ -261,7 +261,7 @@ image::images/330-monitor-camel.png[width=800,height=469,link="https://raw.githu
 The prerequisite software is:
 
 * Java JDK 7 (nb: Isis currently does not support JDK 8)
-* http://maven.apache.org[maven 3] (3.2.x is recommended).
+* http://maven.apache.org[maven 3] (3.2.x or later is recommended).
 
 To build the demo app:
 
@@ -322,6 +322,18 @@ To use "out-of-the-box":
     </dependencies>
 </dependencyManagement>
 ----
+
+* in your project's `webapp` module, update your `WEB-INF/isis.properties`. +
++
+[source,xml]
+----
+  isis.services.ServicesInstallerFromAnnotation.packagePrefix=\
+                                ...\
+                                org.isisaddons.module.publishmq.dom,\
+                                ...
+----
++
+You might also need to specify the package for any new services that you have written, eg implementation of `ContentNegotiationService` or similar.
 
 * update your classpath by adding importing the `-dom-servicespi` dependency in your project's `dom` module's `pom.xml`: +
 +
@@ -394,6 +406,7 @@ This is bootstrapped in the `web.xml`:
 ----
 
 Notes:
+
 * Check for later releases by searching http://search.maven.org/#search|ga|1|isis-module-publishmq-dom[Maven Central Repo]).
 
 
@@ -403,8 +416,34 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 
 * when updating the classpath, specify the appropriate -SNAPSHOT version:
 
-* add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service). We suggest defining the repository in a `&lt;profile&gt;`:
+[source,xml]
+----
+<version>1.9.0-SNAPSHOT</version>
+----
 
+* add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
+
+[source,xml]
+----
+<profile>
+    <id>cloudbees-snapshots</id>
+    <activation>
+        <activeByDefault>true</activeByDefault>
+    </activation>
+    <repositories>
+        <repository>
+            <id>snapshots-repo<;/id>
+            <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
+            <releases>
+                <enabled>false>/enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+</profile>
+----
 
 === Forking the repo
 
