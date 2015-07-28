@@ -66,7 +66,7 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
     public void auditEntriesCreatedOnCommit() throws Exception {
 
         // given
-        isisJdoSupport.executeUpdate("delete from isisaudit.\"AuditEntry\"");
+        isisJdoSupport.executeUpdate("delete from \"isisaudit\".\"AuditEntry\"");
         container().flush();
 
         // when
@@ -76,14 +76,14 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
         container().flush();
 
         // then
-        final List<Map<String, Object>> prior = isisJdoSupport.executeSql("SELECT * FROM isisaudit.\"AuditEntry\"");
+        final List<Map<String, Object>> prior = isisJdoSupport.executeSql("SELECT * FROM \"isisaudit\".\"AuditEntry\"");
         Assert.assertThat(prior.size(), is(0));
 
         // when
         this.nextTransaction();
 
         // then
-        final List<Map<String, Object>> after = isisJdoSupport.executeSql("SELECT * FROM isisaudit.\"AuditEntry\"");
+        final List<Map<String, Object>> after = isisJdoSupport.executeSql("SELECT * FROM \"isisaudit\".\"AuditEntry\"");
         assertThat(after.size(), is(2));
     }
 
@@ -91,7 +91,7 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
     public void create() throws Exception {
 
         // given
-        isisJdoSupport.executeUpdate("delete from isisaudit.\"AuditEntry\"");
+        isisJdoSupport.executeUpdate("delete from \"isisaudit\".\"AuditEntry\"");
         container().flush();
 
         // when
@@ -105,7 +105,7 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
         // then
         final Bookmark bookmark = bookmarkService.bookmarkFor(newObject);
 
-        final List<Map<String, Object>> after = isisJdoSupport.executeSql("SELECT * FROM isisaudit.\"AuditEntry\"");
+        final List<Map<String, Object>> after = isisJdoSupport.executeSql("SELECT * FROM \"isisaudit\".\"AuditEntry\"");
         assertThat(after.size(), is(2));
 
         final List<AuditEntry> auditEntries = sorted(auditingServiceRepository.findByTargetAndFromAndTo(bookmark, null, null));
@@ -154,7 +154,7 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
         assertThat(someAuditedObject.getName(), is("Foo"));
         assertThat(someAuditedObject.getNumber(), is(nullValue()));
 
-        isisJdoSupport.executeUpdate("delete from isisaudit.\"AuditEntry\"");
+        isisJdoSupport.executeUpdate("delete from \"isisaudit\".\"AuditEntry\"");
         container().flush();
 
         // when
