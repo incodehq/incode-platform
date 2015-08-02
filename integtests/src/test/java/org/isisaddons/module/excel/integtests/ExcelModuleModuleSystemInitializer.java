@@ -46,19 +46,12 @@ public class ExcelModuleModuleSystemInitializer {
             with(new DataNucleusPersistenceMechanismInstaller());
 
             // services annotated with @DomainService
-            withServicesIn( "org.isisaddons.module.excel"
-                            ,"org.apache.isis.core.wrapper"
-                            ,"org.apache.isis.applib"
-                            ,"org.apache.isis.core.metamodel.services"
-                            ,"org.apache.isis.core.runtime.services"
-                            ,"org.apache.isis.objectstore.jdo.datanucleus.service.support" // IsisJdoSupportImpl
-                            ,"org.apache.isis.objectstore.jdo.datanucleus.service.eventbus" // EventBusServiceJdo
-                            );
+            withServicesIn( "org.isisaddons.module.excel");
         }
 
         private static IsisConfiguration testConfiguration() {
             final IsisConfigurationForJdoIntegTests testConfiguration = new IsisConfigurationForJdoIntegTests();
-            testConfiguration.addRegisterEntitiesPackagePrefix("dom");
+            testConfiguration.addRegisterEntitiesPackagePrefix("org.isisaddons.module.excel");
             return testConfiguration;
         }
     }
