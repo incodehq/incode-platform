@@ -46,13 +46,12 @@ public class TogglzModuleSystemInitializer {
             with(new DataNucleusPersistenceMechanismInstaller());
 
             // services annotated with @DomainService
-            withServicesIn( "org.isisaddons.module.togglz"
-                            );
+            withServicesIn( "org.isisaddons.module.togglz" );
         }
 
         private static IsisConfiguration testConfiguration() {
             final IsisConfigurationForJdoIntegTests testConfiguration = new IsisConfigurationForJdoIntegTests();
-            testConfiguration.addRegisterEntitiesPackagePrefix("org.isisaddons.module.togglz.dom","org.isisaddons.module.togglz.fixture");
+            testConfiguration.addRegisterEntitiesPackagePrefix("org.isisaddons.module.togglz");
             return testConfiguration;
         }
     }
