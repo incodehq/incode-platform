@@ -51,7 +51,7 @@ public class SessionLoggerModuleSystemInitializer {
 
         private static IsisConfiguration testConfiguration() {
             final IsisConfigurationForJdoIntegTests testConfiguration = new IsisConfigurationForJdoIntegTests();
-            testConfiguration.addRegisterEntitiesPackagePrefix("org.apache.isis.objectstore.jdo.applib");
+            testConfiguration.addRegisterEntitiesPackagePrefix("org.isisaddons.module.sessionlogger");
             return testConfiguration;
         }
     }
