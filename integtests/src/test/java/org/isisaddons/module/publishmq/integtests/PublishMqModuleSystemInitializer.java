@@ -46,13 +46,12 @@ public class PublishMqModuleSystemInitializer {
             with(new DataNucleusPersistenceMechanismInstaller());
 
             // services annotated with @DomainService
-            withServicesIn( "org.isisaddons.module.publishmq"
-                            );
+            withServicesIn( "org.isisaddons.module.publishmq" );
         }
 
         private static IsisConfiguration testConfiguration() {
             final IsisConfigurationForJdoIntegTests testConfiguration = new IsisConfigurationForJdoIntegTests();
-            testConfiguration.addRegisterEntitiesPackagePrefix("org.isisaddons.module.publishmq.dom","org.isisaddons.module.publishmq.fixture");
+            testConfiguration.addRegisterEntitiesPackagePrefix("org.isisaddons.module.publishmq");
             return testConfiguration;
         }
     }
