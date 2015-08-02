@@ -46,13 +46,12 @@ public class FakeDataModuleSystemInitializer {
             with(new DataNucleusPersistenceMechanismInstaller());
 
             // services annotated with @DomainService
-            withServicesIn( "org.isisaddons.module.fakedata"
-                            );
+            withServicesIn( "org.isisaddons.module.fakedata" );
         }
 
         private static IsisConfiguration testConfiguration() {
             final IsisConfigurationForJdoIntegTests testConfiguration = new IsisConfigurationForJdoIntegTests();
-            testConfiguration.addRegisterEntitiesPackagePrefix("org.isisaddons.module.fakedata.dom");
+            testConfiguration.addRegisterEntitiesPackagePrefix("org.isisaddons.module.fakedata");
             return testConfiguration;
         }
     }
