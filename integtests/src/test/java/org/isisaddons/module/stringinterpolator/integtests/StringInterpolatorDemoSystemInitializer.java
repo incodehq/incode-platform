@@ -47,19 +47,12 @@ public class StringInterpolatorDemoSystemInitializer {
             with(new DataNucleusPersistenceMechanismInstaller());
 
             // services annotated with @DomainService
-            withServicesIn("org.isisaddons.module.stringinterpolator.dom"
-                    , "org.isisaddons.module.stringinterpolator.fixture"
-                    , "org.apache.isis.core.wrapper"
-                    , "org.apache.isis.applib"
-                    , "org.apache.isis.core.metamodel.services"
-                    , "org.apache.isis.core.runtime.services"
-                    , "org.apache.isis.objectstore.jdo.datanucleus.service.support" // IsisJdoSupportImpl
-            );
+            withServicesIn("org.isisaddons.module.stringinterpolator" );
         }
 
         private static IsisConfiguration testConfiguration() {
             final IsisConfigurationForJdoIntegTests testConfiguration = new IsisConfigurationForJdoIntegTests();
-            testConfiguration.addRegisterEntitiesPackagePrefix("dom");
+            testConfiguration.addRegisterEntitiesPackagePrefix("org.isisaddons.module.stringinterpolator");
             testConfiguration.add("isis.website", "http://isis.apache.org");
             return testConfiguration;
         }
