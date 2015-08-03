@@ -24,7 +24,7 @@ public class ExampleTaggableEntitiesTearDownFixture extends FixtureScript {
     @Override
     protected void execute(ExecutionContext executionContext) {
         isisJdoSupport.executeUpdate("delete from \"ExampleTaggableEntity\"");
-        isisJdoSupport.executeUpdate("delete from isistags.\"Tag\"");
+        isisJdoSupport.executeUpdate("delete from \"isistags\".\"Tag\"");
     }
 
 
