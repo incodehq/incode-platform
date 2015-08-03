@@ -23,7 +23,7 @@ public class FakeDataDemoObjectsTearDownFixture extends FixtureScript {
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from fakedata.\"FakeDataDemoObject\"");
+        isisJdoSupport.executeUpdate("delete from \"fakedata\".\"FakeDataDemoObject\"");
     }
 
 
