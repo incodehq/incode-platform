@@ -23,7 +23,7 @@ public class TogglzDemoObjectsTearDownFixture extends FixtureScript {
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from togglz.\"TogglzDemoObject\"");
+        isisJdoSupport.executeUpdate("delete from \"togglz\".\"TogglzDemoObject\"");
     }
 
 
