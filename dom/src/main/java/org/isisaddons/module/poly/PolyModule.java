@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.poly.dom;
+package org.isisaddons.module.poly;
 
 import java.util.List;
 import org.apache.isis.applib.Identifier;
