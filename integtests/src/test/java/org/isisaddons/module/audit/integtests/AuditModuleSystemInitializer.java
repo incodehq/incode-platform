@@ -16,10 +16,12 @@
  */
 package org.isisaddons.module.audit.integtests;
 
-import org.apache.isis.core.commons.config.IsisConfiguration;
+import org.apache.log4j.Level;
+
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
-import org.apache.isis.objectstore.jdo.datanucleus.DataNucleusPersistenceMechanismInstaller;
 import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegTests;
+
+import org.isisaddons.module.audit.app.AuditAppManifest;
 
 /**
  * Holds an instance of an {@link IsisSystemForTest} as a {@link ThreadLocal} on the current thread,
@@ -32,28 +34,15 @@ public class AuditModuleSystemInitializer {
     public static IsisSystemForTest initIsft() {
         IsisSystemForTest isft = IsisSystemForTest.getElseNull();
         if(isft == null) {
-            isft = new AuditModuleAppSystemBuilder().build().setUpSystem();
+            isft = new IsisSystemForTest.Builder()
+                    .withLoggingAt(Level.INFO)
+                    .with(new AuditAppManifest())
+                    .with(new IsisConfigurationForJdoIntegTests())
+                    .build()
+                    .setUpSystem();
             IsisSystemForTest.set(isft);
         }
         return isft;
-    }
-
-    private static class AuditModuleAppSystemBuilder extends IsisSystemForTest.Builder {
-
-        public AuditModuleAppSystemBuilder() {
-            withLoggingAt(org.apache.log4j.Level.INFO);
-            with(testConfiguration());
-            with(new DataNucleusPersistenceMechanismInstaller());
-
-            // services annotated with @DomainService
-            withServicesIn( "org.isisaddons.module.audit");
-        }
-
-        private static IsisConfiguration testConfiguration() {
-            final IsisConfigurationForJdoIntegTests testConfiguration = new IsisConfigurationForJdoIntegTests();
-            testConfiguration.addRegisterEntitiesPackagePrefix("org.isisaddons.module.audit");
-            return testConfiguration;
-        }
     }
 
 }

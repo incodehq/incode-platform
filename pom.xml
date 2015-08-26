@@ -346,6 +346,11 @@
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
+                <artifactId>isis-module-audit-app</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-audit-fixture</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
@@ -391,6 +396,7 @@
     </profiles>
 
     <modules>
+        <module>app</module>
         <module>dom</module>
         <module>fixture</module>
         <module>integtests</module>
