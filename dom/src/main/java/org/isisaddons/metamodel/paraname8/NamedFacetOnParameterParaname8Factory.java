@@ -8,6 +8,7 @@ import org.apache.isis.core.metamodel.facetapi.FacetHolder;
 import org.apache.isis.core.metamodel.facetapi.FacetUtil;
 import org.apache.isis.core.metamodel.facetapi.FeatureType;
 import org.apache.isis.core.metamodel.facets.FacetFactoryAbstract;
+import org.apache.isis.core.metamodel.facets.FacetedMethodParameter;
 import org.apache.isis.core.metamodel.facets.all.named.NamedFacet;
 
 public class NamedFacetOnParameterParaname8Factory extends FacetFactoryAbstract {
@@ -24,14 +25,13 @@ public class NamedFacetOnParameterParaname8Factory extends FacetFactoryAbstract 
         final Parameter parameter = parameters[paramNum];
         final String parameterName = parameter.getName();
 
-        if (parameterName.matches("arg\\d+")){
-            // Use default when the parameter name isn't available
-            super.processParams(processParameterContext);
-        } else {
-            String naturalName = StringExtensions.asNaturalName2(parameterName);
-            FacetUtil.addFacet(create(naturalName, processParameterContext.getFacetHolder()));
+        String naturalName = StringExtensions.asNaturalName2(parameterName);
+        final FacetedMethodParameter facetHolder = processParameterContext.getFacetHolder();
+        final NamedFacet facet = facetHolder.getFacet(NamedFacet.class);
+        if(!facet.isNoop()) {
+            return;
         }
-
+        FacetUtil.addFacet(create(naturalName, facetHolder));
     }
 
     private NamedFacet create(final String parameterName, final FacetHolder holder) {

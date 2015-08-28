@@ -27,6 +27,7 @@ import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
@@ -69,6 +70,15 @@ public class Paraname8DemoObjects {
     @MemberOrder(sequence = "2")
     public Paraname8DemoObject create(
             final /* @ParameterLayout(named="Name") */ String name) {
+        final Paraname8DemoObject obj = container.newTransientInstance(Paraname8DemoObject.class);
+        obj.setName(name);
+        container.persistIfNotAlready(obj);
+        return obj;
+    }
+
+    @MemberOrder(sequence = "4")
+    public Paraname8DemoObject createWithNamedOverride(
+            final @ParameterLayout(named="Named Override") String name) {
         final Paraname8DemoObject obj = container.newTransientInstance(Paraname8DemoObject.class);
         obj.setName(name);
         container.persistIfNotAlready(obj);
