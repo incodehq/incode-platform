@@ -185,11 +185,21 @@ To use "out-of-the-box":
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.command&lt;/groupId&gt;
         &lt;artifactId&gt;isis-module-command-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.8.1&lt;/version&gt;
+        &lt;version&gt;1.9.0&lt;/version&gt;
     &lt;/dependency&gt;
 </pre>
 
-* update your `WEB-INF/isis.properties`:
+* if using `AppManifest`, then update its `getModules()` method:
+
+    @Override
+    public List<Class<?>> getModules() {
+        return Arrays.asList(
+                ...
+                org.isisaddons.module.command.CommandModule.class,
+        );
+    }
+
+* otherwise, update your `WEB-INF/isis.properties`:
 
 <pre>
     isis.services-installer=configuration-and-annotation
