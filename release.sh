@@ -13,7 +13,7 @@ fi
 echo ""
 echo "checking no reference to isis.version of -SNAPSHOT"
 echo ""
-grep SNAPSHOT dom/pom.xml | grep isis.version
+grep SNAPSHOT glue/pom.xml | grep isis.version
 if [ $? == 0 ]; then
     echo ""
     echo "... failed" >&2
@@ -52,9 +52,9 @@ fi
 
 
 echo ""
-echo "releasing 'dom' module (mvn clean deploy -P release)"
+echo "releasing 'glue' module (mvn clean deploy -P release)"
 echo ""
-pushd dom >/dev/null
+pushd glue >/dev/null
 mvn clean deploy -P release -Dpgp.secretkey=keyring:id=$KEYID -Dpgp.passphrase="literal:$PASSPHRASE"
 if [ $? != 0 ]; then
     echo "... failed" >&2

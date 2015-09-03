@@ -6,13 +6,13 @@ if [ ! "$VERSION" ]; then
 fi
 
 # edit parent pom.xml's reference
-echo "editing parent's pom.xml (reference to dom module)"
+echo "editing parent's pom.xml (reference to glue module)"
 cat pom.xml | sed "s/<isis-module-togglz.version>.*</<isis-module-togglz.version>$VERSION</" > pom.xml.$$.sed
 mv pom.xml.$$.sed pom.xml
 
-# edit dom's pom.xml
-echo "editing dom's pom.xml"
-pushd dom >/dev/null
+# edit glue's pom.xml
+echo "editing glue's pom.xml"
+pushd glue >/dev/null
 mvn versions:set -DnewVersion=$VERSION > /dev/null
 popd >/dev/null
 
