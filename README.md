@@ -58,6 +58,7 @@ Each feature's state is serialized to/from JSON:
 The prerequisite software is:
 
 * Java JDK 8
+** note that the compile source and target is JDK 7
 * [maven 3](http://maven.apache.org) (3.2.x is recommended).
 
 To build the demo app:
@@ -157,17 +158,17 @@ To use "out-of-the-box":
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.togglz&lt;/groupId&gt;
         &lt;artifactId&gt;isis-module-togglz-glue&lt;/artifactId&gt;
-        &lt;version&gt;1.9.0-SNAPSHOT&lt;/version&gt;
+        &lt;version&gt;1.10.0-SNAPSHOT&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.security&lt;/groupId&gt;
         &lt;artifactId&gt;isis-module-security-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.9.0-SNAPSHOT&lt;/version&gt;
+        &lt;version&gt;1.10.0-SNAPSHOT&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.settings&lt;/groupId&gt;
         &lt;artifactId&gt;isis-module-settings-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.9.0-SNAPSHOT&lt;/version&gt;
+        &lt;version&gt;1.10.0-SNAPSHOT&lt;/version&gt;
     &lt;/dependency&gt;
 
 </pre>
@@ -193,14 +194,30 @@ To use "out-of-the-box":
   org.isisaddons.module.togglz.webapp.CustomTogglzModuleFeatureManagerProvider
 </pre>
 
-* in your project's `webapp` module, update your `WEB-INF/isis.properties`.
+* if using `AppManifest`, then update its `getModules()` method.
 
-  This module uses Isis Addons' [settings module](https://github.com/isisaddons/isis-module-settings) for feature persistence.  (It does not however provide any domain services of its own, so there is no need to include `org.isisaddons.module.togglz` in the package list):
+  This module uses Isis Addons' [settings module](https://github.com/isisaddons/isis-module-settings) for feature persistence:
+
+
+    @Override
+    public List<Class<?>> getModules() {
+        return Arrays.asList(
+                ...
+                org.isisaddons.module.settings.SettingsModule.class,
+                org.isisaddons.module.togglz.TogglzModule.class,
+                ...
+        );
+    }
+
+* otherwise, in your project's `webapp` module, update your `WEB-INF/isis.properties`.
+
+  This module uses Isis Addons' [settings module](https://github.com/isisaddons/isis-module-settings) for feature persistence.
 
 <pre>
   isis.services.ServicesInstallerFromAnnotation.packagePrefix=\
                                 ...\        
                                 org.isisaddons.module.settings,\
+                                org.isisaddons.module.togglz,\
                                 ...
 </pre>
 
@@ -263,7 +280,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 * when updating the classpath, specify the appropriate -SNAPSHOT version:
 
 <pre>
-    &lt;version&gt;1.9.0-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;1.10.0-SNAPSHOT&lt;/version&gt;
 </pre>
 
 * add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
@@ -310,7 +327,7 @@ This service uses the Isis Addons' [settings module](http://github.com/isisaddon
 
 ## Change Log ##
 
-* `1.9.0-SNAPSHOT` - to be released against Isis 1.9.0
+* `1.9.0` - released against Isis 1.9.0
 
 
 ## Legal Stuff ##
@@ -366,8 +383,8 @@ The `release.sh` script automates the release process.  It performs the followin
 
 For example:
 
-    sh release.sh 1.9.0 \
-                  1.10.0-SNAPSHOT \
+    sh release.sh 1.10.0 \
+                  1.11.0-SNAPSHOT \
                   dan@haywood-associates.co.uk \
                   "this is not really my passphrase"
     
@@ -383,7 +400,7 @@ Other ways of specifying the key and passphrase are available, see the `pgp-mave
 If the script completes successfully, then push changes:
 
     git push origin master
-    git push origin 1.9.0
+    git push origin 1.10.0
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
 before trying again.  Note that in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the 
