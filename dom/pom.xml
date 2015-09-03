@@ -258,7 +258,7 @@ Copyright 2015 Dan Haywood
             </activation>
 
             <properties>
-                <isis.version>1.9.0-SNAPSHOT</isis.version>
+                <isis.version>1.9.0</isis.version>
             </properties>
 
             <dependencyManagement>
