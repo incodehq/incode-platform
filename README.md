@@ -54,6 +54,7 @@ Arbitrary charts can be returned from any action.  For example this action:
 The prerequisite software is:
 
 * Java JDK 8 (>= 1.9.0) or Java JDK 7 (<= 1.8.0)
+** note that the compile source and target remains at JDK 7
 * [maven 3](http://maven.apache.org) (3.2.x is recommended).
 
 To build the demo app:
@@ -105,7 +106,7 @@ To use "out-of-the-box", add the component to your project's `dom` module's `pom
     <dependency>
         <groupId>org.isisaddons.wicket.wickedcharts</groupId>
         <artifactId>isis-wicket-wickedcharts-cpt</artifactId>
-        <version>1.8.0</version>
+        <version>1.9.0</version>
     </dependency>
 
 Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-wickedcharts-cpt).
@@ -118,7 +119,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 * when updating the classpath, specify the appropriate -SNAPSHOT version:
 
 <pre>
-    &lt;version&gt;1.9.0-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;1.10.0-SNAPSHOT&lt;/version&gt;
 </pre>
 
 * add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
@@ -185,6 +186,7 @@ For example:
 
 ## Change Log ##
 
+* `1.9.0` - released against Isis 1.9.0
 * `1.8.0` - released against Isis 1.8.0
 * `1.7.0` - released against Isis 1.7.0
 * `1.6.0` - re-released as part of isisaddons, changed package names for API to `org.isisaddons.wicket.wickedcharts`
@@ -249,8 +251,8 @@ The `release.sh` script automates the release process.  It performs the followin
 
 For example:
 
-    sh release.sh 1.8.0 \
-                  1.9.0-SNAPSHOT \
+    sh release.sh 1.10.0 \
+                  1.11.0-SNAPSHOT \
                   dan@haywood-associates.co.uk \
                   "this is not really my passphrase"
     
@@ -266,7 +268,7 @@ Other ways of specifying the key and passphrase are available, see the `pgp-mave
 If the script completes successfully, then push changes:
 
     git push origin master
-    git push origin 1.8.0
+    git push origin 1.10.0
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
 before trying again.  Note that in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the 
