@@ -46,7 +46,7 @@ public class TogglzModuleSystemInitializer {
             with(new DataNucleusPersistenceMechanismInstaller());
 
             // services annotated with @DomainService
-            withServicesIn( "org.isisaddons.module.togglz" );
+            withServicesIn( "org.isisaddons.module.togglz", "org.isisaddons.module.settings" );
         }
 
         private static IsisConfiguration testConfiguration() {

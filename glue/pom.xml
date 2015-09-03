@@ -298,7 +298,9 @@ Copyright 2014~2015 Dan Haywood
         <profile>
             <id>cloudbees-snapshots</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>!skip.cloudbees-snapshots</name>
+                </property>
             </activation>
             <repositories>
                 <repository>

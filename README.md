@@ -24,7 +24,7 @@ In the demo app the "Togglz Demo Objects" service has three actions, all of whic
 
 #### Togglz Console ####
 
-Users with the appropriate role ("isis-module-togglz-admin" can access the Togglz console, which lists all features:
+Users with the appropriate role (`isis-module-togglz-admin`) can access the Togglz console, which lists all features:
 
 ![](https://raw.github.com/isisaddons/isis-module-togglz/master/images/030-togglz-console-list-all.png)
 
