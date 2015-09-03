@@ -31,7 +31,7 @@ language governing permissions and limitations under the License.
     </prerequisites>
 
     <properties>
-        <isis.version>1.9.0-SNAPSHOT</isis.version>
+        <isis.version>1.9.0</isis.version>
 
         <isis-wicket-gmap3.version>1.9.0-SNAPSHOT</isis-wicket-gmap3.version>
 
