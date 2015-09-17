@@ -85,6 +85,8 @@ import org.isisaddons.module.settings.dom.UserSetting;
 public class UserSettingJdo extends SettingAbstractJdo implements UserSetting, HasUsername {
 
 
+    //region > domain events
+    //endregion
     public static class PropertyDomainEvent<T> extends SettingsModule.PropertyDomainEvent<UserSettingJdo, T> {
         public PropertyDomainEvent(final UserSettingJdo source, final Identifier identifier) {
             super(source, identifier);

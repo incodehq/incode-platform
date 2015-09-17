@@ -17,16 +17,19 @@
 package org.isisaddons.module.settings.dom.jdo;
 
 import java.util.List;
+
 import javax.jdo.annotations.IdentityType;
-import org.isisaddons.module.settings.SettingsModule;
-import org.isisaddons.module.settings.dom.ApplicationSetting;
-import org.isisaddons.module.settings.dom.SettingType;
+
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
+
+import org.isisaddons.module.settings.SettingsModule;
+import org.isisaddons.module.settings.dom.ApplicationSetting;
+import org.isisaddons.module.settings.dom.SettingType;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType = IdentityType.APPLICATION,
@@ -65,6 +68,8 @@ import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 )
 public class ApplicationSettingJdo extends SettingAbstractJdo implements ApplicationSetting {
 
+    //region > domain events
+    //endregion
     public static abstract class PropertyDomainEvent<T> extends SettingsModule.PropertyDomainEvent<ApplicationSettingJdo, T> {
         public PropertyDomainEvent(final ApplicationSettingJdo source, final Identifier identifier) {
             super(source, identifier);

@@ -17,45 +17,39 @@
 package org.isisaddons.module.settings.dom.jdo;
 
 import java.util.List;
+
+import javax.inject.Inject;
+
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import org.isisaddons.module.settings.SettingsModule;
-import org.isisaddons.module.settings.dom.SettingAbstract;
-import org.isisaddons.module.settings.dom.SettingType;
-import org.isisaddons.module.settings.dom.UserSetting;
-import org.isisaddons.module.settings.dom.UserSettingsService;
-import org.isisaddons.module.settings.dom.UserSettingsServiceRW;
+
 import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.AbstractService;
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
-import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
-import org.apache.isis.applib.query.QueryDefault;
+
+import org.isisaddons.module.settings.SettingsModule;
+import org.isisaddons.module.settings.dom.UserSetting;
+import org.isisaddons.module.settings.dom.UserSettingMenu;
+import org.isisaddons.module.settings.dom.UserSettingRepository;
+import org.isisaddons.module.settings.dom.UserSettingsServiceRW;
 
 /**
- * An implementation of {@link UserSettingsService} that persists settings
- * as entities into a JDO-backed database.
+ * @deprecated - use {@link UserSettingRepository} or {@link UserSettingMenu} instead.
  */
-@DomainService(
-        nature = NatureOfService.VIEW_MENU_ONLY
-)
-@DomainServiceLayout(
-        named = "Settings",
-        menuOrder = "400.2",
-        menuBar = DomainServiceLayout.MenuBar.SECONDARY
-)
+@Deprecated
 public class UserSettingsServiceJdo extends AbstractService implements UserSettingsServiceRW {
 
+    //region > domain events
     public static abstract class PropertyDomainEvent<T> extends SettingsModule.PropertyDomainEvent<UserSettingsServiceJdo, T> {
         public PropertyDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier) {
             super(source, identifier);
@@ -89,8 +83,9 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
             super(source, identifier, arguments);
         }
     }
+    //endregion
 
-    // //////////////////////////////////////
+    //region > find
 
     public static class FindDomainEvent extends ActionDomainEvent {
         public FindDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
@@ -113,15 +108,11 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
             final String user,
             @ParameterLayout(named="Key")
             final String key) {
-        return firstMatch(
-                new QueryDefault<>(UserSettingJdo.class,
-                        "findByUserAndKey", 
-                        "user",user,
-                        "key", key));
+        return userSettingRepository.find(user, key);
     }
+    //endregion
 
-
-    // //////////////////////////////////////
+    //region > listAll
 
     public static class ListAllForDomainEvent extends ActionDomainEvent {
         public ListAllForDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
@@ -142,10 +133,7 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
     public List<UserSetting> listAllFor(
             @ParameterLayout(named="User")
             final String user) {
-        return (List)allMatches(
-                new QueryDefault<>(UserSettingJdo.class,
-                        "findByUser", 
-                        "user", user));
+        return userSettingRepository.listAllFor(user);
     }
     public List<String> choices0ListAllFor() {
         return existingUsers();
@@ -162,7 +150,9 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
         }
     };
 
-    // //////////////////////////////////////
+    //endregion
+
+    //region > listAll
 
     public static class ListAllDomainEvent extends ActionDomainEvent {
         public ListAllDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
@@ -181,13 +171,12 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
     @MemberOrder(sequence="2.3")
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public List<UserSetting> listAll() {
-        return (List)allMatches(
-                new QueryDefault<>(UserSettingJdo.class,
-                        "findAll"));
+        return userSettingRepository.listAll();
     }
 
+    //endregion
 
-    // //////////////////////////////////////
+    //region > newString
 
     public static class NewStringDomainEvent extends ActionDomainEvent {
         public NewStringDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
@@ -211,14 +200,17 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
             @Parameter(optionality= Optionality.OPTIONAL)
             @ParameterLayout(named="Description")
             final String description,
-            @ParameterLayout(named="Value") final String value) {
-        return newSetting(user, key, description, SettingType.STRING, value);
+            @ParameterLayout(named="Value")
+            final String value) {
+        return userSettingRepository.newString(user, key, description, value);
     }
     public String default0NewString() {
         return getContainer().getUser().getName();
     }
 
-    // //////////////////////////////////////
+    //endregion
+
+    //region > newInt
 
     public static class NewIntDomainEvent extends ActionDomainEvent {
         public NewIntDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
@@ -242,14 +234,17 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
             @Parameter(optionality=Optionality.OPTIONAL)
             @ParameterLayout(named="Description")
             final String description,
-            @ParameterLayout(named="Value") final Integer value) {
-        return newSetting(user, key, description, SettingType.INT, value.toString());
+            @ParameterLayout(named="Value")
+            final Integer value) {
+        return userSettingRepository.newInt(user, key, description, value);
     }
     public String default0NewInt() {
         return getContainer().getUser().getName();
     }
 
-    // //////////////////////////////////////
+    //endregion
+
+    //region > newLong
 
     public static class NewLongDomainEvent extends ActionDomainEvent {
         public NewLongDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
@@ -273,14 +268,17 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
             @Parameter(optionality=Optionality.OPTIONAL)
             @ParameterLayout(named="Description")
             final String description,
-            @ParameterLayout(named="Value") final Long value) {
-        return newSetting(user, key, description, SettingType.LONG, value.toString());
+            @ParameterLayout(named="Value")
+            final Long value) {
+        return userSettingRepository.newLong(user, key, description, value);
     }
     public String default0NewLong() {
         return getContainer().getUser().getName();
     }
 
-    // //////////////////////////////////////
+    //endregion
+
+    //region > newLocalDate
 
     public static class NewLocalDateDomainEvent extends ActionDomainEvent {
         public NewLocalDateDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
@@ -304,14 +302,17 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
             @Parameter(optionality=Optionality.OPTIONAL)
             @ParameterLayout(named="Description")
             final String description,
-            @ParameterLayout(named="Value") final LocalDate value) {
-        return newSetting(user, key, description, SettingType.LOCAL_DATE, value.toString(SettingAbstract.DATE_FORMATTER));
+            @ParameterLayout(named="Value")
+            final LocalDate value) {
+        return userSettingRepository.newLocalDate(user, key, description, value);
     }
     public String default0NewLocalDate() {
         return getContainer().getUser().getName();
     }
 
-    // //////////////////////////////////////
+    //endregion
+
+    //region > newBoolean
 
     public static class NewBooleanDomainEvent extends ActionDomainEvent {
         public NewBooleanDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
@@ -338,25 +339,16 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
             @ParameterLayout(named="Value")
             @Parameter(optionality=Optionality.OPTIONAL)
             final Boolean value) {
-        return newSetting(user, key, description, SettingType.BOOLEAN, Boolean.toString(value != null && value));
+        return userSettingRepository.newBoolean(user, key, description, value);
     }
     public String default0NewBoolean() {
         return getContainer().getUser().getName();
     }
 
-    // //////////////////////////////////////
+    //endregion
 
-    private UserSettingJdo newSetting(
-            final String user,
-            final String key, final String description, final SettingType settingType, final String valueRaw) {
-        final UserSettingJdo setting = newTransientInstance(UserSettingJdo.class);
-        setting.setUser(user);
-        setting.setKey(key);
-        setting.setType(settingType);
-        setting.setDescription(description);
-        setting.setValueRaw(valueRaw);
-        persist(setting);
-        return setting;
-    }
-
+    //region > injected
+    @Inject
+    UserSettingRepository userSettingRepository;
+    //endregion
 }
