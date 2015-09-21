@@ -17,9 +17,11 @@
 package org.isisaddons.module.event.fixture.scripts.scenarios;
 
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import org.apache.isis.applib.services.clock.ClockService;
 
+import org.isisaddons.module.event.fixture.dom.CalendarName;
 import org.isisaddons.module.event.fixture.dom.EventDemoObject;
-import org.isisaddons.module.event.fixture.dom.EventDemoObjects;
+import org.isisaddons.module.event.fixture.dom.EventDemoObjectMenu;
 import org.isisaddons.module.event.fixture.scripts.teardown.EventDemoObjectsTearDownFixture;
 
 public class EventDemoObjectsFixture extends DiscoverableFixtureScript {
@@ -34,21 +36,33 @@ public class EventDemoObjectsFixture extends DiscoverableFixtureScript {
         // prereqs
 	executionContext.executeChild(this, new EventDemoObjectsTearDownFixture());
 
-        // create
-        create("Foo", executionContext);
-        create("Bar", executionContext);
-        create("Baz", executionContext);
+        final EventDemoObject foo = create("Foo", executionContext);
+        foo.addEvent(CalendarName.BLUE, clockService.now());
+        foo.addEvent(CalendarName.GREEN, clockService.now().plusDays(1));
+        foo.addEvent(CalendarName.RED, clockService.now().plusDays(2));
+
+        final EventDemoObject bar = create("Bar", executionContext);
+        bar.addEvent(CalendarName.GREEN, clockService.now());
+        bar.addEvent(CalendarName.RED, clockService.now().plusDays(-1));
+
+        final EventDemoObject baz = create("Baz", executionContext);
+        baz.addEvent(CalendarName.RED, clockService.now().plusDays(1));
     }
 
     // //////////////////////////////////////
 
-    private EventDemoObject create(final String name, final ExecutionContext executionContext) {
-        return executionContext.addResult(this, eventDemoObjects.create(name));
+    private EventDemoObject create(
+            final String name,
+            final ExecutionContext executionContext) {
+
+        return executionContext.addResult(this, wrap(eventDemoObjectMenu).create(name));
     }
 
     // //////////////////////////////////////
 
     @javax.inject.Inject
-    private EventDemoObjects eventDemoObjects;
+    EventDemoObjectMenu eventDemoObjectMenu;
+    @javax.inject.Inject
+    ClockService clockService;
 
 }

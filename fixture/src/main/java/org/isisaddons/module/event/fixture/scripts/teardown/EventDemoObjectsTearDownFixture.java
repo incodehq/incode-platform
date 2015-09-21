@@ -23,7 +23,11 @@ public class EventDemoObjectsTearDownFixture extends FixtureScript {
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"event\".\"EventDemoObject\"");
+        isisJdoSupport.executeUpdate("delete from \"eventdemo\".\"EventSourceLinkForDemoObject\"");
+        isisJdoSupport.executeUpdate("delete from \"eventdemo\".\"EventDemoObject\"");
+
+        isisJdoSupport.executeUpdate("delete from \"isisevent\".\"EventSourceLink\"");
+        isisJdoSupport.executeUpdate("delete from \"isisevent\".\"Event\"");
     }
 
 

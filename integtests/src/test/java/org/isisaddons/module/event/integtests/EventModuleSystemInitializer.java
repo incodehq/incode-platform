@@ -16,10 +16,10 @@
  */
 package org.isisaddons.module.event.integtests;
 
-import org.apache.isis.core.commons.config.IsisConfiguration;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
-import org.apache.isis.objectstore.jdo.datanucleus.DataNucleusPersistenceMechanismInstaller;
 import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegTests;
+
+import org.isisaddons.module.event.app.EventModuleAppManifest;
 
 /**
  * Holds an instance of an {@link IsisSystemForTest} as a {@link ThreadLocal} on the current thread,
@@ -29,32 +29,16 @@ public class EventModuleSystemInitializer {
     
     private EventModuleSystemInitializer(){}
 
-    public static IsisSystemForTest initIsft() {
+    public static void initIsft() {
         IsisSystemForTest isft = IsisSystemForTest.getElseNull();
         if(isft == null) {
-            isft = new EventModuleAppSystemBuilder().build().setUpSystem();
+            isft = new IsisSystemForTest.Builder()
+                    .withLoggingAt(org.apache.log4j.Level.INFO)
+                    .with(new EventModuleAppManifest())
+                    .with(new IsisConfigurationForJdoIntegTests())
+                    .build()
+                    .setUpSystem();
             IsisSystemForTest.set(isft);
-        }
-        return isft;
-    }
-
-    private static class EventModuleAppSystemBuilder extends IsisSystemForTest.Builder {
-
-        public EventModuleAppSystemBuilder() {
-            withLoggingAt(org.apache.log4j.Level.INFO);
-            with(testConfiguration());
-            with(new DataNucleusPersistenceMechanismInstaller());
-
-            // services annotated with @DomainService
-            withServicesIn( "org.isisaddons.module.event"
-                            //, "org.isisaddons.module.fakedata"
-            );
-        }
-
-        private static IsisConfiguration testConfiguration() {
-            final IsisConfigurationForJdoIntegTests testConfiguration = new IsisConfigurationForJdoIntegTests();
-            testConfiguration.addRegisterEntitiesPackagePrefix("org.isisaddons.module.event");
-            return testConfiguration;
         }
     }
 

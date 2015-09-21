@@ -155,7 +155,13 @@ language governing permissions and limitations under the License.
                 </exclusion>
             </exclusions>
         </dependency>
-        
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>isis-module-event-app</artifactId>
+        </dependency>
+
+
         <!-- other isis components -->
         <dependency>
             <groupId>org.apache.isis.viewer</groupId>

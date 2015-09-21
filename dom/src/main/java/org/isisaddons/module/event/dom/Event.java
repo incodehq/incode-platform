@@ -1,0 +1,223 @@
+package org.isisaddons.module.event.dom;
+
+import javax.inject.Inject;
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.VersionStrategy;
+
+import com.google.common.base.Function;
+
+import org.joda.time.LocalDate;
+
+import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.PropertyLayout;
+import org.apache.isis.applib.annotation.Title;
+import org.apache.isis.applib.annotation.Where;
+import org.apache.isis.applib.util.ObjectContracts;
+
+import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEvent;
+import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
+
+/**
+ * An event that has or is scheduled to occur at some point in time, pertaining
+ * to an {@link EventSource}.
+ */
+@javax.jdo.annotations.PersistenceCapable(
+        schema = "isisevent",
+        table = "Event",
+        identityType = IdentityType.DATASTORE)
+@javax.jdo.annotations.DatastoreIdentity(
+        strategy = IdGeneratorStrategy.NATIVE,
+        column = "id")
+@javax.jdo.annotations.Version(
+        strategy = VersionStrategy.VERSION_NUMBER,
+        column = "version")
+@javax.jdo.annotations.Queries({
+        @javax.jdo.annotations.Query(
+                name = "findInDateRange", language = "JDOQL",
+                value = "SELECT " +
+                        "FROM org.isisaddons.module.event.dom.Event " +
+                    "WHERE date >= :rangeStartDate " +
+                    "   && date <= :rangeEndDate")
+})
+@DomainObject(editing = Editing.DISABLED)
+public class Event implements CalendarEventable, Comparable<Event> {
+
+    //region > constants
+    private static final int NUMBER_OF_LINES = 8;
+    public static final int CALENDAR_NAME = 254;
+    private final static int NOTES = 4000;
+    //endregion
+
+    //region > date (property)
+    private LocalDate date;
+
+    @javax.jdo.annotations.Column(allowsNull = "false")
+    @Property(optionality = Optionality.MANDATORY)
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(final LocalDate startDate) {
+        this.date = startDate;
+    }
+    //endregion
+
+    //region > source (property)
+    /**
+     * Polymorphic association to (any implementation of) {@link EventSource}.
+     */
+    @Property(
+            editing = Editing.DISABLED,
+            hidden = Where.PARENTED_TABLES,
+            notPersisted = true
+    )
+    @Title(sequence = "1")
+    public EventSource getSource() {
+        final EventSourceLink link = getSourceLink();
+        return link != null? link.getPolymorphicReference(): null;
+    }
+
+    @Programmatic
+    public void setSource(final EventSource eventSource) {
+        removeSourceLink();
+        eventSourceLinkRepository.createLink(this, eventSource);
+    }
+
+    private void removeSourceLink() {
+        final EventSourceLink eventSourceLink = getSourceLink();
+        if(eventSourceLink != null) {
+            container.remove(eventSourceLink);
+        }
+    }
+
+    private EventSourceLink getSourceLink() {
+        if (!container.isPersistent(this)) {
+            return null;
+        }
+        return eventSourceLinkRepository.findByEvent(this);
+    }
+    //endregion
+
+    //region > calendarName (property)
+
+    private String calendarName;
+
+    /**
+     * The name of the &quot;calendar&quot; to which this event belongs.
+     * 
+     * <p>
+     * The &quot;calendar&quot; is a string identifier that indicates the nature
+     * of this event. These are expected to be uniquely identifiable for all and
+     * any events that might be created. They therefore typically (always?)
+     * include information relating to the type/class of the event's
+     * {@link #getSource() subject}.
+     * 
+     * <p>
+     * For example, an event whose subject is a lease's
+     * <tt>FixedBreakOption</tt> has three dates: the <i>break date</i>, the
+     * <i>exercise date</i> and the <i>reminder date</i>. These therefore
+     * correspond to three different calendar names, respectively <i>Fixed
+     * break</i>, <i>Fixed break exercise</i> and <i>Fixed break exercise
+     * reminder</i>.
+     */
+    @javax.jdo.annotations.Column(allowsNull = "false", length = CALENDAR_NAME)
+    @Title(prepend = ": ", sequence = "2")
+    @Property(editing = Editing.DISABLED)
+    public String getCalendarName() {
+        return calendarName;
+    }
+
+    public void setCalendarName(final String calendarName) {
+        this.calendarName = calendarName;
+    }
+
+    //endregion
+
+    //region > notes (property)
+    private String notes;
+
+    @javax.jdo.annotations.Column(allowsNull = "true", length = NOTES)
+    @PropertyLayout(multiLine = NUMBER_OF_LINES)
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(final String description) {
+        this.notes = description;
+    }
+    //endregion
+
+    //region > changeNotes (action)
+    public Event changeNotes(
+            @ParameterLayout(named = "Notes", multiLine = NUMBER_OF_LINES)
+            final String notes) {
+        setNotes(notes);
+
+        return this;
+    }
+
+    public String default0ChangeNotes() {
+        return getNotes();
+    }
+    //endregion
+
+    //region > CalendarEventable impl
+
+    @Programmatic
+    public CalendarEvent toCalendarEvent() {
+        final String eventTitle = container.titleOf(getSource()) + " " + getCalendarName();
+        return new CalendarEvent(getDate().toDateTimeAtStartOfDay(), getCalendarName(), eventTitle);
+    }
+    //endregion
+
+    //region > Functions
+
+    public final static class Functions {
+        private Functions() {
+        }
+
+        public final static Function<Event, CalendarEvent> TO_CALENDAR_EVENT = new Function<Event, CalendarEvent>() {
+            @Override
+            public CalendarEvent apply(final Event input) {
+                return input.toCalendarEvent();
+            }
+        };
+        public final static Function<Event, String> GET_CALENDAR_NAME = new Function<Event, String>() {
+            @Override
+            public String apply(final Event input) {
+                return input.getCalendarName();
+            }
+        };
+    }
+    //endregion
+
+    //region > toString, compareTo
+
+    @Override
+    public String toString() {
+        return ObjectContracts.toString(this, "date", "calendarName");
+    }
+
+    @Override
+    public int compareTo(final Event other) {
+        return ObjectContracts.compare(this, other, "date", "source", "calendarName");
+    }
+
+    //endregion
+
+    //region > injected
+
+    @Inject
+    private EventSourceLinkRepository eventSourceLinkRepository;
+    @Inject
+    DomainObjectContainer container;
+    //endregion
+
+}

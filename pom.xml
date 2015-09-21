@@ -344,6 +344,12 @@ language governing permissions and limitations under the License.
                 <artifactId>isis-module-event-dom</artifactId>
                 <version>${isis-module-event.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>isis-module-event-app</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-event-fixture</artifactId>
@@ -399,6 +405,7 @@ language governing permissions and limitations under the License.
     </profiles>
 
     <modules>
+        <module>app</module>
         <module>dom</module>
         <module>fixture</module>
         <module>integtests</module>

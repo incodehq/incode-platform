@@ -52,6 +52,11 @@ Copyright 2014~2015 Dan Haywood
         </dependency>
 
         <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>isis-module-event-app</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-unittestsupport</artifactId>
         </dependency>

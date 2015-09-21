@@ -14,39 +14,10 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-{
-  "columns": [
-    {
-      "span": 6,
-      "memberGroups": {
-        "General": {
-          "members": {
-            "name": {},
-            "calendarName": {}
-          }
-        }
-      }
-    },
-    {
-      "span": 0,
-      "memberGroups": {}
-    },
-    {
-      "span": 0,
-      "memberGroups": {}
-    },
-    {
-      "span": 6,
-      "collections": {
-        "events": {
-          "actions": {
-            "addEvent": {},
-            "removeEvent": {}
-          }
-        }
-      }
+package org.isisaddons.module.event.fixture.dom;
+
+public enum CalendarName {
+    BLUE,
+    GREEN,
+    RED
     }
-  ],
-  "actions": {}
-}
- 

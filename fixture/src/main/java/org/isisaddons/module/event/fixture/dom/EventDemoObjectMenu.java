@@ -35,7 +35,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 @DomainServiceLayout(
         menuOrder = "10"
 )
-public class EventDemoObjects {
+public class EventDemoObjectMenu {
 
 
     //region > listAll (action)
@@ -57,7 +57,8 @@ public class EventDemoObjects {
     
     @MemberOrder(sequence = "2")
     public EventDemoObject create(
-            final @ParameterLayout(named = "Name") String name) {
+            @ParameterLayout(named = "Name")
+            final String name) {
         final EventDemoObject obj = container.newTransientInstance(EventDemoObject.class);
         obj.setName(name);
         container.persistIfNotAlready(obj);

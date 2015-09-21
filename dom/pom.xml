@@ -54,6 +54,9 @@ Copyright 2014~2015 Dan Haywood
         <compileTarget>1.7</compileTarget>
 
         <isis.version>1.10.0-SNAPSHOT</isis.version>
+        <isis-module-poly-dom.version>1.9.0</isis-module-poly-dom.version>
+        <isis-wicket-fullcalendar2-cpt.version>1.10.0-SNAPSHOT</isis-wicket-fullcalendar2-cpt.version>
+
         <assertj-core.version>2.0.0</assertj-core.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -216,6 +219,17 @@ Copyright 2014~2015 Dan Haywood
             <artifactId>isis-core-applib</artifactId>
             <version>${isis.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
+            <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
+            <version>${isis-wicket-fullcalendar2-cpt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.isisaddons.module.poly</groupId>
+            <artifactId>isis-module-poly-dom</artifactId>
+            <version>${isis-module-poly-dom.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-unittestsupport</artifactId>

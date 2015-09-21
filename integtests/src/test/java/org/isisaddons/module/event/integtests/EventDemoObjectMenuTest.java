@@ -27,17 +27,17 @@ import org.junit.Test;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
 import org.isisaddons.module.event.fixture.dom.EventDemoObject;
-import org.isisaddons.module.event.fixture.dom.EventDemoObjects;
+import org.isisaddons.module.event.fixture.dom.EventDemoObjectMenu;
 import org.isisaddons.module.event.fixture.scripts.scenarios.EventDemoObjectsFixture;
 
 
-public class EventDemoObjectsTest extends EventModuleIntegTest {
+public class EventDemoObjectMenuTest extends EventModuleIntegTest {
 
     @Inject
     FixtureScripts fixtureScripts;
 
     @Inject
-    private EventDemoObjects eventDemoObjects;
+    private EventDemoObjectMenu eventDemoObjectMenu;
 
     @Before
     public void setUpData() throws Exception {
@@ -48,7 +48,7 @@ public class EventDemoObjectsTest extends EventModuleIntegTest {
     @Test
     public void listAll() throws Exception {
 
-        final List<EventDemoObject> all = wrap(eventDemoObjects).listAll();
+        final List<EventDemoObject> all = wrap(eventDemoObjectMenu).listAll();
         Assertions.assertThat(all.size()).isEqualTo(3);
         
         EventDemoObject eventDemoObject = wrap(all.get(0));
@@ -58,9 +58,9 @@ public class EventDemoObjectsTest extends EventModuleIntegTest {
     @Test
     public void create() throws Exception {
 
-        wrap(eventDemoObjects).create("Faz");
+        wrap(eventDemoObjectMenu).create("Faz");
         
-        final List<EventDemoObject> all = wrap(eventDemoObjects).listAll();
+        final List<EventDemoObject> all = wrap(eventDemoObjectMenu).listAll();
         Assertions.assertThat(all.size()).isEqualTo(4);
     }
 
