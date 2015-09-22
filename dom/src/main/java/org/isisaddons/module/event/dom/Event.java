@@ -1,5 +1,7 @@
 package org.isisaddons.module.event.dom;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -10,6 +12,8 @@ import com.google.common.base.Function;
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.Identifier;
+import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Optionality;
@@ -17,10 +21,12 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import org.isisaddons.module.event.EventModule;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEvent;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
 
@@ -49,17 +55,60 @@ import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
 @DomainObject(editing = Editing.DISABLED)
 public class Event implements CalendarEventable, Comparable<Event> {
 
-    //region > constants
-    private static final int NUMBER_OF_LINES = 8;
-    public static final int CALENDAR_NAME = 254;
-    private final static int NOTES = 4000;
+    //region > event classes
+    public static abstract class PropertyDomainEvent<T> extends EventModule.PropertyDomainEvent<Event, T> {
+        public PropertyDomainEvent(final Event source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public PropertyDomainEvent(final Event source, final Identifier identifier, final T oldValue, final T newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
+    public static abstract class CollectionDomainEvent<T> extends EventModule.CollectionDomainEvent<Event, T> {
+        public CollectionDomainEvent(final Event source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of) {
+            super(source, identifier, of);
+        }
+
+        public CollectionDomainEvent(final Event source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
+            super(source, identifier, of, value);
+        }
+    }
+
+    public static abstract class ActionDomainEvent extends EventModule.ActionDomainEvent<Event> {
+        public ActionDomainEvent(final Event source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public ActionDomainEvent(final Event source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+
+        public ActionDomainEvent(final Event source, final Identifier identifier, final List<Object> arguments) {
+            super(source, identifier, arguments);
+        }
+    }
     //endregion
 
     //region > date (property)
+
+    public static class DateDomainEvent extends PropertyDomainEvent<LocalDate> {
+        public DateDomainEvent(final Event source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public DateDomainEvent(final Event source, final Identifier identifier, final LocalDate oldValue, final LocalDate newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private LocalDate date;
 
     @javax.jdo.annotations.Column(allowsNull = "false")
-    @Property(optionality = Optionality.MANDATORY)
+    @Property(
+            domainEvent = DateDomainEvent.class,
+            optionality = Optionality.MANDATORY
+    )
     public LocalDate getDate() {
         return date;
     }
@@ -70,10 +119,21 @@ public class Event implements CalendarEventable, Comparable<Event> {
     //endregion
 
     //region > source (property)
+
+    public static class SourceDomainEvent extends PropertyDomainEvent<EventSource> {
+        public SourceDomainEvent(final Event source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public SourceDomainEvent(final Event source, final Identifier identifier, final EventSource oldValue, final EventSource newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     /**
      * Polymorphic association to (any implementation of) {@link EventSource}.
      */
     @Property(
+            domainEvent = SourceDomainEvent.class,
             editing = Editing.DISABLED,
             hidden = Where.PARENTED_TABLES,
             notPersisted = true
@@ -107,6 +167,15 @@ public class Event implements CalendarEventable, Comparable<Event> {
 
     //region > calendarName (property)
 
+    public static class CalendarNameDomainEvent extends PropertyDomainEvent<String> {
+        public CalendarNameDomainEvent(final Event source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public CalendarNameDomainEvent(final Event source, final Identifier identifier, final String oldValue, final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private String calendarName;
 
     /**
@@ -127,9 +196,12 @@ public class Event implements CalendarEventable, Comparable<Event> {
      * break</i>, <i>Fixed break exercise</i> and <i>Fixed break exercise
      * reminder</i>.
      */
-    @javax.jdo.annotations.Column(allowsNull = "false", length = CALENDAR_NAME)
+    @javax.jdo.annotations.Column(allowsNull = "false", length = EventModule.JdoColumnLength.CALENDAR_NAME)
     @Title(prepend = ": ", sequence = "2")
-    @Property(editing = Editing.DISABLED)
+    @Property(
+            domainEvent = CalendarNameDomainEvent.class,
+            editing = Editing.DISABLED
+    )
     public String getCalendarName() {
         return calendarName;
     }
@@ -141,10 +213,25 @@ public class Event implements CalendarEventable, Comparable<Event> {
     //endregion
 
     //region > notes (property)
+
+    public static class NotesDomainEvent extends PropertyDomainEvent<String> {
+        public NotesDomainEvent(final Event source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public NotesDomainEvent(final Event source, final Identifier identifier, final String oldValue, final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private String notes;
 
-    @javax.jdo.annotations.Column(allowsNull = "true", length = NOTES)
-    @PropertyLayout(multiLine = NUMBER_OF_LINES)
+    @javax.jdo.annotations.Column(allowsNull = "true", length = EventModule.JdoColumnLength.NOTES)
+    @Property(
+            domainEvent = NotesDomainEvent.class
+    )
+    @PropertyLayout(
+            multiLine = EventModule.JdoColumnLength.NUMBER_OF_LINES
+    )
     public String getNotes() {
         return notes;
     }
@@ -155,8 +242,19 @@ public class Event implements CalendarEventable, Comparable<Event> {
     //endregion
 
     //region > changeNotes (action)
+
+    public static class ChangeNotesDomainEvent extends ActionDomainEvent {
+        public ChangeNotesDomainEvent(final Event source, final Identifier identifier, final Object... args) {
+            super(source, identifier, args);
+        }
+    }
+
+    @Action(
+            domainEvent = ChangeNotesDomainEvent.class,
+            semantics = SemanticsOf.IDEMPOTENT
+    )
     public Event changeNotes(
-            @ParameterLayout(named = "Notes", multiLine = NUMBER_OF_LINES)
+            @ParameterLayout(named = "Notes", multiLine = EventModule.JdoColumnLength.NUMBER_OF_LINES)
             final String notes) {
         setNotes(notes);
 

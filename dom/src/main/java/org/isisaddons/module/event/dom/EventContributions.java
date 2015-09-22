@@ -22,28 +22,69 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import com.google.common.base.Functions;
-import com.google.common.collect.Lists;
-
-import org.joda.time.LocalDate;
-
+import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.SemanticsOf;
+
+import org.isisaddons.module.event.EventModule;
 
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
 )
 public class EventContributions {
 
+    //region > event classes
+    public static abstract class PropertyDomainEvent<T> extends EventModule.PropertyDomainEvent<EventContributions, T> {
+        public PropertyDomainEvent(final EventContributions source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public PropertyDomainEvent(final EventContributions source, final Identifier identifier, final T oldValue, final T newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
+    public static abstract class CollectionDomainEvent<T> extends EventModule.CollectionDomainEvent<EventContributions, T> {
+        public CollectionDomainEvent(final EventContributions source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of) {
+            super(source, identifier, of);
+        }
+
+        public CollectionDomainEvent(final EventContributions source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
+            super(source, identifier, of, value);
+        }
+    }
+
+    public static abstract class ActionDomainEvent extends EventModule.ActionDomainEvent<EventContributions> {
+        public ActionDomainEvent(final EventContributions source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public ActionDomainEvent(final EventContributions source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+
+        public ActionDomainEvent(final EventContributions source, final Identifier identifier, final List<Object> arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+    //endregion
+
     //region > events (contributed association)
+
+    public static class EventsDomainEvent extends ActionDomainEvent {
+        public EventsDomainEvent(final EventContributions source, final Identifier identifier, final Object... args) {
+            super(source, identifier, args);
+        }
+    }
+
     @Action(
+            domainEvent = EventsDomainEvent.class,
             semantics = SemanticsOf.SAFE
     )
     @ActionLayout(

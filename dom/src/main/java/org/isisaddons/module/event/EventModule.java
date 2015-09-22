@@ -21,7 +21,22 @@ import org.apache.isis.applib.Identifier;
 
 public final class EventModule {
 
+    //region > constants
+
+    public static class JdoColumnLength {
+
+        private JdoColumnLength(){}
+
+        public static final int NOTES = 4000;
+        public static final int CALENDAR_NAME = 254;
+        public static final int NUMBER_OF_LINES = 8;
+    }
+
+    //endregion
+
     private EventModule(){}
+
+    //region > event classes
 
     public abstract static class ActionDomainEvent<S> extends org.apache.isis.applib.services.eventbus.ActionDomainEvent<S> {
         public ActionDomainEvent(final S source, final Identifier identifier) {
@@ -56,4 +71,5 @@ public final class EventModule {
             super(source, identifier, oldValue, newValue);
         }
     }
+    //endregion
 }

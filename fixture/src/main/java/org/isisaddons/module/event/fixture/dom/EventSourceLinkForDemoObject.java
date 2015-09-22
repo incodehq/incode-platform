@@ -44,6 +44,7 @@ import org.isisaddons.module.event.dom.EventSourceLink;
 )
 public class EventSourceLinkForDemoObject extends EventSourceLink {
 
+    //region > instantiationSubscriber, setPolymorphicReference
     @DomainService(nature = NatureOfService.DOMAIN)
     public static class InstantiationSubscriber extends AbstractSubscriber {
 
@@ -61,6 +62,7 @@ public class EventSourceLinkForDemoObject extends EventSourceLink {
         super.setPolymorphicReference(polymorphicReference);
         setDemoObject((EventDemoObject) polymorphicReference);
     }
+    //endregion
 
     //region > demoObject (property)
     private EventDemoObject demoObject;

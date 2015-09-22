@@ -18,19 +18,22 @@
  */
 package org.isisaddons.module.event.dom;
 
-import javax.jdo.annotations.Column;
+import java.util.List;
+
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
 
 import com.google.common.base.Function;
 
+import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.Title;
 
+import org.isisaddons.module.event.EventModule;
 import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 
 @javax.jdo.annotations.PersistenceCapable(
@@ -72,6 +75,43 @@ import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 )
 public abstract class EventSourceLink extends PolymorphicAssociationLink<Event, EventSource, EventSourceLink> {
 
+    //region > event classes
+    public static abstract class PropertyDomainEvent<T> extends EventModule.PropertyDomainEvent<EventSourceLink, T> {
+        public PropertyDomainEvent(final EventSourceLink source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public PropertyDomainEvent(final EventSourceLink source, final Identifier identifier, final T oldValue, final T newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
+    public static abstract class CollectionDomainEvent<T> extends EventModule.CollectionDomainEvent<EventSourceLink, T> {
+        public CollectionDomainEvent(final EventSourceLink source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of) {
+            super(source, identifier, of);
+        }
+
+        public CollectionDomainEvent(final EventSourceLink source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
+            super(source, identifier, of, value);
+        }
+    }
+
+    public static abstract class ActionDomainEvent extends EventModule.ActionDomainEvent<EventSourceLink> {
+        public ActionDomainEvent(final EventSourceLink source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public ActionDomainEvent(final EventSourceLink source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+
+        public ActionDomainEvent(final EventSourceLink source, final Identifier identifier, final List<Object> arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+    //endregion
+
+    //region > instantiateEvent (poly pattern)
     public static class InstantiateEvent
             extends PolymorphicAssociationLink.InstantiateEvent<Event, EventSource, EventSourceLink> {
 
@@ -79,6 +119,7 @@ public abstract class EventSourceLink extends PolymorphicAssociationLink<Event, 
             super(EventSourceLink.class, source, subject, owner);
         }
     }
+    //endregion
 
     //region > constructor
     public EventSourceLink() {
@@ -130,10 +171,21 @@ public abstract class EventSourceLink extends PolymorphicAssociationLink<Event, 
     //endregion
 
     //region > event (property)
+
+    public static class EventDomainEvent extends PropertyDomainEvent<Event> {
+        public EventDomainEvent(final EventSourceLink source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public EventDomainEvent(final EventSourceLink source, final Identifier identifier, final Event oldValue, final Event newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private Event event;
-    @Column(
-            allowsNull = "false",
-            name = "eventId"
+    @javax.jdo.annotations.Column(allowsNull = "false", name = "eventId")
+    @Property(
+            domainEvent = EventDomainEvent.class,
+            editing = Editing.DISABLED
     )
     public Event getEvent() {
         return event;
@@ -145,9 +197,23 @@ public abstract class EventSourceLink extends PolymorphicAssociationLink<Event, 
     //endregion
 
     //region > sourceObjectType (property)
+
+    public static class SourceObjectTypeDomainEvent extends PropertyDomainEvent<String> {
+        public SourceObjectTypeDomainEvent(final EventSourceLink source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public SourceObjectTypeDomainEvent(final EventSourceLink source, final Identifier identifier, final String oldValue, final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private String sourceObjectType;
 
-    @Column(allowsNull = "false", length = 255)
+    @javax.jdo.annotations.Column(allowsNull = "false", length = 255)
+    @Property(
+            domainEvent = SourceObjectTypeDomainEvent.class,
+            editing = Editing.DISABLED
+    )
     public String getSourceObjectType() {
         return sourceObjectType;
     }
@@ -158,9 +224,23 @@ public abstract class EventSourceLink extends PolymorphicAssociationLink<Event, 
     //endregion
 
     //region > sourceIdentifier (property)
+
+    public static class SourceIdentifierDomainEvent extends PropertyDomainEvent<String> {
+        public SourceIdentifierDomainEvent(final EventSourceLink source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public SourceIdentifierDomainEvent(final EventSourceLink source, final Identifier identifier, final String oldValue, final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private String sourceIdentifier;
 
-    @Column(allowsNull = "false", length = 255)
+    @javax.jdo.annotations.Column(allowsNull = "false", length = 255)
+    @Property(
+            domainEvent = SourceIdentifierDomainEvent.class,
+            editing = Editing.DISABLED
+    )
     public String getSourceIdentifier() {
         return sourceIdentifier;
     }
@@ -172,6 +252,15 @@ public abstract class EventSourceLink extends PolymorphicAssociationLink<Event, 
 
     //region > calendarName (property)
 
+    public static class CalendarNameDomainEvent extends PropertyDomainEvent<String> {
+        public CalendarNameDomainEvent(final EventSourceLink source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public CalendarNameDomainEvent(final EventSourceLink source, final Identifier identifier, final String oldValue, final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
     private String calendarName;
 
     /**
@@ -181,8 +270,9 @@ public abstract class EventSourceLink extends PolymorphicAssociationLink<Event, 
      *     To support querying.  This is an immutable property of {@link Event} so it is safe to copy.
      * </p>
      */
-    @javax.jdo.annotations.Column(allowsNull = "false", length= Event.CALENDAR_NAME)
+    @javax.jdo.annotations.Column(allowsNull = "false", length= EventModule.JdoColumnLength.CALENDAR_NAME)
     @Property(
+            domainEvent = CalendarNameDomainEvent.class,
             editing = Editing.DISABLED
     )
     @Title(prepend=": ", sequence="2")
@@ -221,7 +311,6 @@ public abstract class EventSourceLink extends PolymorphicAssociationLink<Event, 
             };
         }
     }
-
     //endregion
 
 }
