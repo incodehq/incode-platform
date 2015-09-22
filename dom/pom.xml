@@ -55,7 +55,7 @@ Copyright 2014~2015 Dan Haywood
 
         <isis.version>1.10.0-SNAPSHOT</isis.version>
         <isis-module-poly-dom.version>1.9.0</isis-module-poly-dom.version>
-        <isis-wicket-fullcalendar2-cpt.version>1.10.0-SNAPSHOT</isis-wicket-fullcalendar2-cpt.version>
+        <isis-wicket-gmap3-cpt.version>1.10.0-SNAPSHOT</isis-wicket-gmap3-cpt.version>
 
         <assertj-core.version>2.0.0</assertj-core.version>
 
@@ -220,9 +220,9 @@ Copyright 2014~2015 Dan Haywood
             <version>${isis.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
-            <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
-            <version>${isis-wicket-fullcalendar2-cpt.version}</version>
+            <groupId>org.isisaddons.wicket.gmap3</groupId>
+            <artifactId>isis-wicket-gmap3-cpt</artifactId>
+            <version>${isis-wicket-gmap3-cpt.version}</version>
         </dependency>
         <dependency>
             <groupId>org.isisaddons.module.poly</groupId>

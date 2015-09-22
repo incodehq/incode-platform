@@ -99,7 +99,7 @@ public class CommChannelModuleApplication extends IsisWicketApplication {
         return request;
     }
 
-    private static final String APP_NAME = "Event Module Example App";
+    private static final String APP_NAME = "CommChannel Module Example App";
     
     @Override
     protected Module newIsisWicketModule() {

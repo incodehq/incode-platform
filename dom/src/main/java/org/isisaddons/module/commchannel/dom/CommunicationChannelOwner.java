@@ -18,9 +18,6 @@
  */
 package org.isisaddons.module.commchannel.dom;
 
-import org.isisaddons.wicket.fullcalendar2.cpt.applib.Calendarable;
-
-
-public interface EventSource extends Calendarable {
+public interface CommunicationChannelOwner  {
 
 }

@@ -19,7 +19,8 @@ package org.isisaddons.module.commchannel.fixture.scripts.scenarios;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.apache.isis.applib.services.clock.ClockService;
 
-import org.isisaddons.module.commchannel.fixture.dom.CalendarName;
+import org.isisaddons.module.commchannel.dom.CommunicationChannelContributions;
+import org.isisaddons.module.commchannel.dom.CommunicationChannelType;
 import org.isisaddons.module.commchannel.fixture.dom.CommChannelDemoObject;
 import org.isisaddons.module.commchannel.fixture.dom.CommChannelDemoObjectMenu;
 import org.isisaddons.module.commchannel.fixture.scripts.teardown.CommChannelDemoObjectsTearDownFixture;
@@ -37,16 +38,15 @@ public class CommChannelDemoObjectsFixture extends DiscoverableFixtureScript {
 	executionContext.executeChild(this, new CommChannelDemoObjectsTearDownFixture());
 
         final CommChannelDemoObject foo = create("Foo", executionContext);
-        foo.addEvent(CalendarName.BLUE, clockService.now());
-        foo.addEvent(CalendarName.GREEN, clockService.now().plusDays(1));
-        foo.addEvent(CalendarName.RED, clockService.now().plusDays(2));
+
+        wrap(communicationChannelContributions).newEmail(foo, CommunicationChannelType.EMAIL_ADDRESS, "foo@example.com");
+        wrap(communicationChannelContributions).newPhoneOrFax(foo, CommunicationChannelType.PHONE_NUMBER, "555 1234");
+        wrap(communicationChannelContributions).newPhoneOrFax(foo, CommunicationChannelType.FAX_NUMBER, "555 4321");
 
         final CommChannelDemoObject bar = create("Bar", executionContext);
-        bar.addEvent(CalendarName.GREEN, clockService.now());
-        bar.addEvent(CalendarName.RED, clockService.now().plusDays(-1));
+        wrap(communicationChannelContributions).newPostal(bar, CommunicationChannelType.POSTAL_ADDRESS, "23 High Street", null, null, "Oxford", "Oxon", "OX1 1AA", "UK");
 
         final CommChannelDemoObject baz = create("Baz", executionContext);
-        baz.addEvent(CalendarName.RED, clockService.now().plusDays(1));
     }
 
     // //////////////////////////////////////
@@ -62,6 +62,8 @@ public class CommChannelDemoObjectsFixture extends DiscoverableFixtureScript {
 
     @javax.inject.Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;
+    @javax.inject.Inject
+    CommunicationChannelContributions communicationChannelContributions;
     @javax.inject.Inject
     ClockService clockService;
 

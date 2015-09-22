@@ -16,39 +16,21 @@
  */
 package org.isisaddons.module.commchannel.fixture.dom;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 
-import com.google.common.base.Functions;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
-
-import org.joda.time.LocalDate;
-
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
-import org.apache.isis.applib.annotation.ParameterLayout;
-import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.util.ObjectContracts;
 
-import org.isisaddons.module.commchannel.dom.Event;
-import org.isisaddons.module.commchannel.dom.EventRepository;
-import org.isisaddons.module.commchannel.dom.EventSource;
-import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
+import org.isisaddons.module.commchannel.dom.CommunicationChannelOwner;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
@@ -66,7 +48,7 @@ import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
 )
-public class CommChannelDemoObject implements EventSource, Comparable<CommChannelDemoObject> {
+public class CommChannelDemoObject implements CommunicationChannelOwner, Comparable<CommChannelDemoObject> {
 
 
     //region > name (property)
@@ -86,95 +68,6 @@ public class CommChannelDemoObject implements EventSource, Comparable<CommChanne
     //endregion
 
 
-    //region > addEvent
-
-    @Action(
-            semantics = SemanticsOf.NON_IDEMPOTENT
-    )
-    public EventSource addEvent(
-            @ParameterLayout(named="Calendar")
-            final CalendarName calendarName,
-            @ParameterLayout(named="Date")
-            final LocalDate date) {
-        eventRepository.newEvent(date, this, calendarName.name());
-        return this;
-    }
-    public String disableAddEvent(
-            final CalendarName calendarName, final LocalDate date) {
-        return choices0AddEvent().isEmpty()? "Event added for all calendars": null;
-    }
-    public List<CalendarName> choices0AddEvent() {
-        final CalendarName[] values = CalendarName.values();
-        final ArrayList<CalendarName> calendarNames = Lists.newArrayList(Arrays.asList(values));
-        final List<CalendarName> current = Lists.transform(
-                eventRepository.findBySource(this),
-                Functions.compose(
-                        input -> CalendarName.valueOf(input),
-                        Event.Functions.GET_CALENDAR_NAME));
-        calendarNames.removeAll(current);
-        return calendarNames;
-    }
-    public CalendarName default0AddEvent() {
-        return firstOf(choices0AddEvent());
-    }
-    public LocalDate default1AddEvent() {
-        return clockService.now();
-    }
-
-    //endregion
-
-    //region > removeEvent
-
-    @Action(
-            semantics = SemanticsOf.IDEMPOTENT
-    )
-    public EventSource removeEvent(final Event event) {
-        eventRepository.remove(event);
-        return this;
-    }
-    public String disableRemoveEvent(final Event event) {
-        return choices0RemoveEvent().isEmpty()? "No events to remove": null;
-    }
-    public List<Event> choices0RemoveEvent() {
-        return eventRepository.findBySource(this);
-    }
-    public Event default0RemoveEvent() {
-        return firstOf(choices0RemoveEvent());
-    }
-
-    //endregion
-
-
-    //region > eventSource impl
-
-    /**
-     * Can add to all calendars
-     */
-    @Programmatic
-    @Override
-    public Set<String> getCalendarNames() {
-        return Sets.newTreeSet(
-                Lists.transform(
-                        Arrays.asList(CalendarName.values()),
-                        input -> input.name()));
-    }
-
-    /**
-     * to display in fullcalendar2
-     */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    @Programmatic
-    @Override
-    public ImmutableMap<String, CalendarEventable> getCalendarEvents() {
-        final ImmutableMap eventsByCalendarName = Maps.uniqueIndex(
-                findEvents(), Event.Functions.GET_CALENDAR_NAME);
-        return eventsByCalendarName;
-    }
-
-    private List<Event> findEvents() {
-        return eventRepository.findBySource(this);
-    }
-    //endregion
 
     //region > toString, compareTo
 
@@ -201,9 +94,6 @@ public class CommChannelDemoObject implements EventSource, Comparable<CommChanne
     @javax.inject.Inject
     @SuppressWarnings("unused")
     DomainObjectContainer container;
-
-    @javax.inject.Inject
-    EventRepository eventRepository;
 
     @javax.inject.Inject
     ClockService clockService;

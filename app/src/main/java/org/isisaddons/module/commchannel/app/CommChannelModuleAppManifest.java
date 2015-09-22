@@ -26,7 +26,7 @@ import java.util.Map;
 import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.isisaddons.module.event.CommChannelModule;
+import org.isisaddons.module.commchannel.CommChannelModule;
 import org.isisaddons.module.commchannel.fixture.CommChannelFixtureModule;
 
 /**

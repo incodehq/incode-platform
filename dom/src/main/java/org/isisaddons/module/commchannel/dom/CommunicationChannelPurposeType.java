@@ -1,5 +1,7 @@
 /*
- *  Copyright 2014 Dan Haywood
+ *
+ *  Copyright 2012-2014 Eurocommercial Properties NV
+ *
  *
  *  Licensed under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
@@ -14,10 +16,21 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.commchannel.fixture.dom;
+package org.isisaddons.module.commchannel.dom;
 
-public enum CalendarName {
-    BLUE,
-    GREEN,
-    RED
+
+public enum CommunicationChannelPurposeType {
+
+    ACCOUNTING("Accounting");
+
+    private String title;
+
+    private CommunicationChannelPurposeType(String title) {
+        this.title = title;
     }
+
+    public String title() {
+        return title;
+    }
+
+}

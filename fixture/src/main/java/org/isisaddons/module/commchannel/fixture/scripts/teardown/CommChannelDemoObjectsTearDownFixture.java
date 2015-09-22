@@ -23,11 +23,11 @@ public class CommChannelDemoObjectsTearDownFixture extends FixtureScript {
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"commchanneldemo\".\"EventSourceLinkForDemoObject\"");
+        isisJdoSupport.executeUpdate("delete from \"commchanneldemo\".\"CommunicationChannelOwnerLinkForDemoObject\"");
         isisJdoSupport.executeUpdate("delete from \"commchanneldemo\".\"CommChannelDemoObject\"");
 
-        isisJdoSupport.executeUpdate("delete from \"isisevent\".\"EventSourceLink\"");
-        isisJdoSupport.executeUpdate("delete from \"isisevent\".\"Event\"");
+        isisJdoSupport.executeUpdate("delete from \"isiscommchannel\".\"CommunicationChannelOwnerLink\"");
+        isisJdoSupport.executeUpdate("delete from \"isiscommchannel\".\"CommunicationChannel\"");
     }
 
 

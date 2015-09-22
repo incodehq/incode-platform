@@ -19,7 +19,6 @@
 package org.isisaddons.module.commchannel.fixture.dom;
 
 import javax.jdo.annotations.Column;
-import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
 
 import com.google.common.eventbus.Subscribe;
@@ -27,48 +26,52 @@ import com.google.common.eventbus.Subscribe;
 import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 
-import org.isisaddons.module.commchannel.dom.EventSource;
-import org.isisaddons.module.commchannel.dom.EventSourceLink;
+import org.isisaddons.module.commchannel.dom.CommunicationChannelOwner;
+import org.isisaddons.module.commchannel.dom.CommunicationChannelOwnerLink;
 
 @javax.jdo.annotations.PersistenceCapable(
-        identityType= IdentityType.DATASTORE,
         schema="commchanneldemo")
 @javax.jdo.annotations.Inheritance(
         strategy = InheritanceStrategy.NEW_TABLE)
 @DomainObject(
-        objectType = "eventdemo.EventSourceLinkForDemoObject"
+        objectType = "party.CommunicationChannelOwnerLinkForParty"
 )
-public class EventSourceLinkForDemoObject extends EventSourceLink {
+public class CommunicationChannelOwnerLinkForDemoObject extends CommunicationChannelOwnerLink {
+
+    //region > instantiationSubscriber, setPolymorphicReference
 
     @DomainService(nature = NatureOfService.DOMAIN)
     public static class InstantiationSubscriber extends AbstractSubscriber {
-
         @Programmatic
         @Subscribe
         public void on(final InstantiateEvent ev) {
             if(ev.getPolymorphicReference() instanceof CommChannelDemoObject) {
-                ev.setSubtype(EventSourceLinkForDemoObject.class);
+                ev.setSubtype(CommunicationChannelOwnerLinkForDemoObject.class);
             }
         }
     }
 
     @Override
-    public void setPolymorphicReference(final EventSource polymorphicReference) {
+    public void setPolymorphicReference(final CommunicationChannelOwner polymorphicReference) {
         super.setPolymorphicReference(polymorphicReference);
         setDemoObject((CommChannelDemoObject) polymorphicReference);
     }
+
+    //endregion
 
     //region > demoObject (property)
     private CommChannelDemoObject demoObject;
 
     @Column(
             allowsNull = "false",
-            name = "demoObjectId"
+            name = "partyId"
     )
+    @MemberOrder(sequence = "1")
     public CommChannelDemoObject getDemoObject() {
         return demoObject;
     }
