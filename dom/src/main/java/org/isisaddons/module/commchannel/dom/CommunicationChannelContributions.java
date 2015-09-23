@@ -23,9 +23,6 @@ import java.util.SortedSet;
 
 import javax.inject.Inject;
 
-import com.google.common.eventbus.Subscribe;
-
-import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
@@ -33,31 +30,16 @@ import org.apache.isis.applib.annotation.Collection;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.Optionality;
-import org.apache.isis.applib.annotation.Parameter;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.isisaddons.module.commchannel.CommChannelModule;
 
-/**
- * Domain service that contributes actions to create a new
- * {@link #newPostal(CommunicationChannelOwner, CommunicationChannelType, String, String, String, String, String, String, String)
- * postal address},
- * {@link #newEmail(CommunicationChannelOwner, CommunicationChannelType, String)
- * email} or
- * {@link #newPhoneOrFax(CommunicationChannelOwner, CommunicationChannelType, String)
- * phone/fax}, and contributes a collection to list the
- * {@link #communicationChannels(CommunicationChannelOwner) communication
- * channels} of a particular {@link CommunicationChannelOwner}.
- */
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
 )
-public class CommunicationChannelContributions  {
+public class CommunicationChannelContributions {
 
     //region > event classes
     public static abstract class PropertyDomainEvent<T> extends CommChannelModule.PropertyDomainEvent<CommunicationChannelContributions, T> {
@@ -95,181 +77,6 @@ public class CommunicationChannelContributions  {
     }
     //endregion
 
-    //region > newPostal (contributed action)
-
-    public static class NewPostalEvent extends ActionDomainEvent {
-
-        public NewPostalEvent(
-                final CommunicationChannelContributions source,
-                final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public NewPostalEvent(
-                final CommunicationChannelContributions source,
-                final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public NewPostalEvent(
-                final CommunicationChannelContributions source,
-                final Identifier identifier, final List<Object> arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
-    @Action(
-            semantics = SemanticsOf.NON_IDEMPOTENT,
-            domainEvent = NewPostalEvent.class
-    )
-    @ActionLayout(
-            contributed = Contributed.AS_ACTION
-    )
-    @MemberOrder(name = "CommunicationChannels", sequence = "1")
-    public CommunicationChannelOwner newPostal(
-            @ParameterLayout(named = "Owner")
-            final CommunicationChannelOwner owner,
-            @ParameterLayout(named = "Type")
-            final CommunicationChannelType type,
-            @ParameterLayout(named = "Address line 1")
-            final String address1,
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Address line 2")
-            final String address2,
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Address line 3")
-            final String address3,
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "City")
-            final String city,
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "State")
-            final String state,
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Postal Code")
-            final String postalCode,
-            @ParameterLayout(named = "Country")
-            final String country
-            ) {
-        communicationChannelRepository.newPostal(owner, type, address1, address2, address3, city, state, postalCode, country);
-        return owner;
-    }
-
-    public List<CommunicationChannelType> choices1NewPostal() {
-        return CommunicationChannelType.matching(PostalAddress.class);
-    }
-
-    public CommunicationChannelType default1NewPostal() {
-        return choices1NewPostal().get(0);
-    }
-    //endregion
-
-    //region > newEmail (contributed action)
-
-    public static class NewEmailEvent extends ActionDomainEvent {
-
-        public NewEmailEvent(
-                final CommunicationChannelContributions source,
-                final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public NewEmailEvent(
-                final CommunicationChannelContributions source,
-                final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public NewEmailEvent(
-                final CommunicationChannelContributions source,
-                final Identifier identifier, final List<Object> arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
-    @Action(
-            domainEvent = NewEmailEvent.class,
-            semantics = SemanticsOf.NON_IDEMPOTENT
-    )
-    @ActionLayout(
-            contributed = Contributed.AS_ACTION
-    )
-    @MemberOrder(name = "CommunicationChannels", sequence = "2")
-    public CommunicationChannelOwner newEmail(
-            @ParameterLayout(named = "Owner")
-            final CommunicationChannelOwner owner,
-            @ParameterLayout(named = "Type")
-            final CommunicationChannelType type,
-            @ParameterLayout(named = "Address")
-            final String address) {
-        communicationChannelRepository.newEmail(owner, type, address);
-        return owner;
-    }
-
-    public List<CommunicationChannelType> choices1NewEmail() {
-        return CommunicationChannelType.matching(EmailAddress.class);
-    }
-
-    public CommunicationChannelType default1NewEmail() {
-        return choices1NewEmail().get(0);
-    }
-
-
-    //endregion
-
-    //region > newPhoneOrFax (contributed action)
-
-    public static class NewPhoneOrFaxEvent extends ActionDomainEvent {
-
-        public NewPhoneOrFaxEvent(
-                final CommunicationChannelContributions source,
-                final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public NewPhoneOrFaxEvent(
-                final CommunicationChannelContributions source,
-                final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public NewPhoneOrFaxEvent(
-                final CommunicationChannelContributions source,
-                final Identifier identifier, final List<Object> arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
-    @Action(
-            domainEvent = NewPhoneOrFaxEvent.class,
-            semantics = SemanticsOf.NON_IDEMPOTENT
-    )
-    @ActionLayout(
-            named = "New Phone/Fax",
-            contributed = Contributed.AS_ACTION
-    )
-    @MemberOrder(name = "CommunicationChannels", sequence = "3")
-    public CommunicationChannelOwner newPhoneOrFax(
-            @ParameterLayout(named = "Owner")
-            final CommunicationChannelOwner owner,
-            @ParameterLayout(named = "Type")
-            final CommunicationChannelType type,
-            @ParameterLayout(named = "Number")
-            final String number) {
-        communicationChannelRepository.newPhoneOrFax(owner, type, number);
-        return owner;
-    }
-
-    public List<CommunicationChannelType> choices1NewPhoneOrFax() {
-        return CommunicationChannelType.matching(PhoneOrFaxNumber.class);
-    }
-
-    public CommunicationChannelType default1NewPhoneOrFax() {
-        return choices1NewPhoneOrFax().get(0);
-    }
-
-    //endregion
-
     //region > communicationChannels (contributed collection)
 
     public static class CommunicationChannelsEvent extends CollectionDomainEvent<CommunicationChannel> {
@@ -305,13 +112,5 @@ public class CommunicationChannelContributions  {
 
     //endregion
 
-    @DomainService(nature = NatureOfService.DOMAIN)
-    public static class CommsChannelsSubscriber extends AbstractSubscriber {
-
-        @Subscribe
-        public void on(CommunicationChannelsEvent event) {
-            ;
-        }
-    }
 
 }

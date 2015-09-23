@@ -46,12 +46,13 @@ import org.isisaddons.module.commchannel.CommChannelModule;
 // no @DatastoreIdentity nor @Version, since inherited from supertype
 @javax.jdo.annotations.Indices({
         @javax.jdo.annotations.Index(
-                name = "EmailAddress_emailAddress_IDX", members = { "emailAddress" })
+                name = "EmailAddress_emailAddress_IDX",
+                members = { "emailAddress" })
 })
 @DomainObject(
         editing = Editing.DISABLED
 )
-public class EmailAddress extends CommunicationChannel {
+public class EmailAddress extends CommunicationChannel<EmailAddress> {
 
     //region > event classes
     public static abstract class PropertyDomainEvent<T> extends CommChannelModule.PropertyDomainEvent<EmailAddress, T> {

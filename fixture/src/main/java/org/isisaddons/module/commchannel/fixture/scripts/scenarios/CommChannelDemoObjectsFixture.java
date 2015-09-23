@@ -21,6 +21,9 @@ import org.apache.isis.applib.services.clock.ClockService;
 
 import org.isisaddons.module.commchannel.dom.CommunicationChannelContributions;
 import org.isisaddons.module.commchannel.dom.CommunicationChannelType;
+import org.isisaddons.module.commchannel.dom.EmailAddressContributions;
+import org.isisaddons.module.commchannel.dom.PhoneOrFaxNumberContributions;
+import org.isisaddons.module.commchannel.dom.PostalAddressContributions;
 import org.isisaddons.module.commchannel.fixture.dom.CommChannelDemoObject;
 import org.isisaddons.module.commchannel.fixture.dom.CommChannelDemoObjectMenu;
 import org.isisaddons.module.commchannel.fixture.scripts.teardown.CommChannelDemoObjectsTearDownFixture;
@@ -39,12 +42,12 @@ public class CommChannelDemoObjectsFixture extends DiscoverableFixtureScript {
 
         final CommChannelDemoObject foo = create("Foo", executionContext);
 
-        wrap(communicationChannelContributions).newEmail(foo, CommunicationChannelType.EMAIL_ADDRESS, "foo@example.com");
-        wrap(communicationChannelContributions).newPhoneOrFax(foo, CommunicationChannelType.PHONE_NUMBER, "555 1234");
-        wrap(communicationChannelContributions).newPhoneOrFax(foo, CommunicationChannelType.FAX_NUMBER, "555 4321");
+        wrap(emailAddressContributions).newEmail(foo, "foo@example.com", "Demo");
+        wrap(phoneOrFaxNumberContributions).newPhoneOrFax(foo, CommunicationChannelType.PHONE_NUMBER, "555 1234", "Home");
+        wrap(phoneOrFaxNumberContributions).newPhoneOrFax(foo, CommunicationChannelType.FAX_NUMBER, "555 4321", "Work");
 
         final CommChannelDemoObject bar = create("Bar", executionContext);
-        wrap(communicationChannelContributions).newPostal(bar, CommunicationChannelType.POSTAL_ADDRESS, "23 High Street", null, null, "Oxford", "Oxon", "OX1 1AA", "UK");
+        wrap(postalAddressContributions).newPostal(bar, "45 High Street, Oxford", null, "UK", "favourite shop");
 
         final CommChannelDemoObject baz = create("Baz", executionContext);
     }
@@ -62,6 +65,12 @@ public class CommChannelDemoObjectsFixture extends DiscoverableFixtureScript {
 
     @javax.inject.Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;
+    @javax.inject.Inject
+    PhoneOrFaxNumberContributions phoneOrFaxNumberContributions;
+    @javax.inject.Inject
+    EmailAddressContributions emailAddressContributions;
+    @javax.inject.Inject
+    PostalAddressContributions postalAddressContributions;
     @javax.inject.Inject
     CommunicationChannelContributions communicationChannelContributions;
     @javax.inject.Inject

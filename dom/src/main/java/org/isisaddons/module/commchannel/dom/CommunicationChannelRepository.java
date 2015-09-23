@@ -39,66 +39,6 @@ import org.apache.isis.applib.query.QueryDefault;
 )
 public class CommunicationChannelRepository {
 
-    //region > newPostal (programmatic)
-    @Programmatic
-    public PostalAddress newPostal(
-            final CommunicationChannelOwner owner,
-            final CommunicationChannelType type,
-            final String address1,
-            final String address2,
-            final String address3,
-            final String city,
-            final String state,
-            final String postalCode,
-            final String country
-            ) {
-        final PostalAddress pa = container.newTransientInstance(PostalAddress.class);
-        pa.setType(type);
-        pa.setAddress1(address1);
-        pa.setAddress2(address2);
-        pa.setAddress3(address3);
-        pa.setCity(city);
-        pa.setState(state);
-        pa.setPostalCode(postalCode);
-        pa.setCountry(country);
-        pa.setOwner(owner);
-        container.persistIfNotAlready(pa);
-        return pa;
-    }
-    //endregion
-
-    //region > newEmail (programmatic)
-
-    @Programmatic
-    public EmailAddress newEmail(
-            final CommunicationChannelOwner owner,
-            final CommunicationChannelType type,
-            final String address) {
-        final EmailAddress ea = container.newTransientInstance(EmailAddress.class);
-        ea.setType(type);
-        ea.setEmailAddress(address);
-        ea.setOwner(owner);
-        container.persistIfNotAlready(ea);
-        return ea;
-    }
-    //endregion
-
-    //region > newPhoneOrFax (programmatic)
-
-    @Programmatic
-    public PhoneOrFaxNumber newPhoneOrFax(
-            final CommunicationChannelOwner owner,
-            final CommunicationChannelType type,
-            final String number) {
-        final PhoneOrFaxNumber pn = container.newTransientInstance(PhoneOrFaxNumber.class);
-        pn.setType(type);
-        pn.setPhoneNumber(number);
-        pn.setOwner(owner);
-        container.persistIfNotAlready(pn);
-        return pn;
-    }
-    //endregion
-
     //region > findByReferenceAndType (programmatic)
 
     @Programmatic

@@ -1,14 +1,12 @@
-= isis-module-event
+= isis-module-commchannel
 :_imagesdir: ./
 
-image:https://travis-ci.org/isisaddons/isis-module-event.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-event]
+image:https://travis-ci.org/isisaddons/isis-module-commchannel.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-commchannel]
 
-This module, intended for use with link:http://isis.apache.orgApache Isis, provides the ability to attach event objects
+This module, intended for use with link:http://isis.apache.org[Apache Isis], provides the ability to attach communication channel objects (postal address, email or phone/fax number)
 to domain objects.
 
-Each event implements the `CalendarEventable` interface (from link:http://github.com/isisaddons/isis-wicket-fullcalendar2[Fullcalendar2 wicket component]) meaning that they can be rendered in a calendar view.
-
-It also means that each event, when created, belongs to a named calendar (just a string).
+Postal addresses objects are created by invoking the link:https://developers.google.com/maps/documentation/geocoding[Google Geocoding] API.  This allows free-form text entry of an address to be converted into its geocoded equivalent, including latitude and longitude.  This in turn allows each postal address object to implement the `Location` interface (from link:http://github.com/isisaddons/isis-wicket-gmap3[Gmap3 wicket component]) meaning that they can be rendered in a map view.
 
 
 == Screenshots
@@ -33,7 +31,7 @@ To build the demo app:
 
 [source]
 ----
-git clone https://github.com/isisaddons/isis-module-event.git
+git clone https://github.com/isisaddons/isis-module-commchannel.git
 mvn clean install
 ----
 
@@ -63,8 +61,8 @@ To use "out-of-the-box":
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-event-dom</artifactId>
-            <version>${isis-module-event.version}</version>
+            <artifactId>isis-module-commchannel-dom</artifactId>
+            <version>${isis-module-commchannel.version}</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -80,7 +78,7 @@ To use "out-of-the-box":
 ----
   isis.services.ServicesInstallerFromAnnotation.packagePrefix=\
                                 ...\
-                                org.isisaddons.module.event.dom,\
+                                org.isisaddons.module.commchannel.dom,\
                                 ...
 ----
 
@@ -94,7 +92,7 @@ TODO - can also use AppManifest instead.
 
 Notes:
 
-* Check for later releases by searching http://search.maven.org/#search|ga|1|isis-module-event-dom[Maven Central Repo]).
+* Check for later releases by searching http://search.maven.org/#search|ga|1|isis-module-commchannel-dom[Maven Central Repo]).
 
 ==== "Out-of-the-box" (-SNAPSHOT)
 

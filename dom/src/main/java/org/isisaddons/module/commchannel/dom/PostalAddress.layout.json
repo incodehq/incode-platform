@@ -1,53 +1,68 @@
 {
   "columns": [
     {
-      "span": 4,
+      "span": 6,
       "memberGroups": {
         "General": {
           "members": {
             "owner": {},
-            "description": {},
-            "legal": {},
-            "purpose": {
+            "description": {
               "actions": {
-                "change": {}
+                "updateDescription": {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                }
               }
-            }
-          }
-        },
-        "Application Level": {
-          "members": {
-            "applicationTenancy": {
-              "hidden": {"where": "ALL_TABLES"},
-              "disabled": {}
+            },
+            "notes": {
+              "propertyLayout": {
+                "hidden": "ALL_TABLES"
+              },
+              "actions": {
+                "updateNotes": {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                }
+              }
             }
           }
         }
       }
     },
     {
-      "span": 4,
+      "span": 6,
       "memberGroups": {
         "Postal Address": {
           "members": {
-            "name": {},
-            "address1": {},
-            "address2": {},
-            "address3": {},
-            "city": {},
-            "postalCode": {
+            "formattedAddress": {
+              "propertyLayout": {
+                "named": "Address"
+              }
+            },
+            "postalCode": {},
+            "country": {
               "actions": {
-                "changePostalAddress": {}
+                "changePostalAddress": {
+                  "actionLayout": {
+                    "named": "Change"
+                  }
+                }
               }
             }
           }
         },
-        "Country": {
+        "Geocoding": {
           "members": {
-            "state": {},
-            "country": {
+            "placeId": {},
+            "latLng": {
               "actions": {
-                "updateCountryAndState": {}
+                "downloadGeocode": {
+                  "actionLayout": {
+                    "named": "Download"
+                  }
+                }
               }
             }
           }
@@ -59,13 +74,8 @@
       "memberGroups": {}
     },
     {
-      "span": 12,
+      "span": 0,
       "collections": {
-        "agreements": {
-          "render": {
-            "value": "EAGERLY"
-          }
-        }
       }
     }
   ],

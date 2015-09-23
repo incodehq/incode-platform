@@ -28,6 +28,8 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.commchannel.CommChannelModule;
 import org.isisaddons.module.commchannel.fixture.CommChannelFixtureModule;
+import org.isisaddons.wicket.gmap3.cpt.applib.Gmap3ApplibModule;
+import org.isisaddons.wicket.gmap3.cpt.ui.Gmap3UiModule;
 
 /**
  * Bootstrap the application.
@@ -42,7 +44,9 @@ public class CommChannelModuleAppManifest implements AppManifest {
         return Arrays.asList(
                 CommChannelModule.class,
                 CommChannelFixtureModule.class,
-                CommChannelModuleAppModule.class
+                CommChannelModuleAppModule.class,
+                Gmap3ApplibModule.class,
+                Gmap3UiModule.class
         );
     }
 

@@ -25,6 +25,7 @@ import javax.inject.Inject;
 import com.google.common.base.Optional;
 import com.google.common.collect.Iterables;
 
+import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -34,6 +35,26 @@ import org.apache.isis.applib.annotation.Programmatic;
         repositoryFor = PhoneOrFaxNumber.class
 )
 public class PhoneOrFaxNumberRepository {
+
+    //region > newPhoneOrFax (programmatic)
+
+    @Programmatic
+    public PhoneOrFaxNumber newPhoneOrFax(
+            final CommunicationChannelOwner owner,
+            final CommunicationChannelType type,
+            final String number,
+            final String description) {
+        final PhoneOrFaxNumber pn = container.newTransientInstance(PhoneOrFaxNumber.class);
+        pn.setType(type);
+        pn.setPhoneNumber(number);
+        pn.setOwner(owner);
+
+        pn.setDescription(description);
+
+        container.persistIfNotAlready(pn);
+        return pn;
+    }
+    //endregion
 
     //region > findByPhoneOrFaxNumber (programmatic)
     @Programmatic
@@ -64,6 +85,8 @@ public class PhoneOrFaxNumberRepository {
     //region > injected
     @Inject
     CommunicationChannelOwnerLinks communicationChannelOwnerLinks;
+    @Inject
+    DomainObjectContainer container;
     //endregion
 
 }

@@ -42,7 +42,7 @@ import org.isisaddons.module.commchannel.dom.CommunicationChannelOwner;
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
 @DomainObject(
-        objectType = "eventdemo.EventDemoObject",
+        objectType = "commchanneldemo.CommChannelDemoObject",
         editing = Editing.DISABLED
 )
 @DomainObjectLayout(

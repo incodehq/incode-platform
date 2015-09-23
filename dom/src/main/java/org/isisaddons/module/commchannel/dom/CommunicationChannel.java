@@ -49,6 +49,8 @@ import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.util.ObjectContracts;
 
 import org.isisaddons.module.commchannel.CommChannelModule;
+import org.isisaddons.wicket.gmap3.cpt.applib.Locatable;
+import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 
 /**
  * Represents a mechanism for communicating with its
@@ -82,7 +84,8 @@ import org.isisaddons.module.commchannel.CommChannelModule;
 })
 @DomainObject(editing = Editing.DISABLED)
 @DomainObjectLayout(bookmarking = BookmarkPolicy.AS_CHILD)
-public abstract class CommunicationChannel implements Comparable<CommunicationChannel> {
+public abstract class CommunicationChannel<T extends CommunicationChannel<T>> implements Comparable<CommunicationChannel>,
+        Locatable {
 
     //region > event classes
     public static abstract class PropertyDomainEvent<T> extends CommChannelModule.PropertyDomainEvent<CommunicationChannel, T> {
@@ -193,7 +196,7 @@ public abstract class CommunicationChannel implements Comparable<CommunicationCh
     @Programmatic
     public void setOwner(final CommunicationChannelOwner owner) {
         removeOwnerLink();
-        final CommunicationChannelOwnerLink link = communicationChannelOwnerLinks.createLink(this, owner);
+        communicationChannelOwnerLinks.createLink(this, owner);
     }
 
     private void removeOwnerLink() {
@@ -241,40 +244,6 @@ public abstract class CommunicationChannel implements Comparable<CommunicationCh
 
     //endregion
 
-    //region > reference property)
-
-    public static class ReferenceDomainEvent extends PropertyDomainEvent<String> {
-        public ReferenceDomainEvent(final CommunicationChannel source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public ReferenceDomainEvent(
-                final CommunicationChannel source,
-                final Identifier identifier,
-                final String oldValue,
-                final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    private String reference;
-
-    /**
-     * For import purposes only
-     */
-    @Column(allowsNull = "true", length = CommChannelModule.JdoColumnLength.REFERENCE)
-    @Property(
-            domainEvent = ReferenceDomainEvent.class,
-            hidden = Where.EVERYWHERE
-    )
-    public String getReference() {
-        return reference;
-    }
-
-    public void setReference(final String reference) {
-        this.reference = reference;
-    }
-    //endregion
-
     //region > description (property)
 
     public static class DescriptionDomainEvent extends PropertyDomainEvent<String> {
@@ -296,10 +265,8 @@ public abstract class CommunicationChannel implements Comparable<CommunicationCh
     @Property(
             domainEvent = DescriptionDomainEvent.class,
             editing = Editing.DISABLED,
-            optionality = Optionality.OPTIONAL,
-            hidden = Where.ALL_TABLES
+            optionality = Optionality.OPTIONAL
     )
-    @PropertyLayout(multiLine = 3)
     public String getDescription() {
         return description;
     }
@@ -309,73 +276,12 @@ public abstract class CommunicationChannel implements Comparable<CommunicationCh
     }
     //endregion
 
-    //region > legal (property)
-
-    public static class LegalDomainEvent extends PropertyDomainEvent<Boolean> {
-        public LegalDomainEvent(final CommunicationChannel source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public LegalDomainEvent(
-                final CommunicationChannel source,
-                final Identifier identifier,
-                final Boolean oldValue,
-                final Boolean newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    private boolean legal;
-
-    @Property(
-            domainEvent = LegalDomainEvent.class,
-            editing = Editing.DISABLED
-    )
-    public boolean isLegal() {
-        return legal;
-    }
-
-    public void setLegal(final boolean Legal) {
-        this.legal = Legal;
-    }
-
-    //endregion
-
-    //region > purpose (property)
-    private CommunicationChannelPurposeType purpose;
-
-    public static class PurposeDomainEvent extends PropertyDomainEvent<CommunicationChannelPurposeType> {
-        public PurposeDomainEvent(final CommunicationChannel source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public PurposeDomainEvent(
-                final CommunicationChannel source,
-                final Identifier identifier,
-                final CommunicationChannelPurposeType oldValue,
-                final CommunicationChannelPurposeType newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    @javax.jdo.annotations.Column(allowsNull = "true", length = CommChannelModule.JdoColumnLength.TYPE_ENUM)
-    @Property(
-            domainEvent = PurposeDomainEvent.class,
-            editing = Editing.DISABLED
-    )
-    public CommunicationChannelPurposeType getPurpose() {
-        return purpose;
-    }
-
-    public void setPurpose(CommunicationChannelPurposeType purpose) {
-        this.purpose = purpose;
-    }
-    //endregion
-
     //region > change (action)
 
-    public static class ChangeEvent extends ActionDomainEvent {
+    public static class UpdateDescription extends ActionDomainEvent {
         private static final long serialVersionUID = 1L;
 
-        public ChangeEvent(
+        public UpdateDescription(
                 final CommunicationChannel source,
                 final Identifier identifier,
                 final Object... arguments) {
@@ -384,35 +290,85 @@ public abstract class CommunicationChannel implements Comparable<CommunicationCh
     }
 
     @Action(
-            domainEvent = ChangeEvent.class,
+            domainEvent = UpdateDescription.class,
             semantics = SemanticsOf.IDEMPOTENT
     )
-    public CommunicationChannel change(
+    public T updateDescription(
             @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Description", multiLine = 3)
-            final String description,
-            @ParameterLayout(named = "Legal")
-            final boolean legal,
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Purpose")
-            final CommunicationChannelPurposeType purpose) {
-        setLegal(legal);
-        setPurpose(purpose);
+            @ParameterLayout(named = "Description")
+            final String description) {
         setDescription(description);
-        return this;
+        return (T)this;
     }
 
-    public String default0Change() {
+    public String default0UpdateDescription() {
         return getDescription();
     }
 
-    public boolean default1Change() {
-        return isLegal();
+    //endregion
+
+    //region > Notes (property)
+
+    public static class NotesDomainEvent extends PropertyDomainEvent<String> {
+        public NotesDomainEvent(final CommunicationChannel source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public NotesDomainEvent(
+                final CommunicationChannel source,
+                final Identifier identifier,
+                final String oldValue,
+                final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
     }
 
-    public CommunicationChannelPurposeType default2Change() {
-        return getPurpose();
+    private String Notes;
+
+    @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB")
+    @Property(
+            domainEvent = NotesDomainEvent.class,
+            editing = Editing.DISABLED,
+            optionality = Optionality.OPTIONAL
+    )
+    @PropertyLayout(multiLine = 10)
+    public String getNotes() {
+        return Notes;
     }
+
+    public void setNotes(final String Notes) {
+        this.Notes = Notes;
+    }
+    //endregion
+
+    //region > change (action)
+
+    public static class UpdateNotes extends ActionDomainEvent {
+        private static final long serialVersionUID = 1L;
+
+        public UpdateNotes(
+                final CommunicationChannel source,
+                final Identifier identifier,
+                final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+
+    @Action(
+            domainEvent = UpdateNotes.class,
+            semantics = SemanticsOf.IDEMPOTENT
+    )
+    public T updateNotes(
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "Notes", multiLine = 10)
+            final String Notes) {
+        setNotes(Notes);
+        return (T)this;
+    }
+
+    public String default0UpdateNotes() {
+        return getNotes();
+    }
+
     //endregion
 
     //region > remove (action)
@@ -436,9 +392,14 @@ public abstract class CommunicationChannel implements Comparable<CommunicationCh
             domainEvent = RemoveEvent.class,
             semantics = SemanticsOf.IDEMPOTENT
     )
-    public void remove(@ParameterLayout(named = "Replace with") @Parameter(optionality = Optionality.OPTIONAL) CommunicationChannel replacement) {
+    public CommunicationChannelOwner remove(
+            @ParameterLayout(named = "Replace with")
+            @Parameter(optionality = Optionality.OPTIONAL)
+            CommunicationChannel replacement) {
+        final CommunicationChannelOwner owner = getOwner();
         removeOwnerLink();
         container.remove(this);
+        return owner;
     }
 
 
@@ -447,12 +408,29 @@ public abstract class CommunicationChannel implements Comparable<CommunicationCh
     }
     //endregion
 
+    //region > Locatable API
+
+    /**
+     * Default implementation just returns <tt>null</tt>
+     *
+     * <p>
+     *     It's necessary for {@link CommunicationChannel} to implement this in order that the gmap3 wicket component
+     *     will return any collection of {@link CommunicationChannel}s on a map.
+     * </p>
+     */
+    @Programmatic
+    @Override
+    public Location getLocation() {
+        return null;
+    }
+    //endregion
+
     //region > toString, compareTo
     public int compareTo(final CommunicationChannel other) {
-        return ObjectContracts.compare(this, other, "type", "legal", "id");
+        return ObjectContracts.compare(this, other, "type", "id");
     }
     public String toString() {
-        return ObjectContracts.toString(this, "type", "legal", "id");
+        return ObjectContracts.toString(this, "type", "id");
     }
     //endregion
 

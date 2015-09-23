@@ -1,38 +1,48 @@
 {
   "columns": [
     {
-      "span": 4,
+      "span": 6,
       "memberGroups": {
         "General": {
           "members": {
             "owner": {},
-            "description": {},
-            "legal": {},
-            "purpose": {
+            "description": {
               "actions": {
-                "change": {}
+                "updateDescription": {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                }
               }
-            }
-          }
-        },
-        "Application Level": {
-          "members": {
-            "applicationTenancy": {
-              "hidden": {"where": "ALL_TABLES"},
-              "disabled": {}
+            },
+            "notes": {
+              "propertyLayout": {
+                "hidden": "ALL_TABLES"
+              },
+              "actions": {
+                "updateNotes": {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                }
+              }
             }
           }
         }
       }
     },
     {
-      "span": 4,
+      "span": 6,
       "memberGroups": {
         "Email": {
           "members": {
             "emailAddress": {
               "actions": {
-                "changeEmailAddress": {}
+                "changeEmailAddress": {
+                  "actionLayout": {
+                    "named": "Change"
+                  }
+                }
               }
             }
           }

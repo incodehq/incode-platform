@@ -25,6 +25,7 @@ public final class CommChannelModule {
 
     public static class JdoColumnLength {
 
+
         private JdoColumnLength(){}
 
         public final static int TYPE_ENUM = 30;
@@ -36,8 +37,9 @@ public final class CommChannelModule {
 
         public final static int PHONE_NUMBER = 20;
 
-        public static final int ADDRESS_LINE = 100;
+        public static final int FORMATTED_ADDRESS = 254;
         public static final int POSTAL_CODE = 12;
+
     }
 
     public static class Regex {

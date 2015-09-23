@@ -45,10 +45,11 @@ import org.isisaddons.module.commchannel.CommChannelModule;
 // no @DatastoreIdentity nor @Version, since inherited from supertype
 @javax.jdo.annotations.Indices({
         @javax.jdo.annotations.Index(
-                name = "PhoneNumber_phoneNumber_IDX", members = { "phoneNumber" })
+                name = "PhoneNumber_phoneNumber_IDX",
+                members = { "phoneNumber" })
 })
 @DomainObject(editing = Editing.DISABLED)
-public class PhoneOrFaxNumber extends CommunicationChannel {
+public class PhoneOrFaxNumber extends CommunicationChannel<PhoneOrFaxNumber> {
 
     //region > event classes
     public static abstract class PropertyDomainEvent<T> extends CommChannelModule.PropertyDomainEvent<PhoneOrFaxNumber, T> {

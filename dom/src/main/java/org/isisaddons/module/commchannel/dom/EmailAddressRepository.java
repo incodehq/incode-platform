@@ -25,6 +25,7 @@ import javax.inject.Inject;
 import com.google.common.base.Optional;
 import com.google.common.collect.Iterables;
 
+import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -34,6 +35,26 @@ import org.apache.isis.applib.annotation.Programmatic;
         repositoryFor = EmailAddress.class
 )
 public class EmailAddressRepository {
+
+    //region > newEmail (programmatic)
+
+    @Programmatic
+    public EmailAddress newEmail(
+            final CommunicationChannelOwner owner,
+            final String address,
+            final String description) {
+
+        final EmailAddress ea = container.newTransientInstance(EmailAddress.class);
+        ea.setType(CommunicationChannelType.EMAIL_ADDRESS);
+        ea.setEmailAddress(address);
+        ea.setOwner(owner);
+
+        ea.setDescription(description);
+        container.persistIfNotAlready(ea);
+
+        return ea;
+    }
+    //endregion
 
     //region > findByEmailAddress (programmatic)
     @Programmatic
@@ -56,6 +77,8 @@ public class EmailAddressRepository {
     //region > injected
     @Inject
     CommunicationChannelOwnerLinks communicationChannelOwnerLinks;
+    @Inject
+    DomainObjectContainer container;
     //endregion
 
 }

@@ -21,6 +21,7 @@ package org.isisaddons.module.commchannel.dom;
 import java.util.List;
 import java.util.Objects;
 
+import javax.inject.Inject;
 import javax.jdo.annotations.InheritanceStrategy;
 
 import com.google.common.base.Predicate;
@@ -32,24 +33,36 @@ import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
-import org.apache.isis.applib.util.TitleBuffer;
+import org.apache.isis.applib.annotation.Title;
+import org.apache.isis.applib.annotation.Where;
+import org.apache.isis.applib.services.i18n.TranslatableString;
+import org.apache.isis.applib.value.Clob;
 
 import org.isisaddons.module.commchannel.CommChannelModule;
+import org.isisaddons.module.commchannel.dom.geocoding.GeocodeApiResponse;
+import org.isisaddons.module.commchannel.dom.geocoding.GeocodedAddress;
+import org.isisaddons.module.commchannel.dom.geocoding.GeocodingService;
+import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 
 @javax.jdo.annotations.PersistenceCapable
 @javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.SUPERCLASS_TABLE)
 @javax.jdo.annotations.Indices({
         @javax.jdo.annotations.Index(
-                name = "PostalAddress_main_idx",
-                members = { "address1", "postalCode", "city", "country" })
+                name = "PostalAddress_formattedAddress_idx",
+                members = { "formattedAddress" }),
+        @javax.jdo.annotations.Index (
+                name = "PostalAddress_unq_idx",
+                members = { "placeId" })
 })
 @DomainObject(
         editing = Editing.DISABLED
 )
-public class PostalAddress extends CommunicationChannel  {
+public class PostalAddress extends CommunicationChannel<PostalAddress>  {
+
 
     //region > event classes
     public static abstract class PropertyDomainEvent<T> extends CommChannelModule.PropertyDomainEvent<PostalAddress, T> {
@@ -87,27 +100,14 @@ public class PostalAddress extends CommunicationChannel  {
     }
     //endregion
 
-    //region > title
-    public String title() {
-        return new TitleBuffer()
-                .append(getAddress1())
-                .append(", ", getCity())
-                .append(" ", getPostalCode())
-                .append(" ", isLegal() ? "[Legal]" : "")
-                .append(getPurpose() == null ? "" : "[" + getPurpose().title() + "]")
-                .toString();
-    }
-    //endregion
+    //region > formattedAddress (property)
 
-    //region > address1 (property)
-
-    public static class Address1Event extends PropertyDomainEvent<String> {
-
-        public Address1Event(final PostalAddress source, final Identifier identifier) {
+    public static class FormattedAddressEvent extends PropertyDomainEvent<String> {
+        public FormattedAddressEvent(final PostalAddress source, final Identifier identifier) {
             super(source, identifier);
         }
 
-        public Address1Event(
+        public FormattedAddressEvent(
                 final PostalAddress source,
                 final Identifier identifier,
                 final String oldValue,
@@ -115,163 +115,21 @@ public class PostalAddress extends CommunicationChannel  {
             super(source, identifier, oldValue, newValue);
         }
     }
+    private String formattedAddress;
 
-    private String address1;
-
-    @javax.jdo.annotations.Column(
-            allowsNull = "true",
-            length = CommChannelModule.JdoColumnLength.ADDRESS_LINE
-    )
+    @javax.jdo.annotations.Column(allowsNull = "false", length = CommChannelModule.JdoColumnLength.FORMATTED_ADDRESS)
     @Property(
-            domainEvent = Address1Event.class,
-            optionality = Optionality.MANDATORY
+            domainEvent = FormattedAddressEvent.class
     )
-    @PropertyLayout(named = "Address line 1")
-    public String getAddress1() {
-        return address1;
+    @Title
+    public String getFormattedAddress() {
+        return formattedAddress;
     }
 
-    public void setAddress1(final String address1) {
-        this.address1 = address1;
+    public void setFormattedAddress(final String formattedAddress) {
+        this.formattedAddress = formattedAddress;
     }
 
-    //endregion
-
-    //region > address2 (property)
-
-    public static class Address2Event extends PropertyDomainEvent<String> {
-
-        public Address2Event(final PostalAddress source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public Address2Event(
-                final PostalAddress source,
-                final Identifier identifier,
-                final String oldValue,
-                final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    private String address2;
-
-    @javax.jdo.annotations.Column(allowsNull = "true", length = CommChannelModule.JdoColumnLength.ADDRESS_LINE)
-    @Property(
-            domainEvent = Address2Event.class,
-            optionality = Optionality.OPTIONAL
-    )
-    @PropertyLayout(named = "Address line 2")
-    public String getAddress2() {
-        return address2;
-    }
-
-    public void setAddress2(final String address2) {
-        this.address2 = address2;
-    }
-
-
-    //endregion
-
-    //region > address3 (property)
-
-    public static class Address3Event extends PropertyDomainEvent<String> {
-
-        public Address3Event(final PostalAddress source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public Address3Event(
-                final PostalAddress source,
-                final Identifier identifier,
-                final String oldValue,
-                final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    private String address3;
-
-    @javax.jdo.annotations.Column(allowsNull = "true", length = CommChannelModule.JdoColumnLength.ADDRESS_LINE)
-    @Property(
-            domainEvent = Address3Event.class,
-            optionality = Optionality.OPTIONAL
-    )
-    @PropertyLayout(named = "Address line 3")
-    public String getAddress3() {
-        return address3;
-    }
-
-    public void setAddress3(final String address3) {
-        this.address3 = address3;
-    }
-
-    //endregion
-
-    //region > city (property)
-
-    public static class CityEvent extends PropertyDomainEvent<String> {
-
-        public CityEvent(
-                final PostalAddress source,
-                final Identifier identifier,
-                final String oldValue,
-                final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-
-        public CityEvent(final PostalAddress source, final Identifier identifier) {
-            super(source, identifier);
-        }
-    }
-
-    private String city;
-
-    @javax.jdo.annotations.Column(allowsNull = "true", length = CommChannelModule.JdoColumnLength.PROPER_NAME)
-    @Property(
-            domainEvent = CityEvent.class,
-            optionality = Optionality.MANDATORY
-    )
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(final String city) {
-        this.city = city;
-    }
-
-    //endregion
-
-    //region > state (property)
-
-    public static class StateEvent extends PropertyDomainEvent<String> {
-        public StateEvent(final PostalAddress source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public StateEvent(
-                final PostalAddress source,
-                final Identifier identifier,
-                final String oldValue,
-                final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    private String state;
-
-    // optional only because of superclass inheritance strategy=SUPERCLASS_TABLE
-    @javax.jdo.annotations.Column(name = "stateId", allowsNull = "true")
-    @Property(
-            domainEvent = StateEvent.class
-    )
-    public String getState() {
-        return state;
-    }
-
-    public void setState(final String state) {
-        this.state = state;
-    }
     //endregion
 
     //region > postalCode (property)
@@ -308,7 +166,6 @@ public class PostalAddress extends CommunicationChannel  {
 
     //endregion
 
-
     //region > country (property)
 
     public static class CountryEvent extends PropertyDomainEvent<String> {
@@ -327,7 +184,7 @@ public class PostalAddress extends CommunicationChannel  {
     private String country;
 
     // optional only because of superclass inheritance strategy=SUPERCLASS_TABLE
-    @javax.jdo.annotations.Column(name = "countryId", allowsNull = "true")
+    @javax.jdo.annotations.Column(allowsNull = "true")
     @Property(
             optionality = Optionality.MANDATORY,
             domainEvent = CountryEvent.class
@@ -369,59 +226,172 @@ public class PostalAddress extends CommunicationChannel  {
             domainEvent = ChangePostalAddressEvent.class
     )
     public PostalAddress changePostalAddress(
-            @ParameterLayout(named = "Address Line 1")
-            final String address1,
-            @ParameterLayout(named = "Address Line 2") @Parameter(optionality = Optionality.OPTIONAL)
-            final String address2,
-            @ParameterLayout(named = "Address Line 3") @Parameter(optionality = Optionality.OPTIONAL)
-            final String address3,
-            @ParameterLayout(named = "City")
-            final String city,
-            @ParameterLayout(named = "State") @Parameter(optionality = Optionality.OPTIONAL)
-            final String state,
-            @ParameterLayout(named = "Postal Code")
-            final String postalCode,
-            @ParameterLayout(named = "Country")
-            final String country) {
-        setAddress1(address1);
-        setAddress2(address2);
-        setAddress3(address3);
-        setCity(city);
-        setPostalCode(postalCode);
-        setState(state);
-        setCountry(country);
+            @ParameterLayout(named = "Address")
+            final String address) {
+
+        final GeocodedAddress geocodedAddress = geocodingService.lookup(address);
+
+        if(geocodedAddress == null || geocodedAddress.getStatus() != GeocodeApiResponse.Status.OK) {
+            container.warnUser(
+                    TranslatableString.tr("Could not find address '{address}'", "address", address),
+                    PostalAddressRepository.class, "newPostal");
+            return this;
+        }
+
+        updateFrom(geocodedAddress);
 
         return this;
     }
 
     public String default0ChangePostalAddress() {
-        return getAddress1();
+        return getFormattedAddress();
     }
 
-    public String default1ChangePostalAddress() {
-        return getAddress2();
+    //endregion
+
+    //region > placeId (property)
+
+    public static class PlaceIdEvent extends PropertyDomainEvent<String> {
+        public PlaceIdEvent(final PostalAddress source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public PlaceIdEvent(
+                final PostalAddress source,
+                final Identifier identifier,
+                final String oldValue,
+                final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
     }
 
-    public String default2ChangePostalAddress() {
-        return getAddress3();
+    private String placeId;
+
+    // optional only because of superclass inheritance strategy=SUPERCLASS_TABLE
+    @javax.jdo.annotations.Column(allowsNull = "true")
+    @Property(
+            domainEvent = PlaceIdEvent.class
+    )
+    public String getPlaceId() {
+        return placeId;
     }
 
-    public String default3ChangePostalAddress() {
-        return getCity();
+    public void setPlaceId(final String placeId) {
+        this.placeId = placeId;
+    }
+    //endregion
+
+    //region > latLng (property)
+
+    public static class LatLngEvent extends PropertyDomainEvent<String> {
+        public LatLngEvent(final PostalAddress source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public LatLngEvent(
+                final PostalAddress source,
+                final Identifier identifier,
+                final String oldValue,
+                final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
     }
 
-    public String default4ChangePostalAddress() {
-        return getState();
+    private String latLng;
+
+    // optional only because of superclass inheritance strategy=SUPERCLASS_TABLE
+    @javax.jdo.annotations.Column(allowsNull = "true")
+    @Property(
+            domainEvent = LatLngEvent.class
+    )
+    public String getLatLng() {
+        return latLng;
     }
 
-    public String default5ChangePostalAddress() {
-        return getPostalCode();
+    public void setLatLng(final String latLng) {
+        this.latLng = latLng;
+    }
+    //endregion
+
+
+    //region > geocodeApiResponseAsJson (property)
+
+    public static class GeocodeApiResponseAsJsonEvent extends PropertyDomainEvent<String> {
+        public GeocodeApiResponseAsJsonEvent(final PostalAddress source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public GeocodeApiResponseAsJsonEvent(
+                final PostalAddress source,
+                final Identifier identifier,
+                final String oldValue,
+                final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+    private String geocodeApiResponseAsJson;
+    @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB")
+    @Property(
+            domainEvent = GeocodeApiResponseAsJsonEvent.class,
+            hidden = Where.EVERYWHERE
+    )
+    @PropertyLayout(
+            multiLine = 9
+    )
+    public String getGeocodeApiResponseAsJson() {
+        return geocodeApiResponseAsJson;
     }
 
-    public String default6ChangePostalAddress() {
-        return getCountry();
+    public void setGeocodeApiResponseAsJson(final String geocodeApiResponseAsJson) {
+        this.geocodeApiResponseAsJson = geocodeApiResponseAsJson;
     }
 
+    //endregion
+
+    //region > downloadGeocode (action)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
+    public Clob downloadGeocode(
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = ".json file name")
+            String fileName) {
+        fileName = fileName != null ? fileName : "postalAddress-" + getFormattedAddress();
+        if(!fileName.endsWith(".json")) {
+            fileName += ".json";
+        }
+        return new Clob(encodeAsFilename(fileName), "text/plain", getGeocodeApiResponseAsJson());
+    }
+
+    private static String encodeAsFilename(final String s) {
+        try {
+            return java.net.URLEncoder.encode(s, "UTF-8");
+        } catch (java.io.UnsupportedEncodingException e) {
+            throw new RuntimeException(e); // will not happen, UTF-8 always supported
+        }
+    }
+    //endregion
+
+
+    //region > internal helpers (updateFrom)
+    void updateFrom(final GeocodedAddress geocodedAddress) {
+        setFormattedAddress(geocodedAddress.getFormattedAddress());
+        setGeocodeApiResponseAsJson(geocodedAddress.getApiResponseAsJson());
+        setPlaceId(geocodedAddress.getPlaceId());
+        setLatLng(geocodedAddress.getLatLng());
+        setPostalCode(geocodedAddress.getPostalCode());
+        setCountry(geocodedAddress.getCountry());
+    }
+    //endregion
+
+
+    //region > Locatable API
+    @Programmatic
+    @Override
+    public Location getLocation() {
+        final String latLng = getLatLng();
+        return latLng != null? Location.fromString(latLng.replace(",",";")): null;
+    }
     //endregion
 
     //region > Predicates
@@ -429,21 +399,19 @@ public class PostalAddress extends CommunicationChannel  {
         private Predicates(){}
 
         public static Predicate<PostalAddress> equalTo(
-                final String address1,
-                final String postalCode,
-                final String city,
-                final String country) {
+                final String placeId) {
             return new Predicate<PostalAddress>() {
                 @Override
                 public boolean apply(final PostalAddress input) {
-                    return Objects.equals(address1, input.getAddress1()) &&
-                            Objects.equals(postalCode, input.getPostalCode()) &&
-                            Objects.equals(city, input.getCity()) &&
-                            Objects.equals(country, input.getCountry());
+                    return Objects.equals(placeId, input.getPlaceId());
                 }
             };
         }
     }
     //endregion
+
+    @Inject
+    GeocodingService geocodingService;
+
 
 }

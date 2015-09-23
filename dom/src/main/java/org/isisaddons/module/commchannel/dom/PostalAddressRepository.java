@@ -25,9 +25,14 @@ import javax.inject.Inject;
 import com.google.common.base.Optional;
 import com.google.common.collect.Iterables;
 
+import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
+
+import org.isisaddons.module.commchannel.dom.geocoding.GeocodeApiResponse;
+import org.isisaddons.module.commchannel.dom.geocoding.GeocodedAddress;
+import org.isisaddons.module.commchannel.dom.geocoding.GeocodingService;
 
 /**
  * Domain service acting as repository for finding existing {@link PostalAddress postal address}es.
@@ -38,14 +43,40 @@ import org.apache.isis.applib.annotation.Programmatic;
 )
 public class PostalAddressRepository {
 
+    //region > newPostal (programmatic)
+    @Programmatic
+    public PostalAddress newPostal(
+            final CommunicationChannelOwner owner,
+            final String address,
+            final String postalCode,
+            final String country,
+            final String description) {
+
+        final GeocodedAddress geocodedAddress =
+                geocodingService.lookup(address, postalCode, country);
+
+        if(geocodedAddress == null || geocodedAddress.getStatus() != GeocodeApiResponse.Status.OK) {
+            return null;
+        }
+
+        final PostalAddress pa = container.newTransientInstance(PostalAddress.class);
+        pa.setType(CommunicationChannelType.POSTAL_ADDRESS);
+        pa.setOwner(owner);
+
+        pa.setDescription(description);
+
+        pa.updateFrom(geocodedAddress);
+
+        container.persistIfNotAlready(pa);
+        return pa;
+    }
+    //endregion
+
     //region > findByAddress (programmatic)
     @Programmatic
     public PostalAddress findByAddress(
             final CommunicationChannelOwner owner, 
-            final String address1, 
-            final String postalCode, 
-            final String city, 
-            final String country) {
+            final String placeId) {
 
         final List<CommunicationChannelOwnerLink> links =
                 communicationChannelOwnerLinks.findByOwnerAndCommunicationChannelType(owner, CommunicationChannelType.POSTAL_ADDRESS);
@@ -54,7 +85,7 @@ public class PostalAddressRepository {
                         links,
                         CommunicationChannelOwnerLink.Functions.communicationChannel(PostalAddress.class));
         final Optional<PostalAddress> postalAddressIfFound =
-                Iterables.tryFind(postalAddresses, PostalAddress.Predicates.equalTo(address1, postalCode, city, country));
+                Iterables.tryFind(postalAddresses, PostalAddress.Predicates.equalTo(placeId));
         return postalAddressIfFound.orNull();
     }
     //endregion
@@ -62,6 +93,10 @@ public class PostalAddressRepository {
     //region > injected
     @Inject
     CommunicationChannelOwnerLinks communicationChannelOwnerLinks;
+    @Inject
+    DomainObjectContainer container;
+    @Inject
+    GeocodingService geocodingService;
     //endregion
 
 }
