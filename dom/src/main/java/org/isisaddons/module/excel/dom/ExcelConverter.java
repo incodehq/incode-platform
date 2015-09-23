@@ -40,6 +40,7 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
 import org.apache.isis.core.metamodel.adapter.mgr.AdapterManager;
+import org.apache.isis.core.metamodel.consent.InteractionInitiatedBy;
 import org.apache.isis.core.metamodel.facets.object.viewmodel.ViewModelFacet;
 import org.apache.isis.core.metamodel.spec.ObjectSpecification;
 import org.apache.isis.core.metamodel.spec.SpecificationLoader;
@@ -187,7 +188,7 @@ class ExcelConverter {
                                         templateAdapter = this.adapterManager.adapterFor(imported);
                                     }
                                     final ObjectAdapter valueAdapter = this.adapterManager.adapterFor(value);
-                                    otoa.set(templateAdapter, valueAdapter);
+                                    otoa.set(templateAdapter, valueAdapter, InteractionInitiatedBy.USER);
                                 }
                             } else {
                                 // not expected; just ignore.

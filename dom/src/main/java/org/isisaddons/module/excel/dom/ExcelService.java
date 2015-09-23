@@ -135,7 +135,7 @@ public class ExcelService {
     }
     
     private AdapterManager getAdapterManager() {
-        return getPersistenceSession().getAdapterManager();
+        return getPersistenceSession();
     }
 
     private ServicesInjectorSpi getServicesInjector() {
