@@ -17,21 +17,30 @@
 package org.isisaddons.wicket.gmap3.cpt.ui;
 
 import java.util.List;
+
 import javax.inject.Inject;
-import org.apache.wicket.markup.head.IHeaderResponse;
-import org.isisaddons.wicket.gmap3.cpt.applib.Locatable;
-import org.isisaddons.wicket.gmap3.cpt.applib.Location;
+
 import com.google.common.collect.Lists;
+
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.behavior.AttributeAppender;
+import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.wicketstuff.gmap.GMap;
-import org.wicketstuff.gmap.api.*;
+import org.wicketstuff.gmap.api.GEvent;
+import org.wicketstuff.gmap.api.GEventHandler;
+import org.wicketstuff.gmap.api.GIcon;
+import org.wicketstuff.gmap.api.GLatLng;
+import org.wicketstuff.gmap.api.GMarker;
+import org.wicketstuff.gmap.api.GMarkerOptions;
+
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
+import org.apache.isis.core.runtime.system.IsisSystem;
+import org.apache.isis.core.runtime.system.context.IsisContext;
 import org.apache.isis.viewer.wicket.model.models.EntityCollectionModel;
 import org.apache.isis.viewer.wicket.model.models.EntityModel;
 import org.apache.isis.viewer.wicket.model.models.ImageResourceCache;
@@ -39,6 +48,10 @@ import org.apache.isis.viewer.wicket.model.models.PageType;
 import org.apache.isis.viewer.wicket.ui.pages.PageClassRegistry;
 import org.apache.isis.viewer.wicket.ui.panels.PanelAbstract;
 import org.apache.isis.viewer.wicket.ui.panels.PanelUtil;
+
+import org.isisaddons.wicket.gmap3.cpt.applib.Locatable;
+import org.isisaddons.wicket.gmap3.cpt.applib.Location;
+import org.isisaddons.wicket.gmap3.cpt.applib.LocationDereferencingService;
 
 public class CollectionOfEntitiesAsLocatables extends
         PanelAbstract<EntityCollectionModel> {
@@ -53,6 +66,9 @@ public class CollectionOfEntitiesAsLocatables extends
     
     @Inject
     private PageClassRegistry pageClassRegistry;
+
+    @Inject
+    private IsisSystem isisSystem;
 
     public CollectionOfEntitiesAsLocatables(final String id,
             final EntityCollectionModel model) {
@@ -74,7 +90,7 @@ public class CollectionOfEntitiesAsLocatables extends
 
         // centre the map on the first object that has a location.
         for (ObjectAdapter adapter : adapterList) {
-            GLatLng latLng = asGLatLng((Locatable)adapterList.get(0).getObject());
+            GLatLng latLng = asGLatLng((Locatable)adapter.getObject());
             if(latLng != null) {
                 map.setCenter(latLng);
                 break;
@@ -101,10 +117,12 @@ public class CollectionOfEntitiesAsLocatables extends
         List<GLatLng> glatLngsToShow = Lists.newArrayList();
         for (ObjectAdapter adapter : adapterList) {
 
-            final GMarker gMarker = createGMarker(map, adapter);
+            ObjectAdapter dereferencedAdapter = dereference(adapter);
+
+            final GMarker gMarker = createGMarker(map, adapter, dereferencedAdapter);
             if(gMarker != null) {
                 map.addOverlay(gMarker);
-                addClickListener(gMarker, adapter);
+                addClickListener(gMarker, dereferencedAdapter);
                 glatLngsToShow.add(gMarker.getLatLng());
             }
         }
@@ -112,14 +130,24 @@ public class CollectionOfEntitiesAsLocatables extends
         map.fitMarkers(glatLngsToShow);
     }
 
-    private GMarker createGMarker(GMap map, ObjectAdapter adapter) {
-        GMarkerOptions markerOptions = buildMarkerOptions(map, adapter);
+    private ObjectAdapter dereference(final ObjectAdapter adapterForLocatable) {
+        final LocationDereferencingService locationDereferencingService =
+                isisSystem.getSessionFactory().getServicesInjector().lookupService(LocationDereferencingService.class);
+        if(locationDereferencingService == null) {
+            return adapterForLocatable;
+        }
+        final Object dereferencedObject = locationDereferencingService.dereference(adapterForLocatable.getObject());
+        return IsisContext.getPersistenceSession().adapterFor(dereferencedObject);
+    }
+
+    private GMarker createGMarker(GMap map, ObjectAdapter adapter, final ObjectAdapter dereferencedAdapter) {
+        GMarkerOptions markerOptions = buildMarkerOptions(map, adapter, dereferencedAdapter);
         if(markerOptions == null)
             return null;
         return new GMarker(markerOptions);
     }
 
-    private GMarkerOptions buildMarkerOptions(GMap map, ObjectAdapter adapter) {
+    private GMarkerOptions buildMarkerOptions(GMap map, ObjectAdapter adapter, final ObjectAdapter dereferencedAdapter) {
         
         final Locatable locatable = (Locatable) adapter.getObject();
         
@@ -134,7 +162,7 @@ public class CollectionOfEntitiesAsLocatables extends
         }
         final GMarkerOptions markerOptions = new GMarkerOptions(
                 map, gLatLng, 
-                adapter.titleString(null)   ).draggable(false);
+                dereferencedAdapter.titleString(null)   ).draggable(false);
         return markerOptions;
     }
 
