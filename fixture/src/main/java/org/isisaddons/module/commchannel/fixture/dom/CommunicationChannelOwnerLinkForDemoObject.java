@@ -39,7 +39,7 @@ import org.isisaddons.module.commchannel.dom.CommunicationChannelOwnerLink;
 @javax.jdo.annotations.Inheritance(
         strategy = InheritanceStrategy.NEW_TABLE)
 @DomainObject(
-        objectType = "party.CommunicationChannelOwnerLinkForParty"
+        objectType = "commchanneldemo.CommunicationChannelOwnerLinkForDemoObject"
 )
 public class CommunicationChannelOwnerLinkForDemoObject extends CommunicationChannelOwnerLink {
 
