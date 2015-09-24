@@ -39,7 +39,6 @@ import org.wicketstuff.gmap.api.GMarker;
 import org.wicketstuff.gmap.api.GMarkerOptions;
 
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
-import org.apache.isis.core.runtime.system.IsisSystem;
 import org.apache.isis.core.runtime.system.context.IsisContext;
 import org.apache.isis.viewer.wicket.model.models.EntityCollectionModel;
 import org.apache.isis.viewer.wicket.model.models.EntityModel;
@@ -66,9 +65,6 @@ public class CollectionOfEntitiesAsLocatables extends
     
     @Inject
     private PageClassRegistry pageClassRegistry;
-
-    @Inject
-    private IsisSystem isisSystem;
 
     public CollectionOfEntitiesAsLocatables(final String id,
             final EntityCollectionModel model) {
@@ -132,7 +128,7 @@ public class CollectionOfEntitiesAsLocatables extends
 
     private ObjectAdapter dereference(final ObjectAdapter adapterForLocatable) {
         final LocationDereferencingService locationDereferencingService =
-                isisSystem.getSessionFactory().getServicesInjector().lookupService(LocationDereferencingService.class);
+                IsisContext.getSessionFactory().getServicesInjector().lookupService(LocationDereferencingService.class);
         if(locationDereferencingService == null) {
             return adapterForLocatable;
         }
