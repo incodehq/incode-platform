@@ -6,6 +6,7 @@
         "General": {
           "members": {
             "owner": {},
+            "name": {},
             "description": {
               "actions": {
                 "updateDescription": {
@@ -38,9 +39,9 @@
           "members": {
             "phoneNumber": {
               "actions": {
-                "changePhoneOrFaxNumber": {
+                "updatePhoneOrFaxNumber": {
                   "actionLayout": {
-                    "named": "Change"
+                    "named": "Update"
                   }
                 }
               }

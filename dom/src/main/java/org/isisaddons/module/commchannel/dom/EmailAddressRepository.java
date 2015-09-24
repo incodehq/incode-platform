@@ -42,7 +42,8 @@ public class EmailAddressRepository {
     public EmailAddress newEmail(
             final CommunicationChannelOwner owner,
             final String address,
-            final String description) {
+            final String description,
+            final String notes) {
 
         final EmailAddress ea = container.newTransientInstance(EmailAddress.class);
         ea.setType(CommunicationChannelType.EMAIL_ADDRESS);
@@ -50,6 +51,8 @@ public class EmailAddressRepository {
         ea.setOwner(owner);
 
         ea.setDescription(description);
+        ea.setNotes(notes);
+
         container.persistIfNotAlready(ea);
 
         return ea;

@@ -16,13 +16,17 @@
  */
 package org.isisaddons.module.commchannel.dom.geocoding;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.net.URLEncoder;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import com.google.common.base.Charsets;
 import com.google.common.base.Strings;
+import com.google.common.io.Resources;
 import com.google.gson.Gson;
 
 import org.apache.http.HttpEntity;
@@ -47,24 +51,31 @@ import org.apache.isis.applib.annotation.Programmatic;
 public class GeocodingService {
 
     private static final String DEFAULT_PROTOCOL = "http";
+    private static final boolean DEFAULT_DEMO = false;
     private static final int DEFAULT_TIMEOUT_SECONDS = 5;
 
     private String apiKey;
     private String regionBias;
     private String protocol = DEFAULT_PROTOCOL;
     private int timeout = DEFAULT_TIMEOUT_SECONDS;
+    private boolean demo;
 
     @PostConstruct
     public void init() {
-        final String prefix = GeocodingService.class.getName();
+        final String prefix = GeocodingService.class.getCanonicalName();
         protocol = container.getProperty(prefix + ".protocol", DEFAULT_PROTOCOL);
         apiKey = container.getProperty(prefix + ".apiKey");
+        demo = parseBoolean(container.getProperty(prefix + ".demo"), DEFAULT_DEMO);
         timeout = parseInt(container.getProperty(prefix + ".timeout"), DEFAULT_TIMEOUT_SECONDS);
         regionBias = encoded(container.getProperty(prefix + ".regionBias"));
     }
 
     @Programmatic
-    public GeocodedAddress lookup(final String... addressElements) {
+    public GeocodedAddress lookup(final String address) {
+
+        if(demo) {
+            return demoResponse();
+        }
 
         final RequestConfig requestConfig = RequestConfig.custom()
                 .setSocketTimeout(timeout * 1000)
@@ -77,7 +88,7 @@ public class GeocodingService {
                 .build();
 
         try {
-            final String uri = buildUri(addressElements);
+            final String uri = buildUri(address);
             final HttpGet httpGet = new HttpGet(uri);
             final CloseableHttpResponse response = httpClient.execute(httpGet);
 
@@ -101,22 +112,39 @@ public class GeocodingService {
         return new GeocodedAddress(geocodeApiResponse, jsonResponse);
     }
 
-    //region > helpers
-    private String buildUri(final String[] addressElements) throws UnsupportedEncodingException {
+    public enum Encoding {
+        ENCODED,
+        NOT_ENCODED
+    }
 
+    @Programmatic
+    public String combine(final Encoding encoding, final String... parts) {
         final StringBuilder sb = new StringBuilder();
-        sb.append(protocol).append("://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=");
-
         boolean first = true;
-        for (String addressElement : addressElements) {
+        for (String addressElement : parts) {
             if(!Strings.isNullOrEmpty(addressElement)) {
                 if(!first) {
                     sb.append(",");
+                    if(encoding == Encoding.NOT_ENCODED) {
+                        sb.append(" ");
+                    }
                 }
                 first = false;
-                sb.append(encoded(addressElement));
+                sb.append(encoding == Encoding.ENCODED? encoded(addressElement): addressElement);
             }
         }
+        return sb.toString();
+    }
+
+
+    //region > helpers
+    private String buildUri(final String address) throws UnsupportedEncodingException {
+
+        final StringBuilder sb = new StringBuilder();
+        sb.append(protocol)
+          .append("://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=")
+          .append(address);
+
         if(apiKey != null) {
             sb.append("&apiKey=").append(apiKey);
         }
@@ -126,9 +154,30 @@ public class GeocodingService {
         return sb.toString();
     }
 
+    private GeocodedAddress demoResponse() {
+        final URL resource = Resources
+                .getResource(getClass(), "postalAddress-45+High+St%2C+Oxford%2C+Oxfordshire+OX1%2C+UK.json");
+        final String json;
+        try {
+            json = Resources.toString(resource, Charsets.UTF_8);
+            return asGeocodedAddress(json);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     private static int parseInt(final String str, final int defaultValue) {
         try {
             return Integer.parseInt(str);
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
+    }
+
+    private static boolean parseBoolean(final String str, final boolean defaultValue) {
+        try {
+            return Boolean.parseBoolean(str);
         } catch (NumberFormatException e) {
             return defaultValue;
         }

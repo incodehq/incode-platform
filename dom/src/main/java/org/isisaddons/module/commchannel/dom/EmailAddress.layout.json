@@ -6,6 +6,7 @@
         "General": {
           "members": {
             "owner": {},
+            "name": {},
             "description": {
               "actions": {
                 "updateDescription": {
@@ -38,9 +39,9 @@
           "members": {
             "emailAddress": {
               "actions": {
-                "changeEmailAddress": {
+                "updateEmailAddress": {
                   "actionLayout": {
-                    "named": "Change"
+                    "named": "Update"
                   }
                 }
               }

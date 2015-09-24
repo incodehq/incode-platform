@@ -42,12 +42,15 @@ public class CommChannelDemoObjectsFixture extends DiscoverableFixtureScript {
 
         final CommChannelDemoObject foo = create("Foo", executionContext);
 
-        wrap(emailAddressContributions).newEmail(foo, "foo@example.com", "Demo");
-        wrap(phoneOrFaxNumberContributions).newPhoneOrFax(foo, CommunicationChannelType.PHONE_NUMBER, "555 1234", "Home");
-        wrap(phoneOrFaxNumberContributions).newPhoneOrFax(foo, CommunicationChannelType.FAX_NUMBER, "555 4321", "Work");
+        wrap(emailAddressContributions).newEmailAddress(foo, "foo@example.com", "Demo", null);
+        wrap(phoneOrFaxNumberContributions).newPhoneOrFaxNumber(foo, CommunicationChannelType.PHONE_NUMBER, "555 1234",
+                "Home", null);
+        wrap(phoneOrFaxNumberContributions).newPhoneOrFaxNumber(foo, CommunicationChannelType.FAX_NUMBER, "555 4321",
+                "Work", null);
 
         final CommChannelDemoObject bar = create("Bar", executionContext);
-        wrap(postalAddressContributions).newPostal(bar, "45 High Street, Oxford", null, "UK", "favourite shop");
+        wrap(postalAddressContributions).newPostalAddress(
+                bar, "45", "High Street", "Oxford", null, null, "UK", "favourite shop", null, false);
 
         final CommChannelDemoObject baz = create("Baz", executionContext);
     }

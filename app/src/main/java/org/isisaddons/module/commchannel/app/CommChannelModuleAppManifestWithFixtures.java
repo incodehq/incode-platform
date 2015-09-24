@@ -49,6 +49,7 @@ public class CommChannelModuleAppManifestWithFixtures extends CommChannelModuleA
     public Map<String, String> getConfigurationProperties() {
         HashMap<String,String> props = Maps.newHashMap();
         props.put("isis.persistor.datanucleus.install-fixtures","true");
+        //props.put("application.org.isisaddons.module.commchannel.dom.geocoding.GeocodingService.demo","true");
         return props;
     }
 

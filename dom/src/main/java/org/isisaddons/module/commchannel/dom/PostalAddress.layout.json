@@ -6,6 +6,7 @@
         "General": {
           "members": {
             "owner": {},
+            "name": {},
             "description": {
               "actions": {
                 "updateDescription": {
@@ -36,17 +37,16 @@
       "memberGroups": {
         "Postal Address": {
           "members": {
-            "formattedAddress": {
-              "propertyLayout": {
-                "named": "Address"
-              }
-            },
+            "addressLine1": {},
+            "addressLine2": {},
+            "addressLine3": {},
+            "addressLine4": {},
             "postalCode": {},
             "country": {
               "actions": {
-                "changePostalAddress": {
+                "updateAddress": {
                   "actionLayout": {
-                    "named": "Change"
+                    "named": "Update"
                   }
                 }
               }
@@ -55,8 +55,23 @@
         },
         "Geocoding": {
           "members": {
+            "formattedAddress": {
+              "actions": {
+                "updateGeocode": {
+                  "actionLayout": {
+                    "named": "Update"
+                  }
+                },
+                "resetGeocode": {
+                  "actionLayout": {
+                    "named": "Clear"
+                  }
+                }
+              }
+            },
             "placeId": {},
-            "latLng": {
+            "latLng": {},
+            "addressComponents": {
               "actions": {
                 "downloadGeocode": {
                   "actionLayout": {
@@ -71,7 +86,8 @@
     },
     {
       "span": 0,
-      "memberGroups": {}
+      "memberGroups": {
+      }
     },
     {
       "span": 0,

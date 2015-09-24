@@ -34,13 +34,14 @@ import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
-import org.apache.isis.applib.services.i18n.TranslatableString;
+import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 
 import org.isisaddons.module.commchannel.CommChannelModule;
+import org.isisaddons.module.commchannel.dom.geocoding.GeocodingService;
 
 /**
  * Domain service that contributes actions to create a new
- * {@link #newPostal(CommunicationChannelOwner, String, String, String, String) postal address} to a {@link CommunicationChannelOwner}.
+ * {@link #newPostalAddress(CommunicationChannelOwner, String, String, String, String, String, String, String, String, Boolean) postal address} to a {@link CommunicationChannelOwner}.
  */
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
@@ -85,21 +86,21 @@ public class PostalAddressContributions {
 
     //region > newPostal (contributed action)
 
-    public static class NewPostalEvent extends ActionDomainEvent {
+    public static class NewPostalAddressEvent extends ActionDomainEvent {
 
-        public NewPostalEvent(
+        public NewPostalAddressEvent(
                 final PostalAddressContributions source,
                 final Identifier identifier) {
             super(source, identifier);
         }
 
-        public NewPostalEvent(
+        public NewPostalAddressEvent(
                 final PostalAddressContributions source,
                 final Identifier identifier, final Object... arguments) {
             super(source, identifier, arguments);
         }
 
-        public NewPostalEvent(
+        public NewPostalAddressEvent(
                 final PostalAddressContributions source,
                 final Identifier identifier, final List<Object> arguments) {
             super(source, identifier, arguments);
@@ -108,45 +109,66 @@ public class PostalAddressContributions {
 
     @Action(
             semantics = SemanticsOf.NON_IDEMPOTENT,
-            domainEvent = NewPostalEvent.class
+            domainEvent = NewPostalAddressEvent.class
     )
     @ActionLayout(
             contributed = Contributed.AS_ACTION
     )
     @MemberOrder(name = "CommunicationChannels", sequence = "1")
-    public CommunicationChannelOwner newPostal(
+    public CommunicationChannelOwner newPostalAddress(
             @ParameterLayout(named = "Owner")
             final CommunicationChannelOwner owner,
-            @ParameterLayout(named = "Address")
-            final String address,
-            @Parameter(optionality = Optionality.OPTIONAL)
+            @Parameter(maxLength = CommChannelModule.JdoColumnLength.ADDRESS_LINE)
+            @ParameterLayout(named = "Address Line 1")
+            final String addressLine1,
+            @Parameter(maxLength = CommChannelModule.JdoColumnLength.ADDRESS_LINE, optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "Address Line 2")
+            final String addressLine2,
+            @Parameter(maxLength = CommChannelModule.JdoColumnLength.ADDRESS_LINE, optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "Address Line 3")
+            final String addressLine3,
+            @Parameter(maxLength = CommChannelModule.JdoColumnLength.ADDRESS_LINE, optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "Address Line 4")
+            final String addressLine4,
+            @Parameter(maxLength = CommChannelModule.JdoColumnLength.POSTAL_CODE, optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Postal Code")
             final String postalCode,
-            @Parameter(optionality = Optionality.OPTIONAL)
+            @Parameter(maxLength = CommChannelModule.JdoColumnLength.COUNTRY, optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Country")
             final String country,
-            @Parameter(optionality = Optionality.OPTIONAL)
+            @Parameter(maxLength = JdoColumnLength.DESCRIPTION, optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Description")
-            final String description
-    ) {
+            final String description,
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "Notes", multiLine = 10)
+            final String notes,
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "Lookup geocode")
+            final Boolean lookupGeocode) {
+
         final PostalAddress postalAddress =
-                postalAddressRepository.newPostal(owner, address, postalCode, country, description);
-        if(postalAddress == null) {
-            container.raiseError(
-                    TranslatableString.tr("Could not find address '{address}'", "address", address),
-                    PostalAddressContributions.class, "newPostal");
-        }
+                postalAddressRepository.newPostal(
+                        owner,
+                        addressLine1, addressLine2, addressLine3, addressLine4,
+                        postalCode, country,
+                        description, notes
+                );
+
+        postalAddress.lookupAndUpdateGeocode(
+                lookupGeocode,
+                addressLine1, addressLine2, addressLine3, addressLine4, postalCode, country);
+
         return owner;
     }
-
     //endregion
 
     //region > injected services
     @Inject
+    DomainObjectContainer container;
+    @Inject
     PostalAddressRepository postalAddressRepository;
     @Inject
-    DomainObjectContainer container;
+    GeocodingService geocodingService;
     //endregion
-
 
 }

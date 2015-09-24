@@ -144,11 +144,11 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
 
     //region > name (derived property)
 
-    public static class NameDomainEvent extends PropertyDomainEvent<String> {
-        public NameDomainEvent(final CommunicationChannel source, final Identifier identifier) {
+    public static class NameEvent extends PropertyDomainEvent<String> {
+        public NameEvent(final CommunicationChannel source, final Identifier identifier) {
             super(source, identifier);
         }
-        public NameDomainEvent(
+        public NameEvent(
                 final CommunicationChannel source,
                 final Identifier identifier,
                 final String oldValue,
@@ -157,9 +157,8 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
         }
     }
 
-    @MemberOrder(sequence = "2")
     @Property(
-            domainEvent = NameDomainEvent.class,
+            domainEvent = NameEvent.class,
             hidden = Where.OBJECT_FORMS
     )
     public String getName() {
@@ -169,11 +168,11 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
 
     //region > owner (derived property)
 
-    public static class OwnerDomainEvent extends PropertyDomainEvent<CommunicationChannelOwner> {
-        public OwnerDomainEvent(final CommunicationChannel source, final Identifier identifier) {
+    public static class OwnerEvent extends PropertyDomainEvent<CommunicationChannelOwner> {
+        public OwnerEvent(final CommunicationChannel source, final Identifier identifier) {
             super(source, identifier);
         }
-        public OwnerDomainEvent(
+        public OwnerEvent(
                 final CommunicationChannel source,
                 final Identifier identifier,
                 final CommunicationChannelOwner oldValue,
@@ -183,7 +182,7 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
     }
 
     @Property(
-            domainEvent = OwnerDomainEvent.class,
+            domainEvent = OwnerEvent.class,
             notPersisted = true,
             editing = Editing.DISABLED
     )
@@ -307,7 +306,7 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
 
     //endregion
 
-    //region > Notes (property)
+    //region > notes (property)
 
     public static class NotesDomainEvent extends PropertyDomainEvent<String> {
         public NotesDomainEvent(final CommunicationChannel source, final Identifier identifier) {
@@ -322,7 +321,7 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
         }
     }
 
-    private String Notes;
+    private String notes;
 
     @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB")
     @Property(
@@ -332,11 +331,11 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
     )
     @PropertyLayout(multiLine = 10)
     public String getNotes() {
-        return Notes;
+        return notes;
     }
 
     public void setNotes(final String Notes) {
-        this.Notes = Notes;
+        this.notes = Notes;
     }
     //endregion
 

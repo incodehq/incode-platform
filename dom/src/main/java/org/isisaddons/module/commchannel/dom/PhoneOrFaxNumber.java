@@ -27,7 +27,6 @@ import com.google.common.base.Predicate;
 
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
-import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Optionality;
@@ -124,22 +123,22 @@ public class PhoneOrFaxNumber extends CommunicationChannel<PhoneOrFaxNumber> {
 
     //endregion
 
-    //region > changePhoneOrFaxNumber
+    //region > updatePhoneOrFaxNumber
 
-    public static class ChangePhoneOrFaxNumberEvent extends ActionDomainEvent {
+    public static class UpdatePhoneOrFaxNumberEvent extends ActionDomainEvent {
 
-        public ChangePhoneOrFaxNumberEvent(final PhoneOrFaxNumber source, final Identifier identifier) {
+        public UpdatePhoneOrFaxNumberEvent(final PhoneOrFaxNumber source, final Identifier identifier) {
             super(source, identifier);
         }
 
-        public ChangePhoneOrFaxNumberEvent(
+        public UpdatePhoneOrFaxNumberEvent(
                 final PhoneOrFaxNumber source,
                 final Identifier identifier,
                 final Object... arguments) {
             super(source, identifier, arguments);
         }
 
-        public ChangePhoneOrFaxNumberEvent(
+        public UpdatePhoneOrFaxNumberEvent(
                 final PhoneOrFaxNumber source,
                 final Identifier identifier,
                 final List<Object> arguments) {
@@ -148,20 +147,33 @@ public class PhoneOrFaxNumber extends CommunicationChannel<PhoneOrFaxNumber> {
     }
 
     @Action(
-            domainEvent = ChangePhoneOrFaxNumberEvent.class,
+            domainEvent = UpdatePhoneOrFaxNumberEvent.class,
             semantics = SemanticsOf.IDEMPOTENT
     )
-    @ActionLayout(named = "Change Number")
-    public PhoneOrFaxNumber changePhoneOrFaxNumber(
+    public PhoneOrFaxNumber updatePhoneOrFaxNumber(
+            @ParameterLayout(named = "Type")
+            final CommunicationChannelType type,
             @ParameterLayout(named = "Phone Number")
-            @Parameter(regexPattern = CommChannelModule.Regex.PHONE_NUMBER)
+            @Parameter(
+                    maxLength = CommChannelModule.JdoColumnLength.PHONE_NUMBER,
+                    regexPattern = CommChannelModule.Regex.PHONE_NUMBER
+            )
             final String phoneNumber) {
+        setType(type);
         setPhoneNumber(phoneNumber);
 
         return this;
     }
 
-    public String default0ChangePhoneOrFaxNumber() {
+    public List<CommunicationChannelType> choices0UpdatePhoneOrFaxNumber() {
+        return CommunicationChannelType.matching(PhoneOrFaxNumber.class);
+    }
+
+
+    public CommunicationChannelType default0UpdatePhoneOrFaxNumber() {
+        return getType();
+    }
+    public String default1UpdatePhoneOrFaxNumber() {
         return getPhoneNumber();
     }
 

@@ -30,10 +30,6 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
-import org.isisaddons.module.commchannel.dom.geocoding.GeocodeApiResponse;
-import org.isisaddons.module.commchannel.dom.geocoding.GeocodedAddress;
-import org.isisaddons.module.commchannel.dom.geocoding.GeocodingService;
-
 /**
  * Domain service acting as repository for finding existing {@link PostalAddress postal address}es.
  */
@@ -47,29 +43,32 @@ public class PostalAddressRepository {
     @Programmatic
     public PostalAddress newPostal(
             final CommunicationChannelOwner owner,
-            final String address,
+            final String addressLine1,
+            final String addressLine2,
+            final String addressLine3,
+            final String addressLine4,
             final String postalCode,
             final String country,
-            final String description) {
+            final String description,
+            final String notes) {
 
-        final GeocodedAddress geocodedAddress =
-                geocodingService.lookup(address, postalCode, country);
-
-        if(geocodedAddress == null || geocodedAddress.getStatus() != GeocodeApiResponse.Status.OK) {
-            return null;
-        }
-
-        final PostalAddress pa = container.newTransientInstance(PostalAddress.class);
+        final PostalAddress pa =
+                container.newTransientInstance(PostalAddress.class);
         pa.setType(CommunicationChannelType.POSTAL_ADDRESS);
         pa.setOwner(owner);
-
         pa.setDescription(description);
-
-        pa.updateFrom(geocodedAddress);
+        pa.setAddressLine1(addressLine1);
+        pa.setAddressLine2(addressLine2);
+        pa.setAddressLine3(addressLine3);
+        pa.setAddressLine4(addressLine4);
+        pa.setPostalCode(postalCode);
+        pa.setNotes(notes);
+        pa.setCountry(country);
 
         container.persistIfNotAlready(pa);
         return pa;
     }
+
     //endregion
 
     //region > findByAddress (programmatic)
@@ -95,8 +94,6 @@ public class PostalAddressRepository {
     CommunicationChannelOwnerLinks communicationChannelOwnerLinks;
     @Inject
     DomainObjectContainer container;
-    @Inject
-    GeocodingService geocodingService;
     //endregion
 
 }

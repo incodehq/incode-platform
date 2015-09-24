@@ -4,6 +4,10 @@ import java.util.List;
 
 public class GeocodedAddress {
 
+    public static boolean isOk(final GeocodedAddress geocodedAddress) {
+        return geocodedAddress != null && geocodedAddress.getStatus() == GeocodeApiResponse.Status.OK;
+    }
+
     //region > fields, constructor
     private final GeocodeApiResponse apiResponse;
     private final String apiResponseAsJson;
@@ -14,6 +18,7 @@ public class GeocodedAddress {
         this.apiResponse = apiResponse;
         this.apiResponseAsJson = apiResponseAsJson;
     }
+
     //endregion
 
     //region > getApiResponse, getApiResponseAsJson
@@ -133,14 +138,10 @@ public class GeocodedAddress {
     private static GeocodeApiResponse.Result.AddressComponent findAddressComponent(
             final GeocodeApiResponse apiResponse,
             final GeocodeApiResponse.Result.Type requestedType) {
-        if (apiResponse.getStatus() != GeocodeApiResponse.Status.OK) {
+        final GeocodeApiResponse.Result firstResult = firstResult(apiResponse);
+        if(firstResult == null) {
             return null;
         }
-        final List<GeocodeApiResponse.Result> results = apiResponse.getResults();
-        if (results.isEmpty()) {
-            return null;
-        }
-        final GeocodeApiResponse.Result firstResult = results.get(0);
         final List<GeocodeApiResponse.Result.AddressComponent> address_components =
                 firstResult.getAddress_components();
         for (GeocodeApiResponse.Result.AddressComponent address_component : address_components) {
@@ -149,6 +150,32 @@ public class GeocodedAddress {
                 if(type == requestedType) {
                     return address_component;
                 }
+            }
+        }
+        return null;
+    }
+
+    public String getAddressComponents() {
+        final GeocodeApiResponse.Result result = firstResult(apiResponse);
+        final StringBuilder buf = new StringBuilder();
+        for (GeocodeApiResponse.Result.AddressComponent addressComponent : result.getAddress_components()) {
+            final GeocodeApiResponse.Result.Type[] types = addressComponent.getTypes();
+            final GeocodeApiResponse.Result.Type type = coalesce(types);
+            if(type != null) {
+                final String long_name = addressComponent.getLong_name();
+                buf.append(type.name()).append(": ").append(long_name).append("\n");
+            }
+        }
+        return buf.toString();
+    }
+
+    private static <T> T coalesce(T[] elements) {
+        if(elements == null) {
+            return null;
+        }
+        for (T element : elements) {
+            if(element != null) {
+                return element;
             }
         }
         return null;

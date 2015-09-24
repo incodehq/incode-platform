@@ -33,6 +33,7 @@ import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 
 import org.isisaddons.module.commchannel.CommChannelModule;
 
@@ -113,26 +114,33 @@ public class PhoneOrFaxNumberContributions {
             contributed = Contributed.AS_ACTION
     )
     @MemberOrder(name = "CommunicationChannels", sequence = "3")
-    public CommunicationChannelOwner newPhoneOrFax(
+    public CommunicationChannelOwner newPhoneOrFaxNumber(
             @ParameterLayout(named = "Owner")
             final CommunicationChannelOwner owner,
             @ParameterLayout(named = "Type")
             final CommunicationChannelType type,
-            @ParameterLayout(named = "Number")
-            final String number,
-            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "Phone Number")
+            @Parameter(
+                    maxLength = CommChannelModule.JdoColumnLength.PHONE_NUMBER,
+                    regexPattern = CommChannelModule.Regex.PHONE_NUMBER
+            )
+            final String phoneNumber,
+            @Parameter(maxLength = JdoColumnLength.DESCRIPTION, optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Description")
-            final String description) {
-        phoneOrFaxNumberRepository.newPhoneOrFax(owner, type, number, description);
+            final String description,
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "Notes", multiLine = 10)
+            final String notes) {
+        phoneOrFaxNumberRepository.newPhoneOrFax(owner, type, phoneNumber, description, notes);
         return owner;
     }
 
-    public List<CommunicationChannelType> choices1NewPhoneOrFax() {
+    public List<CommunicationChannelType> choices1NewPhoneOrFaxNumber() {
         return CommunicationChannelType.matching(PhoneOrFaxNumber.class);
     }
 
-    public CommunicationChannelType default1NewPhoneOrFax() {
-        return choices1NewPhoneOrFax().get(0);
+    public CommunicationChannelType default1NewPhoneOrFaxNumber() {
+        return choices1NewPhoneOrFaxNumber().get(0);
     }
 
     //endregion

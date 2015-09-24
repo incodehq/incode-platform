@@ -125,21 +125,21 @@ public class EmailAddress extends CommunicationChannel<EmailAddress> {
 
     //endregion
 
-    //region > changeEmailAddress (action)
+    //region > updateEmailAddress (action)
 
-    public static class ChangeEmailAddressEvent extends ActionDomainEvent {
-        public ChangeEmailAddressEvent(final EmailAddress source, final Identifier identifier) {
+    public static class UpdateEmailAddressEvent extends ActionDomainEvent {
+        public UpdateEmailAddressEvent(final EmailAddress source, final Identifier identifier) {
             super(source, identifier);
         }
 
-        public ChangeEmailAddressEvent(
+        public UpdateEmailAddressEvent(
                 final EmailAddress source,
                 final Identifier identifier,
                 final Object... arguments) {
             super(source, identifier, arguments);
         }
 
-        public ChangeEmailAddressEvent(
+        public UpdateEmailAddressEvent(
                 final EmailAddress source,
                 final Identifier identifier,
                 final List<Object> arguments) {
@@ -149,18 +149,21 @@ public class EmailAddress extends CommunicationChannel<EmailAddress> {
 
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
-            domainEvent = ChangeEmailAddressEvent.class
+            domainEvent = UpdateEmailAddressEvent.class
     )
-    public EmailAddress changeEmailAddress(
+    public EmailAddress updateEmailAddress(
+            @Parameter(
+                    regexPattern = CommChannelModule.Regex.EMAIL_ADDRESS,
+                    maxLength = CommChannelModule.JdoColumnLength.EMAIL_ADDRESS
+            )
             @ParameterLayout(named = "Email Address")
-            @Parameter(regexPattern = CommChannelModule.Regex.EMAIL_ADDRESS)
             final String address) {
         setEmailAddress(address);
 
         return this;
     }
 
-    public String default0ChangeEmailAddress() {
+    public String default0UpdateEmailAddress() {
         return getEmailAddress();
     }
 

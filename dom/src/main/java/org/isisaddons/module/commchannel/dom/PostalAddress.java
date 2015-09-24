@@ -26,10 +26,13 @@ import javax.jdo.annotations.InheritanceStrategy;
 
 import com.google.common.base.Predicate;
 
+import org.apache.commons.lang3.StringUtils;
+
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
@@ -37,13 +40,12 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
-import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.i18n.TranslatableString;
+import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.applib.value.Clob;
 
 import org.isisaddons.module.commchannel.CommChannelModule;
-import org.isisaddons.module.commchannel.dom.geocoding.GeocodeApiResponse;
 import org.isisaddons.module.commchannel.dom.geocoding.GeocodedAddress;
 import org.isisaddons.module.commchannel.dom.geocoding.GeocodingService;
 import org.isisaddons.wicket.gmap3.cpt.applib.Location;
@@ -62,7 +64,6 @@ import org.isisaddons.wicket.gmap3.cpt.applib.Location;
         editing = Editing.DISABLED
 )
 public class PostalAddress extends CommunicationChannel<PostalAddress>  {
-
 
     //region > event classes
     public static abstract class PropertyDomainEvent<T> extends CommChannelModule.PropertyDomainEvent<PostalAddress, T> {
@@ -100,14 +101,33 @@ public class PostalAddress extends CommunicationChannel<PostalAddress>  {
     }
     //endregion
 
-    //region > formattedAddress (property)
+    //region > title
+    public String title() {
+        if(getPlaceId() != null) {
+            return getFormattedAddress();
+        } else {
+            final TitleBuffer buf = new TitleBuffer();
+            buf.append(getAddressLine1())
+                .append(",", getAddressLine2())
+                .append(",", getAddressLine3())
+                .append(",", getAddressLine4())
+                .append(",", getPostalCode())
+                .append(",", getCountry())
+            ;
+            return StringUtils.abbreviateMiddle(buf.toString(), "...", 30);
+        }
+    }
+    //endregion
 
-    public static class FormattedAddressEvent extends PropertyDomainEvent<String> {
-        public FormattedAddressEvent(final PostalAddress source, final Identifier identifier) {
+    //region > addressLine1 (property)
+
+    public static class AddressLine1Event extends PropertyDomainEvent<String> {
+
+        public AddressLine1Event(final PostalAddress source, final Identifier identifier) {
             super(source, identifier);
         }
 
-        public FormattedAddressEvent(
+        public AddressLine1Event(
                 final PostalAddress source,
                 final Identifier identifier,
                 final String oldValue,
@@ -115,19 +135,122 @@ public class PostalAddress extends CommunicationChannel<PostalAddress>  {
             super(source, identifier, oldValue, newValue);
         }
     }
-    private String formattedAddress;
 
-    @javax.jdo.annotations.Column(allowsNull = "false", length = CommChannelModule.JdoColumnLength.FORMATTED_ADDRESS)
+    private String addressLine1;
+
+    @javax.jdo.annotations.Column(allowsNull = "true", length = CommChannelModule.JdoColumnLength.ADDRESS_LINE)
     @Property(
-            domainEvent = FormattedAddressEvent.class
+            domainEvent = AddressLine1Event.class,
+            optionality = Optionality.MANDATORY
     )
-    @Title
-    public String getFormattedAddress() {
-        return formattedAddress;
+    public String getAddressLine1() {
+        return addressLine1;
     }
 
-    public void setFormattedAddress(final String formattedAddress) {
-        this.formattedAddress = formattedAddress;
+    public void setAddressLine1(final String addressLine1) {
+        this.addressLine1 = addressLine1;
+    }
+
+    //endregion
+
+    //region > addressLine2 (property)
+
+    public static class AddressLine2Event extends PropertyDomainEvent<String> {
+
+        public AddressLine2Event(final PostalAddress source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public AddressLine2Event(
+                final PostalAddress source,
+                final Identifier identifier,
+                final String oldValue,
+                final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
+    private String addressLine2;
+
+    @javax.jdo.annotations.Column(allowsNull = "true", length = CommChannelModule.JdoColumnLength.ADDRESS_LINE)
+    @Property(
+            domainEvent = AddressLine2Event.class,
+            optionality = Optionality.MANDATORY
+    )
+    public String getAddressLine2() {
+        return addressLine2;
+    }
+
+    public void setAddressLine2(final String addressLine2) {
+        this.addressLine2 = addressLine2;
+    }
+
+    //endregion
+
+    //region > addressLine3 (property)
+
+    public static class AddressLine3Event extends PropertyDomainEvent<String> {
+
+        public AddressLine3Event(final PostalAddress source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public AddressLine3Event(
+                final PostalAddress source,
+                final Identifier identifier,
+                final String oldValue,
+                final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
+    private String addressLine3;
+
+    @javax.jdo.annotations.Column(allowsNull = "true", length = CommChannelModule.JdoColumnLength.ADDRESS_LINE)
+    @Property(
+            domainEvent = AddressLine3Event.class,
+            optionality = Optionality.MANDATORY
+    )
+    public String getAddressLine3() {
+        return addressLine3;
+    }
+
+    public void setAddressLine3(final String addressLine3) {
+        this.addressLine3 = addressLine3;
+    }
+
+    //endregion
+
+    //region > addressLine4 (property)
+
+    public static class AddressLine4Event extends PropertyDomainEvent<String> {
+
+        public AddressLine4Event(final PostalAddress source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public AddressLine4Event(
+                final PostalAddress source,
+                final Identifier identifier,
+                final String oldValue,
+                final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
+    private String addressLine4;
+
+    @javax.jdo.annotations.Column(allowsNull = "true", length = CommChannelModule.JdoColumnLength.ADDRESS_LINE)
+    @Property(
+            domainEvent = AddressLine4Event.class,
+            optionality = Optionality.MANDATORY
+    )
+    public String getAddressLine4() {
+        return addressLine4;
+    }
+
+    public void setAddressLine4(final String addressLine4) {
+        this.addressLine4 = addressLine4;
     }
 
     //endregion
@@ -184,7 +307,7 @@ public class PostalAddress extends CommunicationChannel<PostalAddress>  {
     private String country;
 
     // optional only because of superclass inheritance strategy=SUPERCLASS_TABLE
-    @javax.jdo.annotations.Column(allowsNull = "true")
+    @javax.jdo.annotations.Column(allowsNull = "true", length = CommChannelModule.JdoColumnLength.COUNTRY)
     @Property(
             optionality = Optionality.MANDATORY,
             domainEvent = CountryEvent.class
@@ -199,21 +322,21 @@ public class PostalAddress extends CommunicationChannel<PostalAddress>  {
 
     //endregion
 
-    //region > changePostalAddress (action)
+    //region > update (action)
 
-    public static class ChangePostalAddressEvent extends ActionDomainEvent {
-        public ChangePostalAddressEvent(final PostalAddress source, final Identifier identifier) {
+    public static class UpdateAddressEvent extends ActionDomainEvent {
+        public UpdateAddressEvent(final PostalAddress source, final Identifier identifier) {
             super(source, identifier);
         }
 
-        public ChangePostalAddressEvent(
+        public UpdateAddressEvent(
                 final PostalAddress source,
                 final Identifier identifier,
                 final Object... arguments) {
             super(source, identifier, arguments);
         }
 
-        public ChangePostalAddressEvent(
+        public UpdateAddressEvent(
                 final PostalAddress source,
                 final Identifier identifier,
                 final List<Object> arguments) {
@@ -223,28 +346,124 @@ public class PostalAddress extends CommunicationChannel<PostalAddress>  {
 
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
-            domainEvent = ChangePostalAddressEvent.class
+            domainEvent = UpdateAddressEvent.class
     )
-    public PostalAddress changePostalAddress(
-            @ParameterLayout(named = "Address")
-            final String address) {
+    public PostalAddress updateAddress(
+            @Parameter(maxLength = CommChannelModule.JdoColumnLength.ADDRESS_LINE)
+            @ParameterLayout(named = "Address Line 1")
+            final String addressLine1,
+            @Parameter(maxLength = CommChannelModule.JdoColumnLength.ADDRESS_LINE, optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "Address Line 2")
+            final String addressLine2,
+            @Parameter(maxLength = CommChannelModule.JdoColumnLength.ADDRESS_LINE, optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "Address Line 3")
+            final String addressLine3,
+            @Parameter(maxLength = CommChannelModule.JdoColumnLength.ADDRESS_LINE, optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "Address Line 4")
+            final String addressLine4,
+            @Parameter(maxLength = CommChannelModule.JdoColumnLength.POSTAL_CODE, optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "Postal Code")
+            final String postalCode,
+            @Parameter(maxLength = CommChannelModule.JdoColumnLength.COUNTRY, optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "Country")
+            final String country,
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "Lookup geocode")
+            final Boolean lookupGeocode) {
 
-        final GeocodedAddress geocodedAddress = geocodingService.lookup(address);
+        setAddressLine1(addressLine1);
+        setAddressLine2(addressLine2);
+        setAddressLine3(addressLine3);
+        setAddressLine4(addressLine4);
+        setPostalCode(postalCode);
+        setCountry(country);
 
-        if(geocodedAddress == null || geocodedAddress.getStatus() != GeocodeApiResponse.Status.OK) {
-            container.warnUser(
-                    TranslatableString.tr("Could not find address '{address}'", "address", address),
-                    PostalAddressRepository.class, "newPostal");
-            return this;
-        }
-
-        updateFrom(geocodedAddress);
+        lookupAndUpdateGeocode(
+                lookupGeocode,
+                addressLine1, addressLine2, addressLine3, addressLine4, postalCode, country);
 
         return this;
     }
 
-    public String default0ChangePostalAddress() {
-        return getFormattedAddress();
+    void lookupAndUpdateGeocode(
+            final Boolean lookupGeocode,
+            final String... addressParts) {
+
+        if (lookupGeocode == null) {
+            return;
+        }
+
+        if (lookupGeocode) {
+            final String address = geocodingService.combine(GeocodingService.Encoding.ENCODED, addressParts);
+            final GeocodedAddress geocodedAddress = geocodingService.lookup(address);
+
+            if (GeocodedAddress.isOk(geocodedAddress)) {
+                setFormattedAddress(geocodedAddress.getFormattedAddress());
+                setGeocodeApiResponseAsJson(geocodedAddress.getApiResponseAsJson());
+                setPlaceId(geocodedAddress.getPlaceId());
+                setLatLng(geocodedAddress.getLatLng());
+                setAddressComponents(geocodedAddress.getAddressComponents());
+            } else {
+                container.warnUser(
+                        TranslatableString.tr("Could not lookup geocode for address"),
+                        PostalAddressContributions.class, "newPostal");
+            }
+        } else {
+            resetGeocode();
+        }
+    }
+
+    public String default0UpdateAddress() {
+        return getAddressLine1();
+    }
+    public String default1UpdateAddress() {
+        return getAddressLine2();
+    }
+    public String default2UpdateAddress() {
+        return getAddressLine3();
+    }
+    public String default3UpdateAddress() {
+        return getAddressLine4();
+    }
+    public String default4UpdateAddress() {
+        return getPostalCode();
+    }
+    public String default5UpdateAddress() {
+        return getCountry();
+    }
+    public Boolean default6UpdateAddress() {
+        return getPlaceId() != null ? true: null;
+    }
+
+    //endregion
+
+    //region > formattedAddress (property)
+
+    public static class FormattedAddressEvent extends PropertyDomainEvent<String> {
+        public FormattedAddressEvent(final PostalAddress source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public FormattedAddressEvent(
+                final PostalAddress source,
+                final Identifier identifier,
+                final String oldValue,
+                final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+    private String formattedAddress;
+
+    @javax.jdo.annotations.Column(allowsNull = "false", length = CommChannelModule.JdoColumnLength.FORMATTED_ADDRESS)
+    @Property(
+            domainEvent = FormattedAddressEvent.class
+    )
+    public String getFormattedAddress() {
+        return formattedAddress;
+    }
+
+    public void setFormattedAddress(final String formattedAddress) {
+        this.formattedAddress = formattedAddress;
     }
 
     //endregion
@@ -313,6 +532,112 @@ public class PostalAddress extends CommunicationChannel<PostalAddress>  {
     }
     //endregion
 
+    //region > addressComponents (property)
+    
+    public static class AddressComponentsEvent extends PropertyDomainEvent<PostalAddress> {
+        public AddressComponentsEvent(final PostalAddress source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public AddressComponentsEvent(
+                final PostalAddress source,
+                final Identifier identifier,
+                final PostalAddress oldValue, final PostalAddress newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+    private String addressComponents;
+
+    @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB")
+    @Property(
+            domainEvent = AddressComponentsEvent.class,
+            editing = Editing.DISABLED,
+            optionality = Optionality.OPTIONAL
+    )
+    @PropertyLayout(multiLine = 10)
+    public String getAddressComponents() {
+        return addressComponents;
+    }
+
+    public void setAddressComponents(final String addressComponents) {
+        this.addressComponents = addressComponents;
+    }
+    //endregion
+
+    //region > updateGeocode (action)
+    @MemberOrder(sequence = "1")
+    public PostalAddress updateGeocode(
+            @ParameterLayout(named = "Address")
+            final String address) {
+
+        lookupAndUpdateGeocode(true, address);
+
+        return this;
+    }
+
+    public String default0UpdateGeocode() {
+        return geocodingService.combine(
+                GeocodingService.Encoding.NOT_ENCODED,
+                getAddressLine1(), getAddressLine2(), getAddressLine3(), getAddressLine4(),
+                getPostalCode(), getCountry());
+    }
+    //endregion
+    
+    //region > clearGeocode (action)
+    public static class ClearGeocodeEvent extends ActionDomainEvent {
+        public ClearGeocodeEvent(final PostalAddress source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public ClearGeocodeEvent(final PostalAddress source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+
+        public ClearGeocodeEvent(
+                final PostalAddress source,
+                final Identifier identifier,
+                final List<Object> arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+    @Action(
+            semantics = SemanticsOf.IDEMPOTENT,
+            domainEvent = ClearGeocodeEvent.class
+    )
+    public PostalAddress resetGeocode() {
+        setFormattedAddress(null);
+        setPlaceId(null);
+        setLatLng(null);
+        setAddressComponents(null);
+        setGeocodeApiResponseAsJson(null);
+        return this;
+    }
+
+    //endregion
+
+    //region > downloadGeocode (action)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
+    public Clob downloadGeocode(
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = ".json file name")
+            String fileName) {
+        fileName = fileName != null ? fileName : "postalAddress-" + getFormattedAddress();
+        if(!fileName.endsWith(".json")) {
+            fileName += ".json";
+        }
+        return new Clob(encodeAsFilename(fileName), "text/plain", getGeocodeApiResponseAsJson());
+    }
+
+    private static String encodeAsFilename(final String s) {
+        try {
+            return java.net.URLEncoder.encode(s, "UTF-8");
+        } catch (java.io.UnsupportedEncodingException e) {
+            throw new RuntimeException(e); // will not happen, UTF-8 always supported
+        }
+    }
+    //endregion
 
     //region > geocodeApiResponseAsJson (property)
 
@@ -347,43 +672,6 @@ public class PostalAddress extends CommunicationChannel<PostalAddress>  {
     }
 
     //endregion
-
-    //region > downloadGeocode (action)
-    @Action(
-            semantics = SemanticsOf.SAFE
-    )
-    public Clob downloadGeocode(
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = ".json file name")
-            String fileName) {
-        fileName = fileName != null ? fileName : "postalAddress-" + getFormattedAddress();
-        if(!fileName.endsWith(".json")) {
-            fileName += ".json";
-        }
-        return new Clob(encodeAsFilename(fileName), "text/plain", getGeocodeApiResponseAsJson());
-    }
-
-    private static String encodeAsFilename(final String s) {
-        try {
-            return java.net.URLEncoder.encode(s, "UTF-8");
-        } catch (java.io.UnsupportedEncodingException e) {
-            throw new RuntimeException(e); // will not happen, UTF-8 always supported
-        }
-    }
-    //endregion
-
-
-    //region > internal helpers (updateFrom)
-    void updateFrom(final GeocodedAddress geocodedAddress) {
-        setFormattedAddress(geocodedAddress.getFormattedAddress());
-        setGeocodeApiResponseAsJson(geocodedAddress.getApiResponseAsJson());
-        setPlaceId(geocodedAddress.getPlaceId());
-        setLatLng(geocodedAddress.getLatLng());
-        setPostalCode(geocodedAddress.getPostalCode());
-        setCountry(geocodedAddress.getCountry());
-    }
-    //endregion
-
 
     //region > Locatable API
     @Programmatic

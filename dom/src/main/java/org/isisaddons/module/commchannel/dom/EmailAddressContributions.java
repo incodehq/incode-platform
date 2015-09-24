@@ -33,13 +33,13 @@ import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 
 import org.isisaddons.module.commchannel.CommChannelModule;
 
 /**
  * Domain service that contributes actions to create a new
- * {@link #newEmail(CommunicationChannelOwner, String, String)
- * email} for a particular {@link CommunicationChannelOwner}.
+ * {@link #newEmailAddress(CommunicationChannelOwner, String, String, String)} for a particular {@link CommunicationChannelOwner}.
  */
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
@@ -113,18 +113,24 @@ public class EmailAddressContributions {
             contributed = Contributed.AS_ACTION
     )
     @MemberOrder(name = "CommunicationChannels", sequence = "2")
-    public CommunicationChannelOwner newEmail(
+    public CommunicationChannelOwner newEmailAddress(
             @ParameterLayout(named = "Owner")
             final CommunicationChannelOwner owner,
-            @ParameterLayout(named = "Email")
+            @Parameter(
+                    regexPattern = CommChannelModule.Regex.EMAIL_ADDRESS,
+                    maxLength = CommChannelModule.JdoColumnLength.EMAIL_ADDRESS
+            )
+            @ParameterLayout(named = "Email Address")
             final String email,
-            @Parameter(optionality = Optionality.OPTIONAL)
+            @Parameter(maxLength = JdoColumnLength.DESCRIPTION, optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Description")
-            final String description) {
-        communicationChannelRepository.newEmail(owner, email, description);
+            final String description,
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "Notes", multiLine = 10)
+            final String notes) {
+        communicationChannelRepository.newEmail(owner, email, description, notes);
         return owner;
     }
-
 
 
     //endregion
