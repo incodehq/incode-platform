@@ -17,11 +17,11 @@ language governing permissions and limitations under the License.
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.isisaddons.module.event</groupId>
-    <artifactId>isis-module-event</artifactId>
+    <groupId>org.incode.module.note</groupId>
+    <artifactId>incode-module-note</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>Isis Addons Event Module</name>
+    <name>Incode Note Module</name>
 
     <packaging>pom</packaging>
 
@@ -32,7 +32,7 @@ language governing permissions and limitations under the License.
     <properties>
         <isis.version>1.10.0-SNAPSHOT</isis.version>
 
-        <isis-module-event.version>1.10.0-SNAPSHOT</isis-module-event.version>
+        <incode-module-note.version>1.10.0-SNAPSHOT</incode-module-note.version>
         <assertj-core.version>2.0.0</assertj-core.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -341,23 +341,23 @@ language governing permissions and limitations under the License.
             <!-- this project's own modules -->
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>isis-module-event-dom</artifactId>
-                <version>${isis-module-event.version}</version>
+                <artifactId>incode-module-note-dom</artifactId>
+                <version>${incode-module-note.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>isis-module-event-app</artifactId>
+                <artifactId>incode-module-note-app</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>isis-module-event-fixture</artifactId>
+                <artifactId>incode-module-note-fixture</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>isis-module-event-webapp</artifactId>
+                <artifactId>incode-module-note-webapp</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 

@@ -18,13 +18,13 @@ language governing permissions and limitations under the License.
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.isisaddons.module.event</groupId>
-        <artifactId>isis-module-event</artifactId>
+        <groupId>org.incode.module.note</groupId>
+        <artifactId>incode-module-note</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>isis-module-event-webapp</artifactId>
-    <name>Isis Addons Event Module Webapp</name>
+    <artifactId>incode-module-note-webapp</artifactId>
+    <name>Incode Note Module Webapp</name>
 
     <packaging>war</packaging>
 
@@ -135,7 +135,7 @@ language governing permissions and limitations under the License.
         <!-- other modules in this project -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-event-dom</artifactId>
+            <artifactId>incode-module-note-dom</artifactId>
             <exclusions>
                 <exclusion>
                     <!-- so don't pick up transitive dependency to asm 4.0.0 -->
@@ -146,7 +146,7 @@ language governing permissions and limitations under the License.
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-event-fixture</artifactId>
+            <artifactId>incode-module-note-fixture</artifactId>
             <exclusions>
                 <exclusion>
                     <!-- so don't pick up transitive dependency to asm 4.0.0 -->
@@ -158,7 +158,7 @@ language governing permissions and limitations under the License.
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-event-app</artifactId>
+            <artifactId>incode-module-note-app</artifactId>
         </dependency>
 
 
