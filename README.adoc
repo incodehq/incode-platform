@@ -62,25 +62,33 @@ To use "out-of-the-box":
 <dependencyManagement>
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-event-dom</artifactId>
-            <version>${isis-module-event.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
+            <groupId>org.incode.module.note</groupId>
+            <artifactId>isis-module-note-dom</artifactId>
+            <version>${isis-module-note.version}</version>
         </dependency>
         ...
     </dependencies>
 </dependencyManagement>
 ----
 
+* if using `AppManifest`, then update its `getModules()` method:
 
-* in your project's `webapp` module, update your `WEB-INF/isis.properties`. +
+    @Override
+    public List<Class<?>> getModules() {
+        return Arrays.asList(
+                ...
+                org.incode.module.note.NoteModule.class,
+        );
+    }
+
+
+* alternatively, in your project's `webapp` module, update your `WEB-INF/isis.properties`. +
 +
 [source,xml]
 ----
   isis.services.ServicesInstallerFromAnnotation.packagePrefix=\
                                 ...\
-                                org.isisaddons.module.event.dom,\
+                                org.incode.module.note.dom,\
                                 ...
 ----
 
