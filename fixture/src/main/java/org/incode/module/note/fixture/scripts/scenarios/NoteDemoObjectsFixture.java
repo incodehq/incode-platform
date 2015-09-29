@@ -19,11 +19,11 @@ package org.incode.module.note.fixture.scripts.scenarios;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.apache.isis.applib.services.clock.ClockService;
 
-import org.incode.module.note.fixture.dom.NoteDemoObject;
-import org.incode.module.note.fixture.scripts.teardown.NoteDemoObjectsTearDownFixture;
-
 import org.incode.module.note.fixture.dom.CalendarName;
-import org.incode.module.note.fixture.dom.NoteDemoObjectMenu;
+import org.incode.module.note.fixture.dom.notablelink.NotableLinkContributionsOnNoteDemoObject;
+import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
+import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObjectMenu;
+import org.incode.module.note.fixture.scripts.teardown.NoteDemoObjectsTearDownFixture;
 
 public class NoteDemoObjectsFixture extends DiscoverableFixtureScript {
 
@@ -38,16 +38,16 @@ public class NoteDemoObjectsFixture extends DiscoverableFixtureScript {
 	executionContext.executeChild(this, new NoteDemoObjectsTearDownFixture());
 
         final NoteDemoObject foo = create("Foo", executionContext);
-        foo.addEvent(CalendarName.BLUE, clockService.now());
-        foo.addEvent(CalendarName.GREEN, clockService.now().plusDays(1));
-        foo.addEvent(CalendarName.RED, clockService.now().plusDays(2));
+        notableLinkContributionsOnNoteDemoObject.addNote(foo, "", clockService.now(), CalendarName.BLUE);
+        notableLinkContributionsOnNoteDemoObject.addNote(foo, "", clockService.now().plusDays(1), CalendarName.GREEN);
+        notableLinkContributionsOnNoteDemoObject.addNote(foo, "", clockService.now().plusDays(2), CalendarName.RED);
 
         final NoteDemoObject bar = create("Bar", executionContext);
-        bar.addEvent(CalendarName.GREEN, clockService.now());
-        bar.addEvent(CalendarName.RED, clockService.now().plusDays(-1));
+        notableLinkContributionsOnNoteDemoObject.addNote(bar, "", clockService.now(), CalendarName.GREEN);
+        notableLinkContributionsOnNoteDemoObject.addNote(bar, "", clockService.now().plusDays(-1), CalendarName.RED);
 
         final NoteDemoObject baz = create("Baz", executionContext);
-        baz.addEvent(CalendarName.RED, clockService.now().plusDays(1));
+        notableLinkContributionsOnNoteDemoObject.addNote(baz, "", clockService.now().plusDays(1), CalendarName.RED);
     }
 
     // //////////////////////////////////////
@@ -65,5 +65,6 @@ public class NoteDemoObjectsFixture extends DiscoverableFixtureScript {
     NoteDemoObjectMenu noteDemoObjectMenu;
     @javax.inject.Inject
     ClockService clockService;
-
+    @javax.inject.Inject
+    NotableLinkContributionsOnNoteDemoObject notableLinkContributionsOnNoteDemoObject;
 }

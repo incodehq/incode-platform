@@ -23,11 +23,11 @@ public class NoteDemoObjectsTearDownFixture extends FixtureScript {
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"eventdemo\".\"EventSourceLinkForDemoObject\"");
-        isisJdoSupport.executeUpdate("delete from \"eventdemo\".\"EventDemoObject\"");
+        isisJdoSupport.executeUpdate("delete from \"notedemo\".\"NotableLinkForDemoObject\"");
+        isisJdoSupport.executeUpdate("delete from \"notedemo\".\"NoteDemoObject\"");
 
-        isisJdoSupport.executeUpdate("delete from \"isisevent\".\"EventSourceLink\"");
-        isisJdoSupport.executeUpdate("delete from \"isisevent\".\"Event\"");
+        isisJdoSupport.executeUpdate("delete from \"incodeNote\".\"NotableLink\"");
+        isisJdoSupport.executeUpdate("delete from \"incodeNote\".\"Note\"");
     }
 
 

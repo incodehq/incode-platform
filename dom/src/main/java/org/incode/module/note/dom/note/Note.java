@@ -1,4 +1,4 @@
-package org.incode.module.note.dom;
+package org.incode.module.note.dom.note;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 
 import com.google.common.base.Function;
+import com.google.common.base.Strings;
 
 import org.joda.time.LocalDate;
 
@@ -17,27 +18,31 @@ import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
-import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.util.ObjectContracts;
+import org.apache.isis.applib.util.TitleBuffer;
 
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEvent;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
 
 import org.incode.module.note.NoteModule;
+import org.incode.module.note.dom.notable.Notable;
+import org.incode.module.note.dom.notablelink.NotableLink;
+import org.incode.module.note.dom.notablelink.NotableLinkRepository;
 
 /**
  * An event that has or is scheduled to occur at some point in time, pertaining
  * to an {@link Notable}.
  */
 @javax.jdo.annotations.PersistenceCapable(
-        schema = "isisevent",
-        table = "Event",
+        schema = "incodeNote",
+        table = "Note",
         identityType = IdentityType.DATASTORE)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy = IdGeneratorStrategy.NATIVE,
@@ -117,7 +122,46 @@ public class Note implements CalendarEventable, Comparable<Note> {
     public void setDate(final LocalDate startDate) {
         this.date = startDate;
     }
+
     //endregion
+
+    //region > changeDate (action)
+
+    public static class ChangeDateDomainEvent extends ActionDomainEvent {
+        public ChangeDateDomainEvent(final Note source, final Identifier identifier, final Object... args) {
+            super(source, identifier, args);
+        }
+    }
+
+    @Action(
+            domainEvent = ChangeDateDomainEvent.class,
+            semantics = SemanticsOf.IDEMPOTENT
+    )
+    public Note changeDate(
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "Date")
+            final LocalDate date) {
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "Notes", multiLine = NoteModule.JdoColumnLength.NUMBER_OF_LINES)
+            final LocalDate date) {
+        setNotes(notes);
+
+        return this;
+    }
+
+    public String default0ChangeNotes() {
+        return getNotes();
+    }
+
+    public String validateChangeNotes(final String notes) {
+        if(Strings.isNullOrEmpty(notes) && getDate() == null) {
+            return "Must specify either note text or a date (or both).";
+        }
+        return null;
+    }
+
+    //endregion
+
 
     //region > source (property)
 
@@ -130,6 +174,25 @@ public class Note implements CalendarEventable, Comparable<Note> {
         }
     }
 
+    //region > title
+    public String title() {
+        final TitleBuffer buf = new TitleBuffer();
+        buf.append(container.titleOf(getNotable()));
+        if(getDate() != null) {
+            buf.append(" @").append(container.titleOf(getDate()));
+        }
+        buf.append(" ").append(trim(getNotes(), "...", 20 ));
+        return buf.toString();
+    }
+
+    static String trim(final String notes, final String ending, final int length) {
+        if(notes == null || notes.length() <= length) {
+            return notes;
+        }
+        return notes.substring(0, length-ending.length()) + ending ;
+    }
+    //endregion
+
     /**
      * Polymorphic association to (any implementation of) {@link Notable}.
      */
@@ -139,30 +202,29 @@ public class Note implements CalendarEventable, Comparable<Note> {
             hidden = Where.PARENTED_TABLES,
             notPersisted = true
     )
-    @Title(sequence = "1")
-    public Notable getSource() {
-        final NotableLink link = getSourceLink();
+    public Notable getNotable() {
+        final NotableLink link = getNotableLink();
         return link != null? link.getPolymorphicReference(): null;
     }
 
     @Programmatic
-    public void setSource(final Notable notable) {
-        removeSourceLink();
+    public void setNotable(final Notable notable) {
+        removeNotableLink();
         notableLinkRepository.createLink(this, notable);
     }
 
-    private void removeSourceLink() {
-        final NotableLink notableLink = getSourceLink();
+    private void removeNotableLink() {
+        final NotableLink notableLink = getNotableLink();
         if(notableLink != null) {
             container.remove(notableLink);
         }
     }
 
-    private NotableLink getSourceLink() {
+    private NotableLink getNotableLink() {
         if (!container.isPersistent(this)) {
             return null;
         }
-        return notableLinkRepository.findByEvent(this);
+        return notableLinkRepository.findByNote(this);
     }
     //endregion
 
@@ -185,9 +247,9 @@ public class Note implements CalendarEventable, Comparable<Note> {
      * <p>
      * The &quot;calendar&quot; is a string identifier that indicates the nature
      * of this event. These are expected to be uniquely identifiable for all and
-     * any events that might be created. They therefore typically (always?)
+     * any notes that might be created. They therefore typically (always?)
      * include information relating to the type/class of the event's
-     * {@link #getSource() subject}.
+     * {@link #getNotable() subject}.
      * 
      * <p>
      * For example, an event whose subject is a lease's
@@ -198,7 +260,6 @@ public class Note implements CalendarEventable, Comparable<Note> {
      * reminder</i>.
      */
     @javax.jdo.annotations.Column(allowsNull = "false", length = NoteModule.JdoColumnLength.CALENDAR_NAME)
-    @Title(prepend = ": ", sequence = "2")
     @Property(
             domainEvent = CalendarNameDomainEvent.class,
             editing = Editing.DISABLED
@@ -265,13 +326,21 @@ public class Note implements CalendarEventable, Comparable<Note> {
     public String default0ChangeNotes() {
         return getNotes();
     }
+
+    public String validateChangeNotes(final String notes) {
+        if(Strings.isNullOrEmpty(notes) && getDate() == null) {
+            return "Must specify either note text or a date (or both).";
+        }
+        return null;
+    }
+    
     //endregion
 
     //region > CalendarEventable impl
 
     @Programmatic
     public CalendarEvent toCalendarEvent() {
-        final String eventTitle = container.titleOf(getSource()) + " " + getCalendarName();
+        final String eventTitle = container.titleOf(getNotable()) + " " + getCalendarName();
         return new CalendarEvent(getDate().toDateTimeAtStartOfDay(), getCalendarName(), eventTitle);
     }
     //endregion

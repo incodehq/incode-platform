@@ -1,5 +1,7 @@
 /*
- *  Copyright 2014 Dan Haywood
+ *
+ *  Copyright 2012-2014 Eurocommercial Properties NV
+ *
  *
  *  Licensed under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
@@ -14,39 +16,8 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-{
-  "columns": [
-    {
-      "span": 6,
-      "memberGroups": {
-        "General": {
-          "members": {
-            "name": {},
-            "calendarName": {}
-          }
-        }
-      }
-    },
-    {
-      "span": 0,
-      "memberGroups": {}
-    },
-    {
-      "span": 0,
-      "memberGroups": {}
-    },
-    {
-      "span": 6,
-      "collections": {
-        "events": {
-          "actions": {
-            "addEvent": {},
-            "removeEvent": {}
-          }
-        }
-      }
-    }
-  ],
-  "actions": {}
+package org.incode.module.note.dom.notable;
+
+public interface Notable {
+
 }
- 

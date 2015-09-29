@@ -16,11 +16,18 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.note.dom;
+package org.incode.module.note.dom.note;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import com.google.common.base.Functions;
+import com.google.common.collect.Lists;
+
+import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
@@ -29,56 +36,58 @@ import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.note.NoteModule;
+import org.incode.module.note.dom.notable.Notable;
 
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
 )
-public class NoteContributions {
+public class NoteContributionsOnNotable {
 
     //region > event classes
-    public static abstract class PropertyDomainEvent<T> extends NoteModule.PropertyDomainEvent<NoteContributions, T> {
-        public PropertyDomainEvent(final NoteContributions source, final Identifier identifier) {
+    public static abstract class PropertyDomainEvent<T> extends NoteModule.PropertyDomainEvent<NoteContributionsOnNotable, T> {
+        public PropertyDomainEvent(final NoteContributionsOnNotable source, final Identifier identifier) {
             super(source, identifier);
         }
 
-        public PropertyDomainEvent(final NoteContributions source, final Identifier identifier, final T oldValue, final T newValue) {
+        public PropertyDomainEvent(final NoteContributionsOnNotable source, final Identifier identifier, final T oldValue, final T newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
 
-    public static abstract class CollectionDomainEvent<T> extends NoteModule.CollectionDomainEvent<NoteContributions, T> {
-        public CollectionDomainEvent(final NoteContributions source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of) {
+    public static abstract class CollectionDomainEvent<T> extends NoteModule.CollectionDomainEvent<NoteContributionsOnNotable, T> {
+        public CollectionDomainEvent(final NoteContributionsOnNotable source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of) {
             super(source, identifier, of);
         }
 
-        public CollectionDomainEvent(final NoteContributions source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
+        public CollectionDomainEvent(final NoteContributionsOnNotable source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
             super(source, identifier, of, value);
         }
     }
 
-    public static abstract class ActionDomainEvent extends NoteModule.ActionDomainEvent<NoteContributions> {
-        public ActionDomainEvent(final NoteContributions source, final Identifier identifier) {
+    public static abstract class ActionDomainEvent extends NoteModule.ActionDomainEvent<NoteContributionsOnNotable> {
+        public ActionDomainEvent(final NoteContributionsOnNotable source, final Identifier identifier) {
             super(source, identifier);
         }
 
-        public ActionDomainEvent(final NoteContributions source, final Identifier identifier, final Object... arguments) {
+        public ActionDomainEvent(final NoteContributionsOnNotable source, final Identifier identifier, final Object... arguments) {
             super(source, identifier, arguments);
         }
 
-        public ActionDomainEvent(final NoteContributions source, final Identifier identifier, final List<Object> arguments) {
+        public ActionDomainEvent(final NoteContributionsOnNotable source, final Identifier identifier, final List<Object> arguments) {
             super(source, identifier, arguments);
         }
     }
     //endregion
 
-    //region > events (contributed association)
+    //region > notes (contributed association)
 
     public static class EventsDomainEvent extends ActionDomainEvent {
-        public EventsDomainEvent(final NoteContributions source, final Identifier identifier, final Object... args) {
+        public EventsDomainEvent(final NoteContributionsOnNotable source, final Identifier identifier, final Object... args) {
             super(source, identifier, args);
         }
     }
@@ -93,14 +102,16 @@ public class NoteContributions {
     @CollectionLayout(
             render = RenderType.EAGERLY
     )
-    public List<Note> events(final Notable notable) {
-        return events.findBySource(notable);
+    public List<Note> notes(final Notable notable) {
+        return noteRepository.findByNotable(notable);
     }
     //endregion
 
 
+
+
     //region > injected
     @Inject
-    NoteRepository events;
+    NoteRepository noteRepository;
     //endregion
 }

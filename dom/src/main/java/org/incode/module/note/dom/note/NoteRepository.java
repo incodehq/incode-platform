@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.note.dom;
+package org.incode.module.note.dom.note;
 
 import java.util.List;
 
@@ -33,39 +33,47 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 
+import org.incode.module.note.dom.notable.Notable;
+import org.incode.module.note.dom.notablelink.NotableLink;
+import org.incode.module.note.dom.notablelink.NotableLinkRepository;
+
 @DomainService(
         nature = NatureOfService.DOMAIN,
         repositoryFor = Note.class
 )
 public class NoteRepository {
 
-    //region > findBySource (programmatic)
+    //region > findByNotable (programmatic)
     @Programmatic
-    public List<Note> findBySource(final Notable notable) {
+    public List<Note> findByNotable(final Notable notable) {
         final List<NotableLink> links = notableLinkRepository.findBySource(notable);
         return Lists.newArrayList(
                 Iterables.transform(links, NotableLink.Functions.event()));
     }
     //endregion
 
-    //region > findBySourceAndCalendarName (programmatic)
+    //region > findByNotableAndCalendarName (programmatic)
     @Programmatic
-    public Note findBySourceAndCalendarName(
+    public Note findByNotableAndCalendarName(
             final Notable notable,
             final String calendarName) {
-        final NotableLink link = notableLinkRepository.findBySourceAndCalendarName(notable, calendarName);
+        final NotableLink link = notableLinkRepository.findByNotableAndCalendarName(notable, calendarName);
         return link != null? link.getNote(): null;
     }
     //endregion
 
-    //region > newEvent (programmatic)
+    //region > add (programmatic)
     @Programmatic
-    public Note newEvent(
-            final LocalDate date, final Notable notable, final String calendarName) {
+    public Note add(
+            final Notable notable,
+            final String noteText,
+            final LocalDate date,
+            final String calendarName) {
         final Note note = container.newTransientInstance(Note.class);
         note.setDate(date);
         note.setCalendarName(calendarName);
-        note.setSource(notable);
+        note.setNotable(notable);
+        note.setNotes(noteText);
         container.persistIfNotAlready(note);
 
         return note;
@@ -75,7 +83,7 @@ public class NoteRepository {
     //region > remove (programmatic)
     @Programmatic
     public void remove(Note note) {
-        final NotableLink link = notableLinkRepository.findByEvent(note);
+        final NotableLink link = notableLinkRepository.findByNote(note);
         container.removeIfNotAlready(link);
         container.flush();
         container.removeIfNotAlready(note);
@@ -83,9 +91,10 @@ public class NoteRepository {
     }
     //endregion
 
-    //region > findEventsInDateRange (programmatic)
+    //region > findNotesInDateRange (programmatic)
     @Programmatic
-    public List<Note> findEventsInDateRange(final LocalDate rangeStartDate, final LocalDate rangeEndDate) {
+    public List<Note> findNotesInDateRange(
+            final LocalDate rangeStartDate, final LocalDate rangeEndDate) {
         return container.allMatches(
                 new QueryDefault<>(
                         Note.class,
@@ -95,10 +104,10 @@ public class NoteRepository {
     }
     //endregion
 
-    //region > allEvents (programmatic)
+    //region > allNotes (programmatic)
 
     @Programmatic
-    public List<Note> allEvents() {
+    public List<Note> allNotes() {
         return container.allInstances(Note.class);
     }
     //endregion

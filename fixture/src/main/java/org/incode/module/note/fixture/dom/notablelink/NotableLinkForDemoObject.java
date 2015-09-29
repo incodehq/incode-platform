@@ -16,12 +16,18 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.note.fixture.dom;
+package org.incode.module.note.fixture.dom.notablelink;
+
+import java.util.Arrays;
+import java.util.Set;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.google.common.eventbus.Subscribe;
 
 import org.apache.isis.applib.AbstractSubscriber;
@@ -31,18 +37,52 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 
-import org.incode.module.note.dom.Notable;
-import org.incode.module.note.dom.NotableLink;
+import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
+
+import org.incode.module.note.dom.notable.Notable;
+import org.incode.module.note.dom.notablelink.NotableLink;
+import org.incode.module.note.dom.note.NoteRepository;
+import org.incode.module.note.fixture.dom.CalendarName;
+import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType= IdentityType.DATASTORE,
-        schema="eventdemo")
+        schema="notedemo")
 @javax.jdo.annotations.Inheritance(
         strategy = InheritanceStrategy.NEW_TABLE)
 @DomainObject(
-        objectType = "eventdemo.EventSourceLinkForDemoObject"
+        objectType = "notedemo.NotableLinkForDemoObject"
 )
 public class NotableLinkForDemoObject extends NotableLink {
+
+
+    //region > eventSource impl
+
+    /**
+     * Can add to all calendars
+     */
+    @Programmatic
+    @Override
+    public Set<String> getCalendarNames() {
+        return Sets.newTreeSet(
+                Lists.transform(
+                        Arrays.asList(CalendarName.values()),
+                        input -> input.name()));
+    }
+
+    /**
+     * to display in fullcalendar2
+     */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @Programmatic
+    @Override
+    public ImmutableMap<String, CalendarEventable> getCalendarEvents() {
+        return ImmutableMap.<String, CalendarEventable>of(getCalendarName(), getNote());
+    }
+
+    //endregion
+
+
 
     //region > instantiationSubscriber, setPolymorphicReference
     @DomainService(nature = NatureOfService.DOMAIN)
@@ -83,6 +123,8 @@ public class NotableLinkForDemoObject extends NotableLink {
     //region > injected services
     @javax.inject.Inject
     private BookmarkService bookmarkService;
+    @javax.inject.Inject
+    private NoteRepository noteRepository;
     //endregion
 
 }

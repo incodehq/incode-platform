@@ -99,7 +99,7 @@ public class NoteModuleApplication extends IsisWicketApplication {
         return request;
     }
 
-    private static final String APP_NAME = "Event Module Example App";
+    private static final String APP_NAME = "Incode Note Module Demo";
     
     @Override
     protected Module newIsisWicketModule() {

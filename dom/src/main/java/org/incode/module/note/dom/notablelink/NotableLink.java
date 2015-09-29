@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.note.dom;
+package org.incode.module.note.dom.notablelink;
 
 import java.util.List;
 
@@ -34,47 +34,52 @@ import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.Title;
 
 import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
+import org.isisaddons.wicket.fullcalendar2.cpt.applib.Calendarable;
 
 import org.incode.module.note.NoteModule;
+import org.incode.module.note.dom.notable.Notable;
+import org.incode.module.note.dom.note.Note;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
-        schema = "isisevent",
-        table = "EventSourceLink"
+        schema = "incodeNote",
+        table = "NotableLink"
 )
 @javax.jdo.annotations.DatastoreIdentity(strategy = IdGeneratorStrategy.IDENTITY, column = "id")
 @javax.jdo.annotations.Inheritance(
         strategy = InheritanceStrategy.NEW_TABLE)
 @javax.jdo.annotations.Queries({
         @javax.jdo.annotations.Query(
-                name = "findByEvent", language = "JDOQL",
+                name = "findByNote", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.module.note.dom.NoteSourceLink "
+                        + "FROM org.incode.module.note.dom.NotableLink "
                         + "WHERE note == :note"),
         @javax.jdo.annotations.Query(
-                name = "findBySource", language = "JDOQL",
+                name = "findByNotable", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.module.note.dom.NoteSourceLink "
-                        + "WHERE sourceObjectType == :sourceObjectType "
-                        + "   && sourceIdentifier == :sourceIdentifier "),
+                        + "FROM org.incode.module.note.dom.NotableLink "
+                        + "WHERE notableObjectType == :notableObjectType "
+                        + "   && notableIdentifier == :notableIdentifier "),
         @javax.jdo.annotations.Query(
-                name = "findBySourceAndCalendarName", language = "JDOQL",
+                name = "findByNotableAndCalendarName", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.module.note.dom.NoteSourceLink "
-                        + "WHERE sourceObjectType == :sourceObjectType "
-                        + "   && sourceIdentifier == :sourceIdentifier "
+                        + "FROM org.incode.module.note.dom.NotableLink "
+                        + "WHERE notableObjectType == :notableObjectType "
+                        + "   && notableIdentifier == :notableIdentifier "
                         + "   && calendarName == :calendarName")
 })
 @javax.jdo.annotations.Indices({
         @javax.jdo.annotations.Index(
-                name = "EventSourceLink_main_idx",
-                members = { "sourceObjectType", "sourceIdentifier", "event" })
+                name = "NotableLink_main_idx",
+                members = { "notableObjectType", "notableIdentifier", "note" })
 })
-@javax.jdo.annotations.Unique(name="EventSourceLink_event_source_UNQ", members = {"event","sourceObjectType","sourceIdentifier"})
+@javax.jdo.annotations.Unique(name="NotableLink_note_notable_UNQ", members = {"note","notableObjectType","notableIdentifier"})
 @DomainObject(
-        objectType = "event.EventSourceLink"
+        objectType = "note.NotableLink"
 )
-public abstract class NotableLink extends PolymorphicAssociationLink<Note, Notable, NotableLink> {
+public abstract class NotableLink
+        extends PolymorphicAssociationLink<Note, Notable, NotableLink>
+        implements Calendarable {
 
     //region > event classes
     public static abstract class PropertyDomainEvent<T> extends NoteModule.PropertyDomainEvent<NotableLink, T> {
@@ -149,29 +154,29 @@ public abstract class NotableLink extends PolymorphicAssociationLink<Note, Notab
     @Override
     @Programmatic
     public String getPolymorphicObjectType() {
-        return getSourceObjectType();
+        return getNotableObjectType();
     }
 
     @Override
     @Programmatic
     public void setPolymorphicObjectType(final String polymorphicObjectType) {
-        setSourceObjectType(polymorphicObjectType);
+        setNotableObjectType(polymorphicObjectType);
     }
 
     @Override
     @Programmatic
     public String getPolymorphicIdentifier() {
-        return getSourceIdentifier();
+        return getNotableIdentifier();
     }
 
     @Override
     @Programmatic
     public void setPolymorphicIdentifier(final String polymorphicIdentifier) {
-        setSourceIdentifier(polymorphicIdentifier);
+        setNotableIdentifier(polymorphicIdentifier);
     }
     //endregion
 
-    //region > event (property)
+    //region > note (property)
 
     public static class EventDomainEvent extends PropertyDomainEvent<Note> {
         public EventDomainEvent(final NotableLink source, final Identifier identifier) {
@@ -197,7 +202,7 @@ public abstract class NotableLink extends PolymorphicAssociationLink<Note, Notab
     }
     //endregion
 
-    //region > sourceObjectType (property)
+    //region > notableObjectType (property)
 
     public static class SourceObjectTypeDomainEvent extends PropertyDomainEvent<String> {
         public SourceObjectTypeDomainEvent(final NotableLink source, final Identifier identifier) {
@@ -208,23 +213,23 @@ public abstract class NotableLink extends PolymorphicAssociationLink<Note, Notab
         }
     }
 
-    private String sourceObjectType;
+    private String notableObjectType;
 
     @javax.jdo.annotations.Column(allowsNull = "false", length = 255)
     @Property(
             domainEvent = SourceObjectTypeDomainEvent.class,
             editing = Editing.DISABLED
     )
-    public String getSourceObjectType() {
-        return sourceObjectType;
+    public String getNotableObjectType() {
+        return notableObjectType;
     }
 
-    public void setSourceObjectType(final String sourceObjectType) {
-        this.sourceObjectType = sourceObjectType;
+    public void setNotableObjectType(final String notableObjectType) {
+        this.notableObjectType = notableObjectType;
     }
     //endregion
 
-    //region > sourceIdentifier (property)
+    //region > notableIdentifier (property)
 
     public static class SourceIdentifierDomainEvent extends PropertyDomainEvent<String> {
         public SourceIdentifierDomainEvent(final NotableLink source, final Identifier identifier) {
@@ -235,19 +240,19 @@ public abstract class NotableLink extends PolymorphicAssociationLink<Note, Notab
         }
     }
 
-    private String sourceIdentifier;
+    private String notableIdentifier;
 
     @javax.jdo.annotations.Column(allowsNull = "false", length = 255)
     @Property(
             domainEvent = SourceIdentifierDomainEvent.class,
             editing = Editing.DISABLED
     )
-    public String getSourceIdentifier() {
-        return sourceIdentifier;
+    public String getNotableIdentifier() {
+        return notableIdentifier;
     }
 
-    public void setSourceIdentifier(final String sourceIdentifier) {
-        this.sourceIdentifier = sourceIdentifier;
+    public void setNotableIdentifier(final String notableIdentifier) {
+        this.notableIdentifier = notableIdentifier;
     }
     //endregion
 

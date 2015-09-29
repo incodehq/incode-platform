@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.note.fixture.dom;
+package org.incode.module.note.fixture.dom.notedemoobject;
 
 import java.util.List;
 import org.apache.isis.applib.DomainObjectContainer;

@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.note.dom;
+package org.incode.module.note.dom.notablelink;
 
 import java.util.List;
 
@@ -31,6 +31,9 @@ import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 
 import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
+
+import org.incode.module.note.dom.note.Note;
+import org.incode.module.note.dom.notable.Notable;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
@@ -55,13 +58,13 @@ public class NotableLinkRepository {
     }
     //endregion
 
-    //region > findByEvent (programmatic)
+    //region > findByNotable (programmatic)
     @Programmatic
-    public NotableLink findByEvent(final Note note) {
+    public NotableLink findByNote(final Note note) {
         return container.firstMatch(
                 new QueryDefault<>(NotableLink.class,
-                        "findByEvent",
-                        "event", note));
+                        "findByNote",
+                        "note", note));
     }
     //endregion
 
@@ -77,15 +80,15 @@ public class NotableLinkRepository {
         }
         return container.allMatches(
                 new QueryDefault<>(NotableLink.class,
-                        "findBySource",
-                        "sourceObjectType", bookmark.getObjectType(),
-                        "sourceIdentifier", bookmark.getIdentifier()));
+                        "findByNotable",
+                        "notableObjectType", bookmark.getObjectType(),
+                        "notableIdentifier", bookmark.getIdentifier()));
     }
     //endregion
 
-    //region > findBySourceAndCalendarName (programmatic)
+    //region > findByNotableAndCalendarName (programmatic)
     @Programmatic
-    public NotableLink findBySourceAndCalendarName(
+    public NotableLink findByNotableAndCalendarName(
             final Notable notable,
             final String calendarName) {
         if(notable == null) {
@@ -100,9 +103,9 @@ public class NotableLinkRepository {
         }
         return container.firstMatch(
                 new QueryDefault<>(NotableLink.class,
-                        "findBySourceAndCalendarName",
-                        "sourceObjectType", bookmark.getObjectType(),
-                        "sourceIdentifier", bookmark.getIdentifier(),
+                        "findByNotableAndCalendarName",
+                        "notableObjectType", bookmark.getObjectType(),
+                        "notableIdentifier", bookmark.getIdentifier(),
                         "calendarName", calendarName));
     }
     //endregion

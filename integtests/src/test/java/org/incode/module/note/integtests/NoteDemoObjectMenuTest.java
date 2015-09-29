@@ -26,8 +26,8 @@ import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
-import org.incode.module.note.fixture.dom.NoteDemoObject;
-import org.incode.module.note.fixture.dom.NoteDemoObjectMenu;
+import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
+import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObjectMenu;
 import org.incode.module.note.fixture.scripts.scenarios.NoteDemoObjectsFixture;
 
 
