@@ -14,40 +14,10 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-{
-  "columns": [
-    {
-      "span": 6,
-      "memberGroups": {
-        "General": {
-          "members": {
-            "name": {},
-            "calendarName": {}
-          }
-        }
-      }
-    },
-    {
-      "span": 0,
-      "memberGroups": {}
-    },
-    {
-      "span": 0,
-      "memberGroups": {}
-    },
-    {
-      "span": 6,
-      "collections": {
-        "notes": {
-          "actions": {
-            "addNoteToCalendar": {},
-            "addNote": {},
-            "removeNote": {}
-          }
-        }
-      }
-    }
-  ],
-  "actions": {}
+package org.incode.module.note.fixture.dom.calendarname;
+
+public enum CalendarName {
+    BLUE,
+    GREEN,
+    RED
 }
- 

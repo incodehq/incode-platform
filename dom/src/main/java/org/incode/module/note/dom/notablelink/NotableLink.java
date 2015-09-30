@@ -19,12 +19,16 @@
 package org.incode.module.note.dom.notablelink;
 
 import java.util.List;
+import java.util.Set;
 
+import javax.inject.Inject;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
 
 import com.google.common.base.Function;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Sets;
 
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.DomainObject;
@@ -34,10 +38,12 @@ import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.Title;
 
 import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
+import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.Calendarable;
 
 import org.incode.module.note.NoteModule;
 import org.incode.module.note.dom.notable.Notable;
+import org.incode.module.note.dom.note.CalendarNameRepository;
 import org.incode.module.note.dom.note.Note;
 
 @javax.jdo.annotations.PersistenceCapable(
@@ -52,18 +58,18 @@ import org.incode.module.note.dom.note.Note;
         @javax.jdo.annotations.Query(
                 name = "findByNote", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.module.note.dom.NotableLink "
+                        + "FROM org.incode.module.note.dom.notablelink.NotableLink "
                         + "WHERE note == :note"),
         @javax.jdo.annotations.Query(
                 name = "findByNotable", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.module.note.dom.NotableLink "
+                        + "FROM org.incode.module.note.dom.notablelink.NotableLink "
                         + "WHERE notableObjectType == :notableObjectType "
                         + "   && notableIdentifier == :notableIdentifier "),
         @javax.jdo.annotations.Query(
                 name = "findByNotableAndCalendarName", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.module.note.dom.NotableLink "
+                        + "FROM org.incode.module.note.dom.notablelink.NotableLink "
                         + "WHERE notableObjectType == :notableObjectType "
                         + "   && notableIdentifier == :notableIdentifier "
                         + "   && calendarName == :calendarName")
@@ -291,6 +297,29 @@ public abstract class NotableLink
     }
     //endregion
 
+    //region > eventSource impl
+
+    /**
+     * Can add to all calendars
+     */
+    @Programmatic
+    @Override
+    public Set<String> getCalendarNames() {
+        return Sets.newTreeSet(calendarNameRepository.calendarNamesFor(getSubject()));
+    }
+
+    /**
+     * to display in fullcalendar2
+     */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @Programmatic
+    @Override
+    public ImmutableMap<String, CalendarEventable> getCalendarEvents() {
+        return ImmutableMap.<String, CalendarEventable>of(getCalendarName(), getNote());
+    }
+
+    //endregion
+
     //region > Functions
     public static class Functions {
         public static Function<NotableLink, Note> event() {
@@ -319,4 +348,9 @@ public abstract class NotableLink
     }
     //endregion
 
+    //region  >  (injected)
+    @Inject
+    CalendarNameRepository calendarNameRepository;
+    //endregion
+    
 }

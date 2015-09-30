@@ -48,7 +48,6 @@ import org.incode.module.note.dom.note.NoteRepository;
 )
 public class NoteDemoObject implements Comparable<NoteDemoObject>, Notable {
 
-
     //region > name (property)
     
     private String name;
@@ -64,8 +63,6 @@ public class NoteDemoObject implements Comparable<NoteDemoObject>, Notable {
     }
 
     //endregion
-
-
 
     //region > toString, compareTo
 

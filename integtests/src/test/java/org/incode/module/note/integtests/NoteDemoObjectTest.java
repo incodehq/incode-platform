@@ -27,8 +27,8 @@ import org.junit.Test;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
 import org.incode.module.note.dom.note.NoteContributionsOnNotable;
-import org.incode.module.note.fixture.dom.CalendarName;
-import org.incode.module.note.fixture.dom.notablelink.NotableLinkContributionsOnNoteDemoObject;
+import org.incode.module.note.fixture.dom.calendarname.CalendarName;
+import org.incode.module.note.fixture.dom.calendarname.CalendarNameRepositoryUsingEnum;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObjectMenu;
 import org.incode.module.note.fixture.scripts.teardown.NoteDemoObjectsTearDownFixture;
@@ -46,7 +46,7 @@ public class NoteDemoObjectTest extends NoteModuleIntegTest {
     @Inject
     NoteContributionsOnNotable noteContributionsOnNotable;
     @Inject
-    NotableLinkContributionsOnNoteDemoObject notableLinkContributionsOnNoteDemoObject;
+    CalendarNameRepositoryUsingEnum calendarRepositoryUsingCalendarName;
 
     NoteDemoObject noteDemoObject;
 
@@ -68,7 +68,7 @@ public class NoteDemoObjectTest extends NoteModuleIntegTest {
 
             // when
             final LocalDate now = LocalDate.now();
-            notableLinkContributionsOnNoteDemoObject.addNote(noteDemoObject, "", now, CalendarName.BLUE);
+            noteContributionsOnNotable.addNoteToCalendar(noteDemoObject, "", now, CalendarName.BLUE.name());
 
             // then
             assertThat(noteContributionsOnNotable.notes(noteDemoObject)).hasSize(1);
@@ -81,10 +81,10 @@ public class NoteDemoObjectTest extends NoteModuleIntegTest {
             // given
             assertThat(noteContributionsOnNotable.notes(noteDemoObject)).isEmpty();
             final LocalDate now = LocalDate.now();
-            notableLinkContributionsOnNoteDemoObject.addNote(noteDemoObject, "", now, CalendarName.BLUE);
+            noteContributionsOnNotable.addNoteToCalendar(noteDemoObject, "", now, CalendarName.BLUE.name());
 
             // when
-            notableLinkContributionsOnNoteDemoObject.addNote(noteDemoObject, "", now, CalendarName.GREEN);
+            noteContributionsOnNotable.addNoteToCalendar(noteDemoObject, "", now, CalendarName.GREEN.name());
 
             // then
             assertThat(noteContributionsOnNotable.notes(noteDemoObject)).hasSize(2);
@@ -100,15 +100,15 @@ public class NoteDemoObjectTest extends NoteModuleIntegTest {
             // given
             assertThat(noteContributionsOnNotable.notes(noteDemoObject)).isEmpty();
             final LocalDate now = LocalDate.now();
-            notableLinkContributionsOnNoteDemoObject.addNote(noteDemoObject, "", now, CalendarName.BLUE);
-            notableLinkContributionsOnNoteDemoObject.addNote(noteDemoObject, "", now, CalendarName.GREEN);
+            noteContributionsOnNotable.addNoteToCalendar(noteDemoObject, "", now, CalendarName.BLUE.name());
+            noteContributionsOnNotable.addNoteToCalendar(noteDemoObject, "", now, CalendarName.GREEN.name());
 
             // when
-            final List<CalendarName> calendarNames = notableLinkContributionsOnNoteDemoObject.choices3AddNote(noteDemoObject);
+            final List<String> calendarNames = noteContributionsOnNotable.choices3AddNoteToCalendar(noteDemoObject);
 
             // then
             assertThat(calendarNames).hasSize(1);
-            assertThat(calendarNames.get(0)).isEqualTo(CalendarName.RED);
+            assertThat(calendarNames.get(0)).isEqualTo(CalendarName.RED.name());
         }
 
     }

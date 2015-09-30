@@ -41,6 +41,8 @@ import org.incode.module.note.dom.notable.Notable;
 )
 public class NotableLinkRepository {
 
+    private static final String DEFAULT_CALENDAR_NAME = "(default)";
+
     //region > init
     PolymorphicAssociationLink.Factory<Note,Notable,NotableLink,NotableLink.InstantiateEvent> linkFactory;
 
@@ -115,12 +117,35 @@ public class NotableLinkRepository {
     public NotableLink createLink(final Note note, final Notable notable) {
         final NotableLink link = linkFactory.createLink(note, notable);
 
-        // copy over the calendar name (to support querying)
-        link.setCalendarName(note.getCalendarName());
+        sync(note, link);
 
         return link;
     }
+
     //endregion
+
+    @Programmatic
+    public void updateLink(final Note note) {
+        final NotableLink link = findByNote(note);
+        sync(note, link);
+    }
+
+    //region > helpers (sync)
+
+    /**
+     * copy over the calendar name (to support querying)
+     */
+    void sync(final Note note, final NotableLink link) {
+        if(link == null) {
+            return;
+        }
+        link.setCalendarName(
+                note.getCalendarName() != null
+                        ? note.getCalendarName()
+                        : DEFAULT_CALENDAR_NAME);
+    }
+    //endregion
+
 
     //region > injected services
 

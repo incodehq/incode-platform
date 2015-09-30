@@ -1,5 +1,7 @@
 /*
- *  Copyright 2014 Dan Haywood
+ *
+ *  Copyright 2012-2014 Eurocommercial Properties NV
+ *
  *
  *  Licensed under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
@@ -14,10 +16,22 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.note.fixture.dom;
+package org.incode.module.note.dom.note;
 
-public enum CalendarName {
-    BLUE,
-    GREEN,
-    RED
-    }
+import java.util.Collection;
+
+/**
+ * Optional SPI service
+ */
+public interface CalendarNameRepository {
+
+    /**
+     * Return the list of objects to act as calendars for the provided object.
+     *
+     * <p>
+     *     May return null if necessary.
+     * </p>
+     */
+    Collection<String> calendarNamesFor(Object notable);
+
+}

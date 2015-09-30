@@ -3,15 +3,18 @@
     {
       "span": 8,
       "memberGroups": {
-        "General": {
+        "Notes": {
           "members": {
-            "notable": {},
             "notes": {
               "propertyLayout": {
                 "labelPosition": "NONE"
               },
               "actions": {
-                "changeNotes": {}
+                "changeNotes": {
+                  "actionLayout": {
+                    "named": "Change"
+                  }
+                }
               }
             }
           }
@@ -21,10 +24,34 @@
     {
       "span": 4,
       "memberGroups": {
+        "What": {
+          "members": {
+            "notable": {}
+          }
+        },
         "When": {
           "members": {
-            "date": {},
-            "calendarName": {}
+            "date": {
+              "actions": {
+                "changeDate": {
+                  "actionLayout": {
+                    "named": "Change"
+                  }
+                }
+              }
+            },
+            "calendarName": {
+              "propertyLayout": {
+                "named": "Calendar"
+              },
+              "actions": {
+                "changeDateOnCalendar": {
+                  "actionLayout": {
+                    "named": "Change"
+                  }
+                }
+              }
+            }
           }
         }
       }
