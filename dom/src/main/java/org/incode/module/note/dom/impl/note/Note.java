@@ -64,6 +64,8 @@ import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
 @DomainObject(editing = Editing.DISABLED)
 public class Note implements CalendarEventable, Comparable<Note> {
 
+    static final int NOTES_ABBREVIATED_TO = 40;
+
     //region > event classes
     public static abstract class PropertyDomainEvent<T> extends NoteModule.PropertyDomainEvent<Note, T> {
         public PropertyDomainEvent(final Note source, final Identifier identifier) {
@@ -186,7 +188,7 @@ public class Note implements CalendarEventable, Comparable<Note> {
             named = "Notes"
     )
     public String getNotesAbbreviated() {
-        return trim(getNotes(), "...", 40 );
+        return trim(getNotes(), "...", NOTES_ABBREVIATED_TO);
     }
 
     static String trim(final String notes, final String ending, final int length) {
@@ -243,6 +245,7 @@ public class Note implements CalendarEventable, Comparable<Note> {
             semantics = SemanticsOf.IDEMPOTENT
     )
     public Note changeNotes(
+            @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Notes", multiLine = NoteModule.MultiLine.NOTES)
             final String notes) {
         setNotes(notes);
@@ -334,9 +337,6 @@ public class Note implements CalendarEventable, Comparable<Note> {
         this.calendarName = calendarName;
     }
 
-    public boolean hideCalendarName() {
-        return getCalendarName() == null;
-    }
 
     //endregion
 
@@ -356,6 +356,7 @@ public class Note implements CalendarEventable, Comparable<Note> {
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Date")
             final LocalDate date,
+            @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Calendar")
             final String calendarName) {
         setDate(date);

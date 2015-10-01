@@ -1,10 +1,57 @@
 package org.incode.module.note.dom.impl.note;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class NoteTest {
+
+    public static class NotesAbbreviatedTest extends NoteTest {
+
+        Note note;
+
+        @Before
+        public void setUp() throws Exception {
+            note = new Note();
+        }
+
+        @Test
+        public void does_not_abbreviate_less_than_40() throws Exception {
+            // given
+            note.setNotes("123456789012345678901234567890123456789"); // 39 chars
+
+            // when
+            final String notesAbbreviated = note.getNotesAbbreviated();
+
+            // then
+            assertThat(notesAbbreviated).isEqualTo("123456789012345678901234567890123456789");
+        }
+
+        @Test
+        public void does_not_abbreviate_40() throws Exception {
+            // given
+            note.setNotes("1234567890123456789012345678901234567890"); // 40 chars
+
+            // when
+            final String notesAbbreviated = note.getNotesAbbreviated();
+
+            // then
+            assertThat(notesAbbreviated).isEqualTo("1234567890123456789012345678901234567890");
+        }
+
+        @Test
+        public void abbreviates_longer_than_40() throws Exception {
+            // given
+            note.setNotes("1234567890123456789012345678901234567890a"); // 41 chars
+
+            // when
+            final String notesAbbreviated = note.getNotesAbbreviated();
+
+            // then
+            assertThat(notesAbbreviated).isEqualTo("1234567890123456789012345678901234567...");
+        }
+    }
 
     public static class TrimTest extends NoteTest {
 

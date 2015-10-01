@@ -144,7 +144,7 @@ public class NoteContributionsOnNotableIntegTest extends NoteModuleIntegTest {
 
         }
 
-        public static class ChoicesTests extends AddNoteIntegTest {
+        public static class ChoicesIntegTest extends AddNoteIntegTest {
 
             @Test
             public void filters_out_any_calendars_already_in_use() throws Exception {
@@ -185,7 +185,7 @@ public class NoteContributionsOnNotableIntegTest extends NoteModuleIntegTest {
 
         }
 
-        public static class ValidateTests extends AddNoteIntegTest {
+        public static class ValidateIntegTest extends AddNoteIntegTest {
 
             @Test
             public void cannot_add_to_any_given_calendar_more_than_once() throws Exception {
@@ -246,7 +246,7 @@ public class NoteContributionsOnNotableIntegTest extends NoteModuleIntegTest {
             }
         }
 
-        public static class DomainEventTests extends AddNoteIntegTest {
+        public static class DomainEventIntegTest extends AddNoteIntegTest {
 
             @DomainService(nature = NatureOfService.DOMAIN)
             public static class Subscriber extends AbstractSubscriber {
