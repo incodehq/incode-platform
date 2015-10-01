@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.note.dom.notablelink;
+package org.incode.module.note.dom.impl.notablelink;
 
 import java.util.List;
 
@@ -32,16 +32,14 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 
 import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 
-import org.incode.module.note.dom.note.Note;
-import org.incode.module.note.dom.notable.Notable;
+import org.incode.module.note.dom.impl.note.Note;
+import org.incode.module.note.dom.api.notable.Notable;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
         repositoryFor = NotableLink.class
 )
 public class NotableLinkRepository {
-
-    private static final String DEFAULT_CALENDAR_NAME = "(default)";
 
     //region > init
     PolymorphicAssociationLink.Factory<Note,Notable,NotableLink,NotableLink.InstantiateEvent> linkFactory;
@@ -133,16 +131,14 @@ public class NotableLinkRepository {
     //region > helpers (sync)
 
     /**
-     * copy over the calendar name (to support querying)
+     * copy over details from the {@link Note#} to the {@link NotableLink} (derived propoerties to support querying).
      */
     void sync(final Note note, final NotableLink link) {
         if(link == null) {
             return;
         }
-        link.setCalendarName(
-                note.getCalendarName() != null
-                        ? note.getCalendarName()
-                        : DEFAULT_CALENDAR_NAME);
+        link.setDate(note.getDate());
+        link.setCalendarName(note.getCalendarName());
     }
     //endregion
 

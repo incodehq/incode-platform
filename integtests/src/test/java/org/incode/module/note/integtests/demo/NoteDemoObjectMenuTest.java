@@ -14,36 +14,24 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.note.integtests;
+package org.incode.module.note.integtests.demo;
 
 import java.util.List;
-
-import javax.inject.Inject;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.apache.isis.applib.fixturescripts.FixtureScripts;
-
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
-import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObjectMenu;
 import org.incode.module.note.fixture.scripts.scenarios.NoteDemoObjectsFixture;
-
+import org.incode.module.note.integtests.NoteModuleIntegTest;
 
 public class NoteDemoObjectMenuTest extends NoteModuleIntegTest {
-
-    @Inject
-    FixtureScripts fixtureScripts;
-
-    @Inject
-    private NoteDemoObjectMenu noteDemoObjectMenu;
 
     @Before
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new NoteDemoObjectsFixture(), null);
     }
-
 
     @Test
     public void listAll() throws Exception {

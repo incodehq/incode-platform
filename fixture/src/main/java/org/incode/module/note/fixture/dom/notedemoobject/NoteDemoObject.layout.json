@@ -41,8 +41,16 @@
         "notes": {
           "actions": {
             "addNoteToCalendar": {},
-            "addNote": {},
-            "removeNote": {}
+            "addNote": {
+              "actionLayout": {
+                "named": "Add"
+              }
+            },
+            "removeNote": {
+              "actionLayout": {
+                "named": "Remove"
+              }
+            }
           }
         }
       }

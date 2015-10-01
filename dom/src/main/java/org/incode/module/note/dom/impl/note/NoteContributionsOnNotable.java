@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.note.dom.note;
+package org.incode.module.note.dom.impl.note;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -44,7 +44,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.clock.ClockService;
 
 import org.incode.module.note.NoteModule;
-import org.incode.module.note.dom.notable.Notable;
+import org.incode.module.note.dom.impl.calendarname.CalendarNameService;
+import org.incode.module.note.dom.api.notable.Notable;
 
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
@@ -110,59 +111,36 @@ public class NoteContributionsOnNotable {
     }
     //endregion
 
-
     //region > addNote
 
+    public static class AddNoteEvent extends ActionDomainEvent {
+        public AddNoteEvent(final NoteContributionsOnNotable source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public AddNoteEvent(
+                final NoteContributionsOnNotable source,
+                final Identifier identifier,
+                final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+
+        public AddNoteEvent(
+                final NoteContributionsOnNotable source,
+                final Identifier identifier,
+                final List<Object> arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+
     @Action(
+            domainEvent = AddNoteEvent.class,
             semantics = SemanticsOf.NON_IDEMPOTENT
     )
     public Notable addNote(
             final Notable notable,
             @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Notes", multiLine = NoteModule.JdoColumnLength.NUMBER_OF_LINES)
-            final String note,
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Date")
-            final LocalDate date) {
-        noteRepository.add(notable, note, date, null);
-        return notable;
-    }
-
-    public boolean hideAddNote(
-            final Notable notable,
-            final String note,
-            final LocalDate date) {
-        return !hideAddNoteToCalendar(notable, note, date, null);
-    }
-
-    public LocalDate default2AddNote() {
-        return clockService.now();
-    }
-
-    public String validateAddNote(
-            final Notable notable,
-            final String notes,
-            final LocalDate date) {
-        if (Strings.isNullOrEmpty(notes) && date == null) {
-            return "Must specify either note text or a date (or both).";
-        }
-        return null;
-    }
-
-    //endregion
-
-    //region > addNoteToCalendar
-
-    @Action(
-            semantics = SemanticsOf.NON_IDEMPOTENT
-    )
-    @ActionLayout(
-            named = "addNote"
-    )
-    public Notable addNoteToCalendar(
-            final Notable notable,
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Note")
+            @ParameterLayout(named = "Note", multiLine = NoteModule.MultiLine.NOTES)
             final String note,
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Date")
@@ -174,47 +152,19 @@ public class NoteContributionsOnNotable {
         return notable;
     }
 
-    public boolean hideAddNoteToCalendar(
-            final Notable notable,
-            final String note,
-            final LocalDate date,
-            final String calendarName) {
-        final Collection<String> calendarNames = calendarNameRepository.calendarNamesFor(notable);
-        return calendarNames == null || calendarNames.isEmpty();
-    }
-
-    public String disableAddNoteToCalendar(
-            final Notable notable,
-            final String note,
-            final LocalDate date,
-            final String calendarName) {
-        return choices3AddNoteToCalendar(notable).isEmpty() ? "A note has been added to all calendars" : null;
-    }
-
-    public List<String> choices3AddNoteToCalendar(
+    public List<String> choices3AddNote(
             final Notable notable
     ) {
-        final Collection<String> values = calendarNameRepository.calendarNamesFor(notable);
-        if(values == null) {
-            return Collections.emptyList();
-        }
+        final Collection<String> values = calendarNameService.calendarNamesFor(notable);
         final List<String> valuesCopy = Lists.newArrayList(values);
-        final List<String> current = Lists.transform(
+        final List<String> calendarsInUse = Lists.transform(
                 noteRepository.findByNotable(notable),
                 input -> input.getCalendarName());
-        valuesCopy.removeAll(current);
+        valuesCopy.removeAll(calendarsInUse);
         return valuesCopy;
     }
 
-    public LocalDate default2AddNoteToCalendar() {
-        return clockService.now();
-    }
-
-    public String default3AddNoteToCalendar(final Notable notable) {
-        return firstOf(choices3AddNoteToCalendar(notable));
-    }
-
-    public String validateAddNoteToCalendar(
+    public String validateAddNote(
             final Notable notable,
             final String notes,
             final LocalDate date,
@@ -228,14 +178,43 @@ public class NoteContributionsOnNotable {
         if (date != null && calendarName == null) {
             return "Must also specify a calendar for the date";
         }
+        if(calendarName != null) {
+            final Collection<String> values = calendarNameService.calendarNamesFor(notable);
+            if(!values.contains(calendarName)) {
+                return "No such calendar";
+            }
+            if(!choices3AddNote(notable).contains(calendarName)) {
+                return "This object already has a note on calendar '" + calendarName + "'";
+            }
+        }
         return null;
     }
-
     //endregion
 
     //region > removeNote
 
+    public static class RemoveNoteEvent extends ActionDomainEvent {
+        public RemoveNoteEvent(final NoteContributionsOnNotable source, final Identifier identifier) {
+            super(source, identifier);
+        }
+
+        public RemoveNoteEvent(
+                final NoteContributionsOnNotable source,
+                final Identifier identifier,
+                final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+
+        public RemoveNoteEvent(
+                final NoteContributionsOnNotable source,
+                final Identifier identifier,
+                final List<Object> arguments) {
+            super(source, identifier, arguments);
+        }
+    }
+
     @Action(
+            domainEvent = RemoveNoteEvent.class,
             semantics = SemanticsOf.IDEMPOTENT
     )
     public Notable removeNote(final Notable notable, final Note note) {
@@ -243,6 +222,9 @@ public class NoteContributionsOnNotable {
         return notable;
     }
 
+    /**
+     * Has the effect of hiding the action if was contributed to {@link Note}.
+     */
     public boolean hideRemoveNote(final Notable notable, final Note note) {
         return notable == null;
     }
@@ -267,7 +249,6 @@ public class NoteContributionsOnNotable {
     }
     //endregion
 
-
     //region  > (injected)
     @Inject
     NoteRepository noteRepository;
@@ -276,6 +257,6 @@ public class NoteContributionsOnNotable {
     ClockService clockService;
 
     @Inject
-    CalendarNameRepository calendarNameRepository;
+    CalendarNameService calendarNameService;
     //endregion
 }

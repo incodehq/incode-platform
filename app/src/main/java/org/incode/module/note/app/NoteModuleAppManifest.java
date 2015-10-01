@@ -18,10 +18,11 @@
  */
 package org.incode.module.note.app;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+
+import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
@@ -34,16 +35,29 @@ import org.incode.module.note.fixture.NoteFixtureModule;
  */
 public class NoteModuleAppManifest implements AppManifest {
 
+    private final List<Class<?>> classes = Lists.newArrayList();
+
+    public NoteModuleAppManifest() {
+        withModules(
+                NoteModule.class, // dom module
+                NoteFixtureModule.class,
+                NoteAppModule.class
+        );
+    }
+
+    public NoteModuleAppManifest withModules(Class<?>... classes) {
+        for (Class<?> cls : classes) {
+            this.classes.add(cls);
+        }
+        return this;
+    }
+
     /**
      * Load all services and entities found in (the packages and subpackages within) these modules
      */
     @Override
     public List<Class<?>> getModules() {
-        return Arrays.asList(
-                NoteModule.class,
-                NoteFixtureModule.class,
-                NoteModuleAppModule.class
-        );
+        return Collections.unmodifiableList(classes);
     }
 
     /**

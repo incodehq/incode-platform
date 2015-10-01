@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.note.dom.notablelink;
+package org.incode.module.note.dom.impl.notablelink;
 
 import java.util.List;
 import java.util.Set;
@@ -30,21 +30,22 @@ import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Sets;
 
+import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
-import org.apache.isis.applib.annotation.Title;
 
 import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.Calendarable;
 
 import org.incode.module.note.NoteModule;
-import org.incode.module.note.dom.notable.Notable;
-import org.incode.module.note.dom.note.CalendarNameRepository;
-import org.incode.module.note.dom.note.Note;
+import org.incode.module.note.dom.impl.calendarname.CalendarNameService;
+import org.incode.module.note.dom.api.notable.Notable;
+import org.incode.module.note.dom.impl.note.Note;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
@@ -58,21 +59,29 @@ import org.incode.module.note.dom.note.Note;
         @javax.jdo.annotations.Query(
                 name = "findByNote", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.module.note.dom.notablelink.NotableLink "
+                        + "FROM org.incode.module.note.dom.impl.notablelink.NotableLink "
                         + "WHERE note == :note"),
         @javax.jdo.annotations.Query(
                 name = "findByNotable", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.module.note.dom.notablelink.NotableLink "
+                        + "FROM org.incode.module.note.dom.impl.notablelink.NotableLink "
                         + "WHERE notableObjectType == :notableObjectType "
                         + "   && notableIdentifier == :notableIdentifier "),
         @javax.jdo.annotations.Query(
                 name = "findByNotableAndCalendarName", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.module.note.dom.notablelink.NotableLink "
+                        + "FROM org.incode.module.note.dom.impl.notablelink.NotableLink "
                         + "WHERE notableObjectType == :notableObjectType "
                         + "   && notableIdentifier == :notableIdentifier "
-                        + "   && calendarName == :calendarName")
+                        + "   && calendarName == :calendarName"),
+        @javax.jdo.annotations.Query(
+                name = "findByNotableInDateRange", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.module.note.dom.impl.notablelink.NotableLink "
+                        + "WHERE notableObjectType == :notableObjectType "
+                        + "   && notableIdentifier == :notableIdentifier "
+                        + "   && date >= :rangeStartDate "
+                        + "   && date <= :rangeEndDate")
 })
 @javax.jdo.annotations.Indices({
         @javax.jdo.annotations.Index(
@@ -262,6 +271,41 @@ public abstract class NotableLink
     }
     //endregion
 
+    //region > date (property)
+
+    public static class DateDomainEvent extends PropertyDomainEvent<LocalDate> {
+        public DateDomainEvent(final NotableLink source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public DateDomainEvent(final NotableLink source, final Identifier identifier, final LocalDate oldValue, final LocalDate newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
+    private LocalDate date;
+
+    /**
+     * Copy of the {@link #getNote() note}'s {@link Note#getDate() date}, to support querying.
+     *
+     * <p>
+     *     If the {@link Note#getDate()} is changed, then this derived property is also updated.
+     * </p>
+     */
+    @javax.jdo.annotations.Column(allowsNull = "true")
+    @Property(
+            domainEvent = DateDomainEvent.class
+    )
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(final LocalDate startDate) {
+        this.date = startDate;
+    }
+
+    //endregion
+
+
     //region > calendarName (property)
 
     public static class CalendarNameDomainEvent extends PropertyDomainEvent<String> {
@@ -276,18 +320,17 @@ public abstract class NotableLink
     private String calendarName;
 
     /**
-     * Copy of the {@link #getNote() event}'s {@link Note#getCalendarName() calendar name}.
+     * Copy of the {@link #getNote() note}'s {@link Note#getCalendarName() calendar name}, to support querying.
      *
      * <p>
-     *     To support querying.  This is an immutable property of {@link Note} so it is safe to copy.
+     *     If the {@link Note#getCalendarName()} is changed, then this derived property is also updated.
      * </p>
      */
-    @javax.jdo.annotations.Column(allowsNull = "false", length= NoteModule.JdoColumnLength.CALENDAR_NAME)
+    @javax.jdo.annotations.Column(allowsNull = "true", length= NoteModule.JdoColumnLength.CALENDAR_NAME)
     @Property(
             domainEvent = CalendarNameDomainEvent.class,
             editing = Editing.DISABLED
     )
-    @Title(prepend=": ", sequence="2")
     public String getCalendarName() {
         return calendarName;
     }
@@ -305,7 +348,7 @@ public abstract class NotableLink
     @Programmatic
     @Override
     public Set<String> getCalendarNames() {
-        return Sets.newTreeSet(calendarNameRepository.calendarNamesFor(getSubject()));
+        return Sets.newTreeSet(calendarNameService.calendarNamesFor(getSubject()));
     }
 
     /**
@@ -350,7 +393,7 @@ public abstract class NotableLink
 
     //region  >  (injected)
     @Inject
-    CalendarNameRepository calendarNameRepository;
+    CalendarNameService calendarNameService;
     //endregion
     
 }

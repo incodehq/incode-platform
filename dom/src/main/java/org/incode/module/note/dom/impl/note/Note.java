@@ -1,7 +1,6 @@
-package org.incode.module.note.dom.note;
+package org.incode.module.note.dom.impl.note;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -35,9 +34,10 @@ import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEvent;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
 
 import org.incode.module.note.NoteModule;
-import org.incode.module.note.dom.notable.Notable;
-import org.incode.module.note.dom.notablelink.NotableLink;
-import org.incode.module.note.dom.notablelink.NotableLinkRepository;
+import org.incode.module.note.dom.impl.calendarname.CalendarNameService;
+import org.incode.module.note.dom.api.notable.Notable;
+import org.incode.module.note.dom.impl.notablelink.NotableLink;
+import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
 
 /**
  * An event that has or is scheduled to occur at some point in time, pertaining
@@ -56,10 +56,10 @@ import org.incode.module.note.dom.notablelink.NotableLinkRepository;
 @javax.jdo.annotations.Queries({
         @javax.jdo.annotations.Query(
                 name = "findInDateRange", language = "JDOQL",
-                value = "SELECT " +
-                        "FROM org.incode.module.note.dom.note.Note " +
-                    "WHERE date >= :rangeStartDate " +
-                    "   && date <= :rangeEndDate")
+                value = "SELECT "
+                        + "FROM org.incode.module.note.dom.impl.note.Note "
+                        + "WHERE date >= :rangeStartDate "
+                        + "   && date <= :rangeEndDate")
 })
 @DomainObject(editing = Editing.DISABLED)
 public class Note implements CalendarEventable, Comparable<Note> {
@@ -122,16 +122,10 @@ public class Note implements CalendarEventable, Comparable<Note> {
         if(getDate() != null) {
             buf.append(" @").append(container.titleOf(getDate()));
         }
-        buf.append(" ").append(trim(getNotes(), "...", 20 ));
+        buf.append(": ").append(getNotesAbbreviated());
         return buf.toString();
     }
 
-    static String trim(final String notes, final String ending, final int length) {
-        if(notes == null || notes.length() <= length) {
-            return notes;
-        }
-        return notes.substring(0, length-ending.length()) + ending ;
-    }
     //endregion
 
     /**
@@ -167,6 +161,106 @@ public class Note implements CalendarEventable, Comparable<Note> {
         }
         return notableLinkRepository.findByNote(this);
     }
+    //endregion
+
+    //region > notesAbbreviated (property)
+
+    public static class NotesAbbreviatedDomainEvent extends PropertyDomainEvent<String> {
+        public NotesAbbreviatedDomainEvent(final Note source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public NotesAbbreviatedDomainEvent(final Note source, final Identifier identifier, final String oldValue, final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
+    /**
+     * Derived from {@link #getNotes()}, solely for use in title and in tables.
+     */
+    @javax.jdo.annotations.NotPersistent
+    @Property(
+            domainEvent = NotesAbbreviatedDomainEvent.class,
+            hidden = Where.OBJECT_FORMS
+    )
+    @PropertyLayout(
+            named = "Notes"
+    )
+    public String getNotesAbbreviated() {
+        return trim(getNotes(), "...", 40 );
+    }
+
+    static String trim(final String notes, final String ending, final int length) {
+        if(notes == null || notes.length() <= length) {
+            return notes;
+        }
+        return notes.substring(0, length-ending.length()) + ending ;
+    }
+    //endregion
+
+    //region > notes (property)
+
+    public static class NotesDomainEvent extends PropertyDomainEvent<String> {
+        public NotesDomainEvent(final Note source, final Identifier identifier) {
+            super(source, identifier);
+        }
+        public NotesDomainEvent(final Note source, final Identifier identifier, final String oldValue, final String newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
+
+    private String notes;
+
+    /**
+     * Hidden in tables, instead the derived {@link #getNotesAbbreviated()} is shown.
+     */
+    @javax.jdo.annotations.Column(allowsNull = "true", length = NoteModule.JdoColumnLength.NOTES)
+    @Property(
+            domainEvent = NotesDomainEvent.class,
+            hidden = Where.ALL_TABLES
+    )
+    @PropertyLayout(
+            multiLine = NoteModule.MultiLine.NOTES
+    )
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(final String description) {
+        this.notes = description;
+    }
+    //endregion
+
+    //region > changeNotes (action)
+
+    public static class ChangeNotesDomainEvent extends ActionDomainEvent {
+        public ChangeNotesDomainEvent(final Note source, final Identifier identifier, final Object... args) {
+            super(source, identifier, args);
+        }
+    }
+
+    @Action(
+            domainEvent = ChangeNotesDomainEvent.class,
+            semantics = SemanticsOf.IDEMPOTENT
+    )
+    public Note changeNotes(
+            @ParameterLayout(named = "Notes", multiLine = NoteModule.MultiLine.NOTES)
+            final String notes) {
+        setNotes(notes);
+
+        return this;
+    }
+
+    public String default0ChangeNotes() {
+        return getNotes();
+    }
+
+    public String validateChangeNotes(final String notes) {
+        if(Strings.isNullOrEmpty(notes) && getDate() == null) {
+            return "Must specify either note text or a date (or both).";
+        }
+        return null;
+    }
+
     //endregion
 
     //region > date (property)
@@ -246,65 +340,6 @@ public class Note implements CalendarEventable, Comparable<Note> {
 
     //endregion
 
-    //region > changeDateOnCalendar (action)
-
-    public static class ChangeDateOnCalendarDomainEvent extends ActionDomainEvent {
-        public ChangeDateOnCalendarDomainEvent(final Note source, final Identifier identifier, final Object... args) {
-            super(source, identifier, args);
-        }
-    }
-
-    @Action(
-            domainEvent = ChangeDateOnCalendarDomainEvent.class,
-            semantics = SemanticsOf.IDEMPOTENT
-    )
-    public Note changeDateOnCalendar(
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Date")
-            final LocalDate date,
-            @ParameterLayout(named = "Calendar")
-            final String calendarName) {
-        setDate(date);
-        setCalendarName(calendarName);
-        notableLinkRepository.updateLink(this);
-        return this;
-    }
-
-    public boolean hideChangeDateOnCalendar(final LocalDate date, final String calendarName) {
-        return getCalendarName() == null;
-    }
-    public List<String> choices1ChangeDateOnCalendar() {
-        final Collection<String> values = calendarNameRepository.calendarNamesFor(getNotable());
-        if(values == null) {
-            return Collections.emptyList();
-        }
-        final List<String> valuesCopy = Lists.newArrayList(values);
-        final List<String> currentCalendarsInUse = Lists.transform(
-                noteRepository.findByNotable(getNotable()),
-                input -> input.getCalendarName());
-        valuesCopy.removeAll(currentCalendarsInUse);
-        valuesCopy.add(getCalendarName()); // add back in current for this note's notable
-        return valuesCopy;
-    }
-
-    public LocalDate default0ChangeDateOnCalendar() {
-        return getDate();
-    }
-
-    public String default1ChangeDateOnCalendar() {
-        return getCalendarName();
-    }
-
-
-    public String validateChangeDateOnCalendar(final LocalDate date, final String calendarName) {
-        if(Strings.isNullOrEmpty(getNotes()) && (date == null || calendarName == null)) {
-            return "Must specify either note text or a date/calendar (or both).";
-        }
-        return null;
-    }
-
-    //endregion
-
     //region > changeDate (action)
 
     public static class ChangeDateDomainEvent extends ActionDomainEvent {
@@ -320,97 +355,91 @@ public class Note implements CalendarEventable, Comparable<Note> {
     public Note changeDate(
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Date")
-            final LocalDate date) {
+            final LocalDate date,
+            @ParameterLayout(named = "Calendar")
+            final String calendarName) {
         setDate(date);
+        setCalendarName(calendarName);
+        notableLinkRepository.updateLink(this);
         return this;
     }
 
-    public boolean hideChangeDate(final LocalDate date) {
-        return getCalendarName() != null;
+    public Collection<String> choices1ChangeDate() {
+        final Collection<String> values = calendarNameService.calendarNamesFor(getNotable());
+        final List<String> valuesCopy = Lists.newArrayList(values);
+        final List<String> currentCalendarsInUse = Lists.transform(
+                noteRepository.findByNotable(getNotable()),
+                Note::getCalendarName);
+        valuesCopy.removeAll(currentCalendarsInUse);
+        valuesCopy.add(getCalendarName()); // add back in current for this note's notable
+        return valuesCopy;
     }
 
     public LocalDate default0ChangeDate() {
         return getDate();
     }
 
-    public String validateChangeDate(final LocalDate date) {
-        if(Strings.isNullOrEmpty(getNotes()) && date == null) {
-            return "Must specify either note text or a date (or both).";
+    public String default1ChangeDate() {
+        return getCalendarName();
+    }
+
+    public String validateChangeDate(final LocalDate date, final String calendarName) {
+        if(Strings.isNullOrEmpty(getNotes()) && (date == null || calendarName == null)) {
+            return "Must specify either note text or a date/calendar (or both).";
         }
         return null;
     }
 
     //endregion
 
-
-
-    //region > notes (property)
-
-    public static class NotesDomainEvent extends PropertyDomainEvent<String> {
-        public NotesDomainEvent(final Note source, final Identifier identifier) {
+    //region > remove (action)
+    public static class RemoveEvent extends ActionDomainEvent {
+        public RemoveEvent(final Note source, final Identifier identifier) {
             super(source, identifier);
         }
-        public NotesDomainEvent(final Note source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
+
+        public RemoveEvent(final Note source, final Identifier identifier, final Object... arguments) {
+            super(source, identifier, arguments);
         }
-    }
 
-    private String notes;
-
-    @javax.jdo.annotations.Column(allowsNull = "true", length = NoteModule.JdoColumnLength.NOTES)
-    @Property(
-            domainEvent = NotesDomainEvent.class
-    )
-    @PropertyLayout(
-            multiLine = NoteModule.JdoColumnLength.NUMBER_OF_LINES
-    )
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(final String description) {
-        this.notes = description;
-    }
-    //endregion
-
-    //region > changeNotes (action)
-
-    public static class ChangeNotesDomainEvent extends ActionDomainEvent {
-        public ChangeNotesDomainEvent(final Note source, final Identifier identifier, final Object... args) {
-            super(source, identifier, args);
+        public RemoveEvent(
+                final Note source,
+                final Identifier identifier,
+                final List<Object> arguments) {
+            super(source, identifier, arguments);
         }
     }
 
     @Action(
-            domainEvent = ChangeNotesDomainEvent.class,
+            domainEvent = RemoveEvent.class,
             semantics = SemanticsOf.IDEMPOTENT
     )
-    public Note changeNotes(
-            @ParameterLayout(named = "Notes", multiLine = NoteModule.JdoColumnLength.NUMBER_OF_LINES)
-            final String notes) {
-        setNotes(notes);
-
-        return this;
+    public Notable remove(
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "Are you sure?")
+            final Boolean areYouSure
+    ) {
+        final Notable notable = getNotable();
+        noteRepository.remove(this);
+        return notable;
     }
 
-    public String default0ChangeNotes() {
-        return getNotes();
+    public String validate0Remove(final Boolean areYouSure) {
+        return areYouSure != null && areYouSure
+                ? null
+                : "Check the 'are you sure' to continue";
     }
 
-    public String validateChangeNotes(final String notes) {
-        if(Strings.isNullOrEmpty(notes) && getDate() == null) {
-            return "Must specify either note text or a date (or both).";
-        }
-        return null;
-    }
-    
     //endregion
 
     //region > CalendarEventable impl
 
     @Programmatic
     public CalendarEvent toCalendarEvent() {
-        final String eventTitle = container.titleOf(getNotable()) + " " + getCalendarName();
+        if(getDate() == null || getCalendarName() == null) {
+            return null;
+        }
+        final String eventTitle = container.titleOf(getNotable()) + ": " + getNotesAbbreviated();
         return new CalendarEvent(getDate().toDateTimeAtStartOfDay(), getCalendarName(), eventTitle);
     }
     //endregion
@@ -448,7 +477,7 @@ public class Note implements CalendarEventable, Comparable<Note> {
     //region > injected
 
     @Inject
-    private CalendarNameRepository calendarNameRepository;
+    private CalendarNameService calendarNameService;
     @Inject
     NoteRepository noteRepository;
     @Inject

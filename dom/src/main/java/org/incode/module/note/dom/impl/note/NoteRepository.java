@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.note.dom.note;
+package org.incode.module.note.dom.impl.note;
 
 import java.util.List;
 
@@ -33,9 +33,9 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 
-import org.incode.module.note.dom.notable.Notable;
-import org.incode.module.note.dom.notablelink.NotableLink;
-import org.incode.module.note.dom.notablelink.NotableLinkRepository;
+import org.incode.module.note.dom.api.notable.Notable;
+import org.incode.module.note.dom.impl.notablelink.NotableLink;
+import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,

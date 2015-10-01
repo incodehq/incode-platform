@@ -1,9 +1,9 @@
 /*
- *
- *  Copyright 2012-2014 Eurocommercial Properties NV
- *
- *
- *  Licensed under the Apache License, Version 2.0 (the
+ *  Licensed to the Apache Software Foundation (ASF) under one
+ *  or more contributor license agreements.  See the NOTICE file
+ *  distributed with this work for additional information
+ *  regarding copyright ownership.  The ASF licenses this file
+ *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
  *
@@ -16,22 +16,8 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.note.dom.note;
+package org.incode.module.note.app;
 
-import java.util.Collection;
-
-/**
- * Optional SPI service
- */
-public interface CalendarNameRepository {
-
-    /**
-     * Return the list of objects to act as calendars for the provided object.
-     *
-     * <p>
-     *     May return null if necessary.
-     * </p>
-     */
-    Collection<String> calendarNamesFor(Object notable);
-
+public final class NoteAppModule {
+    private NoteAppModule(){}
 }

@@ -3,8 +3,8 @@
 
 image:https://travis-ci.org/isisaddons/isis-module-event.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-event]
 
-This module, intended for use with link:http://isis.apache.org[Apache Isis], provides the ability to attach event objects
-to domain objects.
+This module, intended for use with link:http://isis.apache.org[Apache Isis], provides the ability to attach notes
+to arbitrary domain objects.
 
 Each event implements the `CalendarEventable` interface (from link:http://github.com/isisaddons/isis-wicket-fullcalendar2[Fullcalendar2 wicket component]) meaning that they can be rendered in a calendar view.
 

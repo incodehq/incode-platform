@@ -1,4 +1,4 @@
-package org.incode.module.note.dom.note;
+package org.incode.module.note.dom.impl.note;
 
 import org.junit.Test;
 

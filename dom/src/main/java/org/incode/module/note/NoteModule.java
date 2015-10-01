@@ -29,12 +29,20 @@ public final class NoteModule {
 
         public static final int NOTES = 4000;
         public static final int CALENDAR_NAME = 254;
-        public static final int NUMBER_OF_LINES = 20;
+    }
+
+    public static class MultiLine {
+
+        private MultiLine(){}
+
+        public static final int NOTES = 20;
     }
 
     //endregion
 
+    //region > constructor
     private NoteModule(){}
+    //endregion
 
     //region > event classes
 

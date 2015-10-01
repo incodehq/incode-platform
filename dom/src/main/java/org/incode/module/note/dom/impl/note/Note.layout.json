@@ -5,6 +5,8 @@
       "memberGroups": {
         "Notes": {
           "members": {
+            "notesAbbreviated": {
+            },
             "notes": {
               "propertyLayout": {
                 "labelPosition": "NONE"
@@ -33,11 +35,6 @@
           "members": {
             "date": {
               "actions": {
-                "changeDate": {
-                  "actionLayout": {
-                    "named": "Change"
-                  }
-                }
               }
             },
             "calendarName": {
@@ -45,7 +42,7 @@
                 "named": "Calendar"
               },
               "actions": {
-                "changeDateOnCalendar": {
+                "changeDate": {
                   "actionLayout": {
                     "named": "Change"
                   }

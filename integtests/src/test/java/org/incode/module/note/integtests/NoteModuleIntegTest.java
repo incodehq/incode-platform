@@ -16,20 +16,67 @@
  */
 package org.incode.module.note.integtests;
 
-import org.junit.BeforeClass;
+import javax.inject.Inject;
 
+import org.junit.BeforeClass;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
+
+import org.apache.isis.applib.fixturescripts.FixtureScripts;
+import org.apache.isis.applib.services.eventbus.EventBusService;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract;
+import org.apache.isis.core.integtestsupport.IsisSystemForTest;
 import org.apache.isis.core.integtestsupport.scenarios.ScenarioExecutionForIntegration;
+import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegTests;
+
+import org.isisaddons.module.fakedata.FakeDataModule;
+import org.isisaddons.module.fakedata.dom.FakeDataService;
+
+import org.incode.module.note.app.NoteModuleAppManifest;
+import org.incode.module.note.dom.impl.note.NoteContributionsOnNotable;
+import org.incode.module.note.fixture.dom.calendarname.CalendarNameRepositoryForDemo;
+import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObjectMenu;
 
 public abstract class NoteModuleIntegTest extends IntegrationTestAbstract {
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+
+    @Inject
+    protected FixtureScripts fixtureScripts;
+
+    @Inject
+    protected FakeDataService fakeData;
+
+    @Inject
+    protected EventBusService eventBusService;
+
+    @Inject
+    protected CalendarNameRepositoryForDemo calendarNameRepository;
+
+    @Inject
+    protected NoteDemoObjectMenu noteDemoObjectMenu;
+
+    @Inject
+    protected NoteContributionsOnNotable noteContributionsOnNotable;
 
     @BeforeClass
     public static void initClass() {
         org.apache.log4j.PropertyConfigurator.configure("logging.properties");
-        NoteModuleSystemInitializer.initIsft();
-        
+
+        IsisSystemForTest isft = IsisSystemForTest.getElseNull();
+        if(isft == null) {
+            isft = new IsisSystemForTest.Builder()
+                    .withLoggingAt(org.apache.log4j.Level.INFO)
+                    .with(new NoteModuleAppManifest()
+                            .withModules(NoteModuleIntegTest.class, FakeDataModule.class))
+                    .with(new IsisConfigurationForJdoIntegTests())
+                    .build()
+                    .setUpSystem();
+            IsisSystemForTest.set(isft);
+        }
+
         // instantiating will install onto ThreadLocal
         new ScenarioExecutionForIntegration();
     }
-
 }
