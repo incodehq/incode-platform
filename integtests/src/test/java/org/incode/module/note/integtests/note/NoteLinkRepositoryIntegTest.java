@@ -32,7 +32,7 @@ import org.incode.module.note.integtests.NoteModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class NoteLinkRepositoryTest extends NoteModuleIntegTest {
+public class NoteLinkRepositoryIntegTest extends NoteModuleIntegTest {
 
     Notable notable1;
     Notable notable2;
@@ -47,7 +47,7 @@ public class NoteLinkRepositoryTest extends NoteModuleIntegTest {
         calendarNameRepository.setCalendarNames(NoteDemoObject.class, "BLUE", "GREEN", "RED");
     }
 
-    public static class FindByNotableTest extends NoteLinkRepositoryTest {
+    public static class FindByNotableIntegTest extends NoteLinkRepositoryIntegTest {
 
         @Test
         public void happyCase() throws Exception {
@@ -73,7 +73,7 @@ public class NoteLinkRepositoryTest extends NoteModuleIntegTest {
         }
     }
 
-    public static class FindByNotableAndCalendarNameTest extends NoteLinkRepositoryTest {
+    public static class FindByNotableAndCalendarNameIntegTest extends NoteLinkRepositoryIntegTest {
 
         @Test
         public void happyCase() throws Exception {
@@ -106,7 +106,7 @@ public class NoteLinkRepositoryTest extends NoteModuleIntegTest {
         }
     }
 
-    public static class FindByNotableInDateRangeTest extends NoteLinkRepositoryTest {
+    public static class FindByNotableInDateRangeIntegTest extends NoteLinkRepositoryIntegTest {
 
         private LocalDate someDate;
 
@@ -159,7 +159,7 @@ public class NoteLinkRepositoryTest extends NoteModuleIntegTest {
         }
     }
 
-    public static class FindInDateRangeTest extends NoteLinkRepositoryTest {
+    public static class FindInDateRangeIntegTest extends NoteLinkRepositoryIntegTest {
 
         private LocalDate someDate;
 

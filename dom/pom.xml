@@ -64,6 +64,7 @@ Copyright 2014~2015 Dan Haywood
         <isis-wicket-fullcalendar2-cpt.version>1.10.0-SNAPSHOT</isis-wicket-fullcalendar2-cpt.version>
 
         <assertj-core.version>2.0.0</assertj-core.version>
+        <danhaywood-java-assertjext.version>0.1.0</danhaywood-java-assertjext.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -252,6 +253,12 @@ Copyright 2014~2015 Dan Haywood
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>${assertj-core.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.danhaywood.java</groupId>
+            <artifactId>danhaywood-java-assertjext</artifactId>
+            <version>${danhaywood-java-assertjext.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

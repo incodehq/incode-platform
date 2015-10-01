@@ -94,6 +94,12 @@ Copyright 2014~2015 Dan Haywood
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.danhaywood.java</groupId>
+            <artifactId>danhaywood-java-assertjext</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
 </project>

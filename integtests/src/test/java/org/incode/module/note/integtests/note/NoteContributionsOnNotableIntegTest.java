@@ -29,9 +29,11 @@ import org.junit.Test;
 import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.services.wrapper.DisabledException;
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
 import org.incode.module.note.dom.api.notable.Notable;
+import org.incode.module.note.dom.impl.notablelink.NotableLink;
 import org.incode.module.note.dom.impl.note.Note;
 import org.incode.module.note.dom.impl.note.NoteContributionsOnNotable;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
@@ -40,7 +42,7 @@ import org.incode.module.note.integtests.NoteModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class NoteContributionsOnNotableTest extends NoteModuleIntegTest {
+public class NoteContributionsOnNotableIntegTest extends NoteModuleIntegTest {
 
     Notable notable;
 
@@ -56,9 +58,9 @@ public class NoteContributionsOnNotableTest extends NoteModuleIntegTest {
         return fakeData.collections().anyOf(calendarNameRepository.calendarNamesFor(notable).toArray(new String[]{}));
     }
 
-    public static class AddNoteTest extends NoteContributionsOnNotableTest {
+    public static class AddNoteIntegTest extends NoteContributionsOnNotableIntegTest {
 
-        public static class ActionImplementationTest extends AddNoteTest {
+        public static class ActionImplementationIntegTest extends AddNoteIntegTest {
 
             @Test
             public void can_add_note_with_date_and_calendar_but_no_text() throws Exception {
@@ -142,7 +144,7 @@ public class NoteContributionsOnNotableTest extends NoteModuleIntegTest {
 
         }
 
-        public static class ChoicesTests extends AddNoteTest {
+        public static class ChoicesTests extends AddNoteIntegTest {
 
             @Test
             public void filters_out_any_calendars_already_in_use() throws Exception {
@@ -183,7 +185,7 @@ public class NoteContributionsOnNotableTest extends NoteModuleIntegTest {
 
         }
 
-        public static class ValidateTests extends AddNoteTest {
+        public static class ValidateTests extends AddNoteIntegTest {
 
             @Test
             public void cannot_add_to_any_given_calendar_more_than_once() throws Exception {
@@ -244,7 +246,7 @@ public class NoteContributionsOnNotableTest extends NoteModuleIntegTest {
             }
         }
 
-        public static class DomainEventTests extends AddNoteTest {
+        public static class DomainEventTests extends AddNoteIntegTest {
 
             @DomainService(nature = NatureOfService.DOMAIN)
             public static class Subscriber extends AbstractSubscriber {
@@ -267,10 +269,173 @@ public class NoteContributionsOnNotableTest extends NoteModuleIntegTest {
                 assertThat(wrap(noteContributionsOnNotable).notes(notable)).isEmpty();
 
                 // when
-                wrap(noteContributionsOnNotable).addNote(notable, "demo", null, null);
+                final String text = fakeData.lorem().paragraph();
+                final LocalDate date = fakeData.jodaLocalDates().any();
+                final String calendarName = anyCalendarNameFor(notable);
+                wrap(noteContributionsOnNotable).addNote(notable, text, date, calendarName);
 
                 // then
                 assertThat(subscriber.ev).isNotNull();
+                assertThat(subscriber.ev.getSource()).isSameAs(noteContributionsOnNotable);
+                assertThat(subscriber.ev.getArguments().get(0)).isSameAs(notable);
+                assertThat(subscriber.ev.getArguments().get(1)).isEqualTo(text);
+                assertThat(subscriber.ev.getArguments().get(2)).isEqualTo(date);
+                assertThat(subscriber.ev.getArguments().get(3)).isEqualTo(calendarName);
+
+            }
+
+        }
+    }
+
+    public static class RemoveNoteIntegTest extends NoteContributionsOnNotableIntegTest {
+
+        public static class ActionImplementationIntegTest extends RemoveNoteIntegTest {
+
+            @Test
+            public void can_remove_note() throws Exception {
+
+                // given
+                wrap(noteContributionsOnNotable).addNote(notable, null, fakeData.jodaLocalDates().any(), "GREEN");
+                wrap(noteContributionsOnNotable).addNote(notable, null, fakeData.jodaLocalDates().any(), "BLUE");
+
+                final List<Note> noteList = wrap(noteContributionsOnNotable).notes(notable);
+                assertThat(noteList).hasSize(2);
+
+                final List<Note> notes = noteRepository.findByNotable(notable);
+                assertThat(notes).hasSize(2);
+
+                final List<NotableLink> links = notableLinkRepository.findByNotable(notable);
+                assertThat(links).hasSize(2);
+
+
+                final Note someNote = fakeData.collections().anyOf(noteList.toArray(new Note[]{}));
+
+                // when
+                wrap(noteContributionsOnNotable).removeNote(notable, someNote);
+
+                // then
+                final List<Note> noteListAfter = wrap(noteContributionsOnNotable).notes(notable);
+                assertThat(noteListAfter).hasSize(1);
+                assertThat(noteListAfter).doesNotContain(someNote);
+
+                final List<Note> notesAfter = noteRepository.findByNotable(notable);
+                assertThat(notesAfter).hasSize(1);
+
+                final List<NotableLink> linksAfter = notableLinkRepository.findByNotable(notable);
+                assertThat(linksAfter).hasSize(1);
+            }
+
+        }
+
+        public static class DisableIntegTest extends RemoveNoteIntegTest {
+
+            @Test
+            public void disabled_if_none_exist() throws Exception {
+
+                // given
+                final List<Note> noteList = wrap(noteContributionsOnNotable).notes(notable);
+                assertThat(noteList).isEmpty();
+
+                // expecting
+                expectedException.expect(DisabledException.class);
+                expectedException.expectMessage("No notes to remove");
+
+                // when
+                final Note note = null;
+                wrap(noteContributionsOnNotable).removeNote(notable, note);
+            }
+
+            @Test
+            public void enabled_if_exist() throws Exception {
+
+                // given
+                wrap(noteContributionsOnNotable).addNote(notable, null, fakeData.jodaLocalDates().any(), "GREEN");
+                final List<Note> noteList = wrap(noteContributionsOnNotable).notes(notable);
+                assertThat(noteList).isNotEmpty();
+
+                // expecting no errors
+
+                // when
+                final Note note = noteList.get(0);
+                wrap(noteContributionsOnNotable).removeNote(notable, note);
+            }
+        }
+
+        public static class ChoicesIntegTest extends RemoveNoteIntegTest {
+
+            @Test
+            public void lists_notes_as_choices() throws Exception {
+
+                // given
+                wrap(noteContributionsOnNotable).addNote(notable, null, fakeData.jodaLocalDates().any(), "GREEN");
+                wrap(noteContributionsOnNotable).addNote(notable, null, fakeData.jodaLocalDates().any(), "BLUE");
+
+                final List<Note> noteList = wrap(noteContributionsOnNotable).notes(notable);
+                assertThat(noteList).hasSize(2);
+
+                // when
+                final List<Note> noteChoices = noteContributionsOnNotable.choices1RemoveNote(notable);
+
+                // then
+                assertThat(noteList).containsAll(noteChoices);
+            }
+        }
+
+        public static class DefaultsIntegTest extends RemoveNoteIntegTest {
+
+            @Test
+            public void first_choice() throws Exception {
+
+                // given
+                wrap(noteContributionsOnNotable).addNote(notable, null, fakeData.jodaLocalDates().any(), "GREEN");
+                wrap(noteContributionsOnNotable).addNote(notable, null, fakeData.jodaLocalDates().any(), "BLUE");
+
+                final List<Note> noteChoices = noteContributionsOnNotable.choices1RemoveNote(notable);
+
+                // when
+                final Note defaultChoice = noteContributionsOnNotable.default1RemoveNote(notable);
+
+                // then
+                assertThat(defaultChoice).isSameAs(noteChoices.get(0));
+            }
+
+        }
+
+        public static class DomainEventTests extends AddNoteIntegTest {
+
+            @DomainService(nature = NatureOfService.DOMAIN)
+            public static class Subscriber extends AbstractSubscriber {
+
+                NoteContributionsOnNotable.RemoveNoteEvent ev;
+
+                @Subscribe
+                public void on(NoteContributionsOnNotable.RemoveNoteEvent ev) {
+                    this.ev = ev;
+                }
+            }
+
+            @Inject
+            Subscriber subscriber;
+
+            @Test
+            public void fires_event() throws Exception {
+
+                // given
+                wrap(noteContributionsOnNotable).addNote(notable, null, fakeData.jodaLocalDates().any(), "GREEN");
+                final List<Note> noteList = wrap(noteContributionsOnNotable).notes(notable);
+                assertThat(noteList).isNotEmpty();
+
+                // when
+                final Note note = noteList.get(0);
+
+                // when
+                wrap(noteContributionsOnNotable).removeNote(notable, note);
+
+                // then
+                assertThat(subscriber.ev).isNotNull();
+                assertThat(subscriber.ev.getSource()).isSameAs(noteContributionsOnNotable);
+                assertThat(subscriber.ev.getArguments().get(0)).isSameAs(notable);
+                assertThat(subscriber.ev.getArguments().get(1)).isSameAs(note);
             }
 
         }
