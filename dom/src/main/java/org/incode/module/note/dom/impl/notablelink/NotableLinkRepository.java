@@ -22,6 +22,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -32,8 +34,8 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 
 import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 
-import org.incode.module.note.dom.impl.note.Note;
 import org.incode.module.note.dom.api.notable.Notable;
+import org.incode.module.note.dom.impl.note.Note;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
@@ -58,7 +60,7 @@ public class NotableLinkRepository {
     }
     //endregion
 
-    //region > findByNotable (programmatic)
+    //region > findByNote (programmatic)
     @Programmatic
     public NotableLink findByNote(final Note note) {
         return container.firstMatch(
@@ -68,9 +70,9 @@ public class NotableLinkRepository {
     }
     //endregion
 
-    //region > findBySource (programmatic)
+    //region > findByNotable (programmatic)
     @Programmatic
-    public List<NotableLink> findBySource(final Notable notable) {
+    public List<NotableLink> findByNotable(final Notable notable) {
         if(notable == null) {
             return null;
         }
@@ -87,6 +89,10 @@ public class NotableLinkRepository {
     //endregion
 
     //region > findByNotableAndCalendarName (programmatic)
+
+    /**
+     * Each notable can only have one note per calendar, thus this method returns a single object rather than a list.
+     */
     @Programmatic
     public NotableLink findByNotableAndCalendarName(
             final Notable notable,
@@ -110,6 +116,35 @@ public class NotableLinkRepository {
     }
     //endregion
 
+    //region > findByNotableInDateRange (programmatic)
+    @Programmatic
+    public List<NotableLink> findByNotableInDateRange(
+            final Notable notable,
+            final LocalDate startDate,
+            final LocalDate endDate) {
+        if(notable == null) {
+            return null;
+        }
+        final Bookmark bookmark = bookmarkService.bookmarkFor(notable);
+        if(bookmark == null) {
+            return null;
+        }
+        if(startDate == null) {
+            return null;
+        }
+        if(endDate == null) {
+            return null;
+        }
+        return container.allMatches(
+                new QueryDefault<>(NotableLink.class,
+                        "findByNotableInDateRange",
+                        "notableObjectType", bookmark.getObjectType(),
+                        "notableIdentifier", bookmark.getIdentifier(),
+                        "startDate", startDate,
+                        "endDate", endDate));
+    }
+    //endregion
+
     //region > createLink (programmatic)
     @Programmatic
     public NotableLink createLink(final Note note, final Notable notable) {
@@ -122,11 +157,13 @@ public class NotableLinkRepository {
 
     //endregion
 
+    //region > updateLink
     @Programmatic
     public void updateLink(final Note note) {
         final NotableLink link = findByNote(note);
         sync(note, link);
     }
+    //endregion
 
     //region > helpers (sync)
 
@@ -141,7 +178,6 @@ public class NotableLinkRepository {
         link.setCalendarName(note.getCalendarName());
     }
     //endregion
-
 
     //region > injected services
 

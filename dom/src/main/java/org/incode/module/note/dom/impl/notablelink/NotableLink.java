@@ -43,8 +43,8 @@ import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.Calendarable;
 
 import org.incode.module.note.NoteModule;
-import org.incode.module.note.dom.impl.calendarname.CalendarNameService;
 import org.incode.module.note.dom.api.notable.Notable;
+import org.incode.module.note.dom.impl.calendarname.CalendarNameService;
 import org.incode.module.note.dom.impl.note.Note;
 
 @javax.jdo.annotations.PersistenceCapable(
@@ -80,8 +80,8 @@ import org.incode.module.note.dom.impl.note.Note;
                         + "FROM org.incode.module.note.dom.impl.notablelink.NotableLink "
                         + "WHERE notableObjectType == :notableObjectType "
                         + "   && notableIdentifier == :notableIdentifier "
-                        + "   && date >= :rangeStartDate "
-                        + "   && date <= :rangeEndDate")
+                        + "   && date >= :startDate "
+                        + "   && date <= :endDate")
 })
 @javax.jdo.annotations.Indices({
         @javax.jdo.annotations.Index(
@@ -271,6 +271,16 @@ public abstract class NotableLink
     }
     //endregion
 
+    //region > notable (derived property)
+    /**
+     * Simply returns the {@link #getPolymorphicReference()}.
+     */
+    @Programmatic
+    public Notable getNotable() {
+        return getPolymorphicReference();
+    }
+    //endregion
+    
     //region > date (property)
 
     public static class DateDomainEvent extends PropertyDomainEvent<LocalDate> {
@@ -304,7 +314,6 @@ public abstract class NotableLink
     }
 
     //endregion
-
 
     //region > calendarName (property)
 
@@ -365,28 +374,22 @@ public abstract class NotableLink
 
     //region > Functions
     public static class Functions {
-        public static Function<NotableLink, Note> event() {
-            return event(Note.class);
+        public static Function<NotableLink, Note> note() {
+            return note(Note.class);
         }
-        public static <T extends Note> Function<NotableLink, T> event(Class<T> cls) {
-            return new Function<NotableLink, T>() {
-                @Override
-                public T apply(final NotableLink input) {
-                    return (T)input.getNote();
-                }
-            };
+        public static <T extends Note> Function<NotableLink, T> note(Class<T> cls) {
+            return input -> input != null
+                                ? (T)input.getNote()
+                                : null;
         }
-        public static Function<NotableLink, Notable> owner() {
-            return source(Notable.class);
+        public static Function<NotableLink, Notable> notable() {
+            return notable(Notable.class);
         }
 
-        public static <T extends Notable> Function<NotableLink, T> source(final Class<T> cls) {
-            return new Function<NotableLink, T>() {
-                @Override
-                public T apply(final NotableLink input) {
-                    return (T)input.getPolymorphicReference();
-                }
-            };
+        public static <T extends Notable> Function<NotableLink, T> notable(final Class<T> cls) {
+            return input -> input != null
+                                ? (T)input.getNotable()
+                                : null;
         }
     }
     //endregion

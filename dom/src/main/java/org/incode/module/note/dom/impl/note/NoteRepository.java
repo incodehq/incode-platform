@@ -46,9 +46,9 @@ public class NoteRepository {
     //region > findByNotable (programmatic)
     @Programmatic
     public List<Note> findByNotable(final Notable notable) {
-        final List<NotableLink> links = notableLinkRepository.findBySource(notable);
+        final List<NotableLink> links = notableLinkRepository.findByNotable(notable);
         return Lists.newArrayList(
-                Iterables.transform(links, NotableLink.Functions.event()));
+                Iterables.transform(links, NotableLink.Functions.note()));
     }
     //endregion
 
@@ -57,8 +57,35 @@ public class NoteRepository {
     public Note findByNotableAndCalendarName(
             final Notable notable,
             final String calendarName) {
-        final NotableLink link = notableLinkRepository.findByNotableAndCalendarName(notable, calendarName);
-        return link != null? link.getNote(): null;
+        final NotableLink link = notableLinkRepository
+                .findByNotableAndCalendarName(notable, calendarName);
+        return NotableLink.Functions.note().apply(link);
+    }
+    //endregion
+
+    //region > findInDateRange (programmatic)
+    @Programmatic
+    public List<Note> findInDateRange(
+            final LocalDate startDate,
+            final LocalDate endDate) {
+        return container.allMatches(
+                new QueryDefault<>(
+                        Note.class,
+                        "findInDateRange",
+                        "startDate", startDate,
+                        "endDate", endDate));
+    }
+    //endregion
+
+    //region > findByNotableInDateRange (programmatic)
+    @Programmatic
+    public Iterable<Note> findByNotableInDateRange(
+            final Notable notable,
+            final LocalDate startDate,
+            final LocalDate endDate) {
+        final List<NotableLink> link = notableLinkRepository
+                .findByNotableInDateRange(notable, startDate, endDate);
+        return Iterables.transform(link, NotableLink.Functions.note());
     }
     //endregion
 
@@ -88,19 +115,6 @@ public class NoteRepository {
         container.flush();
         container.removeIfNotAlready(note);
         container.flush();
-    }
-    //endregion
-
-    //region > findNotesInDateRange (programmatic)
-    @Programmatic
-    public List<Note> findNotesInDateRange(
-            final LocalDate rangeStartDate, final LocalDate rangeEndDate) {
-        return container.allMatches(
-                new QueryDefault<>(
-                        Note.class,
-                        "findInDateRange",
-                        "rangeStartDate", rangeStartDate,
-                        "rangeEndDate", rangeEndDate));
     }
     //endregion
 

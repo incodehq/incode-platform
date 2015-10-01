@@ -64,14 +64,14 @@ public class NoteContributionsOnNotableTest extends NoteModuleIntegTest {
             public void can_add_note_with_date_and_calendar_but_no_text() throws Exception {
 
                 // given
-                assertThat(noteContributionsOnNotable.notes(notable)).isEmpty();
+                assertThat(wrap(noteContributionsOnNotable).notes(notable)).isEmpty();
 
                 // when
                 final LocalDate date = fakeData.jodaLocalDates().any();
                 wrap(noteContributionsOnNotable).addNote(notable, null, date, anyCalendarNameFor(notable));
 
                 // then
-                final List<Note> notes = noteContributionsOnNotable.notes(notable);
+                final List<Note> notes = wrap(noteContributionsOnNotable).notes(notable);
                 assertThat(notes).hasSize(1);
             }
 
@@ -79,14 +79,14 @@ public class NoteContributionsOnNotableTest extends NoteModuleIntegTest {
             public void can_add_to_two_different_calendars() throws Exception {
 
                 // given
-                assertThat(noteContributionsOnNotable.notes(notable)).isEmpty();
+                assertThat(wrap(noteContributionsOnNotable).notes(notable)).isEmpty();
                 wrap(noteContributionsOnNotable).addNote(notable, "", fakeData.jodaLocalDates().any(), "BLUE");
 
                 // when
                 wrap(noteContributionsOnNotable).addNote(notable, "", fakeData.jodaLocalDates().any(), "GREEN");
 
                 // then
-                assertThat(noteContributionsOnNotable.notes(notable)).hasSize(2);
+                assertThat(wrap(noteContributionsOnNotable).notes(notable)).hasSize(2);
             }
 
             @Test
@@ -100,7 +100,7 @@ public class NoteContributionsOnNotableTest extends NoteModuleIntegTest {
                 wrap(noteContributionsOnNotable).addNote(notable, noteText, null, null);
 
                 // then
-                final List<Note> notes = noteContributionsOnNotable.notes(notable);
+                final List<Note> notes = wrap(noteContributionsOnNotable).notes(notable);
                 assertThat(notes).hasSize(1);
 
                 assertThat(notes.get(0).getNotes()).isEqualTo(noteText);
@@ -111,18 +111,33 @@ public class NoteContributionsOnNotableTest extends NoteModuleIntegTest {
 
 
                 // given
-                assertThat(noteContributionsOnNotable.notes(notable)).isEmpty();
-                noteContributionsOnNotable.addNote(notable, "", fakeData.jodaLocalDates().any(), "BLUE");
-                noteContributionsOnNotable.addNote(notable, "", fakeData.jodaLocalDates().any(), "GREEN");
+                assertThat(wrap(noteContributionsOnNotable).notes(notable)).isEmpty();
+                wrap(noteContributionsOnNotable).addNote(notable, "", fakeData.jodaLocalDates().any(), "BLUE");
+                wrap(noteContributionsOnNotable).addNote(notable, "", fakeData.jodaLocalDates().any(), "GREEN");
 
                 // when
-                noteContributionsOnNotable.addNote(notable, fakeData.lorem().paragraph(), null, null);
-                noteContributionsOnNotable.addNote(notable, fakeData.lorem().paragraph(), null, null);
-                noteContributionsOnNotable.addNote(notable, fakeData.lorem().paragraph(), null, null);
+                wrap(noteContributionsOnNotable).addNote(notable, fakeData.lorem().paragraph(), null, null);
+                wrap(noteContributionsOnNotable).addNote(notable, fakeData.lorem().paragraph(), null, null);
+                wrap(noteContributionsOnNotable).addNote(notable, fakeData.lorem().paragraph(), null, null);
 
                 // then
-                final List<Note> notes = noteContributionsOnNotable.notes(notable);
+                final List<Note> notes = wrap(noteContributionsOnNotable).notes(notable);
                 assertThat(notes).hasSize(5);
+            }
+
+            @Test
+            public void cannot_add_to_calendar_more_than_once() throws Exception {
+
+                // given
+                assertThat(wrap(noteContributionsOnNotable).notes(notable)).isEmpty();
+                wrap(noteContributionsOnNotable).addNote(notable, "", fakeData.jodaLocalDates().any(), "BLUE");
+
+                // expect
+                expectedException.expect(InvalidException.class);
+                expectedException.expectMessage("This object already has a note on calendar 'BLUE'");
+
+                // when
+                wrap(noteContributionsOnNotable).addNote(notable, "", fakeData.jodaLocalDates().any(), "BLUE");
             }
 
         }
@@ -133,9 +148,9 @@ public class NoteContributionsOnNotableTest extends NoteModuleIntegTest {
             public void filters_out_any_calendars_already_in_use() throws Exception {
 
                 // given
-                assertThat(noteContributionsOnNotable.notes(notable)).isEmpty();
-                noteContributionsOnNotable.addNote(notable, "", fakeData.jodaLocalDates().any(), "BLUE");
-                noteContributionsOnNotable.addNote(notable, "", fakeData.jodaLocalDates().any(), "GREEN");
+                assertThat(wrap(noteContributionsOnNotable).notes(notable)).isEmpty();
+                wrap(noteContributionsOnNotable).addNote(notable, "", fakeData.jodaLocalDates().any(), "BLUE");
+                wrap(noteContributionsOnNotable).addNote(notable, "", fakeData.jodaLocalDates().any(), "GREEN");
 
                 // when
                 final List<String> calendarNames = noteContributionsOnNotable.choices3AddNote(notable);
@@ -149,13 +164,13 @@ public class NoteContributionsOnNotableTest extends NoteModuleIntegTest {
             public void notes_without_a_calendar_are_effectively_ignored() throws Exception {
 
                 // given
-                assertThat(noteContributionsOnNotable.notes(notable)).isEmpty();
-                noteContributionsOnNotable.addNote(notable, "", fakeData.jodaLocalDates().any(), "BLUE");
-                noteContributionsOnNotable.addNote(notable, "", fakeData.jodaLocalDates().any(), "GREEN");
+                assertThat(wrap(noteContributionsOnNotable).notes(notable)).isEmpty();
+                wrap(noteContributionsOnNotable).addNote(notable, "", fakeData.jodaLocalDates().any(), "BLUE");
+                wrap(noteContributionsOnNotable).addNote(notable, "", fakeData.jodaLocalDates().any(), "GREEN");
 
-                noteContributionsOnNotable.addNote(notable, fakeData.lorem().paragraph(), null, null);
-                noteContributionsOnNotable.addNote(notable, fakeData.lorem().paragraph(), null, null);
-                noteContributionsOnNotable.addNote(notable, fakeData.lorem().paragraph(), null, null);
+                wrap(noteContributionsOnNotable).addNote(notable, fakeData.lorem().paragraph(), null, null);
+                wrap(noteContributionsOnNotable).addNote(notable, fakeData.lorem().paragraph(), null, null);
+                wrap(noteContributionsOnNotable).addNote(notable, fakeData.lorem().paragraph(), null, null);
 
                 // when
                 final List<String> calendarNames = noteContributionsOnNotable.choices3AddNote(notable);
@@ -174,9 +189,9 @@ public class NoteContributionsOnNotableTest extends NoteModuleIntegTest {
             public void cannot_add_to_any_given_calendar_more_than_once() throws Exception {
 
                 // given
-                assertThat(noteContributionsOnNotable.notes(notable)).isEmpty();
-                noteContributionsOnNotable.addNote(notable, "", fakeData.jodaLocalDates().any(), "BLUE");
-                noteContributionsOnNotable.addNote(notable, "", fakeData.jodaLocalDates().any(), "GREEN");
+                assertThat(wrap(noteContributionsOnNotable).notes(notable)).isEmpty();
+                wrap(noteContributionsOnNotable).addNote(notable, "", fakeData.jodaLocalDates().any(), "BLUE");
+                wrap(noteContributionsOnNotable).addNote(notable, "", fakeData.jodaLocalDates().any(), "GREEN");
 
                 // expect
                 expectedException.expect(InvalidException.class);
@@ -190,7 +205,7 @@ public class NoteContributionsOnNotableTest extends NoteModuleIntegTest {
             public void cannot_add_note_with_a_date_but_no_calendar() throws Exception {
 
                 // given
-                assertThat(noteContributionsOnNotable.notes(notable)).isEmpty();
+                assertThat(wrap(noteContributionsOnNotable).notes(notable)).isEmpty();
 
                 // expect
                 expectedException.expect(InvalidException.class);
@@ -204,7 +219,7 @@ public class NoteContributionsOnNotableTest extends NoteModuleIntegTest {
             public void cannot_add_note_with_a_calendar_but_no_date() throws Exception {
 
                 // given
-                assertThat(noteContributionsOnNotable.notes(notable)).isEmpty();
+                assertThat(wrap(noteContributionsOnNotable).notes(notable)).isEmpty();
 
                 // expect
                 expectedException.expect(InvalidException.class);
@@ -218,7 +233,7 @@ public class NoteContributionsOnNotableTest extends NoteModuleIntegTest {
             public void cannot_add_note_without_text_and_without_date() throws Exception {
 
                 // given
-                assertThat(noteContributionsOnNotable.notes(notable)).isEmpty();
+                assertThat(wrap(noteContributionsOnNotable).notes(notable)).isEmpty();
 
                 // expect
                 expectedException.expect(InvalidException.class);
@@ -249,7 +264,7 @@ public class NoteContributionsOnNotableTest extends NoteModuleIntegTest {
             public void fires_event() throws Exception {
 
                 // given
-                assertThat(noteContributionsOnNotable.notes(notable)).isEmpty();
+                assertThat(wrap(noteContributionsOnNotable).notes(notable)).isEmpty();
 
                 // when
                 wrap(noteContributionsOnNotable).addNote(notable, "demo", null, null);
@@ -260,4 +275,5 @@ public class NoteContributionsOnNotableTest extends NoteModuleIntegTest {
 
         }
     }
+
 }

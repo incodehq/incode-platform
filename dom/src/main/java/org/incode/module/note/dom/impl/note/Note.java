@@ -58,8 +58,8 @@ import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
                 name = "findInDateRange", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.module.note.dom.impl.note.Note "
-                        + "WHERE date >= :rangeStartDate "
-                        + "   && date <= :rangeEndDate")
+                        + "WHERE date >= :startDate "
+                        + "   && date <= :endDate")
 })
 @DomainObject(editing = Editing.DISABLED)
 public class Note implements CalendarEventable, Comparable<Note> {
@@ -447,15 +447,8 @@ public class Note implements CalendarEventable, Comparable<Note> {
     //region > Functions
 
     public final static class Functions {
-        private Functions() {
-        }
-
-        public final static Function<Note, CalendarEvent> TO_CALENDAR_EVENT = new Function<Note, CalendarEvent>() {
-            @Override
-            public CalendarEvent apply(final Note input) {
-                return input.toCalendarEvent();
-            }
-        };
+        private Functions() {}
+        public final static Function<Note, CalendarEvent> TO_CALENDAR_EVENT = input -> input.toCalendarEvent();
         public final static Function<Note, String> GET_CALENDAR_NAME = input -> input.getCalendarName();
     }
     //endregion

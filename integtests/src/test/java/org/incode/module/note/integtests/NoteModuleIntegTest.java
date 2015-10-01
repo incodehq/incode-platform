@@ -16,7 +16,11 @@
  */
 package org.incode.module.note.integtests;
 
+import java.util.List;
+
 import javax.inject.Inject;
+
+import com.google.common.collect.Lists;
 
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -33,7 +37,9 @@ import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
 import org.incode.module.note.app.NoteModuleAppManifest;
+import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
 import org.incode.module.note.dom.impl.note.NoteContributionsOnNotable;
+import org.incode.module.note.dom.impl.note.NoteRepository;
 import org.incode.module.note.fixture.dom.calendarname.CalendarNameRepositoryForDemo;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObjectMenu;
 
@@ -58,7 +64,17 @@ public abstract class NoteModuleIntegTest extends IntegrationTestAbstract {
     protected NoteDemoObjectMenu noteDemoObjectMenu;
 
     @Inject
+    protected NoteRepository noteRepository;
+
+    @Inject
+    protected NotableLinkRepository notableLinkRepository;
+
+    @Inject
     protected NoteContributionsOnNotable noteContributionsOnNotable;
+
+    protected static <T> List<T> asList(final Iterable<T> iterable) {
+        return Lists.newArrayList(iterable);
+    }
 
     @BeforeClass
     public static void initClass() {

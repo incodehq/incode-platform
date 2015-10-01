@@ -55,24 +55,6 @@ language governing permissions and limitations under the License.
                 <artifactId>maven-jetty-plugin</artifactId>
             </plugin>
 
-            <!-- mvn package -->
-            <plugin>
-                <groupId>org.simplericity.jettyconsole</groupId>
-                <artifactId>jetty-console-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>createconsole</goal>
-                        </goals>
-                        <configuration>
-                            <backgroundImage>${basedir}/src/main/jettyconsole/isis-banner.png</backgroundImage>
-                            <destinationFile>${project.build.directory}/${project.build.finalName}-jetty-console.jar</destinationFile>
-                        </configuration>
-                        <phase>package</phase>
-                    </execution>
-                </executions>
-            </plugin>
-
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
@@ -86,34 +68,6 @@ language governing permissions and limitations under the License.
                     </execution>
                   </executions>
             </plugin>
-
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                    <warName>simple</warName>
-                    <archive>
-                        <manifest>
-                            <addClasspath>false</addClasspath>
-                        </manifest>
-                        <manifestEntries>
-                            <Build-Time>${maven.build.timestamp}</Build-Time>
-                            <Build-Host>${agent.name}</Build-Host>
-                            <Build-User>${user.name}</Build-User>
-                            <Build-Maven>Maven ${maven.version}</Build-Maven>
-                            <Build-Java>${java.version}</Build-Java>
-                            <Build-OS>${os.name}</Build-OS>
-                            <Build-Label>${project.version}</Build-Label>
-                        </manifestEntries>
-                    </archive>
-                    <packagingExcludes>
-                        WEB-INF/lib/isis-core-webserver*.jar,
-                        WEB-INF/lib/javax.servlet-api-*.jar,
-                        WEB-INF/lib/javax.websocket-api-*.jar,
-                        WEB-INF/lib/jetty-all-*.jar
-                    </packagingExcludes>
-                </configuration>
-            </plugin>
-
         </plugins>
         <pluginManagement>
             <plugins>
@@ -268,6 +222,76 @@ language governing permissions and limitations under the License.
     </dependencies>
 
     <profiles>
+        <profile>
+            <id>console</id>
+            <activation>
+                <property>
+                    <name>!skip.console</name>
+                </property>
+            </activation>
+            <properties>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.simplericity.jettyconsole</groupId>
+                        <artifactId>jetty-console-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>createconsole</goal>
+                                </goals>
+                                <configuration>
+                                    <backgroundImage>${basedir}/src/main/jettyconsole/isis-banner.png</backgroundImage>
+                                    <destinationFile>${project.build.directory}/${project.build.finalName}-jetty-console.jar</destinationFile>
+                                </configuration>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>war</id>
+            <activation>
+                <property>
+                    <name>!skip.war</name>
+                </property>
+            </activation>
+            <properties>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <configuration>
+                            <warName>simple</warName>
+                            <archive>
+                                <manifest>
+                                    <addClasspath>false</addClasspath>
+                                </manifest>
+                                <manifestEntries>
+                                    <Build-Time>${maven.build.timestamp}</Build-Time>
+                                    <Build-Host>${agent.name}</Build-Host>
+                                    <Build-User>${user.name}</Build-User>
+                                    <Build-Maven>Maven ${maven.version}</Build-Maven>
+                                    <Build-Java>${java.version}</Build-Java>
+                                    <Build-OS>${os.name}</Build-OS>
+                                    <Build-Label>${project.version}</Build-Label>
+                                </manifestEntries>
+                            </archive>
+                            <packagingExcludes>
+                                WEB-INF/lib/isis-core-webserver*.jar,
+                                WEB-INF/lib/javax.servlet-api-*.jar,
+                                WEB-INF/lib/javax.websocket-api-*.jar,
+                                WEB-INF/lib/jetty-all-*.jar
+                            </packagingExcludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>self-host</id>
             <build>
