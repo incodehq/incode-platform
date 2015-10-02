@@ -1,31 +1,21 @@
 package org.incode.module.note.dom.impl.note;
 
-import java.util.Collection;
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 
 import com.google.common.base.Function;
-import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
 
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.Identifier;
-import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
-import org.apache.isis.applib.annotation.Optionality;
-import org.apache.isis.applib.annotation.Parameter;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
-import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
@@ -33,8 +23,7 @@ import org.apache.isis.applib.util.TitleBuffer;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEvent;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
 
-import org.incode.module.note.NoteModule;
-import org.incode.module.note.dom.impl.calendarname.CalendarNameService;
+import org.incode.module.note.dom.NoteModule;
 import org.incode.module.note.dom.api.notable.Notable;
 import org.incode.module.note.dom.impl.notablelink.NotableLink;
 import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
@@ -67,55 +56,27 @@ public class Note implements CalendarEventable, Comparable<Note> {
     static final int NOTES_ABBREVIATED_TO = 40;
 
     //region > event classes
-    public static abstract class PropertyDomainEvent<T> extends NoteModule.PropertyDomainEvent<Note, T> {
-        public PropertyDomainEvent(final Note source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public PropertyDomainEvent(final Note source, final Identifier identifier, final T oldValue, final T newValue) {
+    public static abstract class PropertyDomainEvent<S,T> extends NoteModule.PropertyDomainEvent<S, T> {
+        public PropertyDomainEvent(final S source, final Identifier identifier, final T oldValue, final T newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
 
-    public static abstract class CollectionDomainEvent<T> extends NoteModule.CollectionDomainEvent<Note, T> {
-        public CollectionDomainEvent(final Note source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of) {
-            super(source, identifier, of);
-        }
-
-        public CollectionDomainEvent(final Note source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
+    public static abstract class CollectionDomainEvent<S,T> extends NoteModule.CollectionDomainEvent<S, T> {
+        public CollectionDomainEvent(
+                final S source,
+                final Identifier identifier,
+                final Of of, final T value) {
             super(source, identifier, of, value);
         }
     }
 
-    public static abstract class ActionDomainEvent extends NoteModule.ActionDomainEvent<Note> {
-        public ActionDomainEvent(final Note source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public ActionDomainEvent(final Note source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public ActionDomainEvent(final Note source, final Identifier identifier, final List<Object> arguments) {
+    public static abstract class ActionDomainEvent<S> extends NoteModule.ActionDomainEvent<S> {
+        public ActionDomainEvent(final S source, final Identifier identifier, final Object... arguments) {
             super(source, identifier, arguments);
         }
     }
     //endregion
-
-    //region > notable (property)
-
-    public static class NotableDomainEvent extends PropertyDomainEvent<Notable> {
-        public NotableDomainEvent(final Note source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public NotableDomainEvent(
-                final Note source,
-                final Identifier identifier,
-                final Notable oldValue,
-                final Notable newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
 
     //region > title
     public String title() {
@@ -129,6 +90,18 @@ public class Note implements CalendarEventable, Comparable<Note> {
     }
 
     //endregion
+
+    //region > notable (property)
+
+    public static class NotableDomainEvent extends PropertyDomainEvent<Note,Notable> {
+        public NotableDomainEvent(
+                final Note source,
+                final Identifier identifier,
+                final Notable oldValue,
+                final Notable newValue) {
+            super(source, identifier, oldValue, newValue);
+        }
+    }
 
     /**
      * Polymorphic association to (any implementation of) {@link Notable}.
@@ -167,11 +140,12 @@ public class Note implements CalendarEventable, Comparable<Note> {
 
     //region > notesAbbreviated (property)
 
-    public static class NotesAbbreviatedDomainEvent extends PropertyDomainEvent<String> {
-        public NotesAbbreviatedDomainEvent(final Note source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public NotesAbbreviatedDomainEvent(final Note source, final Identifier identifier, final String oldValue, final String newValue) {
+    public static class NotesAbbreviatedDomainEvent extends PropertyDomainEvent<Note,String> {
+        public NotesAbbreviatedDomainEvent(
+                final Note source,
+                final Identifier identifier,
+                final String oldValue,
+                final String newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
@@ -201,11 +175,12 @@ public class Note implements CalendarEventable, Comparable<Note> {
 
     //region > notes (property)
 
-    public static class NotesDomainEvent extends PropertyDomainEvent<String> {
-        public NotesDomainEvent(final Note source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public NotesDomainEvent(final Note source, final Identifier identifier, final String oldValue, final String newValue) {
+    public static class NotesDomainEvent extends PropertyDomainEvent<Note,String> {
+        public NotesDomainEvent(
+                final Note source,
+                final Identifier identifier,
+                final String oldValue,
+                final String newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
@@ -232,47 +207,14 @@ public class Note implements CalendarEventable, Comparable<Note> {
     }
     //endregion
 
-    //region > changeNotes (action)
-
-    public static class ChangeNotesDomainEvent extends ActionDomainEvent {
-        public ChangeNotesDomainEvent(final Note source, final Identifier identifier, final Object... args) {
-            super(source, identifier, args);
-        }
-    }
-
-    @Action(
-            domainEvent = ChangeNotesDomainEvent.class,
-            semantics = SemanticsOf.IDEMPOTENT
-    )
-    public Note changeNotes(
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Notes", multiLine = NoteModule.MultiLine.NOTES)
-            final String notes) {
-        setNotes(notes);
-
-        return this;
-    }
-
-    public String default0ChangeNotes() {
-        return getNotes();
-    }
-
-    public String validateChangeNotes(final String notes) {
-        if(Strings.isNullOrEmpty(notes) && getDate() == null) {
-            return "Must specify either note text or a date (or both).";
-        }
-        return null;
-    }
-
-    //endregion
-
     //region > date (property)
 
-    public static class DateDomainEvent extends PropertyDomainEvent<LocalDate> {
-        public DateDomainEvent(final Note source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public DateDomainEvent(final Note source, final Identifier identifier, final LocalDate oldValue, final LocalDate newValue) {
+    public static class DateDomainEvent extends PropertyDomainEvent<Note,LocalDate> {
+        public DateDomainEvent(
+                final Note source,
+                final Identifier identifier,
+                final LocalDate oldValue,
+                final LocalDate newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
@@ -294,12 +236,12 @@ public class Note implements CalendarEventable, Comparable<Note> {
     //endregion
 
     //region > calendarName (property)
-
-    public static class CalendarNameDomainEvent extends PropertyDomainEvent<String> {
-        public CalendarNameDomainEvent(final Note source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public CalendarNameDomainEvent(final Note source, final Identifier identifier, final String oldValue, final String newValue) {
+    public static class CalendarNameDomainEvent extends PropertyDomainEvent<Note,String> {
+        public CalendarNameDomainEvent(
+                final Note source,
+                final Identifier identifier,
+                final String oldValue,
+                final String newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
@@ -340,101 +282,7 @@ public class Note implements CalendarEventable, Comparable<Note> {
 
     //endregion
 
-    //region > changeDate (action)
-
-    public static class ChangeDateDomainEvent extends ActionDomainEvent {
-        public ChangeDateDomainEvent(final Note source, final Identifier identifier, final Object... args) {
-            super(source, identifier, args);
-        }
-    }
-
-    @Action(
-            domainEvent = ChangeDateDomainEvent.class,
-            semantics = SemanticsOf.IDEMPOTENT
-    )
-    public Note changeDate(
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Date")
-            final LocalDate date,
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Calendar")
-            final String calendarName) {
-        setDate(date);
-        setCalendarName(calendarName);
-        notableLinkRepository.updateLink(this);
-        return this;
-    }
-
-    public Collection<String> choices1ChangeDate() {
-        final Collection<String> values = calendarNameService.calendarNamesFor(getNotable());
-        final List<String> valuesCopy = Lists.newArrayList(values);
-        final List<String> currentCalendarsInUse = Lists.transform(
-                noteRepository.findByNotable(getNotable()),
-                Note::getCalendarName);
-        valuesCopy.removeAll(currentCalendarsInUse);
-        valuesCopy.add(getCalendarName()); // add back in current for this note's notable
-        return valuesCopy;
-    }
-
-    public LocalDate default0ChangeDate() {
-        return getDate();
-    }
-
-    public String default1ChangeDate() {
-        return getCalendarName();
-    }
-
-    public String validateChangeDate(final LocalDate date, final String calendarName) {
-        if(Strings.isNullOrEmpty(getNotes()) && (date == null || calendarName == null)) {
-            return "Must specify either note text or a date/calendar (or both).";
-        }
-        return null;
-    }
-
-    //endregion
-
-    //region > remove (action)
-    public static class RemoveEvent extends ActionDomainEvent {
-        public RemoveEvent(final Note source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public RemoveEvent(final Note source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public RemoveEvent(
-                final Note source,
-                final Identifier identifier,
-                final List<Object> arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
-    @Action(
-            domainEvent = RemoveEvent.class,
-            semantics = SemanticsOf.IDEMPOTENT
-    )
-    public Notable remove(
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Are you sure?")
-            final Boolean areYouSure
-    ) {
-        final Notable notable = getNotable();
-        noteRepository.remove(this);
-        return notable;
-    }
-
-    public String validate0Remove(final Boolean areYouSure) {
-        return areYouSure != null && areYouSure
-                ? null
-                : "Check the 'are you sure' to continue";
-    }
-
-    //endregion
-
     //region > CalendarEventable impl
-
     @Programmatic
     public CalendarEvent toCalendarEvent() {
         if(getDate() == null || getCalendarName() == null) {
@@ -471,13 +319,7 @@ public class Note implements CalendarEventable, Comparable<Note> {
     //region > injected
 
     @Inject
-    private CalendarNameService calendarNameService;
-    @Inject
-    NoteRepository noteRepository;
-    @Inject
-    private NotableLinkRepository notableLinkRepository;
-    @Inject
-    private NoteContributionsOnNotable noteContributionsOnNotable;
+    NotableLinkRepository notableLinkRepository;
     @Inject
     DomainObjectContainer container;
     //endregion

@@ -18,6 +18,8 @@ package org.incode.module.note.integtests.note;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import com.google.common.collect.Iterables;
 
 import org.joda.time.LocalDate;
@@ -26,13 +28,29 @@ import org.junit.Test;
 
 import org.incode.module.note.dom.api.notable.Notable;
 import org.incode.module.note.dom.impl.note.Note;
+import org.incode.module.note.dom.impl.note.NoteContributionsOnNotable;
+import org.incode.module.note.dom.impl.note.NoteRepository;
+import org.incode.module.note.fixture.dom.calendarname.CalendarNameRepositoryForDemo;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
+import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObjectMenu;
 import org.incode.module.note.fixture.scripts.teardown.NoteDemoObjectsTearDownFixture;
 import org.incode.module.note.integtests.NoteModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class NoteLinkRepositoryIntegTest extends NoteModuleIntegTest {
+public class NoteRepositoryIntegTest extends NoteModuleIntegTest {
+
+    @Inject
+    CalendarNameRepositoryForDemo calendarNameRepository;
+
+    @Inject
+    NoteDemoObjectMenu noteDemoObjectMenu;
+
+    @Inject
+    NoteContributionsOnNotable noteContributionsOnNotable;
+
+    @Inject
+    NoteRepository noteRepository;
 
     Notable notable1;
     Notable notable2;
@@ -47,7 +65,7 @@ public class NoteLinkRepositoryIntegTest extends NoteModuleIntegTest {
         calendarNameRepository.setCalendarNames(NoteDemoObject.class, "BLUE", "GREEN", "RED");
     }
 
-    public static class FindByNotableIntegTest extends NoteLinkRepositoryIntegTest {
+    public static class FindByNotableIntegTest extends NoteRepositoryIntegTest {
 
         @Test
         public void happyCase() throws Exception {
@@ -73,7 +91,7 @@ public class NoteLinkRepositoryIntegTest extends NoteModuleIntegTest {
         }
     }
 
-    public static class FindByNotableAndCalendarNameIntegTest extends NoteLinkRepositoryIntegTest {
+    public static class FindByNotableAndCalendarNameIntegTest extends NoteRepositoryIntegTest {
 
         @Test
         public void happyCase() throws Exception {
@@ -106,7 +124,7 @@ public class NoteLinkRepositoryIntegTest extends NoteModuleIntegTest {
         }
     }
 
-    public static class FindByNotableInDateRangeIntegTest extends NoteLinkRepositoryIntegTest {
+    public static class FindByNotableInDateRangeIntegTest extends NoteRepositoryIntegTest {
 
         private LocalDate someDate;
 
@@ -159,7 +177,7 @@ public class NoteLinkRepositoryIntegTest extends NoteModuleIntegTest {
         }
     }
 
-    public static class FindInDateRangeIntegTest extends NoteLinkRepositoryIntegTest {
+    public static class FindInDateRangeIntegTest extends NoteRepositoryIntegTest {
 
         private LocalDate someDate;
 

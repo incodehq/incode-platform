@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.note;
+package org.incode.module.note.dom;
 
 import java.util.List;
 import org.apache.isis.applib.Identifier;

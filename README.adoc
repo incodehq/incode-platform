@@ -77,7 +77,7 @@ To use "out-of-the-box":
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 ...
-                org.incode.module.note.NoteModule.class,
+                org.incode.module.note.dom.NoteModule.class,
         );
     }
 

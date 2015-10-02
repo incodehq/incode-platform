@@ -18,15 +18,21 @@ package org.incode.module.note.integtests.demo;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
+import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObjectMenu;
 import org.incode.module.note.fixture.scripts.scenarios.NoteDemoObjectsFixture;
 import org.incode.module.note.integtests.NoteModuleIntegTest;
 
 public class NoteDemoObjectMenuTest extends NoteModuleIntegTest {
+
+    @Inject
+    NoteDemoObjectMenu noteDemoObjectMenu;
 
     @Before
     public void setUpData() throws Exception {

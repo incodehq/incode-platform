@@ -16,88 +16,46 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.note.app;
+package org.incode.module.note.dom;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import com.google.common.collect.Lists;
-
 import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.module.note.dom.NoteModule;
-import org.incode.module.note.fixture.NoteFixtureModule;
-
 /**
- * Bootstrap the application.
+ * Provided for <tt>isis-maven-plugin</tt>.
  */
-public class NoteModuleAppManifest implements AppManifest {
+public class NoteModuleDomManifest implements AppManifest {
 
-    private final List<Class<?>> classes = Lists.newArrayList();
-
-    public NoteModuleAppManifest() {
-        withModules(
-                NoteModule.class, // dom module
-                NoteFixtureModule.class,
-                NoteAppModule.class
+    @Override
+    public List<Class<?>> getModules() {
+        return Arrays.asList(
+                NoteModule.class  // domain (entities and repositories)
         );
     }
 
-    public NoteModuleAppManifest withModules(Class<?>... classes) {
-        for (Class<?> cls : classes) {
-            this.classes.add(cls);
-        }
-        return this;
-    }
-
-    /**
-     * Load all services and entities found in (the packages and subpackages within) these modules
-     */
-    @Override
-    public List<Class<?>> getModules() {
-        return Collections.unmodifiableList(classes);
-    }
-
-    /**
-     * No additional services.
-     */
     @Override
     public List<Class<?>> getAdditionalServices() {
         return Collections.emptyList();
     }
 
-    /**
-     * Use shiro for authentication.
-     *
-     * <p>
-     *     NB: this is ignored for integration tests, which always use "bypass".
-     * </p>
-     */
     @Override
     public String getAuthenticationMechanism() {
-        return "shiro";
+        return null;
     }
 
-    /**
-     * Use shiro for authorization.
-     *
-     * <p>
-     *     NB: this is ignored for integration tests, which always use "bypass".
-     * </p>
-     */
     @Override
     public String getAuthorizationMechanism() {
-        return "shiro";
+        return null;
     }
 
-    /**
-     * No fixtures.
-     */
     @Override
     public List<Class<? extends FixtureScript>> getFixtures() {
-        return Collections.emptyList();
+        return null;
     }
 
     /**

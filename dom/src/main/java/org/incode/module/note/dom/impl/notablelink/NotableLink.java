@@ -42,7 +42,7 @@ import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.Calendarable;
 
-import org.incode.module.note.NoteModule;
+import org.incode.module.note.dom.NoteModule;
 import org.incode.module.note.dom.api.notable.Notable;
 import org.incode.module.note.dom.impl.calendarname.CalendarNameService;
 import org.incode.module.note.dom.impl.note.Note;

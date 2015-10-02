@@ -27,7 +27,6 @@ import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
-import org.apache.isis.applib.services.eventbus.EventBusService;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
 import org.apache.isis.core.integtestsupport.scenarios.ScenarioExecutionForIntegration;
@@ -37,11 +36,6 @@ import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
 import org.incode.module.note.app.NoteModuleAppManifest;
-import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
-import org.incode.module.note.dom.impl.note.NoteContributionsOnNotable;
-import org.incode.module.note.dom.impl.note.NoteRepository;
-import org.incode.module.note.fixture.dom.calendarname.CalendarNameRepositoryForDemo;
-import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObjectMenu;
 
 public abstract class NoteModuleIntegTest extends IntegrationTestAbstract {
 
@@ -53,24 +47,6 @@ public abstract class NoteModuleIntegTest extends IntegrationTestAbstract {
 
     @Inject
     protected FakeDataService fakeData;
-
-    @Inject
-    protected EventBusService eventBusService;
-
-    @Inject
-    protected CalendarNameRepositoryForDemo calendarNameRepository;
-
-    @Inject
-    protected NoteDemoObjectMenu noteDemoObjectMenu;
-
-    @Inject
-    protected NoteRepository noteRepository;
-
-    @Inject
-    protected NotableLinkRepository notableLinkRepository;
-
-    @Inject
-    protected NoteContributionsOnNotable noteContributionsOnNotable;
 
     protected static <T> List<T> asList(final Iterable<T> iterable) {
         return Lists.newArrayList(iterable);

@@ -18,6 +18,8 @@ package org.incode.module.note.integtests.note;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import com.google.common.collect.Iterables;
 
 import org.joda.time.LocalDate;
@@ -26,14 +28,32 @@ import org.junit.Test;
 
 import org.incode.module.note.dom.api.notable.Notable;
 import org.incode.module.note.dom.impl.notablelink.NotableLink;
+import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
 import org.incode.module.note.dom.impl.note.Note;
+import org.incode.module.note.dom.impl.note.NoteContributionsOnNotable;
+import org.incode.module.note.dom.impl.note.NoteRepository;
+import org.incode.module.note.fixture.dom.calendarname.CalendarNameRepositoryForDemo;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
+import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObjectMenu;
 import org.incode.module.note.fixture.scripts.teardown.NoteDemoObjectsTearDownFixture;
 import org.incode.module.note.integtests.NoteModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class NotableLinkRepositoryIntegTest extends NoteModuleIntegTest {
+
+    @Inject
+    CalendarNameRepositoryForDemo calendarNameRepository;
+
+    @Inject
+    NoteDemoObjectMenu noteDemoObjectMenu;
+
+    @Inject
+    NotableLinkRepository notableLinkRepository;
+
+    @Inject
+    NoteContributionsOnNotable noteContributionsOnNotable;
+
 
     Notable notable1;
     Notable notable2;

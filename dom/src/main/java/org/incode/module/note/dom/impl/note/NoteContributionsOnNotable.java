@@ -43,7 +43,7 @@ import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.clock.ClockService;
 
-import org.incode.module.note.NoteModule;
+import org.incode.module.note.dom.NoteModule;
 import org.incode.module.note.dom.impl.calendarname.CalendarNameService;
 import org.incode.module.note.dom.api.notable.Notable;
 
