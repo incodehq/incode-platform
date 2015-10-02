@@ -50,7 +50,14 @@ import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
                         + "WHERE date >= :startDate "
                         + "   && date <= :endDate")
 })
-@DomainObject(editing = Editing.DISABLED)
+@javax.jdo.annotations.Indices({
+        @javax.jdo.annotations.Index(
+                name = "Note_date_idx",
+                members = { "date" })
+})
+@DomainObject(
+        editing = Editing.DISABLED
+)
 public class Note implements CalendarEventable, Comparable<Note> {
 
     static final int NOTES_ABBREVIATED_TO = 40;

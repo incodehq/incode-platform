@@ -1,14 +1,18 @@
-= isis-module-event
+= incode-module-note
 :_imagesdir: ./
 
 image:https://travis-ci.org/isisaddons/isis-module-event.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-event]
 
-This module, intended for use with link:http://isis.apache.org[Apache Isis], provides the ability to attach notes
-to arbitrary domain objects.
+This module, intended for use with link:http://isis.apache.org[Apache Isis], provides the ability to attach `Note`
+objects to arbitrary domain objects.  Domain objects are required to implement the `Notable` marker interface, and must implement a subclass from the `NotableLink` abstract class (about 90 lines of boilerplate).
 
-Each event implements the `CalendarEventable` interface (from link:http://github.com/isisaddons/isis-wicket-fullcalendar2[Fullcalendar2 wicket component]) meaning that they can be rendered in a calendar view.
+Each `Note` implements the `CalendarEventable` interface (from link:http://github.com/isisaddons/isis-wicket-fullcalendar2[Fullcalendar2 wicket component]) meaning that they can be rendered in a calendar view.
 
-It also means that each event, when created, belongs to a named calendar (just a string).
+It also means that each note, when created, belongs to a named calendar (just a string).  The optional `CalendarNameRepository` SPI service is used to enumerate the calendars for any given `Notable` domain object.  If no implementation of this service can be found, then the module allows notes to be added to a single "default" calendar.
+
+Any given `Notable` domain object can have multiple `Note`s.  As currently implemented, a `Note` can only
+
+
 
 
 == Screenshots
@@ -22,11 +26,13 @@ TODO - to document
 
 
 
+
+
 == How to run the Demo App
 
 The prerequisite software is:
 
-* Java JDK 7 (nb: Isis currently does not support JDK 8)
+* Java JDK 8
 * http://maven.apache.org[maven 3] (3.2.x or later is recommended).
 
 To build the demo app:
@@ -219,6 +225,12 @@ under the License.
 
 There are no third-party dependencies.
 
+
+=== Icons
+
+The icon for the `Note` entity is provided by https://icons8.com/[Icons8].
+
+
 ==  Maven deploy notes
 
 Only the `dom` module is deployed, and is done so using Sonatype's OSS support (see
@@ -283,4 +295,6 @@ before trying again.  Note that in the `dom`'s `pom.xml` the `nexus-staging-mave
 to set this to `false` if debugging an issue.
 
 According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update http://search.maven.org[search].
+
+
 

@@ -81,7 +81,6 @@ public class NotableLinkForDemoObject extends NotableLink {
     }
     //endregion
 
-
     //region > injected services
     @javax.inject.Inject
     private NoteRepository noteRepository;

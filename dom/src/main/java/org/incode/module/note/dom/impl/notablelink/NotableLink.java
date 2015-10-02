@@ -85,10 +85,14 @@ import org.incode.module.note.dom.impl.note.Note;
 })
 @javax.jdo.annotations.Indices({
         @javax.jdo.annotations.Index(
-                name = "NotableLink_main_idx",
-                members = { "notableObjectType", "notableIdentifier", "note" })
+                name = "NotableLink_notable_IDX",
+                members = { "notableObjectType", "notableIdentifier" })
 })
-@javax.jdo.annotations.Unique(name="NotableLink_note_notable_UNQ", members = {"note","notableObjectType","notableIdentifier"})
+@javax.jdo.annotations.Uniques({
+        @javax.jdo.annotations.Unique(
+                name="NotableLink_note_UNQ",
+                members = {"note"})
+})
 @DomainObject(
         objectType = "note.NotableLink"
 )
