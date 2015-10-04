@@ -35,8 +35,6 @@ import org.incode.module.note.dom.impl.notablelink.NotableLink;
 import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
 import org.incode.module.note.dom.impl.note.Note;
 import org.incode.module.note.dom.impl.note.NoteActionChangeDate;
-import org.incode.module.note.dom.impl.note.NoteActionChangeNotes;
-import org.incode.module.note.dom.impl.note.NoteActionRemove;
 import org.incode.module.note.dom.impl.note.NoteContributionsOnNotable;
 import org.incode.module.note.dom.impl.note.NoteRepository;
 import org.incode.module.note.fixture.dom.calendarname.CalendarNameRepositoryForDemo;
@@ -79,9 +77,11 @@ public class NoteActionChangeDateIntegTest extends NoteModuleIntegTest {
         notable = wrap(noteDemoObjectMenu).create("Foo");
         calendarNameRepository.setCalendarNames(NoteDemoObject.class, "BLUE", "GREEN", "RED");
 
-        wrap(noteContributionsOnNotable).addNote(notable, "note A", fakeData.jodaLocalDates().any(), "GREEN");
+        final LocalDate someDate = fakeData.jodaLocalDates().any();
+        final LocalDate someOtherDate = someDate.plusDays(7);
+        wrap(noteContributionsOnNotable).addNote(notable, "note A", someDate, "GREEN");
         wrap(noteContributionsOnNotable).addNote(notable, "note B", null, null);
-        wrap(noteContributionsOnNotable).addNote(notable, null, fakeData.jodaLocalDates().any(), "RED");
+        wrap(noteContributionsOnNotable).addNote(notable, null, someOtherDate, "RED");
 
         final List<Note> noteList = wrap(noteContributionsOnNotable).notes(notable);
         note = Iterables.find(noteList, x -> x.getNotes() != null && x.getDate() != null);

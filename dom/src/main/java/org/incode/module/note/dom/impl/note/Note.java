@@ -1,5 +1,7 @@
 package org.incode.module.note.dom.impl.note;
 
+import java.util.Locale;
+
 import javax.inject.Inject;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -8,6 +10,7 @@ import javax.jdo.annotations.VersionStrategy;
 import com.google.common.base.Function;
 
 import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.Identifier;
@@ -17,6 +20,7 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
+import org.apache.isis.applib.services.i18n.LocaleProvider;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
 
@@ -90,7 +94,10 @@ public class Note implements CalendarEventable, Comparable<Note> {
         final TitleBuffer buf = new TitleBuffer();
         buf.append(container.titleOf(getNotable()));
         if(getDate() != null) {
-            buf.append(" @").append(container.titleOf(getDate()));
+            // final String dateStr = container.titleOf(getDate()); // broken in isis 1.9.0
+            final Locale locale = localeProvider.getLocale();
+            final String dateStr = DateTimeFormat.forStyle("M-").withLocale(locale).print(getDate());
+            buf.append(" @").append(dateStr);
         }
         buf.append(": ").append(getNotesAbbreviated());
         return buf.toString();
@@ -98,6 +105,9 @@ public class Note implements CalendarEventable, Comparable<Note> {
 
     //endregion
 
+    @Inject
+    LocaleProvider localeProvider;
+    
     //region > notable (property)
 
     public static class NotableDomainEvent extends PropertyDomainEvent<Note,Notable> {

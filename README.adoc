@@ -55,7 +55,7 @@ while the `changeDate(...)` action...
 
 image::https://raw.githubusercontent.com/incodehq/incode-module-note/master/images/090-change-date.png[link="https://raw.githubusercontent.com/incodehq/incode-module-note/master/images/090-change-date.png"]
 
-... allows the note's date/calendar to be updated (or cleared/set to null if the note has text):
+allows the note's date/calendar to be updated (or cleared/set to null if the note has text):
 
 image::https://raw.githubusercontent.com/incodehq/incode-module-note/master/images/100-change-date-details.png[link="https://raw.githubusercontent.com/incodehq/incode-module-note/master/images/100-change-date-details.png"]
 
@@ -63,7 +63,7 @@ Each `Note` implements the (non-ASF) http://github.com/isisaddons/isis-wicket-fu
 
 image::https://raw.githubusercontent.com/incodehq/incode-module-note/master/images/110-view-on-fullcalendar2.png[link="https://raw.githubusercontent.com/incodehq/incode-module-note/master/images/110-view-on-fullcalendar2.png"]
 
-... that it can be rendered on a calendar:
+that it can be rendered on a calendar:
 
 image::https://raw.githubusercontent.com/incodehq/incode-module-note/master/images/120-fullcalendar2.png[link="https://raw.githubusercontent.com/incodehq/incode-module-note/master/images/120-fullcalendar2.png"]
 
@@ -103,20 +103,15 @@ You can either use this module "out-of-the-box", or you can fork this repo and e
 
 To use "out-of-the-box":
 
-* update your classpath by adding importing the parent module's dependency into in your parent module's `pom.xml`: +
+* update your classpath by adding this dependency in your dom project's `pom.xml`: +
 +
 [source,xml]
 ----
-<dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>org.incode.module.note</groupId>
-            <artifactId>isis-module-note-dom</artifactId>
-            <version>${isis-module-note.version}</version>
-        </dependency>
-        ...
-    </dependencies>
-</dependencyManagement>
+<dependency>
+    <groupId>org.incode.module.note</groupId>
+    <artifactId>isis-module-note-dom</artifactId>
+    <version>1.9.0</version>
+</dependency>
 ----
 
 * if using `AppManifest`, then update its `getModules()` method:
@@ -144,7 +139,7 @@ To use "out-of-the-box":
 
 Notes:
 
-* Check for later releases by searching http://search.maven.org/#search|ga|1|isis-module-event-dom[Maven Central Repo]).
+* Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-note-dom[Maven Central Repo]).
 
 
 ==== "Out-of-the-box" (-SNAPSHOT)
@@ -316,7 +311,7 @@ None at this time.
 
 == Change Log
 
-* (not yet released) `1.10.0` - released against Isis 1.10.0.
+* (not yet released) `1.9.0` - released against Isis 1.9.0.
 
 
 
@@ -409,8 +404,8 @@ For example:
 
 [source]
 ----
-sh release.sh 1.10.0 \
-              1.11.0-SNAPSHOT \
+sh release.sh 1.9.0 \
+              1.10.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
 ----
