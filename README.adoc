@@ -180,9 +180,9 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 
 === For each domain object...
 
-... that you want to be able to attach notes, you need to implement the `Notable` marker interface and implement a subsclass of `NotableLink` to hold a type-safe reference back to the domain object.
+For each domain object that you want to be able to attach notes, you need to implement the `Notable` marker interface and implement a subsclass of `NotableLink` to hold a type-safe reference back to the domain object.
 
-In return, for each such `Notable` domain object, the module will:
+For each such `Notable` domain object, the module will then:
 
 * contribute the `notes` collection, and
 
@@ -311,7 +311,7 @@ None at this time.
 
 == Change Log
 
-* (not yet released) `1.9.0` - released against Isis 1.9.0.
+* `1.9.0` - released against Isis 1.9.0.
 
 
 
@@ -320,12 +320,12 @@ None at this time.
 If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is
 structured as follows:
 
-* `pom.xml   ` - parent pom
-* `app`        - the demo webapp's `AppManifest`
-* `dom       ` - the module implementation, depends on Isis applib
-* `fixture   ` - fixtures, holding a sample domain objects and fixture scripts; depends on `dom`
+* `pom.xml` - parent pom
+* `app` - the demo webapp's `AppManifest`
+* `dom` - the module implementation, depends on Isis applib
+* `fixture` - fixtures, holding a sample domain objects and fixture scripts; depends on `dom`
 * `integtests` - integration tests for the module; depends on `fixture`
-* `webapp    ` - demo webapp (see above screenshots); depends on `dom` and `fixture`
+* `webapp` - demo webapp (see above screenshots); depends on `dom` and `fixture`
 
 Only the `dom` project is released to Maven Central Repo.  The versions of the other modules are purposely left at
 `0.0.1-SNAPSHOT` because they are not intended to be released.
