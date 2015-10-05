@@ -8,7 +8,7 @@ fi
 
 # edit parent pom.xml's reference
 echo "editing parent's pom.xml (reference to dom module)"
-cat pom.xml | sed "s/<incode-module-node.version>.*</<incode-module-node.version>$VERSION</" > pom.xml.$$.sed
+cat pom.xml | sed "s/<incode-module-note.version>.*</<incode-module-note.version>$VERSION</" > pom.xml.$$.sed
 mv pom.xml.$$.sed pom.xml
 
 # edit dom's pom.xml
