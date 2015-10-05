@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 RELEASE_VERSION=$1
 SNAPSHOT_VERSION=$2
 KEYID=$3
