@@ -361,7 +361,7 @@ public abstract class NotableLink
     @Programmatic
     @Override
     public Set<String> getCalendarNames() {
-        return Sets.newTreeSet(calendarNameService.calendarNamesFor(getSubject()));
+        return Sets.newTreeSet(calendarNameService.calendarNamesFor(getNotable()));
     }
 
     /**

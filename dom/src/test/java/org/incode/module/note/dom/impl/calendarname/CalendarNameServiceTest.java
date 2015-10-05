@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import org.apache.isis.core.unittestsupport.jmocking.JUnitRuleMockery2;
 
+import org.incode.module.note.dom.api.notable.Notable;
 import org.incode.module.note.dom.spi.calendarname.CalendarNameRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,7 +40,7 @@ public class CalendarNameServiceTest {
         public void when_repository_returns_values() throws Exception {
 
             // given
-            final Object notable = new Object();
+            final Notable notable = new Notable(){};
             final List<String> calendarNames = Lists.newArrayList("a", "b", "c");
 
             // expecting
@@ -60,7 +61,7 @@ public class CalendarNameServiceTest {
         public void when_repository_returns_null() throws Exception {
 
             // given
-            final Object notable = new Object();
+            final Notable notable = new Notable(){};
 
             // expecting
             context.checking(new Expectations() {{

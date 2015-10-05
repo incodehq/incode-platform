@@ -11,6 +11,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
+import org.incode.module.note.dom.api.notable.Notable;
 import org.incode.module.note.dom.spi.calendarname.CalendarNameRepository;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
 
@@ -31,7 +32,7 @@ public class CalendarNameRepositoryForDemo implements CalendarNameRepository {
     }
 
     @Override
-    public Collection<String> calendarNamesFor(final Object notable) {
+    public Collection<String> calendarNamesFor(final Notable notable) {
         return namesByClass.get(notable.getClass());
     }
 }

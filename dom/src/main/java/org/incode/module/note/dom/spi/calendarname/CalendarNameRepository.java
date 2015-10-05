@@ -35,6 +35,6 @@ public interface CalendarNameRepository {
      *     May return null if there are none (in which case a default name will be used).
      * </p>
      */
-    Collection<String> calendarNamesFor(Object notable);
+    Collection<String> calendarNamesFor(Notable notable);
 
 }

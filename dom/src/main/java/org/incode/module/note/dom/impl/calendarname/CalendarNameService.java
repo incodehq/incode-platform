@@ -51,7 +51,7 @@ public class CalendarNameService {
      * </p>
      */
     @Programmatic
-    public Collection<String> calendarNamesFor(final Object notable) {
+    public Collection<String> calendarNamesFor(final Notable notable) {
         final Collection<String> calendarNames = calendarNameRepository.calendarNamesFor(notable);
         return calendarNames != null? calendarNames: Collections.singleton(DEFAULT_CALENDAR_NAME);
     }
