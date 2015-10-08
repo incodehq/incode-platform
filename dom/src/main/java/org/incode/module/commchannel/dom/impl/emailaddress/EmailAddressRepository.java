@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.commchannel.dom;
+package org.incode.module.commchannel.dom.impl.emailaddress;
 
 import java.util.List;
 
@@ -29,6 +29,11 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
+
+import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
+import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
+import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinks;
+import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,

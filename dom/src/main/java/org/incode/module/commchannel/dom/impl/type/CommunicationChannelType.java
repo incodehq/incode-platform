@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.commchannel.dom;
+package org.incode.module.commchannel.dom.impl.type;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,11 +28,16 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
+import org.incode.module.commchannel.dom.impl.emailaddress.EmailAddress;
+import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber;
+import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress;
+import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
+
 public enum CommunicationChannelType {
 
-    POSTAL_ADDRESS(PostalAddress.class), 
-    EMAIL_ADDRESS(EmailAddress.class), 
-    PHONE_NUMBER(PhoneOrFaxNumber.class), 
+    POSTAL_ADDRESS(PostalAddress.class),
+    EMAIL_ADDRESS(EmailAddress.class),
+    PHONE_NUMBER(PhoneOrFaxNumber.class),
     FAX_NUMBER(PhoneOrFaxNumber.class);
 
     private Class<? extends CommunicationChannel> cls;

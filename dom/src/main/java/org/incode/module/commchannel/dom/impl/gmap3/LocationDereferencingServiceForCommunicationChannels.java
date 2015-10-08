@@ -14,14 +14,15 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.commchannel.dom.gmap3;
+package org.incode.module.commchannel.dom.impl.gmap3;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
-import org.incode.module.commchannel.dom.CommunicationChannel;
 import org.isisaddons.wicket.gmap3.cpt.applib.LocationDereferencingService;
+
+import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 
 @DomainService(
         nature = NatureOfService.DOMAIN

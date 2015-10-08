@@ -19,11 +19,11 @@ package org.incode.module.commchannel.fixture.scripts.scenarios;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.apache.isis.applib.services.clock.ClockService;
 
-import org.incode.module.commchannel.dom.CommunicationChannelContributions;
-import org.incode.module.commchannel.dom.CommunicationChannelType;
-import org.incode.module.commchannel.dom.EmailAddressContributions;
-import org.incode.module.commchannel.dom.PhoneOrFaxNumberContributions;
-import org.incode.module.commchannel.dom.PostalAddressContributions;
+import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelContributions;
+import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
+import org.incode.module.commchannel.dom.impl.emailaddress.EmailAddressContributions;
+import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumberContributions;
+import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddressContributions;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObjectMenu;
 import org.incode.module.commchannel.fixture.scripts.teardown.CommChannelDemoObjectsTearDownFixture;

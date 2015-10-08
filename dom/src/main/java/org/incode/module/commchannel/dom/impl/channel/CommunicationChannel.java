@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.commchannel.dom;
+package org.incode.module.commchannel.dom.impl.channel;
 
 import java.util.List;
 import java.util.SortedSet;
@@ -48,9 +48,17 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.util.ObjectContracts;
 
-import org.incode.module.commchannel.CommChannelModule;
 import org.isisaddons.wicket.gmap3.cpt.applib.Locatable;
 import org.isisaddons.wicket.gmap3.cpt.applib.Location;
+
+import org.incode.module.commchannel.dom.CommChannelModule;
+import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
+import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
+import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinks;
+import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
+import org.incode.module.commchannel.dom.impl.emailaddress.EmailAddress;
+import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber;
+import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress;
 
 /**
  * Represents a mechanism for communicating with its
@@ -440,7 +448,7 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
     @Inject
     CommunicationChannelOwnerLinks communicationChannelOwnerLinks;
     @Inject
-    DomainObjectContainer container;
+    protected DomainObjectContainer container;
     //endregion
 
 }

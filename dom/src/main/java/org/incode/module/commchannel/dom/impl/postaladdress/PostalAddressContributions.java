@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.commchannel.dom;
+package org.incode.module.commchannel.dom.impl.postaladdress;
 
 import java.util.List;
 
@@ -36,8 +36,9 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 
-import org.incode.module.commchannel.CommChannelModule;
-import org.incode.module.commchannel.dom.geocoding.GeocodingService;
+import org.incode.module.commchannel.dom.CommChannelModule;
+import org.incode.module.commchannel.dom.api.geocoding.GeocodingService;
+import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 
 /**
  * Domain service that contributes actions to create a new

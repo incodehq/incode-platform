@@ -31,8 +31,8 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 
-import org.incode.module.commchannel.dom.CommunicationChannelOwner;
-import org.incode.module.commchannel.dom.CommunicationChannelOwnerLink;
+import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
+import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
 
 @javax.jdo.annotations.PersistenceCapable(
         schema="commchanneldemo")

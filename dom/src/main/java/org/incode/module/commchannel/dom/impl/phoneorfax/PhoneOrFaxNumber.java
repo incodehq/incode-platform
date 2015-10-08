@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.commchannel.dom;
+package org.incode.module.commchannel.dom.impl.phoneorfax;
 
 import java.util.List;
 import java.util.Objects;
@@ -36,7 +36,9 @@ import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Title;
 
-import org.incode.module.commchannel.CommChannelModule;
+import org.incode.module.commchannel.dom.CommChannelModule;
+import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
+import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 
 @javax.jdo.annotations.PersistenceCapable
 // identityType=IdentityType.DATASTORE inherited from superclass

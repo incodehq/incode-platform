@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.commchannel.dom;
+package org.incode.module.commchannel.dom.impl.channel;
 
 import java.util.List;
 import java.util.SortedSet;
@@ -34,7 +34,8 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.module.commchannel.CommChannelModule;
+import org.incode.module.commchannel.dom.CommChannelModule;
+import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY

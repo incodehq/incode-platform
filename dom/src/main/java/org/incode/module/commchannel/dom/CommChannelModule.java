@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.commchannel;
+package org.incode.module.commchannel.dom;
 
 import java.util.List;
 import org.apache.isis.applib.Identifier;
@@ -29,8 +29,6 @@ public final class CommChannelModule {
         private JdoColumnLength(){}
 
         public final static int TYPE_ENUM = 30;
-        public final static int PROPER_NAME = 50;
-        public final static int REFERENCE = 24;
 
         //http://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
         public static final int EMAIL_ADDRESS = 254;
@@ -54,7 +52,9 @@ public final class CommChannelModule {
 
     //endregion
 
+    //region > constructor
     private CommChannelModule(){}
+    //endregion
 
     //region > event classes
     public abstract static class ActionDomainEvent<S> extends org.apache.isis.applib.services.eventbus.ActionDomainEvent<S> {

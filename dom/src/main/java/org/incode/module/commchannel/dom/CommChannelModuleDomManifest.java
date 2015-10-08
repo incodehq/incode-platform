@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.commchannel.app;
+package org.incode.module.commchannel.dom;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,68 +26,36 @@ import java.util.Map;
 import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.module.commchannel.dom.CommChannelModule;
-import org.incode.module.commchannel.fixture.CommChannelFixtureModule;
-import org.isisaddons.wicket.gmap3.cpt.applib.Gmap3ApplibModule;
-import org.isisaddons.wicket.gmap3.cpt.ui.Gmap3UiModule;
-
 /**
- * Bootstrap the application.
+ * Provided for <tt>isis-maven-plugin</tt>.
  */
-public class CommChannelModuleAppManifest implements AppManifest {
+public class CommChannelModuleDomManifest implements AppManifest {
 
-    /**
-     * Load all services and entities found in (the packages and subpackages within) these modules
-     */
     @Override
     public List<Class<?>> getModules() {
-        return Arrays.asList(
-                CommChannelModule.class,
-                CommChannelFixtureModule.class,
-                CommChannelModuleAppModule.class,
-                Gmap3ApplibModule.class,
-                Gmap3UiModule.class
+        return Arrays.<Class<?>>asList(
+                CommChannelModule.class  // domain (entities and repositories)
         );
     }
 
-    /**
-     * No additional services.
-     */
     @Override
     public List<Class<?>> getAdditionalServices() {
         return Collections.emptyList();
     }
 
-    /**
-     * Use shiro for authentication.
-     *
-     * <p>
-     *     NB: this is ignored for integration tests, which always use "bypass".
-     * </p>
-     */
     @Override
     public String getAuthenticationMechanism() {
-        return "shiro";
+        return null;
     }
 
-    /**
-     * Use shiro for authorization.
-     *
-     * <p>
-     *     NB: this is ignored for integration tests, which always use "bypass".
-     * </p>
-     */
     @Override
     public String getAuthorizationMechanism() {
-        return "shiro";
+        return null;
     }
 
-    /**
-     * No fixtures.
-     */
     @Override
     public List<Class<? extends FixtureScript>> getFixtures() {
-        return Collections.emptyList();
+        return null;
     }
 
     /**

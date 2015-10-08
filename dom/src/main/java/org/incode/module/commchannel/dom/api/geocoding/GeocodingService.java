@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.commchannel.dom.geocoding;
+package org.incode.module.commchannel.dom.api.geocoding;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

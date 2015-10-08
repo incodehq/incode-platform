@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.commchannel.dom;
+package org.incode.module.commchannel.dom.impl.postaladdress;
 
 import java.util.List;
 import java.util.Objects;
@@ -45,9 +45,10 @@ import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.applib.value.Clob;
 
-import org.incode.module.commchannel.CommChannelModule;
-import org.incode.module.commchannel.dom.geocoding.GeocodedAddress;
-import org.incode.module.commchannel.dom.geocoding.GeocodingService;
+import org.incode.module.commchannel.dom.CommChannelModule;
+import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
+import org.incode.module.commchannel.dom.api.geocoding.GeocodedAddress;
+import org.incode.module.commchannel.dom.api.geocoding.GeocodingService;
 import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 
 @javax.jdo.annotations.PersistenceCapable
@@ -63,7 +64,7 @@ import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 @DomainObject(
         editing = Editing.DISABLED
 )
-public class PostalAddress extends CommunicationChannel<PostalAddress>  {
+public class PostalAddress extends CommunicationChannel<PostalAddress> {
 
     //region > event classes
     public static abstract class PropertyDomainEvent<T> extends

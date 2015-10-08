@@ -16,21 +16,8 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.commchannel.dom;
+package org.incode.module.commchannel.dom.impl.owner;
 
-
-public enum CommunicationChannelPurposeType {
-
-    ACCOUNTING("Accounting");
-
-    private String title;
-
-    private CommunicationChannelPurposeType(String title) {
-        this.title = title;
-    }
-
-    public String title() {
-        return title;
-    }
+public interface CommunicationChannelOwner  {
 
 }
