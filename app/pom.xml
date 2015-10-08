@@ -21,13 +21,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.isisaddons.module.commchannel</groupId>
-        <artifactId>isis-module-commchannel</artifactId>
+        <groupId>org.incode.module.commchannel</groupId>
+        <artifactId>incode-module-commchannel</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>isis-module-commchannel-app</artifactId>
-    <name>Isis Addons CommChannel Module Application</name>
+    <artifactId>incode-module-commchannel-app</artifactId>
+    <name>Incode CommChannel Module Application</name>
 
     <build>
         <resources>
@@ -51,7 +51,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-commchannel-fixture</artifactId>
+            <artifactId>incode-module-commchannel-fixture</artifactId>
         </dependency>
 
         <dependency>

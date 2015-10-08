@@ -18,13 +18,13 @@ language governing permissions and limitations under the License.
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.isisaddons.module.commchannel</groupId>
-        <artifactId>isis-module-commchannel</artifactId>
+        <groupId>org.incode.module.commchannel</groupId>
+        <artifactId>incode-module-commchannel</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>isis-module-commchannel-webapp</artifactId>
-    <name>Isis Addons CommChannel Module Webapp</name>
+    <artifactId>incode-module-commchannel-webapp</artifactId>
+    <name>Incode CommChannel Module Webapp</name>
 
     <packaging>war</packaging>
 
@@ -151,7 +151,7 @@ language governing permissions and limitations under the License.
         <!-- other modules in this project -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-commchannel-dom</artifactId>
+            <artifactId>incode-module-commchannel-dom</artifactId>
             <exclusions>
                 <exclusion>
                     <!-- so don't pick up transitive dependency to asm 4.0.0 -->
@@ -162,7 +162,7 @@ language governing permissions and limitations under the License.
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-commchannel-fixture</artifactId>
+            <artifactId>incode-module-commchannel-fixture</artifactId>
             <exclusions>
                 <exclusion>
                     <!-- so don't pick up transitive dependency to asm 4.0.0 -->
@@ -174,7 +174,7 @@ language governing permissions and limitations under the License.
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-commchannel-app</artifactId>
+            <artifactId>incode-module-commchannel-app</artifactId>
         </dependency>
 
 

@@ -19,13 +19,13 @@ Copyright 2014~2015 Dan Haywood
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.isisaddons.module.commchannel</groupId>
-        <artifactId>isis-module-commchannel</artifactId>
+        <groupId>org.incode.module.commchannel</groupId>
+        <artifactId>incode-module-commchannel</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>isis-module-commchannel-integtests</artifactId>
-    <name>Isis Addons CommChannel Module IntegTests</name>
+    <artifactId>incode-module-commchannel-integtests</artifactId>
+    <name>Incode CommChannel Module IntegTests</name>
 
     <build>
         <testResources>
@@ -48,12 +48,12 @@ Copyright 2014~2015 Dan Haywood
         <!-- other modules in this project -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-commchannel-fixture</artifactId>
+            <artifactId>incode-module-commchannel-fixture</artifactId>
         </dependency>
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-commchannel-app</artifactId>
+            <artifactId>incode-module-commchannel-app</artifactId>
         </dependency>
 
         <dependency>

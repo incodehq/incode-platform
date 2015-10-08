@@ -17,13 +17,13 @@ Copyright 2014~2015 Dan Haywood
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.isisaddons.module.commchannel</groupId>
-    <artifactId>isis-module-commchannel-dom</artifactId>
+    <groupId>org.incode.module.commchannel</groupId>
+    <artifactId>incode-module-commchannel-dom</artifactId>
     <version>1.10.0-SNAPSHOT</version>
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons CommChannel Module DOM</name>
+    <name>Incode CommChannel Module DOM</name>
     <description>
         A module providing commchannel.
     </description>
