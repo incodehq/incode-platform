@@ -18,7 +18,6 @@
  */
 package org.incode.module.commchannel.dom.impl.postaladdress;
 
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -34,14 +33,8 @@ import org.apache.isis.applib.value.Clob;
 public class PostalAddressActionDownloadGeocode {
 
 
-    public static class DownloadGeocodeEvent extends PostalAddress.ActionDomainEvent<PostalAddressActionDownloadGeocode> {
-        public DownloadGeocodeEvent( final PostalAddressActionDownloadGeocode source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
-
-
+    public static class DownloadGeocodeEvent
+            extends PostalAddress.ActionDomainEvent<PostalAddressActionDownloadGeocode> { }
     @Action(
             semantics = SemanticsOf.SAFE,
             domainEvent = DownloadGeocodeEvent.class

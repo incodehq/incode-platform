@@ -22,7 +22,6 @@ import java.util.SortedSet;
 
 import javax.inject.Inject;
 
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Collection;
@@ -40,16 +39,12 @@ import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 )
 public class CommunicationChannelsContributedOnOwner {
 
-    //region > communicationChannels (contributed collection)
+    @Inject
+    CommunicationChannelRepository communicationChannelRepository;
 
-    public static class CommunicationChannelsEvent extends
-            CommunicationChannelOwner.CollectionDomainEvent<CommunicationChannelsContributedOnOwner, CommunicationChannel> {
-        public CommunicationChannelsEvent(
-                final CommunicationChannelsContributedOnOwner source,
-                final Identifier identifier, final Of of, final CommunicationChannel value) {
-            super(source, identifier, of, value);
-        }
-    }
+
+    public static class CommunicationChannelsEvent
+            extends CommunicationChannelOwner.CollectionDomainEvent<CommunicationChannelsContributedOnOwner, CommunicationChannel> { }
 
     @Action(semantics = SemanticsOf.SAFE)
     @CollectionLayout(render = RenderType.EAGERLY)
@@ -60,15 +55,5 @@ public class CommunicationChannelsContributedOnOwner {
     public SortedSet<CommunicationChannel> communicationChannels(final CommunicationChannelOwner owner) {
         return communicationChannelRepository.findByOwner(owner);
     }
-
-    //endregion
-
-    //region > injected services
-
-    @Inject
-    CommunicationChannelRepository communicationChannelRepository;
-
-    //endregion
-
 
 }

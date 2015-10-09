@@ -43,7 +43,10 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 )
 public class CommunicationChannelRepository {
 
-    //region > findByReferenceAndType (programmatic)
+    @Inject
+    CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;
+    @Inject
+    DomainObjectContainer container;
 
     @Programmatic
     public CommunicationChannel findByReferenceAndType(
@@ -55,9 +58,6 @@ public class CommunicationChannelRepository {
                         "reference", reference,
                         "type", type));
     }
-    //endregion
-
-    //region > findByOwner (programmatic)
 
     @Programmatic
     public SortedSet<CommunicationChannel> findByOwner(final CommunicationChannelOwner owner) {
@@ -65,9 +65,6 @@ public class CommunicationChannelRepository {
         return Sets.newTreeSet(
                 Iterables.transform(links, CommunicationChannelOwnerLink.Functions.communicationChannel()));
     }
-    //endregion
-
-    //region > findByOwnerAndType (programmatic)
 
     @Programmatic
     public SortedSet<CommunicationChannel> findByOwnerAndType(
@@ -78,9 +75,6 @@ public class CommunicationChannelRepository {
         return Sets.newTreeSet(Iterables.transform(
                 links, CommunicationChannelOwnerLink.Functions.communicationChannel()));
     }
-    //endregion
-
-    //region > findOtherByOwnerAndType (programmatic)
 
     @Programmatic
     public SortedSet<CommunicationChannel> findOtherByOwnerAndType(
@@ -91,14 +85,5 @@ public class CommunicationChannelRepository {
         communicationChannels.remove(exclude);
         return communicationChannels;
     }
-    //endregion
-
-    //region > injected
-    @Inject
-    CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;
-    @Inject
-    DomainObjectContainer container;
-
-    //endregion
 
 }

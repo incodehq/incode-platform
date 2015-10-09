@@ -20,7 +20,6 @@ package org.incode.module.commchannel.dom.impl.postaladdress;
 
 import javax.inject.Inject;
 
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
@@ -50,11 +49,9 @@ public class PostalAddressContributionsToOwner {
     @Inject
     PostalAddressActionUpdateAddress postalAddressActionUpdateAddress;
 
-    public static class NewPostalAddressEvent extends CommunicationChannelOwner.ActionDomainEvent<PostalAddressContributionsToOwner> {
-        public NewPostalAddressEvent( final PostalAddressContributionsToOwner source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-    }
+
+    public static class NewPostalAddressEvent
+            extends CommunicationChannelOwner.ActionDomainEvent<PostalAddressContributionsToOwner> { }
 
     @Action(
             semantics = SemanticsOf.NON_IDEMPOTENT,
@@ -110,7 +107,5 @@ public class PostalAddressContributionsToOwner {
 
         return owner;
     }
-
-
 
 }

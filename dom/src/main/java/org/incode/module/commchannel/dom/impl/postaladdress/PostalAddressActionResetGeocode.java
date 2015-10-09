@@ -18,7 +18,6 @@
  */
 package org.incode.module.commchannel.dom.impl.postaladdress;
 
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -29,13 +28,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 )
 public class PostalAddressActionResetGeocode {
 
-    public static class ResetGeocodeEvent extends PostalAddress.ActionDomainEvent<PostalAddressActionResetGeocode> {
-        public ResetGeocodeEvent( final PostalAddressActionResetGeocode source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
-
+    public static class ResetGeocodeEvent extends PostalAddress.ActionDomainEvent<PostalAddressActionResetGeocode> { }
 
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,

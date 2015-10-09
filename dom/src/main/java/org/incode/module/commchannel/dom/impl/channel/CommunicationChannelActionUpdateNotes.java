@@ -32,16 +32,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 )
 public class CommunicationChannelActionUpdateNotes {
 
-    public static class UpdateNotes extends CommunicationChannel.ActionDomainEvent<CommunicationChannelActionUpdateNotes> {
-        private static final long serialVersionUID = 1L;
-
-        public UpdateNotes(
-                final CommunicationChannelActionUpdateNotes source,
-                final Identifier identifier,
-                final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-    }
+    public static class UpdateNotes
+            extends CommunicationChannel.ActionDomainEvent<CommunicationChannelActionUpdateNotes> { }
 
     @Action(
             domainEvent = UpdateNotes.class,

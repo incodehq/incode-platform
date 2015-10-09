@@ -39,14 +39,8 @@ public class PostalAddressActionUpdateGeocode {
     @Inject
     GeocodingService geocodingService;
 
-
     public static class UpdateGeocodeEvent extends PostalAddress.ActionDomainEvent<PostalAddressActionUpdateGeocode> {
-        public UpdateGeocodeEvent( final PostalAddressActionUpdateGeocode source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
     }
-
-
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
             domainEvent = UpdateGeocodeEvent.class

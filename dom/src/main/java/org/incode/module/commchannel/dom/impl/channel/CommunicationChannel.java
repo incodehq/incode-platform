@@ -27,12 +27,10 @@ import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.VersionStrategy;
 
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
-import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
@@ -49,6 +47,9 @@ import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents a mechanism for communicating with its
@@ -85,32 +86,18 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 public abstract class CommunicationChannel<T extends CommunicationChannel<T>> implements Comparable<CommunicationChannel>,
         Locatable {
 
-    //region > event classes
-    public static abstract class PropertyDomainEvent<S,T> extends
-            CommChannelModule.PropertyDomainEvent<S, T> {
-        public PropertyDomainEvent(final S source, final Identifier identifier, final T oldValue, final T newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
+    public static abstract class PropertyDomainEvent<S,T>
+            extends CommChannelModule.PropertyDomainEvent<S, T> {}
 
-    public static abstract class CollectionDomainEvent<S,T> extends CommChannelModule.CollectionDomainEvent<S, T> {
-        public CollectionDomainEvent(final S source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
-            super(source, identifier, of, value);
-        }
-    }
+    public static abstract class CollectionDomainEvent<S,T>
+            extends CommChannelModule.CollectionDomainEvent<S, T> {}
 
-    public static abstract class ActionDomainEvent<S> extends CommChannelModule.ActionDomainEvent<S> {
-        public ActionDomainEvent(final S source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-    //endregion
+    public static abstract class ActionDomainEvent<S>
+            extends CommChannelModule.ActionDomainEvent<S> { }
 
-    //region > iconName
     public String iconName() {
         return getType().title().replace(" ", "");
     }
-    //endregion
 
     //region > getId (programmatic)
     @Programmatic
@@ -125,18 +112,7 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
     }
     //endregion
 
-    //region > name (derived property)
-
-    public static class NameEvent extends PropertyDomainEvent<CommunicationChannel,String> {
-        public NameEvent(
-                final CommunicationChannel source,
-                final Identifier identifier,
-                final String oldValue,
-                final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
+    public static class NameEvent extends PropertyDomainEvent<CommunicationChannel,String> {}
     @Property(
             domainEvent = NameEvent.class,
             hidden = Where.OBJECT_FORMS
@@ -144,81 +120,31 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
     public String getName() {
         return container.titleOf(this);
     }
-    //endregion
 
-    //region > type (property)
 
-    public static class TypeDomainEvent extends PropertyDomainEvent<CommunicationChannel,CommunicationChannelType> {
-        public TypeDomainEvent(
-                final CommunicationChannel source,
-                final Identifier identifier,
-                final CommunicationChannelType oldValue,
-                final CommunicationChannelType newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    private CommunicationChannelType type;
-
-    @MemberOrder(sequence = "1")
+    public static class TypeDomainEvent extends PropertyDomainEvent<CommunicationChannel,CommunicationChannelType> { }
+    @Getter @Setter
     @Column(allowsNull = "false", length = CommChannelModule.JdoColumnLength.TYPE_ENUM)
     @Property(
             domainEvent = TypeDomainEvent.class,
             hidden = Where.EVERYWHERE
     )
-    public CommunicationChannelType getType() {
-        return type;
-    }
+    private CommunicationChannelType type;
 
-    public void setType(final CommunicationChannelType type) {
-        this.type = type;
-    }
 
-    //endregion
-
-    //region > description (property)
-
-    public static class DescriptionDomainEvent extends PropertyDomainEvent<CommunicationChannel,String> {
-        public DescriptionDomainEvent(
-                final CommunicationChannel source,
-                final Identifier identifier,
-                final String oldValue,
-                final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    private String description;
-
+    public static class DescriptionDomainEvent extends PropertyDomainEvent<CommunicationChannel,String> { }
+    @Getter @Setter
     @Column(length = org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength.DESCRIPTION)
     @Property(
             domainEvent = DescriptionDomainEvent.class,
             editing = Editing.DISABLED,
             optionality = Optionality.OPTIONAL
     )
-    public String getDescription() {
-        return description;
-    }
+    private String description;
 
-    public void setDescription(final String description) {
-        this.description = description;
-    }
-    //endregion
 
-    //region > notes (property)
-
-    public static class NotesDomainEvent extends PropertyDomainEvent<CommunicationChannel,String> {
-        public NotesDomainEvent(
-                final CommunicationChannel source,
-                final Identifier identifier,
-                final String oldValue,
-                final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    private String notes;
-
+    public static class NotesDomainEvent extends PropertyDomainEvent<CommunicationChannel,String> { }
+    @Getter @Setter
     @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB")
     @Property(
             domainEvent = NotesDomainEvent.class,
@@ -226,14 +152,8 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(multiLine = 10)
-    public String getNotes() {
-        return notes;
-    }
+    private String notes;
 
-    public void setNotes(final String Notes) {
-        this.notes = Notes;
-    }
-    //endregion
 
     //region > Locatable API
 
@@ -252,6 +172,7 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
     }
     //endregion
 
+
     //region > toString, compareTo
     public int compareTo(final CommunicationChannel other) {
         return ObjectContracts.compare(this, other, "type", "id");
@@ -261,9 +182,7 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
     }
     //endregion
 
-    //region > injected services
     @Inject
     protected DomainObjectContainer container;
-    //endregion
 
 }

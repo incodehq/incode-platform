@@ -21,7 +21,6 @@ package org.incode.module.commchannel.dom.impl.channel;
 import javax.inject.Inject;
 
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
@@ -45,15 +44,7 @@ public class CommunicationChannelDerivedOwner {
 
 
     public static class OwnerEvent extends
-            CommunicationChannel.PropertyDomainEvent<CommunicationChannelDerivedOwner,CommunicationChannelOwner> {
-        public OwnerEvent(
-                final CommunicationChannelDerivedOwner source,
-                final Identifier identifier,
-                final CommunicationChannelOwner oldValue,
-                final CommunicationChannelOwner newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
+            CommunicationChannel.PropertyDomainEvent<CommunicationChannelDerivedOwner,CommunicationChannelOwner> { }
 
     @Action(
             semantics = SemanticsOf.SAFE

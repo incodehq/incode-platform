@@ -18,7 +18,6 @@ Copyright 2015 incode.org
  */
 package org.incode.module.commchannel.dom.impl.emailaddress;
 
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -33,13 +32,7 @@ import org.incode.module.commchannel.dom.CommChannelModule;
 )
 public class EmailAddressActionUpdate {
 
-
-    public static class UpdateEmailAddressEvent extends EmailAddress.ActionDomainEvent<EmailAddressActionUpdate> {
-        public UpdateEmailAddressEvent( final EmailAddressActionUpdate source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
+    public static class UpdateEmailAddressEvent extends EmailAddress.ActionDomainEvent<EmailAddressActionUpdate> { }
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
             domainEvent = UpdateEmailAddressEvent.class

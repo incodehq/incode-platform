@@ -19,6 +19,7 @@
 package org.incode.module.commchannel.dom.impl.postaladdress;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -45,7 +46,13 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 )
 public class PostalAddressRepository {
 
-    //region > newPostal (programmatic)
+    @Inject
+    CommunicationChannelDerivedOwner communicationChannelDerivedOwner;
+    @Inject
+    CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;
+    @Inject
+    DomainObjectContainer container;
+
     @Programmatic
     public PostalAddress newPostal(
             final CommunicationChannelOwner owner,
@@ -75,9 +82,6 @@ public class PostalAddressRepository {
         return pa;
     }
 
-    //endregion
-
-    //region > findByAddress (programmatic)
     @Programmatic
     public PostalAddress findByAddress(
             final CommunicationChannelOwner owner,
@@ -90,18 +94,9 @@ public class PostalAddressRepository {
                         links,
                         CommunicationChannelOwnerLink.Functions.communicationChannel(PostalAddress.class));
         final Optional<PostalAddress> postalAddressIfFound =
-                Iterables.tryFind(postalAddresses, PostalAddress.Predicates.equalTo(placeId));
+                Iterables.tryFind(postalAddresses, input -> Objects.equals(placeId, input.getPlaceId()));
         return postalAddressIfFound.orNull();
     }
-    //endregion
 
-    //region > injected
-    @Inject
-    CommunicationChannelDerivedOwner communicationChannelDerivedOwner;
-    @Inject
-    CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;
-    @Inject
-    DomainObjectContainer container;
-    //endregion
 
 }

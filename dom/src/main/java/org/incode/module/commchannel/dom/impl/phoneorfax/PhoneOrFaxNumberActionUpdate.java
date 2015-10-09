@@ -20,7 +20,6 @@ package org.incode.module.commchannel.dom.impl.phoneorfax;
 
 import java.util.List;
 
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -36,11 +35,8 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 )
 public class PhoneOrFaxNumberActionUpdate {
 
-    public static class UpdatePhoneOrFaxNumberEvent extends PhoneOrFaxNumber.ActionDomainEvent<PhoneOrFaxNumberActionUpdate> {
-        public UpdatePhoneOrFaxNumberEvent( final PhoneOrFaxNumberActionUpdate source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-    }
+    public static class UpdatePhoneOrFaxNumberEvent
+            extends PhoneOrFaxNumber.ActionDomainEvent<PhoneOrFaxNumberActionUpdate> { }
 
     @Action(
             domainEvent = UpdatePhoneOrFaxNumberEvent.class,

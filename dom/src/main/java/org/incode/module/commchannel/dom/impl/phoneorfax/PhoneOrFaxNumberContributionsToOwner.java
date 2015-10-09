@@ -22,7 +22,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
@@ -53,12 +52,8 @@ public class PhoneOrFaxNumberContributionsToOwner {
     PhoneOrFaxNumberRepository phoneOrFaxNumberRepository;
 
 
-    public static class NewPhoneOrFaxEvent extends CommunicationChannelOwner.ActionDomainEvent<PhoneOrFaxNumberContributionsToOwner>  {
-        public NewPhoneOrFaxEvent( final PhoneOrFaxNumberContributionsToOwner source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
+    public static class NewPhoneOrFaxEvent
+            extends CommunicationChannelOwner.ActionDomainEvent<PhoneOrFaxNumberContributionsToOwner>  { }
 
     @Action(
             domainEvent = NewPhoneOrFaxEvent.class,

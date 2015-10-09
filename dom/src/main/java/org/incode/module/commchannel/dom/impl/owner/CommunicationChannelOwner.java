@@ -18,29 +18,12 @@
  */
 package org.incode.module.commchannel.dom.impl.owner;
 
-import org.apache.isis.applib.Identifier;
-
 import org.incode.module.commchannel.dom.CommChannelModule;
 
 public interface CommunicationChannelOwner  {
 
-    public static abstract class PropertyDomainEvent<S,T> extends
-            CommChannelModule.PropertyDomainEvent<S, T> {
-        public PropertyDomainEvent(final S source, final Identifier identifier, final T oldValue, final T newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    public static abstract class CollectionDomainEvent<S,T> extends CommChannelModule.CollectionDomainEvent<S, T> {
-        public CollectionDomainEvent(final S source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
-            super(source, identifier, of, value);
-        }
-    }
-
-    public static abstract class ActionDomainEvent<S> extends CommChannelModule.ActionDomainEvent<S> {
-        public ActionDomainEvent(final S source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-    }
+    abstract class PropertyDomainEvent<S,T> extends CommChannelModule.PropertyDomainEvent<S, T> { }
+    abstract class CollectionDomainEvent<S,T> extends CommChannelModule.CollectionDomainEvent<S, T> { }
+    abstract class ActionDomainEvent<S> extends CommChannelModule.ActionDomainEvent<S> { }
 
 }

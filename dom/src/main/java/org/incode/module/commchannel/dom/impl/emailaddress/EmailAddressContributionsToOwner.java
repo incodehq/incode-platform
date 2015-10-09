@@ -20,7 +20,6 @@ package org.incode.module.commchannel.dom.impl.emailaddress;
 
 import javax.inject.Inject;
 
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
@@ -45,14 +44,12 @@ import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 )
 public class EmailAddressContributionsToOwner {
 
-    public static class NewEmailEvent extends CommunicationChannelOwner.ActionDomainEvent<EmailAddressContributionsToOwner> {
-        public NewEmailEvent(
-                final EmailAddressContributionsToOwner source,
-                final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-    }
+    @Inject
+    EmailAddressRepository emailAddressRepository;
 
+
+    public static class NewEmailEvent
+            extends CommunicationChannelOwner.ActionDomainEvent<EmailAddressContributionsToOwner> { }
     @Action(
             domainEvent = NewEmailEvent.class,
             semantics = SemanticsOf.NON_IDEMPOTENT
@@ -80,7 +77,5 @@ public class EmailAddressContributionsToOwner {
         return owner;
     }
 
-    @Inject
-    EmailAddressRepository emailAddressRepository;
 
 }

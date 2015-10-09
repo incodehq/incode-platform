@@ -19,6 +19,7 @@ Copyright 2015 incode.org
 package org.incode.module.commchannel.dom.impl.emailaddress;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -42,7 +43,12 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 )
 public class EmailAddressRepository {
 
-    //region > newEmail (programmatic)
+    @Inject
+    CommunicationChannelDerivedOwner communicationChannelDerivedOwner;
+    @Inject
+    CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;
+    @Inject
+    DomainObjectContainer container;
 
     @Programmatic
     public EmailAddress newEmail(
@@ -63,33 +69,22 @@ public class EmailAddressRepository {
 
         return ea;
     }
-    //endregion
 
-    //region > findByEmailAddress (programmatic)
     @Programmatic
     public EmailAddress findByEmailAddress(
             final CommunicationChannelOwner owner, 
             final String emailAddress) {
 
         final List<CommunicationChannelOwnerLink> links =
-                communicationChannelOwnerLinkRepository.findByOwnerAndCommunicationChannelType(owner, CommunicationChannelType.EMAIL_ADDRESS);
+                communicationChannelOwnerLinkRepository.findByOwnerAndCommunicationChannelType(
+                                                            owner, CommunicationChannelType.EMAIL_ADDRESS);
         final Iterable<EmailAddress> emailAddresses =
                 Iterables.transform(
                         links,
                         CommunicationChannelOwnerLink.Functions.communicationChannel(EmailAddress.class));
         final Optional<EmailAddress> emailAddressIfFound =
-                Iterables.tryFind(emailAddresses, EmailAddress.Predicates.equalTo(emailAddress));
+                Iterables.tryFind(emailAddresses, input -> Objects.equals(emailAddress, input.getEmailAddress()));
         return emailAddressIfFound.orNull();
     }
-    //endregion
-
-    //region > injected
-    @Inject
-    CommunicationChannelDerivedOwner communicationChannelDerivedOwner;
-    @Inject
-    CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;
-    @Inject
-    DomainObjectContainer container;
-    //endregion
 
 }

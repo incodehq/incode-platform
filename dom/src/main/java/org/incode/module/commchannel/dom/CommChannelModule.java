@@ -16,23 +16,17 @@
  */
 package org.incode.module.commchannel.dom;
 
-import java.util.List;
-import org.apache.isis.applib.Identifier;
-
 public final class CommChannelModule {
 
-    //region > constants
-
     public static class JdoColumnLength {
-
-
         private JdoColumnLength(){}
 
         public final static int TYPE_ENUM = 30;
 
-        //http://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
+        /**
+         * http://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
+         */
         public static final int EMAIL_ADDRESS = 254;
-
         public final static int PHONE_NUMBER = 20;
 
         public static final int ADDRESS_LINE = 50;
@@ -40,6 +34,9 @@ public final class CommChannelModule {
         public static final int COUNTRY = 30;
 
         public static final int FORMATTED_ADDRESS = 254;
+
+        public static final int OBJECT_TYPE = 255;
+        public static final int OBJECT_IDENTIFIER = 255;
 
     }
 
@@ -50,45 +47,16 @@ public final class CommChannelModule {
         public static final String EMAIL_ADDRESS = "[^@ ]*@{1}[^@ ]*[.]+[^@ ]*";
     }
 
-    //endregion
 
-    //region > constructor
     private CommChannelModule(){}
-    //endregion
 
-    //region > event classes
-    public abstract static class ActionDomainEvent<S> extends org.apache.isis.applib.services.eventbus.ActionDomainEvent<S> {
-        public ActionDomainEvent(final S source, final Identifier identifier) {
-            super(source, identifier);
-        }
+    public abstract static class ActionDomainEvent<S>
+            extends org.apache.isis.applib.services.eventbus.ActionDomainEvent<S> {}
 
-        public ActionDomainEvent(final S source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
+    public abstract static class CollectionDomainEvent<S,T>
+            extends org.apache.isis.applib.services.eventbus.CollectionDomainEvent<S,T> {}
 
-        public ActionDomainEvent(final S source, final Identifier identifier, final List<Object> arguments) {
-            super(source, identifier, arguments);
-        }
-    }
+    public abstract static class PropertyDomainEvent<S,T>
+            extends org.apache.isis.applib.services.eventbus.PropertyDomainEvent<S,T> {}
 
-    public abstract static class CollectionDomainEvent<S,T> extends org.apache.isis.applib.services.eventbus.CollectionDomainEvent<S,T> {
-        public CollectionDomainEvent(final S source, final Identifier identifier, final Of of) {
-            super(source, identifier, of);
-        }
-
-        public CollectionDomainEvent(final S source, final Identifier identifier, final Of of, final T value) {
-            super(source, identifier, of, value);
-        }
-    }
-
-    public abstract static class PropertyDomainEvent<S,T> extends org.apache.isis.applib.services.eventbus.PropertyDomainEvent<S,T> {
-        public PropertyDomainEvent(final S source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public PropertyDomainEvent(final S source, final Identifier identifier, final T oldValue, final T newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-    //endregion
 }

@@ -21,7 +21,6 @@ package org.incode.module.commchannel.dom.impl.postaladdress;
 import javax.inject.Inject;
 
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -41,7 +40,6 @@ import org.incode.module.commchannel.dom.api.geocoding.GeocodingService;
 )
 public class PostalAddressActionUpdateAddress {
 
-
     @Inject
     PostalAddressActionResetGeocode postalAddressActionResetGeocode;
     @Inject
@@ -50,12 +48,7 @@ public class PostalAddressActionUpdateAddress {
     DomainObjectContainer container;
 
 
-    public static class UpdateAddressEvent extends PostalAddress.ActionDomainEvent<PostalAddressActionUpdateAddress> {
-        public UpdateAddressEvent( final PostalAddressActionUpdateAddress source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
+    public static class UpdateAddressEvent extends PostalAddress.ActionDomainEvent<PostalAddressActionUpdateAddress> { }
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
             domainEvent = UpdateAddressEvent.class

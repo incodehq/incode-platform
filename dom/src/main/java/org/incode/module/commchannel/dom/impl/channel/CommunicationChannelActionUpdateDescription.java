@@ -18,7 +18,6 @@ Copyright 2015 incode.org
  */
 package org.incode.module.commchannel.dom.impl.channel;
 
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -32,17 +31,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 )
 public class CommunicationChannelActionUpdateDescription {
 
-    public static class UpdateDescription extends
-            CommunicationChannel.ActionDomainEvent<CommunicationChannelActionUpdateDescription> {
-        private static final long serialVersionUID = 1L;
-
-        public UpdateDescription(
-                final CommunicationChannelActionUpdateDescription source,
-                final Identifier identifier,
-                final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-    }
+    public static class UpdateDescription
+            extends CommunicationChannel.ActionDomainEvent<CommunicationChannelActionUpdateDescription> { }
 
     @Action(
             domainEvent = UpdateDescription.class,

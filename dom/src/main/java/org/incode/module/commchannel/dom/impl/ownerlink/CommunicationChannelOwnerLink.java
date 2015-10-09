@@ -24,7 +24,6 @@ import javax.jdo.annotations.InheritanceStrategy;
 
 import com.google.common.base.Function;
 
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -37,6 +36,9 @@ import org.incode.module.commchannel.dom.CommChannelModule;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
         schema = "isiscommchannel",
@@ -76,26 +78,9 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 )
 public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociationLink<CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink> {
 
-    //region > event classes
-    public static abstract class PropertyDomainEvent<S,T> extends
-            CommChannelModule.PropertyDomainEvent<S, T> {
-        public PropertyDomainEvent(final S source, final Identifier identifier, final T oldValue, final T newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    public static abstract class CollectionDomainEvent<S,T> extends CommChannelModule.CollectionDomainEvent<S, T> {
-        public CollectionDomainEvent(final S source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
-            super(source, identifier, of, value);
-        }
-    }
-
-    public static abstract class ActionDomainEvent<S> extends CommChannelModule.ActionDomainEvent<S> {
-        public ActionDomainEvent(final S source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-    //endregion
+    public static abstract class PropertyDomainEvent<S,T> extends CommChannelModule.PropertyDomainEvent<S, T> { }
+    public static abstract class CollectionDomainEvent<S,T> extends CommChannelModule.CollectionDomainEvent<S, T> { }
+    public static abstract class ActionDomainEvent<S> extends CommChannelModule.ActionDomainEvent<S> { }
 
     //region > instantiateEvent (poly pattern)
     public static class InstantiateEvent
@@ -151,15 +136,10 @@ public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociati
     }
     //endregion
 
-    //region > communicationChannel (property)
 
-    public static class CommunicationChannelEvent extends PropertyDomainEvent<CommunicationChannelOwnerLink,CommunicationChannel> {
-        public CommunicationChannelEvent( final CommunicationChannelOwnerLink source, final Identifier identifier, final CommunicationChannel oldValue, final CommunicationChannel newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    private CommunicationChannel communicationChannel;
+    public static class CommunicationChannelEvent
+            extends PropertyDomainEvent<CommunicationChannelOwnerLink,CommunicationChannel> { }
+    @Getter @Setter
     @Column(
             allowsNull = "false",
             name = "communicationChannelId"
@@ -167,64 +147,31 @@ public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociati
     @Property(
             domainEvent = CommunicationChannelEvent.class
     )
-    public CommunicationChannel getCommunicationChannel() {
-        return communicationChannel;
-    }
+    private CommunicationChannel communicationChannel;
 
-    public void setCommunicationChannel(final CommunicationChannel communicationChannel) {
-        this.communicationChannel = communicationChannel;
-    }
-    //endregion
-
-    //region > ownerObjectType (property)
-
-    public static class OwnerObjectTypeEvent extends PropertyDomainEvent<CommunicationChannelOwnerLink, String> {
-        public OwnerObjectTypeEvent( final CommunicationChannelOwnerLink source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    private String ownerObjectType;
-
-    @Column(allowsNull = "false", length = 255)
+    public static class OwnerObjectTypeEvent extends PropertyDomainEvent<CommunicationChannelOwnerLink, String> { }
+    @Getter @Setter
+    @Column(
+            allowsNull = "false",
+            length = CommChannelModule.JdoColumnLength.OBJECT_TYPE
+    )
     @Property(
             domainEvent = OwnerObjectTypeEvent.class
     )
-    public String getOwnerObjectType() {
-        return ownerObjectType;
-    }
+    private String ownerObjectType;
 
-    public void setOwnerObjectType(final String ownerObjectType) {
-        this.ownerObjectType = ownerObjectType;
-    }
-    //endregion
 
-    //region > ownerIdentifier (property)
-
-    public static class OwnerIdentifierEvent extends PropertyDomainEvent<CommunicationChannelOwnerLink, String> {
-        public OwnerIdentifierEvent( final CommunicationChannelOwnerLink source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    private String ownerIdentifier;
-
-    @Column(allowsNull = "false", length = 255)
+    public static class OwnerIdentifierEvent extends PropertyDomainEvent<CommunicationChannelOwnerLink, String> { }
+    @Getter @Setter
+    @Column(
+            allowsNull = "false",
+            length = CommChannelModule.JdoColumnLength.OBJECT_IDENTIFIER
+    )
     @Property(
             domainEvent = OwnerIdentifierEvent.class
     )
-    public String getOwnerIdentifier() {
-        return ownerIdentifier;
-    }
+    private String ownerIdentifier;
 
-    public void setOwnerIdentifier(final String ownerIdentifier) {
-        this.ownerIdentifier = ownerIdentifier;
-    }
-    //endregion
-
-    //region > communicationChannelType (property)
-
-    private CommunicationChannelType communicationChannelType;
 
     /**
      * copy of the {@link #getCommunicationChannel()}'s {@link CommunicationChannel#getType() type}.
@@ -234,17 +181,12 @@ public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociati
      *     it is safe to copy.
      * </p>
      */
+    @Getter @Setter
     @MemberOrder(sequence = "1")
     @Column(allowsNull = "false", length = CommChannelModule.JdoColumnLength.TYPE_ENUM)
     @Property(hidden = Where.EVERYWHERE)
-    public CommunicationChannelType getCommunicationChannelType() {
-        return communicationChannelType;
-    }
+    private CommunicationChannelType communicationChannelType;
 
-    public void setCommunicationChannelType(final CommunicationChannelType communicationChannelType) {
-        this.communicationChannelType = communicationChannelType;
-    }
-    //endregion
 
     //region > Functions
     public static class Functions {
@@ -252,27 +194,15 @@ public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociati
             return communicationChannel(CommunicationChannel.class);
         }
         public static <T extends CommunicationChannel> Function<CommunicationChannelOwnerLink, T> communicationChannel(Class<T> cls) {
-            return new Function<CommunicationChannelOwnerLink, T>() {
-                @Override
-                public T apply(final CommunicationChannelOwnerLink input) {
-                    return (T)input.getCommunicationChannel();
-                }
-            };
+            return input -> (T)input.getCommunicationChannel();
         }
         public static Function<CommunicationChannelOwnerLink, CommunicationChannelOwner> owner() {
             return owner(CommunicationChannelOwner.class);
         }
-
         public static <T extends CommunicationChannelOwner> Function<CommunicationChannelOwnerLink, T> owner(final Class<T> cls) {
-            return new Function<CommunicationChannelOwnerLink, T>() {
-                @Override
-                public T apply(final CommunicationChannelOwnerLink input) {
-                    return (T)input.getPolymorphicReference();
-                }
-            };
+            return input -> (T)input.getPolymorphicReference();
         }
     }
     //endregion
-
 
 }

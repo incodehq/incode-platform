@@ -22,7 +22,6 @@ import java.util.SortedSet;
 import javax.inject.Inject;
 
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -46,20 +45,8 @@ public class CommunicationChannelActionRemove {
     DomainObjectContainer container;
 
 
-    public static class RemoveEvent extends
-            CommunicationChannel.ActionDomainEvent<CommunicationChannelActionRemove> {
-        private static final long serialVersionUID = 1L;
-
-        public RemoveEvent(
-                final CommunicationChannelActionRemove source,
-                final Identifier identifier,
-                final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
-
-
+    public static class RemoveEvent
+            extends CommunicationChannel.ActionDomainEvent<CommunicationChannelActionRemove> { }
     @Action(
             domainEvent = RemoveEvent.class,
             semantics = SemanticsOf.IDEMPOTENT
