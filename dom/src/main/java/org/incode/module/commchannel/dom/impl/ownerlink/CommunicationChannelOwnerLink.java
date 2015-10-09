@@ -1,9 +1,8 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
+ *  Copyright 2015 incode.org
+ *
+ *
+ *  Licensed under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
  *
@@ -17,8 +16,6 @@
  *  under the License.
  */
 package org.incode.module.commchannel.dom.impl.ownerlink;
-
-import java.util.List;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -37,8 +34,8 @@ import org.apache.isis.applib.annotation.Where;
 import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 
 import org.incode.module.commchannel.dom.CommChannelModule;
-import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
+import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 
 @javax.jdo.annotations.PersistenceCapable(
@@ -52,18 +49,18 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
         @javax.jdo.annotations.Query(
                 name = "findByCommunicationChannel", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM CommunicationChannelOwnerLink "
+                        + "FROM org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink "
                         + "WHERE communicationChannel == :communicationChannel"),
         @javax.jdo.annotations.Query(
                 name = "findByOwner", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM CommunicationChannelOwnerLink "
+                        + "FROM org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink "
                         + "WHERE ownerObjectType == :ownerObjectType "
                         + "   && ownerIdentifier == :ownerIdentifier "),
         @javax.jdo.annotations.Query(
                 name = "findByOwnerAndCommunicationChannelType", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM CommunicationChannelOwnerLink "
+                        + "FROM org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink "
                         + "WHERE ownerObjectType == :ownerObjectType "
                         + "   && ownerIdentifier == :ownerIdentifier "
                         + "   && communicationChannelType == :communicationChannelType ")
@@ -80,37 +77,21 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociationLink<CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink> {
 
     //region > event classes
-    public static abstract class PropertyDomainEvent<T> extends
-            CommChannelModule.PropertyDomainEvent<CommunicationChannelOwnerLink, T> {
-        public PropertyDomainEvent(final CommunicationChannelOwnerLink source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public PropertyDomainEvent(final CommunicationChannelOwnerLink source, final Identifier identifier, final T oldValue, final T newValue) {
+    public static abstract class PropertyDomainEvent<S,T> extends
+            CommChannelModule.PropertyDomainEvent<S, T> {
+        public PropertyDomainEvent(final S source, final Identifier identifier, final T oldValue, final T newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
 
-    public static abstract class CollectionDomainEvent<T> extends CommChannelModule.CollectionDomainEvent<CommunicationChannelOwnerLink, T> {
-        public CollectionDomainEvent(final CommunicationChannelOwnerLink source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of) {
-            super(source, identifier, of);
-        }
-
-        public CollectionDomainEvent(final CommunicationChannelOwnerLink source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
+    public static abstract class CollectionDomainEvent<S,T> extends CommChannelModule.CollectionDomainEvent<S, T> {
+        public CollectionDomainEvent(final S source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
             super(source, identifier, of, value);
         }
     }
 
-    public static abstract class ActionDomainEvent extends CommChannelModule.ActionDomainEvent<CommunicationChannelOwnerLink> {
-        public ActionDomainEvent(final CommunicationChannelOwnerLink source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public ActionDomainEvent(final CommunicationChannelOwnerLink source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public ActionDomainEvent(final CommunicationChannelOwnerLink source, final Identifier identifier, final List<Object> arguments) {
+    public static abstract class ActionDomainEvent<S> extends CommChannelModule.ActionDomainEvent<S> {
+        public ActionDomainEvent(final S source, final Identifier identifier, final Object... arguments) {
             super(source, identifier, arguments);
         }
     }
@@ -124,7 +105,6 @@ public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociati
             super(CommunicationChannelOwnerLink.class, source, subject, owner);
         }
     }
-
     //endregion
 
     //region > constructor
@@ -173,19 +153,8 @@ public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociati
 
     //region > communicationChannel (property)
 
-    public static class CommunicationChannelEvent extends PropertyDomainEvent<CommunicationChannel> {
-
-        public CommunicationChannelEvent(
-                final CommunicationChannelOwnerLink source,
-                final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public CommunicationChannelEvent(
-                final CommunicationChannelOwnerLink source,
-                final Identifier identifier,
-                final CommunicationChannel oldValue,
-                final CommunicationChannel newValue) {
+    public static class CommunicationChannelEvent extends PropertyDomainEvent<CommunicationChannelOwnerLink,CommunicationChannel> {
+        public CommunicationChannelEvent( final CommunicationChannelOwnerLink source, final Identifier identifier, final CommunicationChannel oldValue, final CommunicationChannel newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
@@ -209,18 +178,9 @@ public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociati
 
     //region > ownerObjectType (property)
 
-    public static class OwnerObjectTypeEvent extends PropertyDomainEvent<String> {
-
-        public OwnerObjectTypeEvent(
-                final CommunicationChannelOwnerLink source,
-                final Identifier identifier, final String oldValue, final String newValue) {
+    public static class OwnerObjectTypeEvent extends PropertyDomainEvent<CommunicationChannelOwnerLink, String> {
+        public OwnerObjectTypeEvent( final CommunicationChannelOwnerLink source, final Identifier identifier, final String oldValue, final String newValue) {
             super(source, identifier, oldValue, newValue);
-        }
-
-        public OwnerObjectTypeEvent(
-                final CommunicationChannelOwnerLink source,
-                final Identifier identifier) {
-            super(source, identifier);
         }
     }
 
@@ -241,17 +201,8 @@ public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociati
 
     //region > ownerIdentifier (property)
 
-    public static class OwnerIdentifierEvent extends PropertyDomainEvent<String> {
-
-        public OwnerIdentifierEvent(
-                final CommunicationChannelOwnerLink source,
-                final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public OwnerIdentifierEvent(
-                final CommunicationChannelOwnerLink source,
-                final Identifier identifier, final String oldValue, final String newValue) {
+    public static class OwnerIdentifierEvent extends PropertyDomainEvent<CommunicationChannelOwnerLink, String> {
+        public OwnerIdentifierEvent( final CommunicationChannelOwnerLink source, final Identifier identifier, final String oldValue, final String newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
@@ -295,8 +246,7 @@ public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociati
     }
     //endregion
 
-    // //////////////////////////////////////
-
+    //region > Functions
     public static class Functions {
         public static Function<CommunicationChannelOwnerLink, CommunicationChannel> communicationChannel() {
             return communicationChannel(CommunicationChannel.class);
@@ -322,4 +272,7 @@ public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociati
             };
         }
     }
+    //endregion
+
+
 }

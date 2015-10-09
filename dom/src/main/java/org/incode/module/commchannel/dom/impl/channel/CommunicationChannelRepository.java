@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright 2012-2014 Eurocommercial Properties NV
+Copyright 2015 incode.org
  *
  *
  *  Licensed under the Apache License, Version 2.0 (the
@@ -34,7 +34,7 @@ import org.apache.isis.applib.query.QueryDefault;
 
 import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
-import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinks;
+import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 
 @DomainService(
@@ -61,7 +61,7 @@ public class CommunicationChannelRepository {
 
     @Programmatic
     public SortedSet<CommunicationChannel> findByOwner(final CommunicationChannelOwner owner) {
-        final List<CommunicationChannelOwnerLink> links = communicationChannelOwnerLinks.findByOwner(owner);
+        final List<CommunicationChannelOwnerLink> links = communicationChannelOwnerLinkRepository.findByOwner(owner);
         return Sets.newTreeSet(
                 Iterables.transform(links, CommunicationChannelOwnerLink.Functions.communicationChannel()));
     }
@@ -74,7 +74,7 @@ public class CommunicationChannelRepository {
             final CommunicationChannelOwner owner,
             final CommunicationChannelType type) {
         final List<CommunicationChannelOwnerLink> links =
-                communicationChannelOwnerLinks.findByOwnerAndCommunicationChannelType(owner, type);
+                communicationChannelOwnerLinkRepository.findByOwnerAndCommunicationChannelType(owner, type);
         return Sets.newTreeSet(Iterables.transform(
                 links, CommunicationChannelOwnerLink.Functions.communicationChannel()));
     }
@@ -95,7 +95,7 @@ public class CommunicationChannelRepository {
 
     //region > injected
     @Inject
-    CommunicationChannelOwnerLinks communicationChannelOwnerLinks;
+    CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;
     @Inject
     DomainObjectContainer container;
 

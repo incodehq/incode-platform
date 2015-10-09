@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright 2012-2014 Eurocommercial Properties NV
+ *  Copyright 2015 incode.org
  *
  *
  *  Licensed under the Apache License, Version 2.0 (the
@@ -41,72 +41,24 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 
 /**
  * Domain service that contributes actions to create a new
- * {@link #newPhoneOrFax(CommunicationChannelOwner, CommunicationChannelType, String, String) phone or fax number} for a particular {@link CommunicationChannelOwner}.
+ * {@link #newPhoneOrFaxNumber(CommunicationChannelOwner, CommunicationChannelType, String, String, String) phone or fax number}
+ * for a particular {@link CommunicationChannelOwner}.
  */
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
 )
-public class PhoneOrFaxNumberContributions {
+public class PhoneOrFaxNumberContributionsToOwner {
 
-    //region > event classes
-    public static abstract class PropertyDomainEvent<T> extends
-            CommChannelModule.PropertyDomainEvent<PhoneOrFaxNumberContributions, T> {
-        public PropertyDomainEvent(final PhoneOrFaxNumberContributions source, final Identifier identifier) {
-            super(source, identifier);
-        }
+    @Inject
+    PhoneOrFaxNumberRepository phoneOrFaxNumberRepository;
 
-        public PropertyDomainEvent(final PhoneOrFaxNumberContributions source, final Identifier identifier, final T oldValue, final T newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
 
-    public static abstract class CollectionDomainEvent<T> extends CommChannelModule.CollectionDomainEvent<PhoneOrFaxNumberContributions, T> {
-        public CollectionDomainEvent(final PhoneOrFaxNumberContributions source, final Identifier identifier, final Of of) {
-            super(source, identifier, of);
-        }
-
-        public CollectionDomainEvent(final PhoneOrFaxNumberContributions source, final Identifier identifier, final Of of, final T value) {
-            super(source, identifier, of, value);
-        }
-    }
-
-    public static abstract class ActionDomainEvent extends CommChannelModule.ActionDomainEvent<PhoneOrFaxNumberContributions> {
-        public ActionDomainEvent(final PhoneOrFaxNumberContributions source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public ActionDomainEvent(final PhoneOrFaxNumberContributions source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public ActionDomainEvent(final PhoneOrFaxNumberContributions source, final Identifier identifier, final List<Object> arguments) {
+    public static class NewPhoneOrFaxEvent extends CommunicationChannelOwner.ActionDomainEvent<PhoneOrFaxNumberContributionsToOwner>  {
+        public NewPhoneOrFaxEvent( final PhoneOrFaxNumberContributionsToOwner source, final Identifier identifier, final Object... arguments) {
             super(source, identifier, arguments);
         }
     }
-    //endregion
 
-    //region > newPhoneOrFax (contributed action)
-
-    public static class NewPhoneOrFaxEvent extends ActionDomainEvent {
-
-        public NewPhoneOrFaxEvent(
-                final PhoneOrFaxNumberContributions source,
-                final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public NewPhoneOrFaxEvent(
-                final PhoneOrFaxNumberContributions source,
-                final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public NewPhoneOrFaxEvent(
-                final PhoneOrFaxNumberContributions source,
-                final Identifier identifier, final List<Object> arguments) {
-            super(source, identifier, arguments);
-        }
-    }
 
     @Action(
             domainEvent = NewPhoneOrFaxEvent.class,
@@ -146,13 +98,6 @@ public class PhoneOrFaxNumberContributions {
         return choices1NewPhoneOrFaxNumber().get(0);
     }
 
-    //endregion
 
-    //region > injected services
-
-    @Inject
-    PhoneOrFaxNumberRepository phoneOrFaxNumberRepository;
-
-    //endregion
 
 }

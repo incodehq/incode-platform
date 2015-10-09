@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright 2012-2014 Eurocommercial Properties NV
+ *  Copyright 2015 incode.org
  *
  *
  *  Licensed under the Apache License, Version 2.0 (the
@@ -30,10 +30,10 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
+import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelDerivedOwner;
 import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
-import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinks;
-import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress;
+import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 
 /**
@@ -61,7 +61,7 @@ public class PostalAddressRepository {
         final PostalAddress pa =
                 container.newTransientInstance(PostalAddress.class);
         pa.setType(CommunicationChannelType.POSTAL_ADDRESS);
-        pa.setOwner(owner);
+        communicationChannelDerivedOwner.setOwner(pa, owner);
         pa.setDescription(description);
         pa.setAddressLine1(addressLine1);
         pa.setAddressLine2(addressLine2);
@@ -84,7 +84,7 @@ public class PostalAddressRepository {
             final String placeId) {
 
         final List<CommunicationChannelOwnerLink> links =
-                communicationChannelOwnerLinks.findByOwnerAndCommunicationChannelType(owner, CommunicationChannelType.POSTAL_ADDRESS);
+                communicationChannelOwnerLinkRepository.findByOwnerAndCommunicationChannelType(owner, CommunicationChannelType.POSTAL_ADDRESS);
         final Iterable<PostalAddress> postalAddresses =
                 Iterables.transform(
                         links,
@@ -97,7 +97,9 @@ public class PostalAddressRepository {
 
     //region > injected
     @Inject
-    CommunicationChannelOwnerLinks communicationChannelOwnerLinks;
+    CommunicationChannelDerivedOwner communicationChannelDerivedOwner;
+    @Inject
+    CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;
     @Inject
     DomainObjectContainer container;
     //endregion

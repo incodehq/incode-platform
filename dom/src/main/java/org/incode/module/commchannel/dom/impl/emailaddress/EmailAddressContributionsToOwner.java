@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright 2012-2014 Eurocommercial Properties NV
+Copyright 2015 incode.org
  *
  *
  *  Licensed under the Apache License, Version 2.0 (the
@@ -17,8 +17,6 @@
  *  under the License.
  */
 package org.incode.module.commchannel.dom.impl.emailaddress;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -45,64 +43,12 @@ import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
 )
-public class EmailAddressContributions {
+public class EmailAddressContributionsToOwner {
 
-    //region > event classes
-    public static abstract class PropertyDomainEvent<T> extends
-            CommChannelModule.PropertyDomainEvent<EmailAddressContributions, T> {
-        public PropertyDomainEvent(final EmailAddressContributions source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public PropertyDomainEvent(final EmailAddressContributions source, final Identifier identifier, final T oldValue, final T newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    public static abstract class CollectionDomainEvent<T> extends CommChannelModule.CollectionDomainEvent<EmailAddressContributions, T> {
-        public CollectionDomainEvent(final EmailAddressContributions source, final Identifier identifier, final Of of) {
-            super(source, identifier, of);
-        }
-
-        public CollectionDomainEvent(final EmailAddressContributions source, final Identifier identifier, final Of of, final T value) {
-            super(source, identifier, of, value);
-        }
-    }
-
-    public static abstract class ActionDomainEvent extends CommChannelModule.ActionDomainEvent<EmailAddressContributions> {
-        public ActionDomainEvent(final EmailAddressContributions source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public ActionDomainEvent(final EmailAddressContributions source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public ActionDomainEvent(final EmailAddressContributions source, final Identifier identifier, final List<Object> arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-    //endregion
-
-    //region > newEmail (contributed action)
-
-    public static class NewEmailEvent extends ActionDomainEvent {
-
+    public static class NewEmailEvent extends CommunicationChannelOwner.ActionDomainEvent<EmailAddressContributionsToOwner> {
         public NewEmailEvent(
-                final EmailAddressContributions source,
-                final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public NewEmailEvent(
-                final EmailAddressContributions source,
+                final EmailAddressContributionsToOwner source,
                 final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public NewEmailEvent(
-                final EmailAddressContributions source,
-                final Identifier identifier, final List<Object> arguments) {
             super(source, identifier, arguments);
         }
     }
@@ -130,18 +76,11 @@ public class EmailAddressContributions {
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Notes", multiLine = 10)
             final String notes) {
-        communicationChannelRepository.newEmail(owner, email, description, notes);
+        emailAddressRepository.newEmail(owner, email, description, notes);
         return owner;
     }
 
-
-    //endregion
-
-    //region > injected services
-
     @Inject
-    EmailAddressRepository communicationChannelRepository;
-
-    //endregion
+    EmailAddressRepository emailAddressRepository;
 
 }

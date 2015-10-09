@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright 2012-2014 Eurocommercial Properties NV
+ *  Copyright 2015 incode.org
  *
  *
  *  Licensed under the Apache License, Version 2.0 (the
@@ -18,10 +18,8 @@
  */
 package org.incode.module.commchannel.dom.impl.postaladdress;
 
-import java.util.List;
 import java.util.Objects;
 
-import javax.inject.Inject;
 import javax.jdo.annotations.InheritanceStrategy;
 
 import com.google.common.base.Predicate;
@@ -29,27 +27,19 @@ import com.google.common.base.Predicate;
 import org.apache.commons.lang3.StringUtils;
 
 import org.apache.isis.applib.Identifier;
-import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
-import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Optionality;
-import org.apache.isis.applib.annotation.Parameter;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
-import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Where;
-import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.util.TitleBuffer;
-import org.apache.isis.applib.value.Clob;
+
+import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 
 import org.incode.module.commchannel.dom.CommChannelModule;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
-import org.incode.module.commchannel.dom.api.geocoding.GeocodedAddress;
-import org.incode.module.commchannel.dom.api.geocoding.GeocodingService;
-import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 
 @javax.jdo.annotations.PersistenceCapable
 @javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.SUPERCLASS_TABLE)
@@ -67,37 +57,21 @@ import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 public class PostalAddress extends CommunicationChannel<PostalAddress> {
 
     //region > event classes
-    public static abstract class PropertyDomainEvent<T> extends
-            CommChannelModule.PropertyDomainEvent<PostalAddress, T> {
-        public PropertyDomainEvent(final PostalAddress source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public PropertyDomainEvent(final PostalAddress source, final Identifier identifier, final T oldValue, final T newValue) {
+    public static abstract class PropertyDomainEvent<S,T> extends
+            CommChannelModule.PropertyDomainEvent<S, T> {
+        public PropertyDomainEvent(final S source, final Identifier identifier, final T oldValue, final T newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
 
-    public static abstract class CollectionDomainEvent<T> extends CommChannelModule.CollectionDomainEvent<PostalAddress, T> {
-        public CollectionDomainEvent(final PostalAddress source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of) {
-            super(source, identifier, of);
-        }
-
-        public CollectionDomainEvent(final PostalAddress source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
+    public static abstract class CollectionDomainEvent<S,T> extends CommChannelModule.CollectionDomainEvent<S, T> {
+        public CollectionDomainEvent(final S source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
             super(source, identifier, of, value);
         }
     }
 
-    public static abstract class ActionDomainEvent extends CommChannelModule.ActionDomainEvent<PostalAddress> {
-        public ActionDomainEvent(final PostalAddress source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public ActionDomainEvent(final PostalAddress source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public ActionDomainEvent(final PostalAddress source, final Identifier identifier, final List<Object> arguments) {
+    public static abstract class ActionDomainEvent<S> extends CommChannelModule.ActionDomainEvent<S> {
+        public ActionDomainEvent(final S source, final Identifier identifier, final Object... arguments) {
             super(source, identifier, arguments);
         }
     }
@@ -123,17 +97,8 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
 
     //region > addressLine1 (property)
 
-    public static class AddressLine1Event extends PropertyDomainEvent<String> {
-
-        public AddressLine1Event(final PostalAddress source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public AddressLine1Event(
-                final PostalAddress source,
-                final Identifier identifier,
-                final String oldValue,
-                final String newValue) {
+    public static class AddressLine1Event extends PropertyDomainEvent<PostalAddress,String> {
+        public AddressLine1Event( final PostalAddress source, final Identifier identifier, final String oldValue, final String newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
@@ -157,17 +122,8 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
 
     //region > addressLine2 (property)
 
-    public static class AddressLine2Event extends PropertyDomainEvent<String> {
-
-        public AddressLine2Event(final PostalAddress source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public AddressLine2Event(
-                final PostalAddress source,
-                final Identifier identifier,
-                final String oldValue,
-                final String newValue) {
+    public static class AddressLine2Event extends PropertyDomainEvent<PostalAddress,String> {
+        public AddressLine2Event( final PostalAddress source, final Identifier identifier, final String oldValue, final String newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
@@ -191,17 +147,8 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
 
     //region > addressLine3 (property)
 
-    public static class AddressLine3Event extends PropertyDomainEvent<String> {
-
-        public AddressLine3Event(final PostalAddress source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public AddressLine3Event(
-                final PostalAddress source,
-                final Identifier identifier,
-                final String oldValue,
-                final String newValue) {
+    public static class AddressLine3Event extends PropertyDomainEvent<PostalAddress,String> {
+        public AddressLine3Event( final PostalAddress source, final Identifier identifier, final String oldValue, final String newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
@@ -225,17 +172,8 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
 
     //region > addressLine4 (property)
 
-    public static class AddressLine4Event extends PropertyDomainEvent<String> {
-
-        public AddressLine4Event(final PostalAddress source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public AddressLine4Event(
-                final PostalAddress source,
-                final Identifier identifier,
-                final String oldValue,
-                final String newValue) {
+    public static class AddressLine4Event extends PropertyDomainEvent<PostalAddress,String> {
+        public AddressLine4Event( final PostalAddress source, final Identifier identifier, final String oldValue, final String newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
@@ -259,17 +197,8 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
 
     //region > postalCode (property)
 
-    public static class PostalCodeEvent extends PropertyDomainEvent<String> {
-
-        public PostalCodeEvent(final PostalAddress source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public PostalCodeEvent(
-                final PostalAddress source,
-                final Identifier identifier,
-                final String oldValue,
-                final String newValue) {
+    public static class PostalCodeEvent extends PropertyDomainEvent<PostalAddress,String> {
+        public PostalCodeEvent( final PostalAddress source, final Identifier identifier, final String oldValue, final String newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
@@ -293,16 +222,8 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
 
     //region > country (property)
 
-    public static class CountryEvent extends PropertyDomainEvent<String> {
-        public CountryEvent(final PostalAddress source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public CountryEvent(
-                final PostalAddress source,
-                final Identifier identifier,
-                final String oldValue,
-                final String newValue) {
+    public static class CountryEvent extends PropertyDomainEvent<PostalAddress,String> {
+        public CountryEvent( final PostalAddress source, final Identifier identifier, final String oldValue, final String newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
@@ -324,133 +245,10 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
 
     //endregion
 
-    //region > update (action)
-
-    public static class UpdateAddressEvent extends ActionDomainEvent {
-        public UpdateAddressEvent(final PostalAddress source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public UpdateAddressEvent(
-                final PostalAddress source,
-                final Identifier identifier,
-                final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public UpdateAddressEvent(
-                final PostalAddress source,
-                final Identifier identifier,
-                final List<Object> arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
-    @Action(
-            semantics = SemanticsOf.IDEMPOTENT,
-            domainEvent = UpdateAddressEvent.class
-    )
-    public PostalAddress updateAddress(
-            @Parameter(maxLength = CommChannelModule.JdoColumnLength.ADDRESS_LINE)
-            @ParameterLayout(named = "Address Line 1")
-            final String addressLine1,
-            @Parameter(maxLength = CommChannelModule.JdoColumnLength.ADDRESS_LINE, optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Address Line 2")
-            final String addressLine2,
-            @Parameter(maxLength = CommChannelModule.JdoColumnLength.ADDRESS_LINE, optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Address Line 3")
-            final String addressLine3,
-            @Parameter(maxLength = CommChannelModule.JdoColumnLength.ADDRESS_LINE, optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Address Line 4")
-            final String addressLine4,
-            @Parameter(maxLength = CommChannelModule.JdoColumnLength.POSTAL_CODE, optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Postal Code")
-            final String postalCode,
-            @Parameter(maxLength = CommChannelModule.JdoColumnLength.COUNTRY, optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Country")
-            final String country,
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Lookup geocode")
-            final Boolean lookupGeocode) {
-
-        setAddressLine1(addressLine1);
-        setAddressLine2(addressLine2);
-        setAddressLine3(addressLine3);
-        setAddressLine4(addressLine4);
-        setPostalCode(postalCode);
-        setCountry(country);
-
-        lookupAndUpdateGeocode(
-                lookupGeocode,
-                addressLine1, addressLine2, addressLine3, addressLine4, postalCode, country);
-
-        return this;
-    }
-
-    void lookupAndUpdateGeocode(
-            final Boolean lookupGeocode,
-            final String... addressParts) {
-
-        if (lookupGeocode == null) {
-            return;
-        }
-
-        if (lookupGeocode) {
-            final String address = geocodingService.combine(GeocodingService.Encoding.ENCODED, addressParts);
-            final GeocodedAddress geocodedAddress = geocodingService.lookup(address);
-
-            if (GeocodedAddress.isOk(geocodedAddress)) {
-                setFormattedAddress(geocodedAddress.getFormattedAddress());
-                setGeocodeApiResponseAsJson(geocodedAddress.getApiResponseAsJson());
-                setPlaceId(geocodedAddress.getPlaceId());
-                setLatLng(geocodedAddress.getLatLng());
-                setAddressComponents(geocodedAddress.getAddressComponents());
-            } else {
-                container.warnUser(
-                        TranslatableString.tr("Could not lookup geocode for address"),
-                        PostalAddressContributions.class, "newPostal");
-            }
-        } else {
-            resetGeocode();
-        }
-    }
-
-    public String default0UpdateAddress() {
-        return getAddressLine1();
-    }
-    public String default1UpdateAddress() {
-        return getAddressLine2();
-    }
-    public String default2UpdateAddress() {
-        return getAddressLine3();
-    }
-    public String default3UpdateAddress() {
-        return getAddressLine4();
-    }
-    public String default4UpdateAddress() {
-        return getPostalCode();
-    }
-    public String default5UpdateAddress() {
-        return getCountry();
-    }
-    public Boolean default6UpdateAddress() {
-        return getPlaceId() != null ? true: null;
-    }
-
-    //endregion
-
     //region > formattedAddress (property)
 
-    public static class FormattedAddressEvent extends PropertyDomainEvent<String> {
-        public FormattedAddressEvent(final PostalAddress source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public FormattedAddressEvent(
-                final PostalAddress source,
-                final Identifier identifier,
-                final String oldValue,
-                final String newValue) {
+    public static class FormattedAddressEvent extends PropertyDomainEvent<PostalAddress, String> {
+        public FormattedAddressEvent( final PostalAddress source, final Identifier identifier, final String oldValue, final String newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
@@ -472,16 +270,8 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
 
     //region > placeId (property)
 
-    public static class PlaceIdEvent extends PropertyDomainEvent<String> {
-        public PlaceIdEvent(final PostalAddress source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public PlaceIdEvent(
-                final PostalAddress source,
-                final Identifier identifier,
-                final String oldValue,
-                final String newValue) {
+    public static class PlaceIdEvent extends PropertyDomainEvent<PostalAddress,String> {
+        public PlaceIdEvent( final PostalAddress source, final Identifier identifier, final String oldValue, final String newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
@@ -504,16 +294,8 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
 
     //region > latLng (property)
 
-    public static class LatLngEvent extends PropertyDomainEvent<String> {
-        public LatLngEvent(final PostalAddress source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public LatLngEvent(
-                final PostalAddress source,
-                final Identifier identifier,
-                final String oldValue,
-                final String newValue) {
+    public static class LatLngEvent extends PropertyDomainEvent<PostalAddress,String> {
+        public LatLngEvent( final PostalAddress source, final Identifier identifier, final String oldValue, final String newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
@@ -535,16 +317,8 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
     //endregion
 
     //region > addressComponents (property)
-    
-    public static class AddressComponentsEvent extends PropertyDomainEvent<PostalAddress> {
-        public AddressComponentsEvent(final PostalAddress source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public AddressComponentsEvent(
-                final PostalAddress source,
-                final Identifier identifier,
-                final PostalAddress oldValue, final PostalAddress newValue) {
+    public static class AddressComponentsEvent extends PropertyDomainEvent<PostalAddress,PostalAddress> {
+        public AddressComponentsEvent( final PostalAddress source, final Identifier identifier, final PostalAddress oldValue, final PostalAddress newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
@@ -566,93 +340,10 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
     }
     //endregion
 
-    //region > updateGeocode (action)
-    @MemberOrder(sequence = "1")
-    public PostalAddress updateGeocode(
-            @ParameterLayout(named = "Address")
-            final String address) {
-
-        lookupAndUpdateGeocode(true, address);
-
-        return this;
-    }
-
-    public String default0UpdateGeocode() {
-        return geocodingService.combine(
-                GeocodingService.Encoding.NOT_ENCODED,
-                getAddressLine1(), getAddressLine2(), getAddressLine3(), getAddressLine4(),
-                getPostalCode(), getCountry());
-    }
-    //endregion
-    
-    //region > clearGeocode (action)
-    public static class ClearGeocodeEvent extends ActionDomainEvent {
-        public ClearGeocodeEvent(final PostalAddress source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public ClearGeocodeEvent(final PostalAddress source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public ClearGeocodeEvent(
-                final PostalAddress source,
-                final Identifier identifier,
-                final List<Object> arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-    @Action(
-            semantics = SemanticsOf.IDEMPOTENT,
-            domainEvent = ClearGeocodeEvent.class
-    )
-    public PostalAddress resetGeocode() {
-        setFormattedAddress(null);
-        setPlaceId(null);
-        setLatLng(null);
-        setAddressComponents(null);
-        setGeocodeApiResponseAsJson(null);
-        return this;
-    }
-
-    //endregion
-
-    //region > downloadGeocode (action)
-    @Action(
-            semantics = SemanticsOf.SAFE
-    )
-    public Clob downloadGeocode(
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = ".json file name")
-            String fileName) {
-        fileName = fileName != null ? fileName : "postalAddress-" + getFormattedAddress();
-        if(!fileName.endsWith(".json")) {
-            fileName += ".json";
-        }
-        return new Clob(encodeAsFilename(fileName), "text/plain", getGeocodeApiResponseAsJson());
-    }
-
-    private static String encodeAsFilename(final String s) {
-        try {
-            return java.net.URLEncoder.encode(s, "UTF-8");
-        } catch (java.io.UnsupportedEncodingException e) {
-            throw new RuntimeException(e); // will not happen, UTF-8 always supported
-        }
-    }
-    //endregion
-
     //region > geocodeApiResponseAsJson (property)
 
-    public static class GeocodeApiResponseAsJsonEvent extends PropertyDomainEvent<String> {
-        public GeocodeApiResponseAsJsonEvent(final PostalAddress source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public GeocodeApiResponseAsJsonEvent(
-                final PostalAddress source,
-                final Identifier identifier,
-                final String oldValue,
-                final String newValue) {
+    public static class GeocodeApiResponseAsJsonEvent extends PropertyDomainEvent<PostalAddress,String> {
+        public GeocodeApiResponseAsJsonEvent( final PostalAddress source, final Identifier identifier, final String oldValue, final String newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
@@ -672,7 +363,6 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
     public void setGeocodeApiResponseAsJson(final String geocodeApiResponseAsJson) {
         this.geocodeApiResponseAsJson = geocodeApiResponseAsJson;
     }
-
     //endregion
 
     //region > Locatable API
@@ -699,9 +389,6 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
         }
     }
     //endregion
-
-    @Inject
-    GeocodingService geocodingService;
 
 
 }

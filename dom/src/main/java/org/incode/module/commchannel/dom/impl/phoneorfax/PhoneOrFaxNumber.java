@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright 2012-2014 Eurocommercial Properties NV
+ *  Copyright 2015 incode.org
  *
  *
  *  Licensed under the Apache License, Version 2.0 (the
@@ -18,7 +18,6 @@
  */
 package org.incode.module.commchannel.dom.impl.phoneorfax;
 
-import java.util.List;
 import java.util.Objects;
 
 import javax.jdo.annotations.InheritanceStrategy;
@@ -26,14 +25,10 @@ import javax.jdo.annotations.InheritanceStrategy;
 import com.google.common.base.Predicate;
 
 import org.apache.isis.applib.Identifier;
-import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Optionality;
-import org.apache.isis.applib.annotation.Parameter;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Property;
-import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Title;
 
 import org.incode.module.commchannel.dom.CommChannelModule;
@@ -53,37 +48,21 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 public class PhoneOrFaxNumber extends CommunicationChannel<PhoneOrFaxNumber> {
 
     //region > event classes
-    public static abstract class PropertyDomainEvent<T> extends
-            CommChannelModule.PropertyDomainEvent<PhoneOrFaxNumber, T> {
-        public PropertyDomainEvent(final PhoneOrFaxNumber source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public PropertyDomainEvent(final PhoneOrFaxNumber source, final Identifier identifier, final T oldValue, final T newValue) {
+    public static abstract class PropertyDomainEvent<S, T> extends
+            CommChannelModule.PropertyDomainEvent<S, T> {
+        public PropertyDomainEvent(final S source, final Identifier identifier, final T oldValue, final T newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
 
-    public static abstract class CollectionDomainEvent<T> extends CommChannelModule.CollectionDomainEvent<PhoneOrFaxNumber, T> {
-        public CollectionDomainEvent(final PhoneOrFaxNumber source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of) {
-            super(source, identifier, of);
-        }
-
-        public CollectionDomainEvent(final PhoneOrFaxNumber source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
+    public static abstract class CollectionDomainEvent<S, T> extends CommChannelModule.CollectionDomainEvent<S, T> {
+        public CollectionDomainEvent(final S source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
             super(source, identifier, of, value);
         }
     }
 
-    public static abstract class ActionDomainEvent extends CommChannelModule.ActionDomainEvent<PhoneOrFaxNumber> {
-        public ActionDomainEvent(final PhoneOrFaxNumber source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public ActionDomainEvent(final PhoneOrFaxNumber source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public ActionDomainEvent(final PhoneOrFaxNumber source, final Identifier identifier, final List<Object> arguments) {
+    public static abstract class ActionDomainEvent<S> extends CommChannelModule.ActionDomainEvent<S> {
+        public ActionDomainEvent(final S source, final Identifier identifier, final Object... arguments) {
             super(source, identifier, arguments);
         }
     }
@@ -91,17 +70,8 @@ public class PhoneOrFaxNumber extends CommunicationChannel<PhoneOrFaxNumber> {
 
     //region > phoneNumber (property)
 
-    public static class PhoneNumberEvent extends PropertyDomainEvent<String> {
-
-        public PhoneNumberEvent(final PhoneOrFaxNumber source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public PhoneNumberEvent(
-                final PhoneOrFaxNumber source,
-                final Identifier identifier,
-                final String oldValue,
-                final String newValue) {
+    public static class PhoneNumberEvent extends PropertyDomainEvent<PhoneOrFaxNumber, String> {
+        public PhoneNumberEvent( final PhoneOrFaxNumber source, final Identifier identifier, final String oldValue, final String newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
@@ -123,63 +93,6 @@ public class PhoneOrFaxNumber extends CommunicationChannel<PhoneOrFaxNumber> {
     public void setPhoneNumber(final String number) {
         this.phoneNumber = number;
     }
-
-    //endregion
-
-    //region > updatePhoneOrFaxNumber
-
-    public static class UpdatePhoneOrFaxNumberEvent extends ActionDomainEvent {
-
-        public UpdatePhoneOrFaxNumberEvent(final PhoneOrFaxNumber source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public UpdatePhoneOrFaxNumberEvent(
-                final PhoneOrFaxNumber source,
-                final Identifier identifier,
-                final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public UpdatePhoneOrFaxNumberEvent(
-                final PhoneOrFaxNumber source,
-                final Identifier identifier,
-                final List<Object> arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
-    @Action(
-            domainEvent = UpdatePhoneOrFaxNumberEvent.class,
-            semantics = SemanticsOf.IDEMPOTENT
-    )
-    public PhoneOrFaxNumber updatePhoneOrFaxNumber(
-            @ParameterLayout(named = "Type")
-            final CommunicationChannelType type,
-            @ParameterLayout(named = "Phone Number")
-            @Parameter(
-                    maxLength = CommChannelModule.JdoColumnLength.PHONE_NUMBER,
-                    regexPattern = CommChannelModule.Regex.PHONE_NUMBER
-            )
-            final String phoneNumber) {
-        setType(type);
-        setPhoneNumber(phoneNumber);
-
-        return this;
-    }
-
-    public List<CommunicationChannelType> choices0UpdatePhoneOrFaxNumber() {
-        return CommunicationChannelType.matching(PhoneOrFaxNumber.class);
-    }
-
-
-    public CommunicationChannelType default0UpdatePhoneOrFaxNumber() {
-        return getType();
-    }
-    public String default1UpdatePhoneOrFaxNumber() {
-        return getPhoneNumber();
-    }
-
 
     //endregion
 

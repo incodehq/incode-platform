@@ -1,6 +1,5 @@
 /*
- *
- *  Copyright 2012-2014 Eurocommercial Properties NV
+ *  Copyright 2015 incode.org
  *
  *
  *  Licensed under the Apache License, Version 2.0 (the
@@ -18,9 +17,6 @@
  */
 package org.incode.module.commchannel.dom.impl.channel;
 
-import java.util.List;
-import java.util.SortedSet;
-
 import javax.inject.Inject;
 import javax.jdo.JDOHelper;
 import javax.jdo.annotations.Column;
@@ -32,19 +28,15 @@ import javax.jdo.annotations.VersionStrategy;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.Identifier;
-import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Optionality;
-import org.apache.isis.applib.annotation.Parameter;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
-import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.util.ObjectContracts;
 
@@ -52,13 +44,11 @@ import org.isisaddons.wicket.gmap3.cpt.applib.Locatable;
 import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 
 import org.incode.module.commchannel.dom.CommChannelModule;
-import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
-import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
-import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinks;
-import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 import org.incode.module.commchannel.dom.impl.emailaddress.EmailAddress;
+import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress;
+import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 
 /**
  * Represents a mechanism for communicating with its
@@ -86,7 +76,7 @@ import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress;
         @javax.jdo.annotations.Query(
                 name = "findByReferenceAndType", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM CommunicationChannel "
+                        + "FROM org.incode.module.commchannel.dom.impl.channel.CommunicationChannel "
                         + "WHERE reference == :reference "
                         + "&& type == :type")
 })
@@ -96,37 +86,21 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
         Locatable {
 
     //region > event classes
-    public static abstract class PropertyDomainEvent<T> extends
-            CommChannelModule.PropertyDomainEvent<CommunicationChannel, T> {
-        public PropertyDomainEvent(final CommunicationChannel source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public PropertyDomainEvent(final CommunicationChannel source, final Identifier identifier, final T oldValue, final T newValue) {
+    public static abstract class PropertyDomainEvent<S,T> extends
+            CommChannelModule.PropertyDomainEvent<S, T> {
+        public PropertyDomainEvent(final S source, final Identifier identifier, final T oldValue, final T newValue) {
             super(source, identifier, oldValue, newValue);
         }
     }
 
-    public static abstract class CollectionDomainEvent<T> extends CommChannelModule.CollectionDomainEvent<CommunicationChannel, T> {
-        public CollectionDomainEvent(final CommunicationChannel source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of) {
-            super(source, identifier, of);
-        }
-
-        public CollectionDomainEvent(final CommunicationChannel source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
+    public static abstract class CollectionDomainEvent<S,T> extends CommChannelModule.CollectionDomainEvent<S, T> {
+        public CollectionDomainEvent(final S source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
             super(source, identifier, of, value);
         }
     }
 
-    public static abstract class ActionDomainEvent extends CommChannelModule.ActionDomainEvent<CommunicationChannel> {
-        public ActionDomainEvent(final CommunicationChannel source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public ActionDomainEvent(final CommunicationChannel source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public ActionDomainEvent(final CommunicationChannel source, final Identifier identifier, final List<Object> arguments) {
+    public static abstract class ActionDomainEvent<S> extends CommChannelModule.ActionDomainEvent<S> {
+        public ActionDomainEvent(final S source, final Identifier identifier, final Object... arguments) {
             super(source, identifier, arguments);
         }
     }
@@ -153,10 +127,7 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
 
     //region > name (derived property)
 
-    public static class NameEvent extends PropertyDomainEvent<String> {
-        public NameEvent(final CommunicationChannel source, final Identifier identifier) {
-            super(source, identifier);
-        }
+    public static class NameEvent extends PropertyDomainEvent<CommunicationChannel,String> {
         public NameEvent(
                 final CommunicationChannel source,
                 final Identifier identifier,
@@ -175,56 +146,9 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
     }
     //endregion
 
-    //region > owner (derived property)
-
-    public static class OwnerEvent extends PropertyDomainEvent<CommunicationChannelOwner> {
-        public OwnerEvent(final CommunicationChannel source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public OwnerEvent(
-                final CommunicationChannel source,
-                final Identifier identifier,
-                final CommunicationChannelOwner oldValue,
-                final CommunicationChannelOwner newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    @Property(
-            domainEvent = OwnerEvent.class,
-            notPersisted = true,
-            editing = Editing.DISABLED
-    )
-    @PropertyLayout(hidden = Where.PARENTED_TABLES)
-    public CommunicationChannelOwner getOwner() {
-        final CommunicationChannelOwnerLink link = getOwnerLink();
-        return link != null? link.getPolymorphicReference(): null;
-    }
-
-    @Programmatic
-    public void setOwner(final CommunicationChannelOwner owner) {
-        removeOwnerLink();
-        communicationChannelOwnerLinks.createLink(this, owner);
-    }
-
-    private void removeOwnerLink() {
-        final CommunicationChannelOwnerLink ownerLink = getOwnerLink();
-        if(ownerLink != null) {
-            container.remove(ownerLink);
-        }
-    }
-
-    private CommunicationChannelOwnerLink getOwnerLink() {
-        return communicationChannelOwnerLinks.findByCommunicationChannel(this);
-    }
-    //endregion
-
     //region > type (property)
 
-    public static class TypeDomainEvent extends PropertyDomainEvent<CommunicationChannelType> {
-        public TypeDomainEvent(final CommunicationChannel source, final Identifier identifier) {
-            super(source, identifier);
-        }
+    public static class TypeDomainEvent extends PropertyDomainEvent<CommunicationChannel,CommunicationChannelType> {
         public TypeDomainEvent(
                 final CommunicationChannel source,
                 final Identifier identifier,
@@ -254,10 +178,7 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
 
     //region > description (property)
 
-    public static class DescriptionDomainEvent extends PropertyDomainEvent<String> {
-        public DescriptionDomainEvent(final CommunicationChannel source, final Identifier identifier) {
-            super(source, identifier);
-        }
+    public static class DescriptionDomainEvent extends PropertyDomainEvent<CommunicationChannel,String> {
         public DescriptionDomainEvent(
                 final CommunicationChannel source,
                 final Identifier identifier,
@@ -284,43 +205,9 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
     }
     //endregion
 
-    //region > change (action)
-
-    public static class UpdateDescription extends ActionDomainEvent {
-        private static final long serialVersionUID = 1L;
-
-        public UpdateDescription(
-                final CommunicationChannel source,
-                final Identifier identifier,
-                final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
-    @Action(
-            domainEvent = UpdateDescription.class,
-            semantics = SemanticsOf.IDEMPOTENT
-    )
-    public T updateDescription(
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Description")
-            final String description) {
-        setDescription(description);
-        return (T)this;
-    }
-
-    public String default0UpdateDescription() {
-        return getDescription();
-    }
-
-    //endregion
-
     //region > notes (property)
 
-    public static class NotesDomainEvent extends PropertyDomainEvent<String> {
-        public NotesDomainEvent(final CommunicationChannel source, final Identifier identifier) {
-            super(source, identifier);
-        }
+    public static class NotesDomainEvent extends PropertyDomainEvent<CommunicationChannel,String> {
         public NotesDomainEvent(
                 final CommunicationChannel source,
                 final Identifier identifier,
@@ -345,74 +232,6 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
 
     public void setNotes(final String Notes) {
         this.notes = Notes;
-    }
-    //endregion
-
-    //region > change (action)
-
-    public static class UpdateNotes extends ActionDomainEvent {
-        private static final long serialVersionUID = 1L;
-
-        public UpdateNotes(
-                final CommunicationChannel source,
-                final Identifier identifier,
-                final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
-    @Action(
-            domainEvent = UpdateNotes.class,
-            semantics = SemanticsOf.IDEMPOTENT
-    )
-    public T updateNotes(
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Notes", multiLine = 10)
-            final String Notes) {
-        setNotes(Notes);
-        return (T)this;
-    }
-
-    public String default0UpdateNotes() {
-        return getNotes();
-    }
-
-    //endregion
-
-    //region > remove (action)
-
-    public static class RemoveEvent extends ActionDomainEvent {
-        private static final long serialVersionUID = 1L;
-
-        public RemoveEvent(
-                final CommunicationChannel source,
-                final Identifier identifier,
-                final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public CommunicationChannel getReplacement() {
-            return (CommunicationChannel) (this.getArguments().isEmpty() ? null : getArguments().get(0));
-        }
-    }
-
-    @Action(
-            domainEvent = RemoveEvent.class,
-            semantics = SemanticsOf.IDEMPOTENT
-    )
-    public CommunicationChannelOwner remove(
-            @ParameterLayout(named = "Replace with")
-            @Parameter(optionality = Optionality.OPTIONAL)
-            CommunicationChannel replacement) {
-        final CommunicationChannelOwner owner = getOwner();
-        removeOwnerLink();
-        container.remove(this);
-        return owner;
-    }
-
-
-    public SortedSet<CommunicationChannel> choices0Remove() {
-        return communicationChannelRepository.findOtherByOwnerAndType(getOwner(), getType(), this);
     }
     //endregion
 
@@ -443,10 +262,6 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
     //endregion
 
     //region > injected services
-    @Inject
-    CommunicationChannelRepository communicationChannelRepository;
-    @Inject
-    CommunicationChannelOwnerLinks communicationChannelOwnerLinks;
     @Inject
     protected DomainObjectContainer container;
     //endregion

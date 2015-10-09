@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright 2012-2014 Eurocommercial Properties NV
+ *  Copyright 2015 incode.org
  *
  *
  *  Licensed under the Apache License, Version 2.0 (the
@@ -18,11 +18,8 @@
  */
 package org.incode.module.commchannel.dom.impl.postaladdress;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
@@ -37,7 +34,6 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 
 import org.incode.module.commchannel.dom.CommChannelModule;
-import org.incode.module.commchannel.dom.api.geocoding.GeocodingService;
 import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 
 /**
@@ -47,64 +43,15 @@ import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
 )
-public class PostalAddressContributions {
+public class PostalAddressContributionsToOwner {
 
-    //region > event classes
-    public static abstract class PropertyDomainEvent<T> extends
-            CommChannelModule.PropertyDomainEvent<PostalAddressContributions, T> {
-        public PropertyDomainEvent(final PostalAddressContributions source, final Identifier identifier) {
-            super(source, identifier);
-        }
+    @Inject
+    PostalAddressRepository postalAddressRepository;
+    @Inject
+    PostalAddressActionUpdateAddress postalAddressActionUpdateAddress;
 
-        public PropertyDomainEvent(final PostalAddressContributions source, final Identifier identifier, final T oldValue, final T newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    public static abstract class CollectionDomainEvent<T> extends CommChannelModule.CollectionDomainEvent<PostalAddressContributions, T> {
-        public CollectionDomainEvent(final PostalAddressContributions source, final Identifier identifier, final Of of) {
-            super(source, identifier, of);
-        }
-
-        public CollectionDomainEvent(final PostalAddressContributions source, final Identifier identifier, final Of of, final T value) {
-            super(source, identifier, of, value);
-        }
-    }
-
-    public static abstract class ActionDomainEvent extends CommChannelModule.ActionDomainEvent<PostalAddressContributions> {
-        public ActionDomainEvent(final PostalAddressContributions source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public ActionDomainEvent(final PostalAddressContributions source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public ActionDomainEvent(final PostalAddressContributions source, final Identifier identifier, final List<Object> arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-    //endregion
-
-    //region > newPostal (contributed action)
-
-    public static class NewPostalAddressEvent extends ActionDomainEvent {
-
-        public NewPostalAddressEvent(
-                final PostalAddressContributions source,
-                final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public NewPostalAddressEvent(
-                final PostalAddressContributions source,
-                final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public NewPostalAddressEvent(
-                final PostalAddressContributions source,
-                final Identifier identifier, final List<Object> arguments) {
+    public static class NewPostalAddressEvent extends CommunicationChannelOwner.ActionDomainEvent<PostalAddressContributionsToOwner> {
+        public NewPostalAddressEvent( final PostalAddressContributionsToOwner source, final Identifier identifier, final Object... arguments) {
             super(source, identifier, arguments);
         }
     }
@@ -156,21 +103,14 @@ public class PostalAddressContributions {
                         description, notes
                 );
 
-        postalAddress.lookupAndUpdateGeocode(
+        postalAddressActionUpdateAddress.lookupAndUpdateGeocode(
+                postalAddress,
                 lookupGeocode,
                 addressLine1, addressLine2, addressLine3, addressLine4, postalCode, country);
 
         return owner;
     }
-    //endregion
 
-    //region > injected services
-    @Inject
-    DomainObjectContainer container;
-    @Inject
-    PostalAddressRepository postalAddressRepository;
-    @Inject
-    GeocodingService geocodingService;
-    //endregion
+
 
 }
