@@ -17,9 +17,11 @@
 package org.incode.module.commchannel.integtests;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 
 import org.apache.log4j.Level;
@@ -37,6 +39,7 @@ import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
 import org.incode.module.commchannel.app.CommChannelModuleAppManifest;
+import org.incode.module.commchannel.dom.api.geocoding.GeocodingService;
 
 public abstract class CommChannelModuleIntegTest extends IntegrationTestAbstract {
 
@@ -60,8 +63,14 @@ public abstract class CommChannelModuleIntegTest extends IntegrationTestAbstract
         if(isft == null) {
             isft = new IsisSystemForTest.Builder()
                     .withLoggingAt(Level.INFO)
-                    .with(new CommChannelModuleAppManifest()
-                            .withModules(CommChannelModuleIntegTest.class, FakeDataModule.class))
+                    .with(new CommChannelModuleAppManifest() {
+                                @Override
+                                public Map<String, String> getConfigurationProperties() {
+                                    return ImmutableMap.of(GeocodingService.class.getCanonicalName() + ".demo", "true");
+                                }
+                            }
+                            .withModules(CommChannelModuleIntegTest.class, FakeDataModule.class)
+                    )
                     .with(new IsisConfigurationForJdoIntegTests())
                     .build();
             isft.setUpSystem();

@@ -29,6 +29,7 @@ import org.junit.Test;
 import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.services.wrapper.InvalidException;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelOwner_communicationChannels;
@@ -97,6 +98,23 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest extends Com
         }
     }
 
+    public static class ValidateIntegrationTest extends CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest {
+
+        @Test
+        public void attempt_to_create_with_invalid_type() throws Exception {
+
+            expectedException.expect(InvalidException.class);
+            expectedException.expectMessage("");
+
+            wrap(communicationChannelOwner_newPhoneOrFaxNumber).newPhoneOrFaxNumber(
+                    fredDemoOwner,
+                    CommunicationChannelType.EMAIL_ADDRESS,
+                    "0207 111 2222",
+                    "Fred's home phone or fax",
+                    "... but attempted to create using wrong comm channel type");
+        }
+    }
+
     public static class ChoicesIntegrationTest extends CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest {
 
         @Test
@@ -144,7 +162,7 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest extends Com
 
             wrap(communicationChannelOwner_newPhoneOrFaxNumber).newPhoneOrFaxNumber(fredDemoOwner,
                     CommunicationChannelType.PHONE_NUMBER, "0207 999 8888", "Work", "Fred's work number");
-            
+
             assertThat(testSubscriber.ev).isNotNull();
         }
 

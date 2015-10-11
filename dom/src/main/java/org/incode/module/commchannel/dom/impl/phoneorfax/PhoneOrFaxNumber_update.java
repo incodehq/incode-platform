@@ -33,10 +33,10 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
 )
-public class PhoneOrFaxNumberActionUpdate {
+public class PhoneOrFaxNumber_update {
 
     public static class UpdatePhoneOrFaxNumberEvent
-            extends PhoneOrFaxNumber.ActionDomainEvent<PhoneOrFaxNumberActionUpdate> { }
+            extends PhoneOrFaxNumber.ActionDomainEvent<PhoneOrFaxNumber_update> { }
 
     @Action(
             domainEvent = UpdatePhoneOrFaxNumberEvent.class,
@@ -58,7 +58,7 @@ public class PhoneOrFaxNumberActionUpdate {
         return phoneOrFaxNumber;
     }
 
-    public List<CommunicationChannelType> choices1UpdatePhoneOrFaxNumber( final PhoneOrFaxNumber phoneOrFaxNumber) {
+    public List<CommunicationChannelType> choices1UpdatePhoneOrFaxNumber() {
         return CommunicationChannelType.matching(PhoneOrFaxNumber.class);
     }
 

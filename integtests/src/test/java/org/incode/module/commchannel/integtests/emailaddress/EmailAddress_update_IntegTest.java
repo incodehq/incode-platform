@@ -23,8 +23,6 @@ import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.apache.isis.applib.fixturescripts.FixtureScripts;
-
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelOwner_communicationChannels;
 import org.incode.module.commchannel.dom.impl.emailaddress.CommunicationChannelOwner_newEmailAddress;
@@ -40,15 +38,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class EmailAddress_update_IntegTest extends CommChannelModuleIntegTest {
 
     @Inject
-    FixtureScripts fixtureScripts;
-
-    @Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;
+    @Inject
+    CommunicationChannelOwner_communicationChannels communicationChannelOwner_communicationChannels;
 
     @Inject
     CommunicationChannelOwner_newEmailAddress communicationChannelOwner_newEmailAddress;
-    @Inject
-    CommunicationChannelOwner_communicationChannels communicationChannelOwner_communicationChannels;
 
     CommChannelDemoObject fredDemoOwner;
     EmailAddress fredEmail;
@@ -74,9 +69,11 @@ public class EmailAddress_update_IntegTest extends CommChannelModuleIntegTest {
 
         @Test
         public void happy_case() throws Exception {
-            wrap(emailAddress_update).updateEmailAddress(fredEmail, "frederick@yahoo.com");
+            final EmailAddress returned = wrap(this.emailAddress_update)
+                    .updateEmailAddress(fredEmail, "frederick@yahoo.com");
 
             assertThat(wrap(fredEmail).getEmailAddress()).isEqualTo("frederick@yahoo.com");
+            assertThat(returned).isSameAs(fredEmail);
         }
     }
 

@@ -85,6 +85,11 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber {
         return owner;
     }
 
+    public String validate1NewPhoneOrFaxNumber(CommunicationChannelType type) {
+        final List<CommunicationChannelType> validChoices = choices1NewPhoneOrFaxNumber();
+        return validChoices.contains(type)? null: "Communication type must be " + validChoices;
+    }
+
     public List<CommunicationChannelType> choices1NewPhoneOrFaxNumber() {
         return CommunicationChannelType.matching(PhoneOrFaxNumber.class);
     }

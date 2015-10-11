@@ -37,7 +37,7 @@ public class EmailAddress_update {
             semantics = SemanticsOf.IDEMPOTENT,
             domainEvent = UpdateEmailAddressEvent.class
     )
-    public EmailAddress_update updateEmailAddress(
+    public EmailAddress updateEmailAddress(
             final EmailAddress emailAddress,
             @Parameter(
                     regexPattern = CommChannelModule.Regex.EMAIL_ADDRESS,
@@ -46,7 +46,7 @@ public class EmailAddress_update {
             @ParameterLayout(named = "Email Address")
             final String address) {
         emailAddress.setEmailAddress(address);
-        return this;
+        return emailAddress;
     }
 
     public String default1UpdateEmailAddress(final EmailAddress emailAddress) {
