@@ -16,44 +16,127 @@
  */
 package org.incode.module.commchannel.integtests.postaladdress;
 
+import java.util.SortedSet;
+
 import javax.inject.Inject;
 
+import com.google.common.eventbus.Subscribe;
+
 import org.junit.Before;
+import org.junit.Test;
 
-import org.apache.isis.applib.fixturescripts.FixtureScripts;
+import org.apache.isis.applib.AbstractSubscriber;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
 
+import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
+import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelOwner_communicationChannels;
+import org.incode.module.commchannel.dom.impl.postaladdress.CommunicationChannelOwner_newPostalAddress;
+import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress;
 import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress_lookupGeocode;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObjectMenu;
 import org.incode.module.commchannel.fixture.scripts.teardown.CommChannelDemoObjectsTearDownFixture;
 import org.incode.module.commchannel.integtests.CommChannelModuleIntegTest;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class PostalAddress_lookupGeocode_IntegTest extends CommChannelModuleIntegTest {
 
     @Inject
-    FixtureScripts fixtureScripts;
-
+    CommunicationChannelOwner_communicationChannels communicationChannelOwner_communicationChannels;
     @Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;
+    @Inject
+    CommunicationChannelOwner_newPostalAddress communicationChannelOwner_newPostalAddress;
 
-    CommChannelDemoObject commChannelDemoObject;
+    CommChannelDemoObject fredDemoOwner;
+    PostalAddress postalAddress;
 
     @Inject
-    PostalAddress_lookupGeocode postalAddressLookupGeocode;
+    PostalAddress_lookupGeocode postalAddress_lookupGeocode;
 
     @Before
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new CommChannelDemoObjectsTearDownFixture(), null);
 
-        commChannelDemoObject = wrap(commChannelDemoObjectMenu).create("Foo");
+        fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
+
+        wrap(communicationChannelOwner_newPostalAddress)
+                .newPostalAddress(fredDemoOwner, "45", "High Street", "Oxford", null, "OX1",
+                        "UK",
+                        "Work", "Fred Smith's work", false);
+
+        final SortedSet<CommunicationChannel> communicationChannels = wrap(
+                communicationChannelOwner_communicationChannels).communicationChannels(fredDemoOwner);
+        postalAddress = (PostalAddress) communicationChannels.first();
+
     }
 
     public static class ActionImplementationIntegrationTest extends PostalAddress_lookupGeocode_IntegTest {
 
+        @Test
+        public void will_always_lookup_as_best_as_possible() throws Exception {
+
+            // given
+            assertThat(postalAddress.getGeocodeApiResponseAsJson()).isNull();
+            assertThat(postalAddress.getName()).isEqualTo("45, High Stree...ford, OX1, UK");
+
+            // when
+            wrap(postalAddress_lookupGeocode).lookupGeocode(postalAddress, "45, High Street, Oxford, OX1, UK");
+
+            // then
+            assertThat(postalAddress.getName()).isEqualTo("45 High St, Oxford, Oxfordshire OX1, UK");
+            assertThat(postalAddress.getFormattedAddress()).isEqualTo("45 High St, Oxford, Oxfordshire OX1, UK");
+            assertThat(postalAddress.getGeocodeApiResponseAsJson()).isNotNull();
+            assertThat(postalAddress.getLatLng()).isEqualTo("51.7525657,-1.2501133");
+            assertThat(postalAddress.getPlaceId()).isEqualTo("Eic0NSBIaWdoIFN0LCBPeGZvcmQsIE94Zm9yZHNoaXJlIE9YMSwgVUs");
+            assertThat(postalAddress.getAddressComponents()).isEqualTo(
+                    "street_number: 45\n" +
+                            "route: High Street\n" +
+                            "locality: Oxford\n" +
+                            "administrative_area_level_2: Oxfordshire\n" +
+                            "country: United Kingdom\n" +
+                            "postal_code: OX1\n");
+
+        }
     }
 
     public static class DefaultsIntegrationTest extends PostalAddress_lookupGeocode_IntegTest {
 
+        @Test
+        public void concatenates_all_the_parts_of_the_address_ignoring_any_missing_parts() throws Exception {
+
+            final String defaultAddress = postalAddress_lookupGeocode.default1LookupGeocode(postalAddress);
+
+            assertThat(defaultAddress).isEqualTo("45, High Street, Oxford, OX1, UK");
+        }
     }
+
+    public static class RaisesEventIntegrationTest extends PostalAddress_lookupGeocode_IntegTest {
+
+        @DomainService(nature = NatureOfService.DOMAIN)
+        public static class TestSubscriber extends AbstractSubscriber {
+            PostalAddress_lookupGeocode.LookupGeocodeEvent ev;
+
+            @Subscribe
+            public void on(PostalAddress_lookupGeocode.LookupGeocodeEvent ev) {
+                this.ev = ev;
+            }
+        }
+
+        @Inject
+        TestSubscriber testSubscriber;
+
+        @Test
+        public void happy_case() throws Exception {
+
+            wrap(postalAddress_lookupGeocode).lookupGeocode(postalAddress, "45, High Street, Oxford, OX1, UK");
+
+            assertThat(testSubscriber.ev).isNotNull();
+        }
+
+    }
+
 
 }
