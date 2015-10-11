@@ -30,7 +30,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
-import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelDerivedOwner;
+import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_owner;
 import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
@@ -43,7 +43,7 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 public class PhoneOrFaxNumberRepository {
 
     @Inject
-    CommunicationChannelDerivedOwner communicationChannelDerivedOwner;
+    CommunicationChannel_owner communicationChannelOwner;
     @Inject
     CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;
     @Inject
@@ -62,7 +62,7 @@ public class PhoneOrFaxNumberRepository {
         final PhoneOrFaxNumber pn = container.newTransientInstance(PhoneOrFaxNumber.class);
         pn.setType(type);
         pn.setPhoneNumber(number);
-        communicationChannelDerivedOwner.setOwner(pn, owner);
+        communicationChannelOwner.setOwner(pn, owner);
 
         pn.setDescription(description);
         pn.setNotes(notes);

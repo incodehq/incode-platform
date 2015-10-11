@@ -41,7 +41,13 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 )
 public class CommunicationChannelOwnerLinkRepository {
 
-    //region > init
+    @javax.inject.Inject
+    private DomainObjectContainer container;
+
+    @javax.inject.Inject
+    private BookmarkService bookmarkService;
+
+
     PolymorphicAssociationLink.Factory<CommunicationChannel,CommunicationChannelOwner,CommunicationChannelOwnerLink,CommunicationChannelOwnerLink.InstantiateEvent> linkFactory;
 
     @PostConstruct
@@ -56,9 +62,7 @@ public class CommunicationChannelOwnerLinkRepository {
                 ));
 
     }
-    //endregion
 
-    //region > findByCommunicationChannel (programmatic)
     @Programmatic
     public CommunicationChannelOwnerLink findByCommunicationChannel(final CommunicationChannel communicationChannel) {
         return container.firstMatch(
@@ -66,9 +70,7 @@ public class CommunicationChannelOwnerLinkRepository {
                         "findByCommunicationChannel",
                         "communicationChannel", communicationChannel));
     }
-    //endregion
 
-    //region > findByOwner (programmatic)
     @Programmatic
     public List<CommunicationChannelOwnerLink> findByOwner(final CommunicationChannelOwner owner) {
         if(owner == null) {
@@ -108,9 +110,7 @@ public class CommunicationChannelOwnerLinkRepository {
                         "ownerIdentifier", bookmark.getIdentifier(),
                         "communicationChannelType", communicationChannelType));
     }
-    //endregion
 
-    //region > createLink (programmatic)
     @Programmatic
     public CommunicationChannelOwnerLink createLink(final CommunicationChannel communicationChannel, final CommunicationChannelOwner owner) {
         final CommunicationChannelOwnerLink link = linkFactory.createLink(communicationChannel, owner);
@@ -118,16 +118,5 @@ public class CommunicationChannelOwnerLinkRepository {
         link.setCommunicationChannelType(communicationChannel.getType());
         return link;
     }
-    //endregion
-
-    //region > injected services
-
-    @javax.inject.Inject
-    private DomainObjectContainer container;
-
-    @javax.inject.Inject
-    private BookmarkService bookmarkService;
-
-    //endregion
 
 }

@@ -30,11 +30,11 @@ import org.apache.isis.applib.value.Clob;
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
 )
-public class PostalAddressActionDownloadGeocode {
+public class PostalAddress_downloadGeocode {
 
 
     public static class DownloadGeocodeEvent
-            extends PostalAddress.ActionDomainEvent<PostalAddressActionDownloadGeocode> { }
+            extends PostalAddress.ActionDomainEvent<PostalAddress_downloadGeocode> { }
     @Action(
             semantics = SemanticsOf.SAFE,
             domainEvent = DownloadGeocodeEvent.class

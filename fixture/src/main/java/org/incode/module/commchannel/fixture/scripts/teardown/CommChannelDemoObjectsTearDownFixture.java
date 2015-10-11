@@ -26,8 +26,8 @@ public class CommChannelDemoObjectsTearDownFixture extends FixtureScript {
         isisJdoSupport.executeUpdate("delete from \"commchanneldemo\".\"CommunicationChannelOwnerLinkForDemoObject\"");
         isisJdoSupport.executeUpdate("delete from \"commchanneldemo\".\"CommChannelDemoObject\"");
 
-        isisJdoSupport.executeUpdate("delete from \"isiscommchannel\".\"CommunicationChannelOwnerLink\"");
-        isisJdoSupport.executeUpdate("delete from \"isiscommchannel\".\"CommunicationChannel\"");
+        isisJdoSupport.executeUpdate("delete from \"incodeCommChannel\".\"CommunicationChannelOwnerLink\"");
+        isisJdoSupport.executeUpdate("delete from \"incodeCommChannel\".\"CommunicationChannel\"");
     }
 
 

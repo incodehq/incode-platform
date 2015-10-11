@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright 2015 incode.org
+Copyright 2015 incode.org
  *
  *
  *  Licensed under the Apache License, Version 2.0 (the
@@ -16,9 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.commchannel.dom.impl.phoneorfax;
-
-import java.util.List;
+package org.incode.module.commchannel.dom.impl.emailaddress;
 
 import javax.inject.Inject;
 
@@ -36,63 +34,48 @@ import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 
 import org.incode.module.commchannel.dom.CommChannelModule;
 import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
-import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 
 /**
  * Domain service that contributes actions to create a new
- * {@link #newPhoneOrFaxNumber(CommunicationChannelOwner, CommunicationChannelType, String, String, String) phone or fax number}
- * for a particular {@link CommunicationChannelOwner}.
+ * {@link #newEmailAddress(CommunicationChannelOwner, String, String, String)} for a particular {@link CommunicationChannelOwner}.
  */
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
 )
-public class PhoneOrFaxNumberContributionsToOwner {
+public class CommunicationChannelOwner_newEmailAddress {
 
     @Inject
-    PhoneOrFaxNumberRepository phoneOrFaxNumberRepository;
+    EmailAddressRepository emailAddressRepository;
 
 
-    public static class NewPhoneOrFaxEvent
-            extends CommunicationChannelOwner.ActionDomainEvent<PhoneOrFaxNumberContributionsToOwner>  { }
-
+    public static class NewEmailEvent
+            extends CommunicationChannelOwner.ActionDomainEvent<CommunicationChannelOwner_newEmailAddress> { }
     @Action(
-            domainEvent = NewPhoneOrFaxEvent.class,
+            domainEvent = NewEmailEvent.class,
             semantics = SemanticsOf.NON_IDEMPOTENT
     )
     @ActionLayout(
-            named = "New Phone/Fax",
             contributed = Contributed.AS_ACTION
     )
-    @MemberOrder(name = "CommunicationChannels", sequence = "3")
-    public CommunicationChannelOwner newPhoneOrFaxNumber(
+    @MemberOrder(name = "CommunicationChannels", sequence = "2")
+    public CommunicationChannelOwner newEmailAddress(
             @ParameterLayout(named = "Owner")
             final CommunicationChannelOwner owner,
-            @ParameterLayout(named = "Type")
-            final CommunicationChannelType type,
-            @ParameterLayout(named = "Phone Number")
             @Parameter(
-                    maxLength = CommChannelModule.JdoColumnLength.PHONE_NUMBER,
-                    regexPattern = CommChannelModule.Regex.PHONE_NUMBER
+                    regexPattern = CommChannelModule.Regex.EMAIL_ADDRESS,
+                    maxLength = CommChannelModule.JdoColumnLength.EMAIL_ADDRESS
             )
-            final String phoneNumber,
+            @ParameterLayout(named = "Email Address")
+            final String email,
             @Parameter(maxLength = JdoColumnLength.DESCRIPTION, optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Description")
             final String description,
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Notes", multiLine = 10)
             final String notes) {
-        phoneOrFaxNumberRepository.newPhoneOrFax(owner, type, phoneNumber, description, notes);
+        emailAddressRepository.newEmail(owner, email, description, notes);
         return owner;
     }
-
-    public List<CommunicationChannelType> choices1NewPhoneOrFaxNumber() {
-        return CommunicationChannelType.matching(PhoneOrFaxNumber.class);
-    }
-
-    public CommunicationChannelType default1NewPhoneOrFaxNumber() {
-        return choices1NewPhoneOrFaxNumber().get(0);
-    }
-
 
 
 }

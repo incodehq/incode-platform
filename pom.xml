@@ -33,6 +33,7 @@ language governing permissions and limitations under the License.
         <isis.version>1.10.0-SNAPSHOT</isis.version>
 
         <isis-module-commchannel.version>1.10.0-SNAPSHOT</isis-module-commchannel.version>
+        <isis-module-fakedata-dom.version>1.9.0</isis-module-fakedata-dom.version>
         <assertj-core.version>2.0.0</assertj-core.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -361,6 +362,12 @@ language governing permissions and limitations under the License.
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.isisaddons.module.fakedata</groupId>
+                <artifactId>isis-module-fakedata-dom</artifactId>
+                <version>${isis-module-fakedata-dom.version}</version>
+                <scope>test</scope>
+            </dependency>
             <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>

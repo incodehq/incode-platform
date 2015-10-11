@@ -43,7 +43,8 @@ import lombok.Setter;
                 members = { "emailAddress" })
 })
 @DomainObject(
-        editing = Editing.DISABLED
+        editing = Editing.DISABLED,
+        objectType = "incodeCommChannel.EmailAddress"
 )
 public class EmailAddress extends CommunicationChannel<EmailAddress> {
 

@@ -18,7 +18,6 @@ Copyright 2015 incode.org
  */
 package org.incode.module.commchannel.dom.impl.channel;
 
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -30,28 +29,26 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
 )
-public class CommunicationChannelActionUpdateNotes {
+public class CommunicationChannel_updateDescription {
 
-    public static class UpdateNotes
-            extends CommunicationChannel.ActionDomainEvent<CommunicationChannelActionUpdateNotes> { }
+    public static class UpdateDescriptionEvent
+            extends CommunicationChannel.ActionDomainEvent<CommunicationChannel_updateDescription> { }
 
     @Action(
-            domainEvent = UpdateNotes.class,
+            domainEvent = UpdateDescriptionEvent.class,
             semantics = SemanticsOf.IDEMPOTENT
     )
-    public <T extends CommunicationChannel<T>> CommunicationChannel<T> updateNotes(
+    public <T extends CommunicationChannel<T>> CommunicationChannel<T> updateDescription(
             CommunicationChannel<T> communicationChannel,
             @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Notes", multiLine = 10)
-            final String Notes) {
-        communicationChannel.setNotes(Notes);
+            @ParameterLayout(named = "Description")
+            final String description) {
+        communicationChannel.setDescription(description);
         return communicationChannel;
     }
 
-    public <T extends CommunicationChannel<T>> String default1UpdateNotes(
-            CommunicationChannel<T> communicationChannel
-            ) {
-        return communicationChannel.getNotes();
+    public <T extends CommunicationChannel<T>> String default1UpdateDescription( CommunicationChannel<T> communicationChannel) {
+        return communicationChannel.getDescription();
     }
 
 }

@@ -37,14 +37,14 @@ import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
 )
-public class CommunicationChannelsContributedOnOwner {
+public class CommunicationChannelOwner_communicationChannels {
 
     @Inject
     CommunicationChannelRepository communicationChannelRepository;
 
 
     public static class CommunicationChannelsEvent
-            extends CommunicationChannelOwner.CollectionDomainEvent<CommunicationChannelsContributedOnOwner, CommunicationChannel> { }
+            extends CommunicationChannelOwner.CollectionDomainEvent<CommunicationChannelOwner_communicationChannels, CommunicationChannel> { }
 
     @Action(semantics = SemanticsOf.SAFE)
     @CollectionLayout(render = RenderType.EAGERLY)

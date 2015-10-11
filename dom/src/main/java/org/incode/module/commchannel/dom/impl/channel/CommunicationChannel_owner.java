@@ -25,7 +25,6 @@ import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
@@ -40,11 +39,11 @@ import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwne
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
 )
-public class CommunicationChannelDerivedOwner {
+public class CommunicationChannel_owner {
 
 
     public static class OwnerEvent extends
-            CommunicationChannel.PropertyDomainEvent<CommunicationChannelDerivedOwner,CommunicationChannelOwner> { }
+            CommunicationChannel.PropertyDomainEvent<CommunicationChannel_owner,CommunicationChannelOwner> { }
 
     @Action(
             semantics = SemanticsOf.SAFE
@@ -54,8 +53,7 @@ public class CommunicationChannelDerivedOwner {
     )
     @Property(
             domainEvent = OwnerEvent.class,
-            notPersisted = true,
-            editing = Editing.DISABLED
+            notPersisted = true
     )
     @PropertyLayout(
             hidden = Where.PARENTED_TABLES

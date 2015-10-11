@@ -42,16 +42,16 @@ import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
 )
-public class PostalAddressContributionsToOwner {
+public class CommunicationChannelOwner_newPostalAddress {
 
     @Inject
     PostalAddressRepository postalAddressRepository;
     @Inject
-    PostalAddressActionUpdateAddress postalAddressActionUpdateAddress;
+    PostalAddress_updateAddress postalAddressUpdateAddress;
 
 
     public static class NewPostalAddressEvent
-            extends CommunicationChannelOwner.ActionDomainEvent<PostalAddressContributionsToOwner> { }
+            extends CommunicationChannelOwner.ActionDomainEvent<CommunicationChannelOwner_newPostalAddress> { }
 
     @Action(
             semantics = SemanticsOf.NON_IDEMPOTENT,
@@ -100,7 +100,7 @@ public class PostalAddressContributionsToOwner {
                         description, notes
                 );
 
-        postalAddressActionUpdateAddress.lookupAndUpdateGeocode(
+        postalAddressUpdateAddress.lookupAndUpdateGeocode(
                 postalAddress,
                 lookupGeocode,
                 addressLine1, addressLine2, addressLine3, addressLine4, postalCode, country);

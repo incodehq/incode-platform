@@ -19,11 +19,11 @@ package org.incode.module.commchannel.fixture.scripts.scenarios;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.apache.isis.applib.services.clock.ClockService;
 
-import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelsContributedOnOwner;
+import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelOwner_communicationChannels;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
-import org.incode.module.commchannel.dom.impl.emailaddress.EmailAddressContributionsToOwner;
-import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumberContributionsToOwner;
-import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddressContributionsToOwner;
+import org.incode.module.commchannel.dom.impl.emailaddress.CommunicationChannelOwner_newEmailAddress;
+import org.incode.module.commchannel.dom.impl.phoneorfax.CommunicationChannelOwner_newPhoneOrFaxNumber;
+import org.incode.module.commchannel.dom.impl.postaladdress.CommunicationChannelOwner_newPostalAddress;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObjectMenu;
 import org.incode.module.commchannel.fixture.scripts.teardown.CommChannelDemoObjectsTearDownFixture;
@@ -42,14 +42,14 @@ public class CommChannelDemoObjectsFixture extends DiscoverableFixtureScript {
 
         final CommChannelDemoObject foo = create("Foo", executionContext);
 
-        wrap(emailAddressContributionsToOwner).newEmailAddress(foo, "foo@example.com", "Demo", null);
-        wrap(phoneOrFaxNumberContributionsToOwner).newPhoneOrFaxNumber(foo, CommunicationChannelType.PHONE_NUMBER, "555 1234",
+        wrap(communicationChannelOwnerNewEmailAddress).newEmailAddress(foo, "foo@example.com", "Demo", null);
+        wrap(communicationChannelOwnerNewPhoneOrFaxNumber).newPhoneOrFaxNumber(foo, CommunicationChannelType.PHONE_NUMBER, "555 1234",
                 "Home", null);
-        wrap(phoneOrFaxNumberContributionsToOwner).newPhoneOrFaxNumber(foo, CommunicationChannelType.FAX_NUMBER, "555 4321",
+        wrap(communicationChannelOwnerNewPhoneOrFaxNumber).newPhoneOrFaxNumber(foo, CommunicationChannelType.FAX_NUMBER, "555 4321",
                 "Work", null);
 
         final CommChannelDemoObject bar = create("Bar", executionContext);
-        wrap(postalAddressContributionsToOwner).newPostalAddress(
+        wrap(postalAddressOwnerNewPostalAddress).newPostalAddress(
                 bar, "45", "High Street", "Oxford", null, null, "UK", "favourite shop", null, false);
 
         final CommChannelDemoObject baz = create("Baz", executionContext);
@@ -69,13 +69,13 @@ public class CommChannelDemoObjectsFixture extends DiscoverableFixtureScript {
     @javax.inject.Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;
     @javax.inject.Inject
-    PhoneOrFaxNumberContributionsToOwner phoneOrFaxNumberContributionsToOwner;
+    CommunicationChannelOwner_newPhoneOrFaxNumber communicationChannelOwnerNewPhoneOrFaxNumber;
     @javax.inject.Inject
-    EmailAddressContributionsToOwner emailAddressContributionsToOwner;
+    CommunicationChannelOwner_newEmailAddress communicationChannelOwnerNewEmailAddress;
     @javax.inject.Inject
-    PostalAddressContributionsToOwner postalAddressContributionsToOwner;
+    CommunicationChannelOwner_newPostalAddress postalAddressOwnerNewPostalAddress;
     @javax.inject.Inject
-    CommunicationChannelsContributedOnOwner communicationChannelsContributedOnOwner;
+    CommunicationChannelOwner_communicationChannels communicationChannelOwnerCommunicationChannels;
     @javax.inject.Inject
     ClockService clockService;
 

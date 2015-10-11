@@ -30,7 +30,6 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.query.QueryDefault;
 
 import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
@@ -47,17 +46,6 @@ public class CommunicationChannelRepository {
     CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;
     @Inject
     DomainObjectContainer container;
-
-    @Programmatic
-    public CommunicationChannel findByReferenceAndType(
-            final String reference, final CommunicationChannelType type) {
-        return container.firstMatch(
-                new QueryDefault<>(
-                        CommunicationChannel.class,
-                        "findByReferenceAndType",
-                        "reference", reference,
-                        "type", type));
-    }
 
     @Programmatic
     public SortedSet<CommunicationChannel> findByOwner(final CommunicationChannelOwner owner) {

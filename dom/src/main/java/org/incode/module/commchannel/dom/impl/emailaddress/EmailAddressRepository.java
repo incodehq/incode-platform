@@ -31,7 +31,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
-import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelDerivedOwner;
+import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_owner;
 import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
@@ -44,7 +44,7 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 public class EmailAddressRepository {
 
     @Inject
-    CommunicationChannelDerivedOwner communicationChannelDerivedOwner;
+    CommunicationChannel_owner communicationChannelOwner;
     @Inject
     CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;
     @Inject
@@ -60,7 +60,7 @@ public class EmailAddressRepository {
         final EmailAddress ea = container.newTransientInstance(EmailAddress.class);
         ea.setType(CommunicationChannelType.EMAIL_ADDRESS);
         ea.setEmailAddress(address);
-        communicationChannelDerivedOwner.setOwner(ea, owner);
+        communicationChannelOwner.setOwner(ea, owner);
 
         ea.setDescription(description);
         ea.setNotes(notes);

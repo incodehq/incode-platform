@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.commchannel.integtests;
+package org.incode.module.commchannel.integtests.postaladdress;
 
 import javax.inject.Inject;
 
@@ -22,11 +22,13 @@ import org.junit.Before;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
+import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress_lookupGeocode;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObjectMenu;
 import org.incode.module.commchannel.fixture.scripts.teardown.CommChannelDemoObjectsTearDownFixture;
+import org.incode.module.commchannel.integtests.CommChannelModuleIntegTest;
 
-public class CommChannelDemoObjectTest extends CommChannelModuleIntegTest {
+public class PostalAddress_lookupGeocode_IntegTest extends CommChannelModuleIntegTest {
 
     @Inject
     FixtureScripts fixtureScripts;
@@ -36,6 +38,9 @@ public class CommChannelDemoObjectTest extends CommChannelModuleIntegTest {
 
     CommChannelDemoObject commChannelDemoObject;
 
+    @Inject
+    PostalAddress_lookupGeocode postalAddressLookupGeocode;
+
     @Before
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new CommChannelDemoObjectsTearDownFixture(), null);
@@ -43,5 +48,12 @@ public class CommChannelDemoObjectTest extends CommChannelModuleIntegTest {
         commChannelDemoObject = wrap(commChannelDemoObjectMenu).create("Foo");
     }
 
+    public static class ActionImplementationIntegrationTest extends PostalAddress_lookupGeocode_IntegTest {
+
+    }
+
+    public static class DefaultsIntegrationTest extends PostalAddress_lookupGeocode_IntegTest {
+
+    }
 
 }

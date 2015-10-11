@@ -50,7 +50,8 @@ import lombok.Setter;
                 members = { "placeId" })
 })
 @DomainObject(
-        editing = Editing.DISABLED
+        editing = Editing.DISABLED,
+        objectType = "incodeCommChannel.PostalAddress"
 )
 public class PostalAddress extends CommunicationChannel<PostalAddress> {
 

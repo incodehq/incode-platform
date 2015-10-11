@@ -25,7 +25,7 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.isisaddons.wicket.gmap3.cpt.applib.LocationDereferencingService;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
-import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelDerivedOwner;
+import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_owner;
 
 @DomainService(
         nature = NatureOfService.DOMAIN
@@ -35,11 +35,11 @@ public class LocationDereferencingServiceForCommunicationChannels implements Loc
     @Programmatic
 	public Object dereference(final Object locatable) {
 		return locatable instanceof CommunicationChannel
-				? communicationChannelDerivedOwner.owner(((CommunicationChannel) locatable))
+				? communicationChannelOwner.owner(((CommunicationChannel) locatable))
 				: null;
 	}
 
 	@Inject
-	CommunicationChannelDerivedOwner communicationChannelDerivedOwner;
+	CommunicationChannel_owner communicationChannelOwner;
 
 }

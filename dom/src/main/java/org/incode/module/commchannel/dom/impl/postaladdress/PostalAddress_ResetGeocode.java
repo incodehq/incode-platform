@@ -26,9 +26,9 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
 )
-public class PostalAddressActionResetGeocode {
+public class PostalAddress_resetGeocode {
 
-    public static class ResetGeocodeEvent extends PostalAddress.ActionDomainEvent<PostalAddressActionResetGeocode> { }
+    public static class ResetGeocodeEvent extends PostalAddress.ActionDomainEvent<PostalAddress_resetGeocode> { }
 
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,

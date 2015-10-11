@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.commchannel.integtests;
+package org.incode.module.commchannel.integtests.demo;
 
 import java.util.List;
 
@@ -29,8 +29,9 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObjectMenu;
 import org.incode.module.commchannel.fixture.scripts.scenarios.CommChannelDemoObjectsFixture;
+import org.incode.module.commchannel.integtests.CommChannelModuleIntegTest;
 
-public class CommChannelDemoObjectMenuTest extends CommChannelModuleIntegTest {
+public class CommChannelDemoObjectMenuIntegTest extends CommChannelModuleIntegTest {
 
     @Inject
     FixtureScripts fixtureScripts;

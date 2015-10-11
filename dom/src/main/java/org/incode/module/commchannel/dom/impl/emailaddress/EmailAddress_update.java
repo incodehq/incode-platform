@@ -30,14 +30,14 @@ import org.incode.module.commchannel.dom.CommChannelModule;
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
 )
-public class EmailAddressActionUpdate {
+public class EmailAddress_update {
 
-    public static class UpdateEmailAddressEvent extends EmailAddress.ActionDomainEvent<EmailAddressActionUpdate> { }
+    public static class UpdateEmailAddressEvent extends EmailAddress.ActionDomainEvent<EmailAddress_update> { }
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
             domainEvent = UpdateEmailAddressEvent.class
     )
-    public EmailAddressActionUpdate updateEmailAddress(
+    public EmailAddress_update updateEmailAddress(
             final EmailAddress emailAddress,
             @Parameter(
                     regexPattern = CommChannelModule.Regex.EMAIL_ADDRESS,

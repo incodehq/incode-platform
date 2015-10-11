@@ -29,28 +29,28 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
 )
-public class CommunicationChannelActionUpdateDescription {
+public class CommunicationChannel_updateNotes {
 
-    public static class UpdateDescription
-            extends CommunicationChannel.ActionDomainEvent<CommunicationChannelActionUpdateDescription> { }
+    public static class UpdateNotesEvent
+            extends CommunicationChannel.ActionDomainEvent<CommunicationChannel_updateNotes> { }
 
     @Action(
-            domainEvent = UpdateDescription.class,
+            domainEvent = UpdateNotesEvent.class,
             semantics = SemanticsOf.IDEMPOTENT
     )
-    public <T extends CommunicationChannel<T>> CommunicationChannel<T> updateDescription(
+    public <T extends CommunicationChannel<T>> CommunicationChannel<T> updateNotes(
             CommunicationChannel<T> communicationChannel,
             @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Description")
-            final String description) {
-        communicationChannel.setDescription(description);
+            @ParameterLayout(named = "Notes", multiLine = 10)
+            final String Notes) {
+        communicationChannel.setNotes(Notes);
         return communicationChannel;
     }
 
-    public <T extends CommunicationChannel<T>> String default1UpdateDescription(
+    public <T extends CommunicationChannel<T>> String default1UpdateNotes(
             CommunicationChannel<T> communicationChannel
             ) {
-        return communicationChannel.getDescription();
+        return communicationChannel.getNotes();
     }
 
 }

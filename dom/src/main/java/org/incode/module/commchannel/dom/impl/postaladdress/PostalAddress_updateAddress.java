@@ -38,17 +38,17 @@ import org.incode.module.commchannel.dom.api.geocoding.GeocodingService;
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
 )
-public class PostalAddressActionUpdateAddress {
+public class PostalAddress_updateAddress {
 
     @Inject
-    PostalAddressActionResetGeocode postalAddressActionResetGeocode;
+    PostalAddress_resetGeocode postalAddressActionResetGeocode;
     @Inject
     GeocodingService geocodingService;
     @Inject
     DomainObjectContainer container;
 
 
-    public static class UpdateAddressEvent extends PostalAddress.ActionDomainEvent<PostalAddressActionUpdateAddress> { }
+    public static class UpdateAddressEvent extends PostalAddress.ActionDomainEvent<PostalAddress_updateAddress> { }
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
             domainEvent = UpdateAddressEvent.class
@@ -114,7 +114,7 @@ public class PostalAddressActionUpdateAddress {
             } else {
                 container.warnUser(
                         TranslatableString.tr("Could not lookup geocode for address"),
-                        PostalAddressContributionsToOwner.class, "newPostal");
+                        CommunicationChannelOwner_newPostalAddress.class, "newPostal");
             }
         } else {
             postalAddressActionResetGeocode.resetGeocode(postalAddress);

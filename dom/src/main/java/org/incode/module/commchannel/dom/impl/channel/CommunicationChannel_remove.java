@@ -35,18 +35,22 @@ import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
 )
-public class CommunicationChannelActionRemove {
+public class CommunicationChannel_remove {
 
     @Inject
-    CommunicationChannelDerivedOwner communicationChannelDerivedOwner;
+    CommunicationChannel_owner communicationChannel_owner;
     @Inject
     CommunicationChannelRepository communicationChannelRepository;
     @Inject
     DomainObjectContainer container;
 
-
     public static class RemoveEvent
-            extends CommunicationChannel.ActionDomainEvent<CommunicationChannelActionRemove> { }
+            extends CommunicationChannel.ActionDomainEvent<CommunicationChannel_remove> {
+        public CommunicationChannel<?> getReplacement() {
+            return (CommunicationChannel<?>) getArguments().get(1);
+        }
+    }
+
     @Action(
             domainEvent = RemoveEvent.class,
             semantics = SemanticsOf.IDEMPOTENT
@@ -56,19 +60,17 @@ public class CommunicationChannelActionRemove {
             @ParameterLayout(named = "Replace with")
             @Parameter(optionality = Optionality.OPTIONAL)
             final CommunicationChannel replacement) {
-        final CommunicationChannelOwner owner = communicationChannelDerivedOwner.owner(communicationChannel);
-        communicationChannelDerivedOwner.removeOwnerLink(communicationChannel);
-        container.remove(this);
+        final CommunicationChannelOwner owner = communicationChannel_owner.owner(communicationChannel);
+        communicationChannel_owner.removeOwnerLink(communicationChannel);
+        container.remove(communicationChannel);
         return owner;
     }
 
-    public SortedSet<CommunicationChannel> choices1Remove(
-            final CommunicationChannel communicationChannel
-    ) {
+    public SortedSet<CommunicationChannel> choices1Remove(final CommunicationChannel communicationChannel) {
         return communicationChannelRepository.findOtherByOwnerAndType(
-                communicationChannelDerivedOwner.owner(communicationChannel), communicationChannel.getType(), communicationChannel);
+                communicationChannel_owner.owner(communicationChannel), communicationChannel.getType(),
+                communicationChannel);
     }
-
 
 
 }

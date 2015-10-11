@@ -41,7 +41,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
-        schema = "isiscommchannel",
+        schema = "incodeCommChannel",
         identityType=IdentityType.DATASTORE
 )
 @javax.jdo.annotations.DatastoreIdentity(strategy = IdGeneratorStrategy.IDENTITY, column = "id")
@@ -74,7 +74,7 @@ import lombok.Setter;
 })
 @javax.jdo.annotations.Unique(name="CommunicationChannelOwnerLink_commchannel_owner_UNQ", members = {"communicationChannel","ownerObjectType","ownerIdentifier"})
 @DomainObject(
-        objectType = "comms.CommunicationChannelOwnerLink"
+        objectType = "incodeCommunicationChannel.CommunicationChannelOwnerLink"
 )
 public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociationLink<CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink> {
 
@@ -148,6 +148,7 @@ public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociati
             domainEvent = CommunicationChannelEvent.class
     )
     private CommunicationChannel communicationChannel;
+
 
     public static class OwnerObjectTypeEvent extends PropertyDomainEvent<CommunicationChannelOwnerLink, String> { }
     @Getter @Setter

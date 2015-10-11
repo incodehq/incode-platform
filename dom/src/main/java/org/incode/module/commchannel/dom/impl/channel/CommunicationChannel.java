@@ -60,7 +60,7 @@ import lombok.Setter;
  * postal}, {@link PhoneOrFaxNumber phone/fax} and {@link EmailAddress email}.
  */
 @javax.jdo.annotations.PersistenceCapable(
-        schema = "isiscommchannel",
+        schema = "incodeCommChannel",
         identityType = IdentityType.DATASTORE
 )
 @javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
@@ -81,7 +81,10 @@ import lombok.Setter;
                         + "WHERE reference == :reference "
                         + "&& type == :type")
 })
-@DomainObject(editing = Editing.DISABLED)
+@DomainObject(
+        editing = Editing.DISABLED,
+        objectType = "incodeCommChannel.CommunicationChannel"
+)
 @DomainObjectLayout(bookmarking = BookmarkPolicy.AS_CHILD)
 public abstract class CommunicationChannel<T extends CommunicationChannel<T>> implements Comparable<CommunicationChannel>,
         Locatable {

@@ -16,18 +16,58 @@
  */
 package org.incode.module.commchannel.integtests;
 
-import org.junit.BeforeClass;
+import java.util.List;
 
+import javax.inject.Inject;
+
+import com.google.common.collect.Lists;
+
+import org.apache.log4j.Level;
+import org.junit.BeforeClass;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
+
+import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract;
+import org.apache.isis.core.integtestsupport.IsisSystemForTest;
 import org.apache.isis.core.integtestsupport.scenarios.ScenarioExecutionForIntegration;
+import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegTests;
+
+import org.isisaddons.module.fakedata.FakeDataModule;
+import org.isisaddons.module.fakedata.dom.FakeDataService;
+
+import org.incode.module.commchannel.app.CommChannelModuleAppManifest;
 
 public abstract class CommChannelModuleIntegTest extends IntegrationTestAbstract {
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+
+    @Inject
+    protected FixtureScripts fixtureScripts;
+
+    @Inject
+    protected FakeDataService fakeDataService;
+
+    protected static <T> List<T> asList(final Iterable<T> iterable) {
+        return Lists.newArrayList(iterable);
+    }
 
     @BeforeClass
     public static void initClass() {
         org.apache.log4j.PropertyConfigurator.configure("logging.properties");
-        CommChannelModuleSystemInitializer.initIsft();
-        
+        IsisSystemForTest isft = IsisSystemForTest.getElseNull();
+        if(isft == null) {
+            isft = new IsisSystemForTest.Builder()
+                    .withLoggingAt(Level.INFO)
+                    .with(new CommChannelModuleAppManifest()
+                            .withModules(CommChannelModuleIntegTest.class, FakeDataModule.class))
+                    .with(new IsisConfigurationForJdoIntegTests())
+                    .build();
+            isft.setUpSystem();
+            IsisSystemForTest.set(isft);
+        }
+
         // instantiating will install onto ThreadLocal
         new ScenarioExecutionForIntegration();
     }

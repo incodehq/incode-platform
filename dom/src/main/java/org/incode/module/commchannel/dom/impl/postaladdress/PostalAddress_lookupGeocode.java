@@ -20,7 +20,6 @@ package org.incode.module.commchannel.dom.impl.postaladdress;
 
 import javax.inject.Inject;
 
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -32,31 +31,32 @@ import org.incode.module.commchannel.dom.api.geocoding.GeocodingService;
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
 )
-public class PostalAddressActionUpdateGeocode {
+public class PostalAddress_lookupGeocode {
 
     @Inject
-    PostalAddressActionUpdateAddress postalAddressActionUpdateAddress;
+    PostalAddress_updateAddress postalAddressUpdateAddress;
     @Inject
     GeocodingService geocodingService;
 
-    public static class UpdateGeocodeEvent extends PostalAddress.ActionDomainEvent<PostalAddressActionUpdateGeocode> {
-    }
+
+    public static class LookupGeocodeEvent extends PostalAddress.ActionDomainEvent<PostalAddress_lookupGeocode> { }
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
-            domainEvent = UpdateGeocodeEvent.class
+            domainEvent = LookupGeocodeEvent.class
     )
-    public PostalAddress updateGeocode(
+    public PostalAddress lookupGeocode(
             final PostalAddress postalAddress,
             @ParameterLayout(named = "Address")
             final String address) {
 
-        postalAddressActionUpdateAddress.lookupAndUpdateGeocode(postalAddress, true, address);
+        postalAddressUpdateAddress.lookupAndUpdateGeocode(postalAddress, true, address);
 
         return postalAddress;
     }
 
-    public String default1UpdateGeocode( final PostalAddress postalAddress
-            ) {
+    public String default1LookupGeocode(
+            final PostalAddress postalAddress
+    ) {
         return geocodingService.combine(
                 GeocodingService.Encoding.NOT_ENCODED,
                 postalAddress.getAddressLine1(), postalAddress.getAddressLine2(),
