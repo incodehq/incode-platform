@@ -31,7 +31,9 @@ import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import lombok.Getter;
 import lombok.Setter;
 
-@javax.jdo.annotations.PersistenceCapable()
+@javax.jdo.annotations.PersistenceCapable(
+        schema = "incodeCommChannel"
+)
 // identityType=IdentityType.DATASTORE inherited from superclass
 @javax.jdo.annotations.Inheritance(
         strategy = InheritanceStrategy.SUPERCLASS_TABLE
