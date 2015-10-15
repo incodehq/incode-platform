@@ -44,8 +44,8 @@ public class PostalAddress_update extends PostalAddressMixinAbstract {
     //endregion
 
     //region > mixins
-    private PostalAddress_resetGeocode mixinResetGeocode() {
-        return container.mixin(PostalAddress_resetGeocode.class, this.postalAddress);
+    private PostalAddress_clearGeocode mixinResetGeocode() {
+        return container.mixin(PostalAddress_clearGeocode.class, this.postalAddress);
     }
     //endregion
 

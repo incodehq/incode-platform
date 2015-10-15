@@ -31,7 +31,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress;
-import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress_resetGeocode;
+import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress_clearGeocode;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObjectMenu;
 import org.incode.module.commchannel.fixture.scripts.teardown.CommChannelDemoObjectsTearDownFixture;
@@ -39,7 +39,7 @@ import org.incode.module.commchannel.integtests.CommChannelModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PostalAddress_resetGeocode_IntegTest extends CommChannelModuleIntegTest {
+public class PostalAddress_clearGeocode_IntegTest extends CommChannelModuleIntegTest {
 
     @Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;
@@ -47,8 +47,8 @@ public class PostalAddress_resetGeocode_IntegTest extends CommChannelModuleInteg
     CommChannelDemoObject fredDemoOwner;
     PostalAddress postalAddress;
 
-    PostalAddress_resetGeocode mixinResetGeocode(final PostalAddress postalAddress) {
-        return mixin(PostalAddress_resetGeocode.class, postalAddress);
+    PostalAddress_clearGeocode mixinResetGeocode(final PostalAddress postalAddress) {
+        return mixin(PostalAddress_clearGeocode.class, postalAddress);
     }
 
     @Before
@@ -65,7 +65,7 @@ public class PostalAddress_resetGeocode_IntegTest extends CommChannelModuleInteg
 
     }
 
-    public static class ActionImplementationIntegrationTest extends PostalAddress_resetGeocode_IntegTest {
+    public static class ActionImplementationIntegrationTest extends PostalAddress_clearGeocode_IntegTest {
 
         @Test
         public void clear() throws Exception {
@@ -88,14 +88,14 @@ public class PostalAddress_resetGeocode_IntegTest extends CommChannelModuleInteg
     }
 
 
-    public static class RaisesEventIntegrationTest extends PostalAddress_resetGeocode_IntegTest {
+    public static class RaisesEventIntegrationTest extends PostalAddress_clearGeocode_IntegTest {
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            PostalAddress_resetGeocode.Event ev;
+            PostalAddress_clearGeocode.Event ev;
 
             @Subscribe
-            public void on(PostalAddress_resetGeocode.Event ev) {
+            public void on(PostalAddress_clearGeocode.Event ev) {
                 this.ev = ev;
             }
         }

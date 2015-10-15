@@ -23,15 +23,15 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 @Mixin
-public class PostalAddress_resetGeocode extends PostalAddressMixinAbstract {
+public class PostalAddress_clearGeocode extends PostalAddressMixinAbstract {
 
     //region > constructor
-    public PostalAddress_resetGeocode(final PostalAddress postalAddress) {
+    public PostalAddress_clearGeocode(final PostalAddress postalAddress) {
         super(postalAddress);
     }
     //endregion
 
-    public static class Event extends PostalAddress.ActionDomainEvent<PostalAddress_resetGeocode> { }
+    public static class Event extends PostalAddress.ActionDomainEvent<PostalAddress_clearGeocode> { }
 
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
