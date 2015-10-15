@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright 2012-2014 Eurocommercial Properties NV
+ *  Copyright 2015 incode.org
  *
  *
  *  Licensed under the Apache License, Version 2.0 (the
@@ -18,6 +18,12 @@
  */
 package org.incode.module.note.dom.api.notable;
 
+import org.incode.module.note.dom.NoteModule;
+
 public interface Notable {
+
+    abstract class PropertyDomainEvent<S,T> extends NoteModule.PropertyDomainEvent<S, T> { }
+    abstract class CollectionDomainEvent<S,T> extends NoteModule.CollectionDomainEvent<S, T> { }
+    abstract class ActionDomainEvent<S> extends NoteModule.ActionDomainEvent<S> { }
 
 }

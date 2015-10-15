@@ -29,8 +29,6 @@ import org.apache.isis.applib.services.wrapper.InvalidException;
 
 import org.incode.module.note.dom.api.notable.Notable;
 import org.incode.module.note.dom.impl.note.Note;
-import org.incode.module.note.dom.impl.note.NoteActionChangeNotes;
-import org.incode.module.note.dom.impl.note.NoteContributionsOnNotable;
 import org.incode.module.note.fixture.dom.calendarname.CalendarNameRepositoryForDemo;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObjectMenu;
@@ -39,19 +37,16 @@ import org.incode.module.note.integtests.NoteModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class NoteActionChangeNotesIntegTest extends NoteModuleIntegTest {
+public class Note_changeNotes_IntegTest extends NoteModuleIntegTest {
+
+    //region > injected services
+    //endregion
 
     @Inject
     CalendarNameRepositoryForDemo calendarNameRepository;
 
     @Inject
     NoteDemoObjectMenu noteDemoObjectMenu;
-
-    @Inject
-    NoteContributionsOnNotable noteContributionsOnNotable;
-
-    @Inject
-    NoteActionChangeNotes noteActionChangeNotes;
 
     Notable notable;
     Note note;
@@ -65,11 +60,11 @@ public class NoteActionChangeNotesIntegTest extends NoteModuleIntegTest {
         notable = wrap(noteDemoObjectMenu).create("Foo");
         calendarNameRepository.setCalendarNames(NoteDemoObject.class, "BLUE", "GREEN", "RED");
 
-        wrap(noteContributionsOnNotable).addNote(notable, "note A", fakeData.jodaLocalDates().any(), "GREEN");
-        wrap(noteContributionsOnNotable).addNote(notable, "note B", null, null);
-        wrap(noteContributionsOnNotable).addNote(notable, null, fakeData.jodaLocalDates().any(), "RED");
+        wrap(mixinAddNote(notable)).__("note A", fakeData.jodaLocalDates().any(), "GREEN");
+        wrap(mixinAddNote(notable)).__("note B", null, null);
+        wrap(mixinAddNote(notable)).__(null, fakeData.jodaLocalDates().any(), "RED");
 
-        final List<Note> noteList = wrap(noteContributionsOnNotable).notes(notable);
+        final List<Note> noteList = wrap(mixinNotes(notable)).__();
         note = Iterables.find(noteList, x -> x.getNotes() != null && x.getDate() != null);
         noteWithoutDate = Iterables.find(noteList, x -> x.getDate() == null);
         noteWithoutText = Iterables.find(noteList, x -> x.getNotes() == null);
@@ -85,7 +80,7 @@ public class NoteActionChangeNotesIntegTest extends NoteModuleIntegTest {
     }
 
 
-    public static class ActionImplementationIntegTest extends NoteActionChangeNotesIntegTest {
+    public static class ActionImplementationIntegTest extends Note_changeNotes_IntegTest {
 
         @Test
         public void happy_case() throws Exception {
@@ -97,14 +92,14 @@ public class NoteActionChangeNotesIntegTest extends NoteModuleIntegTest {
             assertThat(newNotes).isNotEqualTo(notesBefore);
 
             // when
-            wrap(noteActionChangeNotes).changeNotes(note, newNotes);
+            wrap(mixinChangeNotes(note)).__(newNotes);
 
             // then
             assertThat(wrap(note).getNotes()).isEqualTo(newNotes);
         }
     }
 
-    public static class DefaultIntegTest extends NoteActionChangeNotesIntegTest {
+    public static class DefaultIntegTest extends Note_changeNotes_IntegTest {
 
         @Test
         public void happy_case() throws Exception {
@@ -113,14 +108,14 @@ public class NoteActionChangeNotesIntegTest extends NoteModuleIntegTest {
             final String notes = wrap(note).getNotes();
 
             // when
-            final String defaultNotes = noteActionChangeNotes.default1ChangeNotes(note);
+            final String defaultNotes = mixinChangeNotes(note).default0__();
 
             // then
             assertThat(defaultNotes).isEqualTo(notes);
         }
     }
 
-    public static class ValidateIntegTest extends NoteActionChangeNotesIntegTest {
+    public static class ValidateIntegTest extends Note_changeNotes_IntegTest {
 
         @Test
         public void can_change_to_null_for_note_with_a_date() throws Exception {
@@ -129,7 +124,7 @@ public class NoteActionChangeNotesIntegTest extends NoteModuleIntegTest {
             assertThat(wrap(note).getDate()).isNotNull();
 
             // when
-            wrap(noteActionChangeNotes).changeNotes(note, null);
+            wrap(mixinChangeNotes(note)).__(null);
 
             // then
             assertThat(wrap(note).getNotes()).isNull();
@@ -146,7 +141,7 @@ public class NoteActionChangeNotesIntegTest extends NoteModuleIntegTest {
             expectedException.expectMessage("Must specify either note text or a date (or both)");
 
             // when
-            wrap(noteActionChangeNotes).changeNotes(noteWithoutDate, null);
+            wrap(mixinChangeNotes(noteWithoutDate)).__(null);
         }
     }
 

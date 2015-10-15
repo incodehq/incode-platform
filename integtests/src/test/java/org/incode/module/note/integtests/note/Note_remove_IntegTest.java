@@ -29,12 +29,10 @@ import org.junit.Test;
 import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.services.wrapper.InvalidException;
 
 import org.incode.module.note.dom.api.notable.Notable;
 import org.incode.module.note.dom.impl.note.Note;
-import org.incode.module.note.dom.impl.note.NoteActionRemove;
-import org.incode.module.note.dom.impl.note.NoteContributionsOnNotable;
+import org.incode.module.note.dom.impl.note.Note_remove;
 import org.incode.module.note.fixture.dom.calendarname.CalendarNameRepositoryForDemo;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObjectMenu;
@@ -43,19 +41,16 @@ import org.incode.module.note.integtests.NoteModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class NoteActionRemoveIntegTest extends NoteModuleIntegTest {
+public class Note_remove_IntegTest extends NoteModuleIntegTest {
+
+    //region > injected services
+    //endregion
 
     @Inject
     CalendarNameRepositoryForDemo calendarNameRepository;
 
     @Inject
     NoteDemoObjectMenu noteDemoObjectMenu;
-
-    @Inject
-    NoteContributionsOnNotable noteContributionsOnNotable;
-
-    @Inject
-    NoteActionRemove noteActionRemove;
 
     Notable notable;
     Note note;
@@ -69,11 +64,11 @@ public class NoteActionRemoveIntegTest extends NoteModuleIntegTest {
         notable = wrap(noteDemoObjectMenu).create("Foo");
         calendarNameRepository.setCalendarNames(NoteDemoObject.class, "BLUE", "GREEN", "RED");
 
-        wrap(noteContributionsOnNotable).addNote(notable, "note A", fakeData.jodaLocalDates().any(), "GREEN");
-        wrap(noteContributionsOnNotable).addNote(notable, "note B", null, null);
-        wrap(noteContributionsOnNotable).addNote(notable, null, fakeData.jodaLocalDates().any(), "RED");
+        wrap(mixinAddNote(notable)).__("note A", fakeData.jodaLocalDates().any(), "GREEN");
+        wrap(mixinAddNote(notable)).__("note B", null, null);
+        wrap(mixinAddNote(notable)).__(null, fakeData.jodaLocalDates().any(), "RED");
 
-        final List<Note> noteList = wrap(noteContributionsOnNotable).notes(notable);
+        final List<Note> noteList = wrap(mixinNotes(notable)).__();
         note = Iterables.find(noteList, x -> x.getNotes() != null && x.getDate() != null);
         noteWithoutDate = Iterables.find(noteList, x -> x.getDate() == null);
         noteWithoutText = Iterables.find(noteList, x -> x.getNotes() == null);
@@ -89,62 +84,34 @@ public class NoteActionRemoveIntegTest extends NoteModuleIntegTest {
     }
 
 
-    public static class ActionImplementationIntegTest extends NoteActionRemoveIntegTest {
+    public static class ActionImplementationIntegTest extends Note_remove_IntegTest {
 
         @Test
         public void happy_case() throws Exception {
 
             // given
-            final List<Note> noteList = wrap(noteContributionsOnNotable).notes(notable);
+            final List<Note> noteList = wrap(mixinNotes(notable)).__();
             assertThat(noteList).hasSize(3);
 
             // when
-            wrap(noteActionRemove).remove(note, true);
+            wrap(mixinRemove(note)).__();
 
             // then
-            final List<Note> noteListAfter = wrap(noteContributionsOnNotable).notes(notable);
+            final List<Note> noteListAfter = wrap(mixinNotes(notable)).__();
             assertThat(noteListAfter).hasSize(2);
 
         }
     }
 
-    public static class ValidateIntegTest extends NoteActionRemoveIntegTest {
-
-        @Test
-        public void cannot_proceed_if_unchecked_are_you_sure() throws Exception {
-
-            // expecting
-            expectedException.expect(InvalidException.class);
-            expectedException.expectMessage("Check the 'are you sure' to continue");
-
-            // when
-            wrap(noteActionRemove).remove(note, false);
-        }
-
-        /**
-         * the areYouSure is a tristate boolean checkbox
-         */
-        @Test
-        public void cannot_proceed_if_ignore_are_you_sure() throws Exception {
-
-            // expecting
-            expectedException.expect(InvalidException.class);
-            expectedException.expectMessage("Check the 'are you sure' to continue");
-
-            // when
-            wrap(noteActionRemove).remove(note, null);
-        }
-    }
-
-    public static class DomainEventIntegTest extends NoteActionRemoveIntegTest {
+    public static class DomainEventIntegTest extends Note_remove_IntegTest {
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class Subscriber extends AbstractSubscriber {
 
-            NoteActionRemove.DomainEvent ev;
+            Note_remove.Event ev;
 
             @Subscribe
-            public void on(NoteActionRemove.DomainEvent ev) {
+            public void on(Note_remove.Event ev) {
                 this.ev = ev;
             }
         }
@@ -156,12 +123,13 @@ public class NoteActionRemoveIntegTest extends NoteModuleIntegTest {
         public void fires_event() throws Exception {
 
             // when
-            wrap(noteActionRemove).remove(note, true);
+            final Note_remove mixinRemove = mixinRemove(note);
+            wrap(mixinRemove).__();
 
             // then
             assertThat(subscriber.ev).isNotNull();
-            assertThat(subscriber.ev.getSource()).isSameAs(noteActionRemove);
-            assertThat(subscriber.ev.getArguments().get(0)).isSameAs(note);
+            assertThat(subscriber.ev.getSource()).isSameAs(mixinRemove);
+            assertThat(subscriber.ev.getSource().getNote()).isSameAs(note);
         }
     }
 

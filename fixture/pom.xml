@@ -52,6 +52,7 @@ Copyright 2014~2015 Dan Haywood
         <dependency>
             <groupId>org.incode.module.note</groupId>
             <artifactId>incode-module-note-dom</artifactId>
+            <version>${incode-module-note.version}</version>
         </dependency>
 
         <dependency>

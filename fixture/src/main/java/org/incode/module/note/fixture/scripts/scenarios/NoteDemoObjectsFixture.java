@@ -21,17 +21,32 @@ import org.joda.time.LocalDate;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.apache.isis.applib.services.clock.ClockService;
 
-import org.incode.module.note.dom.impl.note.NoteContributionsOnNotable;
-import org.incode.module.note.fixture.dom.calendarname.CalendarNameRepositoryForDemo;
+import org.incode.module.note.dom.api.notable.Notable;
+import org.incode.module.note.dom.impl.note.Notable_addNote;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObjectMenu;
 import org.incode.module.note.fixture.scripts.teardown.NoteDemoObjectsTearDownFixture;
 
 public class NoteDemoObjectsFixture extends DiscoverableFixtureScript {
 
+    //region > injected services
+    @javax.inject.Inject
+    NoteDemoObjectMenu noteDemoObjectMenu;
+    @javax.inject.Inject
+    ClockService clockService;
+    //endregion
+
+    //region > constructor
     public NoteDemoObjectsFixture() {
         withDiscoverability(Discoverability.DISCOVERABLE);
     }
+    //endregion
+
+    //region > mixins
+    Notable_addNote mixinAddNote(final Notable notable) {
+        return mixin(Notable_addNote.class, notable);
+    }
+    //endregion
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
@@ -42,18 +57,19 @@ public class NoteDemoObjectsFixture extends DiscoverableFixtureScript {
         final LocalDate now = clockService.now();
 
         final NoteDemoObject foo = create("Foo", executionContext);
-        wrap(noteContributionsOnNotable).addNote(foo, "Note A", now, "BLUE");
-        wrap(noteContributionsOnNotable).addNote(foo, "Note B", now.plusDays(1), "GREEN");
-        wrap(noteContributionsOnNotable).addNote(foo, "Note C", now.plusDays(2), "RED");
+        wrap(mixinAddNote(foo)).__("Note A", now, "BLUE");
+        wrap(mixinAddNote(foo)).__("Note B", now.plusDays(1), "GREEN");
+        wrap(mixinAddNote(foo)).__("Note C", now.plusDays(2), "RED");
 
         final NoteDemoObject bar = create("Bar", executionContext);
-        wrap(noteContributionsOnNotable).addNote(bar, "Note #1", null, null);
-        wrap(noteContributionsOnNotable).addNote(bar, "Note #2", now.plusDays(-1),
+        wrap(mixinAddNote(bar)).__("Note #1", null, null);
+        wrap(mixinAddNote(bar)).__("Note #2", now.plusDays(-1),
                 "RED");
 
         final NoteDemoObject baz = create("Baz", executionContext);
-        wrap(noteContributionsOnNotable).addNote(baz, "Another note", now.plusDays(1), "RED");
+        wrap(mixinAddNote(baz)).__("Another note", now.plusDays(1), "RED");
     }
+
 
     // //////////////////////////////////////
 
@@ -64,14 +80,5 @@ public class NoteDemoObjectsFixture extends DiscoverableFixtureScript {
         return executionContext.addResult(this, wrap(noteDemoObjectMenu).create(name));
     }
 
-    // //////////////////////////////////////
 
-    @javax.inject.Inject
-    NoteDemoObjectMenu noteDemoObjectMenu;
-    @javax.inject.Inject
-    ClockService clockService;
-    @javax.inject.Inject
-    NoteContributionsOnNotable noteContributionsOnNotable;
-    @javax.inject.Inject
-    CalendarNameRepositoryForDemo calendarRepositoryUsingCalendarName;
 }

@@ -58,10 +58,12 @@ Copyright 2014~2015 Dan Haywood
         <compileSource>1.8</compileSource>
         <compileTarget>1.8</compileTarget>
 
-        <isis.version>1.9.0</isis.version>
+        <isis.version>1.10.0-SNAPSHOT</isis.version>
         <isis-module-poly-dom.version>1.9.0</isis-module-poly-dom.version>
         <isis-module-fakedata-dom.version>1.9.0</isis-module-fakedata-dom.version>
         <isis-wicket-fullcalendar2-cpt.version>1.10.0-SNAPSHOT</isis-wicket-fullcalendar2-cpt.version>
+
+        <lombok.version>1.16.6</lombok.version>
 
         <assertj-core.version>2.0.0</assertj-core.version>
         <danhaywood-java-assertjext.version>0.1.0</danhaywood-java-assertjext.version>
@@ -261,6 +263,14 @@ Copyright 2014~2015 Dan Haywood
             <version>${danhaywood-java-assertjext.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
     <!-- http://central.sonatype.org/pages/apache-maven.html -->
@@ -422,7 +432,7 @@ Copyright 2014~2015 Dan Haywood
                 <plugins>
                     <plugin>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>2.1.2</version>
+                        <version>2.2.1</version>
                         <executions>
                             <execution>
                                 <id>attach-sources</id>

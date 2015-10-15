@@ -28,7 +28,6 @@ import org.junit.Test;
 
 import org.incode.module.note.dom.api.notable.Notable;
 import org.incode.module.note.dom.impl.note.Note;
-import org.incode.module.note.dom.impl.note.NoteContributionsOnNotable;
 import org.incode.module.note.dom.impl.note.NoteRepository;
 import org.incode.module.note.fixture.dom.calendarname.CalendarNameRepositoryForDemo;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
@@ -38,16 +37,13 @@ import org.incode.module.note.integtests.NoteModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class NoteRepositoryIntegTest extends NoteModuleIntegTest {
+public class NoteRepository_IntegTest extends NoteModuleIntegTest {
 
     @Inject
     CalendarNameRepositoryForDemo calendarNameRepository;
 
     @Inject
     NoteDemoObjectMenu noteDemoObjectMenu;
-
-    @Inject
-    NoteContributionsOnNotable noteContributionsOnNotable;
 
     @Inject
     NoteRepository noteRepository;
@@ -65,19 +61,19 @@ public class NoteRepositoryIntegTest extends NoteModuleIntegTest {
         calendarNameRepository.setCalendarNames(NoteDemoObject.class, "BLUE", "GREEN", "RED");
     }
 
-    public static class FindByNotableIntegTest extends NoteRepositoryIntegTest {
+    public static class FindByNotableIntegTest extends NoteRepository_IntegTest {
 
         @Test
         public void happyCase() throws Exception {
 
             // given
-            wrap(noteContributionsOnNotable).addNote(notable1, "note A", fakeData.jodaLocalDates().any(), "GREEN");
-            wrap(noteContributionsOnNotable).addNote(notable1, "note B", fakeData.jodaLocalDates().any(), "BLUE");
+            wrap(mixinAddNote(notable1)).__("note A", fakeData.jodaLocalDates().any(), "GREEN");
+            wrap(mixinAddNote(notable1)).__("note B", fakeData.jodaLocalDates().any(), "BLUE");
 
-            wrap(noteContributionsOnNotable).addNote(notable2, "note C", fakeData.jodaLocalDates().any(), "GREEN");
-            wrap(noteContributionsOnNotable).addNote(notable2, "note D", fakeData.jodaLocalDates().any(), "BLUE");
+            wrap(mixinAddNote(notable2)).__("note C", fakeData.jodaLocalDates().any(), "GREEN");
+            wrap(mixinAddNote(notable2)).__("note D", fakeData.jodaLocalDates().any(), "BLUE");
 
-            final List<Note> notable2Notes = wrap(noteContributionsOnNotable).notes(notable2);
+            final List<Note> notable2Notes = wrap(mixinNotes(notable2)).__();
 
             // when
             final List<Note> noteList = noteRepository.findByNotable(notable2);
@@ -89,22 +85,23 @@ public class NoteRepositoryIntegTest extends NoteModuleIntegTest {
                 assertThat(notable2Notes).contains(note);
             }
         }
+
     }
 
-    public static class FindByNotableAndCalendarNameIntegTest extends NoteRepositoryIntegTest {
+    public static class FindByNotableAndCalendarNameIntegTest extends NoteRepository_IntegTest {
 
         @Test
         public void happyCase() throws Exception {
 
             // given
-            wrap(noteContributionsOnNotable).addNote(notable1, "note A", fakeData.jodaLocalDates().any(), "BLUE");
-            wrap(noteContributionsOnNotable).addNote(notable1, "note B", fakeData.jodaLocalDates().any(), "GREEN");
-            wrap(noteContributionsOnNotable).addNote(notable1, "note C", fakeData.jodaLocalDates().any(), "RED");
+            wrap(mixinAddNote(notable1)).__("note A", fakeData.jodaLocalDates().any(), "BLUE");
+            wrap(mixinAddNote(notable1)).__("note B", fakeData.jodaLocalDates().any(), "GREEN");
+            wrap(mixinAddNote(notable1)).__("note C", fakeData.jodaLocalDates().any(), "RED");
 
-            wrap(noteContributionsOnNotable).addNote(notable2, "note D", fakeData.jodaLocalDates().any(), "GREEN");
+            wrap(mixinAddNote(notable2)).__("note D", fakeData.jodaLocalDates().any(), "GREEN");
 
-            final List<Note> notable1Notes = wrap(noteContributionsOnNotable).notes(notable1);
-            final List<Note> notable2Notes = wrap(noteContributionsOnNotable).notes(notable2);
+            final List<Note> notable1Notes = wrap(mixinNotes(notable1)).__();
+            final List<Note> notable2Notes = wrap(mixinNotes(notable2)).__();
 
             // when
             final Note note1 = noteRepository.findByNotableAndCalendarName(notable1, "GREEN");
@@ -124,7 +121,7 @@ public class NoteRepositoryIntegTest extends NoteModuleIntegTest {
         }
     }
 
-    public static class FindByNotableInDateRangeIntegTest extends NoteRepositoryIntegTest {
+    public static class FindByNotableInDateRangeIntegTest extends NoteRepository_IntegTest {
 
         private LocalDate someDate;
 
@@ -137,14 +134,14 @@ public class NoteRepositoryIntegTest extends NoteModuleIntegTest {
             // given
             someDate = fakeData.jodaLocalDates().any();
 
-            wrap(noteContributionsOnNotable).addNote(notable1, "note A", someDate, "BLUE");
-            wrap(noteContributionsOnNotable).addNote(notable1, "note B", someDate.plusDays(2), "GREEN");
-            wrap(noteContributionsOnNotable).addNote(notable1, "note C", someDate.plusDays(-2), "RED");
+            wrap(mixinAddNote(notable1)).__("note A", someDate, "BLUE");
+            wrap(mixinAddNote(notable1)).__("note B", someDate.plusDays(2), "GREEN");
+            wrap(mixinAddNote(notable1)).__("note C", someDate.plusDays(-2), "RED");
 
-            wrap(noteContributionsOnNotable).addNote(notable2, "note D", someDate, "GREEN");
+            wrap(mixinAddNote(notable2)).__("note D", someDate, "GREEN");
 
-            notable1Notes = wrap(noteContributionsOnNotable).notes(notable1);
-            notable2Notes = wrap(noteContributionsOnNotable).notes(notable2);
+            notable1Notes = wrap(mixinNotes(notable1)).__();
+            notable2Notes = wrap(mixinNotes(notable2)).__();
         }
 
         @Test
@@ -177,7 +174,7 @@ public class NoteRepositoryIntegTest extends NoteModuleIntegTest {
         }
     }
 
-    public static class FindInDateRangeIntegTest extends NoteRepositoryIntegTest {
+    public static class FindInDateRangeIntegTest extends NoteRepository_IntegTest {
 
         private LocalDate someDate;
 
@@ -190,14 +187,14 @@ public class NoteRepositoryIntegTest extends NoteModuleIntegTest {
             // given
             someDate = fakeData.jodaLocalDates().any();
 
-            wrap(noteContributionsOnNotable).addNote(notable1, "note A", someDate, "BLUE");
-            wrap(noteContributionsOnNotable).addNote(notable1, "note B", someDate.plusDays(2), "GREEN");
-            wrap(noteContributionsOnNotable).addNote(notable1, "note C", someDate.plusDays(-2), "RED");
+            wrap(mixinAddNote(notable1)).__("note A", someDate, "BLUE");
+            wrap(mixinAddNote(notable1)).__("note B", someDate.plusDays(2), "GREEN");
+            wrap(mixinAddNote(notable1)).__("note C", someDate.plusDays(-2), "RED");
 
-            wrap(noteContributionsOnNotable).addNote(notable2, "note D", someDate, "GREEN");
+            wrap(mixinAddNote(notable2)).__("note D", someDate, "GREEN");
 
-            notable1Notes = wrap(noteContributionsOnNotable).notes(notable1);
-            notable2Notes = wrap(noteContributionsOnNotable).notes(notable2);
+            notable1Notes = wrap(mixinNotes(notable1)).__();
+            notable2Notes = wrap(mixinNotes(notable2)).__();
         }
 
         @Test

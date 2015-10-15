@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright 2012-2014 Eurocommercial Properties NV
+ *  Copyright 2015 incode.org
  *
  *
  *  Licensed under the Apache License, Version 2.0 (the

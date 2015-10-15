@@ -30,8 +30,6 @@ import org.incode.module.note.dom.api.notable.Notable;
 import org.incode.module.note.dom.impl.notablelink.NotableLink;
 import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
 import org.incode.module.note.dom.impl.note.Note;
-import org.incode.module.note.dom.impl.note.NoteContributionsOnNotable;
-import org.incode.module.note.dom.impl.note.NoteRepository;
 import org.incode.module.note.fixture.dom.calendarname.CalendarNameRepositoryForDemo;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObjectMenu;
@@ -40,7 +38,7 @@ import org.incode.module.note.integtests.NoteModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class NotableLinkRepositoryIntegTest extends NoteModuleIntegTest {
+public class NotableLinkRepository_IntegTest extends NoteModuleIntegTest {
 
     @Inject
     CalendarNameRepositoryForDemo calendarNameRepository;
@@ -50,10 +48,6 @@ public class NotableLinkRepositoryIntegTest extends NoteModuleIntegTest {
 
     @Inject
     NotableLinkRepository notableLinkRepository;
-
-    @Inject
-    NoteContributionsOnNotable noteContributionsOnNotable;
-
 
     Notable notable1;
     Notable notable2;
@@ -68,16 +62,16 @@ public class NotableLinkRepositoryIntegTest extends NoteModuleIntegTest {
         calendarNameRepository.setCalendarNames(NoteDemoObject.class, "BLUE", "GREEN", "RED");
     }
 
-    public static class FindByNotableLinkIntegTest extends NotableLinkRepositoryIntegTest {
+    public static class FindByNotableLinkIntegTest extends NotableLinkRepository_IntegTest {
 
         @Test
         public void happyCase() throws Exception {
 
             // given
-            wrap(noteContributionsOnNotable).addNote(notable1, "note A", fakeData.jodaLocalDates().any(), "GREEN");
-            wrap(noteContributionsOnNotable).addNote(notable1, "note B", fakeData.jodaLocalDates().any(), "BLUE");
+            wrap(mixinAddNote(notable1)).__("note A", fakeData.jodaLocalDates().any(), "GREEN");
+            wrap(mixinAddNote(notable1)).__("note B", fakeData.jodaLocalDates().any(), "BLUE");
 
-            final List<Note> notes = wrap(noteContributionsOnNotable).notes(notable1);
+            final List<Note> notes = wrap(mixinNotes(notable1)).__();
             final Note note1 = Iterables.find(notes, input -> input.getNotes().equals("note A"));
             final Note note2 = Iterables.find(notes, input -> input.getNotes().equals("note B"));
 
@@ -96,19 +90,19 @@ public class NotableLinkRepositoryIntegTest extends NoteModuleIntegTest {
         }
     }
 
-    public static class FindByNotableIntegTest extends NotableLinkRepositoryIntegTest {
+    public static class FindByNotableIntegTest extends NotableLinkRepository_IntegTest {
 
         @Test
         public void happyCase() throws Exception {
 
             // given
-            wrap(noteContributionsOnNotable).addNote(notable1, "note A", fakeData.jodaLocalDates().any(), "GREEN");
-            wrap(noteContributionsOnNotable).addNote(notable1, "note B", fakeData.jodaLocalDates().any(), "BLUE");
+            wrap(mixinAddNote(notable1)).__("note A", fakeData.jodaLocalDates().any(), "GREEN");
+            wrap(mixinAddNote(notable1)).__("note B", fakeData.jodaLocalDates().any(), "BLUE");
 
-            wrap(noteContributionsOnNotable).addNote(notable2, "note C", fakeData.jodaLocalDates().any(), "GREEN");
-            wrap(noteContributionsOnNotable).addNote(notable2, "note D", fakeData.jodaLocalDates().any(), "BLUE");
+            wrap(mixinAddNote(notable2)).__("note C", fakeData.jodaLocalDates().any(), "GREEN");
+            wrap(mixinAddNote(notable2)).__("note D", fakeData.jodaLocalDates().any(), "BLUE");
 
-            final List<Note> notable2Notes = wrap(noteContributionsOnNotable).notes(notable2);
+            final List<Note> notable2Notes = wrap(mixinNotes(notable2)).__();
 
             // when
             final List<NotableLink> links = notableLinkRepository.findByNotable(notable2);
@@ -123,20 +117,20 @@ public class NotableLinkRepositoryIntegTest extends NoteModuleIntegTest {
         }
     }
 
-    public static class FindByNotableAndCalendarNameIntegTest extends NotableLinkRepositoryIntegTest {
+    public static class FindByNotableAndCalendarNameIntegTest extends NotableLinkRepository_IntegTest {
 
         @Test
         public void happyCase() throws Exception {
 
             // given
-            wrap(noteContributionsOnNotable).addNote(notable1, "note A", fakeData.jodaLocalDates().any(), "BLUE");
-            wrap(noteContributionsOnNotable).addNote(notable1, "note B", fakeData.jodaLocalDates().any(), "GREEN");
-            wrap(noteContributionsOnNotable).addNote(notable1, "note C", fakeData.jodaLocalDates().any(), "RED");
+            wrap(mixinAddNote(notable1)).__("note A", fakeData.jodaLocalDates().any(), "BLUE");
+            wrap(mixinAddNote(notable1)).__("note B", fakeData.jodaLocalDates().any(), "GREEN");
+            wrap(mixinAddNote(notable1)).__("note C", fakeData.jodaLocalDates().any(), "RED");
 
-            wrap(noteContributionsOnNotable).addNote(notable2, "note D", fakeData.jodaLocalDates().any(), "GREEN");
+            wrap(mixinAddNote(notable2)).__("note D", fakeData.jodaLocalDates().any(), "GREEN");
 
-            final List<Note> notable1Notes = wrap(noteContributionsOnNotable).notes(notable1);
-            final List<Note> notable2Notes = wrap(noteContributionsOnNotable).notes(notable2);
+            final List<Note> notable1Notes = wrap(mixinNotes(notable1)).__();
+            final List<Note> notable2Notes = wrap(mixinNotes(notable2)).__();
 
             // when
             final NotableLink link1 = notableLinkRepository.findByNotableAndCalendarName(notable1, "GREEN");
@@ -156,12 +150,11 @@ public class NotableLinkRepositoryIntegTest extends NoteModuleIntegTest {
         }
     }
 
-    public static class FindByNotableInDateRangeIntegTest extends NotableLinkRepositoryIntegTest {
+    public static class FindByNotableInDateRangeIntegTest extends NotableLinkRepository_IntegTest {
 
         private LocalDate someDate;
 
         private List<Note> notable1Notes;
-        private List<Note> notable2Notes;
 
         @Before
         public void setUp() throws Exception {
@@ -169,14 +162,13 @@ public class NotableLinkRepositoryIntegTest extends NoteModuleIntegTest {
             // given
             someDate = fakeData.jodaLocalDates().any();
 
-            wrap(noteContributionsOnNotable).addNote(notable1, "note A", someDate, "BLUE");
-            wrap(noteContributionsOnNotable).addNote(notable1, "note B", someDate.plusDays(2), "GREEN");
-            wrap(noteContributionsOnNotable).addNote(notable1, "note C", someDate.plusDays(-2), "RED");
+            wrap(mixinAddNote(notable1)).__("note A", someDate, "BLUE");
+            wrap(mixinAddNote(notable1)).__("note B", someDate.plusDays(2), "GREEN");
+            wrap(mixinAddNote(notable1)).__("note C", someDate.plusDays(-2), "RED");
 
-            wrap(noteContributionsOnNotable).addNote(notable2, "note D", someDate, "GREEN");
+            wrap(mixinAddNote(notable2)).__("note D", someDate, "GREEN");
 
-            notable1Notes = wrap(noteContributionsOnNotable).notes(notable1);
-            notable2Notes = wrap(noteContributionsOnNotable).notes(notable2);
+            notable1Notes = wrap(mixinNotes(notable1)).__();
         }
 
         @Test

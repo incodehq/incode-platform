@@ -13,7 +13,6 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -31,6 +30,9 @@ import org.incode.module.note.dom.NoteModule;
 import org.incode.module.note.dom.api.notable.Notable;
 import org.incode.module.note.dom.impl.notablelink.NotableLink;
 import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * An event that has or is scheduled to occur at some point in time, pertaining
@@ -66,27 +68,19 @@ public class Note implements CalendarEventable, Comparable<Note> {
 
     static final int NOTES_ABBREVIATED_TO = 40;
 
+    //region > injected services
+    @Inject
+    NotableLinkRepository notableLinkRepository;
+    @Inject
+    DomainObjectContainer container;
+    @Inject
+    LocaleProvider localeProvider;
+    //endregion
+
     //region > event classes
-    public static abstract class PropertyDomainEvent<S,T> extends NoteModule.PropertyDomainEvent<S, T> {
-        public PropertyDomainEvent(final S source, final Identifier identifier, final T oldValue, final T newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    public static abstract class CollectionDomainEvent<S,T> extends NoteModule.CollectionDomainEvent<S, T> {
-        public CollectionDomainEvent(
-                final S source,
-                final Identifier identifier,
-                final Of of, final T value) {
-            super(source, identifier, of, value);
-        }
-    }
-
-    public static abstract class ActionDomainEvent<S> extends NoteModule.ActionDomainEvent<S> {
-        public ActionDomainEvent(final S source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-    }
+    public static abstract class PropertyDomainEvent<S,T> extends NoteModule.PropertyDomainEvent<S, T> { }
+    public static abstract class CollectionDomainEvent<S,T> extends NoteModule.CollectionDomainEvent<S, T> { }
+    public static abstract class ActionDomainEvent<S> extends NoteModule.ActionDomainEvent<S> { }
     //endregion
 
     //region > title
@@ -105,20 +99,62 @@ public class Note implements CalendarEventable, Comparable<Note> {
 
     //endregion
 
-    @Inject
-    LocaleProvider localeProvider;
-    
-    //region > notable (property)
+    public static class NotesDomainEvent extends PropertyDomainEvent<Note,String> { }
+    /**
+     * Hidden in tables, instead the derived {@link #getNotesAbbreviated()} is shown.
+     */
+    @Getter @Setter
+    @javax.jdo.annotations.Column(allowsNull = "true", length = NoteModule.JdoColumnLength.NOTES)
+    @Property(
+            domainEvent = NotesDomainEvent.class,
+            hidden = Where.ALL_TABLES
+    )
+    @PropertyLayout(
+            multiLine = NoteModule.MultiLine.NOTES
+    )
+    private String notes;
 
-    public static class NotableDomainEvent extends PropertyDomainEvent<Note,Notable> {
-        public NotableDomainEvent(
-                final Note source,
-                final Identifier identifier,
-                final Notable oldValue,
-                final Notable newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
+
+    public static class DateDomainEvent extends PropertyDomainEvent<Note,LocalDate> { }
+    @Getter @Setter
+    @javax.jdo.annotations.Column(allowsNull = "true")
+    @Property(
+            domainEvent = DateDomainEvent.class
+    )
+    private LocalDate date;
+
+
+    public static class CalendarNameDomainEvent extends PropertyDomainEvent<Note,String> { }
+    /**
+     * The name of the &quot;calendar&quot; (if any) to which this note belongs.
+     *
+     * <p>
+     * The &quot;calendar&quot; is a string identifier that indicates the nature
+     * of a note.  These are expected to be uniquely identifiable for all and
+     * any notes that might be created. They therefore typically
+     * include information relating to the type/class of the note's
+     * {@link #getNotable() subject}.
+     *
+     * <p>
+     * For example, a note on a lease's
+     * <tt>FixedBreakOption</tt> has three dates: the <i>break date</i>, the
+     * <i>exercise date</i> and the <i>reminder date</i>. These therefore
+     * correspond to three different calendar names, respectively <i>Fixed
+     * break</i>, <i>Fixed break exercise</i> and <i>Fixed break exercise
+     * reminder</i>.
+     */
+    @Getter @Setter
+    @javax.jdo.annotations.Column(allowsNull = "true", length = NoteModule.JdoColumnLength.CALENDAR_NAME)
+    @Property(
+            domainEvent = CalendarNameDomainEvent.class,
+            editing = Editing.DISABLED
+    )
+    private String calendarName;
+
+
+    //region > notable (derived property)
+
+    public static class NotableDomainEvent extends PropertyDomainEvent<Note,Notable> { }
 
     /**
      * Polymorphic association to (any implementation of) {@link Notable}.
@@ -155,17 +191,9 @@ public class Note implements CalendarEventable, Comparable<Note> {
     }
     //endregion
 
-    //region > notesAbbreviated (property)
+    //region > notesAbbreviated (derived property)
 
-    public static class NotesAbbreviatedDomainEvent extends PropertyDomainEvent<Note,String> {
-        public NotesAbbreviatedDomainEvent(
-                final Note source,
-                final Identifier identifier,
-                final String oldValue,
-                final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
+    public static class NotesAbbreviatedDomainEvent extends PropertyDomainEvent<Note,String> { }
 
     /**
      * Derived from {@link #getNotes()}, solely for use in title and in tables.
@@ -188,115 +216,6 @@ public class Note implements CalendarEventable, Comparable<Note> {
         }
         return notes.substring(0, length-ending.length()) + ending ;
     }
-    //endregion
-
-    //region > notes (property)
-
-    public static class NotesDomainEvent extends PropertyDomainEvent<Note,String> {
-        public NotesDomainEvent(
-                final Note source,
-                final Identifier identifier,
-                final String oldValue,
-                final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    private String notes;
-
-    /**
-     * Hidden in tables, instead the derived {@link #getNotesAbbreviated()} is shown.
-     */
-    @javax.jdo.annotations.Column(allowsNull = "true", length = NoteModule.JdoColumnLength.NOTES)
-    @Property(
-            domainEvent = NotesDomainEvent.class,
-            hidden = Where.ALL_TABLES
-    )
-    @PropertyLayout(
-            multiLine = NoteModule.MultiLine.NOTES
-    )
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(final String description) {
-        this.notes = description;
-    }
-    //endregion
-
-    //region > date (property)
-
-    public static class DateDomainEvent extends PropertyDomainEvent<Note,LocalDate> {
-        public DateDomainEvent(
-                final Note source,
-                final Identifier identifier,
-                final LocalDate oldValue,
-                final LocalDate newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    private LocalDate date;
-
-    @javax.jdo.annotations.Column(allowsNull = "true")
-    @Property(
-            domainEvent = DateDomainEvent.class
-    )
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(final LocalDate startDate) {
-        this.date = startDate;
-    }
-
-    //endregion
-
-    //region > calendarName (property)
-    public static class CalendarNameDomainEvent extends PropertyDomainEvent<Note,String> {
-        public CalendarNameDomainEvent(
-                final Note source,
-                final Identifier identifier,
-                final String oldValue,
-                final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    private String calendarName;
-
-    /**
-     * The name of the &quot;calendar&quot; (if any) to which this note belongs.
-     * 
-     * <p>
-     * The &quot;calendar&quot; is a string identifier that indicates the nature
-     * of a note.  These are expected to be uniquely identifiable for all and
-     * any notes that might be created. They therefore typically
-     * include information relating to the type/class of the note's
-     * {@link #getNotable() subject}.
-     * 
-     * <p>
-     * For example, a note on a lease's
-     * <tt>FixedBreakOption</tt> has three dates: the <i>break date</i>, the
-     * <i>exercise date</i> and the <i>reminder date</i>. These therefore
-     * correspond to three different calendar names, respectively <i>Fixed
-     * break</i>, <i>Fixed break exercise</i> and <i>Fixed break exercise
-     * reminder</i>.
-     */
-    @javax.jdo.annotations.Column(allowsNull = "true", length = NoteModule.JdoColumnLength.CALENDAR_NAME)
-    @Property(
-            domainEvent = CalendarNameDomainEvent.class,
-            editing = Editing.DISABLED
-    )
-    public String getCalendarName() {
-        return calendarName;
-    }
-
-    public void setCalendarName(final String calendarName) {
-        this.calendarName = calendarName;
-    }
-
-
     //endregion
 
     //region > CalendarEventable impl
@@ -331,14 +250,6 @@ public class Note implements CalendarEventable, Comparable<Note> {
         return ObjectContracts.compare(this, other, "date", "source", "calendarName");
     }
 
-    //endregion
-
-    //region > injected
-
-    @Inject
-    NotableLinkRepository notableLinkRepository;
-    @Inject
-    DomainObjectContainer container;
     //endregion
 
 }

@@ -36,6 +36,14 @@ import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
 import org.incode.module.note.app.NoteModuleAppManifest;
+import org.incode.module.note.dom.api.notable.Notable;
+import org.incode.module.note.dom.impl.note.Notable_addNote;
+import org.incode.module.note.dom.impl.note.Notable_notes;
+import org.incode.module.note.dom.impl.note.Notable_removeNote;
+import org.incode.module.note.dom.impl.note.Note;
+import org.incode.module.note.dom.impl.note.Note_changeDate;
+import org.incode.module.note.dom.impl.note.Note_changeNotes;
+import org.incode.module.note.dom.impl.note.Note_remove;
 
 public abstract class NoteModuleIntegTest extends IntegrationTestAbstract {
 
@@ -47,6 +55,28 @@ public abstract class NoteModuleIntegTest extends IntegrationTestAbstract {
 
     @Inject
     protected FakeDataService fakeData;
+
+
+    protected Notable_addNote mixinAddNote(final Notable notable) {
+        return mixin(Notable_addNote.class, notable);
+    }
+    protected Notable_removeNote mixinRemoveNote(final Notable notable) {
+        return mixin(Notable_removeNote.class, notable);
+    }
+
+    protected Notable_notes mixinNotes(final Notable notable) {
+        return mixin(Notable_notes.class, notable);
+    }
+
+    protected Note_changeDate mixinChangeDate(final Note note) {
+        return mixin(Note_changeDate.class, note);
+    }
+    protected Note_changeNotes mixinChangeNotes(final Note note) {
+        return mixin(Note_changeNotes.class, note);
+    }
+    protected Note_remove mixinRemove(final Note note) {
+        return mixin(Note_remove.class, note);
+    }
 
     protected static <T> List<T> asList(final Iterable<T> iterable) {
         return Lists.newArrayList(iterable);

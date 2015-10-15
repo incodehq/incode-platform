@@ -18,7 +18,6 @@
  */
 package org.incode.module.note.dom.impl.notablelink;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -32,7 +31,6 @@ import com.google.common.collect.Sets;
 
 import org.joda.time.LocalDate;
 
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -46,6 +44,9 @@ import org.incode.module.note.dom.NoteModule;
 import org.incode.module.note.dom.api.notable.Notable;
 import org.incode.module.note.dom.impl.calendarname.CalendarNameService;
 import org.incode.module.note.dom.impl.note.Note;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
@@ -101,39 +102,9 @@ public abstract class NotableLink
         implements Calendarable {
 
     //region > event classes
-    public static abstract class PropertyDomainEvent<T> extends NoteModule.PropertyDomainEvent<NotableLink, T> {
-        public PropertyDomainEvent(final NotableLink source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public PropertyDomainEvent(final NotableLink source, final Identifier identifier, final T oldValue, final T newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    public static abstract class CollectionDomainEvent<T> extends NoteModule.CollectionDomainEvent<NotableLink, T> {
-        public CollectionDomainEvent(final NotableLink source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of) {
-            super(source, identifier, of);
-        }
-
-        public CollectionDomainEvent(final NotableLink source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
-            super(source, identifier, of, value);
-        }
-    }
-
-    public static abstract class ActionDomainEvent extends NoteModule.ActionDomainEvent<NotableLink> {
-        public ActionDomainEvent(final NotableLink source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public ActionDomainEvent(final NotableLink source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public ActionDomainEvent(final NotableLink source, final Identifier identifier, final List<Object> arguments) {
-            super(source, identifier, arguments);
-        }
-    }
+    public static abstract class PropertyDomainEvent<T> extends NoteModule.PropertyDomainEvent<NotableLink, T> { }
+    public static abstract class CollectionDomainEvent<T> extends NoteModule.CollectionDomainEvent<NotableLink, T> { }
+    public static abstract class ActionDomainEvent extends NoteModule.ActionDomainEvent<NotableLink> { }
     //endregion
 
     //region > instantiateEvent (poly pattern)
@@ -195,85 +166,66 @@ public abstract class NotableLink
     }
     //endregion
 
-    //region > note (property)
 
-    public static class EventDomainEvent extends PropertyDomainEvent<Note> {
-        public EventDomainEvent(final NotableLink source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public EventDomainEvent(final NotableLink source, final Identifier identifier, final Note oldValue, final Note newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    private Note note;
+    public static class EventDomainEvent extends PropertyDomainEvent<Note> { }
+    @Getter @Setter
     @javax.jdo.annotations.Column(allowsNull = "false", name = "eventId")
     @Property(
             domainEvent = EventDomainEvent.class,
             editing = Editing.DISABLED
     )
-    public Note getNote() {
-        return note;
-    }
+    private Note note;
 
-    public void setNote(final Note note) {
-        this.note = note;
-    }
-    //endregion
-
-    //region > notableObjectType (property)
-
-    public static class SourceObjectTypeDomainEvent extends PropertyDomainEvent<String> {
-        public SourceObjectTypeDomainEvent(final NotableLink source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public SourceObjectTypeDomainEvent(final NotableLink source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
+    public static class NotableObjectTypeDomainEvent extends PropertyDomainEvent<String> { }
+    @Getter @Setter
+    @javax.jdo.annotations.Column(allowsNull = "false", length = 255)
+    @Property(
+            domainEvent = NotableObjectTypeDomainEvent.class,
+            editing = Editing.DISABLED
+    )
     private String notableObjectType;
 
+    public static class NotableIdentifierDomainEvent extends PropertyDomainEvent<String> {
+    }
+    @Getter @Setter
     @javax.jdo.annotations.Column(allowsNull = "false", length = 255)
     @Property(
-            domainEvent = SourceObjectTypeDomainEvent.class,
+            domainEvent = NotableIdentifierDomainEvent.class,
             editing = Editing.DISABLED
     )
-    public String getNotableObjectType() {
-        return notableObjectType;
-    }
-
-    public void setNotableObjectType(final String notableObjectType) {
-        this.notableObjectType = notableObjectType;
-    }
-    //endregion
-
-    //region > notableIdentifier (property)
-
-    public static class SourceIdentifierDomainEvent extends PropertyDomainEvent<String> {
-        public SourceIdentifierDomainEvent(final NotableLink source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public SourceIdentifierDomainEvent(final NotableLink source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
     private String notableIdentifier;
 
-    @javax.jdo.annotations.Column(allowsNull = "false", length = 255)
+    public static class DateDomainEvent extends PropertyDomainEvent<LocalDate> { }
+    /**
+     * Copy of the {@link #getNote() note}'s {@link Note#getDate() date}, to support querying.
+     *
+     * <p>
+     *     If the {@link Note#getDate()} is changed, then this derived property is also updated.
+     * </p>
+     */
+    @Getter @Setter
+    @javax.jdo.annotations.Column(allowsNull = "true")
     @Property(
-            domainEvent = SourceIdentifierDomainEvent.class,
+            domainEvent = DateDomainEvent.class
+    )
+    private LocalDate date;
+
+    public static class CalendarNameDomainEvent extends PropertyDomainEvent<String> { }
+    /**
+     * Copy of the {@link #getNote() note}'s {@link Note#getCalendarName() calendar name}, to support querying.
+     *
+     * <p>
+     *     If the {@link Note#getCalendarName()} is changed, then this derived property is also updated.
+     * </p>
+     */
+    @Getter @Setter
+    @javax.jdo.annotations.Column(allowsNull = "true", length= NoteModule.JdoColumnLength.CALENDAR_NAME)
+    @Property(
+            domainEvent = CalendarNameDomainEvent.class,
             editing = Editing.DISABLED
     )
-    public String getNotableIdentifier() {
-        return notableIdentifier;
-    }
+    private String calendarName;
 
-    public void setNotableIdentifier(final String notableIdentifier) {
-        this.notableIdentifier = notableIdentifier;
-    }
-    //endregion
 
     //region > notable (derived property)
     /**
@@ -282,74 +234,6 @@ public abstract class NotableLink
     @Programmatic
     public Notable getNotable() {
         return getPolymorphicReference();
-    }
-    //endregion
-    
-    //region > date (property)
-
-    public static class DateDomainEvent extends PropertyDomainEvent<LocalDate> {
-        public DateDomainEvent(final NotableLink source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public DateDomainEvent(final NotableLink source, final Identifier identifier, final LocalDate oldValue, final LocalDate newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    private LocalDate date;
-
-    /**
-     * Copy of the {@link #getNote() note}'s {@link Note#getDate() date}, to support querying.
-     *
-     * <p>
-     *     If the {@link Note#getDate()} is changed, then this derived property is also updated.
-     * </p>
-     */
-    @javax.jdo.annotations.Column(allowsNull = "true")
-    @Property(
-            domainEvent = DateDomainEvent.class
-    )
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(final LocalDate startDate) {
-        this.date = startDate;
-    }
-
-    //endregion
-
-    //region > calendarName (property)
-
-    public static class CalendarNameDomainEvent extends PropertyDomainEvent<String> {
-        public CalendarNameDomainEvent(final NotableLink source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public CalendarNameDomainEvent(final NotableLink source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    private String calendarName;
-
-    /**
-     * Copy of the {@link #getNote() note}'s {@link Note#getCalendarName() calendar name}, to support querying.
-     *
-     * <p>
-     *     If the {@link Note#getCalendarName()} is changed, then this derived property is also updated.
-     * </p>
-     */
-    @javax.jdo.annotations.Column(allowsNull = "true", length= NoteModule.JdoColumnLength.CALENDAR_NAME)
-    @Property(
-            domainEvent = CalendarNameDomainEvent.class,
-            editing = Editing.DISABLED
-    )
-    public String getCalendarName() {
-        return calendarName;
-    }
-
-    public void setCalendarName(final String calendarName) {
-        this.calendarName = calendarName;
     }
     //endregion
 

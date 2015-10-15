@@ -34,8 +34,6 @@ import org.incode.module.note.dom.api.notable.Notable;
 import org.incode.module.note.dom.impl.notablelink.NotableLink;
 import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
 import org.incode.module.note.dom.impl.note.Note;
-import org.incode.module.note.dom.impl.note.NoteActionChangeDate;
-import org.incode.module.note.dom.impl.note.NoteContributionsOnNotable;
 import org.incode.module.note.dom.impl.note.NoteRepository;
 import org.incode.module.note.fixture.dom.calendarname.CalendarNameRepositoryForDemo;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
@@ -45,7 +43,7 @@ import org.incode.module.note.integtests.NoteModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class NoteActionChangeDateIntegTest extends NoteModuleIntegTest {
+public class Note_changeDate_IntegTest extends NoteModuleIntegTest {
 
     @Inject
     CalendarNameRepositoryForDemo calendarNameRepository;
@@ -58,12 +56,6 @@ public class NoteActionChangeDateIntegTest extends NoteModuleIntegTest {
 
     @Inject
     NotableLinkRepository notableLinkRepository;
-
-    @Inject
-    NoteContributionsOnNotable noteContributionsOnNotable;
-
-    @Inject
-    NoteActionChangeDate noteActionChangeDate;
 
     Notable notable;
     Note note;
@@ -79,11 +71,11 @@ public class NoteActionChangeDateIntegTest extends NoteModuleIntegTest {
 
         final LocalDate someDate = fakeData.jodaLocalDates().any();
         final LocalDate someOtherDate = someDate.plusDays(7);
-        wrap(noteContributionsOnNotable).addNote(notable, "note A", someDate, "GREEN");
-        wrap(noteContributionsOnNotable).addNote(notable, "note B", null, null);
-        wrap(noteContributionsOnNotable).addNote(notable, null, someOtherDate, "RED");
+        wrap(mixinAddNote(notable)).__("note A", someDate, "GREEN");
+        wrap(mixinAddNote(notable)).__("note B", null, null);
+        wrap(mixinAddNote(notable)).__(null, someOtherDate, "RED");
 
-        final List<Note> noteList = wrap(noteContributionsOnNotable).notes(notable);
+        final List<Note> noteList = wrap(mixinNotes(notable)).__();
         note = Iterables.find(noteList, x -> x.getNotes() != null && x.getDate() != null);
         noteWithoutDate = Iterables.find(noteList, x -> x.getDate() == null);
         noteWithoutText = Iterables.find(noteList, x -> x.getNotes() == null);
@@ -98,7 +90,7 @@ public class NoteActionChangeDateIntegTest extends NoteModuleIntegTest {
         throw new IllegalStateException("could not find any other calendar name");
     }
 
-    public static class ActionImplementationIntegTest extends NoteActionChangeDateIntegTest {
+    public static class ActionImplementationIntegTest extends Note_changeDate_IntegTest {
 
         @Test
         public void change_date_when_already_has_one() throws Exception {
@@ -121,7 +113,7 @@ public class NoteActionChangeDateIntegTest extends NoteModuleIntegTest {
             final LocalDate newDate = date.plusDays(fakeData.ints().between(10, 20));
             final String newCalendarName = anyOtherCalendarNameFor(notable, calendarNameBefore);
 
-            wrap(noteActionChangeDate).changeDate(note, newDate, newCalendarName);
+            wrap(mixinChangeDate(note)).__(newDate, newCalendarName);
 
             // then
             assertThat(wrap(note).getDate()).isEqualTo(newDate);
@@ -164,14 +156,14 @@ public class NoteActionChangeDateIntegTest extends NoteModuleIntegTest {
             assertThat(linkList.get(0).getNotable()).isSameAs(notable);
 
             // when
-            wrap(noteActionChangeDate).changeDate(note, null, null);
+            wrap(mixinChangeDate(note)).__(null, null);
 
             // then
             assertThat(wrap(note).getDate()).isNull();
             assertThat(wrap(note).getCalendarName()).isNull();
 
             // and (the notes still exist)
-            assertThat(noteContributionsOnNotable.notes(notable)).hasSize(3);
+            assertThat(mixinNotes(notable).__()).hasSize(3);
 
             // however
             assertThat(asList(noteRepository.findByNotableInDateRange(notable, date, date))).hasSize(0);
@@ -180,20 +172,20 @@ public class NoteActionChangeDateIntegTest extends NoteModuleIntegTest {
         }
     }
 
-    public static class ChoicesIntegTest extends NoteActionChangeDateIntegTest {
+    public static class ChoicesIntegTest extends Note_changeDate_IntegTest {
 
         @Test
         public void lists_the_remaining_calendars_as_well_as_the_notes_current_one() throws Exception {
 
             // given
-            final List<Note> notes = wrap(noteContributionsOnNotable).notes(notable);
+            final List<Note> notes = wrap(mixinNotes(notable)).__();
             final List<String> calendarNames = asList(Iterables.transform(notes, x -> x.getCalendarName()));
             assertThat(calendarNames).containsAll(Arrays.asList("RED", "GREEN", null));
 
             final String currentCalendarName = wrap(note).getCalendarName();
 
             // when
-            final Collection<String> availableCalendarNames = noteActionChangeDate.choices2ChangeDate(note);
+            final Collection<String> availableCalendarNames = mixinChangeDate(note).choices1__();
 
             // then
             assertThat(availableCalendarNames).hasSize(2);
@@ -201,20 +193,20 @@ public class NoteActionChangeDateIntegTest extends NoteModuleIntegTest {
         }
     }
 
-    public static class DefaultIntegTest extends NoteActionChangeDateIntegTest {
+    public static class DefaultIntegTest extends Note_changeDate_IntegTest {
 
         @Test
         public void uses_current_values() throws Exception {
 
             // when, then
-            assertThat(noteActionChangeDate.default1ChangeDate(note)).isEqualTo(note.getDate());
+            assertThat(mixinChangeDate(note).default0__()).isEqualTo(note.getDate());
 
             // when, then
-            assertThat(noteActionChangeDate.default2ChangeDate(note)).isEqualTo(note.getCalendarName());
+            assertThat(mixinChangeDate(note).default1__()).isEqualTo(note.getCalendarName());
         }
     }
 
-    public static class ValidateIntegTest extends NoteActionChangeDateIntegTest {
+    public static class ValidateIntegTest extends Note_changeDate_IntegTest {
 
         @Test
         public void cannot_set_date_to_null_when_has_no_text() throws Exception {
@@ -224,7 +216,7 @@ public class NoteActionChangeDateIntegTest extends NoteModuleIntegTest {
             expectedException.expectMessage("Must specify either note text or a date/calendar (or both)");
 
             // when
-            wrap(noteActionChangeDate).changeDate(noteWithoutText, null, null);
+            wrap(mixinChangeDate(noteWithoutText)).__(null, null);
         }
     }
 
