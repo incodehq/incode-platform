@@ -31,7 +31,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
-import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
+import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;

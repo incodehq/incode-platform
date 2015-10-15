@@ -21,15 +21,22 @@ package org.incode.module.commchannel.dom.impl.postaladdress;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.value.Clob;
 
 @Mixin
-public class PostalAddress_downloadGeocode extends PostalAddressMixinAbstract {
+public class PostalAddress_downloadGeocode {
 
     //region > constructor
+    private final PostalAddress postalAddress;
     public PostalAddress_downloadGeocode(final PostalAddress postalAddress) {
-        super(postalAddress);
+        this.postalAddress = postalAddress;
+    }
+
+    @Programmatic
+    public PostalAddress getPostalAddress() {
+        return postalAddress;
     }
     //endregion
 

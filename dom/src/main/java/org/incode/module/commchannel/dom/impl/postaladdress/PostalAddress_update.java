@@ -26,6 +26,7 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
@@ -34,7 +35,7 @@ import org.incode.module.commchannel.dom.api.geocoding.GeocodedAddress;
 import org.incode.module.commchannel.dom.api.geocoding.GeocodingService;
 
 @Mixin
-public class PostalAddress_update extends PostalAddressMixinAbstract {
+public class PostalAddress_update {
 
     //region > injected services
     @Inject
@@ -50,8 +51,14 @@ public class PostalAddress_update extends PostalAddressMixinAbstract {
     //endregion
 
     //region > constructor
+    private final PostalAddress postalAddress;
     public PostalAddress_update(final PostalAddress postalAddress) {
-        super(postalAddress);
+        this.postalAddress = postalAddress;
+    }
+
+    @Programmatic
+    public PostalAddress getPostalAddress() {
+        return postalAddress;
     }
     //endregion
 

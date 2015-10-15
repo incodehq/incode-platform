@@ -11,7 +11,7 @@
  *  
  * <p>
  * Every channel also has an {@link org.incode.module.commchannel.dom.impl.channel.CommunicationChannel#getOwner() associated}
- * {@link org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner owner}; this is a polymorphic association
+ * {@link org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner owner}; this is a polymorphic association
  * with the implementations being <tt>FixedAsset</tt> and <tt>Party</tt>.
  * 
  */

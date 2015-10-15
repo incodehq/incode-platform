@@ -30,21 +30,26 @@ import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Where;
 
-import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
+import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
 
 @Mixin
-public class CommunicationChannel_owner extends CommunicationChannelMixinAbstract{
+public class CommunicationChannel_owner {
 
     //region > injected services
     @Inject
     CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;
     //endregion
 
-    //region > constructor
+    //region > constructor, mixedIn accessor
+    private final CommunicationChannel<?> communicationChannel;
     public CommunicationChannel_owner(final CommunicationChannel<?> communicationChannel) {
-        super(communicationChannel);
+        this.communicationChannel = communicationChannel;
+    }
+    @Programmatic
+    public CommunicationChannel<?> getCommunicationChannel() {
+        return communicationChannel;
     }
     //endregion
 

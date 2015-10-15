@@ -28,14 +28,15 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 
 import org.incode.module.commchannel.dom.CommChannelModule;
-import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
+import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 
 @Mixin
-public class CommunicationChannelOwner_newEmailAddress extends CommunicationChannelOwnerMixinAbstract {
+public class CommunicationChannelOwner_newEmailAddress {
 
     //region > injected services
     @Inject
@@ -43,8 +44,13 @@ public class CommunicationChannelOwner_newEmailAddress extends CommunicationChan
     //endregion
 
     //region > constructor
+    private final CommunicationChannelOwner communicationChannelOwner;
     public CommunicationChannelOwner_newEmailAddress(final CommunicationChannelOwner communicationChannelOwner) {
-        super(communicationChannelOwner);
+        this.communicationChannelOwner = communicationChannelOwner;
+    }
+    @Programmatic
+    public CommunicationChannelOwner getCommunicationChannelOwner() {
+        return communicationChannelOwner;
     }
     //endregion
 

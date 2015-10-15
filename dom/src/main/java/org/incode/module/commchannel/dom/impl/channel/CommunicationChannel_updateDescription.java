@@ -23,14 +23,21 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 @Mixin
-public class CommunicationChannel_updateDescription extends CommunicationChannelMixinAbstract {
+public class CommunicationChannel_updateDescription  {
 
     //region > constructor
+    private final CommunicationChannel<?> communicationChannel;
     public CommunicationChannel_updateDescription(final CommunicationChannel<?> communicationChannel) {
-        super(communicationChannel);
+        this.communicationChannel = communicationChannel;
+    }
+
+    @Programmatic
+    public CommunicationChannel<?> getCommunicationChannel() {
+        return communicationChannel;
     }
     //endregion
 

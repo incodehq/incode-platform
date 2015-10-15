@@ -1,6 +1,6 @@
 /*
  *
-Copyright 2015 incode.org
+ *  Copyright 2015 incode.org
  *
  *
  *  Licensed under the Apache License, Version 2.0 (the
@@ -16,21 +16,14 @@ Copyright 2015 incode.org
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.commchannel.dom.impl.channel;
+package org.incode.module.commchannel.dom.api.owner;
 
-import org.apache.isis.applib.annotation.Programmatic;
+import org.incode.module.commchannel.dom.CommChannelModule;
 
-public abstract class CommunicationChannelMixinAbstract {
+public interface CommunicationChannelOwner  {
 
-    protected final CommunicationChannel<?> communicationChannel;
-    public CommunicationChannelMixinAbstract(final CommunicationChannel<?> communicationChannel) {
-        this.communicationChannel = communicationChannel;
-    }
-
-
-    @Programmatic
-    public CommunicationChannel<?> getCommunicationChannel() {
-        return communicationChannel;
-    }
+    abstract class PropertyDomainEvent<S,T> extends CommChannelModule.PropertyDomainEvent<S, T> { }
+    abstract class CollectionDomainEvent<S,T> extends CommChannelModule.CollectionDomainEvent<S, T> { }
+    abstract class ActionDomainEvent<S> extends CommChannelModule.ActionDomainEvent<S> { }
 
 }

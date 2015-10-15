@@ -32,7 +32,7 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
-import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
+import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 
 @DomainService(

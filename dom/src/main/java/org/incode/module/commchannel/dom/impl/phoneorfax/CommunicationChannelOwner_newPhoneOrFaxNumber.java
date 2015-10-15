@@ -35,7 +35,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 
 import org.incode.module.commchannel.dom.CommChannelModule;
-import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
+import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 
 @Mixin

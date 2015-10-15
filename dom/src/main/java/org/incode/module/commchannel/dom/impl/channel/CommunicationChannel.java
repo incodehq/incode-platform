@@ -43,7 +43,7 @@ import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 
 import org.incode.module.commchannel.dom.CommChannelModule;
 import org.incode.module.commchannel.dom.impl.emailaddress.EmailAddress;
-import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
+import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;

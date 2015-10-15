@@ -24,12 +24,13 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.commchannel.dom.api.geocoding.GeocodingService;
 
 @Mixin
-public class PostalAddress_lookupGeocode extends PostalAddressMixinAbstract {
+public class PostalAddress_lookupGeocode {
 
     //region > injected services
     @Inject
@@ -45,8 +46,14 @@ public class PostalAddress_lookupGeocode extends PostalAddressMixinAbstract {
     //endregion
 
     //region > constructor
+    private final PostalAddress postalAddress;
     public PostalAddress_lookupGeocode(final PostalAddress postalAddress) {
-        super(postalAddress);
+        this.postalAddress = postalAddress;
+    }
+
+    @Programmatic
+    public PostalAddress getPostalAddress() {
+        return postalAddress;
     }
     //endregion
 
@@ -55,8 +62,7 @@ public class PostalAddress_lookupGeocode extends PostalAddressMixinAbstract {
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
             domainEvent = Event.class
-    )
-    public PostalAddress __(
+    ) public PostalAddress __(
             @ParameterLayout(named = "Address")
             final String address) {
 

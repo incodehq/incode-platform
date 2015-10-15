@@ -27,13 +27,14 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
+import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
 
 @Mixin
-public class CommunicationChannel_remove extends CommunicationChannelMixinAbstract {
+public class CommunicationChannel_remove {
 
     //region > injected services
     @Inject
@@ -51,9 +52,15 @@ public class CommunicationChannel_remove extends CommunicationChannelMixinAbstra
     //endregion
 
     //region > constructor
+    private final CommunicationChannel<?> communicationChannel;
     public CommunicationChannel_remove(final CommunicationChannel<?> communicationChannel) {
-        super(communicationChannel);
+        this.communicationChannel = communicationChannel;
     }
+    @Programmatic
+    public CommunicationChannel<?> getCommunicationChannel() {
+        return communicationChannel;
+    }
+
     //endregion
 
     public static class Event extends CommunicationChannel.ActionDomainEvent<CommunicationChannel_remove> {

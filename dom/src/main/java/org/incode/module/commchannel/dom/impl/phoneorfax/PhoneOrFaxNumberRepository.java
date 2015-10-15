@@ -32,7 +32,7 @@ import org.apache.isis.applib.annotation.Programmatic;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_owner;
-import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
+import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
