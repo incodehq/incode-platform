@@ -89,6 +89,12 @@ import lombok.Setter;
 public abstract class CommunicationChannel<T extends CommunicationChannel<T>> implements Comparable<CommunicationChannel>,
         Locatable {
 
+    //region > injected services 
+    @Inject
+    protected DomainObjectContainer container;
+    //endregion
+
+    //region > events
     public static abstract class PropertyDomainEvent<S,T>
             extends CommChannelModule.PropertyDomainEvent<S, T> {}
 
@@ -97,10 +103,13 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
 
     public static abstract class ActionDomainEvent<S>
             extends CommChannelModule.ActionDomainEvent<S> { }
+    //endregion
 
+    //region > iconName
     public String iconName() {
         return getType().title().replace(" ", "");
     }
+    //endregion
 
     //region > getId (programmatic)
     @Programmatic
@@ -175,7 +184,6 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
     }
     //endregion
 
-
     //region > toString, compareTo
     public int compareTo(final CommunicationChannel other) {
         return ObjectContracts.compare(this, other, "type", "id");
@@ -185,7 +193,5 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
     }
     //endregion
 
-    @Inject
-    protected DomainObjectContainer container;
 
 }

@@ -19,36 +19,39 @@
 package org.incode.module.commchannel.dom.impl.postaladdress;
 
 import org.apache.isis.applib.annotation.Action;
-import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.Optionality;
-import org.apache.isis.applib.annotation.Parameter;
+import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.value.Clob;
 
-@DomainService(
-        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
-)
+@Mixin
 public class PostalAddress_downloadGeocode {
 
+    //region > constructor
+    private final PostalAddress postalAddress;
+    public PostalAddress_downloadGeocode(final PostalAddress postalAddress) {
+        this.postalAddress = postalAddress;
+    }
+    //endregion
 
-    public static class DownloadGeocodeEvent
-            extends PostalAddress.ActionDomainEvent<PostalAddress_downloadGeocode> { }
+    public static class Event extends PostalAddress.ActionDomainEvent<PostalAddress_downloadGeocode> { }
+
     @Action(
             semantics = SemanticsOf.SAFE,
-            domainEvent = DownloadGeocodeEvent.class
+            domainEvent = Event.class
     )
-    public Clob downloadGeocode(
-            final PostalAddress postalAddress,
-            @Parameter(optionality = Optionality.OPTIONAL)
+    public Clob __(
             @ParameterLayout(named = ".json file name")
-            String fileName) {
-        fileName = fileName != null ? fileName : "postalAddress-" + postalAddress.getFormattedAddress();
-        if(!fileName.endsWith(".json")) {
-            fileName += ".json";
-        }
-        return new Clob(encodeAsFilename(fileName), "text/plain", postalAddress.getGeocodeApiResponseAsJson());
+            final String fileName) {
+        return new Clob(encodeAsFilename(fileName), "text/plain", this.postalAddress.getGeocodeApiResponseAsJson());
+    }
+
+    private String default0__() {
+        return "postalAddress-" + this.postalAddress.getFormattedAddress() + ".json";
+    }
+
+    public String validate0__(final String fileName) {
+        return !fileName.endsWith(".json")? "Must end with '.json'": null;
     }
 
     private static String encodeAsFilename(final String s) {

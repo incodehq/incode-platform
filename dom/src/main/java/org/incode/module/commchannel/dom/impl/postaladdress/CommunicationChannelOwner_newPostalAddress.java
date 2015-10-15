@@ -23,9 +23,8 @@ import javax.inject.Inject;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
-import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
@@ -35,35 +34,35 @@ import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 import org.incode.module.commchannel.dom.CommChannelModule;
 import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 
-/**
- * Domain service that contributes actions to create a new
- * {@link #newPostalAddress(CommunicationChannelOwner, String, String, String, String, String, String, String, String, Boolean) postal address} to a {@link CommunicationChannelOwner}.
- */
-@DomainService(
-        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
-)
+@Mixin
 public class CommunicationChannelOwner_newPostalAddress {
 
+    //region > injected services
     @Inject
     PostalAddressRepository postalAddressRepository;
     @Inject
-    PostalAddress_updateAddress postalAddressUpdateAddress;
+    PostalAddress_update postalAddressUpdateAddress;
+    //endregion
 
+    //region > constructor
+    private final CommunicationChannelOwner communicationChannelOwner;
+    public CommunicationChannelOwner_newPostalAddress(final CommunicationChannelOwner communicationChannelOwner) {
+        this.communicationChannelOwner = communicationChannelOwner;
+    }
+    //endregion
 
-    public static class NewPostalAddressEvent
-            extends CommunicationChannelOwner.ActionDomainEvent<CommunicationChannelOwner_newPostalAddress> { }
+    public static class Event extends CommunicationChannelOwner.ActionDomainEvent
+                                            <CommunicationChannelOwner_newPostalAddress> { }
 
     @Action(
             semantics = SemanticsOf.NON_IDEMPOTENT,
-            domainEvent = NewPostalAddressEvent.class
+            domainEvent = Event.class
     )
     @ActionLayout(
             contributed = Contributed.AS_ACTION
     )
     @MemberOrder(name = "CommunicationChannels", sequence = "1")
-    public CommunicationChannelOwner newPostalAddress(
-            @ParameterLayout(named = "Owner")
-            final CommunicationChannelOwner owner,
+    public CommunicationChannelOwner __(
             @Parameter(maxLength = CommChannelModule.JdoColumnLength.ADDRESS_LINE)
             @ParameterLayout(named = "Address Line 1")
             final String addressLine1,
@@ -94,18 +93,17 @@ public class CommunicationChannelOwner_newPostalAddress {
 
         final PostalAddress postalAddress =
                 postalAddressRepository.newPostal(
-                        owner,
+                        this.communicationChannelOwner,
                         addressLine1, addressLine2, addressLine3, addressLine4,
                         postalCode, country,
                         description, notes
                 );
 
         postalAddressUpdateAddress.lookupAndUpdateGeocode(
-                postalAddress,
                 lookupGeocode,
                 addressLine1, addressLine2, addressLine3, addressLine4, postalCode, country);
 
-        return owner;
+        return this.communicationChannelOwner;
     }
 
 }

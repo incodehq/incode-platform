@@ -30,6 +30,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
+import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_owner;
 import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
@@ -42,8 +43,6 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 )
 public class PhoneOrFaxNumberRepository {
 
-    @Inject
-    CommunicationChannel_owner communicationChannelOwner;
     @Inject
     CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;
     @Inject
@@ -62,7 +61,7 @@ public class PhoneOrFaxNumberRepository {
         final PhoneOrFaxNumber pn = container.newTransientInstance(PhoneOrFaxNumber.class);
         pn.setType(type);
         pn.setPhoneNumber(number);
-        communicationChannelOwner.setOwner(pn, owner);
+        owner(pn).setOwner(owner);
 
         pn.setDescription(description);
         pn.setNotes(notes);
@@ -70,6 +69,7 @@ public class PhoneOrFaxNumberRepository {
         container.persistIfNotAlready(pn);
         return pn;
     }
+
     //endregion
 
     //region > findByPhoneOrFaxNumber (programmatic)
@@ -98,5 +98,9 @@ public class PhoneOrFaxNumberRepository {
     }
     //endregion
 
+
+    private CommunicationChannel_owner owner(final CommunicationChannel<?> cc) {
+        return container.mixin(CommunicationChannel_owner.class, cc);
+    }
 
 }

@@ -30,7 +30,6 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
-import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelOwner_communicationChannels;
 import org.incode.module.commchannel.dom.impl.postaladdress.CommunicationChannelOwner_newPostalAddress;
 import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
@@ -45,13 +44,8 @@ public class CommunicationChannelOwner_newPostalAddress_IntegTest extends CommCh
 
     @Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;
-    @Inject
-    CommunicationChannelOwner_communicationChannels communicationChannelOwner_communicationChannels;
 
     CommChannelDemoObject fredDemoOwner;
-
-    @Inject
-    CommunicationChannelOwner_newPostalAddress communicationChannelOwner_newPostalAddress;
 
     @Before
     public void setUpData() throws Exception {
@@ -67,22 +61,19 @@ public class CommunicationChannelOwner_newPostalAddress_IntegTest extends CommCh
         public void can_create_postal_address_without_looking_up_geocode() throws Exception {
 
             // given
-            final SortedSet<CommunicationChannel> communicationChannelsBefore = wrap(
-                    communicationChannelOwner_communicationChannels).communicationChannels(fredDemoOwner);
-            assertThat(communicationChannelsBefore).hasSize(0);
+            final SortedSet<CommunicationChannel> channelsBefore = wrap(communicationChannels(fredDemoOwner)).__();
+            assertThat(channelsBefore).hasSize(0);
 
             // when
-            wrap(communicationChannelOwner_newPostalAddress)
-                    .newPostalAddress(fredDemoOwner, "Flat 2a", "45 Penny Lane", "Allerton", "Liverpool", "L39 5AA",
-                            "UK",
-                            "Home", "Fred Smith's home", false);
+            wrap(newPostalAddress(fredDemoOwner)).__(
+                    "Flat 2a", "45 Penny Lane", "Allerton", "Liverpool", "L39 5AA", "UK", "Home", "Fred Smith's home",
+                    false);
 
             // then
-            final SortedSet<CommunicationChannel> communicationChannelsAfter = wrap(
-                    communicationChannelOwner_communicationChannels).communicationChannels(fredDemoOwner);
+            final SortedSet<CommunicationChannel> channelsAfter = wrap(communicationChannels(fredDemoOwner)).__();
 
-            assertThat(communicationChannelsAfter).hasSize(1);
-            final CommunicationChannel communicationChannel = communicationChannelsAfter.first();
+            assertThat(channelsAfter).hasSize(1);
+            final CommunicationChannel communicationChannel = channelsAfter.first();
 
             assertThat(communicationChannel.getName()).isEqualTo("Flat 2a, 45 Pe..., L39 5AA, UK");
             assertThat(communicationChannel.getDescription()).isEqualTo("Home");
@@ -111,22 +102,18 @@ public class CommunicationChannelOwner_newPostalAddress_IntegTest extends CommCh
         public void can_create_postal_address_and_also_look_up_geocode() throws Exception {
 
             // given
-            final SortedSet<CommunicationChannel> communicationChannelsBefore = wrap(
-                    communicationChannelOwner_communicationChannels).communicationChannels(fredDemoOwner);
-            assertThat(communicationChannelsBefore).hasSize(0);
+            final SortedSet<CommunicationChannel> channelsBefore = wrap(communicationChannels(fredDemoOwner)).__();
+            assertThat(channelsBefore).hasSize(0);
 
             // when
-            wrap(communicationChannelOwner_newPostalAddress)
-                    .newPostalAddress(fredDemoOwner, "45", "High Street", "Oxford", "Oxfordshire", "OX1",
-                            "UK",
-                            "Work", "Fred Smith's work", true);
+            wrap(newPostalAddress(fredDemoOwner)).__(
+                    "45", "High Street", "Oxford", "Oxfordshire", "OX1", "UK", "Work", "Fred Smith's work", true);
 
             // then
-            final SortedSet<CommunicationChannel> communicationChannelsAfter = wrap(
-                    communicationChannelOwner_communicationChannels).communicationChannels(fredDemoOwner);
+            final SortedSet<CommunicationChannel> channelsAfter = wrap(communicationChannels(fredDemoOwner)).__();
 
-            assertThat(communicationChannelsAfter).hasSize(1);
-            final CommunicationChannel communicationChannel = communicationChannelsAfter.first();
+            assertThat(channelsAfter).hasSize(1);
+            final CommunicationChannel communicationChannel = channelsAfter.first();
 
             assertThat(communicationChannel.getName()).isEqualTo("45 High St, Oxford, Oxfordshire OX1, UK");
 
@@ -152,10 +139,10 @@ public class CommunicationChannelOwner_newPostalAddress_IntegTest extends CommCh
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            CommunicationChannelOwner_newPostalAddress.NewPostalAddressEvent ev;
+            CommunicationChannelOwner_newPostalAddress.Event ev;
 
             @Subscribe
-            public void on(CommunicationChannelOwner_newPostalAddress.NewPostalAddressEvent ev) {
+            public void on(CommunicationChannelOwner_newPostalAddress.Event ev) {
                 this.ev = ev;
             }
         }
@@ -166,10 +153,9 @@ public class CommunicationChannelOwner_newPostalAddress_IntegTest extends CommCh
         @Test
         public void happy_case() throws Exception {
 
-            wrap(communicationChannelOwner_newPostalAddress)
-                    .newPostalAddress(fredDemoOwner, "Flat 2a", "45 Penny Lane", "Allerton", "Liverpool", "L39 5AA",
-                            "UK",
-                            "Home", "Fred Smith's home", false);
+            wrap(newPostalAddress(fredDemoOwner)).__(
+                    "Flat 2a", "45 Penny Lane", "Allerton", "Liverpool", "L39 5AA", "UK", "Home", "Fred Smith's home",
+                    false);
 
             assertThat(testSubscriber.ev).isNotNull();
         }

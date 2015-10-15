@@ -27,33 +27,37 @@ import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Collection;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.Contributed;
-import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 
-@DomainService(
-        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
-)
+@Mixin
 public class CommunicationChannelOwner_communicationChannels {
 
+    //region > injected services
     @Inject
     CommunicationChannelRepository communicationChannelRepository;
+    //endregion
 
+    //region > constructor
+    private final CommunicationChannelOwner communicationChannelOwner;
+    public CommunicationChannelOwner_communicationChannels(final CommunicationChannelOwner communicationChannelOwner) {
+        this.communicationChannelOwner = communicationChannelOwner;
+    }
+    //endregion
 
-    public static class CommunicationChannelsEvent
-            extends CommunicationChannelOwner.CollectionDomainEvent<CommunicationChannelOwner_communicationChannels, CommunicationChannel> { }
-
+    public static class Event extends CommunicationChannelOwner.CollectionDomainEvent
+                                        <CommunicationChannelOwner_communicationChannels, CommunicationChannel> { }
     @Action(semantics = SemanticsOf.SAFE)
     @CollectionLayout(render = RenderType.EAGERLY)
     @Collection(
-            domainEvent = CommunicationChannelsEvent.class
+            domainEvent = Event.class
     )
     @ActionLayout(contributed = Contributed.AS_ASSOCIATION)
-    public SortedSet<CommunicationChannel> communicationChannels(final CommunicationChannelOwner owner) {
-        return communicationChannelRepository.findByOwner(owner);
+    public SortedSet<CommunicationChannel> __() {
+        return communicationChannelRepository.findByOwner(communicationChannelOwner);
     }
 
 }

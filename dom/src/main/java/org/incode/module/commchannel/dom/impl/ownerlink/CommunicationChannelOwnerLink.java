@@ -78,9 +78,11 @@ import lombok.Setter;
 )
 public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociationLink<CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink> {
 
+    //region > events
     public static abstract class PropertyDomainEvent<S,T> extends CommChannelModule.PropertyDomainEvent<S, T> { }
     public static abstract class CollectionDomainEvent<S,T> extends CommChannelModule.CollectionDomainEvent<S, T> { }
     public static abstract class ActionDomainEvent<S> extends CommChannelModule.ActionDomainEvent<S> { }
+    //endregion
 
     //region > instantiateEvent (poly pattern)
     public static class InstantiateEvent

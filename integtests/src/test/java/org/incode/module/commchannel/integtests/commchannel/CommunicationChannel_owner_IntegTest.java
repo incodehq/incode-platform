@@ -26,7 +26,6 @@ import org.junit.Test;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelRepository;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_owner;
-import org.incode.module.commchannel.dom.impl.emailaddress.CommunicationChannelOwner_newEmailAddress;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObjectMenu;
 import org.incode.module.commchannel.fixture.scripts.teardown.CommChannelDemoObjectsTearDownFixture;
@@ -38,18 +37,11 @@ public class CommunicationChannel_owner_IntegTest extends CommChannelModuleInteg
 
     @Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;
+    @Inject
+    CommunicationChannelRepository communicationChannelRepository;
 
     CommChannelDemoObject fredDemoOwner;
     CommChannelDemoObject billDemoOwner;
-
-    @Inject
-    CommunicationChannelOwner_newEmailAddress communicationChannelOwnerNewEmailAddress;
-
-    @Inject
-    CommunicationChannel_owner communicationChannel_owner;
-
-    @Inject
-    CommunicationChannelRepository communicationChannelRepository;
 
     SortedSet<CommunicationChannel> fredChannels;
     SortedSet<CommunicationChannel> billChannels;
@@ -59,19 +51,16 @@ public class CommunicationChannel_owner_IntegTest extends CommChannelModuleInteg
         fixtureScripts.runFixtureScript(new CommChannelDemoObjectsTearDownFixture(), null);
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
-        billDemoOwner = wrap(commChannelDemoObjectMenu).create("Bill");
-
-        wrap(communicationChannelOwnerNewEmailAddress)
-                .newEmailAddress(fredDemoOwner, "fred@gmail.com", "Home", "Fred Smith's home email");
-        wrap(communicationChannelOwnerNewEmailAddress)
-                .newEmailAddress(fredDemoOwner, "fred.smith@somecompany.com", "Work", "Fred Smith's work email");
-
-        wrap(communicationChannelOwnerNewEmailAddress)
-                .newEmailAddress(billDemoOwner, "bill@yahoo.com", "Home", "Bill Jones' home email");
-
+        wrap(newEmailAddress(fredDemoOwner))
+                .__("fred@gmail.com", "Home", "Fred Smith's home email");
+        wrap(newEmailAddress(fredDemoOwner))
+                .__("fred.smith@somecompany.com", "Work", "Fred Smith's work email");
         fredChannels = communicationChannelRepository.findByOwner(fredDemoOwner);
         assertThat(fredChannels).hasSize(2);
 
+        billDemoOwner = wrap(commChannelDemoObjectMenu).create("Bill");
+        wrap(newEmailAddress(billDemoOwner))
+                .__("bill@yahoo.com", "Home", "Bill Jones' home email");
         billChannels = communicationChannelRepository.findByOwner(billDemoOwner);
         assertThat(billChannels).hasSize(1);
     }
@@ -80,9 +69,9 @@ public class CommunicationChannel_owner_IntegTest extends CommChannelModuleInteg
 
         @Test
         public void happy_case() throws Exception {
-
-            for (CommunicationChannel channel : fredChannels) {
-                assertThat(communicationChannel_owner.owner(channel)).isSameAs(fredDemoOwner);
+            for (final CommunicationChannel channel : fredChannels) {
+                final CommunicationChannel_owner owner = mixin(CommunicationChannel_owner.class, channel);
+                assertThat(owner.__()).isSameAs(fredDemoOwner);
             }
         }
     }

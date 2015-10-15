@@ -57,10 +57,13 @@ import lombok.Setter;
 )
 public class PostalAddress extends CommunicationChannel<PostalAddress> {
 
+    //region > events
     public static abstract class PropertyDomainEvent<S,T> extends CommChannelModule.PropertyDomainEvent<S, T> { }
     public static abstract class CollectionDomainEvent<S,T> extends CommChannelModule.CollectionDomainEvent<S, T> { }
     public static abstract class ActionDomainEvent<S> extends CommChannelModule.ActionDomainEvent<S> { }
+    //endregion
 
+    //region > title
     public String title() {
         if(getPlaceId() != null) {
             return getFormattedAddress();
@@ -76,6 +79,7 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
             return StringUtils.abbreviateMiddle(buf.toString(), "...", 30);
         }
     }
+    //endregion
 
 
     public static class AddressLine1Event extends PropertyDomainEvent<PostalAddress,String> { }

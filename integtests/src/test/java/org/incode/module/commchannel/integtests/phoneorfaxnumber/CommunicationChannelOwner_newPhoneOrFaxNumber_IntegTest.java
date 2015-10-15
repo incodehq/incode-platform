@@ -32,7 +32,6 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
-import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelOwner_communicationChannels;
 import org.incode.module.commchannel.dom.impl.phoneorfax.CommunicationChannelOwner_newPhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
@@ -47,13 +46,8 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest extends Com
 
     @Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;
-    @Inject
-    CommunicationChannelOwner_communicationChannels communicationChannelOwner_communicationChannels;
 
     CommChannelDemoObject fredDemoOwner;
-
-    @Inject
-    CommunicationChannelOwner_newPhoneOrFaxNumber communicationChannelOwner_newPhoneOrFaxNumber;
 
 
     @Before
@@ -70,21 +64,20 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest extends Com
         public void can_create_phone_number() throws Exception {
 
             // given
-            final SortedSet<CommunicationChannel> communicationChannelsBefore = wrap(
-                    communicationChannelOwner_communicationChannels).communicationChannels(fredDemoOwner);
+            final SortedSet<CommunicationChannel> communicationChannelsBefore =
+                    wrap(communicationChannels(fredDemoOwner)).__();
             assertThat(communicationChannelsBefore).hasSize(0);
 
             // when
-            wrap(communicationChannelOwner_newPhoneOrFaxNumber)
-                    .newPhoneOrFaxNumber(fredDemoOwner, CommunicationChannelType.PHONE_NUMBER, "0207 999 8888", "Work", "Fred's work number");
+            wrap(newPhoneOrFaxNumber(fredDemoOwner)).__(
+                    CommunicationChannelType.PHONE_NUMBER, "0207 999 8888", "Work", "Fred's work number");
 
             // then
-            final SortedSet<CommunicationChannel> communicationChannelsAfter = wrap(
-                    communicationChannelOwner_communicationChannels).communicationChannels(fredDemoOwner);
-
+            final SortedSet<CommunicationChannel> communicationChannelsAfter =
+                    wrap(communicationChannels(fredDemoOwner)).__();
             assertThat(communicationChannelsAfter).hasSize(1);
-            final CommunicationChannel communicationChannel = communicationChannelsAfter.first();
 
+            final CommunicationChannel communicationChannel = communicationChannelsAfter.first();
             assertThat(communicationChannel.getName()).isEqualTo("0207 999 8888");
             assertThat(communicationChannel.getDescription()).isEqualTo("Work");
             assertThat(communicationChannel.getNotes()).isEqualTo("Fred's work number");
@@ -106,8 +99,7 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest extends Com
             expectedException.expect(InvalidException.class);
             expectedException.expectMessage("");
 
-            wrap(communicationChannelOwner_newPhoneOrFaxNumber).newPhoneOrFaxNumber(
-                    fredDemoOwner,
+            wrap(newPhoneOrFaxNumber(fredDemoOwner)).__(
                     CommunicationChannelType.EMAIL_ADDRESS,
                     "0207 111 2222",
                     "Fred's home phone or fax",
@@ -120,8 +112,7 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest extends Com
         @Test
         public void fax_and_phone_are_the_only_valid_choices() throws Exception {
 
-            final List<CommunicationChannelType> types = communicationChannelOwner_newPhoneOrFaxNumber
-                    .choices1NewPhoneOrFaxNumber();
+            final List<CommunicationChannelType> types = newPhoneOrFaxNumber(fredDemoOwner).choices0__();
 
             assertThat(types).hasSize(2);
             assertThat(types).contains(CommunicationChannelType.FAX_NUMBER);
@@ -134,8 +125,7 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest extends Com
         @Test
         public void phone_is_the_default_choice() throws Exception {
 
-            final CommunicationChannelType type = communicationChannelOwner_newPhoneOrFaxNumber
-                    .default1NewPhoneOrFaxNumber();
+            final CommunicationChannelType type = newPhoneOrFaxNumber(fredDemoOwner).default0__();
 
             assertThat(type).isEqualTo(CommunicationChannelType.PHONE_NUMBER);
         }
@@ -146,10 +136,10 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest extends Com
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            CommunicationChannelOwner_newPhoneOrFaxNumber.NewPhoneOrFaxEvent ev;
+            CommunicationChannelOwner_newPhoneOrFaxNumber.Event ev;
 
             @Subscribe
-            public void on(CommunicationChannelOwner_newPhoneOrFaxNumber.NewPhoneOrFaxEvent ev) {
+            public void on(CommunicationChannelOwner_newPhoneOrFaxNumber.Event ev) {
                 this.ev = ev;
             }
         }
@@ -160,7 +150,7 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest extends Com
         @Test
         public void happy_case() throws Exception {
 
-            wrap(communicationChannelOwner_newPhoneOrFaxNumber).newPhoneOrFaxNumber(fredDemoOwner,
+            wrap(newPhoneOrFaxNumber(fredDemoOwner)).__(
                     CommunicationChannelType.PHONE_NUMBER, "0207 999 8888", "Work", "Fred's work number");
 
             assertThat(testSubscriber.ev).isNotNull();

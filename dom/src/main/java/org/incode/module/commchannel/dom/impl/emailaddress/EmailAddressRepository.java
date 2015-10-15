@@ -31,6 +31,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
+import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_owner;
 import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
@@ -43,12 +44,12 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 )
 public class EmailAddressRepository {
 
-    @Inject
-    CommunicationChannel_owner communicationChannelOwner;
+    //region > injected services
     @Inject
     CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;
     @Inject
     DomainObjectContainer container;
+    //endregion
 
     @Programmatic
     public EmailAddress newEmail(
@@ -60,7 +61,7 @@ public class EmailAddressRepository {
         final EmailAddress ea = container.newTransientInstance(EmailAddress.class);
         ea.setType(CommunicationChannelType.EMAIL_ADDRESS);
         ea.setEmailAddress(address);
-        communicationChannelOwner.setOwner(ea, owner);
+        owner(ea).setOwner(owner);
 
         ea.setDescription(description);
         ea.setNotes(notes);
@@ -85,6 +86,10 @@ public class EmailAddressRepository {
         final Optional<EmailAddress> emailAddressIfFound =
                 Iterables.tryFind(emailAddresses, input -> Objects.equals(emailAddress, input.getEmailAddress()));
         return emailAddressIfFound.orNull();
+    }
+
+    private CommunicationChannel_owner owner(final CommunicationChannel<?> cc) {
+        return container.mixin(CommunicationChannel_owner.class, cc);
     }
 
 }

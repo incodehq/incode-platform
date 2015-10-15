@@ -30,7 +30,6 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
-import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelOwner_communicationChannels;
 import org.incode.module.commchannel.dom.impl.emailaddress.CommunicationChannelOwner_newEmailAddress;
 import org.incode.module.commchannel.dom.impl.emailaddress.EmailAddress;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
@@ -45,13 +44,8 @@ public class CommunicationChannelOwner_newEmailAddress_IntegTest extends CommCha
 
     @Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;
-    @Inject
-    CommunicationChannelOwner_communicationChannels communicationChannelOwner_communicationChannels;
 
     CommChannelDemoObject fredDemoOwner;
-
-    @Inject
-    CommunicationChannelOwner_newEmailAddress communicationChannelOwner_newEmailAddress;
 
     @Before
     public void setUpData() throws Exception {
@@ -66,20 +60,17 @@ public class CommunicationChannelOwner_newEmailAddress_IntegTest extends CommCha
         @Test
         public void happyCase() throws Exception {
             // given
-            final SortedSet<CommunicationChannel> communicationChannelsBefore = wrap(
-                    communicationChannelOwner_communicationChannels).communicationChannels(fredDemoOwner);
-            assertThat(communicationChannelsBefore).hasSize(0);
+            final SortedSet<CommunicationChannel> channelsBefore = wrap(communicationChannels(fredDemoOwner)).__();
+            assertThat(channelsBefore).hasSize(0);
 
             // when
-            wrap(communicationChannelOwner_newEmailAddress)
-                    .newEmailAddress(fredDemoOwner, "fred@gmail.com", "Home", "Fred Smith's home email");
+            wrap(newEmailAddress(fredDemoOwner)).__("fred@gmail.com", "Home", "Fred Smith's home email");
 
             // then
-            final SortedSet<CommunicationChannel> communicationChannelsAfter = wrap(
-                    communicationChannelOwner_communicationChannels).communicationChannels(fredDemoOwner);
+            final SortedSet<CommunicationChannel> channelsAfter = wrap(communicationChannels(fredDemoOwner)).__();
 
-            assertThat(communicationChannelsAfter).hasSize(1);
-            final CommunicationChannel communicationChannel = communicationChannelsAfter.first();
+            assertThat(channelsAfter).hasSize(1);
+            final CommunicationChannel communicationChannel = channelsAfter.first();
 
             assertThat(communicationChannel.getName()).isEqualTo("fred@gmail.com");
             assertThat(communicationChannel.getDescription()).isEqualTo("Home");
@@ -99,10 +90,10 @@ public class CommunicationChannelOwner_newEmailAddress_IntegTest extends CommCha
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            CommunicationChannelOwner_newEmailAddress.NewEmailEvent ev;
+            CommunicationChannelOwner_newEmailAddress.Event ev;
 
             @Subscribe
-            public void on(CommunicationChannelOwner_newEmailAddress.NewEmailEvent ev) {
+            public void on(CommunicationChannelOwner_newEmailAddress.Event ev) {
                 this.ev = ev;
             }
         }
@@ -113,8 +104,7 @@ public class CommunicationChannelOwner_newEmailAddress_IntegTest extends CommCha
         @Test
         public void happy_case() throws Exception {
 
-            wrap(communicationChannelOwner_newEmailAddress)
-                    .newEmailAddress(fredDemoOwner, "fred@gmail.com", "Home", "Fred Smith's home email");
+            wrap(newEmailAddress(fredDemoOwner)).__("fred@gmail.com", "Home", "Fred Smith's home email");
 
             assertThat(testSubscriber.ev).isNotNull();
         }

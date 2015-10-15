@@ -19,27 +19,29 @@ Copyright 2015 incode.org
 package org.incode.module.commchannel.dom.impl.channel;
 
 import org.apache.isis.applib.annotation.Action;
-import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-@DomainService(
-        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
-)
+@Mixin
 public class CommunicationChannel_updateDescription {
 
-    public static class UpdateDescriptionEvent
-            extends CommunicationChannel.ActionDomainEvent<CommunicationChannel_updateDescription> { }
+    //region > constructor
+    private final CommunicationChannel<?> communicationChannel;
+    public CommunicationChannel_updateDescription(final CommunicationChannel<?> communicationChannel) {
+        this.communicationChannel = communicationChannel;
+    }
+    //endregion
+
+    public static class Event extends CommunicationChannel.ActionDomainEvent<CommunicationChannel_updateDescription> { }
 
     @Action(
-            domainEvent = UpdateDescriptionEvent.class,
+            domainEvent = Event.class,
             semantics = SemanticsOf.IDEMPOTENT
     )
-    public <T extends CommunicationChannel<T>> CommunicationChannel<T> updateDescription(
-            CommunicationChannel<T> communicationChannel,
+    public CommunicationChannel<?> __(
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Description")
             final String description) {
@@ -47,7 +49,7 @@ public class CommunicationChannel_updateDescription {
         return communicationChannel;
     }
 
-    public <T extends CommunicationChannel<T>> String default1UpdateDescription( CommunicationChannel<T> communicationChannel) {
+    public <T extends CommunicationChannel<T>> String default0__() {
         return communicationChannel.getDescription();
     }
 

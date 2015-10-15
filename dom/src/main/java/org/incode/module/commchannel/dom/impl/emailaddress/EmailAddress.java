@@ -50,14 +50,17 @@ import lombok.Setter;
 )
 public class EmailAddress extends CommunicationChannel<EmailAddress> {
 
+    //region > events
     public static abstract class PropertyDomainEvent<S,T> extends CommChannelModule.PropertyDomainEvent<S, T> { }
     public static abstract class CollectionDomainEvent<S,T> extends CommChannelModule.CollectionDomainEvent<S, T> { }
     public static abstract class ActionDomainEvent<S> extends CommChannelModule.ActionDomainEvent<S> { }
+    //endregion
 
-
+    //region > title
     public String title() {
         return getEmailAddress();
     }
+    //endregion
 
 
     public static class EmailAddressEvent extends PropertyDomainEvent<EmailAddress, String> { }

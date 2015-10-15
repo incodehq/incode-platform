@@ -31,6 +31,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
+import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_owner;
 import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
@@ -46,8 +47,6 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 )
 public class PostalAddressRepository {
 
-    @Inject
-    CommunicationChannel_owner communicationChannelOwner;
     @Inject
     CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;
     @Inject
@@ -68,7 +67,7 @@ public class PostalAddressRepository {
         final PostalAddress pa =
                 container.newTransientInstance(PostalAddress.class);
         pa.setType(CommunicationChannelType.POSTAL_ADDRESS);
-        communicationChannelOwner.setOwner(pa, owner);
+        owner(pa).setOwner(owner);
         pa.setDescription(description);
         pa.setAddressLine1(addressLine1);
         pa.setAddressLine2(addressLine2);
@@ -96,6 +95,10 @@ public class PostalAddressRepository {
         final Optional<PostalAddress> postalAddressIfFound =
                 Iterables.tryFind(postalAddresses, input -> Objects.equals(placeId, input.getPlaceId()));
         return postalAddressIfFound.orNull();
+    }
+
+    private CommunicationChannel_owner owner(final CommunicationChannel<?> cc) {
+        return container.mixin(CommunicationChannel_owner.class, cc);
     }
 
 

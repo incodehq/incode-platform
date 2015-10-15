@@ -19,28 +19,32 @@
 package org.incode.module.commchannel.dom.impl.postaladdress;
 
 import org.apache.isis.applib.annotation.Action;
-import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-@DomainService(
-        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
-)
+@Mixin
 public class PostalAddress_resetGeocode {
 
-    public static class ResetGeocodeEvent extends PostalAddress.ActionDomainEvent<PostalAddress_resetGeocode> { }
+    //region > constructor
+    private final PostalAddress postalAddress;
+    public PostalAddress_resetGeocode(final PostalAddress postalAddress) {
+        this.postalAddress = postalAddress;
+    }
+    //endregion
+
+    public static class Event extends PostalAddress.ActionDomainEvent<PostalAddress_resetGeocode> { }
 
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
-            domainEvent = ResetGeocodeEvent.class
+            domainEvent = Event.class
     )
-    public PostalAddress resetGeocode( final PostalAddress postalAddress) {
-        postalAddress.setFormattedAddress(null);
-        postalAddress.setPlaceId(null);
-        postalAddress.setLatLng(null);
-        postalAddress.setAddressComponents(null);
-        postalAddress.setGeocodeApiResponseAsJson(null);
-        return postalAddress;
+    public PostalAddress __() {
+        this.postalAddress.setFormattedAddress(null);
+        this.postalAddress.setPlaceId(null);
+        this.postalAddress.setLatLng(null);
+        this.postalAddress.setAddressComponents(null);
+        this.postalAddress.setGeocodeApiResponseAsJson(null);
+        return this.postalAddress;
     }
 
 }

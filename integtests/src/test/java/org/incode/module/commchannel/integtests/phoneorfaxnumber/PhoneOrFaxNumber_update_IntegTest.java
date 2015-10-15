@@ -23,8 +23,6 @@ import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelOwner_communicationChannels;
-import org.incode.module.commchannel.dom.impl.phoneorfax.CommunicationChannelOwner_newPhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber_update;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
@@ -39,27 +37,24 @@ public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTes
 
     @Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;
-    @Inject
-    CommunicationChannelOwner_newPhoneOrFaxNumber communicationChannelOwner_newPhoneOrFaxNumber;
-    @Inject
-    CommunicationChannelOwner_communicationChannels communicationChannelOwner_communicationChannels;
 
     CommChannelDemoObject fredDemoOwner;
     PhoneOrFaxNumber fredPhone;
 
-    @Inject
-    PhoneOrFaxNumber_update phoneOrFaxNumber_update;
+    PhoneOrFaxNumber_update updatePhoneOrFaxNumber(final PhoneOrFaxNumber phoneOrFaxNumber) {
+        return container.mixin(PhoneOrFaxNumber_update.class, phoneOrFaxNumber);
+    }
 
     @Before
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new CommChannelDemoObjectsTearDownFixture(), null);
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
-        wrap(communicationChannelOwner_newPhoneOrFaxNumber)
-                .newPhoneOrFaxNumber(fredDemoOwner, CommunicationChannelType.PHONE_NUMBER, "0207 999 8888", "Home",
+        wrap(newPhoneOrFaxNumber(fredDemoOwner))
+                .__(CommunicationChannelType.PHONE_NUMBER, "0207 999 8888", "Home",
                         "Fred Smith's home phone");
-        fredPhone = (PhoneOrFaxNumber)wrap(communicationChannelOwner_communicationChannels)
-                                            .communicationChannels(fredDemoOwner).first();
+        fredPhone = (PhoneOrFaxNumber)wrap(communicationChannels(fredDemoOwner))
+                                            .__().first();
     }
 
     public static class ActionImplementationIntegrationTest extends
@@ -68,8 +63,8 @@ public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTes
         @Test
         public void happy_case() throws Exception {
 
-            final PhoneOrFaxNumber returned = wrap(phoneOrFaxNumber_update)
-                    .updatePhoneOrFaxNumber(fredPhone, CommunicationChannelType.FAX_NUMBER, "0207 111 2222");
+            final PhoneOrFaxNumber returned =
+                    wrap(updatePhoneOrFaxNumber(fredPhone)).__(CommunicationChannelType.FAX_NUMBER, "0207 111 2222");
 
             assertThat(fredPhone.getPhoneNumber()).isEqualTo("0207 111 2222");
             assertThat(fredPhone.getType()).isEqualTo(CommunicationChannelType.FAX_NUMBER);
@@ -82,7 +77,7 @@ public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTes
         @Test
         public void fax_and_phone_are_the_only_valid_choices() throws Exception {
 
-            final List<CommunicationChannelType> types = phoneOrFaxNumber_update.choices1UpdatePhoneOrFaxNumber();
+            final List<CommunicationChannelType> types = updatePhoneOrFaxNumber(fredPhone).choices1__();
 
             assertThat(types).hasSize(2);
             assertThat(types).contains(CommunicationChannelType.FAX_NUMBER);
@@ -94,8 +89,8 @@ public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTes
 
         @Test
         public void should_default_to_current_type() throws Exception {
-            final CommunicationChannelType defaultType = phoneOrFaxNumber_update.default1UpdatePhoneOrFaxNumber(
-                    fredPhone);
+            final CommunicationChannelType defaultType = updatePhoneOrFaxNumber(fredPhone).default0__(
+            );
 
             assertThat(defaultType).isEqualTo(fredPhone.getType());
         }
@@ -106,8 +101,8 @@ public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTes
 
         @Test
         public void should_default_to_current_number() throws Exception {
-            final String defaultNumber = phoneOrFaxNumber_update.default2UpdatePhoneOrFaxNumber(
-                    fredPhone);
+            final String defaultNumber = updatePhoneOrFaxNumber(fredPhone).default1__(
+            );
 
             assertThat(defaultNumber).isEqualTo(fredPhone.getPhoneNumber());
         }

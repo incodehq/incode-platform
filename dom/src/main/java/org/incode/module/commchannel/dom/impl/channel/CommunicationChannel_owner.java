@@ -20,12 +20,10 @@ package org.incode.module.commchannel.dom.impl.channel;
 
 import javax.inject.Inject;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
-import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
@@ -36,61 +34,41 @@ import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
 
-@DomainService(
-        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
-)
+@Mixin
 public class CommunicationChannel_owner {
 
+    //region > injected services
+    @Inject
+    CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;
+    //endregion
 
-    public static class OwnerEvent extends
-            CommunicationChannel.PropertyDomainEvent<CommunicationChannel_owner,CommunicationChannelOwner> { }
+    //region > constructor
+    private final CommunicationChannel<?> communicationChannel;
+    public CommunicationChannel_owner(final CommunicationChannel<?> communicationChannel) {
+        this.communicationChannel = communicationChannel;
+    }
+    //endregion
 
-    @Action(
-            semantics = SemanticsOf.SAFE
-    )
-    @ActionLayout(
-            contributed = Contributed.AS_ASSOCIATION
-    )
+    public static class Event extends CommunicationChannel.PropertyDomainEvent
+                                        <CommunicationChannel_owner,CommunicationChannelOwner> { }
+
+    @Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(contributed = Contributed.AS_ASSOCIATION)
     @Property(
-            domainEvent = OwnerEvent.class,
+            domainEvent = Event.class,
             notPersisted = true
     )
-    @PropertyLayout(
-            hidden = Where.PARENTED_TABLES
-    )
-    public CommunicationChannelOwner owner(final CommunicationChannel communicationChannel) {
-        final CommunicationChannelOwnerLink link = getOwnerLink(communicationChannel);
+    @PropertyLayout(hidden = Where.PARENTED_TABLES)
+    public CommunicationChannelOwner __() {
+        final CommunicationChannelOwnerLink link = communicationChannelOwnerLinkRepository.getOwnerLink(communicationChannel);
         return link != null? link.getPolymorphicReference(): null;
     }
 
     @Programmatic
-    public void setOwner(
-            final CommunicationChannel communicationChannel,
-            final CommunicationChannelOwner owner) {
-        removeOwnerLink(communicationChannel);
-        communicationChannelOwnerLinkRepository.createLink(communicationChannel, owner);
+    public void setOwner(final CommunicationChannelOwner owner) {
+        communicationChannelOwnerLinkRepository.removeOwnerLink(this.communicationChannel);
+        communicationChannelOwnerLinkRepository.createLink(this.communicationChannel, owner);
     }
-
-    CommunicationChannelOwnerLink getOwnerLink(final CommunicationChannel communicationChannel) {
-        return communicationChannelOwnerLinkRepository.findByCommunicationChannel(communicationChannel);
-    }
-
-    void removeOwnerLink(final CommunicationChannel communicationChannel) {
-        final CommunicationChannelOwnerLink ownerLink = getOwnerLink(communicationChannel);
-        if(ownerLink != null) {
-            container.remove(ownerLink);
-        }
-    }
-
-
-    @Inject
-    CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;
-    @Inject
-    CommunicationChannelRepository communicationChannelRepository;
-    @Inject
-    DomainObjectContainer container;
-
-
 
 
 }

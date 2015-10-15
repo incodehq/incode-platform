@@ -25,9 +25,8 @@ import javax.inject.Inject;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
-import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
@@ -38,25 +37,25 @@ import org.incode.module.commchannel.dom.CommChannelModule;
 import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 
-/**
- * Domain service that contributes actions to create a new
- * {@link #newPhoneOrFaxNumber(CommunicationChannelOwner, CommunicationChannelType, String, String, String) phone or fax number}
- * for a particular {@link CommunicationChannelOwner}.
- */
-@DomainService(
-        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
-)
+@Mixin
 public class CommunicationChannelOwner_newPhoneOrFaxNumber {
 
+    //region > injected services
     @Inject
     PhoneOrFaxNumberRepository phoneOrFaxNumberRepository;
+    //endregion
 
+    //region > constructor
+    private final CommunicationChannelOwner communicationChannelOwner;
+    public CommunicationChannelOwner_newPhoneOrFaxNumber(final CommunicationChannelOwner communicationChannelOwner) {
+        this.communicationChannelOwner = communicationChannelOwner;
+    }
+    //endregion
 
-    public static class NewPhoneOrFaxEvent
-            extends CommunicationChannelOwner.ActionDomainEvent<CommunicationChannelOwner_newPhoneOrFaxNumber>  { }
-
+    public static class Event extends CommunicationChannelOwner.ActionDomainEvent
+                                            <CommunicationChannelOwner_newPhoneOrFaxNumber>  { }
     @Action(
-            domainEvent = NewPhoneOrFaxEvent.class,
+            domainEvent = Event.class,
             semantics = SemanticsOf.NON_IDEMPOTENT
     )
     @ActionLayout(
@@ -64,9 +63,7 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber {
             contributed = Contributed.AS_ACTION
     )
     @MemberOrder(name = "CommunicationChannels", sequence = "3")
-    public CommunicationChannelOwner newPhoneOrFaxNumber(
-            @ParameterLayout(named = "Owner")
-            final CommunicationChannelOwner owner,
+    public CommunicationChannelOwner __(
             @ParameterLayout(named = "Type")
             final CommunicationChannelType type,
             @ParameterLayout(named = "Phone Number")
@@ -81,21 +78,21 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber {
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Notes", multiLine = 10)
             final String notes) {
-        phoneOrFaxNumberRepository.newPhoneOrFax(owner, type, phoneNumber, description, notes);
-        return owner;
+        phoneOrFaxNumberRepository.newPhoneOrFax(this.communicationChannelOwner, type, phoneNumber, description, notes);
+        return this.communicationChannelOwner;
     }
 
-    public String validate1NewPhoneOrFaxNumber(CommunicationChannelType type) {
-        final List<CommunicationChannelType> validChoices = choices1NewPhoneOrFaxNumber();
+    public String validate0__(final CommunicationChannelType type) {
+        final List<CommunicationChannelType> validChoices = choices0__();
         return validChoices.contains(type)? null: "Communication type must be " + validChoices;
     }
 
-    public List<CommunicationChannelType> choices1NewPhoneOrFaxNumber() {
+    public List<CommunicationChannelType> choices0__() {
         return CommunicationChannelType.matching(PhoneOrFaxNumber.class);
     }
 
-    public CommunicationChannelType default1NewPhoneOrFaxNumber() {
-        return choices1NewPhoneOrFaxNumber().get(0);
+    public CommunicationChannelType default0__() {
+        return choices0__().get(0);
     }
 
 

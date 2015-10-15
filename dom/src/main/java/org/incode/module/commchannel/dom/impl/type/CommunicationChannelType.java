@@ -23,15 +23,14 @@ import java.util.List;
 
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
-import com.google.common.base.Predicate;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
+import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.emailaddress.EmailAddress;
 import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress;
-import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 
 public enum CommunicationChannelType {
 
@@ -41,7 +40,6 @@ public enum CommunicationChannelType {
     FAX_NUMBER(PhoneOrFaxNumber.class);
 
     private Class<? extends CommunicationChannel> cls;
-
     private CommunicationChannelType(final Class<? extends CommunicationChannel> cls) {
         this.cls = cls;
     }
@@ -51,13 +49,7 @@ public enum CommunicationChannelType {
     }
     
     public static List<CommunicationChannelType> matching(final Class<? extends CommunicationChannel> cls) {
-        return Lists.newArrayList(Iterables.filter(Arrays.asList(values()), new Predicate<CommunicationChannelType>() {
-
-            @Override
-            public boolean apply(final CommunicationChannelType input) {
-                return input.cls == cls;
-            }
-        }));
+        return Lists.newArrayList(Iterables.filter(Arrays.asList(values()), input -> input.cls == cls));
     }
 
     //region > helpers
@@ -68,12 +60,8 @@ public enum CommunicationChannelType {
         return Joiner.on(" ").join(Iterables.transform(Splitter.on("_").split(anEnum.toString()), LOWER_CASE_THEN_CAPITALIZE));
     }
 
-    private static Function<String, String> LOWER_CASE_THEN_CAPITALIZE = new Function<String, String>() {
-        @Override
-        public String apply(final String input) {
-            return input != null? capitalize(input.toLowerCase()): null;
-        }
-    };
+    private static Function<String, String> LOWER_CASE_THEN_CAPITALIZE =
+            input -> input != null? capitalize(input.toLowerCase()): null;
 
     public static String capitalize(final String str) {
         if (str == null || str.length() == 0) {

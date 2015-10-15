@@ -18,6 +18,7 @@ package org.incode.module.commchannel.dom.impl.gmap3;
 
 import javax.inject.Inject;
 
+import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -32,14 +33,25 @@ import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_owner
 )
 public class LocationDereferencingServiceForCommunicationChannels implements LocationDereferencingService {
 
+    //region > injected services
+    @Inject
+    DomainObjectContainer container;
+    //endregion
+
+    //region > mixins
+    private CommunicationChannel_owner owner(final CommunicationChannel communicationChannel) {
+        return container.mixin(CommunicationChannel_owner.class, communicationChannel);
+    }
+    //endregion
+
     @Programmatic
 	public Object dereference(final Object locatable) {
-		return locatable instanceof CommunicationChannel
-				? communicationChannelOwner.owner(((CommunicationChannel) locatable))
-				: null;
+		if (!(locatable instanceof CommunicationChannel)) {
+			return null;
+		}
+		final CommunicationChannel communicationChannel = (CommunicationChannel) locatable;
+		return owner(communicationChannel).__();
 	}
 
-	@Inject
-	CommunicationChannel_owner communicationChannelOwner;
 
 }

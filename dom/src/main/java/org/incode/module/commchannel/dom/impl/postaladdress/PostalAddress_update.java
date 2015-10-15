@@ -22,8 +22,7 @@ import javax.inject.Inject;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
-import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
@@ -34,27 +33,36 @@ import org.incode.module.commchannel.dom.CommChannelModule;
 import org.incode.module.commchannel.dom.api.geocoding.GeocodedAddress;
 import org.incode.module.commchannel.dom.api.geocoding.GeocodingService;
 
+@Mixin
+public class PostalAddress_update {
 
-@DomainService(
-        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
-)
-public class PostalAddress_updateAddress {
-
-    @Inject
-    PostalAddress_resetGeocode postalAddressActionResetGeocode;
+    //region > injected services
     @Inject
     GeocodingService geocodingService;
     @Inject
     DomainObjectContainer container;
+    //endregion
+
+    //region > mixins
+    private PostalAddress_resetGeocode resetGeocode() {
+        return container.mixin(PostalAddress_resetGeocode.class, this.postalAddress);
+    }
+    //endregion
+
+    //region > constructor
+    private final PostalAddress postalAddress;
+    public PostalAddress_update(final PostalAddress postalAddress) {
+        this.postalAddress = postalAddress;
+    }
+    //endregion
 
 
-    public static class UpdateAddressEvent extends PostalAddress.ActionDomainEvent<PostalAddress_updateAddress> { }
+    public static class UpdateAddressEvent extends PostalAddress.ActionDomainEvent<PostalAddress_update> { }
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
             domainEvent = UpdateAddressEvent.class
     )
-    public PostalAddress updateAddress(
-            final PostalAddress postalAddress,
+    public PostalAddress __(
             @Parameter(maxLength = CommChannelModule.JdoColumnLength.ADDRESS_LINE)
             @ParameterLayout(named = "Address Line 1")
             final String addressLine1,
@@ -77,23 +85,21 @@ public class PostalAddress_updateAddress {
             @ParameterLayout(named = "Lookup geocode")
             final Boolean lookupGeocode) {
 
-        postalAddress.setAddressLine1(addressLine1);
-        postalAddress.setAddressLine2(addressLine2);
-        postalAddress.setAddressLine3(addressLine3);
-        postalAddress.setAddressLine4(addressLine4);
-        postalAddress.setPostalCode(postalCode);
-        postalAddress.setCountry(country);
+        this.postalAddress.setAddressLine1(addressLine1);
+        this.postalAddress.setAddressLine2(addressLine2);
+        this.postalAddress.setAddressLine3(addressLine3);
+        this.postalAddress.setAddressLine4(addressLine4);
+        this.postalAddress.setPostalCode(postalCode);
+        this.postalAddress.setCountry(country);
 
         lookupAndUpdateGeocode(
-                postalAddress,
                 lookupGeocode,
                 addressLine1, addressLine2, addressLine3, addressLine4, postalCode, country);
 
-        return postalAddress;
+        return this.postalAddress;
     }
 
     void lookupAndUpdateGeocode(
-            final PostalAddress postalAddress,
             final Boolean lookupGeocode,
             final String... addressParts) {
 
@@ -106,41 +112,42 @@ public class PostalAddress_updateAddress {
             final GeocodedAddress geocodedAddress = geocodingService.lookup(address);
 
             if (GeocodedAddress.isOk(geocodedAddress)) {
-                postalAddress.setFormattedAddress(geocodedAddress.getFormattedAddress());
-                postalAddress.setGeocodeApiResponseAsJson(geocodedAddress.getApiResponseAsJson());
-                postalAddress.setPlaceId(geocodedAddress.getPlaceId());
-                postalAddress.setLatLng(geocodedAddress.getLatLng());
-                postalAddress.setAddressComponents(geocodedAddress.getAddressComponents());
+                this.postalAddress.setFormattedAddress(geocodedAddress.getFormattedAddress());
+                this.postalAddress.setGeocodeApiResponseAsJson(geocodedAddress.getApiResponseAsJson());
+                this.postalAddress.setPlaceId(geocodedAddress.getPlaceId());
+                this.postalAddress.setLatLng(geocodedAddress.getLatLng());
+                this.postalAddress.setAddressComponents(geocodedAddress.getAddressComponents());
             } else {
                 container.warnUser(
                         TranslatableString.tr("Could not lookup geocode for address"),
                         CommunicationChannelOwner_newPostalAddress.class, "newPostal");
             }
         } else {
-            postalAddressActionResetGeocode.resetGeocode(postalAddress);
+            resetGeocode().__();
         }
     }
 
-    public String default1UpdateAddress(final PostalAddress postalAddress) {
-        return postalAddress.getAddressLine1();
+    public String default0__() {
+        return this.postalAddress.getAddressLine1();
     }
-    public String default2UpdateAddress(final PostalAddress postalAddress) {
-        return postalAddress.getAddressLine2();
+    public String default1__() {
+        return this.postalAddress.getAddressLine2();
     }
-    public String default3UpdateAddress(final PostalAddress postalAddress) {
-        return postalAddress.getAddressLine3();
+    public String default2__() {
+        return this.postalAddress.getAddressLine3();
     }
-    public String default4UpdateAddress(final PostalAddress postalAddress) {
-        return postalAddress.getAddressLine4();
+    public String default3__() {
+        return this.postalAddress.getAddressLine4();
     }
-    public String default5UpdateAddress(final PostalAddress postalAddress) {
-        return postalAddress.getPostalCode();
+    public String default4__() {
+        return this.postalAddress.getPostalCode();
     }
-    public String default6UpdateAddress(final PostalAddress postalAddress) {
-        return postalAddress.getCountry();
+    public String default5__() {
+        return this.postalAddress.getCountry();
     }
-    public Boolean default7UpdateAddress(final PostalAddress postalAddress) {
-        return postalAddress.getPlaceId() != null ? true: null;
+    public Boolean default6__() {
+        return this.postalAddress.getPlaceId() != null ? true: null;
     }
+
 
 }

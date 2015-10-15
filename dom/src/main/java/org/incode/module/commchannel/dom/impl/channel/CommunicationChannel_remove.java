@@ -23,54 +23,68 @@ import javax.inject.Inject;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
-import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
+import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
 
-@DomainService(
-        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
-)
+@Mixin
 public class CommunicationChannel_remove {
 
+    //region > injected services
     @Inject
-    CommunicationChannel_owner communicationChannel_owner;
+    CommunicationChannelOwnerLinkRepository ownerLinkRepository;
     @Inject
     CommunicationChannelRepository communicationChannelRepository;
     @Inject
     DomainObjectContainer container;
+    //endregion
 
-    public static class RemoveEvent
-            extends CommunicationChannel.ActionDomainEvent<CommunicationChannel_remove> {
+    //region > mixins
+    private CommunicationChannelOwner owner() {
+        return container.mixin(CommunicationChannel_owner.class, communicationChannel).__();
+    }
+    //endregion
+
+    //region > constructor
+    private final CommunicationChannel<?> communicationChannel;
+    public CommunicationChannel_remove(final CommunicationChannel<?> communicationChannel) {
+        this.communicationChannel = communicationChannel;
+    }
+    //endregion
+
+    public static class Event extends CommunicationChannel.ActionDomainEvent<CommunicationChannel_remove> {
         public CommunicationChannel<?> getReplacement() {
             return (CommunicationChannel<?>) getArguments().get(1);
         }
     }
 
     @Action(
-            domainEvent = RemoveEvent.class,
+            domainEvent = Event.class,
             semantics = SemanticsOf.IDEMPOTENT
     )
-    public CommunicationChannelOwner remove(
-            final CommunicationChannel communicationChannel,
+    public CommunicationChannelOwner __(
             @ParameterLayout(named = "Replace with")
             @Parameter(optionality = Optionality.OPTIONAL)
             final CommunicationChannel replacement) {
-        final CommunicationChannelOwner owner = communicationChannel_owner.owner(communicationChannel);
-        communicationChannel_owner.removeOwnerLink(communicationChannel);
-        container.remove(communicationChannel);
+        final CommunicationChannelOwner owner = owner();
+        removeLink();
         return owner;
     }
 
-    public SortedSet<CommunicationChannel> choices1Remove(final CommunicationChannel communicationChannel) {
+    public SortedSet<CommunicationChannel> choices0__() {
         return communicationChannelRepository.findOtherByOwnerAndType(
-                communicationChannel_owner.owner(communicationChannel), communicationChannel.getType(),
-                communicationChannel);
+                owner(), this.communicationChannel.getType(),
+                this.communicationChannel);
     }
 
+    private void removeLink() {
+        ownerLinkRepository.removeOwnerLink(communicationChannel);
+        container.remove(communicationChannel);
+    }
 
 }

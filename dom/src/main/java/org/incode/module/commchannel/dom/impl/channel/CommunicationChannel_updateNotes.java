@@ -19,27 +19,29 @@ Copyright 2015 incode.org
 package org.incode.module.commchannel.dom.impl.channel;
 
 import org.apache.isis.applib.annotation.Action;
-import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-@DomainService(
-        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
-)
+@Mixin
 public class CommunicationChannel_updateNotes {
 
-    public static class UpdateNotesEvent
-            extends CommunicationChannel.ActionDomainEvent<CommunicationChannel_updateNotes> { }
+    //region > constructor
+    private final CommunicationChannel<?> communicationChannel;
+    public CommunicationChannel_updateNotes(final CommunicationChannel<?> communicationChannel) {
+        this.communicationChannel = communicationChannel;
+    }
+    //endregion
+
+    public static class Event extends CommunicationChannel.ActionDomainEvent<CommunicationChannel_updateNotes> { }
 
     @Action(
-            domainEvent = UpdateNotesEvent.class,
+            domainEvent = Event.class,
             semantics = SemanticsOf.IDEMPOTENT
     )
-    public <T extends CommunicationChannel<T>> CommunicationChannel<T> updateNotes(
-            CommunicationChannel<T> communicationChannel,
+    public CommunicationChannel<?> __(
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Notes", multiLine = 10)
             final String Notes) {
@@ -47,9 +49,7 @@ public class CommunicationChannel_updateNotes {
         return communicationChannel;
     }
 
-    public <T extends CommunicationChannel<T>> String default1UpdateNotes(
-            CommunicationChannel<T> communicationChannel
-            ) {
+    public String default0__() {
         return communicationChannel.getNotes();
     }
 

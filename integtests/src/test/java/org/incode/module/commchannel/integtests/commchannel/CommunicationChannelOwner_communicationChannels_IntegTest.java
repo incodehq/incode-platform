@@ -24,10 +24,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
-import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelOwner_communicationChannels;
-import org.incode.module.commchannel.dom.impl.emailaddress.CommunicationChannelOwner_newEmailAddress;
-import org.incode.module.commchannel.dom.impl.phoneorfax.CommunicationChannelOwner_newPhoneOrFaxNumber;
-import org.incode.module.commchannel.dom.impl.postaladdress.CommunicationChannelOwner_newPostalAddress;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObjectMenu;
@@ -44,18 +40,6 @@ public class CommunicationChannelOwner_communicationChannels_IntegTest extends C
     CommChannelDemoObject fredDemoOwner;
     CommChannelDemoObject billDemoOwner;
 
-    @Inject
-    CommunicationChannelOwner_newEmailAddress communicationChannelOwnerNewEmailAddress;
-
-    @Inject
-    CommunicationChannelOwner_newPostalAddress postalAddressOwnerNewPostalAddress;
-
-    @Inject
-    CommunicationChannelOwner_newPhoneOrFaxNumber communicationChannelOwnerNewPhoneOrFaxNumber;
-
-    @Inject
-    CommunicationChannelOwner_communicationChannels communicationChannelOwner_communicationChannels;
-
     @Before
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new CommChannelDemoObjectsTearDownFixture(), null);
@@ -63,30 +47,36 @@ public class CommunicationChannelOwner_communicationChannels_IntegTest extends C
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
         billDemoOwner = wrap(commChannelDemoObjectMenu).create("Bill");
 
-        wrap(communicationChannelOwnerNewEmailAddress)
-                .newEmailAddress(fredDemoOwner, "fred@gmail.com", "Home", "Fred Smith's home email");
-        wrap(communicationChannelOwnerNewEmailAddress)
-                .newEmailAddress(fredDemoOwner, "fred.smith@somecompany.com", "Work", "Fred Smith's work email");
+        wrap(newEmailAddress(fredDemoOwner))
+                .__("fred@gmail.com", "Home", "Fred Smith's home email");
+        wrap(newEmailAddress(fredDemoOwner))
+                .__("fred.smith@somecompany.com", "Work", "Fred Smith's work email");
 
-        wrap(communicationChannelOwnerNewPhoneOrFaxNumber)
-                .newPhoneOrFaxNumber(fredDemoOwner, CommunicationChannelType.PHONE_NUMBER, "0208 111 1111", "Home Phone", "Fred Smith's home phone number");
-        wrap(communicationChannelOwnerNewPhoneOrFaxNumber)
-                .newPhoneOrFaxNumber(fredDemoOwner, CommunicationChannelType.PHONE_NUMBER, "0207 222 2222", "Work Phone", "Fred Smith's work phone number");
-        wrap(communicationChannelOwnerNewPhoneOrFaxNumber)
-                .newPhoneOrFaxNumber(fredDemoOwner, CommunicationChannelType.FAX_NUMBER, "0207 222 3333", "Work Fax", "Fred Smith's work fax number");
-        wrap(postalAddressOwnerNewPostalAddress)
-                .newPostalAddress(fredDemoOwner, "Flat 2a", "45 Penny Lane", "Allerton", "Liverpool", "L39 5AA", "UK", "Home", "Fred Smith's home", false);
-        wrap(postalAddressOwnerNewPostalAddress)
-                .newPostalAddress(fredDemoOwner, "Grange School", "Wavertree", null, "Liverpool", "L36 1QQ", "UK", "Work", "Fred Smith's work", false);
+        wrap(newPhoneOrFaxNumber(fredDemoOwner))
+                .__(CommunicationChannelType.PHONE_NUMBER, "0208 111 1111", "Home Phone",
+                        "Fred Smith's home phone number");
+        wrap(newPhoneOrFaxNumber(fredDemoOwner))
+                .__(CommunicationChannelType.PHONE_NUMBER, "0207 222 2222", "Work Phone",
+                        "Fred Smith's work phone number");
+        wrap(newPhoneOrFaxNumber(fredDemoOwner))
+                .__(CommunicationChannelType.FAX_NUMBER, "0207 222 3333", "Work Fax", "Fred Smith's work fax number");
+        wrap(newPostalAddress(fredDemoOwner))
+                .__("Flat 2a", "45 Penny Lane", "Allerton", "Liverpool", "L39 5AA", "UK", "Home", "Fred Smith's home",
+                        false);
+        wrap(newPostalAddress(fredDemoOwner))
+                .__("Grange School", "Wavertree", null, "Liverpool", "L36 1QQ", "UK", "Work", "Fred Smith's work",
+                        false);
 
-        wrap(communicationChannelOwnerNewEmailAddress)
-                .newEmailAddress(billDemoOwner, "bill@yahoo.com", "Home", "Bill Jones' home email");
-        wrap(communicationChannelOwnerNewPhoneOrFaxNumber)
-                .newPhoneOrFaxNumber(billDemoOwner, CommunicationChannelType.PHONE_NUMBER, "01865 222 222", "Work Phone", "Bill Jones' work phone number");
-        wrap(communicationChannelOwnerNewPhoneOrFaxNumber)
-                .newPhoneOrFaxNumber(billDemoOwner, CommunicationChannelType.FAX_NUMBER, "01865 222 333", "Work Fax", "Bill Jones' work fax number");
-        wrap(postalAddressOwnerNewPostalAddress)
-                .newPostalAddress(billDemoOwner, "Beatles Museum", "Albert Dock", null, "Liverpool", "L5 1AB", "UK", "Work", "Bill Jones's work", false);
+        wrap(newEmailAddress(billDemoOwner))
+                .__("bill@yahoo.com", "Home", "Bill Jones' home email");
+        wrap(newPhoneOrFaxNumber(billDemoOwner))
+                .__(CommunicationChannelType.PHONE_NUMBER, "01865 222 222", "Work Phone",
+                        "Bill Jones' work phone number");
+        wrap(newPhoneOrFaxNumber(billDemoOwner))
+                .__(CommunicationChannelType.FAX_NUMBER, "01865 222 333", "Work Fax", "Bill Jones' work fax number");
+        wrap(newPostalAddress(billDemoOwner))
+                .__("Beatles Museum", "Albert Dock", null, "Liverpool", "L5 1AB", "UK", "Work", "Bill Jones's work",
+                        false);
 
     }
 
@@ -96,7 +86,7 @@ public class CommunicationChannelOwner_communicationChannels_IntegTest extends C
         @Test
         public void happy_case() throws Exception {
             final SortedSet<CommunicationChannel> channels = wrap(
-                    communicationChannelOwner_communicationChannels).communicationChannels(fredDemoOwner);
+                    communicationChannels(fredDemoOwner)).__();
 
             assertThat(channels).hasSize(7);
         }

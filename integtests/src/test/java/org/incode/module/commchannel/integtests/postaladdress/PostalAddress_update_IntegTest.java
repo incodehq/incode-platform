@@ -24,10 +24,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
-import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelOwner_communicationChannels;
-import org.incode.module.commchannel.dom.impl.postaladdress.CommunicationChannelOwner_newPostalAddress;
 import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress;
-import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress_updateAddress;
+import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress_update;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObjectMenu;
 import org.incode.module.commchannel.fixture.scripts.teardown.CommChannelDemoObjectsTearDownFixture;
@@ -35,20 +33,17 @@ import org.incode.module.commchannel.integtests.CommChannelModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PostalAddress_updateAddress_IntegTest extends CommChannelModuleIntegTest {
+public class PostalAddress_update_IntegTest extends CommChannelModuleIntegTest {
 
     @Inject
-    CommunicationChannelOwner_communicationChannels communicationChannelOwner_communicationChannels;
-    @Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;
-    @Inject
-    CommunicationChannelOwner_newPostalAddress communicationChannelOwner_newPostalAddress;
 
     CommChannelDemoObject fredDemoOwner;
     PostalAddress postalAddress;
 
-    @Inject
-    PostalAddress_updateAddress postalAddress_updateAddress;
+    PostalAddress_update updatePostalAddress(final PostalAddress postalAddress) {
+        return mixin(PostalAddress_update.class, postalAddress);
+    }
 
     @Before
     public void setUpData() throws Exception {
@@ -56,26 +51,22 @@ public class PostalAddress_updateAddress_IntegTest extends CommChannelModuleInte
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
 
-        wrap(communicationChannelOwner_newPostalAddress)
-                .newPostalAddress(fredDemoOwner,
-                        "Flat 2a", "45 Penny Lane", "Allerton", "Liverpool", "L39 5AA",
-                        "UK",
-                        "Work", "Fred Smith's work",
-                        false);
+        wrap(newPostalAddress(fredDemoOwner)).__(
+                "Flat 2a", "45 Penny Lane", "Allerton", "Liverpool", "L39 5AA", "UK", "Work", "Fred Smith's work",
+                false);
 
-        final SortedSet<CommunicationChannel> communicationChannels = wrap(
-                communicationChannelOwner_communicationChannels).communicationChannels(fredDemoOwner);
+        final SortedSet<CommunicationChannel> communicationChannels = wrap(communicationChannels(fredDemoOwner)).__();
         postalAddress = (PostalAddress) communicationChannels.first();
 
     }
 
-    public static class ActionImplementationIntegrationTest extends PostalAddress_updateAddress_IntegTest {
+    public static class ActionImplementationIntegrationTest extends PostalAddress_update_IntegTest {
 
         @Test
         public void when_lookup_geocode_or_does_not_loookup() throws Exception {
 
             // when
-            wrap(postalAddress_updateAddress).updateAddress(postalAddress,
+            wrap(updatePostalAddress(postalAddress)).__(
                     "45", "High Street", "Oxford", null, "OX1",
                     "UK", true);
 
@@ -94,7 +85,7 @@ public class PostalAddress_updateAddress_IntegTest extends CommChannelModuleInte
                             "postal_code: OX1\n");
 
             // and when
-            wrap(postalAddress_updateAddress).updateAddress(postalAddress,
+            wrap(updatePostalAddress(postalAddress)).__(
                     "Flat 2a", "45 Penny Lane", "Allerton", "Liverpool", "L39 5AA",
                     "UK", false);
 
@@ -113,28 +104,28 @@ public class PostalAddress_updateAddress_IntegTest extends CommChannelModuleInte
         }
     }
 
-    public static class DefaultsIntegrationTest extends PostalAddress_updateAddress_IntegTest {
+    public static class DefaultsIntegrationTest extends PostalAddress_update_IntegTest {
 
         @Test
         public void defaults_to_corresponding_property() throws Exception {
-            assertThat(postalAddress_updateAddress.default1UpdateAddress(postalAddress))
+            assertThat(updatePostalAddress(postalAddress).default0__())
                     .isEqualTo(postalAddress.getAddressLine1());
-            assertThat(postalAddress_updateAddress.default2UpdateAddress(postalAddress))
+            assertThat(updatePostalAddress(postalAddress).default1__())
                     .isEqualTo(postalAddress.getAddressLine2());
-            assertThat(postalAddress_updateAddress.default3UpdateAddress(postalAddress))
+            assertThat(updatePostalAddress(postalAddress).default2__())
                     .isEqualTo(postalAddress.getAddressLine3());
-            assertThat(postalAddress_updateAddress.default4UpdateAddress(postalAddress))
+            assertThat(updatePostalAddress(postalAddress).default3__())
                     .isEqualTo(postalAddress.getAddressLine4());
-            assertThat(postalAddress_updateAddress.default5UpdateAddress(postalAddress))
+            assertThat(updatePostalAddress(postalAddress).default4__())
                     .isEqualTo(postalAddress.getPostalCode());
-            assertThat(postalAddress_updateAddress.default6UpdateAddress(postalAddress))
+            assertThat(updatePostalAddress(postalAddress).default5__())
                     .isEqualTo(postalAddress.getCountry());
         }
 
         @Test
         public void default_for_place_id_parameter_when_not_looked_up() throws Exception {
             // when
-            final Boolean defaultPlaceId = postalAddress_updateAddress.default7UpdateAddress(postalAddress);
+            final Boolean defaultPlaceId = updatePostalAddress(postalAddress).default6__();
             // then
             assertThat(defaultPlaceId).isNull();
         }
@@ -143,12 +134,12 @@ public class PostalAddress_updateAddress_IntegTest extends CommChannelModuleInte
         public void default_for_place_id_parameter_when_has_been_looked_up() throws Exception {
 
             // given
-            wrap(postalAddress_updateAddress).updateAddress(postalAddress,
+            wrap(updatePostalAddress(postalAddress)).__(
                     "45", "High Street", "Oxford", null, "OX1",
                     "UK", true);
 
             // when
-            final Boolean defaultPlaceId = postalAddress_updateAddress.default7UpdateAddress(postalAddress);
+            final Boolean defaultPlaceId = updatePostalAddress(postalAddress).default6__();
 
             // then
             assertThat(defaultPlaceId).isTrue();

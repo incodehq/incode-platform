@@ -30,8 +30,6 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
-import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelOwner_communicationChannels;
-import org.incode.module.commchannel.dom.impl.postaladdress.CommunicationChannelOwner_newPostalAddress;
 import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress;
 import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress_lookupGeocode;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
@@ -44,17 +42,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PostalAddress_lookupGeocode_IntegTest extends CommChannelModuleIntegTest {
 
     @Inject
-    CommunicationChannelOwner_communicationChannels communicationChannelOwner_communicationChannels;
-    @Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;
-    @Inject
-    CommunicationChannelOwner_newPostalAddress communicationChannelOwner_newPostalAddress;
 
     CommChannelDemoObject fredDemoOwner;
     PostalAddress postalAddress;
 
-    @Inject
-    PostalAddress_lookupGeocode postalAddress_lookupGeocode;
+    PostalAddress_lookupGeocode lookupGeocode(final PostalAddress postalAddress) {
+        return mixin(PostalAddress_lookupGeocode.class, postalAddress);
+    }
 
     @Before
     public void setUpData() throws Exception {
@@ -62,13 +57,10 @@ public class PostalAddress_lookupGeocode_IntegTest extends CommChannelModuleInte
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
 
-        wrap(communicationChannelOwner_newPostalAddress)
-                .newPostalAddress(fredDemoOwner, "45", "High Street", "Oxford", null, "OX1",
-                        "UK",
-                        "Work", "Fred Smith's work", false);
+        wrap(newPostalAddress(fredDemoOwner)).__(
+                "45", "High Street", "Oxford", null, "OX1", "UK", "Work", "Fred Smith's work", false);
 
-        final SortedSet<CommunicationChannel> communicationChannels = wrap(
-                communicationChannelOwner_communicationChannels).communicationChannels(fredDemoOwner);
+        final SortedSet<CommunicationChannel> communicationChannels = wrap(communicationChannels(fredDemoOwner)).__();
         postalAddress = (PostalAddress) communicationChannels.first();
 
     }
@@ -83,7 +75,7 @@ public class PostalAddress_lookupGeocode_IntegTest extends CommChannelModuleInte
             assertThat(postalAddress.getName()).isEqualTo("45, High Stree...ford, OX1, UK");
 
             // when
-            wrap(postalAddress_lookupGeocode).lookupGeocode(postalAddress, "45, High Street, Oxford, OX1, UK");
+            wrap(lookupGeocode(postalAddress)).__("45, High Street, Oxford, OX1, UK");
 
             // then
             assertThat(postalAddress.getName()).isEqualTo("45 High St, Oxford, Oxfordshire OX1, UK");
@@ -107,7 +99,7 @@ public class PostalAddress_lookupGeocode_IntegTest extends CommChannelModuleInte
         @Test
         public void concatenates_all_the_parts_of_the_address_ignoring_any_missing_parts() throws Exception {
 
-            final String defaultAddress = postalAddress_lookupGeocode.default1LookupGeocode(postalAddress);
+            final String defaultAddress = lookupGeocode(postalAddress).default0__();
 
             assertThat(defaultAddress).isEqualTo("45, High Street, Oxford, OX1, UK");
         }
@@ -117,10 +109,10 @@ public class PostalAddress_lookupGeocode_IntegTest extends CommChannelModuleInte
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            PostalAddress_lookupGeocode.LookupGeocodeEvent ev;
+            PostalAddress_lookupGeocode.Event ev;
 
             @Subscribe
-            public void on(PostalAddress_lookupGeocode.LookupGeocodeEvent ev) {
+            public void on(PostalAddress_lookupGeocode.Event ev) {
                 this.ev = ev;
             }
         }
@@ -131,7 +123,7 @@ public class PostalAddress_lookupGeocode_IntegTest extends CommChannelModuleInte
         @Test
         public void happy_case() throws Exception {
 
-            wrap(postalAddress_lookupGeocode).lookupGeocode(postalAddress, "45, High Street, Oxford, OX1, UK");
+            wrap(lookupGeocode(postalAddress)).__("45, High Street, Oxford, OX1, UK");
 
             assertThat(testSubscriber.ev).isNotNull();
         }

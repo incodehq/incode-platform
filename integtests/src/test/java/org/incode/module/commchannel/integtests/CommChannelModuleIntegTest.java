@@ -29,6 +29,7 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 
+import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
@@ -40,11 +41,23 @@ import org.isisaddons.module.fakedata.dom.FakeDataService;
 
 import org.incode.module.commchannel.app.CommChannelModuleAppManifest;
 import org.incode.module.commchannel.dom.api.geocoding.GeocodingService;
+import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
+import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelOwner_communicationChannels;
+import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_remove;
+import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_updateDescription;
+import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_updateNotes;
+import org.incode.module.commchannel.dom.impl.emailaddress.CommunicationChannelOwner_newEmailAddress;
+import org.incode.module.commchannel.dom.impl.phoneorfax.CommunicationChannelOwner_newPhoneOrFaxNumber;
+import org.incode.module.commchannel.dom.impl.postaladdress.CommunicationChannelOwner_newPostalAddress;
+import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
 
 public abstract class CommChannelModuleIntegTest extends IntegrationTestAbstract {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
+
+    @Inject
+    protected DomainObjectContainer container;
 
     @Inject
     protected FixtureScripts fixtureScripts;
@@ -80,5 +93,34 @@ public abstract class CommChannelModuleIntegTest extends IntegrationTestAbstract
         // instantiating will install onto ThreadLocal
         new ScenarioExecutionForIntegration();
     }
+
+    protected CommunicationChannelOwner_newEmailAddress newEmailAddress(final CommChannelDemoObject owner) {
+        return mixin(CommunicationChannelOwner_newEmailAddress.class, owner);
+    }
+
+    protected CommunicationChannelOwner_newPostalAddress newPostalAddress(final CommChannelDemoObject owner) {
+        return mixin(CommunicationChannelOwner_newPostalAddress.class, owner);
+    }
+
+    protected CommunicationChannelOwner_newPhoneOrFaxNumber newPhoneOrFaxNumber(final CommChannelDemoObject owner) {
+        return mixin(CommunicationChannelOwner_newPhoneOrFaxNumber.class, owner);
+    }
+
+    protected CommunicationChannel_remove remove(final CommunicationChannel channel) {
+        return mixin(CommunicationChannel_remove.class, channel);
+    }
+
+    protected CommunicationChannel_updateDescription updateDescription(final CommunicationChannel communicationChannel) {
+        return mixin(CommunicationChannel_updateDescription.class, communicationChannel);
+    }
+
+    protected CommunicationChannel_updateNotes updateNotes(final CommunicationChannel communicationChannel) {
+        return mixin(CommunicationChannel_updateNotes.class, communicationChannel);
+    }
+
+    protected CommunicationChannelOwner_communicationChannels communicationChannels(final CommChannelDemoObject owner) {
+        return mixin(CommunicationChannelOwner_communicationChannels.class, owner);
+    }
+
 
 }

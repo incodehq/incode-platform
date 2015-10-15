@@ -44,19 +44,10 @@ public class CommunicationChannel_updateDescription_IntegTest extends CommChanne
 
     @Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;
-
-    CommChannelDemoObject fredDemoOwner;
-
-    @Inject
-    CommunicationChannelOwner_newEmailAddress communicationChannelOwner_newEmailAddress;
-
     @Inject
     CommunicationChannelRepository communicationChannelRepository;
 
-    @Inject
-    CommunicationChannel_updateDescription communicationChannel_updateDescription;
-
-
+    CommChannelDemoObject fredDemoOwner;
     SortedSet<CommunicationChannel> fredChannels;
 
     @Before
@@ -65,11 +56,12 @@ public class CommunicationChannel_updateDescription_IntegTest extends CommChanne
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Foo");
 
-        wrap(communicationChannelOwner_newEmailAddress)
-                .newEmailAddress(fredDemoOwner, "fred@gmail.com", "Home", "Fred Smith's home email");
+        wrap(newEmailAddress(fredDemoOwner))
+                .__("fred@gmail.com", "Home", "Fred Smith's home email");
 
         fredChannels = communicationChannelRepository.findByOwner(fredDemoOwner);
     }
+
 
     public static class ActionImplementationIntegrationTest extends
             CommunicationChannel_updateDescription_IntegTest {
@@ -79,10 +71,11 @@ public class CommunicationChannel_updateDescription_IntegTest extends CommChanne
             final CommunicationChannel communicationChannel = fredChannels.first();
             final String newDescription = fakeDataService.lorem().sentence();
 
-            wrap(communicationChannel_updateDescription).updateDescription(communicationChannel, newDescription);
+            wrap(updateDescription(communicationChannel)).__(newDescription);
 
             assertThat(communicationChannel.getDescription()).isEqualTo(newDescription);
         }
+
     }
 
     public static class DefaultIntegrationTest extends CommunicationChannel_updateDescription_IntegTest {
@@ -91,7 +84,7 @@ public class CommunicationChannel_updateDescription_IntegTest extends CommChanne
         public void happy_case() throws Exception {
             final CommunicationChannel communicationChannel = fredChannels.first();
 
-            final String descr = communicationChannel_updateDescription.default1UpdateDescription(communicationChannel);
+            final String descr = updateDescription(communicationChannel).default0__();
 
             assertThat(descr).isEqualTo(communicationChannel.getDescription());
         }
@@ -102,10 +95,10 @@ public class CommunicationChannel_updateDescription_IntegTest extends CommChanne
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            CommunicationChannel_updateDescription.UpdateDescriptionEvent ev;
+            CommunicationChannel_updateDescription.Event ev;
 
             @Subscribe
-            public void on(CommunicationChannel_updateDescription.UpdateDescriptionEvent ev) {
+            public void on(CommunicationChannel_updateDescription.Event ev) {
                 this.ev = ev;
             }
         }
@@ -117,9 +110,12 @@ public class CommunicationChannel_updateDescription_IntegTest extends CommChanne
         public void happy_case() throws Exception {
             final CommunicationChannel channel = fredChannels.first();
             final String newParagraph = fakeDataService.lorem().paragraph();
-            wrap(communicationChannel_updateDescription).updateDescription(channel, newParagraph);
+            wrap(updateDescription(channel)).__(newParagraph);
             
             assertThat(testSubscriber.ev.getArguments().get(1)).isEqualTo(newParagraph);
         }
     }
+
+
 }
+

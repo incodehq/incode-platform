@@ -24,8 +24,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
-import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelOwner_communicationChannels;
-import org.incode.module.commchannel.dom.impl.emailaddress.CommunicationChannelOwner_newEmailAddress;
 import org.incode.module.commchannel.dom.impl.emailaddress.EmailAddress;
 import org.incode.module.commchannel.dom.impl.emailaddress.EmailAddress_update;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
@@ -39,38 +37,33 @@ public class EmailAddress_update_IntegTest extends CommChannelModuleIntegTest {
 
     @Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;
-    @Inject
-    CommunicationChannelOwner_communicationChannels communicationChannelOwner_communicationChannels;
-
-    @Inject
-    CommunicationChannelOwner_newEmailAddress communicationChannelOwner_newEmailAddress;
 
     CommChannelDemoObject fredDemoOwner;
     EmailAddress fredEmail;
-
-    @Inject
-    EmailAddress_update emailAddress_update;
 
     @Before
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new CommChannelDemoObjectsTearDownFixture(), null);
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
-        wrap(communicationChannelOwner_newEmailAddress)
-                .newEmailAddress(fredDemoOwner, "fred@gmail.com", "Home", "Fred Smith's home email");
+        wrap(newEmailAddress(fredDemoOwner)).__(
+                "fred@gmail.com", "Home", "Fred Smith's home email");
 
-        final SortedSet<CommunicationChannel> communicationChannels = wrap(
-                communicationChannelOwner_communicationChannels).communicationChannels(fredDemoOwner);
+        final SortedSet<CommunicationChannel> communicationChannels = wrap(communicationChannels(fredDemoOwner)).__();
         fredEmail = (EmailAddress)communicationChannels.first();
     }
+
+    EmailAddress_update updateEmailAddress(final EmailAddress emailAddress) {
+        return mixin(EmailAddress_update.class, emailAddress);
+    }
+
 
     public static class ActionImplementationIntegrationTest extends
             EmailAddress_update_IntegTest {
 
         @Test
         public void happy_case() throws Exception {
-            final EmailAddress returned = wrap(this.emailAddress_update)
-                    .updateEmailAddress(fredEmail, "frederick@yahoo.com");
+            final EmailAddress returned = wrap(updateEmailAddress(fredEmail)).__("frederick@yahoo.com");
 
             assertThat(wrap(fredEmail).getEmailAddress()).isEqualTo("frederick@yahoo.com");
             assertThat(returned).isSameAs(fredEmail);
@@ -81,7 +74,7 @@ public class EmailAddress_update_IntegTest extends CommChannelModuleIntegTest {
 
         @Test
         public void should_default_to_current_email_address() throws Exception {
-            final String defaultEmail = emailAddress_update.default1UpdateEmailAddress(fredEmail);
+            final String defaultEmail = updateEmailAddress(fredEmail).default0__();
 
             assertThat(defaultEmail).isEqualTo(fredEmail.getEmailAddress());
         }

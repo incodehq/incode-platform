@@ -64,29 +64,35 @@ public class CommunicationChannelRepositoryIntegTest extends CommChannelModuleIn
         billDemoOwner = wrap(commChannelDemoObjectMenu).create("Bill");
 
         wrap(communicationChannelOwner_newEmailAddress)
-                .newEmailAddress(fredDemoOwner, "fred@gmail.com", "Home", "Fred Smith's home email");
+                .__("fred@gmail.com", "Home", "Fred Smith's home email");
         wrap(communicationChannelOwner_newEmailAddress)
-                .newEmailAddress(fredDemoOwner, "fred.smith@somecompany.com", "Work", "Fred Smith's work email");
+                .__("fred.smith@somecompany.com", "Work", "Fred Smith's work email");
 
         wrap(communicationChannelOwner_newPhoneOrFaxNumber)
-                .newPhoneOrFaxNumber(fredDemoOwner, CommunicationChannelType.PHONE_NUMBER, "0208 111 1111", "Home Phone", "Fred Smith's home phone number");
+                .__(CommunicationChannelType.PHONE_NUMBER, "0208 111 1111", "Home Phone",
+                        "Fred Smith's home phone number");
         wrap(communicationChannelOwner_newPhoneOrFaxNumber)
-                .newPhoneOrFaxNumber(fredDemoOwner, CommunicationChannelType.PHONE_NUMBER, "0207 222 2222", "Work Phone", "Fred Smith's work phone number");
+                .__(CommunicationChannelType.PHONE_NUMBER, "0207 222 2222", "Work Phone",
+                        "Fred Smith's work phone number");
         wrap(communicationChannelOwner_newPhoneOrFaxNumber)
-                .newPhoneOrFaxNumber(fredDemoOwner, CommunicationChannelType.FAX_NUMBER, "0207 222 3333", "Work Fax", "Fred Smith's work fax number");
+                .__(CommunicationChannelType.FAX_NUMBER, "0207 222 3333", "Work Fax", "Fred Smith's work fax number");
         wrap(communicationChannelOwner_newPostalAddress)
-                .newPostalAddress(fredDemoOwner, "Flat 2a", "45 Penny Lane", "Allerton", "Liverpool", "L39 5AA", "UK", "Home", "Fred Smith's home", false);
+                .__("Flat 2a", "45 Penny Lane", "Allerton", "Liverpool", "L39 5AA", "UK", "Home", "Fred Smith's home",
+                        false);
         wrap(communicationChannelOwner_newPostalAddress)
-                .newPostalAddress(fredDemoOwner, "Grange School", "Wavertree", null, "Liverpool", "L36 1QQ", "UK", "Work", "Fred Smith's work", false);
+                .__("Grange School", "Wavertree", null, "Liverpool", "L36 1QQ", "UK", "Work", "Fred Smith's work",
+                        false);
 
         wrap(communicationChannelOwner_newEmailAddress)
-                .newEmailAddress(billDemoOwner, "bill@yahoo.com", "Home", "Bill Jones' home email");
+                .__("bill@yahoo.com", "Home", "Bill Jones' home email");
         wrap(communicationChannelOwner_newPhoneOrFaxNumber)
-                .newPhoneOrFaxNumber(billDemoOwner, CommunicationChannelType.PHONE_NUMBER, "01865 222 222", "Work Phone", "Bill Jones' work phone number");
+                .__(CommunicationChannelType.PHONE_NUMBER, "01865 222 222", "Work Phone",
+                        "Bill Jones' work phone number");
         wrap(communicationChannelOwner_newPhoneOrFaxNumber)
-                .newPhoneOrFaxNumber(billDemoOwner, CommunicationChannelType.FAX_NUMBER, "01865 222 333", "Work Fax", "Bill Jones' work fax number");
+                .__(CommunicationChannelType.FAX_NUMBER, "01865 222 333", "Work Fax", "Bill Jones' work fax number");
         wrap(communicationChannelOwner_newPostalAddress)
-                .newPostalAddress(billDemoOwner, "Beatles Museum", "Albert Dock", null, "Liverpool", "L5 1AB", "UK", "Work", "Bill Jones's work", false);
+                .__("Beatles Museum", "Albert Dock", null, "Liverpool", "L5 1AB", "UK", "Work", "Bill Jones's work",
+                        false);
 
     }
 

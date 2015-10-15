@@ -19,38 +19,42 @@ Copyright 2015 incode.org
 package org.incode.module.commchannel.dom.impl.emailaddress;
 
 import org.apache.isis.applib.annotation.Action;
-import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.commchannel.dom.CommChannelModule;
 
-@DomainService(
-        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
-)
+@Mixin
 public class EmailAddress_update {
 
-    public static class UpdateEmailAddressEvent extends EmailAddress.ActionDomainEvent<EmailAddress_update> { }
+    //region > constructor
+    private final EmailAddress emailAddress;
+    public EmailAddress_update(final EmailAddress emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+    //endregion
+
+    public static class Event extends EmailAddress.ActionDomainEvent<EmailAddress_update> { }
+
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
-            domainEvent = UpdateEmailAddressEvent.class
+            domainEvent = Event.class
     )
-    public EmailAddress updateEmailAddress(
-            final EmailAddress emailAddress,
+    public EmailAddress __(
             @Parameter(
                     regexPattern = CommChannelModule.Regex.EMAIL_ADDRESS,
                     maxLength = CommChannelModule.JdoColumnLength.EMAIL_ADDRESS
             )
             @ParameterLayout(named = "Email Address")
             final String address) {
-        emailAddress.setEmailAddress(address);
-        return emailAddress;
+        this.emailAddress.setEmailAddress(address);
+        return this.emailAddress;
     }
 
-    public String default1UpdateEmailAddress(final EmailAddress emailAddress) {
-        return emailAddress.getEmailAddress();
+    public String default0__() {
+        return this.emailAddress.getEmailAddress();
     }
 
 

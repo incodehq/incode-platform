@@ -21,8 +21,7 @@ package org.incode.module.commchannel.dom.impl.phoneorfax;
 import java.util.List;
 
 import org.apache.isis.applib.annotation.Action;
-import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
@@ -30,20 +29,23 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.incode.module.commchannel.dom.CommChannelModule;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 
-@DomainService(
-        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
-)
+@Mixin
 public class PhoneOrFaxNumber_update {
 
-    public static class UpdatePhoneOrFaxNumberEvent
-            extends PhoneOrFaxNumber.ActionDomainEvent<PhoneOrFaxNumber_update> { }
+    //region > constructor
+    private final PhoneOrFaxNumber phoneOrFaxNumber;
+    public PhoneOrFaxNumber_update(final PhoneOrFaxNumber phoneOrFaxNumber) {
+        this.phoneOrFaxNumber = phoneOrFaxNumber;
+    }
+    //endregion
+
+    public static class Event extends PhoneOrFaxNumber.ActionDomainEvent<PhoneOrFaxNumber_update> { }
 
     @Action(
-            domainEvent = UpdatePhoneOrFaxNumberEvent.class,
+            domainEvent = Event.class,
             semantics = SemanticsOf.IDEMPOTENT
     )
-    public PhoneOrFaxNumber updatePhoneOrFaxNumber(
-            final PhoneOrFaxNumber phoneOrFaxNumber,
+    public PhoneOrFaxNumber __(
             @ParameterLayout(named = "Type")
             final CommunicationChannelType type,
             @ParameterLayout(named = "Phone Number")
@@ -52,21 +54,22 @@ public class PhoneOrFaxNumber_update {
                     regexPattern = CommChannelModule.Regex.PHONE_NUMBER
             )
             final String phoneNumber) {
-        phoneOrFaxNumber.setType(type);
-        phoneOrFaxNumber.setPhoneNumber(phoneNumber);
+        this.phoneOrFaxNumber.setType(type);
+        this.phoneOrFaxNumber.setPhoneNumber(phoneNumber);
 
-        return phoneOrFaxNumber;
+        return this.phoneOrFaxNumber;
     }
 
-    public List<CommunicationChannelType> choices1UpdatePhoneOrFaxNumber() {
+    public List<CommunicationChannelType> choices1__() {
         return CommunicationChannelType.matching(PhoneOrFaxNumber.class);
     }
 
-    public CommunicationChannelType default1UpdatePhoneOrFaxNumber( final PhoneOrFaxNumber phoneOrFaxNumber) {
-        return phoneOrFaxNumber.getType();
+    public CommunicationChannelType default0__() {
+        return this.phoneOrFaxNumber.getType();
     }
-    public String default2UpdatePhoneOrFaxNumber( final PhoneOrFaxNumber phoneOrFaxNumber) {
-        return phoneOrFaxNumber.getPhoneNumber();
+
+    public String default1__() {
+        return this.phoneOrFaxNumber.getPhoneNumber();
     }
 
 

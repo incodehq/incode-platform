@@ -32,7 +32,6 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelRepository;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_updateNotes;
-import org.incode.module.commchannel.dom.impl.emailaddress.CommunicationChannelOwner_newEmailAddress;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObjectMenu;
 import org.incode.module.commchannel.fixture.scripts.teardown.CommChannelDemoObjectsTearDownFixture;
@@ -44,19 +43,10 @@ public class CommunicationChannel_updateNotes_IntegTest extends CommChannelModul
 
     @Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;
-
-    CommChannelDemoObject fredDemoOwner;
-
-    @Inject
-    CommunicationChannelOwner_newEmailAddress communicationChannelOwner_newEmailAddress;
-
     @Inject
     CommunicationChannelRepository communicationChannelRepository;
 
-    @Inject
-    CommunicationChannel_updateNotes communicationChannel_updateNotes;
-
-
+    CommChannelDemoObject fredDemoOwner;
     SortedSet<CommunicationChannel> fredChannels;
 
     @Before
@@ -65,11 +55,12 @@ public class CommunicationChannel_updateNotes_IntegTest extends CommChannelModul
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Foo");
 
-        wrap(communicationChannelOwner_newEmailAddress)
-                .newEmailAddress(fredDemoOwner, "fred@gmail.com", "Home", "Fred Smith's home email");
+        wrap(newEmailAddress(fredDemoOwner))
+                .__("fred@gmail.com", "Home", "Fred Smith's home email");
 
         fredChannels = communicationChannelRepository.findByOwner(fredDemoOwner);
     }
+
 
     public static class ActionImplementationIntegrationTest extends
             CommunicationChannel_updateNotes_IntegTest {
@@ -79,7 +70,7 @@ public class CommunicationChannel_updateNotes_IntegTest extends CommChannelModul
             final CommunicationChannel communicationChannel = fredChannels.first();
             final String newNotes = fakeDataService.lorem().paragraph();
 
-            wrap(communicationChannel_updateNotes).updateNotes(communicationChannel, newNotes);
+            wrap(updateNotes(communicationChannel)).__(newNotes);
 
             assertThat(communicationChannel.getNotes()).isEqualTo(newNotes);
         }
@@ -91,7 +82,7 @@ public class CommunicationChannel_updateNotes_IntegTest extends CommChannelModul
         public void happy_case() throws Exception {
             final CommunicationChannel communicationChannel = fredChannels.first();
 
-            final String notes = communicationChannel_updateNotes.default1UpdateNotes(communicationChannel);
+            final String notes = updateNotes(communicationChannel).default0__();
 
             assertThat(notes).isEqualTo(communicationChannel.getNotes());
         }
@@ -102,10 +93,10 @@ public class CommunicationChannel_updateNotes_IntegTest extends CommChannelModul
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            CommunicationChannel_updateNotes.UpdateNotesEvent ev;
+            CommunicationChannel_updateNotes.Event ev;
 
             @Subscribe
-            public void on(CommunicationChannel_updateNotes.UpdateNotesEvent ev) {
+            public void on(CommunicationChannel_updateNotes.Event ev) {
                 this.ev = ev;
             }
         }
@@ -115,9 +106,9 @@ public class CommunicationChannel_updateNotes_IntegTest extends CommChannelModul
 
         @Test
         public void happy_case() throws Exception {
-            final CommunicationChannel channel = fredChannels.first();
+            final CommunicationChannel communicationChannel = fredChannels.first();
             final String newParagraph = fakeDataService.lorem().paragraph();
-            wrap(communicationChannel_updateNotes).updateNotes(channel, newParagraph);
+            wrap(updateNotes(communicationChannel)).__(newParagraph);
 
             assertThat(testSubscriber.ev.getArguments().get(1)).isEqualTo(newParagraph);
         }

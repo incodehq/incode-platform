@@ -41,12 +41,13 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 )
 public class CommunicationChannelOwnerLinkRepository {
 
+    //region > injected services
     @javax.inject.Inject
-    private DomainObjectContainer container;
+    DomainObjectContainer container;
 
     @javax.inject.Inject
-    private BookmarkService bookmarkService;
-
+    BookmarkService bookmarkService;
+    //endregion
 
     PolymorphicAssociationLink.Factory<CommunicationChannel,CommunicationChannelOwner,CommunicationChannelOwnerLink,CommunicationChannelOwnerLink.InstantiateEvent> linkFactory;
 
@@ -86,9 +87,7 @@ public class CommunicationChannelOwnerLinkRepository {
                         "ownerObjectType", bookmark.getObjectType(),
                         "ownerIdentifier", bookmark.getIdentifier()));
     }
-    //endregion
 
-    //region > findByOwnerAndCommunicationChannelType (programmatic)
     @Programmatic
     public List<CommunicationChannelOwnerLink> findByOwnerAndCommunicationChannelType(
             final CommunicationChannelOwner owner,
@@ -117,6 +116,21 @@ public class CommunicationChannelOwnerLinkRepository {
         // copy over the type, to support subsequent querying.
         link.setCommunicationChannelType(communicationChannel.getType());
         return link;
+    }
+
+
+    @Programmatic
+    public CommunicationChannelOwnerLink getOwnerLink(
+            final CommunicationChannel communicationChannel) {
+        return findByCommunicationChannel(communicationChannel);
+    }
+
+    @Programmatic
+    public void removeOwnerLink(final CommunicationChannel communicationChannel) {
+        final CommunicationChannelOwnerLink ownerLink = getOwnerLink(communicationChannel);
+        if(ownerLink != null) {
+            container.remove(ownerLink);
+        }
     }
 
 }

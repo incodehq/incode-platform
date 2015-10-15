@@ -20,50 +20,60 @@ package org.incode.module.commchannel.dom.impl.postaladdress;
 
 import javax.inject.Inject;
 
+import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
-import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.commchannel.dom.api.geocoding.GeocodingService;
 
-@DomainService(
-        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
-)
+@Mixin
 public class PostalAddress_lookupGeocode {
 
-    @Inject
-    PostalAddress_updateAddress postalAddressUpdateAddress;
+    //region > injected services
     @Inject
     GeocodingService geocodingService;
+    @Inject
+    DomainObjectContainer container;
+    //endregion
 
+    //region > mixins
+    PostalAddress_update updatePostalAddress(final PostalAddress postalAddress) {
+        return container.mixin(PostalAddress_update.class, postalAddress);
+    }
+    //endregion
 
-    public static class LookupGeocodeEvent extends PostalAddress.ActionDomainEvent<PostalAddress_lookupGeocode> { }
+    //region > constructor
+    private final PostalAddress postalAddress;
+    public PostalAddress_lookupGeocode(final PostalAddress postalAddress) {
+        this.postalAddress = postalAddress;
+    }
+    //endregion
+
+    public static class Event extends PostalAddress.ActionDomainEvent<PostalAddress_lookupGeocode> { }
+
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
-            domainEvent = LookupGeocodeEvent.class
+            domainEvent = Event.class
     )
-    public PostalAddress lookupGeocode(
-            final PostalAddress postalAddress,
+    public PostalAddress __(
             @ParameterLayout(named = "Address")
             final String address) {
 
-        postalAddressUpdateAddress.lookupAndUpdateGeocode(postalAddress, true, address);
+        updatePostalAddress(this.postalAddress).lookupAndUpdateGeocode(true, address);
 
-        return postalAddress;
+        return this.postalAddress;
     }
 
-    public String default1LookupGeocode(
-            final PostalAddress postalAddress
+    public String default0__(
     ) {
         return geocodingService.combine(
                 GeocodingService.Encoding.NOT_ENCODED,
-                postalAddress.getAddressLine1(), postalAddress.getAddressLine2(),
-                postalAddress.getAddressLine3(), postalAddress.getAddressLine4(),
-                postalAddress.getPostalCode(), postalAddress.getCountry());
+                this.postalAddress.getAddressLine1(), this.postalAddress.getAddressLine2(),
+                this.postalAddress.getAddressLine3(), this.postalAddress.getAddressLine4(),
+                this.postalAddress.getPostalCode(), this.postalAddress.getCountry());
     }
-
 
 
 }

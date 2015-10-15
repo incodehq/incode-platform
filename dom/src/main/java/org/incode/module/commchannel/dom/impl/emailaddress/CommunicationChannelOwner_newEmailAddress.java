@@ -23,9 +23,8 @@ import javax.inject.Inject;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
-import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
@@ -35,32 +34,33 @@ import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 import org.incode.module.commchannel.dom.CommChannelModule;
 import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 
-/**
- * Domain service that contributes actions to create a new
- * {@link #newEmailAddress(CommunicationChannelOwner, String, String, String)} for a particular {@link CommunicationChannelOwner}.
- */
-@DomainService(
-        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
-)
+@Mixin
 public class CommunicationChannelOwner_newEmailAddress {
 
+    //region > injected services
     @Inject
     EmailAddressRepository emailAddressRepository;
+    //endregion
+
+    //region > constructor
+    private final CommunicationChannelOwner communicationChannelOwner;
+    public CommunicationChannelOwner_newEmailAddress(final CommunicationChannelOwner communicationChannelOwner) {
+        this.communicationChannelOwner = communicationChannelOwner;
+    }
+    //endregion
 
 
-    public static class NewEmailEvent
-            extends CommunicationChannelOwner.ActionDomainEvent<CommunicationChannelOwner_newEmailAddress> { }
+    public static class Event extends CommunicationChannelOwner.ActionDomainEvent
+                                            <CommunicationChannelOwner_newEmailAddress> { }
     @Action(
-            domainEvent = NewEmailEvent.class,
+            domainEvent = Event.class,
             semantics = SemanticsOf.NON_IDEMPOTENT
     )
     @ActionLayout(
             contributed = Contributed.AS_ACTION
     )
     @MemberOrder(name = "CommunicationChannels", sequence = "2")
-    public CommunicationChannelOwner newEmailAddress(
-            @ParameterLayout(named = "Owner")
-            final CommunicationChannelOwner owner,
+    public CommunicationChannelOwner __(
             @Parameter(
                     regexPattern = CommChannelModule.Regex.EMAIL_ADDRESS,
                     maxLength = CommChannelModule.JdoColumnLength.EMAIL_ADDRESS
@@ -73,9 +73,8 @@ public class CommunicationChannelOwner_newEmailAddress {
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Notes", multiLine = 10)
             final String notes) {
-        emailAddressRepository.newEmail(owner, email, description, notes);
-        return owner;
+        emailAddressRepository.newEmail(this.communicationChannelOwner, email, description, notes);
+        return this.communicationChannelOwner;
     }
-
 
 }

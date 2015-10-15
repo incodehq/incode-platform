@@ -42,10 +42,12 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 )
 public class CommunicationChannelRepository {
 
+    //region > injected services
     @Inject
     CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;
     @Inject
     DomainObjectContainer container;
+    //endregion
 
     @Programmatic
     public SortedSet<CommunicationChannel> findByOwner(final CommunicationChannelOwner owner) {

@@ -47,23 +47,17 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
 
     @Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;
-
-    CommChannelDemoObject fredDemoOwner;
-
-    @Inject
-    CommunicationChannelOwner_newEmailAddress communicationChannelOwner_newEmailAddress;
-
     @Inject
     CommunicationChannelRepository communicationChannelRepository;
-
     @Inject
     CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;
 
+    CommChannelDemoObject fredDemoOwner;
+
+
+
     SortedSet<CommunicationChannel> fredChannels;
     List<CommunicationChannelOwnerLink> fredLinks;
-
-    @Inject
-    CommunicationChannel_remove communicationChannel_remove;
 
     @Before
     public void setUpData() throws Exception {
@@ -71,11 +65,10 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
 
-        wrap(communicationChannelOwner_newEmailAddress)
-                .newEmailAddress(fredDemoOwner, "fred@gmail.com", "Home", "Fred Smith's home email");
-        wrap(communicationChannelOwner_newEmailAddress)
-                .newEmailAddress(fredDemoOwner, "fred.smith@somecompany.com", "Work", "Fred Smith's work email");
-
+        wrap(newEmailAddress(fredDemoOwner))
+                .__("fred@gmail.com", "Home", "Fred Smith's home email");
+        wrap(newEmailAddress(fredDemoOwner))
+                .__("fred.smith@somecompany.com", "Work", "Fred Smith's work email");
         fredChannels = communicationChannelRepository.findByOwner(fredDemoOwner);
         assertThat(fredChannels).hasSize(2);
 
@@ -83,12 +76,13 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
         assertThat(fredLinks).hasSize(2);
     }
 
+
     public static class ActionImplementationIntegrationTest extends CommunicationChannel_remove_IntegTest {
 
         @Test
         public void when_no_replacement() throws Exception {
             final CommunicationChannel channel = fredChannels.first();
-            wrap(communicationChannel_remove).remove(channel, null);
+            mixin(CommunicationChannel_remove.class, channel).__(null);
 
             assertThat(communicationChannelRepository.findByOwner(fredDemoOwner)).hasSize(1);
             assertThat(communicationChannelOwnerLinkRepository.findByOwner(fredDemoOwner)).hasSize(1);
@@ -98,7 +92,7 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
         public void when_replacement() throws Exception {
             final CommunicationChannel channel = fredChannels.first();
             final CommunicationChannel channel2 = fredChannels.last();
-            wrap(communicationChannel_remove).remove(channel, channel2);
+            mixin(CommunicationChannel_remove.class, channel).__(channel2);
 
             assertThat(communicationChannelRepository.findByOwner(fredDemoOwner)).hasSize(1);
             assertThat(communicationChannelOwnerLinkRepository.findByOwner(fredDemoOwner)).hasSize(1);
@@ -112,23 +106,22 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
             final CommunicationChannel channel = fredChannels.first();
             final CommunicationChannel channel2 = fredChannels.last();
 
-            final SortedSet<CommunicationChannel> choices = communicationChannel_remove
-                    .choices1Remove(channel);
+            final SortedSet<CommunicationChannel> choices = remove(channel)
+                    .choices0__();
 
             assertThat(choices).hasSize(1);
             assertThat(choices.first()).isSameAs(channel2);
         }
-
     }
 
     public static class RaisesEventIntegrationTest extends CommunicationChannel_remove_IntegTest {
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            CommunicationChannel_remove.RemoveEvent ev;
+            CommunicationChannel_remove.Event ev;
 
             @Subscribe
-            public void on(CommunicationChannel_remove.RemoveEvent ev) {
+            public void on(CommunicationChannel_remove.Event ev) {
                 this.ev = ev;
             }
         }
@@ -139,7 +132,7 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
         @Test
         public void when_no_replacement() throws Exception {
             final CommunicationChannel channel = fredChannels.first();
-            wrap(communicationChannel_remove).remove(channel, null);
+            mixin(CommunicationChannel_remove.class, channel).__(null);
 
         }
 
@@ -147,7 +140,7 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
         public void when_replacement() throws Exception {
             final CommunicationChannel channel = fredChannels.first();
             final CommunicationChannel channel2 = fredChannels.last();
-            wrap(communicationChannel_remove).remove(channel, channel2);
+            mixin(CommunicationChannel_remove.class, channel).__(channel2);
 
             assertThat(testSubscriber.ev).isNotNull();
             assertThat(testSubscriber.ev.getReplacement()).isSameAs(channel2);
