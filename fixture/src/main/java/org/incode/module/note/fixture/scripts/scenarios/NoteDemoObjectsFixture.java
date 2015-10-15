@@ -44,7 +44,7 @@ public class NoteDemoObjectsFixture extends DiscoverableFixtureScript {
 
     //region > mixins
     Notable_addNote mixinAddNote(final Notable notable) {
-        return mixin(Notable_addNote.class, notable);
+        return container.mixin(Notable_addNote.class, notable);
     }
     //endregion
 
