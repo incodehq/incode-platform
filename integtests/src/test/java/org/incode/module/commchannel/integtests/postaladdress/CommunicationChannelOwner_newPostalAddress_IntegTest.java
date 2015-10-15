@@ -61,16 +61,16 @@ public class CommunicationChannelOwner_newPostalAddress_IntegTest extends CommCh
         public void can_create_postal_address_without_looking_up_geocode() throws Exception {
 
             // given
-            final SortedSet<CommunicationChannel> channelsBefore = wrap(communicationChannels(fredDemoOwner)).__();
+            final SortedSet<CommunicationChannel> channelsBefore = wrap(mixinCommunicationChannels(fredDemoOwner)).__();
             assertThat(channelsBefore).hasSize(0);
 
             // when
-            wrap(newPostalAddress(fredDemoOwner)).__(
+            wrap(mixinNewPostalAddress(fredDemoOwner)).__(
                     "Flat 2a", "45 Penny Lane", "Allerton", "Liverpool", "L39 5AA", "UK", "Home", "Fred Smith's home",
                     false);
 
             // then
-            final SortedSet<CommunicationChannel> channelsAfter = wrap(communicationChannels(fredDemoOwner)).__();
+            final SortedSet<CommunicationChannel> channelsAfter = wrap(mixinCommunicationChannels(fredDemoOwner)).__();
 
             assertThat(channelsAfter).hasSize(1);
             final CommunicationChannel communicationChannel = channelsAfter.first();
@@ -102,15 +102,15 @@ public class CommunicationChannelOwner_newPostalAddress_IntegTest extends CommCh
         public void can_create_postal_address_and_also_look_up_geocode() throws Exception {
 
             // given
-            final SortedSet<CommunicationChannel> channelsBefore = wrap(communicationChannels(fredDemoOwner)).__();
+            final SortedSet<CommunicationChannel> channelsBefore = wrap(mixinCommunicationChannels(fredDemoOwner)).__();
             assertThat(channelsBefore).hasSize(0);
 
             // when
-            wrap(newPostalAddress(fredDemoOwner)).__(
+            wrap(mixinNewPostalAddress(fredDemoOwner)).__(
                     "45", "High Street", "Oxford", "Oxfordshire", "OX1", "UK", "Work", "Fred Smith's work", true);
 
             // then
-            final SortedSet<CommunicationChannel> channelsAfter = wrap(communicationChannels(fredDemoOwner)).__();
+            final SortedSet<CommunicationChannel> channelsAfter = wrap(mixinCommunicationChannels(fredDemoOwner)).__();
 
             assertThat(channelsAfter).hasSize(1);
             final CommunicationChannel communicationChannel = channelsAfter.first();
@@ -153,7 +153,7 @@ public class CommunicationChannelOwner_newPostalAddress_IntegTest extends CommCh
         @Test
         public void happy_case() throws Exception {
 
-            wrap(newPostalAddress(fredDemoOwner)).__(
+            wrap(mixinNewPostalAddress(fredDemoOwner)).__(
                     "Flat 2a", "45 Penny Lane", "Allerton", "Liverpool", "L39 5AA", "UK", "Home", "Fred Smith's home",
                     false);
 

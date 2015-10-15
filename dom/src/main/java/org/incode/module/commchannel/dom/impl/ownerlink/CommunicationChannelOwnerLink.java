@@ -138,7 +138,6 @@ public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociati
     }
     //endregion
 
-
     public static class CommunicationChannelEvent
             extends PropertyDomainEvent<CommunicationChannelOwnerLink,CommunicationChannel> { }
     @Getter @Setter

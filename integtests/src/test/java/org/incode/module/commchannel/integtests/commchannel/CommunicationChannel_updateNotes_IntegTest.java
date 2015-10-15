@@ -55,7 +55,7 @@ public class CommunicationChannel_updateNotes_IntegTest extends CommChannelModul
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Foo");
 
-        wrap(newEmailAddress(fredDemoOwner))
+        wrap(mixinNewEmailAddress(fredDemoOwner))
                 .__("fred@gmail.com", "Home", "Fred Smith's home email");
 
         fredChannels = communicationChannelRepository.findByOwner(fredDemoOwner);
@@ -70,7 +70,7 @@ public class CommunicationChannel_updateNotes_IntegTest extends CommChannelModul
             final CommunicationChannel communicationChannel = fredChannels.first();
             final String newNotes = fakeDataService.lorem().paragraph();
 
-            wrap(updateNotes(communicationChannel)).__(newNotes);
+            wrap(mixinUpdateNotes(communicationChannel)).__(newNotes);
 
             assertThat(communicationChannel.getNotes()).isEqualTo(newNotes);
         }
@@ -82,7 +82,7 @@ public class CommunicationChannel_updateNotes_IntegTest extends CommChannelModul
         public void happy_case() throws Exception {
             final CommunicationChannel communicationChannel = fredChannels.first();
 
-            final String notes = updateNotes(communicationChannel).default0__();
+            final String notes = mixinUpdateNotes(communicationChannel).default0__();
 
             assertThat(notes).isEqualTo(communicationChannel.getNotes());
         }
@@ -106,11 +106,12 @@ public class CommunicationChannel_updateNotes_IntegTest extends CommChannelModul
 
         @Test
         public void happy_case() throws Exception {
-            final CommunicationChannel communicationChannel = fredChannels.first();
+            final CommunicationChannel channel = fredChannels.first();
             final String newParagraph = fakeDataService.lorem().paragraph();
-            wrap(updateNotes(communicationChannel)).__(newParagraph);
+            wrap(mixinUpdateNotes(channel)).__(newParagraph);
 
-            assertThat(testSubscriber.ev.getArguments().get(1)).isEqualTo(newParagraph);
+            assertThat(testSubscriber.ev.getSource().getCommunicationChannel()).isSameAs(channel);
+            assertThat(testSubscriber.ev.getArguments().get(0)).isEqualTo(newParagraph);
         }
     }
 

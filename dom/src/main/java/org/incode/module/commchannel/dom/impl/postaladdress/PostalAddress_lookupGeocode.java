@@ -29,7 +29,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.incode.module.commchannel.dom.api.geocoding.GeocodingService;
 
 @Mixin
-public class PostalAddress_lookupGeocode {
+public class PostalAddress_lookupGeocode extends PostalAddressMixinAbstract {
 
     //region > injected services
     @Inject
@@ -39,15 +39,14 @@ public class PostalAddress_lookupGeocode {
     //endregion
 
     //region > mixins
-    PostalAddress_update updatePostalAddress(final PostalAddress postalAddress) {
+    PostalAddress_update mixinUpdatePostalAddress(final PostalAddress postalAddress) {
         return container.mixin(PostalAddress_update.class, postalAddress);
     }
     //endregion
 
     //region > constructor
-    private final PostalAddress postalAddress;
     public PostalAddress_lookupGeocode(final PostalAddress postalAddress) {
-        this.postalAddress = postalAddress;
+        super(postalAddress);
     }
     //endregion
 
@@ -61,7 +60,7 @@ public class PostalAddress_lookupGeocode {
             @ParameterLayout(named = "Address")
             final String address) {
 
-        updatePostalAddress(this.postalAddress).lookupAndUpdateGeocode(true, address);
+        mixinUpdatePostalAddress(this.postalAddress).lookupAndUpdateGeocode(true, address);
 
         return this.postalAddress;
     }

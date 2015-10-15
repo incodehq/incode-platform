@@ -46,20 +46,24 @@ public class CommunicationChannel_owner_IntegTest extends CommChannelModuleInteg
     SortedSet<CommunicationChannel> fredChannels;
     SortedSet<CommunicationChannel> billChannels;
 
+    CommunicationChannel_owner mixinOwner(final CommunicationChannel channel) {
+        return mixin(CommunicationChannel_owner.class, channel);
+    }
+
     @Before
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new CommChannelDemoObjectsTearDownFixture(), null);
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
-        wrap(newEmailAddress(fredDemoOwner))
+        wrap(mixinNewEmailAddress(fredDemoOwner))
                 .__("fred@gmail.com", "Home", "Fred Smith's home email");
-        wrap(newEmailAddress(fredDemoOwner))
+        wrap(mixinNewEmailAddress(fredDemoOwner))
                 .__("fred.smith@somecompany.com", "Work", "Fred Smith's work email");
         fredChannels = communicationChannelRepository.findByOwner(fredDemoOwner);
         assertThat(fredChannels).hasSize(2);
 
         billDemoOwner = wrap(commChannelDemoObjectMenu).create("Bill");
-        wrap(newEmailAddress(billDemoOwner))
+        wrap(mixinNewEmailAddress(billDemoOwner))
                 .__("bill@yahoo.com", "Home", "Bill Jones' home email");
         billChannels = communicationChannelRepository.findByOwner(billDemoOwner);
         assertThat(billChannels).hasSize(1);
@@ -70,10 +74,11 @@ public class CommunicationChannel_owner_IntegTest extends CommChannelModuleInteg
         @Test
         public void happy_case() throws Exception {
             for (final CommunicationChannel channel : fredChannels) {
-                final CommunicationChannel_owner owner = mixin(CommunicationChannel_owner.class, channel);
+                final CommunicationChannel_owner owner = mixinOwner(channel);
                 assertThat(owner.__()).isSameAs(fredDemoOwner);
             }
         }
+
     }
 
 

@@ -34,7 +34,7 @@ import org.incode.module.commchannel.dom.api.geocoding.GeocodedAddress;
 import org.incode.module.commchannel.dom.api.geocoding.GeocodingService;
 
 @Mixin
-public class PostalAddress_update {
+public class PostalAddress_update extends PostalAddressMixinAbstract {
 
     //region > injected services
     @Inject
@@ -44,23 +44,22 @@ public class PostalAddress_update {
     //endregion
 
     //region > mixins
-    private PostalAddress_resetGeocode resetGeocode() {
+    private PostalAddress_resetGeocode mixinResetGeocode() {
         return container.mixin(PostalAddress_resetGeocode.class, this.postalAddress);
     }
     //endregion
 
     //region > constructor
-    private final PostalAddress postalAddress;
     public PostalAddress_update(final PostalAddress postalAddress) {
-        this.postalAddress = postalAddress;
+        super(postalAddress);
     }
     //endregion
 
 
-    public static class UpdateAddressEvent extends PostalAddress.ActionDomainEvent<PostalAddress_update> { }
+    public static class Event extends PostalAddress.ActionDomainEvent<PostalAddress_update> { }
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
-            domainEvent = UpdateAddressEvent.class
+            domainEvent = Event.class
     )
     public PostalAddress __(
             @Parameter(maxLength = CommChannelModule.JdoColumnLength.ADDRESS_LINE)
@@ -123,7 +122,7 @@ public class PostalAddress_update {
                         CommunicationChannelOwner_newPostalAddress.class, "newPostal");
             }
         } else {
-            resetGeocode().__();
+            mixinResetGeocode().__();
         }
     }
 

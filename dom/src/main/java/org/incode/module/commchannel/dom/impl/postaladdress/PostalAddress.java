@@ -211,7 +211,6 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
     private String geocodeApiResponseAsJson;
 
 
-
     //region > Locatable API
     @Programmatic
     @Override
@@ -220,7 +219,5 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
         return latLng != null? Location.fromString(latLng.replace(",",";")): null;
     }
     //endregion
-
-
 
 }

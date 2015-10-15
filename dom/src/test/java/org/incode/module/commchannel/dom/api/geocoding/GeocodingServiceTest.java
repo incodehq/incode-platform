@@ -3,6 +3,7 @@ package org.incode.module.commchannel.dom.api.geocoding;
 import org.jmock.Expectations;
 import org.jmock.auto.Mock;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -28,6 +29,7 @@ public class GeocodingServiceTest {
             geocodingService.container = mockContainer;
         }
 
+        @Ignore
         @Test
         public void normal_mode() throws Exception {
 

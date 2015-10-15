@@ -35,7 +35,7 @@ import org.incode.module.commchannel.dom.CommChannelModule;
 import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 
 @Mixin
-public class CommunicationChannelOwner_newEmailAddress {
+public class CommunicationChannelOwner_newEmailAddress extends CommunicationChannelOwnerMixinAbstract {
 
     //region > injected services
     @Inject
@@ -43,12 +43,10 @@ public class CommunicationChannelOwner_newEmailAddress {
     //endregion
 
     //region > constructor
-    private final CommunicationChannelOwner communicationChannelOwner;
     public CommunicationChannelOwner_newEmailAddress(final CommunicationChannelOwner communicationChannelOwner) {
-        this.communicationChannelOwner = communicationChannelOwner;
+        super(communicationChannelOwner);
     }
     //endregion
-
 
     public static class Event extends CommunicationChannelOwner.ActionDomainEvent
                                             <CommunicationChannelOwner_newEmailAddress> { }

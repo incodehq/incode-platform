@@ -33,7 +33,6 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelRepository;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_remove;
-import org.incode.module.commchannel.dom.impl.emailaddress.CommunicationChannelOwner_newEmailAddress;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
@@ -54,8 +53,6 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
 
     CommChannelDemoObject fredDemoOwner;
 
-
-
     SortedSet<CommunicationChannel> fredChannels;
     List<CommunicationChannelOwnerLink> fredLinks;
 
@@ -65,9 +62,9 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
 
-        wrap(newEmailAddress(fredDemoOwner))
+        wrap(mixinNewEmailAddress(fredDemoOwner))
                 .__("fred@gmail.com", "Home", "Fred Smith's home email");
-        wrap(newEmailAddress(fredDemoOwner))
+        wrap(mixinNewEmailAddress(fredDemoOwner))
                 .__("fred.smith@somecompany.com", "Work", "Fred Smith's work email");
         fredChannels = communicationChannelRepository.findByOwner(fredDemoOwner);
         assertThat(fredChannels).hasSize(2);
@@ -106,7 +103,7 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
             final CommunicationChannel channel = fredChannels.first();
             final CommunicationChannel channel2 = fredChannels.last();
 
-            final SortedSet<CommunicationChannel> choices = remove(channel)
+            final SortedSet<CommunicationChannel> choices = mixinRemove(channel)
                     .choices0__();
 
             assertThat(choices).hasSize(1);
@@ -132,17 +129,20 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
         @Test
         public void when_no_replacement() throws Exception {
             final CommunicationChannel channel = fredChannels.first();
-            mixin(CommunicationChannel_remove.class, channel).__(null);
+            wrap(mixinRemove(channel)).__(null);
 
+            assertThat(testSubscriber.ev).isNotNull();
+            assertThat(testSubscriber.ev.getSource().getCommunicationChannel()).isSameAs(channel);
         }
 
         @Test
         public void when_replacement() throws Exception {
             final CommunicationChannel channel = fredChannels.first();
             final CommunicationChannel channel2 = fredChannels.last();
-            mixin(CommunicationChannel_remove.class, channel).__(channel2);
+            wrap(mixinRemove(channel)).__(channel2);
 
             assertThat(testSubscriber.ev).isNotNull();
+            assertThat(testSubscriber.ev.getSource().getCommunicationChannel()).isSameAs(channel);
             assertThat(testSubscriber.ev.getReplacement()).isSameAs(channel2);
         }
     }

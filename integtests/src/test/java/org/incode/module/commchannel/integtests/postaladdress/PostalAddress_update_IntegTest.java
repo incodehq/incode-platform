@@ -20,8 +20,14 @@ import java.util.SortedSet;
 
 import javax.inject.Inject;
 
+import com.google.common.eventbus.Subscribe;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import org.apache.isis.applib.AbstractSubscriber;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress;
@@ -39,9 +45,9 @@ public class PostalAddress_update_IntegTest extends CommChannelModuleIntegTest {
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;
 
     CommChannelDemoObject fredDemoOwner;
-    PostalAddress postalAddress;
+    PostalAddress fredPostalAddress;
 
-    PostalAddress_update updatePostalAddress(final PostalAddress postalAddress) {
+    PostalAddress_update mixinUpdate(final PostalAddress postalAddress) {
         return mixin(PostalAddress_update.class, postalAddress);
     }
 
@@ -51,12 +57,12 @@ public class PostalAddress_update_IntegTest extends CommChannelModuleIntegTest {
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
 
-        wrap(newPostalAddress(fredDemoOwner)).__(
+        wrap(mixinNewPostalAddress(fredDemoOwner)).__(
                 "Flat 2a", "45 Penny Lane", "Allerton", "Liverpool", "L39 5AA", "UK", "Work", "Fred Smith's work",
                 false);
 
-        final SortedSet<CommunicationChannel> communicationChannels = wrap(communicationChannels(fredDemoOwner)).__();
-        postalAddress = (PostalAddress) communicationChannels.first();
+        final SortedSet<CommunicationChannel> communicationChannels = wrap(mixinCommunicationChannels(fredDemoOwner)).__();
+        fredPostalAddress = (PostalAddress) communicationChannels.first();
 
     }
 
@@ -66,17 +72,17 @@ public class PostalAddress_update_IntegTest extends CommChannelModuleIntegTest {
         public void when_lookup_geocode_or_does_not_loookup() throws Exception {
 
             // when
-            wrap(updatePostalAddress(postalAddress)).__(
+            wrap(mixinUpdate(fredPostalAddress)).__(
                     "45", "High Street", "Oxford", null, "OX1",
                     "UK", true);
 
             // then
-            assertThat(postalAddress.getName()).isEqualTo("45 High St, Oxford, Oxfordshire OX1, UK");
-            assertThat(postalAddress.getFormattedAddress()).isEqualTo("45 High St, Oxford, Oxfordshire OX1, UK");
-            assertThat(postalAddress.getGeocodeApiResponseAsJson()).isNotNull();
-            assertThat(postalAddress.getLatLng()).isEqualTo("51.7525657,-1.2501133");
-            assertThat(postalAddress.getPlaceId()).isEqualTo("Eic0NSBIaWdoIFN0LCBPeGZvcmQsIE94Zm9yZHNoaXJlIE9YMSwgVUs");
-            assertThat(postalAddress.getAddressComponents()).isEqualTo(
+            assertThat(fredPostalAddress.getName()).isEqualTo("45 High St, Oxford, Oxfordshire OX1, UK");
+            assertThat(fredPostalAddress.getFormattedAddress()).isEqualTo("45 High St, Oxford, Oxfordshire OX1, UK");
+            assertThat(fredPostalAddress.getGeocodeApiResponseAsJson()).isNotNull();
+            assertThat(fredPostalAddress.getLatLng()).isEqualTo("51.7525657,-1.2501133");
+            assertThat(fredPostalAddress.getPlaceId()).isEqualTo("Eic0NSBIaWdoIFN0LCBPeGZvcmQsIE94Zm9yZHNoaXJlIE9YMSwgVUs");
+            assertThat(fredPostalAddress.getAddressComponents()).isEqualTo(
                     "street_number: 45\n" +
                             "route: High Street\n" +
                             "locality: Oxford\n" +
@@ -85,22 +91,22 @@ public class PostalAddress_update_IntegTest extends CommChannelModuleIntegTest {
                             "postal_code: OX1\n");
 
             // and when
-            wrap(updatePostalAddress(postalAddress)).__(
+            wrap(mixinUpdate(fredPostalAddress)).__(
                     "Flat 2a", "45 Penny Lane", "Allerton", "Liverpool", "L39 5AA",
                     "UK", false);
 
             // then
-            assertThat(postalAddress.getAddressLine1()).isEqualTo("Flat 2a");
-            assertThat(postalAddress.getAddressLine2()).isEqualTo("45 Penny Lane");
-            assertThat(postalAddress.getAddressLine3()).isEqualTo("Allerton");
-            assertThat(postalAddress.getAddressLine4()).isEqualTo("Liverpool");
-            assertThat(postalAddress.getPostalCode()).isEqualTo("L39 5AA");
-            assertThat(postalAddress.getCountry()).isEqualTo("UK");
-            assertThat(postalAddress.getFormattedAddress()).isNull();
-            assertThat(postalAddress.getGeocodeApiResponseAsJson()).isNull();
-            assertThat(postalAddress.getLatLng()).isNull();
-            assertThat(postalAddress.getPlaceId()).isNull();
-            assertThat(postalAddress.getAddressComponents()).isNull();
+            assertThat(fredPostalAddress.getAddressLine1()).isEqualTo("Flat 2a");
+            assertThat(fredPostalAddress.getAddressLine2()).isEqualTo("45 Penny Lane");
+            assertThat(fredPostalAddress.getAddressLine3()).isEqualTo("Allerton");
+            assertThat(fredPostalAddress.getAddressLine4()).isEqualTo("Liverpool");
+            assertThat(fredPostalAddress.getPostalCode()).isEqualTo("L39 5AA");
+            assertThat(fredPostalAddress.getCountry()).isEqualTo("UK");
+            assertThat(fredPostalAddress.getFormattedAddress()).isNull();
+            assertThat(fredPostalAddress.getGeocodeApiResponseAsJson()).isNull();
+            assertThat(fredPostalAddress.getLatLng()).isNull();
+            assertThat(fredPostalAddress.getPlaceId()).isNull();
+            assertThat(fredPostalAddress.getAddressComponents()).isNull();
         }
     }
 
@@ -108,24 +114,24 @@ public class PostalAddress_update_IntegTest extends CommChannelModuleIntegTest {
 
         @Test
         public void defaults_to_corresponding_property() throws Exception {
-            assertThat(updatePostalAddress(postalAddress).default0__())
-                    .isEqualTo(postalAddress.getAddressLine1());
-            assertThat(updatePostalAddress(postalAddress).default1__())
-                    .isEqualTo(postalAddress.getAddressLine2());
-            assertThat(updatePostalAddress(postalAddress).default2__())
-                    .isEqualTo(postalAddress.getAddressLine3());
-            assertThat(updatePostalAddress(postalAddress).default3__())
-                    .isEqualTo(postalAddress.getAddressLine4());
-            assertThat(updatePostalAddress(postalAddress).default4__())
-                    .isEqualTo(postalAddress.getPostalCode());
-            assertThat(updatePostalAddress(postalAddress).default5__())
-                    .isEqualTo(postalAddress.getCountry());
+            assertThat(mixinUpdate(fredPostalAddress).default0__())
+                    .isEqualTo(fredPostalAddress.getAddressLine1());
+            assertThat(mixinUpdate(fredPostalAddress).default1__())
+                    .isEqualTo(fredPostalAddress.getAddressLine2());
+            assertThat(mixinUpdate(fredPostalAddress).default2__())
+                    .isEqualTo(fredPostalAddress.getAddressLine3());
+            assertThat(mixinUpdate(fredPostalAddress).default3__())
+                    .isEqualTo(fredPostalAddress.getAddressLine4());
+            assertThat(mixinUpdate(fredPostalAddress).default4__())
+                    .isEqualTo(fredPostalAddress.getPostalCode());
+            assertThat(mixinUpdate(fredPostalAddress).default5__())
+                    .isEqualTo(fredPostalAddress.getCountry());
         }
 
         @Test
         public void default_for_place_id_parameter_when_not_looked_up() throws Exception {
             // when
-            final Boolean defaultPlaceId = updatePostalAddress(postalAddress).default6__();
+            final Boolean defaultPlaceId = mixinUpdate(fredPostalAddress).default6__();
             // then
             assertThat(defaultPlaceId).isNull();
         }
@@ -134,15 +140,53 @@ public class PostalAddress_update_IntegTest extends CommChannelModuleIntegTest {
         public void default_for_place_id_parameter_when_has_been_looked_up() throws Exception {
 
             // given
-            wrap(updatePostalAddress(postalAddress)).__(
+            wrap(mixinUpdate(fredPostalAddress)).__(
                     "45", "High Street", "Oxford", null, "OX1",
                     "UK", true);
 
             // when
-            final Boolean defaultPlaceId = updatePostalAddress(postalAddress).default6__();
+            final Boolean defaultPlaceId = mixinUpdate(fredPostalAddress).default6__();
 
             // then
             assertThat(defaultPlaceId).isTrue();
         }
     }
+
+
+    public static class RaisesEventIntegrationTest extends PostalAddress_update_IntegTest {
+
+        @DomainService(nature = NatureOfService.DOMAIN)
+        public static class TestSubscriber extends AbstractSubscriber {
+            PostalAddress_update.Event ev;
+
+            @Subscribe
+            public void on(PostalAddress_update.Event ev) {
+                this.ev = ev;
+            }
+        }
+
+        @Inject
+        TestSubscriber testSubscriber;
+
+        @Test
+        public void happy_case() throws Exception {
+
+            final String newLine1 = fakeDataService.addresses().streetAddressNumber();
+            final String newLine2 = fakeDataService.addresses().streetName();
+            final String newLine3 = fakeDataService.addresses().city();
+            final String newCountry = fakeDataService.addresses().country();
+            wrap(mixinUpdate(fredPostalAddress)).__(
+                    newLine1, newLine2, newLine3, null, null, newCountry, true);
+
+            assertThat(testSubscriber.ev.getSource().getPostalAddress()).isSameAs(fredPostalAddress);
+            assertThat(testSubscriber.ev.getArguments().get(0)).isEqualTo(newLine1);
+            assertThat(testSubscriber.ev.getArguments().get(1)).isEqualTo(newLine2);
+            assertThat(testSubscriber.ev.getArguments().get(2)).isEqualTo(newLine3);
+            assertThat(testSubscriber.ev.getArguments().get(3)).isNull();
+            assertThat(testSubscriber.ev.getArguments().get(4)).isNull();
+            assertThat(testSubscriber.ev.getArguments().get(5)).isEqualTo(newCountry);
+            assertThat(testSubscriber.ev.getArguments().get(6)).isEqualTo(true);
+        }
+    }
+
 }

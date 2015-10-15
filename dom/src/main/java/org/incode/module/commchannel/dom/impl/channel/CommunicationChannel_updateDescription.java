@@ -26,12 +26,11 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 @Mixin
-public class CommunicationChannel_updateDescription {
+public class CommunicationChannel_updateDescription extends CommunicationChannelMixinAbstract {
 
     //region > constructor
-    private final CommunicationChannel<?> communicationChannel;
     public CommunicationChannel_updateDescription(final CommunicationChannel<?> communicationChannel) {
-        this.communicationChannel = communicationChannel;
+        super(communicationChannel);
     }
     //endregion
 

@@ -32,7 +32,6 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelRepository;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_updateDescription;
-import org.incode.module.commchannel.dom.impl.emailaddress.CommunicationChannelOwner_newEmailAddress;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObjectMenu;
 import org.incode.module.commchannel.fixture.scripts.teardown.CommChannelDemoObjectsTearDownFixture;
@@ -56,7 +55,7 @@ public class CommunicationChannel_updateDescription_IntegTest extends CommChanne
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Foo");
 
-        wrap(newEmailAddress(fredDemoOwner))
+        wrap(mixinNewEmailAddress(fredDemoOwner))
                 .__("fred@gmail.com", "Home", "Fred Smith's home email");
 
         fredChannels = communicationChannelRepository.findByOwner(fredDemoOwner);
@@ -71,7 +70,7 @@ public class CommunicationChannel_updateDescription_IntegTest extends CommChanne
             final CommunicationChannel communicationChannel = fredChannels.first();
             final String newDescription = fakeDataService.lorem().sentence();
 
-            wrap(updateDescription(communicationChannel)).__(newDescription);
+            wrap(mixinUpdateDescription(communicationChannel)).__(newDescription);
 
             assertThat(communicationChannel.getDescription()).isEqualTo(newDescription);
         }
@@ -84,7 +83,7 @@ public class CommunicationChannel_updateDescription_IntegTest extends CommChanne
         public void happy_case() throws Exception {
             final CommunicationChannel communicationChannel = fredChannels.first();
 
-            final String descr = updateDescription(communicationChannel).default0__();
+            final String descr = mixinUpdateDescription(communicationChannel).default0__();
 
             assertThat(descr).isEqualTo(communicationChannel.getDescription());
         }
@@ -110,9 +109,10 @@ public class CommunicationChannel_updateDescription_IntegTest extends CommChanne
         public void happy_case() throws Exception {
             final CommunicationChannel channel = fredChannels.first();
             final String newParagraph = fakeDataService.lorem().paragraph();
-            wrap(updateDescription(channel)).__(newParagraph);
-            
-            assertThat(testSubscriber.ev.getArguments().get(1)).isEqualTo(newParagraph);
+            wrap(mixinUpdateDescription(channel)).__(newParagraph);
+
+            assertThat(testSubscriber.ev.getSource().getCommunicationChannel()).isSameAs(channel);
+            assertThat(testSubscriber.ev.getArguments().get(0)).isEqualTo(newParagraph);
         }
     }
 

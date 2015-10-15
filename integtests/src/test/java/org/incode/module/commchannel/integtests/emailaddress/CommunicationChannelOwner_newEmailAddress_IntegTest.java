@@ -60,14 +60,14 @@ public class CommunicationChannelOwner_newEmailAddress_IntegTest extends CommCha
         @Test
         public void happyCase() throws Exception {
             // given
-            final SortedSet<CommunicationChannel> channelsBefore = wrap(communicationChannels(fredDemoOwner)).__();
+            final SortedSet<CommunicationChannel> channelsBefore = wrap(mixinCommunicationChannels(fredDemoOwner)).__();
             assertThat(channelsBefore).hasSize(0);
 
             // when
-            wrap(newEmailAddress(fredDemoOwner)).__("fred@gmail.com", "Home", "Fred Smith's home email");
+            wrap(mixinNewEmailAddress(fredDemoOwner)).__("fred@gmail.com", "Home", "Fred Smith's home email");
 
             // then
-            final SortedSet<CommunicationChannel> channelsAfter = wrap(communicationChannels(fredDemoOwner)).__();
+            final SortedSet<CommunicationChannel> channelsAfter = wrap(mixinCommunicationChannels(fredDemoOwner)).__();
 
             assertThat(channelsAfter).hasSize(1);
             final CommunicationChannel communicationChannel = channelsAfter.first();
@@ -104,9 +104,10 @@ public class CommunicationChannelOwner_newEmailAddress_IntegTest extends CommCha
         @Test
         public void happy_case() throws Exception {
 
-            wrap(newEmailAddress(fredDemoOwner)).__("fred@gmail.com", "Home", "Fred Smith's home email");
+            wrap(mixinNewEmailAddress(fredDemoOwner)).__("fred@gmail.com", "Home", "Fred Smith's home email");
 
             assertThat(testSubscriber.ev).isNotNull();
+            assertThat(testSubscriber.ev.getSource().getCommunicationChannelOwner()).isSameAs(fredDemoOwner);
         }
 
     }

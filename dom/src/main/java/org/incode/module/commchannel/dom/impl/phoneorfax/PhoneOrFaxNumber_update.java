@@ -24,6 +24,7 @@ import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.commchannel.dom.CommChannelModule;
@@ -32,11 +33,17 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 @Mixin
 public class PhoneOrFaxNumber_update {
 
-    //region > constructor
+    //region > constructor, mixedIn accessor
     private final PhoneOrFaxNumber phoneOrFaxNumber;
     public PhoneOrFaxNumber_update(final PhoneOrFaxNumber phoneOrFaxNumber) {
         this.phoneOrFaxNumber = phoneOrFaxNumber;
     }
+
+    @Programmatic
+    public PhoneOrFaxNumber getPhoneOrFaxNumber() {
+        return phoneOrFaxNumber;
+    }
+
     //endregion
 
     public static class Event extends PhoneOrFaxNumber.ActionDomainEvent<PhoneOrFaxNumber_update> { }

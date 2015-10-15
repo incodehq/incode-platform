@@ -25,12 +25,11 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.value.Clob;
 
 @Mixin
-public class PostalAddress_downloadGeocode {
+public class PostalAddress_downloadGeocode extends PostalAddressMixinAbstract {
 
     //region > constructor
-    private final PostalAddress postalAddress;
     public PostalAddress_downloadGeocode(final PostalAddress postalAddress) {
-        this.postalAddress = postalAddress;
+        super(postalAddress);
     }
     //endregion
 

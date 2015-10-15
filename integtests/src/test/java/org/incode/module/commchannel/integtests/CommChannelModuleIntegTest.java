@@ -16,13 +16,11 @@
  */
 package org.incode.module.commchannel.integtests;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
 
 import org.apache.log4j.Level;
 import org.junit.BeforeClass;
@@ -65,10 +63,6 @@ public abstract class CommChannelModuleIntegTest extends IntegrationTestAbstract
     @Inject
     protected FakeDataService fakeDataService;
 
-    protected static <T> List<T> asList(final Iterable<T> iterable) {
-        return Lists.newArrayList(iterable);
-    }
-
     @BeforeClass
     public static void initClass() {
         org.apache.log4j.PropertyConfigurator.configure("logging.properties");
@@ -94,31 +88,31 @@ public abstract class CommChannelModuleIntegTest extends IntegrationTestAbstract
         new ScenarioExecutionForIntegration();
     }
 
-    protected CommunicationChannelOwner_newEmailAddress newEmailAddress(final CommChannelDemoObject owner) {
+    protected CommunicationChannelOwner_newEmailAddress mixinNewEmailAddress(final CommChannelDemoObject owner) {
         return mixin(CommunicationChannelOwner_newEmailAddress.class, owner);
     }
 
-    protected CommunicationChannelOwner_newPostalAddress newPostalAddress(final CommChannelDemoObject owner) {
+    protected CommunicationChannelOwner_newPostalAddress mixinNewPostalAddress(final CommChannelDemoObject owner) {
         return mixin(CommunicationChannelOwner_newPostalAddress.class, owner);
     }
 
-    protected CommunicationChannelOwner_newPhoneOrFaxNumber newPhoneOrFaxNumber(final CommChannelDemoObject owner) {
+    protected CommunicationChannelOwner_newPhoneOrFaxNumber mixinNewPhoneOrFaxNumber(final CommChannelDemoObject owner) {
         return mixin(CommunicationChannelOwner_newPhoneOrFaxNumber.class, owner);
     }
 
-    protected CommunicationChannel_remove remove(final CommunicationChannel channel) {
+    protected CommunicationChannel_remove mixinRemove(final CommunicationChannel channel) {
         return mixin(CommunicationChannel_remove.class, channel);
     }
 
-    protected CommunicationChannel_updateDescription updateDescription(final CommunicationChannel communicationChannel) {
+    protected CommunicationChannel_updateDescription mixinUpdateDescription(final CommunicationChannel communicationChannel) {
         return mixin(CommunicationChannel_updateDescription.class, communicationChannel);
     }
 
-    protected CommunicationChannel_updateNotes updateNotes(final CommunicationChannel communicationChannel) {
+    protected CommunicationChannel_updateNotes mixinUpdateNotes(final CommunicationChannel communicationChannel) {
         return mixin(CommunicationChannel_updateNotes.class, communicationChannel);
     }
 
-    protected CommunicationChannelOwner_communicationChannels communicationChannels(final CommChannelDemoObject owner) {
+    protected CommunicationChannelOwner_communicationChannels mixinCommunicationChannels(final CommChannelDemoObject owner) {
         return mixin(CommunicationChannelOwner_communicationChannels.class, owner);
     }
 

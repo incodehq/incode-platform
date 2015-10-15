@@ -20,8 +20,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import com.google.common.eventbus.Subscribe;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import org.apache.isis.applib.AbstractSubscriber;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber_update;
@@ -41,7 +47,7 @@ public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTes
     CommChannelDemoObject fredDemoOwner;
     PhoneOrFaxNumber fredPhone;
 
-    PhoneOrFaxNumber_update updatePhoneOrFaxNumber(final PhoneOrFaxNumber phoneOrFaxNumber) {
+    PhoneOrFaxNumber_update mixinUpdate(final PhoneOrFaxNumber phoneOrFaxNumber) {
         return container.mixin(PhoneOrFaxNumber_update.class, phoneOrFaxNumber);
     }
 
@@ -50,10 +56,10 @@ public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTes
         fixtureScripts.runFixtureScript(new CommChannelDemoObjectsTearDownFixture(), null);
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
-        wrap(newPhoneOrFaxNumber(fredDemoOwner))
+        wrap(mixinNewPhoneOrFaxNumber(fredDemoOwner))
                 .__(CommunicationChannelType.PHONE_NUMBER, "0207 999 8888", "Home",
                         "Fred Smith's home phone");
-        fredPhone = (PhoneOrFaxNumber)wrap(communicationChannels(fredDemoOwner))
+        fredPhone = (PhoneOrFaxNumber)wrap(mixinCommunicationChannels(fredDemoOwner))
                                             .__().first();
     }
 
@@ -64,7 +70,7 @@ public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTes
         public void happy_case() throws Exception {
 
             final PhoneOrFaxNumber returned =
-                    wrap(updatePhoneOrFaxNumber(fredPhone)).__(CommunicationChannelType.FAX_NUMBER, "0207 111 2222");
+                    wrap(mixinUpdate(fredPhone)).__(CommunicationChannelType.FAX_NUMBER, "0207 111 2222");
 
             assertThat(fredPhone.getPhoneNumber()).isEqualTo("0207 111 2222");
             assertThat(fredPhone.getType()).isEqualTo(CommunicationChannelType.FAX_NUMBER);
@@ -77,7 +83,7 @@ public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTes
         @Test
         public void fax_and_phone_are_the_only_valid_choices() throws Exception {
 
-            final List<CommunicationChannelType> types = updatePhoneOrFaxNumber(fredPhone).choices1__();
+            final List<CommunicationChannelType> types = mixinUpdate(fredPhone).choices1__();
 
             assertThat(types).hasSize(2);
             assertThat(types).contains(CommunicationChannelType.FAX_NUMBER);
@@ -89,7 +95,7 @@ public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTes
 
         @Test
         public void should_default_to_current_type() throws Exception {
-            final CommunicationChannelType defaultType = updatePhoneOrFaxNumber(fredPhone).default0__(
+            final CommunicationChannelType defaultType = mixinUpdate(fredPhone).default0__(
             );
 
             assertThat(defaultType).isEqualTo(fredPhone.getType());
@@ -101,12 +107,39 @@ public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTes
 
         @Test
         public void should_default_to_current_number() throws Exception {
-            final String defaultNumber = updatePhoneOrFaxNumber(fredPhone).default1__(
-            );
+            final String defaultNumber = mixinUpdate(fredPhone).default1__();
 
             assertThat(defaultNumber).isEqualTo(fredPhone.getPhoneNumber());
         }
-
     }
+
+
+    public static class RaisesEventIntegrationTest extends PhoneOrFaxNumber_update_IntegTest {
+
+        @DomainService(nature = NatureOfService.DOMAIN)
+        public static class TestSubscriber extends AbstractSubscriber {
+            PhoneOrFaxNumber_update.Event ev;
+
+            @Subscribe
+            public void on(PhoneOrFaxNumber_update.Event ev) {
+                this.ev = ev;
+            }
+        }
+
+        @Inject
+        TestSubscriber testSubscriber;
+
+        @Test
+        public void happy_case() throws Exception {
+
+            final String newPhoneNumber = "0207 111 2222";
+            wrap(mixinUpdate(fredPhone)).__(CommunicationChannelType.FAX_NUMBER, newPhoneNumber);
+
+            assertThat(testSubscriber.ev.getSource().getPhoneOrFaxNumber()).isSameAs(fredPhone);
+            assertThat(testSubscriber.ev.getArguments().get(0)).isEqualTo(CommunicationChannelType.FAX_NUMBER);
+            assertThat(testSubscriber.ev.getArguments().get(1)).isEqualTo(newPhoneNumber);
+        }
+    }
+
 
 }

@@ -23,12 +23,11 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 @Mixin
-public class PostalAddress_resetGeocode {
+public class PostalAddress_resetGeocode extends PostalAddressMixinAbstract {
 
     //region > constructor
-    private final PostalAddress postalAddress;
     public PostalAddress_resetGeocode(final PostalAddress postalAddress) {
-        this.postalAddress = postalAddress;
+        super(postalAddress);
     }
     //endregion
 

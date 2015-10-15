@@ -64,7 +64,7 @@ public class PhoneOrFaxNumber extends CommunicationChannel<PhoneOrFaxNumber> {
         return getPhoneNumber();
     //endregion
     }
-
+    //endregion
 
     public static class PhoneNumberEvent extends PropertyDomainEvent<PhoneOrFaxNumber, String> { }
     @Getter @Setter

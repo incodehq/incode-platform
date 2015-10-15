@@ -20,6 +20,7 @@ package org.incode.module.commchannel.dom.impl.postaladdress;
 
 import javax.inject.Inject;
 
+import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
@@ -41,7 +42,13 @@ public class CommunicationChannelOwner_newPostalAddress {
     @Inject
     PostalAddressRepository postalAddressRepository;
     @Inject
-    PostalAddress_update postalAddressUpdateAddress;
+    DomainObjectContainer container;
+    //endregion
+
+    //region > mixins
+    private PostalAddress_update mixinUpdate(final PostalAddress postalAddress) {
+        return container.mixin(PostalAddress_update.class, postalAddress);
+    }
     //endregion
 
     //region > constructor
@@ -99,11 +106,11 @@ public class CommunicationChannelOwner_newPostalAddress {
                         description, notes
                 );
 
-        postalAddressUpdateAddress.lookupAndUpdateGeocode(
-                lookupGeocode,
-                addressLine1, addressLine2, addressLine3, addressLine4, postalCode, country);
+        mixinUpdate(postalAddress).lookupAndUpdateGeocode(
+                lookupGeocode, addressLine1, addressLine2, addressLine3, addressLine4, postalCode, country);
 
         return this.communicationChannelOwner;
     }
+
 
 }

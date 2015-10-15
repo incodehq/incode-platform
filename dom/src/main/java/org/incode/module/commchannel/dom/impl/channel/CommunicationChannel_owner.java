@@ -35,7 +35,7 @@ import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwne
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
 
 @Mixin
-public class CommunicationChannel_owner {
+public class CommunicationChannel_owner extends CommunicationChannelMixinAbstract{
 
     //region > injected services
     @Inject
@@ -43,9 +43,8 @@ public class CommunicationChannel_owner {
     //endregion
 
     //region > constructor
-    private final CommunicationChannel<?> communicationChannel;
     public CommunicationChannel_owner(final CommunicationChannel<?> communicationChannel) {
-        this.communicationChannel = communicationChannel;
+        super(communicationChannel);
     }
     //endregion
 

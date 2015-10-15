@@ -33,7 +33,7 @@ import org.incode.module.commchannel.dom.impl.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
 
 @Mixin
-public class CommunicationChannel_remove {
+public class CommunicationChannel_remove extends CommunicationChannelMixinAbstract {
 
     //region > injected services
     @Inject
@@ -45,21 +45,20 @@ public class CommunicationChannel_remove {
     //endregion
 
     //region > mixins
-    private CommunicationChannelOwner owner() {
+    private CommunicationChannelOwner mixinOwner() {
         return container.mixin(CommunicationChannel_owner.class, communicationChannel).__();
     }
     //endregion
 
     //region > constructor
-    private final CommunicationChannel<?> communicationChannel;
     public CommunicationChannel_remove(final CommunicationChannel<?> communicationChannel) {
-        this.communicationChannel = communicationChannel;
+        super(communicationChannel);
     }
     //endregion
 
     public static class Event extends CommunicationChannel.ActionDomainEvent<CommunicationChannel_remove> {
         public CommunicationChannel<?> getReplacement() {
-            return (CommunicationChannel<?>) getArguments().get(1);
+            return (CommunicationChannel<?>) getArguments().get(0);
         }
     }
 
@@ -71,14 +70,14 @@ public class CommunicationChannel_remove {
             @ParameterLayout(named = "Replace with")
             @Parameter(optionality = Optionality.OPTIONAL)
             final CommunicationChannel replacement) {
-        final CommunicationChannelOwner owner = owner();
+        final CommunicationChannelOwner owner = mixinOwner();
         removeLink();
         return owner;
     }
 
     public SortedSet<CommunicationChannel> choices0__() {
         return communicationChannelRepository.findOtherByOwnerAndType(
-                owner(), this.communicationChannel.getType(),
+                mixinOwner(), this.communicationChannel.getType(),
                 this.communicationChannel);
     }
 

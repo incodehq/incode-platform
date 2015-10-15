@@ -22,6 +22,7 @@ import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.commchannel.dom.CommChannelModule;
@@ -29,15 +30,20 @@ import org.incode.module.commchannel.dom.CommChannelModule;
 @Mixin
 public class EmailAddress_update {
 
-    //region > constructor
+    //region > constructor, mixedIn accessor
     private final EmailAddress emailAddress;
     public EmailAddress_update(final EmailAddress emailAddress) {
         this.emailAddress = emailAddress;
     }
+
+    @Programmatic
+    public EmailAddress getEmailAddress() {
+        return emailAddress;
+    }
     //endregion
 
-    public static class Event extends EmailAddress.ActionDomainEvent<EmailAddress_update> { }
 
+    public static class Event extends EmailAddress.ActionDomainEvent<EmailAddress_update> { }
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
             domainEvent = Event.class

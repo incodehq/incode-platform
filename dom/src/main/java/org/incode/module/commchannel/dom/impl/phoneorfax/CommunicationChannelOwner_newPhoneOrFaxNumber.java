@@ -30,6 +30,7 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 
@@ -45,11 +46,17 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber {
     PhoneOrFaxNumberRepository phoneOrFaxNumberRepository;
     //endregion
 
-    //region > constructor
+    //region > constructor and mixedIn accessor
     private final CommunicationChannelOwner communicationChannelOwner;
     public CommunicationChannelOwner_newPhoneOrFaxNumber(final CommunicationChannelOwner communicationChannelOwner) {
         this.communicationChannelOwner = communicationChannelOwner;
     }
+
+    @Programmatic
+    public CommunicationChannelOwner getCommunicationChannelOwner() {
+        return communicationChannelOwner;
+    }
+
     //endregion
 
     public static class Event extends CommunicationChannelOwner.ActionDomainEvent
