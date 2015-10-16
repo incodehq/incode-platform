@@ -62,10 +62,10 @@ public class Notable_addNote {
     //endregion
 
 
-    public static class Event extends Notable.ActionDomainEvent<Notable_addNote> { }
+    public static class DomainEvent extends Notable.ActionDomainEvent<Notable_addNote> { }
 
     @Action(
-            domainEvent = Event.class,
+            domainEvent = DomainEvent.class,
             semantics = SemanticsOf.NON_IDEMPOTENT
     )
     public Notable __(

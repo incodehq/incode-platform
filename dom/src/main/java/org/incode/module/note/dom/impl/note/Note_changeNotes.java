@@ -27,10 +27,10 @@ public class Note_changeNotes {
     //endregion
 
 
-    public static class Event extends NoteModule.ActionDomainEvent<Note_changeNotes> { }
+    public static class DomainEvent extends Note.ActionDomainEvent<Note_changeNotes> { }
 
     @Action(
-            domainEvent = Event.class,
+            domainEvent = DomainEvent.class,
             semantics = SemanticsOf.IDEMPOTENT
     )
     public Note __(

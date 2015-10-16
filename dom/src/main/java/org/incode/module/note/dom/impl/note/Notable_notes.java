@@ -53,9 +53,9 @@ public class Notable_notes {
 
 
 
-    public static class Event extends Notable.ActionDomainEvent<Notable_notes> { } { }
+    public static class DomainEvent extends Notable.ActionDomainEvent<Notable_notes> { } { }
     @Action(
-            domainEvent = Event.class,
+            domainEvent = DomainEvent.class,
             semantics = SemanticsOf.SAFE
     )
     @ActionLayout(

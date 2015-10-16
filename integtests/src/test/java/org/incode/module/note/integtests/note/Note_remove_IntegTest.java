@@ -108,10 +108,10 @@ public class Note_remove_IntegTest extends NoteModuleIntegTest {
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class Subscriber extends AbstractSubscriber {
 
-            Note_remove.Event ev;
+            Note_remove.DomainEvent ev;
 
             @Subscribe
-            public void on(Note_remove.Event ev) {
+            public void on(Note_remove.DomainEvent ev) {
                 this.ev = ev;
             }
         }

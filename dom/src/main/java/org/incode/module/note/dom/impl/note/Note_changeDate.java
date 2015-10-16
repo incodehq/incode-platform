@@ -18,7 +18,6 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.module.note.dom.NoteModule;
 import org.incode.module.note.dom.impl.calendarname.CalendarNameService;
 import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
 
@@ -46,10 +45,10 @@ public class Note_changeDate {
     //endregion
 
 
-    public static class Event extends NoteModule.ActionDomainEvent<Note_changeDate> { }
+    public static class DomainEvent extends Note.ActionDomainEvent<Note_changeDate> { }
 
     @Action(
-            domainEvent = Event.class,
+            domainEvent = DomainEvent.class,
             semantics = SemanticsOf.IDEMPOTENT
     )
     public Note __(

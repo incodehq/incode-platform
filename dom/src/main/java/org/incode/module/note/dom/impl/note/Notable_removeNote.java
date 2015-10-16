@@ -48,10 +48,10 @@ public class Notable_removeNote {
     }
     //endregion
 
-    public static class Event extends Notable.ActionDomainEvent<Notable_removeNote> { } { }
+    public static class DomainEvent extends Notable.ActionDomainEvent<Notable_removeNote> { } { }
 
     @Action(
-            domainEvent = Event.class,
+            domainEvent = DomainEvent.class,
             semantics = SemanticsOf.IDEMPOTENT
     )
     public Notable __(final Note note) {

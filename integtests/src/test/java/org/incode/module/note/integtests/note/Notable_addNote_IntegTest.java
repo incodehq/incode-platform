@@ -256,10 +256,10 @@ public class Notable_addNote_IntegTest extends NoteModuleIntegTest {
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class Subscriber extends AbstractSubscriber {
 
-            Notable_addNote.Event ev;
+            Notable_addNote.DomainEvent ev;
 
             @Subscribe
-            public void on(Notable_addNote.Event ev) {
+            public void on(Notable_addNote.DomainEvent ev) {
                 this.ev = ev;
             }
         }
