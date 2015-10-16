@@ -44,7 +44,7 @@
             "postalCode": {},
             "country": {
               "actions": {
-                "updateAddress": {
+                "update": {
                   "actionLayout": {
                     "named": "Update"
                   }
@@ -57,12 +57,12 @@
           "members": {
             "formattedAddress": {
               "actions": {
-                "updateGeocode": {
+                "lookupGeocode": {
                   "actionLayout": {
-                    "named": "Update"
+                    "named": "Lookup"
                   }
                 },
-                "resetGeocode": {
+                "clearGeocode": {
                   "actionLayout": {
                     "named": "Clear"
                   }

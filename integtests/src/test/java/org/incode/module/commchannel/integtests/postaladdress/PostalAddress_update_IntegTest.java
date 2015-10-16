@@ -157,10 +157,10 @@ public class PostalAddress_update_IntegTest extends CommChannelModuleIntegTest {
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            PostalAddress_update.Event ev;
+            PostalAddress_update.DomainEvent ev;
 
             @Subscribe
-            public void on(PostalAddress_update.Event ev) {
+            public void on(PostalAddress_update.DomainEvent ev) {
                 this.ev = ev;
             }
         }

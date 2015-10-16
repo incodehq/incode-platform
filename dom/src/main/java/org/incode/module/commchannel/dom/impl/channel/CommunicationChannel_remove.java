@@ -23,6 +23,7 @@ import javax.inject.Inject;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
@@ -63,15 +64,18 @@ public class CommunicationChannel_remove {
 
     //endregion
 
-    public static class Event extends CommunicationChannel.ActionDomainEvent<CommunicationChannel_remove> {
+    public static class DomainEvent extends CommunicationChannel.ActionDomainEvent<CommunicationChannel_remove> {
         public CommunicationChannel<?> getReplacement() {
             return (CommunicationChannel<?>) getArguments().get(0);
         }
     }
 
     @Action(
-            domainEvent = Event.class,
-            semantics = SemanticsOf.IDEMPOTENT
+            domainEvent = DomainEvent.class,
+            semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE
+    )
+    @ActionLayout(
+            named = "Remove"
     )
     public CommunicationChannelOwner __(
             @ParameterLayout(named = "Replace with")
@@ -88,7 +92,7 @@ public class CommunicationChannel_remove {
                 this.communicationChannel);
     }
 
-    private void removeLink() {
+    void removeLink() {
         ownerLinkRepository.removeOwnerLink(communicationChannel);
         container.remove(communicationChannel);
     }

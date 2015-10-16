@@ -76,7 +76,7 @@ public class CommunicationChannelOwner_newPostalAddress_IntegTest extends CommCh
             final CommunicationChannel communicationChannel = channelsAfter.first();
 
             assertThat(communicationChannel.getName()).isEqualTo("Flat 2a, 45 Pe..., L39 5AA, UK");
-            assertThat(communicationChannel.getDescription()).isEqualTo("Home");
+            assertThat(communicationChannel.getPurpose()).isEqualTo("Home");
             assertThat(communicationChannel.getNotes()).isEqualTo("Fred Smith's home");
             assertThat(communicationChannel.getType()).isEqualTo(CommunicationChannelType.POSTAL_ADDRESS);
             assertThat(communicationChannel.getId()).isNotNull();
@@ -139,10 +139,10 @@ public class CommunicationChannelOwner_newPostalAddress_IntegTest extends CommCh
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            CommunicationChannelOwner_newPostalAddress.Event ev;
+            CommunicationChannelOwner_newPostalAddress.DomainEvent ev;
 
             @Subscribe
-            public void on(CommunicationChannelOwner_newPostalAddress.Event ev) {
+            public void on(CommunicationChannelOwner_newPostalAddress.DomainEvent ev) {
                 this.ev = ev;
             }
         }

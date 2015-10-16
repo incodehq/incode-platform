@@ -79,7 +79,7 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest extends Com
 
             final CommunicationChannel communicationChannel = communicationChannelsAfter.first();
             assertThat(communicationChannel.getName()).isEqualTo("0207 999 8888");
-            assertThat(communicationChannel.getDescription()).isEqualTo("Work");
+            assertThat(communicationChannel.getPurpose()).isEqualTo("Work");
             assertThat(communicationChannel.getNotes()).isEqualTo("Fred's work number");
             assertThat(communicationChannel.getType()).isEqualTo(CommunicationChannelType.PHONE_NUMBER);
             assertThat(communicationChannel.getLocation()).isNull();
@@ -136,10 +136,10 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest extends Com
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            CommunicationChannelOwner_newPhoneOrFaxNumber.Event ev;
+            CommunicationChannelOwner_newPhoneOrFaxNumber.DomainEvent ev;
 
             @Subscribe
-            public void on(CommunicationChannelOwner_newPhoneOrFaxNumber.Event ev) {
+            public void on(CommunicationChannelOwner_newPhoneOrFaxNumber.DomainEvent ev) {
                 this.ev = ev;
             }
         }

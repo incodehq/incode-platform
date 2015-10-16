@@ -73,7 +73,7 @@ public class CommunicationChannelOwner_newEmailAddress_IntegTest extends CommCha
             final CommunicationChannel communicationChannel = channelsAfter.first();
 
             assertThat(communicationChannel.getName()).isEqualTo("fred@gmail.com");
-            assertThat(communicationChannel.getDescription()).isEqualTo("Home");
+            assertThat(communicationChannel.getPurpose()).isEqualTo("Home");
             assertThat(communicationChannel.getNotes()).isEqualTo("Fred Smith's home email");
             assertThat(communicationChannel.getType()).isEqualTo(CommunicationChannelType.EMAIL_ADDRESS);
             assertThat(communicationChannel.getLocation()).isNull();
@@ -90,10 +90,10 @@ public class CommunicationChannelOwner_newEmailAddress_IntegTest extends CommCha
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            CommunicationChannelOwner_newEmailAddress.Event ev;
+            CommunicationChannelOwner_newEmailAddress.DomainEvent ev;
 
             @Subscribe
-            public void on(CommunicationChannelOwner_newEmailAddress.Event ev) {
+            public void on(CommunicationChannelOwner_newEmailAddress.DomainEvent ev) {
                 this.ev = ev;
             }
         }

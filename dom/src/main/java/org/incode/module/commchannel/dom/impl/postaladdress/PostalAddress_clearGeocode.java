@@ -39,11 +39,11 @@ public class PostalAddress_clearGeocode {
     }
     //endregion
 
-    public static class Event extends PostalAddress.ActionDomainEvent<PostalAddress_clearGeocode> { }
+    public static class DomainEvent extends PostalAddress.ActionDomainEvent<PostalAddress_clearGeocode> { }
 
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
-            domainEvent = Event.class
+            domainEvent = DomainEvent.class
     )
     public PostalAddress __() {
         this.postalAddress.setFormattedAddress(null);

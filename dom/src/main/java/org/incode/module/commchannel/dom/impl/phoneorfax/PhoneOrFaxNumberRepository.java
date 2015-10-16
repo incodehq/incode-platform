@@ -63,7 +63,7 @@ public class PhoneOrFaxNumberRepository {
         pn.setPhoneNumber(number);
         owner(pn).setOwner(owner);
 
-        pn.setDescription(description);
+        pn.setPurpose(description);
         pn.setNotes(notes);
 
         container.persistIfNotAlready(pn);

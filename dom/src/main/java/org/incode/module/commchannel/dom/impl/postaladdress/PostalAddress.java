@@ -82,69 +82,69 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
     //endregion
 
 
-    public static class AddressLine1Event extends PropertyDomainEvent<PostalAddress,String> { }
+    public static class AddressLine1DomainEvent extends PropertyDomainEvent<PostalAddress,String> { }
     @Getter @Setter
     @javax.jdo.annotations.Column(allowsNull = "true", length = CommChannelModule.JdoColumnLength.ADDRESS_LINE)
     @Property(
-            domainEvent = AddressLine1Event.class,
+            domainEvent = AddressLine1DomainEvent.class,
             optionality = Optionality.MANDATORY
     )
     private String addressLine1;
 
 
-    public static class AddressLine2Event extends PropertyDomainEvent<PostalAddress,String> { }
+    public static class AddressLine2DomainEvent extends PropertyDomainEvent<PostalAddress,String> { }
     @Getter @Setter
     @javax.jdo.annotations.Column(
             allowsNull = "true",
             length = CommChannelModule.JdoColumnLength.ADDRESS_LINE
     )
     @Property(
-            domainEvent = AddressLine2Event.class,
+            domainEvent = AddressLine2DomainEvent.class,
             optionality = Optionality.MANDATORY
     )
     private String addressLine2;
 
 
-    public static class AddressLine3Event extends PropertyDomainEvent<PostalAddress,String> { }
+    public static class AddressLine3DomainEvent extends PropertyDomainEvent<PostalAddress,String> { }
     @Getter @Setter
     @javax.jdo.annotations.Column(
             allowsNull = "true",
             length = CommChannelModule.JdoColumnLength.ADDRESS_LINE
     )
     @Property(
-            domainEvent = AddressLine3Event.class,
+            domainEvent = AddressLine3DomainEvent.class,
             optionality = Optionality.MANDATORY
     )
     private String addressLine3;
 
 
-    public static class AddressLine4Event extends PropertyDomainEvent<PostalAddress,String> { }
+    public static class AddressLine4DomainEvent extends PropertyDomainEvent<PostalAddress,String> { }
     @Getter @Setter
     @javax.jdo.annotations.Column(
             allowsNull = "true",
             length = CommChannelModule.JdoColumnLength.ADDRESS_LINE
     )
     @Property(
-            domainEvent = AddressLine4Event.class,
+            domainEvent = AddressLine4DomainEvent.class,
             optionality = Optionality.MANDATORY
     )
     private String addressLine4;
 
 
-    public static class PostalCodeEvent extends PropertyDomainEvent<PostalAddress,String> { }
+    public static class PostalCodeDomainEvent extends PropertyDomainEvent<PostalAddress,String> { }
     @Getter @Setter
     @javax.jdo.annotations.Column(
             allowsNull = "true",
             length = CommChannelModule.JdoColumnLength.POSTAL_CODE
     )
     @Property(
-            domainEvent = PostalCodeEvent.class,
+            domainEvent = PostalCodeDomainEvent.class,
             optionality = Optionality.MANDATORY
     )
     private String postalCode;
 
 
-    public static class CountryEvent extends PropertyDomainEvent<PostalAddress,String> { }
+    public static class CountryDomainEvent extends PropertyDomainEvent<PostalAddress,String> { }
     @Getter @Setter
     @javax.jdo.annotations.Column(
             allowsNull = "true", // optional only because of superclass inheritance strategy=SUPERCLASS_TABLE
@@ -152,45 +152,45 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
     )
     @Property(
             optionality = Optionality.MANDATORY,
-            domainEvent = CountryEvent.class
+            domainEvent = CountryDomainEvent.class
     )
     private String country;
 
 
-    public static class FormattedAddressEvent extends PropertyDomainEvent<PostalAddress, String> {}
+    public static class FormattedAddressDomainEvent extends PropertyDomainEvent<PostalAddress, String> {}
     @Getter @Setter
     @javax.jdo.annotations.Column(allowsNull = "false", length = CommChannelModule.JdoColumnLength.FORMATTED_ADDRESS)
     @Property(
-            domainEvent = FormattedAddressEvent.class
+            domainEvent = FormattedAddressDomainEvent.class
     )
     private String formattedAddress;
 
 
-    public static class PlaceIdEvent extends PropertyDomainEvent<PostalAddress,String> {}
+    public static class PlaceIdDomainEvent extends PropertyDomainEvent<PostalAddress,String> {}
     @Getter @Setter
     @javax.jdo.annotations.Column(
             allowsNull = "true" // optional only because of superclass inheritance strategy=SUPERCLASS_TABLE
     )
     @Property(
-            domainEvent = PlaceIdEvent.class
+            domainEvent = PlaceIdDomainEvent.class
     )
     private String placeId;
 
 
-    public static class LatLngEvent extends PropertyDomainEvent<PostalAddress,String> { }
+    public static class LatLngDomainEvent extends PropertyDomainEvent<PostalAddress,String> { }
     @Getter @Setter
     @javax.jdo.annotations.Column(allowsNull = "true") // optional only because of superclass inheritance strategy=SUPERCLASS_TABLE
     @Property(
-            domainEvent = LatLngEvent.class
+            domainEvent = LatLngDomainEvent.class
     )
     private String latLng;
 
 
-    public static class AddressComponentsEvent extends PropertyDomainEvent<PostalAddress,PostalAddress> { }
+    public static class AddressComponentsDomainEvent extends PropertyDomainEvent<PostalAddress,PostalAddress> { }
     @Getter @Setter
     @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB")
     @Property(
-            domainEvent = AddressComponentsEvent.class,
+            domainEvent = AddressComponentsDomainEvent.class,
             editing = Editing.DISABLED,
             optionality = Optionality.OPTIONAL
     )
@@ -198,11 +198,11 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
     private String addressComponents;
 
 
-    public static class GeocodeApiResponseAsJsonEvent extends PropertyDomainEvent<PostalAddress,String> { }
+    public static class GeocodeApiResponseAsJsonDomainEvent extends PropertyDomainEvent<PostalAddress,String> { }
     @Getter @Setter
     @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB")
     @Property(
-            domainEvent = GeocodeApiResponseAsJsonEvent.class,
+            domainEvent = GeocodeApiResponseAsJsonDomainEvent.class,
             hidden = Where.EVERYWHERE
     )
     @PropertyLayout(

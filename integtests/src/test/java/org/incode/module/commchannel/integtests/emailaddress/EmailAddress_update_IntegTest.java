@@ -91,10 +91,10 @@ public class EmailAddress_update_IntegTest extends CommChannelModuleIntegTest {
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            EmailAddress_update.Event ev;
+            EmailAddress_update.DomainEvent ev;
 
             @Subscribe
-            public void on(EmailAddress_update.Event ev) {
+            public void on(EmailAddress_update.DomainEvent ev) {
                 this.ev = ev;
             }
         }

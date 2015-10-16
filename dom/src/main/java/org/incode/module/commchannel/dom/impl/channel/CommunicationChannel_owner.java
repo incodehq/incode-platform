@@ -53,13 +53,13 @@ public class CommunicationChannel_owner {
     }
     //endregion
 
-    public static class Event extends CommunicationChannel.PropertyDomainEvent
+    public static class DomainEvent extends CommunicationChannel.PropertyDomainEvent
                                         <CommunicationChannel_owner,CommunicationChannelOwner> { }
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(contributed = Contributed.AS_ASSOCIATION)
     @Property(
-            domainEvent = Event.class,
+            domainEvent = DomainEvent.class,
             notPersisted = true
     )
     @PropertyLayout(hidden = Where.PARENTED_TABLES)

@@ -138,7 +138,8 @@ public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociati
     }
     //endregion
 
-    public static class CommunicationChannelEvent
+
+    public static class CommunicationChannelDomainEvent
             extends PropertyDomainEvent<CommunicationChannelOwnerLink,CommunicationChannel> { }
     @Getter @Setter
     @Column(
@@ -146,31 +147,31 @@ public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociati
             name = "communicationChannelId"
     )
     @Property(
-            domainEvent = CommunicationChannelEvent.class
+            domainEvent = CommunicationChannelDomainEvent.class
     )
     private CommunicationChannel communicationChannel;
 
 
-    public static class OwnerObjectTypeEvent extends PropertyDomainEvent<CommunicationChannelOwnerLink, String> { }
+    public static class OwnerObjectTypeDomainEvent extends PropertyDomainEvent<CommunicationChannelOwnerLink, String> { }
     @Getter @Setter
     @Column(
             allowsNull = "false",
             length = CommChannelModule.JdoColumnLength.OBJECT_TYPE
     )
     @Property(
-            domainEvent = OwnerObjectTypeEvent.class
+            domainEvent = OwnerObjectTypeDomainEvent.class
     )
     private String ownerObjectType;
 
 
-    public static class OwnerIdentifierEvent extends PropertyDomainEvent<CommunicationChannelOwnerLink, String> { }
+    public static class OwnerIdentifierDomainEvent extends PropertyDomainEvent<CommunicationChannelOwnerLink, String> { }
     @Getter @Setter
     @Column(
             allowsNull = "false",
             length = CommChannelModule.JdoColumnLength.OBJECT_IDENTIFIER
     )
     @Property(
-            domainEvent = OwnerIdentifierEvent.class
+            domainEvent = OwnerIdentifierDomainEvent.class
     )
     private String ownerIdentifier;
 

@@ -55,8 +55,7 @@ public class CommunicationChannel_updateNotes_IntegTest extends CommChannelModul
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Foo");
 
-        wrap(mixinNewEmailAddress(fredDemoOwner))
-                .__("fred@gmail.com", "Home", "Fred Smith's home email");
+        wrap(mixinNewEmailAddress(fredDemoOwner)).__("fred@gmail.com", "Home Email", "Fred Smith's home email");
 
         fredChannels = communicationChannelRepository.findByOwner(fredDemoOwner);
     }
@@ -93,10 +92,10 @@ public class CommunicationChannel_updateNotes_IntegTest extends CommChannelModul
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            CommunicationChannel_updateNotes.Event ev;
+            CommunicationChannel_updateNotes.DomainEvent ev;
 
             @Subscribe
-            public void on(CommunicationChannel_updateNotes.Event ev) {
+            public void on(CommunicationChannel_updateNotes.DomainEvent ev) {
                 this.ev = ev;
             }
         }

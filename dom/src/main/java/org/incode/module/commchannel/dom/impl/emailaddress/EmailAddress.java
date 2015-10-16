@@ -63,14 +63,14 @@ public class EmailAddress extends CommunicationChannel<EmailAddress> {
     //endregion
 
 
-    public static class EmailAddressEvent extends PropertyDomainEvent<EmailAddress, String> { }
+    public static class EmailAddressDomainEvent extends PropertyDomainEvent<EmailAddress, String> { }
     @Getter @Setter
     @javax.jdo.annotations.Column(
             allowsNull = "true", // optional only because of superclass inheritance strategy=SUPERCLASS_TABLE
             length = CommChannelModule.JdoColumnLength.EMAIL_ADDRESS
     )
     @Property(
-            domainEvent = EmailAddressEvent.class,
+            domainEvent = EmailAddressDomainEvent.class,
             optionality = Optionality.MANDATORY
     )
     private String emailAddress;

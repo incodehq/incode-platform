@@ -18,6 +18,8 @@
  */
 package org.incode.module.commchannel.dom.impl.postaladdress;
 
+import java.util.Collection;
+
 import javax.inject.Inject;
 
 import org.apache.isis.applib.DomainObjectContainer;
@@ -30,10 +32,11 @@ import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
-import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 
 import org.incode.module.commchannel.dom.CommChannelModule;
 import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
+import org.incode.module.commchannel.dom.impl.purpose.CommunicationChannelPurposeService;
+import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 
 @Mixin
 public class CommunicationChannelOwner_newPostalAddress {
@@ -41,6 +44,8 @@ public class CommunicationChannelOwner_newPostalAddress {
     //region > injected services
     @Inject
     PostalAddressRepository postalAddressRepository;
+    @Inject
+    CommunicationChannelPurposeService communicationChannelPurposeService;
     @Inject
     DomainObjectContainer container;
     //endregion
@@ -58,12 +63,12 @@ public class CommunicationChannelOwner_newPostalAddress {
     }
     //endregion
 
-    public static class Event extends CommunicationChannelOwner.ActionDomainEvent
+    public static class DomainEvent extends CommunicationChannelOwner.ActionDomainEvent
                                             <CommunicationChannelOwner_newPostalAddress> { }
 
     @Action(
             semantics = SemanticsOf.NON_IDEMPOTENT,
-            domainEvent = Event.class
+            domainEvent = DomainEvent.class
     )
     @ActionLayout(
             contributed = Contributed.AS_ACTION
@@ -88,9 +93,9 @@ public class CommunicationChannelOwner_newPostalAddress {
             @Parameter(maxLength = CommChannelModule.JdoColumnLength.COUNTRY, optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Country")
             final String country,
-            @Parameter(maxLength = JdoColumnLength.DESCRIPTION, optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Description")
-            final String description,
+            @Parameter(maxLength = CommChannelModule.JdoColumnLength.PURPOSE, optionality = Optionality.MANDATORY)
+            @ParameterLayout(named = "Purpose")
+            final String purpose,
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Notes", multiLine = 10)
             final String notes,
@@ -103,13 +108,17 @@ public class CommunicationChannelOwner_newPostalAddress {
                         this.communicationChannelOwner,
                         addressLine1, addressLine2, addressLine3, addressLine4,
                         postalCode, country,
-                        description, notes
+                        purpose, notes
                 );
 
         mixinUpdate(postalAddress).lookupAndUpdateGeocode(
                 lookupGeocode, addressLine1, addressLine2, addressLine3, addressLine4, postalCode, country);
 
         return this.communicationChannelOwner;
+    }
+
+    public Collection<String> choices6__() {
+        return communicationChannelPurposeService.purposesFor(this.communicationChannelOwner, CommunicationChannelType.POSTAL_ADDRESS);
     }
 
 

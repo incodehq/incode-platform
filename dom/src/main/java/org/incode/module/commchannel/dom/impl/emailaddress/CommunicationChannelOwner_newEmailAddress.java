@@ -18,6 +18,8 @@ Copyright 2015 incode.org
  */
 package org.incode.module.commchannel.dom.impl.emailaddress;
 
+import java.util.Collection;
+
 import javax.inject.Inject;
 
 import org.apache.isis.applib.annotation.Action;
@@ -30,15 +32,18 @@ import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
-import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 
 import org.incode.module.commchannel.dom.CommChannelModule;
 import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
+import org.incode.module.commchannel.dom.impl.purpose.CommunicationChannelPurposeService;
+import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 
 @Mixin
 public class CommunicationChannelOwner_newEmailAddress {
 
     //region > injected services
+    @Inject
+    CommunicationChannelPurposeService communicationChannelPurposeService;
     @Inject
     EmailAddressRepository emailAddressRepository;
     //endregion
@@ -54,10 +59,10 @@ public class CommunicationChannelOwner_newEmailAddress {
     }
     //endregion
 
-    public static class Event extends CommunicationChannelOwner.ActionDomainEvent
+    public static class DomainEvent extends CommunicationChannelOwner.ActionDomainEvent
                                             <CommunicationChannelOwner_newEmailAddress> { }
     @Action(
-            domainEvent = Event.class,
+            domainEvent = DomainEvent.class,
             semantics = SemanticsOf.NON_IDEMPOTENT
     )
     @ActionLayout(
@@ -71,14 +76,18 @@ public class CommunicationChannelOwner_newEmailAddress {
             )
             @ParameterLayout(named = "Email Address")
             final String email,
-            @Parameter(maxLength = JdoColumnLength.DESCRIPTION, optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Description")
-            final String description,
+            @Parameter(maxLength = CommChannelModule.JdoColumnLength.PURPOSE, optionality = Optionality.MANDATORY)
+            @ParameterLayout(named = "Purpose")
+            final String purpose,
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Notes", multiLine = 10)
             final String notes) {
-        emailAddressRepository.newEmail(this.communicationChannelOwner, email, description, notes);
+        emailAddressRepository.newEmail(this.communicationChannelOwner, email, purpose, notes);
         return this.communicationChannelOwner;
+    }
+
+    public Collection<String> choices1__() {
+        return communicationChannelPurposeService.purposesFor(this.communicationChannelOwner, CommunicationChannelType.EMAIL_ADDRESS);
     }
 
 }

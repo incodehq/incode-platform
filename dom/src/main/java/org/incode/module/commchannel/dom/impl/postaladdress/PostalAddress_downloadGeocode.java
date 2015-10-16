@@ -40,11 +40,11 @@ public class PostalAddress_downloadGeocode {
     }
     //endregion
 
-    public static class Event extends PostalAddress.ActionDomainEvent<PostalAddress_downloadGeocode> { }
+    public static class DomainEvent extends PostalAddress.ActionDomainEvent<PostalAddress_downloadGeocode> { }
 
     @Action(
             semantics = SemanticsOf.SAFE,
-            domainEvent = Event.class
+            domainEvent = DomainEvent.class
     )
     public Clob __(
             @ParameterLayout(named = ".json file name")

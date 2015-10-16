@@ -57,11 +57,11 @@ public class PostalAddress_lookupGeocode {
     }
     //endregion
 
-    public static class Event extends PostalAddress.ActionDomainEvent<PostalAddress_lookupGeocode> { }
+    public static class DomainEvent extends PostalAddress.ActionDomainEvent<PostalAddress_lookupGeocode> { }
 
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
-            domainEvent = Event.class
+            domainEvent = DomainEvent.class
     ) public PostalAddress __(
             @ParameterLayout(named = "Address")
             final String address) {
@@ -79,6 +79,5 @@ public class PostalAddress_lookupGeocode {
                 this.postalAddress.getAddressLine3(), this.postalAddress.getAddressLine4(),
                 this.postalAddress.getPostalCode(), this.postalAddress.getCountry());
     }
-
 
 }

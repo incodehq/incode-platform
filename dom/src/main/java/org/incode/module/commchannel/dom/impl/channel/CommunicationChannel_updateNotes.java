@@ -42,10 +42,10 @@ public class CommunicationChannel_updateNotes {
     }
     //endregion
 
-    public static class Event extends CommunicationChannel.ActionDomainEvent<CommunicationChannel_updateNotes> { }
+    public static class DomainEvent extends CommunicationChannel.ActionDomainEvent<CommunicationChannel_updateNotes> { }
 
     @Action(
-            domainEvent = Event.class,
+            domainEvent = DomainEvent.class,
             semantics = SemanticsOf.IDEMPOTENT
     )
     public CommunicationChannel<?> __(

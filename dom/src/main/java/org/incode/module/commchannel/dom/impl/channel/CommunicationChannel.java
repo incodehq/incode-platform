@@ -73,14 +73,6 @@ import lombok.Setter;
 @javax.jdo.annotations.Discriminator(
         strategy = DiscriminatorStrategy.CLASS_NAME,
         column = "discriminator")
-@javax.jdo.annotations.Queries({
-        @javax.jdo.annotations.Query(
-                name = "findByReferenceAndType", language = "JDOQL",
-                value = "SELECT "
-                        + "FROM org.incode.module.commchannel.dom.impl.channel.CommunicationChannel "
-                        + "WHERE reference == :reference "
-                        + "&& type == :type")
-})
 @DomainObject(
         editing = Editing.DISABLED,
         objectType = "incodeCommChannel.CommunicationChannel"
@@ -124,9 +116,10 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
     }
     //endregion
 
-    public static class NameEvent extends PropertyDomainEvent<CommunicationChannel,String> {}
+
+    public static class NameDomainEvent extends PropertyDomainEvent<CommunicationChannel,String> {}
     @Property(
-            domainEvent = NameEvent.class,
+            domainEvent = NameDomainEvent.class,
             hidden = Where.OBJECT_FORMS
     )
     public String getName() {
@@ -144,15 +137,15 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
     private CommunicationChannelType type;
 
 
-    public static class DescriptionDomainEvent extends PropertyDomainEvent<CommunicationChannel,String> { }
+    public static class PurposeDomainEvent extends PropertyDomainEvent<CommunicationChannel,String> { }
     @Getter @Setter
-    @Column(length = org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength.DESCRIPTION)
+    @Column(allowsNull = "false", length = CommChannelModule.JdoColumnLength.PURPOSE)
     @Property(
-            domainEvent = DescriptionDomainEvent.class,
+            domainEvent = PurposeDomainEvent.class,
             editing = Editing.DISABLED,
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.MANDATORY
     )
-    private String description;
+    private String purpose;
 
 
     public static class NotesDomainEvent extends PropertyDomainEvent<CommunicationChannel,String> { }

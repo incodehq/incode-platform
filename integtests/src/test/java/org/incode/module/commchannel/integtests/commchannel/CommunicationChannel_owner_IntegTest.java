@@ -56,15 +56,15 @@ public class CommunicationChannel_owner_IntegTest extends CommChannelModuleInteg
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
         wrap(mixinNewEmailAddress(fredDemoOwner))
-                .__("fred@gmail.com", "Home", "Fred Smith's home email");
+                .__("fred@gmail.com", "Home Email", "Fred Smith's home email");
         wrap(mixinNewEmailAddress(fredDemoOwner))
-                .__("fred.smith@somecompany.com", "Work", "Fred Smith's work email");
+                .__("fred.smith@somecompany.com", "Work Email", "Fred Smith's work email");
         fredChannels = communicationChannelRepository.findByOwner(fredDemoOwner);
         assertThat(fredChannels).hasSize(2);
 
         billDemoOwner = wrap(commChannelDemoObjectMenu).create("Bill");
         wrap(mixinNewEmailAddress(billDemoOwner))
-                .__("bill@yahoo.com", "Home", "Bill Jones' home email");
+                .__("bill@yahoo.com", "Home Email", "Bill Jones' home email");
         billChannels = communicationChannelRepository.findByOwner(billDemoOwner);
         assertThat(billChannels).hasSize(1);
     }

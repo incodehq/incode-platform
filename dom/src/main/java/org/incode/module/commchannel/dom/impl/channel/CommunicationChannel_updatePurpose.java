@@ -18,6 +18,11 @@ Copyright 2015 incode.org
  */
 package org.incode.module.commchannel.dom.impl.channel;
 
+import java.util.Collection;
+
+import javax.inject.Inject;
+
+import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Optionality;
@@ -26,12 +31,22 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
+import org.incode.module.commchannel.dom.CommChannelModule;
+import org.incode.module.commchannel.dom.impl.purpose.CommunicationChannelPurposeService;
+
 @Mixin
-public class CommunicationChannel_updateDescription  {
+public class CommunicationChannel_updatePurpose {
+
+    //region > injected services
+    @Inject
+    private CommunicationChannelPurposeService communicationChannelPurposeService;
+    @Inject
+    private DomainObjectContainer container;
+    //endregion
 
     //region > constructor
     private final CommunicationChannel<?> communicationChannel;
-    public CommunicationChannel_updateDescription(final CommunicationChannel<?> communicationChannel) {
+    public CommunicationChannel_updatePurpose(final CommunicationChannel<?> communicationChannel) {
         this.communicationChannel = communicationChannel;
     }
 
@@ -41,22 +56,33 @@ public class CommunicationChannel_updateDescription  {
     }
     //endregion
 
-    public static class Event extends CommunicationChannel.ActionDomainEvent<CommunicationChannel_updateDescription> { }
+    //region > mixins
+    private CommunicationChannel_owner mixinOwner() {
+        return container.mixin(CommunicationChannel_owner.class, getCommunicationChannel());
+    }
+    //endregion
+
+    public static class DomainEvent extends CommunicationChannel.ActionDomainEvent<CommunicationChannel_updatePurpose> { }
 
     @Action(
-            domainEvent = Event.class,
+            domainEvent = DomainEvent.class,
             semantics = SemanticsOf.IDEMPOTENT
     )
     public CommunicationChannel<?> __(
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Description")
-            final String description) {
-        communicationChannel.setDescription(description);
+            @Parameter(maxLength = CommChannelModule.JdoColumnLength.PURPOSE, optionality = Optionality.MANDATORY)
+            @ParameterLayout(named = "Purpose")
+            final String purpose) {
+        communicationChannel.setPurpose(purpose);
         return communicationChannel;
     }
 
     public <T extends CommunicationChannel<T>> String default0__() {
-        return communicationChannel.getDescription();
+        return communicationChannel.getPurpose();
     }
+
+    public Collection<String> choices0__() {
+        return communicationChannelPurposeService.purposesFor(mixinOwner().__(), getCommunicationChannel().getType());
+    }
+
 
 }

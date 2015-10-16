@@ -16,6 +16,8 @@
  */
 package org.incode.module.commchannel.integtests.commchannel;
 
+import java.util.Collection;
+import java.util.Objects;
 import java.util.SortedSet;
 
 import javax.inject.Inject;
@@ -31,7 +33,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelRepository;
-import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_updateDescription;
+import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_updatePurpose;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObjectMenu;
 import org.incode.module.commchannel.fixture.scripts.teardown.CommChannelDemoObjectsTearDownFixture;
@@ -39,7 +41,7 @@ import org.incode.module.commchannel.integtests.CommChannelModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CommunicationChannel_updateDescription_IntegTest extends CommChannelModuleIntegTest {
+public class CommunicationChannel_updatePurpose_IntegTest extends CommChannelModuleIntegTest {
 
     @Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;
@@ -55,49 +57,53 @@ public class CommunicationChannel_updateDescription_IntegTest extends CommChanne
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Foo");
 
-        wrap(mixinNewEmailAddress(fredDemoOwner))
-                .__("fred@gmail.com", "Home", "Fred Smith's home email");
+        wrap(mixinNewEmailAddress(fredDemoOwner)).__("fred@gmail.com", "Home Email", "Fred Smith's home email");
 
         fredChannels = communicationChannelRepository.findByOwner(fredDemoOwner);
     }
 
 
     public static class ActionImplementationIntegrationTest extends
-            CommunicationChannel_updateDescription_IntegTest {
-
-        @Test
-        public void happy_case() throws Exception {
-            final CommunicationChannel communicationChannel = fredChannels.first();
-            final String newDescription = fakeDataService.lorem().sentence();
-
-            wrap(mixinUpdateDescription(communicationChannel)).__(newDescription);
-
-            assertThat(communicationChannel.getDescription()).isEqualTo(newDescription);
-        }
-
-    }
-
-    public static class DefaultIntegrationTest extends CommunicationChannel_updateDescription_IntegTest {
+            CommunicationChannel_updatePurpose_IntegTest {
 
         @Test
         public void happy_case() throws Exception {
             final CommunicationChannel communicationChannel = fredChannels.first();
 
-            final String descr = mixinUpdateDescription(communicationChannel).default0__();
+            final CommunicationChannel_updatePurpose mixinUpdatePurpose = mixinUpdatePurpose(communicationChannel);
 
-            assertThat(descr).isEqualTo(communicationChannel.getDescription());
+            final Collection<String> choices = mixinUpdatePurpose.choices0__();
+            final String newPurpose = fakeDataService.collections().anyOfExcept(
+                    choices, s -> Objects.equals(s, communicationChannel.getPurpose()) );
+
+            wrap(mixinUpdatePurpose).__(newPurpose);
+
+            assertThat(communicationChannel.getPurpose()).isEqualTo(newPurpose);
         }
 
     }
 
-    public static class RaisesEventIntegrationTest extends CommunicationChannel_updateDescription_IntegTest {
+    public static class DefaultIntegrationTest extends CommunicationChannel_updatePurpose_IntegTest {
+
+        @Test
+        public void happy_case() throws Exception {
+            final CommunicationChannel communicationChannel = fredChannels.first();
+
+            final String descr = mixinUpdatePurpose(communicationChannel).default0__();
+
+            assertThat(descr).isEqualTo(communicationChannel.getPurpose());
+        }
+
+    }
+
+    public static class RaisesEventIntegrationTest extends CommunicationChannel_updatePurpose_IntegTest {
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            CommunicationChannel_updateDescription.Event ev;
+            CommunicationChannel_updatePurpose.DomainEvent ev;
 
             @Subscribe
-            public void on(CommunicationChannel_updateDescription.Event ev) {
+            public void on(CommunicationChannel_updatePurpose.DomainEvent ev) {
                 this.ev = ev;
             }
         }
@@ -108,11 +114,14 @@ public class CommunicationChannel_updateDescription_IntegTest extends CommChanne
         @Test
         public void happy_case() throws Exception {
             final CommunicationChannel channel = fredChannels.first();
-            final String newParagraph = fakeDataService.lorem().paragraph();
-            wrap(mixinUpdateDescription(channel)).__(newParagraph);
+
+            final CommunicationChannel_updatePurpose mixinUpdatePurpose = mixinUpdatePurpose(channel);
+            final String newPurpose = fakeDataService.collections().anyOf(mixinUpdatePurpose.choices0__().toArray(new String[]{}));
+
+            wrap(mixinUpdatePurpose).__(newPurpose);
 
             assertThat(testSubscriber.ev.getSource().getCommunicationChannel()).isSameAs(channel);
-            assertThat(testSubscriber.ev.getArguments().get(0)).isEqualTo(newParagraph);
+            assertThat(testSubscriber.ev.getArguments().get(0)).isEqualTo(newPurpose);
         }
     }
 

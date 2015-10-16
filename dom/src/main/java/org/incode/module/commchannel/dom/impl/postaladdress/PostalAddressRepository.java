@@ -61,14 +61,14 @@ public class PostalAddressRepository {
             final String addressLine4,
             final String postalCode,
             final String country,
-            final String description,
+            final String purpose,
             final String notes) {
 
         final PostalAddress pa =
                 container.newTransientInstance(PostalAddress.class);
         pa.setType(CommunicationChannelType.POSTAL_ADDRESS);
         owner(pa).setOwner(owner);
-        pa.setDescription(description);
+        pa.setPurpose(purpose);
         pa.setAddressLine1(addressLine1);
         pa.setAddressLine2(addressLine2);
         pa.setAddressLine3(addressLine3);

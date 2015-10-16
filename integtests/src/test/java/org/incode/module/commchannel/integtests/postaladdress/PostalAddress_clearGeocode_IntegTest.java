@@ -92,10 +92,10 @@ public class PostalAddress_clearGeocode_IntegTest extends CommChannelModuleInteg
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            PostalAddress_clearGeocode.Event ev;
+            PostalAddress_clearGeocode.DomainEvent ev;
 
             @Subscribe
-            public void on(PostalAddress_clearGeocode.Event ev) {
+            public void on(PostalAddress_clearGeocode.DomainEvent ev) {
                 this.ev = ev;
             }
         }

@@ -43,10 +43,10 @@ public class EmailAddress_update {
     //endregion
 
 
-    public static class Event extends EmailAddress.ActionDomainEvent<EmailAddress_update> { }
+    public static class DomainEvent extends EmailAddress.ActionDomainEvent<EmailAddress_update> { }
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
-            domainEvent = Event.class
+            domainEvent = DomainEvent.class
     )
     public EmailAddress __(
             @Parameter(

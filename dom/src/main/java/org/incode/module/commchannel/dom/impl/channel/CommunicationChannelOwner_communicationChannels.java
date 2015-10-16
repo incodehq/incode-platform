@@ -48,12 +48,12 @@ public class CommunicationChannelOwner_communicationChannels {
     }
     //endregion
 
-    public static class Event extends CommunicationChannelOwner.CollectionDomainEvent
+    public static class DomainEvent extends CommunicationChannelOwner.CollectionDomainEvent
                                         <CommunicationChannelOwner_communicationChannels, CommunicationChannel> { }
     @Action(semantics = SemanticsOf.SAFE)
     @CollectionLayout(render = RenderType.EAGERLY)
     @Collection(
-            domainEvent = Event.class
+            domainEvent = DomainEvent.class
     )
     @ActionLayout(contributed = Contributed.AS_ASSOCIATION)
     public SortedSet<CommunicationChannel> __() {

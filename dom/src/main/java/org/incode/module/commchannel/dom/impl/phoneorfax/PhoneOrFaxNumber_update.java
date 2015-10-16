@@ -46,10 +46,10 @@ public class PhoneOrFaxNumber_update {
 
     //endregion
 
-    public static class Event extends PhoneOrFaxNumber.ActionDomainEvent<PhoneOrFaxNumber_update> { }
+    public static class DomainEvent extends PhoneOrFaxNumber.ActionDomainEvent<PhoneOrFaxNumber_update> { }
 
     @Action(
-            domainEvent = Event.class,
+            domainEvent = DomainEvent.class,
             semantics = SemanticsOf.IDEMPOTENT
     )
     public PhoneOrFaxNumber __(

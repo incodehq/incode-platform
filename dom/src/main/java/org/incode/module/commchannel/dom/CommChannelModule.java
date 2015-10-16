@@ -19,15 +19,17 @@ package org.incode.module.commchannel.dom;
 public final class CommChannelModule {
 
     public static class JdoColumnLength {
+
         private JdoColumnLength(){}
 
-        public final static int TYPE_ENUM = 30;
+        public static final int TYPE_ENUM = 30;
+        public static final int PURPOSE = 30;
 
         /**
          * http://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
          */
         public static final int EMAIL_ADDRESS = 254;
-        public final static int PHONE_NUMBER = 20;
+        public static final int PHONE_NUMBER = 20;
 
         public static final int ADDRESS_LINE = 50;
         public static final int POSTAL_CODE = 12;

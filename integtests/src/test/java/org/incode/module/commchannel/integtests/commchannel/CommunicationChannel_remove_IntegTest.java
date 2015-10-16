@@ -62,8 +62,8 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
 
-        wrap(mixinNewEmailAddress(fredDemoOwner)).__("fred@gmail.com", "Home", "Fred Smith's home email");
-        wrap(mixinNewEmailAddress(fredDemoOwner)).__("fred.smith@somecompany.com", "Work", "Fred Smith's work email");
+        wrap(mixinNewEmailAddress(fredDemoOwner)).__("fred@gmail.com", "Home Email", "Fred Smith's home email");
+        wrap(mixinNewEmailAddress(fredDemoOwner)).__("fred.smith@somecompany.com", "Work Email", "Fred Smith's work email");
         fredChannels = communicationChannelRepository.findByOwner(fredDemoOwner);
         assertThat(fredChannels).hasSize(2);
 
@@ -113,10 +113,10 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            CommunicationChannel_remove.Event ev;
+            CommunicationChannel_remove.DomainEvent ev;
 
             @Subscribe
-            public void on(CommunicationChannel_remove.Event ev) {
+            public void on(CommunicationChannel_remove.DomainEvent ev) {
                 this.ev = ev;
             }
         }

@@ -118,10 +118,10 @@ public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTes
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            PhoneOrFaxNumber_update.Event ev;
+            PhoneOrFaxNumber_update.DomainEvent ev;
 
             @Subscribe
-            public void on(PhoneOrFaxNumber_update.Event ev) {
+            public void on(PhoneOrFaxNumber_update.DomainEvent ev) {
                 this.ev = ev;
             }
         }

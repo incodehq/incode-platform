@@ -63,10 +63,10 @@ public class PostalAddress_update {
     //endregion
 
 
-    public static class Event extends PostalAddress.ActionDomainEvent<PostalAddress_update> { }
+    public static class DomainEvent extends PostalAddress.ActionDomainEvent<PostalAddress_update> { }
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
-            domainEvent = Event.class
+            domainEvent = DomainEvent.class
     )
     public PostalAddress __(
             @Parameter(maxLength = CommChannelModule.JdoColumnLength.ADDRESS_LINE)

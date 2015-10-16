@@ -66,14 +66,14 @@ public class PhoneOrFaxNumber extends CommunicationChannel<PhoneOrFaxNumber> {
     }
     //endregion
 
-    public static class PhoneNumberEvent extends PropertyDomainEvent<PhoneOrFaxNumber, String> { }
+    public static class PhoneNumberDomainEvent extends PropertyDomainEvent<PhoneOrFaxNumber, String> { }
     @Getter @Setter
     @javax.jdo.annotations.Column(
             allowsNull = "true",
             length = CommChannelModule.JdoColumnLength.PHONE_NUMBER
     )
     @Property(
-            domainEvent = PhoneNumberEvent.class,
+            domainEvent = PhoneNumberDomainEvent.class,
             optionality = Optionality.MANDATORY
     )
     private String phoneNumber;
