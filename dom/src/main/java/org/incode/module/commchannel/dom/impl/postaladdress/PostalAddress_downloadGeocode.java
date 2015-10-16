@@ -52,7 +52,7 @@ public class PostalAddress_downloadGeocode {
         return new Clob(encodeAsFilename(fileName), "text/plain", this.postalAddress.getGeocodeApiResponseAsJson());
     }
 
-    private String default0__() {
+    public String default0__() {
         return "postalAddress-" + this.postalAddress.getFormattedAddress() + ".json";
     }
 

@@ -106,7 +106,11 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber {
     }
 
     public Collection<String> choices2__(final CommunicationChannelType type) {
-        return communicationChannelPurposeService.purposesFor(this.communicationChannelOwner, type);
+        return communicationChannelPurposeService.purposesFor(type, this.communicationChannelOwner);
+    }
+
+    public String default2__() {
+        return communicationChannelPurposeService.defaultIfNoSpi();
     }
 
 

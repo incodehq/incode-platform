@@ -40,11 +40,11 @@ public interface CommunicationChannelPurposeRepository {
      * <p>
      *     May return <tt>null</tt> if there are none (in which case a default will be used).
      * </p>
-     * @param communicationChannel
      * @param communicationChannelType
+     * @param communicationChannel
      */
     Collection<String> purposesFor(
-            final CommunicationChannelOwner communicationChannel,
-            final CommunicationChannelType communicationChannelType);
+            final CommunicationChannelType communicationChannelType,
+            final CommunicationChannelOwner communicationChannel);
 
 }

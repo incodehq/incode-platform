@@ -31,8 +31,8 @@ public class CommChannelDemoPurposeRepository implements CommunicationChannelPur
 
     @Override
     public Collection<String> purposesFor(
-            final CommunicationChannelOwner communicationChannel,
-            final CommunicationChannelType communicationChannelType) {
+            final CommunicationChannelType communicationChannelType,
+            final CommunicationChannelOwner communicationChannel) {
 
         switch (communicationChannelType) {
         case EMAIL_ADDRESS:

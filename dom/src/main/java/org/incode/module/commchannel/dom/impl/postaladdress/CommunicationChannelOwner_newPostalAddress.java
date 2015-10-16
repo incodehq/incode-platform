@@ -118,7 +118,13 @@ public class CommunicationChannelOwner_newPostalAddress {
     }
 
     public Collection<String> choices6__() {
-        return communicationChannelPurposeService.purposesFor(this.communicationChannelOwner, CommunicationChannelType.POSTAL_ADDRESS);
+        return communicationChannelPurposeService.purposesFor(CommunicationChannelType.POSTAL_ADDRESS,
+                this.communicationChannelOwner);
+    }
+
+    public String default6__() {
+        final Collection<String> purposes = choices6__();
+        return purposes.isEmpty()? null : purposes.iterator().next();
     }
 
 

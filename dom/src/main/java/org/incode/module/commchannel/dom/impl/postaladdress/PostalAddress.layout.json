@@ -7,9 +7,9 @@
           "members": {
             "owner": {},
             "name": {},
-            "description": {
+            "purpose": {
               "actions": {
-                "updateDescription": {
+                "updatePurpose": {
                   "actionLayout": {
                     "named": "Update"
                   }

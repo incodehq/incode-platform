@@ -87,7 +87,13 @@ public class CommunicationChannelOwner_newEmailAddress {
     }
 
     public Collection<String> choices1__() {
-        return communicationChannelPurposeService.purposesFor(this.communicationChannelOwner, CommunicationChannelType.EMAIL_ADDRESS);
+        return communicationChannelPurposeService.purposesFor(CommunicationChannelType.EMAIL_ADDRESS,
+                this.communicationChannelOwner);
+    }
+
+    public String default1__() {
+        final Collection<String> purposes = choices1__();
+        return purposes.isEmpty()? null : purposes.iterator().next();
     }
 
 }

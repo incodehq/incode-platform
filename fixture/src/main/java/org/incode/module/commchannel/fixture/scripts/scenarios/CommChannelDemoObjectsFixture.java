@@ -41,16 +41,13 @@ public class CommChannelDemoObjectsFixture extends DiscoverableFixtureScript {
 
         final CommChannelDemoObject demoOwner = create("Foo", executionContext);
 
-        wrap(newEmailAddress(demoOwner)).__("foo@example.com",
-                "Demo", null);
-        wrap(newPhoneOrFaxNumber(demoOwner)).__(CommunicationChannelType.PHONE_NUMBER, "555 1234",
-                "Home", null);
-        wrap(newPhoneOrFaxNumber(demoOwner)).__(CommunicationChannelType.FAX_NUMBER, "555 4321",
-                "Work", null);
+        wrap(newEmailAddress(demoOwner)).__("foo@example.com", "Other Email", null);
+        wrap(newPhoneOrFaxNumber(demoOwner)).__(CommunicationChannelType.PHONE_NUMBER, "555 1234", "Home Number", null);
+        wrap(newPhoneOrFaxNumber(demoOwner)).__(CommunicationChannelType.FAX_NUMBER, "555 4321", "Work Fax", null);
 
         final CommChannelDemoObject bar = create("Bar", executionContext);
         wrap(newPostalAddress(demoOwner)).__(
-                "45", "High Street", "Oxford", null, null, "UK", "favourite shop", null, false);
+                "45", "High Street", "Oxford", null, null, "UK", "Shipping Address", null, false);
 
         final CommChannelDemoObject baz = create("Baz", executionContext);
     }

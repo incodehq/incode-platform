@@ -3,20 +3,156 @@
 
 image:https://travis-ci.org/isisaddons/isis-module-commchannel.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-commchannel]
 
-This module, intended for use with link:http://isis.apache.org[Apache Isis], provides the ability to attach communication channel objects (postal address, email or phone/fax number)
-to domain objects.
+This module, intended for use with link:http://isis.apache.org[Apache Isis], provides the ability to attach
+communication channel objects (postal address, email or phone/fax number) to domain objects.  The only requirement is
+for the domain object to implement the `CommunicationChannelOwner` marker interface.
 
-Postal addresses objects are created by invoking the link:https://developers.google.com/maps/documentation/geocoding[Google Geocoding] API.  This allows free-form text entry of an address to be converted into its geocoded equivalent, including latitude and longitude.  This in turn allows each postal address object to implement the `Location` interface (from link:http://github.com/isisaddons/isis-wicket-gmap3[Gmap3 wicket component]) meaning that they can be rendered in a map view.
+For postal address, the geocoding data can be looked up by invoking the
+link:https://developers.google.com/maps/documentation/geocoding[Google Geocoding] API.  This allows free-form text
+entry of an address to be converted into its geocoded equivalent, including latitude and longitude.  This in turn
+allows each postal address object to implement the `Location` interface (from
+link:http://github.com/isisaddons/isis-wicket-gmap3[Gmap3 wicket component]) meaning that they can be rendered in a
+map view.
+
+Each communication channel object can be categorized, eg "work email", "home phone number".  The list of
+defined by an optional SPI service.
 
 
 == Screenshots
 
 The following screenshots show an example app's usage of the module.
 
-[NOTE]
-====
-TODO - to document
-====
+We start by installing some demo fixture data:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/020-recreate-fixtures.png[link="https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/020-recreate-fixtures.png"]
+
+
+The fixture data sets up a number of demo objects that implement the `CommunicationChannelOwner` interface, along with
+some sample ``CommunicationChannel``s for each.  These are shown in the contributed `communicationChannels` collection:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/030-communication-channels-collection-mixed-in.png[link="https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/030-communication-channels-collection-mixed-in.png"]
+
+
+Also contributed are actions to create new communication channels of each of the three main types.  For example, we
+can create a new `PostalAddress`:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/040-new-postal-address-action.png[link="https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/040-new-postal-address-action.png"]
+
+Because postal addresses can vary so much around the world, the module defines only "address lines" (rather than house
+street number, street address, district and so on).  Apart from the first address line, these are all optional.
+
+
+
+Completing the action updates the list of communication channels for the communication channel owner:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/050-communication-channels-added-to.png[link="https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/050-communication-channels-added-to.png"]
+
+
+
+Each communication channel can be viewed and updated.  The `PostalAddress` is the most complex:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/060-postal-address-detail.png[link="https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/060-postal-address-detail.png"]
+
+
+Specifically, the postal address allows geocoding data to be looked up from the
+link:https://developers.google.com/maps/documentation/geocoding[Google Geocoding] API.  The address lines information
+entered previously is used for the search, but this can be adjusted as necessary by the end-user:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/070-lookup-geocode.png[link="https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/070-lookup-geocode.png"]
+
+
+
+The geocoding data consists of the latitude and longitude, but also of a unique place Id.  It also contains various
+other more detailed information, such as the various components that make up the address.
+
+In addition, the raw JSON from the geocoding API request can be downloaded:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/080-download-geocode.png[link="https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/080-download-geocode.png"]
+
+
+specifying a filename:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/090-download-geocode-specify-filename.png[link="https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/090-download-geocode-specify-filename.png"]
+
+
+and viewed:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/110-geocode-file.png[link="https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/110-geocode-file.png"]
+
+
+
+All communication channel have a "purpose", which can be updated:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/120-update-postal-address-purpose.png[link="https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/120-update-postal-address-purpose.png"]
+
+
+
+The list of available purposes varies by channel type, for example "Billing Address" or "Shipping Address" for
+``PostalAddress``es, "Home Email" or "Work Email" for ``EmailAddress``es, etc:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/130-purpose-defined-by-spi-service.png[link="https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/130-purpose-defined-by-spi-service.png"]
+
+The list itself is not hardcoded into the module, however; instead it is defined by the
+`CommunicationChannelPurposeRepository` optional SPI.  If there is no implementation of this SPI service then a default
+"purpose" is used
+
+
+
+Every communication channel also allows adhoc notes to be added:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/140-update-notes.png[link="https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/140-update-notes.png"]
+
+
+
+When creating a new `PostalAddress`, the geocode information can be looked up at the same time using the final checkbox
+parameter for the action:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/160-another-postal-address-lookup-geocode.png[link="https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/160-another-postal-address-lookup-geocode.png"]
+
+
+
+The `PostalAddress` entity implements the (non-ASF) http://github.com/isisaddons/isis-wicket-gmap3[Isis addons' gmap3]
+wicket extension's `Locatable` interface, meaning that it can be rendered on a map.  Assuming that the extension has
+been configured on the classpath:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/170-lookup-as-map.png[link="https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/170-lookup-as-map.png"]
+
+
+
+Then the map is rendered:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/180-map-view.png[link="https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/180-map-view.png"]
+
+
+
+The module also allows new ``EmailAddress``es to be created:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/190-new-email-address.png[link="https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/190-new-email-address.png"]
+
+
+And similarly allows new ``PhoneOrFaxNumber``s to be created:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/200-new-phone-or-fax-number.png[link="https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/200-new-phone-or-fax-number.png"]
+
+
+
+What can be created and modified can also be deleted.  Each of the `CommunicationChannel` objects provide an action
+to remove them:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/210-remove-communication-channel.png[link="https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/210-remove-communication-channel.png"]
+
+
+
+As the screenshot shows, the end-user has the option of specifying some other communication channel (of the same type)
+as a "replacement".   Because each action has a corresponding domain event, this allows for cascade updates scenarios
+(where other objects that depend upon the channel being deleted can instead refer to its replacement).
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/220-are-you-sure-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/220-are-you-sure-prompt.png"]
+
+
+Alternatively, subscribers can opt to veto the removal/deletion of a communication channel.  This is done using the
+standard technique described in the link:http://isis.apache.org/guides/ug.html#_ug_more-advanced_decoupling_event-bus[Apache Isis user guide].
+
 
 
 
@@ -24,7 +160,7 @@ TODO - to document
 
 The prerequisite software is:
 
-* Java JDK 7 (nb: Isis currently does not support JDK 8)
+* Java JDK 8
 * http://maven.apache.org[maven 3] (3.2.x or later is recommended).
 
 To build the demo app:
@@ -43,6 +179,8 @@ mvn antrun:run -P self-host
 ----
 
 Then log on using user: `sven`, password: `pass`
+
+
 
 
 == How to configure/use
@@ -72,7 +210,18 @@ To use "out-of-the-box":
 ----
 
 
-* in your project's `webapp` module, update your `WEB-INF/isis.properties`. +
+* if using `AppManifest`, then update its `getModules()` method:
+
+    @Override
+    public List<Class<?>> getModules() {
+        return Arrays.asList(
+                ...
+                org.incode.module.commchannel.dom.CommChannelModule.class,
+        );
+    }
+
+
+* alternatively, in your project's `webapp` module, update your `WEB-INF/isis.properties`. +
 +
 [source,xml]
 ----
@@ -82,17 +231,10 @@ To use "out-of-the-box":
                                 ...
 ----
 
-[NOTE]
-====
-TODO - can also use AppManifest instead.
-====
-
-
-
-
 Notes:
 
 * Check for later releases by searching http://search.maven.org/#search|ga|1|isis-module-commchannel-dom[Maven Central Repo]).
+
 
 ==== "Out-of-the-box" (-SNAPSHOT)
 
@@ -130,9 +272,137 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 ----
 
 
+=== For each domain object...
+
+For each domain object that you want to be able to attach ``CommunicationChannel``s, simply have that entity implement
+the `CommunicationChannelOwner` marker interface.
+
+For example, in the demo app the `CommChannelDemoObject` implements this interface: +
++
+[source,java]
+----
+public class CommChannelDemoObject implements CommunicationChannelOwner {
+    ...
+}
+----
+
+For each such `CommunicationChannelOwner`, the module will then:
+
+* contribute the `communicationChannels` collection
+
+* contribute the `newPostalAddress` action
+
+* contribute the `newEmailAddress` action
+
+* contribute the `newPhoneOrFaxNumber` action
+
+Other than implementing the marker interface, the `CommunicationChannelOwner` domain object will be completely decoupled
+from the rest of the module.
+
+
+
+=== SPI
+
+The `CommunicationChannelPurposeRepository` interface can optionally be implemented to specify the available "purpose"
+for each `CommunicationChannel` domain object.
+
+For example, in the demo app this is implemented as:
+
+[source,java]
+----
+@DomainService(nature = NatureOfService.DOMAIN)
+public class CommChannelDemoPurposeRepository implements CommunicationChannelPurposeRepository {
+    @Override
+    public Collection<String> purposesFor(
+            final CommunicationChannelType communicationChannelType,
+            final CommunicationChannelOwner communicationChannel) {
+        switch (communicationChannelType) {
+            case EMAIL_ADDRESS:
+                return Arrays.asList("Home Email", "Work Email", "Other Email");
+            case POSTAL_ADDRESS:
+                return Arrays.asList("Billing Address", "Shipping Address");
+            case PHONE_NUMBER:
+                return Arrays.asList("Home Number", "Work Number", "Mobile Number");
+            case FAX_NUMBER:
+                return Arrays.asList("Home Fax", "Work Fax");
+        }
+        return null;
+    }
+}
+----
+
+If no implementation of this interface can be found, then the module provides a single "default" purpose for all
+communication channels.
+
+
+=== Suppressing/adding UI elements
+
+Every property, collection and action has a corresponding domain event.  Thus, a subscriber can be used to hide or disable UI representation of any domain object's members.
+
+For example, the "notes" property could be suppressed using the following service:
+
+[source,java]
+----
+@DomainService(nature = NatureOfService.DOMAIN)
+public class CommChannelDemoSuppressNotesSubscriber extends AbstractSubscriber {
+    @Subscribe
+    public void on(CommunicationChannel.NotesDomainEvent ev) {
+        switch (ev.getEventPhase()) {
+        case HIDE:
+            // uncomment as an example of how to influence the UI
+            // (the notes property should disappear)
+            // ev.hide();
+        }
+    }
+}
+----
+
+Conversely, new UI elements can be added using link:http://isis.apache.org/guides/ug.html#_ug_how-tos_contributed-members[contributions] and mixins.
+
+
+
+== Other Services
+
+The module provides the following domain services for querying notes:
+
+* `CommunicationChannelRepository` +
++
+To search for ``CommunicationChannel``s by owner and type.
+
+* `CommunicationChannelOwnerLinkRepository` +
++
+To search for `CommunicationChannelOwnerLink``s, ie the tuple that links a `CommunicationChannel` to an
+arbitrary `CommunicationChannelOwner`.  This repository is likely to be less useful than `CommunicationChannelRepository`,
+but is crucial to the internal workings of the `incode-module-commchannel` module.
+
+
+
+
+
+== Related Modules/Services
+
+The module implements the http://github.com/isisaddons/isis-wicket-gmap3[Isis addons' gmap3]'s
+ `LocationDereferencingService` SPI, so that clicking on a marker on a map will render the `CommunicationChannelOwner`, rather than the details of the `CommunicationChannel` itself.
+
+The module uses the design pattern of the (non-ASF) http://github.com/isisaddons/isis-module-poly[Isis addons' poly] module, to support type-safe polymorphic associations.
+
+
+
+== Known issues
+
+None at this time.
+
+
+== Change Log
+
+* `1.10.0-SNAPSHOT` - (to be) released against Isis 1.10.0 (when available).
+
+
+
+
 === Forking the repo
 
-If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is 
+If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is
 structured as follows:
 
 * `pom.xml   ` - parent pom
@@ -142,44 +412,9 @@ structured as follows:
 * `integtests` - integration tests for the module; depends on `fixture`
 * `webapp    ` - demo webapp (see above screenshots); depends on `dom` and `fixture`
 
-Only the `dom` project is released to Maven Central Repo.  The versions of the other modules are purposely left at 
+Only the `dom` project is released to Maven Central Repo.  The versions of the other modules are purposely left at
 `0.0.1-SNAPSHOT` because they are not intended to be released.
 
-
-== API
-
-[NOTE]
-====
-TODO - to document
-====
-
-
-== Implementation
-
-[NOTE]
-====
-TODO - to document
-====
-
-
-== Supporting Services
-
-[NOTE]
-====
-TODO - to document
-====
-
-== Related Modules/Services
-
-... referenced by the link:http://www.isisaddons.org[Isis Add-ons] website.
-
-
-== Known issues
-
-
-== Change Log
-
-* `1.x.x` - released against Isis 1.x.x.
 
 
 

@@ -81,7 +81,7 @@ public class CommunicationChannel_updatePurpose {
     }
 
     public Collection<String> choices0__() {
-        return communicationChannelPurposeService.purposesFor(mixinOwner().__(), getCommunicationChannel().getType());
+        return communicationChannelPurposeService.purposesFor(getCommunicationChannel().getType(), mixinOwner().__());
     }
 
 

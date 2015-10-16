@@ -20,6 +20,7 @@ package org.incode.module.commchannel.dom.impl.purpose;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -52,11 +53,24 @@ public class CommunicationChannelPurposeService {
      */
     @Programmatic
     public Collection<String> purposesFor(
-            final CommunicationChannelOwner communicationChannelOwner,
-            final CommunicationChannelType communicationChannelType) {
+            final CommunicationChannelType communicationChannelType,
+            final CommunicationChannelOwner communicationChannelOwner) {
+        final Set<String> fallback = Collections.singleton(DEFAULT_PURPOSE);
+        if(communicationChannelPurposeRepository == null) {
+            return fallback;
+        }
         final Collection<String> purposes =
-                communicationChannelPurposeRepository.purposesFor(communicationChannelOwner, communicationChannelType);
-        return purposes != null? purposes: Collections.singleton(DEFAULT_PURPOSE);
+                communicationChannelPurposeRepository
+                        .purposesFor(communicationChannelType, communicationChannelOwner);
+        return purposes != null? purposes: fallback;
+    }
+
+    @Programmatic
+    public String defaultIfNoSpi() {
+        if (communicationChannelPurposeRepository == null) {
+            return DEFAULT_PURPOSE; // no SPI, so okay to return the default
+        }
+        return null; // ie there is an SPI; we don't have enough info to guess which should be the default
     }
 
     @Inject

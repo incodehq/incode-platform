@@ -7,9 +7,9 @@
           "members": {
             "owner": {},
             "name": {},
-            "description": {
+            "purpose": {
               "actions": {
-                "updateDescription": {
+                "updatePurpose": {
                   "actionLayout": {
                     "named": "Update"
                   }
@@ -39,7 +39,7 @@
           "members": {
             "emailAddress": {
               "actions": {
-                "updateEmailAddress": {
+                "update": {
                   "actionLayout": {
                     "named": "Update"
                   }
