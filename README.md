@@ -275,13 +275,29 @@ For example, `Names` provides:
         public String suffix() { ... }
     }
 
-while `IsisBlobs` provides:
+and `IsisBlobs` provides:
 
     public class IsisBlobs ... {
         public Blob any() { ... }
         public Blob anyJpg() { ... }
         public Blob anyPdf() { ... }
     }
+
+and `Collections` API includes:
+
+    public class Collections ... {
+        public <T> T anyOf(final Collection<T> collection) { ... }
+        public <T> T anyOfExcept(final Collection<T> collection, final Predicate<T> except) { ... }
+        public <T> T anyOf(final T... elements) { ... }
+        public <T> T anyOfExcept(final T[] elements, final Predicate<T> except) { ... }
+        ...
+        public <E extends Enum<E>> E anyEnum(final Class<E> enumType) { ... }
+        public <E extends Enum<E>> E anyEnumExcept(final Class<E> enumType, final Predicate<E> except) { ... }
+        public <T> T anyBounded(final Class<T> cls) { ... }
+        public <T> T anyBoundedExcept(final Class<T> cls, final Predicate<T> except) { ... }
+    }
+
+with similar methods for all the primitives
 
 ## Known issues ##
 
