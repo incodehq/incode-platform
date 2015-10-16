@@ -4,8 +4,8 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -286,7 +286,7 @@ public class FakeDataServiceTest {
 
             final Object thisOne = new Object();
             final Set<Object> seen = Sets.newHashSet();
-            final ArrayList<Object> ints = Lists.newArrayList(Arrays.asList(new Object(), thisOne, new Object()));
+            final Collection<Object> ints = Lists.newArrayList(Arrays.asList(new Object(), thisOne, new Object()));
 
             for (int i = 0; i < 1000; i++) {
                 final Object rand = fakeDataService.collections().anyOfExcept(ints, new Predicate<Object>() {
@@ -301,14 +301,14 @@ public class FakeDataServiceTest {
             ints.removeAll(seen);
 
             assertThat(ints).hasSize(1);
-            assertThat(ints.get(0)).isEqualTo(thisOne);
+            assertThat(ints.iterator().next()).isEqualTo(thisOne);
         }
 
         @Test
         public void anyInt() throws Exception {
 
            final Set<Integer> seen = Sets.newHashSet();
-           final List<Integer> ints = Lists.newArrayList(Arrays.asList(1, 2, 3, 4));
+           final Collection<Integer> ints = Lists.newArrayList(Arrays.asList(1, 2, 3, 4));
 
            for (int i = 0; i < 1000; i++) {
                final int rand = fakeDataService.collections().anyOf(ints);
@@ -324,7 +324,7 @@ public class FakeDataServiceTest {
         public void anyIntExcept() throws Exception {
 
            final Set<Integer> seen = Sets.newHashSet();
-           final List<Integer> ints = Lists.newArrayList(Arrays.asList(1, 2, 3, 4));
+           final Collection<Integer> ints = Lists.newArrayList(Arrays.asList(1, 2, 3, 4));
 
            for (int i = 0; i < 1000; i++) {
                final int rand = fakeDataService.collections().anyOfExcept(ints, new Predicate<Integer>() {
@@ -339,7 +339,7 @@ public class FakeDataServiceTest {
            ints.removeAll(seen);
 
            assertThat(ints).hasSize(1);
-           assertThat(ints.get(0)).isEqualTo(2);
+           assertThat(ints.iterator().next()).isEqualTo(2);
         }
 
     }

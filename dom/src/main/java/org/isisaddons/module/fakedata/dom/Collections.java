@@ -89,7 +89,7 @@ public class Collections extends AbstractRandomValueGenerator{
         final int randomIdx = fake.ints().upTo(collection.size());
         int i = 0;
         for (T element : collection) {
-            if (i==randomIdx) {
+            if (randomIdx == i++) {
                 return element;
             }
         }
