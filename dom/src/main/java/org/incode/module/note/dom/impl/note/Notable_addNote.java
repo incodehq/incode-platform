@@ -68,7 +68,7 @@ public class Notable_addNote {
             domainEvent = DomainEvent.class,
             semantics = SemanticsOf.NON_IDEMPOTENT
     )
-    public Notable __(
+    public Notable $$(
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Note", multiLine = NoteModule.MultiLine.NOTES)
             final String note,
@@ -82,7 +82,7 @@ public class Notable_addNote {
         return this.notable;
     }
 
-    public List<String> choices2__(
+    public List<String> choices2$$(
     ) {
         final Collection<String> values = calendarNameService.calendarNamesFor(this.notable);
         final List<String> valuesCopy = Lists.newArrayList(values);
@@ -93,7 +93,7 @@ public class Notable_addNote {
         return valuesCopy;
     }
 
-    public String validate__(
+    public String validate$$(
             final String notes,
             final LocalDate date,
             final String calendarName) {
@@ -111,7 +111,7 @@ public class Notable_addNote {
             if(!values.contains(calendarName)) {
                 return "No such calendar";
             }
-            if(!choices2__().contains(calendarName)) {
+            if(!choices2$$().contains(calendarName)) {
                 return "This object already has a note on calendar '" + calendarName + "'";
             }
         }

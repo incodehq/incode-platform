@@ -64,7 +64,7 @@ public class Notable_notes {
     @CollectionLayout(
             render = RenderType.EAGERLY
     )
-    public List<Note> __() {
+    public List<Note> $$() {
         return noteRepository.findByNotable(this.notable);
     }
 

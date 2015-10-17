@@ -51,7 +51,7 @@ public class Note_changeDate {
             domainEvent = DomainEvent.class,
             semantics = SemanticsOf.IDEMPOTENT
     )
-    public Note __(
+    public Note $$(
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Date")
             final LocalDate date,
@@ -64,7 +64,7 @@ public class Note_changeDate {
         return this.note;
     }
 
-    public Collection<String> choices1__() {
+    public Collection<String> choices1$$() {
         final Collection<String> values = calendarNameService.calendarNamesFor(this.note.getNotable());
         final List<String> valuesCopy = Lists.newArrayList(values);
         final List<String> currentCalendarsInUse = Lists.transform(
@@ -75,15 +75,15 @@ public class Note_changeDate {
         return valuesCopy;
     }
 
-    public LocalDate default0__() {
+    public LocalDate default0$$() {
         return this.note.getDate();
     }
 
-    public String default1__() {
+    public String default1$$() {
         return this.note.getCalendarName();
     }
 
-    public String validate__(final LocalDate date, final String calendarName) {
+    public String validate$$(final LocalDate date, final String calendarName) {
         if(Strings.isNullOrEmpty(this.note.getNotes()) && (date == null || calendarName == null)) {
             return "Must specify either note text or a date/calendar (or both).";
         }

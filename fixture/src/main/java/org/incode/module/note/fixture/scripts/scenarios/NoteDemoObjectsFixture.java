@@ -57,17 +57,17 @@ public class NoteDemoObjectsFixture extends DiscoverableFixtureScript {
         final LocalDate now = clockService.now();
 
         final NoteDemoObject foo = create("Foo", executionContext);
-        wrap(mixinAddNote(foo)).__("Note A", now, "BLUE");
-        wrap(mixinAddNote(foo)).__("Note B", now.plusDays(1), "GREEN");
-        wrap(mixinAddNote(foo)).__("Note C", now.plusDays(2), "RED");
+        wrap(mixinAddNote(foo)).$$("Note A", now, "BLUE");
+        wrap(mixinAddNote(foo)).$$("Note B", now.plusDays(1), "GREEN");
+        wrap(mixinAddNote(foo)).$$("Note C", now.plusDays(2), "RED");
 
         final NoteDemoObject bar = create("Bar", executionContext);
-        wrap(mixinAddNote(bar)).__("Note #1", null, null);
-        wrap(mixinAddNote(bar)).__("Note #2", now.plusDays(-1),
+        wrap(mixinAddNote(bar)).$$("Note #1", null, null);
+        wrap(mixinAddNote(bar)).$$("Note #2", now.plusDays(-1),
                 "RED");
 
         final NoteDemoObject baz = create("Baz", executionContext);
-        wrap(mixinAddNote(baz)).__("Another note", now.plusDays(1), "RED");
+        wrap(mixinAddNote(baz)).$$("Another note", now.plusDays(1), "RED");
     }
 
 

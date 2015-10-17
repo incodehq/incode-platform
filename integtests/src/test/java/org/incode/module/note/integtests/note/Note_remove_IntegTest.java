@@ -64,11 +64,11 @@ public class Note_remove_IntegTest extends NoteModuleIntegTest {
         notable = wrap(noteDemoObjectMenu).create("Foo");
         calendarNameRepository.setCalendarNames(NoteDemoObject.class, "BLUE", "GREEN", "RED");
 
-        wrap(mixinAddNote(notable)).__("note A", fakeData.jodaLocalDates().any(), "GREEN");
-        wrap(mixinAddNote(notable)).__("note B", null, null);
-        wrap(mixinAddNote(notable)).__(null, fakeData.jodaLocalDates().any(), "RED");
+        wrap(mixinAddNote(notable)).$$("note A", fakeData.jodaLocalDates().any(), "GREEN");
+        wrap(mixinAddNote(notable)).$$("note B", null, null);
+        wrap(mixinAddNote(notable)).$$(null, fakeData.jodaLocalDates().any(), "RED");
 
-        final List<Note> noteList = wrap(mixinNotes(notable)).__();
+        final List<Note> noteList = wrap(mixinNotes(notable)).$$();
         note = Iterables.find(noteList, x -> x.getNotes() != null && x.getDate() != null);
         noteWithoutDate = Iterables.find(noteList, x -> x.getDate() == null);
         noteWithoutText = Iterables.find(noteList, x -> x.getNotes() == null);
@@ -90,14 +90,14 @@ public class Note_remove_IntegTest extends NoteModuleIntegTest {
         public void happy_case() throws Exception {
 
             // given
-            final List<Note> noteList = wrap(mixinNotes(notable)).__();
+            final List<Note> noteList = wrap(mixinNotes(notable)).$$();
             assertThat(noteList).hasSize(3);
 
             // when
-            wrap(mixinRemove(note)).__();
+            wrap(mixinRemove(note)).$$();
 
             // then
-            final List<Note> noteListAfter = wrap(mixinNotes(notable)).__();
+            final List<Note> noteListAfter = wrap(mixinNotes(notable)).$$();
             assertThat(noteListAfter).hasSize(2);
 
         }
@@ -124,7 +124,7 @@ public class Note_remove_IntegTest extends NoteModuleIntegTest {
 
             // when
             final Note_remove mixinRemove = mixinRemove(note);
-            wrap(mixinRemove).__();
+            wrap(mixinRemove).$$();
 
             // then
             assertThat(subscriber.ev).isNotNull();

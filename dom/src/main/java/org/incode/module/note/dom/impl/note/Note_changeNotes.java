@@ -33,7 +33,7 @@ public class Note_changeNotes {
             domainEvent = DomainEvent.class,
             semantics = SemanticsOf.IDEMPOTENT
     )
-    public Note __(
+    public Note $$(
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Notes", multiLine = NoteModule.MultiLine.NOTES)
             final String notes) {
@@ -41,11 +41,11 @@ public class Note_changeNotes {
         return this.note;
     }
 
-    public String default0__() {
+    public String default0$$() {
         return this.note.getNotes();
     }
 
-    public String validate__(final String notes) {
+    public String validate$$(final String notes) {
         if(Strings.isNullOrEmpty(notes) && this.note.getDate() == null) {
             return "Must specify either note text or a date (or both).";
         }

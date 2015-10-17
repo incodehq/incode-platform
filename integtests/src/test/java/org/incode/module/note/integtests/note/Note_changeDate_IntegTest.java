@@ -71,11 +71,11 @@ public class Note_changeDate_IntegTest extends NoteModuleIntegTest {
 
         final LocalDate someDate = fakeData.jodaLocalDates().any();
         final LocalDate someOtherDate = someDate.plusDays(7);
-        wrap(mixinAddNote(notable)).__("note A", someDate, "GREEN");
-        wrap(mixinAddNote(notable)).__("note B", null, null);
-        wrap(mixinAddNote(notable)).__(null, someOtherDate, "RED");
+        wrap(mixinAddNote(notable)).$$("note A", someDate, "GREEN");
+        wrap(mixinAddNote(notable)).$$("note B", null, null);
+        wrap(mixinAddNote(notable)).$$(null, someOtherDate, "RED");
 
-        final List<Note> noteList = wrap(mixinNotes(notable)).__();
+        final List<Note> noteList = wrap(mixinNotes(notable)).$$();
         note = Iterables.find(noteList, x -> x.getNotes() != null && x.getDate() != null);
         noteWithoutDate = Iterables.find(noteList, x -> x.getDate() == null);
         noteWithoutText = Iterables.find(noteList, x -> x.getNotes() == null);
@@ -113,7 +113,7 @@ public class Note_changeDate_IntegTest extends NoteModuleIntegTest {
             final LocalDate newDate = date.plusDays(fakeData.ints().between(10, 20));
             final String newCalendarName = anyOtherCalendarNameFor(notable, calendarNameBefore);
 
-            wrap(mixinChangeDate(note)).__(newDate, newCalendarName);
+            wrap(mixinChangeDate(note)).$$(newDate, newCalendarName);
 
             // then
             assertThat(wrap(note).getDate()).isEqualTo(newDate);
@@ -156,14 +156,14 @@ public class Note_changeDate_IntegTest extends NoteModuleIntegTest {
             assertThat(linkList.get(0).getNotable()).isSameAs(notable);
 
             // when
-            wrap(mixinChangeDate(note)).__(null, null);
+            wrap(mixinChangeDate(note)).$$(null, null);
 
             // then
             assertThat(wrap(note).getDate()).isNull();
             assertThat(wrap(note).getCalendarName()).isNull();
 
             // and (the notes still exist)
-            assertThat(mixinNotes(notable).__()).hasSize(3);
+            assertThat(mixinNotes(notable).$$()).hasSize(3);
 
             // however
             assertThat(asList(noteRepository.findByNotableInDateRange(notable, date, date))).hasSize(0);
@@ -178,14 +178,14 @@ public class Note_changeDate_IntegTest extends NoteModuleIntegTest {
         public void lists_the_remaining_calendars_as_well_as_the_notes_current_one() throws Exception {
 
             // given
-            final List<Note> notes = wrap(mixinNotes(notable)).__();
+            final List<Note> notes = wrap(mixinNotes(notable)).$$();
             final List<String> calendarNames = asList(Iterables.transform(notes, x -> x.getCalendarName()));
             assertThat(calendarNames).containsAll(Arrays.asList("RED", "GREEN", null));
 
             final String currentCalendarName = wrap(note).getCalendarName();
 
             // when
-            final Collection<String> availableCalendarNames = mixinChangeDate(note).choices1__();
+            final Collection<String> availableCalendarNames = mixinChangeDate(note).choices1$$();
 
             // then
             assertThat(availableCalendarNames).hasSize(2);
@@ -199,10 +199,10 @@ public class Note_changeDate_IntegTest extends NoteModuleIntegTest {
         public void uses_current_values() throws Exception {
 
             // when, then
-            assertThat(mixinChangeDate(note).default0__()).isEqualTo(note.getDate());
+            assertThat(mixinChangeDate(note).default0$$()).isEqualTo(note.getDate());
 
             // when, then
-            assertThat(mixinChangeDate(note).default1__()).isEqualTo(note.getCalendarName());
+            assertThat(mixinChangeDate(note).default1$$()).isEqualTo(note.getCalendarName());
         }
     }
 
@@ -216,7 +216,7 @@ public class Note_changeDate_IntegTest extends NoteModuleIntegTest {
             expectedException.expectMessage("Must specify either note text or a date/calendar (or both)");
 
             // when
-            wrap(mixinChangeDate(noteWithoutText)).__(null, null);
+            wrap(mixinChangeDate(noteWithoutText)).$$(null, null);
         }
     }
 

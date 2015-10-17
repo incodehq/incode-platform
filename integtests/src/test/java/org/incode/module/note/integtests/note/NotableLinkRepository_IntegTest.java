@@ -68,10 +68,10 @@ public class NotableLinkRepository_IntegTest extends NoteModuleIntegTest {
         public void happyCase() throws Exception {
 
             // given
-            wrap(mixinAddNote(notable1)).__("note A", fakeData.jodaLocalDates().any(), "GREEN");
-            wrap(mixinAddNote(notable1)).__("note B", fakeData.jodaLocalDates().any(), "BLUE");
+            wrap(mixinAddNote(notable1)).$$("note A", fakeData.jodaLocalDates().any(), "GREEN");
+            wrap(mixinAddNote(notable1)).$$("note B", fakeData.jodaLocalDates().any(), "BLUE");
 
-            final List<Note> notes = wrap(mixinNotes(notable1)).__();
+            final List<Note> notes = wrap(mixinNotes(notable1)).$$();
             final Note note1 = Iterables.find(notes, input -> input.getNotes().equals("note A"));
             final Note note2 = Iterables.find(notes, input -> input.getNotes().equals("note B"));
 
@@ -96,13 +96,13 @@ public class NotableLinkRepository_IntegTest extends NoteModuleIntegTest {
         public void happyCase() throws Exception {
 
             // given
-            wrap(mixinAddNote(notable1)).__("note A", fakeData.jodaLocalDates().any(), "GREEN");
-            wrap(mixinAddNote(notable1)).__("note B", fakeData.jodaLocalDates().any(), "BLUE");
+            wrap(mixinAddNote(notable1)).$$("note A", fakeData.jodaLocalDates().any(), "GREEN");
+            wrap(mixinAddNote(notable1)).$$("note B", fakeData.jodaLocalDates().any(), "BLUE");
 
-            wrap(mixinAddNote(notable2)).__("note C", fakeData.jodaLocalDates().any(), "GREEN");
-            wrap(mixinAddNote(notable2)).__("note D", fakeData.jodaLocalDates().any(), "BLUE");
+            wrap(mixinAddNote(notable2)).$$("note C", fakeData.jodaLocalDates().any(), "GREEN");
+            wrap(mixinAddNote(notable2)).$$("note D", fakeData.jodaLocalDates().any(), "BLUE");
 
-            final List<Note> notable2Notes = wrap(mixinNotes(notable2)).__();
+            final List<Note> notable2Notes = wrap(mixinNotes(notable2)).$$();
 
             // when
             final List<NotableLink> links = notableLinkRepository.findByNotable(notable2);
@@ -123,14 +123,14 @@ public class NotableLinkRepository_IntegTest extends NoteModuleIntegTest {
         public void happyCase() throws Exception {
 
             // given
-            wrap(mixinAddNote(notable1)).__("note A", fakeData.jodaLocalDates().any(), "BLUE");
-            wrap(mixinAddNote(notable1)).__("note B", fakeData.jodaLocalDates().any(), "GREEN");
-            wrap(mixinAddNote(notable1)).__("note C", fakeData.jodaLocalDates().any(), "RED");
+            wrap(mixinAddNote(notable1)).$$("note A", fakeData.jodaLocalDates().any(), "BLUE");
+            wrap(mixinAddNote(notable1)).$$("note B", fakeData.jodaLocalDates().any(), "GREEN");
+            wrap(mixinAddNote(notable1)).$$("note C", fakeData.jodaLocalDates().any(), "RED");
 
-            wrap(mixinAddNote(notable2)).__("note D", fakeData.jodaLocalDates().any(), "GREEN");
+            wrap(mixinAddNote(notable2)).$$("note D", fakeData.jodaLocalDates().any(), "GREEN");
 
-            final List<Note> notable1Notes = wrap(mixinNotes(notable1)).__();
-            final List<Note> notable2Notes = wrap(mixinNotes(notable2)).__();
+            final List<Note> notable1Notes = wrap(mixinNotes(notable1)).$$();
+            final List<Note> notable2Notes = wrap(mixinNotes(notable2)).$$();
 
             // when
             final NotableLink link1 = notableLinkRepository.findByNotableAndCalendarName(notable1, "GREEN");
@@ -162,13 +162,13 @@ public class NotableLinkRepository_IntegTest extends NoteModuleIntegTest {
             // given
             someDate = fakeData.jodaLocalDates().any();
 
-            wrap(mixinAddNote(notable1)).__("note A", someDate, "BLUE");
-            wrap(mixinAddNote(notable1)).__("note B", someDate.plusDays(2), "GREEN");
-            wrap(mixinAddNote(notable1)).__("note C", someDate.plusDays(-2), "RED");
+            wrap(mixinAddNote(notable1)).$$("note A", someDate, "BLUE");
+            wrap(mixinAddNote(notable1)).$$("note B", someDate.plusDays(2), "GREEN");
+            wrap(mixinAddNote(notable1)).$$("note C", someDate.plusDays(-2), "RED");
 
-            wrap(mixinAddNote(notable2)).__("note D", someDate, "GREEN");
+            wrap(mixinAddNote(notable2)).$$("note D", someDate, "GREEN");
 
-            notable1Notes = wrap(mixinNotes(notable1)).__();
+            notable1Notes = wrap(mixinNotes(notable1)).$$();
         }
 
         @Test

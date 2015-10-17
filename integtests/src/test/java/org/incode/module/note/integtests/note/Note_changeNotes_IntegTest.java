@@ -60,11 +60,11 @@ public class Note_changeNotes_IntegTest extends NoteModuleIntegTest {
         notable = wrap(noteDemoObjectMenu).create("Foo");
         calendarNameRepository.setCalendarNames(NoteDemoObject.class, "BLUE", "GREEN", "RED");
 
-        wrap(mixinAddNote(notable)).__("note A", fakeData.jodaLocalDates().any(), "GREEN");
-        wrap(mixinAddNote(notable)).__("note B", null, null);
-        wrap(mixinAddNote(notable)).__(null, fakeData.jodaLocalDates().any(), "RED");
+        wrap(mixinAddNote(notable)).$$("note A", fakeData.jodaLocalDates().any(), "GREEN");
+        wrap(mixinAddNote(notable)).$$("note B", null, null);
+        wrap(mixinAddNote(notable)).$$(null, fakeData.jodaLocalDates().any(), "RED");
 
-        final List<Note> noteList = wrap(mixinNotes(notable)).__();
+        final List<Note> noteList = wrap(mixinNotes(notable)).$$();
         note = Iterables.find(noteList, x -> x.getNotes() != null && x.getDate() != null);
         noteWithoutDate = Iterables.find(noteList, x -> x.getDate() == null);
         noteWithoutText = Iterables.find(noteList, x -> x.getNotes() == null);
@@ -92,7 +92,7 @@ public class Note_changeNotes_IntegTest extends NoteModuleIntegTest {
             assertThat(newNotes).isNotEqualTo(notesBefore);
 
             // when
-            wrap(mixinChangeNotes(note)).__(newNotes);
+            wrap(mixinChangeNotes(note)).$$(newNotes);
 
             // then
             assertThat(wrap(note).getNotes()).isEqualTo(newNotes);
@@ -108,7 +108,7 @@ public class Note_changeNotes_IntegTest extends NoteModuleIntegTest {
             final String notes = wrap(note).getNotes();
 
             // when
-            final String defaultNotes = mixinChangeNotes(note).default0__();
+            final String defaultNotes = mixinChangeNotes(note).default0$$();
 
             // then
             assertThat(defaultNotes).isEqualTo(notes);
@@ -124,7 +124,7 @@ public class Note_changeNotes_IntegTest extends NoteModuleIntegTest {
             assertThat(wrap(note).getDate()).isNotNull();
 
             // when
-            wrap(mixinChangeNotes(note)).__(null);
+            wrap(mixinChangeNotes(note)).$$(null);
 
             // then
             assertThat(wrap(note).getNotes()).isNull();
@@ -141,7 +141,7 @@ public class Note_changeNotes_IntegTest extends NoteModuleIntegTest {
             expectedException.expectMessage("Must specify either note text or a date (or both)");
 
             // when
-            wrap(mixinChangeNotes(noteWithoutDate)).__(null);
+            wrap(mixinChangeNotes(noteWithoutDate)).$$(null);
         }
     }
 

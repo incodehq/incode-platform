@@ -75,10 +75,10 @@ public class Notable_removeNote_IntegTest extends NoteModuleIntegTest {
         public void can_remove_note() throws Exception {
 
             // given
-            wrap(mixinAddNote(notable)).__(null, fakeData.jodaLocalDates().any(), "GREEN");
-            wrap(mixinAddNote(notable)).__(null, fakeData.jodaLocalDates().any(), "BLUE");
+            wrap(mixinAddNote(notable)).$$(null, fakeData.jodaLocalDates().any(), "GREEN");
+            wrap(mixinAddNote(notable)).$$(null, fakeData.jodaLocalDates().any(), "BLUE");
 
-            final List<Note> noteList = wrap(mixinNotes(notable)).__();
+            final List<Note> noteList = wrap(mixinNotes(notable)).$$();
             assertThat(noteList).hasSize(2);
 
             final List<Note> notes = noteRepository.findByNotable(notable);
@@ -91,10 +91,10 @@ public class Notable_removeNote_IntegTest extends NoteModuleIntegTest {
             final Note someNote = fakeData.collections().anyOf(noteList.toArray(new Note[]{}));
 
             // when
-            wrap(mixinRemoveNote(notable)).__(someNote);
+            wrap(mixinRemoveNote(notable)).$$(someNote);
 
             // then
-            final List<Note> noteListAfter = wrap(mixinNotes(notable)).__();
+            final List<Note> noteListAfter = wrap(mixinNotes(notable)).$$();
             assertThat(noteListAfter).hasSize(1);
             assertThat(noteListAfter).doesNotContain(someNote);
 
@@ -113,7 +113,7 @@ public class Notable_removeNote_IntegTest extends NoteModuleIntegTest {
         public void disabled_if_none_exist() throws Exception {
 
             // given
-            final List<Note> noteList = wrap(mixinNotes(notable)).__();
+            final List<Note> noteList = wrap(mixinNotes(notable)).$$();
             assertThat(noteList).isEmpty();
 
             // expecting
@@ -122,22 +122,22 @@ public class Notable_removeNote_IntegTest extends NoteModuleIntegTest {
 
             // when
             final Note note = null;
-            wrap(mixinRemoveNote(notable)).__(note);
+            wrap(mixinRemoveNote(notable)).$$(note);
         }
 
         @Test
         public void enabled_if_exist() throws Exception {
 
             // given
-            wrap(mixinAddNote(notable)).__(null, fakeData.jodaLocalDates().any(), "GREEN");
-            final List<Note> noteList = wrap(mixinNotes(notable)).__();
+            wrap(mixinAddNote(notable)).$$(null, fakeData.jodaLocalDates().any(), "GREEN");
+            final List<Note> noteList = wrap(mixinNotes(notable)).$$();
             assertThat(noteList).isNotEmpty();
 
             // expecting no errors
 
             // when
             final Note note = noteList.get(0);
-            wrap(mixinRemoveNote(notable)).__(note);
+            wrap(mixinRemoveNote(notable)).$$(note);
         }
     }
 
@@ -147,14 +147,14 @@ public class Notable_removeNote_IntegTest extends NoteModuleIntegTest {
         public void lists_notes_as_choices() throws Exception {
 
             // given
-            wrap(mixinAddNote(notable)).__(null, fakeData.jodaLocalDates().any(), "GREEN");
-            wrap(mixinAddNote(notable)).__(null, fakeData.jodaLocalDates().any(), "BLUE");
+            wrap(mixinAddNote(notable)).$$(null, fakeData.jodaLocalDates().any(), "GREEN");
+            wrap(mixinAddNote(notable)).$$(null, fakeData.jodaLocalDates().any(), "BLUE");
 
-            final List<Note> noteList = wrap(mixinNotes(notable)).__();
+            final List<Note> noteList = wrap(mixinNotes(notable)).$$();
             assertThat(noteList).hasSize(2);
 
             // when
-            final List<Note> noteChoices = mixinRemoveNote(notable).choices0__();
+            final List<Note> noteChoices = mixinRemoveNote(notable).choices0$$();
 
             // then
             assertThat(noteList).containsAll(noteChoices);
@@ -167,13 +167,13 @@ public class Notable_removeNote_IntegTest extends NoteModuleIntegTest {
         public void first_choice() throws Exception {
 
             // given
-            wrap(mixinAddNote(notable)).__(null, fakeData.jodaLocalDates().any(), "GREEN");
-            wrap(mixinAddNote(notable)).__(null, fakeData.jodaLocalDates().any(), "BLUE");
+            wrap(mixinAddNote(notable)).$$(null, fakeData.jodaLocalDates().any(), "GREEN");
+            wrap(mixinAddNote(notable)).$$(null, fakeData.jodaLocalDates().any(), "BLUE");
 
-            final List<Note> noteChoices = mixinRemoveNote(notable).choices0__();
+            final List<Note> noteChoices = mixinRemoveNote(notable).choices0$$();
 
             // when
-            final Note defaultChoice = mixinRemoveNote(notable).default0__();
+            final Note defaultChoice = mixinRemoveNote(notable).default0$$();
 
             // then
             assertThat(defaultChoice).isSameAs(noteChoices.get(0));
@@ -201,15 +201,15 @@ public class Notable_removeNote_IntegTest extends NoteModuleIntegTest {
         public void fires_event() throws Exception {
 
             // given
-            wrap(mixinAddNote(notable)).__(null, fakeData.jodaLocalDates().any(), "GREEN");
-            final List<Note> noteList = wrap(mixinNotes(notable)).__();
+            wrap(mixinAddNote(notable)).$$(null, fakeData.jodaLocalDates().any(), "GREEN");
+            final List<Note> noteList = wrap(mixinNotes(notable)).$$();
             assertThat(noteList).isNotEmpty();
 
             // when
             final Note note = noteList.get(0);
 
             final Notable_removeNote mixinRemoveNote = mixinRemoveNote(notable);
-            wrap(mixinRemoveNote).__(note);
+            wrap(mixinRemoveNote).$$(note);
 
             // then
             assertThat(subscriber.ev).isNotNull();

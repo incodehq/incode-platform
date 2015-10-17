@@ -34,7 +34,7 @@ public class Note_remove {
             domainEvent = DomainEvent.class,
             semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE
     )
-    public Notable __() {
+    public Notable $$() {
         final Notable notable = this.note.getNotable();
         noteRepository.remove(this.note);
         return notable;

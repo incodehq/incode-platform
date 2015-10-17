@@ -180,7 +180,9 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 
 === For each domain object...
 
-For each domain object that you want to be able to attach notes, you need to implement the `Notable` marker interface and implement a subsclass of `NotableLink` to hold a type-safe reference back to the domain object.
+For each domain object that you want to be able to attach notes, you need to implement the `Notable` marker interface
+and (optionally but strongly recommended) implement a subclass of `NotableLink` to hold a type-safe reference back to
+the domain object.
 
 For each such `Notable` domain object, the module will then:
 
@@ -188,7 +190,8 @@ For each such `Notable` domain object, the module will then:
 
 * contribute the `addNote(...)` and `removeNote(...)` actions.
 
-Other than implementing the marker interface, the `Notable` domain object will be completely decoupled from the rest of the note module.
+Other than implementing the marker interface, the `Notable` domain object will be completely decoupled from the rest
+of the note module.
 
 In detail:
 
@@ -203,7 +206,8 @@ public class NoteDemoObject implements Notable {
 }
 ----
 +
-This is a marker interface only (no methods need be implemented); it is used only so that Apache Isis knows where to contribute the collections and actions.
+This is a marker interface only (no methods need be implemented); it is used only so that Apache Isis knows where to
+contribute the collections and actions.
 
 * subclass the `NotableLink` abstract class and also implement a domain event subscriber to correctly instantiate
 the subclass. +
@@ -301,7 +305,7 @@ To search for notes by `Notable` or in general within a date range
 
 * `NotableLinkRepository` +
 +
-To search for `NotableLink`s, ie the tuple that links a `Note` with an arbitrary `Notable` domain object.  This repository is likely to be less useful than `NoteRepository`, but is crucial to the internal workings of the `incode-module-note` module.
+To search for ``NotableLink``s, ie the tuple that links a `Note` with an arbitrary `Notable` domain object.  This repository is likely to be less useful than `NoteRepository`, but is crucial to the internal workings of the `incode-module-note` module.
 
 
 
@@ -330,6 +334,8 @@ structured as follows:
 Only the `dom` project is released to Maven Central Repo.  The versions of the other modules are purposely left at
 `0.0.1-SNAPSHOT` because they are not intended to be released.
 
+Note that the module uses link:https://projectlombok.org/[Project Lombok].  To compile the code within your IDE you will
+therefore require the appropriate Lombok plugin.  See the link:https://projectlombok.org/download.html[Lombok download page] for more information.
 
 
 == Legal Stuff

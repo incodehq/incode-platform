@@ -54,21 +54,21 @@ public class Notable_removeNote {
             domainEvent = DomainEvent.class,
             semantics = SemanticsOf.IDEMPOTENT
     )
-    public Notable __(final Note note) {
+    public Notable $$(final Note note) {
         noteRepository.remove(note);
         return this.notable;
     }
 
-    public String disable__(final Note note) {
-        return choices0__().isEmpty() ? "No notes to remove" : null;
+    public String disable$$(final Note note) {
+        return choices0$$().isEmpty() ? "No notes to remove" : null;
     }
 
-    public List<Note> choices0__() {
+    public List<Note> choices0$$() {
         return this.notable != null ? noteRepository.findByNotable(this.notable): Collections.emptyList();
     }
 
-    public Note default0__() {
-        return firstOf(choices0__());
+    public Note default0$$() {
+        return firstOf(choices0$$());
     }
 
     //region > helpers
