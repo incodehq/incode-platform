@@ -48,7 +48,7 @@ public class CommunicationChannel_updateNotes {
             domainEvent = DomainEvent.class,
             semantics = SemanticsOf.IDEMPOTENT
     )
-    public CommunicationChannel<?> __(
+    public CommunicationChannel<?> $$(
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Notes", multiLine = 10)
             final String Notes) {
@@ -56,7 +56,7 @@ public class CommunicationChannel_updateNotes {
         return communicationChannel;
     }
 
-    public String default0__() {
+    public String default0$$() {
         return communicationChannel.getNotes();
     }
 

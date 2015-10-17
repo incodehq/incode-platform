@@ -57,10 +57,10 @@ public class PostalAddress_clearGeocode_IntegTest extends CommChannelModuleInteg
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
 
-        wrap(mixinNewPostalAddress(fredDemoOwner)).__(
+        wrap(mixinNewPostalAddress(fredDemoOwner)).$$(
                 "45", "High Street", "Oxford", null, "OX1", "UK", "Work", "Fred Smith's work", true);
 
-        final SortedSet<CommunicationChannel> communicationChannels = wrap(mixinCommunicationChannels(fredDemoOwner)).__();
+        final SortedSet<CommunicationChannel> communicationChannels = wrap(mixinCommunicationChannels(fredDemoOwner)).$$();
         postalAddress = (PostalAddress) communicationChannels.first();
 
     }
@@ -75,7 +75,7 @@ public class PostalAddress_clearGeocode_IntegTest extends CommChannelModuleInteg
             assertThat(postalAddress.getName()).isEqualTo("45 High St, Oxford, Oxfordshire OX1, UK");
 
             // when
-            wrap(mixinResetGeocode(postalAddress)).__();
+            wrap(mixinResetGeocode(postalAddress)).$$();
 
             // then
             assertThat(postalAddress.getName()).isEqualTo("45, High Stree...ford, OX1, UK");
@@ -106,7 +106,7 @@ public class PostalAddress_clearGeocode_IntegTest extends CommChannelModuleInteg
         @Test
         public void happy_case() throws Exception {
 
-            wrap(mixinResetGeocode(postalAddress)).__();
+            wrap(mixinResetGeocode(postalAddress)).$$();
 
             assertThat(testSubscriber.ev).isNotNull();
         }

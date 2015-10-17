@@ -68,7 +68,7 @@ public class PostalAddress_update {
             semantics = SemanticsOf.IDEMPOTENT,
             domainEvent = DomainEvent.class
     )
-    public PostalAddress __(
+    public PostalAddress $$(
             @Parameter(maxLength = CommChannelModule.JdoColumnLength.ADDRESS_LINE)
             @ParameterLayout(named = "Address Line 1")
             final String addressLine1,
@@ -129,29 +129,29 @@ public class PostalAddress_update {
                         CommunicationChannelOwner_newPostalAddress.class, "newPostal");
             }
         } else {
-            mixinResetGeocode().__();
+            mixinResetGeocode().$$();
         }
     }
 
-    public String default0__() {
+    public String default0$$() {
         return this.postalAddress.getAddressLine1();
     }
-    public String default1__() {
+    public String default1$$() {
         return this.postalAddress.getAddressLine2();
     }
-    public String default2__() {
+    public String default2$$() {
         return this.postalAddress.getAddressLine3();
     }
-    public String default3__() {
+    public String default3$$() {
         return this.postalAddress.getAddressLine4();
     }
-    public String default4__() {
+    public String default4$$() {
         return this.postalAddress.getPostalCode();
     }
-    public String default5__() {
+    public String default5$$() {
         return this.postalAddress.getCountry();
     }
-    public Boolean default6__() {
+    public Boolean default6$$() {
         return this.postalAddress.getPlaceId() != null ? true: null;
     }
 

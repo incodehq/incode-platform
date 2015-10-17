@@ -68,7 +68,7 @@ public class CommunicationChannel_updatePurpose {
             domainEvent = DomainEvent.class,
             semantics = SemanticsOf.IDEMPOTENT
     )
-    public CommunicationChannel<?> __(
+    public CommunicationChannel<?> $$(
             @Parameter(maxLength = CommChannelModule.JdoColumnLength.PURPOSE, optionality = Optionality.MANDATORY)
             @ParameterLayout(named = "Purpose")
             final String purpose) {
@@ -76,12 +76,12 @@ public class CommunicationChannel_updatePurpose {
         return communicationChannel;
     }
 
-    public <T extends CommunicationChannel<T>> String default0__() {
+    public <T extends CommunicationChannel<T>> String default0$$() {
         return communicationChannel.getPurpose();
     }
 
-    public Collection<String> choices0__() {
-        return communicationChannelPurposeService.purposesFor(getCommunicationChannel().getType(), mixinOwner().__());
+    public Collection<String> choices0$$() {
+        return communicationChannelPurposeService.purposesFor(getCommunicationChannel().getType(), mixinOwner().$$());
     }
 
 

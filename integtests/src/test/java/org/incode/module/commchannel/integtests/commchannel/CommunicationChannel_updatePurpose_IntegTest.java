@@ -57,7 +57,7 @@ public class CommunicationChannel_updatePurpose_IntegTest extends CommChannelMod
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Foo");
 
-        wrap(mixinNewEmailAddress(fredDemoOwner)).__("fred@gmail.com", "Home Email", "Fred Smith's home email");
+        wrap(mixinNewEmailAddress(fredDemoOwner)).$$("fred@gmail.com", "Home Email", "Fred Smith's home email");
 
         fredChannels = communicationChannelRepository.findByOwner(fredDemoOwner);
     }
@@ -72,11 +72,11 @@ public class CommunicationChannel_updatePurpose_IntegTest extends CommChannelMod
 
             final CommunicationChannel_updatePurpose mixinUpdatePurpose = mixinUpdatePurpose(communicationChannel);
 
-            final Collection<String> choices = mixinUpdatePurpose.choices0__();
+            final Collection<String> choices = mixinUpdatePurpose.choices0$$();
             final String newPurpose = fakeDataService.collections().anyOfExcept(
                     choices, s -> Objects.equals(s, communicationChannel.getPurpose()) );
 
-            wrap(mixinUpdatePurpose).__(newPurpose);
+            wrap(mixinUpdatePurpose).$$(newPurpose);
 
             assertThat(communicationChannel.getPurpose()).isEqualTo(newPurpose);
         }
@@ -89,7 +89,7 @@ public class CommunicationChannel_updatePurpose_IntegTest extends CommChannelMod
         public void happy_case() throws Exception {
             final CommunicationChannel communicationChannel = fredChannels.first();
 
-            final String descr = mixinUpdatePurpose(communicationChannel).default0__();
+            final String descr = mixinUpdatePurpose(communicationChannel).default0$$();
 
             assertThat(descr).isEqualTo(communicationChannel.getPurpose());
         }
@@ -116,9 +116,9 @@ public class CommunicationChannel_updatePurpose_IntegTest extends CommChannelMod
             final CommunicationChannel channel = fredChannels.first();
 
             final CommunicationChannel_updatePurpose mixinUpdatePurpose = mixinUpdatePurpose(channel);
-            final String newPurpose = fakeDataService.collections().anyOf(mixinUpdatePurpose.choices0__().toArray(new String[]{}));
+            final String newPurpose = fakeDataService.collections().anyOf(mixinUpdatePurpose.choices0$$().toArray(new String[]{}));
 
-            wrap(mixinUpdatePurpose).__(newPurpose);
+            wrap(mixinUpdatePurpose).$$(newPurpose);
 
             assertThat(testSubscriber.ev.getSource().getCommunicationChannel()).isSameAs(channel);
             assertThat(testSubscriber.ev.getArguments().get(0)).isEqualTo(newPurpose);

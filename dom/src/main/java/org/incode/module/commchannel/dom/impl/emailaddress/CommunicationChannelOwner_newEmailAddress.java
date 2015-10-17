@@ -69,7 +69,7 @@ public class CommunicationChannelOwner_newEmailAddress {
             contributed = Contributed.AS_ACTION
     )
     @MemberOrder(name = "CommunicationChannels", sequence = "2")
-    public CommunicationChannelOwner __(
+    public CommunicationChannelOwner $$(
             @Parameter(
                     regexPattern = CommChannelModule.Regex.EMAIL_ADDRESS,
                     maxLength = CommChannelModule.JdoColumnLength.EMAIL_ADDRESS
@@ -86,13 +86,13 @@ public class CommunicationChannelOwner_newEmailAddress {
         return this.communicationChannelOwner;
     }
 
-    public Collection<String> choices1__() {
+    public Collection<String> choices1$$() {
         return communicationChannelPurposeService.purposesFor(CommunicationChannelType.EMAIL_ADDRESS,
                 this.communicationChannelOwner);
     }
 
-    public String default1__() {
-        final Collection<String> purposes = choices1__();
+    public String default1$$() {
+        final Collection<String> purposes = choices1$$();
         return purposes.isEmpty()? null : purposes.iterator().next();
     }
 

@@ -57,10 +57,10 @@ public class PostalAddress_lookupGeocode_IntegTest extends CommChannelModuleInte
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
 
-        wrap(mixinNewPostalAddress(fredDemoOwner)).__(
+        wrap(mixinNewPostalAddress(fredDemoOwner)).$$(
                 "45", "High Street", "Oxford", null, "OX1", "UK", "Work", "Fred Smith's work", false);
 
-        final SortedSet<CommunicationChannel> communicationChannels = wrap(mixinCommunicationChannels(fredDemoOwner)).__();
+        final SortedSet<CommunicationChannel> communicationChannels = wrap(mixinCommunicationChannels(fredDemoOwner)).$$();
         postalAddress = (PostalAddress) communicationChannels.first();
 
     }
@@ -75,7 +75,7 @@ public class PostalAddress_lookupGeocode_IntegTest extends CommChannelModuleInte
             assertThat(postalAddress.getName()).isEqualTo("45, High Stree...ford, OX1, UK");
 
             // when
-            wrap(mixinLookupGeocode(postalAddress)).__("45, High Street, Oxford, OX1, UK");
+            wrap(mixinLookupGeocode(postalAddress)).$$("45, High Street, Oxford, OX1, UK");
 
             // then
             assertThat(postalAddress.getName()).isEqualTo("45 High St, Oxford, Oxfordshire OX1, UK");
@@ -99,7 +99,7 @@ public class PostalAddress_lookupGeocode_IntegTest extends CommChannelModuleInte
         @Test
         public void concatenates_all_the_parts_of_the_address_ignoring_any_missing_parts() throws Exception {
 
-            final String defaultAddress = mixinLookupGeocode(postalAddress).default0__();
+            final String defaultAddress = mixinLookupGeocode(postalAddress).default0$$();
 
             assertThat(defaultAddress).isEqualTo("45, High Street, Oxford, OX1, UK");
         }
@@ -123,7 +123,7 @@ public class PostalAddress_lookupGeocode_IntegTest extends CommChannelModuleInte
         @Test
         public void happy_case() throws Exception {
 
-            wrap(mixinLookupGeocode(postalAddress)).__("45, High Street, Oxford, OX1, UK");
+            wrap(mixinLookupGeocode(postalAddress)).$$("45, High Street, Oxford, OX1, UK");
 
             assertThat(testSubscriber.ev).isNotNull();
         }

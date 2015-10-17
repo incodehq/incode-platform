@@ -50,7 +50,7 @@ public class LocationDereferencingServiceForCommunicationChannels implements Loc
 			return null;
 		}
 		final CommunicationChannel communicationChannel = (CommunicationChannel) locatable;
-		return owner(communicationChannel).__();
+		return owner(communicationChannel).$$();
 	}
 
 

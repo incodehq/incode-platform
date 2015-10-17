@@ -55,7 +55,7 @@ public class CommunicationChannel_updateNotes_IntegTest extends CommChannelModul
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Foo");
 
-        wrap(mixinNewEmailAddress(fredDemoOwner)).__("fred@gmail.com", "Home Email", "Fred Smith's home email");
+        wrap(mixinNewEmailAddress(fredDemoOwner)).$$("fred@gmail.com", "Home Email", "Fred Smith's home email");
 
         fredChannels = communicationChannelRepository.findByOwner(fredDemoOwner);
     }
@@ -69,7 +69,7 @@ public class CommunicationChannel_updateNotes_IntegTest extends CommChannelModul
             final CommunicationChannel communicationChannel = fredChannels.first();
             final String newNotes = fakeDataService.lorem().paragraph();
 
-            wrap(mixinUpdateNotes(communicationChannel)).__(newNotes);
+            wrap(mixinUpdateNotes(communicationChannel)).$$(newNotes);
 
             assertThat(communicationChannel.getNotes()).isEqualTo(newNotes);
         }
@@ -81,7 +81,7 @@ public class CommunicationChannel_updateNotes_IntegTest extends CommChannelModul
         public void happy_case() throws Exception {
             final CommunicationChannel communicationChannel = fredChannels.first();
 
-            final String notes = mixinUpdateNotes(communicationChannel).default0__();
+            final String notes = mixinUpdateNotes(communicationChannel).default0$$();
 
             assertThat(notes).isEqualTo(communicationChannel.getNotes());
         }
@@ -107,7 +107,7 @@ public class CommunicationChannel_updateNotes_IntegTest extends CommChannelModul
         public void happy_case() throws Exception {
             final CommunicationChannel channel = fredChannels.first();
             final String newParagraph = fakeDataService.lorem().paragraph();
-            wrap(mixinUpdateNotes(channel)).__(newParagraph);
+            wrap(mixinUpdateNotes(channel)).$$(newParagraph);
 
             assertThat(testSubscriber.ev.getSource().getCommunicationChannel()).isSameAs(channel);
             assertThat(testSubscriber.ev.getArguments().get(0)).isEqualTo(newParagraph);

@@ -65,16 +65,16 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest extends Com
 
             // given
             final SortedSet<CommunicationChannel> communicationChannelsBefore =
-                    wrap(mixinCommunicationChannels(fredDemoOwner)).__();
+                    wrap(mixinCommunicationChannels(fredDemoOwner)).$$();
             assertThat(communicationChannelsBefore).hasSize(0);
 
             // when
-            wrap(mixinNewPhoneOrFaxNumber(fredDemoOwner)).__(
+            wrap(mixinNewPhoneOrFaxNumber(fredDemoOwner)).$$(
                     CommunicationChannelType.PHONE_NUMBER, "0207 999 8888", "Work", "Fred's work number");
 
             // then
             final SortedSet<CommunicationChannel> communicationChannelsAfter =
-                    wrap(mixinCommunicationChannels(fredDemoOwner)).__();
+                    wrap(mixinCommunicationChannels(fredDemoOwner)).$$();
             assertThat(communicationChannelsAfter).hasSize(1);
 
             final CommunicationChannel communicationChannel = communicationChannelsAfter.first();
@@ -99,7 +99,7 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest extends Com
             expectedException.expect(InvalidException.class);
             expectedException.expectMessage("");
 
-            wrap(mixinNewPhoneOrFaxNumber(fredDemoOwner)).__(
+            wrap(mixinNewPhoneOrFaxNumber(fredDemoOwner)).$$(
                     CommunicationChannelType.EMAIL_ADDRESS,
                     "0207 111 2222",
                     "Fred's home phone or fax",
@@ -112,7 +112,7 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest extends Com
         @Test
         public void fax_and_phone_are_the_only_valid_choices() throws Exception {
 
-            final List<CommunicationChannelType> types = mixinNewPhoneOrFaxNumber(fredDemoOwner).choices0__();
+            final List<CommunicationChannelType> types = mixinNewPhoneOrFaxNumber(fredDemoOwner).choices0$$();
 
             assertThat(types).hasSize(2);
             assertThat(types).contains(CommunicationChannelType.FAX_NUMBER);
@@ -125,7 +125,7 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest extends Com
         @Test
         public void phone_is_the_default_choice() throws Exception {
 
-            final CommunicationChannelType type = mixinNewPhoneOrFaxNumber(fredDemoOwner).default0__();
+            final CommunicationChannelType type = mixinNewPhoneOrFaxNumber(fredDemoOwner).default0$$();
 
             assertThat(type).isEqualTo(CommunicationChannelType.PHONE_NUMBER);
         }
@@ -150,7 +150,7 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest extends Com
         @Test
         public void happy_case() throws Exception {
 
-            wrap(mixinNewPhoneOrFaxNumber(fredDemoOwner)).__(
+            wrap(mixinNewPhoneOrFaxNumber(fredDemoOwner)).$$(
                     CommunicationChannelType.PHONE_NUMBER, "0207 999 8888", "Work", "Fred's work number");
 
             assertThat(testSubscriber.ev).isNotNull();

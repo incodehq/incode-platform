@@ -52,7 +52,7 @@ public class PhoneOrFaxNumber_update {
             domainEvent = DomainEvent.class,
             semantics = SemanticsOf.IDEMPOTENT
     )
-    public PhoneOrFaxNumber __(
+    public PhoneOrFaxNumber $$(
             @ParameterLayout(named = "Type")
             final CommunicationChannelType type,
             @ParameterLayout(named = "Phone Number")
@@ -67,15 +67,15 @@ public class PhoneOrFaxNumber_update {
         return this.phoneOrFaxNumber;
     }
 
-    public List<CommunicationChannelType> choices1__() {
+    public List<CommunicationChannelType> choices1$$() {
         return CommunicationChannelType.matching(PhoneOrFaxNumber.class);
     }
 
-    public CommunicationChannelType default0__() {
+    public CommunicationChannelType default0$$() {
         return this.phoneOrFaxNumber.getType();
     }
 
-    public String default1__() {
+    public String default1$$() {
         return this.phoneOrFaxNumber.getPhoneNumber();
     }
 

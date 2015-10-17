@@ -48,7 +48,7 @@ public class CommunicationChannel_remove {
 
     //region > mixins
     private CommunicationChannelOwner mixinOwner() {
-        return container.mixin(CommunicationChannel_owner.class, communicationChannel).__();
+        return container.mixin(CommunicationChannel_owner.class, communicationChannel).$$();
     }
     //endregion
 
@@ -77,7 +77,7 @@ public class CommunicationChannel_remove {
     @ActionLayout(
             named = "Remove"
     )
-    public CommunicationChannelOwner __(
+    public CommunicationChannelOwner $$(
             @ParameterLayout(named = "Replace with")
             @Parameter(optionality = Optionality.OPTIONAL)
             final CommunicationChannel replacement) {
@@ -86,7 +86,7 @@ public class CommunicationChannel_remove {
         return owner;
     }
 
-    public SortedSet<CommunicationChannel> choices0__() {
+    public SortedSet<CommunicationChannel> $$choices0() {
         return communicationChannelRepository.findOtherByOwnerAndType(
                 mixinOwner(), this.communicationChannel.getType(),
                 this.communicationChannel);

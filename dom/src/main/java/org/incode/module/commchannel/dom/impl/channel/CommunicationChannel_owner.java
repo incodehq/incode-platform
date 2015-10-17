@@ -63,7 +63,7 @@ public class CommunicationChannel_owner {
             notPersisted = true
     )
     @PropertyLayout(hidden = Where.PARENTED_TABLES)
-    public CommunicationChannelOwner __() {
+    public CommunicationChannelOwner $$() {
         final CommunicationChannelOwnerLink link = communicationChannelOwnerLinkRepository.getOwnerLink(communicationChannel);
         return link != null? link.getPolymorphicReference(): null;
     }

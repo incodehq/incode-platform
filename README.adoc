@@ -274,17 +274,9 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 
 === For each domain object...
 
-For each domain object that you want to be able to attach ``CommunicationChannel``s, simply have that entity implement
-the `CommunicationChannelOwner` marker interface.
-
-For example, in the demo app the `CommChannelDemoObject` implements this interface: +
-+
-[source,java]
-----
-public class CommChannelDemoObject implements CommunicationChannelOwner {
-    ...
-}
-----
+For each domain object that you want to be able to attach notes, you need to implement the `CommunicationChannelOwner`
+marker interface and (optionally but strongly recommended) also implement a subclass of `CommunicationChannelOwnerLink`
+to hold a type-safe reference back to the domain object.
 
 For each such `CommunicationChannelOwner`, the module will then:
 
@@ -298,6 +290,77 @@ For each such `CommunicationChannelOwner`, the module will then:
 
 Other than implementing the marker interface, the `CommunicationChannelOwner` domain object will be completely decoupled
 from the rest of the module.
+
+In detail:
+
+* have the domain object implement the `CommunicationChannelOwner` interface: +
++
+For example, in the demo app the `CommChannelDemoObject` implements this interface: +
++
+[source,java]
+----
+public class CommChannelDemoObject implements CommunicationChannelOwner {
+    ...
+}
+----
++
+This is a marker interface only (no methods need be implemented); it is used only so that Apache Isis knows where to
+contribute the collections and actions.
+
+* subclass the `CommunicationChannelOwnerLink` abstract class and also implement a domain event subscriber to correctly
+instantiate the subclass. +
++
+For example, in the demo app the `CommunicationChannelOwnerLinkForDemoObject` implements both of these responsibilities: +
++
+[source,java]
+----
+@javax.jdo.annotations.PersistenceCapable(
+        schema="commchanneldemo")
+@javax.jdo.annotations.Inheritance(
+        strategy = InheritanceStrategy.NEW_TABLE)
+@DomainObject(
+        objectType = "commchanneldemo.CommunicationChannelOwnerLinkForDemoObject"
+)
+public class CommunicationChannelOwnerLinkForDemoObject extends CommunicationChannelOwnerLink { // <1>
+
+    @DomainService(nature = NatureOfService.DOMAIN)
+    public static class InstantiationSubscriber extends AbstractSubscriber {                    // <2>
+        @Programmatic
+        @Subscribe
+        public void on(final InstantiateEvent ev) {
+            if(ev.getPolymorphicReference() instanceof CommChannelDemoObject) {
+                ev.setSubtype(CommunicationChannelOwnerLinkForDemoObject.class);
+            }
+        }
+    }
+
+    @Override
+    public void setPolymorphicReference(final CommunicationChannelOwner polymorphicReference) { // <3>
+        super.setPolymorphicReference(polymorphicReference);
+        setDemoObject((CommChannelDemoObject) polymorphicReference);
+    }
+
+    private CommChannelDemoObject demoObject;
+    @Column(
+            allowsNull = "false",
+            name = "demoObjectId"
+    )
+    public CommChannelDemoObject getDemoObject() {                                              // <4>
+        return demoObject;
+    }
+    public void setDemoObject(final CommChannelDemoObject demoObject) {
+        this.demoObject = demoObject;
+    }
+}
+----
+<1> extend from `CommunicationChannelOwnerLink`
+<2> implementation of a domain event subscriber that tells the `incode-module-commchannel` which subclass of
+`CommunicationChannelOwnerLink` to instantiate to handle the polymorphic link between `CommunicationChannel` and the
+`CommunicationChannelOwner`.
+<3> override the inherited `setPolymorphicReference(...)` method to allow the type-safe reference property to the
+`CommunicationChannelOwner` (in this case `CommChannelDemoObject`) to be set
+<4> the type-safe reference property to the `CommunicationChannelOwner` (in this case `CommunicationChannelDemoObject`).
+In the RDBMS this will correspond to a regular foreign key with referential integrity constraints correctly applied.
 
 
 
@@ -415,7 +478,8 @@ structured as follows:
 Only the `dom` project is released to Maven Central Repo.  The versions of the other modules are purposely left at
 `0.0.1-SNAPSHOT` because they are not intended to be released.
 
-
+Note that the module uses link:https://projectlombok.org/[Project Lombok].  To compile the code within your IDE you will
+therefore require the appropriate Lombok plugin.  See the link:https://projectlombok.org/download.html[Lombok download page] for more information.
 
 
 == Legal Stuff

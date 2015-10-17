@@ -62,8 +62,9 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
 
-        wrap(mixinNewEmailAddress(fredDemoOwner)).__("fred@gmail.com", "Home Email", "Fred Smith's home email");
-        wrap(mixinNewEmailAddress(fredDemoOwner)).__("fred.smith@somecompany.com", "Work Email", "Fred Smith's work email");
+        wrap(mixinNewEmailAddress(fredDemoOwner)).$$("fred@gmail.com", "Home Email", "Fred Smith's home email");
+        wrap(mixinNewEmailAddress(fredDemoOwner)).$$("fred.smith@somecompany.com", "Work Email",
+                "Fred Smith's work email");
         fredChannels = communicationChannelRepository.findByOwner(fredDemoOwner);
         assertThat(fredChannels).hasSize(2);
 
@@ -77,7 +78,7 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
         @Test
         public void when_no_replacement() throws Exception {
             final CommunicationChannel channel = fredChannels.first();
-            mixin(CommunicationChannel_remove.class, channel).__(null);
+            mixin(CommunicationChannel_remove.class, channel).$$(null);
 
             assertThat(communicationChannelRepository.findByOwner(fredDemoOwner)).hasSize(1);
             assertThat(communicationChannelOwnerLinkRepository.findByOwner(fredDemoOwner)).hasSize(1);
@@ -87,7 +88,7 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
         public void when_replacement() throws Exception {
             final CommunicationChannel channel = fredChannels.first();
             final CommunicationChannel channel2 = fredChannels.last();
-            mixin(CommunicationChannel_remove.class, channel).__(channel2);
+            mixin(CommunicationChannel_remove.class, channel).$$(channel2);
 
             assertThat(communicationChannelRepository.findByOwner(fredDemoOwner)).hasSize(1);
             assertThat(communicationChannelOwnerLinkRepository.findByOwner(fredDemoOwner)).hasSize(1);
@@ -102,7 +103,7 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
             final CommunicationChannel channel2 = fredChannels.last();
 
             final SortedSet<CommunicationChannel> choices = mixinRemove(channel)
-                    .choices0__();
+                    .$$choices0();
 
             assertThat(choices).hasSize(1);
             assertThat(choices.first()).isSameAs(channel2);
@@ -127,7 +128,7 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
         @Test
         public void when_no_replacement() throws Exception {
             final CommunicationChannel channel = fredChannels.first();
-            wrap(mixinRemove(channel)).__(null);
+            wrap(mixinRemove(channel)).$$(null);
 
             assertThat(testSubscriber.ev).isNotNull();
             assertThat(testSubscriber.ev.getSource().getCommunicationChannel()).isSameAs(channel);
@@ -137,7 +138,7 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
         public void when_replacement() throws Exception {
             final CommunicationChannel channel = fredChannels.first();
             final CommunicationChannel channel2 = fredChannels.last();
-            wrap(mixinRemove(channel)).__(channel2);
+            wrap(mixinRemove(channel)).$$(channel2);
 
             assertThat(testSubscriber.ev).isNotNull();
             assertThat(testSubscriber.ev.getSource().getCommunicationChannel()).isSameAs(channel);

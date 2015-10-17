@@ -74,7 +74,7 @@ public class CommunicationChannelOwner_newPostalAddress {
             contributed = Contributed.AS_ACTION
     )
     @MemberOrder(name = "CommunicationChannels", sequence = "1")
-    public CommunicationChannelOwner __(
+    public CommunicationChannelOwner $$(
             @Parameter(maxLength = CommChannelModule.JdoColumnLength.ADDRESS_LINE)
             @ParameterLayout(named = "Address Line 1")
             final String addressLine1,
@@ -117,13 +117,13 @@ public class CommunicationChannelOwner_newPostalAddress {
         return this.communicationChannelOwner;
     }
 
-    public Collection<String> choices6__() {
+    public Collection<String> choices6$$() {
         return communicationChannelPurposeService.purposesFor(CommunicationChannelType.POSTAL_ADDRESS,
                 this.communicationChannelOwner);
     }
 
-    public String default6__() {
-        final Collection<String> purposes = choices6__();
+    public String default6$$() {
+        final Collection<String> purposes = choices6$$();
         return purposes.isEmpty()? null : purposes.iterator().next();
     }
 

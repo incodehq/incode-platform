@@ -29,7 +29,6 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.services.bookmark.BookmarkService;
 
 import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
@@ -69,9 +68,8 @@ public class CommunicationChannelOwnerLinkForDemoObject extends CommunicationCha
 
     @Column(
             allowsNull = "false",
-            name = "partyId"
+            name = "demoObjectId"
     )
-    @MemberOrder(sequence = "1")
     public CommChannelDemoObject getDemoObject() {
         return demoObject;
     }
@@ -79,11 +77,6 @@ public class CommunicationChannelOwnerLinkForDemoObject extends CommunicationCha
     public void setDemoObject(final CommChannelDemoObject demoObject) {
         this.demoObject = demoObject;
     }
-    //endregion
-
-    //region > injected services
-    @javax.inject.Inject
-    private BookmarkService bookmarkService;
     //endregion
 
 }

@@ -46,17 +46,17 @@ public class PostalAddress_downloadGeocode {
             semantics = SemanticsOf.SAFE,
             domainEvent = DomainEvent.class
     )
-    public Clob __(
+    public Clob $$(
             @ParameterLayout(named = ".json file name")
             final String fileName) {
         return new Clob(encodeAsFilename(fileName), "text/plain", this.postalAddress.getGeocodeApiResponseAsJson());
     }
 
-    public String default0__() {
+    public String default0$$() {
         return "postalAddress-" + this.postalAddress.getFormattedAddress() + ".json";
     }
 
-    public String validate0__(final String fileName) {
+    public String validate0$$(final String fileName) {
         return !fileName.endsWith(".json")? "Must end with '.json'": null;
     }
 

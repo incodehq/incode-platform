@@ -73,7 +73,7 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber {
             contributed = Contributed.AS_ACTION
     )
     @MemberOrder(name = "CommunicationChannels", sequence = "3")
-    public CommunicationChannelOwner __(
+    public CommunicationChannelOwner $$(
             @ParameterLayout(named = "Type")
             final CommunicationChannelType type,
             @ParameterLayout(named = "Phone Number")
@@ -92,24 +92,24 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber {
         return this.communicationChannelOwner;
     }
 
-    public String validate0__(final CommunicationChannelType type) {
-        final List<CommunicationChannelType> validChoices = choices0__();
+    public String validate0$$(final CommunicationChannelType type) {
+        final List<CommunicationChannelType> validChoices = choices0$$();
         return validChoices.contains(type)? null: "Communication type must be " + validChoices;
     }
 
-    public List<CommunicationChannelType> choices0__() {
+    public List<CommunicationChannelType> choices0$$() {
         return CommunicationChannelType.matching(PhoneOrFaxNumber.class);
     }
 
-    public CommunicationChannelType default0__() {
-        return choices0__().get(0);
+    public CommunicationChannelType default0$$() {
+        return choices0$$().get(0);
     }
 
-    public Collection<String> choices2__(final CommunicationChannelType type) {
+    public Collection<String> choices2$$(final CommunicationChannelType type) {
         return communicationChannelPurposeService.purposesFor(type, this.communicationChannelOwner);
     }
 
-    public String default2__() {
+    public String default2$$() {
         return communicationChannelPurposeService.defaultIfNoSpi();
     }
 

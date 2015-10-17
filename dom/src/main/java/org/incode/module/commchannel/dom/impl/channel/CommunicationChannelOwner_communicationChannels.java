@@ -56,7 +56,7 @@ public class CommunicationChannelOwner_communicationChannels {
             domainEvent = DomainEvent.class
     )
     @ActionLayout(contributed = Contributed.AS_ASSOCIATION)
-    public SortedSet<CommunicationChannel> __() {
+    public SortedSet<CommunicationChannel> $$() {
         return communicationChannelRepository.findByOwner(communicationChannelOwner);
     }
 

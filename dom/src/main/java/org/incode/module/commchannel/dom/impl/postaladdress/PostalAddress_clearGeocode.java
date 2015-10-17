@@ -45,7 +45,7 @@ public class PostalAddress_clearGeocode {
             semantics = SemanticsOf.IDEMPOTENT,
             domainEvent = DomainEvent.class
     )
-    public PostalAddress __() {
+    public PostalAddress $$() {
         this.postalAddress.setFormattedAddress(null);
         this.postalAddress.setPlaceId(null);
         this.postalAddress.setLatLng(null);

@@ -48,7 +48,7 @@ public class EmailAddress_update {
             semantics = SemanticsOf.IDEMPOTENT,
             domainEvent = DomainEvent.class
     )
-    public EmailAddress __(
+    public EmailAddress $$(
             @Parameter(
                     regexPattern = CommChannelModule.Regex.EMAIL_ADDRESS,
                     maxLength = CommChannelModule.JdoColumnLength.EMAIL_ADDRESS
@@ -59,7 +59,7 @@ public class EmailAddress_update {
         return this.emailAddress;
     }
 
-    public String default0__() {
+    public String default0$$() {
         return this.emailAddress.getEmailAddress();
     }
 

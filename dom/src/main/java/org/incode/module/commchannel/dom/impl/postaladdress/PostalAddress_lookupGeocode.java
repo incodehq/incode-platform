@@ -62,7 +62,7 @@ public class PostalAddress_lookupGeocode {
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
             domainEvent = DomainEvent.class
-    ) public PostalAddress __(
+    ) public PostalAddress $$(
             @ParameterLayout(named = "Address")
             final String address) {
 
@@ -71,7 +71,7 @@ public class PostalAddress_lookupGeocode {
         return this.postalAddress;
     }
 
-    public String default0__(
+    public String default0$$(
     ) {
         return geocodingService.combine(
                 GeocodingService.Encoding.NOT_ENCODED,

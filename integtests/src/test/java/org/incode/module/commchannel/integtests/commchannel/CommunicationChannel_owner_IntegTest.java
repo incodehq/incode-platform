@@ -56,15 +56,15 @@ public class CommunicationChannel_owner_IntegTest extends CommChannelModuleInteg
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
         wrap(mixinNewEmailAddress(fredDemoOwner))
-                .__("fred@gmail.com", "Home Email", "Fred Smith's home email");
+                .$$("fred@gmail.com", "Home Email", "Fred Smith's home email");
         wrap(mixinNewEmailAddress(fredDemoOwner))
-                .__("fred.smith@somecompany.com", "Work Email", "Fred Smith's work email");
+                .$$("fred.smith@somecompany.com", "Work Email", "Fred Smith's work email");
         fredChannels = communicationChannelRepository.findByOwner(fredDemoOwner);
         assertThat(fredChannels).hasSize(2);
 
         billDemoOwner = wrap(commChannelDemoObjectMenu).create("Bill");
         wrap(mixinNewEmailAddress(billDemoOwner))
-                .__("bill@yahoo.com", "Home Email", "Bill Jones' home email");
+                .$$("bill@yahoo.com", "Home Email", "Bill Jones' home email");
         billChannels = communicationChannelRepository.findByOwner(billDemoOwner);
         assertThat(billChannels).hasSize(1);
     }
@@ -75,7 +75,7 @@ public class CommunicationChannel_owner_IntegTest extends CommChannelModuleInteg
         public void happy_case() throws Exception {
             for (final CommunicationChannel channel : fredChannels) {
                 final CommunicationChannel_owner owner = mixinOwner(channel);
-                assertThat(owner.__()).isSameAs(fredDemoOwner);
+                assertThat(owner.$$()).isSameAs(fredDemoOwner);
             }
         }
 
