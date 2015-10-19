@@ -61,7 +61,7 @@ Copyright 2014~2015 Dan Haywood
         <isis.version>1.9.0</isis.version>
         <isis-module-poly-dom.version>1.9.0</isis-module-poly-dom.version>
         <isis-module-fakedata-dom.version>1.9.0</isis-module-fakedata-dom.version>
-        <isis-wicket-fullcalendar2-cpt.version>1.9.0</isis-wicket-fullcalendar2-cpt.version>
+        <isis-wicket-fullcalendar2-cpt.version>1.10.0-SNAPSHOT</isis-wicket-fullcalendar2-cpt.version>
 
         <assertj-core.version>2.0.0</assertj-core.version>
         <danhaywood-java-assertjext.version>0.1.0</danhaywood-java-assertjext.version>
