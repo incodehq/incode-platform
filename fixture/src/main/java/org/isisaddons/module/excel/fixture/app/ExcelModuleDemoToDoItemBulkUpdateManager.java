@@ -17,13 +17,11 @@
 package org.isisaddons.module.excel.fixture.app;
 
 import java.util.List;
+
 import com.google.common.base.Function;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Lists;
-import org.isisaddons.module.excel.dom.ExcelService;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Category;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Subcategory;
+
 import org.apache.isis.applib.AbstractViewModel;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
@@ -42,6 +40,11 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.value.Blob;
+
+import org.isisaddons.module.excel.dom.ExcelService;
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Category;
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Subcategory;
 
 @DomainObject(
         nature = Nature.VIEW_MODEL

@@ -19,12 +19,20 @@ package org.isisaddons.module.excel.integtests.demo;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
+
 import javax.inject.Inject;
+
 import com.google.common.io.ByteSource;
 import com.google.common.io.Resources;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.Before;
+import org.junit.Test;
+
+import org.apache.isis.applib.value.Blob;
+
 import org.isisaddons.module.excel.dom.ExcelService;
 import org.isisaddons.module.excel.fixture.app.ExcelModuleDemoToDoItemBulkUpdateLineItem;
 import org.isisaddons.module.excel.fixture.app.ExcelModuleDemoToDoItemBulkUpdateManager;
@@ -32,9 +40,6 @@ import org.isisaddons.module.excel.fixture.app.ExcelModuleDemoToDoItemBulkUpdate
 import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItems;
 import org.isisaddons.module.excel.fixture.scripts.RecreateToDoItems;
 import org.isisaddons.module.excel.integtests.ExcelModuleModuleIntegTest;
-import org.junit.Before;
-import org.junit.Test;
-import org.apache.isis.applib.value.Blob;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

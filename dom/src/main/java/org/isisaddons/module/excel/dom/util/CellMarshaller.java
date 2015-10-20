@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.excel.dom;
+package org.isisaddons.module.excel.dom.util;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

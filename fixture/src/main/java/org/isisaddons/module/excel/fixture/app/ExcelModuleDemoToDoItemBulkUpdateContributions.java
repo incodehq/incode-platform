@@ -17,22 +17,21 @@
 package org.isisaddons.module.excel.fixture.app;
 
 import java.util.List;
+
 import javax.annotation.PostConstruct;
-import org.isisaddons.module.excel.dom.ExcelService;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
+
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
-import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.InvokeOn;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.NotContributed;
-import org.apache.isis.applib.annotation.NotContributed.As;
-import org.apache.isis.applib.annotation.NotInServiceMenu;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.actinvoc.ActionInvocationContext;
 import org.apache.isis.applib.value.Blob;
+
+import org.isisaddons.module.excel.dom.ExcelService;
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
 
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY

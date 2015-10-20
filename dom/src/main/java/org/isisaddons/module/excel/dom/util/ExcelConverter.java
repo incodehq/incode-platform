@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.excel.dom;
+package org.isisaddons.module.excel.dom.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -22,8 +22,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -32,6 +34,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.filter.Filter;
@@ -47,6 +50,8 @@ import org.apache.isis.core.metamodel.spec.SpecificationLoader;
 import org.apache.isis.core.metamodel.spec.feature.Contributed;
 import org.apache.isis.core.metamodel.spec.feature.ObjectAssociation;
 import org.apache.isis.core.metamodel.spec.feature.OneToOneAssociation;
+
+import org.isisaddons.module.excel.dom.ExcelService;
 
 class ExcelConverter {
 
@@ -137,7 +142,8 @@ class ExcelConverter {
     <T> List<T> fromBytes(
             final Class<T> cls,
             final byte[] bs,
-            final DomainObjectContainer container) throws IOException, InvalidFormatException {
+            final DomainObjectContainer container,
+            final ExcelServiceImpl.SheetLookupPolicy sheetLookupPolicy) throws IOException, InvalidFormatException {
 
         final List<T> importedItems = Lists.newArrayList();
 
@@ -148,7 +154,8 @@ class ExcelConverter {
             final Workbook wb = org.apache.poi.ss.usermodel.WorkbookFactory.create(bais);
             final CellMarshaller cellMarshaller = this.newCellMarshaller(wb);
 
-            final Sheet sheet = wb.getSheetAt(0);
+            final List<String> sheetNames = determineSheetNames(cls);
+            final Sheet sheet = lookupSheet(wb, sheetNames, sheetLookupPolicy);
 
             boolean header = true;
             final Map<Integer, Property> propertyByColumn = Maps.newHashMap();
@@ -218,11 +225,33 @@ class ExcelConverter {
         return importedItems;
     }
 
-    private OneToOneAssociation getAssociation(final ObjectSpecification objectSpec, final String propertyName) {
+    private static <T> List<String> determineSheetNames(final Class<T> cls) {
+        final List<String> names = Lists.newArrayList();
+        final String simpleName = cls.getSimpleName();
+        names.add(simpleName);
+        if(simpleName.endsWith("RowHandler")) {
+            names.add(simpleName.substring(0, simpleName.lastIndexOf("RowHandler")));
+        }
+        return names;
+    }
+
+    private static Sheet lookupSheet(
+            final Workbook wb,
+            final List<String> sheetNames,
+            final ExcelServiceImpl.SheetLookupPolicy sheetLookupPolicy) {
+        return sheetLookupPolicy.lookup(wb, sheetNames);
+    }
+
+    private static OneToOneAssociation getAssociation(final ObjectSpecification objectSpec, final String propertyNameOrId) {
         final List<ObjectAssociation> associations = objectSpec.getAssociations(Contributed.INCLUDED);
         for (final ObjectAssociation association : associations) {
-            if (propertyName.equals(association.getName()) && association instanceof OneToOneAssociation) {
-                return (OneToOneAssociation) association;
+            if (association instanceof OneToOneAssociation) {
+                if (propertyNameOrId.equalsIgnoreCase(association.getName())) {
+                    return (OneToOneAssociation) association;
+                }
+                if (propertyNameOrId.equalsIgnoreCase(association.getId())) {
+                    return (OneToOneAssociation) association;
+                }
             }
         }
         return null;

@@ -16,15 +16,16 @@
  */
 package org.isisaddons.module.excel.fixture.scripts;
 
-import java.math.BigDecimal;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Category;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Subcategory;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItems;
-import org.joda.time.LocalDate;
-import org.apache.isis.applib.clock.Clock;
+import java.net.URL;
+import java.util.List;
+
+import com.google.common.io.Resources;
+
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
+
+import org.isisaddons.module.excel.dom.ExcelFixture;
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
 
 public class CreateAllToDoItems extends FixtureScript {
 
@@ -36,6 +37,16 @@ public class CreateAllToDoItems extends FixtureScript {
 
     public CreateAllToDoItems(String ownedBy) {
         this.user = ownedBy;
+    }
+
+
+    private List<ExcelModuleDemoToDoItem> todoItems;
+
+    /**
+     * output
+     */
+    public List<ExcelModuleDemoToDoItem> getToDoItems() {
+        return todoItems;
     }
 
     @Override
@@ -50,43 +61,22 @@ public class CreateAllToDoItems extends FixtureScript {
 
     private void installFor(String user, ExecutionContext executionContext) {
 
-        createToDoItemForUser("Buy milk", Category.Domestic, Subcategory.Shopping, user, daysFromToday(0), new BigDecimal("0.75"), executionContext);
-        createToDoItemForUser("Buy bread", Category.Domestic, Subcategory.Shopping, user, daysFromToday(0), new BigDecimal("1.75"), executionContext);
-        createToDoItemForUser("Buy stamps", Category.Domestic, Subcategory.Shopping, user, daysFromToday(0), new BigDecimal("10.00"), executionContext).setComplete(true);
-        createToDoItemForUser("Pick up laundry", Category.Domestic, Subcategory.Chores, user, daysFromToday(6), new BigDecimal("7.50"), executionContext);
-        createToDoItemForUser("Mow lawn", Category.Domestic, Subcategory.Garden, user, daysFromToday(6), null, executionContext);
-        createToDoItemForUser("Vacuum house", Category.Domestic, Subcategory.Housework, user, daysFromToday(3), null, executionContext);
-        createToDoItemForUser("Sharpen knives", Category.Domestic, Subcategory.Chores, user, daysFromToday(14), null, executionContext);
+        executionContext.setParameter("user", user);
 
-        createToDoItemForUser("Write to penpal", Category.Other, Subcategory.Other, user, null, null, executionContext);
+        final URL excelResource = Resources.getResource(getClass(), "ToDoItems.xlsx");
+        final ExcelFixture excelFixture = new ExcelFixture(excelResource, ExcelModuleDemoToDoItemRowHandler.class);
+        executionContext.executeChild(this, excelFixture);
 
-        createToDoItemForUser("Write blog post", Category.Professional, Subcategory.Marketing, user, daysFromToday(7), null, executionContext).setComplete(true);
-        createToDoItemForUser("Organize brown bag", Category.Professional, Subcategory.Consulting, user, daysFromToday(14), null, executionContext);
-        createToDoItemForUser("Submit conference session", Category.Professional, Subcategory.Education, user, daysFromToday(21), null, executionContext);
-        createToDoItemForUser("Stage Isis release", Category.Professional, Subcategory.OpenSource, user, null, null, executionContext);
+        this.todoItems = (List<ExcelModuleDemoToDoItem>) excelFixture.getObjects();
 
         getContainer().flush();
     }
 
-    // //////////////////////////////////////
-
-    private ExcelModuleDemoToDoItem createToDoItemForUser(final String description, final Category category, Subcategory subcategory, String user, final LocalDate dueBy, final BigDecimal cost, ExecutionContext executionContext) {
-        final ExcelModuleDemoToDoItem toDoItem = toDoItems.newToDo(description, category, subcategory, user, dueBy, cost);
-        executionContext.add(this, toDoItem);
-        return toDoItem;
-    }
-
-    private static LocalDate daysFromToday(final int i) {
-        final LocalDate date = new LocalDate(Clock.getTimeAsDateTime());
-        return date.plusDays(i);
-    }
 
     // //////////////////////////////////////
     // Injected services
     // //////////////////////////////////////
 
-    @javax.inject.Inject
-    private ExcelModuleDemoToDoItems toDoItems;
 
     @javax.inject.Inject
     private IsisJdoSupport isisJdoSupport;

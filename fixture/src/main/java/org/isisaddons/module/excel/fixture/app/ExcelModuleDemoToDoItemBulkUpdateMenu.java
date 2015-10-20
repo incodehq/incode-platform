@@ -17,12 +17,11 @@
 package org.isisaddons.module.excel.fixture.app;
 
 import java.math.BigDecimal;
+
 import javax.annotation.PostConstruct;
-import org.isisaddons.module.excel.dom.ExcelService;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Category;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Subcategory;
+
 import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
@@ -33,8 +32,16 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.memento.MementoService;
 import org.apache.isis.applib.services.memento.MementoService.Memento;
 
+import org.isisaddons.module.excel.dom.ExcelService;
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Category;
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Subcategory;
+
 @DomainService
 public class ExcelModuleDemoToDoItemBulkUpdateMenu {
+
+    public ExcelModuleDemoToDoItemBulkUpdateMenu() {
+    }
 
     @PostConstruct
     public void init() {

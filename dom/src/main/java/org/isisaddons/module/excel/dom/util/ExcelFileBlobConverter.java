@@ -14,14 +14,18 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.excel.dom;
+package org.isisaddons.module.excel.dom.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+
 import org.apache.poi.util.IOUtils;
+
 import org.apache.isis.applib.value.Blob;
+
+import org.isisaddons.module.excel.dom.ExcelService;
 
 class ExcelFileBlobConverter {
 

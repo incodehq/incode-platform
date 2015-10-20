@@ -16,15 +16,10 @@
  */
 package org.isisaddons.module.excel.fixture.scripts;
 
-import java.util.List;
-import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
-import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.RestrictTo;
-import org.apache.isis.applib.fixturescripts.FixtureResult;
-import org.apache.isis.applib.fixturescripts.FixtureScript;
-import org.apache.isis.applib.fixturescripts.FixtureScripts;
+import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecification;
+import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationProvider;
 
 @DomainService
 @DomainServiceLayout(
@@ -32,40 +27,16 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
         menuBar = DomainServiceLayout.MenuBar.SECONDARY,
         menuOrder = "499"
 )
-public class ExcelModuleDemoToDoItemsFixturesService extends FixtureScripts {
-
-    public ExcelModuleDemoToDoItemsFixturesService() {
-        super(ExcelModuleDemoToDoItemsFixturesService.class.getPackage().getName());
-    }
+public class ExcelModuleDemoToDoItemsFixturesService implements FixtureScriptsSpecificationProvider {
 
     @Override
-    public FixtureScript default0RunFixtureScript() {
-        return findFixtureScriptFor(RecreateToDoItems.class);
-    }
-
-    @Override
-    public List<FixtureScript> choices0RunFixtureScript() {
-        return super.choices0RunFixtureScript();
-    }
-
-
-    // //////////////////////////////////////
-
-    @Action(
-            restrictTo = RestrictTo.PROTOTYPING
-    )
-    @MemberOrder(sequence="20")
-    public Object installFixturesAndReturnFirst() {
-        final List<FixtureResult> results = runFixtureScript(new RecreateToDoItems(), null);
-        return results.get(0).getObject();
-    }
-
-    @Action(
-            restrictTo = RestrictTo.PROTOTYPING
-    )
-    @MemberOrder(sequence="30")
-    public void deleteAll() {
-        runFixtureScript(new DeleteAllToDoItems(), null);
+    public FixtureScriptsSpecification getSpecification() {
+        return FixtureScriptsSpecification
+                .builder(ExcelModuleDemoToDoItemsFixturesService.class)
+                .withRecreate(RecreateToDoItems.class)
+                .withRunScriptDefault(RecreateToDoItems.class)
+                .withRunScriptDropDown(FixtureScriptsSpecification.DropDownPolicy.CHOICES)
+                .build();
     }
 
 
