@@ -55,6 +55,14 @@ public class ExcelModuleDemoToDoItemRowHandler implements ExcelFixtureRowHandler
             final FixtureScript.ExecutionContext executionContext,
             final ExcelFixture excelFixture,
             final Object previousRow) {
+        final ExcelModuleDemoToDoItemRowHandler previous = (ExcelModuleDemoToDoItemRowHandler) previousRow;
+        if(category == null) {
+            category = previous.category;
+        }
+        if(subcategory == null) {
+            subcategory = previous.subcategory;
+        }
+
         final LocalDate dueBy = daysFromToday(daysFromToday);
         final String user = executionContext.getParameter("user");
         ExcelModuleDemoToDoItem toDoItem = toDoItemRepository.findByDescription(description);
