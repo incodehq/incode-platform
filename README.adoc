@@ -294,11 +294,11 @@ Each of the classes must either be a persistable entity or must implement the `E
 
 [source,java]
 ----
-public interface ExcelFixtureRowHandler<T extends ExcelFixtureRowHandler<T>> {
+public interface ExcelFixtureRowHandler {
     List<Object> handleRow(
             final FixtureScript.ExecutionContext executionContext,  // <1>
             final ExcelFixture excelFixture,                        // <2>
-            final T previousRow);                                   // <3>
+            final Object previousRow);                              // <3>
 }
 ----
 <1> to look up execution parameters, and to call `addResult(...)` (to make results available in the UI)
@@ -353,18 +353,23 @@ where:
 public class ExcelModuleDemoToDoItemRowHandler implements ExcelFixtureRowHandler {          // <1>
     ...                                                                                     // <2>
     @Override
-    public List<Object> handleRow(final FixtureScript.ExecutionContext executionContext) {  // <3>
+    public List<Object> handleRow(
+            final FixtureScript.ExecutionContext executionContext,                          // <3>
+            final ExcelFixture fixture,
+            final Object previousRow) {
         final ExcelModuleDemoToDoItem toDoItem = ...;
-        return Collections.<Object>singletonList(toDoItem);                                 // <4>
+        executionContext.addResult(fixture, todoItem);                                      // <4>
+        return Collections.<Object>singletonList(toDoItem);                                 // <5>
     }
-    ..                                                                                      // <5>
+    ..                                                                                      // <6>
 }
 ----
 <1> implement the `ExcelFixtureRowHandler` interface
 <2> getters and setters omitted
-<3> `ExecutionContext` can be used to pass parameters down to the row handler
-<4> return a list of objects instantiated by this row handler.
-<5> eg inject domain services/repositories to delegate to for instantiating objects
+<3> `ExecutionContext` can be used to pass parameters down to the row handler, and to call addResult
+<4> make available in the UI
+<5> return a list of objects instantiated by this row handler.
+<6> eg inject domain services/repositories to delegate to for instantiating objects
 
 
 
@@ -375,7 +380,7 @@ downloadable as an Excel spreadsheet.
 
 == Change Log
 
-* `1.10.0-SNAPSHOT` - released against Isis 1.10.0; includes `ExcelFixture`
+* `1.10.0-SNAPSHOT` - released against Isis 1.10.0-SNAPSHOT; includes `ExcelFixture`
 * `1.9.0` - released against Isis 1.9.0
 * `1.8.0` - released against Isis 1.8.0
 * `1.7.0` - released against Isis 1.7.0
