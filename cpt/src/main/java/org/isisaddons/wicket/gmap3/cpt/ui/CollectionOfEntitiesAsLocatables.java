@@ -127,13 +127,21 @@ public class CollectionOfEntitiesAsLocatables extends
     }
 
     private ObjectAdapter dereference(final ObjectAdapter adapterForLocatable) {
-        final LocationDereferencingService locationDereferencingService =
-                IsisContext.getSessionFactory().getServicesInjector().lookupService(LocationDereferencingService.class);
-        if(locationDereferencingService == null) {
-            return adapterForLocatable;
-        }
-        final Object dereferencedObject = locationDereferencingService.dereference(adapterForLocatable.getObject());
+        final Object domainObject = adapterForLocatable.getObject();
+        final Object dereferencedObject = dereference(domainObject);
         return IsisContext.getPersistenceSession().adapterFor(dereferencedObject);
+    }
+
+    private Object dereference(final Object domainObject) {
+        final List<LocationDereferencingService> locationDereferencingServices =
+                getServicesInjector().lookupServices(LocationDereferencingService.class);
+        for (LocationDereferencingService dereferencingService : locationDereferencingServices) {
+            final Object dereferencedObject = dereferencingService.dereference(domainObject);
+            if(dereferencedObject != domainObject) {
+                return domainObject;
+            }
+        }
+        return null;
     }
 
     private GMarker createGMarker(GMap map, ObjectAdapter adapter, final ObjectAdapter dereferencedAdapter) {
@@ -195,7 +203,16 @@ public class CollectionOfEntitiesAsLocatables extends
     protected void onModelChanged() {
         buildGui();
     }
-    
+
+
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+
+        PanelUtil.renderHead(response, CollectionOfEntitiesAsLocatables.class);
+    }
+
+
     //////////////////////////////////////////////
     // Dependency Injection
     //////////////////////////////////////////////
@@ -208,10 +225,4 @@ public class CollectionOfEntitiesAsLocatables extends
         return pageClassRegistry;
     }
 
-    @Override
-    public void renderHead(IHeaderResponse response) {
-        super.renderHead(response);
-
-        PanelUtil.renderHead(response, CollectionOfEntitiesAsLocatables.class);
-    }
 }
