@@ -22,10 +22,10 @@ import java.util.Set;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 
-import net.ftlines.wicket.fullcalendar.EventProvider;
-
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
 import org.apache.isis.viewer.wicket.model.models.EntityCollectionModel;
+
+import net.ftlines.wicket.fullcalendar.EventProvider;
 
 public class CalendarEventableCollectionAsFullCalendar2 extends CalendaredCollectionAbstract {
 
@@ -36,12 +36,14 @@ public class CalendarEventableCollectionAsFullCalendar2 extends CalendaredCollec
     }
 
     @Override
-    protected EventProvider newEventProvider(EntityCollectionModel model, String calendarName) {
+    protected EventProvider newEventProvider(
+            final EntityCollectionModel model,
+            final String calendarName) {
         return new CalendarEventableEventProvider(model, calendarName);
     }
 
     @Override
-    protected Set<String> getCalendarNames(Collection<ObjectAdapter> entityList) {
+    protected Set<String> getCalendarNames(final Collection<ObjectAdapter> entityList) {
         return Sets.newLinkedHashSet(
                 Iterables.transform(entityList, CalendarEventableEventProvider.GET_CALENDAR_NAME));
     }

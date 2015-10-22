@@ -28,3 +28,7 @@
 .calendarEventableCollectionAsFullCalendar2 div.fc-event-inner {
     cursor: pointer;
 }
+
+.calendarEventableCollectionAsFullCalendar2 ul.selector {
+	list-style-type: none;
+}

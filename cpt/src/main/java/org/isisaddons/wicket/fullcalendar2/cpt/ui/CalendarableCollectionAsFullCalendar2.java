@@ -16,14 +16,16 @@
  */
 package org.isisaddons.wicket.fullcalendar2.cpt.ui;
 
-import net.ftlines.wicket.fullcalendar.EventProvider;
-
 import java.util.Collection;
 import java.util.Set;
+
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
+
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
 import org.apache.isis.viewer.wicket.model.models.EntityCollectionModel;
+
+import net.ftlines.wicket.fullcalendar.EventProvider;
 
 public class CalendarableCollectionAsFullCalendar2 extends CalendaredCollectionAbstract {
 
@@ -34,12 +36,14 @@ public class CalendarableCollectionAsFullCalendar2 extends CalendaredCollectionA
     }
 
     @Override
-    protected EventProvider newEventProvider(EntityCollectionModel model, String calendarName) {
+    protected EventProvider newEventProvider(
+            final EntityCollectionModel model,
+            final String calendarName) {
         return new CalendarableEventProvider(model, calendarName);
     }
 
     @Override
-    protected Set<String> getCalendarNames(Collection<ObjectAdapter> entityList) {
+    protected Set<String> getCalendarNames(final Collection<ObjectAdapter> entityList) {
         return Sets.newLinkedHashSet(Iterables.concat(
                         Iterables.transform(entityList, CalendarableEventProvider.GET_CALENDAR_NAMES)));
     }

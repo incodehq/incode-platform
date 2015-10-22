@@ -17,25 +17,31 @@
 package org.isisaddons.wicket.fullcalendar2.cpt.ui;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
-import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEvent;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
 
-import net.ftlines.wicket.fullcalendar.Event;
-import net.ftlines.wicket.fullcalendar.EventNotFoundException;
-import net.ftlines.wicket.fullcalendar.EventProvider;
-
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
+import org.apache.isis.core.metamodel.runtimecontext.ServicesInjector;
 import org.apache.isis.core.runtime.system.context.IsisContext;
+import org.apache.isis.core.runtime.system.persistence.PersistenceSession;
+import org.apache.isis.core.runtime.system.session.IsisSessionFactory;
 import org.apache.isis.viewer.wicket.model.models.EntityCollectionModel;
+
+import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEvent;
+import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarableDereferencingService;
+
+import net.ftlines.wicket.fullcalendar.Event;
+import net.ftlines.wicket.fullcalendar.EventNotFoundException;
+import net.ftlines.wicket.fullcalendar.EventProvider;
 
 public abstract class EventProviderAbstract implements EventProvider {
 
@@ -56,6 +62,19 @@ public abstract class EventProviderAbstract implements EventProvider {
         for (final Event event : events) {
             eventById.put(event.getId(), event);
         }
+    }
+
+    private Object dereference(final Object domainObject) {
+        final List<CalendarableDereferencingService> calendarableDereferencingServices =
+                getServicesInjector().lookupServices(
+                        CalendarableDereferencingService.class);
+        for (final CalendarableDereferencingService dereferencingService : calendarableDereferencingServices) {
+            final Object dereferencedObject = dereferencingService.dereference(domainObject);
+            if(dereferencedObject != domainObject) {
+                return dereferencedObject;
+            }
+        }
+        return domainObject;
     }
 
     protected abstract CalendarEvent calendarEventFor(final Object domainObject, final String calendarName);
@@ -79,7 +98,10 @@ public abstract class EventProviderAbstract implements EventProvider {
                 event.setEnd(end);
                 event.setAllDay(true);
 
-                final String oidStr = input.getOid().enString(IsisContext.getOidMarshaller());
+                final Object dereferencedObject = dereference(domainObject);
+                final ObjectAdapter dereferencedAdapter = getPersistenceSession().adapterFor(dereferencedObject);
+
+                final String oidStr = dereferencedAdapter.getOid().enString(IsisContext.getOidMarshaller());
                 event.setId(oidStr + "-" + calendarName);
 
                 event.setClassName("fullCalendar2-event-" + calendarName);
@@ -121,4 +143,19 @@ public abstract class EventProviderAbstract implements EventProvider {
     public Event getEventForId(String id) throws EventNotFoundException {
         return eventById.get(id);
     }
+
+
+    PersistenceSession getPersistenceSession() {
+        return IsisContext.getPersistenceSession();
+    }
+
+    ServicesInjector getServicesInjector() {
+        return getSessionFactory().getServicesInjector();
+    }
+
+    IsisSessionFactory getSessionFactory() {
+        return IsisContext.getSessionFactory();
+    }
+
+
 }

@@ -40,14 +40,18 @@ final class FullCalendarWithEventHandling extends FullCalendar {
 	private final NotificationPanel feedback;
     private static final long serialVersionUID = 1L;
 
-    FullCalendarWithEventHandling(String id, Config config, NotificationPanel feedback) {
+    FullCalendarWithEventHandling(
+            final String id,
+            final Config config,
+            final NotificationPanel feedback) {
         super(id, config);
         this.feedback = feedback;
     }
 
     @Override
-    protected void onEventClicked(ClickedEvent event,
-            CalendarResponse response) {
+    protected void onEventClicked(
+            final ClickedEvent event,
+            final CalendarResponse response) {
 
         final String oidStr = (String) event.getEvent().getPayload();
         final RootOid oid = RootOid.deString(oidStr, getOidMarshaller());
@@ -55,6 +59,8 @@ final class FullCalendarWithEventHandling extends FullCalendar {
         final PageParameters params = new EntityModel(adapter).getPageParameters();
         throw new RestartResponseException(EntityPage.class, params);
     }
+
+
 
     // //////////////////////////////////////
 

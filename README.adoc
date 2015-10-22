@@ -1,0 +1,375 @@
+= isis-wicket-fullcalendar2
+
+image:https://travis-ci.org/isisaddons/isis-wicket-fullcalendar2.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-wicket-fullcalendar2]
+
+This component, intended for use with http://isis.apache.org[Apache Isis]'s Wicket viewer, renders events for a collection of
+entities within a fullpage calendar. Underneath the covers it uses this https://github.com/42Lines/wicket-fullcalendar[fullcalendar] widget.
+
+== Screenshots
+
+The following screenshots show an example app's usage of the component.
+
+=== Install fixtures
+
+Install fixtures for the example app:
+
+image::https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/010-install-fixtures.png[link="https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/010-install-fixtures.png"]
+
+=== Parented collection as calendar
+
+The todo item's collection contains a list of `Calendarable` entities (also todo items); this is indicated through a button to switch the view:
+
+image::https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/020-calendar-button-for-parented-collection.png[link="https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/020-calendar-button-for-parented-collection.png"]
+
+Clicking the button shows the same entities on a fullpage calendar:
+
+image::https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/030-view-items-in-calendar.png[link="https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/030-view-items-in-calendar.png"]
+
+=== Drill down
+
+Clicking on the event in the calendar drills down to the corresponding entity:
+
+image::https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/040-drill-down.png[link="https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/040-drill-down.png"]
+
+=== Standalone collection as calendar
+
+Invoking an action that returns a list of `Calendarable` entities:
+
+image::https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/050-view-all.png[link="https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/050-view-all.png"]
+
+/... also results in the button to view in a fullpage calendar:
+
+image::https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/060-calendar-button-for-standalone-collection.png[link="https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/060-calendar-button-for-standalone-collection.png"]
+
+Each item is shown in the calendar view:
+
+image::https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/070-toggle-calendars.png[link="https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/070-toggle-calendars.png"]
+
+=== Calendars
+
+Each entity can provides dates to either a single calendar or to multiple calendars. In the example app each todo item
+exposes its `dueBy` date to a single calendar, named after its `category`:
+
+[source,java]
+----
+@Programmatic
+@Override
+public String getCalendarName() {
+    return getCategory().name();
+}
+@Programmatic
+@Override
+public CalendarEvent toCalendarEvent() {
+    if(getDueBy() == null) {
+        return null;
+    }
+    return new CalendarEvent(getDueBy().toDateTimeAtStartOfDay(), getCalendarName(), container.titleOf(this));
+}
+----
+
+The full page calendar uses colour coding to indicate the calendars, as well as checkboxes to show/hide each calendar.
+Unchecking the calendar toggle hides all events in that calendar:
+
+image::https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/080-calendar-updated.png[link="https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/080-calendar-updated.png"]
+
+
+
+== How to run the Demo App
+
+The prerequisite software is:
+
+* Java JDK 8 (>= 1.9.0) or Java JDK 7 (<= 1.8.0)
+** note that the compile source and target remains at JDK 7
+* http://maven.apache.org[maven 3] (3.2.x is recommended).
+
+To build the demo app:
+
+[source,bash]
+----
+git clone https://github.com/isisaddons/isis-wicket-fullcalendar2.git
+mvn clean install
+----
+
+To run the demo app:
+
+[source,bash]
+----
+mvn antrun:run -P self-host
+----
+
+Then log on using user: `sven`, password: `pass`
+
+
+
+== API & Usage
+
+Each entity must implement either the `CalendarEventable` interface or the `Calendarable` interface:
+
+=== CalendarEventable` interface
+
+Of the two interfaces, `CalendarEventable` interface is the simpler, allowing the object to return a single `CalendarEvent`:
+
+[source,java]
+----
+public interface CalendarEventable {
+    String getCalendarName();           // <1>
+    CalendarEvent toCalendarEvent();    // <2>
+}
+----
+<1> groups similar events together; in the UI these correspond to checkboxes rendered near the top.
+<2> returns a `CalendarEvent` value type representing the data to be rendered on the calender.
+
+`CalendarEvent` itself is:
+
+[source,java]
+----
+public class CalendarEvent implements Serializable {
+    private final DateTime dateTime;
+    private final String calendarName;
+    private final String title;
+    private final String notes;
+    public CalendarEvent(
+            final DateTime dateTime, 
+            final String calendarName, 
+            final String title) {
+        this(dateTime, calendarName, title, null);
+    }
+    public CalendarEvent(
+            final DateTime dateTime, 
+            final String calendarName, 
+            final String title, 
+            final String notes) {
+        this.dateTime = dateTime;
+        this.calendarName = calendarName;
+        this.title = title;
+        this.notes = notes;
+    }
+    ...
+}
+----
+
+In the demo app, the `ToDoItem` implements `CalendarEventable`.
+
+
+=== `Calendarable` interface
+
+While the `CalendarEventable` interface will fit many requirements, sometimes an object will have several dates associated with it. For example, one could imagine an object with start/stop dates, or optionExercise/optionExpiry dates.
+
+The `Calendarable` interface therefore allows the object to return a number of ``CalenderEvent``s; each is qualified (identified) by a `calendarName`:
+
+[source,java]
+----
+public interface Calendarable {
+    Set<String> getCalendarNames();
+    ImmutableMap<String, CalendarEventable> getCalendarEvents();
+}
+----
+
+
+=== `CalendarableDereferencingService`
+
+Sometimes the domain object that implements `Calendarable` or `CalendarEventable` will be a supporting object such as
+a `Note` attached to an `Order`, say.  When the marker is clicked in the calendar, we would rather that the UI opens
+up the `Order` rather than the associated `Note` (in other words, saving a click).
+
+This requirement is supported by providing an implementation of the `CalendarableDereferencingService`:
+
+[source,java]
+----
+public interface CalendarableDereferencingService {
+    @Programmatic
+	Object dereference(final Object calendarableOrCalendarEventable);
+}
+----
+
+for example, one might have:
+
+[source,java]
+----
+public class LocationDereferencingServiceForNote implements CalendarableDereferencingService {
+    @Programmatic
+	public Object dereference(final Object calendarableOrCalendarEventable) {
+		if (!(locatable instanceof Note)) {
+			return null;
+		}
+		final Note note = (Note) calendarableOrCalendarEventable;
+		return note.getOwner();
+	}
+}
+----
+
+Note that there can be multiple implementations of this service; the component will check all that are available.
+The order in which they are checked depends upon the `@DomainServiceLayout(menuOrder=...)` attribute.
+
+
+== How to configure/use
+
+You can either use this extension "out-of-the-box", or you can fork this repo and extend to your own requirements. 
+
+=== "Out-of-the-box"
+
+To use "out-of-the-box", add this component to your project's `dom` module's `pom.xml`, eg:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
+    <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
+    <version>1.9.0</version>
+</dependency>
+----
+
+Check for later releases by searching http://search.maven.org/#search|ga|1|isis-wicket-fullcalendar2-cpt[Maven Central Repo].
+
+=== "Out-of-the-box" (-SNAPSHOT)
+
+If you want to use the current `-SNAPSHOT`, then the steps are the same as above, except:
+
+* when updating the classpath, specify the appropriate -SNAPSHOT version:
+
+[source,xml]
+----
+<version>1.10.0-SNAPSHOT</version>
+----
+
+
+* add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
+
+
+[source,xml]
+----
+<profile>
+    <id>cloudbees-snapshots</id>
+    <activation>
+        <activeByDefault>true</activeByDefault>
+    </activation>
+    <repositories>
+        <repository>
+            <id>snapshots-repo</id>
+            <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+</profile>
+----
+
+
+==== Forking the repo
+
+If instead you want to extend this component's functionality, then we recommend that you fork this repo. The repo is
+structured as follows:
+
+* `pom.xml` - parent pom
+* `cpt` - the component implementation
+* `fixture` - fixtures, holding sample domain object classes and fixture scripts
+* `webapp` - demo webapp (see above screenshots)
+
+Only the `cpt` project is released to Maven central. The versions of the other modules
+are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
+
+== Change Log
+
+* `1.10.0-SNAPSHOT` - released against Isis 1.10.0; `CalendarableDereferencingService`
+* `1.9.0` - released against Isis 1.9.0
+* `1.8.0` - released against Isis 1.8.0
+* `1.7.0` - released against Isis 1.7.0
+* `1.6.1` - (breaking change) changed package names for API to `org.isisaddons.wicket.fullcalendar2.cpt.applib`
+* `1.6.0` - re-released as part of isisaddons, changed package names for API to `org.isisaddons.wicket.fullcalendar2.applib`
+
+== Legal Stuff
+
+==== License
+
+[source]
+----
+Copyright 2013~2015 Dan Haywood
+
+Licensed under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+----
+
+==== Dependencies
+
+In addition to Apache Isis, this component depends on:
+
+* `net.ftlines.wicket-fullcalendar:wicket-fullcalendar-core` (ASL v2.0 License)
+* http://arshaw.com/fullcalendar/[http://arshaw.com/fullcalendar/] (MIT License)
+* http://jquery.com[http://jquery.com] (MIT License)
+
+== Maven deploy notes
+
+Only the `cpt` module is deployed, and is done so using Sonatype's OSS support (see
+http://central.sonatype.org/pages/apache-maven.html[user guide]).
+
+==== Release to Sonatype's Snapshot Repo
+
+To deploy a snapshot, use:
+
+[source]
+----
+pushd cpt
+mvn clean deploy
+popd
+----
+
+The artifacts should be available in Sonatype's
+https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
+
+==== Release to Maven Central
+
+The `release.sh` script automates the release process. It performs the following:
+
+* performs a sanity check (`mvn clean install -o`) that everything builds ok
+* bumps the `pom.xml` to a specified release version, and tag
+* performs a double check (`mvn clean install -o`) that everything still builds ok
+* releases the code using `mvn clean deploy`
+* bumps the `pom.xml` to a specified release version
+
+For example:
+
+[source]
+----
+sh release.sh 1.10.0 \
+              1.11.0-SNAPSHOT \
+              dan@haywood-associates.co.uk \
+              "this is not really my passphrase"
+----
+
+where
+* `$1` is the release version
+* `$2` is the snapshot version
+* `$3` is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
+* `$4` is the corresponding passphrase for that secret key.
+
+Other ways of specifying the key and passphrase are available, see the `pgp-maven-plugin`'s
+http://kohsuke.org/pgp-maven-plugin/secretkey.html[documentation]).
+
+If the script completes successfully, then push changes:
+
+[source]
+----
+git push origin master
+git push origin 1.10.0
+----
+
+If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
+before trying again. Note that in the `cpt`'s `pom.xml` the `nexus-staging-maven-plugin` has the
+`autoReleaseAfterClose` setting set to `true` (to automatically stage, close and the release the repo). You may want
+to set this to `false` if debugging an issue.
+
+According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update http://search.maven.org[search].
