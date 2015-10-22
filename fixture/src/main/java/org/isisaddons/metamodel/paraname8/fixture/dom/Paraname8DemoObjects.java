@@ -73,6 +73,7 @@ public class Paraname8DemoObjects {
         final Paraname8DemoObject obj = container.newTransientInstance(Paraname8DemoObject.class);
         obj.setName(name);
         container.persistIfNotAlready(obj);
+        container.flush();
         return obj;
     }
 
