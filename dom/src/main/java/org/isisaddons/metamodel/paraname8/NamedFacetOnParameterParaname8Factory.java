@@ -31,6 +31,12 @@ public class NamedFacetOnParameterParaname8Factory extends FacetFactoryAbstract 
         if(!facet.isNoop()) {
             return;
         }
+
+        // if not compiled with -parameters flag, then ignore
+        if (parameterName.matches("arg\\d+")){
+            return;
+        }
+
         FacetUtil.addFacet(create(naturalName, facetHolder));
     }
 

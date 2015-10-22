@@ -37,7 +37,7 @@ import org.apache.isis.applib.util.ObjectContracts;
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
 @DomainObject(
-        objectType = "SETTINGS_DEMO_OBJECT"
+        objectType = "paraname8.DemoObject"
 )
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
