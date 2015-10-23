@@ -48,7 +48,7 @@ language governing permissions and limitations under the License.
         <!-- other modules in this project -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-excel-fixture</artifactId>
+            <artifactId>isis-module-excel-app</artifactId>
         </dependency>
 
         <dependency>

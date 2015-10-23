@@ -281,14 +281,19 @@ The constructor for the `ExcelFixture` is:
 [source,java]
 ----
 public class ExcelFixture {
-public ExcelFixture(
-    final URL excelResource,            // <1>
-    final Class... classes) {           // <2>
-        ...
+    public ExcelFixture(
+        final URL excelResource,                        // <1>
+        final Class... classes) {                       // <2>
+            ...
+        }
     }
+    public void setExcelResourceName(String rn) { ... } // <3>
+}
 ----
 <1> the `URL` to the Excel spreadsheet
 <2> a list of classes to process each of the sheets in the spreadsheet.
+<3> optionally, specify the name of the sheet.  This is used only to disambiguate any results added to the `FixtureResultList`
+ (displayed in the UI) if multiple spreadsheets are loaded using different `ExcelFixture` instances.
 
 Each of the classes must either be a persistable entity or must implement the `ExcelFixtureRowHandler` interface:
 
