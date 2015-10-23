@@ -128,7 +128,7 @@ public class CommunicationChannelOwner_newPostalAddress_IntegTest extends CommCh
             final PostalAddress postalAddress = (PostalAddress)communicationChannel;
             assertThat(postalAddress.getFormattedAddress()).isEqualTo("45 High St, Oxford, Oxfordshire OX1, UK");
             assertThat(postalAddress.getGeocodeApiResponseAsJson()).isNotNull();
-            assertThat(postalAddress.getLatLng()).isEqualTo("51.7525657,-1.2501133");
+            assertThat(postalAddress.getLatLng()).matches("51.75256[\\d][\\d],-1.25011[\\d][\\d]");
             assertThat(postalAddress.getPlaceId()).isEqualTo("Eic0NSBIaWdoIFN0LCBPeGZvcmQsIE94Zm9yZHNoaXJlIE9YMSwgVUs");
             assertThat(postalAddress.getAddressComponents()).isEqualTo(
                     "street_number: 45\n"+
