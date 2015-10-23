@@ -38,6 +38,8 @@ import org.incode.module.commchannel.fixture.scripts.teardown.CommChannelDemoObj
 import org.incode.module.commchannel.integtests.CommChannelModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assume.assumeThat;
 
 public class PostalAddress_clearGeocode_IntegTest extends CommChannelModuleIntegTest {
 
@@ -69,6 +71,8 @@ public class PostalAddress_clearGeocode_IntegTest extends CommChannelModuleInteg
 
         @Test
         public void clear() throws Exception {
+
+            assumeThat(isInternetReachable(), is(true));
 
             // given
             assertThat(postalAddress.getGeocodeApiResponseAsJson()).isNotNull();

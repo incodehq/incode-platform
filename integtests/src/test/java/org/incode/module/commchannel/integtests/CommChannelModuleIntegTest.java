@@ -16,6 +16,10 @@
  */
 package org.incode.module.commchannel.integtests;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -116,5 +120,23 @@ public abstract class CommChannelModuleIntegTest extends IntegrationTestAbstract
         return mixin(CommunicationChannelOwner_communicationChannels.class, owner);
     }
 
+    /**
+     * Tries to retrieve some content, 1 second timeout.
+     */
+    protected static boolean isInternetReachable()
+    {
+        try {
+            final URL url = new URL("http://www.google.com");
+            final HttpURLConnection urlConnect = (HttpURLConnection)url.openConnection();
+            urlConnect.setConnectTimeout(1000);
+            urlConnect.getContent();
+            urlConnect.disconnect();
+        } catch (UnknownHostException e) {
+            return false;
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
+    }
 
 }

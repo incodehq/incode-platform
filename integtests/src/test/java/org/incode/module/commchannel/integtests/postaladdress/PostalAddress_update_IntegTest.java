@@ -38,6 +38,8 @@ import org.incode.module.commchannel.fixture.scripts.teardown.CommChannelDemoObj
 import org.incode.module.commchannel.integtests.CommChannelModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assume.assumeThat;
 
 public class PostalAddress_update_IntegTest extends CommChannelModuleIntegTest {
 
@@ -70,6 +72,8 @@ public class PostalAddress_update_IntegTest extends CommChannelModuleIntegTest {
 
         @Test
         public void when_lookup_geocode_or_does_not_loookup() throws Exception {
+
+            assumeThat(isInternetReachable(), is(true));
 
             // when
             wrap(mixinUpdate(fredPostalAddress)).$$(
@@ -138,6 +142,8 @@ public class PostalAddress_update_IntegTest extends CommChannelModuleIntegTest {
 
         @Test
         public void default_for_place_id_parameter_when_has_been_looked_up() throws Exception {
+
+            assumeThat(isInternetReachable(), is(true));
 
             // given
             wrap(mixinUpdate(fredPostalAddress)).$$(

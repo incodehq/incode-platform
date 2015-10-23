@@ -39,6 +39,8 @@ import org.incode.module.commchannel.fixture.scripts.teardown.CommChannelDemoObj
 import org.incode.module.commchannel.integtests.CommChannelModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assume.assumeThat;
 
 public class CommunicationChannelOwner_newPostalAddress_IntegTest extends CommChannelModuleIntegTest {
 
@@ -53,6 +55,7 @@ public class CommunicationChannelOwner_newPostalAddress_IntegTest extends CommCh
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
     }
+
 
     public static class ActionImplementationIntegrationTest extends
             CommunicationChannelOwner_newPostalAddress_IntegTest {
@@ -100,6 +103,8 @@ public class CommunicationChannelOwner_newPostalAddress_IntegTest extends CommCh
 
         @Test
         public void can_create_postal_address_and_also_look_up_geocode() throws Exception {
+
+            assumeThat(isInternetReachable(), is(true));
 
             // given
             final SortedSet<CommunicationChannel> channelsBefore = wrap(mixinCommunicationChannels(fredDemoOwner)).$$();

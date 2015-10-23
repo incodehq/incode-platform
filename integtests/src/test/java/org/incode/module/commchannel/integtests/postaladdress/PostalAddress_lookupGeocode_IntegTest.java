@@ -38,6 +38,8 @@ import org.incode.module.commchannel.fixture.scripts.teardown.CommChannelDemoObj
 import org.incode.module.commchannel.integtests.CommChannelModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assume.assumeThat;
 
 public class PostalAddress_lookupGeocode_IntegTest extends CommChannelModuleIntegTest {
 
@@ -70,6 +72,8 @@ public class PostalAddress_lookupGeocode_IntegTest extends CommChannelModuleInte
         @Test
         public void will_always_lookup_as_best_as_possible() throws Exception {
 
+            assumeThat(isInternetReachable(), is(true));
+
             // given
             assertThat(postalAddress.getGeocodeApiResponseAsJson()).isNull();
             assertThat(postalAddress.getName()).isEqualTo("45, High Stree...ford, OX1, UK");
@@ -81,7 +85,7 @@ public class PostalAddress_lookupGeocode_IntegTest extends CommChannelModuleInte
             assertThat(postalAddress.getName()).isEqualTo("45 High St, Oxford, Oxfordshire OX1, UK");
             assertThat(postalAddress.getFormattedAddress()).isEqualTo("45 High St, Oxford, Oxfordshire OX1, UK");
             assertThat(postalAddress.getGeocodeApiResponseAsJson()).isNotNull();
-            assertThat(postalAddress.getLatLng()).isEqualTo("51.7525657,-1.2501133");
+            assertThat(postalAddress.getLatLng()).matches("51.75256[\\d][\\d],-1.25011[\\d][\\d]");
             assertThat(postalAddress.getPlaceId()).isEqualTo("Eic0NSBIaWdoIFN0LCBPeGZvcmQsIE94Zm9yZHNoaXJlIE9YMSwgVUs");
             assertThat(postalAddress.getAddressComponents()).isEqualTo(
                     "street_number: 45\n" +
