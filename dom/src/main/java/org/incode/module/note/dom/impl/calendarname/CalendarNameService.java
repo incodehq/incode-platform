@@ -20,6 +20,7 @@ package org.incode.module.note.dom.impl.calendarname;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -52,8 +53,12 @@ public class CalendarNameService {
      */
     @Programmatic
     public Collection<String> calendarNamesFor(final Notable notable) {
+        final Set<String> fallback = Collections.singleton(DEFAULT_CALENDAR_NAME);
+        if(calendarNameRepository == null) {
+            return fallback;
+        }
         final Collection<String> calendarNames = calendarNameRepository.calendarNamesFor(notable);
-        return calendarNames != null? calendarNames: Collections.singleton(DEFAULT_CALENDAR_NAME);
+        return calendarNames != null? calendarNames: fallback;
     }
 
     @Inject

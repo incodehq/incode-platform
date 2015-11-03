@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
+
 import com.google.common.base.Joiner;
 import com.google.common.io.Resources;
 import com.google.inject.AbstractModule;
@@ -28,13 +28,13 @@ import com.google.inject.Module;
 import com.google.inject.name.Names;
 import com.google.inject.util.Modules;
 import com.google.inject.util.Providers;
-import org.apache.wicket.Session;
-import org.apache.wicket.request.Request;
-import org.apache.wicket.request.Response;
-import org.apache.wicket.request.http.WebRequest;
-import org.apache.isis.viewer.wicket.viewer.IsisWicketApplication;
-import org.apache.isis.viewer.wicket.viewer.integration.wicket.AuthenticatedWebSessionForIsis;
 
+import org.apache.isis.viewer.wicket.viewer.IsisWicketApplication;
+
+import de.agilecoders.wicket.core.Bootstrap;
+import de.agilecoders.wicket.core.settings.IBootstrapSettings;
+import de.agilecoders.wicket.themes.markup.html.bootswatch.BootswatchTheme;
+import de.agilecoders.wicket.themes.markup.html.bootswatch.BootswatchThemeProvider;
 
 /**
  * As specified in <tt>web.xml</tt>.
@@ -57,46 +57,12 @@ public class NoteModuleApplication extends IsisWicketApplication {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * uncomment for a (slightly hacky) way of allowing logins using query args, eg:
-     * 
-     * <tt>?user=sven&pass=pass</tt>
-     * 
-     * <p>
-     * for demos only, obvious.
-     */
-    private final static boolean DEMO_MODE_USING_CREDENTIALS_AS_QUERYARGS = false;
-
     @Override
-    public Session newSession(final Request request, final Response response) {
-        if(!DEMO_MODE_USING_CREDENTIALS_AS_QUERYARGS) {
-            return super.newSession(request, response);
-        } 
-        
-        // else demo mode
-        final AuthenticatedWebSessionForIsis s = (AuthenticatedWebSessionForIsis) super.newSession(request, response);
-        final org.apache.wicket.util.string.StringValue user = request.getRequestParameters().getParameterValue("user");
-        final org.apache.wicket.util.string.StringValue password = request.getRequestParameters().getParameterValue("pass");
-        s.signIn(user.toString(), password.toString());
-        return s;
-    }
+    protected void init() {
+        super.init();
 
-    @Override
-    public WebRequest newWebRequest(HttpServletRequest servletRequest, String filterPath) {
-        if(!DEMO_MODE_USING_CREDENTIALS_AS_QUERYARGS) {
-            return super.newWebRequest(servletRequest, filterPath);
-        } 
-
-        // else demo mode
-        try {
-            String uname = servletRequest.getParameter("user");
-            if (uname != null) {
-                servletRequest.getSession().invalidate();
-            }
-        } catch (Exception e) {
-        }
-        WebRequest request = super.newWebRequest(servletRequest, filterPath);
-        return request;
+        IBootstrapSettings settings = Bootstrap.getSettings();
+        settings.setThemeProvider(new BootswatchThemeProvider(BootswatchTheme.Flatly));
     }
 
     private static final String APP_NAME = "Incode Note Module Demo";

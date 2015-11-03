@@ -109,7 +109,7 @@ To use "out-of-the-box":
 ----
 <dependency>
     <groupId>org.incode.module.note</groupId>
-    <artifactId>isis-module-note-dom</artifactId>
+    <artifactId>incode-module-note-dom</artifactId>
     <version>1.9.0</version>
 </dependency>
 ----

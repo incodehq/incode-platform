@@ -33,7 +33,7 @@ language governing permissions and limitations under the License.
         <isis.version>1.10.0-SNAPSHOT</isis.version>
 
         <incode-module-note.version>1.10.0-SNAPSHOT</incode-module-note.version>
-        <isis-module-fakedata-dom.version>1.9.0</isis-module-fakedata-dom.version>
+        <isis-module-fakedata-dom.version>1.10.0-SNAPSHOT</isis-module-fakedata-dom.version>
         <assertj-core.version>2.0.0</assertj-core.version>
         <danhaywood-java-assertjext.version>0.1.0</danhaywood-java-assertjext.version>
 
@@ -230,14 +230,6 @@ language governing permissions and limitations under the License.
             <dependency>
                 <groupId>org.apache.isis.core</groupId>
                 <artifactId>isis</artifactId>
-                <version>${isis.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.isis.viewer</groupId>
-                <artifactId>isis-viewer-wicket</artifactId>
                 <version>${isis.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
