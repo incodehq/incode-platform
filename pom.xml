@@ -333,15 +333,6 @@ language governing permissions and limitations under the License.
 
 
             <dependency>
-                <groupId>org.apache.isis.viewer</groupId>
-                <artifactId>isis-viewer-wicket</artifactId>
-                <version>${isis.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-
-            <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-excel-dom</artifactId>
                 <version>${isis-module-excel.version}</version>
