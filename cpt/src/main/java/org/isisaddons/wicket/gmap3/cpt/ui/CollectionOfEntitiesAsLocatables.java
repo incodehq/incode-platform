@@ -90,7 +90,6 @@ public class CollectionOfEntitiesAsLocatables extends
         };
         map.setStreetViewControlEnabled(true);
         map.setScaleControlEnabled(true);
-        map.setScrollWheelZoomEnabled(true);
         map.setPanControlEnabled(true);
         map.setDoubleClickZoomEnabled(true);
 
