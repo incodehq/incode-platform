@@ -24,7 +24,7 @@ image::https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/030-vie
 
 === Update location using service
 
-The previous screensot shows the todo item also provides an "update location" action:
+The previous screenshot shows the todo item also provides an "update location" action:
 
 [source,java]
 ----

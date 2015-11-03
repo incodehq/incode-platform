@@ -23,10 +23,10 @@ import javax.inject.Inject;
 import com.google.common.collect.Lists;
 
 import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.behavior.AttributeAppender;
+import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.ResourceReference;
@@ -76,8 +76,18 @@ public class CollectionOfEntitiesAsLocatables extends
 
         final EntityCollectionModel model = getModel();
         final List<ObjectAdapter> adapterList = model.getObject();
+        final boolean visible = !adapterList.isEmpty();
 
-        final GMap map = new GMap(ID_MAP);
+        final GMap map = new GMap(ID_MAP) {
+            @Override
+            protected void onComponentTag(final ComponentTag tag) {
+                super.onComponentTag(tag);
+                if(!visible) {
+                    final AttributeModifier modifier = new AttributeAppender("class", " " + INVISIBLE_CLASS);
+                    tag.addBehavior(modifier);
+                }
+            }
+        };
         map.setStreetViewControlEnabled(true);
         map.setScaleControlEnabled(true);
         map.setScrollWheelZoomEnabled(true);
@@ -94,18 +104,8 @@ public class CollectionOfEntitiesAsLocatables extends
         }
         
         addOrReplace(map);
-        applyCssVisibility(map, !adapterList.isEmpty());
-        
+
         addMarkers(map, adapterList);
-    }
-    
-    private static void applyCssVisibility(final Component component, final boolean visible) {
-        final AttributeModifier modifier =  
-                visible 
-                    ? new AttributeModifier("class", String.valueOf(component.getMarkupAttributes().get("class")).replaceFirst(INVISIBLE_CLASS, "")) 
-                    : new AttributeAppender("class", " " +
-                            INVISIBLE_CLASS);
-        component.add(modifier);
     }
 
     private void addMarkers(final GMap map, List<ObjectAdapter> adapterList) {
