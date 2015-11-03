@@ -149,14 +149,7 @@ language governing permissions and limitations under the License.
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-excel-fixture</artifactId>
-            <exclusions>
-                <exclusion>
-                    <!-- so don't pick up transitive dependency to asm 4.0.0 -->
-                    <groupId>org.datanucleus</groupId>
-                    <artifactId>datanucleus-enhancer</artifactId>
-                </exclusion>
-            </exclusions>
+            <artifactId>isis-module-excel-app</artifactId>
         </dependency>
 
         <!-- other isis components -->

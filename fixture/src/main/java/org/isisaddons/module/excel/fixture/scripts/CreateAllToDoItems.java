@@ -19,6 +19,7 @@ package org.isisaddons.module.excel.fixture.scripts;
 import java.net.URL;
 import java.util.List;
 
+import com.google.common.collect.Lists;
 import com.google.common.io.Resources;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
@@ -40,7 +41,7 @@ public class CreateAllToDoItems extends FixtureScript {
     }
 
 
-    private List<ExcelModuleDemoToDoItem> todoItems;
+    private List<ExcelModuleDemoToDoItem> todoItems = Lists.newArrayList();
 
     /**
      * output
@@ -59,19 +60,27 @@ public class CreateAllToDoItems extends FixtureScript {
         getContainer().flush();
     }
 
-    private void installFor(String user, ExecutionContext executionContext) {
+    private void installFor(String user, ExecutionContext ec) {
 
-        executionContext.setParameter("user", user);
+        ec.setParameter("user", user);
 
-        final URL excelResource = Resources.getResource(getClass(), "ToDoItems.xlsx");
-        final ExcelFixture excelFixture = new ExcelFixture(excelResource, ExcelModuleDemoToDoItemRowHandler.class);
-        executionContext.executeChild(this, excelFixture);
-
-        this.todoItems = (List<ExcelModuleDemoToDoItem>) excelFixture.getObjects();
+        this.todoItems.addAll(load(ec, "ToDoItems.xlsx"));
+        this.todoItems.addAll(load(ec, "MoreToDoItems.xlsx"));
+        this.todoItems.addAll(load(ec, "ToDoItems.xlsx")); // should be ignored because of execution strategy
 
         getContainer().flush();
     }
 
+    private List<ExcelModuleDemoToDoItem> load(
+            final ExecutionContext executionContext,
+            final String resourceName) {
+        final URL excelResource = Resources.getResource(getClass(), resourceName);
+        final ExcelFixture excelFixture = new ExcelFixture(excelResource, ExcelModuleDemoToDoItemRowHandler.class);
+        excelFixture.setExcelResourceName(resourceName);
+        executionContext.executeChild(this, excelFixture);
+
+        return (List<ExcelModuleDemoToDoItem>) excelFixture.getObjects();
+    }
 
     // //////////////////////////////////////
     // Injected services

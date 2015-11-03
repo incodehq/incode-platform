@@ -34,12 +34,22 @@ import org.datanucleus.enhancement.Persistable;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.fixturescripts.FixtureResultList;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.util.ExcelServiceImpl;
 
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ * This class should be executed using {@link FixtureScripts.MultipleExecutionStrategy#EXECUTE_ONCE_BY_VALUE} (it
+ * has value semantics).
+ */
 public class ExcelFixture extends FixtureScript {
 
     private final List<Class> classes;
@@ -62,56 +72,48 @@ public class ExcelFixture extends FixtureScript {
         setExcelResource(excelResource);
     }
 
-    //region > excelResource (input)
+    /**
+     * Input, optional: defines the name of the resource, used as a suffix to override {@link #getQualifiedName()}
+     * (disambiguate items when added to {@link FixtureResultList} if multiple instances of {@link ExcelFixture} are
+     * used with different excel spreadsheets).
+     */
+    @Getter @Setter
+    @MemberOrder(sequence = "1.1")
+    private String excelResourceName;
+
+
+    /**
+     * Input, mandatory ... the Excel spreadsheet to read.
+     */
+    @Getter @Setter
+    @MemberOrder(sequence = "1.2")
     private URL excelResource;
 
-    @MemberOrder(sequence = "1")
-    public URL getExcelResource() {
-        return excelResource;
-    }
 
-    public void setExcelResource(final URL excelResource) {
-        this.excelResource = excelResource;
-    }
-    //endregion
-
-    //region > objectsByClass (output)
+    /**
+     * Output: the objects created by this fixture, for a specific persistable/row handler class.
+     */
+    @Getter
     private final Map<Class, List<Object>> objectsByClass = Maps.newHashMap();
 
-    /**
-     * The objects created by this fixture, for a specific class (output).
-     */
-    public List<?> getObjects(Class<?> cls) {
-        return objectsByClass.get(cls);
-    }
-    //endregion
 
-    //region > objects (output)
+    /**
+     * Output: all the objects created by this fixture.
+     */
+    @Getter
     private final List objects = Lists.newArrayList();
 
-    /**
-     * The simpleobjects created by this fixture (output).
-     */
-    public List<?> getObjects() {
-        return objects;
+    @Programmatic
+    @Override
+    public String getQualifiedName() {
+        return super.getQualifiedName() + (getExcelResourceName() != null ?  "-" + getExcelResourceName() : "");
     }
-    //endregion
 
     @Override
     protected void execute(final ExecutionContext ec) {
 
         final ExcelServiceImpl excelServiceImpl = new ExcelServiceImpl(container, bookmarkService);
-
-        // defaults
-        final URL excelResource = checkParam("excelResource", ec, URL.class);
-
-        // validate
-        byte[] bytes;
-        try {
-            bytes = Resources.toByteArray(excelResource);
-        } catch (IOException e) {
-            throw new IllegalArgumentException("Could not read from resource: " + excelResource);
-        }
+        byte[] bytes = getBytes();
 
         // execute
         final Blob blob = new Blob("unused", ExcelService.XSLX_MIME_TYPE, bytes);
@@ -129,6 +131,28 @@ public class ExcelFixture extends FixtureScript {
             }
         }
     }
+
+    //region > bytes
+    private byte[] bytes;
+
+    private byte[] getBytes() {
+        if(bytes == null) {
+            bytes = readBytes();
+        }
+        return bytes;
+    }
+
+    private byte[] readBytes() {
+
+        final URL excelResource = getExcelResource();
+        try {
+            bytes = Resources.toByteArray(excelResource);
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Could not read from resource: " + excelResource);
+        }
+        return bytes;
+    }
+    //endregion
 
     private List<Object> create(
             final Object rowObj,
@@ -156,7 +180,27 @@ public class ExcelFixture extends FixtureScript {
         this.objects.add(createdObjects);
     }
 
+    //region > hashCode, equals
 
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        final ExcelFixture that = (ExcelFixture) o;
+
+        return Arrays.equals(getBytes(), that.getBytes());
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(getBytes());
+    }
+
+    //endregion
 
     @javax.inject.Inject
     private DomainObjectContainer container;
