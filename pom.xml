@@ -33,7 +33,7 @@ language governing permissions and limitations under the License.
         <compileSource>1.8</compileSource>
         <compileTarget>1.8</compileTarget>
 
-        <isis.version>1.9.0</isis.version>
+        <isis.version>1.10.0-SNAPSHOT</isis.version>
 
         <isis-module-publishmq.version>1.10.0-SNAPSHOT</isis-module-publishmq.version>
         <assertj-core.version>2.0.0</assertj-core.version>
@@ -334,13 +334,6 @@ language governing permissions and limitations under the License.
                 <scope>import</scope>
             </dependency>
 
-            <dependency>
-                <groupId>org.apache.isis.viewer</groupId>
-                <artifactId>isis-viewer-wicket</artifactId>
-                <version>${isis.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
