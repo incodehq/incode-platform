@@ -16,14 +16,9 @@
  */
 package org.isisaddons.wicket.wickedcharts.cpt.ui.summarychart;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
-
 import java.math.BigDecimal;
 import java.util.List;
 
-import org.apache.wicket.markup.head.IHeaderResponse;
-import org.isisaddons.wicket.wickedcharts.cpt.applib.WickedChart;
-import org.isisaddons.wicket.wickedcharts.cpt.ui.scalarchart.StandaloneValueAsWickedChart;
 import com.google.common.collect.Lists;
 import com.googlecode.wickedcharts.highcharts.options.Axis;
 import com.googlecode.wickedcharts.highcharts.options.ChartOptions;
@@ -42,6 +37,7 @@ import com.googlecode.wickedcharts.highcharts.options.color.HexColor;
 import com.googlecode.wickedcharts.highcharts.options.series.Series;
 import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
 
+import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.basic.Label;
 
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
@@ -53,6 +49,11 @@ import org.apache.isis.viewer.wicket.ui.components.collectioncontents.summary.Co
 import org.apache.isis.viewer.wicket.ui.components.collectioncontents.summary.CollectionContentsAsSummary.Summary;
 import org.apache.isis.viewer.wicket.ui.panels.PanelAbstract;
 import org.apache.isis.viewer.wicket.ui.panels.PanelUtil;
+
+import org.isisaddons.wicket.wickedcharts.cpt.applib.WickedChart;
+import org.isisaddons.wicket.wickedcharts.cpt.ui.scalarchart.StandaloneValueAsWickedChart;
+
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 
 /**
  * {@link PanelAbstract Panel} that represents a {@link EntityCollectionModel
@@ -108,7 +109,7 @@ public class CollectionContentsAsSummaryChart extends PanelAbstract<EntityCollec
     }
 
     private ValueModel asValueModel(WickedChart chartValue) {
-        return new ValueModel(getAdapterManager().adapterFor(chartValue));
+        return new ValueModel(getPersistenceSession().adapterFor(chartValue));
     }
 
     private WickedChart createChartValue(List<String> titles, List<Summary> summaries) {

@@ -16,14 +16,10 @@
  */
 package org.isisaddons.wicket.wickedcharts.cpt.ui.summarycharts;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
-import org.isisaddons.wicket.wickedcharts.cpt.applib.WickedChart;
-import org.isisaddons.wicket.wickedcharts.cpt.ui.scalarchart.StandaloneValueAsWickedChart;
 import com.googlecode.wickedcharts.highcharts.options.Axis;
 import com.googlecode.wickedcharts.highcharts.options.ChartOptions;
 import com.googlecode.wickedcharts.highcharts.options.Function;
@@ -54,6 +50,11 @@ import org.apache.isis.viewer.wicket.model.models.EntityCollectionModel;
 import org.apache.isis.viewer.wicket.model.models.ValueModel;
 import org.apache.isis.viewer.wicket.ui.components.collectioncontents.summary.CollectionContentsAsSummary;
 import org.apache.isis.viewer.wicket.ui.panels.PanelAbstract;
+
+import org.isisaddons.wicket.wickedcharts.cpt.applib.WickedChart;
+import org.isisaddons.wicket.wickedcharts.cpt.ui.scalarchart.StandaloneValueAsWickedChart;
+
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 
 /**
  * {@link PanelAbstract Panel} that represents a {@link EntityCollectionModel
@@ -133,7 +134,7 @@ public class CollectionContentsAsSummaryCharts extends PanelAbstract<EntityColle
     }
 
     private ValueModel asValueModel(WickedChart chartValue) {
-        return new ValueModel(getAdapterManager().adapterFor(chartValue));
+        return new ValueModel(getPersistenceSession().adapterFor(chartValue));
     }
 
     private WickedChart createChartValue(String title, List<String> titles, List<Number> values, Number min, Number max) {
