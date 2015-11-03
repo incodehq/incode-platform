@@ -295,7 +295,7 @@ are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be relea
 
 == Change Log
 
-* `1.10.0-SNAPSHOT` - released against Isis 1.10.0; `LocationDereferencingService`
+* `1.10.0-SNAPSHOT` - released against Isis 1.10.0; `LocationDereferencingService`, issues #8 and #9.
 * `1.9.0` - released against Isis 1.9.0
 * `1.8.0` - released against Isis 1.8.0
 * `1.7.0` - released against Isis 1.7.0
