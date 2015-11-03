@@ -30,7 +30,7 @@ language governing permissions and limitations under the License.
     </prerequisites>
 
 	<properties>
-        <isis.version>1.9.0</isis.version>
+        <isis.version>1.10.0-SNAPSHOT</isis.version>
 
         <isis-module-servletapi.version>1.10.0-SNAPSHOT</isis-module-servletapi.version>
 
@@ -319,14 +319,6 @@ language governing permissions and limitations under the License.
             <dependency>
                 <groupId>org.apache.isis.core</groupId>
                 <artifactId>isis</artifactId>
-                <version>${isis.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.isis.viewer</groupId>
-                <artifactId>isis-viewer-wicket</artifactId>
                 <version>${isis.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
