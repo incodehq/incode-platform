@@ -177,7 +177,7 @@ public class ExcelFixture extends FixtureScript {
     }
 
     private void addToCombined(final List<Object> createdObjects) {
-        this.objects.add(createdObjects);
+        this.objects.addAll(createdObjects);
     }
 
     //region > hashCode, equals
