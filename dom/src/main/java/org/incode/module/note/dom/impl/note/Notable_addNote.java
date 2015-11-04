@@ -29,6 +29,7 @@ import com.google.common.collect.Lists;
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
@@ -68,6 +69,7 @@ public class Notable_addNote {
             domainEvent = DomainEvent.class,
             semantics = SemanticsOf.NON_IDEMPOTENT
     )
+    @MemberOrder(name = "notes", sequence = "1")
     public Notable $$(
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Note", multiLine = NoteModule.MultiLine.NOTES)

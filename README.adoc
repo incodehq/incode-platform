@@ -4,7 +4,8 @@
 image:https://travis-ci.org/incodehq/incode-module-note.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-note]
 
 This module, intended for use with link:http://isis.apache.org[Apache Isis], provides the ability to attach `Note`
-objects to arbitrary domain objects.  Domain objects are required to implement the `Notable` marker interface, and must implement a subclass from the `NotableLink` abstract class (about 90 lines of boilerplate).
+objects to arbitrary domain objects.  Domain objects are required to implement the `Notable` marker interface, and
+must implement a subclass from the `NotableLink` abstract class (about 40 lines of boilerplate, details below).
 
 Each `Note` can optionally have a date associated with it, and corresponding (predefined) calendar.  The `Note`
 implements the `CalendarEventable` interface (from the link:http://isisaddons.org[Isis Addons]'

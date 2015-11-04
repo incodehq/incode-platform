@@ -24,6 +24,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
@@ -54,6 +55,7 @@ public class Notable_removeNote {
             domainEvent = DomainEvent.class,
             semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE
     )
+    @MemberOrder(name = "notes", sequence = "2")
     public Notable $$(final Note note) {
         noteRepository.remove(note);
         return this.notable;
