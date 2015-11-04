@@ -163,6 +163,7 @@ public class ExcelFixture extends FixtureScript {
             return rowHandler.handleRow(ec, this, previousRow);
         } else {
             container.persistIfNotAlready(rowObj);
+            ec.addResult(this, rowObj);
             return Collections.singletonList(rowObj);
         }
     }
