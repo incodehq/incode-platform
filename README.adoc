@@ -1,16 +1,23 @@
 = incode-module-note
 :_imagesdir: ./
 
-image:https://travis-ci.org/isisaddons/isis-module-event.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-event]
+image:https://travis-ci.org/incodehq/incode-module-note.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-note]
 
 This module, intended for use with link:http://isis.apache.org[Apache Isis], provides the ability to attach `Note`
 objects to arbitrary domain objects.  Domain objects are required to implement the `Notable` marker interface, and must implement a subclass from the `NotableLink` abstract class (about 90 lines of boilerplate).
 
-Each `Note` implements the `CalendarEventable` interface (from link:http://github.com/isisaddons/isis-wicket-fullcalendar2[Fullcalendar2 wicket component]) meaning that they can be rendered in a calendar view.
+Each `Note` can optionally have a date associated with it, and corresponding (predefined) calendar.  The `Note`
+implements the `CalendarEventable` interface (from the link:http://isisaddons.org[Isis Addons]'
+link:http://github.com/isisaddons/isis-wicket-fullcalendar2[fullcalendar2]) wicket component) meaning that they can
+then be rendered in a calendar view.  This makes the notes useful for a simple task list.
 
-It also means that each note, when created, belongs to a named calendar (just a string).  The optional `CalendarNameRepository` SPI service is used to enumerate the calendars for any given `Notable` domain object.  If no implementation of this service can be found, then the module allows notes to be added to a single "default" calendar.
+The optional `CalendarNameRepository` SPI service is used to enumerate the calendars for any given `Notable` domain
+object.  The list of available calendars is determined by the `Notable`: if `Customer` and `Order` both implement
+`Notable`, then the `CalendarNameRepository` could provide different calendar names for each.  If no implementation of
+the `CalendarNameRepository` service can be found, then a single "default" calendar is used.
 
-Any given `Notable` domain object can have multiple `Note`s.  As currently implemented, a `Note` can only
+Any given `Notable` domain object can have multiple `Note`s.  As currently implemented, a `Notable` can only have one
+`Note` per named calendar.
 
 
 

@@ -61,6 +61,10 @@ public class NoteModuleApplication extends IsisWicketApplication {
     protected void init() {
         super.init();
 
+        getDebugSettings().setOutputMarkupContainerClassName(true);
+        getMarkupSettings().setStripWicketTags(true);
+        getDebugSettings().setAjaxDebugModeEnabled(false);
+
         IBootstrapSettings settings = Bootstrap.getSettings();
         settings.setThemeProvider(new BootswatchThemeProvider(BootswatchTheme.Flatly));
     }

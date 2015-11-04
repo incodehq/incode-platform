@@ -77,13 +77,16 @@ public class Notable_addNote {
             final LocalDate date,
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Calendar")
-            final String calendarName) {
+            String calendarName) {
+        if(date != null && calendarName == null) {
+            // same defaulting logic as in the validate method.
+            calendarName = choices2$$().get(0);
+        }
         noteRepository.add(this.notable, note, date, calendarName);
         return this.notable;
     }
 
-    public List<String> choices2$$(
-    ) {
+    public List<String> choices2$$() {
         final Collection<String> values = calendarNameService.calendarNamesFor(this.notable);
         final List<String> valuesCopy = Lists.newArrayList(values);
         final List<String> calendarsInUse = Lists.transform(
@@ -96,7 +99,7 @@ public class Notable_addNote {
     public String validate$$(
             final String notes,
             final LocalDate date,
-            final String calendarName) {
+            String calendarName) {
         if (Strings.isNullOrEmpty(notes) && date == null) {
             return "Must specify either note text or a date (or both).";
         }
@@ -104,7 +107,13 @@ public class Notable_addNote {
             return "Must also specify a date if calendar has been selected";
         }
         if (date != null && calendarName == null) {
-            return "Must also specify a calendar for the date";
+            final List<String> calendarChoices = choices2$$();
+            if(calendarChoices.size() != 1) {
+                return "Must also specify a calendar for the date";
+            } else {
+                // don't insist on a calendar for those use cases where there is only a single calendar available.
+                calendarName = calendarChoices.get(0);
+            }
         }
         if(calendarName != null) {
             final Collection<String> values = calendarNameService.calendarNamesFor(this.notable);

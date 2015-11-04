@@ -52,7 +52,7 @@ public class Notable_removeNote {
 
     @Action(
             domainEvent = DomainEvent.class,
-            semantics = SemanticsOf.IDEMPOTENT
+            semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE
     )
     public Notable $$(final Note note) {
         noteRepository.remove(note);
