@@ -191,6 +191,7 @@ To use "out-of-the-box":
 
 * if using `AppManifest`, then update its `getModules()` method:
 
+<pre>
     @Override
     public List<Class<?>> getModules() {
         return Arrays.asList(
@@ -198,6 +199,7 @@ To use "out-of-the-box":
                 org.isisaddons.module.command.CommandModule.class,
         );
     }
+</pre>
 
 * otherwise, update your `WEB-INF/isis.properties`:
 
