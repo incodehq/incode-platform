@@ -54,7 +54,7 @@ Copyright 2014~2015 Dan Haywood
         <compileTarget>1.8</compileTarget>
 
         <isis.version>1.10.0-SNAPSHOT</isis.version>
-        <isis-module-poly-dom.version>1.9.0</isis-module-poly-dom.version>
+        <isis-module-poly-dom.version>1.10.0-SNAPSHOT</isis-module-poly-dom.version>
         <isis-wicket-gmap3-cpt.version>1.10.0-SNAPSHOT</isis-wicket-gmap3-cpt.version>
 
         <lombok.version>1.16.6</lombok.version>

@@ -26,7 +26,7 @@ import com.google.common.eventbus.Subscribe;
 import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
@@ -45,6 +45,7 @@ public class CommunicationChannelOwnerLinkForDemoObject extends CommunicationCha
     //region > instantiationSubscriber, setPolymorphicReference
 
     @DomainService(nature = NatureOfService.DOMAIN)
+    @DomainServiceLayout(menuOrder = "1")
     public static class InstantiationSubscriber extends AbstractSubscriber {
         @Programmatic
         @Subscribe

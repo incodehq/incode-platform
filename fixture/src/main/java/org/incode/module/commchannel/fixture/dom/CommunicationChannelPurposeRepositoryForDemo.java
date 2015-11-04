@@ -27,7 +27,7 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 import org.incode.module.commchannel.dom.spi.purpose.CommunicationChannelPurposeRepository;
 
 @DomainService(nature = NatureOfService.DOMAIN)
-public class CommChannelDemoPurposeRepository implements CommunicationChannelPurposeRepository {
+public class CommunicationChannelPurposeRepositoryForDemo implements CommunicationChannelPurposeRepository {
 
     @Override
     public Collection<String> purposesFor(

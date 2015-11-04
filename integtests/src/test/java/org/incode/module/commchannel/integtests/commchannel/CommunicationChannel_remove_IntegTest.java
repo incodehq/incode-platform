@@ -103,7 +103,7 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
             final CommunicationChannel channel2 = fredChannels.last();
 
             final SortedSet<CommunicationChannel> choices = mixinRemove(channel)
-                    .$$choices0();
+                    .choices0$$();
 
             assertThat(choices).hasSize(1);
             assertThat(choices.first()).isSameAs(channel2);

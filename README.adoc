@@ -1,11 +1,12 @@
 = isis-module-commchannel
 :_imagesdir: ./
 
-image:https://travis-ci.org/isisaddons/isis-module-commchannel.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-commchannel]
+image:https://travis-ci.org/incodehq/incode-module-commchannel.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-commchannel]
 
 This module, intended for use with link:http://isis.apache.org[Apache Isis], provides the ability to attach
-communication channel objects (postal address, email or phone/fax number) to domain objects.  The only requirement is
-for the domain object to implement the `CommunicationChannelOwner` marker interface.
+communication channel objects (postal address, email or phone/fax number) to domain objects.  Domain objects are
+required to implement the `CommunicationChannelOwner` marker interface, and must implement a subclass from the
+`CommunicationChannelOwnerLink` (about 40 lines of boilerplate, details below).
 
 For postal address, the geocoding data can be looked up by invoking the
 link:https://developers.google.com/maps/documentation/geocoding[Google Geocoding] API.  This allows free-form text
@@ -14,8 +15,11 @@ allows each postal address object to implement the `Location` interface (from
 link:http://github.com/isisaddons/isis-wicket-gmap3[Gmap3 wicket component]) meaning that they can be rendered in a
 map view.
 
-Each communication channel object can be categorized, eg "work email", "home phone number".  The list of
-defined by an optional SPI service.
+Each communication channel object can optionally be categorized with a predefined "purpose", where the available list
+of "purposes" is defined by the optional `CommunicationChannelPurposeRepository` SPI service.  The list of purposes can
+vary by both the communication channel type (postal address/email/phone) and also by `CommunicationChannelOwner`; for
+example address objects the list could be "billing address" and "shipping address", whereas for emails the list of purposes
+might be "work email" or "home email".
 
 
 == Screenshots
@@ -231,9 +235,7 @@ To use "out-of-the-box":
                                 ...
 ----
 
-Notes:
-
-* Check for later releases by searching http://search.maven.org/#search|ga|1|isis-module-commchannel-dom[Maven Central Repo]).
+Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-commchannel-dom[Maven Central Repo].
 
 
 ==== "Out-of-the-box" (-SNAPSHOT)
@@ -324,6 +326,7 @@ For example, in the demo app the `CommunicationChannelOwnerLinkForDemoObject` im
 public class CommunicationChannelOwnerLinkForDemoObject extends CommunicationChannelOwnerLink { // <1>
 
     @DomainService(nature = NatureOfService.DOMAIN)
+    @DomainServiceLayout(menuOrder = "1")
     public static class InstantiationSubscriber extends AbstractSubscriber {                    // <2>
         @Programmatic
         @Subscribe

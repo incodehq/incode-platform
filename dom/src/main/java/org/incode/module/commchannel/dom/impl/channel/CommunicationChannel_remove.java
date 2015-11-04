@@ -86,7 +86,7 @@ public class CommunicationChannel_remove {
         return owner;
     }
 
-    public SortedSet<CommunicationChannel> $$choices0() {
+    public SortedSet<CommunicationChannel> choices0$$() {
         return communicationChannelRepository.findOtherByOwnerAndType(
                 mixinOwner(), this.communicationChannel.getType(),
                 this.communicationChannel);
