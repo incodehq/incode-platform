@@ -20,6 +20,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import com.google.common.base.Optional;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 import org.apache.wicket.AttributeModifier;
@@ -76,7 +79,17 @@ public class CollectionOfEntitiesAsLocatables extends
 
         final EntityCollectionModel model = getModel();
         final List<ObjectAdapter> adapterList = model.getObject();
-        final boolean visible = !adapterList.isEmpty();
+
+        final Optional<ObjectAdapter> firstIfAny = Iterables
+                .tryFind(adapterList, new Predicate<ObjectAdapter>() {
+                    @Override
+                    public boolean apply(final ObjectAdapter input) {
+                        GLatLng latLng = asGLatLng((Locatable) input.getObject());
+                        return latLng != null;
+                    }
+                });
+
+        final boolean visible = firstIfAny.isPresent();
 
         final GMap map = new GMap(ID_MAP) {
             @Override
@@ -93,15 +106,13 @@ public class CollectionOfEntitiesAsLocatables extends
         map.setPanControlEnabled(true);
         map.setDoubleClickZoomEnabled(true);
 
-        // centre the map on the first object that has a location.
-        for (ObjectAdapter adapter : adapterList) {
-            GLatLng latLng = asGLatLng((Locatable)adapter.getObject());
-            if(latLng != null) {
-                map.setCenter(latLng);
-                break;
-            }
+        if(firstIfAny.isPresent()) {
+
+            // centre the map on the first object that has a location.
+            final ObjectAdapter first = firstIfAny.get();
+            map.setCenter(asGLatLng((Locatable) first.getObject()));
         }
-        
+
         addOrReplace(map);
 
         addMarkers(map, adapterList);
