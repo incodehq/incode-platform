@@ -234,6 +234,7 @@ For example, in the demo app the `NotableLinkForDemoObject` implements both of t
 public class NotableLinkForDemoObject extends NotableLink {                     // <1>
 
     @DomainService(nature = NatureOfService.DOMAIN)
+    @DomainServiceLayout(menuOrder = "1")
     public static class InstantiationSubscriber extends AbstractSubscriber {    // <2>
         @Programmatic
         @Subscribe
