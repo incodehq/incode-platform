@@ -32,7 +32,7 @@ language governing permissions and limitations under the License.
     <properties>
         <isis.version>1.10.0</isis.version>
 
-        <isis-module-commchannel.version>1.10.0-SNAPSHOT</isis-module-commchannel.version>
+        <incode-module-commchannel.version>1.10.0-SNAPSHOT</incode-module-commchannel.version>
         <isis-module-fakedata-dom.version>1.10.0</isis-module-fakedata-dom.version>
         <assertj-core.version>2.0.0</assertj-core.version>
 
@@ -334,7 +334,7 @@ language governing permissions and limitations under the License.
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>incode-module-commchannel-dom</artifactId>
-                <version>${isis-module-commchannel.version}</version>
+                <version>${incode-module-commchannel.version}</version>
             </dependency>
 
             <dependency>
