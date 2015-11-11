@@ -29,7 +29,7 @@ language governing permissions and limitations under the License.
     <properties>
         <isis.version>1.10.0</isis.version>
 
-        <isis-module-stringinterpolator.version>1.10.0-SNAPSHOT</isis-module-stringinterpolator.version>
+        <isis-module-stringinterpolator.version>1.10.0</isis-module-stringinterpolator.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
