@@ -33,7 +33,7 @@
     <properties>
         <isis.version>1.10.0</isis.version>
 
-        <isis-module-audit.version>1.10.0-SNAPSHOT</isis-module-audit.version>
+        <isis-module-audit.version>1.10.0</isis-module-audit.version>
 
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
