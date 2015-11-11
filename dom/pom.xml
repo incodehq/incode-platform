@@ -53,7 +53,7 @@ Copyright 2014~2015 Dan Haywood
         <compileSource>1.8</compileSource>
         <compileTarget>1.8</compileTarget>
 
-        <isis.version>1.10.0</isis.version>
+        <isis.version>1.11.0-SNAPSHOT</isis.version>
         <isis-module-poly-dom.version>1.10.0</isis-module-poly-dom.version>
         <isis-wicket-gmap3-cpt.version>1.10.0</isis-wicket-gmap3-cpt.version>
 
