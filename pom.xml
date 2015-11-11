@@ -28,7 +28,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <isis.version>1.11.0-SNAPSHOT</isis.version>
+        <isis.version>1.10.0</isis.version>
 
         <isis-module-poly.version>1.10.0-SNAPSHOT</isis-module-poly.version>
 
