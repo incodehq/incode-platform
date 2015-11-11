@@ -33,7 +33,7 @@ language governing permissions and limitations under the License.
         <compileSource>1.8</compileSource>
         <compileTarget>1.8</compileTarget>
 
-        <isis.version>1.11.0-SNAPSHOT</isis.version>
+        <isis.version>1.10.0</isis.version>
 
         <isis-module-publishmq.version>1.10.0-SNAPSHOT</isis-module-publishmq.version>
         <assertj-core.version>2.0.0</assertj-core.version>
