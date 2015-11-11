@@ -392,6 +392,8 @@ Copyright 2014~2015 Dan Haywood
                             </execution>
                         </executions>
                         <configuration>
+                            <!-- as per http://stackoverflow.com/a/16743137/56880 -->
+                            <additionalparam>-Xdoclint:none</additionalparam>
                             <debug>true</debug>
                             <minmemory>128m</minmemory>
                             <maxmemory>1024m</maxmemory>
