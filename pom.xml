@@ -31,7 +31,7 @@ language governing permissions and limitations under the License.
     </prerequisites>
 
     <properties>
-        <isis.version>1.10.0</isis.version>
+        <isis.version>1.11.0-SNAPSHOT</isis.version>
 
         <isis-wicket-fullcalendar2.version>1.10.0-SNAPSHOT</isis-wicket-fullcalendar2.version>
 
