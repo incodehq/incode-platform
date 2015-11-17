@@ -59,17 +59,30 @@ public class ExcelFixture extends FixtureScript {
     }
 
     public ExcelFixture(final URL excelResource, final List<Class> classes) {
+        this(classes);
+        setExcelResource(excelResource);
+    }
+
+    public ExcelFixture(final Blob upload, final Class... classes) {
+        this(upload, Arrays.asList(classes));
+    }
+
+    public ExcelFixture(final Blob blob, final List<Class> classes) {
+        this(classes);
+        setBlob(blob);
+    }
+
+    private ExcelFixture(final List<Class> classes) {
         for (Class cls : classes) {
             final boolean viewModel = ExcelFixtureRowHandler.class.isAssignableFrom(cls);
             final boolean persistable = Persistable.class.isAssignableFrom(cls);
-            if(!viewModel && !persistable) {
-                throw new IllegalArgumentException( String.format(
+            if (!viewModel && !persistable) {
+                throw new IllegalArgumentException(String.format(
                         "Class '%s' does not implement '%s', nor is it persistable",
                         cls.getSimpleName(), ExcelFixtureRowHandler.class.getSimpleName()));
             }
         }
         this.classes = classes;
-        setExcelResource(excelResource);
     }
 
     /**
@@ -81,7 +94,6 @@ public class ExcelFixture extends FixtureScript {
     @MemberOrder(sequence = "1.1")
     private String excelResourceName;
 
-
     /**
      * Input, mandatory ... the Excel spreadsheet to read.
      */
@@ -89,13 +101,17 @@ public class ExcelFixture extends FixtureScript {
     @MemberOrder(sequence = "1.2")
     private URL excelResource;
 
+    /**
+     * Input, mandatory ... the Excel spreadsheet to read.
+     */
+    @Getter @Setter
+    private Blob blob;
 
     /**
      * Output: the objects created by this fixture, for a specific persistable/row handler class.
      */
     @Getter
     private final Map<Class, List<Object>> objectsByClass = Maps.newHashMap();
-
 
     /**
      * Output: all the objects created by this fixture.
@@ -106,24 +122,26 @@ public class ExcelFixture extends FixtureScript {
     @Programmatic
     @Override
     public String getQualifiedName() {
-        return super.getQualifiedName() + (getExcelResourceName() != null ?  "-" + getExcelResourceName() : "");
+        return super.getQualifiedName() + (getExcelResourceName() != null ? "-" + getExcelResourceName() : "");
     }
 
     @Override
     protected void execute(final ExecutionContext ec) {
 
         final ExcelServiceImpl excelServiceImpl = new ExcelServiceImpl(container, bookmarkService);
-        byte[] bytes = getBytes();
 
-        // execute
-        final Blob blob = new Blob("unused", ExcelService.XSLX_MIME_TYPE, bytes);
+        if (blob == null){
+            byte[] bytes = getBytes();
+            blob = new Blob("unused", ExcelService.XSLX_MIME_TYPE, bytes);
+        }
+
         for (Class cls : classes) {
             final List rowObjects = excelServiceImpl.fromExcel(
                     blob, cls, ExcelServiceImpl.SheetLookupPolicy.BY_NAME);
             Object previousRow = null;
             for (final Object rowObj : rowObjects) {
                 final List<Object> createdObjects = create(rowObj, ec, previousRow);
-                if(createdObjects != null) {
+                if (createdObjects != null) {
                     addToMap(cls, createdObjects);
                     addToCombined(createdObjects);
                 }
@@ -131,13 +149,16 @@ public class ExcelFixture extends FixtureScript {
             }
         }
     }
-
     //region > bytes
     private byte[] bytes;
 
     private byte[] getBytes() {
-        if(bytes == null) {
-            bytes = readBytes();
+        if (bytes == null) {
+            if (blob != null){
+                bytes = blob.getBytes();
+            } else {
+                bytes = readBytes();
+            }
         }
         return bytes;
     }
@@ -158,7 +179,7 @@ public class ExcelFixture extends FixtureScript {
             final Object rowObj,
             final ExecutionContext ec,
             final Object previousRow) {
-        if(rowObj instanceof ExcelFixtureRowHandler) {
+        if (rowObj instanceof ExcelFixtureRowHandler) {
             final ExcelFixtureRowHandler rowHandler = (ExcelFixtureRowHandler) rowObj;
             return rowHandler.handleRow(ec, this, previousRow);
         } else {
@@ -170,7 +191,7 @@ public class ExcelFixture extends FixtureScript {
 
     private void addToMap(final Class cls, final List<Object> createdObjects) {
         List<Object> objectList = objectsByClass.get(cls);
-        if(objectList == null) {
+        if (objectList == null) {
             objectList = Lists.newArrayList();
             this.objectsByClass.put(cls, objectList);
         }

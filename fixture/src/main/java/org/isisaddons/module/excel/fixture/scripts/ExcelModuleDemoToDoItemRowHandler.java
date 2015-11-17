@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.joda.time.LocalDate;
 
+import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.clock.Clock;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
@@ -65,15 +66,16 @@ public class ExcelModuleDemoToDoItemRowHandler implements ExcelFixtureRowHandler
 
         final LocalDate dueBy = daysFromToday(daysFromToday);
         final String user = executionContext.getParameter("user");
+        final String username = user != null && user.length() > 0 ? user : container.getUser().getName();
         ExcelModuleDemoToDoItem toDoItem = toDoItemRepository.findByDescription(description);
         if(toDoItem != null) {
             toDoItem.setCategory(category);
             toDoItem.setSubcategory(subcategory);
             toDoItem.setDueBy(dueBy);
             toDoItem.setCost(cost);
-            toDoItem.setOwnedBy(user);
+            toDoItem.setOwnedBy(username);
         } else {
-            toDoItem = toDoItemRepository.newToDo(description, category, subcategory, user, dueBy, cost);
+            toDoItem = toDoItemRepository.newToDo(description, category, subcategory, username, dueBy, cost);
         }
         executionContext.addResult(excelFixture, toDoItem);
         return Collections.<Object>singletonList(toDoItem);
@@ -91,4 +93,6 @@ public class ExcelModuleDemoToDoItemRowHandler implements ExcelFixtureRowHandler
     @javax.inject.Inject
     private ExcelModuleDemoToDoItems toDoItemRepository;
 
+    @javax.inject.Inject
+    private DomainObjectContainer container;
 }

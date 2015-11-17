@@ -19,9 +19,9 @@ package org.isisaddons.module.excel.fixture.dom;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Category;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Subcategory;
+
 import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
@@ -36,6 +36,9 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.clock.ClockService;
+
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Category;
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Subcategory;
 
 @DomainService
 @DomainServiceLayout(
@@ -171,7 +174,7 @@ public class ExcelModuleDemoToDoItems {
             semantics = SemanticsOf.SAFE
     )
     @MemberOrder(sequence = "50")
-    public List<ExcelModuleDemoToDoItem> allToDos() {
+    public List<ExcelModuleDemoToDoItem> allMyToDos() {
         final String currentUser = currentUserName();
         final List<ExcelModuleDemoToDoItem> items = container.allMatches(ExcelModuleDemoToDoItem.class, ExcelModuleDemoToDoItem.Predicates.thoseOwnedBy(currentUser));
         Collections.sort(items);
@@ -215,9 +218,14 @@ public class ExcelModuleDemoToDoItems {
         toDoItem.setCost(cost);
 
         container.persist(toDoItem);
-        container.flush();
+        //container.flush();
 
         return toDoItem;
+    }
+
+    @Programmatic
+    public List<ExcelModuleDemoToDoItem> allInstances() {
+        return container.allInstances(ExcelModuleDemoToDoItem.class);
     }
     
     private String currentUserName() {
