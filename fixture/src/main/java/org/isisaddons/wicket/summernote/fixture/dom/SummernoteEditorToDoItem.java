@@ -370,7 +370,7 @@ public class SummernoteEditorToDoItem implements Comparable<SummernoteEditorToDo
     private String notes = "";
 
     @javax.jdo.annotations.Column(allowsNull="true", length=400)
-    @SummernoteEditor
+    @SummernoteEditor(height = 100, maxHeight = 300)
     public String getNotes() {
         return notes;
     }

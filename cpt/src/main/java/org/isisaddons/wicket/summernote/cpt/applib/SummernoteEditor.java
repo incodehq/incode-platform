@@ -24,4 +24,22 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface SummernoteEditor {
+
+    boolean airMode() default false;
+
+    int height() default -1;
+
+    int maxHeight() default -1;
+
+    int minHeight() default -1;
+
+    String placeholder() default "";
+
+    boolean disableDragAndDrop() default false;
+
+    boolean shortcuts() default true;
+
+    int overlayTimeout() default -1;
+
+    boolean focus() default false;
 }

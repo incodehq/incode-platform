@@ -16,13 +16,16 @@
  */
 package org.isisaddons.wicket.summernote.cpt.ui.editor;
 
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.editor.SummernoteConfig;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.editor.SummernoteEditor;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.core.util.string.JavaScriptUtils;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Fragment;
+import org.isisaddons.wicket.summernote.cpt.applib.SummernoteEditorFacetAbstract;
 import org.apache.isis.core.metamodel.adapter.mgr.AdapterManager;
 import org.apache.isis.viewer.wicket.model.models.EntityModel;
 import org.apache.isis.viewer.wicket.model.models.ScalarModel;
@@ -62,13 +65,17 @@ public class SummernoteEditorPanel extends PanelAbstract<ScalarModel> implements
 
     protected Component getComponentForRegular() {
         Fragment fragment = new Fragment("fragment", "regular", SummernoteEditorPanel.this);
-        fragment.add(new SummernoteEditor("editor", new TextFieldValueModel<>(this)) {
+
+        SummernoteEditorFacetAbstract editorFacet = getModel().getFacet(SummernoteEditorFacetAbstract.class);
+        SummernoteConfig config = editorFacet.getConfig();
+
+        fragment.add(new SummernoteEditor("editor", new TextFieldValueModel<>(this), config) {
             @Override
             public void renderHead(IHeaderResponse response) {
                 super.renderHead(response);
 
-                response.render(OnDomReadyHeaderItem.forScript(String.format("$('#%s').code('%s')",
-                                                                 getMarkupId(), getModelObject())));
+                response.render(OnDomReadyHeaderItem.forScript(String.format("debugger;$('#%s').code('%s')",
+                                                                     getMarkupId(), JavaScriptUtils.escapeQuotes(getModelObject()))));
             }
         });
         return fragment;
