@@ -1,7 +1,7 @@
 # isis-wicket-summernote
 Apache Isis module that provides WYSIWYG rich editor based on Summernote
 
-[![Build Status](https://travis-ci.org/isisaddons/isis-wicket-summernote.png?branch=master)](https://travis-ci.org/isisaddons/isis-wicket-summernote)
+[![Build Status](https://travis-ci.org/martin-g/isis-wicket-summernote.png?branch=master)](https://travis-ci.org/martin-g/isis-wicket-summernote)
 
 This component, intended for use with [Apache Isis](http://isis.apache.org)'s Wicket viewer, integrates [Summernote editor](http://summernote.org/).
 *Summernote* is a JavaScript library based on [Bootstrap](http://getbootstrap.com/) that helps you create WYSIWYG editors online.
@@ -11,15 +11,15 @@ This component, intended for use with [Apache Isis](http://isis.apache.org)'s Wi
 
 The following screenshots show the example app's usage of the component with some sample fixture data:
 
-![](https://raw.github.com/isisaddons/isis-wicket-summernote/master/images/010-install-fixtures.png)
+![](https://raw.github.com/martin-g/isis-wicket-summernote/master/images/010-install-fixtures.png)
 
 The example entity (a todo item) has `String` property that is annotated with `@SummernoteEditor(height = 100, maxHeight = 300)`:
 
-![](https://raw.github.com/isisaddons/isis-wicket-summernote/master/images/020-edit-mode.png)
+![](https://raw.github.com/martin-g/isis-wicket-summernote/master/images/020-edit-mode.png)
 
 Invoking an action that returns a collection of entities:
 
-![](https://raw.github.com/isisaddons/isis-wicket-summernote/master/images/030-view-mode.png)
+![](https://raw.github.com/martin-g/isis-wicket-summernote/master/images/030-view-mode.png)
 
 ... shows an additional button to view those entities in a summary chart:
 
@@ -33,7 +33,7 @@ The prerequisite software is:
 
 To build the demo app:
 
-    git clone https://github.com/isisaddons/isis-wicket-summernote.git
+    git clone https://github.com/martin-g/isis-wicket-summernote.git
     mvn clean install
 
 To run the demo app:
@@ -45,11 +45,11 @@ Then log on using user: `sven`, password: `pass`
 
 ## API & Usage ##
 
-Annotate any `String` property with `@org.isisaddons.wicket.summernote.cpt.applib.SummernoteEditor`.
+Annotate any `String` property with `@org.martin-g.wicket.summernote.cpt.applib.SummernoteEditor`.
 You may use the annotation attributes to configure some aspects of the rich editor, e.g. its maximum height.
 
 
-    import org.isisaddons.wicket.summernote.cpt.applib.SummernoteEditor;
+    import org.martin-g.wicket.summernote.cpt.applib.SummernoteEditor;
 
     public class SummernoteEditorToDoItem implements Comparable<SummernoteEditorToDoItem> {
         ...
@@ -73,7 +73,7 @@ You can either use this component "out-of-the-box", or you can fork this repo an
 To use "out-of-the-box", add the component to your project's `dom` module's `pom.xml`:
 
     <dependency>
-        <groupId>org.isisaddons.wicket.summernote</groupId>
+        <groupId>org.martin-g.wicket.summernote</groupId>
         <artifactId>isis-wicket-summernote-cpt</artifactId>
         <version>1.11.0</version>
     </dependency>
