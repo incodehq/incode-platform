@@ -3,7 +3,7 @@ Apache Isis module that provides WYSIWYG rich editor based on Summernote
 
 [![Build Status](https://travis-ci.org/isisaddons/isis-wicket-summernote.png?branch=master)](https://travis-ci.org/isisaddons/isis-wicket-summernote)
 
-This component, intended for use with [Apache Isis](http://isis.apache.org)'s Wicket viewer, integrates [Summernote editor](http://summernote.org/).
+This component, intended for use with [Apache Isis](http://isis.apache.org)'s Wicket viewer, integrates [Summernote editor](http://summernote.org).
 *Summernote* is a JavaScript library based on [Bootstrap](http://getbootstrap.com/) that helps you create WYSIWYG editors online.
 
 
