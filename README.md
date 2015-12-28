@@ -7,6 +7,7 @@ This component, intended for use with [Apache Isis](http://isis.apache.org)'s Wi
 *Summernote* is a JavaScript library based on [Bootstrap](http://getbootstrap.com/) that helps you create WYSIWYG editors online.
 
 
+
 ## Screenshots ##
 
 The following screenshots show the example app's usage of the component with some sample fixture data:
