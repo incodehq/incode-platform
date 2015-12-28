@@ -99,7 +99,7 @@ public class SummernoteEditorApplication extends IsisWicketApplication {
         return request;
     }
 
-    private static final String APP_NAME = "WickedCharts (Wicket Component) Example App";
+    private static final String APP_NAME = "Summernote (Wicket Component) Example App";
 
     @Override
     protected Module newIsisWicketModule() {
