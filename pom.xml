@@ -30,7 +30,7 @@ language governing permissions and limitations under the License.
     </prerequisites>
 
     <properties>
-        <isis.version>1.10.0</isis.version>
+        <isis.version>1.11.0-SNAPSHOT</isis.version>
 
         <isis-module-togglz.version>1.11.0-SNAPSHOT</isis-module-togglz.version>
         <assertj-core.version>2.0.0</assertj-core.version>
