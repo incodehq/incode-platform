@@ -54,7 +54,7 @@ Copyright 2014~2015 Dan Haywood
         <compileSource>1.7</compileSource>
         <compileTarget>1.7</compileTarget>
 
-        <isis.version>1.11.0-SNAPSHOT</isis.version>
+        <isis.version>1.11.0</isis.version>
         <javafaker.version>0.5</javafaker.version>
         <assertj-core.version>2.0.0</assertj-core.version>
 
