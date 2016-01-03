@@ -32,7 +32,7 @@ language governing permissions and limitations under the License.
     <properties>
         <isis.version>1.11.0</isis.version>
 
-        <incode-module-commchannel.version>1.11.0</incode-module-commchannel.version>
+        <incode-module-commchannel.version>1.12.0-SNAPSHOT</incode-module-commchannel.version>
         <isis-module-fakedata-dom.version>1.10.0</isis-module-fakedata-dom.version>
         <assertj-core.version>2.0.0</assertj-core.version>
 

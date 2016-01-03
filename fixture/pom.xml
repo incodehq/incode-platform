@@ -52,7 +52,7 @@ Copyright 2014~2015 Dan Haywood
         <dependency>
             <groupId>org.incode.module.commchannel</groupId>
             <artifactId>incode-module-commchannel-dom</artifactId>
-            <version>1.11.0</version>
+            <version>1.12.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
