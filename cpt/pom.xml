@@ -42,6 +42,16 @@ language governing permissions and limitations under the License.
         <url>git@github.com:isisaddons/isis-wicket-summernote.git</url>
     </scm>
     <developers>
+        <developer>
+            <id>mgrigorov</id>
+            <name>Martin Grigorov</name>
+            <email>mgrigorov@apache.org</email>
+        </developer>
+        <developer>
+            <id>danhaywood</id>
+            <name>Dan Haywood</name>
+            <email>dan@haywood-associates.co.uk</email>
+        </developer>
     </developers>
 
     <properties>
