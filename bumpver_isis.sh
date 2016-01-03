@@ -10,9 +10,9 @@ echo "editing parent pom.xml"
 cat pom.xml | sed "s/<isis.version>.*</<isis.version>$VERSION</" > pom.xml.$$.sed
 mv pom.xml.$$.sed pom.xml
 
-# edit dom's pom.xml
-echo "editing dom's pom.xml"
-pushd dom >/dev/null
+# edit glue's pom.xml
+echo "editing glue's pom.xml"
+pushd glue >/dev/null
 cat pom.xml | sed "s/<isis.version>.*</<isis.version>$VERSION</" > pom.xml.$$.sed
 mv pom.xml.$$.sed pom.xml
 popd >/dev/null
