@@ -58,7 +58,7 @@ Copyright 2014~2015 Dan Haywood
         <compileSource>1.8</compileSource>
         <compileTarget>1.8</compileTarget>
 
-        <isis.version>1.10.0</isis.version>
+        <isis.version>1.11.0</isis.version>
         <isis-module-poly-dom.version>1.10.0</isis-module-poly-dom.version>
         <isis-module-fakedata-dom.version>1.10.0</isis-module-fakedata-dom.version>
         <isis-wicket-fullcalendar2-cpt.version>1.10.0</isis-wicket-fullcalendar2-cpt.version>
