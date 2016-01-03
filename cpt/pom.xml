@@ -224,6 +224,14 @@ language governing permissions and limitations under the License.
             <!-- avoid polluting the classpath -->
             <scope>provided</scope>
             <optional>true</optional>
+            <!--
+            <exclusions>
+                <exclusion>
+                    <groupId>io.swagger</groupId>
+                    <artifactId>swagger-core</artifactId>
+                </exclusion>
+            </exclusions>
+            -->
         </dependency>
 
         <dependency>
@@ -251,6 +259,32 @@ language governing permissions and limitations under the License.
             <groupId>com.googlecode.wicked-charts</groupId>
             <artifactId>wicked-charts-wicket6</artifactId>
             <version>${wicked-charts.version}</version>
+            <exclusions>
+                <!-- excluded here but depended on below, in order can exclude its dependencies on jackson -->
+                <exclusion>
+                    <groupId>com.googlecode.wicked-charts</groupId>
+                    <artifactId>wicked-charts-highcharts</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.wicked-charts</groupId>
+            <artifactId>wicked-charts-highcharts</artifactId>
+            <version>${wicked-charts.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jackson-annotations</artifactId>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jackson-core</artifactId>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jackson-databind</artifactId>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
