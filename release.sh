@@ -1,9 +1,10 @@
-#!/bin/sh
 RELEASE_VERSION=$1
-SNAPSHOT_VERSION=$2
-KEYID=$3
-PASSPHRASE=$4
-
+shift
+SNAPSHOT_VERSION=$1
+shift
+KEYID=$1
+shift
+PASSPHRASE=$*
 
 if [ ! "$RELEASE_VERSION" -o ! "$SNAPSHOT_VERSION" -o ! "$KEYID" -o ! "$PASSPHRASE" ]; then
     echo "usage: $(basename $0) [release_version] [snapshot_version] [keyid] [passphrase]" >&2
@@ -14,7 +15,7 @@ fi
 echo ""
 echo "checking no reference to isis.version of -SNAPSHOT"
 echo ""
-grep SNAPSHOT cpt/pom.xml | grep isis.version
+grep SNAPSHOT dom/pom.xml | grep isis.version
 if [ $? == 0 ]; then
     echo ""
     echo "... failed" >&2
@@ -53,9 +54,9 @@ fi
 
 
 echo ""
-echo "releasing 'cpt' module (mvn clean deploy -P release)"
+echo "releasing 'dom' module (mvn clean deploy -P release)"
 echo ""
-pushd cpt >/dev/null
+pushd dom >/dev/null
 mvn clean deploy -P release -Dpgp.secretkey=keyring:id=$KEYID -Dpgp.passphrase="literal:$PASSPHRASE"
 if [ $? != 0 ]; then
     echo "... failed" >&2
