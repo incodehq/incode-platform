@@ -34,7 +34,7 @@
     <properties>
         <isis.version>1.11.0</isis.version>
 
-        <isis-module-docx.version>1.11.0-SNAPSHOT</isis-module-docx.version>
+        <isis-module-docx.version>1.11.0</isis-module-docx.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
