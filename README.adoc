@@ -96,7 +96,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 +
 [source,xml]
 ----
-<version>1.11.0-SNAPSHOT</version>
+<version>1.12.0-SNAPSHOT</version>
 ----
 
 * add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`: +
@@ -150,13 +150,16 @@ are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be relea
 
 == Legal Stuff
 
-Summernote editor is licenced under MIT licence.
-IsisAddon Summernote is licenced under Apache 2 licence.
+The Summernote editor is licenced under the MIT licence.
+
+The IsisAddons Summernote wicket component is licenced under the Apache 2 licence.
 
 ==== License
 
 [source]
 ----
+Copyright 2015~2016 Martin Grigorov and Dan Haywood
+
 Licensed under the Apache License, Version 2.0 (the
 "License"); you may not use this file except in compliance
 with the License.  You may obtain a copy of the License at
@@ -204,8 +207,8 @@ For example:
 
 [source]
 ----
-sh release.sh 1.10.0 \
-              1.11.0-SNAPSHOT \
+sh release.sh 1.12.0 \
+              1.13.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
 ----
@@ -224,7 +227,7 @@ If the script completes successfully, then push changes:
 [source]
 ----
 git push origin master
-git push origin 1.11.0
+git push origin 1.12.0
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
