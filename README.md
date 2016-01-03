@@ -98,6 +98,7 @@ To use "out-of-the-box":
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.metamodel.paraname8&lt;/groupId&gt;
         &lt;artifactId&gt;isis-metamodel-paraname8-dom&lt;/artifactId&gt;
+        &lt;version&gt1.11.0&lt;/version&gt;        
     &lt;/dependency&gt;
 </pre>
 
@@ -126,7 +127,7 @@ To use "out-of-the-box":
 </pre>
 
 Notes:
-* Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-audit-dom).
+* Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-metamodel-paraname8-dom).
 
 
 ## Configuring your IDE ##
@@ -141,11 +142,17 @@ Other IDEs should have similar dialogues.
 
 You'll also need to make sure that the IDE is set up to build and run with JDK8.  In IntelliJ, this can be found under the "Project Structure" dialog.
 
+## Change Log ##
+
+* `1.11.0` - released against Isis 1.11.0
+* `1.10.0` - released against Isis 1.10.0
+* `1.9.0` - released against Isis 1.9.0
+
 ## Legal Stuff ##
  
 #### License ####
 
-    Copyright 2015 Dan Haywood
+    Copyright 2015-2016 Dan Haywood
 
     Licensed under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
@@ -193,8 +200,8 @@ The `release.sh` script automates the release process.  It performs the followin
 
 For example:
 
-    sh release.sh 1.10.0 \
-                  1.11.0-SNAPSHOT \
+    sh release.sh 1.12.0 \
+                  1.13.0-SNAPSHOT \
                   dan@haywood-associates.co.uk \
                   "this is not really my passphrase"
     
@@ -210,7 +217,7 @@ Other ways of specifying the key and passphrase are available, see the `pgp-mave
 If the script completes successfully, then push changes:
 
     git push origin master
-    git push origin 1.10.0
+    git push origin 1.12.0
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
 before trying again.  Note that in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the 
