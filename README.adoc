@@ -547,8 +547,8 @@ For example:
 
 [source]
 ----
-sh release.sh 1.11.0 \
-              1.12.0-SNAPSHOT \
+sh release.sh 1.12.0 \
+              1.13.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
 ----
@@ -567,7 +567,7 @@ If the script completes successfully, then push changes:
 [source]
 ----
 git push origin master
-git push origin 1.11.0
+git push origin 1.12.0
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
