@@ -18,7 +18,7 @@ language governing permissions and limitations under the License.
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.incode.module.note</groupId>
+        <groupId>org.incode.module.alias</groupId>
         <artifactId>incode-module-alias</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>

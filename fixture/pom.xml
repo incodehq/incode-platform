@@ -18,7 +18,7 @@ Copyright 2014~2015 Dan Haywood
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.incode.module.note</groupId>
+        <groupId>org.incode.module.alias</groupId>
         <artifactId>incode-module-alias</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
@@ -50,7 +50,7 @@ Copyright 2014~2015 Dan Haywood
         </dependency>
 
         <dependency>
-            <groupId>org.incode.module.note</groupId>
+            <groupId>org.incode.module.alias</groupId>
             <artifactId>incode-module-alias-dom</artifactId>
             <version>${incode-module-alias.version}</version>
         </dependency>

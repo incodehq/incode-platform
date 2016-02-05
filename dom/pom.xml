@@ -17,7 +17,7 @@ Copyright 2014~2015 Dan Haywood
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.incode.module.note</groupId>
+    <groupId>org.incode.module.alias</groupId>
     <artifactId>incode-module-alias-dom</artifactId>
     <version>1.12.0-SNAPSHOT</version>
 
@@ -297,7 +297,7 @@ Copyright 2014~2015 Dan Haywood
                         <artifactId>isis-maven-plugin</artifactId>
                         <version>${isis.version}</version>
                         <configuration>
-                            <appManifest>org.incode.module.note.dom.NoteModuleDomManifest</appManifest>
+                            <appManifest>org.incode.module.alias.dom.NoteModuleDomManifest</appManifest>
                         </configuration>
                         <dependencies>
                             <dependency>
