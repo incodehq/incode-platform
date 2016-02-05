@@ -128,7 +128,7 @@ To use "out-of-the-box":
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 ...
-                org.incode.module.note.dom.NoteModule.class,
+                org.incode.module.alias.dom.NoteModule.class,
         );
     }
 
@@ -226,10 +226,10 @@ For example, in the demo app the `NotableLinkForDemoObject` implements both of t
 ----
 @javax.jdo.annotations.PersistenceCapable(
         identityType= IdentityType.DATASTORE,
-        schema="notedemo")
+        schema="aliasdemo")
 @javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @DomainObject(
-        objectType = "notedemo.NotableLinkForDemoObject"
+        objectType = "aliasdemo.NotableLinkForDemoObject"
 )
 public class NotableLinkForDemoObject extends NotableLink {                     // <1>
 
