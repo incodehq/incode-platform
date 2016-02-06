@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.note.webapp;
+package org.incode.module.alias.webapp;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,24 +36,7 @@ import de.agilecoders.wicket.core.settings.IBootstrapSettings;
 import de.agilecoders.wicket.themes.markup.html.bootswatch.BootswatchTheme;
 import de.agilecoders.wicket.themes.markup.html.bootswatch.BootswatchThemeProvider;
 
-/**
- * As specified in <tt>web.xml</tt>.
- * 
- * <p>
- * See:
- * <pre>
- * &lt;filter>
- *   &lt;filter-name>wicket&lt;/filter-name>
- *    &lt;filter-class>org.apache.wicket.protocol.http.WicketFilter&lt;/filter-class>
- *    &lt;init-param>
- *      &lt;param-name>applicationClassName&lt;/param-name>
- *      &lt;param-value>webapp.SimpleApplication&lt;/param-value>
- *    &lt;/init-param>
- * &lt;/filter>
- * </pre>
- * 
- */
-public class NoteModuleApplication extends IsisWicketApplication {
+public class AliasModuleApplication extends IsisWicketApplication {
 
     private static final long serialVersionUID = 1L;
 
@@ -69,7 +52,7 @@ public class NoteModuleApplication extends IsisWicketApplication {
         settings.setThemeProvider(new BootswatchThemeProvider(BootswatchTheme.Flatly));
     }
 
-    private static final String APP_NAME = "Incode Note Module Demo";
+    private static final String APP_NAME = "Incode Alias Module Demo";
     
     @Override
     protected Module newIsisWicketModule() {

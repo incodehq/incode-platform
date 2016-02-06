@@ -60,6 +60,7 @@ public class Aliasable_aliases {
             contributed = Contributed.AS_ASSOCIATION
     )
     @CollectionLayout(
+            named = "Aliases", // regression in isis 1.11.x requires this to be specified
             render = RenderType.EAGERLY
     )
     public List<Alias> $$() {

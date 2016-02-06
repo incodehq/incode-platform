@@ -19,7 +19,7 @@
         <relativePath />
     </parent>
 
-    <groupId>org.incode.module.note</groupId>
+    <groupId>org.incode.module.alias</groupId>
     <artifactId>incode-module-alias-enhance-all</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     

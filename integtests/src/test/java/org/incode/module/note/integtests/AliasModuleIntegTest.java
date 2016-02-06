@@ -35,7 +35,7 @@ import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegT
 import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.module.alias.app.NoteModuleAppManifest;
+import org.incode.module.alias.app.AliasModuleAppManifest;
 import org.incode.module.alias.dom.api.aliasable.Aliasable;
 import org.incode.module.alias.dom.impl.alias.Alias;
 import org.incode.module.alias.dom.impl.alias.Alias_remove;
@@ -82,7 +82,7 @@ public abstract class AliasModuleIntegTest extends IntegrationTestAbstract {
         if(isft == null) {
             isft = new IsisSystemForTest.Builder()
                     .withLoggingAt(org.apache.log4j.Level.INFO)
-                    .with(new NoteModuleAppManifest()
+                    .with(new AliasModuleAppManifest()
                             .withModules(AliasModuleIntegTest.class, FakeDataModule.class))
                     .with(new IsisConfigurationForJdoIntegTests())
                     .build()

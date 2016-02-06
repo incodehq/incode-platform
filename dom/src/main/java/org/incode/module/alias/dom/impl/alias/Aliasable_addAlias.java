@@ -25,9 +25,11 @@ import javax.inject.Inject;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Mixin;
+import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
+import org.incode.module.alias.dom.AliasModule;
 import org.incode.module.alias.dom.api.aliasable.AliasType;
 import org.incode.module.alias.dom.api.aliasable.Aliasable;
 import org.incode.module.alias.dom.spi.aliastype.AliasTypeRepository;
@@ -65,19 +67,22 @@ public class Aliasable_addAlias {
     )
     @MemberOrder(name = "aliases", sequence = "1")
     public Aliasable $$(
-            @ParameterLayout()
+            @Parameter(maxLength = AliasModule.JdoColumnLength.AT_PATH)
+            @ParameterLayout(named = "Application tenancy")
             final String applicationTenancyPath,
             final AliasType aliasType,
+            @Parameter(maxLength = AliasModule.JdoColumnLength.ALIAS_REFERENCE)
+            @ParameterLayout(named = "Alias reference")
             final String alias) {
         aliasRepository.add(this.aliasable, applicationTenancyPath, aliasType, alias);
         return this.aliasable;
     }
 
-    public Collection<String> choices1$$() {
+    public Collection<String> choices0$$() {
         return applicationTenancyRepository.atPathsFor(this.aliasable);
     }
 
-    public Collection<AliasType> choices2$$(final String applicationTenancyPath) {
+    public Collection<AliasType> choices1$$(final String applicationTenancyPath) {
         return aliasTypeRepository.aliasTypesFor(this.aliasable, applicationTenancyPath);
     }
     //endregion

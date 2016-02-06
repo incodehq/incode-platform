@@ -90,10 +90,14 @@ public class AliasRepository {
             final AliasType aliasType,
             final String aliasRef) {
         final Alias alias = container.newTransientInstance(Alias.class);
+
         alias.setAtPath(atPath);
-        alias.setAliasable(aliasable);
         alias.setAliasTypeId(aliasType.getId());
         alias.setAlias(aliasRef);
+
+        // must be set after atPath and aliasTypeId, because these are sync'ed from the alias onto the AliasableLink.
+        alias.setAliasable(aliasable);
+
         container.persistIfNotAlready(alias);
 
         return alias;

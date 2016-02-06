@@ -22,7 +22,7 @@ import org.incode.module.alias.dom.api.aliasable.Aliasable;
 import org.incode.module.alias.dom.impl.alias.Aliasable_addAlias;
 import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasDemoObject;
 import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasDemoObjectMenu;
-import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasTypeDemoEnum;
+import org.incode.module.alias.fixture.dom.aliastype.AliasTypeDemoEnum;
 import org.incode.module.alias.fixture.scripts.teardown.AliasDemoObjectsTearDownFixture;
 
 public class AliasDemoObjectsFixture extends DiscoverableFixtureScript {

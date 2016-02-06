@@ -33,19 +33,19 @@ import org.incode.module.alias.fixture.AliasFixtureModule;
 /**
  * Bootstrap the application.
  */
-public class NoteModuleAppManifest implements AppManifest {
+public class AliasModuleAppManifest implements AppManifest {
 
     private final List<Class<?>> classes = Lists.newArrayList();
 
-    public NoteModuleAppManifest() {
+    public AliasModuleAppManifest() {
         withModules(
                 AliasModule.class, // dom module
                 AliasFixtureModule.class,
-                NoteAppModule.class
+                AliasAppModule.class
         );
     }
 
-    public NoteModuleAppManifest withModules(Class<?>... classes) {
+    public AliasModuleAppManifest withModules(Class<?>... classes) {
         for (Class<?> cls : classes) {
             this.classes.add(cls);
         }

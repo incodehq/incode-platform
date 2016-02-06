@@ -32,7 +32,7 @@ import org.incode.module.alias.fixture.scripts.scenarios.AliasDemoObjectsFixture
 /**
  * Run the app but without setting up any fixtures.
  */
-public class NoteModuleAppManifestWithFixtures extends NoteModuleAppManifest {
+public class AliasModuleAppManifestWithFixtures extends AliasModuleAppManifest {
 
     /**
      * Fixtures to be installed.

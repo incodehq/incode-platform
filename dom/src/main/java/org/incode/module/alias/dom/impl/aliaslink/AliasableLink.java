@@ -24,8 +24,6 @@ import javax.jdo.annotations.InheritanceStrategy;
 
 import com.google.common.base.Function;
 
-import org.joda.time.LocalDate;
-
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -202,17 +200,6 @@ public abstract class AliasableLink
     )
     private String aliasableIdentifier;
 
-    public static class AliasTypeIdDomainEvent extends PropertyDomainEvent<LocalDate> { }
-    /**
-     * Copy of the {@link #getAlias() alias}' {@link Alias#getAliasTypeId() alias type}, to support querying.
-     */
-    @Getter @Setter
-    @javax.jdo.annotations.Column(allowsNull = "false")
-    @Property(
-            domainEvent = AliasTypeIdDomainEvent.class
-    )
-    private String aliasTypeId;
-
     public static class AtPathDomainEvent extends PropertyDomainEvent<String> { }
     /**
      * Copy of the {@link #getAlias() alias}' {@link Alias#getAtPath() at path}, to support querying.
@@ -224,6 +211,17 @@ public abstract class AliasableLink
             editing = Editing.DISABLED
     )
     private String atPath;
+
+    public static class AliasTypeIdDomainEvent extends PropertyDomainEvent<String> { }
+    /**
+     * Copy of the {@link #getAlias() alias}' {@link Alias#getAliasTypeId() alias type}, to support querying.
+     */
+    @Getter @Setter
+    @javax.jdo.annotations.Column(allowsNull = "false")
+    @Property(
+            domainEvent = AliasTypeIdDomainEvent.class
+    )
+    private String aliasTypeId;
 
 
     //region > aliasable (derived property)

@@ -18,7 +18,7 @@ Copyright 2014~2015 Dan Haywood
     xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
-    <display-name>Incode Note Module Example App</display-name>
+    <display-name>Incode Alias Module Example App</display-name>
 
     <welcome-file-list>
         <welcome-file>about/index.html</welcome-file>
@@ -175,7 +175,7 @@ Copyright 2014~2015 Dan Haywood
         <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
         <init-param>
             <param-name>applicationClassName</param-name>
-            <param-value>org.incode.module.note.webapp.NoteModuleApplication</param-value>
+            <param-value>org.incode.module.alias.webapp.AliasModuleApplication</param-value>
         </init-param>
     </filter>
     <filter-mapping>
