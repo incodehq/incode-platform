@@ -42,8 +42,14 @@ import lombok.Setter;
 })
 @javax.jdo.annotations.Indices({
         @javax.jdo.annotations.Index(
-                name = "Alias_alias_idx",
-                members = { "alias" })
+                name = "Alias_aliasTypeId_atPath_IDX",
+                members = { "aliasTypeId", "atPath" })
+        // have index for atPath, aliasTypeId, ...
+})
+@javax.jdo.annotations.Uniques({
+        @javax.jdo.annotations.Unique(
+                name="Alias_atPath_aliasType_reference_UNQ",
+                members = { "atPath", "aliasTypeId", "reference" })
 })
 @DomainObject(
         editing = Editing.DISABLED
@@ -92,13 +98,13 @@ public class Alias implements Comparable<Alias> {
     private String aliasTypeId;
 
 
-    public static class AliasDomainEvent extends PropertyDomainEvent<Alias,String> { }
+    public static class ReferenceDomainEvent extends PropertyDomainEvent<Alias,String> { }
     @Getter @Setter
     @javax.jdo.annotations.Column(allowsNull = "false", length = AliasModule.JdoColumnLength.ALIAS_REFERENCE)
     @Property(
-            domainEvent = AliasDomainEvent.class
+            domainEvent = ReferenceDomainEvent.class
     )
-    private String alias;
+    private String reference;
 
 
     //region > aliasable (derived property)
@@ -153,12 +159,12 @@ public class Alias implements Comparable<Alias> {
 
     @Override
     public String toString() {
-        return ObjectContracts.toString(this, "alias", "atPath", "aliasTypeId");
+        return ObjectContracts.toString(this, "reference", "atPath", "aliasTypeId");
     }
 
     @Override
     public int compareTo(final Alias other) {
-        return ObjectContracts.compare(this, other, "alias", "atPath", "aliasTypeId");
+        return ObjectContracts.compare(this, other, "reference", "atPath", "aliasTypeId");
     }
 
     //endregion

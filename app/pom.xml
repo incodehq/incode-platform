@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>incode-module-alias-app</artifactId>
-    <name>Incode Note Module Application</name>
+    <name>Incode Alias Module Application</name>
 
     <build>
         <resources>

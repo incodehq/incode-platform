@@ -27,7 +27,7 @@ import org.junit.Test;
 import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasDemoObject;
 import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasDemoObjectMenu;
 import org.incode.module.alias.fixture.scripts.scenarios.AliasDemoObjectsFixture;
-import org.incode.module.note.integtests.AliasModuleIntegTest;
+import org.incode.module.alias.integtests.AliasModuleIntegTest;
 
 public class AliasDemoObjectMenuTest extends AliasModuleIntegTest {
 

@@ -90,15 +90,17 @@ import lombok.Setter;
                         + "   && aliasTypeId == :aliasTypeId")
 })
 @javax.jdo.annotations.Indices({
-        // there is also a unique constraint (below) on aliasable, atPath, aliasTypeId
         @javax.jdo.annotations.Index(
                 name = "AliasableLink_aliasable_aliasType_IDX",
-                members = { "aliasableObjectType", "aliasableIdentifier", "aliasTypeId" })
+                members = { "aliasableObjectType", "aliasableIdentifier", "aliasTypeId" }),
+        @javax.jdo.annotations.Index(
+                name = "AliasableLink_aliasable_atPath_IDX",
+                members = { "aliasableObjectType", "aliasableIdentifier", "atPath" })
 })
 @javax.jdo.annotations.Uniques({
         @javax.jdo.annotations.Unique(
-                name="AliasableLink_alias_atPath_aliasType_UNQ",
-                members = { "aliasableObjectType", "aliasableIdentifier", "atPath", "aliasTypeId" })
+                name="AliasableLink_alias_UNQ",
+                members = { "alias" })
 })
 @DomainObject(
         objectType = "incodeAlias.AliasableLink"
@@ -174,7 +176,7 @@ public abstract class AliasableLink
 
     public static class AliasDomainEvent extends PropertyDomainEvent<Alias> { }
     @Getter @Setter
-    @javax.jdo.annotations.Column(allowsNull = "false", name = "aliasId")
+    @javax.jdo.annotations.Column(allowsNull = "false", name = "aliasRef")
     @Property(
             domainEvent = AliasDomainEvent.class,
             editing = Editing.DISABLED

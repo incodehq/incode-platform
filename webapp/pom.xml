@@ -24,7 +24,7 @@ language governing permissions and limitations under the License.
     </parent>
 
     <artifactId>incode-module-alias-webapp</artifactId>
-    <name>Incode Note Module Webapp</name>
+    <name>Incode Alias Module Webapp</name>
 
     <packaging>war</packaging>
 

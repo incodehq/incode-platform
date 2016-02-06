@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.note.integtests;
+package org.incode.module.alias.integtests;
 
 import java.util.List;
 
@@ -55,14 +55,14 @@ public abstract class AliasModuleIntegTest extends IntegrationTestAbstract {
     protected FakeDataService fakeData;
 
 
-    protected Aliasable_addAlias mixinAddNote(final Aliasable aliasable) {
+    protected Aliasable_addAlias mixinAddAlias(final Aliasable aliasable) {
         return mixin(Aliasable_addAlias.class, aliasable);
     }
-    protected Aliasable_removeAlias mixinRemoveNote(final Aliasable aliasable) {
+    protected Aliasable_removeAlias mixinRemoveAlias(final Aliasable aliasable) {
         return mixin(Aliasable_removeAlias.class, aliasable);
     }
 
-    protected Aliasable_aliases mixinNotes(final Aliasable aliasable) {
+    protected Aliasable_aliases mixinAliases(final Aliasable aliasable) {
         return mixin(Aliasable_aliases.class, aliasable);
     }
 
