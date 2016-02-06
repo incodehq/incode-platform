@@ -1,6 +1,9 @@
 = incode-module-alias
 :_imagesdir: ./
 
+== WORK IN PROGRESS ... copied from incode-module-note
+
+
 image:https://travis-ci.org/incodehq/incode-module-alias.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-alias]
 
 This module, intended for use with link:http://isis.apache.org[Apache Isis], provides the ability to attach `Note`
