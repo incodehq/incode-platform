@@ -27,7 +27,6 @@ import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.Mixin;
-import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.note.dom.api.notable.Notable;
@@ -62,7 +61,8 @@ public class Notable_notes {
             contributed = Contributed.AS_ASSOCIATION
     )
     @CollectionLayout(
-            render = RenderType.EAGERLY
+            named = "Notes", // regression in isis 1.11.x requires this to be specified
+            defaultView = "table"
     )
     public List<Note> $$() {
         return noteRepository.findByNotable(this.notable);
