@@ -35,7 +35,7 @@ image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/ima
 This installs some very simple (demo) `Aliasable` domain objects, the first of which is returned.  The `Aliasable` has
 a (contributed) `aliases` collection, and we can also add new aliases using a (contributed) `addAlias(...)` action:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/040-add-note.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/040-add-note.png"]
+image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/040-add-alias.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/040-add-alias.png"]
 
 The action requires the application tenancy of the alias (as returned from the `ApplicationTenancyRepository` SPI service) to be specified:
 
