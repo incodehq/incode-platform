@@ -33,7 +33,6 @@ import org.apache.isis.applib.annotation.Programmatic;
 
 import org.incode.module.alias.dom.api.aliasable.Aliasable;
 import org.incode.module.alias.dom.impl.aliaslink.AliasableLink;
-import org.incode.module.alias.dom.impl.alias.AliasRepository;
 import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasDemoObject;
 
 @javax.jdo.annotations.PersistenceCapable(
@@ -50,7 +49,6 @@ public class AliasableLinkForDemoObject extends AliasableLink {
     @DomainService(nature = NatureOfService.DOMAIN)
     @DomainServiceLayout(menuOrder = "1")
     public static class InstantiationSubscriber extends AbstractSubscriber {
-
         @Programmatic
         @Subscribe
         public void on(final InstantiateEvent ev) {
@@ -82,10 +80,4 @@ public class AliasableLinkForDemoObject extends AliasableLink {
         this.demoObject = demoObject;
     }
     //endregion
-
-    //region > injected services
-    @javax.inject.Inject
-    private AliasRepository aliasRepository;
-    //endregion
-
 }

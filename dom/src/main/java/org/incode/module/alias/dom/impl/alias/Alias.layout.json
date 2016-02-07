@@ -1,20 +1,20 @@
 {
   "columns": [
     {
-      "span": 8,
+      "span": 6,
       "memberGroups": {
-        "Notes": {
+        "Alias": {
           "members": {
-            "notesAbbreviated": {
+            "aliasTypeId": {
             },
-            "notes": {
-              "propertyLayout": {
-                "labelPosition": "NONE"
-              },
+            "atPath": {
+            },
+            "reference": {
               "actions": {
-                "changeNotes": {
+                "remove": {
                   "actionLayout": {
-                    "named": "Change"
+                    "position": "PANEL",
+                    "cssClassFa": "fa-trash"
                   }
                 }
               }
@@ -24,27 +24,15 @@
       }
     },
     {
-      "span": 4,
+      "span": 6,
       "memberGroups": {
-        "What": {
+        "Aliasable": {
           "members": {
-            "notable": {}
-          }
-        },
-        "When": {
-          "members": {
-            "date": {
+            "aliasable": {
               "actions": {
-              }
-            },
-            "calendarName": {
-              "propertyLayout": {
-                "named": "Calendar"
-              },
-              "actions": {
-                "changeDate": {
+                "downloadJdoMetadata": {
                   "actionLayout": {
-                    "named": "Change"
+                    "position": "PANEL_DROPDOWN"
                   }
                 }
               }
@@ -58,7 +46,7 @@
       "memberGroups": {}
     },
     {
-      "span": 8,
+      "span": 12,
       "collections": {}
     }
   ],

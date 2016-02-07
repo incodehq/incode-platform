@@ -2,7 +2,6 @@ package org.incode.module.alias.fixture.dom.aliastype;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Objects;
 
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Lists;
@@ -27,16 +26,5 @@ public class AliasTypeDemoEnumRepository implements AliasTypeRepository {
                 FluentIterable.from(Arrays.asList(values))
                 .transform(x -> new AliasTypeViewModel(x))
         );
-    }
-
-    @Override
-    public AliasType lookup(final String aliasTypeId) {
-        final AliasTypeDemoEnum[] values = AliasTypeDemoEnum.values();
-        for (AliasTypeDemoEnum value : values) {
-            if(Objects.equals(value.getId(), aliasTypeId)) {
-                return new AliasTypeViewModel(value);
-            }
-        }
-        return null;
     }
 }

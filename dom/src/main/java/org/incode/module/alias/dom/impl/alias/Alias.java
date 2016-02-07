@@ -12,6 +12,7 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
@@ -72,6 +73,12 @@ public class Alias implements Comparable<Alias> {
     //region > title
     public String title() {
         final TitleBuffer buf = new TitleBuffer();
+        buf.append(getAtPath());
+        buf.append(",");
+        buf.append(getAliasTypeId());
+        buf.append(",");
+        buf.append(getReference());
+        buf.append(":");
         buf.append(container.titleOf(getAliasable()));
         return buf.toString();
     }
@@ -86,6 +93,9 @@ public class Alias implements Comparable<Alias> {
             domainEvent = AtPathDomainEvent.class,
             editing = Editing.DISABLED
     )
+    @PropertyLayout(
+            named = "Application tenancy"
+    )
     private String atPath;
 
 
@@ -94,6 +104,9 @@ public class Alias implements Comparable<Alias> {
     @javax.jdo.annotations.Column(allowsNull = "false", length = AliasModule.JdoColumnLength.ALIAS_TYPE_ID)
     @Property(
             domainEvent = AliasTypeIdDomainEvent.class
+    )
+    @PropertyLayout(
+            named = "Alias type"
     )
     private String aliasTypeId;
 

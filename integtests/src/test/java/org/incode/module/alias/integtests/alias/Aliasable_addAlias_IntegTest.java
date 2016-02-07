@@ -16,12 +16,12 @@
  */
 package org.incode.module.alias.integtests.alias;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
 import javax.inject.Inject;
-import javax.jdo.JDODataStoreException;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -90,26 +90,6 @@ public class Aliasable_addAlias_IntegTest extends AliasModuleIntegTest {
         }
 
         @Test
-        public void can_add_to_different_ref_to_same_atPath_and_same_aliasTypes() throws Exception {
-
-            // when
-            final Collection<String> atPaths = applicationTenancyRepository.atPathsFor(aliasable);
-            final String randomAtPath = fakeData.collections().anyOf(atPaths);
-
-            final Collection<AliasType> aliasTypes = aliasTypeRepository.aliasTypesFor(aliasable, randomAtPath);
-            final AliasType randomAliasType = fakeData.collections().anyOf(aliasTypes);
-            final String randomAliasRef = fakeData.strings().digits(10);
-            final String randomAliasRef2 = fakeData.strings().digits(10);
-
-            wrap(mixinAddAlias(aliasable)).$$(randomAtPath, randomAliasType, randomAliasRef);
-            wrap(mixinAddAlias(aliasable)).$$(randomAtPath, randomAliasType, randomAliasRef2);
-
-            // then
-            final List<Alias> aliases = wrap(mixinAliases(aliasable)).$$();
-            assertThat(aliases).hasSize(2);
-        }
-
-        @Test
         public void can_add_to_same_ref_to_same_atPath_and_different_aliasTypes() throws Exception {
 
             // when
@@ -155,8 +135,7 @@ public class Aliasable_addAlias_IntegTest extends AliasModuleIntegTest {
         @Test
         public void cannot_add_to_same_ref_to_same_atPath_and_same_aliasType() throws Exception {
 
-            expectedException.expect(JDODataStoreException.class);
-//            expectedException.expect(SQLIntegrityConstraintViolationException.class);
+            expectedException.expectCause(of(SQLIntegrityConstraintViolationException.class));
 
             // given
             final Collection<String> atPaths = applicationTenancyRepository.atPathsFor(aliasable);
@@ -176,6 +155,27 @@ public class Aliasable_addAlias_IntegTest extends AliasModuleIntegTest {
             assertThat(aliases).isEmpty();
         }
 
+        @Test
+        public void cannot_add_to_different_ref_to_same_atPath_and_same_aliasTypes() throws Exception {
+
+            expectedException.expectCause(of(SQLIntegrityConstraintViolationException.class));
+
+            // when
+            final Collection<String> atPaths = applicationTenancyRepository.atPathsFor(aliasable);
+            final String randomAtPath = fakeData.collections().anyOf(atPaths);
+
+            final Collection<AliasType> aliasTypes = aliasTypeRepository.aliasTypesFor(aliasable, randomAtPath);
+            final AliasType randomAliasType = fakeData.collections().anyOf(aliasTypes);
+            final String randomAliasRef = fakeData.strings().digits(10);
+            final String randomAliasRef2 = fakeData.strings().digits(10);
+
+            wrap(mixinAddAlias(aliasable)).$$(randomAtPath, randomAliasType, randomAliasRef);
+            wrap(mixinAddAlias(aliasable)).$$(randomAtPath, randomAliasType, randomAliasRef2);
+
+            // then
+            final List<Alias> aliases = wrap(mixinAliases(aliasable)).$$();
+            assertThat(aliases).hasSize(2);
+        }
 
     }
 

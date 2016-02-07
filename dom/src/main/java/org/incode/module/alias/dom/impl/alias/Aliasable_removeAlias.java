@@ -24,6 +24,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
@@ -54,6 +55,9 @@ public class Aliasable_removeAlias {
     @Action(
             domainEvent = DomainEvent.class,
             semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE
+    )
+    @ActionLayout(
+            cssClassFa = "fa-minus"
     )
     @MemberOrder(name = "aliases", sequence = "2")
     public Aliasable $$(final Alias alias) {

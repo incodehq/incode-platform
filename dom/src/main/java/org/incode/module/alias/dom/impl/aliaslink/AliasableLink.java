@@ -91,11 +91,25 @@ import lombok.Setter;
 })
 @javax.jdo.annotations.Indices({
         @javax.jdo.annotations.Index(
-                name = "AliasableLink_aliasable_aliasType_IDX",
-                members = { "aliasableObjectType", "aliasableIdentifier", "aliasTypeId" }),
+                name = "AliasableLink_aliasable_aliasType_atPath_IDX",
+                members = { "aliasableObjectType", "aliasableIdentifier", "aliasTypeId", "atPath" },
+                unique = "true"
+        ),
         @javax.jdo.annotations.Index(
-                name = "AliasableLink_aliasable_atPath_IDX",
-                members = { "aliasableObjectType", "aliasableIdentifier", "atPath" })
+                name = "AliasableLink_aliasable_atPath_aliasType_IDX",
+                members = { "aliasableObjectType", "aliasableIdentifier", "atPath", "aliasTypeId" },
+                unique = "true"
+        ),
+        @javax.jdo.annotations.Index(
+                name = "AliasableLink_atPath_aliasType_aliasable_IDX",
+                members = { "atPath", "aliasTypeId", "aliasableObjectType", "aliasableIdentifier" },
+                unique = "true"
+        ),
+        @javax.jdo.annotations.Index(
+                name = "AliasableLink_aliasType_atPath_aliasable_IDX",
+                members = { "aliasTypeId", "atPath", "aliasableObjectType", "aliasableIdentifier" },
+                unique = "true"
+        )
 })
 @javax.jdo.annotations.Uniques({
         @javax.jdo.annotations.Unique(

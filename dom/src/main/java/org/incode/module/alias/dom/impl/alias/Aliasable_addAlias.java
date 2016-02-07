@@ -19,10 +19,15 @@
 package org.incode.module.alias.dom.impl.alias;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.inject.Inject;
 
+import com.google.common.collect.FluentIterable;
+import com.google.common.collect.Lists;
+
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Parameter;
@@ -42,9 +47,9 @@ public class Aliasable_addAlias {
     @Inject
     AliasRepository aliasRepository;
     @Inject
-    ApplicationTenancyRepository applicationTenancyRepository;
+    List<ApplicationTenancyRepository> applicationTenancyRepositories;
     @Inject
-    AliasTypeRepository aliasTypeRepository;
+    List<AliasTypeRepository> aliasTypeRepositories;
     //endregion
 
     //region > constructor
@@ -65,6 +70,9 @@ public class Aliasable_addAlias {
             domainEvent = DomainEvent.class,
             semantics = SemanticsOf.NON_IDEMPOTENT
     )
+    @ActionLayout(
+            cssClassFa = "fa-plus"
+    )
     @MemberOrder(name = "aliases", sequence = "1")
     public Aliasable $$(
             @Parameter(maxLength = AliasModule.JdoColumnLength.AT_PATH)
@@ -79,11 +87,29 @@ public class Aliasable_addAlias {
     }
 
     public Collection<String> choices0$$() {
-        return applicationTenancyRepository.atPathsFor(this.aliasable);
+        final List<String> combined = Lists.newArrayList();
+        FluentIterable.from(applicationTenancyRepositories)
+                .forEach(applicationTenancyRepository -> {
+                    final Collection<String> aliasTypes = applicationTenancyRepository
+                            .atPathsFor(this.aliasable);
+                    if(aliasTypes != null && !aliasTypes.isEmpty()) {
+                        combined.addAll(aliasTypes);
+                    }
+                });
+        return combined;
     }
 
     public Collection<AliasType> choices1$$(final String applicationTenancyPath) {
-        return aliasTypeRepository.aliasTypesFor(this.aliasable, applicationTenancyPath);
+        final List<AliasType> combined = Lists.newArrayList();
+        FluentIterable.from(aliasTypeRepositories)
+                .forEach(aliasTypeRepository -> {
+                    final Collection<AliasType> aliasTypes = aliasTypeRepository
+                            .aliasTypesFor(this.aliasable, applicationTenancyPath);
+                    if(aliasTypes != null && !aliasTypes.isEmpty()) {
+                        combined.addAll(aliasTypes);
+                    }
+                });
+        return combined;
     }
     //endregion
 

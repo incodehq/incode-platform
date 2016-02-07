@@ -30,6 +30,4 @@ public interface AliasTypeRepository {
 
     Collection<AliasType> aliasTypesFor(final Aliasable aliasable, final String atPath);
 
-    AliasType lookup(final String aliasTypeId);
-
 }

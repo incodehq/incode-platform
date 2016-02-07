@@ -20,8 +20,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import com.google.common.base.Throwables;
+import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Lists;
 
+import org.hamcrest.Description;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
@@ -73,6 +77,21 @@ public abstract class AliasModuleIntegTest extends IntegrationTestAbstract {
     protected static <T> List<T> asList(final Iterable<T> iterable) {
         return Lists.newArrayList(iterable);
     }
+
+    protected static TypeSafeMatcher<Throwable> of(final Class<?> type) {
+        return new TypeSafeMatcher<Throwable>() {
+            @Override
+            protected boolean matchesSafely(final Throwable throwable) {
+                final List<Throwable> causalChain = Throwables.getCausalChain(throwable);
+                return !FluentIterable.from(causalChain).filter(type).isEmpty();
+            }
+
+            @Override public void describeTo(final Description description) {
+                description.appendText("Caused by " + type.getName());
+            }
+        };
+    }
+
 
     @BeforeClass
     public static void initClass() {

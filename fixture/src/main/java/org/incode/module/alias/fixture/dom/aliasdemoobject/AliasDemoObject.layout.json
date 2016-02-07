@@ -17,12 +17,19 @@
 {
   "columns": [
     {
-      "span": 6,
+      "span": 4,
       "memberGroups": {
         "General": {
           "members": {
-            "name": {},
-            "calendarName": {}
+            "name": {
+              "actions": {
+                "downloadJdoMetadata": {
+                  "actionLayout": {
+                    "position": "PANEL_DROPDOWN"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -36,17 +43,16 @@
       "memberGroups": {}
     },
     {
-      "span": 6,
+      "span": 8,
       "collections": {
-        "notes": {
+        "aliases": {
           "actions": {
-            "addNoteToCalendar": {},
-            "addNote": {
+            "addAlias": {
               "actionLayout": {
                 "named": "Add"
               }
             },
-            "removeNote": {
+            "removeAlias": {
               "actionLayout": {
                 "named": "Remove"
               }

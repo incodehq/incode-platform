@@ -1,29 +1,27 @@
 = incode-module-alias
 :_imagesdir: ./
 
-== WORK IN PROGRESS ... copied from incode-module-note
-
-
 image:https://travis-ci.org/incodehq/incode-module-alias.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-alias]
 
-This module, intended for use with link:http://isis.apache.org[Apache Isis], provides the ability to attach `Note`
-objects to arbitrary domain objects.  Domain objects are required to implement the `Notable` marker interface, and
-must implement a subclass from the `NotableLink` abstract class (about 40 lines of boilerplate, details below).
+This module, intended for use with link:http://isis.apache.org[Apache Isis], provides the ability to attach `Alias`
+objects to arbitrary domain objects.  Domain objects are required to implement the `Aliasable` marker interface, and
+must implement a subclass from the `AliasableLink` abstract class (about 40 lines of boilerplate, details below).
 
-Each `Note` can optionally have a date associated with it, and corresponding (predefined) calendar.  The `Note`
-implements the `CalendarEventable` interface (from the link:http://isisaddons.org[Isis Addons]'
-link:http://github.com/isisaddons/isis-wicket-fullcalendar2[fullcalendar2]) wicket component) meaning that they can
-then be rendered in a calendar view.  This makes the notes useful for a simple task list.
+Each `Alias` simply holds a string reference, typically corresponding to an identifier of the aliasable object within
+an external systems.  For example, a `Party` entity might have a different identifier within a general ledger system,
+and another identifier again in a document management system.
 
-The optional `CalendarNameRepository` SPI service is used to enumerate the calendars for any given `Notable` domain
-object.  The list of available calendars is determined by the `Notable`: if `Customer` and `Order` both implement
-`Notable`, then the `CalendarNameRepository` could provide different calendar names for each.  If no implementation of
-the `CalendarNameRepository` service can be found, then a single "default" calendar is used.
+In fact, aliases are qualified in two ways: first by the "alias type" (general ledger, document management system", and
+also by an "application tenancy path".  This is the same concept as exists within the
+link:http://www.isisaddons.org[Isis Addons]' link:http://github.com/isisaddons/isis-module-security[security] module,
+and generally represents a multi-tenancy environment, eg to distinguish different countries.
 
-Any given `Notable` domain object can have multiple `Note`s.  As currently implemented, a `Notable` can only have one
-`Note` per named calendar.
-
-
+_This_ module places no constraints on either the alias type nor on the format of the application tenancy path.  The
+alias type is represented by the `AliasType`; to use the module the application must implement the mandatory
+`AliasTypeRepository` SPI service which identifies the available `AliasType`s.  Similarly, the available application
+tenancy paths are provided to the module by the mandatory `ApplicationTenancyRepository` SPI service.  In both cases
+the list of alias types and application tenancy paths is per `Aliasable`; not every aliasable object will have an
+alias in every external system.
 
 
 == Screenshots
@@ -34,50 +32,31 @@ We start by installing some demo fixture data:
 
 image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/010-run-fixture-script.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/010-run-fixture-script.png"]
 
-This installs some very simple domain objects to which we want to attach notes:
-
-image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/020-list-all.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/020-list-all.png"]
-
-These are our `Notable` domain objects.
-
-image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/030-view-domain-object.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/030-view-domain-object.png"]
-
-The fixture sets up some notes for each of these `Notable` objects; these are displayed in a (contributed) `notes` collection.  We can also add new notes using a (contributed) `addNote(...)` action:
+This installs some very simple (demo) `Aliasable` domain objects, the first of which is returned.  The `Aliasable` has
+a (contributed) `aliases` collection, and we can also add new aliases using a (contributed) `addAlias(...)` action:
 
 image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/040-add-note.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/040-add-note.png"]
 
-The action allows the note text and optionally a date/calendar to be specified.  Every note must have either text and/or a date and calendar.  Also, each `Notable` can only associate one `Note` per calendar.  The list of calendars is defined by the optional `CalendarNameRepository` SPI domain service, discussed below:
+The action requires the application tenancy of the alias (as returned from the `ApplicationTenancyRepository` SPI service) to be specified:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/050-enter-note-details.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/050-enter-note-details.png"]
+image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/050-enter-alias-details.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/050-enter-alias-details.png"]
 
-The notes for the `Notable` domain object is added to.  Each `Note` can also be viewed:
+and also the alias type (as returned from the `AliasTypeRepository` SPI service) to be specified:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/060-note-added-to-collection.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/060-note-added-to-collection.png"]
+image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/052-enter-alias-details.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/052-enter-alias-details.png"]
 
-The `Note` shows the text and date/calendar, as well as the `Notable` domain object that it is attached to.
+and finally the external alias reference itself must be specified also:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/070-view-note.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/070-view-note.png"]
+image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/054-enter-alias-details.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/054-enter-alias-details.png"]
 
-The `changeNote(...)` action allows the note text to be updated (or cleared/set to null if the note has a date/calendar):
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/080-change-note-text.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/080-change-note-text.png"]
+The aliases for the `Alias` domain object is added to:
 
-while the `changeDate(...)` action...
+image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/060-alias-added.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/060-alias_added.png"]
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/090-change-date.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/090-change-date.png"]
+Each `Alias` can also be viewed:
 
-allows the note's date/calendar to be updated (or cleared/set to null if the note has text):
-
-image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/100-change-date-details.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/100-change-date-details.png"]
-
-Each `Note` implements the (non-ASF) http://github.com/isisaddons/isis-wicket-fullcalendar2[Isis addons' fullcalendar2] wicket extension's `CalendarEventable` interface, meaning ...
-
-image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/110-view-on-fullcalendar2.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/110-view-on-fullcalendar2.png"]
-
-that it can be rendered on a calendar:
-
-image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/120-fullcalendar2.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/120-fullcalendar2.png"]
-
+image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/070-view-note.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/070-view-alias.png"]
 
 
 
@@ -119,7 +98,7 @@ To use "out-of-the-box":
 [source,xml]
 ----
 <dependency>
-    <groupId>org.incode.module.note</groupId>
+    <groupId>org.incode.module.alias</groupId>
     <artifactId>incode-module-alias-dom</artifactId>
     <version>1.11.0</version>
 </dependency>
@@ -131,7 +110,7 @@ To use "out-of-the-box":
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 ...
-                org.incode.module.alias.dom.NoteModule.class,
+                org.incode.module.alias.dom.AliasModule.class,
         );
     }
 
@@ -142,7 +121,7 @@ To use "out-of-the-box":
 ----
   isis.services.ServicesInstallerFromAnnotation.packagePrefix=\
                                 ...\
-                                org.incode.module.note.dom,\
+                                org.incode.module.alias.dom,\
                                 ...
 ----
 
@@ -191,28 +170,28 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 
 === For each domain object...
 
-For each domain object that you want to be able to attach notes, you need to implement the `Notable` marker interface
-and (optionally but strongly recommended) implement a subclass of `NotableLink` to hold a type-safe reference back to
+For each domain object that you want to be able to add aliases, you need to implement the `Aliasable` marker interface
+and (optionally but strongly recommended) implement a subclass of `AliasableLink` to hold a type-safe reference back to
 the domain object.
 
-For each such `Notable` domain object, the module will then:
+For each such `Aliasable` domain object, the module will then:
 
-* contribute the `notes` collection, and
+* contribute the `aliases` collection, and
 
-* contribute the `addNote(...)` and `removeNote(...)` actions.
+* contribute the `addAlias(...)` and `removeAlias(...)` actions.
 
-Other than implementing the marker interface, the `Notable` domain object will be completely decoupled from the rest
-of the note module.
+Other than implementing the marker interface, the `Aliasable` domain object will be completely decoupled from the rest
+of the alias module.
 
 In detail:
 
-* have the domain object implement the `Notable` interface: +
+* have the domain object implement the `Aliasable` interface: +
 +
-For example, in the demo app the `NoteDemoObject` implements this interface: +
+For example, in the demo app the `AliasDemoObject` implements this interface: +
 +
 [source,java]
 ----
-public class NoteDemoObject implements Notable {
+public class AliasDemoObject implements Aliasable {
     ...
 }
 ----
@@ -220,10 +199,10 @@ public class NoteDemoObject implements Notable {
 This is a marker interface only (no methods need be implemented); it is used only so that Apache Isis knows where to
 contribute the collections and actions.
 
-* subclass the `NotableLink` abstract class and also implement a domain event subscriber to correctly instantiate
+* subclass the `AliasableLink` abstract class and also implement a domain event subscriber to correctly instantiate
 the subclass. +
 +
-For example, in the demo app the `NotableLinkForDemoObject` implements both of these responsibilities: +
+For example, in the demo app the `AliasableLinkForDemoObject` implements both of these responsibilities: +
 +
 [source,java]
 ----
@@ -232,9 +211,9 @@ For example, in the demo app the `NotableLinkForDemoObject` implements both of t
         schema="aliasdemo")
 @javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @DomainObject(
-        objectType = "aliasdemo.NotableLinkForDemoObject"
+        objectType = "aliasdemo.AliasableLinkForDemoObject"
 )
-public class NotableLinkForDemoObject extends NotableLink {                     // <1>
+public class AliasableLinkForDemoObject extends AliasableLink {                     // <1>
 
     @DomainService(nature = NatureOfService.DOMAIN)
     @DomainServiceLayout(menuOrder = "1")
@@ -242,82 +221,99 @@ public class NotableLinkForDemoObject extends NotableLink {                     
         @Programmatic
         @Subscribe
         public void on(final InstantiateEvent ev) {
-            if(ev.getPolymorphicReference() instanceof NoteDemoObject) {
-                ev.setSubtype(NotableLinkForDemoObject.class);
+            if(ev.getPolymorphicReference() instanceof AliasDemoObject) {
+                ev.setSubtype(AliasableLinkForDemoObject.class);
             }
         }
     }
 
     @Override
-    public void setPolymorphicReference(final Notable polymorphicReference) {   // <3>
+    public void setPolymorphicReference(final Aliasable polymorphicReference) {   // <3>
         super.setPolymorphicReference(polymorphicReference);
-        setDemoObject((NoteDemoObject) polymorphicReference);
+        setDemoObject((AliasDemoObject) polymorphicReference);
     }
 
-    private NoteDemoObject demoObject;
+    private AliasDemoObject demoObject;
     @Column(
             allowsNull = "false",
             name = "demoObjectId"
     )
-    public NoteDemoObject getDemoObject() {                                     // <4>
+    public AliasDemoObject getDemoObject() {                                     // <4>
         return demoObject;
     }
-    public void setDemoObject(final NoteDemoObject demoObject) {
+    public void setDemoObject(final AliasDemoObject demoObject) {
         this.demoObject = demoObject;
     }
-
-    @javax.inject.Inject
-    private NoteRepository noteRepository;
 }
 ----
-<1> extend from `NotableLink`
-<2> implementation of a domain event subscriber that tells the `incode-module-alias` which subclass of `NotableLink` to instantiate to handle the polymorphic link between `Note` and the `Notable`.
-<3> override the inherited `setPolymorphicReference(...)` method to allow the type-safe reference property to the `Notable` (in this case `NoteDemoObject`) to be set
-<4> the type-safe reference property to the `Notable` (in this case `NoteDemoObject`).  In the RDBMS this will correspond to a regular foreign key with referential integrity constraints correctly applied.
+<1> extend from `AliasableLink`
+<2> implementation of a domain event subscriber that tells the `incode-module-alias` which subclass of `AliasableLink` to instantiate to handle the polymorphic link between `Alias` and the `Aliasable`.
+<3> override the inherited `setPolymorphicReference(...)` method to allow the type-safe reference property to the `Aliasable` (in this case `AliasDemoObject`) to be set
+<4> the type-safe reference property to the `Aliasable` (in this case `AliasDemoObject`).  In the RDBMS this will correspond to a regular foreign key with referential integrity constraints correctly applied.
 
 
 
 
-=== SPI
+=== SPI services
 
-The `CalendarNameRepository` interface can optionally be implemented to specify the available calendars for each `Notable` domain object.
+There are two mandatory SPI domain services that must be implemented.
 
-For example, in the demo app this is implemented as:
+First, the `ApplicationTenancyRepository` returns the application tenancy (path)s for a given aliasable:
 
 [source,java]
 ----
-@DomainService(nature = NatureOfService.DOMAIN)
-public class CalendarNameRepositoryForDemo implements CalendarNameRepository {
-    private final Map<Class<?>, List<String>> namesByClass = Maps.newHashMap();
-    public CalendarNameRepositoryForDemo() {
-        setCalendarNames(NoteDemoObject.class, "BLUE", "GREEN", "RED");
-    }
-    @Programmatic
-    public void setCalendarNames(final Class<?> cls, final String... names) {
-        namesByClass.put(cls, Lists.newArrayList(names));
-    }
-    @Override
-    public Collection<String> calendarNamesFor(final Object notable) {
-        return namesByClass.get(notable.getClass());
-    }
+public interface ApplicationTenancyRepository {
+    Collection<String> atPathsFor(final Aliasable aliasable);
 }
 ----
 
-If no implementation of this interface can be found, then the module provides a single "default" calendar for all `Notable` domain objects.
+Second, the `AliasTypeRepository` interface returns the available alias types for a given application tenancy path and
+aliasable:
+
+[source,java]
+----
+public interface AliasTypeRepository {
+    Collection<AliasType> aliasTypesFor(final Aliasable aliasable, final String atPath);
+}
+----
+
+where `AliasType` is defined as the interface:
+[source,java]
+----
+public interface AliasType {
+    String getId();
+}
+----
+Typically `AliasType` will be implemented as an entity or perhaps a view model.  The "id" is used as a column in
+the database tables, but in the UI the end-user sees the title of the object that implements the interface.
+
+[WARNING]
+====
+Currently (as of v1.11.1) the Apache Isis framework does not support enums implementing interfaces; the example app
+shows how a view model can be used as a work-around.
+====
+
+
+Note that there can be multiple implementations of either of these interfaces.  This is to support the use case that
+different unrelated entities in the application may implement `Aliasable`; each such `Aliasable` implementation can
+ have its own supporting implementations.
+
 
 
 
 == Other Services
 
-The module provides the following domain services for querying notes:
+The module provides the following domain services for querying aliases:
 
-* `NoteRepository` +
+* `AliasRepository` +
 +
-To search for notes by `Notable` or in general within a date range
+To search for aliases by `Aliasable`
 
-* `NotableLinkRepository` +
+* `AliasableLinkRepository` +
 +
-To search for ``NotableLink``s, ie the tuple that links a `Note` with an arbitrary `Notable` domain object.  This repository is likely to be less useful than `NoteRepository`, but is crucial to the internal workings of the `incode-module-alias` module.
+To search for ``AliasableLink``s, ie the tuple that links an `Alias` with an arbitrary `Aliasable` domain object.
+This repository allows for links to be searched by either aliasable, or application tenancy path, or alias type, in
+any combination.
 
 
 
@@ -327,9 +323,7 @@ None at this time.
 
 == Change Log
 
-* `1.11.0` - released against Isis 1.11.0.
-* `1.10.0` - released against Isis 1.10.0.
-* `1.9.0` - released against Isis 1.9.0.
+* `1.11.1` - released against Isis 1.11.1.
 
 
 
@@ -358,7 +352,7 @@ therefore require the appropriate Lombok plugin.  See the link:https://projectlo
 
 [source]
 ----
-Copyright 2015-2016 Dan Haywood
+Copyright 2016 Dan Haywood
 
 Licensed under the Apache License, Version 2.0 (the
 "License"); you may not use this file except in compliance
@@ -386,7 +380,7 @@ both released under Apache v2 license.
 
 === Icons
 
-The icon for the `Note` entity is provided by https://icons8.com/[Icons8].
+The icon for the `Alias` entity is provided by https://icons8.com/[Icons8].
 
 
 ==  Maven deploy notes
