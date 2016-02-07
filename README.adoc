@@ -71,7 +71,7 @@ To build the demo app:
 
 [source]
 ----
-git clone https://github.com/incodehq/isis-module-note.git
+git clone https://github.com/incodehq/isis-module-alias.git
 mvn clean install
 ----
 
@@ -100,7 +100,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.incode.module.alias</groupId>
     <artifactId>incode-module-alias-dom</artifactId>
-    <version>1.11.0</version>
+    <version>1.11.1</version>
 </dependency>
 ----
 
@@ -200,10 +200,10 @@ This is a marker interface only (no methods need be implemented); it is used onl
 contribute the collections and actions.
 
 * subclass the `AliasableLink` abstract class and also implement a domain event subscriber to correctly instantiate
-the subclass. +
-+
-For example, in the demo app the `AliasableLinkForDemoObject` implements both of these responsibilities: +
-+
+the subclass.
+
+For example, in the demo app the `AliasableLinkForDemoObject` implements both of these responsibilities:
+
 [source,java]
 ----
 @javax.jdo.annotations.PersistenceCapable(
@@ -213,11 +213,11 @@ For example, in the demo app the `AliasableLinkForDemoObject` implements both of
 @DomainObject(
         objectType = "aliasdemo.AliasableLinkForDemoObject"
 )
-public class AliasableLinkForDemoObject extends AliasableLink {                     // <1>
+public class AliasableLinkForDemoObject extends AliasableLink {                  // <1>
 
     @DomainService(nature = NatureOfService.DOMAIN)
     @DomainServiceLayout(menuOrder = "1")
-    public static class InstantiationSubscriber extends AbstractSubscriber {    // <2>
+    public static class InstantiationSubscriber extends AbstractSubscriber {     // <2>
         @Programmatic
         @Subscribe
         public void on(final InstantiateEvent ev) {
@@ -228,7 +228,7 @@ public class AliasableLinkForDemoObject extends AliasableLink {                 
     }
 
     @Override
-    public void setPolymorphicReference(final Aliasable polymorphicReference) {   // <3>
+    public void setPolymorphicReference(final Aliasable polymorphicReference) {  // <3>
         super.setPolymorphicReference(polymorphicReference);
         setDemoObject((AliasDemoObject) polymorphicReference);
     }
@@ -250,7 +250,6 @@ public class AliasableLinkForDemoObject extends AliasableLink {                 
 <2> implementation of a domain event subscriber that tells the `incode-module-alias` which subclass of `AliasableLink` to instantiate to handle the polymorphic link between `Alias` and the `Aliasable`.
 <3> override the inherited `setPolymorphicReference(...)` method to allow the type-safe reference property to the `Aliasable` (in this case `AliasDemoObject`) to be set
 <4> the type-safe reference property to the `Aliasable` (in this case `AliasDemoObject`).  In the RDBMS this will correspond to a regular foreign key with referential integrity constraints correctly applied.
-
 
 
 
