@@ -28,7 +28,6 @@ import org.apache.isis.applib.annotation.Collection;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.Mixin;
-import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
@@ -51,7 +50,10 @@ public class CommunicationChannelOwner_communicationChannels {
     public static class DomainEvent extends CommunicationChannelOwner.CollectionDomainEvent
                                         <CommunicationChannelOwner_communicationChannels, CommunicationChannel> { }
     @Action(semantics = SemanticsOf.SAFE)
-    @CollectionLayout(render = RenderType.EAGERLY)
+    @CollectionLayout(
+            named = "Communication Channels", // regression in isis 1.11.x requires this to be specified
+            defaultView = "table"
+    )
     @Collection(
             domainEvent = DomainEvent.class
     )
