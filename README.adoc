@@ -52,11 +52,11 @@ image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/ima
 
 The aliases for the `Alias` domain object is added to:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/060-alias-added.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/060-alias_added.png"]
+image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/060-alias_added_to_collection.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/060-alias_added_to_collection.png"]
 
 Each `Alias` can also be viewed:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/070-view-note.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/070-view-alias.png"]
+image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/070-view-alias.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/070-view-alias.png"]
 
 
 
