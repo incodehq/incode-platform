@@ -169,7 +169,7 @@ public abstract class NotableLink
 
     public static class NoteDomainEvent extends PropertyDomainEvent<Note> { }
     @Getter @Setter
-    @javax.jdo.annotations.Column(allowsNull = "false", name = "eventId")
+    @javax.jdo.annotations.Column(allowsNull = "false", name = "noteId")
     @Property(
             domainEvent = NoteDomainEvent.class,
             editing = Editing.DISABLED
