@@ -82,7 +82,7 @@ To use "out-of-the-box", add the component to your project's `dom` module's `pom
 <dependency>
     <groupId>org.isisaddons.wicket.summernote</groupId>
     <artifactId>isis-wicket-summernote-cpt</artifactId>
-    <version>1.11.0</version>
+    <version>1.12.0</version>
 </dependency>
 ----
 
@@ -96,7 +96,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 +
 [source,xml]
 ----
-<version>1.12.0-SNAPSHOT</version>
+<version>1.13.0-SNAPSHOT</version>
 ----
 
 * add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`: +
@@ -146,7 +146,8 @@ are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be relea
 
 == Change Log
 
-* `1.11.0` - First version. Released against Isis 1.11.0
+* `1.12.0` - released against Isis 1.12.0
+* `1.11.0` - First version. Released against Isis 1.12.0
 
 == Legal Stuff
 
@@ -207,8 +208,8 @@ For example:
 
 [source]
 ----
-sh release.sh 1.12.0 \
-              1.13.0-SNAPSHOT \
+sh release.sh 1.13.0 \
+              1.14.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
 ----
@@ -227,7 +228,7 @@ If the script completes successfully, then push changes:
 [source]
 ----
 git push origin master
-git push origin 1.12.0
+git push origin 1.13.0
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
