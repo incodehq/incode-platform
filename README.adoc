@@ -168,17 +168,17 @@ public TogglzRule togglzRule = TogglzRule.allEnabled(TogglzDemoFeature.class);
 <dependency>
     <groupId>org.isisaddons.module.togglz</groupId>
     <artifactId>isis-module-togglz-glue</artifactId>
-    <version>1.11.0</version>
+    <version>1.12.0</version>
 </dependency>
 <dependency>
     <groupId>org.isisaddons.module.security</groupId>
     <artifactId>isis-module-security-dom</artifactId>
-    <version>1.11.0</version>
+    <version>1.12.0</version>
 </dependency>
 <dependency>
     <groupId>org.isisaddons.module.settings</groupId>
     <artifactId>isis-module-settings-dom</artifactId>
-    <version>1.11.0</version>
+    <version>1.12.0</version>
 </dependency>
 ----
 
@@ -313,7 +313,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 +
 [source,xml]
 ----
-<version>1.12.0-SNAPSHOT</version>
+<version>1.13.0-SNAPSHOT</version>
 ----
 
 * add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service). We suggest defining the repository in a `<profile>`: +
@@ -364,7 +364,8 @@ This service uses the Isis Addons' http://github.com/isisaddons/isis-module-sett
 
 == Change Log
 
-* `1.11.0` - released against Isis 1.11.0; added `FeatureTogglzConsoleAccessor` service
+* `1.12.0` - released against Isis 1.12.0
+* `1.11.0` - released against Isis 1.11.0; added `FeatureTogglzConsoleAccessor` service.
 * `1.10.0` - released against Isis 1.10.0
 * `1.9.0` - released against Isis 1.9.0
 
@@ -429,8 +430,8 @@ For example:
 
 [source,bash]
 ----
-sh release.sh 1.12.0 \
-              1.13.0-SNAPSHOT \
+sh release.sh 1.13.0 \
+              1.14.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
 ----
@@ -449,7 +450,7 @@ If the script completes successfully, then push changes:
 [source,bash]
 ----
 git push origin master
-git push origin 1.12.0
+git push origin 1.13.0
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
