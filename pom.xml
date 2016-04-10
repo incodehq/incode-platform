@@ -30,7 +30,7 @@ language governing permissions and limitations under the License.
     </prerequisites>
 
     <properties>
-        <isis.version>1.12.0</isis.version>
+        <isis.version>1.13.0-SNAPSHOT</isis.version>
 
         <incode-module-note.version>1.13.0-SNAPSHOT</incode-module-note.version>
         <isis-module-fakedata-dom.version>1.11.0</isis-module-fakedata-dom.version>
