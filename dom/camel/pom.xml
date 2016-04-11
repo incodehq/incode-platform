@@ -46,7 +46,7 @@ Copyright 2015 Dan Haywood
     <dependencies>
         <dependency>
             <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-schema</artifactId>
+            <artifactId>isis-core-applib</artifactId>
             <type>jar</type>
         </dependency>
     </dependencies>
