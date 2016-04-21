@@ -16,9 +16,11 @@
  */
 package org.isisaddons.module.command.fixture.scripts;
 
+import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import org.apache.isis.applib.services.wrapper.WrapperFactory;
+
 import org.isisaddons.module.command.fixture.dom.SomeCommandAnnotatedObject;
 import org.isisaddons.module.command.fixture.dom.SomeCommandAnnotatedObjects;
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
 public class SomeCommandAnnotatedObjectsFixture extends DiscoverableFixtureScript {
 
@@ -33,7 +35,7 @@ public class SomeCommandAnnotatedObjectsFixture extends DiscoverableFixtureScrip
         executeChild(new SomeCommandAnnotatedObjectsTearDownFixture(), executionContext);
 
         // create
-        create("Foo", executionContext);
+        final SomeCommandAnnotatedObject foo = create("Foo", executionContext);
         create("Bar", executionContext);
         create("Baz", executionContext);
     }
