@@ -6,7 +6,10 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
 
-import org.apache.isis.schema.aim.v1.ActionInvocationMementoDto;
+import org.apache.isis.schema.aim.v2.ActionInvocationDto;
+import org.apache.isis.schema.aim.v2.ActionInvocationMementoDto;
+import org.apache.isis.schema.cmd.v1.ActionDto;
+import org.apache.isis.schema.common.v1.PeriodDto;
 
 /**
  * A Camel {@link Processor} that can unmarshal a {@link Message} whose {@link Message#getBody() body}
@@ -53,15 +56,17 @@ public class AddExchangeHeaders implements Processor {
             throw new IllegalArgumentException("Expected body to contain a PublishedEvent");
         } 
         final ActionInvocationMementoDto aim = (ActionInvocationMementoDto)body;
-        final ActionInvocationMementoDto.Metadata metadata = aim.getMetadata();
+        final ActionInvocationDto invocation = aim.getInvocation();
+        final ActionDto action = invocation.getAction();
+        final PeriodDto timings = invocation.getTimings();
 
         final ImmutableMap<String, Object> aimHeader = ImmutableMap.<String,Object>builder()
-                .put("messageId", metadata.getTransactionId() + ":" + metadata.getSequence())
-                .put("transactionId", metadata.getTransactionId())
-                .put("sequence", metadata.getSequence())
-                .put("actionIdentifier", metadata.getActionIdentifier())
-                .put("timestamp", metadata.getTimestamp())
-                .put("user", metadata.getUser())
+                .put("messageId", aim.getTransactionId() + ":" + invocation.getSequence())
+                .put("transactionId", aim.getTransactionId())
+                .put("sequence", invocation.getSequence())
+                .put("user", invocation.getUser())
+                .put("actionIdentifier", action.getActionIdentifier())
+                .put("timestamp", timings.getStart())
                 .build();
 
         inMessage.setHeader("aim", aimHeader);

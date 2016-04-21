@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 
-import org.apache.isis.schema.aim.v1.ActionInvocationMementoDto;
+import org.apache.isis.schema.aim.v2.ActionInvocationMementoDto;
 import org.apache.isis.schema.utils.ActionInvocationMementoDtoUtils;
 
 @RunWith(CamelSpringJUnit4ClassRunner.class)
@@ -37,14 +37,13 @@ public class AddExchangeHeadersTest  extends TestSupport {
     public void happyCase() throws Exception {
 
         final ActionInvocationMementoDto aim = ActionInvocationMementoDtoUtils.fromXml(getClass(), "actionInvocationMementoDto-example.xml", Charsets.UTF_8);
-        final ActionInvocationMementoDto.Metadata metadata = aim.getMetadata();
         final ImmutableMap<String, Object> aimHeader = ImmutableMap.<String,Object>builder()
-                .put("messageId", metadata.getTransactionId() + ":" + metadata.getSequence())
-                .put("transactionId", metadata.getTransactionId())
-                .put("sequence", metadata.getSequence())
-                .put("actionIdentifier", metadata.getActionIdentifier())
-                .put("timestamp", metadata.getTimestamp())
-                .put("user", metadata.getUser())
+                .put("messageId", aim.getInvocation().getId())
+                .put("transactionId", aim.getTransactionId())
+                .put("sequence", aim.getInvocation().getSequence())
+                .put("actionIdentifier", aim.getInvocation().getAction().getActionIdentifier())
+                .put("timestamp", aim.getInvocation().getTimings().getStart())
+                .put("user", aim.getInvocation().getUser())
                 .build();
 
         resultEndpoint.expectedHeaderReceived("aim", aimHeader);
