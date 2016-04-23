@@ -15,6 +15,9 @@ import org.joda.time.format.DateTimeFormat;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.LabelPosition;
+import org.apache.isis.applib.annotation.MemberGroupLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
@@ -64,6 +67,11 @@ import lombok.Setter;
 @DomainObject(
         editing = Editing.DISABLED
 )
+@MemberGroupLayout(
+        columnSpans = {8,4,0,8},
+        left = "Notes",
+        middle = {"What", "When", "Metadata"}
+)
 public class Note implements CalendarEventable, Comparable<Note> {
 
     static final int NOTES_ABBREVIATED_TO = 40;
@@ -110,8 +118,10 @@ public class Note implements CalendarEventable, Comparable<Note> {
             hidden = Where.ALL_TABLES
     )
     @PropertyLayout(
-            multiLine = NoteModule.MultiLine.NOTES
+            multiLine = NoteModule.MultiLine.NOTES,
+            labelPosition = LabelPosition.NONE
     )
+    @MemberOrder(name = "Notes", sequence = "1")
     private String notes;
 
 
@@ -121,6 +131,7 @@ public class Note implements CalendarEventable, Comparable<Note> {
     @Property(
             domainEvent = DateDomainEvent.class
     )
+    @MemberOrder(name = "When", sequence = "2")
     private LocalDate date;
 
 
@@ -149,6 +160,7 @@ public class Note implements CalendarEventable, Comparable<Note> {
             domainEvent = CalendarNameDomainEvent.class,
             editing = Editing.DISABLED
     )
+    @MemberOrder(name = "When", sequence = "3")
     private String calendarName;
 
 
@@ -165,6 +177,7 @@ public class Note implements CalendarEventable, Comparable<Note> {
             hidden = Where.PARENTED_TABLES,
             notPersisted = true
     )
+    @MemberOrder(name = "What", sequence = "1")
     public Notable getNotable() {
         final NotableLink link = getNotableLink();
         return link != null? link.getPolymorphicReference(): null;

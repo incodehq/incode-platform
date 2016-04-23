@@ -3,6 +3,7 @@ package org.incode.module.note.dom.impl.note;
 import javax.inject.Inject;
 
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
@@ -33,6 +34,11 @@ public class Note_remove {
     @Action(
             domainEvent = DomainEvent.class,
             semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE
+    )
+    @ActionLayout(
+        // position = ActionLayout.Position.PANEL, // hmm... seems not to be recognized...
+        cssClass = "warning",
+        cssClassFa = "trash"
     )
     public Notable $$() {
         final Notable notable = this.note.getNotable();

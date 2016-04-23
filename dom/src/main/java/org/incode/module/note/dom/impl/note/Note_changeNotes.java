@@ -3,6 +3,8 @@ package org.incode.module.note.dom.impl.note;
 import com.google.common.base.Strings;
 
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
@@ -33,6 +35,10 @@ public class Note_changeNotes {
             domainEvent = DomainEvent.class,
             semantics = SemanticsOf.IDEMPOTENT
     )
+    @ActionLayout(
+            named = "Change"
+    )
+    @MemberOrder(name = "notes", sequence = "1")
     public Note $$(
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Notes", multiLine = NoteModule.MultiLine.NOTES)

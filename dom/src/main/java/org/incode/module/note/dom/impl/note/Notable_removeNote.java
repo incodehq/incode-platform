@@ -61,7 +61,7 @@ public class Notable_removeNote {
         return this.notable;
     }
 
-    public String disable$$(final Note note) {
+    public String disable$$() {
         return choices0$$().isEmpty() ? "No notes to remove" : null;
     }
 
