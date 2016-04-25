@@ -31,13 +31,14 @@
     </prerequisites>
 
     <properties>
-        <isis.version>1.13.0-SNAPSHOT</isis.version>
+        <isis.version>1.12.1</isis.version>
 
         <isis-module-audit.version>1.13.0-SNAPSHOT</isis-module-audit.version>
 
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <assertj-core.version>2.4.0</assertj-core.version>
     </properties>
 
     <repositories>
@@ -63,7 +64,7 @@
                     <configuration>
                         <rules>
                             <requireMavenVersion>
-                                <version>[3.0.5,)</version>
+                                <version>[3.2.1,)</version>
                             </requireMavenVersion>
                             <requireJavaVersion>
                                 <version>[1.8.0,)</version>
@@ -74,13 +75,9 @@
                                 <banLatest>true</banLatest>
                                 <banRelease>true</banRelease>
                             </requirePluginVersions>
-                            <!--
-                            RELAXED!
                             <DependencyConvergence />
-                            -->
                         </rules>
                     </configuration>
-                    <!-- goal:enforce supposedly binds to phase:validate, but explicit binding seems to be required -->
                     <executions>
                         <execution>
                             <id>validate-enforce</id>
@@ -114,7 +111,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.16</version>
+                    <version>2.19.1</version>
                     <configuration>
                         <includes>
                             <include>**/*Test.java</include>
@@ -177,9 +174,9 @@
                 </plugin>
 
                 <plugin>
-                    <groupId>org.mortbay.jetty</groupId>
-                    <artifactId>maven-jetty-plugin</artifactId>
-                    <version>6.1.26</version>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-maven-plugin</artifactId>
+                    <version>9.3.5.v20151012</version>
                 </plugin>
 
                 <plugin>
@@ -188,122 +185,6 @@
                     <version>2.2</version>
                 </plugin>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-antrun-plugin</artifactId>
-                    <version>1.7</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>run</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <!-- http://simplericity.com/2009/11/10/1257880778509.html -->
-                <plugin>
-                    <groupId>org.simplericity.jettyconsole</groupId>
-                    <artifactId>jetty-console-maven-plugin</artifactId>
-                    <!-- update to 1.54 reversed,since seems compiled against 1.7 (major.minor version 51.0) -->
-                    <version>1.56</version>
-                </plugin>
-
-                <!-- Apache Release Audit Tool -->
-                <plugin>
-                    <groupId>org.apache.rat</groupId>
-                    <artifactId>apache-rat-plugin</artifactId>
-                    <version>0.10</version>
-                    <configuration>
-                        <addDefaultLicenseMatchers>true</addDefaultLicenseMatchers>
-                        <excludeSubProjects>true</excludeSubProjects>
-                        <excludes>
-                            <exclude>**/target/**</exclude>
-                            <exclude>**/target-ide/**</exclude>
-
-                            <exclude>**/*.project</exclude>
-                            <exclude>**/.classpath</exclude>
-                            <exclude>**/.settings/**</exclude>
-                            <exclude>**/*.launch</exclude>
-                            <exclude>src/site/resources/ide/eclipse/**</exclude>
-
-                            <exclude>**/rebel.xml</exclude>
-                            <exclude>**/*.gitignore</exclude>
-                            <exclude>**/*.log</exclude>
-                            <exclude>**/*.pdn</exclude>
-                            <exclude>**/*.svg</exclude>
-                            <exclude>**/*.json</exclude>
-                            <exclude>**/*.min.js</exclude>
-                            <exclude>**/*.js</exclude>
-                        </excludes>
-                        <licenses>
-                            <license implementation="org.apache.rat.analysis.license.SimplePatternBasedLicense">
-                                <licenseFamilyCategory>AL2</licenseFamilyCategory>
-                                <licenseFamilyName>Apache License 2.0</licenseFamilyName>
-                                <notes/>
-                                <patterns>
-                                    <pattern>Licensed to the Apache Software Foundation (ASF) under one</pattern>
-                                </patterns>
-                            </license>
-                            <license implementation="org.apache.rat.analysis.license.SimplePatternBasedLicense">
-                                <licenseFamilyCategory>JQRY</licenseFamilyCategory>
-                                <licenseFamilyName>MIT</licenseFamilyName>
-                                <notes/>
-                                <patterns>
-                                    <pattern>Dual licensed under the MIT or GPL Version 2 licenses.</pattern>
-                                </patterns>
-                            </license>
-                            <license implementation="org.apache.rat.analysis.license.SimplePatternBasedLicense">
-                                <licenseFamilyCategory>JMOCK</licenseFamilyCategory>
-                                <licenseFamilyName>JMock</licenseFamilyName>
-                                <notes/>
-                                <patterns>
-                                    <pattern>Copyright (c) 2000-2007, jMock.org</pattern>
-                                </patterns>
-                            </license>
-                            <license implementation="org.apache.rat.analysis.license.SimplePatternBasedLicense">
-                                <licenseFamilyCategory>DOCBK</licenseFamilyCategory>
-                                <licenseFamilyName>DocBook 4.5</licenseFamilyName>
-                                <notes/>
-                                <patterns>
-                                    <pattern>Permission to copy in any form is granted for use</pattern>
-                                    <pattern>Permission to use, copy, modify and distribute the DocBook DTD</pattern>
-                                    <pattern>is hereby granted in perpetuity, provided that the above copyright
-                                    </pattern>
-                                    <pattern>This is the catalog data file for DocBook XML V4.5. It is provided as
-                                    </pattern>
-                                    <pattern>XML Catalog data for DocBook XML V4.5</pattern>
-                                    <pattern>DocBook additional general entities V4.5</pattern>
-                                    <pattern>XML EXCHANGE TABLE MODEL DECLARATION MODULE</pattern>
-                                </patterns>
-                            </license>
-                            <license implementation="org.apache.rat.analysis.license.SimplePatternBasedLicense">
-                                <licenseFamilyCategory>W3C</licenseFamilyCategory>
-                                <licenseFamilyName>XHTML</licenseFamilyName>
-                                <notes/>
-                                <patterns>
-                                    <pattern>Copyright (c) 1998-2002 W3C (MIT, INRIA, Keio),</pattern>
-                                </patterns>
-                            </license>
-                        </licenses>
-                        <licenseFamilies>
-                            <licenseFamily implementation="org.apache.rat.license.SimpleLicenseFamily">
-                                <familyName>Apache License 2.0</familyName>
-                            </licenseFamily>
-                            <licenseFamily implementation="org.apache.rat.license.SimpleLicenseFamily">
-                                <familyName>MIT</familyName>
-                            </licenseFamily>
-                            <licenseFamily implementation="org.apache.rat.license.SimpleLicenseFamily">
-                                <familyName>JMock</familyName>
-                            </licenseFamily>
-                            <licenseFamily implementation="org.apache.rat.license.SimpleLicenseFamily">
-                                <familyName>DocBook 4.5</familyName>
-                            </licenseFamily>
-                            <licenseFamily implementation="org.apache.rat.license.SimpleLicenseFamily">
-                                <familyName>XHTML</familyName>
-                            </licenseFamily>
-                        </licenseFamilies>
-                    </configuration>
-                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -329,6 +210,11 @@
                 <scope>import</scope>
             </dependency>
 
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj-core.version}</version>
+            </dependency>
 
             <!-- this project's own modules -->
             <dependency>

@@ -17,21 +17,26 @@
 package org.isisaddons.module.audit.fixture.dom;
 
 import java.util.List;
-import org.isisaddons.module.audit.dom.AuditEntry;
-import org.isisaddons.module.audit.dom.AuditingServiceRepository;
+
 import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.RestrictTo;
 import org.apache.isis.applib.annotation.SemanticsOf;
+
+import org.isisaddons.module.audit.dom.AuditEntry;
+import org.isisaddons.module.audit.dom.AuditingServiceRepository;
 
 @DomainServiceLayout(
         menuBar = DomainServiceLayout.MenuBar.SECONDARY,
-        named = "Changes"
+        named = "Activity"
 )
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY
@@ -39,7 +44,11 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 public class AuditEntries {
 
     @Action(
-            semantics = SemanticsOf.SAFE
+            semantics = SemanticsOf.SAFE,
+            restrictTo = RestrictTo.PROTOTYPING
+    )
+    @ActionLayout(
+            named = "List Audit Entries (demo)"
     )
     public List<AuditEntry> listAuditEntries(
             @ParameterLayout(named = "From")

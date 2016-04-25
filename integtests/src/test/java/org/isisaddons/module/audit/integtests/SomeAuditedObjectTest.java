@@ -17,24 +17,35 @@
 package org.isisaddons.module.audit.integtests;
 
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
 import javax.inject.Inject;
-import org.isisaddons.module.audit.dom.AuditEntry;
-import org.isisaddons.module.audit.dom.AuditingServiceContributions;
-import org.isisaddons.module.audit.dom.AuditingServiceRepository;
-import org.isisaddons.module.audit.fixture.dom.SomeAuditedObject;
-import org.isisaddons.module.audit.fixture.dom.SomeAuditedObjects;
-import org.isisaddons.module.audit.fixture.scripts.SomeAuditedObjectsFixture;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
 import org.apache.isis.applib.services.audit.AuditingService3;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
+import org.apache.isis.applib.services.xactn.TransactionService;
 import org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract;
 
-import static org.hamcrest.CoreMatchers.*;
+import org.isisaddons.module.audit.dom.AuditEntry;
+import org.isisaddons.module.audit.dom.AuditingServiceRepository;
+import org.isisaddons.module.audit.fixture.dom.SomeAuditedObject;
+import org.isisaddons.module.audit.fixture.dom.SomeAuditedObjects;
+import org.isisaddons.module.audit.fixture.scripts.SomeAuditedObjectsFixture;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.CoreMatchers.startsWith;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class SomeAuditedObjectTest extends AuditModuleIntegTest {
@@ -57,23 +68,23 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
     private AuditingServiceRepository auditingServiceRepository;
 
     @Inject
-    private AuditingServiceContributions auditingServiceContributions;
+    private BookmarkService bookmarkService;
 
     @Inject
-    private BookmarkService bookmarkService;
+    private TransactionService transactionService;
 
     @Test
     public void auditEntriesCreatedOnCommit() throws Exception {
 
         // given
         isisJdoSupport.executeUpdate("delete from \"isisaudit\".\"AuditEntry\"");
-        container().flush();
+        transactionService.flushTransaction();
 
         // when
         wrap(someAuditedObjects).create("Faz");
 
         // currently necessary to ensure that created objects are picked up and enlisted in the transaction as newly created
-        container().flush();
+        transactionService.flushTransaction();
 
         // then
         final List<Map<String, Object>> prior = isisJdoSupport.executeSql("SELECT * FROM \"isisaudit\".\"AuditEntry\"");
@@ -92,13 +103,13 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
 
         // given
         isisJdoSupport.executeUpdate("delete from \"isisaudit\".\"AuditEntry\"");
-        container().flush();
+        transactionService.flushTransaction();
 
         // when
         final SomeAuditedObject newObject = wrap(someAuditedObjects).create("Faz");
 
         // currently necessary to ensure that created objects are picked up and enlisted in the transaction as newly created
-        container().flush();
+        transactionService.flushTransaction();
 
         this.nextTransaction();
 
@@ -155,7 +166,7 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
         assertThat(someAuditedObject.getNumber(), is(nullValue()));
 
         isisJdoSupport.executeUpdate("delete from \"isisaudit\".\"AuditEntry\"");
-        container().flush();
+        transactionService.flushTransaction();
 
         // when
         someAuditedObject.setName("Bob");

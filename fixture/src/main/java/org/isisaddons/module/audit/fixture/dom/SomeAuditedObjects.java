@@ -17,7 +17,7 @@
 package org.isisaddons.module.audit.fixture.dom;
 
 import java.util.List;
-import org.apache.isis.applib.DomainObjectContainer;
+
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
@@ -27,6 +27,8 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.services.repository.RepositoryService;
+import org.apache.isis.applib.services.xactn.TransactionService;
 
 @DomainService (
         repositoryFor = SomeAuditedObject.class
@@ -42,7 +44,7 @@ public class SomeAuditedObjects {
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
     public List<SomeAuditedObject> listAll() {
-        return container.allInstances(SomeAuditedObject.class);
+        return repositoryService.allInstances(SomeAuditedObject.class);
     }
 
     //endregion
@@ -53,9 +55,9 @@ public class SomeAuditedObjects {
     public SomeAuditedObject create(
             @ParameterLayout(named = "Name")
             final String name) {
-        final SomeAuditedObject obj = container.newTransientInstance(SomeAuditedObject.class);
+        final SomeAuditedObject obj = repositoryService.instantiate(SomeAuditedObject.class);
         obj.setName(name);
-        container.persistIfNotAlready(obj);
+        repositoryService.persist(obj);
         return obj;
     }
 
@@ -64,20 +66,21 @@ public class SomeAuditedObjects {
     //region > delete (action)
 
     @Programmatic
-    public List<SomeAuditedObject> delete(
-            final SomeAuditedObject object) {
-        container.removeIfNotAlready(object);
-        container.flush();
+    public List<SomeAuditedObject> delete(final SomeAuditedObject object) {
+        repositoryService.remove(object);
+        transactionService.flushTransaction();
         return listAll();
     }
 
     //endregion
 
     //region > injected services
-    // //////////////////////////////////////
 
-    @javax.inject.Inject 
-    DomainObjectContainer container;
+    @javax.inject.Inject
+    RepositoryService repositoryService;
+
+    @javax.inject.Inject
+    TransactionService transactionService;
 
     //endregion
 

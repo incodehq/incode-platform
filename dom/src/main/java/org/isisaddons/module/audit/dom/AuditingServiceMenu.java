@@ -17,10 +17,9 @@
 package org.isisaddons.module.audit.dom;
 
 import java.util.List;
-import org.isisaddons.module.audit.AuditModule;
+
 import org.joda.time.LocalDate;
-import org.apache.isis.applib.AbstractService;
-import org.apache.isis.applib.Identifier;
+
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.DomainService;
@@ -41,49 +40,24 @@ import org.apache.isis.applib.services.clock.ClockService;
         menuBar = DomainServiceLayout.MenuBar.SECONDARY,
         menuOrder = "30"
 )
-public class AuditingServiceMenu extends AbstractService {
+public class AuditingServiceMenu {
 
-    public static abstract class PropertyDomainEvent<T> extends AuditModule.PropertyDomainEvent<AuditingServiceMenu, T> {
-        public PropertyDomainEvent(final AuditingServiceMenu source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public PropertyDomainEvent(final AuditingServiceMenu source, final Identifier identifier, final T oldValue, final T newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
+    //region > domain events
+    public static abstract class PropertyDomainEvent<T>
+            extends org.apache.isis.applib.services.eventbus.PropertyDomainEvent<AuditingServiceMenu, T> {
     }
 
-    public static abstract class CollectionDomainEvent<T> extends AuditModule.CollectionDomainEvent<AuditingServiceMenu, T> {
-        public CollectionDomainEvent(final AuditingServiceMenu source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of) {
-            super(source, identifier, of);
-        }
-
-        public CollectionDomainEvent(final AuditingServiceMenu source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
-            super(source, identifier, of, value);
-        }
+    public static abstract class CollectionDomainEvent<T>
+            extends org.apache.isis.applib.services.eventbus.CollectionDomainEvent<AuditingServiceMenu, T> {
     }
 
-    public static abstract class ActionDomainEvent extends AuditModule.ActionDomainEvent<AuditingServiceMenu> {
-        public ActionDomainEvent(final AuditingServiceMenu source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public ActionDomainEvent(final AuditingServiceMenu source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public ActionDomainEvent(final AuditingServiceMenu source, final Identifier identifier, final List<Object> arguments) {
-            super(source, identifier, arguments);
-        }
+    public static abstract class ActionDomainEvent
+            extends org.apache.isis.applib.services.eventbus.ActionDomainEvent<AuditingServiceMenu> {
     }
+    //endregion
 
-    // //////////////////////////////////////
-
-    public static class FindAuditEntriesDomainEvent extends ActionDomainEvent {
-        public FindAuditEntriesDomainEvent(final AuditingServiceMenu source, final Identifier identifier, final Object... args) {
-            super(source, identifier, args);
-        }
-    }
+    //region > findAuditEntries (action)
+    public static class FindAuditEntriesDomainEvent extends ActionDomainEvent { }
 
     @Action(
             domainEvent = FindAuditEntriesDomainEvent.class,
@@ -111,14 +85,15 @@ public class AuditingServiceMenu extends AbstractService {
     public LocalDate default1FindAuditEntries() {
         return clockService.now();
     }
+    //endregion
 
-    // //////////////////////////////////////
-
+    //region > injected services
     @javax.inject.Inject
     private AuditingServiceRepository auditingServiceRepository;
     
     @javax.inject.Inject
     private ClockService clockService;
+    //endregion
 
 }
 

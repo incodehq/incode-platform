@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013~2014 Dan Haywood
+ *  Copyright 2016 Dan Haywood
  *
  *  Licensed under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
@@ -20,19 +20,20 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
+import javax.inject.Inject;
+
 import org.joda.time.LocalDate;
 
-import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.Query;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.bookmark.Bookmark;
+import org.apache.isis.applib.services.repository.RepositoryService;
 
 /**
- * Provides supporting functionality for querying
- * {@link AuditEntry audit entry} entities.
+ * Provides supporting functionality for querying {@link AuditEntry audit entry} entities.
  *
  * <p>
  * This supporting service with no UI and no side-effects, and there are no other implementations of the service,
@@ -42,11 +43,11 @@ import org.apache.isis.applib.services.bookmark.Bookmark;
 @DomainService(
         nature = NatureOfService.DOMAIN
 )
-public class AuditingServiceRepository extends AbstractFactoryAndRepository {
+public class AuditingServiceRepository {
     
     @Programmatic
     public List<AuditEntry> findByTransactionId(final UUID transactionId) {
-        return allMatches(
+        return repositoryService.allMatches(
                 new QueryDefault<>(AuditEntry.class,
                         "findByTransactionId", 
                         "transactionId", transactionId));
@@ -87,7 +88,7 @@ public class AuditingServiceRepository extends AbstractFactoryAndRepository {
                         "targetStr", targetStr);
             }
         }
-        return allMatches(query);
+        return repositoryService.allMatches(query);
     }
 
     @Programmatic
@@ -119,7 +120,7 @@ public class AuditingServiceRepository extends AbstractFactoryAndRepository {
                         "find");
             }
         }
-        return allMatches(query);
+        return repositoryService.allMatches(query);
     }
 
     private static Timestamp toTimestampStartOfDayWithOffset(final LocalDate dt, final int daysOffset) {
@@ -127,4 +128,8 @@ public class AuditingServiceRepository extends AbstractFactoryAndRepository {
                 ?new java.sql.Timestamp(dt.toDateTimeAtStartOfDay().plusDays(daysOffset).getMillis())
                 :null;
     }
+
+    @Inject
+    RepositoryService repositoryService;
+
 }

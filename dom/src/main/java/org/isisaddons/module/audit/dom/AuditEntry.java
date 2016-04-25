@@ -19,10 +19,11 @@ package org.isisaddons.module.audit.dom;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.UUID;
+
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Index;
 import javax.jdo.annotations.Indices;
-import org.isisaddons.module.audit.AuditModule;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.DomainObject;
@@ -41,6 +42,11 @@ import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 import org.apache.isis.objectstore.jdo.applib.service.Util;
+
+import org.isisaddons.module.audit.AuditModule;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
@@ -121,30 +127,21 @@ import org.apache.isis.objectstore.jdo.applib.service.Util;
         objectType = "isisaudit.AuditEntry"
 )
 @MemberGroupLayout(
-        columnSpans={6,0,6},
+        columnSpans={6,0,6,12},
         left={"Identifiers","Target"},
-        right={"Detail"})
+        right={"Detail","Metadata"})
 public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactionId, HasUsername {
 
+    //region > domain events
     public static abstract class PropertyDomainEvent<T> extends AuditModule.PropertyDomainEvent<AuditEntry, T> {
-        public PropertyDomainEvent(final AuditEntry source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public PropertyDomainEvent(final AuditEntry source, final Identifier identifier, final T oldValue, final T newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
     }
-
-    // //////////////////////////////////////
+    //endregion
 
     public AuditEntry() {
         super(ChangeType.AUDIT_ENTRY);
     }
 
-    // //////////////////////////////////////
-    // Identification
-    // //////////////////////////////////////
+    //region > title
 
     public String title() {
         final TitleBuffer buf = new TitleBuffer();
@@ -155,23 +152,12 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
         buf.append(" ", getMemberIdentifier());
         return buf.toString();
     }
-    
 
-    // //////////////////////////////////////
-    // user (property)
-    // //////////////////////////////////////
+    //endregion
 
+    //region > user (property)
     public static class UserDomainEvent extends PropertyDomainEvent<String> {
-        public UserDomainEvent(final AuditEntry source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public UserDomainEvent(final AuditEntry source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
     }
-
-
-    private String user;
 
     @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.USER_NAME)
     @Property(
@@ -181,33 +167,19 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
             hidden = Where.PARENTED_TABLES
     )
     @MemberOrder(name="Identifiers",sequence = "10")
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(final String user) {
-        this.user = user;
-    }
+    @Getter @Setter
+    private String user;
 
     @Programmatic
     public String getUsername() {
         return getUser();
     }
+    //endregion
 
-    // //////////////////////////////////////
-    // timestamp (property)
-    // //////////////////////////////////////
+    //region > timestamp (property)
 
     public static class TimestampDomainEvent extends PropertyDomainEvent<Timestamp> {
-        public TimestampDomainEvent(final AuditEntry source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public TimestampDomainEvent(final AuditEntry source, final Identifier identifier, final Timestamp oldValue, final Timestamp newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
     }
-
-    private Timestamp timestamp;
 
     @javax.jdo.annotations.Column(allowsNull="false")
     @Property(
@@ -217,34 +189,19 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
             hidden = Where.PARENTED_TABLES
     )
     @MemberOrder(name="Identifiers",sequence = "20")
-    public Timestamp getTimestamp() {
-        return timestamp;
-    }
+    @Getter @Setter
+    private Timestamp timestamp;
 
-    public void setTimestamp(final Timestamp timestamp) {
-        this.timestamp = timestamp;
-    }
+    //endregion
 
-
-    // //////////////////////////////////////
-    // transactionId (property)
-    // //////////////////////////////////////
+    //region > transactionId (property)
 
     public static class TransactionIdDomainEvent extends PropertyDomainEvent<UUID> {
-        public TransactionIdDomainEvent(final AuditEntry source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public TransactionIdDomainEvent(final AuditEntry source, final Identifier identifier, final UUID oldValue, final UUID newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
     }
-
-    private UUID transactionId;
 
     /**
      * The unique identifier (a GUID) of the transaction in which this audit entry was persisted.
-     * 
+     *
      * <p>
      * The combination of ({@link #getTransactionId() transactionId}, {@link #getTargetStr() target}, {@link #getPropertyId() propertyId} ) makes up the
      * (non-enforced) alternative key.
@@ -259,31 +216,15 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
             typicalLength = 36
     )
     @MemberOrder(name="Identifiers",sequence = "30")
-    @Override
-    public UUID getTransactionId() {
-        return transactionId;
-    }
+    @Getter @Setter
+    private UUID transactionId;
 
-    @Override
-    public void setTransactionId(final UUID transactionId) {
-        this.transactionId = transactionId;
-    }
+    //endregion
 
-
-    // //////////////////////////////////////
-    // targetClass (property)
-    // //////////////////////////////////////
+    //region > targetClass (property)
 
     public static class TargetClassDomainEvent extends PropertyDomainEvent<String> {
-        public TargetClassDomainEvent(final AuditEntry source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public TargetClassDomainEvent(final AuditEntry source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
     }
-
-    private String targetClass;
 
     @javax.jdo.annotations.Column(allowsNull="true", length=JdoColumnLength.TARGET_CLASS)
     @Property(
@@ -294,30 +235,19 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
             typicalLength = 30
     )
     @MemberOrder(name="Target", sequence = "10")
-    public String getTargetClass() {
-        return targetClass;
-    }
+    @Getter
+    private String targetClass;
 
     public void setTargetClass(final String targetClass) {
         this.targetClass = Util.abbreviated(targetClass, JdoColumnLength.TARGET_CLASS);
     }
 
+    //endregion
 
-    // //////////////////////////////////////
-    // target (property)
-    // openTargetObject (action)
-    // //////////////////////////////////////
+    //region > targetStr (property)
 
     public static class TargetStrDomainEvent extends PropertyDomainEvent<String> {
-        public TargetStrDomainEvent(final AuditEntry source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public TargetStrDomainEvent(final AuditEntry source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
     }
-
-    private String targetStr;
 
     @javax.jdo.annotations.Column(allowsNull="true", length=JdoColumnLength.BOOKMARK, name="target")
     @Property(
@@ -327,29 +257,14 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
             named = "Object"
     )
     @MemberOrder(name="Target", sequence="30")
-    public String getTargetStr() {
-        return targetStr;
-    }
+    @Getter @Setter
+    private String targetStr;
+    //endregion
 
-    public void setTargetStr(final String targetStr) {
-        this.targetStr = targetStr;
-    }
-
-    
-    // //////////////////////////////////////
-    // memberIdentifier (property)
-    // //////////////////////////////////////
+    //region > memberIdentifier (property)
 
     public static class MemberIdentifierDomainEvent extends PropertyDomainEvent<String> {
-        public MemberIdentifierDomainEvent(final AuditEntry source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public MemberIdentifierDomainEvent(final AuditEntry source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
     }
-
-    private String memberIdentifier;
 
     /**
      * This is the fully-qualified class and property Id, as per
@@ -364,29 +279,18 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
             hidden = Where.ALL_TABLES
     )
     @MemberOrder(name="Detail",sequence = "1")
-    public String getMemberIdentifier() {
-        return memberIdentifier;
-    }
+    @Getter
+    private String memberIdentifier;
 
     public void setMemberIdentifier(final String memberIdentifier) {
         this.memberIdentifier = Util.abbreviated(memberIdentifier, JdoColumnLength.MEMBER_IDENTIFIER);
     }
+    //endregion
 
-
-    // //////////////////////////////////////
-    // propertyId (property)
-    // //////////////////////////////////////
+    //region > propertyId (property)
 
     public static class PropertyIdDomainEvent extends PropertyDomainEvent<String> {
-        public PropertyIdDomainEvent(final AuditEntry source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public PropertyIdDomainEvent(final AuditEntry source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
     }
-
-    private String propertyId;
 
     /**
      * This is the property name (without the class).
@@ -399,29 +303,19 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
             hidden = Where.NOWHERE
     )
     @MemberOrder(name="Target",sequence = "20")
-    public String getPropertyId() {
-        return propertyId;
-    }
-    
+    @Getter
+    private String propertyId;
+
     public void setPropertyId(final String propertyId) {
         this.propertyId = Util.abbreviated(propertyId, JdoColumnLength.AuditEntry.PROPERTY_ID);
     }
-    
-    
-    // //////////////////////////////////////
-    // preValue (property)
-    // //////////////////////////////////////
+
+    //endregion
+
+    //region > preValue (property)
 
     public static class PreValueDomainEvent extends PropertyDomainEvent<String> {
-        public PreValueDomainEvent(final AuditEntry source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public PreValueDomainEvent(final AuditEntry source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
     }
-
-    private String preValue;
 
     @javax.jdo.annotations.Column(allowsNull="true", length=JdoColumnLength.AuditEntry.PROPERTY_VALUE)
     @Property(
@@ -431,29 +325,18 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
             hidden = Where.NOWHERE
     )
     @MemberOrder(name="Detail",sequence = "6")
-    public String getPreValue() {
-        return preValue;
-    }
+    @Getter
+    private String preValue;
 
     public void setPreValue(final String preValue) {
         this.preValue = Util.abbreviated(preValue, JdoColumnLength.AuditEntry.PROPERTY_VALUE);
     }
-    
-    
-    // //////////////////////////////////////
-    // postValue (property)
-    // //////////////////////////////////////
+    //endregion
+
+    //region > postValue (property)
 
     public static class PostValueDomainEvent extends PropertyDomainEvent<String> {
-        public PostValueDomainEvent(final AuditEntry source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public PostValueDomainEvent(final AuditEntry source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
     }
-
-    private String postValue;
 
     @javax.jdo.annotations.Column(allowsNull="true", length=JdoColumnLength.AuditEntry.PROPERTY_VALUE)
     @Property(
@@ -463,34 +346,29 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
             hidden = Where.NOWHERE
     )
     @MemberOrder(name="Detail",sequence = "7")
-    public String getPostValue() {
-        return postValue;
-    }
+    @Getter
+    private String postValue;
 
     public void setPostValue(final String postValue) {
         this.postValue = Util.abbreviated(postValue, JdoColumnLength.AuditEntry.PROPERTY_VALUE);
     }
-    
-    
-    
-    // //////////////////////////////////////
-    // toString
-    // //////////////////////////////////////
+
+    //endregion
+
+    //region > helpers: toString
 
     @Override
     public String toString() {
         return ObjectContracts.toString(this, "timestamp,user,targetStr,memberIdentifier");
     }
+    //endregion
 
-    
-    // //////////////////////////////////////
-    // Injected services
-    // //////////////////////////////////////
-
-
+    //region > Injected services
     @javax.inject.Inject
     private BookmarkService bookmarkService;
 
     @javax.inject.Inject
     private DomainObjectContainer container;
+    //endregion
+
 }
