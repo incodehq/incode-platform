@@ -17,6 +17,9 @@
 package org.isisaddons.module.command.dom;
 
 import java.util.UUID;
+
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.isis.applib.AbstractService;
@@ -28,6 +31,7 @@ import org.apache.isis.applib.clock.Clock;
 import org.apache.isis.applib.services.background.ActionInvocationMemento;
 import org.apache.isis.applib.services.background.BackgroundCommandService;
 import org.apache.isis.applib.services.command.Command;
+import org.apache.isis.applib.services.repository.RepositoryService;
 
 /**
  * Persists a {@link ActionInvocationMemento memento-ized} action such that it can be executed asynchronously,
@@ -64,9 +68,11 @@ public class BackgroundCommandServiceJdo extends AbstractService implements Back
         final UUID transactionId = UUID.randomUUID();
         final String user = parentCommand.getUser();
 
-        final CommandJdo backgroundCommand = newTransientInstance(CommandJdo.class);
+        final CommandJdo backgroundCommand = repositoryService.instantiate(CommandJdo.class);
 
-        backgroundCommand.setParent(parentCommand);
+        if(repositoryService.isPersistent(parentCommand)) {
+            backgroundCommand.setParent(parentCommand);
+        }
         
         backgroundCommand.setTransactionId(transactionId);
 
@@ -82,10 +88,14 @@ public class BackgroundCommandServiceJdo extends AbstractService implements Back
 
         backgroundCommand.setArguments(targetArgs);
         backgroundCommand.setMemento(aim.asMementoString());
+
+        backgroundCommand.setPersistHint(true);
         
-        parentCommand.setPersistHint(true);
-        
-        persist(backgroundCommand);
+        repositoryService.persist(backgroundCommand);
     }
 
+    @Inject
+    RepositoryService repositoryService;
+
 }
+

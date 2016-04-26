@@ -185,7 +185,7 @@ To use "out-of-the-box":
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.command&lt;/groupId&gt;
         &lt;artifactId&gt;isis-module-command-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.12.0&lt;/version&gt;
+        &lt;version&gt;1.12.1&lt;/version&gt;
     &lt;/dependency&gt;
 </pre>
 
@@ -473,6 +473,7 @@ and it is this interface that each module has services that contribute to).
 
 ## Change Log ##
 
+* `1.12.1` - released against Isis 1.12.1; fixes #7
 * `1.12.0` - released against Isis 1.12.0
 * `1.11.0` - released against Isis 1.11.0
 * `1.10.0` - released against Isis 1.10.0
