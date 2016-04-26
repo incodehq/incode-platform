@@ -76,6 +76,7 @@ public class HasTransactionId_command {
         return commandServiceRepository.findByTransactionId(transactionId);
     }
 
+
     @javax.inject.Inject
     private CommandServiceJdoRepository commandServiceRepository;
 
