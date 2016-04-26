@@ -404,9 +404,8 @@ public class AbstractIsisQuartzJob implements Job {
     public void execute(final JobExecutionContext context) throws JobExecutionException {
         final AuthenticationSession authSession = newAuthSession(context);
         try {
-            if(concurrentInstancesPolicy == 
-                   ConcurrentInstancesPolicy.SINGLE_INSTANCE_ONLY && 
-               executing) {
+            if(executing &&
+               concurrentInstancesPolicy == ConcurrentInstancesPolicy.SINGLE_INSTANCE_ONLY) {
                 return;
             }
             executing = true;
