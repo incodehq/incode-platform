@@ -23,6 +23,9 @@ import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.services.background.BackgroundService;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
@@ -38,22 +41,12 @@ import org.apache.isis.applib.util.ObjectContracts;
 )
 public class SomeCommandAnnotatedObject implements Comparable<SomeCommandAnnotatedObject> {
 
-    //region > name (property)
-
-    private String name;
-
     @javax.jdo.annotations.Column(allowsNull="false")
     @Title(sequence="1")
     @MemberOrder(sequence="1")
-    public String getName() {
-        return name;
-    }
+    @Getter @Setter
+    private String name;
 
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    //endregion
 
     //region > changeName (action)
 

@@ -24,15 +24,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
+
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.NotPersistent;
+
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import org.isisaddons.module.command.CommandModule;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Command.ExecuteIn;
@@ -40,6 +42,7 @@ import org.apache.isis.applib.annotation.Command.Persistence;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.LabelPosition;
 import org.apache.isis.applib.annotation.MemberGroupLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Optionality;
@@ -60,6 +63,10 @@ import org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 import org.apache.isis.objectstore.jdo.applib.service.Util;
 
+import org.isisaddons.module.command.CommandModule;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.APPLICATION,
@@ -173,93 +180,45 @@ import org.apache.isis.objectstore.jdo.applib.service.Util;
 )
 @MemberGroupLayout(
         columnSpans={6,0,6,12}, 
-        left={"Identifiers","Target","Notes"},
+        left={"Identifiers","Target","Notes", "Metadata"},
         right={"Detail","Timings","Results"})
 public class CommandJdo extends DomainChangeJdoAbstract implements Command3, HasUsername {
 
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(CommandJdo.class);
 
-    // //////////////////////////////////////
+    //region > domain event superclasses
+    public static abstract class PropertyDomainEvent<T> extends CommandModule.PropertyDomainEvent<CommandJdo, T> { }
 
-    public static abstract class PropertyDomainEvent<T> extends CommandModule.PropertyDomainEvent<CommandJdo, T> {
-        public PropertyDomainEvent(final CommandJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
+    public static abstract class CollectionDomainEvent<T> extends CommandModule.CollectionDomainEvent<CommandJdo, T> { }
 
-        public PropertyDomainEvent(final CommandJdo source, final Identifier identifier, final T oldValue, final T newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    public static abstract class CollectionDomainEvent<T> extends CommandModule.CollectionDomainEvent<CommandJdo, T> {
-        public CollectionDomainEvent(final CommandJdo source, final Identifier identifier, final Of of) {
-            super(source, identifier, of);
-        }
-
-        public CollectionDomainEvent(final CommandJdo source, final Identifier identifier, final Of of, final T value) {
-            super(source, identifier, of, value);
-        }
-    }
-
-    public static abstract class ActionDomainEvent extends CommandModule.ActionDomainEvent<CommandJdo> {
-        public ActionDomainEvent(final CommandJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public ActionDomainEvent(final CommandJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public ActionDomainEvent(final CommandJdo source, final Identifier identifier, final List<Object> arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
-    // //////////////////////////////////////
+    public static abstract class ActionDomainEvent extends CommandModule.ActionDomainEvent<CommandJdo> { }
+    //endregion
 
     public CommandJdo() {
         super(ChangeType.COMMAND);
     }
 
-    // //////////////////////////////////////
-    // Identification
-    // //////////////////////////////////////
-
+    //region > identification
     public String title() {
         final TitleBuffer buf = new TitleBuffer();
         buf.append(getTargetStr());
         buf.append(" ").append(getMemberIdentifier());
         return buf.toString();
     }
+    //endregion
 
-    // //////////////////////////////////////
-    // user (property)
-    // //////////////////////////////////////
+    //region > user (property)
 
-    public static class UserDomainEvent extends PropertyDomainEvent<String> {
-        public UserDomainEvent(final CommandJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public UserDomainEvent(final CommandJdo source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    private String user;
+    public static class UserDomainEvent extends PropertyDomainEvent<String> { }
 
     @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.USER_NAME)
     @Property(
             domainEvent = UserDomainEvent.class
     )
+    @Getter @Setter
     @MemberOrder(name="Identifiers", sequence = "10")
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(final String user) {
-        this.user = user;
-    }
+    private String user;
 
 
     @Programmatic
@@ -267,116 +226,71 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
         return getUser();
     }
 
+    //endregion
 
-    // //////////////////////////////////////
-    // timestamp (property)
-    // //////////////////////////////////////
+    //region > timestamp (property)
 
-    public static class TimestampDomainEvent extends PropertyDomainEvent<Timestamp> {
-        public TimestampDomainEvent(final CommandJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public TimestampDomainEvent(final CommandJdo source, final Identifier identifier, final Timestamp oldValue, final Timestamp newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
 
-    private Timestamp timestamp;
+    public static class TimestampDomainEvent extends PropertyDomainEvent<Timestamp> { }
 
     /**
      * The date/time at which this action was created.
+     *
+     * <p>
+     *
+     * <p>The setter is NOT API: intended to be called only by the framework.
      */
     @javax.jdo.annotations.Persistent
     @javax.jdo.annotations.Column(allowsNull="false")
     @Property(
             domainEvent = TimestampDomainEvent.class
     )
+    @Getter @Setter
     @MemberOrder(name="Identifiers", sequence = "20")
-    public Timestamp getTimestamp() {
-        return timestamp;
-    }
-    
-    /**
-     * <b>NOT API</b>: intended to be called only by the framework.
-     */
-    public void setTimestamp(final Timestamp timestamp) {
-        this.timestamp = timestamp;
-    }
+    private Timestamp timestamp;
 
-    
-    // //////////////////////////////////////
-    // executor (property)
-    // //////////////////////////////////////
-    
-    private Executor executor;
-    
-    @Programmatic
+    //endregion
+
+    //region > executor (programmatic)
+
     @javax.jdo.annotations.NotPersistent
-    @Override
+    @Setter
+    private Executor executor;
+
+    @Programmatic
     public Executor getExecutor() {
         return executor;
     }
 
-    @Override
-    public void setExecutor(final Executor nature) {
-        this.executor = nature;
-    }
+    //endregion
 
-    // //////////////////////////////////////
-    // executeIn (property)
-    // //////////////////////////////////////
+    //region > executeIn (property)
 
-    public static class ExecuteInDomainEvent extends PropertyDomainEvent<ExecuteIn> {
-        public ExecuteInDomainEvent(final CommandJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public ExecuteInDomainEvent(final CommandJdo source, final Identifier identifier, final ExecuteIn oldValue, final ExecuteIn newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
+    public static class ExecuteInDomainEvent extends PropertyDomainEvent<ExecuteIn> { }
 
-    private ExecuteIn executeIn;
 
     /**
      * Whether the action was invoked explicitly by the user, or scheduled as a background
      * task, or as for some other reason, eg a side-effect of rendering an object due to 
      * get-after-post).
+     *
+     * Setter is <b>NOT API</b>: intended to be called only by the framework.
      */
     @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.Command.EXECUTE_IN)
     @Property(
             domainEvent = ExecuteInDomainEvent.class
     )
+    @Getter @Setter
     @MemberOrder(name="Identifiers", sequence = "32")
-    @Override
-    public ExecuteIn getExecuteIn() {
-        return executeIn;
-    }
-    
-    /**
-     * <b>NOT API</b>: intended to be called only by the framework.
-     */
-    @Override
-    public void setExecuteIn(final ExecuteIn executeIn) {
-        this.executeIn = executeIn;
-    }
+    private ExecuteIn executeIn;
+
+    //endregion
+
+    //region > parent (property)
+
+    public static class ParentDomainEvent extends PropertyDomainEvent<Command> { }
 
 
-    // //////////////////////////////////////
-    // parent (property)
-    // //////////////////////////////////////
-
-    public static class ParentDomainEvent extends PropertyDomainEvent<Command> {
-        public ParentDomainEvent(final CommandJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public ParentDomainEvent(final CommandJdo source, final Identifier identifier, final Command oldValue, final Command newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    private Command parent;
-    
-    @Override
     @javax.jdo.annotations.Persistent
     @javax.jdo.annotations.Column(name="parentTransactionId", allowsNull="true")
     @Property(
@@ -385,36 +299,24 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     @PropertyLayout(
             hidden = Where.PARENTED_TABLES
     )
+    @Getter @Setter
     @MemberOrder(name="Identifiers",sequence = "40")
-    public Command getParent() {
-        return parent;
-    }
+    private Command parent;
 
-    @Override
-    public void setParent(final Command parent) {
-        this.parent = parent;
-    }
+    //endregion
 
-    
-    // //////////////////////////////////////
-    // transactionId (property)
-    // //////////////////////////////////////
+    //region > transactionId (property)
 
-    public static class TransactionIdDomainEvent extends PropertyDomainEvent<UUID> {
-        public TransactionIdDomainEvent(final CommandJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
+    public static class TransactionIdDomainEvent extends PropertyDomainEvent<UUID> { }
 
-        public TransactionIdDomainEvent(final CommandJdo source, final Identifier identifier, final UUID oldValue, final UUID newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-
-    private UUID transactionId;
 
     /**
      * The unique identifier (a GUID) of the transaction in which this command occurred.
+     *
+     * The setter is <b>NOT API</b>: intended to be called only by the framework.
+     *
+     * <p>
+     * Implementation notes: copied over from the Isis transaction when the command is persisted.
      */
     @javax.jdo.annotations.PrimaryKey
     @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.TRANSACTION_ID)
@@ -424,38 +326,15 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     @PropertyLayout(
             typicalLength = JdoColumnLength.TRANSACTION_ID
     )
+    @Getter @Setter
     @MemberOrder(name="Identifiers",sequence = "50")
-    @Override
-    public UUID getTransactionId() {
-        return transactionId;
-    }
+    private UUID transactionId;
 
-    /**
-     * <b>NOT API</b>: intended to be called only by the framework.
-     * 
-     * <p>
-     * Implementation notes: copied over from the Isis transaction when the command is persisted.
-     */
-    @Override
-    public void setTransactionId(final UUID transactionId) {
-        this.transactionId = transactionId;
-    }
+    //endregion
 
-    
-    // //////////////////////////////////////
-    // targetClass (property)
-    // //////////////////////////////////////
+    //region > targetClass (property)
 
-    public static class TargetClassDomainEvent extends PropertyDomainEvent<String> {
-        public TargetClassDomainEvent(final CommandJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public TargetClassDomainEvent(final CommandJdo source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    private String targetClass;
+    public static class TargetClassDomainEvent extends PropertyDomainEvent<String> { }
 
     @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.TARGET_CLASS)
     @Property(
@@ -465,31 +344,21 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             named="Class",
             typicalLength = 30
     )
+    @Getter
     @MemberOrder(name="Target", sequence = "10")
-    public String getTargetClass() {
-        return targetClass;
-    }
+    private String targetClass;
 
     public void setTargetClass(final String targetClass) {
         this.targetClass = Util.abbreviated(targetClass, JdoColumnLength.TARGET_CLASS);
     }
 
+    //endregion
 
-    // //////////////////////////////////////
-    // targetAction (property)
-    // //////////////////////////////////////
+    //region > targetAction (property)
 
-    public static class TargetActionDomainEvent extends PropertyDomainEvent<String> {
-        public TargetActionDomainEvent(final CommandJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public TargetActionDomainEvent(final CommandJdo source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
+    public static class TargetActionDomainEvent extends PropertyDomainEvent<String> { }
 
-    private String targetAction;
-    
+
     @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.TARGET_ACTION)
     @Property(
             domainEvent = TargetActionDomainEvent.class,
@@ -500,31 +369,19 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             typicalLength = 30,
             named = "Action"
     )
+    @Getter
     @MemberOrder(name="Target", sequence = "20")
-    public String getTargetAction() {
-        return targetAction;
-    }
-    
+    private String targetAction;
+
     public void setTargetAction(final String targetAction) {
         this.targetAction = Util.abbreviated(targetAction, JdoColumnLength.TARGET_ACTION);
     }
-    
+    //endregion
 
-    // //////////////////////////////////////
-    // target (property)
-    // openTargetObject (action)
-    // //////////////////////////////////////
+    //region > target (property), openTargetObject (action)
 
-    public static class TargetStrDomainEvent extends PropertyDomainEvent<String> {
-        public TargetStrDomainEvent(final CommandJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public TargetStrDomainEvent(final CommandJdo source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
+    public static class TargetStrDomainEvent extends PropertyDomainEvent<String> { }
 
-    private String targetStr;
 
     @javax.jdo.annotations.Column(allowsNull="true", length=JdoColumnLength.BOOKMARK, name="target")
     @Property(
@@ -534,30 +391,17 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             hidden = Where.ALL_TABLES,
             named = "Object"
     )
+    @Getter @Setter
     @MemberOrder(name="Target", sequence="30")
-    public String getTargetStr() {
-        return targetStr;
-    }
+    private String targetStr;
 
-    public void setTargetStr(final String targetStr) {
-        this.targetStr = targetStr;
-    }
+    //endregion
 
-    // //////////////////////////////////////
-    // arguments (property)
-    // //////////////////////////////////////
+    //region > arguments (property)
 
-    public static class ArgumentsDomainEvent extends PropertyDomainEvent<String> {
-        public ArgumentsDomainEvent(final CommandJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public ArgumentsDomainEvent(final CommandJdo source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
+    public static class ArgumentsDomainEvent extends PropertyDomainEvent<String> { }
 
-    private String arguments;
-    
+
     @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB", sqlType="LONGVARCHAR")
     @Property(
             domainEvent = ArgumentsDomainEvent.class
@@ -566,32 +410,34 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             multiLine = 7,
             hidden = Where.ALL_TABLES
     )
+    @Getter @Setter
     @MemberOrder(name="Target",sequence = "40")
-    public String getArguments() {
-        return arguments;
+    private String arguments;
+
+    //endregion
+
+    //region > metadata region dummy property
+
+    public static class MetadataRegionDummyPropertyDomainEvent extends PropertyDomainEvent<String> { }
+
+    /**
+     * Exists just that the Wicket viewer will render an (almost) empty metadata region (on which the
+     * framework contributed mixin actions will be attached).  The field itself can optionally be hidden
+     * using CSS.
+     */
+    @NotPersistent
+    @Property(domainEvent = MetadataRegionDummyPropertyDomainEvent.class, notPersisted = true)
+    @PropertyLayout(labelPosition = LabelPosition.NONE, hidden = Where.ALL_TABLES)
+    @MemberOrder(name="Metadata", sequence = "1")
+    public String getMetadataRegionDummyProperty() {
+        return null;
     }
-    
-    public void setArguments(final String arguments) {
-        this.arguments = arguments;
-    }
+    //endregion
 
-    
+    //region > memberIdentifier (property)
 
-    // //////////////////////////////////////
-    // memberIdentifier (property)
-    // //////////////////////////////////////
+    public static class MemberIdentifierDomainEvent extends PropertyDomainEvent<String> { }
 
-    public static class MemberIdentifierDomainEvent extends PropertyDomainEvent<String> {
-        public MemberIdentifierDomainEvent(final CommandJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public MemberIdentifierDomainEvent(final CommandJdo source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    private String memberIdentifier;
-    
     @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.MEMBER_IDENTIFIER)
     @Property(
             domainEvent = MemberIdentifierDomainEvent.class
@@ -600,31 +446,20 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             typicalLength = 60,
             hidden = Where.ALL_TABLES
     )
+    @Getter
     @MemberOrder(name="Detail",sequence = "1")
-    public String getMemberIdentifier() {
-        return memberIdentifier;
-    }
+    private String memberIdentifier;
 
     public void setMemberIdentifier(final String memberIdentifier) {
         this.memberIdentifier = Util.abbreviated(memberIdentifier, JdoColumnLength.MEMBER_IDENTIFIER);
     }
+    //endregion
+
+    //region > memento (property)
+
+    public static class MementoDomainEvent extends PropertyDomainEvent<String> { }
 
 
-    // //////////////////////////////////////
-    // memento (property)
-    // //////////////////////////////////////
-
-    public static class MementoDomainEvent extends PropertyDomainEvent<String> {
-        public MementoDomainEvent(final CommandJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public MementoDomainEvent(final CommandJdo source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    private String memento;
-    
     @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB")
     @Property(
             domainEvent = MementoDomainEvent.class
@@ -633,65 +468,33 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             multiLine = 9,
             hidden = Where.ALL_TABLES
     )
+    @Getter @Setter
     @MemberOrder(name="Detail",sequence = "30")
-    public String getMemento() {
-        return memento;
-    }
-    
-    public void setMemento(final String memento) {
-        this.memento = memento;
-    }
+    private String memento;
 
+    //endregion
 
+    //region > startedAt (property)
 
-    // //////////////////////////////////////
-    // startedAt (property)
-    // //////////////////////////////////////
+    public static class StartedAtDomainEvent extends PropertyDomainEvent<Timestamp> { }
 
-    public static class StartedAtDomainEvent extends PropertyDomainEvent<Timestamp> {
-        public StartedAtDomainEvent(final CommandJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public StartedAtDomainEvent(final CommandJdo source, final Identifier identifier, final Timestamp oldValue, final Timestamp newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    private Timestamp startedAt;
-
+    /**
+     * setter is NOT API: intended to be called only by the framework.
+     */
     @javax.jdo.annotations.Persistent
     @javax.jdo.annotations.Column(allowsNull="true")
     @Property(
             domainEvent = StartedAtDomainEvent.class
     )
+    @Getter @Setter
     @MemberOrder(name="Timings", sequence = "3")
-    public Timestamp getStartedAt() {
-        return startedAt;
-    }
+    private Timestamp startedAt;
 
-    /**
-     * <b>NOT API</b>: intended to be called only by the framework.
-     */
-    public void setStartedAt(final Timestamp startedAt) {
-        this.startedAt = startedAt;
-    }
-    
-    
-    
-    // //////////////////////////////////////
-    // completedAt (property)
-    // //////////////////////////////////////
+    //endregion
 
-    public static class CompletedAtDomainEvent extends PropertyDomainEvent<Timestamp> {
-        public CompletedAtDomainEvent(final CommandJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public CompletedAtDomainEvent(final CommandJdo source, final Identifier identifier, final Timestamp oldValue, final Timestamp newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
+    //region > completedAt (property)
 
-    private Timestamp completedAt;
+    public static class CompletedAtDomainEvent extends PropertyDomainEvent<Timestamp> { }
 
     /**
      * The date/time at which this interaction completed.
@@ -701,30 +504,15 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     @Property(
             domainEvent = CompletedAtDomainEvent.class
     )
+    @Getter @Setter
     @MemberOrder(name="Timings", sequence = "4")
-    @Override
-    public Timestamp getCompletedAt() {
-        return completedAt;
-    }
+    private Timestamp completedAt;
 
-    @Override
-    public void setCompletedAt(final Timestamp completed) {
-        this.completedAt = completed;
-    }
+    //endregion
 
+    //region > duration (derived property)
 
-    // //////////////////////////////////////
-    // duration (derived property)
-    // //////////////////////////////////////
-
-    public static class DurationDomainEvent extends PropertyDomainEvent<BigDecimal> {
-        public DurationDomainEvent(final CommandJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public DurationDomainEvent(final CommandJdo source, final Identifier identifier, final BigDecimal oldValue, final BigDecimal newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
+    public static class DurationDomainEvent extends PropertyDomainEvent<BigDecimal> { }
 
     /**
      * The number of seconds (to 3 decimal places) that this interaction lasted.
@@ -744,20 +532,11 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
         return Util.durationBetween(getStartedAt(), getCompletedAt());
     }
 
+    //endregion
 
+    //region > isComplete (derived property)
 
-    // //////////////////////////////////////
-    // complete (derived property)
-    // //////////////////////////////////////
-
-    public static class IsCompleteDomainEvent extends PropertyDomainEvent<Boolean> {
-        public IsCompleteDomainEvent(final CommandJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public IsCompleteDomainEvent(final CommandJdo source, final Identifier identifier, final Boolean oldValue, final Boolean newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
+    public static class IsCompleteDomainEvent extends PropertyDomainEvent<Boolean> { }
 
     @javax.jdo.annotations.NotPersistent
     @Property(
@@ -770,20 +549,11 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     public boolean isComplete() {
         return getCompletedAt() != null;
     }
+    //endregion
 
+    //region > resultSummary (derived property)
 
-    // //////////////////////////////////////
-    // resultSummary (derived property)
-    // //////////////////////////////////////
-
-    public static class ResultSummaryDomainEvent extends PropertyDomainEvent<String> {
-        public ResultSummaryDomainEvent(final CommandJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public ResultSummaryDomainEvent(final CommandJdo source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
+    public static class ResultSummaryDomainEvent extends PropertyDomainEvent<String> { }
 
     @javax.jdo.annotations.NotPersistent
     @MemberOrder(name="Results",sequence = "10")
@@ -808,12 +578,10 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
         }
     }
 
-    
-    // //////////////////////////////////////
-    // result (property)
-    // openResultObject (action)
-    // //////////////////////////////////////
-    
+    //endregion
+
+    //region > result (property), openResultObject (action)
+
     @Programmatic
     @Override
     public Bookmark getResult() {
@@ -828,16 +596,8 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
 
     // //////////////////////////////////////
 
-    public static class ResultStrDomainEvent extends PropertyDomainEvent<String> {
-        public ResultStrDomainEvent(final CommandJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public ResultStrDomainEvent(final CommandJdo source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
 
-    private String resultStr;
+    public static class ResultStrDomainEvent extends PropertyDomainEvent<String> { }
 
     @javax.jdo.annotations.Column(allowsNull="true", length=JdoColumnLength.BOOKMARK, name="result")
     @Property(
@@ -847,28 +607,13 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             hidden = Where.ALL_TABLES,
             named = "Result Bookmark"
     )
+    @Getter @Setter
     @MemberOrder(name="Results", sequence="25")
-    public String getResultStr() {
-        return resultStr;
-    }
-
-    public void setResultStr(final String resultStr) {
-        this.resultStr = resultStr;
-    }
+    private String resultStr;
 
     // //////////////////////////////////////
 
-    public static class OpenResultObjectDomainEvent extends ActionDomainEvent {
-        public OpenResultObjectDomainEvent(final CommandJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public OpenResultObjectDomainEvent(final CommandJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-        public OpenResultObjectDomainEvent(final CommandJdo source, final Identifier identifier, final List<Object> arguments) {
-            super(source, identifier, arguments);
-        }
-    }
+    public static class OpenResultObjectDomainEvent extends ActionDomainEvent { }
 
     @Action(
             semantics = SemanticsOf.SAFE,
@@ -885,10 +630,9 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
         return getResult() == null;
     }
 
+    //endregion
 
-    // //////////////////////////////////////
-    // exception (property), causedException (derived property), showException (associated action)
-    // //////////////////////////////////////
+    //region > exception (property), causedException (derived property), showException (associated action)
 
     private String exception;
 
@@ -916,14 +660,7 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     
     // //////////////////////////////////////
 
-    public static class IsCausedExceptionDomainEvent extends PropertyDomainEvent<Boolean> {
-        public IsCausedExceptionDomainEvent(final CommandJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public IsCausedExceptionDomainEvent(final CommandJdo source, final Identifier identifier, final Boolean oldValue, final Boolean newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
+    public static class IsCausedExceptionDomainEvent extends PropertyDomainEvent<Boolean> { }
 
     @javax.jdo.annotations.NotPersistent
     @Property(
@@ -940,17 +677,7 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     
     // //////////////////////////////////////
 
-    public static class ShowExceptionDomainEvent extends ActionDomainEvent {
-        public ShowExceptionDomainEvent(final CommandJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-        public ShowExceptionDomainEvent(final CommandJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-        public ShowExceptionDomainEvent(final CommandJdo source, final Identifier identifier, final List<Object> arguments) {
-            super(source, identifier, arguments);
-        }
-    }
+    public static class ShowExceptionDomainEvent extends ActionDomainEvent { }
 
     @Action(
             domainEvent = ShowExceptionDomainEvent.class,
@@ -964,10 +691,9 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
         return !isCausedException();
     }
 
+    //endregion
 
-    // //////////////////////////////////////
-    // ActionInteractionEvent (Command2 impl)
-    // //////////////////////////////////////
+    //region > ActionInteractionEvent (Command2 impl)
 
     @Deprecated
     @Programmatic
@@ -1011,10 +737,9 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
         return (List)actionDomainEvents;
     }
 
+    //endregion
 
-    // //////////////////////////////////////
-    // ActionDomainEvent (Command3 impl)
-    // //////////////////////////////////////
+    //region > ActionDomainEvent (Command3 impl)
 
     private final LinkedList<org.apache.isis.applib.services.eventbus.ActionDomainEvent<?>> actionDomainEvents = Lists.newLinkedList();
 
@@ -1048,30 +773,30 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
         return events;
     }
 
+    //endregion
 
-    // //////////////////////////////////////
-    // next(...) impl
-    // //////////////////////////////////////
+    //region > next(...) impl
+
 
     private final Map<String, AtomicInteger> sequenceByName = Maps.newHashMap();
 
     @Programmatic
     @Override
-    public int next(final String sequenceName) {
-        AtomicInteger next = sequenceByName.get(sequenceName);
+    public int next(final String sequenceAbbr) {
+        AtomicInteger next = sequenceByName.get(sequenceAbbr);
         if(next == null) {
             next = new AtomicInteger(0);
-            sequenceByName.put(sequenceName, next);
+            sequenceByName.put(sequenceAbbr, next);
         } else {
             next.incrementAndGet();
         }
         return next.get();
     }
 
-    
-    // //////////////////////////////////////
-    // persistence (programmatic)
-    // //////////////////////////////////////
+    //endregion
+
+    //region > persistence (programmatic)
+
 
     private Persistence persistence;
     
@@ -1087,11 +812,11 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
         this.persistence = persistence;
     }
 
+    //endregion
 
-    // //////////////////////////////////////
-    // setPersistHint (SPI impl)
-    // //////////////////////////////////////
-    
+    //region > setPersistHint (SPI impl)
+
+
     private boolean persistHint;
 
     @NotPersistent
@@ -1099,15 +824,17 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     public boolean isPersistHint() {
         return persistHint;
     }
-    
+
     @Programmatic
     @Override
     public void setPersistHint(final boolean persistHint) {
         this.persistHint = persistHint;
     }
 
-    // //////////////////////////////////////
-    
+    //endregion
+
+    //region > helpers, toString
+
     @Programmatic
     boolean shouldPersist() {
         if(Persistence.PERSISTED == getPersistence()) {
@@ -1120,25 +847,19 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     }
 
 
-
-    // //////////////////////////////////////
-    // toString
-    // //////////////////////////////////////
-
     @Override
     public String toString() {
-        return ObjectContracts.toString(this, "targetStr,memberIdentifier,user,startedAt,completedAt,duration,transactionId");
+        return ObjectContracts.toString(this, "targetStr","memberIdentifier","user","startedAt","completedAt","duration","transactionId");
     }
 
-    // //////////////////////////////////////
-    // dependencies
-    // //////////////////////////////////////
-    
+    //endregion
 
+    //region > dependencies
     @javax.inject.Inject
     private BookmarkService bookmarkService;
-    
+
     @javax.inject.Inject
     private DomainObjectContainer container;
+    //endregion
 
 }

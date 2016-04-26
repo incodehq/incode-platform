@@ -31,12 +31,13 @@ language governing permissions and limitations under the License.
     </prerequisites>
 
     <properties>
-        <isis.version>1.13.0-SNAPSHOT</isis.version>
+        <isis.version>1.12.1</isis.version>
 
         <isis-module-command.version>1.13.0-SNAPSHOT</isis-module-command.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <lombok.version>1.16.8</lombok.version>
     </properties>
 
     <repositories>
@@ -334,6 +335,12 @@ language governing permissions and limitations under the License.
                 <artifactId>isis-module-command-dom</artifactId>
                 <version>${isis-module-command.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>isis-module-command-app</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-command-fixture</artifactId>
@@ -343,6 +350,12 @@ language governing permissions and limitations under the License.
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-command-webapp</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -381,6 +394,7 @@ language governing permissions and limitations under the License.
     </profiles>
 
     <modules>
+        <module>app</module>
         <module>dom</module>
         <module>fixture</module>
         <module>integtests</module>

@@ -38,7 +38,6 @@ public final class BackgroundCommandExecutionFromBackgroundCommandServiceJdo ext
         return commands; 
     }
     
-    // //////////////////////////////////////
 
     @javax.inject.Inject
     private BackgroundCommandServiceJdoRepository backgroundCommandRepository;

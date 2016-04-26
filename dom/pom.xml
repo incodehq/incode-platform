@@ -55,10 +55,11 @@ language governing permissions and limitations under the License.
         <compileSource>1.7</compileSource>
         <compileTarget>1.7</compileTarget>
 
-        <isis.version>1.13.0-SNAPSHOT</isis.version>
+        <isis.version>1.12.1</isis.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <lombok.version>1.16.8</lombok.version>
     </properties>
 
     <build>
@@ -229,6 +230,12 @@ language governing permissions and limitations under the License.
             <artifactId>isis-core-unittestsupport</artifactId>
             <version>${isis.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
         </dependency>
     </dependencies>
 

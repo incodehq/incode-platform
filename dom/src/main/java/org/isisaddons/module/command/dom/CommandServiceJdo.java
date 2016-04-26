@@ -18,10 +18,11 @@ package org.isisaddons.module.command.dom;
 
 import java.util.UUID;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.apache.isis.applib.AbstractService;
 import org.apache.isis.applib.annotation.Command.ExecuteIn;
 import org.apache.isis.applib.annotation.Command.Persistence;
 import org.apache.isis.applib.annotation.DomainService;
@@ -31,6 +32,8 @@ import org.apache.isis.applib.clock.Clock;
 import org.apache.isis.applib.services.command.Command;
 import org.apache.isis.applib.services.command.Command.Executor;
 import org.apache.isis.applib.services.command.spi.CommandService;
+import org.apache.isis.applib.services.factory.FactoryService;
+import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 
 /**
@@ -39,13 +42,12 @@ import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 @DomainService(
         nature = NatureOfService.DOMAIN
 )
-public class CommandServiceJdo extends AbstractService implements CommandService {
+public class CommandServiceJdo implements CommandService {
 
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(CommandServiceJdo.class);
 
-    // //////////////////////////////////////
-
+    //region > create (API)
     /**
      * Creates an {@link CommandJdo}, initializing its 
      * {@link Command#setExecuteIn(org.apache.isis.applib.annotation.Command.ExecuteIn)} nature} to be
@@ -54,13 +56,14 @@ public class CommandServiceJdo extends AbstractService implements CommandService
     @Programmatic
     @Override
     public Command create() {
-        CommandJdo command = newTransientInstance(CommandJdo.class);
+        CommandJdo command = factoryService.instantiate(CommandJdo.class);
         command.setExecutor(Executor.OTHER);
         command.setPersistence(Persistence.IF_HINTED);
         return command;
     }
+    //endregion
 
-    // //////////////////////////////////////
+    //region > startTransaction (API)
 
     @Programmatic
     @Override
@@ -77,8 +80,9 @@ public class CommandServiceJdo extends AbstractService implements CommandService
             commandJdo.setTransactionId(transactionId);
         }
     }
+    //endregion
 
-    // //////////////////////////////////////
+    //region > complete (API)
 
     @Programmatic
     @Override
@@ -100,8 +104,12 @@ public class CommandServiceJdo extends AbstractService implements CommandService
         }
         commandJdo.setCompletedAt(Clock.getTimeAsJavaSqlTimestamp());
 
-        persistIfNotAlready(commandJdo);
+        repositoryService.persist(commandJdo);
     }
+
+    //endregion
+
+    //region > persistIfPossible (API)
 
     @Override
     public boolean persistIfPossible(Command command) {
@@ -110,11 +118,13 @@ public class CommandServiceJdo extends AbstractService implements CommandService
             return false;
         }
         final CommandJdo commandJdo = (CommandJdo)command;
-        persistIfNotAlready(commandJdo);
+        repositoryService.persist(commandJdo);
         return true;
     }
+    //endregion
 
-    // //////////////////////////////////////
+    //region > helpers
+
 
     /**
      * Not API, also used by {@link CommandServiceJdoRepository}.
@@ -131,5 +141,12 @@ public class CommandServiceJdo extends AbstractService implements CommandService
         return commandJdo.shouldPersist()? commandJdo: null;
     }
 
-    
+    //endregion
+
+
+    @Inject
+    RepositoryService repositoryService;
+    @Inject
+    FactoryService factoryService;
+
 }

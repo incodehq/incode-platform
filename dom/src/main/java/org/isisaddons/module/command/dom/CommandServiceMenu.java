@@ -18,10 +18,9 @@ package org.isisaddons.module.command.dom;
 
 import java.util.List;
 import java.util.UUID;
-import org.isisaddons.module.command.CommandModule;
+
 import org.joda.time.LocalDate;
-import org.apache.isis.applib.AbstractService;
-import org.apache.isis.applib.Identifier;
+
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
@@ -35,6 +34,8 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.clock.ClockService;
 
+import org.isisaddons.module.command.CommandModule;
+
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY
 )
@@ -43,52 +44,27 @@ import org.apache.isis.applib.services.clock.ClockService;
         menuBar = DomainServiceLayout.MenuBar.SECONDARY,
         menuOrder = "20"
 )
-public class CommandServiceMenu extends AbstractService {
+public class CommandServiceMenu {
 
-    public static abstract class PropertyDomainEvent<T> extends CommandModule.PropertyDomainEvent<CommandServiceMenu, T> {
-        public PropertyDomainEvent(final CommandServiceMenu source, final Identifier identifier) {
-            super(source, identifier);
-        }
+    public static abstract class PropertyDomainEvent<T>
+            extends CommandModule.PropertyDomainEvent<CommandServiceMenu, T> { }
 
-        public PropertyDomainEvent(final CommandServiceMenu source, final Identifier identifier, final T oldValue, final T newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
+    public static abstract class CollectionDomainEvent<T>
+            extends CommandModule.CollectionDomainEvent<CommandServiceMenu, T> { }
+
+    public static abstract class ActionDomainEvent
+            extends CommandModule.ActionDomainEvent<CommandServiceMenu> {
     }
 
-    public static abstract class CollectionDomainEvent<T> extends CommandModule.CollectionDomainEvent<CommandServiceMenu, T> {
-        public CollectionDomainEvent(final CommandServiceMenu source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of) {
-            super(source, identifier, of);
-        }
 
-        public CollectionDomainEvent(final CommandServiceMenu source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
-            super(source, identifier, of, value);
-        }
-    }
+    //region > activeCommands
 
-    public static abstract class ActionDomainEvent extends CommandModule.ActionDomainEvent<CommandServiceMenu> {
-        public ActionDomainEvent(final CommandServiceMenu source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public ActionDomainEvent(final CommandServiceMenu source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public ActionDomainEvent(final CommandServiceMenu source, final Identifier identifier, final List<Object> arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
-    // //////////////////////////////////////
-
-    public static class CommandsCurrentlyRunningDomainEvent extends ActionDomainEvent {
-        public CommandsCurrentlyRunningDomainEvent(final CommandServiceMenu source, final Identifier identifier, final Object... args) {
-            super(source, identifier, args);
-        }
-    }
+    @Deprecated
+    public static class CommandsCurrentlyRunningDomainEvent extends ActionDomainEvent { }
+    public static class ActiveCommandsDomainEvent extends CommandsCurrentlyRunningDomainEvent { }
 
     @Action(
-            domainEvent = CommandsCurrentlyRunningDomainEvent.class,
+            domainEvent = ActiveCommandsDomainEvent.class,
             semantics = SemanticsOf.SAFE
     )
     @ActionLayout(
@@ -103,13 +79,11 @@ public class CommandServiceMenu extends AbstractService {
         return commandServiceRepository == null;
     }
 
-    // //////////////////////////////////////
+    //endregion
 
-    public static class FindCommandsDomainEvent extends ActionDomainEvent {
-        public FindCommandsDomainEvent(final CommandServiceMenu source, final Identifier identifier, final Object... args) {
-            super(source, identifier, args);
-        }
-    }
+    //region > findCommands
+
+    public static class FindCommandsDomainEvent extends ActionDomainEvent { }
 
     @Action(
             domainEvent = FindCommandsDomainEvent.class,
@@ -138,13 +112,11 @@ public class CommandServiceMenu extends AbstractService {
         return clockService.now();
     }
 
-    // //////////////////////////////////////
+    //endregion
 
-    public static class FindCommandByIdDomainEvent extends ActionDomainEvent {
-        public FindCommandByIdDomainEvent(final CommandServiceMenu source, final Identifier identifier, final Object... args) {
-            super(source, identifier, args);
-        }
-    }
+    //region > findCommandById
+
+    public static class FindCommandByIdDomainEvent extends ActionDomainEvent { }
 
     @Action(
             domainEvent = FindCommandByIdDomainEvent.class,
@@ -163,7 +135,8 @@ public class CommandServiceMenu extends AbstractService {
         return commandServiceRepository == null;
     }
 
-    // //////////////////////////////////////
+    //endregion
+
 
     @javax.inject.Inject
     private CommandServiceJdoRepository commandServiceRepository;

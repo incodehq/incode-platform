@@ -45,10 +45,9 @@ language governing permissions and limitations under the License.
     </build>
     <dependencies>
 
-        <!-- other modules in this project -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-command-fixture</artifactId>
+            <artifactId>isis-module-command-app</artifactId>
         </dependency>
 
         <dependency>

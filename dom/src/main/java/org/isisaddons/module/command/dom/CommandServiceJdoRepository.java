@@ -22,7 +22,6 @@ import java.util.UUID;
 
 import org.joda.time.LocalDate;
 
-import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -31,7 +30,7 @@ import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.command.Command;
 import org.apache.isis.applib.services.command.CommandContext;
-
+import org.apache.isis.applib.services.repository.RepositoryService;
 
 /**
  * Provides supporting functionality for querying and persisting
@@ -45,7 +44,9 @@ import org.apache.isis.applib.services.command.CommandContext;
 @DomainService(
         nature = NatureOfService.DOMAIN
 )
-public class CommandServiceJdoRepository extends AbstractFactoryAndRepository {
+public class CommandServiceJdoRepository {
+
+    //region > findByFromAndTo
 
     @Programmatic
     public List<CommandJdo> findByFromAndTo(
@@ -75,35 +76,41 @@ public class CommandServiceJdoRepository extends AbstractFactoryAndRepository {
                         "find");
             }
         }
-        return allMatches(query);
+        return repositoryService.allMatches(query);
     }
 
-    // //////////////////////////////////////
+    //endregion
+
+    //region > findByTransactionId
 
     @Programmatic
     public CommandJdo findByTransactionId(final UUID transactionId) {
         persistCurrentCommandIfRequired();
-        return firstMatch(
+        return repositoryService.firstMatch(
                 new QueryDefault<>(CommandJdo.class,
                         "findByTransactionId", 
                         "transactionId", transactionId));
     }
 
-    // //////////////////////////////////////
+    //endregion
+
+    //region > findCurrent
 
     @Programmatic
     public List<CommandJdo> findCurrent() {
         persistCurrentCommandIfRequired();
-        return allMatches(
+        return repositoryService.allMatches(
                 new QueryDefault<>(CommandJdo.class, "findCurrent"));
     }
 
-    // //////////////////////////////////////
+    //endregion
+
+    //region > findCompleted
 
     @Programmatic
     public List<CommandJdo> findCompleted() {
         persistCurrentCommandIfRequired();
-        return allMatches(
+        return repositoryService.allMatches(
                 new QueryDefault<>(CommandJdo.class, "findCompleted"));
     }
 
@@ -115,13 +122,14 @@ public class CommandServiceJdoRepository extends AbstractFactoryAndRepository {
         final CommandJdo commandJdo = commandService.asUserInitiatedCommandJdo(command);
         if(commandJdo == null) {
             return;
-        } 
-        persistIfNotAlready(commandJdo);
+        }
+        repositoryService.persist(commandJdo);
     }
 
-    // //////////////////////////////////////
+    //endregion
 
-    
+    //region > findByTargetAndFromAndTo
+
     @Programmatic
     public List<CommandJdo> findByTargetAndFromAndTo(
             final Bookmark target, final LocalDate from, final LocalDate to) {
@@ -155,7 +163,7 @@ public class CommandServiceJdoRepository extends AbstractFactoryAndRepository {
                         "targetStr", targetStr);
             }
         }
-        return allMatches(query);
+        return repositoryService.allMatches(query);
     }
 
     private static Timestamp toTimestampStartOfDayWithOffset(final LocalDate dt, int daysOffset) {
@@ -164,22 +172,27 @@ public class CommandServiceJdoRepository extends AbstractFactoryAndRepository {
                 :null;
     }
 
-    // //////////////////////////////////////
+    //endregion
+
+    //region > findRecentByUser
 
     @Programmatic
     public List<CommandJdo> findRecentByUser(final String user) {
-        return allMatches(
+        return repositoryService.allMatches(
                 new QueryDefault<>(CommandJdo.class, "findRecentByUser", "user", user));
 
     }
+    //endregion
 
-    // //////////////////////////////////////
 
     @javax.inject.Inject
     private CommandServiceJdo commandService;
     
     @javax.inject.Inject
     private CommandContext commandContext;
+
+    @javax.inject.Inject
+    private RepositoryService repositoryService;
 
 
 }
