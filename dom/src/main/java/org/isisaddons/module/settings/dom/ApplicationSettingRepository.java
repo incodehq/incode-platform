@@ -23,12 +23,12 @@ import javax.inject.Inject;
 
 import org.joda.time.LocalDate;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.queryresultscache.QueryResultsCache;
+import org.apache.isis.applib.services.repository.RepositoryService;
 
 import org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo;
 
@@ -50,7 +50,7 @@ public class ApplicationSettingRepository {
     }
 
     protected ApplicationSettingJdo doFind(final String key) {
-        return container.firstMatch(
+        return repositoryService.firstMatch(
                 new QueryDefault<>(ApplicationSettingJdo.class,
                         "findByKey",
                         "key", key));
@@ -63,7 +63,7 @@ public class ApplicationSettingRepository {
     @Programmatic
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public List<ApplicationSetting> listAll() {
-        return (List)container.allMatches(
+        return (List)repositoryService.allMatches(
                 new QueryDefault<>(ApplicationSettingJdo.class,
                         "findAll"));
     }
@@ -130,19 +130,19 @@ public class ApplicationSettingRepository {
     //region > helpers
     private ApplicationSettingJdo newSetting(
             final String key, final String description, final SettingType settingType, final String valueRaw) {
-        final ApplicationSettingJdo setting = container.newTransientInstance(ApplicationSettingJdo.class);
+        final ApplicationSettingJdo setting = repositoryService.instantiate(ApplicationSettingJdo.class);
         setting.setKey(key);
         setting.setDescription(description);
         setting.setValueRaw(valueRaw);
         setting.setType(settingType);
-        container.persist(setting);
+        repositoryService.persist(setting);
         return setting;
     }
     //endregion
 
     //region > injected
     @Inject
-    DomainObjectContainer container;
+    RepositoryService repositoryService;
     @Inject
     QueryResultsCache queryResultsCache;
     //endregion

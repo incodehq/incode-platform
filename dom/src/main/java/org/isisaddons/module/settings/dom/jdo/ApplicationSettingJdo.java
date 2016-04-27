@@ -16,11 +16,8 @@
  */
 package org.isisaddons.module.settings.dom.jdo;
 
-import java.util.List;
-
 import javax.jdo.annotations.IdentityType;
 
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
@@ -69,51 +66,19 @@ import org.isisaddons.module.settings.dom.SettingType;
 public class ApplicationSettingJdo extends SettingAbstractJdo implements ApplicationSetting {
 
     //region > domain events
+    public static abstract class PropertyDomainEvent<T>
+            extends SettingsModule.PropertyDomainEvent<ApplicationSettingJdo, T> { }
+
+    public static abstract class CollectionDomainEvent<T>
+            extends SettingsModule.CollectionDomainEvent<ApplicationSettingJdo, T> { }
+
+    public static abstract class ActionDomainEvent
+            extends SettingsModule.ActionDomainEvent<ApplicationSettingJdo> { }
     //endregion
-    public static abstract class PropertyDomainEvent<T> extends SettingsModule.PropertyDomainEvent<ApplicationSettingJdo, T> {
-        public PropertyDomainEvent(final ApplicationSettingJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
 
-        public PropertyDomainEvent(final ApplicationSettingJdo source, final Identifier identifier, final T oldValue, final T newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    public static abstract class CollectionDomainEvent<T> extends SettingsModule.CollectionDomainEvent<ApplicationSettingJdo, T> {
-        public CollectionDomainEvent(final ApplicationSettingJdo source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of) {
-            super(source, identifier, of);
-        }
-
-        public CollectionDomainEvent(final ApplicationSettingJdo source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
-            super(source, identifier, of, value);
-        }
-    }
-
-    public static abstract class ActionDomainEvent extends SettingsModule.ActionDomainEvent<ApplicationSettingJdo> {
-        public ActionDomainEvent(final ApplicationSettingJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public ActionDomainEvent(final ApplicationSettingJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public ActionDomainEvent(final ApplicationSettingJdo source, final Identifier identifier, final List<Object> arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
-    // //////////////////////////////////////
+    //region > key (overridden property)
 
     public static class KeyDomainEvent extends PropertyDomainEvent<String> {
-        public KeyDomainEvent(final ApplicationSettingJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public KeyDomainEvent(final ApplicationSettingJdo source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
     }
 
 
@@ -130,16 +95,11 @@ public class ApplicationSettingJdo extends SettingAbstractJdo implements Applica
         super.setKey(key);
     }
 
-    // //////////////////////////////////////
+    //endregion
+
+    //region > description (overridden property)
 
     public static class DescriptionDomainEvent extends PropertyDomainEvent<String> {
-        public DescriptionDomainEvent(final ApplicationSettingJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public DescriptionDomainEvent(final ApplicationSettingJdo source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
     }
 
     @javax.jdo.annotations.Column(length=JdoColumnLength.DESCRIPTION)
@@ -155,17 +115,12 @@ public class ApplicationSettingJdo extends SettingAbstractJdo implements Applica
     public void setDescription(String description) {
         super.setDescription(description);
     }
-    
-    // //////////////////////////////////////
+
+    //endregion
+
+    //region > valueRaw (overridden property)
 
     public static class ValueRawDomainEvent extends PropertyDomainEvent<String> {
-        public ValueRawDomainEvent(final ApplicationSettingJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public ValueRawDomainEvent(final ApplicationSettingJdo source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
     }
 
     @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.SettingAbstract.VALUE_RAW)
@@ -181,17 +136,12 @@ public class ApplicationSettingJdo extends SettingAbstractJdo implements Applica
     public void setValueRaw(String valueAsRaw) {
         super.setValueRaw(valueAsRaw);
     }
-    
-    // //////////////////////////////////////
+
+    //endregion
+
+    //region > type (overridden property)
 
     public static class TypeDomainEvent extends PropertyDomainEvent<SettingType> {
-        public TypeDomainEvent(final ApplicationSettingJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public TypeDomainEvent(final ApplicationSettingJdo source, final Identifier identifier, final SettingType oldValue, final SettingType newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
     }
 
     @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.SettingAbstract.SETTING_TYPE)
@@ -207,4 +157,7 @@ public class ApplicationSettingJdo extends SettingAbstractJdo implements Applica
     public void setType(SettingType type) {
         super.setType(type);
     }
+
+    //endregion
+
 }

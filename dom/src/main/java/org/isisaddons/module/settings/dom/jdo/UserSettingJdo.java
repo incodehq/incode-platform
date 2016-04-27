@@ -17,11 +17,8 @@
 package org.isisaddons.module.settings.dom.jdo;
 
 
-import java.util.List;
-
 import javax.jdo.annotations.IdentityType;
 
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
@@ -34,6 +31,9 @@ import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 import org.isisaddons.module.settings.SettingsModule;
 import org.isisaddons.module.settings.dom.SettingType;
 import org.isisaddons.module.settings.dom.UserSetting;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType = IdentityType.APPLICATION, 
@@ -84,56 +84,21 @@ import org.isisaddons.module.settings.dom.UserSetting;
 )
 public class UserSettingJdo extends SettingAbstractJdo implements UserSetting, HasUsername {
 
-
     //region > domain events
+    public static class PropertyDomainEvent<T>
+            extends SettingsModule.PropertyDomainEvent<UserSettingJdo, T> { }
+
+    public static class CollectionDomainEvent<T>
+            extends SettingsModule.CollectionDomainEvent<UserSettingJdo, T> { }
+
+    public static class ActionDomainEvent
+            extends SettingsModule.ActionDomainEvent<UserSettingJdo> { }
     //endregion
-    public static class PropertyDomainEvent<T> extends SettingsModule.PropertyDomainEvent<UserSettingJdo, T> {
-        public PropertyDomainEvent(final UserSettingJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
 
-        public PropertyDomainEvent(final UserSettingJdo source, final Identifier identifier, final T oldValue, final T newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
-
-    public static class CollectionDomainEvent<T> extends SettingsModule.CollectionDomainEvent<UserSettingJdo, T> {
-        public CollectionDomainEvent(final UserSettingJdo source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of) {
-            super(source, identifier, of);
-        }
-
-        public CollectionDomainEvent(final UserSettingJdo source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
-            super(source, identifier, of, value);
-        }
-    }
-
-    public static class ActionDomainEvent extends SettingsModule.ActionDomainEvent<UserSettingJdo> {
-        public ActionDomainEvent(final UserSettingJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public ActionDomainEvent(final UserSettingJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public ActionDomainEvent(final UserSettingJdo source, final Identifier identifier, final List<Object> arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
-    // //////////////////////////////////////
+    //region > user (property)
 
     public static class UserDomainEvent extends PropertyDomainEvent<String> {
-        public UserDomainEvent(final UserSettingJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public UserDomainEvent(final UserSettingJdo source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
     }
-
-    private String user;
 
     @javax.jdo.annotations.Column(length=JdoColumnLength.USER_NAME)
     @javax.jdo.annotations.PrimaryKey
@@ -141,30 +106,19 @@ public class UserSettingJdo extends SettingAbstractJdo implements UserSetting, H
             domainEvent = UserDomainEvent.class
     )
     @Title(sequence="5", append=": ")
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(final String user) {
-        this.user = user;
-    }
-
+    @Getter @Setter
+    private String user;
 
     @Programmatic
     public String getUsername() {
         return getUser();
     }
 
-    // //////////////////////////////////////
+    //endregion
+
+    //region > key (overridden property)
 
     public static class KeyDomainEvent extends PropertyDomainEvent<String> {
-        public KeyDomainEvent(final UserSettingJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public KeyDomainEvent(final UserSettingJdo source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
     }
 
     @javax.jdo.annotations.Column(length=JdoColumnLength.SettingAbstract.SETTING_KEY)
@@ -182,16 +136,11 @@ public class UserSettingJdo extends SettingAbstractJdo implements UserSetting, H
         super.setKey(key);
     }
 
-    // //////////////////////////////////////
+    //endregion
+
+    //region > description (overridden property)
 
     public static class DescriptionDomainEvent extends PropertyDomainEvent<String> {
-        public DescriptionDomainEvent(final UserSettingJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public DescriptionDomainEvent(final UserSettingJdo source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
     }
 
     @javax.jdo.annotations.Column(length=JdoColumnLength.DESCRIPTION)
@@ -207,17 +156,12 @@ public class UserSettingJdo extends SettingAbstractJdo implements UserSetting, H
     public void setDescription(String description) {
         super.setDescription(description);
     }
-    
-    // //////////////////////////////////////
+
+    //endregion
+
+    //region > valueRaw (overridden property)
 
     public static class ValueRawDomainEvent extends PropertyDomainEvent<String> {
-        public ValueRawDomainEvent(final UserSettingJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public ValueRawDomainEvent(final UserSettingJdo source, final Identifier identifier, final String oldValue, final String newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
     }
 
     @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.SettingAbstract.VALUE_RAW)
@@ -233,17 +177,13 @@ public class UserSettingJdo extends SettingAbstractJdo implements UserSetting, H
     public void setValueRaw(String valueAsRaw) {
         super.setValueRaw(valueAsRaw);
     }
-    
-    // //////////////////////////////////////
+
+    //endregion
+
+    //region > type (overridden property)
+
 
     public static class TypeDomainEvent extends PropertyDomainEvent<SettingType> {
-        public TypeDomainEvent(final UserSettingJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public TypeDomainEvent(final UserSettingJdo source, final Identifier identifier, final SettingType oldValue, final SettingType newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
     }
 
     @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.SettingAbstract.SETTING_TYPE)
@@ -259,5 +199,7 @@ public class UserSettingJdo extends SettingAbstractJdo implements UserSetting, H
     public void setType(SettingType type) {
         super.setType(type);
     }
+
+    //endregion
 
 }

@@ -23,12 +23,12 @@ import javax.inject.Inject;
 
 import org.joda.time.LocalDate;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.queryresultscache.QueryResultsCache;
+import org.apache.isis.applib.services.repository.RepositoryService;
 
 import org.isisaddons.module.settings.dom.jdo.UserSettingJdo;
 
@@ -53,7 +53,7 @@ public class UserSettingRepository {
     }
 
     protected UserSettingJdo doFind(final String user, final String key) {
-        return container.firstMatch(
+        return repositoryService.firstMatch(
                 new QueryDefault<>(UserSettingJdo.class,
                         "findByUserAndKey",
                         "user",user,
@@ -67,7 +67,7 @@ public class UserSettingRepository {
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public List<UserSetting> listAllFor(
             final String user) {
-        return (List)container.allMatches(
+        return (List)repositoryService.allMatches(
                 new QueryDefault<>(UserSettingJdo.class,
                         "findByUser",
                         "user", user));
@@ -80,7 +80,7 @@ public class UserSettingRepository {
     @Programmatic
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public List<UserSetting> listAll() {
-        return (List)container.allMatches(
+        return (List)repositoryService.allMatches(
                 new QueryDefault<>(UserSettingJdo.class,
                         "findAll"));
     }
@@ -156,20 +156,20 @@ public class UserSettingRepository {
     private UserSettingJdo newSetting(
             final String user,
             final String key, final String description, final SettingType settingType, final String valueRaw) {
-        final UserSettingJdo setting = container.newTransientInstance(UserSettingJdo.class);
+        final UserSettingJdo setting = repositoryService.instantiate(UserSettingJdo.class);
         setting.setUser(user);
         setting.setKey(key);
         setting.setType(settingType);
         setting.setDescription(description);
         setting.setValueRaw(valueRaw);
-        container.persist(setting);
+        repositoryService.persist(setting);
         return setting;
     }
     //endregion
 
     //region > injected
     @Inject
-    DomainObjectContainer container;
+    RepositoryService repositoryService;
     @Inject
     QueryResultsCache queryResultsCache;
     //endregion

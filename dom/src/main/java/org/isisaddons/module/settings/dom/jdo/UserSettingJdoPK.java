@@ -20,7 +20,7 @@ import java.io.Serializable;
 import java.util.StringTokenizer;
 
 /**
- * @see http://www.datanucleus.org/products/datanucleus/jdo/primary_key.html
+ * @see shttp://www.datanucleus.org/products/datanucleus/jdo/primary_key.html
  */
 public class UserSettingJdoPK implements Serializable
 {

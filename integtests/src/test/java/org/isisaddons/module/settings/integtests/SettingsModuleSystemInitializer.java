@@ -16,16 +16,16 @@
  */
 package org.isisaddons.module.settings.integtests;
 
-import org.isisaddons.module.settings.dom.jdo.ApplicationSettingsServiceJdo;
-import org.isisaddons.module.settings.dom.jdo.UserSettingsServiceJdo;
-import org.apache.isis.core.commons.config.IsisConfiguration;
+import org.apache.log4j.Level;
+
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
-import org.apache.isis.objectstore.jdo.datanucleus.DataNucleusPersistenceMechanismInstaller;
 import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegTests;
+
+import org.isisaddons.module.settings.app.SettingsAppManifest;
 
 /**
  * Holds an instance of an {@link IsisSystemForTest} as a {@link ThreadLocal} on the current thread,
- * initialized with ToDo app's domain services. 
+ * initialized with the app's domain services. 
  */
 public class SettingsModuleSystemInitializer {
     
@@ -34,28 +34,16 @@ public class SettingsModuleSystemInitializer {
     public static IsisSystemForTest initIsft() {
         IsisSystemForTest isft = IsisSystemForTest.getElseNull();
         if(isft == null) {
-            isft = new SimpleAppSystemBuilder().build().setUpSystem();
+            isft = new IsisSystemForTest.Builder()
+                    .withLoggingAt(Level.INFO)
+                    .with(new SettingsIntegTestManifest())
+                    .with(new IsisConfigurationForJdoIntegTests())
+                    .build()
+                    .setUpSystem();
             IsisSystemForTest.set(isft);
         }
         return isft;
     }
 
-    private static class SimpleAppSystemBuilder extends IsisSystemForTest.Builder {
-
-        public SimpleAppSystemBuilder() {
-            withLoggingAt(org.apache.log4j.Level.INFO);
-            with(testConfiguration());
-            with(new DataNucleusPersistenceMechanismInstaller());
-
-            // services annotated with @DomainService
-            withServicesIn( "org.isisaddons.module.settings");
-        }
-
-        private static IsisConfiguration testConfiguration() {
-            final IsisConfigurationForJdoIntegTests testConfiguration = new IsisConfigurationForJdoIntegTests();
-            testConfiguration.addRegisterEntitiesPackagePrefix("org.isisaddons.module.settings");
-            return testConfiguration;
-        }
-    }
 
 }

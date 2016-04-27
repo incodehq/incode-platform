@@ -47,7 +47,7 @@ language governing permissions and limitations under the License.
         <!-- other modules in this project -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-settings-fixture</artifactId>
+            <artifactId>isis-module-settings-app</artifactId>
         </dependency>
 
         <dependency>
@@ -67,6 +67,12 @@ language governing permissions and limitations under the License.
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-library</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <dependency>

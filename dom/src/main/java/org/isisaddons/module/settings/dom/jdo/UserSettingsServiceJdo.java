@@ -28,7 +28,6 @@ import com.google.common.collect.Sets;
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.AbstractService;
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -36,6 +35,7 @@ import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.services.user.UserService;
 
 import org.isisaddons.module.settings.SettingsModule;
 import org.isisaddons.module.settings.dom.UserSetting;
@@ -51,46 +51,18 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
 
     //region > domain events
     public static abstract class PropertyDomainEvent<T> extends SettingsModule.PropertyDomainEvent<UserSettingsServiceJdo, T> {
-        public PropertyDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public PropertyDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final T oldValue, final T newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
     }
 
     public static abstract class CollectionDomainEvent<T> extends SettingsModule.CollectionDomainEvent<UserSettingsServiceJdo, T> {
-        public CollectionDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of) {
-            super(source, identifier, of);
-        }
-
-        public CollectionDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
-            super(source, identifier, of, value);
-        }
     }
 
     public static abstract class ActionDomainEvent extends SettingsModule.ActionDomainEvent<UserSettingsServiceJdo> {
-        public ActionDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public ActionDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public ActionDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final List<Object> arguments) {
-            super(source, identifier, arguments);
-        }
     }
     //endregion
 
-    //region > find
+    //region > find (action)
 
     public static class FindDomainEvent extends ActionDomainEvent {
-        public FindDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
     }
 
     @Action(
@@ -112,12 +84,9 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
     }
     //endregion
 
-    //region > listAll
+    //region > listAllFor (action)
 
     public static class ListAllForDomainEvent extends ActionDomainEvent {
-        public ListAllForDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
     }
 
     @Action(
@@ -152,12 +121,9 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
 
     //endregion
 
-    //region > listAll
+    //region > listAll (action)
 
     public static class ListAllDomainEvent extends ActionDomainEvent {
-        public ListAllDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
     }
 
     @Action(
@@ -176,12 +142,9 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
 
     //endregion
 
-    //region > newString
+    //region > newString (action)
 
     public static class NewStringDomainEvent extends ActionDomainEvent {
-        public NewStringDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
     }
 
     @Action(
@@ -205,17 +168,14 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
         return userSettingRepository.newString(user, key, description, value);
     }
     public String default0NewString() {
-        return getContainer().getUser().getName();
+        return userService.getUser().getName();
     }
 
     //endregion
 
-    //region > newInt
+    //region > newInt (action)
 
     public static class NewIntDomainEvent extends ActionDomainEvent {
-        public NewIntDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
     }
 
     @Action(
@@ -239,17 +199,14 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
         return userSettingRepository.newInt(user, key, description, value);
     }
     public String default0NewInt() {
-        return getContainer().getUser().getName();
+        return userService.getUser().getName();
     }
 
     //endregion
 
-    //region > newLong
+    //region > newLong (action)
 
     public static class NewLongDomainEvent extends ActionDomainEvent {
-        public NewLongDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
     }
 
     @Action(
@@ -273,17 +230,14 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
         return userSettingRepository.newLong(user, key, description, value);
     }
     public String default0NewLong() {
-        return getContainer().getUser().getName();
+        return userService.getUser().getName();
     }
 
     //endregion
 
-    //region > newLocalDate
+    //region > newLocalDate (action)
 
     public static class NewLocalDateDomainEvent extends ActionDomainEvent {
-        public NewLocalDateDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
     }
 
     @Action(
@@ -307,17 +261,14 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
         return userSettingRepository.newLocalDate(user, key, description, value);
     }
     public String default0NewLocalDate() {
-        return getContainer().getUser().getName();
+        return userService.getUser().getName();
     }
 
     //endregion
 
-    //region > newBoolean
+    //region > newBoolean (action)
 
     public static class NewBooleanDomainEvent extends ActionDomainEvent {
-        public NewBooleanDomainEvent(final UserSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
     }
 
     @Action(
@@ -342,12 +293,14 @@ public class UserSettingsServiceJdo extends AbstractService implements UserSetti
         return userSettingRepository.newBoolean(user, key, description, value);
     }
     public String default0NewBoolean() {
-        return getContainer().getUser().getName();
+        return userService.getUser().getName();
     }
 
     //endregion
 
     //region > injected
+    @Inject
+    UserService userService;
     @Inject
     UserSettingRepository userSettingRepository;
     //endregion

@@ -16,19 +16,25 @@
  */
 package org.isisaddons.module.settings.dom.jdo;
 
-import java.util.List;
+import javax.inject.Inject;
 import javax.jdo.annotations.PersistenceCapable;
-import org.isisaddons.module.settings.SettingsModule;
-import org.isisaddons.module.settings.dom.Setting;
-import org.isisaddons.module.settings.dom.SettingAbstract;
-import org.isisaddons.module.settings.dom.SettingType;
+
 import org.joda.time.LocalDate;
-import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.Identifier;
+
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.services.message.MessageService;
+import org.apache.isis.applib.services.repository.RepositoryService;
+
+import org.isisaddons.module.settings.SettingsModule;
+import org.isisaddons.module.settings.dom.Setting;
+import org.isisaddons.module.settings.dom.SettingAbstract;
+import org.isisaddons.module.settings.dom.SettingType;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Factors out common implementation; however this is not annotated with {@link PersistenceCapable},
@@ -36,69 +42,37 @@ import org.apache.isis.applib.annotation.ParameterLayout;
  */
 public abstract class SettingAbstractJdo extends SettingAbstract implements Setting {
 
-    public static abstract class PropertyDomainEvent<S extends SettingAbstractJdo, T> extends SettingsModule.PropertyDomainEvent<S, T> {
-        public PropertyDomainEvent(final S source, final Identifier identifier) {
-            super(source, identifier);
-        }
+    //region > domain events
 
-        public PropertyDomainEvent(final S source, final Identifier identifier, final T oldValue, final T newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
-    }
+    public static abstract class PropertyDomainEvent<S extends SettingAbstractJdo, T>
+            extends SettingsModule.PropertyDomainEvent<S, T> { }
 
-    public static abstract class CollectionDomainEvent<S extends SettingAbstractJdo, T> extends SettingsModule.CollectionDomainEvent<S, T> {
-        public CollectionDomainEvent(final S source, final Identifier identifier, final Of of) {
-            super(source, identifier, of);
-        }
+    public static abstract class CollectionDomainEvent<S extends SettingAbstractJdo, T>
+            extends SettingsModule.CollectionDomainEvent<S, T> { }
 
-        public CollectionDomainEvent(final S source, final Identifier identifier, final Of of, final T value) {
-            super(source, identifier, of, value);
-        }
-    }
-
-    public static abstract class ActionDomainEvent<S extends SettingAbstractJdo> extends SettingsModule.ActionDomainEvent<S> {
-        public ActionDomainEvent(final S source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public ActionDomainEvent(final S source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public ActionDomainEvent(final S source, final Identifier identifier, final List<Object> arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
-    // //////////////////////////////////////
-
-    private String key;
+    public static abstract class ActionDomainEvent<S extends SettingAbstractJdo>
+            extends SettingsModule.ActionDomainEvent<S> { }
+    //endregion
 
     @javax.jdo.annotations.Column(allowsNull="false")
-    public String getKey() {
-        return key;
-    }
+    @Getter @Setter
+    private String key;
 
-    public void setKey(final String key) {
-        this.key = key;
-    }
-
-    // //////////////////////////////////////
-
-    public static class UpdateDescriptionDomainEvent extends ActionDomainEvent<SettingAbstractJdo> {
-        public UpdateDescriptionDomainEvent(final SettingAbstractJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-    }
-
+    @Getter @Setter
     private String description;
 
-    public String getDescription() {
-        return description;
-    }
+    @javax.jdo.annotations.Column(allowsNull="false")
+    @Getter @Setter
+    private SettingType type;
 
-    public void setDescription(final String description) {
-        this.description = description;
+    @javax.jdo.annotations.Column(allowsNull="false")
+    @Getter @Setter
+    private String valueRaw;
+
+    //region > updateDescription (action)
+
+    public static class UpdateDescriptionDomainEvent
+            extends ActionDomainEvent<SettingAbstractJdo> {
     }
 
     @Action(
@@ -114,39 +88,13 @@ public abstract class SettingAbstractJdo extends SettingAbstract implements Sett
     public String default0UpdateDescription() {
         return getDescription();
     }
-    
-    // //////////////////////////////////////
 
-    private SettingType type;
 
-    @javax.jdo.annotations.Column(allowsNull="false")
-    public SettingType getType() {
-        return type;
-    }
+    //endregion
 
-    public void setType(final SettingType type) {
-        this.type = type;
-    }
-
-    // //////////////////////////////////////
-
-    private String valueRaw;
-
-    @javax.jdo.annotations.Column(allowsNull="false")
-    public String getValueRaw() {
-        return valueRaw;
-    }
-
-    public void setValueRaw(final String valueAsRaw) {
-        this.valueRaw = valueAsRaw;
-    }
-
-    // //////////////////////////////////////
+    //region > updateAsString (action)
 
     public static class UpdateAsStringDomainEvent extends ActionDomainEvent<SettingAbstractJdo> {
-        public UpdateAsStringDomainEvent(final SettingAbstractJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
     }
 
     @Action(
@@ -165,12 +113,11 @@ public abstract class SettingAbstractJdo extends SettingAbstract implements Sett
         return typeIsNot(SettingType.STRING);
     }
 
-    // //////////////////////////////////////
+    //endregion
+
+    //region > updateAsInt (action)
 
     public static class UpdateAsIntDomainEvent extends ActionDomainEvent<SettingAbstractJdo> {
-        public UpdateAsIntDomainEvent(final SettingAbstractJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
     }
 
     @Action(
@@ -189,12 +136,11 @@ public abstract class SettingAbstractJdo extends SettingAbstract implements Sett
         return typeIsNot(SettingType.INT);
     }
 
-    // //////////////////////////////////////
+    //endregion
+
+    //region > updateAsLong (action)
 
     public static class UpdateAsLongDomainEvent extends ActionDomainEvent<SettingAbstractJdo> {
-        public UpdateAsLongDomainEvent(final SettingAbstractJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
     }
 
     @Action(
@@ -213,12 +159,11 @@ public abstract class SettingAbstractJdo extends SettingAbstract implements Sett
         return typeIsNot(SettingType.LONG);
     }
 
-    // //////////////////////////////////////
+    //endregion
+
+    //region > updateAsLocalDate (action)
 
     public static class UpdateAsLocalDateDomainEvent extends ActionDomainEvent<SettingAbstractJdo> {
-        public UpdateAsLocalDateDomainEvent(final SettingAbstractJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
     }
 
     @Action(
@@ -237,12 +182,11 @@ public abstract class SettingAbstractJdo extends SettingAbstract implements Sett
         return typeIsNot(SettingType.LOCAL_DATE);
     }
 
-    // //////////////////////////////////////
+    //endregion
+
+    //region > updateAsBoolean (action)
 
     public static class UpdateAsBooleanDomainEvent extends ActionDomainEvent<SettingAbstractJdo> {
-        public UpdateAsBooleanDomainEvent(final SettingAbstractJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
     }
 
     @Action(
@@ -260,13 +204,12 @@ public abstract class SettingAbstractJdo extends SettingAbstract implements Sett
     public boolean hideUpdateAsBoolean() {
         return typeIsNot(SettingType.BOOLEAN);
     }
-    
-    // //////////////////////////////////////
+
+    //endregion
+
+    //region > delete (action)
 
     public static class DeleteDomainEvent extends ActionDomainEvent<SettingAbstractJdo> {
-        public DeleteDomainEvent(final SettingAbstractJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
     }
 
     @Action(
@@ -277,22 +220,25 @@ public abstract class SettingAbstractJdo extends SettingAbstract implements Sett
             @ParameterLayout(named = "Are you sure?")
             final Boolean confirm) {
         if(confirm == null || !confirm) {
-            container.informUser("Setting NOT deleted");
+            messageService.informUser("Setting NOT deleted");
             return this;
         }
-        container.remove(this);
-        container.informUser("Setting deleted");
+        repositoryService.remove(this);
+        messageService.informUser("Setting deleted");
         return null;
     }
-    
 
-    // //////////////////////////////////////
-    
-    private DomainObjectContainer container;
+    //endregion
 
-    public void setDomainObjectContainer(final DomainObjectContainer container) {
-        this.container = container;
-    }
+    //region > injected services
+
+    @Inject
+    MessageService messageService;
+
+    @Inject
+    RepositoryService repositoryService;
+
+    //endregion
 
 
 }

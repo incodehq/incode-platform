@@ -23,7 +23,6 @@ import javax.inject.Inject;
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.AbstractService;
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -46,45 +45,17 @@ public class ApplicationSettingsServiceJdo extends AbstractService implements Ap
 
     //region > domain events
     public static abstract class PropertyDomainEvent<T> extends SettingsModule.PropertyDomainEvent<ApplicationSettingsServiceJdo, T> {
-        public PropertyDomainEvent(final ApplicationSettingsServiceJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public PropertyDomainEvent(final ApplicationSettingsServiceJdo source, final Identifier identifier, final T oldValue, final T newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
     }
 
     public static abstract class CollectionDomainEvent<T> extends SettingsModule.CollectionDomainEvent<ApplicationSettingsServiceJdo, T> {
-        public CollectionDomainEvent(final ApplicationSettingsServiceJdo source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of) {
-            super(source, identifier, of);
-        }
-
-        public CollectionDomainEvent(final ApplicationSettingsServiceJdo source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
-            super(source, identifier, of, value);
-        }
     }
 
     public static abstract class ActionDomainEvent extends SettingsModule.ActionDomainEvent<ApplicationSettingsServiceJdo> {
-        public ActionDomainEvent(final ApplicationSettingsServiceJdo source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public ActionDomainEvent(final ApplicationSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public ActionDomainEvent(final ApplicationSettingsServiceJdo source, final Identifier identifier, final List<Object> arguments) {
-            super(source, identifier, arguments);
-        }
     }
     //endregion
 
-    //region > find
+    //region > find (action)
     public static class FindDomainEvent extends ActionDomainEvent {
-        public FindDomainEvent(final ApplicationSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
     }
 
     @Action(
@@ -103,12 +74,9 @@ public class ApplicationSettingsServiceJdo extends AbstractService implements Ap
 
     //endregion
 
-    //region > listAll
+    //region > listAll (action)
 
     public static class ListAllDomainEvent extends ActionDomainEvent {
-        public ListAllDomainEvent(final ApplicationSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
     }
 
     @Action(
@@ -126,11 +94,8 @@ public class ApplicationSettingsServiceJdo extends AbstractService implements Ap
     }
     //endregion
 
-    //region > newString
+    //region > newString (action)
     public static class NewStringDomainEvent extends ActionDomainEvent {
-        public NewStringDomainEvent(final ApplicationSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
     }
 
     @Action(
@@ -154,12 +119,9 @@ public class ApplicationSettingsServiceJdo extends AbstractService implements Ap
     }
     //endregion
 
-    //region > newInt
+    //region > newInt (action)
 
     public static class NewIntDomainEvent extends ActionDomainEvent {
-        public NewIntDomainEvent(final ApplicationSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
     }
 
     @Action(
@@ -184,12 +146,9 @@ public class ApplicationSettingsServiceJdo extends AbstractService implements Ap
 
     //endregion
 
-    //region > newLong
+    //region > newLong (action)
 
     public static class NewLongDomainEvent extends ActionDomainEvent {
-        public NewLongDomainEvent(final ApplicationSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
     }
 
     @Action(
@@ -214,11 +173,8 @@ public class ApplicationSettingsServiceJdo extends AbstractService implements Ap
 
     //endregion
 
-    //region > newLocalDate
+    //region > newLocalDate (action)
     public static class NewLocalDateDomainEvent extends ActionDomainEvent {
-        public NewLocalDateDomainEvent(final ApplicationSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
     }
 
     @Action(
@@ -243,12 +199,9 @@ public class ApplicationSettingsServiceJdo extends AbstractService implements Ap
 
     //endregion
 
-    //region > newBoolean
+    //region > newBoolean (action)
 
     public static class NewBooleanDomainEvent extends ActionDomainEvent {
-        public NewBooleanDomainEvent(final ApplicationSettingsServiceJdo source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
     }
 
     @Action(

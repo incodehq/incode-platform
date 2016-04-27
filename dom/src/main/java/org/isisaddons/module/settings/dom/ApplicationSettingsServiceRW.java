@@ -23,14 +23,23 @@ import org.apache.isis.applib.annotation.MemberOrder;
 public interface ApplicationSettingsServiceRW extends ApplicationSettingsService {
 
     @MemberOrder(sequence="11")
-    ApplicationSetting newBoolean(String name, String description, Boolean defaultValue);
+    ApplicationSetting newBoolean(
+            String name, String description, Boolean defaultValue);
+
     @MemberOrder(sequence="12")
-    ApplicationSetting newString(String name, String description, String defaultValue);
+    ApplicationSetting newString(
+            String name, String description, String defaultValue);
+
     @MemberOrder(sequence="13")
-    ApplicationSetting newLocalDate(String name, String description, LocalDate defaultValue);
+    ApplicationSetting newLocalDate(
+            String name, String description, LocalDate defaultValue);
+
     @MemberOrder(sequence="14")
-    ApplicationSetting newInt(String name, String description, Integer defaultValue);
+    ApplicationSetting newInt(
+            String name, String description, Integer defaultValue);
+
     @MemberOrder(sequence="15")
-    ApplicationSetting newLong(String name, String description, Long defaultValue);
+    ApplicationSetting newLong(
+            String name, String description, Long defaultValue);
     
 }
