@@ -30,69 +30,31 @@ import org.isisaddons.module.settings.SettingsModule;
 import org.isisaddons.module.settings.dom.UserSetting;
 
 @Mixin
-public class UserSetting_previous_next extends AbstractService {
+public class UserSetting_previous extends AbstractService {
 
-    //region > domain events
-
-    public static abstract class PropertyDomainEvent<T>
-            extends SettingsModule.PropertyDomainEvent<UserSetting_previous_next, T> { }
-
-    public static abstract class CollectionDomainEvent<T>
-            extends SettingsModule.CollectionDomainEvent<UserSetting_previous_next, T> { }
-
-    public static abstract class ActionDomainEvent
-            extends SettingsModule.ActionDomainEvent<UserSetting_previous_next> { }
-
-    //endregion
+    public static class ActionDomainEvent
+            extends SettingsModule.ActionDomainEvent<UserSetting_previous> { }
 
     //region > constructors
 
     private final UserSetting current;
-    public UserSetting_previous_next(final UserSetting current) {
+    public UserSetting_previous(final UserSetting current) {
         this.current = current;
     }
 
     //endregion
 
 
-    //region > findNext (action)
-
-    public static class FindNextDomainEvent extends ActionDomainEvent {
-    }
-
     @Action(
-            domainEvent = FindNextDomainEvent.class,
+            domainEvent = ActionDomainEvent.class,
             semantics = SemanticsOf.SAFE
     )
     @ActionLayout(
-            contributed = Contributed.AS_ACTION
+            contributed = Contributed.AS_ACTION,
+            cssClassFa = "fa-step-backward",
+            cssClassFaPosition = ActionLayout.CssClassFaPosition.LEFT
     )
-    public UserSetting findNext() {
-        return firstMatch(
-                new QueryDefault<>(UserSettingJdo.class,
-                        "findNext",
-                        "user", current.getUser(),
-                        "key", current.getKey()));
-    }
-
-    public String disableFindNext() {
-        return findNext() == null? "No more settings": null;
-    }
-    //endregion
-
-    //region > findNext (action)
-
-    public static class FindPreviousDomainEvent extends ActionDomainEvent {
-    }
-
-    @Action(
-            domainEvent = FindNextDomainEvent.class,
-            semantics = SemanticsOf.SAFE
-    )
-    @ActionLayout(
-            contributed = Contributed.AS_ACTION
-    )
-    public UserSetting findPrevious() {
+    public UserSetting $$() {
         // bit of a workaround; for some reason ORDER BY ... DESC seems to return in ascending order
         final List<UserSettingJdo> settings = allMatches(
                 new QueryDefault<>(UserSettingJdo.class,
@@ -103,10 +65,9 @@ public class UserSetting_previous_next extends AbstractService {
         return size != 0? settings.get(size-1): null;
     }
 
-    public String disableFindPrevious() {
-        return findPrevious() == null? "No more settings": null;
+    public String disable$$() {
+        return $$() == null? "No more settings": null;
     }
 
-    //endregion
 
 }

@@ -14,21 +14,24 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.settings.integtests;
+package org.isisaddons.module.settings.app.workaround;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Where;
 
 import org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo;
 import org.isisaddons.module.settings.dom.jdo.UserSettingJdo;
 
-@DomainService
+/**
+ * Because the concrete implementations are not discoverable otherwise.
+ */
+@DomainService(
+        nature = NatureOfService.VIEW // must be view, else is not loaded eagerly during init
+)
 public class RegisterImplementationsDummyService {
 
-    /**
-     * Because the concrete implementations are not discoverable otherwise.
-     */
     @Action(hidden = Where.EVERYWHERE)
     public void register(ApplicationSettingJdo asj, UserSettingJdo usj){}
 }

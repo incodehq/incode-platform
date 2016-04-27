@@ -71,7 +71,8 @@ To run the demo app:
 
 [source]
 ----
-mvn antrun:run -P self-host
+cd webapp
+mvn jetty:run
 ----
 
 Then log on using user: `sven`, password: `pass`
@@ -296,7 +297,8 @@ under the License.
 
 === Dependencies
 
-There are no third-party dependencies.
+The application uses icons from link:https://icons8.com/[icons8].
+
 
 == Maven deploy notes
 

@@ -22,9 +22,11 @@ import javax.jdo.annotations.PersistenceCapable;
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.message.MessageService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
@@ -213,16 +215,14 @@ public abstract class SettingAbstractJdo extends SettingAbstract implements Sett
     }
 
     @Action(
-            domainEvent = DeleteDomainEvent.class
+            domainEvent = DeleteDomainEvent.class,
+            semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE
     )
-    public SettingAbstractJdo delete(
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named = "Are you sure?")
-            final Boolean confirm) {
-        if(confirm == null || !confirm) {
-            messageService.informUser("Setting NOT deleted");
-            return this;
-        }
+    @ActionLayout(
+            cssClassFa = "trash",
+            cssClass = "btn-warning"
+    )
+    public SettingAbstractJdo delete() {
         repositoryService.remove(this);
         messageService.informUser("Setting deleted");
         return null;

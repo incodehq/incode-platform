@@ -36,7 +36,7 @@ public class SettingsModuleSystemInitializer {
         if(isft == null) {
             isft = new IsisSystemForTest.Builder()
                     .withLoggingAt(Level.INFO)
-                    .with(new SettingsIntegTestManifest())
+                    .with(new SettingsAppManifest())
                     .with(new IsisConfigurationForJdoIntegTests())
                     .build()
                     .setUpSystem();
