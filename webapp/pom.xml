@@ -258,6 +258,24 @@ language governing permissions and limitations under the License.
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>quartz</id>
+            <activation>
+                <property>
+                    <name>!skip.quartz</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.quartz-scheduler</groupId>
+                    <artifactId>quartz</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.quartz-scheduler</groupId>
+                    <artifactId>quartz-jobs</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 
 </project>

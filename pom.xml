@@ -391,6 +391,31 @@ language governing permissions and limitations under the License.
                 <directory>target-ide</directory>
             </build>
         </profile>
+        <profile>
+            <id>quartz</id>
+            <activation>
+                <property>
+                    <name>!skip.quartz</name>
+                </property>
+            </activation>
+            <properties>
+                <quartz-scheduler.version>2.2.1</quartz-scheduler.version>
+            </properties>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.quartz-scheduler</groupId>
+                        <artifactId>quartz</artifactId>
+                        <version>${quartz-scheduler.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.quartz-scheduler</groupId>
+                        <artifactId>quartz-jobs</artifactId>
+                        <version>${quartz-scheduler.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
     </profiles>
 
     <modules>

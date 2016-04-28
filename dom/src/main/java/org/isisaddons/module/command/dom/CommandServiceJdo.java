@@ -28,7 +28,7 @@ import org.apache.isis.applib.annotation.Command.Persistence;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.clock.Clock;
+import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.command.Command;
 import org.apache.isis.applib.services.command.Command.Executor;
 import org.apache.isis.applib.services.command.spi.CommandService;
@@ -40,7 +40,8 @@ import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
  *
  */
 @DomainService(
-        nature = NatureOfService.DOMAIN
+        nature = NatureOfService.DOMAIN,
+        menuOrder = "100" // take precedence over the default implementation
 )
 public class CommandServiceJdo implements CommandService {
 
@@ -63,22 +64,13 @@ public class CommandServiceJdo implements CommandService {
     }
     //endregion
 
-    //region > startTransaction (API)
+    //region > startTransaction (API, deprecated)
 
+    @Deprecated
     @Programmatic
     @Override
     public void startTransaction(final Command command, final UUID transactionId) {
-        if(command instanceof CommandJdo) {
-            // should be the case, since this service created the object in the #create() method
-            final CommandJdo commandJdo = (CommandJdo) command;
-            final UUID currentTransactionId = commandJdo.getTransactionId();
-            if(currentTransactionId != null && !currentTransactionId.equals(transactionId)) {
-                // the logic in IsisTransaction means that any subsequent transactions within a given command
-                // should reuse the xactnId of the first transaction created within that interaction.
-                throw new IllegalStateException("Attempting to set a different transactionId on command");
-            }
-            commandJdo.setTransactionId(transactionId);
-        }
+        // nothing to do.
     }
     //endregion
 
@@ -91,20 +83,16 @@ public class CommandServiceJdo implements CommandService {
         if(commandJdo == null) {
             return;
         }
-        if(commandJdo.getCompletedAt() != null) {
-            // already attempted to complete.
-            // chances are, we're here as the result of a redirect following a previous exception
-            // so just ignore.
-            return;
-        }
-            
+
         // can't store target if too long (eg view models)
         if (commandJdo.getTargetStr() != null && commandJdo.getTargetStr().length() > JdoColumnLength.BOOKMARK) {
             commandJdo.setTargetStr(null);
         }
-        commandJdo.setCompletedAt(Clock.getTimeAsJavaSqlTimestamp());
 
-        repositoryService.persist(commandJdo);
+        if(commandJdo.shouldPersist()) {
+            repositoryService.persist(commandJdo);
+        }
+
     }
 
     //endregion
@@ -148,5 +136,7 @@ public class CommandServiceJdo implements CommandService {
     RepositoryService repositoryService;
     @Inject
     FactoryService factoryService;
+    @Inject
+    ClockService clockService;
 
 }

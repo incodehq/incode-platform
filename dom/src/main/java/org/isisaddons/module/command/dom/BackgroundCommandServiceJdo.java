@@ -32,9 +32,9 @@ import org.apache.isis.applib.annotation.Command.ExecuteIn;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.clock.Clock;
 import org.apache.isis.applib.services.background.ActionInvocationMemento;
 import org.apache.isis.applib.services.background.BackgroundCommandService2;
+import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.command.Command;
 import org.apache.isis.applib.services.jaxb.JaxbService;
 import org.apache.isis.applib.services.repository.RepositoryService;
@@ -134,7 +134,7 @@ public class BackgroundCommandServiceJdo extends AbstractService implements Back
         backgroundCommand.setTransactionId(transactionId);
 
         backgroundCommand.setUser(user);
-        backgroundCommand.setTimestamp(Clock.getTimeAsJavaSqlTimestamp());
+        backgroundCommand.setTimestamp(clockService.nowAsJavaSqlTimestamp());
 
         backgroundCommand.setExecuteIn(ExecuteIn.BACKGROUND);
 
@@ -160,6 +160,8 @@ public class BackgroundCommandServiceJdo extends AbstractService implements Back
 
     @Inject
     JaxbService jaxbService;
+    @Inject
+    ClockService clockService;
 
 }
 

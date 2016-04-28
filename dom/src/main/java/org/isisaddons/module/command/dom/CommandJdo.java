@@ -297,7 +297,7 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             domainEvent = ParentDomainEvent.class
     )
     @PropertyLayout(
-            hidden = Where.PARENTED_TABLES
+            hidden = Where.ALL_TABLES
     )
     @Getter @Setter
     @MemberOrder(name="Identifiers",sequence = "40")
@@ -388,7 +388,7 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             domainEvent = TargetStrDomainEvent.class
     )
     @PropertyLayout(
-            hidden = Where.ALL_TABLES,
+            hidden = Where.REFERENCES_PARENT,
             named = "Object"
     )
     @Getter @Setter

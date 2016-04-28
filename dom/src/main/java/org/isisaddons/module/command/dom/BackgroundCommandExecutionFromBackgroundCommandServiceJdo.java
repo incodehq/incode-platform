@@ -35,6 +35,7 @@ public final class BackgroundCommandExecutionFromBackgroundCommandServiceJdo ext
     @Override
     protected List<? extends Command> findBackgroundCommandsToExecute() {
         final List<CommandJdo> commands = backgroundCommandRepository.findBackgroundCommandsNotYetStarted();
+        LOG.debug("Found " + commands.size() + " to execute");
         return commands; 
     }
     

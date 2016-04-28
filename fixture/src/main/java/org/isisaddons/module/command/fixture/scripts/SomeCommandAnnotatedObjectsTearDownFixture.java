@@ -23,7 +23,7 @@ public class SomeCommandAnnotatedObjectsTearDownFixture extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"SomeCommandAnnotatedObject\"");
+        isisJdoSupport.executeUpdate("delete from \"commanddemo\".\"SomeCommandAnnotatedObject\"");
     }
 
 

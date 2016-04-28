@@ -18,24 +18,39 @@ package org.isisaddons.module.command.fixture.dom;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
-import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.*;
+
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.CommandExecuteIn;
+import org.apache.isis.applib.annotation.CommandPersistence;
+import org.apache.isis.applib.annotation.CommandReification;
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
+import org.apache.isis.applib.annotation.InvokeOn;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.services.background.BackgroundService;
 import org.apache.isis.applib.util.ObjectContracts;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
+@javax.jdo.annotations.PersistenceCapable(
+        identityType=IdentityType.DATASTORE,
+        schema = "commanddemo",
+        table = "SomeCommandAnnotatedObject"
+)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="id")
 @javax.jdo.annotations.Version(
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
-@DomainObject(
-        objectType = "COMMAND_ANNOTATED_OBJECT"
-)
+@DomainObject( )
+@javax.jdo.annotations.Unique(name="SomeCommandAnnotatedObject_name_UNQ", members = {"name"})
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
 )
@@ -43,9 +58,94 @@ public class SomeCommandAnnotatedObject implements Comparable<SomeCommandAnnotat
 
     @javax.jdo.annotations.Column(allowsNull="false")
     @Title(sequence="1")
-    @MemberOrder(sequence="1")
     @Getter @Setter
     private String name;
+
+    @javax.jdo.annotations.Column(allowsNull="true")
+    @Getter @Setter
+    private String description;
+
+    @javax.jdo.annotations.Column(allowsNull="true")
+    @Getter @Setter
+    private Boolean flag;
+
+    public enum Colour {
+        Red, Green, Blue
+    }
+
+
+    //region > changeColour (action)
+
+    @org.apache.isis.applib.annotation.Property()
+    @javax.jdo.annotations.Column(allowsNull = "true")
+    @lombok.Getter @lombok.Setter
+    private Colour colour;
+
+    @Action(
+            semantics = SemanticsOf.IDEMPOTENT,
+            command = CommandReification.ENABLED
+    )
+    @ActionLayout(
+            named = "Change"
+    )
+    @MemberOrder(name = "colour", sequence = "1")
+    public SomeCommandAnnotatedObject changeColour(final Colour newColour) {
+        setColour(newColour);
+        return this;
+    }
+
+    public Colour default0ChangeColour() {
+        return getColour();
+    }
+
+    //endregion
+
+    //region > changeNameExplicitlyInBackground (action)
+
+    @Action(
+            semantics = SemanticsOf.IDEMPOTENT,
+            command = CommandReification.ENABLED
+    )
+    @ActionLayout(
+            named = "Schedule",
+            position = ActionLayout.Position.RIGHT
+    )
+    @MemberOrder(name = "colour", sequence = "2")
+    public void changeColourExplicitlyInBackground(
+            @ParameterLayout(named = "New colour")
+            final Colour newColour) {
+        backgroundService.execute(this).changeColour(newColour);
+    }
+
+    public Colour default0ChangeColourExplicitlyInBackground() {
+        return getColour();
+    }
+
+    //endregion
+
+    //region > changeNameimplicitlyInBackground (action)
+
+    @Action(
+            semantics = SemanticsOf.IDEMPOTENT,
+            command = CommandReification.ENABLED
+    )
+    @ActionLayout(
+            named = "Schedule (implicitly)",
+            position = ActionLayout.Position.RIGHT
+    )
+    @MemberOrder(name = "colour", sequence = "3")
+    public void changeColourImplicitlyInBackground(
+            @ParameterLayout(named = "New colour")
+            final Colour newColour) {
+        backgroundService.execute(this).changeColour(newColour);
+    }
+
+    public Colour default0ChangeColourImplicitlyInBackground() {
+        return getColour();
+    }
+
+    //endregion
+
 
 
     //region > changeName (action)
@@ -155,6 +255,14 @@ public class SomeCommandAnnotatedObject implements Comparable<SomeCommandAnnotat
 
     //endregion
 
+    //region > toggle
+    @Action(invokeOn = InvokeOn.OBJECT_AND_COLLECTION)
+    public void toggle() {
+        boolean flag = getFlag() != null? getFlag(): false;
+        setFlag(!flag);
+    }
+    //endregion
+
     //region > compareTo
 
     @Override
@@ -166,8 +274,6 @@ public class SomeCommandAnnotatedObject implements Comparable<SomeCommandAnnotat
 
     //region > injected services
 
-    @javax.inject.Inject
-    private DomainObjectContainer container;
 
     @javax.inject.Inject
     private BackgroundService backgroundService;
