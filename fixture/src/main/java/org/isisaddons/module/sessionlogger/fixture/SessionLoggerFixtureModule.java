@@ -14,19 +14,10 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.sessionlogger;
+package org.isisaddons.module.sessionlogger.fixture;
 
-public final class SessionLoggerModule {
+public final class SessionLoggerFixtureModule {
 
-    private SessionLoggerModule(){}
-
-    public abstract static class ActionDomainEvent<S>
-            extends org.apache.isis.applib.services.eventbus.ActionDomainEvent<S> { }
-
-    public abstract static class CollectionDomainEvent<S,T>
-            extends org.apache.isis.applib.services.eventbus.CollectionDomainEvent<S,T> { }
-
-    public abstract static class PropertyDomainEvent<S,T>
-            extends org.apache.isis.applib.services.eventbus.PropertyDomainEvent<S,T> { }
+    private SessionLoggerFixtureModule(){}
 
 }

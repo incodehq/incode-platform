@@ -17,10 +17,10 @@
 package org.isisaddons.module.sessionlogger.dom;
 
 import java.util.List;
-import org.isisaddons.module.sessionlogger.SessionLoggerModule;
+
 import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.AbstractService;
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
@@ -32,6 +32,8 @@ import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
+
+import org.isisaddons.module.sessionlogger.SessionLoggerModule;
 
 /**
  * This service exposes a &lt;Sessions&gt; menu to the secondary menu bar for searching for sessions.
@@ -50,18 +52,12 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 )
 public class SessionLoggingServiceMenu extends AbstractService {
 
-    public static abstract class ActionDomainEvent extends SessionLoggerModule.ActionDomainEvent<SessionLoggingServiceMenu> {
-        public ActionDomainEvent(final SessionLoggingServiceMenu source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-    }
+    public static abstract class ActionDomainEvent
+            extends SessionLoggerModule.ActionDomainEvent<SessionLoggingServiceMenu> { }
 
-    // //////////////////////////////////////
+    //region > activeSessions
 
     public static class ListAllActiveDomainEvent extends ActionDomainEvent {
-        public ListAllActiveDomainEvent(final SessionLoggingServiceMenu source, final Identifier identifier, final Object... args) {
-            super(source, identifier, args);
-        }
     }
 
     @Action(
@@ -77,12 +73,12 @@ public class SessionLoggingServiceMenu extends AbstractService {
         return sessionLogEntryRepository.listAllActiveSessions();
     }
 
-    // //////////////////////////////////////
+    //endregion
+
+    //region > findSessions
+
 
     public static class FindSessionsDomainEvent extends ActionDomainEvent {
-        public FindSessionsDomainEvent(final SessionLoggingServiceMenu source, final Identifier identifier, final Object... args) {
-            super(source, identifier, args);
-        }
     }
 
     @Action(
@@ -117,9 +113,13 @@ public class SessionLoggingServiceMenu extends AbstractService {
         }
     }
 
-    // //////////////////////////////////////
+    //endregion
+
+    //region > injected services
 
     @javax.inject.Inject
     private SessionLogEntryRepository sessionLogEntryRepository;
+
+    //endregion
 
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-  Copyright 2013~2014 Dan Haywood
+  Copyright 2015~2016 Dan Haywood
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -50,8 +50,8 @@
         </developer>
         <developer>
             <id>danhaywood</id>
-            <name>Dan haywood</name>
-            <email>danhaywood@apache.org</email>
+            <name>Dan Haywood</name>
+            <email>dan@haywood-associates.co.uk</email>
         </developer>
     </developers>
 
@@ -59,10 +59,11 @@
         <compileSource>1.7</compileSource>
         <compileTarget>1.7</compileTarget>
 
-        <isis.version>1.13.0-SNAPSHOT</isis.version>
+        <isis.version>1.12.1</isis.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <lombok.version>1.16.8</lombok.version>
     </properties>
 
     <build>
@@ -102,10 +103,7 @@
                                 <banLatest>true</banLatest>
                                 <banRelease>true</banRelease>
                             </requirePluginVersions>
-                            <!--
-                            RELAXED!
                             <DependencyConvergence />
-                            -->
                         </rules>
                     </configuration>
                     <!-- goal:enforce supposedly binds to phase:validate, but explicit binding seems to be required -->
@@ -226,6 +224,11 @@
             <artifactId>isis-core-unittestsupport</artifactId>
             <version>${isis.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
         </dependency>
     </dependencies>
 
@@ -350,7 +353,7 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.8</version>
+                        <version>2.9.1</version>
                         <inherited>true</inherited>
                         <executions>
                             <execution>
@@ -361,6 +364,8 @@
                             </execution>
                         </executions>
                         <configuration>
+                            <!-- as per http://stackoverflow.com/a/16743137/56880 -->
+                            <additionalparam>-Xdoclint:none</additionalparam>
                             <debug>true</debug>
                             <minmemory>128m</minmemory>
                             <maxmemory>1024m</maxmemory>

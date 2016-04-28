@@ -40,6 +40,8 @@ import org.apache.isis.applib.query.QueryDefault;
 )
 public class SessionLogEntryRepository extends AbstractFactoryAndRepository {
 
+    //region > findByUser
+
     @Programmatic
     public List<SessionLogEntry> findByUser(final String user) {
         return allMatches(
@@ -47,6 +49,11 @@ public class SessionLogEntryRepository extends AbstractFactoryAndRepository {
                         "findByUser",
                         "user", user));
     }
+
+    //endregion
+
+    //region > findByUserAndFromAndTo
+
 
     @Programmatic
     public List<SessionLogEntry> findByUserAndFromAndTo(
@@ -85,6 +92,11 @@ public class SessionLogEntryRepository extends AbstractFactoryAndRepository {
         return allMatches(query);
     }
 
+    //endregion
+
+    //region > findByFromAndTo
+
+
     @Programmatic
     public List<SessionLogEntry> findByFromAndTo(
             final LocalDate from,
@@ -116,6 +128,10 @@ public class SessionLogEntryRepository extends AbstractFactoryAndRepository {
         }
         return allMatches(query);
     }
+    //endregion
+
+    //region > findByUserAndStrictlyBefore
+
 
     @Programmatic
     public List<SessionLogEntry> findByUserAndStrictlyBefore(
@@ -127,6 +143,10 @@ public class SessionLogEntryRepository extends AbstractFactoryAndRepository {
                 "user", user,
                 "from", from));
     }
+    //endregion
+
+    //region > findByUserAndStrictlyAfter
+
 
     @Programmatic
     public List<SessionLogEntry> findByUserAndStrictlyAfter(
@@ -138,6 +158,9 @@ public class SessionLogEntryRepository extends AbstractFactoryAndRepository {
                 "user", user,
                 "from", from));
     }
+    //endregion
+
+    //region > listAllActiveSessions
 
 
     @Programmatic
@@ -145,9 +168,10 @@ public class SessionLogEntryRepository extends AbstractFactoryAndRepository {
 
         return allMatches(new QueryDefault<>(SessionLogEntry.class,"listAllActiveSessions"));
     }
+    //endregion
 
+    //region > findRecentByUser
 
-    // //////////////////////////////////////
 
     @Programmatic
     public List<SessionLogEntry> findRecentByUser(final String user) {
@@ -155,14 +179,15 @@ public class SessionLogEntryRepository extends AbstractFactoryAndRepository {
                 new QueryDefault<>(SessionLogEntry.class, "findRecentByUser", "user", user));
 
     }
+    //endregion
 
+    //region > helpers
 
     private static Timestamp toTimestampStartOfDayWithOffset(final LocalDate dt, final int daysOffset) {
         return dt!=null
                 ?new Timestamp(dt.toDateTimeAtStartOfDay().plusDays(daysOffset).getMillis())
                 :null;
     }
-
-
+    //endregion
 
 }

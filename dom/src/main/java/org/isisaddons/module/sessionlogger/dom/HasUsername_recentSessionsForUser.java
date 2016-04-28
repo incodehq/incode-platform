@@ -18,61 +18,52 @@ package org.isisaddons.module.sessionlogger.dom;
 
 import java.util.Collections;
 import java.util.List;
-import org.isisaddons.module.sessionlogger.SessionLoggerModule;
+
 import org.apache.isis.applib.AbstractService;
-import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.Contributed;
-import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.RenderType;
+import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.HasUsername;
 
-/**
- * This service contributes a <tt>recentSessions</tt> collection to any implementation of
- * {@link org.apache.isis.applib.services.HasUsername}.
- */
-@DomainService(
-        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
-)
-public class HasUsernameContributions extends AbstractService {
+import org.isisaddons.module.sessionlogger.SessionLoggerModule;
 
-    public static abstract class ActionDomainEvent extends SessionLoggerModule.ActionDomainEvent<HasUsernameContributions> {
-        public ActionDomainEvent(final HasUsernameContributions source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
+@Mixin
+public class HasUsername_recentSessionsForUser extends AbstractService {
+
+
+    public static class ActionDomainEvent extends SessionLoggerModule.ActionDomainEvent<HasUsername_recentSessionsForUser> {
     }
 
-    // //////////////////////////////////////
 
-    public static class RecentSessionsForUserDomainEvent extends HasUsernameContributions.ActionDomainEvent {
-        public RecentSessionsForUserDomainEvent(final HasUsernameContributions source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
+    private final HasUsername hasUsername;
+    public HasUsername_recentSessionsForUser(final HasUsername hasUsername) {
+        this.hasUsername = hasUsername;
     }
+
+
 
     @Action(
             semantics = SemanticsOf.SAFE,
-            domainEvent = RecentSessionsForUserDomainEvent.class
+            domainEvent = ActionDomainEvent.class
     )
     @ActionLayout(
             contributed = Contributed.AS_ASSOCIATION
     )
     @CollectionLayout(
-            render = RenderType.EAGERLY
+            defaultView = "table"
     )
     @MemberOrder(sequence = "200.100")
-    public List<SessionLogEntry> recentSessionsForUser(final HasUsername hasUsername) {
+    public List<SessionLogEntry> $$() {
         if(hasUsername == null || hasUsername.getUsername() == null) {
             return Collections.emptyList();
         }
         return sessionLogEntryRepository.findRecentByUser(hasUsername.getUsername());
     }
-    public boolean hideRecentSessionsForUser(final HasUsername hasUsername) {
+    public boolean hide$$() {
         return hasUsername == null || hasUsername.getUsername() == null;
     }
 
