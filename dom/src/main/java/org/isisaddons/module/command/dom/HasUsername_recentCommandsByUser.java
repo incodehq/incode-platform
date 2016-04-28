@@ -40,8 +40,15 @@ public class HasUsername_recentCommandsByUser {
         this.hasUsername = hasUsername;
     }
 
-    public static class RecentCommandsByUserDomainEvent
+    public static class ActionDomainEvent
             extends CommandModule.ActionDomainEvent<HasUsername_recentCommandsByUser> { }
+
+    /**
+     * Use {@link ActionDomainEvent} instead.
+     */
+    @Deprecated
+    public static class RecentCommandsByUserDomainEvent
+            extends ActionDomainEvent { }
 
     @Action(
             semantics = SemanticsOf.SAFE,
