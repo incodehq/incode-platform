@@ -14,44 +14,44 @@ The following screenshots show an example app's usage of the module.
 
 === Login as administrator
 
-image::https://raw.github.com/isisaddons/isis-module-togglz/master/images/010-login-as-admin.png[width="800px",link="https://raw.github.com/isisaddons/isis-module-togglz/master/images/010-login-as-admin.png"]
+image::https://raw.github.com/isisaddons/isis-module-togglz/master/images/010-login-as-admin.png[width="600px",link="https://raw.github.com/isisaddons/isis-module-togglz/master/images/010-login-as-admin.png"]
 
 
 === Feature disabled
 
 In the demo app the "Togglz Demo Objects" service has three actions, all of which are protected behind features. Two of these (for "create" and "listAll") are enabled by default, but one (for "findByName") is disabled by default, meaning that the action is suppressed from the UI:
 
-image::https://raw.github.com/isisaddons/isis-module-togglz/master/images/020-findByName-feature-disabled.png[width="800px",link="https://raw.github.com/isisaddons/isis-module-togglz/master/images/020-findByName-feature-disabled.png"]
+image::https://raw.github.com/isisaddons/isis-module-togglz/master/images/020-findByName-feature-disabled.png[width="600px",link="https://raw.github.com/isisaddons/isis-module-togglz/master/images/020-findByName-feature-disabled.png"]
 
 === Togglz Console
 
 Users with the appropriate role (`isis-module-togglz-admin`) can access the Togglz console, which lists all features:
 
-image::https://raw.github.com/isisaddons/isis-module-togglz/master/images/030-togglz-console-list-all.png[width="800px",link="https://raw.github.com/isisaddons/isis-module-togglz/master/images/030-togglz-console-list-all.png"]
+image::https://raw.github.com/isisaddons/isis-module-togglz/master/images/030-togglz-console-list-all.png[width="600px",link="https://raw.github.com/isisaddons/isis-module-togglz/master/images/030-togglz-console-list-all.png"]
 
 Using the console, we can edit the feature:
 
-image::https://raw.github.com/isisaddons/isis-module-togglz/master/images/040-enable-feature.png[width="800px",link="https://raw.github.com/isisaddons/isis-module-togglz/master/images/040-enable-feature.png"]
+image::https://raw.github.com/isisaddons/isis-module-togglz/master/images/040-enable-feature.png[width="600px",link="https://raw.github.com/isisaddons/isis-module-togglz/master/images/040-enable-feature.png"]
 
 so it is now enabled:
 
-image::https://raw.github.com/isisaddons/isis-module-togglz/master/images/050-feature-enabled.png[width="800px",link="https://raw.github.com/isisaddons/isis-module-togglz/master/images/050-feature-enabled.png"]
+image::https://raw.github.com/isisaddons/isis-module-togglz/master/images/050-feature-enabled.png[width="600px",link="https://raw.github.com/isisaddons/isis-module-togglz/master/images/050-feature-enabled.png"]
 
 === Feature enabled
 
 Back in the demo app the feature ("findByName") is now visible:
 
-image::https://raw.github.com/isisaddons/isis-module-togglz/master/images/060-findByName-feature-enabled.png[width="800px",link="https://raw.github.com/isisaddons/isis-module-togglz/master/images/060-findByName-feature-enabled.png"]
+image::https://raw.github.com/isisaddons/isis-module-togglz/master/images/060-findByName-feature-enabled.png[width="600px",link="https://raw.github.com/isisaddons/isis-module-togglz/master/images/060-findByName-feature-enabled.png"]
 
 === Feature persistence
 
 The module uses Isis addons' http://github.com/isisaddons/isis-module-settings[settings module] for feature persistence. 
 
-image::https://raw.github.com/isisaddons/isis-module-togglz/master/images/070-list-app-settings.png[width="800px",link="https://raw.github.com/isisaddons/isis-module-togglz/master/images/070-list-app-settings.png"]
+image::https://raw.github.com/isisaddons/isis-module-togglz/master/images/070-list-app-settings.png[width="600px",link="https://raw.github.com/isisaddons/isis-module-togglz/master/images/070-list-app-settings.png"]
 
 Each feature's state is serialized to/from JSON:
 
-image::https://raw.github.com/isisaddons/isis-module-togglz/master/images/080-setting-created-for-feature.png[width="800px",link="https://raw.github.com/isisaddons/isis-module-togglz/master/images/080-setting-created-for-feature.png"]
+image::https://raw.github.com/isisaddons/isis-module-togglz/master/images/080-setting-created-for-feature.png[width="600px",link="https://raw.github.com/isisaddons/isis-module-togglz/master/images/080-setting-created-for-feature.png"]
 
 == How to run the Demo App
 
