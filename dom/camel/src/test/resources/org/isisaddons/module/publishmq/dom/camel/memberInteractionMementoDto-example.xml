@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mim:memberInteractionDto xmlns:mim="http://isis.apache.org/schema/mim" xmlns:cmd="http://isis.apache.org/schema/cmd" xmlns:common="http://isis.apache.org/schema/common" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <mim:transactionId>001e2a6b-5f24-4844-a107-8ed3eeca3223</mim:transactionId>
+    <mim:interaction xsi:type="mim:actionInvocationDto">
+        <mim:id>001e2a6b-5f24-4844-a107-8ed3eeca3223.0</mim:id>
+        <mim:sequence>0</mim:sequence>
+        <mim:target>
+            <common:objectType>PUBLISH_MQ_DEMO_OBJECT</common:objectType>
+            <common:objectIdentifier>0</common:objectIdentifier>
+        </mim:target>
+        <mim:memberIdentifier>org.isisaddons.module.publishmq.fixture.dom.DemoBankAccount#updateDescription()</mim:memberIdentifier>
+        <mim:user>sven</mim:user>
+        <mim:title>PUBLISH_MQ_DEMO_OBJECT:0^1:sven:: updateDescription(java.lang.String)</mim:title>
+        <mim:timings>
+            <common:start>2015-06-24T17:03:27.030+01:00</common:start>
+            <common:complete>2015-06-24T17:03:27.930+01:00</common:complete>
+        </mim:timings>
+        <mim:parameters>
+            <mim:parameter parameterName="Description" parameterType="string">
+                <cmd:argument>
+                    <common:string>Foo description</common:string>
+                </cmd:argument>
+            </mim:parameter>
+        </mim:parameters>
+        <mim:returned returnType="reference">
+            <mim:value>
+                <common:reference objectState="persistent">
+                    <common:objectType>PUBLISH_MQ_DEMO_OBJECT</common:objectType>
+                    <common:objectIdentifier>0</common:objectIdentifier>
+                </common:reference>
+            </mim:value>
+        </mim:returned>
+    </mim:interaction>
+</mim:memberInteractionDto>

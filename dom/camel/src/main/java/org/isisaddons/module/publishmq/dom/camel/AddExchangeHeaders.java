@@ -6,14 +6,13 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
 
-import org.apache.isis.schema.aim.v2.ActionInvocationDto;
-import org.apache.isis.schema.aim.v2.ActionInvocationMementoDto;
-import org.apache.isis.schema.cmd.v1.ActionDto;
 import org.apache.isis.schema.common.v1.PeriodDto;
+import org.apache.isis.schema.ixn.v1.InteractionDto;
+import org.apache.isis.schema.ixn.v1.InteractionExecutionDto;
 
 /**
  * A Camel {@link Processor} that can unmarshal a {@link Message} whose {@link Message#getBody() body}
- * contains a {@link ActionInvocationMementoDto}, and attaches a
+ * contains a {@link org.apache.isis.schema.ixn.v1.InteractionDto}, and attaches a
  * single 'aim' header which is a map of AIM's metadata, for downstream routing.
  *
  * <p>
@@ -33,13 +32,13 @@ import org.apache.isis.schema.common.v1.PeriodDto;
  * </pre>
  * 
  * <p>
- * Then, for a route where the message contains a {@link ActionInvocationMementoDto}, route using something like:
+ * Then, for a route where the message contains a {@link org.apache.isis.schema.ixn.v1.InteractionDto}, route using something like:
  * <pre>
  *   ...
  *   &lt;camel:process ref=&quot;addExchangeHeaders&quot;/&gt;
  *   &lt;camel:choice&gt;
  *       &lt;camel:when&gt;
- *           &lt;camel:simple&gt;${header.aim[actionIdentifier]} == 'dom.todo.ToDoItem#completed()'&lt;/camel:simple&gt;
+ *           &lt;camel:simple&gt;${header.interaction[memberIdentifier]} == 'dom.todo.ToDoItem#completed()'&lt;/camel:simple&gt;
  *           ...
  *      &lt;/camel:when&gt;
  *  &lt;/camel:choice&gt;
@@ -52,24 +51,23 @@ public class AddExchangeHeaders implements Processor {
         Message inMessage = exchange.getIn();
         Object body = inMessage.getBody();
 
-        if(!(body instanceof ActionInvocationMementoDto)) {
+        if(!(body instanceof InteractionDto)) {
             throw new IllegalArgumentException("Expected body to contain a PublishedEvent");
         } 
-        final ActionInvocationMementoDto aim = (ActionInvocationMementoDto)body;
-        final ActionInvocationDto invocation = aim.getInvocation();
-        final ActionDto action = invocation.getAction();
-        final PeriodDto timings = invocation.getTimings();
+        final InteractionDto interactionDto = (InteractionDto)body;
+        final InteractionExecutionDto executionDto = interactionDto.getExecution();
+        final PeriodDto timings = executionDto.getTimings();
 
-        final ImmutableMap<String, Object> aimHeader = ImmutableMap.<String,Object>builder()
-                .put("messageId", aim.getTransactionId() + ":" + invocation.getSequence())
-                .put("transactionId", aim.getTransactionId())
-                .put("sequence", invocation.getSequence())
-                .put("user", invocation.getUser())
-                .put("actionIdentifier", action.getActionIdentifier())
+        final ImmutableMap<String, Object> interactionHeader = ImmutableMap.<String,Object>builder()
+                .put("messageId", interactionDto.getTransactionId() + ":" + executionDto.getSequence())
+                .put("transactionId", interactionDto.getTransactionId())
+                .put("sequence", executionDto.getSequence())
+                .put("user", executionDto.getUser())
+                .put("memberIdentifier", executionDto.getMemberIdentifier())
                 .put("timestamp", timings.getStart())
                 .build();
 
-        inMessage.setHeader("aim", aimHeader);
+        inMessage.setHeader("interaction", interactionHeader);
     }
 
 

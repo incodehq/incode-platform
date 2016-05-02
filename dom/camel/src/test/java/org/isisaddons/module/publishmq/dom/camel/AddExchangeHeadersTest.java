@@ -15,8 +15,8 @@ import org.junit.runner.RunWith;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 
-import org.apache.isis.schema.aim.v2.ActionInvocationMementoDto;
-import org.apache.isis.schema.utils.ActionInvocationMementoDtoUtils;
+import org.apache.isis.schema.ixn.v1.InteractionDto;
+import org.apache.isis.schema.utils.InteractionDtoUtils;
 
 @RunWith(CamelSpringJUnit4ClassRunner.class)
 @ContextConfiguration
@@ -36,20 +36,21 @@ public class AddExchangeHeadersTest  extends TestSupport {
     @Test
     public void happyCase() throws Exception {
 
-        final ActionInvocationMementoDto aim = ActionInvocationMementoDtoUtils.fromXml(getClass(), "actionInvocationMementoDto-example.xml", Charsets.UTF_8);
+        final InteractionDto interactionDto = InteractionDtoUtils
+                .fromXml(getClass(), "memberInteractionMementoDto-example.xml", Charsets.UTF_8);
         final ImmutableMap<String, Object> aimHeader = ImmutableMap.<String,Object>builder()
-                .put("messageId", aim.getInvocation().getId())
-                .put("transactionId", aim.getTransactionId())
-                .put("sequence", aim.getInvocation().getSequence())
-                .put("actionIdentifier", aim.getInvocation().getAction().getActionIdentifier())
-                .put("timestamp", aim.getInvocation().getTimings().getStart())
-                .put("user", aim.getInvocation().getUser())
+                .put("messageId", interactionDto.getExecution().getId())
+                .put("transactionId", interactionDto.getTransactionId())
+                .put("sequence", interactionDto.getExecution().getSequence())
+                .put("actionIdentifier", interactionDto.getExecution().getMemberIdentifier())
+                .put("timestamp", interactionDto.getExecution().getTimings().getStart())
+                .put("user", interactionDto.getExecution().getUser())
                 .build();
 
-        resultEndpoint.expectedHeaderReceived("aim", aimHeader);
-        resultEndpoint.expectedBodiesReceived(aim);
+        resultEndpoint.expectedHeaderReceived("interaction", aimHeader);
+        resultEndpoint.expectedBodiesReceived(interactionDto);
 
-        template.sendBody(aim);
+        template.sendBody(interactionDto);
 
         resultEndpoint.assertIsSatisfied();
     }

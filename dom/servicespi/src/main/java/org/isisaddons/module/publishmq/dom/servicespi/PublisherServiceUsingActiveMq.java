@@ -22,8 +22,8 @@ import org.apache.isis.applib.ApplicationException;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.publish.PublisherService;
-import org.apache.isis.schema.aim.v2.ActionInvocationMementoDto;
-import org.apache.isis.schema.utils.ActionInvocationMementoDtoUtils;
+import org.apache.isis.schema.ixn.v1.InteractionDto;
+import org.apache.isis.schema.utils.InteractionDtoUtils;
 
 import org.isisaddons.module.publishmq.PublishMqModule;
 
@@ -82,28 +82,26 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
 
 
     @Override
-    public void publish(final ActionInvocationMementoDto aimDto) {
-        send(aimDto);
-    }
-
-    @Override
-    public void republish(final ActionInvocationMementoDto aimDto) {
-        send(aimDto);
-    }
-
-
-    private void send(final ActionInvocationMementoDto aimDto) {
+    public void publish(final InteractionDto interactionDto) {
         Session session = null;
         try {
 
-            final String aimXml = ActionInvocationMementoDtoUtils.toXml(aimDto);
+            final String aimXml = InteractionDtoUtils.toXml(interactionDto);
             session = jmsConnection.createSession(transacted, Session.SESSION_TRANSACTED);
             TextMessage message = session.createTextMessage(aimXml);
 
-            message.setJMSMessageID( aimDto.getInvocation().getId());
-            message.setJMSType(aimDto.getInvocation().getAction().getActionIdentifier());
+            final String executionId = interactionDto.getExecution().getId();
+            final String memberIdentifier = interactionDto.getExecution().getMemberIdentifier();
 
-            LOG.info("Sending JMS message, id:" + aimDto.getInvocation().getId() + "; type:" + message.getJMSType());
+            message.setJMSMessageID(executionId);
+            message.setJMSType(memberIdentifier);
+
+            if(LOG.isInfoEnabled()) {
+                LOG.info(String.format(
+                        "Sending JMS message, id:%s; type:%s",
+                        message.getJMSMessageID(), message.getJMSType()));
+            }
+
             final Queue queue = session.createQueue(actionInvocationsQueueName);
             MessageProducer producer = session.createProducer(queue);
             producer.setDeliveryMode(DeliveryMode.PERSISTENT);
@@ -120,7 +118,6 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
             }
         }
     }
-
 
     private static void rollback(final Session session) {
         try {

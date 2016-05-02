@@ -14,7 +14,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
 
-import org.apache.isis.schema.aim.v2.ActionInvocationMementoDto;
+import org.apache.isis.schema.ixn.v1.InteractionDto;
 
 import org.isisaddons.module.publishmq.canonical.demoobject.DemoObjectDto;
 
@@ -57,9 +57,9 @@ public class AttachDemoObjectDto implements Processor {
     public void process(Exchange exchange) throws Exception {
 
         Message inMessage = exchange.getIn();
-        final ActionInvocationMementoDto aim = (ActionInvocationMementoDto) inMessage.getBody();
-        final String objectType = aim.getInvocation().getTarget().getObjectType();
-        final String objectIdentifier = aim.getInvocation().getTarget().getObjectIdentifier();
+        final InteractionDto interactionDto = (InteractionDto) inMessage.getBody();
+        final String objectType = interactionDto.getExecution().getTarget().getObjectType();
+        final String objectIdentifier = interactionDto.getExecution().getTarget().getObjectIdentifier();
 
         if(!"PUBLISH_MQ_DEMO_OBJECT".equals(objectType)) {
             throw new IllegalArgumentException("Expected target's object type to be 'PUBLISH_MQ_DEMO_OBJECT', instead was '" + objectType + "'");
