@@ -114,9 +114,7 @@ public class BackgroundCommandServiceJdo extends AbstractService implements Back
 
         final CommandJdo backgroundCommand = repositoryService.instantiate(CommandJdo.class);
 
-        if(repositoryService.isPersistent(parentCommand)) {
-            backgroundCommand.setParent(parentCommand);
-        }
+        backgroundCommand.setParent(parentCommand);
 
         final UUID transactionId = UUID.randomUUID();
         final String user = parentCommand.getUser();
