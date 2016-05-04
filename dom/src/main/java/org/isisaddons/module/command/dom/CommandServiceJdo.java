@@ -28,10 +28,7 @@ import org.apache.isis.applib.annotation.Command.Persistence;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
-<<<<<<< HEAD
 import org.apache.isis.applib.services.clock.ClockService;
-=======
->>>>>>> changes for ISIS-1291
 import org.apache.isis.applib.services.command.Command;
 import org.apache.isis.applib.services.command.Command.Executor;
 import org.apache.isis.applib.services.command.spi.CommandService;
@@ -44,11 +41,7 @@ import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
  */
 @DomainService(
         nature = NatureOfService.DOMAIN,
-<<<<<<< HEAD
-        menuOrder = "100" // take precedence over the default implementation
-=======
         menuOrder = "100" // as of 1.13.0, the framework provides a default implementation; we override using this attribute
->>>>>>> changes for ISIS-1291
 )
 public class CommandServiceJdo implements CommandService {
 
@@ -91,14 +84,10 @@ public class CommandServiceJdo implements CommandService {
             return;
         }
 
-<<<<<<< HEAD
-=======
         //
         // prior to 1.13.0 there was a guard here to not persist the command if the completedAt had been set.
         // as of 1.13.0, this field is populated by the framework, so the guard no longer makes sense.
         //
-
->>>>>>> changes for ISIS-1291
         // can't store target if too long (eg view models)
         if (commandJdo.getTargetStr() != null && commandJdo.getTargetStr().length() > JdoColumnLength.BOOKMARK) {
             commandJdo.setTargetStr(null);
