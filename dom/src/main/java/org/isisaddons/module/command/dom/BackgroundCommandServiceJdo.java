@@ -16,14 +16,10 @@
  */
 package org.isisaddons.module.command.dom;
 
-import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
-import javax.ws.rs.HEAD;
 
-import com.google.common.base.Joiner;
-import com.google.common.collect.Iterables;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,14 +30,14 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.background.ActionInvocationMemento;
 import org.apache.isis.applib.services.background.BackgroundCommandService2;
+import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.command.Command;
 import org.apache.isis.applib.services.jaxb.JaxbService;
 import org.apache.isis.applib.services.repository.RepositoryService;
-import org.apache.isis.schema.cmd.v1.CommandMementoDto;
+import org.apache.isis.schema.cmd.v1.CommandDto;
 import org.apache.isis.schema.common.v1.OidDto;
-import org.apache.isis.schema.utils.CommonDtoUtils;
-
+import org.apache.isis.schema.utils.CommandDtoUtils;
 
 /**
  * Persists a {@link ActionInvocationMemento memento-ized} action such that it can be executed asynchronously,
@@ -79,57 +75,51 @@ public class BackgroundCommandServiceJdo extends AbstractService implements Back
             final String targetClassName, 
             final String targetActionName, 
             final String targetArgs) {
-        
-        final String commandMemento = aim.asMementoString();
-        final String targetStr = aim.getTarget().toString();
-        final String actionId = aim.getActionId();
 
-        persist(parentCommand, targetClassName, targetActionName, targetArgs, commandMemento, targetStr, actionId);
+        final CommandJdo backgroundCommand =
+                newBackgroundCommand(parentCommand, targetClassName, targetActionName, targetArgs);
+
+        backgroundCommand.setTargetStr(aim.getTarget().toString());
+        backgroundCommand.setMemento(aim.asMementoString());
+        backgroundCommand.setMemberIdentifier(aim.getActionId());
+
+        repositoryService.persist(backgroundCommand);
     }
 
-    //endregion
-
-    //region > schedule (API - deprecated)
-
-    @Programmatic
     @Override
     public void schedule(
-            final CommandMementoDto dto,
+            final CommandDto dto,
             final Command parentCommand,
             final String targetClassName,
             final String targetActionName,
             final String targetArgs) {
 
-        final String commandMemento = jaxbService.toXml(dto);
+        final CommandJdo backgroundCommand =
+                newBackgroundCommand(parentCommand, targetClassName, targetActionName, targetArgs);
 
-        final List<OidDto> targetOidDtos = dto.getTargets();
-        final String targetStr = Joiner.on("; ").join(Iterables.transform(targetOidDtos, CommonDtoUtils.OID_DTO_2_STR));
+        final OidDto firstTarget = dto.getTargets().getOid().get(0);
+        backgroundCommand.setTargetStr(Bookmark.from(firstTarget).toString());
+        backgroundCommand.setMemento(CommandDtoUtils.toXml(dto));
+        backgroundCommand.setMemberIdentifier(dto.getMember().getMemberIdentifier());
 
-        final String actionId = dto.getAction().getActionIdentifier();
-        persist(parentCommand, targetClassName, targetActionName, targetArgs, commandMemento, targetStr, actionId);
+        repositoryService.persist(backgroundCommand);
+
     }
 
-    //endregion
-
-    //region > helpers
-
-    private void persist(
+    private CommandJdo newBackgroundCommand(
             final Command parentCommand,
             final String targetClassName,
             final String targetActionName,
-            final String targetArgs,
-            final String commandMemento,
-            final String targetStr,
-            final String actionId) {
-
-        final UUID transactionId = UUID.randomUUID();
-        final String user = parentCommand.getUser();
+            final String targetArgs) {
 
         final CommandJdo backgroundCommand = repositoryService.instantiate(CommandJdo.class);
 
         if(repositoryService.isPersistent(parentCommand)) {
             backgroundCommand.setParent(parentCommand);
         }
+
+        final UUID transactionId = UUID.randomUUID();
+        final String user = parentCommand.getUser();
 
         backgroundCommand.setTransactionId(transactionId);
 
@@ -140,17 +130,14 @@ public class BackgroundCommandServiceJdo extends AbstractService implements Back
 
         backgroundCommand.setTargetClass(targetClassName);
         backgroundCommand.setTargetAction(targetActionName);
-        backgroundCommand.setTargetStr(targetStr);
-        backgroundCommand.setMemberIdentifier(actionId);
 
         backgroundCommand.setArguments(targetArgs);
 
-        backgroundCommand.setMemento(commandMemento);
-
         backgroundCommand.setPersistHint(true);
 
-        repositoryService.persist(backgroundCommand);
+        return backgroundCommand;
     }
+
 
     @Inject
     RepositoryService repositoryService;
