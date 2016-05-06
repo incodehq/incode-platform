@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-Copyright 2015 Dan Haywood
+  Copyright 2015~2016 Dan Haywood
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -14,7 +14,8 @@ Copyright 2015 Dan Haywood
   either express or implied. See the License for the specific
   language governing permissions and limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.isisaddons.module.publishmq</groupId>
@@ -53,6 +54,8 @@ Copyright 2015 Dan Haywood
         <spring.version>4.1.6.RELEASE</spring.version>
         <camel.version>2.15.2</camel.version>
         <activemq.version>5.11.1</activemq.version>
+        
+        <lombok.version>1.16.8</lombok.version>
     </properties>
 
     <dependencyManagement>

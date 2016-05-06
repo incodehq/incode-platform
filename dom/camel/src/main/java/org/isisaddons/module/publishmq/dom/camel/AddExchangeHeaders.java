@@ -8,7 +8,7 @@ import org.apache.camel.Processor;
 
 import org.apache.isis.schema.common.v1.PeriodDto;
 import org.apache.isis.schema.ixn.v1.InteractionDto;
-import org.apache.isis.schema.ixn.v1.InteractionExecutionDto;
+import org.apache.isis.schema.ixn.v1.MemberExecutionDto;
 
 /**
  * A Camel {@link Processor} that can unmarshal a {@link Message} whose {@link Message#getBody() body}
@@ -55,7 +55,7 @@ public class AddExchangeHeaders implements Processor {
             throw new IllegalArgumentException("Expected body to contain a PublishedEvent");
         } 
         final InteractionDto interactionDto = (InteractionDto)body;
-        final InteractionExecutionDto executionDto = interactionDto.getExecution();
+        final MemberExecutionDto executionDto = interactionDto.getExecution();
         final PeriodDto timings = executionDto.getTimings();
 
         final ImmutableMap<String, Object> interactionHeader = ImmutableMap.<String,Object>builder()
@@ -64,7 +64,7 @@ public class AddExchangeHeaders implements Processor {
                 .put("sequence", executionDto.getSequence())
                 .put("user", executionDto.getUser())
                 .put("memberIdentifier", executionDto.getMemberIdentifier())
-                .put("timestamp", timings.getStart())
+                .put("timestamp", timings.getStartedAt())
                 .build();
 
         inMessage.setHeader("interaction", interactionHeader);
