@@ -27,6 +27,7 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.HasUsername;
+import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 
 import org.isisaddons.module.command.CommandModule;
 
@@ -35,24 +36,17 @@ import org.isisaddons.module.command.CommandModule;
 public class HasUsername_recentCommandsByUser {
 
 
+    public static class ActionDomainEvent
+            extends CommandModule.ActionDomainEvent<HasUsername_recentCommandsByUser> { }
+
     private final HasUsername hasUsername;
     public HasUsername_recentCommandsByUser(final HasUsername hasUsername) {
         this.hasUsername = hasUsername;
     }
 
-    public static class ActionDomainEvent
-            extends CommandModule.ActionDomainEvent<HasUsername_recentCommandsByUser> { }
-
-    /**
-     * Use {@link ActionDomainEvent} instead.
-     */
-    @Deprecated
-    public static class RecentCommandsByUserDomainEvent
-            extends ActionDomainEvent { }
-
     @Action(
             semantics = SemanticsOf.SAFE,
-            domainEvent = RecentCommandsByUserDomainEvent.class
+            domainEvent = ActionDomainEvent.class
     )
     @ActionLayout(
             contributed = Contributed.AS_ASSOCIATION
