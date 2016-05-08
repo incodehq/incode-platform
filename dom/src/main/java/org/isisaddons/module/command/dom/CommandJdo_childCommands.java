@@ -33,7 +33,7 @@ import org.isisaddons.module.command.CommandModule;
 public class CommandJdo_childCommands {
 
 
-    public static class ChildCommandsDomainEvent
+    public static class ActionDomainEvent
             extends CommandModule.ActionDomainEvent<CommandJdo_childCommands> { }
 
 
@@ -44,7 +44,7 @@ public class CommandJdo_childCommands {
 
 
     @Action(
-            domainEvent = ChildCommandsDomainEvent.class,
+            domainEvent = ActionDomainEvent.class,
             semantics = SemanticsOf.SAFE
     )
     @ActionLayout(

@@ -39,7 +39,7 @@ import org.isisaddons.module.command.CommandModule;
 public class HasTransactionId_command {
 
 
-    public static class CommandDomainEvent
+    public static class ActionDomainEvent
             extends CommandModule.ActionDomainEvent<HasTransactionId_command> { }
 
 
@@ -51,7 +51,7 @@ public class HasTransactionId_command {
 
     @Action(
             semantics = SemanticsOf.SAFE,
-            domainEvent = CommandDomainEvent.class
+            domainEvent = ActionDomainEvent.class
     )
     @ActionLayout(
             contributed = Contributed.AS_ACTION

@@ -35,13 +35,13 @@ import org.isisaddons.module.command.CommandModule;
 public class HasUsername_recentCommandsByUser {
 
 
+    public static class ActionDomainEvent
+            extends CommandModule.ActionDomainEvent<HasUsername_recentCommandsByUser> { }
+
     private final HasUsername hasUsername;
     public HasUsername_recentCommandsByUser(final HasUsername hasUsername) {
         this.hasUsername = hasUsername;
     }
-
-    public static class ActionDomainEvent
-            extends CommandModule.ActionDomainEvent<HasUsername_recentCommandsByUser> { }
 
     /**
      * Use {@link ActionDomainEvent} instead.

@@ -34,7 +34,7 @@ import org.isisaddons.module.command.CommandModule;
 public class CommandJdo_siblingCommands {
 
 
-    public static class SiblingCommandsDomainEvent
+    public static class ActionDomainEvent
             extends CommandModule.ActionDomainEvent<CommandJdo_siblingCommands> { }
 
 
@@ -45,7 +45,7 @@ public class CommandJdo_siblingCommands {
 
 
     @Action(
-            domainEvent = SiblingCommandsDomainEvent.class,
+            domainEvent = ActionDomainEvent.class,
             semantics = SemanticsOf.SAFE
     )
     @ActionLayout(
@@ -64,10 +64,6 @@ public class CommandJdo_siblingCommands {
         final List<CommandJdo> siblingCommands = backgroundCommandRepository.findByParent(parentJdo);
         siblingCommands.remove(commandJdo);
         return siblingCommands;
-    }
-    public boolean hide$$() {
-        final Command parent = commandJdo.getParent();
-        return false; // parent == null || !(parent instanceof CommandJdo);
     }
 
 
