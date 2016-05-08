@@ -28,7 +28,7 @@
     <name>Isis Addons Audit JDO Enhance All</name>
 
     <description>
-        Utility to enhance all JDO projects with a single audit:
+        Utility to enhance all JDO projects with a single command:
 
         mvn -f pom-jdo-enhance-all.xml datanucleus:enhance -o
     </description>
