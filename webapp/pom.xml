@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-  Copyright 2013~2014 Dan Haywood
+  Copyright 2013~2016 Dan Haywood
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -59,7 +59,7 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>isis-module-audit-app</artifactId>
         </dependency>
-        
+
         <!-- isis -->
         <dependency>
             <groupId>org.apache.isis.viewer</groupId>

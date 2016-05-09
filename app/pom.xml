@@ -56,17 +56,18 @@
         </dependency>
 
         <dependency>
+            <groupId>org.isisaddons.module.audit</groupId>
+            <artifactId>isis-module-audit-dom</artifactId>
+        </dependency>
+
+
+        <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-wrapper</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-runtime</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.isisaddons.module.audit</groupId>
-            <artifactId>isis-module-audit-dom</artifactId>
         </dependency>
 
     </dependencies>

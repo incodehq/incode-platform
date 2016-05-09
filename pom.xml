@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-  Copyright 2013~2014 Dan Haywood
+  Copyright 2013~2016 Dan Haywood
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -91,7 +91,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.1</version>
+                    <version>3.2</version>
                     <configuration>
                         <source>1.7</source>
                         <target>1.7</target>
@@ -214,6 +214,7 @@
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
                 <version>${assertj-core.version}</version>
+                <scope>test</scope>
             </dependency>
 
             <!-- this project's own modules -->
@@ -240,6 +241,13 @@
         </dependencies>
     </dependencyManagement>
 
+    <modules>
+        <module>app</module>
+        <module>dom</module>
+        <module>fixture</module>
+        <module>integtests</module>
+        <module>webapp</module>
+    </modules>
 
     <profiles>
         <profile>
@@ -272,13 +280,5 @@
             </build>
         </profile>
     </profiles>
-
-    <modules>
-        <module>app</module>
-        <module>dom</module>
-        <module>fixture</module>
-        <module>integtests</module>
-        <module>webapp</module>
-    </modules>
 
 </project>
