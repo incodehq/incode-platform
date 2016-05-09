@@ -14,10 +14,10 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.audit.app;
+package org.isisaddons.module.publishmq.app;
 
-public final class AuditAppModule {
+public final class PublishMqAppModule {
 
-    private AuditAppModule(){}
+    private PublishMqAppModule(){}
 
 }

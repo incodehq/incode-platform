@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.apache.isis.applib.ApplicationException;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.services.iactn.Interaction;
 import org.apache.isis.applib.services.publish.PublisherService;
 import org.apache.isis.schema.ixn.v1.InteractionDto;
 import org.apache.isis.schema.utils.InteractionDtoUtils;
@@ -82,13 +83,17 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
 
 
     @Override
-    public void publish(final InteractionDto interactionDto) {
+    public void publish(final Interaction.Execution<?, ?> execution) {
+
+        final InteractionDto interactionDto =
+                InteractionDtoUtils.newInteractionDto(execution);
+        final String xml = InteractionDtoUtils.toXml(interactionDto);
+
         Session session = null;
         try {
 
-            final String aimXml = InteractionDtoUtils.toXml(interactionDto);
             session = jmsConnection.createSession(transacted, Session.SESSION_TRANSACTED);
-            TextMessage message = session.createTextMessage(aimXml);
+            TextMessage message = session.createTextMessage(xml);
 
             final String executionId = interactionDto.getExecution().getId();
             final String memberIdentifier = interactionDto.getExecution().getMemberIdentifier();

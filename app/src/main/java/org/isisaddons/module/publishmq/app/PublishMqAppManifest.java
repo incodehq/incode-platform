@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.audit.app;
+package org.isisaddons.module.publishmq.app;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,16 +23,16 @@ import java.util.Map;
 import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.isisaddons.module.audit.AuditModule;
-import org.isisaddons.module.audit.fixture.AuditFixtureModule;
+import org.isisaddons.module.publishmq.PublishMqModule;
+import org.isisaddons.module.publishmq.fixture.scripts.scenarios.PublishMqDemoObjectsFixture;
 
-public final class AuditAppManifest implements AppManifest {
+public final class PublishMqAppManifest implements AppManifest {
     @Override
     public List<Class<?>> getModules() {
         return Arrays.asList(
-                AuditModule.class,
-                AuditFixtureModule.class,
-                AuditAppModule.class
+                PublishMqModule.class,
+                PublishMqDemoObjectsFixture.class,
+                PublishMqAppModule.class
         );
     }
     @Override

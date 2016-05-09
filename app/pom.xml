@@ -64,10 +64,14 @@
         </dependency>
 
         <dependency>
-            <groupId>org.isisaddons.module.publishmq</groupId>
-            <artifactId>isis-module-publishmq-dom</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>isis-module-publishmq-dom-camel</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.isis.core</groupId>

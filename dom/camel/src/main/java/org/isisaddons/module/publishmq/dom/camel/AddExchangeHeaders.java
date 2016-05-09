@@ -9,6 +9,8 @@ import org.apache.camel.Processor;
 import org.apache.isis.schema.common.v1.PeriodDto;
 import org.apache.isis.schema.ixn.v1.InteractionDto;
 import org.apache.isis.schema.ixn.v1.MemberExecutionDto;
+import org.apache.isis.schema.ixn.v1.MetricsDto;
+import org.apache.isis.schema.utils.MemberExecutionDtoUtils;
 
 /**
  * A Camel {@link Processor} that can unmarshal a {@link Message} whose {@link Message#getBody() body}
@@ -56,15 +58,16 @@ public class AddExchangeHeaders implements Processor {
         } 
         final InteractionDto interactionDto = (InteractionDto)body;
         final MemberExecutionDto executionDto = interactionDto.getExecution();
-        final PeriodDto timings = executionDto.getTimings();
+        final MetricsDto metricsDto = MemberExecutionDtoUtils.metricsFor(executionDto);
+        final PeriodDto timings = MemberExecutionDtoUtils.timingsFor(metricsDto);
 
         final ImmutableMap<String, Object> interactionHeader = ImmutableMap.<String,Object>builder()
-                .put("messageId", interactionDto.getTransactionId() + ":" + executionDto.getSequence())
                 .put("transactionId", interactionDto.getTransactionId())
-                .put("sequence", executionDto.getSequence())
-                .put("user", executionDto.getUser())
-                .put("memberIdentifier", executionDto.getMemberIdentifier())
-                .put("timestamp", timings.getStartedAt())
+                .put("execution.id", executionDto.getId())
+                .put("execution.sequence", executionDto.getSequence())
+                .put("execution.user", executionDto.getUser())
+                .put("execution.memberIdentifier", executionDto.getMemberIdentifier())
+                .put("execution.metrics.timings.startedAt", timings.getStartedAt())
                 .build();
 
         inMessage.setHeader("interaction", interactionHeader);
