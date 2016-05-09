@@ -58,8 +58,8 @@ public class AttachDemoObjectDto implements Processor {
 
         Message inMessage = exchange.getIn();
         final InteractionDto interactionDto = (InteractionDto) inMessage.getBody();
-        final String objectType = interactionDto.getExecution().getTarget().getObjectType();
-        final String objectIdentifier = interactionDto.getExecution().getTarget().getObjectIdentifier();
+        final String objectType = interactionDto.getExecution().getTarget().getType();
+        final String objectIdentifier = interactionDto.getExecution().getTarget().getId();
 
         if(!"PUBLISH_MQ_DEMO_OBJECT".equals(objectType)) {
             throw new IllegalArgumentException("Expected target's object type to be 'PUBLISH_MQ_DEMO_OBJECT', instead was '" + objectType + "'");
