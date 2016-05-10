@@ -48,30 +48,6 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 public class PublishingServiceRepository {
 
 
-    //region > findQueued
-
-    @Programmatic
-    public List<PublishedEvent> findQueued() {
-        return repositoryService.allMatches(
-                new QueryDefault<>(PublishedEvent.class,
-                        "findByStateOrderByTimestamp", 
-                        "state", PublishedEvent.State.QUEUED));
-    }
-
-    //endregion
-
-    //region > findProcessed
-
-    @Programmatic
-    public List<PublishedEvent> findProcessed() {
-        return repositoryService.allMatches(
-                new QueryDefault<>(PublishedEvent.class,
-                        "findByStateOrderByTimestamp", 
-                        "state", PublishedEvent.State.PROCESSED));
-    }
-
-    //endregion
-
     //region > findByTransactionId
 
     @Programmatic
@@ -80,20 +56,6 @@ public class PublishingServiceRepository {
                 new QueryDefault<>(PublishedEvent.class,
                         "findByTransactionId", 
                         "transactionId", transactionId));
-    }
-
-    //endregion
-
-    //region > purgeProcessed
-
-    @Programmatic
-    public void purgeProcessed() {
-        // REVIEW: this is not particularly performant.
-        // much better would be to go direct to the JDO API.
-        List<PublishedEvent> processedEvents = findProcessed();
-        for (PublishedEvent publishedEvent : processedEvents) {
-            publishedEvent.delete();
-        }
     }
 
     //endregion

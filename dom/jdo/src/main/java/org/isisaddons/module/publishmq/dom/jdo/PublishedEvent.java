@@ -58,12 +58,6 @@ import lombok.Setter;
         objectIdClass=PublishedEventPK.class)
 @javax.jdo.annotations.Queries( {
     @javax.jdo.annotations.Query(
-            name="findByStateOrderByTimestamp", language="JDOQL",  
-            value="SELECT "
-                    + "FROM org.isisaddons.module.publishing.dom.PublishedEvent "
-                    + "WHERE state == :state "
-                    + "ORDER BY timestamp DESC, transactionId DESC, sequence DESC"),
-    @javax.jdo.annotations.Query(
             name="findByTransactionId", language="JDOQL",  
             value="SELECT "
                     + "FROM org.isisaddons.module.publishing.dom.PublishedEvent "
@@ -168,7 +162,6 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
         if(getEventType()==EventType.ACTION_INVOCATION) {
             buf.append(" ").append(getMemberIdentifier());
         }
-        buf.append(",").append(getState());
         return buf.toString();
     }
     //endregion
@@ -392,28 +385,6 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
 
     //endregion
 
-    //region > state (property)
-
-    public static class StateDomainEvent extends PropertyDomainEvent<State> {
-    }
-
-    public static enum State {
-        QUEUED, PROCESSED
-    }
-
-    @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.PublishedEvent.STATE)
-    @Property(
-            domainEvent = StateDomainEvent.class
-    )
-    @MemberOrder(name="State", sequence = "30")
-    @Getter @Setter
-    private State state;
-
-    private PublishedEvent setStateAndReturn(State state) {
-        setState(state);
-        return this;
-    }
-    //endregion
 
     //region > serializedFormZipped (property), serializedFormClob (property), serializedForm (derived property)
 
@@ -475,56 +446,6 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
     public String getMetadataRegionDummyProperty() {
         return null;
     }
-    //endregion
-
-    //region > processed (action)
-
-    public static class ProcessedDomainEvent extends ActionDomainEvent {
-    }
-
-    @Action(
-            domainEvent = ProcessedDomainEvent.class,
-            invokeOn = InvokeOn.OBJECT_AND_COLLECTION,
-            semantics = SemanticsOf.IDEMPOTENT
-    )
-    @MemberOrder( name="State", sequence="10")
-    public PublishedEvent processed() {
-        return setStateAndReturn(State.PROCESSED);
-    }
-
-    //endregion
-
-    //region > reQueue (action)
-
-    public static class ReQueueDomainEvent extends ActionDomainEvent {
-    }
-
-    @Action(
-            domainEvent = ReQueueDomainEvent.class,
-            invokeOn = InvokeOn.OBJECT_AND_COLLECTION,
-            semantics = SemanticsOf.IDEMPOTENT
-    )
-    @MemberOrder(name="State", sequence="11")
-    public PublishedEvent reQueue() {
-        return setStateAndReturn(State.QUEUED);
-    }
-
-    //endregion
-
-    //region > delete (action)
-
-    public static class DeleteDomainEvent extends ActionDomainEvent { }
-
-    @Action(
-            domainEvent = DeleteDomainEvent.class,
-            invokeOn = InvokeOn.OBJECT_AND_COLLECTION,
-            semantics = SemanticsOf.IDEMPOTENT
-    )
-    @MemberOrder(name="State", sequence="12")
-    public void delete() {
-        repositoryService.remove(this);
-    }
-
     //endregion
 
     //region > toString

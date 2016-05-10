@@ -31,7 +31,6 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
-import org.apache.isis.applib.annotation.RestrictTo;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.clock.ClockService;
 
@@ -49,23 +48,6 @@ public class PublishingServiceMenu extends AbstractService {
 
     public static abstract class ActionDomainEvent
             extends PublishMqModule.ActionDomainEvent<PublishingServiceMenu> {
-    }
-
-
-
-    public static class QueuedPublishedEventsDomainEvent extends ActionDomainEvent {
-    }
-
-    @Action(
-            domainEvent = QueuedPublishedEventsDomainEvent.class,
-            semantics = SemanticsOf.SAFE
-    )
-    @ActionLayout(
-            cssClassFa = "fa-list"
-    )
-    @MemberOrder(sequence="10")
-    public List<PublishedEvent> queuedPublishedEvents() {
-        return publishingServiceRepository.findQueued();
     }
 
 
@@ -115,46 +97,6 @@ public class PublishingServiceMenu extends AbstractService {
     public LocalDate default1FindPublishedEvents() {
         return clockService.now();
     }
-
-
-
-
-
-    public static class PurgeProcessedEventsDomainEvent extends ActionDomainEvent {
-    }
-
-    @Action(
-            domainEvent = PurgeProcessedEventsDomainEvent.class,
-            semantics = SemanticsOf.IDEMPOTENT
-    )
-    @ActionLayout(
-            cssClassFa = "fa-trash"
-    )
-    @MemberOrder(sequence="40")
-    public void purgeProcessedEvents() {
-        publishingServiceRepository.purgeProcessed();
-    }
-
-
-
-
-    public static class AllProcessedEventsDomainEvent extends ActionDomainEvent {
-    }
-
-    @Action(
-            domainEvent = AllProcessedEventsDomainEvent.class,
-            semantics = SemanticsOf.SAFE,
-            restrictTo = RestrictTo.PROTOTYPING
-    )
-    @ActionLayout(
-            cssClassFa = "fa-list"
-    )
-    @MemberOrder(sequence="50")
-    public List<PublishedEvent> allProcessedEvents() {
-        return publishingServiceRepository.findProcessed();
-    }
-
-
 
 
 
