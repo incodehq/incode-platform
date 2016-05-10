@@ -3,9 +3,10 @@
 
 image:https://travis-ci.org/isisaddons/isis-module-publishmq.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-publishmq]
 
-This module, intended for use with http://isis.apache.org[Apache Isis], provides an implementation of Apache Isis` link:http://isis.apache.org/guides/rg.html#_rg_services-spi_manpage-PublishingService[`PublishingService`] SPI that submits an XML representation of an link:https://github.com/apache/isis/blob/master/core/schema/src/main/resources/org/apache/isis/schema/aim/aim-1.0.xsd[`ActionInvocationMemento`]s to an link:http://activemq.apache.org[ActiveMQ] queue.
+This module, intended for use with http://isis.apache.org[Apache Isis], provides an implementation of Apache Isis` link:http://isis.apache.org/guides/rg.html#_rg_services-spi_manpage-PublishingService[`PublishingService`] SPI that submits an XML representation of an link:https://github.com/apache/isis/blob/master/core/schema/src/main/resources/org/apache/isis/schema/ixn/ixn.xsd[`MemberInteractionDto`]s to an link:http://activemq.apache.org[ActiveMQ] queue.
 
-The example app itself also demonstrates how this action invocation event can be routed using link:http://camel.apache.org[Apache Camel]:
+The example app itself also demonstrates how this member interaction event (action invocation or property edit) can
+be routed using link:http://camel.apache.org[Apache Camel]:
 
 * the payload is enriched using Apache Isis' own link:http://isis.apache.org/guides/ug.html#_ug_restfulobjects-viewer[Restful Objects] viewer (obtaining additional information).
 * the enriched message is used to post to a (fake) external SOAP, eg representing a General Ledger.
@@ -17,7 +18,7 @@ The diagram below shows the moving parts:
 image::webapp/src/main/webapp/images/overview.png[link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/webapp/src/main/webapp/images/overview.png"]
 
 
-One of the design objectives for the PublishMq module is to allow the ActiveMQ queue (and therefore any Camel routing) to be either embedded (as in the example app) or to be remote.  This is one of the reasons why the payload posted to the queue is the XML representation of a JAXB object (the `ActionInvocationMemento`).
+One of the design objectives for the PublishMq module is to allow the ActiveMQ queue (and therefore any Camel routing) to be either embedded (as in the example app) or to be remote.  This is one of the reasons why the payload posted to the queue is the XML representation of a JAXB object (the `InvocationDto`).
 
 To make the example app easier to run, the fake SOAP service representing the external system is actually deployed as a CXF servlet within the example app itself, mounted at `/soap/ExternalSystemAdapter/DemoObject`.   It exposes an API for the Camel routing to post to, and also exposes a query API that simply lists the messages received.  Of course, "in real life" this external system would be running somewhere else on the network (as the diagram shows).
 
@@ -26,7 +27,8 @@ To make the example app easier to run, the fake SOAP service representing the ex
 
 == Application walk-through
 
-The following screenshots show how the publishing service publishes the action invocation event that is then routed through to the (fake) external system using Camel:
+The following screenshots show how the publishing service publishes the member interaction events that are then routed
+through to the (fake) external system using Camel.
 
 === Installing the Fixture Data
 
@@ -98,7 +100,7 @@ The example app defines the following Camel route (link:fixture/routing/src/main
   </route>
 </camelContext>
 ----
-<1> subscribe to ActiveMQ for incoming action invocation events (in XML form).  This uses the internal `vm://` protocol for speed
+<1> subscribe to ActiveMQ for incoming member interaction events (in XML form).  This uses the internal `vm://` protocol for speed
 <2> unmarshal to a (JAXB annotated) `InteractionDto` object
 <3> using the `AddExchangeHeaders` component provided by this module to add the metadata from the `InteractionDto` to the Camel message.  This allows the message to be routed
 <4> use Camel to select which sub-route to following, using...
@@ -151,7 +153,7 @@ image::images/060-query-fake-server.png[width=800,height=469,link="https://raw.g
 
 [WARNING]
 ====
-The above screenshot is out-of-date, showing the format of the aim.xsd for 1.12.x, rather than ixn.xsd for 1.13.x
+The above screenshot is out-of-date, showing the format of the `aim.xsd` for 1.12.x, rather than `ixn.xsd` for 1.13.x
 ====
 
 
@@ -499,9 +501,12 @@ The example app contains a few other little tricks that may be useful if you are
 
 === Generate Canonical DTO referencing Apache Isis' DTOs
 
-As of 1.9.0 Apache Isis includes the link:http://isis.apache.org/schema/aim/aim.xsd[`aim.xsd`] (action invocation memento) and http://isis.apache.org/schema/common/common.xsd[`common.xsd`] (common data types) schemas.  The `PublishingServiceMq` uses the `aim.xsd` schema (or rather, its Java JAXB equivalent, `ActionInvocationMemento`, directly.  The `common.xsd` schema is referenced both by `aim.xsd` for its definition of bookmarks (oids) to objects.
+As of 1.13.0 Apache Isis includes the link:http://isis.apache.org/schema/ixn/ixn.xsd[`ixn.xsd`] (member interaction)
+schema (replacing and generalizing the `aim.xsd` provided from 1.9.0 through 1.12.x).  The `PublishingServiceMq` uses
+this `ixn.xsd` schema (or rather, its Java JAXB equivalent, `InteractionDto`), directly.
 
-The `common.xsd` is _also_ used by the example app in the construction of its own canonical `DemoObjectDto`, because it is `xs:import`'ed into the corresponding link:fixture/canonical/src/main/resources/org/isisaddons/module/publishmq/fixture/canonical/demoobject.xsd[`demoobject.xsd`] schema (from which `DemoObjectDto` is generated).   A link:fixture/canonical/src/main/resources/org/isisaddons/module/publishmq/fixture/canonical/demoobject-binding.xml[binding file] is used to ensure that classes for the imported `common.xsd` are not regenerated, and that the Java import statements refer to the correct package.   This is all configured in the corresponding link:fixture/canonical/pom.xml#L65[`pom.xml`] file.
+The similar `common.xsd` is _also_ used by the demo app in the construction of its own canonical `DemoObjectDto` (use of
+`OidDto` to represent a bookmark to a published domain object).
 
 
 === Centralized Spring configuration
