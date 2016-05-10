@@ -40,14 +40,14 @@ public class AddExchangeHeadersTest  extends TestSupport {
                 .fromXml(getClass(), "memberInteractionMementoDto-example.xml", Charsets.UTF_8);
         final ImmutableMap<String, Object> aimHeader = ImmutableMap.<String,Object>builder()
                 .put("transactionId", interactionDto.getTransactionId())
-                .put("execution.id", interactionDto.getExecution().getId())
-                .put("execution.sequence", interactionDto.getExecution().getSequence())
-                .put("execution.memberIdentifier", interactionDto.getExecution().getMemberIdentifier())
-                .put("execution.user", interactionDto.getExecution().getUser())
-                .put("execution.metrics.timings.startedAt", interactionDto.getExecution().getMetrics().getTimings().getStartedAt())
+                .put("execution$id", interactionDto.getExecution().getId())
+                .put("execution$sequence", interactionDto.getExecution().getSequence())
+                .put("execution$memberIdentifier", interactionDto.getExecution().getMemberIdentifier())
+                .put("execution$user", interactionDto.getExecution().getUser())
+                .put("execution$metrics$timings$startedAt", interactionDto.getExecution().getMetrics().getTimings().getStartedAt())
                 .build();
 
-        resultEndpoint.expectedHeaderReceived("interaction", aimHeader);
+        resultEndpoint.expectedHeaderReceived("ixn", aimHeader);
         resultEndpoint.expectedBodiesReceived(interactionDto);
 
         template.sendBody(interactionDto);

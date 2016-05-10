@@ -40,8 +40,8 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
     public static final String KEY_VM_TRANSPORT_URL = "isis.services." + PublisherServiceUsingActiveMq.class.getSimpleName() + ".vmTransportUri";
     public static final String KEY_VM_TRANSPORT_URL_DEFAULT = "vm://broker";
 
-    public static final String KEY_ACTION_INVOCATIONS_QUEUE = "isis.services." + PublisherServiceUsingActiveMq.class.getSimpleName() + ".actionInvocationsQueue";
-    public static final String KEY_ACTION_INVOCATIONS_QUEUE_DEFAULT = "actionInvocationsQueue";
+    public static final String KEY_MEMBER_INTERACTIONS_QUEUE = "isis.services." + PublisherServiceUsingActiveMq.class.getSimpleName() + ".memberInteractionsQueue";
+    public static final String KEY_MEMBER_INTERACTIONS_QUEUE_DEFAULT = "memberInteractionsQueue";
 
     private ConnectionFactory jmsConnectionFactory;
     private Connection jmsConnection;
@@ -49,14 +49,15 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
     private static boolean transacted = true;
 
     private String vmTransportUrl;
-    String actionInvocationsQueueName;
+    String memberInteractionsQueueName;
 
 
     @PostConstruct
     public void init(Map<String,String> properties) {
 
         vmTransportUrl = properties.getOrDefault(KEY_VM_TRANSPORT_URL, KEY_VM_TRANSPORT_URL_DEFAULT);
-        actionInvocationsQueueName = properties.getOrDefault(KEY_ACTION_INVOCATIONS_QUEUE, KEY_ACTION_INVOCATIONS_QUEUE_DEFAULT);
+        memberInteractionsQueueName = properties.getOrDefault(KEY_MEMBER_INTERACTIONS_QUEUE,
+                KEY_MEMBER_INTERACTIONS_QUEUE_DEFAULT);
 
         jmsConnectionFactory = new ActiveMQConnectionFactory(vmTransportUrl);
 
@@ -107,7 +108,7 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
                         message.getJMSMessageID(), message.getJMSType()));
             }
 
-            final Queue queue = session.createQueue(actionInvocationsQueueName);
+            final Queue queue = session.createQueue(memberInteractionsQueueName);
             MessageProducer producer = session.createProducer(queue);
             producer.setDeliveryMode(DeliveryMode.PERSISTENT);
             producer.send(message);

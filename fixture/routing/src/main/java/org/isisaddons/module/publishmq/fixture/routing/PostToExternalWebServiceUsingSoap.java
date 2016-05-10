@@ -52,8 +52,8 @@ public class PostToExternalWebServiceUsingSoap implements Processor {
 
         final Message message = exchange.getIn();
 
-        Map<String, Object> aimHeader = (Map<String, Object>) message.getHeader("aim");
-        final String messageId = (String) aimHeader.get("messageId");
+        Map<String, Object> aimHeader = (Map<String, Object>) message.getHeader("ixn");
+        final String messageId = (String) aimHeader.get("execution$id");
 
         final DemoObjectDto demoObjectDto =
                 (DemoObjectDto) message.getHeader(DemoObjectDto.class.getName());

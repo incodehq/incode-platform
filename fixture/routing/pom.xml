@@ -144,6 +144,12 @@ Copyright 2015 Dan Haywood
                 <dependency>
                     <groupId>org.apache.camel</groupId>
                     <artifactId>camel-ognl</artifactId>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>javassist</groupId>
+                            <artifactId>javassist</artifactId>
+                        </exclusion>
+                    </exclusions>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.camel</groupId>

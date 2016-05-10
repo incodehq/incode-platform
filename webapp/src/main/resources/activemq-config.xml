@@ -60,7 +60,7 @@
 
         <destinations>
             <!-- incoming events, as sent to by the PublishingEventUsingMqEmbedded service -->
-            <queue physicalName="actionInvocationsQueue"/>
+            <queue physicalName="memberInteractionsQueue"/>
         </destinations>
 
         <!--

@@ -74,15 +74,15 @@ The example app defines the following Camel route (link:fixture/routing/src/main
 ----
 <camelContext xmlns="http://camel.apache.org/schema/spring">
   <route id="updateFakeSoapServiceRoute">
-    <from uri="activemq-broker:queue:actionInvocationsQueue"/>                  <!-- 1 -->
+    <from uri="activemq-broker:queue:memberInteractionsQueue"/>                 <!-- 1 -->
     <unmarshal>
-      <jaxb contextPath="org.apache.isis.schema.aim.v1_0" prettyPrint="true"/>  <!-- 2 -->
+      <jaxb contextPath="org.apache.isis.schema.ixn.v1" prettyPrint="true"/>    <!-- 2 -->
     </unmarshal>
     <camel:process ref="addExchangeHeaders"/>                                   <!-- 3 -->
     <camel:choice>
       <camel:when>                                                              <!-- 4 -->
         <camel:simple>                                                          <!-- 5 -->
-          ${header.aim[actionIdentifier]} ==
+          ${header.ixn[execution$memberIdentifier]} ==
           'org.isisaddons.module.publishmq.fixture.dom.PublishMqDemoObject#updateName()'
         </camel:simple>
         <log message="updateName() received... "/>
@@ -99,8 +99,8 @@ The example app defines the following Camel route (link:fixture/routing/src/main
 </camelContext>
 ----
 <1> subscribe to ActiveMQ for incoming action invocation events (in XML form).  This uses the internal `vm://` protocol for speed
-<2> unmarshal to a (JAXB annotated) `ActionInvocationMemento` object
-<3> using the `AddExchangeHeaders` component provided by this module to add the metadata from the `ActionInvocationMetadata` to the Camel message.  This allows the message to be routed
+<2> unmarshal to a (JAXB annotated) `InteractionDto` object
+<3> using the `AddExchangeHeaders` component provided by this module to add the metadata from the `InteractionDto` to the Camel message.  This allows the message to be routed
 <4> use Camel to select which sub-route to following, using...
 <5> ... the header attached earlier.  The action identifier header is usually used as the predicate for selecting the sub-route
 <6> Use a processor (implemented in the example app) to attach a DTO obtained from a call to Restful Objects.
@@ -138,15 +138,21 @@ The referenced beans are defined as:
 <2> calls Restful Objects to obtain a DTO representing the updated entity (step 6 in the route)
 <3> calls fake SOAP service (step 7 in the route)
 
-There are two observable side-effects from the execution of this route.  Firstly, when the fake SOAP service is called, it should return an internal Id.  This, along with the rest of the message payload, are logged to the console:
+There are two observable side-effects from the execution of this route.  Firstly, when the fake SOAP service is
+called, it should return an internal Id.  This, along with the rest of the message payload, are logged to the console:
 
 image::images/050-camel-route-logging.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/050-camel-route-logging.png"]
 
-The screenshot also highlights the two important pieces of information used by the route: the action identifier metadata -- added as a Camel header for routing -- and the target object has was updated.
+The screenshot also highlights the two important pieces of information used by the route: the member identifier metadata -- added as a Camel header for routing -- and the target object has was updated.
 
 Second, we can query the fake SOAP service to se the data that was posted to it.  The screenshot below uses link:http://www.soapui.org/[SOAP UI], which can generate stub requests from the fake SOAP service's WSDL (http://localhost:8080/soap/ExternalSystemAdapter/DemoObject?wsdl[http://localhost:8080/soap/ExternalSystemAdapter/DemoObject?wsdl]):
 
 image::images/060-query-fake-server.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/060-query-fake-server.png"]
+
+[WARNING]
+====
+The above screenshot is out-of-date, showing the format of the aim.xsd for 1.12.x, rather than ixn.xsd for 1.13.x
+====
 
 
 === Proxying the REST and SOAP calls
@@ -170,36 +176,38 @@ When we run once more, we can see that the `attachDtoFromRestfulObjects` process
 
 image::images/120-conneg.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/120-conneg.png"]
 
-Using DTOs in this way is important because we want the Camel event bus logic to be decoupled from changes to the internals of the Apache Isis app.  As the screenshot shows, the processor specifies an HTTP Accept header.  The Restful Objects viewer delegates to the configured link:http://isis.apache.org/guides/rg.html#_rg_services-spi_manpage-ContentNegotiationService[`ContentNegotiationService`] SPI, which knows how to map the `PublishedMqDemoObject` entity into the requested `DemObjectDto` DTO:
+Using DTOs in this way is important because we want the Camel event bus logic to be decoupled from changes to the
+internals of the Apache Isis app.  As the screenshot shows, the processor specifies an HTTP Accept header.  The
+Restful Objects viewer delegates to the configured
+link:http://isis.apache.org/guides/rg.html#_rg_services-spi_manpage-ContentNegotiationService[`ContentNegotiationService`]
+SPI, which knows how to map the `PublishedMqDemoObject` entity into the requested `DemObjectDto` DTO:
 
 [source,java]
 ----
 @DomainService(nature = NatureOfService.DOMAIN)
 public class PublishMqDemoContentMappingService implements ContentMappingService {
-    private MapperFactory mapperFactory;
-    @PostConstruct
-    public void init() { ... }
-    ...
-    @Programmatic
-    @Override
     public Object map(
             final Object object,
-            final List<MediaType> acceptableMediaTypes,
-            final RepresentationType representationType) {
+            final List<MediaType> acceptableMediaTypes) {
         if(object instanceof PublishMqDemoObject) {
+            final PublishMqDemoObject demoObject = (PublishMqDemoObject) object;
             final Bookmark bookmark = bookmarkService.bookmarkFor(object);
-            final DemoObjectDto dto = mapperFactory.getMapperFacade().map(object, DemoObjectDto.class);
-            final OidDto oidDto = mapperFactory.getMapperFacade().map(bookmark, OidDto.class);
+            final DemoObjectDto dto = new DemoObjectDto();
+            dto.setName(demoObject.getName());
+            dto.setDescription(demoObject.getDescription());
+            final OidDto oidDto = bookmark.toOidDto();
             dto.setOid(oidDto);
             return dto;
         }
         return null;
     }
-    ...
+    @javax.inject.Inject
+    private BookmarkService bookmarkService;
 }
 ----
 
-The call to the fake SOAP service meanwhile is more straightforward: we observe just the regular SOAP messages (the implementation uses `wsdl2java` to create stubs, so the code is very straightforward):
+The call to the fake SOAP service meanwhile is more straightforward: we observe just the regular SOAP messages (the
+implementation uses `wsdl2java` to create stubs, so the code is very straightforward):
 
 image::images/210-proxy-soapservice.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/210-proxy-soapservice.png"]
 
@@ -378,7 +386,7 @@ You might also need to specify the package for any new services that you have wr
 In the example app all the Camel routing can be found in the `-fixture-routing` module.
 
 
-* configure ActiveMQ so that the publishing service implementation can post to a queue called `actionInvocationsQueue`. +
+* configure ActiveMQ so that the publishing service implementation can post to a queue called `memberInteractionsQueue`. +
 +
 In the example app this is done using Spring (link:webapp/src/main/resources/activemq-config.xml[activemq-config.xml]):
 +
@@ -397,7 +405,7 @@ In the example app this is done using Spring (link:webapp/src/main/resources/act
             >
         ...
         <destinations>
-            <queue physicalName="actionInvocationsQueue"/>
+            <queue physicalName="memberInteractionsQueue"/>
         </destinations>
         ...
     </broker>

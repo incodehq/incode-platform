@@ -63,14 +63,14 @@ public class AddExchangeHeaders implements Processor {
 
         final ImmutableMap<String, Object> interactionHeader = ImmutableMap.<String,Object>builder()
                 .put("transactionId", interactionDto.getTransactionId())
-                .put("execution.id", executionDto.getId())
-                .put("execution.sequence", executionDto.getSequence())
-                .put("execution.user", executionDto.getUser())
-                .put("execution.memberIdentifier", executionDto.getMemberIdentifier())
-                .put("execution.metrics.timings.startedAt", timings.getStartedAt())
+                .put("execution$id", executionDto.getId())
+                .put("execution$sequence", executionDto.getSequence())
+                .put("execution$user", executionDto.getUser())
+                .put("execution$memberIdentifier", executionDto.getMemberIdentifier())
+                .put("execution$metrics$timings$startedAt", timings.getStartedAt())
                 .build();
 
-        inMessage.setHeader("interaction", interactionHeader);
+        inMessage.setHeader("ixn", interactionHeader);
     }
 
 

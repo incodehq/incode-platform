@@ -113,12 +113,6 @@ public class PublishMqDemoObject implements Comparable<PublishMqDemoObject> {
     }
     //endregion
 
-    //region > version (derived property)
-    public Long getVersionSequence() {
-        return (Long) JDOHelper.getVersion(this);
-    }
-    //endregion
-
     //region > compareTo
 
     @Override
