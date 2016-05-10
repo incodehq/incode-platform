@@ -20,7 +20,7 @@
 
     <groupId>org.isisaddons.module.publishmq</groupId>
     <artifactId>isis-module-publishmq-dom</artifactId>
-    <version>1.12.0-SNAPSHOT</version>
+    <version>1.13.0-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 
@@ -54,7 +54,9 @@
         <spring.version>4.1.6.RELEASE</spring.version>
         <camel.version>2.15.2</camel.version>
         <activemq.version>5.11.1</activemq.version>
-        
+
+        <slf4j.version>1.7.6</slf4j.version>
+
         <lombok.version>1.16.8</lombok.version>
     </properties>
 
@@ -63,18 +65,30 @@
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
-                <version>1.12.0-SNAPSHOT</version>
+                <version>1.13.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.publishmq</groupId>
+                <artifactId>isis-module-publishmq-dom-jdo</artifactId>
+                <version>1.13.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom-camel</artifactId>
-                <version>1.12.0-SNAPSHOT</version>
+                <version>1.13.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
             </dependency>
         </dependencies>
+
     </dependencyManagement>
 
     <modules>
         <module>servicespi</module>
+        <module>jdo</module>
         <module>camel</module>
     </modules>
 
@@ -340,13 +354,6 @@
             <dependencyManagement>
                 <dependencies>
 
-                    <dependency>
-                        <groupId>org.apache.isis.core</groupId>
-                        <artifactId>isis</artifactId>
-                        <version>${isis.version}</version>
-                        <type>pom</type>
-                        <scope>import</scope>
-                    </dependency>
                     <dependency>
                         <groupId>org.apache.isis.core</groupId>
                         <artifactId>isis</artifactId>
