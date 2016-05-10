@@ -1,5 +1,6 @@
 package org.isisaddons.module.publishmq.dom.servicespi;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -21,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.apache.isis.applib.ApplicationException;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.iactn.Interaction;
 import org.apache.isis.applib.services.publish.PublisherService;
 import org.apache.isis.schema.ixn.v1.InteractionDto;
@@ -123,6 +125,12 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
                 closeSafely(session);
             }
         }
+    }
+
+    @Override
+    public void publish(
+            final List<Bookmark> created, final List<Bookmark> updated, final List<Bookmark> deleted) {
+
     }
 
     private static void rollback(final Session session) {
