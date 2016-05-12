@@ -22,18 +22,15 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.NotPersistent;
 
 import org.apache.isis.applib.Identifier;
-import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
-import org.apache.isis.applib.annotation.InvokeOn;
 import org.apache.isis.applib.annotation.LabelPosition;
 import org.apache.isis.applib.annotation.MemberGroupLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
-import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.HasTransactionId;
 import org.apache.isis.applib.services.HasUsername;
@@ -53,7 +50,7 @@ import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.APPLICATION,
-        schema = "isispublishing",
+        schema = "isispublishmq",
         table="PublishedEvent",
         objectIdClass=PublishedEventPK.class)
 @javax.jdo.annotations.Queries( {
@@ -129,7 +126,7 @@ import lombok.Setter;
         right={"Detail","State"})
 @DomainObject(
         editing = Editing.DISABLED,
-        objectType = "isispublishing.PublishedEvent"
+        objectType = "isispublishmq.PublishedEvent"
 )
 @DomainObjectLayout(
         named = "Published Event"
@@ -159,7 +156,7 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
     public String title() {
         final TitleBuffer buf = new TitleBuffer();
         buf.append(getEventType().name()).append(" ").append(getTargetStr());
-        if(getEventType()==EventType.ACTION_INVOCATION) {
+        if(getEventType().relatesToMember()) {
             buf.append(" ").append(getMemberIdentifier());
         }
         return buf.toString();
@@ -246,30 +243,6 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
 
     //endregion
 
-    //region > title (property)
-
-    public static class TitleDomainEvent extends PropertyDomainEvent<String> {
-    }
-
-    /**
-     * Consists of the full oidStr (with version info etc), concatenated
-     * (if an {@link EventType#ACTION_INVOCATION}) with the name/parms of the action.
-     *
-     * <p>
-     * @deprecated - the oid of the target is also available (without the version info) through {@link #getTarget()}, and
-     *               the action identifier is available through {@link #getMemberIdentifier()}.
-     */
-    @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.PublishedEvent.TITLE)
-    @Property(
-            domainEvent = TitleDomainEvent.class,
-            hidden = Where.EVERYWHERE
-    )
-    @Getter @Setter
-    @Deprecated
-    private String title;
-
-    //endregion
-
     //region > eventType (property)
 
     public static class EventTypeDomainEvent extends PropertyDomainEvent<EventType> {
@@ -281,7 +254,7 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
     )
     @MemberOrder(name="Identifiers",sequence = "50")
     @Getter @Setter
-    private EventType eventType;
+    private PublishedEventType eventType;
     //endregion
 
     //region > targetClass (property)
@@ -321,8 +294,8 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
             named = "Action",
             typicalLength = 30
     )
-    @MemberOrder(name="Target", sequence = "20")
     @Getter
+    @MemberOrder(name="Target", sequence = "20")
     private String targetAction;
 
     public void setTargetAction(final String targetAction) {
@@ -391,42 +364,17 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
     public static class SerializedFormDomainEvent extends PropertyDomainEvent<String> {
     }
 
-    @javax.jdo.annotations.Column(allowsNull="true")
-    @Property(
-            hidden = Where.EVERYWHERE
-    )
-    @Getter @Setter
-    @Deprecated
-    private byte[] serializedFormZipped;
-
-
-
     @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB", sqlType="LONGVARCHAR")
     @Property(
-            hidden = Where.EVERYWHERE
+            domainEvent = SerializedFormDomainEvent.class
     )
     @Getter @Setter
-    private String serializedFormClob;
-
-
-    @javax.jdo.annotations.NotPersistent
-    @Property(
-            domainEvent = SerializedFormDomainEvent.class,
-            notPersisted = true
-    )
+    @MemberOrder(name="Detail", sequence = "40")
     @PropertyLayout(
             hidden = Where.ALL_TABLES,
             multiLine = 14
     )
-    @MemberOrder(name="Detail", sequence = "40")
-    public String getSerializedForm() {
-        byte[] zipped = getSerializedFormZipped();
-        if(zipped != null) {
-            return PublishingService.fromZippedBytes(zipped);
-        } else {
-            return getSerializedFormClob();
-        }
-    }
+    private String serializedForm;
 
     //endregion
 

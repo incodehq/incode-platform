@@ -1,5 +1,5 @@
 /*
- *  Copyright 2016 Dan Haywood
+ *  Copyright 2013~2014 Dan Haywood
  *
  *  Licensed under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
@@ -14,8 +14,9 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.publishmq.dom.jdo;
+package org.isisaddons.module.publishmq.dom.jdo.mixins;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.isis.applib.annotation.Action;
@@ -25,26 +26,27 @@ import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.services.HasUsername;
 
 import org.isisaddons.module.publishmq.PublishMqModule;
+import org.isisaddons.module.publishmq.dom.jdo.PublishedEvent;
+import org.isisaddons.module.publishmq.dom.jdo.PublishedEventRepository;
 
 @Mixin
-public class PublishedEvent_siblingEvents {
+public class HasUsername_recentEventsPublishedByUser {
 
 
     public static class ActionDomainEvent
             extends PublishMqModule.ActionDomainEvent<PublishedEvent_siblingEvents> { }
 
-
-    private final PublishedEvent publishedEvent;
-
-    public PublishedEvent_siblingEvents(final PublishedEvent publishedEvent) {
-        this.publishedEvent = publishedEvent;
+    private final HasUsername hasUsername;
+    public HasUsername_recentEventsPublishedByUser(final HasUsername hasUsername) {
+        this.hasUsername = hasUsername;
     }
 
     @Action(
-            domainEvent = ActionDomainEvent.class,
-            semantics = SemanticsOf.SAFE
+            semantics = SemanticsOf.SAFE,
+            domainEvent = ActionDomainEvent.class
     )
     @ActionLayout(
             contributed = Contributed.AS_ASSOCIATION
@@ -52,15 +54,20 @@ public class PublishedEvent_siblingEvents {
     @CollectionLayout(
             defaultView = "table"
     )
-    @MemberOrder(sequence = "100.110")
+    @MemberOrder(sequence = "200.100")
     public List<PublishedEvent> $$() {
-        final List<PublishedEvent> eventList = publishingServiceRepository
-                .findByTransactionId(publishedEvent.getTransactionId());
-        eventList.remove(publishedEvent);
-        return eventList;
+        if(hasUsername.getUsername() == null) {
+            return Collections.emptyList();
+        }
+        return publishedEventRepository.findRecentByUser(hasUsername.getUsername());
+    }
+    public boolean hide$$() {
+        return hasUsername.getUsername() == null;
     }
 
+
     @javax.inject.Inject
-    private PublishingServiceRepository publishingServiceRepository;
-    
+    private PublishedEventRepository publishedEventRepository;
+
+
 }

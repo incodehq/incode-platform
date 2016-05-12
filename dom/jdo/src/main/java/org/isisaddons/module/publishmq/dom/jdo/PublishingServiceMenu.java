@@ -52,7 +52,6 @@ public class PublishingServiceMenu extends AbstractService {
 
 
 
-
     public static class FindPublishedEventsByTransactionIdDomainEvent extends ActionDomainEvent {
     }
 
@@ -65,7 +64,7 @@ public class PublishingServiceMenu extends AbstractService {
     )
     @MemberOrder(sequence="20")
     public List<PublishedEvent> findPublishedEventsByTransactionId(UUID transactionId) {
-        return publishingServiceRepository.findByTransactionId(transactionId);
+        return publishedEventRepository.findByTransactionId(transactionId);
     }
 
 
@@ -88,7 +87,7 @@ public class PublishingServiceMenu extends AbstractService {
             @Parameter(optionality= Optionality.OPTIONAL)
             @ParameterLayout(named="To")
             final LocalDate to) {
-        return publishingServiceRepository.findByFromAndTo(from, to);
+        return publishedEventRepository.findByFromAndTo(from, to);
     }
 
     public LocalDate default0FindPublishedEvents() {
@@ -100,10 +99,8 @@ public class PublishingServiceMenu extends AbstractService {
 
 
 
-
-
     @javax.inject.Inject
-    private PublishingServiceRepository publishingServiceRepository;
+    private PublishedEventRepository publishedEventRepository;
 
     @javax.inject.Inject
     private ClockService clockService;

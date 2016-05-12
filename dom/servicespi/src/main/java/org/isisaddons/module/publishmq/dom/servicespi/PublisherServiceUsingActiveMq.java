@@ -1,10 +1,26 @@
+/*
+ *  Copyright 2015 Dan Haywood
+ *
+ *  Licensed under the Apache License, Version 2.0 (the
+ *  "License"); you may not use this file except in compliance
+ *  with the License.  You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
 package org.isisaddons.module.publishmq.dom.servicespi;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Inject;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.DeliveryMode;
@@ -22,7 +38,7 @@ import org.slf4j.LoggerFactory;
 import org.apache.isis.applib.ApplicationException;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.services.bookmark.Bookmark;
+import org.apache.isis.applib.services.changes.ChangedObjects;
 import org.apache.isis.applib.services.iactn.Interaction;
 import org.apache.isis.applib.services.publish.PublisherService;
 import org.apache.isis.schema.ixn.v1.InteractionDto;
@@ -88,8 +104,15 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
     @Override
     public void publish(final Interaction.Execution<?, ?> execution) {
 
-        final InteractionDto interactionDto =
-                InteractionDtoUtils.newInteractionDto(execution);
+        final InteractionDto interactionDto = InteractionDtoUtils.newInteractionDto(execution);
+
+        sendUsingJms(interactionDto);
+
+        interactionExecutionRepository.persist(execution);
+
+    }
+
+    private String sendUsingJms(final InteractionDto interactionDto) {
         final String xml = InteractionDtoUtils.toXml(interactionDto);
 
         Session session = null;
@@ -117,6 +140,7 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
 
             session.commit();
 
+            return xml;
         } catch (JMSException e) {
             rollback(session);
             throw new ApplicationException("Failed to publish message", e);
@@ -128,9 +152,15 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
     }
 
     @Override
-    public void publish(
-            final List<Bookmark> created, final List<Bookmark> updated, final List<Bookmark> deleted) {
+    public void publish(final ChangedObjects changedObjects) {
+        persist(changedObjects);
+    }
 
+    private void persist(final ChangedObjects changedObjects) {
+        if(changedObjectsRepository == null) {
+            return;
+        }
+        changedObjectsRepository.persist(changedObjects);
     }
 
     private static void rollback(final Session session) {
@@ -176,5 +206,10 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
         }
     }
 
+    @Inject
+    private ChangedObjectsRepository changedObjectsRepository;
+
+    @Inject
+    private InteractionExecutionRepository interactionExecutionRepository;
 
 }

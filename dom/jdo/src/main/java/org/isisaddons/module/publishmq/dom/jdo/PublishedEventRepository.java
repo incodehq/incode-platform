@@ -45,7 +45,7 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 @DomainService(
         nature = NatureOfService.DOMAIN
 )
-public class PublishingServiceRepository {
+public class PublishedEventRepository {
 
 
     //region > findByTransactionId

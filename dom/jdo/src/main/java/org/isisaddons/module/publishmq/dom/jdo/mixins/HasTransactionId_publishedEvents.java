@@ -1,4 +1,4 @@
-package org.isisaddons.module.publishmq.dom.jdo;
+package org.isisaddons.module.publishmq.dom.jdo.mixins;
 
 import java.util.List;
 
@@ -12,6 +12,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.HasTransactionId;
 
 import org.isisaddons.module.publishmq.PublishMqModule;
+import org.isisaddons.module.publishmq.dom.jdo.PublishedEvent;
+import org.isisaddons.module.publishmq.dom.jdo.PublishedEventRepository;
 
 /**
  * For other implementations of {@link HasTransactionId} (<tt>AuditEntry</tt> from isis-module-audit, and
@@ -57,6 +59,6 @@ public class HasTransactionId_publishedEvents {
 
 
     @javax.inject.Inject
-    private PublishingServiceRepository publishedEventRepository;
+    private PublishedEventRepository publishedEventRepository;
 
 }
