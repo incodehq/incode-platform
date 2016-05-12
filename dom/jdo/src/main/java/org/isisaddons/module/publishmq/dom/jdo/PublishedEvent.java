@@ -372,7 +372,6 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
 
     //endregion
 
-
     //region > serializedFormZipped (property), serializedFormClob (property), serializedForm (derived property)
 
     public static class SerializedFormDomainEvent extends PropertyDomainEvent<String> {

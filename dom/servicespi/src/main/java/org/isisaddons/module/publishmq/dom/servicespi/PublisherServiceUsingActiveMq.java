@@ -38,8 +38,9 @@ import org.slf4j.LoggerFactory;
 import org.apache.isis.applib.ApplicationException;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.services.publish.PublishedObjects;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.iactn.Interaction;
+import org.apache.isis.applib.services.publish.PublishedObjects;
 import org.apache.isis.applib.services.publish.PublisherService;
 import org.apache.isis.schema.ixn.v1.InteractionDto;
 import org.apache.isis.schema.utils.InteractionDtoUtils;
@@ -51,8 +52,9 @@ import org.isisaddons.module.publishmq.PublishMqModule;
 )
 public class PublisherServiceUsingActiveMq implements PublisherService {
 
-    private final static Logger LOG = LoggerFactory.getLogger(PublisherServiceUsingActiveMq.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PublisherServiceUsingActiveMq.class);
 
+    //region > keys
     private static final String ROOT = PublishMqModule.class.getPackage().getName() + ".";
 
     public static final String KEY_VM_TRANSPORT_URL = "isis.services." + PublisherServiceUsingActiveMq.class.getSimpleName() + ".vmTransportUri";
@@ -60,6 +62,9 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
 
     public static final String KEY_MEMBER_INTERACTIONS_QUEUE = "isis.services." + PublisherServiceUsingActiveMq.class.getSimpleName() + ".memberInteractionsQueue";
     public static final String KEY_MEMBER_INTERACTIONS_QUEUE_DEFAULT = "memberInteractionsQueue";
+    //endregion
+
+    //region > fields
 
     private ConnectionFactory jmsConnectionFactory;
     private Connection jmsConnection;
@@ -69,6 +74,9 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
     private String vmTransportUrl;
     String memberInteractionsQueueName;
 
+    //endregion
+
+    //region > init, shutdown
 
     @PostConstruct
     public void init(Map<String,String> properties) {
@@ -99,7 +107,10 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
     public void shutdown() {
         closeSafely(jmsConnection);
     }
+    //endregion
 
+
+    //region > publish (execution)
 
     @Override
     public void publish(final Interaction.Execution<?, ?> execution) {
@@ -108,8 +119,7 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
 
         sendUsingJms(interactionDto);
 
-        interactionExecutionRepository.persist(execution);
-
+        persist(execution);
     }
 
     private String sendUsingJms(final InteractionDto interactionDto) {
@@ -151,6 +161,26 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
         }
     }
 
+    private void persist(final Interaction.Execution<?, ?> execution) {
+        if (interactionExecutionRepository == null) {
+            return;
+        }
+        interactionExecutionRepository.persist(execution);
+    }
+
+    private static void rollback(final Session session) {
+        try {
+            if (session != null) {
+                session.rollback();
+            }
+        } catch (JMSException ex) {
+            // ignore
+        }
+    }
+    //endregion
+
+    //region > publish (published objects)
+
     @Override
     public void publish(final PublishedObjects publishedObjects) {
         persist(publishedObjects);
@@ -163,20 +193,21 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
         publishedObjectsRepository.persist(publishedObjects);
     }
 
-    private static void rollback(final Session session) {
-        try {
-            if (session != null) {
-                session.rollback();
-            }
-        } catch (JMSException ex) {
-            // ignore
-        }
+    //endregion
+
+    //region > republish
+    /**
+     * Private API.
+     * @param interactionDto
+     */
+    @Programmatic
+    public void republish(final InteractionDto interactionDto) {
+        sendUsingJms(interactionDto);
     }
 
+    //endregion
 
-    ///////////////////////////////////////////////////
-    // Helper
-    ///////////////////////////////////////////////////
+    //region > helpers
 
     private static void closeSafely(Connection connection) {
         if(connection != null) {
@@ -205,11 +236,14 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
         } catch (Exception ignore) {
         }
     }
+    //endregion
 
+    //region > injected services
     @Inject
     private PublishedObjectsRepository publishedObjectsRepository;
 
     @Inject
     private InteractionExecutionRepository interactionExecutionRepository;
+    //endregion
 
 }
