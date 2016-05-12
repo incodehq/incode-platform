@@ -127,6 +127,7 @@ public class PublishMqDemoObject implements Comparable<PublishMqDemoObject> {
             describedAs = "Publishing as configured"
     )
     public PublishMqDemoObject updateDescription(
+            @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named="Description")
             final String description) {
         setDescription(description);
@@ -167,6 +168,7 @@ public class PublishMqDemoObject implements Comparable<PublishMqDemoObject> {
             describedAs = "Publishing disabled"
     )
     public PublishMqDemoObject updateCount(
+            @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named="Count")
             final Integer count) {
         setCount(count);
@@ -211,7 +213,7 @@ public class PublishMqDemoObject implements Comparable<PublishMqDemoObject> {
             final String description,
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named="Count")
-            final Integer integer) {
+            final Integer count) {
         wrapperFactory.wrap(this).updateName(name);
         wrapperFactory.wrap(this).updateDescription(description);
         wrapperFactory.wrap(this).updateCount(count);

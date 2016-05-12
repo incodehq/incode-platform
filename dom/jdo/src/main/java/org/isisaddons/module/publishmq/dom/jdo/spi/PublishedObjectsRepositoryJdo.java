@@ -45,7 +45,7 @@ public class PublishedObjectsRepositoryJdo implements PublishedObjectsRepository
         publishedEvent.setEventType(PublishedEventType.CHANGED_OBJECTS);
         publishedEvent.setTransactionId(publishedObjects.getTransactionId());
         publishedEvent.setTimestamp(publishedObjects.getCompletedAt());
-        publishedEvent.setSequence(-1); // interactions start at 0
+        publishedEvent.setSequence(-1); // because interactions start at 0
         publishedEvent.setUser(publishedObjects.getUser());
 
         publishedEvent.setTarget(null);
@@ -67,7 +67,7 @@ public class PublishedObjectsRepositoryJdo implements PublishedObjectsRepository
     private String buildTitle(final PublishedObjects publishedObjects) {
         final StringBuilder buf = new StringBuilder();
         buf.append(titleService.titleOf(PublishedEventType.CHANGED_OBJECTS))
-                .append("(")
+                .append(" (")
                 .append(publishedObjects.numberCreated()).append( " created, ")
                 .append(publishedObjects.numberUpdated()).append( " updated, ")
                 .append(publishedObjects.numberDeleted()).append( " deleted")
