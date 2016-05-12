@@ -25,13 +25,12 @@ import org.apache.isis.applib.services.bookmark.BookmarkService2;
 import org.apache.isis.applib.services.iactn.Interaction;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
-import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.schema.common.v1.InteractionType;
 import org.apache.isis.schema.ixn.v1.InteractionDto;
 import org.apache.isis.schema.utils.InteractionDtoUtils;
 
-import org.isisaddons.module.publishmq.dom.jdo.PublishedEvent;
-import org.isisaddons.module.publishmq.dom.jdo.PublishedEventType;
+import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent;
+import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEventType;
 import org.isisaddons.module.publishmq.dom.servicespi.InteractionExecutionRepository;
 
 @DomainService(

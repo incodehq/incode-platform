@@ -14,11 +14,14 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.publishmq.dom.jdo;
+package org.isisaddons.module.publishmq.dom.jdo.events;
 
 import java.io.Serializable;
 import java.util.StringTokenizer;
 import java.util.UUID;
+
+import lombok.Getter;
+import lombok.Setter;
 
 public class PublishedEventPK implements Serializable {
 
@@ -26,12 +29,12 @@ public class PublishedEventPK implements Serializable {
 
     private static final String SEPARATOR = "_";
 
+    @Getter @Setter
     public UUID transactionId;
+    @Getter @Setter
     public int sequence;
 
-    // //////////////////////////////////////
-
-    
+    //region > constructor, toString (reciprocals of each other)
     public PublishedEventPK() {
     }
     
@@ -41,28 +44,14 @@ public class PublishedEventPK implements Serializable {
         this.sequence = Integer.parseInt(token.nextToken());
     }
 
-    // //////////////////////////////////////
+    @Override
+    public String toString() {
+        return transactionId + SEPARATOR + sequence;
+    }
 
-    public UUID getTransactionId() {
-        return transactionId;
-    }
-    public void setTransactionId(UUID transactionId) {
-        this.transactionId = transactionId;
-    }
-    
-    // //////////////////////////////////////
+    //endregion
 
-    public int getSequence() {
-        return sequence;
-    }
-    public void setSequence(int sequence) {
-        this.sequence = sequence;
-    }
-    
-    // //////////////////////////////////////
-
-    
-    
+    //region > hashCode, equals
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -89,12 +78,6 @@ public class PublishedEventPK implements Serializable {
             return false;
         return true;
     }
-    
-    // //////////////////////////////////////
+    //endregion
 
-    
-    @Override
-    public String toString() {
-        return transactionId + SEPARATOR + sequence;
-    }
 }

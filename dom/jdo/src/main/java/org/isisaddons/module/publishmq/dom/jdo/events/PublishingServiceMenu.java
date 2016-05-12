@@ -14,7 +14,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.isisaddons.module.publishmq.dom.jdo;
+package org.isisaddons.module.publishmq.dom.jdo.events;
 
 import java.util.List;
 import java.util.UUID;

@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.publishmq.dom.jdo;
+package org.isisaddons.module.publishmq.dom.jdo.events;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -36,10 +36,6 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 /**
  * Provides supporting functionality for querying and persisting
  * {@link PublishedEvent published event} entities.
- *
- * <p>
- * This supporting service with no UI and no side-effects, and is there are no other implementations of the service,
- * thus has been annotated with {@link org.apache.isis.applib.annotation.DomainService}.  This means that there is no
  * need to explicitly register it as a service (eg in <tt>isis.properties</tt>).
  */
 @DomainService(

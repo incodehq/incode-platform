@@ -107,6 +107,36 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
     public void shutdown() {
         closeSafely(jmsConnection);
     }
+
+
+    private static void closeSafely(Connection connection) {
+        if(connection != null) {
+            try {
+                connection.close();
+            } catch (JMSException e) {
+                //ignore
+            }
+        }
+    }
+
+    private static void closeSafely(Session session) {
+        try {
+            session.close();
+        } catch (JMSException e) {
+            // ignore
+        }
+    }
+
+    private static void stopSafely(final BrokerService broker) {
+        if(broker==null) {
+            return;
+        }
+        try {
+            broker.stop();
+        } catch (Exception ignore) {
+        }
+    }
+
     //endregion
 
 
@@ -207,36 +237,6 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
 
     //endregion
 
-    //region > helpers
-
-    private static void closeSafely(Connection connection) {
-        if(connection != null) {
-            try {
-                connection.close();
-            } catch (JMSException e) {
-                //ignore
-            }
-        }
-    }
-
-    private static void closeSafely(Session session) {
-        try {
-            session.close();
-        } catch (JMSException e) {
-            // ignore
-        }
-    }
-
-    private static void stopSafely(final BrokerService broker) {
-        if(broker==null) {
-            return;
-        }
-        try {
-            broker.stop();
-        } catch (Exception ignore) {
-        }
-    }
-    //endregion
 
     //region > injected services
     @Inject

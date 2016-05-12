@@ -1,4 +1,4 @@
-package org.isisaddons.module.publishmq.dom.jdo;
+package org.isisaddons.module.publishmq.dom.jdo.events;
 
 import javax.inject.Inject;
 

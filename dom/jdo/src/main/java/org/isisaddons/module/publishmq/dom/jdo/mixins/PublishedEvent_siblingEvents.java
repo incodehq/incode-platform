@@ -27,8 +27,8 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.isisaddons.module.publishmq.PublishMqModule;
-import org.isisaddons.module.publishmq.dom.jdo.PublishedEvent;
-import org.isisaddons.module.publishmq.dom.jdo.PublishedEventRepository;
+import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent;
+import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEventRepository;
 
 @Mixin
 public class PublishedEvent_siblingEvents {

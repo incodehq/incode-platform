@@ -13,8 +13,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService2;
 
-import org.isisaddons.module.publishmq.dom.jdo.PublishedEvent;
-import org.isisaddons.module.publishmq.dom.jdo.PublishedEventRepository;
+import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent;
+import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEventRepository;
 import org.isisaddons.module.publishmq.fixture.dom.PublishMqDemoObject;
 
 @Mixin

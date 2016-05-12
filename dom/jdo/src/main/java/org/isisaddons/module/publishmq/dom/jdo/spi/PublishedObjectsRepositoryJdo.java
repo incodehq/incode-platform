@@ -27,8 +27,8 @@ import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.schema.chg.v1.ChangesDto;
 import org.apache.isis.schema.utils.ChangesDtoUtils;
 
-import org.isisaddons.module.publishmq.dom.jdo.PublishedEvent;
-import org.isisaddons.module.publishmq.dom.jdo.PublishedEventType;
+import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent;
+import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEventType;
 import org.isisaddons.module.publishmq.dom.servicespi.PublishedObjectsRepository;
 
 @DomainService(

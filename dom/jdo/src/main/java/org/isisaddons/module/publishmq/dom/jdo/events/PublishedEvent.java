@@ -14,9 +14,8 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.publishmq.dom.jdo;
+package org.isisaddons.module.publishmq.dom.jdo.events;
 
-import java.sql.Timestamp;
 import java.util.UUID;
 
 import javax.jdo.annotations.IdentityType;
@@ -32,6 +31,7 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
+import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.HasTransactionId;
 import org.apache.isis.applib.services.HasUsername;
@@ -57,13 +57,13 @@ import lombok.Setter;
     @javax.jdo.annotations.Query(
             name="findByTransactionId", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.isisaddons.module.publishmq.dom.jdo.PublishedEvent "
+                    + "FROM org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent "
                     + "WHERE transactionId == :transactionId "
                     + "ORDER BY timestamp DESC, transactionId DESC, sequence DESC"),
     @javax.jdo.annotations.Query(
             name="findByTargetAndTimestampBetween", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.isisaddons.module.publishmq.dom.jdo.PublishedEvent "
+                    + "FROM org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent "
                     + "WHERE targetStr == :targetStr " 
                     + "&& timestamp >= :from " 
                     + "&& timestamp <= :to "
@@ -71,61 +71,61 @@ import lombok.Setter;
     @javax.jdo.annotations.Query(
             name="findByTargetAndTimestampAfter", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.isisaddons.module.publishmq.dom.jdo.PublishedEvent "
+                    + "FROM org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent "
                     + "WHERE targetStr == :targetStr " 
                     + "&& timestamp >= :from "
                     + "ORDER BY timestamp DESC, transactionId DESC, sequence DESC"),
     @javax.jdo.annotations.Query(
             name="findByTargetAndTimestampBefore", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.isisaddons.module.publishmq.dom.jdo.PublishedEvent "
+                    + "FROM org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent "
                     + "WHERE targetStr == :targetStr " 
                     + "&& timestamp <= :to "
                     + "ORDER BY timestamp DESC, transactionId DESC, sequence DESC"),
     @javax.jdo.annotations.Query(
             name="findByTarget", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.isisaddons.module.publishmq.dom.jdo.PublishedEvent "
+                    + "FROM org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent "
                     + "WHERE targetStr == :targetStr " 
                     + "ORDER BY timestamp DESC, transactionId DESC, sequence DESC"),
     @javax.jdo.annotations.Query(
             name="findByTimestampBetween", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.isisaddons.module.publishmq.dom.jdo.PublishedEvent "
+                    + "FROM org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent "
                     + "WHERE timestamp >= :from " 
                     + "&&    timestamp <= :to "
                     + "ORDER BY timestamp DESC, transactionId DESC, sequence DESC"),
     @javax.jdo.annotations.Query(
             name="findByTimestampAfter", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.isisaddons.module.publishmq.dom.jdo.PublishedEvent "
+                    + "FROM org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent "
                     + "WHERE timestamp >= :from "
                     + "ORDER BY timestamp DESC, transactionId DESC, sequence DESC"),
     @javax.jdo.annotations.Query(
             name="findByTimestampBefore", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.isisaddons.module.publishmq.dom.jdo.PublishedEvent "
+                    + "FROM org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent "
                     + "WHERE timestamp <= :to "
                     + "ORDER BY timestamp DESC, transactionId DESC, sequence DESC"),
     @javax.jdo.annotations.Query(
             name="find", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.isisaddons.module.publishmq.dom.jdo.PublishedEvent "
+                    + "FROM org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent "
                     + "ORDER BY timestamp DESC, transactionId DESC, sequence DESC"),
-        @javax.jdo.annotations.Query(
-                name="findRecentByUser", language="JDOQL",
-                value="SELECT "
-                        + "FROM org.isisaddons.module.publishmq.dom.jdo.PublishedEvent "
-                        + "WHERE user == :user "
-                        + "ORDER BY timestamp DESC, transactionId DESC, sequence DESC "
-                        + "RANGE 0,30"),
-        @javax.jdo.annotations.Query(
-                name="findRecentByTarget", language="JDOQL",
-                value="SELECT "
-                        + "FROM org.isisaddons.module.publishmq.dom.jdo.PublishedEvent "
-                        + "WHERE targetStr == :targetStr "
-                        + "ORDER BY timestamp DESC, transactionId DESC, sequence DESC "
-                        + "RANGE 0,30")
+    @javax.jdo.annotations.Query(
+            name="findRecentByUser", language="JDOQL",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent "
+                    + "WHERE user == :user "
+                    + "ORDER BY timestamp DESC, transactionId DESC, sequence DESC "
+                    + "RANGE 0,30"),
+    @javax.jdo.annotations.Query(
+            name="findRecentByTarget", language="JDOQL",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent "
+                    + "WHERE targetStr == :targetStr "
+                    + "ORDER BY timestamp DESC, transactionId DESC, sequence DESC "
+                    + "RANGE 0,30")
 })
 @MemberGroupLayout(
         columnSpans={6,0,6,12},
@@ -159,10 +159,6 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
     public PublishedEvent() {
         super(ChangeType.PUBLISHED_EVENT);
     }
-
-    public String title() {
-        return title;
-    }
     //endregion
 
     //region > title (hidden property)
@@ -170,6 +166,7 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
 
     @javax.jdo.annotations.Column(allowsNull="false", length=255)
     @Property(hidden = Where.EVERYWHERE)
+    @Title
     @Getter @Setter
     private String title;
     //endregion
@@ -185,6 +182,7 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
     @Getter @Setter
     private String user;
 
+    @Override
     @Programmatic
     public String getUsername() {
         return getUser();
@@ -200,13 +198,9 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
     @Property(
             domainEvent = TimestampDomainEvent.class
     )
-    @Getter //@Setter
+    @Getter @Setter
     @MemberOrder(name="Identifiers", sequence = "20")
     private java.sql.Timestamp timestamp;
-
-    public void setTimestamp(final Timestamp timestamp) {
-        this.timestamp = timestamp;
-    }
     //endregion
 
     //region > transactionId (property)
@@ -372,7 +366,7 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
 
     //endregion
 
-    //region > serializedFormZipped (property), serializedFormClob (property), serializedForm (derived property)
+    //region > serializedForm (property)
 
     public static class SerializedFormDomainEvent extends PropertyDomainEvent<String> {
     }

@@ -12,8 +12,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.HasTransactionId;
 
 import org.isisaddons.module.publishmq.PublishMqModule;
-import org.isisaddons.module.publishmq.dom.jdo.PublishedEvent;
-import org.isisaddons.module.publishmq.dom.jdo.PublishedEventRepository;
+import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent;
+import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEventRepository;
 
 /**
  * For other implementations of {@link HasTransactionId} (<tt>AuditEntry</tt> from isis-module-audit, and

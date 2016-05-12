@@ -14,23 +14,14 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.publishmq.dom.jdo;
+package org.isisaddons.module.publishmq.dom.jdo.events;
 
-import org.junit.Test;
+public enum PublishedEventType {
+    ACTION_INVOCATION,
+    PROPERTY_EDIT,
+    CHANGED_OBJECTS;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
-public class IoUtilsTest {
-
-    @Test
-    public void roundtrip() {
-        final String str = "3784y5hrfbdgkjh3qyri f£$%$YTRGFDGER$£\"Eu098987u'!\"£%^&*IO(LUKJM)";
-        final byte[] utf8ZippedBytes = IoUtils.toUtf8ZippedBytes("serializedForm", str);
-        
-        final String str2 = IoUtils.fromUtf8ZippedBytes("serializedForm", utf8ZippedBytes);
-        
-        assertThat(str, (is(str2)));
+    public boolean relatesToMember() {
+        return this == ACTION_INVOCATION || this == PROPERTY_EDIT;
     }
-
 }
