@@ -147,9 +147,9 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
 
         final InteractionDto interactionDto = InteractionDtoUtils.newInteractionDto(execution);
 
-        sendUsingJms(interactionDto);
-
         persist(execution);
+
+        sendUsingJms(interactionDto);
     }
 
     private String sendUsingJms(final InteractionDto interactionDto) {
