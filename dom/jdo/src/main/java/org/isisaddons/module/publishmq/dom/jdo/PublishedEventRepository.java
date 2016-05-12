@@ -159,6 +159,14 @@ public class PublishedEventRepository {
     }
     //endregion
 
+    //region > findRecentByTarget
+    public List<PublishedEvent> findRecentByTarget(final Bookmark target) {
+        final String targetStr = target.toString();
+        return repositoryService.allMatches(
+                new QueryDefault<>(PublishedEvent.class, "findRecentByTarget", "targetStr", targetStr));
+    }
+    //endregion
+
     //region > helpers
 
 

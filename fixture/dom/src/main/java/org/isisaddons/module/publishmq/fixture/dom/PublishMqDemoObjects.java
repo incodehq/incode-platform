@@ -26,6 +26,7 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Publishing;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
@@ -65,6 +66,24 @@ public class PublishMqDemoObjects {
     }
 
     //endregion
+
+    //region > listAll (action)
+
+    @Action(
+            semantics = SemanticsOf.NON_IDEMPOTENT,
+            publishing = Publishing.ENABLED
+    )
+    @MemberOrder(sequence = "3")
+    public List<PublishMqDemoObject> incrementAll() {
+        final List<PublishMqDemoObject> publishMqDemoObjects = listAll();
+        for (PublishMqDemoObject publishMqDemoObject : publishMqDemoObjects) {
+            publishMqDemoObject.incrementCountInBulk();
+        }
+        return publishMqDemoObjects;
+    }
+
+    //endregion
+
 
     //region > injected services
 

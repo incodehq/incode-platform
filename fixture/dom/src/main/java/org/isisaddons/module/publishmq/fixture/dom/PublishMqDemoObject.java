@@ -16,19 +16,25 @@
  */
 package org.isisaddons.module.publishmq.fixture.dom;
 
-import javax.jdo.JDOHelper;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
-import org.apache.isis.applib.DomainObjectContainer;
+
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
+import org.apache.isis.applib.annotation.InvokeOn;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Publishing;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Title;
+import org.apache.isis.applib.services.wrapper.WrapperFactory;
 import org.apache.isis.applib.util.ObjectContracts;
 
 @javax.jdo.annotations.PersistenceCapable(
@@ -41,7 +47,8 @@ import org.apache.isis.applib.util.ObjectContracts;
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
 @DomainObject(
-        objectType = "PUBLISH_MQ_DEMO_OBJECT"
+        objectType = "PUBLISH_MQ_DEMO_OBJECT",
+        publishing = Publishing.ENABLED
 )
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
@@ -54,6 +61,12 @@ public class PublishMqDemoObject implements Comparable<PublishMqDemoObject> {
 
     @javax.jdo.annotations.Column(allowsNull="false")
     @Title(sequence="1")
+    @Property(
+            publishing = Publishing.ENABLED
+    )
+    @PropertyLayout(
+            describedAs = "Publishing enabled"
+    )
     @MemberOrder(sequence="1")
     public String getName() {
         return name;
@@ -69,6 +82,9 @@ public class PublishMqDemoObject implements Comparable<PublishMqDemoObject> {
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
             publishing = Publishing.ENABLED
+    )
+    @ActionLayout(
+            describedAs = "Publishing enabled"
     )
     public PublishMqDemoObject updateName(
             @ParameterLayout(named="Name")
@@ -86,7 +102,12 @@ public class PublishMqDemoObject implements Comparable<PublishMqDemoObject> {
     private String description;
 
     @javax.jdo.annotations.Column(allowsNull="true")
-    @MemberOrder(sequence="2")
+    @Property(
+            publishing = Publishing.AS_CONFIGURED
+    )
+    @PropertyLayout(
+            describedAs = "Publishing as configured"
+    )
     public String getDescription() {
         return description;
     }
@@ -100,7 +121,10 @@ public class PublishMqDemoObject implements Comparable<PublishMqDemoObject> {
     //region > updateDescription (action)
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
-            publishing = Publishing.ENABLED
+            publishing = Publishing.AS_CONFIGURED
+    )
+    @ActionLayout(
+            describedAs = "Publishing as configured"
     )
     public PublishMqDemoObject updateDescription(
             @ParameterLayout(named="Description")
@@ -112,6 +136,99 @@ public class PublishMqDemoObject implements Comparable<PublishMqDemoObject> {
         return getDescription();
     }
     //endregion
+
+    //region > count (property)
+
+    private Integer count;
+
+    @javax.jdo.annotations.Column(allowsNull="true")
+    @Property(
+            publishing = Publishing.DISABLED
+    )
+    @PropertyLayout(
+            describedAs = "Publishing disabled"
+    )
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(final Integer count) {
+        this.count = count;
+    }
+
+    //endregion
+
+    //region > updateCount (action)
+    @Action(
+            semantics = SemanticsOf.IDEMPOTENT,
+            publishing = Publishing.DISABLED
+    )
+    @ActionLayout(
+            describedAs = "Publishing disabled"
+    )
+    public PublishMqDemoObject updateCount(
+            @ParameterLayout(named="Count")
+            final Integer count) {
+        setCount(count);
+        return this;
+    }
+    public Integer default0UpdateCount() {
+        return getCount();
+    }
+    //endregion
+
+    //region > updateCountInBulk (action)
+    @Action(
+            semantics = SemanticsOf.IDEMPOTENT,
+            publishing = Publishing.ENABLED,
+            invokeOn = InvokeOn.COLLECTION_ONLY
+    )
+    @ActionLayout(
+            describedAs = "Publishing enabled, bulk action"
+    )
+    public void incrementCountInBulk() {
+        setCount( currentCount() + 1 );
+    }
+
+    private int currentCount() {
+        return getCount() != null ? getCount() : 0;
+    }
+    //endregion
+
+    //region > updateNameAndDescriptionAndCount (action)
+    @Action(
+            semantics = SemanticsOf.IDEMPOTENT,
+            publishing = Publishing.ENABLED
+    )
+    @ActionLayout(
+            describedAs = "Updates name, description and count as sub-actions"
+    )
+    public PublishMqDemoObject updateNameAndDescriptionAndCount(
+            @ParameterLayout(named="Name")
+            final String name,
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named="Description")
+            final String description,
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named="Count")
+            final Integer integer) {
+        wrapperFactory.wrap(this).updateName(name);
+        wrapperFactory.wrap(this).updateDescription(description);
+        wrapperFactory.wrap(this).updateCount(count);
+        return this;
+    }
+    public String default0UpdateNameAndDescriptionAndCount() {
+        return getName();
+    }
+    public String default1UpdateNameAndDescriptionAndCount() {
+        return getDescription();
+    }
+    public Integer default2UpdateNameAndDescriptionAndCount() {
+        return getCount();
+    }
+    //endregion
+
+
 
     //region > compareTo
 
@@ -126,7 +243,7 @@ public class PublishMqDemoObject implements Comparable<PublishMqDemoObject> {
 
     @javax.inject.Inject
     @SuppressWarnings("unused")
-    private DomainObjectContainer container;
+    private WrapperFactory wrapperFactory;
 
     //endregion
 

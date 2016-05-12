@@ -76,9 +76,7 @@
     </build>
 
     <modules>
-    <!--
-        <module>dom/servicespi</module>
-    -->
+        <module>dom/jdo</module>
         <module>fixture/dom</module>
     </modules>
 

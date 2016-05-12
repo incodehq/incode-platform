@@ -24,6 +24,8 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.bookmark.BookmarkService2;
 import org.apache.isis.applib.services.iactn.Interaction;
 import org.apache.isis.applib.services.repository.RepositoryService;
+import org.apache.isis.applib.services.title.TitleService;
+import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.schema.common.v1.InteractionType;
 import org.apache.isis.schema.ixn.v1.InteractionDto;
 import org.apache.isis.schema.utils.InteractionDtoUtils;
@@ -45,21 +47,34 @@ public class InteractionExecutionRepositoryJdo implements InteractionExecutionRe
 
         publishedEvent.setEventType(eventTypeFor(execution.getInteractionType()));
         publishedEvent.setTransactionId(execution.getInteraction().getTransactionId());
-        publishedEvent.setTransactionId(execution.getInteraction().getTransactionId());
+        publishedEvent.setTimestamp(execution.getStartedAt());
         publishedEvent.setSequence(execution.getDto().getSequence());
         publishedEvent.setUser(execution.getDto().getUser());
 
         publishedEvent.setTarget(bookmarkService2.bookmarkFor(execution.getTarget()));
-        publishedEvent.setTargetClass(execution.getDto().getTarget().getClass().getName());
         publishedEvent.setMemberIdentifier(execution.getMemberIdentifier());
-        publishedEvent.setTargetAction(execution.getMemberIdentifier());
+
+        publishedEvent.setTargetClass(execution.getTargetClass());
+        publishedEvent.setTargetAction(execution.getTargetMember());
 
         final InteractionDto interactionDto = InteractionDtoUtils.newInteractionDto(execution);
         final String xml = InteractionDtoUtils.toXml(interactionDto);
 
         publishedEvent.setSerializedForm(xml);
 
+        final String title = buildTitle(publishedEvent);
+        publishedEvent.setTitle(title);
+
         repositoryService.persist(publishedEvent);
+    }
+
+    private String buildTitle(final PublishedEvent publishedEvent) {
+        final StringBuilder buf = new StringBuilder();
+
+        buf.append(titleService.titleOf(publishedEvent.getEventType()))
+            .append(" of '").append(publishedEvent.getTargetAction())
+            .append("' on ").append(publishedEvent.getTargetStr());
+        return buf.toString();
     }
 
     private PublishedEventType eventTypeFor(final InteractionType interactionType) {
@@ -81,6 +96,9 @@ public class InteractionExecutionRepositoryJdo implements InteractionExecutionRe
 
     @Inject
     BookmarkService2 bookmarkService2;
+
+    @Inject
+    TitleService titleService;
 
 
 }

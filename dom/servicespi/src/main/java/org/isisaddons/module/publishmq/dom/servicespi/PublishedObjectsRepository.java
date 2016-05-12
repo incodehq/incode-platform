@@ -17,14 +17,14 @@
 package org.isisaddons.module.publishmq.dom.servicespi;
 
 import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.services.changes.ChangedObjects;
+import org.apache.isis.applib.services.publish.PublishedObjects;
 
-public interface ChangedObjectsRepository {
+public interface PublishedObjectsRepository {
 
     /**
-     * @param changedObjects - the identity of the objects created, updated or deleted within a transaction, to be persisted.
+     * @param publishedObjects - the identity of the objects created, updated or deleted within a transaction, to be persisted.
      */
     @Programmatic
-    void persist(final ChangedObjects changedObjects);
+    void persist(final PublishedObjects publishedObjects);
 
 }

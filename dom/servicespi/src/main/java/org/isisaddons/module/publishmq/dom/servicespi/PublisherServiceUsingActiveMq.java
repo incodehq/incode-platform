@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
 import org.apache.isis.applib.ApplicationException;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.services.changes.ChangedObjects;
+import org.apache.isis.applib.services.publish.PublishedObjects;
 import org.apache.isis.applib.services.iactn.Interaction;
 import org.apache.isis.applib.services.publish.PublisherService;
 import org.apache.isis.schema.ixn.v1.InteractionDto;
@@ -152,15 +152,15 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
     }
 
     @Override
-    public void publish(final ChangedObjects changedObjects) {
-        persist(changedObjects);
+    public void publish(final PublishedObjects publishedObjects) {
+        persist(publishedObjects);
     }
 
-    private void persist(final ChangedObjects changedObjects) {
-        if(changedObjectsRepository == null) {
+    private void persist(final PublishedObjects publishedObjects) {
+        if(publishedObjectsRepository == null) {
             return;
         }
-        changedObjectsRepository.persist(changedObjects);
+        publishedObjectsRepository.persist(publishedObjects);
     }
 
     private static void rollback(final Session session) {
@@ -207,7 +207,7 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
     }
 
     @Inject
-    private ChangedObjectsRepository changedObjectsRepository;
+    private PublishedObjectsRepository publishedObjectsRepository;
 
     @Inject
     private InteractionExecutionRepository interactionExecutionRepository;
