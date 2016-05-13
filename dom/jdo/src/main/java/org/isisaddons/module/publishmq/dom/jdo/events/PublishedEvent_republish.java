@@ -21,10 +21,7 @@ public class PublishedEvent_republish {
     }
 
 
-    public static class ActionDomainEvent
-            extends PublishMqModule.ActionDomainEvent<PublishedEvent> {
-    }
-
+    public static class ActionDomainEvent extends PublishMqModule.ActionDomainEvent<PublishedEvent_republish> { }
 
     @Action(
             domainEvent = ActionDomainEvent.class,

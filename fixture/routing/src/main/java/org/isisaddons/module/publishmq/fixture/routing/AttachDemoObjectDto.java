@@ -1,5 +1,7 @@
 package org.isisaddons.module.publishmq.fixture.routing;
 
+import java.net.URI;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
@@ -17,6 +19,8 @@ import org.apache.camel.Processor;
 import org.apache.isis.schema.ixn.v1.InteractionDto;
 
 import org.isisaddons.module.publishmq.canonical.demoobject.DemoObjectDto;
+import org.isisaddons.module.publishmq.dom.statusclient.StatusMessage;
+import org.isisaddons.module.publishmq.dom.statusclient.StatusMessageClient;
 
 public class AttachDemoObjectDto implements Processor {
 
@@ -26,7 +30,9 @@ public class AttachDemoObjectDto implements Processor {
                     "x-ro-domain-type", DemoObjectDto.class.getName()));
 
     private final ClientBuilder clientBuilder;
-    private UriBuilder uriBuilder;
+    private UriBuilder objectInstanceUriBuilder;
+
+    private StatusMessageClient statusMessageClient;
 
     public AttachDemoObjectDto() {
         clientBuilder = ClientBuilder.newBuilder();
@@ -48,9 +54,9 @@ public class AttachDemoObjectDto implements Processor {
         this.password = password;
     }
 
-
     public void init() {
-        uriBuilder = UriBuilder.fromUri(base + "objects/{objectType}/{objectInstance}");
+        objectInstanceUriBuilder = UriBuilder.fromUri(base + "objects/{objectType}/{objectInstance}");
+        statusMessageClient = new StatusMessageClient(base, username, password);
     }
 
     @Override
@@ -62,12 +68,20 @@ public class AttachDemoObjectDto implements Processor {
         final String objectIdentifier = interactionDto.getExecution().getTarget().getId();
 
         if(!"PUBLISH_MQ_DEMO_OBJECT".equals(objectType)) {
-            throw new IllegalArgumentException("Expected target's object type to be 'PUBLISH_MQ_DEMO_OBJECT', instead was '" + objectType + "'");
+            throw new IllegalArgumentException(String.format(
+                    "Expected target's object type to be 'PUBLISH_MQ_DEMO_OBJECT', instead was '%s'", objectType));
         }
+
+        final String transactionId = interactionDto.getTransactionId();
+
+        statusMessageClient.log(
+                StatusMessage.builder(transactionId, "Retrieving object")
+                             .withOid(objectType, objectIdentifier));
 
         Client client = clientBuilder.build();
         try {
-            final WebTarget webTarget = client.target(uriBuilder.build(objectType, objectIdentifier));
+            final URI uri = objectInstanceUriBuilder.build(objectType, objectIdentifier);
+            final WebTarget webTarget = client.target(uri);
 
             final Invocation.Builder invocationBuilder = webTarget.request();
             invocationBuilder.accept(MEDIA_TYPE);
@@ -78,9 +92,18 @@ public class AttachDemoObjectDto implements Processor {
 
             final int status = response.getStatus();
             if(status != 200) {
-                final String s = response.readEntity(String.class);
-                throw new RuntimeException(s);
+                final String exception = response.readEntity(String.class);
+
+                statusMessageClient.log(
+                        StatusMessage.builder(transactionId, "Failed to retrieve object representation")
+                                .withUri(uri)
+                                .withStatus(status)
+                                .withDetail(exception));
+
+                throw new RuntimeException(exception);
             }
+
+            statusMessageClient.log(StatusMessage.builder(transactionId, "Retrieve object").withUri(uri));
 
             final DemoObjectDto entity = response.readEntity(DemoObjectDto.class);
             inMessage.setHeader(DemoObjectDto.class.getName(), entity);
@@ -91,11 +114,11 @@ public class AttachDemoObjectDto implements Processor {
 
     }
 
-    protected String encode(final String username, final String password) {
-        return org.apache.cxf.common.util.Base64Utility.encode(asBytes(username, password));
+    private static String encode(final String username, final String password) {
+        return java.util.Base64.getEncoder().encodeToString(asBytes(username, password));
     }
 
-    protected byte[] asBytes(final String username, final String password) {
+    private static byte[] asBytes(final String username, final String password) {
         return String.format("%s:%s", username, password).getBytes();
     }
 

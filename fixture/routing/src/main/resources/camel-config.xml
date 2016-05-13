@@ -72,9 +72,9 @@
           class="org.isisaddons.module.publishmq.fixture.routing.AttachDemoObjectDto"
           init-method="init">
         <!-- see propertyPlaceholderConfigurer-config.xml -->
-        <property name="base" value="${attachDomCanonicalDto.base}"/>
-        <property name="username" value="${attachDomCanonicalDto.username}"/>
-        <property name="password" value="${attachDomCanonicalDto.password}"/>
+        <property name="base" value="${restful.base}"/>
+        <property name="username" value="${restful.username}"/>
+        <property name="password" value="${restful.password}"/>
     </bean>
 
     <bean id="postToFakeExternalSoapService"
@@ -85,5 +85,10 @@
                   value="${updateExternalSystemAdapter.endpointAddressBase}"/>
         <property name="endpointAddressSuffix"
                   value="${updateExternalSystemAdapter.endpointAddressSuffix}"/>
+
+        <property name="base" value="${restful.base}"/>
+        <property name="username" value="${restful.username}"/>
+        <property name="password" value="${restful.password}"/>
+
     </bean>
 </beans>

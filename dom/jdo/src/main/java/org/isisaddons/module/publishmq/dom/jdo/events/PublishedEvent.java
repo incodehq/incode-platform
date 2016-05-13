@@ -157,7 +157,7 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
     //region > constructor, identification
 
     public PublishedEvent() {
-        super(ChangeType.PUBLISHED_EVENT);
+        super(ChangeType.PUBLISHED_INTERACTION);
     }
     //endregion
 

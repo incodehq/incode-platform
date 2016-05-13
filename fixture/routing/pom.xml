@@ -59,6 +59,10 @@ Copyright 2015 Dan Haywood
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.isisaddons.module.publishmq</groupId>
+            <artifactId>isis-module-publishmq-dom-statusclient</artifactId>
+        </dependency>
 
         <!--
         <dependency>

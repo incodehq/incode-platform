@@ -35,7 +35,6 @@ import org.apache.isis.applib.services.HasTransactionId;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.util.ObjectContracts;
-import org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 import org.apache.isis.objectstore.jdo.applib.service.Util;
 
@@ -55,6 +54,12 @@ import lombok.Setter;
             value="SELECT "
                     + "FROM org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage "
                     + "WHERE transactionId == :transactionId "
+                    + "ORDER BY timestamp DESC DESC"),
+    @javax.jdo.annotations.Query(
+            name="findByTransactionIds", language="JDOQL",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage "
+                    + "WHERE :transactionIds.contains(transactionId) "
                     + "ORDER BY timestamp DESC DESC"),
     @javax.jdo.annotations.Query(
             name="findByTimestampBetween", language="JDOQL",  
@@ -92,7 +97,7 @@ import lombok.Setter;
 @DomainObjectLayout(
         named = "Status Message"
 )
-public class StatusMessage extends DomainChangeJdoAbstract implements HasTransactionId {
+public class StatusMessage implements HasTransactionId {
 
     //region > domain events
     public static abstract class PropertyDomainEvent<T>
@@ -108,17 +113,12 @@ public class StatusMessage extends DomainChangeJdoAbstract implements HasTransac
     }
     //endregion
 
-    //region > constructor, identification
-
-    public StatusMessage() {
-        super(ChangeType.PUBLISHED_EVENT);
-    }
+    //region > identification
 
     public String title() {
         return Util.abbreviated(getMessage(), 100);
     }
     //endregion
-
 
     //region > timestamp (property)
 
@@ -153,22 +153,12 @@ public class StatusMessage extends DomainChangeJdoAbstract implements HasTransac
             domainEvent = TransactionIdDomainEvent.class
     )
     @PropertyLayout(
-            typicalLength = JdoColumnLength.TRANSACTION_ID
+            typicalLength = JdoColumnLength.TRANSACTION_ID,
+            hidden = Where.PARENTED_TABLES
     )
     @MemberOrder(name="Identifiers", sequence = "30")
     @Getter @Setter
     private UUID transactionId;
-
-    //endregion
-
-    //region > targetStrDomain (hidden property, required by superclass, always null)
-
-    @javax.jdo.annotations.NotPersistent
-    @Property(
-            hidden = Where.EVERYWHERE
-    )
-    @Getter @Setter
-    private String targetStr;
 
     //endregion
 
@@ -191,6 +181,51 @@ public class StatusMessage extends DomainChangeJdoAbstract implements HasTransac
     public void setMessage(final String message) {
         this.message = Util.abbreviated(message, JdoColumnLength.StatusMessage.MESSAGE);
     }
+
+    //endregion
+
+    //region > uri (property)
+
+    public static class UriDomainEvent extends PropertyDomainEvent<String> {
+    }
+
+    @javax.jdo.annotations.Column(allowsNull="true", length = JdoColumnLength.StatusMessage.URI)
+    @Property(
+            domainEvent = UriDomainEvent.class
+    )
+    @Getter @Setter
+    @MemberOrder(name="Uri", sequence = "37")
+    private String uri;
+
+    //endregion
+
+    //region > oid (property)
+
+    public static class OidDomainEvent extends PropertyDomainEvent<String> {
+    }
+
+    @javax.jdo.annotations.Column(allowsNull="true", length = JdoColumnLength.BOOKMARK)
+    @Property(
+            domainEvent = OidDomainEvent.class
+    )
+    @Getter @Setter
+    @MemberOrder(name="Oid", sequence = "37.1")
+    private String oid;
+
+    //endregion
+
+    //region > status (property)
+
+    public static class StatusDomainEvent extends PropertyDomainEvent<Integer> {
+    }
+
+    @javax.jdo.annotations.Column(allowsNull="true")
+    @Property(
+            domainEvent = StatusDomainEvent.class
+    )
+    @Getter @Setter
+    @MemberOrder(name="Status", sequence = "38")
+    private Integer status;
 
     //endregion
 

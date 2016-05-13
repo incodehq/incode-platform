@@ -23,6 +23,9 @@ import javax.inject.Inject;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.Parameter;
+import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.repository.RepositoryService;
@@ -30,21 +33,46 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 @DomainService(
         nature = NatureOfService.VIEW_REST_ONLY
 )
-public class StatusMessageRestService {
+public class StatusMessageService {
 
+    /**
+     * Used within the URL (rather than the fully-qualified class name).
+     * @return
+     */
+    public String id() {
+        return "StatusMessageService";
+    }
 
     @Action(
             semantics = SemanticsOf.NON_IDEMPOTENT
     )
-    public void log(final String transactionId, final String message, final String detail) {
+    public void log(
+            @ParameterLayout(named = "transactionId")
+            final String transactionId,
+            @ParameterLayout(named = "message")
+            final String message,
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "oid")
+            final String oid,
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "uri")
+            final String uri,
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "status")
+            final Integer status,
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "detail")
+            final String detail) {
 
         final StatusMessage statusMessage = repositoryService.instantiate(StatusMessage.class);
 
         statusMessage.setTimestamp(clockService.nowAsJavaSqlTimestamp());
-        statusMessage.setDetail(detail);
-        statusMessage.setMessage(message);
-        statusMessage.setTargetStr(null); // always
         statusMessage.setTransactionId(UUID.fromString(transactionId));
+        statusMessage.setMessage(message);
+        statusMessage.setOid(oid);
+        statusMessage.setUri(uri);
+        statusMessage.setStatus(status);
+        statusMessage.setDetail(detail);
 
         repositoryService.persist(statusMessage);
     }
