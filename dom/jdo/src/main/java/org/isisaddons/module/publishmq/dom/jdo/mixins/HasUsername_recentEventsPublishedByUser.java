@@ -49,7 +49,7 @@ public class HasUsername_recentEventsPublishedByUser {
             domainEvent = ActionDomainEvent.class
     )
     @ActionLayout(
-            contributed = Contributed.AS_ASSOCIATION
+            contributed = Contributed.AS_ACTION
     )
     @CollectionLayout(
             defaultView = "table"

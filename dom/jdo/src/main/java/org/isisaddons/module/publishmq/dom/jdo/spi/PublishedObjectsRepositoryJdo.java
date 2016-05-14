@@ -46,7 +46,7 @@ public class PublishedObjectsRepositoryJdo implements PublishedObjectsRepository
         publishedEvent.setTransactionId(publishedObjects.getTransactionId());
         publishedEvent.setTimestamp(publishedObjects.getCompletedAt());
         publishedEvent.setSequence(-1); // because interactions start at 0
-        publishedEvent.setUser(publishedObjects.getUser());
+        publishedEvent.setUser(publishedObjects.getUsername());
 
         publishedEvent.setTarget(null);
         publishedEvent.setTargetClass(null);
@@ -68,9 +68,11 @@ public class PublishedObjectsRepositoryJdo implements PublishedObjectsRepository
         final StringBuilder buf = new StringBuilder();
         buf.append(titleService.titleOf(PublishedEventType.CHANGED_OBJECTS))
                 .append(" (")
-                .append(publishedObjects.numberCreated()).append( " created, ")
-                .append(publishedObjects.numberUpdated()).append( " updated, ")
-                .append(publishedObjects.numberDeleted()).append( " deleted")
+                .append(publishedObjects.getNumberLoaded()).append( " loaded, ")
+                .append(publishedObjects.getNumberCreated()).append( " created, ")
+                .append(publishedObjects.getNumberUpdated()).append( " updated, ")
+                .append(publishedObjects.getNumberUpdated()).append( " deleted, ")
+                .append(publishedObjects.getNumberPropertiesModified()).append( " props modified")
                 .append(")");
         return buf.toString();
     }

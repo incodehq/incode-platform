@@ -21,11 +21,13 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.CommandReification;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Publishing;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.repository.RepositoryService;
@@ -44,7 +46,9 @@ public class StatusMessageService {
     }
 
     @Action(
-            semantics = SemanticsOf.NON_IDEMPOTENT
+            semantics = SemanticsOf.NON_IDEMPOTENT,
+            command = CommandReification.DISABLED,
+            publishing = Publishing.DISABLED
     )
     public void log(
             @ParameterLayout(named = "transactionId")

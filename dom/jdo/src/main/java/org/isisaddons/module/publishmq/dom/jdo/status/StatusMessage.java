@@ -131,7 +131,7 @@ public class StatusMessage implements HasTransactionId {
             domainEvent = TimestampDomainEvent.class
     )
     @Getter @Setter
-    @MemberOrder(name="Identifiers", sequence = "20")
+    @MemberOrder(name="Identifiers", sequence = "10")
     private Timestamp timestamp;
     //endregion
 
@@ -156,7 +156,7 @@ public class StatusMessage implements HasTransactionId {
             typicalLength = JdoColumnLength.TRANSACTION_ID,
             hidden = Where.PARENTED_TABLES
     )
-    @MemberOrder(name="Identifiers", sequence = "30")
+    @MemberOrder(name="Identifiers", sequence = "20")
     @Getter @Setter
     private UUID transactionId;
 
@@ -172,9 +172,10 @@ public class StatusMessage implements HasTransactionId {
             domainEvent = MessageDomainEvent.class
     )
     @PropertyLayout(
+            hidden = Where.OBJECT_FORMS,
             typicalLength = 60
     )
-    @MemberOrder(name="Detail",sequence = "20")
+    @MemberOrder(name="Identifiers",sequence = "30")
     @Getter
     private String message;
 
@@ -182,20 +183,20 @@ public class StatusMessage implements HasTransactionId {
         this.message = Util.abbreviated(message, JdoColumnLength.StatusMessage.MESSAGE);
     }
 
-    //endregion
 
-    //region > uri (property)
-
-    public static class UriDomainEvent extends PropertyDomainEvent<String> {
+    @Property(
+            domainEvent = MessageDomainEvent.class
+    )
+    @PropertyLayout(
+            named = "Message",
+            hidden = Where.ALL_TABLES,
+            typicalLength = 60
+    )
+    @MemberOrder(name="Detail",sequence = "30")
+    public String getMessageOnForm() {
+        return getMessage();
     }
 
-    @javax.jdo.annotations.Column(allowsNull="true", length = JdoColumnLength.StatusMessage.URI)
-    @Property(
-            domainEvent = UriDomainEvent.class
-    )
-    @Getter @Setter
-    @MemberOrder(name="Uri", sequence = "37")
-    private String uri;
 
     //endregion
 
@@ -209,8 +210,23 @@ public class StatusMessage implements HasTransactionId {
             domainEvent = OidDomainEvent.class
     )
     @Getter @Setter
-    @MemberOrder(name="Oid", sequence = "37.1")
+    @MemberOrder(name="Oid", sequence = "40")
     private String oid;
+
+    //endregion
+
+    //region > uri (property)
+
+    public static class UriDomainEvent extends PropertyDomainEvent<String> {
+    }
+
+    @javax.jdo.annotations.Column(allowsNull="true", length = JdoColumnLength.StatusMessage.URI)
+    @Property(
+            domainEvent = UriDomainEvent.class
+    )
+    @Getter @Setter
+    @MemberOrder(name="Uri", sequence = "50")
+    private String uri;
 
     //endregion
 
@@ -224,7 +240,7 @@ public class StatusMessage implements HasTransactionId {
             domainEvent = StatusDomainEvent.class
     )
     @Getter @Setter
-    @MemberOrder(name="Status", sequence = "38")
+    @MemberOrder(name="Status", sequence = "60")
     private Integer status;
 
     //endregion
@@ -239,7 +255,7 @@ public class StatusMessage implements HasTransactionId {
             domainEvent = DetailDomainEvent.class
     )
     @Getter @Setter
-    @MemberOrder(name="Detail", sequence = "40")
+    @MemberOrder(name="Detail", sequence = "70")
     @PropertyLayout(
             hidden = Where.ALL_TABLES,
             multiLine = 14
