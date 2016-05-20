@@ -44,7 +44,19 @@ import org.apache.isis.applib.services.repository.RepositoryService;
         nature = NatureOfService.DOMAIN
 )
 public class AuditingServiceRepository {
-    
+
+    public List<AuditEntry> findRecentByTargetAndPropertyId(
+            final Bookmark target,
+            final String propertyId) {
+        final String targetStr = target.toString();
+        return repositoryService.allMatches(
+                new QueryDefault<>(AuditEntry.class,
+                        "findRecentByTargetAndPropertyId",
+                        "targetStr", targetStr,
+                        "propertyId", propertyId
+                    ));
+    }
+
     @Programmatic
     public List<AuditEntry> findByTransactionId(final UUID transactionId) {
         return repositoryService.allMatches(
@@ -131,5 +143,6 @@ public class AuditingServiceRepository {
 
     @Inject
     RepositoryService repositoryService;
+
 
 }

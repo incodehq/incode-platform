@@ -38,6 +38,29 @@ import org.apache.isis.applib.util.ObjectContracts;
 )
 public class SomeAuditedObject implements Comparable<SomeAuditedObject> {
 
+    //region > updateNameAndNumber
+
+    @Action()
+    public SomeAuditedObject updateNameAndNumber(
+            @ParameterLayout(named = "Name")
+            final String name,
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "Number")
+            final Integer number) {
+        setName(name);
+        setNumber(number);
+        return this;
+    }
+
+    public String default0UpdateNameAndNumber() {
+        return getName();
+    }
+    public Integer default1UpdateNameAndNumber() {
+        return getNumber();
+    }
+
+    //endregion
+
     //region > name (property)
 
     private String name;

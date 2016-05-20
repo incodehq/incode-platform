@@ -23,11 +23,13 @@ import java.util.UUID;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Index;
 import javax.jdo.annotations.Indices;
+import javax.jdo.annotations.NotPersistent;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.LabelPosition;
 import org.apache.isis.applib.annotation.MemberGroupLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -57,7 +59,15 @@ import lombok.Setter;
         column="id")
 @javax.jdo.annotations.Queries( {
     @javax.jdo.annotations.Query(
-            name="findByTransactionId", language="JDOQL",  
+            name="findRecentByTargetAndPropertyId", language="JDOQL",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.audit.dom.AuditEntry "
+                    + "WHERE targetStr == :targetStr "
+                    + "&&    propertyId == :propertyId "
+                    + "ORDER BY timestamp DESC "
+                    + "RANGE 0,30"),
+    @javax.jdo.annotations.Query(
+            name="findByTransactionId", language="JDOQL",
             value="SELECT "
                     + "FROM org.isisaddons.module.audit.dom.AuditEntry "
                     + "WHERE transactionId == :transactionId"),
@@ -66,22 +76,22 @@ import lombok.Setter;
             value="SELECT "
                     + "FROM org.isisaddons.module.audit.dom.AuditEntry "
                     + "WHERE targetStr == :targetStr " 
-                    + "&& timestamp >= :from " 
-                    + "&& timestamp <= :to "
+                    + "&&    timestamp >= :from "
+                    + "&&    timestamp <= :to "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTargetAndTimestampAfter", language="JDOQL",  
             value="SELECT "
                     + "FROM org.isisaddons.module.audit.dom.AuditEntry "
                     + "WHERE targetStr == :targetStr " 
-                    + "&& timestamp >= :from "
+                    + "&&    timestamp >= :from "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTargetAndTimestampBefore", language="JDOQL",  
             value="SELECT "
                     + "FROM org.isisaddons.module.audit.dom.AuditEntry "
                     + "WHERE targetStr == :targetStr " 
-                    + "&& timestamp <= :to "
+                    + "&&    timestamp <= :to "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTarget", language="JDOQL",  
@@ -146,10 +156,9 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
     public String title() {
         final TitleBuffer buf = new TitleBuffer();
         buf.append(
-        new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(getTimestamp()));
-        buf.append(",", getUser());
-        buf.append(":", getTargetStr());
-        buf.append(" ", getMemberIdentifier());
+        new SimpleDateFormat("yyyy-MM-dd hh:mm").format(getTimestamp()));
+        buf.append(" - ", getTargetStr());
+        buf.append(", ", getPropertyId());
         return buf.toString();
     }
 
@@ -353,6 +362,24 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
         this.postValue = Util.abbreviated(postValue, JdoColumnLength.AuditEntry.PROPERTY_VALUE);
     }
 
+    //endregion
+
+    //region > metadata region dummy property
+
+    public static class MetadataRegionDummyPropertyDomainEvent extends PropertyDomainEvent<String> { }
+
+    /**
+     * Exists just that the Wicket viewer will render an (almost) empty metadata region (on which the
+     * framework contributed mixin actions will be attached).  The field itself can optionally be hidden
+     * using CSS.
+     */
+    @NotPersistent
+    @Property(domainEvent = MetadataRegionDummyPropertyDomainEvent.class, notPersisted = true)
+    @PropertyLayout(labelPosition = LabelPosition.NONE, hidden = Where.ALL_TABLES)
+    @MemberOrder(name="Metadata", sequence = "1")
+    public String getMetadataRegionDummyProperty() {
+        return null;
+    }
     //endregion
 
     //region > helpers: toString

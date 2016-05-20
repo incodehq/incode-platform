@@ -14,20 +14,20 @@ import org.apache.isis.applib.services.HasTransactionId;
 import org.isisaddons.module.audit.AuditModule;
 
 @Mixin
-public class HasTransactionId_auditEntries {
+public class HasTransactionId_auditEntriesInTransaction {
 
-    public static class AuditEntriesDomainEvent extends AuditModule.ActionDomainEvent<HasTransactionId_auditEntries> {
+    public static class ActionDomainEvent extends AuditModule.ActionDomainEvent<HasTransactionId_auditEntriesInTransaction> {
     }
 
     private final HasTransactionId hasTransactionId;
 
-    public HasTransactionId_auditEntries(HasTransactionId hasTransactionId) {
+    public HasTransactionId_auditEntriesInTransaction(HasTransactionId hasTransactionId) {
         this.hasTransactionId = hasTransactionId;
     }
 
     @Action(
             semantics = SemanticsOf.SAFE,
-            domainEvent = AuditEntriesDomainEvent.class
+            domainEvent = ActionDomainEvent.class
     )
     @ActionLayout(
             contributed = Contributed.AS_ASSOCIATION
@@ -36,7 +36,7 @@ public class HasTransactionId_auditEntries {
             defaultView = "table"
     )
     @MemberOrder(sequence = "50.100")
-    public List<AuditEntry> auditEntries() {
+    public List<AuditEntry> $$() {
         return auditEntryRepository.findByTransactionId(hasTransactionId.getTransactionId());
     }
 
