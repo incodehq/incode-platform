@@ -43,7 +43,6 @@ public class PublishMqModuleSystemInitializer {
         public PublishMqModuleAppSystemBuilder() {
             withLoggingAt(org.apache.log4j.Level.INFO);
             with(testConfiguration());
-            with(new DataNucleusPersistenceMechanismInstaller());
 
             // services annotated with @DomainService
             withServicesIn( "org.isisaddons.module.publishmq" );
