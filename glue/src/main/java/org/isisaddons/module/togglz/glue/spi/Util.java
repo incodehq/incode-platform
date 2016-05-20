@@ -1,6 +1,6 @@
 package org.isisaddons.module.togglz.glue.spi;
 
-import org.apache.isis.core.metamodel.services.ServicesInjectorSpi;
+import org.apache.isis.core.metamodel.runtimecontext.ServicesInjector;
 import org.apache.isis.core.runtime.system.context.IsisContext;
 import org.apache.isis.core.runtime.system.persistence.PersistenceSession;
 
@@ -10,7 +10,7 @@ class Util {
         return getServicesInjector().lookupService(serviceClass);
     }
 
-    private static ServicesInjectorSpi getServicesInjector() {
+    private static ServicesInjector getServicesInjector() {
         return getPersistenceSession().getServicesInjector();
     }
 
