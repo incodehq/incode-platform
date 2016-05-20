@@ -37,7 +37,7 @@ public class HasUsername_recentEventsPublishedByUser {
 
 
     public static class ActionDomainEvent
-            extends PublishMqModule.ActionDomainEvent<PublishedEvent_siblingEvents> { }
+            extends PublishMqModule.ActionDomainEvent<HasUsername_recentEventsPublishedByUser> { }
 
     private final HasUsername hasUsername;
     public HasUsername_recentEventsPublishedByUser(final HasUsername hasUsername) {
