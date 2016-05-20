@@ -27,7 +27,6 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.HasUsername;
-import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 
 import org.isisaddons.module.command.CommandModule;
 
@@ -49,7 +48,7 @@ public class HasUsername_recentCommandsByUser {
             domainEvent = ActionDomainEvent.class
     )
     @ActionLayout(
-            contributed = Contributed.AS_ASSOCIATION
+            contributed = Contributed.AS_ACTION
     )
     @CollectionLayout(
             defaultView = "table"
