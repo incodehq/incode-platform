@@ -184,6 +184,19 @@ public class CommandServiceJdoRepository {
     }
     //endregion
 
+    //region > findRecentByTarget
+
+    @Programmatic
+    public List<CommandJdo> findRecentByTarget(final Bookmark target) {
+
+        final String targetStr = target.toString();
+
+        return repositoryService.allMatches(
+                new QueryDefault<>(CommandJdo.class, "findRecentByTarget", "targetStr", targetStr));
+
+    }
+    //endregion
+
 
     @javax.inject.Inject
     private CommandServiceJdo commandService;

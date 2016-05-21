@@ -169,7 +169,14 @@ import lombok.Setter;
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE user == :user "
                     + "ORDER BY timestamp DESC "
-                    + "RANGE 0,10")
+                    + "RANGE 0,30"),
+    @javax.jdo.annotations.Query(
+            name="findRecentByTarget", language="JDOQL",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
+                    + "WHERE targetStr == :targetStr "
+                    + "ORDER BY timestamp DESC, transactionId DESC "
+                    + "RANGE 0,30")
 })
 @DomainObject(
         objectType = "isiscommand.Command",
