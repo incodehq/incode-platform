@@ -10,12 +10,7 @@ import com.google.common.base.Predicates;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Lists;
 
-import org.apache.isis.applib.annotation.Action;
-import org.apache.isis.applib.annotation.ActionLayout;
-import org.apache.isis.applib.annotation.Contributed;
-import org.apache.isis.applib.annotation.Mixin;
-import org.apache.isis.applib.annotation.ParameterLayout;
-import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.services.HasTransactionId;
 import org.apache.isis.applib.services.appfeat.ApplicationFeatureRepository;
 import org.apache.isis.applib.services.appfeat.ApplicationMemberType;
@@ -42,6 +37,7 @@ public class Object_recentAuditEntries {
     @ActionLayout(
             contributed = Contributed.AS_ACTION
     )
+    @MemberOrder(name = "Metadata", sequence = "10")
     public List<AuditEntry> $$(
             @ParameterLayout(named = "Object property")
             final String propertyName) {
