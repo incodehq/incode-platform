@@ -70,7 +70,7 @@ public abstract class EventProviderAbstract implements EventProvider {
                         CalendarableDereferencingService.class);
         for (final CalendarableDereferencingService dereferencingService : calendarableDereferencingServices) {
             final Object dereferencedObject = dereferencingService.dereference(domainObject);
-            if(dereferencedObject != domainObject) {
+            if(dereferencedObject != null && dereferencedObject != domainObject) {
                 return dereferencedObject;
             }
         }
