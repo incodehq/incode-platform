@@ -35,7 +35,7 @@ public class Object_commands {
             contributed = Contributed.AS_ASSOCIATION
     )
     @CollectionLayout(
-            render = RenderType.EAGERLY
+            defaultView = "table"
     )
     public List<CommandJdo> $$() {
         final Bookmark bookmark = bookmarkService.bookmarkFor(entity);
