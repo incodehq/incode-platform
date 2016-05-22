@@ -2,9 +2,7 @@ package org.isisaddons.module.publishmq.dom.jdo.events;
 
 import javax.inject.Inject;
 
-import org.apache.isis.applib.annotation.Action;
-import org.apache.isis.applib.annotation.Mixin;
-import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.annotation.*;
 import org.apache.isis.schema.ixn.v1.InteractionDto;
 import org.apache.isis.schema.utils.InteractionDtoUtils;
 
@@ -27,6 +25,12 @@ public class PublishedEvent_republish {
             domainEvent = ActionDomainEvent.class,
             semantics = SemanticsOf.NON_IDEMPOTENT_ARE_YOU_SURE
     )
+    @ActionLayout(
+            position = ActionLayout.Position.PANEL,
+            cssClassFa = "share-alt",
+            cssClass = "btn-warning"
+    )
+    @MemberOrder(name = "transactionId", sequence = "1")
     public PublishedEvent $$() {
 
         final String xml = publishedEvent.getSerializedForm();

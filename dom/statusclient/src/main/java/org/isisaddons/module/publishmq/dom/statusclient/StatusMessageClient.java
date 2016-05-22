@@ -16,26 +16,72 @@ public class StatusMessageClient {
 
     private static final Logger LOG = LoggerFactory.getLogger(StatusMessageClient.class);
 
+    //region > constructor, fields
     private final ClientBuilder clientBuilder;
 
-    private final String base;
-    private final String username;
-    private final String password;
+    public StatusMessageClient() {
+        clientBuilder = ClientBuilder.newBuilder();
+    }
+
+    /**
+     * Will automatically call {@link #init()} since all properties already supplied.
+     */
+    public StatusMessageClient(final String base, final String username, final String password) {
+        this();
+
+        setBase(base);
+        setUsername(username);
+        setPassword(password);
+
+        init();
+    }
+    //endregion
+
+    //region > base, username, password
 
     private UriBuilder uriBuilder;
-
-    public StatusMessageClient(final String base, final String username, final String password) {
+    private String base;
+    public void setBase(String base) {
         this.base = base;
-        this.username = username;
-        this.password = password;
-        clientBuilder = ClientBuilder.newBuilder();
-        uriBuilder = UriBuilder.fromUri(base + "services/StatusMessageService/actions/log/invoke");
     }
+
+    private String username;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    private String password;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    //endregion
+
+    //region > init
+
+    /**
+     * Should be called once all properties have been injected.
+     */
+    public void init() {
+        this.uriBuilder = UriBuilder.fromUri(base + "services/StatusMessageService/actions/log/invoke");
+    }
+
+    private void ensureInitialized() {
+        if(username == null || password == null || base == null) {
+            throw new IllegalStateException("Must initialize 'username', 'password' and 'base' properties");
+        }
+    }
+
+    //endregion
+
+    //region > log
 
     public void log(StatusMessage.Builder statusMessageBuilder) {
         log(statusMessageBuilder.build());
     }
     public void log(StatusMessage statusMessage) {
+
+        ensureInitialized();
 
         Client client = clientBuilder.build();
         try {
@@ -62,11 +108,15 @@ public class StatusMessageClient {
         }
     }
 
-    private String encode(final String username, final String password) {
+    //endregion
+
+    //region > helpers
+
+    private static String encode(final String username, final String password) {
         return java.util.Base64.getEncoder().encodeToString(asBytes(username, password));
     }
 
-    private byte[] asBytes(final String username, final String password) {
+    private static byte[] asBytes(final String username, final String password) {
         return String.format("%s:%s", username, password).getBytes();
     }
 
@@ -80,4 +130,6 @@ public class StatusMessageClient {
             // ignore so as to avoid overriding any pending exceptions in calling 'finally' block.
         }
     }
+    //endregion
+
 }

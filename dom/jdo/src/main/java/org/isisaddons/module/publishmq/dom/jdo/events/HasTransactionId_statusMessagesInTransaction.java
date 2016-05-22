@@ -17,15 +17,15 @@ import org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage;
 import org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageRepository;
 
 @Mixin
-public class HasTransactionId_statusMessages {
+public class HasTransactionId_statusMessagesInTransaction {
 
     private final HasTransactionId hasTransactionId;
-    public HasTransactionId_statusMessages(final HasTransactionId hasTransactionId) {
+    public HasTransactionId_statusMessagesInTransaction(final HasTransactionId hasTransactionId) {
         this.hasTransactionId = hasTransactionId;
     }
 
 
-    public static class ActionDomainEvent extends PublishMqModule.ActionDomainEvent<HasTransactionId_statusMessages> { }
+    public static class ActionDomainEvent extends PublishMqModule.ActionDomainEvent<HasTransactionId_statusMessagesInTransaction> { }
 
 
     @Action(

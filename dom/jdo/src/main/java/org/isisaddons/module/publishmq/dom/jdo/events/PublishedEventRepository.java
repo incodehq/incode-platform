@@ -56,6 +56,20 @@ public class PublishedEventRepository {
 
     //endregion
 
+    //region > findByTransactionIdAndSequence
+
+    @Programmatic
+    public PublishedEvent findByTransactionIdAndSequence(final UUID transactionId, final int sequence) {
+        return repositoryService.uniqueMatch(
+                new QueryDefault<>(PublishedEvent.class,
+                        "findByTransactionIdAndSequence",
+                        "transactionId", transactionId,
+                        "sequence", sequence
+                ));
+    }
+
+    //endregion
+
     //region > findByTargetAndFromAndTo
 
     @Programmatic

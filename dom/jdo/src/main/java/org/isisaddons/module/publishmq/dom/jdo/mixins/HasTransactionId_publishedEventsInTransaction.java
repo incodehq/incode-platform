@@ -21,11 +21,11 @@ import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEventRepository;
  * emitted within the same transaction.
  */
 @Mixin
-public class HasTransactionId_publishedEvents {
+public class HasTransactionId_publishedEventsInTransaction {
 
     private final HasTransactionId hasTransactionId;
 
-    public HasTransactionId_publishedEvents(HasTransactionId hasTransactionId) {
+    public HasTransactionId_publishedEventsInTransaction(HasTransactionId hasTransactionId) {
         this.hasTransactionId = hasTransactionId;
     }
 

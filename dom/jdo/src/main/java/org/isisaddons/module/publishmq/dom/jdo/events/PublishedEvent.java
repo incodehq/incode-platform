@@ -59,7 +59,13 @@ import lombok.Setter;
             value="SELECT "
                     + "FROM org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent "
                     + "WHERE transactionId == :transactionId "
-                    + "ORDER BY timestamp DESC, transactionId DESC, sequence DESC"),
+                    + "ORDER BY timestamp DESC, sequence DESC"),
+    @javax.jdo.annotations.Query(
+            name="findByTransactionIdAndSequence", language="JDOQL",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent "
+                    + "WHERE transactionId == :transactionId "
+                    + "&&    sequence      == :sequence "),
     @javax.jdo.annotations.Query(
             name="findByTargetAndTimestampBetween", language="JDOQL",  
             value="SELECT "
