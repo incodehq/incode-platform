@@ -51,12 +51,12 @@ public class HasUsername_recentSessionsForUser extends AbstractService {
             domainEvent = ActionDomainEvent.class
     )
     @ActionLayout(
-            contributed = Contributed.AS_ASSOCIATION
+            contributed = Contributed.AS_ACTION
     )
     @CollectionLayout(
             defaultView = "table"
     )
-    @MemberOrder(sequence = "200.100")
+    @MemberOrder(name = "user", sequence = "1")
     public List<SessionLogEntry> $$() {
         if(hasUsername == null || hasUsername.getUsername() == null) {
             return Collections.emptyList();
