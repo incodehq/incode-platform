@@ -83,8 +83,10 @@ public class StatusMessageClient {
 
         ensureInitialized();
 
-        Client client = clientBuilder.build();
+        Client client = null;
         try {
+            client = clientBuilder.build();
+
             final WebTarget webTarget = client.target(uriBuilder.build());
 
             final Invocation.Builder invocationBuilder = webTarget.request();
@@ -103,6 +105,8 @@ public class StatusMessageClient {
                 // if failed to log message via REST service, then fallback by logging to slf4j
                 LOG.warn(statusMessage.toString());
             }
+        } catch(Exception ex) {
+            LOG.error(statusMessage.toString(), ex);
         } finally {
             closeQuietly(client);
         }
