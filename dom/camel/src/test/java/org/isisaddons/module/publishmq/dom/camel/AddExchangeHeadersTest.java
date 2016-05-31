@@ -38,10 +38,12 @@ public class AddExchangeHeadersTest  extends TestSupport {
 
         final InteractionDto interactionDto = InteractionDtoUtils
                 .fromXml(getClass(), "memberInteractionMementoDto-example.xml", Charsets.UTF_8);
+        final String transactionId = interactionDto.getTransactionId();
+        final int sequence = interactionDto.getExecution().getSequence();
         final ImmutableMap<String, Object> aimHeader = ImmutableMap.<String,Object>builder()
-                .put("transactionId", interactionDto.getTransactionId())
-                .put("execution$id", interactionDto.getExecution().getId())
-                .put("execution$sequence", interactionDto.getExecution().getSequence())
+                .put("transactionId", transactionId)
+                .put("execution$id", transactionId + "." + sequence)
+                .put("execution$sequence", sequence)
                 .put("execution$memberIdentifier", interactionDto.getExecution().getMemberIdentifier())
                 .put("execution$user", interactionDto.getExecution().getUser())
                 .put("execution$metrics$timings$startedAt", interactionDto.getExecution().getMetrics().getTimings().getStartedAt())

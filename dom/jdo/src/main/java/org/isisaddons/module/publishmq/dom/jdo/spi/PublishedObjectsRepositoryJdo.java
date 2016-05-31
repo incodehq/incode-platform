@@ -45,7 +45,6 @@ public class PublishedObjectsRepositoryJdo implements PublishedObjectsRepository
         publishedEvent.setEventType(PublishedEventType.CHANGED_OBJECTS);
         publishedEvent.setTransactionId(publishedObjects.getTransactionId());
         publishedEvent.setTimestamp(publishedObjects.getCompletedAt());
-        publishedEvent.setSequence(-1); // because interactions start at 0
         publishedEvent.setUser(publishedObjects.getUsername());
 
         publishedEvent.setTarget(null);
@@ -53,8 +52,11 @@ public class PublishedObjectsRepositoryJdo implements PublishedObjectsRepository
         publishedEvent.setMemberIdentifier(null);
         publishedEvent.setTargetAction(null);
 
-        final ChangesDto dto = publishedObjects.getDto();
-        final String xml = ChangesDtoUtils.toXml(dto);
+        final ChangesDto changesDto = publishedObjects.getDto();
+
+        publishedEvent.setSequence(changesDto.getSequence());
+
+        final String xml = ChangesDtoUtils.toXml(changesDto);
 
         publishedEvent.setSerializedForm(xml);
 

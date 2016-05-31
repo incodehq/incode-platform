@@ -32,7 +32,7 @@ public class PublishMqDemoObjectsFixture extends DiscoverableFixtureScript {
     protected void execute(final ExecutionContext executionContext) {
 
         // prereqs
-	executionContext.executeChild(this, new PublishMqDemoObjectsTearDownFixture());
+	    executionContext.executeChild(this, new PublishMqDemoObjectsTearDownFixture());
 
         // create
         create("Foo", executionContext);

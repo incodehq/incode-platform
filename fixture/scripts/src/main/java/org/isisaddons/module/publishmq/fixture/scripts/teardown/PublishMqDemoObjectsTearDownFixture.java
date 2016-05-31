@@ -26,7 +26,6 @@ public class PublishMqDemoObjectsTearDownFixture extends FixtureScript {
         isisJdoSupport.executeUpdate("delete from \"publishmq\".\"PublishMqDemoObject\"");
     }
 
-
     @javax.inject.Inject
     private IsisJdoSupport isisJdoSupport;
 

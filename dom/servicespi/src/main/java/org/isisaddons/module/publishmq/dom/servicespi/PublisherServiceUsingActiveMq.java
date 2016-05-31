@@ -161,7 +161,9 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
             session = jmsConnection.createSession(transacted, Session.SESSION_TRANSACTED);
             TextMessage message = session.createTextMessage(xml);
 
-            final String executionId = interactionDto.getExecution().getId();
+            final String transactionId = interactionDto.getTransactionId();
+            final int sequence = interactionDto.getExecution().getSequence();
+            final String executionId = transactionId + "." + sequence;
             final String memberIdentifier = interactionDto.getExecution().getMemberIdentifier();
 
             message.setJMSMessageID(executionId);
