@@ -26,7 +26,7 @@
     </parent>
 
     <artifactId>isis-module-publishmq-externalsystemadapter-wsdlgen</artifactId>
-    <name>Isis Addons PublishMq Module Soap WSDL Codegen</name>
+    <name>Isis Addons PublishMQ Module Soap WSDL Codegen</name>
     
     <properties>
 <!--

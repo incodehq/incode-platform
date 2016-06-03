@@ -53,7 +53,7 @@ import org.apache.isis.applib.util.ObjectContracts;
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
 )
-public class PublishMqDemoObject implements Comparable<PublishMqDemoObject> {
+public class PublishMqDemoObject implements Comparable<PublishMqDemoObject>, Touchable {
 
     //region > name (property)
     

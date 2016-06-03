@@ -26,7 +26,7 @@ Copyright 2015 Dan Haywood
     <artifactId>isis-module-publishmq-fixture-routing</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>Isis Addons PublishMq Module Fixture Routing</name>
+    <name>Isis Addons PublishMQ Module Fixture Routing</name>
     <description>
         Contains routing and supporting beans for Camel
     </description>

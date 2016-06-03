@@ -25,7 +25,7 @@ Copyright 2015 Dan Haywood
     <artifactId>isis-module-publishmq-fixture-canonical</artifactId>
     
 
-    <name>Isis Addons PublishMq Module Fixture Canon'l DTOs</name>
+    <name>Isis Addons PublishMQ Module Fixture Canon'l DTOs</name>
     <description>
         Canonical DTOs for the fixture DOM 
         (ie, is part of the demo app, not the publishmq module itself)

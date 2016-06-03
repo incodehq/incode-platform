@@ -24,7 +24,7 @@ Copyright 2015 Dan Haywood
     </parent>
 
 	<artifactId>isis-module-publishmq-fixture-dom</artifactId>
-    <name>Isis Addons PublishMq Module Fixture DOM</name>
+    <name>Isis Addons PublishMQ Module Fixture DOM</name>
 
 	<build>
         <resources>

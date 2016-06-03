@@ -24,7 +24,7 @@
     </parent>
 
     <artifactId>isis-module-publishmq-webapp</artifactId>
-    <name>Isis Addons PublishMq Module Webapp</name>
+    <name>Isis Addons PublishMQ Module Webapp</name>
 
     <packaging>war</packaging>
 

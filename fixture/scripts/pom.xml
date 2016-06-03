@@ -24,7 +24,7 @@ Copyright 2015 Dan Haywood
     </parent>
 
 	<artifactId>isis-module-publishmq-fixture-scripts</artifactId>
-    <name>Isis Addons PublishMq Module Fixture Scripts</name>
+    <name>Isis Addons PublishMQ Module Fixture Scripts</name>
 
 	<build>
         <resources>

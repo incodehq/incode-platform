@@ -26,7 +26,7 @@ Copyright 2015 Dan Haywood
     <artifactId>isis-module-publishmq-fixture-canonicalmappings</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>Isis Addons PublishMq Module Fixture Canon'l Maps</name>
+    <name>Isis Addons PublishMQ Module Fixture Canon'l Maps</name>
     <description>
         Contains mappings from fixture DOM entities to DTOs defined in fix-canonical
     </description>

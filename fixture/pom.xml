@@ -24,7 +24,7 @@
     </parent>
 
     <artifactId>isis-module-publishmq-fixture</artifactId>
-    <name>Isis Addons PublishMq Module Fixture (parent)</name>
+    <name>Isis Addons PublishMQ Module Fixture (parent)</name>
     
     <packaging>pom</packaging>
     

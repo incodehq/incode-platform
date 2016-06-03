@@ -13,11 +13,11 @@
                         <bs3:col span="12">
                             <cpt:fieldSet name="General" id="general" unreferencedProperties="true">
                                 <cpt:action id="updateNameAndDescriptionAndCount" position="PANEL"/>
-                                <cpt:property id="description">
-                                    <cpt:action id="updateDescription" position="BELOW"/>
-                                </cpt:property>
                                 <cpt:property id="name">
                                     <cpt:action id="updateName" position="RIGHT"/>
+                                </cpt:property>
+                                <cpt:property id="description">
+                                    <cpt:action id="updateDescription" position="BELOW"/>
                                 </cpt:property>
                                 <cpt:property id="count">
                                     <cpt:action id="updateCount" position="BELOW"/>

@@ -24,7 +24,7 @@
 
     <packaging>pom</packaging>
 
-    <name>Isis Addons PublishMq Module DOM</name>
+    <name>Isis Addons PublishMQ Module DOM</name>
     <description>
         Parent module for the various submodules that make up the publishmq service.
     </description>

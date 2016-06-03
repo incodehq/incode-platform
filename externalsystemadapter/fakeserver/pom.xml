@@ -26,7 +26,7 @@
     </parent>
 
     <artifactId>isis-module-publishmq-externalsystemadapter-fakeserver</artifactId>
-    <name>Isis Addons PublishMq Module Soap Fakeserver</name>
+    <name>Isis Addons PublishMQ Module Soap Fakeserver</name>
 
     <packaging>jar</packaging>
 

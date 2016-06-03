@@ -26,7 +26,7 @@
     </parent>
 
     <artifactId>isis-module-publishmq-externalsystemadapter</artifactId>
-    <name>Isis Addons PublishMq Module Soap</name>
+    <name>Isis Addons PublishMQ Module Soap</name>
     
     <packaging>pom</packaging>
     
