@@ -33,7 +33,7 @@ language governing permissions and limitations under the License.
         <isis.version>1.13.0-SNAPSHOT</isis.version>
 
         <incode-module-commchannel.version>1.13.0-SNAPSHOT</incode-module-commchannel.version>
-        <isis-module-fakedata-dom.version>1.11.0</isis-module-fakedata-dom.version>
+        <isis-module-fakedata-dom.version>1.13.0-SNAPSHOT</isis-module-fakedata-dom.version>
         <assertj-core.version>3.3.0</assertj-core.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
