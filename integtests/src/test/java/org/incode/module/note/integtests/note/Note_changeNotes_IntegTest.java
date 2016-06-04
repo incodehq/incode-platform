@@ -39,9 +39,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class Note_changeNotes_IntegTest extends NoteModuleIntegTest {
 
-    //region > injected services
-    //endregion
-
     @Inject
     CalendarNameRepositoryForDemo calendarNameRepository;
 

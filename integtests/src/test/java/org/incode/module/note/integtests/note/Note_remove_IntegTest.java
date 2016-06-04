@@ -128,8 +128,11 @@ public class Note_remove_IntegTest extends NoteModuleIntegTest {
 
             // then
             assertThat(subscriber.ev).isNotNull();
-            assertThat(subscriber.ev.getSource()).isSameAs(mixinRemove);
             assertThat(subscriber.ev.getSource().getNote()).isSameAs(note);
+
+            // no longer true, as per automatic dereferencing by wrapper factory in ISIS-1425
+            // assertThat(subscriber.ev.getSource()).isSameAs(mixinRemove);
+
         }
     }
 

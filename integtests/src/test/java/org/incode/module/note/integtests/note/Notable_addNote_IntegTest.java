@@ -283,7 +283,10 @@ public class Notable_addNote_IntegTest extends NoteModuleIntegTest {
 
             // then
             assertThat(subscriber.ev).isNotNull();
-            assertThat(subscriber.ev.getSource()).isSameAs(mixinAddNote);
+
+            // no longer true, as per automatic dereferencing by wrapper factory in ISIS-1425
+            // assertThat(subscriber.ev.getSource()).isSameAs(mixinAddNote);
+
             assertThat(subscriber.ev.getSource().getNotable()).isSameAs(notable);
             assertThat(subscriber.ev.getArguments().get(0)).isEqualTo(text);
             assertThat(subscriber.ev.getArguments().get(1)).isEqualTo(date);

@@ -213,7 +213,10 @@ public class Notable_removeNote_IntegTest extends NoteModuleIntegTest {
 
             // then
             assertThat(subscriber.ev).isNotNull();
-            assertThat(subscriber.ev.getSource()).isSameAs(mixinRemoveNote);
+
+            // no longer true, as per automatic dereferencing by wrapper factory in ISIS-1425
+            // assertThat(subscriber.ev.getSource()).isSameAs(mixinRemoveNote);
+
             assertThat(subscriber.ev.getSource().getNotable()).isSameAs(notable);
             assertThat(subscriber.ev.getArguments().get(0)).isSameAs(note);
         }
