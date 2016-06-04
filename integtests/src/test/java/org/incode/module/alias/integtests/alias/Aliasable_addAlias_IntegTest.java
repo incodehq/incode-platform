@@ -215,7 +215,12 @@ public class Aliasable_addAlias_IntegTest extends AliasModuleIntegTest {
 
             // then
             assertThat(subscriber.ev).isNotNull();
-            assertThat(subscriber.ev.getSource()).isSameAs(mixinAddAlias);
+
+            // the following is no longer true (ISIS-1425); the wrapper factory dereferences the mixin to invoke
+            // the mixed-in action on the domain object.  The net result is we get a new instance of the mixin as
+            // the source of the event.
+            // assertThat(subscriber.ev.getSource()).isSameAs(mixinAddAlias);
+
             assertThat(subscriber.ev.getSource().getAliasable()).isSameAs(aliasable);
             assertThat(subscriber.ev.getArguments().get(0)).isEqualTo(randomAtPath);
             assertThat(subscriber.ev.getArguments().get(1)).isEqualTo(randomAliasType);
