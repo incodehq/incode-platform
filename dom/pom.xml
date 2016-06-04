@@ -59,8 +59,8 @@ Copyright 2014~2015 Dan Haywood
         <compileTarget>1.8</compileTarget>
 
         <isis.version>1.13.0-SNAPSHOT</isis.version>
-        <isis-module-poly-dom.version>1.11.0</isis-module-poly-dom.version>
-        <isis-module-fakedata-dom.version>1.11.0</isis-module-fakedata-dom.version>
+        <isis-module-poly-dom.version>1.13.0-SNAPSHOT</isis-module-poly-dom.version>
+        <isis-module-fakedata-dom.version>1.13.0-SNAPSHOT</isis-module-fakedata-dom.version>
 
         <lombok.version>1.16.6</lombok.version>
 
