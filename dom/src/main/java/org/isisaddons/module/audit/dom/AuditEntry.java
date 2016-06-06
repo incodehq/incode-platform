@@ -128,6 +128,7 @@ import lombok.Setter;
     @Index(name="AuditEntry_ak", unique="true",
             columns={
                 @javax.jdo.annotations.Column(name="transactionId"),
+                @javax.jdo.annotations.Column(name="sequence"),
                 @javax.jdo.annotations.Column(name="target"),
                 @javax.jdo.annotations.Column(name="propertyId")
                 })
@@ -209,11 +210,17 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
     }
 
     /**
-     * The unique identifier (a GUID) of the transaction in which this audit entry was persisted.
+     * The unique identifier (a GUID) of the interaction in which this audit entry was persisted.
      *
      * <p>
-     * The combination of ({@link #getTransactionId() transactionId}, {@link #getTargetStr() target}, {@link #getPropertyId() propertyId} ) makes up the
-     * (non-enforced) alternative key.
+     * The combination of (({@link #getTransactionId() transactionId}, {@link #getSequence() sequence}) makes up the
+     * unique transaction identifier.
+     * </p>
+     *
+     * <p>
+     * The combination of ({@link #getTransactionId() transactionId}, {@link #getSequence()}, {@link #getTargetStr() target}, {@link #getPropertyId() propertyId} ) makes up the
+     * alternative key.
+     * </p>
      */
     @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.TRANSACTION_ID)
     @Property(
@@ -227,6 +234,38 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
     @MemberOrder(name="Identifiers",sequence = "30")
     @Getter @Setter
     private UUID transactionId;
+
+    //endregion
+
+    //region > sequence (property)
+
+    public static class SequenceDomainEvent extends PropertyDomainEvent<UUID> {
+    }
+
+    /**
+     * The 0-based sequence number of the transaction in which this audit entry was persisted.
+     *
+     * <p>
+     * The combination of (({@link #getTransactionId() transactionId}, {@link #getSequence() sequence}) makes up the
+     * unique transaction identifier.
+     * </p>
+     *
+     * <p>
+     * The combination of (({@link #getTransactionId() transactionId}, {@link #getSequence() sequence}, {@link #getTargetStr() target}, {@link #getPropertyId() propertyId} ) makes up the
+     * alternative key.
+     * </p>
+     */
+    @javax.jdo.annotations.Column(allowsNull="false")
+    @Property(
+            domainEvent = SequenceDomainEvent.class,
+            editing = Editing.DISABLED
+    )
+    @PropertyLayout(
+            hidden=Where.PARENTED_TABLES
+    )
+    @MemberOrder(name="Identifiers",sequence = "40")
+    @Getter @Setter
+    private int sequence;
 
     //endregion
 
