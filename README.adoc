@@ -3,8 +3,9 @@
 image:https://travis-ci.org/isisaddons/isis-module-audit.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-audit]
 
 This module, intended for use within http://isis.apache.org[Apache Isis], provides an implementation of Isis'
-`AuditingService3` API that persists audit entries using Isis' own (JDO) objectstore. Typically this will be to a
-relational database; the module's `AuditEntry` entity is mapped to the "IsisAuditEntry" table.
+`AuditerService` SPI (introduced in `1.13.0`, replacing the earlier `AuditingService3` SPI).  The implementation
+persists audit entries using Isis' own (JDO) objectstore. Typically this will be to a relational database; the
+module's `AuditEntry` entity is mapped to the "isisaudit.AuditEntry" table.
 
 
 == Screenshots
@@ -205,14 +206,15 @@ Only the `dom` project is released to Maven Central Repo. The versions of the ot
 
 == API
 
-The `AuditingService3` defines the following API:
+The `AuditerService` defines the following API:
 
 [source,java]
 ----
 @Programmatic
 public void audit(
         final UUID transactionId, 
-        final String targetClass, 
+        final int sequence,
+        final String targetClass,
         final Bookmark target, 
         final String memberIdentifier, 
         final String propertyId,
@@ -227,17 +229,18 @@ for every individual property of a domain object that is changed.
 
 == Implementation
 
-The `AuditingService3` API is implemented in this module by the `org.isisaddons.module.audit.AuditingService` class.
+The `AuditerService` API is implemented in this module by the `org.isisaddons.module.audit.AuditerServiceUsingJdo` class.
 This implementation simply persists an audit entry (`AuditEntry`) each time it is called. This results in a
 fine-grained audit trail.
 
-The `AuditEntry` properties directly correspond to parameters of the `AuditingService3` `audit()` API:
+The `AuditEntry` properties directly correspond to parameters of the `AuditerService` `audit()` API:
 
 [source,java]
 ----
 public class AuditEntry 
     ... 
     private UUID transactionId;
+    private int sequence;
     private String targetClass;
     private String targetStr;
     private String memberIdentifier;
@@ -335,6 +338,8 @@ cases there may not be any need to call flush explicitly.
 
 == Change Log
 
+* `1.13.0-SNAPSHOT` - updated for Isis 1.13.0-SNAPSHOT, implementing the new `AuditerService` SPI rather than the now
+  deprecated `AuditingService3` SPI.
 * `1.12.1` - released against Isis 1.12.1, providing 'Metadata' fieldset, also using lombok and mixins internally
 * `1.12.0` - released against Isis 1.12.0
 * `1.11.0` - released against Isis 1.11.0
@@ -345,6 +350,45 @@ cases there may not be any need to call flush explicitly.
 * `1.8.0` - released against Isis 1.8.0 (nb: this was a bad release, incorrectly referenced -SNAPSHOT version of Isis core).
 * `1.7.0` - released against Isis 1.7.0.
 * `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.audit`
+
+
+== Data Migration
+
+The format of the `AuditEntry` table has changed from `1.12.x` to `1.13.x`, incorporating a new `sequence` column
+(which is also part of the primary key).
+
+The following script updates the table (SQL Server syntax):
+
+[source,sql]
+----
+alter table isisaudit.AuditEntry
+  add "sequence" int
+go
+
+update isisaudit.AuditEntry
+   set "sequence" = 0
+ where "sequence" is null
+go
+
+alter table isisaudit.AuditEntry
+  alter column "sequence" not null
+go
+
+drop index AuditEntry_ak
+  on isisaudit.AuditEntry
+go
+
+create index AuditEntry_ak
+  on isisaudit.AuditEntry
+(
+   transactionId ASC,
+   "sequence"    ASC,
+   target        ASC,
+   propertyId    ASC
+)
+go
+----
+
 
 == Legal Stuff
 
