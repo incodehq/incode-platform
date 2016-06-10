@@ -16,10 +16,15 @@
  */
 package org.isisaddons.metamodel.paraname8.integtests;
 
-import org.apache.isis.core.commons.config.IsisConfiguration;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import org.apache.isis.applib.AppManifest;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
-import org.apache.isis.objectstore.jdo.datanucleus.DataNucleusPersistenceMechanismInstaller;
 import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegTests;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Holds an instance of an {@link IsisSystemForTest} as a {@link ThreadLocal} on the current thread,
@@ -42,22 +47,43 @@ public class Paraname8ModuleSystemInitializer {
 
         public SimpleAppSystemBuilder() {
             withLoggingAt(org.apache.log4j.Level.INFO);
-            with(testConfiguration());
-            with(new DataNucleusPersistenceMechanismInstaller());
+            with(new IsisConfigurationForJdoIntegTests());
+            with(new AppManifest() {
+                @Override
+                public List<Class<?>> getModules() {
+                    return Lists.newArrayList(org.isisaddons.metamodel.paraname8.NamedFacetOnParameterParaname8Factory.class);
+                }
 
-            // services annotated with @DomainService
-            withServicesIn( "org.isisaddons.metamodel.paraname8");
-        }
+                @Override
+                public List<Class<?>> getAdditionalServices() {
+                    return null;
+                }
 
-        private static IsisConfiguration testConfiguration() {
-            final IsisConfigurationForJdoIntegTests testConfiguration = new IsisConfigurationForJdoIntegTests();
-            testConfiguration.addRegisterEntitiesPackagePrefix("org.isisaddons.metamodel.paraname8.fixture.dom");
+                @Override
+                public String getAuthenticationMechanism() {
+                    return null;
+                }
 
-            testConfiguration.put(
-                    "isis.reflector.facets.include",
-                    "org.isisaddons.metamodel.paraname8.NamedFacetOnParameterParaname8Factory");
+                @Override
+                public String getAuthorizationMechanism() {
+                    return null;
+                }
 
-            return testConfiguration;
+                @Override
+                public List<Class<? extends FixtureScript>> getFixtures() {
+                    return null;
+                }
+
+                @Override
+                public Map<String, String> getConfigurationProperties() {
+                    Map<String, String> props = Maps.newHashMap();
+                    props.put(
+                            "isis.reflector.facets.include",
+                            org.isisaddons.metamodel.paraname8.NamedFacetOnParameterParaname8Factory.class.getName());
+
+                    return props;
+                }
+            });
         }
     }
 
