@@ -28,19 +28,15 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.value.Blob;
-import org.apache.isis.core.metamodel.adapter.mgr.AdapterManager;
 import org.apache.isis.core.metamodel.specloader.SpecificationLoader;
-import org.apache.isis.core.runtime.system.context.IsisContext;
 import org.apache.isis.core.runtime.system.persistence.PersistenceSession;
+import org.apache.isis.core.runtime.system.session.IsisSessionFactory;
 
 import org.isisaddons.module.excel.dom.ExcelService;
 
 public class ExcelServiceImpl {
 
-    private final DomainObjectContainer container;
-    private final BookmarkService bookmarkService;
-
-    private final ExcelFileBlobConverter excelFileBlobConverter;
+    private final ExcelFileBlobConverter excelFileBlobConverter = new ExcelFileBlobConverter();
 
     public enum SheetLookupPolicy {
         BY_NAME {
@@ -64,13 +60,6 @@ public class ExcelServiceImpl {
         public abstract Sheet lookup(final Workbook wb, final List<String> sheetNames);
     }
 
-    public ExcelServiceImpl(
-            final DomainObjectContainer container,
-            final BookmarkService bookmarkService) {
-        this.container = container;
-        this.bookmarkService = bookmarkService;
-        excelFileBlobConverter = new ExcelFileBlobConverter();
-    }
 
     // //////////////////////////////////////
 
@@ -121,29 +110,28 @@ public class ExcelServiceImpl {
     }
 
     private ExcelConverter newExcelConverter() {
-        return new ExcelConverter(getSpecificationLoader(), getAdapterManager(), getBookmarkService());
+        return new ExcelConverter(getSpecificationLoader(), getPersistenceSession(), bookmarkService);
     }
 
 
     // //////////////////////////////////////
 
+
+    @javax.inject.Inject
+    private DomainObjectContainer container;
+
+    @javax.inject.Inject
+    private BookmarkService bookmarkService;
+
+    @javax.inject.Inject
+    IsisSessionFactory isisSessionFactory;
+
     private SpecificationLoader getSpecificationLoader() {
-        return IsisContext.getSpecificationLoader();
-    }
-    
-    private AdapterManager getAdapterManager() {
-        return getPersistenceSession();
+        return isisSessionFactory.getSpecificationLoader();
     }
 
     private PersistenceSession getPersistenceSession() {
-        return IsisContext.getPersistenceSession();
+        return isisSessionFactory.getCurrentSession().getPersistenceSession();
     }
-
-    private BookmarkService getBookmarkService() {
-        return bookmarkService;
-    }
-
-    // //////////////////////////////////////
-    
 
 }

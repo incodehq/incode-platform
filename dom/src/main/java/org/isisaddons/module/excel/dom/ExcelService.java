@@ -27,6 +27,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
+import org.apache.isis.applib.services.registry.ServiceRegistry;
 import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.util.ExcelServiceImpl;
@@ -60,7 +61,8 @@ public class ExcelService {
     @Programmatic
     @PostConstruct
     public void init(final Map<String,String> properties) {
-        excelServiceImpl = new ExcelServiceImpl(container, bookmarkService);
+        excelServiceImpl = new ExcelServiceImpl();
+        serviceRegistry.injectServicesInto(excelServiceImpl);
     }
 
     // //////////////////////////////////////
@@ -111,5 +113,7 @@ public class ExcelService {
     private DomainObjectContainer container;
     @javax.inject.Inject
     private BookmarkService bookmarkService;
+    @javax.inject.Inject
+    private ServiceRegistry serviceRegistry;
 
 }

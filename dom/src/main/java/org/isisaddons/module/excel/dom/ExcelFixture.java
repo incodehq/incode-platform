@@ -39,6 +39,7 @@ import org.apache.isis.applib.fixturescripts.FixtureResultList;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
+import org.apache.isis.applib.services.registry.ServiceRegistry;
 import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.util.ExcelServiceImpl;
@@ -128,7 +129,8 @@ public class ExcelFixture extends FixtureScript {
     @Override
     protected void execute(final ExecutionContext ec) {
 
-        final ExcelServiceImpl excelServiceImpl = new ExcelServiceImpl(container, bookmarkService);
+        final ExcelServiceImpl excelServiceImpl = new ExcelServiceImpl();
+        serviceRegistry.injectServicesInto(excelServiceImpl);
 
         if (blob == null){
             byte[] bytes = getBytes();
@@ -228,5 +230,7 @@ public class ExcelFixture extends FixtureScript {
     private DomainObjectContainer container;
     @javax.inject.Inject
     private BookmarkService bookmarkService;
+    @javax.inject.Inject
+    private ServiceRegistry serviceRegistry;
 
 }

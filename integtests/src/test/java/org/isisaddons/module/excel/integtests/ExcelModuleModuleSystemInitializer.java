@@ -16,10 +16,10 @@
  */
 package org.isisaddons.module.excel.integtests;
 
-import org.apache.isis.core.commons.config.IsisConfiguration;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
-import org.apache.isis.objectstore.jdo.datanucleus.DataNucleusPersistenceMechanismInstaller;
 import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegTests;
+
+import org.isisaddons.module.excel.app.ExcelAppManifest;
 
 /**
  * Holds an instance of an {@link IsisSystemForTest} as a {@link ThreadLocal} on the current thread,
@@ -32,28 +32,15 @@ public class ExcelModuleModuleSystemInitializer {
     public static IsisSystemForTest initIsft() {
         IsisSystemForTest isft = IsisSystemForTest.getElseNull();
         if(isft == null) {
-            isft = new SimpleAppSystemBuilder().build().setUpSystem();
+            isft = new IsisSystemForTest.Builder()
+                    .withLoggingAt(org.apache.log4j.Level.INFO)
+                    .with(new ExcelAppManifest())
+                    .with(new IsisConfigurationForJdoIntegTests())
+                    .build()
+                    .initIfRequiredThenOpenSession();
             IsisSystemForTest.set(isft);
         }
         return isft;
-    }
-
-    private static class SimpleAppSystemBuilder extends IsisSystemForTest.Builder {
-
-        public SimpleAppSystemBuilder() {
-            withLoggingAt(org.apache.log4j.Level.INFO);
-            with(testConfiguration());
-            with(new DataNucleusPersistenceMechanismInstaller());
-
-            // services annotated with @DomainService
-            withServicesIn( "org.isisaddons.module.excel");
-        }
-
-        private static IsisConfiguration testConfiguration() {
-            final IsisConfigurationForJdoIntegTests testConfiguration = new IsisConfigurationForJdoIntegTests();
-            testConfiguration.addRegisterEntitiesPackagePrefix("org.isisaddons.module.excel");
-            return testConfiguration;
-        }
     }
 
 }
