@@ -18,6 +18,8 @@ package org.isisaddons.module.stringinterpolator.integtests.demo;
 
 import java.net.URL;
 import javax.inject.Inject;
+
+import org.apache.isis.core.commons.config.IsisConfiguration;
 import org.isisaddons.module.stringinterpolator.fixture.dom.StringInterpolatorDemoToDoItem;
 import org.isisaddons.module.stringinterpolator.fixture.dom.StringInterpolatorDemoToDoItemReportingContributions;
 import org.isisaddons.module.stringinterpolator.fixture.dom.StringInterpolatorDemoToDoItems;
@@ -41,6 +43,9 @@ public class StringInterpolatorDemoToDoItemReportingContributionsTest extends St
     StringInterpolatorDemoToDoItems toDoItems;
 
     @Inject
+    IsisConfiguration configuration;
+
+    @Inject
     StringInterpolatorDemoToDoItemReportingContributions toDoItemReportingContributions;
 
     public static class Open extends StringInterpolatorDemoToDoItemReportingContributionsTest {
@@ -49,7 +54,7 @@ public class StringInterpolatorDemoToDoItemReportingContributionsTest extends St
         public void happyCase() throws Exception {
 
             // given
-            assertThat(IsisContext.getConfiguration().getString("isis.website"), is("http://isis.apache.org"));
+            assertThat(configuration.getString("isis.website"), is("http://isis.apache.org"));
             assertThat(toDoItemReportingContributions.TEMPLATE, is("${properties['isis.website']}/${this.documentationPage}"));
 
             final StringInterpolatorDemoToDoItem toDoItem = toDoItems.allToDos().get(0);
