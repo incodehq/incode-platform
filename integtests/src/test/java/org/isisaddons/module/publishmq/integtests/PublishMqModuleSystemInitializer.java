@@ -18,8 +18,8 @@ package org.isisaddons.module.publishmq.integtests;
 
 import org.apache.isis.core.commons.config.IsisConfiguration;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
-import org.apache.isis.objectstore.jdo.datanucleus.DataNucleusPersistenceMechanismInstaller;
 import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegTests;
+import org.isisaddons.module.publishmq.app.PublishMqAppManifest;
 
 /**
  * Holds an instance of an {@link IsisSystemForTest} as a {@link ThreadLocal} on the current thread,
@@ -32,27 +32,14 @@ public class PublishMqModuleSystemInitializer {
     public static IsisSystemForTest initIsft() {
         IsisSystemForTest isft = IsisSystemForTest.getElseNull();
         if(isft == null) {
-            isft = new PublishMqModuleAppSystemBuilder().build().setUpSystem();
+            isft = new IsisSystemForTest.Builder()
+                    .withLoggingAt(org.apache.log4j.Level.INFO)
+                    .with(new PublishMqAppManifest())
+                    .with(new IsisConfigurationForJdoIntegTests())
+                    .build()
+                    .setUpSystem();
             IsisSystemForTest.set(isft);
         }
         return isft;
     }
-
-    private static class PublishMqModuleAppSystemBuilder extends IsisSystemForTest.Builder {
-
-        public PublishMqModuleAppSystemBuilder() {
-            withLoggingAt(org.apache.log4j.Level.INFO);
-            with(testConfiguration());
-
-            // services annotated with @DomainService
-            withServicesIn( "org.isisaddons.module.publishmq" );
-        }
-
-        private static IsisConfiguration testConfiguration() {
-            final IsisConfigurationForJdoIntegTests testConfiguration = new IsisConfigurationForJdoIntegTests();
-            testConfiguration.addRegisterEntitiesPackagePrefix("org.isisaddons.module.publishmq");
-            return testConfiguration;
-        }
-    }
-
 }
