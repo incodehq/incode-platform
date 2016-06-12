@@ -26,6 +26,7 @@ import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
 
+import org.apache.isis.core.metamodel.adapter.oid.OidMarshaller;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 
@@ -101,7 +102,7 @@ public abstract class EventProviderAbstract implements EventProvider {
                 final Object dereferencedObject = dereference(domainObject);
                 final ObjectAdapter dereferencedAdapter = getPersistenceSession().adapterFor(dereferencedObject);
 
-                final String oidStr = dereferencedAdapter.getOid().enString(IsisContext.getOidMarshaller());
+                final String oidStr = dereferencedAdapter.getOid().enString(new OidMarshaller());
                 event.setId(oidStr + "-" + calendarName);
 
                 event.setClassName("fullCalendar2-event-" + calendarName);
@@ -146,7 +147,7 @@ public abstract class EventProviderAbstract implements EventProvider {
 
 
     PersistenceSession getPersistenceSession() {
-        return IsisContext.getPersistenceSession();
+        return getSessionFactory().getCurrentSession().getPersistenceSession();
     }
 
     ServicesInjector getServicesInjector() {

@@ -64,16 +64,12 @@ final class FullCalendarWithEventHandling extends FullCalendar {
 
     // //////////////////////////////////////
 
-    protected AdapterManager getAdapterManager() {
-        return getPersistenceSession();
-    }
-
     protected PersistenceSession getPersistenceSession() {
-        return IsisContext.getPersistenceSession();
+        return IsisContext.getSessionFactory().getCurrentSession().getPersistenceSession();
     }
 
     protected OidMarshaller getOidMarshaller() {
-        return IsisContext.getOidMarshaller();
+        return new OidMarshaller();
     }
     
 }
