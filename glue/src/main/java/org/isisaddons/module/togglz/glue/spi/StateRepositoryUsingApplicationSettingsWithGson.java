@@ -24,7 +24,7 @@ public class StateRepositoryUsingApplicationSettingsWithGson implements StateRep
 
     @Override
     public FeatureState getFeatureState(final Feature feature) {
-        return IsisContext.doInSession(() -> {
+        return IsisContext.getSessionFactory().doInSession(() -> {
             final ApplicationSetting setting = findSetting(feature);
             if (setting == null) {
                 return null;
@@ -43,7 +43,7 @@ public class StateRepositoryUsingApplicationSettingsWithGson implements StateRep
     @Override
     public void setFeatureState(final FeatureState featureState) {
 
-        IsisContext.doInSession(() -> {
+        IsisContext.getSessionFactory().doInSession(() -> {
             final ApplicationSettingJdo setting = findSettingAutocreate(featureState);
 
             final FeatureStateJson featureStateJson = new FeatureStateJson(featureState);

@@ -11,11 +11,7 @@ class Util {
     }
 
     private static ServicesInjector getServicesInjector() {
-        return getPersistenceSession().getServicesInjector();
-    }
-
-    static PersistenceSession getPersistenceSession() {
-        return IsisContext.getPersistenceSession();
+        return IsisContext.getSessionFactory().getServicesInjector();
     }
 
 }
