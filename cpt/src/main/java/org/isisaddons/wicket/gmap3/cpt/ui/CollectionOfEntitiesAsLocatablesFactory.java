@@ -99,7 +99,7 @@ public class CollectionOfEntitiesAsLocatablesFactory extends ComponentFactoryAbs
     }
 
     protected SpecificationLoader getSpecificationLoader() {
-        return IsisContext.getSpecificationLoader();
+        return IsisContext.getSessionFactory().getSpecificationLoader();
     }
 
     @Override

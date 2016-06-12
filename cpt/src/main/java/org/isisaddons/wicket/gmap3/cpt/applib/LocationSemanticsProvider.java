@@ -20,7 +20,6 @@ import org.apache.isis.applib.adapters.DefaultsProvider;
 import org.apache.isis.applib.adapters.EncoderDecoder;
 import org.apache.isis.applib.adapters.Parser;
 import org.apache.isis.applib.adapters.ValueSemanticsProvider;
-import org.apache.isis.applib.profiles.Localization;
 
 /**
  * For internal use; allows Isis to parse etc.
@@ -64,11 +63,11 @@ public class LocationSemanticsProvider implements ValueSemanticsProvider<Locatio
 				return Location.typicalLength();
 			}
 
-            public String displayTitleOf(Location location, Localization arg1) {
+            public String displayTitleOf(Location location) {
                 return location.toString();
             }
 
-            public Location parseTextEntry(Object object, String entry, Localization arg2) {
+            public Location parseTextEntry(Object object, String entry) {
                 return Location.fromString(entry);
             }
 		};

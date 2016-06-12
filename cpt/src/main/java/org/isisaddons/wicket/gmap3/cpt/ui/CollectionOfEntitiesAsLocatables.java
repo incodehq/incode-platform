@@ -143,7 +143,7 @@ public class CollectionOfEntitiesAsLocatables extends
             return adapterForLocatable;
         }
         final Object dereferencedObject = locationDereferencingService.dereference(adapterForLocatable.getObject());
-        return IsisContext.getPersistenceSession().adapterFor(dereferencedObject);
+        return IsisContext.getSessionFactory().getCurrentSession().getPersistenceSession().adapterFor(dereferencedObject);
     }
 
     private GMarker createGMarker(GMap map, ObjectAdapter adapter, final ObjectAdapter dereferencedAdapter) {
