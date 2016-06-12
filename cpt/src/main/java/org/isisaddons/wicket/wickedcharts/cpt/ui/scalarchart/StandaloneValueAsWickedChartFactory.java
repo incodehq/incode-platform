@@ -62,6 +62,6 @@ public class StandaloneValueAsWickedChartFactory extends ComponentFactoryAbstrac
     }
 
     protected SpecificationLoader getSpecificationLoader() {
-        return IsisContext.getSpecificationLoader();
+        return IsisContext.getSessionFactory().getSpecificationLoader();
     }
 }
