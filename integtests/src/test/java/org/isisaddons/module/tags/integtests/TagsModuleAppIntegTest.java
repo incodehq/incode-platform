@@ -26,7 +26,7 @@ public abstract class TagsModuleAppIntegTest extends IntegrationTestAbstract {
     @BeforeClass
     public static void initClass() {
         org.apache.log4j.PropertyConfigurator.configure("logging.properties");
-        TagssModuleAppSystemInitializer.initIsft();
+        TagsModuleAppSystemInitializer.initIsft();
         
         // instantiating will install onto ThreadLocal
         new ScenarioExecutionForIntegration();
