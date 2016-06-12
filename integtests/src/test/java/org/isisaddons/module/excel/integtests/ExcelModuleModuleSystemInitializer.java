@@ -37,7 +37,7 @@ public class ExcelModuleModuleSystemInitializer {
                     .with(new ExcelAppManifest())
                     .with(new IsisConfigurationForJdoIntegTests())
                     .build()
-                    .initIfRequiredThenOpenSession();
+                    .setUpSystem();
             IsisSystemForTest.set(isft);
         }
         return isft;
