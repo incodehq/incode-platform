@@ -102,7 +102,7 @@ public abstract class EventProviderAbstract implements EventProvider {
                 final Object dereferencedObject = dereference(domainObject);
                 final ObjectAdapter dereferencedAdapter = getPersistenceSession().adapterFor(dereferencedObject);
 
-                final String oidStr = dereferencedAdapter.getOid().enString(new OidMarshaller());
+                final String oidStr = dereferencedAdapter.getOid().enString();
                 event.setId(oidStr + "-" + calendarName);
 
                 event.setClassName("fullCalendar2-event-" + calendarName);

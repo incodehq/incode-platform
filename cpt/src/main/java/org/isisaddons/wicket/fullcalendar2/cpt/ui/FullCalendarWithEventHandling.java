@@ -54,12 +54,11 @@ final class FullCalendarWithEventHandling extends FullCalendar {
             final CalendarResponse response) {
 
         final String oidStr = (String) event.getEvent().getPayload();
-        final RootOid oid = RootOid.deString(oidStr, getOidMarshaller());
+        final RootOid oid = RootOid.deString(oidStr);
         final ObjectAdapter adapter = getPersistenceSession().adapterFor(oid);
         final PageParameters params = new EntityModel(adapter).getPageParameters();
         throw new RestartResponseException(EntityPage.class, params);
     }
-
 
 
     // //////////////////////////////////////
@@ -68,8 +67,4 @@ final class FullCalendarWithEventHandling extends FullCalendar {
         return IsisContext.getSessionFactory().getCurrentSession().getPersistenceSession();
     }
 
-    protected OidMarshaller getOidMarshaller() {
-        return new OidMarshaller();
-    }
-    
 }
