@@ -17,18 +17,22 @@
 package org.isisaddons.module.command.integtests;
 
 import java.util.List;
+
 import javax.inject.Inject;
+
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+
+import org.apache.isis.applib.services.bookmark.Bookmark;
+import org.apache.isis.applib.services.bookmark.BookmarkService;
+
 import org.isisaddons.module.command.dom.BackgroundCommandServiceJdoRepository;
 import org.isisaddons.module.command.dom.CommandJdo;
 import org.isisaddons.module.command.dom.CommandServiceJdoRepository;
 import org.isisaddons.module.command.fixture.dom.SomeCommandAnnotatedObject;
 import org.isisaddons.module.command.fixture.dom.SomeCommandAnnotatedObjects;
 import org.isisaddons.module.command.fixture.scripts.SomeCommandAnnotatedObjectsFixture;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.apache.isis.applib.services.bookmark.Bookmark;
-import org.apache.isis.applib.services.bookmark.BookmarkService;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.empty;
@@ -94,7 +98,7 @@ public class SomeCommandAnnotatedObjectsTest extends CommandModuleIntegTest {
         @Test
         public void happyCase() throws Exception {
             // when
-            entity.changeNameExplicitlyInBackground("Changed!");
+            entity.changeNameExplicitlyInBackgroundUsingDirectAction("Changed!");
             nextTransaction();
 
             // then

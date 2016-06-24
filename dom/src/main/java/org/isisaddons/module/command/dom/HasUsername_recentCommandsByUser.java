@@ -53,7 +53,7 @@ public class HasUsername_recentCommandsByUser {
     @CollectionLayout(
             defaultView = "table"
     )
-    @MemberOrder(sequence = "200.100")
+    @MemberOrder(name="user", sequence = "200.100")
     public List<CommandJdo> $$() {
         if(hasUsername.getUsername() == null) {
             return Collections.emptyList();
