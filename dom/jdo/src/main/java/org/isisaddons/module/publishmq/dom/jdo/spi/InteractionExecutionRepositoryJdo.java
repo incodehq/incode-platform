@@ -61,18 +61,18 @@ public class InteractionExecutionRepositoryJdo implements InteractionExecutionRe
 
         publishedEvent.setSerializedForm(xml);
 
-        final String title = buildTitle(publishedEvent);
+        final String title = buildTitle(publishedEvent, execution);
         publishedEvent.setTitle(title);
 
         repositoryService.persist(publishedEvent);
     }
 
-    private String buildTitle(final PublishedEvent publishedEvent) {
+    private String buildTitle(final PublishedEvent publishedEvent, final Interaction.Execution<?, ?> execution) {
         final StringBuilder buf = new StringBuilder();
 
         buf.append(titleService.titleOf(publishedEvent.getEventType()))
             .append(" of '").append(publishedEvent.getTargetAction())
-            .append("' on ").append(publishedEvent.getTargetStr());
+            .append("' on ").append(titleService.titleOf(execution.getTarget()));
         return buf.toString();
     }
 
