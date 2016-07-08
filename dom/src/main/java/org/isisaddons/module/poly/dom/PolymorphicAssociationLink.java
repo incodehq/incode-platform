@@ -20,14 +20,19 @@ package org.isisaddons.module.poly.dom;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+
 import javax.inject.Inject;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.NonRecoverableException;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.bookmark.Bookmark;
-import org.apache.isis.applib.services.bookmark.BookmarkService;
+import org.apache.isis.applib.services.bookmark.BookmarkService2;
 import org.apache.isis.applib.services.eventbus.EventBusService;
 import org.apache.isis.applib.services.i18n.TranslatableString;
+import org.apache.isis.applib.services.repository.RepositoryService;
+import org.apache.isis.applib.services.title.TitleService;
+import org.apache.isis.applib.services.xactn.TransactionService;
 import org.apache.isis.applib.util.ObjectContracts;
 
 public abstract class PolymorphicAssociationLink<S, P, L extends PolymorphicAssociationLink<S, P, L>>  implements Comparable<L> {
@@ -47,6 +52,10 @@ public abstract class PolymorphicAssociationLink<S, P, L extends PolymorphicAsso
             this.polymorphicReference = polymorphicReference;
         }
 
+        /**
+         * Will be null if checking if the link is {@link PolymorphicAssociationLink.Factory#supportsLink(Object) supported},
+         * but is populated when the link is actually {@link PolymorphicAssociationLink.Factory#createLink(Object, Object) created},
+         */
         public S getSubject() {
             return subject;
         }
@@ -126,6 +135,21 @@ public abstract class PolymorphicAssociationLink<S, P, L extends PolymorphicAsso
         }
 
         /**
+         * Whether or not this link type is supported.
+         *
+         * <p>
+         *     Allows users of this module to be able to turn off/on contributions.
+         * </p>
+         */
+        public boolean supportsLink(final PR polymorphicReference) {
+            final E event = instantiateEvent(eventSource, null, polymorphicReference);
+            eventBusService.post(event);
+
+            final Class<? extends L> subtype = event.getSubtype();
+            return subtype != null;
+        }
+
+        /**
          * Instantiates the appropriate link entity (using the subtype specified by subscriber) and persists.
          *
          * <p>
@@ -140,26 +164,26 @@ public abstract class PolymorphicAssociationLink<S, P, L extends PolymorphicAsso
 
             final Class<? extends L> subtype = event.getSubtype();
             if(subtype == null) {
-                throw new NonRecoverableException("Cannot create link to " + container.titleOf(polymorphicReference) + ", no subtype provided");
+                throw new NonRecoverableException("Cannot create link to " + titleService.titleOf(polymorphicReference) + ", no subtype provided");
             }
 
             if(persistStrategy == PersistStrategy.AUTOMATIC) {
-                if(!container.isPersistent(polymorphicReference)) {
+                if(!repositoryService.isPersistent(polymorphicReference)) {
                     // in case there are persists pending
-                    container.flush();
-                    if(!container.isPersistent(polymorphicReference)) {
-                        throw new NonRecoverableException("Link's polymorphic reference " +  container.titleOf(polymorphicReference) + " is not persistent");
+                    transactionService.flushTransaction();
+                    if(!repositoryService.isPersistent(polymorphicReference)) {
+                        throw new NonRecoverableException("Link's polymorphic reference " +  titleService.titleOf(polymorphicReference) + " is not persistent");
                     }
                 }
             }
 
-            final L link = container.newTransientInstance(subtype);
+            final L link = repositoryService.instantiate(subtype);
             link.setPolymorphicReference(polymorphicReference);
 
             link.setSubject(subject);
 
             if(persistStrategy == PersistStrategy.AUTOMATIC) {
-                container.persist(link);
+                repositoryService.persist(link);
             }
 
             return link;
@@ -173,6 +197,12 @@ public abstract class PolymorphicAssociationLink<S, P, L extends PolymorphicAsso
             }
         }
 
+        @Inject
+        TitleService titleService;
+        @Inject
+        TransactionService transactionService;
+        @Inject
+        RepositoryService repositoryService;
         @Inject
         DomainObjectContainer container;
         @Inject
@@ -190,8 +220,8 @@ public abstract class PolymorphicAssociationLink<S, P, L extends PolymorphicAsso
     public TranslatableString title() {
         return TranslatableString.tr(
                 titlePattern,
-                "polymorphicReference", container.titleOf(getPolymorphicReference()),
-                "subject", container.titleOf(getSubject()));
+                "polymorphicReference", titleService.titleOf(getPolymorphicReference()),
+                "subject", titleService.titleOf(getSubject()));
     }
     //endregion
 
@@ -223,7 +253,7 @@ public abstract class PolymorphicAssociationLink<S, P, L extends PolymorphicAsso
     @Programmatic
     public P getPolymorphicReference() {
         final Bookmark bookmark = new Bookmark(getPolymorphicObjectType(), getPolymorphicIdentifier());
-        return (P) bookmarkService.lookup(bookmark);
+        return (P) bookmarkService.lookup(bookmark, BookmarkService2.FieldResetPolicy.DONT_RESET);
     }
 
     /**
@@ -242,7 +272,7 @@ public abstract class PolymorphicAssociationLink<S, P, L extends PolymorphicAsso
 
     @Override
     public int compareTo(final PolymorphicAssociationLink other) {
-        return ObjectContracts.compare(this, other, "subject,polymorphicObjectType,polymorphicIdentifier");
+        return ObjectContracts.compare(this, other, "subject","polymorphicObjectType","polymorphicIdentifier");
     }
 
     //endregion
@@ -250,12 +280,14 @@ public abstract class PolymorphicAssociationLink<S, P, L extends PolymorphicAsso
     //region > injected services
 
     @javax.inject.Inject
-    private DomainObjectContainer container;
+    protected RepositoryService repositoryService;
 
     @javax.inject.Inject
-    private BookmarkService bookmarkService;
+    protected TitleService titleService;
+
+    @javax.inject.Inject
+    protected BookmarkService2 bookmarkService;
 
     //endregion
-
 
 }
