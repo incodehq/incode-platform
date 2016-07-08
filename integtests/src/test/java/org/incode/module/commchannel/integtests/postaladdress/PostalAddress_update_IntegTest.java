@@ -81,16 +81,17 @@ public class PostalAddress_update_IntegTest extends CommChannelModuleIntegTest {
                     "UK", true);
 
             // then
-            assertThat(fredPostalAddress.getName()).isEqualTo("45 High St, Oxford, Oxfordshire OX1, UK");
-            assertThat(fredPostalAddress.getFormattedAddress()).isEqualTo("45 High St, Oxford, Oxfordshire OX1, UK");
+            assertThat(fredPostalAddress.getName()).isEqualTo("45 High St, Oxford OX1, UK");
+            assertThat(fredPostalAddress.getFormattedAddress()).isEqualTo("45 High St, Oxford OX1, UK");
             assertThat(fredPostalAddress.getGeocodeApiResponseAsJson()).isNotNull();
             assertThat(fredPostalAddress.getLatLng()).matches("51.75256[\\d][\\d],-1.25011[\\d][\\d]");
-            assertThat(fredPostalAddress.getPlaceId()).isEqualTo("Eic0NSBIaWdoIFN0LCBPeGZvcmQsIE94Zm9yZHNoaXJlIE9YMSwgVUs");
+            assertThat(fredPostalAddress.getPlaceId()).isEqualTo("Eho0NSBIaWdoIFN0LCBPeGZvcmQgT1gxLCBVSw");
             assertThat(fredPostalAddress.getAddressComponents()).isEqualTo(
                     "street_number: 45\n" +
                             "route: High Street\n" +
                             "locality: Oxford\n" +
                             "administrative_area_level_2: Oxfordshire\n" +
+                            "administrative_area_level_1: England\n" +
                             "country: United Kingdom\n" +
                             "postal_code: OX1\n");
 

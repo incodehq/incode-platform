@@ -47,8 +47,7 @@ public class GeocodingServiceTest {
             // then
             assertThat(geocodedAddress).isNotNull();
             assertThat(geocodedAddress.getStatus()).isEqualTo(GeocodeApiResponse.Status.OK);
-            assertThat(geocodedAddress.getFormattedAddress()).startsWith("45 High St, Oxford, Oxfordshire OX1");
-            assertThat(geocodedAddress.getFormattedAddress()).endsWith("UK");
+            assertThat(geocodedAddress.getFormattedAddress()).isEqualTo("45 High St, Oxford OX1 4BJ, UK");
             assertThat(geocodedAddress.getPlaceId()).isNotNull();
             assertThat(geocodedAddress.getPostalCode()).startsWith("OX1");
             assertThat(geocodedAddress.getCountry()).isEqualTo("United Kingdom");

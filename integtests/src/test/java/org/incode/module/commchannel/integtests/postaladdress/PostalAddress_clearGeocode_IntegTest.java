@@ -76,7 +76,7 @@ public class PostalAddress_clearGeocode_IntegTest extends CommChannelModuleInteg
 
             // given
             assertThat(postalAddress.getGeocodeApiResponseAsJson()).isNotNull();
-            assertThat(postalAddress.getName()).isEqualTo("45 High St, Oxford, Oxfordshire OX1, UK");
+            assertThat(postalAddress.getName()).isEqualTo("45 High St, Oxford OX1, UK");
 
             // when
             wrap(mixinResetGeocode(postalAddress)).$$();
