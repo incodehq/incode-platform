@@ -600,7 +600,7 @@ To use "out-of-the-box":
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.poly&lt;/groupId&gt;
         &lt;artifactId&gt;isis-module-poly-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.12.0&lt;/version&gt;
+        &lt;version&gt;1.13.0&lt;/version&gt;
     &lt;/dependency&gt;
 </pre>
 
@@ -635,7 +635,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 * when updating the classpath, specify the appropriate -SNAPSHOT version:
 
 <pre>
-    &lt;version&gt;1.13.0-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;1.14.0-SNAPSHOT&lt;/version&gt;
 </pre>
 
 * add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
@@ -680,8 +680,9 @@ Only the `dom` project is released to Maven Central Repo.  The versions of the o
 
 ## Change Log ##
 
+* `1.13.0` - released against Isis 1.13.0; fixes link:https://github.com/isisaddons/isis-module-poly/issues/1[#1 - extend Factory to be able to check before-hand whether a link type is supported]
 * `1.12.0` - released against Isis 1.12.0
-* `1.11.0` - released against Isis 1.11.0.
+* `1.11.0` - released against Isis 1.11.0
 * `1.10.0` - released against Isis 1.10.0
 * `1.9.0` - released against Isis 1.9.0
 
