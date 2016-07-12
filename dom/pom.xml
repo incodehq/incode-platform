@@ -354,7 +354,7 @@
             </activation>
 
             <properties>
-                <isis.version>1.13.0-SNAPSHOT</isis.version>
+                <isis.version>1.13.0</isis.version>
             </properties>
 
             <dependencyManagement>
