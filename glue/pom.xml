@@ -51,7 +51,7 @@ Copyright 2014~2015 Dan Haywood
 
     <properties>
 
-        <isis.version>1.13.0-SNAPSHOT</isis.version>
+        <isis.version>1.13.0</isis.version>
         <isis-module-settings.version>1.13.0-SNAPSHOT</isis-module-settings.version>
         <isis-module-security.version>1.13.0-SNAPSHOT</isis-module-security.version>
 
