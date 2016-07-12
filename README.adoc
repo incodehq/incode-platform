@@ -106,7 +106,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.isisaddons.module.audit</groupId>
     <artifactId>isis-module-audit-dom</artifactId>
-    <version>1.12.1</version>
+    <version>1.13.0</version>
 </dependency>
 ----
 
@@ -161,7 +161,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 +
 [source,xml]
 ----
-<version>1.13.0-SNAPSHOT</version>
+<version>1.14.0-SNAPSHOT</version>
 ----
 
 
@@ -338,8 +338,7 @@ cases there may not be any need to call flush explicitly.
 
 == Change Log
 
-* `1.13.0-SNAPSHOT` - updated for Isis 1.13.0-SNAPSHOT, implementing the new `AuditerService` SPI rather than the now
-  deprecated `AuditingService3` SPI.
+* `1.13.0` - updated for Isis 1.13.0, implementing the new `AuditerService` SPI rather than the now deprecated `AuditingService3` SPI.
 * `1.12.1` - released against Isis 1.12.1, providing 'Metadata' fieldset, also using lombok and mixins internally
 * `1.12.0` - released against Isis 1.12.0
 * `1.11.0` - released against Isis 1.11.0
@@ -348,7 +347,7 @@ cases there may not be any need to call flush explicitly.
 * `1.8.2` - released against Isis 1.8.0; closes <a href="https://github.com/isisaddons/isis-module-audit/issues/1">#1</a>
 * `1.8.1` - released against Isis 1.8.0 (fixed).
 * `1.8.0` - released against Isis 1.8.0 (nb: this was a bad release, incorrectly referenced -SNAPSHOT version of Isis core).
-* `1.7.0` - released against Isis 1.7.0.
+* `1.7.0` - released against Isis 1.7.0
 * `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.audit`
 
 
