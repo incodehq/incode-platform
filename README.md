@@ -106,7 +106,7 @@ To use "out-of-the-box", add the component to your project's `dom` module's `pom
     <dependency>
         <groupId>org.isisaddons.wicket.wickedcharts</groupId>
         <artifactId>isis-wicket-wickedcharts-cpt</artifactId>
-        <version>1.12.0</version>
+        <version>1.13.0</version>
     </dependency>
 
 Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-wickedcharts-cpt).
@@ -119,7 +119,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 * when updating the classpath, specify the appropriate -SNAPSHOT version:
 
 <pre>
-    &lt;version&gt;1.13.0-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;1.14.0-SNAPSHOT&lt;/version&gt;
 </pre>
 
 * add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
@@ -186,6 +186,7 @@ For example:
 
 ## Change Log ##
 
+* `1.13.0` - released against Isis 1.13.0
 * `1.12.0` - released against Isis 1.12.0
 * `1.11.0` - released against Isis 1.11.0
 * `1.10.0` - released against Isis 1.10.0
