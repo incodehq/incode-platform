@@ -27,7 +27,7 @@ language governing permissions and limitations under the License.
     <packaging>pom</packaging>
 
     <properties>
-        <isis.version>1.13.0-SNAPSHOT</isis.version>
+        <isis.version>1.13.0</isis.version>
 
         <isis-module-stringinterpolator.version>1.13.0-SNAPSHOT</isis-module-stringinterpolator.version>
 
