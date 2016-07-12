@@ -215,7 +215,7 @@ To use "out-of-the-box", add this component to your project's `dom` module's `po
 <dependency>
     <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
     <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
-    <version>1.12.0</version>
+    <version>1.13.0</version>
 </dependency>
 ----
 
@@ -229,7 +229,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 
 [source,xml]
 ----
-<version>1.13.0-SNAPSHOT</version>
+<version>1.14.0-SNAPSHOT</version>
 ----
 
 
@@ -274,6 +274,7 @@ are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be relea
 
 == Change Log
 
+* `1.13.0` - released against Isis 1.13.0
 * `1.12.0` - released against Isis 1.12.0
 * `1.11.0` - released against Isis 1.11.0
 * `1.10.0` - released against Isis 1.10.0; `CalendarableDereferencingService`
