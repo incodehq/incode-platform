@@ -19,7 +19,7 @@ Copyright 2014~2015 Dan Haywood
 
     <groupId>org.isisaddons.module.togglz</groupId>
     <artifactId>isis-module-togglz-glue</artifactId>
-    <version>1.13.0</version>
+    <version>1.14.0-SNAPSHOT</version>
 
     <packaging>jar</packaging>
 
