@@ -202,7 +202,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.isisaddons.module.command</groupId>
     <artifactId>isis-module-command-dom</artifactId>
-    <version>1.12.1</version>
+    <version>1.13.0</version>
 </dependency>
 ----
 
@@ -265,7 +265,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 +
 [source,xml]
 ----
-<version>1.13.0-SNAPSHOT</version>
+<version>1.14.0-SNAPSHOT</version>
 ----
 
 * add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service). We suggest defining the repository in a `&lt;profile&gt;`: +
@@ -488,6 +488,7 @@ and it is this interface that each module has services that contribute to).
 
 == Change Log
 
+* `1.13.0` - released against Isis 1.13.0
 * `1.12.1` - released against Isis 1.12.1; fixes #7
 * `1.12.0` - released against Isis 1.12.0
 * `1.11.0` - released against Isis 1.11.0
@@ -495,7 +496,7 @@ and it is this interface that each module has services that contribute to).
 * `1.9.0` - released against Isis 1.9.0; changed mapping of entities to use 'isiscommand' schema; using LONGVARCHAR for blobs;
 * `1.8.1` - released against Isis 1.8.0 (fixed).
 * `1.8.0` - released against Isis 1.8.0 (nb: this was a bad release, incorrectly referenced -SNAPSHOT version of Isis core).
-* `1.7.0` - released against Isis 1.7.0.
+* `1.7.0` - released against Isis 1.7.0
 * `1.6.1` - https://github.com/isisaddons/isis-module-command/issues/1[#1] (don't store bookmarks beyond 2000 characters)
 * `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.command`
 
