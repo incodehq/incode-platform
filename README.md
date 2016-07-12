@@ -98,7 +98,7 @@ To use "out-of-the-box":
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.metamodel.paraname8&lt;/groupId&gt;
         &lt;artifactId&gt;isis-metamodel-paraname8-dom&lt;/artifactId&gt;
-        &lt;version&gt1.12.0&lt;/version&gt;        
+        &lt;version&gt1.13.0&lt;/version&gt;        
     &lt;/dependency&gt;
 </pre>
 
@@ -144,6 +144,7 @@ You'll also need to make sure that the IDE is set up to build and run with JDK8.
 
 ## Change Log ##
 
+* `1.13.0` - released against Isis 1.13.0
 * `1.12.0` - released against Isis 1.12.0
 * `1.11.0` - released against Isis 1.11.0
 * `1.10.0` - released against Isis 1.10.0
