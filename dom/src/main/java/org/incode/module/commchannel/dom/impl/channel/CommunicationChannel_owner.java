@@ -30,7 +30,6 @@ import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Where;
 
-import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
 
@@ -53,8 +52,10 @@ public class CommunicationChannel_owner {
     }
     //endregion
 
+    //region > $$
+
     public static class DomainEvent extends CommunicationChannel.PropertyDomainEvent
-                                        <CommunicationChannel_owner,CommunicationChannelOwner> { }
+                                        <CommunicationChannel_owner,Object> { }
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(contributed = Contributed.AS_ASSOCIATION)
@@ -63,13 +64,14 @@ public class CommunicationChannel_owner {
             notPersisted = true
     )
     @PropertyLayout(hidden = Where.PARENTED_TABLES)
-    public CommunicationChannelOwner $$() {
+    public Object $$() {
         final CommunicationChannelOwnerLink link = communicationChannelOwnerLinkRepository.getOwnerLink(communicationChannel);
         return link != null? link.getPolymorphicReference(): null;
     }
+    //endregion
 
     @Programmatic
-    public void setOwner(final CommunicationChannelOwner owner) {
+    public void setOwner(final Object owner) {
         communicationChannelOwnerLinkRepository.removeOwnerLink(this.communicationChannel);
         communicationChannelOwnerLinkRepository.createLink(this.communicationChannel, owner);
     }

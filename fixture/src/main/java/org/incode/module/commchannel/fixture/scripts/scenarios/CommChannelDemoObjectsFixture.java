@@ -19,9 +19,9 @@ package org.incode.module.commchannel.fixture.scripts.scenarios;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.apache.isis.applib.services.clock.ClockService;
 
-import org.incode.module.commchannel.dom.impl.emailaddress.CommunicationChannelOwner_newEmailAddress;
-import org.incode.module.commchannel.dom.impl.phoneorfax.CommunicationChannelOwner_newPhoneOrFaxNumber;
-import org.incode.module.commchannel.dom.impl.postaladdress.CommunicationChannelOwner_newPostalAddress;
+import org.incode.module.commchannel.dom.impl.emailaddress.Object_newEmailAddress;
+import org.incode.module.commchannel.dom.impl.phoneorfax.Object_newPhoneOrFaxNumber;
+import org.incode.module.commchannel.dom.impl.postaladdress.Object_newPostalAddress;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObjectMenu;
@@ -52,16 +52,16 @@ public class CommChannelDemoObjectsFixture extends DiscoverableFixtureScript {
         final CommChannelDemoObject baz = create("Baz", executionContext);
     }
 
-    CommunicationChannelOwner_newEmailAddress newEmailAddress(final CommChannelDemoObject demoOwner) {
-        return container.mixin(CommunicationChannelOwner_newEmailAddress.class, demoOwner);
+    Object_newEmailAddress newEmailAddress(final CommChannelDemoObject demoOwner) {
+        return container.mixin(Object_newEmailAddress.class, demoOwner);
     }
 
-    CommunicationChannelOwner_newPhoneOrFaxNumber newPhoneOrFaxNumber(final CommChannelDemoObject demoOwner) {
-        return container.mixin(CommunicationChannelOwner_newPhoneOrFaxNumber.class, demoOwner);
+    Object_newPhoneOrFaxNumber newPhoneOrFaxNumber(final CommChannelDemoObject demoOwner) {
+        return container.mixin(Object_newPhoneOrFaxNumber.class, demoOwner);
     }
 
-    CommunicationChannelOwner_newPostalAddress newPostalAddress(final CommChannelDemoObject demoOwner) {
-        return container.mixin(CommunicationChannelOwner_newPostalAddress.class, demoOwner);
+    Object_newPostalAddress newPostalAddress(final CommChannelDemoObject demoOwner) {
+        return container.mixin(Object_newPostalAddress.class, demoOwner);
     }
 
     // //////////////////////////////////////

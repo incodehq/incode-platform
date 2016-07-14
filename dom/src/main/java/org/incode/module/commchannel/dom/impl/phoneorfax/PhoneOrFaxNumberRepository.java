@@ -32,7 +32,6 @@ import org.apache.isis.applib.annotation.Programmatic;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_owner;
-import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
@@ -44,16 +43,23 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 public class PhoneOrFaxNumberRepository {
 
     @Inject
-    CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;
+    CommunicationChannelOwnerLinkRepository linkRepository;
     @Inject
     DomainObjectContainer container;
+
 
 
     //region > newPhoneOrFax (programmatic)
 
     @Programmatic
+    public boolean supports(final Object classifiable) {
+        return linkRepository.supports(classifiable);
+    }
+
+
+    @Programmatic
     public PhoneOrFaxNumber newPhoneOrFax(
-            final CommunicationChannelOwner owner,
+            final Object owner,
             final CommunicationChannelType type,
             final String number,
             final String description,
@@ -75,7 +81,7 @@ public class PhoneOrFaxNumberRepository {
     //region > findByPhoneOrFaxNumber (programmatic)
     @Programmatic
     public PhoneOrFaxNumber findByPhoneOrFaxNumber(
-            final CommunicationChannelOwner owner,
+            final Object owner,
             final String phoneNumber) {
 
         final Optional<PhoneOrFaxNumber> phoneNumberIfFound = findByPhoneOrFaxNumber(owner, phoneNumber, CommunicationChannelType.PHONE_NUMBER);
@@ -87,9 +93,9 @@ public class PhoneOrFaxNumberRepository {
         return faxNumberIfFound.orNull();
     }
 
-    private Optional<PhoneOrFaxNumber> findByPhoneOrFaxNumber(final CommunicationChannelOwner owner, final String phoneNumber, final CommunicationChannelType communicationChannelType) {
+    private Optional<PhoneOrFaxNumber> findByPhoneOrFaxNumber(final Object owner, final String phoneNumber, final CommunicationChannelType communicationChannelType) {
         final List<CommunicationChannelOwnerLink> links =
-                communicationChannelOwnerLinkRepository.findByOwnerAndCommunicationChannelType(owner, communicationChannelType);
+                linkRepository.findByOwnerAndCommunicationChannelType(owner, communicationChannelType);
         final Iterable<PhoneOrFaxNumber> phoneOrFaxNumbers =
                 Iterables.transform(
                         links,

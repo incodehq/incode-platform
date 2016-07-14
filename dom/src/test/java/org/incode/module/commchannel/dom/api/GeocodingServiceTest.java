@@ -1,4 +1,4 @@
-package org.incode.module.commchannel.dom.api.geocoding;
+package org.incode.module.commchannel.dom.api;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.services.config.ConfigurationService;
 import org.apache.isis.core.unittestsupport.jmocking.JUnitRuleMockery2;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,14 +25,14 @@ public class GeocodingServiceTest {
 
     GeocodingService geocodingService;
     @Mock
-    DomainObjectContainer mockContainer;
+    ConfigurationService mockConfigurationService;
 
     public static class LookupTest extends GeocodingServiceTest {
 
         @Before
         public void setUp() throws Exception {
             geocodingService = new GeocodingService();
-            geocodingService.container = mockContainer;
+            geocodingService.configurationService = mockConfigurationService;
         }
 
         @Test
@@ -41,15 +41,15 @@ public class GeocodingServiceTest {
             assumeThat(isInternetReachable(), is(true));
 
             // when
-            final String address = geocodingService.combine(GeocodingService.Encoding.ENCODED, "45 High Street, Oxford", null, "UK");
+            final String address = geocodingService.combine(GeocodingService.Encoding.ENCODED, "45 High Street, Wheatley, Oxford", null, "UK");
             final GeocodedAddress geocodedAddress = geocodingService.lookup(address);
 
             // then
             assertThat(geocodedAddress).isNotNull();
             assertThat(geocodedAddress.getStatus()).isEqualTo(GeocodeApiResponse.Status.OK);
-            assertThat(geocodedAddress.getFormattedAddress()).isEqualTo("45 High St, Oxford OX1 4BJ, UK");
+            assertThat(geocodedAddress.getFormattedAddress()).isEqualTo("45 High St, Wheatley, Oxford OX33 1XX, UK");
             assertThat(geocodedAddress.getPlaceId()).isNotNull();
-            assertThat(geocodedAddress.getPostalCode()).startsWith("OX1");
+            assertThat(geocodedAddress.getPostalCode()).startsWith("OX33");
             assertThat(geocodedAddress.getCountry()).isEqualTo("United Kingdom");
         }
 
@@ -58,9 +58,9 @@ public class GeocodingServiceTest {
 
             // allowing
             context.checking(new Expectations() {{
-                allowing(mockContainer).getProperty(GeocodingService.class.getName() + ".demo");
+                allowing(mockConfigurationService).getProperty(GeocodingService.class.getName() + ".demo");
                 will(returnValue("true"));
-                allowing(mockContainer);
+                allowing(mockConfigurationService);
             }});
 
             // given

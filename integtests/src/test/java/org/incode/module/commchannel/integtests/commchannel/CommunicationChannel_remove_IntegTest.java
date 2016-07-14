@@ -32,7 +32,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelRepository;
-import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_remove;
+import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_remove1;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
@@ -78,7 +78,7 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
         @Test
         public void when_no_replacement() throws Exception {
             final CommunicationChannel channel = fredChannels.first();
-            mixin(CommunicationChannel_remove.class, channel).$$(null);
+            mixin(CommunicationChannel_remove1.class, channel).$$(null);
 
             assertThat(communicationChannelRepository.findByOwner(fredDemoOwner)).hasSize(1);
             assertThat(communicationChannelOwnerLinkRepository.findByOwner(fredDemoOwner)).hasSize(1);
@@ -88,7 +88,7 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
         public void when_replacement() throws Exception {
             final CommunicationChannel channel = fredChannels.first();
             final CommunicationChannel channel2 = fredChannels.last();
-            mixin(CommunicationChannel_remove.class, channel).$$(channel2);
+            mixin(CommunicationChannel_remove1.class, channel).$$(channel2);
 
             assertThat(communicationChannelRepository.findByOwner(fredDemoOwner)).hasSize(1);
             assertThat(communicationChannelOwnerLinkRepository.findByOwner(fredDemoOwner)).hasSize(1);
@@ -114,10 +114,10 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            CommunicationChannel_remove.DomainEvent ev;
+            CommunicationChannel_remove1.DomainEvent ev;
 
             @Subscribe
-            public void on(CommunicationChannel_remove.DomainEvent ev) {
+            public void on(CommunicationChannel_remove1.DomainEvent ev) {
                 this.ev = ev;
             }
         }

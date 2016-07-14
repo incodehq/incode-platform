@@ -34,12 +34,11 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.commchannel.dom.CommChannelModule;
-import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.purpose.CommunicationChannelPurposeService;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 
 @Mixin
-public class CommunicationChannelOwner_newPostalAddress {
+public class Object_newPostalAddress {
 
     //region > injected services
     @Inject
@@ -57,24 +56,28 @@ public class CommunicationChannelOwner_newPostalAddress {
     //endregion
 
     //region > constructor
-    private final CommunicationChannelOwner communicationChannelOwner;
-    public CommunicationChannelOwner_newPostalAddress(final CommunicationChannelOwner communicationChannelOwner) {
+    private final Object communicationChannelOwner;
+    public Object_newPostalAddress(final Object communicationChannelOwner) {
         this.communicationChannelOwner = communicationChannelOwner;
     }
     //endregion
 
-    public static class DomainEvent extends CommunicationChannelOwner.ActionDomainEvent
-                                            <CommunicationChannelOwner_newPostalAddress> { }
+    //region > $$
+
+    public static class DomainEvent extends CommChannelModule.ActionDomainEvent
+                                            <Object_newPostalAddress> { }
 
     @Action(
             semantics = SemanticsOf.NON_IDEMPOTENT,
             domainEvent = DomainEvent.class
     )
     @ActionLayout(
+            named = "Postal",
+            cssClassFa = "fa-plus",
             contributed = Contributed.AS_ACTION
     )
     @MemberOrder(name = "CommunicationChannels", sequence = "1")
-    public CommunicationChannelOwner $$(
+    public Object $$(
             @Parameter(maxLength = CommChannelModule.JdoColumnLength.ADDRESS_LINE)
             @ParameterLayout(named = "Address Line 1")
             final String addressLine1,
@@ -127,5 +130,10 @@ public class CommunicationChannelOwner_newPostalAddress {
         return purposes.isEmpty()? null : purposes.iterator().next();
     }
 
+    public boolean hide$$() {
+        return !postalAddressRepository.supports(this.communicationChannelOwner);
+    }
+
+    //endregion
 
 }

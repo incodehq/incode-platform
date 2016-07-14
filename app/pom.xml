@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>incode-module-commchannel-app</artifactId>
-    <name>Incode CommChannel Module Application</name>
+    <name>Incode Module CommChannel Application</name>
 
     <build>
         <resources>

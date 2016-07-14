@@ -30,7 +30,6 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
-import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
 
 @javax.jdo.annotations.PersistenceCapable(
@@ -57,7 +56,7 @@ public class CommunicationChannelOwnerLinkForDemoObject extends CommunicationCha
     }
 
     @Override
-    public void setPolymorphicReference(final CommunicationChannelOwner polymorphicReference) {
+    public void setPolymorphicReference(final Object polymorphicReference) {
         super.setPolymorphicReference(polymorphicReference);
         setDemoObject((CommChannelDemoObject) polymorphicReference);
     }

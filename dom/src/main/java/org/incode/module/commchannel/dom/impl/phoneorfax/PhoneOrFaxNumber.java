@@ -48,7 +48,6 @@ import lombok.Setter;
                 members = { "phoneNumber" })
 })
 @DomainObject(
-        editing = Editing.DISABLED,
         objectType = "incodeCommChannel.PhoneOrFaxNumber"
 )
 public class PhoneOrFaxNumber extends CommunicationChannel<PhoneOrFaxNumber> {
@@ -74,6 +73,7 @@ public class PhoneOrFaxNumber extends CommunicationChannel<PhoneOrFaxNumber> {
     )
     @Property(
             domainEvent = PhoneNumberDomainEvent.class,
+            editing = Editing.DISABLED,
             optionality = Optionality.MANDATORY
     )
     private String phoneNumber;

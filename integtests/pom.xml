@@ -25,7 +25,7 @@ Copyright 2014~2015 Dan Haywood
     </parent>
 
     <artifactId>incode-module-commchannel-integtests</artifactId>
-    <name>Incode CommChannel Module IntegTests</name>
+    <name>Incode Module CommChannel IntegTests</name>
 
     <build>
         <testResources>

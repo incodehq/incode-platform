@@ -22,7 +22,6 @@ import java.util.Collection;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
-import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 import org.incode.module.commchannel.dom.spi.purpose.CommunicationChannelPurposeRepository;
 
@@ -32,7 +31,7 @@ public class CommunicationChannelPurposeRepositoryForDemo implements Communicati
     @Override
     public Collection<String> purposesFor(
             final CommunicationChannelType communicationChannelType,
-            final CommunicationChannelOwner communicationChannel) {
+            final Object owner) {
 
         switch (communicationChannelType) {
         case EMAIL_ADDRESS:

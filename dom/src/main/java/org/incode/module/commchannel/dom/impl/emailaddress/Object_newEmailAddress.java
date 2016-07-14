@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright 2015 incode.org
+Copyright 2015 incode.org
  *
  *
  *  Licensed under the Apache License, Version 2.0 (the
@@ -16,10 +16,9 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.commchannel.dom.impl.phoneorfax;
+package org.incode.module.commchannel.dom.impl.emailaddress;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -35,83 +34,75 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.commchannel.dom.CommChannelModule;
-import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.purpose.CommunicationChannelPurposeService;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 
 @Mixin
-public class CommunicationChannelOwner_newPhoneOrFaxNumber {
+public class Object_newEmailAddress {
 
     //region > injected services
     @Inject
     CommunicationChannelPurposeService communicationChannelPurposeService;
     @Inject
-    PhoneOrFaxNumberRepository phoneOrFaxNumberRepository;
+    EmailAddressRepository emailAddressRepository;
     //endregion
 
-    //region > constructor and mixedIn accessor
-    private final CommunicationChannelOwner communicationChannelOwner;
-    public CommunicationChannelOwner_newPhoneOrFaxNumber(final CommunicationChannelOwner communicationChannelOwner) {
+    //region > constructor
+    private final Object communicationChannelOwner;
+    public Object_newEmailAddress(final Object communicationChannelOwner) {
         this.communicationChannelOwner = communicationChannelOwner;
     }
-
     @Programmatic
-    public CommunicationChannelOwner getCommunicationChannelOwner() {
+    public Object getCommunicationChannelOwner() {
         return communicationChannelOwner;
     }
-
     //endregion
 
-    public static class DomainEvent extends CommunicationChannelOwner.ActionDomainEvent
-                                            <CommunicationChannelOwner_newPhoneOrFaxNumber>  { }
+    //region > $$
+
+    public static class DomainEvent extends CommChannelModule.ActionDomainEvent
+                                            <Object_newEmailAddress> { }
     @Action(
             domainEvent = DomainEvent.class,
             semantics = SemanticsOf.NON_IDEMPOTENT
     )
     @ActionLayout(
-            named = "New Phone/Fax",
+            named = "Email",
+            cssClassFa = "fa-plus",
             contributed = Contributed.AS_ACTION
     )
-    @MemberOrder(name = "CommunicationChannels", sequence = "3")
-    public CommunicationChannelOwner $$(
-            @ParameterLayout(named = "Type")
-            final CommunicationChannelType type,
-            @ParameterLayout(named = "Phone Number")
+    @MemberOrder(name = "CommunicationChannels", sequence = "2")
+    public Object $$(
             @Parameter(
-                    maxLength = CommChannelModule.JdoColumnLength.PHONE_NUMBER,
-                    regexPattern = CommChannelModule.Regex.PHONE_NUMBER
+                    regexPattern = CommChannelModule.Regex.EMAIL_ADDRESS,
+                    maxLength = CommChannelModule.JdoColumnLength.EMAIL_ADDRESS
             )
-            final String phoneNumber,
+            @ParameterLayout(named = "Email Address")
+            final String email,
             @Parameter(maxLength = CommChannelModule.JdoColumnLength.PURPOSE, optionality = Optionality.MANDATORY)
             @ParameterLayout(named = "Purpose")
             final String purpose,
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Notes", multiLine = 10)
             final String notes) {
-        phoneOrFaxNumberRepository.newPhoneOrFax(this.communicationChannelOwner, type, phoneNumber, purpose, notes);
+        emailAddressRepository.newEmail(this.communicationChannelOwner, email, purpose, notes);
         return this.communicationChannelOwner;
     }
 
-    public String validate0$$(final CommunicationChannelType type) {
-        final List<CommunicationChannelType> validChoices = choices0$$();
-        return validChoices.contains(type)? null: "Communication type must be " + validChoices;
+    public Collection<String> choices1$$() {
+        return communicationChannelPurposeService.purposesFor(CommunicationChannelType.EMAIL_ADDRESS,
+                this.communicationChannelOwner);
     }
 
-    public List<CommunicationChannelType> choices0$$() {
-        return CommunicationChannelType.matching(PhoneOrFaxNumber.class);
+    public String default1$$() {
+        final Collection<String> purposes = choices1$$();
+        return purposes.isEmpty()? null : purposes.iterator().next();
     }
 
-    public CommunicationChannelType default0$$() {
-        return choices0$$().get(0);
+    public boolean hide$$() {
+        return !emailAddressRepository.supports(this.communicationChannelOwner);
     }
 
-    public Collection<String> choices2$$(final CommunicationChannelType type) {
-        return communicationChannelPurposeService.purposesFor(type, this.communicationChannelOwner);
-    }
-
-    public String default2$$() {
-        return communicationChannelPurposeService.defaultIfNoSpi();
-    }
-
+    //endregion
 
 }

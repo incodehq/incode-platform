@@ -32,7 +32,6 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
-import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 
 @DomainService(
@@ -49,7 +48,7 @@ public class CommunicationChannelOwnerLinkRepository {
     BookmarkService bookmarkService;
     //endregion
 
-    PolymorphicAssociationLink.Factory<CommunicationChannel,CommunicationChannelOwner,CommunicationChannelOwnerLink,CommunicationChannelOwnerLink.InstantiateEvent> linkFactory;
+    PolymorphicAssociationLink.Factory<CommunicationChannel,Object,CommunicationChannelOwnerLink,CommunicationChannelOwnerLink.InstantiateEvent> linkFactory;
 
     @PostConstruct
     public void init() {
@@ -57,7 +56,7 @@ public class CommunicationChannelOwnerLinkRepository {
                 new PolymorphicAssociationLink.Factory<>(
                         this,
                         CommunicationChannel.class,
-                        CommunicationChannelOwner.class,
+                        Object.class,
                         CommunicationChannelOwnerLink.class,
                         CommunicationChannelOwnerLink.InstantiateEvent.class
                 ));
@@ -73,7 +72,7 @@ public class CommunicationChannelOwnerLinkRepository {
     }
 
     @Programmatic
-    public List<CommunicationChannelOwnerLink> findByOwner(final CommunicationChannelOwner owner) {
+    public List<CommunicationChannelOwnerLink> findByOwner(final Object owner) {
         if(owner == null) {
             return null;
         }
@@ -90,7 +89,7 @@ public class CommunicationChannelOwnerLinkRepository {
 
     @Programmatic
     public List<CommunicationChannelOwnerLink> findByOwnerAndCommunicationChannelType(
-            final CommunicationChannelOwner owner,
+            final Object owner,
             final CommunicationChannelType communicationChannelType) {
         if(owner == null) {
             return null;
@@ -111,7 +110,12 @@ public class CommunicationChannelOwnerLinkRepository {
     }
 
     @Programmatic
-    public CommunicationChannelOwnerLink createLink(final CommunicationChannel communicationChannel, final CommunicationChannelOwner owner) {
+    public boolean supports(final Object classifiable) {
+        return linkFactory.supportsLink(classifiable);
+    }
+
+    @Programmatic
+    public CommunicationChannelOwnerLink createLink(final CommunicationChannel communicationChannel, final Object owner) {
         final CommunicationChannelOwnerLink link = linkFactory.createLink(communicationChannel, owner);
         // copy over the type, to support subsequent querying.
         link.setCommunicationChannelType(communicationChannel.getType());

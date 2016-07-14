@@ -24,7 +24,7 @@ Copyright 2014~2015 Dan Haywood
     </parent>
 
 	<artifactId>incode-module-commchannel-fixture</artifactId>
-    <name>Incode CommChannel Module Fixtures</name>
+    <name>Incode Module CommChannel Fixtures</name>
 
 	<build>
         <resources>

@@ -4,9 +4,10 @@
 image:https://travis-ci.org/incodehq/incode-module-commchannel.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-commchannel]
 
 This module, intended for use with link:http://isis.apache.org[Apache Isis], provides the ability to attach
-communication channel objects (postal address, email or phone/fax number) to domain objects.  Domain objects are
-required to implement the `CommunicationChannelOwner` marker interface, and must implement a subclass from the
-`CommunicationChannelOwnerLink` (about 40 lines of boilerplate, details below).
+communication channel objects (postal address, email or phone/fax number) to arbitrary domain objects.  There are
+_no_ requirements for those objects to implement any interfaces.  A subclass of `CommunicationChannelOwnerLink`
+(about 40 lines of boilerplate, details below) is required, acting as the "glue" between the communication channel and
+its associated "owner" domain object.
 
 For postal address, the geocoding data can be looked up by invoking the
 link:https://developers.google.com/maps/documentation/geocoding[Google Geocoding] API.  This allows free-form text
@@ -17,9 +18,9 @@ map view.
 
 Each communication channel object can optionally be categorized with a predefined "purpose", where the available list
 of "purposes" is defined by the optional `CommunicationChannelPurposeRepository` SPI service.  The list of purposes can
-vary by both the communication channel type (postal address/email/phone) and also by `CommunicationChannelOwner`; for
-example address objects the list could be "billing address" and "shipping address", whereas for emails the list of purposes
-might be "work email" or "home email".
+vary by both the communication channel type (postal address/email/phone) and also by the "owner" domain object; for
+example address objects the list could be "billing address" and "shipping address", whereas for emails the list of
+purposes might be "work email" or "home email".
 
 
 == Screenshots
@@ -31,8 +32,8 @@ We start by installing some demo fixture data:
 image::https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/020-recreate-fixtures.png[link="https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/020-recreate-fixtures.png"]
 
 
-The fixture data sets up a number of demo objects that implement the `CommunicationChannelOwner` interface, along with
-some sample ``CommunicationChannel``s for each.  These are shown in the contributed `communicationChannels` collection:
+The fixture data sets up a number of demo objects, along with some sample ``CommunicationChannel``s associated with
+each.  These are shown in the contributed `communicationChannels` collection:
 
 image::https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/030-communication-channels-collection-mixed-in.png[link="https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/030-communication-channels-collection-mixed-in.png"]
 
@@ -59,10 +60,16 @@ image::https://raw.githubusercontent.com/incodehq/incode-module-commchannel/mast
 
 
 Specifically, the postal address allows geocoding data to be looked up from the
-link:https://developers.google.com/maps/documentation/geocoding[Google Geocoding] API.  The address lines information
-entered previously is used for the search, but this can be adjusted as necessary by the end-user:
+link:https://developers.google.com/maps/documentation/geocoding[Google Geocoding] API:
 
 image::https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/070-lookup-geocode.png[link="https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/070-lookup-geocode.png"]
+
+
+The address lines information entered previously is used for the search, but this can be adjusted as necessary by the
+end-user:
+
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/072-lookup-geocode.png[link="https://raw.githubusercontent.com/incodehq/incode-module-commchannel/master/images/072-lookup-geocode.png"]
 
 
 
@@ -276,44 +283,22 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 
 === For each domain object...
 
-For each domain object that you want to be able to attach notes, you need to implement the `CommunicationChannelOwner`
-marker interface and (optionally but strongly recommended) also implement a subclass of `CommunicationChannelOwnerLink`
-to hold a type-safe reference back to the domain object.
+In order to be able to add/remove communication channels for a domain object, you need to:
 
-For each such `CommunicationChannelOwner`, the module will then:
-
-* contribute the `communicationChannels` collection
-
-* contribute the `newPostalAddress` action
-
-* contribute the `newEmailAddress` action
-
-* contribute the `newPhoneOrFaxNumber` action
-
-Other than implementing the marker interface, the `CommunicationChannelOwner` domain object will be completely decoupled
-from the rest of the module.
-
-In detail:
-
-* have the domain object implement the `CommunicationChannelOwner` interface: +
+* implement a subclass of `CommunicationChannelOwnerLink` for the domain object's type.  +
 +
-For example, in the demo app the `CommChannelDemoObject` implements this interface: +
-+
-[source,java]
-----
-public class CommChannelDemoObject implements CommunicationChannelOwner {
-    ...
-}
-----
-+
-This is a marker interface only (no methods need be implemented); it is used only so that Apache Isis knows where to
-contribute the collections and actions.
+This link acts as a type-safe tuple linking domain object to `CommunicationChannel`.
 
-* subclass the `CommunicationChannelOwnerLink` abstract class and also implement a domain event subscriber to correctly
-instantiate the subclass. +
+* implement a domain event subscriber to correctly instantiate the subclass. +
 +
-For example, in the demo app the `CommunicationChannelOwnerLinkForDemoObject` implements both of these responsibilities: +
-+
+Typically this is a nested static class of the `CommunicationChannelOwnerLink` subtype.
+
+For each such "owning" domain object, the module contributes the `communicationChannels` collection, the
+`newPostalAddress(...)` action, the `newEmailAddress(...)` action and the `newPhoneOrFaxNumber(...)` action.
+
+For example, in the demo app the `CommChannelDemoObject` domain object can "own" communication channels by virtue of
+the `CommunicationChannelOwnerLinkForDemoObject` subclass:
+
 [source,java]
 ----
 @javax.jdo.annotations.PersistenceCapable(
@@ -362,8 +347,8 @@ public class CommunicationChannelOwnerLinkForDemoObject extends CommunicationCha
 `CommunicationChannelOwner`.
 <3> override the inherited `setPolymorphicReference(...)` method to allow the type-safe reference property to the
 `CommunicationChannelOwner` (in this case `CommChannelDemoObject`) to be set
-<4> the type-safe reference property to the `CommunicationChannelOwner` (in this case `CommunicationChannelDemoObject`).
-In the RDBMS this will correspond to a regular foreign key with referential integrity constraints correctly applied.
+<4> the type-safe reference property to the owner (in this case `CommunicationChannelDemoObject`).  In the RDBMS this
+will correspond to a regular foreign key with referential integrity constraints correctly applied.
 
 
 
@@ -377,11 +362,11 @@ For example, in the demo app this is implemented as:
 [source,java]
 ----
 @DomainService(nature = NatureOfService.DOMAIN)
-public class CommChannelDemoPurposeRepository implements CommunicationChannelPurposeRepository {
+public class CommunicationChannelPurposeRepositoryForDemo implements CommunicationChannelPurposeRepository {
     @Override
     public Collection<String> purposesFor(
             final CommunicationChannelType communicationChannelType,
-            final CommunicationChannelOwner communicationChannel) {
+            final Object owner) {
         switch (communicationChannelType) {
             case EMAIL_ADDRESS:
                 return Arrays.asList("Home Email", "Work Email", "Other Email");
@@ -403,7 +388,8 @@ communication channels.
 
 === Suppressing/adding UI elements
 
-Every property, collection and action has a corresponding domain event.  Thus, a subscriber can be used to hide or disable UI representation of any domain object's members.
+Every property, collection and action has a corresponding domain event.  Thus, a subscriber can be used to hide or
+disable UI representation of any domain object's members.
 
 For example, the "notes" property could be suppressed using the following service:
 
@@ -423,7 +409,8 @@ public class CommChannelDemoSuppressNotesSubscriber extends AbstractSubscriber {
 }
 ----
 
-Conversely, new UI elements can be added using link:http://isis.apache.org/guides/ug.html#_ug_how-tos_contributed-members[contributions] and mixins.
+Conversely, new UI elements can be added using
+link:http://isis.apache.org/guides/ug.html#_ug_how-tos_contributed-members[contributions] and mixins.
 
 
 
@@ -448,7 +435,8 @@ but is crucial to the internal workings of the `incode-module-commchannel` modul
 == Related Modules/Services
 
 The module implements the http://github.com/isisaddons/isis-wicket-gmap3[Isis addons' gmap3]'s
- `LocationDereferencingService` SPI, so that clicking on a marker on a map will render the `CommunicationChannelOwner`, rather than the details of the `CommunicationChannel` itself.
+ `LocationDereferencingService` SPI, so that clicking on a marker on a map will render the "owning" domain object,
+ rather than the details of the `CommunicationChannel` itself.
 
 The module uses the design pattern of the (non-ASF) http://github.com/isisaddons/isis-module-poly[Isis addons' poly] module, to support type-safe polymorphic associations.
 
@@ -461,6 +449,7 @@ None at this time.
 
 == Change Log
 
+* `1.13.0-SNAPSHOT` - (to release) against Isis 1.13.0; removed the `CommunicationChannelOwner` interface (to completely decouple the "owning" domain object from this module); using `.layout.xml` for layouts
 * `1.12.0` - released against Isis 1.12.0
 * `1.11.0` - released against Isis 1.11.0
 * `1.10.0` - released against Isis 1.10.0
@@ -493,7 +482,7 @@ therefore require the appropriate Lombok plugin.  See the link:https://projectlo
 
 [source]
 ----
-Copyright 2015 Dan Haywood
+Copyright 2015~2016 Dan Haywood
 
 Licensed under the Apache License, Version 2.0 (the
 "License"); you may not use this file except in compliance

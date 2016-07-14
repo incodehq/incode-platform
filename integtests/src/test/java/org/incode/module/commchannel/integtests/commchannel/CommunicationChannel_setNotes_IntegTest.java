@@ -31,7 +31,6 @@ import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelRepository;
-import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_updateNotes;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObjectMenu;
 import org.incode.module.commchannel.fixture.scripts.teardown.CommChannelDemoObjectsTearDownFixture;
@@ -39,7 +38,7 @@ import org.incode.module.commchannel.integtests.CommChannelModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CommunicationChannel_updateNotes_IntegTest extends CommChannelModuleIntegTest {
+public class CommunicationChannel_setNotes_IntegTest extends CommChannelModuleIntegTest {
 
     @Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;
@@ -61,41 +60,28 @@ public class CommunicationChannel_updateNotes_IntegTest extends CommChannelModul
     }
 
 
-    public static class ActionImplementationIntegrationTest extends
-            CommunicationChannel_updateNotes_IntegTest {
+    public static class EditIntegrationTest extends CommunicationChannel_setNotes_IntegTest {
 
         @Test
         public void happy_case() throws Exception {
             final CommunicationChannel communicationChannel = fredChannels.first();
             final String newNotes = fakeDataService.lorem().paragraph();
 
-            wrap(mixinUpdateNotes(communicationChannel)).$$(newNotes);
+            wrap(communicationChannel).setNotes(newNotes);
 
             assertThat(communicationChannel.getNotes()).isEqualTo(newNotes);
         }
     }
 
-    public static class DefaultIntegrationTest extends CommunicationChannel_updateNotes_IntegTest {
 
-        @Test
-        public void happy_case() throws Exception {
-            final CommunicationChannel communicationChannel = fredChannels.first();
-
-            final String notes = mixinUpdateNotes(communicationChannel).default0$$();
-
-            assertThat(notes).isEqualTo(communicationChannel.getNotes());
-        }
-
-    }
-
-    public static class RaisesEventIntegrationTest extends CommunicationChannel_updateNotes_IntegTest {
+    public static class RaisesEventIntegrationTest extends CommunicationChannel_setNotes_IntegTest {
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            CommunicationChannel_updateNotes.DomainEvent ev;
+            CommunicationChannel.NotesDomainEvent ev;
 
             @Subscribe
-            public void on(CommunicationChannel_updateNotes.DomainEvent ev) {
+            public void on(CommunicationChannel.NotesDomainEvent ev) {
                 this.ev = ev;
             }
         }
@@ -107,10 +93,10 @@ public class CommunicationChannel_updateNotes_IntegTest extends CommChannelModul
         public void happy_case() throws Exception {
             final CommunicationChannel channel = fredChannels.first();
             final String newParagraph = fakeDataService.lorem().paragraph();
-            wrap(mixinUpdateNotes(channel)).$$(newParagraph);
+            wrap(channel).setNotes(newParagraph);
 
-            assertThat(testSubscriber.ev.getSource().getCommunicationChannel()).isSameAs(channel);
-            assertThat(testSubscriber.ev.getArguments().get(0)).isEqualTo(newParagraph);
+            assertThat(testSubscriber.ev.getSource()).isSameAs(channel);
+            assertThat(testSubscriber.ev.getNewValue()).isEqualTo(newParagraph);
         }
     }
 

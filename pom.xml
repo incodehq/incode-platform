@@ -21,7 +21,7 @@ language governing permissions and limitations under the License.
     <artifactId>incode-module-commchannel</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>Incode CommChannel Module</name>
+    <name>Incode Module CommChannel</name>
 
     <packaging>pom</packaging>
 

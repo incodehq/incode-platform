@@ -24,7 +24,7 @@ language governing permissions and limitations under the License.
     </parent>
 
     <artifactId>incode-module-commchannel-webapp</artifactId>
-    <name>Incode CommChannel Module Webapp</name>
+    <name>Incode Module CommChannel Webapp</name>
 
     <packaging>war</packaging>
 

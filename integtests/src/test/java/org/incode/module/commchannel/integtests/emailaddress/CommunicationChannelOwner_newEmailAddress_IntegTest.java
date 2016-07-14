@@ -30,7 +30,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
-import org.incode.module.commchannel.dom.impl.emailaddress.CommunicationChannelOwner_newEmailAddress;
+import org.incode.module.commchannel.dom.impl.emailaddress.Object_newEmailAddress;
 import org.incode.module.commchannel.dom.impl.emailaddress.EmailAddress;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
@@ -90,10 +90,10 @@ public class CommunicationChannelOwner_newEmailAddress_IntegTest extends CommCha
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            CommunicationChannelOwner_newEmailAddress.DomainEvent ev;
+            Object_newEmailAddress.DomainEvent ev;
 
             @Subscribe
-            public void on(CommunicationChannelOwner_newEmailAddress.DomainEvent ev) {
+            public void on(Object_newEmailAddress.DomainEvent ev) {
                 this.ev = ev;
             }
         }

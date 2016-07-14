@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.commchannel.dom.api.geocoding;
+package org.incode.module.commchannel.dom.api;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -37,10 +37,10 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.services.config.ConfigurationService;
 
 /**
  * Adapted from <a href="http://stackoverflow.com/a/9600268/56880">this stackoverflow answer</a>.
@@ -63,11 +63,11 @@ public class GeocodingService {
     @PostConstruct
     public void init() {
         final String prefix = GeocodingService.class.getCanonicalName();
-        protocol = container.getProperty(prefix + ".protocol", DEFAULT_PROTOCOL);
-        apiKey = container.getProperty(prefix + ".apiKey");
-        demo = parseBoolean(container.getProperty(prefix + ".demo"), DEFAULT_DEMO);
-        timeout = parseInt(container.getProperty(prefix + ".timeout"), DEFAULT_TIMEOUT_SECONDS);
-        regionBias = encoded(container.getProperty(prefix + ".regionBias"));
+        protocol = configurationService.getProperty(prefix + ".protocol", DEFAULT_PROTOCOL);
+        apiKey = configurationService.getProperty(prefix + ".apiKey");
+        demo = parseBoolean(configurationService.getProperty(prefix + ".demo"), DEFAULT_DEMO);
+        timeout = parseInt(configurationService.getProperty(prefix + ".timeout"), DEFAULT_TIMEOUT_SECONDS);
+        regionBias = encoded(configurationService.getProperty(prefix + ".regionBias"));
     }
 
     @Programmatic
@@ -193,5 +193,5 @@ public class GeocodingService {
     //endregion
 
     @Inject
-    DomainObjectContainer container;
+    ConfigurationService configurationService;
 }

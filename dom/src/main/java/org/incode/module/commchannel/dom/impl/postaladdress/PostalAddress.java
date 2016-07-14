@@ -52,7 +52,6 @@ import lombok.Setter;
                 members = { "placeId" })
 })
 @DomainObject(
-        editing = Editing.DISABLED,
         objectType = "incodeCommChannel.PostalAddress"
 )
 public class PostalAddress extends CommunicationChannel<PostalAddress> {
@@ -87,6 +86,7 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
     @javax.jdo.annotations.Column(allowsNull = "true", length = CommChannelModule.JdoColumnLength.ADDRESS_LINE)
     @Property(
             domainEvent = AddressLine1DomainEvent.class,
+            editing = Editing.DISABLED,
             optionality = Optionality.MANDATORY
     )
     private String addressLine1;
@@ -100,6 +100,7 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
     )
     @Property(
             domainEvent = AddressLine2DomainEvent.class,
+            editing = Editing.DISABLED,
             optionality = Optionality.MANDATORY
     )
     private String addressLine2;
@@ -113,6 +114,7 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
     )
     @Property(
             domainEvent = AddressLine3DomainEvent.class,
+            editing = Editing.DISABLED,
             optionality = Optionality.MANDATORY
     )
     private String addressLine3;
@@ -126,6 +128,7 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
     )
     @Property(
             domainEvent = AddressLine4DomainEvent.class,
+            editing = Editing.DISABLED,
             optionality = Optionality.MANDATORY
     )
     private String addressLine4;
@@ -139,6 +142,7 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
     )
     @Property(
             domainEvent = PostalCodeDomainEvent.class,
+            editing = Editing.DISABLED,
             optionality = Optionality.MANDATORY
     )
     private String postalCode;
@@ -151,8 +155,9 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
             length = CommChannelModule.JdoColumnLength.COUNTRY
     )
     @Property(
-            optionality = Optionality.MANDATORY,
-            domainEvent = CountryDomainEvent.class
+            domainEvent = CountryDomainEvent.class,
+            editing = Editing.DISABLED,
+            optionality = Optionality.MANDATORY
     )
     private String country;
 
@@ -172,7 +177,8 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
             allowsNull = "true" // optional only because of superclass inheritance strategy=SUPERCLASS_TABLE
     )
     @Property(
-            domainEvent = PlaceIdDomainEvent.class
+            domainEvent = PlaceIdDomainEvent.class,
+            editing = Editing.DISABLED
     )
     private String placeId;
 
@@ -181,7 +187,8 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
     @Getter @Setter
     @javax.jdo.annotations.Column(allowsNull = "true") // optional only because of superclass inheritance strategy=SUPERCLASS_TABLE
     @Property(
-            domainEvent = LatLngDomainEvent.class
+            domainEvent = LatLngDomainEvent.class,
+            editing = Editing.DISABLED
     )
     private String latLng;
 

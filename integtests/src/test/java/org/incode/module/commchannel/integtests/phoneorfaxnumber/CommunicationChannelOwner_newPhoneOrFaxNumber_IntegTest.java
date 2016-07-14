@@ -32,7 +32,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
-import org.incode.module.commchannel.dom.impl.phoneorfax.CommunicationChannelOwner_newPhoneOrFaxNumber;
+import org.incode.module.commchannel.dom.impl.phoneorfax.Object_newPhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
@@ -136,10 +136,10 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest extends Com
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            CommunicationChannelOwner_newPhoneOrFaxNumber.DomainEvent ev;
+            Object_newPhoneOrFaxNumber.DomainEvent ev;
 
             @Subscribe
-            public void on(CommunicationChannelOwner_newPhoneOrFaxNumber.DomainEvent ev) {
+            public void on(Object_newPhoneOrFaxNumber.DomainEvent ev) {
                 this.ev = ev;
             }
         }

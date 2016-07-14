@@ -26,7 +26,6 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.VersionStrategy;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
@@ -36,6 +35,7 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
+import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.util.ObjectContracts;
 
 import org.isisaddons.wicket.gmap3.cpt.applib.Locatable;
@@ -43,7 +43,6 @@ import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 
 import org.incode.module.commchannel.dom.CommChannelModule;
 import org.incode.module.commchannel.dom.impl.emailaddress.EmailAddress;
-import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
@@ -52,9 +51,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents a mechanism for communicating with its
- * {@link CommunicationChannelOwner owner}.
- * 
+ * Represents a mechanism for communicating with its owner.
+ *
  * <p>
  * This is an abstract entity; concrete subclasses are {@link PostalAddress
  * postal}, {@link PhoneOrFaxNumber phone/fax} and {@link EmailAddress email}.
@@ -74,17 +72,11 @@ import lombok.Setter;
         strategy = DiscriminatorStrategy.CLASS_NAME,
         column = "discriminator")
 @DomainObject(
-        editing = Editing.DISABLED,
         objectType = "incodeCommChannel.CommunicationChannel"
 )
 @DomainObjectLayout(bookmarking = BookmarkPolicy.AS_CHILD)
 public abstract class CommunicationChannel<T extends CommunicationChannel<T>> implements Comparable<CommunicationChannel>,
         Locatable {
-
-    //region > injected services 
-    @Inject
-    protected DomainObjectContainer container;
-    //endregion
 
     //region > events
     public static abstract class PropertyDomainEvent<S,T>
@@ -120,10 +112,11 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
     public static class NameDomainEvent extends PropertyDomainEvent<CommunicationChannel,String> {}
     @Property(
             domainEvent = NameDomainEvent.class,
+            editing = Editing.DISABLED,
             hidden = Where.OBJECT_FORMS
     )
     public String getName() {
-        return container.titleOf(this);
+        return titleService.titleOf(this);
     }
 
 
@@ -132,6 +125,7 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
     @Column(allowsNull = "false", length = CommChannelModule.JdoColumnLength.TYPE_ENUM)
     @Property(
             domainEvent = TypeDomainEvent.class,
+            editing = Editing.DISABLED,
             hidden = Where.EVERYWHERE
     )
     private CommunicationChannelType type;
@@ -153,7 +147,7 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
     @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB")
     @Property(
             domainEvent = NotesDomainEvent.class,
-            editing = Editing.DISABLED,
+            editing = Editing.ENABLED,
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(multiLine = 10)
@@ -184,6 +178,11 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
     public String toString() {
         return ObjectContracts.toString(this, "type", "id");
     }
+    //endregion
+
+    //region > injected services
+    @Inject
+    TitleService titleService;
     //endregion
 
 

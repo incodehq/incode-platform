@@ -27,7 +27,7 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.module.commchannel.dom.api.geocoding.GeocodingService;
+import org.incode.module.commchannel.dom.api.GeocodingService;
 
 @Mixin
 public class PostalAddress_lookupGeocode {

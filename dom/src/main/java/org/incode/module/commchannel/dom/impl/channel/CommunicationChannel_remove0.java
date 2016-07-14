@@ -21,40 +21,31 @@ import java.util.SortedSet;
 
 import javax.inject.Inject;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Mixin;
-import org.apache.isis.applib.annotation.Optionality;
-import org.apache.isis.applib.annotation.Parameter;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.services.factory.FactoryService;
+import org.apache.isis.applib.services.repository.RepositoryService;
 
-import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
 
+/**
+ * Removes the {@link CommunicationChannel} from its owner, with no replacement.
+ */
 @Mixin
-public class CommunicationChannel_remove {
-
-    //region > injected services
-    @Inject
-    CommunicationChannelOwnerLinkRepository ownerLinkRepository;
-    @Inject
-    CommunicationChannelRepository communicationChannelRepository;
-    @Inject
-    DomainObjectContainer container;
-    //endregion
+public class CommunicationChannel_remove0 {
 
     //region > mixins
-    private CommunicationChannelOwner mixinOwner() {
-        return container.mixin(CommunicationChannel_owner.class, communicationChannel).$$();
+    private Object mixinOwner() {
+        return factoryService.mixin(CommunicationChannel_owner.class, communicationChannel).$$();
     }
     //endregion
 
     //region > constructor
     private final CommunicationChannel<?> communicationChannel;
-    public CommunicationChannel_remove(final CommunicationChannel<?> communicationChannel) {
+    public CommunicationChannel_remove0(final CommunicationChannel<?> communicationChannel) {
         this.communicationChannel = communicationChannel;
     }
     @Programmatic
@@ -64,29 +55,29 @@ public class CommunicationChannel_remove {
 
     //endregion
 
-    public static class DomainEvent extends CommunicationChannel.ActionDomainEvent<CommunicationChannel_remove> {
-        public CommunicationChannel<?> getReplacement() {
-            return (CommunicationChannel<?>) getArguments().get(0);
-        }
-    }
+    //region > $$
+
+    public static class DomainEvent extends CommunicationChannel.ActionDomainEvent<CommunicationChannel_remove0> { }
 
     @Action(
             domainEvent = DomainEvent.class,
             semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE
     )
     @ActionLayout(
+            cssClass = "btn-danger",
             named = "Remove"
     )
-    public CommunicationChannelOwner $$(
-            @ParameterLayout(named = "Replace with")
-            @Parameter(optionality = Optionality.OPTIONAL)
-            final CommunicationChannel replacement) {
-        final CommunicationChannelOwner owner = mixinOwner();
+    public Object $$() {
+        final Object owner = mixinOwner();
         removeLink();
         return owner;
     }
 
-    public SortedSet<CommunicationChannel> choices0$$() {
+    public boolean hide$$() {
+        return !others().isEmpty();
+    }
+
+    private SortedSet<CommunicationChannel> others() {
         return communicationChannelRepository.findOtherByOwnerAndType(
                 mixinOwner(), this.communicationChannel.getType(),
                 this.communicationChannel);
@@ -94,7 +85,20 @@ public class CommunicationChannel_remove {
 
     void removeLink() {
         ownerLinkRepository.removeOwnerLink(communicationChannel);
-        container.remove(communicationChannel);
+        repositoryService.remove(communicationChannel);
     }
+    //endregion
+
+
+    //region > injected services
+    @Inject
+    CommunicationChannelOwnerLinkRepository ownerLinkRepository;
+    @Inject
+    CommunicationChannelRepository communicationChannelRepository;
+    @Inject
+    RepositoryService repositoryService;
+    @Inject
+    FactoryService factoryService;
+    //endregion
 
 }

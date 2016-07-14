@@ -28,7 +28,6 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
-import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 import org.incode.module.commchannel.dom.spi.purpose.CommunicationChannelPurposeRepository;
@@ -54,7 +53,7 @@ public class CommunicationChannelPurposeService {
     @Programmatic
     public Collection<String> purposesFor(
             final CommunicationChannelType communicationChannelType,
-            final CommunicationChannelOwner communicationChannelOwner) {
+            final Object communicationChannelOwner) {
         final Set<String> fallback = Collections.singleton(DEFAULT_PURPOSE);
         if(communicationChannelPurposeRepository == null) {
             return fallback;

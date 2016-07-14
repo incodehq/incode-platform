@@ -1,4 +1,4 @@
-package org.incode.module.commchannel.dom.api.geocoding;
+package org.incode.module.commchannel.dom.api;
 
 import java.util.List;
 

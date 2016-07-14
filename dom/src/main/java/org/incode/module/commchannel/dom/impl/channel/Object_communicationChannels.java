@@ -30,10 +30,10 @@ import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
+import org.incode.module.commchannel.dom.CommChannelModule;
 
 @Mixin
-public class CommunicationChannelOwner_communicationChannels {
+public class Object_communicationChannels {
 
     //region > injected services
     @Inject
@@ -41,14 +41,16 @@ public class CommunicationChannelOwner_communicationChannels {
     //endregion
 
     //region > constructor
-    private final CommunicationChannelOwner communicationChannelOwner;
-    public CommunicationChannelOwner_communicationChannels(final CommunicationChannelOwner communicationChannelOwner) {
+    private final Object communicationChannelOwner;
+    public Object_communicationChannels(final Object communicationChannelOwner) {
         this.communicationChannelOwner = communicationChannelOwner;
     }
     //endregion
 
-    public static class DomainEvent extends CommunicationChannelOwner.CollectionDomainEvent
-                                        <CommunicationChannelOwner_communicationChannels, CommunicationChannel> { }
+    //region > $$
+
+    public static class DomainEvent extends CommChannelModule.CollectionDomainEvent
+                                        <Object_communicationChannels, CommunicationChannel> { }
     @Action(semantics = SemanticsOf.SAFE)
     @CollectionLayout(
             named = "Communication Channels", // regression in isis 1.11.x requires this to be specified
@@ -61,5 +63,10 @@ public class CommunicationChannelOwner_communicationChannels {
     public SortedSet<CommunicationChannel> $$() {
         return communicationChannelRepository.findByOwner(communicationChannelOwner);
     }
+
+    public boolean hide$$() {
+        return !communicationChannelRepository.supports(this.communicationChannelOwner);
+    }
+    //endregion
 
 }

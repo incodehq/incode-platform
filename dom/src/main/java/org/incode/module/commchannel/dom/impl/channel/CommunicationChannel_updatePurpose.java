@@ -24,6 +24,7 @@ import javax.inject.Inject;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
@@ -67,6 +68,9 @@ public class CommunicationChannel_updatePurpose {
     @Action(
             domainEvent = DomainEvent.class,
             semantics = SemanticsOf.IDEMPOTENT
+    )
+    @ActionLayout(
+            named = "Update"
     )
     public CommunicationChannel<?> $$(
             @Parameter(maxLength = CommChannelModule.JdoColumnLength.PURPOSE, optionality = Optionality.MANDATORY)

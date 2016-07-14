@@ -34,7 +34,6 @@ import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 
 import org.incode.module.commchannel.dom.CommChannelModule;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
-import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 
 import lombok.Getter;
@@ -76,7 +75,7 @@ import lombok.Setter;
 @DomainObject(
         objectType = "incodeCommunicationChannel.CommunicationChannelOwnerLink"
 )
-public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociationLink<CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink> {
+public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociationLink<CommunicationChannel, Object, CommunicationChannelOwnerLink> {
 
     //region > events
     public static abstract class PropertyDomainEvent<S,T> extends CommChannelModule.PropertyDomainEvent<S, T> { }
@@ -86,9 +85,9 @@ public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociati
 
     //region > instantiateEvent (poly pattern)
     public static class InstantiateEvent
-            extends PolymorphicAssociationLink.InstantiateEvent<CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink> {
+            extends PolymorphicAssociationLink.InstantiateEvent<CommunicationChannel, Object, CommunicationChannelOwnerLink> {
 
-        public InstantiateEvent(final Object source, final CommunicationChannel subject, final CommunicationChannelOwner owner) {
+        public InstantiateEvent(final Object source, final CommunicationChannel subject, final Object owner) {
             super(CommunicationChannelOwnerLink.class, source, subject, owner);
         }
     }
@@ -199,10 +198,10 @@ public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociati
         public static <T extends CommunicationChannel> Function<CommunicationChannelOwnerLink, T> communicationChannel(Class<T> cls) {
             return input -> (T)input.getCommunicationChannel();
         }
-        public static Function<CommunicationChannelOwnerLink, CommunicationChannelOwner> owner() {
-            return owner(CommunicationChannelOwner.class);
+        public static Function<CommunicationChannelOwnerLink, Object> owner() {
+            return owner(Object.class);
         }
-        public static <T extends CommunicationChannelOwner> Function<CommunicationChannelOwnerLink, T> owner(final Class<T> cls) {
+        public static <T extends Object> Function<CommunicationChannelOwnerLink, T> owner(final Class<T> cls) {
             return input -> (T)input.getPolymorphicReference();
         }
     }

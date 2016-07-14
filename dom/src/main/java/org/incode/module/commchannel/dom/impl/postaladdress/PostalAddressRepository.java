@@ -33,7 +33,6 @@ import org.apache.isis.applib.annotation.Programmatic;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_owner;
-import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
@@ -48,13 +47,18 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 public class PostalAddressRepository {
 
     @Inject
-    CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;
+    CommunicationChannelOwnerLinkRepository linkRepository;
     @Inject
     DomainObjectContainer container;
 
     @Programmatic
+    public boolean supports(final Object classifiable) {
+        return linkRepository.supports(classifiable);
+    }
+
+    @Programmatic
     public PostalAddress newPostal(
-            final CommunicationChannelOwner owner,
+            final Object owner,
             final String addressLine1,
             final String addressLine2,
             final String addressLine3,
@@ -83,11 +87,11 @@ public class PostalAddressRepository {
 
     @Programmatic
     public PostalAddress findByAddress(
-            final CommunicationChannelOwner owner,
+            final Object owner,
             final String placeId) {
 
         final List<CommunicationChannelOwnerLink> links =
-                communicationChannelOwnerLinkRepository.findByOwnerAndCommunicationChannelType(owner, CommunicationChannelType.POSTAL_ADDRESS);
+                linkRepository.findByOwnerAndCommunicationChannelType(owner, CommunicationChannelType.POSTAL_ADDRESS);
         final Iterable<PostalAddress> postalAddresses =
                 Iterables.transform(
                         links,

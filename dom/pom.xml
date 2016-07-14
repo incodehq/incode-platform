@@ -23,7 +23,7 @@ Copyright 2014~2015 Dan Haywood
 
     <packaging>jar</packaging>
 
-    <name>Incode CommChannel Module DOM</name>
+    <name>Incode Module CommChannel DOM</name>
     <description>
         A module providing commchannel.
     </description>

@@ -20,7 +20,6 @@ package org.incode.module.commchannel.dom.spi.purpose;
 
 import java.util.Collection;
 
-import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 
@@ -45,6 +44,6 @@ public interface CommunicationChannelPurposeRepository {
      */
     Collection<String> purposesFor(
             final CommunicationChannelType communicationChannelType,
-            final CommunicationChannelOwner communicationChannel);
+            final Object communicationChannel);
 
 }

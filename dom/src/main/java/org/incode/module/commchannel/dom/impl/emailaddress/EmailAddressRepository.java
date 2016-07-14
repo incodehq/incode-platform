@@ -26,14 +26,14 @@ import javax.inject.Inject;
 import com.google.common.base.Optional;
 import com.google.common.collect.Iterables;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.services.factory.FactoryService;
+import org.apache.isis.applib.services.repository.RepositoryService;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_owner;
-import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
@@ -44,21 +44,20 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 )
 public class EmailAddressRepository {
 
-    //region > injected services
-    @Inject
-    CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;
-    @Inject
-    DomainObjectContainer container;
-    //endregion
+
+    @Programmatic
+    public boolean supports(final Object classifiable) {
+        return linkRepository.supports(classifiable);
+    }
 
     @Programmatic
     public EmailAddress newEmail(
-            final CommunicationChannelOwner owner,
+            final Object owner,
             final String address,
             final String purpose,
             final String notes) {
 
-        final EmailAddress ea = container.newTransientInstance(EmailAddress.class);
+        final EmailAddress ea = repositoryService.instantiate(EmailAddress.class);
         ea.setType(CommunicationChannelType.EMAIL_ADDRESS);
         ea.setEmailAddress(address);
         owner(ea).setOwner(owner);
@@ -66,18 +65,18 @@ public class EmailAddressRepository {
         ea.setPurpose(purpose);
         ea.setNotes(notes);
 
-        container.persistIfNotAlready(ea);
+        repositoryService.persist(ea);
 
         return ea;
     }
 
     @Programmatic
     public EmailAddress findByEmailAddress(
-            final CommunicationChannelOwner owner, 
+            final Object owner,
             final String emailAddress) {
 
         final List<CommunicationChannelOwnerLink> links =
-                communicationChannelOwnerLinkRepository.findByOwnerAndCommunicationChannelType(
+                linkRepository.findByOwnerAndCommunicationChannelType(
                                                             owner, CommunicationChannelType.EMAIL_ADDRESS);
         final Iterable<EmailAddress> emailAddresses =
                 Iterables.transform(
@@ -89,7 +88,17 @@ public class EmailAddressRepository {
     }
 
     private CommunicationChannel_owner owner(final CommunicationChannel<?> cc) {
-        return container.mixin(CommunicationChannel_owner.class, cc);
+        return factoryService.mixin(CommunicationChannel_owner.class, cc);
     }
+
+    //region > injected services
+    @Inject
+    CommunicationChannelOwnerLinkRepository linkRepository;
+    @Inject
+    RepositoryService repositoryService;
+    @Inject
+    FactoryService factoryService;
+    //endregion
+
 
 }

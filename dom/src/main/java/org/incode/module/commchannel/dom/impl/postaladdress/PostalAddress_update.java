@@ -31,8 +31,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
 import org.incode.module.commchannel.dom.CommChannelModule;
-import org.incode.module.commchannel.dom.api.geocoding.GeocodedAddress;
-import org.incode.module.commchannel.dom.api.geocoding.GeocodingService;
+import org.incode.module.commchannel.dom.api.GeocodedAddress;
+import org.incode.module.commchannel.dom.api.GeocodingService;
 
 @Mixin
 public class PostalAddress_update {
@@ -126,7 +126,7 @@ public class PostalAddress_update {
             } else {
                 container.warnUser(
                         TranslatableString.tr("Could not lookup geocode for address"),
-                        CommunicationChannelOwner_newPostalAddress.class, "newPostal");
+                        Object_newPostalAddress.class, "newPostal");
             }
         } else {
             mixinResetGeocode().$$();

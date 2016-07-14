@@ -42,15 +42,14 @@ import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
 import org.incode.module.commchannel.app.CommChannelModuleAppManifest;
-import org.incode.module.commchannel.dom.api.geocoding.GeocodingService;
+import org.incode.module.commchannel.dom.api.GeocodingService;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
-import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelOwner_communicationChannels;
-import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_remove;
+import org.incode.module.commchannel.dom.impl.channel.Object_communicationChannels;
+import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_remove1;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_updatePurpose;
-import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_updateNotes;
-import org.incode.module.commchannel.dom.impl.emailaddress.CommunicationChannelOwner_newEmailAddress;
-import org.incode.module.commchannel.dom.impl.phoneorfax.CommunicationChannelOwner_newPhoneOrFaxNumber;
-import org.incode.module.commchannel.dom.impl.postaladdress.CommunicationChannelOwner_newPostalAddress;
+import org.incode.module.commchannel.dom.impl.emailaddress.Object_newEmailAddress;
+import org.incode.module.commchannel.dom.impl.phoneorfax.Object_newPhoneOrFaxNumber;
+import org.incode.module.commchannel.dom.impl.postaladdress.Object_newPostalAddress;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
 
 public abstract class CommChannelModuleIntegTest extends IntegrationTestAbstract {
@@ -92,32 +91,28 @@ public abstract class CommChannelModuleIntegTest extends IntegrationTestAbstract
         new ScenarioExecutionForIntegration();
     }
 
-    protected CommunicationChannelOwner_newEmailAddress mixinNewEmailAddress(final CommChannelDemoObject owner) {
-        return mixin(CommunicationChannelOwner_newEmailAddress.class, owner);
+    protected Object_newEmailAddress mixinNewEmailAddress(final CommChannelDemoObject owner) {
+        return mixin(Object_newEmailAddress.class, owner);
     }
 
-    protected CommunicationChannelOwner_newPostalAddress mixinNewPostalAddress(final CommChannelDemoObject owner) {
-        return mixin(CommunicationChannelOwner_newPostalAddress.class, owner);
+    protected Object_newPostalAddress mixinNewPostalAddress(final CommChannelDemoObject owner) {
+        return mixin(Object_newPostalAddress.class, owner);
     }
 
-    protected CommunicationChannelOwner_newPhoneOrFaxNumber mixinNewPhoneOrFaxNumber(final CommChannelDemoObject owner) {
-        return mixin(CommunicationChannelOwner_newPhoneOrFaxNumber.class, owner);
+    protected Object_newPhoneOrFaxNumber mixinNewPhoneOrFaxNumber(final CommChannelDemoObject owner) {
+        return mixin(Object_newPhoneOrFaxNumber.class, owner);
     }
 
-    protected CommunicationChannel_remove mixinRemove(final CommunicationChannel channel) {
-        return mixin(CommunicationChannel_remove.class, channel);
+    protected CommunicationChannel_remove1 mixinRemove(final CommunicationChannel channel) {
+        return mixin(CommunicationChannel_remove1.class, channel);
     }
 
     protected CommunicationChannel_updatePurpose mixinUpdatePurpose(final CommunicationChannel communicationChannel) {
         return mixin(CommunicationChannel_updatePurpose.class, communicationChannel);
     }
 
-    protected CommunicationChannel_updateNotes mixinUpdateNotes(final CommunicationChannel communicationChannel) {
-        return mixin(CommunicationChannel_updateNotes.class, communicationChannel);
-    }
-
-    protected CommunicationChannelOwner_communicationChannels mixinCommunicationChannels(final CommChannelDemoObject owner) {
-        return mixin(CommunicationChannelOwner_communicationChannels.class, owner);
+    protected Object_communicationChannels mixinCommunicationChannels(final CommChannelDemoObject owner) {
+        return mixin(Object_communicationChannels.class, owner);
     }
 
     /**

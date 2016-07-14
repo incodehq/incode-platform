@@ -30,7 +30,6 @@ import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.util.ObjectContracts;
 
-import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
@@ -48,7 +47,7 @@ import org.incode.module.commchannel.dom.api.owner.CommunicationChannelOwner;
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
 )
-public class CommChannelDemoObject implements CommunicationChannelOwner, Comparable<CommChannelDemoObject> {
+public class CommChannelDemoObject implements Comparable<CommChannelDemoObject> {
 
 
     //region > name (property)
