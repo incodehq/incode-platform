@@ -177,15 +177,21 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 
 === For each domain object...
 
-In order to be able to add/remove aliases to a domain object, you need to implement a subclass of `AliasLink` for
-that domain object type.  This link acts as a type-safe tuple linking domain object to `Alias`.  For each such
-"aliased" domain object, the module contributes the `aliases` collection, and also contributes the `addAlias(...)`
-and `removeAlias(...)` actions.
+In order to be able to add/remove aliases to a domain object, you need to:
 
-Specifically, subclass the `AliasLink` abstract class and also implement a domain event subscriber to correctly
-instantiate the subclass.
+* implement a subclass of `AliasLink` for the domain object's type.  +
++
+This link acts as a type-safe tuple linking domain object to `Alias`.
 
-For example, in the demo app the `AliasLinkForDemoObject` implements both of these responsibilities:
+* implement a domain event subscriber to correctly instantiate the subclass. +
++
+Typically this is a nested static class of the `AliasLink` subtype.
+
+For each such "aliased" domain object, the module contributes the `aliases` collection, and also contributes the
+`addAlias(...)` and `removeAlias(...)` actions.
+
+For example, in the demo app the `AliasDemoObject` domain object can have aliases by virtue of the
+`AliasLinkForDemoObject` subclass:
 
 [source,java]
 ----
@@ -316,7 +322,7 @@ None at this time.
 
 == Change Log
 
-* `1.13.0` - released against Isis 1.13.0; removing the `Aliasable` interface (completely decouples the "aliased" domain object from this module.
+* `1.13.0-SNAPSHOT` - (to release) against Isis 1.13.0; removed the `Aliasable` interface (to completely decouple the "aliased" domain object from this module); added in the ability to override the title, icon and CSS of `Alias` objects; using `.layout.xml` for layouts
 * `1.12.0` - released against Isis 1.12.0
 * `1.11.1` - released against Isis 1.11.1.
 
