@@ -6,29 +6,29 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 
 import com.google.common.base.Function;
+import com.google.common.eventbus.Subscribe;
 
-import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
+import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
+import org.apache.isis.applib.services.repository.RepositoryService;
+import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
 
 import org.incode.module.alias.dom.AliasModule;
-import org.incode.module.alias.dom.api.aliasable.Aliasable;
-import org.incode.module.alias.dom.impl.aliaslink.AliasableLink;
-import org.incode.module.alias.dom.impl.aliaslink.AliasableLinkRepository;
+import org.incode.module.alias.dom.impl.aliaslink.AliasLink;
+import org.incode.module.alias.dom.impl.aliaslink.AliasLinkRepository;
 
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * An event that has or is scheduled to occur at some point in time, pertaining
- * to an {@link Aliasable}.
- */
 @javax.jdo.annotations.PersistenceCapable(
         schema = "incodeAlias",
         table = "Alias",
@@ -55,34 +55,70 @@ import lombok.Setter;
 @DomainObject(
         editing = Editing.DISABLED
 )
+@DomainObjectLayout(
+        titleUiEvent = Alias.TitleUiEvent.class,
+        iconUiEvent = Alias.IconUiEvent.class,
+        cssClassUiEvent = Alias.CssClassUiEvent.class
+)
 public class Alias implements Comparable<Alias> {
 
-    //region > injected services
-    @Inject
-    AliasableLinkRepository aliasableLinkRepository;
-    @Inject
-    DomainObjectContainer container;
-    //endregion
 
     //region > event classes
+    public static class TitleUiEvent extends AliasModule.TitleUiEvent<Alias>{}
+    public static class IconUiEvent extends AliasModule.IconUiEvent<Alias>{}
+    public static class CssClassUiEvent extends AliasModule.CssClassUiEvent<Alias>{}
+
     public static abstract class PropertyDomainEvent<S,T> extends AliasModule.PropertyDomainEvent<S, T> { }
     public static abstract class CollectionDomainEvent<S,T> extends AliasModule.CollectionDomainEvent<S, T> { }
     public static abstract class ActionDomainEvent<S> extends AliasModule.ActionDomainEvent<S> { }
     //endregion
 
-    //region > title
-    public String title() {
-        final TitleBuffer buf = new TitleBuffer();
-        buf.append(getAtPath());
-        buf.append(",");
-        buf.append(getAliasTypeId());
-        buf.append(",");
-        buf.append(getReference());
-        buf.append(":");
-        buf.append(container.titleOf(getAliasable()));
-        return buf.toString();
+    //region > title, icon, cssClass
+    /**
+     * Implemented as a subscriber so can be overridden by consuming application if required.
+     */
+    @DomainService
+    public static class TitleSubscriber extends AbstractSubscriber {
+        @Subscribe
+        public void on(Alias.TitleUiEvent ev) {
+            ev.setTitle(titleOf(ev.getSource()));
+        }
+        private String titleOf(final Alias alias) {
+            final TitleBuffer buf = new TitleBuffer();
+            buf.append(alias.getAtPath());
+            buf.append(",");
+            buf.append(alias.getAliasTypeId());
+            buf.append(",");
+            buf.append(alias.getReference());
+            buf.append(":");
+            buf.append(titleService.titleOf(alias.getAliased()));
+            return buf.toString();
+        }
+        @Inject
+        TitleService titleService;
     }
 
+    /**
+     * Implemented as a subscriber so can be overridden by consuming application if required.
+     */
+    @DomainService
+    public static class IconSubscriber extends AbstractSubscriber {
+        @Subscribe
+        public void on(Alias.IconUiEvent ev) {
+            ev.setIconName("");
+        }
+    }
+
+    /**
+     * Implemented as a subscriber so can be overridden by consuming application if required.
+     */
+    @DomainService
+    public static class CssClassSubscriber extends AbstractSubscriber {
+        @Subscribe
+        public void on(Alias.CssClassUiEvent ev) {
+            ev.setCssClass("");
+        }
+    }
     //endregion
 
 
@@ -120,42 +156,42 @@ public class Alias implements Comparable<Alias> {
     private String reference;
 
 
-    //region > aliasable (derived property)
+    //region > aliased (derived property)
 
-    public static class AliasableDomainEvent extends PropertyDomainEvent<Alias,Aliasable> { }
+    public static class AliasedDomainEvent extends PropertyDomainEvent<Alias,Object> { }
 
     /**
-     * Polymorphic association to (any implementation of) {@link Aliasable}.
+     * Polymorphic association to (any implementation of) aliased object.
      */
     @Property(
-            domainEvent = AliasableDomainEvent.class,
+            domainEvent = AliasedDomainEvent.class,
             editing = Editing.DISABLED,
             hidden = Where.PARENTED_TABLES,
             notPersisted = true
     )
-    public Aliasable getAliasable() {
-        final AliasableLink link = getAliasableLink();
+    public Object getAliased() {
+        final AliasLink link = getAliasLink();
         return link != null? link.getPolymorphicReference(): null;
     }
 
     @Programmatic
-    public void setAliasable(final Aliasable aliasable) {
-        removeAliasableLink();
-        aliasableLinkRepository.createLink(this, aliasable);
+    public void setAliased(final Object aliased) {
+        removeAliasLink();
+        aliasLinkRepository.createLink(this, aliased);
     }
 
-    private void removeAliasableLink() {
-        final AliasableLink aliasableLink = getAliasableLink();
-        if(aliasableLink != null) {
-            container.remove(aliasableLink);
+    private void removeAliasLink() {
+        final AliasLink aliasLink = getAliasLink();
+        if(aliasLink != null) {
+            repositoryService.remove(aliasLink);
         }
     }
 
-    private AliasableLink getAliasableLink() {
-        if (!container.isPersistent(this)) {
+    private AliasLink getAliasLink() {
+        if (!repositoryService.isPersistent(this)) {
             return null;
         }
-        return aliasableLinkRepository.findByAlias(this);
+        return aliasLinkRepository.findByAlias(this);
     }
     //endregion
 
@@ -181,5 +217,13 @@ public class Alias implements Comparable<Alias> {
     }
 
     //endregion
+
+    //region > injected services
+    @Inject
+    AliasLinkRepository aliasLinkRepository;
+    @Inject
+    RepositoryService repositoryService;
+    //endregion
+
 
 }

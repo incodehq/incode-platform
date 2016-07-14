@@ -29,10 +29,10 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.module.alias.dom.api.aliasable.Aliasable;
+import org.incode.module.alias.dom.AliasModule;
 
 @Mixin
-public class Aliasable_removeAlias {
+public class Object_removeAlias {
 
     //region  > (injected)
     @Inject
@@ -40,17 +40,19 @@ public class Aliasable_removeAlias {
     //endregion
 
     //region > constructor
-    private final Aliasable aliasable;
-    public Aliasable_removeAlias(final Aliasable aliasable) {
-        this.aliasable = aliasable;
+    private final Object aliased;
+    public Object_removeAlias(final Object aliased) {
+        this.aliased = aliased;
     }
 
-    public Aliasable getAliasable() {
-        return aliasable;
+    public Object getAliased() {
+        return aliased;
     }
     //endregion
 
-    public static class DomainEvent extends Aliasable.ActionDomainEvent<Aliasable_removeAlias> { } { }
+    //region > $$
+
+    public static class DomainEvent extends AliasModule.ActionDomainEvent<Object_removeAlias> { } { }
 
     @Action(
             domainEvent = DomainEvent.class,
@@ -60,9 +62,9 @@ public class Aliasable_removeAlias {
             cssClassFa = "fa-minus"
     )
     @MemberOrder(name = "aliases", sequence = "2")
-    public Aliasable $$(final Alias alias) {
+    public Object $$(final Alias alias) {
         aliasRepository.remove(alias);
-        return this.aliasable;
+        return this.aliased;
     }
 
     public String disable$$(final Alias alias) {
@@ -70,12 +72,18 @@ public class Aliasable_removeAlias {
     }
 
     public List<Alias> choices0$$() {
-        return this.aliasable != null ? aliasRepository.findByAliasable(this.aliasable): Collections.emptyList();
+        return this.aliased != null ? aliasRepository.findByAliased(this.aliased): Collections.emptyList();
     }
 
     public Alias default0$$() {
         return firstOf(choices0$$());
     }
+
+    public boolean hide$$() {
+        return !aliasRepository.supports(this.aliased);
+    }
+    //endregion
+
 
     //region > helpers
     static <T> T firstOf(final List<T> list) {

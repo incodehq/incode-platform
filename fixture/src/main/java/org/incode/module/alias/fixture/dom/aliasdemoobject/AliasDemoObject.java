@@ -19,16 +19,12 @@ package org.incode.module.alias.fixture.dom.aliasdemoobject;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.util.ObjectContracts;
-
-import org.incode.module.alias.dom.api.aliasable.Aliasable;
-import org.incode.module.alias.dom.impl.alias.AliasRepository;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
@@ -46,7 +42,7 @@ import org.incode.module.alias.dom.impl.alias.AliasRepository;
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
 )
-public class AliasDemoObject implements Comparable<AliasDemoObject>, Aliasable {
+public class AliasDemoObject implements Comparable<AliasDemoObject> {
 
     //region > name (property)
     

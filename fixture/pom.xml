@@ -24,7 +24,7 @@ Copyright 2014~2015 Dan Haywood
     </parent>
 
 	<artifactId>incode-module-alias-fixture</artifactId>
-    <name>Incode Alias Module Fixtures</name>
+    <name>Incode Module Alias Fixtures</name>
 
 	<build>
         <resources>

@@ -4,10 +4,11 @@
 image:https://travis-ci.org/incodehq/incode-module-alias.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-alias]
 
 This module, intended for use with link:http://isis.apache.org[Apache Isis], provides the ability to attach `Alias`
-objects to arbitrary domain objects.  Domain objects are required to implement the `Aliasable` marker interface, and
-must implement a subclass from the `AliasableLink` abstract class (about 40 lines of boilerplate, details below).
+objects to arbitrary domain objects.  There are _no_ requirements for those domain objects implement any interfaces.
+A subclass of the `AliasLink` abstract class (about 40 lines of boilerplate, details below) is required, acting
+as the "glue" between the alias and the "aliased" domain object.
 
-Each `Alias` simply holds a string reference, typically corresponding to an identifier of the aliasable object within
+Each `Alias` simply holds a string reference, typically corresponding to an identifier of the "aliased" object within
 an external systems.  For example, a `Party` entity might have a different identifier within a general ledger system,
 and another identifier again in a document management system.
 
@@ -20,8 +21,14 @@ _This_ module places no constraints on either the alias type nor on the format o
 alias type is represented by the `AliasType`; to use the module the application must implement the mandatory
 `AliasTypeRepository` SPI service which identifies the available `AliasType`s.  Similarly, the available application
 tenancy paths are provided to the module by the mandatory `ApplicationTenancyRepository` SPI service.  In both cases
-the list of alias types and application tenancy paths is per `Aliasable`; not every aliasable object will have an
-alias in every external system.
+the list of alias types and application tenancy paths is per aliased domain object; not every aliased object will have
+an alias in every external system.
+
+In summary, to use this module the consuming application must:
+
+* provide a subclass of `AliasLink`, being the tuple linking the `Alias` to the "aliased" domain object
+* provide an implementation of the `ApplicationTenancyRepository` SPI service
+* provide an implementation of the `AliasType` interface.
 
 
 == Screenshots
@@ -32,7 +39,7 @@ We start by installing some demo fixture data:
 
 image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/010-run-fixture-script.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/010-run-fixture-script.png"]
 
-This installs some very simple (demo) `Aliasable` domain objects, the first of which is returned.  The `Aliasable` has
+This installs some very simple (demo) domain objects, the first of which is returned.  These aliasable objects have
 a (contributed) `aliases` collection, and we can also add new aliases using a (contributed) `addAlias(...)` action:
 
 image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/040-add-alias.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/040-add-alias.png"]
@@ -170,39 +177,15 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 
 === For each domain object...
 
-For each domain object that you want to be able to add aliases, you need to implement the `Aliasable` marker interface
-and (optionally but strongly recommended) implement a subclass of `AliasableLink` to hold a type-safe reference back to
-the domain object.
+In order to be able to add/remove aliases to a domain object, you need to implement a subclass of `AliasLink` for
+that domain object type.  This link acts as a type-safe tuple linking domain object to `Alias`.  For each such
+"aliased" domain object, the module contributes the `aliases` collection, and also contributes the `addAlias(...)`
+and `removeAlias(...)` actions.
 
-For each such `Aliasable` domain object, the module will then:
+Specifically, subclass the `AliasLink` abstract class and also implement a domain event subscriber to correctly
+instantiate the subclass.
 
-* contribute the `aliases` collection, and
-
-* contribute the `addAlias(...)` and `removeAlias(...)` actions.
-
-Other than implementing the marker interface, the `Aliasable` domain object will be completely decoupled from the rest
-of the alias module.
-
-In detail:
-
-* have the domain object implement the `Aliasable` interface: +
-+
-For example, in the demo app the `AliasDemoObject` implements this interface: +
-+
-[source,java]
-----
-public class AliasDemoObject implements Aliasable {
-    ...
-}
-----
-+
-This is a marker interface only (no methods need be implemented); it is used only so that Apache Isis knows where to
-contribute the collections and actions.
-
-* subclass the `AliasableLink` abstract class and also implement a domain event subscriber to correctly instantiate
-the subclass.
-
-For example, in the demo app the `AliasableLinkForDemoObject` implements both of these responsibilities:
+For example, in the demo app the `AliasLinkForDemoObject` implements both of these responsibilities:
 
 [source,java]
 ----
@@ -211,9 +194,9 @@ For example, in the demo app the `AliasableLinkForDemoObject` implements both of
         schema="aliasdemo")
 @javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @DomainObject(
-        objectType = "aliasdemo.AliasableLinkForDemoObject"
+        objectType = "aliasdemo.AliasLinkForDemoObject"
 )
-public class AliasableLinkForDemoObject extends AliasableLink {                  // <1>
+public class AliasLinkForDemoObject extends AliasLink {                  // <1>
 
     @DomainService(nature = NatureOfService.DOMAIN)
     @DomainServiceLayout(menuOrder = "1")
@@ -222,15 +205,15 @@ public class AliasableLinkForDemoObject extends AliasableLink {                 
         @Subscribe
         public void on(final InstantiateEvent ev) {
             if(ev.getPolymorphicReference() instanceof AliasDemoObject) {
-                ev.setSubtype(AliasableLinkForDemoObject.class);
+                ev.setSubtype(AliasLinkForDemoObject.class);
             }
         }
     }
 
     @Override
-    public void setPolymorphicReference(final Aliasable polymorphicReference) {  // <3>
-        super.setPolymorphicReference(polymorphicReference);
-        setDemoObject((AliasDemoObject) polymorphicReference);
+    public void setPolymorphicReference(final Object aliased) {  // <3>
+        super.setPolymorphicReference(aliased);
+        setDemoObject((AliasDemoObject) aliased);
     }
 
     private AliasDemoObject demoObject;
@@ -246,10 +229,13 @@ public class AliasableLinkForDemoObject extends AliasableLink {                 
     }
 }
 ----
-<1> extend from `AliasableLink`
-<2> implementation of a domain event subscriber that tells the `incode-module-alias` which subclass of `AliasableLink` to instantiate to handle the polymorphic link between `Alias` and the `Aliasable`.
-<3> override the inherited `setPolymorphicReference(...)` method to allow the type-safe reference property to the `Aliasable` (in this case `AliasDemoObject`) to be set
-<4> the type-safe reference property to the `Aliasable` (in this case `AliasDemoObject`).  In the RDBMS this will correspond to a regular foreign key with referential integrity constraints correctly applied.
+<1> extend from `AliasLink`
+<2> implementation of a domain event subscriber that tells the `incode-module-alias` which subclass of `AliasLink`
+to instantiate to handle the polymorphic link between `Alias` and the "aliased" domain object
+<3> override the inherited `setPolymorphicReference(...)` method to allow the type-safe reference property to the
+"aliased" (in this case `AliasDemoObject`) to be set
+<4> the type-safe reference property to the "aliased" domain object (in this case `AliasDemoObject`).  In the RDBMS
+this will correspond to a regular foreign key with referential integrity constraints correctly applied.
 
 
 
@@ -257,22 +243,22 @@ public class AliasableLinkForDemoObject extends AliasableLink {                 
 
 There are two mandatory SPI domain services that must be implemented.
 
-First, the `ApplicationTenancyRepository` returns the application tenancy (path)s for a given aliasable:
+First, the `ApplicationTenancyRepository` returns the application tenancy (path)s for a given aliased:
 
 [source,java]
 ----
 public interface ApplicationTenancyRepository {
-    Collection<String> atPathsFor(final Aliasable aliasable);
+    Collection<String> atPathsFor(final Object aliased);
 }
 ----
 
 Second, the `AliasTypeRepository` interface returns the available alias types for a given application tenancy path and
-aliasable:
+aliased:
 
 [source,java]
 ----
 public interface AliasTypeRepository {
-    Collection<AliasType> aliasTypesFor(final Aliasable aliasable, final String atPath);
+    Collection<AliasType> aliasTypesFor(final Object aliased, final String atPath);
 }
 ----
 
@@ -288,14 +274,14 @@ the database tables, but in the UI the end-user sees the title of the object tha
 
 [WARNING]
 ====
-Currently (as of v1.11.1) the Apache Isis framework does not support enums implementing interfaces; the example app
+Currently (as of v1.13.0) the Apache Isis framework does not support enums implementing interfaces; the example app
 shows how a view model can be used as a work-around.
 ====
 
 
 Note that there can be multiple implementations of either of these interfaces.  This is to support the use case that
-different unrelated entities in the application may implement `Aliasable`; each such `Aliasable` implementation can
- have its own supporting implementations.
+different unrelated entities in the application may have aliases; each such aliased object can have its own supporting
+implementations.
 
 
 
@@ -306,14 +292,22 @@ The module provides the following domain services for querying aliases:
 
 * `AliasRepository` +
 +
-To search for aliases by `Aliasable`
+To search for aliases by "aliased" object
 
-* `AliasableLinkRepository` +
+* `AliasLinkRepository` +
 +
-To search for ``AliasableLink``s, ie the tuple that links an `Alias` with an arbitrary `Aliasable` domain object.
-This repository allows for links to be searched by either aliasable, or application tenancy path, or alias type, in
-any combination.
+To search for ``AliasLink``s, ie the tuple that links an `Alias` with an arbitrary "aliased" domain object.
+This repository allows for links to be searched by either the aliased object, or application tenancy path, or alias
+type, in any combination.
 
+The module also allows the title, icon and CSS for `Alias` objects to be overridden.  This is done by providing
+subscribers that override the default `Alias.TitleSubscriber`, `Alias.IconSubscriber` and `Alias.CssClassSubscriber`
+implementations.
+
+For example, the demo app
++
+Provides a title for an alias.  An alternative implementation can optionally be supplied by the consuming application
+if there is a requirement to return different titles.
 
 
 == Known issues
@@ -322,6 +316,7 @@ None at this time.
 
 == Change Log
 
+* `1.13.0` - released against Isis 1.13.0; removing the `Aliasable` interface (completely decouples the "aliased" domain object from this module.
 * `1.12.0` - released against Isis 1.12.0
 * `1.11.1` - released against Isis 1.11.1.
 

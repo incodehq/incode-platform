@@ -35,13 +35,12 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.alias.dom.AliasModule;
-import org.incode.module.alias.dom.api.aliasable.AliasType;
-import org.incode.module.alias.dom.api.aliasable.Aliasable;
+import org.incode.module.alias.dom.spi.aliastype.AliasType;
 import org.incode.module.alias.dom.spi.aliastype.AliasTypeRepository;
 import org.incode.module.alias.dom.spi.aliastype.ApplicationTenancyRepository;
 
 @Mixin
-public class Aliasable_addAlias {
+public class Object_addAlias {
 
     //region  > (injected)
     @Inject
@@ -53,18 +52,18 @@ public class Aliasable_addAlias {
     //endregion
 
     //region > constructor
-    private final Aliasable aliasable;
-    public Aliasable_addAlias(final Aliasable aliasable) {
-        this.aliasable = aliasable;
+    private final Object aliased;
+    public Object_addAlias(final Object aliased) {
+        this.aliased = aliased;
     }
 
-    public Aliasable getAliasable() {
-        return aliasable;
+    public Object getAliased() {
+        return aliased;
     }
     //endregion
 
-
-    public static class DomainEvent extends Aliasable.ActionDomainEvent<Aliasable_addAlias> { }
+    //region > $$
+    public static class DomainEvent extends AliasModule.ActionDomainEvent<Object_addAlias> { }
 
     @Action(
             domainEvent = DomainEvent.class,
@@ -74,7 +73,7 @@ public class Aliasable_addAlias {
             cssClassFa = "fa-plus"
     )
     @MemberOrder(name = "aliases", sequence = "1")
-    public Aliasable $$(
+    public Object $$(
             @Parameter(maxLength = AliasModule.JdoColumnLength.AT_PATH)
             @ParameterLayout(named = "Application tenancy")
             final String applicationTenancyPath,
@@ -82,8 +81,8 @@ public class Aliasable_addAlias {
             @Parameter(maxLength = AliasModule.JdoColumnLength.ALIAS_REFERENCE)
             @ParameterLayout(named = "Alias reference")
             final String alias) {
-        aliasRepository.add(this.aliasable, applicationTenancyPath, aliasType, alias);
-        return this.aliasable;
+        aliasRepository.add(this.aliased, applicationTenancyPath, aliasType, alias);
+        return this.aliased;
     }
 
     public Collection<String> choices0$$() {
@@ -91,7 +90,7 @@ public class Aliasable_addAlias {
         FluentIterable.from(applicationTenancyRepositories)
                 .forEach(applicationTenancyRepository -> {
                     final Collection<String> aliasTypes = applicationTenancyRepository
-                            .atPathsFor(this.aliasable);
+                            .atPathsFor(this.aliased);
                     if(aliasTypes != null && !aliasTypes.isEmpty()) {
                         combined.addAll(aliasTypes);
                     }
@@ -104,13 +103,18 @@ public class Aliasable_addAlias {
         FluentIterable.from(aliasTypeRepositories)
                 .forEach(aliasTypeRepository -> {
                     final Collection<AliasType> aliasTypes = aliasTypeRepository
-                            .aliasTypesFor(this.aliasable, applicationTenancyPath);
+                            .aliasTypesFor(this.aliased, applicationTenancyPath);
                     if(aliasTypes != null && !aliasTypes.isEmpty()) {
                         combined.addAll(aliasTypes);
                     }
                 });
         return combined;
     }
+
+    public boolean hide$$() {
+        return !aliasRepository.supports(this.aliased);
+    }
+
     //endregion
 
 }

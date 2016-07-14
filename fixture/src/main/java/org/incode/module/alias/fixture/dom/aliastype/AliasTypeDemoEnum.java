@@ -18,22 +18,28 @@ package org.incode.module.alias.fixture.dom.aliastype;
 
 import org.apache.isis.applib.annotation.Title;
 
-import org.incode.module.alias.dom.api.aliasable.AliasType;
+import org.incode.module.alias.dom.spi.aliastype.AliasType;
 
 public enum AliasTypeDemoEnum implements AliasType {
 
     // in UK and NL
-    GENERAL_LEDGER,
+    GENERAL_LEDGER("GL"),
     // in UK and NL
-    DOCUMENT_MANAGEMENT,
+    DOCUMENT_MANAGEMENT("DOC"),
     // in UK only
-    PERSONNEL_SYSTEM
+    PERSONNEL_SYSTEM("HR")
     ;
+
+    private final String id;
+
+    AliasTypeDemoEnum(final String id) {
+        this.id = id;
+    }
 
     @Title
     @Override
     public String getId() {
-        return name();
+        return id;
     }
 }
 

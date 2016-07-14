@@ -32,10 +32,9 @@ import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
-import org.incode.module.alias.dom.api.aliasable.AliasType;
-import org.incode.module.alias.dom.api.aliasable.Aliasable;
+import org.incode.module.alias.dom.spi.aliastype.AliasType;
 import org.incode.module.alias.dom.impl.alias.Alias;
-import org.incode.module.alias.dom.impl.alias.Aliasable_addAlias;
+import org.incode.module.alias.dom.impl.alias.Object_addAlias;
 import org.incode.module.alias.dom.spi.aliastype.AliasTypeRepository;
 import org.incode.module.alias.dom.spi.aliastype.ApplicationTenancyRepository;
 import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasDemoObjectMenu;
@@ -44,7 +43,7 @@ import org.incode.module.alias.integtests.AliasModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class Aliasable_addAlias_IntegTest extends AliasModuleIntegTest {
+public class Object_addAlias_IntegTest extends AliasModuleIntegTest {
 
     @Inject
     AliasDemoObjectMenu aliasDemoObjectMenu;
@@ -55,37 +54,37 @@ public class Aliasable_addAlias_IntegTest extends AliasModuleIntegTest {
     @Inject
     ApplicationTenancyRepository applicationTenancyRepository;
 
-    Aliasable aliasable;
+    Object aliased;
 
     @Before
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new AliasDemoObjectsTearDownFixture(), null);
 
-        aliasable = wrap(aliasDemoObjectMenu).create("Foo");
+        aliased = wrap(aliasDemoObjectMenu).create("Foo");
     }
 
-    public static class ActionImplementationIntegTest extends Aliasable_addAlias_IntegTest {
+    public static class ActionImplementationIntegTest extends Object_addAlias_IntegTest {
 
         @Before
         public void setUp() throws Exception {
-            assertThat(wrap(mixinAliases(aliasable)).$$()).isEmpty();
+            assertThat(wrap(mixinAliases(aliased)).$$()).isEmpty();
         }
 
         @Test
         public void can_add_alias() throws Exception {
 
             // when
-            final Collection<String> atPaths = applicationTenancyRepository.atPathsFor(aliasable);
+            final Collection<String> atPaths = applicationTenancyRepository.atPathsFor(aliased);
             final String randomAtPath = fakeData.collections().anyOf(atPaths);
 
-            final Collection<AliasType> aliasTypes = aliasTypeRepository.aliasTypesFor(aliasable, randomAtPath);
+            final Collection<AliasType> aliasTypes = aliasTypeRepository.aliasTypesFor(aliased, randomAtPath);
             final AliasType randomAliasType = fakeData.collections().anyOf(aliasTypes);
             final String randomAliasRef = fakeData.strings().digits(10);
 
-            wrap(mixinAddAlias(aliasable)).$$(randomAtPath, randomAliasType, randomAliasRef);
+            wrap(mixinAddAlias(aliased)).$$(randomAtPath, randomAliasType, randomAliasRef);
 
             // then
-            final List<Alias> aliases = wrap(mixinAliases(aliasable)).$$();
+            final List<Alias> aliases = wrap(mixinAliases(aliased)).$$();
             assertThat(aliases).hasSize(1);
         }
 
@@ -93,21 +92,21 @@ public class Aliasable_addAlias_IntegTest extends AliasModuleIntegTest {
         public void can_add_to_same_ref_to_same_atPath_and_different_aliasTypes() throws Exception {
 
             // when
-            final Collection<String> atPaths = applicationTenancyRepository.atPathsFor(aliasable);
+            final Collection<String> atPaths = applicationTenancyRepository.atPathsFor(aliased);
             final String randomAtPath = fakeData.collections().anyOf(atPaths);
 
-            final Collection<AliasType> aliasTypes = aliasTypeRepository.aliasTypesFor(aliasable, randomAtPath);
+            final Collection<AliasType> aliasTypes = aliasTypeRepository.aliasTypesFor(aliased, randomAtPath);
             final AliasType randomAliasType = fakeData.collections().anyOf(aliasTypes);
             final AliasType randomAliasType2 = fakeData.collections().anyOfExcept(
                     aliasTypes,
                     aliasType -> Objects.equals(aliasType.getId(), randomAliasType.getId()));
             final String randomAliasRef = fakeData.strings().digits(10);
 
-            wrap(mixinAddAlias(aliasable)).$$(randomAtPath, randomAliasType, randomAliasRef);
-            wrap(mixinAddAlias(aliasable)).$$(randomAtPath, randomAliasType2, randomAliasRef);
+            wrap(mixinAddAlias(aliased)).$$(randomAtPath, randomAliasType, randomAliasRef);
+            wrap(mixinAddAlias(aliased)).$$(randomAtPath, randomAliasType2, randomAliasRef);
 
             // then
-            final List<Alias> aliases = wrap(mixinAliases(aliasable)).$$();
+            final List<Alias> aliases = wrap(mixinAliases(aliased)).$$();
             assertThat(aliases).hasSize(2);
         }
 
@@ -115,20 +114,20 @@ public class Aliasable_addAlias_IntegTest extends AliasModuleIntegTest {
         public void can_add_to_same_ref_to_different_atPaths_and_same_aliasType() throws Exception {
 
             // when
-            final Collection<String> atPaths = applicationTenancyRepository.atPathsFor(aliasable);
+            final Collection<String> atPaths = applicationTenancyRepository.atPathsFor(aliased);
             final String randomAtPath = fakeData.collections().anyOf(atPaths);
             final String randomAtPath2 = fakeData.collections().anyOfExcept(
                     atPaths, atPath -> Objects.equals(atPath, randomAtPath));
 
-            final Collection<AliasType> aliasTypes = aliasTypeRepository.aliasTypesFor(aliasable, randomAtPath);
+            final Collection<AliasType> aliasTypes = aliasTypeRepository.aliasTypesFor(aliased, randomAtPath);
             final AliasType randomAliasType = fakeData.collections().anyOf(aliasTypes);
             final String randomAliasRef = fakeData.strings().digits(10);
 
-            wrap(mixinAddAlias(aliasable)).$$(randomAtPath, randomAliasType, randomAliasRef);
-            wrap(mixinAddAlias(aliasable)).$$(randomAtPath2, randomAliasType, randomAliasRef);
+            wrap(mixinAddAlias(aliased)).$$(randomAtPath, randomAliasType, randomAliasRef);
+            wrap(mixinAddAlias(aliased)).$$(randomAtPath2, randomAliasType, randomAliasRef);
 
             // then
-            final List<Alias> aliases = wrap(mixinAliases(aliasable)).$$();
+            final List<Alias> aliases = wrap(mixinAliases(aliased)).$$();
             assertThat(aliases).hasSize(2);
         }
 
@@ -138,20 +137,20 @@ public class Aliasable_addAlias_IntegTest extends AliasModuleIntegTest {
             expectedException.expectCause(of(SQLIntegrityConstraintViolationException.class));
 
             // given
-            final Collection<String> atPaths = applicationTenancyRepository.atPathsFor(aliasable);
+            final Collection<String> atPaths = applicationTenancyRepository.atPathsFor(aliased);
             final String randomAtPath = fakeData.collections().anyOf(atPaths);
 
-            final Collection<AliasType> aliasTypes = aliasTypeRepository.aliasTypesFor(aliasable, randomAtPath);
+            final Collection<AliasType> aliasTypes = aliasTypeRepository.aliasTypesFor(aliased, randomAtPath);
             final AliasType randomAliasType = fakeData.collections().anyOf(aliasTypes);
             final String randomAliasRef = fakeData.strings().digits(10);
 
-            wrap(mixinAddAlias(aliasable)).$$(randomAtPath, randomAliasType, randomAliasRef);
+            wrap(mixinAddAlias(aliased)).$$(randomAtPath, randomAliasType, randomAliasRef);
 
             // when
-            wrap(mixinAddAlias(aliasable)).$$(randomAtPath, randomAliasType, randomAliasRef);
+            wrap(mixinAddAlias(aliased)).$$(randomAtPath, randomAliasType, randomAliasRef);
 
             // then
-            final List<Alias> aliases = wrap(mixinAliases(aliasable)).$$();
+            final List<Alias> aliases = wrap(mixinAliases(aliased)).$$();
             assertThat(aliases).isEmpty();
         }
 
@@ -161,34 +160,34 @@ public class Aliasable_addAlias_IntegTest extends AliasModuleIntegTest {
             expectedException.expectCause(of(SQLIntegrityConstraintViolationException.class));
 
             // when
-            final Collection<String> atPaths = applicationTenancyRepository.atPathsFor(aliasable);
+            final Collection<String> atPaths = applicationTenancyRepository.atPathsFor(aliased);
             final String randomAtPath = fakeData.collections().anyOf(atPaths);
 
-            final Collection<AliasType> aliasTypes = aliasTypeRepository.aliasTypesFor(aliasable, randomAtPath);
+            final Collection<AliasType> aliasTypes = aliasTypeRepository.aliasTypesFor(aliased, randomAtPath);
             final AliasType randomAliasType = fakeData.collections().anyOf(aliasTypes);
             final String randomAliasRef = fakeData.strings().digits(10);
             final String randomAliasRef2 = fakeData.strings().digits(10);
 
-            wrap(mixinAddAlias(aliasable)).$$(randomAtPath, randomAliasType, randomAliasRef);
-            wrap(mixinAddAlias(aliasable)).$$(randomAtPath, randomAliasType, randomAliasRef2);
+            wrap(mixinAddAlias(aliased)).$$(randomAtPath, randomAliasType, randomAliasRef);
+            wrap(mixinAddAlias(aliased)).$$(randomAtPath, randomAliasType, randomAliasRef2);
 
             // then
-            final List<Alias> aliases = wrap(mixinAliases(aliasable)).$$();
+            final List<Alias> aliases = wrap(mixinAliases(aliased)).$$();
             assertThat(aliases).hasSize(2);
         }
 
     }
 
 
-    public static class DomainEventIntegTest extends Aliasable_addAlias_IntegTest {
+    public static class DomainEventIntegTest extends Object_addAlias_IntegTest {
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class Subscriber extends AbstractSubscriber {
 
-            Aliasable_addAlias.DomainEvent ev;
+            Object_addAlias.DomainEvent ev;
 
             @Subscribe
-            public void on(Aliasable_addAlias.DomainEvent ev) {
+            public void on(Object_addAlias.DomainEvent ev) {
                 this.ev = ev;
             }
         }
@@ -200,17 +199,17 @@ public class Aliasable_addAlias_IntegTest extends AliasModuleIntegTest {
         public void fires_event() throws Exception {
 
             // given
-            assertThat(wrap(mixinAliases(aliasable)).$$()).isEmpty();
+            assertThat(wrap(mixinAliases(aliased)).$$()).isEmpty();
 
             // when
-            final Collection<String> atPaths = applicationTenancyRepository.atPathsFor(aliasable);
+            final Collection<String> atPaths = applicationTenancyRepository.atPathsFor(aliased);
             final String randomAtPath = fakeData.collections().anyOf(atPaths);
 
-            final Collection<AliasType> aliasTypes = aliasTypeRepository.aliasTypesFor(aliasable, randomAtPath);
+            final Collection<AliasType> aliasTypes = aliasTypeRepository.aliasTypesFor(aliased, randomAtPath);
             final AliasType randomAliasType = fakeData.collections().anyOf(aliasTypes);
             final String randomAliasRef = fakeData.strings().fixed(10);
 
-            final Aliasable_addAlias mixinAddAlias = mixinAddAlias(aliasable);
+            final Object_addAlias mixinAddAlias = mixinAddAlias(aliased);
             wrap(mixinAddAlias).$$(randomAtPath, randomAliasType, randomAliasRef);
 
             // then
@@ -221,7 +220,7 @@ public class Aliasable_addAlias_IntegTest extends AliasModuleIntegTest {
             // the source of the event.
             // assertThat(subscriber.ev.getSource()).isSameAs(mixinAddAlias);
 
-            assertThat(subscriber.ev.getSource().getAliasable()).isSameAs(aliasable);
+            assertThat(subscriber.ev.getSource().getAliased()).isSameAs(aliased);
             assertThat(subscriber.ev.getArguments().get(0)).isEqualTo(randomAtPath);
             assertThat(subscriber.ev.getArguments().get(1)).isEqualTo(randomAliasType);
             assertThat(subscriber.ev.getArguments().get(2)).isEqualTo(randomAliasRef);

@@ -7,7 +7,6 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.module.alias.dom.api.aliasable.Aliasable;
 
 @Mixin
 public class Alias_remove {
@@ -34,10 +33,10 @@ public class Alias_remove {
             domainEvent = DomainEvent.class,
             semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE
     )
-    public Aliasable $$() {
-        final Aliasable aliasable = this.alias.getAliasable();
+    public Object $$() {
+        final Object aliased = this.alias.getAliased();
         aliasRepository.remove(this.alias);
-        return aliasable;
+        return aliased;
     }
 
 }

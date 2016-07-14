@@ -22,38 +22,38 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
+import org.apache.isis.applib.services.registry.ServiceRegistry2;
+import org.apache.isis.applib.services.repository.RepositoryService;
 
 import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 
-import org.incode.module.alias.dom.api.aliasable.AliasType;
-import org.incode.module.alias.dom.api.aliasable.Aliasable;
+import org.incode.module.alias.dom.spi.aliastype.AliasType;
 import org.incode.module.alias.dom.impl.alias.Alias;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
-        repositoryFor = AliasableLink.class
+        repositoryFor = AliasLink.class
 )
-public class AliasableLinkRepository {
+public class AliasLinkRepository {
 
     //region > init
-    PolymorphicAssociationLink.Factory<Alias,Aliasable,AliasableLink,AliasableLink.InstantiateEvent> linkFactory;
+    PolymorphicAssociationLink.Factory<Alias,Object,AliasLink,AliasLink.InstantiateEvent> linkFactory;
 
     @PostConstruct
     public void init() {
-        linkFactory = container.injectServicesInto(
+        linkFactory = serviceRegistry.injectServicesInto(
                 new PolymorphicAssociationLink.Factory<>(
                         this,
                         Alias.class,
-                        Aliasable.class,
-                        AliasableLink.class,
-                        AliasableLink.InstantiateEvent.class
+                        Object.class,
+                        AliasLink.class,
+                        AliasLink.InstantiateEvent.class
                 ));
 
     }
@@ -61,86 +61,86 @@ public class AliasableLinkRepository {
 
     //region > findByAlias (programmatic)
     @Programmatic
-    public AliasableLink findByAlias(final Alias alias) {
-        return container.firstMatch(
-                new QueryDefault<>(AliasableLink.class,
+    public AliasLink findByAlias(final Alias alias) {
+        return repositoryService.firstMatch(
+                new QueryDefault<>(AliasLink.class,
                         "findByAlias",
                         "alias", alias));
     }
     //endregion
 
 
-    //region > findByAliasable (programmatic)
+    //region > findByAliased (programmatic)
     @Programmatic
-    public List<AliasableLink> findByAliasable(final Aliasable aliasable) {
-        if(aliasable == null) {
+    public List<AliasLink> findByAliased(final Object aliased) {
+        if(aliased == null) {
             return null;
         }
-        final Bookmark bookmark = bookmarkService.bookmarkFor(aliasable);
+        final Bookmark bookmark = bookmarkService.bookmarkFor(aliased);
         if(bookmark == null) {
             return null;
         }
-        return container.allMatches(
-                new QueryDefault<>(AliasableLink.class,
-                        "findByAliasable",
-                        "aliasableObjectType", bookmark.getObjectType(),
-                        "aliasableIdentifier", bookmark.getIdentifier()));
+        return repositoryService.allMatches(
+                new QueryDefault<>(AliasLink.class,
+                        "findByAliased",
+                        "aliasedObjectType", bookmark.getObjectType(),
+                        "aliasedIdentifier", bookmark.getIdentifier()));
     }
     //endregion
 
-    //region > findByAliasableAndAtPath
+    //region > findByAliasedAndAtPath
     @Programmatic
-    public List<AliasableLink> findByAliasableAndAtPath(
-            final Aliasable aliasable,
+    public List<AliasLink> findByAliasedAndAtPath(
+            final Object aliased,
             final String atPath) {
-        if(aliasable == null) {
+        if(aliased == null) {
             return null;
         }
         if(atPath == null) {
             return null;
         }
-        final Bookmark bookmark = bookmarkService.bookmarkFor(aliasable);
+        final Bookmark bookmark = bookmarkService.bookmarkFor(aliased);
         if(bookmark == null) {
             return null;
         }
-        return container.allMatches(
-                new QueryDefault<>(AliasableLink.class,
-                        "findByAliasAndAtPath",
-                        "aliasableObjectType", bookmark.getObjectType(),
-                        "aliasableIdentifier", bookmark.getIdentifier(),
+        return repositoryService.allMatches(
+                new QueryDefault<>(AliasLink.class,
+                        "findByAliasedAndAtPath",
+                        "aliasedObjectType", bookmark.getObjectType(),
+                        "aliasedIdentifier", bookmark.getIdentifier(),
                         "atPath", atPath));
     }
     //endregion
 
-    //region > findByAliasableAndAliasType
-    public List<AliasableLink> findByAliasableAndAliasType(
-            final Aliasable aliasable,
+    //region > findByAliasedAndAliasType
+    public List<AliasLink> findByAliasedAndAliasType(
+            final Object aliased,
             final AliasType aliasType) {
-        if(aliasable == null) {
+        if(aliased == null) {
             return null;
         }
         if(aliasType == null) {
             return null;
         }
-        final Bookmark bookmark = bookmarkService.bookmarkFor(aliasable);
+        final Bookmark bookmark = bookmarkService.bookmarkFor(aliased);
         if(bookmark == null) {
             return null;
         }
-        return container.allMatches(
-                new QueryDefault<>(AliasableLink.class,
-                        "findByAliasAndAtPath",
-                        "aliasableObjectType", bookmark.getObjectType(),
-                        "aliasableIdentifier", bookmark.getIdentifier(),
+        return repositoryService.allMatches(
+                new QueryDefault<>(AliasLink.class,
+                        "findByAliasedAndAtPath",
+                        "aliasedObjectType", bookmark.getObjectType(),
+                        "aliasedIdentifier", bookmark.getIdentifier(),
                         "aliasTypeId", aliasType.getId()));
     }
     //endregion
 
-    //region > findByAliasableAndAtPathAndAliasType
-    public AliasableLink findByAliasableAndAtPathAndAliasType(
-            final Aliasable aliasable,
+    //region > findByAliasedAndAtPathAndAliasType
+    public AliasLink findByAliasedAndAtPathAndAliasType(
+            final Object aliased,
             final String atPath,
             final AliasType aliasType) {
-        if(aliasable == null) {
+        if(aliased == null) {
             return null;
         }
         if(atPath == null) {
@@ -149,24 +149,30 @@ public class AliasableLinkRepository {
         if(aliasType == null) {
             return null;
         }
-        final Bookmark bookmark = bookmarkService.bookmarkFor(aliasable);
+        final Bookmark bookmark = bookmarkService.bookmarkFor(aliased);
         if(bookmark == null) {
             return null;
         }
-        return container.firstMatch(
-                new QueryDefault<>(AliasableLink.class,
-                        "findByAliasAndAtPath",
-                        "aliasableObjectType", bookmark.getObjectType(),
-                        "aliasableIdentifier", bookmark.getIdentifier(),
+        return repositoryService.firstMatch(
+                new QueryDefault<>(AliasLink.class,
+                        "findByAliasedAndAtPathAndAliasType",
+                        "aliasedObjectType", bookmark.getObjectType(),
+                        "aliasedIdentifier", bookmark.getIdentifier(),
                         "atPath", atPath,
                         "aliasTypeId", aliasType.getId()));
     }
     //endregion
 
     //region > createLink (programmatic)
+
     @Programmatic
-    public AliasableLink createLink(final Alias alias, final Aliasable aliasable) {
-        final AliasableLink link = linkFactory.createLink(alias, aliasable);
+    public boolean supports(final Object classifiable) {
+        return linkFactory.supportsLink(classifiable);
+    }
+
+    @Programmatic
+    public AliasLink createLink(final Alias alias, final Object aliased) {
+        final AliasLink link = linkFactory.createLink(alias, aliased);
 
         sync(alias, link);
 
@@ -178,7 +184,7 @@ public class AliasableLinkRepository {
     //region > updateLink
     @Programmatic
     public void updateLink(final Alias alias) {
-        final AliasableLink link = findByAlias(alias);
+        final AliasLink link = findByAlias(alias);
         sync(alias, link);
     }
     //endregion
@@ -186,9 +192,9 @@ public class AliasableLinkRepository {
     //region > helpers (sync)
 
     /**
-     * copy over details from the {@link Alias#} to the {@link AliasableLink} (derived propoerties to support querying).
+     * copy over details from the {@link Alias#} to the {@link AliasLink} (derived propoerties to support querying).
      */
-    void sync(final Alias alias, final AliasableLink link) {
+    void sync(final Alias alias, final AliasLink link) {
         if(link == null) {
             return;
         }
@@ -200,7 +206,9 @@ public class AliasableLinkRepository {
     //region > injected services
 
     @javax.inject.Inject
-    DomainObjectContainer container;
+    RepositoryService repositoryService;
+
+    @javax.inject.Inject ServiceRegistry2 serviceRegistry;
 
     @javax.inject.Inject
     BookmarkService bookmarkService;

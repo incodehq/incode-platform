@@ -20,13 +20,11 @@ package org.incode.module.alias.dom.spi.aliastype;
 
 import java.util.Collection;
 
-import org.incode.module.alias.dom.api.aliasable.Aliasable;
-
 /**
- * Mandatory SPI service that returns the application tenancy (path)s for a given aliasable.
+ * Mandatory SPI service that returns the application tenancy (path)s for a given aliased.
  */
 public interface ApplicationTenancyRepository {
 
-    Collection<String> atPathsFor(final Aliasable aliasable);
+    Collection<String> atPathsFor(final Object aliased);
 
 }

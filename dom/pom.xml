@@ -23,7 +23,7 @@ Copyright 2014~2015 Dan Haywood
 
     <packaging>jar</packaging>
 
-    <name>Incode Alias Module DOM</name>
+    <name>Incode Module Alias DOM</name>
     <description>
         A module providing event.
     </description>

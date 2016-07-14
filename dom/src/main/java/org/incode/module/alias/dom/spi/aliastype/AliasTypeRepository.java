@@ -20,14 +20,11 @@ package org.incode.module.alias.dom.spi.aliastype;
 
 import java.util.Collection;
 
-import org.incode.module.alias.dom.api.aliasable.AliasType;
-import org.incode.module.alias.dom.api.aliasable.Aliasable;
-
 /**
  * Mandatory SPI service that returns the alias types.
  */
 public interface AliasTypeRepository {
 
-    Collection<AliasType> aliasTypesFor(final Aliasable aliasable, final String atPath);
+    Collection<AliasType> aliasTypesFor(final Object aliased, final String atPath);
 
 }

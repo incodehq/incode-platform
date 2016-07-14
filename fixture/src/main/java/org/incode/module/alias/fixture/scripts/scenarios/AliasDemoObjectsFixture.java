@@ -18,8 +18,7 @@ package org.incode.module.alias.fixture.scripts.scenarios;
 
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
-import org.incode.module.alias.dom.api.aliasable.Aliasable;
-import org.incode.module.alias.dom.impl.alias.Aliasable_addAlias;
+import org.incode.module.alias.dom.impl.alias.Object_addAlias;
 import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasDemoObject;
 import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasDemoObjectMenu;
 import org.incode.module.alias.fixture.dom.aliastype.AliasTypeDemoEnum;
@@ -39,8 +38,8 @@ public class AliasDemoObjectsFixture extends DiscoverableFixtureScript {
     //endregion
 
     //region > mixins
-    Aliasable_addAlias mixinAddAlias(final Aliasable aliasable) {
-        return container.mixin(Aliasable_addAlias.class, aliasable);
+    Object_addAlias mixinAddAlias(final Object aliased) {
+        return container.mixin(Object_addAlias.class, aliased);
     }
     //endregion
 

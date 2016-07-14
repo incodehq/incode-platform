@@ -32,7 +32,6 @@ import org.apache.isis.applib.annotation.Property;
 import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 
 import org.incode.module.alias.dom.AliasModule;
-import org.incode.module.alias.dom.api.aliasable.Aliasable;
 import org.incode.module.alias.dom.impl.alias.Alias;
 
 import lombok.Getter;
@@ -41,7 +40,7 @@ import lombok.Setter;
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
         schema = "incodeAlias",
-        table = "AliasableLink"
+        table = "AliasLink"
 )
 @javax.jdo.annotations.DatastoreIdentity(strategy = IdGeneratorStrategy.IDENTITY, column = "id")
 @javax.jdo.annotations.Inheritance(
@@ -50,96 +49,93 @@ import lombok.Setter;
         @javax.jdo.annotations.Query(
                 name = "findByAlias", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.module.alias.dom.impl.aliaslink.AliasableLink "
+                        + "FROM org.incode.module.alias.dom.impl.aliaslink.AliasLink "
                         + "WHERE alias == :alias"),
         @javax.jdo.annotations.Query(
-                name = "findByAliasable", language = "JDOQL",
+                name = "findByAliased", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.module.alias.dom.impl.aliaslink.AliasableLink "
-                        + "WHERE aliasableObjectType == :aliasableObjectType "
-                        + "   && aliasableIdentifier == :aliasableIdentifier "),
+                        + "FROM org.incode.module.alias.dom.impl.aliaslink.AliasLink "
+                        + "WHERE aliasedObjectType == :aliasedObjectType "
+                        + "   && aliasedIdentifier == :aliasedIdentifier "),
         @javax.jdo.annotations.Query(
-                name = "findByAliasableAndAliasType", language = "JDOQL",
+                name = "findByAliasedAndAliasType", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.module.alias.dom.impl.aliaslink.AliasableLink "
-                        + "WHERE aliasableObjectType == :aliasableObjectType "
-                        + "   && aliasableIdentifier == :aliasableIdentifier "
+                        + "FROM org.incode.module.alias.dom.impl.aliaslink.AliasLink "
+                        + "WHERE aliasedObjectType == :aliasedObjectType "
+                        + "   && aliasedIdentifier == :aliasedIdentifier "
                         + "   && aliasTypeId == :aliasTypeId"),
         @javax.jdo.annotations.Query(
-                name = "findByAliasableAndAtPath", language = "JDOQL",
+                name = "findByAliasedAndAtPath", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.module.alias.dom.impl.aliaslink.AliasableLink "
-                        + "WHERE aliasableObjectType == :aliasableObjectType "
-                        + "   && aliasableIdentifier == :aliasableIdentifier "
+                        + "FROM org.incode.module.alias.dom.impl.aliaslink.AliasLink "
+                        + "WHERE aliasedObjectType == :aliasedObjectType "
+                        + "   && aliasedIdentifier == :aliasedIdentifier "
                         + "   && atPath == :atPath "),
         @javax.jdo.annotations.Query(
-                name = "findByAliasableAndAtPathAndAliasType", language = "JDOQL",
+                name = "findByAliasedAndAtPathAndAliasType", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.module.alias.dom.impl.aliaslink.AliasableLink "
-                        + "WHERE aliasableObjectType == :aliasableObjectType "
-                        + "   && aliasableIdentifier == :aliasableIdentifier "
+                        + "FROM org.incode.module.alias.dom.impl.aliaslink.AliasLink "
+                        + "WHERE aliasedObjectType == :aliasedObjectType "
+                        + "   && aliasedIdentifier == :aliasedIdentifier "
                         + "   && atPath == :atPath "
                         + "   && aliasTypeId == :aliasTypeId"),
         @javax.jdo.annotations.Query(
-                name = "findByAliasableAndAliasType", language = "JDOQL",
+                name = "findByAliasedAndAliasType", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.module.alias.dom.impl.aliaslink.AliasableLink "
-                        + "WHERE aliasableObjectType == :aliasableObjectType "
-                        + "   && aliasableIdentifier == :aliasableIdentifier "
+                        + "FROM org.incode.module.alias.dom.impl.aliaslink.AliasLink "
+                        + "WHERE aliasedObjectType == :aliasedObjectType "
+                        + "   && aliasedIdentifier == :aliasedIdentifier "
                         + "   && atPath == :atPath "
                         + "   && aliasTypeId == :aliasTypeId")
 })
 @javax.jdo.annotations.Indices({
         @javax.jdo.annotations.Index(
-                name = "AliasableLink_aliasable_aliasType_atPath_IDX",
-                members = { "aliasableObjectType", "aliasableIdentifier", "aliasTypeId", "atPath" },
+                name = "AliasLink_aliased_aliasType_atPath_IDX",
+                members = { "aliasedObjectType", "aliasedIdentifier", "aliasTypeId", "atPath" },
                 unique = "true"
         ),
         @javax.jdo.annotations.Index(
-                name = "AliasableLink_aliasable_atPath_aliasType_IDX",
-                members = { "aliasableObjectType", "aliasableIdentifier", "atPath", "aliasTypeId" },
+                name = "AliasLink_aliased_atPath_aliasType_IDX",
+                members = { "aliasedObjectType", "aliasedIdentifier", "atPath", "aliasTypeId" },
                 unique = "true"
         ),
         @javax.jdo.annotations.Index(
-                name = "AliasableLink_atPath_aliasType_aliasable_IDX",
-                members = { "atPath", "aliasTypeId", "aliasableObjectType", "aliasableIdentifier" },
+                name = "AliasLink_atPath_aliasType_aliased_IDX",
+                members = { "atPath", "aliasTypeId", "aliasedObjectType", "aliasedIdentifier" },
                 unique = "true"
         ),
         @javax.jdo.annotations.Index(
-                name = "AliasableLink_aliasType_atPath_aliasable_IDX",
-                members = { "aliasTypeId", "atPath", "aliasableObjectType", "aliasableIdentifier" },
+                name = "AliasLink_aliasType_atPath_aliased_IDX",
+                members = { "aliasTypeId", "atPath", "aliasedObjectType", "aliasedIdentifier" },
                 unique = "true"
         )
 })
 @javax.jdo.annotations.Uniques({
-        @javax.jdo.annotations.Unique(
-                name="AliasableLink_alias_UNQ",
-                members = { "alias" })
 })
 @DomainObject(
-        objectType = "incodeAlias.AliasableLink"
+        objectType = "incodeAlias.AliasLink"
 )
-public abstract class AliasableLink
-        extends PolymorphicAssociationLink<Alias, Aliasable, AliasableLink> {
+public abstract class AliasLink
+        extends PolymorphicAssociationLink<Alias, Object, AliasLink> {
 
     //region > event classes
-    public static abstract class PropertyDomainEvent<T> extends AliasModule.PropertyDomainEvent<AliasableLink, T> { }
-    public static abstract class CollectionDomainEvent<T> extends AliasModule.CollectionDomainEvent<AliasableLink, T> { }
-    public static abstract class ActionDomainEvent extends AliasModule.ActionDomainEvent<AliasableLink> { }
+    public static abstract class PropertyDomainEvent<T> extends AliasModule.PropertyDomainEvent<AliasLink, T> { }
+    public static abstract class CollectionDomainEvent<T> extends AliasModule.CollectionDomainEvent<AliasLink, T> { }
+    public static abstract class ActionDomainEvent extends AliasModule.ActionDomainEvent<AliasLink> { }
     //endregion
 
     //region > instantiateEvent (poly pattern)
     public static class InstantiateEvent
-            extends PolymorphicAssociationLink.InstantiateEvent<Alias, Aliasable, AliasableLink> {
+            extends PolymorphicAssociationLink.InstantiateEvent<Alias, Object, AliasLink> {
 
-        public InstantiateEvent(final Object source, final Alias subject, final Aliasable owner) {
-            super(AliasableLink.class, source, subject, owner);
+        public InstantiateEvent(final Object source, final Alias subject, final Object aliased) {
+            super(AliasLink.class, source, subject, aliased);
         }
     }
     //endregion
 
     //region > constructor
-    public AliasableLink() {
+    public AliasLink() {
         super("{polymorphicReference} has {subject}");
     }
     //endregion
@@ -147,8 +143,7 @@ public abstract class AliasableLink
     //region > SubjectPolymorphicReferenceLink API
 
     /**
-     * The subject of the pattern, which (perhaps confusingly in this instance) is actually the
-     * {@link #getAlias() event}.
+     * The subject of the pattern, namely the {@link #getAlias() alias}.
      */
     @Override
     @Programmatic
@@ -165,25 +160,25 @@ public abstract class AliasableLink
     @Override
     @Programmatic
     public String getPolymorphicObjectType() {
-        return getAliasableObjectType();
+        return getAliasedObjectType();
     }
 
     @Override
     @Programmatic
     public void setPolymorphicObjectType(final String polymorphicObjectType) {
-        setAliasableObjectType(polymorphicObjectType);
+        setAliasedObjectType(polymorphicObjectType);
     }
 
     @Override
     @Programmatic
     public String getPolymorphicIdentifier() {
-        return getAliasableIdentifier();
+        return getAliasedIdentifier();
     }
 
     @Override
     @Programmatic
     public void setPolymorphicIdentifier(final String polymorphicIdentifier) {
-        setAliasableIdentifier(polymorphicIdentifier);
+        setAliasedIdentifier(polymorphicIdentifier);
     }
     //endregion
 
@@ -197,24 +192,27 @@ public abstract class AliasableLink
     )
     private Alias alias;
 
-    public static class AliasableObjectTypeDomainEvent extends PropertyDomainEvent<String> { }
+
+    public static class AliasedObjectTypeDomainEvent extends PropertyDomainEvent<String> { }
     @Getter @Setter
     @javax.jdo.annotations.Column(allowsNull = "false", length = 255)
     @Property(
-            domainEvent = AliasableObjectTypeDomainEvent.class,
+            domainEvent = AliasedObjectTypeDomainEvent.class,
             editing = Editing.DISABLED
     )
-    private String aliasableObjectType;
+    private String aliasedObjectType;
 
-    public static class AliasableIdentifierDomainEvent extends PropertyDomainEvent<String> {
+
+    public static class AliasedIdentifierDomainEvent extends PropertyDomainEvent<String> {
     }
     @Getter @Setter
     @javax.jdo.annotations.Column(allowsNull = "false", length = 255)
     @Property(
-            domainEvent = AliasableIdentifierDomainEvent.class,
+            domainEvent = AliasedIdentifierDomainEvent.class,
             editing = Editing.DISABLED
     )
-    private String aliasableIdentifier;
+    private String aliasedIdentifier;
+
 
     public static class AtPathDomainEvent extends PropertyDomainEvent<String> { }
     /**
@@ -228,6 +226,7 @@ public abstract class AliasableLink
     )
     private String atPath;
 
+
     public static class AliasTypeIdDomainEvent extends PropertyDomainEvent<String> { }
     /**
      * Copy of the {@link #getAlias() alias}' {@link Alias#getAliasTypeId() alias type}, to support querying.
@@ -240,32 +239,32 @@ public abstract class AliasableLink
     private String aliasTypeId;
 
 
-    //region > aliasable (derived property)
+    //region > aliased (derived property)
     /**
      * Simply returns the {@link #getPolymorphicReference()}.
      */
     @Programmatic
-    public Aliasable getAliasable() {
+    public Object getAliased() {
         return getPolymorphicReference();
     }
     //endregion
 
     //region > Functions
     public static class Functions {
-        public static Function<AliasableLink, Alias> alias() {
+        public static Function<AliasLink, Alias> alias() {
             return alias(Alias.class);
         }
-        public static <T extends Alias> Function<AliasableLink, T> alias(Class<T> cls) {
+        public static <T extends Alias> Function<AliasLink, T> alias(Class<T> cls) {
             return input -> input != null
                                 ? (T)input.getAlias()
                                 : null;
         }
-        public static Function<AliasableLink, Aliasable> aliasable() {
-            return aliasable(Aliasable.class);
+        public static Function<AliasLink, Object> aliased() {
+            return aliased(Object.class);
         }
-        public static <T extends Aliasable> Function<AliasableLink, T> aliasable(final Class<T> cls) {
+        public static <T extends Object> Function<AliasLink, T> aliased(final Class<T> cls) {
             return input -> input != null
-                                ? (T)input.getAliasable()
+                                ? (T)input.getAliased()
                                 : null;
         }
     }

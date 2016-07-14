@@ -20,14 +20,15 @@
     <br/>
     <br/>
     This example app demonstrates the Incode' <a href="https://github.com/incodehq/incode-module-alias" target="_blank">Alias Module</a>,
-    configured for a very simple and purposefully minimal application.  The application demonstrates the ability to associate <code>Alias</code>es to any (arbitrary) domain object.  Each alias is qualified by both an <code>AliasType</code> (eg to represent
-    some external system such as <i>General Ledger</i> or <i>Document Management</i> and also an application tenancy path (eg to
-    support multi-tenancy, eg across countries).  The <code>AliasType</code> is defined as an interface, while application tenancy
-    is a simple string.
-    <br>
-    <br>
-    The module depends on the <a href="https://github.com/isisaddons/isis-module-poly" target="_blank">poly module</a> (polymorphic association pattern)</a>.
+    configured for a very simple and purposefully minimal application.
     <br/>
     <br/>
-    For more details, see the <a href="https://github.com/isisaddons/isis-module-alias" target="_blank">github repo</a>.
+    The application demonstrates the ability to associate <code>Alias</code>es to any (arbitrary) domain object.
+    Each alias is qualified by both an <code>AliasType</code> (eg to represent some external system such as
+    <i>General Ledger</i> or <i>Document Management</i>) and also an application tenancy path (eg to support
+    multi-tenancy, eg across countries).  The consuming application is required to implement mandatory SPI repositories
+    for these two qualifiers.
+    <br>
+    <br>
+    The module depends on the <a href="https://github.com/isisaddons/isis-module-poly" target="_blank">poly module</a> (polymorphic association pattern)</a>.  For more details, see the <a href="https://github.com/isisaddons/isis-module-alias" target="_blank">github repo</a>.
 </p>

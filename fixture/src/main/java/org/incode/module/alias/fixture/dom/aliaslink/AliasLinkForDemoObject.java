@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.alias.fixture.dom.aliasablelink;
+package org.incode.module.alias.fixture.dom.aliaslink;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
@@ -31,8 +31,7 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
-import org.incode.module.alias.dom.api.aliasable.Aliasable;
-import org.incode.module.alias.dom.impl.aliaslink.AliasableLink;
+import org.incode.module.alias.dom.impl.aliaslink.AliasLink;
 import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasDemoObject;
 
 @javax.jdo.annotations.PersistenceCapable(
@@ -41,9 +40,9 @@ import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasDemoObject;
 @javax.jdo.annotations.Inheritance(
         strategy = InheritanceStrategy.NEW_TABLE)
 @DomainObject(
-        objectType = "aliasdemo.AliasableLinkForDemoObject"
+        objectType = "aliasdemo.AliasLinkForDemoObject"
 )
-public class AliasableLinkForDemoObject extends AliasableLink {
+public class AliasLinkForDemoObject extends AliasLink {
 
     //region > instantiationSubscriber, setPolymorphicReference
     @DomainService(nature = NatureOfService.DOMAIN)
@@ -53,13 +52,13 @@ public class AliasableLinkForDemoObject extends AliasableLink {
         @Subscribe
         public void on(final InstantiateEvent ev) {
             if(ev.getPolymorphicReference() instanceof AliasDemoObject) {
-                ev.setSubtype(AliasableLinkForDemoObject.class);
+                ev.setSubtype(AliasLinkForDemoObject.class);
             }
         }
     }
 
     @Override
-    public void setPolymorphicReference(final Aliasable polymorphicReference) {
+    public void setPolymorphicReference(final Object polymorphicReference) {
         super.setPolymorphicReference(polymorphicReference);
         setDemoObject((AliasDemoObject) polymorphicReference);
     }

@@ -48,3 +48,9 @@ example: uncomment to hide the sliding bookmark panel
 }
 */
 
+tr.Alias-nl {
+    color: blueviolet;
+}
+tr.Alias-uk {
+    color: chocolate;
+}

@@ -30,10 +30,10 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.module.alias.dom.api.aliasable.Aliasable;
+import org.incode.module.alias.dom.AliasModule;
 
 @Mixin
-public class Aliasable_aliases {
+public class Object_aliases {
 
     //region  > (injected)
     @Inject
@@ -41,17 +41,19 @@ public class Aliasable_aliases {
     //endregion
 
     //region > constructor
-    private final Aliasable aliasable;
-    public Aliasable_aliases(final Aliasable aliasable) {
-        this.aliasable = aliasable;
+    private final Object aliased;
+    public Object_aliases(final Object aliased) {
+        this.aliased = aliased;
     }
 
-    public Aliasable getAliasable() {
-        return aliasable;
+    public Object getAliased() {
+        return aliased;
     }
     //endregion
 
-    public static class DomainEvent extends Aliasable.ActionDomainEvent<Aliasable_aliases> { } { }
+    //region > $$
+
+    public static class DomainEvent extends AliasModule.ActionDomainEvent<Object_aliases> { } { }
     @Action(
             domainEvent = DomainEvent.class,
             semantics = SemanticsOf.SAFE
@@ -64,7 +66,13 @@ public class Aliasable_aliases {
             render = RenderType.EAGERLY
     )
     public List<Alias> $$() {
-        return aliasRepository.findByAliasable(this.aliasable);
+        return aliasRepository.findByAliased(this.aliased);
     }
+
+    public boolean hide$$() {
+        return !aliasRepository.supports(this.aliased);
+    }
+    //endregion
+
 
 }

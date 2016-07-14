@@ -16,11 +16,22 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.alias.dom.api.aliasable;
+package org.incode.module.alias.dom.spi.aliastype;
 
 import org.incode.module.alias.dom.AliasModule;
 
-public interface Aliasable {
+/**
+ * The type of an alias for an aliased domain object.  The combination of the
+ * alias type and applicationTenancyPath</code> unique distinguish a particular alias reference.
+ *
+ * <p>
+ *     For example, a party might one alias for ["AcctsRec", "/Italy"] and a different alias for ["AcctsPay", "/Italy"].
+ *     In this, "AcctsRec" and "AcctsPay" are the alias types.
+ * </p>
+ */
+public interface AliasType {
+
+    String getId();
 
     abstract class PropertyDomainEvent<S,T> extends AliasModule.PropertyDomainEvent<S, T> { }
     abstract class CollectionDomainEvent<S,T> extends AliasModule.CollectionDomainEvent<S, T> { }

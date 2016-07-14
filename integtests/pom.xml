@@ -25,7 +25,7 @@ Copyright 2014~2015 Dan Haywood
     </parent>
 
     <artifactId>incode-module-alias-integtests</artifactId>
-    <name>Incode Alias Module IntegTests</name>
+    <name>Incode Module Alias IntegTests</name>
 
     <build>
         <testResources>

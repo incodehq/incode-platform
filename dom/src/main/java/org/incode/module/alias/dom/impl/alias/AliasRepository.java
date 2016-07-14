@@ -25,15 +25,14 @@ import javax.inject.Inject;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.services.repository.RepositoryService;
 
-import org.incode.module.alias.dom.api.aliasable.AliasType;
-import org.incode.module.alias.dom.api.aliasable.Aliasable;
-import org.incode.module.alias.dom.impl.aliaslink.AliasableLink;
-import org.incode.module.alias.dom.impl.aliaslink.AliasableLinkRepository;
+import org.incode.module.alias.dom.spi.aliastype.AliasType;
+import org.incode.module.alias.dom.impl.aliaslink.AliasLink;
+import org.incode.module.alias.dom.impl.aliaslink.AliasLinkRepository;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
@@ -41,64 +40,68 @@ import org.incode.module.alias.dom.impl.aliaslink.AliasableLinkRepository;
 )
 public class AliasRepository {
 
-    //region > findByAliasable (programmatic)
+    //region > findByAliased (programmatic)
     @Programmatic
-    public List<Alias> findByAliasable(final Aliasable aliasable) {
-        final List<AliasableLink> links = aliasableLinkRepository.findByAliasable(aliasable);
+    public List<Alias> findByAliased(final Object aliased) {
+        final List<AliasLink> links = aliasLinkRepository.findByAliased(aliased);
         return toAliases(links);
     }
 
     //endregion
 
-    //region > findByAliasableAndApplicationTenancy (programmatic)
+    //region > findByAliasedAndAtPath (programmatic)
     @Programmatic
-    public List<Alias> findByAliasableAndAtPath(
-            final Aliasable aliasable,
+    public List<Alias> findByAliasedAndAtPath(
+            final Object aliased,
             final String atPath) {
-        final List<AliasableLink> links = aliasableLinkRepository.findByAliasableAndAtPath(aliasable, atPath);
+        final List<AliasLink> links = aliasLinkRepository.findByAliasedAndAtPath(aliased, atPath);
         return toAliases(links);
     }
     //endregion
 
-    //region > findByAliasableAndAliasType (programmatic)
+    //region > findByAliasedAndAliasType (programmatic)
     @Programmatic
-    public List<Alias> findByAliasableAndAliasType(
-            final Aliasable aliasable,
+    public List<Alias> findByAliasedAndAliasType(
+            final Object aliased,
             final AliasType aliasType) {
-        final List<AliasableLink> links = aliasableLinkRepository.findByAliasableAndAliasType(aliasable, aliasType);
+        final List<AliasLink> links = aliasLinkRepository.findByAliasedAndAliasType(aliased, aliasType);
         return toAliases(links);
     }
     //endregion
 
-    //region > findByAliasableAndAtPathAndAliasType (programmatic)
+    //region > findByAliasedAndAtPathAndAliasType (programmatic)
     @Programmatic
-    public Alias findByAliasableAndAtPathAndAliasType(
-            final Aliasable aliasable,
+    public Alias findByAliasedAndAtPathAndAliasType(
+            final Object aliased,
             final String atPath,
             final AliasType aliasType) {
-        final AliasableLink link = aliasableLinkRepository
-                .findByAliasableAndAtPathAndAliasType(aliasable, atPath, aliasType);
-        return AliasableLink.Functions.alias().apply(link);
+        final AliasLink link = aliasLinkRepository
+                .findByAliasedAndAtPathAndAliasType(aliased, atPath, aliasType);
+        return AliasLink.Functions.alias().apply(link);
     }
     //endregion
 
     //region > add (programmatic)
+    public boolean supports(final Object aliased) {
+        return aliasLinkRepository.supports(aliased);
+    }
+
     @Programmatic
     public Alias add(
-            final Aliasable aliasable,
+            final Object aliased,
             final String atPath,
             final AliasType aliasType,
             final String aliasReference) {
-        final Alias alias = container.newTransientInstance(Alias.class);
+        final Alias alias = repositoryService.instantiate(Alias.class);
 
         alias.setAtPath(atPath);
         alias.setAliasTypeId(aliasType.getId());
         alias.setReference(aliasReference);
 
-        // must be set after atPath and aliasTypeId, because these are sync'ed from the alias onto the AliasableLink.
-        alias.setAliasable(aliasable);
+        // must be set after atPath and aliasTypeId, because these are sync'ed from the alias onto the AliasLink.
+        alias.setAliased(aliased);
 
-        container.persistIfNotAlready(alias);
+        repositoryService.persist(alias);
 
         return alias;
     }
@@ -107,24 +110,24 @@ public class AliasRepository {
     //region > remove (programmatic)
     @Programmatic
     public void remove(Alias alias) {
-        final AliasableLink link = aliasableLinkRepository.findByAlias(alias);
-        container.removeIfNotAlready(link);
-        container.flush();
-        container.removeIfNotAlready(alias);
-        container.flush();
+        final AliasLink link = aliasLinkRepository.findByAlias(alias);
+        repositoryService.removeAndFlush(link);
+        repositoryService.removeAndFlush(alias);
     }
     //endregion
 
-    static List<Alias> toAliases(final List<AliasableLink> links) {
+    //region > helpers: toAliases
+    static List<Alias> toAliases(final List<AliasLink> links) {
         return Lists.newArrayList(
-                Iterables.transform(links, AliasableLink.Functions.alias()));
+                Iterables.transform(links, AliasLink.Functions.alias()));
     }
+    //endregion
 
     //region > injected
     @Inject
-    AliasableLinkRepository aliasableLinkRepository;
+    AliasLinkRepository aliasLinkRepository;
     @Inject
-    DomainObjectContainer container;
+    RepositoryService repositoryService;
     //endregion
 
 }
