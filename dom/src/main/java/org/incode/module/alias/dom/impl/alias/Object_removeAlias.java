@@ -59,7 +59,8 @@ public class Object_removeAlias {
             semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE
     )
     @ActionLayout(
-            cssClassFa = "fa-minus"
+            cssClassFa = "fa-minus",
+            named = "Remove"
     )
     @MemberOrder(name = "aliases", sequence = "2")
     public Object $$(final Alias alias) {

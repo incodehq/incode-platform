@@ -81,6 +81,9 @@ public class Alias implements Comparable<Alias> {
     public static class TitleSubscriber extends AbstractSubscriber {
         @Subscribe
         public void on(Alias.TitleUiEvent ev) {
+            if(ev.getTitle() != null) {
+                return;
+            }
             ev.setTitle(titleOf(ev.getSource()));
         }
         private String titleOf(final Alias alias) {
@@ -105,6 +108,9 @@ public class Alias implements Comparable<Alias> {
     public static class IconSubscriber extends AbstractSubscriber {
         @Subscribe
         public void on(Alias.IconUiEvent ev) {
+            if(ev.getIconName() != null) {
+                return;
+            }
             ev.setIconName("");
         }
     }
@@ -116,6 +122,9 @@ public class Alias implements Comparable<Alias> {
     public static class CssClassSubscriber extends AbstractSubscriber {
         @Subscribe
         public void on(Alias.CssClassUiEvent ev) {
+            if(ev.getCssClass() != null) {
+                return;
+            }
             ev.setCssClass("");
         }
     }

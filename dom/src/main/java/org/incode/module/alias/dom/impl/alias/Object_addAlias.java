@@ -70,7 +70,8 @@ public class Object_addAlias {
             semantics = SemanticsOf.NON_IDEMPOTENT
     )
     @ActionLayout(
-            cssClassFa = "fa-plus"
+            cssClassFa = "fa-plus",
+            named = "Add"
     )
     @MemberOrder(name = "aliases", sequence = "1")
     public Object $$(

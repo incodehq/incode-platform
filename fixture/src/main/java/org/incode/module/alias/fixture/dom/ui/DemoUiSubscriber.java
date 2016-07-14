@@ -1,4 +1,4 @@
-package org.incode.module.alias.fixture.dom.apptenancy;
+package org.incode.module.alias.fixture.dom.ui;
 
 import javax.inject.Inject;
 

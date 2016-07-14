@@ -3,6 +3,7 @@ package org.incode.module.alias.dom.impl.alias;
 import javax.inject.Inject;
 
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
@@ -32,6 +33,10 @@ public class Alias_remove {
     @Action(
             domainEvent = DomainEvent.class,
             semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE
+    )
+    @ActionLayout(
+            cssClass = "btn-warning",
+            cssClassFa = "trash"
     )
     public Object $$() {
         final Object aliased = this.alias.getAliased();
