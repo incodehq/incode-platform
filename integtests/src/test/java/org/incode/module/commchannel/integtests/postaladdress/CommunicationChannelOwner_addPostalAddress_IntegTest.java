@@ -30,7 +30,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
-import org.incode.module.commchannel.dom.impl.postaladdress.Object_newPostalAddress;
+import org.incode.module.commchannel.dom.impl.postaladdress.Object_addPostalAddress;
 import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
@@ -42,7 +42,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assume.assumeThat;
 
-public class CommunicationChannelOwner_newPostalAddress_IntegTest extends CommChannelModuleIntegTest {
+public class CommunicationChannelOwner_addPostalAddress_IntegTest extends CommChannelModuleIntegTest {
 
     @Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;
@@ -58,7 +58,7 @@ public class CommunicationChannelOwner_newPostalAddress_IntegTest extends CommCh
 
 
     public static class ActionImplementationIntegrationTest extends
-            CommunicationChannelOwner_newPostalAddress_IntegTest {
+            CommunicationChannelOwner_addPostalAddress_IntegTest {
 
         @Test
         public void can_create_postal_address_without_looking_up_geocode() throws Exception {
@@ -141,14 +141,14 @@ public class CommunicationChannelOwner_newPostalAddress_IntegTest extends CommCh
         }
     }
 
-    public static class RaisesEventIntegrationTest extends CommunicationChannelOwner_newPostalAddress_IntegTest {
+    public static class RaisesEventIntegrationTest extends CommunicationChannelOwner_addPostalAddress_IntegTest {
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            Object_newPostalAddress.DomainEvent ev;
+            Object_addPostalAddress.DomainEvent ev;
 
             @Subscribe
-            public void on(Object_newPostalAddress.DomainEvent ev) {
+            public void on(Object_addPostalAddress.DomainEvent ev) {
                 this.ev = ev;
             }
         }

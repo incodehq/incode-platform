@@ -38,7 +38,7 @@ import org.incode.module.commchannel.dom.impl.purpose.CommunicationChannelPurpos
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 
 @Mixin
-public class Object_newPostalAddress {
+public class Object_addPostalAddress {
 
     //region > injected services
     @Inject
@@ -57,7 +57,7 @@ public class Object_newPostalAddress {
 
     //region > constructor
     private final Object communicationChannelOwner;
-    public Object_newPostalAddress(final Object communicationChannelOwner) {
+    public Object_addPostalAddress(final Object communicationChannelOwner) {
         this.communicationChannelOwner = communicationChannelOwner;
     }
     //endregion
@@ -65,7 +65,7 @@ public class Object_newPostalAddress {
     //region > $$
 
     public static class DomainEvent extends CommChannelModule.ActionDomainEvent
-                                            <Object_newPostalAddress> { }
+                                            <Object_addPostalAddress> { }
 
     @Action(
             semantics = SemanticsOf.NON_IDEMPOTENT,

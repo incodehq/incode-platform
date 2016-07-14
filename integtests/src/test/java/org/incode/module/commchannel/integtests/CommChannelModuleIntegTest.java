@@ -47,9 +47,9 @@ import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.channel.Object_communicationChannels;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_remove1;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_updatePurpose;
-import org.incode.module.commchannel.dom.impl.emailaddress.Object_newEmailAddress;
-import org.incode.module.commchannel.dom.impl.phoneorfax.Object_newPhoneOrFaxNumber;
-import org.incode.module.commchannel.dom.impl.postaladdress.Object_newPostalAddress;
+import org.incode.module.commchannel.dom.impl.emailaddress.Object_addEmailAddress;
+import org.incode.module.commchannel.dom.impl.phoneorfax.Object_addPhoneOrFaxNumber;
+import org.incode.module.commchannel.dom.impl.postaladdress.Object_addPostalAddress;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
 
 public abstract class CommChannelModuleIntegTest extends IntegrationTestAbstract {
@@ -91,16 +91,16 @@ public abstract class CommChannelModuleIntegTest extends IntegrationTestAbstract
         new ScenarioExecutionForIntegration();
     }
 
-    protected Object_newEmailAddress mixinNewEmailAddress(final CommChannelDemoObject owner) {
-        return mixin(Object_newEmailAddress.class, owner);
+    protected Object_addEmailAddress mixinNewEmailAddress(final CommChannelDemoObject owner) {
+        return mixin(Object_addEmailAddress.class, owner);
     }
 
-    protected Object_newPostalAddress mixinNewPostalAddress(final CommChannelDemoObject owner) {
-        return mixin(Object_newPostalAddress.class, owner);
+    protected Object_addPostalAddress mixinNewPostalAddress(final CommChannelDemoObject owner) {
+        return mixin(Object_addPostalAddress.class, owner);
     }
 
-    protected Object_newPhoneOrFaxNumber mixinNewPhoneOrFaxNumber(final CommChannelDemoObject owner) {
-        return mixin(Object_newPhoneOrFaxNumber.class, owner);
+    protected Object_addPhoneOrFaxNumber mixinNewPhoneOrFaxNumber(final CommChannelDemoObject owner) {
+        return mixin(Object_addPhoneOrFaxNumber.class, owner);
     }
 
     protected CommunicationChannel_remove1 mixinRemove(final CommunicationChannel channel) {

@@ -391,7 +391,7 @@ communication channels.
 Every property, collection and action has a corresponding domain event.  Thus, a subscriber can be used to hide or
 disable UI representation of any domain object's members.
 
-For example, the "notes" property could be suppressed using the following service:
+For example, the "content" property could be suppressed using the following service:
 
 [source,java]
 ----
@@ -402,7 +402,7 @@ public class CommChannelDemoSuppressNotesSubscriber extends AbstractSubscriber {
         switch (ev.getEventPhase()) {
         case HIDE:
             // uncomment as an example of how to influence the UI
-            // (the notes property should disappear)
+            // (the content property should disappear)
             // ev.hide();
         }
     }

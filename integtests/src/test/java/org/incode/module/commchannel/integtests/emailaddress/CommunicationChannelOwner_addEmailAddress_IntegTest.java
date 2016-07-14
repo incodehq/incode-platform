@@ -30,7 +30,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
-import org.incode.module.commchannel.dom.impl.emailaddress.Object_newEmailAddress;
+import org.incode.module.commchannel.dom.impl.emailaddress.Object_addEmailAddress;
 import org.incode.module.commchannel.dom.impl.emailaddress.EmailAddress;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
@@ -40,7 +40,7 @@ import org.incode.module.commchannel.integtests.CommChannelModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CommunicationChannelOwner_newEmailAddress_IntegTest extends CommChannelModuleIntegTest {
+public class CommunicationChannelOwner_addEmailAddress_IntegTest extends CommChannelModuleIntegTest {
 
     @Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;
@@ -55,7 +55,7 @@ public class CommunicationChannelOwner_newEmailAddress_IntegTest extends CommCha
     }
 
     public static class ActionImplementationIntegrationTest extends
-            CommunicationChannelOwner_newEmailAddress_IntegTest {
+            CommunicationChannelOwner_addEmailAddress_IntegTest {
 
         @Test
         public void happyCase() throws Exception {
@@ -86,14 +86,14 @@ public class CommunicationChannelOwner_newEmailAddress_IntegTest extends CommCha
     }
 
 
-    public static class RaisesEventIntegrationTest extends CommunicationChannelOwner_newEmailAddress_IntegTest {
+    public static class RaisesEventIntegrationTest extends CommunicationChannelOwner_addEmailAddress_IntegTest {
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            Object_newEmailAddress.DomainEvent ev;
+            Object_addEmailAddress.DomainEvent ev;
 
             @Subscribe
-            public void on(Object_newEmailAddress.DomainEvent ev) {
+            public void on(Object_addEmailAddress.DomainEvent ev) {
                 this.ev = ev;
             }
         }

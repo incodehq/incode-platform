@@ -32,7 +32,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
-import org.incode.module.commchannel.dom.impl.phoneorfax.Object_newPhoneOrFaxNumber;
+import org.incode.module.commchannel.dom.impl.phoneorfax.Object_addPhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
@@ -42,7 +42,7 @@ import org.incode.module.commchannel.integtests.CommChannelModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest extends CommChannelModuleIntegTest {
+public class CommunicationChannelOwner_addPhoneOrFaxNumber_IntegTest extends CommChannelModuleIntegTest {
 
     @Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;
@@ -58,7 +58,7 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest extends Com
     }
 
     public static class ActionImplementationIntegrationTest extends
-            CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest {
+            CommunicationChannelOwner_addPhoneOrFaxNumber_IntegTest {
 
         @Test
         public void can_create_phone_number() throws Exception {
@@ -91,7 +91,7 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest extends Com
         }
     }
 
-    public static class ValidateIntegrationTest extends CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest {
+    public static class ValidateIntegrationTest extends CommunicationChannelOwner_addPhoneOrFaxNumber_IntegTest {
 
         @Test
         public void attempt_to_create_with_invalid_type() throws Exception {
@@ -107,7 +107,7 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest extends Com
         }
     }
 
-    public static class ChoicesIntegrationTest extends CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest {
+    public static class ChoicesIntegrationTest extends CommunicationChannelOwner_addPhoneOrFaxNumber_IntegTest {
 
         @Test
         public void fax_and_phone_are_the_only_valid_choices() throws Exception {
@@ -120,7 +120,7 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest extends Com
         }
     }
 
-    public static class DefaultIntegrationTest extends CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest {
+    public static class DefaultIntegrationTest extends CommunicationChannelOwner_addPhoneOrFaxNumber_IntegTest {
 
         @Test
         public void phone_is_the_default_choice() throws Exception {
@@ -132,14 +132,14 @@ public class CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest extends Com
 
     }
 
-    public static class RaisesEventIntegrationTest extends CommunicationChannelOwner_newPhoneOrFaxNumber_IntegTest {
+    public static class RaisesEventIntegrationTest extends CommunicationChannelOwner_addPhoneOrFaxNumber_IntegTest {
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            Object_newPhoneOrFaxNumber.DomainEvent ev;
+            Object_addPhoneOrFaxNumber.DomainEvent ev;
 
             @Subscribe
-            public void on(Object_newPhoneOrFaxNumber.DomainEvent ev) {
+            public void on(Object_addPhoneOrFaxNumber.DomainEvent ev) {
                 this.ev = ev;
             }
         }

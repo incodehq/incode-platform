@@ -19,9 +19,9 @@ package org.incode.module.commchannel.fixture.scripts.scenarios;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.apache.isis.applib.services.clock.ClockService;
 
-import org.incode.module.commchannel.dom.impl.emailaddress.Object_newEmailAddress;
-import org.incode.module.commchannel.dom.impl.phoneorfax.Object_newPhoneOrFaxNumber;
-import org.incode.module.commchannel.dom.impl.postaladdress.Object_newPostalAddress;
+import org.incode.module.commchannel.dom.impl.emailaddress.Object_addEmailAddress;
+import org.incode.module.commchannel.dom.impl.phoneorfax.Object_addPhoneOrFaxNumber;
+import org.incode.module.commchannel.dom.impl.postaladdress.Object_addPostalAddress;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObjectMenu;
@@ -52,16 +52,16 @@ public class CommChannelDemoObjectsFixture extends DiscoverableFixtureScript {
         final CommChannelDemoObject baz = create("Baz", executionContext);
     }
 
-    Object_newEmailAddress newEmailAddress(final CommChannelDemoObject demoOwner) {
-        return container.mixin(Object_newEmailAddress.class, demoOwner);
+    Object_addEmailAddress newEmailAddress(final CommChannelDemoObject demoOwner) {
+        return container.mixin(Object_addEmailAddress.class, demoOwner);
     }
 
-    Object_newPhoneOrFaxNumber newPhoneOrFaxNumber(final CommChannelDemoObject demoOwner) {
-        return container.mixin(Object_newPhoneOrFaxNumber.class, demoOwner);
+    Object_addPhoneOrFaxNumber newPhoneOrFaxNumber(final CommChannelDemoObject demoOwner) {
+        return container.mixin(Object_addPhoneOrFaxNumber.class, demoOwner);
     }
 
-    Object_newPostalAddress newPostalAddress(final CommChannelDemoObject demoOwner) {
-        return container.mixin(Object_newPostalAddress.class, demoOwner);
+    Object_addPostalAddress newPostalAddress(final CommChannelDemoObject demoOwner) {
+        return container.mixin(Object_addPostalAddress.class, demoOwner);
     }
 
     // //////////////////////////////////////

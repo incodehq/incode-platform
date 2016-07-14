@@ -70,7 +70,8 @@ public class CommunicationChannel_remove1 {
             semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE
     )
     @ActionLayout(
-            cssClass = "btn-danger",
+            cssClass = "btn-warning",
+            cssClassFa = "trash",
             named = "Remove"
     )
     public Object $$(
