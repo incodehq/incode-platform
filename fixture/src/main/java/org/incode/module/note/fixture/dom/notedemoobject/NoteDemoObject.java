@@ -27,7 +27,6 @@ import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.util.ObjectContracts;
 
-import org.incode.module.note.dom.api.notable.Notable;
 import org.incode.module.note.dom.impl.note.NoteRepository;
 
 @javax.jdo.annotations.PersistenceCapable(
@@ -46,7 +45,7 @@ import org.incode.module.note.dom.impl.note.NoteRepository;
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
 )
-public class NoteDemoObject implements Comparable<NoteDemoObject>, Notable {
+public class NoteDemoObject implements Comparable<NoteDemoObject> {
 
     //region > name (property)
     

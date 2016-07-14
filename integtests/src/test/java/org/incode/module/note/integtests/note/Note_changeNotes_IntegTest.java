@@ -27,7 +27,6 @@ import org.junit.Test;
 
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
-import org.incode.module.note.dom.api.notable.Notable;
 import org.incode.module.note.dom.impl.note.Note;
 import org.incode.module.note.fixture.dom.calendarname.CalendarNameRepositoryForDemo;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
@@ -45,7 +44,7 @@ public class Note_changeNotes_IntegTest extends NoteModuleIntegTest {
     @Inject
     NoteDemoObjectMenu noteDemoObjectMenu;
 
-    Notable notable;
+    Object notable;
     Note note;
     Note noteWithoutDate;
     Note noteWithoutText;
@@ -62,12 +61,12 @@ public class Note_changeNotes_IntegTest extends NoteModuleIntegTest {
         wrap(mixinAddNote(notable)).$$(null, fakeData.jodaLocalDates().any(), "RED");
 
         final List<Note> noteList = wrap(mixinNotes(notable)).$$();
-        note = Iterables.find(noteList, x -> x.getNotes() != null && x.getDate() != null);
+        note = Iterables.find(noteList, x -> x.getContent() != null && x.getDate() != null);
         noteWithoutDate = Iterables.find(noteList, x -> x.getDate() == null);
-        noteWithoutText = Iterables.find(noteList, x -> x.getNotes() == null);
+        noteWithoutText = Iterables.find(noteList, x -> x.getContent() == null);
     }
 
-    String anyOtherCalendarNameFor(final Notable notable, final String exclude) {
+    String anyOtherCalendarNameFor(final Object notable, final String exclude) {
         for (String calendarName : calendarNameRepository.calendarNamesFor(notable)) {
             if(!calendarName.equals(exclude)) {
                 return calendarName;
@@ -83,7 +82,7 @@ public class Note_changeNotes_IntegTest extends NoteModuleIntegTest {
         public void happy_case() throws Exception {
 
             // given
-            final String notesBefore = wrap(note).getNotes();
+            final String notesBefore = wrap(note).getContent();
 
             final String newNotes = fakeData.lorem().paragraph();
             assertThat(newNotes).isNotEqualTo(notesBefore);
@@ -92,7 +91,7 @@ public class Note_changeNotes_IntegTest extends NoteModuleIntegTest {
             wrap(mixinChangeNotes(note)).$$(newNotes);
 
             // then
-            assertThat(wrap(note).getNotes()).isEqualTo(newNotes);
+            assertThat(wrap(note).getContent()).isEqualTo(newNotes);
         }
     }
 
@@ -102,7 +101,7 @@ public class Note_changeNotes_IntegTest extends NoteModuleIntegTest {
         public void happy_case() throws Exception {
 
             // given
-            final String notes = wrap(note).getNotes();
+            final String notes = wrap(note).getContent();
 
             // when
             final String defaultNotes = mixinChangeNotes(note).default0$$();
@@ -124,7 +123,7 @@ public class Note_changeNotes_IntegTest extends NoteModuleIntegTest {
             wrap(mixinChangeNotes(note)).$$(null);
 
             // then
-            assertThat(wrap(note).getNotes()).isNull();
+            assertThat(wrap(note).getContent()).isNull();
         }
 
         @Test

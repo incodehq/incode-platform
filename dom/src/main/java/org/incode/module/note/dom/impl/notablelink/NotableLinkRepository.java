@@ -24,17 +24,18 @@ import javax.annotation.PostConstruct;
 
 import org.joda.time.LocalDate;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
+import org.apache.isis.applib.services.registry.ServiceRegistry2;
+import org.apache.isis.applib.services.repository.RepositoryService;
+import org.apache.isis.applib.services.title.TitleService;
 
 import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 
-import org.incode.module.note.dom.api.notable.Notable;
 import org.incode.module.note.dom.impl.note.Note;
 
 @DomainService(
@@ -44,15 +45,15 @@ import org.incode.module.note.dom.impl.note.Note;
 public class NotableLinkRepository {
 
     //region > init
-    PolymorphicAssociationLink.Factory<Note,Notable,NotableLink,NotableLink.InstantiateEvent> linkFactory;
+    PolymorphicAssociationLink.Factory<Note,Object,NotableLink,NotableLink.InstantiateEvent> linkFactory;
 
     @PostConstruct
     public void init() {
-        linkFactory = container.injectServicesInto(
+        linkFactory = serviceRegistry.injectServicesInto(
                 new PolymorphicAssociationLink.Factory<>(
                         this,
                         Note.class,
-                        Notable.class,
+                        Object.class,
                         NotableLink.class,
                         NotableLink.InstantiateEvent.class
                 ));
@@ -63,7 +64,7 @@ public class NotableLinkRepository {
     //region > findByNote (programmatic)
     @Programmatic
     public NotableLink findByNote(final Note note) {
-        return container.firstMatch(
+        return repositoryService.firstMatch(
                 new QueryDefault<>(NotableLink.class,
                         "findByNote",
                         "note", note));
@@ -72,7 +73,7 @@ public class NotableLinkRepository {
 
     //region > findByNotable (programmatic)
     @Programmatic
-    public List<NotableLink> findByNotable(final Notable notable) {
+    public List<NotableLink> findByNotable(final Object notable) {
         if(notable == null) {
             return null;
         }
@@ -80,7 +81,7 @@ public class NotableLinkRepository {
         if(bookmark == null) {
             return null;
         }
-        return container.allMatches(
+        return repositoryService.allMatches(
                 new QueryDefault<>(NotableLink.class,
                         "findByNotable",
                         "notableObjectType", bookmark.getObjectType(),
@@ -95,7 +96,7 @@ public class NotableLinkRepository {
      */
     @Programmatic
     public NotableLink findByNotableAndCalendarName(
-            final Notable notable,
+            final Object notable,
             final String calendarName) {
         if(notable == null) {
             return null;
@@ -107,7 +108,7 @@ public class NotableLinkRepository {
         if(bookmark == null) {
             return null;
         }
-        return container.firstMatch(
+        return repositoryService.firstMatch(
                 new QueryDefault<>(NotableLink.class,
                         "findByNotableAndCalendarName",
                         "notableObjectType", bookmark.getObjectType(),
@@ -119,7 +120,7 @@ public class NotableLinkRepository {
     //region > findByNotableInDateRange (programmatic)
     @Programmatic
     public List<NotableLink> findByNotableInDateRange(
-            final Notable notable,
+            final Object notable,
             final LocalDate startDate,
             final LocalDate endDate) {
         if(notable == null) {
@@ -135,7 +136,7 @@ public class NotableLinkRepository {
         if(endDate == null) {
             return null;
         }
-        return container.allMatches(
+        return repositoryService.allMatches(
                 new QueryDefault<>(NotableLink.class,
                         "findByNotableInDateRange",
                         "notableObjectType", bookmark.getObjectType(),
@@ -146,8 +147,14 @@ public class NotableLinkRepository {
     //endregion
 
     //region > createLink (programmatic)
+
     @Programmatic
-    public NotableLink createLink(final Note note, final Notable notable) {
+    public boolean supports(final Object classifiable) {
+        return linkFactory.supportsLink(classifiable);
+    }
+
+    @Programmatic
+    public NotableLink createLink(final Note note, final Object notable) {
         final NotableLink link = linkFactory.createLink(note, notable);
 
         sync(note, link);
@@ -182,7 +189,13 @@ public class NotableLinkRepository {
     //region > injected services
 
     @javax.inject.Inject
-    DomainObjectContainer container;
+    RepositoryService repositoryService;
+
+    @javax.inject.Inject
+    TitleService titleService;
+
+    @javax.inject.Inject
+    ServiceRegistry2 serviceRegistry;
 
     @javax.inject.Inject
     BookmarkService bookmarkService;

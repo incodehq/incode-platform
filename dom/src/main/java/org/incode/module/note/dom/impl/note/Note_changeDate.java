@@ -46,6 +46,8 @@ public class Note_changeDate {
     }
     //endregion
 
+    //region > $$
+
 
     public static class DomainEvent extends Note.ActionDomainEvent<Note_changeDate> { }
 
@@ -95,7 +97,7 @@ public class Note_changeDate {
         if( date != null && calendarName != null) {
             return null;
         }
-        if( date == null && calendarName == null && !Strings.isNullOrEmpty(this.note.getNotes())) {
+        if( date == null && calendarName == null && !Strings.isNullOrEmpty(this.note.getContent())) {
             return null; // can have a note with just text (no date/calendar)
         }
         return "Must specify either note text or a date/calendar (or both).";
@@ -107,6 +109,8 @@ public class Note_changeDate {
         }
         return null;
     }
+
+    //endregion
 
 
 }

@@ -24,7 +24,7 @@ Copyright 2014~2015 Dan Haywood
     </parent>
 
 	<artifactId>incode-module-note-fixture</artifactId>
-    <name>Incode Note Module Fixtures</name>
+    <name>Incode Module Note Fixtures</name>
 
 	<build>
         <resources>

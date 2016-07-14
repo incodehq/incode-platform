@@ -31,8 +31,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
-import org.incode.module.note.dom.api.notable.Notable;
-import org.incode.module.note.dom.impl.note.Notable_addNote;
+import org.incode.module.note.dom.impl.note.Object_addNote;
 import org.incode.module.note.dom.impl.note.Note;
 import org.incode.module.note.fixture.dom.calendarname.CalendarNameRepositoryForDemo;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
@@ -51,7 +50,7 @@ public class Notable_addNote_IntegTest extends NoteModuleIntegTest {
     NoteDemoObjectMenu noteDemoObjectMenu;
 
 
-    Notable notable;
+    Object notable;
 
     @Before
     public void setUpData() throws Exception {
@@ -61,7 +60,7 @@ public class Notable_addNote_IntegTest extends NoteModuleIntegTest {
         calendarNameRepository.setCalendarNames(NoteDemoObject.class, "BLUE", "GREEN", "RED");
     }
 
-    String anyCalendarNameFor(final Notable notable) {
+    String anyCalendarNameFor(final Object notable) {
         return fakeData.collections().anyOf(calendarNameRepository.calendarNamesFor(notable).toArray(new String[]{}));
     }
 
@@ -110,7 +109,7 @@ public class Notable_addNote_IntegTest extends NoteModuleIntegTest {
             final List<Note> notes = wrap(mixinNotes(notable)).$$();
             assertThat(notes).hasSize(1);
 
-            assertThat(notes.get(0).getNotes()).isEqualTo(noteText);
+            assertThat(notes.get(0).getContent()).isEqualTo(noteText);
         }
 
         @Test
@@ -256,10 +255,10 @@ public class Notable_addNote_IntegTest extends NoteModuleIntegTest {
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class Subscriber extends AbstractSubscriber {
 
-            Notable_addNote.DomainEvent ev;
+            Object_addNote.DomainEvent ev;
 
             @Subscribe
-            public void on(Notable_addNote.DomainEvent ev) {
+            public void on(Object_addNote.DomainEvent ev) {
                 this.ev = ev;
             }
         }
@@ -278,7 +277,7 @@ public class Notable_addNote_IntegTest extends NoteModuleIntegTest {
             final LocalDate date = fakeData.jodaLocalDates().any();
             final String calendarName = anyCalendarNameFor(notable);
 
-            final Notable_addNote mixinAddNote = mixinAddNote(notable);
+            final Object_addNote mixinAddNote = mixinAddNote(notable);
             wrap(mixinAddNote).$$(text, date, calendarName);
 
             // then

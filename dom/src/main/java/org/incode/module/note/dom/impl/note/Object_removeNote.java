@@ -24,45 +24,47 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.module.note.dom.api.notable.Notable;
+import org.incode.module.note.dom.NoteModule;
 
 @Mixin
-public class Notable_removeNote {
-
-    //region  > (injected)
-    @Inject
-    NoteRepository noteRepository;
-    //endregion
+public class Object_removeNote {
 
     //region > constructor
-    private final Notable notable;
-    public Notable_removeNote(final Notable notable) {
+    private final Object notable;
+    public Object_removeNote(final Object notable) {
         this.notable = notable;
     }
 
-    public Notable getNotable() {
+    public Object getNotable() {
         return notable;
     }
     //endregion
 
-    public static class DomainEvent extends Notable.ActionDomainEvent<Notable_removeNote> { } { }
+    //region > $$
+
+    public static class DomainEvent extends NoteModule.ActionDomainEvent<Object_removeNote> { } { }
 
     @Action(
             domainEvent = DomainEvent.class,
             semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE
     )
-    @MemberOrder(name = "notes", sequence = "2")
-    public Notable $$(final Note note) {
+    @ActionLayout(
+            cssClassFa = "fa-minus",
+            named = "Remove"
+    )
+    @MemberOrder(name = "noteCollection", sequence = "2")
+    public Object $$(final Note note) {
         noteRepository.remove(note);
         return this.notable;
     }
 
     public String disable$$() {
-        return choices0$$().isEmpty() ? "No notes to remove" : null;
+        return choices0$$().isEmpty() ? "No content to remove" : null;
     }
 
     public List<Note> choices0$$() {
@@ -73,9 +75,21 @@ public class Notable_removeNote {
         return firstOf(choices0$$());
     }
 
+    public boolean hide$$() {
+        return !noteRepository.supports(this.notable);
+    }
+    //endregion
+
     //region > helpers
     static <T> T firstOf(final List<T> list) {
         return list.isEmpty()? null: list.get(0);
     }
     //endregion
+
+    //region  > (injected)
+    @Inject
+    NoteRepository noteRepository;
+    //endregion
+
+
 }

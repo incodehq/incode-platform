@@ -30,10 +30,9 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.wrapper.DisabledException;
 
-import org.incode.module.note.dom.api.notable.Notable;
 import org.incode.module.note.dom.impl.notablelink.NotableLink;
 import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
-import org.incode.module.note.dom.impl.note.Notable_removeNote;
+import org.incode.module.note.dom.impl.note.Object_removeNote;
 import org.incode.module.note.dom.impl.note.Note;
 import org.incode.module.note.dom.impl.note.NoteRepository;
 import org.incode.module.note.fixture.dom.calendarname.CalendarNameRepositoryForDemo;
@@ -59,7 +58,7 @@ public class Notable_removeNote_IntegTest extends NoteModuleIntegTest {
     NotableLinkRepository notableLinkRepository;
 
 
-    Notable notable;
+    Object notable;
 
     @Before
     public void setUpData() throws Exception {
@@ -118,7 +117,7 @@ public class Notable_removeNote_IntegTest extends NoteModuleIntegTest {
 
             // expecting
             expectedException.expect(DisabledException.class);
-            expectedException.expectMessage("No notes to remove");
+            expectedException.expectMessage("No content to remove");
 
             // when
             final Note note = null;
@@ -186,10 +185,10 @@ public class Notable_removeNote_IntegTest extends NoteModuleIntegTest {
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class Subscriber extends AbstractSubscriber {
 
-            Notable_removeNote.DomainEvent ev;
+            Object_removeNote.DomainEvent ev;
 
             @Subscribe
-            public void on(Notable_removeNote.DomainEvent ev) {
+            public void on(Object_removeNote.DomainEvent ev) {
                 this.ev = ev;
             }
         }
@@ -208,7 +207,7 @@ public class Notable_removeNote_IntegTest extends NoteModuleIntegTest {
             // when
             final Note note = noteList.get(0);
 
-            final Notable_removeNote mixinRemoveNote = mixinRemoveNote(notable);
+            final Object_removeNote mixinRemoveNote = mixinRemoveNote(notable);
             wrap(mixinRemoveNote).$$(note);
 
             // then

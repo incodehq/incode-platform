@@ -41,7 +41,6 @@ import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.Calendarable;
 
 import org.incode.module.note.dom.NoteModule;
-import org.incode.module.note.dom.api.notable.Notable;
 import org.incode.module.note.dom.impl.calendarname.CalendarNameService;
 import org.incode.module.note.dom.impl.note.Note;
 
@@ -98,7 +97,7 @@ import lombok.Setter;
         objectType = "note.NotableLink"
 )
 public abstract class NotableLink
-        extends PolymorphicAssociationLink<Note, Notable, NotableLink>
+        extends PolymorphicAssociationLink<Note, Object, NotableLink>
         implements Calendarable {
 
     //region > event classes
@@ -109,10 +108,10 @@ public abstract class NotableLink
 
     //region > instantiateEvent (poly pattern)
     public static class InstantiateEvent
-            extends PolymorphicAssociationLink.InstantiateEvent<Note, Notable, NotableLink> {
+            extends PolymorphicAssociationLink.InstantiateEvent<Note, Object, NotableLink> {
 
-        public InstantiateEvent(final Object source, final Note subject, final Notable owner) {
-            super(NotableLink.class, source, subject, owner);
+        public InstantiateEvent(final Object source, final Note subject, final Object notable) {
+            super(NotableLink.class, source, subject, notable);
         }
     }
     //endregion
@@ -232,7 +231,7 @@ public abstract class NotableLink
      * Simply returns the {@link #getPolymorphicReference()}.
      */
     @Programmatic
-    public Notable getNotable() {
+    public Object getNotable() {
         return getPolymorphicReference();
     }
     //endregion
@@ -270,11 +269,11 @@ public abstract class NotableLink
                                 ? (T)input.getNote()
                                 : null;
         }
-        public static Function<NotableLink, Notable> notable() {
-            return notable(Notable.class);
+        public static Function<NotableLink, Object> notable() {
+            return notable(Object.class);
         }
 
-        public static <T extends Notable> Function<NotableLink, T> notable(final Class<T> cls) {
+        public static <T extends Object> Function<NotableLink, T> notable(final Class<T> cls) {
             return input -> input != null
                                 ? (T)input.getNotable()
                                 : null;

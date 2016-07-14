@@ -8,15 +8,9 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.module.note.dom.api.notable.Notable;
 
 @Mixin
 public class Note_remove {
-
-    //region > injected services
-    @Inject
-    NoteRepository noteRepository;
-    //endregion
 
     //region > constructor
     private final Note note;
@@ -29,6 +23,8 @@ public class Note_remove {
     }
     //endregion
 
+    //region > $$
+
 
     public static class DomainEvent extends Note.ActionDomainEvent<Note_remove> { }
     @Action(
@@ -36,14 +32,20 @@ public class Note_remove {
             semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE
     )
     @ActionLayout(
-        // position = ActionLayout.Position.PANEL, // hmm... seems not to be recognized...
-        cssClass = "warning",
+        cssClass = "btn-warning",
         cssClassFa = "trash"
     )
-    public Notable $$() {
-        final Notable notable = this.note.getNotable();
+    public Object $$() {
+        final Object notable = this.note.getNotable();
         noteRepository.remove(this.note);
         return notable;
     }
+
+    //endregion
+
+    //region > injected services
+    @Inject
+    NoteRepository noteRepository;
+    //endregion
 
 }

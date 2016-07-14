@@ -21,7 +21,7 @@ language governing permissions and limitations under the License.
     <artifactId>incode-module-note</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>Incode Note Module</name>
+    <name>Incode Module Note</name>
 
     <packaging>pom</packaging>
 

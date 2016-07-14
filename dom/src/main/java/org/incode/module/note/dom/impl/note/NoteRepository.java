@@ -27,13 +27,12 @@ import com.google.common.collect.Lists;
 
 import org.joda.time.LocalDate;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
+import org.apache.isis.applib.services.repository.RepositoryService;
 
-import org.incode.module.note.dom.api.notable.Notable;
 import org.incode.module.note.dom.impl.notablelink.NotableLink;
 import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
 
@@ -45,8 +44,8 @@ public class NoteRepository {
 
     //region > findByNotable (programmatic)
     @Programmatic
-    public List<Note> findByNotable(final Notable notable) {
-        final List<NotableLink> links = notableLinkRepository.findByNotable(notable);
+    public List<Note> findByNotable(final Object notable) {
+        final List<NotableLink> links = linkRepository.findByNotable(notable);
         return Lists.newArrayList(
                 Iterables.transform(links, NotableLink.Functions.note()));
     }
@@ -55,9 +54,9 @@ public class NoteRepository {
     //region > findByNotableAndCalendarName (programmatic)
     @Programmatic
     public Note findByNotableAndCalendarName(
-            final Notable notable,
+            final Object notable,
             final String calendarName) {
-        final NotableLink link = notableLinkRepository
+        final NotableLink link = linkRepository
                 .findByNotableAndCalendarName(notable, calendarName);
         return NotableLink.Functions.note().apply(link);
     }
@@ -68,7 +67,7 @@ public class NoteRepository {
     public List<Note> findInDateRange(
             final LocalDate startDate,
             final LocalDate endDate) {
-        return container.allMatches(
+        return repositoryService.allMatches(
                 new QueryDefault<>(
                         Note.class,
                         "findInDateRange",
@@ -80,28 +79,35 @@ public class NoteRepository {
     //region > findByNotableInDateRange (programmatic)
     @Programmatic
     public Iterable<Note> findByNotableInDateRange(
-            final Notable notable,
+            final Object notable,
             final LocalDate startDate,
             final LocalDate endDate) {
-        final List<NotableLink> link = notableLinkRepository
+        final List<NotableLink> link = linkRepository
                 .findByNotableInDateRange(notable, startDate, endDate);
         return Iterables.transform(link, NotableLink.Functions.note());
     }
     //endregion
 
     //region > add (programmatic)
+
+
+    @Programmatic
+    public boolean supports(final Object aliased) {
+        return linkRepository.supports(aliased);
+    }
+
     @Programmatic
     public Note add(
-            final Notable notable,
+            final Object notable,
             final String noteText,
             final LocalDate date,
             final String calendarName) {
-        final Note note = container.newTransientInstance(Note.class);
+        final Note note = repositoryService.instantiate(Note.class);
         note.setDate(date);
         note.setCalendarName(calendarName);
         note.setNotable(notable);
-        note.setNotes(noteText);
-        container.persistIfNotAlready(note);
+        note.setContent(noteText);
+        repositoryService.persist(note);
 
         return note;
     }
@@ -110,11 +116,9 @@ public class NoteRepository {
     //region > remove (programmatic)
     @Programmatic
     public void remove(Note note) {
-        final NotableLink link = notableLinkRepository.findByNote(note);
-        container.removeIfNotAlready(link);
-        container.flush();
-        container.removeIfNotAlready(note);
-        container.flush();
+        final NotableLink link = linkRepository.findByNote(note);
+        repositoryService.removeAndFlush(link);
+        repositoryService.removeAndFlush(note);
     }
     //endregion
 
@@ -122,15 +126,15 @@ public class NoteRepository {
 
     @Programmatic
     public List<Note> allNotes() {
-        return container.allInstances(Note.class);
+        return repositoryService.allInstances(Note.class);
     }
     //endregion
 
     //region > injected
     @Inject
-    NotableLinkRepository notableLinkRepository;
+    NotableLinkRepository linkRepository;
     @Inject
-    DomainObjectContainer container;
+    RepositoryService repositoryService;
     //endregion
 
 }

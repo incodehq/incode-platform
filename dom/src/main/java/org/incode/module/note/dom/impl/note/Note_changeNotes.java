@@ -28,7 +28,7 @@ public class Note_changeNotes {
     }
     //endregion
 
-
+    //region > $$
     public static class DomainEvent extends Note.ActionDomainEvent<Note_changeNotes> { }
 
     @Action(
@@ -38,17 +38,17 @@ public class Note_changeNotes {
     @ActionLayout(
             named = "Change"
     )
-    @MemberOrder(name = "notes", sequence = "1")
+    @MemberOrder(name = "content", sequence = "1")
     public Note $$(
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Notes", multiLine = NoteModule.MultiLine.NOTES)
             final String notes) {
-        this.note.setNotes(notes);
+        this.note.setContent(notes);
         return this.note;
     }
 
     public String default0$$() {
-        return this.note.getNotes();
+        return this.note.getContent();
     }
 
     public String validate$$(final String notes) {
@@ -58,5 +58,6 @@ public class Note_changeNotes {
         return null;
     }
 
+    //endregion
 
 }

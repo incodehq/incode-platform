@@ -29,30 +29,24 @@ import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.module.note.dom.api.notable.Notable;
+import org.incode.module.note.dom.NoteModule;
 
 @Mixin
-public class Notable_notes {
-
-    //region  > (injected)
-    @Inject
-    NoteRepository noteRepository;
-    //endregion
+public class Object_noteCollection {
 
     //region > constructor
-    private final Notable notable;
-    public Notable_notes(final Notable notable) {
+    private final Object notable;
+    public Object_noteCollection(final Object notable) {
         this.notable = notable;
     }
 
-    public Notable getNotable() {
+    public Object getNotable() {
         return notable;
     }
     //endregion
 
-
-
-    public static class DomainEvent extends Notable.ActionDomainEvent<Notable_notes> { } { }
+    //region > $$
+    public static class DomainEvent extends NoteModule.ActionDomainEvent<Object_noteCollection> { } { }
     @Action(
             domainEvent = DomainEvent.class,
             semantics = SemanticsOf.SAFE
@@ -61,11 +55,23 @@ public class Notable_notes {
             contributed = Contributed.AS_ASSOCIATION
     )
     @CollectionLayout(
-            named = "Notes", // regression in isis 1.11.x requires this to be specified
+            named = "Notes",
             defaultView = "table"
     )
     public List<Note> $$() {
         return noteRepository.findByNotable(this.notable);
     }
+
+    public boolean hide$$() {
+        return !noteRepository.supports(this.notable);
+    }
+
+    //endregion
+
+    //region  > (injected)
+    @Inject
+    NoteRepository noteRepository;
+    //endregion
+
 
 }

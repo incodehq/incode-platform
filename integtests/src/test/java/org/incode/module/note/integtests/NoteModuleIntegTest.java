@@ -36,10 +36,9 @@ import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
 import org.incode.module.note.app.NoteModuleAppManifest;
-import org.incode.module.note.dom.api.notable.Notable;
-import org.incode.module.note.dom.impl.note.Notable_addNote;
-import org.incode.module.note.dom.impl.note.Notable_notes;
-import org.incode.module.note.dom.impl.note.Notable_removeNote;
+import org.incode.module.note.dom.impl.note.Object_addNote;
+import org.incode.module.note.dom.impl.note.Object_noteCollection;
+import org.incode.module.note.dom.impl.note.Object_removeNote;
 import org.incode.module.note.dom.impl.note.Note;
 import org.incode.module.note.dom.impl.note.Note_changeDate;
 import org.incode.module.note.dom.impl.note.Note_changeNotes;
@@ -57,15 +56,15 @@ public abstract class NoteModuleIntegTest extends IntegrationTestAbstract {
     protected FakeDataService fakeData;
 
 
-    protected Notable_addNote mixinAddNote(final Notable notable) {
-        return mixin(Notable_addNote.class, notable);
+    protected Object_addNote mixinAddNote(final Object notable) {
+        return mixin(Object_addNote.class, notable);
     }
-    protected Notable_removeNote mixinRemoveNote(final Notable notable) {
-        return mixin(Notable_removeNote.class, notable);
+    protected Object_removeNote mixinRemoveNote(final Object notable) {
+        return mixin(Object_removeNote.class, notable);
     }
 
-    protected Notable_notes mixinNotes(final Notable notable) {
-        return mixin(Notable_notes.class, notable);
+    protected Object_noteCollection mixinNotes(final Object notable) {
+        return mixin(Object_noteCollection.class, notable);
     }
 
     protected Note_changeDate mixinChangeDate(final Note note) {

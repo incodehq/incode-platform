@@ -21,8 +21,7 @@ import org.joda.time.LocalDate;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.apache.isis.applib.services.clock.ClockService;
 
-import org.incode.module.note.dom.api.notable.Notable;
-import org.incode.module.note.dom.impl.note.Notable_addNote;
+import org.incode.module.note.dom.impl.note.Object_addNote;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObjectMenu;
 import org.incode.module.note.fixture.scripts.teardown.NoteDemoObjectsTearDownFixture;
@@ -43,8 +42,8 @@ public class NoteDemoObjectsFixture extends DiscoverableFixtureScript {
     //endregion
 
     //region > mixins
-    Notable_addNote mixinAddNote(final Notable notable) {
-        return container.mixin(Notable_addNote.class, notable);
+    Object_addNote mixinAddNote(final Object notable) {
+        return container.mixin(Object_addNote.class, notable);
     }
     //endregion
 

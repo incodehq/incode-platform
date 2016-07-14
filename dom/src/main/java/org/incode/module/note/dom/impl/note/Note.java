@@ -30,7 +30,6 @@ import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEvent;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
 
 import org.incode.module.note.dom.NoteModule;
-import org.incode.module.note.dom.api.notable.Notable;
 import org.incode.module.note.dom.impl.notablelink.NotableLink;
 import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
 
@@ -38,8 +37,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * An event that has or is scheduled to occur at some point in time, pertaining
- * to an {@link Notable}.
+ * An note that has or is scheduled to occur at some point in time, pertaining
+ * to a "notable" domain object.
  */
 @javax.jdo.annotations.PersistenceCapable(
         schema = "incodeNote",
@@ -96,33 +95,32 @@ public class Note implements CalendarEventable, Comparable<Note> {
         final TitleBuffer buf = new TitleBuffer();
         buf.append(container.titleOf(getNotable()));
         if(getDate() != null) {
-            // final String dateStr = container.titleOf(getDate()); // broken in isis 1.9.0
+            // final String dateStr = repositoryService.titleOf(getDate()); // broken in isis 1.9.0
             final Locale locale = localeProvider.getLocale();
             final String dateStr = DateTimeFormat.forStyle("M-").withLocale(locale).print(getDate());
             buf.append(" @").append(dateStr);
         }
-        buf.append(": ").append(getNotesAbbreviated());
+        buf.append(": ").append(getAbbreviated());
         return buf.toString();
     }
 
     //endregion
 
-    public static class NotesDomainEvent extends PropertyDomainEvent<Note,String> { }
+    public static class ContentDomainEvent extends PropertyDomainEvent<Note,String> { }
     /**
-     * Hidden in tables, instead the derived {@link #getNotesAbbreviated()} is shown.
+     * Hidden in tables, instead the derived {@link #getAbbreviated()} is shown.
      */
     @Getter @Setter
     @javax.jdo.annotations.Column(allowsNull = "true", length = NoteModule.JdoColumnLength.NOTES)
     @Property(
-            domainEvent = NotesDomainEvent.class,
+            domainEvent = ContentDomainEvent.class,
             hidden = Where.ALL_TABLES
     )
     @PropertyLayout(
             multiLine = NoteModule.MultiLine.NOTES,
             labelPosition = LabelPosition.NONE
     )
-    @MemberOrder(name = "Notes", sequence = "1")
-    private String notes;
+    private String content;
 
 
     public static class DateDomainEvent extends PropertyDomainEvent<Note,LocalDate> { }
@@ -131,7 +129,6 @@ public class Note implements CalendarEventable, Comparable<Note> {
     @Property(
             domainEvent = DateDomainEvent.class
     )
-    @MemberOrder(name = "When", sequence = "2")
     private LocalDate date;
 
 
@@ -142,7 +139,7 @@ public class Note implements CalendarEventable, Comparable<Note> {
      * <p>
      * The &quot;calendar&quot; is a string identifier that indicates the nature
      * of a note.  These are expected to be uniquely identifiable for all and
-     * any notes that might be created. They therefore typically
+     * any content that might be created. They therefore typically
      * include information relating to the type/class of the note's
      * {@link #getNotable() subject}.
      *
@@ -166,10 +163,10 @@ public class Note implements CalendarEventable, Comparable<Note> {
 
     //region > notable (derived property)
 
-    public static class NotableDomainEvent extends PropertyDomainEvent<Note,Notable> { }
+    public static class NotableDomainEvent extends PropertyDomainEvent<Note,Object> { }
 
     /**
-     * Polymorphic association to (any implementation of) {@link Notable}.
+     * Polymorphic association to (any implementation of) "notable" domain object.
      */
     @Property(
             domainEvent = NotableDomainEvent.class,
@@ -177,14 +174,13 @@ public class Note implements CalendarEventable, Comparable<Note> {
             hidden = Where.PARENTED_TABLES,
             notPersisted = true
     )
-    @MemberOrder(name = "What", sequence = "1")
-    public Notable getNotable() {
+    public Object getNotable() {
         final NotableLink link = getNotableLink();
         return link != null? link.getPolymorphicReference(): null;
     }
 
     @Programmatic
-    public void setNotable(final Notable notable) {
+    public void setNotable(final Object notable) {
         removeNotableLink();
         notableLinkRepository.createLink(this, notable);
     }
@@ -209,7 +205,7 @@ public class Note implements CalendarEventable, Comparable<Note> {
     public static class NotesAbbreviatedDomainEvent extends PropertyDomainEvent<Note,String> { }
 
     /**
-     * Derived from {@link #getNotes()}, solely for use in title and in tables.
+     * Derived from {@link #getContent()}, solely for use in title and in tables.
      */
     @javax.jdo.annotations.NotPersistent
     @Property(
@@ -219,8 +215,8 @@ public class Note implements CalendarEventable, Comparable<Note> {
     @PropertyLayout(
             named = "Notes"
     )
-    public String getNotesAbbreviated() {
-        return trim(getNotes(), "...", NOTES_ABBREVIATED_TO);
+    public String getAbbreviated() {
+        return trim(getContent(), "...", NOTES_ABBREVIATED_TO);
     }
 
     static String trim(final String notes, final String ending, final int length) {
@@ -237,7 +233,7 @@ public class Note implements CalendarEventable, Comparable<Note> {
         if(getDate() == null || getCalendarName() == null) {
             return null;
         }
-        final String eventTitle = container.titleOf(getNotable()) + ": " + getNotesAbbreviated();
+        final String eventTitle = container.titleOf(getNotable()) + ": " + getAbbreviated();
         return new CalendarEvent(getDate().toDateTimeAtStartOfDay(), getCalendarName(), eventTitle);
     }
     //endregion

@@ -19,10 +19,10 @@ public class NoteTest {
         @Test
         public void does_not_abbreviate_less_than_40() throws Exception {
             // given
-            note.setNotes("123456789012345678901234567890123456789"); // 39 chars
+            note.setContent("123456789012345678901234567890123456789"); // 39 chars
 
             // when
-            final String notesAbbreviated = note.getNotesAbbreviated();
+            final String notesAbbreviated = note.getAbbreviated();
 
             // then
             assertThat(notesAbbreviated).isEqualTo("123456789012345678901234567890123456789");
@@ -31,10 +31,10 @@ public class NoteTest {
         @Test
         public void does_not_abbreviate_40() throws Exception {
             // given
-            note.setNotes("1234567890123456789012345678901234567890"); // 40 chars
+            note.setContent("1234567890123456789012345678901234567890"); // 40 chars
 
             // when
-            final String notesAbbreviated = note.getNotesAbbreviated();
+            final String notesAbbreviated = note.getAbbreviated();
 
             // then
             assertThat(notesAbbreviated).isEqualTo("1234567890123456789012345678901234567890");
@@ -43,10 +43,10 @@ public class NoteTest {
         @Test
         public void abbreviates_longer_than_40() throws Exception {
             // given
-            note.setNotes("1234567890123456789012345678901234567890a"); // 41 chars
+            note.setContent("1234567890123456789012345678901234567890a"); // 41 chars
 
             // when
-            final String notesAbbreviated = note.getNotesAbbreviated();
+            final String notesAbbreviated = note.getAbbreviated();
 
             // then
             assertThat(notesAbbreviated).isEqualTo("1234567890123456789012345678901234567...");

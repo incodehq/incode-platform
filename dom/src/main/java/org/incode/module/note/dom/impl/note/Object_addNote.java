@@ -29,6 +29,7 @@ import com.google.common.collect.Lists;
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Optionality;
@@ -37,40 +38,36 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.note.dom.NoteModule;
-import org.incode.module.note.dom.api.notable.Notable;
 import org.incode.module.note.dom.impl.calendarname.CalendarNameService;
 
 @Mixin
-public class Notable_addNote {
-
-    //region  > (injected)
-    @Inject
-    NoteRepository noteRepository;
-
-    @Inject
-    CalendarNameService calendarNameService;
-    //endregion
+public class Object_addNote {
 
     //region > constructor
-    private final Notable notable;
-    public Notable_addNote(final Notable notable) {
+    private final Object notable;
+    public Object_addNote(final Object notable) {
         this.notable = notable;
     }
 
-    public Notable getNotable() {
+    public Object getNotable() {
         return notable;
     }
     //endregion
 
+    //region > $$
 
-    public static class DomainEvent extends Notable.ActionDomainEvent<Notable_addNote> { }
+    public static class DomainEvent extends NoteModule.ActionDomainEvent<Object_addNote> { }
 
     @Action(
             domainEvent = DomainEvent.class,
             semantics = SemanticsOf.NON_IDEMPOTENT
     )
-    @MemberOrder(name = "notes", sequence = "1")
-    public Notable $$(
+    @ActionLayout(
+            cssClassFa = "fa-plus",
+            named = "Add"
+    )
+    @MemberOrder(name = "noteCollection", sequence = "1")
+    public Object $$(
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Note", multiLine = NoteModule.MultiLine.NOTES)
             final String note,
@@ -128,6 +125,20 @@ public class Notable_addNote {
         }
         return null;
     }
+
+    public boolean hide$$() {
+        return !noteRepository.supports(this.notable);
+    }
+
     //endregion
+
+    //region  > (injected)
+    @Inject
+    NoteRepository noteRepository;
+
+    @Inject
+    CalendarNameService calendarNameService;
+    //endregion
+
 
 }

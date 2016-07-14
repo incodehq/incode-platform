@@ -30,7 +30,6 @@ import org.junit.Test;
 
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
-import org.incode.module.note.dom.api.notable.Notable;
 import org.incode.module.note.dom.impl.notablelink.NotableLink;
 import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
 import org.incode.module.note.dom.impl.note.Note;
@@ -57,7 +56,7 @@ public class Note_changeDate_IntegTest extends NoteModuleIntegTest {
     @Inject
     NotableLinkRepository notableLinkRepository;
 
-    Notable notable;
+    Object notable;
     Note note;
     Note noteWithoutDate;
     Note noteWithoutText;
@@ -76,12 +75,12 @@ public class Note_changeDate_IntegTest extends NoteModuleIntegTest {
         wrap(mixinAddNote(notable)).$$(null, someOtherDate, "RED");
 
         final List<Note> noteList = wrap(mixinNotes(notable)).$$();
-        note = Iterables.find(noteList, x -> x.getNotes() != null && x.getDate() != null);
+        note = Iterables.find(noteList, x -> x.getContent() != null && x.getDate() != null);
         noteWithoutDate = Iterables.find(noteList, x -> x.getDate() == null);
-        noteWithoutText = Iterables.find(noteList, x -> x.getNotes() == null);
+        noteWithoutText = Iterables.find(noteList, x -> x.getContent() == null);
     }
 
-    String anyOtherCalendarNameFor(final Notable notable, final String exclude) {
+    String anyOtherCalendarNameFor(final Object notable, final String exclude) {
         for (String calendarName : calendarNameRepository.calendarNamesFor(notable)) {
             if(!calendarName.equals(exclude)) {
                 return calendarName;
@@ -162,7 +161,7 @@ public class Note_changeDate_IntegTest extends NoteModuleIntegTest {
             assertThat(wrap(note).getDate()).isNull();
             assertThat(wrap(note).getCalendarName()).isNull();
 
-            // and (the notes still exist)
+            // and (the content still exist)
             assertThat(mixinNotes(notable).$$()).hasSize(3);
 
             // however

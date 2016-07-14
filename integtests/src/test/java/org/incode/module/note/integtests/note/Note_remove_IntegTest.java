@@ -30,7 +30,6 @@ import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
-import org.incode.module.note.dom.api.notable.Notable;
 import org.incode.module.note.dom.impl.note.Note;
 import org.incode.module.note.dom.impl.note.Note_remove;
 import org.incode.module.note.fixture.dom.calendarname.CalendarNameRepositoryForDemo;
@@ -52,7 +51,7 @@ public class Note_remove_IntegTest extends NoteModuleIntegTest {
     @Inject
     NoteDemoObjectMenu noteDemoObjectMenu;
 
-    Notable notable;
+    Object notable;
     Note note;
     Note noteWithoutDate;
     Note noteWithoutText;
@@ -69,12 +68,12 @@ public class Note_remove_IntegTest extends NoteModuleIntegTest {
         wrap(mixinAddNote(notable)).$$(null, fakeData.jodaLocalDates().any(), "RED");
 
         final List<Note> noteList = wrap(mixinNotes(notable)).$$();
-        note = Iterables.find(noteList, x -> x.getNotes() != null && x.getDate() != null);
+        note = Iterables.find(noteList, x -> x.getContent() != null && x.getDate() != null);
         noteWithoutDate = Iterables.find(noteList, x -> x.getDate() == null);
-        noteWithoutText = Iterables.find(noteList, x -> x.getNotes() == null);
+        noteWithoutText = Iterables.find(noteList, x -> x.getContent() == null);
     }
 
-    String anyOtherCalendarNameFor(final Notable notable, final String exclude) {
+    String anyOtherCalendarNameFor(final Object notable, final String exclude) {
         for (String calendarName : calendarNameRepository.calendarNamesFor(notable)) {
             if(!calendarName.equals(exclude)) {
                 return calendarName;

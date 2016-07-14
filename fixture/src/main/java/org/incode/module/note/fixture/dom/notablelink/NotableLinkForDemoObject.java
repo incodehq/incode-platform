@@ -31,7 +31,6 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
-import org.incode.module.note.dom.api.notable.Notable;
 import org.incode.module.note.dom.impl.notablelink.NotableLink;
 import org.incode.module.note.dom.impl.note.NoteRepository;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
@@ -61,7 +60,7 @@ public class NotableLinkForDemoObject extends NotableLink {
     }
 
     @Override
-    public void setPolymorphicReference(final Notable polymorphicReference) {
+    public void setPolymorphicReference(final Object polymorphicReference) {
         super.setPolymorphicReference(polymorphicReference);
         setDemoObject((NoteDemoObject) polymorphicReference);
     }
