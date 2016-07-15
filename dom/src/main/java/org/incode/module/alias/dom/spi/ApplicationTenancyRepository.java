@@ -21,7 +21,7 @@ package org.incode.module.alias.dom.spi;
 import java.util.Collection;
 
 /**
- * Mandatory SPI service that returns the application tenancy (path)s for a given aliased.
+ * Mandatory SPI service that returns the application tenancy path for a given aliased.
  */
 public interface ApplicationTenancyRepository {
 

@@ -39,7 +39,7 @@ import org.incode.module.alias.dom.spi.AliasType;
 import org.incode.module.alias.dom.spi.AliasTypeRepository;
 import org.incode.module.alias.dom.spi.ApplicationTenancyRepository;
 
-public abstract class Object_addAlias<T> {
+public abstract class T_addAlias<T> {
 
     //region  > (injected)
     @Inject
@@ -52,7 +52,7 @@ public abstract class Object_addAlias<T> {
 
     //region > constructor
     private final T aliased;
-    public Object_addAlias(final T aliased) {
+    public T_addAlias(final T aliased) {
         this.aliased = aliased;
     }
 
@@ -62,7 +62,7 @@ public abstract class Object_addAlias<T> {
     //endregion
 
     //region > $$
-    public static class DomainEvent extends AliasModule.ActionDomainEvent<Object_addAlias> { }
+    public static class DomainEvent extends AliasModule.ActionDomainEvent<T_addAlias> { }
 
     @Action(
             domainEvent = DomainEvent.class,

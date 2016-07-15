@@ -18,20 +18,20 @@
  */
 package org.incode.module.alias.dom.impl.alias;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.Contributed;
-import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.alias.dom.AliasModule;
 
-public abstract class Object_removeAlias<T> {
+public abstract class T_aliases<T> {
 
     //region  > (injected)
     @Inject
@@ -40,7 +40,7 @@ public abstract class Object_removeAlias<T> {
 
     //region > constructor
     private final T aliased;
-    public Object_removeAlias(final T aliased) {
+    public T_aliases(final T aliased) {
         this.aliased = aliased;
     }
 
@@ -51,42 +51,23 @@ public abstract class Object_removeAlias<T> {
 
     //region > $$
 
-    public static class DomainEvent extends AliasModule.ActionDomainEvent<Object_removeAlias> { } { }
-
+    public static class DomainEvent extends AliasModule.ActionDomainEvent<T_aliases> { } { }
     @Action(
             domainEvent = DomainEvent.class,
-            semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE
+            semantics = SemanticsOf.SAFE
     )
     @ActionLayout(
-            cssClassFa = "fa-minus",
-            named = "Remove",
-            contributed = Contributed.AS_ACTION
+            contributed = Contributed.AS_ASSOCIATION
     )
-    @MemberOrder(name = "aliases", sequence = "2")
-    public Object $$(final Alias alias) {
-        aliasRepository.remove(alias);
-        return this.aliased;
-    }
-
-    public String disable$$(final Alias alias) {
-        return choices0$$().isEmpty() ? "No aliases to remove" : null;
-    }
-
-    public List<Alias> choices0$$() {
-        return this.aliased != null ? aliasRepository.findByAliased(this.aliased): Collections.emptyList();
-    }
-
-    public Alias default0$$() {
-        return firstOf(choices0$$());
+    @CollectionLayout(
+            named = "Aliases", // regression in isis 1.11.x requires this to be specified
+            render = RenderType.EAGERLY
+    )
+    public List<Alias> $$() {
+        return aliasRepository.findByAliased(this.aliased);
     }
 
     //endregion
 
-
-    //region > helpers
-    static <T> T firstOf(final List<T> list) {
-        return list.isEmpty()? null: list.get(0);
-    }
-    //endregion
 
 }

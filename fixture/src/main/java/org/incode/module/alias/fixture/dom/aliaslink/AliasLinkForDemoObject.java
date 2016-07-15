@@ -27,9 +27,9 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.NatureOfService;
 
-import org.incode.module.alias.dom.impl.alias.Object_addAlias;
-import org.incode.module.alias.dom.impl.alias.Object_aliases;
-import org.incode.module.alias.dom.impl.alias.Object_removeAlias;
+import org.incode.module.alias.dom.impl.alias.T_addAlias;
+import org.incode.module.alias.dom.impl.alias.T_aliases;
+import org.incode.module.alias.dom.impl.alias.T_removeAlias;
 import org.incode.module.alias.dom.impl.aliaslink.AliasLink;
 import org.incode.module.alias.dom.impl.aliaslink.AliasLinkRepository;
 import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasDemoObject;
@@ -43,45 +43,6 @@ import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasDemoObject;
         objectType = "aliasdemo.AliasLinkForDemoObject"
 )
 public class AliasLinkForDemoObject extends AliasLink {
-
-    @DomainService(nature = NatureOfService.DOMAIN)
-    public static class LinkProvider extends AliasLinkRepository.LinkProviderAbstract {
-        public LinkProvider() {
-            super(AliasDemoObject.class, AliasLinkForDemoObject.class);
-        }
-    }
-
-    @Mixin
-    public static class _addAlias extends Object_addAlias<AliasDemoObject> {
-        public _addAlias(final AliasDemoObject aliased) {
-            super(aliased);
-        }
-    }
-
-    @Mixin
-    public static class _aliases extends Object_aliases<AliasDemoObject> {
-        public _aliases(final AliasDemoObject aliased) {
-            super(aliased);
-        }
-    }
-
-    @Mixin
-    public static class _removeAlias extends Object_removeAlias<AliasDemoObject> {
-        public _removeAlias(final AliasDemoObject aliased) {
-            super(aliased);
-        }
-    }
-
-
-    @Override
-    public Object getAliased() {
-        return getDemoObject();
-    }
-
-    @Override
-    protected void setAliased(final Object aliased) {
-        setDemoObject((AliasDemoObject) aliased);
-    }
 
     //region > demoObject (property)
     private AliasDemoObject demoObject;
@@ -98,4 +59,52 @@ public class AliasLinkForDemoObject extends AliasLink {
         this.demoObject = demoObject;
     }
     //endregion
+
+    //region > aliased (hook, derived)
+    @Override
+    public Object getAliased() {
+        return getDemoObject();
+    }
+
+    @Override
+    protected void setAliased(final Object aliased) {
+        setDemoObject((AliasDemoObject) aliased);
+    }
+    //endregion
+
+    //region > LinkProvider SPI implementation
+
+    @DomainService(nature = NatureOfService.DOMAIN)
+    public static class LinkProvider extends AliasLinkRepository.LinkProviderAbstract {
+        public LinkProvider() {
+            super(AliasDemoObject.class, AliasLinkForDemoObject.class);
+        }
+    }
+    //endregion
+
+    //region > mixins
+
+    @Mixin
+    public static class _aliases extends T_aliases<AliasDemoObject> {
+        public _aliases(final AliasDemoObject aliased) {
+            super(aliased);
+        }
+    }
+
+    @Mixin
+    public static class _addAlias extends T_addAlias<AliasDemoObject> {
+        public _addAlias(final AliasDemoObject aliased) {
+            super(aliased);
+        }
+    }
+
+    @Mixin
+    public static class _removeAlias extends T_removeAlias<AliasDemoObject> {
+        public _removeAlias(final AliasDemoObject aliased) {
+            super(aliased);
+        }
+    }
+
+    //endregion
+
 }

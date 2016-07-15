@@ -175,12 +175,13 @@ In order to be able to add/remove aliases to a domain object, you need to:
 +
 This link acts as a type-safe tuple linking the domain object to the `Alias`.
 
-* implement a domain event subscriber to correctly instantiate the subclass. +
-+
-Typically this is a nested static class of the `AliasLink` subtype.
+* implement an SPI interface to specify the subclass of `AliasLink` to use to link the "aliased" domain object to the `Alias`.
 
-For each such "aliased" domain object, the module contributes the `aliases` collection, and also contributes the
-`addAlias(...)` and `removeAlias(...)` actions.
+* subclass `T_addAlias`, `T_removeAlias` and `T_aliases` (abstract) mixin classes for the domain object. +
++
+This contributes the "aliases" collection and actions to add and remove aliases.
+
+Typically the SPI implementations and the mixin classes are nested static classes of the `AliasLink` subtype.
 
 For example, in the demo app the `AliasDemoObject` domain object can have aliases by virtue of the
 `AliasLinkForDemoObject` subclass:
@@ -191,57 +192,79 @@ For example, in the demo app the `AliasDemoObject` domain object can have aliase
         identityType= IdentityType.DATASTORE,
         schema="aliasdemo")
 @javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
-@DomainObject(
-        objectType = "aliasdemo.AliasLinkForDemoObject"
-)
-public class AliasLinkForDemoObject extends AliasLink {                  // <1>
-
-    @DomainService(nature = NatureOfService.DOMAIN)
-    @DomainServiceLayout(menuOrder = "1")
-    public static class InstantiationSubscriber extends AbstractSubscriber {     // <2>
-        @Programmatic
-        @Subscribe
-        public void on(final InstantiateEvent ev) {
-            if(ev.getPolymorphicReference() instanceof AliasDemoObject) {
-                ev.setSubtype(AliasLinkForDemoObject.class);
-            }
-        }
-    }
-
-    @Override
-    public void setPolymorphicReference(final Object aliased) {  // <3>
-        super.setPolymorphicReference(aliased);
-        setDemoObject((AliasDemoObject) aliased);
-    }
+@DomainObject(objectType = "aliasdemo.AliasLinkForDemoObject")
+public class AliasLinkForDemoObject extends AliasLink {                                     // <1>
 
     private AliasDemoObject demoObject;
+
     @Column(
             allowsNull = "false",
             name = "demoObjectId"
     )
-    public AliasDemoObject getDemoObject() {                                     // <4>
+    public AliasDemoObject getDemoObject() {                                                // <2>
         return demoObject;
     }
+
     public void setDemoObject(final AliasDemoObject demoObject) {
         this.demoObject = demoObject;
     }
+
+    @Override
+    public Object getAliased() {                                                            // <3>
+        return getDemoObject();
+    }
+
+    @Override
+    protected void setAliased(final Object aliased) {
+        setDemoObject((AliasDemoObject) aliased);
+    }
+
+    @DomainService(nature = NatureOfService.DOMAIN)
+    public static class LinkProvider extends AliasLinkRepository.LinkProviderAbstract {     // <4>
+        public LinkProvider() {
+            super(AliasDemoObject.class, AliasLinkForDemoObject.class);
+        }
+    }
+
+    @Mixin
+    public static class _aliases extends T_aliases<AliasDemoObject> {                       // <5>
+        public _aliases(final AliasDemoObject aliased) {
+            super(aliased);
+        }
+    }
+
+    @Mixin
+    public static class _addAlias extends T_addAlias<AliasDemoObject> {                     // <5>
+        public _addAlias(final AliasDemoObject aliased) {
+            super(aliased);
+        }
+    }
+
+    @Mixin
+    public static class _removeAlias extends T_removeAlias<AliasDemoObject> {               // <5>
+        public _removeAlias(final AliasDemoObject aliased) {
+            super(aliased);
+        }
+    }
+
 }
 ----
 <1> extend from `AliasLink`
-<2> implementation of a domain event subscriber that tells the `incode-module-alias` which subclass of `AliasLink`
-to instantiate to handle the polymorphic link between `Alias` and the "aliased" domain object
-<3> override the inherited `setPolymorphicReference(...)` method to allow the type-safe reference property to the
-"aliased" (in this case `AliasDemoObject`) to be set
-<4> the type-safe reference property to the "aliased" domain object (in this case `AliasDemoObject`).  In the RDBMS
+<2> the type-safe reference property to the "aliased" domain object (in this case `AliasDemoObject`).  In the RDBMS
 this will correspond to a regular foreign key with referential integrity constraints correctly applied.
-
+<3> implement the hook `setAliased(...)` method to allow the type-safe reference property to the "aliased" (in this
+case `AliasDemoObject`) to be set.  Also implemented `getAliased()` similarly
+<4> implementation of the `LinkProvider` SPI domain service, telling the module which subclass of `AliasLink`
+to instantiate to handle the polymorphic link between `Alias` and the "aliased" domain object
+<5> mixin the collections and actions onto the "aliased" domain object
 
 
 === SPI services
 
-There are two mandatory SPI domain services that must be implemented.
+There are two further mandatory SPI domain services that must be implemented.
 
-First, the `ApplicationTenancyRepository` returns the application tenancy (path)s for a given aliased:
+First, the `ApplicationTenancyRepository` returns the application tenancy (path)s that are available to locate
+``Alias``es for a given aliased:
 
 [source,java]
 ----
@@ -249,6 +272,8 @@ public interface ApplicationTenancyRepository {
     Collection<String> atPathsFor(final Object aliased);
 }
 ----
+Note that this isn't (necessarily) the same as the application tenancy path of the object being aliased; rather it is
+the list of those paths available.
 
 Second, the `AliasTypeRepository` interface returns the available alias types for a given application tenancy path and
 aliased:
@@ -261,6 +286,7 @@ public interface AliasTypeRepository {
 ----
 
 where `AliasType` is defined as the interface:
+
 [source,java]
 ----
 public interface AliasType {
@@ -283,7 +309,6 @@ implementations of these SPI interfaces.
 
 
 
-
 == Other Services
 
 The module provides the following domain services for querying aliases:
@@ -302,10 +327,46 @@ The module also allows the title, icon and CSS for `Alias` objects to be overrid
 subscribers that override the default `Alias.TitleSubscriber`, `Alias.IconSubscriber` and `Alias.CssClassSubscriber`
 implementations.
 
-For example, the demo app
-+
-Provides a title for an alias.  An alternative implementation can optionally be supplied by the consuming application
-if there is a requirement to return different titles.
+For example, the demo app has this demo implementation:
+
+[source,java]
+----
+@DomainService(nature = NatureOfService.DOMAIN )
+public class DemoUiSubscriber extends AbstractSubscriber {
+
+    @Subscribe
+    public void on(Alias.TitleUiEvent ev) {
+        Alias alias = ev.getSource();
+        if(isType(alias, AliasTypeDemoEnum.DOCUMENT_MANAGEMENT)) {
+            ev.setTitle("DocMgmt  [" + alias.getAliasTypeId() + "] " + alias.getReference());
+        }
+    }
+
+    @Subscribe
+    public void on(Alias.IconUiEvent ev) {
+        Alias alias = ev.getSource();
+        if(isType(alias, AliasTypeDemoEnum.DOCUMENT_MANAGEMENT)) {
+            ev.setIconName("Alias-docMgmt");
+        } else if (isType(alias, AliasTypeDemoEnum.GENERAL_LEDGER)) {
+            ev.setIconName("Alias-GL");
+        }
+    }
+
+    @Subscribe
+    public void on(Alias.CssClassUiEvent ev) {
+        Alias alias = ev.getSource();
+        ev.setCssClass("Alias" + alias.getAtPath().replace("/", "-"));
+    }
+
+    private static boolean isType(final Alias alias, final AliasTypeDemoEnum aliasType) {
+        return alias.getAliasTypeId().equals(aliasType.getId());
+    }
+}
+----
+
+which returns a different title, icon and alias.  Custom png icons and CSS are also supplied in the demo app (icons
+in the fixtures module, custom CSS in the webapp module).
+
 
 
 == Known issues
@@ -314,7 +375,10 @@ None at this time.
 
 == Change Log
 
-* `1.13.0-SNAPSHOT` - (to release) against Isis 1.13.0; removed the `Aliasable` interface (to completely decouple the "aliased" domain object from this module); added in the ability to override the title, icon and CSS of `Alias` objects; using `.layout.xml` for layouts
+* `1.13.0-SNAPSHOT` - (to release) against Isis 1.13.0; removed the `Aliasable` interface (to completely decouple the
+"aliased" domain object from this module); removed dependency on poly module, instead using the (broadly equivalent)
+new `LinkProvider` SPI; added in the ability to override the title, icon and CSS of `Alias` objects;
+using `.layout.xml` for layouts.
 * `1.12.0` - released against Isis 1.12.0
 * `1.11.1` - released against Isis 1.11.1.
 
@@ -363,17 +427,12 @@ under the License.
 
 === Dependencies
 
-Depends upon:
-
-* http://github.com/isisaddons/isis-module-poly[Isis addons' poly] module
-* http://github.com/isisaddons/isis-wicket-fullcalendar2[Isis addons' fullcalendar2] wicket extension
-
-both released under Apache v2 license.
+None.
 
 
 === Icons
 
-The icon for the `Alias` entity is provided by https://icons8.com/[Icons8].
+The icons are provided by https://icons8.com/[Icons8].
 
 
 ==  Maven deploy notes

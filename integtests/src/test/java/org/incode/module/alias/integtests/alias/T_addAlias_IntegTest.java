@@ -32,9 +32,9 @@ import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
+import org.incode.module.alias.dom.impl.alias.T_addAlias;
 import org.incode.module.alias.dom.spi.AliasType;
 import org.incode.module.alias.dom.impl.alias.Alias;
-import org.incode.module.alias.dom.impl.alias.Object_addAlias;
 import org.incode.module.alias.dom.spi.AliasTypeRepository;
 import org.incode.module.alias.dom.spi.ApplicationTenancyRepository;
 import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasDemoObjectMenu;
@@ -43,7 +43,7 @@ import org.incode.module.alias.integtests.AliasModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class Object_addAlias_IntegTest extends AliasModuleIntegTest {
+public class T_addAlias_IntegTest extends AliasModuleIntegTest {
 
     @Inject
     AliasDemoObjectMenu aliasDemoObjectMenu;
@@ -63,7 +63,7 @@ public class Object_addAlias_IntegTest extends AliasModuleIntegTest {
         aliased = wrap(aliasDemoObjectMenu).create("Foo");
     }
 
-    public static class ActionImplementationIntegTest extends Object_addAlias_IntegTest {
+    public static class ActionImplementationIntegTest extends T_addAlias_IntegTest {
 
         @Before
         public void setUp() throws Exception {
@@ -179,15 +179,15 @@ public class Object_addAlias_IntegTest extends AliasModuleIntegTest {
     }
 
 
-    public static class DomainEventIntegTest extends Object_addAlias_IntegTest {
+    public static class DomainEventIntegTest extends T_addAlias_IntegTest {
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class Subscriber extends AbstractSubscriber {
 
-            Object_addAlias.DomainEvent ev;
+            T_addAlias.DomainEvent ev;
 
             @Subscribe
-            public void on(Object_addAlias.DomainEvent ev) {
+            public void on(T_addAlias.DomainEvent ev) {
                 this.ev = ev;
             }
         }
@@ -209,7 +209,7 @@ public class Object_addAlias_IntegTest extends AliasModuleIntegTest {
             final AliasType randomAliasType = fakeData.collections().anyOf(aliasTypes);
             final String randomAliasRef = fakeData.strings().fixed(10);
 
-            final Object_addAlias mixinAddAlias = mixinAddAlias(aliased);
+            final T_addAlias mixinAddAlias = mixinAddAlias(aliased);
             wrap(mixinAddAlias).$$(randomAtPath, randomAliasType, randomAliasRef);
 
             // then
