@@ -9,7 +9,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.module.alias.dom.impl.alias.Alias;
-import org.incode.module.alias.dom.spi.aliastype.ApplicationTenancyRepository;
+import org.incode.module.alias.dom.spi.ApplicationTenancyRepository;
 import org.incode.module.alias.fixture.dom.aliastype.AliasTypeDemoEnum;
 
 /**

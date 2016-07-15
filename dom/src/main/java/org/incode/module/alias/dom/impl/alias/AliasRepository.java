@@ -30,7 +30,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
-import org.incode.module.alias.dom.spi.aliastype.AliasType;
+import org.incode.module.alias.dom.spi.AliasType;
 import org.incode.module.alias.dom.impl.aliaslink.AliasLink;
 import org.incode.module.alias.dom.impl.aliaslink.AliasLinkRepository;
 

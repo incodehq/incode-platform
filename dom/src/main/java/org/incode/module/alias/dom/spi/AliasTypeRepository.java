@@ -16,15 +16,15 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.alias.dom.spi.aliastype;
+package org.incode.module.alias.dom.spi;
 
 import java.util.Collection;
 
 /**
- * Mandatory SPI service that returns the application tenancy (path)s for a given aliased.
+ * Mandatory SPI service that returns the alias types.
  */
-public interface ApplicationTenancyRepository {
+public interface AliasTypeRepository {
 
-    Collection<String> atPathsFor(final Object aliased);
+    Collection<AliasType> aliasTypesFor(final Object aliased, final String atPath);
 
 }

@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.isis.applib.annotation.Title;
 
-import org.incode.module.alias.dom.spi.aliastype.AliasType;
+import org.incode.module.alias.dom.spi.AliasType;
 
 /**
  * In a real (not demo) application this would probably be an entity.

@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.alias.dom.spi.aliastype;
+package org.incode.module.alias.dom.spi;
 
 import org.incode.module.alias.dom.AliasModule;
 

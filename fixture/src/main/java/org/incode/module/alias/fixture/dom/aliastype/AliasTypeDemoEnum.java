@@ -18,7 +18,7 @@ package org.incode.module.alias.fixture.dom.aliastype;
 
 import org.apache.isis.applib.annotation.Title;
 
-import org.incode.module.alias.dom.spi.aliastype.AliasType;
+import org.incode.module.alias.dom.spi.AliasType;
 
 public enum AliasTypeDemoEnum implements AliasType {
 

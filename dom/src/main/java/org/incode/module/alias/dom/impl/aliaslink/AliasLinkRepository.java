@@ -33,7 +33,7 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 
 import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 
-import org.incode.module.alias.dom.spi.aliastype.AliasType;
+import org.incode.module.alias.dom.spi.AliasType;
 import org.incode.module.alias.dom.impl.alias.Alias;
 
 @DomainService(

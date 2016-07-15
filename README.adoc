@@ -111,25 +111,17 @@ To use "out-of-the-box":
 </dependency>
 ----
 
-* if using `AppManifest`, then update its `getModules()` method:
-
-    @Override
-    public List<Class<?>> getModules() {
-        return Arrays.asList(
-                ...
-                org.incode.module.alias.dom.AliasModule.class,
-        );
-    }
-
-
-* alternatively, in your project's `webapp` module, update your `WEB-INF/isis.properties`. +
+* in the `AppManifest`, update its `getModules()` method: +
 +
-[source,xml]
+[source,java]
 ----
-  isis.services.ServicesInstallerFromAnnotation.packagePrefix=\
-                                ...\
-                                org.incode.module.alias.dom,\
-                                ...
+@Override
+public List<Class<?>> getModules() {
+    return Arrays.asList(
+            ...
+            org.incode.module.alias.dom.AliasModule.class,
+    );
+}
 ----
 
 
@@ -181,7 +173,7 @@ In order to be able to add/remove aliases to a domain object, you need to:
 
 * implement a subclass of `AliasLink` for the domain object's type.  +
 +
-This link acts as a type-safe tuple linking domain object to `Alias`.
+This link acts as a type-safe tuple linking the domain object to the `Alias`.
 
 * implement a domain event subscriber to correctly instantiate the subclass. +
 +
@@ -287,7 +279,7 @@ shows how a view model can be used as a work-around.
 
 Note that there can be multiple implementations of either of these interfaces.  This is to support the use case that
 different unrelated entities in the application may have aliases; each such aliased object can have its own supporting
-implementations.
+implementations of these SPI interfaces.
 
 
 
