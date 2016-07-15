@@ -22,6 +22,7 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.NotPersistent;
+import javax.jdo.annotations.Unique;
 
 import com.google.common.base.Function;
 
@@ -55,61 +56,13 @@ import lombok.Setter;
                 value = "SELECT "
                         + "FROM org.incode.module.alias.dom.impl.aliaslink.AliasLink "
                         + "WHERE aliasedObjectType == :aliasedObjectType "
-                        + "   && aliasedIdentifier == :aliasedIdentifier "),
-        @javax.jdo.annotations.Query(
-                name = "findByAliasedAndAliasType", language = "JDOQL",
-                value = "SELECT "
-                        + "FROM org.incode.module.alias.dom.impl.aliaslink.AliasLink "
-                        + "WHERE aliasedObjectType == :aliasedObjectType "
-                        + "   && aliasedIdentifier == :aliasedIdentifier "
-                        + "   && aliasTypeId == :aliasTypeId"),
-        @javax.jdo.annotations.Query(
-                name = "findByAliasedAndAtPath", language = "JDOQL",
-                value = "SELECT "
-                        + "FROM org.incode.module.alias.dom.impl.aliaslink.AliasLink "
-                        + "WHERE aliasedObjectType == :aliasedObjectType "
-                        + "   && aliasedIdentifier == :aliasedIdentifier "
-                        + "   && atPath == :atPath "),
-        @javax.jdo.annotations.Query(
-                name = "findByAliasedAndAtPathAndAliasType", language = "JDOQL",
-                value = "SELECT "
-                        + "FROM org.incode.module.alias.dom.impl.aliaslink.AliasLink "
-                        + "WHERE aliasedObjectType == :aliasedObjectType "
-                        + "   && aliasedIdentifier == :aliasedIdentifier "
-                        + "   && atPath == :atPath "
-                        + "   && aliasTypeId == :aliasTypeId"),
-        @javax.jdo.annotations.Query(
-                name = "findByAliasedAndAliasType", language = "JDOQL",
-                value = "SELECT "
-                        + "FROM org.incode.module.alias.dom.impl.aliaslink.AliasLink "
-                        + "WHERE aliasedObjectType == :aliasedObjectType "
-                        + "   && aliasedIdentifier == :aliasedIdentifier "
-                        + "   && atPath == :atPath "
-                        + "   && aliasTypeId == :aliasTypeId")
-})
-@javax.jdo.annotations.Indices({
-        @javax.jdo.annotations.Index(
-                name = "AliasLink_aliased_aliasType_atPath_IDX",
-                members = { "aliasedObjectType", "aliasedIdentifier", "aliasTypeId", "atPath" },
-                unique = "true"
-        ),
-        @javax.jdo.annotations.Index(
-                name = "AliasLink_aliased_atPath_aliasType_IDX",
-                members = { "aliasedObjectType", "aliasedIdentifier", "atPath", "aliasTypeId" },
-                unique = "true"
-        ),
-        @javax.jdo.annotations.Index(
-                name = "AliasLink_atPath_aliasType_aliased_IDX",
-                members = { "atPath", "aliasTypeId", "aliasedObjectType", "aliasedIdentifier" },
-                unique = "true"
-        ),
-        @javax.jdo.annotations.Index(
-                name = "AliasLink_aliasType_atPath_aliased_IDX",
-                members = { "aliasTypeId", "atPath", "aliasedObjectType", "aliasedIdentifier" },
-                unique = "true"
-        )
+                        + "   && aliasedIdentifier == :aliasedIdentifier ")
 })
 @javax.jdo.annotations.Uniques({
+    @Unique(
+            name = "AliasLink_aliased_alias_IDX",
+            members = { "aliasedObjectType", "aliasedIdentifier", "alias" }
+    )
 })
 @DomainObject(
         objectType = "incodeAlias.AliasLink"
@@ -128,8 +81,9 @@ public abstract class AliasLink {
     }
     //endregion
 
+    //region > alias (property)
+
     public static class AliasDomainEvent extends PropertyDomainEvent<Alias> { }
-    public static class AliasedObjectTypeDomainEvent extends PropertyDomainEvent<String> { }
 
     @Getter @Setter
     @javax.jdo.annotations.Column(allowsNull = "false", name = "aliasId")
@@ -139,6 +93,11 @@ public abstract class AliasLink {
     )
     private Alias alias;
 
+    //endregion
+
+    //region > aliasedObjectType (property)
+
+    public static class AliasedObjectTypeDomainEvent extends PropertyDomainEvent<String> { }
     @Getter @Setter
     @javax.jdo.annotations.Column(allowsNull = "false", length = 255)
     @Property(
@@ -147,6 +106,9 @@ public abstract class AliasLink {
     )
     private String aliasedObjectType;
 
+    //endregion
+
+    //region > aliasedIdentifier (property)
 
     public static class AliasedIdentifierDomainEvent extends PropertyDomainEvent<String> {
     }
@@ -158,37 +120,16 @@ public abstract class AliasLink {
     )
     private String aliasedIdentifier;
 
+    //endregion
 
-    public static class AtPathDomainEvent extends PropertyDomainEvent<String> { }
-    /**
-     * Copy of the {@link #getAlias() alias}' {@link Alias#getAtPath() at path}, to support querying.
-     */
-    @Getter @Setter
-    @javax.jdo.annotations.Column(allowsNull = "true", length= AliasModule.JdoColumnLength.AT_PATH)
-    @Property(
-            domainEvent = AtPathDomainEvent.class,
-            editing = Editing.DISABLED
-    )
-    private String atPath;
-
-
-    public static class AliasTypeIdDomainEvent extends PropertyDomainEvent<String> { }
-    /**
-     * Copy of the {@link #getAlias() alias}' {@link Alias#getAliasTypeId() alias type}, to support querying.
-     */
-    @Getter @Setter
-    @javax.jdo.annotations.Column(allowsNull = "false")
-    @Property(
-            domainEvent = AliasTypeIdDomainEvent.class
-    )
-    private String aliasTypeId;
-
+    //region > aliased (hooks)
 
     @NotPersistent
     @Programmatic
     public abstract Object getAliased();
     protected abstract void setAliased(final Object aliased);
 
+    //endregion
 
     //region > Functions
     public static class Functions {

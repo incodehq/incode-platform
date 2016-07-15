@@ -31,7 +31,6 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
-import org.incode.module.alias.dom.spi.AliasType;
 import org.incode.module.alias.dom.impl.alias.Alias;
 
 @DomainService(
@@ -49,7 +48,6 @@ public class AliasLinkRepository {
                         "alias", alias));
     }
     //endregion
-
 
     //region > findByAliased (programmatic)
     @Programmatic
@@ -69,87 +67,48 @@ public class AliasLinkRepository {
     }
     //endregion
 
-    //region > findByAliasedAndAtPath
-    @Programmatic
-    public List<AliasLink> findByAliasedAndAtPath(
-            final Object aliased,
-            final String atPath) {
-        if(aliased == null) {
-            return null;
-        }
-        if(atPath == null) {
-            return null;
-        }
-        final Bookmark bookmark = bookmarkService.bookmarkFor(aliased);
-        if(bookmark == null) {
-            return null;
-        }
-        return repositoryService.allMatches(
-                new QueryDefault<>(AliasLink.class,
-                        "findByAliasedAndAtPath",
-                        "aliasedObjectType", bookmark.getObjectType(),
-                        "aliasedIdentifier", bookmark.getIdentifier(),
-                        "atPath", atPath));
-    }
-    //endregion
-
-    //region > findByAliasedAndAliasType
-    public List<AliasLink> findByAliasedAndAliasType(
-            final Object aliased,
-            final AliasType aliasType) {
-        if(aliased == null) {
-            return null;
-        }
-        if(aliasType == null) {
-            return null;
-        }
-        final Bookmark bookmark = bookmarkService.bookmarkFor(aliased);
-        if(bookmark == null) {
-            return null;
-        }
-        return repositoryService.allMatches(
-                new QueryDefault<>(AliasLink.class,
-                        "findByAliasedAndAtPath",
-                        "aliasedObjectType", bookmark.getObjectType(),
-                        "aliasedIdentifier", bookmark.getIdentifier(),
-                        "aliasTypeId", aliasType.getId()));
-    }
-    //endregion
-
-    //region > findByAliasedAndAtPathAndAliasType
-    public AliasLink findByAliasedAndAtPathAndAliasType(
-            final Object aliased,
-            final String atPath,
-            final AliasType aliasType) {
-        if(aliased == null) {
-            return null;
-        }
-        if(atPath == null) {
-            return null;
-        }
-        if(aliasType == null) {
-            return null;
-        }
-        final Bookmark bookmark = bookmarkService.bookmarkFor(aliased);
-        if(bookmark == null) {
-            return null;
-        }
-        return repositoryService.firstMatch(
-                new QueryDefault<>(AliasLink.class,
-                        "findByAliasedAndAtPathAndAliasType",
-                        "aliasedObjectType", bookmark.getObjectType(),
-                        "aliasedIdentifier", bookmark.getIdentifier(),
-                        "atPath", atPath,
-                        "aliasTypeId", aliasType.getId()));
-    }
-    //endregion
-
     //region > createLink (programmatic)
 
-    public interface LinkProviderSpi {
+    @Programmatic
+    public AliasLink createLink(final Alias alias, final Object aliased) {
+        Class<? extends AliasLink> linkClass = linkClassFor(aliased);
+
+        final AliasLink link = repositoryService.instantiate(linkClass);
+        Bookmark bookmark = bookmarkService.bookmarkFor(aliased);
+
+        link.setAlias(alias);
+
+        link.setAliased(aliased);
+        link.setAliasedIdentifier(bookmark.getIdentifier());
+        link.setAliasedObjectType(bookmark.getObjectType());
+
+        repositoryService.persist(link);
+
+        return link;
+    }
+
+    private Class<? extends AliasLink> linkClassFor(final Object aliased) {
+        Class<?> aliasedDomainClass = aliased.getClass();
+        for (LinkProvider linkProvider : linkProviders) {
+            Class<? extends AliasLink> linkClass = linkProvider.linkFor(aliasedDomainClass);
+            if(linkClass != null) {
+                return linkClass;
+            }
+        }
+        return null;
+    }
+
+    @Inject
+    List<LinkProvider> linkProviders;
+
+    //endregion
+
+    //region > LinkProvider SPI
+
+    public interface LinkProvider {
         Class<? extends AliasLink> linkFor(Class<?> domainObject);
     }
-    public abstract static class LinkProviderAbstract implements AliasLinkRepository.LinkProviderSpi {
+    public abstract static class LinkProviderAbstract implements LinkProvider {
         private final Class<?> aliasedDomainType;
         private final Class<? extends AliasLink> aliasLinkType;
 
@@ -164,61 +123,7 @@ public class AliasLinkRepository {
         }
     }
 
-    @Inject
-    List<LinkProviderSpi> linkProviders;
 
-    @Programmatic
-    public AliasLink createLink(final Alias alias, final Object aliased) {
-        Class<? extends AliasLink> linkClass = linkClassFor(aliased);
-
-        final AliasLink link = repositoryService.instantiate(linkClass);
-        Bookmark bookmark = bookmarkService.bookmarkFor(aliased);
-
-        link.setAliasedIdentifier(bookmark.getIdentifier());
-        link.setAliasedObjectType(bookmark.getObjectType());
-        link.setAliased(aliased);
-
-        sync(alias, link);
-
-        repositoryService.persist(link);
-
-        return link;
-    }
-
-    Class<? extends AliasLink> linkClassFor(final Object aliased) {
-        Class<?> aliasedDomainClass = aliased.getClass();
-        for (LinkProviderSpi linkProvider : linkProviders) {
-            Class<? extends AliasLink> linkClass = linkProvider.linkFor(aliasedDomainClass);
-            if(linkClass != null) {
-                return linkClass;
-            }
-        }
-        return null;
-    }
-
-    //endregion
-
-    //region > updateLink
-    @Programmatic
-    public void updateLink(final Alias alias) {
-        final AliasLink link = findByAlias(alias);
-        sync(alias, link);
-    }
-    //endregion
-
-    //region > helpers (sync)
-
-    /**
-     * copy over details from the {@link Alias#} to the {@link AliasLink} (derived propoerties to support querying).
-     */
-    void sync(final Alias alias, final AliasLink link) {
-        if(link == null) {
-            return;
-        }
-        link.setAlias(alias);
-        link.setAliasTypeId(alias.getAliasTypeId());
-        link.setAtPath(alias.getAtPath());
-    }
     //endregion
 
     //region > injected services

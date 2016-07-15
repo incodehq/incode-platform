@@ -49,38 +49,6 @@ public class AliasRepository {
 
     //endregion
 
-    //region > findByAliasedAndAtPath (programmatic)
-    @Programmatic
-    public List<Alias> findByAliasedAndAtPath(
-            final Object aliased,
-            final String atPath) {
-        final List<AliasLink> links = aliasLinkRepository.findByAliasedAndAtPath(aliased, atPath);
-        return toAliases(links);
-    }
-    //endregion
-
-    //region > findByAliasedAndAliasType (programmatic)
-    @Programmatic
-    public List<Alias> findByAliasedAndAliasType(
-            final Object aliased,
-            final AliasType aliasType) {
-        final List<AliasLink> links = aliasLinkRepository.findByAliasedAndAliasType(aliased, aliasType);
-        return toAliases(links);
-    }
-    //endregion
-
-    //region > findByAliasedAndAtPathAndAliasType (programmatic)
-    @Programmatic
-    public Alias findByAliasedAndAtPathAndAliasType(
-            final Object aliased,
-            final String atPath,
-            final AliasType aliasType) {
-        final AliasLink link = aliasLinkRepository
-                .findByAliasedAndAtPathAndAliasType(aliased, atPath, aliasType);
-        return AliasLink.Functions.alias().apply(link);
-    }
-    //endregion
-
     //region > add (programmatic)
     @Programmatic
     public Alias add(

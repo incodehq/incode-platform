@@ -5,7 +5,6 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 
-import com.google.common.base.Function;
 import com.google.common.eventbus.Subscribe;
 
 import org.apache.isis.applib.AbstractSubscriber;
@@ -61,7 +60,6 @@ import lombok.Setter;
         cssClassUiEvent = Alias.CssClassUiEvent.class
 )
 public class Alias implements Comparable<Alias> {
-
 
     //region > event classes
     public static class TitleUiEvent extends AliasModule.TitleUiEvent<Alias>{}
@@ -201,15 +199,6 @@ public class Alias implements Comparable<Alias> {
             return null;
         }
         return aliasLinkRepository.findByAlias(this);
-    }
-    //endregion
-
-    //region > Functions
-
-    public final static class Functions {
-        private Functions() {}
-        public final static Function<Alias, String> GET_AT_PATH = input -> input.getAtPath();
-        public final static Function<Alias, String> GET_ALIAS_TYPE_ID = input -> input.getAliasTypeId();
     }
     //endregion
 

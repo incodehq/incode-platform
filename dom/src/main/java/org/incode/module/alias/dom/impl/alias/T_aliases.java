@@ -26,7 +26,6 @@ import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.Contributed;
-import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.alias.dom.AliasModule;
@@ -60,8 +59,8 @@ public abstract class T_aliases<T> {
             contributed = Contributed.AS_ASSOCIATION
     )
     @CollectionLayout(
-            named = "Aliases", // regression in isis 1.11.x requires this to be specified
-            render = RenderType.EAGERLY
+            named = "Aliases",
+            defaultView = "table"
     )
     public List<Alias> $$() {
         return aliasRepository.findByAliased(this.aliased);
