@@ -25,14 +25,13 @@ import javax.inject.Inject;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.alias.dom.AliasModule;
 
-@Mixin
-public class Object_removeAlias {
+public abstract class Object_removeAlias<T> {
 
     //region  > (injected)
     @Inject
@@ -40,12 +39,12 @@ public class Object_removeAlias {
     //endregion
 
     //region > constructor
-    private final Object aliased;
-    public Object_removeAlias(final Object aliased) {
+    private final T aliased;
+    public Object_removeAlias(final T aliased) {
         this.aliased = aliased;
     }
 
-    public Object getAliased() {
+    public T getAliased() {
         return aliased;
     }
     //endregion
@@ -60,7 +59,8 @@ public class Object_removeAlias {
     )
     @ActionLayout(
             cssClassFa = "fa-minus",
-            named = "Remove"
+            named = "Remove",
+            contributed = Contributed.AS_ACTION
     )
     @MemberOrder(name = "aliases", sequence = "2")
     public Object $$(final Alias alias) {
@@ -80,9 +80,6 @@ public class Object_removeAlias {
         return firstOf(choices0$$());
     }
 
-    public boolean hide$$() {
-        return !aliasRepository.supports(this.aliased);
-    }
     //endregion
 
 

@@ -28,8 +28,8 @@ import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
@@ -39,8 +39,7 @@ import org.incode.module.alias.dom.spi.AliasType;
 import org.incode.module.alias.dom.spi.AliasTypeRepository;
 import org.incode.module.alias.dom.spi.ApplicationTenancyRepository;
 
-@Mixin
-public class Object_addAlias {
+public abstract class Object_addAlias<T> {
 
     //region  > (injected)
     @Inject
@@ -52,8 +51,8 @@ public class Object_addAlias {
     //endregion
 
     //region > constructor
-    private final Object aliased;
-    public Object_addAlias(final Object aliased) {
+    private final T aliased;
+    public Object_addAlias(final T aliased) {
         this.aliased = aliased;
     }
 
@@ -71,7 +70,8 @@ public class Object_addAlias {
     )
     @ActionLayout(
             cssClassFa = "fa-plus",
-            named = "Add"
+            named = "Add",
+            contributed = Contributed.AS_ACTION
     )
     @MemberOrder(name = "aliases", sequence = "1")
     public Object $$(
@@ -112,9 +112,6 @@ public class Object_addAlias {
         return combined;
     }
 
-    public boolean hide$$() {
-        return !aliasRepository.supports(this.aliased);
-    }
 
     //endregion
 

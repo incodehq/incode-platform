@@ -21,6 +21,7 @@ package org.incode.module.alias.dom.impl.aliaslink;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.NotPersistent;
 
 import com.google.common.base.Function;
 
@@ -28,8 +29,6 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
-
-import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 
 import org.incode.module.alias.dom.AliasModule;
 import org.incode.module.alias.dom.impl.alias.Alias;
@@ -115,8 +114,7 @@ import lombok.Setter;
 @DomainObject(
         objectType = "incodeAlias.AliasLink"
 )
-public abstract class AliasLink
-        extends PolymorphicAssociationLink<Alias, Object, AliasLink> {
+public abstract class AliasLink {
 
     //region > event classes
     public static abstract class PropertyDomainEvent<T> extends AliasModule.PropertyDomainEvent<AliasLink, T> { }
@@ -124,76 +122,23 @@ public abstract class AliasLink
     public static abstract class ActionDomainEvent extends AliasModule.ActionDomainEvent<AliasLink> { }
     //endregion
 
-    //region > instantiateEvent (poly pattern)
-    public static class InstantiateEvent
-            extends PolymorphicAssociationLink.InstantiateEvent<Alias, Object, AliasLink> {
-
-        public InstantiateEvent(final Object source, final Alias subject, final Object aliased) {
-            super(AliasLink.class, source, subject, aliased);
-        }
-    }
-    //endregion
-
     //region > constructor
     public AliasLink() {
-        super("{polymorphicReference} has {subject}");
+        //super("{polymorphicReference} has {subject}");
     }
     //endregion
-
-    //region > SubjectPolymorphicReferenceLink API
-
-    /**
-     * The subject of the pattern, namely the {@link #getAlias() alias}.
-     */
-    @Override
-    @Programmatic
-    public Alias getSubject() {
-        return this.getAlias();
-    }
-
-    @Override
-    @Programmatic
-    public void setSubject(final Alias subject) {
-        this.setAlias(subject);
-    }
-
-    @Override
-    @Programmatic
-    public String getPolymorphicObjectType() {
-        return getAliasedObjectType();
-    }
-
-    @Override
-    @Programmatic
-    public void setPolymorphicObjectType(final String polymorphicObjectType) {
-        setAliasedObjectType(polymorphicObjectType);
-    }
-
-    @Override
-    @Programmatic
-    public String getPolymorphicIdentifier() {
-        return getAliasedIdentifier();
-    }
-
-    @Override
-    @Programmatic
-    public void setPolymorphicIdentifier(final String polymorphicIdentifier) {
-        setAliasedIdentifier(polymorphicIdentifier);
-    }
-    //endregion
-
 
     public static class AliasDomainEvent extends PropertyDomainEvent<Alias> { }
+    public static class AliasedObjectTypeDomainEvent extends PropertyDomainEvent<String> { }
+
     @Getter @Setter
-    @javax.jdo.annotations.Column(allowsNull = "false", name = "aliasRef")
+    @javax.jdo.annotations.Column(allowsNull = "false", name = "aliasId")
     @Property(
             domainEvent = AliasDomainEvent.class,
             editing = Editing.DISABLED
     )
     private Alias alias;
 
-
-    public static class AliasedObjectTypeDomainEvent extends PropertyDomainEvent<String> { }
     @Getter @Setter
     @javax.jdo.annotations.Column(allowsNull = "false", length = 255)
     @Property(
@@ -239,15 +184,11 @@ public abstract class AliasLink
     private String aliasTypeId;
 
 
-    //region > aliased (derived property)
-    /**
-     * Simply returns the {@link #getPolymorphicReference()}.
-     */
+    @NotPersistent
     @Programmatic
-    public Object getAliased() {
-        return getPolymorphicReference();
-    }
-    //endregion
+    public abstract Object getAliased();
+    protected abstract void setAliased(final Object aliased);
+
 
     //region > Functions
     public static class Functions {
@@ -269,6 +210,5 @@ public abstract class AliasLink
         }
     }
     //endregion
-
 
 }

@@ -26,14 +26,12 @@ import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.Contributed;
-import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.alias.dom.AliasModule;
 
-@Mixin
-public class Object_aliases {
+public abstract class Object_aliases<T> {
 
     //region  > (injected)
     @Inject
@@ -41,12 +39,12 @@ public class Object_aliases {
     //endregion
 
     //region > constructor
-    private final Object aliased;
-    public Object_aliases(final Object aliased) {
+    private final T aliased;
+    public Object_aliases(final T aliased) {
         this.aliased = aliased;
     }
 
-    public Object getAliased() {
+    public T getAliased() {
         return aliased;
     }
     //endregion
@@ -69,9 +67,6 @@ public class Object_aliases {
         return aliasRepository.findByAliased(this.aliased);
     }
 
-    public boolean hide$$() {
-        return !aliasRepository.supports(this.aliased);
-    }
     //endregion
 
 

@@ -22,16 +22,16 @@ import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
 
-import com.google.common.eventbus.Subscribe;
-
-import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.Programmatic;
 
+import org.incode.module.alias.dom.impl.alias.Object_addAlias;
+import org.incode.module.alias.dom.impl.alias.Object_aliases;
+import org.incode.module.alias.dom.impl.alias.Object_removeAlias;
 import org.incode.module.alias.dom.impl.aliaslink.AliasLink;
+import org.incode.module.alias.dom.impl.aliaslink.AliasLinkRepository;
 import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasDemoObject;
 
 @javax.jdo.annotations.PersistenceCapable(
@@ -44,25 +44,44 @@ import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasDemoObject;
 )
 public class AliasLinkForDemoObject extends AliasLink {
 
-    //region > instantiationSubscriber, setPolymorphicReference
     @DomainService(nature = NatureOfService.DOMAIN)
-    @DomainServiceLayout(menuOrder = "1")
-    public static class InstantiationSubscriber extends AbstractSubscriber {
-        @Programmatic
-        @Subscribe
-        public void on(final InstantiateEvent ev) {
-            if(ev.getPolymorphicReference() instanceof AliasDemoObject) {
-                ev.setSubtype(AliasLinkForDemoObject.class);
-            }
+    public static class LinkProvider extends AliasLinkRepository.LinkProviderAbstract {
+        public LinkProvider() {
+            super(AliasDemoObject.class, AliasLinkForDemoObject.class);
         }
     }
 
-    @Override
-    public void setPolymorphicReference(final Object polymorphicReference) {
-        super.setPolymorphicReference(polymorphicReference);
-        setDemoObject((AliasDemoObject) polymorphicReference);
+    @Mixin
+    public static class _addAlias extends Object_addAlias<AliasDemoObject> {
+        public _addAlias(final AliasDemoObject aliased) {
+            super(aliased);
+        }
     }
-    //endregion
+
+    @Mixin
+    public static class _aliases extends Object_aliases<AliasDemoObject> {
+        public _aliases(final AliasDemoObject aliased) {
+            super(aliased);
+        }
+    }
+
+    @Mixin
+    public static class _removeAlias extends Object_removeAlias<AliasDemoObject> {
+        public _removeAlias(final AliasDemoObject aliased) {
+            super(aliased);
+        }
+    }
+
+
+    @Override
+    public Object getAliased() {
+        return getDemoObject();
+    }
+
+    @Override
+    protected void setAliased(final Object aliased) {
+        setDemoObject((AliasDemoObject) aliased);
+    }
 
     //region > demoObject (property)
     private AliasDemoObject demoObject;

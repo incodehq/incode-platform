@@ -83,11 +83,6 @@ public class AliasRepository {
 
     //region > add (programmatic)
     @Programmatic
-    public boolean supports(final Object aliased) {
-        return aliasLinkRepository.supports(aliased);
-    }
-
-    @Programmatic
     public Alias add(
             final Object aliased,
             final String atPath,

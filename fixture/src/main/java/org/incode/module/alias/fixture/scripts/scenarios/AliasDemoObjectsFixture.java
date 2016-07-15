@@ -21,6 +21,7 @@ import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.incode.module.alias.dom.impl.alias.Object_addAlias;
 import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasDemoObject;
 import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasDemoObjectMenu;
+import org.incode.module.alias.fixture.dom.aliaslink.AliasLinkForDemoObject;
 import org.incode.module.alias.fixture.dom.aliastype.AliasTypeDemoEnum;
 import org.incode.module.alias.fixture.scripts.teardown.AliasDemoObjectsTearDownFixture;
 
@@ -39,7 +40,7 @@ public class AliasDemoObjectsFixture extends DiscoverableFixtureScript {
 
     //region > mixins
     Object_addAlias mixinAddAlias(final Object aliased) {
-        return container.mixin(Object_addAlias.class, aliased);
+        return container.mixin(AliasLinkForDemoObject._addAlias.class, aliased);
     }
     //endregion
 

@@ -180,7 +180,7 @@ public class Alias implements Comparable<Alias> {
     )
     public Object getAliased() {
         final AliasLink link = getAliasLink();
-        return link != null? link.getPolymorphicReference(): null;
+        return link != null? link.getAliased(): null;
     }
 
     @Programmatic

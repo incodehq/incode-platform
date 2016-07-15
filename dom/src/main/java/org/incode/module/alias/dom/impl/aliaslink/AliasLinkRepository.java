@@ -20,7 +20,7 @@ package org.incode.module.alias.dom.impl.aliaslink;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -31,8 +31,6 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
-import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
-
 import org.incode.module.alias.dom.spi.AliasType;
 import org.incode.module.alias.dom.impl.alias.Alias;
 
@@ -41,23 +39,6 @@ import org.incode.module.alias.dom.impl.alias.Alias;
         repositoryFor = AliasLink.class
 )
 public class AliasLinkRepository {
-
-    //region > init
-    PolymorphicAssociationLink.Factory<Alias,Object,AliasLink,AliasLink.InstantiateEvent> linkFactory;
-
-    @PostConstruct
-    public void init() {
-        linkFactory = serviceRegistry.injectServicesInto(
-                new PolymorphicAssociationLink.Factory<>(
-                        this,
-                        Alias.class,
-                        Object.class,
-                        AliasLink.class,
-                        AliasLink.InstantiateEvent.class
-                ));
-
-    }
-    //endregion
 
     //region > findByAlias (programmatic)
     @Programmatic
@@ -165,18 +146,54 @@ public class AliasLinkRepository {
 
     //region > createLink (programmatic)
 
-    @Programmatic
-    public boolean supports(final Object classifiable) {
-        return linkFactory.supportsLink(classifiable);
+    public interface LinkProviderSpi {
+        Class<? extends AliasLink> linkFor(Class<?> domainObject);
     }
+    public abstract static class LinkProviderAbstract implements AliasLinkRepository.LinkProviderSpi {
+        private final Class<?> aliasedDomainType;
+        private final Class<? extends AliasLink> aliasLinkType;
+
+        protected LinkProviderAbstract(final Class<?> aliasedDomainType, final Class<? extends AliasLink> aliasLinkType) {
+            this.aliasedDomainType = aliasedDomainType;
+            this.aliasLinkType = aliasLinkType;
+        }
+
+        @Override
+        public Class<? extends AliasLink> linkFor(final Class<?> domainType) {
+            return domainType.isAssignableFrom(aliasedDomainType) ? aliasLinkType: null;
+        }
+    }
+
+    @Inject
+    List<LinkProviderSpi> linkProviders;
 
     @Programmatic
     public AliasLink createLink(final Alias alias, final Object aliased) {
-        final AliasLink link = linkFactory.createLink(alias, aliased);
+        Class<? extends AliasLink> linkClass = linkClassFor(aliased);
+
+        final AliasLink link = repositoryService.instantiate(linkClass);
+        Bookmark bookmark = bookmarkService.bookmarkFor(aliased);
+
+        link.setAliasedIdentifier(bookmark.getIdentifier());
+        link.setAliasedObjectType(bookmark.getObjectType());
+        link.setAliased(aliased);
 
         sync(alias, link);
 
+        repositoryService.persist(link);
+
         return link;
+    }
+
+    Class<? extends AliasLink> linkClassFor(final Object aliased) {
+        Class<?> aliasedDomainClass = aliased.getClass();
+        for (LinkProviderSpi linkProvider : linkProviders) {
+            Class<? extends AliasLink> linkClass = linkProvider.linkFor(aliasedDomainClass);
+            if(linkClass != null) {
+                return linkClass;
+            }
+        }
+        return null;
     }
 
     //endregion
@@ -198,6 +215,7 @@ public class AliasLinkRepository {
         if(link == null) {
             return;
         }
+        link.setAlias(alias);
         link.setAliasTypeId(alias.getAliasTypeId());
         link.setAtPath(alias.getAtPath());
     }
