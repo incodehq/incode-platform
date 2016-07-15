@@ -24,15 +24,15 @@ import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasDemoObject;
-import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasDemoObjectMenu;
+import org.incode.module.alias.fixture.dom.demo.DemoObject;
+import org.incode.module.alias.fixture.dom.demo.DemoObjectMenu;
 import org.incode.module.alias.fixture.scripts.scenarios.AliasDemoObjectsFixture;
 import org.incode.module.alias.integtests.AliasModuleIntegTest;
 
-public class AliasDemoObjectMenuTest extends AliasModuleIntegTest {
+public class DemoObjectMenuTest extends AliasModuleIntegTest {
 
     @Inject
-    AliasDemoObjectMenu aliasDemoObjectMenu;
+    DemoObjectMenu demoObjectMenu;
 
     @Before
     public void setUpData() throws Exception {
@@ -42,19 +42,19 @@ public class AliasDemoObjectMenuTest extends AliasModuleIntegTest {
     @Test
     public void listAll() throws Exception {
 
-        final List<AliasDemoObject> all = wrap(aliasDemoObjectMenu).listAll();
+        final List<DemoObject> all = wrap(demoObjectMenu).listAll();
         Assertions.assertThat(all.size()).isEqualTo(3);
         
-        AliasDemoObject aliasDemoObject = wrap(all.get(0));
-        Assertions.assertThat(aliasDemoObject.getName()).isEqualTo("Foo");
+        DemoObject demoObject = wrap(all.get(0));
+        Assertions.assertThat(demoObject.getName()).isEqualTo("Foo");
     }
     
     @Test
     public void create() throws Exception {
 
-        wrap(aliasDemoObjectMenu).create("Faz");
+        wrap(demoObjectMenu).create("Faz");
         
-        final List<AliasDemoObject> all = wrap(aliasDemoObjectMenu).listAll();
+        final List<DemoObject> all = wrap(demoObjectMenu).listAll();
         Assertions.assertThat(all.size()).isEqualTo(4);
     }
 

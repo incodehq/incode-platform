@@ -16,23 +16,15 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.alias.fixture.dom.aliaslink;
+package org.incode.module.alias.fixture.dom.alias;
+
+import org.apache.isis.applib.annotation.*;
+import org.incode.module.alias.dom.impl.*;
+import org.incode.module.alias.fixture.dom.demo.DemoObject;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
-
-import org.apache.isis.applib.annotation.DomainObject;
-import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.Mixin;
-import org.apache.isis.applib.annotation.NatureOfService;
-
-import org.incode.module.alias.dom.impl.alias.T_addAlias;
-import org.incode.module.alias.dom.impl.alias.T_aliases;
-import org.incode.module.alias.dom.impl.alias.T_removeAlias;
-import org.incode.module.alias.dom.impl.aliaslink.AliasLink;
-import org.incode.module.alias.dom.impl.aliaslink.AliasLinkRepository;
-import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasDemoObject;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType= IdentityType.DATASTORE,
@@ -40,22 +32,25 @@ import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasDemoObject;
 @javax.jdo.annotations.Inheritance(
         strategy = InheritanceStrategy.NEW_TABLE)
 @DomainObject(
-        objectType = "aliasdemo.AliasLinkForDemoObject"
+        objectType = "aliasdemo.AliasForDemoObject"
 )
-public class AliasLinkForDemoObject extends AliasLink {
+public class AliasForDemoObject extends Alias {
 
     //region > demoObject (property)
-    private AliasDemoObject demoObject;
+    private DemoObject demoObject;
 
     @Column(
             allowsNull = "false",
             name = "demoObjectId"
     )
-    public AliasDemoObject getDemoObject() {
+    @Property(
+            editing = Editing.DISABLED
+    )
+    public DemoObject getDemoObject() {
         return demoObject;
     }
 
-    public void setDemoObject(final AliasDemoObject demoObject) {
+    public void setDemoObject(final DemoObject demoObject) {
         this.demoObject = demoObject;
     }
     //endregion
@@ -68,16 +63,16 @@ public class AliasLinkForDemoObject extends AliasLink {
 
     @Override
     protected void setAliased(final Object aliased) {
-        setDemoObject((AliasDemoObject) aliased);
+        setDemoObject((DemoObject) aliased);
     }
     //endregion
 
     //region > LinkProvider SPI implementation
 
     @DomainService(nature = NatureOfService.DOMAIN)
-    public static class LinkProvider extends AliasLinkRepository.LinkProviderAbstract {
+    public static class LinkProvider extends AliasRepository.LinkProviderAbstract {
         public LinkProvider() {
-            super(AliasDemoObject.class, AliasLinkForDemoObject.class);
+            super(DemoObject.class, AliasForDemoObject.class);
         }
     }
     //endregion
@@ -85,22 +80,22 @@ public class AliasLinkForDemoObject extends AliasLink {
     //region > mixins
 
     @Mixin
-    public static class _aliases extends T_aliases<AliasDemoObject> {
-        public _aliases(final AliasDemoObject aliased) {
+    public static class _aliases extends T_aliases<DemoObject> {
+        public _aliases(final DemoObject aliased) {
             super(aliased);
         }
     }
 
     @Mixin
-    public static class _addAlias extends T_addAlias<AliasDemoObject> {
-        public _addAlias(final AliasDemoObject aliased) {
+    public static class _addAlias extends T_addAlias<DemoObject> {
+        public _addAlias(final DemoObject aliased) {
             super(aliased);
         }
     }
 
     @Mixin
-    public static class _removeAlias extends T_removeAlias<AliasDemoObject> {
-        public _removeAlias(final AliasDemoObject aliased) {
+    public static class _removeAlias extends T_removeAlias<DemoObject> {
+        public _removeAlias(final DemoObject aliased) {
             super(aliased);
         }
     }

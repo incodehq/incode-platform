@@ -16,37 +16,33 @@
  */
 package org.incode.module.alias.integtests.alias;
 
+import com.google.common.eventbus.Subscribe;
+import org.apache.isis.applib.AbstractSubscriber;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.incode.module.alias.dom.impl.Alias;
+import org.incode.module.alias.dom.impl.T_addAlias;
+import org.incode.module.alias.dom.spi.AliasType;
+import org.incode.module.alias.dom.spi.AliasTypeRepository;
+import org.incode.module.alias.dom.spi.ApplicationTenancyRepository;
+import org.incode.module.alias.fixture.dom.demo.DemoObjectMenu;
+import org.incode.module.alias.fixture.scripts.teardown.AliasDemoObjectsTearDownFixture;
+import org.incode.module.alias.integtests.AliasModuleIntegTest;
+import org.junit.Before;
+import org.junit.Test;
+
+import javax.inject.Inject;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-
-import javax.inject.Inject;
-
-import com.google.common.eventbus.Subscribe;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import org.apache.isis.applib.AbstractSubscriber;
-import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.NatureOfService;
-
-import org.incode.module.alias.dom.impl.alias.T_addAlias;
-import org.incode.module.alias.dom.spi.AliasType;
-import org.incode.module.alias.dom.impl.alias.Alias;
-import org.incode.module.alias.dom.spi.AliasTypeRepository;
-import org.incode.module.alias.dom.spi.ApplicationTenancyRepository;
-import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasDemoObjectMenu;
-import org.incode.module.alias.fixture.scripts.teardown.AliasDemoObjectsTearDownFixture;
-import org.incode.module.alias.integtests.AliasModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class T_addAlias_IntegTest extends AliasModuleIntegTest {
 
     @Inject
-    AliasDemoObjectMenu aliasDemoObjectMenu;
+    DemoObjectMenu demoObjectMenu;
 
     @Inject
     AliasTypeRepository aliasTypeRepository;
@@ -60,7 +56,7 @@ public class T_addAlias_IntegTest extends AliasModuleIntegTest {
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new AliasDemoObjectsTearDownFixture(), null);
 
-        aliased = wrap(aliasDemoObjectMenu).create("Foo");
+        aliased = wrap(demoObjectMenu).create("Foo");
     }
 
     public static class ActionImplementationIntegTest extends T_addAlias_IntegTest {

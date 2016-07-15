@@ -16,28 +16,19 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.alias.dom.impl.alias;
-
-import java.util.Collection;
-import java.util.List;
-
-import javax.inject.Inject;
+package org.incode.module.alias.dom.impl;
 
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Lists;
-
-import org.apache.isis.applib.annotation.Action;
-import org.apache.isis.applib.annotation.ActionLayout;
-import org.apache.isis.applib.annotation.Contributed;
-import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Parameter;
-import org.apache.isis.applib.annotation.ParameterLayout;
-import org.apache.isis.applib.annotation.SemanticsOf;
-
+import org.apache.isis.applib.annotation.*;
 import org.incode.module.alias.dom.AliasModule;
 import org.incode.module.alias.dom.spi.AliasType;
 import org.incode.module.alias.dom.spi.AliasTypeRepository;
 import org.incode.module.alias.dom.spi.ApplicationTenancyRepository;
+
+import javax.inject.Inject;
+import java.util.Collection;
+import java.util.List;
 
 public abstract class T_addAlias<T> {
 
@@ -52,6 +43,7 @@ public abstract class T_addAlias<T> {
 
     //region > constructor
     private final T aliased;
+
     public T_addAlias(final T aliased) {
         this.aliased = aliased;
     }
@@ -82,7 +74,7 @@ public abstract class T_addAlias<T> {
             @Parameter(maxLength = AliasModule.JdoColumnLength.ALIAS_REFERENCE)
             @ParameterLayout(named = "Alias reference")
             final String alias) {
-        aliasRepository.add(this.aliased, applicationTenancyPath, aliasType, alias);
+        aliasRepository.create(this.aliased, applicationTenancyPath, aliasType, alias);
         return this.aliased;
     }
 

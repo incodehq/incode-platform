@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.alias.fixture.dom.aliasdemoobject;
+package org.incode.module.alias.fixture.dom.demo;
 
 import java.util.List;
 import org.apache.isis.applib.DomainObjectContainer;
@@ -30,12 +30,12 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
         nature = NatureOfService.VIEW,
-        repositoryFor = AliasDemoObject.class
+        repositoryFor = DemoObject.class
 )
 @DomainServiceLayout(
         menuOrder = "10"
 )
-public class AliasDemoObjectMenu {
+public class DemoObjectMenu {
 
 
     //region > listAll (action)
@@ -47,8 +47,8 @@ public class AliasDemoObjectMenu {
             bookmarking = BookmarkPolicy.AS_ROOT
     )
     @MemberOrder(sequence = "1")
-    public List<AliasDemoObject> listAll() {
-        return container.allInstances(AliasDemoObject.class);
+    public List<DemoObject> listAll() {
+        return container.allInstances(DemoObject.class);
     }
 
     //endregion
@@ -56,10 +56,10 @@ public class AliasDemoObjectMenu {
     //region > create (action)
     
     @MemberOrder(sequence = "2")
-    public AliasDemoObject create(
+    public DemoObject create(
             @ParameterLayout(named = "Name")
             final String name) {
-        final AliasDemoObject obj = container.newTransientInstance(AliasDemoObject.class);
+        final DemoObject obj = container.newTransientInstance(DemoObject.class);
         obj.setName(name);
         container.persistIfNotAlready(obj);
         return obj;

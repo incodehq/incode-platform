@@ -54,3 +54,7 @@ tr.Alias-nl {
 tr.Alias-uk {
     color: chocolate;
 }
+
+.entityPage.org-incode-module-alias-fixture-dom-alias-AliasForDemoObject .alias-col {
+    padding-top: 41px;
+}

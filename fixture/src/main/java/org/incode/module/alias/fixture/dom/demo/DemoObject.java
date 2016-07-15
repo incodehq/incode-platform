@@ -14,17 +14,13 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.alias.fixture.dom.aliasdemoobject;
+package org.incode.module.alias.fixture.dom.demo;
+
+import org.apache.isis.applib.annotation.*;
+import org.apache.isis.applib.util.ObjectContracts;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
-
-import org.apache.isis.applib.annotation.BookmarkPolicy;
-import org.apache.isis.applib.annotation.DomainObject;
-import org.apache.isis.applib.annotation.DomainObjectLayout;
-import org.apache.isis.applib.annotation.Editing;
-import org.apache.isis.applib.annotation.Title;
-import org.apache.isis.applib.util.ObjectContracts;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
@@ -36,13 +32,13 @@ import org.apache.isis.applib.util.ObjectContracts;
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
 @DomainObject(
-        objectType = "aliasdemo.AliasDemoObject",
+        objectType = "aliasdemo.DemoObject",
         editing = Editing.DISABLED
 )
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
 )
-public class AliasDemoObject implements Comparable<AliasDemoObject> {
+public class DemoObject implements Comparable<DemoObject> {
 
     //region > name (property)
     
@@ -68,7 +64,7 @@ public class AliasDemoObject implements Comparable<AliasDemoObject> {
     }
 
     @Override
-    public int compareTo(final AliasDemoObject other) {
+    public int compareTo(final DemoObject other) {
         return ObjectContracts.compare(this, other, "name");
     }
 

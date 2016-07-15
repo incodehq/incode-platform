@@ -16,11 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.alias.dom.impl.aliaslink;
-
-import java.util.List;
-
-import javax.inject.Inject;
+package org.incode.module.alias.dom.impl;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -30,28 +26,20 @@ import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.repository.RepositoryService;
+import org.incode.module.alias.dom.spi.AliasType;
 
-import org.incode.module.alias.dom.impl.alias.Alias;
+import javax.inject.Inject;
+import java.util.List;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
-        repositoryFor = AliasLink.class
+        repositoryFor = Alias.class
 )
-public class AliasLinkRepository {
-
-    //region > findByAlias (programmatic)
-    @Programmatic
-    public AliasLink findByAlias(final Alias alias) {
-        return repositoryService.firstMatch(
-                new QueryDefault<>(AliasLink.class,
-                        "findByAlias",
-                        "alias", alias));
-    }
-    //endregion
+public class AliasRepository {
 
     //region > findByAliased (programmatic)
     @Programmatic
-    public List<AliasLink> findByAliased(final Object aliased) {
+    public List<Alias> findByAliased(final Object aliased) {
         if(aliased == null) {
             return null;
         }
@@ -60,24 +48,30 @@ public class AliasLinkRepository {
             return null;
         }
         return repositoryService.allMatches(
-                new QueryDefault<>(AliasLink.class,
+                new QueryDefault<>(Alias.class,
                         "findByAliased",
                         "aliasedObjectType", bookmark.getObjectType(),
                         "aliasedIdentifier", bookmark.getIdentifier()));
     }
     //endregion
 
-    //region > createLink (programmatic)
-
+    //region > create (programmatic)
     @Programmatic
-    public AliasLink createLink(final Alias alias, final Object aliased) {
-        Class<? extends AliasLink> linkClass = linkClassFor(aliased);
+    public Alias create(
+            final Object aliased,
+            final String atPath,
+            final AliasType aliasType,
+            final String aliasReference) {
 
-        final AliasLink link = repositoryService.instantiate(linkClass);
-        Bookmark bookmark = bookmarkService.bookmarkFor(aliased);
+        Class<? extends Alias> linkClass = linkClassFor(aliased);
 
-        link.setAlias(alias);
+        final Alias link = repositoryService.instantiate(linkClass);
 
+        link.setAtPath(atPath);
+        link.setAliasTypeId(aliasType.getId());
+        link.setReference(aliasReference);
+
+        final Bookmark bookmark = bookmarkService.bookmarkFor(aliased);
         link.setAliased(aliased);
         link.setAliasedIdentifier(bookmark.getIdentifier());
         link.setAliasedObjectType(bookmark.getObjectType());
@@ -87,10 +81,10 @@ public class AliasLinkRepository {
         return link;
     }
 
-    private Class<? extends AliasLink> linkClassFor(final Object aliased) {
+    private Class<? extends Alias> linkClassFor(final Object aliased) {
         Class<?> aliasedDomainClass = aliased.getClass();
         for (LinkProvider linkProvider : linkProviders) {
-            Class<? extends AliasLink> linkClass = linkProvider.linkFor(aliasedDomainClass);
+            Class<? extends Alias> linkClass = linkProvider.linkFor(aliasedDomainClass);
             if(linkClass != null) {
                 return linkClass;
             }
@@ -98,31 +92,35 @@ public class AliasLinkRepository {
         return null;
     }
 
-    @Inject
-    List<LinkProvider> linkProviders;
-
     //endregion
+
+    //region > remove (programmatic)
+    @Programmatic
+    public void remove(Alias alias) {
+        repositoryService.removeAndFlush(alias);
+    }
+    //endregion
+
 
     //region > LinkProvider SPI
 
     public interface LinkProvider {
-        Class<? extends AliasLink> linkFor(Class<?> domainObject);
+        Class<? extends Alias> linkFor(Class<?> domainObject);
     }
     public abstract static class LinkProviderAbstract implements LinkProvider {
         private final Class<?> aliasedDomainType;
-        private final Class<? extends AliasLink> aliasLinkType;
+        private final Class<? extends Alias> aliasLinkType;
 
-        protected LinkProviderAbstract(final Class<?> aliasedDomainType, final Class<? extends AliasLink> aliasLinkType) {
+        protected LinkProviderAbstract(final Class<?> aliasedDomainType, final Class<? extends Alias> aliasLinkType) {
             this.aliasedDomainType = aliasedDomainType;
             this.aliasLinkType = aliasLinkType;
         }
 
         @Override
-        public Class<? extends AliasLink> linkFor(final Class<?> domainType) {
+        public Class<? extends Alias> linkFor(final Class<?> domainType) {
             return domainType.isAssignableFrom(aliasedDomainType) ? aliasLinkType: null;
         }
     }
-
 
     //endregion
 
@@ -135,6 +133,9 @@ public class AliasLinkRepository {
 
     @javax.inject.Inject
     BookmarkService bookmarkService;
+
+    @Inject
+    List<LinkProvider> linkProviders;
 
     //endregion
 

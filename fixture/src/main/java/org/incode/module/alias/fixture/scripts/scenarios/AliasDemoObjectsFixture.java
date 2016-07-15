@@ -18,18 +18,18 @@ package org.incode.module.alias.fixture.scripts.scenarios;
 
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
-import org.incode.module.alias.dom.impl.alias.T_addAlias;
-import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasDemoObject;
-import org.incode.module.alias.fixture.dom.aliasdemoobject.AliasDemoObjectMenu;
-import org.incode.module.alias.fixture.dom.aliaslink.AliasLinkForDemoObject;
+import org.incode.module.alias.dom.impl.T_addAlias;
+import org.incode.module.alias.fixture.dom.alias.AliasForDemoObject;
 import org.incode.module.alias.fixture.dom.aliastype.AliasTypeDemoEnum;
+import org.incode.module.alias.fixture.dom.demo.DemoObject;
+import org.incode.module.alias.fixture.dom.demo.DemoObjectMenu;
 import org.incode.module.alias.fixture.scripts.teardown.AliasDemoObjectsTearDownFixture;
 
 public class AliasDemoObjectsFixture extends DiscoverableFixtureScript {
 
     //region > injected services
     @javax.inject.Inject
-    AliasDemoObjectMenu aliasDemoObjectMenu;
+    DemoObjectMenu demoObjectMenu;
     //endregion
 
     //region > constructor
@@ -40,7 +40,7 @@ public class AliasDemoObjectsFixture extends DiscoverableFixtureScript {
 
     //region > mixins
     T_addAlias mixinAddAlias(final Object aliased) {
-        return container.mixin(AliasLinkForDemoObject._addAlias.class, aliased);
+        return container.mixin(AliasForDemoObject._addAlias.class, aliased);
     }
     //endregion
 
@@ -50,15 +50,15 @@ public class AliasDemoObjectsFixture extends DiscoverableFixtureScript {
         // prereqs
         executionContext.executeChild(this, new AliasDemoObjectsTearDownFixture());
 
-        final AliasDemoObject foo = create("Foo", executionContext);
+        final DemoObject foo = create("Foo", executionContext);
         wrap(mixinAddAlias(foo)).$$("/uk", AliasTypeDemoEnum.GENERAL_LEDGER, "12345");
         wrap(mixinAddAlias(foo)).$$("/uk", AliasTypeDemoEnum.DOCUMENT_MANAGEMENT, "http://docserver.mycompany/url/12345");
         wrap(mixinAddAlias(foo)).$$("/uk", AliasTypeDemoEnum.PERSONNEL_SYSTEM, "12345");
 
-        final AliasDemoObject bar = create("Bar", executionContext);
+        final DemoObject bar = create("Bar", executionContext);
         wrap(mixinAddAlias(bar)).$$("/uk", AliasTypeDemoEnum.GENERAL_LEDGER, "98765");
 
-        final AliasDemoObject baz = create("Baz", executionContext);
+        final DemoObject baz = create("Baz", executionContext);
         wrap(mixinAddAlias(bar)).$$("/nl", AliasTypeDemoEnum.GENERAL_LEDGER, "12345");
         wrap(mixinAddAlias(foo)).$$("/nl", AliasTypeDemoEnum.DOCUMENT_MANAGEMENT, "http://docserver.mycompany/url/12345");
     }
@@ -66,11 +66,11 @@ public class AliasDemoObjectsFixture extends DiscoverableFixtureScript {
 
     // //////////////////////////////////////
 
-    private AliasDemoObject create(
+    private DemoObject create(
             final String name,
             final ExecutionContext executionContext) {
 
-        return executionContext.addResult(this, wrap(aliasDemoObjectMenu).create(name));
+        return executionContext.addResult(this, wrap(demoObjectMenu).create(name));
     }
 
 

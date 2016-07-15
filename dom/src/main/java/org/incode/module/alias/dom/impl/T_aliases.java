@@ -16,19 +16,13 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.alias.dom.impl.alias;
+package org.incode.module.alias.dom.impl;
 
-import java.util.List;
+import org.apache.isis.applib.annotation.*;
+import org.incode.module.alias.dom.AliasModule;
 
 import javax.inject.Inject;
-
-import org.apache.isis.applib.annotation.Action;
-import org.apache.isis.applib.annotation.ActionLayout;
-import org.apache.isis.applib.annotation.CollectionLayout;
-import org.apache.isis.applib.annotation.Contributed;
-import org.apache.isis.applib.annotation.SemanticsOf;
-
-import org.incode.module.alias.dom.AliasModule;
+import java.util.List;
 
 public abstract class T_aliases<T> {
 
@@ -39,6 +33,7 @@ public abstract class T_aliases<T> {
 
     //region > constructor
     private final T aliased;
+
     public T_aliases(final T aliased) {
         this.aliased = aliased;
     }

@@ -40,9 +40,7 @@ import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
 import org.incode.module.alias.app.AliasModuleAppManifest;
-import org.incode.module.alias.dom.impl.alias.Alias;
-import org.incode.module.alias.dom.impl.alias.Alias_remove;
-import org.incode.module.alias.fixture.dom.aliaslink.AliasLinkForDemoObject;
+import org.incode.module.alias.fixture.dom.alias.AliasForDemoObject;
 
 public abstract class AliasModuleIntegTest extends IntegrationTestAbstract {
 
@@ -56,19 +54,15 @@ public abstract class AliasModuleIntegTest extends IntegrationTestAbstract {
     protected FakeDataService fakeData;
 
 
-    protected AliasLinkForDemoObject._addAlias mixinAddAlias(final Object aliased) {
-        return mixin(AliasLinkForDemoObject._addAlias.class, aliased);
+    protected AliasForDemoObject._addAlias mixinAddAlias(final Object aliased) {
+        return mixin(AliasForDemoObject._addAlias.class, aliased);
     }
-    protected AliasLinkForDemoObject._removeAlias mixinRemoveAlias(final Object aliased) {
-        return mixin(AliasLinkForDemoObject._removeAlias.class, aliased);
-    }
-
-    protected AliasLinkForDemoObject._aliases mixinAliases(final Object aliased) {
-        return mixin(AliasLinkForDemoObject._aliases.class, aliased);
+    protected AliasForDemoObject._removeAlias mixinRemoveAlias(final Object aliased) {
+        return mixin(AliasForDemoObject._removeAlias.class, aliased);
     }
 
-    protected Alias_remove mixinRemove(final Alias alias) {
-        return mixin(Alias_remove.class, alias);
+    protected AliasForDemoObject._aliases mixinAliases(final Object aliased) {
+        return mixin(AliasForDemoObject._aliases.class, aliased);
     }
 
     protected static <T> List<T> asList(final Iterable<T> iterable) {
