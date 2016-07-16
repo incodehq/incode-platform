@@ -63,33 +63,35 @@ public class AliasRepository {
             final AliasType aliasType,
             final String aliasReference) {
 
-        Class<? extends Alias> linkClass = linkClassFor(aliased);
+        Class<? extends Alias> aliasSubtype = subtypeClassFor(aliased);
 
-        final Alias link = repositoryService.instantiate(linkClass);
+        final Alias alias = repositoryService.instantiate(aliasSubtype);
 
-        link.setAtPath(atPath);
-        link.setAliasTypeId(aliasType.getId());
-        link.setReference(aliasReference);
+        alias.setAtPath(atPath);
+        alias.setAliasTypeId(aliasType.getId());
+        alias.setReference(aliasReference);
 
         final Bookmark bookmark = bookmarkService.bookmarkFor(aliased);
-        link.setAliased(aliased);
-        link.setAliasedIdentifier(bookmark.getIdentifier());
-        link.setAliasedObjectType(bookmark.getObjectType());
+        alias.setAliased(aliased);
+        alias.setAliasedIdentifier(bookmark.getIdentifier());
+        alias.setAliasedObjectType(bookmark.getObjectType());
 
-        repositoryService.persist(link);
+        repositoryService.persist(alias);
 
-        return link;
+        return alias;
     }
 
-    private Class<? extends Alias> linkClassFor(final Object aliased) {
+    private Class<? extends Alias> subtypeClassFor(final Object aliased) {
         Class<?> aliasedDomainClass = aliased.getClass();
-        for (LinkProvider linkProvider : linkProviders) {
-            Class<? extends Alias> linkClass = linkProvider.linkFor(aliasedDomainClass);
-            if(linkClass != null) {
-                return linkClass;
+        for (SubtypeProvider subtypeProvider : subtypeProviders) {
+            Class<? extends Alias> aliasSubtype = subtypeProvider.subtypeFor(aliasedDomainClass);
+            if(aliasSubtype != null) {
+                return aliasSubtype;
             }
         }
-        return null;
+        throw new IllegalStateException(String.format(
+                "No subtype of Alias was found for '%s'; implement the AliasRepository.SubtypeProvider SPI",
+                aliasedDomainClass.getName()));
     }
 
     //endregion
@@ -102,22 +104,29 @@ public class AliasRepository {
     //endregion
 
 
-    //region > LinkProvider SPI
+    //region > SubtypeProvider SPI
 
-    public interface LinkProvider {
-        Class<? extends Alias> linkFor(Class<?> domainObject);
+    /**
+     * SPI to be implemented (as a {@link DomainService}) for any domain object to which {@link Alias}es can be
+     * attached.
+     */
+    public interface SubtypeProvider {
+        Class<? extends Alias> subtypeFor(Class<?> domainObject);
     }
-    public abstract static class LinkProviderAbstract implements LinkProvider {
+    /**
+     * Convenience adapter to help implement the {@link SubtypeProvider} SPI.
+     */
+    public abstract static class SubtypeProviderAbstract implements SubtypeProvider {
         private final Class<?> aliasedDomainType;
         private final Class<? extends Alias> aliasLinkType;
 
-        protected LinkProviderAbstract(final Class<?> aliasedDomainType, final Class<? extends Alias> aliasLinkType) {
+        protected SubtypeProviderAbstract(final Class<?> aliasedDomainType, final Class<? extends Alias> aliasLinkType) {
             this.aliasedDomainType = aliasedDomainType;
             this.aliasLinkType = aliasLinkType;
         }
 
         @Override
-        public Class<? extends Alias> linkFor(final Class<?> domainType) {
+        public Class<? extends Alias> subtypeFor(final Class<?> domainType) {
             return domainType.isAssignableFrom(aliasedDomainType) ? aliasLinkType: null;
         }
     }
@@ -135,7 +144,7 @@ public class AliasRepository {
     BookmarkService bookmarkService;
 
     @Inject
-    List<LinkProvider> linkProviders;
+    List<SubtypeProvider> subtypeProviders;
 
     //endregion
 

@@ -4,31 +4,30 @@
 image:https://travis-ci.org/incodehq/incode-module-alias.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-alias]
 
 This module, intended for use with link:http://isis.apache.org[Apache Isis], provides the ability to attach `Alias`
-objects to arbitrary domain objects.  There are _no_ requirements for those domain objects implement any interfaces.
-A subclass of the `AliasLink` abstract class (about 40 lines of boilerplate, details below) is required, acting
-as the "glue" between the alias and the "aliased" domain object.
+objects to arbitrary domain objects, where "alias" means an alternative identifier for the object.  Most commonly this
+is the identifier within some external system (in DDD terms: in some other bounded context).
 
-Each `Alias` simply holds a string reference, typically corresponding to an identifier of the "aliased" object within
-an external systems.  For example, a `Party` entity might have a different identifier within a general ledger system,
-and another identifier again in a document management system.
-
-In fact, aliases are qualified in two ways: first by the "alias type" (general ledger, document management system", and
-also by an "application tenancy path".  This is the same concept as exists within the
+The identity of the external system itself is represented in two ways: first by the "alias type" (general ledger,
+document management system", and also by an "application tenancy path".  This is the same concept as exists within the
 link:http://www.isisaddons.org[Isis Addons]' link:http://github.com/isisaddons/isis-module-security[security] module,
-and generally represents a multi-tenancy environment, eg to distinguish different countries.
+and generally represents a multi-tenancy environment, eg to distinguish different countries. Thus, an `Alias` is the
+combination of the app tenancy, an alias type, and the alias reference (a simple string).
 
-_This_ module places no constraints on either the alias type nor on the format of the application tenancy path.  The
+For example, a `Party` entity might have a different identifier within a general ledger system for France say, and
+another identifier again in centrally-managed document management system.
+
+There are _no_ requirements for domain objects with aliases implement any interfaces.  Instead, `Alias` is an
+abstract class; the consuming application provides a subclass of `Alias` and related classes to act
+as the "glue" between the `Alias` and the "aliased" domain object.  In total about 40 lines of boilerplate are required,
+details below.
+
+This module places no constraints on either the alias type nor on the format of the application tenancy path.  The
 alias type is represented by the `AliasType`; to use the module the application must implement the mandatory
 `AliasTypeRepository` SPI service which identifies the available `AliasType`s.  Similarly, the available application
 tenancy paths are provided to the module by the mandatory `ApplicationTenancyRepository` SPI service.  In both cases
 the list of alias types and application tenancy paths is per aliased domain object; not every aliased object will have
 an alias in every external system.
 
-In summary, to use this module the consuming application must:
-
-* provide a subclass of `AliasLink`, being the tuple linking the `Alias` to the "aliased" domain object
-* provide an implementation of the `ApplicationTenancyRepository` SPI service
-* provide an implementation of the `AliasType` interface.
 
 
 == Screenshots
@@ -171,40 +170,46 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 
 In order to be able to add/remove aliases to a domain object, you need to:
 
-* implement a subclass of `AliasLink` for the domain object's type.  +
+* implement a subclass of `Alias` for the domain object's type.  +
 +
-This link acts as a type-safe tuple linking the domain object to the `Alias`.
+This is the object that will be polymorphically attached to the "aliased" domain object; the subtype provides the
+type-safe association (a foreign key within the RDBMS).
 
-* implement an SPI interface to specify the subclass of `AliasLink` to use to link the "aliased" domain object to the `Alias`.
+* implement the `SubtypeProvider` SPI interface: +
++
+[source,java]
+----
+public interface SubtypeProvider {
+    Class<? extends Alias> subtypeFor(Class<?> domainObject);
+}
+----
++
+This tells the module which subclass of `Alias` to use to attach to the "aliased" domain object.  The
+`SubtypeProviderAbstract` adapter can be used to remove some boilerplate.
 
 * subclass `T_addAlias`, `T_removeAlias` and `T_aliases` (abstract) mixin classes for the domain object. +
 +
-This contributes the "aliases" collection and actions to add and remove aliases.
+These contributes the "aliases" collection and actions to add and remove aliases.
 
-Typically the SPI implementations and the mixin classes are nested static classes of the `AliasLink` subtype.
+Typically the SPI implementations and the mixin classes are nested static classes of the `Alias` subtype.
 
-For example, in the demo app the `AliasDemoObject` domain object can have aliases by virtue of the
-`AliasLinkForDemoObject` subclass:
+For example, in the demo app the `DemoObject` domain object can have aliases by virtue of the `AliasForDemoObject`
+subclass:
 
 [source,java]
 ----
-@javax.jdo.annotations.PersistenceCapable(
-        identityType= IdentityType.DATASTORE,
-        schema="aliasdemo")
+@javax.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE, schema="aliasdemo")
 @javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
-@DomainObject(objectType = "aliasdemo.AliasLinkForDemoObject")
-public class AliasLinkForDemoObject extends AliasLink {                                     // <1>
+@DomainObject(objectType = "aliasdemo.AliasForDemoObject")
+public class AliasForDemoObject extends Alias {                                             // <1>
 
-    private AliasDemoObject demoObject;
+    private DemoObject demoObject;
 
-    @Column(
-            allowsNull = "false",
-            name = "demoObjectId"
-    )
+    @Column(allowsNull = "false", name = "demoObjectId")
+    @Property(editing = Editing.DISABLED)
     public AliasDemoObject getDemoObject() {                                                // <2>
         return demoObject;
     }
-
     public void setDemoObject(final AliasDemoObject demoObject) {
         this.demoObject = demoObject;
     }
@@ -213,50 +218,46 @@ public class AliasLinkForDemoObject extends AliasLink {                         
     public Object getAliased() {                                                            // <3>
         return getDemoObject();
     }
-
     @Override
     protected void setAliased(final Object aliased) {
         setDemoObject((AliasDemoObject) aliased);
     }
 
     @DomainService(nature = NatureOfService.DOMAIN)
-    public static class LinkProvider extends AliasLinkRepository.LinkProviderAbstract {     // <4>
+    public static class SubtypeProvider extends AliasRepository.SubtypeProviderAbstract {   // <4>
         public LinkProvider() {
-            super(AliasDemoObject.class, AliasLinkForDemoObject.class);
+            super(DemoObject.class, AliasForDemoObject.class);
         }
     }
 
     @Mixin
-    public static class _aliases extends T_aliases<AliasDemoObject> {                       // <5>
+    public static class _aliases extends T_aliases<DemoObject> {                            // <5>
         public _aliases(final AliasDemoObject aliased) {
             super(aliased);
         }
     }
-
     @Mixin
-    public static class _addAlias extends T_addAlias<AliasDemoObject> {                     // <5>
-        public _addAlias(final AliasDemoObject aliased) {
+    public static class _addAlias extends T_addAlias<DemoObject> {
+        public _addAlias(final AliasObject aliased) {
             super(aliased);
         }
     }
-
     @Mixin
-    public static class _removeAlias extends T_removeAlias<AliasDemoObject> {               // <5>
-        public _removeAlias(final AliasDemoObject aliased) {
+    public static class _removeAlias extends T_removeAlias<DemoObject> {
+        public _removeAlias(final DemoObject aliased) {
             super(aliased);
         }
     }
-
 }
 ----
-<1> extend from `AliasLink`
-<2> the type-safe reference property to the "aliased" domain object (in this case `AliasDemoObject`).  In the RDBMS
+<1> extend from `Alias`
+<2> the type-safe reference property to the "aliased" domain object (in this case `DemoObject`).  In the RDBMS
 this will correspond to a regular foreign key with referential integrity constraints correctly applied.
 <3> implement the hook `setAliased(...)` method to allow the type-safe reference property to the "aliased" (in this
-case `AliasDemoObject`) to be set.  Also implemented `getAliased()` similarly
-<4> implementation of the `LinkProvider` SPI domain service, telling the module which subclass of `AliasLink`
-to instantiate to handle the polymorphic link between `Alias` and the "aliased" domain object
-<5> mixin the collections and actions onto the "aliased" domain object
+case `DemoObject`) to be set.  Also implemented `getAliased()` similarly
+<4> implementation of the `SubtypeProvider` SPI domain service, telling the module which subclass of `Alias`
+to instantiate to attach to the "aliased" domain object
+<5> mixins for the collections and actions contributed to the "aliased" domain object
 
 
 === SPI services
@@ -273,7 +274,8 @@ public interface ApplicationTenancyRepository {
 }
 ----
 Note that this isn't (necessarily) the same as the application tenancy path of the object being aliased; rather it is
-the list of those paths available.
+the list of the paths available (eg: countries/regions) for which there is an alias type (eg an external system) that
+may contain an alias (external system identifier).
 
 Second, the `AliasTypeRepository` interface returns the available alias types for a given application tenancy path and
 aliased:
@@ -302,29 +304,38 @@ Currently (as of v1.13.0) the Apache Isis framework does not support enums imple
 shows how a view model can be used as a work-around.
 ====
 
-
 Note that there can be multiple implementations of either of these interfaces.  This is to support the use case that
 different unrelated entities in the application may have aliases; each such aliased object can have its own supporting
 implementations of these SPI interfaces.
 
 
 
-== Other Services
+== UI Concerns
 
-The module provides the following domain services for querying aliases:
+The attached `Alias` objects are shown in two contexts: as a table of `Alias` objects for the "aliased" domain object,
+and then as the actual subtype when the alias object itself is shown (eg `AliasForDemoObject` in the demo app).
 
-* `AliasRepository` +
-+
-To search for aliases by "aliased" object
+In the former case (as a table) the `Alias` will be rendered according to the `Alias.layout.xml` provided by the UI.
+In the latter (as an object) the alias will be rendered according to the layout provided by the consuming app .  This
+provides the consuming application with full control of the layout.  The layout provided in the demo app
+(ie `AliasForDemoObject.layout.xml`) is a good starting point.
 
-* `AliasLinkRepository` +
-+
-To search for ``AliasLink``s, ie the tuple that links an `Alias` with an arbitrary "aliased" domain object.
-This repository allows for links to be searched by either the aliased object, or application tenancy path, or alias
-type, in any combination.
+[TIP]
+====
+The example `AliasForDemoObject.layout.xml` uses a little bit of custom CSS to adjust the right-hand column down
+a number of pixels.  This resides in `application.css`:
 
-The module also allows the title, icon and CSS for `Alias` objects to be overridden.  This is done by providing
-subscribers that override the default `Alias.TitleSubscriber`, `Alias.IconSubscriber` and `Alias.CssClassSubscriber`
+[source,css]
+----
+.entityPage.org-incode-module-alias-fixture-dom-alias-AliasForDemoObject .alias-col {
+    padding-top: 41px;
+}
+----
+====
+
+The module also allows the title, icon and CSS for `Alias` objects to be customised.  By default the values for these
+are obtained using default subscribers, namely - `Alias.TitleSubscriber`, `Alias.IconSubscriber` and
+`Alias.CssClassSubscriber`.  The consuming module can override these values simply by providing alternative
 implementations.
 
 For example, the demo app has this demo implementation:
@@ -364,8 +375,28 @@ public class DemoUiSubscriber extends AbstractSubscriber {
 }
 ----
 
-which returns a different title, icon and alias.  Custom png icons and CSS are also supplied in the demo app (icons
-in the fixtures module, custom CSS in the webapp module).
+which returns a different title, icon and alias.
+
+The custom png icons are picked up from `org.incode.module.alias.dom.impl` package (in this case, `Alias-docMgmt.png`
+and `Alias-GL.png`.  The custom CSS is supplied in the `application.css` of the demo app:
+
+[source,css]
+----
+tr.Alias-nl {
+    color: blueviolet;
+}
+tr.Alias-uk {
+    color: chocolate;
+}
+----
+
+
+
+== Other Services
+
+The module provides one further domain service, namely `AliasRepository`.  This can be used for finding the aliases
+attached to an "aliased" object.
+
 
 
 
@@ -377,8 +408,8 @@ None at this time.
 
 * `1.13.0-SNAPSHOT` - (to release) against Isis 1.13.0; removed the `Aliasable` interface (to completely decouple the
 "aliased" domain object from this module); removed dependency on poly module, instead using the (broadly equivalent)
-new `LinkProvider` SPI; added in the ability to override the title, icon and CSS of `Alias` objects;
-using `.layout.xml` for layouts.
+new `SubtypeProvider` SPI; combined `Alias` and `AliasLink` into a single entity; added in the ability to override the
+title, icon and CSS of `Alias` objects; using `.layout.xml` for layouts.
 * `1.12.0` - released against Isis 1.12.0
 * `1.11.1` - released against Isis 1.11.1.
 

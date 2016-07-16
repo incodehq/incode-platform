@@ -67,11 +67,11 @@ public class AliasForDemoObject extends Alias {
     }
     //endregion
 
-    //region > LinkProvider SPI implementation
+    //region > SubtypeProvider SPI implementation
 
     @DomainService(nature = NatureOfService.DOMAIN)
-    public static class LinkProvider extends AliasRepository.LinkProviderAbstract {
-        public LinkProvider() {
+    public static class SubtypeProvider extends AliasRepository.SubtypeProviderAbstract {
+        public SubtypeProvider() {
             super(DemoObject.class, AliasForDemoObject.class);
         }
     }
