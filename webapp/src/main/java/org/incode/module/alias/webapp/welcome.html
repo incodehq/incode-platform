@@ -19,15 +19,15 @@
     domain-driven apps in Java.
     <br/>
     <br/>
-    This example app demonstrates the Incode' <a href="https://github.com/incodehq/incode-module-alias" target="_blank">Alias Module</a>,
+    This example app demonstrates the Incode <a href="https://github.com/incodehq/incode-module-alias" target="_blank">Alias Module</a>,
     configured for a very simple and purposefully minimal application.
     <br/>
     <br/>
     The application demonstrates the ability to associate <code>Alias</code>es to any (arbitrary) domain object.
     Each alias is qualified by both an <code>AliasType</code> (eg to represent some external system such as
-    <i>General Ledger</i> or <i>Document Management</i>) and also an application tenancy path (eg to support
-    multi-tenancy, eg across countries).  The consuming application is required to implement mandatory SPI repositories
-    for these two qualifiers.
+    <i>General Ledger</i> or <i>Document Management</i>) and also an application tenancy path (to support
+    multi-tenancy, eg across countries/regions).  The consuming application is required to implement mandatory SPI
+    repositories for these two qualifiers.
     <br>
     <br>
     The module uses the polymorphic association pattern ("table of two halves").  For more details, see the <a href="https://github.com/isisaddons/isis-module-alias" target="_blank">github repo</a>.

@@ -322,8 +322,8 @@ provides the consuming application with full control of the layout.  The layout 
 
 [TIP]
 ====
-The example `AliasForDemoObject.layout.xml` uses a little bit of custom CSS to adjust the right-hand column down
-a number of pixels.  This resides in `application.css`:
+The example link:https://github.com/incodehq/incode-module-alias/blob/master/fixture/src/main/java/org/incode/module/alias/fixture/dom/alias/AliasForDemoObject.layout.xml[`AliasForDemoObject.layout.xml`] uses a little bit of custom CSS to adjust the right-hand column down
+a number of pixels.  This resides in link:https://github.com/incodehq/incode-module-alias/blob/master/webapp/src/main/webapp/css/application.css[`application.css`]:
 
 [source,css]
 ----
@@ -378,7 +378,9 @@ public class DemoUiSubscriber extends AbstractSubscriber {
 which returns a different title, icon and alias.
 
 The custom png icons are picked up from `org.incode.module.alias.dom.impl` package (in this case, `Alias-docMgmt.png`
-and `Alias-GL.png`.  The custom CSS is supplied in the `application.css` of the demo app:
+and `Alias-GL.png`;see the link:https://github.com/incodehq/incode-module-alias/tree/master/fixture/src/main/java/org/incode/module/alias/dom/impl[source] ).
+The custom CSS is supplied in the link:https://github.com/incodehq/incode-module-alias/blob/master/webapp/src/main/webapp/css/application.css[`application.css`]
+of the demo app:
 
 [source,css]
 ----
