@@ -1,4 +1,4 @@
-package org.incode.module.alias.fixture.dom.aliastype;
+package org.incode.module.alias.fixture.app.spiimpl.aliastype;
 
 import java.util.Arrays;
 import java.util.Collection;

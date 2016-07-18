@@ -1,4 +1,4 @@
-package org.incode.module.alias.fixture.dom.apptenancy;
+package org.incode.module.alias.fixture.app.spiimpl.apptenancy;
 
 import java.util.Arrays;
 import java.util.Collection;

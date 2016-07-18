@@ -24,7 +24,7 @@ import javax.jdo.annotations.VersionStrategy;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
-        schema="aliasdemo")
+        schema="incodeAliasDemo")
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="id")
@@ -32,7 +32,6 @@ import javax.jdo.annotations.VersionStrategy;
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
 @DomainObject(
-        objectType = "aliasdemo.DemoObject",
         editing = Editing.DISABLED
 )
 @DomainObjectLayout(

@@ -18,7 +18,6 @@
  */
 package org.incode.module.alias.dom.impl;
 
-import com.google.common.base.Function;
 import com.google.common.eventbus.Subscribe;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +26,7 @@ import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
+import org.axonframework.eventhandling.annotation.EventHandler;
 import org.incode.module.alias.dom.AliasModule;
 
 import javax.inject.Inject;
@@ -48,13 +48,12 @@ import javax.jdo.annotations.*;
                 name = "findByAliased", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.module.alias.dom.impl.Alias "
-                        + "WHERE aliasedObjectType == :aliasedObjectType "
-                        + "   && aliasedIdentifier == :aliasedIdentifier ")
+                        + "WHERE aliasedStr == :aliasedStr ")
 })
 @javax.jdo.annotations.Uniques({
     @Unique(
             name = "AliasLink_aliased_atPath_aliasTypeId_IDX",
-            members = { "aliasedObjectType", "aliasedIdentifier", "atPath", "aliasTypeId" }
+            members = { "aliasedStr", "atPath", "aliasTypeId" }
     )
 })
 @DomainObject(
@@ -86,6 +85,7 @@ public abstract class Alias implements Comparable<Alias> {
      */
     @DomainService
     public static class TitleSubscriber extends AbstractSubscriber {
+        @EventHandler
         @Subscribe
         public void on(Alias.TitleUiEvent ev) {
             if(ev.getTitle() != null) {
@@ -113,6 +113,7 @@ public abstract class Alias implements Comparable<Alias> {
      */
     @DomainService
     public static class IconSubscriber extends AbstractSubscriber {
+        @EventHandler
         @Subscribe
         public void on(Alias.IconUiEvent ev) {
             if(ev.getIconName() != null) {
@@ -127,6 +128,7 @@ public abstract class Alias implements Comparable<Alias> {
      */
     @DomainService
     public static class CssClassSubscriber extends AbstractSubscriber {
+        @EventHandler
         @Subscribe
         public void on(Alias.CssClassUiEvent ev) {
             if(ev.getCssClass() != null) {
@@ -135,6 +137,30 @@ public abstract class Alias implements Comparable<Alias> {
             ev.setCssClass("");
         }
     }
+    //endregion
+
+
+    //region > aliasedStr (hidden property)
+
+    @Getter @Setter
+    @javax.jdo.annotations.Column(allowsNull = "false", length = AliasModule.JdoColumnLength.BOOKMARK)
+    @Property(
+            hidden = Where.EVERYWHERE
+    )
+    private String aliasedStr;
+
+    //endregion
+
+    //region > aliased (derived property, hooks)
+    /**
+     * Polymorphic association to the aliased object.
+     */
+    @javax.jdo.annotations.NotPersistent
+    @Programmatic
+    public abstract Object getAliased();
+
+    protected abstract void setAliased(final Object aliased);
+
     //endregion
 
 
@@ -175,41 +201,6 @@ public abstract class Alias implements Comparable<Alias> {
     private String reference;
     //endregion
 
-    //region > aliased (derived property, hooks)
-    public static class AliasedDomainEvent extends PropertyDomainEvent<Object> { }
-
-    /**
-     * Polymorphic association to the aliased object.
-     */
-    @javax.jdo.annotations.NotPersistent
-    @Programmatic
-    public abstract Object getAliased();
-
-    protected abstract void setAliased(final Object aliased);
-
-    //endregion
-
-    //region > aliasedObjectType (property)
-
-    @Getter @Setter
-    @javax.jdo.annotations.Column(allowsNull = "false", length = 255)
-    @Property(
-            hidden = Where.EVERYWHERE
-    )
-    private String aliasedObjectType;
-
-    //endregion
-
-    //region > aliasedIdentifier (property)
-
-    @Getter @Setter
-    @javax.jdo.annotations.Column(allowsNull = "false", length = 255)
-    @Property(
-            hidden = Where.EVERYWHERE
-    )
-    private String aliasedIdentifier;
-
-    //endregion
 
     //region > remove (action)
     public static class RemoveDomainEvent extends ActionDomainEvent { }
@@ -229,29 +220,17 @@ public abstract class Alias implements Comparable<Alias> {
 
     //endregion
 
-    //region > Functions
-    public static class Functions {
-        public static Function<Alias, Object> aliased() {
-            return aliased(Object.class);
-        }
-        public static <T extends Object> Function<Alias, T> aliased(final Class<T> cls) {
-            return input -> input != null
-                                ? (T)input.getAliased()
-                                : null;
-        }
-    }
-    //endregion
 
     //region > toString, compareTo
 
     @Override
     public String toString() {
-        return ObjectContracts.toString(this, "reference", "atPath", "aliasTypeId");
+        return ObjectContracts.toString(this, "aliasedStr", "atPath", "aliasTypeId", "reference");
     }
 
     @Override
     public int compareTo(final Alias other) {
-        return ObjectContracts.compare(this, other, "reference", "atPath", "aliasTypeId");
+        return ObjectContracts.compare(this, other, "aliasedStr", "atPath", "aliasTypeId", "reference");
     }
 
     //endregion

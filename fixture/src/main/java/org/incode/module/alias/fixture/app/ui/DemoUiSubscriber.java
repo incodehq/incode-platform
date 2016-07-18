@@ -1,4 +1,4 @@
-package org.incode.module.alias.fixture.dom.ui;
+package org.incode.module.alias.fixture.app.ui;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -7,7 +7,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.module.alias.dom.impl.Alias;
-import org.incode.module.alias.fixture.dom.aliastype.AliasTypeDemoEnum;
+import org.incode.module.alias.fixture.app.spiimpl.aliastype.AliasTypeDemoEnum;
 
 @DomainService(nature = NatureOfService.DOMAIN )
 public class DemoUiSubscriber extends AbstractSubscriber {

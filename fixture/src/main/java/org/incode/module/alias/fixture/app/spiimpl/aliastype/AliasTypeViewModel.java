@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.alias.fixture.dom.aliastype;
+package org.incode.module.alias.fixture.app.spiimpl.aliastype;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.alias.fixture.dom.alias;
+package org.incode.module.alias.fixture.app.alias;
 
 import org.apache.isis.applib.annotation.*;
 import org.incode.module.alias.dom.impl.*;
@@ -28,12 +28,10 @@ import javax.jdo.annotations.InheritanceStrategy;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType= IdentityType.DATASTORE,
-        schema="aliasdemo")
+        schema="incodeAliasDemo")
 @javax.jdo.annotations.Inheritance(
         strategy = InheritanceStrategy.NEW_TABLE)
-@DomainObject(
-        objectType = "aliasdemo.AliasForDemoObject"
-)
+@DomainObject
 public class AliasForDemoObject extends Alias {
 
     //region > demoObject (property)

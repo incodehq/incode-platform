@@ -62,6 +62,7 @@ Copyright 2014~2015 Dan Haywood
         <isis-module-fakedata-dom.version>1.13.0</isis-module-fakedata-dom.version>
 
         <lombok.version>1.16.6</lombok.version>
+        <axon-core.version>2.4.4</axon-core.version>
 
         <assertj-core.version>3.3.0</assertj-core.version>
         <danhaywood-java-assertjext.version>0.1.0</danhaywood-java-assertjext.version>
@@ -270,6 +271,22 @@ Copyright 2014~2015 Dan Haywood
     </distributionManagement>
 
     <profiles>
+
+        <profile>
+            <id>axon-event-bus</id>
+            <activation>
+                <property>
+                    <name>!skip.axon-event-bus</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.axonframework</groupId>
+                    <artifactId>axon-core</artifactId>
+                    <version>${axon-core.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
 
         <profile>
             <id>isis-validate</id>

@@ -23,8 +23,8 @@ public class AliasDemoObjectsTearDownFixture extends FixtureScript {
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"aliasdemo\".\"AliasForDemoObject\"");
-        isisJdoSupport.executeUpdate("delete from \"aliasdemo\".\"DemoObject\"");
+        isisJdoSupport.executeUpdate("delete from \"incodeAliasDemo\".\"AliasForDemoObject\"");
+        isisJdoSupport.executeUpdate("delete from \"incodeAliasDemo\".\"DemoObject\"");
 
         isisJdoSupport.executeUpdate("delete from \"incodeAlias\".\"Alias\"");
     }

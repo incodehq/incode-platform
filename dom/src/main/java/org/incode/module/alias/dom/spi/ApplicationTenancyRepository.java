@@ -18,9 +18,10 @@
  */
 package org.incode.module.alias.dom.spi;
 
-import java.util.Collection;
-
+import org.apache.isis.applib.annotation.Programmatic;
 import org.incode.module.alias.dom.impl.Alias;
+
+import java.util.Collection;
 
 /**
  * Mandatory SPI service that returns the set of available application tenancy paths for a given aliased.
@@ -32,6 +33,7 @@ import org.incode.module.alias.dom.impl.Alias;
  */
 public interface ApplicationTenancyRepository {
 
-    Collection<String> atPathsFor(final Object aliased);
+    @Programmatic
+    Collection<String> atPathsFor(final Object domainObjectToAlias);
 
 }

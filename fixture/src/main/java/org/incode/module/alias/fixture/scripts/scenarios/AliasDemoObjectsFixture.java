@@ -19,8 +19,8 @@ package org.incode.module.alias.fixture.scripts.scenarios;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
 import org.incode.module.alias.dom.impl.T_addAlias;
-import org.incode.module.alias.fixture.dom.alias.AliasForDemoObject;
-import org.incode.module.alias.fixture.dom.aliastype.AliasTypeDemoEnum;
+import org.incode.module.alias.fixture.app.alias.AliasForDemoObject;
+import org.incode.module.alias.fixture.app.spiimpl.aliastype.AliasTypeDemoEnum;
 import org.incode.module.alias.fixture.dom.demo.DemoObject;
 import org.incode.module.alias.fixture.dom.demo.DemoObjectMenu;
 import org.incode.module.alias.fixture.scripts.teardown.AliasDemoObjectsTearDownFixture;

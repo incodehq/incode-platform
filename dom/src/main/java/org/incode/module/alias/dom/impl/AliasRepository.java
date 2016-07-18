@@ -50,8 +50,7 @@ public class AliasRepository {
         return repositoryService.allMatches(
                 new QueryDefault<>(Alias.class,
                         "findByAliased",
-                        "aliasedObjectType", bookmark.getObjectType(),
-                        "aliasedIdentifier", bookmark.getIdentifier()));
+                        "aliasedStr", bookmark.toString()));
     }
     //endregion
 
@@ -73,8 +72,7 @@ public class AliasRepository {
 
         final Bookmark bookmark = bookmarkService.bookmarkFor(aliased);
         alias.setAliased(aliased);
-        alias.setAliasedIdentifier(bookmark.getIdentifier());
-        alias.setAliasedObjectType(bookmark.getObjectType());
+        alias.setAliasedStr(bookmark.toString());
 
         repositoryService.persist(alias);
 
@@ -111,6 +109,7 @@ public class AliasRepository {
      * attached.
      */
     public interface SubtypeProvider {
+        @Programmatic
         Class<? extends Alias> subtypeFor(Class<?> domainObject);
     }
     /**
@@ -118,16 +117,16 @@ public class AliasRepository {
      */
     public abstract static class SubtypeProviderAbstract implements SubtypeProvider {
         private final Class<?> aliasedDomainType;
-        private final Class<? extends Alias> aliasLinkType;
+        private final Class<? extends Alias> aliasSubtype;
 
-        protected SubtypeProviderAbstract(final Class<?> aliasedDomainType, final Class<? extends Alias> aliasLinkType) {
+        protected SubtypeProviderAbstract(final Class<?> aliasedDomainType, final Class<? extends Alias> aliasSubtype) {
             this.aliasedDomainType = aliasedDomainType;
-            this.aliasLinkType = aliasLinkType;
+            this.aliasSubtype = aliasSubtype;
         }
 
         @Override
         public Class<? extends Alias> subtypeFor(final Class<?> domainType) {
-            return domainType.isAssignableFrom(aliasedDomainType) ? aliasLinkType: null;
+            return domainType.isAssignableFrom(aliasedDomainType) ? aliasSubtype : null;
         }
     }
 
