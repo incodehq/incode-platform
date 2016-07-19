@@ -116,6 +116,11 @@ public class BackgroundCommandServiceJdo extends AbstractService implements Back
 
         backgroundCommand.setParent(parentCommand);
 
+        // workaround for ISIS-1472; parentCommand not properly set up if invoked via RO viewer
+        if(parentCommand.getMemberIdentifier() == null) {
+            backgroundCommand.setParent(null);
+        }
+
         final UUID transactionId = UUID.randomUUID();
         final String user = parentCommand.getUser();
 

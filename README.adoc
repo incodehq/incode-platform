@@ -202,7 +202,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.isisaddons.module.command</groupId>
     <artifactId>isis-module-command-dom</artifactId>
-    <version>1.13.0</version>
+    <version>1.13.1</version>
 </dependency>
 ----
 
@@ -488,8 +488,9 @@ and it is this interface that each module has services that contribute to).
 
 == Change Log
 
+* `1.13.1` - released against Isis 1.13.0, fixes link:https://github.com/isisaddons/isis-module-command/issues/9[#9]
 * `1.13.0` - released against Isis 1.13.0
-* `1.12.1` - released against Isis 1.12.1; fixes #7
+* `1.12.1` - released against Isis 1.12.1; fixes link:https://github.com/isisaddons/isis-module-command/issues/7[#7]
 * `1.12.0` - released against Isis 1.12.0
 * `1.11.0` - released against Isis 1.11.0
 * `1.10.0` - released against Isis 1.10.0
@@ -559,7 +560,7 @@ For example:
 
 [source]
 ----
-sh release.sh 1.13.0 \
+sh release.sh 1.13.1 \
               1.14.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
@@ -579,7 +580,7 @@ If the script completes successfully, then push changes:
 [source]
 ----
 git push origin master
-git push origin 1.13.0
+git push origin 1.13.1
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
