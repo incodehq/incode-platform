@@ -126,7 +126,7 @@ public class PostalAddress_update {
             } else {
                 container.warnUser(
                         TranslatableString.tr("Could not lookup geocode for address"),
-                        Object_addPostalAddress.class, "newPostal");
+                        T_addPostalAddress.class, "newPostal");
             }
         } else {
             mixinResetGeocode().$$();

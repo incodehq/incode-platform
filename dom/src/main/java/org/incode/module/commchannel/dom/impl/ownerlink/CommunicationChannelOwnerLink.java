@@ -17,20 +17,28 @@
  */
 package org.incode.module.commchannel.dom.impl.ownerlink;
 
+import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
 
 import com.google.common.base.Function;
+import com.google.common.eventbus.Subscribe;
 
+import org.axonframework.eventhandling.annotation.EventHandler;
+
+import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.Where;
-
-import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
+import org.apache.isis.applib.services.title.TitleService;
 
 import org.incode.module.commchannel.dom.CommChannelModule;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
@@ -75,71 +83,103 @@ import lombok.Setter;
 @DomainObject(
         objectType = "incodeCommunicationChannel.CommunicationChannelOwnerLink"
 )
-public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociationLink<CommunicationChannel, Object, CommunicationChannelOwnerLink> {
+@DomainObjectLayout(
+        titleUiEvent = CommunicationChannelOwnerLink.TitleUiEvent.class,
+        iconUiEvent = CommunicationChannelOwnerLink.IconUiEvent.class,
+        cssClassUiEvent = CommunicationChannelOwnerLink.CssClassUiEvent.class
+)
+public abstract class CommunicationChannelOwnerLink {
 
-    //region > events
-    public static abstract class PropertyDomainEvent<S,T> extends CommChannelModule.PropertyDomainEvent<S, T> { }
-    public static abstract class CollectionDomainEvent<S,T> extends CommChannelModule.CollectionDomainEvent<S, T> { }
-    public static abstract class ActionDomainEvent<S> extends CommChannelModule.ActionDomainEvent<S> { }
+    //region > ui event classes
+    public static class TitleUiEvent extends CommChannelModule.TitleUiEvent<CommunicationChannelOwnerLink>{}
+    public static class IconUiEvent extends CommChannelModule.IconUiEvent<CommunicationChannelOwnerLink>{}
+    public static class CssClassUiEvent extends CommChannelModule.CssClassUiEvent<CommunicationChannelOwnerLink>{}
     //endregion
 
-    //region > instantiateEvent (poly pattern)
-    public static class InstantiateEvent
-            extends PolymorphicAssociationLink.InstantiateEvent<CommunicationChannel, Object, CommunicationChannelOwnerLink> {
+    //region > domain events
+    public static abstract class PropertyDomainEvent<T> extends CommChannelModule.PropertyDomainEvent<CommunicationChannelOwnerLink, T> { }
+    public static abstract class CollectionDomainEvent<T> extends CommChannelModule.CollectionDomainEvent<CommunicationChannelOwnerLink, T> { }
+    public static abstract class ActionDomainEvent extends CommChannelModule.ActionDomainEvent<CommunicationChannelOwnerLink> { }
+    //endregion
 
-        public InstantiateEvent(final Object source, final CommunicationChannel subject, final Object owner) {
-            super(CommunicationChannelOwnerLink.class, source, subject, owner);
+    //region > title, icon, cssClass
+    /**
+     * Implemented as a subscriber so can be overridden by consuming application if required.
+     */
+    @DomainService(nature = NatureOfService.DOMAIN)
+    public static class TitleSubscriber extends AbstractSubscriber {
+        @EventHandler
+        @Subscribe
+        public void on(CommunicationChannelOwnerLink.TitleUiEvent ev) {
+            if(ev.getTitle() != null) {
+                return;
+            }
+            ev.setTitle(titleOf(ev.getSource()));
+        }
+        private String titleOf(final CommunicationChannelOwnerLink communicationChannelOwnerLink) {
+            return String.format("%s: %s",
+                    titleService.titleOf(communicationChannelOwnerLink.getOwner()),
+                    // hmm; if using guava, can't call events within events...
+                    communicationChannelOwnerLink.getCommunicationChannelType());
+        }
+        @Inject
+        TitleService titleService;
+    }
+
+    /**
+     * Implemented as a subscriber so can be overridden by consuming application if required.
+     */
+    @DomainService
+    public static class IconSubscriber extends AbstractSubscriber {
+        @EventHandler
+        @Subscribe
+        public void on(CommunicationChannelOwnerLink.IconUiEvent ev) {
+            if(ev.getIconName() != null) {
+                return;
+            }
+            ev.setIconName("");
+        }
+    }
+
+    /**
+     * Implemented as a subscriber so can be overridden by consuming application if required.
+     */
+    @DomainService
+    public static class CssClassSubscriber extends AbstractSubscriber {
+        @EventHandler
+        @Subscribe
+        public void on(CommunicationChannelOwnerLink.CssClassUiEvent ev) {
+            if(ev.getCssClass() != null) {
+                return;
+            }
+            ev.setCssClass("");
         }
     }
     //endregion
 
-    //region > constructor
-    public CommunicationChannelOwnerLink() {
-        super("{polymorphicReference} owns {subject}");
-    }
+
+    //region > ownerStr (property)
+    public static class OwnerStrDomainEvent extends PropertyDomainEvent<String> { }
+    @Getter @Setter
+    @javax.jdo.annotations.Column(allowsNull = "false", length = CommChannelModule.JdoColumnLength.BOOKMARK)
+    @Property(
+            domainEvent = OwnerStrDomainEvent.class,
+            editing = Editing.DISABLED
+    )
+    private String ownerStr;
     //endregion
 
-    //region > SubjectPolymorphicReferenceLink API
-    @Override
+    //region > owner (derived property, hooks)
+    /**
+     * Polymorphic association to the owning object.
+     */
     @Programmatic
-    public CommunicationChannel getSubject() {
-        return getCommunicationChannel();
-    }
-
-    @Override
-    @Programmatic
-    public void setSubject(final CommunicationChannel subject) {
-        setCommunicationChannel(subject);
-    }
-
-    @Override
-    @Programmatic
-    public String getPolymorphicObjectType() {
-        return getOwnerObjectType();
-    }
-
-    @Override
-    @Programmatic
-    public void setPolymorphicObjectType(final String polymorphicObjectType) {
-        setOwnerObjectType(polymorphicObjectType);
-    }
-
-    @Override
-    @Programmatic
-    public String getPolymorphicIdentifier() {
-        return getOwnerIdentifier();
-    }
-
-    @Override
-    @Programmatic
-    public void setPolymorphicIdentifier(final String polymorphicIdentifier) {
-        setOwnerIdentifier(polymorphicIdentifier);
-    }
+    public abstract Object getOwner();
+    protected abstract void setOwner(Object object);
     //endregion
 
-
-    public static class CommunicationChannelDomainEvent
-            extends PropertyDomainEvent<CommunicationChannelOwnerLink,CommunicationChannel> { }
+    //region > communicationChannel (property)
+    public static class CommunicationChannelDomainEvent extends PropertyDomainEvent<CommunicationChannel> { }
     @Getter @Setter
     @Column(
             allowsNull = "false",
@@ -149,31 +189,9 @@ public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociati
             domainEvent = CommunicationChannelDomainEvent.class
     )
     private CommunicationChannel communicationChannel;
+    //endregion
 
-
-    public static class OwnerObjectTypeDomainEvent extends PropertyDomainEvent<CommunicationChannelOwnerLink, String> { }
-    @Getter @Setter
-    @Column(
-            allowsNull = "false",
-            length = CommChannelModule.JdoColumnLength.OBJECT_TYPE
-    )
-    @Property(
-            domainEvent = OwnerObjectTypeDomainEvent.class
-    )
-    private String ownerObjectType;
-
-
-    public static class OwnerIdentifierDomainEvent extends PropertyDomainEvent<CommunicationChannelOwnerLink, String> { }
-    @Getter @Setter
-    @Column(
-            allowsNull = "false",
-            length = CommChannelModule.JdoColumnLength.OBJECT_IDENTIFIER
-    )
-    @Property(
-            domainEvent = OwnerIdentifierDomainEvent.class
-    )
-    private String ownerIdentifier;
-
+    //region > communicationChannelType (property)
 
     /**
      * copy of the {@link #getCommunicationChannel()}'s {@link CommunicationChannel#getType() type}.
@@ -188,7 +206,7 @@ public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociati
     @Column(allowsNull = "false", length = CommChannelModule.JdoColumnLength.TYPE_ENUM)
     @Property(hidden = Where.EVERYWHERE)
     private CommunicationChannelType communicationChannelType;
-
+    //endregion
 
     //region > Functions
     public static class Functions {
@@ -202,7 +220,7 @@ public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociati
             return owner(Object.class);
         }
         public static <T extends Object> Function<CommunicationChannelOwnerLink, T> owner(final Class<T> cls) {
-            return input -> (T)input.getPolymorphicReference();
+            return input -> (T)input.getOwner();
         }
     }
     //endregion

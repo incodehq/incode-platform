@@ -53,7 +53,6 @@ public class CommunicationChannel_owner {
     //endregion
 
     //region > $$
-
     public static class DomainEvent extends CommunicationChannel.PropertyDomainEvent
                                         <CommunicationChannel_owner,Object> { }
 
@@ -66,15 +65,16 @@ public class CommunicationChannel_owner {
     @PropertyLayout(hidden = Where.PARENTED_TABLES)
     public Object $$() {
         final CommunicationChannelOwnerLink link = communicationChannelOwnerLinkRepository.getOwnerLink(communicationChannel);
-        return link != null? link.getPolymorphicReference(): null;
+        return link != null? link.getOwner(): null;
     }
     //endregion
 
+    //region > setOwner
     @Programmatic
     public void setOwner(final Object owner) {
         communicationChannelOwnerLinkRepository.removeOwnerLink(this.communicationChannel);
         communicationChannelOwnerLinkRepository.createLink(this.communicationChannel, owner);
     }
-
+    //endregion
 
 }

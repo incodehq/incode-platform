@@ -22,50 +22,34 @@ import java.util.Collection;
 
 import javax.inject.Inject;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.services.factory.FactoryService;
+import org.apache.isis.applib.services.repository.RepositoryService;
 
 import org.incode.module.commchannel.dom.CommChannelModule;
 import org.incode.module.commchannel.dom.impl.purpose.CommunicationChannelPurposeService;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 
-@Mixin
-public class Object_addPostalAddress {
+public abstract class T_addPostalAddress<T> {
 
-    //region > injected services
-    @Inject
-    PostalAddressRepository postalAddressRepository;
-    @Inject
-    CommunicationChannelPurposeService communicationChannelPurposeService;
-    @Inject
-    DomainObjectContainer container;
-    //endregion
-
-    //region > mixins
-    private PostalAddress_update mixinUpdate(final PostalAddress postalAddress) {
-        return container.mixin(PostalAddress_update.class, postalAddress);
-    }
-    //endregion
 
     //region > constructor
-    private final Object communicationChannelOwner;
-    public Object_addPostalAddress(final Object communicationChannelOwner) {
+    private final T communicationChannelOwner;
+    public T_addPostalAddress(final T communicationChannelOwner) {
         this.communicationChannelOwner = communicationChannelOwner;
     }
     //endregion
 
     //region > $$
 
-    public static class DomainEvent extends CommChannelModule.ActionDomainEvent
-                                            <Object_addPostalAddress> { }
+    public static class DomainEvent extends CommChannelModule.ActionDomainEvent<T_addPostalAddress> { }
 
     @Action(
             semantics = SemanticsOf.NON_IDEMPOTENT,
@@ -130,10 +114,22 @@ public class Object_addPostalAddress {
         return purposes.isEmpty()? null : purposes.iterator().next();
     }
 
-    public boolean hide$$() {
-        return !postalAddressRepository.supports(this.communicationChannelOwner);
-    }
-
     //endregion
+
+    //region > mixins
+    private PostalAddress_update mixinUpdate(final PostalAddress postalAddress) {
+        return factoryService.mixin(PostalAddress_update.class, postalAddress);
+    }
+    //endregion
+
+    //region > injected services
+    @Inject
+    PostalAddressRepository postalAddressRepository;
+    @Inject
+    CommunicationChannelPurposeService communicationChannelPurposeService;
+    @Inject
+    FactoryService factoryService;
+    //endregion
+
 
 }

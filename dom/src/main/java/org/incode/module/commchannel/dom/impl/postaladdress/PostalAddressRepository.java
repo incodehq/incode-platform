@@ -26,10 +26,11 @@ import javax.inject.Inject;
 import com.google.common.base.Optional;
 import com.google.common.collect.Iterables;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.services.factory.FactoryService;
+import org.apache.isis.applib.services.repository.RepositoryService;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_owner;
@@ -46,16 +47,7 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 )
 public class PostalAddressRepository {
 
-    @Inject
-    CommunicationChannelOwnerLinkRepository linkRepository;
-    @Inject
-    DomainObjectContainer container;
-
-    @Programmatic
-    public boolean supports(final Object classifiable) {
-        return linkRepository.supports(classifiable);
-    }
-
+    //region > newPostal (programmatic)
     @Programmatic
     public PostalAddress newPostal(
             final Object owner,
@@ -68,8 +60,7 @@ public class PostalAddressRepository {
             final String purpose,
             final String notes) {
 
-        final PostalAddress pa =
-                container.newTransientInstance(PostalAddress.class);
+        final PostalAddress pa = factoryService.instantiate(PostalAddress.class);
         pa.setType(CommunicationChannelType.POSTAL_ADDRESS);
         owner(pa).setOwner(owner);
         pa.setPurpose(purpose);
@@ -81,10 +72,13 @@ public class PostalAddressRepository {
         pa.setNotes(notes);
         pa.setCountry(country);
 
-        container.persistIfNotAlready(pa);
+        repositoryService.persist(pa);
         return pa;
     }
 
+    //endregion
+
+    //region > findByAddress (programmatic)
     @Programmatic
     public PostalAddress findByAddress(
             final Object owner,
@@ -102,8 +96,19 @@ public class PostalAddressRepository {
     }
 
     private CommunicationChannel_owner owner(final CommunicationChannel<?> cc) {
-        return container.mixin(CommunicationChannel_owner.class, cc);
+        return factoryService.mixin(CommunicationChannel_owner.class, cc);
     }
+    //endregion
 
+    //region > injected services
+
+    @Inject
+    CommunicationChannelOwnerLinkRepository linkRepository;
+    @Inject
+    RepositoryService repositoryService;
+    @Inject
+    FactoryService factoryService;
+
+    //endregion
 
 }

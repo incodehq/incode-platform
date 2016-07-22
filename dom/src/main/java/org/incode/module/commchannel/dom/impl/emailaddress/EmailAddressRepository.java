@@ -46,11 +46,6 @@ public class EmailAddressRepository {
 
 
     @Programmatic
-    public boolean supports(final Object classifiable) {
-        return linkRepository.supports(classifiable);
-    }
-
-    @Programmatic
     public EmailAddress newEmail(
             final Object owner,
             final String address,

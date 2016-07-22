@@ -21,16 +21,17 @@ package org.incode.module.commchannel.fixture.dom;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.InheritanceStrategy;
 
-import com.google.common.eventbus.Subscribe;
-
-import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.Programmatic;
 
+import org.incode.module.commchannel.dom.impl.channel.T_communicationChannels;
+import org.incode.module.commchannel.dom.impl.emailaddress.T_addEmailAddress;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
+import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
+import org.incode.module.commchannel.dom.impl.phoneorfax.T_addPhoneOrFaxNumber;
+import org.incode.module.commchannel.dom.impl.postaladdress.T_addPostalAddress;
 
 @javax.jdo.annotations.PersistenceCapable(
         schema="commchanneldemo")
@@ -41,27 +42,6 @@ import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwne
 )
 public class CommunicationChannelOwnerLinkForDemoObject extends CommunicationChannelOwnerLink {
 
-    //region > instantiationSubscriber, setPolymorphicReference
-
-    @DomainService(nature = NatureOfService.DOMAIN)
-    @DomainServiceLayout(menuOrder = "1")
-    public static class InstantiationSubscriber extends AbstractSubscriber {
-        @Programmatic
-        @Subscribe
-        public void on(final InstantiateEvent ev) {
-            if(ev.getPolymorphicReference() instanceof CommChannelDemoObject) {
-                ev.setSubtype(CommunicationChannelOwnerLinkForDemoObject.class);
-            }
-        }
-    }
-
-    @Override
-    public void setPolymorphicReference(final Object polymorphicReference) {
-        super.setPolymorphicReference(polymorphicReference);
-        setDemoObject((CommChannelDemoObject) polymorphicReference);
-    }
-
-    //endregion
 
     //region > demoObject (property)
     private CommChannelDemoObject demoObject;
@@ -78,5 +58,61 @@ public class CommunicationChannelOwnerLinkForDemoObject extends CommunicationCha
         this.demoObject = demoObject;
     }
     //endregion
+
+
+    //region > owner (hook, derived)
+    @Override
+    public Object getOwner() {
+        return getDemoObject();
+    }
+
+    @Override
+    protected void setOwner(final Object object) {
+        setDemoObject(demoObject);
+    }
+    //endregion
+
+
+    //region > SubtypeProvider SPI implementation
+    @DomainService(nature = NatureOfService.DOMAIN)
+    public static class SubtypeProvider extends CommunicationChannelOwnerLinkRepository.SubtypeProviderAbstract {
+        public SubtypeProvider() {
+            super(CommChannelDemoObject.class, CommunicationChannelOwnerLinkForDemoObject.class);
+        }
+    }
+    //endregion
+
+    //region > mixins
+
+    @Mixin
+    public static class _communicationChannels extends T_communicationChannels<CommChannelDemoObject> {
+        public _communicationChannels(final CommChannelDemoObject owner) {
+            super(owner);
+        }
+    }
+
+    @Mixin
+    public static class addEmailAddress extends T_addEmailAddress<CommChannelDemoObject> {
+        public addEmailAddress(final CommChannelDemoObject owner) {
+            super(owner);
+        }
+    }
+
+    @Mixin
+    public static class _addPhoneOrFaxNumber extends T_addPhoneOrFaxNumber<CommChannelDemoObject> {
+        public _addPhoneOrFaxNumber(final CommChannelDemoObject owner) {
+            super(owner);
+        }
+    }
+
+    @Mixin
+    public static class _addPostalAddress extends T_addPostalAddress<CommChannelDemoObject> {
+        public _addPostalAddress(final CommChannelDemoObject owner) {
+            super(owner);
+        }
+    }
+
+    //endregion
+
 
 }

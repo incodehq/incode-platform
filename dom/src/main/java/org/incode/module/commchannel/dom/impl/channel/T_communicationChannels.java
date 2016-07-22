@@ -27,30 +27,22 @@ import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Collection;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.Contributed;
-import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.commchannel.dom.CommChannelModule;
 
-@Mixin
-public class Object_communicationChannels {
-
-    //region > injected services
-    @Inject
-    CommunicationChannelRepository communicationChannelRepository;
-    //endregion
+public abstract class T_communicationChannels<T> {
 
     //region > constructor
-    private final Object communicationChannelOwner;
-    public Object_communicationChannels(final Object communicationChannelOwner) {
+    private final T communicationChannelOwner;
+    public T_communicationChannels(final T communicationChannelOwner) {
         this.communicationChannelOwner = communicationChannelOwner;
     }
     //endregion
 
     //region > $$
-
     public static class DomainEvent extends CommChannelModule.CollectionDomainEvent
-                                        <Object_communicationChannels, CommunicationChannel> { }
+                                        <T_communicationChannels, CommunicationChannel> { }
     @Action(semantics = SemanticsOf.SAFE)
     @CollectionLayout(
             named = "Communication Channels", // regression in isis 1.11.x requires this to be specified
@@ -64,9 +56,12 @@ public class Object_communicationChannels {
         return communicationChannelRepository.findByOwner(communicationChannelOwner);
     }
 
-    public boolean hide$$() {
-        return !communicationChannelRepository.supports(this.communicationChannelOwner);
-    }
     //endregion
+
+    //region > injected services
+    @Inject
+    CommunicationChannelRepository communicationChannelRepository;
+    //endregion
+
 
 }

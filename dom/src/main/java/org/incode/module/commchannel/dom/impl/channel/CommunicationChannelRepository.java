@@ -75,10 +75,5 @@ public class CommunicationChannelRepository {
         return communicationChannels;
     }
 
-    @Programmatic
-    public boolean supports(final Object classifiable) {
-        return linkRepository.supports(classifiable);
-    }
-
 
 }

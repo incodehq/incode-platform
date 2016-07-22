@@ -52,12 +52,6 @@ public class PhoneOrFaxNumberRepository {
     //region > newPhoneOrFax (programmatic)
 
     @Programmatic
-    public boolean supports(final Object classifiable) {
-        return linkRepository.supports(classifiable);
-    }
-
-
-    @Programmatic
     public PhoneOrFaxNumber newPhoneOrFax(
             final Object owner,
             final CommunicationChannelType type,
