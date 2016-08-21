@@ -18,7 +18,7 @@ object.  The list of available calendars is determined by the "notable": if `Cus
 then the `CalendarNameRepository` could provide different calendar names for each.  If no implementation of
 the `CalendarNameRepository` service can be found, then a single "default" calendar is used.
 
-Any given "notable" domain object can have multiple `Note`s.  As currently implemented, a "notable" domain object can
+Any given "notable" domain object can have multiple ``Note``s.  As currently implemented, a "notable" domain object can
 only have one `Note` per named calendar.
 
 
