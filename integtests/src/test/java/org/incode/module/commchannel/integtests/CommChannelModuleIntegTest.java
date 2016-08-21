@@ -51,6 +51,7 @@ import org.incode.module.commchannel.dom.impl.emailaddress.T_addEmailAddress;
 import org.incode.module.commchannel.dom.impl.phoneorfax.T_addPhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.postaladdress.T_addPostalAddress;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
+import org.incode.module.commchannel.fixture.dom.CommunicationChannelOwnerLinkForDemoObject;
 
 public abstract class CommChannelModuleIntegTest extends IntegrationTestAbstract {
 
@@ -92,15 +93,15 @@ public abstract class CommChannelModuleIntegTest extends IntegrationTestAbstract
     }
 
     protected T_addEmailAddress mixinNewEmailAddress(final CommChannelDemoObject owner) {
-        return mixin(T_addEmailAddress.class, owner);
+        return mixin(CommunicationChannelOwnerLinkForDemoObject._addEmailAddress.class, owner);
     }
 
     protected T_addPostalAddress mixinNewPostalAddress(final CommChannelDemoObject owner) {
-        return mixin(T_addPostalAddress.class, owner);
+        return mixin(CommunicationChannelOwnerLinkForDemoObject._addPostalAddress.class, owner);
     }
 
     protected T_addPhoneOrFaxNumber mixinNewPhoneOrFaxNumber(final CommChannelDemoObject owner) {
-        return mixin(T_addPhoneOrFaxNumber.class, owner);
+        return mixin(CommunicationChannelOwnerLinkForDemoObject._addPhoneOrFaxNumber.class, owner);
     }
 
     protected CommunicationChannel_remove1 mixinRemove(final CommunicationChannel channel) {
@@ -112,7 +113,7 @@ public abstract class CommChannelModuleIntegTest extends IntegrationTestAbstract
     }
 
     protected T_communicationChannels mixinCommunicationChannels(final CommChannelDemoObject owner) {
-        return mixin(T_communicationChannels.class, owner);
+        return mixin(CommunicationChannelOwnerLinkForDemoObject._communicationChannels.class, owner);
     }
 
     /**

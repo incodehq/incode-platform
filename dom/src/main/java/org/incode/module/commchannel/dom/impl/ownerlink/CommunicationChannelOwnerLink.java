@@ -48,8 +48,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
+        identityType=IdentityType.DATASTORE,
         schema = "incodeCommChannel",
-        identityType=IdentityType.DATASTORE
+        table = "CommunicationChannelOwnerLink"
 )
 @javax.jdo.annotations.DatastoreIdentity(strategy = IdGeneratorStrategy.IDENTITY, column = "id")
 @javax.jdo.annotations.Inheritance(
@@ -64,24 +65,22 @@ import lombok.Setter;
                 name = "findByOwner", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink "
-                        + "WHERE ownerObjectType == :ownerObjectType "
-                        + "   && ownerIdentifier == :ownerIdentifier "),
+                        + "WHERE ownerStr == :ownerStr "),
         @javax.jdo.annotations.Query(
                 name = "findByOwnerAndCommunicationChannelType", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink "
-                        + "WHERE ownerObjectType == :ownerObjectType "
-                        + "   && ownerIdentifier == :ownerIdentifier "
+                        + "WHERE ownerStr == :ownerStr "
                         + "   && communicationChannelType == :communicationChannelType ")
 })
 @javax.jdo.annotations.Indices({
         @javax.jdo.annotations.Index(
                 name = "CommunicationChannelOwnerLink_main_idx",
-                members = { "ownerObjectType", "ownerIdentifier", "communicationChannelType", "communicationChannel" })
+                members = { "ownerStr", "communicationChannelType", "communicationChannel" })
 })
-@javax.jdo.annotations.Unique(name="CommunicationChannelOwnerLink_commchannel_owner_UNQ", members = {"communicationChannel","ownerObjectType","ownerIdentifier"})
+@javax.jdo.annotations.Unique(name="CommunicationChannelOwnerLink_commchannel_owner_UNQ", members = {"communicationChannel", "ownerStr"})
 @DomainObject(
-        objectType = "incodeCommunicationChannel.CommunicationChannelOwnerLink"
+        objectType = "incodeCommChannel.CommunicationChannelOwnerLink"
 )
 @DomainObjectLayout(
         titleUiEvent = CommunicationChannelOwnerLink.TitleUiEvent.class,

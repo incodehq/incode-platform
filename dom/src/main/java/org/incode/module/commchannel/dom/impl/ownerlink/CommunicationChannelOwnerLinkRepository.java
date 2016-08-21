@@ -58,11 +58,11 @@ public class CommunicationChannelOwnerLinkRepository {
         if(bookmark == null) {
             return null;
         }
+        final String ownerStr = bookmark.toString();
         return repositoryService.allMatches(
                 new QueryDefault<>(CommunicationChannelOwnerLink.class,
                         "findByOwner",
-                        "ownerObjectType", bookmark.getObjectType(),
-                        "ownerIdentifier", bookmark.getIdentifier()));
+                        "ownerStr", ownerStr));
     }
     //endregion
 
@@ -81,11 +81,11 @@ public class CommunicationChannelOwnerLinkRepository {
         if(bookmark == null) {
             return null;
         }
+        final String ownerStr = bookmark.toString();
         return repositoryService.allMatches(
                 new QueryDefault<>(CommunicationChannelOwnerLink.class,
                         "findByOwnerAndCommunicationChannelType",
-                        "ownerObjectType", bookmark.getObjectType(),
-                        "ownerIdentifier", bookmark.getIdentifier(),
+                        "ownerStr", ownerStr,
                         "communicationChannelType", communicationChannelType));
     }
     //endregion
@@ -106,6 +106,7 @@ public class CommunicationChannelOwnerLinkRepository {
         link.setCommunicationChannelType(type);
 
         final Bookmark bookmark = bookmarkService.bookmarkFor(owner);
+        link.setOwner(owner);
         link.setOwnerStr(bookmark.toString());
 
         repositoryService.persist(link);

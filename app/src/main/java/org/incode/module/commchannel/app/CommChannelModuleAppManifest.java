@@ -42,7 +42,7 @@ public class CommChannelModuleAppManifest implements AppManifest {
 
     public CommChannelModuleAppManifest() {
         withModules(
-                CommChannelModule.class,
+                CommChannelModule.class, // dom module
                 CommChannelFixtureModule.class,
                 CommChannelModuleAppModule.class,
                 Gmap3ApplibModule.class,

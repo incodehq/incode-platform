@@ -19,6 +19,7 @@
 package org.incode.module.commchannel.fixture.dom;
 
 import javax.jdo.annotations.Column;
+import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
 
 import org.apache.isis.applib.annotation.DomainObject;
@@ -33,15 +34,12 @@ import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwne
 import org.incode.module.commchannel.dom.impl.phoneorfax.T_addPhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.postaladdress.T_addPostalAddress;
 
-@javax.jdo.annotations.PersistenceCapable(
-        schema="commchanneldemo")
-@javax.jdo.annotations.Inheritance(
-        strategy = InheritanceStrategy.NEW_TABLE)
+@javax.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE, schema ="incodeCommChannelDemo")
+@javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @DomainObject(
-        objectType = "commchanneldemo.CommunicationChannelOwnerLinkForDemoObject"
+        objectType = "incodeCommChannelDemo.CommunicationChannelOwnerLinkForDemoObject"
 )
 public class CommunicationChannelOwnerLinkForDemoObject extends CommunicationChannelOwnerLink {
-
 
     //region > demoObject (property)
     private CommChannelDemoObject demoObject;
@@ -59,7 +57,6 @@ public class CommunicationChannelOwnerLinkForDemoObject extends CommunicationCha
     }
     //endregion
 
-
     //region > owner (hook, derived)
     @Override
     public Object getOwner() {
@@ -68,10 +65,9 @@ public class CommunicationChannelOwnerLinkForDemoObject extends CommunicationCha
 
     @Override
     protected void setOwner(final Object object) {
-        setDemoObject(demoObject);
+        setDemoObject((CommChannelDemoObject) object);
     }
     //endregion
-
 
     //region > SubtypeProvider SPI implementation
     @DomainService(nature = NatureOfService.DOMAIN)
@@ -92,8 +88,8 @@ public class CommunicationChannelOwnerLinkForDemoObject extends CommunicationCha
     }
 
     @Mixin
-    public static class addEmailAddress extends T_addEmailAddress<CommChannelDemoObject> {
-        public addEmailAddress(final CommChannelDemoObject owner) {
+    public static class _addEmailAddress extends T_addEmailAddress<CommChannelDemoObject> {
+        public _addEmailAddress(final CommChannelDemoObject owner) {
             super(owner);
         }
     }
@@ -113,6 +109,5 @@ public class CommunicationChannelOwnerLinkForDemoObject extends CommunicationCha
     }
 
     //endregion
-
 
 }

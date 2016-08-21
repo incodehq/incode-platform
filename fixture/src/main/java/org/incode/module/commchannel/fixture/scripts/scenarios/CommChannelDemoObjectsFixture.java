@@ -25,6 +25,7 @@ import org.incode.module.commchannel.dom.impl.postaladdress.T_addPostalAddress;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObjectMenu;
+import org.incode.module.commchannel.fixture.dom.CommunicationChannelOwnerLinkForDemoObject;
 import org.incode.module.commchannel.fixture.scripts.teardown.CommChannelDemoObjectsTearDownFixture;
 
 public class CommChannelDemoObjectsFixture extends DiscoverableFixtureScript {
@@ -36,32 +37,32 @@ public class CommChannelDemoObjectsFixture extends DiscoverableFixtureScript {
     @Override
     protected void execute(final ExecutionContext executionContext) {
 
-        // prereqs
+    // prereqs
 	executionContext.executeChild(this, new CommChannelDemoObjectsTearDownFixture());
 
         final CommChannelDemoObject demoOwner = create("Foo", executionContext);
 
-        wrap(newEmailAddress(demoOwner)).$$("foo@example.com", "Other Email", null);
-        wrap(newPhoneOrFaxNumber(demoOwner)).$$(CommunicationChannelType.PHONE_NUMBER, "555 1234", "Home Number", null);
-        wrap(newPhoneOrFaxNumber(demoOwner)).$$(CommunicationChannelType.FAX_NUMBER, "555 4321", "Work Fax", null);
+        wrap(addEmailAddress(demoOwner)).$$("foo@example.com", "Other Email", null);
+        wrap(addPhoneOrFaxNumber(demoOwner)).$$(CommunicationChannelType.PHONE_NUMBER, "555 1234", "Home Number", null);
+        wrap(addPhoneOrFaxNumber(demoOwner)).$$(CommunicationChannelType.FAX_NUMBER, "555 4321", "Work Fax", null);
 
         final CommChannelDemoObject bar = create("Bar", executionContext);
-        wrap(newPostalAddress(demoOwner)).$$(
+        wrap(addPostalAddress(demoOwner)).$$(
                 "45", "High Street", "Oxford", null, null, "UK", "Shipping Address", null, false);
 
         final CommChannelDemoObject baz = create("Baz", executionContext);
     }
 
-    T_addEmailAddress newEmailAddress(final CommChannelDemoObject demoOwner) {
-        return container.mixin(T_addEmailAddress.class, demoOwner);
+    T_addEmailAddress addEmailAddress(final CommChannelDemoObject demoOwner) {
+        return mixin(CommunicationChannelOwnerLinkForDemoObject._addEmailAddress.class, demoOwner);
     }
 
-    T_addPhoneOrFaxNumber newPhoneOrFaxNumber(final CommChannelDemoObject demoOwner) {
-        return container.mixin(T_addPhoneOrFaxNumber.class, demoOwner);
+    T_addPhoneOrFaxNumber addPhoneOrFaxNumber(final CommChannelDemoObject demoOwner) {
+        return mixin(CommunicationChannelOwnerLinkForDemoObject._addPhoneOrFaxNumber.class, demoOwner);
     }
 
-    T_addPostalAddress newPostalAddress(final CommChannelDemoObject demoOwner) {
-        return container.mixin(T_addPostalAddress.class, demoOwner);
+    T_addPostalAddress addPostalAddress(final CommChannelDemoObject demoOwner) {
+        return mixin(CommunicationChannelOwnerLinkForDemoObject._addPostalAddress.class, demoOwner);
     }
 
     // //////////////////////////////////////
