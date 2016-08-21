@@ -30,10 +30,10 @@ import org.apache.isis.applib.annotation.Programmatic;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
-import org.incode.module.commchannel.dom.spi.purpose.CommunicationChannelPurposeRepository;
+import org.incode.module.commchannel.dom.spi.CommunicationChannelPurposeRepository;
 
 /**
- * Simple wrapper around {@link org.incode.module.commchannel.dom.spi.purpose.CommunicationChannelPurposeRepository}, that always returns a non-null list (including the {@link #DEFAULT_PURPOSE default} if necessary).
+ * Simple wrapper around {@link CommunicationChannelPurposeRepository}, that always returns a non-null list (including the {@link #DEFAULT_PURPOSE default} if necessary).
  */
 @DomainService(
         nature = NatureOfService.DOMAIN

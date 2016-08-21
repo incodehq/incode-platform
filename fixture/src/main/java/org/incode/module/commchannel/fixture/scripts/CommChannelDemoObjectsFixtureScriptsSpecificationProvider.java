@@ -28,13 +28,13 @@ import org.incode.module.commchannel.fixture.scripts.scenarios.CommChannelDemoOb
  * Specifies where to find fixtures, and other settings.
  */
 @DomainService(nature = NatureOfService.DOMAIN)
-public class CommChannelDemoObjectsFixturesSpecificationProvider
+public class CommChannelDemoObjectsFixtureScriptsSpecificationProvider
         implements FixtureScriptsSpecificationProvider {
 
     @Override
     public FixtureScriptsSpecification getSpecification() {
         return FixtureScriptsSpecification
-                .builder(CommChannelDemoObjectsFixturesSpecificationProvider.class)
+                .builder(CommChannelDemoObjectsFixtureScriptsSpecificationProvider.class)
                 .with(FixtureScripts.MultipleExecutionStrategy.EXECUTE)
                 .withRunScriptDefault(CommChannelDemoObjectsFixture.class)
                 .withRunScriptDropDown(FixtureScriptsSpecification.DropDownPolicy.CHOICES)

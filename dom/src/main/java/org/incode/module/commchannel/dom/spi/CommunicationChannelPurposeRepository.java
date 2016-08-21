@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.commchannel.dom.spi.purpose;
+package org.incode.module.commchannel.dom.spi;
 
 import java.util.Collection;
 
