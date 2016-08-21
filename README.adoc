@@ -6,8 +6,8 @@ image:https://travis-ci.org/incodehq/incode-module-commchannel.png?branch=master
 This module, intended for use with link:http://isis.apache.org[Apache Isis], provides the ability to attach
 communication channel objects (postal address, email or phone/fax number) to arbitrary domain objects.  There are
 _no_ requirements for those objects to implement any interfaces.  A subclass of `CommunicationChannelOwnerLink`
-(about 40 lines of boilerplate, details below) is required, acting as the "glue" between the communication channel and
-its associated "owner" domain object.
+abstract class is required (about link:https://github.com/incodehq/incode-module-commchannel/blob/master/fixture/src/main/java/org/incode/module/commchannel/fixture/dom/CommunicationChannelOwnerLinkForDemoObject.java[50 lines of boilerplate]), acting as the "glue" between the
+communication channel and its associated "owner" domain object.
 
 For postal address, the geocoding data can be looked up by invoking the
 link:https://developers.google.com/maps/documentation/geocoding[Google Geocoding] API.  This allows free-form text
@@ -21,6 +21,17 @@ of "purposes" is defined by the optional `CommunicationChannelPurposeRepository`
 vary by both the communication channel type (postal address/email/phone) and also by the "owner" domain object; for
 example address objects the list could be "billing address" and "shipping address", whereas for emails the list of
 purposes might be "work email" or "home email".
+
+
+
+== Domain Model
+
+The following http://yuml.me[] class diagram highlights the main concepts:
+
+image::http://yuml.me/34c12f41[link="http://yuml.me/34c12f41"]
+
+(The colours used in the diagram are - approximately - from link:https://en.wikipedia.org/wiki/Object_Modeling_in_Color[Object Modeling in Color]).
+
 
 
 == Screenshots
@@ -202,22 +213,15 @@ You can either use this module "out-of-the-box", or you can fork this repo and e
 
 To use "out-of-the-box":
 
-* update your classpath by adding importing the parent module's dependency into in your parent module's `pom.xml`: +
+* update your classpath by adding this dependency in your dom project's `pom.xml`: +
 +
 [source,xml]
 ----
-<dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-commchannel-dom</artifactId>
-            <version>1.12.0</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>
-        ...
-    </dependencies>
-</dependencyManagement>
+<dependency>
+    <groupId>org.incode.module.commchannel</groupId>
+    <artifactId>incode-module-commchannel-dom</artifactId>
+    <version>1.13.0</version>
+</dependency>
 ----
 
 
@@ -246,7 +250,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 
 [source,xml]
 ----
-<version>1.13.0-SNAPSHOT</version>
+<version>1.14.0-SNAPSHOT</version>
 ----
 
 * add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
@@ -282,66 +286,102 @@ In order to be able to add/remove communication channels for a domain object, yo
 +
 This link acts as a type-safe tuple linking the domain object to the `CommunicationChannel`.
 
+* implement the `CommunicationChannelOwnerLinkRepository.SubtypeProvider` SPI interface: +
++
+[source,java]
+----
+public interface SubtypeProvider {
+    Class<? extends CommunicationChannelOwnerLink> subtypeFor(
+        Class<?> domainObject,
+        CommunicationChannelType communicationChannelType);
+}
+----
++
+This tells the module which subclass of `CommunicationChannelOwnerLink` to use to attach to the domain object.  The
+`SubtypeProviderAbstract` adapter can be used to remove some boilerplate.
+
 * implement a domain event subscriber to correctly instantiate the subclass. +
 +
 Typically this is a nested static class of the `CommunicationChannelOwnerLink` subtype.
 
-For each such "owning" domain object, the module contributes the `communicationChannels` collection, the
-`newPostalAddress(...)` action, the `newEmailAddress(...)` action and the `newPhoneOrFaxNumber(...)` action.
+* subclass `T_addEmailAddress`, `T_addPostalAddress`, `T_addPhoneOrFaxNumber` and `T_communicationChannels` (abstract)
+mixin classes for the domain object. +
++
+These contribute the "communication channels" collection and actions to add communication channels of the various types.
+
+Typically the SPI implementations and the mixin classes are nested static classes of the `CommunicationChannelOwnerLink`
+subtype.
+
 
 For example, in the demo app the `CommChannelDemoObject` domain object can "own" communication channels by virtue of
 the `CommunicationChannelOwnerLinkForDemoObject` subclass:
 
 [source,java]
 ----
-@javax.jdo.annotations.PersistenceCapable(
-        schema="commchanneldemo")
-@javax.jdo.annotations.Inheritance(
-        strategy = InheritanceStrategy.NEW_TABLE)
-@DomainObject(
-        objectType = "commchanneldemo.CommunicationChannelOwnerLinkForDemoObject"
-)
+@javax.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE, schema="incodeCommChannelDemo")
+@javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
+@DomainObject
 public class CommunicationChannelOwnerLinkForDemoObject extends CommunicationChannelOwnerLink { // <1>
 
-    @DomainService(nature = NatureOfService.DOMAIN)
-    @DomainServiceLayout(menuOrder = "1")
-    public static class InstantiationSubscriber extends AbstractSubscriber {                    // <2>
-        @Programmatic
-        @Subscribe
-        public void on(final InstantiateEvent ev) {
-            if(ev.getPolymorphicReference() instanceof CommChannelDemoObject) {
-                ev.setSubtype(CommunicationChannelOwnerLinkForDemoObject.class);
-            }
-        }
-    }
-
-    @Override
-    public void setPolymorphicReference(final CommunicationChannelOwner polymorphicReference) { // <3>
-        super.setPolymorphicReference(polymorphicReference);
-        setDemoObject((CommChannelDemoObject) polymorphicReference);
-    }
-
     private CommChannelDemoObject demoObject;
-    @Column(
-            allowsNull = "false",
-            name = "demoObjectId"
-    )
-    public CommChannelDemoObject getDemoObject() {                                              // <4>
+    @Column( allowsNull = "false", name = "demoObjectId")
+    public CommChannelDemoObject getDemoObject() {                                              // <2>
         return demoObject;
     }
     public void setDemoObject(final CommChannelDemoObject demoObject) {
         this.demoObject = demoObject;
     }
+
+    public Object getOwner() {                                                                  // <3>
+        return getDemoObject();
+    }
+    protected void setOwner(final Object object) {
+        setDemoObject((CommChannelDemoObject) object);
+    }
+
+    @DomainService(nature = NatureOfService.DOMAIN)
+    public static class SubtypeProvider
+            extends CommunicationChannelOwnerLinkRepository.SubtypeProviderAbstract {           // <4>
+        public SubtypeProvider() {
+            super(CommChannelDemoObject.class, CommunicationChannelOwnerLinkForDemoObject.class);
+        }
+    }
+
+    @Mixin
+    public static class _communicationChannels                                                  // <5>
+            extends T_communicationChannels<CommChannelDemoObject> {
+        public _communicationChannels(final CommChannelDemoObject owner) {
+            super(owner);
+        }
+    }
+    @Mixin
+    public static class _addEmailAddress extends T_addEmailAddress<CommChannelDemoObject> {
+        public _addEmailAddress(final CommChannelDemoObject owner) {
+            super(owner);
+        }
+    }
+    @Mixin
+    public static class _addPhoneOrFaxNumber extends T_addPhoneOrFaxNumber<CommChannelDemoObject> {
+        public _addPhoneOrFaxNumber(final CommChannelDemoObject owner) {
+            super(owner);
+        }
+    }
+    @Mixin
+    public static class _addPostalAddress extends T_addPostalAddress<CommChannelDemoObject> {
+        public _addPostalAddress(final CommChannelDemoObject owner) {
+            super(owner);
+        }
+    }
 }
 ----
 <1> extend from `CommunicationChannelOwnerLink`
-<2> implementation of a domain event subscriber that tells the `incode-module-commchannel` which subclass of
-`CommunicationChannelOwnerLink` to instantiate to handle the polymorphic link between `CommunicationChannel` and the
-`CommunicationChannelOwner`.
-<3> override the inherited `setPolymorphicReference(...)` method to allow the type-safe reference property to the
-`CommunicationChannelOwner` (in this case `CommChannelDemoObject`) to be set
-<4> the type-safe reference property to the owner (in this case `CommunicationChannelDemoObject`).  In the RDBMS this
-will correspond to a regular foreign key with referential integrity constraints correctly applied.
+<2> the type-safe reference property to the "owning" domain object (in this case `DemoObject`).  In the RDBMS
+this will correspond to a regular foreign key with referential integrity constraints correctly applied.
+<3> implement the hook `setOwner(...)` method to allow the type-safe reference property to the "owner" (in
+this case `DemoObject`) to be set.  Also implemented `getOwner()` similarly
+<4> implementation of the `SubtypeProvider` SPI domain service, telling the module which subclass of
+`CommunicationChannelOwnerLink` to instantiate to attach to the owning domain object
+<5> mixins for the collections and actions contributed to the owning domain object
 
 
 
@@ -377,6 +417,12 @@ public class CommunicationChannelPurposeRepositoryForDemo implements Communicati
 
 If no implementation of this interface can be found, then the module provides a single "default" purpose for all
 communication channels.
+
+
+== UI Concerns
+
+The owned `CommunicationChannelOwnerLink` objects are never rendered directly in the UI.  Rather, the
+`T_communicationChannels` mixin renders the referenced ``CommunicationChannel``s instead.
 
 
 === Suppressing/adding UI elements
@@ -431,8 +477,6 @@ The module implements the http://github.com/isisaddons/isis-wicket-gmap3[Isis ad
  `LocationDereferencingService` SPI, so that clicking on a marker on a map will render the "owning" domain object,
  rather than the details of the `CommunicationChannel` itself.
 
-The module uses the design pattern of the (non-ASF) http://github.com/isisaddons/isis-module-poly[Isis addons' poly] module, to support type-safe polymorphic associations.
-
 
 
 == Known issues
@@ -442,7 +486,8 @@ None at this time.
 
 == Change Log
 
-* `1.13.0-SNAPSHOT` - (to release) against Isis 1.13.0; removed the `CommunicationChannelOwner` interface (to completely decouple the "owning" domain object from this module); using `.layout.xml` for layouts
+* `1.13.0-SNAPSHOT` - (to release) against Isis 1.13.0; removed the `CommunicationChannelOwner` interface and changed
+implementation to remove dependency on the http://github.com/isisaddons/isis-module-poly[Isis addons' poly] module.
 * `1.12.0` - released against Isis 1.12.0
 * `1.11.0` - released against Isis 1.11.0
 * `1.10.0` - released against Isis 1.10.0
@@ -559,5 +604,4 @@ before trying again.  Note that in the `dom`'s `pom.xml` the `nexus-staging-mave
 to set this to `false` if debugging an issue.
 
 According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update http://search.maven.org[search].
-
 
