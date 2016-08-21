@@ -36,13 +36,15 @@ import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
 import org.incode.module.note.app.NoteModuleAppManifest;
-import org.incode.module.note.dom.impl.note.Object_addNote;
-import org.incode.module.note.dom.impl.note.Object_noteCollection;
-import org.incode.module.note.dom.impl.note.Object_removeNote;
+import org.incode.module.note.dom.impl.note.T_addNote;
+import org.incode.module.note.dom.impl.note.T_notes;
+import org.incode.module.note.dom.impl.note.T_removeNote;
 import org.incode.module.note.dom.impl.note.Note;
 import org.incode.module.note.dom.impl.note.Note_changeDate;
 import org.incode.module.note.dom.impl.note.Note_changeNotes;
 import org.incode.module.note.dom.impl.note.Note_remove;
+import org.incode.module.note.fixture.dom.notablelink.NotableLinkForDemoObject;
+import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
 
 public abstract class NoteModuleIntegTest extends IntegrationTestAbstract {
 
@@ -56,15 +58,15 @@ public abstract class NoteModuleIntegTest extends IntegrationTestAbstract {
     protected FakeDataService fakeData;
 
 
-    protected Object_addNote mixinAddNote(final Object notable) {
-        return mixin(Object_addNote.class, notable);
+    protected T_addNote mixinAddNote(final NoteDemoObject notable) {
+        return mixin(NotableLinkForDemoObject._addNote.class, notable);
     }
-    protected Object_removeNote mixinRemoveNote(final Object notable) {
-        return mixin(Object_removeNote.class, notable);
+    protected T_removeNote mixinRemoveNote(final NoteDemoObject notable) {
+        return mixin(NotableLinkForDemoObject._removeNote.class, notable);
     }
 
-    protected Object_noteCollection mixinNotes(final Object notable) {
-        return mixin(Object_noteCollection.class, notable);
+    protected T_notes mixinNotes(final NoteDemoObject notable) {
+        return mixin(NotableLinkForDemoObject._notes.class, notable);
     }
 
     protected Note_changeDate mixinChangeDate(final Note note) {

@@ -32,7 +32,7 @@ import org.apache.isis.applib.services.wrapper.DisabledException;
 
 import org.incode.module.note.dom.impl.notablelink.NotableLink;
 import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
-import org.incode.module.note.dom.impl.note.Object_removeNote;
+import org.incode.module.note.dom.impl.note.T_removeNote;
 import org.incode.module.note.dom.impl.note.Note;
 import org.incode.module.note.dom.impl.note.NoteRepository;
 import org.incode.module.note.fixture.dom.calendarname.CalendarNameRepositoryForDemo;
@@ -58,7 +58,7 @@ public class Notable_removeNote_IntegTest extends NoteModuleIntegTest {
     NotableLinkRepository notableLinkRepository;
 
 
-    Object notable;
+    NoteDemoObject notable;
 
     @Before
     public void setUpData() throws Exception {
@@ -185,10 +185,10 @@ public class Notable_removeNote_IntegTest extends NoteModuleIntegTest {
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class Subscriber extends AbstractSubscriber {
 
-            Object_removeNote.DomainEvent ev;
+            T_removeNote.DomainEvent ev;
 
             @Subscribe
-            public void on(Object_removeNote.DomainEvent ev) {
+            public void on(T_removeNote.DomainEvent ev) {
                 this.ev = ev;
             }
         }
@@ -207,7 +207,7 @@ public class Notable_removeNote_IntegTest extends NoteModuleIntegTest {
             // when
             final Note note = noteList.get(0);
 
-            final Object_removeNote mixinRemoveNote = mixinRemoveNote(notable);
+            final T_removeNote mixinRemoveNote = mixinRemoveNote(notable);
             wrap(mixinRemoveNote).$$(note);
 
             // then

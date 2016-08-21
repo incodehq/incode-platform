@@ -31,7 +31,7 @@ import org.incode.module.note.dom.impl.note.NoteRepository;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
-        schema="notedemo")
+        schema="incodeNoteDemo")
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="id")
@@ -39,7 +39,7 @@ import org.incode.module.note.dom.impl.note.NoteRepository;
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
 @DomainObject(
-        objectType = "notedemo.NoteDemoObject",
+        objectType = "incodeNoteDemo.NoteDemoObject",
         editing = Editing.DISABLED
 )
 @DomainObjectLayout(

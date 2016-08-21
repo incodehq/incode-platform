@@ -28,15 +28,21 @@ import javax.jdo.annotations.InheritanceStrategy;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Sets;
+import com.google.common.eventbus.Subscribe;
 
+import org.axonframework.eventhandling.annotation.EventHandler;
 import org.joda.time.LocalDate;
 
+import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
+import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.services.title.TitleService;
 
-import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.Calendarable;
 
@@ -53,8 +59,7 @@ import lombok.Setter;
         table = "NotableLink"
 )
 @javax.jdo.annotations.DatastoreIdentity(strategy = IdGeneratorStrategy.IDENTITY, column = "id")
-@javax.jdo.annotations.Inheritance(
-        strategy = InheritanceStrategy.NEW_TABLE)
+@javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @javax.jdo.annotations.Queries({
         @javax.jdo.annotations.Query(
                 name = "findByNote", language = "JDOQL",
@@ -65,28 +70,25 @@ import lombok.Setter;
                 name = "findByNotable", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.module.note.dom.impl.notablelink.NotableLink "
-                        + "WHERE notableObjectType == :notableObjectType "
-                        + "   && notableIdentifier == :notableIdentifier "),
+                        + "WHERE notableStr == :notableStr "),
         @javax.jdo.annotations.Query(
                 name = "findByNotableAndCalendarName", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.module.note.dom.impl.notablelink.NotableLink "
-                        + "WHERE notableObjectType == :notableObjectType "
-                        + "   && notableIdentifier == :notableIdentifier "
+                        + "WHERE notableStr == :notableStr "
                         + "   && calendarName == :calendarName"),
         @javax.jdo.annotations.Query(
                 name = "findByNotableInDateRange", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.module.note.dom.impl.notablelink.NotableLink "
-                        + "WHERE notableObjectType == :notableObjectType "
-                        + "   && notableIdentifier == :notableIdentifier "
+                        + "WHERE notableStr == :notableStr "
                         + "   && date >= :startDate "
                         + "   && date <= :endDate")
 })
 @javax.jdo.annotations.Indices({
         @javax.jdo.annotations.Index(
                 name = "NotableLink_notable_IDX",
-                members = { "notableObjectType", "notableIdentifier" })
+                members = { "notableStr" })
 })
 @javax.jdo.annotations.Uniques({
         @javax.jdo.annotations.Unique(
@@ -94,77 +96,105 @@ import lombok.Setter;
                 members = {"note"})
 })
 @DomainObject(
-        objectType = "note.NotableLink"
+        objectType = "incodeNote.NotableLink"
 )
-public abstract class NotableLink
-        extends PolymorphicAssociationLink<Note, Object, NotableLink>
-        implements Calendarable {
+@DomainObjectLayout(
+        titleUiEvent = NotableLink.TitleUiEvent.class,
+        iconUiEvent = NotableLink.IconUiEvent.class,
+        cssClassUiEvent = NotableLink.CssClassUiEvent.class
+)
+public abstract class NotableLink implements Calendarable {
 
-    //region > event classes
+    //region > ui event classes
+    public static class TitleUiEvent extends NoteModule.TitleUiEvent<NotableLink>{}
+    public static class IconUiEvent extends NoteModule.IconUiEvent<NotableLink>{}
+    public static class CssClassUiEvent extends NoteModule.CssClassUiEvent<NotableLink>{}
+    //endregion
+
+    //region > domain event classes
     public static abstract class PropertyDomainEvent<T> extends NoteModule.PropertyDomainEvent<NotableLink, T> { }
     public static abstract class CollectionDomainEvent<T> extends NoteModule.CollectionDomainEvent<NotableLink, T> { }
     public static abstract class ActionDomainEvent extends NoteModule.ActionDomainEvent<NotableLink> { }
     //endregion
 
-    //region > instantiateEvent (poly pattern)
-    public static class InstantiateEvent
-            extends PolymorphicAssociationLink.InstantiateEvent<Note, Object, NotableLink> {
+    //region > title, icon, cssClass
+    /**
+     * Implemented as a subscriber so can be overridden by consuming application if required.
+     */
+    @DomainService(nature = NatureOfService.DOMAIN)
+    public static class TitleSubscriber extends AbstractSubscriber {
+        @EventHandler
+        @Subscribe
+        public void on(NotableLink.TitleUiEvent ev) {
+            if(ev.getTitle() != null) {
+                return;
+            }
+            ev.setTitle(titleOf(ev.getSource()));
+        }
+        private String titleOf(final NotableLink notableLink) {
+            return String.format("%s: %s",
+                    titleService.titleOf(notableLink.getNotable()),
+                    // hmm; if using guava, can't call events within events...
+                    titleService.titleOf(notableLink.getNote()));
+        }
+        @Inject
+        TitleService titleService;
+    }
 
-        public InstantiateEvent(final Object source, final Note subject, final Object notable) {
-            super(NotableLink.class, source, subject, notable);
+    /**
+     * Implemented as a subscriber so can be overridden by consuming application if required.
+     */
+    @DomainService
+    public static class IconSubscriber extends AbstractSubscriber {
+        @EventHandler
+        @Subscribe
+        public void on(NotableLink.IconUiEvent ev) {
+            if(ev.getIconName() != null) {
+                return;
+            }
+            ev.setIconName("");
+        }
+    }
+
+    /**
+     * Implemented as a subscriber so can be overridden by consuming application if required.
+     */
+    @DomainService
+    public static class CssClassSubscriber extends AbstractSubscriber {
+        @EventHandler
+        @Subscribe
+        public void on(NotableLink.CssClassUiEvent ev) {
+            if(ev.getCssClass() != null) {
+                return;
+            }
+            ev.setCssClass("");
         }
     }
     //endregion
 
-    //region > constructor
-    public NotableLink() {
-        super("{polymorphicReference} has {subject}");
-    }
+
+    //region > notableStr (property)
+    public static class NotableStrDomainEvent extends PropertyDomainEvent<String> { }
+    @Getter @Setter
+    @javax.jdo.annotations.Column(allowsNull = "false", length = NoteModule.JdoColumnLength.BOOKMARK)
+    @Property(
+            domainEvent = NotableStrDomainEvent.class,
+            editing = Editing.DISABLED
+    )
+    private String notableStr;
     //endregion
 
-    //region > SubjectPolymorphicReferenceLink API
-
+    //region > notable (derived property, hooks)
     /**
-     * The subject of the pattern, which (perhaps confusingly in this instance) is actually the
-     * {@link #getNote() event}.
+     * Polymorphic association to the notable object.
      */
-    @Override
     @Programmatic
-    public Note getSubject() {
-        return getNote();
-    }
-
-    @Override
-    @Programmatic
-    public void setSubject(final Note subject) {
-        setNote(subject);
-    }
-
-    @Override
-    @Programmatic
-    public String getPolymorphicObjectType() {
-        return getNotableObjectType();
-    }
-
-    @Override
-    @Programmatic
-    public void setPolymorphicObjectType(final String polymorphicObjectType) {
-        setNotableObjectType(polymorphicObjectType);
-    }
-
-    @Override
-    @Programmatic
-    public String getPolymorphicIdentifier() {
-        return getNotableIdentifier();
-    }
-
-    @Override
-    @Programmatic
-    public void setPolymorphicIdentifier(final String polymorphicIdentifier) {
-        setNotableIdentifier(polymorphicIdentifier);
-    }
+    public abstract Object getNotable();
+    protected abstract void setNotable(Object object);
     //endregion
 
+
+    //region > note (property)
 
     public static class NoteDomainEvent extends PropertyDomainEvent<Note> { }
     @Getter @Setter
@@ -175,24 +205,9 @@ public abstract class NotableLink
     )
     private Note note;
 
-    public static class NotableObjectTypeDomainEvent extends PropertyDomainEvent<String> { }
-    @Getter @Setter
-    @javax.jdo.annotations.Column(allowsNull = "false", length = 255)
-    @Property(
-            domainEvent = NotableObjectTypeDomainEvent.class,
-            editing = Editing.DISABLED
-    )
-    private String notableObjectType;
+    //endregion
 
-    public static class NotableIdentifierDomainEvent extends PropertyDomainEvent<String> {
-    }
-    @Getter @Setter
-    @javax.jdo.annotations.Column(allowsNull = "false", length = 255)
-    @Property(
-            domainEvent = NotableIdentifierDomainEvent.class,
-            editing = Editing.DISABLED
-    )
-    private String notableIdentifier;
+    //region > date (property)
 
     public static class DateDomainEvent extends PropertyDomainEvent<LocalDate> { }
     /**
@@ -208,6 +223,11 @@ public abstract class NotableLink
             domainEvent = DateDomainEvent.class
     )
     private LocalDate date;
+
+    //endregion
+
+
+    //region > calendarName (property)
 
     public static class CalendarNameDomainEvent extends PropertyDomainEvent<String> { }
     /**
@@ -226,14 +246,6 @@ public abstract class NotableLink
     private String calendarName;
 
 
-    //region > notable (derived property)
-    /**
-     * Simply returns the {@link #getPolymorphicReference()}.
-     */
-    @Programmatic
-    public Object getNotable() {
-        return getPolymorphicReference();
-    }
     //endregion
 
     //region > eventSource impl

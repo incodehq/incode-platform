@@ -58,10 +58,9 @@ Copyright 2014~2015 Dan Haywood
         <compileSource>1.8</compileSource>
         <compileTarget>1.8</compileTarget>
 
-        <isis.version>1.13.0-SNAPSHOT</isis.version>
-        <isis-module-poly-dom.version>1.13.0-SNAPSHOT</isis-module-poly-dom.version>
-        <isis-module-fakedata-dom.version>1.13.0-SNAPSHOT</isis-module-fakedata-dom.version>
-        <isis-wicket-fullcalendar2-cpt.version>1.13.0-SNAPSHOT</isis-wicket-fullcalendar2-cpt.version>
+        <isis.version>1.13.0</isis.version>
+        <isis-module-fakedata-dom.version>1.13.0</isis-module-fakedata-dom.version>
+        <isis-wicket-fullcalendar2-cpt.version>1.13.0</isis-wicket-fullcalendar2-cpt.version>
 
         <lombok.version>1.16.6</lombok.version>
 
@@ -232,11 +231,6 @@ Copyright 2014~2015 Dan Haywood
             <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
             <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
             <version>${isis-wicket-fullcalendar2-cpt.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.isisaddons.module.poly</groupId>
-            <artifactId>isis-module-poly-dom</artifactId>
-            <version>${isis-module-poly-dom.version}</version>
         </dependency>
         <dependency>
             <groupId>org.isisaddons.module.fakedata</groupId>

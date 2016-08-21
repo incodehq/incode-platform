@@ -5,8 +5,8 @@ image:https://travis-ci.org/incodehq/incode-module-note.png?branch=master[Build 
 
 This module, intended for use with link:http://isis.apache.org[Apache Isis], provides the ability to attach `Note`
 objects to arbitrary domain objects.  There are _no_ requirements for those domain objects implement any interfaces.
-A subclass of the `NotableLink` abstract class (about 40 lines of boilerplate, details below) is required, acting
-as the "glue" between the note and the "notable" domain object.
+A subclass of the `NotableLink` abstract class is required (about link:https://github.com/incodehq/incode-module-note/blob/master/fixture/src/main/java/org/incode/module/note/fixture/dom/NotableLinkForDemoObject.java[50 lines of boilerplate])),
+acting as the "glue" between the note and the "notable" domain object.
 
 Each `Note` can optionally have a date associated with it, and corresponding (predefined) calendar.  The `Note`
 implements the `CalendarEventable` interface (from the link:http://isisaddons.org[Isis Addons]'
@@ -20,6 +20,16 @@ the `CalendarNameRepository` service can be found, then a single "default" calen
 
 Any given "notable" domain object can have multiple `Note`s.  As currently implemented, a "notable" domain object can
 only have one `Note` per named calendar.
+
+
+
+== Domain Model
+
+The following http://yuml.me[] class diagram highlights the main concepts:
+
+image::http://yuml.me/55b7eaab[link="http://yuml.me/55b7eaab"]
+
+(The colours used in the diagram are - approximately - from link:https://en.wikipedia.org/wiki/Object_Modeling_in_Color[Object Modeling in Color]).
 
 
 
@@ -98,7 +108,8 @@ To run the demo app:
 
 [source]
 ----
-mvn antrun:run -P self-host
+cd webapp
+mvn jetty:run
 ----
 
 Then log on using user: `sven`, password: `pass`
@@ -119,7 +130,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.incode.module.note</groupId>
     <artifactId>incode-module-note-dom</artifactId>
-    <version>1.12.0</version>
+    <version>1.13.0</version>
 </dependency>
 ----
 
@@ -137,7 +148,6 @@ public List<Class<?>> getModules() {
 ----
 
 
-
 Notes:
 
 * Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-note-dom[Maven Central Repo].
@@ -151,7 +161,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 
 [source,xml]
 ----
-<version>1.13.0-SNAPSHOT</version>
+<version>1.14.0-SNAPSHOT</version>
 ----
 
 * add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
@@ -187,65 +197,87 @@ In order to be able to attach a note to a domain object, you need to:
 +
 This link acts as a type-safe tuple linking the domain object to the `Note`.
 
-* implement a domain event subscriber to correctly instantiate the subclass. +
+* implement the `NotableLinkRepository.SubtypeProvider` SPI interface: +
 +
-Typically this is a nested static class of the `NotableLink` subtype.
+[source,java]
+----
+public interface SubtypeProvider {
+    Class<? extends NotableLink> subtypeFor(Class<?> domainObject);
+}
+----
++
+This tells the module which subclass of `NotableLink` to use to attach to the domain object.  The
+`SubtypeProviderAbstract` adapter can be used to remove some boilerplate.
 
-For each such "notable" domain object, the module contributes the `notes` collection, and also the `addNote(...)` and
-`removeNote(...)` actions.
+* subclass `T_addNote`, `T_removeNote`, `T_notes` (abstract) mixin classes for the domain object. +
++
+These contribute the "notes" collection and actions to add/remove notes for the domain object.
+
+Typically the SPI implementations and the mixin classes are nested static classes of the `NotableLink` subtype.
+
 
 For example, in the demo app the `NoteDemoObject` domain object can have notes attached to it by virtue of the
 `NotableLinkForDemoObject` subclass:
 
 [source,java]
 ----
-@javax.jdo.annotations.PersistenceCapable(
-        identityType= IdentityType.DATASTORE,
-        schema="notedemo")
+@javax.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE, schema ="incodeNoteDemo")
 @javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
-@DomainObject(
-        objectType = "notedemo.NotableLinkForDemoObject"
-)
-public class NotableLinkForDemoObject extends NotableLink {                     // <1>
-
-    @DomainService(nature = NatureOfService.DOMAIN)
-    @DomainServiceLayout(menuOrder = "1")
-    public static class InstantiationSubscriber extends AbstractSubscriber {    // <2>
-        @Programmatic
-        @Subscribe
-        public void on(final InstantiateEvent ev) {
-            if(ev.getPolymorphicReference() instanceof NoteDemoObject) {
-                ev.setSubtype(NotableLinkForDemoObject.class);
-            }
-        }
-    }
-
-    @Override
-    public void setPolymorphicReference(final Notable polymorphicReference) {   // <3>
-        super.setPolymorphicReference(polymorphicReference);
-        setDemoObject((NoteDemoObject) polymorphicReference);
-    }
+@DomainObject
+public class NotableLinkForDemoObject extends NotableLink {                         // <1>
 
     private NoteDemoObject demoObject;
-    @Column(
-            allowsNull = "false",
-            name = "demoObjectId"
-    )
-    public NoteDemoObject getDemoObject() {                                     // <4>
+    @Column( allowsNull = "false", name = "demoObjectId" )
+    public NoteDemoObject getDemoObject() {                                         // <2>
         return demoObject;
     }
     public void setDemoObject(final NoteDemoObject demoObject) {
         this.demoObject = demoObject;
     }
 
-    @javax.inject.Inject
-    private NoteRepository noteRepository;
+    public Object getNotable() {                                                    // <3>
+        return getDemoObject();
+    }
+    protected void setNotable(final Object object) {
+        setDemoObject((NoteDemoObject) object);
+    }
+
+    @DomainService(nature = NatureOfService.DOMAIN)
+    public static class SubtypeProvider
+                extends NotableLinkRepository.SubtypeProviderAbstract {             // <4>
+        public SubtypeProvider() {
+            super(NoteDemoObject.class, NotableLinkForDemoObject.class);
+        }
+    }
+
+    @Mixin
+    public static class _notes extends T_notes<NoteDemoObject> {                    // <5>
+        public _notes(final NoteDemoObject notable) {
+            super(notable);
+        }
+    }
+    @Mixin
+    public static class _addNote extends T_addNote<NoteDemoObject> {
+        public _addNote(final NoteDemoObject notable) {
+            super(notable);
+        }
+    }
+    @Mixin
+    public static class _removeNote extends T_removeNote<NoteDemoObject> {
+        public _removeNote(final NoteDemoObject notable) {
+            super(notable);
+        }
+    }
 }
 ----
 <1> extend from `NotableLink`
-<2> implementation of a domain event subscriber that tells the `incode-module-note` which subclass of `NotableLink` to instantiate to handle the polymorphic link between `Note` and the "notable".
-<3> override the inherited `setPolymorphicReference(...)` method to allow the type-safe reference property to the "notable" (in this case `NoteDemoObject`) to be set
-<4> the type-safe reference property to the "notable" (in this case `NoteDemoObject`).  In the RDBMS this will correspond to a regular foreign key with referential integrity constraints correctly applied.
+<2> the type-safe reference property to the "notable" domain object (in this case `DemoObject`).  In the RDBMS
+this will correspond to a regular foreign key with referential integrity constraints correctly applied.
+<3> implement the hook `setNotable(...)` method to allow the type-safe reference property to the "notable" (in
+this case `DemoObject`) to be set.  Also implemented `getNotable()` similarly
+<4> implementation of the `SubtypeProvider` SPI domain service, telling the module which subclass of
+`NotableLink` to instantiate to attach to the owning domain object
+<5> mixins for the collections and actions contributed to the owning domain object
 
 
 
@@ -278,6 +310,44 @@ public class CalendarNameRepositoryForDemo implements CalendarNameRepository {
 If no implementation of this interface can be found, then the module provides a single "default" calendar for all "notable" domain objects.
 
 
+== UI Concerns
+
+=== Suppressing/adding UI elements
+
+Every property, collection and action has a corresponding domain event.  Thus, a subscriber can be used to hide or
+disable UI representation of any domain object's members.
+
+For example, the "content" property of a `Note` could be suppressed using the following service:
+
+[source,java]
+----
+@DomainService(nature = NatureOfService.DOMAIN)
+public class NotesDemoSuppressContentSubscriber extends AbstractSubscriber {
+    @Subscribe
+    public void on(Note.ContentDomainEvent ev) {
+        switch (ev.getEventPhase()) {
+        case HIDE:
+            // uncomment as an example of how to influence the UI
+            // (the content property should disappear)
+            // ev.hide();
+        }
+    }
+}
+----
+
+Conversely, new UI elements can be added using
+link:http://isis.apache.org/guides/ug.html#_ug_how-tos_contributed-members[contributions] and mixins.
+
+
+=== Link class
+
+The `NotableLink` object is not intended to be rendered directly in the UI.  Rather, the
+`T_notes` mixin renders the referenced ``Note``s instead.
+
+Nevertheless (just in case there is a requirement to render the link object), the `NotableLink` allows
+its title, icon and CSS class to be specified using subscribers to UI event classes specific to the link class.
+
+
 
 == Other Services
 
@@ -299,7 +369,9 @@ None at this time.
 
 == Change Log
 
-* `1.13.0-SNAPSHOT` - (to release) against Isis 1.13.0; removed the `Notable` interface (to completely decouple the "notable" domain object from this module); using `.layout.xml` for layouts
+* `1.13.0-SNAPSHOT` - (to release) against Isis 1.13.0; removed the `Notable` interface  and changed implementation to
+remove dependency on the http://github.com/isisaddons/isis-module-poly[Isis addons' poly]; also uses `.layout.xml`
+for layouts
 * `1.12.1` - released against Isis 1.12.1, fixes #4.
 * `1.12.0` - released against Isis 1.12.0.
 * `1.11.0` - released against Isis 1.11.0.

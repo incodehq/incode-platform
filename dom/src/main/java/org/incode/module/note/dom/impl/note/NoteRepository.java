@@ -90,12 +90,6 @@ public class NoteRepository {
 
     //region > add (programmatic)
 
-
-    @Programmatic
-    public boolean supports(final Object aliased) {
-        return linkRepository.supports(aliased);
-    }
-
     @Programmatic
     public Note add(
             final Object notable,
@@ -105,12 +99,17 @@ public class NoteRepository {
         final Note note = repositoryService.instantiate(Note.class);
         note.setDate(date);
         note.setCalendarName(calendarName);
-        note.setNotable(notable);
         note.setContent(noteText);
-        repositoryService.persist(note);
+        repositoryService.persistAndFlush(note);
+
+        final NotableLink link = notableLinkRepository.createLink(note, notable);
+        // stored redundantly for querying...
+        link.setCalendarName(calendarName);
+        link.setDate(date);
 
         return note;
     }
+
     //endregion
 
     //region > remove (programmatic)
@@ -131,6 +130,8 @@ public class NoteRepository {
     //endregion
 
     //region > injected
+    @Inject
+    NotableLinkRepository notableLinkRepository;
     @Inject
     NotableLinkRepository linkRepository;
     @Inject

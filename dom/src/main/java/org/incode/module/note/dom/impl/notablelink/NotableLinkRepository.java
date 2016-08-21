@@ -20,7 +20,7 @@ package org.incode.module.note.dom.impl.notablelink;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 import org.joda.time.LocalDate;
 
@@ -34,8 +34,6 @@ import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
 
-import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
-
 import org.incode.module.note.dom.impl.note.Note;
 
 @DomainService(
@@ -43,23 +41,6 @@ import org.incode.module.note.dom.impl.note.Note;
         repositoryFor = NotableLink.class
 )
 public class NotableLinkRepository {
-
-    //region > init
-    PolymorphicAssociationLink.Factory<Note,Object,NotableLink,NotableLink.InstantiateEvent> linkFactory;
-
-    @PostConstruct
-    public void init() {
-        linkFactory = serviceRegistry.injectServicesInto(
-                new PolymorphicAssociationLink.Factory<>(
-                        this,
-                        Note.class,
-                        Object.class,
-                        NotableLink.class,
-                        NotableLink.InstantiateEvent.class
-                ));
-
-    }
-    //endregion
 
     //region > findByNote (programmatic)
     @Programmatic
@@ -81,11 +62,11 @@ public class NotableLinkRepository {
         if(bookmark == null) {
             return null;
         }
+        final String notableStr = bookmark.toString();
         return repositoryService.allMatches(
                 new QueryDefault<>(NotableLink.class,
                         "findByNotable",
-                        "notableObjectType", bookmark.getObjectType(),
-                        "notableIdentifier", bookmark.getIdentifier()));
+                        "notableStr", notableStr));
     }
     //endregion
 
@@ -108,11 +89,11 @@ public class NotableLinkRepository {
         if(bookmark == null) {
             return null;
         }
+        final String notableStr = bookmark.toString();
         return repositoryService.firstMatch(
                 new QueryDefault<>(NotableLink.class,
                         "findByNotableAndCalendarName",
-                        "notableObjectType", bookmark.getObjectType(),
-                        "notableIdentifier", bookmark.getIdentifier(),
+                        "notableStr", notableStr,
                         "calendarName", calendarName));
     }
     //endregion
@@ -136,31 +117,52 @@ public class NotableLinkRepository {
         if(endDate == null) {
             return null;
         }
+        final String notableStr = bookmark.toString();
         return repositoryService.allMatches(
                 new QueryDefault<>(NotableLink.class,
                         "findByNotableInDateRange",
-                        "notableObjectType", bookmark.getObjectType(),
-                        "notableIdentifier", bookmark.getIdentifier(),
+                        "notableStr", notableStr,
                         "startDate", startDate,
                         "endDate", endDate));
     }
     //endregion
 
     //region > createLink (programmatic)
-
     @Programmatic
-    public boolean supports(final Object classifiable) {
-        return linkFactory.supportsLink(classifiable);
-    }
+    public NotableLink createLink(
+            final Note note,
+            final Object notable) {
 
-    @Programmatic
-    public NotableLink createLink(final Note note, final Object notable) {
-        final NotableLink link = linkFactory.createLink(note, notable);
+        final Class<? extends NotableLink> subtype = subtypeClassFor(notable);
 
-        sync(note, link);
+        final NotableLink link = repositoryService.instantiate(subtype);
+
+        link.setNote(note);
+
+        final Bookmark bookmark = bookmarkService.bookmarkFor(notable);
+        link.setNotable(notable);
+        link.setNotableStr(bookmark.toString());
+
+        repositoryService.persistAndFlush(link);
 
         return link;
     }
+
+    private Class<? extends NotableLink> subtypeClassFor(
+            final Object classified) {
+        Class<?> domainClass = classified.getClass();
+        for (SubtypeProvider subtypeProvider : subtypeProviders) {
+            Class<? extends NotableLink> subtype = subtypeProvider.subtypeFor(domainClass);
+            if(subtype != null) {
+                return subtype;
+            }
+        }
+        throw new IllegalStateException(String.format(
+                "No subtype of NotableLink was found for '%s'; implement the NotableLinkRepository.SubtypeProvider SPI",
+                domainClass.getName()));
+    }
+    //endregion
+
 
     //endregion
 
@@ -186,6 +188,39 @@ public class NotableLinkRepository {
     }
     //endregion
 
+    //region > SubtypeProvider SPI
+
+    /**
+     * SPI to be implemented (as a {@link DomainService}) for any domain object to which {@link NotableLink}s can be
+     * attached.
+     */
+    public interface SubtypeProvider {
+        /**
+         * @return the subtype of {@link NotableLink} to use to hold the (type-safe) link of the domain object
+         */
+        @Programmatic
+        Class<? extends NotableLink> subtypeFor(Class<?> domainObject);
+    }
+    /**
+     * Convenience adapter to help implement the {@link SubtypeProvider} SPI; simply returns the class pair passed into constructor.
+     */
+    public abstract static class SubtypeProviderAbstract implements SubtypeProvider {
+        private final Class<?> notableDomainType;
+        private final Class<? extends NotableLink> notableLinkSubtype;
+
+        protected SubtypeProviderAbstract(final Class<?> notableDomainType, final Class<? extends NotableLink> notableLinkSubtype) {
+            this.notableDomainType = notableDomainType;
+            this.notableLinkSubtype = notableLinkSubtype;
+        }
+        @Override
+        public Class<? extends NotableLink> subtypeFor(final Class<?> domainType) {
+            return domainType.isAssignableFrom(notableDomainType) ? notableLinkSubtype : null;
+        }
+    }
+
+    //endregion
+
+
     //region > injected services
 
     @javax.inject.Inject
@@ -200,6 +235,8 @@ public class NotableLinkRepository {
     @javax.inject.Inject
     BookmarkService bookmarkService;
 
+    @Inject
+    List<SubtypeProvider> subtypeProviders;
     //endregion
 
 }

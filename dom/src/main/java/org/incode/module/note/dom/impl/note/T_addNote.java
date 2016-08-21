@@ -30,8 +30,8 @@ import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
@@ -40,23 +40,22 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.incode.module.note.dom.NoteModule;
 import org.incode.module.note.dom.impl.calendarname.CalendarNameService;
 
-@Mixin
-public class Object_addNote {
+public abstract class T_addNote<T> {
 
     //region > constructor
-    private final Object notable;
-    public Object_addNote(final Object notable) {
+    private final T notable;
+    public T_addNote(final T notable) {
         this.notable = notable;
     }
 
-    public Object getNotable() {
+    public T getNotable() {
         return notable;
     }
     //endregion
 
     //region > $$
 
-    public static class DomainEvent extends NoteModule.ActionDomainEvent<Object_addNote> { }
+    public static class DomainEvent extends NoteModule.ActionDomainEvent<T_addNote> { }
 
     @Action(
             domainEvent = DomainEvent.class,
@@ -64,9 +63,10 @@ public class Object_addNote {
     )
     @ActionLayout(
             cssClassFa = "fa-plus",
-            named = "Add"
+            named = "Add",
+            contributed = Contributed.AS_ACTION
     )
-    @MemberOrder(name = "noteCollection", sequence = "1")
+    @MemberOrder(name = "notes", sequence = "1")
     public Object $$(
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Note", multiLine = NoteModule.MultiLine.NOTES)
@@ -124,10 +124,6 @@ public class Object_addNote {
             }
         }
         return null;
-    }
-
-    public boolean hide$$() {
-        return !noteRepository.supports(this.notable);
     }
 
     //endregion

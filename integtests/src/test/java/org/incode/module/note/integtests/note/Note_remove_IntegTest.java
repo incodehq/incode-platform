@@ -51,7 +51,7 @@ public class Note_remove_IntegTest extends NoteModuleIntegTest {
     @Inject
     NoteDemoObjectMenu noteDemoObjectMenu;
 
-    Object notable;
+    NoteDemoObject notable;
     Note note;
     Note noteWithoutDate;
     Note noteWithoutText;

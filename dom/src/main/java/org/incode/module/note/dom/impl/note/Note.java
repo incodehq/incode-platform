@@ -12,17 +12,14 @@ import com.google.common.base.Function;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
-import org.apache.isis.applib.annotation.LabelPosition;
-import org.apache.isis.applib.annotation.MemberGroupLayout;
-import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
-import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.i18n.LocaleProvider;
+import org.apache.isis.applib.services.repository.RepositoryService;
+import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
 
@@ -66,23 +63,9 @@ import lombok.Setter;
 @DomainObject(
         editing = Editing.DISABLED
 )
-@MemberGroupLayout(
-        columnSpans = {8,4,0,8},
-        left = "Notes",
-        middle = {"What", "When", "Metadata"}
-)
 public class Note implements CalendarEventable, Comparable<Note> {
 
-    static final int NOTES_ABBREVIATED_TO = 40;
-
-    //region > injected services
-    @Inject
-    NotableLinkRepository notableLinkRepository;
-    @Inject
-    DomainObjectContainer container;
-    @Inject
-    LocaleProvider localeProvider;
-    //endregion
+    private static final int NOTES_ABBREVIATED_TO = 40;
 
     //region > event classes
     public static abstract class PropertyDomainEvent<S,T> extends NoteModule.PropertyDomainEvent<S, T> { }
@@ -93,9 +76,10 @@ public class Note implements CalendarEventable, Comparable<Note> {
     //region > title
     public String title() {
         final TitleBuffer buf = new TitleBuffer();
-        buf.append(container.titleOf(getNotable()));
+        // 1.13.0 refactoring, issue with persisting note, trying to find the cause...
+        // buf.append(titleService.titleOf(getNotable()));
         if(getDate() != null) {
-            // final String dateStr = repositoryService.titleOf(getDate()); // broken in isis 1.9.0
+            // final String dateStr = titleService.titleOf(getDate()); // broken in isis 1.9.0
             final Locale locale = localeProvider.getLocale();
             final String dateStr = DateTimeFormat.forStyle("M-").withLocale(locale).print(getDate());
             buf.append(" @").append(dateStr);
@@ -115,10 +99,6 @@ public class Note implements CalendarEventable, Comparable<Note> {
     @Property(
             domainEvent = ContentDomainEvent.class,
             hidden = Where.ALL_TABLES
-    )
-    @PropertyLayout(
-            multiLine = NoteModule.MultiLine.NOTES,
-            labelPosition = LabelPosition.NONE
     )
     private String content;
 
@@ -157,7 +137,6 @@ public class Note implements CalendarEventable, Comparable<Note> {
             domainEvent = CalendarNameDomainEvent.class,
             editing = Editing.DISABLED
     )
-    @MemberOrder(name = "When", sequence = "3")
     private String calendarName;
 
 
@@ -168,6 +147,7 @@ public class Note implements CalendarEventable, Comparable<Note> {
     /**
      * Polymorphic association to (any implementation of) "notable" domain object.
      */
+    @javax.jdo.annotations.NotPersistent
     @Property(
             domainEvent = NotableDomainEvent.class,
             editing = Editing.DISABLED,
@@ -176,24 +156,13 @@ public class Note implements CalendarEventable, Comparable<Note> {
     )
     public Object getNotable() {
         final NotableLink link = getNotableLink();
-        return link != null? link.getPolymorphicReference(): null;
+        return link != null? link.getNotable(): null;
     }
 
+    @javax.jdo.annotations.NotPersistent
     @Programmatic
-    public void setNotable(final Object notable) {
-        removeNotableLink();
-        notableLinkRepository.createLink(this, notable);
-    }
-
-    private void removeNotableLink() {
-        final NotableLink notableLink = getNotableLink();
-        if(notableLink != null) {
-            container.remove(notableLink);
-        }
-    }
-
     private NotableLink getNotableLink() {
-        if (!container.isPersistent(this)) {
+        if (!repositoryService.isPersistent(this)) {
             return null;
         }
         return notableLinkRepository.findByNote(this);
@@ -211,9 +180,6 @@ public class Note implements CalendarEventable, Comparable<Note> {
     @Property(
             domainEvent = NotesAbbreviatedDomainEvent.class,
             hidden = Where.OBJECT_FORMS
-    )
-    @PropertyLayout(
-            named = "Notes"
     )
     public String getAbbreviated() {
         return trim(getContent(), "...", NOTES_ABBREVIATED_TO);
@@ -233,7 +199,7 @@ public class Note implements CalendarEventable, Comparable<Note> {
         if(getDate() == null || getCalendarName() == null) {
             return null;
         }
-        final String eventTitle = container.titleOf(getNotable()) + ": " + getAbbreviated();
+        final String eventTitle = titleService.titleOf(getNotable()) + ": " + getAbbreviated();
         return new CalendarEvent(getDate().toDateTimeAtStartOfDay(), getCalendarName(), eventTitle);
     }
     //endregion
@@ -256,9 +222,21 @@ public class Note implements CalendarEventable, Comparable<Note> {
 
     @Override
     public int compareTo(final Note other) {
-        return ObjectContracts.compare(this, other, "date", "source", "calendarName");
+        return ObjectContracts.compare(this, other, "date", "calendarName");
     }
 
     //endregion
+
+    //region > injected services
+    @Inject
+    NotableLinkRepository notableLinkRepository;
+    @Inject
+    RepositoryService repositoryService;
+    @Inject
+    TitleService titleService;
+    @Inject
+    LocaleProvider localeProvider;
+    //endregion
+
 
 }

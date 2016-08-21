@@ -16,7 +16,9 @@
                                 <cpt:property id="notable"/>
                             </cpt:fieldSet>
                             <cpt:fieldSet name="When" id="when">
-                                <cpt:property id="abbreviated" hidden="OBJECT_FORMS"/>
+                                <cpt:property id="abbreviated" hidden="OBJECT_FORMS">
+                                    <cpt:named>Notes</cpt:named>
+                                </cpt:property>
                                 <cpt:property id="date"/>
                                 <cpt:property id="calendarName"/>
                             </cpt:fieldSet>
@@ -54,16 +56,13 @@
                     <bs3:row>
                         <bs3:col span="12">
                             <cpt:fieldSet name="Notes" id="notes">
-                                <cpt:property id="content"/>
+                                <cpt:property id="content" hidden="ALL_TABLES" multiLine="20" labelPosition="NONE"/>
                             </cpt:fieldSet>
                         </bs3:col>
                     </bs3:row>
                 </bs3:tab>
             </bs3:tabGroup>
         </bs3:col>
-        <bs3:col span="8" unreferencedCollections="true">
-            <!-- contributed on all collections, but ignored -->
-            <cpt:collection id="notes" hidden="EVERYWHERE"/>
-        </bs3:col>
+        <bs3:col span="8" unreferencedCollections="true"/>
     </bs3:row>
 </bs3:grid>

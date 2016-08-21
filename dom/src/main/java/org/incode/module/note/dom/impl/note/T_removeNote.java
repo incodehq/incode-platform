@@ -25,29 +25,28 @@ import javax.inject.Inject;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.note.dom.NoteModule;
 
-@Mixin
-public class Object_removeNote {
+public abstract class T_removeNote<T> {
 
     //region > constructor
-    private final Object notable;
-    public Object_removeNote(final Object notable) {
+    private final T notable;
+    public T_removeNote(final T notable) {
         this.notable = notable;
     }
 
-    public Object getNotable() {
+    public T getNotable() {
         return notable;
     }
     //endregion
 
     //region > $$
 
-    public static class DomainEvent extends NoteModule.ActionDomainEvent<Object_removeNote> { } { }
+    public static class DomainEvent extends NoteModule.ActionDomainEvent<T_removeNote> { } { }
 
     @Action(
             domainEvent = DomainEvent.class,
@@ -55,9 +54,10 @@ public class Object_removeNote {
     )
     @ActionLayout(
             cssClassFa = "fa-minus",
-            named = "Remove"
+            named = "Remove",
+            contributed = Contributed.AS_ACTION
     )
-    @MemberOrder(name = "noteCollection", sequence = "2")
+    @MemberOrder(name = "notes", sequence = "2")
     public Object $$(final Note note) {
         noteRepository.remove(note);
         return this.notable;
@@ -73,10 +73,6 @@ public class Object_removeNote {
 
     public Note default0$$() {
         return firstOf(choices0$$());
-    }
-
-    public boolean hide$$() {
-        return !noteRepository.supports(this.notable);
     }
     //endregion
 

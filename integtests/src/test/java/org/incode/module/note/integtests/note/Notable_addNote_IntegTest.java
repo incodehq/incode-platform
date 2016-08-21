@@ -31,7 +31,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
-import org.incode.module.note.dom.impl.note.Object_addNote;
+import org.incode.module.note.dom.impl.note.T_addNote;
 import org.incode.module.note.dom.impl.note.Note;
 import org.incode.module.note.fixture.dom.calendarname.CalendarNameRepositoryForDemo;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
@@ -50,7 +50,7 @@ public class Notable_addNote_IntegTest extends NoteModuleIntegTest {
     NoteDemoObjectMenu noteDemoObjectMenu;
 
 
-    Object notable;
+    NoteDemoObject notable;
 
     @Before
     public void setUpData() throws Exception {
@@ -255,10 +255,10 @@ public class Notable_addNote_IntegTest extends NoteModuleIntegTest {
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class Subscriber extends AbstractSubscriber {
 
-            Object_addNote.DomainEvent ev;
+            T_addNote.DomainEvent ev;
 
             @Subscribe
-            public void on(Object_addNote.DomainEvent ev) {
+            public void on(T_addNote.DomainEvent ev) {
                 this.ev = ev;
             }
         }
@@ -277,7 +277,7 @@ public class Notable_addNote_IntegTest extends NoteModuleIntegTest {
             final LocalDate date = fakeData.jodaLocalDates().any();
             final String calendarName = anyCalendarNameFor(notable);
 
-            final Object_addNote mixinAddNote = mixinAddNote(notable);
+            final T_addNote mixinAddNote = mixinAddNote(notable);
             wrap(mixinAddNote).$$(text, date, calendarName);
 
             // then

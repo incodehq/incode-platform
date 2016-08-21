@@ -22,49 +22,25 @@ import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
 
-import com.google.common.eventbus.Subscribe;
-
-import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.Programmatic;
 
 import org.incode.module.note.dom.impl.notablelink.NotableLink;
-import org.incode.module.note.dom.impl.note.NoteRepository;
+import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
+import org.incode.module.note.dom.impl.note.T_addNote;
+import org.incode.module.note.dom.impl.note.T_notes;
+import org.incode.module.note.dom.impl.note.T_removeNote;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
 
-@javax.jdo.annotations.PersistenceCapable(
-        identityType= IdentityType.DATASTORE,
-        schema="notedemo")
-@javax.jdo.annotations.Inheritance(
-        strategy = InheritanceStrategy.NEW_TABLE)
+@javax.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE, schema ="incodeNoteDemo")
+@javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @DomainObject(
-        objectType = "notedemo.NotableLinkForDemoObject"
+        objectType = "incodeNoteDemo.NotableLinkForDemoObject"
 )
 public class NotableLinkForDemoObject extends NotableLink {
 
-    //region > instantiationSubscriber, setPolymorphicReference
-    @DomainService(nature = NatureOfService.DOMAIN)
-    @DomainServiceLayout(menuOrder = "1")
-    public static class InstantiationSubscriber extends AbstractSubscriber {
-
-        @Programmatic
-        @Subscribe
-        public void on(final InstantiateEvent ev) {
-            if(ev.getPolymorphicReference() instanceof NoteDemoObject) {
-                ev.setSubtype(NotableLinkForDemoObject.class);
-            }
-        }
-    }
-
-    @Override
-    public void setPolymorphicReference(final Object polymorphicReference) {
-        super.setPolymorphicReference(polymorphicReference);
-        setDemoObject((NoteDemoObject) polymorphicReference);
-    }
-    //endregion
 
     //region > demoObject (property)
     private NoteDemoObject demoObject;
@@ -82,9 +58,53 @@ public class NotableLinkForDemoObject extends NotableLink {
     }
     //endregion
 
-    //region > injected services
-    @javax.inject.Inject
-    private NoteRepository noteRepository;
+    //region > notable (hook, derived)
+
+    @Override
+    public Object getNotable() {
+        return getDemoObject();
+    }
+
+    @Override
+    protected void setNotable(final Object object) {
+        setDemoObject((NoteDemoObject) object);
+    }
+
     //endregion
+
+    //region > SubtypeProvider SPI implementation
+    @DomainService(nature = NatureOfService.DOMAIN)
+    public static class SubtypeProvider extends NotableLinkRepository.SubtypeProviderAbstract {
+        public SubtypeProvider() {
+            super(NoteDemoObject.class, NotableLinkForDemoObject.class);
+        }
+    }
+    //endregion
+
+    //region > mixins
+
+    @Mixin
+    public static class _notes extends T_notes<NoteDemoObject> {
+        public _notes(final NoteDemoObject notable) {
+            super(notable);
+        }
+    }
+
+    @Mixin
+    public static class _addNote extends T_addNote<NoteDemoObject> {
+        public _addNote(final NoteDemoObject notable) {
+            super(notable);
+        }
+    }
+
+    @Mixin
+    public static class _removeNote extends T_removeNote<NoteDemoObject> {
+        public _removeNote(final NoteDemoObject notable) {
+            super(notable);
+        }
+    }
+
+    //endregion
+
 
 }

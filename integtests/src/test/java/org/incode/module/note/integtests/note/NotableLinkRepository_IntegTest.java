@@ -48,8 +48,8 @@ public class NotableLinkRepository_IntegTest extends NoteModuleIntegTest {
     @Inject
     NotableLinkRepository notableLinkRepository;
 
-    Object notable1;
-    Object notable2;
+    NoteDemoObject notable1;
+    NoteDemoObject notable2;
 
     @Before
     public void setUpData() throws Exception {

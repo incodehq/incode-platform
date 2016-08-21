@@ -26,6 +26,8 @@ public final class NoteModule {
 
         public static final int NOTES = 4000;
         public static final int CALENDAR_NAME = 254;
+
+        public static final int BOOKMARK = 2000;
     }
 
     public static class MultiLine {
@@ -39,6 +41,15 @@ public final class NoteModule {
 
     //region > constructor
     private NoteModule(){}
+    //endregion
+
+    //region > ui event classes
+    public abstract static class TitleUiEvent<S>
+            extends org.apache.isis.applib.services.eventbus.TitleUiEvent<S> { }
+    public abstract static class IconUiEvent<S>
+            extends org.apache.isis.applib.services.eventbus.IconUiEvent<S> { }
+    public abstract static class CssClassUiEvent<S>
+            extends org.apache.isis.applib.services.eventbus.CssClassUiEvent<S> { }
     //endregion
 
     //region > event classes

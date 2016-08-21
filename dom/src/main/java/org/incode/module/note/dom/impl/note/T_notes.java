@@ -26,27 +26,25 @@ import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.Contributed;
-import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.note.dom.NoteModule;
 
-@Mixin
-public class Object_noteCollection {
+public abstract class T_notes<T> {
 
     //region > constructor
-    private final Object notable;
-    public Object_noteCollection(final Object notable) {
+    private final T notable;
+    public T_notes(final T notable) {
         this.notable = notable;
     }
 
-    public Object getNotable() {
+    public T getNotable() {
         return notable;
     }
     //endregion
 
     //region > $$
-    public static class DomainEvent extends NoteModule.ActionDomainEvent<Object_noteCollection> { } { }
+    public static class DomainEvent extends NoteModule.ActionDomainEvent<T_notes> { } { }
     @Action(
             domainEvent = DomainEvent.class,
             semantics = SemanticsOf.SAFE
@@ -55,15 +53,11 @@ public class Object_noteCollection {
             contributed = Contributed.AS_ASSOCIATION
     )
     @CollectionLayout(
-            named = "Notes",
-            defaultView = "table"
+            defaultView = "table",
+            named = "Notes" // might be required, was a regression in 1.11.x
     )
     public List<Note> $$() {
         return noteRepository.findByNotable(this.notable);
-    }
-
-    public boolean hide$$() {
-        return !noteRepository.supports(this.notable);
     }
 
     //endregion

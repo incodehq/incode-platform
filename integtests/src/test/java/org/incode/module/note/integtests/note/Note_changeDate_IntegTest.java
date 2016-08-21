@@ -56,7 +56,7 @@ public class Note_changeDate_IntegTest extends NoteModuleIntegTest {
     @Inject
     NotableLinkRepository notableLinkRepository;
 
-    Object notable;
+    NoteDemoObject notable;
     Note note;
     Note noteWithoutDate;
     Note noteWithoutText;

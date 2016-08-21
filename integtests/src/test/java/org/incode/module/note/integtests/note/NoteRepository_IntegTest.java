@@ -47,8 +47,8 @@ public class NoteRepository_IntegTest extends NoteModuleIntegTest {
     @Inject
     NoteRepository noteRepository;
 
-    Object notable1;
-    Object notable2;
+    NoteDemoObject notable1;
+    NoteDemoObject notable2;
 
     @Before
     public void setUpData() throws Exception {
