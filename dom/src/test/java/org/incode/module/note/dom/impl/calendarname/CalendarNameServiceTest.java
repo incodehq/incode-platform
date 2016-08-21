@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import org.apache.isis.core.unittestsupport.jmocking.JUnitRuleMockery2;
 
-import org.incode.module.note.dom.spi.calendarname.CalendarNameRepository;
+import org.incode.module.note.dom.spi.CalendarNameRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

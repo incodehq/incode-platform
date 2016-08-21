@@ -29,7 +29,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
 import org.incode.module.note.dom.impl.note.Note;
-import org.incode.module.note.dom.spi.calendarname.CalendarNameRepository;
+import org.incode.module.note.dom.spi.CalendarNameRepository;
 
 /**
  * Simple wrapper around {@link CalendarNameRepository}, that always returns a non-null list (including

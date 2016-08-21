@@ -11,7 +11,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
-import org.incode.module.note.dom.spi.calendarname.CalendarNameRepository;
+import org.incode.module.note.dom.spi.CalendarNameRepository;
 import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
 
 @DomainService(

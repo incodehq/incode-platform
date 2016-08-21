@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.note.dom.spi.calendarname;
+package org.incode.module.note.dom.spi;
 
 import java.util.Collection;
 
