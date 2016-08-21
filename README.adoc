@@ -431,7 +431,7 @@ This is bootstrapped in the `web.xml`:
 
 Notes:
 
-* Check for later releases by searching http://search.maven.org/#search|ga|1|isis-module-publishmq-dom[Maven Central Repo]).
+* Check for later releases by searching http://search.maven.org/#search|ga|1|isis-module-publishmq-dom[Maven Central Repo].
 
 
 ==== "Out-of-the-box" (-SNAPSHOT)
