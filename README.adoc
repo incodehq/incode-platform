@@ -5,7 +5,7 @@ image:https://travis-ci.org/incodehq/incode-module-note.png?branch=master[Build 
 
 This module, intended for use with link:http://isis.apache.org[Apache Isis], provides the ability to attach `Note`
 objects to arbitrary domain objects.  There are _no_ requirements for those domain objects implement any interfaces.
-A subclass of the `NotableLink` abstract class is required (about link:https://github.com/incodehq/incode-module-note/blob/master/fixture/src/main/java/org/incode/module/note/fixture/dom/NotableLinkForDemoObject.java[50 lines of boilerplate])),
+A subclass of the `NotableLink` abstract class is required (about link:https://github.com/incodehq/incode-module-note/blob/master/fixture/src/main/java/org/incode/module/note/fixture/dom/notablelink/NotableLinkForDemoObject.java[50 lines of boilerplate])),
 acting as the "glue" between the note and the "notable" domain object.
 
 Each `Note` can optionally have a date associated with it, and corresponding (predefined) calendar.  The `Note`
