@@ -46,7 +46,6 @@ import org.incode.module.commchannel.dom.api.GeocodingService;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.channel.T_communicationChannels;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_remove1;
-import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_updatePurpose;
 import org.incode.module.commchannel.dom.impl.emailaddress.T_addEmailAddress;
 import org.incode.module.commchannel.dom.impl.phoneorfax.T_addPhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.postaladdress.T_addPostalAddress;
@@ -106,10 +105,6 @@ public abstract class CommChannelModuleIntegTest extends IntegrationTestAbstract
 
     protected CommunicationChannel_remove1 mixinRemove(final CommunicationChannel channel) {
         return mixin(CommunicationChannel_remove1.class, channel);
-    }
-
-    protected CommunicationChannel_updatePurpose mixinUpdatePurpose(final CommunicationChannel communicationChannel) {
-        return mixin(CommunicationChannel_updatePurpose.class, communicationChannel);
     }
 
     protected T_communicationChannels mixinCommunicationChannels(final CommChannelDemoObject owner) {

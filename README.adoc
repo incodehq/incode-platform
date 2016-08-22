@@ -197,7 +197,8 @@ To run the demo app:
 
 [source]
 ----
-mvn antrun:run -P self-host
+cd webapp
+mvn jetty:run
 ----
 
 Then log on using user: `sven`, password: `pass`
@@ -299,10 +300,6 @@ public interface SubtypeProvider {
 +
 This tells the module which subclass of `CommunicationChannelOwnerLink` to use to attach to the domain object.  The
 `SubtypeProviderAbstract` adapter can be used to remove some boilerplate.
-
-* implement a domain event subscriber to correctly instantiate the subclass. +
-+
-Typically this is a nested static class of the `CommunicationChannelOwnerLink` subtype.
 
 * subclass `T_addEmailAddress`, `T_addPostalAddress`, `T_addPhoneOrFaxNumber` and `T_communicationChannels` (abstract)
 mixin classes for the domain object. +
@@ -421,16 +418,12 @@ communication channels.
 
 == UI Concerns
 
-The owned `CommunicationChannelOwnerLink` objects are never rendered directly in the UI.  Rather, the
-`T_communicationChannels` mixin renders the referenced ``CommunicationChannel``s instead.
-
-
 === Suppressing/adding UI elements
 
 Every property, collection and action has a corresponding domain event.  Thus, a subscriber can be used to hide or
 disable UI representation of any domain object's members.
 
-For example, the "content" property could be suppressed using the following service:
+For example, the "notes" property could be suppressed using the following service:
 
 [source,java]
 ----
@@ -441,7 +434,7 @@ public class CommChannelDemoSuppressNotesSubscriber extends AbstractSubscriber {
         switch (ev.getEventPhase()) {
         case HIDE:
             // uncomment as an example of how to influence the UI
-            // (the content property should disappear)
+            // (the 'note' property should disappear)
             // ev.hide();
         }
     }
@@ -450,6 +443,15 @@ public class CommChannelDemoSuppressNotesSubscriber extends AbstractSubscriber {
 
 Conversely, new UI elements can be added using
 link:http://isis.apache.org/guides/ug.html#_ug_how-tos_contributed-members[contributions] and mixins.
+
+
+=== Link class
+
+The `CommunicationChannelOwnerLink` object is not intended to be rendered directly in the UI.  Rather, the
+`T_communicationChannels` mixin renders the referenced ``CommunicationChannel``s instead.
+
+Nevertheless (just in case there is a requirement to render the link object), the `CommunicationChannelOwnerLink` allows
+its title, icon and CSS class to be specified using subscribers to UI event classes specific to the link class.
 
 
 
@@ -487,7 +489,8 @@ None at this time.
 == Change Log
 
 * `1.13.0-SNAPSHOT` - (to release) against Isis 1.13.0; removed the `CommunicationChannelOwner` interface and changed
-implementation to remove dependency on the http://github.com/isisaddons/isis-module-poly[Isis addons' poly] module.
+implementation to remove dependency on the http://github.com/isisaddons/isis-module-poly[Isis addons' poly] module;
+also uses `.layout.xml` for layouts
 * `1.12.0` - released against Isis 1.12.0
 * `1.11.0` - released against Isis 1.11.0
 * `1.10.0` - released against Isis 1.10.0

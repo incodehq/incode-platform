@@ -33,7 +33,6 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Editing;
-import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
@@ -78,7 +77,7 @@ import lombok.Setter;
                 name = "CommunicationChannelOwnerLink_main_idx",
                 members = { "ownerStr", "communicationChannelType", "communicationChannel" })
 })
-@javax.jdo.annotations.Unique(name="CommunicationChannelOwnerLink_commchannel_owner_UNQ", members = {"communicationChannel", "ownerStr"})
+@javax.jdo.annotations.Unique(name="CommunicationChannelOwnerLink_commchannel_UNQ", members = {"communicationChannel"})
 @DomainObject(
         objectType = "incodeCommChannel.CommunicationChannelOwnerLink"
 )
@@ -201,7 +200,6 @@ public abstract class CommunicationChannelOwnerLink {
      * </p>
      */
     @Getter @Setter
-    @MemberOrder(sequence = "1")
     @Column(allowsNull = "false", length = CommChannelModule.JdoColumnLength.TYPE_ENUM)
     @Property(hidden = Where.EVERYWHERE)
     private CommunicationChannelType communicationChannelType;

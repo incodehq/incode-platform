@@ -17,6 +17,8 @@
  */
 package org.incode.module.commchannel.dom.impl.channel;
 
+import java.util.Collection;
+
 import javax.inject.Inject;
 import javax.jdo.JDOHelper;
 import javax.jdo.annotations.Column;
@@ -35,6 +37,7 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
+import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.util.ObjectContracts;
 
@@ -45,6 +48,7 @@ import org.incode.module.commchannel.dom.CommChannelModule;
 import org.incode.module.commchannel.dom.impl.emailaddress.EmailAddress;
 import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress;
+import org.incode.module.commchannel.dom.impl.purpose.CommunicationChannelPurposeService;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 
 import lombok.Getter;
@@ -136,10 +140,19 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
     @Column(allowsNull = "false", length = CommChannelModule.JdoColumnLength.PURPOSE)
     @Property(
             domainEvent = PurposeDomainEvent.class,
-            editing = Editing.DISABLED,
+            editing = Editing.ENABLED,
+            maxLength = CommChannelModule.JdoColumnLength.PURPOSE,
             optionality = Optionality.MANDATORY
     )
     private String purpose;
+
+    public Collection<String> choicesPurpose() {
+        return communicationChannelPurposeService.purposesFor(getType(), mixinOwner().$$());
+    }
+
+    private CommunicationChannel_owner mixinOwner() {
+        return factoryService.mixin(CommunicationChannel_owner.class, this);
+    }
 
 
     public static class NotesDomainEvent extends PropertyDomainEvent<CommunicationChannel,String> { }
@@ -183,6 +196,12 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
     //region > injected services
     @Inject
     TitleService titleService;
+
+    @Inject
+    private FactoryService factoryService;
+
+    @Inject
+    private CommunicationChannelPurposeService communicationChannelPurposeService;
     //endregion
 
 

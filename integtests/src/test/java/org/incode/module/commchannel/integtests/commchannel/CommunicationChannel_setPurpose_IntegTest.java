@@ -33,7 +33,6 @@ import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelRepository;
-import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_updatePurpose;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
 import org.incode.module.commchannel.fixture.dom.CommChannelDemoObjectMenu;
 import org.incode.module.commchannel.fixture.scripts.teardown.CommChannelDemoObjectsTearDownFixture;
@@ -41,7 +40,7 @@ import org.incode.module.commchannel.integtests.CommChannelModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CommunicationChannel_updatePurpose_IntegTest extends CommChannelModuleIntegTest {
+public class CommunicationChannel_setPurpose_IntegTest extends CommChannelModuleIntegTest {
 
     @Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;
@@ -64,46 +63,31 @@ public class CommunicationChannel_updatePurpose_IntegTest extends CommChannelMod
 
 
     public static class ActionImplementationIntegrationTest extends
-            CommunicationChannel_updatePurpose_IntegTest {
+            CommunicationChannel_setPurpose_IntegTest {
 
         @Test
         public void happy_case() throws Exception {
             final CommunicationChannel communicationChannel = fredChannels.first();
 
-            final CommunicationChannel_updatePurpose mixinUpdatePurpose = mixinUpdatePurpose(communicationChannel);
-
-            final Collection<String> choices = mixinUpdatePurpose.choices0$$();
+            final Collection<String> choices = communicationChannel.choicesPurpose();
             final String newPurpose = fakeDataService.collections().anyOfExcept(
                     choices, s -> Objects.equals(s, communicationChannel.getPurpose()) );
 
-            wrap(mixinUpdatePurpose).$$(newPurpose);
+            wrap(communicationChannel).setPurpose(newPurpose);
 
             assertThat(communicationChannel.getPurpose()).isEqualTo(newPurpose);
         }
 
     }
 
-    public static class DefaultIntegrationTest extends CommunicationChannel_updatePurpose_IntegTest {
-
-        @Test
-        public void happy_case() throws Exception {
-            final CommunicationChannel communicationChannel = fredChannels.first();
-
-            final String descr = mixinUpdatePurpose(communicationChannel).default0$$();
-
-            assertThat(descr).isEqualTo(communicationChannel.getPurpose());
-        }
-
-    }
-
-    public static class RaisesEventIntegrationTest extends CommunicationChannel_updatePurpose_IntegTest {
+    public static class RaisesEventIntegrationTest extends CommunicationChannel_setPurpose_IntegTest {
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            CommunicationChannel_updatePurpose.DomainEvent ev;
+            CommunicationChannel.PurposeDomainEvent ev;
 
             @Subscribe
-            public void on(CommunicationChannel_updatePurpose.DomainEvent ev) {
+            public void on(CommunicationChannel.PurposeDomainEvent ev) {
                 this.ev = ev;
             }
         }
@@ -115,13 +99,13 @@ public class CommunicationChannel_updatePurpose_IntegTest extends CommChannelMod
         public void happy_case() throws Exception {
             final CommunicationChannel channel = fredChannels.first();
 
-            final CommunicationChannel_updatePurpose mixinUpdatePurpose = mixinUpdatePurpose(channel);
-            final String newPurpose = fakeDataService.collections().anyOf(mixinUpdatePurpose.choices0$$().toArray(new String[]{}));
+            final Collection<String> choices = channel.choicesPurpose();
+            final String newPurpose = fakeDataService.collections().anyOf(choices.toArray(new String[] {}));
 
-            wrap(mixinUpdatePurpose).$$(newPurpose);
+            wrap(channel).setPurpose(newPurpose);
 
-            assertThat(testSubscriber.ev.getSource().getCommunicationChannel()).isSameAs(channel);
-            assertThat(testSubscriber.ev.getArguments().get(0)).isEqualTo(newPurpose);
+            assertThat(testSubscriber.ev.getSource()).isSameAs(channel);
+            assertThat(testSubscriber.ev.getNewValue()).isEqualTo(newPurpose);
         }
     }
 
