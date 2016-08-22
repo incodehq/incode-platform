@@ -11,7 +11,7 @@ The identity of the external system itself is represented in two ways: first by 
 document management system" etc), and also by an "application tenancy path".  The latter is the same concept as exists
 within the link:http://www.isisaddons.org[Isis Addons]' link:http://github.com/isisaddons/isis-module-security[security]
 module, and generally represents a multi-tenancy environment, eg to distinguish different countries. Thus, an `Alias`
-is the combination of the app tenancy, an alias type, and the alias reference (a simple string).
+is the combination of the app tenancy, an alias type, and the alias reference itself (a simple string).
 
 For example, a `Party` entity might have a different identifier within a general ledger system for France say, and
 another identifier again in centrally-managed document management system.
@@ -24,10 +24,19 @@ are required, details below.
 
 This module places no constraints on either the alias type nor on the format of the application tenancy path.  The
 alias type is represented by the `AliasType`; to use the module the application must implement the mandatory
-`AliasTypeRepository` SPI service which identifies the available `AliasType`s.  Similarly, the available application
+`AliasTypeRepository` SPI service which identifies the available ``AliasType``s.  Similarly, the available application
 tenancy paths are provided to the module by the mandatory `ApplicationTenancyRepository` SPI service.  In both cases
 the list of alias types and application tenancy paths is per aliased domain object; not every aliased object will have
 an alias in every external system.
+
+
+== Domain Model
+
+The following http://yuml.me[] class diagram highlights the main concepts:
+
+image::http://yuml.me/b1ee9148[link="http://yuml.me/b1ee9148"]
+
+(The colours used in the diagram are - approximately - from link:https://en.wikipedia.org/wiki/Object_Modeling_in_Color[Object Modeling in Color]).
 
 
 
