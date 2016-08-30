@@ -40,6 +40,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.registry.ServiceRegistry;
+import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.util.ExcelServiceImpl;
@@ -184,7 +185,7 @@ public class ExcelFixture extends FixtureScript {
             final ExcelFixtureRowHandler rowHandler = (ExcelFixtureRowHandler) rowObj;
             return rowHandler.handleRow(ec, this, previousRow);
         } else {
-            container.persistIfNotAlready(rowObj);
+            repositoryService.persist(rowObj);
             ec.addResult(this, rowObj);
             return Collections.singletonList(rowObj);
         }
@@ -226,7 +227,7 @@ public class ExcelFixture extends FixtureScript {
     //endregion
 
     @javax.inject.Inject
-    private DomainObjectContainer container;
+    private RepositoryService repositoryService;
     @javax.inject.Inject
     private BookmarkService bookmarkService;
     @javax.inject.Inject
