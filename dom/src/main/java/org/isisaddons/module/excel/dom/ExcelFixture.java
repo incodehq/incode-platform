@@ -32,7 +32,6 @@ import com.google.common.io.Resources;
 
 import org.datanucleus.enhancement.Persistable;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.fixturescripts.FixtureResultList;
