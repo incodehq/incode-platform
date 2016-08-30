@@ -18,19 +18,37 @@
  */
 package org.incode.module.alias.dom.impl;
 
+import javax.inject.Inject;
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.Unique;
+import javax.jdo.annotations.VersionStrategy;
+
 import com.google.common.eventbus.Subscribe;
-import lombok.Getter;
-import lombok.Setter;
+
+import org.axonframework.eventhandling.annotation.EventHandler;
+
 import org.apache.isis.applib.AbstractSubscriber;
-import org.apache.isis.applib.annotation.*;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.PropertyLayout;
+import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
-import org.axonframework.eventhandling.annotation.EventHandler;
+
 import org.incode.module.alias.dom.AliasModule;
 
-import javax.inject.Inject;
-import javax.jdo.annotations.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
@@ -52,7 +70,7 @@ import javax.jdo.annotations.*;
 })
 @javax.jdo.annotations.Uniques({
     @Unique(
-            name = "AliasLink_aliased_atPath_aliasTypeId_IDX",
+            name = "Alias_aliased_atPath_aliasTypeId_IDX",
             members = { "aliasedStr", "atPath", "aliasTypeId" }
     )
 })
