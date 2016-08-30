@@ -18,51 +18,37 @@ package org.isisaddons.module.excel.fixture.app;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
-import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.InvokeOn;
-import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.Where;
+import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.services.actinvoc.ActionInvocationContext;
 import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.ExcelService;
 import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItems;
 
-@DomainService(
-        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
-)
-public class ExcelModuleDemoToDoItemBulkUpdateContributions {
+@Mixin
+public class ExcelModuleDemoToDoItem_export {
 
-    @PostConstruct
-    public void init() {
-        if(excelService == null) {
-            throw new IllegalStateException("Require ExcelService to be configured");
-        }
+    private final ExcelModuleDemoToDoItem toDoItem;
+
+    public ExcelModuleDemoToDoItem_export(final ExcelModuleDemoToDoItem toDoItem) {
+        this.toDoItem = toDoItem;
     }
 
-    // //////////////////////////////////////
-
-
-    /**
-     * Bulk actions of this type are not yet supported, hence have hidden...
-     * 
-     * @see https://issues.apache.org/jira/browse/ISIS-705.
-     */
     @Action(
-            hidden = Where.EVERYWHERE, // ISIS-705
-            invokeOn = InvokeOn.OBJECT_AND_COLLECTION
+            invokeOn = InvokeOn.OBJECT_ONLY // ISIS-705 ... bulk actions returning Blobs are not yet supported
     )
     @ActionLayout(
             contributed = Contributed.AS_ACTION
     )
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public Blob export(final ExcelModuleDemoToDoItem toDoItem) {
+    public Blob $$() {
         if(actionInvocationContext.isLast()) {
+            // ie current object only
             final List toDoItems = actionInvocationContext.getDomainObjects();
             return excelService.toExcel(toDoItems, ExcelModuleDemoToDoItem.class, "toDoItems.xlsx");
         } else {
@@ -77,6 +63,9 @@ public class ExcelModuleDemoToDoItemBulkUpdateContributions {
 
     @javax.inject.Inject
     private ExcelService excelService;
+
+    @javax.inject.Inject
+    private ExcelModuleDemoToDoItems excelModuleDemoToDoItems;
 
     @javax.inject.Inject
     private ActionInvocationContext actionInvocationContext;

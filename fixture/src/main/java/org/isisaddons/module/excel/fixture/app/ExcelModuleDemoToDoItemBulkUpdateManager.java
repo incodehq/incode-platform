@@ -22,29 +22,30 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Lists;
 
-import org.apache.isis.applib.AbstractViewModel;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.Collection;
-import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
-import org.apache.isis.applib.annotation.MemberGroupLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Nature;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
-import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.ExcelService;
+import org.isisaddons.module.excel.dom.WorksheetContent;
+import org.isisaddons.module.excel.dom.WorksheetSpec;
 import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
 import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Category;
 import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Subcategory;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @DomainObject(
         nature = Nature.VIEW_MODEL
@@ -53,55 +54,26 @@ import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Subcatego
         named ="Import/export manager",
         bookmarking = BookmarkPolicy.AS_ROOT
 )
-@MemberGroupLayout(left={"File", "Criteria"})
-public class ExcelModuleDemoToDoItemBulkUpdateManager extends AbstractViewModel {
+public class ExcelModuleDemoToDoItemBulkUpdateManager {
 
-    // //////////////////////////////////////
-    
+
+    public static final WorksheetSpec WORKSHEET_SPEC =
+            new WorksheetSpec(ExcelModuleDemoToDoItemBulkUpdateLineItem.class, "line-items");
+
+
     public String title() {
         return "Import/export manager";
     }
     
-    // //////////////////////////////////////
-    // ViewModel implementation
-    // //////////////////////////////////////
-    
 
-    @Override
-    public String viewModelMemento() {
-        return toDoItemExportImportService.mementoFor(this);
-    }
 
-    @Override
-    public void viewModelInit(final String mementoStr) {
-        toDoItemExportImportService.initOf(mementoStr, this);
-    }
-
-    
-    // //////////////////////////////////////
-    // fileName (property)
-    // changeFileName
-    // //////////////////////////////////////
-
+    @Getter @Setter
     private String fileName;
-    
-    @MemberOrder(name="File", sequence="1")
-    public String getFileName() {
-        return fileName;
-    }
-    public void setFileName(final String fileName) {
-        this.fileName = fileName;
-    }
 
-    // //////////////////////////////////////
-
+    //region > changeFileName (action)
     @Action(
             semantics = SemanticsOf.IDEMPOTENT
     )
-    @ActionLayout(
-            named = "Change"
-    )
-    @MemberOrder(name="fileName", sequence="1")
     public ExcelModuleDemoToDoItemBulkUpdateManager changeFileName(final String fileName) {
         setFileName(fileName);
         return toDoItemExportImportService.newBulkUpdateManager(this);
@@ -110,56 +82,21 @@ public class ExcelModuleDemoToDoItemBulkUpdateManager extends AbstractViewModel 
         return getFileName();
     }
 
-    
-    // //////////////////////////////////////
-    // category (property)
-    // subcategory (property)
-    // complete (property)
-    // select (action)
-    // //////////////////////////////////////
-    
+    //endregion
+
+
+    @Getter @Setter
     private Category category;
 
-    @MemberOrder(name="Criteria", sequence="1")
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(final Category category) {
-        this.category = category;
-    }
-
-    // //////////////////////////////////////
-
+    @Getter @Setter
     private Subcategory subcategory;
 
-    @MemberOrder(name="Criteria", sequence="2")
-    public Subcategory getSubcategory() {
-        return subcategory;
-    }
-    public void setSubcategory(final Subcategory subcategory) {
-        this.subcategory = subcategory;
-    }
-
-    // //////////////////////////////////////
-
+    @Getter @Setter
     private boolean complete;
 
-    @MemberOrder(name="Criteria", sequence="3")
-    public boolean isComplete() {
-        return complete;
-    }
-    public void setComplete(final boolean completed) {
-        this.complete = completed;
-    }
-    
-    // //////////////////////////////////////
+    //region > select (action)
 
     @Action
-    @ActionLayout(
-            named = "Change"
-    )
-    @MemberOrder(name="complete", sequence="1")
     public ExcelModuleDemoToDoItemBulkUpdateManager select(
             @ParameterLayout(named="Category") final Category category,
             @ParameterLayout(named="Subcategory") @Parameter(optionality = Optionality.OPTIONAL) final Subcategory subcategory,
@@ -193,16 +130,13 @@ public class ExcelModuleDemoToDoItemBulkUpdateManager extends AbstractViewModel 
         return container.getUser().getName();
     }
 
+    //endregion
 
-    // //////////////////////////////////////
-    // allToDos
-    // //////////////////////////////////////
+
+    //region > toDoItems (derived collection)
 
     @SuppressWarnings("unchecked")
     @Collection
-    @CollectionLayout(
-            render = RenderType.EAGERLY
-    )
     public List<ExcelModuleDemoToDoItem> getToDoItems() {
         return container.allMatches(ExcelModuleDemoToDoItem.class,
                 Predicates.and(
@@ -211,15 +145,13 @@ public class ExcelModuleDemoToDoItemBulkUpdateManager extends AbstractViewModel 
                     ExcelModuleDemoToDoItem.Predicates.thoseCategorised(getCategory(), getSubcategory())));
     }
 
+    //endregion
 
-    // //////////////////////////////////////
-    // export (action)
-    // //////////////////////////////////////
-    
+
+    //region > export (action)
     @Action(
             semantics = SemanticsOf.SAFE
     )
-    @MemberOrder(name="toDoItems", sequence="1")
     public Blob export() {
         final String fileName = withExtension(getFileName(), ".xlsx");
         final List<ExcelModuleDemoToDoItem> items = getToDoItems();
@@ -236,7 +168,7 @@ public class ExcelModuleDemoToDoItemBulkUpdateManager extends AbstractViewModel 
 
     private Blob toExcel(final String fileName, final List<ExcelModuleDemoToDoItem> items) {
         final List<ExcelModuleDemoToDoItemBulkUpdateLineItem> toDoItemViewModels = Lists.transform(items, toLineItem());
-        return excelService.toExcel(toDoItemViewModels, ExcelModuleDemoToDoItemBulkUpdateLineItem.class, fileName);
+        return excelService.toExcel(new WorksheetContent(toDoItemViewModels, WORKSHEET_SPEC), fileName);
     }
 
     private Function<ExcelModuleDemoToDoItem, ExcelModuleDemoToDoItemBulkUpdateLineItem> toLineItem() {
@@ -249,12 +181,9 @@ public class ExcelModuleDemoToDoItemBulkUpdateManager extends AbstractViewModel 
             }
         };
     }
+    //endregion
 
-
-    // //////////////////////////////////////
-    // import (action)
-    // //////////////////////////////////////
-
+    //region > import (action)
     @Action
     @ActionLayout(
             named = "Import"
@@ -263,15 +192,14 @@ public class ExcelModuleDemoToDoItemBulkUpdateManager extends AbstractViewModel 
     public List<ExcelModuleDemoToDoItemBulkUpdateLineItem> importBlob(
             @ParameterLayout(named="Excel spreadsheet") final Blob spreadsheet) {
         final List<ExcelModuleDemoToDoItemBulkUpdateLineItem> lineItems =
-                excelService.fromExcel(spreadsheet, ExcelModuleDemoToDoItemBulkUpdateLineItem.class);
+                excelService.fromExcel(spreadsheet, WORKSHEET_SPEC);
         container.informUser(lineItems.size() + " items imported");
         return lineItems;
     }
-    
+    //endregion
 
-    // //////////////////////////////////////
-    // Injected Services
-    // //////////////////////////////////////
+
+    //region > injected services
 
     @javax.inject.Inject
     private DomainObjectContainer container;
@@ -281,5 +209,7 @@ public class ExcelModuleDemoToDoItemBulkUpdateManager extends AbstractViewModel 
 
     @javax.inject.Inject
     private ExcelModuleDemoToDoItemBulkUpdateMenu toDoItemExportImportService;
+
+    //endregion
 
 }

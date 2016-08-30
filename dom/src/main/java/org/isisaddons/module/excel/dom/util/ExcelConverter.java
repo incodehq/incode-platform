@@ -22,7 +22,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.annotation.Nullable;
+
+import com.google.common.base.Function;
+import com.google.common.collect.FluentIterable;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
@@ -46,12 +52,14 @@ import org.apache.isis.core.metamodel.adapter.mgr.AdapterManager;
 import org.apache.isis.core.metamodel.consent.InteractionInitiatedBy;
 import org.apache.isis.core.metamodel.facets.object.viewmodel.ViewModelFacet;
 import org.apache.isis.core.metamodel.spec.ObjectSpecification;
-import org.apache.isis.core.metamodel.specloader.SpecificationLoader;
 import org.apache.isis.core.metamodel.spec.feature.Contributed;
 import org.apache.isis.core.metamodel.spec.feature.ObjectAssociation;
 import org.apache.isis.core.metamodel.spec.feature.OneToOneAssociation;
+import org.apache.isis.core.metamodel.specloader.SpecificationLoader;
 
 import org.isisaddons.module.excel.dom.ExcelService;
+import org.isisaddons.module.excel.dom.WorksheetContent;
+import org.isisaddons.module.excel.dom.WorksheetSpec;
 
 class ExcelConverter {
 
@@ -92,7 +100,43 @@ class ExcelConverter {
 
     // //////////////////////////////////////
 
-    <T> File toFile(final Class<T> cls, final List<T> domainObjects) throws IOException {
+    File appendSheet(final List<WorksheetContent> worksheetContents) throws IOException {
+        final ImmutableSet<String> worksheetNames = FluentIterable.from(worksheetContents)
+                .transform(new Function<WorksheetContent, String>() {
+                    @Nullable @Override public String apply(@Nullable final WorksheetContent worksheetContent) {
+                        return worksheetContent.getSpec().getSheetName();
+                    }
+                }).toSet();
+        if(worksheetNames.size() < worksheetContents.size()) {
+            throw new IllegalArgumentException("Sheet names must have distinct names");
+        }
+        for (final String worksheetName : worksheetNames) {
+            if(worksheetName.length() > 30) {
+                throw new IllegalArgumentException(
+                        String.format("Sheet name cannot exceed 30 characters (invalid name: '%s')",
+                                worksheetName));
+            }
+        }
+
+        final XSSFWorkbook workbook = new XSSFWorkbook();
+        final File tempFile =
+                File.createTempFile(ExcelConverter.class.getName(), UUID.randomUUID().toString() + XLSX_SUFFIX);
+        final FileOutputStream fos = new FileOutputStream(tempFile);
+
+        for (WorksheetContent worksheetContent : worksheetContents) {
+            final WorksheetSpec spec = worksheetContent.getSpec();
+            appendSheet(workbook, worksheetContent.getDomainObjects(), spec.getCls(), spec.getSheetName());
+        }
+        workbook.write(fos);
+        fos.close();
+        return tempFile;
+    }
+
+    private void appendSheet(
+            final XSSFWorkbook workbook,
+            final List<?> domainObjects,
+            final Class<?> cls,
+            final String sheetName) throws IOException {
 
         final ObjectSpecification objectSpec = specificationLoader.loadSpecification(cls);
 
@@ -101,12 +145,7 @@ class ExcelConverter {
         @SuppressWarnings("deprecation")
         final List<? extends ObjectAssociation> propertyList = objectSpec.getAssociations(VISIBLE_PROPERTIES);
 
-        final Workbook wb = new XSSFWorkbook();
-        final String sheetName = cls.getSimpleName();
-        final File tempFile = File.createTempFile(ExcelConverter.class.getName(), sheetName + XLSX_SUFFIX);
-
-        final FileOutputStream fos = new FileOutputStream(tempFile);
-        final Sheet sheet = wb.createSheet(sheetName);
+        final Sheet sheet = ((Workbook) workbook).createSheet(sheetName);
 
         final ExcelConverter.RowFactory rowFactory = new RowFactory(sheet);
         final Row headerRow = rowFactory.newRow();
@@ -118,7 +157,7 @@ class ExcelConverter {
             cell.setCellValue(property.getName());
         }
 
-        final CellMarshaller cellMarshaller = newCellMarshaller(wb);
+        final CellMarshaller cellMarshaller = newCellMarshaller(workbook);
 
         // detail rows
         for (final ObjectAdapter objectAdapter : adapters) {
@@ -133,113 +172,143 @@ class ExcelConverter {
 
         // freeze panes
         sheet.createFreezePane(0, 1);
+    }
 
-        wb.write(fos);
-        fos.close();
-        return tempFile;
+    List<List<?>> fromBytes(
+            final List<WorksheetSpec> worksheetSpecs,
+            final byte[] bs,
+            final DomainObjectContainer container) throws IOException, InvalidFormatException {
+
+        final List<List<?>> listOfLists = Lists.newArrayList();
+        for (WorksheetSpec worksheetSpec : worksheetSpecs) {
+            final Class<?> cls = worksheetSpec.getCls();
+            final String sheetName = worksheetSpec.getSheetName();
+            listOfLists.add(fromBytes(cls, sheetName, bs, container));
+        }
+        return listOfLists;
     }
 
     <T> List<T> fromBytes(
             final Class<T> cls,
+            final String sheetName,
             final byte[] bs,
-            final DomainObjectContainer container,
-            final ExcelServiceImpl.SheetLookupPolicy sheetLookupPolicy) throws IOException, InvalidFormatException {
+            final DomainObjectContainer container) throws IOException, InvalidFormatException {
 
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(bs)) {
+            final Workbook wb = org.apache.poi.ss.usermodel.WorkbookFactory.create(bais);
+            return fromWorkbook(cls, sheetName, wb, container);
+        }
+    }
+
+    private <T> List<T> fromWorkbook(
+            final Class<T> cls,
+            final String sheetName,
+            final Workbook workbook,
+            final DomainObjectContainer container) {
         final List<T> importedItems = Lists.newArrayList();
+
+        final CellMarshaller cellMarshaller = this.newCellMarshaller(workbook);
+
+        final Sheet sheet = lookupSheet(cls, sheetName, workbook);
+
+        boolean header = true;
+        final Map<Integer, Property> propertyByColumn = Maps.newHashMap();
 
         final ObjectSpecification objectSpec = specificationLoader.loadSpecification(cls);
         final ViewModelFacet viewModelFacet = objectSpec.getFacet(ViewModelFacet.class);
 
-        try (ByteArrayInputStream bais = new ByteArrayInputStream(bs)) {
-            final Workbook wb = org.apache.poi.ss.usermodel.WorkbookFactory.create(bais);
-            final CellMarshaller cellMarshaller = this.newCellMarshaller(wb);
-
-            final List<String> sheetNames = determineSheetNames(cls);
-            final Sheet sheet = lookupSheet(wb, sheetNames, sheetLookupPolicy);
-
-            boolean header = true;
-            final Map<Integer, Property> propertyByColumn = Maps.newHashMap();
-
-            for (final Row row : sheet) {
-                if (header) {
-                    for (final Cell cell : row) {
-                        if (cell.getCellType() != Cell.CELL_TYPE_BLANK) {
-                            final int columnIndex = cell.getColumnIndex();
-                            final String propertyName = cellMarshaller.getStringCellValue(cell);
-                            final OneToOneAssociation property = getAssociation(objectSpec, propertyName);
-                            if (property != null) {
-                                final Class<?> propertyType = property.getSpecification().getCorrespondingClass();
-                                propertyByColumn.put(columnIndex, new Property(propertyName, property, propertyType));
-                            }
+        for (final Row row : sheet) {
+            if (header) {
+                for (final Cell cell : row) {
+                    if (cell.getCellType() != Cell.CELL_TYPE_BLANK) {
+                        final int columnIndex = cell.getColumnIndex();
+                        final String propertyName = cellMarshaller.getStringCellValue(cell);
+                        final OneToOneAssociation property = getAssociation(objectSpec, propertyName);
+                        if (property != null) {
+                            final Class<?> propertyType = property.getSpecification().getCorrespondingClass();
+                            propertyByColumn.put(columnIndex, new Property(propertyName, property, propertyType));
                         }
-                    }
-                    header = false;
-                } else {
-                    // detail
-                    try {
-
-                        // Let's require at least one column to be not null for detecting a blank row.
-                        // Excel can have physical rows with cells empty that it seem do not existent for the user.
-                        ObjectAdapter templateAdapter = null;
-                        T imported = null;
-                        for (final Cell cell : row) {
-                            final int columnIndex = cell.getColumnIndex();
-                            final Property property = propertyByColumn.get(columnIndex);
-                            if (property != null) {
-                                final OneToOneAssociation otoa = property.getOneToOneAssociation();
-                                final Object value = cellMarshaller.getCellValue(cell, otoa);
-                                if (value != null) {
-                                    if (imported == null) {
-                                        // copy the row into a new object
-                                        imported = container.newTransientInstance(cls);
-                                        templateAdapter = this.adapterManager.adapterFor(imported);
-                                    }
-                                    final ObjectAdapter valueAdapter = this.adapterManager.adapterFor(value);
-                                    otoa.set(templateAdapter, valueAdapter, InteractionInitiatedBy.USER);
-                                }
-                            } else {
-                                // not expected; just ignore.
-                            }
-                        }
-
-                        if (imported != null) {
-                            if (viewModelFacet != null) {
-                                // if there is a view model, then use the imported object as a template
-                                // in order to create a regular view model.
-                                final String memento = viewModelFacet.memento(imported);
-                                final T viewModel = container.newViewModelInstance(cls, memento);
-                                importedItems.add(viewModel);
-                            } else {
-                                // else, just return the imported items as simple transient instances.
-                                importedItems.add(imported);
-                            }
-                        }
-                    } catch (final Exception e) {
-                        bais.close();
-                        throw new ExcelService.Exception(String.format("Error processing Excel row nr. %d. Message: %s", row.getRowNum(), e.getMessage()), e);
                     }
                 }
-            }
-        }
+                header = false;
+            } else {
+                // detail
+                try {
 
+                    // Let's require at least one column to be not null for detecting a blank row.
+                    // Excel can have physical rows with cells empty that it seem do not existent for the user.
+                    ObjectAdapter templateAdapter = null;
+                    T imported = null;
+                    for (final Cell cell : row) {
+                        final int columnIndex = cell.getColumnIndex();
+                        final Property property = propertyByColumn.get(columnIndex);
+                        if (property != null) {
+                            final OneToOneAssociation otoa = property.getOneToOneAssociation();
+                            final Object value = cellMarshaller.getCellValue(cell, otoa);
+                            if (value != null) {
+                                if (imported == null) {
+                                    // copy the row into a new object
+                                    imported = container.newTransientInstance(cls);
+                                    templateAdapter = this.adapterManager.adapterFor(imported);
+                                }
+                                final ObjectAdapter valueAdapter = this.adapterManager.adapterFor(value);
+                                otoa.set(templateAdapter, valueAdapter, InteractionInitiatedBy.USER);
+                            }
+                        } else {
+                            // not expected; just ignore.
+                        }
+                    }
+
+                    if (imported != null) {
+                        if (viewModelFacet != null) {
+                            // if there is a view model, then use the imported object as a template
+                            // in order to create a regular view model.
+                            final String memento = viewModelFacet.memento(imported);
+                            final T viewModel = container.newViewModelInstance(cls, memento);
+                            importedItems.add(viewModel);
+                        } else {
+                            // else, just return the imported items as simple transient instances.
+                            importedItems.add(imported);
+                        }
+                    }
+
+                } catch (final Exception e) {
+                    throw new ExcelService.Exception(String.format("Error processing Excel row nr. %d. Message: %s", row.getRowNum(), e.getMessage()), e);
+                }
+            }
+
+
+        }
         return importedItems;
     }
 
-    private static <T> List<String> determineSheetNames(final Class<T> cls) {
+    protected <T> Sheet lookupSheet(final Class<T> cls, final String sheetName, final Workbook workbook) {
+        final List<String> sheetNames = determineCandidateSheetNames(sheetName, cls);
+        return lookupSheet(workbook, sheetNames);
+    }
+
+    private static <T> List<String> determineCandidateSheetNames(final String sheetName, final Class<T> cls) {
         final List<String> names = Lists.newArrayList();
+        if(sheetName != null) {
+            names.add(sheetName);
+        }
         final String simpleName = cls.getSimpleName();
-        names.add(simpleName);
         if(simpleName.endsWith("RowHandler")) {
             names.add(simpleName.substring(0, simpleName.lastIndexOf("RowHandler")));
         }
         return names;
     }
 
-    private static Sheet lookupSheet(
+    protected Sheet lookupSheet(
             final Workbook wb,
-            final List<String> sheetNames,
-            final ExcelServiceImpl.SheetLookupPolicy sheetLookupPolicy) {
-        return sheetLookupPolicy.lookup(wb, sheetNames);
+            final List<String> sheetNames) {
+        for (String sheetName : sheetNames) {
+            final Sheet sheet = wb.getSheet(sheetName);
+            if(sheet != null) {
+                return sheet;
+            }
+        }
+        throw new IllegalArgumentException(String.format("Could not locate sheet named any of: '%s'", sheetNames));
     }
 
     private static OneToOneAssociation getAssociation(final ObjectSpecification objectSpec, final String propertyNameOrId) {

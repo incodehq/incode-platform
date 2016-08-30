@@ -138,8 +138,7 @@ public class ExcelFixture extends FixtureScript {
         }
 
         for (Class cls : classes) {
-            final List rowObjects = excelServiceImpl.fromExcel(
-                    blob, cls, ExcelServiceImpl.SheetLookupPolicy.BY_NAME);
+            final List rowObjects = excelServiceImpl.fromExcel(blob, cls);
             Object previousRow = null;
             for (final Object rowObj : rowObjects) {
                 final List<Object> createdObjects = create(rowObj, ec, previousRow);

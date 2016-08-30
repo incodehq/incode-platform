@@ -203,25 +203,87 @@ The `ExcelService` is intended for use by domain object classes.
 
 === API
 
-The API exposed by `ExcelService` is:
+The API exposed by `ExcelService` breaks into two.
+
+==== Import
+
+The first set of methods allow domain objects to be read (imported) from an Excel workbook:
 
 [source,java]
 ----
 public class ExcelService {
-    public static class Exception extends RuntimeException { ... }
-    @Programmatic
-    public <T> Blob toExcel(
-        final List<T> domainObjects, 
-        final Class<T> cls, 
-        final String fileName) 
-        throws ExcelService.Exception { ... }
-    @Programmatic
-    public <T extends ViewModel> List<T> fromExcel(
+    public <T> List<T> fromExcel(                       // <1>
         final Blob excelBlob, 
-        final Class<T> cls) 
-        throws ExcelService.Exception { ... };
+        final Class<T> cls) { ... }
+    public <T> List<T> fromExcel(                       // <2>
+        final Blob excelBlob,
+        final WorksheetSpec worksheetSpec) { ... }
+    public List<List<?>> fromExcel(                     // <3>
+        final Blob excelBlob,
+        final List<WorksheetSpec> worksheetSpecs) { ... }
+    ...
 }
 ----
+<1> converts a single-sheet workbook into a list of domain objects
+<2> converts a single-sheet workbook into a list of domain objects, using `WorksheetSpec` (discussed below)
+<3> converts a multiple-sheet workbook into a list of list of domain objects.
+
+The `WorksheetSpec` is a data structure that specifies what is on each worksheet of the Excel workbook (ie which sheet
+of the workbook to read to obtain the domain objects):
+
+[source,java]
+----
+public class WorksheetSpec {
+    public <T> WorksheetSpec (
+        final Class<T> cls,                 // <1>
+        final String sheetName) { ... }     // <2>
+    ...
+}
+----
+<1> the class of those domain objects
+<2> the name of the sheet to be read.  If omitted, then the simple name of the domain object class will be used.
+In all cases the sheet name must be 30 characters or less in length.
+
+
+==== Export
+
+The second set of methods allow domain objects to be written out (exported) to an Excel workbook:
+
+[source,java]
+----
+public class ExcelService {
+    ...
+    public <T> Blob toExcel(                                            // <1>
+            final List<T> domainObjects,
+            final Class<T> cls,
+            final String fileName) { ... }
+    public <T> Blob toExcel(                                            // <2>
+            final WorksheetContent worksheetContent,
+            final String fileName) { ... }
+    public Blob toExcel(
+            final List<WorksheetContent> worksheetContents,             // <3>
+            final String fileName)  { ... }
+----
+<1> converts a list of domain objects to a single-sheet workbook, specifying the type of those domain objects.
+<2> converts a list of domain objects to a single-sheet workbook, using `WorksheetContent` (discussed below)
+<3> converts a list of worksheet contents to a multi-sheet workbook
+
+The fileName provided is used as the name of the returned `Blob`
+
+Here `WorksheetContent` is a data structure that wraps the list of domain objects to be exported along with the afore-mentioned `WorksheetSpec`:
+
+[source,java]
+----
+public class WorksheetContent {
+    public <T> WorksheetContent(
+        final List<T> domainObjects,        // <1>
+        final WorksheetSpec spec) { ... }   // <2>
+    ...
+}
+----
+<1> the list of domain objects to be exported as an excel sheet
+<2> the `WorksheetSpec`, describing the class of those domain objects and the worksheet name to use
+
 
 === Usage
 
@@ -251,7 +313,7 @@ final List<ToDoItemExportImportLineItem> toDoItemViewModels =
 
 then the following creates an Isis `Blob` (bytestream) containing the spreadsheet of these view models:
 
-[source]
+[source,java]
 ----
 return excelService.toExcel(
          toDoItemViewModels, ToDoItemExportImportLineItem.class, fileName);
@@ -259,7 +321,7 @@ return excelService.toExcel(
 
 and conversely:
 
-[source]
+[source,java]
 ----
 Blob spreadsheet = ...;
 List<ToDoItemExportImportLineItem> lineItems = 
@@ -267,6 +329,22 @@ List<ToDoItemExportImportLineItem> lineItems =
 ----
 
 recreates view models from a spreadsheet.
+
+
+Alternatively, more control can be obtained using `WorksheetSpec` and `WorksheetContent`:
+
+[source,java]
+----
+WorksheetSpec spec = new WorksheetSpec(ToDoItemExportImportLineItem.class, "line-items");
+
+// export
+WorksheetContents contents = new WorkbookContents(toDoItemViewModels, spec);
+Blob spreadsheet = excelService.toExcel(contents, fileName);
+
+// import
+List<List> objects = excelService.fromExcel(spreadsheet, Collections.singletonList(spec));
+List<ToDoItemExportImportLineItem> items = objects.get(0);
+----
 
 
 == `ExcelFixture`

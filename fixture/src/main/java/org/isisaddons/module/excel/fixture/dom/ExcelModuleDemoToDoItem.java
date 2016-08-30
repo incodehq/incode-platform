@@ -392,23 +392,6 @@ public class ExcelModuleDemoToDoItem implements Comparable<ExcelModuleDemoToDoIt
     }
 
     // //////////////////////////////////////
-    // Version (derived property)
-    // //////////////////////////////////////
-
-    public Long getVersionSequence() {
-        if(!(this instanceof javax.jdo.spi.PersistenceCapable)) {
-            return null;
-        } 
-        final javax.jdo.spi.PersistenceCapable persistenceCapable = (javax.jdo.spi.PersistenceCapable) this;
-        final Long version = (Long) JDOHelper.getVersion(persistenceCapable);
-        return version;
-    }
-    // hide property (imperatively, based on state of object)
-    public boolean hideVersionSequence() {
-        return !(this instanceof javax.jdo.spi.PersistenceCapable);
-    }
-
-    // //////////////////////////////////////
     // Dependencies (collection), 
     // Add (action), Remove (action)
     // //////////////////////////////////////
@@ -622,7 +605,7 @@ public class ExcelModuleDemoToDoItem implements Comparable<ExcelModuleDemoToDoIt
 
     @Override
     public String toString() {
-        return ObjectContracts.toString(this, "description,complete,dueBy,ownedBy");
+        return ObjectContracts.toString(this, "description","complete","dueBy","ownedBy");
     }
         
     // //////////////////////////////////////
@@ -634,7 +617,7 @@ public class ExcelModuleDemoToDoItem implements Comparable<ExcelModuleDemoToDoIt
      */
     @Override
     public int compareTo(final ExcelModuleDemoToDoItem other) {
-        return ObjectContracts.compare(this, other, "complete,dueBy,description");
+        return ObjectContracts.compare(this, other, "complete","dueBy","description");
     }
 
     // //////////////////////////////////////

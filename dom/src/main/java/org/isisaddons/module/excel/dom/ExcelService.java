@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014 Dan Haywood
+ *  Copyright 2014-2016 Dan Haywood
  *
  *  Licensed under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
@@ -36,7 +36,6 @@ import org.isisaddons.module.excel.dom.util.ExcelServiceImpl;
         nature = NatureOfService.DOMAIN
 )
 public class ExcelService {
-
 
     public static class Exception extends RecoverableException {
 
@@ -83,8 +82,30 @@ public class ExcelService {
             final List<T> domainObjects,
             final Class<T> cls,
             final String fileName) throws ExcelService.Exception {
-
         return excelServiceImpl.toExcel(domainObjects, cls, fileName);
+    }
+
+    public <T> Blob toExcel(
+            final List<T> domainObjects,
+            final Class<T> cls,
+            final String sheetName,
+            final String fileName) throws ExcelService.Exception {
+        return excelServiceImpl.toExcel(domainObjects, cls, sheetName, fileName);
+    }
+
+    @Programmatic
+    public <T> Blob toExcel(
+            final WorksheetContent worksheetContent,
+            final String fileName) throws ExcelService.Exception {
+        return excelServiceImpl.toExcel(worksheetContent, fileName);
+    }
+
+    @Programmatic
+    public Blob toExcel(
+            final List<WorksheetContent> worksheetContents,
+            final String fileName) throws ExcelService.Exception {
+
+        return excelServiceImpl.toExcel(worksheetContents, fileName);
     }
 
     /**
@@ -101,12 +122,29 @@ public class ExcelService {
     public <T> List<T> fromExcel(
             final Blob excelBlob,
             final Class<T> cls) throws ExcelService.Exception {
-
-        return excelServiceImpl.fromExcel(excelBlob, cls, defaultPolicy());
+        return excelServiceImpl.fromExcel(excelBlob, cls);
     }
 
-    private ExcelServiceImpl.SheetLookupPolicy defaultPolicy() {
-        return ExcelServiceImpl.SheetLookupPolicy.FIRST;
+    @Programmatic
+    public <T> List<T> fromExcel(
+            final Blob excelBlob,
+            final Class<T> cls,
+            final String sheetName) throws ExcelService.Exception {
+        return excelServiceImpl.fromExcel(excelBlob, cls, sheetName);
+    }
+
+    @Programmatic
+    public <T> List<T> fromExcel(
+            final Blob excelBlob,
+            final WorksheetSpec worksheetSpec) throws ExcelService.Exception {
+        return excelServiceImpl.fromExcel(excelBlob, worksheetSpec);
+    }
+
+    @Programmatic
+    public List<List<?>> fromExcel(
+            final Blob excelBlob,
+            final List<WorksheetSpec> worksheetSpecs) throws ExcelService.Exception {
+        return excelServiceImpl.fromExcel(excelBlob, worksheetSpecs);
     }
 
     @javax.inject.Inject
