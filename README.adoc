@@ -91,7 +91,8 @@ To run the demo app:
 
 [source]
 ----
-mvn antrun:run -P self-host
+cd webapp
+mvn jetty:run
 ----
 
 Then log on using user: `sven`, password: `pass`
