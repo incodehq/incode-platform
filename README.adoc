@@ -464,6 +464,7 @@ downloadable as an Excel spreadsheet.
 
 == Change Log
 
+* `1.13.1` - released against Isis 1.13.0; includes link:https://github.com/isisaddons/isis-module-excel/issues/15[#15] (multiple sheets)
 * `1.13.0` - released against Isis 1.13.0
 * `1.12.0` - released against Isis 1.12.0
 * `1.11.0` - released against Isis 1.11.0
@@ -536,7 +537,7 @@ For example:
 
 [source]
 ----
-sh release.sh 1.13.0 \
+sh release.sh 1.13.1 \
               1.14.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
@@ -556,7 +557,7 @@ If the script completes successfully, then push changes:
 [source]
 ----
 git push origin master
-git push origin 1.13.0
+git push origin 1.13.1
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
