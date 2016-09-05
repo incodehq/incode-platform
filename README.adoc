@@ -544,6 +544,7 @@ sh release.sh 1.13.1 \
 ----
 
 where
+
 * `$1` is the release version
 * `$2` is the snapshot version
 * `$3` is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
