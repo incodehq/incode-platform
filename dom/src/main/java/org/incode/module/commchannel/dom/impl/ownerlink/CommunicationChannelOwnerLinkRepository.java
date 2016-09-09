@@ -115,18 +115,18 @@ public class CommunicationChannelOwnerLinkRepository {
     }
 
     private Class<? extends CommunicationChannelOwnerLink> subtypeClassFor(
-            final Object classified,
+            final Object candidateOwner,
             CommunicationChannelType type) {
-        Class<?> domainClass = classified.getClass();
+        Class<?> candidateOwnerDomainClass = candidateOwner.getClass();
         for (SubtypeProvider subtypeProvider : subtypeProviders) {
-            Class<? extends CommunicationChannelOwnerLink> subtype = subtypeProvider.subtypeFor(domainClass, type);
+            Class<? extends CommunicationChannelOwnerLink> subtype = subtypeProvider.subtypeFor(candidateOwnerDomainClass, type);
             if(subtype != null) {
                 return subtype;
             }
         }
         throw new IllegalStateException(String.format(
                 "No subtype of CommunicationChannelOwnerLink was found for '%s' and type '%s'; implement the CommunicationChannelOwnerLinkRepository.SubtypeProvider SPI",
-                domainClass.getName(), type));
+                candidateOwnerDomainClass.getName(), type));
     }
     //endregion
 
@@ -172,8 +172,8 @@ public class CommunicationChannelOwnerLinkRepository {
         }
 
         @Override
-        public Class<? extends CommunicationChannelOwnerLink> subtypeFor(final Class<?> domainType, CommunicationChannelType communicationChannelType) {
-            return domainType.isAssignableFrom(ownerDomainType) ? ownerSubtype : null;
+        public Class<? extends CommunicationChannelOwnerLink> subtypeFor(final Class<?> candidateOwnerDomainType, CommunicationChannelType communicationChannelType) {
+            return ownerDomainType.isAssignableFrom(candidateOwnerDomainType) ? ownerSubtype : null;
         }
     }
 
