@@ -420,7 +420,7 @@ app shows how a view model can be used as a work-around.
 
 == Change Log
 
-* `1.13.0-SNAPSHOT` - (to release) against Isis 1.13.0; removed the `Aliasable` interface (to completely decouple the
+* `1.13.0` - released against Isis 1.13.0; removed the `Aliasable` interface (to completely decouple the
 "aliased" domain object from this module); removed dependency on poly module, instead using the (broadly equivalent)
 new `SubtypeProvider` SPI; combined `Alias` and `AliasLink` into a single entity; added in the ability to override the
 title, icon and CSS of `Alias` objects; using `.layout.xml` for layouts.
@@ -515,8 +515,8 @@ For example:
 
 [source]
 ----
-sh release.sh 1.13.0 \
-              1.14.0-SNAPSHOT \
+sh release.sh 1.14.0 \
+              1.15.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
 ----
@@ -535,7 +535,7 @@ If the script completes successfully, then push changes:
 [source]
 ----
 git push origin master
-git push origin 1.13.0
+git push origin 1.14.0
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
