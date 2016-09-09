@@ -18,6 +18,10 @@
  */
 package org.incode.module.alias.dom.impl;
 
+import java.util.List;
+
+import javax.inject.Inject;
+
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -26,10 +30,8 @@ import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.repository.RepositoryService;
-import org.incode.module.alias.dom.spi.AliasType;
 
-import javax.inject.Inject;
-import java.util.List;
+import org.incode.module.alias.dom.spi.AliasType;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
@@ -125,8 +127,8 @@ public class AliasRepository {
         }
 
         @Override
-        public Class<? extends Alias> subtypeFor(final Class<?> domainType) {
-            return domainType.isAssignableFrom(aliasedDomainType) ? aliasSubtype : null;
+        public Class<? extends Alias> subtypeFor(final Class<?> candidateAliasedDomainType) {
+            return aliasedDomainType.isAssignableFrom(candidateAliasedDomainType) ? aliasSubtype : null;
         }
     }
 
