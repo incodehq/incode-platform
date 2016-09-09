@@ -213,8 +213,8 @@ public class NotableLinkRepository {
             this.notableLinkSubtype = notableLinkSubtype;
         }
         @Override
-        public Class<? extends NotableLink> subtypeFor(final Class<?> domainType) {
-            return domainType.isAssignableFrom(notableDomainType) ? notableLinkSubtype : null;
+        public Class<? extends NotableLink> subtypeFor(final Class<?> candidateNotableDomainType) {
+            return notableDomainType.isAssignableFrom(candidateNotableDomainType) ? notableLinkSubtype : null;
         }
     }
 
