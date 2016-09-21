@@ -3,11 +3,13 @@ package org.isisaddons.module.sessionlogger.dom;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import org.apache.isis.applib.AbstractService;
+import javax.inject.Inject;
+
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
+import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.session.SessionLoggingService;
 
 /**
@@ -18,7 +20,7 @@ import org.apache.isis.applib.services.session.SessionLoggingService;
 @DomainService(
         nature = NatureOfService.DOMAIN
 )
-public class SessionLoggingServiceDefault extends AbstractService implements SessionLoggingService {
+public class SessionLoggingServiceDefault implements SessionLoggingService {
 
     @Programmatic
     @Override
@@ -26,12 +28,13 @@ public class SessionLoggingServiceDefault extends AbstractService implements Ses
         final Timestamp timestamp = new Timestamp(new Date().getTime());
         final SessionLogEntry sessionLogEntry;
         if (type == Type.LOGIN) {
-            sessionLogEntry = newTransientInstance(SessionLogEntry.class);
+            sessionLogEntry = repositoryService.instantiate(SessionLogEntry.class);
             sessionLogEntry.setUser(username);
             sessionLogEntry.setLoginTimestamp(timestamp);
             sessionLogEntry.setSessionId(sessionId);
         } else {
-            sessionLogEntry = firstMatch(new QueryDefault<>(SessionLogEntry.class, "findBySessionId", "sessionId", sessionId));
+            sessionLogEntry = repositoryService.firstMatch(
+                    new QueryDefault<>(SessionLogEntry.class, "findBySessionId", "sessionId", sessionId));
             if (sessionLogEntry == null) {
                 // invalidation of a never authenticated session
                 return;
@@ -39,7 +42,9 @@ public class SessionLoggingServiceDefault extends AbstractService implements Ses
             sessionLogEntry.setLogoutTimestamp(timestamp);
         }
         sessionLogEntry.setCausedBy(causedBy);
-        persistIfNotAlready(sessionLogEntry);
+        repositoryService.persistAndFlush(sessionLogEntry);
     }
 
+    @Inject
+    RepositoryService repositoryService;
 }
