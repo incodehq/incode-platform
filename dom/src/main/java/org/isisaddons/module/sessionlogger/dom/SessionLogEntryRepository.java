@@ -16,15 +16,23 @@
  */
 package org.isisaddons.module.sessionlogger.dom;
 
-import java.sql.Timestamp;
-import java.util.List;
-import org.joda.time.LocalDate;
-import org.apache.isis.applib.AbstractFactoryAndRepository;
+import com.google.common.collect.ImmutableMap;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.Query;
 import org.apache.isis.applib.query.QueryDefault;
+import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
+import org.apache.isis.applib.services.repository.RepositoryService;
+import org.apache.isis.applib.services.session.SessionLoggingService;
+import org.joda.time.LocalDate;
+
+import javax.inject.Inject;
+import javax.jdo.PersistenceManager;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * Provides supporting functionality for querying
@@ -38,13 +46,76 @@ import org.apache.isis.applib.query.QueryDefault;
 @DomainService(
         nature = NatureOfService.DOMAIN
 )
-public class SessionLogEntryRepository extends AbstractFactoryAndRepository {
+public class SessionLogEntryRepository {
+
+    private static final String DN_BULK_UPDATES_KEY = "datanucleus.query.jdoql.allowAll".toLowerCase();
+
+    //region > logoutAllSessions
+    @Programmatic
+    public void logoutAllSessions(final Timestamp logoutTimestamp) {
+
+        final PersistenceManager pm = isisJdoSupport.getJdoPersistenceManager();
+
+        final Properties properties = pm.getPersistenceManagerFactory().getProperties();
+        if(isTrue(properties.get(DN_BULK_UPDATES_KEY))) {
+            final javax.jdo.Query jdoQuery = pm.newNamedQuery(SessionLogEntry.class, "logoutAllActiveSessions");
+
+            final Map argumentsByParameterName = ImmutableMap.of(
+                    "logoutTimestamp", logoutTimestamp,
+                    "causedBy2", SessionLogEntry.CausedBy2.RESTART);
+            try {
+                final Long numRows = (Long) jdoQuery.executeWithMap(argumentsByParameterName);
+            } finally {
+                jdoQuery.closeAll();
+            }
+        } else {
+            final List<SessionLogEntry> activeEntries =
+                    repositoryService.allMatches(new QueryDefault<>(SessionLogEntry.class, "listAllActiveSessions"));
+            for (SessionLogEntry activeEntry : activeEntries) {
+                activeEntry.setCausedBy2(SessionLogEntry.CausedBy2.RESTART);
+                activeEntry.setLogoutTimestamp(logoutTimestamp);
+            }
+        }
+    }
+
+    private static boolean isTrue(Object o) {
+        return o instanceof Boolean && (Boolean) o;
+    }
+    //endregion
+
+    //region > create
+    @Programmatic
+    public void create(
+            final String username,
+            final String sessionId,
+            final SessionLoggingService.CausedBy causedBy,
+            final Timestamp timestamp) {
+        SessionLogEntry sessionLogEntry;
+        sessionLogEntry = repositoryService.instantiate(SessionLogEntry.class);
+        sessionLogEntry.setUser(username);
+        sessionLogEntry.setLoginTimestamp(timestamp);
+        sessionLogEntry.setSessionId(sessionId);
+        sessionLogEntry.setCausedBy(causedBy);
+        repositoryService.persistAndFlush(sessionLogEntry);
+    }
+    //endregion
+
+
+    //region > findBySessionId
+    @Programmatic
+    public SessionLogEntry findBySessionId(final String sessionId) {
+        return repositoryService.firstMatch(
+                new QueryDefault<>(SessionLogEntry.class,
+                        "findBySessionId",
+                        "sessionId", sessionId));
+    }
+    //endregion
 
     //region > findByUser
 
     @Programmatic
     public List<SessionLogEntry> findByUser(final String user) {
-        return allMatches(
+        return repositoryService.allMatches(
                 new QueryDefault<>(SessionLogEntry.class,
                         "findByUser",
                         "user", user));
@@ -89,7 +160,7 @@ public class SessionLogEntryRepository extends AbstractFactoryAndRepository {
                         "user", user);
             }
         }
-        return allMatches(query);
+        return repositoryService.allMatches(query);
     }
 
     //endregion
@@ -126,7 +197,7 @@ public class SessionLogEntryRepository extends AbstractFactoryAndRepository {
                         "find");
             }
         }
-        return allMatches(query);
+        return repositoryService.allMatches(query);
     }
     //endregion
 
@@ -138,7 +209,7 @@ public class SessionLogEntryRepository extends AbstractFactoryAndRepository {
             final String user,
             final Timestamp from) {
 
-        return allMatches(new QueryDefault<>(SessionLogEntry.class,
+        return repositoryService.allMatches(new QueryDefault<>(SessionLogEntry.class,
                 "findByUserAndTimestampStrictlyBefore",
                 "user", user,
                 "from", from));
@@ -153,7 +224,7 @@ public class SessionLogEntryRepository extends AbstractFactoryAndRepository {
             final String user,
             final Timestamp from) {
 
-        return allMatches(new QueryDefault<>(SessionLogEntry.class,
+        return repositoryService.allMatches(new QueryDefault<>(SessionLogEntry.class,
                 "findByUserAndTimestampStrictlyAfter",
                 "user", user,
                 "from", from));
@@ -166,7 +237,7 @@ public class SessionLogEntryRepository extends AbstractFactoryAndRepository {
     @Programmatic
     public List<SessionLogEntry> listAllActiveSessions() {
 
-        return allMatches(new QueryDefault<>(SessionLogEntry.class,"listAllActiveSessions"));
+        return repositoryService.allMatches(new QueryDefault<>(SessionLogEntry.class,"listAllActiveSessions"));
     }
     //endregion
 
@@ -175,7 +246,7 @@ public class SessionLogEntryRepository extends AbstractFactoryAndRepository {
 
     @Programmatic
     public List<SessionLogEntry> findRecentByUser(final String user) {
-        return allMatches(
+        return repositoryService.allMatches(
                 new QueryDefault<>(SessionLogEntry.class, "findRecentByUser", "user", user));
 
     }
@@ -188,6 +259,14 @@ public class SessionLogEntryRepository extends AbstractFactoryAndRepository {
                 ?new Timestamp(dt.toDateTimeAtStartOfDay().plusDays(daysOffset).getMillis())
                 :null;
     }
+
+    //endregion
+
+    //region > injected services
+    @Inject
+    RepositoryService repositoryService;
+    @Inject
+    IsisJdoSupport isisJdoSupport;
     //endregion
 
 }

@@ -16,30 +16,18 @@
  */
 package org.isisaddons.module.sessionlogger.dom;
 
-import java.sql.Timestamp;
-import java.util.List;
-
-import javax.jdo.annotations.IdentityType;
-
-import org.apache.isis.applib.annotation.Action;
-import org.apache.isis.applib.annotation.ActionLayout;
-import org.apache.isis.applib.annotation.DomainObject;
-import org.apache.isis.applib.annotation.DomainObjectLayout;
-import org.apache.isis.applib.annotation.Editing;
-import org.apache.isis.applib.annotation.MemberGroupLayout;
-import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.annotation.Property;
-import org.apache.isis.applib.annotation.SemanticsOf;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.services.HasUsername;
 import org.apache.isis.applib.services.session.SessionLoggingService;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
-
 import org.isisaddons.module.sessionlogger.SessionLoggerModule;
 
-import lombok.Getter;
-import lombok.Setter;
+import javax.jdo.annotations.IdentityType;
+import java.sql.Timestamp;
+import java.util.List;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.APPLICATION,
@@ -129,7 +117,13 @@ import lombok.Setter;
                         + "FROM org.isisaddons.module.sessionlogger.dom.SessionLogEntry "
                         + "WHERE user == :user "
                         + "ORDER BY loginTimestamp DESC "
-                        + "RANGE 0,10")
+                        + "RANGE 0,10"),
+        @javax.jdo.annotations.Query(
+                name="logoutAllActiveSessions", language="JDOQL",
+                value="UPDATE org.isisaddons.module.sessionlogger.dom.SessionLogEntry "
+                       + "   SET logoutTimestamp == :logoutTimestamp "
+                       + "      ,causedBy2 == :causedBy2 "
+                       + " WHERE causedBy2 == null" )
 })
 @DomainObject(
         objectType = "isissessionlogger.SessionLogEntry",
@@ -141,7 +135,7 @@ import lombok.Setter;
         left={"Identifiers", "Metadata"},
         middle={"Login"},
         right={"Logout"})
-public class SessionLogEntry implements HasUsername {
+public class SessionLogEntry implements HasUsername, Comparable<SessionLogEntry> {
 
     //region > domain events
     public static abstract class PropertyDomainEvent<T> extends SessionLoggerModule.PropertyDomainEvent<SessionLogEntry, T> {
@@ -247,17 +241,56 @@ public class SessionLogEntry implements HasUsername {
 
     //region > causedBy (property)
 
+    /**
+     * anticipates Isis 1.13.1
+     */
+    enum CausedBy2 {
+        USER,
+        SESSION_EXPIRATION,
+        RESTART;
+    }
+
 
     public static class CausedByDomainEvent extends PropertyDomainEvent<SessionLoggingService.CausedBy> {
     }
 
-    @javax.jdo.annotations.Column(allowsNull="true", length=18)
+    @javax.jdo.annotations.Column(
+            allowsNull="true",
+            length=18,
+            name = "causedBy" // until Isis 1.13.1 is extended
+    )
     @Property(
             domainEvent = CausedByDomainEvent.class
     )
+    @PropertyLayout(
+            named = "Caused by"
+    )
     @MemberOrder(name="Logout",sequence = "20")
     @Getter @Setter
-    private SessionLoggingService.CausedBy causedBy;
+    private CausedBy2 causedBy2; // until Isis 1.13.1 is extended
+
+
+    @Programmatic
+    @javax.jdo.annotations.NotPersistent
+    SessionLoggingService.CausedBy getCausedBy() {
+        final CausedBy2 causedBy2 = getCausedBy2();
+        return asCausedBy(causedBy2);
+    }
+    void setCausedBy(SessionLoggingService.CausedBy causedBy) {
+        setCausedBy2(asCausedBy2(causedBy));
+    }
+
+    private static SessionLogEntry.CausedBy2 asCausedBy2(SessionLoggingService.CausedBy causedBy) {
+
+        return causedBy != null
+                ? CausedBy2.valueOf(causedBy.name())
+                : null;
+    }
+    private static SessionLoggingService.CausedBy asCausedBy(SessionLogEntry.CausedBy2 causedBy2) {
+        return causedBy2 != null
+                ? SessionLoggingService.CausedBy.valueOf(causedBy2.name())
+                : null;
+    }
 
 
     //endregion
@@ -309,16 +342,19 @@ public class SessionLogEntry implements HasUsername {
     }
     //endregion
 
-    //region > toString
-
+    //region > toString, compareTo
 
     @Override
     public String toString() {
-        return ObjectContracts.toString(this, "type,username,loginTimestamp,causedBy");
+        return ObjectContracts.toString(this, "loginTimestamp","username","sessionId","logoutTimestamp","causedBy");
+    }
+
+    @Override
+    public int compareTo(final SessionLogEntry logEntry) {
+        return ObjectContracts.compare(this, logEntry, "loginTimestamp","username","sessionId","logoutTimestamp","causedBy");
     }
 
     //endregion
-
 
     //region > Injected services
     @javax.inject.Inject
