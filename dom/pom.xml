@@ -18,17 +18,6 @@ language governing permissions and limitations under the License.
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-	<!-- 
-	REMOVE <parent> TAG ONCE THIS MODULE MOVED TO ITS OWN GIT REPO
-	-->
-	<parent>
-        <groupId>org.estatio</groupId>
-        <artifactId>estatio</artifactId>
-        <version>1.7.0-SNAPSHOT</version>
-        <relativePath>../../../pom.xml</relativePath>
-    </parent>
-	
-	
 
     <groupId>org.isisaddons.module.xdocreport</groupId>
     <artifactId>isis-module-xdocreport-dom</artifactId>
@@ -41,9 +30,6 @@ language governing permissions and limitations under the License.
         A module providing a service that wraps xdocreport
     </description>
 
-	<!--
-	REINSTATE ONCE THIS MODULE MOVED TO ITS OWN GIT REPO
-
     <url>https://github.com/isisaddons/isis-module-xdocreport</url>
     <scm>
         <connection>scm:git:git@github.com:isisaddons/isis-module-xdocreport.git</connection>
@@ -51,7 +37,6 @@ language governing permissions and limitations under the License.
         </developerConnection>
         <url>git@github.com:isisaddons/isis-module-xdocreport.git</url>
     </scm>
-	-->
 
     <licenses>
         <license>
@@ -134,10 +119,7 @@ language governing permissions and limitations under the License.
                                 <banLatest>true</banLatest>
                                 <banRelease>true</banRelease>
                             </requirePluginVersions>
-                            <!--
-                            RELAXED!
                             <DependencyConvergence />
-                            -->
                         </rules>
                     </configuration>
                     <!-- goal:enforce supposedly binds to phase:validate, but explicit binding seems to be required -->
