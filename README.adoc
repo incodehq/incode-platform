@@ -160,6 +160,23 @@ text.  The `render(...)` method therefore basically accepts the fields of this `
 dataModel DTO/Map which is interpolated into the template.
 
 
+== Example Usage
+
+From the unit tests:
+
+[source,java]
+----
+// given
+ Map<String, String> properties = ImmutableMap.of("user", "John Doe");
+
+// when
+String merged = service.render("a", "/", 1, "<h1>Welcome ${user}!</h1>",  properties);
+
+// then
+assertThat(merged, is("<h1>Welcome John Doe!</h1>"));
+----
+
+
 == Change Log
 
 * `1.13.0` - released against Isis 1.13.0
