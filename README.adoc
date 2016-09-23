@@ -92,7 +92,7 @@ structured as follows:
 In order to understand the API of the service provided by this module (`FreeMarkService`), it's necessary to
 understand a little of the API/SPI exposed by FreeMarker itself.
 
-== FreeMarker's Design
+=== FreeMarker's Design
 
 Freemarker's design is that templates are identified by a template name and a version.  Freemarker's `TemplateLoader`
 SPI is used to lookup the template text and to check whether that template text is stale; Freemarker automatically
