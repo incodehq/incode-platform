@@ -237,6 +237,7 @@ language governing permissions and limitations under the License.
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
         </dependency>
 
         <dependency>
@@ -256,7 +257,6 @@ language governing permissions and limitations under the License.
             <artifactId>fr.opensagres.xdocreport.converter.docx.xwpf</artifactId>
             <version>${xdocreport.version}</version>
         </dependency>
-
 
 
     </dependencies>
