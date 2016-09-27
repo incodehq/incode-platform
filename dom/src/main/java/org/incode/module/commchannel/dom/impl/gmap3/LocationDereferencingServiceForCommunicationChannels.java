@@ -33,6 +33,11 @@ import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_owner
 )
 public class LocationDereferencingServiceForCommunicationChannels implements LocationDereferencingService {
 
+    public String getId() {
+        return "incodeCommChannel.LocationDereferencingServiceForCommunicationChannels";
+    }
+
+
     //region > injected services
     @Inject
     DomainObjectContainer container;

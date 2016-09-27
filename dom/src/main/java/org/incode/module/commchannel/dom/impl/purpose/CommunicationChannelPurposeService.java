@@ -40,6 +40,11 @@ import org.incode.module.commchannel.dom.spi.CommunicationChannelPurposeReposito
 )
 public class CommunicationChannelPurposeService {
 
+    public String getId() {
+        return "incodeCommChannel.CommunicationChannelPurposeService";
+    }
+
+
     public static final String DEFAULT_PURPOSE = "(default)";
 
     /**

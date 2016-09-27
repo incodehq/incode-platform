@@ -47,6 +47,11 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 )
 public class PostalAddressRepository {
 
+    public String getId() {
+        return "incodeCommChannel.PostalAddressRepository";
+    }
+
+
     //region > newPostal (programmatic)
     @Programmatic
     public PostalAddress newPostal(

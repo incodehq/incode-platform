@@ -42,12 +42,9 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 )
 public class PhoneOrFaxNumberRepository {
 
-    @Inject
-    CommunicationChannelOwnerLinkRepository linkRepository;
-    @Inject
-    DomainObjectContainer container;
-
-
+    public String getId() {
+        return "incodeCommChannel.PhoneOrFaxNumberRepository";
+    }
 
     //region > newPhoneOrFax (programmatic)
 
@@ -102,5 +99,11 @@ public class PhoneOrFaxNumberRepository {
     private CommunicationChannel_owner owner(final CommunicationChannel<?> cc) {
         return container.mixin(CommunicationChannel_owner.class, cc);
     }
+
+    @Inject
+    CommunicationChannelOwnerLinkRepository linkRepository;
+    @Inject
+    DomainObjectContainer container;
+
 
 }

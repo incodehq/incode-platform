@@ -50,6 +50,10 @@ import org.apache.isis.applib.services.config.ConfigurationService;
 )
 public class GeocodingService {
 
+    public String getId() {
+        return "incodeCommChannel.GeocodingService";
+    }
+
     private static final String DEFAULT_PROTOCOL = "http";
     private static final boolean DEFAULT_DEMO = false;
     private static final int DEFAULT_TIMEOUT_SECONDS = 5;

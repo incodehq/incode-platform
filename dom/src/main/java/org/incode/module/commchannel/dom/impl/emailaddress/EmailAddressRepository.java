@@ -44,6 +44,9 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 )
 public class EmailAddressRepository {
 
+    public String getId() {
+        return "incodeCommChannel.EmailAddressRepository";
+    }
 
     @Programmatic
     public EmailAddress newEmail(

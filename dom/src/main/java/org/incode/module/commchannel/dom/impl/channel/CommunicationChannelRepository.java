@@ -41,6 +41,10 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 )
 public class CommunicationChannelRepository {
 
+    public String getId() {
+        return "incodeCommChannel.CommunicationChannelRepository";
+    }
+
     //region > injected services
     @Inject
     CommunicationChannelOwnerLinkRepository linkRepository;
