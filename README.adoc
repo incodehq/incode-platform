@@ -180,13 +180,24 @@ public interface SessionLoggingService {
     }
     public enum CausedBy {
         USER,
-        SESSION_EXPIRATION
+        SESSION_EXPIRATION,
+        RESTART
     }
     void log(Type type, String username, Date date, CausedBy causedBy);
 }
 ----
 
-The framework will automatically call this method on the service implementation if configured to run the Wicket viewer.
+The framework will automatically call the `log(...)` method on the service implementation if configured to run the Wicket viewer.
+
+[NOTE]
+====
+The framework only ever calls `log(...)` with a `CausedBy` value of either "USER" (the user has explicitly logged in
+or logged out), or with "SESSION_EXPIRATION" (the Wicket viewer session has timed out).
+
+The "RESTART" value is provided for implementations (such as the (non-ASF)
+http://github.com/isisaddons/isis-module-sessionlogger[Isis addons' sessionlogger] module) which automatically "tidy-up"
+and mark as complete and sessions that were in-progress if the webserver is restarted.
+====
 
 
 
@@ -216,7 +227,7 @@ public class SessionLogEntry
 <3> `type` determines whether this was a login or logout.
 <4> `loginTimestamp` is the date that the login of the session event occurred
 <5> `logoutTimestamp` is the date that the logout of the session event occurred
-<6> `causedBy`indicates whether the session was logged out due to session expiry
+<6> `causedBy`indicates whether the session was logged out due to explicit user action, by session expiry, or by the server restarting
 
 The `SessionLogEntry` entity is designed such that it can be rendered on an Isis user interface if required.
 
