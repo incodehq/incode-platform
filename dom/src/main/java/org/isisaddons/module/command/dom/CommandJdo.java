@@ -489,6 +489,16 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
 
     //endregion
 
+    //region > isLegacyMemento (programmatic)
+    @Programmatic
+    public boolean isLegacyMemento() {
+        return getMemento() != null && getMemento().startsWith("<memento");
+    }
+    //endregion
+
+
+
+
     //region > startedAt (property)
 
     public static class StartedAtDomainEvent extends PropertyDomainEvent<Timestamp> { }
