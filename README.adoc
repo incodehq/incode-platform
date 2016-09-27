@@ -453,7 +453,22 @@ secondary menu bar.
 
 * `CommandJdo_childCommands` mixin provides the `childCommands` contributed collection, while `CommandJdo_siblingCommands` mixin provides the `siblingCommands` contributed collection
 
-(As of 1.8.x and later) these services are automatically registered, meaning that any UI functionality they provide
+In addition, the `T_backgroundCommands` abstract mixin can be used to contribute a `backgroundCommands` collection to any
+object that can be used as the target of a command, returning the 30 most recent background commands.  For example:
+
+[source,java]
+----
+@Mixin
+public class SomeObject_backgroundCommands extends T_backgroundCommands<SomeObject> {
+    public SomeObject_backgroundCommands(final SomeObject someObject) {
+        super(domainObject);
+    }
+}
+----
+
+where `SomeObject` is the class of the target domain class.
+
+(As of 1.8.x and later) these various services are automatically registered, meaning that any UI functionality they provide
 will appear in the user interface. If this is not required, then either use security permissions or write a vetoing
 subscriber on the event bus to hide this functionality, eg:
 
@@ -488,6 +503,7 @@ and it is this interface that each module has services that contribute to).
 
 == Change Log
 
+* `1.13.2` - released against Isis 1.13.0, fixes link:https://github.com/isisaddons/isis-module-command/issues/10[#10], link:https://github.com/isisaddons/isis-module-command/issues/12[#12], link:https://github.com/isisaddons/isis-module-command/issues/13[#13]
 * `1.13.1` - released against Isis 1.13.0, fixes link:https://github.com/isisaddons/isis-module-command/issues/9[#9]
 * `1.13.0` - released against Isis 1.13.0
 * `1.12.1` - released against Isis 1.12.1; fixes link:https://github.com/isisaddons/isis-module-command/issues/7[#7]
@@ -560,7 +576,7 @@ For example:
 
 [source]
 ----
-sh release.sh 1.13.1 \
+sh release.sh 1.13.2 \
               1.14.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
@@ -580,7 +596,7 @@ If the script completes successfully, then push changes:
 [source]
 ----
 git push origin master
-git push origin 1.13.1
+git push origin 1.13.2
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
