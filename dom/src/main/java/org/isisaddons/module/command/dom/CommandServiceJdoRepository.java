@@ -188,12 +188,18 @@ public class CommandServiceJdoRepository {
 
     @Programmatic
     public List<CommandJdo> findRecentByTarget(final Bookmark target) {
-
         final String targetStr = target.toString();
-
         return repositoryService.allMatches(
                 new QueryDefault<>(CommandJdo.class, "findRecentByTarget", "targetStr", targetStr));
+    }
+    //endregion
 
+    //region > findRecentBackgroundByTarget
+    @Programmatic
+    public List<CommandJdo> findRecentBackgroundByTarget(Bookmark target) {
+        final String targetStr = target.toString();
+        return repositoryService.allMatches(
+                new QueryDefault<>(CommandJdo.class, "findRecentBackgroundByTarget", "targetStr", targetStr));
     }
     //endregion
 

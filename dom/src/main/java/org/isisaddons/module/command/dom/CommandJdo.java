@@ -112,6 +112,14 @@ import lombok.Setter;
                     + "&& executeIn == 'FOREGROUND' "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
+            name="findRecentBackgroundByTarget", language="JDOQL",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
+                    + "WHERE targetStr == :targetStr "
+                    + "&& executeIn == 'BACKGROUND' "
+                    + "ORDER BY timestamp DESC, transactionId DESC "
+                    + "RANGE 0,30"),
+    @javax.jdo.annotations.Query(
             name="findByTargetAndTimestampBetween", language="JDOQL",  
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
