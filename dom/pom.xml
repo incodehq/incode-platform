@@ -24,17 +24,17 @@ language governing permissions and limitations under the License.
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons Freemarker Module DOM</name>
+    <name>Isis Addons Quartz Module DOM</name>
     <description>
-        A module providing a service that wraps freemarker
+        A module wrapping up Quartz scheduler
     </description>
 
-    <url>https://github.com/isisaddons/isis-module-freemarker</url>
+    <url>https://github.com/isisaddons/isis-module-quartz</url>
     <scm>
-        <connection>scm:git:git@github.com:isisaddons/isis-module-freemarker.git</connection>
-        <developerConnection>scm:git:git@github.com:isisaddons/isis-module-freemarker.git
+        <connection>scm:git:git@github.com:isisaddons/isis-module-quartz.git</connection>
+        <developerConnection>scm:git:git@github.com:isisaddons/isis-module-quartz.git
         </developerConnection>
-        <url>git@github.com:isisaddons/isis-module-freemarker.git</url>
+        <url>git@github.com:isisaddons/isis-module-quartz.git</url>
     </scm>
 
     <licenses>
