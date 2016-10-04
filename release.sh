@@ -24,9 +24,9 @@ fi
 
 
 echo ""
-echo "checking no reference to isis-module-command.version of -SNAPSHOT"
+echo "checking no reference to isis-module-quartz of -SNAPSHOT"
 echo ""
-grep SNAPSHOT dom/pom.xml | grep isis-module-command.version
+grep SNAPSHOT dom/pom.xml | grep isis-module-quartz
 if [ $? == 0 ]; then
     echo ""
     echo "... failed" >&2
