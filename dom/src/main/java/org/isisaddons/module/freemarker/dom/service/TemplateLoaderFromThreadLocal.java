@@ -32,11 +32,10 @@ class TemplateLoaderFromThreadLocal implements freemarker.cache.TemplateLoader {
 
     static String withTemplateSource(
             final String templateName,
-            final long version,
             final String templateChars,
             final Block block)
             throws IOException, TemplateException {
-        return withTemplateSource(new TemplateSource(templateName, version, templateChars), block);
+        return withTemplateSource(new TemplateSource(templateName, templateChars), block);
     }
 
     static String withTemplateSource(final TemplateSource templateSource, final Block block)
@@ -71,8 +70,8 @@ class TemplateLoaderFromThreadLocal implements freemarker.cache.TemplateLoader {
 
     @Override
     public long getLastModified(final Object templateSourceAsObj) {
-        final TemplateSource templateSource = (TemplateSource) templateSourceAsObj;
-        return templateSource.getVersion();
+        // versioning is responsibiility of caller; just encode within the template name
+        return 1L;
     }
 
 }

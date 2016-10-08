@@ -62,7 +62,7 @@ public class FreeMarkerServiceTest {
         Map<String, String> properties = ImmutableMap.of("user", "John Doe");
 
         // when
-        String merged = service.render("a", "/", 1, "<h1>Welcome ${user}!</h1>",  properties);
+        String merged = service.render("WelcomeUserTemplate:/GBR:", "<h1>Welcome ${user}!</h1>", properties);
 
         // then
         assertThat(merged, is("<h1>Welcome John Doe!</h1>"));
@@ -88,10 +88,65 @@ public class FreeMarkerServiceTest {
         userDataModel.setUser("John Doe");
 
         // when
-        String merged = service.render("a", "/", 1, "<h1>Welcome ${user}!</h1>", userDataModel);
+
+        String merged = service.render("WelcomeUserTemplate:/GBR:", "<h1>Welcome ${user}!</h1>", userDataModel);
 
         // then
         assertThat(merged, is("<h1>Welcome John Doe!</h1>"));
+    }
+
+    @Test
+    public void caching() throws Exception {
+
+        // given
+        final UserDataModel userDataModel = new UserDataModel();
+        userDataModel.setUser("John Doe");
+
+        // when
+        String merged = service.render("WelcomeUserTemplate:/GBR:", "<h1>Welcome ${user}!</h1>", userDataModel);
+
+        // when (don't pass in any template cache)
+        String merged2 = service.render("WelcomeUserTemplate:/GBR:", "", userDataModel);
+
+        // then
+        assertThat(merged, is("<h1>Welcome John Doe!</h1>"));
+        assertThat(merged2, is("<h1>Welcome John Doe!</h1>"));
+    }
+
+    @Test
+    public void differentTemplates() throws Exception {
+
+        // given
+        final UserDataModel userDataModel = new UserDataModel();
+        userDataModel.setUser("John Doe");
+
+        // when
+        String merged = service.render("WelcomeUserTemplate:/GBR:", "<h1>Welcome ${user}!</h1>", userDataModel);
+
+        // when (don't pass in any template cache)
+        String merged2 = service.render("WelcomeUserTemplate:/FRA:", "<h1>Bonjour, ${user}</h1>", userDataModel);
+
+        // then
+        assertThat(merged, is("<h1>Welcome John Doe!</h1>"));
+        assertThat(merged2, is("<h1>Bonjour, John Doe</h1>"));
+    }
+
+    @Test
+    public void differentTemplatesPerVersioning() throws Exception {
+
+        // given
+        final UserDataModel userDataModel = new UserDataModel();
+        userDataModel.setUser("John Doe");
+
+        // when
+        String merged = service.render("WelcomeUserTemplate:/GBR:1:", "<h1>Welcome ${user}!</h1>", userDataModel);
+
+        // when (bump the version)
+        String merged2 = service.render("WelcomeUserTemplate:/GBR:2:", "<h1>Hi there, ${user} !!!</h1>", userDataModel);
+
+        // then
+        assertThat(merged, is("<h1>Welcome John Doe!</h1>"));
+        assertThat(merged2, is("<h1>Hi there, John Doe !!!</h1>"));
     }
 
 }

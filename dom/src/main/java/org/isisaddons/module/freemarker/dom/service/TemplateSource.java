@@ -20,20 +20,14 @@ public class TemplateSource {
 
     private final String templateName;
     private final String templateChars;
-    private final long version;
 
-    public TemplateSource(final String templateName, final long version, final String templateChars) {
+    public TemplateSource(final String templateName, final String templateChars) {
         this.templateName = templateName;
         this.templateChars = templateChars;
-        this.version = version;
     }
 
     public String getTemplateName() {
         return templateName;
-    }
-
-    public long getVersion() {
-        return version;
     }
 
     public String getChars() {

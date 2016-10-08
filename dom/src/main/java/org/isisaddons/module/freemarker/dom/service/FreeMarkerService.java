@@ -18,14 +18,10 @@ package org.isisaddons.module.freemarker.dom.service;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-
-import com.google.common.base.Joiner;
-import com.google.common.base.Splitter;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -58,7 +54,7 @@ public class FreeMarkerService {
         templateLoader = new TemplateLoaderFromThreadLocal();
         cfg.setTemplateLoader(templateLoader);
 
-        cfg.setLogTemplateExceptions(false);
+        cfg.setLogTemplateExceptions(true);
     }
 
     /**
@@ -68,17 +64,11 @@ public class FreeMarkerService {
      */
     @Programmatic
     public String render(
-            final String documentTypeReference,
-            final String atPath,
-            final long version,
+            final String templateName,
             final String templateChars,
-            final Object dataModel)
-            throws IOException, TemplateException {
-
-        final String templateName = join(documentTypeReference, atPath);
-
+            final Object dataModel) throws IOException, TemplateException {
         return templateLoader
-                .withTemplateSource(templateName, version, templateChars, new TemplateLoaderFromThreadLocal.Block() {
+                .withTemplateSource(templateName, templateChars, new TemplateLoaderFromThreadLocal.Block() {
             @Override
             public String exec(final TemplateSource templateSource) throws IOException, TemplateException {
                 final StringWriter sw = new StringWriter();
@@ -87,27 +77,8 @@ public class FreeMarkerService {
                 return sw.toString();
             }
         });
-
     }
 
-
-    //region > join, split (helpers)
-
-    /**
-     * separates the reference from the atPath
-     */
-    private static String SEPARATOR = ":";
-
-    private static String join(final String templateReference, final String templateAtPath) {
-        // empty string at the end means that the "_en_GB" appended to template name is separated out.
-        return Joiner.on(SEPARATOR).join(templateReference, templateAtPath, "");
-    }
-
-    static String[] split(final String templateName) {
-        return Splitter.on(SEPARATOR).splitToList(templateName).toArray(new String[]{});
-    }
-
-    //endregion
 
     //region > injected services
     @Inject

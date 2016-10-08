@@ -21,7 +21,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.isisaddons.module.freemarker</groupId>
     <artifactId>isis-module-freemarker-dom</artifactId>
-    <version>1.13.0</version>
+    <version>1.13.1</version>
 </dependency>
 ----
 
@@ -126,38 +126,52 @@ This module provides a single service, called `FreeMarkerService`.  It has the f
 @DomainService(nature = NatureOfService.DOMAIN)
 public class FreeMarkerService {
     public String render(
-            String documentType,                        // <1>
-            String atPath,
+            String templateName,                        // <1>
             long version,                               // <2>
             String templateChars,                       // <3>
             Object dataModel)                           // <4>
         throws IOException, TemplateException;
 }
 ----
-<1> the `documentType` and `atPath` together correspond to FreeMarker's "templateName".
-<2> the `version` tells Freemarker which version of the template is being used
+<1> the name/version of the template, corresponding directly to FreeMarker's "templateName".
 <3> the `templateChars` is the actual template text itself
 <4> the `dataModel` is the object whose values are interpolated by Freemarker into the template.  This can either be
 a strongly typed DTO or just a simple `Map`.
 
+
 This method takes parameters that (from FreeMarker's point of view) represent both the input to finding a template
 and also the output (the text of that template):
 
-* the `documentType` and `atPath` together correspond to FreeMarker's "templateName". +
+* the `templateName` broadly corresponds directly to FreeMarker's "templateName". +
 +
-The `atPath` is the application tenancy path (eg "/" or "/ITA"), as per the
-http://github.com/isisaddons/isis-module-security[Isis addons' security] module.  The two parameters are concatenated
-together (with a `:`); any locale suffix (eg "_en_GB") is ignored.
-
-* the `version` is the value that will be returned to FreeMarker when it calls "#getLastModified(...)".
+To support multiple versions of a template over time, just create a composite name.  Similarly, if multiple versions
+of a template are needed for different app tenancies, combine that into the composite name also. +
++
+For example, to support two versions of an "InvoiceTemplate" for France and for Italy, each published on 1 Dec 2015,
+one could pass in a template of "Invoice:/FRA:2015-12-01" or "Invoice:/ITA:2015-12-01".
 
 * the `templateChars` is the template text that is used to return a StringReader if and when FreeMarker calls
 `#getReader(...)`.
 
-The intended usage is that the template will be stored in an entity (let's call it `DocumentTemplate`, say) which is
-identified by `documentType` and `atPath`, and which also is versioned.  It also, of course, holds the actual template
-text.  The `render(...)` method therefore basically accepts the fields of this `DocumentTemplate`, along with the
-dataModel DTO/Map which is interpolated into the template.
+Internally FreeMarker caches the template characters; it uses the `templateName` and the `version` as a way to
+determine whether its internal cache is invalid.  As a small wrinkle, it also performs the caching on a per-locale
+basis; the `templateName` used internally will have a locale appended to it (eg "_en_GB").
+
+All this caching is irrelevant to the `FreeMarkerService`, because it passes in the template characters irrespective; these
+are simply made available on a thread-local.  The responsibility for caching therefore moves outside of FreeMarker,
+and to the calling application.  Thus, the intended usage is that the template characters will be stored in an entity
+(let's call it `DocumentTemplate`, say) which could be identified by `documentType` and `atPath`, say, and which also
+is versioned.  The `documentType` and `atPath` can simply be joined together to create the logical template name.
+
+[NOTE]
+====
+FreeMarker also supports the notion of versioned templates (the `TemplateSourc#getLastModified()` API), however
+there's clearly a subtlety going on somewhere because in an earlier design of this service (which took in a `version`
+parameter for the template) it didn't seem to work.  Since in most cases the templateName is likely to be a composite
+anyway (for application tenancy), the decision is simply to also include the version number as well in this
+"template name".
+====
+
 
 
 == Example Usage
@@ -170,7 +184,7 @@ From the unit tests:
  Map<String, String> properties = ImmutableMap.of("user", "John Doe");
 
 // when
-String merged = service.render("a", "/", 1, "<h1>Welcome ${user}!</h1>",  properties);
+String merged = service.render("WelcomeUserTemplate:/GBR:2015-12-01:", "<h1>Welcome ${user}!</h1>",  properties);
 
 // then
 assertThat(merged, is("<h1>Welcome John Doe!</h1>"));
@@ -179,6 +193,7 @@ assertThat(merged, is("<h1>Welcome John Doe!</h1>"));
 
 == Change Log
 
+* `1.13.1` - released against Isis 1.13.0.  NB: this is a breaking change, with a simpler API.
 * `1.13.0` - released against Isis 1.13.0
 
 == Legal Stuff
