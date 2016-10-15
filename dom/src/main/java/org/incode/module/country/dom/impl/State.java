@@ -48,20 +48,20 @@ import lombok.Setter;
         column = "version")
 @javax.jdo.annotations.Uniques({
         @javax.jdo.annotations.Unique(
-                name = "Geography_reference_UNQ", members = "reference"),
+                name = "State_reference_UNQ", members = "reference"),
         @javax.jdo.annotations.Unique(
-                name = "Geography_name_UNQ", members = "name")
+                name = "State_name_UNQ", members = "name")
 })
 @javax.jdo.annotations.Queries({
         @javax.jdo.annotations.Query(
                 name = "findByCountry", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.estatio.dom.geography.State "
+                        + "FROM org.incode.module.country.dom.impl.State "
                         + "WHERE country == :country"),
         @javax.jdo.annotations.Query(
                 name = "findByReference", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.estatio.dom.geography.State "
+                        + "FROM org.incode.module.country.dom.impl.State "
                         + "WHERE reference == :reference")
 })
 @DomainObject(editing = Editing.DISABLED)

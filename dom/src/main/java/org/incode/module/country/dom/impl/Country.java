@@ -35,7 +35,7 @@ import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType = IdentityType.DATASTORE
-        , schema = "incodeGeography"
+        , schema = "incodeCountry"
 )
 @javax.jdo.annotations.DatastoreIdentity(
         strategy = IdGeneratorStrategy.NATIVE,
@@ -55,7 +55,7 @@ import lombok.Setter;
         @javax.jdo.annotations.Query(
                 name = "findByReference", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.estatio.dom.geography.Country "
+                        + "FROM org.incode.module.country.dom.impl.Country "
                         + "WHERE reference == :reference")
 })
 @DomainObject(editing = Editing.DISABLED, bounded = true)
