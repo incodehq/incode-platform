@@ -16,25 +16,22 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.country.dom;
+package org.incode.module.country.dom.impl;
 
 import org.junit.Test;
 
 import org.incode.module.base.dom.AbstractBeanPropertiesTest;
-import org.incode.module.country.dom.Country;
-import org.incode.module.country.dom.State;
+import org.incode.module.country.dom.impl.Country;
 
-public class StateTest {
+public class CountryTest {
 
     public static class BeanProperties extends AbstractBeanPropertiesTest {
 
         @Test
         public void test() {
             newPojoTester()
-                    .withFixture(pojos(Country.class))
-                    .exercise(new State());
+                    .exercise(new Country());
         }
-
 
     }
 }

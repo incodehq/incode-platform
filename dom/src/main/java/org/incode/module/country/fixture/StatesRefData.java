@@ -22,10 +22,10 @@ import javax.inject.Inject;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.module.country.dom.Country;
-import org.incode.module.country.dom.CountryRepository;
-import org.incode.module.country.dom.State;
-import org.incode.module.country.dom.StateRepository;
+import org.incode.module.country.dom.impl.Country;
+import org.incode.module.country.dom.impl.CountryRepository;
+import org.incode.module.country.dom.impl.State;
+import org.incode.module.country.dom.impl.StateRepository;
 
 public class StatesRefData extends FixtureScript {
 

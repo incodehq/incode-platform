@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.country.dom;
+package org.incode.module.country.dom.impl;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
