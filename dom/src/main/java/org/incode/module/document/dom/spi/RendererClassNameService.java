@@ -16,18 +16,23 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.document.dom.types;
+package org.incode.module.document.dom.spi;
 
-public class FileSuffixType {
+import java.util.List;
 
-    private FileSuffixType() {}
+import org.apache.isis.applib.annotation.Programmatic;
 
-    public static class Meta {
+import org.incode.module.document.dom.impl.docs.DocumentNature;
+import org.incode.module.document.dom.services.ClassNameViewModel;
 
-        public static final int MAX_LEN = 12;
+public interface RendererClassNameService {
 
-        private Meta() {}
+    @Programmatic
+    public List<ClassNameViewModel> renderClassNamesFor(
+            final DocumentNature inputNature,
+            final DocumentNature outputNature);
 
-    }
+    @Programmatic
+    <C> Class<C> asClass(final String className);
 
 }

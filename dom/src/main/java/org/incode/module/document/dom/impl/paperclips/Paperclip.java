@@ -114,6 +114,7 @@ public abstract class Paperclip implements Comparable<Paperclip> {
     public static abstract class ActionDomainEvent extends DocumentModule.ActionDomainEvent<Paperclip> { }
     //endregion
 
+
     //region > title, icon, cssClass
 
     // can't implement as a subscriber because guava doesn't support events within events
@@ -211,7 +212,7 @@ public abstract class Paperclip implements Comparable<Paperclip> {
     //region > roleName (property, optional)
     public static class RoleNameDomainEvent extends Paperclip.PropertyDomainEvent<String> { }
     @Getter @Setter
-    @Column(allowsNull = "true", length = NameType.Meta.MAX_LEN)
+    @Column(allowsNull = "true", length = RoleNameType.Meta.MAX_LEN)
     @Property(
             domainEvent = RoleNameDomainEvent.class,
             editing = Editing.DISABLED
@@ -303,4 +304,20 @@ public abstract class Paperclip implements Comparable<Paperclip> {
     TitleService titleService;
     //endregion
 
+    //region > types
+    public static class RoleNameType {
+
+        private RoleNameType() {}
+
+        public static class Meta {
+
+            public static final int MAX_LEN = NameType.Meta.MAX_LEN;
+
+            private Meta() {}
+
+        }
+
+    }
+
+    //endregion
 }

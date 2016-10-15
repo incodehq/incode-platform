@@ -24,7 +24,6 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.document.dom.DocumentModule;
-import org.incode.module.document.dom.types.NameType;
 
 @Mixin
 public class Paperclip_changeRole {
@@ -44,7 +43,7 @@ public class Paperclip_changeRole {
             domainEvent = ActionDomainEvent.class
     )
     public Paperclip $$(
-            @Parameter(optionality = Optionality.OPTIONAL, maxLength = NameType.Meta.MAX_LEN)
+            @Parameter(optionality = Optionality.OPTIONAL, maxLength = Paperclip.RoleNameType.Meta.MAX_LEN)
             @ParameterLayout(named = "Document role")
             final String roleName
     ) {

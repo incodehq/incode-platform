@@ -85,13 +85,8 @@ import org.incode.module.document.dom.impl.types.DocumentType;
 import org.incode.module.document.dom.services.ClassNameViewModel;
 import org.incode.module.document.dom.services.ClassService;
 import org.incode.module.document.dom.spi.BinderClassNameService;
-import org.incode.module.document.dom.services.FullyQualifiedClassNameSpecification;
 import org.incode.module.document.dom.types.AtPathType;
-import org.incode.module.document.dom.types.DocNameType;
-import org.incode.module.document.dom.types.FileSuffixType;
 import org.incode.module.document.dom.types.FqcnType;
-import org.incode.module.document.dom.types.SubjectTextType;
-import org.incode.module.document.dom.types.TextType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -415,7 +410,7 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
      * Used to determine the name of the {@link Document#getName() name} of the rendered {@link Document}.
      */
     @Getter @Setter
-    @javax.jdo.annotations.Column(allowsNull = "false", length = SubjectTextType.Meta.MAX_LEN)
+    @javax.jdo.annotations.Column(allowsNull = "false", length = NameTextType.Meta.MAX_LEN)
     @Property(
             notPersisted = true, // exclude from auditing
             domainEvent = NameTextDomainEvent.class,
@@ -477,10 +472,10 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
     )
     @MemberOrder(name = "appliesTo", sequence = "1")
     public DocumentTemplate applicable(
-            @Parameter(maxLength = FqcnType.Meta.MAX_LEN, mustSatisfy = FullyQualifiedClassNameSpecification.class)
+            @Parameter(maxLength = FqcnType.Meta.MAX_LEN, mustSatisfy = FqcnType.Meta.Specification.class)
             @ParameterLayout(named = "Domain type")
             final String domainClassName,
-            @Parameter(maxLength = FqcnType.Meta.MAX_LEN, mustSatisfy = FullyQualifiedClassNameSpecification.class)
+            @Parameter(maxLength = FqcnType.Meta.MAX_LEN, mustSatisfy = FqcnType.Meta.Specification.class)
             @ParameterLayout(named = "Binder")
             final ClassNameViewModel binderClassNameViewModel) {
 
@@ -744,7 +739,7 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
     }
     //endregion
 
-
+    //region > renderContent (programmatic)
     @Programmatic
     public void renderContent(
             final Document document,
@@ -817,9 +812,8 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
             throw new ApplicationException("Unable to render document template", e);
         }
     }
-
-
     //endregion
+
 
     //region > withFileSuffix (programmatic)
     @Programmatic
@@ -829,10 +823,10 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
         final String suffixNoDot = suffix.substring(lastPeriod + 1);
         final String suffixWithDot = "." + suffixNoDot;
         if (documentName.endsWith(suffixWithDot)) {
-            return trim(documentName, DocNameType.Meta.MAX_LEN);
+            return trim(documentName, NameType.Meta.MAX_LEN);
         }
         else {
-            return trim(documentName, DocNameType.Meta.MAX_LEN - suffixWithDot.length()) + suffixWithDot;
+            return trim(documentName, NameType.Meta.MAX_LEN - suffixWithDot.length()) + suffixWithDot;
         }
     }
 
@@ -840,7 +834,6 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
         return name.length() > length ? name.substring(0, length) : name;
     }
     //endregion
-
 
 
 
@@ -865,6 +858,37 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
     TransactionService transactionService;
     @Inject
     BackgroundService2 backgroundService2;
+
+    //endregion
+
+    //region > types
+
+    public static class FileSuffixType {
+
+        private FileSuffixType() {}
+
+        public static class Meta {
+
+            public static final int MAX_LEN = 12;
+
+            private Meta() {}
+
+        }
+    }
+
+    public static class NameTextType {
+
+        private NameTextType() {}
+
+        public static class Meta {
+
+            public static final int MAX_LEN = 255;
+
+            private Meta() {}
+
+        }
+    }
+
 
     //endregion
 

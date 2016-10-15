@@ -53,7 +53,6 @@ import org.apache.isis.applib.value.Clob;
 import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.document.dom.impl.applicability.Binder;
 import org.incode.module.document.dom.impl.types.DocumentType;
-import org.incode.module.document.dom.types.ExternalUrlType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -308,8 +307,27 @@ public class Document extends DocumentAbstract<Document> {
     }
     //endregion
 
-
-
+    //region > injected services
     @Inject
     ClockService clockService;
+    //endregion
+
+
+    //region > types
+
+    public static class ExternalUrlType {
+
+        private ExternalUrlType() {}
+
+        public static class Meta {
+
+            public static final int MAX_LEN = 2000;
+
+            private Meta() {}
+
+        }
+
+    }
+    //endregion
+
 }

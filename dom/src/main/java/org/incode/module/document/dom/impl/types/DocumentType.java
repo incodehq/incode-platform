@@ -50,7 +50,6 @@ import org.apache.isis.applib.util.ObjectContracts;
 import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.document.dom.impl.docs.DocumentTemplateRepository;
 import org.incode.module.document.dom.types.NameType;
-import org.incode.module.document.dom.types.ReferenceType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -229,4 +228,18 @@ public class DocumentType implements Comparable<DocumentType> {
     DocumentTemplateRepository documentTemplateRepository;
     //endregion
 
+    //region > types
+    public static class ReferenceType {
+
+        private ReferenceType() {}
+
+        public static class Meta {
+
+            public static final int MAX_LEN = 24;
+
+            private Meta() {}
+
+        }
+    }
+    //endregion
 }

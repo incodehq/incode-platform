@@ -17,6 +17,8 @@
 package org.incode.module.document.dom.impl.docs;
 
 import javax.activation.DataSource;
+import javax.activation.MimeType;
+import javax.activation.MimeTypeParseException;
 import javax.inject.Inject;
 import javax.jdo.JDOHelper;
 import javax.jdo.annotations.Column;
@@ -40,6 +42,8 @@ import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.factory.FactoryService;
+import org.apache.isis.applib.services.i18n.TranslatableString;
+import org.apache.isis.applib.spec.AbstractSpecification2;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
@@ -47,9 +51,6 @@ import org.apache.isis.applib.value.Clob;
 import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.document.dom.impl.types.DocumentType;
 import org.incode.module.document.dom.types.AtPathType;
-import org.incode.module.document.dom.types.DocNameType;
-import org.incode.module.document.dom.types.MimeTypeType;
-import org.incode.module.document.dom.types.TextType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -104,6 +105,7 @@ public abstract class DocumentAbstract<T extends DocumentAbstract> implements Co
     }
     //endregion
 
+
     //region > type (property)
     public static class TypeDomainEvent extends PropertyDomainEvent<DocumentType> { }
     @Getter @Setter
@@ -133,7 +135,7 @@ public abstract class DocumentAbstract<T extends DocumentAbstract> implements Co
     //region > name (property)
     public static class NameDomainEvent extends PropertyDomainEvent<String> { }
     @Getter @Setter
-    @Column(allowsNull = "false", length = DocNameType.Meta.MAX_LEN)
+    @Column(allowsNull = "false", length = NameType.Meta.MAX_LEN)
     @Property(
             domainEvent = NameDomainEvent.class,
             editing = Editing.DISABLED
@@ -258,13 +260,13 @@ public abstract class DocumentAbstract<T extends DocumentAbstract> implements Co
     }
     //endregion
 
+
     //region > asDataSource
     @Programmatic
     public DataSource asDataSource() {
         return getSort().asDataSource(this);
     }
     //endregion
-
 
     //region > id (programmatic, for comparison)
     @Programmatic
@@ -278,8 +280,6 @@ public abstract class DocumentAbstract<T extends DocumentAbstract> implements Co
         return id;
     }
     //endregion
-
-
 
     //region > toString, compareTo
     @Override
@@ -298,6 +298,61 @@ public abstract class DocumentAbstract<T extends DocumentAbstract> implements Co
     DocumentRepository documentRepository;
     @Inject
     FactoryService factoryService;
+    //endregion
+
+    //region > types
+    public static class NameType {
+
+        private NameType() {}
+
+        public static class Meta {
+
+            public static final int MAX_LEN = 255;
+
+            private Meta() {}
+
+        }
+    }
+
+    public static class MimeTypeType {
+
+        private MimeTypeType() {}
+
+        public static class Meta {
+
+            public static final int MAX_LEN = 255;
+
+            private Meta() {}
+
+            public static class Specification extends AbstractSpecification2<String> {
+                @Override
+                public TranslatableString satisfiesTranslatableSafely(final String mimeType) {
+                    try {
+                        new MimeType(mimeType);
+                    } catch (MimeTypeParseException e) {
+                        return TranslatableString.tr("Invalid mime type");
+                    }
+                    return null;
+                }
+            }
+        }
+
+    }
+
+    public static class TextType {
+
+        private TextType() {}
+
+        public static class Meta {
+
+            public static final int MAX_LEN = 4000; // long varchar
+
+            private Meta() {}
+
+        }
+
+    }
+
     //endregion
 
 }

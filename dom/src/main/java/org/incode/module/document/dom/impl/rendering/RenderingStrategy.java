@@ -48,6 +48,7 @@ import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.title.TitleService;
+import org.apache.isis.applib.spec.AbstractSpecification2;
 import org.apache.isis.applib.util.ObjectContracts;
 
 import org.incode.module.document.dom.DocumentModule;
@@ -55,10 +56,10 @@ import org.incode.module.document.dom.impl.docs.DocumentNature;
 import org.incode.module.document.dom.impl.docs.DocumentTemplateRepository;
 import org.incode.module.document.dom.impl.renderers.PreviewToUrl;
 import org.incode.module.document.dom.impl.renderers.Renderer;
+import org.incode.module.document.dom.impl.types.DocumentType;
 import org.incode.module.document.dom.services.ClassService;
 import org.incode.module.document.dom.types.FqcnType;
 import org.incode.module.document.dom.types.NameType;
-import org.incode.module.document.dom.types.ReferenceType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -205,7 +206,7 @@ public class RenderingStrategy implements Comparable<RenderingStrategy> {
     //region > reference (property)
     public static class ReferenceDomainEvent extends PropertyDomainEvent<String> { }
     @Getter @Setter
-    @Column(allowsNull = "false", length = ReferenceType.Meta.MAX_LEN)
+    @Column(allowsNull = "false", length = DocumentType.ReferenceType.Meta.MAX_LEN)
     @Property(
             domainEvent = ReferenceDomainEvent.class,
             editing = Editing.DISABLED
@@ -275,9 +276,10 @@ public class RenderingStrategy implements Comparable<RenderingStrategy> {
     public static class RendererClassNameDomainEvent extends PropertyDomainEvent<String> { }
 
     @Getter @Setter
-    @Column(allowsNull = "false", length = FqcnType.Meta.MAX_LEN)
+    @Column(allowsNull = "false", length = RendererClassNameType.Meta.MAX_LEN)
     @Property(
             domainEvent = RendererClassNameDomainEvent.class,
+            mustSatisfy = RendererClassNameType.Meta.Specification.class, // not actually used, since property editing is disabled (see action instead)
             editing = Editing.DISABLED
     )
     private String rendererClassName;
@@ -313,5 +315,30 @@ public class RenderingStrategy implements Comparable<RenderingStrategy> {
     @Inject
     ServiceRegistry2 serviceRegistry2;
     //endregion
+
+
+    public static class RendererClassNameType {
+
+        private RendererClassNameType() {}
+
+        public static class Meta {
+
+            private Meta() {}
+
+            public final static int MAX_LEN = FqcnType.Meta.MAX_LEN;
+
+            public static class Specification extends AbstractSpecification2<String> {
+
+                @Override
+                public TranslatableString satisfiesTranslatableSafely(final String fullyQualifiedClassName) {
+                    return classService.validateClassHasAccessibleNoArgConstructor(fullyQualifiedClassName, Renderer.class);
+                }
+
+                @Inject
+                ClassService classService;
+            }
+        }
+
+    }
 
 }
