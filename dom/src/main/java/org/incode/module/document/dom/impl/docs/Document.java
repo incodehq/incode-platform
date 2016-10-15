@@ -67,13 +67,13 @@ import lombok.Setter;
         @Query(
                 name = "findByCreatedAtAfter", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.module.documents.dom.impl.docs.Document "
+                        + "FROM org.incode.module.document.dom.impl.docs.Document "
                         + "WHERE :startDateTime <= createdAt  "
                         + "ORDER BY createdAt DESC "),
         @Query(
                 name = "findByCreatedAtBetween", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.module.documents.dom.impl.docs.Document "
+                        + "FROM org.incode.module.document.dom.impl.docs.Document "
                         + "WHERE :startDateTime <= createdAt  "
                         + "   && createdAt      <= :endDateTime "
                         + "ORDER BY createdAt DESC "),

@@ -30,7 +30,7 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 
 import org.incode.module.document.dom.impl.docs.DocumentNature;
 import org.incode.module.document.dom.impl.renderers.Renderer;
-import org.incode.module.documents.dom.impl.rendering.QRenderingStrategy;
+import org.incode.module.document.dom.impl.rendering.QRenderingStrategy;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,

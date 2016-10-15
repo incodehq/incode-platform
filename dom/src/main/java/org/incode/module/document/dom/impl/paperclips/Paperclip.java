@@ -65,19 +65,19 @@ import lombok.Setter;
         @javax.jdo.annotations.Query(
                 name = "findByDocument", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.module.documents.dom.impl.paperclips.Paperclip "
+                        + "FROM org.incode.module.document.dom.impl.paperclips.Paperclip "
                         + "WHERE document == :document "
                         + "ORDER BY documentCreatedAt DESC "),
         @javax.jdo.annotations.Query(
                 name = "findByAttachedTo", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.module.documents.dom.impl.paperclips.Paperclip "
+                        + "FROM org.incode.module.document.dom.impl.paperclips.Paperclip "
                         + "WHERE attachedToStr == :attachedToStr "
                         + "ORDER BY documentCreatedAt DESC "),
         @javax.jdo.annotations.Query(
                 name = "findByAttachedToAndRoleName", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.module.documents.dom.impl.paperclips.Paperclip "
+                        + "FROM org.incode.module.document.dom.impl.paperclips.Paperclip "
                         + "WHERE attachedToStr == :attachedToStr "
                         + "   && roleName == :roleName "
                         + "ORDER BY documentCreatedAt DESC ")

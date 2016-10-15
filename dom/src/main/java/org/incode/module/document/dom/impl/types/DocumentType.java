@@ -69,7 +69,7 @@ import lombok.Setter;
         @Query(
                 name = "findByReference", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.module.documents.dom.impl.types.DocumentType "
+                        + "FROM org.incode.module.document.dom.impl.types.DocumentType "
                         + "WHERE reference == :reference ")
 })
 @Uniques({
