@@ -50,7 +50,7 @@ public abstract class ClassNameServiceAbstract<C> {
 
 
     @Programmatic
-    public Class<C> asClass(final String className) {
+    protected Class<C> asClass(final String className) {
         return (Class<C>) classService.load(className);
     }
 

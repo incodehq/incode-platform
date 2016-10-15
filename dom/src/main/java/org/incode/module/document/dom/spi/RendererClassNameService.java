@@ -23,6 +23,7 @@ import java.util.List;
 import org.apache.isis.applib.annotation.Programmatic;
 
 import org.incode.module.document.dom.impl.docs.DocumentNature;
+import org.incode.module.document.dom.impl.renderers.Renderer;
 import org.incode.module.document.dom.services.ClassNameViewModel;
 
 public interface RendererClassNameService {
@@ -33,6 +34,6 @@ public interface RendererClassNameService {
             final DocumentNature outputNature);
 
     @Programmatic
-    <C> Class<C> asClass(final String className);
+    <C extends Renderer> Class<C> asClass(final String className);
 
 }
