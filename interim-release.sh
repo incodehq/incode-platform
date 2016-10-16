@@ -12,7 +12,7 @@ DATE=`date +'%Y%m%d-%H%M'`
 
 VERSION="$VERSION_BASE.$DATE"
 BRANCH="interim/$VERSION"
-TAG="interim/isis-$VERSION"
+TAG="interim/tag-$VERSION"
 
 CURR_BRANCH=`git rev-parse --abbrev-ref HEAD`
 
