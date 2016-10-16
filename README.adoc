@@ -3,7 +3,7 @@
 
 image:https://travis-ci.org/incodehq/incode-module-country.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-country]
 
-This module, intended for use with link:http://isis.apache.org[Apache Isis], provides a set of country libraries and testing utilities.
+This module, intended for use with link:http://isis.apache.org[Apache Isis], provides a `Country` and a `State` entity, for use as reference data.
 
 
 
