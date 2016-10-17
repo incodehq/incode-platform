@@ -20,7 +20,7 @@ echo "checking out new branch $BRANCH"
 git checkout -b "$BRANCH"
 
 echo "updating version in all pom.xml files..."
-pushd dom >/dev/null
+pushd cpt >/dev/null
 mvn versions:set -DnewVersion=$VERSION > /dev/null
 popd >/dev/null
 
