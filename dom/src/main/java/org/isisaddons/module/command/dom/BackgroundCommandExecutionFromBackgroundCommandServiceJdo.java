@@ -31,7 +31,7 @@ import org.apache.isis.schema.common.v1.OidDto;
 /**
  * If used, ensure that <code>org.apache.isis.module:isis-module-background</code> is also included on classpath.
  */
-public final class BackgroundCommandExecutionFromBackgroundCommandServiceJdo extends BackgroundCommandExecution {
+public class BackgroundCommandExecutionFromBackgroundCommandServiceJdo extends BackgroundCommandExecution {
 
     @SuppressWarnings("unused")
     private final static Logger LOG = LoggerFactory.getLogger(BackgroundCommandExecutionFromBackgroundCommandServiceJdo.class);

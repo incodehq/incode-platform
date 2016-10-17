@@ -51,23 +51,23 @@ public class BackgroundCommandServiceJdoRepository {
     @Programmatic
     public List<CommandJdo> findByTransactionId(final UUID transactionId) {
         return repositoryService.allMatches(
-                new QueryDefault<CommandJdo>(CommandJdo.class, 
-                        "findBackgroundCommandByTransactionId", 
+                new QueryDefault<>(CommandJdo.class,
+                        "findBackgroundCommandByTransactionId",
                         "transactionId", transactionId));
     }
 
     @Programmatic
     public List<CommandJdo> findByParent(CommandJdo parent) {
         return repositoryService.allMatches(
-                new QueryDefault<CommandJdo>(CommandJdo.class, 
-                        "findBackgroundCommandsByParent", 
+                new QueryDefault<>(CommandJdo.class,
+                        "findBackgroundCommandsByParent",
                         "parent", parent));
     }
 
     @Programmatic
     public List<CommandJdo> findBackgroundCommandsNotYetStarted() {
         return repositoryService.allMatches(
-                new QueryDefault<CommandJdo>(CommandJdo.class, 
+                new QueryDefault<>(CommandJdo.class,
                         "findBackgroundCommandsNotYetStarted"));
     }
 
