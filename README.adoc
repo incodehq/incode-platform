@@ -1,9 +1,52 @@
-= incode-module-country
+= incode-module-docrendering-freemarker
 :_imagesdir: ./
 
-image:https://travis-ci.org/incodehq/incode-module-country.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-country]
+image:https://travis-ci.org/incodehq/incode-module-docrendering-freemarker.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-docrendering-freemarker]
 
-This module, intended for use with link:http://isis.apache.org[Apache Isis], provides a `Country` and a `State` entity, for use as reference data.
+This module, intended for use with link:http://isis.apache.org[Apache Isis], provides an implementation of the Incode http://github.com/incodehq/incode-module-document[Document] module's `Renderer` interface using the (non-ASF) http://github.com/isisaddons/isis-module-freemarker[Isis addons' freemarker] module.
+
+
+== API
+
+The module provides the `RendererForFreemarker` class that implements `RendererFromCharsToChars`:
+
+[source,java]
+----
+package org.incode.module.docrendering.freemarker.dom;
+import org.incode.module.document.dom.impl.renderers.RendererFromCharsToChars;
+
+public class RendererForFreemarker implements RendererFromCharsToChars {
+
+    public String renderCharsToChars(
+            final DocumentType documentType,
+            final String variant,
+            final String atPath,
+            final long templateVersion,
+            final String templateChars,
+            final Object dataModel) throws IOException { ... }
+
+}
+----
+
+This class can be used as the `Renderer` implementation for a Document `RenderingStrategy`.
+The `RenderingStrategyFSAbstract` fixture script can be used to create such an entity, eg:
+
+[source,java]
+----
+public class RenderingStrategyFSForFreemarker extends RenderingStrategyFSAbstract {
+
+    public static final String REF = "FMK";
+
+    @Override
+    protected void execute(ExecutionContext executionContext) {
+        upsertRenderingStrategy(
+                REF,
+                "RendererForFreemarker Rendering Strategy",
+                DocumentNature.CHARACTERS, DocumentNature.CHARACTERS,
+                RendererForFreemarker.class, executionContext);
+    }
+}
+----
 
 
 
@@ -20,18 +63,16 @@ To use "out-of-the-box":
 [source,xml]
 ----
 <dependency>
-    <groupId>org.incode.module.country</groupId>
-    <artifactId>incode-module-country-dom</artifactId>
+    <groupId>org.incode.module.docrendering</groupId>
+    <artifactId>incode-module-docrendering-freemarker-dom</artifactId>
     <version>1.13.0</version>
 </dependency>
 ----
 
-
-
-
 Notes:
 
-* Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-country-dom[Maven Central Repo].
+* Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-docrendering-freemarker-dom[Maven Central Repo].
+
 
 
 ==== "Out-of-the-box" (-SNAPSHOT)
@@ -145,6 +186,32 @@ popd
 
 The artifacts should be available in Sonatype's
 https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
+
+
+=== Release an Interim Build
+
+If you have commit access to this project (or a fork of your own) then you can create interim releases using the `interim-release.sh` script.
+
+The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.13.0.20161017-0738`).
+It then pushes the branch (and a tag) to the specified remote.
+
+A CI server such as Jenkins can monitor the branches matching the wildcard `origin/interim/*` and create a build.
+These artifacts can then be published to a snapshot repository.
+
+For example:
+
+[source]
+----
+sh interim-release.sh 1.14.0 origin
+----
+
+where
+
+* `1.14.0` is the base release
+* `origin` is the name of the remote to which you have permissions to write to.
+
+
+
 
 
 
