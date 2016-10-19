@@ -8,28 +8,11 @@ This module, intended for use with link:http://isis.apache.org[Apache Isis], pro
 
 == API
 
-The module provides the `RendererForFreemarker` class that implements `RendererFromCharsToChars`:
+The module provides the `RendererForFreemarker` class which implements `RendererFromCharsToChars`.
+This can be used to render a document name, or to perform a "mail merge" for a text document, such as an HTML email.
 
-[source,java]
-----
-package org.incode.module.docrendering.freemarker.dom;
-import org.incode.module.document.dom.impl.renderers.RendererFromCharsToChars;
-
-public class RendererForFreemarker implements RendererFromCharsToChars {
-
-    public String renderCharsToChars(
-            final DocumentType documentType,
-            final String variant,
-            final String atPath,
-            final long templateVersion,
-            final String templateChars,
-            final Object dataModel) throws IOException { ... }
-
-}
-----
-
-This class can be used as the `Renderer` implementation for a Document `RenderingStrategy`.
-The `RenderingStrategyFSAbstract` fixture script can be used to create such an entity, eg:
+The class is intended to be used as the `Renderer` implementation for a Document `RenderingStrategy`.
+The `RenderingStrategyFSForFreemarker` fixture script can be used to create such an entity, eg:
 
 [source,java]
 ----
@@ -47,6 +30,8 @@ public class RenderingStrategyFSForFreemarker extends RenderingStrategyFSAbstrac
     }
 }
 ----
+
+The Incode http://github.com/incodehq/incode-module-document[document] module also allows `RenderingStrategy`s to be created from the UI; it will "discover" all `Renderer` implementations from the classpath.
 
 
 
@@ -68,6 +53,21 @@ To use "out-of-the-box":
     <version>1.13.0</version>
 </dependency>
 ----
+
+* in the `AppManifest`, update its `getModules()` method: +
++
+[source,java]
+----
+@Override
+public List<Class<?>> getModules() {
+    return Arrays.asList(
+            ...
+            org.incode.module.docrendering.freemarker.dom.FreemarkerDocRenderingModule.class,
+    );
+}
+----
+
+
 
 Notes:
 
@@ -135,9 +135,6 @@ structured as follows:
 
 Only the `dom` project is released to Maven Central Repo.  The versions of the other modules are purposely left at
 `0.0.1-SNAPSHOT` because they are not intended to be released.
-
-Note that the module uses link:https://projectlombok.org/[Project Lombok].  To compile the code within your IDE you will
-therefore require the appropriate Lombok plugin.  See the link:https://projectlombok.org/download.html[Lombok download page] for more information.
 
 
 == Legal Stuff
@@ -209,10 +206,6 @@ where
 
 * `1.14.0` is the base release
 * `origin` is the name of the remote to which you have permissions to write to.
-
-
-
-
 
 
 === Release to Maven Central

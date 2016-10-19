@@ -20,7 +20,7 @@ package org.incode.module.docrendering.freemarker.fixture;
 import org.incode.module.document.dom.impl.docs.DocumentNature;
 import org.incode.module.document.fixture.RenderingStrategyFSAbstract;
 
-import org.incode.module.docrendering.freemarker.dom.RendererForFreemarker;
+import org.incode.module.docrendering.freemarker.dom.impl.RendererForFreemarker;
 
 public class RenderingStrategyFSForFreemarker extends RenderingStrategyFSAbstract {
 

@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.docrendering.freemarker.dom;
+package org.incode.module.docrendering.freemarker.dom.impl;
 
 import java.io.IOException;
 
