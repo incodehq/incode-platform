@@ -73,7 +73,7 @@ public class RenderingStrategyFSForStringInterpolatorPreviewAndCaptureUrl extend
 }
 ----
 
-The Incode http://github.com/incodehq/incode-module-document[document] module also allows `RenderingStrategy`s to be created from the UI; it will "discover" all `Renderer` implementations from the classpath.
+The Incode http://github.com/incodehq/incode-module-document[document] module also allows ``RenderingStrategy``s to be created from the UI; it will "discover" all `Renderer` implementations from the classpath.
 
 == SPI
 
