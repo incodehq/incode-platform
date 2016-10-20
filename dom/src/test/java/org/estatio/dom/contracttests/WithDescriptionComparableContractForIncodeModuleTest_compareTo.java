@@ -18,11 +18,18 @@
  */
 package org.estatio.dom.contracttests;
 
-public final class Constants {
+import com.google.common.collect.ImmutableMap;
 
-    public final static String packagePrefix = "org.estatio";
+import org.estatio.dom.ComparableByDescriptionContractTestAbstract_compareTo;
+import org.estatio.dom.WithDescriptionComparable;
 
-    private Constants(){}
-    
-    
+/**
+ * Automatically tests all domain objects implementing {@link WithDescriptionComparable}.
+ */
+public class WithDescriptionComparableContractForIncodeModuleTest_compareTo extends ComparableByDescriptionContractTestAbstract_compareTo {
+
+    public WithDescriptionComparableContractForIncodeModuleTest_compareTo() {
+        super("org.incode.module", ImmutableMap.<Class<?>,Class<?>>of());
+    }
+
 }
