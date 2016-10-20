@@ -23,11 +23,14 @@ import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.Where;
 
+import org.incode.module.base.dom.with.WithInterval;
+import org.incode.module.base.dom.with.WithIntervalContiguous;
+
 public interface Chained<T extends Chained<T>> {
 
     
     /**
-     * The object (usually an {@link WithInterval}, but not necessarily) that precedes this one, if any (not 
+     * The object (usually an {@link WithInterval}, but not necessarily) that precedes this one, if any (not
      * necessarily contiguously)..
      * 
      * <p>
