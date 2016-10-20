@@ -9,11 +9,17 @@ fi
 echo "editing parent pom.xml"
 cat pom.xml | sed "s/<isis.version>.*</<isis.version>$VERSION</" > pom.xml.$$.sed
 mv pom.xml.$$.sed pom.xml
+cat pom.xml | sed "s/<isis-module-fakedata.version>.*</<isis-module-fakedata.version>$VERSION</" > pom.xml.$$.sed
+mv pom.xml.$$.sed pom.xml
 
 # edit dom's pom.xml
 echo "editing dom's pom.xml"
 pushd dom >/dev/null
 cat pom.xml | sed "s/<isis.version>.*</<isis.version>$VERSION</" > pom.xml.$$.sed
+mv pom.xml.$$.sed pom.xml
+cat pom.xml | sed "s/<isis-module-fakedata.version>.*</<isis-module-fakedata.version>$VERSION</" > pom.xml.$$.sed
+mv pom.xml.$$.sed pom.xml
+cat pom.xml | sed "s/<isis-module-security.version>.*</<isis-module-security.version>$VERSION</" > pom.xml.$$.sed
 mv pom.xml.$$.sed pom.xml
 popd >/dev/null
 

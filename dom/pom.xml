@@ -65,16 +65,17 @@ Copyright 2014~2015 Dan Haywood
         <isis.version>1.13.0</isis.version>
 
         <isis-module-fakedata.version>1.13.0</isis-module-fakedata.version>
+        <isis-module-security.version>1.13.4</isis-module-security.version>
 
         <lombok.version>1.16.6</lombok.version>
         <axon-core.version>2.4.4</axon-core.version>
+        <commons-lang3.version>3.1</commons-lang3.version>
 
         <assertj-core.version>3.3.0</assertj-core.version>
         <danhaywood-java-assertjext.version>0.1.0</danhaywood-java-assertjext.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <commons-lang3.version>3.1</commons-lang3.version>
     </properties>
 
     <build>
@@ -220,6 +221,38 @@ Copyright 2014~2015 Dan Haywood
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <dependency>
+                <groupId>org.isisaddons.module.fakedata</groupId>
+                <artifactId>isis-module-fakedata-dom</artifactId>
+                <version>${isis-module-fakedata.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.isisaddons.module.security</groupId>
+                <artifactId>isis-module-security-dom</artifactId>
+                <version>${isis-module-security.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj-core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.danhaywood.java</groupId>
+                <artifactId>danhaywood-java-assertjext</artifactId>
+                <version>${danhaywood-java-assertjext.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -229,36 +262,89 @@ Copyright 2014~2015 Dan Haywood
             <artifactId>isis-core-applib</artifactId>
             <version>${isis.version}</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+
         <dependency>
             <groupId>org.isisaddons.module.fakedata</groupId>
             <artifactId>isis-module-fakedata-dom</artifactId>
-            <version>${isis-module-fakedata.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-unittestsupport</artifactId>
-            <version>${isis.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-metamodel</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>${assertj-core.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.danhaywood.java</groupId>
             <artifactId>danhaywood-java-assertjext</artifactId>
-            <version>${danhaywood-java-assertjext.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jmock</groupId>
+            <artifactId>jmock</artifactId>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>${commons-lang3.version}</version>
+            <groupId>org.jmock</groupId>
+            <artifactId>jmock-junit4</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit-dep</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- needed by gmap3/HttpClient; not correctly declared as transitive dependency, it would seem... -->
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.picocontainer</groupId>
+            <artifactId>picocontainer</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+
+        <!-- SECURITY (for multi-tenancy impl) -->
+        <dependency>
+            <groupId>org.isisaddons.module.security</groupId>
+            <artifactId>isis-module-security-dom</artifactId>
         </dependency>
 
     </dependencies>
