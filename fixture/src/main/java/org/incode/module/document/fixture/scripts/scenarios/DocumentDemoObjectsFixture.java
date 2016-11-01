@@ -21,6 +21,7 @@ import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.incode.module.document.fixture.scripts.teardown.DocumentDemoObjectsTearDownFixture;
 import org.incode.module.document.fixture.dom.demo.DemoObject;
 import org.incode.module.document.fixture.dom.demo.DemoObjectMenu;
+import org.incode.module.document.fixture.seed.RenderingStrategies;
 
 public class DocumentDemoObjectsFixture extends DiscoverableFixtureScript {
 
@@ -38,12 +39,15 @@ public class DocumentDemoObjectsFixture extends DiscoverableFixtureScript {
     @Override
     protected void execute(final ExecutionContext executionContext) {
 
-        // prereqs
         executionContext.executeChild(this, new DocumentDemoObjectsTearDownFixture());
+
+        executionContext.executeChild(this, new RenderingStrategies());
 
         final DemoObject foo = create("Foo", executionContext);
         final DemoObject bar = create("Bar", executionContext);
         final DemoObject baz = create("Baz", executionContext);
+
+
     }
 
 

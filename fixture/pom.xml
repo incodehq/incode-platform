@@ -52,7 +52,19 @@ Copyright 2014~2015 Dan Haywood
         <dependency>
             <groupId>org.incode.module.document</groupId>
             <artifactId>incode-module-document-dom</artifactId>
-            <version>${incode-module-document.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode.module.docrendering</groupId>
+            <artifactId>incode-module-docrendering-stringinterpolator-dom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.incode.module.docrendering</groupId>
+            <artifactId>incode-module-docrendering-freemarker-dom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.incode.module.docrendering</groupId>
+            <artifactId>incode-module-docrendering-xdocreport-dom</artifactId>
         </dependency>
 
         <dependency>

@@ -35,6 +35,10 @@ language governing permissions and limitations under the License.
         <isis-module-base.version>1.13.0</isis-module-base.version>
         <isis-module-fakedata.version>1.13.0</isis-module-fakedata.version>
 
+        <incode-module-docrendering-freemarker.version>1.13.0</incode-module-docrendering-freemarker.version>
+        <incode-module-docrendering-stringinterpolator.version>1.13.0</incode-module-docrendering-stringinterpolator.version>
+        <incode-module-docrendering-xdocreport.version>1.13.0</incode-module-docrendering-xdocreport.version>
+
         <incode-module-document.version>1.14.0-SNAPSHOT</incode-module-document.version>
 
         <assertj-core.version>3.3.0</assertj-core.version>
@@ -274,6 +278,46 @@ language governing permissions and limitations under the License.
                 <scope>test</scope>
                 <type>test-jar</type>
             </dependency>
+
+            <dependency>
+                <groupId>org.incode.module.docrendering</groupId>
+                <artifactId>incode-module-docrendering-stringinterpolator-dom</artifactId>
+                <version>${incode-module-docrendering-stringinterpolator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.docrendering</groupId>
+                <artifactId>incode-module-docrendering-stringinterpolator-dom</artifactId>
+                <version>${incode-module-docrendering-stringinterpolator.version}</version>
+                <scope>test</scope>
+                <type>test-jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.module.docrendering</groupId>
+                <artifactId>incode-module-docrendering-freemarker-dom</artifactId>
+                <version>${incode-module-docrendering-freemarker.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.docrendering</groupId>
+                <artifactId>incode-module-docrendering-freemarker-dom</artifactId>
+                <version>${incode-module-docrendering-freemarker.version}</version>
+                <scope>test</scope>
+                <type>test-jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.module.docrendering</groupId>
+                <artifactId>incode-module-docrendering-xdocreport-dom</artifactId>
+                <version>${incode-module-docrendering-xdocreport.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.docrendering</groupId>
+                <artifactId>incode-module-docrendering-xdocreport-dom</artifactId>
+                <version>${incode-module-docrendering-xdocreport.version}</version>
+                <scope>test</scope>
+                <type>test-jar</type>
+            </dependency>
+
 
             <dependency>
                 <groupId>org.isisaddons.module.fakedata</groupId>
