@@ -13,6 +13,7 @@
                         <bs3:col span="12">
                             <cpt:fieldSet name="General" id="general" unreferencedProperties="true">
                                 <cpt:property id="name"/>
+                                <cpt:property id="url"/>
                             </cpt:fieldSet>
                         </bs3:col>
                     </bs3:row>
@@ -34,8 +35,25 @@
                 </bs3:tab>
             </bs3:tabGroup>
         </bs3:col>
-        <bs3:col span="8" unreferencedCollections="true">
-            <cpt:collection id="aliases"/>
+        <bs3:col span="8" unreferencedCollections="false">
+            <bs3:tabGroup>
+                <bs3:tab name="Documents">
+                    <bs3:row>
+                        <bs3:col span="12">
+                            <cpt:collection id="documents"/>
+                        </bs3:col>
+                    </bs3:row>
+                </bs3:tab>
+                <bs3:tab name="Dummy">
+                    <bs3:row>
+                        <bs3:col span="12">
+                            <cpt:collection id="Dummy"/>
+                        </bs3:col>
+                    </bs3:row>
+                </bs3:tab>
+            </bs3:tabGroup>
+        </bs3:col>
+        <bs3:col span="12" unreferencedCollections="true">
         </bs3:col>
     </bs3:row>
 </bs3:grid>

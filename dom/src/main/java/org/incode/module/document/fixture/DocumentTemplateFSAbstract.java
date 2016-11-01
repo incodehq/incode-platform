@@ -70,7 +70,7 @@ public abstract class DocumentTemplateFSAbstract extends FixtureScript {
             final RenderingStrategy contentRenderingStrategy,
             final String nameText,
             final RenderingStrategy nameRenderingStrategy,
-            ExecutionContext executionContext) {
+            final ExecutionContext executionContext) {
 
         DocumentTemplate documentTemplate = documentTemplateRepository
                                                     .findByTypeAndAtPathAndDate(documentType, atPath, date);
@@ -103,8 +103,7 @@ public abstract class DocumentTemplateFSAbstract extends FixtureScript {
             final boolean previewOnly,
             final Clob clob,
             final RenderingStrategy contentRenderingStrategy,
-            final String subjectText,
-            final RenderingStrategy nameRenderingStrategy,
+            final String nameText, final RenderingStrategy nameRenderingStrategy,
             ExecutionContext executionContext) {
 
         DocumentTemplate documentTemplate = documentTemplateRepository
@@ -115,7 +114,7 @@ public abstract class DocumentTemplateFSAbstract extends FixtureScript {
             documentTemplate.setPreviewOnly(previewOnly);
             documentTemplate.modifyClob(clob);
             documentTemplate.setContentRenderingStrategy(contentRenderingStrategy);
-            documentTemplate.setNameText(subjectText);
+            documentTemplate.setNameText(nameText);
             documentTemplate.setNameRenderingStrategy(nameRenderingStrategy);
         } else {
             documentTemplate =
@@ -123,7 +122,7 @@ public abstract class DocumentTemplateFSAbstract extends FixtureScript {
                             documentType, date, atPath,
                             fileSuffix, previewOnly, clob,
                             contentRenderingStrategy,
-                            subjectText, nameRenderingStrategy);
+                            nameText, nameRenderingStrategy);
         }
         return executionContext.addResult(this, documentTemplate);
     }
@@ -136,8 +135,7 @@ public abstract class DocumentTemplateFSAbstract extends FixtureScript {
             final boolean previewOnly,
             final Blob blob,
             final RenderingStrategy contentRenderingStrategy,
-            final String nameText,
-            final RenderingStrategy nameRenderingStrategy,
+            final String nameText, final RenderingStrategy nameRenderingStrategy,
             ExecutionContext executionContext) {
 
         DocumentTemplate documentTemplate = documentTemplateRepository

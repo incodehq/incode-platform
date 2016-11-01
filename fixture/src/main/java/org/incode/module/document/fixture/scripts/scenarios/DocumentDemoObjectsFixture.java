@@ -18,10 +18,10 @@ package org.incode.module.document.fixture.scripts.scenarios;
 
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
-import org.incode.module.document.fixture.scripts.teardown.DocumentDemoObjectsTearDownFixture;
 import org.incode.module.document.fixture.dom.demo.DemoObject;
 import org.incode.module.document.fixture.dom.demo.DemoObjectMenu;
-import org.incode.module.document.fixture.seed.RenderingStrategies;
+import org.incode.module.document.fixture.scripts.teardown.DocumentDemoObjectsTearDownFixture;
+import org.incode.module.document.fixture.seed.DocumentTypeAndTemplatesFixture;
 
 public class DocumentDemoObjectsFixture extends DiscoverableFixtureScript {
 
@@ -41,11 +41,11 @@ public class DocumentDemoObjectsFixture extends DiscoverableFixtureScript {
 
         executionContext.executeChild(this, new DocumentDemoObjectsTearDownFixture());
 
-        executionContext.executeChild(this, new RenderingStrategies());
+        executionContext.executeChild(this, new DocumentTypeAndTemplatesFixture());
 
-        final DemoObject foo = create("Foo", executionContext);
-        final DemoObject bar = create("Bar", executionContext);
-        final DemoObject baz = create("Baz", executionContext);
+        final DemoObject foo = create("Foo", "http://www.pdfpdf.com/samples/Sample1.PDF", executionContext);
+        final DemoObject bar = create("Bar", "http://www.pdfpdf.com/samples/Sample3.PDF", executionContext);
+        final DemoObject baz = create("Baz", "http://www.pdfpdf.com/samples/Sample5.PDF", executionContext);
 
 
     }
@@ -55,9 +55,11 @@ public class DocumentDemoObjectsFixture extends DiscoverableFixtureScript {
 
     private DemoObject create(
             final String name,
-            final ExecutionContext executionContext) {
+            final String url, final ExecutionContext executionContext) {
 
-        return executionContext.addResult(this, wrap(demoObjectMenu).create(name));
+        final DemoObject demoObject = wrap(demoObjectMenu).create(name);
+        wrap(demoObject).setUrl(url);
+        return executionContext.addResult(this, demoObject);
     }
 
 

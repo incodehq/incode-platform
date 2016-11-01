@@ -28,6 +28,7 @@ import com.google.common.collect.Lists;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
@@ -65,6 +66,7 @@ public abstract class T_createDocumentAbstract<T> {
      */
     @Action(semantics = SemanticsOf.NON_IDEMPOTENT)
     @ActionLayout(contributed = Contributed.AS_ACTION)
+    @MemberOrder(name = "documents", sequence = "1")
     public Object $$(
             final DocumentTemplate template,
             @ParameterLayout(named = "Action")
