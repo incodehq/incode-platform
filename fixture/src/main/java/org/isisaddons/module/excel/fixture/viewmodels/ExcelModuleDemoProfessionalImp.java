@@ -1,4 +1,4 @@
-package org.isisaddons.module.excel.fixture.viewodels;
+package org.isisaddons.module.excel.fixture.viewmodels;
 
 import java.math.BigDecimal;
 import java.util.Collections;

@@ -17,7 +17,7 @@ import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.ExcelFixture;
 import org.isisaddons.module.excel.fixture.scripts.ExcelModuleDemoToDoItemRowHandler;
-import org.isisaddons.module.excel.fixture.viewodels.ExcelModuleDemoProfessionalImp;
+import org.isisaddons.module.excel.fixture.viewmodels.ExcelModuleDemoProfessionalImp;
 
 @DomainService(nature = NatureOfService.VIEW_MENU_ONLY)
 @DomainServiceLayout(menuBar = DomainServiceLayout.MenuBar.SECONDARY, named = "Prototyping", menuOrder = "900")

@@ -32,6 +32,9 @@ import org.apache.isis.core.runtime.system.persistence.PersistenceSession;
 import org.apache.isis.core.runtime.system.session.IsisSessionFactory;
 
 import org.isisaddons.module.excel.dom.ExcelService;
+import org.isisaddons.module.excel.dom.PivotColumn;
+import org.isisaddons.module.excel.dom.PivotRow;
+import org.isisaddons.module.excel.dom.PivotValue;
 import org.isisaddons.module.excel.dom.WorksheetContent;
 import org.isisaddons.module.excel.dom.WorksheetSpec;
 
@@ -88,6 +91,59 @@ public class ExcelServiceImpl {
     public Blob toExcel(final List<WorksheetContent> worksheetContents, final String fileName) {
         try {
             final File file = newExcelConverter().appendSheet(worksheetContents);
+            return excelFileBlobConverter.toBlob(fileName, file);
+        } catch (final IOException ex) {
+            throw new ExcelService.Exception(ex);
+        }
+    }
+
+    /**
+     * Creates a Blob holding a single-sheet spreadsheet with a pivot of the domain objects. The sheet name is derived from the
+     * class name.
+     *
+     * <p>
+     *     Minimal requirements for the domain object are:
+     * </p>
+     * <ul>
+     *     <li>
+     *         One property has annotation {@link PivotRow} and will be used as row identifier in left column of pivot.
+     *         Empty values are supported.
+     *     </li>
+     *     <li>
+     *         At least one property has annotation {@link PivotColumn}. Its values will be used in columns of pivot.
+     *         Empty values are supported.
+     *     </li>
+     *     <li>
+     *         At least one property has annotation {@link PivotValue}. Its values will be distributed in the pivot.
+     *     </li>
+     * </ul>
+     */
+    @Programmatic
+    public <T> Blob toExcelPivot(
+            final List<T> domainObjects,
+            final Class<T> cls,
+            final String fileName) throws ExcelService.Exception {
+        return toExcelPivot(domainObjects, cls, null, fileName);
+    }
+
+    @Programmatic
+    public <T> Blob toExcelPivot(
+            final List<T> domainObjects,
+            final Class<T> cls,
+            final String sheetName,
+            final String fileName) {
+        return toExcelPivot(new WorksheetContent(domainObjects, new WorksheetSpec(cls, sheetName)), fileName);
+    }
+
+    @Programmatic
+    public <T> Blob toExcelPivot(WorksheetContent worksheetContent, final String fileName) {
+        return toExcelPivot(Collections.singletonList(worksheetContent), fileName);
+    }
+
+    @Programmatic
+    public <T> Blob toExcelPivot(final List<WorksheetContent> worksheetContents, final String fileName) {
+        try {
+            final File file = newExcelConverter().appendPivotSheet(worksheetContents);
             return excelFileBlobConverter.toBlob(fileName, file);
         } catch (final IOException ex) {
             throw new ExcelService.Exception(ex);

@@ -108,6 +108,37 @@ public class ExcelService {
         return excelServiceImpl.toExcel(worksheetContents, fileName);
     }
 
+    @Programmatic
+    public <T> Blob toExcelPivot(
+            final List<T> domainObjects,
+            final Class<T> cls,
+            final String fileName) throws ExcelService.Exception {
+        return excelServiceImpl.toExcelPivot(domainObjects, cls, fileName);
+    }
+
+    public <T> Blob toExcelPivot(
+            final List<T> domainObjects,
+            final Class<T> cls,
+            final String sheetName,
+            final String fileName) throws ExcelService.Exception {
+        return excelServiceImpl.toExcelPivot(domainObjects, cls, null, fileName);
+    }
+
+    @Programmatic
+    public <T> Blob toExcelPivot(
+            final WorksheetContent worksheetContent,
+            final String fileName) throws ExcelService.Exception {
+        return excelServiceImpl.toExcelPivot(worksheetContent, fileName);
+    }
+
+    @Programmatic
+    public Blob toExcelPivot(
+            final List<WorksheetContent> worksheetContents,
+            final String fileName) throws ExcelService.Exception {
+
+        return excelServiceImpl.toExcelPivot(worksheetContents, fileName);
+    }
+
     /**
      * Returns a list of objects for each line in the spreadsheet, of the specified type.
      *

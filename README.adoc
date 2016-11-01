@@ -71,6 +71,16 @@ to update the corresponding entity:
 
 image::https://raw.github.com/isisaddons/isis-module-excel/master/images/110-updated-todo-item.png[link="https://raw.github.com/isisaddons/isis-module-excel/master/images/110-updated-todo-item.png"]
 
+==== Limited pivot support for Import
+
+This module has support for pivot tables (export only) which is demonstrated by:
+
+image::https://raw.github.com/isisaddons/isis-module-excel/master/images/120-demo-pivot-menu.png[link="https://raw.github.com/isisaddons/isis-module-excel/master/images/120-demo-pivot-menu.png"]
+
+which are then downloaded and can be viewed in Microsoft Excel:
+
+image::https://raw.github.com/isisaddons/isis-module-excel/master/images/130-demo-pivot-sheet.png[link="https://raw.github.com/isisaddons/isis-module-excel/master/images/120-demo-pivot-sheet.png"]
+
 == How to run the Demo App
 
 The prerequisite software is:
@@ -285,6 +295,23 @@ public class WorksheetContent {
 <1> the list of domain objects to be exported as an excel sheet
 <2> the `WorksheetSpec`, describing the class of those domain objects and the worksheet name to use
 
+In a like wise manner the following methods allow (annotated) domain objects to be exported to an Excel workbook in a pivot table.
+
+[source,java]
+----
+public class ExcelService {
+    ...
+    public <T> Blob toExcelPivot(
+            final List<T> domainObjects,
+            final Class<T> cls,
+            final String fileName) { ... }
+    public <T> Blob toExcelPivot(
+            final WorksheetContent worksheetContent,
+            final String fileName) { ... }
+    public Blob toExcelPivot(
+            final List<WorksheetContent> worksheetContents,
+            final String fileName)  { ... }
+----
 
 === Usage
 
@@ -347,6 +374,60 @@ List<List> objects = excelService.fromExcel(spreadsheet, Collections.singletonLi
 List<ToDoItemExportImportLineItem> items = objects.get(0);
 ----
 
+==== more on the creation of pivot tables
+
+In order to create a pivot table from a list of domain objects (normally Viewmodels) the following annotations on properties can be used.
+
+[source,java]
+----
+@PivotRow
+----
+Indicates that the property will be used as row label in the pivot table (left most column).
+This annotation is mandatory and only 1 is allowed.
+
+[source,java]
+----
+@PivotColumn(order = ..)
+----
+Indicates that the distinct values of the property will be used as column labels in the pivot table.
+This annotation is mandatory. More than 1 annotation is supported and they will be used in the order specified.
+
+[source,java]
+----
+@PivotValue(order = .. , type = ..)
+----
+Indicates that the values of the property will be used as pivoted values in the pivot table.
+This annotation is mandatory. More than 1 annotation is supported and they will be used in the order specified.
+Type specifies the aggregation type, that defaults to AggregationType.SUM. At the moment the other supported type is AggregationType.COUNT
+
+[source,java]
+----
+@PivotDecoration(order = ..)
+----
+Indicates that the distinct values of the property will be used as 'extra' values besides the row label. (They 'decorate' the label.)
+This annotation is optional. More than 1 annotation is supported and they will be used in the order specified.
+Decoration assumes that all distinct labels are decorated with the same values. This is not enforced however: the first decoration found will be used.
+
+Here is the example used in the demo application
+
+[source,java]
+----
+@DomainObject(nature = Nature.VIEW_MODEL)
+public class ExcelModuleDemoPivot {
+
+    ...
+
+    @PivotRow
+    private ExcelModuleDemoToDoItem.Subcategory subcategory;
+
+    @PivotColumn(order = 1)
+    private ExcelModuleDemoToDoItem.Category category;
+
+    @PivotValue(order = 1, type = AggregationType.SUM)
+    private BigDecimal cost;
+
+}
+----
 
 == `ExcelFixture`
 

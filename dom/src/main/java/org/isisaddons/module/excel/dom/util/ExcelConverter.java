@@ -20,6 +20,9 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -57,7 +60,12 @@ import org.apache.isis.core.metamodel.spec.feature.ObjectAssociation;
 import org.apache.isis.core.metamodel.spec.feature.OneToOneAssociation;
 import org.apache.isis.core.metamodel.specloader.SpecificationLoader;
 
+import org.isisaddons.module.excel.dom.AggregationType;
 import org.isisaddons.module.excel.dom.ExcelService;
+import org.isisaddons.module.excel.dom.PivotColumn;
+import org.isisaddons.module.excel.dom.PivotDecoration;
+import org.isisaddons.module.excel.dom.PivotRow;
+import org.isisaddons.module.excel.dom.PivotValue;
 import org.isisaddons.module.excel.dom.WorksheetContent;
 import org.isisaddons.module.excel.dom.WorksheetSpec;
 
@@ -132,7 +140,7 @@ class ExcelConverter {
         return tempFile;
     }
 
-    private void appendSheet(
+    private Sheet appendSheet(
             final XSSFWorkbook workbook,
             final List<?> domainObjects,
             final Class<?> cls,
@@ -172,6 +180,164 @@ class ExcelConverter {
 
         // freeze panes
         sheet.createFreezePane(0, 1);
+
+        return sheet;
+    }
+
+    File appendPivotSheet(final List<WorksheetContent> worksheetContents) throws IOException {
+        final ImmutableSet<String> worksheetNames = FluentIterable.from(worksheetContents)
+                .transform(new Function<WorksheetContent, String>() {
+                    @Nullable @Override public String apply(@Nullable final WorksheetContent worksheetContent) {
+                        return worksheetContent.getSpec().getSheetName();
+                    }
+                }).toSet();
+        if(worksheetNames.size() < worksheetContents.size()) {
+            throw new IllegalArgumentException("Sheet names must have distinct names");
+        }
+        for (final String worksheetName : worksheetNames) {
+            if(worksheetName.length() > 30) {
+                throw new IllegalArgumentException(
+                        String.format("Sheet name cannot exceed 30 characters (invalid name: '%s')",
+                                worksheetName));
+            }
+        }
+
+        final XSSFWorkbook workbook = new XSSFWorkbook();
+        final File tempFile =
+                File.createTempFile(ExcelConverter.class.getName(), UUID.randomUUID().toString() + XLSX_SUFFIX);
+        final FileOutputStream fos = new FileOutputStream(tempFile);
+
+        for (WorksheetContent worksheetContent : worksheetContents) {
+            final WorksheetSpec spec = worksheetContent.getSpec();
+            appendPivotSheet(workbook, worksheetContent.getDomainObjects(), spec.getCls(), spec.getSheetName());
+        }
+        workbook.write(fos);
+        fos.close();
+        return tempFile;
+    }
+
+    private void appendPivotSheet(
+            final XSSFWorkbook workbook,
+            final List<?> domainObjects,
+            final Class<?> cls,
+            final String sheetName) throws IOException {
+
+        final ObjectSpecification objectSpec = specificationLoader.loadSpecification(cls);
+
+        final List<ObjectAdapter> adapters = Lists.transform(domainObjects, ObjectAdapter.Functions.adapterForUsing(adapterManager));
+
+        @SuppressWarnings("deprecation")
+        final List<? extends ObjectAssociation> propertyList = objectSpec.getAssociations(VISIBLE_PROPERTIES);
+
+        // Validate the annotations for pivot
+        validateAnnotations(propertyList, cls);
+
+        // Proces the annotations for pivot
+        final List<String> annotationList = new ArrayList<>();
+        final List<Integer> orderList = new ArrayList<>();
+        final List<AggregationType> typeList = new ArrayList<>();
+        for (AnnotationOrderAndType annotationOrderAndType : getAnnotationAndOrderFrom(propertyList, cls)){
+            annotationList.add(annotationOrderAndType.annotation);
+            orderList.add(annotationOrderAndType.order);
+            typeList.add(annotationOrderAndType.type);
+        }
+
+        // create pivot sheet
+        final Sheet pivotSheet = ((Workbook) workbook).createSheet(sheetName);
+
+        // Create source sheet for pivot
+        String pivotSourceSheetName = ("source for ".concat(sheetName));
+        if (pivotSourceSheetName.length()>30) {
+            pivotSourceSheetName = pivotSourceSheetName.substring(0, 29);
+        }
+        final Sheet pivotSourceSheet = appendSheet(workbook, domainObjects, cls, pivotSourceSheetName);
+        pivotSourceSheet.shiftRows(0, pivotSourceSheet.getLastRowNum(), 3);
+        final Row annotationRow = pivotSourceSheet.createRow(0);
+        final Row orderRow = pivotSourceSheet.createRow(1);
+        final Row typeRow = pivotSourceSheet.createRow(2);
+        PivotUtils.createAnnotationRow(annotationRow, annotationList);
+        PivotUtils.createOrderRow(orderRow, orderList);
+        PivotUtils.createTypeRow(typeRow, typeList);
+
+        // And finally: fill the pivot sheet with a pivot of the values found in pivot source sheet
+        SheetPivoter p = new SheetPivoter();
+        p.pivot(pivotSourceSheet, pivotSheet);
+        pivotSourceSheet.removeRow(annotationRow);
+        pivotSourceSheet.removeRow(orderRow);
+        pivotSourceSheet.removeRow(typeRow);
+        pivotSourceSheet.shiftRows(3, pivotSourceSheet.getLastRowNum(), -3);
+    }
+
+    private void validateAnnotations(final List<? extends ObjectAssociation> list, Class<?> cls) throws IllegalArgumentException{
+
+        if (fieldsAnnotatedWith(cls, PivotRow.class).size()==0){
+            throw new IllegalArgumentException("No annotation for row found");
+        }
+        if (fieldsAnnotatedWith(cls, PivotRow.class).size()>1){
+            throw new IllegalArgumentException("Only one annotation for row allowed");
+        }
+        if (fieldsAnnotatedWith(cls, PivotColumn.class).size()==0){
+            throw new IllegalArgumentException("No annotation for column found");
+        }
+        if (fieldsAnnotatedWith(cls, PivotValue.class).size()==0){
+            throw new IllegalArgumentException("No annotation for value found");
+        }
+
+    }
+
+    private List<AnnotationOrderAndType> getAnnotationAndOrderFrom(final List<? extends ObjectAssociation> list, final Class<?> cls){
+
+        List<AnnotationOrderAndType> results = new ArrayList<>();
+        for (ObjectAssociation oa : list){
+            AnnotationOrderAndType resultToAdd = null;
+            if (fieldsAnnotatedWith(cls, PivotRow.class).get(0).getName().equals(oa.getId())){
+                resultToAdd = new AnnotationOrderAndType("row", 0, null);
+            }
+            for (Field f : fieldsAnnotatedWith(cls, PivotColumn.class)){
+                if (f.getName().equals(oa.getId())){
+                    resultToAdd = new AnnotationOrderAndType("column", f.getAnnotation(PivotColumn.class).order(), null);
+                }
+            }
+            for (Field f : fieldsAnnotatedWith(cls, PivotValue.class)){
+                if (f.getName().equals(oa.getId())){
+                    resultToAdd = new AnnotationOrderAndType("value", f.getAnnotation(PivotValue.class).order(), f.getAnnotation(PivotValue.class).type());
+                }
+            }
+            for (Field f : fieldsAnnotatedWith(cls, PivotDecoration.class)){
+                if (f.getName().equals(oa.getId())){
+                    resultToAdd = new AnnotationOrderAndType("deco", f.getAnnotation(PivotDecoration.class).order(), null);
+                }
+            }
+            if (resultToAdd==null){
+                resultToAdd = new AnnotationOrderAndType("skip", 0, null);
+            }
+            results.add(resultToAdd);
+        }
+        return results;
+    }
+
+    private List<Field> fieldsAnnotatedWith(final Class<?> cls, final Class<? extends Annotation> annotationCls){
+        List<Field> result = new ArrayList<>();
+        for (Field f : cls.getDeclaredFields()){
+            if (f.isAnnotationPresent(annotationCls)) {
+                result.add(f);
+            }
+        }
+        return result;
+    }
+
+    private class AnnotationOrderAndType {
+
+        AnnotationOrderAndType(final String annotation, final Integer order, final AggregationType type){
+            this.annotation = annotation;
+            this.order = order;
+            this.type = type;
+        }
+
+        String annotation;
+        Integer order;
+        AggregationType type;
+
     }
 
     List<List<?>> fromBytes(
