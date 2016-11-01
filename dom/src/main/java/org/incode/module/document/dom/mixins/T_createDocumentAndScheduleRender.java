@@ -28,8 +28,11 @@ public abstract class T_createDocumentAndScheduleRender<T> extends T_createDocum
     }
 
     @Override
-    protected DocumentAbstract doCreate(final DocumentTemplate template, final String additionalTextIfAny) {
-        return template.createAndScheduleRender(domainObject, additionalTextIfAny);
+    protected DocumentAbstract doCreate(
+            final DocumentTemplate template,
+            final boolean shouldPersist,
+            final String additionalTextIfAny) {
+        return template.createAndScheduleRender(domainObject, shouldPersist, additionalTextIfAny);
     }
 
 }

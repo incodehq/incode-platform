@@ -332,12 +332,10 @@ language governing permissions and limitations under the License.
 
     <modules>
         <module>dom</module>
-<!--
         <module>app</module>
         <module>fixture</module>
         <module>integtests</module>
         <module>webapp</module>
--->
     </modules>
 
 </project>

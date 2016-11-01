@@ -32,8 +32,10 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.document.dom.impl.applicability.Binder;
+import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.DocumentAbstract;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
+import org.incode.module.document.dom.impl.paperclips.Paperclip;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
 import org.incode.module.document.dom.impl.types.DocumentTypeRepository;
 import org.incode.module.document.dom.services.ClassService;
@@ -53,7 +55,14 @@ public abstract class T_createDocumentAbstract<T> {
     }
     //endregion
 
-
+    /**
+     * Either preview the document's content (as a URL to that content) or alternatively create a {@link Document} and
+     * attach using a {@link Paperclip}.
+     *
+     * <p>
+     * Which occurs depends upon the provided {@link Intent}.
+     * </p>
+     */
     @Action(semantics = SemanticsOf.NON_IDEMPOTENT)
     @ActionLayout(contributed = Contributed.AS_ACTION)
     public Object $$(
@@ -69,9 +78,12 @@ public abstract class T_createDocumentAbstract<T> {
             return template.preview(binding.getDataModel());
         }
 
+        final List<Object> attachTo = binding.getAttachTo();
+        final boolean shouldPersist = !attachTo.isEmpty();
 
-        final DocumentAbstract doc = doCreate(template, additionalTextIfAny);
-        for (Object o : binding.getAttachTo()) {
+        final DocumentAbstract doc = doCreate(template, shouldPersist, additionalTextIfAny);
+
+        for (Object o : attachTo) {
             if(paperclipRepository.canAttach(o)) {
                 paperclipRepository.attach(doc, roleName, o);
             }
@@ -111,7 +123,10 @@ public abstract class T_createDocumentAbstract<T> {
     /**
      * Mandatory hook method
      */
-    protected abstract DocumentAbstract doCreate(final DocumentTemplate template, final String additionalTextIfAny);
+    protected abstract DocumentAbstract doCreate(
+            final DocumentTemplate template,
+            final boolean shouldPersist,
+            final String additionalTextIfAny);
 
     //region > injected services
 

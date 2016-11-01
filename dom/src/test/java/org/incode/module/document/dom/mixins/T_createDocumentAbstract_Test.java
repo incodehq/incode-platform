@@ -48,7 +48,7 @@ public class T_createDocumentAbstract_Test {
         mixin = new T_createDocumentAbstract(mockSomeDomainObject) {
             @Override
             protected DocumentAbstract doCreate(
-                    final DocumentTemplate template, final String additionalTextIfAny) {
+                    final DocumentTemplate template, final boolean shouldPersist, final String additionalTextIfAny) {
                 return mockDocumentAbstract;
             }
         };

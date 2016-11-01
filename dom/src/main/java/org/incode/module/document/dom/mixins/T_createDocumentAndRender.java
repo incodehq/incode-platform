@@ -28,7 +28,10 @@ public class T_createDocumentAndRender<T> extends T_createDocumentAbstract<T> {
     }
 
     @Override
-    protected DocumentAbstract doCreate(final DocumentTemplate template, final String additionalTextIfAny) {
-        return template.createAndRender(domainObject, additionalTextIfAny);
+    protected DocumentAbstract doCreate(
+            final DocumentTemplate template,
+            final boolean shouldPersist,
+            final String additionalTextIfAny) {
+        return template.createAndRender(domainObject, shouldPersist, additionalTextIfAny);
     }
 }
