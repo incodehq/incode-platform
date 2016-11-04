@@ -86,9 +86,9 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 
 == Change Log
 
-* `1.13.4` - released against Isis 1.13.0, removes contract tests (moved to http://github.com/incodehq/incode-module-unittestsupport[incode-module-unittestsupport])
-* `1.13.3` - released against Isis 1.13.0, removes dependency on http://github.com/isisaddons/isis-module-security[isisaddons' security module]
-* `1.13.2` - released against Isis 1.13.0, removes `EstatioUserRole` class.
+* `1.13.4` - released against Isis 1.13.0, fixes #3 - removes contract tests (moved to http://github.com/incodehq/incode-module-unittestsupport[incode-module-unittestsupport])
+* `1.13.3` - released against Isis 1.13.0, fixes #2 - removes dependency on http://github.com/isisaddons/isis-module-security[isisaddons' security module]
+* `1.13.2` - released against Isis 1.13.0, fixes #1 - removes `EstatioUserRole` class.
 * `1.13.1` - released against Isis 1.13.0, with additional classes moved out from estatio/estatio's udo-base module.
 * `1.13.0` - released against Isis 1.13.0.
 
