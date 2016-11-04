@@ -65,7 +65,6 @@ Copyright 2014~2015 Dan Haywood
         <isis.version>1.13.0</isis.version>
 
         <isis-module-fakedata.version>1.13.0</isis-module-fakedata.version>
-        <isis-module-security.version>1.13.4</isis-module-security.version>
 
         <lombok.version>1.16.6</lombok.version>
         <axon-core.version>2.4.4</axon-core.version>
@@ -228,12 +227,6 @@ Copyright 2014~2015 Dan Haywood
                 <version>${isis-module-fakedata.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.isisaddons.module.security</groupId>
-                <artifactId>isis-module-security-dom</artifactId>
-                <version>${isis-module-security.version}</version>
-            </dependency>
-
 
             <dependency>
                 <groupId>org.assertj</groupId>
@@ -340,12 +333,6 @@ Copyright 2014~2015 Dan Haywood
             <scope>test</scope>
         </dependency>
 
-
-        <!-- SECURITY (for multi-tenancy impl) -->
-        <dependency>
-            <groupId>org.isisaddons.module.security</groupId>
-            <artifactId>isis-module-security-dom</artifactId>
-        </dependency>
 
     </dependencies>
 
