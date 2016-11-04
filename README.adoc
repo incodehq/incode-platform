@@ -22,12 +22,12 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.incode.module.base</groupId>
     <artifactId>incode-module-base-dom</artifactId>
-    <version>1.13.1</version>
+    <version>1.13.2</version>
 </dependency>
 <dependency>
     <groupId>org.incode.module.base</groupId>
     <artifactId>incode-module-base-dom</artifactId>
-    <version>1.13.1</version>
+    <version>1.13.2</version>
     <type>test-jar</type>
     <scope>test</scope>
 </dependency>
@@ -65,7 +65,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
             <id>snapshots-repo</id>
             <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
             <releases>
-                <enabled>false>/enabled>
+                <enabled>false</enabled>
             </releases>
             <snapshots>
                 <enabled>true</enabled>
@@ -86,6 +86,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 
 == Change Log
 
+* `1.13.2` - released against Isis 1.13.0, removes `EstatioUserRole` class.
 * `1.13.1` - released against Isis 1.13.0, with additional classes moved out from estatio/estatio's udo-base module.
 * `1.13.0` - released against Isis 1.13.0.
 
