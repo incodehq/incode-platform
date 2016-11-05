@@ -80,7 +80,8 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 
 == Change Log
 
-* `1.13.1` - released against Isis 1.13.0 (fixes #1 - moving further contract tests from incode-module-base into this repo)
+* `1.13.2` - released against Isis 1.13.0 (fixes #2 - moving further contract tests from incode-module-base into this repo)
+* `1.13.1` - released against Isis 1.13.0 (fixes #1 - moving contract tests from incode-module-base into this repo)
 * `1.13.0` - released against Isis 1.13.0 (copied from incode-module-base)
 
 

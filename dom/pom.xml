@@ -65,7 +65,7 @@ Copyright 2014~2015 Dan Haywood
         <isis.version>1.13.0</isis.version>
 
         <isis-module-fakedata.version>1.13.0</isis-module-fakedata.version>
-        <incode-module-base.version>1.13.4</incode-module-base.version>
+        <incode-module-base.version>1.13.5</incode-module-base.version>
 
         <assertj-core.version>3.3.0</assertj-core.version>
         <danhaywood-java-assertjext.version>0.1.0</danhaywood-java-assertjext.version>
@@ -255,6 +255,7 @@ Copyright 2014~2015 Dan Haywood
             <groupId>org.incode.module.base</groupId>
             <artifactId>incode-module-base-dom</artifactId>
         </dependency>
+
 
         <dependency>
             <groupId>org.apache.isis.core</groupId>
