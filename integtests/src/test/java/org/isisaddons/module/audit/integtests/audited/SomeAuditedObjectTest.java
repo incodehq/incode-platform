@@ -29,6 +29,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.audit.AuditingService3;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
@@ -53,8 +54,12 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
 
     @Before
     public void setUpData() throws Exception {
-        scenarioExecution().install(new AuditDemoAppFixture());
+        fixtureScripts.runFixtureScript(new AuditDemoAppFixture(), null);
+        transactionService.nextTransaction();
     }
+
+    @Inject
+    private FixtureScripts fixtureScripts;
 
     @Inject
     private SomeAuditedObjects someAuditedObjects;

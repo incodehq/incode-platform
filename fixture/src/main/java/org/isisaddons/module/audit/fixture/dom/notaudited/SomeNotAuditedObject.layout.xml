@@ -8,14 +8,20 @@
     <bs3:row>
         <bs3:col span="4">
             <cpt:fieldSet name="General" id="general" unreferencedProperties="true">
-                <cpt:action id="updateNameAndNumber"/>
-                <cpt:action id="delete"/>
+                <cpt:action id="updateNameAndNumber" position="PANEL"/>
+                <cpt:action id="delete" position="PANEL"/>
                 <cpt:property id="name"/>
                 <cpt:property id="number"/>
             </cpt:fieldSet>
-            <cpt:fieldSet name="Metadata">
-                <cpt:action id="recentAuditEntries">
-                </cpt:action>
+            <cpt:fieldSet name="Metadata" id="metadata">
+                <cpt:action id="recentAuditEntries" position="PANEL"/>
+                <cpt:action id="clearHints" position="PANEL_DROPDOWN"/>
+                <cpt:action id="downloadLayoutXml" position="PANEL_DROPDOWN"/>
+                <cpt:action id="downloadJdoMetadata" position="PANEL_DROPDOWN"/>
+                <cpt:action id="rebuildMetamodel" position="PANEL_DROPDOWN"/>
+                <cpt:property id="datanucleusIdLong"/>
+                <cpt:property id="datanucleusVersionLong"/>
+                <cpt:property id="datanucleusVersionTimestamp"/>
             </cpt:fieldSet>
         </bs3:col>
         <bs3:col span="8" unreferencedCollections="true">
