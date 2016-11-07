@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.audit.integtests;
+package org.isisaddons.module.audit.integtests.audited;
 
 import java.sql.Timestamp;
 import java.util.Collections;
@@ -41,6 +41,7 @@ import org.isisaddons.module.audit.dom.AuditingServiceRepository;
 import org.isisaddons.module.audit.fixture.dom.audited.SomeAuditedObject;
 import org.isisaddons.module.audit.fixture.dom.audited.SomeAuditedObjects;
 import org.isisaddons.module.audit.fixture.scripts.AuditDemoAppFixture;
+import org.isisaddons.module.audit.integtests.AuditModuleIntegTest;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -131,8 +132,8 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
         assertThat(timestamp, is(notNullValue()));
         assertThat(transactionId, is(notNullValue()));
         assertThat(auditEntry1.getTargetClass(), is("Some Audited Object"));
-        assertThat(auditEntry1.getTargetStr(), is("SOME_AUDITED_OBJECT:3"));
-        assertThat(auditEntry1.getMemberIdentifier(), is("org.isisaddons.module.audit.fixture.dom.SomeAuditedObject#name"));
+        assertThat(auditEntry1.getTargetStr(), is("isisauditdemo.SomeAuditedObject:3"));
+        assertThat(auditEntry1.getMemberIdentifier(), is("org.isisaddons.module.audit.fixture.dom.audited.SomeAuditedObject#name"));
         assertThat(auditEntry1.getPropertyId(), is("name"));
         assertThat(auditEntry1.getPreValue(), is("[NEW]"));
         assertThat(auditEntry1.getPostValue(), is("Faz"));
@@ -146,8 +147,8 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
         final UUID transactionId2 = auditEntry1.getTransactionId();
         assertThat(transactionId2, is(transactionId));
         assertThat(auditEntry2.getTargetClass(), is("Some Audited Object"));
-        assertThat(auditEntry2.getTargetStr(), is("SOME_AUDITED_OBJECT:3"));
-        assertThat(auditEntry2.getMemberIdentifier(), is("org.isisaddons.module.audit.fixture.dom.SomeAuditedObject#number"));
+        assertThat(auditEntry2.getTargetStr(), is("isisauditdemo.SomeAuditedObject:3"));
+        assertThat(auditEntry2.getMemberIdentifier(), is("org.isisaddons.module.audit.fixture.dom.audited.SomeAuditedObject#number"));
         assertThat(auditEntry2.getPropertyId(), is("number"));
         assertThat(auditEntry2.getPreValue(), is("[NEW]"));
         assertThat(auditEntry2.getPostValue(), is(nullValue()));
@@ -188,8 +189,8 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
         assertThat(timestamp, is(notNullValue()));
         assertThat(transactionId, is(notNullValue()));
         assertThat(auditEntry1.getTargetClass(), is("Some Audited Object"));
-        assertThat(auditEntry1.getTargetStr(), startsWith("SOME_AUDITED_OBJECT:"));
-        assertThat(auditEntry1.getMemberIdentifier(), is("org.isisaddons.module.audit.fixture.dom.SomeAuditedObject#name"));
+        assertThat(auditEntry1.getTargetStr(), startsWith("isisauditdemo.SomeAuditedObject:"));
+        assertThat(auditEntry1.getMemberIdentifier(), is("org.isisaddons.module.audit.fixture.dom.audited.SomeAuditedObject#name"));
         assertThat(auditEntry1.getPropertyId(), is("name"));
         assertThat(auditEntry1.getPreValue(), is("Foo"));
         assertThat(auditEntry1.getPostValue(), is("Bob"));
@@ -203,8 +204,8 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
         final UUID transactionId2 = auditEntry1.getTransactionId();
         assertThat(transactionId2, is(transactionId));
         assertThat(auditEntry2.getTargetClass(), is("Some Audited Object"));
-        assertThat(auditEntry2.getTargetStr(), startsWith("SOME_AUDITED_OBJECT:"));
-        assertThat(auditEntry2.getMemberIdentifier(), is("org.isisaddons.module.audit.fixture.dom.SomeAuditedObject#number"));
+        assertThat(auditEntry2.getTargetStr(), startsWith("isisauditdemo.SomeAuditedObject:"));
+        assertThat(auditEntry2.getMemberIdentifier(), is("org.isisaddons.module.audit.fixture.dom.audited.SomeAuditedObject#number"));
         assertThat(auditEntry2.getPropertyId(), is("number"));
         assertThat(auditEntry2.getPreValue(), is(nullValue()));
         assertThat(auditEntry2.getPostValue(), is("123"));
