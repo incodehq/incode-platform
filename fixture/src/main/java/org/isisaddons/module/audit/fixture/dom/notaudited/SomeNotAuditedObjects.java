@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.audit.fixture.dom;
+package org.isisaddons.module.audit.fixture.dom.notaudited;
 
 import java.util.List;
 
@@ -30,21 +30,23 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
+import org.isisaddons.module.audit.fixture.dom.audited.SomeAuditedObject;
+
 @DomainService (
         repositoryFor = SomeAuditedObject.class
 )
 @DomainServiceLayout(
         menuOrder = "10"
 )
-public class SomeAuditedObjects {
+public class SomeNotAuditedObjects {
 
     //region > listAll (action)
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<SomeAuditedObject> listAll() {
-        return repositoryService.allInstances(SomeAuditedObject.class);
+    public List<SomeNotAuditedObject> listAll() {
+        return repositoryService.allInstances(SomeNotAuditedObject.class);
     }
 
     //endregion
@@ -52,10 +54,10 @@ public class SomeAuditedObjects {
     //region > create (action)
 
     @MemberOrder(sequence = "2")
-    public SomeAuditedObject create(
+    public SomeNotAuditedObject create(
             @ParameterLayout(named = "Name")
             final String name) {
-        final SomeAuditedObject obj = repositoryService.instantiate(SomeAuditedObject.class);
+        final SomeNotAuditedObject obj = repositoryService.instantiate(SomeNotAuditedObject.class);
         obj.setName(name);
         repositoryService.persist(obj);
         return obj;
@@ -66,7 +68,7 @@ public class SomeAuditedObjects {
     //region > delete (action)
 
     @Programmatic
-    public List<SomeAuditedObject> delete(final SomeAuditedObject object) {
+    public List<SomeNotAuditedObject> delete(final SomeNotAuditedObject object) {
         repositoryService.remove(object);
         transactionService.flushTransaction();
         return listAll();

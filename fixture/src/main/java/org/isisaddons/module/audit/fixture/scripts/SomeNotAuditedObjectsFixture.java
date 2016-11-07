@@ -19,21 +19,19 @@ package org.isisaddons.module.audit.fixture.scripts;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-import org.isisaddons.module.audit.fixture.dom.audited.SomeAuditedObject;
-import org.isisaddons.module.audit.fixture.dom.audited.SomeAuditedObjects;
+import org.isisaddons.module.audit.fixture.dom.notaudited.SomeNotAuditedObject;
+import org.isisaddons.module.audit.fixture.dom.notaudited.SomeNotAuditedObjects;
 
-public class SomeAuditedObjectsFixture extends DiscoverableFixtureScript {
+public class SomeNotAuditedObjectsFixture extends DiscoverableFixtureScript {
 
-    public SomeAuditedObjectsFixture() {
+    public SomeNotAuditedObjectsFixture() {
         withDiscoverability(Discoverability.DISCOVERABLE);
     }
-
-    @javax.inject.Inject
-    private IsisJdoSupport isisJdoSupport;
 
     @Override
     protected void execute(ExecutionContext executionContext) {
 
+        // create
         create("Foo", executionContext);
         create("Bar", executionContext);
         create("Baz", executionContext);
@@ -41,13 +39,17 @@ public class SomeAuditedObjectsFixture extends DiscoverableFixtureScript {
 
     // //////////////////////////////////////
 
-    private SomeAuditedObject create(final String name, ExecutionContext executionContext) {
-        return executionContext.add(this, someAuditedObjects.create(name));
+    private SomeNotAuditedObject create(final String name, ExecutionContext executionContext) {
+        return executionContext.add(this, someNotAuditedObjects.create(name));
     }
 
     // //////////////////////////////////////
 
     @javax.inject.Inject
-    private SomeAuditedObjects someAuditedObjects;
+    private SomeNotAuditedObjects someNotAuditedObjects;
+
+    @javax.inject.Inject
+    private IsisJdoSupport isisJdoSupport;
+
 
 }

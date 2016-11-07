@@ -24,14 +24,14 @@ import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.isisaddons.module.audit.fixture.scripts.SomeAuditedObjectsFixture;
+import org.isisaddons.module.audit.fixture.scripts.AuditDemoAppFixture;
 
 public class AuditAppManifestWithFixtures extends AuditAppManifest {
 
     @Override
     public List<Class<? extends FixtureScript>> getFixtures() {
         return Arrays.<Class<? extends FixtureScript>>asList(
-                SomeAuditedObjectsFixture.class);
+                AuditDemoAppFixture.class);
 
     }
     @Override

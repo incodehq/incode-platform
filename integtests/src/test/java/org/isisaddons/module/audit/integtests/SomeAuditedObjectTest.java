@@ -38,9 +38,9 @@ import org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract;
 
 import org.isisaddons.module.audit.dom.AuditEntry;
 import org.isisaddons.module.audit.dom.AuditingServiceRepository;
-import org.isisaddons.module.audit.fixture.dom.SomeAuditedObject;
-import org.isisaddons.module.audit.fixture.dom.SomeAuditedObjects;
-import org.isisaddons.module.audit.fixture.scripts.SomeAuditedObjectsFixture;
+import org.isisaddons.module.audit.fixture.dom.audited.SomeAuditedObject;
+import org.isisaddons.module.audit.fixture.dom.audited.SomeAuditedObjects;
+import org.isisaddons.module.audit.fixture.scripts.AuditDemoAppFixture;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -52,7 +52,7 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
 
     @Before
     public void setUpData() throws Exception {
-        scenarioExecution().install(new SomeAuditedObjectsFixture());
+        scenarioExecution().install(new AuditDemoAppFixture());
     }
 
     @Inject
