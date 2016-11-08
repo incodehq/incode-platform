@@ -69,4 +69,11 @@ li.x-highlight a {
 div.x-key span.scalarName {
 	color: red;
 }
+
+
+/* workaround, fixed by ISIS-1533 */
+.isisBlobPanel .scalarValueInput .editing .edit,
+.isisClobPanel .scalarValueInput .editing .edit,
+.booleanPanel .scalarValueInput .editing .edit {
+    margin-top: 0px;
 }
