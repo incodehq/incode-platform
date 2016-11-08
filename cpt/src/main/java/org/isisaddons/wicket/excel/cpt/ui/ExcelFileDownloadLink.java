@@ -18,6 +18,7 @@ package org.isisaddons.wicket.excel.cpt.ui;
 
 import java.io.File;
 
+import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.link.DownloadLink;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.request.IRequestCycle;
@@ -38,6 +39,8 @@ class ExcelFileDownloadLink extends DownloadLink {
         super(id, model, xlsxFileName);
         this.xlsxFileName = xlsxFileName;
     }
+    
+    
 
     @Override
     public void onClick()
@@ -74,6 +77,12 @@ class ExcelFileDownloadLink extends DownloadLink {
             }.setFileName(fileName)
                 .setContentDisposition(ContentDisposition.ATTACHMENT));
     }
+
+	@Override
+	protected void onComponentTag(ComponentTag tag) {
+		super.onComponentTag(tag);
+		tag.put("download", (String) null);
+	}
     
     
 }
