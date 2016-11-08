@@ -52,7 +52,7 @@ class ExcelFileDownloadLink extends DownloadLink {
                 " failed to retrieve a File object from model");
         }
 
-        String fileName = UrlEncoder.QUERY_INSTANCE.encode(this.xlsxFileName, getRequest().getCharset());
+        String fileName = encodedFileName();
 
         final IResourceStream resourceStream = new FileResourceStream(
             new org.apache.wicket.util.file.File(file)) {
@@ -81,8 +81,15 @@ class ExcelFileDownloadLink extends DownloadLink {
 	@Override
 	protected void onComponentTag(ComponentTag tag) {
 		super.onComponentTag(tag);
-		tag.put("download", (String) null);
+		tag.put("download", encodedFileName());
 	}
-    
-    
+
+    private String encodedFileName() {
+        return encoded(this.xlsxFileName);
+    }
+
+    private String encoded(final String xlsxFileName) {
+        return UrlEncoder.QUERY_INSTANCE.encode(xlsxFileName, getRequest().getCharset());
+    }
+
 }
