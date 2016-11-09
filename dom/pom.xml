@@ -19,7 +19,7 @@ Copyright 2012-2014 Eurocommercial Properties NV
 
     <groupId>org.incode.module.docrendering</groupId>
     <artifactId>incode-module-docrendering-xdocreport-dom</artifactId>
-    <version>1.13.1</version>
+    <version>1.14.0-SNAPSHOT</version>
 
     <packaging>jar</packaging>
     
