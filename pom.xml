@@ -21,7 +21,7 @@ language governing permissions and limitations under the License.
     <artifactId>incode-module-docrendering-xdocreport</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>Incode Module Docrendering XDocReport</name>
+    <name>Incode Module DocRendering XDocReport</name>
 
     <packaging>pom</packaging>
 

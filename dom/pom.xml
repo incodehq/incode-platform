@@ -24,7 +24,7 @@ Copyright 2012-2014 Eurocommercial Properties NV
     <packaging>jar</packaging>
     
 
-    <name>Incode Module Doc Rendering XDocReport</name>
+    <name>Incode Module DocRendering XDocReport</name>
     <description>
         A rendering strategy implementation using XDocReport.
     </description>
@@ -63,7 +63,7 @@ Copyright 2012-2014 Eurocommercial Properties NV
 
         <isis.version>1.13.0</isis.version>
         <isis-module-fakedata.version>1.13.0</isis-module-fakedata.version>
-        <isis-module-xdocreport.version>1.13.0</isis-module-xdocreport.version>
+        <isis-module-xdocreport.version>1.13.1</isis-module-xdocreport.version>
         <incode-module-base.version>1.13.0</incode-module-base.version>
         <incode-module-document.version>1.13.0</incode-module-document.version>
 
