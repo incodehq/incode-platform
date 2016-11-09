@@ -17,6 +17,7 @@
 package org.incode.module.document.integtests;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -34,7 +35,6 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
 import org.apache.isis.core.integtestsupport.scenarios.ScenarioExecutionForIntegration;
-import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegTests;
 
 import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
@@ -51,14 +51,14 @@ public abstract class DocumentModuleIntegTest extends IntegrationTestAbstract {
     protected FixtureScripts fixtureScripts;
 
     @Inject
-    protected FakeDataService fakeData;
+    protected FakeDataService fakeDataService;
 
 
-    protected PaperclipForDemoObject._createAndAttachDocumentAndRender mixinCreateDocument(final Object domainObject) {
+    protected PaperclipForDemoObject._createAndAttachDocumentAndRender _createAndAttachDocumentAndRender(final Object domainObject) {
         return mixin(PaperclipForDemoObject._createAndAttachDocumentAndRender.class, domainObject);
     }
 
-    protected PaperclipForDemoObject._documents mixinDocuments(final Object domainObject) {
+    protected PaperclipForDemoObject._documents _documents(final Object domainObject) {
         return mixin(PaperclipForDemoObject._documents.class, domainObject);
     }
 
@@ -89,9 +89,7 @@ public abstract class DocumentModuleIntegTest extends IntegrationTestAbstract {
         if(isft == null) {
             isft = new IsisSystemForTest.Builder()
                     .withLoggingAt(org.apache.log4j.Level.INFO)
-                    .with(new DocumentModuleAppManifest()
-                            .withModules(DocumentModuleIntegTest.class, FakeDataModule.class))
-                    .with(new IsisConfigurationForJdoIntegTests())
+                    .with(new DocumentModuleAppManifestForIntegTests())
                     .build()
                     .setUpSystem();
             IsisSystemForTest.set(isft);
@@ -99,5 +97,19 @@ public abstract class DocumentModuleIntegTest extends IntegrationTestAbstract {
 
         // instantiating will install onto ThreadLocal
         new ScenarioExecutionForIntegration();
+    }
+
+    private static class DocumentModuleAppManifestForIntegTests extends DocumentModuleAppManifest {
+        {
+            withModules(DocumentModuleIntegTest.class, FakeDataModule.class);
+        }
+        @Override
+        public Map<String, String> getConfigurationProperties() {
+            final Map<String, String> map = super.getConfigurationProperties();
+            Util.withJavaxJdoRunInMemoryProperties(map);
+            Util.withDataNucleusProperties(map);
+            Util.withIsisIntegTestProperties(map);
+            return map;
+        }
     }
 }

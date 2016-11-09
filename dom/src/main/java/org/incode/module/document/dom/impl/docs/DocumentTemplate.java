@@ -19,7 +19,6 @@ package org.incode.module.document.dom.impl.docs;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-import java.util.Optional;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -36,6 +35,7 @@ import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Unique;
 import javax.jdo.annotations.Uniques;
 
+import com.google.common.collect.FluentIterable;
 import com.google.common.eventbus.Subscribe;
 
 import org.axonframework.eventhandling.annotation.EventHandler;
@@ -588,15 +588,24 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
     @Programmatic
     public Binder newBinder(final Object domainObject) {
         final Class<?> domainObjectClass = domainObject.getClass();
-        final Optional<Applicability> applicabilityIfAny = getAppliesTo().stream()
-                .filter(x -> classService.load(x.getDomainClassName()).isAssignableFrom(domainObjectClass))
-                .findFirst();
+        final com.google.common.base.Optional<Applicability> applicabilityIfAny = FluentIterable.from(getAppliesTo())
+                .filter(applicability -> applies(applicability, domainObjectClass)).first();
+//        final Optional<Applicability> applicabilityIfAny = getAppliesTo().stream()
+//                .filter(applicability -> applies(applicability, domainObjectClass))
+//                .findFirst();
         if (!applicabilityIfAny.isPresent()) {
             return null;
         }
         final Binder binder = (Binder) classService.instantiate(applicabilityIfAny.get().getBinderClassName());
         serviceRegistry2.injectServicesInto(binder);
         return binder;
+    }
+
+    private boolean applies(
+            final Applicability applicability,
+            final Class<?> domainObjectClass) {
+        final Class<?> load = classService.load(applicability.getDomainClassName());
+        return load.isAssignableFrom(domainObjectClass);
     }
 
     @Programmatic

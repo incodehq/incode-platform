@@ -30,6 +30,8 @@ import org.incode.module.document.dom.impl.applicability.Binder;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 import org.incode.module.document.fixture.dom.demo.DemoObject;
 
+import lombok.Getter;
+
 public class BinderOfXDocReportModelForDemoObject implements Binder {
 
     public Binding newBinding(
@@ -54,15 +56,19 @@ public class BinderOfXDocReportModelForDemoObject implements Binder {
 
     public static class DataModel implements XDocReportModel {
 
+        // for freemarker
+        @Getter
         private final DemoObject demoObject;
 
         public DataModel(final DemoObject demoObject) {
             this.demoObject = demoObject;
         }
 
+        // for XDocReport
         @Override
         public Map<String, Data> getContextData() {
             return ImmutableMap.of("demoObject", Data.object(demoObject));
         }
+
     }
 }

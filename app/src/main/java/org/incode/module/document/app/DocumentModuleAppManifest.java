@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
@@ -121,7 +122,7 @@ public class DocumentModuleAppManifest implements AppManifest {
      */
     @Override
     public Map<String, String> getConfigurationProperties() {
-        return null;
+        return Maps.newHashMap();
     }
 
 }

@@ -16,19 +16,39 @@
  */
 package org.incode.module.document.fixture.scripts.scenarios;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
+
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+
+import org.isisaddons.module.fakedata.dom.FakeDataService;
 
 import org.incode.module.document.fixture.dom.demo.DemoObject;
 import org.incode.module.document.fixture.dom.demo.DemoObjectMenu;
 import org.incode.module.document.fixture.scripts.teardown.DocumentDemoObjectsTearDownFixture;
 import org.incode.module.document.fixture.seed.DocumentTypeAndTemplatesFixture;
 
+import lombok.Getter;
+
 public class DocumentDemoObjectsFixture extends DiscoverableFixtureScript {
 
-    //region > injected services
     @javax.inject.Inject
     DemoObjectMenu demoObjectMenu;
-    //endregion
+
+    @javax.inject.Inject
+    FakeDataService fakeDataService;
+
+    @Getter
+    private Integer number ;
+    public DocumentDemoObjectsFixture setNumber(final Integer number) {
+        this.number = number;
+        return this;
+    }
+
+    @Getter
+    private List<DemoObject> demoObjects = Lists.newArrayList();
+
 
     //region > constructor
     public DocumentDemoObjectsFixture() {
@@ -37,30 +57,31 @@ public class DocumentDemoObjectsFixture extends DiscoverableFixtureScript {
     //endregion
 
     @Override
-    protected void execute(final ExecutionContext executionContext) {
+    protected void execute(final ExecutionContext ec) {
 
-        executionContext.executeChild(this, new DocumentDemoObjectsTearDownFixture());
+        defaultParam("number", ec, 3);
+        if(getNumber() < 1 || getNumber() > 5) {
+            // there are 5 sample PDFs
+            throw new IllegalArgumentException("number of demo objects to create must be within [1,5]");
+        }
 
-        executionContext.executeChild(this, new DocumentTypeAndTemplatesFixture());
+        ec.executeChild(this, new DocumentDemoObjectsTearDownFixture());
+        ec.executeChild(this, new DocumentTypeAndTemplatesFixture());
 
-        final DemoObject foo = create("Foo", "http://www.pdfpdf.com/samples/Sample1.PDF", executionContext);
-        final DemoObject bar = create("Bar", "http://www.pdfpdf.com/samples/Sample3.PDF", executionContext);
-        final DemoObject baz = create("Baz", "http://www.pdfpdf.com/samples/Sample5.PDF", executionContext);
-
-
+        for (int i = 0; i < getNumber(); i++) {
+            final DemoObject demoObject = create(i, ec);
+            getDemoObjects().add(demoObject);
+        }
     }
 
-
-    // //////////////////////////////////////
-
-    private DemoObject create(
-            final String name,
-            final String url, final ExecutionContext executionContext) {
+    private DemoObject create(final int n, final ExecutionContext ec) {
+        final String name = fakeDataService.name().firstName();
+        final String url = "http://www.pdfpdf.com/samples/Sample" + (n+1) + ".PDF";
 
         final DemoObject demoObject = wrap(demoObjectMenu).create(name);
         wrap(demoObject).setUrl(url);
-        return executionContext.addResult(this, demoObject);
-    }
 
+        return ec.addResult(this, demoObject);
+    }
 
 }

@@ -34,28 +34,26 @@ public class DemoObjectMenuTest extends DocumentModuleIntegTest {
     @Inject
     DemoObjectMenu demoObjectMenu;
 
+    public static final int NUMBER = 5;
+
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new DocumentDemoObjectsFixture(), null);
+        fixtureScripts.runFixtureScript(new DocumentDemoObjectsFixture().setNumber(NUMBER), null);
     }
 
     @Test
     public void listAll() throws Exception {
 
-        final List<DemoObject> all = wrap(demoObjectMenu).listAll();
-        Assertions.assertThat(all.size()).isEqualTo(3);
-        
-        DemoObject demoObject = wrap(all.get(0));
-        Assertions.assertThat(demoObject.getName()).isEqualTo("Foo");
+        final List<DemoObject> demoObjects = wrap(demoObjectMenu).listAll();
+        Assertions.assertThat(demoObjects.size()).isEqualTo(NUMBER);
+
+        for (DemoObject demoObject : demoObjects) {
+            Assertions.assertThat(wrap(demoObject).getName()).isNotNull();
+            Assertions.assertThat(wrap(demoObject).getUrl()).isNotNull();
+
+        }
     }
     
-    @Test
-    public void create() throws Exception {
 
-        wrap(demoObjectMenu).create("Faz");
-        
-        final List<DemoObject> all = wrap(demoObjectMenu).listAll();
-        Assertions.assertThat(all.size()).isEqualTo(4);
-    }
 
 }

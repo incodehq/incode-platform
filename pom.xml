@@ -318,8 +318,8 @@ language governing permissions and limitations under the License.
                 <groupId>org.isisaddons.module.fakedata</groupId>
                 <artifactId>isis-module-fakedata-dom</artifactId>
                 <version>${isis-module-fakedata.version}</version>
-                <scope>test</scope>
             </dependency>
+
             <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>

@@ -83,6 +83,7 @@ public class DocumentTypeAndTemplatesFixture extends DocumentTemplateFSAbstract 
                 "Freemarker-html-cover-note-for-${demoObject.name}", fmkRenderingStrategy,
                 executionContext);
 
+        // this binder must provide a DataModel for FreeMarker strategies
         fmkTemplate.applicable(DemoObject.class, BinderOfDataModelForDemoObject.class);
 
         executionContext.addResult(this, fmkTemplate);
@@ -105,6 +106,7 @@ public class DocumentTypeAndTemplatesFixture extends DocumentTemplateFSAbstract 
                         "${demoObject.url}", sipcRenderingStrategy,
                         "pdf-of-url-held-in-${demoObject.name}", siRenderingStrategy,
                         executionContext);
+        // this binder must provide a DataModel for StringInterpolator strategies
         siTemplate.applicable(DemoObject.class, BinderOfSiRootForDemoObject.class);
 
 
@@ -127,6 +129,7 @@ public class DocumentTypeAndTemplatesFixture extends DocumentTemplateFSAbstract 
                         ), xdpRenderingStrategy,
                         "${demoObject.name}", fmkRenderingStrategy,
                         executionContext);
+        // this binder must provide a DataModel compatible with both XDocReport and FreeMarker
         xdpTemplate.applicable(DemoObject.class, BinderOfXDocReportModelForDemoObject.class);
 
 
@@ -149,6 +152,7 @@ public class DocumentTypeAndTemplatesFixture extends DocumentTemplateFSAbstract 
                         ), xddRenderingStrategy,
                         "${demoObject.name}", fmkRenderingStrategy,
                         executionContext);
+        // this binder must provide a DataModel compatible with both XDocReport and FreeMarker
         xddTemplate.applicable(DemoObject.class, BinderOfXDocReportModelForDemoObject.class);
 
     }
