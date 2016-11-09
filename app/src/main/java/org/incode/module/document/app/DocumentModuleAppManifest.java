@@ -27,6 +27,13 @@ import com.google.common.collect.Lists;
 import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import org.isisaddons.module.freemarker.dom.FreeMarkerModule;
+import org.isisaddons.module.stringinterpolator.StringInterpolatorModule;
+import org.isisaddons.module.xdocreport.dom.XDocReportModule;
+
+import org.incode.module.docrendering.freemarker.dom.FreemarkerDocRenderingModule;
+import org.incode.module.docrendering.stringinterpolator.dom.StringInterpolatorDocRenderingModule;
+import org.incode.module.docrendering.xdocreport.dom.XDocReportDocRenderingModule;
 import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.document.fixture.DocumentFixtureModule;
 
@@ -41,7 +48,16 @@ public class DocumentModuleAppManifest implements AppManifest {
         withModules(
                 DocumentModule.class, // dom module
                 DocumentFixtureModule.class,
-                DocumentAppModule.class
+                DocumentAppModule.class,
+
+                FreemarkerDocRenderingModule.class,
+                FreeMarkerModule.class,
+
+                StringInterpolatorDocRenderingModule.class,
+                StringInterpolatorModule.class,
+
+                XDocReportDocRenderingModule.class,
+                XDocReportModule.class
         );
     }
 

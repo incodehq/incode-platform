@@ -25,8 +25,6 @@ import org.junit.Test;
 import org.apache.isis.core.unittestsupport.jmocking.JUnitRuleMockery2;
 
 import org.incode.module.document.dom.impl.docs.DocumentAbstract;
-import org.incode.module.document.dom.mixins.T_createDocumentAbstract;
-import org.incode.module.document.dom.mixins.T_createDocumentAndRender;
 
 public class T_createDocumentAndScheduleRender_Test {
 
@@ -41,12 +39,12 @@ public class T_createDocumentAndScheduleRender_Test {
     @Mock
     private DocumentAbstract mockDocumentAbstract;
 
-    T_createDocumentAbstract mixin;
+    T_createAndAttachDocumentAbstract mixin;
 
     @Before
     public void setUp() throws Exception {
         // when
-        mixin = new T_createDocumentAndRender(mockSomeDomainObject) { };
+        mixin = new T_createAndAttachDocumentAndRender(mockSomeDomainObject) { };
     }
 
     @Ignore

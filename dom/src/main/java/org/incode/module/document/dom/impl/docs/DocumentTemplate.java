@@ -686,7 +686,6 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
     @Programmatic
     public DocumentAbstract createAndScheduleRender(
             final Object domainObject,
-            final boolean shouldPersist,
             final String additionalTextIfAny) {
         final Document document = createDocumentUsingBinding(domainObject, additionalTextIfAny);
         transactionService.flushTransaction(); // ensure document is persistent so can schedule action against it.
@@ -699,10 +698,9 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
     @Programmatic
     public DocumentAbstract createAndRender(
             final Object domainObject,
-            final boolean shouldPersist,
             final String additionalTextIfAny) {
         final Document document = createDocumentUsingBinding(domainObject, additionalTextIfAny);
-        transactionService.flushTransaction(); // ensure document is persistent so can schedule action against it.
+        transactionService.flushTransaction();
         document.render(this, domainObject, additionalTextIfAny);
         return document;
     }
@@ -710,7 +708,9 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
 
     //region > createDocument (programmatic)
     @Programmatic
-    public Document createDocumentUsingBinding(Object domainObject, final String additionalTextIfAny) {
+    public Document createDocumentUsingBinding(
+            final Object domainObject,
+            final String additionalTextIfAny) {
         final Binder.Binding binding = newBinding(domainObject, additionalTextIfAny);
         final Object contentDataModel = binding.getDataModel();
         return createDocumentFromDataModel(contentDataModel);

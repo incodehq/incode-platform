@@ -59,10 +59,11 @@ Copyright 2014~2015 Dan Haywood
         <compileSource>1.8</compileSource>
         <compileTarget>1.8</compileTarget>
 
-        <isis.version>1.13.0</isis.version>
+        <isis.version>1.13.1</isis.version>
         <isis-module-fakedata.version>1.13.0</isis-module-fakedata.version>
 
-        <incode-module-base.version>1.13.0</incode-module-base.version>
+        <incode-module-base.version>1.13.5</incode-module-base.version>
+        <incode-module-unittestsupport.version>1.13.2</incode-module-unittestsupport.version>
 
         <lombok.version>1.16.6</lombok.version>
         <axon-core.version>2.4.4</axon-core.version>
@@ -220,6 +221,42 @@ Copyright 2014~2015 Dan Haywood
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <dependency>
+                <groupId>org.incode.module.base</groupId>
+                <artifactId>incode-module-base-dom</artifactId>
+                <version>${incode-module-base.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.unittestsupport</groupId>
+                <artifactId>incode-module-unittestsupport-dom</artifactId>
+                <version>${incode-module-unittestsupport.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.isisaddons.module.fakedata</groupId>
+                <artifactId>isis-module-fakedata-dom</artifactId>
+                <version>${isis-module-fakedata.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj-core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.danhaywood.java</groupId>
+                <artifactId>danhaywood-java-assertjext</artifactId>
+                <version>${danhaywood-java-assertjext.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -227,51 +264,47 @@ Copyright 2014~2015 Dan Haywood
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-applib</artifactId>
-            <version>${isis.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.isisaddons.module.fakedata</groupId>
             <artifactId>isis-module-fakedata-dom</artifactId>
-            <version>${isis-module-fakedata.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.incode.module.base</groupId>
             <artifactId>incode-module-base-dom</artifactId>
-	        <version>${incode-module-base.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.incode.module.base</groupId>
-            <artifactId>incode-module-base-dom</artifactId>
-            <version>${incode-module-base.version}</version>
-            <type>test-jar</type>
+            <groupId>org.incode.module.unittestsupport</groupId>
+            <artifactId>incode-module-unittestsupport-dom</artifactId>
+            <version>1.14.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
 
+<!--
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-unittestsupport</artifactId>
-            <version>${isis.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>${assertj-core.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.danhaywood.java</groupId>
-            <artifactId>danhaywood-java-assertjext</artifactId>
-            <version>${danhaywood-java-assertjext.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
+            <groupId>com.danhaywood.java</groupId>
+            <artifactId>danhaywood-java-assertjext</artifactId>
+            <scope>test</scope>
+        </dependency>
+-->
+
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
 

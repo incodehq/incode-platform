@@ -40,12 +40,12 @@ public class T_createDocumentAbstract_Test {
     @Mock
     private DocumentAbstract mockDocumentAbstract;
 
-    T_createDocumentAbstract mixin;
+    T_createAndAttachDocumentAbstract mixin;
 
     @Before
     public void setUp() throws Exception {
         // when
-        mixin = new T_createDocumentAbstract(mockSomeDomainObject) {
+        mixin = new T_createAndAttachDocumentAbstract(mockSomeDomainObject) {
             @Override
             protected DocumentAbstract doCreate(
                     final DocumentTemplate template, final boolean shouldPersist, final String additionalTextIfAny) {

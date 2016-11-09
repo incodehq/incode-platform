@@ -1,4 +1,4 @@
-package org.incode.module.document.fixture.app.binders;
+package org.incode.module.document.fixture.app.binders.unused;
 
 import java.util.Collections;
 
@@ -12,7 +12,7 @@ import org.incode.module.document.fixture.dom.demo.DemoObject;
 
 import lombok.Data;
 
-public class BinderForDocumentAttachedToDemoObject implements Binder {
+public class BinderOfDataModelForDocumentAttachedToDemoObject implements Binder {
 
     @Override
     public Binding newBinding(

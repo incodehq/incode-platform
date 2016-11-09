@@ -26,10 +26,10 @@ import org.junit.Test;
 
 import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
-import org.incode.module.document.dom.mixins.T_createDocumentAbstract;
 import org.incode.module.document.fixture.app.paperclips.PaperclipForDemoObject;
 import org.incode.module.document.fixture.dom.demo.DemoObjectMenu;
 import org.incode.module.document.fixture.scripts.teardown.DocumentDemoObjectsTearDownFixture;
+import org.incode.module.document.fixture.seed.DocumentTypeAndTemplatesFixture;
 import org.incode.module.document.integtests.DocumentModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -44,6 +44,7 @@ public class T_createDocument_IntegTest extends DocumentModuleIntegTest {
     @Before
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new DocumentDemoObjectsTearDownFixture(), null);
+        fixtureScripts.runFixtureScript(new DocumentTypeAndTemplatesFixture(), null);
 
         demoObject = wrap(demoObjectMenu).create("Foo");
     }
@@ -60,7 +61,7 @@ public class T_createDocument_IntegTest extends DocumentModuleIntegTest {
         public void can_create_document() throws Exception {
 
             // given
-            final PaperclipForDemoObject._createDocument createDocument = mixinCreateDocument(demoObject);
+            final PaperclipForDemoObject._createAndAttachDocumentAndRender createDocument = mixinCreateDocument(demoObject);
 
             // when
             final List<DocumentTemplate> templates = createDocument.choices0$$();
@@ -70,13 +71,7 @@ public class T_createDocument_IntegTest extends DocumentModuleIntegTest {
             final DocumentTemplate firstTemplate = templates.get(0);
 
             // when
-            final List<T_createDocumentAbstract.Intent> intents = createDocument.choices1$$(firstTemplate);
-
-            // then
-            assertThat(intents).contains(T_createDocumentAbstract.Intent.CREATE_AND_ATTACH);
-
-            // when
-            final Object documentAsObj = createDocument.$$(firstTemplate, T_createDocumentAbstract.Intent.CREATE_AND_ATTACH);
+            final Object documentAsObj = createDocument.$$(firstTemplate);
 
             // then
             assertThat(documentAsObj).isInstanceOf(Document.class);

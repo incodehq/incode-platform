@@ -33,6 +33,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
         repositoryFor = DemoObject.class
 )
 @DomainServiceLayout(
+        named = "Demo Objects",
         menuOrder = "10"
 )
 public class DemoObjectMenu {

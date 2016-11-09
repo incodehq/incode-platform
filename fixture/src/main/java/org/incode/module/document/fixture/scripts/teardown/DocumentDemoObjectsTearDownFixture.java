@@ -30,8 +30,8 @@ public class DocumentDemoObjectsTearDownFixture extends FixtureScript {
         isisJdoSupport.executeUpdate("delete from \"incodeDocuments\".\"Applicability\"");
         isisJdoSupport.executeUpdate("delete from \"incodeDocuments\".\"Document\"");
         isisJdoSupport.executeUpdate("delete from \"incodeDocuments\".\"DocumentTemplate\"");
-        isisJdoSupport.executeUpdate("delete from \"incodeDocuments\".\"DocumentType\"");
         isisJdoSupport.executeUpdate("delete from \"incodeDocuments\".\"DocumentAbstract\"");
+        isisJdoSupport.executeUpdate("delete from \"incodeDocuments\".\"DocumentType\"");
         isisJdoSupport.executeUpdate("delete from \"incodeDocuments\".\"RenderingStrategy\"");
     }
 

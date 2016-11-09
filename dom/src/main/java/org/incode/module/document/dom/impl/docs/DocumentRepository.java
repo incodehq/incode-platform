@@ -16,18 +16,21 @@
  */
 package org.incode.module.document.dom.impl.docs;
 
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.repository.RepositoryService;
-import org.incode.module.document.dom.impl.types.DocumentType;
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 
-import javax.inject.Inject;
-import java.util.List;
+import org.incode.module.document.dom.impl.types.DocumentType;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
@@ -39,7 +42,7 @@ public class DocumentRepository {
         return "incodeDocuments.DocumentRepository";
     }
 
-    //region > create
+    //region > create, createNoPersist
     @Programmatic
     public Document create(
             final DocumentType type,
@@ -51,6 +54,7 @@ public class DocumentRepository {
         repositoryService.persist(document);
         return document;
     }
+
     //endregion
 
 

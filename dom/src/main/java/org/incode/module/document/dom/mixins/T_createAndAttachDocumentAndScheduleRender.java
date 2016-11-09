@@ -18,12 +18,17 @@
  */
 package org.incode.module.document.dom.mixins;
 
+import javax.inject.Inject;
+
+import org.apache.isis.applib.services.background.BackgroundCommandService;
+import org.apache.isis.applib.services.i18n.TranslatableString;
+
 import org.incode.module.document.dom.impl.docs.DocumentAbstract;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 
-public class T_createDocumentAndRender<T> extends T_createDocumentAbstract<T> {
+public abstract class T_createAndAttachDocumentAndScheduleRender<T> extends T_createAndAttachDocumentAbstract<T> {
 
-    public T_createDocumentAndRender(final T domainObject) {
+    public T_createAndAttachDocumentAndScheduleRender(final T domainObject) {
         super(domainObject);
     }
 
@@ -32,6 +37,16 @@ public class T_createDocumentAndRender<T> extends T_createDocumentAbstract<T> {
             final DocumentTemplate template,
             final boolean shouldPersist,
             final String additionalTextIfAny) {
-        return template.createAndRender(domainObject, shouldPersist, additionalTextIfAny);
+        return template.createAndScheduleRender(domainObject, additionalTextIfAny);
     }
+
+    public TranslatableString disable$$() {
+        return backgroundCommandService == null
+                ? TranslatableString.tr("Application is not configured to support background rendering")
+                : null;
+    }
+
+    @Inject
+    BackgroundCommandService backgroundCommandService;
+
 }

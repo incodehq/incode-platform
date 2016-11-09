@@ -23,8 +23,7 @@ import org.junit.Test;
 import org.apache.isis.core.unittestsupport.jmocking.JUnitRuleMockery2;
 
 import org.incode.module.document.dom.impl.docs.Document_Test;
-
-import org.incode.module.base.dom.AbstractBeanPropertiesTest;
+import org.incode.module.unittestsupport.dom.bean.AbstractBeanPropertiesTest;
 
 public class DocumentType_Test {
 

@@ -54,8 +54,8 @@ public abstract class DocumentModuleIntegTest extends IntegrationTestAbstract {
     protected FakeDataService fakeData;
 
 
-    protected PaperclipForDemoObject._createDocument mixinCreateDocument(final Object domainObject) {
-        return mixin(PaperclipForDemoObject._createDocument.class, domainObject);
+    protected PaperclipForDemoObject._createAndAttachDocumentAndRender mixinCreateDocument(final Object domainObject) {
+        return mixin(PaperclipForDemoObject._createAndAttachDocumentAndRender.class, domainObject);
     }
 
     protected PaperclipForDemoObject._documents mixinDocuments(final Object domainObject) {

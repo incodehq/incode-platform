@@ -24,9 +24,8 @@ import org.incode.module.document.dom.impl.rendering.RenderingStrategy;
 import org.incode.module.document.dom.impl.rendering.RenderingStrategyForTesting;
 import org.incode.module.document.dom.impl.types.DocumentType;
 import org.incode.module.document.dom.impl.types.DocumentTypeForTesting;
-
-import org.incode.module.base.dom.AbstractBeanPropertiesTest;
-import org.incode.module.base.dom.FixtureDatumFactoriesForApplib;
+import org.incode.module.unittestsupport.dom.bean.AbstractBeanPropertiesTest;
+import org.incode.module.unittestsupport.dom.bean.FixtureDatumFactoriesForApplib;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

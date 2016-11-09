@@ -30,14 +30,15 @@ language governing permissions and limitations under the License.
     </prerequisites>
 
     <properties>
-        <isis.version>1.13.0</isis.version>
+        <isis.version>1.13.1</isis.version>
 
-        <isis-module-base.version>1.13.0</isis-module-base.version>
+        <isis-module-base.version>1.13.4</isis-module-base.version>
         <isis-module-fakedata.version>1.13.0</isis-module-fakedata.version>
 
         <incode-module-docrendering-freemarker.version>1.13.0</incode-module-docrendering-freemarker.version>
         <incode-module-docrendering-stringinterpolator.version>1.13.0</incode-module-docrendering-stringinterpolator.version>
-        <incode-module-docrendering-xdocreport.version>1.13.0</incode-module-docrendering-xdocreport.version>
+        <incode-module-docrendering-xdocreport.version>1.13.1</incode-module-docrendering-xdocreport.version>
+
 
         <incode-module-document.version>1.14.0-SNAPSHOT</incode-module-document.version>
 
@@ -271,13 +272,6 @@ language governing permissions and limitations under the License.
                 <artifactId>isis-module-base-dom</artifactId>
                 <version>${isis-module-base.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.base</groupId>
-                <artifactId>isis-module-base-dom</artifactId>
-                <version>${isis-module-base.version}</version>
-                <scope>test</scope>
-                <type>test-jar</type>
-            </dependency>
 
             <dependency>
                 <groupId>org.incode.module.docrendering</groupId>
@@ -317,6 +311,7 @@ language governing permissions and limitations under the License.
                 <scope>test</scope>
                 <type>test-jar</type>
             </dependency>
+
 
 
             <dependency>

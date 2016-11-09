@@ -18,12 +18,14 @@
  */
 package org.incode.module.document.dom.mixins;
 
+import java.io.IOException;
+
 import org.incode.module.document.dom.impl.docs.DocumentAbstract;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 
-public abstract class T_createDocumentAndScheduleRender<T> extends T_createDocumentAbstract<T> {
+public abstract class T_createAndAttachDocumentAndRender<T> extends T_createAndAttachDocumentAbstract<T> {
 
-    public T_createDocumentAndScheduleRender(final T domainObject) {
+    public T_createAndAttachDocumentAndRender(final T domainObject) {
         super(domainObject);
     }
 
@@ -32,7 +34,6 @@ public abstract class T_createDocumentAndScheduleRender<T> extends T_createDocum
             final DocumentTemplate template,
             final boolean shouldPersist,
             final String additionalTextIfAny) {
-        return template.createAndScheduleRender(domainObject, shouldPersist, additionalTextIfAny);
+        return template.createAndRender(domainObject, additionalTextIfAny);
     }
-
 }

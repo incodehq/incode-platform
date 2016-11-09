@@ -23,13 +23,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import com.google.common.collect.Lists;
-
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.document.dom.impl.applicability.Binder;
@@ -41,45 +38,30 @@ import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
 import org.incode.module.document.dom.impl.types.DocumentTypeRepository;
 import org.incode.module.document.dom.services.ClassService;
 
-public abstract class T_createDocumentAbstract<T> {
-
-    public static enum Intent {
-        PREVIEW,
-        CREATE_AND_ATTACH
-    }
+/**
+ * Not intended to be subclassed directly.
+ */
+public abstract class T_createAndAttachDocumentAbstract<T> {
 
     //region > constructor
     protected final T domainObject;
 
-    public T_createDocumentAbstract(final T domainObject) {
+    public T_createAndAttachDocumentAbstract(final T domainObject) {
         this.domainObject = domainObject;
     }
     //endregion
 
     /**
-     * Either preview the document's content (as a URL to that content) or alternatively create a {@link Document} and
-     * attach using a {@link Paperclip}.
-     *
-     * <p>
-     * Which occurs depends upon the provided {@link Intent}.
-     * </p>
+     * Create a {@link Document} and attach using a {@link Paperclip}.
      */
     @Action(semantics = SemanticsOf.NON_IDEMPOTENT)
     @ActionLayout(contributed = Contributed.AS_ACTION)
-    @MemberOrder(name = "documents", sequence = "1")
-    public Object $$(
-            final DocumentTemplate template,
-            @ParameterLayout(named = "Action")
-            final Intent intent
-            ) throws IOException {
+    @MemberOrder(name = "documents", sequence = "2")
+    public Object $$(final DocumentTemplate template) throws IOException {
         final String roleName = null;
         final String additionalTextIfAny = null;
 
         final Binder.Binding binding = template.newBinding(domainObject, additionalTextIfAny);
-        if (intent == Intent.PREVIEW) {
-            return template.preview(binding.getDataModel());
-        }
-
         final List<Object> attachTo = binding.getAttachTo();
         final boolean shouldPersist = !attachTo.isEmpty();
 
@@ -99,26 +81,11 @@ public abstract class T_createDocumentAbstract<T> {
     }
 
     /**
-     * All templates which are applicable to the domain object's atPath, and which either be previewed or, if not previewable,
-     * then can be created and attached to at least one domain object.
+     * All templates which are applicable to the domain object's atPath, and which can be created and attached to at
+     * least one domain object.
      */
     public List<DocumentTemplate> choices0$$() {
-        return getDocumentTemplates();
-    }
-
-    /**
-     * For the selected template, the list of actions available (based on the binding)
-     */
-    public List<Intent> choices1$$(final DocumentTemplate template) {
-        if(template == null) {
-            return Lists.newArrayList();
-        }
-        final Binder.Binding binding = template.newBinding(domainObject, null);
-        return documentTemplateService.intentsFor(template, binding.getAttachTo());
-    }
-
-    private List<DocumentTemplate> getDocumentTemplates() {
-        return documentTemplateService.documentTemplates(domainObject);
+        return documentTemplateService.documentTemplatesForCreateAndAttach(domainObject);
     }
 
 

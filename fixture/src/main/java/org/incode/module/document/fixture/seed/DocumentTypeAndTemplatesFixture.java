@@ -32,14 +32,14 @@ import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
 
-import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 import org.incode.module.document.dom.impl.rendering.RenderingStrategy;
 import org.incode.module.document.dom.impl.rendering.RenderingStrategyRepository;
 import org.incode.module.document.dom.impl.types.DocumentType;
 import org.incode.module.document.fixture.DocumentTemplateFSAbstract;
-import org.incode.module.document.fixture.app.binders.BinderForDemoObject;
-import org.incode.module.document.fixture.app.binders.BinderForDocumentAttachedToDemoObject;
+import org.incode.module.document.fixture.app.binders.BinderOfDataModelForDemoObject;
+import org.incode.module.document.fixture.app.binders.BinderOfSiRootForDemoObject;
+import org.incode.module.document.fixture.app.binders.BinderOfXDocReportModelForDemoObject;
 import org.incode.module.document.fixture.dom.demo.DemoObject;
 
 public class DocumentTypeAndTemplatesFixture extends DocumentTemplateFSAbstract {
@@ -73,7 +73,7 @@ public class DocumentTypeAndTemplatesFixture extends DocumentTemplateFSAbstract 
         //
         final LocalDate now = clockService.now();
 
-        final Clob clob = new Clob(buildTemplateName(docTypeForFreemarkerHtml, "html", ".html"), "text/html",
+        final Clob clob = new Clob(docTypeForFreemarkerHtml.getName(), "text/html",
                 loadResource("FreemarkerHtmlCoverNote.html"));
         final DocumentTemplate fmkTemplate = upsertDocumentClobTemplate(
                 docTypeForFreemarkerHtml, now, atPath,
@@ -83,7 +83,7 @@ public class DocumentTypeAndTemplatesFixture extends DocumentTemplateFSAbstract 
                 "Freemarker-html-cover-note-for-${demoObject.name}", fmkRenderingStrategy,
                 executionContext);
 
-        fmkTemplate.applicable(Document.class, BinderForDocumentAttachedToDemoObject.class);
+        fmkTemplate.applicable(DemoObject.class, BinderOfDataModelForDemoObject.class);
 
         executionContext.addResult(this, fmkTemplate);
 
@@ -100,12 +100,12 @@ public class DocumentTypeAndTemplatesFixture extends DocumentTemplateFSAbstract 
                         docTypeForStringInterpolatorUrl, now, atPath,
                         ".pdf",
                         false,
-                        buildTemplateName(docTypeForStringInterpolatorUrl, "pdf"),
+                        docTypeForStringInterpolatorUrl.getName(),
                         "application/pdf",
                         "${demoObject.url}", sipcRenderingStrategy,
                         "pdf-of-url-held-in-${demoObject.name}", siRenderingStrategy,
                         executionContext);
-        siTemplate.applicable(DemoObject.class, BinderForDemoObject.class);
+        siTemplate.applicable(DemoObject.class, BinderOfSiRootForDemoObject.class);
 
 
 
@@ -121,13 +121,13 @@ public class DocumentTypeAndTemplatesFixture extends DocumentTemplateFSAbstract 
                         ".pdf",
                         false,
                         new Blob(
-                                buildTemplateName(docTypeForXDocReportPdf, "pdf"),
+                                docTypeForXDocReportPdf.getName(),
                                 "application/pdf",
                                 loadResourceBytes("demoObject-template.docx")
                         ), xdpRenderingStrategy,
                         "${demoObject.name}", fmkRenderingStrategy,
                         executionContext);
-        xdpTemplate.applicable(DemoObject.class, BinderForDemoObject.class);
+        xdpTemplate.applicable(DemoObject.class, BinderOfXDocReportModelForDemoObject.class);
 
 
 
@@ -140,37 +140,18 @@ public class DocumentTypeAndTemplatesFixture extends DocumentTemplateFSAbstract 
         final DocumentTemplate xddTemplate =
                 upsertDocumentBlobTemplate(
                         docTypeForXDocReportDocx, now, atPath,
-                        ".pdf",
+                        ".docx",
                         false,
                         new Blob(
-                                buildTemplateName(docTypeForXDocReportDocx, "docx"),
+                                docTypeForXDocReportDocx.getName(),
                                 "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                                 loadResourceBytes("demoObject-template.docx")
                         ), xddRenderingStrategy,
                         "${demoObject.name}", fmkRenderingStrategy,
                         executionContext);
-        xddTemplate.applicable(DemoObject.class, BinderForDemoObject.class);
+        xddTemplate.applicable(DemoObject.class, BinderOfXDocReportModelForDemoObject.class);
 
     }
-
-    private static String buildTemplateName(
-            final DocumentType docType,
-            final String nameSuffixIfAny) {
-        return buildTemplateName(docType, nameSuffixIfAny, null);
-    }
-
-    private static String buildTemplateName(
-            final DocumentType docType,
-            final String nameSuffixIfAny,
-            final String extension) {
-        final String name = docType.getName() + (nameSuffixIfAny != null ? nameSuffixIfAny : "");
-        return extension != null
-                ? name.endsWith(extension)
-                    ? name
-                    : name + extension
-                : name;
-    }
-
 
     private static String loadResource(final String resourceName) {
         final URL templateUrl = Resources

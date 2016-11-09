@@ -19,6 +19,7 @@
 package org.incode.module.document.dom.mixins;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -38,7 +39,7 @@ import org.incode.module.document.dom.spi.ApplicationTenancyService;
 public class DocumentTemplateForAtPathService {
 
     @Programmatic
-    public List<DocumentTemplate> documentTemplates(final Object domainObject) {
+    public List<DocumentTemplate> documentTemplatesForPreview(final Object domainObject) {
         final List<DocumentTemplate> templates = Lists.newArrayList();
 
         final String atPath = atPathFor(domainObject);
@@ -49,21 +50,39 @@ public class DocumentTemplateForAtPathService {
         final List<DocumentTemplate> templatesForPath =
                 documentTemplateRepository.findByApplicableToAtPath(atPath);
 
-        // REVIEW: this could probably be simplified ...
-        for (DocumentTemplate template : templatesForPath) {
-            final Binder binder = template.newBinder(domainObject);
-            if(binder != null) {
-                final Binder.Binding binding = binder.newBinding(template, domainObject, null);
-                final List<Object> attachTo = binding.getAttachTo();
-                if(!intentsFor(template, attachTo).isEmpty()) {
-                    templates.add(template);
-                }
-            }
-        }
-        return templates;
+        return Lists.newArrayList(
+                templatesForPath.stream()
+                                .filter(template -> canPreview(template))
+                                .collect(Collectors.toList()));
     }
 
-    String atPathFor(final Object domainObject) {
+    @Programmatic
+    public List<DocumentTemplate> documentTemplatesForCreateAndAttach(final Object domainObject) {
+        final List<DocumentTemplate> templates = Lists.newArrayList();
+
+        final String atPath = atPathFor(domainObject);
+        if(atPath == null) {
+            return templates;
+        }
+
+        final List<DocumentTemplate> templatesForPath =
+                documentTemplateRepository.findByApplicableToAtPath(atPath);
+
+        return Lists.newArrayList(
+                templatesForPath.stream()
+                        .filter(template -> {
+                            final Binder binder = template.newBinder(domainObject);
+                            if (binder == null) {
+                                return false;
+                            }
+                            final Binder.Binding binding = binder.newBinding(template, domainObject, null);
+                            final List<Object> attachTo = binding.getAttachTo();
+                            return canCreate(template, attachTo);
+                        })
+                        .collect(Collectors.toList()));
+    }
+
+    private String atPathFor(final Object domainObject) {
         return applicationTenancyServices.stream()
                 .map(x -> x.atPathFor(domainObject))
                 .filter(x -> x != null)
@@ -71,19 +90,13 @@ public class DocumentTemplateForAtPathService {
                 .orElse(null);
     }
 
-    List<T_createDocumentAbstract.Intent> intentsFor(final DocumentTemplate template, final List<Object> attachTo) {
-        final List<T_createDocumentAbstract.Intent> intents = Lists.newArrayList();
-        if(template == null) {
-            return intents;
-        }
-        if(template.getContentRenderingStrategy().isPreviewsToUrl()) {
-            intents.add(T_createDocumentAbstract.Intent.PREVIEW);
-        }
-        // so long as at least one exists...
-        if(!template.isPreviewOnly() && attachTo.stream().filter(x -> paperclipRepository.canAttach(x)).findFirst().isPresent()) {
-            intents.add(T_createDocumentAbstract.Intent.CREATE_AND_ATTACH);
-        }
-        return intents;
+    private boolean canPreview(final DocumentTemplate template) {
+        return template.getContentRenderingStrategy().isPreviewsToUrl();
+    }
+
+    private boolean canCreate(final DocumentTemplate template, final List<Object> attachTo) {
+        return !template.isPreviewOnly() &&
+                attachTo.stream().filter(x -> paperclipRepository.canAttach(x)).findFirst().isPresent();
     }
 
 

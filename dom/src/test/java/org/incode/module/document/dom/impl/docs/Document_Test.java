@@ -24,9 +24,8 @@ import org.apache.isis.core.unittestsupport.jmocking.JUnitRuleMockery2;
 
 import org.incode.module.document.dom.impl.types.DocumentType;
 import org.incode.module.document.dom.impl.types.DocumentTypeForTesting;
-
-import org.incode.module.base.dom.AbstractBeanPropertiesTest;
-import org.incode.module.base.dom.FixtureDatumFactoriesForJoda;
+import org.incode.module.unittestsupport.dom.bean.AbstractBeanPropertiesTest;
+import org.incode.module.unittestsupport.dom.bean.FixtureDatumFactoriesForJoda;
 
 public class Document_Test {
 

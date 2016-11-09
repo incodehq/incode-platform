@@ -21,13 +21,15 @@ package org.incode.module.document.fixture.app.binders;
 import java.util.Collections;
 import java.util.List;
 
+import org.isisaddons.module.stringinterpolator.dom.StringInterpolatorService;
+
 import org.incode.module.document.dom.impl.applicability.Binder;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 import org.incode.module.document.fixture.dom.demo.DemoObject;
 
-import lombok.Data;
+import lombok.Getter;
 
-public class BinderForDemoObject implements Binder {
+public class BinderOfSiRootForDemoObject implements Binder {
 
     public Binding newBinding(
             final DocumentTemplate documentTemplate,
@@ -49,8 +51,13 @@ public class BinderForDemoObject implements Binder {
         return Collections.singletonList(domainObject);
     }
 
-    @Data
-    public static class DataModel {
+    public static class DataModel extends StringInterpolatorService.Root {
+        @Getter
         private final DemoObject demoObject;
+
+        public DataModel(final DemoObject demoObject) {
+            super(demoObject);
+            this.demoObject = demoObject;
+        }
     }
 }
