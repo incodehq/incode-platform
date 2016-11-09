@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.freemarker.dom;
+package org.isisaddons.module.xdocreport.dom;
 
 public final class XDocReportModule {
     private XDocReportModule(){}
