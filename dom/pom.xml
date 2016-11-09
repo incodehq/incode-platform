@@ -21,7 +21,7 @@ language governing permissions and limitations under the License.
 
     <groupId>org.isisaddons.module.xdocreport</groupId>
     <artifactId>isis-module-xdocreport-dom</artifactId>
-    <version>1.14.0-SNAPSHOT</version>
+    <version>1.13.1</version>
 
     <packaging>jar</packaging>
 
