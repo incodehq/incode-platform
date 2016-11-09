@@ -42,13 +42,18 @@ import org.incode.module.document.fixture.app.binders.BinderOfSiRootForDemoObjec
 import org.incode.module.document.fixture.app.binders.BinderOfXDocReportModelForDemoObject;
 import org.incode.module.document.fixture.dom.demo.DemoObject;
 
-public class DocumentTypeAndTemplatesFixture extends DocumentTemplateFSAbstract {
+import lombok.Getter;
+
+public class DocumentTypeAndTemplatesApplicableForDemoObjectFixture extends DocumentTemplateFSAbstract {
 
     // applicable to DemoObject.class
     public static final String DOC_TYPE_REF_FREEMARKER_HTML = "FREEMARKER_HTML";
     public static final String DOC_TYPE_REF_STRINGINTERPOLATOR_URL = "STRINGINTERPOLATOR_URL";
     public static final String DOC_TYPE_REF_XDOCREPORT_DOC = "XDOCREPORT-DOC";
     public static final String DOC_TYPE_REF_XDOCREPORT_PDF = "XDOCREPORT-PDF";
+
+    @Getter
+    DocumentTemplate fmkTemplate;
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
@@ -75,7 +80,7 @@ public class DocumentTypeAndTemplatesFixture extends DocumentTemplateFSAbstract 
 
         final Clob clob = new Clob(docTypeForFreemarkerHtml.getName(), "text/html",
                 loadResource("FreemarkerHtmlCoverNote.html"));
-        final DocumentTemplate fmkTemplate = upsertDocumentClobTemplate(
+        fmkTemplate = upsertDocumentClobTemplate(
                 docTypeForFreemarkerHtml, now, atPath,
                 ".html",
                 false,
@@ -159,7 +164,7 @@ public class DocumentTypeAndTemplatesFixture extends DocumentTemplateFSAbstract 
 
     private static String loadResource(final String resourceName) {
         final URL templateUrl = Resources
-                .getResource(DocumentTypeAndTemplatesFixture.class, resourceName);
+                .getResource(DocumentTypeAndTemplatesApplicableForDemoObjectFixture.class, resourceName);
         try {
             return Resources.toString(templateUrl, Charsets.UTF_8);
         } catch (IOException e) {
@@ -168,7 +173,7 @@ public class DocumentTypeAndTemplatesFixture extends DocumentTemplateFSAbstract 
     }
     private static byte[] loadResourceBytes(final String resourceName) {
         final URL templateUrl = Resources
-                .getResource(DocumentTypeAndTemplatesFixture.class, resourceName);
+                .getResource(DocumentTypeAndTemplatesApplicableForDemoObjectFixture.class, resourceName);
         try {
             return Resources.toByteArray(templateUrl);
         } catch (IOException e) {

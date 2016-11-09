@@ -21,7 +21,8 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecification;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationProvider;
-import org.incode.module.document.fixture.scripts.scenarios.DocumentDemoObjectsFixture;
+
+import org.incode.module.document.fixture.scripts.scenarios.DocumentDemoAppDemoFixture;
 
 /**
  * Specifies where to find fixtures, and other settings.
@@ -34,9 +35,9 @@ public class DocumentDemoObjectsFixturesSpecificationProvider implements Fixture
         return FixtureScriptsSpecification
                 .builder(DocumentDemoObjectsFixturesSpecificationProvider.class)
                 .with(FixtureScripts.MultipleExecutionStrategy.EXECUTE)
-                .withRunScriptDefault(DocumentDemoObjectsFixture.class)
+                .withRunScriptDefault(DocumentDemoAppDemoFixture.class)
                 .withRunScriptDropDown(FixtureScriptsSpecification.DropDownPolicy.CHOICES)
-                .withRecreate(DocumentDemoObjectsFixture.class)
+                .withRecreate(DocumentDemoAppDemoFixture.class)
                 .build();
     }
 }

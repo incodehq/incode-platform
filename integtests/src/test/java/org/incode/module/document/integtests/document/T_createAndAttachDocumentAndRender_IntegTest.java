@@ -27,42 +27,54 @@ import com.google.common.collect.Sets;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.apache.isis.applib.services.wrapper.HiddenException;
+
 import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.DocumentAbstract;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 import org.incode.module.document.dom.impl.paperclips.Paperclip;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
 import org.incode.module.document.fixture.dom.demo.DemoObject;
-import org.incode.module.document.fixture.dom.demo.DemoObjectMenu;
-import org.incode.module.document.fixture.scripts.scenarios.DocumentDemoObjectsFixture;
+import org.incode.module.document.fixture.dom.other.OtherObject;
+import org.incode.module.document.fixture.scripts.data.DemoObjectsFixture;
+import org.incode.module.document.fixture.scripts.data.OtherObjectsFixture;
+import org.incode.module.document.fixture.scripts.teardown.DocumentDemoAppTearDownFixture;
+import org.incode.module.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
 import org.incode.module.document.integtests.DocumentModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class T_createAndAttachDocumentAndRender_IntegTest extends DocumentModuleIntegTest {
 
-    @Inject
-    DemoObjectMenu demoObjectMenu;
-
     DemoObject demoObject;
+    OtherObject otherObject;
+
+    DocumentTypeAndTemplatesApplicableForDemoObjectFixture templateFixture;
 
     @Before
     public void setUpData() throws Exception {
-        final DocumentDemoObjectsFixture fs = new DocumentDemoObjectsFixture();
-        fixtureScripts.runFixtureScript(fs, null);
+        fixtureScripts.runFixtureScript(new DocumentDemoAppTearDownFixture(), null);
+        templateFixture = new DocumentTypeAndTemplatesApplicableForDemoObjectFixture();
+        fixtureScripts.runFixtureScript(templateFixture, null);
 
-        demoObject = fs.getDemoObjects().get(0);
+        final DemoObjectsFixture demoObjectsFixture = new DemoObjectsFixture();
+        fixtureScripts.runFixtureScript(demoObjectsFixture, null);
+
+        demoObject = demoObjectsFixture.getDemoObjects().get(0);
+
+        final OtherObjectsFixture otherObjectsFixture = new OtherObjectsFixture();
+        fixtureScripts.runFixtureScript(otherObjectsFixture, null);
+
+        otherObject = otherObjectsFixture.getOtherObjects().get(0);
     }
 
-    public static class ActionImplementationIntegTest extends T_createAndAttachDocumentAndRender_IntegTest {
-
-        @Before
-        public void setUp() throws Exception {
-            assertThat(wrap(_documents(demoObject)).$$()).isEmpty();
-        }
+    public static class ActionImplementation_IntegTest extends T_createAndAttachDocumentAndRender_IntegTest {
 
         @Test
         public void can_create_document() throws Exception {
+
+            // given
+            assertThat(wrap(_documents(demoObject)).$$()).isEmpty();
 
             // when
             final List<DocumentTemplate> templates = _createAndAttachDocumentAndRender(demoObject).choices0$$();
@@ -81,6 +93,12 @@ public class T_createAndAttachDocumentAndRender_IntegTest extends DocumentModule
                 Document document = (Document) documentAsObj;
                 documents.add(document);
 
+            }
+
+
+            // for each
+            for (Document document : documents) {
+
                 // when
                 final List<Paperclip> paperclips = paperclipRepository.findByDocument(document);
 
@@ -96,28 +114,50 @@ public class T_createAndAttachDocumentAndRender_IntegTest extends DocumentModule
                 }
             }
 
+            // then
+            assertThat(wrap(_documents(demoObject)).$$()).hasSize(4);
+
             // when
             final List<Paperclip> paperclips = paperclipRepository.findByAttachedTo(demoObject);
             assertThat(paperclips).hasSize(4);
 
-            final Set<Document> attachedDocuments = paperclips.stream().map(x -> (Document) x.getDocument())
-                    .collect(Collectors.toSet());
+            final Set<Document> attachedDocuments = paperclips.stream().map(x -> (Document) x.getDocument()).collect(Collectors.toSet());
 
             // then
             assertContainSame(documents, attachedDocuments);
         }
 
-        public void assertContainSame(final Set<Document> docSet1, final Set<Document> docSet2) {
+        private void assertContainSame(final Set<Document> docSet1, final Set<Document> docSet2) {
             assertThat(docSet1).contains(docSet2.toArray(new Document[] {}));
             assertThat(docSet2).contains(docSet1.toArray(new Document[]{}));
         }
 
-        @Inject
-        PaperclipRepository paperclipRepository;
+    }
 
+    public static class Hidden_IntegTest extends T_createAndAttachDocumentAndRender_IntegTest {
+
+        @Test
+        public void if_no_applicable_templates() throws Exception {
+
+            // when
+            final List<DocumentTemplate> templates = _createAndAttachDocumentAndRender(otherObject).choices0$$();
+
+            // then
+            assertThat(templates).isEmpty();
+
+            // expect
+            expectedExceptions.expect(HiddenException.class);
+
+            // when
+            final DocumentTemplate anyTemplate = templateFixture.getFmkTemplate();
+            wrap(_createAndAttachDocumentAndRender(otherObject)).$$(anyTemplate);
+        }
 
 
     }
 
+
+    @Inject
+    PaperclipRepository paperclipRepository;
 
 }

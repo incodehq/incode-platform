@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.document.fixture.dom.demo;
+package org.incode.module.document.fixture.dom.other;
 
 import java.util.List;
 
@@ -29,15 +29,17 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
+import org.incode.module.document.fixture.dom.demo.DemoObject;
+
 @DomainService(
         nature = NatureOfService.VIEW,
         repositoryFor = DemoObject.class
 )
 @DomainServiceLayout(
-        named = "Demo Objects",
-        menuOrder = "10"
+        named = "Other Objects",
+        menuOrder = "11"
 )
-public class DemoObjectMenu {
+public class OtherObjectMenu {
 
 
     //region > listAll (action)
@@ -49,19 +51,19 @@ public class DemoObjectMenu {
             bookmarking = BookmarkPolicy.AS_ROOT
     )
     @MemberOrder(sequence = "1")
-    public List<DemoObject> listAll() {
-        return repositoryService.allInstances(DemoObject.class);
+    public List<OtherObject> listAll() {
+        return repositoryService.allInstances(OtherObject.class);
     }
 
     //endregion
 
     //region > create (action)
-
+    
     @MemberOrder(sequence = "2")
-    public DemoObject create(
+    public OtherObject create(
             @ParameterLayout(named = "Name")
             final String name) {
-        final DemoObject obj = repositoryService.instantiate(DemoObject.class);
+        final OtherObject obj = repositoryService.instantiate(OtherObject.class);
         obj.setName(name);
         repositoryService.persist(obj);
         return obj;

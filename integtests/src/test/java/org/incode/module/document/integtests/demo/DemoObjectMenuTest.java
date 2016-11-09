@@ -26,7 +26,9 @@ import org.junit.Test;
 
 import org.incode.module.document.fixture.dom.demo.DemoObject;
 import org.incode.module.document.fixture.dom.demo.DemoObjectMenu;
-import org.incode.module.document.fixture.scripts.scenarios.DocumentDemoObjectsFixture;
+import org.incode.module.document.fixture.scripts.data.DemoObjectsFixture;
+import org.incode.module.document.fixture.scripts.teardown.DocumentDemoAppTearDownFixture;
+import org.incode.module.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
 import org.incode.module.document.integtests.DocumentModuleIntegTest;
 
 public class DemoObjectMenuTest extends DocumentModuleIntegTest {
@@ -38,7 +40,9 @@ public class DemoObjectMenuTest extends DocumentModuleIntegTest {
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new DocumentDemoObjectsFixture().setNumber(NUMBER), null);
+        fixtureScripts.runFixtureScript(new DocumentDemoAppTearDownFixture(), null);
+        fixtureScripts.runFixtureScript(new DocumentTypeAndTemplatesApplicableForDemoObjectFixture(), null);
+        fixtureScripts.runFixtureScript(new DemoObjectsFixture().setNumber(NUMBER), null);
     }
 
     @Test

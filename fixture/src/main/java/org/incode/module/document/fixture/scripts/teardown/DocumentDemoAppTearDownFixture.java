@@ -19,7 +19,7 @@ package org.incode.module.document.fixture.scripts.teardown;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-public class DocumentDemoObjectsTearDownFixture extends FixtureScript {
+public class DocumentDemoAppTearDownFixture extends FixtureScript {
 
     @Override
     protected void execute(final ExecutionContext executionContext) {

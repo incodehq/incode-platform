@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.document.fixture.scripts.scenarios;
+package org.incode.module.document.fixture.scripts.data;
 
 import java.util.List;
 
@@ -24,34 +24,32 @@ import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.module.document.fixture.dom.demo.DemoObject;
-import org.incode.module.document.fixture.dom.demo.DemoObjectMenu;
-import org.incode.module.document.fixture.scripts.teardown.DocumentDemoObjectsTearDownFixture;
-import org.incode.module.document.fixture.seed.DocumentTypeAndTemplatesFixture;
+import org.incode.module.document.fixture.dom.other.OtherObject;
+import org.incode.module.document.fixture.dom.other.OtherObjectMenu;
 
 import lombok.Getter;
 
-public class DocumentDemoObjectsFixture extends DiscoverableFixtureScript {
+public class OtherObjectsFixture extends DiscoverableFixtureScript {
 
     @javax.inject.Inject
-    DemoObjectMenu demoObjectMenu;
+    OtherObjectMenu otherObjectMenu;
 
     @javax.inject.Inject
     FakeDataService fakeDataService;
 
     @Getter
     private Integer number ;
-    public DocumentDemoObjectsFixture setNumber(final Integer number) {
+    public OtherObjectsFixture setNumber(final Integer number) {
         this.number = number;
         return this;
     }
 
     @Getter
-    private List<DemoObject> demoObjects = Lists.newArrayList();
+    private List<OtherObject> otherObjects = Lists.newArrayList();
 
 
     //region > constructor
-    public DocumentDemoObjectsFixture() {
+    public OtherObjectsFixture() {
         withDiscoverability(Discoverability.DISCOVERABLE);
     }
     //endregion
@@ -62,26 +60,21 @@ public class DocumentDemoObjectsFixture extends DiscoverableFixtureScript {
         defaultParam("number", ec, 3);
         if(getNumber() < 1 || getNumber() > 5) {
             // there are 5 sample PDFs
-            throw new IllegalArgumentException("number of demo objects to create must be within [1,5]");
+            throw new IllegalArgumentException("number of other objects to create must be within [1,5]");
         }
 
-        ec.executeChild(this, new DocumentDemoObjectsTearDownFixture());
-        ec.executeChild(this, new DocumentTypeAndTemplatesFixture());
-
         for (int i = 0; i < getNumber(); i++) {
-            final DemoObject demoObject = create(i, ec);
-            getDemoObjects().add(demoObject);
+            final OtherObject otherObject = create(ec);
+            getOtherObjects().add(otherObject);
         }
     }
 
-    private DemoObject create(final int n, final ExecutionContext ec) {
+    private OtherObject create(final ExecutionContext ec) {
         final String name = fakeDataService.name().firstName();
-        final String url = "http://www.pdfpdf.com/samples/Sample" + (n+1) + ".PDF";
 
-        final DemoObject demoObject = wrap(demoObjectMenu).create(name);
-        wrap(demoObject).setUrl(url);
+        final OtherObject otherObject = wrap(otherObjectMenu).create(name);
 
-        return ec.addResult(this, demoObject);
+        return ec.addResult(this, otherObject);
     }
 
 }

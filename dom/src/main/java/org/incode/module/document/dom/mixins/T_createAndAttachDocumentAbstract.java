@@ -28,6 +28,7 @@ import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.services.i18n.TranslatableString;
 
 import org.incode.module.document.dom.impl.applicability.Binder;
 import org.incode.module.document.dom.impl.docs.Document;
@@ -79,6 +80,12 @@ public abstract class T_createAndAttachDocumentAbstract<T> {
     public boolean hide$$() {
         return choices0$$().isEmpty();
     }
+
+    /**
+     * So can be overridden...  seems to be required for integration tests (wrapper factory).
+     */
+    public TranslatableString disable$$() { return null; }
+
 
     /**
      * All templates which are applicable to the domain object's atPath, and which can be created and attached to at

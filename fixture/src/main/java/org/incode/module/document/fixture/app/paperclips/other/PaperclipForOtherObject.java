@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.document.fixture.app.paperclips;
+package org.incode.module.document.fixture.app.paperclips.other;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
@@ -36,7 +36,7 @@ import org.incode.module.document.dom.mixins.T_createAndAttachDocumentAndRender;
 import org.incode.module.document.dom.mixins.T_createAndAttachDocumentAndScheduleRender;
 import org.incode.module.document.dom.mixins.T_documents;
 import org.incode.module.document.dom.mixins.T_preview;
-import org.incode.module.document.fixture.dom.demo.DemoObject;
+import org.incode.module.document.fixture.dom.other.OtherObject;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType= IdentityType.DATASTORE,
@@ -44,24 +44,24 @@ import org.incode.module.document.fixture.dom.demo.DemoObject;
 @javax.jdo.annotations.Inheritance(
         strategy = InheritanceStrategy.NEW_TABLE)
 @DomainObject
-public class PaperclipForDemoObject extends Paperclip {
+public class PaperclipForOtherObject extends Paperclip {
 
-    //region > demoObject (property)
-    private DemoObject demoObject;
+    //region > otherObject (property)
+    private OtherObject otherObject;
 
     @Column(
             allowsNull = "false",
-            name = "demoObjectId"
+            name = "otherObjectId"
     )
     @Property(
             editing = Editing.DISABLED
     )
-    public DemoObject getDemoObject() {
-        return demoObject;
+    public OtherObject getOtherObject() {
+        return otherObject;
     }
 
-    public void setDemoObject(final DemoObject demoObject) {
-        this.demoObject = demoObject;
+    public void setOtherObject(final OtherObject otherObject) {
+        this.otherObject = otherObject;
     }
     //endregion
 
@@ -70,12 +70,12 @@ public class PaperclipForDemoObject extends Paperclip {
     @NotPersistent
     @Override
     public Object getAttachedTo() {
-        return getDemoObject();
+        return getOtherObject();
     }
 
     @Override
     protected void setAttachedTo(final Object object) {
-        setDemoObject((DemoObject) object);
+        setOtherObject((OtherObject) object);
     }
     //endregion
 
@@ -85,7 +85,7 @@ public class PaperclipForDemoObject extends Paperclip {
     @DomainService(nature = NatureOfService.DOMAIN)
     public static class SubtypeProvider extends PaperclipRepository.SubtypeProviderAbstract {
         public SubtypeProvider() {
-            super(DemoObject.class, PaperclipForDemoObject.class);
+            super(OtherObject.class, PaperclipForOtherObject.class);
         }
     }
     //endregion
@@ -93,30 +93,30 @@ public class PaperclipForDemoObject extends Paperclip {
     //region > mixins
 
     @Mixin
-    public static class _preview extends T_preview<DemoObject> {
-        public _preview(final DemoObject demoObject) {
-            super(demoObject);
+    public static class _preview extends T_preview<OtherObject> {
+        public _preview(final OtherObject otherObject) {
+            super(otherObject);
         }
     }
 
     @Mixin
-    public static class _documents extends T_documents<DemoObject> {
-        public _documents(final DemoObject demoObject) {
-            super(demoObject);
+    public static class _documents extends T_documents<OtherObject> {
+        public _documents(final OtherObject otherObject) {
+            super(otherObject);
         }
     }
 
     @Mixin
-    public static class _createAndAttachDocumentAndRender extends T_createAndAttachDocumentAndRender<DemoObject> {
-        public _createAndAttachDocumentAndRender(final DemoObject demoObject) {
-            super(demoObject);
+    public static class _createAndAttachDocumentAndRender extends T_createAndAttachDocumentAndRender<OtherObject> {
+        public _createAndAttachDocumentAndRender(final OtherObject otherObject) {
+            super(otherObject);
         }
     }
 
     @Mixin
-    public static class _createAndAttachDocumentAndScheduleRender extends T_createAndAttachDocumentAndScheduleRender<DemoObject> {
-        public _createAndAttachDocumentAndScheduleRender(final DemoObject demoObject) {
-            super(demoObject);
+    public static class _createAndAttachDocumentAndScheduleRender extends T_createAndAttachDocumentAndScheduleRender<OtherObject> {
+        public _createAndAttachDocumentAndScheduleRender(final OtherObject otherObject) {
+            super(otherObject);
         }
     }
 

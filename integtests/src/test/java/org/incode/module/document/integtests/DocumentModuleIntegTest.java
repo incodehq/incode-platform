@@ -28,8 +28,6 @@ import com.google.common.collect.Lists;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.rules.ExpectedException;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract;
@@ -40,12 +38,12 @@ import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
 import org.incode.module.document.app.DocumentModuleAppManifest;
-import org.incode.module.document.fixture.app.paperclips.PaperclipForDemoObject;
+import org.incode.module.document.fixture.app.paperclips.demo.PaperclipForDemoObject;
+import org.incode.module.document.fixture.app.paperclips.other.PaperclipForOtherObject;
+import org.incode.module.document.fixture.dom.demo.DemoObject;
+import org.incode.module.document.fixture.dom.other.OtherObject;
 
 public abstract class DocumentModuleIntegTest extends IntegrationTestAbstract {
-
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
 
     @Inject
     protected FixtureScripts fixtureScripts;
@@ -53,9 +51,20 @@ public abstract class DocumentModuleIntegTest extends IntegrationTestAbstract {
     @Inject
     protected FakeDataService fakeDataService;
 
+    protected PaperclipForDemoObject._preview _preview(final Object domainObject) {
+        return mixin(PaperclipForDemoObject._preview.class, domainObject);
+    }
 
-    protected PaperclipForDemoObject._createAndAttachDocumentAndRender _createAndAttachDocumentAndRender(final Object domainObject) {
-        return mixin(PaperclipForDemoObject._createAndAttachDocumentAndRender.class, domainObject);
+    protected PaperclipForDemoObject._createAndAttachDocumentAndRender _createAndAttachDocumentAndRender(final DemoObject demoObject) {
+        return mixin(PaperclipForDemoObject._createAndAttachDocumentAndRender.class, demoObject);
+    }
+
+    protected PaperclipForOtherObject._createAndAttachDocumentAndRender _createAndAttachDocumentAndRender(final OtherObject otherObject) {
+        return mixin(PaperclipForOtherObject._createAndAttachDocumentAndRender.class, otherObject);
+    }
+
+    protected PaperclipForDemoObject._createAndAttachDocumentAndScheduleRender _createAndAttachDocumentAndScheduleRender(final Object domainObject) {
+        return mixin(PaperclipForDemoObject._createAndAttachDocumentAndScheduleRender.class, domainObject);
     }
 
     protected PaperclipForDemoObject._documents _documents(final Object domainObject) {

@@ -40,6 +40,7 @@ public abstract class T_createAndAttachDocumentAndScheduleRender<T> extends T_cr
         return template.createAndScheduleRender(domainObject, additionalTextIfAny);
     }
 
+    @Override
     public TranslatableString disable$$() {
         return backgroundCommandService == null
                 ? TranslatableString.tr("Application is not configured to support background rendering")
