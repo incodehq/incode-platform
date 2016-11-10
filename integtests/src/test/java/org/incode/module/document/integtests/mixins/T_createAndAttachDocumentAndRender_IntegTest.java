@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.document.integtests.document;
+package org.incode.module.document.integtests.mixins;
 
 import java.util.List;
 import java.util.Set;
@@ -53,19 +53,24 @@ public class T_createAndAttachDocumentAndRender_IntegTest extends DocumentModule
 
     @Before
     public void setUpData() throws Exception {
+
         fixtureScripts.runFixtureScript(new DocumentDemoAppTearDownFixture(), null);
+
+        // types + templates
         templateFixture = new DocumentTypeAndTemplatesApplicableForDemoObjectFixture();
         fixtureScripts.runFixtureScript(templateFixture, null);
 
+        // demo objects
         final DemoObjectsFixture demoObjectsFixture = new DemoObjectsFixture();
         fixtureScripts.runFixtureScript(demoObjectsFixture, null);
-
         demoObject = demoObjectsFixture.getDemoObjects().get(0);
 
+        // other objects
         final OtherObjectsFixture otherObjectsFixture = new OtherObjectsFixture();
         fixtureScripts.runFixtureScript(otherObjectsFixture, null);
-
         otherObject = otherObjectsFixture.getOtherObjects().get(0);
+
+        transactionService.flushTransaction();
     }
 
     public static class ActionImplementation_IntegTest extends T_createAndAttachDocumentAndRender_IntegTest {
@@ -103,15 +108,32 @@ public class T_createAndAttachDocumentAndRender_IntegTest extends DocumentModule
                 final List<Paperclip> paperclips = paperclipRepository.findByDocument(document);
 
                 // then
-                assertThat(paperclips).hasSize(1);
-                for (Paperclip paperclip : paperclips) {
 
-                    final DocumentAbstract paperclipDocument = paperclip.getDocument();
+                // (depends on the binder of the template as to how many associated)
+                if (document.getType().getReference().equals("XDOCREPORT-DOC")) {
+                    assertThat(paperclips).hasSize(2);
+
+                    for (Paperclip paperclip : paperclips) {
+                        final DocumentAbstract paperclipDocument = paperclip.getDocument();
+                        assertThat(paperclipDocument).isSameAs(document);
+                    }
+
+                    final Object paperclipAttachedTo = paperclips.get(0).getAttachedTo();
+                    assertThat(paperclipAttachedTo).isSameAs(demoObject);
+
+                    final Object paperclipAttachedTo2 = paperclips.get(1).getAttachedTo();
+                    assertThat(paperclipAttachedTo2).isSameAs(otherObject);
+                }
+                else {
+                    assertThat(paperclips).hasSize(1);
+
+                    final DocumentAbstract paperclipDocument = paperclips.get(0).getDocument();
                     assertThat(paperclipDocument).isSameAs(document);
 
-                    final Object paperclipAttachedTo = paperclip.getAttachedTo();
+                    final Object paperclipAttachedTo = paperclips.get(0).getAttachedTo();
                     assertThat(paperclipAttachedTo).isSameAs(demoObject);
                 }
+
             }
 
             // then

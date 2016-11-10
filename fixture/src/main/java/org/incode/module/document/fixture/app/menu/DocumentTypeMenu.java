@@ -34,9 +34,9 @@ import org.incode.module.document.dom.impl.types.DocumentTypeRepository;
 
 @DomainService(nature = NatureOfService.VIEW_MENU_ONLY)
 @DomainServiceLayout(
-        named = "Documents",
+        named = "Document Types",
         menuBar = DomainServiceLayout.MenuBar.PRIMARY,
-        menuOrder = "77.2")
+        menuOrder = "900")
 public class DocumentTypeMenu {
 
     @Action(semantics = SemanticsOf.SAFE)

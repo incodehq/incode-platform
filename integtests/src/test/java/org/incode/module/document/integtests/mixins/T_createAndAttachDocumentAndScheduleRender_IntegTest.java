@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.document.integtests.document;
+package org.incode.module.document.integtests.mixins;
 
 import javax.inject.Inject;
 
@@ -47,13 +47,17 @@ public class T_createAndAttachDocumentAndScheduleRender_IntegTest extends Docume
     @Before
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new DocumentDemoAppTearDownFixture(), null);
+
+        // types + templates
         templateFs = new DocumentTypeAndTemplatesApplicableForDemoObjectFixture();
         fixtureScripts.runFixtureScript(templateFs, null);
 
+        // demo objects
         final DemoObjectsFixture demoObjectsFixture = new DemoObjectsFixture();
         fixtureScripts.runFixtureScript(demoObjectsFixture, null);
-
         demoObject = demoObjectsFixture.getDemoObjects().get(0);
+
+        transactionService.flushTransaction();
     }
 
 

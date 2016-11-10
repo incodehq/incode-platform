@@ -693,7 +693,7 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
 
     //region > createAndScheduleRendering (programmatic)
     @Programmatic
-    public DocumentAbstract createAndScheduleRender(
+    public Document createAndScheduleRender(
             final Object domainObject,
             final String additionalTextIfAny) {
         final Document document = createDocumentUsingBinding(domainObject, additionalTextIfAny);
@@ -705,7 +705,7 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
 
     //region > createAndRender (programmatic)
     @Programmatic
-    public DocumentAbstract createAndRender(
+    public Document createAndRender(
             final Object domainObject,
             final String additionalTextIfAny) {
         final Document document = createDocumentUsingBinding(domainObject, additionalTextIfAny);

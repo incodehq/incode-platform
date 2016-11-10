@@ -25,12 +25,6 @@ import org.incode.module.document.fixture.seed.DocumentTypeAndTemplatesApplicabl
 
 public class DocumentDemoAppDemoFixture extends DiscoverableFixtureScript {
 
-    //region > constructor
-    public DocumentDemoAppDemoFixture() {
-        withDiscoverability(Discoverability.DISCOVERABLE);
-    }
-    //endregion
-
     @Override
     protected void execute(final ExecutionContext ec) {
 

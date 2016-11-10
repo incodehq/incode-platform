@@ -28,6 +28,7 @@ import com.google.common.collect.Maps;
 import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.freemarker.dom.FreeMarkerModule;
 import org.isisaddons.module.stringinterpolator.StringInterpolatorModule;
 import org.isisaddons.module.xdocreport.dom.XDocReportModule;
@@ -50,6 +51,8 @@ public class DocumentModuleAppManifest implements AppManifest {
                 DocumentModule.class, // dom module
                 DocumentFixtureModule.class,
                 DocumentAppModule.class,
+
+                FakeDataModule.class,
 
                 FreemarkerDocRenderingModule.class,
                 FreeMarkerModule.class,

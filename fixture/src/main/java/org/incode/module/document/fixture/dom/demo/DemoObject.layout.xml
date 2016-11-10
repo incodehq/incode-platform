@@ -13,7 +13,9 @@
                         <bs3:col span="12">
                             <cpt:fieldSet name="General" id="general" unreferencedProperties="true">
                                 <cpt:property id="name"/>
-                                <cpt:property id="url"/>
+                                <cpt:property id="url">
+                                    <cpt:named>URL (as used by string interpolator template)</cpt:named>
+                                </cpt:property>
                             </cpt:fieldSet>
                         </bs3:col>
                     </bs3:row>

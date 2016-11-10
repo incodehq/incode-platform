@@ -20,7 +20,9 @@ package org.incode.module.document.dom.mixins;
 
 import java.io.IOException;
 
-import org.incode.module.document.dom.impl.docs.DocumentAbstract;
+import org.apache.isis.applib.annotation.MemberOrder;
+
+import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 
 public abstract class T_createAndAttachDocumentAndRender<T> extends T_createAndAttachDocumentAbstract<T> {
@@ -29,8 +31,14 @@ public abstract class T_createAndAttachDocumentAndRender<T> extends T_createAndA
         super(domainObject);
     }
 
+    @MemberOrder(name = "documents", sequence = "2.1")
     @Override
-    protected DocumentAbstract doCreate(
+    public Document $$(final DocumentTemplate template) throws IOException {
+        return super.$$(template);
+    }
+
+    @Override
+    protected Document doCreate(
             final DocumentTemplate template,
             final boolean shouldPersist,
             final String additionalTextIfAny) {

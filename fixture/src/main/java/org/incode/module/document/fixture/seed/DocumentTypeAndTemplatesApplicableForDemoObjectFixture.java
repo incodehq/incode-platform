@@ -40,6 +40,7 @@ import org.incode.module.document.fixture.DocumentTemplateFSAbstract;
 import org.incode.module.document.fixture.app.binders.BinderOfDataModelForDemoObject;
 import org.incode.module.document.fixture.app.binders.BinderOfSiRootForDemoObject;
 import org.incode.module.document.fixture.app.binders.BinderOfXDocReportModelForDemoObject;
+import org.incode.module.document.fixture.app.binders.BinderOfXDocReportModelForDemoObjectAlsoOtherObject;
 import org.incode.module.document.fixture.dom.demo.DemoObject;
 
 import lombok.Getter;
@@ -54,6 +55,15 @@ public class DocumentTypeAndTemplatesApplicableForDemoObjectFixture extends Docu
 
     @Getter
     DocumentTemplate fmkTemplate;
+
+    @Getter
+    DocumentTemplate siTemplate;
+
+    @Getter
+    DocumentTemplate xdpTemplate;
+
+    @Getter
+    DocumentTemplate xddTemplate;
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
@@ -101,16 +111,15 @@ public class DocumentTypeAndTemplatesApplicableForDemoObjectFixture extends Docu
         final DocumentType docTypeForStringInterpolatorUrl =
                 upsertType(DOC_TYPE_REF_STRINGINTERPOLATOR_URL, "Demo String Interpolator to retrieve URL", executionContext);
 
-        final DocumentTemplate siTemplate =
-                upsertDocumentTextTemplate(
-                        docTypeForStringInterpolatorUrl, now, atPath,
-                        ".pdf",
-                        false,
-                        docTypeForStringInterpolatorUrl.getName(),
-                        "application/pdf",
-                        "${demoObject.url}", sipcRenderingStrategy,
-                        "pdf-of-url-held-in-${demoObject.name}", siRenderingStrategy,
-                        executionContext);
+        siTemplate = upsertDocumentTextTemplate(
+                docTypeForStringInterpolatorUrl, now, atPath,
+                ".pdf",
+                false,
+                docTypeForStringInterpolatorUrl.getName(),
+                "application/pdf",
+                "${demoObject.url}", sipcRenderingStrategy,
+                "pdf-of-url-held-in-${demoObject.name}", siRenderingStrategy,
+                executionContext);
         // this binder must provide a DataModel for StringInterpolator strategies
         siTemplate.applicable(DemoObject.class, BinderOfSiRootForDemoObject.class);
 
@@ -122,18 +131,17 @@ public class DocumentTypeAndTemplatesApplicableForDemoObjectFixture extends Docu
         final DocumentType docTypeForXDocReportPdf =
                 upsertType(DOC_TYPE_REF_XDOCREPORT_PDF, "Demo XDocReport for PDF", executionContext);
 
-        final DocumentTemplate xdpTemplate =
-                upsertDocumentBlobTemplate(
-                        docTypeForXDocReportPdf, now, atPath,
-                        ".pdf",
-                        false,
-                        new Blob(
-                                docTypeForXDocReportPdf.getName(),
-                                "application/pdf",
-                                loadResourceBytes("demoObject-template.docx")
-                        ), xdpRenderingStrategy,
-                        "${demoObject.name}", fmkRenderingStrategy,
-                        executionContext);
+        xdpTemplate = upsertDocumentBlobTemplate(
+                docTypeForXDocReportPdf, now, atPath,
+                ".pdf",
+                false,
+                new Blob(
+                        docTypeForXDocReportPdf.getName(),
+                        "application/pdf",
+                        loadResourceBytes("demoObject-template.docx")
+                ), xdpRenderingStrategy,
+                "${demoObject.name}", fmkRenderingStrategy,
+                executionContext);
         // this binder must provide a DataModel compatible with both XDocReport and FreeMarker
         xdpTemplate.applicable(DemoObject.class, BinderOfXDocReportModelForDemoObject.class);
 
@@ -145,20 +153,19 @@ public class DocumentTypeAndTemplatesApplicableForDemoObjectFixture extends Docu
         final DocumentType docTypeForXDocReportDocx =
                 upsertType(DOC_TYPE_REF_XDOCREPORT_DOC, "Demo XDocReport for DOCX", executionContext);
 
-        final DocumentTemplate xddTemplate =
-                upsertDocumentBlobTemplate(
-                        docTypeForXDocReportDocx, now, atPath,
-                        ".docx",
-                        false,
-                        new Blob(
-                                docTypeForXDocReportDocx.getName(),
-                                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                                loadResourceBytes("demoObject-template.docx")
-                        ), xddRenderingStrategy,
-                        "${demoObject.name}", fmkRenderingStrategy,
-                        executionContext);
+        xddTemplate = upsertDocumentBlobTemplate(
+                docTypeForXDocReportDocx, now, atPath,
+                ".docx",
+                false,
+                new Blob(
+                        docTypeForXDocReportDocx.getName(),
+                        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                        loadResourceBytes("demoObject-template.docx")
+                ), xddRenderingStrategy,
+                "${demoObject.name}", fmkRenderingStrategy,
+                executionContext);
         // this binder must provide a DataModel compatible with both XDocReport and FreeMarker
-        xddTemplate.applicable(DemoObject.class, BinderOfXDocReportModelForDemoObject.class);
+        xddTemplate.applicable(DemoObject.class, BinderOfXDocReportModelForDemoObjectAlsoOtherObject.class);
 
     }
 

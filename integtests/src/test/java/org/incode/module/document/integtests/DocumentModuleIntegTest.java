@@ -30,6 +30,7 @@ import org.hamcrest.TypeSafeMatcher;
 import org.junit.BeforeClass;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
+import org.apache.isis.applib.services.xactn.TransactionService;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
 import org.apache.isis.core.integtestsupport.scenarios.ScenarioExecutionForIntegration;
@@ -38,6 +39,8 @@ import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
 import org.incode.module.document.app.DocumentModuleAppManifest;
+import org.incode.module.document.dom.impl.docs.Document;
+import org.incode.module.document.dom.impl.docs.Document_delete;
 import org.incode.module.document.fixture.app.paperclips.demo.PaperclipForDemoObject;
 import org.incode.module.document.fixture.app.paperclips.other.PaperclipForOtherObject;
 import org.incode.module.document.fixture.dom.demo.DemoObject;
@@ -48,10 +51,21 @@ public abstract class DocumentModuleIntegTest extends IntegrationTestAbstract {
     @Inject
     protected FixtureScripts fixtureScripts;
 
+    @Inject protected
+    TransactionService transactionService;
+
     @Inject
     protected FakeDataService fakeDataService;
 
-    protected PaperclipForDemoObject._preview _preview(final Object domainObject) {
+    protected Document_delete _delete(final Document document) {
+        return mixin(Document_delete.class, document);
+    }
+
+    protected PaperclipForDemoObject._preview _preview(final DemoObject domainObject) {
+        return mixin(PaperclipForDemoObject._preview.class, domainObject);
+    }
+
+    protected PaperclipForDemoObject._preview _preview(final OtherObject domainObject) {
         return mixin(PaperclipForDemoObject._preview.class, domainObject);
     }
 
@@ -63,12 +77,20 @@ public abstract class DocumentModuleIntegTest extends IntegrationTestAbstract {
         return mixin(PaperclipForOtherObject._createAndAttachDocumentAndRender.class, otherObject);
     }
 
-    protected PaperclipForDemoObject._createAndAttachDocumentAndScheduleRender _createAndAttachDocumentAndScheduleRender(final Object domainObject) {
+    protected PaperclipForDemoObject._createAndAttachDocumentAndScheduleRender _createAndAttachDocumentAndScheduleRender(final DemoObject domainObject) {
         return mixin(PaperclipForDemoObject._createAndAttachDocumentAndScheduleRender.class, domainObject);
     }
 
-    protected PaperclipForDemoObject._documents _documents(final Object domainObject) {
+    protected PaperclipForOtherObject._createAndAttachDocumentAndScheduleRender _createAndAttachDocumentAndScheduleRender(final OtherObject domainObject) {
+        return mixin(PaperclipForOtherObject._createAndAttachDocumentAndScheduleRender.class, domainObject);
+    }
+
+    protected PaperclipForDemoObject._documents _documents(final DemoObject domainObject) {
         return mixin(PaperclipForDemoObject._documents.class, domainObject);
+    }
+
+    protected PaperclipForOtherObject._documents _documents(final OtherObject domainObject) {
+        return mixin(PaperclipForOtherObject._documents.class, domainObject);
     }
 
     protected static <T> List<T> asList(final Iterable<T> iterable) {

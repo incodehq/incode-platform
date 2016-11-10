@@ -25,6 +25,8 @@ public class DocumentDemoAppTearDownFixture extends FixtureScript {
     protected void execute(final ExecutionContext executionContext) {
         isisJdoSupport.executeUpdate("delete from \"incodeDocumentDemo\".\"PaperclipForDemoObject\"");
         isisJdoSupport.executeUpdate("delete from \"incodeDocumentDemo\".\"DemoObject\"");
+        isisJdoSupport.executeUpdate("delete from \"incodeDocumentDemo\".\"PaperclipForOtherObject\"");
+        isisJdoSupport.executeUpdate("delete from \"incodeDocumentDemo\".\"OtherObject\"");
 
         isisJdoSupport.executeUpdate("delete from \"incodeDocuments\".\"Paperclip\"");
         isisJdoSupport.executeUpdate("delete from \"incodeDocuments\".\"Applicability\"");

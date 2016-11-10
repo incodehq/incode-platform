@@ -32,7 +32,6 @@ import org.apache.isis.applib.services.i18n.TranslatableString;
 
 import org.incode.module.document.dom.impl.applicability.Binder;
 import org.incode.module.document.dom.impl.docs.Document;
-import org.incode.module.document.dom.impl.docs.DocumentAbstract;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 import org.incode.module.document.dom.impl.paperclips.Paperclip;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
@@ -58,7 +57,7 @@ public abstract class T_createAndAttachDocumentAbstract<T> {
     @Action(semantics = SemanticsOf.NON_IDEMPOTENT)
     @ActionLayout(contributed = Contributed.AS_ACTION)
     @MemberOrder(name = "documents", sequence = "2")
-    public Object $$(final DocumentTemplate template) throws IOException {
+    public Document $$(final DocumentTemplate template) throws IOException {
         final String roleName = null;
         final String additionalTextIfAny = null;
 
@@ -66,7 +65,7 @@ public abstract class T_createAndAttachDocumentAbstract<T> {
         final List<Object> attachTo = binding.getAttachTo();
         final boolean shouldPersist = !attachTo.isEmpty();
 
-        final DocumentAbstract doc = doCreate(template, shouldPersist, additionalTextIfAny);
+        final Document doc = doCreate(template, shouldPersist, additionalTextIfAny);
 
         for (Object o : attachTo) {
             if(paperclipRepository.canAttach(o)) {
@@ -99,7 +98,7 @@ public abstract class T_createAndAttachDocumentAbstract<T> {
     /**
      * Mandatory hook method
      */
-    protected abstract DocumentAbstract doCreate(
+    protected abstract Document doCreate(
             final DocumentTemplate template,
             final boolean shouldPersist,
             final String additionalTextIfAny);

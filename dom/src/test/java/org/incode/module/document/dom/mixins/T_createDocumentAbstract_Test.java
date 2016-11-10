@@ -24,7 +24,7 @@ import org.junit.Test;
 
 import org.apache.isis.core.unittestsupport.jmocking.JUnitRuleMockery2;
 
-import org.incode.module.document.dom.impl.docs.DocumentAbstract;
+import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 
 public class T_createDocumentAbstract_Test {
@@ -38,7 +38,7 @@ public class T_createDocumentAbstract_Test {
     private SomeDomainObject mockSomeDomainObject;
 
     @Mock
-    private DocumentAbstract mockDocumentAbstract;
+    private Document mockDocument;
 
     T_createAndAttachDocumentAbstract mixin;
 
@@ -47,9 +47,9 @@ public class T_createDocumentAbstract_Test {
         // when
         mixin = new T_createAndAttachDocumentAbstract(mockSomeDomainObject) {
             @Override
-            protected DocumentAbstract doCreate(
+            protected Document doCreate(
                     final DocumentTemplate template, final boolean shouldPersist, final String additionalTextIfAny) {
-                return mockDocumentAbstract;
+                return mockDocument;
             }
         };
     }

@@ -23,7 +23,7 @@
                             <cpt:fieldSet name="Application Level">
                                 <cpt:property id="atPath" hidden="ALL_TABLES"/>
                                 <!-- assuming a mixin is present to look this up -->
-                                <cpt:property id="applicationTenancy"/>
+                                <cpt:property id="applicationTenancy" hidden="ALL_TABLES"/>
                             </cpt:fieldSet>
                         </bs3:col>
                     </bs3:row>
@@ -52,15 +52,29 @@
                     </bs3:row>
                 </bs3:tab>
             </bs3:tabGroup>
-            <cpt:fieldSet name="Details">
-                <cpt:property id="type"/>
-                <cpt:property id="state"/>
-            </cpt:fieldSet>
-            <cpt:fieldSet name="Dates">
-                <!-- can't put in tab because of ISIS-1480 -->
-                <cpt:property id="createdAt"/>
-                <cpt:property id="renderedAt"/>
-            </cpt:fieldSet>
+            <bs3:tabGroup>
+                <bs3:tab name="Details">
+                    <bs3:row>
+                        <bs3:col span="12">
+                            <cpt:fieldSet name="Details">
+                                <cpt:property id="type"/>
+                                <cpt:property id="state"/>
+                                <cpt:property id="mimeType"/>
+                            </cpt:fieldSet>
+                        </bs3:col>
+                    </bs3:row>
+                </bs3:tab>
+                <bs3:tab name="Dates">
+                    <bs3:row>
+                        <bs3:col span="12">
+                            <cpt:fieldSet name="Dates">
+                                <cpt:property id="createdAt"/>
+                                <cpt:property id="renderedAt"/>
+                            </cpt:fieldSet>
+                        </bs3:col>
+                    </bs3:row>
+                </bs3:tab>
+            </bs3:tabGroup>
         </bs3:col>
         <bs3:col span="6">
             <bs3:tabGroup>
@@ -81,9 +95,6 @@
                                     <cpt:action id="downloadExternalUrlAsClob"/>
                                     <cpt:action id="downloadExternalUrlAsBlob"/>
                                 </cpt:property>
-                            </cpt:fieldSet>
-                            <cpt:fieldSet name="Mime type">
-                                <cpt:property id="mimeType"/>
                             </cpt:fieldSet>
                         </bs3:col>
                     </bs3:row>

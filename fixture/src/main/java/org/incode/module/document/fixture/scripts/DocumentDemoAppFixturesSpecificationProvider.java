@@ -28,12 +28,12 @@ import org.incode.module.document.fixture.scripts.scenarios.DocumentDemoAppDemoF
  * Specifies where to find fixtures, and other settings.
  */
 @DomainService(nature = NatureOfService.DOMAIN)
-public class DocumentDemoObjectsFixturesSpecificationProvider implements FixtureScriptsSpecificationProvider {
+public class DocumentDemoAppFixturesSpecificationProvider implements FixtureScriptsSpecificationProvider {
 
     @Override
     public FixtureScriptsSpecification getSpecification() {
         return FixtureScriptsSpecification
-                .builder(DocumentDemoObjectsFixturesSpecificationProvider.class)
+                .builder(DocumentDemoAppFixturesSpecificationProvider.class)
                 .with(FixtureScripts.MultipleExecutionStrategy.EXECUTE)
                 .withRunScriptDefault(DocumentDemoAppDemoFixture.class)
                 .withRunScriptDropDown(FixtureScriptsSpecification.DropDownPolicy.CHOICES)

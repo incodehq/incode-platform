@@ -42,7 +42,7 @@ public class DocumentRepository {
         return "incodeDocuments.DocumentRepository";
     }
 
-    //region > create, createNoPersist
+
     @Programmatic
     public Document create(
             final DocumentType type,
@@ -54,8 +54,6 @@ public class DocumentRepository {
         repositoryService.persist(document);
         return document;
     }
-
-    //endregion
 
 
     @Programmatic
@@ -86,6 +84,10 @@ public class DocumentRepository {
     }
 
 
+    @Programmatic
+    public void delete(final Document document) {
+        repositoryService.removeAndFlush(document);
+    }
 
 
     //region > injected services
@@ -93,7 +95,7 @@ public class DocumentRepository {
     @Inject
     RepositoryService repositoryService;
     @Inject
-    private ClockService clockService;
+    ClockService clockService;
 
     //endregion
 

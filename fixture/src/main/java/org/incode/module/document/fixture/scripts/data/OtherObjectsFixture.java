@@ -20,7 +20,7 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
@@ -29,7 +29,7 @@ import org.incode.module.document.fixture.dom.other.OtherObjectMenu;
 
 import lombok.Getter;
 
-public class OtherObjectsFixture extends DiscoverableFixtureScript {
+public class OtherObjectsFixture extends FixtureScript {
 
     @javax.inject.Inject
     OtherObjectMenu otherObjectMenu;

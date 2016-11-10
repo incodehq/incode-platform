@@ -20,7 +20,7 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
@@ -30,7 +30,7 @@ import org.incode.module.document.fixture.seed.DocumentTypeAndTemplatesApplicabl
 
 import lombok.Getter;
 
-public class DemoObjectsFixture extends DiscoverableFixtureScript {
+public class DemoObjectsFixture extends FixtureScript {
 
     @javax.inject.Inject
     DemoObjectMenu demoObjectMenu;
@@ -49,13 +49,6 @@ public class DemoObjectsFixture extends DiscoverableFixtureScript {
 
     @Getter
     private List<DemoObject> demoObjects = Lists.newArrayList();
-
-
-    //region > constructor
-    public DemoObjectsFixture() {
-    }
-    //endregion
-
 
 
     @Override

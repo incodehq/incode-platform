@@ -18,12 +18,15 @@
  */
 package org.incode.module.document.dom.mixins;
 
+import java.io.IOException;
+
 import javax.inject.Inject;
 
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.services.background.BackgroundCommandService;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
-import org.incode.module.document.dom.impl.docs.DocumentAbstract;
+import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 
 public abstract class T_createAndAttachDocumentAndScheduleRender<T> extends T_createAndAttachDocumentAbstract<T> {
@@ -32,8 +35,15 @@ public abstract class T_createAndAttachDocumentAndScheduleRender<T> extends T_cr
         super(domainObject);
     }
 
+
+    @MemberOrder(name = "documents", sequence = "2.2")
     @Override
-    protected DocumentAbstract doCreate(
+    public Document $$(final DocumentTemplate template) throws IOException {
+        return super.$$(template);
+    }
+
+    @Override
+    protected Document doCreate(
             final DocumentTemplate template,
             final boolean shouldPersist,
             final String additionalTextIfAny) {
