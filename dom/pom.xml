@@ -24,7 +24,7 @@ Copyright 2012-2014 Eurocommercial Properties NV
     <packaging>jar</packaging>
     
 
-    <name>Incode Module Doc Rendering String Interpolator</name>
+    <name>Incode Module DocRendering String Interpolator</name>
     <description>
         Rendering strategy implementations that uses string interpolator, either to return text or a URL (for capture).
     </description>
