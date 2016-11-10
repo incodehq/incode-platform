@@ -170,10 +170,19 @@ public class PaperclipRepository {
     //endregion
 
 
-    //region > delete
+    //region > delete, deleteIfAttachedTo
     @Programmatic
     public void delete(final Paperclip paperclip) {
         repositoryService.remove(paperclip);
+    }
+
+
+    @Programmatic
+    public void deleteIfAttachedTo(final Object domainObject) {
+        final List<Paperclip> paperclips = findByAttachedTo(domainObject);
+        for (Paperclip paperclip : paperclips) {
+            delete(paperclip);
+        }
     }
     //endregion
 
