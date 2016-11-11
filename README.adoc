@@ -108,7 +108,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.incode.module.document</groupId>
     <artifactId>incode-module-document-dom</artifactId>
-    <version>1.13.5</version>
+    <version>1.13.6</version>
 </dependency>
 ----
 
@@ -476,7 +476,8 @@ public class EmailHeader {
 
 == Change Log
 
-* `1.13.5` - released against Isis 1.13.0.  This release is *not* backward compatible with the previous release.
+* `1.13.6` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/2[#2]
+* `1.13.5` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/1[#1], with various additional extensions to functionality.  NB: this release is *not* backward compatible with the previous release.
 * `1.13.0` - released against Isis 1.13.0
 
 

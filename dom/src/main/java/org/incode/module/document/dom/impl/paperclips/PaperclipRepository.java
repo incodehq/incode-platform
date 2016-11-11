@@ -176,13 +176,44 @@ public class PaperclipRepository {
         repositoryService.remove(paperclip);
     }
 
+    public enum Policy {
+        /**
+         * Delete the paperclips
+         */
+        PAPERCLIPS_ONLY,
+        /**
+         * Delete the paperclips, and also delete the documents if they are no longer attached to any objects
+         */
+        PAPERCLIPS_AND_DOCUMENTS_IF_ORPHANED
+    }
 
     @Programmatic
     public void deleteIfAttachedTo(final Object domainObject) {
+        deleteIfAttachedTo(domainObject, Policy.PAPERCLIPS_ONLY);
+    }
+    @Programmatic
+    public void deleteIfAttachedTo(final Object domainObject, final Policy policy) {
         final List<Paperclip> paperclips = findByAttachedTo(domainObject);
         for (Paperclip paperclip : paperclips) {
             delete(paperclip);
+            if(policy == Policy.PAPERCLIPS_AND_DOCUMENTS_IF_ORPHANED) {
+                final DocumentAbstract document = paperclip.getDocument();
+                if(orphaned(document, domainObject)) {
+                    repositoryService.remove(document);
+                }
+            }
         }
+    }
+
+    private boolean orphaned(final DocumentAbstract document, final Object attachedTo) {
+        final List<Paperclip> paperclips = findByDocument(document);
+        for (Paperclip paperclip : paperclips) {
+            if(paperclip.getAttachedTo() != attachedTo) {
+                // found a paperclip for this document attached to some other object
+                return false;
+            }
+        }
+        return true;
     }
     //endregion
 
