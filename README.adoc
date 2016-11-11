@@ -108,7 +108,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.incode.module.document</groupId>
     <artifactId>incode-module-document-dom</artifactId>
-    <version>1.13.0</version>
+    <version>1.13.5</version>
 </dependency>
 ----
 
@@ -231,6 +231,20 @@ public class Binding {
 <1> used as input to the `RenderingStrategy`.
 <2> specifies where to attach the domain object
 
+[TIP]
+====
+The `BinderAbstract<T>` adapter class can be used to implement the `Binder` interface.
+It adds the capability of verifying that the input document is of the correct type, eg:
+
+[source,java]
+----
+public class BinderForInvoice extends BinderAbstract<Invoice> {
+    public BinderForInvoice() { super(Invoice.class); }
+    ....
+}
+----
+
+====
 
 
 === Renderers
@@ -462,6 +476,7 @@ public class EmailHeader {
 
 == Change Log
 
+* `1.13.5` - released against Isis 1.13.0.  This release is *not* backward compatible with the previous release.
 * `1.13.0` - released against Isis 1.13.0
 
 
