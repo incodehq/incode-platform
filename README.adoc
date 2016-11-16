@@ -1,6 +1,6 @@
 = incode-module-document
 :_imagesdir: ./
-:toc: 
+:toc:
 
 image:https://travis-ci.org/incodehq/incode-module-document.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-document]
 
