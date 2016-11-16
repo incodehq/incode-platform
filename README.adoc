@@ -279,6 +279,31 @@ Note that a `Renderer` may produce nature of the inputs vs outputs may vary: a c
 
 
 
+=== External blob/clob storage
+
+When a `Document` is initially generated, it will contain content as either a text string, a clob or as a blob; its `#getSort()` accessor - returning the `DocumentSort` enum - specifies which.
+
+Storing blobs or clobs within a single database table can become unwieldy - backing up the database and performing other DB maintenance activities can start taking significant resources/time.
+At the same time, the `Document` entity itself is immutable; the blobs/clobs stored within never change once created.
+
+Therefore the `Document` allows for the blob/clob to be moved into an offsite storage, and then to hold the URL to access that blob/clob.
+Typically this would be performed by some background process that would:
+
+* query for all newly created ``Document``s that contain a blob or clob
+
+* copy the blob/clob to some external storage, for example an external document management system running on-premise, or perhaps an off-site Cloud storage.
+A URL would represent a key to retrieve this blob/clob whenever required
+
+* update the `Document`, updating its `externalUrl` property, and setting its blob/clob to null.
+It would also update the `Document` so that `#getSort()` accessor indicates that the storage is stored externally. +
++
+The `Document_movedToExternalUrl` mixin action captures these tasks.
+
+The above algorithm is idempotent and so resilient to potential failure.
+
+Once a ``Document``'s content has been moved to be stored externally, it can subsequently be retrieved dynamically as required using the `UrlDownloadService` SPI service.
+
+
 
 
 == How to run the Demo App
