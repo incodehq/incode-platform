@@ -715,9 +715,22 @@ public class RendererClassNameServiceForDemo extends ClassNameServiceAbstract<Re
 
 == Change Log
 
-* `1.13.10` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/3[#3], https://github.com/incodehq/incode-module-document/issues/4[#4], https://github.com/incodehq/incode-module-document/issues/5[#5], https://github.com/incodehq/incode-module-document/issues/6[#6], https://github.com/incodehq/incode-module-document/issues/7[#7], https://github.com/incodehq/incode-module-document/issues/8[#8].   NB: this release is also *not* backward compatible with the previous release.
+* `1.13.10` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/3[#3], https://github.com/incodehq/incode-module-document/issues/4[#4], https://github.com/incodehq/incode-module-document/issues/5[#5], https://github.com/incodehq/incode-module-document/issues/6[#6], https://github.com/incodehq/incode-module-document/issues/7[#7], https://github.com/incodehq/incode-module-document/issues/8[#8].  +
++
+[WARNING]
+====
+NB: this release is also *not* backward compatible with the previous release.
+====
+
 * `1.13.6` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/2[#2]
-* `1.13.5` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/1[#1], with various additional extensions to functionality.  NB: this release is *not* backward compatible with the previous release.
+
+* `1.13.5` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/1[#1], with various additional extensions to functionality.  +
++
+[WARNING]
+====
+NB: this release is also *not* backward compatible with the previous release.
+====
+
 * `1.13.0` - released against Isis 1.13.0
 
 
