@@ -6,6 +6,68 @@ image:https://travis-ci.org/incodehq/incode-module-document.png?branch=master[Bu
 This module, intended for use with link:http://isis.apache.org[Apache Isis], provides the ability to create `Document` objects to arbitrary domain objects. 
 
 
+== Screenshots
+
+
+image::http://yuml.me/0ee8631c[link="http://yuml.me/0ee8631c", width="600px"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/010-run-fixture-script.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/010-run-fixture-script.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/020-list-all-document-types.png.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/020-list-all-document-types.png.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/025-all-document-types.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/025-all-document-types.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/030-freemarker-document-type.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/030-freemarker-document-type.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/032-freemarker-template-content-tab.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/032-freemarker-template-content-tab.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/034-freemarker-template-name-tab.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/034-freemarker-template-name-tab.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/036-freemarker-template-applicability.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/036-freemarker-template-applicability.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/042-stringinterpolator-template-content-tab.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/042-stringinterpolator-template-content-tab.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/044-stringinterpolator-template-name-tab.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/044-stringinterpolator-template-name-tab.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/052-xdocreport-pdf-template-content-tab.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/052-xdocreport-pdf-template-content-tab.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/054-xdocreport-pdf-template-name-tab.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/054-xdocreport-pdf-template-name-tab.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/062-xdocreport-docx-template-content-tab.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/062-xdocreport-docx-template-content-tab.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/100-demo-object.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/100-demo-object.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/110-preview-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/110-preview-prompt.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/112-preview-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/112-preview-result.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/120-createAndAttachDocument-Freemarker-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/120-createAndAttachDocument-Freemarker-prompt.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/122-createAndAttachDocument-Freemarker-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/122-createAndAttachDocument-Freemarker-result.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/124-createAndAttachDocument-Freemarker-rendered-content.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/124-createAndAttachDocument-Freemarker-rendered-content.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/126-createAndAttachDocument-Freemarker-template-content-text.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/126-createAndAttachDocument-Freemarker-template-content-text.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/130-createAndAttachDocument-StringInterpolatorUrl-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/130-createAndAttachDocument-StringInterpolatorUrl-prompt.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/132-createAndAttachDocument-StringInterpolatorUrl-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/132-createAndAttachDocument-StringInterpolatorUrl-result.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/134-createAndAttachDocument-StringInterpolatorUrl-rendered-content.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/134-createAndAttachDocument-StringInterpolatorUrl-rendered-content.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/140-createAndAttachDocument-XDocReportPdf-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/140-createAndAttachDocument-XDocReportPdf-prompt.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/142-createAndAttachDocument-XDocReportPdf-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/142-createAndAttachDocument-XDocReportPdf-result.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/144-createAndAttachDocument-XDocReportPdf-rendered-content.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/144-createAndAttachDocument-XDocReportPdf-rendered-content.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/146-createAndAttachDocument-XDocReportPdf-template-content-text.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/146-createAndAttachDocument-XDocReportPdf-template-content-text.png"]
+
+
+
+
+
+
 == Domain Model
 
 === Document, DocumentTemplate and Paperclip
