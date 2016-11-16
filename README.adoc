@@ -62,7 +62,7 @@ image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/
 The clob itself is an HTML email file.
 This can be downloaded from the template:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/033-freemarker-template-content.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/033-freemarker-template-content.png"]
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/033-freemarker-template-content-text.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/033-freemarker-template-content-text.png"]
 
 
 The template text clob can be modified by uploading new versions.
