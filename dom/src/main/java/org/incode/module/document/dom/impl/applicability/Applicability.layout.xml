@@ -6,16 +6,23 @@
         </bs3:col>
     </bs3:row>
     <bs3:row>
-        <bs3:col span="6">
+        <bs3:col span="12">
             <bs3:tabGroup>
                 <bs3:tab name="Name">
                     <bs3:row>
                         <bs3:col span="12">
-                            <cpt:fieldSet name="Name" id="general" unreferencedProperties="true">
-                                <cpt:property id="documentType" hidden="REFERENCES_PARENT"/>
+                            <cpt:fieldSet name="Name" id="general">
+                                <cpt:property id="documentTemplate" hidden="PARENTED_TABLES"/>
                                 <cpt:property id="domainClassName"/>
                             </cpt:fieldSet>
-
+                        </bs3:col>
+                    </bs3:row>
+                </bs3:tab>
+                <bs3:tab name="Other">
+                    <bs3:row>
+                        <bs3:col span="12">
+                            <cpt:fieldSet name="Other" id="other" unreferencedProperties="true">
+                            </cpt:fieldSet>
                         </bs3:col>
                     </bs3:row>
                 </bs3:tab>
@@ -33,27 +40,14 @@
             </bs3:tabGroup>
         </bs3:col>
         <bs3:col span="6">
-            <bs3:tabGroup>
-                <bs3:tab name="Details">
-                    <bs3:row>
-                        <bs3:col span="12">
-                            <cpt:fieldSet name="Details">
-                                <cpt:property id="rendererModelFactoryClassName" hidden="ALL_TABLES"/>
-                                <cpt:property id="attachmentAdvisorClassName" hidden="ALL_TABLES"/>
-                            </cpt:fieldSet>
-                        </bs3:col>
-                    </bs3:row>
-                </bs3:tab>
-                <bs3:tab name="DummyTabToEnsureFirstTabIsShown">
-                    <bs3:row>
-                        <bs3:col span="12">
-                            <cpt:fieldSet name="dummy">
-                                <cpt:property id="dummy"/>
-                            </cpt:fieldSet>
-                        </bs3:col>
-                    </bs3:row>
-                </bs3:tab>
-            </bs3:tabGroup>
+        </bs3:col>
+    </bs3:row>
+    <bs3:row>
+        <bs3:col span="12">
+            <cpt:fieldSet name="Details">
+                <cpt:property id="rendererModelFactoryClassName" hidden="ALL_TABLES"/>
+                <cpt:property id="attachmentAdvisorClassName" hidden="ALL_TABLES"/>
+            </cpt:fieldSet>
         </bs3:col>
     </bs3:row>
     <bs3:row>

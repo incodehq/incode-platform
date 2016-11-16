@@ -28,6 +28,7 @@ import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.services.queryresultscache.QueryResultsCache;
 
 import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.document.dom.impl.paperclips.Paperclip;
@@ -61,14 +62,20 @@ public class DocumentAbstract_attachedTo<T> {
     )
     @CollectionLayout(defaultView = "table")
     public List<Paperclip> $$() {
-        return paperclipRepository.findByDocument(document);
+        return queryResultsCache.execute(
+                () -> paperclipRepository.findByDocument(document)
+                , getClass(), "$$", document);
     }
 
-
+    public boolean hide$$() {
+        return document instanceof DocumentTemplate && $$().isEmpty();
+    }
 
     //region > injected services
     @Inject
     PaperclipRepository paperclipRepository;
+    @Inject
+    QueryResultsCache queryResultsCache;
     //endregion
 
 }

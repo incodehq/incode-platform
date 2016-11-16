@@ -215,8 +215,7 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
         }
         private TranslatableString titleOf(final DocumentTemplate template) {
             if(template.getDate() != null) {
-                return TranslatableString.tr("[{type}] {name}, (from {date})",
-                        "name", template.getName(),
+                return TranslatableString.tr("[{type}] ({date})",
                         "type", template.getType().getReference(),
                         "date", template.getDate());
             } else {
@@ -626,7 +625,7 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
     //endregion
 
 
-    //region > appliesTo, newBinder, newBinding
+    //region > appliesTo, newRendererModelFactory + newRendererModel, newAttachmentAdvisor + newAttachmentAdvice
 
     /**
      * Whether this template applies to this domain object (that is, {@link #newRendererModel(Object)} and {@link #newAttachmentAdvice(Document, Object)} will both return non-null values).
@@ -662,13 +661,6 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
         return attachmentAdvisor;
     }
 
-    private boolean applies(
-            final Applicability applicability,
-            final Class<?> domainObjectClass) {
-        final Class<?> load = classService.load(applicability.getDomainClassName());
-        return load.isAssignableFrom(domainObjectClass);
-    }
-
     @Programmatic
     public Object newRendererModel(final Object domainObject) {
         final RendererModelFactory rendererModelFactory = newRendererModelFactory(domainObject);
@@ -692,6 +684,13 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
         }
         final List<AttachmentAdvisor.PaperclipSpec> paperclipSpecs = attachmentAdvisor.advise(this, domainObject);
         return paperclipSpecs;
+    }
+
+    private boolean applies(
+            final Applicability applicability,
+            final Class<?> domainObjectClass) {
+        final Class<?> load = classService.load(applicability.getDomainClassName());
+        return load.isAssignableFrom(domainObjectClass);
     }
 
     //endregion

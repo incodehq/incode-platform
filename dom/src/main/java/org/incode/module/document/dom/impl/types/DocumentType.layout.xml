@@ -6,7 +6,7 @@
         </bs3:col>
     </bs3:row>
     <bs3:row>
-        <bs3:col span="4">
+        <bs3:col span="6">
             <bs3:tabGroup>
                 <bs3:tab name="General">
                     <bs3:row>
@@ -43,25 +43,12 @@
                 </bs3:tab>
             </bs3:tabGroup>
         </bs3:col>
-        <bs3:col span="8">
-            <bs3:tabGroup>
-                <bs3:tab name="Templates">
-                    <bs3:row>
-                        <bs3:col span="12">
-                            <cpt:collection id="currentTemplates" defaultView="table"/>
-                        </bs3:col>
-                    </bs3:row>
-                </bs3:tab>
-                <bs3:tab name="DummyToForceFirstTabToRenderAsTab">
-                    <bs3:row>
-                        <bs3:col span="12">
-                            <cpt:fieldSet name="dummy">
-                                <cpt:property id="dummy"/>
-                            </cpt:fieldSet>
-                        </bs3:col>
-                    </bs3:row>
-                </bs3:tab>
-            </bs3:tabGroup>
+        <bs3:col span="6">
+        </bs3:col>
+    </bs3:row>
+    <bs3:row>
+        <bs3:col span="12">
+            <cpt:collection id="currentTemplates" defaultView="table"/>
         </bs3:col>
         <bs3:col span="8" unreferencedCollections="true">
         </bs3:col>

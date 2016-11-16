@@ -32,8 +32,8 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.util.ObjectContracts;
-import org.apache.isis.applib.util.TitleBuffer;
 
 import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.document.dom.impl.docs.Document;
@@ -105,15 +105,17 @@ public class Applicability implements Comparable<Applicability> {
             if(ev.getTitle() != null) {
                 return;
             }
-            ev.setTitle(titleOf(ev.getSource()));
+            final Applicability applicability = ev.getSource();
+            ev.setTranslatableTitle(translatableTitleOf(applicability));
         }
-        private String titleOf(final Applicability applicability) {
-            final TitleBuffer buf = new TitleBuffer();
-            buf.append(simpleNameOf(applicability.getDomainClassName()));
-            // can't use titleService.titleOf(...) if using guava, can't call events within events...
-            buf.append(applicability.getDocumentTemplate().getName());
-            return buf.toString();
+
+        public TranslatableString translatableTitleOf(final Applicability applicability) {
+            return TranslatableString.tr(
+                    "{simpleName} applies to [{docType}]",
+                    "simpleName", simpleNameOf(applicability.getDomainClassName()),
+                    "docType", applicability.getDocumentTemplate().getType().getReference());
         }
+
         private static String simpleNameOf(final String domainType) {
             int lastDot = domainType.lastIndexOf(".");
             return domainType.substring(lastDot+1);

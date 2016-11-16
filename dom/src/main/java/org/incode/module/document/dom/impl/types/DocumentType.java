@@ -126,9 +126,8 @@ public class DocumentType implements Comparable<DocumentType> {
             ev.setTranslatableTitle(titleOf(ev.getSource()));
         }
         private TranslatableString titleOf(final DocumentType documentType) {
-            return TranslatableString.tr("[{reference}] {name}",
-                    "reference", documentType.getReference(),
-                    "name", documentType.getName());
+            return TranslatableString.tr("[{reference}]",
+                    "reference", documentType.getReference());
         }
         @Inject
         TitleService titleService;
