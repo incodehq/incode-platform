@@ -36,6 +36,7 @@ import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
 
 import org.incode.module.document.dom.DocumentModule;
+import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 import org.incode.module.document.dom.types.FqcnType;
 
@@ -44,7 +45,9 @@ import lombok.Setter;
 
 /**
  * Indicates whether a domain object('s type) is applicable to a particular {@link DocumentTemplate}, providing the
- * (name of) the {@link Binder} to use to create the data model to feed into that template.
+ * (name of) the {@link RendererModelFactory} to use to create the renderer model to feed into that template, and the
+ * (name of) the {@link AttachmentAdvisor} to use to specify which domain objects the resultant {@link Document}
+ * should be attached to once created.
  */
 @javax.jdo.annotations.PersistenceCapable(
         schema = "incodeDocuments",
@@ -155,22 +158,28 @@ public class Applicability implements Comparable<Applicability> {
     }
     //endregion
 
-
     //region > constructor
     Applicability() {
         // for testing only
     }
-    public Applicability(final DocumentTemplate documentTemplate, final Class<?> domainClass, final Class<? extends Binder> binderClass) {
-        this(documentTemplate, domainClass.getName(), binderClass.getName());
+    public Applicability(
+            final DocumentTemplate documentTemplate,
+            final Class<?> domainClass,
+            final Class<? extends RendererModelFactory> rendererModelFactoryClass,
+            final Class<? extends AttachmentAdvisor> attachmentAdvisorClass
+            ) {
+        this(documentTemplate, domainClass.getName(), rendererModelFactoryClass.getName(), attachmentAdvisorClass.getName());
     }
 
     public Applicability(
             final DocumentTemplate documentTemplate,
             final String domainClassName,
-            final String binderClassName) {
+            final String rendererModelFactoryClassName,
+            final String attachmentAdvisorClassName) {
         setDocumentTemplate(documentTemplate);
         setDomainClassName(domainClassName);
-        setBinderClassName(binderClassName);
+        setRendererModelFactoryClassName(rendererModelFactoryClassName);
+        setAttachmentAdvisorClassName(attachmentAdvisorClassName);
     }
     //endregion
 
@@ -201,26 +210,36 @@ public class Applicability implements Comparable<Applicability> {
 
     // endregion
 
-    //region > binderClassName (property)
-    public static class BinderClassNameDomainEvent extends PropertyDomainEvent<String> { }
+    //region > rendererModelFactoryClassName (property)
+    public static class RendererModelFactoryClassNameDomainEvent extends PropertyDomainEvent<String> { }
     @Getter @Setter
     @javax.jdo.annotations.Column(allowsNull = "false", length = FqcnType.Meta.MAX_LEN)
     @Property(
-            domainEvent = BinderClassNameDomainEvent.class
+            domainEvent = RendererModelFactoryClassNameDomainEvent.class
     )
-    private String binderClassName;
+    private String rendererModelFactoryClassName;
+    // endregion
+
+    //region > attachmentAdvisorProviderClassName (property)
+    public static class AttachmentAdvisorClassNameDomainEvent extends PropertyDomainEvent<String> { }
+    @Getter @Setter
+    @javax.jdo.annotations.Column(allowsNull = "false", length = FqcnType.Meta.MAX_LEN)
+    @Property(
+            domainEvent = AttachmentAdvisorClassNameDomainEvent.class
+    )
+    private String attachmentAdvisorClassName;
     // endregion
 
 
     //region > toString, compareTo
     @Override
     public String toString() {
-        return ObjectContracts.toString(this, "documentTemplate", "domainClassName", "binderClassName");
+        return ObjectContracts.toString(this, "documentTemplate", "domainClassName", "rendererModelFactoryClassName", "attachmentAdvisorClassName");
     }
 
     @Override
     public int compareTo(final Applicability other) {
-        return ObjectContracts.compare(this, other, "documentTemplate", "domainClassName", "binderClassName");
+        return ObjectContracts.compare(this, other, "documentTemplate", "domainClassName", "rendererModelFactoryClassName", "attachmentAdvisorClassName");
     }
 
     //endregion

@@ -26,15 +26,15 @@ import org.apache.isis.core.unittestsupport.jmocking.JUnitRuleMockery2;
 
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 import org.incode.module.document.dom.services.ClassService;
-import org.incode.module.document.dom.spi.BinderClassNameService;
+import org.incode.module.document.dom.spi.RendererModelFactoryClassNameService;
 
-public class Applicability_changeBinder_Test {
+public class Applicability_changeRendererModelFactory_Test {
 
     @Rule
     public JUnitRuleMockery2 context = JUnitRuleMockery2.createFor(JUnitRuleMockery2.Mode.INTERFACES_AND_CLASSES);
 
     @Mock
-    private BinderClassNameService mockBinderClassNameService;
+    private RendererModelFactoryClassNameService mockClassNameService;
 
     @Mock
     private ClassService mockClassService;
@@ -45,41 +45,41 @@ public class Applicability_changeBinder_Test {
     @Mock
     Applicability mockApplicability;
 
-    Applicability_changeBinder mixin;
+    Applicability_changeRendererModelFactory mixin;
 
     @Before
     public void setUp() throws Exception {
         // when
-        mixin = new Applicability_changeBinder(mockApplicability);
-        mixin.binderClassNameService = mockBinderClassNameService;
+        mixin = new Applicability_changeRendererModelFactory(mockApplicability);
+        mixin.classNameService = mockClassNameService;
         mixin.classService = mockClassService;
     }
 
-    public static class DisabledTest extends Applicability_changeBinder_Test {
+    public static class DisabledTest extends Applicability_changeRendererModelFactory_Test {
 
         @Ignore
         @Test
-        public void disabled_if_no_BinderClassNameService_available() throws Exception {
+        public void disabled_if_no_RendererModelFactoryClassNameService_available() throws Exception {
 
         }
 
         @Ignore
         @Test
-        public void enabled_if_BinderClassNameService_is_available() throws Exception {
-
-        }
-    }
-
-    public static class Choices_Test extends Applicability_changeBinder_Test {
-
-        @Ignore
-        @Test
-        public void delegates_off_to_BinderClassNameService() throws Exception {
+        public void enabled_if_RendererModelFactoryClassNameService_is_available() throws Exception {
 
         }
     }
 
-    public static class Default_Test extends Applicability_changeBinder_Test {
+    public static class Choices_Test extends Applicability_changeRendererModelFactory_Test {
+
+        @Ignore
+        @Test
+        public void delegates_off_to_RendererModelFactoryClassNameService() throws Exception {
+
+        }
+    }
+
+    public static class Default_Test extends Applicability_changeRendererModelFactory_Test {
 
         @Ignore
         @Test
@@ -88,7 +88,7 @@ public class Applicability_changeBinder_Test {
         }
     }
 
-    public static class ActionInvocation_Test extends Applicability_changeBinder_Test {
+    public static class ActionInvocation_Test extends Applicability_changeRendererModelFactory_Test {
 
         @Ignore
         @Test

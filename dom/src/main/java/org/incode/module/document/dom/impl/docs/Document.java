@@ -52,7 +52,6 @@ import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
 
 import org.incode.module.document.dom.DocumentModule;
-import org.incode.module.document.dom.impl.applicability.Binder;
 import org.incode.module.document.dom.impl.types.DocumentType;
 
 import lombok.Getter;
@@ -212,10 +211,8 @@ public class Document extends DocumentAbstract<Document> {
             final DocumentTemplate documentTemplate,
             final Object domainObject) {
 
-        final Binder.Binding binding = documentTemplate.newBinding(domainObject);
-        final Object contentDataModel = binding.getDataModel();
-
-        documentTemplate.renderContent(this, contentDataModel);
+        final Object rendererModel = documentTemplate.newRendererModel(domainObject);
+        documentTemplate.renderContent(this, rendererModel);
     }
     //endregion
 

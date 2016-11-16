@@ -20,11 +20,9 @@ package org.incode.module.document.dom.impl.applicability;
 
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 
-public class SomeBinder implements Binder {
+public class SomeRendererModelFactory implements RendererModelFactory {
     @Override
-    public Binding newBinding(
-            final DocumentTemplate documentTemplate,
-            final Object domainObject) {
+    public Object newRendererModel(final DocumentTemplate documentTemplate, final Object domainObject) {
         return null;
     }
 }

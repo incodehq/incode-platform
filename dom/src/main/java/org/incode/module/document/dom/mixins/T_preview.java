@@ -31,7 +31,6 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.queryresultscache.QueryResultsCache;
 
 import org.incode.module.document.dom.DocumentModule;
-import org.incode.module.document.dom.impl.applicability.Binder;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
 import org.incode.module.document.dom.impl.types.DocumentTypeRepository;
@@ -57,8 +56,8 @@ public abstract class T_preview<T> {
     )
     @MemberOrder(name = "documents", sequence = "2")
     public URL $$(final DocumentTemplate template) throws IOException {
-        final Binder.Binding binding = template.newBinding(domainObject);
-        return template.preview(binding.getDataModel());
+        final Object rendererModel = template.newRendererModel(domainObject);
+        return template.preview(rendererModel);
     }
 
     public boolean hide$$() {

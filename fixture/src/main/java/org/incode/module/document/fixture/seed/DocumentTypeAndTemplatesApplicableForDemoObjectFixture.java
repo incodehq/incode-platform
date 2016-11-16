@@ -37,10 +37,11 @@ import org.incode.module.document.dom.impl.rendering.RenderingStrategy;
 import org.incode.module.document.dom.impl.rendering.RenderingStrategyRepository;
 import org.incode.module.document.dom.impl.types.DocumentType;
 import org.incode.module.document.fixture.DocumentTemplateFSAbstract;
-import org.incode.module.document.fixture.app.binders.BinderOfDataModelForDemoObject;
-import org.incode.module.document.fixture.app.binders.BinderOfSiRootForDemoObject;
-import org.incode.module.document.fixture.app.binders.BinderOfXDocReportModelForDemoObject;
-import org.incode.module.document.fixture.app.binders.BinderOfXDocReportModelForDemoObjectAlsoOtherObject;
+import org.incode.module.document.fixture.app.applicability.aa.ForDemoObjectAlsoAttachToFirstOtherObject;
+import org.incode.module.document.fixture.app.applicability.aa.ForDemoObjectAttachToSame;
+import org.incode.module.document.fixture.app.applicability.rmf.FreemarkerModelOfDemoObject;
+import org.incode.module.document.fixture.app.applicability.rmf.StringInterpolatorRootOfDemoObject;
+import org.incode.module.document.fixture.app.applicability.rmf.XDocReportModelOfDemoObject;
 import org.incode.module.document.fixture.dom.demo.DemoObject;
 
 import lombok.Getter;
@@ -98,8 +99,10 @@ public class DocumentTypeAndTemplatesApplicableForDemoObjectFixture extends Docu
                 "Freemarker-html-cover-note-for-${demoObject.name}", fmkRenderingStrategy,
                 executionContext);
 
-        // this binder must provide a DataModel for FreeMarker strategies
-        fmkTemplate.applicable(DemoObject.class, BinderOfDataModelForDemoObject.class);
+        mixin(DocumentTemplate._applicable.class, fmkTemplate).applicable(
+                DemoObject.class,
+                FreemarkerModelOfDemoObject.class,
+                ForDemoObjectAttachToSame.class);
 
         executionContext.addResult(this, fmkTemplate);
 
@@ -120,8 +123,11 @@ public class DocumentTypeAndTemplatesApplicableForDemoObjectFixture extends Docu
                 "${demoObject.url}", sipcRenderingStrategy,
                 "pdf-of-url-held-in-${demoObject.name}", siRenderingStrategy,
                 executionContext);
-        // this binder must provide a DataModel for StringInterpolator strategies
-        siTemplate.applicable(DemoObject.class, BinderOfSiRootForDemoObject.class);
+
+        mixin(DocumentTemplate._applicable.class, siTemplate).applicable(
+                DemoObject.class,
+                StringInterpolatorRootOfDemoObject.class,
+                ForDemoObjectAttachToSame.class);
 
 
 
@@ -142,8 +148,11 @@ public class DocumentTypeAndTemplatesApplicableForDemoObjectFixture extends Docu
                 ), xdpRenderingStrategy,
                 "${demoObject.name}", fmkRenderingStrategy,
                 executionContext);
-        // this binder must provide a DataModel compatible with both XDocReport and FreeMarker
-        xdpTemplate.applicable(DemoObject.class, BinderOfXDocReportModelForDemoObject.class);
+
+        mixin(DocumentTemplate._applicable.class, xdpTemplate).applicable(
+                DemoObject.class,
+                XDocReportModelOfDemoObject.class,
+                ForDemoObjectAttachToSame.class);
 
 
 
@@ -164,8 +173,11 @@ public class DocumentTypeAndTemplatesApplicableForDemoObjectFixture extends Docu
                 ), xddRenderingStrategy,
                 "${demoObject.name}", fmkRenderingStrategy,
                 executionContext);
-        // this binder must provide a DataModel compatible with both XDocReport and FreeMarker
-        xddTemplate.applicable(DemoObject.class, BinderOfXDocReportModelForDemoObjectAlsoOtherObject.class);
+
+        mixin(DocumentTemplate._applicable.class, xddTemplate).applicable(
+                DemoObject.class,
+                XDocReportModelOfDemoObject.class,
+                ForDemoObjectAlsoAttachToFirstOtherObject.class);
 
     }
 

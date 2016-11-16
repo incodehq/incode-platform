@@ -22,21 +22,21 @@ import org.incode.module.document.dom.impl.docs.DocumentTemplate;
  * C
  * @param <T>
  */
-public abstract class BinderAbstract<T> implements Binder {
+public abstract class RendererModelFactoryAbstract<T> implements RendererModelFactory {
 
     private final Class<T> expectedInputType;
 
-    public BinderAbstract(Class<T> expectedInputType) {
+    public RendererModelFactoryAbstract(Class<T> expectedInputType) {
         this.expectedInputType = expectedInputType;
     }
 
-    public final Binding newBinding(
+    public final Object newRendererModel(
             final DocumentTemplate documentTemplate,
             final Object domainObject) {
 
         checkInputClass(domainObject);
 
-        return doNewBinding(documentTemplate, (T)domainObject);
+        return doNewRendererModel(documentTemplate, (T)domainObject);
     }
 
     /**
@@ -52,7 +52,7 @@ public abstract class BinderAbstract<T> implements Binder {
     /**
      * Mandatory hook.
      */
-    protected abstract Binding doNewBinding(
+    protected abstract Object doNewRendererModel(
             final DocumentTemplate documentTemplate,
             final T domainObject);
 

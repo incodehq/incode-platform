@@ -23,9 +23,9 @@ import org.apache.isis.applib.annotation.Programmatic;
 
 import org.incode.module.document.dom.services.ClassNameViewModel;
 
-public interface BinderClassNameService {
+public interface AttachmentAdvisorClassNameService {
 
     @Programmatic
-    public List<ClassNameViewModel> binderClassNames();
+    public List<ClassNameViewModel> attachmentAdvisorClassNames();
 
 }

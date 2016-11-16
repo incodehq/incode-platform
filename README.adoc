@@ -8,11 +8,11 @@ This module, intended for use with link:http://isis.apache.org[Apache Isis], pro
 
 == Domain Model
 
-=== Document, DocumentTemplate, Binder & Paperclip
+=== Document, DocumentTemplate and Paperclip
 
 The following class diagram highlights the main concepts:
 
-image::http://yuml.me/e181888a[link="http://yuml.me/e181888a", width="600px"]
+image::http://yuml.me/0ee8631c[link="http://yuml.me/0ee8631c", width="600px"]
 
 (The colours used in the diagram are - approximately - from link:https://en.wikipedia.org/wiki/Object_Modeling_in_Color[Object Modeling in Color]).
 
@@ -30,24 +30,32 @@ The `DocumentTemplate` also has a `DocumentType`, and so it is the `DocumentType
 It is possible for there to be multiple ``DocumentTemplate``s over time for a particular `DocumentType` (distinguished by date), to allow for minor changes to a template over time.
 The domain model deliberately does *not* keep track of which particular `DocumentTemplate` was used to create a `Document`, just the type is used.
 
-Each `DocumentTemplate` has an associated set of ``Applicability``s.  Each of these identifies a domain class that can be used as an input the rendering of the `DocumentTemplate`, with a corresponding implementation of the `Binder` interface being responsible for actually creating an input "data model" used to feed into the template.
+Each `DocumentTemplate` has a `RenderingStrategy`, this being a mechanism to actually produce its content by interpolating the template text with placeholders.
 
-Each `DocumentTemplate` also has a `RenderingStrategy`, meaning a mechanism to actually produce its content from the template text (once its placeholders have been replaced by "data model" provided by the `Binder`).
+[NOTE]
+====
+Actually, each `DocumentTemplate` has two sets of placeholders and also corresponding `RenderingStrategy`s.
+The "content" template text is used to generate the actual content of the resultant ``Document``'s content; this could be characters (eg a HTML email) or bytes (eg a PDF).
+The "name" template text , while the other is used to interpolate the name of the resultant `Document`; this will always result in a simple character string.
+====
+
+Each `DocumentTemplate` also has an associated set of ``Applicability``s.
+Each of these identifies a domain class that can be used as an input the rendering of the `DocumentTemplate`, with a corresponding implementation of the `RendererModelFactory` interface being responsible for actually creating an input "renderer model" used to feed into the template's `RenderingStrategy`.
+The `Applicability` also defines the implementation of `AttachmentAdvisor` interface; this is used to attach the resultant `Document` to arbitrary domain objects (usually the input domain object, and perhaps others also).
 
 Every `Document` is created from a `DocumentTemplate`, but rather than hold a reference to this original template, instead `Document` and `DocumentTemplate` are unified through the `DocumentType` entity.
-The document type can be considered as a set of versioned ``DocumentTemplate``s (identified by date), along with all the ``Document``s that were created from (any of) those ``DocumentTemplate``s.
+The `DocumentType` can be considered as a set of versioned ``DocumentTemplate``s (identified by date), along with all the ``Document``s that were created from (any of) those ``DocumentTemplate``s.
 
 Once a `Document` has been created it is attached to one or more target domain object using `Paperclip`.
 This requires a custom subclass for the domain object in question; the polymorphic pattern ("table of two halves") is used for this linkage.
-
 
 Based upon the implementation of `RenderingStrategy` and `Renderer`, each `DocumentTemplate` can support either previewing and/or rendering.
 Previewing means to return a representation as a URL; the end-user can then navigate to this URL without any change in state to the application.
 Rendering on the other hand means the creation and persisting of a `Document` from the `DocumentTemplate`.
 
-The `createDocument()` mixin is contributed to all domain objects where there is a `DocumentTemplate` available for the domain object's application tenancy path (`atPath`) that supports either previewing and/or rendering.
-However, for rendering there must also be at least one domain objects to which the resultant `Document` can be attached; if there are none available, then create/save will be suppressed.
-The `Binder` is used to identify which domain objects the resultant `Document` is attached to; there must be at least one such domain object available (ie that has its own subclass of `Paperclip`).
+The `createAndAttachDocumentAndRender()` mixin is contributed to all domain objects where there is a `DocumentTemplate` available for the domain object's application tenancy path (`atPath`) that supports either previewing and/or rendering.
+The similar `createAndAttachDocumentAndScheduleRender()` mixin is also available, allowing the rendering to be performed as a background task (eg using (non-ASF) http://github.com/isisaddons/isis-module-command[Isis addons' command] module.
+
 
 
 === RenderingStrategy & Renderer
@@ -168,25 +176,12 @@ We suggest defining the repository in a `<profile>`:
 
 === Input
 
-For each domain object that you want to use as the input data to a `DocumentTemplate`, you need to:
+For each domain object class that you want to use as the input data to a `DocumentTemplate`, you need to:
 
 * implement `ApplicationTenancyService` +
 +
-To return the application tenancy path of the domain object in order that available ``DocumentTemplate``s can be located
-
-* implement a `Binder` +
+To return the application tenancy path of the domain object in order that available ``DocumentTemplate``s can be located: +
 +
-These have two similar responsibilities: to construct the "data model" from the input domain object, and to identify the
- object(s) to which the resultant `Document` is attached. +
-+
-[NOTE]
-====
-It could be that a ``Binder``'s two responsibilities are quite separate from each other.  
-However, in the vast majority of cases the input domain object and the object to attach the resultant `Document` to will be same, hence the decision to combine these responsibilities into a single interface.
-====
-
-The `ApplicationTenancyService` is defined as:
-
 [source,java]
 ----
 public interface ApplicationTenancyService {
@@ -194,53 +189,55 @@ public interface ApplicationTenancyService {
 }
 ----
 
-while `Binder` is defined as:
-
+* implement a `RendererModelFactory` +
++
+This constructs the "renderer model" from the input domain object, which is then fed into the `RenderingStrategy` of the `DocumentTemplate`: +
++
 [source,java]
 ----
-public interface Binder {
-    Binding newBinding(
-            final DocumentTemplate documentTemplate,        // <1>
-            final Object domainObject,                      // <2>
-            final String additionalTextIfAny);              // <3>
+public interface RendererModelFactory {
+    @Programmatic
+    Object newRendererModel(
+            DocumentTemplate documentTemplate,    // <1>
+            Object domainObject);                 // <2>
 }
 ----
-<1> the template to which this binder implementation applies, as per `DocumentTemplate#getAppliesTo()` and `Applicability#getBinderClassName()`
-<2> the domain object acting as the context for the binding, from which both the input data model and the objects to attach to (see `Binding`, below) are inferred
-<3> optional text (eg for an email cover note) that may also be available to create the input data model
-
-and `Binding` is in turn:
-
-[source,java]
-----
-public class Binding {
-    ...
-    private final Object dataModel;
-    private final List<Object> attachTo;
-    public Binding(
-            final Object dataModel,          // <1>
-            final List<Object> attachTo) {   // <2>
-        this.dataModel = dataModel;
-        this.attachTo = attachTo;
-    }
-}
-----
-<1> used as input to the `RenderingStrategy`.
-<2> specifies where to attach the domain object
-
+<1> the template to which this implementation applies, as per `DocumentTemplate#getAppliesTo()` and `Applicability#getRendererModelFactoryClassName()` +
+<2> provides the input for the renderer model +
++
 [TIP]
 ====
-The `BinderAbstract<T>` adapter class can be used to implement the `Binder` interface.
-It adds the capability of verifying that the input document is of the correct type, eg:
+The `RendererModelFactoryAbstract<T>` can be used to implement the `RendererModelFactory` interface, adding the capability of verifying the input document is of the correct type.
+====
 
+
+* implement a `AttachmentAdvisor` +
++
+This returns a data structure (``List<PaperclipSpec>``) which describes to which object(s) the resultant `Document` should be attached: +
++
 [source,java]
 ----
-public class BinderForInvoice extends BinderAbstract<Invoice> {
-    public BinderForInvoice() { super(Invoice.class); }
-    ....
+public interface AttachmentAdvisor {
+    @lombok.Data                                // <1>
+    public static class PaperclipSpec {
+        private final String roleName;
+        private final Object attachTo;
+    }
+    List<PaperclipSpec> advise(
+            DocumentTemplate documentTemplate,  // <2>
+            Object domainObject);               // <3>
 }
 ----
-
+<1> immutable value type, defined using link:https://projectlombok.org/features/Data.html[`@Data`] annotation from Project Lombok +
+<2> to which this implementation applies, as per `DocumentTemplate#getAppliesTo()` and `Applicability#getAttachmentAdvisorClassName()` +
+<3> acting as the context for document created, from which derive the objects to attach the newly created `Document` +
++
+The`PaperclipSpec` describes how create instances of `Paperclip` from attach the resultant `Document` to other
+domain objects. +
++
+[TIP]
+====
+The `AttachmentAdvisorAbstract<T>` can be used to implement the `AttachmentAdvisor` interface, adding the capability of verifying the input document is of the correct type.
 ====
 
 
@@ -320,7 +317,7 @@ To view the ``Paperclip``s once created there is also a `T_paperclips` mixin col
 
 ==== T_createDocumentAndRender, T_createDocumentAndScheduleRender
 
-The document module is fully data-driven, in that the ability to be able to create a document for any given domain entity is defined by the data held in `DocumentTemplate` (its `atPath`) and `Applicability` (the `domainClassName` and corresponding `Binder` implementation).
+The document module is fully data-driven, in that the ability to be able to create a document for any given domain entity is defined by the data held in `DocumentTemplate` (its `atPath`) and `Applicability` (the `domainClassName` and corresponding `RendererModelFactory` and `AttachmentAdvisor` implementations).
 
 The `T_createDocumentAndRender` and `T_createDocumentAndScheduleRender` mixin actions exposes this functionality for any domain class, by simply subclassing. 
 The former renders in the foreground, while the latter creates a background command so that the rendering can be performed asynchronously.
@@ -394,7 +391,7 @@ public class DocumentCreatorService {
 }
 ----
 <1> allows a programmatic check as to whether the provided `DocumentTemplate` is applicable to the domain object.
-<2> go ahead and actually create the new `Document`, attaching it as specified by the `B`inder.
+<2> go ahead and actually create the new `Document`, attaching it as specified by the `AttachmentAdvisor` associated with the ``DocumentTemplate`` ('s `Applicability` for this domain object).
 
 
 === Optional (SPI) Services
@@ -418,14 +415,14 @@ public interface UrlDownloadService {
 ----
 
 
-==== BinderClassNameService
+==== RendererModelFactoryClassNameService
 
-The `BinderClassNameService`, if implemented, provides UI to allow the binder class name to be changed on an `Applicability`:
+The `RendererModelFactoryClassNameService`, if implemented, provides UI to allow the renderer model factory class name to be changed on an `Applicability`:
 
 [source,java]
 ----
-public interface BinderClassNameService {
-    List<ClassNameViewModel> binderClassNames();
+public interface RendererModelFactoryClassNameService {
+    List<ClassNameViewModel> rendererModelFactoryClassNames();
 }
 ----
 
@@ -434,15 +431,31 @@ This can most conveniently be implemented using the `ClassNameServiceAbstract` c
 [source,java]
 ----
 @DomainService(nature = NatureOfService.DOMAIN)
-public class BinderClassNameServiceForDemo extends ClassNameServiceAbstract<Binder> implements BinderClassNameService {
-    public BinderClassNameServiceForDemo() {
-        super(Binder.class, "org.incode.module.document.fixture");
+public class RendererModelFactoryClassNameServiceForDemo extends ClassNameServiceAbstract<RendererModelFactory>
+                                                         implements RendererModelFactoryClassNameService {
+    public RendererModelFactoryClassNameServiceForDemo() {
+        super(RendererModelFactory.class, "org.incode.module.document.fixture");
     }
-    public List<ClassNameViewModel> binderClassNames() {
+    public List<ClassNameViewModel> rendererModelFactoryClassNames() {
         return this.classNames();
     }
 }
 ----
+
+
+==== AttachmentAdvisorClassNameService
+
+The `AttachmentAdvisorClassNameService`, if implemented, provides UI to allow the renderer model factory class name to be changed on an `Applicability`:
+
+[source,java]
+----
+public interface AttachmentAdvisorClassNameService {
+    List<ClassNameViewModel> attachmentAdvisorClassNames();
+}
+----
+
+Like `RendererModelFactoryClassNameService` (above), this can most conveniently be implemented using the `ClassNameServiceAbstract` convenience class.
+
 
 
 ==== RendererClassNameService
@@ -492,7 +505,7 @@ public class RendererClassNameServiceForDemo extends ClassNameServiceAbstract<Re
 
 == Change Log
 
-* `1.13.10` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/3[#3], https://github.com/incodehq/incode-module-document/issues/4[#4], https://github.com/incodehq/incode-module-document/issues/5[#5], https://github.com/incodehq/incode-module-document/issues/6[#6], https://github.com/incodehq/incode-module-document/issues/7[#7].   NB: this release is also *not* backward compatible with the previous release.
+* `1.13.10` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/3[#3], https://github.com/incodehq/incode-module-document/issues/4[#4], https://github.com/incodehq/incode-module-document/issues/5[#5], https://github.com/incodehq/incode-module-document/issues/6[#6], https://github.com/incodehq/incode-module-document/issues/7[#7], https://github.com/incodehq/incode-module-document/issues/8[#8].   NB: this release is also *not* backward compatible with the previous release.
 * `1.13.6` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/2[#2]
 * `1.13.5` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/1[#1], with various additional extensions to functionality.  NB: this release is *not* backward compatible with the previous release.
 * `1.13.0` - released against Isis 1.13.0

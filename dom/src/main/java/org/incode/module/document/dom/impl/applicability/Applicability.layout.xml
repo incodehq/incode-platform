@@ -38,7 +38,8 @@
                     <bs3:row>
                         <bs3:col span="12">
                             <cpt:fieldSet name="Details">
-                                <cpt:property id="binderClassName"/>
+                                <cpt:property id="rendererModelFactoryClassName" hidden="ALL_TABLES"/>
+                                <cpt:property id="attachmentAdvisorClassName" hidden="ALL_TABLES"/>
                             </cpt:fieldSet>
                         </bs3:col>
                     </bs3:row>

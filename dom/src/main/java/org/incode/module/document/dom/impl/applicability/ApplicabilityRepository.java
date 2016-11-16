@@ -41,8 +41,10 @@ public class ApplicabilityRepository {
     public Applicability create(
             final DocumentTemplate documentTemplate,
             final String domainClassName,
-            final String binderClassName) {
-        Applicability applicability = new Applicability(documentTemplate, domainClassName, binderClassName);
+            final String rendererModelFactoryClassName,
+            final String attachmentAdvisorClassName
+            ) {
+        Applicability applicability = new Applicability(documentTemplate, domainClassName, rendererModelFactoryClassName, attachmentAdvisorClassName);
         repositoryService.persistAndFlush(applicability);
         return applicability;
     }

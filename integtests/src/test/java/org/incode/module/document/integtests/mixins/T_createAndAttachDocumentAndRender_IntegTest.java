@@ -27,6 +27,7 @@ import com.google.common.collect.Sets;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.apache.isis.applib.services.queryresultscache.QueryResultsCache;
 import org.apache.isis.applib.services.wrapper.HiddenException;
 
 import org.incode.module.document.dom.impl.docs.Document;
@@ -34,6 +35,7 @@ import org.incode.module.document.dom.impl.docs.DocumentAbstract;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 import org.incode.module.document.dom.impl.paperclips.Paperclip;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
+import org.incode.module.document.fixture.app.paperclips.demo.PaperclipForDemoObject;
 import org.incode.module.document.fixture.dom.demo.DemoObject;
 import org.incode.module.document.fixture.dom.other.OtherObject;
 import org.incode.module.document.fixture.scripts.data.DemoObjectsFixture;
@@ -84,6 +86,8 @@ public class T_createAndAttachDocumentAndRender_IntegTest extends DocumentModule
             // when
             final List<DocumentTemplate> templates = _createAndAttachDocumentAndRender(demoObject).choices0$$();
 
+            transactionService.nextTransaction();
+
             // then
             assertThat(templates).hasSize(4);
 
@@ -133,11 +137,13 @@ public class T_createAndAttachDocumentAndRender_IntegTest extends DocumentModule
                     final Object paperclipAttachedTo = paperclips.get(0).getAttachedTo();
                     assertThat(paperclipAttachedTo).isSameAs(demoObject);
                 }
-
             }
 
+
             // then
-            assertThat(wrap(_documents(demoObject)).$$()).hasSize(4);
+            final PaperclipForDemoObject._documents wrappedMixin = wrap(_documents(demoObject));
+            final List<Paperclip> clips = wrappedMixin.$$();
+            assertThat(clips).hasSize(4);
 
             // when
             final List<Paperclip> paperclips = paperclipRepository.findByAttachedTo(demoObject);
@@ -154,6 +160,8 @@ public class T_createAndAttachDocumentAndRender_IntegTest extends DocumentModule
             assertThat(docSet2).contains(docSet1.toArray(new Document[]{}));
         }
 
+        @Inject
+        QueryResultsCache queryResultsCache;
     }
 
     public static class Hidden_IntegTest extends T_createAndAttachDocumentAndRender_IntegTest {

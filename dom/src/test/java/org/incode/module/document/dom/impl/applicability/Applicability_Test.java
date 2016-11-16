@@ -53,12 +53,14 @@ public class Applicability_Test {
 
             // when
             final Applicability applicability =
-                    new Applicability(mockDocumentTemplate, SomeDomainObject.class, SomeBinder.class);
+                    new Applicability(mockDocumentTemplate,
+                            SomeDomainObject.class, SomeRendererModelFactory.class, SomeAttachmentAdvisor.class);
 
             // then
             Java6Assertions.assertThat(applicability.getDocumentTemplate()).isEqualTo(mockDocumentTemplate);
             Java6Assertions.assertThat(applicability.getDomainClassName()).isEqualTo(SomeDomainObject.class.getName());
-            Java6Assertions.assertThat(applicability.getBinderClassName()).isEqualTo(SomeBinder.class.getName());
+            Java6Assertions.assertThat(applicability.getRendererModelFactoryClassName()).isEqualTo(SomeRendererModelFactory.class.getName());
+            Java6Assertions.assertThat(applicability.getAttachmentAdvisorClassName()).isEqualTo(SomeAttachmentAdvisor.class.getName());
 
         }
     }

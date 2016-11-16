@@ -48,11 +48,13 @@ import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.Collection;
+import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
@@ -61,6 +63,7 @@ import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.background.BackgroundService2;
+import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.title.TitleService;
@@ -71,7 +74,8 @@ import org.apache.isis.applib.value.Clob;
 import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.document.dom.impl.applicability.Applicability;
 import org.incode.module.document.dom.impl.applicability.ApplicabilityRepository;
-import org.incode.module.document.dom.impl.applicability.Binder;
+import org.incode.module.document.dom.impl.applicability.AttachmentAdvisor;
+import org.incode.module.document.dom.impl.applicability.RendererModelFactory;
 import org.incode.module.document.dom.impl.renderers.Renderer;
 import org.incode.module.document.dom.impl.renderers.RendererFromBytesToBytes;
 import org.incode.module.document.dom.impl.renderers.RendererFromBytesToBytesWithPreviewToUrl;
@@ -85,7 +89,8 @@ import org.incode.module.document.dom.impl.rendering.RenderingStrategy;
 import org.incode.module.document.dom.impl.types.DocumentType;
 import org.incode.module.document.dom.services.ClassNameViewModel;
 import org.incode.module.document.dom.services.ClassService;
-import org.incode.module.document.dom.spi.BinderClassNameService;
+import org.incode.module.document.dom.spi.AttachmentAdvisorClassNameService;
+import org.incode.module.document.dom.spi.RendererModelFactoryClassNameService;
 import org.incode.module.document.dom.types.AtPathType;
 import org.incode.module.document.dom.types.FqcnType;
 
@@ -462,141 +467,199 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
     //endregion
 
     //region > applicable (action)
-    public static class ApplicableToDomainEvent extends DocumentType.ActionDomainEvent {
-    }
+    @Mixin
+    public static class _applicable {
+        private final DocumentTemplate documentTemplate;
 
-    @Action(
-            domainEvent = ApplicableToDomainEvent.class
-    )
-    @ActionLayout(
-            cssClassFa = "fa-plus"
-    )
-    @MemberOrder(name = "appliesTo", sequence = "1")
-    public DocumentTemplate applicable(
-            @Parameter(maxLength = FqcnType.Meta.MAX_LEN, mustSatisfy = FqcnType.Meta.Specification.class)
-            @ParameterLayout(named = "Domain type")
-            final String domainClassName,
-            @Parameter(maxLength = FqcnType.Meta.MAX_LEN, mustSatisfy = FqcnType.Meta.Specification.class)
-            @ParameterLayout(named = "Binder")
-            final ClassNameViewModel binderClassNameViewModel) {
-
-        applicable(domainClassName, binderClassNameViewModel.getFullyQualifiedClassName());
-        return this;
-    }
-
-    @Programmatic
-    public Applicability applicable(
-            final Class<?> domainClass,
-            final Class<? extends Binder> binderClass) {
-        return applicable(domainClass.getName(), binderClass);
-    }
-
-    @Programmatic
-    public Applicability applicable(
-            final String domainClassName,
-            final Class<? extends Binder> binderClass) {
-        return applicable(domainClassName, binderClass.getName() );
-    }
-
-    @Programmatic
-    public Applicability applicable(
-            final String domainClassName,
-            final String binderClassName) {
-        Applicability applicability = existingApplicability(domainClassName);
-        if(applicability == null) {
-            applicability = applicabilityRepository.create(this, domainClassName, binderClassName);
+        public _applicable(final DocumentTemplate documentTemplate) {
+            this.documentTemplate = documentTemplate;
         }
-        return applicability;
-    }
 
-    public TranslatableString disableApplicable() {
-        return binderClassNameService == null
-                ? TranslatableString.tr(
-                        "No BinderClassNameService registered to locate implementations of Binder")
-                : null;
-    }
 
-    public List<ClassNameViewModel> choices1Applicable() {
-        return binderClassNameService.binderClassNames();
-    }
-    
-    public TranslatableString validateApplicable(
-            final String domainTypeName,
-            final ClassNameViewModel dataModelFactoryClassName) {
+        public static class ActionDomainEvent extends DocumentAbstract.ActionDomainEvent { }
 
-        // REVIEW
-        return isApplicable(domainTypeName) ? null :
-                TranslatableString.tr(
-                        "Already applicable for '{domainTypeName}'",
-                        "domainTypeName", domainTypeName);
-    }
+        @Action(domainEvent = ActionDomainEvent.class, semantics = SemanticsOf.IDEMPOTENT)
+        @ActionLayout(cssClassFa = "fa-plus", contributed = Contributed.AS_ACTION)
+        @MemberOrder(name = "appliesTo", sequence = "1")
+        public DocumentTemplate $$(
+                @Parameter(maxLength = FqcnType.Meta.MAX_LEN, mustSatisfy = FqcnType.Meta.Specification.class)
+                @ParameterLayout(named = "Domain type")
+                final String domainClassName,
+                @Parameter(maxLength = FqcnType.Meta.MAX_LEN, mustSatisfy = FqcnType.Meta.Specification.class)
+                @ParameterLayout(named = "Renderer Model Factory")
+                final ClassNameViewModel rendererModelFactoryClassNameViewModel,
+                @Parameter(maxLength = FqcnType.Meta.MAX_LEN, mustSatisfy = FqcnType.Meta.Specification.class)
+                @ParameterLayout(named = "Attachment Advisor")
+                final ClassNameViewModel attachmentAdvisorClassNameViewModel) {
 
-    private boolean isApplicable(final String domainClassName) {
-        return existingApplicability(domainClassName) != null;
-    }
-    private Applicability existingApplicability(final String domainClassName) {
-        SortedSet<Applicability> applicabilities = getAppliesTo();
-        for (Applicability applicability : applicabilities) {
-            if (applicability.getDomainClassName().equals(domainClassName)) {
-                return applicability;
+            applicable(
+                    domainClassName, rendererModelFactoryClassNameViewModel.getFullyQualifiedClassName(), attachmentAdvisorClassNameViewModel.getFullyQualifiedClassName());
+            return this.documentTemplate;
+        }
+
+        public TranslatableString disable$$() {
+            if (rendererModelFactoryClassNameService == null) {
+                return TranslatableString.tr(
+                        "No RendererModelFactoryClassNameService registered to locate implementations of RendererModelFactory");
             }
+            if (attachmentAdvisorClassNameService == null) {
+                return TranslatableString.tr(
+                        "No AttachmentAdvisorClassNameService registered to locate implementations of AttachmentAdvisor");
+            }
+            return null;
         }
-        return null;
+
+        public List<ClassNameViewModel> choices1$$() {
+            return rendererModelFactoryClassNameService.rendererModelFactoryClassNames();
+        }
+
+        public List<ClassNameViewModel> choices2$$() {
+            return attachmentAdvisorClassNameService.attachmentAdvisorClassNames();
+        }
+
+        public TranslatableString validate0$$(final String domainTypeName) {
+
+            return isApplicable(domainTypeName) ? null :
+                    TranslatableString.tr(
+                            "Already applicable for '{domainTypeName}'",
+                            "domainTypeName", domainTypeName);
+        }
+
+
+        @Programmatic
+        public Applicability applicable(
+                final Class<?> domainClass,
+                final Class<? extends RendererModelFactory> renderModelFactoryClass,
+                final Class<? extends AttachmentAdvisor> attachmentAdvisorClass) {
+            return applicable(domainClass.getName(), renderModelFactoryClass, attachmentAdvisorClass);
+        }
+
+        @Programmatic
+        public Applicability applicable(
+                final String domainClassName,
+                final Class<? extends RendererModelFactory> renderModelFactoryClass,
+                final Class<? extends AttachmentAdvisor> attachmentAdvisorClass) {
+            return applicable(domainClassName, renderModelFactoryClass.getName(), attachmentAdvisorClass.getName() );
+        }
+
+        @Programmatic
+        public Applicability applicable(
+                final String domainClassName,
+                final String renderModelFactoryClassName,
+                final String attachmentAdvisorClassName) {
+            Applicability applicability = existingApplicability(domainClassName);
+            if(applicability == null) {
+                applicability = applicabilityRepository.create(documentTemplate, domainClassName, renderModelFactoryClassName, attachmentAdvisorClassName);
+            }
+            return applicability;
+        }
+
+        private boolean isApplicable(final String domainClassName) {
+            return existingApplicability(domainClassName) != null;
+        }
+        private Applicability existingApplicability(final String domainClassName) {
+            SortedSet<Applicability> applicabilities = documentTemplate.getAppliesTo();
+            for (Applicability applicability : applicabilities) {
+                if (applicability.getDomainClassName().equals(domainClassName)) {
+                    return applicability;
+                }
+            }
+            return null;
+        }
+
+
+        @Inject
+        RendererModelFactoryClassNameService rendererModelFactoryClassNameService;
+        @Inject
+        AttachmentAdvisorClassNameService attachmentAdvisorClassNameService;
+        @Inject
+        ApplicabilityRepository applicabilityRepository;
+
     }
+
     //endregion
 
     //region > notApplicable (action)
-    public static class NotApplicableDomainEvent extends DocumentType.ActionDomainEvent {
-    }
+    @Mixin
+    public static class _notApplicable {
 
-    @Action(
-            domainEvent = NotApplicableDomainEvent.class,
-            semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE
-    )
-    @ActionLayout(
-            cssClassFa = "fa-minus"
-    )
-    @MemberOrder(name = "appliesTo", sequence = "2")
-    public DocumentTemplate notApplicable(final Applicability applicability) {
-        applicabilityRepository.delete(applicability);
-        return this;
-    }
+        private final DocumentTemplate documentTemplate;
 
-    public TranslatableString disableNotApplicable() {
-        final TranslatableString tr = disableApplicable();
-        if(tr != null) {
-            return tr;
+        public _notApplicable(final DocumentTemplate documentTemplate) {
+            this.documentTemplate = documentTemplate;
         }
-        return choices0NotApplicable().isEmpty() ? TranslatableString.tr("No applicabilities to remove") : null;
+
+        public static class NotApplicableDomainEvent extends DocumentTemplate.ActionDomainEvent {
+        }
+
+        @Action(
+                domainEvent = NotApplicableDomainEvent.class,
+                semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE
+        )
+        @ActionLayout(
+                cssClassFa = "fa-minus"
+        )
+        @MemberOrder(name = "appliesTo", sequence = "2")
+        public DocumentTemplate $$(final Applicability applicability) {
+            applicabilityRepository.delete(applicability);
+            return this.documentTemplate;
+        }
+
+        public TranslatableString disable$$() {
+            final TranslatableString tr = factoryService.mixin(_applicable.class, documentTemplate).disable$$();
+            if(tr != null) {
+                return tr;
+            }
+            return choices0$$().isEmpty() ? TranslatableString.tr("No applicabilities to remove") : null;
+        }
+
+        public SortedSet<Applicability> choices0$$() {
+            return documentTemplate.getAppliesTo();
+        }
+
+        @Inject
+        ApplicabilityRepository applicabilityRepository;
+        @Inject
+        FactoryService factoryService;
     }
 
-    public SortedSet<Applicability> choices0NotApplicable() {
-        return getAppliesTo();
-    }
     //endregion
 
 
     //region > appliesTo, newBinder, newBinding
 
     /**
-     * Whether this template is able to return (via {@link #newBinder(Object)}) a {@link Binder}.
+     * Whether this template applies to this domain object (that is, {@link #newRendererModel(Object)} and {@link #newAttachmentAdvice(Document, Object)} will both return non-null values).
      */
     @Programmatic
     public boolean appliesTo(final Object domainObject) {
-        return newBinder(domainObject) != null;
+        return newRendererModelFactory(domainObject) != null;
     }
 
     @Programmatic
-    public Binder newBinder(final Object domainObject) {
+    public RendererModelFactory newRendererModelFactory(final Object domainObject) {
         final Class<?> domainObjectClass = domainObject.getClass();
         final com.google.common.base.Optional<Applicability> applicabilityIfAny = FluentIterable.from(getAppliesTo())
                 .filter(applicability -> applies(applicability, domainObjectClass)).first();
         if (!applicabilityIfAny.isPresent()) {
             return null;
         }
-        final Binder binder = (Binder) classService.instantiate(applicabilityIfAny.get().getBinderClassName());
-        serviceRegistry2.injectServicesInto(binder);
-        return binder;
+        final RendererModelFactory rendererModelFactory = (RendererModelFactory) classService.instantiate(applicabilityIfAny.get().getRendererModelFactoryClassName());
+        serviceRegistry2.injectServicesInto(rendererModelFactory);
+        return rendererModelFactory;
+    }
+
+    @Programmatic
+    public AttachmentAdvisor newAttachmentAdvisor(final Object domainObject) {
+        final Class<?> domainObjectClass = domainObject.getClass();
+        final com.google.common.base.Optional<Applicability> applicabilityIfAny = FluentIterable.from(getAppliesTo())
+                .filter(applicability -> applies(applicability, domainObjectClass)).first();
+        if (!applicabilityIfAny.isPresent()) {
+            return null;
+        }
+        final AttachmentAdvisor attachmentAdvisor = (AttachmentAdvisor) classService.instantiate(applicabilityIfAny.get().getAttachmentAdvisorClassName());
+        serviceRegistry2.injectServicesInto(attachmentAdvisor);
+        return attachmentAdvisor;
     }
 
     private boolean applies(
@@ -607,16 +670,28 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
     }
 
     @Programmatic
-    public Binder.Binding newBinding(final Object domainObject) {
-        final Binder binder = newBinder(domainObject);
-        if(binder == null) {
+    public Object newRendererModel(final Object domainObject) {
+        final RendererModelFactory rendererModelFactory = newRendererModelFactory(domainObject);
+        if(rendererModelFactory == null) {
             throw new IllegalStateException(String.format(
                     "For domain template %s, could not locate Applicability for domain object: %s",
                     getName(), domainObject.getClass().getName()));
         }
-        final Binder.Binding binding = binder.newBinding(this, domainObject);
-        serviceRegistry2.injectServicesInto(binding);
-        return binding;
+        final Object rendererModel = rendererModelFactory.newRendererModel(this, domainObject);
+        serviceRegistry2.injectServicesInto(rendererModel);
+        return rendererModel;
+    }
+
+    @Programmatic
+    public List<AttachmentAdvisor.PaperclipSpec> newAttachmentAdvice(final Document document, final Object domainObject) {
+        final AttachmentAdvisor attachmentAdvisor = newAttachmentAdvisor(domainObject);
+        if(attachmentAdvisor == null) {
+            throw new IllegalStateException(String.format(
+                    "For domain template %s, could not locate Applicability for domain object: %s",
+                    getName(), domainObject.getClass().getName()));
+        }
+        final List<AttachmentAdvisor.PaperclipSpec> paperclipSpecs = attachmentAdvisor.advise(this, domainObject);
+        return paperclipSpecs;
     }
 
     //endregion
@@ -638,9 +713,9 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
 
 
     @Programmatic
-    public URL preview(final Object contentDataModel) throws IOException {
+    public URL preview(final Object rendererModel) throws IOException {
 
-        serviceRegistry2.injectServicesInto(contentDataModel);
+        serviceRegistry2.injectServicesInto(rendererModel);
 
         if(!getContentRenderingStrategy().isPreviewsToUrl()) {
             throw new IllegalStateException(String.format("RenderingStrategy '%s' does not support previewing to URL",
@@ -657,11 +732,11 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
             case BYTES:
                 return ((RendererFromBytesToBytesWithPreviewToUrl) renderer).previewBytesToBytes(
                         getType(), getAtPath(), getVersion(),
-                        asBytes(), contentDataModel);
+                        asBytes(), rendererModel);
             case CHARACTERS:
                 return ((RendererFromBytesToCharsWithPreviewToUrl) renderer).previewBytesToChars(
                         getType(), getAtPath(), getVersion(),
-                        asBytes(), contentDataModel);
+                        asBytes(), rendererModel);
             default:
                 // shouldn't happen, above switch statement is complete
                 throw new IllegalArgumentException(String.format("Unknown output DocumentNature '%s'", outputNature));
@@ -671,11 +746,11 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
             case BYTES:
                 return ((RendererFromCharsToBytesWithPreviewToUrl) renderer).previewCharsToBytes(
                         getType(), getAtPath(), getVersion(),
-                        asChars(), contentDataModel);
+                        asChars(), rendererModel);
             case CHARACTERS:
                 return ((RendererFromCharsToCharsWithPreviewToUrl) renderer).previewCharsToChars(
                         getType(), getAtPath(), getVersion(),
-                        asChars(), contentDataModel);
+                        asChars(), rendererModel);
             default:
                 // shouldn't happen, above switch statement is complete
                 throw new IllegalArgumentException(String.format("Unknown output DocumentNature '%s'", outputNature));
@@ -691,26 +766,21 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
 
     //region > create, createAndRender, createAndScheduleRender (programmatic)
 
-
     @Programmatic
     public Document create(final Object domainObject) {
-        final Document document = createDocumentUsingBinding(domainObject);
+        final Document document = createDocumentUsingRendererModel(domainObject);
         transactionService.flushTransaction();
         return document;
     }
 
     @Programmatic
-    public Document createAndScheduleRender(
-            final Object domainObject,
-            final String additionalTextIfAny) {
+    public Document createAndScheduleRender(final Object domainObject) {
         final Document document = create(domainObject);
         backgroundService2.execute(document).render(this, domainObject);
         return document;
     }
     @Programmatic
-    public Document createAndRender(
-            final Object domainObject,
-            final String additionalTextIfAny) {
+    public Document createAndRender(final Object domainObject) {
         final Document document = create(domainObject);
         document.render(this, domainObject);
         return document;
@@ -719,16 +789,10 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
 
     //region > createDocument (programmatic)
     @Programmatic
-    public Document createDocumentUsingBinding(
+    public Document createDocumentUsingRendererModel(
             final Object domainObject) {
-        final Binder.Binding binding = newBinding(domainObject);
-        final Object contentDataModel = binding.getDataModel();
-        return createDocumentFromDataModel(contentDataModel);
-    }
-
-    @Programmatic
-    public Document createDocumentFromDataModel(final Object contentDataModel) {
-        final String documentName = determineDocumentName(contentDataModel);
+        final Object rendererModel = newRendererModel(domainObject);
+        final String documentName = determineDocumentName(rendererModel);
         return createDocument(documentName);
     }
 
@@ -863,7 +927,9 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
 
     //region > injected services
     @Inject
-    BinderClassNameService binderClassNameService;
+    RendererModelFactoryClassNameService rendererModelFactoryClassNameService;
+    @Inject
+    AttachmentAdvisorClassNameService attachmentAdvisorClassNameService;
     @Inject
     ApplicabilityRepository applicabilityRepository;
     @Inject

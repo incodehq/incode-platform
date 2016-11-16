@@ -30,52 +30,52 @@ import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.document.dom.services.ClassNameViewModel;
 import org.incode.module.document.dom.services.ClassService;
-import org.incode.module.document.dom.spi.BinderClassNameService;
+import org.incode.module.document.dom.spi.AttachmentAdvisorClassNameService;
 
 @Mixin
-public class Applicability_changeBinder {
+public class Applicability_changeAttachmentAdvisor {
 
 
     //region > constructor
     private final Applicability applicability;
 
-    public Applicability_changeBinder(final Applicability applicability) {
+    public Applicability_changeAttachmentAdvisor(final Applicability applicability) {
         this.applicability = applicability;
     }
     //endregion
 
 
-    public static class ActionDomainEvent extends DocumentModule.ActionDomainEvent<Applicability_changeBinder>  { }
+    public static class ActionDomainEvent extends DocumentModule.ActionDomainEvent<Applicability_changeAttachmentAdvisor>  { }
 
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
             domainEvent = ActionDomainEvent.class
     )
-    @MemberOrder(name = "binderClassName",sequence = "1")
-    public Applicability_changeBinder $$(final ClassNameViewModel classNameViewModel) {
-        applicability.setBinderClassName(classNameViewModel.getFullyQualifiedClassName());
+    @MemberOrder(name = "attachmentAdvisorClassName",sequence = "1")
+    public Applicability_changeAttachmentAdvisor $$(final ClassNameViewModel classNameViewModel) {
+        applicability.setAttachmentAdvisorClassName(classNameViewModel.getFullyQualifiedClassName());
         return this;
     }
 
     public TranslatableString disable$$() {
-        return binderClassNameService == null
+        return classNameService == null
                 ? TranslatableString.tr(
-                "No BinderClassNameService registered to locate implementations of Binder")
+                "No AttachmentAdvisorClassNameService registered to locate implementations of AttachmentAdvisor")
                 : null;
     }
 
-    public List<ClassNameViewModel> choices0$$() {
-        return binderClassNameService.binderClassNames();
-    }
     public ClassNameViewModel default0$$() {
-        return new ClassNameViewModel(classService.load(applicability.getBinderClassName()));
+        return new ClassNameViewModel(classService.load(applicability.getAttachmentAdvisorClassName()));
     }
 
+    public List<ClassNameViewModel> choices0$$() {
+        return classNameService.attachmentAdvisorClassNames();
+    }
 
 
     //region > injected services
     @Inject
-    BinderClassNameService binderClassNameService;
+    AttachmentAdvisorClassNameService classNameService;
     @Inject
     ClassService classService;
     //endregion

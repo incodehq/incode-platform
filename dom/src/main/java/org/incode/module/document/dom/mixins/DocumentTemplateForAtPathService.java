@@ -28,7 +28,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
-import org.incode.module.document.dom.impl.applicability.Binder;
+import org.incode.module.document.dom.impl.applicability.AttachmentAdvisor;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 import org.incode.module.document.dom.impl.docs.DocumentTemplateRepository;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
@@ -70,12 +70,11 @@ public class DocumentTemplateForAtPathService {
         return Lists.newArrayList(
                 templatesForPath.stream()
                         .filter(template -> {
-                            final Binder binder = template.newBinder(domainObject);
-                            if (binder == null) {
+                            final AttachmentAdvisor advisor = template.newAttachmentAdvisor(domainObject);
+                            if (advisor == null) {
                                 return false;
                             }
-                            final Binder.Binding binding = binder.newBinding(template, domainObject);
-                            final List<Binder.Binding.PaperclipSpec> paperclipSpecs = binding.getPaperclipSpecs();
+                            final List<AttachmentAdvisor.PaperclipSpec> paperclipSpecs = advisor.advise(template, domainObject);
                             return canCreate(template, paperclipSpecs);
                         })
                         .collect(Collectors.toList()));
@@ -93,7 +92,7 @@ public class DocumentTemplateForAtPathService {
         return template.getContentRenderingStrategy().isPreviewsToUrl();
     }
 
-    private boolean canCreate(final DocumentTemplate template, final List<Binder.Binding.PaperclipSpec> paperclipSpecs) {
+    private boolean canCreate(final DocumentTemplate template, final List<AttachmentAdvisor.PaperclipSpec> paperclipSpecs) {
         return !template.isPreviewOnly() &&
                 paperclipSpecs.stream()
                               .filter(paperclipSpec -> paperclipRepository.canAttach(paperclipSpec.getAttachTo()))

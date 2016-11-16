@@ -25,7 +25,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
-import org.incode.module.document.dom.impl.applicability.Binder;
+import org.incode.module.document.dom.impl.applicability.AttachmentAdvisor;
 import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
@@ -37,8 +37,8 @@ public class DocumentCreatorService {
     public boolean canCreateDocumentAndAttachPaperclips(
             final Object domainObject,
             final DocumentTemplate template) {
-        final Binder binder = template.newBinder(domainObject);
-        return binder != null;
+        final AttachmentAdvisor attachmentAdvisor = template.newAttachmentAdvisor(domainObject);
+        return attachmentAdvisor != null;
     }
 
     @Programmatic
@@ -46,11 +46,11 @@ public class DocumentCreatorService {
             final Object domainObject,
             final DocumentTemplate template) {
 
-        final Binder.Binding binding = template.newBinding(domainObject);
-        final List<Binder.Binding.PaperclipSpec> paperclipSpecs = binding.getPaperclipSpecs();
         final Document document = template.create(domainObject);
 
-        for (Binder.Binding.PaperclipSpec paperclipSpec : paperclipSpecs) {
+        final List<AttachmentAdvisor.PaperclipSpec> paperclipSpecs = template.newAttachmentAdvice(document, domainObject);
+
+        for (AttachmentAdvisor.PaperclipSpec paperclipSpec : paperclipSpecs) {
             final String roleName = paperclipSpec.getRoleName();
             final Object attachTo = paperclipSpec.getAttachTo();
             if(paperclipRepository.canAttach(attachTo)) {

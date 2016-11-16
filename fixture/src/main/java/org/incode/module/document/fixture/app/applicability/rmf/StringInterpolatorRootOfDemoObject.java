@@ -16,39 +16,26 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.document.fixture.app.binders;
-
-import java.util.Collections;
-import java.util.List;
+package org.incode.module.document.fixture.app.applicability.rmf;
 
 import org.isisaddons.module.stringinterpolator.dom.StringInterpolatorService;
 
-import org.incode.module.document.dom.impl.applicability.Binder;
+import org.incode.module.document.dom.impl.applicability.RendererModelFactoryAbstract;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 import org.incode.module.document.fixture.dom.demo.DemoObject;
 
 import lombok.Getter;
 
-public class BinderOfSiRootForDemoObject implements Binder {
+public class StringInterpolatorRootOfDemoObject extends RendererModelFactoryAbstract<DemoObject> {
 
-    public Binding newBinding(
-            final DocumentTemplate documentTemplate,
-            final Object domainObject) {
-
-        if(!(domainObject instanceof DemoObject)) {
-            throw new IllegalArgumentException("Domain object must be of type DemoObject");
-        }
-        DemoObject demoObject = (DemoObject) domainObject;
-
-        // dataModel
-        final DataModel dataModel = new DataModel(demoObject);
-
-        // binding
-        return new Binding(dataModel, determinePaperclipSpecs(domainObject));
+    public StringInterpolatorRootOfDemoObject() {
+        super(DemoObject.class);
     }
 
-    protected List<Binding.PaperclipSpec> determinePaperclipSpecs(final Object domainObject) {
-        return Collections.singletonList(new Binding.PaperclipSpec(null, domainObject));
+    @Override
+    protected Object doNewRendererModel(
+            final DocumentTemplate documentTemplate, final DemoObject demoObject) {
+        return new DataModel(demoObject);
     }
 
     public static class DataModel extends StringInterpolatorService.Root {

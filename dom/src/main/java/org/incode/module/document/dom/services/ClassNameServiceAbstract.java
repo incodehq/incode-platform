@@ -30,12 +30,13 @@ import com.google.common.collect.Lists;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.classdiscovery.ClassDiscoveryService2;
 
-import org.incode.module.document.dom.spi.BinderClassNameService;
+import org.incode.module.document.dom.spi.AttachmentAdvisorClassNameService;
 import org.incode.module.document.dom.spi.RendererClassNameService;
 
 /**
- * Provided as a convenience absdtract superclass for implementing the {@link BinderClassNameService} and
- * {@link RendererClassNameService} SPIs.
+ * Provided as a convenience absdtract superclass for implementing the
+ * {@link org.incode.module.document.dom.spi.RendererModelFactoryClassNameService}, the
+ * {@link AttachmentAdvisorClassNameService} and the {@link RendererClassNameService} SPIs.
  */
 public abstract class ClassNameServiceAbstract<C> {
 
