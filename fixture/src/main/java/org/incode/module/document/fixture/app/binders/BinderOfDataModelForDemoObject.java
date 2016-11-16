@@ -13,8 +13,7 @@ public class BinderOfDataModelForDemoObject implements Binder {
     @Override
     public Binding newBinding(
             final DocumentTemplate documentTemplate,
-            final Object domainObject,
-            final String additionalTextIfAny) {
+            final Object domainObject) {
 
         if(!(domainObject instanceof DemoObject)) {
             throw new IllegalArgumentException("Domain object must be of type DemoObject");
@@ -24,7 +23,7 @@ public class BinderOfDataModelForDemoObject implements Binder {
         // dataModel
         final DataModel dataModel = new DataModel(demoObject);
 
-        return new Binding(dataModel, Collections.singletonList(demoObject));
+        return new Binding(dataModel, Collections.singletonList(new Binding.PaperclipSpec(null, demoObject)));
     }
 
     @Value

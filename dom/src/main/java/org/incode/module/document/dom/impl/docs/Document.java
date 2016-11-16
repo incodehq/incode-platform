@@ -210,10 +210,9 @@ public class Document extends DocumentAbstract<Document> {
     @Action(hidden = Where.EVERYWHERE) // so can invoke via BackgroundService
     public void render(
             final DocumentTemplate documentTemplate,
-            final Object domainObject,
-            final String additionalTextIfAny) {
+            final Object domainObject) {
 
-        final Binder.Binding binding = documentTemplate.newBinding(domainObject, additionalTextIfAny);
+        final Binder.Binding binding = documentTemplate.newBinding(domainObject);
         final Object contentDataModel = binding.getDataModel();
 
         documentTemplate.renderContent(this, contentDataModel);

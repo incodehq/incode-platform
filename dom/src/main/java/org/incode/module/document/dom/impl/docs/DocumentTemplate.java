@@ -591,9 +591,6 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
         final Class<?> domainObjectClass = domainObject.getClass();
         final com.google.common.base.Optional<Applicability> applicabilityIfAny = FluentIterable.from(getAppliesTo())
                 .filter(applicability -> applies(applicability, domainObjectClass)).first();
-//        final Optional<Applicability> applicabilityIfAny = getAppliesTo().stream()
-//                .filter(applicability -> applies(applicability, domainObjectClass))
-//                .findFirst();
         if (!applicabilityIfAny.isPresent()) {
             return null;
         }
@@ -610,14 +607,14 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
     }
 
     @Programmatic
-    public Binder.Binding newBinding(final Object domainObject, final String additionalTextIfAny) {
+    public Binder.Binding newBinding(final Object domainObject) {
         final Binder binder = newBinder(domainObject);
         if(binder == null) {
             throw new IllegalStateException(String.format(
                     "For domain template %s, could not locate Applicability for domain object: %s",
                     getName(), domainObject.getClass().getName()));
         }
-        final Binder.Binding binding = binder.newBinding(this, domainObject, additionalTextIfAny);
+        final Binder.Binding binding = binder.newBinding(this, domainObject);
         serviceRegistry2.injectServicesInto(binding);
         return binding;
     }
@@ -692,26 +689,30 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
 
     //endregion
 
-    //region > createAndScheduleRendering (programmatic)
+    //region > create, createAndRender, createAndScheduleRender (programmatic)
+
+
+    @Programmatic
+    public Document create(final Object domainObject) {
+        final Document document = createDocumentUsingBinding(domainObject);
+        transactionService.flushTransaction();
+        return document;
+    }
+
     @Programmatic
     public Document createAndScheduleRender(
             final Object domainObject,
             final String additionalTextIfAny) {
-        final Document document = createDocumentUsingBinding(domainObject, additionalTextIfAny);
-        transactionService.flushTransaction(); // ensure document is persistent so can schedule action against it.
-        backgroundService2.execute(document).render(this, domainObject, additionalTextIfAny);
+        final Document document = create(domainObject);
+        backgroundService2.execute(document).render(this, domainObject);
         return document;
     }
-    //endregion
-
-    //region > createAndRender (programmatic)
     @Programmatic
     public Document createAndRender(
             final Object domainObject,
             final String additionalTextIfAny) {
-        final Document document = createDocumentUsingBinding(domainObject, additionalTextIfAny);
-        transactionService.flushTransaction();
-        document.render(this, domainObject, additionalTextIfAny);
+        final Document document = create(domainObject);
+        document.render(this, domainObject);
         return document;
     }
     //endregion
@@ -719,9 +720,8 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
     //region > createDocument (programmatic)
     @Programmatic
     public Document createDocumentUsingBinding(
-            final Object domainObject,
-            final String additionalTextIfAny) {
-        final Binder.Binding binding = newBinding(domainObject, additionalTextIfAny);
+            final Object domainObject) {
+        final Binder.Binding binding = newBinding(domainObject);
         final Object contentDataModel = binding.getDataModel();
         return createDocumentFromDataModel(contentDataModel);
     }

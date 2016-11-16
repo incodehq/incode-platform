@@ -28,7 +28,10 @@ import org.incode.module.document.fixture.dom.other.OtherObject;
 import org.incode.module.document.fixture.dom.other.OtherObjectMenu;
 
 import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
+@Accessors(chain = true)
 public class OtherObjectsFixture extends FixtureScript {
 
     @javax.inject.Inject
@@ -37,22 +40,12 @@ public class OtherObjectsFixture extends FixtureScript {
     @javax.inject.Inject
     FakeDataService fakeDataService;
 
-    @Getter
+    @Getter @Setter
     private Integer number ;
-    public OtherObjectsFixture setNumber(final Integer number) {
-        this.number = number;
-        return this;
-    }
 
     @Getter
     private List<OtherObject> otherObjects = Lists.newArrayList();
 
-
-    //region > constructor
-    public OtherObjectsFixture() {
-        withDiscoverability(Discoverability.DISCOVERABLE);
-    }
-    //endregion
 
     @Override
     protected void execute(final ExecutionContext ec) {

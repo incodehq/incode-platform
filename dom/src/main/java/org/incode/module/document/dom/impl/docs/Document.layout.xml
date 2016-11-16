@@ -114,10 +114,13 @@
     <bs3:row>
         <bs3:col span="12">
             <bs3:tabGroup>
-                <bs3:tab name="Attached to">
+                <bs3:tab name="Attachments">
                     <bs3:row>
                         <bs3:col span="12">
-                            <cpt:collection id="attachedTo"/>
+                            <cpt:collection id="attachedTo">
+                                <cpt:describedAs>Objects that this document attaches to</cpt:describedAs>
+                            </cpt:collection>
+                            <cpt:collection id="documentsAttachingToThisDocument"/>
                         </bs3:col>
                     </bs3:row>
                 </bs3:tab>

@@ -18,8 +18,13 @@
 package org.incode.module.document.dom.mixins;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
+
+import com.google.common.base.Predicates;
+import com.google.common.collect.FluentIterable;
+import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
@@ -27,14 +32,25 @@ import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.services.queryresultscache.QueryResultsCache;
 
 import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.document.dom.impl.paperclips.Paperclip;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
 
+/**
+ * Contributes a collection of all {@link org.incode.module.document.dom.impl.docs.Document}s that are attached to
+ * this domain object.
+ *
+ * <p>
+ *     More precisely, lists the {@link Paperclip}s where the paperclip is {@link Paperclip#getAttachedTo() attached to}
+ *     this domain object; and shows the {@link Paperclip#getDocument() paperclip's associated document}.
+ * </p>
+ *
+ * @param <T> - the type of the domain object which supports having {@link Paperclip}s associated with it.
+ */
 public abstract class T_documents<T> {
 
-    //region > constructor and mixedIn accessor
     private final T attachedTo;
     public T_documents(final T attachedTo) {
         this.attachedTo = attachedTo;
@@ -45,12 +61,11 @@ public abstract class T_documents<T> {
         return attachedTo;
     }
 
-    //endregion
 
-    //region > $$
-    public static class DomainEvent extends DocumentModule.ActionDomainEvent<T_documents>  { }
+
+    public static class ActionDomainEvent extends DocumentModule.ActionDomainEvent<T_documents>  { }
     @Action(
-            domainEvent = DomainEvent.class,
+            domainEvent = ActionDomainEvent.class,
             semantics = SemanticsOf.SAFE
     )
     @ActionLayout(
@@ -58,13 +73,24 @@ public abstract class T_documents<T> {
     )
     @CollectionLayout(defaultView = "table")
     public List<Paperclip> $$() {
-        return paperclipRepository.findByAttachedTo(attachedTo);
+        return queryResultsCache.execute(
+                (Callable<List<Paperclip>>) () -> {
+                    final List<Paperclip> paperclips = paperclipRepository.findByAttachedTo(attachedTo);
+                    return Lists.newArrayList(FluentIterable.from(paperclips).filter(filter()).toList());
+                },
+                getClass(), "$$", attachedTo);
     }
-    //endregion
 
-    //region > injected services
+    /**
+     * Optional hook.
+     */
+    protected com.google.common.base.Predicate<? super Paperclip> filter() {
+        return Predicates.alwaysTrue();
+    }
+
     @Inject
     PaperclipRepository paperclipRepository;
-    //endregion
+    @Inject
+    QueryResultsCache queryResultsCache;
 
 }

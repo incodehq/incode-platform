@@ -23,7 +23,7 @@ import org.apache.isis.applib.annotation.Programmatic;
 
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 
-import lombok.Getter;
+import lombok.Data;
 
 /**
  * Implementation is responsible for creating the appropriate dataModel to feed into the supplied
@@ -35,29 +35,26 @@ import lombok.Getter;
  */
 public interface Binder {
 
+    @Data
     public static class Binding {
-        @Getter
         private final Object dataModel;
+        private final List<PaperclipSpec> paperclipSpecs;
 
-        @Getter
-        private final List<Object> attachTo;
-
-        public Binding(final Object dataModel, final List<Object> attachTo) {
-            this.dataModel = dataModel;
-            this.attachTo = attachTo;
+        @Data
+        public static class PaperclipSpec {
+            private final String roleName;
+            private final Object attachTo;
         }
+
     }
 
     /**
-     *
-     * @param documentTemplate - to which this binder implementation applies, as per {@link DocumentTemplate#getAppliesTo()} and {@link Applicability#getBinderClassName()}
-     * @param domainObject - acting as the context for the binding, from which both the input {@link Binding#getDataModel() data model } and the objects {@link Binding#getAttachTo() to attach to} are inferred
-     * @param additionalTextIfAny - optional text (eg for an email cover note) that may also be available to create the input data model
+     *  @param documentTemplate - to which this binder implementation applies, as per {@link DocumentTemplate#getAppliesTo()} and {@link Applicability#getBinderClassName()}
+     * @param domainObject - acting as the context for the binding, from which both the input {@link Binding#getDataModel() data model } and the objects {@link Binding#getPaperclipSpecs()} to attach to} are inferred
      */
     @Programmatic
     Binding newBinding(
             final DocumentTemplate documentTemplate,
-            final Object domainObject,
-            final String additionalTextIfAny);
+            final Object domainObject);
 
 }

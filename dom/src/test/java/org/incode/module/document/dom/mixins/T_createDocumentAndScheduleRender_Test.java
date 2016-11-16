@@ -39,7 +39,7 @@ public class T_createDocumentAndScheduleRender_Test {
     @Mock
     private DocumentAbstract mockDocumentAbstract;
 
-    T_createAndAttachDocumentAbstract mixin;
+    T_createAndAttachDocumentAndRender<SomeDomainObject> mixin;
 
     @Before
     public void setUp() throws Exception {
@@ -47,11 +47,43 @@ public class T_createDocumentAndScheduleRender_Test {
         mixin = new T_createAndAttachDocumentAndRender(mockSomeDomainObject) { };
     }
 
-    @Ignore
-    @Test
-    public void schedules_render_on_template() throws Exception {
+    public static class Hide_Test extends T_createDocumentAndScheduleRender_Test {
+
+        @Ignore
+        @Test
+        public void xxx() throws Exception {
+
+        }
 
     }
+
+    public static class Choices_Test extends T_createDocumentAndScheduleRender_Test {
+
+        @Ignore
+        @Test
+        public void xxx() throws Exception {
+
+        }
+
+    }
+
+    public static class ActionInvocation_Test extends T_createDocumentAndScheduleRender_Test {
+
+        @Ignore
+        @Test
+        public void xxx() throws Exception {
+
+        }
+
+        @Ignore
+        @Test
+        public void schedules_render_on_template() throws Exception {
+
+        }
+
+    }
+
+
 
 
 }

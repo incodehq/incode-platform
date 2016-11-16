@@ -28,7 +28,9 @@ import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.services.queryresultscache.QueryResultsCache;
 
+import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.document.dom.impl.applicability.Binder;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
@@ -37,38 +39,44 @@ import org.incode.module.document.dom.services.ClassService;
 
 public abstract class T_preview<T> {
 
-    //region > constructor
     protected final T domainObject;
 
     public T_preview(final T domainObject) {
         this.domainObject = domainObject;
     }
-    //endregion
 
-    /**
-     * Preview the document's content (as a URL to that content).
-     */
-    @Action(semantics = SemanticsOf.NON_IDEMPOTENT)
-    @ActionLayout(contributed = Contributed.AS_ACTION)
-    @MemberOrder(name = "documents", sequence = "1")
+
+    public static class ActionDomainEvent extends DocumentModule.ActionDomainEvent<T_preview> {}
+
+    @Action(
+            domainEvent = ActionDomainEvent.class,
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            contributed = Contributed.AS_ACTION
+    )
+    @MemberOrder(name = "documents", sequence = "2")
     public URL $$(final DocumentTemplate template) throws IOException {
-        final String roleName = null;
-        final String additionalTextIfAny = null;
-
-        final Binder.Binding binding = template.newBinding(domainObject, additionalTextIfAny);
+        final Binder.Binding binding = template.newBinding(domainObject);
         return template.preview(binding.getDataModel());
     }
 
-
     public boolean hide$$() {
         return choices0$$().isEmpty();
+    }
+
+    public DocumentTemplate default0$$() {
+        final List<DocumentTemplate> documentTemplates = choices0$$();
+        return documentTemplates.size() == 1 ? documentTemplates.get(0): null;
     }
 
     /**
      * All templates which are applicable to the domain object's atPath, and which can be previewed.
      */
     public List<DocumentTemplate> choices0$$() {
-        return documentTemplateService.documentTemplatesForPreview(domainObject);
+        return queryResultsCache.execute(
+                () -> documentTemplateService.documentTemplatesForPreview(domainObject),
+                getClass(), "$$", domainObject);
     }
 
 
@@ -85,6 +93,9 @@ public abstract class T_preview<T> {
 
     @Inject
     ClassService classService;
+
+    @Inject
+    QueryResultsCache queryResultsCache;
 
     //endregion
 

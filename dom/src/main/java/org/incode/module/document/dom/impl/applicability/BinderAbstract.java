@@ -16,7 +16,6 @@
  */
 package org.incode.module.document.dom.impl.applicability;
 
-import org.incode.module.document.dom.impl.applicability.Binder;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 
 /**
@@ -33,12 +32,11 @@ public abstract class BinderAbstract<T> implements Binder {
 
     public final Binding newBinding(
             final DocumentTemplate documentTemplate,
-            final Object domainObject,
-            final String additionalTextIfAny) {
+            final Object domainObject) {
 
         checkInputClass(domainObject);
 
-        return doNewBinding(documentTemplate, (T)domainObject, additionalTextIfAny);
+        return doNewBinding(documentTemplate, (T)domainObject);
     }
 
     /**
@@ -56,8 +54,7 @@ public abstract class BinderAbstract<T> implements Binder {
      */
     protected abstract Binding doNewBinding(
             final DocumentTemplate documentTemplate,
-            final T domainObject,
-            final String additionalTextIfAny);
+            final T domainObject);
 
 
 }

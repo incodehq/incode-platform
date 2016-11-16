@@ -74,9 +74,9 @@ public class DocumentTemplateForAtPathService {
                             if (binder == null) {
                                 return false;
                             }
-                            final Binder.Binding binding = binder.newBinding(template, domainObject, null);
-                            final List<Object> attachTo = binding.getAttachTo();
-                            return canCreate(template, attachTo);
+                            final Binder.Binding binding = binder.newBinding(template, domainObject);
+                            final List<Binder.Binding.PaperclipSpec> paperclipSpecs = binding.getPaperclipSpecs();
+                            return canCreate(template, paperclipSpecs);
                         })
                         .collect(Collectors.toList()));
     }
@@ -93,9 +93,12 @@ public class DocumentTemplateForAtPathService {
         return template.getContentRenderingStrategy().isPreviewsToUrl();
     }
 
-    private boolean canCreate(final DocumentTemplate template, final List<Object> attachTo) {
+    private boolean canCreate(final DocumentTemplate template, final List<Binder.Binding.PaperclipSpec> paperclipSpecs) {
         return !template.isPreviewOnly() &&
-                attachTo.stream().filter(x -> paperclipRepository.canAttach(x)).findFirst().isPresent();
+                paperclipSpecs.stream()
+                              .filter(paperclipSpec -> paperclipRepository.canAttach(paperclipSpec.getAttachTo()))
+                              .findFirst()
+                              .isPresent();
     }
 
 

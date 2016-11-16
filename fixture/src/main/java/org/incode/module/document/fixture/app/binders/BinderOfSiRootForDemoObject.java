@@ -33,7 +33,7 @@ public class BinderOfSiRootForDemoObject implements Binder {
 
     public Binding newBinding(
             final DocumentTemplate documentTemplate,
-            final Object domainObject, final String additionalTextIfAny) {
+            final Object domainObject) {
 
         if(!(domainObject instanceof DemoObject)) {
             throw new IllegalArgumentException("Domain object must be of type DemoObject");
@@ -44,11 +44,11 @@ public class BinderOfSiRootForDemoObject implements Binder {
         final DataModel dataModel = new DataModel(demoObject);
 
         // binding
-        return new Binding(dataModel, determineAttachTo(domainObject));
+        return new Binding(dataModel, determinePaperclipSpecs(domainObject));
     }
 
-    protected List<Object> determineAttachTo(final Object domainObject) {
-        return Collections.singletonList(domainObject);
+    protected List<Binding.PaperclipSpec> determinePaperclipSpecs(final Object domainObject) {
+        return Collections.singletonList(new Binding.PaperclipSpec(null, domainObject));
     }
 
     public static class DataModel extends StringInterpolatorService.Root {

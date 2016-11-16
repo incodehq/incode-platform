@@ -136,8 +136,8 @@ public class DocumentTypeAndTemplatesApplicableForDemoObjectFixture extends Docu
                 ".pdf",
                 false,
                 new Blob(
-                        docTypeForXDocReportPdf.getName(),
-                        "application/pdf",
+                        docTypeForXDocReportPdf.getName() + ".docx",
+                        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                         loadResourceBytes("demoObject-template.docx")
                 ), xdpRenderingStrategy,
                 "${demoObject.name}", fmkRenderingStrategy,
@@ -158,7 +158,7 @@ public class DocumentTypeAndTemplatesApplicableForDemoObjectFixture extends Docu
                 ".docx",
                 false,
                 new Blob(
-                        docTypeForXDocReportDocx.getName(),
+                        docTypeForXDocReportDocx.getName() + ".docx",
                         "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                         loadResourceBytes("demoObject-template.docx")
                 ), xddRenderingStrategy,

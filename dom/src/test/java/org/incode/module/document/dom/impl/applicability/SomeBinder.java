@@ -18,15 +18,13 @@
  */
 package org.incode.module.document.dom.impl.applicability;
 
-import org.incode.module.document.dom.impl.applicability.Binder;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 
 public class SomeBinder implements Binder {
     @Override
     public Binding newBinding(
             final DocumentTemplate documentTemplate,
-            final Object domainObject,
-            final String additionalTextIfAny) {
+            final Object domainObject) {
         return null;
     }
 }

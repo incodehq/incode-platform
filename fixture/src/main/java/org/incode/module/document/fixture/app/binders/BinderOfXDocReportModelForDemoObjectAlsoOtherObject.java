@@ -42,7 +42,7 @@ public class BinderOfXDocReportModelForDemoObjectAlsoOtherObject implements Bind
 
     public Binding newBinding(
             final DocumentTemplate documentTemplate,
-            final Object domainObject, final String additionalTextIfAny) {
+            final Object domainObject) {
 
         if(!(domainObject instanceof DemoObject)) {
             throw new IllegalArgumentException("Domain object must be of type DemoObject");
@@ -53,19 +53,19 @@ public class BinderOfXDocReportModelForDemoObjectAlsoOtherObject implements Bind
         final DataModel dataModel = new DataModel(demoObject);
 
         // binding
-        return new Binding(dataModel, determineAttachTo(domainObject));
+        return new Binding(dataModel, determinePaperclipSpecs(domainObject));
     }
 
-    protected List<Object> determineAttachTo(final Object domainObject) {
+    protected List<Binding.PaperclipSpec> determinePaperclipSpecs(final Object domainObject) {
 
-        final List<Object> attachTo = Lists.newArrayList();
+        final List<Binding.PaperclipSpec> attachTo = Lists.newArrayList();
 
-        attachTo.add(domainObject);
+        attachTo.add(new Binding.PaperclipSpec(null, domainObject));
 
         // also attaches to first 'otherObject' (if any)
         final Optional<OtherObject> firstOtherObjectIfAny = repositoryService.allInstances(OtherObject.class).stream().findFirst();
         if(firstOtherObjectIfAny.isPresent()) {
-            attachTo.add(firstOtherObjectIfAny.get());
+            attachTo.add(new Binding.PaperclipSpec("other", firstOtherObjectIfAny.get()));
         }
 
         return attachTo;

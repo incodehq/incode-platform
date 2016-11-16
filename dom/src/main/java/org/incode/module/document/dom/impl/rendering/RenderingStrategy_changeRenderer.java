@@ -75,6 +75,6 @@ public class RenderingStrategy_changeRenderer {
     }
 
     @Inject
-    private RendererClassNameService rendererClassNameService;
+    RendererClassNameService rendererClassNameService;
 
 }

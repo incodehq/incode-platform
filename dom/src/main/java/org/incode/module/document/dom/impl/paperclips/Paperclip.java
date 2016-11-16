@@ -79,7 +79,7 @@ import lombok.Setter;
                 value = "SELECT "
                         + "FROM org.incode.module.document.dom.impl.paperclips.Paperclip "
                         + "WHERE attachedToStr == :attachedToStr "
-                        + "   && roleName == :roleName "
+                        + "   && roleName      == :roleName "
                         + "ORDER BY documentCreatedAt DESC ")
 })
 @javax.jdo.annotations.Indices({
