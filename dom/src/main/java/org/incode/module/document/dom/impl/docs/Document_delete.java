@@ -53,7 +53,9 @@ public class Document_delete {
     public Object $$() {
 
         List<Object> attachedToList = Lists.newArrayList();
-        final List<Paperclip> paperclips = paperclipRepository.findByDocument(document);
+
+        // links from this document to other objects
+        List<Paperclip> paperclips = paperclipRepository.findByDocument(document);
         for (Paperclip paperclip : paperclips) {
 
             final Object attachedTo = paperclip.getAttachedTo();
@@ -62,9 +64,15 @@ public class Document_delete {
             paperclipRepository.delete(paperclip);
         }
 
+        // links from other documents to this document
+        paperclips = paperclipRepository.findByAttachedTo(document);
+        for (Paperclip paperclip : paperclips) {
+            paperclipRepository.delete(paperclip);
+        }
+
         documentRepository.delete(document);
 
-        // if only attached to a single object, then return; otherwise return null.
+        // if was only attached to a single object, then return; otherwise return null.
         return attachedToList.size() == 1 ? attachedToList.get(0): null;
     }
 
