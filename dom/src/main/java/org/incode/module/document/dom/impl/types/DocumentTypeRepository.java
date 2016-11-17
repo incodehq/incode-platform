@@ -25,6 +25,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
+import org.apache.isis.applib.services.queryresultscache.QueryResultsCache;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
 @DomainService(
@@ -52,10 +53,14 @@ public class DocumentTypeRepository {
     @Programmatic
     public DocumentType findByReference(
             final String reference) {
-        return repositoryService.firstMatch(
-                new QueryDefault<>(DocumentType.class,
-                        "findByReference",
-                        "reference", reference));
+        return queryResultsCache.execute(
+                () -> repositoryService.firstMatch(
+                    new QueryDefault<>(DocumentType.class,
+                            "findByReference",
+                            "reference", reference)),
+                DocumentTypeRepository.class,
+                "findByReference", reference);
+
     }
     //endregion
 
@@ -70,6 +75,8 @@ public class DocumentTypeRepository {
     //region > injected services
     @Inject
     RepositoryService repositoryService;
+    @Inject
+    QueryResultsCache queryResultsCache;
     //endregion
 
 }
