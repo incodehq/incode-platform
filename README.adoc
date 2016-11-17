@@ -348,7 +348,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.incode.module.document</groupId>
     <artifactId>incode-module-document-dom</artifactId>
-    <version>1.13.10</version>
+    <version>1.13.11</version>
 </dependency>
 ----
 
@@ -739,6 +739,8 @@ public class RendererClassNameServiceForDemo extends ClassNameServiceAbstract<Re
 
 
 == Change Log
+
+* `1.13.11` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/9[#9], https://github.com/incodehq/incode-module-document/issues/10[#10], https://github.com/incodehq/incode-module-document/issues/11[#11].
 
 * `1.13.10` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/3[#3], https://github.com/incodehq/incode-module-document/issues/4[#4], https://github.com/incodehq/incode-module-document/issues/5[#5], https://github.com/incodehq/incode-module-document/issues/6[#6], https://github.com/incodehq/incode-module-document/issues/7[#7], https://github.com/incodehq/incode-module-document/issues/8[#8].  +
 +
