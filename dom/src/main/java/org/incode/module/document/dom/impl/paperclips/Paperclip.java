@@ -80,18 +80,25 @@ import lombok.Setter;
                         + "FROM org.incode.module.document.dom.impl.paperclips.Paperclip "
                         + "WHERE attachedToStr == :attachedToStr "
                         + "   && roleName      == :roleName "
+                        + "ORDER BY documentCreatedAt DESC "),
+        @javax.jdo.annotations.Query(
+                name = "findByDocumentAndAttachedToAndRoleName", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.module.document.dom.impl.paperclips.Paperclip "
+                        + "WHERE document      == :document "
+                        + "   && attachedToStr == :attachedToStr "
+                        + "   && roleName      == :roleName "
                         + "ORDER BY documentCreatedAt DESC ")
 })
 @javax.jdo.annotations.Indices({
         @javax.jdo.annotations.Index(
-                name = "DocumentLink_attachedTo_document_idx",
-                members = { "attachedToStr", "document" }),
-        @javax.jdo.annotations.Index(
-                name="DocumentLink_document_attachedTo_UNQ",
-                members = {"document", "attachedToStr"})
+                name = "Paperclip_attachedTo_document_idx",
+                members = { "attachedToStr", "document" })
 })
 @javax.jdo.annotations.Uniques({
-    // none currently
+        @javax.jdo.annotations.Unique(
+                name="Paperclip_document_attachedTo_roleName_idx",
+                members = {"document", "attachedToStr", "roleName"})
 })
 @DomainObject()
 @DomainObjectLayout(

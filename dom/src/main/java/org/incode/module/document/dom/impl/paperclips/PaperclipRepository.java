@@ -94,6 +94,35 @@ public class PaperclipRepository {
     }
     //endregion
 
+    //region > findByDocumentAndAttachedToAndRoleName (programmatic)
+    @Programmatic
+    public Paperclip findByDocumentAndAttachedToAndRoleName(
+            final DocumentAbstract<?> document,
+            final Object attachedTo,
+            final String roleName) {
+        if(document == null) {
+            return null;
+        }
+        if(attachedTo == null) {
+            return null;
+        }
+        if(roleName == null) {
+            return null;
+        }
+        final Bookmark bookmark = bookmarkService.bookmarkFor(attachedTo);
+        if(bookmark == null) {
+            return null;
+        }
+        final String attachedToStr = bookmark.toString();
+        return repositoryService.firstMatch(
+                new QueryDefault<>(Paperclip.class,
+                        "findByDocumentAndAttachedToAndRoleName",
+                        "document", document,
+                        "attachedToStr", attachedToStr,
+                        "roleName", roleName));
+    }
+    //endregion
+
     //region > canAttach (programmatic)
     @Programmatic
     public boolean canAttach(
@@ -104,15 +133,24 @@ public class PaperclipRepository {
     //endregion
 
     //region > attach (programmatic)
+
+    /**
+     * This is an idempotent operation.
+     */
     @Programmatic
     public Paperclip attach(
             final DocumentAbstract documentAbstract,
             final String roleName,
             final Object attachTo) {
 
-        final Class<? extends Paperclip> subtype = subtypeClassFor(attachTo);
+        Paperclip paperclip = findByDocumentAndAttachedToAndRoleName(
+                documentAbstract, attachTo, roleName);
+        if(paperclip != null) {
+            return paperclip;
+        }
 
-        final Paperclip paperclip = repositoryService.instantiate(subtype);
+        final Class<? extends Paperclip> subtype = subtypeClassFor(attachTo);
+        paperclip = repositoryService.instantiate(subtype);
 
         paperclip.setDocument(documentAbstract);
         paperclip.setRoleName(roleName);
