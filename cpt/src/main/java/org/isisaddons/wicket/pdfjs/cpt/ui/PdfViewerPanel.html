@@ -21,14 +21,38 @@
     <body>
         <wicket:panel>
             <div class="pdfViewerPanel image scalarPanel">
-                <label wicket:for="scalarValue">
+                <label>
                     <span wicket:id="scalarName" class="scalarName">[Label text]</span>
                     <span class="scalarValue">
-                        <img wicket:id="scalarValue"/>
+                        <span wicket:id="scalarValue"></span>
+
+                        <span>
+                            <button class="pdf-js-page-prev">Previous</button>
+                            <button class="pdf-js-page-next">Next</button>
+                            &nbsp; &nbsp;
+                            <span>Page: <span class="pdf-js-page-total"></span> / <span id="page_count"></span></span>
+                        </span>
                     </span>
                 </label>
                 <span wicket:id="feedback"></span>
             </div>
+
+            <script type="text/javascript">
+                $(function () {
+                    $('.pdf-js-page-prev').click(function () {
+                        Wicket.Event.publish(Wicket.PDFJS.Topic.PREVIOUS_PAGE);
+                    });
+                    $('.pdf-js-page-next').click(function () {
+                        Wicket.Event.publish(Wicket.PDFJS.Topic.NEXT_PAGE);
+                    });
+
+                    Wicket.Event.subscribe(Wicket.PDFJS.Topic.TOTAL_PAGES, function (jqEvent, total) {
+                        $('.pdf-js-page-total').text(total);
+                    });
+                });
+            </script>
+
+
         </wicket:panel>
     </body>
 </html>

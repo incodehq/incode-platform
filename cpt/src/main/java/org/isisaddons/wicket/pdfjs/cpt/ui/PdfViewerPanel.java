@@ -16,62 +16,70 @@
  */
 package org.isisaddons.wicket.pdfjs.cpt.ui;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.ImageObserver;
-
-import org.apache.wicket.Component;
-import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFallbackDefaultDataTable;
-import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.image.resource.RenderedDynamicImageResource;
-
+import org.apache.isis.applib.value.Blob;
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
-import org.apache.isis.core.metamodel.facets.value.image.ImageValueFacet;
-import org.apache.isis.viewer.wicket.model.models.EntityCollectionModel;
 import org.apache.isis.viewer.wicket.model.models.ScalarModel;
 import org.apache.isis.viewer.wicket.ui.panels.PanelAbstract;
+import org.apache.wicket.IResourceListener;
+import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.request.handler.resource.ResourceRequestHandler;
+import org.apache.wicket.request.resource.ByteArrayResource;
+import org.isisaddons.wicket.pdfjs.cpt.applib.PdfViewerFromAnnotationFacet;
+import org.wicketstuff.pdfjs.PdfJsConfig;
+import org.wicketstuff.pdfjs.PdfJsPanel;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 
 /**
- * {@link PanelAbstract Panel} that represents a {@link EntityCollectionModel
- * collection of entity}s rendered using {@link AjaxFallbackDefaultDataTable}.
+ *
  */
-public class PdfViewerPanel extends PanelAbstract<ScalarModel> {
+class PdfViewerPanel extends PanelAbstract<ScalarModel> implements IResourceListener {
     private static final long serialVersionUID = 1L;
+
     private static final String ID_SCALAR_NAME = "scalarName";
     private static final String ID_SCALAR_VALUE = "scalarValue";
     private static final String ID_FEEDBACK = "feedback";
 
-    public PdfViewerPanel(String id, ScalarModel scalarModel) {
+    PdfViewerPanel(String id, ScalarModel scalarModel) {
         super(id, scalarModel);
+    }
+
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
         this.buildGui();
     }
 
     private void buildGui() {
-        String name = this.getModel().getName();
-        Label scalarName = new Label("scalarName", name);
-        this.addOrReplace(new Component[]{scalarName});
-        ImageValueFacet imageValueFacet = this.getModel().getTypeOfSpecification().getFacet(ImageValueFacet.class);
-        ObjectAdapter adapter = this.getModel().getObject();
-        if(adapter != null) {
-            final Image imageValue = imageValueFacet.getImage(adapter);
-            RenderedDynamicImageResource imageResource =
-                    new RenderedDynamicImageResource(imageValue.getWidth(null), imageValue.getHeight(null)) {
-                private static final long serialVersionUID = 1L;
+        final ScalarModel scalarModel = this.getModel();
+        String name = scalarModel.getName();
+        Label scalarName = new Label(ID_SCALAR_NAME, name);
+        addOrReplace(scalarName);
 
-                protected boolean render(Graphics2D graphics, Attributes attributes) {
-                    graphics.drawImage(imageValue, 0, 0, null);
-                    return true;
-                }
-            };
-            org.apache.wicket.markup.html.image.Image image = new org.apache.wicket.markup.html.image.Image("scalarValue", imageResource);
-            this.addOrReplace(image);
-            this.addOrReplace(new NotificationPanel("feedback", image, new ComponentFeedbackMessageFilter(image)));
+        final ObjectAdapter adapter = scalarModel.getObject();
+        if (adapter != null) {
+            PdfViewerFromAnnotationFacet pdfViewerFacet = scalarModel.getTypeOfSpecification().getFacet(PdfViewerFromAnnotationFacet.class);
+            final PdfJsConfig config = pdfViewerFacet != null ? pdfViewerFacet.getConfig() : new PdfJsConfig();
+            config.withDocumentUrl(urlFor(IResourceListener.INTERFACE, null));
+            final PdfJsPanel pdfJsPanel = new PdfJsPanel(ID_SCALAR_VALUE, config);
+            addOrReplace(pdfJsPanel);
+            addOrReplace(new NotificationPanel(ID_FEEDBACK, pdfJsPanel, new ComponentFeedbackMessageFilter(pdfJsPanel)));
         } else {
-            this.permanentlyHide("scalarValue", "feedback");
+            permanentlyHide(ID_SCALAR_VALUE, ID_FEEDBACK);
         }
 
+    }
+
+    @Override
+    public void onResourceRequested() {
+        final ObjectAdapter adapter = getModel().getObject();
+        if (adapter != null) {
+            Blob pdfBlob = (Blob) adapter.getObject();
+            final byte[] bytes = pdfBlob.getBytes();
+            final ByteArrayResource resource = new ByteArrayResource("application/pdf", bytes);
+            final ResourceRequestHandler handler = new ResourceRequestHandler(resource, null);
+            getRequestCycle().scheduleRequestHandlerAfterCurrent(handler);
+        }
     }
 }

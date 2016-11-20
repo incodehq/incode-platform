@@ -16,13 +16,15 @@
  */
 package org.isisaddons.wicket.pdfjs.cpt.ui;
 
-import org.apache.isis.core.metamodel.facets.value.image.ImageValueFacet;
-import org.apache.isis.core.metamodel.spec.ObjectSpecification;
+import org.apache.isis.applib.value.Blob;
+import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
 import org.apache.isis.viewer.wicket.model.models.ScalarModel;
 import org.apache.isis.viewer.wicket.ui.ComponentFactoryAbstract;
 import org.apache.isis.viewer.wicket.ui.ComponentType;
 import org.apache.wicket.Component;
 import org.apache.wicket.model.IModel;
+
+import javax.activation.MimeType;
 
 public class PdfViewerComponentFactory extends ComponentFactoryAbstract {
 
@@ -33,18 +35,29 @@ public class PdfViewerComponentFactory extends ComponentFactoryAbstract {
     }
 
     public ApplicationAdvice appliesTo(IModel<?> model) {
-        if(!(model instanceof ScalarModel)) {
+        if (!(model instanceof ScalarModel)) {
             return ApplicationAdvice.DOES_NOT_APPLY;
         } else {
-            ScalarModel scalarModel = (ScalarModel)model;
-            ObjectSpecification specification = scalarModel.getTypeOfSpecification();
-            // TODO mgrigorov Replace ImageValueFacet with PdfJsValueFacet
-            return this.appliesIf(specification != null && specification.containsFacet(ImageValueFacet.class));
+            ScalarModel scalarModel = (ScalarModel) model;
+            final ObjectAdapter objectAdapter = scalarModel.getObject();
+            final Object modelObject = objectAdapter.getObject();
+            final boolean isPdf = isPdf(modelObject);
+            return this.appliesIf(isPdf);
         }
     }
 
+    private boolean isPdf(final Object modelObject) {
+        boolean isPdf = false;
+        if (modelObject instanceof Blob) {
+            Blob blob = (Blob) modelObject;
+            final MimeType mimeType = blob.getMimeType();
+            isPdf = "application".equals(mimeType.getPrimaryType()) && "pdf".equals(mimeType.getSubType());
+        }
+        return isPdf;
+    }
+
     public Component createComponent(String id, IModel<?> model) {
-        ScalarModel scalarModel = (ScalarModel)model;
+        ScalarModel scalarModel = (ScalarModel) model;
         return new PdfViewerPanel(id, scalarModel);
     }
 }

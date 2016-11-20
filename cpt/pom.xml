@@ -19,7 +19,7 @@ language governing permissions and limitations under the License.
 
     <groupId>org.isisaddons.wicket.pdfjs</groupId>
     <artifactId>isis-wicket-pdfjs-cpt</artifactId>
-    <version>1.13.0-SNAPSHOT</version>
+    <version>1.14.0-SNAPSHOT</version>
 
     <packaging>jar</packaging>
 
@@ -59,7 +59,8 @@ language governing permissions and limitations under the License.
         <compileSource>1.7</compileSource>
         <compileTarget>1.7</compileTarget>
 
-        <isis.version>1.13.0</isis.version>
+        <isis.version>1.14.0-SNAPSHOT</isis.version>
+        <wicketstuff-pdfjs.version>7.0-SNAPSHOT</wicketstuff-pdfjs.version>
 
         <poi.version>3.9</poi.version>
 
@@ -207,8 +208,13 @@ language governing permissions and limitations under the License.
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.isis.viewer</groupId>
-            <artifactId>isis-viewer-wicket-ui</artifactId>
+            <groupId>org.wicketstuff</groupId>
+            <artifactId>wicketstuff-pdfjs</artifactId>
+            <version>${wicketstuff-pdfjs.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-viewer-wicket-ui</artifactId>
             <version>${isis.version}</version>
         </dependency>
         <dependency>
