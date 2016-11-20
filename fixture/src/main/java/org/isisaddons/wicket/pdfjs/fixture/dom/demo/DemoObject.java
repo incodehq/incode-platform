@@ -28,6 +28,7 @@ import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.value.Blob;
+import org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewer;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -67,7 +68,8 @@ public class DemoObject implements Comparable<DemoObject> {
     @Property(
             optionality = Optionality.OPTIONAL
     )
-    @Getter @Setter
+
+    @Getter(onMethod = @__({@PdfJsViewer(initialPage = 3, documentScale = 0.5)})) @Setter
     private Blob blob;
 
 

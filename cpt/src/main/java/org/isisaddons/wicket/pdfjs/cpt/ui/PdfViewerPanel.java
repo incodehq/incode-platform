@@ -18,6 +18,7 @@ package org.isisaddons.wicket.pdfjs.cpt.ui;
 
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
+import org.apache.isis.core.metamodel.spec.ObjectSpecification;
 import org.apache.isis.viewer.wicket.model.models.ScalarModel;
 import org.apache.isis.viewer.wicket.ui.components.scalars.ScalarPanelAbstract;
 import org.apache.wicket.Component;
@@ -36,6 +37,7 @@ import org.apache.wicket.request.http.flow.AbortWithHttpErrorCodeException;
 import org.apache.wicket.request.resource.ByteArrayResource;
 import org.apache.wicket.request.resource.IResource;
 import org.apache.wicket.resource.JQueryPluginResourceReference;
+import org.isisaddons.wicket.pdfjs.cpt.applib.PdfViewerFacetAbstract;
 import org.isisaddons.wicket.pdfjs.cpt.applib.PdfViewerFromAnnotationFacet;
 import org.wicketstuff.pdfjs.PdfJsConfig;
 import org.wicketstuff.pdfjs.PdfJsPanel;
@@ -68,7 +70,8 @@ class PdfViewerPanel extends ScalarPanelAbstract implements IResourceListener {
 
         final ObjectAdapter adapter = scalarModel.getObject();
         if (adapter != null) {
-            PdfViewerFromAnnotationFacet pdfViewerFacet = scalarModel.getTypeOfSpecification().getFacet(PdfViewerFromAnnotationFacet.class);
+            final ObjectSpecification typeOfSpecification = scalarModel.getTypeOfSpecification();
+            PdfViewerFacetAbstract pdfViewerFacet = typeOfSpecification.getFacet(PdfViewerFacetAbstract.class);
             PdfJsConfig config = pdfViewerFacet != null ? pdfViewerFacet.getConfig() : new PdfJsConfig();
             config.withDocumentUrl(urlFor(IResourceListener.INTERFACE, null));
             PdfJsPanel pdfJsPanel = new PdfJsPanel(ID_SCALAR_VALUE, config);

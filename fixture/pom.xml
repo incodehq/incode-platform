@@ -50,6 +50,10 @@ language governing permissions and limitations under the License.
 
     <dependencies>
         <dependency>
+            <groupId>org.isisaddons.wicket.pdfjs</groupId>
+            <artifactId>isis-wicket-pdfjs-cpt</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-applib</artifactId>
         </dependency>

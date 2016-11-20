@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
  * with <a href="https://github.com/mozilla/pdf.js">PDF.js</a> viewer.
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(value = {ElementType.METHOD, ElementType.PARAMETER})
+@Target(value = {ElementType.METHOD, ElementType.FIELD})
 public @interface PdfJsViewer {
 
     int initialPage() default  1;
