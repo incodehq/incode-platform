@@ -19,17 +19,22 @@ package org.isisaddons.wicket.pdfjs.cpt.ui;
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
 import org.apache.isis.viewer.wicket.model.models.ScalarModel;
-import org.apache.isis.viewer.wicket.ui.panels.PanelAbstract;
+import org.apache.isis.viewer.wicket.ui.components.scalars.ScalarPanelAbstract;
+import org.apache.wicket.Component;
 import org.apache.wicket.IResourceListener;
 import org.apache.wicket.MarkupContainer;
+import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.ResourceLink;
 import org.apache.wicket.request.handler.resource.ResourceRequestHandler;
+import org.apache.wicket.request.http.flow.AbortWithHttpErrorCodeException;
 import org.apache.wicket.request.resource.ByteArrayResource;
+import org.apache.wicket.request.resource.IResource;
 import org.apache.wicket.resource.JQueryPluginResourceReference;
 import org.isisaddons.wicket.pdfjs.cpt.applib.PdfViewerFromAnnotationFacet;
 import org.wicketstuff.pdfjs.PdfJsConfig;
@@ -40,7 +45,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel
 /**
  *
  */
-class PdfViewerPanel extends PanelAbstract<ScalarModel> implements IResourceListener {
+class PdfViewerPanel extends ScalarPanelAbstract implements IResourceListener {
     private static final long serialVersionUID = 1L;
 
     private static final String ID_SCALAR_NAME = "scalarName";
@@ -52,16 +57,14 @@ class PdfViewerPanel extends PanelAbstract<ScalarModel> implements IResourceList
     }
 
     @Override
-    protected void onInitialize() {
-        super.onInitialize();
-        this.buildGui();
-    }
+    protected MarkupContainer addComponentForRegular() {
+        MarkupContainer containerIfRegular = new WebMarkupContainer("scalarIfRegular");
+        addOrReplace(containerIfRegular);
 
-    private void buildGui() {
         final ScalarModel scalarModel = this.getModel();
         String name = scalarModel.getName();
         Label scalarName = new Label(ID_SCALAR_NAME, name);
-        addOrReplace(scalarName);
+        containerIfRegular.addOrReplace(scalarName);
 
         final ObjectAdapter adapter = scalarModel.getObject();
         if (adapter != null) {
@@ -73,12 +76,31 @@ class PdfViewerPanel extends PanelAbstract<ScalarModel> implements IResourceList
             MarkupContainer nextPageButton = createComponent("nextPage", config);
             MarkupContainer currentPageLabel = createComponent("currentPage", config);
             MarkupContainer totalPagesLabel = createComponent("totalPages", config);
-            addOrReplace(pdfJsPanel, prevPageButton, nextPageButton, currentPageLabel, totalPagesLabel);
-            addOrReplace(new NotificationPanel(ID_FEEDBACK, pdfJsPanel, new ComponentFeedbackMessageFilter(pdfJsPanel)));
+            containerIfRegular.addOrReplace(pdfJsPanel, prevPageButton, nextPageButton, currentPageLabel, totalPagesLabel);
+            containerIfRegular.addOrReplace(new NotificationPanel(ID_FEEDBACK, pdfJsPanel, new ComponentFeedbackMessageFilter(pdfJsPanel)));
         } else {
             permanentlyHide(ID_SCALAR_VALUE, ID_FEEDBACK);
         }
+        return containerIfRegular;
+    }
 
+    @Override
+    protected Component addComponentForCompact() {
+        final Blob blob = getBlob();
+        if (blob == null) {
+            return null;
+        }
+        WebMarkupContainer containerIfCompact = new WebMarkupContainer("scalarIfCompact");
+        addOrReplace(containerIfCompact);
+
+        final IResource bar = new ByteArrayResource(blob.getMimeType().getBaseType(), blob.getBytes(), blob.getName());
+        final ResourceLink<Void> dowloadLink = new ResourceLink<>("scalarIfCompactDownload", bar);
+        containerIfCompact.add(dowloadLink);
+
+        Label fileNameIfCompact = new Label("fileNameIfCompact", blob.getName());
+        dowloadLink.add(fileNameIfCompact);
+
+        return containerIfCompact;
     }
 
     private MarkupContainer createComponent(final String id, final PdfJsConfig config) {
@@ -92,6 +114,10 @@ class PdfViewerPanel extends PanelAbstract<ScalarModel> implements IResourceList
     }
 
     @Override
+    protected void addFormComponentBehavior(final Behavior behavior) {
+    }
+
+    @Override
     public void renderHead(final IHeaderResponse response) {
         super.renderHead(response);
 
@@ -101,13 +127,23 @@ class PdfViewerPanel extends PanelAbstract<ScalarModel> implements IResourceList
 
     @Override
     public void onResourceRequested() {
-        final ObjectAdapter adapter = getModel().getObject();
-        if (adapter != null) {
-            Blob pdfBlob = (Blob) adapter.getObject();
+        Blob pdfBlob = getBlob();
+        if (pdfBlob != null) {
             final byte[] bytes = pdfBlob.getBytes();
             final ByteArrayResource resource = new ByteArrayResource("application/pdf", bytes);
             final ResourceRequestHandler handler = new ResourceRequestHandler(resource, null);
             getRequestCycle().scheduleRequestHandlerAfterCurrent(handler);
+        } else {
+            throw new AbortWithHttpErrorCodeException(404);
         }
+    }
+
+    private Blob getBlob() {
+        Blob pdfBlob = null;
+        final ObjectAdapter adapter = getModel().getObject();
+        if (adapter != null) {
+            pdfBlob = (Blob) adapter.getObject();
+        }
+        return pdfBlob;
     }
 }

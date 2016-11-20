@@ -20,21 +20,27 @@
 <html xmlns:wicket="http://wicket.apache.org">
     <body>
         <wicket:panel>
-            <div class="pdfViewerPanel scalarPanel">
-                <div class="row">
-                    <span wicket:id="scalarName" class="col-sm-1 scalarName">[Label text]</span>
-                    <div class="scalarValue col-sm-11">
-                        <div>
-                            <button wicket:id="prevPage" type="button" disabled class="btn btn-sm btn-default pdf-js-page-prev">Previous</button>
-                            <button wicket:id="nextPage" type="button" disabled class="btn btn-sm btn-default pdf-js-page-next">Next</button>
-                            &nbsp; &nbsp;
-                            <span>Page: <span wicket:id="currentPage" class="pdf-js-page-current"></span> / <span wicket:id="totalPages"  class="pdf-js-page-total"></span></span>
+            <div class="pdfViewerPanel scalarNameAndValueComponentType">
+                <div class="form-group" wicket:id="scalarIfRegular">
+                    <div class="row">
+                        <span wicket:id="scalarName" class="col-sm-1 scalarName">[Label text]</span>
+                        <div class="scalarValue col-sm-11">
+                            <div>
+                                <button wicket:id="prevPage" type="button" disabled class="btn btn-sm btn-default pdf-js-page-prev">Previous</button>
+                                <button wicket:id="nextPage" type="button" disabled class="btn btn-sm btn-default pdf-js-page-next">Next</button>
+                                &nbsp; &nbsp;
+                                <span>Page: <span wicket:id="currentPage" class="pdf-js-page-current"></span> / <span wicket:id="totalPages"  class="pdf-js-page-total"></span></span>
+                            </div>
+                            <div wicket:id="scalarValue"></div>
                         </div>
-                        <div wicket:id="scalarValue"></div>
                     </div>
+                    <span wicket:id="feedback"></span>
                 </div>
-                <span wicket:id="feedback"></span>
+                <div class="clearfix"></div>
             </div>
+            <span wicket:id="scalarIfCompact">
+                <a wicket:id="scalarIfCompactDownload"><span class="fileName" wicket:id="fileNameIfCompact"></span></a>
+            </span>
 
         </wicket:panel>
     </body>
