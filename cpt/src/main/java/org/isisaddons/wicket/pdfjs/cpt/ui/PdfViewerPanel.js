@@ -2,14 +2,14 @@ $(function () {
 
     $('.pdf-js-page-prev').click(function () {
         var canvasId = $(this).data('canvasId');
-        Wicket.Event.publish(Wicket.PDFJS.Topic.PREVIOUS_PAGE, {"canvasId": canvasId});
+        Wicket.Event.publish(WicketStuff.PDFJS.Topic.PREVIOUS_PAGE, {"canvasId": canvasId});
     });
     $('.pdf-js-page-next').click(function () {
         var canvasId = $(this).data('canvasId');
-        Wicket.Event.publish(Wicket.PDFJS.Topic.NEXT_PAGE, {"canvasId": canvasId});
+        Wicket.Event.publish(WicketStuff.PDFJS.Topic.NEXT_PAGE, {"canvasId": canvasId});
     });
 
-    Wicket.Event.subscribe(Wicket.PDFJS.Topic.CURRENT_PAGE, function (jqEvent, pageNumber, data) {
+    Wicket.Event.subscribe(WicketStuff.PDFJS.Topic.CURRENT_PAGE, function (jqEvent, pageNumber, data) {
         $('.pdf-js-page-current[data-canvas-id="'+data.canvasId+'"]').text(pageNumber);
 
         var $prevPageBtn = $('.pdf-js-page-prev[data-canvas-id="'+data.canvasId+'"]');
@@ -27,7 +27,7 @@ $(function () {
         }
     });
 
-    Wicket.Event.subscribe(Wicket.PDFJS.Topic.TOTAL_PAGES, function (jqEvent, total, data) {
+    Wicket.Event.subscribe(WicketStuff.PDFJS.Topic.TOTAL_PAGES, function (jqEvent, total, data) {
         $('.pdf-js-page-total[data-canvas-id="'+data.canvasId+'"]').text(total);
 
         var $nextPageBtn = $('.pdf-js-page-next[data-canvas-id="'+data.canvasId+'"]');

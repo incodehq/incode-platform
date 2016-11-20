@@ -123,8 +123,7 @@ class PdfViewerPanel extends ScalarPanelAbstract implements IResourceListener {
     public void renderHead(final IHeaderResponse response) {
         super.renderHead(response);
 
-        response.render(JavaScriptHeaderItem.forReference(
-                new JQueryPluginResourceReference(PdfViewerPanel.class, "PdfViewerPanel.js")));
+        response.render(JavaScriptHeaderItem.forReference(new PdfViewJsReference()));
     }
 
     @Override
