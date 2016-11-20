@@ -74,8 +74,8 @@ public class DemoObjectsFixture extends FixtureScript {
     private DemoObject create(final int n, final ExecutionContext ec) {
         final String name = fakeDataService.name().firstName();
 
-        final String documentName = "Sample" + (n + 1) + ".pdf";
-        final String urlStr = "http://www.pdfpdf.com/samples/" + documentName + ".PDF";
+        final String documentName = "Sample" + (n + 1) + ".PDF";
+        final String urlStr = "http://www.pdfpdf.com/samples/" + documentName;
 
         Blob blob = asBlob(documentName, urlStr);
 
