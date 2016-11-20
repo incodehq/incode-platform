@@ -50,26 +50,27 @@ public class PdfViewerPanel extends PanelAbstract<ScalarModel> {
     }
 
     private void buildGui() {
-        String name = ((ScalarModel)this.getModel()).getName();
+        String name = this.getModel().getName();
         Label scalarName = new Label("scalarName", name);
         this.addOrReplace(new Component[]{scalarName});
-        ImageValueFacet imageValueFacet = (ImageValueFacet)((ScalarModel)this.getModel()).getTypeOfSpecification().getFacet(ImageValueFacet.class);
-        ObjectAdapter adapter = (ObjectAdapter)((ScalarModel)this.getModel()).getObject();
+        ImageValueFacet imageValueFacet = this.getModel().getTypeOfSpecification().getFacet(ImageValueFacet.class);
+        ObjectAdapter adapter = this.getModel().getObject();
         if(adapter != null) {
             final Image imageValue = imageValueFacet.getImage(adapter);
-            RenderedDynamicImageResource imageResource = new RenderedDynamicImageResource(imageValue.getWidth((ImageObserver)null), imageValue.getHeight((ImageObserver)null)) {
+            RenderedDynamicImageResource imageResource =
+                    new RenderedDynamicImageResource(imageValue.getWidth(null), imageValue.getHeight(null)) {
                 private static final long serialVersionUID = 1L;
 
                 protected boolean render(Graphics2D graphics, Attributes attributes) {
-                    graphics.drawImage(imageValue, 0, 0, (ImageObserver)null);
+                    graphics.drawImage(imageValue, 0, 0, null);
                     return true;
                 }
             };
             org.apache.wicket.markup.html.image.Image image = new org.apache.wicket.markup.html.image.Image("scalarValue", imageResource);
-            this.addOrReplace(new Component[]{image});
-            this.addOrReplace(new Component[]{new NotificationPanel("feedback", image, new ComponentFeedbackMessageFilter(image))});
+            this.addOrReplace(image);
+            this.addOrReplace(new NotificationPanel("feedback", image, new ComponentFeedbackMessageFilter(image)));
         } else {
-            this.permanentlyHide(new String[]{"scalarValue", "feedback"});
+            this.permanentlyHide("scalarValue", "feedback");
         }
 
     }

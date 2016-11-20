@@ -16,22 +16,20 @@
  */
 package org.isisaddons.wicket.pdfjs.cpt.ui;
 
-import org.apache.wicket.Component;
-import org.apache.wicket.model.IModel;
-
 import org.apache.isis.core.metamodel.facets.value.image.ImageValueFacet;
 import org.apache.isis.core.metamodel.spec.ObjectSpecification;
 import org.apache.isis.viewer.wicket.model.models.ScalarModel;
 import org.apache.isis.viewer.wicket.ui.ComponentFactoryAbstract;
 import org.apache.isis.viewer.wicket.ui.ComponentType;
-import org.apache.isis.viewer.wicket.ui.components.scalars.image.JavaAwtImagePanel;
+import org.apache.wicket.Component;
+import org.apache.wicket.model.IModel;
 
 public class PdfViewerComponentFactory extends ComponentFactoryAbstract {
 
     private static final long serialVersionUID = 1L;
 
     public PdfViewerComponentFactory() {
-        super(ComponentType.SCALAR_NAME_AND_VALUE, JavaAwtImagePanel.class);
+        super(ComponentType.SCALAR_NAME_AND_VALUE, PdfViewerPanel.class);
     }
 
     public ApplicationAdvice appliesTo(IModel<?> model) {
@@ -40,13 +38,14 @@ public class PdfViewerComponentFactory extends ComponentFactoryAbstract {
         } else {
             ScalarModel scalarModel = (ScalarModel)model;
             ObjectSpecification specification = scalarModel.getTypeOfSpecification();
+            // TODO mgrigorov Replace ImageValueFacet with PdfJsValueFacet
             return this.appliesIf(specification != null && specification.containsFacet(ImageValueFacet.class));
         }
     }
 
     public Component createComponent(String id, IModel<?> model) {
         ScalarModel scalarModel = (ScalarModel)model;
-        return new JavaAwtImagePanel(id, scalarModel);
+        return new PdfViewerPanel(id, scalarModel);
     }
 }
 
