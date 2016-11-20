@@ -38,7 +38,6 @@ import org.apache.wicket.request.resource.ByteArrayResource;
 import org.apache.wicket.request.resource.IResource;
 import org.apache.wicket.resource.JQueryPluginResourceReference;
 import org.isisaddons.wicket.pdfjs.cpt.applib.PdfViewerFacetAbstract;
-import org.isisaddons.wicket.pdfjs.cpt.applib.PdfViewerFromAnnotationFacet;
 import org.wicketstuff.pdfjs.PdfJsConfig;
 import org.wicketstuff.pdfjs.PdfJsPanel;
 

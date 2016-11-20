@@ -40,18 +40,20 @@ public class PdfViewerComponentFactory extends ComponentFactoryAbstract {
         } else {
             ScalarModel scalarModel = (ScalarModel) model;
             final ObjectAdapter objectAdapter = scalarModel.getObject();
-            final Object modelObject = objectAdapter.getObject();
-            final boolean isPdf = isPdf(modelObject);
+            final boolean isPdf = isPdf(objectAdapter);
             return this.appliesIf(isPdf);
         }
     }
 
-    private boolean isPdf(final Object modelObject) {
+    private boolean isPdf(final ObjectAdapter objectAdapter) {
         boolean isPdf = false;
-        if (modelObject instanceof Blob) {
-            Blob blob = (Blob) modelObject;
-            final MimeType mimeType = blob.getMimeType();
-            isPdf = "application".equals(mimeType.getPrimaryType()) && "pdf".equals(mimeType.getSubType());
+        if (objectAdapter != null) {
+            final Object modelObject = objectAdapter.getObject();
+            if (modelObject instanceof Blob) {
+                Blob blob = (Blob) modelObject;
+                final MimeType mimeType = blob.getMimeType();
+                isPdf = "application".equals(mimeType.getPrimaryType()) && "pdf".equals(mimeType.getSubType());
+            }
         }
         return isPdf;
     }
