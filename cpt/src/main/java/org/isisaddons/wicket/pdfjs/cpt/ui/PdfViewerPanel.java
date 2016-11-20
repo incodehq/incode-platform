@@ -21,10 +21,16 @@ import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
 import org.apache.isis.viewer.wicket.model.models.ScalarModel;
 import org.apache.isis.viewer.wicket.ui.panels.PanelAbstract;
 import org.apache.wicket.IResourceListener;
+import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
+import org.apache.wicket.markup.ComponentTag;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.request.handler.resource.ResourceRequestHandler;
 import org.apache.wicket.request.resource.ByteArrayResource;
+import org.apache.wicket.resource.JQueryPluginResourceReference;
 import org.isisaddons.wicket.pdfjs.cpt.applib.PdfViewerFromAnnotationFacet;
 import org.wicketstuff.pdfjs.PdfJsConfig;
 import org.wicketstuff.pdfjs.PdfJsPanel;
@@ -60,15 +66,37 @@ class PdfViewerPanel extends PanelAbstract<ScalarModel> implements IResourceList
         final ObjectAdapter adapter = scalarModel.getObject();
         if (adapter != null) {
             PdfViewerFromAnnotationFacet pdfViewerFacet = scalarModel.getTypeOfSpecification().getFacet(PdfViewerFromAnnotationFacet.class);
-            final PdfJsConfig config = pdfViewerFacet != null ? pdfViewerFacet.getConfig() : new PdfJsConfig();
+            PdfJsConfig config = pdfViewerFacet != null ? pdfViewerFacet.getConfig() : new PdfJsConfig();
             config.withDocumentUrl(urlFor(IResourceListener.INTERFACE, null));
-            final PdfJsPanel pdfJsPanel = new PdfJsPanel(ID_SCALAR_VALUE, config);
-            addOrReplace(pdfJsPanel);
+            PdfJsPanel pdfJsPanel = new PdfJsPanel(ID_SCALAR_VALUE, config);
+            MarkupContainer prevPageButton = createComponent("prevPage", config);
+            MarkupContainer nextPageButton = createComponent("nextPage", config);
+            MarkupContainer currentPageLabel = createComponent("currentPage", config);
+            MarkupContainer totalPagesLabel = createComponent("totalPages", config);
+            addOrReplace(pdfJsPanel, prevPageButton, nextPageButton, currentPageLabel, totalPagesLabel);
             addOrReplace(new NotificationPanel(ID_FEEDBACK, pdfJsPanel, new ComponentFeedbackMessageFilter(pdfJsPanel)));
         } else {
             permanentlyHide(ID_SCALAR_VALUE, ID_FEEDBACK);
         }
 
+    }
+
+    private MarkupContainer createComponent(final String id, final PdfJsConfig config) {
+        return new WebMarkupContainer(id) {
+            @Override
+            protected void onComponentTag(final ComponentTag tag) {
+                super.onComponentTag(tag);
+                tag.put("data-canvas-id", config.getCanvasId());
+            }
+        };
+    }
+
+    @Override
+    public void renderHead(final IHeaderResponse response) {
+        super.renderHead(response);
+
+        response.render(JavaScriptHeaderItem.forReference(
+                new JQueryPluginResourceReference(PdfViewerPanel.class, "PdfViewerPanel.js")));
     }
 
     @Override
