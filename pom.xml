@@ -32,7 +32,7 @@ language governing permissions and limitations under the License.
     <properties>
         <isis.version>1.13.0</isis.version>
         <isis-module-fakedata-dom.version>1.13.0</isis-module-fakedata-dom.version>
-        <incode-module-docrendering-stringinterpolator.version>1.14.0-SNAPSHOT</incode-module-docrendering-stringinterpolator.version>
+        <incode-module-docrendering-stringinterpolator.version>1.13.1</incode-module-docrendering-stringinterpolator.version>
 
         <assertj-core.version>3.3.0</assertj-core.version>
         <danhaywood-java-assertjext.version>0.1.0</danhaywood-java-assertjext.version>
