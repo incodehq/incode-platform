@@ -71,20 +71,14 @@ public class ExcelService {
      *
      * <p>
      *     There are no specific restrictions on the domain objects; they can be either persistable entities or
-     *     view models.  Do be aware though that if imported back using {@link #fromExcel(Blob, Class)},
+     *     view models.  Do be aware though that if imported back using {@link #fromExcel(Blob, Class, String)},
      *     then new instances are always created.  It is generally better therefore to work with view models than to
      *     work with entities.  This also makes it easier to maintain backward compatibility in the future if the
      *     persistence model changes; using view models represents a stable API for import/export.
      * </p>
+     *
+     * @param sheetName - must be 30 chars or less
      */
-    @Programmatic
-    public <T> Blob toExcel(
-            final List<T> domainObjects,
-            final Class<T> cls,
-            final String fileName) throws ExcelService.Exception {
-        return excelServiceImpl.toExcel(domainObjects, cls, fileName);
-    }
-
     public <T> Blob toExcel(
             final List<T> domainObjects,
             final Class<T> cls,
@@ -149,13 +143,6 @@ public class ExcelService {
      *     {@link DomainObjectContainer#newTransientInstance(Class)}).
      * </p>
      */
-    @Programmatic
-    public <T> List<T> fromExcel(
-            final Blob excelBlob,
-            final Class<T> cls) throws ExcelService.Exception {
-        return excelServiceImpl.fromExcel(excelBlob, cls);
-    }
-
     @Programmatic
     public <T> List<T> fromExcel(
             final Blob excelBlob,

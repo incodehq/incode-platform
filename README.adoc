@@ -545,6 +545,15 @@ downloadable as an Excel spreadsheet.
 
 == Change Log
 
+
+* `1.13.5` - released against Isis 1.13.0; includes limited support for pivot tables; link:https://github.com/isisaddons/isis-module-excel/issues/17[#17] (remove overloads for `#fromExcel()` and ``#toExcel()``). +
++
+[NOTE]
+====
+This release is a minor breaking change to the API.
+To convert the code, use `cls.getSimpleName()` as the (now mandatory) value of the sheet name. ensuring that its length does not exceed 30 characters.
+====
+
 * `1.13.1` - released against Isis 1.13.0; includes link:https://github.com/isisaddons/isis-module-excel/issues/15[#15] (multiple sheets)
 * `1.13.0` - released against Isis 1.13.0
 * `1.12.0` - released against Isis 1.12.0

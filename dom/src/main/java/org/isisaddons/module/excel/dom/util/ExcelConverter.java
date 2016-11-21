@@ -247,8 +247,8 @@ class ExcelConverter {
 
         // Create source sheet for pivot
         String pivotSourceSheetName = ("source for ".concat(sheetName));
-        if (pivotSourceSheetName.length()>30) {
-            pivotSourceSheetName = pivotSourceSheetName.substring(0, 29);
+        if (WorksheetSpec.isTooLong(pivotSourceSheetName)) {
+            pivotSourceSheetName = WorksheetSpec.trim(pivotSourceSheetName);
         }
         final Sheet pivotSourceSheet = appendSheet(workbook, domainObjects, cls, pivotSourceSheetName);
         pivotSourceSheet.shiftRows(0, pivotSourceSheet.getLastRowNum(), 3);
@@ -459,8 +459,8 @@ class ExcelConverter {
             names.add(sheetName);
         }
         final String simpleName = cls.getSimpleName();
-        if(simpleName.endsWith("RowHandler")) {
-            names.add(simpleName.substring(0, simpleName.lastIndexOf("RowHandler")));
+        if(WorksheetSpec.hasSuffix(simpleName)) {
+            names.add(WorksheetSpec.prefix(simpleName));
         }
         return names;
     }

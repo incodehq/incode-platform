@@ -49,22 +49,13 @@ public class ExcelServiceImpl {
      *
      * <p>
      *     There are no specific restrictions on the domain objects; they can be either persistable entities or
-     *     view models.  Do be aware though that if imported back using {@link #fromExcel(Blob, Class)},
+     *     view models.  Do be aware though that if imported back using {@link #fromExcel(Blob, Class, String)},
      *     then new instances are always created.  It is generally better therefore to work with view models than to
      *     work with entities.  This also makes it easier to maintain backward compatibility in the future if the
      *     persistence model changes; using view models represents a stable API for import/export.
      * </p>
-     */
-    @Programmatic
-    public <T> Blob toExcel(
-            final List<T> domainObjects,
-            final Class<T> cls,
-            final String fileName) throws ExcelService.Exception {
-        return toExcel(domainObjects, cls, null, fileName);
-    }
-
-    /**
-     * As {@link #toExcel(List, Class, String)}, but specifying the sheet name.
+     *
+     * @param sheetName - must be 30 chars or less
      */
     @Programmatic
     public <T> Blob toExcel(
@@ -76,7 +67,7 @@ public class ExcelServiceImpl {
     }
 
     /**
-     * As {@link #toExcel(List, Class, String)}, but with the domain objects, class and sheet name provided using a
+     * As {@link #toExcel(List, Class, String, String)}, but with the domain objects, class and sheet name provided using a
      * {@link WorksheetContent}.
      */
     @Programmatic
@@ -153,6 +144,7 @@ public class ExcelServiceImpl {
 
     // //////////////////////////////////////
 
+
     /**
      * Returns a list of objects for each line in the spreadsheet, of the specified type.  The objects are read
      * from a sheet taken as the simple name of the class.
@@ -163,16 +155,8 @@ public class ExcelServiceImpl {
      *     view model memento); otherwise the objects will be simple transient objects (that is, using
      *     {@link org.apache.isis.applib.DomainObjectContainer#newTransientInstance(Class)}).
      * </p>
-     */
-    @Programmatic
-    public <T> List<T> fromExcel(
-            final Blob excelBlob,
-            final Class<T> cls) throws ExcelService.Exception {
-        return fromExcel(excelBlob, cls, null);
-    }
-
-    /**
-     * As {@link #fromExcel(Blob, Class)}, but specifying the sheet name.
+     *
+     * @param sheetName - must be 30 characters or less
      */
     @Programmatic
     public <T> List<T> fromExcel(

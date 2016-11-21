@@ -50,7 +50,7 @@ public class ExcelModuleDemoToDoItem_export {
         if(actionInvocationContext.isLast()) {
             // ie current object only
             final List toDoItems = actionInvocationContext.getDomainObjects();
-            return excelService.toExcel(toDoItems, ExcelModuleDemoToDoItem.class, "toDoItems.xlsx");
+            return excelService.toExcel(toDoItems, ExcelModuleDemoToDoItem.class, ExcelModuleDemoToDoItem.class.getSimpleName(), "toDoItems.xlsx");
         } else {
             return null;
         }
