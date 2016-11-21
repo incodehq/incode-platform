@@ -137,7 +137,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.incode.module.docrendering</groupId>
     <artifactId>incode-module-docrendering-stringinterpolator-dom</artifactId>
-    <version>1.13.0</version>
+    <version>1.13.1</version>
 </dependency>
 ----
 
@@ -206,6 +206,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 
 == Change Log
 
+* `1.13.1` - released against Isis 1.13.0, fixes link:https://github.com/incodehq/incode-module-docrendering-stringinterpolator/issues/1[#1]
 * `1.13.0` - released against Isis 1.13.0.
 
 

@@ -2,6 +2,7 @@ package org.incode.module.docrendering.stringinterpolator.dom.spi;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
@@ -14,8 +15,10 @@ import javax.annotation.PreDestroy;
 
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
+import com.google.common.io.CharStreams;
 
 import org.apache.http.HttpHost;
+import org.apache.http.StatusLine;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.NTCredentials;
 import org.apache.http.client.CredentialsProvider;
@@ -26,6 +29,7 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 
+import org.apache.isis.applib.ApplicationException;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
@@ -111,6 +115,36 @@ public class UrlDownloaderUsingNtlmCredentials implements UrlDownloaderService {
 
         HttpGet httpGet = new HttpGet(url.getFile());
         try (final CloseableHttpResponse httpResponse = httpclient.execute(target, httpGet, context)) {
+            final StatusLine statusLine = httpResponse.getStatusLine();
+            if(statusLine == null) {
+                throw new ApplicationException(String.format(
+                        "Could not obtain response statusLine for %s", url.toExternalForm()));
+            }
+            final int statusCode = statusLine.getStatusCode();
+            if(statusCode != 200) {
+
+                // try to read content of entity, but ignore any exceptions
+                // because we are simply trying to get extra data to report in the exception below
+                InputStreamReader inputStreamReader = null;
+                String entityContent = "";
+                try {
+                    inputStreamReader = new InputStreamReader(httpResponse.getEntity().getContent());
+                    entityContent = CharStreams.toString(inputStreamReader);
+                } catch (java.lang.Throwable ex) {
+                    // ignore
+                } finally {
+                    if(inputStreamReader != null) {
+                        try {
+                            inputStreamReader.close();
+                        } catch (Exception ex) {
+                            // ignore
+                        }
+                    }
+                }
+
+                throw new ApplicationException(String.format(
+                        "Failed to download from '%s': %d %s\n%s", url.toExternalForm(), statusCode, statusLine.getReasonPhrase(), entityContent));
+            }
             final ByteArrayOutputStream baos = new ByteArrayOutputStream();
             httpResponse.getEntity().writeTo(baos);
             return baos.toByteArray();
