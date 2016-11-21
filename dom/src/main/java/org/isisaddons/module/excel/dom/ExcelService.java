@@ -115,7 +115,7 @@ public class ExcelService {
             final Class<T> cls,
             final String sheetName,
             final String fileName) throws ExcelService.Exception {
-        return excelServiceImpl.toExcelPivot(domainObjects, cls, null, fileName);
+        return excelServiceImpl.toExcelPivot(domainObjects, cls, sheetName, fileName);
     }
 
     @Programmatic

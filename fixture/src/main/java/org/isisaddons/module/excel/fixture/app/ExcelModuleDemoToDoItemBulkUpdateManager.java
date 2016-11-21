@@ -190,6 +190,7 @@ public class ExcelModuleDemoToDoItemBulkUpdateManager {
     )
     @MemberOrder(name="toDoItems", sequence="2")
     public List<ExcelModuleDemoToDoItemBulkUpdateLineItem> importBlob(
+            @Parameter(fileAccept = ".xlsx")
             @ParameterLayout(named="Excel spreadsheet") final Blob spreadsheet) {
         final List<ExcelModuleDemoToDoItemBulkUpdateLineItem> lineItems =
                 excelService.fromExcel(spreadsheet, WORKSHEET_SPEC);

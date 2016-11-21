@@ -50,7 +50,7 @@ public class ExcelModuleDemoToDoItemPivotDemoMenu {
     )
     @MemberOrder(name="ToDos", sequence="90.2")
     public Blob downloadDemoPivotsheet(){
-        return excelService.toExcelPivot(vm1list(), ExcelModuleDemoPivot.class, null, "demo-pivots.xlsx");
+        return excelService.toExcelPivot(vm1list(), ExcelModuleDemoPivot.class, ExcelModuleDemoPivot.class.getSimpleName(), "demo-pivots.xlsx");
     }
 
     private List<ExcelModuleDemoPivot> vm1list(){
