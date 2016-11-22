@@ -122,7 +122,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.isisaddons.module.excel</groupId>
     <artifactId>isis-module-excel-dom</artifactId>
-    <version>1.13.5.1</version>
+    <version>1.13.5.2</version>
 </dependency>
 ----
 
@@ -546,6 +546,7 @@ downloadable as an Excel spreadsheet.
 == Change Log
 
 
+* `1.13.6` - maximum length for sheets is 31 chars, not 30 chars.
 * `1.13.5.1` - patch for 1.13.5 (error with `#toExcelPivot(...)`.
 * `1.13.5` - released against Isis 1.13.0; includes limited support for pivot tables; link:https://github.com/isisaddons/isis-module-excel/issues/17[#17] (remove overloads for `#fromExcel()` and ``#toExcel()``). +
 +
@@ -619,7 +620,7 @@ https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
 
 If you have commit access to this project (or a fork of your own) then you can create interim releases using the `interim-release.sh` script.
 
-The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.13.0.20161017-0738`).
+The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.13.6.20161122-0756`).
 It then pushes the branch (and a tag) to the specified remote.
 
 A CI server such as Jenkins can monitor the branches matching the wildcard `origin/interim/*` and create a build.
@@ -629,12 +630,12 @@ For example:
 
 [source]
 ----
-sh interim-release.sh 1.14.0 origin
+sh interim-release.sh 1.13.6 origin
 ----
 
 where
 
-* `1.14.0` is the base release
+* `1.13.6` is the base release
 * `origin` is the name of the remote to which you have permissions to write to.
 
 
@@ -653,7 +654,7 @@ For example:
 
 [source]
 ----
-sh release.sh 1.13.5.1 \
+sh release.sh 1.13.6 \
               1.14.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
@@ -674,7 +675,7 @@ If the script completes successfully, then push changes:
 [source]
 ----
 git push origin master
-git push origin 1.13.5.1
+git push origin 1.13.6
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue

@@ -55,7 +55,7 @@ public class ExcelServiceImpl {
      *     persistence model changes; using view models represents a stable API for import/export.
      * </p>
      *
-     * @param sheetName - must be 30 chars or less
+     * @param sheetName - must be 31 chars or less
      */
     @Programmatic
     public <T> Blob toExcel(
