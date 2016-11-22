@@ -122,7 +122,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.isisaddons.module.excel</groupId>
     <artifactId>isis-module-excel-dom</artifactId>
-    <version>1.13.5.2</version>
+    <version>1.13.6</version>
 </dependency>
 ----
 
