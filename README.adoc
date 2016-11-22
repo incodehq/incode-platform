@@ -348,7 +348,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.incode.module.document</groupId>
     <artifactId>incode-module-document-dom</artifactId>
-    <version>1.13.11</version>
+    <version>1.13.12</version>
 </dependency>
 ----
 
@@ -740,13 +740,15 @@ public class RendererClassNameServiceForDemo extends ClassNameServiceAbstract<Re
 
 == Change Log
 
+* `1.13.12` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/12[#12] (remove `Paperclip_delete()` action).
+
 * `1.13.11` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/9[#9], https://github.com/incodehq/incode-module-document/issues/10[#10], https://github.com/incodehq/incode-module-document/issues/11[#11].
 
 * `1.13.10` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/3[#3], https://github.com/incodehq/incode-module-document/issues/4[#4], https://github.com/incodehq/incode-module-document/issues/5[#5], https://github.com/incodehq/incode-module-document/issues/6[#6], https://github.com/incodehq/incode-module-document/issues/7[#7], https://github.com/incodehq/incode-module-document/issues/8[#8].  +
 +
 [WARNING]
 ====
-NB: this release is also *not* backward compatible with the previous release.
+NB: this release is *not* backward compatible with the previous release.
 ====
 
 * `1.13.6` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/2[#2]
@@ -755,7 +757,7 @@ NB: this release is also *not* backward compatible with the previous release.
 +
 [WARNING]
 ====
-NB: this release is also *not* backward compatible with the previous release.
+NB: this release is *not* backward compatible with the previous release.
 ====
 
 * `1.13.0` - released against Isis 1.13.0
@@ -843,7 +845,7 @@ https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
 
 If you have commit access to this project (or a fork of your own) then you can create interim releases using the `interim-release.sh` script.
 
-The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.13.0.20161017-0738`).
+The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.13.12.20161122-0740`).
 It then pushes the branch (and a tag) to the specified remote.
 
 A CI server such as Jenkins can monitor the branches matching the wildcard `origin/interim/*` and create a build.
@@ -853,12 +855,12 @@ For example:
 
 [source]
 ----
-sh interim-release.sh 1.14.0 origin
+sh interim-release.sh 1.13.12 origin
 ----
 
 where
 
-* `1.14.0` is the base release
+* `1.13.12` is the base release
 * `origin` is the name of the remote to which you have permissions to write to.
 
 
@@ -878,8 +880,8 @@ For example:
 
 [source]
 ----
-sh release.sh 1.14.0 \
-              1.15.0-SNAPSHOT \
+sh release.sh 1.13.12 \
+              1.14.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
 ----
@@ -898,7 +900,7 @@ If the script completes successfully, then push changes:
 [source]
 ----
 git push origin master
-git push origin 1.14.0
+git push origin 1.13.12
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
