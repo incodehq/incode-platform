@@ -24,7 +24,7 @@ The plugin defines several optional properties:
 </properties>
 ----
 
-The module uses the value shown as defaults; if required they can be overridden in the consuming module.
+The module uses the values shown above by defaults; if required they can be overridden in the consuming module.
 
 
 
