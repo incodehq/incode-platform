@@ -95,12 +95,6 @@ under the License.
 
 
 
-=== Dependencies
-
-This mixin module relies on the link:https://github.com/odavid/maven-plugins[com.github.odavid.maven.plugins:mixin-maven-plugin], released under Apache License v2.0.
-
-
-
 == Maven deploy notes
 
 The module is deployed using Sonatype's OSS support (see
