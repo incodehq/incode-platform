@@ -17,7 +17,7 @@ The plugin defines several optional properties:
 [source,xml]
 ----
 <properties>
-	<isis.version>1.13.1</isis.version>
+	<isis.version>1.14.0</isis.version>
 	<geronimo-servlet_3.0_spec.version>1.0</geronimo-servlet_3.0_spec.version>
 </properties>
 ----
@@ -38,7 +38,7 @@ To configure:
     <dependency>
         <groupId>com.danhaywood.mavendeps</groupId>
         <artifactId>isiswebapp</artifactId>
-        <version>0.0.1</version>
+        <version>0.0.2</version>
         <type>pom</type>
     </dependency>
 </dependencies>
@@ -64,7 +64,9 @@ None currently
 
 == Change Log
 
-* `0.0.1` - first release
+* `0.0.2` - updated for Apache Isis 1.14.0
+            (change groupId:artifactId for wicket viewer).
+* `0.0.1` - first release (for Apache Isis 1.13.x)
 
 
 
@@ -117,8 +119,8 @@ For example:
 
 [source]
 ----
-sh release.sh 0.0.1 \
-              0.0.2-SNAPSHOT \
+sh release.sh 0.0.2 \
+              0.0.3-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
 ----
@@ -138,7 +140,7 @@ If the script completes successfully, then push changes:
 [source]
 ----
 git push origin master
-git push origin 0.0.1
+git push origin 0.0.2
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue before trying again.
