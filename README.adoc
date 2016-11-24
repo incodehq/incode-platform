@@ -3,7 +3,7 @@
 :toc:
 
 
-This module, for use within link:http://isis.apache.org[Apache Isis] applications, defines a single module that can be used as a single dependency for a set of common testing libraries.
+This module, for use within link:http://isis.apache.org[Apache Isis] applications, defines a module that can be used as a single dependency for a set of common testing libraries.
 This reduces the size of the maven `pom.xml` file for that consuming module; it simply needs to reference _this_ module as a `<dependency>`.
 
 The appropriate configuration is included in a `<profile>` which is automatically included in all builds.

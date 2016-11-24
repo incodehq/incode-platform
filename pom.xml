@@ -13,7 +13,7 @@
     
     <name>${project.groupId}:${project.artifactId}</name>
     <description>
-        Maven mixin providing the ability to run isis:validate goal over Apache Isis domain objects.
+        Defines a module that can be used as a single dependency for a set of common testing libraries.
     </description>
     
     <url>https://github.com/danhaywood/java-mavendeps-isistesting</url>
