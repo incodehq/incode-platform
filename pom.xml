@@ -7,7 +7,7 @@
     
     <groupId>com.danhaywood.mavendeps</groupId>
     <artifactId>isistesting</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3-SNAPSHOT</version>
 
     <packaging>pom</packaging>
     
