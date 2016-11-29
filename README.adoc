@@ -22,12 +22,12 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.incode.module.base</groupId>
     <artifactId>incode-module-base-dom</artifactId>
-    <version>1.13.4</version>
+    <version>1.13.6</version>
 </dependency>
 <dependency>
     <groupId>org.incode.module.base</groupId>
     <artifactId>incode-module-base-dom</artifactId>
-    <version>1.13.4</version>
+    <version>1.13.6</version>
     <type>test-jar</type>
     <scope>test</scope>
 </dependency>
@@ -86,11 +86,12 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 
 == Change Log
 
-* `1.13.5` - released against Isis 1.13.0, fixes #4 - removes further contract tests (moved to http://github.com/incodehq/incode-module-unittestsupport[incode-module-unittestsupport])
-* `1.13.4` - released against Isis 1.13.0, fixes #3 - removes contract tests (moved to http://github.com/incodehq/incode-module-unittestsupport[incode-module-unittestsupport])
-* `1.13.3` - released against Isis 1.13.0, fixes #2 - removes dependency on http://github.com/isisaddons/isis-module-security[isisaddons' security module]
-* `1.13.2` - released against Isis 1.13.0, fixes #1 - removes `EstatioUserRole` class.
-* `1.13.1` - released against Isis 1.13.0, with additional classes moved out from estatio/estatio's udo-base module.
+* `1.13.6` - fixes link:https://github.com/incodehq/incode-module-base/issues/5[#5] - Add `MessageUtils` to normalize messages of exceptions thrown from wrapper factory
+* `1.13.5` - fixes link:https://github.com/incodehq/incode-module-base/issues/4[#4]- removes further contract tests (moved to http://github.com/incodehq/incode-module-unittestsupport[incode-module-unittestsupport])
+* `1.13.4` - fixes link:https://github.com/incodehq/incode-module-base/issues/3[#3] - removes contract tests (moved to http://github.com/incodehq/incode-module-unittestsupport[incode-module-unittestsupport])
+* `1.13.3` - fixes link:https://github.com/incodehq/incode-module-base/issues/2[#2] - removes dependency on http://github.com/isisaddons/isis-module-security[isisaddons' security module]
+* `1.13.2` - fixes link:https://github.com/incodehq/incode-module-base/issues/1[#1] - removes `EstatioUserRole` class.
+* `1.13.1` - additional classes moved out from estatio/estatio's udo-base module.
 * `1.13.0` - released against Isis 1.13.0.
 
 
@@ -172,12 +173,12 @@ For example:
 
 [source]
 ----
-sh interim-release.sh 1.14.0 origin
+sh interim-release.sh 1.13.0 origin
 ----
 
 where
 
-* `1.14.0` is the base release
+* `1.13.0` is the base release
 * `origin` is the name of the remote to which you have permissions to write to.
 
 
@@ -199,12 +200,12 @@ For example:
 
 [source]
 ----
-sh interim-release.sh 1.14.0 origin
+sh interim-release.sh 1.13.0 origin
 ----
 
 where
 
-* `1.14.0` is the base release
+* `1.13.0` is the base release
 * `origin` is the name of the remote to which you have permissions to write to.
 
 
@@ -224,8 +225,8 @@ For example:
 
 [source]
 ----
-sh release.sh 1.14.0 \
-              1.15.0-SNAPSHOT \
+sh release.sh 1.13.6 \
+              1.14.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
 ----
@@ -244,7 +245,7 @@ If the script completes successfully, then push changes:
 [source]
 ----
 git push origin master
-git push origin 1.14.0
+git push origin 1.13.0
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
