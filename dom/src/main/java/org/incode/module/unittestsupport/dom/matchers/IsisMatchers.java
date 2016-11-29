@@ -23,16 +23,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+
+import com.google.common.base.Throwables;
+
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Description;
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.IsEqual;
-import org.hamcrest.core.StringContains;
-import org.hamcrest.core.StringEndsWith;
-import org.hamcrest.core.StringStartsWith;
 
 import static org.hamcrest.CoreMatchers.nullValue;
 
@@ -304,5 +303,28 @@ public final class IsisMatchers {
             }
         };
     }
+
+    @Factory
+    public Matcher<Throwable> causalChainHasMessageWith(final String messageFragment) {
+        return new TypeSafeMatcher<Throwable>() {
+
+            @Override
+            public void describeTo(Description arg0) {
+                arg0.appendText("causal chain has message with " + messageFragment);
+
+            }
+
+            @Override
+            protected boolean matchesSafely(Throwable arg0) {
+                for (Throwable ex : Throwables.getCausalChain(arg0)) {
+                    if (ex.getMessage().contains(messageFragment)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        };
+    }
+
 
 }
