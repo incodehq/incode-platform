@@ -285,61 +285,73 @@
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>cucumberreporting</artifactId>
                         <version>${mavenmixin-cucumberreporting.version}</version>
+                        <type>pom</type>
                     </dependency>
                     <dependency>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>datanucleusenhance</artifactId>
                         <version>${mavenmixin-datanucleusenhance.version}</version>
+                        <type>pom</type>
                     </dependency>
                     <dependency>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>enforcerrelaxed</artifactId>
                         <version>${mavenmixin-enforcerrelaxed.version}</version>
+                        <type>pom</type>
                     </dependency>
                     <dependency>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>isisjrebel</artifactId>
                         <version>${mavenmixin-isisjrebel.version}</version>
+                        <type>pom</type>
                     </dependency>
                     <dependency>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>isisswagger</artifactId>
                         <version>${mavenmixin-isisswagger.version}</version>
+                        <type>pom</type>
                     </dependency>
                     <dependency>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>isisvalidate</artifactId>
                         <version>${mavenmixin-isisvalidate.version}</version>
+                        <type>pom</type>
                     </dependency>
                     <dependency>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>jettyconsole</artifactId>
                         <version>${mavenmixin-jettyconsole.version}</version>
+                        <type>pom</type>
                     </dependency>
                     <dependency>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>jettywar</artifactId>
                         <version>${mavenmixin-jettywar.version}</version>
+                        <type>pom</type>
                     </dependency>
                     <dependency>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>sourceandjavadoc</artifactId>
                         <version>${mavenmixin-sourceandjavadoc.version}</version>
+                        <type>pom</type>
                     </dependency>
                     <dependency>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>standard</artifactId>
                         <version>${mavenmixin-standard.version}</version>
+                        <type>pom</type>
                     </dependency>
                     <dependency>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>surefire</artifactId>
                         <version>${mavenmixin-surefire.version}</version>
+                        <type>pom</type>
                     </dependency>
                     <dependency>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>staticanalysis</artifactId>
                         <version>${mavenmixin-staticanalysis.version}</version>
+                        <type>pom</type>
                     </dependency>
                 </dependencies>
             </dependencyManagement>
