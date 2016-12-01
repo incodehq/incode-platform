@@ -18,21 +18,37 @@
  */
 package domainapp.application.services.dbmanager;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
+import javax.jdo.JDOHelper;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.Maps;
+import com.google.common.io.Files;
 
+import org.datanucleus.PersistenceNucleusContext;
+import org.datanucleus.api.jdo.JDOPersistenceManagerFactory;
+import org.datanucleus.store.schema.SchemaAwareStoreManager;
 import org.hsqldb.util.DatabaseManagerSwing;
 
+import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.RestrictTo;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.value.Clob;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY
@@ -68,6 +84,58 @@ public class HsqlDbManagerMenu {
     public boolean hideHsqlDbManager() {
         return Strings.isNullOrEmpty(url) || !url.contains("hsqldb:mem");
     }
+
+
+
+
+    @Action(
+            semantics = SemanticsOf.SAFE,
+            restrictTo = RestrictTo.PROTOTYPING
+    )
+    @ActionLayout(
+            named = "Export DDL",
+            cssClassFa = "database"
+    )
+    public Clob exportDdl(
+            @ParameterLayout(named = "File name")
+            final String fileName) throws IOException {
+
+        final Map<String, String> datanucleusProps = Maps.newHashMap();
+
+        datanucleusProps.put("javax.jdo.option.ConnectionURL", "jdbc:hsqldb:mem:" + UUID.randomUUID().toString());
+        datanucleusProps.put("javax.jdo.option.ConnectionDriverName", "org.hsqldb.jdbcDriver");
+        datanucleusProps.put("javax.jdo.option.ConnectionUserName", "sa");
+        datanucleusProps.put("javax.jdo.option.ConnectionPassword", "");
+        datanucleusProps.put("datanucleus.schema.autoCreateAll", "true");
+        datanucleusProps.put("datanucleus.schema.validateAll", "false");
+        datanucleusProps.put("datanucleus.identifier.case", "MixedCase");
+
+        JDOPersistenceManagerFactory pmf = (JDOPersistenceManagerFactory) JDOHelper
+                .getPersistenceManagerFactory(datanucleusProps);
+        PersistenceNucleusContext ctx = pmf.getNucleusContext();
+
+        final Set<Class<?>> persistenceCapableTypes = AppManifest.Registry.instance().getPersistenceCapableTypes();
+        final Set<String> classNames = persistenceCapableTypes.stream().map(x -> x.getName())
+                .collect(Collectors.toSet());
+
+        Properties props = new Properties();
+
+        final File tempFile = File.createTempFile("schemaTool", "ddl");
+        tempFile.deleteOnExit();
+
+        props.setProperty("ddlFilename", tempFile.getAbsolutePath());
+        props.setProperty("completeDdl", "true");
+
+        final SchemaAwareStoreManager storeManager = (SchemaAwareStoreManager) ctx.getStoreManager();
+        storeManager.createSchemaForClasses(classNames, props);
+
+        final String fileContents = Files.toString(tempFile, Charset.defaultCharset());
+
+        return new Clob(fileName, "text/plain", fileContents);
+    }
+
+    public String default0ExportDdl() { return "schemaTool.ddl"; }
+
 
 
 }
