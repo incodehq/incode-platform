@@ -303,32 +303,75 @@
                 </plugins>
             </build>
 
-<!--            
             <dependencyManagement>
                 <dependencies>
                     <dependency>
+                        <groupId>com.danhaywood.mavenmixin</groupId>
+                        <artifactId>cucumberreporting</artifactId>
+                        <version>${mavenmixin-cucumberreporting}</version>
                     </dependency>
                     <dependency>
+                        <groupId>com.danhaywood.mavenmixin</groupId>
+                        <artifactId>datanucleusenhance</artifactId>
+                        <version>${mavenmixin-datanucleusenhance}</version>
                     </dependency>
                     <dependency>
+                        <groupId>com.danhaywood.mavenmixin</groupId>
+                        <artifactId>enforcerrelaxed</artifactId>
+                        <version>${mavenmixin-enforcerrelaxed}</version>
                     </dependency>
                     <dependency>
+                        <groupId>com.danhaywood.mavenmixin</groupId>
+                        <artifactId>isisjrebel</artifactId>
+                        <version>${mavenmixin-isisjrebel}</version>
                     </dependency>
                     <dependency>
+                        <groupId>com.danhaywood.mavenmixin</groupId>
+                        <artifactId>cucumberreporting</artifactId>
+                        <version>${mavenmixin-cucumberreporting}</version>
                     </dependency>
                     <dependency>
+                        <groupId>com.danhaywood.mavenmixin</groupId>
+                        <artifactId>isisswagger</artifactId>
+                        <version>${mavenmixin-isisswagger}</version>
                     </dependency>
                     <dependency>
+                        <groupId>com.danhaywood.mavenmixin</groupId>
+                        <artifactId>isisvalidate</artifactId>
+                        <version>${mavenmixin-isisvalidate}</version>
                     </dependency>
                     <dependency>
+                        <groupId>com.danhaywood.mavenmixin</groupId>
+                        <artifactId>jettyconsole</artifactId>
+                        <version>${mavenmixin-jettyconsole}</version>
                     </dependency>
                     <dependency>
+                        <groupId>com.danhaywood.mavenmixin</groupId>
+                        <artifactId>jettywar</artifactId>
+                        <version>${mavenmixin-jettywar}</version>
                     </dependency>
                     <dependency>
+                        <groupId>com.danhaywood.mavenmixin</groupId>
+                        <artifactId>sourceandjavadoc</artifactId>
+                        <version>${mavenmixin-sourceandjavadoc}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.danhaywood.mavenmixin</groupId>
+                        <artifactId>standard</artifactId>
+                        <version>${mavenmixin-standard}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.danhaywood.mavenmixin</groupId>
+                        <artifactId>surefire</artifactId>
+                        <version>${mavenmixin-surefire}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.danhaywood.mavenmixin</groupId>
+                        <artifactId>staticanalysis</artifactId>
+                        <version>${mavenmixin-staticanalysis}</version>
                     </dependency>
                 </dependencies>
             </dependencyManagement>
--->            
 
             <repositories>
                 <repository>
