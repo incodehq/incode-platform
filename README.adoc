@@ -40,11 +40,8 @@ This parent POM defines `<properties>` and `<pluginManagement>` for the plugins 
 |https://github.com/danhaywood/java-mavenmixin-enforcerrelaxed[enforcer relaxed]
 |0.0.2
 |Applies the maven enforcer plugin (but with relaxed dependency convergence) +
-+
-[NOTE]
-====
-This mixin is automatically defined in this parent pom, so there is no need to include in any child modules.
-====
+
+*NOTE* : This mixin is automatically defined in this parent pom, so there is no need to include in any child modules.
 
 |<mixin> +
 {nbsp}  <groupId>com.danhaywood.mavenmixin</groupId> +
@@ -101,12 +98,9 @@ This mixin is automatically defined in this parent pom, so there is no need to i
 
 |https://github.com/danhaywood/java-mavenmixin-standard[standard]
 |0.0.2
-|Defines the "standard" set of plugins (clean, compile, jar, install, site etc) +
-+
-[NOTE]
-====
-This mixin is automatically defined in this parent pom, so there is no need to include in any child modules.
-====
+|Defines the "standard" set of plugins (clean, compile, jar, install, site etc)
+
+*NOTE* : This mixin is automatically defined in this parent pom, so there is no need to include in any child modules.
 
 |<mixin> +
 {nbsp}  <groupId>com.danhaywood.mavenmixin</groupId> +
