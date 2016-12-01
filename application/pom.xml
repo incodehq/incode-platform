@@ -99,6 +99,10 @@
             <artifactId>isis-module-flywaydb-module-fixturedom</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>isis-module-flywaydb-dom</artifactId>
+        </dependency>
 
         <!-- isis -->
         <dependency>
