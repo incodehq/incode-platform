@@ -46,7 +46,6 @@
                     <name>!skip.incode-parent</name>
                 </property>
             </activation>
-            <properties>
 	    
 	        <properties>
     			<isis.version>1.13.1</isis.version>
