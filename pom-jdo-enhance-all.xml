@@ -81,7 +81,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-                <module>module-simple</module>
+                <module>module-fixturedom</module>
             </modules>
         </profile>
     </profiles>

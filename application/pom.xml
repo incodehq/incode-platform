@@ -96,7 +96,7 @@
         <!-- this app -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-flywaydb-module-simple</artifactId>
+            <artifactId>isis-module-flywaydb-module-fixturedom</artifactId>
         </dependency>
 
 

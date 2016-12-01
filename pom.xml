@@ -84,7 +84,7 @@
             <!-- this project's own modules -->
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>isis-module-flywaydb-module-simple</artifactId>
+                <artifactId>isis-module-flywaydb-module-fixturedom</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
@@ -132,7 +132,7 @@
     </profiles>
 
   <modules>
-    <module>module-simple</module>
+    <module>module-fixturedom</module>
     <module>application</module>
     <module>webapp</module>
   </modules>
