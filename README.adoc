@@ -14,7 +14,7 @@ See below for details of the maven mixins so configured.
 This parent POM defines `<properties>` and `<pluginManagement>` for the plugins defined in the following maven mixins:
 
 
-[width="100%",options="header,footer",cols="^1,1,2,2m"]
+[width="100%",options="header,footer",cols="^2,1,2,4m"]
 |====================
 |Module
 |Version
