@@ -284,62 +284,62 @@
                     <dependency>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>cucumberreporting</artifactId>
-                        <version>${mavenmixin-cucumberreporting}</version>
+                        <version>${mavenmixin-cucumberreporting.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>datanucleusenhance</artifactId>
-                        <version>${mavenmixin-datanucleusenhance}</version>
+                        <version>${mavenmixin-datanucleusenhance.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>enforcerrelaxed</artifactId>
-                        <version>${mavenmixin-enforcerrelaxed}</version>
+                        <version>${mavenmixin-enforcerrelaxed.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>isisjrebel</artifactId>
-                        <version>${mavenmixin-isisjrebel}</version>
+                        <version>${mavenmixin-isisjrebel.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>isisswagger</artifactId>
-                        <version>${mavenmixin-isisswagger}</version>
+                        <version>${mavenmixin-isisswagger.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>isisvalidate</artifactId>
-                        <version>${mavenmixin-isisvalidate}</version>
+                        <version>${mavenmixin-isisvalidate.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>jettyconsole</artifactId>
-                        <version>${mavenmixin-jettyconsole}</version>
+                        <version>${mavenmixin-jettyconsole.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>jettywar</artifactId>
-                        <version>${mavenmixin-jettywar}</version>
+                        <version>${mavenmixin-jettywar.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>sourceandjavadoc</artifactId>
-                        <version>${mavenmixin-sourceandjavadoc}</version>
+                        <version>${mavenmixin-sourceandjavadoc.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>standard</artifactId>
-                        <version>${mavenmixin-standard}</version>
+                        <version>${mavenmixin-standard.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>surefire</artifactId>
-                        <version>${mavenmixin-surefire}</version>
+                        <version>${mavenmixin-surefire.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>staticanalysis</artifactId>
-                        <version>${mavenmixin-staticanalysis}</version>
+                        <version>${mavenmixin-staticanalysis.version}</version>
                     </dependency>
                 </dependencies>
             </dependencyManagement>
