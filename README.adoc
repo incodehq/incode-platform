@@ -2,7 +2,8 @@
 
 image:https://travis-ci.org/isisaddons/isis-module-flywaydb.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-flywaydb]
 
-This module, intended for use within http://isis.apache.org[Apache Isis], ...
+This module, intended for use within http://isis.apache.org[Apache Isis], provides an implementation of the link:http://datanucleus.org/[DataNucleus] link:http://www.datanucleus.org/products/accessplatform_4_1/jdo/pmf.html[`PersistenceManagerFactory`] class.
+This uses link:https://flywaydb.org[FlywayDB] API to automatically apply any database migration scripts prior to the bootstrapping of the rest of the Apache Isis runtime.
 
 
 
@@ -29,23 +30,187 @@ To run the demo app:
 mvn -pl webapp jetty:run
 ----
 
+
 Then log on using user: `sven`, password: `pass`
 
 
 
+== What happens during bootstrapping
+:link-v1: link:https://github.com/isisaddons/isis-module-flywaydb/blob/master/webapp/src/main/resources/db/migration/V1__schema-simple.sql
+:link-v2: link:https://github.com/isisaddons/isis-module-flywaydb/blob/master/webapp/src/main/resources/db/migration/V2__table-simple_SimpleObject.sql
+
+
+When the application bootstraps, it uses the run two DB migration files that reside in `db.migration` package of the webapp module:
+
+* {link-v1}[V1__schema-simple.sql] +
++
+creates the `simple` schema
+
+* {link-v2}[V2__table-simple_SimpleObject.sql] +
++
+creates the `simple.SimpleObject` table to hold the `SimpleObject` entity.
+
+
+As a side-effect of running the migration, the flyway DB schema management tables are created.
+
+
 == How to Configure/Use
 
-TODO
+In the webapp's link:https://github.com/isisaddons/isis-module-flywaydb/blob/master/webapp/src/main/webapp/WEB-INF/persistor_datanucleus.properties#L50[`persistor_datanucleus.properties`] file:
+
+[source,properties]
+----
+isis.persistor.datanucleus.impl.javax.jdo.PersistenceManagerFactoryClass=org.isisaddons.module.flywaydb.dom.FlywayJdoPersistenceManagerFactory
+isis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll=false
+isis.persistor.datanucleus.impl.datanucleus.schema.validateAll=true
+----
+
+Enabling DataNucleus' `validateAll` setting means you can be assured that your migration scripts have brought the database schema into the same shape as is expected by DataNucleus; if there is a mismatch then the app will fail to bootstrap.
+See the section immediately below for workarounds where there validation errors are thrown that should not be.
+
+
+
+=== Handling Validation Errors
+
+Sometimes `validateAll` can result in DataNucleus throwing an exception even if the actual database matches the schema.
+The underlying reason for this occurring will vary; one reason is a buggy JDBC driver misreporting database metadata.
+It is however possible to workaround this issue.
+
+By way of example, when running against MS SQL Server you may find that BLOB/CLOB columns are reported as being invalid.
+One common example is the `CommandJdo` entity (in the link:http://github.com/isisaddons/isis-module-command[Isis addons' command] module), with its `exception` and a `memento` properties.
+This is defined as:
+
+[source,java]
+----
+public class CommandJdo {
+    ...
+    @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB")
+    private String exception;
+    ...
+    @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB")
+    private String memento;
+    ...
+}
+----
+
+In MS SQL Server this is mapped to a table with a column of type `TEXT`.
+However, this results in DataNucleus throwing an exception, to the effect that the datastore defines a LONGVARCHAR, while the (class) metadata defines a CLOB.
+
+The workaround is to redefine the JDO metadata using an `.orm` file.
+For example, `CommandJdo` can be made to work by adding `CommandJdo-sqlserver.orm`:
+
+[source,java]
+----
+<?xml version="1.0" encoding="UTF-8" ?>
+<orm xmlns="http://xmlns.jcp.org/xml/ns/jdo/orm"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/jdo/orm
+        http://xmlns.jcp.org/xml/ns/jdo/orm_3_0.xsd">
+
+    <package name="org.isisaddons.module.command.dom">
+        <class name="CommandJdo"
+               schema="isiscommand"
+               table="Command">
+            <property name="exception">
+                <column name="exception" jdbc-type="CLOB" sql-type="LONGVARCHAR" allows-null="true"/>
+            </property>
+            <field name="memento">
+                <column name="memento" jdbc-type="CLOB" sql-type="LONGVARCHAR" allows-null="true"/>
+            </field>
+        </class>
+    </package>
+
+</orm>
+----
+
+This should reside in the appropriate package (`org.isisaddons.module.command.dom` in this case).
+
+Another example is the `DocumentAbstract` entity (in the link:http://github.com/incodehq/incode-module-document[Incode catalogs' document] module), with its `blob_byte` and a `memento` properties.
+
+[source,java]
+----
+public class DocumentAbstract {
+    ...
+    @javax.jdo.annotations.Column(allowsNull = "true", name = "blob_bytes", jdbcType = "BLOB", sqlType = "BLOB")
+    private byte[] blobBytes;
+    ...
+    @javax.jdo.annotations.Column(allowsNull = "true", name = "clob_chars", jdbcType = "CLOB", sqlType = "CLOB")
+    private String clobChars;
+    ...
+}
+----
+
+The fix in this case is the following `DocumentAbstract-sqlserver.orm` file:
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8" ?>
+<orm xmlns="http://xmlns.jcp.org/xml/ns/jdo/orm"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/jdo/orm
+        http://xmlns.jcp.org/xml/ns/jdo/orm_3_0.xsd">
+
+    <package name="org.incode.module.document.dom.impl.docs">
+        <class name="DocumentAbstract"
+               schema="incodeDocuments">
+            <field name="blobBytes">
+                <column name="blob_bytes" jdbc-type="BLOB" sql-type="LONGVARBINARY" allows-null="true"/>
+            </field>
+            <field name="clobChars">
+                <column name="clob_chars" jdbc-type="CLOB" sql-type="LONGVARCHAR" allows-null="true"/>
+            </field>
+        </class>
+    </package>
+</orm>
+----
+
+The last thing to do is to instruct DataNucleus to also read these additional `.orm` files.
+This can be done using:
+
+[source,properties]
+----
+isis.persistor.datanucleus.impl.datanucleus.Mapping=sqlserver
+----
+
+where `sqlserver` matches the filename (`DocumentAbstract-*sqlserver*.orm` and so on).
+
+
+=== Disabling for Development
+
+When developing Apache Isis applications, it's common practice to prototype and run integration tests in memory, by default using HSQLDB.
+In production, however, some other database will most likely be used (PostgreSQL, MySQL, MS SQL Server etc).
+
+Now FlywayDB, by design does not attempt to abstract over different database vendors.
+In other words, the SQL migration scripts that are designed for production will quite possibly not work for development environment.
+The long and short of this is that you will most likely want to simply disable the flyway migration when running in-memory against HSQLDB.
+
+This can be done simply by setting the `autoCreateAll` property back to `true`, either in the `persistor_datanucleus.properties` file:
+
+[source,properties]
+----
+isis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll=true
+----
+
+or, (if using `mvn jetty:run` or `org.apache.isis.WebServer`) using a system property, eg:
+
+[source,properties]
+----
+mvn jetty:run -Disis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll=true
+----
+
+
+
+
 
 
 == Known issues
 
-TODO
+None currently
 
 
 == Change Log
 
-* `1.13.0` - TODO first release.
+* `1.13.0` - First release, against Apache Isis 1.13.0
 
 
 
@@ -110,12 +275,12 @@ For example:
 
 [source]
 ----
-sh interim-release.sh 1.14.0 origin
+sh interim-release.sh 1.13.0 origin
 ----
 
 where
 
-* `1.14.0` is the base release
+* `1.13.0` is the base release
 * `origin` is the name of the remote to which you have permissions to write to.
 
 
