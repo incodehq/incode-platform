@@ -30,6 +30,8 @@ To run the demo app:
 mvn -pl webapp jetty:run
 ----
 
+The app will bootstrap against an in-memory database, however it will be FlywayDB that sets up the database schema (rather than DataNucleus automatically creating the database as might normally be the case).
+This is discussed in a little more detail below.
 
 Then log on using user: `sven`, password: `pass`
 
