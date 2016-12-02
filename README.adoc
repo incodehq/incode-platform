@@ -35,6 +35,14 @@ This is discussed in a little more detail xref:what-happens-during-bootstrapping
 Then log on using user: `sven`, password: `pass`
 
 
+
+Use `Prototyping>HSQL DB Manager` to view the (in-memory) database:
+
+image:https://raw.githubusercontent.com/isisaddons/isis-module-flywaydb/master/images/hsqldb.png[link="https://raw.githubusercontent.com/isisaddons/isis-module-flywaydb/master/images/hsqldb.png"]
+
+This shows the migration scripts have been run, and the FlywayDB schema tables created and populated.
+
+
 [[what-happens-during-bootstrapping]]
 == What happens during bootstrapping
 :link-v1: link:https://github.com/isisaddons/isis-module-flywaydb/blob/master/webapp/src/main/resources/db/migration/V1__schema-simple.sql
