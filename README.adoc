@@ -36,12 +36,6 @@ Then log on using user: `sven`, password: `pass`
 
 
 
-Use `Prototyping>HSQL DB Manager` to view the (in-memory) database:
-
-image:https://raw.githubusercontent.com/isisaddons/isis-module-flywaydb/master/images/hsqldb.png[link="https://raw.githubusercontent.com/isisaddons/isis-module-flywaydb/master/images/hsqldb.png"]
-
-This shows the migration scripts have been run, and the FlywayDB schema tables created and populated.
-
 
 [[what-happens-during-bootstrapping]]
 == What happens during bootstrapping
@@ -61,6 +55,14 @@ creates the `simple.SimpleObject` table to hold the `SimpleObject` entity.
 
 
 As a side-effect of running the migration, the flyway DB schema management tables are created.
+
+
+All of this can be confirmed by invoking `Prototyping > HSQL DB Manager` to spawn off a Swing UI client that can view the (in-memory) database:
+
+image:https://raw.githubusercontent.com/isisaddons/isis-module-flywaydb/master/images/hsqldb.png[link="https://raw.githubusercontent.com/isisaddons/isis-module-flywaydb/master/images/hsqldb.png"]
+
+This shows the migration scripts have been run, and the FlywayDB schema tables created and populated.
+
 
 
 == How to Configure/Use
