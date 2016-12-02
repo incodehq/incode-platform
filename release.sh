@@ -43,13 +43,15 @@ fi
 
 
 echo ""
-echo "releasing 'mixin' module (mvn clean deploy)"
+echo "releasing 'module-dom' module (mvn clean deploy)"
 echo ""
+pushd module-dom
 mvn clean deploy -Pdanhaywood-mavenmixin-sonatyperelease -Dpgp.secretkey=keyring:id=$KEYID -Dpgp.passphrase="literal:$PASSPHRASE"
 if [ $? != 0 ]; then
     echo "... failed" >&2
     exit 1
 fi
+popd
 
 
 
