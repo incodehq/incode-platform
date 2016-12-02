@@ -11,9 +11,8 @@ This uses link:https://flywaydb.org[FlywayDB] API to automatically apply any dat
 
 The prerequisite software is:
 
-* Java JDK 8 (>= 1.9.0) or Java JDK 7 (&lt;= 1.8.0)
-** note that the compile source and target remains at JDK 7
-* http://maven.apache.org[maven 3] (3.2.x is recommended).
+* Java JDK 7 or JDK 8
+* http://maven.apache.org[maven 3] (3.3.x is recommended).
 
 To build the demo app:
 
@@ -68,10 +67,10 @@ isis.persistor.datanucleus.impl.datanucleus.schema.validateAll=true
 ----
 
 Enabling DataNucleus' `validateAll` setting means you can be assured that your migration scripts have brought the database schema into the same shape as is expected by DataNucleus; if there is a mismatch then the app will fail to bootstrap.
-See the section immediately below for workarounds where there validation errors are thrown that should not be.
+See the section immediately xref:handling-validation-errors[below] for workarounds when validation errors are thrown that should not be.
 
 
-
+[[handling-validation-errors]]
 === Handling Validation Errors
 
 Sometimes `validateAll` can result in DataNucleus throwing an exception even if the actual database matches the schema.
