@@ -181,7 +181,7 @@ where `sqlserver` matches the filename (`DocumentAbstract-*sqlserver*.orm` and s
 When developing Apache Isis applications, it's common practice to prototype and run integration tests in memory, by default using HSQLDB.
 In production, however, some other database will most likely be used (PostgreSQL, MySQL, MS SQL Server etc).
 
-Now FlywayDB, by design does not attempt to abstract over different database vendors.
+Now FlywayDB - by design - does not attempt to abstract over different database vendors.
 In other words, the SQL migration scripts that are designed for production will quite possibly not work for development environment.
 The long and short of this is that you will most likely want to simply disable the flyway migration when running in-memory against HSQLDB.
 
