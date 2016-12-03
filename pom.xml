@@ -41,7 +41,7 @@
     <properties>
         <isis.version>1.13.1.20161201-1430</isis.version>
 
-        <isis-module-flywaydb.version>1.13.0-SNAPSHOT</isis-module-flywaydb.version>
+        <isis-module-flywaydb.version>1.13.0</isis-module-flywaydb.version>
 
         <lombok.version>1.16.10</lombok.version>
         <assertj-core.version>3.6.0</assertj-core.version>
