@@ -67,8 +67,21 @@ This shows the migration scripts have been run, and the FlywayDB schema tables c
 
 == How to Configure/Use
 
-In the webapp's link:https://github.com/isisaddons/isis-module-flywaydb/blob/master/webapp/src/main/webapp/WEB-INF/persistor_datanucleus.properties#L50[`persistor_datanucleus.properties`] file:
+To configure:
 
+* update your classpath by adding this dependency in your project's `webapp` module's `pom.xml`: +
++
+[source,xml]
+----
+<dependency>
+    <groupId>org.isisaddons.module.flywaydb</groupId>
+    <artifactId>isis-module-flywaydb-dom</artifactId>
+    <version>1.13.0</version>
+</dependency>
+----
+
+* In the ``webapp``'s ``persistor_datanucleus.properties`` file, set: +
++
 [source,properties]
 ----
 isis.persistor.datanucleus.impl.javax.jdo.PersistenceManagerFactoryClass=org.isisaddons.module.flywaydb.dom.FlywayJdoPersistenceManagerFactory
@@ -77,7 +90,97 @@ isis.persistor.datanucleus.impl.datanucleus.schema.validateAll=true
 ----
 
 Enabling DataNucleus' `validateAll` setting means you can be assured that your migration scripts have brought the database schema into the same shape as is expected by DataNucleus; if there is a mismatch then the app will fail to bootstrap.
-See the section immediately xref:handling-validation-errors[below] for workarounds when validation errors are thrown that should not be.
+
+[TIP]
+====
+See the section xref:handling-validation-errors[below] for workarounds when validation errors are thrown that should not be.
+====
+
+
+
+
+== How to Use
+
+The sections below describe some of the common use cases.
+
+
+
+=== Disabling for Development
+
+When developing Apache Isis applications, it's common practice to prototype and run integration tests in memory, by default using HSQLDB.
+In production, however, some other database will most likely be used (PostgreSQL, MySQL, MS SQL Server etc).
+
+Now FlywayDB - by design - does not attempt to abstract over different database vendors.
+In other words, the SQL migration scripts that are designed for production will quite possibly not work for development environment.
+The long and short of this is that you will most likely want to simply disable the flyway migration when running in-memory against HSQLDB.
+
+This can be done simply by setting the `autoCreateAll` property back to `true`, either in the `persistor_datanucleus.properties` file:
+
+[source,properties]
+----
+isis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll=true
+----
+
+or, (if using `mvn jetty:run` or `org.apache.isis.WebServer`) using a system property, eg:
+
+[source,properties]
+----
+mvn jetty:run -Disis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll=true
+----
+
+
+
+[[baselining-an-existing-database]]
+=== Baselining an existing database
+
+If you want to start using FlywayDB for with an existing database that is already in production, then it must be  link:https://flywaydb.org/documentation/command/baseline[baseline]d.
+This involves:
+
+* generate scripts to represent the current state of the database.
+** for example, if using MS SQL Server then use the link:https://msdn.microsoft.com/en-gb/library/bb895179(v=sql.110).aspx[Generate and Publish Scripts] wizard (Tasks > Generate Scripts)
+* save these as `VyyyyMMddhhmm__initial-take-on.sql` +
++
+[TIP]
+====
+Alternatively you can use a date-based naming convention, eg `VyyyyMMddhhmm__xxx.sql`.
+See below for further discussion.
+====
+
+* run the `baseline` command: +
++
+[source,bash]
+----
+flyway -driver=... \
+       -url=... \
+       -user=... \
+       -password=... \
+       -baselineVersion=1 \
+       -baselineDescription="Initial take-on" \
+       -jarDirs=... \
+       baseline
+----
++
+It's also possible to specify command-line options using a `flyway.conf` link:https://flywaydb.org/documentation/commandline/[configuration file].
+
+
+[[process-for-creating-db-scripts]]
+=== A Process for creating DB scripts
+
+TODO: in brief:
+
+* copy from prod (which has been baselined)
+* restore twice, once to prod_copy, once to test
+* run app against an empty dev database, with `autoCreateAll=true` (disabling FlywayDB)
+* use liquibase or similar to diff prod_copy vs dev
+* save scripts
+* run app against `test`, with autoCreateAll=false (re-enabling FlywayDB)
+** confirm app starts ok
+
+
+[[naming-convention-for-scripts]]
+=== Naming convention for scripts
+
+TODO: discuss why should use `VyyyyMMddhhmm__` instead of `V1__` etc
 
 
 [[handling-validation-errors]]
@@ -184,33 +287,6 @@ isis.persistor.datanucleus.impl.datanucleus.Mapping=sqlserver
 ----
 
 where `sqlserver` matches the filename (`DocumentAbstract-*sqlserver*.orm` and so on).
-
-
-=== Disabling for Development
-
-When developing Apache Isis applications, it's common practice to prototype and run integration tests in memory, by default using HSQLDB.
-In production, however, some other database will most likely be used (PostgreSQL, MySQL, MS SQL Server etc).
-
-Now FlywayDB - by design - does not attempt to abstract over different database vendors.
-In other words, the SQL migration scripts that are designed for production will quite possibly not work for development environment.
-The long and short of this is that you will most likely want to simply disable the flyway migration when running in-memory against HSQLDB.
-
-This can be done simply by setting the `autoCreateAll` property back to `true`, either in the `persistor_datanucleus.properties` file:
-
-[source,properties]
-----
-isis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll=true
-----
-
-or, (if using `mvn jetty:run` or `org.apache.isis.WebServer`) using a system property, eg:
-
-[source,properties]
-----
-mvn jetty:run -Disis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll=true
-----
-
-
-
 
 
 
