@@ -5,8 +5,16 @@ if [ ! "$VERSION" ]; then
     exit 1
 fi
 
-echo "editing pom.xml"
+# edit parent pom.xml's reference
+echo "editing parent's pom.xml (reference to module-dom)"
+cat pom.xml | sed "s/<isis-module-flywaydb.version>.*</<isis-module-flywaydb.version>$VERSION</" > pom.xml.$$.sed
+mv pom.xml.$$.sed pom.xml
+
+# edit module-dom's pom.xml
+echo "editing module-dom's pom.xml"
+pushd module-dom >/dev/null
 mvn versions:set -DnewVersion=$VERSION > /dev/null
+popd >/dev/null
 
 echo "Committing changes"
 git commit -am "bumping to $VERSION"
