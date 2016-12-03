@@ -259,7 +259,7 @@ sh delta.sh $PROD_URL $DEV_URL $USERNAME $PASSWORD
 
 (Referring back to the process described xref:process-for-creating-migration-scripts[above]) this compares the current production database to the development database.
 
-If you look at the implementation you'll see that the `delta.sh` script uses a link:/util/scripts/schemas.txt[schemas.txt] file which lists all of the database schemas to compare.
+If you look at the implementation you'll see that the `delta.sh` script uses a link:/util/scripts/schema.txt[schema.txt] file which lists all of the database schemas to compare.
 
 Obviously, the above script requires that `liquibase` shell script is on your `$PATH` (or `liquibase.bat` on your `%PATH%`).
 
