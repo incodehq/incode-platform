@@ -140,7 +140,7 @@ mvn jetty:run -Disis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll
 === Naming convention for scripts
 
 
-When FlywayDB runs it searches for files named `Vnnnn\__`, where `nnnn` is some number.
+When FlywayDB runs it searches for files named `Vnnnn__`, where `nnnn` is some number.
 In the FlywayDB documentation (and, for that matter, in the demo app for this module), those numbers start at 1.
 However, if your team uses link:http://martinfowler.com/bliki/FeatureBranch.html[feature branch]es then this is likely to cause conflicts when those feature branches are merged back into master/trunk.
 
