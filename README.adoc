@@ -202,7 +202,7 @@ Thereafter FlywayDB will only perform migrations for numbers higher than this ba
 === A Process for creating migration scripts
 
 Suppose you've developed a new feature which will require a database schema change; how should the migration scripts be created and tested?
-Here's one process:
+Here's one approach:
 
 * obtain a backup of the current production database (which is already under FlywayDB's control; xref:baselining-an-existing-database[baseline] it if not) +
 +
@@ -217,6 +217,7 @@ See link:/util/sql/truncate-all-tables.sql[truncate-all-tables.sql] for a script
 
 * create a completely blank `dev` DB +
 +
+You could either create an empty database, or zap an existing scratch DB.
 See link:/util/sql/drop-all-tables.sql[drop-all-tables.sql] for a script that does this for MS SQL Server.
 
 * run app against this empty `dev` database, with `autoCreateAll=true` +
@@ -225,9 +226,7 @@ This disables FlywayDB, causing DataNucleus to create the schema based on its cu
 
 * next, use a comparison tool to compare `current` against `dev`. +
 +
-One option is to use the command line tools provided by link:http://www.liquibase.org/[liquibase], a rather more sophisticated migration tool. +
-+
-See xref:using-liquibase-to-diff-databases[below] for details of how to use liquibase's commandline tool.
+One option is to use the command line tools provided by link:http://www.liquibase.org/[liquibase] (itself a DB migration framework that "competes" with FlywayDB; here we just leverage its diff utility).  See xref:using-liquibase[below] for details of how to use liquibase's commandline tool.
 
 * Save SQL scripts capturing the difference
 
@@ -237,13 +236,30 @@ See xref:using-liquibase-to-diff-databases[below] for details of how to use liqu
 ** If there is an issue then the app will fails to start; use the errors in the console to diagnose the issue and then go round the loop.
 
 
-[[using-liquibase-to-diff-databases]]
+[[using-liquibase]]
 === Using Liquibase to diff databases
 
-Liquibase is another Java-based migration tool which some prefer though its scope is rather more advanced compared to FlywayDB.
-What it _does_ also provide that is useful is a command line tool that can be used to diff databases.
+link:http://www.liquibase.org/[liquibase] is another Java-based migration tool that "competes" with FlywayDB; its scope is rather broader than FlywayDB which some prefer.
+Here we just leverage its diff utility in order to help generate migration scripts.
 
-TODO: complete this...
+The link:/util/scripts/delta.sh[delta.sh] shows how this can be done for a SQL Server database.
+It is invoked:
+
+[source,bash]
+----
+PROD_URL="jdbc:sqlserver://localhost;instance=.;databaseName=current"
+DEV_URL="jdbc:sqlserver://localhost;instance=.;databaseName=dev"
+USERNAME="sa"
+PASSWORD="pass"
+
+sh delta.sh $PROD_URL $DEV_URL $USERNAME $PASSWORD
+----
+
+which (referring back to the process described xref:process-for-creating-migration-scripts[above]) will compare the current production database to the development database.
+
+If you look at the implementation you'll see that the `delta.sh` script uses a link:/util/scripts/schemas.txt[schemas.txt] file which lists all of the database schemas to compare.
+
+Obviously, the above script requires that `liquibase` shell script is on your `$PATH` (or `liquibase.bat` on your `%PATH%`).
 
 
 [[handling-validation-errors]]
