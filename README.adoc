@@ -241,7 +241,7 @@ One option is to use the command line tools provided by link:http://www.liquibas
 [[using-liquibase]]
 === Using Liquibase to diff databases
 
-link:http://www.liquibase.org/[liquibase] is another Java-based migration tool that "competes" with FlywayDB; its scope is rather broader than FlywayDB which some prefer.
+link:http://www.liquibase.org/[Liquibase] is another Java-based migration tool that "competes" with FlywayDB; its scope is rather broader than FlywayDB which some prefer.
 Here we just leverage its diff utility in order to help generate migration scripts.
 
 The link:/util/scripts/delta.sh[delta.sh] shows how this can be done for a SQL Server database.
