@@ -184,21 +184,24 @@ flyway -driver=... \
        -url=... \
        -user=... \
        -password=... \
-       -baselineVersion=yyyyMMddhhmm \                  #1
+       -baselineVersion=yyyyMMddhhmm \
        -baselineDescription="Initial take-on" \
        -jarDirs=... \
        baseline
 ----
-<1> the version number of the initial take-on script, above
 +
+[TIP]
+====
 It's also possible to specify command-line options using a `flyway.conf` link:https://flywaydb.org/documentation/commandline/[configuration file].
+
+====
 
 This will result in the FlywayDB schema tables being generated and a row inserted indicating that the schema represents the specified baseline versions.
 Thereafter FlywayDB will only perform migrations for numbers higher than this baseline.
 
 
 [[process-for-creating-migration-scripts]]
-=== A Process for creating migration scripts
+=== A process for creating migration scripts
 
 Suppose you've developed a new feature which will require a database schema change; how should the migration scripts be created and tested?
 Here's one approach:
