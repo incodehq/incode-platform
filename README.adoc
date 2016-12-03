@@ -41,8 +41,8 @@ Then log on using user: `sven`, password: `pass`
 
 [[what-happens-during-bootstrapping]]
 == What happens during bootstrapping
-:link-v1: link:https://github.com/isisaddons/isis-module-flywaydb/blob/master/webapp/src/main/resources/db/migration/V1__schema-simple.sql
-:link-v2: link:https://github.com/isisaddons/isis-module-flywaydb/blob/master/webapp/src/main/resources/db/migration/V2__table-simple_SimpleObject.sql
+:link-v1: link:https:///blob/master/webapp/src/main/resources/db/migration/V1__schema-simple.sql
+:link-v2: link:https:///blob/master/webapp/src/main/resources/db/migration/V2__table-simple_SimpleObject.sql
 
 
 When the application bootstraps, it uses the run two DB migration files that reside in `db.migration` package of the webapp module:
@@ -55,8 +55,13 @@ creates the `simple` schema
 +
 creates the `simple.SimpleObject` table to hold the `SimpleObject` entity.
 
-
 As a side-effect of running the migration, the flyway DB schema management tables are created.
+
+[IMPORTANT]
+====
+While (for simplicity) the demo application uses files named `V1\__`, `V2__` and so on, we recommend you use a more sophisticated naming convention based on dates.
+See xref:naming-convention-for-scripts[below] for further discussion.
+====
 
 
 All of this can be confirmed by invoking `Prototyping > HSQL DB Manager` to spawn off a Swing UI client that can view the (in-memory) database:
@@ -131,6 +136,34 @@ mvn jetty:run -Disis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll
 ----
 
 
+[[naming-convention-for-scripts]]
+=== Naming convention for scripts
+
+TODO: discuss why should use `` instead of `V1__` etc
+
+When FlywayDB runs it searches for files named `Vnnnn\__`, where `nnnn` is some number.
+In the FlywayDB documentation (and, for that matter, in the demo app for this module), those numbers start at 1.
+However, if your team uses link:http://martinfowler.com/bliki/FeatureBranch.html[feature branch]es then this is likely to cause conflicts when those feature branches are merged back into master/trunk.
+
+Luckily, FlywayDB does not require the version numbers to be contiguous.
+Therefore, (along link:http://www.jeremyjarrell.com/using-flyway-db-with-distributed-version-control/[with] link:http://stackoverflow.com/a/34599349/56880[others]) we recommend that the number used is the current date/time, for example:
+
+[source]
+----
+VyyyyMMddhhmm__description-of-the-change.sql
+----
+
+When the feature branches are merged, you (the developer) should check that any new migrations have a later timestamp than the version of the current production database; chances are they will be.
+But if necessary, the filename/timestamp can be updated, eg to be the current date/time that the merged is performed.
+
+[IMPORTANT]
+====
+While FlywayDB itself _does_ support link:https://flywaydb.org/documentation/commandline/migrate["outOfOrder"] migrations (ie to run a migration whose number is less than that of the current production database), this module's integration with the FlywayDB API does _not_ support that feature.
+
+If you do require outOfOrder migrations, then the DBA can always run the FlywayDB command line tool.
+====
+
+
 
 [[baselining-an-existing-database]]
 === Baselining an existing database
@@ -142,11 +175,7 @@ This involves:
 ** for example, if using MS SQL Server then use the link:https://msdn.microsoft.com/en-gb/library/bb895179(v=sql.110).aspx[Generate and Publish Scripts] wizard (Tasks > Generate Scripts)
 * save these as `VyyyyMMddhhmm__initial-take-on.sql` +
 +
-[TIP]
-====
-Alternatively you can use a date-based naming convention, eg `VyyyyMMddhhmm__xxx.sql`.
-See below for further discussion.
-====
+Following the date/time naming convention discussed xref:naming-convention-for-scripts[above].
 
 * run the `baseline` command: +
 +
@@ -156,33 +185,55 @@ flyway -driver=... \
        -url=... \
        -user=... \
        -password=... \
-       -baselineVersion=1 \
+       -baselineVersion=yyyyMMddhhmm \                  #1
        -baselineDescription="Initial take-on" \
        -jarDirs=... \
        baseline
 ----
+<1> the version number of the initial take-on script, above
 +
 It's also possible to specify command-line options using a `flyway.conf` link:https://flywaydb.org/documentation/commandline/[configuration file].
 
-
-[[process-for-creating-db-scripts]]
-=== A Process for creating DB scripts
-
-TODO: in brief:
-
-* copy from prod (which has been baselined)
-* restore twice, once to prod_copy, once to test
-* run app against an empty dev database, with `autoCreateAll=true` (disabling FlywayDB)
-* use liquibase or similar to diff prod_copy vs dev
-* save scripts
-* run app against `test`, with autoCreateAll=false (re-enabling FlywayDB)
-** confirm app starts ok
+This will result in the FlywayDB schema tables being generated and a row inserted indicating that the schema represents the specified baseline versions.
+Thereafter FlywayDB will only perform migrations for numbers higher than this baseline.
 
 
-[[naming-convention-for-scripts]]
-=== Naming convention for scripts
+[[process-for-creating-migration-scripts]]
+=== A Process for creating migration scripts
 
-TODO: discuss why should use `VyyyyMMddhhmm__` instead of `V1__` etc
+Suppose you've developed a new feature which will require a database schema change; how should the migration scripts be created and tested?
+Here's one process:
+
+* obtain a backup of the current production database (which is already under FlywayDB's control; xref:baselining-an-existing-database[baseline] it if not)
+
+** as a minor refinement, all that is required is the schema of this database.
+You could therefore have a CI pipeline that hooks onto your nightly database backups; this would restore the production database, then truncate all tables, then creates a backup of that truncated database. +
++
+See link:https:///blob/master/scripts/sqlserver/truncate-all-tables.sql[truncate-all-tables.sql] for a script that does this for MS SQL Server.
+
+* in your development environment, restore two copies of the current production database twice (or truncated version):
+** restore once to `current` DB
+** restore another to `test` DB
+* create a completely blank `dev` DB
+* run app against this empty `dev` database, with `autoCreateAll=true`
+** this disables FlywayDB, causing DataNucleus to create the schema based on its current metadata
+* next, use a comparison tool to compare `current` against `dev`.
+** One option is to use the command line tools provided by link:http://www.liquibase.org/[liquibase], a rather more sophisticated migration tool.
+See xref:using-liquibase-to-diff-databases[below] for details of how to use liquibase's commandline tool.
+* Save SQL scripts capturing the difference
+* Finally, run app against `test` DB, this time with `autoCreateAll=false` (and `validateAll=true`)
+** `autoCreateAll=true` re-enables FlywayDB, causing it apply the migration scripts
+** `validateAll=true` causes DataNucleus to check that the resultant DB schema matches that required by the entity metadata.
+** If there is an issue then the app will fails to start; use the errors in the console to diagnose the issue and then go round the loop.
+
+
+[[using-liquibase-to-diff-databases]]
+=== Using Liquibase to diff databases
+
+Liquibase is another Java-based migration tool which some prefer though its scope is rather more advanced compared to FlywayDB.
+What it _does_ also provide that is useful is a command line tool that can be used to diff databases.
+
+TODO: complete this...
 
 
 [[handling-validation-errors]]
