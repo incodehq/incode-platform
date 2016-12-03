@@ -168,7 +168,7 @@ If you do require outOfOrder migrations, then the DBA can always run the FlywayD
 === Baselining an existing database
 
 If you want to start using FlywayDB for with an existing database that is already in production, then it must be  link:https://flywaydb.org/documentation/command/baseline[baseline]d.
-This involves:
+To do this:
 
 * generate scripts to represent the current state of the database.
 ** for example, if using MS SQL Server then use the link:https://msdn.microsoft.com/en-gb/library/bb895179(v=sql.110).aspx[Generate and Publish Scripts] wizard (Tasks > Generate Scripts)
