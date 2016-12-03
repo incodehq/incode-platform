@@ -67,7 +67,7 @@ This shows the migration scripts have been run, and the FlywayDB schema tables c
 
 
 
-== How to Configure/Use
+== How to Configure
 
 To configure:
 
