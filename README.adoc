@@ -139,7 +139,6 @@ mvn jetty:run -Disis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll
 [[naming-convention-for-scripts]]
 === Naming convention for scripts
 
-TODO: discuss why should use `` instead of `V1__` etc
 
 When FlywayDB runs it searches for files named `Vnnnn\__`, where `nnnn` is some number.
 In the FlywayDB documentation (and, for that matter, in the demo app for this module), those numbers start at 1.
