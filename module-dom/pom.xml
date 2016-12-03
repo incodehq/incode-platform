@@ -29,7 +29,7 @@
     <groupId>org.isisaddons.module.flywaydb</groupId>
     <artifactId>isis-module-flywaydb-dom</artifactId>
     <name>IsisAddons FlywayDB Module DOM</name>
-    <version>1.13.0</version>
+    <version>1.14.0-SNAPSHOT</version>
 
     <properties>
         <isis.version>1.13.1</isis.version>
