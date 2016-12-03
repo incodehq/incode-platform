@@ -207,7 +207,8 @@ Here's one process:
 * obtain a backup of the current production database (which is already under FlywayDB's control; xref:baselining-an-existing-database[baseline] it if not) +
 +
 In fact, all that is required is the schema of this database.
-So, as a minor refinement, you could set up a CI pipeline that hooks onto your nightly database backups; this would restore the production database to some scratch DB, then truncate all tables, then creates a backup of that truncated database.
+So, as a minor refinement, you could set up a CI pipeline that hooks onto your nightly database backups; this would restore the production database to some scratch DB, then truncate all tables, then creates a backup of that truncated database. +
++
 See link:/util/sql/truncate-all-tables.sql[truncate-all-tables.sql] for a script that does this for MS SQL Server.
 
 * in your development environment, restore two copies of the current production database twice (or truncated version):
@@ -224,7 +225,8 @@ This disables FlywayDB, causing DataNucleus to create the schema based on its cu
 
 * next, use a comparison tool to compare `current` against `dev`. +
 +
-One option is to use the command line tools provided by link:http://www.liquibase.org/[liquibase], a rather more sophisticated migration tool.
+One option is to use the command line tools provided by link:http://www.liquibase.org/[liquibase], a rather more sophisticated migration tool. +
++
 See xref:using-liquibase-to-diff-databases[below] for details of how to use liquibase's commandline tool.
 
 * Save SQL scripts capturing the difference
