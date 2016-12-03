@@ -23,6 +23,7 @@
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
         <version>1.13.1</version>
+        <relativePath/>
     </parent>
 
     <groupId>org.isisaddons.module.flywaydb</groupId>
