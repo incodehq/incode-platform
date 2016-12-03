@@ -27,7 +27,7 @@
 
     <groupId>org.isisaddons.module.flywaydb</groupId>
     <artifactId>isis-module-flywaydb</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
 
     <name>FlywayDB App Parent</name>
 
@@ -39,6 +39,8 @@
 
     <properties>
         <isis.version>1.13.1.20161201-1430</isis.version>
+
+        <isis-module-flywaydb.version>1.13.0-SNAPSHOT</isis-module-flywaydb.version>
 
         <lombok.version>1.16.10</lombok.version>
         <assertj-core.version>3.6.0</assertj-core.version>
@@ -85,22 +87,22 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-flywaydb-dom</artifactId>
-                <version>1.13.0-SNAPSHOT</version>
+                <version>${isis-module-flywaydb.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-flywaydb-module-fixturedom</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-flywaydb-application</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-flywaydb-webapp</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
             <!-- lombok -->

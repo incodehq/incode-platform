@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.isisaddons.module.flywaydb</groupId>
         <artifactId>isis-module-flywaydb</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>isis-module-flywaydb-application</artifactId>

@@ -13,9 +13,20 @@ fi
 
 
 echo ""
-echo "sanity check (mvn clean package -o)"
+echo "checking no reference to isis.version of -SNAPSHOT"
 echo ""
-mvn clean package -o >/dev/null
+grep SNAPSHOT module-dom/pom.xml | grep isis.version
+if [ $? == 0 ]; then
+    echo ""
+    echo "... failed" >&2
+    exit 1
+fi
+
+
+echo ""
+echo "sanity check (mvn clean install -T1C -o)"
+echo ""
+mvn clean install -T1C -o >/dev/null
 if [ $? != 0 ]; then
     echo "... failed" >&2
     exit 1
@@ -33,19 +44,18 @@ fi
 
 
 echo ""
-echo "double-check (mvn clean package -o)"
+echo "double-check (mvn clean install -T1C -o)"
 echo ""
-mvn clean package -o >/dev/null
+mvn clean install -T1C -o >/dev/null
 if [ $? != 0 ]; then
     echo "... failed" >&2
     exit 1
 fi
 
-
 echo ""
 echo "releasing 'module-dom' module (mvn clean deploy)"
 echo ""
-pushd module-dom
+pushd module-dom >/dev/null
 mvn clean deploy -Pdanhaywood-mavenmixin-sonatyperelease -Dpgp.secretkey=keyring:id=$KEYID -Dpgp.passphrase="literal:$PASSPHRASE"
 if [ $? != 0 ]; then
     echo "... failed" >&2
