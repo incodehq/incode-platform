@@ -1,4 +1,6 @@
 = isis-module-flywaydb
+:_imagesdir: ./
+:toc:
 
 image:https://travis-ci.org/isisaddons/isis-module-flywaydb.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-flywaydb]
 
