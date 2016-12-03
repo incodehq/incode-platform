@@ -41,8 +41,8 @@ Then log on using user: `sven`, password: `pass`
 
 [[what-happens-during-bootstrapping]]
 == What happens during bootstrapping
-:link-v1: link:blob/master/webapp/src/main/resources/db/migration/V1__schema-simple.sql
-:link-v2: link:blob/master/webapp/src/main/resources/db/migration/V2__table-simple_SimpleObject.sql
+:link-v1: link:webapp/src/main/resources/db/migration/V1__schema-simple.sql
+:link-v2: link:webapp/src/main/resources/db/migration/V2__table-simple_SimpleObject.sql
 
 
 When the application bootstraps, it uses the run two DB migration files that reside in `db.migration` package of the webapp module:
@@ -207,20 +207,25 @@ Here's one process:
 * obtain a backup of the current production database (which is already under FlywayDB's control; xref:baselining-an-existing-database[baseline] it if not)
 
 ** as a minor refinement, all that is required is the schema of this database.
-You could therefore have a CI pipeline that hooks onto your nightly database backups; this would restore the production database, then truncate all tables, then creates a backup of that truncated database. +
-+
-See link:blob/master/util/scripts/truncate-all-tables.sql[truncate-all-tables.sql] for a script that does this for MS SQL Server.
+You could therefore have a CI pipeline that hooks onto your nightly database backups; this would restore the production database, then truncate all tables, then creates a backup of that truncated database.  See link:/util/scripts/truncate-all-tables.sql[truncate-all-tables.sql] for a script that does this for MS SQL Server.
 
 * in your development environment, restore two copies of the current production database twice (or truncated version):
 ** restore once to `current` DB
 ** restore another to `test` DB
-* create a completely blank `dev` DB
+
+* create a completely blank `dev` DB +
++
+See link:/util/sql/drop-all-tables.sql[drop-all-tables.sql] for a script that does this for MS SQL Server.
+
 * run app against this empty `dev` database, with `autoCreateAll=true`
 ** this disables FlywayDB, causing DataNucleus to create the schema based on its current metadata
+
 * next, use a comparison tool to compare `current` against `dev`.
 ** One option is to use the command line tools provided by link:http://www.liquibase.org/[liquibase], a rather more sophisticated migration tool.
 See xref:using-liquibase-to-diff-databases[below] for details of how to use liquibase's commandline tool.
+
 * Save SQL scripts capturing the difference
+
 * Finally, run app against `test` DB, this time with `autoCreateAll=false` (and `validateAll=true`)
 ** `autoCreateAll=true` re-enables FlywayDB, causing it apply the migration scripts
 ** `validateAll=true` causes DataNucleus to check that the resultant DB schema matches that required by the entity metadata.
