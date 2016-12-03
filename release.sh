@@ -56,7 +56,7 @@ echo ""
 echo "releasing 'module-dom' module (mvn clean deploy)"
 echo ""
 pushd module-dom >/dev/null
-mvn clean deploy -Pdanhaywood-mavenmixin-sonatyperelease -Dpgp.secretkey=keyring:id=$KEYID -Dpgp.passphrase="literal:$PASSPHRASE"
+mvn clean deploy -Dmavenmixin-sourceandjavadoc -Pdanhaywood-mavenmixin-sonatyperelease -Dpgp.secretkey=keyring:id=$KEYID -Dpgp.passphrase="literal:$PASSPHRASE"
 if [ $? != 0 ]; then
     echo "... failed" >&2
     exit 1
