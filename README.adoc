@@ -233,7 +233,7 @@ One option is to use the command line tools provided by link:http://www.liquibas
 * Save SQL scripts capturing the difference
 
 * Finally, run app against `test` DB, this time with `autoCreateAll=false` (and `validateAll=true`)
-** `autoCreateAll=true` re-enables FlywayDB, causing it apply the migration scripts
+** `autoCreateAll=false` re-enables FlywayDB, causing it apply the migration scripts
 ** `validateAll=true` causes DataNucleus to check that the resultant DB schema matches that required by the entity metadata.
 ** If there is an issue then the app will fails to start; use the errors in the console to diagnose the issue and then go round the loop.
 
