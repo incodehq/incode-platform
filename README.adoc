@@ -448,7 +448,7 @@ See xref:using-liquibase[below] for details of how to use liquibase's commandlin
 
 * Save SQL scripts capturing the difference
 
-* Finally, run app against `test` DB, this time with `autoCreateAll=false` (and `validateAll=true`)
+* Finally, run app against `test` DB, this time with Flyway re-enabled and with DataNucleus validation re-enabled also:
 ** `autoCreateAll=false` (or `autoCreateTables=false`) re-enables FlywayDB, causing it apply the migration scripts
 ** `validateAll=true` causes DataNucleus to check that the resultant DB schema matches that required by the entity metadata.
 ** If there is an issue then the app will fails to start; use the errors in the console to diagnose the issue and then go round the loop.
