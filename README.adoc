@@ -5,7 +5,7 @@
 image:https://travis-ci.org/isisaddons/isis-module-flywaydb.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-flywaydb]
 
 This module, intended for use within http://isis.apache.org[Apache Isis], provides an implementation of the link:http://datanucleus.org/[DataNucleus] link:http://www.datanucleus.org/products/accessplatform_4_1/jdo/pmf.html[`PersistenceManagerFactory`] class.
-This uses link:https://flywaydb.org[FlywayDB] API to automatically apply any database migration scripts prior to the bootstrapping of the rest of the Apache Isis runtime.
+This uses link:https://flywaydb.org[Flyway] API to automatically apply any database migration scripts prior to the bootstrapping of the rest of the Apache Isis runtime.
 
 [IMPORTANT]
 ====
@@ -37,7 +37,7 @@ To run the demo app:
 mvn -pl webapp jetty:run
 ----
 
-The app will bootstrap against an in-memory database, however it will be FlywayDB that sets up the database schema (rather than DataNucleus automatically creating the database as might normally be the case).
+The app will bootstrap against an in-memory database, however it will be Flyway that sets up the database schema (rather than DataNucleus automatically creating the database as might normally be the case).
 This is discussed in a little more detail xref:what-happens-during-bootstrapping[below].
 
 Then log on using user: `sven`, password: `pass`
@@ -74,7 +74,7 @@ All of this can be confirmed by invoking `Prototyping > HSQL DB Manager` to spaw
 
 image:https://raw.githubusercontent.com/isisaddons/isis-module-flywaydb/master/images/hsqldb.png[link="https://raw.githubusercontent.com/isisaddons/isis-module-flywaydb/master/images/hsqldb.png"]
 
-This shows the migration scripts have been run, and the FlywayDB schema tables created and populated.
+This shows the migration scripts have been run, and the Flyway schema tables created and populated.
 
 
 [[how-to-configure]]
@@ -104,21 +104,35 @@ isis.persistor.datanucleus.impl.datanucleus.schema.validateAll=true
 isis.persistor.datanucleus.impl.flyway.schemas=flyway
 ----
 
-Enabling DataNucleus' `validateAll` setting means you can be assured that your migration scripts have brought the database schema into the same shape as is expected by DataNucleus; if there is a mismatch then the app will fail to bootstrap.
+Disabling DataNucleus' `autoCreateAll` property in turn enables Flyway migrations.
+
+[TIP]
+====
+Using `autoCreateTables=false` (instead of `autoCreateAll`) will also enable Flyway migrations, but will continue to allow DataNucleus to (re)create table constraints; see the section xref:idempotent-constraints[below] for further discussion.
+====
+
+Enabling DataNucleus' `validateAll` property means you can be assured that your migration scripts have brought the database schema into the same shape as is expected by DataNucleus; if there is a mismatch then the app will fail to bootstrap.
+
+[TIP]
+====
 See the section xref:handling-validation-errors[below] for workarounds when validation errors are thrown that should not be.
+====
+
 
 The `flyway.schemas` property is intended to list all of the schemas that Flyway manages as a single indivisible set of tables; the `schema_version` table will be created in the first schema listed.
 If these schemas do not exist already then Flyway will automatically create them in the current database; however if any of them _do_ exist then Flyway will not create any of the schemas.
 
-Now if any of the tables are to be managed in a default schema (such as "dbo" for SQL Server, or "PUBLIC" for HSQLDB), then either:
+If any of the tables that need to be managed happen to reside in a default schema (such as "dbo" for SQL Server, or "PUBLIC" for HSQLDB), then either:
 
-* do not list that default schema within `flyway.schemas`, and do _not_ provide migration scripts to create the schemas themselves
+* do __not__ list that default schema within `flyway.schemas`, and also __do not__ provide migration scripts to create the schemas themselves (relying on Flyway to create the schemas instead), or
 
-* simpler, simply list "flyway" as the one and only schema in `flyway.schemas`, and then _do_ provide a migration script. +
+* __do__ list that default schema within `flyway.schemas`, and then __do__ provide migration scripts to create the schemas themselves, or
+
+* just list "flyway" as the one and only schema in `flyway.schemas`, and then _do_ provide a migration scripts to create the schemas. +
 +
 This will have the result of creating a new `flyway.schema_version` table.
 
-Of these two options, the demo application for this module goes with the second approach.
+Of these options, the demo application for this module goes with the last approach.
 
 
 [TIP]
@@ -127,7 +141,6 @@ Flyway's `migrate` command supports a large number of other link:https://flywayd
 All of these can be enabled/set using a property name consisting of `isis.persistor.datanucleus.impl.` prefix along with the `flyway.xxx` property as a suffix.
 ====
 
-Using `autoCreateTables=false` (instead of `autoCreateAll`) will allow DataNucleus to continue to manage constraints; see the section xref:idempotent-constraints[below] for further discussion.
 
 
 
@@ -141,11 +154,11 @@ The sections below describe some of the common use cases when using Flyway to ma
 === Naming convention for scripts
 
 
-When FlywayDB runs it searches for files named `Vnnnn__`, where `nnnn` is some number.
-In the FlywayDB documentation (and, for that matter, in the demo app for this module), those numbers start at 1.
+When Flyway runs it searches for files named `Vnnnn__`, where `nnnn` is some number.
+In the Flyway documentation (and, for that matter, in the demo app for this module), those numbers start at 1.
 However, if your team uses link:http://martinfowler.com/bliki/FeatureBranch.html[feature branch]es then this is likely to cause conflicts when those feature branches are merged back into master/trunk.
 
-Luckily, FlywayDB does not require the link:https://flywaydb.org/documentation/migration/versioned[version number]s to be contiguous; moreover the number can contain '_' or '.' as a separator.
+Luckily, Flyway does not require the link:https://flywaydb.org/documentation/migration/versioned[version number]s to be contiguous; moreover the number can contain '_' or '.' as a separator.
 Therefore, (along link:http://www.jeremyjarrell.com/using-flyway-db-with-distributed-version-control/[with] link:http://stackoverflow.com/a/34599349/56880[others]) we recommend that the number used is the current date/time, for example:
 
 [source]
@@ -166,7 +179,7 @@ Alternatively, an "out-of-order" migration (as discussed xref:out-of-order-migra
 When developing Apache Isis applications, it's common practice to prototype and run integration tests in memory, by default using HSQLDB.
 In production, however, some other database will most likely be used (PostgreSQL, MySQL, MS SQL Server etc).
 
-Now FlywayDB - by design - does not attempt to abstract over different database vendors.
+Now Flyway - by design - does not attempt to abstract over different database vendors.
 In other words, the SQL migration scripts that are designed for production will quite possibly not work for development environment.
 The long and short of this is that you will most likely want to simply disable the flyway migration when running in-memory against HSQLDB.
 
@@ -451,7 +464,7 @@ Of course, they must be compiled and reside on the classpath, very similar to Ap
 Suppose you've developed a new feature which will require a database schema change; how should the migration scripts be created and tested?
 Here's one approach:
 
-* obtain a backup of the current production database (which is already under FlywayDB's control; xref:baselining-an-existing-database[baseline] it if not) +
+* obtain a backup of the current production database (which is already under Flyway's control; xref:baselining-an-existing-database[baseline] it if not) +
 +
 In fact, all that is required is the schema of this database.
 So, as a minor refinement, you could set up a CI pipeline that hooks onto your nightly database backups; this would restore the production database to some scratch DB, then truncate all tables, then creates a backup of that truncated database. +
@@ -477,13 +490,13 @@ See link:/util/sql/drop-all-tables.sql[drop-all-tables.sql] for a script that do
 
 * run app against this empty `dev` database, with `autoCreateAll=true` +
 +
-This disables FlywayDB, causing DataNucleus to create the schema based on its current metadata
+This disables Flyway, causing DataNucleus to create the schema based on its current metadata
 
 * next, use a comparison tool to compare `current` against `dev`. +
 +
 [TIP]
 ====
-One option is to use the command line tools provided by link:http://www.liquibase.org/[liquibase] (itself a DB migration framework that "competes" with FlywayDB; here we just leverage its diff utility).
+One option is to use the command line tools provided by link:http://www.liquibase.org/[liquibase] (itself a DB migration framework that "competes" with Flyway; here we just leverage its diff utility).
 See xref:using-liquibase[below] for details of how to use liquibase's commandline tool.
 ====
 
@@ -491,7 +504,7 @@ See xref:using-liquibase[below] for details of how to use liquibase's commandlin
 * Save SQL scripts capturing the difference
 
 * Finally, run app against `test` DB, this time with Flyway re-enabled and with DataNucleus validation re-enabled also:
-** `autoCreateAll=false` (or `autoCreateTables=false`) re-enables FlywayDB, causing it apply the migration scripts
+** `autoCreateAll=false` (or `autoCreateTables=false`) re-enables Flyway, causing it apply the migration scripts
 ** `validateAll=true` causes DataNucleus to check that the resultant DB schema matches that required by the entity metadata.
 
 If there is an issue then the app will fails to start; use the errors in the console to diagnose the issue and then go round the loop.
@@ -500,7 +513,7 @@ If there is an issue then the app will fails to start; use the errors in the con
 [[using-liquibase]]
 === Using Liquibase to diff databases
 
-link:http://www.liquibase.org/[Liquibase] is another Java-based migration tool that "competes" with FlywayDB; its scope is rather broader than FlywayDB which some prefer.
+link:http://www.liquibase.org/[Liquibase] is another Java-based migration tool that "competes" with Flyway; its scope is rather broader than Flyway which some prefer.
 Here we just leverage its diff utility in order to help generate migration scripts.
 
 The link:/util/scripts/delta.sh[delta.sh] shows how this can be done for a SQL Server database.
@@ -534,6 +547,7 @@ None currently
 
 == Change Log
 
+* `1.13.1` - Extending to support flyway properties (eg `outOfOrder`, `baselineOnMigrate`), allow DN to recreate constraints, support multiple DBs; docs on repeatable migrations and other features
 * `1.13.0` - First release, against Apache Isis 1.13.0
 
 
@@ -599,12 +613,12 @@ For example:
 
 [source]
 ----
-sh interim-release.sh 1.13.0 origin
+sh interim-release.sh 1.13.1 origin
 ----
 
 where
 
-* `1.13.0` is the base release
+* `1.13.1` is the base release
 * `origin` is the name of the remote to which you have permissions to write to.
 
 
@@ -624,7 +638,7 @@ For example:
 
 [source]
 ----
-sh release.sh 1.13.0 \
+sh release.sh 1.13.1 \
               1.14.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
@@ -644,7 +658,7 @@ If the script completes successfully, then push changes:
 [source]
 ----
 git push origin master
-git push origin 1.13.0
+git push origin 1.13.1
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
