@@ -413,16 +413,24 @@ Here's one approach:
 In fact, all that is required is the schema of this database.
 So, as a minor refinement, you could set up a CI pipeline that hooks onto your nightly database backups; this would restore the production database to some scratch DB, then truncate all tables, then creates a backup of that truncated database. +
 +
+[TIP]
+====
 See link:/util/sql/truncate-all-tables.sql[truncate-all-tables.sql] for a script that does this for MS SQL Server.
+====
 
-* in your development environment, restore two copies of the current production database twice (or truncated version):
+
+* in your development environment, restore the current production database (or truncated version) twice:
 ** restore once to `current` DB
 ** restore another to `test` DB
 
 * create a completely blank `dev` DB +
 +
 You could either create an empty database, or zap an existing scratch DB.
++
+[TIP]
+====
 See link:/util/sql/drop-all-tables.sql[drop-all-tables.sql] for a script that does this for MS SQL Server.
+====
 
 * run app against this empty `dev` database, with `autoCreateAll=true` +
 +
