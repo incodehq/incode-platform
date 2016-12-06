@@ -195,6 +195,7 @@
             </dependencies>
         </profile>
         -->
+        <!--
         <profile>
             <id>jdbc-mssql</id>
             <activation>
@@ -202,13 +203,11 @@
                     <name>!skip.jdbc-mssql</name>
                 </property>
             </activation>
-
             mvn install:install-file -Dfile=sqljdbc4.jar \
                                      -DgroupId=com.microsoft.sqlserver \
                                      -DartifactId=jdbc \
                                      -Dversion=4.2-6225 \
                                      -Dpackaging=jar
-
             <dependencies>
                <dependency>
                    <groupId>com.microsoft.sqlserver</groupId>
@@ -217,6 +216,7 @@
                </dependency>
             </dependencies>
         </profile>
+        -->
     </profiles>
 
 </project>
