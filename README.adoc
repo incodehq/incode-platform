@@ -438,10 +438,9 @@ This disables FlywayDB, causing DataNucleus to create the schema based on its cu
 
 * next, use a comparison tool to compare `current` against `dev`. +
 +
-One option is to use the command line tools provided by link:http://www.liquibase.org/[liquibase] (itself a DB migration framework that "competes" with FlywayDB; here we just leverage its diff utility). +
-+
 [TIP]
 ====
+One option is to use the command line tools provided by link:http://www.liquibase.org/[liquibase] (itself a DB migration framework that "competes" with FlywayDB; here we just leverage its diff utility).
 See xref:using-liquibase[below] for details of how to use liquibase's commandline tool.
 ====
 
