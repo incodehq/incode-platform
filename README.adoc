@@ -7,6 +7,12 @@ image:https://travis-ci.org/isisaddons/isis-module-flywaydb.png?branch=master[Bu
 This module, intended for use within http://isis.apache.org[Apache Isis], provides an implementation of the link:http://datanucleus.org/[DataNucleus] link:http://www.datanucleus.org/products/accessplatform_4_1/jdo/pmf.html[`PersistenceManagerFactory`] class.
 This uses link:https://flywaydb.org[FlywayDB] API to automatically apply any database migration scripts prior to the bootstrapping of the rest of the Apache Isis runtime.
 
+[IMPORTANT]
+====
+The integration provided by this module runs a single instance of Flyway for the entire database, even if that database has multiple schemas (as is common in Apache Isis applications).
+In other words (although Flyway as a tool supports it), this integration does _not_ allow for the tables in different schemas to have their own separate migration history.
+====
+
 
 
 == How to run the Demo App
@@ -95,15 +101,31 @@ isis.persistor.datanucleus.impl.javax.jdo.PersistenceManagerFactoryClass=\
                             org.isisaddons.module.flywaydb.dom.FlywayJdoPersistenceManagerFactory
 isis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll=false
 isis.persistor.datanucleus.impl.datanucleus.schema.validateAll=true
-isis.persistor.datanucleus.impl.datanucleus.flyway.schemas=\
-                            dbo,incodeDocuments,incodeClassification,\
-                            isisaudit,isiscommand,isispublishmq,isissecurity,isissessionlogger
+isis.persistor.datanucleus.impl.flyway.schemas=flyway
 ----
 
 Enabling DataNucleus' `validateAll` setting means you can be assured that your migration scripts have brought the database schema into the same shape as is expected by DataNucleus; if there is a mismatch then the app will fail to bootstrap.
 See the section xref:handling-validation-errors[below] for workarounds when validation errors are thrown that should not be.
 
-The `flyway.schemas` property lists all of the schemas that flyway will perform migrations for; adjust as necessary.
+The `flyway.schemas` property is intended to list all of the schemas that Flyway manages as a single indivisible set of tables; the `schema_version` table will be created in the first schema listed.
+If these schemas do not exist already then Flyway will automatically create them in the current database; however if any of them _do_ exist then Flyway will not create any of the schemas.
+
+Now if any of the tables are to be managed in a default schema (such as "dbo" for SQL Server, or "PUBLIC" for HSQLDB), then either:
+
+* do not list that default schema within `flyway.schemas`, and do _not_ provide migration scripts to create the schemas themselves
+
+* simpler, simply list "flyway" as the one and only schema in `flyway.schemas`, and then _do_ provide a migration script. +
++
+This will have the result of creating a new `flyway.schema_version` table.
+
+Of these two options, the demo application for this module goes with the second approach.
+
+
+[TIP]
+====
+Flyway's `migrate` command supports a large number of other link:https://flywaydb.org/documentation/commandline/migrate[configuration options].
+All of these can be enabled/set using a property name consisting of `isis.persistor.datanucleus.impl.` prefix along with the `flyway.xxx` property as a suffix.
+====
 
 Using `autoCreateTables=false` (instead of `autoCreateAll`) will allow DataNucleus to continue to manage constraints; see the section xref:idempotent-constraints[below] for further discussion.
 
@@ -222,19 +244,15 @@ Flyway will run these scripts whenever they file is changed (it maintains a chec
 
 
 [[baselining-an-existing-database]]
-=== Baselining an existing database
+=== (Manual) baselining an existing database
 
-If you want to start using FlywayDB for with an existing database that is already in production, then it must be  link:https://flywaydb.org/documentation/command/baseline[baseline]d.
-To do this:
+If you want to start using Flyway for with an existing database that is already in production, then it must be  link:https://flywaydb.org/documentation/command/baseline[baseline]d.
 
-* generate scripts to represent the current state of the database.
-** for example, if using MS SQL Server then use the link:https://msdn.microsoft.com/en-gb/library/bb895179(v=sql.110).aspx[Generate and Publish Scripts] wizard (Tasks > Generate Scripts)
-* save these as `VyyyyMMdd.hhmm__initial-take-on.sql` +
-+
-Following the date/time naming convention discussed xref:naming-convention-for-scripts[above].
+This involves Flyway creating its `schema_version` table, and inserting a row to represent the "current" version of that database.
+Thereafter only scripts with a number higher than that version will be applied.
 
-* run the `baseline` command: +
-+
+As a minimum, baselining involves simply running the `baseline` command:
+
 [source,bash]
 ----
 flyway -driver=... \
@@ -245,15 +263,19 @@ flyway -driver=... \
        -baselineDescription="Initial take-on" \
        baseline
 ----
-+
+
+where `yyyyMMdd.hhmm` can be the current date/time.
+
 [TIP]
 ====
 It's also possible to specify command-line options using a `flyway.conf` link:https://flywaydb.org/documentation/commandline/[configuration file].
-
 ====
 
-This will result in the FlywayDB schema tables being generated and a row inserted indicating that the schema represents the specified baseline versions.
-Thereafter FlywayDB will only perform migrations for numbers higher than this baseline.
+If you wish, you could also generate scripts to represent the current state of the database.
+These won't be used by Flyway in the baselined system, but could be used to start the app against a completely empty database (if Flyway isn't otherwise xref:disabling-for-development[disabled]).
+
+For example, scripts can be geneated for MS SQL Server using the link:https://msdn.microsoft.com/en-gb/library/bb895179(v=sql.110).aspx[Generate and Publish Scripts] wizard (Tasks > Generate Scripts); save these as `VyyyyMMdd.hhmm__initial-take-on.sql`.
+This follows the date/time naming convention discussed xref:naming-convention-for-scripts[above].
 
 
 
@@ -261,6 +283,23 @@ Thereafter FlywayDB will only perform migrations for numbers higher than this ba
 == More advanced use cases
 
 And here are some slightly more advanced use cases to consider.
+
+[[automatic-baselining-an-existing-database]]
+=== (Automatic) baselining an existing database
+
+Rather than xref:baselining-an-existing-database[manually baselining an existing (production) database], Flyway also supports automatic baselining.
+With this option enabled, if Flyway is run against a database with no `schema_version` table, then it will automatically create that table and populate it with a single baseline row.
+
+This can be configured by updating the ``webapp`` module's ``persistor_datanucleus.properties`` file:
+
+[source,properties]
+----
+isis.persistor.datanucleus.impl.flyway.baselineOnMigrate=true
+isis.persistor.datanucleus.impl.flyway.baselineVersion=1
+----
+
+Change the `flyway.baselineVersion` if you want some other value to be used as the baseline version.
+
 
 
 [[handling-validation-errors]]
@@ -382,18 +421,22 @@ To enable this feature, add the following to the ``webapp`` module's ``persistor
 isis.persistor.datanucleus.impl.flyway.outOfOrder=true
 ----
 
-[TIP]
-====
-Flyway's `migrate` command supports a large number of other link:https://flywaydb.org/documentation/commandline/migrate[configuration options].
-All of these can be enabled/set using a property name consisting of `isis.persistor.datanucleus.impl.` prefix along with the `flyway.xxx` property as a suffix.
-====
-
 
 
 
 [[java-based-migrations]]
 === Java-based migrations
 
+In addition to SQL-based migrations, Flyway also supports link:https://flywaydb.org/documentation/api/hooks#callsbacks[migrations implemented in Java].
+These follow the same naming convention as SQL-based migrations, and also reside in the `db.migration` package.
+Of course, they must be compiled and reside on the classpath, very similar to Apache Isis fixture scripts.
+
+
+
+[[vendor-specific-scripts]]
+=== Database vendor-specific scripts
+
+Flyway does not
 In addition to SQL-based migrations, Flyway also supports link:https://flywaydb.org/documentation/api/hooks#callsbacks[migrations implemented in Java].
 These follow the same naming convention as SQL-based migrations, and also reside in the `db.migration` package.
 Of course, they must be compiled and reside on the classpath, very similar to Apache Isis fixture scripts.
