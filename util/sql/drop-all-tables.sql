@@ -65,7 +65,7 @@ DEALLOCATE view_cursor
 DECLARE table_cursor CURSOR FOR
   select TABLE_SCHEMA, TABLE_NAME
     from INFORMATION_SCHEMA.TABLES
-   where TABLE_NAME NOT IN ('sysdiagrams', 'schema_version')
+   where TABLE_NAME  != 'sysdiagrams'
      and TABLE_TYPE != 'VIEW'
 
 OPEN table_cursor
