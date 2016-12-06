@@ -186,11 +186,11 @@ Obviously this isn't feasible for very large databases; in such cases dropping o
 To effect this:
 
 * dropping constraints can be done using the link:https://flywaydb.org/documentation/callbacks["before migrate" callback] from Flyway. +
-
++
 Create a script `beforeMigrate.sql` which will drop all these objects, place in `db.migration` package alongside any other migration scripts.
 
 * recreating constraints can be done using DataNucleus' link:http://www.datanucleus.org/products/accessplatform_4_1/jdo/schema.html[`autoCreateConstraints`] property. +
-
++
 In ``webapp`` module's ``persistor_datanucleus.properties`` file, also set: +
 +
 [source,properties]
