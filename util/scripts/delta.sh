@@ -50,9 +50,7 @@ do
             --includeSchema=true \
         > $TMPFILE
             
-#            --defaultSchema=$SCHEMA \
-#            --referenceDefaultSchema=$SCHEMA \
-            
+
     echo "" >&2
     echo "converting changelog to SQL ..."  >&2
     liquibase --classpath=$CLASSPATH \
@@ -62,12 +60,14 @@ do
             --password=$PASSWORD \
             --changeLogFile=$TMPFILE \
         updateSql \
-        | grep -v "INSERT INTO" \
+        | grep -v "^INSERT INTO" \
         | grep -v "DATABASECHANGELOGLOCK" \
         | grep -v "DATABASECHANGELOG" \
         | grep -v "Database Lock Table" \
         | grep -v "Database Change Log Table" \
-        | grep -v "USE \["
+        | grep -v "^-- Changeset" \
+        | grep -v "^USE \["
+
 
     echo "" >&2
 

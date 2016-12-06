@@ -91,49 +91,28 @@ To configure:
 +
 [source,properties]
 ----
-isis.persistor.datanucleus.impl.javax.jdo.PersistenceManagerFactoryClass=org.isisaddons.module.flywaydb.dom.FlywayJdoPersistenceManagerFactory
+isis.persistor.datanucleus.impl.javax.jdo.PersistenceManagerFactoryClass=\
+                            org.isisaddons.module.flywaydb.dom.FlywayJdoPersistenceManagerFactory
 isis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll=false
 isis.persistor.datanucleus.impl.datanucleus.schema.validateAll=true
+isis.persistor.datanucleus.impl.datanucleus.flyway.schemas=\
+                            dbo,incodeDocuments,incodeClassification,\
+                            isisaudit,isiscommand,isispublishmq,isissecurity,isissessionlogger
 ----
 
 Enabling DataNucleus' `validateAll` setting means you can be assured that your migration scripts have brought the database schema into the same shape as is expected by DataNucleus; if there is a mismatch then the app will fail to bootstrap.
-
-[TIP]
-====
 See the section xref:handling-validation-errors[below] for workarounds when validation errors are thrown that should not be.
-====
 
+The `flyway.schemas` property lists all of the schemas that flyway will perform migrations for; adjust as necessary.
+
+Using `autoCreateTables=false` (instead of `autoCreateAll`) will allow DataNucleus to continue to manage constraints; see the section xref:idempotent-constraints[below] for further discussion.
 
 
 
 == How to Use
 
-The sections below describe some of the common use cases.
+The sections below describe some of the common use cases when using Flyway to manage database migrations.
 
-
-
-=== Disabling for Development
-
-When developing Apache Isis applications, it's common practice to prototype and run integration tests in memory, by default using HSQLDB.
-In production, however, some other database will most likely be used (PostgreSQL, MySQL, MS SQL Server etc).
-
-Now FlywayDB - by design - does not attempt to abstract over different database vendors.
-In other words, the SQL migration scripts that are designed for production will quite possibly not work for development environment.
-The long and short of this is that you will most likely want to simply disable the flyway migration when running in-memory against HSQLDB.
-
-This can be done simply by setting the `autoCreateAll` property back to `true`, either in the `persistor_datanucleus.properties` file:
-
-[source,properties]
-----
-isis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll=true
-----
-
-or, (if using `mvn jetty:run` or `org.apache.isis.WebServer`) using a system property, eg:
-
-[source,properties]
-----
-mvn jetty:run -Disis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll=true
-----
 
 
 [[naming-convention-for-scripts]]
@@ -144,23 +123,101 @@ When FlywayDB runs it searches for files named `Vnnnn__`, where `nnnn` is some n
 In the FlywayDB documentation (and, for that matter, in the demo app for this module), those numbers start at 1.
 However, if your team uses link:http://martinfowler.com/bliki/FeatureBranch.html[feature branch]es then this is likely to cause conflicts when those feature branches are merged back into master/trunk.
 
-Luckily, FlywayDB does not require the version numbers to be contiguous.
+Luckily, FlywayDB does not require the link:https://flywaydb.org/documentation/migration/versioned[version number]s to be contiguous; moreover the number can contain '_' or '.' as a separator.
 Therefore, (along link:http://www.jeremyjarrell.com/using-flyway-db-with-distributed-version-control/[with] link:http://stackoverflow.com/a/34599349/56880[others]) we recommend that the number used is the current date/time, for example:
 
 [source]
 ----
-VyyyyMMddhhmm__description-of-the-change.sql
+VyyyyMMdd.hhmm__description-of-the-change.sql
 ----
 
 When the feature branches are merged, you (the developer) should check that any new migrations have a later timestamp than the version of the current production database; chances are they will be.
 But if necessary, the filename/timestamp can be updated, eg to be the current date/time that the merged is performed.
 
-[IMPORTANT]
-====
-While FlywayDB itself _does_ support link:https://flywaydb.org/documentation/commandline/migrate["outOfOrder"] migrations (ie to run a migration whose number is less than that of the current production database), this module's integration with the FlywayDB API does _not_ support that feature.
+Alternatively, an "out-of-order" migration (as discussed xref:out-of-order-migrations[below]) could be used.
 
-If you do require outOfOrder migrations, then the DBA can always run the FlywayDB command line tool.
+
+
+[[disabling-for-development]]
+=== Disabling for development
+
+When developing Apache Isis applications, it's common practice to prototype and run integration tests in memory, by default using HSQLDB.
+In production, however, some other database will most likely be used (PostgreSQL, MySQL, MS SQL Server etc).
+
+Now FlywayDB - by design - does not attempt to abstract over different database vendors.
+In other words, the SQL migration scripts that are designed for production will quite possibly not work for development environment.
+The long and short of this is that you will most likely want to simply disable the flyway migration when running in-memory against HSQLDB.
+
+This can be done simply by setting either the `autoCreateAll` or the `autoCreateTables` property back to `true`, either in the `persistor_datanucleus.properties` file, eg:
+
+[source,properties]
+----
+isis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll=true
+----
+
+Or, (if using `mvn jetty:run` or `org.apache.isis.WebServer`) with a system property, eg:
+
+[source,properties]
+----
+mvn jetty:run -Disis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll=true
+----
+
+
+[TIP]
 ====
+Flyway migrations are *not* disabled if only `autoCreateConstraints` property is enabled.
+This enables the use case for dropping all constraints prior to migration, and then having DataNucleus recreate them after.
+See xref:idempotent-constraints[below] for further discussion.
+====
+
+
+
+[[idempotent-constraints]]
+=== Idempotent constraints
+
+As part of the release process, some DBAs prefer to drop all database constraints, then recreate them at the end of the release.
+This helps ensure that what is deployed to the database is only what should be there.
+
+[TIP]
+====
+Obviously this isn't feasible for very large databases; in such cases dropping only foreign key/alternate indices (but not primary keys) may be more appropriate.
+====
+
+To effect this:
+
+* dropping constraints can be done using the link:https://flywaydb.org/documentation/callbacks["before migrate" callback] from Flyway. +
+
+Create a script `beforeMigrate.sql` which will drop all these objects, place in `db.migration` package alongside any other migration scripts.
+
+* recreating constraints can be done using DataNucleus' link:http://www.datanucleus.org/products/accessplatform_4_1/jdo/schema.html[`autoCreateConstraints`] property. +
+
+In ``webapp`` module's ``persistor_datanucleus.properties`` file, also set: +
++
+[source,properties]
+----
+isis.persistor.datanucleus.impl.datanucleus.schema.autoCreateConstraints=true
+----
+
+When the application is bootstrapped, Flyway will run the `beforeMigrate.sql` script to drop all constraints and other objects, and then DataNucleus will reinstate those constraints as it initializes.
+
+
+
+
+[[managing-views-etc]]
+=== Managing views etc
+
+In addition to the tables that support an Apache Isis application, there may be additional artifacts such as views and stored procedures that also need to be deployed.
+For example, such views might be to support third-party reports or other similar tools.
+
+Since such views may need to be updated whenever the underlying tables change, it makes sense to manage them as part of the codebase of the Apache Isis application.
+
+On the other hand, since these are not part of the application, DataNucleus cannot be used to automatically create these artifacts.
+Instead, Flyway's link:https://flywaydb.org/documentation/migration/repeatable[repeatable migrations] can be used to run the scripts.
+
+A repeatable migration is simply a file with the prefix `R__`, residing in the `db.migration` package as usual; for example `R__reporting-views.sql`.
+Typically these scripts should drop all views and then recreate them; ie they should be idempotent.
+
+Flyway will run these scripts whenever they file is changed (it maintains a checksum of the file).
 
 
 
@@ -172,7 +229,7 @@ To do this:
 
 * generate scripts to represent the current state of the database.
 ** for example, if using MS SQL Server then use the link:https://msdn.microsoft.com/en-gb/library/bb895179(v=sql.110).aspx[Generate and Publish Scripts] wizard (Tasks > Generate Scripts)
-* save these as `VyyyyMMddhhmm__initial-take-on.sql` +
+* save these as `VyyyyMMdd.hhmm__initial-take-on.sql` +
 +
 Following the date/time naming convention discussed xref:naming-convention-for-scripts[above].
 
@@ -184,9 +241,8 @@ flyway -driver=... \
        -url=... \
        -user=... \
        -password=... \
-       -baselineVersion=yyyyMMddhhmm \
+       -baselineVersion="yyyyMMdd.hhmm" \
        -baselineDescription="Initial take-on" \
-       -jarDirs=... \
        baseline
 ----
 +
@@ -200,72 +256,15 @@ This will result in the FlywayDB schema tables being generated and a row inserte
 Thereafter FlywayDB will only perform migrations for numbers higher than this baseline.
 
 
-[[process-for-creating-migration-scripts]]
-=== A process for creating migration scripts
-
-Suppose you've developed a new feature which will require a database schema change; how should the migration scripts be created and tested?
-Here's one approach:
-
-* obtain a backup of the current production database (which is already under FlywayDB's control; xref:baselining-an-existing-database[baseline] it if not) +
-+
-In fact, all that is required is the schema of this database.
-So, as a minor refinement, you could set up a CI pipeline that hooks onto your nightly database backups; this would restore the production database to some scratch DB, then truncate all tables, then creates a backup of that truncated database. +
-+
-See link:/util/sql/truncate-all-tables.sql[truncate-all-tables.sql] for a script that does this for MS SQL Server.
-
-* in your development environment, restore two copies of the current production database twice (or truncated version):
-** restore once to `current` DB
-** restore another to `test` DB
-
-* create a completely blank `dev` DB +
-+
-You could either create an empty database, or zap an existing scratch DB.
-See link:/util/sql/drop-all-tables.sql[drop-all-tables.sql] for a script that does this for MS SQL Server.
-
-* run app against this empty `dev` database, with `autoCreateAll=true` +
-+
-This disables FlywayDB, causing DataNucleus to create the schema based on its current metadata
-
-* next, use a comparison tool to compare `current` against `dev`. +
-+
-One option is to use the command line tools provided by link:http://www.liquibase.org/[liquibase] (itself a DB migration framework that "competes" with FlywayDB; here we just leverage its diff utility).  See xref:using-liquibase[below] for details of how to use liquibase's commandline tool.
-
-* Save SQL scripts capturing the difference
-
-* Finally, run app against `test` DB, this time with `autoCreateAll=false` (and `validateAll=true`)
-** `autoCreateAll=false` re-enables FlywayDB, causing it apply the migration scripts
-** `validateAll=true` causes DataNucleus to check that the resultant DB schema matches that required by the entity metadata.
-** If there is an issue then the app will fails to start; use the errors in the console to diagnose the issue and then go round the loop.
 
 
-[[using-liquibase]]
-=== Using Liquibase to diff databases
+== More advanced use cases
 
-link:http://www.liquibase.org/[Liquibase] is another Java-based migration tool that "competes" with FlywayDB; its scope is rather broader than FlywayDB which some prefer.
-Here we just leverage its diff utility in order to help generate migration scripts.
-
-The link:/util/scripts/delta.sh[delta.sh] shows how this can be done for a SQL Server database.
-It is invoked as follows:
-
-[source,bash]
-----
-PROD_URL="jdbc:sqlserver://localhost;instance=.;databaseName=current"
-DEV_URL="jdbc:sqlserver://localhost;instance=.;databaseName=dev"
-USERNAME="sa"
-PASSWORD="pass"
-
-sh delta.sh $PROD_URL $DEV_URL $USERNAME $PASSWORD
-----
-
-(Referring back to the process described xref:process-for-creating-migration-scripts[above]) this compares the current production database to the development database.
-
-If you look at the implementation you'll see that the `delta.sh` script uses a link:/util/scripts/schema.txt[schema.txt] file which lists all of the database schemas to compare.
-
-Obviously, the above script requires that `liquibase` shell script is on your `$PATH` (or `liquibase.bat` on your `%PATH%`).
+And here are some slightly more advanced use cases to consider.
 
 
 [[handling-validation-errors]]
-=== Handling Validation Errors
+=== Handling validation errors
 
 Sometimes `validateAll` can result in DataNucleus throwing an exception even if the actual database matches the schema.
 The underlying reason for this occurring will vary; one reason is a buggy JDBC driver misreporting database metadata.
@@ -368,6 +367,105 @@ isis.persistor.datanucleus.impl.datanucleus.Mapping=sqlserver
 ----
 
 where `sqlserver` matches the filename (`DocumentAbstract-*sqlserver*.orm` and so on).
+
+
+
+[[out-of-order-migrations]]
+=== Out-of-order migrations
+
+Sometimes it is necessary to run link:https://flywaydb.org/documentation/commandline/migrate["outOfOrder"] migrations; that is, to run a migration whose number is less than that of the current production database.
+
+To enable this feature, add the following to the ``webapp`` module's ``persistor_datanucleus.properties`` file:
+
+[source,properties]
+----
+isis.persistor.datanucleus.impl.flyway.outOfOrder=true
+----
+
+[TIP]
+====
+Flyway's `migrate` command supports a large number of other link:https://flywaydb.org/documentation/commandline/migrate[configuration options].
+All of these can be enabled/set using a property name consisting of `isis.persistor.datanucleus.impl.` prefix along with the `flyway.xxx` property as a suffix.
+====
+
+
+
+
+[[java-based-migrations]]
+=== Java-based migrations
+
+In addition to SQL-based migrations, Flyway also supports link:https://flywaydb.org/documentation/api/hooks#callsbacks[migrations implemented in Java].
+These follow the same naming convention as SQL-based migrations, and also reside in the `db.migration` package.
+Of course, they must be compiled and reside on the classpath, very similar to Apache Isis fixture scripts.
+
+
+
+
+
+[[process-for-creating-migration-scripts]]
+== A process for creating migration scripts
+
+Suppose you've developed a new feature which will require a database schema change; how should the migration scripts be created and tested?
+Here's one approach:
+
+* obtain a backup of the current production database (which is already under FlywayDB's control; xref:baselining-an-existing-database[baseline] it if not) +
++
+In fact, all that is required is the schema of this database.
+So, as a minor refinement, you could set up a CI pipeline that hooks onto your nightly database backups; this would restore the production database to some scratch DB, then truncate all tables, then creates a backup of that truncated database. +
++
+See link:/util/sql/truncate-all-tables.sql[truncate-all-tables.sql] for a script that does this for MS SQL Server.
+
+* in your development environment, restore two copies of the current production database twice (or truncated version):
+** restore once to `current` DB
+** restore another to `test` DB
+
+* create a completely blank `dev` DB +
++
+You could either create an empty database, or zap an existing scratch DB.
+See link:/util/sql/drop-all-tables.sql[drop-all-tables.sql] for a script that does this for MS SQL Server.
+
+* run app against this empty `dev` database, with `autoCreateAll=true` +
++
+This disables FlywayDB, causing DataNucleus to create the schema based on its current metadata
+
+* next, use a comparison tool to compare `current` against `dev`. +
++
+One option is to use the command line tools provided by link:http://www.liquibase.org/[liquibase] (itself a DB migration framework that "competes" with FlywayDB; here we just leverage its diff utility).  See xref:using-liquibase[below] for details of how to use liquibase's commandline tool.
+
+* Save SQL scripts capturing the difference
+
+* Finally, run app against `test` DB, this time with `autoCreateAll=false` (and `validateAll=true`)
+** `autoCreateAll=false` (or `autoCreateTables=false`) re-enables FlywayDB, causing it apply the migration scripts
+** `validateAll=true` causes DataNucleus to check that the resultant DB schema matches that required by the entity metadata.
+** If there is an issue then the app will fails to start; use the errors in the console to diagnose the issue and then go round the loop.
+
+
+[[using-liquibase]]
+=== Using Liquibase to diff databases
+
+link:http://www.liquibase.org/[Liquibase] is another Java-based migration tool that "competes" with FlywayDB; its scope is rather broader than FlywayDB which some prefer.
+Here we just leverage its diff utility in order to help generate migration scripts.
+
+The link:/util/scripts/delta.sh[delta.sh] shows how this can be done for a SQL Server database.
+It is invoked as follows:
+
+[source,bash]
+----
+PROD_URL="jdbc:sqlserver://localhost;instance=.;databaseName=current"
+DEV_URL="jdbc:sqlserver://localhost;instance=.;databaseName=dev"
+USERNAME="sa"
+PASSWORD="pass"
+
+sh delta.sh $PROD_URL $DEV_URL $USERNAME $PASSWORD
+----
+
+(Referring back to the process described xref:process-for-creating-migration-scripts[above]) this compares the current production database to the development database.
+
+The `delta.sh` script uses a link:/util/scripts/schema.txt[schema.txt] file which lists all of the database schemas to compare.
+Adjust as necessary.
+
+Obviously, the above script requires that `liquibase` shell script is on your `$PATH` (or `liquibase.bat` on your `%PATH%`).
+
 
 
 
