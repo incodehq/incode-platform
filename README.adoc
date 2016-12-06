@@ -214,7 +214,7 @@ Since such views may need to be updated whenever the underlying tables change, i
 On the other hand, since these are not part of the application, DataNucleus cannot be used to automatically create these artifacts.
 Instead, Flyway's link:https://flywaydb.org/documentation/migration/repeatable[repeatable migrations] can be used to run the scripts.
 
-A repeatable migration is simply a file with the prefix `R__`, residing in the `db.migration` package as usual; for example `R__reporting-views.sql`.
+A repeatable migration is simply a file with the prefix `R\__`, residing in the `db.migration` package as usual; for example `R__reporting-views.sql`.
 Typically these scripts should drop all views and then recreate them; ie they should be idempotent.
 
 Flyway will run these scripts whenever they file is changed (it maintains a checksum of the file).
