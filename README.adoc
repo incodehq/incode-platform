@@ -71,7 +71,7 @@ image:https://raw.githubusercontent.com/isisaddons/isis-module-flywaydb/master/i
 This shows the migration scripts have been run, and the FlywayDB schema tables created and populated.
 
 
-
+[[how-to-configure]]
 == How to Configure
 
 To configure:
@@ -476,6 +476,7 @@ sh delta.sh $PROD_URL $DEV_URL $USERNAME $PASSWORD
 (Referring back to the process described xref:process-for-creating-migration-scripts[above]) this compares the current production database to the development database.
 
 The `delta.sh` script uses a link:/util/scripts/schema.txt[schema.txt] file which lists all of the database schemas to compare.
+This should the same list of schemas as configured in `persistor_datanucleus.properties` (the `flyway.schemas` property), described xref:how-to-configure[above].
 Adjust as necessary.
 
 Obviously, the above script requires that `liquibase` shell script is on your `$PATH` (or `liquibase.bat` on your `%PATH%`).
