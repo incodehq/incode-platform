@@ -22,7 +22,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.incode.module.country</groupId>
     <artifactId>incode-module-country-dom</artifactId>
-    <version>1.13.0</version>
+    <version>1.13.1</version>
 </dependency>
 ----
 
@@ -80,6 +80,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 
 == Change Log
 
+* `1.13.1` - fixes link:https://github.com/incodehq/incode-module-country/issues/1[#1], https://github.com/incodehq/incode-module-country/issues/2[#2], https://github.com/incodehq/incode-module-country/issues/3[#3]
 * `1.13.0` - released against Isis 1.13.0.
 
 
@@ -161,7 +162,7 @@ For example:
 
 [source]
 ----
-sh interim-release.sh 1.14.0 origin
+sh interim-release.sh 1.13.1 origin
 ----
 
 where
@@ -188,8 +189,8 @@ For example:
 
 [source]
 ----
-sh release.sh 1.14.0 \
-              1.15.0-SNAPSHOT \
+sh release.sh 1.13.1 \
+              1.14.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
 ----
@@ -208,7 +209,7 @@ If the script completes successfully, then push changes:
 [source]
 ----
 git push origin master
-git push origin 1.14.0
+git push origin 1.13.1
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
