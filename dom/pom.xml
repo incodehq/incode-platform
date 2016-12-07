@@ -26,7 +26,7 @@ Copyright 2012-2014 Eurocommercial Properties NV
 
     <groupId>org.incode.module.country</groupId>
     <artifactId>incode-module-country-dom</artifactId>
-    <version>1.13.1</version>
+    <version>1.14.0-SNAPSHOT</version>
 
     <packaging>jar</packaging>
 
