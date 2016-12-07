@@ -32,10 +32,6 @@ import org.incode.module.base.dom.utils.TitleBuilder;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Represents a geographic {@link State} {@link #getCountry() within} a
- * {@link Country}.
- */
 @javax.jdo.annotations.PersistenceCapable(
         identityType = IdentityType.DATASTORE
         , schema = "incodeCountry"
