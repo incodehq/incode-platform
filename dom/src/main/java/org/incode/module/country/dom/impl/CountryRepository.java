@@ -91,6 +91,14 @@ public class CountryRepository  {
         return available;
     }
 
+    @Programmatic
+    public List<Country> findCountries(final String regexReference) {
+        return repositoryService.allMatches(
+                new QueryDefault<>(Country.class,
+                        "findLikeReference",
+                        "reference", regexReference));
+    }
+
     @Inject
     RepositoryService repositoryService;
 

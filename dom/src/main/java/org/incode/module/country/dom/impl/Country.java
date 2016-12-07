@@ -56,7 +56,12 @@ import lombok.Setter;
                 name = "findByReference", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.module.country.dom.impl.Country "
-                        + "WHERE reference == :reference")
+                        + "WHERE reference == :reference"),
+        @javax.jdo.annotations.Query(
+                name = "findLikeReference", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.module.country.dom.impl.Country "
+                        + "WHERE reference.matches(:reference)")
 })
 @DomainObject(editing = Editing.DISABLED, bounded = true)
 public class Country  {
