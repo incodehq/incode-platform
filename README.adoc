@@ -89,7 +89,7 @@ To configure:
 <dependency>
     <groupId>org.isisaddons.module.flywaydb</groupId>
     <artifactId>isis-module-flywaydb-dom</artifactId>
-    <version>1.13.0</version>
+    <version>1.13.1</version>
 </dependency>
 ----
 
