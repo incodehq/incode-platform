@@ -54,10 +54,10 @@ fi
 
 
 echo ""
-echo "releasing 'dom' module (mvn clean deploy -P release)"
+echo "releasing 'dom' module (mvn clean deploy)"
 echo ""
 pushd dom >/dev/null
-mvn clean deploy -P release -Dpgp.secretkey=keyring:id=$KEYID -Dpgp.passphrase="literal:$PASSPHRASE"
+mvn clean deploy -Dmavenmixin-sourceandjavadoc -Pdanhaywood-mavenmixin-sonatyperelease -Dpgp.secretkey=keyring:id=$KEYID -Dpgp.passphrase="literal:$PASSPHRASE"
 if [ $? != 0 ]; then
     echo "... failed" >&2
     exit 1
@@ -74,3 +74,9 @@ if [ $? != 0 ]; then
     echo "... failed" >&2
     exit 1
 fi
+
+echo ""
+echo "now run:"
+echo ""
+echo "git push origin master && git push origin $RELEASE_VERSION"
+echo ""
