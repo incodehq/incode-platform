@@ -26,7 +26,7 @@
     </parent>
 
     <artifactId>isis-module-flywaydb-application</artifactId>
-    <name>FlywayDB App Application</name>
+    <name>Isis Addons FlywayDB App Application</name>
 
     <description>This defines the application (manifest) and runs application-level fixtures and integration (smoke) tests</description>
 

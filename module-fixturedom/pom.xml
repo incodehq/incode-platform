@@ -26,7 +26,7 @@
     </parent>
 
     <artifactId>isis-module-flywaydb-module-fixturedom</artifactId>
-    <name>FlywayDB App Fixture Module</name>
+    <name>Isis Addons FlywayDB App Fixture Module</name>
 
     <properties>
         <isis-maven-plugin.validate.appManifest>domainapp.modules.simple.SimpleModuleManifest</isis-maven-plugin.validate.appManifest>

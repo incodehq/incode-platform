@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Licensed to the Apache Software Foundation (ASF) under one
-  or more contributor license agreements.  See the NOTICE file
-  distributed with this work for additional information
-  regarding copyright ownership.  The ASF licenses this file
-  to you under the Apache License, Version 2.0 (the
-  "License"); you may not use this file except in compliance
-  with the License.  You may obtain a copy of the License at
-  
-         http://www.apache.org/licenses/LICENSE-2.0
-         
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
   Unless required by applicable law or agreed to in writing,
   software distributed under the License is distributed on an
-  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-  KIND, either express or implied.  See the License for the
-  specific language governing permissions and limitations
-  under the License.
---><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+  either express or implied. See the License for the specific
+  language governing permissions and limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -28,8 +24,35 @@
 
     <groupId>org.isisaddons.module.flywaydb</groupId>
     <artifactId>isis-module-flywaydb-dom</artifactId>
-    <name>IsisAddons FlywayDB Module DOM</name>
     <version>1.14.0-SNAPSHOT</version>
+
+    <packaging>jar</packaging>
+
+    <name>Isis Addons FlywayDB Module DOM</name>
+    <description>
+        A module integrating with FlywayDB by providing an implementation of DataNucleus' PersistenceManagerFactory
+    </description>
+
+    <url>https://github.com/isisaddons/isis-module-flywaydb</url>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <connection>scm:git:git@github.com:isisaddons/isis-module-flywaydb.git</connection>
+        <developerConnection>scm:git:git@github.com:isisaddons/isis-module-flywaydb.git</developerConnection>
+        <url>git@github.com:isisaddons/isis-module-flywaydb.git</url>
+    </scm>
+    <developers>
+        <developer>
+            <id>dhaywood</id>
+            <name>Dan Haywood</name>
+            <email>dhaywood@incode.org</email>
+        </developer>
+    </developers>
 
     <properties>
         <isis.version>1.13.1</isis.version>
