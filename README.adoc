@@ -221,7 +221,7 @@ if using `AppManifest`, then update its `getModules()` method:
 [source,java]
 ----
 @Override
-public List&lt;Class&lt;?&gt;&gt; getModules() {
+public List<Class<?>> getModules() {
      return Arrays.asList(
         ...
         org.isisaddons.wicket.gmap3.cpt.service.Gmap3ServiceModule.class,
