@@ -132,7 +132,7 @@ To use "out-of-the-box":
 [source,java]
 ----
 @Override
-public List&lt;Class&lt;?&gt;&gt; getModules() {
+public List<Class<?>> getModules() {
     return Arrays.asList(
         ...
         org.isisaddons.module.excel.ExcelModule.class,
