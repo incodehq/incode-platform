@@ -224,6 +224,7 @@ if using `AppManifest`, then update its `getModules()` method:
 public List<Class<?>> getModules() {
      return Arrays.asList(
         ...
+        org.isisaddons.wicket.gmap3.cpt.applib.Gmap3ApplibModule.class,
         org.isisaddons.wicket.gmap3.cpt.service.Gmap3ServiceModule.class,
         ...
      );
