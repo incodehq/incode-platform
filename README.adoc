@@ -37,6 +37,14 @@ This parent POM defines `<properties>` and `<pluginManagement>` for the plugins 
 {nbsp}  <artifactId>datanucleusenhance</artifactId> +
 </mixin>
 
+|https://github.com/danhaywood/java-mavenmixin-docker[docker]
+|0.0.2
+|Configures docker to package images and upload to a docker registry (docker hub by default)
+|<mixin> +
+{nbsp}  <groupId>com.danhaywood.mavenmixin</groupId> +
+{nbsp}  <artifactId>docker</artifactId> +
+</mixin>
+
 |https://github.com/danhaywood/java-mavenmixin-enforcerrelaxed[enforcer relaxed]
 |0.0.2
 |Applies the maven enforcer plugin (but with relaxed dependency convergence) +

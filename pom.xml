@@ -129,6 +129,9 @@
     			<jdepend-maven-plugin.version>2.0-beta-2</jdepend-maven-plugin.version>
     			<findbugs-maven-plugin.version>2.5</findbugs-maven-plugin.version>
 
+                <mavenmixin-docker.version>0.0.2</mavenmixin-docker.version>
+                <docker-maven-plugin.version>0.4.13</docker-maven-plugin.version>
+
     			<mavendeps-isistesting.version>0.0.2</mavendeps-isistesting.version>
     			<mavendeps-isisintellij.version>0.0.1</mavendeps-isisintellij.version>
     			<mavendeps-isiswebapp.version>0.0.1</mavendeps-isiswebapp.version>
@@ -154,6 +157,13 @@
                             <groupId>org.datanucleus</groupId>
                             <artifactId>datanucleus-maven-plugin</artifactId>
                             <version>${datanucleus-maven-plugin.version}</version>
+                        </plugin>
+
+                        <!-- mavenmixin-docker -->
+                        <plugin>
+                            <groupId>com.spotify</groupId>
+                            <artifactId>docker-maven-plugin</artifactId>
+                            <version>${docker-maven-plugin.version}</version>
                         </plugin>
 
                         <!-- mavenmixin-enforcerrelaxed -->
