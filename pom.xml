@@ -275,6 +275,12 @@
                     </dependency>
                     <dependency>
                         <groupId>com.danhaywood.mavenmixin</groupId>
+                        <artifactId>docker</artifactId>
+                        <version>${mavenmixin-docker.version}</version>
+                        <type>pom</type>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>enforcerrelaxed</artifactId>
                         <version>${mavenmixin-enforcerrelaxed.version}</version>
                         <type>pom</type>
