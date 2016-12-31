@@ -735,7 +735,10 @@ public class RendererClassNameServiceForDemo extends ClassNameServiceAbstract<Re
 
 == Known issues
 
-(none)
+When using with PostgreSQL or MsSQL server you are likely to run into data-type issues with the
+mapping of jdbc-type `BLOB` and/or `CLOB`. By using `.orm`-files we can override the mapping. To activate use
+setting `isis.persistor.datanucleus.impl.datanucleus.Mapping=xxx` in link:https://github.com/incodehq/incode-module-document/blob/master/webapp/src/main/webapp/WEB-INF/persistor_datanucleus.properties[persistor_datanucleus.properties]. Setting to `postgres` will activate
+  link: https://github.com/incodehq/incode-module-document/tree/master/dom/src/main/java/org/incode/module/document/dom/impl/docs/DocumentAbstract-postgres.orm[DocumentAbstract-postgres.orm] and to `sqlserver` link: https://github.com/incodehq/incode-module-document/tree/master/dom/src/main/java/org/incode/module/document/dom/impl/docs/DocumentAbstract-postgres.orm[DocumentAbstract-sqlserver.orm] by naming convention.
 
 
 == Change Log
