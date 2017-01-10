@@ -20,8 +20,7 @@ package org.isisaddons.wicket.gmap3.fixture.dom;
 
 import java.util.Collections;
 import java.util.List;
-import org.isisaddons.wicket.gmap3.cpt.applib.Location;
-import org.apache.isis.applib.DomainObjectContainer;
+
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
@@ -34,12 +33,17 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.clock.ClockService;
+import org.apache.isis.applib.services.message.MessageService;
+import org.apache.isis.applib.services.repository.RepositoryService;
+import org.apache.isis.applib.services.user.UserService;
+
+import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 
 @DomainService(menuOrder = "10")
 @DomainServiceLayout(
         named = "ToDos"
 )
-public class Gmap3WicketToDoItems {
+public class Gmap3ToDoItems {
 
 
     //region > identification in the UI
@@ -63,18 +67,18 @@ public class Gmap3WicketToDoItems {
             bookmarking = BookmarkPolicy.AS_ROOT
     )
     @MemberOrder(sequence = "1")
-    public List<Gmap3WicketToDoItem> notYetComplete() {
-        final List<Gmap3WicketToDoItem> items = notYetCompleteNoUi();
+    public List<Gmap3ToDoItem> notYetComplete() {
+        final List<Gmap3ToDoItem> items = notYetCompleteNoUi();
         if(items.isEmpty()) {
-            container.informUser("All to-do items have been completed :-)");
+            messageService.informUser("All to-do items have been completed :-)");
         }
         return items;
     }
 
     @Programmatic
-    public List<Gmap3WicketToDoItem> notYetCompleteNoUi() {
-        return container.allMatches(
-                new QueryDefault<>(Gmap3WicketToDoItem.class,
+    public List<Gmap3ToDoItem> notYetCompleteNoUi() {
+        return repositoryService.allMatches(
+                new QueryDefault<>(Gmap3ToDoItem.class,
                         "todo_notYetComplete", 
                         "ownedBy", currentUserName()));
     }
@@ -87,18 +91,18 @@ public class Gmap3WicketToDoItems {
             semantics = SemanticsOf.SAFE
     )
     @MemberOrder(sequence = "3")
-    public List<Gmap3WicketToDoItem> complete() {
-        final List<Gmap3WicketToDoItem> items = completeNoUi();
+    public List<Gmap3ToDoItem> complete() {
+        final List<Gmap3ToDoItem> items = completeNoUi();
         if(items.isEmpty()) {
-            container.informUser("No to-do items have yet been completed :-(");
+            messageService.informUser("No to-do items have yet been completed :-(");
         }
         return items;
     }
 
     @Programmatic
-    public List<Gmap3WicketToDoItem> completeNoUi() {
-        return container.allMatches(
-            new QueryDefault<>(Gmap3WicketToDoItem.class,
+    public List<Gmap3ToDoItem> completeNoUi() {
+        return repositoryService.allMatches(
+            new QueryDefault<>(Gmap3ToDoItem.class,
                     "todo_complete", 
                     "ownedBy", currentUserName()));
     }
@@ -108,7 +112,7 @@ public class Gmap3WicketToDoItems {
     //region > newToDo (action)
 
     @MemberOrder(sequence = "40")
-    public Gmap3WicketToDoItem newToDo(
+    public Gmap3ToDoItem newToDo(
             @ParameterLayout(named = "Description")
             @Parameter(regexPattern = "\\w[@&:\\-\\,\\.\\+ \\w]*") final
             String description) {
@@ -124,12 +128,12 @@ public class Gmap3WicketToDoItems {
             semantics = SemanticsOf.SAFE
     )
     @MemberOrder(sequence = "50")
-    public List<Gmap3WicketToDoItem> allToDos() {
+    public List<Gmap3ToDoItem> allToDos() {
         final String currentUser = currentUserName();
-        final List<Gmap3WicketToDoItem> items = container.allMatches(Gmap3WicketToDoItem.class, Gmap3WicketToDoItem.Predicates.thoseOwnedBy(currentUser));
+        final List<Gmap3ToDoItem> items = repositoryService.allMatches(Gmap3ToDoItem.class, Gmap3ToDoItem.Predicates.thoseOwnedBy(currentUser));
         Collections.sort(items);
         if(items.isEmpty()) {
-            container.warnUser("No to-do items found.");
+            messageService.warnUser("No to-do items found.");
         }
         return items;
     }
@@ -139,10 +143,10 @@ public class Gmap3WicketToDoItems {
     //region > autoComplete
 
     @Programmatic // not part of metamodel
-    public List<Gmap3WicketToDoItem> autoComplete(final String description) {
+    public List<Gmap3ToDoItem> autoComplete(final String description) {
         // the JDO implementation ...
-        return container.allMatches(
-                new QueryDefault<>(Gmap3WicketToDoItem.class,
+        return repositoryService.allMatches(
+                new QueryDefault<>(Gmap3ToDoItem.class,
                         "todo_autoComplete", 
                         "ownedBy", currentUserName(), 
                         "description", description));
@@ -153,18 +157,17 @@ public class Gmap3WicketToDoItems {
     //region > programmatic helpers
 
     @Programmatic // for use by fixtures
-    public Gmap3WicketToDoItem newToDo(
+    public Gmap3ToDoItem newToDo(
             final String description, 
             final String userName) {
-        final Gmap3WicketToDoItem toDoItem = container.newTransientInstance(Gmap3WicketToDoItem.class);
+        final Gmap3ToDoItem toDoItem = repositoryService.instantiate(Gmap3ToDoItem.class);
         toDoItem.setDescription(description);
         toDoItem.setOwnedBy(userName);
 
          toDoItem.setLocation(
             new Location(51.5172+random(-0.05, +0.05), 0.1182 + random(-0.05, +0.05)));
         
-        container.persist(toDoItem);
-        container.flush();
+        repositoryService.persistAndFlush(toDoItem);
 
         return toDoItem;
     }
@@ -174,20 +177,25 @@ public class Gmap3WicketToDoItems {
     }
 
     private String currentUserName() {
-        return container.getUser().getName();
+        return userService.getUser().getName();
     }
 
     //endregion
 
     //region > injected services
 
+    @javax.inject.Inject
+    RepositoryService repositoryService;
 
     @javax.inject.Inject
-    private DomainObjectContainer container;
+    UserService userService;
+
+    @javax.inject.Inject
+    MessageService messageService;
 
     @SuppressWarnings("unused")
     @javax.inject.Inject
-    private ClockService clockService;
+    ClockService clockService;
 
     //endregion
 

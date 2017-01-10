@@ -16,28 +16,34 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
+package org.isisaddons.wicket.gmap3.app;
 
-package org.isisaddons.wicket.gmap3.fixture.scripts;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import org.isisaddons.wicket.gmap3.fixture.scripts.todo.Gmap3WicketToDoItemsFixture;
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
-public class Gmap3WicketAppSetUpFixture extends DiscoverableFixtureScript {
+import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-    private final String ownedBy;
+import org.isisaddons.wicket.gmap3.fixture.scripts.Gmap3DemoSetUpFixture;
 
-    public Gmap3WicketAppSetUpFixture() {
-        this(null);
-    }
+/**
+ * Run the app but without setting up any fixtures.
+ */
+public class Gmap3DemoAppManifestWithFixtures extends Gmap3DemoAppManifest {
 
-    public Gmap3WicketAppSetUpFixture(String ownedBy) {
-        this.ownedBy = ownedBy;
+    @Override
+    public List<Class<? extends FixtureScript>> getFixtures() {
+        return (List) Lists.newArrayList(Gmap3DemoSetUpFixture.class);
     }
 
     @Override
-    public void execute(ExecutionContext executionContext) {
-        execute(new Gmap3WicketAppTearDownFixture(ownedBy), executionContext);
-        execute(new Gmap3WicketToDoItemsFixture(), executionContext);
+    public Map<String, String> getConfigurationProperties() {
+        HashMap<String,String> props = Maps.newHashMap();
+        props.put("isis.persistor.datanucleus.install-fixtures","true");
+        return props;
     }
 
 }

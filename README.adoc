@@ -90,7 +90,7 @@ To run the demo app:
 
 [source,bash]
 ----
-mvn antrun:run -P self-host
+mvn -pl webapp jetty:run
 ----
 
 Then log on using user: `sven`, password: `pass`
@@ -98,6 +98,20 @@ Then log on using user: `sven`, password: `pass`
 
 
 == API &  Usage
+
+=== gmap3 API Key
+
+In order to use the component an API key is required.
+See the link:https://developers.google.com/maps/documentation/javascript/get-api-key#key[google documentation] for instructions as to how to do this; a free key (with quite generous daily limits) can be used.
+
+Configure the key in `WEB-INF/viewer_wicket.properties` (or `WEB-INF/isis.properties`):
+
+[source,ini]
+----
+isis.viewer.wicket.gmap3.apiKey=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-XXXXXX
+----
+
+
 
 === Rendering objects on a map
 
@@ -206,7 +220,7 @@ To use "out-of-the-box", add the component to your project's `dom` module's `pom
 <dependency>
     <groupId>org.isisaddons.wicket.gmap3</groupId>
     <artifactId>isis-wicket-gmap3-cpt</artifactId>
-    <version>1.13.0</version>
+    <version>1.13.1</version>
 </dependency>
 ----
 
@@ -297,6 +311,8 @@ are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be relea
 
 == Change Log
 
+* `1.13.1` - released against Isis 1.13.2, now require an API key.
+Also uses mavenmixins (to simplify `pom.xml` configuration) and as a consequence now runs only on JDK 1.8.
 * `1.13.0` - released against Isis 1.13.0
 * `1.12.0` - released against Isis 1.12.0
 * `1.11.0` - released against Isis 1.11.0
@@ -312,7 +328,7 @@ are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be relea
 
 [source]
 ----
-Copyright 2013~2016 Dan Haywood
+Copyright 2013~date Dan Haywood
 
 Licensed under the Apache License, Version 2.0 (the
 "License"); you may not use this file except in compliance
@@ -391,7 +407,7 @@ For example:
 
 [source]
 ----
-sh release.sh 1.13.0 \
+sh release.sh 1.13.1 \
               1.14.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
@@ -410,8 +426,7 @@ If the script completes successfully, then push changes:
 
 [source]
 ----
-git push origin master
-git push origin 1.13.0
+git push origin master && git push origin 1.13.1
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue

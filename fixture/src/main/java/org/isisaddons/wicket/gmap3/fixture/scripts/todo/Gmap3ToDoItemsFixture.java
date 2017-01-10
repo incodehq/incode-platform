@@ -19,12 +19,13 @@
 
 package org.isisaddons.wicket.gmap3.fixture.scripts.todo;
 
-import org.isisaddons.wicket.gmap3.fixture.dom.Gmap3WicketToDoItem;
-import org.isisaddons.wicket.gmap3.fixture.dom.Gmap3WicketToDoItems;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
 
-public class Gmap3WicketToDoItemsFixture extends FixtureScript {
+import org.isisaddons.wicket.gmap3.fixture.dom.Gmap3ToDoItem;
+import org.isisaddons.wicket.gmap3.fixture.dom.Gmap3ToDoItems;
+
+public class Gmap3ToDoItemsFixture extends FixtureScript {
 
     @Override
     public void execute(ExecutionContext executionContext) {
@@ -38,10 +39,10 @@ public class Gmap3WicketToDoItemsFixture extends FixtureScript {
 
     private void installFor(String user, ExecutionContext executionContext) {
 
-        Gmap3WicketToDoItem t1 = createToDoItemForUser("Buy bread", user, executionContext);
-        Gmap3WicketToDoItem t2 = createToDoItemForUser("Buy milk", user, executionContext);
-        Gmap3WicketToDoItem t3 = createToDoItemForUser("Buy stamps", user, executionContext);
-        Gmap3WicketToDoItem t4 = createToDoItemForUser("Pick up laundry", user, executionContext);
+        Gmap3ToDoItem t1 = createToDoItemForUser("Buy bread", user, executionContext);
+        Gmap3ToDoItem t2 = createToDoItemForUser("Buy milk", user, executionContext);
+        Gmap3ToDoItem t3 = createToDoItemForUser("Buy stamps", user, executionContext);
+        Gmap3ToDoItem t4 = createToDoItemForUser("Pick up laundry", user, executionContext);
         createToDoItemForUser("Mow lawn", user, executionContext);
         createToDoItemForUser("Vacuum house", user, executionContext);
         createToDoItemForUser("Sharpen knives", user, executionContext);
@@ -61,14 +62,14 @@ public class Gmap3WicketToDoItemsFixture extends FixtureScript {
         getContainer().flush();
     }
 
-    private Gmap3WicketToDoItem createToDoItemForUser(final String description, final String user, ExecutionContext executionContext) {
+    private Gmap3ToDoItem createToDoItemForUser(final String description, final String user, ExecutionContext executionContext) {
         return executionContext.add(this, description, toDoItems.newToDo(description, user));
     }
 
     //region > injected services
 
     @javax.inject.Inject
-    private Gmap3WicketToDoItems toDoItems;
+    private Gmap3ToDoItems toDoItems;
 
     @javax.inject.Inject
     private IsisJdoSupport isisJdoSupport;

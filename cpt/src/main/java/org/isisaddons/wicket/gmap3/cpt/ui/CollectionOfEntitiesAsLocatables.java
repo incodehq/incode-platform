@@ -21,7 +21,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import com.google.common.base.Optional;
-import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
@@ -41,6 +40,7 @@ import org.wicketstuff.gmap.api.GLatLng;
 import org.wicketstuff.gmap.api.GMarker;
 import org.wicketstuff.gmap.api.GMarkerOptions;
 
+import org.apache.isis.core.commons.config.IsisConfiguration;
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
 import org.apache.isis.core.runtime.system.context.IsisContext;
 import org.apache.isis.viewer.wicket.model.models.EntityCollectionModel;
@@ -69,9 +69,17 @@ public class CollectionOfEntitiesAsLocatables extends
     @Inject
     private PageClassRegistry pageClassRegistry;
 
-    public CollectionOfEntitiesAsLocatables(final String id,
+    @Inject
+    private IsisConfiguration configuration;
+
+    private final String apiKey;
+
+    public CollectionOfEntitiesAsLocatables(
+            final String id,
+            final String apiKey,
             final EntityCollectionModel model) {
         super(id, model);
+        this.apiKey = apiKey;
         buildGui();
     }
 
@@ -81,17 +89,14 @@ public class CollectionOfEntitiesAsLocatables extends
         final List<ObjectAdapter> adapterList = model.getObject();
 
         final Optional<ObjectAdapter> firstIfAny = Iterables
-                .tryFind(adapterList, new Predicate<ObjectAdapter>() {
-                    @Override
-                    public boolean apply(final ObjectAdapter input) {
-                        GLatLng latLng = asGLatLng((Locatable) input.getObject());
-                        return latLng != null;
-                    }
+                .tryFind(adapterList, input -> {
+                    GLatLng latLng = asGLatLng((Locatable) input.getObject());
+                    return latLng != null;
                 });
 
         final boolean visible = firstIfAny.isPresent();
 
-        final GMap map = new GMap(ID_MAP) {
+        final GMap map = new GMap(ID_MAP, apiKey) {
             @Override
             protected void onComponentTag(final ComponentTag tag) {
                 super.onComponentTag(tag);

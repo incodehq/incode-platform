@@ -21,6 +21,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.UnknownHostException;
 
+import org.apache.wicket.Component;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
+
+import org.apache.isis.core.commons.config.IsisConfiguration;
 import org.apache.isis.core.metamodel.spec.ObjectSpecification;
 import org.apache.isis.core.metamodel.specloader.SpecificationLoader;
 import org.apache.isis.core.runtime.system.context.IsisContext;
@@ -29,10 +34,7 @@ import org.apache.isis.viewer.wicket.ui.CollectionContentsAsFactory;
 import org.apache.isis.viewer.wicket.ui.ComponentFactoryAbstract;
 import org.apache.isis.viewer.wicket.ui.ComponentType;
 
-import org.apache.wicket.Component;
-import org.apache.wicket.model.IModel;
-
-import org.apache.wicket.model.Model;
+import org.isisaddons.wicket.gmap3.cpt.applib.Gmap3ApplibConstants;
 import org.isisaddons.wicket.gmap3.cpt.applib.Locatable;
 
 public class CollectionOfEntitiesAsLocatablesFactory extends ComponentFactoryAbstract implements CollectionContentsAsFactory {
@@ -50,7 +52,12 @@ public class CollectionOfEntitiesAsLocatablesFactory extends ComponentFactoryAbs
 
     @Override
     public ApplicationAdvice appliesTo(IModel<?> model) {
-        
+
+        final String apiKey = getConfiguration().getString(Gmap3ApplibConstants.API_KEY);
+        if(apiKey == null) {
+            return ApplicationAdvice.DOES_NOT_APPLY;
+        }
+
         if(!internetReachable()) {
             return ApplicationAdvice.DOES_NOT_APPLY;
         }
@@ -94,12 +101,19 @@ public class CollectionOfEntitiesAsLocatablesFactory extends ComponentFactoryAbs
     }
 
     public Component createComponent(String id, IModel<?> model) {
+
+        final String apiKey = getConfiguration().getString(Gmap3ApplibConstants.API_KEY);
+
         EntityCollectionModel collectionModel = (EntityCollectionModel) model;
-        return new CollectionOfEntitiesAsLocatables(id, collectionModel);
+        return new CollectionOfEntitiesAsLocatables(id, apiKey, collectionModel);
     }
 
     protected SpecificationLoader getSpecificationLoader() {
         return IsisContext.getSessionFactory().getSpecificationLoader();
+    }
+
+    protected IsisConfiguration getConfiguration() {
+        return IsisContext.getSessionFactory().getConfiguration();
     }
 
     @Override
