@@ -43,7 +43,7 @@ import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 @DomainServiceLayout(
         named = "ToDos"
 )
-public class Gmap3ToDoItems {
+public class Gmap3WicketToDoItems {
 
 
     //region > identification in the UI
@@ -67,8 +67,8 @@ public class Gmap3ToDoItems {
             bookmarking = BookmarkPolicy.AS_ROOT
     )
     @MemberOrder(sequence = "1")
-    public List<Gmap3ToDoItem> notYetComplete() {
-        final List<Gmap3ToDoItem> items = notYetCompleteNoUi();
+    public List<Gmap3WicketToDoItem> notYetComplete() {
+        final List<Gmap3WicketToDoItem> items = notYetCompleteNoUi();
         if(items.isEmpty()) {
             messageService.informUser("All to-do items have been completed :-)");
         }
@@ -76,9 +76,9 @@ public class Gmap3ToDoItems {
     }
 
     @Programmatic
-    public List<Gmap3ToDoItem> notYetCompleteNoUi() {
+    public List<Gmap3WicketToDoItem> notYetCompleteNoUi() {
         return repositoryService.allMatches(
-                new QueryDefault<>(Gmap3ToDoItem.class,
+                new QueryDefault<>(Gmap3WicketToDoItem.class,
                         "todo_notYetComplete", 
                         "ownedBy", currentUserName()));
     }
@@ -91,8 +91,8 @@ public class Gmap3ToDoItems {
             semantics = SemanticsOf.SAFE
     )
     @MemberOrder(sequence = "3")
-    public List<Gmap3ToDoItem> complete() {
-        final List<Gmap3ToDoItem> items = completeNoUi();
+    public List<Gmap3WicketToDoItem> complete() {
+        final List<Gmap3WicketToDoItem> items = completeNoUi();
         if(items.isEmpty()) {
             messageService.informUser("No to-do items have yet been completed :-(");
         }
@@ -100,9 +100,9 @@ public class Gmap3ToDoItems {
     }
 
     @Programmatic
-    public List<Gmap3ToDoItem> completeNoUi() {
+    public List<Gmap3WicketToDoItem> completeNoUi() {
         return repositoryService.allMatches(
-            new QueryDefault<>(Gmap3ToDoItem.class,
+            new QueryDefault<>(Gmap3WicketToDoItem.class,
                     "todo_complete", 
                     "ownedBy", currentUserName()));
     }
@@ -112,7 +112,7 @@ public class Gmap3ToDoItems {
     //region > newToDo (action)
 
     @MemberOrder(sequence = "40")
-    public Gmap3ToDoItem newToDo(
+    public Gmap3WicketToDoItem newToDo(
             @ParameterLayout(named = "Description")
             @Parameter(regexPattern = "\\w[@&:\\-\\,\\.\\+ \\w]*") final
             String description) {
@@ -128,9 +128,9 @@ public class Gmap3ToDoItems {
             semantics = SemanticsOf.SAFE
     )
     @MemberOrder(sequence = "50")
-    public List<Gmap3ToDoItem> allToDos() {
+    public List<Gmap3WicketToDoItem> allToDos() {
         final String currentUser = currentUserName();
-        final List<Gmap3ToDoItem> items = repositoryService.allMatches(Gmap3ToDoItem.class, Gmap3ToDoItem.Predicates.thoseOwnedBy(currentUser));
+        final List<Gmap3WicketToDoItem> items = repositoryService.allMatches(Gmap3WicketToDoItem.class, Gmap3WicketToDoItem.Predicates.thoseOwnedBy(currentUser));
         Collections.sort(items);
         if(items.isEmpty()) {
             messageService.warnUser("No to-do items found.");
@@ -143,10 +143,10 @@ public class Gmap3ToDoItems {
     //region > autoComplete
 
     @Programmatic // not part of metamodel
-    public List<Gmap3ToDoItem> autoComplete(final String description) {
+    public List<Gmap3WicketToDoItem> autoComplete(final String description) {
         // the JDO implementation ...
         return repositoryService.allMatches(
-                new QueryDefault<>(Gmap3ToDoItem.class,
+                new QueryDefault<>(Gmap3WicketToDoItem.class,
                         "todo_autoComplete", 
                         "ownedBy", currentUserName(), 
                         "description", description));
@@ -157,10 +157,10 @@ public class Gmap3ToDoItems {
     //region > programmatic helpers
 
     @Programmatic // for use by fixtures
-    public Gmap3ToDoItem newToDo(
+    public Gmap3WicketToDoItem newToDo(
             final String description, 
             final String userName) {
-        final Gmap3ToDoItem toDoItem = repositoryService.instantiate(Gmap3ToDoItem.class);
+        final Gmap3WicketToDoItem toDoItem = repositoryService.instantiate(Gmap3WicketToDoItem.class);
         toDoItem.setDescription(description);
         toDoItem.setOwnedBy(userName);
 

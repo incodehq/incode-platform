@@ -30,8 +30,8 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Nature;
 import org.apache.isis.applib.annotation.RenderType;
 
-import org.isisaddons.wicket.gmap3.fixture.dom.Gmap3ToDoItem;
-import org.isisaddons.wicket.gmap3.fixture.dom.Gmap3ToDoItems;
+import org.isisaddons.wicket.gmap3.fixture.dom.Gmap3WicketToDoItem;
+import org.isisaddons.wicket.gmap3.fixture.dom.Gmap3WicketToDoItems;
 
 @DomainObject(
         nature = Nature.VIEW_MODEL
@@ -72,8 +72,8 @@ public class Gmap3Dashboard extends AbstractViewModel {
     @CollectionLayout(
             render = RenderType.EAGERLY
     )
-    public List<Gmap3ToDoItem> getNotYetComplete() {
-        return gmap3ToDoItems.notYetCompleteNoUi();
+    public List<Gmap3WicketToDoItem> getNotYetComplete() {
+        return gmap3WicketToDoItems.notYetCompleteNoUi();
     }
     //endregion
 
@@ -83,14 +83,14 @@ public class Gmap3Dashboard extends AbstractViewModel {
     @CollectionLayout(
             render = RenderType.EAGERLY
     )
-    public List<Gmap3ToDoItem> getComplete() {
-        return gmap3ToDoItems.completeNoUi();
+    public List<Gmap3WicketToDoItem> getComplete() {
+        return gmap3WicketToDoItems.completeNoUi();
     }
     //endregion
 
     //region > injected services
     @javax.inject.Inject
-    private Gmap3ToDoItems gmap3ToDoItems;
+    private Gmap3WicketToDoItems gmap3WicketToDoItems;
     //endregion
 
 }

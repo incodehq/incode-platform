@@ -328,7 +328,7 @@ Also uses mavenmixins (to simplify `pom.xml` configuration) and as a consequence
 
 [source]
 ----
-Copyright 2013~date Dan Haywood
+Copyright 2013~2017 Dan Haywood
 
 Licensed under the Apache License, Version 2.0 (the
 "License"); you may not use this file except in compliance
