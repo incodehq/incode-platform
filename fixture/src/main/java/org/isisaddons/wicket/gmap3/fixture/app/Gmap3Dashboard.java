@@ -30,7 +30,7 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Nature;
 import org.apache.isis.applib.annotation.RenderType;
 
-import org.isisaddons.wicket.gmap3.fixture.dom.Gmap3WicketToDoItem;
+import org.isisaddons.wicket.gmap3.fixture.dom.Gmap3ToDoItem;
 import org.isisaddons.wicket.gmap3.fixture.dom.Gmap3WicketToDoItems;
 
 @DomainObject(
@@ -72,7 +72,7 @@ public class Gmap3Dashboard extends AbstractViewModel {
     @CollectionLayout(
             render = RenderType.EAGERLY
     )
-    public List<Gmap3WicketToDoItem> getNotYetComplete() {
+    public List<Gmap3ToDoItem> getNotYetComplete() {
         return gmap3WicketToDoItems.notYetCompleteNoUi();
     }
     //endregion
@@ -83,7 +83,7 @@ public class Gmap3Dashboard extends AbstractViewModel {
     @CollectionLayout(
             render = RenderType.EAGERLY
     )
-    public List<Gmap3WicketToDoItem> getComplete() {
+    public List<Gmap3ToDoItem> getComplete() {
         return gmap3WicketToDoItems.completeNoUi();
     }
     //endregion

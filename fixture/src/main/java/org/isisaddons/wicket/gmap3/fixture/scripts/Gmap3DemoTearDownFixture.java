@@ -35,8 +35,8 @@ public class Gmap3DemoTearDownFixture extends FixtureScript {
     protected void execute(ExecutionContext executionContext) {
 
         if(ownedBy != null) {
-            isisJdoSupport.executeUpdate("delete from \"Gmap3ToDoItemDependencies\" where \"dependingId\" IN (select \"id\" from \"Fullcalendar2WicketToDoItem\" where \"ownedBy\" = '" + ownedBy + "') ");
-            isisJdoSupport.executeUpdate("delete from \"Gmap3ToDoItemDependencies\" where \"dependentId\" IN (select \"id\" from \"Fullcalendar2WicketToDoItem\" where \"ownedBy\" = '" + ownedBy + "') ");
+            isisJdoSupport.executeUpdate("delete from \"Gmap3ToDoItemDependencies\" where \"dependingId\" IN (select \"id\" from \"Gmap3ToDoItem\" where \"ownedBy\" = '" + ownedBy + "') ");
+            isisJdoSupport.executeUpdate("delete from \"Gmap3ToDoItemDependencies\" where \"dependentId\" IN (select \"id\" from \"Gmap3ToDoItem\" where \"ownedBy\" = '" + ownedBy + "') ");
             isisJdoSupport.executeUpdate("delete from \"Gmap3ToDoItem\" where \"ownedBy\" = '" + ownedBy + "'");
         } else {
             isisJdoSupport.executeUpdate("delete from \"Gmap3ToDoItemDependencies\"");
