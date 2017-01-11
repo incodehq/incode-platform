@@ -40,7 +40,6 @@ import org.wicketstuff.gmap.api.GLatLng;
 import org.wicketstuff.gmap.api.GMarker;
 import org.wicketstuff.gmap.api.GMarkerOptions;
 
-import org.apache.isis.core.commons.config.IsisConfiguration;
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
 import org.apache.isis.core.runtime.system.context.IsisContext;
 import org.apache.isis.viewer.wicket.model.models.EntityCollectionModel;
@@ -62,15 +61,6 @@ public class CollectionOfEntitiesAsLocatables extends
 
     private static final String INVISIBLE_CLASS = "collection-contents-as-locatables-invisible";
     private static final String ID_MAP = "map";
-
-    @Inject
-    private ImageResourceCache imageResourceCache;
-    
-    @Inject
-    private PageClassRegistry pageClassRegistry;
-
-    @Inject
-    private IsisConfiguration configuration;
 
     private final String apiKey;
 
@@ -185,13 +175,13 @@ public class CollectionOfEntitiesAsLocatables extends
     private ResourceReference determineImageResource(ObjectAdapter adapter) {
         ResourceReference imageResource = null;
         if (adapter != null) {
-            imageResource = getImageCache().resourceReferenceFor(adapter);
+            imageResource = imageResourceCache.resourceReferenceFor(adapter);
         }
         return imageResource;
     }
 
     private void addClickListener(final GMarker gMarker, ObjectAdapter adapter) {
-        final Class<? extends Page> pageClass = getPageClassRegistry()
+        final Class<? extends Page> pageClass = pageClassRegistry
                 .getPageClass(PageType.ENTITY);
         final PageParameters pageParameters = EntityModel.createPageParameters(
                 adapter);
@@ -220,16 +210,11 @@ public class CollectionOfEntitiesAsLocatables extends
     }
 
 
-    //////////////////////////////////////////////
-    // Dependency Injection
-    //////////////////////////////////////////////
 
-    protected ImageResourceCache getImageCache() {
-        return imageResourceCache;
-    }
+    @Inject
+    ImageResourceCache imageResourceCache;
 
-    protected PageClassRegistry getPageClassRegistry() {
-        return pageClassRegistry;
-    }
+    @Inject
+    PageClassRegistry pageClassRegistry;
 
 }
