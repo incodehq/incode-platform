@@ -38,7 +38,7 @@ This parent POM defines `<properties>` and `<pluginManagement>` for the plugins 
 </mixin>
 
 |https://github.com/danhaywood/java-mavenmixin-docker[docker]
-|0.0.2
+|0.0.3
 |Configures docker to package images and upload to a docker registry (docker hub by default)
 |<mixin> +
 {nbsp}  <groupId>com.danhaywood.mavenmixin</groupId> +
@@ -102,7 +102,7 @@ This parent POM defines `<properties>` and `<pluginManagement>` for the plugins 
 </mixin>
 
 |https://github.com/danhaywood/java-mavenmixin-standard[standard]
-|0.0.2
+|0.0.3
 |Defines the "standard" set of plugins (clean, compile, jar, install, site etc)
 |<mixin> +
 {nbsp}  <groupId>com.danhaywood.mavenmixin</groupId> +
@@ -142,7 +142,7 @@ To configure:
 <parent>
     <groupId>org.incode</groupId>
     <artifactId>incode-parent</artifactId>
-    <version>1.13.2</version>
+    <version>1.13.2.1</version>
 </parent>
 ----
 +
@@ -201,6 +201,7 @@ For example, to enable the https://github.com/danhaywood/java-mavenmixin-surefir
 == Change Log
 
 
+* 1.13.2.1 - updates mavenmixin-docker from 0.0.2 to 0.0.3, updates mavenmixin-standard from 0.0.2 to 0.0.3.
 * 1.13.2 - updated Isis 1.13.2, also includes mavenmixin-docker, and removes the versions for isisaddons and incodehq modules (to avoid a circular dependency)
 * 1.13.1 - initial version against Isis 1.13.1
 
@@ -254,7 +255,7 @@ For example:
 
 [source]
 ----
-sh release.sh 1.13.2 \
+sh release.sh 1.13.2.1 \
               1.14.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
@@ -274,7 +275,7 @@ If the script completes successfully, then push changes:
 
 [source]
 ----
-git push origin master && git push origin 1.13.2
+git push origin master && git push origin 1.13.2.1
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue before trying again.
