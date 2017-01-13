@@ -518,10 +518,11 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
 
         public TranslatableString validate0$$(final String domainTypeName) {
 
-            return isApplicable(domainTypeName) ? null :
+            return isApplicable(domainTypeName) ?
                     TranslatableString.tr(
                             "Already applicable for '{domainTypeName}'",
-                            "domainTypeName", domainTypeName);
+                            "domainTypeName", domainTypeName)
+                    : null;
         }
 
 

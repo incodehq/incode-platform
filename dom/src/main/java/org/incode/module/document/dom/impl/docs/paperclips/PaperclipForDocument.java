@@ -45,7 +45,7 @@ import lombok.Setter;
  */
 @javax.jdo.annotations.PersistenceCapable(
         identityType= IdentityType.DATASTORE
-        , schema = "IncodeDocuments"
+        , schema = "incodeDocuments"
 )
 @javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @DomainObject()

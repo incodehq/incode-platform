@@ -735,7 +735,10 @@ public class RendererClassNameServiceForDemo extends ClassNameServiceAbstract<Re
 
 == Known issues
 
-(none)
+When using with PostgreSQL or MsSQL server you are likely to run into data-type issues with the
+mapping of jdbc-type `BLOB` and/or `CLOB`. By using `.orm`-files we can override the mapping. To activate use
+setting `isis.persistor.datanucleus.impl.datanucleus.Mapping=xxx` in link:https://github.com/incodehq/incode-module-document/blob/master/webapp/src/main/webapp/WEB-INF/persistor_datanucleus.properties[persistor_datanucleus.properties]. Setting to `postgres` will activate
+  link: https://github.com/incodehq/incode-module-document/tree/master/dom/src/main/java/org/incode/module/document/dom/impl/docs/DocumentAbstract-postgres.orm[DocumentAbstract-postgres.orm] and to `sqlserver` link: https://github.com/incodehq/incode-module-document/tree/master/dom/src/main/java/org/incode/module/document/dom/impl/docs/DocumentAbstract-postgres.orm[DocumentAbstract-sqlserver.orm] by naming convention.
 
 
 == Change Log
@@ -766,23 +769,19 @@ NB: this release is *not* backward compatible with the previous release.
 
 == Forking the repo
 
-If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is
-structured as follows:
+If instead you want to extend this module's functionality, then we recommend that you fork this repo.
+The repo is structured as follows:
 
 * `pom.xml` - parent pom
-* `dom` - the module implementation, depends on Isis applib
-
-
-////////////////////////////////////////////////////
 * `app` - the demo webapp's `AppManifest`
+* `dom` - the module implementation, depends on Isis applib
 * `fixture` - fixtures, holding a sample domain objects and fixture scripts; depends on `dom`
 * `integtests` - integration tests for the module; depends on `fixture`
 * `webapp` - demo webapp (see above screenshots); depends on `dom` and `fixture`
 
-Only the `dom` project is released to Maven Central Repo.  The versions of the other modules are purposely left at
-`0.0.1-SNAPSHOT` because they are not intended to be released.
+Only the `dom` project is released to Maven Central Repo
+ The versions of the other modules are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
 
-////////////////////////////////////////////////////
 
 Note that the module uses link:https://projectlombok.org/[Project Lombok].  To compile the code within your IDE you will
 therefore require the appropriate Lombok plugin.  See the link:https://projectlombok.org/download.html[Lombok download page] for more information.
@@ -903,10 +902,9 @@ git push origin master
 git push origin 1.13.12
 ----
 
-If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
-before trying again.  Note that in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the 
-`autoReleaseAfterClose` setting set to `true` (to automatically stage, close and the release the repo).  You may want
-to set this to `false` if debugging an issue.
+If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue before trying again.
+Note that in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the `autoReleaseAfterClose` setting set to `true` (to automatically stage, close and the release the repo).
+You may want to set this to `false` if debugging an issue.
 
 According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update http://search.maven.org[search].
 
