@@ -10,12 +10,19 @@ This module, intended for use with link:http://isis.apache.org[Apache Isis], pro
 
 == Screenshots
 
-TODO: to document after have a demo app
+[WARNING]
+====
+TODO: to document once have a demo app to run.
+====
 
 
 == Domain Model
 
+[WARNING]
+====
 TODO: to document
+====
+
 
 
 
@@ -23,7 +30,11 @@ TODO: to document
 
 == How to run the Demo App
 
-TODO: demo app not yet created
+
+[WARNING]
+====
+TODO: to do.
+====
 
 The prerequisite software is:
 
@@ -37,6 +48,7 @@ To build the demo app:
 git clone https://github.com/incodehq/isis-module-communications.git
 mvn clean install
 ----
+
 
 To run the demo app:
 
