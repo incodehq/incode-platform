@@ -33,7 +33,7 @@ language governing permissions and limitations under the License.
         <isis.version>1.13.2</isis.version>
 
 
-        <incode-module-communications.version>1.13.0</incode-module-communications.version>
+        <incode-module-communications.version>1.14.0-SNAPSHOT</incode-module-communications.version>
         <assertj-core.version>3.3.0</assertj-core.version>
         <danhaywood-java-assertjext.version>0.1.0</danhaywood-java-assertjext.version>
 
