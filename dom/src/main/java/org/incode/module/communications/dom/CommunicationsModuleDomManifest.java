@@ -21,6 +21,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.Maps;
+
 import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
@@ -59,12 +61,15 @@ public class CommunicationsModuleDomManifest implements AppManifest {
         return null;
     }
 
-    /**
-     * No overrides.
-     */
     @Override
     public Map<String, String> getConfigurationProperties() {
-        return null;
+        final Map<String, String> map = Maps.newHashMap();
+        // required because includes the security module,
+        // with the seed service that requires its database tables
+        Util.withJavaxJdoRunInMemoryProperties(map);
+        Util.withDataNucleusProperties(map);
+        Util.withIsisIntegTestProperties(map);
+        return map;
     }
 
 }

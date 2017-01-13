@@ -25,19 +25,13 @@ Copyright 2014~2015 Dan Haywood
 
     <groupId>org.incode.module.communications</groupId>
     <artifactId>incode-module-communications-dom</artifactId>
-    <version>1.13.0</version>
-
-    <!--
-        REINSTATE ONCE THIS MODULE MOVED TO ITS OWN GIT REPO (EST-866).  FOR NOW, USE estatio.version
-
-        <version>1.14.0-SNAPSHOT</version>
-    -->
+    <version>1.14.0-SNAPSHOT</version>
 
     <packaging>jar</packaging>
 
     <name>Incode Module Communications DOM</name>
     <description>
-        A module providing communications
+        A module providing email and print Communications of Documetns
     </description>
 
 	
@@ -69,7 +63,7 @@ Copyright 2014~2015 Dan Haywood
     </developers>
 
     <properties>
-        <isis.version>1.13.0.20161107-1837</isis.version>
+        <isis.version>1.13.2</isis.version>
 
         <isis-module-fakedata.version>1.13.0</isis-module-fakedata.version>
         <isis-module-poly.version>1.13.0</isis-module-poly.version>
@@ -139,16 +133,10 @@ Copyright 2014~2015 Dan Haywood
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>surefire</artifactId>
                         </mixin>
-<!--
-temporarily removed... getting this exception:
-
-Failed to execute goal org.apache.isis.tool:isis-maven-plugin:1.13.0:validate (default) on project incode-module-communications-dom: Execution default of goal org.apache.isis.tool:isis-maven-plugin:1.13.0:validate failed: org.datanucleus.store.rdbms.exceptions.MissingTableException: Required table missing : "ISISSECURITY.APPLICATIONROLE" in Catalog "" Schema "ISISSECURITY". DataNucleus requires this table to perform its persistence operations. Either your MetaData is incorrect, or you need to enable "datanucleus.schema.autoCreateTables"
-
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>isisvalidate</artifactId>
                         </mixin>
--->
                     </mixins>
                 </configuration>
             </plugin>
@@ -175,52 +163,6 @@ Failed to execute goal org.apache.isis.tool:isis-maven-plugin:1.13.0:validate (d
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-            <dependency>
-                <groupId>org.incode.module.unittestsupport</groupId>
-                <artifactId>incode-module-unittestsupport-dom</artifactId>
-                <version>${incode-module-unittestsupport.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.module.integtestsupport</groupId>
-                <artifactId>incode-module-integtestsupport-dom</artifactId>
-                <version>${incode-module-integtestsupport.version}</version>
-            </dependency>
-
-            <!--
-            TODO: to remove, but only after have figured out/refactored WithApplicationTenancy and
-            removed dependency on UdoDomainObject
-            -->
-            <dependency>
-                <groupId>org.estatio</groupId>
-                <artifactId>estatio-base</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.module.base</groupId>
-                <artifactId>incode-module-base-dom</artifactId>
-                <version>${incode-module-base.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.module.country</groupId>
-                <artifactId>incode-module-country-dom</artifactId>
-                <version>${incode-module-country.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.isisaddons.module.poly</groupId>
-                <artifactId>isis-module-poly-dom</artifactId>
-                <version>${isis-module-poly.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.module.document</groupId>
-                <artifactId>incode-module-document-dom</artifactId>
-                <version>${incode-module-document.version}</version>
-            </dependency>
-
         </dependencies>
     </dependencyManagement>
 
@@ -228,39 +170,35 @@ Failed to execute goal org.apache.isis.tool:isis-maven-plugin:1.13.0:validate (d
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-applib</artifactId>
-            <version>${isis.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.isisaddons.module.poly</groupId>
-            <artifactId>isis-module-poly-dom</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.incode.module.document</groupId>
-            <artifactId>incode-module-document-dom</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.incode.module.country</groupId>
-            <artifactId>incode-module-country-dom</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.incode.module.base</groupId>
-            <artifactId>incode-module-base-dom</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.isisaddons.module.security</groupId>
             <artifactId>isis-module-security-dom</artifactId>
             <version>${isis-module-security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.module.poly</groupId>
+            <artifactId>isis-module-poly-dom</artifactId>
+            <version>${isis-module-poly.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode.module.base</groupId>
+            <artifactId>incode-module-base-dom</artifactId>
+            <version>${incode-module-base.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode.module.document</groupId>
+            <artifactId>incode-module-document-dom</artifactId>
+            <version>${incode-module-document.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.incode.module.country</groupId>
+            <artifactId>incode-module-country-dom</artifactId>
+            <version>${incode-module-country.version}</version>
         </dependency>
 
         <!-- testing -->
@@ -273,8 +211,9 @@ Failed to execute goal org.apache.isis.tool:isis-maven-plugin:1.13.0:validate (d
         </dependency>
 
         <dependency>
-            <groupId>org.incode.module.unittestsupport</groupId>
-            <artifactId>incode-module-unittestsupport-dom</artifactId>
+            <groupId>org.isisaddons.module.fakedata</groupId>
+            <artifactId>isis-module-fakedata-dom</artifactId>
+            <version>${isis-module-fakedata.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -284,6 +223,7 @@ Failed to execute goal org.apache.isis.tool:isis-maven-plugin:1.13.0:validate (d
             <version>${assertj-guava.version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>com.danhaywood.java</groupId>
             <artifactId>danhaywood-java-assertjext</artifactId>
@@ -292,27 +232,35 @@ Failed to execute goal org.apache.isis.tool:isis-maven-plugin:1.13.0:validate (d
         </dependency>
 
         <dependency>
-            <groupId>org.isisaddons.module.fakedata</groupId>
-            <artifactId>isis-module-fakedata-dom</artifactId>
-            <version>${isis-module-fakedata.version}</version>
+            <groupId>org.incode.module.unittestsupport</groupId>
+            <artifactId>incode-module-unittestsupport-dom</artifactId>
+            <version>${incode-module-unittestsupport.version}</version>
             <scope>test</scope>
         </dependency>
-
-
-        <!--
-        probably not required (and to remove anyway once figured out/refactored WithApplicationTenancy and removed dependency on UdoDomainObject
 
         <dependency>
-            <groupId>org.estatio</groupId>
-            <artifactId>estatio-base</artifactId>
-            <type>test-jar</type>
+            <groupId>org.incode.module.integtestsupport</groupId>
+            <artifactId>incode-module-integtestsupport-dom</artifactId>
+            <version>${incode-module-integtestsupport.version}</version>
             <scope>test</scope>
         </dependency>
 
-        -->
+        <!-- provided -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
 
     </dependencies>
 
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <profiles>
         <profile>
@@ -330,6 +278,69 @@ Failed to execute goal org.apache.isis.tool:isis-maven-plugin:1.13.0:validate (d
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>2.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.8</version>
+                        <inherited>true</inherited>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <additionalparam>-Xdoclint:none</additionalparam>
+                            <debug>true</debug>
+                            <minmemory>128m</minmemory>
+                            <maxmemory>1024m</maxmemory>
+                            <quiet>true</quiet>
+                            <doctitle>${project.name} ${project.version}</doctitle>
+                            <windowtitle>${project.name} ${project.version}</windowtitle>
+                            <testDoctitle>${project.name} ${project.version} (TEST API)</testDoctitle>
+                            <testWindowtitle>${project.name} ${project.version} (TEST API)</testWindowtitle>
+                            <splitindex>true</splitindex>
+                            <encoding>${project.build.sourceEncoding}</encoding>
+                            <links>
+                                <link>http://docs.oracle.com/javase/7/docs/api/</link>
+                            </links>
+                            <linksource>true</linksource>
+                            <detectOfflineLinks>false</detectOfflineLinks>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.kohsuke</groupId>
+                        <artifactId>pgp-maven-plugin</artifactId>
+                        <version>1.1</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
-
 </project>
