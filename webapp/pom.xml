@@ -89,7 +89,7 @@ language governing permissions and limitations under the License.
             <groupId>com.danhaywood.mavendeps</groupId>
             <artifactId>isiswebapp</artifactId>
             <!-- 0.0.2 for Isis 1.14.0 -->
-            <version>${danhaywood-mavendeps-isiswebapp.version}</version>
+            <version>${mavendeps-isiswebapp.version}</version>
             <type>pom</type>
         </dependency>
 
