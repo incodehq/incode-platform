@@ -67,9 +67,9 @@ language governing permissions and limitations under the License.
     </build>
 
     <properties>
-        <danhaywood-mavendeps-isisintellij.version>0.0.1</danhaywood-mavendeps-isisintellij.version>
-        <danhaywood-mavendeps-isiswebapp.version>0.0.1</danhaywood-mavendeps-isiswebapp.version>
-        <danhaywood-mavendeps-isistesting.version>0.0.1</danhaywood-mavendeps-isistesting.version>
+        <mavendeps-isisintellij.version>0.0.1</mavendeps-isisintellij.version>
+        <mavendeps-isiswebapp.version>0.0.1</mavendeps-isiswebapp.version>
+        <mavendeps-isistesting.version>0.0.1</mavendeps-isistesting.version>
     </properties>
 
     <dependencies>
@@ -81,7 +81,7 @@ language governing permissions and limitations under the License.
         <dependency>
             <groupId>com.danhaywood.mavendeps</groupId>
             <artifactId>isisintellij</artifactId>
-            <version>${danhaywood-mavendeps-isisintellij.version}</version>
+            <version>${mavendeps-isisintellij.version}</version>
             <type>pom</type>
         </dependency>
 
