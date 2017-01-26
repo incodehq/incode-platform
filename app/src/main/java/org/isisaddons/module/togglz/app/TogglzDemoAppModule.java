@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014 Dan Haywood
+ *  Copyright 2013~2015 Dan Haywood
  *
  *  Licensed under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
@@ -14,31 +14,10 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-{
-  "columns": [
-    {
-      "span": 6,
-      "memberGroups": {
-        "General": {
-          "members": {
-            "name": {}
-          }
-        }
-      }
-    },
-    {
-      "span": 0,
-      "memberGroups": {}
-    },
-    {
-      "span": 0,
-      "memberGroups": {}
-    },
-    {
-      "span": 6,
-      "collections": {}
-    }
-  ],
-  "actions": {}
+package org.isisaddons.module.togglz.app;
+
+public final class TogglzDemoAppModule {
+
+    private TogglzDemoAppModule(){}
+
 }
- 

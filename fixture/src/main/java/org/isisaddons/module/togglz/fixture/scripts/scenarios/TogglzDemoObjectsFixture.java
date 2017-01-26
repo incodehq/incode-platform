@@ -32,7 +32,7 @@ public class TogglzDemoObjectsFixture extends DiscoverableFixtureScript {
     protected void execute(final ExecutionContext executionContext) {
 
         // prereqs
-	executionContext.executeChild(this, new TogglzDemoObjectsTearDownFixture());
+        executionContext.executeChild(this, new TogglzDemoObjectsTearDownFixture());
 
         // create
         create("Foo", executionContext);
