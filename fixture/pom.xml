@@ -21,7 +21,6 @@ Copyright 2014~2015 Dan Haywood
         <groupId>org.isisaddons.module.togglz</groupId>
         <artifactId>isis-module-togglz</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/>
     </parent>
 
 	<artifactId>isis-module-togglz-fixture</artifactId>
@@ -57,9 +56,6 @@ Copyright 2014~2015 Dan Haywood
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>datanucleusenhance</artifactId>
-<!--
-                            <version>0.0.4</version>
--->
                         </mixin>
                     </mixins>
                 </configuration>
