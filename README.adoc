@@ -79,6 +79,32 @@ mvn antrun:run -P self-host
 
 Then log on using user: `sven`, password: `pass`
 
+
+== Service SPIs
+
+The module defines the following SPI service that must be implemented:
+
+[source,java]
+----
+public interface FeatureStateRepository {
+    FeatureState find(String key);
+    FeatureState create(String key);
+}
+----
+
+where `FeatureState` is just a wrapper around a string:
+
+[source,java]
+----
+public interface FeatureState {
+    String getValue();
+    void setValue(String value);
+}
+----
+
+This is used to persist the feature state.
+
+
 == How to configure/use
 
 You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
@@ -162,28 +188,24 @@ In the demo app, this means adding the following to `TogglzModuleIntegTest` base
 public TogglzRule togglzRule = TogglzRule.allEnabled(TogglzDemoFeature.class);
 ----
 
-* update your classpath by adding this dependency in your project's `webapp` (*not* `dom` !) module's `pom.xml`: +
+* update your classpath by adding this dependency in your project's `fixture` module's `pom.xml`: +
 +
 [source,xml]
 ----
 <dependency>
     <groupId>org.isisaddons.module.togglz</groupId>
     <artifactId>isis-module-togglz-glue</artifactId>
-    <version>1.13.0</version>
+    <version>1.13.1</version>
 </dependency>
 <dependency>
     <groupId>org.isisaddons.module.security</groupId>
     <artifactId>isis-module-security-dom</artifactId>
-    <version>1.13.0</version>
-</dependency>
-<dependency>
-    <groupId>org.isisaddons.module.settings</groupId>
-    <artifactId>isis-module-settings-dom</artifactId>
-    <version>1.13.0</version>
+    <version>1.13.6</version>                               <!--1-->
 </dependency>
 ----
+<1> or which ever is the latest version
 
-* in your project's `webapp` module, write a subclass of `TogglzModuleFeatureManagerProviderAbstract` (provided by this module) that registers your feature enum: +
+* in your project's `app` module, write a subclass of `TogglzModuleFeatureManagerProviderAbstract` (provided by this module) that registers your feature enum: +
 +
 [source,java]
 ----
@@ -195,7 +217,7 @@ public class CustomTogglzModuleFeatureManagerProvider
 }
 ----
 
-* in your project's `webapp` module, in `src/main/resources`, register the provider by creating a file `META-INF/services/org.togglz.core.spi.FeatureManagerProvider`.  Its contents is the fully qualified class name of your feature manager provider implementation. +
+* also in your project's `app` module, in `src/main/resources`, register the provider by creating a file `META-INF/services/org.togglz.core.spi.FeatureManagerProvider`.  Its contents is the fully qualified class name of your feature manager provider implementation. +
 +
 For example, the demo app's file consists of: +
 +
@@ -204,9 +226,52 @@ For example, the demo app's file consists of: +
 org.isisaddons.module.togglz.webapp.CustomTogglzModuleFeatureManagerProvider
 ----
 
-* if using `AppManifest`, then update its `getModules()` method. +
+* also in your project's `app` module, write an implementation of the  `FeatureStateRepository` SPI service (defined by this module).
+This SPI service is designed to be easy to be implemented using the(non-ASF) http://github.com/isisaddons/isis-module-settings[Isis addons' settings] module (though you can of course use some other persistence mechanism if you wish).
+For example: +
 +
-This module uses Isis Addons' https://github.com/isisaddons/isis-module-settings[settings module] for feature persistence: +
+[source,java]
+----
+@DomainService(nature = NatureOfService.DOMAIN)
+public class FeatureStateRepositoryForApplicationSettingsJdo implements FeatureStateRepository {
+    public FeatureState find(final String key) {
+        final ApplicationSetting applicationSetting =
+                                      applicationSettingsService.find(key);
+        return FeatureStateForApplicationSettingJdo.from(applicationSetting);
+    }
+    public FeatureState create(final String key) {
+        final ApplicationSetting applicationSetting =
+                                      applicationSettingsService.newString(key, "", "");
+        return FeatureStateForApplicationSettingJdo.from(applicationSetting);
+    }
+    @Inject
+    ApplicationSettingsServiceRW applicationSettingsService;
+}
+----
++
+and:
++
+[source,java]
+----
+class FeatureStateForApplicationSettingJdo implements FeatureState {
+    static FeatureState from(final ApplicationSetting applicationSetting) {
+        return applicationSetting != null ?
+                    new FeatureStateForApplicationSettingJdo(applicationSetting) : null;
+    }
+    private final ApplicationSettingForJdo applicationSetting;
+    private FeatureStateForApplicationSettingJdo(final ApplicationSetting applicationSetting) {
+        this.applicationSetting = (ApplicationSettingForJdo) applicationSetting;
+    }
+    public String getValue() {
+        return applicationSetting.valueAsString();
+    }
+    public void setValue(final String value) {
+        applicationSetting.updateAsString(value);
+    }
+}
+----
+
+* in your `AppManifest`, update its `getModules()` method. +
 +
 [source,java]
 ----
@@ -214,6 +279,7 @@ This module uses Isis Addons' https://github.com/isisaddons/isis-module-settings
 public List<Class<?>> getModules() {
     return Arrays.asList(
             ...
+            org.isisaddons.module.security.SecurityModule.class,
             org.isisaddons.module.settings.SettingsModule.class,
             org.isisaddons.module.togglz.TogglzModule.class,
             ...
@@ -221,18 +287,6 @@ public List<Class<?>> getModules() {
 }
 ----
 
-* otherwise, in your project's `webapp` module, update your `WEB-INF/isis.properties`. +
-+
-This module uses Isis Addons' https://github.com/isisaddons/isis-module-settings[settings module] for feature persistence. +
-+
-[source,ini]
-----
-isis.services.ServicesInstallerFromAnnotation.packagePrefix=\
-                                ...\
-                                org.isisaddons.module.settings,\
-                                org.isisaddons.module.togglz,\
-                                ...
-----
 
 * in your project's `webapp` module, update your `WEB-INF/web.xml`, after the Shiro configuration but before Isis' configuration (so that the filters are applied in the order Shiro -&gt; Togglz -&gt; Isis): +
 +
@@ -296,6 +350,7 @@ isis.services.togglz.FeatureToggleConsoleAccessor.hideAction=false              
 <2> whether to hide the action that can be used to access the URL.
 
 If you are using some other security mechanism, eg Isis addons https://github.com/isisaddons/isis-module-security[security module], then define a role with the same name and grant to users.
+You can use the `TogglzModuleAdminRole` to setup fixture/seed data for the security module.
 
 [NOTE]
 ====
@@ -341,18 +396,21 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
     </profile>
 ----
 
+
+
 === Forking the repo
 
 If instead you want to extend this module's functionality, then we recommend that you fork this repo. The repo is
 structured as follows:
 
 * `pom.xml` - parent pom
-* `dom` - the module implementation, depends on Isis applib
+* `app` - defines the app manifest
+* `glue` - the module implementation, depends on Isis applib
 * `fixture` - fixtures, holding a sample domain objects and fixture scripts; depends on `dom`
 * `integtests` - integration tests for the module; depends on `fixture`
 * `webapp` - demo webapp (see above screenshots); depends on `dom` and `fixture`
 
-Only the `dom` project is released to Maven Central Repo. The versions of the other modules are purposely left at
+Only the `glue` project is released to Maven Central Repo. The versions of the other modules are purposely left at
 `0.0.1-SNAPSHOT` because they are not intended to be released.
 
 
@@ -365,6 +423,7 @@ This service uses the Isis Addons' http://github.com/isisaddons/isis-module-sett
 
 == Change Log
 
+* `1.13.1` - introduced new (mandatory) `ApplicationSettingsServiceMutable` SPI service; released against Isis 1.13.2
 * `1.13.0` - released against Isis 1.13.0
 * `1.12.0` - released against Isis 1.12.0
 * `1.11.0` - released against Isis 1.11.0; added `FeatureTogglzConsoleAccessor` service.
@@ -455,7 +514,7 @@ For example:
 
 [source,bash]
 ----
-sh release.sh 1.13.0 \
+sh release.sh 1.13.1 \
               1.14.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
@@ -474,8 +533,7 @@ If the script completes successfully, then push changes:
 
 [source,bash]
 ----
-git push origin master
-git push origin 1.13.0
+git push origin master && git push origin 1.13.1
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue

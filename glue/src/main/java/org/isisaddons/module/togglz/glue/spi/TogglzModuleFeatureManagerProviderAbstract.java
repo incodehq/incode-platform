@@ -7,6 +7,9 @@ import org.togglz.core.repository.StateRepository;
 import org.togglz.core.spi.FeatureManagerProvider;
 import org.togglz.core.user.UserProvider;
 
+import org.isisaddons.module.togglz.glue.service.staterepo.StateRepositoryDelegatingToSpiWithGson;
+import org.isisaddons.module.togglz.glue.service.userprovider.UserProviderUsingServletPrincipal;
+
 /**
  * Subclass and register in META-INF/services, as per http://www.togglz.org/documentation/advanced-config.html.
  */
@@ -68,11 +71,11 @@ public abstract class TogglzModuleFeatureManagerProviderAbstract implements Feat
      * Overridable (hook) factory method for the {@link StateRepository}.
      *
      * <p>
-     *     Default implementation instantiates a {@link StateRepositoryUsingApplicationSettingsWithGson}.
+     *     Default implementation instantiates a {@link StateRepositoryDelegatingToSpiWithGson}.
      * </p>
      */
     protected StateRepository newStateRepository() {
-        return new StateRepositoryUsingApplicationSettingsWithGson();
+        return new StateRepositoryDelegatingToSpiWithGson();
     }
 
     /**

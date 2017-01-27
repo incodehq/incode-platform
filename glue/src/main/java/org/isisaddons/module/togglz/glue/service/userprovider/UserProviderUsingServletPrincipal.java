@@ -1,4 +1,4 @@
-package org.isisaddons.module.togglz.glue.spi;
+package org.isisaddons.module.togglz.glue.service.userprovider;
 
 import java.security.Principal;
 
