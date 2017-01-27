@@ -39,7 +39,7 @@ language governing permissions and limitations under the License.
     <properties>
         <isis.version>1.13.2</isis.version>
 
-        <isis-module-togglz.version>1.14.0-SNAPSHOT</isis-module-togglz.version>
+        <isis-module-togglz.version>1.13.1</isis-module-togglz.version>
         <assertj-core.version>2.0.0</assertj-core.version>
 
         <isis-module-security.version>1.13.6</isis-module-security.version>
