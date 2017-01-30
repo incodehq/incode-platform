@@ -1,16 +1,38 @@
 $(function () {
 
+    function raiseEvent(elem, event, page) {
+        var canvasId = elem.data('canvasId');
+        var args = {"canvasId": canvasId}
+        if (page) {
+            args["page"] = parseInt(page);
+        }
+        Wicket.Event.publish(event, args);
+    }
+
     $('.pdf-js-page-prev').click(function () {
-        var canvasId = $(this).data('canvasId');
-        Wicket.Event.publish(WicketStuff.PDFJS.Topic.PREVIOUS_PAGE, {"canvasId": canvasId});
+        raiseEvent($(this), WicketStuff.PDFJS.Topic.PREVIOUS_PAGE);
     });
+
     $('.pdf-js-page-next').click(function () {
-        var canvasId = $(this).data('canvasId');
-        Wicket.Event.publish(WicketStuff.PDFJS.Topic.NEXT_PAGE, {"canvasId": canvasId});
+        raiseEvent($(this), WicketStuff.PDFJS.Topic.NEXT_PAGE);
+    });
+
+    $('.pdf-js-zoom-in').click(function () {
+        raiseEvent($(this), WicketStuff.PDFJS.Topic.ZOOM_IN);
+    });
+
+    $('.pdf-js-zoom-out').click(function () {
+        raiseEvent($(this), WicketStuff.PDFJS.Topic.ZOOM_OUT);
+    });
+
+
+    $('.pdf-js-page-current').change(function () {
+        var page = $(this).val();
+        raiseEvent($(this), WicketStuff.PDFJS.Topic.GOTO_PAGE, page);
     });
 
     Wicket.Event.subscribe(WicketStuff.PDFJS.Topic.CURRENT_PAGE, function (jqEvent, pageNumber, data) {
-        $('.pdf-js-page-current[data-canvas-id="'+data.canvasId+'"]').text(pageNumber);
+        $('.pdf-js-page-current[data-canvas-id="'+data.canvasId+'"]').val(pageNumber);
 
         var $prevPageBtn = $('.pdf-js-page-prev[data-canvas-id="'+data.canvasId+'"]');
         if (pageNumber === 1) {

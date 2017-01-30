@@ -28,8 +28,10 @@
                             <div>
                                 <button wicket:id="prevPage" type="button" disabled class="btn btn-sm btn-default pdf-js-page-prev">Previous</button>
                                 <button wicket:id="nextPage" type="button" disabled class="btn btn-sm btn-default pdf-js-page-next">Next</button>
+                                <button wicket:id="zoomIn" type="button"  class="btn btn-sm btn-default pdf-js-zoom-in">Zoom In</button>
+                                <button wicket:id="zoomOut" type="button" class="btn btn-sm btn-default pdf-js-zoom-out">Zoom Out</button>
                                 &nbsp; &nbsp;
-                                <span>Page: <span wicket:id="currentPage" class="pdf-js-page-current"></span> / <span wicket:id="totalPages"  class="pdf-js-page-total"></span></span>
+                                <span>Page: <input wicket:id="currentPage" class="pdf-js-page-current"></input> / <span wicket:id="totalPages"  class="pdf-js-page-total"></span></span>
                             </div>
                             <div wicket:id="scalarValue"></div>
                         </div>

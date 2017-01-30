@@ -16,11 +16,6 @@
  */
 package org.isisaddons.wicket.pdfjs.cpt.ui;
 
-import org.apache.isis.applib.value.Blob;
-import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
-import org.apache.isis.core.metamodel.spec.ObjectSpecification;
-import org.apache.isis.viewer.wicket.model.models.ScalarModel;
-import org.apache.isis.viewer.wicket.ui.components.scalars.ScalarPanelAbstract;
 import org.apache.wicket.Component;
 import org.apache.wicket.IResourceListener;
 import org.apache.wicket.MarkupContainer;
@@ -36,10 +31,16 @@ import org.apache.wicket.request.handler.resource.ResourceRequestHandler;
 import org.apache.wicket.request.http.flow.AbortWithHttpErrorCodeException;
 import org.apache.wicket.request.resource.ByteArrayResource;
 import org.apache.wicket.request.resource.IResource;
-import org.apache.wicket.resource.JQueryPluginResourceReference;
-import org.isisaddons.wicket.pdfjs.cpt.applib.PdfViewerFacetAbstract;
 import org.wicketstuff.pdfjs.PdfJsConfig;
 import org.wicketstuff.pdfjs.PdfJsPanel;
+
+import org.apache.isis.applib.value.Blob;
+import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
+import org.apache.isis.core.metamodel.spec.ObjectSpecification;
+import org.apache.isis.viewer.wicket.model.models.ScalarModel;
+import org.apache.isis.viewer.wicket.ui.components.scalars.ScalarPanelAbstract;
+
+import org.isisaddons.wicket.pdfjs.cpt.applib.PdfViewerFacetAbstract;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 
@@ -76,9 +77,11 @@ class PdfViewerPanel extends ScalarPanelAbstract implements IResourceListener {
             PdfJsPanel pdfJsPanel = new PdfJsPanel(ID_SCALAR_VALUE, config);
             MarkupContainer prevPageButton = createComponent("prevPage", config);
             MarkupContainer nextPageButton = createComponent("nextPage", config);
+            MarkupContainer zoomInButton = createComponent("zoomIn", config);
+            MarkupContainer zoomOutButton = createComponent("zoomOut", config);
             MarkupContainer currentPageLabel = createComponent("currentPage", config);
             MarkupContainer totalPagesLabel = createComponent("totalPages", config);
-            containerIfRegular.addOrReplace(pdfJsPanel, prevPageButton, nextPageButton, currentPageLabel, totalPagesLabel);
+            containerIfRegular.addOrReplace(pdfJsPanel, prevPageButton, nextPageButton, zoomInButton, zoomOutButton, currentPageLabel, totalPagesLabel);
             containerIfRegular.addOrReplace(new NotificationPanel(ID_FEEDBACK, pdfJsPanel, new ComponentFeedbackMessageFilter(pdfJsPanel)));
         } else {
             permanentlyHide(ID_SCALAR_VALUE, ID_FEEDBACK);
