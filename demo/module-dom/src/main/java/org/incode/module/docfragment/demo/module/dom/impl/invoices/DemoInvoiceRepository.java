@@ -16,43 +16,24 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.docfragment.demo.module.dom.impl;
+package org.incode.module.docfragment.demo.module.dom.impl.invoices;
 
 import java.util.List;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.query.QueryDefault;
-import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
-        repositoryFor = DemoObject.class
+        repositoryFor = DemoInvoice.class
 )
-public class DemoObjectRepository {
+public class DemoInvoiceRepository {
 
-    public List<DemoObject> listAll() {
-        return repositoryService.allInstances(DemoObject.class);
-    }
-
-    public List<DemoObject> findByName(final String name) {
-        return repositoryService.allMatches(
-                new QueryDefault<>(
-                        DemoObject.class,
-                        "findByName",
-                        "name", name));
-    }
-
-    public DemoObject create(final String name) {
-        final DemoObject object = new DemoObject(name);
-        serviceRegistry.injectServicesInto(object);
-        repositoryService.persist(object);
-        return object;
+    public List<DemoInvoice> listAll() {
+        return repositoryService.allInstances(DemoInvoice.class);
     }
 
     @javax.inject.Inject
     RepositoryService repositoryService;
-    @javax.inject.Inject
-    ServiceRegistry2 serviceRegistry;
 }

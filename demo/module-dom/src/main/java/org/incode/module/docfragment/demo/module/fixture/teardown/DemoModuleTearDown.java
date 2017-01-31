@@ -26,7 +26,8 @@ public class DemoModuleTearDown extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"docfragmentdemo\".\"DemoObject\"");
+        isisJdoSupport.executeUpdate("delete from \"docfragmentdemo\".\"DemoCustomer\"");
+        isisJdoSupport.executeUpdate("delete from \"docfragmentdemo\".\"DemoInvoice\"");
     }
 
 

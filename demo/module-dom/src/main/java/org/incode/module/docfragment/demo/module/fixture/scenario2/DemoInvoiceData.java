@@ -17,12 +17,14 @@
  *  under the License.
  */
 
-package org.incode.module.docfragment.demo.module.fixture.scenario;
+package org.incode.module.docfragment.demo.module.fixture.scenario2;
+
+import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
-import org.incode.module.docfragment.demo.module.dom.impl.DemoObject;
+import org.incode.module.docfragment.demo.module.dom.impl.invoices.DemoInvoice;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,29 +33,26 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @Getter
 @Accessors(chain = true)
-public enum DemoObjectData {
+public enum DemoInvoiceData {
 
-    Foo,
-    Bar,
-    Baz,
-    Frodo,
-    Froyo,
-    Fizz,
-    Bip,
-    Bop,
-    Bang,
-    Boo;
+    Invoice1(1, new LocalDate(2017,1,31), 30),
+    Invoice2(2, new LocalDate(2017,1,20), 60),
+    Invoice3(3, new LocalDate(2017,1,25), 90),
+    ;
+
+    private final int num;
+    private final LocalDate dueBy;
+    private final int numDay;
 
     @Programmatic
-    public DemoObject createWith(final RepositoryService repositoryService) {
-        final DemoObject domainObject = DemoObject.builder().name(name()).build();
+    public DemoInvoice createWith(final RepositoryService repositoryService) {
+        final DemoInvoice domainObject = DemoInvoice.builder()
+                .num(num)
+                .dueBy(dueBy)
+                .numDays(numDay)
+                .build();
         repositoryService.persist(domainObject);
         return domainObject;
-    }
-
-    @Programmatic
-    public DemoObject findWith(final RepositoryService repositoryService) {
-        return repositoryService.uniqueMatch(DemoObject.class, x -> name().equals(x.getName()));
     }
 
 }

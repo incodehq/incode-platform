@@ -27,7 +27,8 @@ import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.module.docfragment.demo.module.fixture.scenario.CreateDemoObjects;
+import org.incode.module.docfragment.demo.module.fixture.scenario.CreateDemoCustomers;
+import org.incode.module.docfragment.demo.module.fixture.scenario2.CreateDemoInvoices;
 import org.incode.module.docfragment.fixture.scenario.CreateDocFragmentObjects;
 
 /**
@@ -40,7 +41,11 @@ public class DemoAppAppManifestWithFixtures extends DemoAppAppManifest {
      */
     @Override
     public List<Class<? extends FixtureScript>> getFixtures() {
-        return Lists.newArrayList(CreateDocFragmentObjects.class, CreateDemoObjects.class);
+        return Lists.newArrayList(
+                CreateDocFragmentObjects.class,
+                CreateDemoCustomers.class,
+                CreateDemoInvoices.class
+        );
     }
 
     /**

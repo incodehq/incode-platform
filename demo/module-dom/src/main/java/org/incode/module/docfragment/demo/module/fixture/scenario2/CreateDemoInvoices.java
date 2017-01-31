@@ -16,27 +16,28 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.docfragment.demo.application.fixture.scenarios;
+
+package org.incode.module.docfragment.demo.module.fixture.scenario2;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.services.repository.RepositoryService;
 
-import org.incode.module.docfragment.demo.application.fixture.teardown.DemoAppTearDown;
-import org.incode.module.docfragment.demo.module.fixture.scenario.CreateDemoCustomers;
-import org.incode.module.docfragment.fixture.scenario.CreateDocFragmentObjects;
+import org.incode.module.docfragment.demo.module.dom.impl.invoices.DemoInvoice;
 
-public class DemoAppFixture extends FixtureScript {
+import lombok.experimental.Accessors;
 
-    public DemoAppFixture() {
-        withDiscoverability(Discoverability.DISCOVERABLE);
-    }
+@Accessors(chain = true)
+public class CreateDemoInvoices extends FixtureScript {
 
     @Override
     protected void execute(final ExecutionContext ec) {
-
-        // execute
-        ec.executeChild(this, new DemoAppTearDown());
-        ec.executeChild(this, new CreateDemoCustomers());
-        ec.executeChild(this, new CreateDocFragmentObjects());
-
+        for (DemoInvoiceData demoInvoiceData : DemoInvoiceData.values()) {
+            final DemoInvoice demo = demoInvoiceData.createWith(repositoryService);
+            ec.addResult(this, demo);
+        }
     }
+
+    @javax.inject.Inject
+    RepositoryService repositoryService;
+
 }

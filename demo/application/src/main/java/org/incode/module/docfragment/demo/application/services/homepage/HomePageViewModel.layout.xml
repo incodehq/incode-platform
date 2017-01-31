@@ -33,10 +33,13 @@
         <bs3:col span="4" unreferencedCollections="true">
             <bs3:row>
                 <bs3:col span="12">
-                    <collection id="demoObjects" defaultView="table"/>
+                    <collection id="docFragmentObjects" defaultView="table"/>
                 </bs3:col>
                 <bs3:col span="12">
-                    <collection id="docFragmentObjects" defaultView="table"/>
+                    <collection id="demoCustomers" defaultView="table"/>
+                </bs3:col>
+                <bs3:col span="12">
+                    <collection id="demoInvoices" defaultView="table"/>
                 </bs3:col>
             </bs3:row>
         </bs3:col>

@@ -23,8 +23,10 @@ import java.util.List;
 import org.apache.isis.applib.annotation.ViewModel;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
-import org.incode.module.docfragment.demo.module.dom.impl.DemoObject;
-import org.incode.module.docfragment.demo.module.dom.impl.DemoObjectRepository;
+import org.incode.module.docfragment.demo.module.dom.impl.customers.DemoCustomer;
+import org.incode.module.docfragment.demo.module.dom.impl.customers.DemoCustomerRepository;
+import org.incode.module.docfragment.demo.module.dom.impl.invoices.DemoInvoice;
+import org.incode.module.docfragment.demo.module.dom.impl.invoices.DemoInvoiceRepository;
 import org.incode.module.docfragment.dom.impl.DocFragment;
 import org.incode.module.docfragment.dom.impl.DocFragmentRepository;
 
@@ -32,20 +34,29 @@ import org.incode.module.docfragment.dom.impl.DocFragmentRepository;
 public class HomePageViewModel {
 
     public TranslatableString title() {
-        return TranslatableString.tr("{num} demo objects", "num", getDemoObjects().size());
-    }
-
-    public List<DemoObject> getDemoObjects() {
-        return demoObjectRepository.listAll();
+        return TranslatableString.tr("{num} doc fragments", "num", getDocFragmentObjects().size());
     }
 
     public List<DocFragment> getDocFragmentObjects() {
         return docfragmentRepository.listAll();
     }
 
-    @javax.inject.Inject
-    DemoObjectRepository demoObjectRepository;
+    public List<DemoCustomer> getDemoCustomers() {
+        return demoCustomerRepository.listAll();
+    }
+
+    public List<DemoInvoice> getDemoInvoice() {
+        return demoInvoiceRepository.listAll();
+    }
 
     @javax.inject.Inject
     DocFragmentRepository docfragmentRepository;
+
+    @javax.inject.Inject
+    DemoCustomerRepository demoCustomerRepository;
+
+    @javax.inject.Inject
+    DemoInvoiceRepository demoInvoiceRepository;
+
+
 }

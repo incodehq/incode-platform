@@ -16,27 +16,26 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.docfragment.demo.application.fixture.scenarios;
+package org.incode.module.docfragment.demo.module.dom.impl.customers;
 
-import org.apache.isis.applib.fixturescripts.FixtureScript;
+import java.util.List;
 
-import org.incode.module.docfragment.demo.application.fixture.teardown.DemoAppTearDown;
-import org.incode.module.docfragment.demo.module.fixture.scenario.CreateDemoCustomers;
-import org.incode.module.docfragment.fixture.scenario.CreateDocFragmentObjects;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.query.QueryDefault;
+import org.apache.isis.applib.services.registry.ServiceRegistry2;
+import org.apache.isis.applib.services.repository.RepositoryService;
 
-public class DemoAppFixture extends FixtureScript {
+@DomainService(
+        nature = NatureOfService.DOMAIN,
+        repositoryFor = DemoCustomer.class
+)
+public class DemoCustomerRepository {
 
-    public DemoAppFixture() {
-        withDiscoverability(Discoverability.DISCOVERABLE);
+    public List<DemoCustomer> listAll() {
+        return repositoryService.allInstances(DemoCustomer.class);
     }
 
-    @Override
-    protected void execute(final ExecutionContext ec) {
-
-        // execute
-        ec.executeChild(this, new DemoAppTearDown());
-        ec.executeChild(this, new CreateDemoCustomers());
-        ec.executeChild(this, new CreateDocFragmentObjects());
-
-    }
+    @javax.inject.Inject
+    RepositoryService repositoryService;
 }

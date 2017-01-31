@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.docfragment.demo.module.dom.impl;
+package org.incode.module.docfragment.demo.module.dom.impl.customers;
 
 import java.util.List;
 
@@ -27,51 +27,28 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
-import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        repositoryFor = DemoObject.class
+        repositoryFor = DemoCustomer.class
 )
 @DomainServiceLayout(
-        named = "Demo Objects",
+        named = "Demo Customers",
         menuOrder = "10"
 )
-public class DemoObjectMenu {
+public class DemoCustomerMenu {
 
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<DemoObject> listAll() {
-        return demoObjectRepository.listAll();
-    }
-
-
-    @Action(semantics = SemanticsOf.SAFE)
-    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
-    @MemberOrder(sequence = "2")
-    public List<DemoObject> findByName(
-            @ParameterLayout(named="Name")
-            final String name
-    ) {
-        return demoObjectRepository.findByName(name);
-    }
-
-
-    public static class CreateDomainEvent extends ActionDomainEvent<DemoObjectMenu> {}
-    @Action(domainEvent = CreateDomainEvent.class)
-    @MemberOrder(sequence = "3")
-    public DemoObject create(
-            @ParameterLayout(named="Name")
-            final String name) {
-        return demoObjectRepository.create(name);
+    public List<DemoCustomer> listAll() {
+        return demoCustomerRepository.listAll();
     }
 
 
     @javax.inject.Inject
-    DemoObjectRepository demoObjectRepository;
+    DemoCustomerRepository demoCustomerRepository;
 
 }

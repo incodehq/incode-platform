@@ -31,11 +31,9 @@
                     <bs3:row>
                         <bs3:col span="12">
                             <c:fieldSet name="Name">
-                                <c:action id="delete"/>
-                                <c:property id="name" namedEscaped="true">
-                                    <c:action id="updateName"/>
-                                </c:property>
-                                <c:property id="notes" namedEscaped="true" multiLine="10" hidden="ALL_TABLES"/>
+                                <c:property id="title"/>
+                                <c:property id="firstName"/>
+                                <c:property id="lastName"/>
                             </c:fieldSet>
                         </bs3:col>
                     </bs3:row>

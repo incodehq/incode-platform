@@ -92,8 +92,8 @@ public class DocFragment implements Comparable<DocFragment> {
             final String name,
             final String atPath,
             final String templateText) {
-        setObjectType(objectType);
-        setName(name);
+        this.objectType = objectType;
+        this.name = name;
         setAtPath(atPath);
         setTemplateText(templateText);
     }

@@ -19,54 +19,21 @@
 
 package org.incode.module.docfragment.demo.module.fixture.scenario;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
-import com.google.common.collect.Lists;
-
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
-import org.incode.module.docfragment.demo.module.dom.impl.DemoObject;
+import org.incode.module.docfragment.demo.module.dom.impl.customers.DemoCustomer;
 
-import lombok.Getter;
-import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Accessors(chain = true)
-public class CreateDemoObjects extends FixtureScript {
-
-    /**
-     * The number of objects to create, up to 10; optional, defaults to 3.
-     */
-    @Nullable
-    @Getter @Setter
-    private Integer number;
-
-    /**
-     * The objects created by this fixture (output).
-     */
-    @Getter
-    private final List<DemoObject> demoObjects = Lists.newArrayList();
+public class CreateDemoCustomers extends FixtureScript {
 
     @Override
     protected void execute(final ExecutionContext ec) {
-
-        // defaults
-        final int number = defaultParam("number", ec, 3);
-
-        // validate
-        final int max = DemoObjectData.values().length;
-        if(number < 0 || number > max) {
-            throw new IllegalArgumentException(String.format("number must be in range [0,%d]", max));
-        }
-
-        // execute
-        for (int i = 0; i < number; i++) {
-            final DemoObject demoObject = DemoObjectData.values()[i].createWith(repositoryService);
-            ec.addResult(this, demoObject);
-            demoObjects.add(demoObject);
+        for (DemoCustomerData demoCustomerData: DemoCustomerData.values()) {
+            final DemoCustomer demoCustomer = demoCustomerData.createWith(repositoryService);
+            ec.addResult(this, demoCustomer);
         }
     }
 
