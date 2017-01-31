@@ -16,21 +16,18 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
+package org.incode.module.docfragment.dom.spi;
 
-package org.incode.module.docfragment.fixture.teardown;
+import java.util.List;
 
-import org.apache.isis.applib.fixturescripts.FixtureScript;
-import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
+import org.apache.isis.applib.annotation.Programmatic;
 
-public class DocFragmentModuleTearDown extends FixtureScript {
+public interface ApplicationTenancyService {
 
-    @Override
-    protected void execute(ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"docfragment\".\"DocFragment\"");
-    }
+    @Programmatic
+    String atPathFor(final Object domainObjectToRender);
 
-
-    @javax.inject.Inject
-    private IsisJdoSupport isisJdoSupport;
+    @Programmatic
+    List<String> atPaths();
 
 }

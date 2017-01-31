@@ -25,8 +25,8 @@ import org.apache.isis.applib.services.i18n.TranslatableString;
 
 import org.incode.module.docfragment.demo.module.dom.impl.DemoObject;
 import org.incode.module.docfragment.demo.module.dom.impl.DemoObjectRepository;
-import org.incode.module.docfragment.dom.impl.DocFragmentObject;
-import org.incode.module.docfragment.dom.impl.DocFragmentObjectRepository;
+import org.incode.module.docfragment.dom.impl.DocFragment;
+import org.incode.module.docfragment.dom.impl.DocFragmentRepository;
 
 @ViewModel
 public class HomePageViewModel {
@@ -39,13 +39,13 @@ public class HomePageViewModel {
         return demoObjectRepository.listAll();
     }
 
-    public List<DocFragmentObject> getDocFragmentObjects() {
-        return docfragmentObjectRepository.listAll();
+    public List<DocFragment> getDocFragmentObjects() {
+        return docfragmentRepository.listAll();
     }
 
     @javax.inject.Inject
     DemoObjectRepository demoObjectRepository;
 
     @javax.inject.Inject
-    DocFragmentObjectRepository docfragmentObjectRepository;
+    DocFragmentRepository docfragmentRepository;
 }

@@ -28,8 +28,9 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
 import org.incode.module.docfragment.demo.application.fixture.teardown.DemoAppTearDown;
-import org.incode.module.docfragment.dom.impl.DocFragmentObject;
-import org.incode.module.docfragment.dom.impl.DocFragmentObjectMenu;
+import org.incode.module.docfragment.dom.impl.DocFragment;
+import org.incode.module.docfragment.dom.menu.DocFragmentMenu;
+import org.incode.module.docfragment.fixture.scenario.DocFragmentData;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -40,7 +41,7 @@ public class Smoke_IntegTest extends DemoAppIntegTestAbstract {
     @Inject
     TransactionService transactionService;
     @Inject
-    DocFragmentObjectMenu menu;
+    DocFragmentMenu menu;
 
     @Test
     public void create() throws Exception {
@@ -52,7 +53,7 @@ public class Smoke_IntegTest extends DemoAppIntegTestAbstract {
 
 
         // when
-        List<DocFragmentObject> all = wrap(menu).listAll();
+        List<DocFragment> all = wrap(menu).listAll();
 
         // then
         assertThat(all).isEmpty();
@@ -60,45 +61,29 @@ public class Smoke_IntegTest extends DemoAppIntegTestAbstract {
 
 
         // when
-        final DocFragmentObject fred = wrap(menu).create("Fred");
+        final DocFragment hello_global = DocFragmentData.Customer_hello_GLOBAL.createWith(wrap(menu));
         transactionService.flushTransaction();
 
         // then
         all = wrap(menu).listAll();
         assertThat(all).hasSize(1);
-        assertThat(all).contains(fred);
+        assertThat(all).contains(hello_global);
 
 
 
         // when
-        final DocFragmentObject bill = wrap(menu).create("Bill");
+        final DocFragment hello_fra = DocFragmentData.Customer_hello_FRA.createWith(wrap(menu));
         transactionService.flushTransaction();
 
         // then
         all = wrap(menu).listAll();
         assertThat(all).hasSize(2);
-        assertThat(all).contains(fred, bill);
+        assertThat(all).contains(hello_global, hello_fra);
 
 
 
         // when
-        wrap(fred).updateName("Freddy");
-        transactionService.flushTransaction();
-
-        // then
-        assertThat(wrap(fred).getName()).isEqualTo("Freddy");
-
-
-
-        // when
-        wrap(fred).setNotes("These are some notes");
-
-        // then
-        assertThat(wrap(fred).getNotes()).isEqualTo("These are some notes");
-
-
-        // when
-        wrap(fred).delete();
+        wrap(hello_global).delete();
         transactionService.flushTransaction();
 
 

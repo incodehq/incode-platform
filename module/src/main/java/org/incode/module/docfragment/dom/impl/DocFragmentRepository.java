@@ -28,24 +28,29 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
-        repositoryFor = DocFragmentObject.class
+        repositoryFor = DocFragment.class
 )
-public class DocFragmentObjectRepository {
+public class DocFragmentRepository {
 
-    public List<DocFragmentObject> listAll() {
-        return repositoryService.allInstances(DocFragmentObject.class);
+    public List<DocFragment> listAll() {
+        return repositoryService.allInstances(DocFragment.class);
     }
 
-    public List<DocFragmentObject> findByName(final String name) {
-        return repositoryService.allMatches(
+    /**
+     * @param applicableTo - eg <code>com.mycompany.customer.Customer#firstName</code>
+     * @param atPath
+     */
+    public DocFragment findFragment(final String applicableTo, final String atPath) {
+        return repositoryService.firstMatch(
                 new QueryDefault<>(
-                        DocFragmentObject.class,
-                        "findByName",
-                        "name", name));
+                        DocFragment.class,
+                        "findByApplicableToAndAtPath",
+                        "applicableTo", applicableTo,
+                        "atPath", atPath));
     }
 
-    public DocFragmentObject create(final String name) {
-        final DocFragmentObject object = new DocFragmentObject(name);
+    public DocFragment create(final String objectType, final String name, final String atPath, final String templateText) {
+        final DocFragment object = new DocFragment(objectType, name, atPath, templateText);
         serviceRegistry.injectServicesInto(object);
         repositoryService.persist(object);
         return object;
@@ -55,4 +60,5 @@ public class DocFragmentObjectRepository {
     RepositoryService repositoryService;
     @javax.inject.Inject
     ServiceRegistry2 serviceRegistry;
+
 }

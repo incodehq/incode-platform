@@ -34,23 +34,29 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
-import org.incode.module.docfragment.dom.impl.DocFragmentObject;
-import org.incode.module.docfragment.dom.impl.DocFragmentObjectMenu;
+import org.isisaddons.module.fakedata.dom.FakeDataService;
+
+import org.incode.module.docfragment.dom.impl.DocFragment;
+import org.incode.module.docfragment.dom.menu.DocFragmentMenu;
 import org.incode.module.docfragment.fixture.scenario.CreateDocFragmentObjects;
+import org.incode.module.docfragment.fixture.scenario.DocFragmentData;
 import org.incode.module.docfragment.fixture.teardown.DocFragmentModuleTearDown;
 import org.incode.module.docfragment.integtests.DocFragmentModuleIntegTestAbstract;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DocFragmentObjectMenu_IntegTest extends DocFragmentModuleIntegTestAbstract {
+public class DocFragmentMenu_IntegTest extends DocFragmentModuleIntegTestAbstract {
 
     @Inject
     FixtureScripts fixtureScripts;
     @Inject
+    FakeDataService fakeDataService;
+    @Inject
     TransactionService transactionService;
     @Inject
-    DocFragmentObjectMenu menu;
+    DocFragmentMenu menu;
 
-    public static class ListAll extends DocFragmentObjectMenu_IntegTest {
+    public static class ListAll extends DocFragmentMenu_IntegTest {
 
         @Test
         public void happyCase() throws Exception {
@@ -62,13 +68,13 @@ public class DocFragmentObjectMenu_IntegTest extends DocFragmentModuleIntegTestA
             transactionService.nextTransaction();
 
             // when
-            final List<DocFragmentObject> all = wrap(menu).listAll();
+            final List<DocFragment> all = wrap(menu).listAll();
 
             // then
-            assertThat(all).hasSize(fs.getDocFragmentObjects().size());
+            assertThat(all).hasSize(fs.getDocFragments().size());
 
-            DocFragmentObject domainObject = wrap(all.get(0));
-            assertThat(domainObject.getName()).isEqualTo(fs.getDocFragmentObjects().get(0).getName());
+            DocFragment domainObject = wrap(all.get(0));
+            assertThat(domainObject.getName()).isEqualTo(fs.getDocFragments().get(0).getName());
         }
 
         @Test
@@ -80,14 +86,14 @@ public class DocFragmentObjectMenu_IntegTest extends DocFragmentModuleIntegTestA
             transactionService.nextTransaction();
 
             // when
-            final List<DocFragmentObject> all = wrap(menu).listAll();
+            final List<DocFragment> all = wrap(menu).listAll();
 
             // then
             assertThat(all).hasSize(0);
         }
     }
 
-    public static class Create extends DocFragmentObjectMenu_IntegTest {
+    public static class Create extends DocFragmentMenu_IntegTest {
 
         @Test
         public void happyCase() throws Exception {
@@ -98,10 +104,11 @@ public class DocFragmentObjectMenu_IntegTest extends DocFragmentModuleIntegTestA
             transactionService.nextTransaction();
 
             // when
-            wrap(menu).create("Faz");
+            final DocFragmentData random = fakeDataService.enums().anyOf(DocFragmentData.class);
+            random.createWith(wrap(menu));
 
             // then
-            final List<DocFragmentObject> all = wrap(menu).listAll();
+            final List<DocFragment> all = wrap(menu).listAll();
             assertThat(all).hasSize(1);
         }
 
@@ -112,14 +119,16 @@ public class DocFragmentObjectMenu_IntegTest extends DocFragmentModuleIntegTestA
             FixtureScript fs = new DocFragmentModuleTearDown();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
-            wrap(menu).create("Faz");
+
+            final DocFragmentData random = fakeDataService.enums().anyOf(DocFragmentData.class);
+            random.createWith(wrap(menu));
             transactionService.nextTransaction();
 
             // then
             expectedExceptions.expectCause(causalChainContains(SQLIntegrityConstraintViolationException.class));
 
             // when
-            wrap(menu).create("Faz");
+            random.createWith(wrap(menu));
             transactionService.nextTransaction();
         }
 

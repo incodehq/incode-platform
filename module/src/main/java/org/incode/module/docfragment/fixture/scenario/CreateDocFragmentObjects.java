@@ -28,7 +28,7 @@ import com.google.common.collect.Lists;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
-import org.incode.module.docfragment.dom.impl.DocFragmentObject;
+import org.incode.module.docfragment.dom.impl.DocFragment;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -48,25 +48,26 @@ public class CreateDocFragmentObjects extends FixtureScript {
      * The objects created by this fixture (output).
      */
     @Getter
-    private final List<DocFragmentObject> docFragmentObjects = Lists.newArrayList();
+    private final List<DocFragment> docFragments = Lists.newArrayList();
 
     @Override
     protected void execute(final ExecutionContext ec) {
 
+        final int max = DocFragmentData.values().length;
+
         // defaults
-        final int number = defaultParam("number", ec, 3);
+        final int number = defaultParam("number", ec, max);
 
         // validate
-        final int max = DocFragmentObjectData.values().length;
         if(number < 0 || number > max) {
             throw new IllegalArgumentException(String.format("number must be in range [0,%d)", max));
         }
 
         // execute
         for (int i = 0; i < number; i++) {
-            final DocFragmentObject domainObject = DocFragmentObjectData.values()[i].createWith(repositoryService);
+            final DocFragment domainObject = DocFragmentData.values()[i].createWith(repositoryService);
             ec.addResult(this, domainObject);
-            docFragmentObjects.add(domainObject);
+            docFragments.add(domainObject);
         }
     }
 

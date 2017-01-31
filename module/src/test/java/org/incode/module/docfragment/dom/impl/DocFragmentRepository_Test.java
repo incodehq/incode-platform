@@ -37,7 +37,7 @@ import org.apache.isis.core.unittestsupport.jmocking.JUnitRuleMockery2.Mode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DocFragmentObjectRepository_Test {
+public class DocFragmentRepository_Test {
 
     @Rule
     public JUnitRuleMockery2 context = JUnitRuleMockery2.createFor(Mode.INTERFACES_AND_CLASSES);
@@ -48,16 +48,16 @@ public class DocFragmentObjectRepository_Test {
     @Mock
     RepositoryService mockRepositoryService;
 
-    DocFragmentObjectRepository docfragmentObjectRepository;
+    DocFragmentRepository docfragmentRepository;
 
     @Before
     public void setUp() throws Exception {
-        docfragmentObjectRepository = new DocFragmentObjectRepository();
-        docfragmentObjectRepository.repositoryService = mockRepositoryService;
-        docfragmentObjectRepository.serviceRegistry = mockServiceRegistry;
+        docfragmentRepository = new DocFragmentRepository();
+        docfragmentRepository.repositoryService = mockRepositoryService;
+        docfragmentRepository.serviceRegistry = mockServiceRegistry;
     }
 
-    public static class Create extends DocFragmentObjectRepository_Test {
+    public static class Create extends DocFragmentRepository_Test {
 
         @Test
         public void happyCase() throws Exception {
@@ -68,7 +68,7 @@ public class DocFragmentObjectRepository_Test {
             final Sequence seq = context.sequence("create");
             context.checking(new Expectations() {
                 {
-                    oneOf(mockServiceRegistry).injectServicesInto(with(any(DocFragmentObject.class)));
+                    oneOf(mockServiceRegistry).injectServicesInto(with(any(DocFragment.class)));
                     inSequence(seq);
 
                     oneOf(mockRepositoryService).persist(with(nameOf(someName)));
@@ -78,17 +78,17 @@ public class DocFragmentObjectRepository_Test {
             });
 
             // when
-            final DocFragmentObject obj = docfragmentObjectRepository.create(someName);
+            final DocFragment obj = docfragmentRepository.create("invoice.Invoice", "due", "/ITA", "The invoice should be paid by {this.dueDate}");
 
             // then
             assertThat(obj).isNotNull();
             assertThat(obj.getName()).isEqualTo(someName);
         }
 
-        private static Matcher<DocFragmentObject> nameOf(final String name) {
-            return new TypeSafeMatcher<DocFragmentObject>() {
+        private static Matcher<DocFragment> nameOf(final String name) {
+            return new TypeSafeMatcher<DocFragment>() {
                 @Override
-                protected boolean matchesSafely(final DocFragmentObject item) {
+                protected boolean matchesSafely(final DocFragment item) {
                     return name.equals(item.getName());
                 }
 
@@ -100,23 +100,23 @@ public class DocFragmentObjectRepository_Test {
         }
     }
 
-    public static class ListAll extends DocFragmentObjectRepository_Test {
+    public static class ListAll extends DocFragmentRepository_Test {
 
         @Test
         public void happyCase() throws Exception {
 
             // given
-            final List<DocFragmentObject> all = Lists.newArrayList();
+            final List<DocFragment> all = Lists.newArrayList();
 
             context.checking(new Expectations() {
                 {
-                    oneOf(mockRepositoryService).allInstances(DocFragmentObject.class);
+                    oneOf(mockRepositoryService).allInstances(DocFragment.class);
                     will(returnValue(all));
                 }
             });
 
             // when
-            final List<DocFragmentObject> list = docfragmentObjectRepository.listAll();
+            final List<DocFragment> list = docfragmentRepository.listAll();
 
             // then
             assertThat(list).isEqualTo(all);

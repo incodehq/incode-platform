@@ -65,7 +65,8 @@ Copyright 2017 Dan Haywood
         <isis.version>1.13.2</isis.version>
 
         <isis-module-fakedata.version>1.13.0</isis-module-fakedata.version>
-        
+        <isis-module-freemarker.version>1.13.1</isis-module-freemarker.version>
+
         <incode-module-base.version>1.13.5</incode-module-base.version>
 
         <lombok.version>1.16.6</lombok.version>
@@ -198,6 +199,13 @@ Copyright 2017 Dan Haywood
             <artifactId>incode-module-base-dom</artifactId>
             <version>${incode-module-base.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.module.freemarker</groupId>
+            <artifactId>isis-module-freemarker-dom</artifactId>
+            <version>${isis-module-freemarker.version}</version>
+        </dependency>
+
         <!-- testing -->
         <dependency>
             <groupId>com.danhaywood.mavendeps</groupId>
