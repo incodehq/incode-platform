@@ -1,4 +1,5 @@
 = isis-module-freemarker
+:toc:
 
 image:https://travis-ci.org/isisaddons/isis-module-freemarker.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-freemarker]
 
