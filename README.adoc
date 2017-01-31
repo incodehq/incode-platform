@@ -1,5 +1,6 @@
 = incode-module-alias
 :_imagesdir: ./
+:toc:
 
 image:https://travis-ci.org/incodehq/incode-module-alias.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-alias]
 
