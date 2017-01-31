@@ -81,7 +81,8 @@ class PdfViewerPanel extends ScalarPanelAbstract implements IResourceListener {
             MarkupContainer zoomOutButton = createComponent("zoomOut", config);
             MarkupContainer currentPageLabel = createComponent("currentPage", config);
             MarkupContainer totalPagesLabel = createComponent("totalPages", config);
-            containerIfRegular.addOrReplace(pdfJsPanel, prevPageButton, nextPageButton, zoomInButton, zoomOutButton, currentPageLabel, totalPagesLabel);
+            MarkupContainer zoomLevelSelect = createComponent("currentZoom", config);
+            containerIfRegular.addOrReplace(pdfJsPanel, prevPageButton, nextPageButton, zoomInButton, zoomOutButton, currentPageLabel, totalPagesLabel, zoomLevelSelect);
             containerIfRegular.addOrReplace(new NotificationPanel(ID_FEEDBACK, pdfJsPanel, new ComponentFeedbackMessageFilter(pdfJsPanel)));
         } else {
             permanentlyHide(ID_SCALAR_VALUE, ID_FEEDBACK);
