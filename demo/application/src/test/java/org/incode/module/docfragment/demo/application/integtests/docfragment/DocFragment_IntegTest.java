@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.docfragment.integtests.tests;
+package org.incode.module.docfragment.demo.application.integtests.docfragment;
 
 import java.sql.Timestamp;
 
@@ -33,9 +33,8 @@ import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleu
 import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusVersionTimestamp;
 
 import org.incode.module.docfragment.dom.impl.DocFragment;
-import org.incode.module.docfragment.fixture.scenario.CreateDocFragmentObjects;
+import org.incode.module.docfragment.fixture.scenario.CreateDocFragments;
 import org.incode.module.docfragment.fixture.teardown.DocFragmentModuleTearDown;
-import org.incode.module.docfragment.integtests.DocFragmentModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -52,7 +51,7 @@ public class DocFragment_IntegTest extends DocFragmentModuleIntegTestAbstract {
     public void setUp() throws Exception {
         // given
         fixtureScripts.runFixtureScript(new DocFragmentModuleTearDown(), null);
-        CreateDocFragmentObjects fs = new CreateDocFragmentObjects().setNumber(1);
+        CreateDocFragments fs = new CreateDocFragments().setNumber(1);
         fixtureScripts.runFixtureScript(fs, null);
         transactionService.nextTransaction();
 

@@ -64,7 +64,6 @@ Copyright 2017 Dan Haywood
     <properties>
         <isis.version>1.13.2</isis.version>
 
-        <isis-module-fakedata.version>1.13.0</isis-module-fakedata.version>
         <isis-module-freemarker.version>1.13.1</isis-module-freemarker.version>
 
         <incode-module-base.version>1.13.5</incode-module-base.version>
@@ -212,13 +211,6 @@ Copyright 2017 Dan Haywood
             <artifactId>isistesting</artifactId>
             <version>${mavendeps-isistesting.version}</version>
             <type>pom</type>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.isisaddons.module.fakedata</groupId>
-            <artifactId>isis-module-fakedata-dom</artifactId>
-            <version>${isis-module-fakedata.version}</version>
             <scope>test</scope>
         </dependency>
 

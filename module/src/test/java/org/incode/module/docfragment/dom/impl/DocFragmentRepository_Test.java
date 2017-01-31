@@ -62,7 +62,7 @@ public class DocFragmentRepository_Test {
         @Test
         public void happyCase() throws Exception {
 
-            final String someName = "Foobar";
+            final String someName = "due";
 
             // given
             final Sequence seq = context.sequence("create");

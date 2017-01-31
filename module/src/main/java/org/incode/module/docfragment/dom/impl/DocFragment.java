@@ -112,7 +112,7 @@ public class DocFragment implements Comparable<DocFragment> {
             domainEvent = ObjectTypeDomainEvent.class,
             editing = Editing.DISABLED
     )
-    @Title(sequence = "1", append = ": ")
+    @Title(sequence = "1", append = ":")
     @Getter @Setter
     private String objectType;
     //endregion
@@ -128,7 +128,7 @@ public class DocFragment implements Comparable<DocFragment> {
             domainEvent = NameDomainEvent.class,
             editing = Editing.DISABLED
     )
-    @Title(sequence = "2", append = " @ ")
+    @Title(sequence = "2", append = " @")
     @Getter @Setter
     private String name;
     //endregion

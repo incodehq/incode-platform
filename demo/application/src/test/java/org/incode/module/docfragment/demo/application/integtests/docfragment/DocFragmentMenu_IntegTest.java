@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.docfragment.integtests.tests;
+package org.incode.module.docfragment.demo.application.integtests.docfragment;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
@@ -38,10 +38,9 @@ import org.isisaddons.module.fakedata.dom.FakeDataService;
 
 import org.incode.module.docfragment.dom.impl.DocFragment;
 import org.incode.module.docfragment.dom.menu.DocFragmentMenu;
-import org.incode.module.docfragment.fixture.scenario.CreateDocFragmentObjects;
+import org.incode.module.docfragment.fixture.scenario.CreateDocFragments;
 import org.incode.module.docfragment.fixture.scenario.DocFragmentData;
 import org.incode.module.docfragment.fixture.teardown.DocFragmentModuleTearDown;
-import org.incode.module.docfragment.integtests.DocFragmentModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -63,7 +62,7 @@ public class DocFragmentMenu_IntegTest extends DocFragmentModuleIntegTestAbstrac
 
             // given
             fixtureScripts.runFixtureScript(new DocFragmentModuleTearDown(), null);
-            CreateDocFragmentObjects fs = new CreateDocFragmentObjects();
+            CreateDocFragments fs = new CreateDocFragments();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 

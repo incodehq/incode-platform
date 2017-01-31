@@ -16,21 +16,30 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.docfragment.demo.application.integtests;
+package org.incode.module.docfragment.demo.application.integtests.docfragment;
 
+import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.junit.BeforeClass;
 
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.fixturescripts.FixtureScripts;
+import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecification;
+import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationProvider;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
 import org.apache.isis.core.integtestsupport.scenarios.ScenarioExecutionForIntegration;
 
-import org.incode.module.docfragment.demo.application.manifest.DemoAppAppManifest;
+import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-public abstract class DemoAppIntegTestAbstract extends IntegrationTestAbstract {
+import org.incode.module.docfragment.DocFragmentModuleManifest;
+
+public abstract class DocFragmentModuleIntegTestAbstract extends IntegrationTestAbstract {
 
     @BeforeClass
     public static void initSystem() {
@@ -39,7 +48,7 @@ public abstract class DemoAppIntegTestAbstract extends IntegrationTestAbstract {
         if(isft == null) {
             isft = new IsisSystemForTest.Builder()
                     .withLoggingAt(org.apache.log4j.Level.INFO)
-                    .with(new DemoAppAppManifest() {
+                    .with(new DocFragmentModuleManifest() {
                         @Override
                         public Map<String, String> getConfigurationProperties() {
                             final Map<String, String> map = Maps.newHashMap();
@@ -48,7 +57,15 @@ public abstract class DemoAppIntegTestAbstract extends IntegrationTestAbstract {
                             Util.withIsisIntegTestProperties(map);
                             return map;
                         }
+
+                        @Override public List<Class<?>> getAdditionalServices() {
+                            return Lists.newArrayList(
+                                    ModuleFixtureScriptsSpecificationProvider.class,
+                                    FakeDataService.class
+                            );
+                        }
                     })
+
                     .build();
             isft.setUpSystem();
             IsisSystemForTest.set(isft);
@@ -58,4 +75,12 @@ public abstract class DemoAppIntegTestAbstract extends IntegrationTestAbstract {
         new ScenarioExecutionForIntegration();
     }
 
+    @DomainService(nature = NatureOfService.DOMAIN)
+    public static class ModuleFixtureScriptsSpecificationProvider implements FixtureScriptsSpecificationProvider {
+        @Override
+        public FixtureScriptsSpecification getSpecification() {
+            return FixtureScriptsSpecification.builder("org.incode.module.docfragment").with(
+                    FixtureScripts.MultipleExecutionStrategy.EXECUTE_ONCE_BY_VALUE).build();
+        }
+    }
 }
