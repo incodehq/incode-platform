@@ -35,7 +35,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Accessors(chain = true)
-public class CreateDocFragmentObjects extends FixtureScript {
+public class CreateDocFragments extends FixtureScript {
 
     /**
      * The number of objects to create, up to 10; optional, defaults to 3.

@@ -103,6 +103,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.incode.module.docfragment</groupId>
+            <artifactId>incode-module-docfragment-dom</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.danhaywood.mavendeps</groupId>
             <artifactId>isistesting</artifactId>
             <version>${mavendeps-isistesting.version}</version>

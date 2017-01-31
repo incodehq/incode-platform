@@ -17,7 +17,7 @@
  *  under the License.
  */
 
-package org.incode.module.docfragment.demo.module.fixture.scenario2;
+package org.incode.module.docfragment.demo.module.fixture.invoices;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.repository.RepositoryService;

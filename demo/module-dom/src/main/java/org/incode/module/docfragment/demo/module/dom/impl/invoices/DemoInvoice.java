@@ -18,6 +18,9 @@
  */
 package org.incode.module.docfragment.demo.module.dom.impl.invoices;
 
+import java.io.IOException;
+
+import javax.inject.Inject;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 
@@ -29,6 +32,10 @@ import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import org.incode.module.docfragment.dom.api.DocFragmentService;
+import org.incode.module.docfragment.dom.types.AtPathType;
+
+import freemarker.template.TemplateException;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -50,10 +57,11 @@ import lombok.Setter;
 public class DemoInvoice implements Comparable<DemoInvoice> {
 
     @Builder
-    public DemoInvoice(final int num, final LocalDate dueBy, final int numDays) {
+    public DemoInvoice(final int num, final LocalDate dueBy, final int numDays, final String atPath) {
         this.num = num;
         this.dueBy = dueBy;
         this.numDays = numDays;
+        this.atPath = atPath;
     }
 
     @javax.jdo.annotations.Column(allowsNull = "false")
@@ -64,15 +72,49 @@ public class DemoInvoice implements Comparable<DemoInvoice> {
 
 
     @javax.jdo.annotations.Column(allowsNull = "false")
-    @Property(editing = Editing.DISABLED)
+    @Property(editing = Editing.ENABLED)
     @Getter @Setter
     private LocalDate dueBy;
+    public void modifyDueBy(LocalDate dueBy) {
+        setDueBy(dueBy);
+        updateRendered();
+    }
 
 
     @javax.jdo.annotations.Column(allowsNull = "false")
-    @Property(editing = Editing.DISABLED)
+    @Property(editing = Editing.ENABLED)
     @Getter @Setter
     private int numDays;
+    public void modifyNumDays(int numDays) {
+        setNumDays(numDays);
+        updateRendered();
+    }
+
+
+    @javax.jdo.annotations.Column(allowsNull = "false", length = AtPathType.Meta.MAX_LEN)
+    @Property(editing = Editing.DISABLED)
+    @Getter @Setter
+    private String atPath;
+
+
+    @Property(editing = Editing.DISABLED)
+    @javax.jdo.annotations.Column(allowsNull = "true")
+    @Getter @Setter
+    private String renderedDue;
+
+
+
+    protected void updateRendered() {
+        setRenderedDue(render());
+    }
+
+    private String render() {
+        try {
+            return docFragmentService.render(this, "due");
+        } catch (IOException | TemplateException e) {
+            return null;
+        }
+    }
 
 
 
@@ -87,6 +129,9 @@ public class DemoInvoice implements Comparable<DemoInvoice> {
         return ObjectContracts.compare(this, other, "num");
     }
     //endregion
+
+    @Inject
+    DocFragmentService docFragmentService;
 
 
 }

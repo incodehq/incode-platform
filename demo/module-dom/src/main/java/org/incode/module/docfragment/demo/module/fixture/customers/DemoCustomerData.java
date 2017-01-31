@@ -17,27 +17,42 @@
  *  under the License.
  */
 
-package org.incode.module.docfragment.demo.module.fixture.scenario;
+package org.incode.module.docfragment.demo.module.fixture.customers;
 
-import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
 import org.incode.module.docfragment.demo.module.dom.impl.customers.DemoCustomer;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.experimental.Accessors;
 
+@AllArgsConstructor
+@Getter
 @Accessors(chain = true)
-public class CreateDemoCustomers extends FixtureScript {
+public enum DemoCustomerData {
 
-    @Override
-    protected void execute(final ExecutionContext ec) {
-        for (DemoCustomerData demoCustomerData: DemoCustomerData.values()) {
-            final DemoCustomer demoCustomer = demoCustomerData.createWith(repositoryService);
-            ec.addResult(this, demoCustomer);
-        }
+    Mr_Joe_Bloggs("Mr", "Joe", "Bloggs", "/"),
+    Ms_Joanna_Smith("Ms", "Joanna", "Smith", "/ITA"),
+    Mrs_Betty_Flintstone("Mrs", "Betty", "Flintstone", "/FRA"),
+    ;
+
+    private final String title;
+    private final String firstName;
+    private final String lastName;
+    private final String atPath;
+
+    @Programmatic
+    public DemoCustomer createWith(final RepositoryService repositoryService) {
+        final DemoCustomer domainObject = DemoCustomer.builder()
+                .title(title)
+                .firstName(firstName)
+                .lastName(lastName)
+                .atPath(atPath)
+                .build();
+        repositoryService.persist(domainObject);
+        return domainObject;
     }
-
-    @javax.inject.Inject
-    RepositoryService repositoryService;
 
 }

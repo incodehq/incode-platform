@@ -37,19 +37,19 @@ import freemarker.template.TemplateException;
 public class DocFragmentService {
 
     @Programmatic
-    public String render(final Object domainObject, String property) throws IOException, TemplateException {
+    public String render(final Object domainObject, String name) throws IOException, TemplateException {
 
-        String fqMemberName = objectTypeMemberFor(domainObject, property);
+        final String objectType = objectTypeFor(domainObject);
         String atPath = applicationTenancyService.atPathFor(domainObject);
 
-        final DocFragment fragment = repo.findFragment(fqMemberName, atPath);
+        final DocFragment fragment = repo.findFragment(objectType, name, atPath);
 
         return fragment != null ? fragment.render(domainObject) : null;
     }
 
-    protected String objectTypeMemberFor(final Object domainObject, final String property) {
-        final String objectType = metaModelService3.toObjectType(domainObject.getClass());
-        return objectType + "#" + property;
+
+    private String objectTypeFor(final Object domainObject) {
+        return metaModelService3.toObjectType(domainObject.getClass());
     }
 
     @Inject

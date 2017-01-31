@@ -37,15 +37,17 @@ public class DocFragmentRepository {
     }
 
     /**
-     * @param applicableTo - eg <code>com.mycompany.customer.Customer#firstName</code>
+     * @param objectType
+     * @param name
      * @param atPath
      */
-    public DocFragment findFragment(final String applicableTo, final String atPath) {
+    public DocFragment findFragment(final String objectType, final String name, final String atPath) {
         return repositoryService.firstMatch(
                 new QueryDefault<>(
                         DocFragment.class,
-                        "findByApplicableToAndAtPath",
-                        "applicableTo", applicableTo,
+                        "findByObjectTypeAndNameAndAtPath",
+                        "objectType", objectType,
+                        "name", name,
                         "atPath", atPath));
     }
 

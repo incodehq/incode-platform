@@ -35,6 +35,12 @@
                                 <c:property id="dueBy"/>
                                 <c:property id="numDays"/>
                             </c:fieldSet>
+                            <c:fieldSet name="atPath">
+                                <c:property id="atPath"/>
+                            </c:fieldSet>
+                            <c:fieldSet name="Rendered">
+                                <c:property id="renderedDue"/>
+                            </c:fieldSet>
                         </bs3:col>
                     </bs3:row>
                 </bs3:tab>

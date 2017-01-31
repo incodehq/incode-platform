@@ -17,42 +17,27 @@
  *  under the License.
  */
 
-package org.incode.module.docfragment.demo.module.fixture.scenario2;
+package org.incode.module.docfragment.demo.module.fixture.customers;
 
-import org.joda.time.LocalDate;
-
-import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
-import org.incode.module.docfragment.demo.module.dom.impl.invoices.DemoInvoice;
+import org.incode.module.docfragment.demo.module.dom.impl.customers.DemoCustomer;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.experimental.Accessors;
 
-@AllArgsConstructor
-@Getter
 @Accessors(chain = true)
-public enum DemoInvoiceData {
+public class CreateDemoCustomers extends FixtureScript {
 
-    Invoice1(1, new LocalDate(2017,1,31), 30),
-    Invoice2(2, new LocalDate(2017,1,20), 60),
-    Invoice3(3, new LocalDate(2017,1,25), 90),
-    ;
-
-    private final int num;
-    private final LocalDate dueBy;
-    private final int numDay;
-
-    @Programmatic
-    public DemoInvoice createWith(final RepositoryService repositoryService) {
-        final DemoInvoice domainObject = DemoInvoice.builder()
-                .num(num)
-                .dueBy(dueBy)
-                .numDays(numDay)
-                .build();
-        repositoryService.persist(domainObject);
-        return domainObject;
+    @Override
+    protected void execute(final ExecutionContext ec) {
+        for (DemoCustomerData demoCustomerData: DemoCustomerData.values()) {
+            final DemoCustomer demoCustomer = demoCustomerData.createWith(repositoryService);
+            ec.addResult(this, demoCustomer);
+        }
     }
+
+    @javax.inject.Inject
+    RepositoryService repositoryService;
 
 }

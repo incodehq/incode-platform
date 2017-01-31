@@ -21,8 +21,9 @@ package org.incode.module.docfragment.demo.application.fixture.scenarios;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.module.docfragment.demo.application.fixture.teardown.DemoAppTearDown;
-import org.incode.module.docfragment.demo.module.fixture.scenario.CreateDemoCustomers;
-import org.incode.module.docfragment.fixture.scenario.CreateDocFragmentObjects;
+import org.incode.module.docfragment.demo.module.fixture.customers.CreateDemoCustomers;
+import org.incode.module.docfragment.demo.module.fixture.invoices.CreateDemoInvoices;
+import org.incode.module.docfragment.fixture.scenario.CreateDocFragments;
 
 public class DemoAppFixture extends FixtureScript {
 
@@ -36,7 +37,8 @@ public class DemoAppFixture extends FixtureScript {
         // execute
         ec.executeChild(this, new DemoAppTearDown());
         ec.executeChild(this, new CreateDemoCustomers());
-        ec.executeChild(this, new CreateDocFragmentObjects());
+        ec.executeChild(this, new CreateDemoInvoices());
+        ec.executeChild(this, new CreateDocFragments());
 
     }
 }

@@ -26,6 +26,8 @@ import java.util.Map;
 import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import org.isisaddons.module.freemarker.dom.FreeMarkerModule;
+
 import org.incode.module.docfragment.demo.application.fixture.DemoAppApplicationModuleFixtureSubmodule;
 import org.incode.module.docfragment.demo.application.services.DemoAppApplicationModuleServicesSubmodule;
 import org.incode.module.docfragment.demo.module.dom.DemoModuleDomSubmodule;
@@ -45,7 +47,9 @@ public class DemoAppAppManifest implements AppManifest {
                 DocFragmentModuleDomModule.class,
                 DemoModuleDomSubmodule.class,
                 DemoAppApplicationModuleFixtureSubmodule.class,
-                DemoAppApplicationModuleServicesSubmodule.class
+                DemoAppApplicationModuleServicesSubmodule.class,
+
+                FreeMarkerModule.class  // required by DocFragmentModule, do not yet support transitivity
         );
     }
 

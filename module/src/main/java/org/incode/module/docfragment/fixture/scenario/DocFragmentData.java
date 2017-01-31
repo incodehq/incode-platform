@@ -34,12 +34,12 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public enum DocFragmentData {
 
-    Customer_hello_GLOBAL("customers.Customer", "hello", "/", "Hello, nice to meet you, {this.title} {this.lastName}"),
-    Customer_hello_ITA("customers.Customer", "hello", "/ITA", "Ciao, piacere di conoscerti, {this.title} {this.lastName}"),
-    Customer_hello_FRA("customers.Customer", "hello", "/FRA", "Bonjour, {this.title} {this.lastName}, agréable de vous rencontrer"),
-    Customer_goodbye_GLOBAL("customers.Customer", "goodbye", "/", "So long, {this.firstName}"),
-    Invoice_due_GLOBAL("invoices.Invoice", "due", "/", "The invoice will be due on the {this.dueDate}, payable in {this.numDaysToPay} days"),
-    Invoice_due_FRA("invoices.Invoice", "due", "/FRA", "La facture sera due sur le {this.dueDate}, payable dans {this.numDaysToPay} jours");
+    Customer_hello_GLOBAL("docfragmentdemo.DemoCustomer", "hello", "/", "Hello, nice to meet you, ${title} ${lastName}"),
+    Customer_hello_ITA("docfragmentdemo.DemoCustomer", "hello", "/ITA", "Ciao, piacere di conoscerti, ${title} ${lastName}"),
+    Customer_hello_FRA("docfragmentdemo.DemoCustomer", "hello", "/FRA", "Bonjour, ${title} ${lastName}, agréable de vous rencontrer"),
+    Customer_goodbye_GLOBAL("docfragmentdemo.DemoCustomer", "goodbye", "/", "So long, ${firstName}"),
+    Invoice_due_GLOBAL("docfragmentdemo.DemoInvoice", "due", "/", "The invoice will be due on the ${dueBy}, payable in ${numDays} days"),
+    Invoice_due_FRA("docfragmentdemo.DemoInvoice", "due", "/FRA", "La facture sera due sur le ${dueBy}, payable dans ${numDays} jours");
 
     private final String objectType;
     private final String name;

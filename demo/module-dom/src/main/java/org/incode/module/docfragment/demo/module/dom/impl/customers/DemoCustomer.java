@@ -27,6 +27,8 @@ import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import org.incode.module.docfragment.dom.types.AtPathType;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,36 +45,54 @@ import lombok.Setter;
         strategy= VersionStrategy.DATE_TIME,
         column="version")
 @DomainObject(
-        objectType = "docfragmentdemo.DemoCustomer"
-)
+        objectType = "docfragmentdemo.DemoCustomer")
 public class DemoCustomer implements Comparable<DemoCustomer> {
 
     @Builder
-    public DemoCustomer(final String title, final String firstName, final String lastName) {
+    public DemoCustomer(final String title, final String firstName, final String lastName, final String atPath) {
         this.title = title;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.atPath = atPath;
     }
 
     @javax.jdo.annotations.Column(allowsNull = "false", length = 10)
-    @Property(editing = Editing.DISABLED)
+    @Property(editing = Editing.ENABLED)
     @Getter @Setter
     @Title(sequence = "1", append = ". ")
     private String title;
 
 
     @javax.jdo.annotations.Column(allowsNull = "false", length = 40)
-    @Property(editing = Editing.DISABLED)
+    @Property(editing = Editing.ENABLED)
     @Getter @Setter
     @Title(sequence = "2", append = " ")
     private String firstName;
 
 
     @javax.jdo.annotations.Column(allowsNull = "false", length = 40)
-    @Property(editing = Editing.DISABLED)
+    @Property(editing = Editing.ENABLED)
     @Getter @Setter
     @Title(sequence = "3")
     private String lastName;
+
+
+    @javax.jdo.annotations.Column(allowsNull = "false", length = AtPathType.Meta.MAX_LEN)
+    @Property(editing = Editing.ENABLED)
+    @Getter @Setter
+    private String atPath;
+
+
+
+    @Property(editing = Editing.DISABLED)
+    @javax.jdo.annotations.Column(allowsNull = "true", length = 200)
+    @Getter @Setter
+    private String renderedHello;
+
+    @Property(editing = Editing.DISABLED)
+    @javax.jdo.annotations.Column(allowsNull = "true", length = 200)
+    @Getter @Setter
+    private String renderedGoodbye;
 
 
 

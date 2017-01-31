@@ -17,12 +17,14 @@
  *  under the License.
  */
 
-package org.incode.module.docfragment.demo.module.fixture.scenario;
+package org.incode.module.docfragment.demo.module.fixture.invoices;
+
+import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
-import org.incode.module.docfragment.demo.module.dom.impl.customers.DemoCustomer;
+import org.incode.module.docfragment.demo.module.dom.impl.invoices.DemoInvoice;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,23 +33,25 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @Getter
 @Accessors(chain = true)
-public enum DemoCustomerData {
+public enum DemoInvoiceData {
 
-    Mr_Joe_Bloggs("Mr", "Joe", "Bloggs"),
-    Ms_Joanna_Smith("Ms", "Joanna", "Smith"),
-    Mrs_Betty_Flintstone("Mrs", "Betty", "Flintstone"),
+    Invoice1(1, new LocalDate(2017,1,31), 30, "/"),
+    Invoice2(2, new LocalDate(2017,1,20), 60, "/ITA"),
+    Invoice3(3, new LocalDate(2017,1,25), 90, "/FRA"),
     ;
 
-    private final String title;
-    private final String firstName;
-    private final String lastName;
+    private final int num;
+    private final LocalDate dueBy;
+    private final int numDay;
+    private final String atPath;
 
     @Programmatic
-    public DemoCustomer createWith(final RepositoryService repositoryService) {
-        final DemoCustomer domainObject = DemoCustomer.builder()
-                .title(title)
-                .firstName(firstName)
-                .lastName(lastName)
+    public DemoInvoice createWith(final RepositoryService repositoryService) {
+        final DemoInvoice domainObject = DemoInvoice.builder()
+                .num(num)
+                .dueBy(dueBy)
+                .numDays(numDay)
+                .atPath(atPath)
                 .build();
         repositoryService.persist(domainObject);
         return domainObject;

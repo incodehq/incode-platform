@@ -35,6 +35,13 @@
                                 <c:property id="firstName"/>
                                 <c:property id="lastName"/>
                             </c:fieldSet>
+                            <c:fieldSet name="atPath">
+                                <c:property id="atPath"/>
+                            </c:fieldSet>
+                            <c:fieldSet name="Rendered">
+                                <c:property id="renderedHello"/>
+                                <c:property id="renderedGoodbye"/>
+                            </c:fieldSet>
                         </bs3:col>
                     </bs3:row>
                 </bs3:tab>
