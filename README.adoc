@@ -1,4 +1,6 @@
 = isis-module-sessionlogger
+:_imagesdir: ./
+:toc:
 
 image:https://travis-ci.org/isisaddons/isis-module-sessionlogger.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-sessionlogger]
 
