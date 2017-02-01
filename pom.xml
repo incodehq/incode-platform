@@ -175,7 +175,7 @@
 
   <modules>
     <module>module</module>
-    <module>demo/module-dom</module>
+    <module>demo/module-demo-dom</module>
     <module>demo/application</module>
     <module>demo/webapp</module>
   </modules>
