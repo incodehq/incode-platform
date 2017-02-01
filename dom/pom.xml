@@ -221,12 +221,6 @@ Copyright 2014~2015 Dan Haywood
             </dependency>
 
             <dependency>
-                <groupId>org.apache.isis.core</groupId>
-                <artifactId>isis-core-fixturesupport</artifactId>
-                <version>${isis.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>org.isisaddons.module.fakedata</groupId>
                 <artifactId>isis-module-fakedata-dom</artifactId>
                 <version>${isis-module-fakedata.version}</version>
@@ -263,11 +257,6 @@ Copyright 2014~2015 Dan Haywood
         <dependency>
             <groupId>org.incode.module.base</groupId>
             <artifactId>incode-module-base-dom</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-fixturesupport</artifactId>
         </dependency>
 
         <dependency>
