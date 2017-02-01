@@ -32,7 +32,7 @@ language governing permissions and limitations under the License.
     <properties>
         <isis.version>1.13.0</isis.version>
 
-        <isis-module-freemarker.version>1.14.0-SNAPSHOT</isis-module-freemarker.version>
+        <isis-module-freemarker.version>1.13.2</isis-module-freemarker.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
