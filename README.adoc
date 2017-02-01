@@ -87,18 +87,17 @@ The programmatic API to the module is `DocFragmentService`:
 public class DocFragmentService {
 
     public String render(
-            Object domainObject,                        // <1>
-            String name)                                // <2>
+            Object domainObject,                                            // <1>
+            String name)                                                    // <2>
         throws IOException, TemplateException, RenderException { ... }
+        ...
     }
 
-    public String render(                               // <3>
-            Object domainObject,
-            String name,
-            String atPath)
+    public String render(                                                   // <3>
+                Object domainObject,
+                String name,
+                String atPath)
         throws IOException, TemplateException, RenderException { ... }
-    }
-    ...
 }
 ----
 <1> provides the state for the interpolation into the fragment's template text, and is also used to determine the `atPath` of the `DocFragment` to use to render
@@ -116,8 +115,8 @@ The module defines a single (mandatory) SPI service, `ApplicationTenancyService`
 [source,java]
 ----
 public interface ApplicationTenancyService {
-    String atPathFor(final Object domainObjectToRender);    // <1>
-    List<String> atPaths();                                 // <2>
+    String atPathFor(Object domainObject);          // <1>
+    List<String> atPaths();                         // <2>
 }
 ----
 <1> Used by `DocFragmentService` to determine the `atPath` of the domain object, so as to lookup the appropriate `DocFragment`.
@@ -146,7 +145,7 @@ To run the demo app:
 
 [source]
 ----
-mvn -pl webapp -Dmavenmixin-jettywar jetty:run
+mvn -pl demo/webapp -Dmavenmixin-jettywar jetty:run
 ----
 
 Then log on using user: `sven`, password: `pass`
