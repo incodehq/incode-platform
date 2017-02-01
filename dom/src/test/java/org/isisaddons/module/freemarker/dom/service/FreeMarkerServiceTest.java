@@ -49,14 +49,13 @@ public class FreeMarkerServiceTest {
     @Before
     public void setUp() throws Exception {
         service = new FreeMarkerService();
-
         service.configurationService = mockConfigurationService;
 
-        service.init();
+        service.init(ImmutableMap.of(FreeMarkerService.JODA_SUPPORT_KEY, "true"));
     }
 
     @Test
-    public void usingProperties() throws Exception {
+    public void using_properties() throws Exception {
 
         // given
         Map<String, String> properties = ImmutableMap.of("user", "John Doe");
@@ -81,7 +80,7 @@ public class FreeMarkerServiceTest {
     }
 
     @Test
-    public void usingDataModel() throws Exception {
+    public void using_data_model() throws Exception {
 
         // given
         final UserDataModel userDataModel = new UserDataModel();
@@ -114,7 +113,7 @@ public class FreeMarkerServiceTest {
     }
 
     @Test
-    public void differentTemplates() throws Exception {
+    public void different_templates() throws Exception {
 
         // given
         final UserDataModel userDataModel = new UserDataModel();
@@ -132,7 +131,7 @@ public class FreeMarkerServiceTest {
     }
 
     @Test
-    public void differentTemplatesPerVersioning() throws Exception {
+    public void different_templates_per_versioning() throws Exception {
 
         // given
         final UserDataModel userDataModel = new UserDataModel();

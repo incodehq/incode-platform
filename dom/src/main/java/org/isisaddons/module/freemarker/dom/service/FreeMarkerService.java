@@ -23,26 +23,48 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
+import org.joda.time.base.AbstractInstant;
+
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.config.ConfigurationService;
 
 import freemarker.template.Configuration;
+import freemarker.template.DefaultObjectWrapper;
+import freemarker.template.SimpleDate;
 import freemarker.template.Template;
+import freemarker.template.TemplateDateModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
+import freemarker.template.TemplateModel;
+import freemarker.template.TemplateModelException;
 
 @DomainService(nature = NatureOfService.DOMAIN)
 public class FreeMarkerService {
+
+    public static final String JODA_SUPPORT_KEY = "isis.services.addons.freemarker.jodaSupport";
+    private static final String JODA_SUPPORT_DEFAULT = "true";
 
     private TemplateLoaderFromThreadLocal templateLoader;
     private Configuration cfg;
 
     @PostConstruct
-    public void init() {
+    public void init(Map<String,String> properties) {
         cfg = new Configuration(Configuration.VERSION_2_3_25);
         cfg.setDefaultEncoding("UTF-8");
+
+        String jodaSupportStr = properties.get(JODA_SUPPORT_KEY);;
+        if(jodaSupportStr == null) {
+            jodaSupportStr = JODA_SUPPORT_DEFAULT;
+        }
+        boolean jodaSupport = Boolean.parseBoolean(jodaSupportStr);
+        if(jodaSupport) {
+            cfg.setObjectWrapper(new JodaObjectWrapper());
+        }
 
         final String deploymentType = configurationService.getProperty("isis.deploymentType");
         final boolean isPrototyping = deploymentType == null || deploymentType.contains("prototyping");
@@ -79,6 +101,32 @@ public class FreeMarkerService {
         });
     }
 
+
+
+    private static class JodaObjectWrapper extends DefaultObjectWrapper {
+        public JodaObjectWrapper() {
+            super(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
+        }
+
+        @Override
+        public TemplateModel wrap(final Object obj) throws TemplateModelException {
+            // handles DateTime
+            if (obj instanceof AbstractInstant) {
+                return new SimpleDate(((AbstractInstant) obj).toDate(), TemplateDateModel.DATETIME);
+            }
+            if (obj instanceof LocalDate) {
+                return new SimpleDate(((LocalDate) obj).toDate(), TemplateDateModel.DATE);
+            }
+            if (obj instanceof LocalDateTime) {
+                return new SimpleDate(((LocalDateTime) obj).toDate(), TemplateDateModel.DATETIME);
+            }
+            if (obj instanceof LocalTime) {
+                return new SimpleDate(((LocalTime) obj).toDateTimeToday().toDate(), TemplateDateModel.TIME);
+            }
+
+            return super.wrap(obj);
+        }
+    }
 
     //region > injected services
     @Inject
