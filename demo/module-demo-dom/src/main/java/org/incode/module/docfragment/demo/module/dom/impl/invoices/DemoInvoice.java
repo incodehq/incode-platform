@@ -52,7 +52,7 @@ import lombok.Setter;
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column="id")
 @javax.jdo.annotations.Version(
-        strategy= VersionStrategy.DATE_TIME,
+        strategy= VersionStrategy.VERSION_NUMBER,
         column="version")
 @DomainObject(
         objectType = "docfragmentdemo.DemoInvoice"

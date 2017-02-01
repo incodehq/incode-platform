@@ -40,6 +40,7 @@ import org.apache.isis.core.metamodel.specloader.SpecificationLoader;
 import org.incode.module.docfragment.dom.impl.DocFragment;
 import org.incode.module.docfragment.dom.impl.DocFragmentRepository;
 import org.incode.module.docfragment.dom.spi.ApplicationTenancyService;
+import org.incode.module.docfragment.dom.types.TemplateTextType;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
@@ -69,7 +70,7 @@ public class DocFragmentMenu {
             final String name,
             @ParameterLayout(named="At path")
             final String atPath,
-            @ParameterLayout(named="Template text")
+            @ParameterLayout(named="Template text", multiLine = TemplateTextType.Meta.MULTILINE)
             final String templateText
             ) {
         return docfragmentRepository.create(objectType, name, atPath, templateText);

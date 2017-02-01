@@ -20,9 +20,6 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.jmock.Expectations;
 import org.jmock.Sequence;
 import org.jmock.auto.Mock;
@@ -62,8 +59,6 @@ public class DocFragmentRepository_Test {
         @Test
         public void happyCase() throws Exception {
 
-            final String someName = "due";
-
             // given
             final Sequence seq = context.sequence("create");
             context.checking(new Expectations() {
@@ -71,32 +66,21 @@ public class DocFragmentRepository_Test {
                     oneOf(mockServiceRegistry).injectServicesInto(with(any(DocFragment.class)));
                     inSequence(seq);
 
-                    oneOf(mockRepositoryService).persist(with(nameOf(someName)));
+                    oneOf(mockRepositoryService).persist(with(any(DocFragment.class)));
                     inSequence(seq);
                 }
 
             });
 
             // when
-            final DocFragment obj = docfragmentRepository.create("invoice.Invoice", "due", "/ITA", "The invoice should be paid by {this.dueDate}");
+            final DocFragment obj = docfragmentRepository.create("invoice.Invoice", "due", "/ITA", "The invoice should be paid by ${dueDate}");
 
             // then
             assertThat(obj).isNotNull();
-            assertThat(obj.getName()).isEqualTo(someName);
-        }
-
-        private static Matcher<DocFragment> nameOf(final String name) {
-            return new TypeSafeMatcher<DocFragment>() {
-                @Override
-                protected boolean matchesSafely(final DocFragment item) {
-                    return name.equals(item.getName());
-                }
-
-                @Override
-                public void describeTo(final Description description) {
-                    description.appendText("has name of '" + name + "'");
-                }
-            };
+            assertThat(obj.getObjectType()).isEqualTo("invoice.Invoice");
+            assertThat(obj.getName()).isEqualTo("due");
+            assertThat(obj.getAtPath()).isEqualTo("/ITA");
+            assertThat(obj.getTemplateText()).isEqualTo("The invoice should be paid by ${dueDate}");
         }
     }
 

@@ -64,7 +64,7 @@ Copyright 2017 Dan Haywood
     <properties>
         <isis.version>1.13.2</isis.version>
 
-        <isis-module-freemarker.version>1.13.1</isis-module-freemarker.version>
+        <isis-module-freemarker.version>1.13.2</isis-module-freemarker.version>
 
         <incode-module-base.version>1.13.5</incode-module-base.version>
 

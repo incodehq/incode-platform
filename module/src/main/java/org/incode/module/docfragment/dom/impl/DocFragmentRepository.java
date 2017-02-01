@@ -18,6 +18,7 @@
  */
 package org.incode.module.docfragment.dom.impl;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.isis.applib.annotation.DomainObject;
@@ -54,13 +55,18 @@ public class DocFragmentRepository {
             final String objectType,
             final String name,
             final String atPath) {
-        return repositoryService.firstMatch(
+
+        // workaround, the ORDER BY atPath DESC doesn't seem to be honoured...
+        final List<DocFragment> ts = repositoryService.allMatches(
                 new QueryDefault<>(
                         DocFragment.class,
                         "findByObjectTypeAndNameAndApplicableToAtPath",
                         "objectType", objectType,
                         "name", name,
                         "atPath", atPath));
+        Collections.sort(ts, (o1, o2) -> o2.getAtPath().length() - o1.getAtPath().length());
+
+        return ts.isEmpty() ? null : ts.get(0);
     }
 
     @Programmatic

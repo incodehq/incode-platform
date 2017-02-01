@@ -29,6 +29,7 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.services.message.MessageService;
@@ -58,7 +59,7 @@ import lombok.Setter;
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column="id")
 @javax.jdo.annotations.Version(
-        strategy= VersionStrategy.DATE_TIME,
+        strategy= VersionStrategy.VERSION_NUMBER,
         column="version")
 @javax.jdo.annotations.Queries({
         @javax.jdo.annotations.Query(
@@ -164,6 +165,9 @@ public class DocFragment implements Comparable<DocFragment> {
             domainEvent = TemplateTextDomainEvent.class,
             editing = Editing.ENABLED
     )
+    @PropertyLayout(
+            multiLine = TemplateTextType.Meta.MULTILINE
+    )
     @Getter @Setter
     private String templateText;
     //endregion
@@ -191,6 +195,7 @@ public class DocFragment implements Comparable<DocFragment> {
                 getFreemarkerTemplateName(), getTemplateText(), domainObject);
 
     }
+
 
     private String getFreemarkerTemplateName() { return String.format("%s#%s:%s", getObjectType(), getName(), getAtPath()); }
     //endregion

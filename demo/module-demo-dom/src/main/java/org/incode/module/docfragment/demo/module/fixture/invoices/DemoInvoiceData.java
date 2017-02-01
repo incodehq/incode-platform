@@ -25,14 +25,14 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
 import org.incode.module.docfragment.demo.module.dom.impl.invoices.DemoInvoice;
+import org.incode.module.fixturesupport.dom.data.DemoData;
+import org.incode.module.fixturesupport.dom.data.DemoDataPersistAbstract;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.experimental.Accessors;
 
 @AllArgsConstructor
 @Getter
-@Accessors(chain = true)
 public enum DemoInvoiceData implements DemoData<DemoInvoiceData, DemoInvoice> {
 
     Invoice1(1, new LocalDate(2017,1,31), 30, "/"),
@@ -46,13 +46,13 @@ public enum DemoInvoiceData implements DemoData<DemoInvoiceData, DemoInvoice> {
     private final String atPath;
 
     @Programmatic
-    public DemoInvoice createWith(final RepositoryService repositoryService) {
+    public DemoInvoice persistWith(final RepositoryService repositoryService) {
         return Util.persist(this, repositoryService);
     }
 
     @Programmatic
     public DemoInvoice findWith(final RepositoryService repositoryService) {
-        return Util.firstMatch(this, repositoryService);
+        return Util.uniqueMatch(this, repositoryService);
     }
 
     @Programmatic
@@ -64,5 +64,12 @@ public enum DemoInvoiceData implements DemoData<DemoInvoiceData, DemoInvoice> {
                     .atPath(atPath)
                     .build();
     }
+
+    public static class PersistScript extends DemoDataPersistAbstract<PersistScript, DemoInvoiceData, DemoInvoice> {
+        public PersistScript() {
+            super(DemoInvoiceData.class);
+        }
+    }
+
 
 }

@@ -38,9 +38,6 @@
                             <c:fieldSet name="atPath">
                                 <c:property id="atPath"/>
                             </c:fieldSet>
-                            <c:fieldSet name="Rendered">
-                                <c:property id="rendered"/>
-                            </c:fieldSet>
                         </bs3:col>
                     </bs3:row>
                 </bs3:tab>
@@ -63,8 +60,13 @@
             </bs3:tabGroup>
         </bs3:col>
         <bs3:col span="6">
-            <bs3:tabGroup  unreferencedCollections="true">
-            </bs3:tabGroup>
+            <c:fieldSet name="Rendered">
+                <c:property id="rendered" multiLine="10"/>
+            </c:fieldSet>
+        </bs3:col>
+    </bs3:row>
+    <bs3:row>
+        <bs3:col span="12" unreferencedCollections="true">
         </bs3:col>
     </bs3:row>
 </bs3:grid>

@@ -47,19 +47,8 @@ public class DocFragmentService_IntegTest extends DocFragmentModuleIntegTestAbst
     TransactionService transactionService;
 
     @Inject
-    DocFragmentService docFragmentService;
-    @Inject
-    DemoInvoiceRepository demoInvoiceRepository;
-    @Inject
-    DemoCustomerRepository demoCustomerRepository;
-
-    @Inject
     RepositoryService repositoryService;
 
-    DemoCustomer demoCustomer;
-    DemoInvoice demoInvoice;
-
-    DocFragment docFragment;
 
     @Before
     public void setUp() throws Exception {
@@ -81,9 +70,8 @@ public class DocFragmentService_IntegTest extends DocFragmentModuleIntegTestAbst
             invoice1.render(invoice1.default0Render());
 
             // then
-            assertThat(invoice1.getRendered()).isEqualTo("The invoice will be due on the 2017-01-31, payable in 30 days");
+            assertThat(invoice1.getRendered()).isEqualTo("The invoice will be due on the 31-Jan-2017, payable in 30 days");
         }
-
     }
 
 

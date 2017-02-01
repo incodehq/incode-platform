@@ -24,6 +24,8 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 
 import org.incode.module.docfragment.dom.impl.DocFragment;
 import org.incode.module.docfragment.dom.menu.DocFragmentMenu;
+import org.incode.module.fixturesupport.dom.data.DemoData;
+import org.incode.module.fixturesupport.dom.data.DemoDataPersistAbstract;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,7 +34,7 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @Getter
 @Accessors(chain = true)
-public enum DocFragmentData {
+public enum DocFragmentData implements DemoData<DocFragmentData, DocFragment> {
 
     Customer_hello_GLOBAL("docfragmentdemo.DemoCustomer", "hello", "/", "Hello, nice to meet you, ${title} ${lastName}"),
     Customer_hello_ITA("docfragmentdemo.DemoCustomer", "hello", "/ITA", "Ciao, piacere di conoscerti, ${title} ${lastName}"),
@@ -47,15 +49,18 @@ public enum DocFragmentData {
     private final String templateText;
 
     @Programmatic
-    public DocFragment createWith(final RepositoryService repositoryService) {
-        final DocFragment domainObject = DocFragment.builder()
+    public DocFragment asDomainObject() {
+        return DocFragment.builder()
                 .objectType(this.getObjectType())
                 .name(this.getName())
                 .atPath(this.getAtPath())
                 .templateText(this.getTemplateText())
                 .build();
-        repositoryService.persist(domainObject);
-        return domainObject;
+    }
+
+    @Programmatic
+    public DocFragment persistWith(final RepositoryService repositoryService) {
+        return Util.persist(this, repositoryService);
     }
 
     @Programmatic
@@ -65,7 +70,13 @@ public enum DocFragmentData {
 
     @Programmatic
     public DocFragment findWith(final RepositoryService repositoryService) {
-        return repositoryService.uniqueMatch(DocFragment.class, x -> name().equals(x.getName()));
+        return Util.firstMatch(this, repositoryService);
+    }
+
+    public static class PersistScript extends DemoDataPersistAbstract<PersistScript, DocFragmentData, DocFragment> {
+        public PersistScript() {
+            super(DocFragmentData.class);
+        }
     }
 
 }

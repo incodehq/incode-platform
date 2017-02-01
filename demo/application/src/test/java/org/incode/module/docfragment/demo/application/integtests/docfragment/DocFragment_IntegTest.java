@@ -18,8 +18,6 @@
  */
 package org.incode.module.docfragment.demo.application.integtests.docfragment;
 
-import java.sql.Timestamp;
-
 import javax.inject.Inject;
 
 import org.junit.Before;
@@ -30,11 +28,11 @@ import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.services.wrapper.DisabledException;
 import org.apache.isis.applib.services.xactn.TransactionService;
 import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusIdLong;
-import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusVersionTimestamp;
+import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusVersionLong;
 
 import org.incode.module.docfragment.demo.application.integtests.DocFragmentModuleIntegTestAbstract;
 import org.incode.module.docfragment.dom.impl.DocFragment;
-import org.incode.module.docfragment.fixture.scenario.CreateDocFragments;
+import org.incode.module.docfragment.fixture.scenario.DocFragmentData;
 import org.incode.module.docfragment.fixture.teardown.DocFragmentModuleTearDown;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -52,11 +50,11 @@ public class DocFragment_IntegTest extends DocFragmentModuleIntegTestAbstract {
     public void setUp() throws Exception {
         // given
         fixtureScripts.runFixtureScript(new DocFragmentModuleTearDown(), null);
-        CreateDocFragments fs = new CreateDocFragments().setNumber(1);
+        final DocFragmentData.PersistScript fs = new DocFragmentData.PersistScript().setNumber(1);
         fixtureScripts.runFixtureScript(fs, null);
         transactionService.nextTransaction();
 
-        domainObject = fs.getDocFragments().get(0);
+        domainObject = fs.getObjects().get(0);
 
         assertThat(domainObject).isNotNull();
     }
@@ -194,14 +192,14 @@ public class DocFragment_IntegTest extends DocFragmentModuleIntegTestAbstract {
         }
     }
 
-    public static class DataNucleusVersionTimestamp extends DocFragment_IntegTest {
+    public static class DataNucleusVersionLong extends DocFragment_IntegTest {
 
         @Test
         public void should_be_populated() throws Exception {
             // when
-            final Timestamp timestamp = mixin(Persistable_datanucleusVersionTimestamp.class, domainObject).$$();
+            final Long version = mixin(Persistable_datanucleusVersionLong.class, domainObject).$$();
             // then
-            assertThat(timestamp).isNotNull();
+            assertThat(version).isNotNull();
         }
     }
 

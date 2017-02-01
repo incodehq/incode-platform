@@ -18,8 +18,10 @@
  */
 package org.incode.module.docfragment.demo.application.integtests;
 
+import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.junit.BeforeClass;
@@ -32,6 +34,9 @@ import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationPr
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
 import org.apache.isis.core.integtestsupport.scenarios.ScenarioExecutionForIntegration;
+
+import org.isisaddons.module.fakedata.dom.FakeDataService;
+import org.isisaddons.module.freemarker.dom.service.FreeMarkerService;
 
 import org.incode.module.docfragment.demo.application.manifest.DemoAppAppManifest;
 
@@ -51,15 +56,17 @@ public abstract class DocFragmentModuleIntegTestAbstract extends IntegrationTest
                             Util.withJavaxJdoRunInMemoryProperties(map);
                             Util.withDataNucleusProperties(map);
                             Util.withIsisIntegTestProperties(map);
+                            map.put(FreeMarkerService.JODA_SUPPORT_KEY, "true");
                             return map;
                         }
 
-//                        @Override public List<Class<?>> getAdditionalServices() {
-//                            return Lists.newArrayList(
-//                                    ModuleFixtureScriptsSpecificationProvider.class,
-//                                    FakeDataService.class
-//                            );
-//                        }
+                        @Override public List<Class<?>> getAdditionalServices() {
+                            return Lists.newArrayList(
+                                    FakeDataService.class
+                            );
+
+
+                        }
                     })
 
                     .build();

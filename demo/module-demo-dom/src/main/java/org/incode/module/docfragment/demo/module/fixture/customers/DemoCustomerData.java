@@ -23,6 +23,8 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
 import org.incode.module.docfragment.demo.module.dom.impl.customers.DemoCustomer;
+import org.incode.module.fixturesupport.dom.data.DemoData;
+import org.incode.module.fixturesupport.dom.data.DemoDataPersistAbstract;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,7 +33,7 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @Getter
 @Accessors(chain = true)
-public enum DemoCustomerData {
+public enum DemoCustomerData implements DemoData<DemoCustomerData, DemoCustomer> {
 
     Mr_Joe_Bloggs("Mr", "Joe", "Bloggs", "/"),
     Ms_Joanna_Smith("Ms", "Joanna", "Smith", "/ITA"),
@@ -44,15 +46,29 @@ public enum DemoCustomerData {
     private final String atPath;
 
     @Programmatic
-    public DemoCustomer createWith(final RepositoryService repositoryService) {
-        final DemoCustomer domainObject = DemoCustomer.builder()
+    public DemoCustomer asDomainObject() {
+        return DemoCustomer.builder()
                 .title(title)
                 .firstName(firstName)
                 .lastName(lastName)
                 .atPath(atPath)
                 .build();
-        repositoryService.persist(domainObject);
-        return domainObject;
+    }
+
+    @Programmatic
+    public DemoCustomer persistWith(final RepositoryService repositoryService) {
+        return Util.persist(this, repositoryService);
+    }
+
+    @Programmatic
+    public DemoCustomer findWith(final RepositoryService repositoryService) {
+        return Util.firstMatch(this, repositoryService);
+    }
+
+    public static class PersistScript extends DemoDataPersistAbstract<PersistScript, DemoCustomerData, DemoCustomer> {
+        public PersistScript() {
+            super(DemoCustomerData.class);
+        }
     }
 
 }

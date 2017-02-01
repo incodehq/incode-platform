@@ -39,7 +39,6 @@ import org.isisaddons.module.fakedata.dom.FakeDataService;
 import org.incode.module.docfragment.demo.application.integtests.DocFragmentModuleIntegTestAbstract;
 import org.incode.module.docfragment.dom.impl.DocFragment;
 import org.incode.module.docfragment.dom.menu.DocFragmentMenu;
-import org.incode.module.docfragment.fixture.scenario.CreateDocFragments;
 import org.incode.module.docfragment.fixture.scenario.DocFragmentData;
 import org.incode.module.docfragment.fixture.teardown.DocFragmentModuleTearDown;
 
@@ -63,7 +62,7 @@ public class DocFragmentMenu_IntegTest extends DocFragmentModuleIntegTestAbstrac
 
             // given
             fixtureScripts.runFixtureScript(new DocFragmentModuleTearDown(), null);
-            CreateDocFragments fs = new CreateDocFragments();
+            DocFragmentData.PersistScript fs = new DocFragmentData.PersistScript();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 
@@ -71,10 +70,10 @@ public class DocFragmentMenu_IntegTest extends DocFragmentModuleIntegTestAbstrac
             final List<DocFragment> all = wrap(menu).listAll();
 
             // then
-            assertThat(all).hasSize(fs.getDocFragments().size());
+            assertThat(all).hasSize(fs.getObjects().size());
 
             DocFragment domainObject = wrap(all.get(0));
-            assertThat(domainObject.getName()).isEqualTo(fs.getDocFragments().get(0).getName());
+            assertThat(domainObject.getName()).isEqualTo(fs.getObjects().get(0).getName());
         }
 
         @Test
