@@ -41,7 +41,7 @@
     <properties>
         <isis.version>1.13.2</isis.version>
         
-        <incode-module-docfragment.version>1.13.0</incode-module-docfragment.version>
+        <incode-module-docfragment.version>1.14.0-SNAPSHOT</incode-module-docfragment.version>
 
         <lombok.version>1.16.12</lombok.version>
         
