@@ -32,6 +32,7 @@ import org.apache.isis.applib.services.xactn.TransactionService;
 import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusIdLong;
 import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusVersionTimestamp;
 
+import org.incode.module.docfragment.demo.application.integtests.DocFragmentModuleIntegTestAbstract;
 import org.incode.module.docfragment.dom.impl.DocFragment;
 import org.incode.module.docfragment.fixture.scenario.CreateDocFragments;
 import org.incode.module.docfragment.fixture.teardown.DocFragmentModuleTearDown;
@@ -139,7 +140,7 @@ public class DocFragment_IntegTest extends DocFragmentModuleIntegTestAbstract {
         }
 
         @Test
-        public void iseditable() throws Exception {
+        public void is_editable() throws Exception {
 
             // given
             final String newText = "new templateText";
@@ -154,6 +155,9 @@ public class DocFragment_IntegTest extends DocFragmentModuleIntegTestAbstract {
         }
 
     }
+
+
+
 
 
 

@@ -20,8 +20,10 @@ package org.incode.module.docfragment.dom.impl;
 
 import java.util.List;
 
+import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.repository.RepositoryService;
@@ -37,20 +39,31 @@ public class DocFragmentRepository {
     }
 
     /**
-     * @param objectType
+     * Returns the most applicable {@link DocFragment} by atPath
+     *
+     * <p>
+     * for example, will match "/ITA/CAR" precedence over "/ITA" precedence over "/".
+     * </p>
+     *
+     * @param objectType - the (as per {@link DomainObject#objectType() objectType} of the object to be used to interpolate
      * @param name
      * @param atPath
      */
-    public DocFragment findFragment(final String objectType, final String name, final String atPath) {
+    @Programmatic
+    public DocFragment findByObjectTypeAndNameAndApplicableToAtPath(
+            final String objectType,
+            final String name,
+            final String atPath) {
         return repositoryService.firstMatch(
                 new QueryDefault<>(
                         DocFragment.class,
-                        "findByObjectTypeAndNameAndAtPath",
+                        "findByObjectTypeAndNameAndApplicableToAtPath",
                         "objectType", objectType,
                         "name", name,
                         "atPath", atPath));
     }
 
+    @Programmatic
     public DocFragment create(final String objectType, final String name, final String atPath, final String templateText) {
         final DocFragment object = new DocFragment(objectType, name, atPath, templateText);
         serviceRegistry.injectServicesInto(object);

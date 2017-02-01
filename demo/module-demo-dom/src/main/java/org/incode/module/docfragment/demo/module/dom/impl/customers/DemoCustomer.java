@@ -18,17 +18,28 @@
  */
 package org.incode.module.docfragment.demo.module.dom.impl.customers;
 
+import java.io.IOException;
+import java.util.List;
+
+import javax.inject.Inject;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 
+import com.google.common.collect.Lists;
+
+import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import org.incode.module.docfragment.dom.api.DocFragmentService;
 import org.incode.module.docfragment.dom.types.AtPathType;
 
+import freemarker.template.TemplateException;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -87,25 +98,57 @@ public class DemoCustomer implements Comparable<DemoCustomer> {
     @Property(editing = Editing.DISABLED)
     @javax.jdo.annotations.Column(allowsNull = "true", length = 200)
     @Getter @Setter
-    private String renderedHello;
-
-    @Property(editing = Editing.DISABLED)
-    @javax.jdo.annotations.Column(allowsNull = "true", length = 200)
-    @Getter @Setter
-    private String renderedGoodbye;
+    private String rendered;
 
 
+    @Action(semantics = SemanticsOf.IDEMPOTENT)
+    public DemoCustomer render(
+            @ParameterLayout(named = "Fragment name")
+            final String fragmentName) {
+        final String rendered = doRender(fragmentName);
+        setRendered(rendered);
+        return this;
+    }
 
-    //region > toString, compareTo
+    public List<String> choices0Render() {
+        return Lists.newArrayList("hello", "goodbye");
+    }
+
+    private String doRender(final String name) {
+        try {
+            return docFragmentService.render(this, name);
+        } catch (IOException | TemplateException e) {
+            return "failed to render";
+        }
+    }
+
+
+    //region > toString, compareTo, equals, hashCode
+    private static final String[] PROPERTY_NAMES = {"title", "firstName", "lastName"};
+
     @Override
     public String toString() {
-        return ObjectContracts.toString(this, "title", "firstName", "lastName");
+        return ObjectContracts.toString(this, PROPERTY_NAMES);
     }
 
     @Override
     public int compareTo(final DemoCustomer other) {
-        return ObjectContracts.compare(this, other, "title", "firstName", "lastName");
+        return ObjectContracts.compare(this, other, PROPERTY_NAMES);
     }
+
+    @Override
+    public boolean equals(final Object o) {
+        return ObjectContracts.equals(this, o, PROPERTY_NAMES);
+    }
+
+    @Override
+    public int hashCode() {
+        return ObjectContracts.hashCode(this, PROPERTY_NAMES);
+    }
+
     //endregion
+
+    @Inject
+    DocFragmentService docFragmentService;
 
 }

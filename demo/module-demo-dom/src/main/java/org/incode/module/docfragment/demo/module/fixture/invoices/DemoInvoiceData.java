@@ -33,7 +33,7 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @Getter
 @Accessors(chain = true)
-public enum DemoInvoiceData {
+public enum DemoInvoiceData implements DemoData<DemoInvoiceData, DemoInvoice> {
 
     Invoice1(1, new LocalDate(2017,1,31), 30, "/"),
     Invoice2(2, new LocalDate(2017,1,20), 60, "/ITA"),
@@ -47,14 +47,22 @@ public enum DemoInvoiceData {
 
     @Programmatic
     public DemoInvoice createWith(final RepositoryService repositoryService) {
-        final DemoInvoice domainObject = DemoInvoice.builder()
-                .num(num)
-                .dueBy(dueBy)
-                .numDays(numDay)
-                .atPath(atPath)
-                .build();
-        repositoryService.persist(domainObject);
-        return domainObject;
+        return Util.persist(this, repositoryService);
+    }
+
+    @Programmatic
+    public DemoInvoice findWith(final RepositoryService repositoryService) {
+        return Util.firstMatch(this, repositoryService);
+    }
+
+    @Programmatic
+    public DemoInvoice asDomainObject() {
+        return DemoInvoice.builder()
+                    .num(num)
+                    .dueBy(dueBy)
+                    .numDays(numDay)
+                    .atPath(atPath)
+                    .build();
     }
 
 }

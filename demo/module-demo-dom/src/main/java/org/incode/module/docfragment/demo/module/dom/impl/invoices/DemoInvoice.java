@@ -26,9 +26,12 @@ import javax.jdo.annotations.VersionStrategy;
 
 import org.joda.time.LocalDate;
 
+import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.util.ObjectContracts;
 
@@ -75,20 +78,12 @@ public class DemoInvoice implements Comparable<DemoInvoice> {
     @Property(editing = Editing.ENABLED)
     @Getter @Setter
     private LocalDate dueBy;
-    public void modifyDueBy(LocalDate dueBy) {
-        setDueBy(dueBy);
-        updateRendered();
-    }
 
 
     @javax.jdo.annotations.Column(allowsNull = "false")
     @Property(editing = Editing.ENABLED)
     @Getter @Setter
     private int numDays;
-    public void modifyNumDays(int numDays) {
-        setNumDays(numDays);
-        updateRendered();
-    }
 
 
     @javax.jdo.annotations.Column(allowsNull = "false", length = AtPathType.Meta.MAX_LEN)
@@ -100,34 +95,56 @@ public class DemoInvoice implements Comparable<DemoInvoice> {
     @Property(editing = Editing.DISABLED)
     @javax.jdo.annotations.Column(allowsNull = "true")
     @Getter @Setter
-    private String renderedDue;
+    private String rendered;
 
 
-
-    protected void updateRendered() {
-        setRenderedDue(render());
+    @Action(semantics = SemanticsOf.IDEMPOTENT)
+    public DemoInvoice render(
+            @ParameterLayout(named = "Fragment name")
+            final String fragmentName) {
+        final String rendered = doRender(fragmentName);
+        setRendered(rendered);
+        return this;
     }
 
-    private String render() {
+    public String default0Render() {
+        return "due";
+    }
+    
+
+    private String doRender(final String name) {
         try {
-            return docFragmentService.render(this, "due");
+            return docFragmentService.render(this, name);
         } catch (IOException | TemplateException e) {
-            return null;
+            return "failed to render";
         }
     }
 
 
 
-    //region > toString, compareTo
+    //region > toString, compareTo, equals, hashCode
+    private static final String[] PROPERTY_NAMES = {"num"};
+
     @Override
     public String toString() {
-        return ObjectContracts.toString(this, "num");
+        return ObjectContracts.toString(this, PROPERTY_NAMES);
     }
 
     @Override
     public int compareTo(final DemoInvoice other) {
-        return ObjectContracts.compare(this, other, "num");
+        return ObjectContracts.compare(this, other, PROPERTY_NAMES);
     }
+
+    @Override
+    public boolean equals(final Object o) {
+        return ObjectContracts.equals(this, o, PROPERTY_NAMES);
+    }
+
+    @Override
+    public int hashCode() {
+        return ObjectContracts.hashCode(this, PROPERTY_NAMES);
+    }
+
     //endregion
 
     @Inject

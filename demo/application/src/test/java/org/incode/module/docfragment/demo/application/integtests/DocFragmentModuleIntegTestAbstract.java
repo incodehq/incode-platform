@@ -16,12 +16,10 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.docfragment.demo.application.integtests.docfragment;
+package org.incode.module.docfragment.demo.application.integtests;
 
-import java.util.List;
 import java.util.Map;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.junit.BeforeClass;
@@ -35,9 +33,7 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
 import org.apache.isis.core.integtestsupport.scenarios.ScenarioExecutionForIntegration;
 
-import org.isisaddons.module.fakedata.dom.FakeDataService;
-
-import org.incode.module.docfragment.DocFragmentModuleManifest;
+import org.incode.module.docfragment.demo.application.manifest.DemoAppAppManifest;
 
 public abstract class DocFragmentModuleIntegTestAbstract extends IntegrationTestAbstract {
 
@@ -48,7 +44,7 @@ public abstract class DocFragmentModuleIntegTestAbstract extends IntegrationTest
         if(isft == null) {
             isft = new IsisSystemForTest.Builder()
                     .withLoggingAt(org.apache.log4j.Level.INFO)
-                    .with(new DocFragmentModuleManifest() {
+                    .with(new DemoAppAppManifest() {
                         @Override
                         public Map<String, String> getConfigurationProperties() {
                             final Map<String, String> map = Maps.newHashMap();
@@ -58,12 +54,12 @@ public abstract class DocFragmentModuleIntegTestAbstract extends IntegrationTest
                             return map;
                         }
 
-                        @Override public List<Class<?>> getAdditionalServices() {
-                            return Lists.newArrayList(
-                                    ModuleFixtureScriptsSpecificationProvider.class,
-                                    FakeDataService.class
-                            );
-                        }
+//                        @Override public List<Class<?>> getAdditionalServices() {
+//                            return Lists.newArrayList(
+//                                    ModuleFixtureScriptsSpecificationProvider.class,
+//                                    FakeDataService.class
+//                            );
+//                        }
                     })
 
                     .build();

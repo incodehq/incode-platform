@@ -36,17 +36,49 @@ import freemarker.template.TemplateException;
 @DomainService(nature = NatureOfService.DOMAIN)
 public class DocFragmentService {
 
+    /**
+     * @param domainObject used to determine the {@link ApplicationTenancyService#atPathFor(Object) atPath} of the {@link DocFragment} to use to render, and also provides the state for the interpolation into the fragment's {@link DocFragment#getTemplateText() template text}
+     * @param name corresponds to the {@link DocFragment#getName() name} of the {@link DocFragment} to use to render.
+     *
+     * @return the rendered text, or <code>null</code> if could not locate any {@link DocFragment}.
+     *
+     * @throws IOException
+     * @throws TemplateException
+     */
     @Programmatic
-    public String render(final Object domainObject, String name) throws IOException, TemplateException {
+    public String render(
+                final Object domainObject,
+                final String name)
+            throws IOException, TemplateException {
 
+        final String atPath = applicationTenancyService.atPathFor(domainObject);
+        return render(domainObject, name, atPath);
+    }
+
+    /**
+     * Overload of {@link #render(Object, String)}, but allowing the atPath to be specified explicitly rather than inferred from the supplied domain object.
+     *
+     * @param domainObject provides the state for the interpolation into the fragment's {@link DocFragment#getTemplateText() template text}
+     * @param name corresponds to the {@link DocFragment#getName() name} of the {@link DocFragment} to use to render.
+     * @param atPath corrsponds to the {@link ApplicationTenancyService#atPathFor(Object) atPath} of the {@link DocFragment} to use to render
+     *
+     * @return the rendered text, or <code>null</code> if could not locate any {@link DocFragment}.
+     *
+     * @throws IOException
+     * @throws TemplateException
+     */
+    @Programmatic
+    public String render(
+                final Object domainObject,
+                final String name,
+                final String atPath)
+            throws IOException, TemplateException {
         final String objectType = objectTypeFor(domainObject);
-        String atPath = applicationTenancyService.atPathFor(domainObject);
 
-        final DocFragment fragment = repo.findFragment(objectType, name, atPath);
+        final DocFragment fragment = repo.findByObjectTypeAndNameAndApplicableToAtPath(objectType, name, atPath);
 
         return fragment != null ? fragment.render(domainObject) : null;
     }
-
 
     private String objectTypeFor(final Object domainObject) {
         return metaModelService3.toObjectType(domainObject.getClass());

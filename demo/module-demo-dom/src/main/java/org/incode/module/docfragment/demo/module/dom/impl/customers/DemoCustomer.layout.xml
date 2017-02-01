@@ -39,8 +39,7 @@
                                 <c:property id="atPath"/>
                             </c:fieldSet>
                             <c:fieldSet name="Rendered">
-                                <c:property id="renderedHello"/>
-                                <c:property id="renderedGoodbye"/>
+                                <c:property id="rendered"/>
                             </c:fieldSet>
                         </bs3:col>
                     </bs3:row>

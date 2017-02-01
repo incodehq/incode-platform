@@ -76,7 +76,7 @@
 
     <modules>
         <module>module</module>
-        <module>demo/module-dom</module>
+        <module>demo/module-demo-dom</module>
     </modules>
 
 

@@ -4,7 +4,11 @@
 
 image:https://travis-ci.org/incodehq/incode-module-docfragment.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-docfragment]
 
-This module, intended for use with link:http://isis.apache.org[Apache Isis], provides ...
+This module, intended for use with link:http://isis.apache.org[Apache Isis], is a simple wrapper around the (non-ASF) http://github.com/isisaddons/isis-module-freemarker[Isis addons' freemarker] module to interpolate fragments of text with respect to a domain object.
+
+The module defines only a single entity - `DocFragment` - which holds the template text.
+The result of the interpolation is a simple string; normally the calling object will then persist this somewhere (eg for use when rendering a `Document` as provided by the https://github.com/incodehq/incode-module-document[Incode Document] module).
+
 
 
 == Screenshots
@@ -17,10 +21,74 @@ TODO: to document
 
 == Domain Model
 
-[WARNING]
-====
-TODO: to document
-====
+The following class diagram highlights the main concepts:
+
+image::http://yuml.me/038077f9[link="http://yuml.me/038077f9", width="600px"]
+
+The central concept is `DocFragment`, which holds some Freemarker template text with placeholders to be interpolated by the state of a domain object.
+It is identified by an `objectType`, a `name` and an `atPath`:
+
+* the `objectType` represents the type of object that this fragment is intended to interpolate.
+This is an alias for the type's concrete class, and is usually defined by `@DomainObject(objectType=...)`.
+
+* the `name` distinguishes between potentially many fragments for a given object type.
+There are no restrictions as to its value; it might correspond to the name of a property of the object, or of an action, or anything else.
+
+* the `atPath` (application tenancy path) allows multiple translations of the fragment.
+The module will attempt to match the most specific translation, eg "/ITA" (Italy) will take precedence over "/" (Global) if both are present.
+
+
+The domain object is used in two ways:
+
+* its state is used when interpolating the template text
+* (optionally but typically) it is used to infer the `atPath`, in other words which `DocFragment` translation to use.
+
+The API and mandatory SPIs for the module are discussed below.
+
+== API
+
+The programmatic API to the module is `DocFragmentService`:
+
+[source,java]
+----
+public class DocFragmentService {
+
+    public String render(
+            Object domainObject,                        // <1>
+            String name)                                // <2>
+        throws IOException, TemplateException { ... }
+    }
+
+    public String render(                               // <3>
+            Object domainObject,
+            String name,
+            String atPath)
+        throws IOException, TemplateException { ... }
+    }
+    ...
+}
+----
+<1> provides the state for the interpolation into the fragment's template text, and is also used to determine the `atPath` of the `DocFragment` to use to render
+<2> corresponds to the `name` of the `DocFragment` to use to render.
+<3> overload that allows the `atPath` to be specified explicitly (rather than inferred from the supplied domain object)
+
+The `render(...)` methods will return either the rendered text, or `null` if could not locate any `DocFragment`.
+
+
+== SPI
+
+The module defines a single (mandatory) SPI service, `ApplicationTenancyService`:
+
+[source,java]
+----
+public interface ApplicationTenancyService {
+    String atPathFor(final Object domainObjectToRender);    // <1>
+    List<String> atPaths();                                 // <2>
+}
+----
+<1> Used by `DocFragmentService` to determine the `atPath` of the domain object, so as to lookup the appropriate `DocFragment`.
+<2> Used by `DocFragmentMenu` to list available choices of atPaths when creating new ``DocFragment``s.
+
 
 == How to run the Demo App
 
