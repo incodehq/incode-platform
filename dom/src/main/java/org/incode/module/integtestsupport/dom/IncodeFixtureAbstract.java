@@ -18,28 +18,10 @@
  */
 package org.incode.module.integtestsupport.dom;
 
-import javax.inject.Inject;
-
-import org.apache.isis.applib.fixturescripts.FixtureScript;
-import org.apache.isis.applib.fixturescripts.FixtureScripts;
-import org.apache.isis.applib.services.xactn.TransactionService;
-
-public abstract class IncodeFixtureAbstract extends FixtureScript {
-
-    protected void runFixtureScript(final FixtureScript... fixtureScriptList) {
-        if(fixtureScriptList.length == 1) {
-            fixtureScripts.runFixtureScript(fixtureScriptList[0], null);
-        } else {
-            fixtureScripts.runFixtureScript(new FixtureScript() {
-                @Override
-                protected void execute(final ExecutionContext executionContext) {
-                    for (FixtureScript fixtureScript : fixtureScriptList) {
-                        executionContext.executeChild(this, fixtureScript);
-                    }
-                }
-            }, null);
-        }
-        nextTransaction();
-    }
+/**
+ * @deprecated - use {@link org.incode.module.fixturesupport.dom.scripts.IncodeFixtureAbstract} instead.
+ */
+@Deprecated
+public abstract class IncodeFixtureAbstract extends org.incode.module.fixturesupport.dom.scripts.IncodeFixtureAbstract {
 
 }

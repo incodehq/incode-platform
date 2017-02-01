@@ -26,7 +26,7 @@ Copyright 2014~2015 Dan Haywood
 
     <name>Incode Module Integration Testing Support DOM</name>
     <description>
-        A module providing test utilities for unit testing of domain modules
+        A module providing test utilities for integration testing of domain modules
     </description>
 	
     <url>https://github.com/incodehq/incode-module-integtestsupport</url>
@@ -62,10 +62,11 @@ Copyright 2014~2015 Dan Haywood
         <compileSource>1.8</compileSource>
         <compileTarget>1.8</compileTarget>
 
-        <isis.version>1.13.0</isis.version>
+        <isis.version>1.13.2</isis.version>
 
         <isis-module-fakedata.version>1.13.0</isis-module-fakedata.version>
-        <incode-module-base.version>1.13.5</incode-module-base.version>
+        <incode-module-fixturesupport.version>1.13.0</incode-module-fixturesupport.version>
+        <incode-module-base.version>1.13.6</incode-module-base.version>
 
         <assertj-core.version>3.3.0</assertj-core.version>
         <danhaywood-java-assertjext.version>0.1.0</danhaywood-java-assertjext.version>
@@ -234,6 +235,11 @@ Copyright 2014~2015 Dan Haywood
                 <artifactId>incode-module-base-dom</artifactId>
                 <version>${incode-module-base.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.incode.module.fixturesupport</groupId>
+                <artifactId>incode-module-fixturesupport-dom</artifactId>
+                <version>${incode-module-fixturesupport.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.assertj</groupId>
@@ -260,6 +266,10 @@ Copyright 2014~2015 Dan Haywood
         <dependency>
             <groupId>org.incode.module.base</groupId>
             <artifactId>incode-module-base-dom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.incode.module.fixturesupport</groupId>
+            <artifactId>incode-module-fixturesupport-dom</artifactId>
         </dependency>
 
 
