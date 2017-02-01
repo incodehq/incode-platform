@@ -1,4 +1,6 @@
 = isis-module-audit
+:_imagesdir: ./
+:toc:
 
 image:https://travis-ci.org/isisaddons/isis-module-audit.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-audit]
 
