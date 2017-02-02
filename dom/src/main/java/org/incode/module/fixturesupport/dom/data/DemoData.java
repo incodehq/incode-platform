@@ -4,6 +4,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Objects;
 
+import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
 /**
@@ -13,8 +14,8 @@ import org.apache.isis.applib.services.repository.RepositoryService;
  */
 public interface DemoData<D extends DemoData<D, T>, T> {
     T asDomainObject();
-    T persistWith(final RepositoryService repositoryService);
-    T findWith(final RepositoryService repositoryService);
+    T persistUsing(final ServiceRegistry2 serviceRegistry2);
+    T findUsing(final ServiceRegistry2 serviceRegistry);
 
     public static class Util {
 
@@ -22,10 +23,24 @@ public interface DemoData<D extends DemoData<D, T>, T> {
 
         public static <D extends DemoData<D, T>, T> T persist(
                 final DemoData<D, T> data,
+                final ServiceRegistry2 serviceRegistry2) {
+            final RepositoryService repositoryService = serviceRegistry2.lookupService(RepositoryService.class);
+            return persist(data, repositoryService);
+        }
+
+        public static <D extends DemoData<D, T>, T> T persist(
+                final DemoData<D, T> data,
                 final RepositoryService repositoryService) {
             final T domainObject = data.asDomainObject();
             repositoryService.persist(domainObject);
             return domainObject;
+        }
+
+        public static <D extends DemoData<D, T>, T> T uniqueMatch(
+                final DemoData<D, T> data,
+                final ServiceRegistry2 serviceRegistry2) {
+            final RepositoryService repositoryService = serviceRegistry2.lookupService(RepositoryService.class);
+            return uniqueMatch(data, repositoryService);
         }
 
         public static <D extends DemoData<D, T>, T> T uniqueMatch(
@@ -38,10 +53,24 @@ public interface DemoData<D extends DemoData<D, T>, T> {
 
         public static <D extends DemoData<D, T>, T> T firstMatch(
                 final DemoData<D, T> data,
+                final ServiceRegistry2 serviceRegistry2) {
+            final RepositoryService repositoryService = serviceRegistry2.lookupService(RepositoryService.class);
+            return firstMatch(data, repositoryService);
+        }
+
+        public static <D extends DemoData<D, T>, T> T firstMatch(
+                final DemoData<D, T> data,
                 final RepositoryService repositoryService) {
             final T domainObject = data.asDomainObject();
             final Class<T> domainClass = domainClassOf(data);
             return repositoryService.firstMatch(domainClass, x -> Objects.equals(x, domainObject));
+        }
+
+        public static <D extends DemoData<D, T>, T> T findMatch(
+                final DemoData<D, T> data,
+                final ServiceRegistry2 serviceRegistry2) {
+            final RepositoryService repositoryService = serviceRegistry2.lookupService(RepositoryService.class);
+            return firstMatch(data, repositoryService);
         }
 
         public static <D extends DemoData<D, T>, T> T findMatch(

@@ -23,6 +23,7 @@ import java.util.List;
 import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
 import lombok.Getter;
@@ -67,13 +68,13 @@ public abstract class DemoDataPersistAbstract<S extends DemoDataPersistAbstract<
         }
 
         for (int i = 0; i < number; i++) {
-            final T domainObject = enumConstants[i].persistWith(repositoryService);
+            final T domainObject = enumConstants[i].persistUsing(serviceRegistry);
             ec.addResult(this, domainObject);
             objects.add(domainObject);
         }
     }
 
     @javax.inject.Inject
-    RepositoryService repositoryService;
+    ServiceRegistry2 serviceRegistry;
 
 }
