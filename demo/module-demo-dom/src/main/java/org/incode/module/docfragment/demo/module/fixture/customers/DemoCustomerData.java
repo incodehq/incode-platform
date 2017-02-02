@@ -20,7 +20,7 @@
 package org.incode.module.docfragment.demo.module.fixture.customers;
 
 import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.services.repository.RepositoryService;
+import org.apache.isis.applib.services.registry.ServiceRegistry2;
 
 import org.incode.module.docfragment.demo.module.dom.impl.customers.DemoCustomer;
 import org.incode.module.fixturesupport.dom.data.DemoData;
@@ -56,13 +56,13 @@ public enum DemoCustomerData implements DemoData<DemoCustomerData, DemoCustomer>
     }
 
     @Programmatic
-    public DemoCustomer persistWith(final RepositoryService repositoryService) {
-        return Util.persist(this, repositoryService);
+    public DemoCustomer persistUsing(final ServiceRegistry2 serviceRegistry) {
+        return Util.persist(this, serviceRegistry);
     }
 
     @Programmatic
-    public DemoCustomer findWith(final RepositoryService repositoryService) {
-        return Util.firstMatch(this, repositoryService);
+    public DemoCustomer findUsing(final ServiceRegistry2 serviceRegistry) {
+        return Util.firstMatch(this, serviceRegistry);
     }
 
     public static class PersistScript extends DemoDataPersistAbstract<PersistScript, DemoCustomerData, DemoCustomer> {

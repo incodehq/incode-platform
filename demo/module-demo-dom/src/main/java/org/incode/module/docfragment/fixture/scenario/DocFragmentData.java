@@ -20,7 +20,7 @@
 package org.incode.module.docfragment.fixture.scenario;
 
 import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.services.repository.RepositoryService;
+import org.apache.isis.applib.services.registry.ServiceRegistry2;
 
 import org.incode.module.docfragment.dom.impl.DocFragment;
 import org.incode.module.docfragment.dom.menu.DocFragmentMenu;
@@ -59,8 +59,8 @@ public enum DocFragmentData implements DemoData<DocFragmentData, DocFragment> {
     }
 
     @Programmatic
-    public DocFragment persistWith(final RepositoryService repositoryService) {
-        return Util.persist(this, repositoryService);
+    public DocFragment persistUsing(final ServiceRegistry2 serviceRegistry) {
+        return Util.persist(this, serviceRegistry);
     }
 
     @Programmatic
@@ -69,8 +69,8 @@ public enum DocFragmentData implements DemoData<DocFragmentData, DocFragment> {
     }
 
     @Programmatic
-    public DocFragment findWith(final RepositoryService repositoryService) {
-        return Util.firstMatch(this, repositoryService);
+    public DocFragment findUsing(final ServiceRegistry2 serviceRegistry) {
+        return Util.firstMatch(this, serviceRegistry);
     }
 
     public static class PersistScript extends DemoDataPersistAbstract<PersistScript, DocFragmentData, DocFragment> {

@@ -48,7 +48,7 @@
         <isis-module-fakedata-dom.version>1.13.0</isis-module-fakedata-dom.version>
         <assertj-core.version>3.6.1</assertj-core.version>
         <danhaywood-java-assertjext.version>0.1.0</danhaywood-java-assertjext.version>
-        <incode-module-fixturesupport.version>1.13.0</incode-module-fixturesupport.version>
+        <incode-module-fixturesupport.version>1.13.1</incode-module-fixturesupport.version>
 
         <mavendeps-isistesting.version>0.0.2</mavendeps-isistesting.version>
         <mavendeps-isisintellij.version>0.0.1</mavendeps-isisintellij.version>

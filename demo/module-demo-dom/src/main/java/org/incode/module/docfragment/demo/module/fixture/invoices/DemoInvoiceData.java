@@ -22,7 +22,7 @@ package org.incode.module.docfragment.demo.module.fixture.invoices;
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.services.repository.RepositoryService;
+import org.apache.isis.applib.services.registry.ServiceRegistry2;
 
 import org.incode.module.docfragment.demo.module.dom.impl.invoices.DemoInvoice;
 import org.incode.module.fixturesupport.dom.data.DemoData;
@@ -46,13 +46,13 @@ public enum DemoInvoiceData implements DemoData<DemoInvoiceData, DemoInvoice> {
     private final String atPath;
 
     @Programmatic
-    public DemoInvoice persistWith(final RepositoryService repositoryService) {
-        return Util.persist(this, repositoryService);
+    public DemoInvoice persistUsing(final ServiceRegistry2 serviceRegistry) {
+        return Util.persist(this, serviceRegistry);
     }
 
     @Programmatic
-    public DemoInvoice findWith(final RepositoryService repositoryService) {
-        return Util.uniqueMatch(this, repositoryService);
+    public DemoInvoice findUsing(final ServiceRegistry2 serviceRegistry) {
+        return Util.uniqueMatch(this, serviceRegistry);
     }
 
     @Programmatic
