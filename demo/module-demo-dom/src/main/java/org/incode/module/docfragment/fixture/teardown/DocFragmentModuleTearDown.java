@@ -26,7 +26,7 @@ public class DocFragmentModuleTearDown extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"docfragment\".\"DocFragment\"");
+        isisJdoSupport.executeUpdate("delete from \"incodeDocFragment\".\"DocFragment\"");
     }
 
 

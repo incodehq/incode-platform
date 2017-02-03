@@ -46,7 +46,7 @@ import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
-        schema = "docfragmentdemo",
+        schema = "incodeDocFragmentDemo",
         table = "DemoCustomer"
 )
 @javax.jdo.annotations.DatastoreIdentity(
