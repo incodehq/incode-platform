@@ -56,7 +56,8 @@ public class DocFragmentRepository {
             final String name,
             final String atPath) {
 
-        // workaround, the ORDER BY atPath DESC doesn't seem to be honoured...
+        // workaround, the ORDER BY atPath DESC doesn't seem to be honoured, don't know why...
+        // we therefore do a client-side sort
         final List<DocFragment> ts = repositoryService.allMatches(
                 new QueryDefault<>(
                         DocFragment.class,
@@ -67,6 +68,32 @@ public class DocFragmentRepository {
         Collections.sort(ts, (o1, o2) -> o2.getAtPath().length() - o1.getAtPath().length());
 
         return ts.isEmpty() ? null : ts.get(0);
+    }
+
+    /**
+     * Returns the most applicable {@link DocFragment} by atPath
+     *
+     * <p>
+     * for example, will match "/ITA/CAR" precedence over "/ITA" precedence over "/".
+     * </p>
+     *
+     * @param objectType - the (as per {@link DomainObject#objectType() objectType} of the object to be used to interpolate
+     * @param name
+     * @param atPath
+     */
+    @Programmatic
+    public DocFragment findByObjectTypeAndNameAndAtPath(
+            final String objectType,
+            final String name,
+            final String atPath) {
+
+        return repositoryService.firstMatch(
+                new QueryDefault<>(
+                        DocFragment.class,
+                        "findByObjectTypeAndNameAndAtPath",
+                        "objectType", objectType,
+                        "name", name,
+                        "atPath", atPath));
     }
 
     @Programmatic

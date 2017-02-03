@@ -70,6 +70,15 @@ import lombok.Setter;
                         + "   && name       == :name "
                         + "   && :atPath.startsWith(atPath) "
                         + "ORDER BY atPath DESC "
+        ),
+        @javax.jdo.annotations.Query(
+                name = "findByObjectTypeAndNameAndAtPath",
+                value = "SELECT "
+                        + "FROM org.incode.module.docfragment.dom.impl.DocFragment "
+                        + "WHERE objectType == :objectType "
+                        + "   && name       == :name "
+                        + "   && atPath     == :atPath "
+                        + "ORDER BY atPath DESC "
         )
 })
 @javax.jdo.annotations.Unique(name="DocFragment_objectType_name_atPath_UNQ", members = {"objectType", "name", "atPath"})

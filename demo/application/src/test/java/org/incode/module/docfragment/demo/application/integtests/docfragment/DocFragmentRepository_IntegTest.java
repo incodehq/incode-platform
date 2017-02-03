@@ -36,6 +36,7 @@ import org.apache.isis.applib.services.xactn.TransactionService;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
+import org.incode.module.docfragment.demo.application.fixture.scenarios.DemoAppFixture;
 import org.incode.module.docfragment.demo.application.integtests.DocFragmentModuleIntegTestAbstract;
 import org.incode.module.docfragment.dom.impl.DocFragment;
 import org.incode.module.docfragment.dom.impl.DocFragmentRepository;
@@ -43,6 +44,7 @@ import org.incode.module.docfragment.fixture.scenario.DocFragmentData;
 import org.incode.module.docfragment.fixture.teardown.DocFragmentModuleTearDown;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.incode.module.docfragment.demo.application.integtests.docfragment.DocFragmentRepository_IntegTest.FindByObjectTypeAndNameAndAtPath.causalChainContains;
 
 public class DocFragmentRepository_IntegTest extends DocFragmentModuleIntegTestAbstract {
 
@@ -131,7 +133,112 @@ public class DocFragmentRepository_IntegTest extends DocFragmentModuleIntegTestA
             transactionService.nextTransaction();
         }
 
-        private static Matcher<? extends Throwable> causalChainContains(final Class<?> cls) {
+    }
+
+    public static class FindByObjectTypeAndNameAndApplicableToAtPath extends DocFragmentRepository_IntegTest {
+
+        @Test
+        public void when_exact_match() throws Exception {
+
+            // given
+            FixtureScript fs = new DemoAppFixture();
+            fixtureScripts.runFixtureScript(fs, null);
+            transactionService.nextTransaction();
+
+            // when
+            final DocFragmentData data = DocFragmentData.Customer_hello_FRA;
+            final DocFragment docFragment = repository
+                    .findByObjectTypeAndNameAndApplicableToAtPath(
+                            data.getObjectType(), data.getName(), data.getAtPath());
+
+            // then
+            assertThat(docFragment.getObjectType()).isEqualTo(data.getObjectType());
+            assertThat(docFragment.getName()).isEqualTo(data.getName());
+            assertThat(docFragment.getAtPath()).isEqualTo(data.getAtPath());
+        }
+
+        @Test
+        public void when_fallback_match() throws Exception {
+
+            // given
+            FixtureScript fs = new DemoAppFixture();
+            fixtureScripts.runFixtureScript(fs, null);
+            transactionService.nextTransaction();
+
+            // when
+            final DocFragmentData data = DocFragmentData.Customer_goodbye_GLOBAL;
+            final DocFragment docFragment = repository
+                    .findByObjectTypeAndNameAndApplicableToAtPath(
+                            data.getObjectType(), data.getName(), "/ITA");
+
+            // then
+            assertThat(docFragment.getObjectType()).isEqualTo(data.getObjectType());
+            assertThat(docFragment.getName()).isEqualTo(data.getName());
+            assertThat(docFragment.getAtPath()).isEqualTo(data.getAtPath());
+        }
+
+        @Test
+        public void when_no_match() throws Exception {
+
+            // given
+            FixtureScript fs = new DemoAppFixture();
+            fixtureScripts.runFixtureScript(fs, null);
+            transactionService.nextTransaction();
+
+            // when
+            final DocFragmentData data = DocFragmentData.Customer_goodbye_GLOBAL;
+            final DocFragment docFragment = repository
+                    .findByObjectTypeAndNameAndApplicableToAtPath(
+                            data.getObjectType(), "unknown", data.getAtPath());
+
+            // then
+            assertThat(docFragment).isNull();
+        }
+
+
+    }
+
+    public static class FindByObjectTypeAndNameAndAtPath extends DocFragmentRepository_IntegTest {
+
+        @Test
+        public void when_match() throws Exception {
+
+            // given
+            FixtureScript fs = new DemoAppFixture();
+            fixtureScripts.runFixtureScript(fs, null);
+            transactionService.nextTransaction();
+
+            // when
+            final DocFragmentData data = DocFragmentData.Customer_hello_FRA;
+            final DocFragment docFragment = repository
+                    .findByObjectTypeAndNameAndAtPath(
+                            data.getObjectType(), data.getName(), data.getAtPath());
+
+            // then
+            assertThat(docFragment.getObjectType()).isEqualTo(data.getObjectType());
+            assertThat(docFragment.getName()).isEqualTo(data.getName());
+            assertThat(docFragment.getAtPath()).isEqualTo(data.getAtPath());
+        }
+
+        @Test
+        public void when_no_match() throws Exception {
+
+            // given
+            FixtureScript fs = new DemoAppFixture();
+            fixtureScripts.runFixtureScript(fs, null);
+            transactionService.nextTransaction();
+
+            // when
+            final DocFragmentData data = DocFragmentData.Customer_goodbye_GLOBAL;
+            final DocFragment docFragment = repository
+                    .findByObjectTypeAndNameAndAtPath(
+                            data.getObjectType(), data.getName(), "/ITA");
+
+            // then
+            assertThat(docFragment).isNull();
+        }
+
+        static Matcher<? extends Throwable> causalChainContains(final Class<?> cls) {
             return new TypeSafeMatcher<Throwable>() {
                 @Override
                 protected boolean matchesSafely(Throwable item) {
