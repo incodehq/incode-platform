@@ -18,8 +18,6 @@
  */
 package org.incode.module.docfragment.dom.spi;
 
-import java.util.List;
-
 import org.apache.isis.applib.annotation.Programmatic;
 
 public interface ApplicationTenancyService {
@@ -27,7 +25,5 @@ public interface ApplicationTenancyService {
     @Programmatic
     String atPathFor(final Object domainObjectToRender);
 
-    @Programmatic
-    List<String> atPaths();
 
 }

@@ -23,7 +23,7 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 
 import org.incode.module.docfragment.dom.impl.DocFragment;
-import org.incode.module.docfragment.dom.menu.DocFragmentMenu;
+import org.incode.module.docfragment.dom.impl.DocFragmentRepository;
 import org.incode.module.fixturesupport.dom.data.DemoData;
 import org.incode.module.fixturesupport.dom.data.DemoDataPersistAbstract;
 
@@ -64,8 +64,8 @@ public enum DocFragmentData implements DemoData<DocFragmentData, DocFragment> {
     }
 
     @Programmatic
-    public DocFragment createWith(final DocFragmentMenu menu) {
-        return menu.create(getObjectType(), getName(), getAtPath(), getTemplateText());
+    public DocFragment createWith(final DocFragmentRepository repository) {
+        return repository.create(getObjectType(), getName(), getAtPath(), getTemplateText());
     }
 
     @Programmatic

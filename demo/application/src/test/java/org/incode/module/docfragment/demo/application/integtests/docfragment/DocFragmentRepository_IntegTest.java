@@ -38,13 +38,13 @@ import org.isisaddons.module.fakedata.dom.FakeDataService;
 
 import org.incode.module.docfragment.demo.application.integtests.DocFragmentModuleIntegTestAbstract;
 import org.incode.module.docfragment.dom.impl.DocFragment;
-import org.incode.module.docfragment.dom.menu.DocFragmentMenu;
+import org.incode.module.docfragment.dom.impl.DocFragmentRepository;
 import org.incode.module.docfragment.fixture.scenario.DocFragmentData;
 import org.incode.module.docfragment.fixture.teardown.DocFragmentModuleTearDown;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DocFragmentMenu_IntegTest extends DocFragmentModuleIntegTestAbstract {
+public class DocFragmentRepository_IntegTest extends DocFragmentModuleIntegTestAbstract {
 
     @Inject
     FixtureScripts fixtureScripts;
@@ -53,9 +53,9 @@ public class DocFragmentMenu_IntegTest extends DocFragmentModuleIntegTestAbstrac
     @Inject
     TransactionService transactionService;
     @Inject
-    DocFragmentMenu menu;
+    DocFragmentRepository repository;
 
-    public static class ListAll extends DocFragmentMenu_IntegTest {
+    public static class ListAll extends DocFragmentRepository_IntegTest {
 
         @Test
         public void happyCase() throws Exception {
@@ -67,7 +67,7 @@ public class DocFragmentMenu_IntegTest extends DocFragmentModuleIntegTestAbstrac
             transactionService.nextTransaction();
 
             // when
-            final List<DocFragment> all = wrap(menu).listAll();
+            final List<DocFragment> all = repository.listAll();
 
             // then
             assertThat(all).hasSize(fs.getObjects().size());
@@ -85,14 +85,14 @@ public class DocFragmentMenu_IntegTest extends DocFragmentModuleIntegTestAbstrac
             transactionService.nextTransaction();
 
             // when
-            final List<DocFragment> all = wrap(menu).listAll();
+            final List<DocFragment> all = repository.listAll();
 
             // then
             assertThat(all).hasSize(0);
         }
     }
 
-    public static class Create extends DocFragmentMenu_IntegTest {
+    public static class Create extends DocFragmentRepository_IntegTest {
 
         @Test
         public void happyCase() throws Exception {
@@ -104,10 +104,10 @@ public class DocFragmentMenu_IntegTest extends DocFragmentModuleIntegTestAbstrac
 
             // when
             final DocFragmentData random = fakeDataService.enums().anyOf(DocFragmentData.class);
-            random.createWith(wrap(menu));
+            random.createWith(repository);
 
             // then
-            final List<DocFragment> all = wrap(menu).listAll();
+            final List<DocFragment> all = repository.listAll();
             assertThat(all).hasSize(1);
         }
 
@@ -120,14 +120,14 @@ public class DocFragmentMenu_IntegTest extends DocFragmentModuleIntegTestAbstrac
             transactionService.nextTransaction();
 
             final DocFragmentData random = fakeDataService.enums().anyOf(DocFragmentData.class);
-            random.createWith(wrap(menu));
+            random.createWith(repository);
             transactionService.nextTransaction();
 
             // then
             expectedExceptions.expectCause(causalChainContains(SQLIntegrityConstraintViolationException.class));
 
             // when
-            random.createWith(wrap(menu));
+            random.createWith(repository);
             transactionService.nextTransaction();
         }
 

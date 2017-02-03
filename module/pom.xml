@@ -20,7 +20,7 @@ Copyright 2017 Dan Haywood
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>1.13.2.1</version>
+        <version>1.13.2.2</version>
         <relativePath/>
     </parent>
 
@@ -78,7 +78,7 @@ Copyright 2017 Dan Haywood
         <mavendeps-isistesting.version>0.0.2</mavendeps-isistesting.version>
 
         <incode-module-unittestsupport.version>1.13.3</incode-module-unittestsupport.version>
-        <incode-module-integtestsupport.version>1.13.0</incode-module-integtestsupport.version>
+        <incode-module-integtestsupport.version>1.13.1</incode-module-integtestsupport.version>
 
 <!--
         <maven-checkstyle-plugin.configLocation>../_checks/checkstyle.xml</maven-checkstyle-plugin.configLocation>

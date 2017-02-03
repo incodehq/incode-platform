@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.docfragment.dom.menu;
+package org.incode.module.docfragment.demo.application.menus;
 
 import java.util.Collection;
 import java.util.List;
@@ -47,9 +47,9 @@ import org.incode.module.docfragment.dom.types.TemplateTextType;
         repositoryFor = DocFragment.class
 )
 @DomainServiceLayout(
-        named = "Document Fragments",
-        menuOrder = "99"
-)
+        named = "Other",
+        menuBar = DomainServiceLayout.MenuBar.PRIMARY,
+        menuOrder = "80.14")
 public class DocFragmentMenu {
 
     @Action(semantics = SemanticsOf.SAFE)
@@ -86,7 +86,7 @@ public class DocFragmentMenu {
     }
 
     public List<String> choices2Create() {
-        return applicationTenancyService.atPaths();
+        return Lists.newArrayList("/", "/ITA", "/FRA");
     }
 
 

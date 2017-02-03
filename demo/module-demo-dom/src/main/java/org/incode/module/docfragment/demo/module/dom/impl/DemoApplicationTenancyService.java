@@ -45,7 +45,4 @@ public class DemoApplicationTenancyService implements ApplicationTenancyService 
         return null;
     }
 
-    @Override public List<String> atPaths() {
-        return Lists.newArrayList("/", "/ITA", "/FRA");
-    }
 }
