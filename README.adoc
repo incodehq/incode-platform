@@ -116,11 +116,9 @@ The module defines a single (mandatory) SPI service, `ApplicationTenancyService`
 ----
 public interface ApplicationTenancyService {
     String atPathFor(Object domainObject);          // <1>
-    List<String> atPaths();                         // <2>
 }
 ----
 <1> Used by `DocFragmentService` to determine the `atPath` of the domain object, so as to lookup the appropriate `DocFragment`.
-<2> Used by `DocFragmentMenu` to list available choices of atPaths when creating new ``DocFragment``s.
 
 
 == How to run the Demo App
@@ -237,7 +235,8 @@ We suggest defining the repository in a `<profile>`:
 == Change Log
 
 
-* `1.13.2` - fixes link:https://github.com/incodehq/incode-module-docfragment/issues/2[#2], link:https://github.com/incodehq/incode-module-docfragment/issues/3[#3], link:https://github.com/incodehq/incode-module-docfragment/issues/4[#4]
+* `1.13.2` - fixes link:https://github.com/incodehq/incode-module-docfragment/issues/2[#2], link:https://github.com/incodehq/incode-module-docfragment/issues/3[#3], link:https://github.com/incodehq/incode-module-docfragment/issues/4[#4].
+Note that there is a minor breakage in backward compatibility (`ApplicationTenancyService` no longer defines the `atPaths()` method.
 * `1.13.1` - fixes link:https://github.com/incodehq/incode-module-docfragment/issues/1[#1] (update to use link:https://github.com/incodehq/incode-module-fixturesupport[fixturesupport] 1.13.1)
 * `1.13.0` - released against Isis 1.13.2
 
