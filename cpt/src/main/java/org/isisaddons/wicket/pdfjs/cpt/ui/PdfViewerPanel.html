@@ -26,10 +26,10 @@
                         <span wicket:id="scalarName" class="col-sm-1 scalarName">[Label text]</span>
                         <div class="scalarValue col-sm-11">
                             <div>
-                                <button wicket:id="prevPage" type="button" disabled class="btn btn-sm btn-default pdf-js-page-prev">Previous</button>
-                                <button wicket:id="nextPage" type="button" disabled class="btn btn-sm btn-default pdf-js-page-next">Next</button>
-                                <button wicket:id="zoomIn" type="button"  class="btn btn-sm btn-default pdf-js-zoom-in">Zoom In</button>
-                                <button wicket:id="zoomOut" type="button" class="btn btn-sm btn-default pdf-js-zoom-out">Zoom Out</button>
+                                <span wicket:id="prevPage" disabled class="fa fa-backward btn-sm btn-default pdf-js-page-prev" title="Previous"></span>
+                                <span wicket:id="nextPage" disabled class="fa fa-forward btn-sm btn-default pdf-js-page-next" title="Next"></span>
+                                <span wicket:id="zoomIn" class="fa fa-plus-square btn-sm btn-default pdf-js-zoom-in" title="Zoom In"></span>
+                                <span wicket:id="zoomOut" class="fa fa-minus-square btn-sm btn-default pdf-js-zoom-out" title="Zoom Out"></span>
                                 &nbsp; &nbsp;
                                 <span>Page: <input wicket:id="currentPage" class="pdf-js-page-current"></input> / <span wicket:id="totalPages"  class="pdf-js-page-total"></span></span>
                                 <select wicket:id="currentZoom" title="Current Zoom Level" class="pdf-js-zoom-current">
@@ -37,14 +37,14 @@
                                     <option id="pageActualOption"  value="page-actual" >Actual Size</option>
                                     <option id="pageFitOption"  value="page-fit" >Page Fit</option>
                                     <option id="pageWidthOption"  value="page-width">Page Width</option>
-                                    <option  value="0.5">50%</option>
-                                    <option  value="0.75">75%</option>
-                                    <option  value="1">100%</option>
-                                    <option  value="1.25">125%</option>
-                                    <option  value="1.5">150%</option>
-                                    <option  value="2">200%</option>
-                                    <option  value="3">300%</option>
-                                    <option  value="4">400%</option>
+                                    <option class="numeric" value="0.50">50%</option>
+                                    <option class="numeric" value="0.75">75%</option>
+                                    <option class="numeric" value="1.00">100%</option>
+                                    <option class="numeric" value="1.25">125%</option>
+                                    <option class="numeric" value="1.50">150%</option>
+                                    <option class="numeric" value="2.00">200%</option>
+                                    <option class="numeric" value="3.00">300%</option>
+                                    <option class="numeric" value="4.00">400%</option>
                                 </select>
                             </div>
                             <div wicket:id="scalarValue" class="pdfPanel" style="width : 400px; height :600px; position : relative;" ></div>

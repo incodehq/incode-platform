@@ -63,6 +63,12 @@ $(function () {
         if (total > 1) {
             $nextPageBtn.removeAttr("disabled");
         }
+
+        var currentPage = $('.pdf-js-page-current[data-canvas-id="'+data.canvasId+'"]');
+        var size = total.toString().length;
+
+        currentPage.attr('maxLength', size);
+        currentPage.width(size + 'em');
     });
 
     Wicket.Event.subscribe(WicketStuff.PDFJS.Topic.CURRENT_PAGE, function (jqEvent, pageNumber, data) {
@@ -83,21 +89,59 @@ $(function () {
             }
         });
 
+    function addZoom(options, currentZoom) {
+
+        var newOptions = [];
+        var added = false;
+
+        for (var i = 0; i < options.length; i++) {
+            var option = options[i];
+
+            if (!added && parseFloat(currentZoom) < parseFloat(option)) {
+                newOptions.push(currentZoom);
+                added = true;
+            }
+            else if (currentZoom === option) {
+                added = true;
+            }
+
+            newOptions.push(option);
+        }
+
+        if (!added){
+            newOptions.push(currentZoom);
+        }
+
+        return newOptions;
+    }
+
+
+    function addNumericOptions(zoomDropDown, currentZoom) {
+        var numericOptions = addZoom(["0.50","0.75","1.00","1.25","1.50","2.00","3.00","4.00"], currentZoom);
+
+        for (var i = 0; i < numericOptions.length; i++) {
+            var zoom = numericOptions[i];
+
+            var title = Math.floor((zoom * 100)) + "%";
+            var op = "<option value='" + zoom + "' class='numeric'>" + title + "</option>"
+            zoomDropDown.append($(op));
+        }
+
+        zoomDropDown.val(currentZoom);
+    }
+
     Wicket.Event.subscribe(WicketStuff.PDFJS.Topic.CURRENT_ZOOM, function (jqEvent, zoom, data) {
 
     		var zoomDropDown =  $('.pdf-js-zoom-current[data-canvas-id="'+data.canvasId+'"]');
 
-    		$("option.custom").each(function() {
-                $(this).remove();
-            });
-
     		zoomDropDown.val(zoom);
 
     		if (!zoomDropDown.val()) {
+    		    $("option.numeric").each(function() {
+                   $(this).remove();
+                });
 
-    		    var title = Math.floor((zoom * 100)) + "%";
-    		    var op = "<option selected='selected'  value='" + zoom + "' class='custom'>" + title + "</option>"
-    		    zoomDropDown.append($(op));
+    		    addNumericOptions(zoomDropDown, zoom);
     	    }
     });
 
