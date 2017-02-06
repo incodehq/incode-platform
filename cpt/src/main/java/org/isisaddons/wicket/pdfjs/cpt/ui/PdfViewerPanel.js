@@ -68,7 +68,7 @@ $(function () {
         var size = total.toString().length;
 
         currentPage.attr('maxLength', size);
-        currentPage.width(size + 'em');
+        currentPage.css('width', size + 'em');
     });
 
     Wicket.Event.subscribe(WicketStuff.PDFJS.Topic.CURRENT_PAGE, function (jqEvent, pageNumber, data) {
