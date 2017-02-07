@@ -27,6 +27,10 @@ $(function () {
         raiseEvent($(this), WicketStuff.PDFJS.Topic.ZOOM_OUT);
     });
 
+    $('.pdf-js-print').click(function () {
+        raiseEvent($(this), WicketStuff.PDFJS.Topic.PRINT);
+    });
+
     $('.pdf-js-zoom-current').change(function () {
         var scale = $(this).val();
         raiseEvent($(this), WicketStuff.PDFJS.Topic.ZOOM_TO, {scale : scale});
@@ -117,13 +121,14 @@ $(function () {
 
 
     function addNumericOptions(zoomDropDown, currentZoom) {
-        var numericOptions = addZoom(["0.50","0.75","1.00","1.25","1.50","2.00","3.00","4.00"], currentZoom);
+        var zoomNumericOptions = ["0.50", "0.75", "1.00", "1.25", "1.50", "2.00", "3.00", "4.00"];
+        var numericOptions = addZoom(zoomNumericOptions, currentZoom);
 
         for (var i = 0; i < numericOptions.length; i++) {
             var zoom = numericOptions[i];
 
             var title = Math.floor((zoom * 100)) + "%";
-            var op = "<option value='" + zoom + "' class='numeric'>" + title + "</option>"
+            var op = "<option value='" + zoom + "' class='pdf-js-numeric'>" + title + "</option>"
             zoomDropDown.append($(op));
         }
 
@@ -137,7 +142,7 @@ $(function () {
     		zoomDropDown.val(zoom);
 
     		if (!zoomDropDown.val()) {
-    		    $("option.numeric").each(function() {
+    		    $("option.pdf-js-numeric").each(function() {
                    $(this).remove();
                 });
 

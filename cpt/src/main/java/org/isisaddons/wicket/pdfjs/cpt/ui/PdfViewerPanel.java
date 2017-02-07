@@ -24,6 +24,8 @@ import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.CssHeaderItem;
+import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ResourceLink;
@@ -82,7 +84,8 @@ class PdfViewerPanel extends ScalarPanelAbstract implements IResourceListener {
             MarkupContainer currentPageLabel = createComponent("currentPage", config);
             MarkupContainer totalPagesLabel = createComponent("totalPages", config);
             MarkupContainer zoomLevelSelect = createComponent("currentZoom", config);
-            containerIfRegular.addOrReplace(pdfJsPanel, prevPageButton, nextPageButton, zoomInButton, zoomOutButton, currentPageLabel, totalPagesLabel, zoomLevelSelect);
+            MarkupContainer printButton = createComponent("print", config);
+            containerIfRegular.addOrReplace(pdfJsPanel, prevPageButton, nextPageButton, zoomInButton, zoomOutButton, currentPageLabel, totalPagesLabel, zoomLevelSelect, printButton);
             containerIfRegular.addOrReplace(new NotificationPanel(ID_FEEDBACK, pdfJsPanel, new ComponentFeedbackMessageFilter(pdfJsPanel)));
         } else {
             permanentlyHide(ID_SCALAR_VALUE, ID_FEEDBACK);
@@ -127,8 +130,10 @@ class PdfViewerPanel extends ScalarPanelAbstract implements IResourceListener {
     public void renderHead(final IHeaderResponse response) {
         super.renderHead(response);
 
+        response.render(CssHeaderItem.forReference(new CssResourceReference(PdfViewerPanel.class, "PdfViewerPanel.css")));
         response.render(JavaScriptHeaderItem.forReference(new PdfViewJsReference()));
     }
+
 
     @Override
     public void onResourceRequested() {
