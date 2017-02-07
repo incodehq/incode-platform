@@ -23,13 +23,12 @@
             <div class="pdfViewerPanel scalarNameAndValueComponentType">
                 <div class="form-group" wicket:id="scalarIfRegular">
                     <div class="row">
-                        <span wicket:id="scalarName" class="col-sm-1 scalarName">[Label text]</span>
                         <div class="scalarValue col-sm-11">
                             <div>
-                                <button wicket:id="prevPage" disabled type="button" class="fa fa-backward btn btn-sm btn-default pdf-js-page-prev" title="Previous"></button>
-                                <button wicket:id="nextPage" disabled type="button" class="fa fa-forward btn-sm btn-default pdf-js-page-next" title="Next"></button>
-                                <button wicket:id="zoomIn" type="button" class="fa fa-plus-square btn btn-sm btn-default pdf-js-zoom-in" title="Zoom In"></button>
-                                <button wicket:id="zoomOut" type="button" class="fa fa-minus-square btn btn-sm btn-default pdf-js-zoom-out" title="Zoom Out"></button>
+                                <button wicket:id="prevPage" disabled type="button" class="fa fa-backward btn btn-xs btn-default pdf-js-page-prev" title="Previous"></button>
+                                <button wicket:id="nextPage" disabled type="button" class="fa fa-forward btn btn-xs btn-default pdf-js-page-next" title="Next"></button>
+                                <button wicket:id="zoomIn" type="button" class="fa fa-plus-square btn btn-xs btn-default pdf-js-zoom-in" title="Zoom In"></button>
+                                <button wicket:id="zoomOut" type="button" class="fa fa-minus-square btn btn-xs btn-default pdf-js-zoom-out" title="Zoom Out"></button>
                                 &nbsp; &nbsp;
                                 <span>Page: <input wicket:id="currentPage"  class="pdf-js-page-current" title="Select Page"></input> / <span wicket:id="totalPages"  class="pdf-js-page-total"></span></span>
                                 <select wicket:id="currentZoom" title="Current Zoom Level" class="pdf-js-zoom-current">
@@ -46,7 +45,7 @@
                                     <option class="pdf-js-numeric" value="3.00">300%</option>
                                     <option class="pdf-js-numeric" value="4.00">400%</option>
                                 </select>
-                                <button wicket:id="print" type="button" class="fa fa-print btn btn-sm btn-default pdf-js-print" title="Print Current Page"></button>
+                                <button wicket:id="print" type="button" class="fa fa-print btn btn-xs btn-default pdf-js-print" title="Print Current Page"></button>
                             </div>
                             <div wicket:id="scalarValue" class="pdfPanel" ></div>
                         </div>

@@ -148,6 +148,26 @@ $(function () {
 
     		    addNumericOptions(zoomDropDown, zoom);
     	    }
+
+    	    var zoomFloat = parseFloat(zoom)
+    	    var minZoom = 0.25;
+    	    var maxZoom = 4.0;
+    	    var $zoomInBtn = $('.pdf-js-zoom-in[data-canvas-id="'+data.canvasId+'"]');
+            var $zoomOutBtn = $('.pdf-js-zoom-out[data-canvas-id="'+data.canvasId+'"]');
+
+    	    if (zoomFloat <= minZoom){
+    	        // minimum zoom
+    	        $zoomOutBtn.attr("disabled", "disabled");
+    	        $zoomInBtn.removeAttr("disabled");
+    	    } else  if (zoomFloat >= maxZoom) {
+    	        // maximum zoom
+    	        $zoomOutBtn.removeAttr("disabled");
+                $zoomInBtn.attr("disabled", "disabled");
+    	    } else {
+    	        $zoomInBtn.removeAttr("disabled");
+                $zoomOutBtn.removeAttr("disabled");
+    	    }
+
     });
 
 });

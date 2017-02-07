@@ -65,11 +65,6 @@ class PdfViewerPanel extends ScalarPanelAbstract implements IResourceListener {
         MarkupContainer containerIfRegular = new WebMarkupContainer("scalarIfRegular");
         addOrReplace(containerIfRegular);
 
-        final ScalarModel scalarModel = this.getModel();
-        String name = scalarModel.getName();
-        Label scalarName = new Label(ID_SCALAR_NAME, name);
-        containerIfRegular.addOrReplace(scalarName);
-
         final ObjectAdapter adapter = scalarModel.getObject();
         if (adapter != null) {
             final ObjectSpecification typeOfSpecification = scalarModel.getTypeOfSpecification();
