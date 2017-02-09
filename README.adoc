@@ -599,7 +599,7 @@ For example:
 public class PaperclipForInvoice extends Paperclip {
     ...
     @Mixin
-    public static class _documents extends T_paperclips<Invoice> {
+    public static class _documents extends T_documents<Invoice> {
         public _documents(final Invoice invoice) {
             super(invoice);
         }
