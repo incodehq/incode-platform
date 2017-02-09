@@ -49,6 +49,11 @@ language governing permissions and limitations under the License.
             <name>Dan Haywood</name>
             <email>dan@haywood-associates.co.uk</email>
         </developer>
+        <developer>
+            <id>johandoornenbal</id>
+            <name>Johan Doornenbal</name>
+            <email>jdoornenbal@incode.org</email>
+        </developer>
     </developers>
 
     <properties>
