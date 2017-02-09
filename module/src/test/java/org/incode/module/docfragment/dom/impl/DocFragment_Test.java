@@ -16,9 +16,13 @@
  */
 package org.incode.module.docfragment.dom.impl;
 
+import javax.inject.Inject;
+
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
+
+import org.apache.isis.applib.services.wrapper.WrapperFactory;
 
 public class DocFragment_Test {
 

@@ -165,7 +165,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.incode.module.communications</groupId>
     <artifactId>incode-module-communications-dom</artifactId>
-    <version>1.13.2</version>
+    <version>1.13.3</version>
 </dependency>
 ----
 
@@ -235,6 +235,7 @@ We suggest defining the repository in a `<profile>`:
 == Change Log
 
 
+* `1.13.3` - fixes https://github.com/incodehq/incode-module-docfragment/issues/5[#5] - changeTemplateText action
 * `1.13.2` - fixes link:https://github.com/incodehq/incode-module-docfragment/issues/2[#2], link:https://github.com/incodehq/incode-module-docfragment/issues/3[#3], link:https://github.com/incodehq/incode-module-docfragment/issues/4[#4].
 Note that there is a minor breakage in backward compatibility (`ApplicationTenancyService` no longer defines the `atPaths()` method.
 * `1.13.1` - fixes link:https://github.com/incodehq/incode-module-docfragment/issues/1[#1] (update to use link:https://github.com/incodehq/incode-module-fixturesupport[fixturesupport] 1.13.1)
@@ -328,12 +329,12 @@ For example:
 
 [source]
 ----
-sh interim-release.sh 1.13.2 origin
+sh interim-release.sh 1.13.3 origin
 ----
 
 where
 
-* `1.13.2` is the base release
+* `1.13.3` is the base release
 * `origin` is the name of the remote to which you have permissions to write to.
 
 
@@ -353,7 +354,7 @@ For example:
 
 [source]
 ----
-sh release.sh 1.13.2 \
+sh release.sh 1.13.3 \
               1.14.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
@@ -372,7 +373,7 @@ If the script completes successfully, then push changes:
 
 [source]
 ----
-git push origin master && git push origin 1.13.2
+git push origin master && git push origin 1.13.3
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue before trying again.

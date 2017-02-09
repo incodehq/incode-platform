@@ -63,7 +63,11 @@
                     <bs3:row>
                         <bs3:col span="12">
                             <c:fieldSet name="Template text">
-                                <c:property id="templateText"/>
+                                <c:property id="templateText">
+                                    <c:action id="changeTemplateText">
+                                        <c:named>Change</c:named>
+                                    </c:action>
+                                </c:property>
                             </c:fieldSet>
                         </bs3:col>
                     </bs3:row>

@@ -20,12 +20,14 @@ package org.incode.module.docfragment.demo.application.integtests.docfragment;
 
 import javax.inject.Inject;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.services.wrapper.DisabledException;
+import org.apache.isis.applib.services.wrapper.WrapperFactory;
 import org.apache.isis.applib.services.xactn.TransactionService;
 import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusIdLong;
 import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusVersionLong;
@@ -152,7 +154,30 @@ public class DocFragment_IntegTest extends DocFragmentModuleIntegTestAbstract {
 
         }
 
+
     }
+
+    public static class ChangeTemplateText extends DocFragment_IntegTest {
+
+        @Test
+        public void happyCase() throws Exception {
+            // given
+            final String originalText = domainObject.getTemplateText();
+
+            // then
+            Assertions.assertThat(domainObject.default0ChangeTemplateText()).isEqualTo(originalText);
+
+            // when
+            String updatedText = "CHANGED";
+            wrapperFactory.wrap(domainObject).changeTemplateText(updatedText);
+
+            // then
+            Assertions.assertThat(domainObject.getTemplateText()).isEqualTo(updatedText);
+        }
+    }
+
+    @Inject
+    WrapperFactory wrapperFactory;
 
 
 

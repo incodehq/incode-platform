@@ -27,6 +27,7 @@ import javax.jdo.annotations.VersionStrategy;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
@@ -181,6 +182,28 @@ public class DocFragment implements Comparable<DocFragment> {
     private String templateText;
     //endregion
 
+
+    //region > changeTemplateText (action)
+    public static class ChangeTemplateTextDomainEvent extends DocFragment.ActionDomainEvent{}
+
+    @Action(
+            domainEvent = ChangeTemplateTextDomainEvent.class,
+            semantics = SemanticsOf.NON_IDEMPOTENT
+    )
+    public DocFragment changeTemplateText(
+            @ParameterLayout(
+                    named = TemplateTextType.Meta.NAME,
+                    multiLine = TemplateTextType.Meta.MULTILINE
+            )
+            final String templateText) {
+        setTemplateText(templateText);
+        return this;
+    }
+
+    public String default0ChangeTemplateText() {
+        return getTemplateText();
+    }
+    //endregion
 
     //region > delete (action)
     public static class DeleteDomainEvent extends DocFragment.ActionDomainEvent{}
