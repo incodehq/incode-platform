@@ -213,6 +213,11 @@ language governing permissions and limitations under the License.
             <version>${wicketstuff-pdfjs.version}</version>
         </dependency>
         <dependency>
+            <groupId>de.agilecoders.wicket</groupId>
+            <artifactId>wicket-bootstrap-core</artifactId>
+            <version>0.10.6</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-viewer-wicket-ui</artifactId>
             <version>${isis.version}</version>

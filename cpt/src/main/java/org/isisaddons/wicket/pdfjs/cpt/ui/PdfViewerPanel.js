@@ -29,6 +29,8 @@ $(function () {
 
     $('.pdf-js-print').click(function () {
         raiseEvent($(this), WicketStuff.PDFJS.Topic.PRINT);
+        $('.progress').show();
+        $('.progress-bar').css( "width",  "1%" );
     });
 
     $('.pdf-js-zoom-current').change(function () {
@@ -92,6 +94,26 @@ $(function () {
                 $nextPageBtn.removeAttr("disabled");
             }
         });
+
+    Wicket.Event.subscribe(WicketStuff.PDFJS.Topic.CURRENT_PRINT_PAGE, function (jqEvent, pageNumber, data) {
+        if (pageNumber === -1){
+            // error
+            window.alert("Printing failed!")
+        }
+        else {
+            var total = parseInt($('.pdf-js-page-total[data-canvas-id="'+data.canvasId+'"]').text());
+
+            if (pageNumber === total) {
+                $('.progress').hide();
+            }
+            else {
+                var percent = Math.floor((pageNumber / total) * 100);
+                $('.progress-bar').css( "width", percent + "%" );
+            }
+        }
+
+    });
+
 
     function addZoom(options, currentZoom) {
 

@@ -46,6 +46,9 @@
                                     <option class="pdf-js-numeric" value="4.00">400%</option>
                                 </select>
                                 <button wicket:id="print" type="button" class="fa fa-print btn btn-xs btn-default pdf-js-print" title="Print Current Page"></button>
+                                <div class="progress" style="display: none;">
+                                    <div class="progress-bar"></div>
+                                </div>
                             </div>
                             <div wicket:id="scalarValue" class="pdfPanel" ></div>
                         </div>
@@ -57,6 +60,7 @@
             <span wicket:id="scalarIfCompact">
                 <a wicket:id="scalarIfCompactDownload"><span class="fileName" wicket:id="fileNameIfCompact"></span></a>
             </span>
+
 
         </wicket:panel>
     </body>
