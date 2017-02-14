@@ -37,7 +37,8 @@ import org.apache.isis.applib.services.clock.ClockService;
 import org.isisaddons.module.command.CommandModule;
 
 @DomainService(
-        nature = NatureOfService.VIEW_MENU_ONLY
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "isiscommand.CommandServiceMenu"
 )
 @DomainServiceLayout(
         named = "Activity",

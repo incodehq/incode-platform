@@ -21,6 +21,7 @@ import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.RestrictTo;
 import org.apache.isis.applib.fixturescripts.FixtureResult;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
@@ -30,12 +31,16 @@ import org.apache.isis.applib.fixturescripts.SimpleFixtureScript;
 /**
  * Enables fixtures to be installed from the application.
  */
-@DomainService()
+@DomainService(
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "org.isisaddons.module.command.fixture.scripts.SomeCommandAnnotatedObjectsFixturesService"
+)
 @DomainServiceLayout(
         menuBar = DomainServiceLayout.MenuBar.SECONDARY,
         named = "Prototyping",
         menuOrder = "500"
 )
+// TODO: convert this to FixtureScriptsSpecificationsProvider instead.
 public class SomeCommandAnnotatedObjectsFixturesService extends FixtureScripts {
 
     public SomeCommandAnnotatedObjectsFixturesService() {

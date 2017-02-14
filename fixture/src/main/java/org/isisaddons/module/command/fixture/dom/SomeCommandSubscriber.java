@@ -22,10 +22,13 @@ import com.google.common.eventbus.Subscribe;
 
 import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.background.BackgroundService2;
 import org.apache.isis.applib.services.user.UserService;
 
-@DomainService
+@DomainService(
+        nature = NatureOfService.DOMAIN
+)
 public class SomeCommandSubscriber extends AbstractSubscriber {
 
     @Subscribe
