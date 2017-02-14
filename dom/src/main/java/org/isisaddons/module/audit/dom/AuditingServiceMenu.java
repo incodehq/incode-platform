@@ -33,7 +33,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.clock.ClockService;
 
 @DomainService(
-        nature = NatureOfService.VIEW_MENU_ONLY
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "isisaudit.AuditingServiceMenu"
 )
 @DomainServiceLayout(
         named = "Activity",

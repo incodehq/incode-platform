@@ -24,6 +24,7 @@ import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
@@ -33,6 +34,8 @@ import org.apache.isis.applib.services.xactn.TransactionService;
 import org.isisaddons.module.audit.fixture.dom.audited.SomeAuditedObject;
 
 @DomainService (
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "org.isisaddons.module.audit.fixture.dom.notaudited.SomeNotAuditedObjects",
         repositoryFor = SomeAuditedObject.class
 )
 @DomainServiceLayout(

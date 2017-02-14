@@ -34,12 +34,13 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.isisaddons.module.audit.dom.AuditEntry;
 import org.isisaddons.module.audit.dom.AuditingServiceRepository;
 
+@DomainService(
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "org.isisaddons.module.audit.fixture.dom.AuditEntries"
+)
 @DomainServiceLayout(
         menuBar = DomainServiceLayout.MenuBar.SECONDARY,
         named = "Activity"
-)
-@DomainService(
-        nature = NatureOfService.VIEW_MENU_ONLY
 )
 public class AuditEntries {
 
