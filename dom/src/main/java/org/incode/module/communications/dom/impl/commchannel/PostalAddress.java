@@ -152,9 +152,7 @@ public class PostalAddress extends CommunicationChannel {
         return this;
     }
 
-    public String disableUpdateCountryAndState(
-            final Country country,
-            final State state) {
+    public String disableUpdateCountryAndState() {
         return null;
     }
 
