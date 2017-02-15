@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import org.incode.module.base.dom.utils.MessageUtils;
 
-public class MessageUtils_UnitTest {
+public class MessageUtils_Test {
 
     @Test
     public void when_matches_pattern() throws Exception {
