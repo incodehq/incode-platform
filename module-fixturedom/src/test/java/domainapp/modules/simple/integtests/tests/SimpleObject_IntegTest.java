@@ -33,8 +33,8 @@ import org.apache.isis.applib.services.xactn.TransactionService;
 import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusIdLong;
 import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusVersionTimestamp;
 
-import domainapp.modules.simple.dom.impl.SimpleObject;
-import domainapp.modules.simple.fixture.scenario.RecreateSimpleObjects;
+import domainapp.modules.simple.dom.impl.FlywayDemoObject;
+import domainapp.modules.simple.fixture.scenario.RecreateFlywayDemoObjects;
 import domainapp.modules.simple.integtests.SimpleModuleIntegTestAbstract;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -45,18 +45,18 @@ public class SimpleObject_IntegTest extends SimpleModuleIntegTestAbstract {
     @Inject
     TransactionService transactionService;
 
-    SimpleObject simpleObject;
+    FlywayDemoObject flywayDemoObject;
 
     @Before
     public void setUp() throws Exception {
         // given
-        RecreateSimpleObjects fs = new RecreateSimpleObjects().setNumber(1);
+        RecreateFlywayDemoObjects fs = new RecreateFlywayDemoObjects().setNumber(1);
         fixtureScripts.runFixtureScript(fs, null);
         transactionService.nextTransaction();
 
-        simpleObject = fs.getSimpleObjects().get(0);
+        flywayDemoObject = fs.getFlywayDemoObjects().get(0);
 
-        assertThat(simpleObject).isNotNull();
+        assertThat(flywayDemoObject).isNotNull();
     }
 
     public static class Name extends SimpleObject_IntegTest {
@@ -64,10 +64,10 @@ public class SimpleObject_IntegTest extends SimpleModuleIntegTestAbstract {
         @Test
         public void accessible() throws Exception {
             // when
-            final String name = wrap(simpleObject).getName();
+            final String name = wrap(flywayDemoObject).getName();
 
             // then
-            assertThat(name).isEqualTo(simpleObject.getName());
+            assertThat(name).isEqualTo(flywayDemoObject.getName());
         }
 
         @Test
@@ -76,7 +76,7 @@ public class SimpleObject_IntegTest extends SimpleModuleIntegTestAbstract {
             expectedExceptions.expect(DisabledException.class);
 
             // when
-            wrap(simpleObject).setName("new name");
+            wrap(flywayDemoObject).setName("new name");
         }
 
     }
@@ -87,11 +87,11 @@ public class SimpleObject_IntegTest extends SimpleModuleIntegTestAbstract {
         public void can_be_updated_directly() throws Exception {
 
             // when
-            wrap(mixin(SimpleObject.updateName.class, simpleObject)).exec("new name");
+            wrap(mixin(FlywayDemoObject.updateName.class, flywayDemoObject)).exec("new name");
             transactionService.nextTransaction();
 
             // then
-            assertThat(wrap(simpleObject).getName()).isEqualTo("new name");
+            assertThat(wrap(flywayDemoObject).getName()).isEqualTo("new name");
         }
 
         @Test
@@ -102,7 +102,7 @@ public class SimpleObject_IntegTest extends SimpleModuleIntegTestAbstract {
             expectedExceptions.expectMessage("Exclamation mark is not allowed");
 
             // when
-            wrap(mixin(SimpleObject.updateName.class, simpleObject)).exec("new name!");
+            wrap(mixin(FlywayDemoObject.updateName.class, flywayDemoObject)).exec("new name!");
         }
     }
 
@@ -116,10 +116,10 @@ public class SimpleObject_IntegTest extends SimpleModuleIntegTestAbstract {
         public void interpolatesName() throws Exception {
 
             // given
-            final String name = wrap(simpleObject).getName();
+            final String name = wrap(flywayDemoObject).getName();
 
             // when
-            final String title = titleService.titleOf(simpleObject);
+            final String title = titleService.titleOf(flywayDemoObject);
 
             // then
             assertThat(title).isEqualTo("Object: " + name);
@@ -131,7 +131,7 @@ public class SimpleObject_IntegTest extends SimpleModuleIntegTestAbstract {
         @Test
         public void should_be_populated() throws Exception {
             // when
-            final Long id = mixin(Persistable_datanucleusIdLong.class, simpleObject).$$();
+            final Long id = mixin(Persistable_datanucleusIdLong.class, flywayDemoObject).$$();
 
             // then
             assertThat(id).isGreaterThanOrEqualTo(0);
@@ -143,7 +143,7 @@ public class SimpleObject_IntegTest extends SimpleModuleIntegTestAbstract {
         @Test
         public void should_be_populated() throws Exception {
             // when
-            final Timestamp timestamp = mixin(Persistable_datanucleusVersionTimestamp.class, simpleObject).$$();
+            final Timestamp timestamp = mixin(Persistable_datanucleusVersionTimestamp.class, flywayDemoObject).$$();
             // then
             assertThat(timestamp).isNotNull();
         }

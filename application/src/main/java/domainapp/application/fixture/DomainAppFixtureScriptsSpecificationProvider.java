@@ -24,7 +24,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecification;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationProvider;
 
-import domainapp.modules.simple.fixture.scenario.RecreateSimpleObjects;
+import domainapp.modules.simple.fixture.scenario.RecreateFlywayDemoObjects;
 
 /**
  * Specifies where to find fixtures, and other settings.
@@ -36,9 +36,9 @@ public class DomainAppFixtureScriptsSpecificationProvider implements FixtureScri
         return FixtureScriptsSpecification
                 .builder(DomainAppFixtureScriptsSpecificationProvider.class)
                 .with(FixtureScripts.MultipleExecutionStrategy.EXECUTE)
-                .withRunScriptDefault(RecreateSimpleObjects.class)
+                .withRunScriptDefault(RecreateFlywayDemoObjects.class)
                 .withRunScriptDropDown(FixtureScriptsSpecification.DropDownPolicy.CHOICES)
-                .withRecreate(RecreateSimpleObjects.class)
+                .withRecreate(RecreateFlywayDemoObjects.class)
                 .build();
     }
 }

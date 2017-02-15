@@ -28,8 +28,8 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
 import domainapp.application.fixture.teardown.DomainAppTearDown;
-import domainapp.modules.simple.dom.impl.SimpleObject;
-import domainapp.modules.simple.dom.impl.SimpleObjectMenu;
+import domainapp.modules.simple.dom.impl.FlywayDemoObject;
+import domainapp.modules.simple.dom.impl.FlywayDemoObjectMenu;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class Smoke_IntegTest extends DomainAppIntegTestAbstract {
@@ -39,7 +39,7 @@ public class Smoke_IntegTest extends DomainAppIntegTestAbstract {
     @Inject
     TransactionService transactionService;
     @Inject
-    SimpleObjectMenu menu;
+    FlywayDemoObjectMenu menu;
 
     @Test
     public void create() throws Exception {
@@ -51,7 +51,7 @@ public class Smoke_IntegTest extends DomainAppIntegTestAbstract {
 
 
         // when
-        List<SimpleObject> all = wrap(menu).listAll();
+        List<FlywayDemoObject> all = wrap(menu).listAll();
 
         // then
         assertThat(all).isEmpty();
@@ -59,7 +59,7 @@ public class Smoke_IntegTest extends DomainAppIntegTestAbstract {
 
 
         // when
-        final SimpleObject fred = wrap(menu).create("Fred");
+        final FlywayDemoObject fred = wrap(menu).create("Fred");
         transactionService.flushTransaction();
 
         // then
@@ -70,7 +70,7 @@ public class Smoke_IntegTest extends DomainAppIntegTestAbstract {
 
 
         // when
-        final SimpleObject bill = wrap(menu).create("Bill");
+        final FlywayDemoObject bill = wrap(menu).create("Bill");
         transactionService.flushTransaction();
 
         // then
@@ -81,7 +81,7 @@ public class Smoke_IntegTest extends DomainAppIntegTestAbstract {
 
 
         // when
-        wrap(mixin(SimpleObject.updateName.class, fred)).exec("Freddy");
+        wrap(mixin(FlywayDemoObject.updateName.class, fred)).exec("Freddy");
         transactionService.flushTransaction();
 
         // then
@@ -97,7 +97,7 @@ public class Smoke_IntegTest extends DomainAppIntegTestAbstract {
 
 
         // when
-        wrap(mixin(SimpleObject.delete.class, fred)).exec();
+        wrap(mixin(FlywayDemoObject.delete.class, fred)).exec();
         transactionService.flushTransaction();
 
 

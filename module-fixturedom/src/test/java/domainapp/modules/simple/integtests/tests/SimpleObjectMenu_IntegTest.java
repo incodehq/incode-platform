@@ -35,10 +35,10 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
-import domainapp.modules.simple.dom.impl.SimpleObject;
-import domainapp.modules.simple.dom.impl.SimpleObjectMenu;
-import domainapp.modules.simple.fixture.scenario.RecreateSimpleObjects;
-import domainapp.modules.simple.fixture.teardown.SimpleModuleTearDown;
+import domainapp.modules.simple.dom.impl.FlywayDemoObject;
+import domainapp.modules.simple.dom.impl.FlywayDemoObjectMenu;
+import domainapp.modules.simple.fixture.scenario.RecreateFlywayDemoObjects;
+import domainapp.modules.simple.fixture.teardown.FlywayDemoModuleTearDown;
 import domainapp.modules.simple.integtests.SimpleModuleIntegTestAbstract;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -49,7 +49,7 @@ public class SimpleObjectMenu_IntegTest extends SimpleModuleIntegTestAbstract {
     @Inject
     TransactionService transactionService;
     @Inject
-    SimpleObjectMenu menu;
+    FlywayDemoObjectMenu menu;
     @Inject
     RepositoryService repositoryService;
 
@@ -59,30 +59,30 @@ public class SimpleObjectMenu_IntegTest extends SimpleModuleIntegTestAbstract {
         public void happyCase() throws Exception {
 
             // given
-            RecreateSimpleObjects fs = new RecreateSimpleObjects();
+            RecreateFlywayDemoObjects fs = new RecreateFlywayDemoObjects();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 
             // when
-            final List<SimpleObject> all = wrap(menu).listAll();
+            final List<FlywayDemoObject> all = wrap(menu).listAll();
 
             // then
-            assertThat(all).hasSize(fs.getSimpleObjects().size());
+            assertThat(all).hasSize(fs.getFlywayDemoObjects().size());
 
-            SimpleObject simpleObject = wrap(all.get(0));
-            assertThat(simpleObject.getName()).isEqualTo(fs.getSimpleObjects().get(0).getName());
+            FlywayDemoObject flywayDemoObject = wrap(all.get(0));
+            assertThat(flywayDemoObject.getName()).isEqualTo(fs.getFlywayDemoObjects().get(0).getName());
         }
 
         @Test
         public void whenNone() throws Exception {
 
             // given
-            FixtureScript fs = new SimpleModuleTearDown();
+            FixtureScript fs = new FlywayDemoModuleTearDown();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 
             // when
-            final List<SimpleObject> all = wrap(menu).listAll();
+            final List<FlywayDemoObject> all = wrap(menu).listAll();
 
             // then
             assertThat(all).hasSize(0);
@@ -95,7 +95,7 @@ public class SimpleObjectMenu_IntegTest extends SimpleModuleIntegTestAbstract {
         public void happyCase() throws Exception {
 
             // given
-            FixtureScript fs = new SimpleModuleTearDown();
+            FixtureScript fs = new FlywayDemoModuleTearDown();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 
@@ -103,7 +103,7 @@ public class SimpleObjectMenu_IntegTest extends SimpleModuleIntegTestAbstract {
             wrap(menu).create("Faz");
 
             // then
-            final List<SimpleObject> all = wrap(menu).listAll();
+            final List<FlywayDemoObject> all = wrap(menu).listAll();
             assertThat(all).hasSize(1);
         }
 
@@ -111,7 +111,7 @@ public class SimpleObjectMenu_IntegTest extends SimpleModuleIntegTestAbstract {
         public void whenAlreadyExists() throws Exception {
 
             // given
-            FixtureScript fs = new SimpleModuleTearDown();
+            FixtureScript fs = new FlywayDemoModuleTearDown();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
             wrap(menu).create("Faz");

@@ -27,15 +27,15 @@ import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.modules.simple.dom.impl.SimpleObject;
-import domainapp.modules.simple.fixture.data.SimpleObjectMenu_create;
-import domainapp.modules.simple.fixture.teardown.SimpleModuleTearDown;
+import domainapp.modules.simple.dom.impl.FlywayDemoObject;
+import domainapp.modules.simple.fixture.data.FlywayDemoObjectMenu_create;
+import domainapp.modules.simple.fixture.teardown.FlywayDemoModuleTearDown;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Accessors(chain = true)
-public class RecreateSimpleObjects extends FixtureScript {
+public class RecreateFlywayDemoObjects extends FixtureScript {
 
     public final List<String> NAMES = Collections.unmodifiableList(Arrays.asList(
             "Foo", "Bar", "Baz", "Frodo", "Froyo", "Fizz", "Bip", "Bop", "Bang", "Boo"));
@@ -50,7 +50,7 @@ public class RecreateSimpleObjects extends FixtureScript {
      * The simpleobjects created by this fixture (output).
      */
     @Getter
-    private final List<SimpleObject> simpleObjects = Lists.newArrayList();
+    private final List<FlywayDemoObject> flywayDemoObjects = Lists.newArrayList();
 
     @Override
     protected void execute(final ExecutionContext ec) {
@@ -64,12 +64,12 @@ public class RecreateSimpleObjects extends FixtureScript {
         }
 
         // execute
-        ec.executeChild(this, new SimpleModuleTearDown());
+        ec.executeChild(this, new FlywayDemoModuleTearDown());
         for (int i = 0; i < number; i++) {
             final String name = NAMES.get(i);
-            final SimpleObjectMenu_create fs = new SimpleObjectMenu_create().setName(name);
+            final FlywayDemoObjectMenu_create fs = new FlywayDemoObjectMenu_create().setName(name);
             ec.executeChild(this, fs.getName(), fs);
-            simpleObjects.add(fs.getSimpleObject());
+            flywayDemoObjects.add(fs.getFlywayDemoObject());
         }
     }
 

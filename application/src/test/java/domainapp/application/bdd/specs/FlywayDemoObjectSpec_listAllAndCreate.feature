@@ -14,13 +14,13 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
-@RecreateSimpleObjects
-Feature: List and Create New Simple Objects
+@RecreateFlywayDemoObjects
+Feature: List and Create New Flyway Demo Objects
 
   @integration
-  Scenario: Existing simple objects can be listed and new ones created
-    Given there are initially 3 simple objects
-    When  I create a new simple object
-    Then  there are 4 simple objects 
+  Scenario: Existing demo objects can be listed and new ones created
+    Given there are initially 3 demo objects
+    When  I create a new demo object
+    Then  there are 4 demo objects
 
     

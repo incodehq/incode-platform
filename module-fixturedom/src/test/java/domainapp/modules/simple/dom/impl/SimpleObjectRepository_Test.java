@@ -48,13 +48,13 @@ public class SimpleObjectRepository_Test {
     @Mock
     RepositoryService mockRepositoryService;
 
-    SimpleObjectRepository simpleObjectRepository;
+    FlywayDemoObjectRepository flywayDemoObjectRepository;
 
     @Before
     public void setUp() throws Exception {
-        simpleObjectRepository = new SimpleObjectRepository();
-        simpleObjectRepository.repositoryService = mockRepositoryService;
-        simpleObjectRepository.serviceRegistry = mockServiceRegistry;
+        flywayDemoObjectRepository = new FlywayDemoObjectRepository();
+        flywayDemoObjectRepository.repositoryService = mockRepositoryService;
+        flywayDemoObjectRepository.serviceRegistry = mockServiceRegistry;
     }
 
     public static class Create extends SimpleObjectRepository_Test {
@@ -68,7 +68,7 @@ public class SimpleObjectRepository_Test {
             final Sequence seq = context.sequence("create");
             context.checking(new Expectations() {
                 {
-                    oneOf(mockServiceRegistry).injectServicesInto(with(any(SimpleObject.class)));
+                    oneOf(mockServiceRegistry).injectServicesInto(with(any(FlywayDemoObject.class)));
                     inSequence(seq);
 
                     oneOf(mockRepositoryService).persist(with(nameOf(someName)));
@@ -78,17 +78,17 @@ public class SimpleObjectRepository_Test {
             });
 
             // when
-            final SimpleObject obj = simpleObjectRepository.create(someName);
+            final FlywayDemoObject obj = flywayDemoObjectRepository.create(someName);
 
             // then
             assertThat(obj).isNotNull();
             assertThat(obj.getName()).isEqualTo(someName);
         }
 
-        private static Matcher<SimpleObject> nameOf(final String name) {
-            return new TypeSafeMatcher<SimpleObject>() {
+        private static Matcher<FlywayDemoObject> nameOf(final String name) {
+            return new TypeSafeMatcher<FlywayDemoObject>() {
                 @Override
-                protected boolean matchesSafely(final SimpleObject item) {
+                protected boolean matchesSafely(final FlywayDemoObject item) {
                     return name.equals(item.getName());
                 }
 
@@ -106,17 +106,17 @@ public class SimpleObjectRepository_Test {
         public void happyCase() throws Exception {
 
             // given
-            final List<SimpleObject> all = Lists.newArrayList();
+            final List<FlywayDemoObject> all = Lists.newArrayList();
 
             context.checking(new Expectations() {
                 {
-                    oneOf(mockRepositoryService).allInstances(SimpleObject.class);
+                    oneOf(mockRepositoryService).allInstances(FlywayDemoObject.class);
                     will(returnValue(all));
                 }
             });
 
             // when
-            final List<SimpleObject> list = simpleObjectRepository.listAll();
+            final List<FlywayDemoObject> list = flywayDemoObjectRepository.listAll();
 
             // then
             assertThat(list).isEqualTo(all);

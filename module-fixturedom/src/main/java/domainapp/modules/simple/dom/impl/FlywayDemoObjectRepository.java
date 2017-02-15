@@ -28,24 +28,24 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
-        repositoryFor = SimpleObject.class
+        repositoryFor = FlywayDemoObject.class
 )
-public class SimpleObjectRepository {
+public class FlywayDemoObjectRepository {
 
-    public List<SimpleObject> listAll() {
-        return repositoryService.allInstances(SimpleObject.class);
+    public List<FlywayDemoObject> listAll() {
+        return repositoryService.allInstances(FlywayDemoObject.class);
     }
 
-    public List<SimpleObject> findByName(final String name) {
+    public List<FlywayDemoObject> findByName(final String name) {
         return repositoryService.allMatches(
                 new QueryDefault<>(
-                        SimpleObject.class,
+                        FlywayDemoObject.class,
                         "findByName",
                         "name", name));
     }
 
-    public SimpleObject create(final String name) {
-        final SimpleObject object = new SimpleObject(name);
+    public FlywayDemoObject create(final String name) {
+        final FlywayDemoObject object = new FlywayDemoObject(name);
         serviceRegistry.injectServicesInto(object);
         repositoryService.persist(object);
         return object;

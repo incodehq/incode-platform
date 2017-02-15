@@ -46,8 +46,8 @@ import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
-        schema = "simple",
-        table = "SimpleObject"
+        schema = "flywayDemo",
+        table = "FlywayDemoObject"
 )
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
@@ -59,7 +59,7 @@ import lombok.Setter;
         @javax.jdo.annotations.Query(
                 name = "findByName", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM domainapp.modules.simple.dom.impl.SimpleObject "
+                        + "FROM domainapp.modules.simple.dom.impl.FlywayDemoObject "
                         + "WHERE name.indexOf(:name) >= 0 ")
 })
 @javax.jdo.annotations.Unique(name="SimpleObject_name_UNQ", members = {"name"})
@@ -68,7 +68,7 @@ import lombok.Setter;
         auditing = Auditing.ENABLED,
         publishing = Publishing.ENABLED
 )
-public class SimpleObject implements Comparable<SimpleObject> {
+public class FlywayDemoObject implements Comparable<FlywayDemoObject> {
 
     //region > title
     public TranslatableString title() {
@@ -77,7 +77,7 @@ public class SimpleObject implements Comparable<SimpleObject> {
     //endregion
 
     //region > constructor
-    public SimpleObject(final String name) {
+    public FlywayDemoObject(final String name) {
         setName(name);
     }
     //endregion
@@ -95,7 +95,7 @@ public class SimpleObject implements Comparable<SimpleObject> {
         }
 
         public static class PropertyDomainEvent
-                extends SimpleModuleDomSubmodule.PropertyDomainEvent<SimpleObject, String> { }
+                extends SimpleModuleDomSubmodule.PropertyDomainEvent<FlywayDemoObject, String> { }
     }
 
 
@@ -122,7 +122,7 @@ public class SimpleObject implements Comparable<SimpleObject> {
         }
 
         public static class PropertyDomainEvent
-                extends SimpleModuleDomSubmodule.PropertyDomainEvent<SimpleObject, String> { }
+                extends SimpleModuleDomSubmodule.PropertyDomainEvent<FlywayDemoObject, String> { }
     }
 
 
@@ -143,13 +143,13 @@ public class SimpleObject implements Comparable<SimpleObject> {
     @Mixin(method = "exec")
     public static class updateName {
 
-        public static class ActionDomainEvent extends SimpleModuleDomSubmodule.ActionDomainEvent<SimpleObject> {
+        public static class ActionDomainEvent extends SimpleModuleDomSubmodule.ActionDomainEvent<FlywayDemoObject> {
         }
 
-        private final SimpleObject simpleObject;
+        private final FlywayDemoObject flywayDemoObject;
 
-        public updateName(final SimpleObject simpleObject) {
-            this.simpleObject = simpleObject;
+        public updateName(final FlywayDemoObject flywayDemoObject) {
+            this.flywayDemoObject = flywayDemoObject;
         }
 
         @Action(
@@ -161,16 +161,16 @@ public class SimpleObject implements Comparable<SimpleObject> {
         @ActionLayout(
                 contributed = Contributed.AS_ACTION
         )
-        public SimpleObject exec(
-                @Parameter(maxLength = SimpleObject.NameType.Meta.MAX_LEN)
+        public FlywayDemoObject exec(
+                @Parameter(maxLength = FlywayDemoObject.NameType.Meta.MAX_LEN)
                 @ParameterLayout(named = "Name")
                 final String name) {
-            simpleObject.setName(name);
-            return simpleObject;
+            flywayDemoObject.setName(name);
+            return flywayDemoObject;
         }
 
         public String default0Exec() {
-            return simpleObject.getName();
+            return flywayDemoObject.getName();
         }
 
         public TranslatableString validate0Exec(final String name) {
@@ -184,12 +184,12 @@ public class SimpleObject implements Comparable<SimpleObject> {
     @Mixin(method = "exec")
     public static class delete {
 
-        public static class ActionDomainEvent extends SimpleModuleDomSubmodule.ActionDomainEvent<SimpleObject> {
+        public static class ActionDomainEvent extends SimpleModuleDomSubmodule.ActionDomainEvent<FlywayDemoObject> {
         }
 
-        private final SimpleObject simpleObject;
-        public delete(final SimpleObject simpleObject) {
-            this.simpleObject = simpleObject;
+        private final FlywayDemoObject flywayDemoObject;
+        public delete(final FlywayDemoObject flywayDemoObject) {
+            this.flywayDemoObject = flywayDemoObject;
         }
 
         @Action(
@@ -200,9 +200,9 @@ public class SimpleObject implements Comparable<SimpleObject> {
                 contributed = Contributed.AS_ACTION
         )
         public void exec() {
-            final String title = titleService.titleOf(simpleObject);
+            final String title = titleService.titleOf(flywayDemoObject);
             messageService.informUser(String.format("'%s' deleted", title));
-            repositoryService.remove(simpleObject);
+            repositoryService.remove(flywayDemoObject);
         }
 
         @javax.inject.Inject
@@ -224,7 +224,7 @@ public class SimpleObject implements Comparable<SimpleObject> {
     }
 
     @Override
-    public int compareTo(final SimpleObject other) {
+    public int compareTo(final FlywayDemoObject other) {
         return ObjectContracts.compare(this, other, "name");
     }
 

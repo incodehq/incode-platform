@@ -23,8 +23,8 @@ import java.util.List;
 import org.apache.isis.applib.annotation.ViewModel;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
-import domainapp.modules.simple.dom.impl.SimpleObject;
-import domainapp.modules.simple.dom.impl.SimpleObjectRepository;
+import domainapp.modules.simple.dom.impl.FlywayDemoObject;
+import domainapp.modules.simple.dom.impl.FlywayDemoObjectRepository;
 
 @ViewModel
 public class HomePageViewModel {
@@ -37,15 +37,15 @@ public class HomePageViewModel {
 
     //region > object (collection)
     @org.apache.isis.applib.annotation.HomePage
-    public List<SimpleObject> getObjects() {
-        return simpleObjectRepository.listAll();
+    public List<FlywayDemoObject> getObjects() {
+        return flywayDemoObjectRepository.listAll();
     }
     //endregion
 
     //region > injected services
 
     @javax.inject.Inject
-    SimpleObjectRepository simpleObjectRepository;
+    FlywayDemoObjectRepository flywayDemoObjectRepository;
 
     //endregion
 }

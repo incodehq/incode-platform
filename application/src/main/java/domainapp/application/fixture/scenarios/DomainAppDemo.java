@@ -21,7 +21,7 @@ package domainapp.application.fixture.scenarios;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import domainapp.application.fixture.teardown.DomainAppTearDown;
-import domainapp.modules.simple.fixture.scenario.RecreateSimpleObjects;
+import domainapp.modules.simple.fixture.scenario.RecreateFlywayDemoObjects;
 
 public class DomainAppDemo extends FixtureScript {
 
@@ -54,7 +54,7 @@ public class DomainAppDemo extends FixtureScript {
 
         // execute
         ec.executeChild(this, new DomainAppTearDown());
-        ec.executeChild(this, new RecreateSimpleObjects().setNumber(number));
+        ec.executeChild(this, new RecreateFlywayDemoObjects().setNumber(number));
 
     }
 }

@@ -27,18 +27,18 @@ import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import domainapp.modules.simple.dom.SimpleModuleDomSubmodule;
-import domainapp.modules.simple.fixture.SimpleModuleFixtureSubmodule;
+import domainapp.modules.simple.fixture.FlywayDemoModuleFixtureSubmodule;
 
 /**
  * Used by <code>isis-maven-plugin</code> (build-time validation of the module) and also by module-level integration tests.
  */
-public class SimpleModuleManifest implements AppManifest {
+public class FlywayDemoModuleManifest implements AppManifest {
 
     @Override
     public List<Class<?>> getModules() {
         return Arrays.<Class<?>>asList(
                 SimpleModuleDomSubmodule.class,
-                SimpleModuleFixtureSubmodule.class
+                FlywayDemoModuleFixtureSubmodule.class
         );
     }
 
