@@ -20,7 +20,8 @@ Copyright 2014~2015 Dan Haywood
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>1.13.2</version>
+        <version>1.13.2.1</version>
+        <relativePath/>
     </parent>
 
     <groupId>org.incode.module.communications</groupId>
@@ -31,7 +32,7 @@ Copyright 2014~2015 Dan Haywood
 
     <name>Incode Module Communications DOM</name>
     <description>
-        A module providing email and print Communications of Documetns
+        A module providing email and print Communications of Documents
     </description>
 
 	
