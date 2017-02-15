@@ -59,7 +59,7 @@ Copyright 2014~2015 Dan Haywood
         <compileSource>1.8</compileSource>
         <compileTarget>1.8</compileTarget>
 
-        <isis.version>1.13.1</isis.version>
+        <isis.version>1.13.2.20170214-2237</isis.version>
         <isis-module-fakedata.version>1.13.0</isis-module-fakedata.version>
 
         <incode-module-base.version>1.13.6</incode-module-base.version>

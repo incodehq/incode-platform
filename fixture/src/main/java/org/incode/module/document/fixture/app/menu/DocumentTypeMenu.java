@@ -32,7 +32,10 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.incode.module.document.dom.impl.types.DocumentType;
 import org.incode.module.document.dom.impl.types.DocumentTypeRepository;
 
-@DomainService(nature = NatureOfService.VIEW_MENU_ONLY)
+@DomainService(
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "incodeDocuments.DocumentTypeMenu"
+)
 @DomainServiceLayout(
         named = "Document Types",
         menuBar = DomainServiceLayout.MenuBar.PRIMARY,

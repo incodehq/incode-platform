@@ -17,13 +17,17 @@
  */
 package org.incode.module.document.dom.services;
 
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.Nature;
 import org.apache.isis.applib.annotation.Title;
-import org.apache.isis.applib.annotation.ViewModel;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@ViewModel
+@DomainObject(
+        nature = Nature.VIEW_MODEL,
+        objectType = "incodeDocuments.ClassNameViewModel"
+)
 public class ClassNameViewModel {
 
     public ClassNameViewModel() {

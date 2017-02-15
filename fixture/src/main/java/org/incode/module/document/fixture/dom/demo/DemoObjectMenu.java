@@ -30,7 +30,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
 @DomainService(
-        nature = NatureOfService.VIEW,
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "incodeDocumentDemo.DemoObjectMenu",
         repositoryFor = DemoObject.class
 )
 @DomainServiceLayout(
@@ -40,7 +41,6 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 public class DemoObjectMenu {
 
 
-    //region > listAll (action)
 
     @Action(
             semantics = SemanticsOf.SAFE
@@ -53,9 +53,7 @@ public class DemoObjectMenu {
         return repositoryService.allInstances(DemoObject.class);
     }
 
-    //endregion
 
-    //region > create (action)
 
     @MemberOrder(sequence = "2")
     public DemoObject create(
@@ -67,7 +65,6 @@ public class DemoObjectMenu {
         return obj;
     }
 
-    //endregion
 
     @javax.inject.Inject
     RepositoryService repositoryService;

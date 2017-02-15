@@ -29,11 +29,10 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
-import org.incode.module.document.fixture.dom.demo.DemoObject;
-
 @DomainService(
-        nature = NatureOfService.VIEW,
-        repositoryFor = DemoObject.class
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "incodeDocumentDemo.OtherObjectMenu",
+        repositoryFor = OtherObject.class
 )
 @DomainServiceLayout(
         named = "Other Objects",
@@ -42,7 +41,6 @@ import org.incode.module.document.fixture.dom.demo.DemoObject;
 public class OtherObjectMenu {
 
 
-    //region > listAll (action)
 
     @Action(
             semantics = SemanticsOf.SAFE
@@ -55,10 +53,8 @@ public class OtherObjectMenu {
         return repositoryService.allInstances(OtherObject.class);
     }
 
-    //endregion
 
-    //region > create (action)
-    
+
     @MemberOrder(sequence = "2")
     public OtherObject create(
             @ParameterLayout(named = "Name")
@@ -69,7 +65,6 @@ public class OtherObjectMenu {
         return obj;
     }
 
-    //endregion
 
     @javax.inject.Inject
     RepositoryService repositoryService;
