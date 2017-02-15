@@ -33,7 +33,8 @@ import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
 @DomainService(
-        nature = NatureOfService.VIEW_REST_ONLY
+        nature = NatureOfService.VIEW_REST_ONLY,
+        objectType = "isispublishmq.StatusMessageService"
 )
 public class StatusMessageService {
 

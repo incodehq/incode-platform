@@ -354,7 +354,7 @@
             </activation>
 
             <properties>
-                <isis.version>1.13.0</isis.version>
+                <isis.version>1.13.2.20170214-2237</isis.version>
             </properties>
 
             <dependencyManagement>
