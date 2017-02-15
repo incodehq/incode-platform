@@ -82,7 +82,7 @@ public class ApplicationSettingJdo extends SettingAbstractJdo implements Applica
     }
 
 
-    @javax.jdo.annotations.Column(length=JdoColumnLength.SettingAbstract.SETTING_KEY)
+    @javax.jdo.annotations.Column(length=128)
     @javax.jdo.annotations.PrimaryKey
     @Property(
             domainEvent = KeyDomainEvent.class
@@ -144,7 +144,7 @@ public class ApplicationSettingJdo extends SettingAbstractJdo implements Applica
     public static class TypeDomainEvent extends PropertyDomainEvent<SettingType> {
     }
 
-    @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.SettingAbstract.SETTING_TYPE)
+    @javax.jdo.annotations.Column(allowsNull="false", length=20)
     @javax.jdo.annotations.Persistent
     @Property(
             domainEvent = TypeDomainEvent.class

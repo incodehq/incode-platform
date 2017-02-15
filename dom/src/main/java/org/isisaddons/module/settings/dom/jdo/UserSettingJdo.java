@@ -50,14 +50,14 @@ import lombok.Setter;
         @javax.jdo.annotations.Query(
         name = "findNext", language = "JDOQL",
         value = "SELECT "
-                + "FROM org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo "
+                + "FROM org.isisaddons.module.settings.dom.jdo.UserSettingJdo "
                 + "WHERE user == :user "
                 + "&&    key > :key "
                 + "ORDER BY key ASC"),
         @javax.jdo.annotations.Query(
         name = "findPrevious", language = "JDOQL",
         value = "SELECT "
-                + "FROM org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo "
+                + "FROM org.isisaddons.module.settings.dom.jdo.UserSettingJdo "
                 + "WHERE user == :user "
                 + "&&    key < :key "
                 + "ORDER BY key DESC"),
@@ -121,7 +121,7 @@ public class UserSettingJdo extends SettingAbstractJdo implements UserSetting, H
     public static class KeyDomainEvent extends PropertyDomainEvent<String> {
     }
 
-    @javax.jdo.annotations.Column(length=JdoColumnLength.SettingAbstract.SETTING_KEY)
+    @javax.jdo.annotations.Column(length=128)
     @javax.jdo.annotations.PrimaryKey
     @Property(
             domainEvent = KeyDomainEvent.class
@@ -186,7 +186,7 @@ public class UserSettingJdo extends SettingAbstractJdo implements UserSetting, H
     public static class TypeDomainEvent extends PropertyDomainEvent<SettingType> {
     }
 
-    @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.SettingAbstract.SETTING_TYPE)
+    @javax.jdo.annotations.Column(allowsNull="false", length=20)
     @javax.jdo.annotations.Persistent
     @Property(
             domainEvent = TypeDomainEvent.class
