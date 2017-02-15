@@ -42,7 +42,8 @@ import org.apache.isis.applib.services.i18n.TranslatableString;
  * Simply access the feature toggles console.
  */
 @DomainService(
-        nature = NatureOfService.VIEW_MENU_ONLY
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "isistogglz.FeatureToggleConsoleAccessor"
 )
 @DomainServiceLayout(
         menuBar = DomainServiceLayout.MenuBar.TERTIARY,

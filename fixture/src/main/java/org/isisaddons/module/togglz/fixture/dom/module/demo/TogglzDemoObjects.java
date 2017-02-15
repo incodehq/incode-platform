@@ -35,7 +35,8 @@ import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 import org.isisaddons.module.togglz.fixture.dom.module.featuretoggle.TogglzDemoFeature;
 
 @DomainService(
-        nature = NatureOfService.VIEW,
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "isistogglzDemo.TogglzDemoObjects",
         repositoryFor = TogglzDemoObject.class
 )
 @DomainServiceLayout(
