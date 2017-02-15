@@ -29,14 +29,14 @@
     <name>Isis Addons PublishMQ Module Soap</name>
     
     <packaging>pom</packaging>
-    
-    
+
     <properties>
 <!--
         <cxf.release.base>${basedir}/../..</cxf.release.base>
 -->
         <cxf-codegen-plugin.version>3.1.1</cxf-codegen-plugin.version>
     </properties>
+
 
 
     <dependencyManagement>

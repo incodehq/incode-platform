@@ -30,7 +30,8 @@ import org.apache.isis.applib.annotation.Publishing;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
-        nature = NatureOfService.VIEW,
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "isispublishmqDemo.PublishMqDemoObjects",
         repositoryFor = PublishMqDemoObject.class
 )
 @DomainServiceLayout(

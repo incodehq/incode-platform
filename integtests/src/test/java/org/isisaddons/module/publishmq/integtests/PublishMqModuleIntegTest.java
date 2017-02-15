@@ -25,7 +25,7 @@ public abstract class PublishMqModuleIntegTest extends IntegrationTestAbstract {
 
     @BeforeClass
     public static void initClass() {
-        org.apache.log4j.PropertyConfigurator.configure("logging.properties");
+        org.apache.log4j.PropertyConfigurator.configure("logging-integtest.properties");
         PublishMqModuleSystemInitializer.initIsft();
         
         // instantiating will install onto ThreadLocal

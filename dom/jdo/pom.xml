@@ -32,6 +32,34 @@
         A module providing the persistence of published events.
     </description>
 
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.odavid.maven.plugins</groupId>
+                <artifactId>mixin-maven-plugin</artifactId>
+                <version>0.1-alpha-39</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <mixins>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>enforcerrelaxed</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>standard</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>datanucleusenhance</artifactId>
+                        </mixin>
+                    </mixins>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <dependency>
             <groupId>org.isisaddons.module.publishmq</groupId>
@@ -44,6 +72,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -64,51 +93,4 @@
 
     </dependencies>
 
-    <profiles>
-
-        <profile>
-            <id>enhance</id>
-            <activation>
-                <property>
-                    <name>!skip.enhance</name>
-                </property>
-            </activation>
-            <properties>
-                <datanucleus-maven-plugin.version>4.0.1</datanucleus-maven-plugin.version>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.datanucleus</groupId>
-                        <artifactId>datanucleus-maven-plugin</artifactId>
-                        <version>${datanucleus-maven-plugin.version}</version>
-                        <configuration>
-                            <fork>false</fork>
-                            <log4jConfiguration>${basedir}/log4j.properties</log4jConfiguration>
-                            <verbose>true</verbose>
-                            <props>${basedir}/datanucleus.properties</props>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <phase>process-classes</phase>
-                                <goals>
-                                    <goal>enhance</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-            <dependencies>
-                <dependency>
-                    <groupId>org.datanucleus</groupId>
-                    <artifactId>datanucleus-core</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>org.datanucleus</groupId>
-                    <artifactId>datanucleus-api-jdo</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
 </project>

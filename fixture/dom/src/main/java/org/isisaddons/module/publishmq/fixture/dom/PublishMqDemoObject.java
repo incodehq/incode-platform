@@ -47,7 +47,7 @@ import org.apache.isis.applib.util.ObjectContracts;
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
 @DomainObject(
-        objectType = "PUBLISH_MQ_DEMO_OBJECT",
+        objectType = "isispublishmqDemo.PublishMqDemoObject",
         publishing = Publishing.ENABLED
 )
 @DomainObjectLayout(
