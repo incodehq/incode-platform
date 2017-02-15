@@ -1,5 +1,6 @@
 = isis-module-publishmq
 :_imagesdir: ./
+:toc:
 
 image:https://travis-ci.org/isisaddons/isis-module-publishmq.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-publishmq]
 
