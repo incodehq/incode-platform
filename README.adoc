@@ -31,11 +31,6 @@ TODO: to document
 == How to run the Demo App
 
 
-[WARNING]
-====
-TODO: to do.
-====
-
 The prerequisite software is:
 
 * Java JDK 8
@@ -46,6 +41,7 @@ To build the demo app:
 [source]
 ----
 git clone https://github.com/incodehq/isis-module-communications.git
+cd isis-module-communications
 mvn clean install
 ----
 
@@ -54,7 +50,7 @@ To run the demo app:
 
 [source]
 ----
-mvn -pl jetty:run
+mvn -pl webapp -Dmavenmixin-jettywar jetty:run
 ----
 
 Then log on using user: `sven`, password: `pass`
@@ -183,7 +179,7 @@ therefore require the appropriate Lombok plugin.  See the link:https://projectlo
 
 [source]
 ----
-Copyright 2016 Dan Haywood
+Copyright 2016-2017 Dan Haywood
 
 Licensed under the Apache License, Version 2.0 (the
 "License"); you may not use this file except in compliance
