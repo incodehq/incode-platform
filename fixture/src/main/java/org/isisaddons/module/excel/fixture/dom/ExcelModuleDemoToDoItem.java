@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import javax.jdo.JDOHelper;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 
@@ -442,7 +441,7 @@ public class ExcelModuleDemoToDoItem implements Comparable<ExcelModuleDemoToDoIt
         return list;
     }
 
-    public String disableAdd(final ExcelModuleDemoToDoItem toDoItem) {
+    public String disableAdd() {
         if(isComplete()) {
             return "Cannot add dependencies for items that are complete";
         }
@@ -467,7 +466,7 @@ public class ExcelModuleDemoToDoItem implements Comparable<ExcelModuleDemoToDoIt
         return this;
     }
     // disable action dependent on state of object
-    public String disableRemove(final ExcelModuleDemoToDoItem toDoItem) {
+    public String disableRemove() {
         if(isComplete()) {
             return "Cannot remove dependencies for items that are complete";
         }

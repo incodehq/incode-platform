@@ -32,6 +32,7 @@ import com.google.common.io.Resources;
 
 import org.datanucleus.enhancement.Persistable;
 
+import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.fixturescripts.FixtureResultList;
@@ -51,6 +52,9 @@ import lombok.Setter;
  * This class should be executed using {@link FixtureScripts.MultipleExecutionStrategy#EXECUTE_ONCE_BY_VALUE} (it
  * has value semantics).
  */
+@DomainObject(
+        objectType = "isisexcel.ExcelFixture"
+)
 public class ExcelFixture extends FixtureScript {
 
     private final List<Class> classes;

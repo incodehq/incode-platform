@@ -48,7 +48,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @DomainObject(
-        nature = Nature.VIEW_MODEL
+        nature = Nature.VIEW_MODEL,
+        objectType = "org.isisaddons.module.excel.fixture.app.ExcelModuleDemoToDoItemBulkUpdateManager"
 )
 @DomainObjectLayout(
         named ="Import/export manager",

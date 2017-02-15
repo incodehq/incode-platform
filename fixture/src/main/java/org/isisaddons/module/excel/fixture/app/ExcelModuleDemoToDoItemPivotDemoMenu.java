@@ -25,6 +25,7 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.value.Blob;
 
@@ -32,7 +33,10 @@ import org.isisaddons.module.excel.dom.ExcelService;
 import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
 import org.isisaddons.module.excel.fixture.viewmodels.ExcelModuleDemoPivot;
 
-@DomainService
+@DomainService(
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "org.isisaddons.module.excel.fixture.app.ExcelModuleDemoToDoItemPivotDemoMenu"
+)
 public class ExcelModuleDemoToDoItemPivotDemoMenu {
 
     public ExcelModuleDemoToDoItemPivotDemoMenu() {

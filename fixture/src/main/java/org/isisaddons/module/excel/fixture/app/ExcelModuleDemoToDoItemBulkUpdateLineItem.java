@@ -17,11 +17,9 @@
 package org.isisaddons.module.excel.fixture.app;
 
 import java.math.BigDecimal;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Category;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Subcategory;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItems;
+
 import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.AbstractViewModel;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
@@ -32,7 +30,14 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.actinvoc.ActionInvocationContext;
 
-@DomainObject
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Category;
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Subcategory;
+import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItems;
+
+@DomainObject(
+        objectType = "org.isisaddons.module.excel.fixture.app.ExcelModuleDemoToDoItemBulkUpdateLineItem"
+)
 @DomainObjectLayout(
         named = "Bulk update line item",
         bookmarking = BookmarkPolicy.AS_ROOT

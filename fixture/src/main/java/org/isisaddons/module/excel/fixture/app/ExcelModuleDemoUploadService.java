@@ -19,8 +19,15 @@ import org.isisaddons.module.excel.dom.ExcelFixture;
 import org.isisaddons.module.excel.fixture.scripts.ExcelModuleDemoToDoItemRowHandler;
 import org.isisaddons.module.excel.fixture.viewmodels.ExcelModuleDemoProfessionalImp;
 
-@DomainService(nature = NatureOfService.VIEW_MENU_ONLY)
-@DomainServiceLayout(menuBar = DomainServiceLayout.MenuBar.SECONDARY, named = "Prototyping", menuOrder = "900")
+@DomainService(
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "org.isisaddons.module.excel.fixture.app.ExcelModuleDemoUploadService"
+)
+@DomainServiceLayout(
+        menuBar = DomainServiceLayout.MenuBar.SECONDARY,
+        named = "Prototyping",
+        menuOrder = "900"
+)
 public class ExcelModuleDemoUploadService {
 
     public List<FixtureResult> uploadSpreadsheet(
