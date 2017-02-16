@@ -18,6 +18,13 @@ language governing permissions and limitations under the License.
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.incode</groupId>
+        <artifactId>incode-build</artifactId>
+        <version>1</version>
+        <relativePath/>
+    </parent>
+
     <groupId>org.isisaddons.wicket.pdfjs</groupId>
     <artifactId>isis-wicket-pdfjs</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -31,9 +38,9 @@ language governing permissions and limitations under the License.
     </prerequisites>
 
     <properties>
-        <isis.version>1.14.0-SNAPSHOT</isis.version>
+        <isis.version>1.15.0-SNAPSHOT</isis.version>
 
-        <isis-wicket-pdfjs.version>1.14.0-SNAPSHOT</isis-wicket-pdfjs.version>
+        <isis-wicket-pdfjs.version>1.15.0-SNAPSHOT</isis-wicket-pdfjs.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
