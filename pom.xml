@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>1.13.2.2</version>
+        <version>1.13.2.20170214-2237</version>
         <relativePath/>
     </parent>
 
@@ -39,12 +39,8 @@
     </prerequisites>
 
     <properties>
-        <isis.version>1.13.2</isis.version>
-        
         <incode-module-docfragment.version>1.14.0-SNAPSHOT</incode-module-docfragment.version>
 
-        <lombok.version>1.16.12</lombok.version>
-        
         <isis-module-fakedata-dom.version>1.13.0</isis-module-fakedata-dom.version>
         <assertj-core.version>3.6.1</assertj-core.version>
         <danhaywood-java-assertjext.version>0.1.0</danhaywood-java-assertjext.version>
@@ -54,6 +50,8 @@
         <mavendeps-isisintellij.version>0.0.1</mavendeps-isisintellij.version>
         <mavendeps-isiswebapp.version>0.0.1</mavendeps-isiswebapp.version>
 
+        <lombok.version>1.16.12</lombok.version>
+        
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -147,42 +145,11 @@
         </dependency>
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>cloudbees-snapshots</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>snapshots-repo</id>
-                    <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-        </profile>
-        <profile>
-            <id>m2e</id>
-            <activation>
-                <property>
-                    <name>m2e.version</name>
-                </property>
-            </activation>
-            <build>
-                <directory>target-ide</directory>
-            </build>
-        </profile>
-    </profiles>
-
   <modules>
     <module>module</module>
     <module>demo/module-demo-dom</module>
     <module>demo/application</module>
     <module>demo/webapp</module>
   </modules>
+
 </project>
