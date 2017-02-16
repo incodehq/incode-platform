@@ -38,7 +38,7 @@ language governing permissions and limitations under the License.
     </prerequisites>
 
     <properties>
-        <isis.version>1.13.2.20170214-2237</isis.version>
+        <isis.version>1.13.0.20170214-2337</isis.version>
 
         <isis-module-command.version>1.14.0-SNAPSHOT</isis-module-command.version>
 
