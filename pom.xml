@@ -18,8 +18,8 @@ language governing permissions and limitations under the License.
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <group>org.incodehq</group>
-        <artifactId>incodehq-parent</artifactId>
+        <group>org.incode</group>
+        <artifactId>incode-parent</artifactId>
         <version>1.13.2.20170214-2237</version>
         <relativePath/>
     </parent>
