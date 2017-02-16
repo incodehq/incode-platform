@@ -18,6 +18,13 @@ language governing permissions and limitations under the License.
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.incode</groupId>
+        <artifactId>incode-build</artifactId>
+        <version>1</version>
+        <relativePath/>
+    </parent>
+
     <groupId>org.isisaddons.module.tags</groupId>
     <artifactId>isis-module-tags</artifactId>
     <version>0.0.1-SNAPSHOT</version>
