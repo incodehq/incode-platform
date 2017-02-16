@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>1.13.1</version>
+        <version>1.13.2.20170214-2237</version>
         <relativePath/>
     </parent>
 
@@ -39,8 +39,7 @@
     </prerequisites>
 
     <properties>
-        <isis.version>1.13.1.20161201-1430</isis.version>
-
+        <isis.version>1.13.2.20170214-2237</isis.version>
         <isis-module-flywaydb.version>1.14.0-SNAPSHOT</isis-module-flywaydb.version>
 
         <lombok.version>1.16.10</lombok.version>
