@@ -17,6 +17,13 @@ language governing permissions and limitations under the License.
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <group>org.incodehq</group>
+        <artifactId>incodehq-parent</artifactId>
+        <version>1.13.2.20170214-2237</version>
+        <relativePath/>
+    </parent>
+
     <groupId>org.incode.module.communications</groupId>
     <artifactId>incode-module-communications</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -30,8 +37,7 @@ language governing permissions and limitations under the License.
     </prerequisites>
 
     <properties>
-        <isis.version>1.13.2</isis.version>
-
+        <isis.version>1.13.2.20170214-2237</isis.version>
 
         <incode-module-communications.version>1.14.0-SNAPSHOT</incode-module-communications.version>
         <assertj-core.version>3.3.0</assertj-core.version>
@@ -43,13 +49,23 @@ language governing permissions and limitations under the License.
 
     <repositories>
         <repository>
-            <id>snapshots-repo</id>
+            <id>estatio-snapshots</id>
             <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
             <releases>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </releases>
             <snapshots>
                 <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>estatio-release</id>
+            <url>http://repository-estatio.forge.cloudbees.com/release/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
             </snapshots>
         </repository>
     </repositories>
@@ -92,39 +108,6 @@ language governing permissions and limitations under the License.
 
         </dependencies>
     </dependencyManagement>
-
-
-    <profiles>
-        <profile>
-            <id>cloudbees-snapshots</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>snapshots-repo</id>
-                    <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-        </profile>
-        <profile>
-            <id>m2e</id>
-            <activation>
-                <property>
-                    <name>m2e.version</name>
-                </property>
-            </activation>
-            <build>
-                <directory>target-ide</directory>
-            </build>
-        </profile>
-    </profiles>
 
     <modules>
         <module>dom</module>

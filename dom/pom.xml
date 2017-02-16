@@ -20,7 +20,7 @@ Copyright 2014~2015 Dan Haywood
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>1.13.2.1</version>
+        <version>1.13.2.20170214-2237</version>
         <relativePath/>
     </parent>
 
@@ -64,7 +64,7 @@ Copyright 2014~2015 Dan Haywood
     </developers>
 
     <properties>
-        <isis.version>1.13.2</isis.version>
+        <isis.version>1.13.2.20170214-2237</isis.version>
 
         <isis-module-fakedata.version>1.13.0</isis-module-fakedata.version>
         <isis-module-poly.version>1.13.0</isis-module-poly.version>
