@@ -20,8 +20,8 @@ language governing permissions and limitations under the License.
 
     <parent>
         <groupId>org.incode</groupId>
-        <artifactId>incode-build</artifactId>
-        <version>1</version>
+        <artifactId>incode-parent</artifactId>
+        <version>1.13.2.20170214-2237</version>
         <relativePath/>
     </parent>
 
@@ -38,27 +38,13 @@ language governing permissions and limitations under the License.
     </prerequisites>
 
     <properties>
-        <isis.version>1.13.2.20170214-2237</isis.version>
-
         <isis-module-command.version>1.14.0-SNAPSHOT</isis-module-command.version>
+
+        <lombok.version>1.16.8</lombok.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <lombok.version>1.16.8</lombok.version>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>apache.snapshots</id>
-            <name>Apache Snapshots</name>
-            <url>https://repository.apache.org/content/repositories/snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-            </snapshots>
-        </repository>
-    </repositories>
 
     <build>
         <pluginManagement>
@@ -369,35 +355,6 @@ language governing permissions and limitations under the License.
 
 
     <profiles>
-        <profile>
-            <id>cloudbees-snapshots</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>snapshots-repo</id>
-                    <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-        </profile>
-        <profile>
-            <id>m2e</id>
-            <activation>
-                <property>
-                    <name>m2e.version</name>
-                </property>
-            </activation>
-            <build>
-                <directory>target-ide</directory>
-            </build>
-        </profile>
         <profile>
             <id>quartz</id>
             <activation>
