@@ -64,8 +64,6 @@ Copyright 2014~2015 Dan Haywood
     </developers>
 
     <properties>
-        <isis.version>1.13.2.20170214-2237</isis.version>
-
         <isis-module-fakedata.version>1.13.0</isis-module-fakedata.version>
         <isis-module-poly.version>1.13.0</isis-module-poly.version>
         <isis-module-security.version>1.13.6</isis-module-security.version>
