@@ -19,8 +19,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.danhaywood.java</groupId>
-        <artifactId>java-parent</artifactId>
+        <groupId>org.incode</groupId>
+        <artifactId>incode-build</artifactId>
         <version>1</version>
         <relativePath/>
     </parent>
