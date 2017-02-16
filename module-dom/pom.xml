@@ -55,7 +55,6 @@
     </developers>
 
     <properties>
-        <isis.version>1.13.2.20170214-2237</isis.version>
         <flyway-core.version>4.0.3</flyway-core.version>
     </properties>
 
