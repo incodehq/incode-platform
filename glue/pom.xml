@@ -57,16 +57,14 @@ Copyright 2014~2015 Dan Haywood
     </developers>
 
     <properties>
-
-        <isis.version>1.13.2.20170214-2237</isis.version>
         <isis-module-security.version>1.13.6.20170216-1316</isis-module-security.version>
 
         <assertj-core.version>2.0.0</assertj-core.version>
         <togglz.version>2.1.0.Final</togglz.version>
+        <gson.version>2.3.1</gson.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <gson.version>2.3.1</gson.version>
     </properties>
 
     <build>
@@ -207,26 +205,6 @@ Copyright 2014~2015 Dan Haywood
     </distributionManagement>
 
     <profiles>
-        <profile>
-            <id>cloudbees-snapshots</id>
-            <activation>
-                <property>
-                    <name>!skip.cloudbees-snapshots</name>
-                </property>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>snapshots-repo</id>
-                    <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-        </profile>
         <!-- http://central.sonatype.org/pages/apache-maven.html -->
         <profile>
             <id>release</id>
