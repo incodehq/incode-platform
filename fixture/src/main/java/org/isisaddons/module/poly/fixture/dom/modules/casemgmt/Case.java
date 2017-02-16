@@ -43,11 +43,11 @@ import org.apache.isis.applib.util.ObjectContracts;
         @javax.jdo.annotations.Query(
                 name = "find", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.isisaddons.module.poly.fixture.dom.modules.comms.CommunicationChannel "),
+                        + "FROM org.isisaddons.module.poly.fixture.dom.modules.casemgmt.Case "),
         @javax.jdo.annotations.Query(
                 name = "findByName", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.isisaddons.module.poly.fixture.dom.modules.comms.CommunicationChannel "
+                        + "FROM org.isisaddons.module.poly.fixture.dom.modules.casemgmt.Case "
                         + "WHERE name.indexOf(:name) >= 0 ")
 })
 @DomainObject(
