@@ -20,8 +20,8 @@
 
     <parent>
         <groupId>org.incode</groupId>
-        <artifactId>incode-build</artifactId>
-        <version>1</version>
+        <artifactId>incode-parent</artifactId>
+        <version>1.13.2.20170214-2237</version>
         <relativePath/>
     </parent>
 
@@ -59,14 +59,12 @@
     </developers>
 
     <properties>
-        <compileSource>1.7</compileSource>
-        <compileTarget>1.7</compileTarget>
-
-        <isis.version>1.13.0</isis.version>
-
         <docx4j.version>3.2.1</docx4j.version>
         <jdom2.version>2.0.5</jdom2.version>
         <guava.version>16.0.1</guava.version>
+
+        <compileSource>1.7</compileSource>
+        <compileTarget>1.7</compileTarget>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -243,24 +241,6 @@
     </distributionManagement>
 
     <profiles>
-        <profile>
-            <id>cloudbees-snapshots</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>snapshots-repo</id>
-                    <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-        </profile>
         <!-- http://central.sonatype.org/pages/apache-maven.html -->
         <profile> 
             <id>release</id>
@@ -325,17 +305,6 @@
                         </executions>
                     </plugin>
                 </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>m2e</id>
-            <activation>
-                <property>
-                    <name>m2e.version</name>
-                </property>
-            </activation>
-            <build>
-                <directory>target-ide</directory>
             </build>
         </profile>
     </profiles>
