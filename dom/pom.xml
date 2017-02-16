@@ -17,6 +17,12 @@ Copyright 2014~2015 Dan Haywood
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.incode</groupId>
+        <artifactId>incode-parent</artifactId>
+        <version>1.13.2.20170214-2237</version>
+        <relativePath/>
+    </parent>
 
     <groupId>org.incode.module.document</groupId>
     <artifactId>incode-module-document-dom</artifactId>
@@ -59,7 +65,6 @@ Copyright 2014~2015 Dan Haywood
         <compileSource>1.8</compileSource>
         <compileTarget>1.8</compileTarget>
 
-        <isis.version>1.13.2.20170214-2237</isis.version>
         <isis-module-fakedata.version>1.13.0</isis-module-fakedata.version>
 
         <incode-module-base.version>1.13.6</incode-module-base.version>
