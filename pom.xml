@@ -19,8 +19,8 @@ language governing permissions and limitations under the License.
 
     <parent>
         <groupId>org.incode</groupId>
-        <artifactId>incode-build</artifactId>
-        <version>1</version>
+        <artifactId>incode-parent</artifactId>
+        <version>1.13.2.20170214-2237</version>
         <relativePath/>
     </parent>
 
@@ -37,28 +37,14 @@ language governing permissions and limitations under the License.
     </prerequisites>
 
     <properties>
-        <isis.version>1.13.0</isis.version>
-
         <isis-module-freemarker.version>1.14.0-SNAPSHOT</isis-module-freemarker.version>
+
+        <assertj-core.version>2.4.0</assertj-core.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <assertj-core.version>2.4.0</assertj-core.version>
     </properties>
     
-    <repositories>
-        <repository>
-            <id>snapshots-repo</id>
-            <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <build>
         <pluginManagement>
             <plugins>
