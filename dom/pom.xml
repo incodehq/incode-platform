@@ -62,11 +62,6 @@ Copyright 2014~2015 Dan Haywood
     </developers>
 
     <properties>
-        <compileSource>1.8</compileSource>
-        <compileTarget>1.8</compileTarget>
-
-        <isis-module-fakedata.version>1.13.0</isis-module-fakedata.version>
-
         <incode-module-base.version>1.13.6</incode-module-base.version>
         <incode-module-unittestsupport.version>1.13.2</incode-module-unittestsupport.version>
 
@@ -75,6 +70,9 @@ Copyright 2014~2015 Dan Haywood
 
         <assertj-core.version>3.3.0</assertj-core.version>
         <danhaywood-java-assertjext.version>0.1.0</danhaywood-java-assertjext.version>
+
+        <compileSource>1.8</compileSource>
+        <compileTarget>1.8</compileTarget>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -456,26 +454,6 @@ Copyright 2014~2015 Dan Haywood
             </dependencies>
         </profile>
         <profile>
-            <id>cloudbees-snapshots</id>
-            <activation>
-                <property>
-                    <name>!skip.cloudbees-snapshots</name>
-                </property>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>snapshots-repo</id>
-                    <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-        </profile>
-        <profile>
             <id>release</id>
             <build>
                 <plugins>
@@ -537,17 +515,6 @@ Copyright 2014~2015 Dan Haywood
                         </executions>
                     </plugin>
                 </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>m2e</id>
-            <activation>
-                <property>
-                    <name>m2e.version</name>
-                </property>
-            </activation>
-            <build>
-                <directory>target-ide</directory>
             </build>
         </profile>
     </profiles>
