@@ -20,7 +20,7 @@ Copyright 2012-2014 Eurocommercial Properties NV
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>1.13.1</version>
+        <version>1.13.2.20170214-2237</version>
         <relativePath/>
     </parent>
 
@@ -62,7 +62,6 @@ Copyright 2012-2014 Eurocommercial Properties NV
     </developers>
 
     <properties>
-        <isis.version>1.13.0</isis.version>
         <isis-module-fakedata.version>1.13.0</isis-module-fakedata.version>
         <incode-module-base.version>1.13.0</incode-module-base.version>
 
@@ -237,28 +236,6 @@ Copyright 2012-2014 Eurocommercial Properties NV
     </distributionManagement>
 
     <profiles>
-
-        <profile>
-            <id>cloudbees-snapshots</id>
-            <activation>
-                <property>
-                    <name>!skip.cloudbees-snapshots</name>
-                </property>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>snapshots-repo</id>
-                    <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-        </profile>
-
         <profile>
             <id>danhaywood-mavenmixin-sonatyperelease</id>
             <build>
