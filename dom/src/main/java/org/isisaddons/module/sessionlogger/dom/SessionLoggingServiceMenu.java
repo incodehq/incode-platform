@@ -20,7 +20,6 @@ import java.util.List;
 
 import org.joda.time.LocalDate;
 
-import org.apache.isis.applib.AbstractService;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
@@ -43,14 +42,15 @@ import org.isisaddons.module.sessionlogger.SessionLoggerModule;
  * (eg using <tt>isis.properties</tt>).
  */
 @DomainService(
-        nature = NatureOfService.VIEW_MENU_ONLY
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "isissessionlogger.SessionLoggingServiceMenu"
 )
 @DomainServiceLayout(
         menuBar = DomainServiceLayout.MenuBar.SECONDARY,
         named = "Activity",
         menuOrder = "10"
 )
-public class SessionLoggingServiceMenu extends AbstractService {
+public class SessionLoggingServiceMenu {
 
     public static abstract class ActionDomainEvent
             extends SessionLoggerModule.ActionDomainEvent<SessionLoggingServiceMenu> { }
