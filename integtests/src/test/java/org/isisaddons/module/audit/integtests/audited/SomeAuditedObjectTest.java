@@ -137,7 +137,7 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
         assertThat(timestamp, is(notNullValue()));
         assertThat(transactionId, is(notNullValue()));
         assertThat(auditEntry1.getTargetClass(), is("Some Audited Object"));
-        assertThat(auditEntry1.getTargetStr(), is("isisauditdemo.SomeAuditedObject:3"));
+        assertThat(auditEntry1.getTargetStr(), startsWith("isisauditdemo.SomeAuditedObject:"));
         assertThat(auditEntry1.getMemberIdentifier(), is("org.isisaddons.module.audit.fixture.dom.audited.SomeAuditedObject#name"));
         assertThat(auditEntry1.getPropertyId(), is("name"));
         assertThat(auditEntry1.getPreValue(), is("[NEW]"));
@@ -152,7 +152,7 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
         final UUID transactionId2 = auditEntry1.getTransactionId();
         assertThat(transactionId2, is(transactionId));
         assertThat(auditEntry2.getTargetClass(), is("Some Audited Object"));
-        assertThat(auditEntry2.getTargetStr(), is("isisauditdemo.SomeAuditedObject:3"));
+        assertThat(auditEntry1.getTargetStr(), startsWith("isisauditdemo.SomeAuditedObject:"));
         assertThat(auditEntry2.getMemberIdentifier(), is("org.isisaddons.module.audit.fixture.dom.audited.SomeAuditedObject#number"));
         assertThat(auditEntry2.getPropertyId(), is("number"));
         assertThat(auditEntry2.getPreValue(), is("[NEW]"));
