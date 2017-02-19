@@ -108,7 +108,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.isisaddons.module.audit</groupId>
     <artifactId>isis-module-audit-dom</artifactId>
-    <version>1.13.0</version>
+    <version>1.14.0</version>
 </dependency>
 ----
 
@@ -163,7 +163,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 +
 [source,xml]
 ----
-<version>1.14.0-SNAPSHOT</version>
+<version>1.15.0-SNAPSHOT</version>
 ----
 
 
@@ -451,12 +451,12 @@ For example:
 
 [source]
 ----
-sh interim-release.sh 1.14.0 origin
+sh interim-release.sh 1.15.0 origin
 ----
 
 where
 
-* `1.14.0` is the base release
+* `1.15.0` is the base release
 * `origin` is the name of the remote to which you have permissions to write to.
 
 
@@ -476,8 +476,8 @@ For example:
 
 [source]
 ----
-sh release.sh 1.13.0 \
-              1.14.0-SNAPSHOT \
+sh release.sh 1.14.0 \
+              1.15.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
 ----
@@ -495,8 +495,7 @@ If the script completes successfully, then push changes:
 
 [source]
 ----
-git push origin master
-git push origin 1.13.0
+git push origin master && git push origin 1.14.0
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
