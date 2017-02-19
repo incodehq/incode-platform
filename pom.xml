@@ -51,7 +51,7 @@
             </activation>
         
             <properties>
-                <isis.version>1.13.2.20170214-2237</isis.version>
+                <isis.version>1.14.0</isis.version>
 
 
                 <mavenmixin-isisswagger.version>0.0.3</mavenmixin-isisswagger.version>
