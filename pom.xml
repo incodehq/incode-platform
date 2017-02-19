@@ -38,7 +38,7 @@
     </prerequisites>
 
     <properties>
-        <isis-module-sessionlogger.version>1.14.0-SNAPSHOT</isis-module-sessionlogger.version>
+        <isis-module-sessionlogger.version>1.14.0</isis-module-sessionlogger.version>
 
         <assertj-core.version>2.4.0</assertj-core.version>
 
