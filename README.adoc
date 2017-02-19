@@ -159,7 +159,7 @@ This has the effect of defining a number of `<properties>` (eg `${mavenmixin-sur
 ----
 
 * for each maven mixin required in the consuming module, just add the corresponding `<mixin>` to: +
-
++
 [source,xml]
 ----
 <build>
