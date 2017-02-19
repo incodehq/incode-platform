@@ -38,7 +38,7 @@
     </prerequisites>
 
     <properties>
-        <isis-module-publishmq.version>1.14.0-SNAPSHOT</isis-module-publishmq.version>
+        <isis-module-publishmq.version>1.14.0</isis-module-publishmq.version>
 
         <camel.version>2.15.2</camel.version>
         <spring.version>4.1.6.RELEASE</spring.version>

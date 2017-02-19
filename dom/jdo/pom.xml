@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.isisaddons.module.publishmq</groupId>
         <artifactId>isis-module-publishmq-dom</artifactId>
-        <version>1.14.0-SNAPSHOT</version>
+        <version>1.14.0</version>
     </parent>
     <artifactId>isis-module-publishmq-dom-jdo</artifactId>
 
