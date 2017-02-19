@@ -27,7 +27,7 @@
 
     <groupId>org.isisaddons.module.publishmq</groupId>
     <artifactId>isis-module-publishmq-dom</artifactId>
-    <version>1.14.0</version>
+    <version>1.15.0-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 
@@ -72,22 +72,22 @@
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
-                <version>1.14.0</version>
+                <version>1.15.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom-jdo</artifactId>
-                <version>1.14.0</version>
+                <version>1.15.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom-camel</artifactId>
-                <version>1.14.0</version>
+                <version>1.15.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom-statusclient</artifactId>
-                <version>1.14.0</version>
+                <version>1.15.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
