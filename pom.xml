@@ -37,7 +37,7 @@ language governing permissions and limitations under the License.
     </prerequisites>
 
     <properties>
-        <isis-module-pdfbox.version>1.14.0</isis-module-pdfbox.version>
+        <isis-module-pdfbox.version>1.15.0-SNAPSHOT</isis-module-pdfbox.version>
 
         <assertj-core.version>2.4.0</assertj-core.version>
 
