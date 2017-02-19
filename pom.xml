@@ -34,7 +34,7 @@ language governing permissions and limitations under the License.
     <packaging>pom</packaging>
 
     <properties>
-        <isis-module-stringinterpolator.version>1.14.0-SNAPSHOT</isis-module-stringinterpolator.version>
+        <isis-module-stringinterpolator.version>1.14.0</isis-module-stringinterpolator.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
