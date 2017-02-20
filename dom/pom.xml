@@ -57,10 +57,9 @@ Copyright 2014~2015 Dan Haywood
     </developers>
 
     <properties>
-        <isis-wicket-gmap3-cpt.version>1.13.0</isis-wicket-gmap3-cpt.version>
+        <isis-wicket-gmap3-cpt.version>1.14.0</isis-wicket-gmap3-cpt.version>
 
         <lombok.version>1.16.6</lombok.version>
-
         <assertj-core.version>3.3.0</assertj-core.version>
 
         <compileSource>1.8</compileSource>

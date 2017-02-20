@@ -37,8 +37,10 @@ language governing permissions and limitations under the License.
     </prerequisites>
 
     <properties>
-        <incode-module-commchannel.version>1.13.0</incode-module-commchannel.version>
-        <isis-module-fakedata-dom.version>1.13.0</isis-module-fakedata-dom.version>
+        <incode-module-commchannel.version>1.14.0-SNAPSHOT</incode-module-commchannel.version>
+
+        <isis-module-fakedata.version>1.14.0</isis-module-fakedata.version>
+
         <assertj-core.version>3.3.0</assertj-core.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
