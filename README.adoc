@@ -22,7 +22,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.incode.module.unittestsupport</groupId>
     <artifactId>incode-module-unittestsupport-dom</artifactId>
-    <version>1.13.4</version>
+    <version>1.14.0</version>
     <scope>test</scope>
 </dependency>
 ----
@@ -80,6 +80,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 
 == Change Log
 
+* `1.14.0` - released against Isis 1.14.0
 * `1.13.4` - fixes link:https://github.com/incodehq/incode-module-unittestsupport/issues/4[#4] - new `ReflectUtils` class.
 * `1.13.3` - fixes link:https://github.com/incodehq/incode-module-unittestsupport/issues/3[#3] - moving assertions and matchers out from Estatio's EstatioIntegrationTestAbstract base class
 * `1.13.2` - fixes link:https://github.com/incodehq/incode-module-unittestsupport/issues/2[#2] - moving further contract tests from incode-module-base into this repo
@@ -158,7 +159,7 @@ https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
 
 If you have commit access to this project (or a fork of your own) then you can create interim releases using the `interim-release.sh` script.
 
-The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.13.0.20161017-0738`).
+The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.14.0.20170227-0738`).
 It then pushes the branch (and a tag) to the specified remote.
 
 A CI server such as Jenkins can monitor the branches matching the wildcard `origin/interim/*` and create a build.
@@ -168,12 +169,12 @@ For example:
 
 [source]
 ----
-sh interim-release.sh 1.13.0 origin
+sh interim-release.sh 1.14.0 origin
 ----
 
 where
 
-* `1.13.0` is the base release
+* `1.14.0` is the base release
 * `origin` is the name of the remote to which you have permissions to write to.
 
 
@@ -193,8 +194,8 @@ For example:
 
 [source]
 ----
-sh release.sh 1.13.4 \
-              1.14.0-SNAPSHOT \
+sh release.sh 1.14.0 \
+              1.15.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
 ----
@@ -212,7 +213,7 @@ If the script completes successfully, then push changes:
 
 [source]
 ----
-git push origin master && git push origin 1.13.4
+git push origin master && git push origin 1.14.0
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
