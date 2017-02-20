@@ -20,7 +20,7 @@ Copyright 2017 Dan Haywood
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>1.13.2.2</version>
+        <version>1.14.0</version>
         <relativePath/>
     </parent>
 
@@ -64,6 +64,8 @@ Copyright 2017 Dan Haywood
     <properties>
         <isis-module-freemarker.version>1.14.0</isis-module-freemarker.version>
         <incode-module-base.version>1.14.0</incode-module-base.version>
+        <incode-module-unittestsupport.version>1.14.0</incode-module-unittestsupport.version>
+        <incode-module-integtestsupport.version>1.14.0</incode-module-integtestsupport.version>
 
         <lombok.version>1.16.6</lombok.version>
          <assertj-guava.version>3.1.0</assertj-guava.version>

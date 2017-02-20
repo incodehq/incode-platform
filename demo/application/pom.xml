@@ -136,7 +136,7 @@
         <dependency>
             <groupId>org.isisaddons.module.fakedata</groupId>
             <artifactId>isis-module-fakedata-dom</artifactId>
-            <version>${isis-module-fakedata-dom.version}</version>
+            <version>${isis-module-fakedata.version}</version>
             <scope>test</scope>
         </dependency>
 
