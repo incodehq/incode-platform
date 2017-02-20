@@ -62,8 +62,8 @@ Copyright 2014~2015 Dan Haywood
     </developers>
 
     <properties>
-        <isis-module-fakedata-dom.version>1.13.0</isis-module-fakedata-dom.version>
-        <isis-wicket-fullcalendar2-cpt.version>1.13.0</isis-wicket-fullcalendar2-cpt.version>
+        <isis-module-fakedata.version>1.14.0</isis-module-fakedata.version>
+        <isis-wicket-fullcalendar2-cpt.version>1.14.0</isis-wicket-fullcalendar2-cpt.version>
 
         <lombok.version>1.16.6</lombok.version>
 
