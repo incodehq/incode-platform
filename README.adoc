@@ -116,7 +116,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.incode.module.alias</groupId>
     <artifactId>incode-module-alias-dom</artifactId>
-    <version>1.13.0</version>
+    <version>1.14.0</version>
 </dependency>
 ----
 
@@ -310,7 +310,7 @@ the database tables, but in the UI the end-user sees the title of the object tha
 +
 [WARNING]
 ====
-Currently (as of v1.13.0) the Apache Isis framework does not support enums implementing interfaces; the example app
+The Apache Isis framework curently (as of v1.14.0) does not support enums implementing interfaces; the example app
 shows how a view model can be used as a work-around.
 ====
 
@@ -415,12 +415,13 @@ attached to an "aliased" object.
 
 == Known issues
 
-(As noted above), as of v1.13.0 the Apache Isis framework does not support enums implementing interfaces; the example
+(As noted above), as of v1.14.0 the Apache Isis framework does not support enums implementing interfaces; the example
 app shows how a view model can be used as a work-around.
 
 
 == Change Log
 
+* `1.14.0` - released against Isis 1.14.0
 * `1.13.0` - released against Isis 1.13.0; removed the `Aliasable` interface (to completely decouple the
 "aliased" domain object from this module); removed dependency on poly module, instead using the (broadly equivalent)
 new `SubtypeProvider` SPI; combined `Alias` and `AliasLink` into a single entity; added in the ability to override the
@@ -505,7 +506,7 @@ https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
 
 If you have commit access to this project (or a fork of your own) then you can create interim releases using the `interim-release.sh` script.
 
-The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.13.0.20161017-0738`).
+The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.14.0.20170227-0738`).
 It then pushes the branch (and a tag) to the specified remote.
 
 A CI server such as Jenkins can monitor the branches matching the wildcard `origin/interim/*` and create a build.
@@ -558,8 +559,7 @@ If the script completes successfully, then push changes:
 
 [source]
 ----
-git push origin master
-git push origin 1.14.0
+git push origin master && git push origin 1.14.0
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
