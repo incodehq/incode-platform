@@ -64,8 +64,9 @@ Copyright 2012-2014 Eurocommercial Properties NV
     <properties>
         <isis-module-fakedata.version>1.14.0</isis-module-fakedata.version>
         <incode-module-base.version>1.14.0</incode-module-base.version>
+        <incode-module-unittestsupport.version>1.14.0</incode-module-unittestsupport.version>
         <incode-module-integtestsupport.version>1.14.0</incode-module-integtestsupport.version>
-        
+
         <danhaywood-java-assertjext.version>0.1.0</danhaywood-java-assertjext.version>
         <lombok.version>1.16.6</lombok.version>
 
@@ -207,6 +208,12 @@ Copyright 2012-2014 Eurocommercial Properties NV
             <artifactId>incode-module-base-dom</artifactId>
     	    <version>${incode-module-base.version}</version>
             <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.incode.module.unittestsupport</groupId>
+            <artifactId>incode-module-unittestsupport-dom</artifactId>
+            <version>${incode-module-unittestsupport.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

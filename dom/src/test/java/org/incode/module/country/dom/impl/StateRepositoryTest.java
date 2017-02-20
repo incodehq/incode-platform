@@ -33,8 +33,7 @@ import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.core.unittestsupport.jmocking.JUnitRuleMockery2;
 
-import org.incode.module.base.dom.FinderInteraction;
-import org.incode.module.base.dom.FinderInteraction.FinderMethod;
+import org.incode.module.unittestsupport.dom.repo.FinderInteraction;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.jmock.Expectations.anything;
@@ -65,11 +64,11 @@ public class StateRepositoryTest {
         Matcher<long[]> anyLongs = anything();
         context.checking(new Expectations() {{
             allowing(mockRepositoryService).firstMatch(with(any(Query.class)));
-            will(new Capture(finderInteraction, FinderMethod.FIRST_MATCH));
+            will(new Capture(finderInteraction, FinderInteraction.FinderMethod.FIRST_MATCH));
             allowing(mockRepositoryService).allInstances(with(anyClass), with(anyLongs));
-            will(new Capture(finderInteraction, FinderMethod.ALL_INSTANCES));
+            will(new Capture(finderInteraction, FinderInteraction.FinderMethod.ALL_INSTANCES));
             allowing(mockRepositoryService).allMatches(with(any(Query.class)));
-            will(new Capture(finderInteraction, FinderMethod.ALL_MATCHES));
+            will(new Capture(finderInteraction, FinderInteraction.FinderMethod.ALL_MATCHES));
         }});
     }
 
@@ -80,7 +79,7 @@ public class StateRepositoryTest {
 
             stateRepository.findState("*REF?1*");
 
-            assertThat(finderInteraction[0].getFinderMethod()).isEqualTo(FinderMethod.FIRST_MATCH);
+            assertThat(finderInteraction[0].getFinderMethod()).isEqualTo(FinderInteraction.FinderMethod.FIRST_MATCH);
             assertThat(finderInteraction[0].getResultType()).isEqualTo(State.class);
             assertThat(finderInteraction[0].getQueryName()).isEqualTo("findByReference");
             assertThat(finderInteraction[0].getArgumentsByParameterName().get("reference")).isEqualTo((Object) "*REF?1*");
@@ -95,7 +94,7 @@ public class StateRepositoryTest {
 
             stateRepository.findStatesByCountry(country);
 
-            assertThat(finderInteraction[0].getFinderMethod()).isEqualTo(FinderMethod.ALL_MATCHES);
+            assertThat(finderInteraction[0].getFinderMethod()).isEqualTo(FinderInteraction.FinderMethod.ALL_MATCHES);
             assertThat(finderInteraction[0].getResultType()).isEqualTo(State.class);
             assertThat(finderInteraction[0].getQueryName()).isEqualTo("findByCountry");
             assertThat(finderInteraction[0].getArgumentsByParameterName().get("country")).isEqualTo((Object) country);
@@ -111,14 +110,14 @@ public class StateRepositoryTest {
 
             stateRepository.allStates();
 
-            assertThat(finderInteraction[0].getFinderMethod()).isEqualTo(FinderMethod.ALL_INSTANCES);
+            assertThat(finderInteraction[0].getFinderMethod()).isEqualTo(FinderInteraction.FinderMethod.ALL_INSTANCES);
         }
     }
 
     public static class Capture implements Action {
         private final FinderInteraction[] finderInteraction;
-        private final FinderMethod finderMethod;
-        public Capture(final FinderInteraction[] finderInteraction, final FinderMethod finderMethod) {
+        private final FinderInteraction.FinderMethod finderMethod;
+        public Capture(final FinderInteraction[] finderInteraction, final FinderInteraction.FinderMethod finderMethod) {
             assert finderInteraction.length == 1;
             this.finderInteraction = finderInteraction;
             this.finderMethod = finderMethod;

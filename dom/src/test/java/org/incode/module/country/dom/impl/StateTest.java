@@ -20,9 +20,7 @@ package org.incode.module.country.dom.impl;
 
 import org.junit.Test;
 
-import org.incode.module.base.dom.AbstractBeanPropertiesTest;
-import org.incode.module.country.dom.impl.Country;
-import org.incode.module.country.dom.impl.State;
+import org.incode.module.unittestsupport.dom.bean.AbstractBeanPropertiesTest;
 
 public class StateTest {
 
