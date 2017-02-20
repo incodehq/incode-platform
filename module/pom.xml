@@ -62,23 +62,14 @@ Copyright 2017 Dan Haywood
     </developers>
 
     <properties>
-        <isis.version>1.13.2</isis.version>
-
-        <isis-module-freemarker.version>1.13.2</isis-module-freemarker.version>
-
-        <incode-module-base.version>1.13.5</incode-module-base.version>
+        <isis-module-freemarker.version>1.14.0</isis-module-freemarker.version>
+        <incode-module-base.version>1.14.0</incode-module-base.version>
 
         <lombok.version>1.16.6</lombok.version>
-         
-        <assertj-guava.version>3.1.0</assertj-guava.version>
+         <assertj-guava.version>3.1.0</assertj-guava.version>
         <danhaywood-java-assertjext.version>0.1.0</danhaywood-java-assertjext.version>
         
         <isis-maven-plugin.validate.appManifest>org.incode.module.docfragment.DocFragmentModuleManifest</isis-maven-plugin.validate.appManifest>
-
-        <mavendeps-isistesting.version>0.0.2</mavendeps-isistesting.version>
-
-        <incode-module-unittestsupport.version>1.13.4</incode-module-unittestsupport.version>
-        <incode-module-integtestsupport.version>1.13.1</incode-module-integtestsupport.version>
 
 <!--
         <maven-checkstyle-plugin.configLocation>../_checks/checkstyle.xml</maven-checkstyle-plugin.configLocation>
