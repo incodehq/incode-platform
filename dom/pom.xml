@@ -63,14 +63,13 @@ Copyright 2012-2014 Eurocommercial Properties NV
     </developers>
 
     <properties>
-        <isis-module-fakedata.version>1.13.0</isis-module-fakedata.version>
-        <isis-module-freemarker.version>1.13.1</isis-module-freemarker.version>
-        <incode-module-base.version>1.13.0</incode-module-base.version>
-        <incode-module-document.version>1.13.0</incode-module-document.version>
+        <isis-module-fakedata.version>1.14.0</isis-module-fakedata.version>
+        <isis-module-freemarker.version>1.14.0</isis-module-freemarker.version>
+        <incode-module-base.version>1.14.0</incode-module-base.version>
+        <incode-module-document.version>1.14.0</incode-module-document.version>
 
         <lombok.version>1.16.6</lombok.version>
         <axon-core.version>2.4.4</axon-core.version>
-
         <assertj-core.version>3.3.0</assertj-core.version>
         <danhaywood-java-assertjext.version>0.1.0</danhaywood-java-assertjext.version>
 
