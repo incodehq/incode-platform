@@ -39,7 +39,7 @@
     </prerequisites>
 
     <properties>
-        <incode-module-docfragment.version>1.14.0-SNAPSHOT</incode-module-docfragment.version>
+        <incode-module-docfragment.version>1.14.0</incode-module-docfragment.version>
 
         <isis-module-fakedata.version>1.14.0</isis-module-fakedata.version>
         <incode-module-fixturesupport.version>1.14.0</incode-module-fixturesupport.version>
