@@ -37,7 +37,7 @@ language governing permissions and limitations under the License.
     </prerequisites>
 
     <properties>
-        <incode-module-document.version>1.14.0-SNAPSHOT</incode-module-document.version>
+        <incode-module-document.version>1.14.0</incode-module-document.version>
 
         <isis-module-fakedata.version>1.14.0</isis-module-fakedata.version>
 

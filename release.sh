@@ -23,14 +23,20 @@ if [ $? == 0 ]; then
 fi
 
 
-echo ""
-echo "sanity check (mvn clean install -T1C -o)"
-echo ""
-mvn clean install -T1C -o >/dev/null
-if [ $? != 0 ]; then
-    echo "... failed" >&2
-    exit 1
-fi
+#
+# unfortunately the demo app creates a cyclic dependency, so can't do this...
+#
+# document (demo) app -> docrendering-xxx-dom -> document-dom
+#
+
+#echo ""
+#echo "sanity check (mvn clean install -T1C -o)"
+#echo ""
+#mvn clean install -T1C -o >/dev/null
+#if [ $? != 0 ]; then
+#    echo "... failed" >&2
+#    exit 1
+#fi
 
 
 echo ""
@@ -43,14 +49,20 @@ if [ $? != 0 ]; then
 fi
 
 
-echo ""
-echo "double-check (mvn clean install -T1C -o)"
-echo ""
-mvn clean install -T1C -o >/dev/null
-if [ $? != 0 ]; then
-    echo "... failed" >&2
-    exit 1
-fi
+
+#
+# unfortunately the demo app creates a cyclic dependency, so can't do this...
+#
+
+#echo ""
+#echo "double-check (mvn clean install -T1C -o)"
+#echo ""
+#mvn clean install -T1C -o >/dev/null
+#if [ $? != 0 ]; then
+#    echo "... failed" >&2
+#    exit 1
+#fi
+
 
 
 echo ""
