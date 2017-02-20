@@ -37,7 +37,7 @@ language governing permissions and limitations under the License.
     </prerequisites>
 
     <properties>
-        <incode-module-commchannel.version>1.14.0-SNAPSHOT</incode-module-commchannel.version>
+        <incode-module-commchannel.version>1.14.0</incode-module-commchannel.version>
 
         <isis-module-fakedata.version>1.14.0</isis-module-fakedata.version>
 
