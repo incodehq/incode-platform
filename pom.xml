@@ -38,7 +38,7 @@
     </developers>    
 
     <properties>
-        <isis.version>1.14.0</isis.version>
+        <isis.version>1.15.0-SNAPSHOT</isis.version>
     </properties>
         
     <profiles>
