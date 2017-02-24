@@ -53,15 +53,9 @@
             <properties>
                 <isis.version>1.14.0</isis.version>
 
-
                 <mavenmixin-isisswagger.version>0.0.3</mavenmixin-isisswagger.version>
                 <mavenmixin-isisvalidate.version>0.0.2</mavenmixin-isisvalidate.version>
                 <isis-maven-plugin.version>${isis.version}</isis-maven-plugin.version>
-
-
-                <mavendeps-isistesting.version>0.0.2</mavendeps-isistesting.version>
-                <mavendeps-isisintellij.version>0.0.1</mavendeps-isisintellij.version>
-                <mavendeps-isiswebapp.version>0.0.1</mavendeps-isiswebapp.version>
 
             </properties>
 
@@ -107,10 +101,10 @@
         </profile>
 
         <profile>
-            <id>danhaywood-mavenmixin-sonatyperelease</id>
+            <id>sonatyperelease</id>
             <!-- 
-            this profile is not part of the mixin, but is required to be defined as a profile
-            in order to release this mixin pom.xml to Maven Central repo
+            this profile is not part of the module, but is required to be defined as a profile
+            in order to release this module pom.xml to Maven Central repo
             -->
             <build>
                 <plugins>

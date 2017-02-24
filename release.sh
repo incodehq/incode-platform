@@ -45,7 +45,7 @@ fi
 echo ""
 echo "releasing 'mixin' module (mvn clean deploy)"
 echo ""
-mvn clean deploy -Pdanhaywood-mavenmixin-sonatyperelease -Dskip.incode-parent -Dpgp.secretkey=keyring:id=$KEYID -Dpgp.passphrase="literal:$PASSPHRASE"
+mvn clean deploy -Psonatyperelease -Dskip.incode-parent -Dpgp.secretkey=keyring:id=$KEYID -Dpgp.passphrase="literal:$PASSPHRASE"
 if [ $? != 0 ]; then
     echo "... failed" >&2
     exit 1
