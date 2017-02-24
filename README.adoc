@@ -1,4 +1,4 @@
-= java-mavendeps-isisintellij
+= mavendeps-isisintellij
 :_imagesdir: ./
 :toc:
 
@@ -6,7 +6,7 @@
 This module, for use within link:http://isis.apache.org[Apache Isis] applications, defines a module to run the webapp from within IntelliJ IDE.
 
 The appropriate configuration is included in a `<profile>` which is automatically included in all builds.
-This profile can be disabled using a Maven property.
+This profile is automatically enabled if the `idea.version` property is enabled (which it will be when running within IntelliJ).
 
 
 == Input Properties
@@ -16,7 +16,7 @@ The plugin defines one property:
 [source,xml]
 ----
 <properties>
-	<isis.version>1.13.1</isis.version>
+	<isis.version>1.14.0</isis.version>
 </properties>
 ----
 
@@ -34,9 +34,9 @@ To configure:
 ----
 <dependencies>
     <dependency>
-        <groupId>com.danhaywood.mavendeps</groupId>
+        <groupId>org.incodehq.mavendeps</groupId>
         <artifactId>isisintellij</artifactId>
-        <version>0.0.1</version>
+        <version>1.14.0</version>
         <type>pom</type>
     </dependency>
 </dependencies>
@@ -44,13 +44,6 @@ To configure:
 
 * Override any input properties, if required (see above).
 
-
-To disable the (profile contributed by this) pom, pass the following system property to `mvn`:
-
-[source,bash]
-----
-mvn -Dskip.danhaywood-mavendeps-isisintellij
-----
 
 
 
@@ -62,7 +55,7 @@ None currently
 
 == Change Log
 
-* `0.0.1` - first release
+* `1.14.0` - forked from com.danhaywood.mavendeps:isisintellij, bumped to 1.14.0 release
 
 
 
@@ -109,8 +102,8 @@ For example:
 
 [source]
 ----
-sh release.sh 0.0.1 \
-              0.0.2-SNAPSHOT \
+sh release.sh 1.14.0 \
+              1.15.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
 ----
@@ -129,8 +122,7 @@ If the script completes successfully, then push changes:
 
 [source]
 ----
-git push origin master
-git push origin 0.0.1
+git push origin master && git push origin 1.14.0
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue before trying again.
