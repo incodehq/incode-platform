@@ -38,7 +38,7 @@
     </developers>    
 
     <properties>
-        <isis.version>1.14.0</isis.version>
+        <isis.version>1.15.0-SNAPSHOT</isis.version>
         
         <geronimo-servlet_3.0_spec.version>1.0</geronimo-servlet_3.0_spec.version>
     </properties>
