@@ -5,9 +5,9 @@
     
     <modelVersion>4.0.0</modelVersion>
     
-    <groupId>com.danhaywood.mavendeps</groupId>
+    <groupId>org.incodehq.mavendeps</groupId>
     <artifactId>isiswebapp</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>1.14.0-SNAPSHOT</version>
 
     <packaging>pom</packaging>
     
@@ -16,7 +16,7 @@
         Defines a module that can be used as a single dependency for running an Apache Isis webapp (Wicket, Restful Objects and Shiro security)
     </description>
     
-    <url>https://github.com/danhaywood/java-mavendeps-isiswebapp</url>
+    <url>https://github.com/incodehq/mavendeps-isiswebapp</url>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -25,9 +25,9 @@
         </license>
     </licenses>
     <scm>
-        <connection>scm:git:git@github.com:danhaywood/java-mavendeps-isiswebapp.git</connection>
-        <developerConnection>scm:git:git@github.com:danhaywood/java-mavendeps-isiswebapp.git</developerConnection>
-        <url>git@github.com:danhaywood/java-mavendeps-isiswebapp.git</url>
+        <connection>scm:git:git@github.com:incodehq/mavendeps-isiswebapp.git</connection>
+        <developerConnection>scm:git:git@github.com:incodehq/mavendeps-isiswebapp.git</developerConnection>
+        <url>git@github.com:incodehq/mavendeps-isiswebapp.git</url>
     </scm>
     <developers>
         <developer>
@@ -38,16 +38,17 @@
     </developers>    
 
     <properties>
-        <isis.version>1.13.1</isis.version>
+        <isis.version>1.14.0</isis.version>
+        
 		<geronimo-servlet_3.0_spec.version>1.0</geronimo-servlet_3.0_spec.version>
     </properties>
         
     <profiles>
         <profile>
-            <id>danhaywood-mavendeps-isiswebapp</id>
+            <id>mavendeps-isiswebapp</id>
             <activation>
                 <property>
-                    <name>!skip.danhaywood-mavendeps-isiswebapp</name>
+                    <name>!skip.mavendeps-isiswebapp</name>
                 </property>
             </activation>
 		
@@ -74,15 +75,14 @@
 					<artifactId>geronimo-servlet_3.0_spec</artifactId>
 					<version>${geronimo-servlet_3.0_spec.version}</version>
 				</dependency>
-
 			</dependencies>
 
         </profile>
         <profile>
-            <id>danhaywood-mavenmixin-sonatyperelease</id>
+            <id>sonatyperelease</id>
             <!-- 
-            this profile is not part of the mixin, but is required to be defined as a profile
-            in order to release this mixin pom.xml to Maven Central repo
+            this profile is not part of the module, but is required to be defined as a profile
+            in order to release this module pom.xml to Maven Central repo
             -->
             <build>
                 <plugins>
@@ -123,7 +123,5 @@
             </distributionManagement>
         </profile>
     </profiles>
-
-
     
 </project>
