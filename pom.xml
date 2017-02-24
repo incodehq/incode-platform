@@ -55,8 +55,13 @@
             <dependencies>
 
                 <dependency>
+<!--
+1.15.0
                     <groupId>org.apache.isis.core</groupId>
                     <artifactId>isis-core-viewer-wicket-impl</artifactId>
+-->
+                    <groupId>org.apache.isis.viewer</groupId>
+                    <artifactId>isis-viewer-wicket-impl</artifactId>
                     <version>${isis.version}</version>
                 </dependency>
                 <dependency>
