@@ -73,10 +73,10 @@ public class DemoCustomersFixture extends FixtureScript {
         addPostalAddress(custB, gbrCountry, null, "23", "Railway Road", null, "WN7 4AA", "Leigh");
 
         final DemoInvoice custB_1 = demoInvoiceRepository.create("1", custB);
-        attachReceipt(custB_1, "xlsdemo1.PDF");
+        attachReceipt(custB_1, "xlsdemo1.pdf");
 
         final DemoInvoice custB_2 = demoInvoiceRepository.create("2", custB);
-        attachReceipt(custB_2, "xlsdemo2.PDF");
+        attachReceipt(custB_2, "xlsdemo2.pdf");
 
 
         final DemoCustomer custC = wrap(demoCustomerMenu).create(JOE_HAS_EMAIL_AND_POST);
