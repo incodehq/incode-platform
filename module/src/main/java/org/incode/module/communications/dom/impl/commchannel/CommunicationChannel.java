@@ -47,7 +47,6 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.util.ObjectContracts;
 
-import org.isisaddons.module.security.dom.tenancy.ApplicationTenancyRepository;
 import org.isisaddons.module.security.dom.tenancy.HasAtPath;
 
 import org.incode.module.base.dom.types.DescriptionType;
@@ -310,8 +309,6 @@ public abstract class CommunicationChannel
     CommunicationChannelRepository communicationChannelRepository;
     @Inject
     CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;
-    @Inject
-    protected ApplicationTenancyRepository securityApplicationTenancyRepository;
     @Inject
     RepositoryService repositoryService;
     @Inject

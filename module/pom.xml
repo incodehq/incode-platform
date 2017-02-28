@@ -64,6 +64,7 @@ Copyright 2014~2015 Dan Haywood
     </developers>
 
     <properties>
+        <isis-module-command.version>1.14.0</isis-module-command.version>
         <isis-module-fakedata.version>1.14.0</isis-module-fakedata.version>
         <isis-module-poly.version>1.14.0</isis-module-poly.version>
         <isis-module-security.version>1.14.0</isis-module-security.version>
@@ -166,6 +167,12 @@ Copyright 2014~2015 Dan Haywood
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-applib</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.module.command</groupId>
+            <artifactId>isis-module-command-dom</artifactId>
+            <version>${isis-module-command.version}</version>
         </dependency>
 
         <dependency>

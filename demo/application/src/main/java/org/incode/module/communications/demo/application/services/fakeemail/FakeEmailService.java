@@ -63,6 +63,8 @@ public class FakeEmailService implements EmailService {
         emailMessage.setBody(body);
         emailMessage.setAttachments(attachments);
 
+        messages.add(emailMessage);
+
         return true; // all OK
     }
 

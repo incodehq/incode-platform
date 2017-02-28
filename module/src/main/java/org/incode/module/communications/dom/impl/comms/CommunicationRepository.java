@@ -29,24 +29,21 @@ import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
-import org.isisaddons.module.security.app.user.MeService;
-import org.isisaddons.module.security.dom.user.ApplicationUser;
-
 import org.incode.module.communications.dom.impl.commchannel.EmailAddress;
 import org.incode.module.communications.dom.impl.commchannel.PostalAddress;
+import org.incode.module.communications.dom.spi.CurrentUserEmailAddressProvider;
 
-@DomainService(repositoryFor = Communication.class, nature = NatureOfService.DOMAIN)
+@DomainService(
+        repositoryFor = Communication.class,
+        objectType = "incodeCommunications.CommunicationRepository",
+        nature = NatureOfService.DOMAIN
+)
 public class CommunicationRepository  {
-
-    public String getId() {
-        return "incodeCommunications.CommunicationRepository";
-    }
 
     public String iconName() {
         return Communication.class.getSimpleName();
     }
 
-    // //////////////////////////////////////
 
     @Programmatic
     public Communication createEmail(
@@ -64,8 +61,7 @@ public class CommunicationRepository  {
         communication.addCorrespondentIfAny(CommChannelRoleType.CC, ccIfAny);
         communication.addCorrespondentIfAny(CommChannelRoleType.BCC, bccIfAny);
 
-        final ApplicationUser currentUser = meService.me();
-        final String currentUserEmailAddress = currentUser.getEmailAddress();
+        final String currentUserEmailAddress = currentUserEmailAddressProvider.currentUserEmailAddress();
         communication.addCorrespondentIfAny(CommChannelRoleType.PREPARED_BY, currentUserEmailAddress);
 
         repositoryService.persist(communication);
@@ -93,7 +89,8 @@ public class CommunicationRepository  {
     }
 
 
-    // //////////////////////////////////////
+    @Inject
+    CurrentUserEmailAddressProvider currentUserEmailAddressProvider;
 
     @Inject
     ClockService clockService;
@@ -103,9 +100,6 @@ public class CommunicationRepository  {
 
     @Inject
     RepositoryService repositoryService;
-
-    @Inject
-    MeService meService;
 
 
 }

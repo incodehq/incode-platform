@@ -26,6 +26,7 @@ import java.util.Map;
 import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import org.isisaddons.module.command.CommandModule;
 import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.freemarker.dom.FreeMarkerModule;
 
@@ -53,6 +54,7 @@ public class DemoAppAppManifest implements AppManifest {
                 DemoModuleDomSubmodule.class,
                 DemoAppApplicationModuleFixtureSubmodule.class,
                 DemoAppApplicationModuleServicesSubmodule.class,
+                CommandModule.class,
                 FreeMarkerModule.class,
                 FakeDataModule.class
         );

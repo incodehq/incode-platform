@@ -19,16 +19,20 @@
 package org.incode.module.communications.demo.application.integtests;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
+
+import com.google.common.collect.FluentIterable;
 
 import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
+import org.incode.module.communications.demo.application.services.fakeemail.EmailMessage;
+import org.incode.module.communications.demo.application.services.fakeemail.FakeEmailService;
 import org.incode.module.communications.demo.module.dom.impl.customers.DemoCustomer;
 import org.incode.module.communications.demo.module.dom.impl.customers.DemoCustomerMenu;
 import org.incode.module.communications.demo.module.dom.impl.invoices.DemoInvoice;
@@ -104,15 +108,37 @@ public class Smoke_IntegTest extends DemoAppIntegTestAbstract {
         assertThat(comm).isNotNull();
 
         final List<CommunicationChannel> correspondentChannels =
-                comm.getCorrespondents().stream()
-                        .map(CommChannelRole::getChannel)
-                        .collect(Collectors.toList());
+                FluentIterable.from(comm.getCorrespondents())
+                        .transform(CommChannelRole::getChannel)
+                        .filter(Objects::nonNull)
+                        .toList();
+
+        // hmm, for some reason this yields no results.
+        // My guess is something to do with lazy loading, but I don't really understand it...
+//        final List<CommunicationChannel> correspondentChannels =
+//                comm.getCorrespondents().stream()
+//                        .map(CommChannelRole::getChannel)
+//                        .filter(Objects::nonNull)
+//                        .collect(Collectors.toList());
         assertThat(correspondentChannels).contains(fredEmail);
 
         assertThat(comm.getState()).isEqualTo(CommunicationState.PENDING);
 
+        List<EmailMessage> emailMessages = fakeEmailService.viewSentEmails();
+        assertThat(emailMessages).isEmpty();
 
+        // when
+        runBackgroundCommands();
+
+        // then
+        assertThat(comm.getState()).isEqualTo(CommunicationState.SENT);
+
+        emailMessages = fakeEmailService.viewSentEmails();
+        assertThat(emailMessages).isNotEmpty();
     }
 
+
+    @Inject
+    FakeEmailService fakeEmailService;
 }
 
