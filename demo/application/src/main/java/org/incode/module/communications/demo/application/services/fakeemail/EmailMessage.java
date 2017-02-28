@@ -8,6 +8,8 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Nature;
 import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.PropertyLayout;
+import org.apache.isis.applib.annotation.Title;
 
 @DomainObject(
         nature = Nature.VIEW_MODEL,
@@ -39,7 +41,9 @@ public class EmailMessage {
         return bcc;
     }
 
+    @Title
     private String subject;
+    @PropertyLayout(multiLine = 10)
     private String body;
 
     private DataSource[] attachments;

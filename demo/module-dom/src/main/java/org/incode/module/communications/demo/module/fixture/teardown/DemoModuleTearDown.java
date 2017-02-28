@@ -31,6 +31,8 @@ public class DemoModuleTearDown extends FixtureScript {
     @Override
     protected void execute(ExecutionContext executionContext) {
 
+        isisJdoSupport.executeUpdate("delete from \"incodeCommunicationsDemo\".\"PaperclipForDemoInvoice\"");
+        isisJdoSupport.executeUpdate("delete from \"incodeCommunicationsDemo\".\"DemoInvoice\"");
         isisJdoSupport.executeUpdate("delete from \"incodeCommunicationsDemo\".\"CommunicationChannelOwnerLinkForDemoCustomer\"");
         isisJdoSupport.executeUpdate("delete from \"incodeCommunicationsDemo\".\"DemoCustomer\"");
 

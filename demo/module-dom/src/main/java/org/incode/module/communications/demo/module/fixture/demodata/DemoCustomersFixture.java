@@ -82,8 +82,8 @@ public class DemoCustomersFixture extends FixtureScript {
         final DemoCustomer custC = wrap(demoCustomerMenu).create(JOE_HAS_EMAIL_AND_POST);
         addEmailAddress(custC, "joe@yahoo.com");
         addEmailAddress(custC, "joey@friends.com");
-        addPostalAddress(custB, gbrCountry, null, "5", "Witney Gardens", null, "WA4 5HT", "Warrington");
-        addPostalAddress(custB, gbrCountry, null, "3", "St. Nicholas Street Road", null, "YO11 2HF", "Scarborough");
+        addPostalAddress(custC, gbrCountry, null, "5", "Witney Gardens", null, "WA4 5HT", "Warrington");
+        addPostalAddress(custC, gbrCountry, null, "3", "St. Nicholas Street Road", null, "YO11 2HF", "Scarborough");
 
         final DemoInvoice custC_1 = demoInvoiceRepository.create("1", custC);
         attachReceipt(custC_1, "pptdemo1.pdf");

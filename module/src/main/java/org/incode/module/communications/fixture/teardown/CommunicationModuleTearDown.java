@@ -26,10 +26,14 @@ public class CommunicationModuleTearDown extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
+
         isisJdoSupport.executeUpdate("delete from \"IncodeCommunications\".\"CommChannelRole\"");
         isisJdoSupport.executeUpdate("delete from \"IncodeCommunications\".\"PaperclipForCommunication\"");
         isisJdoSupport.executeUpdate("delete from \"IncodeCommunications\".\"Communication\"");
+
+        isisJdoSupport.executeUpdate("delete from \"IncodeCommunications\".\"CommunicationChannelOwnerLink\"");
         isisJdoSupport.executeUpdate("delete from \"IncodeCommunications\".\"CommunicationChannel\"");
+
     }
 
 

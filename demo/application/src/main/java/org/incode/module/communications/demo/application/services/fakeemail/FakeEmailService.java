@@ -18,11 +18,12 @@ import org.apache.isis.applib.services.email.EmailService;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "incodeCommunicationsDemo.FakeEmailService",
-        menuOrder = "1"
+        objectType = "incodeCommunicationsDemo.FakeEmailService"
 )
 @DomainServiceLayout(
-        named = "Emails (Fake Server)"
+        named = "Fakes",
+        menuBar = DomainServiceLayout.MenuBar.SECONDARY,
+        menuOrder = "100"
 )
 public class FakeEmailService implements EmailService {
 

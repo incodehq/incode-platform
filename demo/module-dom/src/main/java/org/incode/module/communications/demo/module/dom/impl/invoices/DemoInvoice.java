@@ -50,12 +50,15 @@ import lombok.Setter;
 public class DemoInvoice implements Comparable<DemoInvoice> {
 
     @javax.jdo.annotations.Column(allowsNull="false")
-    @Title(sequence="1")
+    @Title(sequence="1", prepend = "Invoice #")
     @Property(editing = Editing.DISABLED)
     @Getter @Setter
     private String num;
 
-    @javax.jdo.annotations.Column(allowsNull="false")
+    @javax.jdo.annotations.Column(
+            allowsNull = "false",
+            name = "customerId"
+    )
     @Title(sequence="2", prepend = " for ")
     @Property
     @Getter @Setter

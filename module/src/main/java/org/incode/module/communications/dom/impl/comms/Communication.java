@@ -271,6 +271,11 @@ public class Communication implements Comparable<Communication> {
             editing = Editing.DISABLED
     )
     private DateTime queuedAt;
+
+    public boolean hideQueuedAt() {
+        return getType() != CommunicationChannelType.EMAIL_ADDRESS;
+    }
+    
     //endregion
 
     //region > sentAt (property)

@@ -43,10 +43,13 @@ import org.incode.module.communications.dom.impl.commchannel.CommunicationChanne
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwnerLinkRepository;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelType;
 import org.incode.module.communications.dom.impl.commchannel.EmailAddress;
+import org.incode.module.communications.dom.impl.commchannel.PostalAddress;
 import org.incode.module.communications.dom.impl.comms.CommChannelRole;
 import org.incode.module.communications.dom.impl.comms.Communication;
 import org.incode.module.communications.dom.impl.comms.CommunicationState;
+import org.incode.module.communications.dom.impl.comms.Communication_printAsBlob;
 import org.incode.module.communications.dom.mixins.Document_email;
+import org.incode.module.communications.dom.mixins.Document_print;
 import org.incode.module.document.dom.impl.docs.DocumentAbstract;
 import org.incode.module.document.dom.impl.paperclips.Paperclip;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
@@ -73,7 +76,7 @@ public class Smoke_IntegTest extends DemoAppIntegTestAbstract {
 
 
     @Test
-    public void create() throws Exception {
+    public void can_send_email() throws Exception {
 
         // given
         fixtureScripts.runFixtureScript(new DemoAppFixture(), null);
@@ -107,35 +110,95 @@ public class Smoke_IntegTest extends DemoAppIntegTestAbstract {
         // then
         assertThat(comm).isNotNull();
 
+        assertThat(comm.getState()).isEqualTo(CommunicationState.PENDING);
+        assertThat(comm.getQueuedAt()).isNotNull();
+        assertThat(comm.hideQueuedAt()).isFalse();   
+        assertThat(comm.getType()).isEqualTo(CommunicationChannelType.EMAIL_ADDRESS);
+        assertThat(comm.getSubject()).isNotNull();
+        assertThat(comm.getSentAt()).isNull();
+
+        // hmm, using Java8 equivalent yields no results.
+        // My guess is something to do with lazy loading, but I don't really understand why...
         final List<CommunicationChannel> correspondentChannels =
                 FluentIterable.from(comm.getCorrespondents())
                         .transform(CommChannelRole::getChannel)
                         .filter(Objects::nonNull)
                         .toList();
-
-        // hmm, for some reason this yields no results.
-        // My guess is something to do with lazy loading, but I don't really understand it...
-//        final List<CommunicationChannel> correspondentChannels =
-//                comm.getCorrespondents().stream()
-//                        .map(CommChannelRole::getChannel)
-//                        .filter(Objects::nonNull)
-//                        .collect(Collectors.toList());
         assertThat(correspondentChannels).contains(fredEmail);
-
-        assertThat(comm.getState()).isEqualTo(CommunicationState.PENDING);
 
         List<EmailMessage> emailMessages = fakeEmailService.viewSentEmails();
         assertThat(emailMessages).isEmpty();
 
         // when
-        runBackgroundCommands();
+        fakeScheduler.runBackgroundCommands(5000);
 
         // then
         assertThat(comm.getState()).isEqualTo(CommunicationState.SENT);
+        assertThat(comm.getSentAt()).isNotNull();
 
         emailMessages = fakeEmailService.viewSentEmails();
         assertThat(emailMessages).isNotEmpty();
     }
+
+    @Test
+    public void can_print() throws Exception {
+
+        // given
+        fixtureScripts.runFixtureScript(new DemoAppFixture(), null);
+        transactionService.nextTransaction();
+
+        // and so given customer with an email
+        final DemoCustomer mary = customerMenu.findByName(DemoCustomersFixture.MARY_HAS_PHONE_AND_POST).get(0);
+
+        final PostalAddress maryPost = (PostalAddress) linkRepository
+                .findByOwnerAndCommunicationChannelType(mary, CommunicationChannelType.POSTAL_ADDRESS)
+                .get(0)
+                .getCommunicationChannel();
+
+        // and with an invoice
+        final DemoInvoice fredInvoice = invoiceRepository.findByCustomer(mary).get(0);
+
+        // that has an attached document
+        final Paperclip paperclip = paperclipRepository.findByAttachedTo(fredInvoice).get(0);
+        final DocumentAbstract document = paperclip.getDocument();
+
+        // when
+        final Document_print documentPrint = mixin(Document_print.class, document);
+        final Set<PostalAddress> postalAddresses = documentPrint.choices0$$();
+
+        // then
+        assertThat(postalAddresses).contains(maryPost);
+
+        // and when
+        final Communication comm = wrap(documentPrint).$$(maryPost);
+
+        // then
+        assertThat(comm).isNotNull();
+
+        assertThat(comm.getState()).isEqualTo(CommunicationState.PENDING);
+        assertThat(comm.getQueuedAt()).isNull();    // unlike emails, never queued
+        assertThat(comm.hideQueuedAt()).isTrue();   // which is why they are hidden
+        assertThat(comm.getType()).isEqualTo(CommunicationChannelType.POSTAL_ADDRESS);
+        assertThat(comm.getSubject()).isNotNull();
+        assertThat(comm.getSentAt()).isNull();
+
+        // hmm, using Java8 equivalent yields no results.
+        // My guess is something to do with lazy loading, but I don't really understand why...
+        final List<CommunicationChannel> correspondentChannels =
+                FluentIterable.from(comm.getCorrespondents())
+                        .transform(CommChannelRole::getChannel)
+                        .filter(Objects::nonNull)
+                        .toList();
+        assertThat(correspondentChannels).contains(maryPost);
+
+        // when
+        wrap(mixin(Communication_printAsBlob.class, comm)).$$();
+
+        // then
+        assertThat(comm.getState()).isEqualTo(CommunicationState.SENT);
+        assertThat(comm.getSentAt()).isNotNull();
+    }
+
 
 
     @Inject

@@ -53,16 +53,16 @@ public class PaperclipForDemoInvoice extends Paperclip {
 
     @Column(
             allowsNull = "false",
-            name = "demoObjectId"
+            name = "invoiceId"
     )
     @Property(
             editing = Editing.DISABLED
     )
-    public DemoInvoice getDemoObject() {
+    public DemoInvoice getDemoInvoice() {
         return demoInvoice;
     }
 
-    public void setDemoObject(final DemoInvoice demoInvoice) {
+    public void setDemoInvoice(final DemoInvoice demoInvoice) {
         this.demoInvoice = demoInvoice;
     }
     //endregion
@@ -72,12 +72,12 @@ public class PaperclipForDemoInvoice extends Paperclip {
     @NotPersistent
     @Override
     public Object getAttachedTo() {
-        return getDemoObject();
+        return getDemoInvoice();
     }
 
     @Override
     protected void setAttachedTo(final Object object) {
-        setDemoObject((DemoInvoice) object);
+        setDemoInvoice((DemoInvoice) object);
     }
     //endregion
 

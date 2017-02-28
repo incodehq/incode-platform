@@ -89,7 +89,7 @@ public class DocumentCommunicationSupportForDocumentsAttachedToDemoInvoice imple
         }
         
         if(header.getToChoices().isEmpty()) {
-            header.setDisabledReason("Could not find any email address for tenant");
+            header.setDisabledReason("Could not find a communication channel to use");
         }
     }
 
