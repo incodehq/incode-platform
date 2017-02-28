@@ -23,8 +23,8 @@ import java.util.List;
 import org.apache.isis.applib.annotation.ViewModel;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
-import org.incode.module.communications.demo.module.dom.impl.DemoObject;
-import org.incode.module.communications.demo.module.dom.impl.DemoObjectRepository;
+import org.incode.module.communications.demo.module.dom.impl.demo.DemoObject;
+import org.incode.module.communications.demo.module.dom.impl.demo.DemoObjectRepository;
 
 @ViewModel
 public class HomePageViewModel {

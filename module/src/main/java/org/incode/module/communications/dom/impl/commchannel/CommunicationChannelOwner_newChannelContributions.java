@@ -30,6 +30,7 @@ import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
+import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.SemanticsOf;
@@ -82,13 +83,20 @@ public abstract class CommunicationChannelOwner_newChannelContributions  {
     @ActionLayout(contributed = Contributed.AS_ACTION)
     public CommunicationChannelOwner newPostal(
             final CommunicationChannelOwner owner,
+            @ParameterLayout(named = "Type")
             final CommunicationChannelType type,
             final Country country,
-            final @Parameter(optionality = Optionality.OPTIONAL) State state,
+            @Parameter(optionality = Optionality.OPTIONAL)
+            final State state,
+            @ParameterLayout(named = "Line 1")
             final String addressLine1,
-            final @Parameter(optionality = Optionality.OPTIONAL) String addressLine2,
-            final @Parameter(optionality = Optionality.OPTIONAL) String addressLine3,
+            @Parameter(optionality = Optionality.OPTIONAL) @ParameterLayout(named = "Line 2")
+            final String addressLine2,
+            @Parameter(optionality = Optionality.OPTIONAL) @ParameterLayout(named = "Line 3")
+            final String addressLine3,
+            @ParameterLayout(named = "Postal code")
             final String postalCode,
+            @ParameterLayout(named = "City")
             final String city
     ) {
         communicationChannelRepository.newPostal(owner, type, addressLine1, addressLine2, null, postalCode, city, state, country);
@@ -127,7 +135,9 @@ public abstract class CommunicationChannelOwner_newChannelContributions  {
     @ActionLayout(contributed = Contributed.AS_ACTION)
     public CommunicationChannelOwner newEmail(
             final CommunicationChannelOwner owner,
+            @ParameterLayout(named = "Type")
             final CommunicationChannelType type,
+            @ParameterLayout(named = "Address")
             final String address) {
         communicationChannelRepository.newEmail(owner, type, address);
         return owner;
@@ -156,7 +166,9 @@ public abstract class CommunicationChannelOwner_newChannelContributions  {
     @ActionLayout(named = "New Phone/Fax", contributed = Contributed.AS_ACTION)
     public CommunicationChannelOwner newPhoneOrFax(
             final CommunicationChannelOwner owner,
+            @ParameterLayout(named = "Type")
             final CommunicationChannelType type,
+            @ParameterLayout(named = "Number")
             final String number) {
         communicationChannelRepository.newPhoneOrFax(owner, type, number);
         return owner;

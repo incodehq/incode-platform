@@ -47,13 +47,15 @@ public class CreateDemoObjects extends DiscoverableFixtureScript {
     	executionContext.executeChild(this, new CountriesRefData());
 
 
-        final DemoObject demoOwner = create("Foo", executionContext);
+        final DemoObject foo = create("Foo", executionContext);
 
-        wrapAddEmailAddress(demoOwner, "foo@example.com");
-        wrapAddPhoneOrFaxNumber(demoOwner, CommunicationChannelType.PHONE_NUMBER, "555 1234");
-        wrapAddPhoneOrFaxNumber(demoOwner, CommunicationChannelType.FAX_NUMBER, "555 4321");
+        wrapAddEmailAddress(foo, "foo@example.com");
+        wrapAddPhoneOrFaxNumber(foo, CommunicationChannelType.PHONE_NUMBER, "555 1234");
+        wrapAddPhoneOrFaxNumber(foo, CommunicationChannelType.FAX_NUMBER, "555 4321");
 
         final DemoObject bar = create("Bar", executionContext);
+        wrapAddPhoneOrFaxNumber(bar, CommunicationChannelType.PHONE_NUMBER, "777 0987");
+
         final Country gbrCountry = countryRepository.findCountry(CountriesRefData.GBR);
         wrapAddPostalAddress(bar, gbrCountry, null, "45", "High Street", null, "OX1 4BJ", "Oxford");
 
