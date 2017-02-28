@@ -156,16 +156,13 @@ If instead you want to extend this module's functionality, then we recommend tha
 structured as follows:
 
 * `pom.xml` - parent pom
-* `dom` - the module implementation, depends on Isis applib
+* `module-dom` - the module implementation itself
+* `demo/module-dom` - demo app's supporting domain that uses `module-dom` in some way
+* `demo/application` - demo app's app manifest and application-level integration tets
+* `demo/webapp` - demo app's webapp, to create war and docker images
 
 
-////////////////////////////////////////////////////
-* `app` - the demo webapp's `AppManifest`
-* `fixture` - fixtures, holding a sample domain objects and fixture scripts; depends on `dom`
-* `integtests` - integration tests for the module; depends on `fixture`
-* `webapp` - demo webapp (see above screenshots); depends on `dom` and `fixture`
-
-Only the `dom` project is released to Maven Central Repo.  The versions of the other modules are purposely left at
+Only the `module-dom` project is released to Maven Central Repo.  The versions of the other modules are purposely left at
 `0.0.1-SNAPSHOT` because they are not intended to be released.
 
 ////////////////////////////////////////////////////
@@ -293,4 +290,3 @@ Note that in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the `aut
 You may want to set this to `false` if debugging an issue.
 
 According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update http://search.maven.org[search].
-

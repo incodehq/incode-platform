@@ -5,7 +5,7 @@ if [ ! "$VERSION" ]; then
     exit 1
 fi
 
-MODULE_DIR=dom
+MODULE_DIR=module
 
 # edit parent pom.xml
 echo "editing parent pom.xml"

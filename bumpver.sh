@@ -7,13 +7,13 @@ if [ ! "$VERSION" ]; then
 fi
 
 # edit parent pom.xml's reference
-echo "editing parent's pom.xml (reference to dom module)"
+echo "editing parent's pom.xml (reference to module)"
 cat pom.xml | sed "s/<incode-module-communications.version>.*</<incode-module-communications.version>$VERSION</" > pom.xml.$$.sed
 mv pom.xml.$$.sed pom.xml
 
-# edit dom's pom.xml
+# edit module's pom.xml
 echo "editing dom's pom.xml"
-pushd dom >/dev/null
+pushd module >/dev/null
 mvn versions:set -DnewVersion=$VERSION > /dev/null
 popd >/dev/null
 

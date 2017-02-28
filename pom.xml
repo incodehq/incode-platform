@@ -28,7 +28,7 @@ language governing permissions and limitations under the License.
     <artifactId>incode-module-communications</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>Incode Module Communications</name>
+    <name>Incode Module Communications Demo Parent</name>
 
     <packaging>pom</packaging>
 
@@ -39,12 +39,39 @@ language governing permissions and limitations under the License.
     <properties>
         <incode-module-communications.version>1.15.0-SNAPSHOT</incode-module-communications.version>
 
-        <assertj-core.version>3.3.0</assertj-core.version>
+        <isis-module-fakedata.version>1.14.0</isis-module-fakedata.version>
+
+        <assertj-core.version>3.6.1</assertj-core.version>
         <danhaywood-java-assertjext.version>0.1.0</danhaywood-java-assertjext.version>
+
+        <lombok.version>1.16.12</lombok.version>
+
+        <mavendeps-isistesting.version>1.14.0</mavendeps-isistesting.version>
+        <mavendeps-isisintellij.version>1.14.0</mavendeps-isisintellij.version>
+        <mavendeps-isiswebapp.version>1.14.0</mavendeps-isiswebapp.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.odavid.maven.plugins</groupId>
+                <artifactId>mixin-maven-plugin</artifactId>
+                <version>0.1-alpha-39</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <mixins>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>standard</artifactId>
+                        </mixin>
+                    </mixins>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencyManagement>
         <dependencies>
@@ -57,35 +84,63 @@ language governing permissions and limitations under the License.
                 <scope>import</scope>
             </dependency>
 
-
             <!-- this project's own modules -->
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>incode-module-communications-dom</artifactId>
                 <version>${incode-module-communications.version}</version>
             </dependency>
-
-
-
-            <!-- testing -->
             <dependency>
-                <groupId>org.assertj</groupId>
-                <artifactId>assertj-core</artifactId>
-                <version>${assertj-core.version}</version>
-                <scope>test</scope>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-module-communications-dom</artifactId>
+                <version>${incode-module-communications.version}</version>
+                <type>test-jar</type>
             </dependency>
             <dependency>
-                <groupId>com.danhaywood.java</groupId>
-                <artifactId>danhaywood-java-assertjext</artifactId>
-                <version>${danhaywood-java-assertjext.version}</version>
-                <scope>test</scope>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-module-communications-demo-dom</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-module-communications-demo-dom</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+                <type>test-jar</type>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-module-communications-demo-application</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-module-communications-demo-webapp</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+
+            <!-- lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
             </dependency>
 
         </dependencies>
     </dependencyManagement>
 
-    <modules>
-        <module>dom</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
+  <modules>
+    <module>module</module>
+    <module>demo/module-dom</module>
+    <module>demo/application</module>
+    <module>demo/webapp</module>
+  </modules>
 </project>

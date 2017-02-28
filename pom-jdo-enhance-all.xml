@@ -25,11 +25,10 @@
     
     <packaging>pom</packaging>
 
-    <name>JDO Enhance All</name>
+    <name>Enhance All DOM Modules</name>
 
     <description>
-        Utility to enhance all JDO projects with a single command:
-
+        Utility to enhance all Maven projects containing JDO entities with a single command:
         mvn -f pom-jdo-enhance-all.xml datanucleus:enhance -o
     </description>
 
@@ -76,11 +75,10 @@
     </build>
 
     <modules>
-        <module>dom</module>
-        <!--
-        <module>fixture</module>
-        -->
+        <module>module</module>
+        <module>demo/module-dom</module>
     </modules>
+
 
 </project>
 
