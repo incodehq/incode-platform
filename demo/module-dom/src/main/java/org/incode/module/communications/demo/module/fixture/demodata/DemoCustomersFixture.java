@@ -41,7 +41,11 @@ import org.incode.module.country.dom.impl.CountryRepository;
 import org.incode.module.country.dom.impl.State;
 import org.incode.module.country.fixture.CountriesRefData;
 
-public class DemoCustomersAndInvoicesFixture extends FixtureScript {
+public class DemoCustomersFixture extends FixtureScript {
+
+    public static final String FRED_HAS_EMAIL_AND_PHONE = "Fred HasEmailAndPhone";
+    public static final String MARY_HAS_PHONE_AND_POST = "Mary HasPhoneAndPost";
+    public static final String JOE_HAS_EMAIL_AND_POST = "Joe HasPostAndEmail";
 
 
     @Override
@@ -49,37 +53,43 @@ public class DemoCustomersAndInvoicesFixture extends FixtureScript {
 
         final Country gbrCountry = countryRepository.findCountry(CountriesRefData.GBR);
 
-
-        final DemoCustomer custA = newCustomer(executionContext);
-
-        addEmailAddress(custA, "foo@example.com");
+        final DemoCustomer custA = wrap(demoCustomerMenu).create(FRED_HAS_EMAIL_AND_PHONE);
+        addEmailAddress(custA, "fred@gmail.com");
+        addEmailAddress(custA, "freddy@msn.com");
         addPhoneOrFaxNumber(custA, CommunicationChannelType.PHONE_NUMBER, "555 1234");
         addPhoneOrFaxNumber(custA, CommunicationChannelType.FAX_NUMBER, "555 4321");
 
         final DemoInvoice custA_1 = demoInvoiceRepository.create("1", custA);
+        attachReceipt(custA_1, "Sample4.PDF");
+
         final DemoInvoice custA_2 = demoInvoiceRepository.create("2", custA);
-
-        attachReceipt(custA_1, "xlsdemo1.PDF");
-        attachReceipt(custA_2, "Sample4.PDF");
+        attachReceipt(custA_2, "Sample5.PDF");
 
 
-
-        final DemoCustomer custB = newCustomer(executionContext);
+        final DemoCustomer custB = wrap(demoCustomerMenu).create(MARY_HAS_PHONE_AND_POST);
         addPhoneOrFaxNumber(custB, CommunicationChannelType.PHONE_NUMBER, "777 0987");
+        addPhoneOrFaxNumber(custB, CommunicationChannelType.FAX_NUMBER, "777 7890");
         addPostalAddress(custB, gbrCountry, null, "45", "High Street", null, "OX1 4BJ", "Oxford");
+        addPostalAddress(custB, gbrCountry, null, "23", "Railway Road", null, "WN7 4AA", "Leigh");
 
         final DemoInvoice custB_1 = demoInvoiceRepository.create("1", custB);
+        attachReceipt(custB_1, "xlsdemo1.PDF");
+
         final DemoInvoice custB_2 = demoInvoiceRepository.create("2", custB);
-
-        attachReceipt(custB_1, "xlsdemo2.PDF");
-        attachReceipt(custB_2, "Sample5.PDF");
+        attachReceipt(custB_2, "xlsdemo2.PDF");
 
 
-
-        final DemoCustomer custC = newCustomer(executionContext);
+        final DemoCustomer custC = wrap(demoCustomerMenu).create(JOE_HAS_EMAIL_AND_POST);
+        addEmailAddress(custC, "joe@yahoo.com");
+        addEmailAddress(custC, "joey@friends.com");
+        addPostalAddress(custB, gbrCountry, null, "5", "Witney Gardens", null, "WA4 5HT", "Warrington");
+        addPostalAddress(custB, gbrCountry, null, "3", "St. Nicholas Street Road", null, "YO11 2HF", "Scarborough");
 
         final DemoInvoice custC_1 = demoInvoiceRepository.create("1", custC);
+        attachReceipt(custC_1, "pptdemo1.pdf");
+
         final DemoInvoice custC_2 = demoInvoiceRepository.create("2", custC);
+        attachReceipt(custC_2, "pptdemo2.pdf");
 
     }
 
@@ -100,7 +110,7 @@ public class DemoCustomersAndInvoicesFixture extends FixtureScript {
 
     private static byte[] loadResourceBytes(final String resourceName) {
         final URL templateUrl = Resources
-                .getResource(DemoCustomersAndInvoicesFixture.class, resourceName);
+                .getResource(DemoCustomersFixture.class, resourceName);
         try {
             return Resources.toByteArray(templateUrl);
         } catch (IOException e) {
@@ -133,14 +143,6 @@ public class DemoCustomersAndInvoicesFixture extends FixtureScript {
 
 
     // //////////////////////////////////////
-
-    private DemoCustomer newCustomer(
-            final ExecutionContext executionContext) {
-
-        final String name = fakeDataService.name().firstName();
-
-        return executionContext.addResult(this, wrap(demoCustomerMenu).create(name));
-    }
 
     // //////////////////////////////////////
 

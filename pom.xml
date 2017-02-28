@@ -40,6 +40,7 @@ language governing permissions and limitations under the License.
         <incode-module-communications.version>1.15.0-SNAPSHOT</incode-module-communications.version>
 
         <isis-module-fakedata.version>1.14.0</isis-module-fakedata.version>
+        <incode-module-docrendering-freemarker.version>1.14.0</incode-module-docrendering-freemarker.version>
 
         <assertj-core.version>3.6.1</assertj-core.version>
         <danhaywood-java-assertjext.version>0.1.0</danhaywood-java-assertjext.version>
@@ -123,6 +124,19 @@ language governing permissions and limitations under the License.
                 <artifactId>isis-module-fakedata-dom</artifactId>
                 <version>${isis-module-fakedata.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.incode.module.docrendering</groupId>
+                <artifactId>incode-module-docrendering-freemarker-dom</artifactId>
+                <version>${incode-module-docrendering-freemarker.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.docrendering</groupId>
+                <artifactId>incode-module-docrendering-freemarker-dom</artifactId>
+                <version>${incode-module-docrendering-freemarker.version}</version>
+                <scope>test</scope>
+                <type>test-jar</type>
+            </dependency>
+
 
             <!-- lombok -->
             <dependency>

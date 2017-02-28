@@ -18,8 +18,9 @@ package org.incode.module.communications.demo.module.fixture.scenario;
 
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
-import org.incode.module.communications.demo.module.fixture.demodata.DemoCustomersAndInvoicesFixture;
-import org.incode.module.communications.demo.module.fixture.data.doctypes.DocumentTypesFixture;
+import org.incode.module.communications.demo.module.fixture.data.doctypes.DocumentTypesAndTemplatesFixture;
+import org.incode.module.communications.demo.module.fixture.data.doctypes.RenderingStrategiesFixture;
+import org.incode.module.communications.demo.module.fixture.demodata.DemoCustomersFixture;
 import org.incode.module.communications.demo.module.fixture.teardown.DemoModuleTearDown;
 import org.incode.module.country.fixture.CountriesRefData;
 
@@ -37,10 +38,11 @@ public class DemoAppFixture extends DiscoverableFixtureScript {
 
         // prereqs
     	executionContext.executeChild(this, new CountriesRefData());
-    	executionContext.executeChild(this, new DocumentTypesFixture());
+        executionContext.executeChild(this, new RenderingStrategiesFixture());
+        executionContext.executeChild(this, new DocumentTypesAndTemplatesFixture());
     	nextTransaction(); // to clear QueryResultsCache
 
-    	executionContext.executeChild(this, new DemoCustomersAndInvoicesFixture());
+    	executionContext.executeChild(this, new DemoCustomersFixture());
     }
 
 }

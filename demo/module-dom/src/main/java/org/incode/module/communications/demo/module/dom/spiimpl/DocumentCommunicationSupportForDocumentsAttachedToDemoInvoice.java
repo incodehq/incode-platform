@@ -28,6 +28,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.module.communications.demo.module.dom.impl.customers.DemoCustomer;
 import org.incode.module.communications.demo.module.dom.impl.invoices.DemoInvoice;
+import org.incode.module.communications.demo.module.fixture.data.doctypes.DocumentTypesAndTemplatesFixture;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannel;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwnerLink;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwnerLinkRepository;
@@ -40,6 +41,7 @@ import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.paperclips.Paperclip;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
 import org.incode.module.document.dom.impl.types.DocumentType;
+import org.incode.module.document.dom.impl.types.DocumentTypeRepository;
 
 @DomainService(nature = NatureOfService.DOMAIN)
 public class DocumentCommunicationSupportForDocumentsAttachedToDemoInvoice implements DocumentCommunicationSupport {
@@ -52,7 +54,7 @@ public class DocumentCommunicationSupportForDocumentsAttachedToDemoInvoice imple
             return null;
         }
 
-        return null; // TODO - need a freemarker doc template to render as a cover note
+        return documentTypeRepository.findByReference(DocumentTypesAndTemplatesFixture.DOC_TYPE_REF_FREEMARKER_HTML);
     }
 
 
@@ -114,5 +116,8 @@ public class DocumentCommunicationSupportForDocumentsAttachedToDemoInvoice imple
 
     @Inject
     PaperclipRepository paperclipRepository;
+
+    @Inject
+    DocumentTypeRepository documentTypeRepository;
 
 }

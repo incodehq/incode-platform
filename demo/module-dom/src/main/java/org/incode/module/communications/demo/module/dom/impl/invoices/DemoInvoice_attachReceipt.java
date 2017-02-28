@@ -34,7 +34,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.value.Blob;
 
-import org.incode.module.communications.demo.module.fixture.data.doctypes.DocumentTypesFixture;
+import org.incode.module.communications.demo.module.fixture.data.doctypes.DocumentTypesAndTemplatesFixture;
 import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.DocumentRepository;
 import org.incode.module.document.dom.impl.docs.DocumentSort;
@@ -70,7 +70,7 @@ public class DemoInvoice_attachReceipt {
 
         String name = determineName(document, fileName);
 
-        final DocumentType documentType = findDocumentType(DocumentTypesFixture.DOC_TYPE_REF_RECEIPT);
+        final DocumentType documentType = findDocumentType(DocumentTypesAndTemplatesFixture.DOC_TYPE_REF_RECEIPT);
 
         final Document receiptDoc = documentRepository
                 .create(documentType, AT_PATH,

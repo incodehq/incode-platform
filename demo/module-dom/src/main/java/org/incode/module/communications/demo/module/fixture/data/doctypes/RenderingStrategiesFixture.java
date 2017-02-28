@@ -18,31 +18,21 @@
  */
 package org.incode.module.communications.demo.module.fixture.data.doctypes;
 
-import javax.inject.Inject;
-
-import org.apache.isis.applib.services.clock.ClockService;
-
-import org.incode.module.document.dom.impl.types.DocumentType;
+import org.incode.module.docrendering.freemarker.fixture.RenderingStrategyFSForFreemarker;
 import org.incode.module.document.fixture.DocumentTemplateFSAbstract;
 
-public class DocumentTypesFixture extends DocumentTemplateFSAbstract {
+public class RenderingStrategiesFixture extends DocumentTemplateFSAbstract {
 
-    public static final String DOC_TYPE_REF_RECEIPT = "RECEIPT";
+    public static final String REF_FMK = RenderingStrategyFSForFreemarker.REF;
+
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
 
         // prereqs
-        final DocumentType docType =
-                upsertType(DOC_TYPE_REF_RECEIPT, "Receipt document type", executionContext);
-
-        executionContext.addResult(this, docType);
+        executionContext.executeChild(this, new RenderingStrategyFSForFreemarker());
 
     }
-
-
-    @Inject
-    ClockService clockService;
 
 
 }
