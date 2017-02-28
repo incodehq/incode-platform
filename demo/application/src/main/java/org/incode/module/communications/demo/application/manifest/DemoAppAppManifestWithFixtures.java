@@ -40,7 +40,6 @@ public class DemoAppAppManifestWithFixtures extends DemoAppAppManifest {
     @Override
     public List<Class<? extends FixtureScript>> getFixtures() {
         return Lists.newArrayList(
-//                CreateCommunicationsObjects.class,
                 CreateDemoObjects.class
         );
     }

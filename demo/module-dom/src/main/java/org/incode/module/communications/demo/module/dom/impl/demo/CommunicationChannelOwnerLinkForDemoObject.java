@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.communications.demo.module.dom.impl.commchannel;
+package org.incode.module.communications.demo.module.dom.impl.demo;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
@@ -41,17 +41,17 @@ import org.incode.module.communications.dom.impl.commchannel.CommunicationChanne
 public class CommunicationChannelOwnerLinkForDemoObject extends CommunicationChannelOwnerLink {
 
     //region > demoObject (property)
-    private CommChannelDemoObject demoObject;
+    private DemoObject demoObject;
 
     @Column(
             allowsNull = "false",
             name = "demoObjectId"
     )
-    public CommChannelDemoObject getDemoObject() {
+    public DemoObject getDemoObject() {
         return demoObject;
     }
 
-    public void setDemoObject(final CommChannelDemoObject demoObject) {
+    public void setDemoObject(final DemoObject demoObject) {
         this.demoObject = demoObject;
     }
     //endregion
@@ -59,7 +59,7 @@ public class CommunicationChannelOwnerLinkForDemoObject extends CommunicationCha
     @Override
     public void setPolymorphicReference(final CommunicationChannelOwner polymorphicReference) {
         super.setPolymorphicReference(polymorphicReference);
-        setDemoObject((CommChannelDemoObject) polymorphicReference);
+        setDemoObject((DemoObject) polymorphicReference);
     }
 
     //    //region > owner (hook, derived)
@@ -88,7 +88,7 @@ public class CommunicationChannelOwnerLinkForDemoObject extends CommunicationCha
         @Programmatic
         @Subscribe
         public void on(final CommunicationChannelOwnerLink.InstantiateEvent ev) {
-            if(ev.getPolymorphicReference() instanceof CommChannelDemoObject) {
+            if(ev.getPolymorphicReference() instanceof DemoObject) {
                 ev.setSubtype(CommunicationChannelOwnerLinkForDemoObject.class);
             }
         }

@@ -30,6 +30,8 @@ import org.incode.module.communications.demo.application.fixture.DemoAppApplicat
 import org.incode.module.communications.demo.application.services.DemoAppApplicationModuleServicesSubmodule;
 import org.incode.module.communications.demo.module.dom.DemoModuleDomSubmodule;
 import org.incode.module.communications.dom.CommunicationsModuleDomModule;
+import org.incode.module.country.dom.CountryModule;
+import org.incode.module.document.dom.DocumentModule;
 
 /**
  * Bootstrap the application.
@@ -43,6 +45,8 @@ public class DemoAppAppManifest implements AppManifest {
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 CommunicationsModuleDomModule.class,
+                DocumentModule.class,
+                CountryModule.class,
                 DemoModuleDomSubmodule.class,
                 DemoAppApplicationModuleFixtureSubmodule.class,
                 DemoAppApplicationModuleServicesSubmodule.class

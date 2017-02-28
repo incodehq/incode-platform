@@ -17,24 +17,19 @@
  *  under the License.
  */
 
-package org.incode.module.communications.demo.module.fixture.teardown;
+package org.incode.module.communications.fixture.teardown;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-import org.incode.module.communications.fixture.teardown.CommunicationModuleTearDown;
-import org.incode.module.country.fixture.teardown.CountryModuleTearDown;
-import org.incode.module.document.fixture.teardown.DocumentModuleTearDown;
-
-public class DemoModuleTearDown extends FixtureScript {
+public class CommunicationModuleTearDown extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-        executionContext.executeChild(this, new CommunicationModuleTearDown());
-        executionContext.executeChild(this, new DocumentModuleTearDown());
-        executionContext.executeChild(this, new CountryModuleTearDown());
-
-        isisJdoSupport.executeUpdate("delete from \"communicationsdemo\".\"DemoObject\"");
+        isisJdoSupport.executeUpdate("delete from \"IncodeCommunications\".\"CommChannelRole\"");
+        isisJdoSupport.executeUpdate("delete from \"IncodeCommunications\".\"PaperclipForCommunication\"");
+        isisJdoSupport.executeUpdate("delete from \"IncodeCommunications\".\"Communication\"");
+        isisJdoSupport.executeUpdate("delete from \"IncodeCommunications\".\"CommunicationChannel\"");
     }
 
 

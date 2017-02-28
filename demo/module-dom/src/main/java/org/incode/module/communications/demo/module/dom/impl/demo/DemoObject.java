@@ -26,6 +26,7 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Title;
@@ -34,6 +35,8 @@ import org.apache.isis.applib.services.message.MessageService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.util.ObjectContracts;
+
+import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwner;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -61,7 +64,7 @@ import lombok.Setter;
 @DomainObject(
         objectType = "communicationsdemo.DemoObject"
 )
-public class DemoObject implements Comparable<DemoObject> {
+public class DemoObject implements Comparable<DemoObject>, CommunicationChannelOwner {
 
     @Builder
     public DemoObject(final String name) {
@@ -109,6 +112,13 @@ public class DemoObject implements Comparable<DemoObject> {
     //endregion
 
 
+    @Programmatic
+    @Override
+    public String getAtPath() {
+        return "/";
+    }
+
+
     //region > toString, compareTo
     @Override
     public String toString() {
@@ -130,6 +140,7 @@ public class DemoObject implements Comparable<DemoObject> {
 
     @javax.inject.Inject
     MessageService messageService;
+
     //endregion
 
 }

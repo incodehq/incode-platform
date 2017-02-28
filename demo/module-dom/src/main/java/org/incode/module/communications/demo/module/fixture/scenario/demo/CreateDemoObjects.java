@@ -1,9 +1,7 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
+ *  Copyright 2014~2015 Dan Haywood
+ *
+ *  Licensed under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
  *
@@ -16,61 +14,94 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-
 package org.incode.module.communications.demo.module.fixture.scenario.demo;
 
-import java.util.List;
+import javax.inject.Inject;
 
-import javax.annotation.Nullable;
+import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
-import com.google.common.collect.Lists;
+import org.incode.module.communications.demo.module.dom.impl.demo.DemoCommunicationChannelOwner_newChannelContributions;
+import org.incode.module.communications.demo.module.dom.impl.demo.DemoObject;
+import org.incode.module.communications.demo.module.dom.impl.demo.DemoObjectMenu;
+import org.incode.module.communications.demo.module.fixture.teardown.DemoModuleTearDown;
+import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwner;
+import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelType;
+import org.incode.module.country.dom.impl.Country;
+import org.incode.module.country.dom.impl.CountryRepository;
+import org.incode.module.country.dom.impl.State;
+import org.incode.module.country.fixture.CountriesRefData;
 
-import org.apache.isis.applib.fixturescripts.FixtureScript;
-import org.apache.isis.applib.services.repository.RepositoryService;
+public class CreateDemoObjects extends DiscoverableFixtureScript {
 
-import org.incode.module.communications.demo.module.dom.impl.DemoObject;
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
-
-@Accessors(chain = true)
-public class CreateDemoObjects extends FixtureScript {
-
-    /**
-     * The number of objects to create, up to 10; optional, defaults to 3.
-     */
-    @Nullable
-    @Getter @Setter
-    private Integer number;
-
-    /**
-     * The objects created by this fixture (output).
-     */
-    @Getter
-    private final List<DemoObject> demoObjects = Lists.newArrayList();
-
-    @Override
-    protected void execute(final ExecutionContext ec) {
-
-        // defaults
-        final int number = defaultParam("number", ec, 3);
-
-        // validate
-        final int max = DemoObjectData.values().length;
-        if(number < 0 || number > max) {
-            throw new IllegalArgumentException(String.format("number must be in range [0,%d]", max));
-        }
-
-        // execute
-        for (int i = 0; i < number; i++) {
-            final DemoObject demoObject = DemoObjectData.values()[i].createWith(repositoryService);
-            ec.addResult(this, demoObject);
-            demoObjects.add(demoObject);
-        }
+    public CreateDemoObjects() {
+        withDiscoverability(Discoverability.DISCOVERABLE);
     }
 
+    @Override
+    protected void execute(final ExecutionContext executionContext) {
+
+        // teardown
+        executionContext.executeChild(this, new DemoModuleTearDown());
+
+        // prereqs
+    	executionContext.executeChild(this, new CountriesRefData());
+
+
+        final DemoObject demoOwner = create("Foo", executionContext);
+
+        wrapAddEmailAddress(demoOwner, "foo@example.com");
+        wrapAddPhoneOrFaxNumber(demoOwner, CommunicationChannelType.PHONE_NUMBER, "555 1234");
+        wrapAddPhoneOrFaxNumber(demoOwner, CommunicationChannelType.FAX_NUMBER, "555 4321");
+
+        final DemoObject bar = create("Bar", executionContext);
+        final Country gbrCountry = countryRepository.findCountry(CountriesRefData.GBR);
+        wrapAddPostalAddress(bar, gbrCountry, null, "45", "High Street", null, "OX1 4BJ", "Oxford");
+
+        final DemoObject baz = create("Baz", executionContext);
+    }
+
+    void wrapAddEmailAddress(final CommunicationChannelOwner cco, final String address) {
+        wrap(demoCommunicationChannelOwner_newChannelContributions).newEmail(cco, CommunicationChannelType.EMAIL_ADDRESS, address);
+    }
+
+    void wrapAddPhoneOrFaxNumber(
+            final CommunicationChannelOwner cco,
+            final CommunicationChannelType type,
+            final String number) {
+        wrap(demoCommunicationChannelOwner_newChannelContributions).newPhoneOrFax(cco, type, number);
+    }
+
+    void wrapAddPostalAddress(
+            final CommunicationChannelOwner cco,
+            final Country country,
+            final State state,
+            final String addressLine1,
+            final String addressLine2,
+            final String addressLine3,
+            final String postalCode,
+            final String city) {
+        wrap(demoCommunicationChannelOwner_newChannelContributions).newPostal(cco, CommunicationChannelType.POSTAL_ADDRESS, country, state, addressLine1, addressLine2, addressLine3, postalCode, city);
+    }
+
+    // //////////////////////////////////////
+
+    private DemoObject create(
+            final String name,
+            final ExecutionContext executionContext) {
+
+        return executionContext.addResult(this, wrap(demoObjectMenu).create(name));
+    }
+
+    // //////////////////////////////////////
+
     @javax.inject.Inject
-    RepositoryService repositoryService;
+    DemoObjectMenu demoObjectMenu;
+
+    @Inject
+    CountryRepository countryRepository;
+
+    @Inject
+    DemoCommunicationChannelOwner_newChannelContributions demoCommunicationChannelOwner_newChannelContributions;
+
 
 }

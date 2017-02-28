@@ -1,4 +1,4 @@
-package org.incode.module.communications.demo.module.dom.impl.commchannel;
+package org.incode.module.communications.demo.module.dom.impl.demo;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
