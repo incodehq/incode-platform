@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.communications.demo.module.dom.impl.demo;
+package org.incode.module.communications.demo.module.dom.impl.customers;
 
 import java.util.List;
 
@@ -33,45 +33,45 @@ import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        repositoryFor = DemoObject.class
+        repositoryFor = DemoCustomer.class
 )
 @DomainServiceLayout(
         named = "Demo Objects",
         menuOrder = "10"
 )
-public class DemoObjectMenu {
+public class DemoCustomerMenu {
 
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<DemoObject> listAll() {
-        return demoObjectRepository.listAll();
+    public List<DemoCustomer> listAll() {
+        return demoCustomerRepository.listAll();
     }
 
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "2")
-    public List<DemoObject> findByName(
+    public List<DemoCustomer> findByName(
             @ParameterLayout(named="Name")
             final String name
     ) {
-        return demoObjectRepository.findByName(name);
+        return demoCustomerRepository.findByName(name);
     }
 
 
-    public static class CreateDomainEvent extends ActionDomainEvent<DemoObjectMenu> {}
+    public static class CreateDomainEvent extends ActionDomainEvent<DemoCustomerMenu> {}
     @Action(domainEvent = CreateDomainEvent.class)
     @MemberOrder(sequence = "3")
-    public DemoObject create(
+    public DemoCustomer create(
             @ParameterLayout(named="Name")
             final String name) {
-        return demoObjectRepository.create(name);
+        return demoCustomerRepository.create(name);
     }
 
 
     @javax.inject.Inject
-    DemoObjectRepository demoObjectRepository;
+    DemoCustomerRepository demoCustomerRepository;
 
 }

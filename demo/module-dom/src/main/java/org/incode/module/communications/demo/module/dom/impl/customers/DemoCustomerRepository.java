@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.communications.demo.module.dom.impl.demo;
+package org.incode.module.communications.demo.module.dom.impl.customers;
 
 import java.util.List;
 
@@ -28,24 +28,24 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
-        repositoryFor = DemoObject.class
+        repositoryFor = DemoCustomer.class
 )
-public class DemoObjectRepository {
+public class DemoCustomerRepository {
 
-    public List<DemoObject> listAll() {
-        return repositoryService.allInstances(DemoObject.class);
+    public List<DemoCustomer> listAll() {
+        return repositoryService.allInstances(DemoCustomer.class);
     }
 
-    public List<DemoObject> findByName(final String name) {
+    public List<DemoCustomer> findByName(final String name) {
         return repositoryService.allMatches(
-                new QueryDefault<DemoObject>(
-                        DemoObject.class,
+                new QueryDefault<DemoCustomer>(
+                        DemoCustomer.class,
                         "findByName",
                         "name", name));
     }
 
-    public DemoObject create(final String name) {
-        final DemoObject object = new DemoObject(name);
+    public DemoCustomer create(final String name) {
+        final DemoCustomer object = new DemoCustomer(name);
         serviceRegistry.injectServicesInto(object);
         repositoryService.persist(object);
         return object;

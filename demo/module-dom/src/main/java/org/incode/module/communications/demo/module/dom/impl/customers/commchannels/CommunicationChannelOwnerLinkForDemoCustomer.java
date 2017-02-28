@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.communications.demo.module.dom.impl.demo;
+package org.incode.module.communications.demo.module.dom.impl.customers.commchannels;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
@@ -30,36 +30,40 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
+import org.incode.module.communications.demo.module.dom.impl.customers.DemoCustomer;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwner;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwnerLink;
 
-@javax.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE, schema ="incodeCommChannelDemo")
+@javax.jdo.annotations.PersistenceCapable(
+        identityType= IdentityType.DATASTORE,
+        schema ="incodeCommmunicationsDemo"
+)
 @javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @DomainObject(
-        objectType = "incodeCommChannelDemo.CommunicationChannelOwnerLinkForDemoObject"
+        // objectType inferred from schema
 )
-public class CommunicationChannelOwnerLinkForDemoObject extends CommunicationChannelOwnerLink {
+public class CommunicationChannelOwnerLinkForDemoCustomer extends CommunicationChannelOwnerLink {
 
     //region > demoObject (property)
-    private DemoObject demoObject;
+    private DemoCustomer demoCustomer;
 
     @Column(
             allowsNull = "false",
             name = "demoObjectId"
     )
-    public DemoObject getDemoObject() {
-        return demoObject;
+    public DemoCustomer getDemoCustomer() {
+        return demoCustomer;
     }
 
-    public void setDemoObject(final DemoObject demoObject) {
-        this.demoObject = demoObject;
+    public void setDemoCustomer(final DemoCustomer demoCustomer) {
+        this.demoCustomer = demoCustomer;
     }
     //endregion
 
     @Override
     public void setPolymorphicReference(final CommunicationChannelOwner polymorphicReference) {
         super.setPolymorphicReference(polymorphicReference);
-        setDemoObject((DemoObject) polymorphicReference);
+        setDemoCustomer((DemoCustomer) polymorphicReference);
     }
 
     //    //region > owner (hook, derived)
@@ -88,8 +92,8 @@ public class CommunicationChannelOwnerLinkForDemoObject extends CommunicationCha
         @Programmatic
         @Subscribe
         public void on(final CommunicationChannelOwnerLink.InstantiateEvent ev) {
-            if(ev.getPolymorphicReference() instanceof DemoObject) {
-                ev.setSubtype(CommunicationChannelOwnerLinkForDemoObject.class);
+            if(ev.getPolymorphicReference() instanceof DemoCustomer) {
+                ev.setSubtype(CommunicationChannelOwnerLinkForDemoCustomer.class);
             }
         }
     }

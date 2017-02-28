@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.communications.demo.module.dom.impl.demo;
+package org.incode.module.communications.demo.module.dom.impl.customers;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
@@ -44,8 +44,7 @@ import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
-        schema = "communicationsdemo",
-        table = "DemoObject"
+        schema = "incodeCommunicationsDemo"
 )
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
@@ -57,17 +56,17 @@ import lombok.Setter;
         @javax.jdo.annotations.Query(
                 name = "findByName",
                 value = "SELECT "
-                        + "FROM org.incode.module.communications.demo.module.dom.impl.demo.DemoObject "
+                        + "FROM org.incode.module.communications.demo.module.dom.impl.customers.DemoCustomer "
                         + "WHERE name.indexOf(:name) >= 0 ")
 })
-@javax.jdo.annotations.Unique(name="DemoObject_name_UNQ", members = {"name"})
+@javax.jdo.annotations.Unique(name="DemoCustomer_name_UNQ", members = {"name"})
 @DomainObject(
-        objectType = "communicationsdemo.DemoObject"
+        // objectType inferred from schema
 )
-public class DemoObject implements Comparable<DemoObject>, CommunicationChannelOwner {
+public class DemoCustomer implements Comparable<DemoCustomer>, CommunicationChannelOwner {
 
     @Builder
-    public DemoObject(final String name) {
+    public DemoCustomer(final String name) {
         setName(name);
     }
 
@@ -85,7 +84,7 @@ public class DemoObject implements Comparable<DemoObject>, CommunicationChannelO
 
     //region > updateName (action)
     @Action(semantics = SemanticsOf.IDEMPOTENT)
-    public DemoObject updateName(
+    public DemoCustomer updateName(
             @Parameter(maxLength = 40)
             @ParameterLayout(named = "Name")
             final String name) {
@@ -126,7 +125,7 @@ public class DemoObject implements Comparable<DemoObject>, CommunicationChannelO
     }
 
     @Override
-    public int compareTo(final DemoObject other) {
+    public int compareTo(final DemoCustomer other) {
         return ObjectContracts.compare(this, other, "name");
     }
     //endregion

@@ -23,8 +23,8 @@ import java.util.List;
 import org.apache.isis.applib.annotation.ViewModel;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
-import org.incode.module.communications.demo.module.dom.impl.demo.DemoObject;
-import org.incode.module.communications.demo.module.dom.impl.demo.DemoObjectRepository;
+import org.incode.module.communications.demo.module.dom.impl.customers.DemoCustomer;
+import org.incode.module.communications.demo.module.dom.impl.customers.DemoCustomerRepository;
 
 @ViewModel
 public class HomePageViewModel {
@@ -33,8 +33,8 @@ public class HomePageViewModel {
         return TranslatableString.tr("{num} demo objects", "num", getDemoObjects().size());
     }
 
-    public List<DemoObject> getDemoObjects() {
-        return demoObjectRepository.listAll();
+    public List<DemoCustomer> getDemoObjects() {
+        return demoCustomerRepository.listAll();
     }
 
 //    public List<CommunicationsObject> getCommunicationsObjects() {
@@ -42,7 +42,7 @@ public class HomePageViewModel {
 //    }
 
     @javax.inject.Inject
-    DemoObjectRepository demoObjectRepository;
+    DemoCustomerRepository demoCustomerRepository;
 
 //    @javax.inject.Inject
 //    CommunicationsObjectRepository communicationsObjectRepository;

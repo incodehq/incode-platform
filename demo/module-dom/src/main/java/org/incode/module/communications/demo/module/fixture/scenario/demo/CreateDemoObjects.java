@@ -20,9 +20,9 @@ import javax.inject.Inject;
 
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
-import org.incode.module.communications.demo.module.dom.impl.demo.DemoCommunicationChannelOwner_newChannelContributions;
-import org.incode.module.communications.demo.module.dom.impl.demo.DemoObject;
-import org.incode.module.communications.demo.module.dom.impl.demo.DemoObjectMenu;
+import org.incode.module.communications.demo.module.dom.impl.DemoAppCommunicationChannelOwner_newChannelContributions;
+import org.incode.module.communications.demo.module.dom.impl.customers.DemoCustomer;
+import org.incode.module.communications.demo.module.dom.impl.customers.DemoCustomerMenu;
 import org.incode.module.communications.demo.module.fixture.teardown.DemoModuleTearDown;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwner;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelType;
@@ -47,30 +47,30 @@ public class CreateDemoObjects extends DiscoverableFixtureScript {
     	executionContext.executeChild(this, new CountriesRefData());
 
 
-        final DemoObject foo = create("Foo", executionContext);
+        final DemoCustomer foo = create("Foo", executionContext);
 
         wrapAddEmailAddress(foo, "foo@example.com");
         wrapAddPhoneOrFaxNumber(foo, CommunicationChannelType.PHONE_NUMBER, "555 1234");
         wrapAddPhoneOrFaxNumber(foo, CommunicationChannelType.FAX_NUMBER, "555 4321");
 
-        final DemoObject bar = create("Bar", executionContext);
+        final DemoCustomer bar = create("Bar", executionContext);
         wrapAddPhoneOrFaxNumber(bar, CommunicationChannelType.PHONE_NUMBER, "777 0987");
 
         final Country gbrCountry = countryRepository.findCountry(CountriesRefData.GBR);
         wrapAddPostalAddress(bar, gbrCountry, null, "45", "High Street", null, "OX1 4BJ", "Oxford");
 
-        final DemoObject baz = create("Baz", executionContext);
+        final DemoCustomer baz = create("Baz", executionContext);
     }
 
     void wrapAddEmailAddress(final CommunicationChannelOwner cco, final String address) {
-        wrap(demoCommunicationChannelOwner_newChannelContributions).newEmail(cco, CommunicationChannelType.EMAIL_ADDRESS, address);
+        wrap(demoAppCommunicationChannelOwner_newChannelContributions).newEmail(cco, CommunicationChannelType.EMAIL_ADDRESS, address);
     }
 
     void wrapAddPhoneOrFaxNumber(
             final CommunicationChannelOwner cco,
             final CommunicationChannelType type,
             final String number) {
-        wrap(demoCommunicationChannelOwner_newChannelContributions).newPhoneOrFax(cco, type, number);
+        wrap(demoAppCommunicationChannelOwner_newChannelContributions).newPhoneOrFax(cco, type, number);
     }
 
     void wrapAddPostalAddress(
@@ -82,28 +82,28 @@ public class CreateDemoObjects extends DiscoverableFixtureScript {
             final String addressLine3,
             final String postalCode,
             final String city) {
-        wrap(demoCommunicationChannelOwner_newChannelContributions).newPostal(cco, CommunicationChannelType.POSTAL_ADDRESS, country, state, addressLine1, addressLine2, addressLine3, postalCode, city);
+        wrap(demoAppCommunicationChannelOwner_newChannelContributions).newPostal(cco, CommunicationChannelType.POSTAL_ADDRESS, country, state, addressLine1, addressLine2, addressLine3, postalCode, city);
     }
 
     // //////////////////////////////////////
 
-    private DemoObject create(
+    private DemoCustomer create(
             final String name,
             final ExecutionContext executionContext) {
 
-        return executionContext.addResult(this, wrap(demoObjectMenu).create(name));
+        return executionContext.addResult(this, wrap(demoCustomerMenu).create(name));
     }
 
     // //////////////////////////////////////
 
     @javax.inject.Inject
-    DemoObjectMenu demoObjectMenu;
+    DemoCustomerMenu demoCustomerMenu;
 
     @Inject
     CountryRepository countryRepository;
 
     @Inject
-    DemoCommunicationChannelOwner_newChannelContributions demoCommunicationChannelOwner_newChannelContributions;
+    DemoAppCommunicationChannelOwner_newChannelContributions demoAppCommunicationChannelOwner_newChannelContributions;
 
 
 }
