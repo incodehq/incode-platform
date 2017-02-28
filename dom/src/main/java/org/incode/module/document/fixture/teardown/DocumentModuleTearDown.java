@@ -14,23 +14,22 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.module.document.fixture.scripts.teardown;
+package org.incode.module.document.fixture.teardown;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-import org.incode.module.document.fixture.teardown.DocumentModuleTearDown;
-
-public class DocumentDemoAppTearDownFixture extends FixtureScript {
+public class DocumentModuleTearDown extends FixtureScript {
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"incodeDocumentDemo\".\"PaperclipForDemoObject\"");
-        isisJdoSupport.executeUpdate("delete from \"incodeDocumentDemo\".\"DemoObject\"");
-        isisJdoSupport.executeUpdate("delete from \"incodeDocumentDemo\".\"PaperclipForOtherObject\"");
-        isisJdoSupport.executeUpdate("delete from \"incodeDocumentDemo\".\"OtherObject\"");
-
-        executionContext.executeChild(this, new DocumentModuleTearDown());
+        isisJdoSupport.executeUpdate("delete from \"incodeDocuments\".\"Paperclip\"");
+        isisJdoSupport.executeUpdate("delete from \"incodeDocuments\".\"Applicability\"");
+        isisJdoSupport.executeUpdate("delete from \"incodeDocuments\".\"Document\"");
+        isisJdoSupport.executeUpdate("delete from \"incodeDocuments\".\"DocumentTemplate\"");
+        isisJdoSupport.executeUpdate("delete from \"incodeDocuments\".\"DocumentAbstract\"");
+        isisJdoSupport.executeUpdate("delete from \"incodeDocuments\".\"DocumentType\"");
+        isisJdoSupport.executeUpdate("delete from \"incodeDocuments\".\"RenderingStrategy\"");
     }
 
 
