@@ -18,24 +18,33 @@
  */
 package org.incode.module.communications.demo.module.dom.impl.customers;
 
+import java.util.List;
+
+import javax.inject.Inject;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Title;
+import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.message.MessageService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import org.incode.module.communications.demo.module.dom.impl.invoices.DemoInvoice;
+import org.incode.module.communications.demo.module.dom.impl.invoices.DemoInvoiceRepository;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwner;
 
 import lombok.Builder;
@@ -73,7 +82,7 @@ public class DemoCustomer implements Comparable<DemoCustomer>, CommunicationChan
     @javax.jdo.annotations.Column(allowsNull = "false", length = 40)
     @Property(editing = Editing.DISABLED)
     @Getter @Setter
-    @Title(prepend = "Object: ")
+    @Title
     private String name;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 4000)
@@ -110,6 +119,26 @@ public class DemoCustomer implements Comparable<DemoCustomer>, CommunicationChan
     }
     //endregion
 
+    
+    //region > invoices (derived collection)
+    @Mixin(method="coll")
+    public static class invoices {
+        private final DemoCustomer demoCustomer;
+        public invoices(final DemoCustomer demoCustomer) {
+            this.demoCustomer = demoCustomer;
+        }
+        public static class DomainEvent extends ActionDomainEvent<DemoCustomer> {
+        }
+        @Action(semantics = SemanticsOf.SAFE, domainEvent = DomainEvent.class)
+        @ActionLayout(contributed= Contributed.AS_ASSOCIATION)
+        public List<DemoInvoice> coll() {
+            return invoiceRepository.findByCustomer(demoCustomer);
+        }
+
+        @Inject
+        DemoInvoiceRepository invoiceRepository;
+    }
+    //endregion
 
     @Programmatic
     @Override
@@ -141,5 +170,7 @@ public class DemoCustomer implements Comparable<DemoCustomer>, CommunicationChan
     MessageService messageService;
 
     //endregion
+
+
 
 }

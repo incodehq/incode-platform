@@ -20,7 +20,7 @@
 <bs3:grid xsi:schemaLocation="http://isis.apache.org/applib/layout/component http://isis.apache.org/applib/layout/component/component.xsd http://isis.apache.org/applib/layout/grid/bootstrap3 http://isis.apache.org/applib/layout/grid/bootstrap3/bootstrap3.xsd" xmlns="http://isis.apache.org/applib/layout/component" xmlns:bs3="http://isis.apache.org/applib/layout/grid/bootstrap3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <bs3:row>
         <bs3:col span="2">
-            <bs3:sizeSpan size="LG" span="2" offset="true"/>
+            <bs3:sizeSpan size="LG" span="1" offset="true"/>
             <bs3:row>
                 <bs3:col span="12" unreferencedActions="true">
                     <domainObject/>
@@ -30,13 +30,11 @@
                 </bs3:col>
             </bs3:row>
         </bs3:col>
-        <bs3:col span="4" unreferencedCollections="true">
+        <bs3:col span="6" unreferencedCollections="true">
             <bs3:row>
                 <bs3:col span="12">
-                    <collection id="demoObjects" defaultView="table"/>
-                </bs3:col>
-                <bs3:col span="12">
-                    <collection id="communicationsObjects" defaultView="table"/>
+                    <collection id="demoCustomers" defaultView="table"/>
+                    <collection id="demoInvoices" defaultView="table"/>
                 </bs3:col>
             </bs3:row>
         </bs3:col>

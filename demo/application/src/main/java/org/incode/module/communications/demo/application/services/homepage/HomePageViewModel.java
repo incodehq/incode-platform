@@ -25,25 +25,28 @@ import org.apache.isis.applib.services.i18n.TranslatableString;
 
 import org.incode.module.communications.demo.module.dom.impl.customers.DemoCustomer;
 import org.incode.module.communications.demo.module.dom.impl.customers.DemoCustomerRepository;
+import org.incode.module.communications.demo.module.dom.impl.invoices.DemoInvoice;
+import org.incode.module.communications.demo.module.dom.impl.invoices.DemoInvoiceRepository;
 
 @ViewModel
 public class HomePageViewModel {
 
     public TranslatableString title() {
-        return TranslatableString.tr("{num} demo objects", "num", getDemoObjects().size());
+        return TranslatableString.tr("{cus} customers, {inv} invoices", "cus", getDemoCustomers().size(), "inv", getDemoInvoices().size());
     }
 
-    public List<DemoCustomer> getDemoObjects() {
+    public List<DemoCustomer> getDemoCustomers() {
         return demoCustomerRepository.listAll();
     }
 
-//    public List<CommunicationsObject> getCommunicationsObjects() {
-//        return communicationsObjectRepository.listAll();
-//    }
+    public List<DemoInvoice> getDemoInvoices() {
+        return demoInvoiceRepository.listAll();
+    }
 
     @javax.inject.Inject
     DemoCustomerRepository demoCustomerRepository;
 
-//    @javax.inject.Inject
-//    CommunicationsObjectRepository communicationsObjectRepository;
+    @javax.inject.Inject
+    DemoInvoiceRepository demoInvoiceRepository;
+
 }

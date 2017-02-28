@@ -26,6 +26,8 @@ import java.util.Map;
 import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import org.isisaddons.module.fakedata.FakeDataModule;
+
 import org.incode.module.communications.demo.application.fixture.DemoAppApplicationModuleFixtureSubmodule;
 import org.incode.module.communications.demo.application.services.DemoAppApplicationModuleServicesSubmodule;
 import org.incode.module.communications.demo.module.dom.DemoModuleDomSubmodule;
@@ -49,7 +51,8 @@ public class DemoAppAppManifest implements AppManifest {
                 CountryModule.class,
                 DemoModuleDomSubmodule.class,
                 DemoAppApplicationModuleFixtureSubmodule.class,
-                DemoAppApplicationModuleServicesSubmodule.class
+                DemoAppApplicationModuleServicesSubmodule.class,
+                FakeDataModule.class
         );
     }
 

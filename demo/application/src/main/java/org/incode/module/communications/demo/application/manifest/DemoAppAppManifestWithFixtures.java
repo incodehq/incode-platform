@@ -27,7 +27,7 @@ import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.module.communications.demo.module.fixture.scenario.demo.CreateDemoObjects;
+import org.incode.module.communications.demo.module.fixture.scenario.DemoAppFixture;
 
 /**
  * Run the app but without setting up any fixtures.
@@ -40,7 +40,7 @@ public class DemoAppAppManifestWithFixtures extends DemoAppAppManifest {
     @Override
     public List<Class<? extends FixtureScript>> getFixtures() {
         return Lists.newArrayList(
-                CreateDemoObjects.class
+                DemoAppFixture.class
         );
     }
 

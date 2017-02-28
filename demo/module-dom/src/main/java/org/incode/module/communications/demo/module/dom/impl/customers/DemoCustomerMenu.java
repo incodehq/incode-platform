@@ -33,10 +33,10 @@ import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        repositoryFor = DemoCustomer.class
+        objectType = "incodeCommunicationsDemo.DemoCustomerMenu"
 )
 @DomainServiceLayout(
-        named = "Demo Objects",
+        named = "Demo Customers",
         menuOrder = "10"
 )
 public class DemoCustomerMenu {

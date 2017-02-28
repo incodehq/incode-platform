@@ -36,7 +36,7 @@ import org.incode.module.communications.dom.impl.commchannel.CommunicationChanne
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType= IdentityType.DATASTORE,
-        schema ="incodeCommmunicationsDemo"
+        schema ="incodeCommunicationsDemo"
 )
 @javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @DomainObject(

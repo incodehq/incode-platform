@@ -118,6 +118,12 @@ language governing permissions and limitations under the License.
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.isisaddons.module.fakedata</groupId>
+                <artifactId>isis-module-fakedata-dom</artifactId>
+                <version>${isis-module-fakedata.version}</version>
+            </dependency>
+
             <!-- lombok -->
             <dependency>
                 <groupId>org.projectlombok</groupId>

@@ -103,6 +103,10 @@
             <artifactId>incode-module-communications-dom</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.isisaddons.module.fakedata</groupId>
+            <artifactId>isis-module-fakedata-dom</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.incode.mavendeps</groupId>
