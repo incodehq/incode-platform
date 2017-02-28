@@ -75,10 +75,7 @@ public class CommunicationRepository  {
             final String atPath,
             final PostalAddress to) {
 
-        final DateTime commSent = clockService.nowAsDateTime();
-
         final Communication communication = Communication.newPostal(atPath, subject);
-        communication.setSentAt(commSent);
 
         serviceRegistry2.injectServicesInto(communication);
 

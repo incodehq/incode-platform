@@ -112,7 +112,7 @@ public class Smoke_IntegTest extends DemoAppIntegTestAbstract {
 
         assertThat(comm.getState()).isEqualTo(CommunicationState.PENDING);
         assertThat(comm.getQueuedAt()).isNotNull();
-        assertThat(comm.hideQueuedAt()).isFalse();   
+        assertThat(comm.hideQueuedAt()).isFalse();
         assertThat(comm.getType()).isEqualTo(CommunicationChannelType.EMAIL_ADDRESS);
         assertThat(comm.getSubject()).isNotNull();
         assertThat(comm.getSentAt()).isNull();

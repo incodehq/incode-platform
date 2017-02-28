@@ -74,7 +74,8 @@ public class Document_email  {
     )
     @ActionLayout(
             cssClassFa = "at",
-            contributed = Contributed.AS_ACTION
+            contributed = Contributed.AS_ACTION,
+            named = "Send by Email"
     )
     public Communication $$(
             @ParameterLayout(named = "to:")

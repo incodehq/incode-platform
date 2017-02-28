@@ -46,7 +46,7 @@ import org.incode.module.document.dom.impl.paperclips.Paperclip;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
 
 /**
- * Provides the ability to send an print.
+ * Provides the ability to send as a postal communication.
  */
 @Mixin
 public class Document_print {
@@ -64,7 +64,7 @@ public class Document_print {
             domainEvent = ActionDomainEvent.class
     )
     @ActionLayout(
-            cssClassFa = "print",
+            cssClassFa = "Send by Post",
             contributed = Contributed.AS_ACTION
     )
     public Communication $$(
