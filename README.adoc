@@ -13,7 +13,7 @@ A `Communication` is an entity that is a record of sending a `Document` to some 
 A `Communication` can be created either by sending the `Document` by email (ie to an email address), or by post (ie to a postal address).
 (The module does not currently provided any capability to "send" a `Document` by phone or by fax).
 
-[***TODO*** - up to here ]
+[***TODO*** - more words needed here... ]
 
 
 
@@ -82,7 +82,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.incode.module.communications</groupId>
     <artifactId>incode-module-communications-dom</artifactId>
-    <version>1.14.0</version>
+    <version>1.14.1</version>
 </dependency>
 ----
 
@@ -155,6 +155,7 @@ We suggest defining the repository in a `<profile>`:
 == Change Log
 
 
+* `1.14.1` - fixes https://github.com/incodehq/incode-module-communications/issues/1[#1], https://github.com/incodehq/incode-module-communications/issues/2[#2], https://github.com/incodehq/incode-module-communications/issues/3[#3], https://github.com/incodehq/incode-module-communications/issues/4[#4], https://github.com/incodehq/incode-module-communications/issues/5[#5], https://github.com/incodehq/incode-module-communications/issues/6[#6] and uses link:https://github.com/incodehq/incode-module-document[document] module 1.14.2
 * `1.14.0` - released against Isis 1.14.0
 * `1.13.0` - released against Isis 1.13.2, extracted from Estatio codebase
 
@@ -237,7 +238,7 @@ https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
 
 If you have commit access to this project (or a fork of your own) then you can create interim releases using the `interim-release.sh` script.
 
-The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.14.0.20170227-0740`).
+The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.14.1.20170331-0740`).
 It then pushes the branch (and a tag) to the specified remote.
 
 A CI server such as Jenkins can monitor the branches matching the wildcard `origin/interim/*` and create a build.
@@ -247,12 +248,12 @@ For example:
 
 [source]
 ----
-sh interim-release.sh 1.14.0 origin
+sh interim-release.sh 1.14.1 origin
 ----
 
 where
 
-* `1.14.0` is the base release
+* `1.14.1` is the base release
 * `origin` is the name of the remote to which you have permissions to write to.
 
 
@@ -272,7 +273,7 @@ For example:
 
 [source]
 ----
-sh release.sh 1.14.0 \
+sh release.sh 1.14.1 \
               1.15.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
@@ -291,7 +292,7 @@ If the script completes successfully, then push changes:
 
 [source]
 ----
-git push origin master && git push origin 1.14.0
+git push origin master && git push origin 1.14.1
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue before trying again.
