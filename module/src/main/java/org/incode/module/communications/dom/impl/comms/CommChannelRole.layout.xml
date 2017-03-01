@@ -13,8 +13,8 @@
                         <bs3:col span="12">
                             <cpt:fieldSet name="Identifier">
                                 <cpt:property id="type"/>
-                                <cpt:property id="channel"/>
-                                <cpt:property id="description" hidden="EVERYWHERE"/>
+                                <cpt:property id="channel" hidden="ALL_TABLES"/>
+                                <cpt:property id="description"/>
                             </cpt:fieldSet>
                         </bs3:col>
                     </bs3:row>

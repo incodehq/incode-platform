@@ -29,6 +29,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.isisaddons.module.command.CommandModule;
 import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.freemarker.dom.FreeMarkerModule;
+import org.isisaddons.module.pdfbox.dom.PdfBoxModule;
 
 import org.incode.module.communications.demo.application.fixture.DemoAppApplicationModuleFixtureSubmodule;
 import org.incode.module.communications.demo.application.services.DemoAppApplicationModuleServicesSubmodule;
@@ -54,6 +55,7 @@ public class DemoAppAppManifest implements AppManifest {
                 DemoModuleDomSubmodule.class,
                 DemoAppApplicationModuleFixtureSubmodule.class,
                 DemoAppApplicationModuleServicesSubmodule.class,
+                PdfBoxModule.class,
                 CommandModule.class,
                 FreeMarkerModule.class,
                 FakeDataModule.class

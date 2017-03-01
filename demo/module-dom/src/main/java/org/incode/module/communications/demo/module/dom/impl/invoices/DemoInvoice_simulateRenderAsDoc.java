@@ -39,19 +39,28 @@ import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.DocumentRepository;
 import org.incode.module.document.dom.impl.docs.DocumentSort;
 import org.incode.module.document.dom.impl.docs.DocumentState;
+import org.incode.module.document.dom.impl.docs.Document_attachSupportingPdf;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
 import org.incode.module.document.dom.impl.types.DocumentType;
 import org.incode.module.document.dom.impl.types.DocumentTypeRepository;
 
+/**
+ * Being lazy here... don't want to set up all the ref data etc to actually render this DemoInvoice as some sort of
+ * Document, so instead manually create a Document from an already-existing Blob.
+ *
+ * This is similar to the {@link Document_attachSupportingPdf} that the document module provides, however the "attachPdf"
+ * functionality only allows PDFs to be attached to existing {@link Document}s, whereas here we want to attach a
+ * {@link Document} to our demo invoice.
+ */
 @Mixin
-public class DemoInvoice_attachReceipt {
+public class DemoInvoice_simulateRenderAsDoc {
 
     private static final String AT_PATH = "/";
-    private static final String ROLE_NAME = "receipt";
+    private static final String ROLE_NAME = null;
 
     private final DemoInvoice invoice;
 
-    public DemoInvoice_attachReceipt(final DemoInvoice invoice) {
+    public DemoInvoice_simulateRenderAsDoc(final DemoInvoice invoice) {
         this.invoice = invoice;
     }
 
@@ -61,7 +70,7 @@ public class DemoInvoice_attachReceipt {
             name = "documents",
             sequence = "1"
     )
-    public DemoInvoice $$(
+    public Document $$(
             @Parameter(fileAccept = "application/pdf")
             final Blob document,
             @Parameter(optionality = Optionality.OPTIONAL) @ParameterLayout(named = "File name")
@@ -70,7 +79,7 @@ public class DemoInvoice_attachReceipt {
 
         String name = determineName(document, fileName);
 
-        final DocumentType documentType = findDocumentType(DocumentTypesAndTemplatesFixture.DOC_TYPE_REF_RECEIPT);
+        final DocumentType documentType = findDocumentType(DocumentTypesAndTemplatesFixture.DOC_TYPE_REF_INVOICE);
 
         final Document receiptDoc = documentRepository
                 .create(documentType, AT_PATH,
@@ -86,7 +95,7 @@ public class DemoInvoice_attachReceipt {
 
         paperclipRepository.attach(receiptDoc, ROLE_NAME, invoice);
 
-        return invoice;
+        return receiptDoc;
     }
 
 

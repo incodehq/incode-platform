@@ -31,7 +31,6 @@ import org.joda.time.LocalDate;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.value.Clob;
 
-import org.incode.module.communications.demo.module.dom.applicability.aa.AttachmentAdvisorOfDocumentAttachedToDemoInvoiceWillAttachToSame;
 import org.incode.module.communications.demo.module.dom.applicability.rmf.RenderModelFactoryOfDocumentAttachedToDemoInvoice;
 import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
@@ -44,6 +43,7 @@ import lombok.Getter;
 
 public class DocumentTypesAndTemplatesFixture extends DocumentTemplateFSAbstract {
 
+    public static final String DOC_TYPE_REF_INVOICE = "INVOICE";
     public static final String DOC_TYPE_REF_RECEIPT = "RECEIPT";
 
 
@@ -65,9 +65,9 @@ public class DocumentTypesAndTemplatesFixture extends DocumentTemplateFSAbstract
     @Override
     protected void execute(final ExecutionContext executionContext) {
 
-
-
-        // to attach arbitrary receipts (these have no associated templates)
+        // these document types have no associated templates
+        final DocumentType invoiceType =
+                upsertType(DOC_TYPE_REF_INVOICE, "Demo invoice document type", executionContext);
         final DocumentType docType =
                 upsertType(DOC_TYPE_REF_RECEIPT, "Receipt document type", executionContext);
 
@@ -99,7 +99,7 @@ public class DocumentTypesAndTemplatesFixture extends DocumentTemplateFSAbstract
         mixin(DocumentTemplate._applicable.class, fmkTemplate).applicable(
                 Document.class,
                 RenderModelFactoryOfDocumentAttachedToDemoInvoice.class,
-                AttachmentAdvisorOfDocumentAttachedToDemoInvoiceWillAttachToSame.class);
+                null);
 
         executionContext.addResult(this, fmkTemplate);
 

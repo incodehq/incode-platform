@@ -36,7 +36,7 @@ public class FakeEmailService implements EmailService {
 
     @Action(semantics = SemanticsOf.SAFE)
     @MemberOrder(sequence = "1")
-    public List<EmailMessage> viewSentEmails() {
+    public List<EmailMessage> listSentEmails() {
         return messages;
     }
 

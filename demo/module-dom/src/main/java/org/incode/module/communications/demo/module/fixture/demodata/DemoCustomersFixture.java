@@ -33,13 +33,15 @@ import org.incode.module.communications.demo.module.dom.impl.customers.DemoCusto
 import org.incode.module.communications.demo.module.dom.impl.customers.DemoCustomerMenu;
 import org.incode.module.communications.demo.module.dom.impl.invoices.DemoInvoice;
 import org.incode.module.communications.demo.module.dom.impl.invoices.DemoInvoiceRepository;
-import org.incode.module.communications.demo.module.dom.impl.invoices.DemoInvoice_attachReceipt;
+import org.incode.module.communications.demo.module.dom.impl.invoices.DemoInvoice_simulateRenderAsDoc;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwner;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelType;
 import org.incode.module.country.dom.impl.Country;
 import org.incode.module.country.dom.impl.CountryRepository;
 import org.incode.module.country.dom.impl.State;
 import org.incode.module.country.fixture.CountriesRefData;
+import org.incode.module.document.dom.impl.docs.Document;
+import org.incode.module.document.dom.impl.docs.Document_attachSupportingPdf;
 
 public class DemoCustomersFixture extends FixtureScript {
 
@@ -78,7 +80,6 @@ public class DemoCustomersFixture extends FixtureScript {
         final DemoInvoice custB_2 = demoInvoiceRepository.create("2", custB);
         attachReceipt(custB_2, "xlsdemo2.pdf");
 
-
         final DemoCustomer custC = wrap(demoCustomerMenu).create(JOE_HAS_EMAIL_AND_POST);
         addEmailAddress(custC, "joe@yahoo.com");
         addEmailAddress(custC, "joey@friends.com");
@@ -90,14 +91,22 @@ public class DemoCustomersFixture extends FixtureScript {
 
         final DemoInvoice custC_2 = demoInvoiceRepository.create("2", custC);
         attachReceipt(custC_2, "pptdemo2.pdf");
-
     }
 
-    private void attachReceipt(final DemoInvoice invoice, final String resourceName) {
-
+    private Document attachReceipt(final DemoInvoice invoice, final String resourceName) {
         final Blob blob = loadPdf(resourceName);
         try {
-            wrap(mixin(DemoInvoice_attachReceipt.class, invoice)).$$(blob, null);
+            return wrap(mixin(DemoInvoice_simulateRenderAsDoc.class, invoice)).$$(blob, null);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Document attachPdf(final Document document, final String resourceName) {
+        final Blob blob = loadPdf(resourceName);
+        try {
+            final Document_attachSupportingPdf attachPdf = mixin(Document_attachSupportingPdf.class, document);
+            return wrap(attachPdf).exec(attachPdf.default0Exec(), blob, null, attachPdf.default3Exec());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

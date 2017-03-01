@@ -13,7 +13,7 @@
                     <bs3:row>
                         <bs3:col span="12">
                             <cpt:fieldSet name="Attached to" id="attachedTo">
-                                <cpt:property id="demoObject"/>
+                                <cpt:property id="demoInvoice"/>
                                 <cpt:property id="attachedTo" hidden="EVERYWHERE"/>
                                 <cpt:property id="attachedToStr"/>
                             </cpt:fieldSet>
@@ -24,7 +24,9 @@
                                 <cpt:property id="documentState"/>
                             </cpt:fieldSet>
                             <cpt:fieldSet name="Role" id="role">
-                                <cpt:property id="roleName"/>
+                                <cpt:property id="roleName">
+                                    <cpt:action id="changeRole"/>
+                                </cpt:property>
                             </cpt:fieldSet>
                         </bs3:col>
                     </bs3:row>

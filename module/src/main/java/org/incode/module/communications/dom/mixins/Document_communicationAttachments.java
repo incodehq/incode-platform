@@ -18,37 +18,38 @@
  */
 package org.incode.module.communications.dom.mixins;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
+import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
+import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Mixin;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.module.communications.dom.impl.comms.Communication;
-import org.incode.module.communications.dom.impl.covernotes.Document_coverNoteFor;
 import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.Document_supports;
+import org.incode.module.document.dom.impl.paperclips.Paperclip;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
 
 @Mixin
-public class Document_communications {
+public class Document_communicationAttachments {
 
     private final Document document;
 
-    public Document_communications(final Document document) {
+    public Document_communicationAttachments(final Document document) {
         this.document = document;
     }
 
-    public static class ActionDomainEvent extends DocumentModule.ActionDomainEvent<Document_communications> { }
+    public static class ActionDomainEvent extends DocumentModule.ActionDomainEvent<Document_communicationAttachments> { }
 
     @Action(
             semantics = SemanticsOf.SAFE,
@@ -57,40 +58,46 @@ public class Document_communications {
     @ActionLayout(
             contributed = Contributed.AS_ASSOCIATION
     )
-    public List<Communication> $$() {
-        final List<Communication> communications = Lists.newArrayList(
-                paperclipRepository.findByDocument(document).stream()
-                                    .map(paperclip -> paperclip.getAttachedTo())
-                                    .filter(attachedTo -> attachedTo instanceof Communication)
-                                    .map(Communication.class::cast)
-                                    .collect(Collectors.toList()));
-        Collections.reverse(communications);
-        return communications;
+    public List<Document> $$() {
+        return provider.attachmentsFor(document);
     }
 
     public boolean hide$$() {
         // hide for supporting documents
         final Document supportedBy = supportsEvaluator.supportedBy(document);
-        if (supportedBy != null) {
-            return true;
-        }
-
-        // hide for coverNote documents
-        final Communication communication = coverNoteEvaluator.coverNoteFor(document);
-        if (communication != null) {
-            return true;
-        }
-
-        return false;
+        return supportedBy != null;
     }
 
     @Inject
     Document_supports.Evaluator supportsEvaluator;
 
     @Inject
-    Document_coverNoteFor.Evaluator coverNoteEvaluator;
+    Provider provider;
 
-    @Inject
-    PaperclipRepository paperclipRepository;
+    @DomainService(nature = NatureOfService.DOMAIN)
+    public static class Provider {
+
+        @Programmatic
+        public List<Document> attachmentsFor(final Document document) {
+            final List<Paperclip> paperclips = paperclipRepository.findByAttachedTo(document);
+
+            final List<Document> attachedDocuments = FluentIterable.from(paperclips)
+                    .transform(Paperclip::getDocument)
+                    .filter(Document.class::isInstance)
+                    .transform(Document.class::cast)
+                    .toList();
+
+            final List<Document> documents = Lists.newArrayList();
+            documents.add(document);
+            documents.addAll(attachedDocuments);
+
+            return documents;
+        }
+
+        @Inject
+        PaperclipRepository paperclipRepository;
+
+    }
+
 
 }

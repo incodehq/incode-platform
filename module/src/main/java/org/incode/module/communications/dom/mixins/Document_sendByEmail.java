@@ -49,7 +49,6 @@ import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.DocumentState;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 import org.incode.module.document.dom.impl.docs.DocumentTemplateRepository;
-import org.incode.module.document.dom.impl.paperclips.Paperclip;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
 import org.incode.module.document.dom.impl.types.DocumentType;
 import org.incode.module.document.dom.services.DocumentCreatorService;
@@ -58,15 +57,15 @@ import org.incode.module.document.dom.services.DocumentCreatorService;
  * Provides the ability to send an email.
  */
 @Mixin
-public class Document_email  {
+public class Document_sendByEmail {
 
     private final Document document;
 
-    public Document_email(final Document document) {
+    public Document_sendByEmail(final Document document) {
         this.document = document;
     }
 
-    public static class ActionDomainEvent extends DocumentModule.ActionDomainEvent<Document_email> { }
+    public static class ActionDomainEvent extends DocumentModule.ActionDomainEvent<Document_sendByEmail> { }
 
     @Action(
             semantics = SemanticsOf.NON_IDEMPOTENT,
@@ -74,8 +73,7 @@ public class Document_email  {
     )
     @ActionLayout(
             cssClassFa = "at",
-            contributed = Contributed.AS_ACTION,
-            named = "Send by Email"
+            contributed = Contributed.AS_ACTION
     )
     public Communication $$(
             @ParameterLayout(named = "to:")
@@ -95,43 +93,34 @@ public class Document_email  {
             @ParameterLayout(named = "bcc:")
             final String bcc) throws IOException {
 
+
+
         if(this.document.getState() == DocumentState.NOT_RENDERED) {
             // this shouldn't happen, but want to fail-fast in case a future programmer calls this directly
             throw new IllegalArgumentException("Document is not yet rendered");
         }
 
-        // create and attach cover note
-        // nb: this functionality is basically the same as T_createAndAttachDocumentAbstract#$$
-        final DocumentTemplate coverNoteTemplate = determineEmailCoverNoteTemplate();
-
-        final Document coverNoteDoc =
-                documentCreatorService.createDocumentAndAttachPaperclips(this.document, coverNoteTemplate);
-
-        coverNoteDoc.render(coverNoteTemplate, this.document);
-
         // create comm and correspondents
         final String atPath = document.getAtPath();
-        final String subject = coverNoteDoc.getName();
+        final String subject = document.getName();
         final Communication communication =  communicationRepository.createEmail(subject, atPath, toChannel, cc, bcc);
 
         transactionService.flushTransaction();
 
-        // attach the cover note to the communication
+        // create and attach cover note
+        final DocumentTemplate coverNoteTemplate = determineEmailCoverNoteTemplate();
+
+        final Document coverNoteDoc =
+                documentCreatorService.createDocumentAndAttachPaperclips(this.document, coverNoteTemplate);
+        coverNoteDoc.render(coverNoteTemplate, this.document);
+
         paperclipRepository.attach(coverNoteDoc, DocumentConstants.PAPERCLIP_ROLE_COVER, communication);
-        paperclipRepository.attach(document, DocumentConstants.PAPERCLIP_ROLE_ATTACHMENT, communication);
 
         // also copy over as attachments to the comm anything else also attached to original document
-        final List<Paperclip> documentPaperclips = paperclipRepository.findByDocument(this.document);
-        for (Paperclip documentPaperclip : documentPaperclips) {
-            final Object objAttachedToDocument = documentPaperclip.getAttachedTo();
-            if (!(objAttachedToDocument instanceof Document)) {
-                continue;
-            }
-            final Document docAttachedToDocument = (Document) objAttachedToDocument;
-            if (docAttachedToDocument == document || docAttachedToDocument == coverNoteDoc) {
-                continue;
-            }
-            paperclipRepository.attach(docAttachedToDocument, DocumentConstants.PAPERCLIP_ROLE_ATTACHMENT, communication);
+        final List<Document> communicationAttachments = attachmentProvider.attachmentsFor(document);
+        for (Document communicationAttachment : communicationAttachments) {
+            paperclipRepository.attach(communicationAttachment, DocumentConstants.PAPERCLIP_ROLE_ATTACHMENT, communication);
+
         }
         transactionService.flushTransaction();
 
@@ -202,7 +191,7 @@ public class Document_email  {
                 }
             }
             return null;
-        }, Document_email.class, "determineEmailCoverNoteDocumentType", document);
+        }, Document_sendByEmail.class, "determineEmailCoverNoteDocumentType", document);
     }
 
     private CommHeaderForEmail determineEmailHeader() {
@@ -214,9 +203,13 @@ public class Document_email  {
                 }
             }
             return commHeaderForEmail;
-        }, Document_email.class, "determineEmailHeader", document);
+        }, Document_sendByEmail.class, "determineEmailHeader", document);
     }
 
+
+
+    @Inject
+    Document_communicationAttachments.Provider attachmentProvider;
 
     @Inject
     QueryResultsCache queryResultsCache;

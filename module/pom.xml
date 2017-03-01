@@ -66,12 +66,13 @@ Copyright 2014~2015 Dan Haywood
     <properties>
         <isis-module-command.version>1.14.0</isis-module-command.version>
         <isis-module-fakedata.version>1.14.0</isis-module-fakedata.version>
+        <isis-module-pdfbox.version>1.14.0</isis-module-pdfbox.version>
         <isis-module-poly.version>1.14.0</isis-module-poly.version>
         <isis-module-security.version>1.14.0</isis-module-security.version>
 
         <incode-module-base.version>1.14.0</incode-module-base.version>
         <incode-module-country.version>1.14.0</incode-module-country.version>
-        <incode-module-document.version>1.14.1</incode-module-document.version>
+        <incode-module-document.version>1.15.0-SNAPSHOT</incode-module-document.version>
         <incode-module-unittestsupport.version>1.14.0</incode-module-unittestsupport.version>
         <incode-module-integtestsupport.version>1.14.0</incode-module-integtestsupport.version>
 
@@ -182,6 +183,12 @@ Copyright 2014~2015 Dan Haywood
         </dependency>
 
         <dependency>
+            <groupId>org.isisaddons.module.pdfbox</groupId>
+            <artifactId>isis-module-pdfbox-dom</artifactId>
+            <version>${isis-module-pdfbox.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.isisaddons.module.poly</groupId>
             <artifactId>isis-module-poly-dom</artifactId>
             <version>${isis-module-poly.version}</version>
@@ -206,7 +213,7 @@ Copyright 2014~2015 Dan Haywood
 
         <!-- testing -->
         <dependency>
-            <groupId>com.danhaywood.mavendeps</groupId>
+            <groupId>org.incodehq.mavendeps</groupId>
             <artifactId>isistesting</artifactId>
             <version>${mavendeps-isistesting.version}</version>
             <type>pom</type>

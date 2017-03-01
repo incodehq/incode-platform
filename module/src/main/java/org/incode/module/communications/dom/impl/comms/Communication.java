@@ -408,27 +408,22 @@ public class Communication implements Comparable<Communication> {
         final Stream<Document> documents = findDocumentsInRoleAsStream(roleName);
         final Optional<Document> documentIfAny = documents.findFirst();
         return documentIfAny.orElseThrow(() -> (RuntimeException)new ApplicationException(String.format(
-                "Found document via paperclip, role '%s', but was DocumentTemplate (not an instance of Document)",
+                "Could not find document (via paperclip with role of '%s')",
                 roleName)));
     }
 
     @Programmatic
-    public List<Document> findDocuments(final String roleName) {
-        return Lists.newArrayList(findDocumentsInRoleAsStream(roleName).collect(Collectors.toList()));
+    public List<Document> findDocuments(final String roleName, final String mimeType) {
+        return Lists.newArrayList(
+                findDocumentsInRoleAsStream(roleName)
+                        .filter(x -> mimeType.equals(x.getMimeType()))
+                        .collect(Collectors.toList()));
     }
 
     private Stream<Document> findDocumentsInRoleAsStream(final String roleName) {
         final List<Paperclip> paperclips = findPaperclipsInRole(roleName);
-        return paperclips.stream().map(paperclip -> paperclip.getDocument())
-                .filter(object -> object instanceof Document).map(Document.class::cast);
-    }
-
-    private DocumentAbstract findDocumentAbstractIfAny(final String roleName) {
-        List<Paperclip> paperclips = findPaperclipsInRole(roleName);
-        Optional<Paperclip> firstPaperclipInRole = paperclips.stream().findFirst();
-        return firstPaperclipInRole.isPresent()
-                ? firstPaperclipInRole.get().getDocument()
-                : null;
+        return paperclips.stream().map(Paperclip::getDocument)
+                .filter(Document.class::isInstance).map(Document.class::cast);
     }
 
     private List<Paperclip> findPaperclipsInRole(final String roleName) {

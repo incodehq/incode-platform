@@ -17,8 +17,6 @@ import org.isisaddons.module.command.dom.BackgroundCommandExecutionFromBackgroun
 import org.isisaddons.module.command.dom.BackgroundCommandServiceJdoRepository;
 import org.isisaddons.module.command.dom.CommandJdo;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
         objectType = "incodeCommunicationsDemo.FakeScheduler"
@@ -55,6 +53,12 @@ public class FakeScheduler {
         if(!commands.isEmpty()) {
             throw new IllegalStateException("There are still " + commands.size() + " not yet started");
         }
+    }
+
+    // using a validateXxx rather than a hideXxx because of https://issues.apache.org/jira/browse/ISIS-1593
+    public String validateRunBackgroundCommands(final Integer waitFor) {
+        List<CommandJdo> commands = backgroundCommandRepository.findBackgroundCommandsNotYetStarted();
+        return commands.isEmpty() ? "No background commands to run" : null;
     }
 
     public Integer default0RunBackgroundCommands() {

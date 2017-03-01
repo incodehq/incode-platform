@@ -47,9 +47,9 @@ import org.incode.module.communications.dom.impl.commchannel.PostalAddress;
 import org.incode.module.communications.dom.impl.comms.CommChannelRole;
 import org.incode.module.communications.dom.impl.comms.Communication;
 import org.incode.module.communications.dom.impl.comms.CommunicationState;
-import org.incode.module.communications.dom.impl.comms.Communication_printAsBlob;
-import org.incode.module.communications.dom.mixins.Document_email;
-import org.incode.module.communications.dom.mixins.Document_print;
+import org.incode.module.communications.dom.impl.comms.Communication_downloadPdfForPosting;
+import org.incode.module.communications.dom.mixins.Document_sendByEmail;
+import org.incode.module.communications.dom.mixins.Document_sendByPost;
 import org.incode.module.document.dom.impl.docs.DocumentAbstract;
 import org.incode.module.document.dom.impl.paperclips.Paperclip;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
@@ -98,7 +98,7 @@ public class Smoke_IntegTest extends DemoAppIntegTestAbstract {
         final DocumentAbstract document = paperclip.getDocument();
 
         // when
-        final Document_email documentEmail = mixin(Document_email.class, document);
+        final Document_sendByEmail documentEmail = mixin(Document_sendByEmail.class, document);
         final Set<EmailAddress> emailAddresses = documentEmail.choices0$$();
 
         // then
@@ -126,7 +126,7 @@ public class Smoke_IntegTest extends DemoAppIntegTestAbstract {
                         .toList();
         assertThat(correspondentChannels).contains(fredEmail);
 
-        List<EmailMessage> emailMessages = fakeEmailService.viewSentEmails();
+        List<EmailMessage> emailMessages = fakeEmailService.listSentEmails();
         assertThat(emailMessages).isEmpty();
 
         // when
@@ -136,7 +136,7 @@ public class Smoke_IntegTest extends DemoAppIntegTestAbstract {
         assertThat(comm.getState()).isEqualTo(CommunicationState.SENT);
         assertThat(comm.getSentAt()).isNotNull();
 
-        emailMessages = fakeEmailService.viewSentEmails();
+        emailMessages = fakeEmailService.listSentEmails();
         assertThat(emailMessages).isNotEmpty();
     }
 
@@ -163,7 +163,7 @@ public class Smoke_IntegTest extends DemoAppIntegTestAbstract {
         final DocumentAbstract document = paperclip.getDocument();
 
         // when
-        final Document_print documentPrint = mixin(Document_print.class, document);
+        final Document_sendByPost documentPrint = mixin(Document_sendByPost.class, document);
         final Set<PostalAddress> postalAddresses = documentPrint.choices0$$();
 
         // then
@@ -192,7 +192,9 @@ public class Smoke_IntegTest extends DemoAppIntegTestAbstract {
         assertThat(correspondentChannels).contains(maryPost);
 
         // when
-        wrap(mixin(Communication_printAsBlob.class, comm)).$$();
+        final Communication_downloadPdfForPosting mixin =
+                mixin(Communication_downloadPdfForPosting.class, comm);
+        wrap(mixin).$$(mixin.choices0$$().get(0));
 
         // then
         assertThat(comm.getState()).isEqualTo(CommunicationState.SENT);

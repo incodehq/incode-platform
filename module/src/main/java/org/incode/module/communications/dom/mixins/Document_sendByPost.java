@@ -42,29 +42,28 @@ import org.incode.module.communications.dom.spi.DocumentCommunicationSupport;
 import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.DocumentState;
-import org.incode.module.document.dom.impl.paperclips.Paperclip;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
 
 /**
  * Provides the ability to send as a postal communication.
  */
 @Mixin
-public class Document_print {
+public class Document_sendByPost {
 
     private final Document document;
 
-    public Document_print(final Document document) {
+    public Document_sendByPost(final Document document) {
         this.document = document;
     }
 
-    public static class ActionDomainEvent extends DocumentModule.ActionDomainEvent<Document_print> { }
+    public static class ActionDomainEvent extends DocumentModule.ActionDomainEvent<Document_sendByPost> { }
 
     @Action(
             semantics = SemanticsOf.NON_IDEMPOTENT,
             domainEvent = ActionDomainEvent.class
     )
     @ActionLayout(
-            cssClassFa = "Send by Post",
+            cssClassFa = "envelope-o",
             contributed = Contributed.AS_ACTION
     )
     public Communication $$(
@@ -83,21 +82,11 @@ public class Document_print {
 
         transactionService.flushTransaction();
 
-        // attach this doc to communication
-        paperclipRepository.attach(document, DocumentConstants.PAPERCLIP_ROLE_ENCLOSED, communication);
+        // copy over as attachments to the comm anything else also attached to original document
+        final List<Document> communicationAttachments = attachmentProvider.attachmentsFor(document);
+        for (Document communicationAttachment : communicationAttachments) {
+            paperclipRepository.attach(communicationAttachment, DocumentConstants.PAPERCLIP_ROLE_ENCLOSED, communication);
 
-        // also copy over as attachments to the comm anything else also attached to original document
-        final List<Paperclip> documentPaperclips = paperclipRepository.findByDocument(this.document);
-        for (Paperclip documentPaperclip : documentPaperclips) {
-            final Object objAttachedToDocument = documentPaperclip.getAttachedTo();
-            if (!(objAttachedToDocument instanceof Document)) {
-                continue;
-            }
-            final Document docAttachedToDocument = (Document) objAttachedToDocument;
-            if (docAttachedToDocument == document) {
-                continue;
-            }
-            paperclipRepository.attach(docAttachedToDocument, DocumentConstants.PAPERCLIP_ROLE_ENCLOSED, communication);
         }
         transactionService.flushTransaction();
 
@@ -131,10 +120,13 @@ public class Document_print {
                 }
             }
             return commHeaderForPrint;
-        }, Document_print.class, "determinePrintHeader", document);
+        }, Document_sendByPost.class, "determinePrintHeader", document);
     }
 
 
+
+    @Inject
+    Document_communicationAttachments.Provider attachmentProvider;
 
     @Inject
     QueryResultsCache queryResultsCache;

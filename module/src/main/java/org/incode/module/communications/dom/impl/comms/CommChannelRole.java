@@ -130,9 +130,9 @@ public class CommChannelRole implements Comparable<CommChannelRole> {
         }
         private TranslatableString titleOf(final CommChannelRole role) {
             return TranslatableString.tr(
-                    "{type} {channel}",
+                    "{type} {description}",
                     "type", role.getType().name(),
-                    "channel", role.getChannel().getName()
+                    "description", role.getDescription()
             );
         }
     }
