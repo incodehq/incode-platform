@@ -28,6 +28,7 @@ import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.repository.RepositoryService;
+import org.apache.isis.applib.services.xactn.TransactionService;
 
 import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.DocumentAbstract;
@@ -157,6 +158,10 @@ public class PaperclipRepository {
         if(documentAbstract instanceof Document) {
             final Document document = (Document) documentAbstract;
             paperclip.setDocumentCreatedAt(document.getCreatedAt());
+        }
+
+        if(!repositoryService.isPersistent(attachTo)) {
+            transactionService.flushTransaction();
         }
 
         final Bookmark bookmark = bookmarkService.bookmarkFor(attachTo);
@@ -294,6 +299,9 @@ public class PaperclipRepository {
     //region > injected services
     @Inject
     RepositoryService repositoryService;
+
+    @Inject
+    TransactionService transactionService;
 
     @Inject
     BookmarkService bookmarkService;

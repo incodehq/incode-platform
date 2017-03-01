@@ -62,6 +62,7 @@ Copyright 2014~2015 Dan Haywood
     </developers>
 
     <properties>
+        <isis-module-command.version>1.14.0</isis-module-command.version>
         <isis-module-fakedata.version>1.14.0</isis-module-fakedata.version>
         <incode-module-base.version>1.14.0</incode-module-base.version>
         <incode-module-unittestsupport.version>1.14.0</incode-module-unittestsupport.version>
@@ -237,6 +238,11 @@ Copyright 2014~2015 Dan Haywood
             </dependency>
 
             <dependency>
+                <groupId>org.isisaddons.module.command</groupId>
+                <artifactId>isis-module-command-dom</artifactId>
+                <version>${isis-module-command.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.isisaddons.module.fakedata</groupId>
                 <artifactId>isis-module-fakedata-dom</artifactId>
                 <version>${isis-module-fakedata.version}</version>
@@ -277,6 +283,11 @@ Copyright 2014~2015 Dan Haywood
             <groupId>org.incode.module.unittestsupport</groupId>
             <artifactId>incode-module-unittestsupport-dom</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.module.command</groupId>
+            <artifactId>isis-module-command-dom</artifactId>
         </dependency>
 
         <dependency>

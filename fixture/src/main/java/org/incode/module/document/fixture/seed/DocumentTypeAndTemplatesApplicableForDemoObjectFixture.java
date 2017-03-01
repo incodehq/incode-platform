@@ -54,6 +54,9 @@ public class DocumentTypeAndTemplatesApplicableForDemoObjectFixture extends Docu
     public static final String DOC_TYPE_REF_XDOCREPORT_DOC = "XDOCREPORT-DOC";
     public static final String DOC_TYPE_REF_XDOCREPORT_PDF = "XDOCREPORT-PDF";
 
+    public static final String DOC_TYPE_REF_TAX_RECEIPT = "TAX_RECEIPT";
+    public static final String DOC_TYPE_REF_SUPPLIER_RECEIPT = "SUPPLIER_RECEIPT";
+
     @Getter
     DocumentTemplate fmkTemplate;
 
@@ -71,6 +74,13 @@ public class DocumentTypeAndTemplatesApplicableForDemoObjectFixture extends Docu
 
         // prereqs
         executionContext.executeChild(this, new RenderingStrategiesFixture());
+
+        // these document types have no associated templates (for attachPdf mixin)
+        final DocumentType invoiceType =
+                upsertType(DOC_TYPE_REF_TAX_RECEIPT, "Tax receipt", executionContext);
+        final DocumentType docType =
+                upsertType(DOC_TYPE_REF_SUPPLIER_RECEIPT, "Supplier receipt", executionContext);
+
 
         final DocumentType docTypeForFreemarkerHtml =
                 upsertType(DOC_TYPE_REF_FREEMARKER_HTML, "Demo Freemarker HTML (eg email Cover Note)", executionContext);

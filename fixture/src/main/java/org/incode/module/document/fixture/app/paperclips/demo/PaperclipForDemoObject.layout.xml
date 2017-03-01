@@ -24,7 +24,9 @@
                                 <cpt:property id="documentState"/>
                             </cpt:fieldSet>
                             <cpt:fieldSet name="Role" id="role">
-                                <cpt:property id="roleName"/>
+                                <cpt:property id="roleName">
+                                    <cpt:action id="changeRole"/>
+                                </cpt:property>
                             </cpt:fieldSet>
                         </bs3:col>
                     </bs3:row>

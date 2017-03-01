@@ -12,6 +12,7 @@
                     <bs3:row>
                         <bs3:col span="12">
                             <cpt:fieldSet name="Identifier">
+                                <cpt:action id="delete"/>
                                 <cpt:property id="name"/>
                             </cpt:fieldSet>
                         </bs3:col>
@@ -59,7 +60,7 @@
                             <cpt:fieldSet name="Details">
                                 <cpt:property id="type"/>
                                 <cpt:property id="state"/>
-                                <cpt:property id="mimeType"/>
+                                <cpt:property id="mimeType" hidden="ALL_TABLES"/>
                             </cpt:fieldSet>
                         </bs3:col>
                     </bs3:row>
@@ -68,13 +69,18 @@
                     <bs3:row>
                         <bs3:col span="12">
                             <cpt:fieldSet name="Dates">
-                                <cpt:property id="createdAt"/>
-                                <cpt:property id="renderedAt"/>
+                                <cpt:property id="createdAt" hidden="ALL_TABLES"/>
+                                <cpt:property id="renderedAt" hidden="ALL_TABLES"/>
                             </cpt:fieldSet>
                         </bs3:col>
                     </bs3:row>
                 </bs3:tab>
             </bs3:tabGroup>
+            <cpt:fieldSet name="Related">
+                <cpt:property id="supports" hidden="ALL_TABLES"/>
+                <!-- if communication module also configured, then it will contribute a 'coverNoteFor' property -->
+                <cpt:property id="coverNoteFor" hidden="ALL_TABLES"/>
+            </cpt:fieldSet>
         </bs3:col>
         <bs3:col span="6">
             <bs3:tabGroup>
@@ -83,7 +89,7 @@
                         <bs3:col span="12">
                             <cpt:fieldSet name="Content" id="content">
                                 <cpt:action id="movedToExternalUrl"/>
-                                <cpt:property id="sort"/>
+                                <cpt:property id="sort" hidden="ALL_TABLES"/>
                                 <cpt:property id="blob" hidden="ALL_TABLES">
                                 </cpt:property>
                                 <cpt:property id="clob" hidden="ALL_TABLES">
@@ -117,10 +123,26 @@
                 <bs3:tab name="Attachments">
                     <bs3:row>
                         <bs3:col span="12">
+                            <cpt:collection id="supportingDocuments">
+                                <cpt:action id="attachSupportingPdf"/>
+                            </cpt:collection>
                             <cpt:collection id="attachedTo">
                                 <cpt:describedAs>Objects that this document attaches to</cpt:describedAs>
                             </cpt:collection>
-                            <cpt:collection id="documentsAttachingToThisDocument"/>
+                        </bs3:col>
+                    </bs3:row>
+                </bs3:tab>
+                <bs3:tab name="Communications">
+                    <bs3:row>
+                        <bs3:col span="12">
+                            <cpt:collection id="communicationAttachments" defaultView="table">
+                                <cpt:named>New communication will have these attachments (emails also have a cover note)</cpt:named>
+                                <cpt:action id="sendByEmail"/>
+                                <cpt:action id="sendByPost"/>
+                            </cpt:collection>
+                            <cpt:collection id="communications" defaultView="table">
+                                <cpt:named>Communications (already sent)</cpt:named>
+                            </cpt:collection>
                         </bs3:col>
                     </bs3:row>
                 </bs3:tab>
@@ -128,15 +150,6 @@
                     <bs3:row>
                         <bs3:col span="12">
                             <cpt:collection id="backgroundCommands" defaultView="table"/>
-                        </bs3:col>
-                    </bs3:row>
-                </bs3:tab>
-                <bs3:tab name="dummyTabToForceFirstTabToAppear2">
-                    <bs3:row>
-                        <bs3:col span="12">
-                            <cpt:fieldSet name="dummy2">
-                                <cpt:property id="dummy2"/>
-                            </cpt:fieldSet>
                         </bs3:col>
                     </bs3:row>
                 </bs3:tab>

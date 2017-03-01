@@ -75,6 +75,7 @@ import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.document.dom.impl.applicability.Applicability;
 import org.incode.module.document.dom.impl.applicability.ApplicabilityRepository;
 import org.incode.module.document.dom.impl.applicability.AttachmentAdvisor;
+import org.incode.module.document.dom.impl.applicability.AttachmentAdvisorAttachToNone;
 import org.incode.module.document.dom.impl.applicability.RendererModelFactory;
 import org.incode.module.document.dom.impl.renderers.Renderer;
 import org.incode.module.document.dom.impl.renderers.RendererFromBytesToBytes;
@@ -531,7 +532,13 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
                 final Class<?> domainClass,
                 final Class<? extends RendererModelFactory> renderModelFactoryClass,
                 final Class<? extends AttachmentAdvisor> attachmentAdvisorClass) {
-            return applicable(domainClass.getName(), renderModelFactoryClass, attachmentAdvisorClass);
+            return applicable(
+                    domainClass.getName(),
+                    renderModelFactoryClass,
+                    attachmentAdvisorClass != null
+                            ? attachmentAdvisorClass
+                            : AttachmentAdvisorAttachToNone.class
+            );
         }
 
         @Programmatic

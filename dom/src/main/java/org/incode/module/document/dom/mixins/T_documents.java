@@ -30,9 +30,12 @@ import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.Contributed;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.queryresultscache.QueryResultsCache;
+import org.apache.isis.applib.services.tablecol.TableColumnOrderService;
 
 import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.document.dom.impl.paperclips.Paperclip;
@@ -93,4 +96,35 @@ public abstract class T_documents<T> {
     @Inject
     QueryResultsCache queryResultsCache;
 
+    @DomainService(
+            nature = NatureOfService.DOMAIN,
+            menuOrder = "100"
+    )
+    public static class ColumnOrderService implements TableColumnOrderService {
+
+        @Override
+        public List<String> orderParented(
+                final Object domainObject,
+                final String collectionId,
+                final Class<?> collectionType,
+                final List<String> propertyIds) {
+            if (!Paperclip.class.isAssignableFrom(collectionType)) {
+                return null;
+            }
+
+            final List<String> trimmedPropertyIds = Lists.newArrayList(propertyIds);
+
+            if("documents".equals(collectionId)) {
+                trimmedPropertyIds.remove("attachedTo");
+                return trimmedPropertyIds;
+            }
+
+            return null;
+        }
+
+        @Override
+        public List<String> orderStandalone(final Class<?> collectionType, final List<String> propertyIds) {
+            return null;
+        }
+    }
 }
