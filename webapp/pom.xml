@@ -66,11 +66,6 @@ language governing permissions and limitations under the License.
         </plugins>
     </build>
 
-    <properties>
-        <mavendeps-isisintellij.version>0.0.1</mavendeps-isisintellij.version>
-        <mavendeps-isiswebapp.version>0.0.1</mavendeps-isiswebapp.version>
-        <mavendeps-isistesting.version>0.0.1</mavendeps-isistesting.version>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -79,16 +74,15 @@ language governing permissions and limitations under the License.
         </dependency>
 
         <dependency>
-            <groupId>com.danhaywood.mavendeps</groupId>
+            <groupId>org.incode.mavendeps</groupId>
             <artifactId>isisintellij</artifactId>
             <version>${mavendeps-isisintellij.version}</version>
             <type>pom</type>
         </dependency>
 
         <dependency>
-            <groupId>com.danhaywood.mavendeps</groupId>
+            <groupId>org.incode.mavendeps</groupId>
             <artifactId>isiswebapp</artifactId>
-            <!-- 0.0.2 for Isis 1.14.0 -->
             <version>${mavendeps-isiswebapp.version}</version>
             <type>pom</type>
         </dependency>
