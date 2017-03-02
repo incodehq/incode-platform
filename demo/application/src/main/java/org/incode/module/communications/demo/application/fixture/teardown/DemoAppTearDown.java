@@ -26,7 +26,6 @@ public class DemoAppTearDown extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-//        executionContext.executeChild(this, new CommunicationsModuleTearDown());
         executionContext.executeChild(this, new DemoModuleTearDown());
     }
 

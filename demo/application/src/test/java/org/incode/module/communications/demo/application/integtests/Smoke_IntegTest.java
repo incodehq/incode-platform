@@ -38,7 +38,7 @@ import org.incode.module.communications.demo.module.dom.impl.customers.DemoCusto
 import org.incode.module.communications.demo.module.dom.impl.invoices.DemoInvoice;
 import org.incode.module.communications.demo.module.dom.impl.invoices.DemoInvoiceRepository;
 import org.incode.module.communications.demo.module.fixture.demodata.DemoCustomersFixture;
-import org.incode.module.communications.demo.module.fixture.scenario.DemoAppFixture;
+import org.incode.module.communications.demo.module.fixture.scenario.DemoModuleFixture;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannel;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwnerLinkRepository;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelType;
@@ -79,7 +79,7 @@ public class Smoke_IntegTest extends DemoAppIntegTestAbstract {
     public void can_send_email() throws Exception {
 
         // given
-        fixtureScripts.runFixtureScript(new DemoAppFixture(), null);
+        fixtureScripts.runFixtureScript(new DemoModuleFixture(), null);
         transactionService.nextTransaction();
 
         // and so given customer with an email
@@ -144,7 +144,7 @@ public class Smoke_IntegTest extends DemoAppIntegTestAbstract {
     public void can_print() throws Exception {
 
         // given
-        fixtureScripts.runFixtureScript(new DemoAppFixture(), null);
+        fixtureScripts.runFixtureScript(new DemoModuleFixture(), null);
         transactionService.nextTransaction();
 
         // and so given customer with an email

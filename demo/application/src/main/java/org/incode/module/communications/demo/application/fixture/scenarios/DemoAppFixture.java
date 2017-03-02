@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.module.communications.demo.application.fixture.teardown.DemoAppTearDown;
+import org.incode.module.communications.demo.module.fixture.scenario.DemoModuleFixture;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -41,8 +41,7 @@ public class DemoAppFixture extends FixtureScript {
     protected void execute(final ExecutionContext ec) {
 
         // execute
-        ec.executeChild(this, new DemoAppTearDown());
-        // ec.executeChild(this, new CreateDemoObjects().setNumber(number));
+        ec.executeChild(this, new DemoModuleFixture());
 
     }
 }
