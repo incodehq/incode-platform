@@ -225,6 +225,9 @@ This is configured through the `AttachmentAdvisor` of the relevant `Applicabilit
 
 image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/154-XDocReportDocx-applicability.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/154-XDocReportDocx-applicability.png"]
 
+
+=== Generating Documents in Background
+
 Documents can also be rendered in the background:
 
 image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/160-createAndAttachDocumentAndScheduleRender-StringInterpolatorUrl-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/160-createAndAttachDocumentAndScheduleRender-StringInterpolatorUrl-prompt.png"]
@@ -241,6 +244,8 @@ image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/
 After the background commands have run, the document now has content and its state changes to "Rendered":
 
 image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/166-documentRendered.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/166-documentRendered.png"]
+
+=== Attaching Supporting Documents
 
 On any (generated) `Document`, it is also possible to attach supporting PDF documents.
 For example, this could be a tax or supplier receipt.
