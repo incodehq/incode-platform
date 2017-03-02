@@ -16,6 +16,21 @@ This module, intended for use with link:http://isis.apache.org[Apache Isis], pro
 
 The rendering mechanism is pluggable; additional implementations can be plugged in as required.
 
+Also, the rendering can be done either in the foreground or the background.
+A "backgroundCommands" mixin collection will show any such background commands scheduled for a `Document`.
+
+Once a `Document` has been created, other supporting pre-existing ``Document``s can then be attached to it.
+For example, these could be tax receipts for an invoice.
+These supporting ``Document``s do require a `DocumentType` to help categorise them, but no corresponding `DocumentTemplate`s are required because they are never rendered (they exist already).
+An SPI service (`DocumentAttachmentAdvisor`) is used to obtain the list of available ``DocumentType``s to use.
+
+Currently, only PDF ``Document``s can be so attached.
+
+The module implements a rule that chains of ``Document``s are not allowed: a `Document` either has supporting ``Document``s attached to it, or it _is_ a supporting `Document`.
+In the former case a "supportingDocuments" mix-in collection lists all the supporting ``Document``s that have been attached.
+In the latter, a "supports" mixin property points back to the `Document` being supported.
+
+
 
 == Screenshots
 
@@ -727,6 +742,21 @@ public class RendererClassNameServiceForDemo extends ClassNameServiceAbstract<Re
     public Class<Renderer> asClass(final String className) {
         return super.asClass(className);
     }
+}
+----
+
+==== DocumentAttachmentAdvisor
+
+The `DocumentAttachmentAdvisor` service, if implemented, is used by the "attachSupportingPdf" action.
+It allows (existing) PDFs (eg supplier receipts) to be attached to generated ``Document``s.
+
+[source,java]
+----
+public interface DocumentAttachmentAdvisor {
+    List<DocumentType> documentTypeChoicesFor(Document document);
+    DocumentType documentTypeDefaultFor(Document document);
+    List<String> roleNameChoicesFor(Document document);
+    String roleNameDefaultFor(Document document);
 }
 ----
 
