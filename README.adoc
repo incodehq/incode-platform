@@ -11,16 +11,20 @@ A `Document` is an entity that holds some sort of content, either binary such as
 
 A `Communication` is an entity that is a record of sending a `Document` to some party by way of their `CommunicationChannel`; these are the "correspondents" of the `Communication`.
 A `Communication` can be created either by sending the `Document` by email (ie to an email address), or by post (ie to a postal address).
-(The module does not currently provided any capability to "send" a `Document` by phone or by fax).
+The module does not currently provided any capability to "send" a `Document` by phone or by fax.
 
-[***TODO*** - more words needed here... ]
+Email ``Communication``s always have an HTML cover note `Document` generated and associated with the `Communication`; the original `Document` is also associated.
+This cover note is used as the body of the actual email, while the original `Document` is included as an email attachment.
+If the original `Document` had supporting ``Document``s associated with it (eg a tax or supplier receipt for an invoice), then these supporting documents are also included as attachments.
 
+Postal ``Communication``s do _not_ have any sort of cover note, and the act of sending them is manual: the end-user downloads the original `Document` "through" the `Communication`; this marks the `Communication` as having been sent.
+If the original `Document` had supporting ``Document``s associated with it then (as a convenience) a single PDF is downloaded that merges together the original `Document` along with any supporting documents.
 
 
 [NOTE]
 ====
 There is some overlap between this module and the Incode http://github.com/incodehq/incode-module-commchannel[CommunicationChannel] module).
-The intention is the refactor this module o remove that duplication.
+At some stage we intend to refactor this module to reuse the CommunicationChannel module, and then to remove any duplicate concepts (`EmailAddress` etc).
 ====
 
 
@@ -28,10 +32,7 @@ The intention is the refactor this module o remove that duplication.
 
 == Screenshots
 
-[***TODO***]
-
 We start off by creating some fixture data:
-
 
 image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/010-run-fixture-script.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/010-run-fixture-script.png"]
 
