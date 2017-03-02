@@ -19,12 +19,10 @@ The rendering mechanism is pluggable; additional implementations can be plugged 
 Also, the rendering can be done either in the foreground or the background.
 A "backgroundCommands" mixin collection will show any such background commands scheduled for a `Document`.
 
-Once a `Document` has been created, other supporting pre-existing ``Document``s can then be attached to it.
-For example, these could be tax receipts for an invoice.
-These supporting ``Document``s do require a `DocumentType` to help categorise them, but no corresponding `DocumentTemplate`s are required because they are never rendered (they exist already).
+Once a `Document` has been created, other supporting PDFs (for example tax receipts for a generated invoice) can then be attached to it.
+A `Document` is created to wrap these PDFs.
+Like all ``Document``s, a `DocumentType` to required which helps categorise the supporting document, but no corresponding `DocumentTemplate` is required because they are never rendered (they exist already).
 An SPI service (`DocumentAttachmentAdvisor`) is used to obtain the list of available ``DocumentType``s to use.
-
-Currently, only PDF ``Document``s can be so attached.
 
 The module implements a rule that chains of ``Document``s are not allowed: a `Document` either has supporting ``Document``s attached to it, or it _is_ a supporting `Document`.
 In the former case a "supportingDocuments" mix-in collection lists all the supporting ``Document``s that have been attached.
@@ -227,6 +225,37 @@ This is configured through the `AttachmentAdvisor` of the relevant `Applicabilit
 
 image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/154-XDocReportDocx-applicability.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/154-XDocReportDocx-applicability.png"]
 
+Documents can also be rendered in the background:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/160-createAndAttachDocumentAndScheduleRender-StringInterpolatorUrl-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/160-createAndAttachDocumentAndScheduleRender-StringInterpolatorUrl-prompt.png"]
+
+This results in a `Document` with an associated background command.
+Note that the document, at this stage, has a state of "Not rendered" and it has no content:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/162-createAndAttachDocumentAndScheduleRender-StringInterpolatorUrl-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/162-createAndAttachDocumentAndScheduleRender-StringInterpolatorUrl-result.png"]
+
+The demo app has not been configured with a background scheduler, but does provide a "fake" scheduler which can be used to run such commands:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/164-runBackgroundCommands.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/164-runBackgroundCommands.png"]
+
+After the background commands have run, the document now has content and its state changes to "Rendered":
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/166-documentRendered.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/166-documentRendered.png"]
+
+On any (generated) `Document`, it is also possible to attach supporting PDF documents.
+For example, this could be a tax or supplier receipt.
+The "attachSupportingPdf" action uses the `DocumentAttachmentAdvisor` SPI service to obtain a list of appropriate ``DocumentType``s to display:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/200-attachSupportingPdf-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/200-attachSupportingPdf-prompt.png"]
+
+The uploaded PDFs are wrapped in a `Document` of their own, and listed in the "supporting documents" collection:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/202-attachSupportingPdf-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/202-attachSupportingPdf-result.png"]
+
+The supporting `Document` itself can also be viewed.
+The "supports" property refers back to the `Document` that it supports:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/204-supportingDocument.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/204-supportingDocument.png"]
 
 
 
@@ -237,7 +266,7 @@ image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/
 
 The following class diagram highlights the main concepts:
 
-image::http://yuml.me/0ee8631c[link="http://yuml.me/0ee8631c", width="600px"]
+image::http://yuml.me/699f70f8[link="http://yuml.me/699f70f8", width="600px"]
 
 (The colours used in the diagram are - approximately - from link:https://en.wikipedia.org/wiki/Object_Modeling_in_Color[Object Modeling in Color]).
 
@@ -259,7 +288,7 @@ Each `DocumentTemplate` has a `RenderingStrategy`, this being a mechanism to act
 
 [NOTE]
 ====
-Actually, each `DocumentTemplate` has two sets of placeholders and also corresponding `RenderingStrategy`s.
+Actually, each `DocumentTemplate` has two sets of placeholders and also corresponding ``RenderingStrategy``s.
 The "content" template text is used to generate the actual content of the resultant ``Document``'s content; this could be characters (eg a HTML email) or bytes (eg a PDF).
 The "name" template text , while the other is used to interpolate the name of the resultant `Document`; this will always result in a simple character string.
 ====
@@ -273,13 +302,15 @@ The `DocumentType` can be considered as a set of versioned ``DocumentTemplate``s
 
 Once a `Document` has been created it is attached to one or more target domain object using `Paperclip`.
 This requires a custom subclass for the domain object in question; the polymorphic pattern ("table of two halves") is used for this linkage.
+The module uses this capability itself for `PaperclipForDocument`, which is used to attach supporting (PDF) ``Document``s to generated ``Document``s.
 
 Based upon the implementation of `RenderingStrategy` and `Renderer`, each `DocumentTemplate` can support either previewing and/or rendering.
 Previewing means to return a representation as a URL; the end-user can then navigate to this URL without any change in state to the application.
 Rendering on the other hand means the creation and persisting of a `Document` from the `DocumentTemplate`.
 
 The `createAndAttachDocumentAndRender()` mixin is contributed to all domain objects where there is a `DocumentTemplate` available for the domain object's application tenancy path (`atPath`) that supports either previewing and/or rendering.
-The similar `createAndAttachDocumentAndScheduleRender()` mixin is also available, allowing the rendering to be performed as a background task (eg using (non-ASF) http://github.com/isisaddons/isis-module-command[Isis addons' command] module.
+The similar `createAndAttachDocumentAndScheduleRender()` mixin is also available, allowing the rendering to be performed as a background task using link:http://github.com/isisaddons/isis-module-command[Isis addons' command] module.
+This can be scheduled using, for example, the link:http://github.com/isisaddons/isis-module-quartz[Isis addons' quartz] module.
 
 
 
