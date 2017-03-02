@@ -707,6 +707,21 @@ public class PaperclipForInvoice extends Paperclip {
 }
 ----
 
+[[_incode-module-document_mixins_document-supportingDocuments]]
+=== Document_supportingDocuments, Document_attachSupportingPdf & Document_supports
+
+These three mixins work together.
+
+For generated ``Document``s, the `Document_attachSupportingPdf` mixin allows PDFs to be associated (eg a supplier receipt), and a corresponding `Document` is created to hold that PDF.
+These are then displayed in the `Document_supportingDocuments` mixin collection.
+
+For the supporting ``Document``s themselves, the  `Document_supports` property mixin points back to the associated `Document`.
+
+The `_supportingDocuments` collection mixin is hidden for "secondary" supporting documents themselves, conversely the `_supports` property is hidden for the "primary" supported documents.
+ In other words these form a parent/child relationship.
+
+
+
 
 [[_incode-module-document_services-api]]
 == Services (API)
