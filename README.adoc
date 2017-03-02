@@ -265,7 +265,7 @@ Its signature is:
 public interface DocumentCommunicationSupport {
     DocumentType emailCoverNoteDocumentTypeFor(Document document);
     void inferEmailHeaderFor(Document document, CommHeaderForEmail header);
-    void inferPrintHeaderFor(Document document, CommHeaderForPrint header);
+    void inferPrintHeaderFor(Document document, CommHeaderForPost header);
 }
 ----
 
@@ -405,7 +405,12 @@ Check for later releases by searching http://search.maven.org/#search|ga|1|incod
 == Change Log
 
 
-* `1.14.2` - fixes https://github.com/incodehq/incode-module-communications/issues/7[#7]; references link:https://github.com/incodehq/incode-module-document[document] module v1.14.3
+* `1.14.2` - fixes https://github.com/incodehq/incode-module-communications/issues/7[#7]; references link:https://github.com/incodehq/incode-module-document[document] module v1.14.3 +
++
+[NOTE]
+====
+This release is not backwardly compatible, due to change in signature of the `DocumentCommunicationSupport` service
+====
 * `1.14.1` - fixes https://github.com/incodehq/incode-module-communications/issues/1[#1], https://github.com/incodehq/incode-module-communications/issues/2[#2], https://github.com/incodehq/incode-module-communications/issues/3[#3], https://github.com/incodehq/incode-module-communications/issues/4[#4], https://github.com/incodehq/incode-module-communications/issues/5[#5], https://github.com/incodehq/incode-module-communications/issues/6[#6]; references link:https://github.com/incodehq/incode-module-document[document] module v1.14.2
 * `1.14.0` - released against Isis 1.14.0
 * `1.13.0` - released against Isis 1.13.2, extracted from Estatio codebase
