@@ -37,7 +37,7 @@ import org.apache.isis.applib.services.xactn.TransactionService;
 import org.incode.module.communications.dom.impl.commchannel.PostalAddress;
 import org.incode.module.communications.dom.impl.comms.Communication;
 import org.incode.module.communications.dom.impl.comms.CommunicationRepository;
-import org.incode.module.communications.dom.spi.CommHeaderForPrint;
+import org.incode.module.communications.dom.spi.CommHeaderForPost;
 import org.incode.module.communications.dom.spi.DocumentCommunicationSupport;
 import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.document.dom.impl.docs.Document;
@@ -104,22 +104,22 @@ public class Document_sendByPost {
     }
 
     public PostalAddress default0$$() {
-        return determinePrintHeader().getToDefault();
+        return determinePostHeader().getToDefault();
     }
 
     public Set<PostalAddress> choices0$$() {
-        return determinePrintHeader().getToChoices();
+        return determinePostHeader().getToChoices();
     }
 
-    private CommHeaderForPrint determinePrintHeader() {
+    private CommHeaderForPost determinePostHeader() {
         return queryResultsCache.execute(() -> {
-            final CommHeaderForPrint commHeaderForPrint = new CommHeaderForPrint();
+            final CommHeaderForPost commHeaderForPost = new CommHeaderForPost();
             if(documentCommunicationSupports != null) {
                 for (DocumentCommunicationSupport commSupport : documentCommunicationSupports) {
-                    commSupport.inferPrintHeaderFor(document, commHeaderForPrint);;
+                    commSupport.inferPrintHeaderFor(document, commHeaderForPost);;
                 }
             }
-            return commHeaderForPrint;
+            return commHeaderForPost;
         }, Document_sendByPost.class, "determinePrintHeader", document);
     }
 

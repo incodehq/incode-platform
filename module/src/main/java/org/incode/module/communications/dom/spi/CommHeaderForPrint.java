@@ -19,8 +19,10 @@
  */
 package org.incode.module.communications.dom.spi;
 
-import org.incode.module.communications.dom.impl.commchannel.PostalAddress;
-
-public class CommHeaderForPrint extends CommHeaderAbstract<PostalAddress> {
+/**
+ * Use {@link CommHeaderForPost} instead.
+ */
+@Deprecated
+public class CommHeaderForPrint extends CommHeaderForPost {
 
 }

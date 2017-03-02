@@ -1,0 +1,69 @@
+== Domain Model
+
+[plantuml,domain-model,png]
+--
+hide empty members
+
+
+interface CommunicationChannelOwner {
+    newEmail()
+    newPostalAddress()
+    newPhoneOrFaxNumber()
+}
+
+
+abstract class CommunicationChannel #lightgreen {
+    CommunicationChannelType: type
+}
+
+CommunicationChannelOwner --> "0..*    " CommunicationChannel
+
+class PostalAddress #lightgreen implements CommunicationChannel {
+
+}
+
+class EmailAddress #lightgreen implements CommunicationChannel  {
+
+}
+
+class PhoneOrFaxNumber #lightgreen implements CommunicationChannel {
+
+}
+
+class Country #lightblue {
+}
+
+class Communication #lightpink {
+    backgroundCommands: Command[]
+    downloadPdfForPosting(): Blob
+}
+
+class CommChannelRole #lightgreen {
+    CommChannelRoleType: type
+}
+
+class Document #lightgreen {
+    sendByEmail()
+    sendByPost()
+    communications(): Communication[]
+    coverNoteFor(): Communication?
+}
+
+class Paperclip #lightyellow {
+    roleName
+}
+
+class PaperclipForCommunication #lightyellow extends Paperclip {
+}
+
+Communication --> "1..*" CommChannelRole 
+
+PaperclipForCommunication --> Communication
+Document <-- "0..*" Paperclip
+
+CommChannelRole --> "0..1" CommunicationChannel
+
+PostalAddress --> Country
+
+--
+

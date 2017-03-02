@@ -1,3 +1,4 @@
+[[incode-module-communications]]
 = incode-module-communications
 :_imagesdir: ./
 :toc:
@@ -21,15 +22,18 @@ Postal ``Communication``s do _not_ have any sort of cover note, and the act of s
 If the original `Document` had supporting ``Document``s associated with it then (as a convenience) a single PDF is downloaded that merges together the original `Document` along with any supporting documents.
 
 
-[NOTE]
+[WARNING]
 ====
 There is some overlap between this module and the Incode http://github.com/incodehq/incode-module-commchannel[CommunicationChannel] module).
 At some stage we intend to refactor this module to reuse the CommunicationChannel module, and then to remove any duplicate concepts (`EmailAddress` etc).
+
+Also, note that the discriminators for `CommunicationChannel` subtypes currently are hard-coded to those for http://github.com/estatio/estatio[Estatio].
+These can be overridden using DataNucleus `.orm` files if required.
 ====
 
 
 
-
+[[_incode-module-communications_screenshots]]
 == Screenshots
 
 We start off by creating some fixture data:
@@ -63,6 +67,7 @@ The home page lists the demo customers and invoices:
 image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/020-demo-customers-and-invoices.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/020-demo-customers-and-invoices.png"]
 
 
+[[_incode-module-communications_screenshots_sending-an-email]]
 === Sending an Email
 
 If we inspect one of the invoices for "Fred" (who has email addresses), we see it has an attached `Document` (simulating it having been generated from the invoice):
@@ -120,6 +125,7 @@ image::https://raw.githubusercontent.com/incodehq/incode-module-communications/m
 
 
 
+[[_incode-module-communications_screenshots_sending-a-postal-communication]]
 === Sending a Postal Communication
 
 The "Mary" demo customer has postal addresses, so the ``Document``s attached to her invoices can be sent by post.
@@ -144,6 +150,7 @@ image::https://raw.githubusercontent.com/incodehq/incode-module-communications/m
 The user can then open up the downloaded PDF, manually print it and manually put it into an envelope.
 
 
+[[_incode-module-communications_screenshots_supporting-documents]]
 === Supporting Documents
 
 The link:https://github.com/incodehq/incode-module-document[Incode Document] module (on which this communications module) depends has the concept of "supporting" documents.
@@ -170,24 +177,85 @@ The action prompt suggests a filename based on the original `Document` and suppo
 image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/120-downloadPdfForPosting-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/120-downloadPdfForPosting-prompt.png"]
 
 
+
+[[_incode-module-communications_domain-model]]
 == Domain Model
 
+The main concepts of the module are shown below:
+
+image:domain-model.png[]
+
+One side of the domain model defines ``CommunicationChannel``s, owned by ``CommunicationChannelOwner``s.
+
+On the other side is `Communication`, which relates to a `Document` by way of an implementation of the (link:https://github.com/incodehq/incode-module-document[Incode Document module]'s) `Paperclip` class.
+Each `Communication` relates to one or more ``CommunicationChannel``s by way of `CommChannelRole`, basically indicating the nature of the correspondent in that `Communication`.
+
+
+[[_incode-module-communications_commchannel-mixins]]
+== (CommunicationChannel) Contributions
+
 [***TODO***]
 
+The `CommunicationChannelOwner_newChannelContributions` ...
+
+The `CommunicationChannelOwner_emailAddressTitles` & `CommunicationChannelOwner_phoneNumberTitles` ...
 
 
 
-== Services
+[[_incode-module-communications_mixins]]
+== (Document) Mixins
+
+The modules provides a number of mixins that, by default, will be rendered in the UI.
+In the case of this module, all mixins are on the `Document` entity.
+
+The mixins can be suppressed if necessary using vetoing subscribers to their corresponding domain events.
 
 
-=== API
+[[_incode-module-communications_mixins_send-by]]
+=== Document_sendByEmail & Document_sendByPost
 
-[***TODO***]
+These mixins on `Document` are used to create either email or postal ``Communication``s.
+They are supported by the `DocumentCommunicationSupport` SPI service, described xref:_incode-module-communications_services-spi_document-communication-support[below].
 
 
-=== SPI Services
+[[_incode-module-communications_mixins_communications]]
+=== Document_communications
 
-==== DocumentCommunicationSupport
+The `Document_communications` collection mixin shows all ``Communication``s to which a `Document` has been sent as an attachment (in the case of an email) or to be printed out (in the case of a postal comm).
+
+Note that this mixin is suppressed for cover notes; instead these have the `Document_coverNoteFor` mixin, described  xref:_incode-module-communications_mixins_cover-note-for[below].
+
+
+[[_incode-module-communications_mixins_communication-attachments]]
+=== Document_communicationAttachments
+
+The `Document_communicationAttachments` collection mixin lists all of the ``Document``s that would be included as attachments if and when a new `Communication` is created.
+
+This list always includes the target `Document` itself, and will also include any supporting `Document`s that may have been attached (using the link:https://github.com/incodehq/incode-module-document[Incode Document] module's `Document_attachSupportingPdf` mixin).
+
+
+[[_incode-module-communications_mixins_cover-note-for]]
+=== Document_coverNoteFor
+
+The `Document_coverNoteFor` property mixin applies only to ``Document``s that have been created as email cover notes.
+It returns a reference to the email `Communication` to which it was associated (with a role of "cover note"); its content is used as the body of the actual email.
+
+
+
+[[_incode-module-communications_services-api]]
+== Services (API)
+
+The module currently does not provide a service to programmatically create ``Communication``s.
+Instead, the various xref:_incode-module-communications_mixins[mixins] can be used.
+
+
+[[_incode-module-communications_services-spi]]
+== Services (SPI)
+
+SPI services are called by the module.
+
+[[_incode-module-communications_services-spi_document-communication-support]]
+=== DocumentCommunicationSupport (required)
 
 An implementation of the `DocumentCommunicationSupport` SPI domain service is required to send communications of any type.
 Its signature is:
@@ -201,7 +269,51 @@ public interface DocumentCommunicationSupport {
 }
 ----
 
-==== CurrentUserEmailAddressProvider
+where `CommHeaderForEmail` is:
+
+[source,java]
+----
+public class CommHeaderForEmail ... {
+
+    @Getter @Setter
+    private EmailAddress toDefault;
+    @Getter
+    private final Set<EmailAddress> toChoices = Sets.newTreeSet();
+
+    @Getter @Setter
+    private String cc ;
+    @Getter @Setter
+    private String bcc;
+
+    @Getter @Setter
+    private EmailAddress from;
+
+    @Getter @Setter
+    private String disabledReason;  // <1>
+}
+----
+<1> Reason, if any, why the communication cannot be sent by email.
+
+and where `CommHeaderForPost` is:
+
+[source,java]
+----
+public class CommHeaderForPost ... {
+    @Getter @Setter
+    private PostalAddress toDefault;
+    @Getter
+    private final Set<PostalAddress> toChoices = Sets.newTreeSet();
+
+    @Getter @Setter
+    private String disabledReason;  // <1>
+}
+----
+<1> Reason, if any, why the communication cannot be sent by post.
+
+
+
+[[_incode-module-communications_services-spi_current-user-email-address-provider]]
+=== CurrentUserEmailAddressProvider
 
 The optional `CurrentUserEmailAddressProvider` SPI service provides the email address of the current user, in order to create a `CommChannelRole` indicating that the `Communication` was "prepared by" such-and-such a user.
 
@@ -217,13 +329,14 @@ The module does provide a default implementation, `CurrentUserEmailAddressProvid
 In many case therefore there will be no need to provide an alternative implementation of this SPI service.
 
 
+[[_incode-module-communications_how-to-run-the-demo-app]]
 == How to run the Demo App
 
 
 The prerequisite software is:
 
 * Java JDK 8
-* http://maven.apache.org[maven 3] (3.2.x or later is recommended).
+* http://maven.apache.org[maven 3] (3.3.x or later is recommended).
 
 To build the demo app:
 
@@ -246,11 +359,10 @@ Then log on using user: `sven`, password: `pass`
 
 
 
+[[_incode-module-communications_how-to-configure-use]]
 == How to configure/use
 
 You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
-
-=== "Out-of-the-box"
 
 To use "out-of-the-box":
 
@@ -261,7 +373,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.incode.module.communications</groupId>
     <artifactId>incode-module-communications-dom</artifactId>
-    <version>1.14.1</version>
+    <version>1.14.2</version>
 </dependency>
 ----
 
@@ -278,71 +390,33 @@ public List<Class<?>> getModules() {
 }
 ----
 
-
-
-Notes:
-
-* Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-communications-dom[Maven Central Repo].
-
-
-==== "Out-of-the-box" (-SNAPSHOT)
-
-If you want to use the current `-SNAPSHOT`, then the steps are the same as above, except:
-
-* when updating the classpath, specify the appropriate -SNAPSHOT version:
-
-[source,xml]
-----
-<version>1.15.0-SNAPSHOT</version>
-----
-
-* add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  
-We suggest defining the repository in a `<profile>`:
-
-[source,xml]
-----
-<profile>
-    <id>cloudbees-snapshots</id>
-    <activation>
-        <activeByDefault>true</activeByDefault>
-    </activation>
-    <repositories>
-        <repository>
-            <id>snapshots-repo</id>
-            <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
-            <releases>
-                <enabled>false>/enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-</profile>
-----
+Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-communications-dom[Maven Central Repo].
 
 
 
 
-
+[[_incode-module-communications_known-issues]]
 == Known issues
 
 (none)
 
 
+[[_incode-module-communications_change-log]]
 == Change Log
 
 
-* `1.14.1` - fixes https://github.com/incodehq/incode-module-communications/issues/1[#1], https://github.com/incodehq/incode-module-communications/issues/2[#2], https://github.com/incodehq/incode-module-communications/issues/3[#3], https://github.com/incodehq/incode-module-communications/issues/4[#4], https://github.com/incodehq/incode-module-communications/issues/5[#5], https://github.com/incodehq/incode-module-communications/issues/6[#6] and uses link:https://github.com/incodehq/incode-module-document[document] module 1.14.2
+* `1.14.2` - fixes https://github.com/incodehq/incode-module-communications/issues/7[#7]; references link:https://github.com/incodehq/incode-module-document[document] module v1.14.3
+* `1.14.1` - fixes https://github.com/incodehq/incode-module-communications/issues/1[#1], https://github.com/incodehq/incode-module-communications/issues/2[#2], https://github.com/incodehq/incode-module-communications/issues/3[#3], https://github.com/incodehq/incode-module-communications/issues/4[#4], https://github.com/incodehq/incode-module-communications/issues/5[#5], https://github.com/incodehq/incode-module-communications/issues/6[#6]; references link:https://github.com/incodehq/incode-module-document[document] module v1.14.2
 * `1.14.0` - released against Isis 1.14.0
 * `1.13.0` - released against Isis 1.13.2, extracted from Estatio codebase
 
 
 
+[[_incode-module-communications_forking-the-repo]]
 == Forking the repo
 
-If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is
-structured as follows:
+If instead you want to extend this module's functionality, then we recommend that you fork this repo.
+The repo is structured as follows:
 
 * `pom.xml` - parent pom
 * `module-dom` - the module implementation itself
@@ -351,14 +425,16 @@ structured as follows:
 * `demo/webapp` - demo app's webapp, to create war and docker images
 
 
-Only the `module-dom` project is released to Maven Central Repo.  The versions of the other modules are purposely left at
-`0.0.1-SNAPSHOT` because they are not intended to be released.
+Only the `module-dom` project is released to Maven Central Repo.
+The versions of the other modules are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
 
 
-Note that the module uses link:https://projectlombok.org/[Project Lombok].  To compile the code within your IDE you will
+Note that the module uses link:https://projectlombok.org/[Project Lombok].
+eTo compile the code within your IDE you will
 therefore require the appropriate Lombok plugin.  See the link:https://projectlombok.org/download.html[Lombok download page] for more information.
 
 
+[[_incode-module-communications_legal-stuff]]
 == Legal Stuff
 
 === License
@@ -416,7 +492,7 @@ https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
 
 If you have commit access to this project (or a fork of your own) then you can create interim releases using the `interim-release.sh` script.
 
-The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.14.1.20170331-0740`).
+The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.14.2.20170331-0740`).
 It then pushes the branch (and a tag) to the specified remote.
 
 A CI server such as Jenkins can monitor the branches matching the wildcard `origin/interim/*` and create a build.
@@ -426,12 +502,12 @@ For example:
 
 [source]
 ----
-sh interim-release.sh 1.14.1 origin
+sh interim-release.sh 1.14.2 origin
 ----
 
 where
 
-* `1.14.1` is the base release
+* `1.14.2` is the base release
 * `origin` is the name of the remote to which you have permissions to write to.
 
 
@@ -451,7 +527,7 @@ For example:
 
 [source]
 ----
-sh release.sh 1.14.1 \
+sh release.sh 1.14.2 \
               1.15.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
@@ -470,7 +546,7 @@ If the script completes successfully, then push changes:
 
 [source]
 ----
-git push origin master && git push origin 1.14.1
+git push origin master && git push origin 1.14.2
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue before trying again.

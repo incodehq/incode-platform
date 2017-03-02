@@ -25,10 +25,10 @@ import lombok.Setter;
 
 public class CommHeaderForEmail extends CommHeaderAbstract<EmailAddress> {
 
-    @Getter
+    @Getter @Setter
     private String cc ;
 
-    @Getter
+    @Getter @Setter
     private String bcc;
 
     @Getter @Setter
