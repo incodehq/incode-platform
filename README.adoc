@@ -415,7 +415,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.incode.module.document</groupId>
     <artifactId>incode-module-document-dom</artifactId>
-    <version>1.14.3</version>
+    <version>1.14.4</version>
 </dependency>
 ----
 
