@@ -90,8 +90,30 @@ public class Document_sendByEmail {
                     maxLength = CommunicationChannel.EmailType.MAX_LEN,
                     regexPattern = CommunicationChannel.EmailType.REGEX,
                     regexPatternReplacement = CommunicationChannel.EmailType.REGEX_DESC)
+            @ParameterLayout(named = "cc (2):")
+            final String cc2,
+            @Parameter(
+                    optionality = Optionality.OPTIONAL,
+                    maxLength = CommunicationChannel.EmailType.MAX_LEN,
+                    regexPattern = CommunicationChannel.EmailType.REGEX,
+                    regexPatternReplacement = CommunicationChannel.EmailType.REGEX_DESC)
+            @ParameterLayout(named = "cc (3):")
+            final String cc3,
+            @Parameter(
+                    optionality = Optionality.OPTIONAL,
+                    maxLength = CommunicationChannel.EmailType.MAX_LEN,
+                    regexPattern = CommunicationChannel.EmailType.REGEX,
+                    regexPatternReplacement = CommunicationChannel.EmailType.REGEX_DESC)
             @ParameterLayout(named = "bcc:")
-            final String bcc) throws IOException {
+            final String bcc,
+            @Parameter(
+                    optionality = Optionality.OPTIONAL,
+                    maxLength = CommunicationChannel.EmailType.MAX_LEN,
+                    regexPattern = CommunicationChannel.EmailType.REGEX,
+                    regexPatternReplacement = CommunicationChannel.EmailType.REGEX_DESC)
+            @ParameterLayout(named = "bcc (2):")
+            final String bcc2
+            ) throws IOException {
 
 
 
@@ -167,7 +189,7 @@ public class Document_sendByEmail {
         return determineEmailHeader().getCc();
     }
 
-    public String default2$$() {
+    public String default4$$() {
         return determineEmailHeader().getBcc();
     }
 

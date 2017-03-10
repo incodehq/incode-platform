@@ -22,7 +22,8 @@ public class AttachmentAdvisorOfDocumentAttachedToDemoInvoiceWillAttachToSame ex
     @Override
     protected List<PaperclipSpec> doAdvise(
             final DocumentTemplate documentTemplate,
-            final Document document) {
+            final Document document,
+            final Document createdDocument) {
 
         final List<Paperclip> paperclips = paperclipRepository.findByDocument(document);
         final Optional<DemoInvoice> demoInvoiceIfAny =
@@ -32,7 +33,7 @@ public class AttachmentAdvisorOfDocumentAttachedToDemoInvoiceWillAttachToSame ex
                         .findFirst();
 
         return demoInvoiceIfAny.isPresent()
-                ? Collections.singletonList(new PaperclipSpec(null, document))
+                ? Collections.singletonList(new PaperclipSpec(null, document, createdDocument))
                 : Collections.emptyList();
     }
 

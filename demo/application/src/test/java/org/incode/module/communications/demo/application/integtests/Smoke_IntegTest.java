@@ -105,7 +105,7 @@ public class Smoke_IntegTest extends DemoAppIntegTestAbstract {
         assertThat(emailAddresses).contains(fredEmail);
 
         // and when
-        final Communication comm = wrap(documentEmail).$$(fredEmail, null, null);
+        final Communication comm = wrap(documentEmail).$$(fredEmail, null, null, null, null, null);
 
         // then
         assertThat(comm).isNotNull();
