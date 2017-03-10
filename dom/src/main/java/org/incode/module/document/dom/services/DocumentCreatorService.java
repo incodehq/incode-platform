@@ -46,19 +46,20 @@ public class DocumentCreatorService {
             final Object domainObject,
             final DocumentTemplate template) {
 
-        final Document document = template.create(domainObject);
+        final Document createdDocument = template.create(domainObject);
 
-        final List<AttachmentAdvisor.PaperclipSpec> paperclipSpecs = template.newAttachmentAdvice(document, domainObject);
+        final List<AttachmentAdvisor.PaperclipSpec> paperclipSpecs = template.newAttachmentAdvice(createdDocument, domainObject);
 
         for (AttachmentAdvisor.PaperclipSpec paperclipSpec : paperclipSpecs) {
             final String roleName = paperclipSpec.getRoleName();
             final Object attachTo = paperclipSpec.getAttachTo();
+            final Document paperclipSpecCreatedDocument = paperclipSpec.getCreatedDocument();
             if(paperclipRepository.canAttach(attachTo)) {
-                paperclipRepository.attach(document, roleName, attachTo);
+                paperclipRepository.attach(paperclipSpecCreatedDocument, roleName, attachTo);
             }
         }
 
-        return document;
+        return createdDocument;
     }
 
     @Inject

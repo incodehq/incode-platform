@@ -486,19 +486,23 @@ public interface AttachmentAdvisor {
     public static class PaperclipSpec {
         private final String roleName;
         private final Object attachTo;
+        private final Object createdDocument;
     }
     List<PaperclipSpec> advise(
             DocumentTemplate documentTemplate,  // <2>
-            Object domainObject);               // <3>
+            Object domainObject,                // <3>
+            Document createdDocument);          // <4>
 }
 ----
 <1> immutable value type, defined using link:https://projectlombok.org/features/Data.html[`@Data`] annotation from Project Lombok +
 <2> to which this implementation applies, as per `DocumentTemplate#getAppliesTo()` and `Applicability#getAttachmentAdvisorClassName()` +
-<3> acting as the context for document created, from which derive the objects to attach the newly created `Document` +
-+
+<3> acting as the context for document created, from which derive the objects to attach the newly created `Document`
+<4> the document that has been created.
+Note that this may be `null` when the advisor is being asked if it _could_ be used to attach for the domain object.
+
 The`PaperclipSpec` describes how create instances of `Paperclip` from attach the resultant `Document` to other
-domain objects. +
-+
+domain objects.
+
 [TIP]
 ====
 The `AttachmentAdvisorAbstract<T>` can be used to implement the `AttachmentAdvisor` interface, adding the capability of verifying the input document is of the correct type.
@@ -867,6 +871,13 @@ setting `isis.persistor.datanucleus.impl.datanucleus.Mapping=xxx` in link:https:
 [[_incode-module-document_change-log]]
 == Change Log
 
+* `1.14.4` - fixes https://github.com/incodehq/incode-module-document/issues/18[#19]. +
++
+[WARNING]
+====
+This release not backwardly compatible (`AttachmentAdvisor` signature change).
+====
+
 * `1.14.3` - fixes https://github.com/incodehq/incode-module-document/issues/18[#18]
 * `1.14.2` - fixes https://github.com/incodehq/incode-module-document/issues/14[#14], https://github.com/incodehq/incode-module-document/issues/15[#15], https://github.com/incodehq/incode-module-document/issues/16[#16],  https://github.com/incodehq/incode-module-document/issues/17[#17]
 * `1.14.1` - fixes https://github.com/incodehq/incode-module-document/issues/13[#13]
@@ -972,7 +983,7 @@ https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
 
 If you have commit access to this project (or a fork of your own) then you can create interim releases using the `interim-release.sh` script.
 
-The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.14.3.20170331-0740`).
+The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.14.4.20170331-0740`).
 It then pushes the branch (and a tag) to the specified remote.
 
 A CI server such as Jenkins can monitor the branches matching the wildcard `origin/interim/*` and create a build.
@@ -982,12 +993,12 @@ For example:
 
 [source]
 ----
-sh interim-release.sh 1.14.3 origin
+sh interim-release.sh 1.14.4 origin
 ----
 
 where
 
-* `1.14.3` is the base release
+* `1.14.4` is the base release
 * `origin` is the name of the remote to which you have permissions to write to.
 
 
@@ -1007,7 +1018,7 @@ For example:
 
 [source]
 ----
-sh release.sh 1.14.3 \
+sh release.sh 1.14.4 \
               1.15.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
@@ -1026,7 +1037,7 @@ If the script completes successfully, then push changes:
 
 [source]
 ----
-git push origin master && git push origin 1.14.3
+git push origin master && git push origin 1.14.4
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue before trying again.

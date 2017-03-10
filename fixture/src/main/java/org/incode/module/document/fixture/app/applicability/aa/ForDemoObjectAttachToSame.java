@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.incode.module.document.dom.impl.applicability.AttachmentAdvisor;
 import org.incode.module.document.dom.impl.applicability.AttachmentAdvisorAbstract;
+import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 import org.incode.module.document.fixture.dom.demo.DemoObject;
 
@@ -19,8 +20,9 @@ public class ForDemoObjectAttachToSame extends AttachmentAdvisorAbstract<DemoObj
     @Override
     protected List<PaperclipSpec> doAdvise(
             final DocumentTemplate documentTemplate,
-            final DemoObject demoObject) {
-        return Collections.singletonList(new AttachmentAdvisor.PaperclipSpec(null, demoObject));
+            final DemoObject demoObject,
+            final Document createdDocument) {
+        return Collections.singletonList(new AttachmentAdvisor.PaperclipSpec(null, demoObject, createdDocument));
     }
 
     @Value

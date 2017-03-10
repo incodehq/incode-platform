@@ -29,6 +29,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
 import org.incode.module.document.dom.impl.applicability.AttachmentAdvisor;
+import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 import org.incode.module.document.dom.impl.docs.DocumentTemplateRepository;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
@@ -67,6 +68,7 @@ public class DocumentTemplateForAtPathService {
         final List<DocumentTemplate> templatesForPath =
                 documentTemplateRepository.findByApplicableToAtPath(atPath);
 
+
         return Lists.newArrayList(
                 templatesForPath.stream()
                         .filter(template -> {
@@ -74,7 +76,12 @@ public class DocumentTemplateForAtPathService {
                             if (advisor == null) {
                                 return false;
                             }
-                            final List<AttachmentAdvisor.PaperclipSpec> paperclipSpecs = advisor.advise(template, domainObject);
+
+                            // at this stage we are asking the advisor if it would be able to attach a document
+                            // if created.  We don't yet have that document, so it is null.
+                            final Document document = null;
+                            final List<AttachmentAdvisor.PaperclipSpec> paperclipSpecs =
+                                    advisor.advise(template, domainObject, document);
                             return canCreate(template, paperclipSpecs);
                         })
                         .collect(Collectors.toList()));

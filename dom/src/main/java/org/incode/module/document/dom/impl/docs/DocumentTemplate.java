@@ -690,7 +690,8 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
                     "For domain template %s, could not locate Applicability for domain object: %s",
                     getName(), domainObject.getClass().getName()));
         }
-        final List<AttachmentAdvisor.PaperclipSpec> paperclipSpecs = attachmentAdvisor.advise(this, domainObject);
+        final List<AttachmentAdvisor.PaperclipSpec> paperclipSpecs = attachmentAdvisor.advise(this, domainObject,
+                document);
         return paperclipSpecs;
     }
 

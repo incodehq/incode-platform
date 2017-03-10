@@ -40,15 +40,21 @@ public interface AttachmentAdvisor {
     public static class PaperclipSpec {
         private final String roleName;
         private final Object attachTo;
+        /**
+         * Note that this may be <tt>null</tt> when the advisor is being asked if it <i>could</i> be used to attach for the domain object.
+         */
+        private final Document createdDocument;
     }
 
     /**
      * @param documentTemplate - to which this implementation applies, as per {@link DocumentTemplate#getAppliesTo()} and {@link Applicability#getAttachmentAdvisorClassName()}
      * @param domainObject - acting as the context for document created, from which derive the objects to attach the newly created {@link Document}.
+     * @param createdDocument - note that this may be <tt>null</tt> when the advisor is being asked if it <i>could</i> be used to attach for the domain object.
      */
     @Programmatic
     List<PaperclipSpec> advise(
             final DocumentTemplate documentTemplate,
-            final Object domainObject);
+            final Object domainObject,
+            final Document createdDocument);
 
 }
