@@ -36,9 +36,9 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.document.dom.impl.docs.Document;
-import org.incode.module.document.dom.impl.docs.Document_supports;
 import org.incode.module.document.dom.impl.paperclips.Paperclip;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
+import org.incode.module.document.dom.spi.SupportingDocumentsEvaluator;
 
 @Mixin
 public class Document_communicationAttachments {
@@ -63,13 +63,18 @@ public class Document_communicationAttachments {
     }
 
     public boolean hide$$() {
-        // hide for supporting documents
-        final Document supportedBy = supportsEvaluator.supportedBy(document);
-        return supportedBy != null;
+        for (SupportingDocumentsEvaluator supportingDocumentsEvaluator : supportingDocumentsEvaluators) {
+            final SupportingDocumentsEvaluator.Evaluation evaluation =
+                    supportingDocumentsEvaluator.evaluate(document);
+            if(evaluation == SupportingDocumentsEvaluator.Evaluation.SUPPORTING) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Inject
-    Document_supports.Evaluator supportsEvaluator;
+    List<SupportingDocumentsEvaluator> supportingDocumentsEvaluators;
 
     @Inject
     Provider provider;

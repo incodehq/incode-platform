@@ -29,15 +29,17 @@ import com.google.common.collect.Lists;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
+import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Mixin;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.communications.dom.impl.comms.Communication;
 import org.incode.module.communications.dom.impl.covernotes.Document_coverNoteFor;
 import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.document.dom.impl.docs.Document;
-import org.incode.module.document.dom.impl.docs.Document_supports;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
+import org.incode.module.document.dom.spi.SupportingDocumentsEvaluator;
 
 @Mixin
 public class Document_communications {
@@ -70,25 +72,45 @@ public class Document_communications {
 
     public boolean hide$$() {
         // hide for supporting documents
-        final Document supportedBy = supportsEvaluator.supportedBy(document);
-        if (supportedBy != null) {
-            return true;
+        for (SupportingDocumentsEvaluator supportingDocumentsEvaluator : supportingDocumentsEvaluators) {
+            final SupportingDocumentsEvaluator.Evaluation evaluation =
+                    supportingDocumentsEvaluator.evaluate(document);
+            if(evaluation == SupportingDocumentsEvaluator.Evaluation.SUPPORTING) {
+                return true;
+            }
         }
 
-        // hide for coverNote documents
-        final Communication communication = coverNoteEvaluator.coverNoteFor(document);
-        if (communication != null) {
-            return true;
-        }
 
         return false;
     }
 
-    @Inject
-    Document_supports.Evaluator supportsEvaluator;
+    @DomainService(
+            nature = NatureOfService.DOMAIN,
+            menuOrder = "110"
+    )
+    public static class SupportingDocumentsEvaluatorForCoverNotes implements SupportingDocumentsEvaluator {
+
+        @Override
+        public Document supportedBy(final Document candidateSupportingDocument) {
+            return null;
+        }
+
+        @Override
+        public Evaluation evaluate(final Document candidateSupportingDocument) {
+            final Communication communication = coverNoteEvaluator.coverNoteFor(candidateSupportingDocument);
+            return communication != null ? Evaluation.SUPPORTING : Evaluation.UNKNOWN;
+
+        }
+
+
+        @Inject
+        Document_coverNoteFor.Evaluator coverNoteEvaluator;
+    }
+
 
     @Inject
-    Document_coverNoteFor.Evaluator coverNoteEvaluator;
+    List<SupportingDocumentsEvaluator> supportingDocumentsEvaluators;
+
 
     @Inject
     PaperclipRepository paperclipRepository;
