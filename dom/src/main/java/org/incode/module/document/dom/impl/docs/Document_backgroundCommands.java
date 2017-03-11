@@ -27,6 +27,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.isisaddons.module.command.dom.CommandJdo;
 import org.isisaddons.module.command.dom.T_backgroundCommands;
 
+import org.incode.module.document.dom.spi.SupportingDocumentsEvaluator;
+
 @Mixin
 public class Document_backgroundCommands extends T_backgroundCommands<Document> {
 
@@ -47,14 +49,19 @@ public class Document_backgroundCommands extends T_backgroundCommands<Document> 
         return super.$$();
     }
 
-
     public boolean hide$$() {
         // hide for supporting documents
-        final Document supportedBy = supportsEvaluator.supportedBy(document);
-        return supportedBy != null;
+        for (SupportingDocumentsEvaluator supportingDocumentsEvaluator : supportingDocumentsEvaluators) {
+            final SupportingDocumentsEvaluator.Evaluation evaluation =
+                    supportingDocumentsEvaluator.evaluate(document);
+            if(evaluation == SupportingDocumentsEvaluator.Evaluation.SUPPORTING) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Inject
-    Document_supports.Evaluator supportsEvaluator;
+    List<SupportingDocumentsEvaluator> supportingDocumentsEvaluators;
 
 }

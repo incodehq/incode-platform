@@ -38,6 +38,7 @@ import org.apache.isis.applib.services.tablecol.TableColumnOrderService;
 import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.document.dom.impl.paperclips.Paperclip;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
+import org.incode.module.document.dom.spi.SupportingDocumentsEvaluator;
 
 @Mixin
 public class DocumentAbstract_attachedTo<T> {
@@ -79,17 +80,22 @@ public class DocumentAbstract_attachedTo<T> {
         if(document instanceof Document) {
             // hide for supporting documents
             final Document doc = (Document) document;
-            final Document supportedBy = supportsEvaluator.supportedBy(doc);
-            return supportedBy != null;
+            for (SupportingDocumentsEvaluator supportingDocumentsEvaluator : supportingDocumentsEvaluators) {
+                final SupportingDocumentsEvaluator.Evaluation evaluation =
+                        supportingDocumentsEvaluator.evaluate(doc);
+                if(evaluation == SupportingDocumentsEvaluator.Evaluation.SUPPORTING) {
+                    return true;
+                }
+            }
         }
         return false;
     }
 
+
+
     //region > injected services
-
     @Inject
-    Document_supports.Evaluator supportsEvaluator;
-
+    List<SupportingDocumentsEvaluator> supportingDocumentsEvaluators;
     @Inject
     PaperclipRepository paperclipRepository;
     @Inject

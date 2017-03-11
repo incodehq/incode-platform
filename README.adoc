@@ -415,7 +415,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.incode.module.document</groupId>
     <artifactId>incode-module-document-dom</artifactId>
-    <version>1.14.4</version>
+    <version>1.14.5</version>
 </dependency>
 ----
 
@@ -858,6 +858,49 @@ However, the  "ForAtPath" bit of the name of this service is a mistake, because 
 
 
 
+== SupportingDocumentsEvaluator
+
+Some applications may have the concept of a "supporting document", whereby one document is attached to another document and supports it in some way.
+For example, an application could generates a document for an invoice, and this invoice might have receipts attached to it.
+
+To continue this example, such receipts most likely exist already, for example as PDFs.
+In such a case the application would directly create the supporting document representing that PDF `Blob` programmatically:
+
+[source,java]
+----
+final Document receiptDoc = documentRepository.create(
+        documentType, atPath, name, blob.getMimeType().getBaseType());
+receiptDoc.setRenderedAt(clockService.nowAsDateTime());
+receiptDoc.setState(DocumentState.RENDERED);
+receiptDoc.setSort(DocumentSort.BLOB);
+receiptDoc.setBlobBytes(blob.getBytes());
+----
+
+For such supporting documents much of the state normally associated with a `Document` should be suppressed:
+
+* a supporting document are probably not generated, so the "backgroundCommands" is not required.
+* the "attachedTo" collection does not make sense either, to avoid chains of ``Document``s (one attached to another, attached to another).
+
+On the other hand we might want to explicitly identify that one document supports another, and so a "supportedBy" collection and "supports" property help reinforce the semantics of the relatinoship.
+
+The `SupportingDocumentsEvaluator` is a SPI to tell the document module that such-and-such a `Document` is a supporting document:
+
+[source,java]
+----
+public interface SupportingDocumentsEvaluator {
+    enum Evaluation {
+        SUPPORTING,
+        NOT_SUPPORTING,
+        UNKNOWN
+    }
+    Evaluation evaluate(Document candidateSupportingDocument);
+    Document supportedBy(Document candidateSupportingDocument);
+}
+----
+
+The module provides a default implementation that will indicate a `Document` is supporting if it can find any other `Document` that attaches to the candidate document.
+This implementation can be suppressed if necessary in the usual fashion of a higher priority implementation returning a definitive `Evaluation` one way or the other for the document in question.
+
 
 [[_incode-module-document_known-issues]]
 == Known issues
@@ -871,11 +914,12 @@ setting `isis.persistor.datanucleus.impl.datanucleus.Mapping=xxx` in link:https:
 [[_incode-module-document_change-log]]
 == Change Log
 
-* `1.14.4` - fixes https://github.com/incodehq/incode-module-document/issues/18[#19]. +
+* `1.14.5` - fixes https://github.com/incodehq/incode-module-document/issues/20[#20] (`SupportingDocumentEvaluator`).
+* `1.14.4` - fixes https://github.com/incodehq/incode-module-document/issues/19[#19] (`AttachmentAdvisor`). +
 +
-[WARNING]
+[NOTE]
 ====
-This release not backwardly compatible (`AttachmentAdvisor` signature change).
+This release is not backwardly compatible with previous release.
 ====
 
 * `1.14.3` - fixes https://github.com/incodehq/incode-module-document/issues/18[#18]
@@ -888,18 +932,18 @@ This release not backwardly compatible (`AttachmentAdvisor` signature change).
 
 * `1.13.10` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/3[#3], https://github.com/incodehq/incode-module-document/issues/4[#4], https://github.com/incodehq/incode-module-document/issues/5[#5], https://github.com/incodehq/incode-module-document/issues/6[#6], https://github.com/incodehq/incode-module-document/issues/7[#7], https://github.com/incodehq/incode-module-document/issues/8[#8].  +
 +
-[WARNING]
+[NOTE]
 ====
-NB: this release is *not* backward compatible with the previous release.
+This release is not backwardly compatible with previous release
 ====
 
 * `1.13.6` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/2[#2]
 
 * `1.13.5` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/1[#1], with various additional extensions to functionality.  +
 +
-[WARNING]
+[NOTE]
 ====
-NB: this release is *not* backward compatible with the previous release.
+This release is not backwardly compatible with previous release
 ====
 
 * `1.13.0` - released against Isis 1.13.0
@@ -983,7 +1027,7 @@ https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
 
 If you have commit access to this project (or a fork of your own) then you can create interim releases using the `interim-release.sh` script.
 
-The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.14.4.20170331-0740`).
+The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.14.5.20170331-0740`).
 It then pushes the branch (and a tag) to the specified remote.
 
 A CI server such as Jenkins can monitor the branches matching the wildcard `origin/interim/*` and create a build.
@@ -993,12 +1037,12 @@ For example:
 
 [source]
 ----
-sh interim-release.sh 1.14.4 origin
+sh interim-release.sh 1.14.5 origin
 ----
 
 where
 
-* `1.14.4` is the base release
+* `1.14.5` is the base release
 * `origin` is the name of the remote to which you have permissions to write to.
 
 
@@ -1018,7 +1062,7 @@ For example:
 
 [source]
 ----
-sh release.sh 1.14.4 \
+sh release.sh 1.14.5 \
               1.15.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
@@ -1037,7 +1081,7 @@ If the script completes successfully, then push changes:
 
 [source]
 ----
-git push origin master && git push origin 1.14.4
+git push origin master && git push origin 1.14.5
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue before trying again.

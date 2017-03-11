@@ -22,20 +22,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import com.google.common.collect.FluentIterable;
-
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
-import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Mixin;
-import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.module.document.dom.DocumentModule;
-import org.incode.module.document.dom.impl.paperclips.Paperclip;
-import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
+import org.incode.module.document.dom.spi.SupportingDocumentsEvaluator;
 
 @Mixin(method="prop")
 public class Document_supports  {
@@ -50,38 +44,21 @@ public class Document_supports  {
     @Action(semantics = SemanticsOf.SAFE, domainEvent = ActionDomainEvent.class)
     @ActionLayout(contributed= Contributed.AS_ASSOCIATION)
     public Document prop() {
-        return evaluator.supportedBy(supportingDocumentCandidate);
+        for (SupportingDocumentsEvaluator supportingDocumentsEvaluator : supportingDocumentsEvaluators) {
+            Document supportedDocument =
+                    supportingDocumentsEvaluator.supportedBy(supportingDocumentCandidate);
+            if(supportedDocument != null) {
+                return supportedDocument;
+            }
+        }
+        return null;
     }
 
-    // hide this property if this document is not actually a supporting document (is instead a "primary" document)
     public boolean hideProp() {
         return prop() == null;
     }
 
-
     @Inject
-    Evaluator evaluator;
-
-    @DomainService(nature = NatureOfService.DOMAIN)
-    public static class Evaluator {
-
-        /**
-         * @return the (first) document, if any, for which *this* document is a supporting document, else null
-         */
-        @Programmatic
-        public Document supportedBy(Document secondaryDocument) {
-            final List<Paperclip> byDocument = paperclipRepository.findByDocument(secondaryDocument);
-            final List<Document> supportedDocumentsIfAny =
-                    FluentIterable.from(byDocument)
-                                  .transform(x -> x.getAttachedTo())
-                                  .filter(Document.class::isInstance)
-                                  .transform(Document.class::cast)
-                                  .toList();
-            return supportedDocumentsIfAny.isEmpty() ? null : supportedDocumentsIfAny.get(0);
-        }
-
-        @Inject
-        PaperclipRepository paperclipRepository;
-    }
+    List<SupportingDocumentsEvaluator> supportingDocumentsEvaluators;
 
 }

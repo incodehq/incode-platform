@@ -31,6 +31,7 @@ import org.apache.isis.applib.services.tablecol.TableColumnOrderService;
 
 import org.incode.module.document.dom.impl.paperclips.Paperclip;
 import org.incode.module.document.dom.mixins.T_documents;
+import org.incode.module.document.dom.spi.SupportingDocumentsEvaluator;
 
 @Mixin
 public class Document_supportingDocuments extends T_documents<Document> {
@@ -41,9 +42,20 @@ public class Document_supportingDocuments extends T_documents<Document> {
 
     // hide if this document is actually a supporting document for some other primary document
     public boolean hide$$() {
-        final Document document = supportsEvaluator.supportedBy(getAttachedTo());
-        return document != null;
+        Document document = getAttachedTo();
+        for (SupportingDocumentsEvaluator supportingDocumentsEvaluator : supportingDocumentsEvaluators) {
+            final SupportingDocumentsEvaluator.Evaluation evaluation =
+                    supportingDocumentsEvaluator.evaluate(document);
+            if(evaluation == SupportingDocumentsEvaluator.Evaluation.SUPPORTING) {
+                return true;
+            }
+        }
+        return false;
     }
+
+    @Inject
+    List<SupportingDocumentsEvaluator> supportingDocumentsEvaluators;
+
 
     @DomainService(
             nature = NatureOfService.DOMAIN,
@@ -80,7 +92,5 @@ public class Document_supportingDocuments extends T_documents<Document> {
         }
     }
 
-    @Inject
-    Document_supports.Evaluator supportsEvaluator;
 
 }
