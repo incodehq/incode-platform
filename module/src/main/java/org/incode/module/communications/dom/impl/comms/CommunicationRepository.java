@@ -51,7 +51,10 @@ public class CommunicationRepository  {
             final String atPath,
             final EmailAddress to,
             final String ccIfAny,
-            final String bccIfAny) {
+            final String cc2IfAny,
+            final String cc3IfAny,
+            final String bccIfAny,
+            final String bcc2IfAny) {
         final DateTime queuedAt = clockService.nowAsDateTime();
 
         final Communication communication = Communication.newEmail(atPath, subject, queuedAt);
@@ -59,7 +62,10 @@ public class CommunicationRepository  {
 
         communication.addCorrespondent(CommChannelRoleType.TO, to);
         communication.addCorrespondentIfAny(CommChannelRoleType.CC, ccIfAny);
+        communication.addCorrespondentIfAny(CommChannelRoleType.CC, cc2IfAny);
+        communication.addCorrespondentIfAny(CommChannelRoleType.CC, cc3IfAny);
         communication.addCorrespondentIfAny(CommChannelRoleType.BCC, bccIfAny);
+        communication.addCorrespondentIfAny(CommChannelRoleType.BCC, bcc2IfAny);
 
         final String currentUserEmailAddress = currentUserEmailAddressProvider.currentUserEmailAddress();
         communication.addCorrespondentIfAny(CommChannelRoleType.PREPARED_BY, currentUserEmailAddress);

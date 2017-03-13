@@ -125,7 +125,7 @@ public class Document_sendByEmail {
         // create comm and correspondents
         final String atPath = document.getAtPath();
         final String subject = document.getName();
-        final Communication communication =  communicationRepository.createEmail(subject, atPath, toChannel, cc, bcc);
+        final Communication communication =  communicationRepository.createEmail(subject, atPath, toChannel, cc, cc2, cc3, bcc, bcc2);
 
         transactionService.flushTransaction();
 
