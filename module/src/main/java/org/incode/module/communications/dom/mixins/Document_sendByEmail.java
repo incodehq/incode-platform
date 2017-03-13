@@ -196,11 +196,19 @@ public class Document_sendByEmail {
 
 
     private DocumentTemplate determineEmailCoverNoteTemplate() {
-        final DocumentType blankDocType = determineEmailCoverNoteDocumentType();
-        if(blankDocType == null) {
+        DocumentTemplate template = determineEmailCoverNoteTemplateElseNull();
+        if(template == null) {
+            throw new ApplicationException("Could not locate an email cover note template.");
+        }
+        return template;
+    }
+
+    private DocumentTemplate determineEmailCoverNoteTemplateElseNull() {
+        final DocumentType coverNoteDocumentType = determineEmailCoverNoteDocumentType();
+        if(coverNoteDocumentType == null) {
             return null;
         }
-        return documentTemplateRepository.findFirstByTypeAndApplicableToAtPath(blankDocType, document.getAtPath());
+        return documentTemplateRepository.findFirstByTypeAndApplicableToAtPath(coverNoteDocumentType, document.getAtPath());
     }
 
     private DocumentType determineEmailCoverNoteDocumentType() {
