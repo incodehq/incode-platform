@@ -37,12 +37,10 @@ import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.util.TitleBuffer;
 
 import org.incode.module.base.dom.types.ProperNameType;
-
 import org.incode.module.country.dom.impl.Country;
 import org.incode.module.country.dom.impl.State;
 import org.incode.module.country.dom.impl.StateRepository;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -64,7 +62,17 @@ public class PostalAddress extends CommunicationChannel {
         private AddressLineType() {
         }
 
-        public static final int MAX_LEN = 100;
+        /**
+         * @deprecated - use {@link Meta#MAX_LEN} instead
+         */
+        @Deprecated
+        public static final int MAX_LEN = Meta.MAX_LEN;
+
+        public static class Meta {
+            private Meta() { }
+
+            public static final int MAX_LEN = 100;
+        }
     }
 
     public String title() {
@@ -79,7 +87,7 @@ public class PostalAddress extends CommunicationChannel {
 
     // //////////////////////////////////////
 
-    @javax.jdo.annotations.Column(allowsNull = "true", length = PostalAddress.AddressLineType.MAX_LEN)
+    @javax.jdo.annotations.Column(allowsNull = "true", length = PostalAddress.AddressLineType.Meta.MAX_LEN)
     @Property(optionality = Optionality.MANDATORY)
     @PropertyLayout(named = "Address line 1")
     @Getter @Setter
@@ -87,14 +95,14 @@ public class PostalAddress extends CommunicationChannel {
 
     // //////////////////////////////////////
 
-    @javax.jdo.annotations.Column(allowsNull = "true", length = PostalAddress.AddressLineType.MAX_LEN)
+    @javax.jdo.annotations.Column(allowsNull = "true", length = PostalAddress.AddressLineType.Meta.MAX_LEN)
     @PropertyLayout(named = "Address line 2")
     @Getter @Setter
     private String address2;
 
     // //////////////////////////////////////
 
-    @javax.jdo.annotations.Column(allowsNull = "true", length = PostalAddress.AddressLineType.MAX_LEN)
+    @javax.jdo.annotations.Column(allowsNull = "true", length = PostalAddress.AddressLineType.Meta.MAX_LEN)
     @Property(optionality = Optionality.OPTIONAL)
     @PropertyLayout(named = "Address line 3")
     @Getter @Setter
@@ -102,7 +110,7 @@ public class PostalAddress extends CommunicationChannel {
 
     // //////////////////////////////////////
 
-    @javax.jdo.annotations.Column(allowsNull = "true", length = PostalAddress.PostalCodeType.MAX_LEN)
+    @javax.jdo.annotations.Column(allowsNull = "true", length = PostalAddress.PostalCodeType.Meta.MAX_LEN)
     @Property(optionality = Optionality.MANDATORY)
     @Getter @Setter
     private String postalCode;
@@ -140,7 +148,19 @@ public class PostalAddress extends CommunicationChannel {
         private PostalCodeType() {
         }
 
-        public static final int MAX_LEN = 12;
+        /**
+         * @deprecated - use {@link Meta#MAX_LEN} instead
+         */
+        @Deprecated
+        public static final int MAX_LEN = Meta.MAX_LEN;
+
+        public static class Meta {
+            private Meta() {
+            }
+
+            public static final int MAX_LEN = 12;
+        }
+
     }
 
     @ActionLayout(named = "Update")

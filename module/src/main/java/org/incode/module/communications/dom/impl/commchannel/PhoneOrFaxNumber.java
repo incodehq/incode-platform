@@ -50,14 +50,18 @@ public class PhoneOrFaxNumber extends CommunicationChannel {
         return getPhoneNumber();
     }
 
-    @javax.jdo.annotations.Column(allowsNull = "true", length = PhoneNumberType.MAX_LEN)
+    @javax.jdo.annotations.Column(allowsNull = "true", length = PhoneNumberType.Meta.MAX_LEN)
     @Property(optionality = Optionality.MANDATORY)
     @Getter @Setter
     private String phoneNumber;
 
     @ActionLayout(named = "Change Number")
     public PhoneOrFaxNumber changePhoneOrFaxNumber(
-            final @Parameter(regexPattern = PhoneNumberType.REGEX, regexPatternReplacement = PhoneNumberType.REGEX_DESC) String phoneNumber) {
+            @Parameter(
+                    regexPattern = PhoneNumberType.Meta.REGEX,
+                    regexPatternReplacement = PhoneNumberType.Meta.REGEX_DESC
+            )
+            final String phoneNumber) {
         setPhoneNumber(phoneNumber);
 
         return this;

@@ -50,16 +50,16 @@ public class EmailAddress extends CommunicationChannel {
         return getEmailAddress();
     }
 
-    @javax.jdo.annotations.Column(allowsNull = "true", length = EmailType.MAX_LEN)
+    @javax.jdo.annotations.Column(allowsNull = "true", length = EmailType.Meta.MAX_LEN)
     @Property(optionality = Optionality.MANDATORY)
     @Getter @Setter
     private String emailAddress;
 
     public EmailAddress changeEmailAddress(
             @Parameter(
-                    maxLength = EmailType.MAX_LEN,
-                    regexPattern = EmailType.REGEX,
-                    regexPatternReplacement = EmailType.REGEX_DESC
+                    maxLength = EmailType.Meta.MAX_LEN,
+                    regexPattern = EmailType.Meta.REGEX,
+                    regexPatternReplacement = EmailType.Meta.REGEX_DESC
             )
             final String emailAddress) {
         setEmailAddress(emailAddress);
