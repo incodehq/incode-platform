@@ -82,6 +82,13 @@ import lombok.Setter;
                         + "   && roleName      == :roleName "
                         + "ORDER BY documentCreatedAt DESC "),
         @javax.jdo.annotations.Query(
+                name = "findByDocumentAndAttachedTo", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.module.document.dom.impl.paperclips.Paperclip "
+                        + "WHERE document      == :document "
+                        + "   && attachedToStr == :attachedToStr "
+                        + "ORDER BY documentCreatedAt DESC "),
+        @javax.jdo.annotations.Query(
                 name = "findByDocumentAndAttachedToAndRoleName", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.module.document.dom.impl.paperclips.Paperclip "

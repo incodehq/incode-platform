@@ -415,7 +415,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.incode.module.document</groupId>
     <artifactId>incode-module-document-dom</artifactId>
-    <version>1.14.5</version>
+    <version>1.14.6</version>
 </dependency>
 ----
 
@@ -914,7 +914,15 @@ setting `isis.persistor.datanucleus.impl.datanucleus.Mapping=xxx` in link:https:
 [[_incode-module-document_change-log]]
 == Change Log
 
+* `1.14.6` - fixes https://github.com/incodehq/incode-module-document/issues/21[#21] (remove attachments), https://github.com/incodehq/incode-module-document/issues/22[#22] (`PaperclipForDocument.attachedToId` column).
++
+[NOTE]
+====
+This release requires a database migration: the `PaperclipForDocument` table's `communicationId` column has been renamed (corrected) to be called `attachedToId`.
+====
+
 * `1.14.5` - fixes https://github.com/incodehq/incode-module-document/issues/20[#20] (`SupportingDocumentEvaluator`).
+
 * `1.14.4` - fixes https://github.com/incodehq/incode-module-document/issues/19[#19] (`AttachmentAdvisor`). +
 +
 [NOTE]
@@ -923,9 +931,13 @@ This release is not backwardly compatible with previous release.
 ====
 
 * `1.14.3` - fixes https://github.com/incodehq/incode-module-document/issues/18[#18]
+
 * `1.14.2` - fixes https://github.com/incodehq/incode-module-document/issues/14[#14], https://github.com/incodehq/incode-module-document/issues/15[#15], https://github.com/incodehq/incode-module-document/issues/16[#16],  https://github.com/incodehq/incode-module-document/issues/17[#17]
+
 * `1.14.1` - fixes https://github.com/incodehq/incode-module-document/issues/13[#13]
+
 * `1.14.0` - released against Isis 1.14.0
+
 * `1.13.12` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/12[#12] (remove `Paperclip_delete()` action).
 
 * `1.13.11` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/9[#9], https://github.com/incodehq/incode-module-document/issues/10[#10], https://github.com/incodehq/incode-module-document/issues/11[#11].
@@ -1027,7 +1039,7 @@ https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
 
 If you have commit access to this project (or a fork of your own) then you can create interim releases using the `interim-release.sh` script.
 
-The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.14.5.20170331-0740`).
+The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.14.6.20170331-0740`).
 It then pushes the branch (and a tag) to the specified remote.
 
 A CI server such as Jenkins can monitor the branches matching the wildcard `origin/interim/*` and create a build.
@@ -1037,12 +1049,12 @@ For example:
 
 [source]
 ----
-sh interim-release.sh 1.14.5 origin
+sh interim-release.sh 1.14.6 origin
 ----
 
 where
 
-* `1.14.5` is the base release
+* `1.14.6` is the base release
 * `origin` is the name of the remote to which you have permissions to write to.
 
 
@@ -1062,7 +1074,7 @@ For example:
 
 [source]
 ----
-sh release.sh 1.14.5 \
+sh release.sh 1.14.6 \
               1.15.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
@@ -1081,7 +1093,7 @@ If the script completes successfully, then push changes:
 
 [source]
 ----
-git push origin master && git push origin 1.14.5
+git push origin master && git push origin 1.14.6
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue before trying again.

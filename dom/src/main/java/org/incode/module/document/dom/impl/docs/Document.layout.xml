@@ -125,6 +125,7 @@
                         <bs3:col span="12">
                             <cpt:collection id="supportingDocuments">
                                 <cpt:action id="attachSupportingPdf"/>
+                                <cpt:action id="removeAttachment"/>
                             </cpt:collection>
                             <cpt:collection id="attachedTo">
                                 <cpt:describedAs>Objects that this document attaches to</cpt:describedAs>

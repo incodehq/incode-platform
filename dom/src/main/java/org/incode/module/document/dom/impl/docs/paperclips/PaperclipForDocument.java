@@ -54,10 +54,10 @@ import lombok.Setter;
 )
 public class PaperclipForDocument extends Paperclip {
 
-    //region > communication (property)
+    //region > attachedDocument (property)
     @Column(
             allowsNull = "false",
-            name = "communicationId"
+            name = "attachedToId"
     )
     @Getter @Setter
     private Document attachedDocument;

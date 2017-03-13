@@ -95,6 +95,30 @@ public class PaperclipRepository {
     }
     //endregion
 
+    //region > findByDocumentAndAttachedTo (programmatic)
+    @Programmatic
+    public List<Paperclip> findByDocumentAndAttachedTo(
+            final DocumentAbstract<?> document,
+            final Object attachedTo) {
+        if(document == null) {
+            return null;
+        }
+        if(attachedTo == null) {
+            return null;
+        }
+        final Bookmark bookmark = bookmarkService.bookmarkFor(attachedTo);
+        if(bookmark == null) {
+            return null;
+        }
+        final String attachedToStr = bookmark.toString();
+        return repositoryService.allMatches(
+                new QueryDefault<>(Paperclip.class,
+                        "findByDocumentAndAttachedTo",
+                        "document", document,
+                        "attachedToStr", attachedToStr));
+    }
+    //endregion
+
     //region > findByDocumentAndAttachedToAndRoleName (programmatic)
     @Programmatic
     public Paperclip findByDocumentAndAttachedToAndRoleName(
