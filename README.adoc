@@ -194,7 +194,7 @@ Each `Communication` relates to one or more ``CommunicationChannel``s by way of 
 [[_incode-module-communications_commchannel-mixins]]
 == (CommunicationChannel) Contributions
 
-[***TODO***]
+[***TODO - to document ***]
 
 The `CommunicationChannelOwner_newChannelContributions` ...
 
@@ -216,6 +216,16 @@ The mixins can be suppressed if necessary using vetoing subscribers to their cor
 
 These mixins on `Document` are used to create either email or postal ``Communication``s.
 They are supported by the `DocumentCommunicationSupport` SPI service, described xref:_incode-module-communications_services-spi_document-communication-support[below].
+
+The xref:_incode-module-communications_services-spi_document-communication-support[DocumentCommunicationSupport] SPI provides the cover note template to use.
+
+
+[IMPORTANT]
+====
+Note that the cover note template should have an `AttachmentAdvisor` set to "atach to none"; the mixin action has the responsibility of wiring the cover note `Document` to the newly created `Communication`.
+====
+
+
 
 
 [[_incode-module-communications_mixins_communications]]
@@ -310,6 +320,11 @@ public class CommHeaderForPost ... {
 ----
 <1> Reason, if any, why the communication cannot be sent by post.
 
+
+[IMPORTANT]
+====
+Note that the cover note template should have an `AttachmentAdvisor` set to "atach to none"; the mixin action has the responsibility of wiring the cover note `Document` to the newly created `Communication`.
+====
 
 
 [[_incode-module-communications_services-spi_current-user-email-address-provider]]

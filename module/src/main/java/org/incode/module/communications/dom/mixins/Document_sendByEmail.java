@@ -130,13 +130,16 @@ public class Document_sendByEmail {
 
         transactionService.flushTransaction();
 
-        // create and attach cover note
+        // create cover note
+        //
+        // nb: there is a presumption is that the cover note will not be automatically attached to any other objects,
+        // ie its AttachmentAdvisor should be AttachToNone.
         final DocumentTemplate coverNoteTemplate = determineEmailCoverNoteTemplate();
-
         final Document coverNoteDoc =
                 documentCreatorService.createDocumentAndAttachPaperclips(this.document, coverNoteTemplate);
         coverNoteDoc.render(coverNoteTemplate, this.document);
 
+        // "manually" attach the cover note to the comm
         paperclipRepository.attach(coverNoteDoc, DocumentConstants.PAPERCLIP_ROLE_COVER, communication);
 
         // also copy over as attachments to the comm anything else also attached to original document
