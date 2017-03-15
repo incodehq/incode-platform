@@ -64,6 +64,7 @@ import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.background.BackgroundService;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.email.EmailService;
+import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.util.ObjectContracts;
 
@@ -326,8 +327,13 @@ public class Communication implements Comparable<Communication> {
             return;
         }
         final CommChannelRole role = new CommChannelRole(roleType, this, null, description);
+        repositoryService.persistAndFlush(role); // so that id is populated
+
         getCorrespondents().add(role);
     }
+
+    @Inject
+    RepositoryService repositoryService;
     //endregion
 
     //region > state (property)

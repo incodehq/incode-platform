@@ -72,7 +72,7 @@ Copyright 2014~2015 Dan Haywood
 
         <incode-module-base.version>1.14.0</incode-module-base.version>
         <incode-module-country.version>1.14.0</incode-module-country.version>
-        <incode-module-document.version>1.14.5</incode-module-document.version>
+        <incode-module-document.version>1.15.0-SNAPSHOT</incode-module-document.version>
         <incode-module-unittestsupport.version>1.14.0</incode-module-unittestsupport.version>
         <incode-module-integtestsupport.version>1.14.0</incode-module-integtestsupport.version>
 

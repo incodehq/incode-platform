@@ -44,6 +44,8 @@ import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.PropertyLayout;
+import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.util.ObjectContracts;
 
@@ -201,6 +203,9 @@ public class CommChannelRole implements Comparable<CommChannelRole> {
     @Property(
             domainEvent = CommunicationDomainEvent.class,
             editing = Editing.DISABLED
+    )
+    @PropertyLayout(
+            hidden = Where.REFERENCES_PARENT
     )
     private Communication communication;
     //endregion
