@@ -19,7 +19,27 @@
         </col>
     </row>
     <row>
-        <col span="12" unreferencedCollections="true">
+        <col span="12">
+            <tabGroup  unreferencedCollections="true">
+                <tab name="Communications">
+                    <row>
+                        <col span="12">
+                            <cpt:collection id="recentCommunications">
+                                <cpt:action id="findCommunications"/>
+                            </cpt:collection>
+                        </col>
+                    </row>
+                </tab>
+                <tab name="dummyTabToForceFirstTabToAppear2">
+                    <row>
+                        <col span="12">
+                            <cpt:fieldSet name="dummy2">
+                                <cpt:property id="dummy2"/>
+                            </cpt:fieldSet>
+                        </col>
+                    </row>
+                </tab>
+            </tabGroup>
         </col>
     </row>
 </grid>

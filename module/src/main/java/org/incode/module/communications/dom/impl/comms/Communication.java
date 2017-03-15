@@ -37,6 +37,7 @@ import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Queries;
+import javax.jdo.annotations.Query;
 import javax.jdo.annotations.Uniques;
 import javax.jdo.annotations.Version;
 import javax.jdo.annotations.VersionStrategy;
@@ -94,7 +95,16 @@ import lombok.Setter;
         strategy = VersionStrategy.VERSION_NUMBER,
         column = "version")
 @Queries({
-        // none yet
+        @Query(
+                name = "findByCommunicationChannelAndQueuedOrSentBetween", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.module.communications.dom.impl.comms.Communication "
+                        + "WHERE this.correspondents.contains(correspondent) "
+                        + "   && correspondent.channel == :communicationChannel  "
+                        + "   && (    ( :from <= queuedAt && queuedAt <= :to ) "
+                        + "        || ( :from <= sentAt   && sentAt   <= :to )  ) "
+                        + " VARIABLES org.incode.module.communications.dom.impl.comms.CommChannelRole correspondent "
+                        + "ORDER BY queuedAt DESC "),
 })
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Indices({

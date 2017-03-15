@@ -18,6 +18,8 @@
  */
 package org.incode.module.communications.dom.impl.comms;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.joda.time.DateTime;
@@ -25,10 +27,12 @@ import org.joda.time.DateTime;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
+import org.incode.module.communications.dom.impl.commchannel.CommunicationChannel;
 import org.incode.module.communications.dom.impl.commchannel.EmailAddress;
 import org.incode.module.communications.dom.impl.commchannel.PostalAddress;
 import org.incode.module.communications.dom.spi.CurrentUserEmailAddressProvider;
@@ -90,6 +94,20 @@ public class CommunicationRepository  {
         repositoryService.persist(communication);
         return communication;
     }
+
+    @Programmatic
+    public List<Communication> findByCommunicationChannelAndQueuedOrSentBetween(
+            final CommunicationChannel communicationChannel,
+            final DateTime fromDateTime, final DateTime toDateTime) {
+        return repositoryService.allMatches(
+                new QueryDefault<>(Communication.class,
+                        "findByCommunicationChannelAndQueuedOrSentBetween",
+                        "communicationChannel", communicationChannel,
+                        "from", fromDateTime,
+                        "to", toDateTime));
+    }
+
+
 
 
     @Inject

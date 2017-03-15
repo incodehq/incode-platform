@@ -81,10 +81,25 @@
         </col>
     </row>
     <row>
-        <col span="12" unreferencedCollections="false">
-            <cpt:collection id="agreements"/>
-        </col>
-        <col span="12" unreferencedCollections="true">
+        <col span="12">
+            <tabGroup  unreferencedCollections="true">
+                <tab name="Agreements">
+                    <row>
+                        <col span="12">
+                            <cpt:collection id="agreements"/>
+                        </col>
+                    </row>
+                </tab>
+                <tab name="Communications">
+                    <row>
+                        <col span="12">
+                            <cpt:collection id="recentCommunications">
+                                <cpt:action id="findCommunications"/>
+                            </cpt:collection>
+                        </col>
+                    </row>
+                </tab>
+            </tabGroup>
         </col>
     </row>
 </grid>
