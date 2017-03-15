@@ -678,7 +678,8 @@ These three mixins work together.
 For generated ``Document``s, the `Document_attachSupportingPdf` mixin allows PDFs to be associated (eg a supplier receipt), and a corresponding `Document` is created to hold that PDF.
 These are then displayed in the `Document_supportingDocuments` mixin collection.
 
-For the supporting ``Document``s themselves, the  `Document_supports` property mixin points back to the associated `Document`.
+For the supporting ``Document``s themselves, the  `Document_supports` collection mixin points back to the associated `Document`.
+(Sometimes a supporting `Document` might be attached to multiple ``Document``s - eg a piece of general correspondence - which is why this is a collection rather than a single property).
 
 The `_supportingDocuments` collection mixin is hidden for "secondary" supporting documents themselves, conversely the `_supports` property is hidden for the "primary" supported documents.
  In other words these form a parent/child relationship.
@@ -914,7 +915,7 @@ setting `isis.persistor.datanucleus.impl.datanucleus.Mapping=xxx` in link:https:
 [[_incode-module-document_change-log]]
 == Change Log
 
-* `1.14.6` - fixes https://github.com/incodehq/incode-module-document/issues/21[#21] (remove attachments), https://github.com/incodehq/incode-module-document/issues/22[#22] (`PaperclipForDocument.attachedToId` column).
+* `1.14.6` -  https://github.com/incodehq/incode-module-document/issues/21[#21] (remove attachments), https://github.com/incodehq/incode-module-document/issues/22[#22] (`PaperclipForDocument.attachedToId` column), https://github.com/incodehq/incode-module-document/issues/23[#23] (`_supports` mixin)
 +
 [NOTE]
 ====

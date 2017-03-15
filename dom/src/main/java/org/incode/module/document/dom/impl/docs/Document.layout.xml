@@ -77,7 +77,6 @@
                 </bs3:tab>
             </bs3:tabGroup>
             <cpt:fieldSet name="Related">
-                <cpt:property id="supports" hidden="ALL_TABLES"/>
                 <!-- if communication module also configured, then it will contribute a 'coverNoteFor' property -->
                 <cpt:property id="coverNoteFor" hidden="ALL_TABLES"/>
             </cpt:fieldSet>
@@ -127,6 +126,7 @@
                                 <cpt:action id="attachSupportingPdf"/>
                                 <cpt:action id="removeAttachment"/>
                             </cpt:collection>
+                            <cpt:collection id="supports"/>
                             <cpt:collection id="attachedTo">
                                 <cpt:describedAs>Objects that this document attaches to</cpt:describedAs>
                             </cpt:collection>

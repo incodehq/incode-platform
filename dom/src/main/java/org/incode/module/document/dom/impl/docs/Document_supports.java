@@ -19,18 +19,21 @@
 package org.incode.module.document.dom.impl.docs;
 
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
+
+import com.google.common.collect.Sets;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
-import org.apache.isis.applib.services.factory.FactoryService;
+import org.apache.isis.applib.services.queryresultscache.QueryResultsCache;
 
 import org.incode.module.document.dom.DocumentModule;
-import org.incode.module.document.dom.impl.paperclips.Paperclip;
 import org.incode.module.document.dom.spi.SupportingDocumentsEvaluator;
 
 /**
@@ -50,28 +53,39 @@ public class Document_supports  {
     }
     @Action(semantics = SemanticsOf.SAFE, domainEvent = ActionDomainEvent.class)
     @ActionLayout(contributed= Contributed.AS_ASSOCIATION)
-    public List<Paperclip> coll() {
-        DocumentAbstract_attachedTo mixin = factoryService
-                .mixin(DocumentAbstract_attachedTo.class, supportingDocumentCandidate);
-
-        return mixin.coll();
+    public Set<Document> coll() {
+        return supportedDocuments();
     }
 
     public boolean hideColl() {
+        Set<Document> documents = supportedDocuments();
+        return documents.isEmpty();
+    }
+
+    private Set<Document> supportedDocuments() {
+        return queryResultsCache.execute(new Callable<Set<Document>>() {
+            @Override public Set<Document> call() throws Exception {
+                return supportedDocumentsNoCache(supportingDocumentCandidate);
+            }
+        }, Document_supports.class, "supportedDocuments", supportingDocumentCandidate);
+    }
+
+    private Set<Document> supportedDocumentsNoCache(final Document supportingDocumentCandidate) {
+        Set<Document> documents = Sets.newTreeSet();
         for (SupportingDocumentsEvaluator supportingDocumentsEvaluator : supportingDocumentsEvaluators) {
-            Document supportedDocument =
+            List<Document> supportedDocuments =
                     supportingDocumentsEvaluator.supportedBy(supportingDocumentCandidate);
-            if(supportedDocument != null) {
-                return false;
+            if(supportedDocuments != null) {
+                documents.addAll(supportedDocuments);
             }
         }
-        return true;
+        return documents;
     }
 
     @Inject
-    List<SupportingDocumentsEvaluator> supportingDocumentsEvaluators;
+    QueryResultsCache queryResultsCache;
 
     @Inject
-    FactoryService factoryService;
+    List<SupportingDocumentsEvaluator> supportingDocumentsEvaluators;
 
 }

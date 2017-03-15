@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import com.google.common.collect.FluentIterable;
+import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -66,7 +67,7 @@ public interface SupportingDocumentsEvaluator {
      * </p>
      */
     @Programmatic
-    public Document supportedBy(Document candidateSupportingDocument);
+    public List<Document> supportedBy(Document candidateSupportingDocument);
 
 
     @DomainService(
@@ -75,7 +76,7 @@ public interface SupportingDocumentsEvaluator {
     public static class Default implements SupportingDocumentsEvaluator {
 
         @Override
-        public Document supportedBy(Document candidateSupportingDocument) {
+        public List<Document> supportedBy(Document candidateSupportingDocument) {
             final List<Paperclip> byDocument = paperclipRepository.findByDocument(candidateSupportingDocument);
             final List<Document> supportedDocumentsIfAny =
                     FluentIterable.from(byDocument)
@@ -83,12 +84,13 @@ public interface SupportingDocumentsEvaluator {
                             .filter(Document.class::isInstance)
                             .transform(Document.class::cast)
                             .toList();
-            return supportedDocumentsIfAny.isEmpty() ? null : supportedDocumentsIfAny.get(0);
+            return Lists.newArrayList(supportedDocumentsIfAny);
         }
 
         @Override
         public Evaluation evaluate(final Document candidateSupportingDocument) {
-            boolean b = supportedBy(candidateSupportingDocument) != null;
+            List<Document> documents = supportedBy(candidateSupportingDocument);
+            boolean b = documents != null && !documents.isEmpty();
             return b ? Evaluation.SUPPORTING : Evaluation.UNKNOWN;
         }
 
