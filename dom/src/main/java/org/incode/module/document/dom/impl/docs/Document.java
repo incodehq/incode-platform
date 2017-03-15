@@ -119,10 +119,11 @@ public class Document extends DocumentAbstract<Document> {
             }
             ev.setTranslatableTitle(titleOf(ev.getSource()));
         }
-        private TranslatableString titleOf(final DocumentAbstract document) {
-            return TranslatableString.tr("[{type}] {name}",
+        private TranslatableString titleOf(final Document document) {
+            return TranslatableString.tr("[{type}] {name} {createdAt}",
                     "name", document.getName(),
-                    "type", document.getType().getReference());
+                    "type", document.getType().getReference(),
+                    "createdAt", document.getCreatedAt().toString("(dd-MM-YYYY hh:mm)"));
         }
     }
 

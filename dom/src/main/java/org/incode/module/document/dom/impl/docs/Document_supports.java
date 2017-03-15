@@ -27,11 +27,18 @@ import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.services.factory.FactoryService;
 
 import org.incode.module.document.dom.DocumentModule;
+import org.incode.module.document.dom.impl.paperclips.Paperclip;
 import org.incode.module.document.dom.spi.SupportingDocumentsEvaluator;
 
-@Mixin(method="prop")
+/**
+ * In essence this renames the {@link DocumentAbstract_attachedTo} mixin to "supports", only contributed to those
+ * documents where at least one {@link SupportingDocumentsEvaluator} indicates that the document in question is
+ * in support of some other primary document.
+ */
+@Mixin(method="coll")
 public class Document_supports  {
 
     private final Document supportingDocumentCandidate;
@@ -43,22 +50,28 @@ public class Document_supports  {
     }
     @Action(semantics = SemanticsOf.SAFE, domainEvent = ActionDomainEvent.class)
     @ActionLayout(contributed= Contributed.AS_ASSOCIATION)
-    public Document prop() {
+    public List<Paperclip> coll() {
+        DocumentAbstract_attachedTo mixin = factoryService
+                .mixin(DocumentAbstract_attachedTo.class, supportingDocumentCandidate);
+
+        return mixin.coll();
+    }
+
+    public boolean hideColl() {
         for (SupportingDocumentsEvaluator supportingDocumentsEvaluator : supportingDocumentsEvaluators) {
             Document supportedDocument =
                     supportingDocumentsEvaluator.supportedBy(supportingDocumentCandidate);
             if(supportedDocument != null) {
-                return supportedDocument;
+                return false;
             }
         }
-        return null;
-    }
-
-    public boolean hideProp() {
-        return prop() == null;
+        return true;
     }
 
     @Inject
     List<SupportingDocumentsEvaluator> supportingDocumentsEvaluators;
+
+    @Inject
+    FactoryService factoryService;
 
 }

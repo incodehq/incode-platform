@@ -40,7 +40,7 @@ import org.incode.module.document.dom.impl.paperclips.Paperclip;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
 import org.incode.module.document.dom.spi.SupportingDocumentsEvaluator;
 
-@Mixin
+@Mixin(method = "coll")
 public class DocumentAbstract_attachedTo<T> {
 
 
@@ -67,14 +67,14 @@ public class DocumentAbstract_attachedTo<T> {
             contributed = Contributed.AS_ASSOCIATION
     )
     @CollectionLayout(defaultView = "table")
-    public List<Paperclip> $$() {
+    public List<Paperclip> coll() {
         return queryResultsCache.execute(
                 () -> paperclipRepository.findByDocument(document)
                 , getClass(), "$$", document);
     }
 
-    public boolean hide$$() {
-        if (document instanceof DocumentTemplate && $$().isEmpty()) {
+    public boolean hideColl() {
+        if (document instanceof DocumentTemplate && coll().isEmpty()) {
             return true;
         }
         if(document instanceof Document) {

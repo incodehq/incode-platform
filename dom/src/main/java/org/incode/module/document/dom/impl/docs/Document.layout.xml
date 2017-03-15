@@ -142,7 +142,7 @@
                                 <cpt:action id="sendByPost"/>
                             </cpt:collection>
                             <cpt:collection id="communications" defaultView="table">
-                                <cpt:named>Communications (already sent)</cpt:named>
+                                <cpt:named>Communications</cpt:named>
                             </cpt:collection>
                         </bs3:col>
                     </bs3:row>
