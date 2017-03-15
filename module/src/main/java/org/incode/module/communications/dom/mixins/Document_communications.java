@@ -91,7 +91,7 @@ public class Document_communications {
     public static class SupportingDocumentsEvaluatorForCoverNotes implements SupportingDocumentsEvaluator {
 
         @Override
-        public Document supportedBy(final Document candidateSupportingDocument) {
+        public List<Document> supportedBy(final Document candidateSupportingDocument) {
             return null;
         }
 
@@ -99,7 +99,6 @@ public class Document_communications {
         public Evaluation evaluate(final Document candidateSupportingDocument) {
             final Communication communication = coverNoteEvaluator.coverNoteFor(candidateSupportingDocument);
             return communication != null ? Evaluation.SUPPORTING : Evaluation.UNKNOWN;
-
         }
 
 
