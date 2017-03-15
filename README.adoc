@@ -833,6 +833,52 @@ public interface DocumentAttachmentAdvisor {
 }
 ----
 
+
+=== SupportingDocumentsEvaluator
+
+Some applications may have the concept of a "supporting document", whereby one document is attached to another document and supports it in some way.
+For example, an application could generates a document for an invoice, and this invoice might have receipts attached to it.
+
+To continue this example, such receipts most likely exist already, for example as PDFs.
+In such a case the application would directly create the supporting document representing that PDF `Blob` programmatically:
+
+[source,java]
+----
+final Document receiptDoc = documentRepository.create(
+        documentType, atPath, name, blob.getMimeType().getBaseType());
+receiptDoc.setRenderedAt(clockService.nowAsDateTime());
+receiptDoc.setState(DocumentState.RENDERED);
+receiptDoc.setSort(DocumentSort.BLOB);
+receiptDoc.setBlobBytes(blob.getBytes());
+----
+
+For such supporting documents much of the state normally associated with a `Document` should be suppressed:
+
+* a supporting document are probably not generated, so the "backgroundCommands" is not required.
+* the "attachedTo" collection does not make sense either, to avoid chains of ``Document``s (one attached to another, attached to another).
+
+On the other hand we might want to explicitly identify that one document supports another, and so the "supportedBy" and "supports" collections help reinforce the semantics of the relatinoship.
+
+The `SupportingDocumentsEvaluator` is a SPI to tell the document module that such-and-such a `Document` is a supporting document:
+
+[source,java]
+----
+public interface SupportingDocumentsEvaluator {
+    enum Evaluation {
+        SUPPORTING,
+        NOT_SUPPORTING,
+        UNKNOWN
+    }
+    Evaluation evaluate(Document candidateSupportingDocument);
+    List<Document> supportedBy(Document candidateSupportingDocument);
+}
+----
+
+The module provides a default implementation that will indicate a `Document` is supporting if it can find any other `Document` that attaches to the candidate document.
+This implementation can be suppressed if necessary in the usual fashion of a higher priority implementation returning a definitive `Evaluation` one way or the other for the document in question.
+
+
+
 [[_incode-module-document_services-internal]]
 == Internal Services
 
@@ -859,50 +905,6 @@ However, the  "ForAtPath" bit of the name of this service is a mistake, because 
 
 
 
-== SupportingDocumentsEvaluator
-
-Some applications may have the concept of a "supporting document", whereby one document is attached to another document and supports it in some way.
-For example, an application could generates a document for an invoice, and this invoice might have receipts attached to it.
-
-To continue this example, such receipts most likely exist already, for example as PDFs.
-In such a case the application would directly create the supporting document representing that PDF `Blob` programmatically:
-
-[source,java]
-----
-final Document receiptDoc = documentRepository.create(
-        documentType, atPath, name, blob.getMimeType().getBaseType());
-receiptDoc.setRenderedAt(clockService.nowAsDateTime());
-receiptDoc.setState(DocumentState.RENDERED);
-receiptDoc.setSort(DocumentSort.BLOB);
-receiptDoc.setBlobBytes(blob.getBytes());
-----
-
-For such supporting documents much of the state normally associated with a `Document` should be suppressed:
-
-* a supporting document are probably not generated, so the "backgroundCommands" is not required.
-* the "attachedTo" collection does not make sense either, to avoid chains of ``Document``s (one attached to another, attached to another).
-
-On the other hand we might want to explicitly identify that one document supports another, and so a "supportedBy" collection and "supports" property help reinforce the semantics of the relatinoship.
-
-The `SupportingDocumentsEvaluator` is a SPI to tell the document module that such-and-such a `Document` is a supporting document:
-
-[source,java]
-----
-public interface SupportingDocumentsEvaluator {
-    enum Evaluation {
-        SUPPORTING,
-        NOT_SUPPORTING,
-        UNKNOWN
-    }
-    Evaluation evaluate(Document candidateSupportingDocument);
-    Document supportedBy(Document candidateSupportingDocument);
-}
-----
-
-The module provides a default implementation that will indicate a `Document` is supporting if it can find any other `Document` that attaches to the candidate document.
-This implementation can be suppressed if necessary in the usual fashion of a higher priority implementation returning a definitive `Evaluation` one way or the other for the document in question.
-
-
 [[_incode-module-document_known-issues]]
 == Known issues
 
@@ -919,7 +921,7 @@ setting `isis.persistor.datanucleus.impl.datanucleus.Mapping=xxx` in link:https:
 +
 [NOTE]
 ====
-This release requires a database migration: the `PaperclipForDocument` table's `communicationId` column has been renamed (corrected) to be called `attachedToId`.
+This release is not backwardly compatible with previous release (change to `SupportingDocumentEvaluator`) and also requires a database migration (the `PaperclipForDocument` table's `communicationId` column has been renamed to be called `attachedToId`).
 ====
 
 * `1.14.5` - fixes https://github.com/incodehq/incode-module-document/issues/20[#20] (`SupportingDocumentEvaluator`).
