@@ -27,7 +27,7 @@ public abstract class CommunicationChannelOwner_communicationChannelTitlesAbstra
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(contributed = Contributed.AS_ASSOCIATION)
     @Property(hidden = Where.OBJECT_FORMS)
-    public String $$() {
+    public String prop() {
         return communicationChannelTitleService.channelTitleJoined(owner, communicationChannelType,
                 separator);
     }

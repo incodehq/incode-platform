@@ -57,7 +57,7 @@ import org.incode.module.document.dom.services.DocumentCreatorService;
 /**
  * Provides the ability to send an email.
  */
-@Mixin
+@Mixin(method = "act")
 public class Document_sendByEmail {
 
     private final Document document;
@@ -76,7 +76,7 @@ public class Document_sendByEmail {
             cssClassFa = "at",
             contributed = Contributed.AS_ACTION
     )
-    public Communication $$(
+    public Communication act(
             @ParameterLayout(named = "to:")
             final EmailAddress toChannel,
             @Parameter(
@@ -139,10 +139,13 @@ public class Document_sendByEmail {
                 documentCreatorService.createDocumentAndAttachPaperclips(this.document, coverNoteTemplate);
         coverNoteDoc.render(coverNoteTemplate, this.document);
 
-        // "manually" attach the cover note to the comm
+        // manually attach the cover note to the comm
         paperclipRepository.attach(coverNoteDoc, DocumentConstants.PAPERCLIP_ROLE_COVER, communication);
 
-        // also copy over as attachments to the comm anything else also attached to original document
+        // also attach this "primary" document to the comm
+        paperclipRepository.attach(this.document, DocumentConstants.PAPERCLIP_ROLE_PRIMARY, communication);
+
+        // also copy over as attachments to the comm anything else also attached to primary document
         final List<Document> communicationAttachments = attachmentProvider.attachmentsFor(document);
         for (Document communicationAttachment : communicationAttachments) {
             paperclipRepository.attach(communicationAttachment, DocumentConstants.PAPERCLIP_ROLE_ATTACHMENT, communication);
@@ -157,7 +160,7 @@ public class Document_sendByEmail {
     }
 
 
-    public String disable$$() {
+    public String disableAct() {
         if (emailService == null || !emailService.isConfigured()) {
             return "Email service not configured";
         }
@@ -170,30 +173,30 @@ public class Document_sendByEmail {
         if(determineEmailHeader().getDisabledReason() != null) {
             return determineEmailHeader().getDisabledReason();
         }
-        if(choices0$$().isEmpty()) {
+        if(choices0Act().isEmpty()) {
             return "Could not locate any email address(es) to sent to";
         }
         return null;
     }
 
-    public EmailAddress default0$$() {
+    public EmailAddress default0Act() {
         final EmailAddress toDefault = determineEmailHeader().getToDefault();
         if (toDefault != null) {
             return toDefault;
         }
-        final Set<EmailAddress> choices = choices0$$();
+        final Set<EmailAddress> choices = choices0Act();
         return choices.isEmpty() ? null : choices.iterator().next();
     }
 
-    public Set<EmailAddress> choices0$$() {
+    public Set<EmailAddress> choices0Act() {
         return determineEmailHeader().getToChoices();
     }
 
-    public String default1$$() {
+    public String default1Act() {
         return determineEmailHeader().getCc();
     }
 
-    public String default4$$() {
+    public String default4Act() {
         return determineEmailHeader().getBcc();
     }
 

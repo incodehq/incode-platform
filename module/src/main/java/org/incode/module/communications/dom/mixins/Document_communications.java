@@ -20,6 +20,7 @@ package org.incode.module.communications.dom.mixins;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -33,6 +34,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.services.tablecol.TableColumnOrderService;
 
 import org.incode.module.communications.dom.impl.comms.Communication;
 import org.incode.module.communications.dom.impl.covernotes.Document_coverNoteFor;
@@ -41,7 +43,7 @@ import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
 import org.incode.module.document.dom.spi.SupportingDocumentsEvaluator;
 
-@Mixin
+@Mixin(method = "coll")
 public class Document_communications {
 
     private final Document document;
@@ -59,7 +61,7 @@ public class Document_communications {
     @ActionLayout(
             contributed = Contributed.AS_ASSOCIATION
     )
-    public List<Communication> $$() {
+    public List<Communication> coll() {
         final List<Communication> communications = Lists.newArrayList(
                 paperclipRepository.findByDocument(document).stream()
                                     .map(paperclip -> paperclip.getAttachedTo())
@@ -70,7 +72,7 @@ public class Document_communications {
         return communications;
     }
 
-    public boolean hide$$() {
+    public boolean hideColl() {
         // hide for supporting documents
         for (SupportingDocumentsEvaluator supportingDocumentsEvaluator : supportingDocumentsEvaluators) {
             final SupportingDocumentsEvaluator.Evaluation evaluation =
@@ -82,6 +84,28 @@ public class Document_communications {
 
 
         return false;
+    }
+
+    @DomainService(nature = NatureOfService.DOMAIN)
+    public static class TableColumnOrderServiceForDocumentCommunications implements TableColumnOrderService {
+
+        @Override
+        public List<String> orderParented(
+                final Object parent,
+                final String collectionId,
+                final Class<?> collectionType,
+                final List<String> propertyIds) {
+
+            if(parent instanceof Document && Objects.equals(collectionId, "communications")) {
+                propertyIds.remove("primaryDocument");
+                return propertyIds;
+            }
+            return null;
+        }
+
+        @Override public List<String> orderStandalone(final Class<?> aClass, final List<String> list) {
+            return null;
+        }
     }
 
     @DomainService(

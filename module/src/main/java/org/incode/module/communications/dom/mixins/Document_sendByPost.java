@@ -47,7 +47,7 @@ import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
 /**
  * Provides the ability to send as a postal communication.
  */
-@Mixin
+@Mixin(method = "act")
 public class Document_sendByPost {
 
     private final Document document;
@@ -66,7 +66,7 @@ public class Document_sendByPost {
             cssClassFa = "envelope-o",
             contributed = Contributed.AS_ACTION
     )
-    public Communication $$(
+    public Communication act(
             @ParameterLayout(named = "to:")
             final PostalAddress toChannel) throws IOException {
 
@@ -82,32 +82,34 @@ public class Document_sendByPost {
 
         transactionService.flushTransaction();
 
-        // copy over as attachments to the comm anything else also attached to original document
+        // attach this "primary" document to the comm
+        paperclipRepository.attach(this.document, DocumentConstants.PAPERCLIP_ROLE_PRIMARY, communication);
+
+        // also copy over as attachments to the comm anything else also attached to original document
         final List<Document> communicationAttachments = attachmentProvider.attachmentsFor(document);
         for (Document communicationAttachment : communicationAttachments) {
-            paperclipRepository.attach(communicationAttachment, DocumentConstants.PAPERCLIP_ROLE_ENCLOSED, communication);
-
+            paperclipRepository.attach(communicationAttachment, DocumentConstants.PAPERCLIP_ROLE_ATTACHMENT, communication);
         }
         transactionService.flushTransaction();
 
         return communication;
     }
 
-    public String disable$$() {
+    public String disableAct() {
         if (document.getState() != DocumentState.RENDERED) {
             return "Document not yet rendered";
         }
-        if(choices0$$().isEmpty()) {
+        if(choices0Act().isEmpty()) {
             return "Could not locate any postal address to sent to";
         }
         return null;
     }
 
-    public PostalAddress default0$$() {
+    public PostalAddress default0Act() {
         return determinePostHeader().getToDefault();
     }
 
-    public Set<PostalAddress> choices0$$() {
+    public Set<PostalAddress> choices0Act() {
         return determinePostHeader().getToChoices();
     }
 

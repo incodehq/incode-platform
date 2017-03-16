@@ -99,13 +99,13 @@ public class Smoke_IntegTest extends DemoAppIntegTestAbstract {
 
         // when
         final Document_sendByEmail documentEmail = mixin(Document_sendByEmail.class, document);
-        final Set<EmailAddress> emailAddresses = documentEmail.choices0$$();
+        final Set<EmailAddress> emailAddresses = documentEmail.choices0Act();
 
         // then
         assertThat(emailAddresses).contains(fredEmail);
 
         // and when
-        final Communication comm = wrap(documentEmail).$$(fredEmail, null, null, null, null, null);
+        final Communication comm = wrap(documentEmail).act(fredEmail, null, null, null, null, null);
 
         // then
         assertThat(comm).isNotNull();
@@ -164,13 +164,13 @@ public class Smoke_IntegTest extends DemoAppIntegTestAbstract {
 
         // when
         final Document_sendByPost documentPrint = mixin(Document_sendByPost.class, document);
-        final Set<PostalAddress> postalAddresses = documentPrint.choices0$$();
+        final Set<PostalAddress> postalAddresses = documentPrint.choices0Act();
 
         // then
         assertThat(postalAddresses).contains(maryPost);
 
         // and when
-        final Communication comm = wrap(documentPrint).$$(maryPost);
+        final Communication comm = wrap(documentPrint).act(maryPost);
 
         // then
         assertThat(comm).isNotNull();
@@ -194,7 +194,7 @@ public class Smoke_IntegTest extends DemoAppIntegTestAbstract {
         // when
         final Communication_downloadPdfForPosting mixin =
                 mixin(Communication_downloadPdfForPosting.class, comm);
-        wrap(mixin).$$(mixin.choices0$$().get(0));
+        wrap(mixin).act(mixin.default0Act());
 
         // then
         assertThat(comm.getState()).isEqualTo(CommunicationState.SENT);

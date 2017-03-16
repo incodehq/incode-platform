@@ -3,7 +3,6 @@
     <bs3:row>
         <bs3:col span="12" unreferencedActions="true">
             <cpt:domainObject/>
-            <cpt:action id="downloadPdfForPosting"/>
         </bs3:col>
     </bs3:row>
     <bs3:row>
@@ -14,7 +13,9 @@
                         <bs3:col span="12">
                             <cpt:fieldSet name="Identifier">
                                 <cpt:property id="subject"/>
-                                <cpt:property id="state"/>
+                                <cpt:property id="state">
+                                    <cpt:action id="downloadPdfForPosting"/>
+                                </cpt:property>
                                 <cpt:property id="type"/>
                             </cpt:fieldSet>
                         </bs3:col>
@@ -55,6 +56,9 @@
                     </bs3:row>
                 </bs3:tab>
             </bs3:tabGroup>
+            <cpt:fieldSet name="Document">
+                <cpt:property id="primaryDocument"/>
+            </cpt:fieldSet>
             <cpt:fieldSet name="Dates">
                 <cpt:property id="queuedAt"/>
                 <cpt:property id="sentAt"/>

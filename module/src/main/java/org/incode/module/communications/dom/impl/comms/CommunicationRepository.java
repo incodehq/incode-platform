@@ -20,7 +20,12 @@ package org.incode.module.communications.dom.impl.comms;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
+
+import com.google.common.base.Function;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Ordering;
 
 import org.joda.time.DateTime;
 
@@ -99,16 +104,36 @@ public class CommunicationRepository  {
     public List<Communication> findByCommunicationChannelAndQueuedOrSentBetween(
             final CommunicationChannel communicationChannel,
             final DateTime fromDateTime, final DateTime toDateTime) {
-        return repositoryService.allMatches(
-                new QueryDefault<>(Communication.class,
-                        "findByCommunicationChannelAndQueuedOrSentBetween",
-                        "communicationChannel", communicationChannel,
-                        "from", fromDateTime,
-                        "to", toDateTime));
+        final List<Communication> communications =
+                Lists.newArrayList(
+                    repositoryService.allMatches(
+                        new QueryDefault<>(Communication.class,
+                                "findByCommunicationChannelAndQueuedOrSentBetween",
+                                "communicationChannel", communicationChannel,
+                                "from", fromDateTime,
+                                "to", toDateTime))
+                );
+
+        final Ordering<Communication> queuedAtElseSentAtDescending =
+                Ordering.natural()
+                        .nullsFirst()   // shouldn't matter, but will be nulls last after reversed
+                        .onResultOf(queuedAtElseSentAt())
+                        .reverse();
+        communications.sort(queuedAtElseSentAtDescending);
+
+        return communications;
     }
 
-
-
+    private static Function<Communication, Comparable> queuedAtElseSentAt() {
+        return new Function<Communication, Comparable>() {
+            @Nullable @Override
+            public Comparable apply(@Nullable final Communication comm) {
+                if(comm == null) { return null; }
+                final DateTime queuedAt = comm.getQueuedAt();
+                return queuedAt != null ? queuedAt : comm.getSentAt();
+            }
+        };
+    }
 
     @Inject
     CurrentUserEmailAddressProvider currentUserEmailAddressProvider;

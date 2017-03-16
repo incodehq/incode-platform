@@ -65,6 +65,7 @@ import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.background.BackgroundService;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.email.EmailService;
+import org.apache.isis.applib.services.queryresultscache.QueryResultsCache;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.util.ObjectContracts;
@@ -103,8 +104,7 @@ import lombok.Setter;
                         + "   && correspondent.channel == :communicationChannel  "
                         + "   && (    ( :from <= queuedAt && queuedAt <= :to ) "
                         + "        || ( :from <= sentAt   && sentAt   <= :to )  ) "
-                        + " VARIABLES org.incode.module.communications.dom.impl.comms.CommChannelRole correspondent "
-                        + "ORDER BY queuedAt DESC "),
+                        + " VARIABLES org.incode.module.communications.dom.impl.comms.CommChannelRole correspondent "),
 })
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Indices({
@@ -357,6 +357,54 @@ public class Communication implements Comparable<Communication> {
     private CommunicationState state;
     //endregion
 
+    //region > primaryDocument (property)
+
+    @Property
+    public Document getPrimaryDocument() {
+        return primaryDocumentProvider.findFor(this);
+    }
+
+    /**
+     * Factored out so can be injected elsewhere also.
+     */
+    @DomainService(nature = NatureOfService.DOMAIN)
+    public static class PrimaryDocumentProvider {
+
+        @Programmatic
+        public Document findFor(final Communication communication) {
+            return queryResultsCache.execute(
+                    () -> findForNoCache(communication),
+                    PrimaryDocumentProvider.class, "findFor",
+                    communication);
+        }
+
+        private Document findForNoCache(final Communication communication) {
+            final List<Paperclip> paperclipsToPrimaryDocuments = paperclipRepository
+                    .findByAttachedToAndRoleName(communication, DocumentConstants.PAPERCLIP_ROLE_PRIMARY);
+
+            final int numPrimaryDocs = paperclipsToPrimaryDocuments.size();
+            switch (numPrimaryDocs) {
+            case 1:
+                // expected case, there should be only one...
+                final DocumentAbstract documentAbs = paperclipsToPrimaryDocuments.get(0).getDocument();
+                return documentAbs instanceof Document
+                        ? (Document) documentAbs
+                        : null;
+            default:
+                // shouldn't happen, defensive coding...
+                return null;
+            }
+        }
+
+        @Inject
+        PaperclipRepository paperclipRepository;
+
+        @Inject
+        QueryResultsCache queryResultsCache;
+    }
+
+    //endregion
+
     //region > scheduleSend (programmatic), send (action)
     @Programmatic
     public void scheduleSend() {
@@ -366,19 +414,34 @@ public class Communication implements Comparable<Communication> {
     @Action(hidden = Where.EVERYWHERE) // so can invoke via BackgroundService
     public Communication sendByEmail() {
 
+        // body...
         final Document coverNoteDoc = findDocument(DocumentConstants.PAPERCLIP_ROLE_COVER);
-        final List<DataSource> attachments =
-                findDocumentsInRoleAsStream(DocumentConstants.PAPERCLIP_ROLE_ATTACHMENT)
-                        .map(DocumentAbstract::asDataSource)
-                        .collect(Collectors.toList());
         final String emailBody = coverNoteDoc.asChars();
 
+        // (email) attachments..
+        // this corresponds to the primary document and any attachments
+        final List<DataSource> attachments = Lists.newArrayList();
+
+        final Document primaryDocument = getPrimaryDocument();
+        if(primaryDocument != null) {
+            // should be the case
+            attachments.add(primaryDocument.asDataSource());
+        }
+        attachments.addAll(
+                findDocumentsInRoleAsStream(DocumentConstants.PAPERCLIP_ROLE_ATTACHMENT)
+                        .map(DocumentAbstract::asDataSource)
+                        .collect(Collectors.toList()));
+
+
+        // cc..
         final List<String> toList = findCorrespondents(CommChannelRoleType.TO);
         final List<String> ccList = findCorrespondents(CommChannelRoleType.CC);
         final List<String> bccList = findCorrespondents(CommChannelRoleType.BCC);
 
+        // subject ...
         final String subject = getSubject();
 
+        // finally, we send
         final boolean send = emailService.send(
                 toList, ccList, bccList,
                 subject, emailBody,
@@ -388,9 +451,27 @@ public class Communication implements Comparable<Communication> {
             throw new ApplicationException("Failed to send email; see system logs for details.");
         }
 
+        // mark this comm as having been sent.
         sent();
 
         return this;
+    }
+
+    List<Document> findDocuments(final String roleName, final String mimeType) {
+        return Lists.newArrayList(
+                findDocumentsInRoleAsStream(roleName)
+                        .filter(x -> mimeType.equals(x.getMimeType()))
+                        .collect(Collectors.toList()));
+    }
+
+    private Stream<Document> findDocumentsInRoleAsStream(final String roleName) {
+        final List<Paperclip> paperclips = findPaperclipsInRole(roleName);
+        return paperclips.stream().map(Paperclip::getDocument)
+                .filter(Document.class::isInstance).map(Document.class::cast);
+    }
+
+    private List<Paperclip> findPaperclipsInRole(final String roleName) {
+        return paperclipRepository.findByAttachedToAndRoleName(this, roleName);
     }
 
     //endregion
@@ -428,23 +509,6 @@ public class Communication implements Comparable<Communication> {
                 roleName)));
     }
 
-    @Programmatic
-    public List<Document> findDocuments(final String roleName, final String mimeType) {
-        return Lists.newArrayList(
-                findDocumentsInRoleAsStream(roleName)
-                        .filter(x -> mimeType.equals(x.getMimeType()))
-                        .collect(Collectors.toList()));
-    }
-
-    private Stream<Document> findDocumentsInRoleAsStream(final String roleName) {
-        final List<Paperclip> paperclips = findPaperclipsInRole(roleName);
-        return paperclips.stream().map(Paperclip::getDocument)
-                .filter(Document.class::isInstance).map(Document.class::cast);
-    }
-
-    private List<Paperclip> findPaperclipsInRole(final String roleName) {
-        return paperclipRepository.findByAttachedToAndRoleName(this, roleName);
-    }
     //endregion
 
     //region > id (programmatic, for comparison)
@@ -459,7 +523,6 @@ public class Communication implements Comparable<Communication> {
         return id;
     }
     //endregion
-
 
     //region > toString, compareTo
     @Override
@@ -488,6 +551,10 @@ public class Communication implements Comparable<Communication> {
 
     @Inject
     PaperclipRepository paperclipRepository;
+
+    @Inject
+    PrimaryDocumentProvider primaryDocumentProvider;
+
     //endregion
 
 }

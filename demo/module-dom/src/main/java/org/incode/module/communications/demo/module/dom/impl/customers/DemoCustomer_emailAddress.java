@@ -4,7 +4,7 @@ import org.apache.isis.applib.annotation.Mixin;
 
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwner_emailAddressTitles;
 
-@Mixin
+@Mixin(method = "prop")
 public class DemoCustomer_emailAddress extends
         CommunicationChannelOwner_emailAddressTitles {
 

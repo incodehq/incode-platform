@@ -18,7 +18,6 @@ package org.incode.module.communications.dom.impl.comms;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -38,10 +37,9 @@ import org.isisaddons.module.pdfbox.dom.service.PdfBoxService;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelType;
 import org.incode.module.communications.dom.mixins.DocumentConstants;
 import org.incode.module.document.dom.impl.docs.Document;
-import org.incode.module.document.dom.impl.docs.DocumentAbstract;
 import org.incode.module.document.dom.impl.docs.Document_downloadExternalUrlAsBlob;
 
-@Mixin
+@Mixin(method = "act")
 public class Communication_downloadPdfForPosting {
 
     private final Communication communication;
@@ -55,27 +53,25 @@ public class Communication_downloadPdfForPosting {
             named = "Download PDF for posting",
             cssClassFa = "download"
     )
-    public Blob $$(
+    public Blob act(
             @ParameterLayout(named = "File name")
             final String fileName) throws IOException {
 
-        communication.sent();
-
-        final List<Document> allEnclosed = findEnclosedPdfDocuments();
-        if(allEnclosed.size() == 1) {
-            final Document enclosed = allEnclosed.get(0);
-            return asBlob(enclosed);
+        // the act of downloading implicitly sends the communication
+        if(communication.getState() == CommunicationState.PENDING) {
+            communication.sent();
         }
-
-        // merge 'em
-        allEnclosed.sort(Ordering.natural().onResultOf(DocumentAbstract::getId));
 
         final List<byte[]> pdfBytes = Lists.newArrayList();
 
-        for (Document enclosed : allEnclosed) {
-            final Blob blob = asBlob(enclosed);
-            final byte[] bytes = blob.getBytes();
-            pdfBytes.add(bytes);
+        final Document primaryDoc = communication.getPrimaryDocument();
+        appendBytes(primaryDoc, pdfBytes);
+
+        // merge any and all attachments
+        final List<Document> attachedDocuments = findAttachedPdfDocuments();
+        attachedDocuments.sort(Ordering.natural().onResultOf(Document::getCreatedAt));
+        for (final Document attachedDoc : attachedDocuments) {
+            appendBytes(attachedDoc, pdfBytes);
         }
 
         final byte[] mergedBytes = pdfBoxService.merge(pdfBytes.toArray(new byte[][] {}));
@@ -83,44 +79,48 @@ public class Communication_downloadPdfForPosting {
         return new Blob(fileName, DocumentConstants.MIME_TYPE_APPLICATION_PDF, mergedBytes);
     }
 
-    private Blob asBlob(final Document enclosed) {
-        switch (enclosed.getSort()) {
-        case BLOB:
-            final Blob blob = enclosed.getBlob();
-            return blob;
-        case EXTERNAL_BLOB:
-            return factoryService.mixin(Document_downloadExternalUrlAsBlob.class, enclosed).$$();
-        }
-        return null;
-    }
-
-    public boolean hide$$() {
+    public boolean hideAct() {
         if(communication.getType() != CommunicationChannelType.POSTAL_ADDRESS) {
             return true;
         }
         return false;
     }
 
-    public String disable$$() {
-        final List<Document> enclosed = findEnclosedPdfDocuments();
-        if(enclosed.isEmpty()) {
-            return String.format("Cannot locate any '%s' (PDF) documents", DocumentConstants.PAPERCLIP_ROLE_ENCLOSED);
+    public String disableAct() {
+        Document primaryDocument = communication.getPrimaryDocument();
+        return primaryDocument == null
+                ? "Cannot locate the primary document for this communication"
+                : null;
+    }
+
+    public String default0Act() {
+        Document primaryDocument = communication.getPrimaryDocument();
+        return primaryDocument != null ? primaryDocument.getName() : null;
+    }
+
+    private List<Document> findAttachedPdfDocuments() {
+        return communication.findDocuments(
+                DocumentConstants.PAPERCLIP_ROLE_ATTACHMENT,
+                DocumentConstants.MIME_TYPE_APPLICATION_PDF);
+    }
+
+    private Blob asBlob(final Document document) {
+        switch (document.getSort()) {
+        case BLOB:
+            final Blob blob = document.getBlob();
+            return blob;
+        case EXTERNAL_BLOB:
+            return factoryService.mixin(Document_downloadExternalUrlAsBlob.class, document).$$();
         }
         return null;
     }
 
-    public List<String> choices0$$() {
-        final List<Document> pdfDocuments = findEnclosedPdfDocuments();
-        return Lists.newArrayList(pdfDocuments.stream().map(Document::getName).collect(Collectors.toList()));
+
+    private void appendBytes(final Document document, final List<byte[]> pdfBytes) {
+        final Blob blob = asBlob(document);
+        final byte[] bytes = blob.getBytes();
+        pdfBytes.add(bytes);
     }
-
-    private List<Document> findEnclosedPdfDocuments() {
-        return communication.findDocuments(
-                DocumentConstants.PAPERCLIP_ROLE_ENCLOSED,
-                DocumentConstants.MIME_TYPE_APPLICATION_PDF);
-    }
-
-
 
     @Inject
     FactoryService factoryService;

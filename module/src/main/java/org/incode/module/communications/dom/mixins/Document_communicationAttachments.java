@@ -40,7 +40,7 @@ import org.incode.module.document.dom.impl.paperclips.Paperclip;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
 import org.incode.module.document.dom.spi.SupportingDocumentsEvaluator;
 
-@Mixin
+@Mixin(method = "coll")
 public class Document_communicationAttachments {
 
     private final Document document;
@@ -58,11 +58,11 @@ public class Document_communicationAttachments {
     @ActionLayout(
             contributed = Contributed.AS_ASSOCIATION
     )
-    public List<Document> $$() {
+    public List<Document> coll() {
         return provider.attachmentsFor(document);
     }
 
-    public boolean hide$$() {
+    public boolean hideColl() {
         for (SupportingDocumentsEvaluator supportingDocumentsEvaluator : supportingDocumentsEvaluators) {
             final SupportingDocumentsEvaluator.Evaluation evaluation =
                     supportingDocumentsEvaluator.evaluate(document);
@@ -79,6 +79,9 @@ public class Document_communicationAttachments {
     @Inject
     Provider provider;
 
+    /**
+     * Factored out so can be injected elsewhere also.
+     */
     @DomainService(nature = NatureOfService.DOMAIN)
     public static class Provider {
 
@@ -86,17 +89,12 @@ public class Document_communicationAttachments {
         public List<Document> attachmentsFor(final Document document) {
             final List<Paperclip> paperclips = paperclipRepository.findByAttachedTo(document);
 
-            final List<Document> attachedDocuments = FluentIterable.from(paperclips)
-                    .transform(Paperclip::getDocument)
-                    .filter(Document.class::isInstance)
-                    .transform(Document.class::cast)
-                    .toList();
-
-            final List<Document> documents = Lists.newArrayList();
-            documents.add(document);
-            documents.addAll(attachedDocuments);
-
-            return documents;
+            return Lists.newArrayList(
+                    FluentIterable.from(paperclips)
+                        .transform(Paperclip::getDocument)
+                        .filter(Document.class::isInstance)
+                        .transform(Document.class::cast)
+                        .toList());
         }
 
         @Inject
