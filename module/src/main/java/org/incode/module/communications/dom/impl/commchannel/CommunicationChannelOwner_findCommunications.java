@@ -20,6 +20,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import com.google.common.collect.Lists;
+
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
@@ -33,15 +35,19 @@ import org.isisaddons.module.command.dom.T_backgroundCommands;
 import org.incode.module.communications.dom.impl.comms.Communication;
 import org.incode.module.communications.dom.impl.comms.CommunicationRepository;
 
+/**
+ * Very similar to the implementation of {@link CommunicationChannel_findCommunications}, iterates over all
+ * {@link CommunicationChannel}s for said owner.
+ */
 @Mixin(method = "act")
-public class CommunicationChannel_findCommunications {
+public class CommunicationChannelOwner_findCommunications {
 
-    public static final int MONTHS_PREVIOUS = 24;
+    public static final int MONTHS_PREVIOUS = CommunicationChannel_findCommunications.MONTHS_PREVIOUS;
 
-    private final CommunicationChannel communicationChannel;
+    private final CommunicationChannelOwner communicationChannelOwner;
 
-    public CommunicationChannel_findCommunications(final CommunicationChannel communicationChannel) {
-        this.communicationChannel = communicationChannel;
+    public CommunicationChannelOwner_findCommunications(final CommunicationChannelOwner communicationChannelOwner) {
+        this.communicationChannelOwner = communicationChannelOwner;
     }
 
     public static class ActionDomainEvent extends T_backgroundCommands.ActionDomainEvent {}
@@ -55,9 +61,27 @@ public class CommunicationChannel_findCommunications {
         final DateTime fromDateTime = toDateTime(from);
         final DateTime toDateTime = toDateTime(to).plusDays(1);
 
-        return communicationRepository
-                .findByCommunicationChannelAndQueuedOrSentBetween(this.communicationChannel, fromDateTime, toDateTime);
+
+        final List<CommunicationChannelOwnerLink> channelLinks =
+                communicationChannelRepository.findByOwner(communicationChannelOwner);
+
+        final List<Communication> communications = Lists.newArrayList();
+        for (final CommunicationChannelOwnerLink link : channelLinks) {
+
+            final List<Communication> comms = communicationRepository
+                    .findByCommunicationChannelAndQueuedOrSentBetween(
+                            link.getCommunicationChannel(), fromDateTime, toDateTime);
+            communications.addAll(comms);
+        }
+        communications.sort(Communication.Orderings.queuedAtElseSentAtDescending);
+
+        return communications;
     }
+
+    private static DateTime toDateTime(final LocalDate localDate) {
+        return localDate.toDateTimeAtStartOfDay();
+    }
+
 
     public LocalDate default0Act() {
         return clockService.now().minusMonths(MONTHS_PREVIOUS);
@@ -66,9 +90,6 @@ public class CommunicationChannel_findCommunications {
         return clockService.now();
     }
 
-    private static DateTime toDateTime(final LocalDate localDate) {
-        return localDate.toDateTimeAtStartOfDay();
-    }
 
     @Inject
     ClockService clockService;
@@ -76,5 +97,7 @@ public class CommunicationChannel_findCommunications {
     @Inject
     CommunicationRepository communicationRepository;
 
+    @Inject
+    CommunicationChannelOwnerLinkRepository communicationChannelRepository;
 
 }

@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.activation.DataSource;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.jdo.JDOHelper;
 import javax.jdo.annotations.Column;
@@ -42,7 +43,9 @@ import javax.jdo.annotations.Uniques;
 import javax.jdo.annotations.Version;
 import javax.jdo.annotations.VersionStrategy;
 
+import com.google.common.base.Function;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Ordering;
 import com.google.common.eventbus.Subscribe;
 
 import org.axonframework.eventhandling.annotation.EventHandler;
@@ -535,6 +538,32 @@ public class Communication implements Comparable<Communication> {
         return ObjectContracts.compare(this, other, "type", "queuedAt", "sentAt", "state", "subject", "atPath", "id");
     }
     //endregion
+
+    public static class Functions {
+        private Functions(){}
+
+        public static Function<Communication, DateTime> queuedAtElseSentAt() {
+            return new Function<Communication, DateTime>() {
+                @Nullable @Override
+                public DateTime apply(@Nullable final Communication comm) {
+                    if(comm == null) { return null; }
+                    final DateTime queuedAt = comm.getQueuedAt();
+                    return queuedAt != null ? queuedAt : comm.getSentAt();
+                }
+            };
+        }
+    }
+
+    public static class Orderings {
+        private Orderings(){}
+
+        public final static Ordering<Communication> queuedAtElseSentAtDescending =
+                Ordering.natural()
+                        .nullsFirst()   // shouldn't matter, but will be nulls last after reversed
+                        .onResultOf(Functions.queuedAtElseSentAt())
+                        .reverse();
+
+    }
 
     //region > injected services
     @Inject

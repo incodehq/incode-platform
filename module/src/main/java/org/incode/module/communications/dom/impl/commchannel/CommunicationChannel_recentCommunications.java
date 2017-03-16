@@ -27,7 +27,10 @@ import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.Contributed;
+import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Mixin;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.clock.ClockService;
 
@@ -39,7 +42,7 @@ import org.incode.module.communications.dom.impl.comms.CommunicationRepository;
 @Mixin(method = "coll")
 public class CommunicationChannel_recentCommunications {
 
-    private static final int MONTHS_PREVIOUS = 12;
+    public static final int MONTHS_PREVIOUS = 6;
 
     private final CommunicationChannel communicationChannel;
 
@@ -60,24 +63,41 @@ public class CommunicationChannel_recentCommunications {
             defaultView = "table"
     )
     public List<Communication> coll() {
-
-        LocalDate now = clockService.now();
-
-        final DateTime fromDateTime = toDateTime(now).minusMonths(MONTHS_PREVIOUS);
-        final DateTime toDateTime = toDateTime(now).plusDays(1);
-
-        return communicationRepository.findByCommunicationChannelAndQueuedOrSentBetween(this.communicationChannel, fromDateTime, toDateTime);
+        return provider.findFor(this.communicationChannel, MONTHS_PREVIOUS);
     }
 
     private static DateTime toDateTime(final LocalDate localDate) {
         return localDate.toDateTimeAtStartOfDay();
     }
 
-    @Inject
-    ClockService clockService;
+
+    /**
+     * Factored out so can be injected elsewhere.
+     */
+    @DomainService(nature = NatureOfService.DOMAIN)
+    public static class Provider {
+
+        @Programmatic
+        public List<Communication> findFor(final CommunicationChannel communicationChannel, final int monthsPrevious) {
+
+            LocalDate now = clockService.now();
+
+            final DateTime fromDateTime = toDateTime(now).minusMonths(monthsPrevious);
+            final DateTime toDateTime = toDateTime(now).plusDays(1);
+
+            return communicationRepository.findByCommunicationChannelAndQueuedOrSentBetween(communicationChannel, fromDateTime, toDateTime);
+        }
+
+        @Inject
+        ClockService clockService;
+
+        @Inject
+        CommunicationRepository communicationRepository;
+
+    }
+
 
     @Inject
-    CommunicationRepository communicationRepository;
-
+    Provider provider;
 
 }
