@@ -85,7 +85,7 @@ public class CommunicationChannel_recentCommunications {
             final DateTime fromDateTime = toDateTime(now).minusMonths(monthsPrevious);
             final DateTime toDateTime = toDateTime(now).plusDays(1);
 
-            return communicationRepository.findByCommunicationChannelAndQueuedOrSentBetween(communicationChannel, fromDateTime, toDateTime);
+            return communicationRepository.findByCommunicationChannelAndPendingOrQueuedBetweenOrSentBetween(communicationChannel, fromDateTime, toDateTime);
         }
 
         @Inject

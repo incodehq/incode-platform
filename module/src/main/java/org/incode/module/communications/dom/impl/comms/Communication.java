@@ -100,12 +100,13 @@ import lombok.Setter;
         column = "version")
 @Queries({
         @Query(
-                name = "findByCommunicationChannelAndQueuedOrSentBetween", language = "JDOQL",
+                name = "findByCommunicationChannelAndPendingOrQueuedBetweenOrSentBetween", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.module.communications.dom.impl.comms.Communication "
                         + "WHERE this.correspondents.contains(correspondent) "
                         + "   && correspondent.channel == :communicationChannel  "
-                        + "   && (    ( :from <= queuedAt && queuedAt <= :to ) "
+                        + "   && (    ( state == 'PENDING' )  "
+                        + "        || ( :from <= queuedAt && queuedAt <= :to ) "
                         + "        || ( :from <= sentAt   && sentAt   <= :to )  ) "
                         + " VARIABLES org.incode.module.communications.dom.impl.comms.CommChannelRole correspondent "),
 })
@@ -559,7 +560,7 @@ public class Communication implements Comparable<Communication> {
 
         public final static Ordering<Communication> queuedAtElseSentAtDescending =
                 Ordering.natural()
-                        .nullsFirst()   // shouldn't matter, but will be nulls last after reversed
+                        .nullsLast()   // will be nulls first once reversed (meaning those that are pending)
                         .onResultOf(Functions.queuedAtElseSentAt())
                         .reverse();
 

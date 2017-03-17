@@ -69,7 +69,7 @@ public class CommunicationChannelOwner_findCommunications {
         for (final CommunicationChannelOwnerLink link : channelLinks) {
 
             final List<Communication> comms = communicationRepository
-                    .findByCommunicationChannelAndQueuedOrSentBetween(
+                    .findByCommunicationChannelAndPendingOrQueuedBetweenOrSentBetween(
                             link.getCommunicationChannel(), fromDateTime, toDateTime);
             communications.addAll(comms);
         }

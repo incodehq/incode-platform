@@ -98,14 +98,14 @@ public class CommunicationRepository  {
     }
 
     @Programmatic
-    public List<Communication> findByCommunicationChannelAndQueuedOrSentBetween(
+    public List<Communication> findByCommunicationChannelAndPendingOrQueuedBetweenOrSentBetween(
             final CommunicationChannel communicationChannel,
             final DateTime fromDateTime, final DateTime toDateTime) {
         final List<Communication> communications =
                 Lists.newArrayList(
                     repositoryService.allMatches(
                         new QueryDefault<>(Communication.class,
-                                "findByCommunicationChannelAndQueuedOrSentBetween",
+                                "findByCommunicationChannelAndPendingOrQueuedBetweenOrSentBetween",
                                 "communicationChannel", communicationChannel,
                                 "from", fromDateTime,
                                 "to", toDateTime))

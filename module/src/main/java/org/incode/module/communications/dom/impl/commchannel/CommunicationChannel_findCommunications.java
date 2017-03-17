@@ -56,7 +56,7 @@ public class CommunicationChannel_findCommunications {
         final DateTime toDateTime = toDateTime(to).plusDays(1);
 
         return communicationRepository
-                .findByCommunicationChannelAndQueuedOrSentBetween(this.communicationChannel, fromDateTime, toDateTime);
+                .findByCommunicationChannelAndPendingOrQueuedBetweenOrSentBetween(this.communicationChannel, fromDateTime, toDateTime);
     }
 
     public LocalDate default0Act() {
