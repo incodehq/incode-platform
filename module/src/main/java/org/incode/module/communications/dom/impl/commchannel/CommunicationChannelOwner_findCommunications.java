@@ -69,11 +69,11 @@ public class CommunicationChannelOwner_findCommunications {
         for (final CommunicationChannelOwnerLink link : channelLinks) {
 
             final List<Communication> comms = communicationRepository
-                    .findByCommunicationChannelAndPendingOrQueuedBetweenOrSentBetween(
+                    .findByCommunicationChannelAndPendingOrCreatedAtBetween(
                             link.getCommunicationChannel(), fromDateTime, toDateTime);
             communications.addAll(comms);
         }
-        communications.sort(Communication.Orderings.queuedAtElseSentAtDescending);
+        communications.sort(Communication.Orderings.createdAtDescending);
 
         return communications;
     }

@@ -60,7 +60,7 @@
                 <cpt:property id="primaryDocument"/>
             </cpt:fieldSet>
             <cpt:fieldSet name="Dates">
-                <cpt:property id="queuedAt"/>
+                <cpt:property id="createdAt"/>
                 <cpt:property id="sentAt"/>
             </cpt:fieldSet>
         </bs3:col>

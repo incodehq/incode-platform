@@ -70,7 +70,7 @@ public class CommunicationChannelOwner_recentCommunications {
             final List<Communication> comms = provider.findFor(link.getCommunicationChannel(), MONTHS_PREVIOUS);
             communications.addAll(comms);
         }
-        communications.sort(Communication.Orderings.queuedAtElseSentAtDescending);
+        communications.sort(Communication.Orderings.createdAtDescending);
 
         return communications;
     }

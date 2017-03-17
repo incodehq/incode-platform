@@ -100,14 +100,13 @@ import lombok.Setter;
         column = "version")
 @Queries({
         @Query(
-                name = "findByCommunicationChannelAndPendingOrQueuedBetweenOrSentBetween", language = "JDOQL",
+                name = "findByCommunicationChannelAndPendingOrCreatedAtBetween", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.module.communications.dom.impl.comms.Communication "
                         + "WHERE this.correspondents.contains(correspondent) "
                         + "   && correspondent.channel == :communicationChannel  "
                         + "   && (    ( state == 'PENDING' )  "
-                        + "        || ( :from <= queuedAt && queuedAt <= :to ) "
-                        + "        || ( :from <= sentAt   && sentAt   <= :to )  ) "
+                        + "        || ( :from <= createdAt && createdAt <= :to ) ) "
                         + " VARIABLES org.incode.module.communications.dom.impl.comms.CommChannelRole correspondent "),
 })
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
@@ -213,23 +212,24 @@ public class Communication implements Comparable<Communication> {
     public static Communication newEmail(
             final String atPath,
             final String subject,
-            final DateTime queuedAt) {
-        return new Communication(CommunicationChannelType.EMAIL_ADDRESS, atPath, subject, queuedAt);
+            final DateTime createdAt) {
+        return new Communication(CommunicationChannelType.EMAIL_ADDRESS, atPath, subject, createdAt);
     }
     public static Communication newPostal(
             final String atPath,
-            final String subject) {
-        return new Communication(CommunicationChannelType.POSTAL_ADDRESS, atPath, subject, null);
+            final String subject,
+            final DateTime createdAt) {
+        return new Communication(CommunicationChannelType.POSTAL_ADDRESS, atPath, subject, createdAt);
     }
     private Communication(
             final CommunicationChannelType type,
             final String atPath,
             final String subjectIfAny,
-            final DateTime queuedAt) {
+            final DateTime createdAt) {
         this.type = type;
         this.atPath = atPath;
         this.subject = subjectIfAny;
-        this.queuedAt = queuedAt;
+        this.createdAt = createdAt;
         this.state = CommunicationState.PENDING;
     }
     //endregion
@@ -277,20 +277,16 @@ public class Communication implements Comparable<Communication> {
     private String subject;
     //endregion
 
-    //region > queuedAt (property)
-    public static class QueuedAtDomainEvent extends PropertyDomainEvent<DateTime> { }
+    //region > createdAt (property)
+    public static class CreatedAtDomainEvent extends PropertyDomainEvent<DateTime> { }
     @Getter @Setter
-    @Column(allowsNull = "true")
+    @Column(allowsNull = "false")
     @Property(
-            domainEvent = QueuedAtDomainEvent.class,
+            domainEvent = CreatedAtDomainEvent.class,
             editing = Editing.DISABLED
     )
-    private DateTime queuedAt;
+    private DateTime createdAt;
 
-    public boolean hideQueuedAt() {
-        return getType() != CommunicationChannelType.EMAIL_ADDRESS;
-    }
-    
     //endregion
 
     //region > sentAt (property)
@@ -531,25 +527,23 @@ public class Communication implements Comparable<Communication> {
     //region > toString, compareTo
     @Override
     public String toString() {
-        return ObjectContracts.toString(this, "type", "queuedAt", "sentAt", "state", "subject", "atPath", "id");
+        return ObjectContracts.toString(this, "type", "createdAt", "sentAt", "state", "subject", "atPath", "id");
     }
 
     @Override
     public int compareTo(final Communication other) {
-        return ObjectContracts.compare(this, other, "type", "queuedAt", "sentAt", "state", "subject", "atPath", "id");
+        return ObjectContracts.compare(this, other, "type", "createdAt", "sentAt", "state", "subject", "atPath", "id");
     }
     //endregion
 
     public static class Functions {
         private Functions(){}
 
-        public static Function<Communication, DateTime> queuedAtElseSentAt() {
+        public static Function<Communication, DateTime> createdAt() {
             return new Function<Communication, DateTime>() {
                 @Nullable @Override
                 public DateTime apply(@Nullable final Communication comm) {
-                    if(comm == null) { return null; }
-                    final DateTime queuedAt = comm.getQueuedAt();
-                    return queuedAt != null ? queuedAt : comm.getSentAt();
+                    return comm != null ? comm.getCreatedAt() : null;
                 }
             };
         }
@@ -558,10 +552,9 @@ public class Communication implements Comparable<Communication> {
     public static class Orderings {
         private Orderings(){}
 
-        public final static Ordering<Communication> queuedAtElseSentAtDescending =
+        public final static Ordering<Communication> createdAtDescending =
                 Ordering.natural()
-                        .nullsLast()   // will be nulls first once reversed (meaning those that are pending)
-                        .onResultOf(Functions.queuedAtElseSentAt())
+                        .onResultOf(Functions.createdAt())
                         .reverse();
 
     }

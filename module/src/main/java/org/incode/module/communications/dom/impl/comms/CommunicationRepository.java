@@ -61,9 +61,9 @@ public class CommunicationRepository  {
             final String cc3IfAny,
             final String bccIfAny,
             final String bcc2IfAny) {
-        final DateTime queuedAt = clockService.nowAsDateTime();
+        final DateTime createdAt = clockService.nowAsDateTime();
 
-        final Communication communication = Communication.newEmail(atPath, subject, queuedAt);
+        final Communication communication = Communication.newEmail(atPath, subject, createdAt);
         serviceRegistry2.injectServicesInto(communication);
 
         communication.addCorrespondent(CommChannelRoleType.TO, to);
@@ -87,7 +87,8 @@ public class CommunicationRepository  {
             final String atPath,
             final PostalAddress to) {
 
-        final Communication communication = Communication.newPostal(atPath, subject);
+        final DateTime createdAt = clockService.nowAsDateTime();
+        final Communication communication = Communication.newPostal(atPath, subject, createdAt);
 
         serviceRegistry2.injectServicesInto(communication);
 
@@ -98,20 +99,21 @@ public class CommunicationRepository  {
     }
 
     @Programmatic
-    public List<Communication> findByCommunicationChannelAndPendingOrQueuedBetweenOrSentBetween(
+    public List<Communication> findByCommunicationChannelAndPendingOrCreatedAtBetween(
             final CommunicationChannel communicationChannel,
-            final DateTime fromDateTime, final DateTime toDateTime) {
+            final DateTime fromDateTime,
+            final DateTime toDateTime) {
         final List<Communication> communications =
                 Lists.newArrayList(
                     repositoryService.allMatches(
                         new QueryDefault<>(Communication.class,
-                                "findByCommunicationChannelAndPendingOrQueuedBetweenOrSentBetween",
+                                "findByCommunicationChannelAndPendingOrCreatedAtBetween",
                                 "communicationChannel", communicationChannel,
                                 "from", fromDateTime,
                                 "to", toDateTime))
                 );
 
-        communications.sort(Communication.Orderings.queuedAtElseSentAtDescending);
+        communications.sort(Communication.Orderings.createdAtDescending);
 
         return communications;
     }

@@ -111,8 +111,7 @@ public class Smoke_IntegTest extends DemoAppIntegTestAbstract {
         assertThat(comm).isNotNull();
 
         assertThat(comm.getState()).isEqualTo(CommunicationState.PENDING);
-        assertThat(comm.getQueuedAt()).isNotNull();
-        assertThat(comm.hideQueuedAt()).isFalse();
+        assertThat(comm.getCreatedAt()).isNotNull();
         assertThat(comm.getType()).isEqualTo(CommunicationChannelType.EMAIL_ADDRESS);
         assertThat(comm.getSubject()).isNotNull();
         assertThat(comm.getSentAt()).isNull();
@@ -141,7 +140,7 @@ public class Smoke_IntegTest extends DemoAppIntegTestAbstract {
     }
 
     @Test
-    public void can_print() throws Exception {
+    public void can_create_postal_address() throws Exception {
 
         // given
         fixtureScripts.runFixtureScript(new DemoModuleFixture(), null);
@@ -176,8 +175,7 @@ public class Smoke_IntegTest extends DemoAppIntegTestAbstract {
         assertThat(comm).isNotNull();
 
         assertThat(comm.getState()).isEqualTo(CommunicationState.PENDING);
-        assertThat(comm.getQueuedAt()).isNull();    // unlike emails, never queued
-        assertThat(comm.hideQueuedAt()).isTrue();   // which is why they are hidden
+        assertThat(comm.getCreatedAt()).isNotNull();    // same as emails
         assertThat(comm.getType()).isEqualTo(CommunicationChannelType.POSTAL_ADDRESS);
         assertThat(comm.getSubject()).isNotNull();
         assertThat(comm.getSentAt()).isNull();
