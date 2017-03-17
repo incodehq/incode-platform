@@ -213,11 +213,13 @@ language governing permissions and limitations under the License.
     </build>
 
     <dependencies>
+<!--
         <dependency>
             <groupId>org.wicketstuff</groupId>
             <artifactId>wicketstuff-pdfjs</artifactId>
             <version>${wicketstuff-pdfjs.version}</version>
         </dependency>
+-->
         <dependency>
             <groupId>de.agilecoders.wicket</groupId>
             <artifactId>wicket-bootstrap-core</artifactId>

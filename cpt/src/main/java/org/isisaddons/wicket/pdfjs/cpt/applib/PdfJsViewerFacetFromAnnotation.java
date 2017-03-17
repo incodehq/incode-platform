@@ -22,13 +22,13 @@ package org.isisaddons.wicket.pdfjs.cpt.applib;
 import org.apache.isis.core.metamodel.facetapi.FacetHolder;
 import org.wicketstuff.pdfjs.PdfJsConfig;
 
-public class PdfViewerFromAnnotationFacet extends PdfViewerFacetAbstract {
+public class PdfJsViewerFacetFromAnnotation extends PdfJsViewerFacetAbstract {
 
-    public PdfViewerFromAnnotationFacet(final PdfJsConfig config, final FacetHolder holder) {
+    public PdfJsViewerFacetFromAnnotation(final PdfJsConfig config, final FacetHolder holder) {
         super(config, holder);
     }
 
-    public static PdfViewerFacetAbstract create(PdfJsViewer annotation, FacetHolder holder) {
+    public static PdfJsViewerFacetAbstract create(PdfJsViewer annotation, FacetHolder holder) {
         PdfJsConfig config = new PdfJsConfig();
 
         int initialPage = annotation.initialPage();
@@ -41,6 +41,6 @@ public class PdfViewerFromAnnotationFacet extends PdfViewerFacetAbstract {
             config.withDocumentScale(documentScale);
         }
 
-        return new PdfViewerFromAnnotationFacet(config, holder);
+        return new PdfJsViewerFacetFromAnnotation(config, holder);
     }
 }

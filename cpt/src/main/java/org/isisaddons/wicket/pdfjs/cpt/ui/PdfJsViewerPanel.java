@@ -22,41 +22,40 @@ import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
 import org.apache.wicket.markup.ComponentTag;
+import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.apache.wicket.markup.head.CssHeaderItem;
-import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ResourceLink;
 import org.apache.wicket.request.handler.resource.ResourceRequestHandler;
 import org.apache.wicket.request.http.flow.AbortWithHttpErrorCodeException;
 import org.apache.wicket.request.resource.ByteArrayResource;
+import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.IResource;
 import org.wicketstuff.pdfjs.PdfJsConfig;
 import org.wicketstuff.pdfjs.PdfJsPanel;
 
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
-import org.apache.isis.core.metamodel.spec.ObjectSpecification;
 import org.apache.isis.viewer.wicket.model.models.ScalarModel;
 import org.apache.isis.viewer.wicket.ui.components.scalars.ScalarPanelAbstract;
 
-import org.isisaddons.wicket.pdfjs.cpt.applib.PdfViewerFacetAbstract;
+import org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewerFacet;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 
 /**
  *
  */
-class PdfViewerPanel extends ScalarPanelAbstract implements IResourceListener {
+class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener {
     private static final long serialVersionUID = 1L;
 
     private static final String ID_SCALAR_NAME = "scalarName";
     private static final String ID_SCALAR_VALUE = "scalarValue";
     private static final String ID_FEEDBACK = "feedback";
 
-    PdfViewerPanel(String id, ScalarModel scalarModel) {
+    PdfJsViewerPanel(String id, ScalarModel scalarModel) {
         super(id, scalarModel);
     }
 
@@ -67,9 +66,8 @@ class PdfViewerPanel extends ScalarPanelAbstract implements IResourceListener {
 
         final ObjectAdapter adapter = scalarModel.getObject();
         if (adapter != null) {
-            final ObjectSpecification typeOfSpecification = scalarModel.getTypeOfSpecification();
-            PdfViewerFacetAbstract pdfViewerFacet = typeOfSpecification.getFacet(PdfViewerFacetAbstract.class);
-            PdfJsConfig config = pdfViewerFacet != null ? pdfViewerFacet.getConfig() : new PdfJsConfig();
+            final PdfJsViewerFacet pdfJsViewerFacet = scalarModel.getFacet(PdfJsViewerFacet.class);
+            PdfJsConfig config = pdfJsViewerFacet != null ? pdfJsViewerFacet.getConfig() : new PdfJsConfig();
             config.withDocumentUrl(urlFor(IResourceListener.INTERFACE, null));
             PdfJsPanel pdfJsPanel = new PdfJsPanel(ID_SCALAR_VALUE, config);
             MarkupContainer prevPageButton = createComponent("prevPage", config);
@@ -125,8 +123,8 @@ class PdfViewerPanel extends ScalarPanelAbstract implements IResourceListener {
     public void renderHead(final IHeaderResponse response) {
         super.renderHead(response);
 
-        response.render(CssHeaderItem.forReference(new CssResourceReference(PdfViewerPanel.class, "PdfViewerPanel.css")));
-        response.render(JavaScriptHeaderItem.forReference(new PdfViewJsReference()));
+        response.render(CssHeaderItem.forReference(new CssResourceReference(PdfJsViewerPanel.class, "PdfJsViewerPanel.css")));
+        response.render(JavaScriptHeaderItem.forReference(new PdfJsViewerReference()));
     }
 
 

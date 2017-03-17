@@ -19,17 +19,17 @@
 
 package org.isisaddons.wicket.pdfjs.cpt.applib;
 
+import java.lang.reflect.Method;
+
 import org.apache.isis.core.metamodel.facetapi.FacetHolder;
 import org.apache.isis.core.metamodel.facetapi.FacetUtil;
 import org.apache.isis.core.metamodel.facetapi.FeatureType;
 import org.apache.isis.core.metamodel.facets.Annotations;
 import org.apache.isis.core.metamodel.facets.FacetFactoryAbstract;
 
-import java.lang.reflect.Method;
+public class PdfJsViewerFacetFromAnnotationFactory extends FacetFactoryAbstract {
 
-public class PdfViewerFacetFactory extends FacetFactoryAbstract {
-
-    public PdfViewerFacetFactory() {
+    public PdfJsViewerFacetFromAnnotationFactory() {
         super(FeatureType.PROPERTIES_AND_ACTIONS);
     }
 
@@ -42,7 +42,7 @@ public class PdfViewerFacetFactory extends FacetFactoryAbstract {
         final PdfJsViewer pdfjsViewer = Annotations.getAnnotation(method, PdfJsViewer.class);
 
         if (pdfjsViewer != null) {
-            PdfViewerFacetAbstract pdfJsViewerFacet = PdfViewerFromAnnotationFacet.create(pdfjsViewer, holder);
+            PdfJsViewerFacetAbstract pdfJsViewerFacet = PdfJsViewerFacetFromAnnotation.create(pdfjsViewer, holder);
             FacetUtil.addFacet(pdfJsViewerFacet);
         }
     }

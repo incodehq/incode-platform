@@ -4,13 +4,12 @@ import java.util.List;
 import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.resource.JQueryPluginResourceReference;
-import org.wicketstuff.pdfjs.PdfJsReference;
 import org.wicketstuff.pdfjs.WicketStuffPdfJsReference;
 
-public class PdfViewJsReference extends JQueryPluginResourceReference {
+public class PdfJsViewerReference extends JQueryPluginResourceReference {
 
-    public PdfViewJsReference() {
-        super(PdfViewerPanel.class, "PdfViewerPanel.js");
+    public PdfJsViewerReference() {
+        super(PdfJsViewerPanel.class, "PdfJsViewerPanel.js");
     }
 
     @Override

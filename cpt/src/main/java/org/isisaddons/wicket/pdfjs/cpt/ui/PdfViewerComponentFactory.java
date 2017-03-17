@@ -31,7 +31,7 @@ public class PdfViewerComponentFactory extends ComponentFactoryAbstract {
     private static final long serialVersionUID = 1L;
 
     public PdfViewerComponentFactory() {
-        super(ComponentType.SCALAR_NAME_AND_VALUE, PdfViewerPanel.class);
+        super(ComponentType.SCALAR_NAME_AND_VALUE, PdfJsViewerPanel.class);
     }
 
     public ApplicationAdvice appliesTo(IModel<?> model) {
@@ -60,7 +60,7 @@ public class PdfViewerComponentFactory extends ComponentFactoryAbstract {
 
     public Component createComponent(String id, IModel<?> model) {
         ScalarModel scalarModel = (ScalarModel) model;
-        return new PdfViewerPanel(id, scalarModel);
+        return new PdfJsViewerPanel(id, scalarModel);
     }
 }
 

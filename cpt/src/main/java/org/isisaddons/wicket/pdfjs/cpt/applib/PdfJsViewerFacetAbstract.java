@@ -19,17 +19,17 @@
 
 package org.isisaddons.wicket.pdfjs.cpt.applib;
 
-import org.apache.isis.core.metamodel.facetapi.Facet;
-import org.apache.isis.core.metamodel.facetapi.FacetHolder;
-import org.apache.isis.core.metamodel.facets.MultipleValueFacet;
-import org.apache.isis.core.metamodel.facets.MultipleValueFacetAbstract;
 import org.wicketstuff.pdfjs.PdfJsConfig;
 
-public abstract class PdfViewerFacetAbstract extends MultipleValueFacetAbstract implements MultipleValueFacet {
+import org.apache.isis.core.metamodel.facetapi.Facet;
+import org.apache.isis.core.metamodel.facetapi.FacetHolder;
+import org.apache.isis.core.metamodel.facets.MultipleValueFacetAbstract;
+
+public abstract class PdfJsViewerFacetAbstract extends MultipleValueFacetAbstract implements PdfJsViewerFacet {
 
     private final PdfJsConfig config;
 
-    public PdfViewerFacetAbstract(PdfJsConfig config, final FacetHolder holder) {
+    public PdfJsViewerFacetAbstract(PdfJsConfig config, final FacetHolder holder) {
         super(type(), holder);
 
         this.config = config;
@@ -40,7 +40,7 @@ public abstract class PdfViewerFacetAbstract extends MultipleValueFacetAbstract 
     }
 
     public static Class<? extends Facet> type() {
-        return PdfViewerFacetAbstract.class;
+        return PdfJsViewerFacet.class;
     }
 
 }
