@@ -65,7 +65,9 @@ language governing permissions and limitations under the License.
     <properties>
         <isis.version>1.15.0-SNAPSHOT</isis.version>
 
+<!--
         <wicketstuff-pdfjs.version>7.0-SNAPSHOT</wicketstuff-pdfjs.version>
+-->
 
         <compileSource>1.7</compileSource>
         <compileTarget>1.7</compileTarget>

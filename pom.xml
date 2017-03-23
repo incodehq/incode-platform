@@ -41,6 +41,9 @@ language governing permissions and limitations under the License.
         <isis.version>1.15.0-SNAPSHOT</isis.version>
 
         <isis-wicket-pdfjs.version>1.15.0-SNAPSHOT</isis-wicket-pdfjs.version>
+        <isis-module-fakedata.version>1.14.0</isis-module-fakedata.version>
+
+        <lombok.version>1.16.6</lombok.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -344,7 +347,16 @@ language governing permissions and limitations under the License.
                 <artifactId>isis-wicket-pdfjs-webapp</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
         </dependencies>
+
     </dependencyManagement>
 
     <modules>
