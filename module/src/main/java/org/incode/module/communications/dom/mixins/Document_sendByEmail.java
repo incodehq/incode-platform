@@ -123,13 +123,6 @@ public class Document_sendByEmail {
             throw new IllegalArgumentException("Document is not yet rendered");
         }
 
-        // create comm and correspondents
-        final String atPath = document.getAtPath();
-        final String subject = document.getName();
-        final Communication communication =  communicationRepository.createEmail(subject, atPath, toChannel, cc, cc2, cc3, bcc, bcc2);
-
-        transactionService.flushTransaction();
-
         // create cover note
         //
         // nb: there is a presumption is that the cover note will not be automatically attached to any other objects,
@@ -138,6 +131,13 @@ public class Document_sendByEmail {
         final Document coverNoteDoc =
                 documentCreatorService.createDocumentAndAttachPaperclips(this.document, coverNoteTemplate);
         coverNoteDoc.render(coverNoteTemplate, this.document);
+
+        // create comm and correspondents
+        final String atPath = document.getAtPath();
+        final String subject = stripFileExtensionIfAny(coverNoteDoc.getName());
+        final Communication communication =  communicationRepository.createEmail(subject, atPath, toChannel, cc, cc2, cc3, bcc, bcc2);
+
+        transactionService.flushTransaction();
 
         // manually attach the cover note to the comm
         paperclipRepository.attach(coverNoteDoc, DocumentConstants.PAPERCLIP_ROLE_COVER, communication);
@@ -158,7 +158,6 @@ public class Document_sendByEmail {
 
         return communication;
     }
-
 
     public String disableAct() {
         if (emailService == null || !emailService.isConfigured()) {
@@ -243,6 +242,11 @@ public class Document_sendByEmail {
         }, Document_sendByEmail.class, "determineEmailHeader", document);
     }
 
+    // bit of a hack...
+    private static String stripFileExtensionIfAny(final String name) {
+        final int suffix = name.lastIndexOf(".html");
+        return suffix == -1 ? name : name.substring(0, suffix);
+    }
 
 
     @Inject
