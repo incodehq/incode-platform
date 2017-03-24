@@ -37,7 +37,7 @@ language governing permissions and limitations under the License.
     </prerequisites>
 
     <properties>
-        <incode-module-communications.version>1.15.0-SNAPSHOT</incode-module-communications.version>
+        <incode-module-communications.version>1.14.6</incode-module-communications.version>
 
         <isis-module-fakedata.version>1.14.0</isis-module-fakedata.version>
         <incode-module-docrendering-freemarker.version>1.14.0</incode-module-docrendering-freemarker.version>
