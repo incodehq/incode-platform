@@ -32,5 +32,6 @@ public @interface PdfJsViewer {
 
     int initialPage() default  1;
 
-    double documentScale() default  0.8d;
+    double documentScale() default  1.0d; // 100%
+
 }

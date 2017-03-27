@@ -38,6 +38,11 @@ $(function () {
         raiseEvent($(this), WicketStuff.PDFJS.Topic.ZOOM_TO, {scale : scale});
     });
 
+    $('.pdf-js-height-current').change(function () {
+        var height = $(this).val();
+        raiseEvent($(this), WicketStuff.PDFJS.Topic.HEIGHT_TO, {height: height});
+    });
+
     $('.pdf-js-page-current').change(function () {
         var page = parseInt($(this).val());
         raiseEvent($(this), WicketStuff.PDFJS.Topic.GOTO_PAGE, {page : page});
@@ -115,7 +120,7 @@ $(function () {
     });
 
 
-    function addZoom(options, currentZoom) {
+    function addOptions(options, currentOpt) {
 
         var newOptions = [];
         var added = false;
@@ -123,11 +128,11 @@ $(function () {
         for (var i = 0; i < options.length; i++) {
             var option = options[i];
 
-            if (!added && parseFloat(currentZoom) < parseFloat(option)) {
-                newOptions.push(currentZoom);
+            if (!added && parseFloat(currentOpt) < parseFloat(option)) {
+                newOptions.push(currentOpt);
                 added = true;
             }
-            else if (currentZoom === option) {
+            else if (currentOpt === option) {
                 added = true;
             }
 
@@ -135,16 +140,16 @@ $(function () {
         }
 
         if (!added){
-            newOptions.push(currentZoom);
+            newOptions.push(currentOpt);
         }
 
         return newOptions;
     }
 
 
-    function addNumericOptions(zoomDropDown, currentZoom) {
+    function addZoomOptions(zoomDropDown, currentZoom) {
         var zoomNumericOptions = ["0.50", "0.75", "1.00", "1.25", "1.50", "2.00", "3.00", "4.00"];
-        var numericOptions = addZoom(zoomNumericOptions, currentZoom);
+        var numericOptions = addOptions(zoomNumericOptions, currentZoom);
 
         for (var i = 0; i < numericOptions.length; i++) {
             var zoom = numericOptions[i];
@@ -157,6 +162,22 @@ $(function () {
         zoomDropDown.val(currentZoom);
     }
 
+
+    function addHeightOptions(heightDropDown, currentHeight) {
+        var heightNumericOptions = ["400", "500", "600", "700", "800", "1000", "1200", "1400"];
+        var numericOptions = addOptions(heightNumericOptions, currentHeight);
+
+        for (var i = 0; i < numericOptions.length; i++) {
+            var height = numericOptions[i];
+
+            var title = height + "px";
+            var op = "<option value='" + title + "' class='pdf-js-numeric'>" + height + "</option>"
+            heightDropDown.append($(op));
+        }
+
+        heightDropDown.val(currentHeight);
+    }
+
     Wicket.Event.subscribe(WicketStuff.PDFJS.Topic.CURRENT_ZOOM, function (jqEvent, zoom, data) {
 
     		var zoomDropDown =  $('.pdf-js-zoom-current[data-canvas-id="'+data.canvasId+'"]');
@@ -164,11 +185,11 @@ $(function () {
     		zoomDropDown.val(zoom);
 
     		if (!zoomDropDown.val()) {
-    		    $("option.pdf-js-numeric").each(function() {
+    		    $("option.pdf-js-zoom").each(function() {
                    $(this).remove();
                 });
 
-    		    addNumericOptions(zoomDropDown, zoom);
+    		    addZoomOptions(zoomDropDown, zoom);
     	    }
 
     	    var zoomFloat = parseFloat(zoom)
@@ -190,6 +211,21 @@ $(function () {
                 $zoomOutBtn.removeAttr("disabled");
     	    }
 
-    });
+    })
+
+    Wicket.Event.subscribe(WicketStuff.PDFJS.Topic.CURRENT_HEIGHT, function (jqEvent, height, data) {
+
+    		var heightDropDown =  $('.pdf-js-height-current[data-canvas-id="'+data.canvasId+'"]');
+
+    		heightDropDown.val(height);
+
+    		if (!heightDropDown.val()) {
+    		    $("option.pdf-js-height").each(function() {
+                   $(this).remove();
+                });
+
+    		    addHeightOptions(heightDropDown, height);
+    	    }
+    })
 
 });

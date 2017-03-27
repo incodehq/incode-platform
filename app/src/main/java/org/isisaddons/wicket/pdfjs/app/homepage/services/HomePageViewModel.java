@@ -52,8 +52,9 @@ import org.isisaddons.wicket.pdfjs.fixture.dom.demo.DemoObjectMenu;
         return demoObjectMenu.listAll();
     }
 
+
     @XmlTransient
-    @PdfJsViewer(initialPage = 3, documentScale = 0.5)
+    @PdfJsViewer(initialPage = 3, documentScale = 1.0d)
     public Blob getBlob() {
         return getSelected() != null ? getSelected().getBlob() : null;
     }
