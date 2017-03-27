@@ -74,35 +74,17 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
             config.withDocumentUrl(urlFor(IResourceListener.INTERFACE, null));
             PdfJsPanel pdfJsPanel = new PdfJsPanel(ID_SCALAR_VALUE, config);
 
-//            final Options options = new Options();
-//            options.set("minWidth", 200);
-//            options.set("maxWidth", 720);
-//            options.set("minHeight", 100);
-//            options.set("maxHeight", 300);
-//
-//            final ResizableAdapter listener = new ResizableAdapter(){
-////                public boolean isResizeStartEventEnabled() {
-////                    return true;
-////                }
-////
-////                public boolean isResizeStopEventEnabled() {
-////                    return true;
-////                }
-//
-//            };
-//            pdfJsPanel.add(new ResizableBehavior(".pdfPanel", options, listener));
-
             MarkupContainer prevPageButton = createComponent("prevPage", config);
             MarkupContainer nextPageButton = createComponent("nextPage", config);
             MarkupContainer zoomInButton = createComponent("zoomIn", config);
             MarkupContainer zoomOutButton = createComponent("zoomOut", config);
             MarkupContainer currentPageLabel = createComponent("currentPage", config);
             MarkupContainer totalPagesLabel = createComponent("totalPages", config);
-            MarkupContainer zoomLevelSelect = createComponent("currentZoom", config);
-            MarkupContainer heightLevelSelect = createComponent("currentHeight", config);
+            MarkupContainer currentZoomSelect = createComponent("currentZoom", config);
+            MarkupContainer currentHeightSelect = createComponent("currentHeight", config);
             MarkupContainer printButton = createComponent("print", config);
 
-            containerIfRegular.addOrReplace(pdfJsPanel, prevPageButton, nextPageButton, zoomInButton, zoomOutButton, currentPageLabel, totalPagesLabel, zoomLevelSelect, heightLevelSelect, printButton);
+            containerIfRegular.addOrReplace(pdfJsPanel, prevPageButton, nextPageButton, zoomInButton, zoomOutButton, currentPageLabel, totalPagesLabel, currentZoomSelect, currentHeightSelect, printButton);
 
             containerIfRegular.addOrReplace(new NotificationPanel(ID_FEEDBACK, pdfJsPanel, new ComponentFeedbackMessageFilter(pdfJsPanel)));
         } else {

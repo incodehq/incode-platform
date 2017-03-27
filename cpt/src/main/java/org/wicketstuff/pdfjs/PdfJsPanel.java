@@ -12,19 +12,6 @@ import org.apache.wicket.util.lang.Args;
  * A panel for rendering PDF documents inline in the page
  */
 public class PdfJsPanel extends Panel {
-//public class PdfJsPanel extends ResizablePanel {
-
-    //    @Override
-    //    public boolean isResizeStartEventEnabled()
-    //    {
-    //        return true;
-    //    }
-    //
-    //    @Override
-    //    public boolean isResizeStopEventEnabled()
-    //    {
-    //        return true;
-    //    }
 
     private final PdfJsConfig config;
 

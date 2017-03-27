@@ -16,3 +16,15 @@ body:not([pdf-js-printing]) > #pdf-js-print-container {
 body[pdf-js-printing] > #pdf-js-print-container {
     display: block;
 }
+
+
+.pdfViewerPanel .pdf-js-zoom-current,
+.pdfViewerPanel .pdf-js-height-current,
+.pdfViewerPanel .pdf-js-print {
+    margin-left: 20px;
+}
+
+.pdfViewerPanel button {
+    padding: 6px 6px 4px 5px;
+    margin-bottom: 5px;
+}

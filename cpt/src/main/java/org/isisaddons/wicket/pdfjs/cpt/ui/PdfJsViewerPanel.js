@@ -30,7 +30,7 @@ $(function () {
     $('.pdf-js-print').click(function () {
         raiseEvent($(this), WicketStuff.PDFJS.Topic.PRINT);
         $('.progress').show();
-        $('.progress-bar').css( "width",  "1%" );
+        $('.progress-bar').css( "width",  "5%" );
     });
 
     $('.pdf-js-zoom-current').change(function () {

@@ -19,8 +19,9 @@
 
 package org.isisaddons.wicket.pdfjs.cpt.applib;
 
-import org.apache.isis.core.metamodel.facetapi.FacetHolder;
 import org.wicketstuff.pdfjs.PdfJsConfig;
+
+import org.apache.isis.core.metamodel.facetapi.FacetHolder;
 
 public class PdfJsViewerFacetFromAnnotation extends PdfJsViewerFacetAbstract {
 
@@ -36,9 +37,14 @@ public class PdfJsViewerFacetFromAnnotation extends PdfJsViewerFacetAbstract {
             config.withInitialPage(initialPage);
         }
 
-        double documentScale = annotation.documentScale();
-        if (documentScale > 0) {
-            config.withDocumentScale(documentScale);
+        double initialScale = annotation.initialScale();
+        if (initialScale > 0) {
+            config.withInitialScale(initialScale);
+        }
+
+        int initialHeight = annotation.initialHeight();
+        if (initialHeight > 0) {
+            config.withInitialHeight(initialHeight);
         }
 
         return new PdfJsViewerFacetFromAnnotation(config, holder);

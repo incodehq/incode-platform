@@ -25,12 +25,10 @@
                     <div class="row">
                         <div class="scalarValue col-sm-12">
                             <div>
+                                <span>Page: <input wicket:id="currentPage"  class="pdf-js-page-current" title="Select Page"></input> / <span wicket:id="totalPages"  class="pdf-js-page-total"></span></span>
+
                                 <button wicket:id="prevPage" disabled type="button" class="fa fa-backward btn btn-xs btn-default pdf-js-page-prev" title="Previous"></button>
                                 <button wicket:id="nextPage" disabled type="button" class="fa fa-forward btn btn-xs btn-default pdf-js-page-next" title="Next"></button>
-                                <button wicket:id="zoomIn" type="button" class="fa fa-plus-square btn btn-xs btn-default pdf-js-zoom-in" title="Zoom In"></button>
-                                <button wicket:id="zoomOut" type="button" class="fa fa-minus-square btn btn-xs btn-default pdf-js-zoom-out" title="Zoom Out"></button>
-                                &nbsp; &nbsp;
-                                <span>Page: <input wicket:id="currentPage"  class="pdf-js-page-current" title="Select Page"></input> / <span wicket:id="totalPages"  class="pdf-js-page-total"></span></span>
 
                                 <select wicket:id="currentZoom" title="Current Zoom Level" class="pdf-js-zoom-current">
                                     <option id="pageAutoOption" value="auto" >Automatic Zoom</option>
@@ -46,6 +44,9 @@
                                     <option class="pdf-js-zoom" value="3.00">300%</option>
                                     <option class="pdf-js-zoom" value="4.00">400%</option>
                                 </select>
+
+                                <button wicket:id="zoomOut" type="button" class="fa fa-minus-square btn btn-xs btn-default pdf-js-zoom-out" title="Zoom Out"></button>
+                                <button wicket:id="zoomIn" type="button" class="fa fa-plus-square btn btn-xs btn-default pdf-js-zoom-in" title="Zoom In"></button>
 
                                 <select wicket:id="currentHeight" title="Height" class="pdf-js-height-current">
                                     <option class="pdf-js-height" value="400">400px</option>

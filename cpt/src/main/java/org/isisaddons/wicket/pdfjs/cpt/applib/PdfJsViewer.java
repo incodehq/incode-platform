@@ -31,7 +31,7 @@ import java.lang.annotation.Target;
 public @interface PdfJsViewer {
 
     int initialPage() default  1;
-
-    double documentScale() default  1.0d; // 100%
+    double initialScale() default 1.0d;
+    int initialHeight() default 800;
 
 }

@@ -68,7 +68,7 @@ public class DemoObject implements Comparable<DemoObject> {
             optionality = Optionality.OPTIONAL
     )
 
-    @Getter // (onMethod = @__({@PdfJsViewer(initialPage = 3, documentScale = 0.5)}))
+    @Getter // (onMethod = @__({@PdfJsViewer(initialPage = 3, initialScale = 0.5)}))
     @Setter
     private Blob blob;
 

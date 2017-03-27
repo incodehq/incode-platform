@@ -57,8 +57,20 @@
 
             var container = $('#'+canvas.id).closest('.pdfPanel');
 
-            canvas.height = Math.max(container.height(), 800);
+            canvas.height = config.initialHeight;
             canvas.width = container.width();
+
+            $(window).on('resize', function(){
+                  var win = $(this); //this = window
+
+                  var container = $('#'+canvas.id).closest('.pdfPanel');
+
+                  canvas.width = container.width();
+
+                  queueRenderPage(pageNum);
+
+            });
+
 
             /**
              * Get page info from document, resize canvas accordingly, and render page.
@@ -356,9 +368,26 @@
                   if (config.canvasId !== data.canvasId || !data.height) {
                       return;
                   }
-                  canvas.height = data.height;
+                  var previousHeight = canvas.height;
+                  var newHeight = data.height;
+
+                  canvas.height = newHeight;
 
                   queueRenderPage(pageNum);
+
+
+// this idea doesn't work, because the newScale doesn't match the values in the zoom drop-down
+//                  if(autoScale) {
+//                      queueRenderPage(pageNum);
+//
+//                  } else {
+//                      // eg if went from 600px to 800px, then is (800-600)/600 = 0.333
+//                      var delta = (newHeight - previousHeight) * 1.0 / previousHeight;
+//                      // therefore increase scale accordingly
+//                      var newScale = scale * (1.0 + delta);
+//                      renderIfRescaled(newScale, autoScale);
+//                  }
+
               });
 
             /**
