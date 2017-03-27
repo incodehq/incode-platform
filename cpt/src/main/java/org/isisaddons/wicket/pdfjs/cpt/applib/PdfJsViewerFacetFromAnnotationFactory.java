@@ -43,6 +43,7 @@ public class PdfJsViewerFacetFromAnnotationFactory extends FacetFactoryAbstract 
 
         if (pdfjsViewer != null) {
             PdfJsViewerFacetAbstract pdfJsViewerFacet = PdfJsViewerFacetFromAnnotation.create(pdfjsViewer, holder);
+            servicesInjector.injectServicesInto(pdfJsViewerFacet);
             FacetUtil.addFacet(pdfJsViewerFacet);
         }
     }

@@ -19,6 +19,8 @@ package org.isisaddons.wicket.pdfjs.cpt.ui;
 import org.apache.wicket.Component;
 import org.apache.wicket.IResourceListener;
 import org.apache.wicket.MarkupContainer;
+import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
 import org.apache.wicket.markup.ComponentTag;
@@ -28,6 +30,7 @@ import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ResourceLink;
+import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.handler.resource.ResourceRequestHandler;
 import org.apache.wicket.request.http.flow.AbortWithHttpErrorCodeException;
 import org.apache.wicket.request.resource.ByteArrayResource;
@@ -54,6 +57,9 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
     private static final String ID_SCALAR_NAME = "scalarName";
     private static final String ID_SCALAR_VALUE = "scalarValue";
     private static final String ID_FEEDBACK = "feedback";
+
+    AbstractDefaultAjaxBehavior updateHeight;
+    AbstractDefaultAjaxBehavior updateScale;
 
     PdfJsViewerPanel(String id, ScalarModel scalarModel) {
         super(id, scalarModel);
@@ -87,6 +93,41 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
             containerIfRegular.addOrReplace(pdfJsPanel, prevPageButton, nextPageButton, zoomInButton, zoomOutButton, currentPageLabel, totalPagesLabel, currentZoomSelect, currentHeightSelect, printButton);
 
             containerIfRegular.addOrReplace(new NotificationPanel(ID_FEEDBACK, pdfJsPanel, new ComponentFeedbackMessageFilter(pdfJsPanel)));
+
+            updateScale = new AbstractDefaultAjaxBehavior()
+            {
+                @Override
+                protected void respond(AjaxRequestTarget _target)
+                {
+                     String newScale = RequestCycle.get().getRequest().getRequestParameters().getParameterValue("scale").toString();
+                    try {
+                        final double scale = Double.parseDouble(newScale);
+                        System.out.println("scale = " + scale);
+                    } catch(Exception ex) {
+                        // ignore
+                    }
+
+                }
+            };
+
+            updateHeight = new AbstractDefaultAjaxBehavior()
+            {
+                @Override
+                protected void respond(AjaxRequestTarget _target)
+                {
+                    String newHeight = RequestCycle.get().getRequest().getRequestParameters().getParameterValue("height").toString();
+                    try {
+                        final int height = Integer.parseInt(newHeight);
+                        System.out.println("height = " + height);
+                    } catch(Exception ex) {
+                        // ignore
+                    }
+                }
+            };
+
+            containerIfRegular.add(updateScale); // so we have a callback URL
+            containerIfRegular.add(updateHeight); // so we have a callback URL
+
         } else {
             permanentlyHide(ID_SCALAR_VALUE, ID_FEEDBACK);
         }
@@ -104,11 +145,11 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
         addOrReplace(containerIfCompact);
 
         final IResource bar = new ByteArrayResource(blob.getMimeType().getBaseType(), blob.getBytes(), blob.getName());
-        final ResourceLink<Void> dowloadLink = new ResourceLink<>("scalarIfCompactDownload", bar);
-        containerIfCompact.add(dowloadLink);
+        final ResourceLink<Void> downloadLink = new ResourceLink<>("scalarIfCompactDownload", bar);
+        containerIfCompact.add(downloadLink);
 
         Label fileNameIfCompact = new Label("fileNameIfCompact", blob.getName());
-        dowloadLink.add(fileNameIfCompact);
+        downloadLink.add(fileNameIfCompact);
 
         return containerIfCompact;
     }
@@ -133,8 +174,17 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
 
         response.render(CssHeaderItem.forReference(new CssResourceReference(PdfJsViewerPanel.class, "PdfJsViewerPanel.css")));
         response.render(JavaScriptHeaderItem.forReference(new PdfJsViewerReference()));
+
+         renderFunctionsForUpdateCallbacks(response);
     }
 
+    private void renderFunctionsForUpdateCallbacks(final IHeaderResponse response) {
+        response.render(JavaScriptHeaderItem.forScript(
+                "function updateScale(scale) {Wicket.Ajax.get({'u':'"+ updateScale.getCallbackUrl() +"&scale=' + scale})}", "updateScale"));
+
+        response.render(JavaScriptHeaderItem.forScript(
+                "function updateHeight(height) {Wicket.Ajax.get({'u':'"+ updateHeight.getCallbackUrl() +"&height=' + height})}", "updateHeight"));
+    }
 
     @Override
     public void onResourceRequested() {

@@ -361,6 +361,9 @@
                       }
                   }
 
+                  // TODO: reinstate
+                  //updateScale(newScale);
+
                   renderIfRescaled(newScale, newAutoScale);
               });
 
@@ -373,20 +376,11 @@
 
                   canvas.height = newHeight;
 
+                  // TODO: reinstate
+                  // updateHeight(newHeight);
+
                   queueRenderPage(pageNum);
 
-
-// this idea doesn't work, because the newScale doesn't match the values in the zoom drop-down
-//                  if(autoScale) {
-//                      queueRenderPage(pageNum);
-//
-//                  } else {
-//                      // eg if went from 600px to 800px, then is (800-600)/600 = 0.333
-//                      var delta = (newHeight - previousHeight) * 1.0 / previousHeight;
-//                      // therefore increase scale accordingly
-//                      var newScale = scale * (1.0 + delta);
-//                      renderIfRescaled(newScale, autoScale);
-//                  }
 
               });
 

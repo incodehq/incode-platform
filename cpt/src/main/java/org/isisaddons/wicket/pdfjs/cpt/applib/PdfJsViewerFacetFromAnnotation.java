@@ -29,7 +29,7 @@ public class PdfJsViewerFacetFromAnnotation extends PdfJsViewerFacetAbstract {
         super(config, holder);
     }
 
-    public static PdfJsViewerFacetAbstract create(PdfJsViewer annotation, FacetHolder holder) {
+    public static PdfJsViewerFacetFromAnnotation create(PdfJsViewer annotation, FacetHolder holder) {
         PdfJsConfig config = new PdfJsConfig();
 
         int initialPage = annotation.initialPage();
@@ -49,4 +49,24 @@ public class PdfJsViewerFacetFromAnnotation extends PdfJsViewerFacetAbstract {
 
         return new PdfJsViewerFacetFromAnnotation(config, holder);
     }
+
+//    public PdfJsConfig getConfig() {
+//        final PdfJsConfig config = super.getConfig();
+//        if(advisor != null) {
+//            final PdfJsViewerAdvisor.Advice advice = advisor.advise();
+//            final Integer height = advice.getHeight();
+//            if(height != null) {
+//                config.withInitialHeight(height);
+//            }
+//            final Double scale = advice.getScale();
+//            if(scale != null) {
+//                config.withInitialScale(scale);
+//            }
+//        }
+//        return config;
+//    }
+//
+//    @Inject
+//    PdfJsViewerAdvisor advisor;
+
 }
