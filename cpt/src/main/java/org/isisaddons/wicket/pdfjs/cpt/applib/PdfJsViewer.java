@@ -30,7 +30,7 @@ import java.lang.annotation.Target;
 @Target(value = {ElementType.METHOD, ElementType.FIELD})
 public @interface PdfJsViewer {
 
-    int initialPage() default  1;
+    int initialPageNum() default  1;
     double initialScale() default 1.0d;
     int initialHeight() default 800;
 

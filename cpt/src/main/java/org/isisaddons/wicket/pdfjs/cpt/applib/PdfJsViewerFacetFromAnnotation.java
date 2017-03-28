@@ -19,6 +19,8 @@
 
 package org.isisaddons.wicket.pdfjs.cpt.applib;
 
+import javax.inject.Inject;
+
 import org.wicketstuff.pdfjs.PdfJsConfig;
 
 import org.apache.isis.core.metamodel.facetapi.FacetHolder;
@@ -32,7 +34,7 @@ public class PdfJsViewerFacetFromAnnotation extends PdfJsViewerFacetAbstract {
     public static PdfJsViewerFacetFromAnnotation create(PdfJsViewer annotation, FacetHolder holder) {
         PdfJsConfig config = new PdfJsConfig();
 
-        int initialPage = annotation.initialPage();
+        int initialPage = annotation.initialPageNum();
         if (initialPage > 0) {
             config.withInitialPage(initialPage);
         }
@@ -50,23 +52,25 @@ public class PdfJsViewerFacetFromAnnotation extends PdfJsViewerFacetAbstract {
         return new PdfJsViewerFacetFromAnnotation(config, holder);
     }
 
-//    public PdfJsConfig getConfig() {
-//        final PdfJsConfig config = super.getConfig();
-//        if(advisor != null) {
-//            final PdfJsViewerAdvisor.Advice advice = advisor.advise();
-//            final Integer height = advice.getHeight();
-//            if(height != null) {
-//                config.withInitialHeight(height);
-//            }
-//            final Double scale = advice.getScale();
-//            if(scale != null) {
-//                config.withInitialScale(scale);
-//            }
-//        }
-//        return config;
-//    }
-//
-//    @Inject
-//    PdfJsViewerAdvisor advisor;
+    public PdfJsConfig getConfig() {
+        final PdfJsConfig config = super.getConfig();
+
+        if(advisor != null) {
+            final PdfJsViewerAdvisor.Advice advice = advisor.advise();
+            final Integer height = advice.getHeight();
+            if(height != null) {
+                config.withInitialHeight(height);
+            }
+            final Double scale = advice.getScale();
+            if(scale != null) {
+                config.withInitialScale(scale);
+            }
+        }
+
+        return config;
+    }
+
+    @Inject
+    PdfJsViewerAdvisor advisor;
 
 }

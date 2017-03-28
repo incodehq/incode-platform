@@ -27,18 +27,26 @@ public interface PdfJsViewerAdvisor {
     Advice advise();
 
     @Programmatic
+    void pageNumChangedTo(final int pageNum);
+    @Programmatic
     void scaleChangedTo(final double height);
     @Programmatic
     void heightChangedTo(final int height);
 
     public static class Advice {
 
+        private final Integer pageNum;
         private final Double scale;
         private final Integer height;
 
-        public Advice(final Double scale, final Integer height) {
+        public Advice(final Integer pageNum, final Double scale, final Integer height) {
+            this.pageNum = pageNum;
             this.scale = scale;
             this.height = height;
+        }
+
+        public Integer getPageNum() {
+            return pageNum;
         }
 
         public Double getScale() {

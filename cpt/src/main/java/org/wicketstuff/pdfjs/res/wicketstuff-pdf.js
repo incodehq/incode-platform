@@ -57,7 +57,7 @@
 
             var container = $('#'+canvas.id).closest('.pdfPanel');
 
-            canvas.height = config.initialHeight;
+            canvas.height = config.initialHeight || 800;
             canvas.width = container.width();
 
             $(window).on('resize', function(){
@@ -296,6 +296,10 @@
                     return;
                 }
                 pageNum--;
+
+                // TODO: add namespacing
+                updatePageNum(pageNum);
+
                 queueRenderPage(pageNum);
             });
 
@@ -307,6 +311,10 @@
                     return;
                 }
                 pageNum++;
+
+                // TODO: add namespacing
+                updatePageNum(pageNum);
+
                 queueRenderPage(pageNum);
             });
 
@@ -321,6 +329,10 @@
                     return;
                 }
                 pageNum = data.page;
+
+                // TODO: add namespacing
+                updatePageNum(pageNum);
+
                 queueRenderPage(pageNum);
             });
 
@@ -361,8 +373,8 @@
                       }
                   }
 
-                  // TODO: reinstate
-                  //updateScale(newScale);
+                  // TODO: add namespacing
+                  updateScale(newScale);
 
                   renderIfRescaled(newScale, newAutoScale);
               });
@@ -376,8 +388,8 @@
 
                   canvas.height = newHeight;
 
-                  // TODO: reinstate
-                  // updateHeight(newHeight);
+                  // TODO: add namespacing
+                  updateHeight(newHeight);
 
                   queueRenderPage(pageNum);
 

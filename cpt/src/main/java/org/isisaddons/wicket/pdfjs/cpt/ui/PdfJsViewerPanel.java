@@ -17,10 +17,10 @@
 package org.isisaddons.wicket.pdfjs.cpt.ui;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.IRequestListener;
 import org.apache.wicket.IResourceListener;
 import org.apache.wicket.MarkupContainer;
-import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
-import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.RequestListenerInterface;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
 import org.apache.wicket.markup.ComponentTag;
@@ -30,7 +30,6 @@ import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ResourceLink;
-import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.handler.resource.ResourceRequestHandler;
 import org.apache.wicket.request.http.flow.AbortWithHttpErrorCodeException;
 import org.apache.wicket.request.resource.ByteArrayResource;
@@ -58,8 +57,22 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
     private static final String ID_SCALAR_VALUE = "scalarValue";
     private static final String ID_FEEDBACK = "feedback";
 
-    AbstractDefaultAjaxBehavior updateHeight;
-    AbstractDefaultAjaxBehavior updateScale;
+    public interface IMyListener extends IRequestListener
+    {
+
+        public static final RequestListenerInterface INTERFACE = new
+                RequestListenerInterface(IMyListener.class);
+
+        /**
+         * Called when the relative callback URL is requested.
+         */
+        void myCallbackMethod();
+    }
+
+//    AbstractDefaultAjaxBehavior updatePageNum;
+//    AbstractDefaultAjaxBehavior updateScale;
+//    AbstractDefaultAjaxBehavior updateHeight;
+    IMyListener updateHeight;
 
     PdfJsViewerPanel(String id, ScalarModel scalarModel) {
         super(id, scalarModel);
@@ -68,7 +81,6 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
 
     @Override
     protected MarkupContainer addComponentForRegular() {
-
 
         MarkupContainer containerIfRegular = new WebMarkupContainer("scalarIfRegular");
         addOrReplace(containerIfRegular);
@@ -94,39 +106,58 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
 
             containerIfRegular.addOrReplace(new NotificationPanel(ID_FEEDBACK, pdfJsPanel, new ComponentFeedbackMessageFilter(pdfJsPanel)));
 
-            updateScale = new AbstractDefaultAjaxBehavior()
-            {
-                @Override
-                protected void respond(AjaxRequestTarget _target)
-                {
-                     String newScale = RequestCycle.get().getRequest().getRequestParameters().getParameterValue("scale").toString();
-                    try {
-                        final double scale = Double.parseDouble(newScale);
-                        System.out.println("scale = " + scale);
-                    } catch(Exception ex) {
-                        // ignore
-                    }
 
-                }
-            };
+//            updatePageNum = new AbstractDefaultAjaxBehavior()
+//            {
+//                @Override
+//                protected void respond(AjaxRequestTarget _target)
+//                {
+//                    String newPageNum = RequestCycle.get().getRequest().getRequestParameters().getParameterValue("pageNum").toString();
+//                    try {
+//                        final double pageNum = Integer.parseInt(newPageNum);
+//                        System.out.println("pageNum = " + pageNum);
+//                    } catch(Exception ex) {
+//                        // ignore
+//                    }
+//
+//                }
+//            };
+//
+//            updateScale = new AbstractDefaultAjaxBehavior()
+//            {
+//                @Override
+//                protected void respond(AjaxRequestTarget _target)
+//                {
+//                     String newScale = RequestCycle.get().getRequest().getRequestParameters().getParameterValue("scale").toString();
+//                    try {
+//                        final double scale = Double.parseDouble(newScale);
+//                        System.out.println("scale = " + scale);
+//                    } catch(Exception ex) {
+//                        // ignore
+//                    }
+//
+//                }
+//            };
+//
+//            updateHeight = new AbstractDefaultAjaxBehavior()
+//            {
+//                @Override
+//                protected void respond(AjaxRequestTarget _target)
+//                {
+//                    String newHeight = RequestCycle.get().getRequest().getRequestParameters().getParameterValue("height").toString();
+//                    try {
+//                        final int height = Integer.parseInt(newHeight);
+//                        System.out.println("height = " + height);
+//                    } catch(Exception ex) {
+//                        // ignore
+//                    }
+//                }
+//            };
 
-            updateHeight = new AbstractDefaultAjaxBehavior()
-            {
-                @Override
-                protected void respond(AjaxRequestTarget _target)
-                {
-                    String newHeight = RequestCycle.get().getRequest().getRequestParameters().getParameterValue("height").toString();
-                    try {
-                        final int height = Integer.parseInt(newHeight);
-                        System.out.println("height = " + height);
-                    } catch(Exception ex) {
-                        // ignore
-                    }
-                }
-            };
-
-            containerIfRegular.add(updateScale); // so we have a callback URL
-            containerIfRegular.add(updateHeight); // so we have a callback URL
+            // so we have a callback URL
+//            containerIfRegular.add(updatePageNum);
+//            containerIfRegular.add(updateScale);
+//            containerIfRegular.add(updateHeight);
 
         } else {
             permanentlyHide(ID_SCALAR_VALUE, ID_FEEDBACK);
@@ -175,15 +206,22 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
         response.render(CssHeaderItem.forReference(new CssResourceReference(PdfJsViewerPanel.class, "PdfJsViewerPanel.css")));
         response.render(JavaScriptHeaderItem.forReference(new PdfJsViewerReference()));
 
+        
+
+
          renderFunctionsForUpdateCallbacks(response);
     }
 
     private void renderFunctionsForUpdateCallbacks(final IHeaderResponse response) {
-        response.render(JavaScriptHeaderItem.forScript(
-                "function updateScale(scale) {Wicket.Ajax.get({'u':'"+ updateScale.getCallbackUrl() +"&scale=' + scale})}", "updateScale"));
 
-        response.render(JavaScriptHeaderItem.forScript(
-                "function updateHeight(height) {Wicket.Ajax.get({'u':'"+ updateHeight.getCallbackUrl() +"&height=' + height})}", "updateHeight"));
+//        response.render(JavaScriptHeaderItem.forScript(
+//                "function updatePageNum(pageNum) {Wicket.Ajax.get({'u':'"+ updatePageNum.getCallbackUrl() +"&pageNum=' + pageNum})}", "updatePageNum"));
+//
+//        response.render(JavaScriptHeaderItem.forScript(
+//                "function updateScale(scale) {Wicket.Ajax.get({'u':'"+ updateScale.getCallbackUrl() +"&scale=' + scale})}", "updateScale"));
+//
+//        response.render(JavaScriptHeaderItem.forScript(
+//                "function updateHeight(height) {Wicket.Ajax.get({'u':'"+ updateHeight.getCallbackUrl() +"&height=' + height})}", "updateHeight"));
     }
 
     @Override
