@@ -68,17 +68,14 @@ For example:
 [source,java]
 ----
 @PdfJsViewer(
-    initialPageNum = 1,             // <1>
-    initialScale = Scale._1_00,     // <2>
-    initialHeight = 600             // <3>
+    initialPageNum = 1,
+    initialScale = Scale._0_75,
+    initialHeight = 600
 )
 public Blob getBlob() {
-    return getSelected() != null ? getSelected().getBlob() : null;
+    return this.blob;
 }
 ----
-<1> initial page to render, defaults to first page
-<2> scaling, defaults to 100%
-<3> height of the panel, in pixels
 
 
 The `Scale` enum corresponds to the scale drop-down in the view, and is defined as:
@@ -91,6 +88,7 @@ public enum Scale {
     PAGE_FIT,
     PAGE_WIDTH,
     _0_50,          // <2>
+    _0_75,
     ...
     _4_00;          // <3>
 }
@@ -107,9 +105,11 @@ Often a user may need to browse through many documents at a time, for example to
 To fit their particular screen, they may want to adjust the zoom level and/or height of the panel.
 It would however be very tiresome of the next document viewed reset to the defaults specified in the `@PdfJsViewer`.
 
-Related, if a user were to view a first document and navigate to a page 2 or 3, then move to second document, and then back to the first, it would again be annoying if the user had start back at page 1 and navigate once more to a different page.
+Related, support a user views a first document and navigate to some other page.
+She then moves on to second document, and then goes back to the first document once more.
+It would again be annoying if she had start back at page 1 and navigate once more to the page they were previously at.
 
-To support these two use cases the component therefore provides an optional SPI service as a plugin point.
+To support these two use cases the component therefore provides an optional SPI service.
 Implementations of this SPI service can provide hints (`Advice`) which override the defaults of the `@PdfJsViewer` annotation.
 
 The SPI is defined as:
