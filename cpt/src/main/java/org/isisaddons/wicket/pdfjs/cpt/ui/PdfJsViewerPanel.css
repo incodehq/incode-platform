@@ -20,11 +20,11 @@ body[pdf-js-printing] > #pdf-js-print-container {
 
 .pdfViewerPanel .pdf-js-zoom-current,
 .pdfViewerPanel .pdf-js-height-current,
-.pdfViewerPanel .pdf-js-print {
+.pdfViewerPanel .pdf-js-download {
     margin-left: 20px;
 }
 
 .pdfViewerPanel button {
-    padding: 6px 6px 4px 5px;
+    padding: 4px 4px 3px 4px;
     margin-bottom: 5px;
 }

@@ -38,7 +38,7 @@
         </bs3:col>
         <bs3:col span="6">
             <fieldSet name="Other" unreferencedProperties="true">
-                <property id="idx"/>
+                <property id="idx" hidden="OBJECT_FORMS"/>
                 <property id="selected"/>
                 <property id="blob"/>
             </fieldSet>

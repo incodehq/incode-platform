@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.wicket.pdfjs.app.homepage.services;
+package org.isisaddons.wicket.pdfjs.app.services.homepage;
 
 import java.util.List;
 
@@ -24,6 +24,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+
+import org.wicketstuff.pdfjs.PdfJsConfig;
 
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.Where;
@@ -54,7 +56,7 @@ import org.isisaddons.wicket.pdfjs.fixture.dom.demo.DemoObjectMenu;
 
 
     @XmlTransient
-    @PdfJsViewer(initialPageNum = 1, initialScale = 1.0d, initialHeight = 600)
+    @PdfJsViewer(initialPageNum = 1, initialScale = PdfJsConfig.Scale._1_00, initialHeight = 600)
     public Blob getBlob() {
         return getSelected() != null ? getSelected().getBlob() : null;
     }

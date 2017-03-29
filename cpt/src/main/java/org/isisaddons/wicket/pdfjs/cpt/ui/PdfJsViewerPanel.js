@@ -45,7 +45,7 @@ $(function () {
 
     $('.pdf-js-page-current').change(function () {
         var page = parseInt($(this).val());
-        raiseEvent($(this), WicketStuff.PDFJS.Topic.GOTO_PAGE, {page : page});
+        raiseEvent($(this), WicketStuff.PDFJS.Topic.PAGE_TO, {page : page});
     });
 
     Wicket.Event.subscribe(WicketStuff.PDFJS.Topic.CURRENT_PAGE, function (jqEvent, pageNumber, data) {
@@ -83,22 +83,25 @@ $(function () {
     });
 
     Wicket.Event.subscribe(WicketStuff.PDFJS.Topic.CURRENT_PAGE, function (jqEvent, pageNumber, data) {
-            $('.pdf-js-page-current[data-canvas-id="'+data.canvasId+'"]').val(pageNumber);
+        $('.pdf-js-page-current[data-canvas-id="'+data.canvasId+'"]').val(pageNumber);
 
-            var $prevPageBtn = $('.pdf-js-page-prev[data-canvas-id="'+data.canvasId+'"]');
-            if (pageNumber === 1) {
-                $prevPageBtn.attr("disabled", "disabled");
-            } else {
-                $prevPageBtn.removeAttr("disabled");
-            }
+        var $prevPageBtn = $('.pdf-js-page-prev[data-canvas-id="'+data.canvasId+'"]');
+        if (pageNumber === 1) {
+            $prevPageBtn.attr("disabled", "disabled");
+        } else {
+            $prevPageBtn.removeAttr("disabled");
+        }
 
-            var $nextPageBtn = $('.pdf-js-page-next[data-canvas-id="'+data.canvasId+'"]');
-            if (pageNumber === $nextPageBtn.data("total-pages")) {
-                $nextPageBtn.attr("disabled", "disabled");
-            } else {
-                $nextPageBtn.removeAttr("disabled");
-            }
-        });
+        var $nextPageBtn = $('.pdf-js-page-next[data-canvas-id="'+data.canvasId+'"]');
+        if (pageNumber === $nextPageBtn.data("total-pages")) {
+            $nextPageBtn.attr("disabled", "disabled");
+        } else {
+            $nextPageBtn.removeAttr("disabled");
+        }
+
+        PdfJsViewerPanel.Callbacks.updatePageNum(pageNumber);
+
+    });
 
     Wicket.Event.subscribe(WicketStuff.PDFJS.Topic.CURRENT_PRINT_PAGE, function (jqEvent, pageNumber, data) {
         if (pageNumber === -1){
@@ -120,31 +123,40 @@ $(function () {
     });
 
 
-    function addOptions(options, currentOpt) {
+    Wicket.Event.subscribe(WicketStuff.PDFJS.Topic.CURRENT_ZOOM, function (jqEvent, zoom, data) {
 
-        var newOptions = [];
-        var added = false;
+        var zoomDropDown =  $('.pdf-js-zoom-current[data-canvas-id="'+data.canvasId+'"]');
 
-        for (var i = 0; i < options.length; i++) {
-            var option = options[i];
+        zoomDropDown.val(zoom);
 
-            if (!added && parseFloat(currentOpt) < parseFloat(option)) {
-                newOptions.push(currentOpt);
-                added = true;
-            }
-            else if (currentOpt === option) {
-                added = true;
-            }
+        if (!zoomDropDown.val()) {
+            $("option.pdf-js-zoom").each(function() {
+               $(this).remove();
+            });
 
-            newOptions.push(option);
+            addZoomOptions(zoomDropDown, zoom);
         }
 
-        if (!added){
-            newOptions.push(currentOpt);
+        PdfJsViewerPanel.Callbacks.updateScale(zoom);
+    })
+
+    Wicket.Event.subscribe(WicketStuff.PDFJS.Topic.CURRENT_HEIGHT, function (jqEvent, height, data) {
+
+        var heightDropDown =  $('.pdf-js-height-current[data-canvas-id="'+data.canvasId+'"]');
+
+        heightDropDown.val(height);
+
+        if (!heightDropDown.val()) {
+            $("option.pdf-js-height").each(function() {
+               $(this).remove();
+            });
+
+            addHeightOptions(heightDropDown, height);
         }
 
-        return newOptions;
-    }
+        PdfJsViewerPanel.Callbacks.updateHeight(height);
+
+    })
 
 
     function addZoomOptions(zoomDropDown, currentZoom) {
@@ -178,54 +190,33 @@ $(function () {
         heightDropDown.val(currentHeight);
     }
 
-    Wicket.Event.subscribe(WicketStuff.PDFJS.Topic.CURRENT_ZOOM, function (jqEvent, zoom, data) {
 
-    		var zoomDropDown =  $('.pdf-js-zoom-current[data-canvas-id="'+data.canvasId+'"]');
+    function addOptions(options, currentOpt) {
 
-    		zoomDropDown.val(zoom);
+        var newOptions = [];
+        var added = false;
 
-    		if (!zoomDropDown.val()) {
-    		    $("option.pdf-js-zoom").each(function() {
-                   $(this).remove();
-                });
+        for (var i = 0; i < options.length; i++) {
+            var option = options[i];
 
-    		    addZoomOptions(zoomDropDown, zoom);
-    	    }
+            if (!added && parseFloat(currentOpt) < parseFloat(option)) {
+                newOptions.push(currentOpt);
+                added = true;
+            }
+            else if (currentOpt === option) {
+                added = true;
+            }
 
-    	    var zoomFloat = parseFloat(zoom)
-    	    var minZoom = 0.25;
-    	    var maxZoom = 4.0;
-    	    var $zoomInBtn = $('.pdf-js-zoom-in[data-canvas-id="'+data.canvasId+'"]');
-            var $zoomOutBtn = $('.pdf-js-zoom-out[data-canvas-id="'+data.canvasId+'"]');
+            newOptions.push(option);
+        }
 
-    	    if (zoomFloat <= minZoom){
-    	        // minimum zoom
-    	        $zoomOutBtn.attr("disabled", "disabled");
-    	        $zoomInBtn.removeAttr("disabled");
-    	    } else  if (zoomFloat >= maxZoom) {
-    	        // maximum zoom
-    	        $zoomOutBtn.removeAttr("disabled");
-                $zoomInBtn.attr("disabled", "disabled");
-    	    } else {
-    	        $zoomInBtn.removeAttr("disabled");
-                $zoomOutBtn.removeAttr("disabled");
-    	    }
+        if (!added){
+            newOptions.push(currentOpt);
+        }
 
-    })
+        return newOptions;
+    }
 
-    Wicket.Event.subscribe(WicketStuff.PDFJS.Topic.CURRENT_HEIGHT, function (jqEvent, height, data) {
 
-    		var heightDropDown =  $('.pdf-js-height-current[data-canvas-id="'+data.canvasId+'"]');
-
-    		heightDropDown.val(height);
-
-    		if (!heightDropDown.val()) {
-    		    $("option.pdf-js-height").each(function() {
-                   $(this).remove();
-                });
-
-    		    addHeightOptions(heightDropDown, height);
-    	    }
-    })
 
 });

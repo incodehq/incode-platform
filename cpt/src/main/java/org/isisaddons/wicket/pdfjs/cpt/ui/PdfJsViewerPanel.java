@@ -16,11 +16,18 @@
  */
 package org.isisaddons.wicket.pdfjs.cpt.ui;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+
+import com.google.common.io.Resources;
+
+import org.apache.commons.io.Charsets;
 import org.apache.wicket.Component;
-import org.apache.wicket.IRequestListener;
 import org.apache.wicket.IResourceListener;
 import org.apache.wicket.MarkupContainer;
-import org.apache.wicket.RequestListenerInterface;
+import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
 import org.apache.wicket.markup.ComponentTag;
@@ -30,19 +37,25 @@ import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ResourceLink;
+import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.handler.resource.ResourceRequestHandler;
 import org.apache.wicket.request.http.flow.AbortWithHttpErrorCodeException;
 import org.apache.wicket.request.resource.ByteArrayResource;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.IResource;
+import org.apache.wicket.util.time.Duration;
 import org.wicketstuff.pdfjs.PdfJsConfig;
 import org.wicketstuff.pdfjs.PdfJsPanel;
 
+import org.apache.isis.applib.services.bookmark.Bookmark;
+import org.apache.isis.applib.services.user.UserService;
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
 import org.apache.isis.viewer.wicket.model.models.ScalarModel;
 import org.apache.isis.viewer.wicket.ui.components.scalars.ScalarPanelAbstract;
 
+import org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewer;
+import org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewerAdvisor;
 import org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewerFacet;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
@@ -51,33 +64,136 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel
  *
  */
 class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener {
+
     private static final long serialVersionUID = 1L;
 
     private static final String ID_SCALAR_NAME = "scalarName";
     private static final String ID_SCALAR_VALUE = "scalarValue";
     private static final String ID_FEEDBACK = "feedback";
 
-    public interface IMyListener extends IRequestListener
-    {
+    AbstractDefaultAjaxBehavior updatePageNum;
+    AbstractDefaultAjaxBehavior updateScale;
+    AbstractDefaultAjaxBehavior updateHeight;
 
-        public static final RequestListenerInterface INTERFACE = new
-                RequestListenerInterface(IMyListener.class);
-
-        /**
-         * Called when the relative callback URL is requested.
-         */
-        void myCallbackMethod();
-    }
-
-//    AbstractDefaultAjaxBehavior updatePageNum;
-//    AbstractDefaultAjaxBehavior updateScale;
-//    AbstractDefaultAjaxBehavior updateHeight;
-    IMyListener updateHeight;
+    String pdfJsViewerPanelCallbacksTemplateJs;
 
     PdfJsViewerPanel(String id, ScalarModel scalarModel) {
         super(id, scalarModel);
+
+        final URL resource = Resources.getResource(PdfJsViewerPanel.class, "PdfJsViewerPanelCallbacks.template.js");
+        try {
+            pdfJsViewerPanelCallbacksTemplateJs = Resources.toString(resource, Charsets.UTF_8);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
+    interface Updater{
+        void update(PdfJsViewerAdvisor advisor, final PdfJsViewer.RenderKey renderKey);
+    }
+
+    @Override
+    protected void onBeforeRender() {
+        super.onBeforeRender();
+
+        // so we have a callback URL
+
+
+        updatePageNum = new AbstractDefaultAjaxBehavior()
+        {
+            @Override
+            protected void respond(AjaxRequestTarget _target)
+            {
+                String newPageNum = RequestCycle.get().getRequest().getRequestParameters().getParameterValue("pageNum").toString();
+                try {
+                    final int pageNum = Integer.parseInt(newPageNum);
+                    final Updater updater = new Updater() {
+                        @Override
+                        public void update(
+                                final PdfJsViewerAdvisor advisor,
+                                final PdfJsViewer.RenderKey renderKey) {
+                            advisor.pageNumChangedTo(renderKey, pageNum);
+                        }
+                    };
+                    updateAdvisors(updater);
+                } catch(Exception ex) {
+                    // ignore
+                }
+            }
+        };
+
+        updateScale = new AbstractDefaultAjaxBehavior()
+        {
+            @Override
+            protected void respond(AjaxRequestTarget _target)
+            {
+                String newScale = RequestCycle.get().getRequest().getRequestParameters().getParameterValue("scale").toString();
+                try {
+                    final PdfJsConfig.Scale scale = PdfJsConfig.Scale.forValue(newScale);
+                    final Updater updater = new Updater() {
+                        @Override
+                        public void update(
+                                final PdfJsViewerAdvisor advisor,
+                                final PdfJsViewer.RenderKey renderKey) {
+                            advisor.scaleChangedTo(renderKey, scale);
+                        }
+                    };
+                    updateAdvisors(updater);
+                } catch(Exception ex) {
+                    // ignore
+                }
+
+            }
+        };
+
+        updateHeight = new AbstractDefaultAjaxBehavior()
+        {
+            @Override
+            protected void respond(AjaxRequestTarget _target)
+            {
+                String newHeight = RequestCycle.get().getRequest().getRequestParameters().getParameterValue("height").toString();
+                try {
+                    final int height = Integer.parseInt(newHeight);
+                    final Updater updater = new Updater() {
+                        @Override
+                        public void update(
+                                final PdfJsViewerAdvisor advisor,
+                                final PdfJsViewer.RenderKey renderKey) {
+                            advisor.heightChangedTo(renderKey, height);
+                        }
+                    };
+                    updateAdvisors(updater);
+                } catch(Exception ex) {
+                    // ignore
+                }
+            }
+
+        };
+
+        add(updatePageNum, updateScale, updateHeight);
+    }
+
+    private void updateAdvisors(final Updater updater) {
+        PdfJsViewer.RenderKey renderKey = buildRenderKey();
+        List<PdfJsViewerAdvisor> advisors = getServicesInjector().lookupServices(PdfJsViewerAdvisor.class);
+        if(advisors != null) {
+            for (final PdfJsViewerAdvisor advisor : advisors) {
+                updater.update(advisor, renderKey);
+            }
+        }
+    }
+
+    private PdfJsViewer.RenderKey buildRenderKey() {
+        UserService userService = getServicesInjector().lookupService(UserService.class);
+        String userName = userService.getUser().getName();
+
+        ScalarModel model = getModel();
+        String propertyId = model.getPropertyMemento().getIdentifier();
+        Bookmark bookmark = model.getParentObjectAdapterMemento().asBookmark();
+
+        return new PdfJsViewer.RenderKey(bookmark, propertyId, userName);
+    }
 
     @Override
     protected MarkupContainer addComponentForRegular() {
@@ -88,77 +204,36 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
         final ObjectAdapter adapter = scalarModel.getObject();
         if (adapter != null) {
             final PdfJsViewerFacet pdfJsViewerFacet = scalarModel.getFacet(PdfJsViewerFacet.class);
-            PdfJsConfig config = pdfJsViewerFacet != null ? pdfJsViewerFacet.getConfig() : new PdfJsConfig();
+            final PdfJsViewer.RenderKey renderKey = buildRenderKey();
+            final PdfJsConfig config = pdfJsViewerFacet != null ? pdfJsViewerFacet.configFor(renderKey) : new PdfJsConfig();
             config.withDocumentUrl(urlFor(IResourceListener.INTERFACE, null));
             PdfJsPanel pdfJsPanel = new PdfJsPanel(ID_SCALAR_VALUE, config);
 
             MarkupContainer prevPageButton = createComponent("prevPage", config);
             MarkupContainer nextPageButton = createComponent("nextPage", config);
-            MarkupContainer zoomInButton = createComponent("zoomIn", config);
-            MarkupContainer zoomOutButton = createComponent("zoomOut", config);
+            MarkupContainer currentZoomSelect = createComponent("currentZoom", config);
             MarkupContainer currentPageLabel = createComponent("currentPage", config);
             MarkupContainer totalPagesLabel = createComponent("totalPages", config);
-            MarkupContainer currentZoomSelect = createComponent("currentZoom", config);
+
             MarkupContainer currentHeightSelect = createComponent("currentHeight", config);
             MarkupContainer printButton = createComponent("print", config);
 
-            containerIfRegular.addOrReplace(pdfJsPanel, prevPageButton, nextPageButton, zoomInButton, zoomOutButton, currentPageLabel, totalPagesLabel, currentZoomSelect, currentHeightSelect, printButton);
+            //MarkupContainer downloadButton = createComponent("download", config);
+
+            final Blob blob = getBlob();
+            final IResource bar = new ByteArrayResource(blob.getMimeType().getBaseType(), blob.getBytes(), blob.getName());
+            final ResourceLink<Void> downloadLink = new ResourceLink<>("download", bar);
+
+            containerIfRegular.addOrReplace(
+                    pdfJsPanel, prevPageButton, nextPageButton, currentPageLabel, totalPagesLabel,
+                    currentZoomSelect, currentHeightSelect, printButton, downloadLink);
+
+
+//            Label fileNameIfCompact = new Label("fileNameIfCompact", blob.getName());
+//            downloadLink.add(fileNameIfCompact);
+
 
             containerIfRegular.addOrReplace(new NotificationPanel(ID_FEEDBACK, pdfJsPanel, new ComponentFeedbackMessageFilter(pdfJsPanel)));
-
-
-//            updatePageNum = new AbstractDefaultAjaxBehavior()
-//            {
-//                @Override
-//                protected void respond(AjaxRequestTarget _target)
-//                {
-//                    String newPageNum = RequestCycle.get().getRequest().getRequestParameters().getParameterValue("pageNum").toString();
-//                    try {
-//                        final double pageNum = Integer.parseInt(newPageNum);
-//                        System.out.println("pageNum = " + pageNum);
-//                    } catch(Exception ex) {
-//                        // ignore
-//                    }
-//
-//                }
-//            };
-//
-//            updateScale = new AbstractDefaultAjaxBehavior()
-//            {
-//                @Override
-//                protected void respond(AjaxRequestTarget _target)
-//                {
-//                     String newScale = RequestCycle.get().getRequest().getRequestParameters().getParameterValue("scale").toString();
-//                    try {
-//                        final double scale = Double.parseDouble(newScale);
-//                        System.out.println("scale = " + scale);
-//                    } catch(Exception ex) {
-//                        // ignore
-//                    }
-//
-//                }
-//            };
-//
-//            updateHeight = new AbstractDefaultAjaxBehavior()
-//            {
-//                @Override
-//                protected void respond(AjaxRequestTarget _target)
-//                {
-//                    String newHeight = RequestCycle.get().getRequest().getRequestParameters().getParameterValue("height").toString();
-//                    try {
-//                        final int height = Integer.parseInt(newHeight);
-//                        System.out.println("height = " + height);
-//                    } catch(Exception ex) {
-//                        // ignore
-//                    }
-//                }
-//            };
-
-            // so we have a callback URL
-//            containerIfRegular.add(updatePageNum);
-//            containerIfRegular.add(updateScale);
-//            containerIfRegular.add(updateHeight);
-
         } else {
             permanentlyHide(ID_SCALAR_VALUE, ID_FEEDBACK);
         }
@@ -206,22 +281,17 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
         response.render(CssHeaderItem.forReference(new CssResourceReference(PdfJsViewerPanel.class, "PdfJsViewerPanel.css")));
         response.render(JavaScriptHeaderItem.forReference(new PdfJsViewerReference()));
 
-        
-
-
          renderFunctionsForUpdateCallbacks(response);
     }
 
     private void renderFunctionsForUpdateCallbacks(final IHeaderResponse response) {
 
-//        response.render(JavaScriptHeaderItem.forScript(
-//                "function updatePageNum(pageNum) {Wicket.Ajax.get({'u':'"+ updatePageNum.getCallbackUrl() +"&pageNum=' + pageNum})}", "updatePageNum"));
-//
-//        response.render(JavaScriptHeaderItem.forScript(
-//                "function updateScale(scale) {Wicket.Ajax.get({'u':'"+ updateScale.getCallbackUrl() +"&scale=' + scale})}", "updateScale"));
-//
-//        response.render(JavaScriptHeaderItem.forScript(
-//                "function updateHeight(height) {Wicket.Ajax.get({'u':'"+ updateHeight.getCallbackUrl() +"&height=' + height})}", "updateHeight"));
+        String script = pdfJsViewerPanelCallbacksTemplateJs
+                .replace("__updatePageNum_getCallbackUrl()__", updatePageNum.getCallbackUrl())
+                .replace("__updateScale_getCallbackUrl()__", updateScale.getCallbackUrl())
+                .replace("__updateHeight_getCallbackUrl()__", updateHeight.getCallbackUrl());
+
+        response.render(JavaScriptHeaderItem.forScript(script, "pdfJsViewerCallbacks"));
     }
 
     @Override
@@ -229,7 +299,13 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
         Blob pdfBlob = getBlob();
         if (pdfBlob != null) {
             final byte[] bytes = pdfBlob.getBytes();
-            final ByteArrayResource resource = new ByteArrayResource("application/pdf", bytes);
+            final ByteArrayResource resource = new ByteArrayResource("application/pdf", bytes) {
+                @Override protected void configureResponse(
+                        final ResourceResponse response, final Attributes attributes) {
+                    super.configureResponse(response, attributes);
+                    response.setCacheDuration(Duration.NONE);
+                }
+            };
             final ResourceRequestHandler handler = new ResourceRequestHandler(resource, null);
             getRequestCycle().scheduleRequestHandlerAfterCurrent(handler);
         } else {
@@ -245,4 +321,5 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
         }
         return pdfBlob;
     }
+
 }

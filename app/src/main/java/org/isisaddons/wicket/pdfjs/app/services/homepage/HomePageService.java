@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.wicket.pdfjs.app.homepage.services;
+package org.isisaddons.wicket.pdfjs.app.services.homepage;
 
 import java.util.List;
 

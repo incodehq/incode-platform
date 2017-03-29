@@ -12,19 +12,17 @@
 
     WicketStuff.PDFJS = {
         Topic: {
-            CURRENT_PAGE: 'Wicket.PDFJS.CurrentPage',
             TOTAL_PAGES: 'Wicket.PDFJS.TotalPages',
             NEXT_PAGE: 'Wicket.PDFJS.NextPage',
             PREVIOUS_PAGE: 'Wicket.PDFJS.PreviousPage',
-            GOTO_PAGE: 'Wicket.PDFJS.GoToPage',
-            ZOOM_IN: 'Wicket.PDFJS.ZoomIn',
-            ZOOM_OUT: 'Wicket.PDFJS.ZoomOut',
+            PAGE_TO: 'Wicket.PDFJS.PageTo',
             ZOOM_TO: 'Wicket.PDFJS.ZoomTo',
-            CURRENT_ZOOM : 'Wicket.PDFJS.CurrentZoom',
             HEIGHT_TO: 'Wicket.PDFJS.HeightTo',
+            CURRENT_PAGE: 'Wicket.PDFJS.CurrentPage',
+            CURRENT_ZOOM : 'Wicket.PDFJS.CurrentZoom',
             CURRENT_HEIGHT : 'Wicket.PDFJS.CurrentHeight',
-            PRINT : 'Wicket.PDFJS.Print',
-            CURRENT_PRINT_PAGE : 'Wicket.PDFJS.CurrentPrintPage'
+            CURRENT_PRINT_PAGE : 'Wicket.PDFJS.CurrentPrintPage',
+            PRINT : 'Wicket.PDFJS.Print'
         },
 
         init: function (config) {
@@ -44,11 +42,19 @@
                 pageNum = config.initialPage || 1,
                 pageRendering = false,
                 pageNumPending = null,
-                scale = config.initialScale || 0.8,
-                autoScale = "",
+                scaleValue = config.initialScale || "1.0",
+                scale = 1.0,    // will be initialized below, based on config.initialScale
+                autoScale = "", // will be initialized below, based on config.initialScale
                 canvas = $('#'+config.canvasId)[0],
                 ctx = canvas.getContext('2d'),
                 abortingPrinting = false;
+
+            var scaleValueFloat = parseFloat(scaleValue);
+            if (isNaN(scaleValueFloat)){
+                autoScale = config.initialScale;
+            } else {
+                scale = parseFloat(scaleValueFloat.toFixed(2));
+            }
 
             var MIN_SCALE = 0.25;
             var MAX_SCALE = 10.0;
@@ -78,6 +84,12 @@
              */
             function renderPage(num) {
                 pageRendering = true;
+                if(num > pdfDoc.numPages) {
+                    num = pdfDoc.numPages
+                }
+                if(num < 1) {
+                    num = 1
+                }
                 // Using promise to fetch the page
                 pdfDoc.getPage(num).then(function(page) {
 
@@ -104,7 +116,7 @@
                             }
                         });
                         Wicket.Event.publish(WicketStuff.PDFJS.Topic.CURRENT_PAGE, pageNum, {"canvasId": config.canvasId});
-                        Wicket.Event.publish(WicketStuff.PDFJS.Topic.CURRENT_ZOOM, autoScale || scale.toFixed(2), {"canvasId": config.canvasId});
+                        Wicket.Event.publish(WicketStuff.PDFJS.Topic.CURRENT_ZOOM, scaleValue, {"canvasId": config.canvasId});
                     Wicket.Event.publish(WicketStuff.PDFJS.Topic.CURRENT_HEIGHT, canvas.height, {"canvasId": config.canvasId});
                 });
             }
@@ -225,28 +237,16 @@
                 }
             }
 
-            function zoomInOnce() {
-                var newScale = (scale * DEFAULT_SCALE_DELTA).toFixed(2);
-                newScale = Math.ceil(newScale * 10) / 10;
-                newScale = Math.min(MAX_SCALE, newScale);
-                return newScale;
-            }
-
-            function zoomOutOnce() {
-                var newScale = (scale / DEFAULT_SCALE_DELTA).toFixed(2);
-                newScale = Math.floor(newScale * 10) / 10;
-                newScale = Math.max(MIN_SCALE, newScale);
-                return newScale;
-            }
-
             function renderIfRescaled(newScale, newAutoScale){
                 if (newAutoScale && newAutoScale !== autoScale) {
                     autoScale = newAutoScale;
+
                     queueRenderPage(pageNum);
                 }
                 else if (newScale !== scale){
                     autoScale = "";
                     scale = newScale;
+
                     queueRenderPage(pageNum);
                 }
             }
@@ -297,9 +297,6 @@
                 }
                 pageNum--;
 
-                // TODO: add namespacing
-                updatePageNum(pageNum);
-
                 queueRenderPage(pageNum);
             });
 
@@ -312,16 +309,13 @@
                 }
                 pageNum++;
 
-                // TODO: add namespacing
-                updatePageNum(pageNum);
-
                 queueRenderPage(pageNum);
             });
 
             /**
              * Displays selected page
              */
-            Wicket.Event.subscribe(WicketStuff.PDFJS.Topic.GOTO_PAGE, function (jqEvent, data) {
+            Wicket.Event.subscribe(WicketStuff.PDFJS.Topic.PAGE_TO, function (jqEvent, data) {
                 if (config.canvasId !== data.canvasId) {
                     return;
                 }
@@ -330,51 +324,25 @@
                 }
                 pageNum = data.page;
 
-                // TODO: add namespacing
-                updatePageNum(pageNum);
-
                 queueRenderPage(pageNum);
             });
-
-            /**
-             * Zoom in current page
-             */
-            Wicket.Event.subscribe(WicketStuff.PDFJS.Topic.ZOOM_IN, function (jqEvent, data) {
-                 if (config.canvasId !== data.canvasId) {
-                    return;
-                 }
-                 renderIfRescaled(zoomInOnce());
-            });
-
-             /**
-              * Zoom out current page
-              */
-             Wicket.Event.subscribe(WicketStuff.PDFJS.Topic.ZOOM_OUT, function (jqEvent, data) {
-                  if (config.canvasId !== data.canvasId) {
-                     return;
-                  }
-                  renderIfRescaled(zoomOutOnce());
-             });
 
              Wicket.Event.subscribe(WicketStuff.PDFJS.Topic.ZOOM_TO, function (jqEvent, data) {
                   if (config.canvasId !== data.canvasId || !data.scale) {
                       return;
                   }
-                  var rawScale = parseFloat(data.scale);
+
+                  scaleValue = data.scale;
+
+                  var scaleValueFloat = parseFloat(scaleValue);
                   var newScale;
                   var newAutoScale;
-                  if (isNaN(rawScale)){
-                      newAutoScale = data.scale;
+                  if (isNaN(scaleValueFloat)){
+                      newAutoScale = scaleValue;
                   }
                   else {
-                      newScale = parseFloat(rawScale.toFixed(2));
-                      if (newScale >= MAX_SCALE || newScale <= MIN_SCALE) {
-                          return;
-                      }
+                      newScale = parseFloat(scaleValueFloat.toFixed(2));
                   }
-
-                  // TODO: add namespacing
-                  updateScale(newScale);
 
                   renderIfRescaled(newScale, newAutoScale);
               });
@@ -388,11 +356,7 @@
 
                   canvas.height = newHeight;
 
-                  // TODO: add namespacing
-                  updateHeight(newHeight);
-
                   queueRenderPage(pageNum);
-
 
               });
 

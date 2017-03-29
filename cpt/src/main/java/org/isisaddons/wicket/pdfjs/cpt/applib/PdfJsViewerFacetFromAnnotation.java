@@ -19,10 +19,13 @@
 
 package org.isisaddons.wicket.pdfjs.cpt.applib;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.wicketstuff.pdfjs.PdfJsConfig;
 
+import org.apache.isis.applib.services.user.UserService;
 import org.apache.isis.core.metamodel.facetapi.FacetHolder;
 
 public class PdfJsViewerFacetFromAnnotation extends PdfJsViewerFacetAbstract {
@@ -31,7 +34,7 @@ public class PdfJsViewerFacetFromAnnotation extends PdfJsViewerFacetAbstract {
         super(config, holder);
     }
 
-    public static PdfJsViewerFacetFromAnnotation create(PdfJsViewer annotation, FacetHolder holder) {
+    public static PdfJsViewerFacetFromAnnotation create(final PdfJsViewer annotation, final FacetHolder holder) {
         PdfJsConfig config = new PdfJsConfig();
 
         int initialPage = annotation.initialPageNum();
@@ -39,8 +42,8 @@ public class PdfJsViewerFacetFromAnnotation extends PdfJsViewerFacetAbstract {
             config.withInitialPage(initialPage);
         }
 
-        double initialScale = annotation.initialScale();
-        if (initialScale > 0) {
+        final PdfJsConfig.Scale initialScale = annotation.initialScale();
+        if (initialScale != PdfJsConfig.Scale._1_00) {
             config.withInitialScale(initialScale);
         }
 
@@ -52,18 +55,27 @@ public class PdfJsViewerFacetFromAnnotation extends PdfJsViewerFacetAbstract {
         return new PdfJsViewerFacetFromAnnotation(config, holder);
     }
 
-    public PdfJsConfig getConfig() {
-        final PdfJsConfig config = super.getConfig();
+    public PdfJsConfig configFor(final PdfJsViewer.RenderKey renderKey) {
+        final PdfJsConfig config = super.configFor(renderKey);
 
-        if(advisor != null) {
-            final PdfJsViewerAdvisor.Advice advice = advisor.advise();
-            final Integer height = advice.getHeight();
-            if(height != null) {
-                config.withInitialHeight(height);
-            }
-            final Double scale = advice.getScale();
-            if(scale != null) {
-                config.withInitialScale(scale);
+        if(advisors != null) {
+            for (PdfJsViewerAdvisor advisor : advisors) {
+                final PdfJsViewerAdvisor.Advice advice = advisor.advise(renderKey);
+                if(advice != null) {
+                    final Integer pageNum = advice.getPageNum();
+                    if(pageNum != null) {
+                        config.withInitialPage(pageNum);
+                    }
+                    final PdfJsConfig.Scale scale = advice.getScale();
+                    if(scale != null) {
+                        config.withInitialScale(scale);
+                    }
+                    final Integer height = advice.getHeight();
+                    if(height != null) {
+                        config.withInitialHeight(height);
+                    }
+                    break;
+                }
             }
         }
 
@@ -71,6 +83,9 @@ public class PdfJsViewerFacetFromAnnotation extends PdfJsViewerFacetAbstract {
     }
 
     @Inject
-    PdfJsViewerAdvisor advisor;
+    List<PdfJsViewerAdvisor> advisors;
+
+    @Inject
+    UserService userService;
 
 }

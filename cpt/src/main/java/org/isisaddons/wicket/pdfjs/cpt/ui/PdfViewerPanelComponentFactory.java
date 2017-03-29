@@ -16,46 +16,57 @@
  */
 package org.isisaddons.wicket.pdfjs.cpt.ui;
 
+import java.util.Objects;
+
+import javax.activation.MimeType;
+
+import org.apache.wicket.Component;
+import org.apache.wicket.model.IModel;
+
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
 import org.apache.isis.viewer.wicket.model.models.ScalarModel;
 import org.apache.isis.viewer.wicket.ui.ComponentFactoryAbstract;
 import org.apache.isis.viewer.wicket.ui.ComponentType;
-import org.apache.wicket.Component;
-import org.apache.wicket.model.IModel;
 
-import javax.activation.MimeType;
+import org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewerFacet;
 
-public class PdfViewerComponentFactory extends ComponentFactoryAbstract {
+public class PdfViewerPanelComponentFactory extends ComponentFactoryAbstract {
 
     private static final long serialVersionUID = 1L;
 
-    public PdfViewerComponentFactory() {
+    public PdfViewerPanelComponentFactory() {
         super(ComponentType.SCALAR_NAME_AND_VALUE, PdfJsViewerPanel.class);
     }
 
     public ApplicationAdvice appliesTo(IModel<?> model) {
         if (!(model instanceof ScalarModel)) {
             return ApplicationAdvice.DOES_NOT_APPLY;
-        } else {
-            ScalarModel scalarModel = (ScalarModel) model;
-            final ObjectAdapter objectAdapter = scalarModel.getObject();
-            final boolean isPdf = isPdf(objectAdapter);
-            return this.appliesIf(isPdf);
         }
+
+        final ScalarModel scalarModel = (ScalarModel) model;
+        final PdfJsViewerFacet facet = scalarModel.getFacet(PdfJsViewerFacet.class);
+        if(facet == null || facet.isNoop()) {
+            return ApplicationAdvice.DOES_NOT_APPLY;
+        }
+
+        final ObjectAdapter objectAdapter = scalarModel.getObject();
+        final boolean isPdf = isPdf(objectAdapter);
+        return this.appliesIf(isPdf);
     }
 
-    private boolean isPdf(final ObjectAdapter objectAdapter) {
-        boolean isPdf = false;
-        if (objectAdapter != null) {
-            final Object modelObject = objectAdapter.getObject();
-            if (modelObject instanceof Blob) {
-                Blob blob = (Blob) modelObject;
-                final MimeType mimeType = blob.getMimeType();
-                isPdf = "application".equals(mimeType.getPrimaryType()) && "pdf".equals(mimeType.getSubType());
-            }
+    private static boolean isPdf(final ObjectAdapter objectAdapter) {
+        if (objectAdapter == null) {
+            return false;
         }
-        return isPdf;
+        final Object modelObject = objectAdapter.getObject();
+        if (!(modelObject instanceof Blob)) {
+            return false;
+        }
+        final Blob blob = (Blob) modelObject;
+        final MimeType mimeType = blob.getMimeType();
+        return Objects.equals("application", mimeType.getPrimaryType()) &&
+               Objects.equals("pdf", mimeType.getSubType());
     }
 
     public Component createComponent(String id, IModel<?> model) {
