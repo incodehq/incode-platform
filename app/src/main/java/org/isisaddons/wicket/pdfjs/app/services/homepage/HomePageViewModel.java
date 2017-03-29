@@ -20,17 +20,25 @@ package org.isisaddons.wicket.pdfjs.app.services.homepage;
 
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
-import org.wicketstuff.pdfjs.PdfJsConfig;
+import com.google.common.eventbus.Subscribe;
 
+import org.axonframework.eventhandling.annotation.EventHandler;
+import org.wicketstuff.pdfjs.Scale;
+
+import org.apache.isis.applib.AbstractSubscriber;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.i18n.TranslatableString;
+import org.apache.isis.applib.services.scratchpad.Scratchpad;
 import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewer;
@@ -45,7 +53,35 @@ import org.isisaddons.wicket.pdfjs.fixture.dom.demo.DemoObjectMenu;
 )public class HomePageViewModel {
 
 
+    @DomainService(nature = NatureOfService.DOMAIN)
+    public static class CssHighlighter extends AbstractSubscriber {
+
+        @EventHandler
+        @Subscribe
+        public void on(DemoObject.CssClassUiEvent ev) {
+            if(getContext() == null) {
+                return;
+            }
+            DemoObject selectedDemoObject = getContext().getSelected();
+            if(ev.getSource() == selectedDemoObject) {
+                ev.setCssClass("selected");
+            }
+        }
+
+        private HomePageViewModel getContext() {
+            return (HomePageViewModel) scratchpad.get("context");
+        }
+        void setContext(final HomePageViewModel homePageViewModel) {
+            scratchpad.put("context", homePageViewModel);
+        }
+
+        @Inject
+        Scratchpad scratchpad;
+    }
+
     public TranslatableString title() {
+        // set during rendering
+        cssHighlighter.setContext(this);
         return TranslatableString.tr("{cus} objects", "cus", getDemoObjects().size());
     }
 
@@ -56,7 +92,7 @@ import org.isisaddons.wicket.pdfjs.fixture.dom.demo.DemoObjectMenu;
 
 
     @XmlTransient
-    @PdfJsViewer(initialPageNum = 1, initialScale = PdfJsConfig.Scale._1_00, initialHeight = 600)
+    @PdfJsViewer(initialPageNum = 1, initialScale = Scale._1_00, initialHeight = 600)
     public Blob getBlob() {
         return getSelected() != null ? getSelected().getBlob() : null;
     }
@@ -117,5 +153,8 @@ import org.isisaddons.wicket.pdfjs.fixture.dom.demo.DemoObjectMenu;
 
     @javax.inject.Inject
     DemoObjectMenu demoObjectMenu;
+
+    @javax.inject.Inject
+    CssHighlighter cssHighlighter;
 
 }

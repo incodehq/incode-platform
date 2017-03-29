@@ -1,15 +1,19 @@
 = isis-wicket-pdfjs
+:toc:
 
 image:https://travis-ci.org/isisaddons/isis-wicket-pdfjs.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-wicket-pdfjs]
 
 This component, intended for use with http://isis.apache.org[Apache Isis]'s Wicket viewer, allows a BLOB containing an PDF to be rendered as a panel using https://mozilla.github.io/pdf.js[pdf.js].
  
 
+
 == Screenshots
 
-TODO
+The following screenshots show the demo app's usage of the component with some sample fixture data:
 
+image::https://raw.github.com/isisaddons/isis-wicket-pdfjs/master/images/010-home-page.png[link="https://raw.github.com/isisaddons/isis-wicket-pdfjs/master/images/010-home-page.png"]
 
+The component lets the user page through the PDF document, zoom in and out, and change the height of the panel.  In addition, the user can download PDF and print the PDF.
 
 
 
@@ -33,40 +37,223 @@ To run the demo app:
 
 [source,bash]
 ----
-cd webapp && mvn jetty:run
+mvn -pl webapp jetty:run
 ----
 
 Then log on using user: `sven`, password: `pass`
 
+This app is preconfigured to use the `org.isisaddons.wicket.pdfjs.app.PdfjsDemoAppManifestWithDemoFixture` app manifest, and should open at the home page shown in the screenshot above.
 
 
 == API &  Usage
 
-TODO
+The PDF viewer is only enabled for `Blob` properties that contain a PDF.
+These must also be explicitly annotated with the `@PdfJsViewer` annotation:
+
+[source,java]
+----
+public @interface PdfJsViewer {
+    int initialPageNum() default 1;                 // <1>
+    Scale initialScale() default Scale._1_00;       // <2>
+    int initialHeight() default 800;                // <3>
+}
+----
+<1> The page to render the first time this particular domain object('s property) is rendered..
+<2> The scale to render; defaults to 100%.
+<3> The height of the panel; defaults to 800px.
 
 
+For example:
+
+[source,java]
+----
+@PdfJsViewer(
+    initialPageNum = 1,             // <1>
+    initialScale = Scale._1_00,     // <2>
+    initialHeight = 600             // <3>
+)
+public Blob getBlob() {
+    return getSelected() != null ? getSelected().getBlob() : null;
+}
+----
+<1> initial page to render, defaults to first page
+<2> scaling, defaults to 100%
+<3> height of the panel, in pixels
+
+
+The `Scale` enum corresponds to the scale drop-down in the view, and is defined as:
+
+[source,java]
+----
+public enum Scale {
+    AUTOMATIC,      // <1>
+    ACTUAL_SIZE,
+    PAGE_FIT,
+    PAGE_WIDTH,
+    _0_50,          // <2>
+    ...
+    _4_00;          // <3>
+}
+----
+<1> predefined scaling strategies, depend on the width/height of the panel available to render in
+<2> 50%
+<3> 400% etc
+
+
+
+== SPI Services
+
+Often a user may need to browse through many documents at a time, for example to process a number of scanned documents.
+To fit their particular screen, they may want to adjust the zoom level and/or height of the panel.
+It would however be very tiresome of the next document viewed reset to the defaults specified in the `@PdfJsViewer`.
+
+Related, if a user were to view a first document and navigate to a page 2 or 3, then move to second document, and then back to the first, it would again be annoying if the user had start back at page 1 and navigate once more to a different page.
+
+To support these two use cases the component therefore provides an optional SPI service as a plugin point.
+Implementations of this SPI service can provide hints (`Advice`) which override the defaults of the `@PdfJsViewer` annotation.
+
+The SPI is defined as:
+
+[source,java]
+----
+public interface PdfJsViewerAdvisor {
+
+    class InstanceKey { ... }                               // <1>
+    class Advice { ... }                                    // <2>
+
+    Advice advise(InstanceKey key);                         // <3>
+
+    void pageNumChangedTo(InstanceKey key, int pageNum);    // <4>
+    void scaleChangedTo(InstanceKey key, Scale scale);      // <4>
+    void heightChangedTo(InstanceKey key, int height);      // <4>
+}
+----
+<1> Value type that identifies an object type and identifier, its (PDF) property and the user that is viewing the object.
+<2> Value type that specifies the page number, scale and height to render the object
+<3> The main SPI called by the viewer;
+<4> Updates the service implementation whenever the user updates the page number, scale or height for a particular object/property/user (ie `ViewerKey`).
+
+There can be multiple implementations of this service; the first implementation to return a non-null `Advice` is used.
+If there _are_ multiple implementations, then _all_ are called whenever the user updates the view.
+
+The demo application shows one such implementation that fulfills the two user goals:
+
+* it remembers the scale/height for each object type/property (per user), so that any other documents of the same type are shown with the same layout
+* it remembers the page that each user was viewing a document, so resumes at that page if the same document is viewed more than once
+
+To do this the demo implementation relies upon the inner value types `InstanceKey.TypeKey` and `Advice.TypeAdvice` which track the hints at the object type -- rather than instance -- level.
+
+
+
+=== Demo App: Highlighting Current
+
+As a by-the-by, the demo app has one further "trick up its sleeve".
+If you run the app you'll notice that the currently selected `DemoObject` is highlighted in the left-hand table of the `HomePageViewModel`.
+
+This is accomplished by having the view model collaborate with a subscribing domain service that configures a CSS class.
+
+We start by ensuring that the `DemoObject` emits an event for its CSS class:
+
+[source,java]
+.DemoObject.java
+----
+@DomainObjectLayout(
+        ...
+        cssClassUiEvent = DemoObject.CssClassUiEvent.class
+)
+public class DemoObject ... {
+
+    public static class CssClassUiEvent
+            extends org.apache.isis.applib.services.eventbus.CssClassUiEvent<DemoObject> {}
+    ...
+}
+----
+
+Next, we define the domain service to act as the subscriber.
+Since it will be interact
+
+[source,java]
+.HomePageViewModel.java
+----
+public class HomePageViewModel ... {
+
+    @DomainService(nature = NatureOfService.DOMAIN)
+    public static class CssHighlighter extends AbstractSubscriber {
+
+        @EventHandler
+        @Subscribe
+        public void on(DemoObject.CssClassUiEvent ev) {
+            if(getContext() == null) {
+                return;
+            }
+            if(ev.getSource() == getContext().getSelected()) {      // <1>
+                ev.setCssClass("selected");
+            }
+        }
+
+        private HomePageViewModel getContext() {                    // <2>
+            return (HomePageViewModel) scratchpad.get("context");
+        }
+        void setContext(final HomePageViewModel homePageViewModel) {
+            scratchpad.put("context", homePageViewModel);
+        }
+
+        @Inject
+        Scratchpad scratchpad;                                      // <3>
+    }
+}
+----
+<1> If the domain object is the currently selected then set the CSS class
+<2> Provide methods to set and get the current `HomePageViewModel` (acting as the context)
+<3> Store the context using the `Scratchpad` domain service (request-scoped so thread-safe).
+
+The `HomePageViewModel` is responsible for setting itself as the context for the domain service:
+
+[source,java]
+.HomePageViewModel.java
+----
+public class HomePageViewModel ... {
+    ...
+    public TranslatableString title() {
+        cssHighlighter.setContext(this);    // <1>
+        ...
+    }
+    ...
+    @javax.inject.Inject
+    CssHighlighter cssHighlighter;
+}
+----
+<1> set the context on the domain service
+
+
+Finally we just need some CSS, in the `application.css` file:
+
+
+[source,css]
+.application.css
+----
+.selected {
+    font-style: italic;
+    font-weight: bolder;
+}
+----
 
 
 == How to configure/use
 
-You can either use this component "out-of-the-box", or you can fork this repo and extend to your own requirements. 
-
-=== "Out-of-the-box"
 
 To use "out-of-the-box", add the component to your project's `dom` module's `pom.xml`:
 
 [source,xml]
 ----
 <dependency>
-    <groupId>org.isisaddons.wicket.pdfjs</groupId>
-    <artifactId>isis-wicket-pdfjs-cpt</artifactId>
+    <groupId>com.eurocommercialproperties.pdfjsdemo</groupId>
+    <artifactId>ecp-wicket-pdfjs-cpt</artifactId>
     <version>1.15.0</version>
 </dependency>
 ----
 
 Check for later releases by searching http://search.maven.org/#search|ga|1|isis-wicket-pdfjs-cpt[Maven Central Repo].
-
-If you wish to use this the `LocationLookupService`, this needs to be registered:
 
 * (assuming you are using an `AppManifest`), update its `getModules()` method:
 
@@ -82,42 +269,15 @@ public List<Class<?>> getModules() {
 }
 ----
 
-
-
-=== "Out-of-the-box" (-SNAPSHOT)
-
-If you want to use the current `-SNAPSHOT`, then the steps are the same as above, except:
-
-* when updating the classpath, specify the appropriate -SNAPSHOT version:
-
-[source,xml]
+* Set up the facet factory in `isis.properties` (or in the `AppManifest#getConfigurationProperties()`): +
++
+[source,ini]
+.isis.properties
 ----
-<version>1.16.0-SNAPSHOT</version>
+isis.reflector.facets.include=\
+    org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewerFacetFromAnnotationFactory
 ----
 
-* add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
-
-[source,xml]
-----
-<profile>
-    <id>cloudbees-snapshots</id>
-    <activation>
-        <activeByDefault>true</activeByDefault>
-    </activation>
-    <repositories>
-        <repository>
-            <id>snapshots-repo</id>
-            <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-</profile>
-----
 
 
 === Forking the repo
@@ -133,6 +293,12 @@ structured as follows:
 
 Only the `cpt` project is released to Maven central. The versions of the other modules
 are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
+
+
+== Known Issues
+
+The Javascript isn't fully thread-safe, so avoid having more than one instance of this component rendered on the page at the same time.
+This also means that the component should never be rendered in a table ("compact" view).
 
 
 == Change Log

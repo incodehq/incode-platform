@@ -24,6 +24,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.wicketstuff.pdfjs.PdfJsConfig;
+import org.wicketstuff.pdfjs.Scale;
 
 import org.apache.isis.applib.services.user.UserService;
 import org.apache.isis.core.metamodel.facetapi.FacetHolder;
@@ -42,8 +43,8 @@ public class PdfJsViewerFacetFromAnnotation extends PdfJsViewerFacetAbstract {
             config.withInitialPage(initialPage);
         }
 
-        final PdfJsConfig.Scale initialScale = annotation.initialScale();
-        if (initialScale != PdfJsConfig.Scale._1_00) {
+        final Scale initialScale = annotation.initialScale();
+        if (initialScale != Scale._1_00) {
             config.withInitialScale(initialScale);
         }
 
@@ -55,18 +56,18 @@ public class PdfJsViewerFacetFromAnnotation extends PdfJsViewerFacetAbstract {
         return new PdfJsViewerFacetFromAnnotation(config, holder);
     }
 
-    public PdfJsConfig configFor(final PdfJsViewer.RenderKey renderKey) {
-        final PdfJsConfig config = super.configFor(renderKey);
+    public PdfJsConfig configFor(final PdfJsViewerAdvisor.InstanceKey instanceKey) {
+        final PdfJsConfig config = super.configFor(instanceKey);
 
         if(advisors != null) {
             for (PdfJsViewerAdvisor advisor : advisors) {
-                final PdfJsViewerAdvisor.Advice advice = advisor.advise(renderKey);
+                final PdfJsViewerAdvisor.Advice advice = advisor.advise(instanceKey);
                 if(advice != null) {
                     final Integer pageNum = advice.getPageNum();
                     if(pageNum != null) {
                         config.withInitialPage(pageNum);
                     }
-                    final PdfJsConfig.Scale scale = advice.getScale();
+                    final Scale scale = advice.getScale();
                     if(scale != null) {
                         config.withInitialScale(scale);
                     }

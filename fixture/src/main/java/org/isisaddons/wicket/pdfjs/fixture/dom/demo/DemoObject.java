@@ -19,15 +19,21 @@ package org.isisaddons.wicket.pdfjs.fixture.dom.demo;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 
+import org.wicketstuff.pdfjs.Scale;
+
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Title;
+import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.value.Blob;
+
+import org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewer;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -44,9 +50,13 @@ import lombok.Setter;
 @DomainObject(
 )
 @DomainObjectLayout(
-        bookmarking = BookmarkPolicy.AS_ROOT
+        bookmarking = BookmarkPolicy.AS_ROOT,
+        cssClassUiEvent = DemoObject.CssClassUiEvent.class
 )
 public class DemoObject implements Comparable<DemoObject> {
+
+    public static class CssClassUiEvent
+            extends org.apache.isis.applib.services.eventbus.CssClassUiEvent<DemoObject> {}
 
     @javax.jdo.annotations.Column(allowsNull="false")
     @Title(sequence="1")
@@ -67,8 +77,13 @@ public class DemoObject implements Comparable<DemoObject> {
     @Property(
             optionality = Optionality.OPTIONAL
     )
+    @PropertyLayout(
+            hidden = Where.ALL_TABLES
+    )
 
-    @Getter // (onMethod = @__({@PdfJsViewer(initialPage = 3, initialScale = 0.5)}))
+    @Getter(onMethod = @__({
+            @PdfJsViewer(initialPageNum = 1, initialScale = Scale._1_00, initialHeight = 600)
+    }))
     @Setter
     private Blob blob;
 

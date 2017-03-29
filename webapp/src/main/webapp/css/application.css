@@ -77,3 +77,12 @@ div.x-key span.scalarName {
 .booleanPanel .scalarValueInput .editing .edit {
     margin-top: 0px;
 }
+
+.selected {
+    font-style: italic;
+    font-weight: bolder;
+}
+
+.entityCollection .additionalLinkItem {
+    margin-right: 0px;
+}

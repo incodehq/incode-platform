@@ -25,6 +25,6 @@ import org.apache.isis.core.metamodel.facets.MultipleValueFacet;
 
 public interface PdfJsViewerFacet extends MultipleValueFacet {
 
-    PdfJsConfig configFor(final PdfJsViewer.RenderKey renderKey);
+    PdfJsConfig configFor(final PdfJsViewerAdvisor.InstanceKey instanceKey);
 
 }

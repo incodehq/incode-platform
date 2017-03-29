@@ -46,6 +46,7 @@ import org.apache.wicket.request.resource.IResource;
 import org.apache.wicket.util.time.Duration;
 import org.wicketstuff.pdfjs.PdfJsConfig;
 import org.wicketstuff.pdfjs.PdfJsPanel;
+import org.wicketstuff.pdfjs.Scale;
 
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.user.UserService;
@@ -54,7 +55,6 @@ import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
 import org.apache.isis.viewer.wicket.model.models.ScalarModel;
 import org.apache.isis.viewer.wicket.ui.components.scalars.ScalarPanelAbstract;
 
-import org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewer;
 import org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewerAdvisor;
 import org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewerFacet;
 
@@ -90,7 +90,7 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
     }
 
     interface Updater{
-        void update(PdfJsViewerAdvisor advisor, final PdfJsViewer.RenderKey renderKey);
+        void update(PdfJsViewerAdvisor advisor, final PdfJsViewerAdvisor.InstanceKey instanceKey);
     }
 
     @Override
@@ -112,7 +112,7 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
                         @Override
                         public void update(
                                 final PdfJsViewerAdvisor advisor,
-                                final PdfJsViewer.RenderKey renderKey) {
+                                final PdfJsViewerAdvisor.InstanceKey renderKey) {
                             advisor.pageNumChangedTo(renderKey, pageNum);
                         }
                     };
@@ -130,12 +130,12 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
             {
                 String newScale = RequestCycle.get().getRequest().getRequestParameters().getParameterValue("scale").toString();
                 try {
-                    final PdfJsConfig.Scale scale = PdfJsConfig.Scale.forValue(newScale);
+                    final Scale scale = Scale.forValue(newScale);
                     final Updater updater = new Updater() {
                         @Override
                         public void update(
                                 final PdfJsViewerAdvisor advisor,
-                                final PdfJsViewer.RenderKey renderKey) {
+                                final PdfJsViewerAdvisor.InstanceKey renderKey) {
                             advisor.scaleChangedTo(renderKey, scale);
                         }
                     };
@@ -159,7 +159,7 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
                         @Override
                         public void update(
                                 final PdfJsViewerAdvisor advisor,
-                                final PdfJsViewer.RenderKey renderKey) {
+                                final PdfJsViewerAdvisor.InstanceKey renderKey) {
                             advisor.heightChangedTo(renderKey, height);
                         }
                     };
@@ -175,24 +175,26 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
     }
 
     private void updateAdvisors(final Updater updater) {
-        PdfJsViewer.RenderKey renderKey = buildRenderKey();
+        PdfJsViewerAdvisor.InstanceKey instanceKey = buildKey();
         List<PdfJsViewerAdvisor> advisors = getServicesInjector().lookupServices(PdfJsViewerAdvisor.class);
         if(advisors != null) {
             for (final PdfJsViewerAdvisor advisor : advisors) {
-                updater.update(advisor, renderKey);
+                updater.update(advisor, instanceKey);
             }
         }
     }
 
-    private PdfJsViewer.RenderKey buildRenderKey() {
+    private PdfJsViewerAdvisor.InstanceKey buildKey() {
         UserService userService = getServicesInjector().lookupService(UserService.class);
         String userName = userService.getUser().getName();
 
         ScalarModel model = getModel();
         String propertyId = model.getPropertyMemento().getIdentifier();
         Bookmark bookmark = model.getParentObjectAdapterMemento().asBookmark();
+        String objectType = bookmark.getObjectType();
+        String identifier = bookmark.getIdentifier();
 
-        return new PdfJsViewer.RenderKey(bookmark, propertyId, userName);
+        return new PdfJsViewerAdvisor.InstanceKey(objectType, identifier, propertyId, userName);
     }
 
     @Override
@@ -204,8 +206,8 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
         final ObjectAdapter adapter = scalarModel.getObject();
         if (adapter != null) {
             final PdfJsViewerFacet pdfJsViewerFacet = scalarModel.getFacet(PdfJsViewerFacet.class);
-            final PdfJsViewer.RenderKey renderKey = buildRenderKey();
-            final PdfJsConfig config = pdfJsViewerFacet != null ? pdfJsViewerFacet.configFor(renderKey) : new PdfJsConfig();
+            final PdfJsViewerAdvisor.InstanceKey instanceKey = buildKey();
+            final PdfJsConfig config = pdfJsViewerFacet != null ? pdfJsViewerFacet.configFor(instanceKey) : new PdfJsConfig();
             config.withDocumentUrl(urlFor(IResourceListener.INTERFACE, null));
             PdfJsPanel pdfJsPanel = new PdfJsPanel(ID_SCALAR_VALUE, config);
 
