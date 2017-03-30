@@ -16,10 +16,18 @@
  */
 package org.isisaddons.module.excel.dom;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+
+import com.google.common.collect.Lists;
+
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.RecoverableException;
@@ -163,6 +171,42 @@ public class ExcelService {
             final Blob excelBlob,
             final List<WorksheetSpec> worksheetSpecs) throws ExcelService.Exception {
         return excelServiceImpl.fromExcel(excelBlob, worksheetSpecs);
+    }
+
+    @Programmatic
+    public List<List<?>> fromExcel(
+            final Blob excelBlob,
+            final WorksheetSpec.Factory factory) throws ExcelService.Exception {
+
+        return fromExcel(excelBlob, factory, null);
+    }
+
+    @Programmatic
+    public List<List<?>> fromExcel(
+            final Blob excelBlob,
+            final WorksheetSpec.Factory factory,
+            final WorksheetSpec.Sequencer sequencer) throws ExcelService.Exception {
+
+        List<WorksheetSpec> worksheetSpecs = Lists.newArrayList();
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(excelBlob.getBytes())) {
+            final Workbook wb = org.apache.poi.ss.usermodel.WorkbookFactory.create(bais);
+            final int numberOfSheets = wb.getNumberOfSheets();
+            for (int i = 0; i < numberOfSheets; i++) {
+                final Sheet sheet = wb.getSheetAt(i);
+                WorksheetSpec worksheetSpec = factory.fromSheet(sheet.getSheetName());
+                if(worksheetSpec != null) {
+                    worksheetSpecs.add(worksheetSpec);
+                }
+            }
+        } catch (InvalidFormatException | IOException e) {
+            throw new ExcelService.Exception(e);
+        }
+
+        if(sequencer != null) {
+            worksheetSpecs = sequencer.sequence(worksheetSpecs);
+        }
+
+        return fromExcel(excelBlob, worksheetSpecs);
     }
 
     @javax.inject.Inject

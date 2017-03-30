@@ -16,6 +16,8 @@
  */
 package org.isisaddons.module.excel.dom;
 
+import java.util.List;
+
 public class WorksheetSpec {
 
     /**
@@ -26,16 +28,16 @@ public class WorksheetSpec {
     private static final int SHEET_NAME_MAX_LEN = 31;
     private static final String ROW_HANDLER_SUFFIX = "RowHandler";
 
-    private final Class<?> cls;
+    private final Class<?> viewModelClass;
     private final String sheetName;
 
     /**
-     * @param cls
+     * @param viewModelClass
      * @param sheetName - must be 31 chars or less
      * @param <T>
      */
-    public <T> WorksheetSpec(final Class<T> cls, String sheetName) {
-        this.cls = cls;
+    public <T> WorksheetSpec(final Class<T> viewModelClass, String sheetName) {
+        this.viewModelClass = viewModelClass;
         if(sheetName == null) {
             throw new IllegalArgumentException("Sheet name must be specified");
         }
@@ -49,6 +51,21 @@ public class WorksheetSpec {
         this.sheetName = sheetName;
     }
 
+
+
+    public static String prefix(final String sheetName) {
+        return sheetName.substring(0, sheetName.lastIndexOf(ROW_HANDLER_SUFFIX));
+    }
+
+    public Class<?> getCls() {
+        return viewModelClass;
+    }
+
+    public String getSheetName() {
+        return sheetName;
+    }
+
+
     public static boolean isTooLong(final String sheetName) {
         return sheetName.length() > SHEET_NAME_MAX_LEN;
     }
@@ -61,15 +78,16 @@ public class WorksheetSpec {
         return sheetName.endsWith(ROW_HANDLER_SUFFIX);
     }
 
-    public static String prefix(final String sheetName) {
-        return sheetName.substring(0, sheetName.lastIndexOf(ROW_HANDLER_SUFFIX));
+
+    public interface Factory {
+        /**
+         * @return non-null to indicate how the sheet should be handled, otherwise <code>null</code> to ignore
+         */
+        WorksheetSpec fromSheet(String sheetName);
     }
 
-    public Class<?> getCls() {
-        return cls;
+    public interface Sequencer {
+        List<WorksheetSpec> sequence(List<WorksheetSpec> specs);
     }
 
-    public String getSheetName() {
-        return sheetName;
-    }
 }
