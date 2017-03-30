@@ -78,7 +78,6 @@ public class WorksheetSpec {
         return sheetName.endsWith(ROW_HANDLER_SUFFIX);
     }
 
-
     public interface Factory {
         /**
          * @return non-null to indicate how the sheet should be handled, otherwise <code>null</code> to ignore

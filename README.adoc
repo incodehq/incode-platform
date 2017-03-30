@@ -123,7 +123,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.isisaddons.module.excel</groupId>
     <artifactId>isis-module-excel-dom</artifactId>
-    <version>1.14.0</version>
+    <version>1.14.1</version>
 </dependency>
 ----
 
@@ -225,25 +225,36 @@ The first set of methods allow domain objects to be read (imported) from an Exce
 ----
 public class ExcelService {
     public <T> List<T> fromExcel(                       // <1>
-        final Blob excelBlob, 
-        final Class<T> cls) { ... }
+        Blob excelBlob,
+        Class<T> cls) { ... }
     public <T> List<T> fromExcel(                       // <2>
-        final Blob excelBlob,
-        final WorksheetSpec worksheetSpec) { ... }
+        Blob excelBlob,
+        WorksheetSpec worksheetSpec) { ... }
     public List<List<?>> fromExcel(                     // <3>
-        final Blob excelBlob,
-        final List<WorksheetSpec> worksheetSpecs) { ... }
+        Blob excelBlob,
+        List<WorksheetSpec> worksheetSpecs) { ... }
+    public List<List<?>> fromExcel(                     // <4>
+        Blob excelBlob,
+        WorksheetSpec.Factory factory) { ... }
+    public List<List<?>> fromExcel(                     // <5>
+        Blob excelBlob,
+        WorksheetSpec.Factory factory,
+        WorksheetSpec.Sequencer sequencer,
+        ) { ... }
     ...
 }
 ----
 <1> converts a single-sheet workbook into a list of domain objects
 <2> converts a single-sheet workbook into a list of domain objects, using `WorksheetSpec` (discussed below)
 <3> converts a multiple-sheet workbook into a list of list of domain objects.
+<4> converts all "matched" worksheets for a multiple-sheet workbook, with the supplied `WorksheetSpec.Factory` returning the `WorksheetSpec` to handle the sheet
+<5> as previous, but with the sheets resequenced using the supplied `WorksheetSpec.Sequencer`.
 
 The `WorksheetSpec` is a data structure that specifies what is on each worksheet of the Excel workbook (ie which sheet
 of the workbook to read to obtain the domain objects):
 
 [source,java]
+.WorksheetSpec.java
 ----
 public class WorksheetSpec {
     public <T> WorksheetSpec (
@@ -255,6 +266,34 @@ public class WorksheetSpec {
 <1> the class of those domain objects
 <2> the name of the sheet to be read.  If omitted, then the simple name of the domain object class will be used.
 In all cases the sheet name must be 30 characters or less in length.
+
+
+The `WorksheetSpec.Factory` API is:
+
+[source,java]
+.WorksheetSpec.Factory.java
+----
+public class WorksheetSpec {
+    ...
+    public interface Factory {
+        WorksheetSpec fromSheet(String sheetName);  // <1>
+    }
+}
+----
+<1> returns the `WorksheetSpec` indicating how the sheet should be handled, or `null` otherwise.
+
+And the `Worksheet.Sequencer` API is simply:
+
+[source,java]
+.WorksheetSpec.Sequencer.java
+----
+public class WorksheetSpec {
+    ...
+    public interface Sequencer {
+        List<WorksheetSpec> sequence(List<WorksheetSpec> specs);
+    }
+}
+----
 
 
 ==== Export
@@ -547,6 +586,7 @@ downloadable as an Excel spreadsheet.
 == Change Log
 
 
+* `1.14.1` - released against Isis 1.14.0, fixes https://github.com/isisaddons/isis-module-excel/issues/19[#19]
 * `1.14.0` - released against Isis 1.14.0
 * `1.13.6` - maximum length for sheets is 31 chars, not 30 chars.
 * `1.13.5.1` - patch for 1.13.5 (error with `#toExcelPivot(...)`.
@@ -622,7 +662,7 @@ https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
 
 If you have commit access to this project (or a fork of your own) then you can create interim releases using the `interim-release.sh` script.
 
-The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.14.0.20160222-0756`).
+The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.14.1.20170430-0756`).
 It then pushes the branch (and a tag) to the specified remote.
 
 A CI server such as Jenkins can monitor the branches matching the wildcard `origin/interim/*` and create a build.
@@ -632,12 +672,12 @@ For example:
 
 [source]
 ----
-sh interim-release.sh 1.14.0 origin
+sh interim-release.sh 1.14.1 origin
 ----
 
 where
 
-* `1.14.0` is the base release
+* `1.14.1` is the base release
 * `origin` is the name of the remote to which you have permissions to write to.
 
 
@@ -656,7 +696,7 @@ For example:
 
 [source]
 ----
-sh release.sh 1.14.0 \
+sh release.sh 1.14.1 \
               1.15.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
@@ -676,7 +716,7 @@ If the script completes successfully, then push changes:
 
 [source]
 ----
-git push origin master && git push origin 1.14.0
+git push origin master && git push origin 1.14.1
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
