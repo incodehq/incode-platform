@@ -449,6 +449,7 @@ class ExcelConverter {
                         switch (mode) {
                         case RELAXED:
                             // ignore
+                            break;
                         default:
                             throw new ExcelService.Exception(String.format("Error processing Excel row nr. %d. Message: %s", row.getRowNum(), e.getMessage()), e);
 
