@@ -39,6 +39,7 @@ import org.apache.isis.applib.services.registry.ServiceRegistry;
 import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.util.ExcelServiceImpl;
+import org.isisaddons.module.excel.dom.util.Mode;
 
 @DomainService(
         nature = NatureOfService.DOMAIN
@@ -156,7 +157,16 @@ public class ExcelService {
             final Blob excelBlob,
             final Class<T> cls,
             final String sheetName) throws ExcelService.Exception {
-        return excelServiceImpl.fromExcel(excelBlob, cls, sheetName);
+        return fromExcel(excelBlob, new WorksheetSpec(cls, sheetName));
+    }
+
+    @Programmatic
+    public <T> List<T> fromExcel(
+            final Blob excelBlob,
+            final Class<T> cls,
+            final String sheetName,
+            final Mode mode) throws ExcelService.Exception {
+        return fromExcel(excelBlob, new WorksheetSpec(cls, sheetName, mode));
     }
 
     @Programmatic
@@ -176,15 +186,15 @@ public class ExcelService {
     @Programmatic
     public List<List<?>> fromExcel(
             final Blob excelBlob,
-            final WorksheetSpec.Factory factory) throws ExcelService.Exception {
+            final WorksheetSpec.Matcher matcher) throws ExcelService.Exception {
 
-        return fromExcel(excelBlob, factory, null);
+        return fromExcel(excelBlob, matcher, null);
     }
 
     @Programmatic
     public List<List<?>> fromExcel(
             final Blob excelBlob,
-            final WorksheetSpec.Factory factory,
+            final WorksheetSpec.Matcher matcher,
             final WorksheetSpec.Sequencer sequencer) throws ExcelService.Exception {
 
         List<WorksheetSpec> worksheetSpecs = Lists.newArrayList();
@@ -193,7 +203,7 @@ public class ExcelService {
             final int numberOfSheets = wb.getNumberOfSheets();
             for (int i = 0; i < numberOfSheets; i++) {
                 final Sheet sheet = wb.getSheetAt(i);
-                WorksheetSpec worksheetSpec = factory.fromSheet(sheet.getSheetName());
+                WorksheetSpec worksheetSpec = matcher.fromSheet(sheet.getSheetName());
                 if(worksheetSpec != null) {
                     worksheetSpecs.add(worksheetSpec);
                 }

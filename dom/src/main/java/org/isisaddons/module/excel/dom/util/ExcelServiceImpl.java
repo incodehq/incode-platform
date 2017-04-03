@@ -155,8 +155,8 @@ public class ExcelServiceImpl {
      *     view model memento); otherwise the objects will be simple transient objects (that is, using
      *     {@link org.apache.isis.applib.DomainObjectContainer#newTransientInstance(Class)}).
      * </p>
+     *  @param sheetName - must be 30 characters or less
      *
-     * @param sheetName - must be 30 characters or less
      */
     @Programmatic
     public <T> List<T> fromExcel(

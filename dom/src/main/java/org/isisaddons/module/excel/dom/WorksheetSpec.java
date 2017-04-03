@@ -18,6 +18,8 @@ package org.isisaddons.module.excel.dom;
 
 import java.util.List;
 
+import org.isisaddons.module.excel.dom.util.Mode;
+
 public class WorksheetSpec {
 
     /**
@@ -28,7 +30,14 @@ public class WorksheetSpec {
     private static final int SHEET_NAME_MAX_LEN = 31;
     private static final String ROW_HANDLER_SUFFIX = "RowHandler";
 
-    private final Class<?> viewModelClass;
+    public interface RowFactory<Q> {
+        Q create();
+
+        Class<?> getCls();
+    }
+
+    private final RowFactory<?> factory;
+    private final Mode mode;
     private final String sheetName;
 
     /**
@@ -37,7 +46,29 @@ public class WorksheetSpec {
      * @param <T>
      */
     public <T> WorksheetSpec(final Class<T> viewModelClass, String sheetName) {
-        this.viewModelClass = viewModelClass;
+        this(viewModelClass, sheetName, Mode.STRICT);
+    }
+
+    public <T> WorksheetSpec(final Class<T> viewModelClass, String sheetName, final Mode mode) {
+        this(new RowFactory<T>() {
+            @Override public T create() {
+                try {
+                    return viewModelClass.newInstance();
+                } catch (InstantiationException | IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            @Override
+            public Class<?> getCls() {
+                return viewModelClass;
+            }
+        }, sheetName, mode);
+    }
+
+    public <T> WorksheetSpec(final RowFactory<T> factory, String sheetName, final Mode mode) {
+        this.factory = factory;
+        this.mode = mode;
         if(sheetName == null) {
             throw new IllegalArgumentException("Sheet name must be specified");
         }
@@ -51,20 +82,19 @@ public class WorksheetSpec {
         this.sheetName = sheetName;
     }
 
-
-
     public static String prefix(final String sheetName) {
         return sheetName.substring(0, sheetName.lastIndexOf(ROW_HANDLER_SUFFIX));
     }
 
-    public Class<?> getCls() {
-        return viewModelClass;
-    }
+    public <T> RowFactory<T> getFactory() { return (RowFactory<T>) factory; }
 
     public String getSheetName() {
         return sheetName;
     }
 
+    public Mode getMode() {
+        return mode;
+    }
 
     public static boolean isTooLong(final String sheetName) {
         return sheetName.length() > SHEET_NAME_MAX_LEN;
@@ -78,7 +108,7 @@ public class WorksheetSpec {
         return sheetName.endsWith(ROW_HANDLER_SUFFIX);
     }
 
-    public interface Factory {
+    public interface Matcher {
         /**
          * @return non-null to indicate how the sheet should be handled, otherwise <code>null</code> to ignore
          */

@@ -66,6 +66,7 @@ import org.isisaddons.module.excel.dom.PivotColumn;
 import org.isisaddons.module.excel.dom.PivotDecoration;
 import org.isisaddons.module.excel.dom.PivotRow;
 import org.isisaddons.module.excel.dom.PivotValue;
+import org.isisaddons.module.excel.dom.RowHandler;
 import org.isisaddons.module.excel.dom.WorksheetContent;
 import org.isisaddons.module.excel.dom.WorksheetSpec;
 
@@ -133,7 +134,7 @@ class ExcelConverter {
 
         for (WorksheetContent worksheetContent : worksheetContents) {
             final WorksheetSpec spec = worksheetContent.getSpec();
-            appendSheet(workbook, worksheetContent.getDomainObjects(), spec.getCls(), spec.getSheetName());
+            appendSheet(workbook, worksheetContent.getDomainObjects(), spec.getFactory(), spec.getSheetName());
         }
         workbook.write(fos);
         fos.close();
@@ -143,10 +144,10 @@ class ExcelConverter {
     private Sheet appendSheet(
             final XSSFWorkbook workbook,
             final List<?> domainObjects,
-            final Class<?> cls,
+            final WorksheetSpec.RowFactory<?> factory,
             final String sheetName) throws IOException {
 
-        final ObjectSpecification objectSpec = specificationLoader.loadSpecification(cls);
+        final ObjectSpecification objectSpec = specificationLoader.loadSpecification(factory.getCls());
 
         final List<ObjectAdapter> adapters = Lists.transform(domainObjects, ObjectAdapter.Functions.adapterForUsing(adapterManager));
 
@@ -155,7 +156,7 @@ class ExcelConverter {
 
         final Sheet sheet = ((Workbook) workbook).createSheet(sheetName);
 
-        final ExcelConverter.RowFactory rowFactory = new RowFactory(sheet);
+        final RowFactory rowFactory = new RowFactory(sheet);
         final Row headerRow = rowFactory.newRow();
 
         // header row
@@ -209,7 +210,7 @@ class ExcelConverter {
 
         for (WorksheetContent worksheetContent : worksheetContents) {
             final WorksheetSpec spec = worksheetContent.getSpec();
-            appendPivotSheet(workbook, worksheetContent.getDomainObjects(), spec.getCls(), spec.getSheetName());
+            appendPivotSheet(workbook, worksheetContent.getDomainObjects(), spec.getFactory(), spec.getSheetName());
         }
         workbook.write(fos);
         fos.close();
@@ -219,10 +220,10 @@ class ExcelConverter {
     private void appendPivotSheet(
             final XSSFWorkbook workbook,
             final List<?> domainObjects,
-            final Class<?> cls,
+            final WorksheetSpec.RowFactory<?> factory,
             final String sheetName) throws IOException {
 
-        final ObjectSpecification objectSpec = specificationLoader.loadSpecification(cls);
+        final ObjectSpecification objectSpec = specificationLoader.loadSpecification(factory.getCls());
 
         final List<ObjectAdapter> adapters = Lists.transform(domainObjects, ObjectAdapter.Functions.adapterForUsing(adapterManager));
 
@@ -230,13 +231,13 @@ class ExcelConverter {
         final List<? extends ObjectAssociation> propertyList = objectSpec.getAssociations(VISIBLE_PROPERTIES);
 
         // Validate the annotations for pivot
-        validateAnnotations(propertyList, cls);
+        validateAnnotations(propertyList, factory.getCls());
 
         // Proces the annotations for pivot
         final List<String> annotationList = new ArrayList<>();
         final List<Integer> orderList = new ArrayList<>();
         final List<AggregationType> typeList = new ArrayList<>();
-        for (AnnotationOrderAndType annotationOrderAndType : getAnnotationAndOrderFrom(propertyList, cls)){
+        for (AnnotationOrderAndType annotationOrderAndType : getAnnotationAndOrderFrom(propertyList, factory.getCls())){
             annotationList.add(annotationOrderAndType.annotation);
             orderList.add(annotationOrderAndType.order);
             typeList.add(annotationOrderAndType.type);
@@ -250,7 +251,7 @@ class ExcelConverter {
         if (WorksheetSpec.isTooLong(pivotSourceSheetName)) {
             pivotSourceSheetName = WorksheetSpec.trim(pivotSourceSheetName);
         }
-        final Sheet pivotSourceSheet = appendSheet(workbook, domainObjects, cls, pivotSourceSheetName);
+        final Sheet pivotSourceSheet = appendSheet(workbook, domainObjects, factory, pivotSourceSheetName);
         pivotSourceSheet.shiftRows(0, pivotSourceSheet.getLastRowNum(), 3);
         final Row annotationRow = pivotSourceSheet.createRow(0);
         final Row orderRow = pivotSourceSheet.createRow(1);
@@ -347,30 +348,35 @@ class ExcelConverter {
 
         final List<List<?>> listOfLists = Lists.newArrayList();
         for (WorksheetSpec worksheetSpec : worksheetSpecs) {
-            final Class<?> cls = worksheetSpec.getCls();
+            final WorksheetSpec.RowFactory<Object> factory = worksheetSpec.getFactory();
             final String sheetName = worksheetSpec.getSheetName();
-            listOfLists.add(fromBytes(cls, sheetName, bs, container));
+            final Mode mode = worksheetSpec.getMode();
+            listOfLists.add(fromBytes(factory, sheetName, bs, mode, container, worksheetSpec));
         }
         return listOfLists;
     }
 
     <T> List<T> fromBytes(
-            final Class<T> cls,
+            final WorksheetSpec.RowFactory<Object> cls,
             final String sheetName,
             final byte[] bs,
-            final DomainObjectContainer container) throws IOException, InvalidFormatException {
+            final Mode mode,
+            final DomainObjectContainer container, final WorksheetSpec worksheetSpec) throws IOException, InvalidFormatException {
 
         try (ByteArrayInputStream bais = new ByteArrayInputStream(bs)) {
             final Workbook wb = org.apache.poi.ss.usermodel.WorkbookFactory.create(bais);
-            return fromWorkbook(cls, sheetName, wb, container);
+            return fromWorkbook(wb, container, worksheetSpec);
         }
     }
 
     private <T> List<T> fromWorkbook(
-            final Class<T> cls,
-            final String sheetName,
             final Workbook workbook,
-            final DomainObjectContainer container) {
+            final DomainObjectContainer container, final WorksheetSpec worksheetSpec) {
+
+        final Class<T> cls = (Class<T>) worksheetSpec.getFactory().getCls();
+        final String sheetName = worksheetSpec.getSheetName();
+        final Mode mode = worksheetSpec.getMode();
+
         final List<T> importedItems = Lists.newArrayList();
 
         final CellMarshaller cellMarshaller = this.newCellMarshaller(workbook);
@@ -383,29 +389,44 @@ class ExcelConverter {
         final ObjectSpecification objectSpec = specificationLoader.loadSpecification(cls);
         final ViewModelFacet viewModelFacet = objectSpec.getFacet(ViewModelFacet.class);
 
+        T previousRow = null;
         for (final Row row : sheet) {
             if (header) {
                 for (final Cell cell : row) {
-                    if (cell.getCellType() != Cell.CELL_TYPE_BLANK) {
-                        final int columnIndex = cell.getColumnIndex();
-                        final String propertyName = cellMarshaller.getStringCellValue(cell);
-                        final OneToOneAssociation property = getAssociation(objectSpec, propertyName);
-                        if (property != null) {
-                            final Class<?> propertyType = property.getSpecification().getCorrespondingClass();
-                            propertyByColumn.put(columnIndex, new Property(propertyName, property, propertyType));
+
+                    try{
+                        if (cell.getCellType() != Cell.CELL_TYPE_BLANK) {
+                            final int columnIndex = cell.getColumnIndex();
+                            final String propertyName = cellMarshaller.getStringCellValue(cell);
+                            final OneToOneAssociation property = getAssociation(objectSpec, propertyName);
+                            if (property != null) {
+                                final Class<?> propertyType = property.getSpecification().getCorrespondingClass();
+                                propertyByColumn.put(columnIndex, new Property(propertyName, property, propertyType));
+                            }
+                        }
+
+                    } catch (final Exception e) {
+                        switch (mode) {
+                        case RELAXED:
+                            // ignore
+                        default:
+                            throw new ExcelService.Exception(String.format("Error processing Excel row nr. %d. Message: %s", row.getRowNum(), e.getMessage()), e);
                         }
                     }
+
                 }
                 header = false;
             } else {
                 // detail
-                try {
 
-                    // Let's require at least one column to be not null for detecting a blank row.
-                    // Excel can have physical rows with cells empty that it seem do not existent for the user.
-                    ObjectAdapter templateAdapter = null;
-                    T imported = null;
-                    for (final Cell cell : row) {
+                // Let's require at least one column to be not null for detecting a blank row.
+                // Excel can have physical rows with cells empty that it seem do not existent for the user.
+                ObjectAdapter templateAdapter = null;
+                T imported = null;
+                for (final Cell cell : row) {
+
+                    try {
+
                         final int columnIndex = cell.getColumnIndex();
                         final Property property = propertyByColumn.get(columnIndex);
                         if (property != null) {
@@ -414,7 +435,7 @@ class ExcelConverter {
                             if (value != null) {
                                 if (imported == null) {
                                     // copy the row into a new object
-                                    imported = container.newTransientInstance(cls);
+                                    imported = (T) worksheetSpec.getFactory().create();
                                     templateAdapter = this.adapterManager.adapterFor(imported);
                                 }
                                 final ObjectAdapter valueAdapter = this.adapterManager.adapterFor(value);
@@ -423,25 +444,31 @@ class ExcelConverter {
                         } else {
                             // not expected; just ignore.
                         }
-                    }
 
-                    if (imported != null) {
-                        if (viewModelFacet != null) {
-                            // if there is a view model, then use the imported object as a template
-                            // in order to create a regular view model.
-                            final String memento = viewModelFacet.memento(imported);
-                            final T viewModel = container.newViewModelInstance(cls, memento);
-                            importedItems.add(viewModel);
-                        } else {
-                            // else, just return the imported items as simple transient instances.
-                            importedItems.add(imported);
+                    } catch (final Exception e) {
+                        switch (mode) {
+                        case RELAXED:
+                            // ignore
+                        default:
+                            throw new ExcelService.Exception(String.format("Error processing Excel row nr. %d. Message: %s", row.getRowNum(), e.getMessage()), e);
+
                         }
                     }
 
-                } catch (final Exception e) {
-                    throw new ExcelService.Exception(String.format("Error processing Excel row nr. %d. Message: %s", row.getRowNum(), e.getMessage()), e);
                 }
+
+                if (imported != null) {
+                    importedItems.add(imported);
+
+                    if(imported instanceof RowHandler) {
+                        ((RowHandler)imported).handleRow((RowHandler) previousRow);
+                    }
+
+                    previousRow = imported;
+                }
+
             }
+
 
 
         }
