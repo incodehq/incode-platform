@@ -18,6 +18,9 @@ package org.isisaddons.module.excel.dom;
 
 import java.util.List;
 
+import org.apache.isis.core.metamodel.services.ServicesInjector;
+import org.apache.isis.core.metamodel.services.ServicesInjectorAware;
+
 import org.isisaddons.module.excel.dom.util.Mode;
 
 public class WorksheetSpec {
@@ -34,6 +37,37 @@ public class WorksheetSpec {
         Q create();
 
         Class<?> getCls();
+
+        static class Default<T> implements RowFactory<T>, ServicesInjectorAware {
+            private final Class<T> viewModelClass;
+            private ServicesInjector servicesInjector;
+
+            public Default(final Class<T> viewModelClass) {
+                this.viewModelClass = viewModelClass;
+            }
+
+            @Override
+            public T create() {
+                try {
+                    final T t = viewModelClass.newInstance();
+                    servicesInjector.injectServicesInto(t);
+                    return t;
+                } catch (InstantiationException | IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            @Override
+            public Class<?> getCls() {
+                return viewModelClass;
+            }
+
+            @Override
+            public void setServicesInjector(final ServicesInjector servicesInjector) {
+                this.servicesInjector = servicesInjector;
+            }
+        }
+
     }
 
     private final RowFactory<?> factory;
@@ -50,20 +84,7 @@ public class WorksheetSpec {
     }
 
     public <T> WorksheetSpec(final Class<T> viewModelClass, String sheetName, final Mode mode) {
-        this(new RowFactory<T>() {
-            @Override public T create() {
-                try {
-                    return viewModelClass.newInstance();
-                } catch (InstantiationException | IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-            @Override
-            public Class<?> getCls() {
-                return viewModelClass;
-            }
-        }, sheetName, mode);
+        this(new RowFactory.Default<>(viewModelClass), sheetName, mode);
     }
 
     public <T> WorksheetSpec(final RowFactory<T> factory, String sheetName, final Mode mode) {

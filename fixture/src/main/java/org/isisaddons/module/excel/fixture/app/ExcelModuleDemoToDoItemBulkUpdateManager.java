@@ -18,6 +18,8 @@ package org.isisaddons.module.excel.fixture.app;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import com.google.common.base.Function;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Lists;
@@ -31,7 +33,6 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Nature;
-import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
@@ -99,9 +100,11 @@ public class ExcelModuleDemoToDoItemBulkUpdateManager {
 
     @Action
     public ExcelModuleDemoToDoItemBulkUpdateManager select(
-            @ParameterLayout(named="Category") final Category category,
-            @ParameterLayout(named="Subcategory") @Parameter(optionality = Optionality.OPTIONAL) final Subcategory subcategory,
-            @ParameterLayout(named="Completed?") final boolean completed) {
+            final Category category,
+            @Nullable
+            final Subcategory subcategory,
+            @ParameterLayout(named="Completed?")
+            final boolean completed) {
         setCategory(category);
         setSubcategory(subcategory);
         setComplete(completed);
@@ -192,7 +195,8 @@ public class ExcelModuleDemoToDoItemBulkUpdateManager {
     @MemberOrder(name="toDoItems", sequence="2")
     public List<ExcelModuleDemoToDoItemBulkUpdateLineItem> importBlob(
             @Parameter(fileAccept = ".xlsx")
-            @ParameterLayout(named="Excel spreadsheet") final Blob spreadsheet) {
+            @ParameterLayout(named="Excel spreadsheet")
+            final Blob spreadsheet) {
         final List<ExcelModuleDemoToDoItemBulkUpdateLineItem> lineItems =
                 excelService.fromExcel(spreadsheet, WORKSHEET_SPEC);
         container.informUser(lineItems.size() + " items imported");

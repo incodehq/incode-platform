@@ -23,7 +23,6 @@ import java.util.List;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.value.Blob;
@@ -189,14 +188,14 @@ public class ExcelServiceImpl {
             final Blob excelBlob,
             final List<WorksheetSpec> worksheetSpecs) throws ExcelService.Exception {
         try {
-            return newExcelConverter().fromBytes(worksheetSpecs, excelBlob.getBytes(), container);
+            return newExcelConverter().fromBytes(worksheetSpecs, excelBlob.getBytes());
         } catch (final IOException | InvalidFormatException e) {
             throw new ExcelService.Exception(e);
         }
     }
 
     private ExcelConverter newExcelConverter() {
-        return new ExcelConverter(getSpecificationLoader(), getPersistenceSession(), bookmarkService);
+        return new ExcelConverter(getSpecificationLoader(), getPersistenceSession(), bookmarkService, isisSessionFactory.getServicesInjector());
     }
 
 
@@ -204,10 +203,7 @@ public class ExcelServiceImpl {
 
 
     @javax.inject.Inject
-    private DomainObjectContainer container;
-
-    @javax.inject.Inject
-    private BookmarkService bookmarkService;
+    BookmarkService bookmarkService;
 
     @javax.inject.Inject
     IsisSessionFactory isisSessionFactory;

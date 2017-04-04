@@ -44,7 +44,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.filter.Filter;
 import org.apache.isis.applib.filter.Filters;
@@ -53,7 +52,8 @@ import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
 import org.apache.isis.core.metamodel.adapter.mgr.AdapterManager;
 import org.apache.isis.core.metamodel.consent.InteractionInitiatedBy;
-import org.apache.isis.core.metamodel.facets.object.viewmodel.ViewModelFacet;
+import org.apache.isis.core.metamodel.services.ServicesInjector;
+import org.apache.isis.core.metamodel.services.ServicesInjectorAware;
 import org.apache.isis.core.metamodel.spec.ObjectSpecification;
 import org.apache.isis.core.metamodel.spec.feature.Contributed;
 import org.apache.isis.core.metamodel.spec.feature.ObjectAssociation;
@@ -97,14 +97,16 @@ class ExcelConverter {
     private final SpecificationLoader specificationLoader;
     private final AdapterManager adapterManager;
     private final BookmarkService bookmarkService;
+    private final ServicesInjector servicesInjector;
 
     ExcelConverter(
             final SpecificationLoader specificationLoader,
             final AdapterManager adapterManager,
-            final BookmarkService bookmarkService) {
+            final BookmarkService bookmarkService, final ServicesInjector servicesInjector) {
         this.specificationLoader = specificationLoader;
         this.adapterManager = adapterManager;
         this.bookmarkService = bookmarkService;
+        this.servicesInjector = servicesInjector;
     }
 
     // //////////////////////////////////////
@@ -343,37 +345,37 @@ class ExcelConverter {
 
     List<List<?>> fromBytes(
             final List<WorksheetSpec> worksheetSpecs,
-            final byte[] bs,
-            final DomainObjectContainer container) throws IOException, InvalidFormatException {
+            final byte[] bs) throws IOException, InvalidFormatException {
 
         final List<List<?>> listOfLists = Lists.newArrayList();
         for (WorksheetSpec worksheetSpec : worksheetSpecs) {
-            final WorksheetSpec.RowFactory<Object> factory = worksheetSpec.getFactory();
-            final String sheetName = worksheetSpec.getSheetName();
-            final Mode mode = worksheetSpec.getMode();
-            listOfLists.add(fromBytes(factory, sheetName, bs, mode, container, worksheetSpec));
+            listOfLists.add(fromBytes(bs, worksheetSpec));
         }
         return listOfLists;
     }
 
     <T> List<T> fromBytes(
-            final WorksheetSpec.RowFactory<Object> cls,
-            final String sheetName,
             final byte[] bs,
-            final Mode mode,
-            final DomainObjectContainer container, final WorksheetSpec worksheetSpec) throws IOException, InvalidFormatException {
+            final WorksheetSpec worksheetSpec) throws IOException, InvalidFormatException {
 
         try (ByteArrayInputStream bais = new ByteArrayInputStream(bs)) {
             final Workbook wb = org.apache.poi.ss.usermodel.WorkbookFactory.create(bais);
-            return fromWorkbook(wb, container, worksheetSpec);
+            return fromWorkbook(wb, worksheetSpec);
         }
     }
 
     private <T> List<T> fromWorkbook(
             final Workbook workbook,
-            final DomainObjectContainer container, final WorksheetSpec worksheetSpec) {
+            final WorksheetSpec worksheetSpec) {
 
-        final Class<T> cls = (Class<T>) worksheetSpec.getFactory().getCls();
+        final WorksheetSpec.RowFactory<Object> factory = worksheetSpec.getFactory();
+        if(factory instanceof ServicesInjectorAware) {
+            final ServicesInjectorAware servicesInjectorAware = (ServicesInjectorAware) factory;
+            servicesInjectorAware.setServicesInjector(this.servicesInjector);
+
+        }
+
+        final Class<T> cls = (Class<T>) factory.getCls();
         final String sheetName = worksheetSpec.getSheetName();
         final Mode mode = worksheetSpec.getMode();
 
@@ -387,7 +389,6 @@ class ExcelConverter {
         final Map<Integer, Property> propertyByColumn = Maps.newHashMap();
 
         final ObjectSpecification objectSpec = specificationLoader.loadSpecification(cls);
-        final ViewModelFacet viewModelFacet = objectSpec.getFacet(ViewModelFacet.class);
 
         T previousRow = null;
         for (final Row row : sheet) {
@@ -435,7 +436,7 @@ class ExcelConverter {
                             if (value != null) {
                                 if (imported == null) {
                                     // copy the row into a new object
-                                    imported = (T) worksheetSpec.getFactory().create();
+                                    imported = (T) factory.create();
                                     templateAdapter = this.adapterManager.adapterFor(imported);
                                 }
                                 final ObjectAdapter valueAdapter = this.adapterManager.adapterFor(value);
