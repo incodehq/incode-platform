@@ -61,6 +61,7 @@ import org.apache.isis.core.metamodel.spec.feature.OneToOneAssociation;
 import org.apache.isis.core.metamodel.specloader.SpecificationLoader;
 
 import org.isisaddons.module.excel.dom.AggregationType;
+import org.isisaddons.module.excel.dom.ExcelMetaDataEnabled;
 import org.isisaddons.module.excel.dom.ExcelService;
 import org.isisaddons.module.excel.dom.PivotColumn;
 import org.isisaddons.module.excel.dom.PivotDecoration;
@@ -437,6 +438,13 @@ class ExcelConverter {
                                 if (imported == null) {
                                     // copy the row into a new object
                                     imported = (T) factory.create();
+                                    // set excel metadata if applicable
+                                    if (ExcelMetaDataEnabled.class.isAssignableFrom(cls)){
+                                        ExcelMetaDataEnabled importedEnhanced = (ExcelMetaDataEnabled) imported;
+                                        importedEnhanced.setExcelRowNumber(row.getRowNum());
+                                        importedEnhanced.setExcelSheetName(sheetName);
+                                        imported = (T) importedEnhanced;
+                                    }
                                     templateAdapter = this.adapterManager.adapterFor(imported);
                                 }
                                 final ObjectAdapter valueAdapter = this.adapterManager.adapterFor(value);
