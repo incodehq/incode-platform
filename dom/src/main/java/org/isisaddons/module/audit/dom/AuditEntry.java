@@ -155,9 +155,13 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
     //region > title
 
     public String title() {
+
+        // nb: not thread-safe
+        // formats defined in https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+        final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
         final TitleBuffer buf = new TitleBuffer();
-        buf.append(
-        new SimpleDateFormat("yyyy-MM-dd hh:mm").format(getTimestamp()));
+        buf.append(format.format(getTimestamp()));
         buf.append(" - ", getTargetStr());
         buf.append(", ", getPropertyId());
         return buf.toString();
