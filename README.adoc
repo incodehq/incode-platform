@@ -42,18 +42,9 @@ public List<Class<?>> getModules() {
 
 === Supporting encrypted PDFs
 
-<<<<<<< Updated upstream
-* when updating the classpath, specify the appropriate -SNAPSHOT version: +
-+
-[source,xml]
-----
-<version>1.15.0-SNAPSHOT</version>
-----
-=======
 Encrypted PDFs can be handled by adding the optional link:http://www.bouncycastle.org/[Legion of the Bouncy Castle] encryption libraries.
 These can be included in your Maven project using three or so dependencies.
 At the time of writing these were:
->>>>>>> Stashed changes
 
 [source,xml]
 ----
