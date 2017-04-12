@@ -1060,7 +1060,7 @@ https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
 
 If you have commit access to this project (or a fork of your own) then you can create interim releases using the `interim-release.sh` script.
 
-The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.14.7.20170331-0740`).
+The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.14.6.20170331-0740`).
 It then pushes the branch (and a tag) to the specified remote.
 
 A CI server such as Jenkins can monitor the branches matching the wildcard `origin/interim/*` and create a build.
@@ -1070,7 +1070,7 @@ For example:
 
 [source]
 ----
-sh interim-release.sh 1.14.7 origin
+sh interim-release.sh 1.14.6 origin
 ----
 
 where
