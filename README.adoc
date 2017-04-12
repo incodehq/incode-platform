@@ -1,4 +1,5 @@
 = isis-module-pdfbox
+:toc:
 
 image:https://travis-ci.org/isisaddons/isis-module-pdfbox.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-pdfbox]
 
@@ -9,8 +10,6 @@ This module, intended for use with http://isis.apache.org[Apache Isis], provides
 == How to configure/use
 
 You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
-
-=== "Out-of-the-box"
 
 To use "out-of-the-box":
 
@@ -40,56 +39,53 @@ public List<Class<?>> getModules() {
 ----
 
 
-=== "Out-of-the-box" (-SNAPSHOT)
 
-If you want to use the current `-SNAPSHOT`, then the steps are the same as above, except:
+=== Supporting encrypted PDFs
 
+<<<<<<< Updated upstream
 * when updating the classpath, specify the appropriate -SNAPSHOT version: +
 +
 [source,xml]
 ----
 <version>1.15.0-SNAPSHOT</version>
 ----
+=======
+Encrypted PDFs can be handled by adding the optional link:http://www.bouncycastle.org/[Legion of the Bouncy Castle] encryption libraries.
+These can be included in your Maven project using three or so dependencies.
+At the time of writing these were:
+>>>>>>> Stashed changes
 
-* add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service). We suggest defining the repository in a `<profile>`: +
-+
 [source,xml]
 ----
-<profile>
-    <id>cloudbees-snapshots</id>
-    <activation>
-        <activeByDefault>true</activeByDefault>
-    </activation>
-    <repositories>
-        <repository>
-            <id>snapshots-repo</id>
-            <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-</profile>
+<dependency>
+    <groupId>org.bouncycastle</groupId>
+    <artifactId>bcprov-jdk15on</artifactId>
+    <version>1.54</version>
+</dependency>
+
+<dependency>
+    <groupId>org.bouncycastle</groupId>
+    <artifactId>bcmail-jdk15on</artifactId>
+    <version>1.54</version>
+</dependency>
+
+<dependency>
+    <groupId>org.bouncycastle</groupId>
+    <artifactId>bcpkix-jdk15on</artifactId>
+    <version>1.54</version>
+</dependency>
 ----
 
 
-=== Forking the repo
 
-If instead you want to extend this module's functionality, then we recommend that you fork this repo. The repo is
-structured as follows:
-
-* `pom.xml` - parent pom
-* `dom` - the module implementation, depends on Isis applib
-
+See the link:https://pdfbox.apache.org/2.0/dependencies.html[PDFBox documentation] for the most up-to-date information.
 
 
 
 == API
 
-This module provides a single service, called `pdfboxService`.  It has the following API:
+This module provides a single service, called `PdfBoxService`.
+It has the following API:
 
 [source,java]
 ----
@@ -114,6 +110,8 @@ public class PdfBoxService {
 
 * `1.14.0` - released against Isis 1.14.0
 * `1.13.0` - released against Isis 1.13.0
+
+
 
 == Legal Stuff
 
@@ -140,7 +138,20 @@ under the License.
 
 === Dependencies
 
-No dependencies (other than Apache PDFBox).
+link:https://pdfbox.apache.org[Apache PDFBox] and optionally link:http://www.bouncycastle.org/[Legion of the Bouncy Castle] to handle encrypted PDFs.
+
+
+
+=== Forking the repo
+
+If you want to extend this module's functionality, then we recommend that you fork this repo.
+The repo is structured as follows:
+
+* `pom.xml` - parent pom
+* `dom` - the module implementation, depends on Isis applib
+
+
+
 
 
 == Maven deploy notes
