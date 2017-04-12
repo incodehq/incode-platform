@@ -464,7 +464,14 @@ class ExcelConverter {
 
                         }
                     }
+                }
 
+                // we need to remove the templateAdapter because earlier on we will have created an adapter (and corresponding OID)
+                // for a view model where the OID is initially computed on the incomplete (in fact, empty) view model.
+                // removing the adapter therefore removes the OID as well, so next time an adapter is needed for the view model
+                // the OID will be recomputed based on the fully populated view model pojo.
+                if(templateAdapter != null) {
+                    this.adapterManager.removeAdapter(templateAdapter);
                 }
 
                 if (imported != null) {
