@@ -75,7 +75,7 @@ import lombok.Setter;
                         + "FROM org.incode.module.document.dom.impl.docs.Document "
                         + "WHERE :startDateTime <= createdAt  "
                         + "   && createdAt      <= :endDateTime "
-                        + "ORDER BY createdAt DESC "),
+                        + "ORDER BY createdAt DESC ")
 })
 @Indices({
     // none yet

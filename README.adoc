@@ -690,26 +690,41 @@ The `_supportingDocuments` collection mixin is hidden for "secondary" supporting
 [[_incode-module-document_services-api]]
 == Services (API)
 
-[[_incode-module-document_services-api_document-creator-service]]
-=== DocumentCreatorService
+[[_incode-module-document_services-api_document-service]]
+=== DocumentService
 
-The `DocumentCreatorService` service allows documents to be created and attached (using ``Paperclip``s) programmatically to other domain objects.
+The `DocumentService` service allows documents to be created and attached (using ``Paperclip``s) programmatically to other domain objects.
+It also allows existing blobs (PDFs) to be created and optionally attached.
 
 The API is:
 
 [source,java]
 ----
-public class DocumentCreatorService {
+public class DocumentService {
     public boolean canCreateDocumentAndAttachPaperclips(        // <1>
             Object domainObject,
             DocumentTemplate template);
     public Document createDocumentAndAttachPaperclips(          // <2>
             Object domainObject,
             DocumentTemplate template);
+
+    public Document createForBlob(
+            DocumentType documentType,
+            String documentAtPath,
+            String documentName,                                // <3>
+            Blob blob);
+    public Document createAndAttachDocumentForBlob(
+            DocumentType documentType,
+            String documentAtPath,
+            String documentName,                                // <3>
+            Blob blob,
+            String paperclipRoleName,
+            Object paperclipAttachTo);
 }
 ----
 <1> allows a programmatic check as to whether the provided `DocumentTemplate` is applicable to the domain object.
 <2> go ahead and actually create the new `Document`, attaching it as specified by the `AttachmentAdvisor` associated with the ``DocumentTemplate`` ('s `Applicability` for this domain object).
+<3> documentName - override the name of the blob (if null, then uses the blob's name)
 
 
 [[_incode-module-document_services-spi]]
@@ -966,25 +981,6 @@ This release is not backwardly compatible with previous release
 
 
 
-== Forking the repo
-
-If instead you want to extend this module's functionality, then we recommend that you fork this repo.
-The repo is structured as follows:
-
-* `pom.xml` - parent pom
-* `app` - the demo webapp's `AppManifest`
-* `dom` - the module implementation, depends on Isis applib
-* `fixture` - fixtures, holding a sample domain objects and fixture scripts; depends on `dom`
-* `integtests` - integration tests for the module; depends on `fixture`
-* `webapp` - demo webapp (see above screenshots); depends on `dom` and `fixture`
-
-Only the `dom` project is released to Maven Central Repo
- The versions of the other modules are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
-
-
-Note that the module uses link:https://projectlombok.org/[Project Lombok].  To compile the code within your IDE you will
-therefore require the appropriate Lombok plugin.  See the link:https://projectlombok.org/download.html[Lombok download page] for more information.
-
 
 == Legal Stuff
 
@@ -1011,6 +1007,27 @@ under the License.
 === Dependencies
 
 None.
+
+
+=== Forking the repo
+
+If you want to extend this module's functionality, then we recommend that you fork this repo.
+The repo is structured as follows:
+
+* `pom.xml` - parent pom
+* `app` - the demo webapp's `AppManifest`
+* `dom` - the module implementation, depends on Isis applib
+* `fixture` - fixtures, holding a sample domain objects and fixture scripts; depends on `dom`
+* `integtests` - integration tests for the module; depends on `fixture`
+* `webapp` - demo webapp (see above screenshots); depends on `dom` and `fixture`
+
+Only the `dom` project is released to Maven Central Repo
+ The versions of the other modules are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
+
+
+Note that the module uses link:https://projectlombok.org/[Project Lombok].  To compile the code within your IDE you will
+therefore require the appropriate Lombok plugin.  See the link:https://projectlombok.org/download.html[Lombok download page] for more information.
+
 
 
 === Icons

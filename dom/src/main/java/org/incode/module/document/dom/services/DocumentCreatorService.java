@@ -33,6 +33,14 @@ import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
 @DomainService(nature = NatureOfService.DOMAIN)
 public class DocumentCreatorService {
 
+    /**
+     * Replaced by {@link org.incode.module.document.dom.api.DocumentService#canCreateDocumentAndAttachPaperclips(Object, DocumentTemplate)} as formal API.
+     *
+     * @param domainObject
+     * @param template
+     * @return
+     */
+    @Deprecated
     @Programmatic
     public boolean canCreateDocumentAndAttachPaperclips(
             final Object domainObject,
@@ -41,6 +49,14 @@ public class DocumentCreatorService {
         return attachmentAdvisor != null;
     }
 
+    /**
+     * Replaced by {@link org.incode.module.document.dom.api.DocumentService#createDocumentAndAttachPaperclips(Object, DocumentTemplate)} as formal API.
+     *
+     * @param domainObject
+     * @param template
+     * @return
+     */
+    @Deprecated
     @Programmatic
     public Document createDocumentAndAttachPaperclips(
             final Object domainObject,
