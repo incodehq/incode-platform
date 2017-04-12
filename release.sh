@@ -57,7 +57,7 @@ echo ""
 echo "releasing 'dom' module (mvn clean deploy -P release)"
 echo ""
 pushd dom >/dev/null
-mvn clean deploy -P release -Dpgp.secretkey=keyring:id=$KEYID -Dpgp.passphrase="literal:$PASSPHRASE"
+mvn clean deploy -P release -Dpgp.secretkey=keyring:id=$KEYID -Dpgp.passphrase="literal:$PASSPHRASE" -X
 if [ $? != 0 ]; then
     echo "... failed" >&2
     exit 1
