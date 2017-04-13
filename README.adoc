@@ -21,9 +21,9 @@ The component lets the user page through the PDF document, zoom in and out, and 
 
 The prerequisite software is:
 
-* Java JDK 8 (>= Isis 1.9.0) or Java JDK 7 (<= Isis 1.8.0)
+* Java JDK 7
 ** note that the compile source and target remains at JDK 7
-* http://maven.apache.org[maven 3] (3.2.x is recommended).
+* http://maven.apache.org[maven 3] (3.3.x is recommended).
 
 To build the demo app:
 
