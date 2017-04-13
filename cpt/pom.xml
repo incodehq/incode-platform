@@ -63,11 +63,8 @@ language governing permissions and limitations under the License.
     </developers>
 
     <properties>
-        <isis.version>1.15.0-SNAPSHOT</isis.version>
-
-<!--
-        <wicketstuff-pdfjs.version>7.0-SNAPSHOT</wicketstuff-pdfjs.version>
--->
+        <!--          1.14.0.20170319-1823 is based on Wicket 7 -->
+        <isis.version>1.14.0.20170319-1823</isis.version>
 
         <compileSource>1.7</compileSource>
         <compileTarget>1.7</compileTarget>
