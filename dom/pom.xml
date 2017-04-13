@@ -27,7 +27,7 @@
 
     <groupId>org.isisaddons.module.audit</groupId>
     <artifactId>isis-module-audit-dom</artifactId>
-    <version>1.14.1</version>
+    <version>1.15.0-SNAPSHOT</version>
 
     <packaging>jar</packaging>
 
