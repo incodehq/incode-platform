@@ -75,7 +75,24 @@ import lombok.Setter;
                         + "FROM org.incode.module.document.dom.impl.docs.Document "
                         + "WHERE :startDateTime <= createdAt  "
                         + "   && createdAt      <= :endDateTime "
-                        + "ORDER BY createdAt DESC ")
+                        + "ORDER BY createdAt DESC "),
+        @Query(
+                // uses NOT IN
+                name = "findWithNoPaperclips", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.module.document.dom.impl.docs.Document "
+                        + "WHERE !(SELECT p.document "
+                        +           "FROM org.incode.module.document.dom.impl.paperclips.Paperclip p"
+                        +        ").contains(this) "),
+        @Query(
+                // this version should be equivalent to 'findWithNoPaperclips', but fails with syntax error.  Might only be supported in DN 5.0
+                name = "findWithNoPaperclips_doesnt_work", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.module.document.dom.impl.docs.Document "
+                        + "WHERE (SELECT "
+                        +           "FROM org.incode.module.document.dom.impl.paperclips.Paperclip p "
+                        +           "WHERE p.document == this "
+                        +        ").isEmpty() "),
 })
 @Indices({
     // none yet

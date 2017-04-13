@@ -17,7 +17,6 @@
  */
 package org.incode.module.document.dom.impl.docs;
 
-import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -34,7 +33,6 @@ import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 import org.apache.isis.applib.services.queryresultscache.QueryResultsCache;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
-import org.incode.module.document.dom.impl.paperclips.Paperclip;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
 import org.incode.module.document.dom.impl.types.DocumentType;
 
@@ -65,25 +63,8 @@ public class DocumentRepository {
     PaperclipRepository paperclipRepository;
 
     @Programmatic
-    public List<Document> findOrphaned() {
-
-//        // from https://docs.oracle.com/cd/E13189_01/kodo/docs324/ref_guide_subqueries.html
-//        // doesn't work...
-//        Query query = isisJdoSupport.getJdoPersistenceManager().newQuery(Document.class,
-//                "(SELECT FROM org.incode.module.document.dom.impl.paperclips.Paperclip p WHERE p.document == document).isEmpty () ");
-//        Object execute = query.execute();
-//        return (List<Document>) execute;
-
-        // TODO: naive implementation for now
-        final List<Document> documents = repositoryService.allInstances(Document.class);
-        for (Iterator<Document> iterator = documents.iterator(); iterator.hasNext(); ) {
-            final Document document = iterator.next();
-            List<Paperclip> paperclips = paperclipRepository.findByDocument(document);
-            if (!paperclips.isEmpty()) {
-                iterator.remove();
-            }
-        }
-        return documents;
+    public List<Document> findWithNoPaperclips() {
+        return repositoryService.allMatches(new QueryDefault<>(Document.class, "findWithNoPaperclips"));
     }
 
     @Programmatic
