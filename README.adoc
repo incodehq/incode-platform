@@ -376,7 +376,7 @@ sh interim-release.sh 1.15.0 origin
 
 where
 
-* `1.13.0` is the base release
+* `1.15.0` is the base release
 * `origin` is the name of the remote to which you have permissions to write to.
 
 
