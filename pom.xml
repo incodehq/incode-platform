@@ -38,7 +38,7 @@
     </prerequisites>
 
     <properties>
-        <isis-module-audit.version>1.15.0-SNAPSHOT</isis-module-audit.version>
+        <isis-module-audit.version>1.14.1</isis-module-audit.version>
 
         <assertj-core.version>2.4.0</assertj-core.version>
 
