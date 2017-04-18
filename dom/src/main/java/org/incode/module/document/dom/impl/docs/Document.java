@@ -27,6 +27,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 import javax.jdo.annotations.Uniques;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -50,6 +51,7 @@ import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
+import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
 
 import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.document.dom.impl.types.DocumentType;
@@ -109,6 +111,7 @@ import lombok.Setter;
         cssClassUiEvent = Document.CssClassUiEvent.class,
         bookmarking = BookmarkPolicy.AS_ROOT
 )
+@XmlJavaTypeAdapter(PersistentEntityAdapter.class)
 public class Document extends DocumentAbstract<Document> {
 
     //region > ui event classes

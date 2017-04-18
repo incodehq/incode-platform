@@ -415,7 +415,7 @@ To use "out-of-the-box":
 <dependency>
     <groupId>org.incode.module.document</groupId>
     <artifactId>incode-module-document-dom</artifactId>
-    <version>1.14.8</version>
+    <version>1.14.9</version>
 </dependency>
 ----
 
@@ -932,6 +932,7 @@ setting `isis.persistor.datanucleus.impl.datanucleus.Mapping=xxx` in link:https:
 [[_incode-module-document_change-log]]
 == Change Log
 
+* `1.14.9` - , https://github.com/incodehq/incode-module-document/issues/27[#26] (JAXB support)
 * `1.14.8` - , https://github.com/incodehq/incode-module-document/issues/25[#25] (DocumentService), https://github.com/incodehq/incode-module-document/issues/26[#26] (find docs with no paperclips)
 * `1.14.7` - https://github.com/incodehq/incode-module-document/issues/24[#24] (remove SQL Server-specific mapping for clobChars)
 * `1.14.6` -  https://github.com/incodehq/incode-module-document/issues/21[#21] (remove attachments), https://github.com/incodehq/incode-module-document/issues/22[#22] (`PaperclipForDocument.attachedToId` column), https://github.com/incodehq/incode-module-document/issues/23[#23] (`_supports` mixin)
@@ -1071,12 +1072,12 @@ For example:
 
 [source]
 ----
-sh interim-release.sh 1.14.8 origin
+sh interim-release.sh 1.14.9 origin
 ----
 
 where
 
-* `1.14.8` is the base release
+* `1.14.9` is the base release
 * `origin` is the name of the remote to which you have permissions to write to.
 
 
@@ -1096,7 +1097,7 @@ For example:
 
 [source]
 ----
-sh release.sh 1.14.8 \
+sh release.sh 1.14.9 \
               1.15.0-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
@@ -1115,7 +1116,7 @@ If the script completes successfully, then push changes:
 
 [source]
 ----
-git push origin master && git push origin 1.14.8
+git push origin master && git push origin 1.14.9
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue before trying again.
