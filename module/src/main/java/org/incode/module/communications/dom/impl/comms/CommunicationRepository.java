@@ -118,6 +118,22 @@ public class CommunicationRepository  {
         return communications;
     }
 
+    @Programmatic
+    public List<Communication> findByCommunicationChannel(
+            final CommunicationChannel communicationChannel) {
+        final List<Communication> communications =
+                Lists.newArrayList(
+                        repositoryService.allMatches(
+                                new QueryDefault<>(Communication.class,
+                                        "findByCommunicationChannel",
+                                        "communicationChannel", communicationChannel))
+                );
+
+        communications.sort(Communication.Orderings.createdAtDescending);
+
+        return communications;
+    }
+
     @Inject
     CurrentUserEmailAddressProvider currentUserEmailAddressProvider;
 
@@ -129,6 +145,5 @@ public class CommunicationRepository  {
 
     @Inject
     RepositoryService repositoryService;
-
 
 }

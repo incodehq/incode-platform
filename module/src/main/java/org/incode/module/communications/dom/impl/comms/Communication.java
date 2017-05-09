@@ -100,6 +100,13 @@ import lombok.Setter;
         column = "version")
 @Queries({
         @Query(
+                name = "findByCommunicationChannel", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.module.communications.dom.impl.comms.Communication "
+                        + "WHERE this.correspondents.contains(correspondent) "
+                        + "   && correspondent.channel == :communicationChannel  "
+                        + " VARIABLES org.incode.module.communications.dom.impl.comms.CommChannelRole correspondent "),
+        @Query(
                 name = "findByCommunicationChannelAndPendingOrCreatedAtBetween", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.module.communications.dom.impl.comms.Communication "

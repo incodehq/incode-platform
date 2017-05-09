@@ -60,11 +60,13 @@ public class Smoke_IntegTest extends DemoAppIntegTestAbstract {
 
     @Inject
     FixtureScripts fixtureScripts;
+
     @Inject
     TransactionService transactionService;
 
     @Inject
     DemoCustomerMenu customerMenu;
+
     @Inject
     CommunicationChannelOwnerLinkRepository linkRepository;
 
