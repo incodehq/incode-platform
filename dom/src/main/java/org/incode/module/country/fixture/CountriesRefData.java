@@ -18,7 +18,13 @@
  */
 package org.incode.module.country.fixture;
 
+import java.io.IOException;
+import java.net.URL;
+
 import javax.inject.Inject;
+
+import com.google.common.base.Charsets;
+import com.google.common.io.Resources;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
@@ -34,24 +40,27 @@ public class CountriesRefData extends FixtureScript {
     public static final String FRA = "FRA";
     public static final String SWE = "SWE";
 
-    public static final String GBR_2 = "GB";
-    public static final String ITA_2 = "IT";
-    public static final String NLD_2 = "NL";
-    public static final String SWE_2 = "SE";
-    public static final String FRA_2 = "FR";
-
     @Override
     protected void execute(ExecutionContext executionContext) {
 
-        createCountry(GBR, GBR_2, "United Kingdom", executionContext);
-        createCountry(NLD, NLD_2, "Netherlands", executionContext);
-        createCountry(ITA, ITA_2, "Italy", executionContext);
-        createCountry(FRA, FRA_2, "France", executionContext);
-        createCountry(SWE, SWE_2, "Sweden", executionContext);
+        URL url = Resources.getResource(getClass(), "country_codes.csv");
+        String cvsSplitBy = ";";
+
+        try {
+            for (String line : Resources.readLines(url, Charsets.UTF_8)) {
+
+                String[] country = line.split(cvsSplitBy);
+                createCountry(country[2], country[1], country[0], executionContext);
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private Country createCountry(final String reference, String alpha2Code, String name, ExecutionContext executionContext) {
-        final Country country = countryRepository.createCountry(reference, alpha2Code, name);
+        final Country country = countryRepository.findOrCreateCountry(reference, alpha2Code, name);
         return executionContext.addResult(this, country.getAlpha2Code(), country);
     }
 

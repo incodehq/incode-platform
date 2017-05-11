@@ -82,6 +82,16 @@ public class CountryRepository  {
     }
 
     @Programmatic
+    public Country findCountryByAlpha2Code(
+            final String alpha2Code) {
+        return repositoryService.uniqueMatch(
+                new QueryDefault<>(
+                        Country.class,
+                        "findCountryByAlpha2Code",
+                        "alpha2Code", alpha2Code));
+    }
+
+    @Programmatic
     public List<Country> countriesFor(final Iterable<String> countryCodes) {
         List<Country> available = Lists.newArrayList();
         final ImmutableMap<String, Country> countryByCode = Maps.uniqueIndex(allCountries(), input -> input.getName());

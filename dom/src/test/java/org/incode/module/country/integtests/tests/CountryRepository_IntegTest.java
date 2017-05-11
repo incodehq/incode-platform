@@ -62,13 +62,19 @@ public class CountryRepository_IntegTest extends CountryModuleIntegTestAbstract 
         @Test
         public void wildcard_matching_all() throws Exception {
             final List<Country> countries = countryRepository.findCountries(".*");
-            Assertions.assertThat(countries).hasSize(5);
+            Assertions.assertThat(countries).hasSize(249);
         }
 
         @Test
         public void wild_card() throws Exception {
-            final List<Country> countries = countryRepository.findCountries(".*A.*");
-            Assertions.assertThat(countries).hasSize(2); // ITA, FRA
+            final List<Country> countries = countryRepository.findCountries(".*X.*");
+            Assertions.assertThat(countries).hasSize(4); // CXR (christmas island), LUX, MEX, SXM (Sint Maarten - dutch part)
+        }
+
+        @Test
+        public void find_by_alpha2Code() throws Exception {
+            final Country country = countryRepository.findCountryByAlpha2Code("NL");
+            Assertions.assertThat(country.getReference()).isEqualTo(CountriesRefData.NLD);
         }
     }
 

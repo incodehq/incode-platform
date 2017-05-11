@@ -58,6 +58,11 @@ import lombok.Setter;
                         + "FROM org.incode.module.country.dom.impl.Country "
                         + "WHERE reference == :reference"),
         @javax.jdo.annotations.Query(
+                name = "findCountryByAlpha2Code", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM org.incode.module.country.dom.impl.Country "
+                        + "WHERE alpha2Code == :alpha2Code"),
+        @javax.jdo.annotations.Query(
                 name = "findLikeReference", language = "JDOQL",
                 value = "SELECT "
                         + "FROM org.incode.module.country.dom.impl.Country "
