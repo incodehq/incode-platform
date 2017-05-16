@@ -190,7 +190,7 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
 
         ScalarModel model = getModel();
         String propertyId = model.getPropertyMemento().getIdentifier();
-        Bookmark bookmark = model.getParentObjectAdapterMemento().asBookmark();
+        Bookmark bookmark = model.getParentEntityModel().getObjectAdapterMemento().asBookmark();
         String objectType = bookmark.getObjectType();
         String identifier = bookmark.getIdentifier();
 

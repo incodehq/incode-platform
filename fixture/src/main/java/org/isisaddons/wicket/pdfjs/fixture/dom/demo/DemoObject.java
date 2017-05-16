@@ -16,18 +16,24 @@
  */
 package org.isisaddons.wicket.pdfjs.fixture.dom.demo;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 
 import org.wicketstuff.pdfjs.Scale;
 
+import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.util.ObjectContracts;
@@ -60,14 +66,34 @@ public class DemoObject implements Comparable<DemoObject> {
 
     @javax.jdo.annotations.Column(allowsNull="false")
     @Title(sequence="1")
-    @Property(editing = Editing.DISABLED)
+    @Property(editing = Editing.ENABLED)
     @Getter @Setter
     private String name;
+
+    @MemberOrder(name = "name", sequence = "1")
+    public DemoObject updateName(String name) {
+        setName(name);
+        return this;
+    }
+    public String default0UpdateName() {
+        return getName();
+    }
+
 
     @Property
     @javax.jdo.annotations.Column(allowsNull="true")
     @Getter @Setter
     private String url;
+    @Action(semantics = SemanticsOf.SAFE)
+    @MemberOrder(name = "url", sequence = "1")
+    public URL openUrl() throws MalformedURLException {
+        return new java.net.URL(getUrl());
+    }
+    public String disableOpenUrl() {
+        if (getUrl() == null)
+            return "No URL to open";
+        return null;
+    }
 
     @javax.jdo.annotations.Persistent(defaultFetchGroup="false", columns = {
             @javax.jdo.annotations.Column(name = "blob_name"),

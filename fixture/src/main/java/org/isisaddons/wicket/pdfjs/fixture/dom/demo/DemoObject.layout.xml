@@ -12,8 +12,11 @@
                     <bs3:row>
                         <bs3:col span="12">
                             <cpt:fieldSet name="General" id="general" unreferencedProperties="true">
-                                <cpt:property id="name"/>
-                                <cpt:property id="url" promptStyle="INLINE"/>
+                                <cpt:property id="name" promptStyle="INLINE">
+                                    <cpt:action id="updateName" promptStyle="INLINE"/>
+                                </cpt:property>
+                                <cpt:property id="url"/>
+                                <cpt:property id="datanucleusVersionLong"/>
                             </cpt:fieldSet>
                         </bs3:col>
                     </bs3:row>
@@ -41,7 +44,7 @@
                     <bs3:row>
                         <bs3:col span="12">
                             <cpt:fieldSet name="Blob" id="blob">
-                                <cpt:property id="blob"/>
+                                <cpt:property id="blob" unchanging="true"/>
                             </cpt:fieldSet>
                         </bs3:col>
                     </bs3:row>
