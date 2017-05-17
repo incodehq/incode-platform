@@ -39,10 +39,9 @@ language governing permissions and limitations under the License.
 
     <properties>
 
-        <!--          1.14.0.20170516-1401 is based on Wicket 7 -->
-        <isis.version>1.14.0.20170516-1401</isis.version>
+        <isis.version>1.14.0.20170517-1123</isis.version>
         <!--
-                <isis.version>1.15.0-SNAPSHOT</isis.version>
+        <isis.version>1.15.0-SNAPSHOT</isis.version>
         -->
 
         <isis-wicket-pdfjs.version>1.15.0-SNAPSHOT</isis-wicket-pdfjs.version>
