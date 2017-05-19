@@ -30,7 +30,7 @@ import org.apache.isis.core.metamodel.facets.FacetFactoryAbstract;
 public class PdfJsViewerFacetFromAnnotationFactory extends FacetFactoryAbstract {
 
     public PdfJsViewerFacetFromAnnotationFactory() {
-        super(FeatureType.PROPERTIES_ONLY);
+        super(FeatureType.PROPERTIES_AND_ACTIONS);
     }
 
     @Override
