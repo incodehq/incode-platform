@@ -59,6 +59,8 @@ language governing permissions and limitations under the License.
     </developers>
 
     <properties>
+        <isis.version>1.15.0-SNAPSHOT</isis.version>
+
         <lombok.version>1.16.8</lombok.version>
 
         <compileSource>1.7</compileSource>
