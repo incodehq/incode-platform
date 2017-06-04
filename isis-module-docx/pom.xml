@@ -348,7 +348,7 @@
 
 
     <modules>
-        <module>dom</module>
+        <module>module-isis-docx</module>
         <module>fixture</module>
         <module>integtests</module>
         <module>webapp</module>

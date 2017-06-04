@@ -158,7 +158,7 @@ language governing permissions and limitations under the License.
     </dependencies>
 
   <modules>
-    <module>module</module>
+    <module>module-incode-communications</module>
     <module>demo/module-dom</module>
     <module>demo/application</module>
     <module>demo/webapp</module>

@@ -277,8 +277,8 @@ language governing permissions and limitations under the License.
 
     <modules>
         <module>app</module>
-        <module>dom</module>
         <module>fixture</module>
+        <module>module-incode-alias</module>
         <module>integtests</module>
         <module>webapp</module>
     </modules>

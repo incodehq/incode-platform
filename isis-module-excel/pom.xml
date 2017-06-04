@@ -389,7 +389,7 @@ language governing permissions and limitations under the License.
 
     <modules>
         <module>app</module>
-        <module>dom</module>
+        <module>module-isis-excel</module>
         <module>fixture</module>
         <module>integtests</module>
         <module>webapp</module>

@@ -268,7 +268,7 @@ language governing permissions and limitations under the License.
     </profiles>
 
     <modules>
-        <module>dom</module>
+        <module>module-isis-pdfbox</module>
 		<!--
         <module>app</module>
         <module>fixture</module>

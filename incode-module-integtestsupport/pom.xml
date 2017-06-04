@@ -242,7 +242,7 @@ language governing permissions and limitations under the License.
     </dependencyManagement>
 
     <modules>
-        <module>dom</module>
+        <module>module-incode-integtestsupport</module>
     </modules>
 
 </project>

@@ -347,7 +347,7 @@ language governing permissions and limitations under the License.
 
     <modules>
         <module>app</module>
-        <module>cpt</module>
+        <module>wicket-isis-excel</module>
         <module>fixture</module>
         <module>webapp</module>
     </modules>

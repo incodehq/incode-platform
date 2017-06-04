@@ -282,7 +282,7 @@
     </build>
 
     <modules>
-        <module>dom</module>
+        <module>module-isis-poly</module>
         <module>fixture</module>
         <module>integtests</module>
         <module>webapp</module>

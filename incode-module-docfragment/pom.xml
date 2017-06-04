@@ -143,7 +143,7 @@
     </dependencies>
 
   <modules>
-    <module>module</module>
+    <module>module-incode-docfragment</module>
     <module>demo/module-demo-dom</module>
     <module>demo/application</module>
     <module>demo/webapp</module>

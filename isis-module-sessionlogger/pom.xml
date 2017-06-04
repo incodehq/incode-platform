@@ -234,7 +234,7 @@
 
     <modules>
         <module>app</module>
-        <module>dom</module>
+        <module>module-isis-sessionlogger</module>
         <module>fixture</module>
         <module>integtests</module>
         <module>webapp</module>

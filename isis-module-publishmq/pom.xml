@@ -169,7 +169,7 @@
     <modules>
         <module>app</module>
         <module>externalsystemadapter</module>
-        <module>dom</module>
+        <module>module-isis-publishmq</module>
         <module>fixture</module>
         <module>integtests</module>
         <module>webapp</module>

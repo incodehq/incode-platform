@@ -134,7 +134,7 @@
     </profiles>
 
     <modules>
-        <module>module-dom</module>
+        <module>module-isis-flywaydb</module>
         <module>module-fixturedom</module>
         <module>application</module>
         <module>webapp</module>

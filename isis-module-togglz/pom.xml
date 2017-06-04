@@ -113,7 +113,7 @@ language governing permissions and limitations under the License.
 
 
     <modules>
-        <module>glue</module>
+        <module>module-isis-togglz</module>
         <module>app</module>
         <module>fixture</module>
         <module>integtests</module>

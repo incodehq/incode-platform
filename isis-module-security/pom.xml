@@ -239,7 +239,7 @@
 
     <modules>
         <module>app</module>
-        <module>dom</module>
+        <module>module-isis-security</module>
         <module>fixture</module>
         <module>integtests</module>
         <module>webapp</module>
