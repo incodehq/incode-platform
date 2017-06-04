@@ -296,7 +296,7 @@ public class DocxServiceTest {
             // a simple binary comparison finds differences, even though a manual check using MS Word itself shows
             // no differences; for now just do a heuristic check on file size
             final byte[] pdfExpected = io.asBytes(pdfExpectedFile);
-            assertThat(pdfActual.length, isWithin(pdfExpected.length, 5));
+            assertThat(pdfActual.length, isWithin(pdfExpected.length, 10));
         }
 
     }
