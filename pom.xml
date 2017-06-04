@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Copyright 2014~2015 Dan Haywood
+
+Licensed under the Apache License, Version 2.0 (the "License"); 
+you may not use this file except in compliance with the License. 
+You may obtain a copy of the License at 
+
+    http://www.apache.org/licenses/LICENSE-2.0
+     
+Unless required by applicable law or agreed to in writing, 
+software distributed under the License is distributed on an 
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+either express or implied. See the License for the specific
+language governing permissions and limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.incode</groupId>
+        <artifactId>incode-parent</artifactId>
+        <version>1.14.0</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>org.isisaddons.module.togglz</groupId>
+    <artifactId>isis-module-togglz</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <name>Isis Addons Togglz Module</name>
+
+    <packaging>pom</packaging>
+
+    <prerequisites>
+        <maven>3.0.4</maven>
+    </prerequisites>
+
+    <properties>
+        <isis-module-togglz.version>1.15.0-SNAPSHOT</isis-module-togglz.version>
+        <isis-module-security.version>1.13.6.20170216-1316</isis-module-security.version>
+        <isis-module-settings.version>1.13.0.20161017-1319</isis-module-settings.version>
+
+        <!-- ensure is same version as in isis-module-togglz -->
+        <togglz.version>2.1.0.Final</togglz.version>
+
+        <assertj-core.version>2.0.0</assertj-core.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>org.apache.isis.core</groupId>
+                <artifactId>isis</artifactId>
+                <version>${isis.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- this project's own modules -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>isis-module-togglz-glue</artifactId>
+                <version>${isis-module-togglz.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>isis-module-togglz-app</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>isis-module-togglz-fixture</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>isis-module-togglz-webapp</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.togglz</groupId>
+                <artifactId>togglz-junit</artifactId>
+                <version>${togglz.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.togglz</groupId>
+                <artifactId>togglz-servlet</artifactId>
+                <version>${togglz.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.togglz</groupId>
+                <artifactId>togglz-console</artifactId>
+                <version>${togglz.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <scope>test</scope>
+                <version>${assertj-core.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+
+    <modules>
+        <module>glue</module>
+        <module>app</module>
+        <module>fixture</module>
+        <module>integtests</module>
+        <module>webapp</module>
+    </modules>
+
+</project>
