@@ -1,0 +1,1127 @@
+[[incode-module-document]]
+= incode-module-document
+:_imagesdir: ./
+:toc:
+
+image:https://travis-ci.org/incodehq/incode-module-document.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-document]
+
+This module, intended for use with link:http://isis.apache.org[Apache Isis], provides the ability to create and attach `Document` objects to arbitrary domain objects from ``DocumentTemplate``s.
+
+``Document``s can be rendered using a number of technologies:
+
+* link:http://freemarker.org/[Apache Freemarker] (using the link:https://github.com/incodehq/incode-module-docrendering-freemarker[Freemarker docrendering] module)
+
+* http://github.com/isisaddons/isis-module-stringinterpolator[Isis addons' stringinterpolator] module to interpolate and download a URL (using the link:https://github.com/incodehq/incode-module-docrendering-stringinterpolator[StringInterpolator docrendering] module).  This can be used to integrate with pre-existing reporting servers (for example Microsoft's link:https://msdn.microsoft.com/en-us/library/ms159106.aspx[SQL Server Reporting Services]).
+
+* link:https://github.com/opensagres/xdocreport[XDocReport] (using the link:https://github.com/incodehq/incode-module-docrendering-xdocreport[XDocReport docrendering] module).
+
+The rendering mechanism is pluggable; additional implementations can be plugged in as required.
+
+Also, the rendering can be done either in the foreground or the background.
+A "backgroundCommands" mixin collection will show any such background commands scheduled for a `Document`.
+
+Once a `Document` has been created, other supporting PDFs (for example tax receipts for a generated invoice) can then be attached to it.
+A `Document` is created to wrap these PDFs.
+Like all ``Document``s, a `DocumentType` to required which helps categorise the supporting document, but no corresponding `DocumentTemplate` is required because they are never rendered (they exist already).
+An SPI service (`DocumentAttachmentAdvisor`) is used to obtain the list of available ``DocumentType``s to use.
+
+The module implements a rule that chains of ``Document``s are not allowed: a `Document` either has supporting ``Document``s attached to it, or it _is_ a supporting `Document`.
+In the former case a "supportingDocuments" mix-in collection lists all the supporting ``Document``s that have been attached.
+In the latter, a "supports" mixin property points back to the `Document` being supported.
+
+
+
+[[_incode-module-document_screenshots]]
+== Screenshots
+
+
+We create some fixture data (both sample document templates and demo domain objects to attach documents once created):
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/010-run-fixture-script.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/010-run-fixture-script.png"]
+
+
+[[_incode-module-document_screenshots_document-types]]
+=== Document Types
+
+This fixture script defines a set of ``DocumentType``s.
+These are reference data:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/020-list-all-document-types.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/020-list-all-document-types.png"]
+
+
+
+Four example ``DocumentType``s are set up, showcasing the four ``RenderingStrategy``s provided by the link:https://github.com/incodehq/incode-module-docrendering-freemarker[Freemarker docrendering], link:https://github.com/incodehq/incode-module-docrendering-stringinterpolator[StringInterpolator docrendering] and link:https://github.com/incodehq/incode-module-docrendering-xdocreport[XDocReport docrendering] modules:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/025-all-document-types.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/025-all-document-types.png"]
+
+The two ``DocumentType``s for XDocreport are very similar; the difference is only that one results in a PDF, while the other results in a Word `.docx` document.
+
+
+
+[[_incode-module-document_screenshots_freemarker-document-template]]
+=== Freemarker Document Template
+
+A `DocumentType` holds a collection of ``DocumentTemplate``s, by date.
+This allows new versions of  template to be altered/evolved over time.
+
+The example `DocumentType` for Freemarker defines just a single `DocumentTemplate`:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/030-freemarker-document-type.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/030-freemarker-document-type.png"]
+
+
+
+The `DocumentTemplate` contains template text that can be either text, clob or a blob.
+In the case of the demo freemarker template it is a clob:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/032-freemarker-template-content-tab.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/032-freemarker-template-content-tab.png"]
+
+
+
+The clob itself is an HTML email file.
+This can be downloaded from the template:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/033-freemarker-template-content-text.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/033-freemarker-template-content-text.png"]
+
+
+The template text clob can be modified by uploading new versions.
+However, once ``Document``s have been created from a `DocumentTemplate`, the template should be considered as immutable and not be updated; instead create a new version.
+
+
+Each `DocumentTemplate` also defines placeholder text for the name of the resultant `Document`:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/034-freemarker-template-name-tab.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/034-freemarker-template-name-tab.png"]
+
+
+Along with the "content" and "name" text/clob/blob, the template also specifies the `RenderingStrategy` for each; these are used to interpolate the content/name.
+
+
+[[_incode-module-document_screenshots_applicability]]
+=== Applicability
+
+The renderer(s) associated with each `DocumentTemplate` require data (a "renderer model") to interpolate the placeholders in the content/name text; this renderer model ultimately is obtained from a domain object.
+Obviously not every domain object can be used with every `DocumentTemplate`; the `Applicability` entity catalogues which domain object types can be used as the input to the renderer(s) of its associated `DocumentTemplate`:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/036-freemarker-template-applicability.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/036-freemarker-template-applicability.png"]
+
+The `RendererModelFactory` of the `Applicability` is used to create the "renderer model" from the input domain object, while the `AttachmentAdvisor` is used to indicate which domain object(s) the resultant `Document` should be attached (often just the input domain object, but potentially to other domain objects also).
+
+
+
+[[_incode-module-document_screenshots_string-interpolator-template]]
+=== String Interpolator Template
+
+The example String Interpolator `DocumentTemplate` obtains its content by interpolating (using the http://github.com/isisaddons/isis-module-stringinterpolator[Isis addons' stringinterpolator] module) the content placeholder text; the resultant string is parsed as a URL and the contents of that URL downloaded:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/042-stringinterpolator-template-content-tab.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/042-stringinterpolator-template-content-tab.png"]
+
+The name of ``Document``s generated from this template also uses the http://github.com/isisaddons/isis-module-stringinterpolator[stringinterpolator] module:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/044-stringinterpolator-template-name-tab.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/044-stringinterpolator-template-name-tab.png"]
+
+[WARNING]
+====
+The "renderer model" created (by an ``DocumentTemplate``'s `Applicability` for some domain object type) must be compatible with the `RenderingStrategy` for both content and name.
+This is true for all ``DocumentTemplate``s.
+====
+
+
+[[_incode-module-document_screenshots_xdocreport-template]]
+=== XDocReport Templates
+
+There are two example ``DocumentTemplate``s that use XDocReport for rendering.
+The content in both cases is a Word `.docx` file.
+The difference between them is simply that one renders this `.docx` and outputs a PDF, while the other produces an outputs another `.docx` file.
+
+The example `DocumentTemplate` for the XDocReportPdf has the following content:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/052-xdocreport-pdf-template-content-tab.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/052-xdocreport-pdf-template-content-tab.png"]
+
+Where the BLOB is a Word document:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/053-xdocreport-pdf-template-content.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/053-xdocreport-pdf-template-content.png"]
+
+This Word file uses Freemarker placeholders.
+
+[NOTE]
+====
+While XDocReport itself as a technology supports both Freemarker and Velocity, the integration here (in link:https://github.com/incodehq/incode-module-docrendering-xdocreport[XDocReport docrendering] module) allows only Freemarker to be used.
+====
+
+
+The name text (used to create the name of the resultant `Document`) is also interpolated using Freemarker:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/054-xdocreport-pdf-template-name-tab.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/054-xdocreport-pdf-template-name-tab.png"]
+
+
+The content of example `DocumentTemplate` for XDocReportDocx is almost identical:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/062-xdocreport-docx-template-content-tab.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/062-xdocreport-docx-template-content-tab.png"]
+
+The only difference is that a different `RenderingStrategy` is used.
+
+
+[[_incode-module-document_screenshots_previewing-documents]]
+=== Previewing Documents
+
+The fixture script also defines a number of demo domain objects, set up to allow ``Document``s to be generated from them (for all the ``DocumentTemplate``s described above) and for those resultant ``Document``s to be attached to them:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/100-demo-object.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/100-demo-object.png"]
+
+
+
+In the case of the String Interpolator `DocumentTemplate`, this also supports previewing:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/110-preview-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/110-preview-prompt.png"]
+
+
+The resultant URL is opened up as a new tab; no new `Document` is created:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/112-preview-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/112-preview-result.png"]
+
+
+[[_incode-module-document_screenshots_generating-documents]]
+=== Generating Documents
+
+Generating a `Document` for the Freemarker `DocumentTemplate`:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/120-createAndAttachDocument-Freemarker-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/120-createAndAttachDocument-Freemarker-prompt.png"]
+
+Results in a new `Document` attached to the demo object:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/122-createAndAttachDocument-Freemarker-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/122-createAndAttachDocument-Freemarker-result.png"]
+
+The content of this `Document` (HTML text) has correctly interpolated the details from the input demo object:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/124-createAndAttachDocument-Freemarker-rendered-content.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/124-createAndAttachDocument-Freemarker-rendered-content.png"]
+
+
+The StringInterpolator `DocumentTemplate` can similarly be used:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/130-createAndAttachDocument-StringInterpolatorUrl-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/130-createAndAttachDocument-StringInterpolatorUrl-prompt.png"]
+
+To create a new `Document` attached to the demo object:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/132-createAndAttachDocument-StringInterpolatorUrl-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/132-createAndAttachDocument-StringInterpolatorUrl-result.png"]
+
+Its content is the contents of the interpolated URL:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/134-createAndAttachDocument-StringInterpolatorUrl-rendered-content.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/134-createAndAttachDocument-StringInterpolatorUrl-rendered-content.png"]
+
+
+And again, the XDocReportPdf `DocumentTemplate` can be used:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/140-createAndAttachDocument-XDocReportPdf-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/140-createAndAttachDocument-XDocReportPdf-prompt.png"]
+
+To create a new `Document` attached to the demo object:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/142-createAndAttachDocument-XDocReportPdf-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/142-createAndAttachDocument-XDocReportPdf-result.png"]
+
+Its content is a PDF generated from the Word `.docx` of the template:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/144-createAndAttachDocument-XDocReportPdf-rendered-content.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/144-createAndAttachDocument-XDocReportPdf-rendered-content.png"]
+
+
+Finally, the XDocReportDoc `DocumentTemplate` can be used:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/150-createAndAttachDocument-XDocReportDocx-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/150-createAndAttachDocument-XDocReportDocx-prompt.png"]
+
+To create a new `Document` attached to the demo object, where the content is in this case a Word document.
+To demonstrate that ``Document``s can be attached to arbitrary objects, this final template is set up so that the generated `Document` is attached both to the input demo object and also to one other object:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/152-createAndAttachDocument-XDocReportDocx-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/152-createAndAttachDocument-XDocReportDocx-result.png"]
+
+This is configured through the `AttachmentAdvisor` of the relevant `Applicability` of the `DocumentTemplate` for this input demo object's type:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/154-XDocReportDocx-applicability.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/154-XDocReportDocx-applicability.png"]
+
+
+[[_incode-module-document_screenshots_generating-documents-in-background]]
+=== Generating Documents in Background
+
+Documents can also be rendered in the background:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/160-createAndAttachDocumentAndScheduleRender-StringInterpolatorUrl-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/160-createAndAttachDocumentAndScheduleRender-StringInterpolatorUrl-prompt.png"]
+
+This results in a `Document` with an associated background command.
+Note that the document, at this stage, has a state of "Not rendered" and it has no content:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/162-createAndAttachDocumentAndScheduleRender-StringInterpolatorUrl-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/162-createAndAttachDocumentAndScheduleRender-StringInterpolatorUrl-result.png"]
+
+The demo app has not been configured with a background scheduler, but does provide a "fake" scheduler which can be used to run such commands:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/164-runBackgroundCommands.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/164-runBackgroundCommands.png"]
+
+After the background commands have run, the document now has content and its state changes to "Rendered":
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/166-documentRendered.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/166-documentRendered.png"]
+
+
+[[_incode-module-document_screenshots_attaching-supporting-documents]]
+=== Attaching Supporting Documents
+
+On any (generated) `Document`, it is also possible to attach supporting PDF documents.
+For example, this could be a tax or supplier receipt.
+The "attachSupportingPdf" action uses the `DocumentAttachmentAdvisor` SPI service to obtain a list of appropriate ``DocumentType``s to display:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/200-attachSupportingPdf-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/200-attachSupportingPdf-prompt.png"]
+
+The uploaded PDFs are wrapped in a `Document` of their own, and listed in the "supporting documents" collection:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/202-attachSupportingPdf-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/202-attachSupportingPdf-result.png"]
+
+The supporting `Document` itself can also be viewed.
+The "supports" property refers back to the `Document` that it supports:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/204-supportingDocument.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/204-supportingDocument.png"]
+
+
+
+
+[[_incode-module-document_domain-model]]
+== Domain Model
+
+[[_incode-module-document_domain-model_document-document-template-and-paperclip]]
+=== Document, DocumentTemplate and Paperclip
+
+The following class diagram highlights the main concepts:
+
+image::http://yuml.me/699f70f8[link="http://yuml.me/699f70f8", width="600px"]
+
+(The colours used in the diagram are - approximately - from link:https://en.wikipedia.org/wiki/Object_Modeling_in_Color[Object Modeling in Color]).
+
+The central concept is, of course, `Document`.
+``Document``s have content that is either a Blob, Clob or is text, these attributes being defined in the `DocumentAbstract` supertype (more on this shortly).
+Alternatively, the ``Document``'s content can be stored externally, eg in a CMS or cloud storage service, in which case the ``Document``'s own `externalUrl` attribute is used.
+The `DocumentSort` determines how the content of the `Document` is physically stored (along with the supporting `DocumentNature` and `DocumentStorage` enums).
+Conceptually ``Document``s are immutable (though if their content is moved to an external URL, the original entity would be update in that case).
+
+Each `Document` also has a corresponding `DocumentType`, eg "Invoice" or perhaps a form id, eg "ABC123".
+
+The `DocumentTemplate` is also a document (ie subclass of `DocumentAbstract`), however its content will have placeholders.
+These placeholders are populated with respect to some sort of domain object acting as an input (like a "mail merge"), to generate a resultant `Document`.
+The `DocumentTemplate` also has a `DocumentType`, and so it is the `DocumentType` that acts as the link between the `DocumentTemplate` with the ``Document``s created from those templates.
+It is possible for there to be multiple ``DocumentTemplate``s over time for a particular `DocumentType` (distinguished by date), to allow for minor changes to a template over time.
+The domain model deliberately does *not* keep track of which particular `DocumentTemplate` was used to create a `Document`, just the type is used.
+
+Each `DocumentTemplate` has a `RenderingStrategy`, this being a mechanism to actually produce its content by interpolating the template text with placeholders.
+
+[NOTE]
+====
+Actually, each `DocumentTemplate` has two sets of placeholders and also corresponding ``RenderingStrategy``s.
+The "content" template text is used to generate the actual content of the resultant ``Document``'s content; this could be characters (eg a HTML email) or bytes (eg a PDF).
+The "name" template text , while the other is used to interpolate the name of the resultant `Document`; this will always result in a simple character string.
+====
+
+Each `DocumentTemplate` also has an associated set of ``Applicability``s.
+Each of these identifies a domain class that can be used as an input the rendering of the `DocumentTemplate`, with a corresponding implementation of the `RendererModelFactory` interface being responsible for actually creating an input "renderer model" used to feed into the template's `RenderingStrategy`.
+The `Applicability` also defines the implementation of `AttachmentAdvisor` interface; this is used to attach the resultant `Document` to arbitrary domain objects (usually the input domain object, and perhaps others also).
+
+Every `Document` is created from a `DocumentTemplate`, but rather than hold a reference to this original template, instead `Document` and `DocumentTemplate` are unified through the `DocumentType` entity.
+The `DocumentType` can be considered as a set of versioned ``DocumentTemplate``s (identified by date), along with all the ``Document``s that were created from (any of) those ``DocumentTemplate``s.
+
+Once a `Document` has been created it is attached to one or more target domain object using `Paperclip`.
+This requires a custom subclass for the domain object in question; the polymorphic pattern ("table of two halves") is used for this linkage.
+The module uses this capability itself for `PaperclipForDocument`, which is used to attach supporting (PDF) ``Document``s to generated ``Document``s.
+
+Based upon the implementation of `RenderingStrategy` and `Renderer`, each `DocumentTemplate` can support either previewing and/or rendering.
+Previewing means to return a representation as a URL; the end-user can then navigate to this URL without any change in state to the application.
+Rendering on the other hand means the creation and persisting of a `Document` from the `DocumentTemplate`.
+
+The `createAndAttachDocumentAndRender()` mixin is contributed to all domain objects where there is a `DocumentTemplate` available for the domain object's application tenancy path (`atPath`) that supports either previewing and/or rendering.
+The similar `createAndAttachDocumentAndScheduleRender()` mixin is also available, allowing the rendering to be performed as a background task using link:http://github.com/isisaddons/isis-module-command[Isis addons' command] module.
+This can be scheduled using, for example, the link:http://github.com/isisaddons/isis-module-quartz[Isis addons' quartz] module.
+
+
+
+[[_incode-module-document_domain-model_rendering-strategy-and-renderer]]
+=== RenderingStrategy & Renderer
+
+The  `Renderer` interface has the following subtypes and (example) implementations:
+
+image::http://yuml.me/b63e782f[link="http://yuml.me/b63e782f", width="800px"]
+
+The owning `RenderingStrategy` for each `Renderer` identifies the nature of the inputs and outputs (bytes or characters) of each `RenderingStrategy`; the associated `Renderer` implementation must meet those constraints.
+Note that a `Renderer` may produce nature of the inputs vs outputs may vary: a character template might result in byte array output.
+
+
+
+[[_incode-module-document_domain-model_external-blob-clob-storage]]
+=== External blob/clob storage
+
+When a `Document` is initially generated, it will contain content as either a text string, a clob or as a blob; its `#getSort()` accessor - returning the `DocumentSort` enum - specifies which.
+
+Storing blobs or clobs within a single database table can become unwieldy - backing up the database and performing other DB maintenance activities can start taking significant resources/time.
+At the same time, the `Document` entity itself is immutable; the blobs/clobs stored within never change once created.
+
+Therefore the `Document` allows for the blob/clob to be moved into an offsite storage, and then to hold the URL to access that blob/clob.
+Typically this would be performed by some background process that would:
+
+* query for all newly created ``Document``s that contain a blob or clob
+
+* copy the blob/clob to some external storage, for example an external document management system running on-premise, or perhaps an off-site Cloud storage.
+A URL would represent a key to retrieve this blob/clob whenever required
+
+* update the `Document`, updating its `externalUrl` property, and setting its blob/clob to null.
+It would also update the `Document` so that `#getSort()` accessor indicates that the storage is stored externally. +
++
+The `Document_movedToExternalUrl` mixin action captures these tasks.
+
+The above algorithm is idempotent and so resilient to potential failure.
+
+Once a ``Document``'s content has been moved to be stored externally, it can subsequently be retrieved dynamically as required using the `UrlDownloadService` SPI service.
+
+
+
+
+[[_incode-module-document_how-to-run-the-demo-app]]
+== How to run the Demo App
+
+The prerequisite software is:
+
+* Java JDK 8
+* http://maven.apache.org[maven 3] (3.2.x or later is recommended).
+
+To build the demo app:
+
+[source]
+----
+git clone https://github.com/incodehq/isis-module-document.git
+mvn clean install
+----
+
+To run the demo app:
+
+[source]
+----
+cd webapp
+mvn jetty:run
+----
+
+Then log on using user: `sven`, password: `pass`
+
+
+
+[[_incode-module-document_how-to-configure-use]]
+== How to configure/use
+
+You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
+
+To use "out-of-the-box":
+
+* update your classpath by adding this dependency in your dom project's `pom.xml`: +
++
+[source,xml]
+----
+<dependency>
+    <groupId>org.incode.module.document</groupId>
+    <artifactId>incode-module-document-dom</artifactId>
+    <version>1.14.9</version>
+</dependency>
+----
+
+* in the `AppManifest`, update its `getModules()` method: +
++
+[source,java]
+----
+@Override
+public List<Class<?>> getModules() {
+    return Arrays.asList(
+            ...
+            org.incode.module.document.dom.DocumentModule.class,
+    );
+}
+----
+
+Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-document-dom[Maven Central Repo].
+
+
+
+
+[[_incode-module-document_how-to-configure-use_input]]
+=== Input
+
+For each domain object class that you want to use as the input data to a `DocumentTemplate`, you need to:
+
+* implement `ApplicationTenancyService` +
++
+To return the application tenancy path of the domain object in order that available ``DocumentTemplate``s can be located: +
++
+[source,java]
+----
+public interface ApplicationTenancyService {
+    String atPathFor(final Object domainObject);
+}
+----
+
+* implement a `RendererModelFactory` +
++
+This constructs the "renderer model" from the input domain object, which is then fed into the `RenderingStrategy` of the `DocumentTemplate`: +
++
+[source,java]
+----
+public interface RendererModelFactory {
+    @Programmatic
+    Object newRendererModel(
+            DocumentTemplate documentTemplate,    // <1>
+            Object domainObject);                 // <2>
+}
+----
+<1> the template to which this implementation applies, as per `DocumentTemplate#getAppliesTo()` and `Applicability#getRendererModelFactoryClassName()` +
+<2> provides the input for the renderer model +
++
+[TIP]
+====
+The `RendererModelFactoryAbstract<T>` can be used to implement the `RendererModelFactory` interface, adding the capability of verifying the input document is of the correct type.
+====
+
+
+* implement a `AttachmentAdvisor` +
++
+This returns a data structure (``List<PaperclipSpec>``) which describes to which object(s) the resultant `Document` should be attached: +
++
+[source,java]
+----
+public interface AttachmentAdvisor {
+    @lombok.Data                                // <1>
+    public static class PaperclipSpec {
+        private final String roleName;
+        private final Object attachTo;
+        private final Object createdDocument;
+    }
+    List<PaperclipSpec> advise(
+            DocumentTemplate documentTemplate,  // <2>
+            Object domainObject,                // <3>
+            Document createdDocument);          // <4>
+}
+----
+<1> immutable value type, defined using link:https://projectlombok.org/features/Data.html[`@Data`] annotation from Project Lombok +
+<2> to which this implementation applies, as per `DocumentTemplate#getAppliesTo()` and `Applicability#getAttachmentAdvisorClassName()` +
+<3> acting as the context for document created, from which derive the objects to attach the newly created `Document`
+<4> the document that has been created.
+Note that this may be `null` when the advisor is being asked if it _could_ be used to attach for the domain object.
+
+The`PaperclipSpec` describes how create instances of `Paperclip` from attach the resultant `Document` to other
+domain objects.
+
+[TIP]
+====
+The `AttachmentAdvisorAbstract<T>` can be used to implement the `AttachmentAdvisor` interface, adding the capability of verifying the input document is of the correct type.
+====
+
+
+[[_incode-module-document_how-to-configure-use_renderers]]
+=== Renderers
+
+For each rendering technology, an implementation of `Renderer` is required.  
+A number of such ``Rendererer``s have been developed, using Freemarker, XDocReport or just capturing the content of arbitrary URLs (eg as exposed by an external reporting server such as SQL Server Reporting Services).
+
+
+
+[[_incode-module-document_how-to-configure-use_paperclips]]
+=== Paperclips (attach output)
+
+For each domain object that you want to attach ``Document``s (that is, add ``Paperclip``s to), you need to
+
+* implement a subclass of `Paperclip` for the domain object's type. +
++
+This link acts as a type-safe tuple linking the domain object to the `Document`.
+
+* implement the `PaperclipRepository.SubtypeProvider` SPI interface: +
++
+[source,java]
+----
+public interface SubtypeProvider {
+    Class<? extends Paperclip> subtypeFor(Class<?> domainObject);
+}
+----
++
+This tells the module which subclass of `Paperclip` to use to attach to the domain object to attach to.  
+The `SubtypeProviderAbstract` adapter can be used to remove some boilerplate.
+
+
+For example:
+
+[source,java]
+----
+@javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
+@javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
+@DomainObject(objectType = "estatioAssets.PaperclipForInvoice")
+@DomainObjectLayout( bookmarking = BookmarkPolicy.AS_ROOT)
+public class PaperclipForInvoice extends Paperclip {                    // <1>
+
+    @Column( allowsNull = "false", name = "invoiceId" )
+    @Getter @Setter
+    private Invoice invoice;
+
+    @NotPersistent
+    @Override
+    public Object getAttachedTo() {                                     // <2>
+        return getInvoice();
+    }
+    @Override
+    protected void setAttachedTo(final Object object) {
+        setInvoice((Invoice) object);
+    }
+
+    @DomainService(nature = NatureOfService.DOMAIN)
+    public static class SubtypeProvider                                 // <3>
+            extends PaperclipRepository.SubtypeProviderAbstract {
+        public SubtypeProvider() {
+            super(Invoice.class, PaperclipForInvoice.class);
+        }
+    }
+}
+----
+<1> inherit from `Paperclip`
+<2> implement hook methods
+<3> SubtypeProvider SPI implementation
+
+
+[NOTE]
+====
+To view the ``Paperclip``s once created there is also a `T_paperclips` mixin collection, discussed below.
+====
+
+
+[[_incode-module-document_mixins]]
+== Mixins
+
+The document module is fully data-driven, in that the ability to be able to preview and create a document for any given domain entity is defined by the data held in `DocumentTemplate` (its `atPath`) and `Applicability` (the `domainClassName` and corresponding `RendererModelFactory` and `AttachmentAdvisor` implementations).
+
+This is generally done using mixins (though ``Document``s can also be created programmatically, see xref:_incode-module-document_services-api_document-creator-service[below].
+
+[[_incode-module-document_mixins_t-preview]]
+=== T_preview
+
+The `T_preview` mixin action provides the ability to preview a document without creating it.
+
+To support this the `DocumentTemplate` selected must have a content `RenderingStrategy` that supports previewing to URL.
+
+To use, the mixin simply need to be subclassed.
+For example:
+
+[source,java]
+----
+@Mixin
+public class Invoice_preview extends T_preview<Invoice> {
+    public Invoice_preview(Invoice invoice) { super(invoice); }
+}
+----
+
+Add similar mixins for all classes where there exists a `DocumentTemplate` and `Applicability` capable of consuming the object as an input to the template, and where (as noted just above) the `DocumentTemplate` has a content `RenderingStrategy` that supports previewing to a URL.
+
+
+[[_incode-module-document_t-create-document-and-render]]
+=== T_createDocumentAndRender, T_createDocumentAndScheduleRender
+
+The `T_createDocumentAndRender` and `T_createDocumentAndScheduleRender` mixin actions provide the ability to create and render a document, either in the foreground or as a background command (so that the rendering can be performed asynchronously).
+
+To use, the mixin simply need to be subclassed.
+For example:
+
+[source,java]
+----
+@Mixin
+public class Invoice_createDocument extends T_createDocumentAndRender<Invoice> {
+    public Invoice_createDocument(Invoice invoice) { super(invoice); }
+}
+----
+
+Add similar mixins for all classes where there exists a `DocumentTemplate` and `Applicability` capable of consuming the object as an input to the template.
+
+Note that this _doesn't_ necessarily require that there is an implementation of `Paperclip` for the target object: where the generated `Document` is attached depends upon the definition of the `DocumentTemplate`.
+
+[TIP]
+====
+If you want make this action available for all domain objects, simply use:
+
+[source,java]
+----
+@Mixin
+public class Object_createDocument extends T_createDocumentAndRender<Object> {
+    public Object_createDocument(Object object) { super(object); }
+}
+----
+
+If there is no `DocumentTemplate`/`Applicability`, then the action will be hidden in the UI.  
+The reason that the module doesn't just provide this mixin out-of-the-box is (a) for consistency with other modules and (b) for understandability/traceability ("not *too* much magic").
+====
+
+
+[[_incode-module-document_mixins_t-documents]]
+=== T_documents
+
+The `T_documents` mixin collection returns the list of ``Paperclip``s that each attach a `Document` to the specified domain object.
+
+Since ``Paperclip``s can only be created for domain objects where a subclass of `Paperclip` has been defined (see above), it's typical for this mixin to be defined as a nested static class of that `Paperclip` subclass.
+For example:
+
+[source,java]
+----
+...
+public class PaperclipForInvoice extends Paperclip {
+    ...
+    @Mixin
+    public static class _documents extends T_documents<Invoice> {
+        public _documents(Invoice invoice) {
+            super(invoice);
+        }
+    }
+}
+----
+
+[[_incode-module-document_mixins_document-supportingDocuments]]
+=== Document_supportingDocuments, Document_attachSupportingPdf & Document_supports
+
+These three mixins work together.
+
+For generated ``Document``s, the `Document_attachSupportingPdf` mixin allows PDFs to be associated (eg a supplier receipt), and a corresponding `Document` is created to hold that PDF.
+These are then displayed in the `Document_supportingDocuments` mixin collection.
+
+For the supporting ``Document``s themselves, the  `Document_supports` collection mixin points back to the associated `Document`.
+(Sometimes a supporting `Document` might be attached to multiple ``Document``s - eg a piece of general correspondence - which is why this is a collection rather than a single property).
+
+The `_supportingDocuments` collection mixin is hidden for "secondary" supporting documents themselves, conversely the `_supports` property is hidden for the "primary" supported documents.
+ In other words these form a parent/child relationship.
+
+
+
+
+[[_incode-module-document_services-api]]
+== Services (API)
+
+[[_incode-module-document_services-api_document-service]]
+=== DocumentService
+
+The `DocumentService` service allows documents to be created and attached (using ``Paperclip``s) programmatically to other domain objects.
+It also allows existing blobs (PDFs) to be created and optionally attached.
+
+The API is:
+
+[source,java]
+----
+public class DocumentService {
+    public boolean canCreateDocumentAndAttachPaperclips(        // <1>
+            Object domainObject,
+            DocumentTemplate template);
+    public Document createDocumentAndAttachPaperclips(          // <2>
+            Object domainObject,
+            DocumentTemplate template);
+
+    public Document createForBlob(
+            DocumentType documentType,
+            String documentAtPath,
+            String documentName,                                // <3>
+            Blob blob);
+    public Document createAndAttachDocumentForBlob(
+            DocumentType documentType,
+            String documentAtPath,
+            String documentName,                                // <3>
+            Blob blob,
+            String paperclipRoleName,
+            Object paperclipAttachTo);
+}
+----
+<1> allows a programmatic check as to whether the provided `DocumentTemplate` is applicable to the domain object.
+<2> go ahead and actually create the new `Document`, attaching it as specified by the `AttachmentAdvisor` associated with the ``DocumentTemplate`` ('s `Applicability` for this domain object).
+<3> documentName - override the name of the blob (if null, then uses the blob's name)
+
+
+[[_incode-module-document_services-spi]]
+== SPI Services
+
+=== UrlDownloadService
+
+The `UrlDownloadService` is used to download any ``Document``s whose content is stored as an external URL, eg in an on-site CMS or on a cloud storage service.
+
+A default implementation of this service is provided that simply uses Java's `HttpUrlConnection` to download the URL; in particular the URL must be accessible and require no user credentials/passwords.
+
+The service can be optionally overridden if credentials are required.
+
+The service is defined as:
+
+[source,java]
+----
+public interface UrlDownloadService {
+    public Blob downloadAsBlob(Document document) { ... }
+    public Clob downloadAsClob(Document document) { ... }
+}
+----
+
+
+=== RendererModelFactoryClassNameService
+
+The `RendererModelFactoryClassNameService`, if implemented, provides UI to allow the renderer model factory class name to be changed on an `Applicability`:
+
+[source,java]
+----
+public interface RendererModelFactoryClassNameService {
+    List<ClassNameViewModel> rendererModelFactoryClassNames();
+}
+----
+
+This can most conveniently be implemented using the `ClassNameServiceAbstract` convenience class, eg:
+
+[source,java]
+----
+@DomainService(nature = NatureOfService.DOMAIN)
+public class RendererModelFactoryClassNameServiceForDemo
+        extends ClassNameServiceAbstract<RendererModelFactory>
+        implements RendererModelFactoryClassNameService {
+    public RendererModelFactoryClassNameServiceForDemo() {
+        super(RendererModelFactory.class, "org.incode.module.document.fixture");
+    }
+    public List<ClassNameViewModel> rendererModelFactoryClassNames() {
+        return this.classNames();
+    }
+}
+----
+
+
+=== AttachmentAdvisorClassNameService
+
+The `AttachmentAdvisorClassNameService`, if implemented, provides UI to allow the renderer model factory class name to be changed on an `Applicability`:
+
+[source,java]
+----
+public interface AttachmentAdvisorClassNameService {
+    List<ClassNameViewModel> attachmentAdvisorClassNames();
+}
+----
+
+Like `RendererModelFactoryClassNameService` (above), this can most conveniently be implemented using the `ClassNameServiceAbstract` convenience class.
+
+
+
+=== RendererClassNameService
+
+The `RendererClassNameService`, if implemented, provides UI to allow the renderer class name to be changed on an `Applicability`:
+
+[source,java]
+----
+public interface RendererClassNameService {
+    public List<ClassNameViewModel> renderClassNamesFor(
+            DocumentNature inputNature,
+            DocumentNature outputNature);
+    <C extends Renderer> Class<C> asClass(String className);
+}
+----
+
+This can most conveniently be implemented using the `ClassNameServiceAbstract` convenience class, eg:
+
+[source,java]
+----
+@DomainService(nature = NatureOfService.DOMAIN)
+public class RendererClassNameServiceForDemo
+         extends ClassNameServiceAbstract<Renderer>
+         implements RendererClassNameService {
+    public RendererClassNameServiceForDemo() {
+        super(Renderer.class, "org.incode.module.document.fixture");
+    }
+    public List<ClassNameViewModel> renderClassNamesFor(
+            final DocumentNature inputNature, final DocumentNature outputNature) {
+        if(inputNature == null || outputNature == null){
+            return Lists.newArrayList();
+        }
+        return classNames(x -> inputNature.canActAsInputTo(x) && outputNature.canActAsOutputTo(x));
+    }
+    public Class<Renderer> asClass(final String className) {
+        return super.asClass(className);
+    }
+}
+----
+
+
+
+=== DocumentAttachmentAdvisor
+
+The `DocumentAttachmentAdvisor` service, if implemented, is used by the "attachSupportingPdf" action.
+It allows (existing) PDFs (eg supplier receipts) to be attached to generated ``Document``s.
+
+[source,java]
+----
+public interface DocumentAttachmentAdvisor {
+    public List<DocumentType> documentTypeChoicesFor(Document document);
+    public DocumentType documentTypeDefaultFor(Document document);
+    public List<String> roleNameChoicesFor(Document document);
+    public String roleNameDefaultFor(Document document);
+}
+----
+
+
+=== SupportingDocumentsEvaluator
+
+Some applications may have the concept of a "supporting document", whereby one document is attached to another document and supports it in some way.
+For example, an application could generates a document for an invoice, and this invoice might have receipts attached to it.
+
+To continue this example, such receipts most likely exist already, for example as PDFs.
+In such a case the application would directly create the supporting document representing that PDF `Blob` programmatically:
+
+[source,java]
+----
+final Document receiptDoc = documentRepository.create(
+        documentType, atPath, name, blob.getMimeType().getBaseType());
+receiptDoc.setRenderedAt(clockService.nowAsDateTime());
+receiptDoc.setState(DocumentState.RENDERED);
+receiptDoc.setSort(DocumentSort.BLOB);
+receiptDoc.setBlobBytes(blob.getBytes());
+----
+
+For such supporting documents much of the state normally associated with a `Document` should be suppressed:
+
+* a supporting document are probably not generated, so the "backgroundCommands" is not required.
+* the "attachedTo" collection does not make sense either, to avoid chains of ``Document``s (one attached to another, attached to another).
+
+On the other hand we might want to explicitly identify that one document supports another, and so the "supportedBy" and "supports" collections help reinforce the semantics of the relatinoship.
+
+The `SupportingDocumentsEvaluator` is a SPI to tell the document module that such-and-such a `Document` is a supporting document:
+
+[source,java]
+----
+public interface SupportingDocumentsEvaluator {
+    enum Evaluation {
+        SUPPORTING,
+        NOT_SUPPORTING,
+        UNKNOWN
+    }
+    Evaluation evaluate(Document candidateSupportingDocument);
+    List<Document> supportedBy(Document candidateSupportingDocument);
+}
+----
+
+The module provides a default implementation that will indicate a `Document` is supporting if it can find any other `Document` that attaches to the candidate document.
+This implementation can be suppressed if necessary in the usual fashion of a higher priority implementation returning a definitive `Evaluation` one way or the other for the document in question.
+
+
+
+[[_incode-module-document_services-internal]]
+== Internal Services
+
+These are services that are not part of the formal API/SPI, but nevertheless allow the behaviour of the module to be overridden/fine-tuned.
+
+=== DocumentTemplateForAtPathService
+
+The `DocumentTemplateForAtPathService` service is used to return the choices for  ``DocumentTemplate``s for the "preview" and "createAndAttach" mixins.
+
+[source,java]
+----
+@DomainService(nature = NatureOfService.DOMAIN)
+public class DocumentTemplateForAtPathService {
+    public List<DocumentTemplate> documentTemplatesForPreview(
+                                        Object domainObject) { ... }
+    public List<DocumentTemplate> documentTemplatesForCreateAndAttach(
+                                        Object domainObject) { ... }
+}
+----
+
+The default implementation of this service uses the `ApplicationTenancyService` to determine the application tenancy of the supplied domain object, and from that looks up the appropriate (possibly localized) template to use.
+
+However, the  "ForAtPath" bit of the name of this service is a mistake, because the service could in fact use any any attributes of the provided domain object to determine the list of ``DocumentTemplate``s to make available.
+
+
+
+[[_incode-module-document_known-issues]]
+== Known issues
+
+When using with PostgreSQL or MsSQL server you are likely to run into data-type issues with the
+mapping of jdbc-type `BLOB` and/or `CLOB`. By using `.orm`-files we can override the mapping. To activate use
+setting `isis.persistor.datanucleus.impl.datanucleus.Mapping=xxx` in link:https://github.com/incodehq/incode-module-document/blob/master/webapp/src/main/webapp/WEB-INF/persistor_datanucleus.properties[persistor_datanucleus.properties]. Setting to `postgres` will activate
+  link: https://github.com/incodehq/incode-module-document/tree/master/dom/src/main/java/org/incode/module/document/dom/impl/docs/DocumentAbstract-postgres.orm[DocumentAbstract-postgres.orm] and to `sqlserver` link: https://github.com/incodehq/incode-module-document/tree/master/dom/src/main/java/org/incode/module/document/dom/impl/docs/DocumentAbstract-postgres.orm[DocumentAbstract-sqlserver.orm] by naming convention.
+
+
+[[_incode-module-document_change-log]]
+== Change Log
+
+* `1.14.9` - , https://github.com/incodehq/incode-module-document/issues/27[#26] (JAXB support)
+* `1.14.8` - , https://github.com/incodehq/incode-module-document/issues/25[#25] (DocumentService), https://github.com/incodehq/incode-module-document/issues/26[#26] (find docs with no paperclips)
+* `1.14.7` - https://github.com/incodehq/incode-module-document/issues/24[#24] (remove SQL Server-specific mapping for clobChars)
+* `1.14.6` -  https://github.com/incodehq/incode-module-document/issues/21[#21] (remove attachments), https://github.com/incodehq/incode-module-document/issues/22[#22] (`PaperclipForDocument.attachedToId` column), https://github.com/incodehq/incode-module-document/issues/23[#23] (`_supports` mixin)
++
+[NOTE]
+====
+This release is not backwardly compatible with previous release (change to `SupportingDocumentEvaluator`) and also requires a database migration (the `PaperclipForDocument` table's `communicationId` column has been renamed to be called `attachedToId`).
+====
+
+* `1.14.5` - fixes https://github.com/incodehq/incode-module-document/issues/20[#20] (`SupportingDocumentEvaluator`).
+
+* `1.14.4` - fixes https://github.com/incodehq/incode-module-document/issues/19[#19] (`AttachmentAdvisor`). +
++
+[NOTE]
+====
+This release is not backwardly compatible with previous release.
+====
+
+* `1.14.3` - fixes https://github.com/incodehq/incode-module-document/issues/18[#18]
+
+* `1.14.2` - fixes https://github.com/incodehq/incode-module-document/issues/14[#14], https://github.com/incodehq/incode-module-document/issues/15[#15], https://github.com/incodehq/incode-module-document/issues/16[#16],  https://github.com/incodehq/incode-module-document/issues/17[#17]
+
+* `1.14.1` - fixes https://github.com/incodehq/incode-module-document/issues/13[#13]
+
+* `1.14.0` - released against Isis 1.14.0
+
+* `1.13.12` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/12[#12] (remove `Paperclip_delete()` action).
+
+* `1.13.11` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/9[#9], https://github.com/incodehq/incode-module-document/issues/10[#10], https://github.com/incodehq/incode-module-document/issues/11[#11].
+
+* `1.13.10` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/3[#3], https://github.com/incodehq/incode-module-document/issues/4[#4], https://github.com/incodehq/incode-module-document/issues/5[#5], https://github.com/incodehq/incode-module-document/issues/6[#6], https://github.com/incodehq/incode-module-document/issues/7[#7], https://github.com/incodehq/incode-module-document/issues/8[#8].  +
++
+[NOTE]
+====
+This release is not backwardly compatible with previous release
+====
+
+* `1.13.6` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/2[#2]
+
+* `1.13.5` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/1[#1], with various additional extensions to functionality.  +
++
+[NOTE]
+====
+This release is not backwardly compatible with previous release
+====
+
+* `1.13.0` - released against Isis 1.13.0
+
+
+
+
+== Legal Stuff
+
+=== License
+
+[source]
+----
+Copyright 2016 Dan Haywood
+
+Licensed under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+----
+
+=== Dependencies
+
+None.
+
+
+=== Forking the repo
+
+If you want to extend this module's functionality, then we recommend that you fork this repo.
+The repo is structured as follows:
+
+* `pom.xml` - parent pom
+* `app` - the demo webapp's `AppManifest`
+* `dom` - the module implementation, depends on Isis applib
+* `fixture` - fixtures, holding a sample domain objects and fixture scripts; depends on `dom`
+* `integtests` - integration tests for the module; depends on `fixture`
+* `webapp` - demo webapp (see above screenshots); depends on `dom` and `fixture`
+
+Only the `dom` project is released to Maven Central Repo
+ The versions of the other modules are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
+
+
+Note that the module uses link:https://projectlombok.org/[Project Lombok].  To compile the code within your IDE you will
+therefore require the appropriate Lombok plugin.  See the link:https://projectlombok.org/download.html[Lombok download page] for more information.
+
+
+
+=== Icons
+
+The icons are provided by https://icons8.com/[Icons8].
+
+
+==  Maven deploy notes
+
+Only the `dom` module is deployed, and is done so using Sonatype's OSS support (see
+http://central.sonatype.org/pages/apache-maven.html[user guide]).
+
+=== Release to Sonatype's Snapshot Repo
+
+To deploy a snapshot, use:
+
+[source]
+----
+pushd dom
+mvn clean deploy
+popd
+----
+
+The artifacts should be available in Sonatype's
+https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
+
+
+
+=== Release an Interim Build
+
+If you have commit access to this project (or a fork of your own) then you can create interim releases using the `interim-release.sh` script.
+
+The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.14.6.20170331-0740`).
+It then pushes the branch (and a tag) to the specified remote.
+
+A CI server such as Jenkins can monitor the branches matching the wildcard `origin/interim/*` and create a build.
+These artifacts can then be published to a snapshot repository.
+
+For example:
+
+[source]
+----
+sh interim-release.sh 1.14.9 origin
+----
+
+where
+
+* `1.14.9` is the base release
+* `origin` is the name of the remote to which you have permissions to write to.
+
+
+
+
+=== Release to Maven Central
+
+The `release.sh` script automates the release process. It performs the following:
+
+* performs a sanity check (`mvn clean install -o`) that everything builds ok
+* bumps the `pom.xml` to a specified release version, and tag
+* performs a double check (`mvn clean install -o`) that everything still builds ok
+* releases the code using `mvn clean deploy`
+* bumps the `pom.xml` to a specified release version
+
+For example:
+
+[source]
+----
+sh release.sh 1.14.9 \
+              1.15.0-SNAPSHOT \
+              dan@haywood-associates.co.uk \
+              "this is not really my passphrase"
+----
+
+where
+* `$1` is the release version
+* `$2` is the snapshot version
+* `$3` is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
+* `$4` is the corresponding passphrase for that secret key.
+
+Other ways of specifying the key and passphrase are available, see the `pgp-maven-plugin`'s
+http://kohsuke.org/pgp-maven-plugin/secretkey.html[documentation]).
+
+If the script completes successfully, then push changes:
+
+[source]
+----
+git push origin master && git push origin 1.14.9
+----
+
+If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue before trying again.
+Note that in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the `autoReleaseAfterClose` setting set to `true` (to automatically stage, close and the release the repo).
+You may want to set this to `false` if debugging an issue.
+
+According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update http://search.maven.org[search].
+
