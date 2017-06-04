@@ -1,0 +1,384 @@
+= incode-module-docfragment
+:_imagesdir: ./
+:toc:
+
+image:https://travis-ci.org/incodehq/incode-module-docfragment.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-docfragment]
+
+This module, intended for use with link:http://isis.apache.org[Apache Isis], is a simple wrapper around the (non-ASF) http://github.com/isisaddons/isis-module-freemarker[Isis addons' freemarker] module to interpolate fragments of text with respect to a domain object.
+
+The module defines only a single entity - `DocFragment` - which holds the template text.
+The result of the interpolation is a simple string; normally the calling object will then persist this somewhere (eg for use when rendering a `Document` as provided by the https://github.com/incodehq/incode-module-document[Incode Document] module).
+
+
+
+== Screenshots
+
+The home page shows some sample ``DocFragment``s, along with some ``DemoCustomer`` and ``DemoInvoice`` domain objects that use the module:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/010-home-page.png[link="https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/010-home-page.png"]
+
+There are four ``DocFragment``s for ``DemoCustomer``, with different ``name``s and ``atPath``s, and some ``DocFragment``s for ``DemoInvoice`` with different ``atPath``s.
+
+For a `DemoCustomer` (with a global "/" `atPath`) we can invoke the "render" action:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/020-customer-hello.png[link="https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/020-customer-hello.png"]
+
+This updates the "rendered" property, interpolating the state from the ``DemoCustomer`` domain object:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/030-customer-hello-rendered.png[link="https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/030-customer-hello-rendered.png"]
+
+For a different `DemoCustomer` with a different ("/FRA") `atPath`, we can do likewise:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/040-customer-FRA-hello.png[link="https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/040-customer-FRA-hello.png"]
+
+This looks up a different `DocFragment` (for the "/FRA" `atPath`), resulting in a different rendering:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/050-customer-FRA-hello-rendered.png[link="https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/050-customer-FRA-hello-rendered.png"]
+
+For the `DemoInvoice`, one of the instances is for an `atPath` ("/ITA") where there is only a global `DocFragment`:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/060-invoice-fallback-to-global.png[link="https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/060-invoice-fallback-to-global.png"]
+
+When this is rendered:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/070-invoice-due-render.png[link="https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/070-invoice-due-render.png"]
+
+Then the rendering uses the "global" `DocFragment`:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/080-invoice-due-rendered.png[link="https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/080-invoice-due-rendered.png"]
+
+Note also that the `DemoInvoice` has a JODA `LocalDate`.
+This is interpolated as a date, rather than as a generic Object.
+
+
+
+== Domain Model
+
+The following class diagram highlights the main concepts:
+
+image::http://yuml.me/038077f9[link="http://yuml.me/038077f9", width="600px"]
+
+The central concept is `DocFragment`, which holds some Freemarker template text with placeholders to be interpolated by the state of a domain object.
+It is identified by an `objectType`, a `name` and an `atPath`:
+
+* the `objectType` represents the type of object that this fragment is intended to interpolate.
+This is an alias for the type's concrete class, and is usually defined by `@DomainObject(objectType=...)`.
+
+* the `name` distinguishes between potentially many fragments for a given object type.
+There are no restrictions as to its value; it might correspond to the name of a property of the object, or of an action, or anything else.
+
+* the `atPath` (application tenancy path) allows multiple translations of the fragment.
+The module will attempt to match the most specific translation, eg "/ITA" (Italy) will take precedence over "/" (Global) if both are present.
+
+
+The domain object is used in two ways:
+
+* its state is used when interpolating the template text
+* (optionally but typically) it is used to infer the `atPath`, in other words which `DocFragment` translation to use.
+
+The API and mandatory SPIs for the module are discussed below.
+
+== API
+
+The programmatic API to the module is `DocFragmentService`:
+
+[source,java]
+----
+public class DocFragmentService {
+
+    public String render(
+            Object domainObject,                                            // <1>
+            String name)                                                    // <2>
+        throws IOException, TemplateException, RenderException { ... }
+        ...
+    }
+
+    public String render(                                                   // <3>
+                Object domainObject,
+                String name,
+                String atPath)
+        throws IOException, TemplateException, RenderException { ... }
+}
+----
+<1> provides the state for the interpolation into the fragment's template text, and is also used to determine the `atPath` of the `DocFragment` to use to render
+<2> corresponds to the `name` of the `DocFragment` to use to render.
+<3> overload that allows the `atPath` to be specified explicitly (rather than inferred from the supplied domain object)
+
+The `render(...)` methods will always return the rendered text, else an exception.
+A `RenderException` is thrown if a `DocFragment` could not be located.
+
+
+== SPI
+
+The module defines a single (mandatory) SPI service, `ApplicationTenancyService`:
+
+[source,java]
+----
+public interface ApplicationTenancyService {
+    String atPathFor(Object domainObject);          // <1>
+}
+----
+<1> Used by `DocFragmentService` to determine the `atPath` of the domain object, so as to lookup the appropriate `DocFragment`.
+
+
+== How to run the Demo App
+
+
+The prerequisite software is:
+
+* Java JDK 8
+* http://maven.apache.org[maven 3] (3.2.x or later is recommended).
+
+To build the demo app:
+
+[source]
+----
+git clone https://github.com/incodehq/isis-module-docfragment.git
+cd isis-module-docfragment
+mvn clean install
+----
+
+
+To run the demo app:
+
+[source]
+----
+mvn -pl demo/webapp -Dmavenmixin-jettywar jetty:run
+----
+
+Then log on using user: `sven`, password: `pass`
+
+
+
+== How to configure/use
+
+You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
+
+=== "Out-of-the-box"
+
+To use "out-of-the-box":
+
+* update your classpath by adding this dependency in your dom project's `pom.xml`: +
++
+[source,xml]
+----
+<dependency>
+    <groupId>org.incode.module.communications</groupId>
+    <artifactId>incode-module-communications-dom</artifactId>
+    <version>1.14.0</version>
+</dependency>
+----
+
+* in the `AppManifest`, update its `getModules()` method: +
++
+[source,java]
+----
+@Override
+public List<Class<?>> getModules() {
+    return Arrays.asList(
+            ...
+            org.incode.module.docfragment.dom.DocFragmentModuleDomModule.class,
+    );
+}
+----
+
+
+
+Notes:
+
+* Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-docfragment-dom[Maven Central Repo].
+
+
+==== "Out-of-the-box" (-SNAPSHOT)
+
+If you want to use the current `-SNAPSHOT`, then the steps are the same as above, except:
+
+* when updating the classpath, specify the appropriate -SNAPSHOT version:
+
+[source,xml]
+----
+<version>1.14.0-SNAPSHOT</version>
+----
+
+* add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  
+We suggest defining the repository in a `<profile>`:
+
+[source,xml]
+----
+<profile>
+    <id>cloudbees-snapshots</id>
+    <activation>
+        <activeByDefault>true</activeByDefault>
+    </activation>
+    <repositories>
+        <repository>
+            <id>snapshots-repo</id>
+            <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
+            <releases>
+                <enabled>false>/enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+</profile>
+----
+
+
+
+== Known issues
+
+(none)
+
+
+== Change Log
+
+
+* `1.14.0` - released against Isis 1.14.0
+* `1.13.3` - fixes https://github.com/incodehq/incode-module-docfragment/issues/5[#5] - changeTemplateText action
+* `1.13.2` - fixes link:https://github.com/incodehq/incode-module-docfragment/issues/2[#2], link:https://github.com/incodehq/incode-module-docfragment/issues/3[#3], link:https://github.com/incodehq/incode-module-docfragment/issues/4[#4].
+Note that there is a minor breakage in backward compatibility (`ApplicationTenancyService` no longer defines the `atPaths()` method.
+* `1.13.1` - fixes link:https://github.com/incodehq/incode-module-docfragment/issues/1[#1] (update to use link:https://github.com/incodehq/incode-module-fixturesupport[fixturesupport] 1.13.1)
+* `1.13.0` - released against Isis 1.13.2
+
+
+== Forking the repo
+
+If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is
+structured as follows:
+
+* `pom.xml` - parent pom
+* `module-dom` - the module implementation itself
+* `demo/module-dom` - demo app's supporting domain that uses `module-dom` in some way
+* `demo/application` - demo app's app manifest and application-level integration tets
+* `demo/webapp` - demo app's webapp, to create war and docker images
+
+
+Only the `module-dom` project is released to Maven Central Repo.  The versions of the other modules are purposely left at
+`0.0.1-SNAPSHOT` because they are not intended to be released.
+
+
+Note that the module uses link:https://projectlombok.org/[Project Lombok].  To compile the code within your IDE you will
+therefore require the appropriate Lombok plugin.  See the link:https://projectlombok.org/download.html[Lombok download page] for more information.
+
+
+== Legal Stuff
+
+=== License
+
+[source]
+----
+Copyright 2017 Dan Haywood
+
+Licensed under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+----
+
+=== Dependencies
+
+None.
+
+
+=== Icons
+
+The icons are provided by https://icons8.com/[Icons8].
+
+
+==  Maven deploy notes
+
+Only the `dom` module is deployed, and is done so using Sonatype's OSS support (see
+http://central.sonatype.org/pages/apache-maven.html[user guide]).
+
+=== Release to Sonatype's Snapshot Repo
+
+To deploy a snapshot, use:
+
+[source]
+----
+pushd dom
+mvn clean deploy
+popd
+----
+
+The artifacts should be available in Sonatype's
+https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
+
+
+
+=== Release an Interim Build
+
+If you have commit access to this project (or a fork of your own) then you can create interim releases using the `interim-release.sh` script.
+
+The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.14.0.20170227-0740`).
+It then pushes the branch (and a tag) to the specified remote.
+
+A CI server such as Jenkins can monitor the branches matching the wildcard `origin/interim/*` and create a build.
+These artifacts can then be published to a snapshot repository.
+
+For example:
+
+[source]
+----
+sh interim-release.sh 1.14.0 origin
+----
+
+where
+
+* `1.14.0` is the base release
+* `origin` is the name of the remote to which you have permissions to write to.
+
+
+
+
+=== Release to Maven Central
+
+The `release.sh` script automates the release process. It performs the following:
+
+* performs a sanity check (`mvn clean install -o`) that everything builds ok
+* bumps the `pom.xml` to a specified release version, and tag
+* performs a double check (`mvn clean install -o`) that everything still builds ok
+* releases the code using `mvn clean deploy`
+* bumps the `pom.xml` to a specified release version
+
+For example:
+
+[source]
+----
+sh release.sh 1.14.0 \
+              1.15.0-SNAPSHOT \
+              dan@haywood-associates.co.uk \
+              "this is not really my passphrase"
+----
+
+where
+* `$1` is the release version
+* `$2` is the snapshot version
+* `$3` is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
+* `$4` is the corresponding passphrase for that secret key.
+
+Other ways of specifying the key and passphrase are available, see the `pgp-maven-plugin`'s
+http://kohsuke.org/pgp-maven-plugin/secretkey.html[documentation]).
+
+If the script completes successfully, then push changes:
+
+[source]
+----
+git push origin master && git push origin 1.14.0
+----
+
+If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue before trying again.
+Note that in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the `autoReleaseAfterClose` setting set to `true` (to automatically stage, close and the release the repo).
+You may want to set this to `false` if debugging an issue.
+
+According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update http://search.maven.org[search].
