@@ -1,0 +1,586 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "45",
+               "short_name" : "45",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "High Street",
+               "short_name" : "High St",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Oxford",
+               "short_name" : "Oxford",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Oxford",
+               "short_name" : "Oxford",
+               "types" : [ "postal_town" ]
+            },
+            {
+               "long_name" : "Oxfordshire",
+               "short_name" : "Oxfordshire",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "United Kingdom",
+               "short_name" : "GB",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "OX1",
+               "short_name" : "OX1",
+               "types" : [ "postal_code_prefix", "postal_code" ]
+            }
+         ],
+         "formatted_address" : "45 High St, Oxford, Oxfordshire OX1, UK",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 51.7525657,
+                  "lng" : -1.2501133
+               },
+               "southwest" : {
+                  "lat" : 51.7525546,
+                  "lng" : -1.2501177
+               }
+            },
+            "location" : {
+               "lat" : 51.7525657,
+               "lng" : -1.2501133
+            },
+            "location_type" : "RANGE_INTERPOLATED",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 51.7539091302915,
+                  "lng" : -1.248766519708498
+               },
+               "southwest" : {
+                  "lat" : 51.7512111697085,
+                  "lng" : -1.251464480291502
+               }
+            }
+         },
+         "place_id" : "Eic0NSBIaWdoIFN0LCBPeGZvcmQsIE94Zm9yZHNoaXJlIE9YMSwgVUs",
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "45",
+               "short_name" : "45",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "High Street",
+               "short_name" : "High St",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Cumnor",
+               "short_name" : "Cumnor",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Oxford",
+               "short_name" : "Oxford",
+               "types" : [ "postal_town" ]
+            },
+            {
+               "long_name" : "Oxfordshire",
+               "short_name" : "Oxfordshire",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "United Kingdom",
+               "short_name" : "GB",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "OX2 9QD",
+               "short_name" : "OX2 9QD",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "45 High St, Cumnor, Oxford, Oxfordshire OX2 9QD, UK",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 51.73667829999999,
+                  "lng" : -1.3373709
+               },
+               "southwest" : {
+                  "lat" : 51.7366717,
+                  "lng" : -1.337386
+               }
+            },
+            "location" : {
+               "lat" : 51.73667829999999,
+               "lng" : -1.3373709
+            },
+            "location_type" : "RANGE_INTERPOLATED",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 51.73802398029149,
+                  "lng" : -1.336029469708498
+               },
+               "southwest" : {
+                  "lat" : 51.73532601970849,
+                  "lng" : -1.338727430291502
+               }
+            }
+         },
+         "place_id" : "EjM0NSBIaWdoIFN0LCBDdW1ub3IsIE94Zm9yZCwgT3hmb3Jkc2hpcmUgT1gyIDlRRCwgVUs",
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "45",
+               "short_name" : "45",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "High Street",
+               "short_name" : "High St",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Chalgrove",
+               "short_name" : "Chalgrove",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Oxford",
+               "short_name" : "Oxford",
+               "types" : [ "postal_town" ]
+            },
+            {
+               "long_name" : "Oxfordshire",
+               "short_name" : "Oxfordshire",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "United Kingdom",
+               "short_name" : "GB",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "OX44 7SJ",
+               "short_name" : "OX44 7SJ",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "45 High St, Chalgrove, Oxford, Oxfordshire OX44 7SJ, UK",
+         "geometry" : {
+            "location" : {
+               "lat" : 51.67010270000001,
+               "lng" : -1.0855188
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 51.67145168029151,
+                  "lng" : -1.084169819708498
+               },
+               "southwest" : {
+                  "lat" : 51.66875371970851,
+                  "lng" : -1.086867780291502
+               }
+            }
+         },
+         "place_id" : "ChIJm8iiKdCUdkgRgRjI_61ujpg",
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Oxford School of Reflexology",
+               "short_name" : "Oxford School of Reflexology",
+               "types" : [ "premise" ]
+            },
+            {
+               "long_name" : "45",
+               "short_name" : "45",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "High Street",
+               "short_name" : "High St",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Wheatley",
+               "short_name" : "Wheatley",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Oxford",
+               "short_name" : "Oxford",
+               "types" : [ "postal_town" ]
+            },
+            {
+               "long_name" : "Oxfordshire",
+               "short_name" : "Oxfordshire",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "United Kingdom",
+               "short_name" : "GB",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "OX33 1XX",
+               "short_name" : "OX33 1XX",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Oxford School of Reflexology, 45 High St, Wheatley, Oxford, Oxfordshire OX33 1XX, UK",
+         "geometry" : {
+            "location" : {
+               "lat" : 51.7474658,
+               "lng" : -1.1396038
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 51.7488147802915,
+                  "lng" : -1.138254819708498
+               },
+               "southwest" : {
+                  "lat" : 51.7461168197085,
+                  "lng" : -1.140952780291502
+               }
+            }
+         },
+         "place_id" : "ChIJgaZ-YQ7qdkgREQ4cBSxjfmk",
+         "types" : [ "premise" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "45",
+               "short_name" : "45",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "High Street",
+               "short_name" : "High St",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Cuddesdon",
+               "short_name" : "Cuddesdon",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Oxford",
+               "short_name" : "Oxford",
+               "types" : [ "postal_town" ]
+            },
+            {
+               "long_name" : "Oxfordshire",
+               "short_name" : "Oxfordshire",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "United Kingdom",
+               "short_name" : "GB",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "OX44 9HJ",
+               "short_name" : "OX44 9HJ",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "45 High St, Cuddesdon, Oxford, Oxfordshire OX44 9HJ, UK",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 51.7222553,
+                  "lng" : -1.1344087
+               },
+               "southwest" : {
+                  "lat" : 51.72224629999999,
+                  "lng" : -1.13442
+               }
+            },
+            "location" : {
+               "lat" : 51.72224629999999,
+               "lng" : -1.1344087
+            },
+            "location_type" : "RANGE_INTERPOLATED",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 51.7235997802915,
+                  "lng" : -1.133065369708498
+               },
+               "southwest" : {
+                  "lat" : 51.7209018197085,
+                  "lng" : -1.135763330291502
+               }
+            }
+         },
+         "place_id" : "Ejc0NSBIaWdoIFN0LCBDdWRkZXNkb24sIE94Zm9yZCwgT3hmb3Jkc2hpcmUgT1g0NCA5SEosIFVL",
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "45",
+               "short_name" : "45",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "High Street",
+               "short_name" : "High St",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Tetsworth",
+               "short_name" : "Tetsworth",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Thame",
+               "short_name" : "Thame",
+               "types" : [ "postal_town" ]
+            },
+            {
+               "long_name" : "Oxfordshire",
+               "short_name" : "Oxfordshire",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "United Kingdom",
+               "short_name" : "GB",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "OX9 7AD",
+               "short_name" : "OX9 7AD",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "45 High St, Tetsworth, Thame, Oxfordshire OX9 7AD, UK",
+         "geometry" : {
+            "location" : {
+               "lat" : 51.70822159999999,
+               "lng" : -1.0044415
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 51.7095705802915,
+                  "lng" : -1.003092519708498
+               },
+               "southwest" : {
+                  "lat" : 51.7068726197085,
+                  "lng" : -1.005790480291502
+               }
+            }
+         },
+         "place_id" : "ChIJB8JJ9uLsdkgRG5AGPFY3g1E",
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "45",
+               "short_name" : "45",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "High Street",
+               "short_name" : "High St",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Chipping Norton",
+               "short_name" : "Chipping Norton",
+               "types" : [ "postal_town" ]
+            },
+            {
+               "long_name" : "Oxfordshire",
+               "short_name" : "Oxfordshire",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "United Kingdom",
+               "short_name" : "GB",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "OX7 6AW",
+               "short_name" : "OX7 6AW",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "45 High St, Chipping Norton, Oxfordshire OX7 6AW, UK",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 51.8668422,
+                  "lng" : -1.5587074
+               },
+               "southwest" : {
+                  "lat" : 51.8668316,
+                  "lng" : -1.5587142
+               }
+            },
+            "location" : {
+               "lat" : 51.8668422,
+               "lng" : -1.5587142
+            },
+            "location_type" : "RANGE_INTERPOLATED",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 51.8681858802915,
+                  "lng" : -1.557361819708498
+               },
+               "southwest" : {
+                  "lat" : 51.8654879197085,
+                  "lng" : -1.560059780291502
+               }
+            }
+         },
+         "place_id" : "EjQ0NSBIaWdoIFN0LCBDaGlwcGluZyBOb3J0b24sIE94Zm9yZHNoaXJlIE9YNyA2QVcsIFVL",
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "45",
+               "short_name" : "45",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "High Street",
+               "short_name" : "High St",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Burford",
+               "short_name" : "Burford",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Burford",
+               "short_name" : "Burford",
+               "types" : [ "postal_town" ]
+            },
+            {
+               "long_name" : "Oxfordshire",
+               "short_name" : "Oxfordshire",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "United Kingdom",
+               "short_name" : "GB",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "OX18 4QA",
+               "short_name" : "OX18 4QA",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "45 High St, Burford, Oxfordshire OX18 4QA, UK",
+         "geometry" : {
+            "location" : {
+               "lat" : 51.8088243,
+               "lng" : -1.6361172
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 51.81017328029149,
+                  "lng" : -1.634768219708498
+               },
+               "southwest" : {
+                  "lat" : 51.80747531970849,
+                  "lng" : -1.637466180291502
+               }
+            }
+         },
+         "place_id" : "ChIJC1PfiSgycUgR1buYFywWjkI",
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "45",
+               "short_name" : "45",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "High Street",
+               "short_name" : "High St",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Nettlebed",
+               "short_name" : "Nettlebed",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Henley-on-Thames",
+               "short_name" : "Henley-on-Thames",
+               "types" : [ "postal_town" ]
+            },
+            {
+               "long_name" : "Oxfordshire",
+               "short_name" : "Oxfordshire",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "United Kingdom",
+               "short_name" : "GB",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "RG9",
+               "short_name" : "RG9",
+               "types" : [ "postal_code_prefix", "postal_code" ]
+            }
+         ],
+         "formatted_address" : "45 High St, Nettlebed, Henley-on-Thames, Oxfordshire RG9, UK",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 51.5756481,
+                  "lng" : -0.9915016999999999
+               },
+               "southwest" : {
+                  "lat" : 51.57563680000001,
+                  "lng" : -0.9915048999999999
+               }
+            },
+            "location" : {
+               "lat" : 51.5756481,
+               "lng" : -0.9915048999999999
+            },
+            "location_type" : "RANGE_INTERPOLATED",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 51.5769914302915,
+                  "lng" : -0.9901543197084979
+               },
+               "southwest" : {
+                  "lat" : 51.5742934697085,
+                  "lng" : -0.992852280291502
+               }
+            }
+         },
+         "place_id" : "Ejw0NSBIaWdoIFN0LCBOZXR0bGViZWQsIEhlbmxleS1vbi1UaGFtZXMsIE94Zm9yZHNoaXJlIFJHOSwgVUs",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "status" : "OK"
+}
