@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Copyright 2015~2016 Dan Haywood
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+  either express or implied. See the License for the specific
+  language governing permissions and limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.isisaddons.module.publishmq</groupId>
+        <artifactId>isis-module-publishmq</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>isis-module-publishmq-webapp</artifactId>
+    <name>Isis Addons PublishMQ Module Webapp</name>
+
+    <packaging>war</packaging>
+
+
+    <properties>
+        <maven-war-plugin.warName>${project.parent.artifactId}</maven-war-plugin.warName>
+
+        <mavendeps-isisintellij.version>0.0.1</mavendeps-isisintellij.version>
+        <mavendeps-isiswebapp.version>0.0.1</mavendeps-isiswebapp.version>
+        <mavendeps-isistesting.version>0.0.2</mavendeps-isistesting.version>
+
+<!--
+        activemq-web 5.14.3
+        spring 4.1.9.RELEASE
+        jetty 9.3.6.v20151106
+        camell 2.16.3
+        cxf-core 3.1.5 (referenced by camel 2.16.3)
+-->
+
+        <spring.version>4.1.9.RELEASE</spring.version>
+        <jetty.version>9.3.6.v20151106</jetty.version>
+        <activemq-web.version>5.14.3</activemq-web.version>
+        <camel.version>2.16.3</camel.version>
+<!--
+        <spring.version>4.1.6.RELEASE</spring.version>
+        <jetty.version>9.3.6.v20151106</jetty.version>
+        <activemq-web.version>5.11.1</activemq-web.version>
+        <camel.version>2.15.2</camel.version>
+-->
+
+    </properties>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>com.github.odavid.maven.plugins</groupId>
+                <artifactId>mixin-maven-plugin</artifactId>
+                <version>0.1-alpha-39</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <mixins>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>enforcerrelaxed</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>standard</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>jettywar</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>jettyconsole</artifactId>
+                        </mixin>
+                    </mixins>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>maven-version</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <dependencies>
+    
+        <!-- other modules in this project -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>isis-module-publishmq-app</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.module.publishmq</groupId>
+            <artifactId>isis-module-publishmq-dom-camel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>isis-module-publishmq-fixture-canonicalmappings</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>isis-module-publishmq-fixture-routing</artifactId>
+        </dependency>
+
+        <!-- isis -->
+        <dependency>
+            <groupId>org.apache.isis.viewer</groupId>
+            <artifactId>isis-viewer-wicket-impl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-viewer-restfulobjects-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-security-shiro</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-wrapper</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-security</artifactId>
+        </dependency>
+
+        <!-- other isis components -->
+        <dependency>
+            <groupId>com.danhaywood.mavendeps</groupId>
+            <artifactId>isiswebapp</artifactId>
+            <!-- need to use 0.0.2 when upgrade to Isis 1.14.0 -->
+            <version>${mavendeps-isiswebapp.version}</version>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.danhaywood.mavendeps</groupId>
+            <artifactId>isisintellij</artifactId>
+            <version>${mavendeps-isisintellij.version}</version>
+            <type>pom</type>
+        </dependency>
+
+        <!-- testing -->
+        <dependency>
+            <groupId>com.danhaywood.mavendeps</groupId>
+            <artifactId>isistesting</artifactId>
+            <version>${mavendeps-isistesting.version}</version>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+
+
+    </dependencies>
+
+    <profiles>
+
+        <profile>
+            <id>resolving-conflicts</id>
+            <activation>
+                <property>
+                    <name>!skip.resolving-conflicts</name>
+                </property>
+            </activation>
+
+            <dependencyManagement>
+                <dependencies>
+
+                    <dependency>
+                        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-continuation</artifactId>
+                        <version>${jetty.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-continuation</artifactId>
+                        <version>${jetty.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-http</artifactId>
+                        <version>${jetty.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-io</artifactId>
+                        <version>${jetty.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-util</artifactId>
+                        <version>${jetty.version}</version>
+                    </dependency>
+<!--
+                    <dependency>
+                        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-websocket</artifactId>
+                        <version>${jetty.version}</version>
+                    </dependency>
+-->
+
+
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-core</artifactId>
+                        <version>${camel.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-spring</artifactId>
+                        <version>${camel.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-spring-javaconfig</artifactId>
+                        <version>${camel.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-jms</artifactId>
+                        <version>${camel.version}</version>
+                    </dependency>
+
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-stream</artifactId>
+                        <version>${camel.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-cxf</artifactId>
+                        <version>${camel.version}</version>
+                    </dependency>
+
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-ognl</artifactId>
+                        <version>${camel.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-jaxb</artifactId>
+                        <version>${camel.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-jackson</artifactId>
+                        <version>${camel.version}</version>
+                    </dependency>
+
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+
+
+        <profile>
+            <id>externalsystemadapter-fakeserver</id>
+            <activation>
+                <property>
+                    <name>!skip.externalsystemadapter-fakeserver</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.isisaddons.module.publishmq</groupId>
+                    <artifactId>isis-module-publishmq-externalsystemadapter-fakeserver</artifactId>
+                    <version>0.0.1-SNAPSHOT</version>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>org.apache.cxf</groupId>
+                            <artifactId>cxf-rt-transports-http-jetty</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>org.apache.cxf</groupId>
+                            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>org.apache.cxf</groupId>
+                            <artifactId>cxf-rt-transports-http</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+            </dependencies>
+        </profile>
+
+
+        <profile>
+            <id>activemq-camel</id>
+            <activation>
+                <property>
+                    <name>!skip.activemq-camel</name>
+                </property>
+            </activation>
+
+            <properties>
+                <slf4j.version>1.6.6</slf4j.version>
+            </properties>
+
+            <dependencies>
+
+                <dependency>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-web</artifactId>
+                    <version>${spring.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.activemq</groupId>
+                    <artifactId>activemq-web</artifactId>
+                    <version>${activemq-web.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>ognl</groupId>
+                    <artifactId>ognl</artifactId>
+                    <version>3.0.9</version>
+                    <exclusions>
+                        <exclusion>
+                            <!-- bundles old version, so hitting https://code.google.com/archive/p/reflections/issues/178 -->
+                            <groupId>org.javassist</groupId>
+                            <artifactId>javassist</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+
+                <dependency>
+                    <groupId>io.fabric8.insight</groupId>
+                    <artifactId>insight-log4j</artifactId>
+                    <version>1.2.0.Beta4</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.jolokia</groupId>
+                    <artifactId>jolokia-core</artifactId>
+                    <version>1.3.1</version>
+                </dependency>
+
+                <!-- xbean is required for ActiveMQ broker configuration in the spring xml file -->
+                <dependency>
+                    <groupId>org.apache.xbean</groupId>
+                    <artifactId>xbean-spring</artifactId>
+                    <version>4.3</version>
+                </dependency>
+
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>jdbc-hsqldb</id>
+            <activation>
+                <property>
+                    <name>!skip.jdbc-hsqldb</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.hsqldb</groupId>
+                    <artifactId>hsqldb</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>jdbc-logging</id>
+            <activation>
+                <property>
+                    <name>!skip.jdbc-logging</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.lazyluke</groupId>
+                    <artifactId>log4jdbc-remix</artifactId>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>org.slf4j</groupId>
+                            <artifactId>slf4j-api</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+            </dependencies>
+        </profile>
+        <!--
+        <profile>
+            <id>jdbc-other-drivers</id>
+            <activation>
+                <property>
+                    <name>!skip.jdbc-other-drivers</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <version>9.1-901.jdbc4</version>
+                </dependency>
+                <dependency>
+                    <groupId>com.microsoft.sqlserver</groupId>
+                    <artifactId>sqljdbc4</artifactId>
+                    <version>4.2-6225</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.lazyluke</groupId>
+                    <artifactId>log4jdbc-remix</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        -->
+        <!--
+        <profile>
+            <id>jdbc-mssql</id>
+            <activation>
+                <property>
+                    <name>!skip.jdbc-mssql</name>
+                </property>
+            </activation>
+
+            mvn install:install-file -Dfile=sqljdbc4.jar \
+                                     -DgroupId=com.microsoft.sqlserver \
+                                     -DartifactId=jdbc \
+                                     -Dversion=4.0 \
+                                     -Dpackaging=jar
+
+            <dependencies>
+               <dependency>
+                   <groupId>com.microsoft.sqlserver</groupId>
+                   <artifactId>sqljdbc4</artifactId>
+                   <version>4.0</version>
+               </dependency>
+            </dependencies>
+        </profile>
+        -->
+
+        <profile>
+            <id>tomee</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.openejb.maven</groupId>
+                        <artifactId>tomee-maven-plugin</artifactId>
+                        <version>1.7.1</version>
+                        <configuration>
+                            <tomeeVersion>1.7.1</tomeeVersion>
+                            <tomeeClassifier>plus</tomeeClassifier>
+
+                            <webapps>
+                                <webapp>org.isisaddons.module.publishmq:isis-module-publishmq-webapp:0.0.1-SNAPSHOT?name=ROOT</webapp>
+                            </webapps>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+
+    </profiles>
+
+</project>

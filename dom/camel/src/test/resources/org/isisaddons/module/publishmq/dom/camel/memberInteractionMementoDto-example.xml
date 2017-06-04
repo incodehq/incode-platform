@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ixn:interactionDto xmlns:ixn="http://isis.apache.org/schema/ixn" xmlns:cmd="http://isis.apache.org/schema/cmd" xmlns:com="http://isis.apache.org/schema/common" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <ixn:transactionId>001e2a6b-5f24-4844-a107-8ed3eeca3223</ixn:transactionId>
+    <ixn:execution xsi:type="ixn:actionInvocationDto" interactionType="action_invocation">
+        <ixn:id>001e2a6b-5f24-4844-a107-8ed3eeca3223.0</ixn:id>
+        <ixn:sequence>0</ixn:sequence>
+        <ixn:target>
+            <com:objectType>PUBLISH_MQ_DEMO_OBJECT</com:objectType>
+            <com:objectIdentifier>0</com:objectIdentifier>
+        </ixn:target>
+        <ixn:memberIdentifier>org.isisaddons.module.publishmq.fixture.dom.DemoBankAccount#updateDescription()</ixn:memberIdentifier>
+        <ixn:user>sven</ixn:user>
+        <ixn:title>PUBLISH_MQ_DEMO_OBJECT:0^1:sven:: updateDescription(java.lang.String)</ixn:title>
+        <ixn:metrics>
+            <ixn:timings>
+                <com:startedAt>2015-06-24T17:03:27.030+01:00</com:startedAt>
+                <com:completedAt>2015-06-24T17:03:27.930+01:00</com:completedAt>
+            </ixn:timings>
+            <ixn:objectCounts>
+                <ixn:loaded/>
+                <ixn:dirtied/>
+                <ixn:propertiesModified/>
+            </ixn:objectCounts>
+        </ixn:metrics>
+        <ixn:childExecutions/>
+        <ixn:parameters>
+            <cmd:parameter type="string" name="Description">
+                <com:string>Foo description</com:string>
+            </cmd:parameter>
+        </ixn:parameters>
+        <ixn:returned type="reference">
+            <com:reference objectState="persistent">
+                <com:objectType>PUBLISH_MQ_DEMO_OBJECT</com:objectType>
+                <com:objectIdentifier>0</com:objectIdentifier>
+            </com:reference>
+        </ixn:returned>
+    </ixn:execution>
+</ixn:interactionDto>
