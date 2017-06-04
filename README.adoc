@@ -1,0 +1,287 @@
+= incodehq-parent
+:_imagesdir: ./
+:toc:
+
+
+This module defines a standard parent POM to use for various Incode applications and modules.
+Its primary purpose is to make it easy to use a set up link:https://github.com/odavid/maven-plugins[maven mixin]s within child POMs; specifically to hold the required `<pluginManagement>` so that versions of plugins are locked down.
+
+See below for details of the maven mixins so configured.
+
+
+== Contents
+
+This parent POM defines `<properties>` and `<pluginManagement>` for the plugins defined in the following maven mixins:
+
+
+[width="100%",cols="^2,^1,^2,^4m",options="header"]
+|====================
+|Module
+|Version
+|Description
+|Mixin to add
+
+|https://github.com/danhaywood/java-mavenmixin-cucumberreporting[cucumber reporting]
+|0.0.2
+|Configures cucumber reporting plugin for BDD specs.
+|<mixin> +
+{nbsp}  <groupId>com.danhaywood.mavenmixin</groupId> +
+{nbsp}  <artifactId>cucumberreporting</artifactId> +
+</mixin>
+
+|https://github.com/danhaywood/java-mavenmixin-datanucleusenhance[datanucleus enhance]
+|0.0.4
+|Configures datanucleus:enhance (for JDO entities of DN modules) for production and test code
+|<mixin> +
+{nbsp}  <groupId>com.danhaywood.mavenmixin</groupId> +
+{nbsp}  <artifactId>datanucleusenhance</artifactId> +
+</mixin>
+
+|https://github.com/danhaywood/java-mavenmixin-docker[docker]
+|0.0.3
+|Configures docker to package images and upload to a docker registry (docker hub by default)
+|<mixin> +
+{nbsp}  <groupId>com.danhaywood.mavenmixin</groupId> +
+{nbsp}  <artifactId>docker</artifactId> +
+</mixin>
+
+|https://github.com/danhaywood/java-mavenmixin-enforcerrelaxed[enforcer relaxed]
+|0.0.2
+|Applies the maven enforcer plugin (but with relaxed dependency convergence) +
+|<mixin> +
+{nbsp}  <groupId>com.danhaywood.mavenmixin</groupId> +
+{nbsp}  <artifactId>enforcerrelaxed</artifactId> +
+</mixin>
+
+|https://github.com/danhaywood/java-mavenmixin-isisjrebel[isis jrebel]
+|0.0.2
+|Ability to run an Apache Isis application under JRebel.
+|<mixin> +
+{nbsp}  <groupId>com.danhaywood.mavenmixin</groupId> +
+{nbsp}  <artifactId>isisjrebel</artifactId> +
+</mixin>
+
+|https://github.com/danhaywood/java-mavenmixin-isisswagger[isis swagger]
+|0.0.3
+|Maven mixin providing the ability to run isis:swagger goal for an Apache Isis domain application
+|<mixin> +
+{nbsp}  <groupId>com.danhaywood.mavenmixin</groupId> +
+{nbsp}  <artifactId>isisswagger</artifactId> +
+</mixin>
+
+|https://github.com/danhaywood/java-mavenmixin-isisvalidate[isis validate]
+|0.0.2
+|Configures the Apache Isis maven plugin to run the validate goal for a domain object model. 
+|<mixin> +
+{nbsp}  <groupId>com.danhaywood.mavenmixin</groupId> +
+{nbsp}  <artifactId>isisvalidate</artifactId> +
+</mixin>
+
+|https://github.com/danhaywood/java-mavenmixin-jettyconsole[jetty console]
+|0.0.2
+|Configure jetty-console plugin (to create a standalone version of a webapp)
+|<mixin> +
+{nbsp}  <groupId>com.danhaywood.mavenmixin</groupId> +
+{nbsp}  <artifactId>jettyconsole</artifactId> +
+</mixin>
+
+|https://github.com/danhaywood/java-mavenmixin-jettywar[jetty war]
+|0.0.2
+|Package up a webapp as a WAR file, and to allow the webapp to be run using the jetty maven plugin
+|<mixin> +
+{nbsp}  <groupId>com.danhaywood.mavenmixin</groupId> +
+{nbsp}  <artifactId>jettywar</artifactId> +
+</mixin>
+
+|https://github.com/danhaywood/java-mavenmixin-sourceandjavadoc[source and javadoc]
+|0.0.2
+|Provides the ability to run source, javadoc and jxr plugins (packaged as JAR files or report using `mvn site`)
+|<mixin> +
+{nbsp}  <groupId>com.danhaywood.mavenmixin</groupId> +
+{nbsp}  <artifactId>sourceandjavadoc</artifactId> +
+</mixin>
+
+|https://github.com/danhaywood/java-mavenmixin-standard[standard]
+|0.0.3
+|Defines the "standard" set of plugins (clean, compile, jar, install, site etc)
+|<mixin> +
+{nbsp}  <groupId>com.danhaywood.mavenmixin</groupId> +
+{nbsp}  <artifactId>standard</artifactId> +
+</mixin>
+
+|https://github.com/danhaywood/java-mavenmixin-surefire[surefire]
+|0.0.4
+|Run surefire plugin for unit, integration and/or (http://cucumber.io[Cucumber]) BDD specs.
+|<mixin> +
+{nbsp}  <groupId>com.danhaywood.mavenmixin</groupId> +
+{nbsp}  <artifactId>surefire</artifactId> +
+</mixin>
+
+|https://github.com/danhaywood/java-mavenmixin-staticanalysis[static analysis]
+|0.0.2
+|Ability to run various static analysis plugins (checkstyle, pmd, findbugs, javancss, jdepend) as report `mvn site`
+|<mixin> +
+{nbsp}  <groupId>com.danhaywood.mavenmixin</groupId> +
+{nbsp}  <artifactId>staticanalysis</artifactId> +
+</mixin>
+
+|====================
+
+
+
+
+
+== How to Configure
+
+To configure:
+
+* inherit from this pom: +
++
+[source,xml]
+----
+<parent>
+    <groupId>org.incode</groupId>
+    <artifactId>incode-parent</artifactId>
+    <version>1.14.0</version>
+</parent>
+----
++
+This has the effect of defining a number of `<properties>` (eg `${mavenmixin-surefire.version}`) and also the setting up the `<pluginManagement>` of all of the plugins referenced by the above maven mixins.
+
+* optionally, override the `isis.version` :
++
+[source,xml]
+----
+<properties>
+    <isis.version>1.14.0</isis.version>
+    ...
+</properties>
+----
+
+* for each maven mixin required in the consuming module, just add the corresponding `<mixin>` to: +
++
+[source,xml]
+----
+<build>
+    <plugins>
+        <plugin>
+            <groupId>com.github.odavid.maven.plugins</groupId>
+            <artifactId>mixin-maven-plugin</artifactId>
+            <version>0.1-alpha-39</version>
+            <extensions>true</extensions>
+            <configuration>
+                <mixins>
+                    ...                                         <!--1-->
+                </mixins>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+----
+<1> add in mixin reference here.
+
+[TIP]
+====
+Just copy-n-paste from the fourth column of the above table,
+====
+
+For example, to enable the https://github.com/danhaywood/java-mavenmixin-surefire[surefire] mixin, just add:
+
+[source,xml]
+----
+<mixin>
+    <groupId>com.danhaywood.mavenmixin</groupId>
+    <artifactId>surefire</artifactId>
+</mixin>
+----
+
+
+
+
+== Change Log
+
+
+* 1.14.0 - released against Isis 1.14.0
+* 1.13.2.2 - fixes link:https://github.com/incodehq/incode-parent/issues/1[#1] - add in missing ${maven-cucumber-reporting.version} property.
+* 1.13.2.1 - updates mavenmixin-docker from 0.0.2 to 0.0.3, updates mavenmixin-standard from 0.0.2 to 0.0.3.
+* 1.13.2 - updated Isis 1.13.2, also includes mavenmixin-docker, and removes the versions for isisaddons and incodehq modules (to avoid a circular dependency)
+* 1.13.1 - initial version against Isis 1.13.1
+
+
+
+== Legal Stuff
+
+=== License
+
+[source]
+----
+Copyright 2016~date Dan Haywood
+
+Licensed under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+----
+
+
+
+=== Dependencies
+
+This mixin module relies on the link:https://github.com/odavid/maven-plugins[com.github.odavid.maven.plugins:mixin-maven-plugin], released under Apache License v2.0.
+
+
+
+== Maven deploy notes
+
+The module is deployed using Sonatype's OSS support (see
+http://central.sonatype.org/pages/apache-maven.html[user guide] and http://www.danhaywood.com/2013/07/11/deploying-artifacts-to-maven-central-repo/[this blog post]).
+
+The `release.sh` script automates the release process.
+It performs the following:
+
+* performs a sanity check (`mvn clean install -o`) that everything builds ok
+* bumps the `pom.xml` to a specified release version, and tag
+* performs a double check (`mvn clean install -o`) that everything still builds ok
+* releases the code using `mvn clean deploy`
+* bumps the `pom.xml` to a specified release version
+
+For example:
+
+[source]
+----
+sh release.sh 1.14.0 \
+              1.15.0-SNAPSHOT \
+              dan@haywood-associates.co.uk \
+              "this is not really my passphrase"
+----
+
+where
+
+* `$1` is the release version
+* `$2` is the snapshot version
+* `$3` is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
+* `$4` is the corresponding passphrase for that secret key.
+
+Other ways of specifying the key and passphrase are available, see the ``pgp-maven-plugin``'s
+http://kohsuke.org/pgp-maven-plugin/secretkey.html[documentation]).
+
+If the script completes successfully, then push changes:
+
+[source]
+----
+git push origin master && git push origin 1.14.0
+----
+
+If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue before trying again.
+Note that in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the `autoReleaseAfterClose` setting set to `true` (to automatically stage, close and the release the repo).
+You may want to set this to `false` if debugging an issue.
+
+According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update http://search.maven.org[search].
