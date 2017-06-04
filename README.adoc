@@ -1,0 +1,361 @@
+= incode-module-fixturesupport
+:_imagesdir: ./
+:toc:
+
+image:https://travis-ci.org/incodehq/incode-module-fixturesupport.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-fixturesupport]
+
+This module, intended for use with link:http://isis.apache.org[Apache Isis], provides support for writing fixtures.
+
+
+
+== How to configure/use
+
+You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
+
+=== "Out-of-the-box"
+
+To use "out-of-the-box":
+
+* update your classpath by adding this dependency in your dom project's `pom.xml`: +
++
+[source,xml]
+----
+<dependency>
+    <groupId>org.incode.module.fixturesupport</groupId>
+    <artifactId>incode-module-fixturesupport-dom</artifactId>
+    <version>1.14.0</version>
+    <scope>test</scope>
+</dependency>
+----
+
+
+
+Notes:
+
+* Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-fixturesupport-dom[Maven Central Repo].
+
+
+
+== Utilities
+
+=== DemoData
+
+The `DemoData` interface, and supporting `DemoData.Util` utility class, is intended to allow type-safe datasets to be set up.
+It is defined as:
+
+[source,java]
+----
+public interface DemoData<D extends Enum<D>, T> {
+    T asDomainObject();
+    T persistUsing(ServiceRegistry2 serviceRegistry);       // <1>
+    T findUsing(ServiceRegistry2 serviceRegistry);
+}
+----
+<1> From `ServiceRegistry` the class can either lookup the low-level `RepositoryService`, or can lookup a higher-level domain-specific service (eg `CustomerRepository`).
+
+
+To use, assume we have a domain object such as:
+
+[source,java]
+----
+public class DemoInvoice implements Comparable<DemoInvoice> {
+
+    @lombok.Builder                                                 // <1>
+    public DemoInvoice(
+            int num,
+            LocalDate dueBy,
+            int numDays,
+            String atPath) {
+        this.num = num;
+        this.dueBy = dueBy;
+        this.numDays = numDays;
+        this.atPath = atPath;
+    }
+
+    private int num;                                                // <2>
+    private LocalDate dueBy;
+    private int numDay;
+    private String atPath;
+
+    ...
+}
+----
+<1> Lombok-generated builder
+<2> corresponding fields (JDO annotations and Isis etc. not shown, for brevity)
+
+We then define a corresponding "data" subclass as an enum, implementing `DemoData`.
+For example:
+
+[source,java]
+----
+@lombok.AllArgsConstructor
+@lombok.Getter
+public enum DemoInvoiceData implements DemoData<DemoInvoiceData, DemoInvoice> {
+
+    Invoice1(1, new LocalDate(2017,1,31), 30, "/"),                         // <1>
+    Invoice2(2, new LocalDate(2017,1,20), 60, "/ITA"),
+    Invoice3(3, new LocalDate(2017,1,25), 90, "/FRA"),
+    ;
+
+    private final int num;                                                  // <2>
+    private final LocalDate dueBy;
+    private final int numDay;
+    private final String atPath;
+
+    @Programmatic
+    public DemoInvoice asDomainObject() {
+        return DemoInvoice.builder()                                        // <3>
+                    .num(num)
+                    .dueBy(dueBy)
+                    .numDays(numDay)
+                    .atPath(atPath)
+                    .build();
+
+    @Programmatic
+    public DemoInvoice persistUsing(ServiceRegistry2 serviceRegistry) {
+        return Util.persist(this, serviceRegistry);                         // <4>
+    }
+
+    @Programmatic
+    public DemoInvoice findUsing(ServiceRegistry2 serviceRegistry) {
+        return Util.firstMatch(this, serviceRegistry);                      // <5>
+    }
+    ...
+}
+----
+<1> the data sets to create
+<2> mirror the fields in the domain object
+<3> using the `@Builder` provided by the domain object
+<4> delegates to `DemoData.Util` to create and persist an instance of the domain object
+<5> delegates to `DemoData.Util` to find an existing instance of the domain object
+
+A fixture script can then be written by subclassing the supporting `DemoDataPersistAbstract` fixture script.
+We suggest this script is implemented as a nested static class,eg:
+
+[source,java]
+----
+public enum DemoInvoiceData ... {
+    public static class PersistScript
+                extends DemoDataPersistAbstract<PersistScript, DemoInvoiceData, DemoInvoice> {
+        public PersistScript() {
+            super(DemoInvoiceData.class);
+        }
+    }
+}
+----
+
+The fixture script can now be used in the setup for tests, or used as within a larger composite fixture scripts:
+
+[source,java]
+----
+final DemoInvoiceData.PersistScript fs = new DemoInvoiceData.PersistScript();
+fixtureScripts.runFixtureScript(fs, null);
+----
+
+Optionally, the number of instances to create can be specified:
+
+[source,java]
+----
+final DemoInvoiceData.PersistScript fs = new DemoInvoiceData.PersistScript().setNumber(1);
+fixtureScripts.runFixtureScript(fs, null);
+----
+
+Each data instance can also be used to find the corresponding domain object:
+
+[source,java]
+----
+final DemoInvoice invoice1 = DemoInvoiceData.Invoice1.findUsing(serviceRegistry);
+...
+----
+
+
+
+
+==== "Out-of-the-box" (-SNAPSHOT)
+
+If you want to use the current `-SNAPSHOT`, then the steps are the same as above, except:
+
+* when updating the classpath, specify the appropriate -SNAPSHOT version: +
++
+[source,xml]
+----
+<version>1.14.0-SNAPSHOT</version>
+----
+
+* add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).
+We suggest defining the repository in a `<profile>`: +
++
+[source,xml]
+----
+<profile>
+    <id>cloudbees-snapshots</id>
+    <activation>
+        <activeByDefault>true</activeByDefault>
+    </activation>
+    <repositories>
+        <repository>
+            <id>snapshots-repo</id>
+            <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+</profile>
+----
+
+
+
+
+
+== Known issues
+
+(none currently)
+
+
+== Change Log
+
+* `1.14.0` - released against Isis 1.14.0
+
+* `1.13.1` - fixes link:https://github.com/incodehq/incode-module-fixturesupport/issues/1[#1] - generalizes the `DemoData` API to use `ServiceRegistry2` rather than `RepositoryService`.
+Note that *this release is not backwards-compatible* with previous release.
+
+* `1.13.0` - released against Isis 1.13.0 (moving some test support functionality out of Estatio for reuse elsewhere)
+
+
+
+== Forking the repo
+
+If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is
+structured as follows:
+
+* `pom.xml` - parent pom
+* `dom` - the module implementation, depends on Isis applib
+
+Only the `dom` project is released to Maven Central Repo.  The versions of the other modules are purposely left at
+`0.0.1-SNAPSHOT` because they are not intended to be released.
+
+Note that the module uses link:https://projectlombok.org/[Project Lombok].  To compile the code within your IDE you will
+therefore require the appropriate Lombok plugin.  See the link:https://projectlombok.org/download.html[Lombok download page] for more information.
+
+
+== Legal Stuff
+
+=== License
+
+[source]
+----
+Copyright 2017 Dan Haywood
+
+Licensed under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+----
+
+=== Dependencies
+
+None.
+
+
+
+==  Maven deploy notes
+
+Only the `dom` module is deployed, and is done so using Sonatype's OSS support (see
+http://central.sonatype.org/pages/apache-maven.html[user guide]).
+
+=== Release to Sonatype's Snapshot Repo
+
+To deploy a snapshot, use:
+
+[source]
+----
+pushd dom
+mvn clean deploy
+popd
+----
+
+The artifacts should be available in Sonatype's
+https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
+
+
+=== Release an Interim Build
+
+If you have commit access to this project (or a fork of your own) then you can create interim releases using the `interim-release.sh` script.
+
+The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.14.0.20170227-0738`).
+It then pushes the branch (and a tag) to the specified remote.
+
+A CI server such as Jenkins can monitor the branches matching the wildcard `origin/interim/*` and create a build.
+These artifacts can then be published to a snapshot repository.
+
+For example:
+
+[source]
+----
+sh interim-release.sh 1.14.0 origin
+----
+
+where
+
+* `1.14.0` is the base release
+* `origin` is the name of the remote to which you have permissions to write to.
+
+
+
+
+
+=== Release to Maven Central
+
+The `release.sh` script automates the release process. It performs the following:
+
+* performs a sanity check (`mvn clean install -o`) that everything builds ok
+* bumps the `pom.xml` to a specified release version, and tag
+* performs a double check (`mvn clean install -o`) that everything still builds ok
+* releases the code using `mvn clean deploy`
+* bumps the `pom.xml` to a specified release version
+
+For example:
+
+[source]
+----
+sh release.sh 1.14.0 \
+              1.15.0-SNAPSHOT \
+              dan@haywood-associates.co.uk \
+              "this is not really my passphrase"
+----
+
+where
+* `$1` is the release version
+* `$2` is the snapshot version
+* `$3` is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
+* `$4` is the corresponding passphrase for that secret key.
+
+Other ways of specifying the key and passphrase are available, see the `pgp-maven-plugin`'s
+http://kohsuke.org/pgp-maven-plugin/secretkey.html[documentation]).
+
+If the script completes successfully, then push changes:
+
+[source]
+----
+git push origin master && git push origin 1.14.0
+----
+
+If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
+before trying again.  Note that in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the 
+`autoReleaseAfterClose` setting set to `true` (to automatically stage, close and the release the repo).  You may want
+to set this to `false` if debugging an issue.
+
+According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update http://search.maven.org[search].
+
