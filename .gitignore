@@ -1,0 +1,16 @@
+.classpath
+.project
+.settings/
+target/
+target-ide/
+
+*.class
+*.jar
+
+*.log
+rebel.xml
+
+*.iml
+
+*pom.xml.versionsBackup
+
