@@ -35,22 +35,6 @@ Copyright 2014~2015 Dan Haywood
 
 
     <build>
-        <resources>
-            <resource>
-                <filtering>false</filtering>
-                <directory>src/main/resources</directory>
-            </resource>
-            <resource>
-                <filtering>false</filtering>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**</include>
-                </includes>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-        </resources>
         <plugins>
             <plugin>
                 <groupId>com.github.odavid.maven.plugins</groupId>
@@ -61,33 +45,25 @@ Copyright 2014~2015 Dan Haywood
                     <mixins>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>enforcerrelaxed</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>sourceandjavadoc</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>standard</artifactId>
                         </mixin>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>surefire</artifactId>
                         </mixin>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>enforcerrelaxed</artifactId>
-                        </mixin>
                     </mixins>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.isis.core</groupId>
-                <artifactId>isis</artifactId>
-                <version>${isis.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -100,7 +76,6 @@ Copyright 2014~2015 Dan Haywood
             <artifactId>isis-module-security-dom</artifactId>
             <optional>true</optional>
         </dependency>
-
 
         <dependency>
             <groupId>org.togglz</groupId>

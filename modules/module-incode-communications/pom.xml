@@ -35,15 +35,13 @@ Copyright 2014~2015 Dan Haywood
 
 
     <properties>
-        <isis-maven-plugin.validate.appManifest>org.incode.module.communications.dom.CommunicationsModuleDomManifest</isis-maven-plugin.validate.appManifest>
+        <isis-maven-plugin.validate.appManifest>
+            org.incode.module.communications.dom.CommunicationsModuleDomManifest
+        </isis-maven-plugin.validate.appManifest>
     </properties>
 
     <build>
         <resources>
-            <resource>
-                <filtering>false</filtering>
-                <directory>src/main/resources</directory>
-            </resource>
             <resource>
                 <filtering>false</filtering>
                 <directory>src/main/java</directory>
@@ -55,7 +53,6 @@ Copyright 2014~2015 Dan Haywood
                 </excludes>
             </resource>
         </resources>
-
         <plugins>
             <plugin>
                 <groupId>com.github.odavid.maven.plugins</groupId>
@@ -66,7 +63,15 @@ Copyright 2014~2015 Dan Haywood
                     <mixins>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>datanucleusenhance</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>enforcerrelaxed</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>isisvalidate</artifactId>
                         </mixin>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
@@ -74,64 +79,44 @@ Copyright 2014~2015 Dan Haywood
                         </mixin>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>datanucleusenhance</artifactId>
+                            <artifactId>sourceandjavadoc</artifactId>
                         </mixin>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>surefire</artifactId>
                         </mixin>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>isisvalidate</artifactId>
-                        </mixin>
                     </mixins>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.2</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
         </plugins>
     </build>
 
     <dependencies>
+
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-applib</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.isisaddons.module.command</groupId>
             <artifactId>isis-module-command-dom</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.isisaddons.module.security</groupId>
             <artifactId>isis-module-security-dom</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.isisaddons.module.pdfbox</groupId>
             <artifactId>isis-module-pdfbox-dom</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.isisaddons.module.poly</groupId>
             <artifactId>isis-module-poly-dom</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.incode.module.base</groupId>
             <artifactId>incode-module-base-dom</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.incode.module.document</groupId>
             <artifactId>incode-module-document-dom</artifactId>
@@ -154,34 +139,35 @@ Copyright 2014~2015 Dan Haywood
             <type>pom</type>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.isisaddons.module.fakedata</groupId>
             <artifactId>isis-module-fakedata-dom</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-guava</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>com.danhaywood.java</groupId>
             <artifactId>danhaywood-java-assertjext</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.incode.module.unittestsupport</groupId>
             <artifactId>incode-module-unittestsupport-dom</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.incode.module.integtestsupport</groupId>
             <artifactId>incode-module-integtestsupport-dom</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-core</artifactId>
             <scope>test</scope>
         </dependency>
 

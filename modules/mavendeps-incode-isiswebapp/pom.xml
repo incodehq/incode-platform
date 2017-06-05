@@ -35,23 +35,23 @@
                 <dependency>
                     <groupId>org.apache.isis.core</groupId>
                     <artifactId>isis-core-viewer-wicket-impl</artifactId>
-                    <version>${isis.version}</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.isis.core</groupId>
                     <artifactId>isis-core-viewer-restfulobjects-server</artifactId>
-                    <version>${isis.version}</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.isis.core</groupId>
                     <artifactId>isis-core-security-shiro</artifactId>
-                    <version>${isis.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.isis.core</groupId>
+                    <artifactId>isis-core-security</artifactId>
                 </dependency>
 
                 <dependency>
                     <groupId>org.apache.geronimo.specs</groupId>
                     <artifactId>geronimo-servlet_3.0_spec</artifactId>
-                    <version>${geronimo-servlet_3.0_spec.version}</version>
                 </dependency>
             </dependencies>
 

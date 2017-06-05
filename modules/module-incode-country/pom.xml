@@ -34,15 +34,13 @@ Copyright 2012-2014 Eurocommercial Properties NV
     </description>
 
     <properties>
-        <isis-maven-plugin.validate.appManifest>org.incode.module.country.CountryModuleManifest</isis-maven-plugin.validate.appManifest>
+        <isis-maven-plugin.validate.appManifest>
+            org.incode.module.country.CountryModuleManifest
+        </isis-maven-plugin.validate.appManifest>
     </properties>
 
     <build>
         <resources>
-            <resource>
-                <filtering>false</filtering>
-                <directory>src/main/resources</directory>
-            </resource>
             <resource>
                 <filtering>false</filtering>
                 <directory>src/main/java</directory>
@@ -54,22 +52,6 @@ Copyright 2012-2014 Eurocommercial Properties NV
                 </excludes>
             </resource>
         </resources>
-        <testResources>
-            <testResource>
-                <filtering>false</filtering>
-                <directory>src/test/resources</directory>
-            </testResource>
-            <testResource>
-                <filtering>false</filtering>
-                <directory>src/test/java</directory>
-                <includes>
-                    <include>**</include>
-                </includes>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </testResource>
-        </testResources>
         <plugins>
             <plugin>
                 <groupId>com.github.odavid.maven.plugins</groupId>
@@ -80,19 +62,11 @@ Copyright 2012-2014 Eurocommercial Properties NV
                     <mixins>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>standard</artifactId>
-                        </mixin>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>enforcerrelaxed</artifactId>
-                        </mixin>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>datanucleusenhance</artifactId>
                         </mixin>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>surefire</artifactId>
+                            <artifactId>enforcerrelaxed</artifactId>
                         </mixin>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
@@ -101,6 +75,14 @@ Copyright 2012-2014 Eurocommercial Properties NV
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>sourceandjavadoc</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>standard</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>surefire</artifactId>
                         </mixin>
                     </mixins>
                 </configuration>
@@ -154,6 +136,12 @@ Copyright 2012-2014 Eurocommercial Properties NV
         <dependency>
             <groupId>org.incode.module.integtestsupport</groupId>
             <artifactId>incode-module-integtestsupport-dom</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-core</artifactId>
             <scope>test</scope>
         </dependency>
 

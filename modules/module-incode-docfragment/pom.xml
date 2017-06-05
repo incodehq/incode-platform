@@ -34,19 +34,13 @@ Copyright 2017 Dan Haywood
     </description>
 
     <properties>
-        <isis-maven-plugin.validate.appManifest>org.incode.module.docfragment.DocFragmentModuleManifest</isis-maven-plugin.validate.appManifest>
-<!--
-        <maven-checkstyle-plugin.configLocation>../_checks/checkstyle.xml</maven-checkstyle-plugin.configLocation>
-        <maven-pmd-plugin.ruleset>../_checks/pmd.xml</maven-pmd-plugin.ruleset>
--->
+        <isis-maven-plugin.validate.appManifest>
+            org.incode.module.docfragment.DocFragmentModuleManifest
+        </isis-maven-plugin.validate.appManifest>
     </properties>
 
     <build>
         <resources>
-            <resource>
-                <filtering>true</filtering>
-                <directory>src/main/resources</directory>
-            </resource>
             <resource>
                 <filtering>false</filtering>
                 <directory>src/main/java</directory>
@@ -58,20 +52,6 @@ Copyright 2017 Dan Haywood
                 </excludes>
             </resource>
         </resources>
-        <testResources>
-            <testResource>
-                <directory>src/test/resources</directory>
-            </testResource>
-            <testResource>
-                <directory>src/test/java</directory>
-                <includes>
-                    <include>**</include>
-                </includes>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </testResource>
-        </testResources>
         <plugins>
             <plugin>
                 <groupId>com.github.odavid.maven.plugins</groupId>
@@ -82,19 +62,11 @@ Copyright 2017 Dan Haywood
                     <mixins>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>enforcerrelaxed</artifactId>
-                        </mixin>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>standard</artifactId>
-                        </mixin>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>datanucleusenhance</artifactId>
                         </mixin>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>surefire</artifactId>
+                            <artifactId>enforcerrelaxed</artifactId>
                         </mixin>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
@@ -104,40 +76,30 @@ Copyright 2017 Dan Haywood
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>sourceandjavadoc</artifactId>
                         </mixin>
-                        <!--
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>staticanalysis</artifactId>
+                            <artifactId>standard</artifactId>
                         </mixin>
-                        -->
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>surefire</artifactId>
+                        </mixin>
                     </mixins>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.2</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
         </plugins>
     </build>
 
     <dependencies>
+
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-applib</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.incode.module.base</groupId>
             <artifactId>incode-module-base-dom</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.isisaddons.module.freemarker</groupId>
             <artifactId>isis-module-freemarker-dom</artifactId>
@@ -150,28 +112,30 @@ Copyright 2017 Dan Haywood
             <type>pom</type>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-guava</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>com.danhaywood.java</groupId>
             <artifactId>danhaywood-java-assertjext</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.incode.module.unittestsupport</groupId>
             <artifactId>incode-module-unittestsupport-dom</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.incode.module.integtestsupport</groupId>
             <artifactId>incode-module-integtestsupport-dom</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-core</artifactId>
             <scope>test</scope>
         </dependency>
 
