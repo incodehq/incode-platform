@@ -1091,7 +1091,6 @@
                 </repository>
             </repositories>
         </profile>
-
     </profiles>
 
 
@@ -1099,47 +1098,63 @@
         <module>mavendeps-incode-isisintellij</module>
         <module>mavendeps-incode-isistesting</module>
         <module>mavendeps-incode-isiswebapp</module>
+
         <module>metamodel-isis-paraname8</module>
-        <module>module-incode-alias</module>
+
         <module>module-incode-base</module>
-        <module>module-incode-classification</module>
-        <module>module-incode-commchannel</module>
-        <module>module-incode-communications</module>
-        <module>module-incode-country</module>
-        <module>module-incode-docfragment</module>
-        <module>module-incode-docrendering-freemarker</module>
-        <module>module-incode-docrendering-stringinterpolator</module>
-        <module>module-incode-docrendering-xdocreport</module>
-        <module>module-incode-document</module>
+
         <module>module-incode-fixturesupport</module>
         <module>module-incode-integtestsupport</module>
-        <module>module-incode-note</module>
         <module>module-incode-unittestsupport</module>
+        <module>module-isis-fakedata</module>
+
+        <module>module-isis-flywaydb</module>
+        <module>module-isis-quartz</module>
+
         <module>module-isis-audit</module>
         <module>module-isis-command</module>
+        <module>module-isis-publishmq</module>
+
         <module>module-isis-docx</module>
         <module>module-isis-excel</module>
-        <module>module-isis-fakedata</module>
-        <module>module-isis-flywaydb</module>
         <module>module-isis-freemarker</module>
-        <module>module-isis-pdfbox</module>
-        <module>module-isis-poly</module>
-        <module>module-isis-publishmq</module>
-        <module>module-isis-quartz</module>
-        <module>module-isis-security</module>
-        <module>module-isis-servletapi</module>
-        <module>module-isis-sessionlogger</module>
-        <module>module-isis-settings</module>
-        <module>module-isis-stringinterpolator</module>
-        <module>module-isis-tags</module>
-        <module>module-isis-togglz</module>
         <module>module-isis-xdocreport</module>
+        <module>module-isis-pdfbox</module>
+
+        <module>module-isis-security</module>
+        <module>module-isis-sessionlogger</module>
+
+        <module>module-isis-settings</module>
+        <module>module-isis-servletapi</module>
+        <module>module-isis-stringinterpolator</module>
+
+        <module>module-isis-poly</module>
+        <module>module-isis-tags</module>
+
+        <module>module-isis-togglz</module>
+
         <module>wicket-isis-excel</module>
         <module>wicket-isis-fullcalendar2</module>
         <module>wicket-isis-gmap3</module>
         <module>wicket-isis-pdfjs</module>
+
         <module>wicket-isis-summernote</module>
         <module>wicket-isis-wickedcharts</module>
+
+        <module>module-incode-alias</module>
+        <module>module-incode-classification</module>
+        <module>module-incode-note</module>
+        <module>module-incode-commchannel</module>
+
+        <module>module-incode-document</module>
+        <module>module-incode-country</module>
+
+        <module>module-incode-docrendering-freemarker</module>
+        <module>module-incode-docrendering-stringinterpolator</module>
+        <module>module-incode-docrendering-xdocreport</module>
+
+        <module>module-incode-communications</module>
+        <module>module-incode-docfragment</module>
     </modules>
 
 </project>

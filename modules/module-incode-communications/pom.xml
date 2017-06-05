@@ -101,18 +101,6 @@ Copyright 2014~2015 Dan Haywood
         </plugins>
     </build>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.isis.core</groupId>
-                <artifactId>isis</artifactId>
-                <version>${isis.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.isis.core</groupId>
@@ -147,11 +135,16 @@ Copyright 2014~2015 Dan Haywood
         <dependency>
             <groupId>org.incode.module.document</groupId>
             <artifactId>incode-module-document-dom</artifactId>
-            <version>${incode-module-document.version}</version>
         </dependency>
         <dependency>
             <groupId>org.incode.module.country</groupId>
             <artifactId>incode-module-country-dom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.axonframework</groupId>
+            <artifactId>axon-core</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <!-- testing -->
@@ -165,7 +158,6 @@ Copyright 2014~2015 Dan Haywood
         <dependency>
             <groupId>org.isisaddons.module.fakedata</groupId>
             <artifactId>isis-module-fakedata-dom</artifactId>
-            <version>${isis-module-fakedata.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -193,6 +185,7 @@ Copyright 2014~2015 Dan Haywood
             <scope>test</scope>
         </dependency>
 
+        <!-- provided -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -200,21 +193,4 @@ Copyright 2014~2015 Dan Haywood
         </dependency>
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>axon-event-bus</id>
-            <activation>
-                <property>
-                    <name>!skip.axon-event-bus</name>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.axonframework</groupId>
-                    <artifactId>axon-core</artifactId>
-                    <version>${axon-core.version}</version>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
 </project>

@@ -147,7 +147,7 @@ Copyright 2014~2015 Dan Haywood
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.danhaywood.mavendeps</groupId>
+            <groupId>org.incode.mavendeps</groupId>
             <artifactId>isistesting</artifactId>
             <type>pom</type>
             <scope>test</scope>

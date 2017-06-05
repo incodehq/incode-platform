@@ -169,27 +169,27 @@ Copyright 2012-2014 Eurocommercial Properties NV
     </build>
 
     <dependencies>
+
          <dependency>
             <groupId>org.incode.module.base</groupId>
             <artifactId>incode-module-base-dom</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.incode.module.document</groupId>
+            <artifactId>incode-module-document-dom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.isisaddons.module.xdocreport</groupId>
+            <artifactId>isis-module-xdocreport-dom</artifactId>
+        </dependency>
+
+        <!-- test -->
         <dependency>
             <groupId>org.incode.module.base</groupId>
             <artifactId>incode-module-base-dom</artifactId>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
-	
-        <dependency>
-            <groupId>org.incode.module.document</groupId>
-            <artifactId>incode-module-document-dom</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.isisaddons.module.xdocreport</groupId>
-            <artifactId>isis-module-xdocreport-dom</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-unittestsupport</artifactId>
@@ -206,6 +206,7 @@ Copyright 2012-2014 Eurocommercial Properties NV
             <scope>test</scope>
         </dependency>
 
+        <!-- provided -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

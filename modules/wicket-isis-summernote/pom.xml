@@ -168,8 +168,8 @@ language governing permissions and limitations under the License.
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>org.apache.isis.viewer</groupId>
-            <artifactId>isis-viewer-wicket-ui</artifactId>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-viewer-wicket-ui</artifactId>
             <!-- avoid polluting the classpath -->
             <optional>true</optional>
         </dependency>
