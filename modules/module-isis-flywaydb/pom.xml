@@ -76,8 +76,8 @@
 
         <!-- test -->
         <dependency>
-            <groupId>org.incode.mavendeps</groupId>
-            <artifactId>isistesting</artifactId>
+            <groupId>org.apache.isis.mavendeps</groupId>
+            <artifactId>isis-mavendeps-testing</artifactId>
             <type>pom</type>
             <scope>test</scope>
         </dependency>

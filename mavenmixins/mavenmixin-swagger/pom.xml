@@ -1,0 +1,80 @@
+<project 
+    xmlns="http://maven.apache.org/POM/4.0.0" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <modelVersion>4.0.0</modelVersion>
+    
+    <groupId>org.incode.mavenmixin</groupId>
+    <artifactId>incode-mavenmixin-swagger</artifactId>
+    <version>1.15.0-SNAPSHOT</version>
+
+    <packaging>pom</packaging>
+    
+    <name>Apache Isis Maven Mixin for isis:swagger</name>
+    <description>
+        Maven mixin providing the ability to run isis:swagger goal for an Apache Isis domain application.
+    </description>
+
+    <profiles>
+        <profile>
+            <id>isis-mavenmixin-swagger</id>
+            <activation>
+                <property>
+                    <name>isis-maven-plugin.swagger.appManifest</name>
+                </property>
+            </activation>
+
+            <properties>
+                <isis-maven-plugin.swagger.appManifest>
+                    domainapp.application.manifest.DomainAppAppManifest
+                </isis-maven-plugin.swagger.appManifest>
+
+                <isis-maven-plugin.swagger.dependency.groupId>${project.groupId}</isis-maven-plugin.swagger.dependency.groupId>
+                <isis-maven-plugin.swagger.dependency.artifactId>${project.artifactId}</isis-maven-plugin.swagger.dependency.artifactId>
+                <isis-maven-plugin.swagger.dependency.version>${project.version}</isis-maven-plugin.swagger.dependency.version>
+                <isis-maven-plugin.swagger.format>JSON</isis-maven-plugin.swagger.format>
+            </properties>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.isis.tool</groupId>
+                        <artifactId>isis-maven-plugin</artifactId>
+                        <version>1.15.0-SNAPSHOT</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>swagger</goal>
+                                </goals>
+                                <configuration>
+                                    <appManifest>${isis-maven-plugin.swagger.appManifest}</appManifest>
+                                    <visibilities>
+                                        <visibility>PUBLIC</visibility>
+                                        <visibility>PRIVATE</visibility>
+                                    </visibilities>
+                                    <format>${isis-maven-plugin.swagger.format}</format>
+                                    <fileNamePrefix>swagger</fileNamePrefix>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>${isis-maven-plugin.swagger.dependency.groupId}</groupId>
+                                <artifactId>${isis-maven-plugin.swagger.dependency.artifactId}</artifactId>
+                                <version>${isis-maven-plugin.swagger.dependency.version}</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.hsqldb</groupId>
+                                <artifactId>hsqldb</artifactId>
+                                <version>2.3.1</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>

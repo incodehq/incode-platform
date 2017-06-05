@@ -147,12 +147,6 @@
             <!-- maven mixins -->
             <dependency>
                 <groupId>com.danhaywood.mavenmixin</groupId>
-                <artifactId>isisjrebel</artifactId>
-                <version>${mavenmixin-isisjrebel.version}</version>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>com.danhaywood.mavenmixin</groupId>
                 <artifactId>isisswagger</artifactId>
                 <version>${mavenmixin-isisswagger.version}</version>
                 <type>pom</type>
@@ -166,22 +160,22 @@
 
             <!-- maven deps -->
             <dependency>
-                <groupId>org.incode.mavendeps</groupId>
-                <artifactId>isisintellij</artifactId>
-                <version>1.15.0-SNAPSHOT</version>
+                <groupId>org.apache.isis.mavendeps</groupId>
+                <artifactId>isis-mavendeps-intellij</artifactId>
+                <version>${isis.version}</version>
                 <type>pom</type>
             </dependency>
             <dependency>
-                <groupId>org.incode.mavendeps</groupId>
-                <artifactId>isistesting</artifactId>
-                <version>1.15.0-SNAPSHOT</version>
+                <groupId>org.apache.isis.mavendeps</groupId>
+                <artifactId>isis-mavendeps-testing</artifactId>
+                <version>${isis.version}</version>
                 <type>pom</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.incode.mavendeps</groupId>
-                <artifactId>isiswebapp</artifactId>
-                <version>1.15.0-SNAPSHOT</version>
+                <groupId>org.apache.isis.mavendeps</groupId>
+                <artifactId>isis-mavendeps-webapp</artifactId>
+                <version>${isis.version}</version>
                 <type>pom</type>
                 <scope>test</scope>
             </dependency>
@@ -1095,10 +1089,6 @@
 
 
     <modules>
-        <module>mavendeps-incode-isisintellij</module>
-        <module>mavendeps-incode-isistesting</module>
-        <module>mavendeps-incode-isiswebapp</module>
-
         <module>metamodel-isis-paraname8</module>
 
         <module>module-incode-base</module>
