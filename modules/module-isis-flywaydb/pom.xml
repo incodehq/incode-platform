@@ -31,31 +31,6 @@
         A module integrating with FlywayDB by providing an implementation of DataNucleus' PersistenceManagerFactory
     </description>
 
-    <url>https://github.com/isisaddons/isis-module-flywaydb</url>
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-    <scm>
-        <connection>scm:git:git@github.com:isisaddons/isis-module-flywaydb.git</connection>
-        <developerConnection>scm:git:git@github.com:isisaddons/isis-module-flywaydb.git</developerConnection>
-        <url>git@github.com:isisaddons/isis-module-flywaydb.git</url>
-    </scm>
-    <developers>
-        <developer>
-            <id>dhaywood</id>
-            <name>Dan Haywood</name>
-            <email>dhaywood@incode.org</email>
-        </developer>
-    </developers>
-
-    <properties>
-        <flyway-core.version>4.0.3</flyway-core.version>
-    </properties>
-
     <build>
         <resources>
             <resource>
@@ -115,34 +90,7 @@
         </plugins>
     </build>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.isis.core</groupId>
-                <artifactId>isis</artifactId>
-                <version>${isis.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-core</artifactId>
-                <version>${flyway-core.version}</version>
-            </dependency>
-
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
-
-        <dependency>
-            <groupId>com.danhaywood.mavendeps</groupId>
-            <artifactId>isistesting</artifactId>
-            <version>${mavendeps-isistesting.version}</version>
-            <type>pom</type>
-            <scope>test</scope>
-        </dependency>
 
         <dependency>
             <groupId>org.apache.isis.core</groupId>
@@ -154,49 +102,13 @@
             <artifactId>flyway-core</artifactId>
         </dependency>
 
-    </dependencies>
+        <dependency>
+            <groupId>org.incode.mavendeps</groupId>
+            <artifactId>isistesting</artifactId>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
 
-    <profiles>
-        <profile>
-            <id>danhaywood-mavenmixin-sonatyperelease</id>
-            <build>
-                <plugins>
-                    <!-- http://central.sonatype.org/pages/apache-maven.html -->
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.2</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                        </configuration>
-                    </plugin>
-                    <!-- http://kohsuke.org/pgp-maven-plugin/secretkey.html instead of maven-gpg-plugin -->
-                    <plugin>
-                        <groupId>org.kohsuke</groupId>
-                        <artifactId>pgp-maven-plugin</artifactId>
-                        <version>1.1</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-                </snapshotRepository>
-            </distributionManagement>
-        </profile>
-    </profiles>
+    </dependencies>
 
 </project>

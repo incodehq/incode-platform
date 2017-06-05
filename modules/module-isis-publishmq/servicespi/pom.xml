@@ -31,7 +31,6 @@ Copyright 2015 Dan Haywood
         A module providing publishmq service SPI implementation
     </description>
 
-
     <build>
         <plugins>
             <plugin>
@@ -56,98 +55,32 @@ Copyright 2015 Dan Haywood
     </build>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-applib</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-schema</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-all</artifactId>
+        </dependency>
+
+        <!-- test -->
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-unittestsupport</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
-
-    <profiles>
-        <profile>
-            <id>isis-applib</id>
-            <activation>
-                <property>
-                    <name>!skip.isis-applib</name>
-                </property>
-            </activation>
-
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.isis.core</groupId>
-                        <artifactId>isis</artifactId>
-                        <version>${isis.version}</version>
-                        <type>pom</type>
-                        <scope>import</scope>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-
-            <dependencies>
-                <dependency>
-                    <groupId>org.apache.isis.core</groupId>
-                    <artifactId>isis-core-applib</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-
-        <profile>
-            <id>unit-testing</id>
-            <activation>
-                <property>
-                    <name>!skip.unit-testing</name>
-                </property>
-            </activation>
-
-            <dependencies>
-                <dependency>
-                    <groupId>org.apache.isis.core</groupId>
-                    <artifactId>isis-core-unittestsupport</artifactId>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.assertj</groupId>
-                    <artifactId>assertj-core</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-
-        <profile>
-            <id>activemq</id>
-            <activation>
-                <property>
-                    <name>!skip.activemq</name>
-                </property>
-            </activation>
-
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.activemq</groupId>
-                        <artifactId>activemq-all</artifactId>
-                        <version>${activemq.version}</version>
-                    </dependency>
-                    <!--
-                    <dependency>
-                        <groupId>org.apache.activemq</groupId>
-                        <artifactId>activemq-camel</artifactId>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.geronimo.specs</groupId>
-                        <artifactId>geronimo-jms_1.1_spec</artifactId>
-                    </dependency>
-                    -->
-                </dependencies>
-            </dependencyManagement>
-
-            <dependencies>
-                <dependency>
-                    <groupId>org.apache.activemq</groupId>
-                    <artifactId>activemq-all</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
 
 </project>

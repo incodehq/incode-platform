@@ -55,15 +55,6 @@
         </developer>
     </developers>
 
-    <properties>
-        <spring.version>4.1.6.RELEASE</spring.version>
-        <camel.version>2.15.2</camel.version>
-        <activemq.version>5.11.1</activemq.version>
-
-        <slf4j.version>1.7.6</slf4j.version>
-
-        <lombok.version>1.16.8</lombok.version>
-    </properties>
 
     <dependencyManagement>
         <dependencies>
@@ -87,10 +78,11 @@
                 <artifactId>isis-module-publishmq-dom-statusclient</artifactId>
                 <version>1.15.0-SNAPSHOT</version>
             </dependency>
+
             <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-all</artifactId>
+                <version>${activemq.version}</version>
             </dependency>
         </dependencies>
 
@@ -104,74 +96,6 @@
     </modules>
 
     <profiles>
-        <!-- http://central.sonatype.org/pages/apache-maven.html -->
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>2.1.2</version>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.9.1</version>
-                        <inherited>true</inherited>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <!-- as per http://stackoverflow.com/a/16743137/56880 -->
-                            <additionalparam>-Xdoclint:none</additionalparam>
-                            <debug>true</debug>
-                            <minmemory>128m</minmemory>
-                            <maxmemory>1024m</maxmemory>
-                            <quiet>true</quiet>
-                            <doctitle>${project.name} ${project.version}</doctitle>
-                            <windowtitle>${project.name} ${project.version}</windowtitle>
-                            <testDoctitle>${project.name} ${project.version} (TEST API)</testDoctitle>
-                            <testWindowtitle>${project.name} ${project.version} (TEST API)</testWindowtitle>
-                            <splitindex>true</splitindex>
-                            <encoding>${project.build.sourceEncoding}</encoding>
-                            <links>
-                                <link>http://docs.oracle.com/javase/7/docs/api/</link>
-                            </links>
-                            <linksource>true</linksource>
-                            <detectOfflineLinks>false</detectOfflineLinks>
-                        </configuration>
-                    </plugin>
-
-                    <!-- http://kohsuke.org/pgp-maven-plugin/secretkey.html instead of maven-gpg-plugin -->
-                    <plugin>
-                        <groupId>org.kohsuke</groupId>
-                        <artifactId>pgp-maven-plugin</artifactId>
-                        <version>1.1</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
 
         <profile>
             <id>isisaddons-module-boilerplate</id>
@@ -180,14 +104,6 @@
                     <name>!skip.isisaddons-module-boilerplate</name>
                 </property>
             </activation>
-
-            <properties>
-                <compileSource>1.8</compileSource>
-                <compileTarget>1.8</compileTarget>
-
-                <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-                <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-            </properties>
 
             <build>
                 <resources>
@@ -311,194 +227,8 @@
                     </plugins>
                 </pluginManagement>
 
-                <plugins>
-                    <!-- http://central.sonatype.org/pages/apache-maven.html -->
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.2</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                        </configuration>
-                    </plugin>
-                </plugins>
             </build>
-
-            <!-- http://central.sonatype.org/pages/apache-maven.html -->
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-                </snapshotRepository>
-            </distributionManagement>
-
         </profile>
-
-        <profile>
-            <id>isis-applib</id>
-            <activation>
-                <property>
-                    <name>!skip.isis-applib</name>
-                </property>
-            </activation>
-
-            <dependencyManagement>
-                <dependencies>
-
-                    <dependency>
-                        <groupId>org.apache.isis.core</groupId>
-                        <artifactId>isis</artifactId>
-                        <version>${isis.version}</version>
-                        <type>pom</type>
-                        <scope>import</scope>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.isis.core</groupId>
-                        <artifactId>isis-core-applib</artifactId>
-                        <version>${isis.version}</version>
-                    </dependency>
-
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-
-        <profile>
-            <id>unit-testing</id>
-            <activation>
-                <property>
-                    <name>!skip.unit-testing</name>
-                </property>
-            </activation>
-
-            <properties>
-                <assertj-core.version>2.0.0</assertj-core.version>
-            </properties>
-
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.isis.core</groupId>
-                        <artifactId>isis-core-unittestsupport</artifactId>
-                        <version>${isis.version}</version>
-                        <scope>test</scope>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.assertj</groupId>
-                        <artifactId>assertj-core</artifactId>
-                        <version>${assertj-core.version}</version>
-                        <scope>test</scope>
-                    </dependency>
-
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-
-        <profile>
-            <id>camel</id>
-            <activation>
-                <property>
-                    <name>!skip.camel</name>
-                </property>
-            </activation>
-
-            <properties>
-            </properties>
-
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.camel</groupId>
-                        <artifactId>camel-core</artifactId>
-                        <version>${camel.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.camel</groupId>
-                        <artifactId>camel-spring</artifactId>
-                        <version>${camel.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.camel</groupId>
-                        <artifactId>camel-jms</artifactId>
-                        <version>${camel.version}</version>
-                    </dependency>
-
-                    <dependency>
-                        <groupId>org.apache.camel</groupId>
-                        <artifactId>camel-stream</artifactId>
-                        <version>${camel.version}</version>
-                    </dependency>
-
-                    <dependency>
-                        <groupId>org.apache.camel</groupId>
-                        <artifactId>camel-ognl</artifactId>
-                        <version>${camel.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.camel</groupId>
-                        <artifactId>camel-jaxb</artifactId>
-                        <version>${camel.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.camel</groupId>
-                        <artifactId>camel-jackson</artifactId>
-                        <version>${camel.version}</version>
-                    </dependency>
-
-                    <dependency>
-                        <groupId>org.apache.camel</groupId>
-                        <artifactId>camel-spring-javaconfig</artifactId>
-                        <version>${camel.version}</version>
-                    </dependency>
-
-                    <dependency>
-                        <groupId>org.apache.camel</groupId>
-                        <artifactId>camel-cxf</artifactId>
-                        <version>${camel.version}</version>
-                    </dependency>
-
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-
-        <profile>
-            <id>camel-test</id>
-            <activation>
-                <property>
-                    <name>!skip.camel-test</name>
-                </property>
-            </activation>
-
-            <properties>
-            </properties>
-
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.camel</groupId>
-                        <artifactId>camel-test</artifactId>
-                        <version>${camel.version}</version>
-                        <scope>test</scope>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.camel</groupId>
-                        <artifactId>camel-test-spring</artifactId>
-                        <version>${camel.version}</version>
-                        <scope>test</scope>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-test</artifactId>
-                        <version>${spring.version}</version>
-                        <scope>test</scope>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-
-
     </profiles>
 
 </project>

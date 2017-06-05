@@ -33,35 +33,6 @@ language governing permissions and limitations under the License.
         A module providing the ability to tag or label entities.
     </description>
 
-    <url>https://github.com/isisaddons/isis-module-tags</url>
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-    <scm>
-        <connection>scm:git:git@github.com:isisaddons/isis-module-tags.git</connection>
-        <developerConnection>scm:git:git@github.com:isisaddons/isis-module-tags.git</developerConnection>
-        <url>git@github.com:isisaddons/isis-module-tags.git</url>
-    </scm>
-    <developers>
-        <developer>
-            <id>danhaywood</id>
-            <name>Dan Haywood</name>
-            <email>dan@haywood-associates.co.uk</email>
-        </developer>
-    </developers>
-
-    <properties>
-        <compileSource>1.7</compileSource>
-        <compileTarget>1.7</compileTarget>
-
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    </properties>
-
     <build>
         <resources>
             <resource>
@@ -200,39 +171,19 @@ language governing permissions and limitations under the License.
         </plugins>
     </build>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.isis.core</groupId>
-                <artifactId>isis</artifactId>
-                <version>${isis.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-applib</artifactId>
-            <version>${isis.version}</version>
         </dependency>
+
+        <!-- test -->
         <dependency>
             <groupId>org.apache.isis.core</groupId>
              <artifactId>isis-core-unittestsupport</artifactId>
-            <version>${isis.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <!-- http://central.sonatype.org/pages/apache-maven.html -->
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
 
     <profiles>
         <profile>
@@ -307,74 +258,6 @@ language governing permissions and limitations under the License.
                     <artifactId>datanucleus-api-jdo</artifactId>
                 </dependency>
             </dependencies>
-        </profile>
-        <!-- http://central.sonatype.org/pages/apache-maven.html -->
-        <profile> 
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>2.1.2</version>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.9.1</version>
-                        <inherited>true</inherited>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <!-- as per http://stackoverflow.com/a/16743137/56880 -->
-                            <additionalparam>-Xdoclint:none</additionalparam>
-                            <debug>true</debug>
-                            <minmemory>128m</minmemory>
-                            <maxmemory>1024m</maxmemory>
-                            <quiet>true</quiet>
-                            <doctitle>${project.name} ${project.version}</doctitle>
-                            <windowtitle>${project.name} ${project.version}</windowtitle>
-                            <testDoctitle>${project.name} ${project.version} (TEST API)</testDoctitle>
-                            <testWindowtitle>${project.name} ${project.version} (TEST API)</testWindowtitle>
-                            <splitindex>true</splitindex>
-                            <encoding>${project.build.sourceEncoding}</encoding>
-                            <links>
-                                <link>http://docs.oracle.com/javase/7/docs/api/</link>
-                            </links>
-                            <linksource>true</linksource>
-                            <detectOfflineLinks>false</detectOfflineLinks>
-                        </configuration>
-                    </plugin>
-
-                    <!-- http://kohsuke.org/pgp-maven-plugin/secretkey.html instead of maven-gpg-plugin -->
-                    <plugin>
-                        <groupId>org.kohsuke</groupId>
-                        <artifactId>pgp-maven-plugin</artifactId>
-                        <version>1.1</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
     </profiles>
 

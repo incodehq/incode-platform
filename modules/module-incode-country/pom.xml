@@ -33,45 +33,8 @@ Copyright 2012-2014 Eurocommercial Properties NV
         A module defining Country and State entities (reference data)
     </description>
 
-    <url>https://github.com/incodehq/incode-module-country</url>
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-    <scm>
-        <connection>scm:git:git@github.com:incodehq/incode-module-country.git</connection>
-        <developerConnection>scm:git:git@github.com:incodehq/incode-module-country.git</developerConnection>
-        <url>git@github.com:incodehq/incode-module-country.git</url>
-    </scm>
-    <developers>
-        <developer>
-            <id>dhaywood</id>
-            <name>Dan Haywood</name>
-            <email>dhaywood@incode.org</email>
-        </developer>
-        <developer>
-            <id>jvanderwal</id>
-            <name>Jeroen van der Wal</name>
-            <email>jvanderwal@incode.org</email>
-        </developer>
-    </developers>
-
     <properties>
-        <isis-module-fakedata.version>1.14.0</isis-module-fakedata.version>
-        <incode-module-base.version>1.14.0</incode-module-base.version>
-        <incode-module-unittestsupport.version>1.14.0</incode-module-unittestsupport.version>
-        <incode-module-integtestsupport.version>1.14.0</incode-module-integtestsupport.version>
-
-        <danhaywood-java-assertjext.version>0.1.0</danhaywood-java-assertjext.version>
-        <lombok.version>1.16.6</lombok.version>
-
         <isis-maven-plugin.validate.appManifest>org.incode.module.country.CountryModuleManifest</isis-maven-plugin.validate.appManifest>
-
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <build>
@@ -145,51 +108,27 @@ Copyright 2012-2014 Eurocommercial Properties NV
         </plugins>
     </build>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.isis.core</groupId>
-                <artifactId>isis</artifactId>
-                <version>${isis.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-applib</artifactId>
-            <version>${isis.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.incode.module.base</groupId>
             <artifactId>incode-module-base-dom</artifactId>
-    	    <version>${incode-module-base.version}</version>
         </dependency>
-
 
         <!-- testing -->
         <dependency>
             <groupId>org.isisaddons.module.fakedata</groupId>
             <artifactId>isis-module-fakedata-dom</artifactId>
-            <version>${isis-module-fakedata.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>com.danhaywood.mavendeps</groupId>
+            <groupId>org.incode.mavendeps</groupId>
             <artifactId>isistesting</artifactId>
-            <version>0.0.1</version>
             <type>pom</type>
             <scope>test</scope>
         </dependency>
@@ -204,20 +143,17 @@ Copyright 2012-2014 Eurocommercial Properties NV
         <dependency>
             <groupId>org.incode.module.base</groupId>
             <artifactId>incode-module-base-dom</artifactId>
-    	    <version>${incode-module-base.version}</version>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.incode.module.unittestsupport</groupId>
             <artifactId>incode-module-unittestsupport-dom</artifactId>
-            <version>${incode-module-unittestsupport.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.incode.module.integtestsupport</groupId>
             <artifactId>incode-module-integtestsupport-dom</artifactId>
-            <version>${incode-module-integtestsupport.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -227,57 +163,11 @@ Copyright 2012-2014 Eurocommercial Properties NV
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
-
-    <!-- http://central.sonatype.org/pages/apache-maven.html -->
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
-
-    <profiles>
-        <profile>
-            <id>danhaywood-mavenmixin-sonatyperelease</id>
-            <build>
-                <plugins>
-                    <!-- http://central.sonatype.org/pages/apache-maven.html -->
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.2</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                        </configuration>
-                    </plugin>
-                    <!-- http://kohsuke.org/pgp-maven-plugin/secretkey.html instead of maven-gpg-plugin -->
-                    <plugin>
-                        <groupId>org.kohsuke</groupId>
-                        <artifactId>pgp-maven-plugin</artifactId>
-                        <version>1.1</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-                </snapshotRepository>
-            </distributionManagement>
-        </profile>
-    </profiles>
 
 </project>

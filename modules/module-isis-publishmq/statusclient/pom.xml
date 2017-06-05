@@ -32,7 +32,6 @@ Copyright 2015 Dan Haywood
         A module providing helper classes for logging status messages
     </description>
 
-
     <build>
         <plugins>
             <plugin>

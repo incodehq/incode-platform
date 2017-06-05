@@ -4,10 +4,15 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     
     <modelVersion>4.0.0</modelVersion>
-    
+
+    <parent>
+        <groupId>org.incode</groupId>
+        <artifactId>incode-parent</artifactId>
+        <version>1.15.0-SNAPSHOT</version>
+    </parent>
+
     <groupId>org.incode.mavendeps</groupId>
     <artifactId>isiswebapp</artifactId>
-    <version>1.15.0-SNAPSHOT</version>
 
     <packaging>pom</packaging>
     
@@ -16,33 +21,6 @@
         Defines a module that can be used as a single dependency for running an Apache Isis webapp (Wicket, Restful Objects and Shiro security)
     </description>
     
-    <url>https://github.com/incodehq/mavendeps-isiswebapp</url>
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-    <scm>
-        <connection>scm:git:git@github.com:incodehq/mavendeps-isiswebapp.git</connection>
-        <developerConnection>scm:git:git@github.com:incodehq/mavendeps-isiswebapp.git</developerConnection>
-        <url>git@github.com:incodehq/mavendeps-isiswebapp.git</url>
-    </scm>
-    <developers>
-        <developer>
-            <id>danhaywood</id>
-            <name>Dan Haywood</name>
-            <email>dan@haywood-associates.co.uk</email>
-        </developer>
-    </developers>    
-
-    <properties>
-        <isis.version>1.15.0-SNAPSHOT</isis.version>
-        
-        <geronimo-servlet_3.0_spec.version>1.0</geronimo-servlet_3.0_spec.version>
-    </properties>
-        
     <profiles>
         <profile>
             <id>mavendeps-isiswebapp</id>
@@ -77,50 +55,6 @@
                 </dependency>
             </dependencies>
 
-        </profile>
-        <profile>
-            <id>sonatyperelease</id>
-            <!-- 
-            this profile is not part of the module, but is required to be defined as a profile
-            in order to release this module pom.xml to Maven Central repo
-            -->
-            <build>
-                <plugins>
-                    <!-- http://central.sonatype.org/pages/apache-maven.html -->
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.2</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                        </configuration>
-                    </plugin>
-                    <!-- http://kohsuke.org/pgp-maven-plugin/secretkey.html instead of maven-gpg-plugin -->
-                    <plugin>
-                        <groupId>org.kohsuke</groupId>
-                        <artifactId>pgp-maven-plugin</artifactId>
-                        <version>1.1</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-                </snapshotRepository>
-            </distributionManagement>
         </profile>
     </profiles>
     
