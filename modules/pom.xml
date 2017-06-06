@@ -1089,62 +1089,54 @@
 
 
     <modules>
-        <module>metamodel-isis-paraname8</module>
 
-        <module>module-incode-base</module>
+        <module>extension-flywaydb/extension</module>
+        <module>extension-quartz/extension</module>
+        <module>extension-togglz/extension</module>
 
-        <module>module-incode-fixturesupport</module>
-        <module>module-incode-integtestsupport</module>
-        <module>module-incode-unittestsupport</module>
-        <module>module-isis-fakedata</module>
+        <module>lib-base/lib</module>
+        <module>lib-docrendering-freemarker/lib</module>
+        <module>lib-docrendering-stringinterpolator/lib</module>
+        <module>lib-docrendering-xdocreport/lib</module>
+        <module>lib-docx/lib</module>
+        <module>lib-excel/lib</module>
+        <module>lib-fakedata/lib</module>
+        <module>lib-fixturesupport/lib</module>
+        <module>lib-freemarker/lib</module>
+        <module>lib-integtestsupport/lib</module>
+        <module>lib-pdfbox/lib</module>
+        <module>lib-poly/lib</module>
+        <module>lib-servletapi/lib</module>
+        <module>lib-stringinterpolator/lib</module>
+        <module>lib-unittestsupport/lib</module>
+        <module>lib-xdocreport/lib</module>
 
-        <module>module-isis-flywaydb</module>
-        <module>module-isis-quartz</module>
+        <module>metamodel-paraname8/metamodel</module>
 
-        <module>module-isis-audit</module>
-        <module>module-isis-command</module>
-        <module>module-isis-publishmq</module>
+        <module>module-alias/module</module>
+        <module>module-classification/module</module>
+        <module>module-commchannel/module</module>
+        <module>module-communications/module</module>
+        <module>module-country/module</module>
+        <module>module-docfragment/module</module>
+        <module>module-document/module</module>
+        <module>module-note/module</module>
+        <module>module-settings/module</module>
+        <module>module-tags/module</module>
 
-        <module>module-isis-docx</module>
-        <module>module-isis-excel</module>
-        <module>module-isis-freemarker</module>
-        <module>module-isis-xdocreport</module>
-        <module>module-isis-pdfbox</module>
+        <module>spi-audit/spi</module>
+        <module>spi-command/spi</module>
+        <module>spi-publishmq/spi</module>
+        <module>spi-security/spi</module>
+        <module>spi-sessionlogger/spi</module>
 
-        <module>module-isis-security</module>
-        <module>module-isis-sessionlogger</module>
+        <module>wicket-excel/wicket</module>
+        <module>wicket-fullcalendar2/wicket</module>
+        <module>wicket-gmap3/wicket</module>
+        <module>wicket-pdfjs/wicket</module>
+        <module>wicket-summernote/wicket</module>
+        <module>wicket-wickedcharts/wicket</module>
 
-        <module>module-isis-settings</module>
-        <module>module-isis-servletapi</module>
-        <module>module-isis-stringinterpolator</module>
-
-        <module>module-isis-poly</module>
-        <module>module-isis-tags</module>
-
-        <module>module-isis-togglz</module>
-
-        <module>wicket-isis-excel</module>
-        <module>wicket-isis-fullcalendar2</module>
-        <module>wicket-isis-gmap3</module>
-        <module>wicket-isis-pdfjs</module>
-
-        <module>wicket-isis-summernote</module>
-        <module>wicket-isis-wickedcharts</module>
-
-        <module>module-incode-alias</module>
-        <module>module-incode-classification</module>
-        <module>module-incode-note</module>
-        <module>module-incode-commchannel</module>
-
-        <module>module-incode-document</module>
-        <module>module-incode-country</module>
-
-        <module>module-incode-docrendering-freemarker</module>
-        <module>module-incode-docrendering-stringinterpolator</module>
-        <module>module-incode-docrendering-xdocreport</module>
-
-        <module>module-incode-communications</module>
-        <module>module-incode-docfragment</module>
     </modules>
 
 </project>
