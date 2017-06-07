@@ -29,17 +29,6 @@
     <name>Incode Platform Module Communications Demo App</name>
 
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**</include>
-                </includes>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-        </resources>
         <plugins>
             <plugin>
                 <groupId>com.github.odavid.maven.plugins</groupId>
@@ -98,13 +87,6 @@
             <artifactId>incode-module-communications-dom</artifactId>
             <type>test-jar</type>
             <scope>test</scope>
-        </dependency>
-
-        <!-- provided -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
         </dependency>
 
     </dependencies>

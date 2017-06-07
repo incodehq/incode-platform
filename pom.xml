@@ -69,6 +69,18 @@
             </modules>
         </profile>
         <profile>
+            <id>module-docfragment</id>
+            <activation>
+                <property>
+                    <name>module-docfragment</name>
+                </property>
+            </activation>
+            <modules>
+                <module>modules</module>
+                <module>modules/module-docfragment/demo</module>
+            </modules>
+        </profile>
+        <profile>
             <id>default-modules</id>
             <activation>
                 <property>
@@ -81,8 +93,8 @@
                 <module>modules/module-classification/demo</module>
                 <module>modules/module-commchannel/demo</module>
                 <module>modules/module-communications/demo</module>
-                <!--
                 <module>modules/module-docfragment/demo</module>
+                <!--
                 <module>modules/module-document/demo</module>
                 <module>modules/module-note/demo</module>
                 <module>modules/module-settings/demo</module>

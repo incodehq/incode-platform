@@ -1128,6 +1128,17 @@
                 <module>module-communications/module</module>
             </modules>
         </profile>
+        <profile>
+            <id>module-docfragment</id>
+            <activation>
+                <property>
+                    <name>module-docfragment</name>
+                </property>
+            </activation>
+            <modules>
+                <module>module-docfragment/module</module>
+            </modules>
+        </profile>
 
         <profile>
             <id>default-modules</id>

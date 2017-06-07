@@ -22,115 +22,31 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>1.14.0</version>
-        <relativePath/>
+        <version>1.15.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <groupId>org.incode.module.docfragment</groupId>
     <artifactId>incode-module-docfragment</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.15.0-SNAPSHOT</version>
 
-    <name>Incode Module DocFragment Demo Parent</name>
+    <name>Incode Platform Module DocFragment Demo</name>
 
     <packaging>pom</packaging>
-
-    <prerequisites>
-        <maven>3.0.4</maven>
-    </prerequisites>
-
-    <properties>
-        <incode-module-docfragment.version>1.15.0-SNAPSHOT</incode-module-docfragment.version>
-
-        <isis-module-fakedata.version>1.14.0</isis-module-fakedata.version>
-        <incode-module-fixturesupport.version>1.14.0</incode-module-fixturesupport.version>
-
-        <assertj-core.version>3.6.1</assertj-core.version>
-        <danhaywood-java-assertjext.version>0.1.0</danhaywood-java-assertjext.version>
-
-        <lombok.version>1.16.12</lombok.version>
-        
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    </properties>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>com.github.odavid.maven.plugins</groupId>
-                <artifactId>mixin-maven-plugin</artifactId>
-                <version>0.1-alpha-39</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <mixins>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>standard</artifactId>
-                        </mixin>
-                    </mixins>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
     <dependencyManagement>
         <dependencies>
 
             <dependency>
-                <groupId>org.apache.isis.core</groupId>
-                <artifactId>isis</artifactId>
-                <version>${isis.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- this project's own modules -->
-            <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-module-docfragment-dom</artifactId>
-                <version>${incode-module-docfragment.version}</version>
+                <artifactId>incode-module-docfragment-demo-app</artifactId>
+                <version>1.15.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-module-docfragment-dom</artifactId>
-                <version>${incode-module-docfragment.version}</version>
-                <type>test-jar</type>
+                <artifactId>incode-module-docfragment-demo-fixture</artifactId>
+                <version>1.15.0-SNAPSHOT</version>
             </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-module-docfragment-demo-dom</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-module-docfragment-demo-dom</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <type>test-jar</type>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-module-docfragment-demo-application</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-module-docfragment-demo-webapp</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.module.fixturesupport</groupId>
-                <artifactId>incode-module-fixturesupport-dom</artifactId>
-                <version>${incode-module-fixturesupport.version}</version>
-            </dependency>
-
-            <!-- lombok -->
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
-                <scope>provided</scope>
-            </dependency>
-
         </dependencies>
     </dependencyManagement>
 
@@ -143,10 +59,8 @@
     </dependencies>
 
   <modules>
-    <module>module-incode-docfragment</module>
-    <module>demo/module-demo-dom</module>
-    <module>demo/application</module>
-    <module>demo/webapp</module>
+    <module>app</module>
+    <module>fixture</module>
   </modules>
-
+  
 </project>

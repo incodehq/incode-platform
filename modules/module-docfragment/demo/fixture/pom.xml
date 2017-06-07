@@ -22,16 +22,12 @@
     <parent>
         <groupId>org.incode.module.docfragment</groupId>
         <artifactId>incode-module-docfragment</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
+        <version>1.15.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>incode-module-docfragment-demo-dom</artifactId>
-    <name>Incode Module DocFragment Demo DOM</name>
+    <artifactId>incode-module-docfragment-demo-fixture</artifactId>
+    <name>Incode Platform Module DocFragment Demo Fixtures</name>
 
-    <properties>
-
-    </properties>
 
     <build>
         <resources>
@@ -48,20 +44,6 @@
                 </excludes>
             </resource>
         </resources>
-        <testResources>
-            <testResource>
-                <directory>src/test/resources</directory>
-            </testResource>
-            <testResource>
-                <directory>src/test/java</directory>
-                <includes>
-                    <include>**</include>
-                </includes>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </testResource>
-        </testResources>
         <plugins>
             <plugin>
                 <groupId>com.github.odavid.maven.plugins</groupId>
@@ -72,23 +54,11 @@
                     <mixins>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>standard</artifactId>
-                            <version>${mavenmixin-standard.version}</version>
-                        </mixin>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>enforcerrelaxed</artifactId>
-                            <version>${mavenmixin-enforcerrelaxed.version}</version>
-                        </mixin>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>datanucleusenhance</artifactId>
-                            <version>${mavenmixin-datanucleusenhance.version}</version>
                         </mixin>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>surefire</artifactId>
-                            <version>${mavenmixin-surefire.version}</version>
+                            <artifactId>standard</artifactId>
                         </mixin>
                     </mixins>
                 </configuration>
@@ -107,12 +77,6 @@
             <artifactId>incode-module-docfragment-dom</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.isis.mavendeps</groupId>
-            <artifactId>isis-mavendeps-testing</artifactId>
-            <type>pom</type>
-            <scope>test</scope>
-        </dependency>
 
         <dependency>
             <groupId>org.incode.module.fixturesupport</groupId>
@@ -120,8 +84,16 @@
         </dependency>
 
         <dependency>
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-core</artifactId>
+        </dependency>
+
+        <!-- test -->
+        <dependency>
+            <groupId>org.apache.isis.mavendeps</groupId>
+            <artifactId>isis-mavendeps-testing</artifactId>
+            <type>pom</type>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
