@@ -14,12 +14,12 @@ See below for details of the maven mixins so configured.
 This parent POM defines `<properties>` and `<pluginManagement>` for the plugins defined in the following maven mixins:
 
 
-[width="100%",cols="^2,^1,^2,^4m",options="header"]
+[width="100%",cols="^1,^1,2,4m",options="header"]
 |====================
-|Module
-|Version
-|Description
-|Mixin to add
+^|Module
+^|Version
+^|Description
+^|Mixin to add
 
 |https://github.com/danhaywood/java-mavenmixin-cucumberreporting[cucumber reporting]
 |0.0.2
@@ -51,30 +51,6 @@ This parent POM defines `<properties>` and `<pluginManagement>` for the plugins 
 |<mixin> +
 {nbsp}  <groupId>com.danhaywood.mavenmixin</groupId> +
 {nbsp}  <artifactId>enforcerrelaxed</artifactId> +
-</mixin>
-
-|https://github.com/danhaywood/java-mavenmixin-isisjrebel[isis jrebel]
-|0.0.2
-|Ability to run an Apache Isis application under JRebel.
-|<mixin> +
-{nbsp}  <groupId>com.danhaywood.mavenmixin</groupId> +
-{nbsp}  <artifactId>isisjrebel</artifactId> +
-</mixin>
-
-|https://github.com/danhaywood/java-mavenmixin-isisswagger[isis swagger]
-|0.0.3
-|Maven mixin providing the ability to run isis:swagger goal for an Apache Isis domain application
-|<mixin> +
-{nbsp}  <groupId>com.danhaywood.mavenmixin</groupId> +
-{nbsp}  <artifactId>isisswagger</artifactId> +
-</mixin>
-
-|https://github.com/danhaywood/java-mavenmixin-isisvalidate[isis validate]
-|0.0.2
-|Configures the Apache Isis maven plugin to run the validate goal for a domain object model. 
-|<mixin> +
-{nbsp}  <groupId>com.danhaywood.mavenmixin</groupId> +
-{nbsp}  <artifactId>isisvalidate</artifactId> +
 </mixin>
 
 |https://github.com/danhaywood/java-mavenmixin-jettyconsole[jetty console]

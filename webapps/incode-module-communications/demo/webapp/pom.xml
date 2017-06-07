@@ -112,9 +112,9 @@
                             <version>${mavenmixin-enforcerrelaxed.version}</version>
                         </mixin>
                         <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>isisswagger</artifactId>
-                            <version>${mavenmixin-isisswagger.version}</version>
+                            <groupId>org.incode.mavenmixin</groupId>
+                            <artifactId>incode-mavenmixin-swagger</artifactId>
+                            <version>${isis.version}</version>
                         </mixin>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>

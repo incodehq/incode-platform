@@ -70,8 +70,8 @@ Copyright 2017 Dan Haywood
                             <artifactId>enforcerrelaxed</artifactId>
                         </mixin>
                         <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>isisvalidate</artifactId>
+                            <groupId>org.incode.mavenmixin</groupId>
+                            <artifactId>incode-mavenmixin-validate</artifactId>
                         </mixin>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>

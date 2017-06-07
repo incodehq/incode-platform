@@ -59,9 +59,6 @@
     <properties>
         <isis.version>1.15.0-SNAPSHOT</isis.version>
 
-        <mavenmixin-isisswagger.version>0.0.3</mavenmixin-isisswagger.version>
-        <mavenmixin-isisvalidate.version>0.0.2</mavenmixin-isisvalidate.version>
-
         <isis-maven-plugin.version>${isis.version}</isis-maven-plugin.version>
 
         <activemq.version>5.11.1</activemq.version>
@@ -113,7 +110,7 @@
     <build>
         <pluginManagement>
             <plugins>
-                <!-- mavenmixin-isisvalidate & mavenmixin-isisswagger -->
+                <!-- incode-mavenmixin-validate & incode-mavenmixin-swagger -->
                 <plugin>
                     <groupId>org.apache.isis.tool</groupId>
                     <artifactId>isis-maven-plugin</artifactId>
@@ -147,15 +144,15 @@
 
             <!-- maven mixins -->
             <dependency>
-                <groupId>com.danhaywood.mavenmixin</groupId>
-                <artifactId>isisswagger</artifactId>
-                <version>${mavenmixin-isisswagger.version}</version>
+                <groupId>org.incode.mavenmixin</groupId>
+                <artifactId>incode-mavenmixin-swagger</artifactId>
+                <version>${isis.version}</version>
                 <type>pom</type>
             </dependency>
             <dependency>
-                <groupId>com.danhaywood.mavenmixin</groupId>
-                <artifactId>isisvalidate</artifactId>
-                <version>${mavenmixin-isisvalidate.version}</version>
+                <groupId>org.incode.mavenmixin</groupId>
+                <artifactId>incode-mavenmixin-validate</artifactId>
+                <version>${isis.version}</version>
                 <type>pom</type>
             </dependency>
 

@@ -101,8 +101,8 @@
                             <artifactId>enforcerrelaxed</artifactId>
                         </mixin>
                         <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>isisswagger</artifactId>
+                            <groupId>org.incode.mavenmixin</groupId>
+                            <artifactId>incode-mavenmixin-swagger</artifactId>
                         </mixin>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
