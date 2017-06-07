@@ -29,7 +29,7 @@ Copyright 2016 Dan Haywood
 
     <packaging>jar</packaging>
 
-    <name>Incode Module Classification DOM</name>
+    <name>Incode Platform Module Classification DOM</name>
     <description>
         A module providing event.
     </description>
