@@ -29,9 +29,6 @@ Copyright 2016 Dan Haywood
 	<build>
         <resources>
             <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-            <resource>
                 <directory>src/main/java</directory>
                 <includes>
                     <include>**</include>

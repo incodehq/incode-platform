@@ -20,147 +20,37 @@ language governing permissions and limitations under the License.
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>1.14.0</version>
-        <relativePath/>
+        <version>1.15.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <groupId>org.incode.module.communications</groupId>
     <artifactId>incode-module-communications</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.15.0-SNAPSHOT</version>
 
-    <name>Incode Module Communications Demo Parent</name>
+    <name>Incode Platform Module Communications Demo</name>
 
     <packaging>pom</packaging>
-
-    <prerequisites>
-        <maven>3.0.4</maven>
-    </prerequisites>
-
-    <properties>
-        <incode-module-communications.version>1.15.0-SNAPSHOT</incode-module-communications.version>
-
-        <isis-module-fakedata.version>1.14.0</isis-module-fakedata.version>
-        <incode-module-docrendering-freemarker.version>1.14.0</incode-module-docrendering-freemarker.version>
-
-        <assertj-core.version>3.6.1</assertj-core.version>
-        <danhaywood-java-assertjext.version>0.1.0</danhaywood-java-assertjext.version>
-
-        <lombok.version>1.16.12</lombok.version>
-
-        <mavendeps-isistesting.version>1.14.0</mavendeps-isistesting.version>
-        <mavendeps-isisintellij.version>1.14.0</mavendeps-isisintellij.version>
-        <mavendeps-isiswebapp.version>1.14.0</mavendeps-isiswebapp.version>
-
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    </properties>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>com.github.odavid.maven.plugins</groupId>
-                <artifactId>mixin-maven-plugin</artifactId>
-                <version>0.1-alpha-39</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <mixins>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>standard</artifactId>
-                        </mixin>
-                    </mixins>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
     <dependencyManagement>
         <dependencies>
 
             <dependency>
-                <groupId>org.apache.isis.core</groupId>
-                <artifactId>isis</artifactId>
-                <version>${isis.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- this project's own modules -->
-            <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-module-communications-dom</artifactId>
-                <version>${incode-module-communications.version}</version>
+                <artifactId>incode-module-communications-demo-app</artifactId>
+                <version>1.15.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-module-communications-dom</artifactId>
-                <version>${incode-module-communications.version}</version>
-                <type>test-jar</type>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-module-communications-demo-dom</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-module-communications-demo-dom</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-                <type>test-jar</type>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-module-communications-demo-application</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-module-communications-demo-webapp</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.isisaddons.module.fakedata</groupId>
-                <artifactId>isis-module-fakedata-dom</artifactId>
-                <version>${isis-module-fakedata.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.module.docrendering</groupId>
-                <artifactId>incode-module-docrendering-freemarker-dom</artifactId>
-                <version>${incode-module-docrendering-freemarker.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.module.docrendering</groupId>
-                <artifactId>incode-module-docrendering-freemarker-dom</artifactId>
-                <version>${incode-module-docrendering-freemarker.version}</version>
-                <scope>test</scope>
-                <type>test-jar</type>
-            </dependency>
-
-
-            <!-- lombok -->
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
-                <scope>provided</scope>
+                <artifactId>incode-module-communications-demo-fixture</artifactId>
+                <version>1.15.0-SNAPSHOT</version>
             </dependency>
 
         </dependencies>
     </dependencyManagement>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
-
   <modules>
-    <module>module-incode-communications</module>
-    <module>demo/module-dom</module>
-    <module>demo/application</module>
-    <module>demo/webapp</module>
+    <module>app</module>
+    <module>fixture</module>
   </modules>
 </project>

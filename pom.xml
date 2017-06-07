@@ -45,6 +45,30 @@
             </modules>
         </profile>
         <profile>
+            <id>module-commchannel</id>
+            <activation>
+                <property>
+                    <name>module-commchannel</name>
+                </property>
+            </activation>
+            <modules>
+                <module>modules</module>
+                <module>modules/module-commchannel/demo</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>module-communications</id>
+            <activation>
+                <property>
+                    <name>module-communications</name>
+                </property>
+            </activation>
+            <modules>
+                <module>modules</module>
+                <module>modules/module-communications/demo</module>
+            </modules>
+        </profile>
+        <profile>
             <id>default-modules</id>
             <activation>
                 <property>
@@ -55,9 +79,9 @@
                 <module>modules</module>
                 <module>modules/module-alias/demo</module>
                 <module>modules/module-classification/demo</module>
-                <!--
                 <module>modules/module-commchannel/demo</module>
                 <module>modules/module-communications/demo</module>
+                <!--
                 <module>modules/module-docfragment/demo</module>
                 <module>modules/module-document/demo</module>
                 <module>modules/module-note/demo</module>

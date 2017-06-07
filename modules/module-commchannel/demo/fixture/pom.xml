@@ -20,17 +20,14 @@ Copyright 2014~2015 Dan Haywood
     <parent>
         <groupId>org.incode.module.commchannel</groupId>
         <artifactId>incode-module-commchannel</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.15.0-SNAPSHOT</version>
     </parent>
 
 	<artifactId>incode-module-commchannel-fixture</artifactId>
-    <name>Incode Module CommChannel Fixtures</name>
+    <name>Incode Platform Module CommChannel Demo Fixtures</name>
 
 	<build>
         <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
             <resource>
                 <directory>src/main/java</directory>
                 <includes>
@@ -41,6 +38,26 @@ Copyright 2014~2015 Dan Haywood
                 </excludes>
             </resource>
         </resources>
+        <plugins>
+            <plugin>
+                <groupId>com.github.odavid.maven.plugins</groupId>
+                <artifactId>mixin-maven-plugin</artifactId>
+                <version>0.1-alpha-39</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <mixins>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>datanucleusenhance</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>standard</artifactId>
+                        </mixin>
+                    </mixins>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
     <dependencies>
@@ -52,7 +69,11 @@ Copyright 2014~2015 Dan Haywood
         <dependency>
             <groupId>org.incode.module.commchannel</groupId>
             <artifactId>incode-module-commchannel-dom</artifactId>
-            <version>1.15.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-core</artifactId>
         </dependency>
 
         <dependency>
@@ -61,89 +82,6 @@ Copyright 2014~2015 Dan Haywood
             <scope>test</scope>
         </dependency>
 
-        <!-- Bytecode libraries (for mocking) -->
-        <dependency>
-            <groupId>org.objenesis</groupId>
-            <artifactId>objenesis</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>enhance</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <datanucleus-maven-plugin.version>4.0.1</datanucleus-maven-plugin.version>
-            </properties>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-                            <groupId>org.eclipse.m2e</groupId>
-                            <artifactId>lifecycle-mapping</artifactId>
-                            <version>1.0.0</version>
-                            <configuration>
-                                <lifecycleMappingMetadata>
-                                    <pluginExecutions>
-                                        <pluginExecution>
-                                            <pluginExecutionFilter>
-                                                <groupId>org.datanucleus</groupId>
-                                                <artifactId>datanucleus-maven-plugin</artifactId>
-                                                <versionRange>[${datanucleus-maven-plugin.version},)</versionRange>
-                                                <goals>
-                                                    <goal>enhance</goal>
-                                                </goals>
-                                            </pluginExecutionFilter>
-                                            <action>
-                                                <ignore></ignore>
-                                            </action>
-                                        </pluginExecution>
-                                    </pluginExecutions>
-                                </lifecycleMappingMetadata>
-                            </configuration>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-                <plugins>
-                    <plugin>
-                        <groupId>org.datanucleus</groupId>
-                        <artifactId>datanucleus-maven-plugin</artifactId>
-                        <version>${datanucleus-maven-plugin.version}</version>
-                        <configuration>
-                            <fork>false</fork>
-                            <log4jConfiguration>${basedir}/log4j.properties</log4jConfiguration>
-                            <verbose>true</verbose>
-                            <props>${basedir}/datanucleus.properties</props>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <phase>process-classes</phase>
-                                <goals>
-                                    <goal>enhance</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-            <dependencies>
-                <dependency>
-                    <groupId>org.datanucleus</groupId>
-                    <artifactId>datanucleus-core</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>org.datanucleus</groupId>
-                    <artifactId>datanucleus-jodatime</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>org.datanucleus</groupId>
-                    <artifactId>datanucleus-api-jdo</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
 </project>

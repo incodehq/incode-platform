@@ -1106,6 +1106,28 @@
                 <module>module-classification/module</module>
             </modules>
         </profile>
+        <profile>
+            <id>module-commchannel</id>
+            <activation>
+                <property>
+                    <name>module-commchannel</name>
+                </property>
+            </activation>
+            <modules>
+                <module>module-commchannel/module</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>module-communications</id>
+            <activation>
+                <property>
+                    <name>module-communications</name>
+                </property>
+            </activation>
+            <modules>
+                <module>module-communications/module</module>
+            </modules>
+        </profile>
 
         <profile>
             <id>default-modules</id>
