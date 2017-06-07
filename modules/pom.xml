@@ -6,7 +6,8 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-build</artifactId>
-        <version>1</version>
+        <version>2</version>
+        <relativePath/>
     </parent>
 
     <artifactId>incode-parent</artifactId>
@@ -1085,58 +1086,127 @@
                 </repository>
             </repositories>
         </profile>
+
+        <profile>
+            <id>testing</id>
+            <activation>
+                <property>
+                    <name>testing</name>
+                </property>
+            </activation>
+
+            <modules>
+                <!--
+                <module>extension-flywaydb/extension</module>
+                <module>extension-quartz/extension</module>
+                <module>extension-togglz/extension</module>
+
+                <module>lib-base/lib</module>
+                <module>lib-docrendering-freemarker/lib</module>
+                <module>lib-docrendering-stringinterpolator/lib</module>
+                <module>lib-docrendering-xdocreport/lib</module>
+                <module>lib-docx/lib</module>
+                <module>lib-excel/lib</module>
+                <module>lib-fakedata/lib</module>
+                <module>lib-fixturesupport/lib</module>
+                <module>lib-freemarker/lib</module>
+                <module>lib-integtestsupport/lib</module>
+                <module>lib-pdfbox/lib</module>
+                <module>lib-poly/lib</module>
+                <module>lib-servletapi/lib</module>
+                <module>lib-stringinterpolator/lib</module>
+                <module>lib-unittestsupport/lib</module>
+                <module>lib-xdocreport/lib</module>
+
+                <module>metamodel-paraname8/metamodel</module>
+                -->
+
+                <module>module-alias/module</module>
+                <!--
+                <module>module-classification/module</module>
+                <module>module-commchannel/module</module>
+                <module>module-communications/module</module>
+                <module>module-country/module</module>
+                <module>module-docfragment/module</module>
+                <module>module-document/module</module>
+                <module>module-note/module</module>
+                <module>module-settings/module</module>
+                <module>module-tags/module</module>
+
+                <module>spi-audit/spi</module>
+                <module>spi-command/spi</module>
+                <module>spi-publishmq/spi</module>
+                <module>spi-security/spi</module>
+                <module>spi-sessionlogger/spi</module>
+
+                <module>wicket-excel/wicket</module>
+                <module>wicket-fullcalendar2/wicket</module>
+                <module>wicket-gmap3/wicket</module>
+                <module>wicket-pdfjs/wicket</module>
+                <module>wicket-summernote/wicket</module>
+                <module>wicket-wickedcharts/wicket</module>
+                -->
+            </modules>
+        </profile>
+        <profile>
+            <id>default-modules</id>
+            <activation>
+                <property>
+                    <name>!testing</name>
+                </property>
+            </activation>
+            <modules>
+
+                <module>extension-flywaydb/extension</module>
+                <module>extension-quartz/extension</module>
+                <module>extension-togglz/extension</module>
+
+                <module>lib-base/lib</module>
+                <module>lib-docrendering-freemarker/lib</module>
+                <module>lib-docrendering-stringinterpolator/lib</module>
+                <module>lib-docrendering-xdocreport/lib</module>
+                <module>lib-docx/lib</module>
+                <module>lib-excel/lib</module>
+                <module>lib-fakedata/lib</module>
+                <module>lib-fixturesupport/lib</module>
+                <module>lib-freemarker/lib</module>
+                <module>lib-integtestsupport/lib</module>
+                <module>lib-pdfbox/lib</module>
+                <module>lib-poly/lib</module>
+                <module>lib-servletapi/lib</module>
+                <module>lib-stringinterpolator/lib</module>
+                <module>lib-unittestsupport/lib</module>
+                <module>lib-xdocreport/lib</module>
+
+                <module>metamodel-paraname8/metamodel</module>
+
+                <module>module-alias/module</module>
+                <module>module-classification/module</module>
+                <module>module-commchannel/module</module>
+                <module>module-communications/module</module>
+                <module>module-country/module</module>
+                <module>module-docfragment/module</module>
+                <module>module-document/module</module>
+                <module>module-note/module</module>
+                <module>module-settings/module</module>
+                <module>module-tags/module</module>
+
+                <module>spi-audit/spi</module>
+                <module>spi-command/spi</module>
+                <module>spi-publishmq/spi</module>
+                <module>spi-security/spi</module>
+                <module>spi-sessionlogger/spi</module>
+
+                <module>wicket-excel/wicket</module>
+                <module>wicket-fullcalendar2/wicket</module>
+                <module>wicket-gmap3/wicket</module>
+                <module>wicket-pdfjs/wicket</module>
+                <module>wicket-summernote/wicket</module>
+                <module>wicket-wickedcharts/wicket</module>
+            </modules>
+
+        </profile>
     </profiles>
 
-
-    <modules>
-
-        <module>extension-flywaydb/extension</module>
-        <module>extension-quartz/extension</module>
-        <module>extension-togglz/extension</module>
-
-        <module>lib-base/lib</module>
-        <module>lib-docrendering-freemarker/lib</module>
-        <module>lib-docrendering-stringinterpolator/lib</module>
-        <module>lib-docrendering-xdocreport/lib</module>
-        <module>lib-docx/lib</module>
-        <module>lib-excel/lib</module>
-        <module>lib-fakedata/lib</module>
-        <module>lib-fixturesupport/lib</module>
-        <module>lib-freemarker/lib</module>
-        <module>lib-integtestsupport/lib</module>
-        <module>lib-pdfbox/lib</module>
-        <module>lib-poly/lib</module>
-        <module>lib-servletapi/lib</module>
-        <module>lib-stringinterpolator/lib</module>
-        <module>lib-unittestsupport/lib</module>
-        <module>lib-xdocreport/lib</module>
-
-        <module>metamodel-paraname8/metamodel</module>
-
-        <module>module-alias/module</module>
-        <module>module-classification/module</module>
-        <module>module-commchannel/module</module>
-        <module>module-communications/module</module>
-        <module>module-country/module</module>
-        <module>module-docfragment/module</module>
-        <module>module-document/module</module>
-        <module>module-note/module</module>
-        <module>module-settings/module</module>
-        <module>module-tags/module</module>
-
-        <module>spi-audit/spi</module>
-        <module>spi-command/spi</module>
-        <module>spi-publishmq/spi</module>
-        <module>spi-security/spi</module>
-        <module>spi-sessionlogger/spi</module>
-
-        <module>wicket-excel/wicket</module>
-        <module>wicket-fullcalendar2/wicket</module>
-        <module>wicket-gmap3/wicket</module>
-        <module>wicket-pdfjs/wicket</module>
-        <module>wicket-summernote/wicket</module>
-        <module>wicket-wickedcharts/wicket</module>
-
-    </modules>
 
 </project>
