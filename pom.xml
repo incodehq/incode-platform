@@ -93,6 +93,18 @@
             </modules>
         </profile>
         <profile>
+            <id>module-note</id>
+            <activation>
+                <property>
+                    <name>module-note</name>
+                </property>
+            </activation>
+            <modules>
+                <module>modules</module>
+                <module>modules/module-note/demo</module>
+            </modules>
+        </profile>
+        <profile>
             <id>default-modules</id>
             <activation>
                 <property>
@@ -107,8 +119,8 @@
                 <module>modules/module-communications/demo</module>
                 <module>modules/module-docfragment/demo</module>
                 <module>modules/module-document/demo</module>
-                <!--
                 <module>modules/module-note/demo</module>
+                <!--
                 <module>modules/module-settings/demo</module>
                 <module>modules/module-tags/demo</module>
                 <module>modules/spi-audit/demo</module>

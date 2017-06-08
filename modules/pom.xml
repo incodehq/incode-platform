@@ -1150,6 +1150,17 @@
                 <module>module-document/module</module>
             </modules>
         </profile>
+        <profile>
+            <id>module-note</id>
+            <activation>
+                <property>
+                    <name>module-note</name>
+                </property>
+            </activation>
+            <modules>
+                <module>module-note/module</module>
+            </modules>
+        </profile>
 
         <profile>
             <id>default-modules</id>
