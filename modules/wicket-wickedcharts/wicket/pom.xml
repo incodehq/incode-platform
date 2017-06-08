@@ -29,7 +29,7 @@ language governing permissions and limitations under the License.
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons WickedCharts Wicket Cpt Component</name>
+    <name>Incode Platform Wicket WickedCharts Wicket</name>
     <description>
         A number of components for Apache Isis' Wicket viewer, to render a standalone
         chart or a bar chart for a collection of entities.

@@ -1347,6 +1347,17 @@
                 <module>wicket-summernote/wicket</module>
             </modules>
         </profile>
+        <profile>
+            <id>wicket-wickedcharts</id>
+            <activation>
+                <property>
+                    <name>wicket-wickedcharts</name>
+                </property>
+            </activation>
+            <modules>
+                <module>wicket-wickedcharts/wicket</module>
+            </modules>
+        </profile>
 
         <profile>
             <id>default-modules</id>
