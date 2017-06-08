@@ -1139,6 +1139,17 @@
                 <module>module-docfragment/module</module>
             </modules>
         </profile>
+        <profile>
+            <id>module-document</id>
+            <activation>
+                <property>
+                    <name>module-document</name>
+                </property>
+            </activation>
+            <modules>
+                <module>module-document/module</module>
+            </modules>
+        </profile>
 
         <profile>
             <id>default-modules</id>
