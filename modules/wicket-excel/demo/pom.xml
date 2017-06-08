@@ -27,7 +27,7 @@ language governing permissions and limitations under the License.
 
     <groupId>org.isisaddons.wicket.excel</groupId>
     <artifactId>isis-wicket-excel</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.15.0-SNAPSHOT</version>
 
     <name>Isis Addons Excel Wicket Cpt</name>
 
@@ -325,7 +325,7 @@ language governing permissions and limitations under the License.
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-wicket-excel-app</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.15.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
@@ -335,12 +335,12 @@ language governing permissions and limitations under the License.
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-wicket-excel-fixture</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.15.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-wicket-excel-webapp</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.15.0-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

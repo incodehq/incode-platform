@@ -20,13 +20,12 @@ Copyright 2015 Dan Haywood
     <parent>
         <groupId>org.isisaddons.module.publishmq</groupId>
         <artifactId>isis-module-publishmq-fixture</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.15.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>isis-module-publishmq-fixture-routing</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
 
-    <name>Isis Addons PublishMQ Module Fixture Routing</name>
+    <name>Incode Platform SPI PublishMQ Demo Fixtures (Routing)</name>
     <description>
         Contains routing and supporting beans for Camel
     </description>
@@ -44,10 +43,6 @@ Copyright 2015 Dan Haywood
                     <mixins>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>enforcerrelaxed</artifactId>
-                        </mixin>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>standard</artifactId>
                         </mixin>
                         <mixin>
@@ -59,8 +54,6 @@ Copyright 2015 Dan Haywood
             </plugin>
         </plugins>
     </build>
-
-
 
     <dependencies>
 
@@ -232,7 +225,5 @@ Copyright 2015 Dan Haywood
             </dependencies>
         </profile>
     </profiles>
-
-
 
 </project>

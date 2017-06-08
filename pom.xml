@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>incode-platform-demo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.15.0-SNAPSHOT</version>
 
     <packaging>pom</packaging>
     
@@ -153,6 +153,18 @@
             </modules>
         </profile>
         <profile>
+            <id>spi-publishmq</id>
+            <activation>
+                <property>
+                    <name>spi-publishmq</name>
+                </property>
+            </activation>
+            <modules>
+                <module>modules</module>
+                <module>modules/spi-publishmq/demo</module>
+            </modules>
+        </profile>
+        <profile>
             <id>default-modules</id>
             <activation>
                 <property>
@@ -172,8 +184,8 @@
                 <module>modules/module-tags/demo</module>
                 <module>modules/spi-audit/demo</module>
                 <module>modules/spi-command/demo</module>
-                <!--
                 <module>modules/spi-publishmq/demo</module>
+                <!--
                 <module>modules/spi-security/demo</module>
                 <module>modules/spi-sessionlogger/demo</module>
                 <module>modules/wicket-excel/demo</module>

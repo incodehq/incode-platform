@@ -30,63 +30,19 @@
 
     <packaging>pom</packaging>
 
-    <name>Isis Addons PublishMQ Module DOM</name>
+    <name>Incode Platform SPI PublishMQ SPI (parent)</name>
     <description>
         Parent module for the various submodules that make up the publishmq service.
     </description>
 
-    <url>https://github.com/isisaddons/isis-module-publishmq</url>
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-    <scm>
-        <connection>scm:git:git@github.com:isisaddons/isis-module-publishmq.git</connection>
-        <developerConnection>scm:git:git@github.com:isisaddons/isis-module-publishmq.git</developerConnection>
-        <url>git@github.com:isisaddons/isis-module-publishmq.git</url>
-    </scm>
-    <developers>
-        <developer>
-            <id>danhaywood</id>
-            <name>Dan Haywood</name>
-            <email>dan@haywood-associates.co.uk</email>
-        </developer>
-    </developers>
-
-
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.isisaddons.module.publishmq</groupId>
-                <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
-                <version>1.15.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.publishmq</groupId>
-                <artifactId>isis-module-publishmq-dom-jdo</artifactId>
-                <version>1.15.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.publishmq</groupId>
-                <artifactId>isis-module-publishmq-dom-camel</artifactId>
-                <version>1.15.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.publishmq</groupId>
-                <artifactId>isis-module-publishmq-dom-statusclient</artifactId>
-                <version>1.15.0-SNAPSHOT</version>
-            </dependency>
-
             <dependency>
                 <groupId>org.apache.activemq</groupId>
                 <artifactId>activemq-all</artifactId>
                 <version>${activemq.version}</version>
             </dependency>
         </dependencies>
-
     </dependencyManagement>
 
     <modules>

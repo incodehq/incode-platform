@@ -22,12 +22,12 @@
     <parent>
         <groupId>org.isisaddons.module.publishmq</groupId>
         <artifactId>isis-module-publishmq</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.15.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>isis-module-publishmq-externalsystemadapter</artifactId>
-    <name>Isis Addons PublishMQ Module Soap</name>
-    
+    <name>Incode Platform SPI PublishMQ Demo ExtSysAdapter</name>
+
     <packaging>pom</packaging>
 
     <properties>
@@ -44,17 +44,39 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-publishmq-externalsystemadapter-wsdl</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.15.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-publishmq-externalsystemadapter-wsdlgen</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.15.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-publishmq-externalsystemadapter-fakeserver</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.15.0-SNAPSHOT</version>
+            </dependency>
+
+            <!-- cxf -->
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-frontend-jaxws</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http-jetty</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf.xjc-utils</groupId>
+                <artifactId>cxf-xjc-runtime</artifactId>
+                <version>${cxf.xjc-utils.version}</version>
             </dependency>
 
         </dependencies>
@@ -65,37 +87,4 @@
         <module>wsdlgen</module>
         <module>fakeserver</module>
     </modules>
-
-    <profiles>
-        <profile>
-            <id>cxf</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.cxf</groupId>
-                        <artifactId>cxf-rt-frontend-jaxws</artifactId>
-                        <version>${cxf.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.cxf</groupId>
-                        <artifactId>cxf-rt-transports-http</artifactId>
-                        <version>${cxf.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.cxf</groupId>
-                        <artifactId>cxf-rt-transports-http-jetty</artifactId>
-                        <version>${cxf.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.cxf.xjc-utils</groupId>
-                        <artifactId>cxf-xjc-runtime</artifactId>
-                        <version>${cxf.xjc-utils.version}</version>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-    </profiles>
 </project>

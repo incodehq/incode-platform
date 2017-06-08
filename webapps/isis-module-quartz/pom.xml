@@ -26,7 +26,7 @@ language governing permissions and limitations under the License.
 
     <groupId>org.isisaddons.module.quartz</groupId>
     <artifactId>isis-module-quartz</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.15.0-SNAPSHOT</version>
 
     <name>Isis Addons quartz Module</name>
 
@@ -218,17 +218,17 @@ language governing permissions and limitations under the License.
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-quartz-app</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.15.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-quartz-fixture</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.15.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-quartz-webapp</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.15.0-SNAPSHOT</version>
             </dependency>
 			-->
         </dependencies>

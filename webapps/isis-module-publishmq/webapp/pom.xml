@@ -20,7 +20,7 @@
     <parent>
         <groupId>org.isisaddons.module.publishmq</groupId>
         <artifactId>isis-module-publishmq</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.15.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>isis-module-publishmq-webapp</artifactId>
@@ -285,7 +285,7 @@
                 <dependency>
                     <groupId>org.isisaddons.module.publishmq</groupId>
                     <artifactId>isis-module-publishmq-externalsystemadapter-fakeserver</artifactId>
-                    <version>0.0.1-SNAPSHOT</version>
+                    <version>1.15.0-SNAPSHOT</version>
                     <exclusions>
                         <exclusion>
                             <groupId>org.apache.cxf</groupId>
@@ -464,7 +464,7 @@
                             <tomeeClassifier>plus</tomeeClassifier>
 
                             <webapps>
-                                <webapp>org.isisaddons.module.publishmq:isis-module-publishmq-webapp:0.0.1-SNAPSHOT?name=ROOT</webapp>
+                                <webapp>org.isisaddons.module.publishmq:isis-module-publishmq-webapp:1.15.0-SNAPSHOT?name=ROOT</webapp>
                             </webapps>
                         </configuration>
                     </plugin>

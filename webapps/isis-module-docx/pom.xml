@@ -28,7 +28,7 @@
 
     <groupId>org.isisaddons.module.docx</groupId>
     <artifactId>isis-module-docx</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.15.0-SNAPSHOT</version>
 
     <name>Isis Addons Docx Module</name>
 
@@ -330,18 +330,18 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-docx-fixture</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.15.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-docx-fixture</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.15.0-SNAPSHOT</version>
                 <type>test-jar</type>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-docx-webapp</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.15.0-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

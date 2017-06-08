@@ -26,7 +26,7 @@ Copyright 2015 Dan Haywood
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons PublishMQ Module DOM Service SPI</name>
+    <name>Incode Platform SPI PublishMQ SPI Service SPI</name>
     <description>
         A module providing publishmq service SPI implementation
     </description>

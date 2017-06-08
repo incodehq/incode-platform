@@ -22,11 +22,11 @@
     <parent>
         <groupId>org.isisaddons.module.publishmq</groupId>
         <artifactId>isis-module-publishmq-externalsystemadapter</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.15.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>isis-module-publishmq-externalsystemadapter-wsdl</artifactId>
-    <name>Isis Addons PublishMQ Module Soap WSDL</name>
+    <name>Incode Platform SPI PublishMQ Demo ExtSysAdapter WSDL</name>
 
     <build>
         <plugins>
@@ -37,10 +37,6 @@
                 <extensions>true</extensions>
                 <configuration>
                     <mixins>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>enforcerrelaxed</artifactId>
-                        </mixin>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>standard</artifactId>

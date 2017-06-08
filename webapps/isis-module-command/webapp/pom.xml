@@ -20,7 +20,7 @@ language governing permissions and limitations under the License.
     <parent>
         <groupId>org.isisaddons.module.command</groupId>
         <artifactId>isis-module-command</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.15.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>isis-module-command-webapp</artifactId>

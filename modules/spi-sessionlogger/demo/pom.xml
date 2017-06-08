@@ -27,7 +27,7 @@
 
     <groupId>org.isisaddons.module.sessionlogger</groupId>
     <artifactId>isis-module-sessionlogger</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.15.0-SNAPSHOT</version>
 
     <name>Isis Addons SessionLogger Module</name>
 
@@ -217,17 +217,17 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-sessionlogger-app</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.15.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-sessionlogger-fixture</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.15.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-sessionlogger-webapp</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.15.0-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -20,17 +20,14 @@ Copyright 2015 Dan Haywood
     <parent>
         <groupId>org.isisaddons.module.publishmq</groupId>
         <artifactId>isis-module-publishmq-fixture</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.15.0-SNAPSHOT</version>
     </parent>
 
 	<artifactId>isis-module-publishmq-fixture-dom</artifactId>
-    <name>Isis Addons PublishMQ Module Fixture DOM</name>
+    <name>Incode Platform SPI PublishMQ Demo Fixtures (DOM)</name>
 
 	<build>
         <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
             <resource>
                 <directory>src/main/java</directory>
                 <includes>
@@ -51,15 +48,11 @@ Copyright 2015 Dan Haywood
                     <mixins>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>enforcerrelaxed</artifactId>
+                            <artifactId>datanucleusenhance</artifactId>
                         </mixin>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>standard</artifactId>
-                        </mixin>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>datanucleusenhance</artifactId>
                         </mixin>
                     </mixins>
                 </configuration>
@@ -67,8 +60,8 @@ Copyright 2015 Dan Haywood
         </plugins>
     </build>
 
-
     <dependencies>
+
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-applib</artifactId>
@@ -84,18 +77,6 @@ Copyright 2015 Dan Haywood
             <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-unittestsupport</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Bytecode libraries (for mocking) -->
-        <dependency>
-            <groupId>org.objenesis</groupId>
-            <artifactId>objenesis</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
 </project>

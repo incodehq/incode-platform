@@ -27,7 +27,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons PublishMQ Module DOM JDO Persistence</name>
+    <name>Incode Platform SPI PublishMQ SPI JDO Persistence</name>
     <description>
         A module providing the persistence of published events.
     </description>

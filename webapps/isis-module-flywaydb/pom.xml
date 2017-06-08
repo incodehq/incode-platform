@@ -28,7 +28,7 @@
 
     <groupId>org.isisaddons.module.flywaydb</groupId>
     <artifactId>isis-module-flywaydb</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.15.0-SNAPSHOT</version>
 
     <name>Isis Addons FlywayDB App Parent</name>
 
@@ -87,17 +87,17 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-flywaydb-module-fixturedom</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.15.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-flywaydb-application</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.15.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-flywaydb-webapp</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.15.0-SNAPSHOT</version>
             </dependency>
 
             <!-- lombok -->

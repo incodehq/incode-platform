@@ -20,7 +20,7 @@
     <parent>
         <groupId>org.isisaddons.module.security</groupId>
         <artifactId>isis-module-security</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.15.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>isis-module-security-integtests</artifactId>

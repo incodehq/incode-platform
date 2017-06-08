@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.isisaddons.module.sessionlogger</groupId>
         <artifactId>isis-module-sessionlogger</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.15.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>isis-module-sessionlogger-app</artifactId>

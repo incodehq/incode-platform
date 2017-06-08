@@ -505,6 +505,60 @@
             </dependency>
 
             <dependency>
+                <groupId>org.isisaddons.module.publishmq</groupId>
+                <artifactId>isis-module-publishmq-dom</artifactId>
+                <version>1.15.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.publishmq</groupId>
+                <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
+                <version>1.15.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.publishmq</groupId>
+                <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
+                <version>1.15.0-SNAPSHOT</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.publishmq</groupId>
+                <artifactId>isis-module-publishmq-dom-jdo</artifactId>
+                <version>1.15.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.publishmq</groupId>
+                <artifactId>isis-module-publishmq-dom-jdo</artifactId>
+                <version>1.15.0-SNAPSHOT</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.publishmq</groupId>
+                <artifactId>isis-module-publishmq-dom-camel</artifactId>
+                <version>1.15.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.publishmq</groupId>
+                <artifactId>isis-module-publishmq-dom-camel</artifactId>
+                <version>1.15.0-SNAPSHOT</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.publishmq</groupId>
+                <artifactId>isis-module-publishmq-dom-statusclient</artifactId>
+                <version>1.15.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.publishmq</groupId>
+                <artifactId>isis-module-publishmq-dom-statusclient</artifactId>
+                <version>1.15.0-SNAPSHOT</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>org.isisaddons.module.quartz</groupId>
                 <artifactId>isis-module-quartz-dom</artifactId>
                 <version>1.15.0-SNAPSHOT</version>
@@ -1203,6 +1257,17 @@
             </activation>
             <modules>
                 <module>spi-command/spi</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>spi-publishmq</id>
+            <activation>
+                <property>
+                    <name>spi-publishmq</name>
+                </property>
+            </activation>
+            <modules>
+                <module>spi-publishmq/spi</module>
             </modules>
         </profile>
 
