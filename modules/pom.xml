@@ -1336,6 +1336,17 @@
                 <module>wicket-pdfjs/wicket</module>
             </modules>
         </profile>
+        <profile>
+            <id>wicket-summernote</id>
+            <activation>
+                <property>
+                    <name>wicket-summernote</name>
+                </property>
+            </activation>
+            <modules>
+                <module>wicket-summernote/wicket</module>
+            </modules>
+        </profile>
 
         <profile>
             <id>default-modules</id>

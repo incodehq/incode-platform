@@ -237,6 +237,18 @@
             </modules>
         </profile>
         <profile>
+            <id>wicket-summernote</id>
+            <activation>
+                <property>
+                    <name>wicket-summernote</name>
+                </property>
+            </activation>
+            <modules>
+                <module>modules</module>
+                <module>modules/wicket-summernote/demo</module>
+            </modules>
+        </profile>
+        <profile>
             <id>default-modules</id>
             <activation>
                 <property>
@@ -266,8 +278,8 @@
                 <module>modules/wicket-fullcalendar2/demo</module>
                 <module>modules/wicket-gmap3/demo</module>
                 <module>modules/wicket-pdfjs/demo</module>
-                <!--
                 <module>modules/wicket-summernote/demo</module>
+                <!--
                 <module>modules/wicket-wickedcharts/demo</module>
 
                 <module>modules/extension-flywaydb/demo</module>
