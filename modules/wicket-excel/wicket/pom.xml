@@ -29,7 +29,7 @@ language governing permissions and limitations under the License.
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons Excel Wicket Cpt Component</name>
+    <name>Incode Platform Wicket Excel Wicket Cpt</name>
     <description>
         A component for Apache Isis' Wicket viewer, allowing tables to be
         downloaded as Excel spreadsheets.

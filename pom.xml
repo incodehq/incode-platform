@@ -189,6 +189,18 @@
             </modules>
         </profile>
         <profile>
+            <id>wicket-excel</id>
+            <activation>
+                <property>
+                    <name>wicket-excel</name>
+                </property>
+            </activation>
+            <modules>
+                <module>modules</module>
+                <module>modules/wicket-excel/demo</module>
+            </modules>
+        </profile>
+        <profile>
             <id>default-modules</id>
             <activation>
                 <property>
@@ -211,8 +223,8 @@
                 <module>modules/spi-publishmq/demo</module>
                 <module>modules/spi-security/demo</module>
                 <module>modules/spi-sessionlogger/demo</module>
-                <!--
                 <module>modules/wicket-excel/demo</module>
+                <!--
                 <module>modules/wicket-fullcalendar2/demo</module>
                 <module>modules/wicket-gmap3/demo</module>
                 <module>modules/wicket-pdfjs/demo</module>

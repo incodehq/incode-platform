@@ -1292,6 +1292,17 @@
                 <module>spi-sessionlogger/spi</module>
             </modules>
         </profile>
+        <profile>
+            <id>wicket-excel</id>
+            <activation>
+                <property>
+                    <name>wicket-excel</name>
+                </property>
+            </activation>
+            <modules>
+                <module>wicket-excel/wicket</module>
+            </modules>
+        </profile>
 
         <profile>
             <id>default-modules</id>
