@@ -1183,6 +1183,17 @@
                 <module>module-tags/module</module>
             </modules>
         </profile>
+        <profile>
+            <id>spi-audit</id>
+            <activation>
+                <property>
+                    <name>spi-audit</name>
+                </property>
+            </activation>
+            <modules>
+                <module>spi-audit/spi</module>
+            </modules>
+        </profile>
 
         <profile>
             <id>default-modules</id>

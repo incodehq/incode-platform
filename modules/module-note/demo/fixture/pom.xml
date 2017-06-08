@@ -76,7 +76,6 @@ Copyright 2014~2017 Dan Haywood
             <artifactId>datanucleus-core</artifactId>
         </dependency>
 
-
     </dependencies>
 
 </project>

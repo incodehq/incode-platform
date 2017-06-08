@@ -30,7 +30,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons Audit Module DOM</name>
+    <name>Incode Platform SPI Audit SPI</name>
     <description>
         A module providing audit persistence, enabling profiling, background execution and
         extended auditing capabilities.
