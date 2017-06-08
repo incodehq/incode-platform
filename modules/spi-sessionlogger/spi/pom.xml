@@ -30,7 +30,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons SessionLogger Module DOM</name>
+    <name>Incode Platform SPI SessionLogger SPI</name>
     <description>
         A module to log when a user logs in or logs out, or when a user session timeout occurs.
     </description>

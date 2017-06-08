@@ -1281,6 +1281,17 @@
                 <module>spi-security/spi</module>
             </modules>
         </profile>
+        <profile>
+            <id>spi-sessionlogger</id>
+            <activation>
+                <property>
+                    <name>spi-sessionlogger</name>
+                </property>
+            </activation>
+            <modules>
+                <module>spi-sessionlogger/spi</module>
+            </modules>
+        </profile>
 
         <profile>
             <id>default-modules</id>
