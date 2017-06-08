@@ -29,7 +29,7 @@ language governing permissions and limitations under the License.
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons Settings Module DOM</name>
+    <name>Incode Platform Module Settings DOM</name>
     <description>
         A module providing settings persistence, enabling profiling, background execution and
         extended auditing capabilities.

@@ -1161,6 +1161,17 @@
                 <module>module-note/module</module>
             </modules>
         </profile>
+        <profile>
+            <id>module-settings</id>
+            <activation>
+                <property>
+                    <name>module-settings</name>
+                </property>
+            </activation>
+            <modules>
+                <module>module-settings/module</module>
+            </modules>
+        </profile>
 
         <profile>
             <id>default-modules</id>

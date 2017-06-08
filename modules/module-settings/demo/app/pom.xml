@@ -23,35 +23,35 @@
     <parent>
         <groupId>org.isisaddons.module.settings</groupId>
         <artifactId>isis-module-settings</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.15.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>isis-module-settings-app</artifactId>
-    <name>Isis Addons Settings Module App</name>
+    <name>Incode Platform Module Settings Demo App</name>
 
     <build>
-        <resources>
-            <resource>
-                <filtering>false</filtering>
-                <directory>src/main/resources</directory>
-            </resource>
-            <resource>
-                <filtering>false</filtering>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**</include>
-                </includes>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-        </resources>
+        <plugins>
+            <plugin>
+                <groupId>com.github.odavid.maven.plugins</groupId>
+                <artifactId>mixin-maven-plugin</artifactId>
+                <version>0.1-alpha-39</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <mixins>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>standard</artifactId>
+                        </mixin>
+                    </mixins>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
     <dependencies>
 
         <dependency>
-            <groupId>org.isisaddons.module.settings</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>isis-module-settings-fixture</artifactId>
         </dependency>
 
@@ -59,17 +59,6 @@
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-wrapper</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-runtime</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.isisaddons.module.settings</groupId>
-            <artifactId>isis-module-settings-dom</artifactId>
-        </dependency>
-
     </dependencies>
-
 
 </project>
