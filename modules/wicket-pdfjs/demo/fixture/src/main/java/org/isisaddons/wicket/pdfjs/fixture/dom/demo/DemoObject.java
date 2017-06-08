@@ -107,12 +107,14 @@ public class DemoObject implements Comparable<DemoObject> {
             hidden = Where.ALL_TABLES
     )
 
-    @Getter(onMethod = @__({
-            @PdfJsViewer(initialPageNum = 1, initialScale = Scale._1_00, initialHeight = 600)
-    }))
     @Setter
     private Blob blob;
 
+    //    @Getter(onMethod = @__({ }))  throwing a compile exception :-(
+    @PdfJsViewer(initialPageNum = 1, initialScale = Scale._1_00, initialHeight = 600)
+    public Blob getBlob() {
+        return blob;
+    }
     //region > toString, compareTo
 
     @Override

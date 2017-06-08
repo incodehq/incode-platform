@@ -83,7 +83,7 @@
         <jbcrypt.version>0.3m</jbcrypt.version>
         <jdom.version>2.0.2</jdom.version>
         <jdom2.version>2.0.5</jdom2.version>
-        <lombok.version>1.16.8</lombok.version>
+        <lombok.version>1.16.16</lombok.version>
         <objenesis.version>2.2</objenesis.version>
         <ognl.version>3.0.8</ognl.version>
         <quartz-scheduler.version>2.2.1</quartz-scheduler.version>
@@ -1323,6 +1323,17 @@
             </activation>
             <modules>
                 <module>wicket-gmap3/wicket</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>wicket-pdfjs</id>
+            <activation>
+                <property>
+                    <name>wicket-pdfjs</name>
+                </property>
+            </activation>
+            <modules>
+                <module>wicket-pdfjs/wicket</module>
             </modules>
         </profile>
 
