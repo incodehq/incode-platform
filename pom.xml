@@ -213,6 +213,18 @@
             </modules>
         </profile>
         <profile>
+            <id>wicket-gmap3</id>
+            <activation>
+                <property>
+                    <name>wicket-gmap3</name>
+                </property>
+            </activation>
+            <modules>
+                <module>modules</module>
+                <module>modules/wicket-gmap3/demo</module>
+            </modules>
+        </profile>
+        <profile>
             <id>default-modules</id>
             <activation>
                 <property>
@@ -221,6 +233,7 @@
             </activation>
             <modules>
                 <module>modules</module>
+
                 <module>modules/module-alias/demo</module>
                 <module>modules/module-classification/demo</module>
                 <module>modules/module-commchannel/demo</module>
@@ -230,18 +243,23 @@
                 <module>modules/module-note/demo</module>
                 <module>modules/module-settings/demo</module>
                 <module>modules/module-tags/demo</module>
+
                 <module>modules/spi-audit/demo</module>
                 <module>modules/spi-command/demo</module>
                 <module>modules/spi-publishmq/demo</module>
                 <module>modules/spi-security/demo</module>
                 <module>modules/spi-sessionlogger/demo</module>
+
                 <module>modules/wicket-excel/demo</module>
                 <module>modules/wicket-fullcalendar2/demo</module>
-                <!--
                 <module>modules/wicket-gmap3/demo</module>
+                <!--
                 <module>modules/wicket-pdfjs/demo</module>
                 <module>modules/wicket-summernote/demo</module>
                 <module>modules/wicket-wickedcharts/demo</module>
+
+                <module>modules/extension-flywaydb/demo</module>
+                <module>modules/extension-togglz/demo</module>
                 -->
             </modules>
         </profile>

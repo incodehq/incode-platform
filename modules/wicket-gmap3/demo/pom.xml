@@ -21,46 +21,20 @@ language governing permissions and limitations under the License.
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>1.14.0</version>
-        <relativePath/>
+        <version>1.15.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <groupId>org.isisaddons.wicket.gmap3</groupId>
     <artifactId>isis-wicket-gmap3</artifactId>
-    <version>1.15.0-SNAPSHOT</version>
 
-    <name>Isis Addons GMap3 Wicket Cpt</name>
+    <name>Incode Platform Wicket GMap3 Demo</name>
 
     <packaging>pom</packaging>
-
-    <prerequisites>
-        <maven>3.0.4</maven>
-    </prerequisites>
-
-    <properties>
-        <isis-wicket-gmap3.version>1.15.0-SNAPSHOT</isis-wicket-gmap3.version>
-
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    </properties>
 
     <dependencyManagement>
         <dependencies>
 
-            <dependency>
-                <groupId>org.apache.isis.core</groupId>
-                <artifactId>isis</artifactId>
-                <version>${isis.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- this project's own modules -->
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>isis-wicket-gmap3-cpt</artifactId>
-                <version>${isis-wicket-gmap3.version}</version>
-            </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>isis-wicket-gmap3-app</artifactId>
@@ -71,18 +45,20 @@ language governing permissions and limitations under the License.
                 <artifactId>isis-wicket-gmap3-fixture</artifactId>
                 <version>1.15.0-SNAPSHOT</version>
             </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>isis-wicket-gmap3-webapp</artifactId>
-                <version>1.15.0-SNAPSHOT</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
     <modules>
         <module>app</module>
-        <module>wicket-isis-gmap3</module>
         <module>fixture</module>
-        <module>webapp</module>
     </modules>
+
 </project>

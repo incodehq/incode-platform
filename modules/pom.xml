@@ -1314,6 +1314,17 @@
                 <module>wicket-fullcalendar2/wicket</module>
             </modules>
         </profile>
+        <profile>
+            <id>wicket-gmap3</id>
+            <activation>
+                <property>
+                    <name>wicket-gmap3</name>
+                </property>
+            </activation>
+            <modules>
+                <module>wicket-gmap3/wicket</module>
+            </modules>
+        </profile>
 
         <profile>
             <id>default-modules</id>

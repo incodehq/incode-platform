@@ -25,14 +25,12 @@ language governing permissions and limitations under the License.
     </parent>
 
     <artifactId>isis-wicket-gmap3-fixture</artifactId>
-    <name>Isis Addons Gmap3 Wicket Cpt Fixtures</name>
+    <name>Incode Platform Wicket GMap3 Demo Fixtures</name>
 
     <build>
         <resources>
             <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-            <resource>
+                <filtering>false</filtering>
                 <directory>src/main/java</directory>
                 <includes>
                     <include>**</include>
@@ -52,19 +50,11 @@ language governing permissions and limitations under the License.
                     <mixins>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>standard</artifactId>
-                        </mixin>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>enforcerrelaxed</artifactId>
-                        </mixin>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>datanucleusenhance</artifactId>
                         </mixin>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>surefire</artifactId>
+                            <artifactId>standard</artifactId>
                         </mixin>
                     </mixins>
                 </configuration>
@@ -84,17 +74,10 @@ language governing permissions and limitations under the License.
         </dependency>
 
         <dependency>
-            <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-unittestsupport</artifactId>
-            <scope>test</scope>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-core</artifactId>
         </dependency>
 
-        <!-- Bytecode libraries (for mocking) -->
-        <dependency>
-            <groupId>org.objenesis</groupId>
-            <artifactId>objenesis</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
 </project>
