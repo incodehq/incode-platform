@@ -1303,6 +1303,17 @@
                 <module>wicket-excel/wicket</module>
             </modules>
         </profile>
+        <profile>
+            <id>wicket-fullcalendar2</id>
+            <activation>
+                <property>
+                    <name>wicket-fullcalendar2</name>
+                </property>
+            </activation>
+            <modules>
+                <module>wicket-fullcalendar2/wicket</module>
+            </modules>
+        </profile>
 
         <profile>
             <id>default-modules</id>
