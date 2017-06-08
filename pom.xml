@@ -141,6 +141,18 @@
             </modules>
         </profile>
         <profile>
+            <id>spi-command</id>
+            <activation>
+                <property>
+                    <name>spi-command</name>
+                </property>
+            </activation>
+            <modules>
+                <module>modules</module>
+                <module>modules/spi-command/demo</module>
+            </modules>
+        </profile>
+        <profile>
             <id>default-modules</id>
             <activation>
                 <property>
@@ -159,8 +171,8 @@
                 <module>modules/module-settings/demo</module>
                 <module>modules/module-tags/demo</module>
                 <module>modules/spi-audit/demo</module>
-                <!--
                 <module>modules/spi-command/demo</module>
+                <!--
                 <module>modules/spi-publishmq/demo</module>
                 <module>modules/spi-security/demo</module>
                 <module>modules/spi-sessionlogger/demo</module>

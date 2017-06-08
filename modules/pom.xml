@@ -1194,6 +1194,17 @@
                 <module>spi-audit/spi</module>
             </modules>
         </profile>
+        <profile>
+            <id>spi-command</id>
+            <activation>
+                <property>
+                    <name>spi-command</name>
+                </property>
+            </activation>
+            <modules>
+                <module>spi-command/spi</module>
+            </modules>
+        </profile>
 
         <profile>
             <id>default-modules</id>

@@ -27,7 +27,11 @@ language governing permissions and limitations under the License.
     <name>Isis Addons Command Module Webapp</name>
 
     <packaging>war</packaging>
-    
+
+    <properties>
+        <quartz-scheduler.version>2.2.1</quartz-scheduler.version>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
@@ -48,9 +52,23 @@ language governing permissions and limitations under the License.
                     </execution>
                   </executions>
             </plugin>
-
         </plugins>
     </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz</artifactId>
+                <version>${quartz-scheduler.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz-jobs</artifactId>
+                <version>${quartz-scheduler.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 
 
