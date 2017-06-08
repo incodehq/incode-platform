@@ -26,7 +26,6 @@ language governing permissions and limitations under the License.
 
     <groupId>org.incode.module.communications</groupId>
     <artifactId>incode-module-communications</artifactId>
-    <version>1.15.0-SNAPSHOT</version>
 
     <name>Incode Platform Module Communications Demo</name>
 

@@ -27,7 +27,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons FlywayDB Module DOM</name>
+    <name>Incode Platform Extension FlywayDB Extension</name>
     <description>
         A module integrating with FlywayDB by providing an implementation of DataNucleus' PersistenceManagerFactory
     </description>

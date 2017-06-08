@@ -261,6 +261,18 @@
             </modules>
         </profile>
         <profile>
+            <id>extension-flywaydb</id>
+            <activation>
+                <property>
+                    <name>extension-flywaydb</name>
+                </property>
+            </activation>
+            <modules>
+                <module>modules</module>
+                <module>modules/extension-flywaydb/demo</module>
+            </modules>
+        </profile>
+        <profile>
             <id>default-modules</id>
             <activation>
                 <property>
@@ -292,9 +304,8 @@
                 <module>modules/wicket-pdfjs/demo</module>
                 <module>modules/wicket-summernote/demo</module>
                 <module>modules/wicket-wickedcharts/demo</module>
-                <!--
-
                 <module>modules/extension-flywaydb/demo</module>
+                <!--
                 <module>modules/extension-togglz/demo</module>
                 -->
             </modules>

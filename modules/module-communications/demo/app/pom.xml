@@ -53,7 +53,6 @@
 
     <dependencies>
 
-        <!-- this app -->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>incode-module-communications-dom</artifactId>

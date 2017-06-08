@@ -1358,6 +1358,17 @@
                 <module>wicket-wickedcharts/wicket</module>
             </modules>
         </profile>
+        <profile>
+            <id>extension-flywaydb</id>
+            <activation>
+                <property>
+                    <name>extension-flywaydb</name>
+                </property>
+            </activation>
+            <modules>
+                <module>extension-flywaydb/extension</module>
+            </modules>
+        </profile>
 
         <profile>
             <id>default-modules</id>
