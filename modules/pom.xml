@@ -1270,6 +1270,17 @@
                 <module>spi-publishmq/spi</module>
             </modules>
         </profile>
+        <profile>
+            <id>spi-security</id>
+            <activation>
+                <property>
+                    <name>spi-security</name>
+                </property>
+            </activation>
+            <modules>
+                <module>spi-security/spi</module>
+            </modules>
+        </profile>
 
         <profile>
             <id>default-modules</id>

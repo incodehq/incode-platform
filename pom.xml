@@ -165,6 +165,18 @@
             </modules>
         </profile>
         <profile>
+            <id>spi-security</id>
+            <activation>
+                <property>
+                    <name>spi-security</name>
+                </property>
+            </activation>
+            <modules>
+                <module>modules</module>
+                <module>modules/spi-security/demo</module>
+            </modules>
+        </profile>
+        <profile>
             <id>default-modules</id>
             <activation>
                 <property>
@@ -185,8 +197,8 @@
                 <module>modules/spi-audit/demo</module>
                 <module>modules/spi-command/demo</module>
                 <module>modules/spi-publishmq/demo</module>
-                <!--
                 <module>modules/spi-security/demo</module>
+                <!--
                 <module>modules/spi-sessionlogger/demo</module>
                 <module>modules/wicket-excel/demo</module>
                 <module>modules/wicket-fullcalendar2/demo</module>
