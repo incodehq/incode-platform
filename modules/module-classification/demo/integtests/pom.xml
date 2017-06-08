@@ -49,6 +49,7 @@ Copyright 2016 Dan Haywood
             </plugin>
         </plugins>
     </build>
+
     <dependencies>
 
         <dependency>
@@ -56,6 +57,7 @@ Copyright 2016 Dan Haywood
             <artifactId>incode-module-classification-fixture</artifactId>
             <scope>test</scope>
         </dependency>
+        
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>incode-module-classification-app</artifactId>

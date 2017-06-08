@@ -29,7 +29,7 @@ Copyright 2014~2015 Dan Haywood
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons Togglz Module Glue</name>
+    <name>Incode Platform Extension Togglz Extension</name>
     <description>
         A module providing togglz.
     </description>

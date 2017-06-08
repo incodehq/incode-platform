@@ -27,25 +27,9 @@
     </parent>
 
     <artifactId>isis-module-togglz-app</artifactId>
-    <name>Isis Addons Togglz Module App</name>
+    <name>Incode Platform Extension Togglz Demo App</name>
 
     <build>
-        <resources>
-            <resource>
-                <filtering>false</filtering>
-                <directory>src/main/resources</directory>
-            </resource>
-            <resource>
-                <filtering>false</filtering>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**</include>
-                </includes>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-        </resources>
         <plugins>
             <plugin>
                 <groupId>com.github.odavid.maven.plugins</groupId>
@@ -67,12 +51,12 @@
     <dependencies>
 
         <dependency>
-            <groupId>org.isisaddons.module.togglz</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>isis-module-togglz-fixture</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.isisaddons.module.togglz</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>isis-module-togglz-glue</artifactId>
         </dependency>
 
@@ -80,23 +64,17 @@
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-wrapper</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-runtime</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.isisaddons.module.security</groupId>
             <artifactId>isis-module-security-dom</artifactId>
-            <version>${isis-module-security.version}</version>
         </dependency>
+        
         <dependency>
             <groupId>org.isisaddons.module.settings</groupId>
             <artifactId>isis-module-settings-dom</artifactId>
-            <version>${isis-module-settings.version}</version>
         </dependency>
 
     </dependencies>
-
 
 </project>

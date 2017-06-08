@@ -1369,6 +1369,17 @@
                 <module>extension-flywaydb/extension</module>
             </modules>
         </profile>
+        <profile>
+            <id>extension-togglz</id>
+            <activation>
+                <property>
+                    <name>extension-togglz</name>
+                </property>
+            </activation>
+            <modules>
+                <module>extension-togglz/extension</module>
+            </modules>
+        </profile>
 
         <profile>
             <id>default-modules</id>

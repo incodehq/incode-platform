@@ -24,13 +24,10 @@ Copyright 2014~2015 Dan Haywood
     </parent>
 
 	<artifactId>isis-module-togglz-fixture</artifactId>
-    <name>Isis Addons Togglz Module Fixtures</name>
+    <name>Incode Platform Extension Togglz Demo Fixtures</name>
 
 	<build>
         <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
             <resource>
                 <directory>src/main/java</directory>
                 <includes>
@@ -51,11 +48,11 @@ Copyright 2014~2015 Dan Haywood
                     <mixins>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>standard</artifactId>
+                            <artifactId>datanucleusenhance</artifactId>
                         </mixin>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>datanucleusenhance</artifactId>
+                            <artifactId>standard</artifactId>
                         </mixin>
                     </mixins>
                 </configuration>
@@ -70,24 +67,16 @@ Copyright 2014~2015 Dan Haywood
         </dependency>
 
         <dependency>
-            <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-unittestsupport</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Bytecode libraries (for mocking) -->
-        <dependency>
-            <groupId>org.objenesis</groupId>
-            <artifactId>objenesis</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Togglz -->
-        <dependency>
             <groupId>org.togglz</groupId>
             <artifactId>togglz-core</artifactId>
-            <version>${togglz.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-core</artifactId>
+        </dependency>
+
+
 
     </dependencies>
 

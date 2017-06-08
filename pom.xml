@@ -273,6 +273,18 @@
             </modules>
         </profile>
         <profile>
+            <id>extension-togglz</id>
+            <activation>
+                <property>
+                    <name>extension-togglz</name>
+                </property>
+            </activation>
+            <modules>
+                <module>modules</module>
+                <module>modules/extension-togglz/demo</module>
+            </modules>
+        </profile>
+        <profile>
             <id>default-modules</id>
             <activation>
                 <property>
@@ -305,9 +317,7 @@
                 <module>modules/wicket-summernote/demo</module>
                 <module>modules/wicket-wickedcharts/demo</module>
                 <module>modules/extension-flywaydb/demo</module>
-                <!--
                 <module>modules/extension-togglz/demo</module>
-                -->
             </modules>
         </profile>
     </profiles>
