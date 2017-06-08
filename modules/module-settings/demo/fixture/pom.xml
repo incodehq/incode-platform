@@ -24,7 +24,7 @@ Copyright 2013~2017 Dan Haywood
     </parent>
 
     <artifactId>isis-module-settings-fixture</artifactId>
-    <name>Isis Addons Settings Module Fixtures</name>
+    <name>Isis Platform Module Settings Module Demo Fixtures</name>
 
     <build>
         <plugins>

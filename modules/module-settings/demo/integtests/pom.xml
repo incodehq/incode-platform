@@ -64,7 +64,6 @@ Copyright 2013~2014 Dan Haywood
             <scope>test</scope>
         </dependency>
 
-
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-wrapper</artifactId>
