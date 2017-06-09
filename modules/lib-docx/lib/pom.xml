@@ -30,7 +30,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons Docx Module DOM</name>
+    <name>Incode Platform Lib Docx Lib</name>
     <description>
         A module providing a domain service for generating (mail-merging) .docx files
         based on a template .docx and an input XML file.

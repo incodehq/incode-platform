@@ -24,7 +24,7 @@ language governing permissions and limitations under the License.
     </parent>
 
     <artifactId>isis-metamodel-paraname8-webapp</artifactId>
-    <name>Isis Addons Paraname8 Metamodel Webapp</name>
+    <name>Incode Platform MetaModel Paraname8 Demo Webapp</name>
 
     <packaging>war</packaging>
 

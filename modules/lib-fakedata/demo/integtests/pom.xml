@@ -25,7 +25,7 @@ Copyright 2014~2015 Dan Haywood
     </parent>
 
     <artifactId>isis-module-fakedata-integtests</artifactId>
-    <name>Isis Addons FakeData Module IntegTests</name>
+    <name>Incode Platform Lib FakeData Demo IntegTests</name>
 
     <build>
         <testResources>

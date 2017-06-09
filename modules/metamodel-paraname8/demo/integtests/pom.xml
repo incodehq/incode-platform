@@ -24,7 +24,7 @@ language governing permissions and limitations under the License.
     </parent>
 
     <artifactId>isis-metamodel-paraname8-integtests</artifactId>
-    <name>Isis Addons Paraname8 MetaModel IntegTests</name>
+    <name>Incode Platform MetaModel Paraname8 Demo IntegTests</name>
 
     <build>
         <testResources>

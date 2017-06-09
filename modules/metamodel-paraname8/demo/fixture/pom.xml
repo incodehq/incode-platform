@@ -24,7 +24,7 @@ language governing permissions and limitations under the License.
     </parent>
 
 	<artifactId>isis-metamodel-paraname8-fixture</artifactId>
-    <name>Isis Addons Paraname8 MetaModel Fixtures</name>
+    <name>Incode Platform MetaModel Paraname8 Demo Fixtures</name>
 
 	<build>
         <resources>

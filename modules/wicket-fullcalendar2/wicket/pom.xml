@@ -29,7 +29,7 @@ language governing permissions and limitations under the License.
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons FullCalendar2 Wicket Cpt Component</name>
+    <name>Incode Platform Wicket FullCalendar2 Wicket</name>
     <description>
         A component for Apache Isis' Wicket viewer, rendering any collection of
         entities that implements Calendarable in a fullpage calendar

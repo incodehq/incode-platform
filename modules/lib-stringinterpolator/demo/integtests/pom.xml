@@ -25,7 +25,7 @@ language governing permissions and limitations under the License.
     </parent>
 
     <artifactId>isis-module-stringinterpolator-integtests</artifactId>
-    <name>Isis Addons StringInterpolator Module Integration Tests</name>
+    <name>Incode Platform Lib StringInterpolator Demo IntegTests</name>
 
     <build>
         <testResources>

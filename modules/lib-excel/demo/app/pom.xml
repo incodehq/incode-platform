@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>isis-module-excel-app</artifactId>
-    <name>Isis Addons Excel Module App</name>
+    <name>Incode Platform Wicket Excel Demo App</name>
 
     <build>
         <resources>

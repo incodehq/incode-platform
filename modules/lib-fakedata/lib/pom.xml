@@ -29,7 +29,7 @@ Copyright 2014~2015 Dan Haywood
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons FakeData Module DOM</name>
+    <name>Incode Platform Lib FakeData Lib</name>
     <description>
         A module providing a domain service to generate fake random data
         for use in unit tests or integration tests.

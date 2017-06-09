@@ -30,7 +30,7 @@ language governing permissions and limitations under the License.
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons Command Module DOM</name>
+    <name>Incode Platform SPI Command SPI</name>
     <description>
         A module providing command persistence, enabling profiling, background execution and
         extended auditing capabilities.

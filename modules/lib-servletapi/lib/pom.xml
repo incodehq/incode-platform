@@ -29,7 +29,7 @@ language governing permissions and limitations under the License.
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons Servlet API Module DOM</name>
+    <name>Incode Platform Lib Servlet API Lib</name>
     <description>
         A module providing access to elements of the Servlet API.
     </description>

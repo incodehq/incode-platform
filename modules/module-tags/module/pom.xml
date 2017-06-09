@@ -29,7 +29,7 @@ language governing permissions and limitations under the License.
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons Tags Module DOM</name>
+    <name>Incode Platform ModuleTags Module</name>
     <description>
         A module providing the ability to tag or label entities.
     </description>

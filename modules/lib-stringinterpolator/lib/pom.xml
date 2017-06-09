@@ -30,7 +30,7 @@ language governing permissions and limitations under the License.
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons StringInterpolator Module DOM</name>
+    <name>Incode Platform Lib StringInterpolator Lib</name>
     <description>
         A module for generating (mail-merging) .stringinterpolator files
         based on a template .stringinterpolator and an input XML file. Designed for use within

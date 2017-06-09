@@ -24,7 +24,7 @@ Copyright 2014~2015 Dan Haywood
     </parent>
 
     <artifactId>isis-module-fakedata-fixture</artifactId>
-    <name>Isis Addons FakeData Module Fixtures</name>
+    <name>Incode Platform Lib FakeData Demo Fixtures</name>
 
     <build>
         <resources>

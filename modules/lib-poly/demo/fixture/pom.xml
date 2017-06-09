@@ -25,7 +25,7 @@ language governing permissions and limitations under the License.
     </parent>
 
     <artifactId>isis-module-poly-fixture</artifactId>
-    <name>Isis Addons Poly Module Fixture</name>
+    <name>Incode Platform Lib Poly Demo Fixtures</name>
 
     <build>
         <resources>

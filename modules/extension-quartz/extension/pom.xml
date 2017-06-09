@@ -30,7 +30,7 @@ language governing permissions and limitations under the License.
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons Quartz Module DOM</name>
+    <name>Incode Platform Extension Quartz Extension</name>
     <description>
         A module wrapping up Quartz scheduler
     </description>

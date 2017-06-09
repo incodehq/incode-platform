@@ -29,7 +29,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons Security Module DOM</name>
+    <name>Incode Platform SPI Security SPI</name>
     <description>
         A module providing the ability to tag or label entities.
     </description>

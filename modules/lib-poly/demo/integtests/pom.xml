@@ -25,7 +25,7 @@ language governing permissions and limitations under the License.
     </parent>
 
     <artifactId>isis-module-poly-integtests</artifactId>
-    <name>Isis Addons Poly Module Integration Tests</name>
+    <name>Incode Platform Lib Poly Demo IntegTests</name>
 
     <build>
         <testResources>

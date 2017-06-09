@@ -25,7 +25,7 @@ language governing permissions and limitations under the License.
     </parent>
 
     <artifactId>isis-module-stringinterpolator-fixture</artifactId>
-    <name>Isis Addons StringInterpolator Module Fixture</name>
+    <name>Incode Platform Lib StringInterpolator Demo Fixtures</name>
 
     <build>
         <resources>

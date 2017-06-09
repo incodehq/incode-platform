@@ -29,7 +29,7 @@ language governing permissions and limitations under the License.
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons Paraname8 MetaModel DOM</name>
+    <name>Incode Platform MetaModel Paraname8 MetaModel</name>
     <description>
         An extension to the Isis MetaModel using JDK8's reflection API to
         derive the parameter name from the code (no @Named annotation required).

@@ -25,7 +25,7 @@ language governing permissions and limitations under the License.
     </parent>
 
     <artifactId>isis-module-excel-fixture</artifactId>
-    <name>Isis Addons Excel Module Fixtures</name>
+    <name>Incode Platform Wicket Excel Demo Fixtures</name>
 
     <build>
         <resources>

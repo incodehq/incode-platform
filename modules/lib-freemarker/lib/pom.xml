@@ -30,7 +30,7 @@ language governing permissions and limitations under the License.
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons Freemarker Module DOM</name>
+    <name>Incode Platform Lib Freemarker Lib</name>
     <description>
         A module providing a service that wraps freemarker
     </description>

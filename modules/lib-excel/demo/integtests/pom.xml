@@ -25,7 +25,7 @@ language governing permissions and limitations under the License.
     </parent>
 
     <artifactId>isis-module-excel-integtests</artifactId>
-    <name>Isis Addons Excel Module IntegTests</name>
+    <name>Incode Platform Module Excel Demo IntegTests</name>
 
     <build>
         <testResources>

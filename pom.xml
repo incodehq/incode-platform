@@ -320,6 +320,60 @@
                 <module>modules/extension-togglz/demo</module>
             </modules>
         </profile>
+
+        <profile>
+            <id>enhance</id>
+            <activation>
+                <property>
+                    <name>enhance</name>
+                </property>
+            </activation>
+            <modules>
+                <module>modules/module-alias/module</module>
+                <module>modules/module-alias/demo/fixture</module>
+                <module>modules/module-classification/module</module>
+                <module>modules/module-classification/demo/fixture</module>
+                <module>modules/module-communications/module</module>
+                <module>modules/module-communications/demo/fixture</module>
+                <module>modules/module-commchannel/module</module>
+                <module>modules/module-commchannel/demo/fixture</module>
+
+                <module>modules/module-country/module</module>
+
+                <module>modules/module-docfragment/module</module>
+                <module>modules/module-docfragment/demo/fixture</module>
+                <module>modules/module-document/module</module>
+                <module>modules/module-document/demo/fixture</module>
+                <module>modules/module-note/module</module>
+                <module>modules/module-note/demo/fixture</module>
+
+                <module>modules/module-settings/module</module>
+
+                <module>modules/module-tags/module</module>
+                <module>modules/module-tags/demo/fixture</module>
+
+                <module>modules/spi-audit/spi</module>
+                <module>modules/spi-audit/demo/fixture</module>
+                <module>modules/spi-command/spi</module>
+                <module>modules/spi-command/demo/fixture</module>
+                <module>modules/spi-publishmq/spi/jdo</module>
+                <module>modules/spi-publishmq/demo/fixture/dom</module>
+                <module>modules/spi-security/spi</module>
+                <module>modules/spi-security/demo/fixture</module>
+                <module>modules/spi-sessionlogger/spi</module>
+                <module>modules/spi-sessionlogger/demo/fixture</module>
+
+                <module>modules/wicket-excel/demo/fixture</module>
+                <module>modules/wicket-fullcalendar2/demo/fixture</module>
+                <module>modules/wicket-gmap3/demo/fixture</module>
+                <module>modules/wicket-pdfjs/demo/fixture</module>
+                <module>modules/wicket-summernote/demo/fixture</module>
+                <module>modules/wicket-wickedcharts/demo/fixture</module>
+
+                <module>modules/extension-flywaydb/demo/fixture</module>
+                <module>modules/extension-togglz/demo/fixture</module>
+            </modules>
+        </profile>
     </profiles>
 
 </project>

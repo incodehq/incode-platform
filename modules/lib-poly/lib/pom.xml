@@ -30,7 +30,7 @@ language governing permissions and limitations under the License.
 
     <packaging>jar</packaging>
 
-    <name>Isis Addons Poly Module DOM</name>
+    <name>Incode Platform Lib Poly Lib</name>
     <description>
         A module providing helper classes for polymorphic relationships
         using the &quot;table-of-two-halves&quot; pattern.  Designed for use within
