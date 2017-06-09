@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>isis-wicket-pdfjs-app</artifactId>
-    <name>Incode Module Wicket pdf.js Demo App</name>
+    <name>Incode Platform Wicket pdf.js Demo App</name>
 
     <build>
         <plugins>

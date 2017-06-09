@@ -25,7 +25,7 @@ language governing permissions and limitations under the License.
     </parent>
 
     <artifactId>isis-wicket-pdfjs-fixture</artifactId>
-    <name>Incode Module Wicket pdf.js Demo Fixtures</name>
+    <name>Incode Platform Wicket pdf.js Demo Fixtures</name>
 
     <build>
         <resources>

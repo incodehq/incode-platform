@@ -30,7 +30,7 @@ Copyright 2012-2014 Eurocommercial Properties NV
     <packaging>jar</packaging>
     
 
-    <name>Incode Module DocRendering XDocReport</name>
+    <name>Incode Platform Lib DocRendering XDocReport Lib</name>
     <description>
         A rendering strategy implementation using XDocReport.
     </description>

@@ -24,7 +24,7 @@ Copyright 2013~2017 Dan Haywood
     </parent>
 
     <artifactId>isis-module-tags-fixture</artifactId>
-    <name>Isis Platform Module Tags Module Demo Fixtures</name>
+    <name>Incode Platform Module Tags Demo Fixtures</name>
 
     <build>
         <resources>

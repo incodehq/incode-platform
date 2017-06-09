@@ -25,7 +25,7 @@
     </parent>
 
     <artifactId>isis-module-security-fixture</artifactId>
-    <name>Isis Module SPI Security Demo Fixtures</name>
+    <name>Incode Platform Module SPI Security Demo Fixtures</name>
 
     <build>
         <resources>

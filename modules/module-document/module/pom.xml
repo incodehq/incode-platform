@@ -30,7 +30,7 @@ Copyright 2014~2015 Dan Haywood
 
     <packaging>jar</packaging>
 
-    <name>Incode Module Document DOM</name>
+    <name>Incode Platform Module Document Module</name>
     <description>
         A module providing a Document, DocumentTemplate and DocumentType, with pluggable rendering.
     </description>

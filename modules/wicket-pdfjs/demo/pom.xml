@@ -28,7 +28,7 @@ language governing permissions and limitations under the License.
     <groupId>org.isisaddons.wicket.pdfjs</groupId>
     <artifactId>isis-wicket-pdfjs</artifactId>
 
-    <name>Incode Module Wicket pdf.js Demo</name>
+    <name>Incode Platform Wicket pdf.js Demo</name>
 
     <packaging>pom</packaging>
 

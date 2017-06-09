@@ -29,7 +29,7 @@ Copyright 2014~2015 Dan Haywood
 
     <packaging>jar</packaging>
 
-    <name>Incode Module Unit Testing Support DOM</name>
+    <name>Incode Platform Lib Unit Testing Support Lib</name>
     <description>
         A module providing test utilities for unit testing of domain modules
     </description>
