@@ -29,7 +29,7 @@ Copyright 2014~2015 Dan Haywood
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Module Alias DOM</name>
+    <name>Incode Platform Module Alias Module</name>
     <description>
         A module providing aliases.
     </description>

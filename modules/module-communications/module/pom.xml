@@ -29,7 +29,7 @@ Copyright 2014~2015 Dan Haywood
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Module Communications DOM</name>
+    <name>Incode Platform Module Communications Module</name>
     <description>
         A module providing email and print Communications of Documents
     </description>

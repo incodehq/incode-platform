@@ -29,7 +29,7 @@ Copyright 2014~2015 Dan Haywood
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Lib Base DOM</name>
+    <name>Incode Platform Lib Base Lib</name>
     <description>
         A module providing Base utilities for domain modules
     </description>

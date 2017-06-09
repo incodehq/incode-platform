@@ -25,7 +25,7 @@ language governing permissions and limitations under the License.
     </parent>
 
     <artifactId>isis-wicket-summernote-fixture</artifactId>
-    <name>Incode Platform Wicket Summernote Wicket Fixtures</name>
+    <name>Incode Platform Wicket Summernote Demo Fixtures</name>
 
     <build>
         <resources>

@@ -29,7 +29,7 @@ Copyright 2014~2015 Dan Haywood
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Module Note DOM</name>
+    <name>Incode Platform Module Note Module</name>
     <description>
         A module allowing notes (optionally asociated with dates/calendar).
     </description>
