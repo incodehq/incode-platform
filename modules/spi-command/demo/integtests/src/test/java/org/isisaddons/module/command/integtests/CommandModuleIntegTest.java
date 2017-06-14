@@ -9,7 +9,7 @@ public abstract class CommandModuleIntegTest extends IntegrationTestAbstract {
 
     @BeforeClass
     public static void initClass() {
-        org.apache.log4j.PropertyConfigurator.configure("logging.properties");
+        org.apache.log4j.PropertyConfigurator.configure("logging-integtest.properties");
         CommandModuleSystemInitializer.initIsft();
         
         // instantiating will install onto ThreadLocal

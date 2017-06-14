@@ -9,7 +9,7 @@ public abstract class SessionLoggerModuleIntegTest extends IntegrationTestAbstra
 
     @BeforeClass
     public static void initClass() {
-        org.apache.log4j.PropertyConfigurator.configure("logging.properties");
+        org.apache.log4j.PropertyConfigurator.configure("logging-integtest.properties");
         SessionLoggerModuleSystemInitializer.initIsft();
         
         // instantiating will install onto ThreadLocal

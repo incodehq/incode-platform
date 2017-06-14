@@ -8,7 +8,7 @@ public abstract class DocxModuleIntegTest extends IntegrationTestAbstract {
 
     @BeforeClass
     public static void initClass() {
-        org.apache.log4j.PropertyConfigurator.configure("logging.properties");
+        org.apache.log4j.PropertyConfigurator.configure("logging-integtest.properties");
         DocxModuleSystemInitializer.initIsft();
         
         // instantiating will install onto ThreadLocal

@@ -9,7 +9,7 @@ public abstract class StringInterpolatorDemoIntegTest extends IntegrationTestAbs
 
     @BeforeClass
     public static void initClass() {
-        org.apache.log4j.PropertyConfigurator.configure("logging.properties");
+        org.apache.log4j.PropertyConfigurator.configure("logging-integtest.properties");
         StringInterpolatorDemoSystemInitializer.initIsft();
 
         // instantiating will install onto ThreadLocal

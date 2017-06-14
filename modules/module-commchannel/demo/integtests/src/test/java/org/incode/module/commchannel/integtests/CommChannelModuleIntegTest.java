@@ -52,7 +52,7 @@ public abstract class CommChannelModuleIntegTest extends IntegrationTestAbstract
 
     @BeforeClass
     public static void initClass() {
-        org.apache.log4j.PropertyConfigurator.configure("logging.properties");
+        org.apache.log4j.PropertyConfigurator.configure("logging-integtest.properties");
         IsisSystemForTest isft = IsisSystemForTest.getElseNull();
         if(isft == null) {
             isft = new IsisSystemForTest.Builder()
