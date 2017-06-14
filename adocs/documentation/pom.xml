@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.incode.platform</groupId>
+        <artifactId>incode-platform</artifactId>
+        <version>1.15.0-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+
+    <artifactId>incode-platform-docs</artifactId>
+    <packaging>pom</packaging>
+
+    <name>Incode Platform Docs</name>
+    <description>
+        Website and Documentation, written using Asciidoctor
+    </description>
+    <url>http://platform.incode.org</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <asciidoctor.maven.plugin.version>1.5.3</asciidoctor.maven.plugin.version>
+        <asciidoctorj.pdf.version>1.5.0-alpha.11</asciidoctorj.pdf.version>
+        <asciidoctorj.version>1.5.4.1</asciidoctorj.version>
+        <asciidoctorj.diagram.version>1.5.0</asciidoctorj.diagram.version>
+        <incode-asciidoctor-extension-monotree.version>0.0.2</incode-asciidoctor-extension-monotree.version>
+        <incode-asciidoctor-extension-improvethisdoc.version>0.0.4</incode-asciidoctor-extension-improvethisdoc.version>
+
+        <jruby.version>9.1.8.0</jruby.version>
+
+        <build.dir>${project.basedir}/target/site</build.dir>
+
+        <platform-site-content.dir>../../../platform-site/content</platform-site-content.dir>
+        <isis-site-search.dir>../../../isis-site/search</isis-site-search.dir>
+        <message>updating content (built from adocs/documentation in isis.git repo)</message>
+    </properties>
+
+    <scm>
+        <connection>scm:git:https://git-wip-us.apache.org/repos/asf/isis.git</connection>
+        <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/isis.git</developerConnection>
+        <url>https://git-wip-us.apache.org/repos/asf/isis.git</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <repositories>
+        <repository>
+            <id>rubygems-proxy-releases</id>
+            <name>RubyGems.org Proxy (Releases)</name>
+            <url>http://rubygems-proxy.torquebox.org/releases</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.asciidoctor</groupId>
+                    <artifactId>asciidoctor-maven-plugin</artifactId>
+                    <version>${asciidoctor.maven.plugin.version}</version>
+                    <dependencies>
+                        <!-- Comment this section to use the default jruby artifact provided by the plugin -->
+                        <dependency>
+                            <groupId>org.jruby</groupId>
+                            <artifactId>jruby-complete</artifactId>
+                            <version>${jruby.version}</version>
+                        </dependency>
+                        <!-- Comment this section to use the default AsciidoctorJ artifact provided by the plugin -->
+                        <dependency>
+                            <groupId>org.asciidoctor</groupId>
+                            <artifactId>asciidoctorj</artifactId>
+                            <version>${asciidoctorj.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.asciidoctor</groupId>
+                            <artifactId>asciidoctorj-diagram</artifactId>
+                            <version>${asciidoctorj.diagram.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.incode.asciidoctor.monotree</groupId>
+                            <artifactId>incode-asciidoctor-extension-monotree</artifactId>
+                            <version>${incode-asciidoctor-extension-monotree.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.incode.asciidoctor.improvethisdoc</groupId>
+                            <artifactId>incode-asciidoctor-extension-improvethisdoc</artifactId>
+                            <version>${incode-asciidoctor-extension-improvethisdoc.version}</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <!-- If you set baseDir to ${project.basedir}, top-level includes are resolved relative to the project root -->
+                        <!--
+                        <baseDir>${project.basedir}</baseDir>
+                        -->
+                        <!-- Attributes common to all output formats -->
+                        <attributes>
+                            <endpoint-url>http://isis.apache.org</endpoint-url>
+                            <sourcedir>${project.build.sourceDirectory}</sourcedir>
+                            <project-version>${project.version}</project-version>
+                        </attributes>
+                        <requires>
+                            <require>asciidoctor-diagram</require>
+                        </requires>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>html</id>
+            <activation>
+                <property>
+                    <name>!skip.html</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctor-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>output-html</id>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>process-asciidoc</goal>
+                                </goals>
+                                <configuration>
+                                    <backend>html5</backend>
+
+                                    <sourceDirectory>src/main/asciidoc/</sourceDirectory>
+                                    <outputDirectory>${project.reporting.outputDirectory}/</outputDirectory>
+
+                                    <!--
+                                    <sourceDocumentName>guides/ugvw/ugvw.adoc</sourceDocumentName>
+                                    <sourceDocumentName>guides/rgsvc/rgsvc.adoc</sourceDocumentName>
+                                    -->
+
+                                    <sourceHighlighter>coderay</sourceHighlighter>
+                                    <templateDir>../template</templateDir>
+                                    <eruby>erb</eruby>
+                                    <preserveDirectories>true</preserveDirectories>
+                                    <relativeBaseDir>true</relativeBaseDir>
+
+                                    <attributes>
+                                        <sourcedir>${project.build.sourceDirectory}</sourcedir>
+                                        <imagesdir/>
+
+                                        <toc>right</toc>
+                                        <icons>font</icons>
+                                        <version>${project.version}</version>
+
+                                        <improvethisdoc.rootDir>/adocs/documentation</improvethisdoc.rootDir>
+                                        <improvethisdoc.srcDir>/src/main/asciidoc</improvethisdoc.srcDir>
+                                        <improvethisdoc.organisation>apache</improvethisdoc.organisation>
+                                        <improvethisdoc.repo>isis</improvethisdoc.repo>
+                                        <improvethisdoc.branch>master</improvethisdoc.branch>
+                                        <improvethisdoc.label>Edit</improvethisdoc.label>
+                                    </attributes>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+
+        <profile>
+            <id>delete</id>
+            <activation>
+                <property>
+                    <name>!skip.delete</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.8</version>
+                        <executions>
+                            <execution>
+                                <id>clean</id>
+                                <phase>clean</phase>
+                                <configuration>
+                                    <target>
+                                        <echo message=""/>
+                                        <echo message=""/>
+                                        <echo message="deleting everything in ${platform-site-content.dir}"/>
+                                        <echo message=""/>
+                                        <delete includeemptydirs="true">
+                                            <fileset dir="${platform-site-content.dir}" includes="**/*"/>
+                                        </delete>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>copy</id>
+            <activation>
+                <property>
+                    <name>!skip.copy</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.8</version>
+                        <executions>
+                            <execution>
+                                <id>package</id>
+                                <phase>package</phase>
+                                <configuration>
+                                    <target>
+                                        <echo message=""/>
+                                        <echo message=""/>
+
+                                        <echo message=""/>
+                                        <echo message=""/>
+                                        <echo message="copying from ${build.dir} to ${platform-site-content.dir}"/>
+                                        <echo message=""/>
+                                        <copy todir="${platform-site-content.dir}" overwrite="true" force="true">
+                                            <fileset dir="${build.dir}"/>
+                                        </copy>
+
+                                        <echo message=""/>
+                                        <echo message=""/>
+                                        <echo message="using node to rebuild search index"/>
+                                        <exec executable="node" dir="${isis-site-search.dir}">
+                                            <arg value="--max_old_space_size=2048"/>
+                                            <arg value="_scripts/index.js"/>
+                                            <arg value="../content/"/>
+                                            <arg value="-o"/>
+                                            <arg value="../content/elasticlunr/index.json"/>
+                                            <arg value="-V"/>
+                                        </exec>
+
+                                        <echo message=""/>
+                                        <echo message=""/>
+                                        <echo message="converting CRLF to LF for all text files under ${platform-site-content.dir}"/>
+
+                                        <echo message="... .html files"/>
+                                        <fixcrlf srcdir="${platform-site-content.dir}"
+                                                 includes="**/*.html"
+                                                 eol="lf"
+                                                 eof="remove"
+                                                 fixlast="true"/>
+
+                                        <echo message="... .xml files"/>
+                                        <fixcrlf srcdir="${platform-site-content.dir}"
+                                                 includes="**/*.xml"
+                                                 eol="lf"
+                                                 eof="remove"
+                                                 fixlast="false"/>
+
+
+                                        <echo message="... .xsd files"/>
+                                        <fixcrlf srcdir="${platform-site-content.dir}"
+                                                 includes="**/*.xsd"
+                                                 eol="lf"
+                                                 eof="remove"
+                                                 fixlast="false"/>
+
+                                        <echo message="... .css files"/>
+                                        <fixcrlf srcdir="${platform-site-content.dir}"
+                                                 includes="**/*.css"
+                                                 eol="lf"
+                                                 eof="remove"
+                                                 fixlast="false"/>
+
+                                        <echo message="... .svg files"/>
+                                        <fixcrlf srcdir="${platform-site-content.dir}"
+                                                 includes="**/*.svg"
+                                                 eol="lf"
+                                                 eof="remove"
+                                                 fixlast="false"/>
+
+                                        <echo message="... .less files"/>
+                                        <fixcrlf srcdir="${platform-site-content.dir}"
+                                                 includes="**/*.less"
+                                                 eol="lf"
+                                                 eof="remove"
+                                                 fixlast="false"/>
+
+                                        <echo message="... .scss files"/>
+                                        <fixcrlf srcdir="${platform-site-content.dir}"
+                                                 includes="**/*.scss"
+                                                 eol="lf"
+                                                 eof="remove"
+                                                 fixlast="false"/>
+
+                                        <echo message="... .js files"/>
+                                        <fixcrlf srcdir="${platform-site-content.dir}"
+                                                 includes="**/*.js"
+                                                 eol="lf"
+                                                 eof="remove"
+                                                 fixlast="false"/>
+
+                                        <echo message="... .sh files"/>
+                                        <fixcrlf srcdir="${platform-site-content.dir}"
+                                                 includes="**/*.sh"
+                                                 eol="lf"
+                                                 eof="remove"
+                                                 fixlast="false"/>
+
+                                        <echo message="... .rdf files"/>
+                                        <fixcrlf srcdir="${platform-site-content.dir}"
+                                                 includes="**/*.rdf"
+                                                 eol="lf"
+                                                 eof="remove"
+                                                 fixlast="false"/>
+
+                                        <!-- for these files, encoding seems to go from UTF8 to ASCII when
+                                             apply fixcrlf, so just copy over again... -->
+                                        <echo message=""/>
+                                        <echo message=""/>
+                                        <echo message="copying over slick CSS and SCSS from ${build.dir} to ${platform-site-content.dir}"/>
+                                        <echo message=""/>
+                                        <copy todir="${platform-site-content.dir}" overwrite="true" force="true">
+                                            <fileset dir="${build.dir}"  includes="**/css/slick/**/*"/>
+                                        </copy>
+
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>reindex</id>
+            <activation>
+                <property>
+                    <name>reindex</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.8</version>
+                        <executions>
+                            <execution>
+                                <id>compile</id>
+                                <phase>compile</phase>
+                                <configuration>
+                                    <target>
+                                        <echo message=""/>
+                                        <echo message=""/>
+                                        <echo message="using node to rebuild search index"/>
+                                        <exec executable="node" dir=".">
+                                            <arg value="--max_old_space_size=2048"/>
+                                            <arg value="${isis-site-search.dir}/_scripts/index.js"/>
+                                            <arg value="target/site"/>
+                                            <arg value="-o"/>
+                                            <arg value="target/site/elasticlunr/index.json"/>
+                                            <arg value="-V"/>
+                                        </exec>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>commit</id>
+            <activation>
+                <property>
+                    <name>!skip.commit</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.gmaven</groupId>
+                        <artifactId>groovy-maven-plugin</artifactId>
+                        <version>2.0</version>
+                        <executions>
+                            <execution>
+                                <id>install</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <configuration>
+                                    <source>
+                                        def siteDir = new File("${platform-site-content.dir}", "..")
+
+                                        "git add content --all".execute(null, siteDir).in.text
+                                        "git reset content/guides".execute(null, siteDir).in.text
+
+                                        def gitStatusOutput = "git status --porcelain".execute(null, siteDir).in.text
+
+                                        def lines = gitStatusOutput.readLines()
+                                        lines.each{ line ->
+                                            def file=line.drop(3)
+                                            if(file.endsWith(".html")) {
+                                                def pdfFile = file.replaceAll(".html",".pdf")
+                                                "git add $file".execute(null, siteDir).in.text
+                                                "git add $pdfFile".execute(null, siteDir).in.text
+                                            }
+                                        }
+
+                                        // the commit doesn't seem to do anything; so instead using antrun plugin below to complete.
+                                        // "git commit --message '${message}'".execute(null, siteDir).text
+                                        // "git reset --hard".execute(null, siteDir).in.text
+
+                                        return null
+                                    </source>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.8</version>
+                        <executions>
+                            <execution>
+                                <id>install</id>
+                                <phase>install</phase>
+                                <configuration>
+                                    <target>
+                                        <echo message=""/>
+                                        <echo message=""/>
+                                        <echo message="git commit -m '${message}' "/>
+                                        <echo message=""/>
+                                        <exec executable="git" dir="${platform-site-content.dir}">
+                                            <arg value="commit"/>
+                                            <arg value="-m"/>
+                                            <arg value="${message}"/>
+                                        </exec>
+
+                                        <echo message=""/>
+                                        <echo message=""/>
+                                        <echo message="git reset --hard"/>
+                                        <echo message=""/>
+                                        <exec executable="git" dir="${platform-site-content.dir}">
+                                            <arg value="reset"/>
+                                            <arg value="--hard"/>
+                                        </exec>
+                                        <echo message=""/>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
+
+</project>

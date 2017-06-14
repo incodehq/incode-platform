@@ -9,14 +9,15 @@
         <version>1</version>
     </parent>
 
-    <artifactId>incode-platform-demo</artifactId>
+    <groupId>org.incode.platform</groupId>
+    <artifactId>incode-platform</artifactId>
     <version>1.15.0-SNAPSHOT</version>
 
     <packaging>pom</packaging>
     
-    <name>Incode Platform Demo &amp; Tests POM</name>
+    <name>Incode Platform</name>
     <description>
-        Aggregator POM
+        Aggregator POM for all of the Incode Platform (modules and supporting tests, docs)
     </description>
 
     <profiles>
