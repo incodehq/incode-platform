@@ -22,6 +22,18 @@
 
     <profiles>
         <profile>
+            <id>lib-docx</id>
+            <activation>
+                <property>
+                    <name>lib-docx</name>
+                </property>
+            </activation>
+            <modules>
+                <module>modules</module>
+                <module>modules/lib-docx/demo</module>
+            </modules>
+        </profile>
+        <profile>
             <id>module-alias</id>
             <activation>
                 <property>
@@ -295,6 +307,18 @@
             <modules>
                 <module>modules</module>
 
+                <module>modules/extension-flywaydb/demo</module>
+                <module>modules/extension-togglz/demo</module>
+
+                <module>modules/lib-docx/demo</module>
+                <!--
+                <module>modules/lib-docx/excel</module>
+                <module>modules/lib-docx/fakedata</module>
+                <module>modules/lib-docx/poly</module>
+                <module>modules/lib-docx/servletapi</module>
+                <module>modules/lib-docx/stringinterpolator</module>
+                -->
+
                 <module>modules/module-alias/demo</module>
                 <module>modules/module-classification/demo</module>
                 <module>modules/module-commchannel/demo</module>
@@ -319,6 +343,8 @@
                 <module>modules/wicket-wickedcharts/demo</module>
                 <module>modules/extension-flywaydb/demo</module>
                 <module>modules/extension-togglz/demo</module>
+
+                <module>webapp</module>
             </modules>
         </profile>
 

@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>isis-module-excel-app</artifactId>
-    <name>Incode Platform Wicket Excel Demo App</name>
+    <name>Incode Platform Lib Excel Demo App</name>
 
     <build>
         <resources>

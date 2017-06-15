@@ -175,7 +175,6 @@
                 <artifactId>isis-mavendeps-webapp</artifactId>
                 <version>${isis.version}</version>
                 <type>pom</type>
-                <scope>test</scope>
             </dependency>
 
             <!-- sub-modules -->
@@ -1138,6 +1137,17 @@
             </repositories>
         </profile>
 
+        <profile>
+            <id>lib-docx</id>
+            <activation>
+                <property>
+                    <name>lib-docx</name>
+                </property>
+            </activation>
+            <modules>
+                <module>lib-docx/lib</module>
+            </modules>
+        </profile>
         <profile>
             <id>module-alias</id>
             <activation>

@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>isis-module-excel-fixture</artifactId>
-    <name>Incode Platform Wicket Excel Demo Fixtures</name>
+    <name>Incode Platform Lib Excel Demo Fixtures</name>
 
     <build>
         <resources>

@@ -79,7 +79,7 @@ if [ "$extra" != "" ]; then
     echo "extra args: $extra"
 fi
 if [ "$skipTests" != "" ]; then
-    echo "skipTests: $skipTests"
+    echo "skipTests : $skipTests"
 fi
 echo ""
 echo ""
