@@ -1303,6 +1303,17 @@
             </modules>
         </profile>
         <profile>
+            <id>metamodel-paraname8dit</id>
+            <activation>
+                <property>
+                    <name>metamodel-paraname8/metamodel</name>
+                </property>
+            </activation>
+            <modules>
+                <module>metamodel-paraname8/metamodel</module>
+            </modules>
+        </profile>
+        <profile>
             <id>spi-audit</id>
             <activation>
                 <property>
@@ -1476,8 +1487,6 @@
                 <module>lib-unittestsupport/lib</module>
                 <module>lib-xdocreport/lib</module>
 
-                <module>metamodel-paraname8/metamodel</module>
-
                 <module>module-alias/module</module>
                 <module>module-classification/module</module>
                 <module>module-commchannel/module</module>
@@ -1488,6 +1497,8 @@
                 <module>module-note/module</module>
                 <module>module-settings/module</module>
                 <module>module-tags/module</module>
+
+                <module>metamodel-paraname8/metamodel</module>
 
                 <module>spi-audit/spi</module>
                 <module>spi-command/spi</module>

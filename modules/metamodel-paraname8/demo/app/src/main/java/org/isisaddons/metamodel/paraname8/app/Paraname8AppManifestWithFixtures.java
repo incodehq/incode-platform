@@ -1,4 +1,4 @@
-package org.isisaddons.module.stringinterpolator.app;
+package org.isisaddons.metamodel.paraname8.app;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,14 +9,14 @@ import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-public class StringInterpolatorAppManifestWithFixtures extends StringInterpolatorAppManifest {
+public class Paraname8AppManifestWithFixtures extends Paraname8AppManifest {
 
     /**
      * Fixtures to be installed.
      */
     @Override
     public List<Class<? extends FixtureScript>> getFixtures() {
-        return Lists.<Class<? extends FixtureScript>>newArrayList(org.isisaddons.module.stringinterpolator.fixture.scripts.StringInterpolatorDemoToDoItemsFixture.class);
+        return Lists.<Class<? extends FixtureScript>>newArrayList(org.isisaddons.metamodel.paraname8.fixture.scripts.Paraname8DemoObjectsFixture.class);
     }
 
     /**

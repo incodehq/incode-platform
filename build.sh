@@ -52,23 +52,26 @@ extra=$@
 
 case $typearg in
     l)
-      type="lib"
-      ;;
+        type="lib"
+        ;;
+    t)
+        type="metamodel"
+        ;;
     e)
-      type="extension"
-      ;;
+        type="extension"
+        ;;
     m)
-      type="module"
-      ;;
+        type="module"
+        ;;
     s)
-      type="spi"
-      ;;
+        type="spi"
+        ;;
     w)
-      type="wicket"
-      ;;
+        type="wicket"
+        ;;
     \?)
-      echo "Invalid option: -$OPTARG" >&2
-      ;;
+        echo "Invalid option: -$OPTARG" >&2
+        ;;
 esac
 
 echo ""
@@ -88,11 +91,12 @@ if [ "$type" == "" -o "$artifact" == "" -o "$goals" == "" ]; then
     echo "usage: build.sh -t{-m|-l|-e|-s|-w} [-s] [-g goals] artifact [extra flags]" >&2
     echo "" >&2
     echo "       -t = type" >&2
-    echo "           m = module" >&2
-    echo "           l = library" >&2
-    echo "           s = spi" >&2
-    echo "           e = extension" >&2
-    echo "           w = wicket component" >&2
+    echo "           m = (m)odule" >&2
+    echo "           l = (l)ibrary" >&2
+    echo "           t = me(t)amodel" >&2
+    echo "           s = (s)pi" >&2
+    echo "           e = (e)xtension" >&2
+    echo "           w = (w)icket component" >&2
     echo "" >&2
     echo "       -g = maven goals" >&2
     echo "            optional, defaults to 'clean install'" >&2
@@ -106,6 +110,11 @@ if [ "$type" == "" -o "$artifact" == "" -o "$goals" == "" ]; then
     echo "" >&2
     echo "       extra flags passed through to mvn directly" >&2
     echo "            eg -o" >&2
+    echo "" >&2
+    echo "       examples:" >&2
+    echo "            sh build.sh -t l freemarker -o" >&2
+    echo "            sh build.sh -t m communications -o" >&2
+    echo "            sh build.sh -w m gmap3 -o" >&2
     echo "" >&2
     exit 1
 fi

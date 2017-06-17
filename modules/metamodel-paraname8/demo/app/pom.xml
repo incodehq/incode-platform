@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -9,8 +8,8 @@
         <version>1.15.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>isis-metamodel-paraname8-integtests</artifactId>
-    <name>Incode Platform MetaModel Paraname8 Demo IntegTests</name>
+    <artifactId>isis-metamodel-paraname8-app</artifactId>
+    <name>Incode Platform Metamodel Paraname8 Demo App</name>
 
     <build>
         <plugins>
@@ -25,38 +24,25 @@
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>standard</artifactId>
                         </mixin>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>surefire</artifactId>
-                        </mixin>
                     </mixins>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
     <dependencies>
 
-        <!-- other modules in this project -->
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>isis-metamodel-paraname8-app</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.isis.mavendeps</groupId>
-            <artifactId>isis-mavendeps-testing</artifactId>
-            <type>pom</type>
-            <scope>test</scope>
+            <groupId>org.isisaddons.metamodel.paraname8</groupId>
+            <artifactId>isis-metamodel-paraname8-fixture</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-wrapper</artifactId>
-            <scope>test</scope>
         </dependency>
 
-
     </dependencies>
+
 
 </project>
