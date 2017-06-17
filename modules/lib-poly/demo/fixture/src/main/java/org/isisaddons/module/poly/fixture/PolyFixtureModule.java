@@ -1,7 +1,7 @@
-package org.isisaddons.module.fakedata.fixture;
+package org.isisaddons.module.poly.fixture;
 
-public final class FakeDataFixtureModule {
+public final class PolyFixtureModule {
 
-    private FakeDataFixtureModule(){}
+    private PolyFixtureModule(){}
 
 }

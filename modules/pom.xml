@@ -1171,6 +1171,17 @@
             </modules>
         </profile>
         <profile>
+            <id>lib-poly</id>
+            <activation>
+                <property>
+                    <name>lib-poly</name>
+                </property>
+            </activation>
+            <modules>
+                <module>lib-poly/lib</module>
+            </modules>
+        </profile>
+        <profile>
             <id>module-alias</id>
             <activation>
                 <property>

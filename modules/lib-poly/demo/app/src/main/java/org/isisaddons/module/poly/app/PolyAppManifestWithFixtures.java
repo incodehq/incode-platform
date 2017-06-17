@@ -16,7 +16,7 @@ public class PolyAppManifestWithFixtures extends PolyAppManifest {
      */
     @Override
     public List<Class<? extends FixtureScript>> getFixtures() {
-        return Lists.<Class<? extends FixtureScript>>newArrayList(org.isisaddons.module.poly.fixture.scripts.RecreateToDoItems.class);
+        return Lists.<Class<? extends FixtureScript>>newArrayList(org.isisaddons.module.poly.fixture.scripts.scenarios.RecreateAll.class);
     }
 
     /**

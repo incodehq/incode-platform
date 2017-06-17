@@ -58,6 +58,18 @@
             </modules>
         </profile>
         <profile>
+            <id>lib-poly</id>
+            <activation>
+                <property>
+                    <name>lib-poly</name>
+                </property>
+            </activation>
+            <modules>
+                <module>modules</module>
+                <module>modules/lib-poly/demo</module>
+            </modules>
+        </profile>
+        <profile>
             <id>module-alias</id>
             <activation>
                 <property>
@@ -337,10 +349,10 @@
                 <module>modules/lib-docx/demo</module>
                 <module>modules/lib-excel/demo</module>
                 <module>modules/lib-fakedata/demo</module>
+                <module>modules/lib-poly/demo</module>
                 <!--
-                <module>modules/lib-docx/poly</module>
-                <module>modules/lib-docx/servletapi</module>
-                <module>modules/lib-docx/stringinterpolator</module>
+                <module>modules/lib-servletapi/demo</module>
+                <module>modules/lib-stringinterpolator/demo</module>
                 -->
 
                 <module>modules/module-alias/demo</module>
