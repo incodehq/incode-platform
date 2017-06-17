@@ -82,6 +82,18 @@
             </modules>
         </profile>
         <profile>
+            <id>lib-stringinterpolator</id>
+            <activation>
+                <property>
+                    <name>lib-stringinterpolator</name>
+                </property>
+            </activation>
+            <modules>
+                <module>modules</module>
+                <module>modules/lib-stringinterpolator/demo</module>
+            </modules>
+        </profile>
+        <profile>
             <id>module-alias</id>
             <activation>
                 <property>
@@ -363,9 +375,7 @@
                 <module>modules/lib-fakedata/demo</module>
                 <module>modules/lib-poly/demo</module>
                 <module>modules/lib-servletapi/demo</module>
-                <!--
                 <module>modules/lib-stringinterpolator/demo</module>
-                -->
 
                 <module>modules/module-alias/demo</module>
                 <module>modules/module-classification/demo</module>

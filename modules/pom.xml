@@ -1193,6 +1193,17 @@
             </modules>
         </profile>
         <profile>
+            <id>lib-stringinterpolator</id>
+            <activation>
+                <property>
+                    <name>lib-stringinterpolator</name>
+                </property>
+            </activation>
+            <modules>
+                <module>lib-stringinterpolator/lib</module>
+            </modules>
+        </profile>
+        <profile>
             <id>module-alias</id>
             <activation>
                 <property>

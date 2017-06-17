@@ -1,7 +1,7 @@
-package org.isisaddons.module.fakedata.fixture;
+package org.isisaddons.module.stringinterpolator.fixture;
 
-public final class FakeDataFixtureModule {
+public final class StringInterpolatorFixtureModule {
 
-    private FakeDataFixtureModule(){}
+    private StringInterpolatorFixtureModule(){}
 
 }
