@@ -222,7 +222,7 @@
         </dependency>
         <dependency>
             <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
-            <artifactId>isis-wicket-fullcalendar2-fixture</artifactId>
+            <artifactId>isis-wicket-fullcalendar2-app</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -237,12 +237,12 @@
         </dependency>
         <dependency>
             <groupId>org.isisaddons.wicket.summernote</groupId>
-            <artifactId>isis-wicket-summernote-fixture</artifactId>
+            <artifactId>isis-wicket-summernote-app</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.isisaddons.wicket.wickedcharts</groupId>
-            <artifactId>isis-wicket-wickedcharts-fixture</artifactId>
+            <artifactId>isis-wicket-wickedcharts-app</artifactId>
             <version>${project.version}</version>
         </dependency>
 
