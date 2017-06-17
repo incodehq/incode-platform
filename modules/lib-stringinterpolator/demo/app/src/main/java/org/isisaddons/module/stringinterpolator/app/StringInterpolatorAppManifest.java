@@ -1,4 +1,4 @@
-package org.isisaddons.module.excel.app;
+package org.isisaddons.module.stringinterpolator.app;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,17 +9,17 @@ import com.google.common.collect.Lists;
 import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.isisaddons.module.excel.ExcelModule;
-import org.isisaddons.module.excel.fixture.ExcelFixtureModule;
+import org.isisaddons.module.stringinterpolator.StringInterpolatorModule;
+import org.isisaddons.module.stringinterpolator.fixture.StringInterpolatorFixtureModule;
 
-public class ExcelAppManifest implements AppManifest {
+public class StringInterpolatorAppManifest implements AppManifest {
 
     @Override
     public List<Class<?>> getModules() {
         return Arrays.asList(
-                ExcelModule.class,
-                ExcelFixtureModule.class,
-                ExcelAppModule.class
+                StringInterpolatorModule.class,
+                StringInterpolatorFixtureModule.class,
+                StringInterpolatorAppModule.class
         );
     }
     @Override

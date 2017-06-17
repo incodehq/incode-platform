@@ -1,7 +1,7 @@
-package org.isisaddons.module.excel.app;
+package org.isisaddons.module.servletapi.app;
 
-public final class ExcelAppModule {
+public final class ServletApiAppModule {
 
-    private ExcelAppModule(){}
+    private ServletApiAppModule(){}
 
 }

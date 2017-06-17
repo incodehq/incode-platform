@@ -1,7 +1,7 @@
-package org.isisaddons.module.excel.app;
+package org.isisaddons.module.fakedata.app;
 
-public final class ExcelAppModule {
+public final class FakedataAppModule {
 
-    private ExcelAppModule(){}
+    private FakedataAppModule(){}
 
 }

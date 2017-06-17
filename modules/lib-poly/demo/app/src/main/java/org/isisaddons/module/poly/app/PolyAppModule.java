@@ -1,7 +1,7 @@
-package org.isisaddons.module.excel.app;
+package org.isisaddons.module.poly.app;
 
-public final class ExcelAppModule {
+public final class PolyAppModule {
 
-    private ExcelAppModule(){}
+    private PolyAppModule(){}
 
 }

@@ -1,4 +1,4 @@
-package org.isisaddons.module.excel.app;
+package org.isisaddons.module.fakedata.app;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,14 +9,14 @@ import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-public class ExcelAppManifestWithFixtures extends ExcelAppManifest {
+public class FakedataAppManifestWithFixtures extends FakedataAppManifest {
 
     /**
      * Fixtures to be installed.
      */
     @Override
     public List<Class<? extends FixtureScript>> getFixtures() {
-        return Lists.<Class<? extends FixtureScript>>newArrayList(org.isisaddons.module.excel.fixture.scripts.RecreateToDoItems.class);
+        return Lists.<Class<? extends FixtureScript>>newArrayList(org.isisaddons.module.fakedata.fixture.scripts.scenarios.FakeDataDemoObjectsScenario.class);
     }
 
     /**

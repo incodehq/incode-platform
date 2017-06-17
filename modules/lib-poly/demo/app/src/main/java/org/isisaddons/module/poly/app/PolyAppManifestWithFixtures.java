@@ -1,4 +1,4 @@
-package org.isisaddons.module.excel.app;
+package org.isisaddons.module.poly.app;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,14 +9,14 @@ import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-public class ExcelAppManifestWithFixtures extends ExcelAppManifest {
+public class PolyAppManifestWithFixtures extends PolyAppManifest {
 
     /**
      * Fixtures to be installed.
      */
     @Override
     public List<Class<? extends FixtureScript>> getFixtures() {
-        return Lists.<Class<? extends FixtureScript>>newArrayList(org.isisaddons.module.excel.fixture.scripts.RecreateToDoItems.class);
+        return Lists.<Class<? extends FixtureScript>>newArrayList(org.isisaddons.module.poly.fixture.scripts.RecreateToDoItems.class);
     }
 
     /**
