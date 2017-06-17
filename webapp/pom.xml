@@ -117,7 +117,7 @@
         </dependency>
         <dependency>
             <groupId>org.isisaddons.module.docx</groupId>
-            <artifactId>isis-module-docx-fixture</artifactId>
+            <artifactId>isis-module-docx-app</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -127,22 +127,22 @@
         </dependency>
         <dependency>
             <groupId>org.isisaddons.module.fakedata</groupId>
-            <artifactId>isis-module-fakedata-fixture</artifactId>
+            <artifactId>isis-module-fakedata-app</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.isisaddons.module.servletapi</groupId>
-            <artifactId>isis-module-servletapi-fixture</artifactId>
+            <artifactId>isis-module-servletapi-app</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.isisaddons.module.stringinterpolator</groupId>
-            <artifactId>isis-module-stringinterpolator-fixture</artifactId>
+            <artifactId>isis-module-stringinterpolator-app</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.isisaddons.metamodel.paraname8</groupId>
-            <artifactId>isis-metamodel-paraname8-fixture</artifactId>
+            <artifactId>isis-metamodel-paraname8-app</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
