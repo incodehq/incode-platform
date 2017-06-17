@@ -1,7 +1,7 @@
-package org.isisaddons.module.fakedata.fixture;
+package org.isisaddons.module.servletapi.fixture;
 
-public final class FakeDataFixtureModule {
+public final class ServletApiFixtureModule {
 
-    private FakeDataFixtureModule(){}
+    private ServletApiFixtureModule(){}
 
 }

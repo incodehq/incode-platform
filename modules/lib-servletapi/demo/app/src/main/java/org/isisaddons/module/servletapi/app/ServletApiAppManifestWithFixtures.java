@@ -16,7 +16,7 @@ public class ServletApiAppManifestWithFixtures extends ServletApiAppManifest {
      */
     @Override
     public List<Class<? extends FixtureScript>> getFixtures() {
-        return Lists.<Class<? extends FixtureScript>>newArrayList(org.isisaddons.module.servletapi.fixture.scripts.RecreateToDoItems.class);
+        return Lists.<Class<? extends FixtureScript>>newArrayList(org.isisaddons.module.servletapi.fixture.scripts.ServletApiDemoObjectsFixture.class);
     }
 
     /**

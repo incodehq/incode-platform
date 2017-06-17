@@ -70,6 +70,18 @@
             </modules>
         </profile>
         <profile>
+            <id>lib-servletapi</id>
+            <activation>
+                <property>
+                    <name>lib-servletapi</name>
+                </property>
+            </activation>
+            <modules>
+                <module>modules</module>
+                <module>modules/lib-servletapi/demo</module>
+            </modules>
+        </profile>
+        <profile>
             <id>module-alias</id>
             <activation>
                 <property>
@@ -350,8 +362,8 @@
                 <module>modules/lib-excel/demo</module>
                 <module>modules/lib-fakedata/demo</module>
                 <module>modules/lib-poly/demo</module>
-                <!--
                 <module>modules/lib-servletapi/demo</module>
+                <!--
                 <module>modules/lib-stringinterpolator/demo</module>
                 -->
 
