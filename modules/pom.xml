@@ -1149,6 +1149,17 @@
             </modules>
         </profile>
         <profile>
+            <id>lib-excel</id>
+            <activation>
+                <property>
+                    <name>lib-excel</name>
+                </property>
+            </activation>
+            <modules>
+                <module>lib-excel/lib</module>
+            </modules>
+        </profile>
+        <profile>
             <id>module-alias</id>
             <activation>
                 <property>
