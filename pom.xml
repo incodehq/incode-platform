@@ -78,6 +78,7 @@
     </profiles>
 
     <modules>
+        <module>mavenmixins</module>
         <module>modules</module>
         <module>demo</module>
     </modules>
