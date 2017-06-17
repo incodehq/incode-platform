@@ -37,6 +37,7 @@
     </dependencies>
 
     <modules>
+        <module>app</module>
         <module>fixture</module>
     </modules>
 

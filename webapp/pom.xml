@@ -187,7 +187,7 @@
         </dependency>
         <dependency>
             <groupId>org.isisaddons.module.tags</groupId>
-            <artifactId>isis-module-tags-fixture</artifactId>
+            <artifactId>isis-module-tags-app</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -243,12 +243,6 @@
         <dependency>
             <groupId>org.isisaddons.wicket.wickedcharts</groupId>
             <artifactId>isis-wicket-wickedcharts-fixture</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.incode.module.communications</groupId>
-            <artifactId>incode-module-communications-demo-app</artifactId>
             <version>${project.version}</version>
         </dependency>
 
