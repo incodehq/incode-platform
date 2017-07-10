@@ -29,8 +29,8 @@ public class PdfJsConfig extends AbstractConfig {
     }
 
     public PdfJsConfig withInitialHeight(final int initialHeight) {
-        Args.isTrue(initialHeight >= 400 && initialHeight <= 1500,
-                "'initialHeight' must be between 400 and 1500");
+        Args.isTrue(initialHeight >= 400 && initialHeight <= 2000,
+                "'initialHeight' must be between 400 and 2000");
         put(INITIAL_HEIGHT, initialHeight);
         return this;
     }

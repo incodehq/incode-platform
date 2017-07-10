@@ -46,6 +46,7 @@
                 scale = 1.0,    // will be initialized below, based on config.initialScale
                 autoScale = "", // will be initialized below, based on config.initialScale
                 canvas = $('#'+config.canvasId)[0],
+                canvasDiv = $(canvas).parent(),
                 ctx = canvas.getContext('2d'),
                 abortingPrinting = false;
 
@@ -63,7 +64,8 @@
 
             var container = $('#'+canvas.id).closest('.pdfPanel');
 
-            canvas.height = config.initialHeight || 800;
+            $(canvasDiv).height(config.initialHeight || 800);
+            canvas.height = 2000;
             canvas.width = container.width();
 
             $(window).on('resize', function(){
@@ -99,6 +101,8 @@
                     }
 
                     viewport = page.getViewport(scale);
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
 
                     // Render PDF page into canvas context
                     var renderContext = {
@@ -117,7 +121,7 @@
                         });
                         Wicket.Event.publish(WicketStuff.PDFJS.Topic.CURRENT_PAGE, pageNum, {"canvasId": config.canvasId});
                         Wicket.Event.publish(WicketStuff.PDFJS.Topic.CURRENT_ZOOM, scaleValue, {"canvasId": config.canvasId});
-                    Wicket.Event.publish(WicketStuff.PDFJS.Topic.CURRENT_HEIGHT, canvas.height, {"canvasId": config.canvasId});
+                        Wicket.Event.publish(WicketStuff.PDFJS.Topic.CURRENT_HEIGHT, $(canvasDiv).height(), {"canvasId": config.canvasId});
                 });
             }
 
@@ -260,7 +264,7 @@
                 //var pageHeightScale = (this.container.clientHeight - vPadding) / currentPage.height * currentPage.scale;
 
                 var pageWidthScale = canvas.width / currentPage.width;
-                var pageHeightScale = canvas.height / currentPage.height;
+                var pageHeightScale = $(canvasDiv).height() / currentPage.height;
 
                 var newScale;
                 switch (autoScale) {
@@ -351,10 +355,10 @@
                   if (config.canvasId !== data.canvasId || !data.height) {
                       return;
                   }
-                  var previousHeight = canvas.height;
+                  var previousHeight = $(canvasDiv).height();
                   var newHeight = data.height;
 
-                  canvas.height = newHeight;
+                  $(canvasDiv).height(newHeight);
 
                   queueRenderPage(pageNum);
 

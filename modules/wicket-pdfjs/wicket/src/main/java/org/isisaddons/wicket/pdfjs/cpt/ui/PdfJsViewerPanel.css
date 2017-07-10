@@ -28,3 +28,7 @@ body[pdf-js-printing] > #pdf-js-print-container {
     padding: 4px 4px 3px 4px;
     margin-bottom: 5px;
 }
+
+.pdfJsPanel {
+    overflow: scroll;
+}
