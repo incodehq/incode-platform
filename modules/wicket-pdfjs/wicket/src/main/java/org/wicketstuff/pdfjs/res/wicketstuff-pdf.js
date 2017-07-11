@@ -95,12 +95,11 @@
                 // Using promise to fetch the page
                 pdfDoc.getPage(num).then(function(page) {
 
-                    var viewport = page.getViewport(1);
                     if (autoScale) {
-                        scale = calculateAutoScale(viewport)
+                        scale = calculateAutoScale(page)
                     }
 
-                    viewport = page.getViewport(scale);
+                    var viewport = page.getViewport(scale);
                     canvas.height = viewport.height;
                     canvas.width = viewport.width;
 
@@ -255,41 +254,37 @@
                 }
             }
 
-            function calculateAutoScale(currentPage) {
+            function calculateAutoScale(page) {
 
-                // todo may need to make more sohpisticated cf viewer
-                //var hPadding = this.isInPresentationMode || this.removePageBorders ? 0 : SCROLLBAR_PADDING;
-                //var vPadding = this.isInPresentationMode || this.removePageBorders ? 0 : VERTICAL_PADDING;
-                //var pageWidthScale = (this.container.clientWidth - hPadding) / currentPage.width * currentPage.scale;
-                //var pageHeightScale = (this.container.clientHeight - vPadding) / currentPage.height * currentPage.scale;
+                var viewport = page.getViewport(1);
+                var pageWidth = viewport.width;
+                var pageHeight = viewport.height;
 
-                var pageWidthScale = canvas.width / currentPage.width;
-                var pageHeightScale = $(canvasDiv).height() / currentPage.height;
+                var containerWidth = $(canvasDiv).width();
+                var containerHeight = $(canvasDiv).height();
 
-                var newScale;
+                // console.log("page      (width, height) = (" + pageWidth      + "," + pageHeight      + ")")
+                // console.log("container (width, height) = (" + containerWidth + "," + containerHeight + ")")
+
+                var pageWidthScale = containerWidth / pageWidth;
+                var pageHeightScale = containerHeight / pageHeight;
+
                 switch (autoScale) {
                 case 'page-actual':
-                    newScale = 1;
-                    break;
+                    return 0.99; // if set to 1, then see two 100% in the drop-down; not sure why...
                 case 'page-width':
-                    newScale = pageWidthScale;
-                    break;
+                    return pageWidthScale;
                 case 'page-height':
-                    newScale = pageHeightScale;
-                    break;
+                    return pageHeightScale;
                 case 'page-fit':
-                    newScale = Math.min(pageWidthScale, pageHeightScale);
-                    break;
+                    return Math.min(pageWidthScale, pageHeightScale);
                 case 'auto':
-                    var isLandscape = currentPage.width > currentPage.height;
+                    var isLandscape = pageWidth > pageHeight;
                     var horizontalScale = isLandscape ? Math.min(pageHeightScale, pageWidthScale) : pageWidthScale;
-                    newScale = Math.min(MAX_AUTO_SCALE, horizontalScale);
-                    break;
+                    return Math.min(MAX_AUTO_SCALE, horizontalScale);
                 default:
                     return scale;
-               }
-
-                return newScale;
+                }
             }
 
             /**
