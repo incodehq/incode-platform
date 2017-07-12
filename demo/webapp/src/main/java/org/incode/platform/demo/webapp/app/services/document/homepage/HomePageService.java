@@ -1,4 +1,4 @@
-package org.incode.module.document.app.menu.home;
+package org.incode.platform.demo.webapp.app.services.document.homepage;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
