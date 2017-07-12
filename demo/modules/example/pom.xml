@@ -133,6 +133,20 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>lib-fakedata</id>
+            <activation>
+                <property>
+                    <name>!skip.lib-fakedata</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.isisaddons.module.fakedata</groupId>
+                    <artifactId>isis-module-fakedata-dom</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 
 </project>
