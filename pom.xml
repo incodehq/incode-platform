@@ -84,7 +84,6 @@
                 <module>modules/wicket-wickedcharts/demo/fixture</module>
 
                 <module>modules/extension-flywaydb/demo/fixture</module>
-                <module>modules/extension-togglz/demo/fixture</module>
             </modules>
         </profile>
 
@@ -450,7 +449,7 @@
                 <module>modules</module>
 
                 <!-- demo -->
-                <module>demo/modules/simple</module>
+                <module>demo/modules/example</module>
 
                 <module>modules/extension-flywaydb/demo</module>
                 <module>modules/extension-togglz/demo</module>

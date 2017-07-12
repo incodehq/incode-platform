@@ -76,6 +76,7 @@
             <artifactId>hsqldb</artifactId>
         </dependency>
 
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -83,5 +84,22 @@
         </dependency>
 
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>togglz</id>
+            <activation>
+                <property>
+                    <name>!skip.togglz</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.togglz</groupId>
+                    <artifactId>togglz-core</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 
 </project>
