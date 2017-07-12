@@ -1,4 +1,4 @@
-package domainapp.application.services.homepage;
+package org.incode.platform.demo.webapp.app.services.homepage.flywaydb;
 
 import java.util.List;
 
