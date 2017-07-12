@@ -20,6 +20,16 @@
         Aggregator POM for all of the Incode Platform (modules and supporting tests, docs)
     </description>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.incode</groupId>
+                <artifactId>incode-platform-demo-modules-simple</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <profiles>
 
         <profile>
@@ -30,6 +40,8 @@
                 </property>
             </activation>
             <modules>
+                <module>demo/modules/simple</module>
+
                 <module>modules/module-alias/module</module>
                 <module>modules/module-alias/demo/fixture</module>
                 <module>modules/module-classification/module</module>
@@ -437,6 +449,9 @@
                 <module>mavenmixins</module>
                 <module>modules</module>
 
+                <!-- demo -->
+                <module>demo/modules/simple</module>
+
                 <module>modules/extension-flywaydb/demo</module>
                 <module>modules/extension-togglz/demo</module>
 
@@ -488,7 +503,6 @@
                 <module>modules</module>
             </modules>
         </profile>
-
     </profiles>
 
 
