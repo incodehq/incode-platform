@@ -161,6 +161,20 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>lib-servletapi</id>
+            <activation>
+                <property>
+                    <name>!skip.lib-servletapi</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.isisaddons.module.servletapi</groupId>
+                    <artifactId>isis-module-servletapi-dom</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 
 </project>
