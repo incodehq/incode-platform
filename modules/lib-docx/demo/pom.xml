@@ -44,7 +44,6 @@
 
     <modules>
         <module>app</module>
-        <module>fixture</module>
         <module>integtests</module>
     </modules>
 
