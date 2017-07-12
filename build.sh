@@ -112,9 +112,9 @@ if [ "$type" == "" -o "$artifact" == "" -o "$goals" == "" ]; then
     echo "            eg -o" >&2
     echo "" >&2
     echo "       examples:" >&2
-    echo "            sh build.sh -t l freemarker -o" >&2
-    echo "            sh build.sh -t m communications -o" >&2
-    echo "            sh build.sh -w m gmap3 -o" >&2
+    echo "            sh build.sh -tl freemarker -o" >&2
+    echo "            sh build.sh -tm communications -o" >&2
+    echo "            sh build.sh -tw gmap3 -o" >&2
     echo "" >&2
     exit 1
 fi
