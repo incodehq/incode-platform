@@ -1,4 +1,4 @@
-package org.incode.platform.demo.webapp.app.services.comms.homepage;
+package org.incode.platform.demo.webapp.app.services.homepage.comms;
 
 import java.util.List;
 

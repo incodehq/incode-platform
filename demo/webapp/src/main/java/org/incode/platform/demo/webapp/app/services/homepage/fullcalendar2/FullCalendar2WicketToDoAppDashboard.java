@@ -1,4 +1,4 @@
-package org.incode.platform.demo.webapp.app.services.fullcalendar2.homepage;
+package org.incode.platform.demo.webapp.app.services.homepage.fullcalendar2;
 
 import java.util.List;
 import org.isisaddons.wicket.fullcalendar2.fixture.dom.FullCalendar2WicketToDoItem;

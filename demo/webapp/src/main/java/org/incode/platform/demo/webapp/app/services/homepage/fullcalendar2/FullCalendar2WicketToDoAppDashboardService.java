@@ -1,4 +1,4 @@
-package org.incode.platform.demo.webapp.app.services.fullcalendar2.homepage;
+package org.incode.platform.demo.webapp.app.services.homepage.fullcalendar2;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;

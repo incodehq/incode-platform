@@ -1,4 +1,4 @@
-package org.incode.platform.demo.webapp.app.services.gmap3.homepage;
+package org.incode.platform.demo.webapp.app.services.homepage.gmap3;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;

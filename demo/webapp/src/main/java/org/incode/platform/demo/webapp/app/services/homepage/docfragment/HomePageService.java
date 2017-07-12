@@ -1,4 +1,4 @@
-package org.incode.platform.demo.webapp.app.services.comms.homepage;
+package org.incode.platform.demo.webapp.app.services.homepage.docfragment;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;

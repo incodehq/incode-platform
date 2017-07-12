@@ -1,4 +1,4 @@
-package org.incode.platform.demo.webapp.app.services.docfragment.homepage;
+package org.incode.platform.demo.webapp.app.services.homepage.docfragment;
 
 import java.util.List;
 

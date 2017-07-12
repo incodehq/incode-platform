@@ -1,4 +1,4 @@
-package org.incode.platform.demo.webapp.app.services.pdfjs.homepage;
+package org.incode.platform.demo.webapp.app.services.homepage.pdfjs;
 
 import java.util.List;
 
