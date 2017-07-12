@@ -16,7 +16,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.jaxb.JaxbService;
 import org.apache.isis.applib.services.urlencoding.UrlEncodingService;
 
-import org.isisaddons.wicket.pdfjs.app.services.homepage.HomePageViewModel;
+import org.incode.platform.demo.webapp.app.services.pdfjs.homepage.HomePageViewModel;
 import org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewerAdvisor;
 
 @DomainService(nature = NatureOfService.DOMAIN)

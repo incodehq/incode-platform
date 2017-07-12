@@ -1,4 +1,4 @@
-package org.isisaddons.wicket.pdfjs.app.services.homepage;
+package org.incode.platform.demo.webapp.app.services.pdfjs.homepage;
 
 import java.util.List;
 
