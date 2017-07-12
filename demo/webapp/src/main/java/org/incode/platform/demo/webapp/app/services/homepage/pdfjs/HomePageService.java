@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.HomePage;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.factory.FactoryService;
@@ -17,7 +16,7 @@ import org.isisaddons.wicket.pdfjs.fixture.dom.demo.DemoObject;
 public class HomePageService {
 
     @Action(semantics = SemanticsOf.SAFE)
-    @HomePage
+//    @HomePage
     public HomePageViewModel homePage() {
         final HomePageViewModel viewModel = factoryService.instantiate(HomePageViewModel.class);
         final List<DemoObject> demoObjects = viewModel.getDemoObjects();

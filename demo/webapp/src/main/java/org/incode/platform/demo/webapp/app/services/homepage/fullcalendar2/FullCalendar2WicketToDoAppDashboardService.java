@@ -3,7 +3,6 @@ package org.incode.platform.demo.webapp.app.services.homepage.fullcalendar2;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.HomePage;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
@@ -31,7 +30,7 @@ public class FullCalendar2WicketToDoAppDashboardService {
     @Action(
             semantics = SemanticsOf.SAFE
     )
-    @HomePage
+//    @HomePage
     public FullCalendar2WicketToDoAppDashboard lookup() {
         return container.newViewModelInstance(FullCalendar2WicketToDoAppDashboard.class, ID);
     }

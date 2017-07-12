@@ -2,7 +2,6 @@ package org.incode.platform.demo.webapp.app.services.homepage.document;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.HomePage;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.factory.FactoryService;
@@ -13,7 +12,7 @@ import org.apache.isis.applib.services.factory.FactoryService;
 public class HomePageService {
 
     @Action(semantics = SemanticsOf.SAFE)
-    @HomePage
+//    @HomePage
     public HomePageViewModel homePage() {
         return factoryService.instantiate(HomePageViewModel.class);
     }
