@@ -1,4 +1,4 @@
-package org.isisaddons.wicket.pdfjs.app.services.pdfadvisor;
+package org.incode.platform.demo.webapp.app.services.pdfjsadvisor;
 
 import java.util.Map;
 import java.util.Objects;
