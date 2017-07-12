@@ -37,7 +37,6 @@ public class SomeCommandAnnotatedObjects {
 
     //region > listAll (action)
 
-    @HomePage
     @Action(
             semantics = SemanticsOf.SAFE
     )

@@ -1,4 +1,4 @@
-package org.isisaddons.wicket.fullcalendar2.fixture.app;
+package org.incode.platform.demo.webapp.app.services.gmap3.homepage;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
@@ -10,7 +10,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY // trick
 )
-public class FullCalendar2WicketToDoAppDashboardService {
+public class Gmap3DashboardService {
 
     //region > identification in the UI
 
@@ -32,8 +32,8 @@ public class FullCalendar2WicketToDoAppDashboardService {
             semantics = SemanticsOf.SAFE
     )
     @HomePage
-    public FullCalendar2WicketToDoAppDashboard lookup() {
-        return container.newViewModelInstance(FullCalendar2WicketToDoAppDashboard.class, ID);
+    public Gmap3Dashboard lookup() {
+        return container.newViewModelInstance(Gmap3Dashboard.class, ID);
     }
 
     //endregion

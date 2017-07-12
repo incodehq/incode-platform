@@ -1,4 +1,4 @@
-package org.isisaddons.wicket.gmap3.fixture.app;
+package org.incode.platform.demo.webapp.app.services.gmap3.homepage;
 
 import java.util.List;
 
