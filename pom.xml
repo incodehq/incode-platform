@@ -24,7 +24,7 @@
         <dependencies>
             <dependency>
                 <groupId>org.incode</groupId>
-                <artifactId>incode-platform-demo-modules-simple</artifactId>
+                <artifactId>incode-platform-demo-modules-example</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
@@ -40,7 +40,7 @@
                 </property>
             </activation>
             <modules>
-                <module>demo/modules/simple</module>
+                <module>demo/modules/example</module>
 
                 <module>modules/module-alias/module</module>
                 <module>modules/module-alias/demo/fixture</module>

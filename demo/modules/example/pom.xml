@@ -9,8 +9,8 @@
         <relativePath>../../../modules/pom.xml</relativePath>
     </parent>
 
-    <artifactId>incode-platform-demo-modules-simple</artifactId>
-    <name>Incode Platform Demo Modules: Simple</name>
+    <artifactId>incode-platform-demo-modules-example</artifactId>
+    <name>Incode Platform Demo Modules: Example</name>
 
     <properties>
         <isis-maven-plugin.validate.appManifest>domainapp.modules.simple.FlywayDemoModuleManifest</isis-maven-plugin.validate.appManifest>
