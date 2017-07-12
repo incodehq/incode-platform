@@ -218,7 +218,7 @@
         <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
         <init-param>
             <param-name>applicationClassName</param-name>
-            <param-value>org.incode.platform.DemoApplication</param-value>
+            <param-value>org.incode.platform.demo.webapp.DemoApplication</param-value>
         </init-param>
     </filter>
     <filter-mapping>

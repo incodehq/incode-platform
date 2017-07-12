@@ -1,4 +1,4 @@
-package org.incode.platform;
+package org.incode.platform.demo.webapp;
 
 import java.io.IOException;
 import java.io.InputStream;
