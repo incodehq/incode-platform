@@ -33,7 +33,7 @@ public class ExcelCptAppManifest2 implements AppManifest {
     @Override
     public Map<String, String> getConfigurationProperties() {
         HashMap<String,String> props = Maps.newHashMap();
-        props.put("isis.viewer.wicket.rememberMe.cookieKey","DemoAppEncryptionKey");
+        props.put("isis.viewer.wicket.rememberMe.cookieKey","DomainAppEncryptionKey");
         return props;
     }
 
