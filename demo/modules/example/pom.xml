@@ -301,7 +301,6 @@
                     <groupId>org.incode.module.document</groupId>
                     <artifactId>incode-module-document-dom</artifactId>
                 </dependency>
-
                 <dependency>
                     <groupId>org.incode.module.docrendering</groupId>
                     <artifactId>incode-module-docrendering-stringinterpolator-dom</artifactId>
@@ -313,6 +312,20 @@
                 <dependency>
                     <groupId>org.incode.module.docrendering</groupId>
                     <artifactId>incode-module-docrendering-xdocreport-dom</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>module-note</id>
+            <activation>
+                <property>
+                    <name>!skip.module-note</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.incode.module.note</groupId>
+                    <artifactId>incode-module-note-dom</artifactId>
                 </dependency>
             </dependencies>
         </profile>
