@@ -39,12 +39,6 @@
         <!-- other modules in this project -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>incode-module-commchannel-fixture</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>${project.groupId}</groupId>
             <artifactId>incode-module-commchannel-app</artifactId>
             <scope>test</scope>
         </dependency>
