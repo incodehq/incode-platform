@@ -423,6 +423,22 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>wicket-fullcalendar2</id>
+            <activation>
+                <property>
+                    <name>!skip.wicket-fullcalendar2</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
+                    <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
+                    <!-- to avoid cluttering the classpath -->
+                    <optional>true</optional>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 
 </project>

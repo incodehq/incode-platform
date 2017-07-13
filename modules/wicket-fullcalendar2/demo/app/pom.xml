@@ -38,7 +38,13 @@
 
         <dependency>
             <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
-            <artifactId>isis-wicket-fullcalendar2-fixture</artifactId>
+            <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode</groupId>
+            <artifactId>incode-platform-demo-modules-example</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
     </dependencies>
