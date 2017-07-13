@@ -72,11 +72,6 @@
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>isis-module-publishmq-fixture-scripts</artifactId>
-                <version>1.15.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
                 <artifactId>isis-module-publishmq-fixture-routing</artifactId>
                 <version>1.15.0-SNAPSHOT</version>
             </dependency>
