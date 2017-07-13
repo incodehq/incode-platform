@@ -65,6 +65,16 @@
         </dependency>
 
         <dependency>
+            <groupId>org.isisaddons.module.fakedata</groupId>
+            <artifactId>isis-module-fakedata-dom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode.module.fixturesupport</groupId>
+            <artifactId>incode-module-fixturesupport-dom</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.isis.mavendeps</groupId>
             <artifactId>isis-mavendeps-testing</artifactId>
             <type>pom</type>
@@ -259,15 +269,24 @@
                 </dependency>
 
                 <dependency>
-                    <groupId>org.isisaddons.module.fakedata</groupId>
-                    <artifactId>isis-module-fakedata-dom</artifactId>
-                </dependency>
-
-                <dependency>
                     <groupId>org.incode.module.docrendering</groupId>
                     <artifactId>incode-module-docrendering-freemarker-dom</artifactId>
                 </dependency>
 
+            </dependencies>
+        </profile>
+        <profile>
+            <id>module-docfragment</id>
+            <activation>
+                <property>
+                    <name>!skip.module-docfragment</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.incode.module.docfragment</groupId>
+                    <artifactId>incode-module-docfragment-dom</artifactId>
+                </dependency>
             </dependencies>
         </profile>
     </profiles>
