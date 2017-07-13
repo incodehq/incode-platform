@@ -24,7 +24,7 @@
         <dependencies>
             <dependency>
                 <groupId>org.incode</groupId>
-                <artifactId>incode-platform-demo-modules-example</artifactId>
+                <artifactId>incode-domainapp-module-exampledom</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
@@ -40,7 +40,7 @@
                 </property>
             </activation>
             <modules>
-                <module>demo/modules/example</module>
+                <module>domainapp/modules/exampledom</module>
 
                 <module>modules/module-alias/module</module>
                 <module>modules/module-classification/module</module>
@@ -62,8 +62,6 @@
                 <module>modules/spi-publishmq/spi/jdo</module>
                 <module>modules/spi-security/spi</module>
                 <module>modules/spi-sessionlogger/spi</module>
-
-                <module>modules/extension-flywaydb/demo/fixture</module>
             </modules>
         </profile>
 
@@ -428,9 +426,9 @@
                 <module>mavenmixins</module>
                 <module>modules</module>
 
-                <!-- demo app -->
+                <!-- domain app (to use as reference) -->
 
-                <module>demo</module>
+                <module>domainapp</module>
 
                 <!-- per-module testing -->
 

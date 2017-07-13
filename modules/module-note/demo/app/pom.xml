@@ -33,7 +33,7 @@
     <dependencies>
         <dependency>
             <groupId>org.incode</groupId>
-            <artifactId>incode-platform-demo-modules-example</artifactId>
+            <artifactId>incode-domainapp-module-exampledom</artifactId>
             <version>${project.version}</version>
         </dependency>
 

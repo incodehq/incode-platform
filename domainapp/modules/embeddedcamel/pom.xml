@@ -4,14 +4,14 @@
 
     <parent>
         <groupId>org.incode</groupId>
-        <artifactId>incode-platform-demo</artifactId>
+        <artifactId>incode-domainapp</artifactId>
         <version>1.15.0-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>incode-platform-demo-modules-routing</artifactId>
+    <artifactId>incode-domainapp-module-embeddedcamel</artifactId>
+    <name>Incode Platform DomainApp Modules: Embedded Camel</name>
 
-    <name>Incode Platform SPI PublishMQ Demo Fixtures (Routing)</name>
     <description>
         Contains routing and supporting beans for Camel
     </description>
@@ -52,8 +52,8 @@
             <artifactId>isis-core-schema</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.isisaddons.module.publishmq</groupId>
-            <artifactId>isis-module-publishmq-fixture-canonical</artifactId>
+            <groupId>org.incode</groupId>
+            <artifactId>incode-domainapp-module-canonical</artifactId>
         </dependency>
 
         <dependency>

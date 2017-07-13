@@ -51,8 +51,8 @@
             <artifactId>isis-core-schema</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.isisaddons.module.publishmq</groupId>
-            <artifactId>isis-module-publishmq-fixture-canonical</artifactId>
+            <groupId>org.incode</groupId>
+            <artifactId>incode-domainapp-module-canonical</artifactId>
         </dependency>
 
         <dependency>

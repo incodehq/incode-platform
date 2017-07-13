@@ -66,8 +66,8 @@
                 <version>1.15.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>isis-module-publishmq-fixture-canonical</artifactId>
+                <groupId>org.incode</groupId>
+                <artifactId>incode-domainapp-module-canonical</artifactId>
                 <version>1.15.0-SNAPSHOT</version>
             </dependency>
             <dependency>

@@ -10,8 +10,10 @@
         <relativePath>../modules/pom.xml</relativePath>
     </parent>
 
-    <artifactId>incode-platform-demo</artifactId>
-    <name>Incode Platform Demo</name>
+    <artifactId>incode-domainapp</artifactId>
+    <name>Incode Platform DomainApp</name>
+    <description>Domain application leveraging the Incode Platform.</description>
+
 
     <packaging>pom</packaging>
 
@@ -19,27 +21,27 @@
         <dependencies>
             <dependency>
                 <groupId>org.incode</groupId>
-                <artifactId>incode-platform-demo-app</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.publishmq</groupId>
-                <artifactId>isis-module-publishmq-fixture-canonical</artifactId>
+                <artifactId>incode-domainapp-appdefn</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.incode</groupId>
-                <artifactId>incode-platform-demo-modules-example</artifactId>
+                <artifactId>incode-domainapp-module-canonical</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.incode</groupId>
-                <artifactId>incode-platform-demo-modules-routing</artifactId>
+                <artifactId>incode-domainapp-module-exampledom</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.incode</groupId>
-                <artifactId>incode-platform-demo-webapp</artifactId>
+                <artifactId>incode-domainapp-module-embeddedcamel</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode</groupId>
+                <artifactId>incode-domainapp-webapp</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
@@ -54,10 +56,10 @@
     </dependencies>
 
     <modules>
-        <module>app</module>
+        <module>appdefn</module>
         <module>modules/canonical</module>
-        <module>modules/example</module>
-        <module>modules/routing</module>
+        <module>modules/exampledom</module>
+        <module>modules/embeddedcamel</module>
         <module>webapp</module>
     </modules>
 
