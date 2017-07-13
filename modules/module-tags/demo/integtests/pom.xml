@@ -38,7 +38,7 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-tags-fixture</artifactId>
+            <artifactId>isis-module-tags-app</artifactId>
             <scope>test</scope>
         </dependency>
 

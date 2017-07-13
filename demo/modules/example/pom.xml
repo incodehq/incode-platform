@@ -343,6 +343,20 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>module-tags</id>
+            <activation>
+                <property>
+                    <name>!skip.module-tags</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.isisaddons.module.tags</groupId>
+                    <artifactId>isis-module-tags-dom</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 
 </project>
