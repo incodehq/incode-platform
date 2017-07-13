@@ -45,34 +45,24 @@
                 <module>modules/module-alias/module</module>
                 <module>modules/module-classification/module</module>
                 <module>modules/module-communications/module</module>
-                <module>modules/module-communications/demo/fixture</module>
                 <module>modules/module-commchannel/module</module>
-                <module>modules/module-commchannel/demo/fixture</module>
 
                 <module>modules/module-country/module</module>
 
                 <module>modules/module-docfragment/module</module>
-                <module>modules/module-docfragment/demo/fixture</module>
                 <module>modules/module-document/module</module>
-                <module>modules/module-document/demo/fixture</module>
                 <module>modules/module-note/module</module>
-                <module>modules/module-note/demo/fixture</module>
 
                 <module>modules/module-settings/module</module>
 
                 <module>modules/module-tags/module</module>
-                <module>modules/module-tags/demo/fixture</module>
 
                 <module>modules/spi-audit/spi</module>
-                <module>modules/spi-audit/demo/fixture</module>
                 <module>modules/spi-command/spi</module>
-                <module>modules/spi-command/demo/fixture</module>
                 <module>modules/spi-publishmq/spi/jdo</module>
                 <module>modules/spi-publishmq/demo/fixture/dom</module>
                 <module>modules/spi-security/spi</module>
-                <module>modules/spi-security/demo/fixture</module>
                 <module>modules/spi-sessionlogger/spi</module>
-                <module>modules/spi-sessionlogger/demo/fixture</module>
 
                 <module>modules/wicket-excel/demo/fixture</module>
                 <module>modules/wicket-fullcalendar2/demo/fixture</module>
@@ -446,8 +436,11 @@
                 <module>mavenmixins</module>
                 <module>modules</module>
 
-                <!-- demo -->
-                <module>demo/modules/example</module>
+                <!-- demo app -->
+
+                <module>demo</module>
+
+                <!-- per-module testing -->
 
                 <module>modules/extension-flywaydb/demo</module>
                 <module>modules/extension-togglz/demo</module>
@@ -484,7 +477,6 @@
                 <module>modules/wicket-summernote/demo</module>
                 <module>modules/wicket-wickedcharts/demo</module>
 
-                <module>demo/webapp</module>
 
             </modules>
         </profile>
