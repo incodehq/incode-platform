@@ -14,17 +14,11 @@
     <packaging>pom</packaging>
     
     <modules>
-        <module>canonicalmappings</module>
         <module>routing</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.isisaddons.module.publishmq</groupId>
-                <artifactId>isis-module-publishmq-fixture-canonicalmappings</artifactId>
-                <version>1.15.0-SNAPSHOT</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

@@ -387,6 +387,20 @@
             </dependencies>
         </profile>
         <profile>
+            <id>spi-publishmq</id>
+            <activation>
+                <property>
+                    <name>!skip.spi-publishmq</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.isisaddons.module.publishmq</groupId>
+                    <artifactId>isis-module-publishmq-fixture-canonical</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
             <id>spi-security</id>
             <activation>
                 <property>
