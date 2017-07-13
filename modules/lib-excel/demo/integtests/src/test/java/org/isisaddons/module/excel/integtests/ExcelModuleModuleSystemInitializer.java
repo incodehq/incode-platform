@@ -3,7 +3,7 @@ package org.isisaddons.module.excel.integtests;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
 import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegTests;
 
-import org.isisaddons.module.excel.app.ExcelAppManifest;
+import org.isisaddons.module.excel.app.ExcelLibAppManifest;
 
 /**
  * Holds an instance of an {@link IsisSystemForTest} as a {@link ThreadLocal} on the current thread,
@@ -18,7 +18,7 @@ public class ExcelModuleModuleSystemInitializer {
         if(isft == null) {
             isft = new IsisSystemForTest.Builder()
                     .withLoggingAt(org.apache.log4j.Level.INFO)
-                    .with(new ExcelAppManifest())
+                    .with(new ExcelLibAppManifest())
                     .with(new IsisConfigurationForJdoIntegTests())
                     .build()
                     .setUpSystem();

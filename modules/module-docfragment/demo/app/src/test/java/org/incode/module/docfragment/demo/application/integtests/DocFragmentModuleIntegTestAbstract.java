@@ -20,7 +20,7 @@ import org.apache.isis.core.integtestsupport.scenarios.ScenarioExecutionForInteg
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 import org.isisaddons.module.freemarker.dom.service.FreeMarkerService;
 
-import org.incode.module.docfragment.demo.application.manifest.DemoAppAppManifest;
+import org.incode.module.docfragment.demo.application.manifest.DocFragmentAppAppManifest;
 
 public abstract class DocFragmentModuleIntegTestAbstract extends IntegrationTestAbstract {
 
@@ -31,7 +31,7 @@ public abstract class DocFragmentModuleIntegTestAbstract extends IntegrationTest
         if(isft == null) {
             isft = new IsisSystemForTest.Builder()
                     .withLoggingAt(org.apache.log4j.Level.INFO)
-                    .with(new DemoAppAppManifest() {
+                    .with(new DocFragmentAppAppManifest() {
                         @Override
                         public Map<String, String> getConfigurationProperties() {
                             final Map<String, String> map = Maps.newHashMap();

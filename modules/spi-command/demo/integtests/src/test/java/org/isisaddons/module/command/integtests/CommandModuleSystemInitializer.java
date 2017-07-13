@@ -5,7 +5,7 @@ import org.apache.log4j.Level;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
 import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegTests;
 
-import org.isisaddons.module.command.app.CommandAppManifest;
+import org.isisaddons.module.command.app.CommandSpiAppManifest;
 
 /**
  * Holds an instance of an {@link IsisSystemForTest} as a {@link ThreadLocal} on the current thread,
@@ -20,7 +20,7 @@ public class CommandModuleSystemInitializer {
         if(isft == null) {
             isft = new IsisSystemForTest.Builder()
                     .withLoggingAt(Level.INFO)
-                    .with(new CommandAppManifest())
+                    .with(new CommandSpiAppManifest())
                     .with(new IsisConfigurationForJdoIntegTests())
                     .build()
                     .setUpSystem();

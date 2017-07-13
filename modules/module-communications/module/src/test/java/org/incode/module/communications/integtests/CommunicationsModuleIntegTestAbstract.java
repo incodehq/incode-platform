@@ -17,7 +17,7 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
 import org.apache.isis.core.integtestsupport.scenarios.ScenarioExecutionForIntegration;
 
-import org.incode.module.communications.CommunicationsModuleManifest;
+import org.incode.module.communications.CommunicationsModuleDomManifest;
 
 public abstract class CommunicationsModuleIntegTestAbstract extends IntegrationTestAbstract {
 
@@ -28,7 +28,7 @@ public abstract class CommunicationsModuleIntegTestAbstract extends IntegrationT
         if(isft == null) {
             isft = new IsisSystemForTest.Builder()
                     .withLoggingAt(org.apache.log4j.Level.INFO)
-                    .with(new CommunicationsModuleManifest() {
+                    .with(new CommunicationsModuleDomManifest() {
                         @Override
                         public Map<String, String> getConfigurationProperties() {
                             final Map<String, String> map = Maps.newHashMap();

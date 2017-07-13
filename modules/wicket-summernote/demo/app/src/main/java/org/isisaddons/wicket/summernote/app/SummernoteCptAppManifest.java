@@ -1,0 +1,40 @@
+package org.isisaddons.wicket.summernote.app;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.google.common.collect.Maps;
+
+import org.apache.isis.applib.AppManifest;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
+
+import org.isisaddons.wicket.summernote.cpt.ui.SummernoteUiModule;
+import org.isisaddons.wicket.summernote.fixture.SummernoteCptDemoFixtureModule;
+
+public class SummernoteCptAppManifest implements AppManifest {
+    @Override
+    public List<Class<?>> getModules() {
+        return Arrays.asList(
+                SummernoteUiModule.class,
+                SummernoteCptDemoFixtureModule.class,
+                SummernoteAppModule.class
+        );
+    }
+    @Override
+    public List<Class<?>> getAdditionalServices() { return null; }
+    @Override
+    public String getAuthenticationMechanism() { return null; }
+    @Override
+    public String getAuthorizationMechanism() { return null; }
+    @Override
+    public List<Class<? extends FixtureScript>> getFixtures() { return null; }
+    @Override
+    public Map<String, String> getConfigurationProperties() {
+        HashMap<String,String> props = Maps.newHashMap();
+        props.put("isis.viewer.wicket.rememberMe.cookieKey","DemoAppEncryptionKey");
+        return props;
+    }
+
+}

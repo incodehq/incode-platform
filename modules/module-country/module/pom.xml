@@ -55,7 +55,7 @@
 
     <properties>
         <isis-maven-plugin.validate.appManifest>
-            org.incode.module.country.CountryModuleManifest
+            org.incode.module.country.CountryModuleDomManifest
         </isis-maven-plugin.validate.appManifest>
     </properties>
 

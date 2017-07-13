@@ -55,7 +55,7 @@
 
     <properties>
         <isis-maven-plugin.validate.appManifest>
-            org.incode.module.docfragment.DocFragmentModuleManifest
+            org.incode.module.docfragment.DocFragmentModuleDomManifest
         </isis-maven-plugin.validate.appManifest>
     </properties>
 

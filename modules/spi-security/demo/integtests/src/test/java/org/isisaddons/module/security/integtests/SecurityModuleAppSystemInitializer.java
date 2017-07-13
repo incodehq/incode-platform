@@ -3,11 +3,9 @@ package org.isisaddons.module.security.integtests;
 import com.google.common.collect.Lists;
 import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
-import org.apache.isis.core.commons.config.IsisConfiguration;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
 import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegTests;
 import org.isisaddons.module.security.SecurityModule;
-import org.isisaddons.module.security.app.SecurityAppManifest;
 
 import java.util.List;
 import java.util.Map;

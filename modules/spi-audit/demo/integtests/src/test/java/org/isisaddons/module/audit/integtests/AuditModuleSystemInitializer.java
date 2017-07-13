@@ -5,7 +5,7 @@ import org.apache.log4j.Level;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
 import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegTests;
 
-import org.isisaddons.module.audit.app.AuditAppManifest;
+import org.isisaddons.module.audit.app.AuditSpiAppManifest;
 
 /**
  * Holds an instance of an {@link IsisSystemForTest} as a {@link ThreadLocal} on the current thread,
@@ -20,7 +20,7 @@ public class AuditModuleSystemInitializer {
         if(isft == null) {
             isft = new IsisSystemForTest.Builder()
                     .withLoggingAt(Level.INFO)
-                    .with(new AuditAppManifest())
+                    .with(new AuditSpiAppManifest())
                     .with(new IsisConfigurationForJdoIntegTests())
                     .build()
                     .setUpSystem();

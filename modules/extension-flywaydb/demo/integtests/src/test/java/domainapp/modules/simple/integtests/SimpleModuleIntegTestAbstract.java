@@ -17,7 +17,7 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
 import org.apache.isis.core.integtestsupport.scenarios.ScenarioExecutionForIntegration;
 
-import domainapp.modules.simple.FlywayDemoModuleManifest;
+import domainapp.modules.simple.DomainappDomManifest;
 
 public abstract class SimpleModuleIntegTestAbstract extends IntegrationTestAbstract {
 
@@ -28,7 +28,7 @@ public abstract class SimpleModuleIntegTestAbstract extends IntegrationTestAbstr
         if(isft == null) {
             isft = new IsisSystemForTest.Builder()
                     .withLoggingAt(org.apache.log4j.Level.INFO)
-                    .with(new FlywayDemoModuleManifest() {
+                    .with(new DomainappDomManifest() {
                         @Override
                         public Map<String, String> getConfigurationProperties() {
                             final Map<String, String> map = Maps.newHashMap();

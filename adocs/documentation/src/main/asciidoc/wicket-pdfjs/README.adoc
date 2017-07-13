@@ -42,7 +42,7 @@ mvn -pl webapp jetty:run
 
 Then log on using user: `sven`, password: `pass`
 
-This app is preconfigured to use the `org.isisaddons.wicket.pdfjs.app.PdfjsDemoAppManifestWithDemoFixture` app manifest, and should open at the home page shown in the screenshot above.
+This app is preconfigured to use the `org.isisaddons.wicket.pdfjs.app.PdfjsDemoAppManifestWithCptFixture` app manifest, and should open at the home page shown in the screenshot above.
 
 
 == API &  Usage

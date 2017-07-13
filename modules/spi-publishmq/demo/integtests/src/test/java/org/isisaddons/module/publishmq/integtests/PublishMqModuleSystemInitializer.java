@@ -1,9 +1,8 @@
 package org.isisaddons.module.publishmq.integtests;
 
-import org.apache.isis.core.commons.config.IsisConfiguration;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
 import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegTests;
-import org.isisaddons.module.publishmq.app.PublishMqAppManifest;
+import org.isisaddons.module.publishmq.app.PublishMqSpiAppManifest;
 
 /**
  * Holds an instance of an {@link IsisSystemForTest} as a {@link ThreadLocal} on the current thread,
@@ -18,7 +17,7 @@ public class PublishMqModuleSystemInitializer {
         if(isft == null) {
             isft = new IsisSystemForTest.Builder()
                     .withLoggingAt(org.apache.log4j.Level.INFO)
-                    .with(new PublishMqAppManifest())
+                    .with(new PublishMqSpiAppManifest())
                     .with(new IsisConfigurationForJdoIntegTests())
                     .build()
                     .setUpSystem();

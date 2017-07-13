@@ -18,7 +18,7 @@ import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationPr
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
 import org.apache.isis.core.integtestsupport.scenarios.ScenarioExecutionForIntegration;
 
-import org.incode.module.country.CountryModuleManifest;
+import org.incode.module.country.CountryModuleDomManifest;
 import org.incode.module.country.fixture.teardown.CountryModuleTearDown;
 import org.incode.module.integtestsupport.dom.IncodeIntegrationTestAbstract;
 
@@ -36,7 +36,7 @@ public abstract class CountryModuleIntegTestAbstract extends IncodeIntegrationTe
         if(isft == null) {
             isft = new IsisSystemForTest.Builder()
                     .withLoggingAt(org.apache.log4j.Level.INFO)
-                    .with(new CountryModuleManifest() {
+                    .with(new CountryModuleDomManifest() {
                         @Override
                         public Map<String, String> getConfigurationProperties() {
                             final Map<String, String> map = Maps.newHashMap();
