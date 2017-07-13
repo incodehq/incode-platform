@@ -39,12 +39,6 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>incode-module-classification-fixture</artifactId>
-            <scope>test</scope>
-        </dependency>
-        
-        <dependency>
-            <groupId>${project.groupId}</groupId>
             <artifactId>incode-module-classification-app</artifactId>
             <scope>test</scope>
         </dependency>
