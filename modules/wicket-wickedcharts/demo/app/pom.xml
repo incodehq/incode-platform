@@ -38,7 +38,13 @@
 
         <dependency>
             <groupId>org.isisaddons.wicket.wickedcharts</groupId>
-            <artifactId>isis-wicket-wickedcharts-fixture</artifactId>
+            <artifactId>isis-wicket-wickedcharts-cpt</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode</groupId>
+            <artifactId>incode-platform-demo-modules-example</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
     </dependencies>
