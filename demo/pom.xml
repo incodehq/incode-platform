@@ -34,6 +34,11 @@
             </dependency>
             <dependency>
                 <groupId>org.incode</groupId>
+                <artifactId>incode-platform-demo-modules-routing</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode</groupId>
                 <artifactId>incode-platform-demo-webapp</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -50,7 +55,9 @@
 
     <modules>
         <module>app</module>
+        <module>modules/canonical</module>
         <module>modules/example</module>
+        <module>modules/routing</module>
         <module>webapp</module>
     </modules>
 
