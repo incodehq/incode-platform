@@ -357,6 +357,20 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>spi-audit</id>
+            <activation>
+                <property>
+                    <name>!skip.spi-audit</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.isisaddons.module.audit</groupId>
+                    <artifactId>isis-module-audit-dom</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 
 </project>
