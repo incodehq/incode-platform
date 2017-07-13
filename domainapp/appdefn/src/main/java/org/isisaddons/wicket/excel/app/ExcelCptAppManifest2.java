@@ -13,7 +13,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.isisaddons.wicket.excel.cpt.ui.ExcelUiModule;
 import org.isisaddons.wicket.excel.fixture.ExcelCptDemoFixtureModule;
 
-public class ExcelCptAppManifest implements AppManifest {
+public class ExcelCptAppManifest2 implements AppManifest {
     @Override
     public List<Class<?>> getModules() {
         return Arrays.asList(

@@ -9,7 +9,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>incode-domainapp-module-embeddedcamel</artifactId>
+    <artifactId>incode-domainapp-module-exampleembeddedcamel</artifactId>
     <name>Incode Platform DomainApp Modules: Embedded Camel</name>
 
     <description>
@@ -53,7 +53,7 @@
         </dependency>
         <dependency>
             <groupId>org.incode</groupId>
-            <artifactId>incode-domainapp-module-canonical</artifactId>
+            <artifactId>incode-domainapp-module-examplecanonical</artifactId>
         </dependency>
 
         <dependency>

@@ -396,7 +396,7 @@
             <dependencies>
                 <dependency>
                     <groupId>org.incode</groupId>
-                    <artifactId>incode-domainapp-module-canonical</artifactId>
+                    <artifactId>incode-domainapp-module-examplecanonical</artifactId>
                 </dependency>
             </dependencies>
         </profile>

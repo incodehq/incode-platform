@@ -67,7 +67,7 @@
             </dependency>
             <dependency>
                 <groupId>org.incode</groupId>
-                <artifactId>incode-domainapp-module-canonical</artifactId>
+                <artifactId>incode-domainapp-module-examplecanonical</artifactId>
                 <version>1.15.0-SNAPSHOT</version>
             </dependency>
             <dependency>

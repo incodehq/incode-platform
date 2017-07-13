@@ -9,7 +9,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.wicket.excel.fixture.scripts.ExcelWicketSetUpFixtureForSven;
 
-public class ExcelCptAppManifestWithDemoFixture extends ExcelCptAppManifest {
+public class ExcelCptAppManifestWithDemoFixture2 extends ExcelCptAppManifest2 {
 
     @Override
     public List<Class<? extends FixtureScript>> getFixtures() { return Lists.<Class<? extends FixtureScript>>newArrayList(ExcelWicketSetUpFixtureForSven.class); }

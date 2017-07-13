@@ -9,7 +9,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>incode-domainapp-module-canonical</artifactId>
+    <artifactId>incode-domainapp-module-examplecanonical</artifactId>
 
     <name>Incode Platform DomainApp Modules: Canonical DTOs</name>
     <description>

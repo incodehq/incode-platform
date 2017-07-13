@@ -26,7 +26,7 @@
             </dependency>
             <dependency>
                 <groupId>org.incode</groupId>
-                <artifactId>incode-domainapp-module-canonical</artifactId>
+                <artifactId>incode-domainapp-module-examplecanonical</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -36,7 +36,7 @@
             </dependency>
             <dependency>
                 <groupId>org.incode</groupId>
-                <artifactId>incode-domainapp-module-embeddedcamel</artifactId>
+                <artifactId>incode-domainapp-module-exampleembeddedcamel</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -57,9 +57,9 @@
 
     <modules>
         <module>appdefn</module>
-        <module>modules/canonical</module>
+        <module>modules/examplecanonical</module>
         <module>modules/exampledom</module>
-        <module>modules/embeddedcamel</module>
+        <module>modules/exampleembeddedcamel</module>
         <module>webapp</module>
     </modules>
 
