@@ -32,8 +32,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>incode-module-document-fixture</artifactId>
+            <groupId>org.incode</groupId>
+            <artifactId>incode-platform-demo-modules-example</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
