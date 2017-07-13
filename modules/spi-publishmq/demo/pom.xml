@@ -118,7 +118,7 @@
     <modules>
         <module>app</module>
         <module>externalsystemadapter</module>
-        <module>fixture</module>
+        <module>routing</module>
         <module>integtests</module>
     </modules>
 
