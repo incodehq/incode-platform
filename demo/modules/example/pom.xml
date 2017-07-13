@@ -245,6 +245,31 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>module-communications</id>
+            <activation>
+                <property>
+                    <name>!skip.module-communications</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.incode.module.communications</groupId>
+                    <artifactId>incode-module-communications-dom</artifactId>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.isisaddons.module.fakedata</groupId>
+                    <artifactId>isis-module-fakedata-dom</artifactId>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.incode.module.docrendering</groupId>
+                    <artifactId>incode-module-docrendering-freemarker-dom</artifactId>
+                </dependency>
+
+            </dependencies>
+        </profile>
     </profiles>
 
 </project>
