@@ -43,9 +43,7 @@
                 <module>demo/modules/example</module>
 
                 <module>modules/module-alias/module</module>
-                <module>modules/module-alias/demo/fixture</module>
                 <module>modules/module-classification/module</module>
-                <module>modules/module-classification/demo/fixture</module>
                 <module>modules/module-communications/module</module>
                 <module>modules/module-communications/demo/fixture</module>
                 <module>modules/module-commchannel/module</module>

@@ -11,7 +11,7 @@
 
     <packaging>pom</packaging>
     
-    <name>Apache Isis Maven Mixin for isis:validate</name>
+    <name>Incode Platform Maven Mixin for isis:validate</name>
     <description>
         Maven mixin providing the ability to run isis:validate goal over Apache Isis domain objects.
     </description>

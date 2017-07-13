@@ -11,7 +11,7 @@
 
     <packaging>pom</packaging>
     
-    <name>Apache Isis Maven Mixin for isis:swagger</name>
+    <name>Incode Platform Maven Mixin for isis:swagger</name>
     <description>
         Maven mixin providing the ability to run isis:swagger goal for an Apache Isis domain application.
     </description>
