@@ -230,6 +230,20 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>wicket-pdfjs</id>
+            <activation>
+                <property>
+                    <name>!skip.wicket-pdfjs</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.isisaddons.wicket.pdfjs</groupId>
+                    <artifactId>isis-wicket-pdfjs-cpt</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 
 </project>
