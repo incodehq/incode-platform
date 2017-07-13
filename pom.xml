@@ -60,16 +60,8 @@
                 <module>modules/spi-audit/spi</module>
                 <module>modules/spi-command/spi</module>
                 <module>modules/spi-publishmq/spi/jdo</module>
-                <module>modules/spi-publishmq/demo/fixture/dom</module>
                 <module>modules/spi-security/spi</module>
                 <module>modules/spi-sessionlogger/spi</module>
-
-                <module>modules/wicket-excel/demo/fixture</module>
-                <module>modules/wicket-fullcalendar2/demo/fixture</module>
-                <module>modules/wicket-gmap3/demo/fixture</module>
-                <module>modules/wicket-pdfjs/demo/fixture</module>
-                <module>modules/wicket-summernote/demo/fixture</module>
-                <module>modules/wicket-wickedcharts/demo/fixture</module>
 
                 <module>modules/extension-flywaydb/demo/fixture</module>
             </modules>
