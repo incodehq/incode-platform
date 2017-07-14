@@ -22,7 +22,7 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.util.ObjectContracts;
 
-import domainapp.modules.simple.dom.SimpleModuleDomSubmodule;
+import domainapp.modules.simple.dom.ExampleDomSubmodule;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -77,7 +77,7 @@ public class FlywayDemoObject implements Comparable<FlywayDemoObject> {
         }
 
         public static class PropertyDomainEvent
-                extends SimpleModuleDomSubmodule.PropertyDomainEvent<FlywayDemoObject, String> { }
+                extends ExampleDomSubmodule.PropertyDomainEvent<FlywayDemoObject, String> { }
     }
 
 
@@ -104,7 +104,7 @@ public class FlywayDemoObject implements Comparable<FlywayDemoObject> {
         }
 
         public static class PropertyDomainEvent
-                extends SimpleModuleDomSubmodule.PropertyDomainEvent<FlywayDemoObject, String> { }
+                extends ExampleDomSubmodule.PropertyDomainEvent<FlywayDemoObject, String> { }
     }
 
 
@@ -125,7 +125,7 @@ public class FlywayDemoObject implements Comparable<FlywayDemoObject> {
     @Mixin(method = "exec")
     public static class updateName {
 
-        public static class ActionDomainEvent extends SimpleModuleDomSubmodule.ActionDomainEvent<FlywayDemoObject> {
+        public static class ActionDomainEvent extends ExampleDomSubmodule.ActionDomainEvent<FlywayDemoObject> {
         }
 
         private final FlywayDemoObject flywayDemoObject;
@@ -166,7 +166,7 @@ public class FlywayDemoObject implements Comparable<FlywayDemoObject> {
     @Mixin(method = "exec")
     public static class delete {
 
-        public static class ActionDomainEvent extends SimpleModuleDomSubmodule.ActionDomainEvent<FlywayDemoObject> {
+        public static class ActionDomainEvent extends ExampleDomSubmodule.ActionDomainEvent<FlywayDemoObject> {
         }
 
         private final FlywayDemoObject flywayDemoObject;

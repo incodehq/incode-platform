@@ -33,6 +33,11 @@
     <dependencies>
 
         <dependency>
+            <groupId>org.isisaddons.module.audit</groupId>
+            <artifactId>isis-module-audit-dom</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.incode</groupId>
             <artifactId>incode-domainapp-module-exampledom</artifactId>
             <version>${project.version}</version>

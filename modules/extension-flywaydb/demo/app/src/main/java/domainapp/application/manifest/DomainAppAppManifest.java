@@ -8,9 +8,9 @@ import java.util.Map;
 import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.application.fixture.DomainAppApplicationModuleFixtureSubmodule;
-import domainapp.application.services.DomainAppApplicationModuleServicesSubmodule;
-import domainapp.modules.simple.dom.SimpleModuleDomSubmodule;
+import domainapp.application.fixture.ExampleDomFixtureSubmodule;
+import domainapp.application.services.ExampleDomServicesSubmodule;
+import domainapp.modules.simple.dom.ExampleDomSubmodule;
 
 /**
  * Bootstrap the application.
@@ -23,9 +23,9 @@ public class DomainAppAppManifest implements AppManifest {
     @Override
     public List<Class<?>> getModules() {
         return Arrays.asList(
-                SimpleModuleDomSubmodule.class,
-                DomainAppApplicationModuleFixtureSubmodule.class,
-                DomainAppApplicationModuleServicesSubmodule.class
+                ExampleDomSubmodule.class,
+                ExampleDomFixtureSubmodule.class,
+                ExampleDomServicesSubmodule.class
         );
     }
 

@@ -358,6 +358,7 @@
                 </dependency>
             </dependencies>
         </profile>
+
         <profile>
             <id>spi-audit</id>
             <activation>
@@ -369,6 +370,8 @@
                 <dependency>
                     <groupId>org.isisaddons.module.audit</groupId>
                     <artifactId>isis-module-audit-dom</artifactId>
+                    <!-- to avoid cluttering the classpath -->
+                    <optional>true</optional>
                 </dependency>
             </dependencies>
         </profile>
@@ -383,6 +386,8 @@
                 <dependency>
                     <groupId>org.isisaddons.module.command</groupId>
                     <artifactId>isis-module-command-dom</artifactId>
+                    <!-- to avoid cluttering the classpath -->
+                    <optional>true</optional>
                 </dependency>
             </dependencies>
         </profile>
@@ -398,42 +403,11 @@
                     <groupId>org.incode</groupId>
                     <artifactId>incode-domainapp-module-examplecanonical</artifactId>
                 </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>spi-security</id>
-            <activation>
-                <property>
-                    <name>!skip.spi-security</name>
-                </property>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.mindrot</groupId>
-                        <artifactId>jbcrypt</artifactId>
-                        <version>${jbcrypt.version}</version>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-            <dependencies>
                 <dependency>
-                    <groupId>org.isisaddons.module.security</groupId>
-                    <artifactId>isis-module-security-dom</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>spi-sessionlogger</id>
-            <activation>
-                <property>
-                    <name>!skip.spi-sessionlogger</name>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.isisaddons.module.sessionlogger</groupId>
-                    <artifactId>isis-module-sessionlogger-dom</artifactId>
+                    <groupId>org.isisaddons.module.publishmq</groupId>
+                    <artifactId>isis-module-publishmq-dom-jdo</artifactId>
+                    <!-- to avoid cluttering the classpath -->
+                    <optional>true</optional>
                 </dependency>
             </dependencies>
         </profile>

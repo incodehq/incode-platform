@@ -8,7 +8,7 @@ import java.util.Map;
 import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.module.communications.demo.module.dom.DemoModuleDomSubmodule;
+import org.incode.module.communications.demo.module.dom.CommunicationsModuleDomSubmodule;
 import org.incode.module.communications.demo.module.fixture.DemoModuleFixtureSubmodule;
 
 /**
@@ -19,7 +19,7 @@ public class CommunicationsModuleDomManifest implements AppManifest {
     @Override
     public List<Class<?>> getModules() {
         return Arrays.<Class<?>>asList(
-                DemoModuleDomSubmodule.class,
+                CommunicationsModuleDomSubmodule.class,
                 DemoModuleFixtureSubmodule.class
         );
     }

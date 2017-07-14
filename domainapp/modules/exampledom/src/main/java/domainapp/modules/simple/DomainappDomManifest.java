@@ -8,7 +8,7 @@ import java.util.Map;
 import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.modules.simple.dom.SimpleModuleDomSubmodule;
+import domainapp.modules.simple.dom.ExampleDomSubmodule;
 import domainapp.modules.simple.fixture.FlywayDemoModuleFixtureSubmodule;
 
 /**
@@ -19,7 +19,7 @@ public class DomainappDomManifest implements AppManifest {
     @Override
     public List<Class<?>> getModules() {
         return Arrays.<Class<?>>asList(
-                SimpleModuleDomSubmodule.class,
+                ExampleDomSubmodule.class,
                 FlywayDemoModuleFixtureSubmodule.class
         );
     }

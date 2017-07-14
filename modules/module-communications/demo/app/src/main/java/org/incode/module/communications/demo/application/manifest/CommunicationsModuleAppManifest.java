@@ -15,7 +15,7 @@ import org.isisaddons.module.pdfbox.dom.PdfBoxModule;
 
 import org.incode.module.communications.demo.application.fixture.DemoAppApplicationModuleFixtureSubmodule;
 import org.incode.module.communications.demo.application.services.DemoAppApplicationModuleServicesSubmodule;
-import org.incode.module.communications.demo.module.dom.DemoModuleDomSubmodule;
+import org.incode.module.communications.demo.module.dom.CommunicationsModuleDomSubmodule;
 import org.incode.module.communications.dom.CommunicationsModuleDomModule;
 import org.incode.module.country.dom.CountryModule;
 import org.incode.module.document.dom.DocumentModule;
@@ -34,7 +34,7 @@ public class CommunicationsModuleAppManifest implements AppManifest {
                 CommunicationsModuleDomModule.class,
                 DocumentModule.class,
                 CountryModule.class,
-                DemoModuleDomSubmodule.class,
+                CommunicationsModuleDomSubmodule.class,
                 DemoAppApplicationModuleFixtureSubmodule.class,
                 DemoAppApplicationModuleServicesSubmodule.class,
                 PdfBoxModule.class,
