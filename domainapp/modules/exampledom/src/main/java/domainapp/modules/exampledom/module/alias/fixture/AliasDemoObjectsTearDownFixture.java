@@ -1,4 +1,4 @@
-package org.incode.module.alias.fixture.scripts.teardown;
+package domainapp.modules.exampledom.module.alias.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;

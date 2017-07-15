@@ -1,13 +1,12 @@
-package org.incode.module.alias.fixture.scripts.scenarios;
+package domainapp.modules.exampledom.module.alias.fixture;
 
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
 import org.incode.module.alias.dom.impl.T_addAlias;
-import org.incode.module.alias.fixture.app.alias.AliasForDemoObject;
-import org.incode.module.alias.fixture.app.spiimpl.aliastype.AliasTypeDemoEnum;
-import org.incode.module.alias.fixture.dom.demo.DemoObject;
-import org.incode.module.alias.fixture.dom.demo.DemoObjectMenu;
-import org.incode.module.alias.fixture.scripts.teardown.AliasDemoObjectsTearDownFixture;
+import domainapp.modules.exampledom.module.alias.dom.alias.AliasForDemoObject;
+import domainapp.modules.exampledom.module.alias.dom.spiimpl.aliastype.AliasTypeDemoEnum;
+import domainapp.modules.exampledom.module.alias.dom.demo.DemoObject;
+import domainapp.modules.exampledom.module.alias.dom.demo.DemoObjectMenu;
 
 public class AliasDemoObjectsFixture extends DiscoverableFixtureScript {
 

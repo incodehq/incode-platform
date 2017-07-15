@@ -10,7 +10,7 @@ import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.module.alias.dom.AliasModule;
-import org.incode.module.alias.fixture.AliasFixtureModule;
+import domainapp.modules.exampledom.module.alias.ExampleDomModuleAliasModule;
 
 /**
  * Bootstrap the application.
@@ -22,7 +22,7 @@ public class AliasModuleAppManifest implements AppManifest {
     public AliasModuleAppManifest() {
         withModules(
                 AliasModule.class, // dom module
-                AliasFixtureModule.class,
+                ExampleDomModuleAliasModule.class,
                 AliasAppModule.class
         );
     }

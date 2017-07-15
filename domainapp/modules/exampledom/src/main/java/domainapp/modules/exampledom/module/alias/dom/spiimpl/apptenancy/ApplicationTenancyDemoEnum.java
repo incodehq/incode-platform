@@ -1,4 +1,4 @@
-package org.incode.module.alias.fixture.app.spiimpl.apptenancy;
+package domainapp.modules.exampledom.module.alias.dom.spiimpl.apptenancy;
 
 /**
  * In a real (not demo) application this would probably be the isisaddons' security module's <code>ApplicationTenancy</code> entity.

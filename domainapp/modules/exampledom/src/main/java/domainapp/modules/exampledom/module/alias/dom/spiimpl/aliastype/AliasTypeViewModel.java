@@ -1,4 +1,4 @@
-package org.incode.module.alias.fixture.app.spiimpl.aliastype;
+package domainapp.modules.exampledom.module.alias.dom.spiimpl.aliastype;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

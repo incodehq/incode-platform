@@ -1,4 +1,4 @@
-package org.incode.module.alias.fixture.dom.demo;
+package domainapp.modules.exampledom.module.alias.dom.demo;
 
 import java.util.List;
 import org.apache.isis.applib.DomainObjectContainer;

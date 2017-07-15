@@ -1,4 +1,4 @@
-package org.incode.module.alias.fixture.dom.demo;
+package domainapp.modules.exampledom.module.alias.dom.demo;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;

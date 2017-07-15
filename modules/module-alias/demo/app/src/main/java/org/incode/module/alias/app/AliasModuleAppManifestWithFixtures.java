@@ -9,10 +9,10 @@ import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.module.alias.fixture.scripts.scenarios.AliasDemoObjectsFixture;
+import domainapp.modules.exampledom.module.alias.fixture.AliasDemoObjectsFixture;
 
 /**
- * Run the app but without setting up any fixtures.
+ * Run the dom but without setting up any fixtures.
  */
 public class AliasModuleAppManifestWithFixtures extends AliasModuleAppManifest {
 

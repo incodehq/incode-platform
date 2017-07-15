@@ -1,12 +1,23 @@
-package org.incode.module.alias.fixture.app.alias;
-
-import org.apache.isis.applib.annotation.*;
-import org.incode.module.alias.dom.impl.*;
-import org.incode.module.alias.fixture.dom.demo.DemoObject;
+package domainapp.modules.exampledom.module.alias.dom.alias;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
+
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.Mixin;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Property;
+
+import org.incode.module.alias.dom.impl.Alias;
+import org.incode.module.alias.dom.impl.AliasRepository;
+import org.incode.module.alias.dom.impl.T_addAlias;
+import org.incode.module.alias.dom.impl.T_aliases;
+import org.incode.module.alias.dom.impl.T_removeAlias;
+
+import domainapp.modules.exampledom.module.alias.dom.demo.DemoObject;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType= IdentityType.DATASTORE,
