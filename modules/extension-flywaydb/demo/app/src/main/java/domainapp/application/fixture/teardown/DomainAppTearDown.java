@@ -3,7 +3,7 @@ package domainapp.application.fixture.teardown;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-import domainapp.modules.simple.fixture.teardown.FlywayDemoModuleTearDown;
+import domainapp.modules.exampledom.ext.flywaydb.fixture.teardown.FlywayDemoModuleTearDown;
 
 public class DomainAppTearDown extends FixtureScript {
 

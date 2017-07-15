@@ -1,4 +1,4 @@
-package domainapp.modules.simple.integtests.tests;
+package domainapp.modules.exampledom.ext.flywaydb.integtests.tests;
 
 import java.sql.Timestamp;
 
@@ -15,12 +15,12 @@ import org.apache.isis.applib.services.xactn.TransactionService;
 import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusIdLong;
 import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusVersionTimestamp;
 
-import domainapp.modules.simple.dom.impl.FlywayDemoObject;
-import domainapp.modules.simple.fixture.scenario.RecreateFlywayDemoObjects;
-import domainapp.modules.simple.integtests.SimpleModuleIntegTestAbstract;
+import domainapp.modules.exampledom.ext.flywaydb.dom.FlywayDemoObject;
+import domainapp.modules.exampledom.ext.flywaydb.fixture.scenario.RecreateFlywayDemoObjects;
+import domainapp.modules.exampledom.ext.flywaydb.integtests.SimpleModuleIntegTestAbstract;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SimpleObject_IntegTest extends SimpleModuleIntegTestAbstract {
+public class FlywayDemoObject_IntegTest extends SimpleModuleIntegTestAbstract {
 
     @Inject
     FixtureScripts fixtureScripts;
@@ -41,7 +41,7 @@ public class SimpleObject_IntegTest extends SimpleModuleIntegTestAbstract {
         assertThat(flywayDemoObject).isNotNull();
     }
 
-    public static class Name extends SimpleObject_IntegTest {
+    public static class Name extends FlywayDemoObject_IntegTest {
 
         @Test
         public void accessible() throws Exception {
@@ -63,7 +63,7 @@ public class SimpleObject_IntegTest extends SimpleModuleIntegTestAbstract {
 
     }
 
-    public static class UpdateName extends SimpleObject_IntegTest {
+    public static class UpdateName extends FlywayDemoObject_IntegTest {
 
         @Test
         public void can_be_updated_directly() throws Exception {
@@ -89,7 +89,7 @@ public class SimpleObject_IntegTest extends SimpleModuleIntegTestAbstract {
     }
 
 
-    public static class Title extends SimpleObject_IntegTest {
+    public static class Title extends FlywayDemoObject_IntegTest {
 
         @Inject
         TitleService titleService;
@@ -108,7 +108,7 @@ public class SimpleObject_IntegTest extends SimpleModuleIntegTestAbstract {
         }
     }
 
-    public static class DataNucleusId extends SimpleObject_IntegTest {
+    public static class DataNucleusId extends FlywayDemoObject_IntegTest {
 
         @Test
         public void should_be_populated() throws Exception {
@@ -120,7 +120,7 @@ public class SimpleObject_IntegTest extends SimpleModuleIntegTestAbstract {
         }
     }
 
-    public static class DataNucleusVersionTimestamp extends SimpleObject_IntegTest {
+    public static class DataNucleusVersionTimestamp extends FlywayDemoObject_IntegTest {
 
         @Test
         public void should_be_populated() throws Exception {

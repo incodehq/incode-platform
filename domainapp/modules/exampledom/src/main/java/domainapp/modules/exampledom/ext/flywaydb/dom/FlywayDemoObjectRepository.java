@@ -1,4 +1,4 @@
-package domainapp.modules.simple.dom.impl;
+package domainapp.modules.exampledom.ext.flywaydb.dom;
 
 import java.util.List;
 

@@ -47,7 +47,7 @@ import org.incode.module.docrendering.xdocreport.dom.XDocReportDocRenderingModul
 import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.note.dom.NoteModule;
 
-import domainapp.modules.simple.dom.ExampleDomSubmodule;
+import domainapp.modules.exampledom.ExampleDomSubmodule;
 
 public class DomainappAppManifest implements AppManifest {
 

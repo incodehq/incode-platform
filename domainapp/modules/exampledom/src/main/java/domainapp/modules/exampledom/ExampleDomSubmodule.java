@@ -1,4 +1,4 @@
-package domainapp.modules.simple.dom;
+package domainapp.modules.exampledom;
 
 public final class ExampleDomSubmodule {
 

@@ -1,4 +1,4 @@
-package domainapp.modules.simple.fixture.scenario;
+package domainapp.modules.exampledom.ext.flywaydb.fixture.scenario;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -8,9 +8,9 @@ import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.modules.simple.dom.impl.FlywayDemoObject;
-import domainapp.modules.simple.fixture.data.FlywayDemoObjectMenu_create;
-import domainapp.modules.simple.fixture.teardown.FlywayDemoModuleTearDown;
+import domainapp.modules.exampledom.ext.flywaydb.dom.FlywayDemoObject;
+import domainapp.modules.exampledom.ext.flywaydb.fixture.data.FlywayDemoObjectMenu_create;
+import domainapp.modules.exampledom.ext.flywaydb.fixture.teardown.FlywayDemoModuleTearDown;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;

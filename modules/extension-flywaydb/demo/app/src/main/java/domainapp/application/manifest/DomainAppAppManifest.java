@@ -10,7 +10,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import domainapp.application.fixture.ExampleDomFixtureSubmodule;
 import domainapp.application.services.ExampleDomServicesSubmodule;
-import domainapp.modules.simple.dom.ExampleDomSubmodule;
+import domainapp.modules.exampledom.ExampleDomSubmodule;
 
 /**
  * Bootstrap the application.

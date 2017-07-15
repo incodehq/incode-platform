@@ -7,8 +7,8 @@ import org.apache.isis.core.specsupport.specs.CukeGlueAbstract;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
-import domainapp.modules.simple.dom.impl.FlywayDemoObject;
-import domainapp.modules.simple.dom.impl.FlywayDemoObjectMenu;
+import domainapp.modules.exampledom.ext.flywaydb.dom.FlywayDemoObject;
+import domainapp.modules.exampledom.ext.flywaydb.dom.FlywayDemoObjectMenu;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 

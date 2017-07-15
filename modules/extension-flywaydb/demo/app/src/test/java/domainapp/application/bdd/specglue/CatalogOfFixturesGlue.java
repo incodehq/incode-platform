@@ -3,7 +3,7 @@ package domainapp.application.bdd.specglue;
 import org.apache.isis.core.specsupport.specs.CukeGlueAbstract;
 
 import cucumber.api.java.Before;
-import domainapp.modules.simple.fixture.scenario.RecreateFlywayDemoObjects;
+import domainapp.modules.exampledom.ext.flywaydb.fixture.scenario.RecreateFlywayDemoObjects;
 
 public class CatalogOfFixturesGlue extends CukeGlueAbstract {
 

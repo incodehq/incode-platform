@@ -1,9 +1,9 @@
-package domainapp.modules.simple.fixture.data;
+package domainapp.modules.exampledom.ext.flywaydb.fixture.data;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.modules.simple.dom.impl.FlywayDemoObject;
-import domainapp.modules.simple.dom.impl.FlywayDemoObjectMenu;
+import domainapp.modules.exampledom.ext.flywaydb.dom.FlywayDemoObject;
+import domainapp.modules.exampledom.ext.flywaydb.dom.FlywayDemoObjectMenu;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;

@@ -1,4 +1,4 @@
-package domainapp.modules.simple.fixture.teardown;
+package domainapp.modules.exampledom.ext.flywaydb.fixture.teardown;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;

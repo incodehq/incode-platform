@@ -3,7 +3,7 @@ package domainapp.application.fixture.scenarios;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import domainapp.application.fixture.teardown.DomainAppTearDown;
-import domainapp.modules.simple.fixture.scenario.RecreateFlywayDemoObjects;
+import domainapp.modules.exampledom.ext.flywaydb.fixture.scenario.RecreateFlywayDemoObjects;
 
 public class DomainAppDemo extends FixtureScript {
 

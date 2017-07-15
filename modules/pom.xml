@@ -15,7 +15,7 @@
 
     <packaging>pom</packaging>
     
-    <name>Incode Parent POM</name>
+    <name>Incode Platform Parent POM</name>
     <description>
         This module build upon the incode-build standard parent POM, adding in additional Maven plugins for Apache Isis framework.
     </description>

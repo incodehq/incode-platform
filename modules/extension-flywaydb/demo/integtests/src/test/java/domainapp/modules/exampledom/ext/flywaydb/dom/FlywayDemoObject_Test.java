@@ -1,11 +1,11 @@
-package domainapp.modules.simple.dom.impl;
+package domainapp.modules.exampledom.ext.flywaydb.dom;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SimpleObject_Test {
+public class FlywayDemoObject_Test {
 
     FlywayDemoObject flywayDemoObject;
 
@@ -14,7 +14,7 @@ public class SimpleObject_Test {
         flywayDemoObject = new FlywayDemoObject("Foobar");
     }
 
-    public static class Name extends SimpleObject_Test {
+    public static class Name extends FlywayDemoObject_Test {
 
         @Test
         public void happyCase() throws Exception {

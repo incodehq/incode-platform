@@ -1,5 +1,5 @@
 
-package domainapp.modules.simple.integtests.tests;
+package domainapp.modules.exampledom.ext.flywaydb.integtests.tests;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
@@ -18,14 +18,14 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
-import domainapp.modules.simple.dom.impl.FlywayDemoObject;
-import domainapp.modules.simple.dom.impl.FlywayDemoObjectMenu;
-import domainapp.modules.simple.fixture.scenario.RecreateFlywayDemoObjects;
-import domainapp.modules.simple.fixture.teardown.FlywayDemoModuleTearDown;
-import domainapp.modules.simple.integtests.SimpleModuleIntegTestAbstract;
+import domainapp.modules.exampledom.ext.flywaydb.dom.FlywayDemoObject;
+import domainapp.modules.exampledom.ext.flywaydb.dom.FlywayDemoObjectMenu;
+import domainapp.modules.exampledom.ext.flywaydb.fixture.scenario.RecreateFlywayDemoObjects;
+import domainapp.modules.exampledom.ext.flywaydb.fixture.teardown.FlywayDemoModuleTearDown;
+import domainapp.modules.exampledom.ext.flywaydb.integtests.SimpleModuleIntegTestAbstract;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SimpleObjectMenu_IntegTest extends SimpleModuleIntegTestAbstract {
+public class FlywayDemoObjectMenu_IntegTest extends SimpleModuleIntegTestAbstract {
 
     @Inject
     FixtureScripts fixtureScripts;
@@ -36,7 +36,7 @@ public class SimpleObjectMenu_IntegTest extends SimpleModuleIntegTestAbstract {
     @Inject
     RepositoryService repositoryService;
 
-    public static class ListAll extends SimpleObjectMenu_IntegTest {
+    public static class ListAll extends FlywayDemoObjectMenu_IntegTest {
 
         @Test
         public void happyCase() throws Exception {
@@ -72,7 +72,7 @@ public class SimpleObjectMenu_IntegTest extends SimpleModuleIntegTestAbstract {
         }
     }
 
-    public static class Create extends SimpleObjectMenu_IntegTest {
+    public static class Create extends FlywayDemoObjectMenu_IntegTest {
 
         @Test
         public void happyCase() throws Exception {
