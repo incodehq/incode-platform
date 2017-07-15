@@ -9,6 +9,8 @@ import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import domainapp.modules.exampledom.metamodel.paraname8.fixture.Paraname8DemoObjectsFixture;
+
 public class Paraname8MetaModelAppManifestWithFixtures extends Paraname8MetaModelAppManifest {
 
     /**
@@ -16,7 +18,8 @@ public class Paraname8MetaModelAppManifestWithFixtures extends Paraname8MetaMode
      */
     @Override
     public List<Class<? extends FixtureScript>> getFixtures() {
-        return Lists.<Class<? extends FixtureScript>>newArrayList(org.isisaddons.metamodel.paraname8.fixture.scripts.Paraname8DemoObjectsFixture.class);
+        return Lists.<Class<? extends FixtureScript>>newArrayList(
+                Paraname8DemoObjectsFixture.class);
     }
 
     /**

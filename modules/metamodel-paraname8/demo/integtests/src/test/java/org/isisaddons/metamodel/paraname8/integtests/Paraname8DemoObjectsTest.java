@@ -1,8 +1,8 @@
 package org.isisaddons.metamodel.paraname8.integtests;
 
-import org.isisaddons.metamodel.paraname8.fixture.dom.Paraname8DemoObject;
-import org.isisaddons.metamodel.paraname8.fixture.dom.Paraname8DemoObjects;
-import org.isisaddons.metamodel.paraname8.fixture.scripts.Paraname8DemoObjectsFixture;
+import domainapp.modules.exampledom.metamodel.paraname8.dom.fixture.dom.Paraname8DemoObject;
+import domainapp.modules.exampledom.metamodel.paraname8.dom.fixture.dom.Paraname8DemoObjects;
+import domainapp.modules.exampledom.metamodel.paraname8.dom.fixture.scripts.Paraname8DemoObjectsFixture;
 
 import java.util.List;
 import javax.inject.Inject;

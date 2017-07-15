@@ -9,7 +9,7 @@ import com.google.common.collect.Lists;
 import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.isisaddons.metamodel.paraname8.fixture.Paraname8FixtureModule;
+import domainapp.modules.exampledom.metamodel.paraname8.ExampleDomParaname8Module;
 
 public class Paraname8MetaModelAppManifest implements AppManifest {
 
@@ -17,7 +17,7 @@ public class Paraname8MetaModelAppManifest implements AppManifest {
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 Paraname8AppModule.class,
-                Paraname8FixtureModule.class
+                ExampleDomParaname8Module.class
         );
     }
     @Override

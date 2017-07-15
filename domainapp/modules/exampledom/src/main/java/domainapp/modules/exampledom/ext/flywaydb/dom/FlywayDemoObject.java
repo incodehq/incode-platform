@@ -41,12 +41,12 @@ import lombok.Setter;
         @javax.jdo.annotations.Query(
                 name = "findByName", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM domainapp.modules.simple.dom.impl.FlywayDemoObject "
+                        + "FROM domainapp.modules.exampledom.ext.flywaydb.dom.FlywayDemoObject "
                         + "WHERE name.indexOf(:name) >= 0 ")
 })
-@javax.jdo.annotations.Unique(name="SimpleObject_name_UNQ", members = {"name"})
+@javax.jdo.annotations.Unique(name="FlywayDemoObject_name_UNQ", members = {"name"})
 @DomainObject(
-        objectType = "simple.SimpleObject",
+        objectType = "flywayDemo.FlywayDemoObject",
         auditing = Auditing.ENABLED,
         publishing = Publishing.ENABLED
 )

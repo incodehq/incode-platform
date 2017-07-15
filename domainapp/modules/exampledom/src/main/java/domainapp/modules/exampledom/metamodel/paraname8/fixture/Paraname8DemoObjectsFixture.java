@@ -1,8 +1,9 @@
-package org.isisaddons.metamodel.paraname8.fixture.scripts;
+package domainapp.modules.exampledom.metamodel.paraname8.fixture;
 
-import org.isisaddons.metamodel.paraname8.fixture.dom.Paraname8DemoObject;
-import org.isisaddons.metamodel.paraname8.fixture.dom.Paraname8DemoObjects;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+
+import domainapp.modules.exampledom.metamodel.paraname8.dom.Paraname8DemoObject;
+import domainapp.modules.exampledom.metamodel.paraname8.dom.Paraname8DemoObjects;
 
 public class Paraname8DemoObjectsFixture extends DiscoverableFixtureScript {
 

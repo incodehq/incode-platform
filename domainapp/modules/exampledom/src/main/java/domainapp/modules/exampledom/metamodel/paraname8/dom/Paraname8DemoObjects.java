@@ -1,4 +1,4 @@
-package org.isisaddons.metamodel.paraname8.fixture.dom;
+package domainapp.modules.exampledom.metamodel.paraname8.dom;
 
 import java.util.List;
 

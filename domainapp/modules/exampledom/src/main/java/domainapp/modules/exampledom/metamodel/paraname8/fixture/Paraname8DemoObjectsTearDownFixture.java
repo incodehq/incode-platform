@@ -1,4 +1,4 @@
-package org.isisaddons.metamodel.paraname8.fixture.scripts;
+package domainapp.modules.exampledom.metamodel.paraname8.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
