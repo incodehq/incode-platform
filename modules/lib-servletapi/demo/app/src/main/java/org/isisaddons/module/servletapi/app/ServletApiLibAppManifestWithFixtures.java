@@ -9,6 +9,8 @@ import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import domainapp.modules.exampledom.lib.servletapi.fixture.ServletApiDemoObjectsFixture;
+
 public class ServletApiLibAppManifestWithFixtures extends ServletApiLibAppManifest {
 
     /**
@@ -16,7 +18,7 @@ public class ServletApiLibAppManifestWithFixtures extends ServletApiLibAppManife
      */
     @Override
     public List<Class<? extends FixtureScript>> getFixtures() {
-        return Lists.<Class<? extends FixtureScript>>newArrayList(org.isisaddons.module.servletapi.fixture.scripts.ServletApiDemoObjectsFixture.class);
+        return Lists.<Class<? extends FixtureScript>>newArrayList(ServletApiDemoObjectsFixture.class);
     }
 
     /**

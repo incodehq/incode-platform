@@ -10,7 +10,7 @@ import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.servletapi.ServletApiModule;
-import org.isisaddons.module.servletapi.fixture.ServletApiFixtureModule;
+import domainapp.modules.exampledom.lib.servletapi.ExampleDomLibServletApiModule;
 
 public class ServletApiLibAppManifest implements AppManifest {
 
@@ -18,7 +18,7 @@ public class ServletApiLibAppManifest implements AppManifest {
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 ServletApiModule.class,
-                ServletApiFixtureModule.class,
+                ExampleDomLibServletApiModule.class,
                 ServletApiAppModule.class
         );
     }

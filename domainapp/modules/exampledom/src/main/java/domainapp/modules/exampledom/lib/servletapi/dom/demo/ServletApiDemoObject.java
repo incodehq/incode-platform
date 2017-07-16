@@ -1,4 +1,4 @@
-package org.isisaddons.module.servletapi.fixture.dom;
+package domainapp.modules.exampledom.lib.servletapi.dom.demo;
 
 import java.io.IOException;
 import javax.jdo.annotations.IdentityType;

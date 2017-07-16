@@ -1,4 +1,4 @@
-package org.isisaddons.module.servletapi.fixture.scripts;
+package domainapp.modules.exampledom.lib.servletapi.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;

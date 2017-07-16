@@ -1,7 +1,7 @@
-package org.isisaddons.module.servletapi.fixture.scripts;
+package domainapp.modules.exampledom.lib.servletapi.fixture;
 
-import org.isisaddons.module.servletapi.fixture.dom.ServletApiDemoObject;
-import org.isisaddons.module.servletapi.fixture.dom.ServletApiDemoObjects;
+import domainapp.modules.exampledom.lib.servletapi.dom.demo.ServletApiDemoObject;
+import domainapp.modules.exampledom.lib.servletapi.dom.demo.ServletApiDemoObjects;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
 public class ServletApiDemoObjectsFixture extends DiscoverableFixtureScript {
