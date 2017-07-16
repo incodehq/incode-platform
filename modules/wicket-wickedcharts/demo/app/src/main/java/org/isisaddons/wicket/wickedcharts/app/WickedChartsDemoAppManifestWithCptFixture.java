@@ -7,10 +7,12 @@ import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import domainapp.modules.exampledom.wicket.wickedcharts.fixture.WickedChartsWicketAppSetUpFixture;
+
 public class WickedChartsDemoAppManifestWithCptFixture extends WickedChartsCptAppManifest {
 
     @Override
-    public List<Class<? extends FixtureScript>> getFixtures() { return Lists.<Class<? extends FixtureScript>>newArrayList(org.isisaddons.wicket.wickedcharts.fixture.scripts.WickedChartsWicketAppSetUpFixture.class); }
+    public List<Class<? extends FixtureScript>> getFixtures() { return Lists.<Class<? extends FixtureScript>>newArrayList(WickedChartsWicketAppSetUpFixture.class); }
 
     @Override
     public Map<String, String> getConfigurationProperties() {

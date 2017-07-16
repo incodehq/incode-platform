@@ -7,10 +7,12 @@ import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import domainapp.modules.exampledom.wicket.summernote.fixture.SummernoteEditorAppSetUpFixture;
+
 public class SummernoteDemoAppManifestWithCptFixture extends SummernoteCptAppManifest {
 
     @Override
-    public List<Class<? extends FixtureScript>> getFixtures() { return Lists.<Class<? extends FixtureScript>>newArrayList(org.isisaddons.wicket.summernote.fixture.scripts.SummernoteEditorAppSetUpFixture.class); }
+    public List<Class<? extends FixtureScript>> getFixtures() { return Lists.<Class<? extends FixtureScript>>newArrayList(SummernoteEditorAppSetUpFixture.class); }
 
     @Override
     public Map<String, String> getConfigurationProperties() {

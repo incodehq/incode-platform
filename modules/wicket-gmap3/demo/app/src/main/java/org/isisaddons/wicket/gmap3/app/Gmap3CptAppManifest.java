@@ -11,7 +11,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.isisaddons.wicket.gmap3.cpt.applib.Gmap3ApplibModule;
 import org.isisaddons.wicket.gmap3.cpt.service.Gmap3ServiceModule;
 import org.isisaddons.wicket.gmap3.cpt.ui.Gmap3UiModule;
-import org.isisaddons.wicket.gmap3.fixture.Gmap3DemoFixtureModule;
+import domainapp.modules.exampledom.wicket.gmap3.ExampleDomWicketGmap3Module;
 
 /**
  * Bootstrap the application.
@@ -27,7 +27,7 @@ public class Gmap3CptAppManifest implements AppManifest {
                 Gmap3ApplibModule.class,
                 Gmap3ServiceModule.class,
                 Gmap3UiModule.class,
-                Gmap3DemoFixtureModule.class,
+                ExampleDomWicketGmap3Module.class,
                 Gmap3DemoAppModule.class
         );
     }

@@ -9,7 +9,7 @@ import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.isisaddons.wicket.gmap3.fixture.scripts.Gmap3DemoSetUpFixture;
+import domainapp.modules.exampledom.wicket.gmap3.fixture.Gmap3DemoSetUpFixture;
 
 /**
  * Run the app but without setting up any fixtures.

@@ -13,14 +13,14 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.isisaddons.module.security.SecurityModule;
 import org.isisaddons.module.settings.SettingsModule;
 import org.isisaddons.module.togglz.TogglzModule;
-import org.isisaddons.module.togglz.fixture.TogglzFixtureModule;
+import domainapp.modules.exampledom.ext.togglz.ExampleDomExtTogglzModule;
 
 public class TogglzExtAppManifest implements AppManifest {
     @Override
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 TogglzModule.class,
-                TogglzFixtureModule.class,
+                ExampleDomExtTogglzModule.class,
                 TogglzDemoAppModule.class,
                 SecurityModule.class,
                 SettingsModule.class

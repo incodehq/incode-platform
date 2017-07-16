@@ -7,7 +7,7 @@ import org.togglz.junit.TogglzRule;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract;
 import org.apache.isis.core.integtestsupport.scenarios.ScenarioExecutionForIntegration;
 
-import org.isisaddons.module.togglz.fixture.dom.module.featuretoggle.TogglzDemoFeature;
+import domainapp.modules.exampledom.ext.togglz.dom.featuretoggle.TogglzDemoFeature;
 
 public abstract class TogglzModuleIntegTest extends IntegrationTestAbstract {
 

@@ -7,7 +7,7 @@ import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.isisaddons.wicket.excel.fixture.scripts.ExcelWicketSetUpFixtureForSven;
+import domainapp.modules.exampledom.wicket.excel.fixture.ExcelWicketSetUpFixtureForSven;
 
 public class ExcelCptAppManifestWithDemoFixture extends ExcelCptAppManifest {
 

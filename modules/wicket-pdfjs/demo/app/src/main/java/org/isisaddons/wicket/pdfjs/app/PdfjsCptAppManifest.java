@@ -12,14 +12,14 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.wicket.pdfjs.cpt.PdfjsCptModule;
-import org.isisaddons.wicket.pdfjs.fixture.PdfjsFixtureModule;
+import domainapp.modules.exampledom.wicket.pdfjs.ExampleDomWicketPdfjsModule;
 
 public class PdfjsCptAppManifest implements AppManifest {
     @Override
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 PdfjsCptModule.class,
-                PdfjsFixtureModule.class,
+                ExampleDomWicketPdfjsModule.class,
                 PdfjsAppModule.class,
 
                 FakeDataModule.class

@@ -24,8 +24,8 @@ import org.apache.isis.applib.services.scratchpad.Scratchpad;
 import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewer;
-import org.isisaddons.wicket.pdfjs.fixture.dom.demo.DemoObject;
-import org.isisaddons.wicket.pdfjs.fixture.dom.demo.DemoObjectMenu;
+import domainapp.modules.exampledom.wicket.pdfjs.dom.demo.DemoObject;
+import domainapp.modules.exampledom.wicket.pdfjs.dom.demo.DemoObjectMenu;
 
 @XmlRootElement(name = "toDoItemDto")
 @XmlType(

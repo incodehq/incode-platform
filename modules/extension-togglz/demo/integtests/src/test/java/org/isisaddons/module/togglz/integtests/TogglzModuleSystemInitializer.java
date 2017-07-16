@@ -3,11 +3,9 @@ package org.isisaddons.module.togglz.integtests;
 import com.google.common.collect.Lists;
 import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
-import org.apache.isis.core.commons.config.IsisConfiguration;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
 import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegTests;
-import org.isisaddons.module.togglz.fixture.TogglzFixtureModule;
-import org.togglz.core.Togglz;
+import domainapp.modules.exampledom.ext.togglz.ExampleDomExtTogglzModule;
 
 import java.util.List;
 import java.util.Map;
@@ -29,7 +27,7 @@ public class TogglzModuleSystemInitializer {
                         @Override
                         public List<Class<?>> getModules() {
                             return Lists.<Class<?>>newArrayList(
-                                    TogglzFixtureModule.class
+                                    ExampleDomExtTogglzModule.class
                             );
                         }
 

@@ -7,7 +7,7 @@ import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.isisaddons.wicket.pdfjs.fixture.scripts.scenarios.PdfjsDemoAppDemoFixture;
+import domainapp.modules.exampledom.wicket.pdfjs.fixture.PdfjsDemoAppDemoFixture;
 
 public class PdfjsDemoAppManifestWithCptFixture extends PdfjsCptAppManifest {
 

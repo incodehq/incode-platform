@@ -10,9 +10,9 @@ import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
-import org.isisaddons.module.togglz.fixture.dom.module.demo.TogglzDemoObject;
-import org.isisaddons.module.togglz.fixture.dom.module.demo.TogglzDemoObjects;
-import org.isisaddons.module.togglz.fixture.scripts.scenarios.TogglzDemoObjectsFixture;
+import domainapp.modules.exampledom.ext.togglz.dom.demo.TogglzDemoObject;
+import domainapp.modules.exampledom.ext.togglz.dom.demo.TogglzDemoObjects;
+import domainapp.modules.exampledom.ext.togglz.fixture.TogglzDemoObjectsFixture;
 
 
 public class TogglzDemoObjectsTest extends TogglzModuleIntegTest {

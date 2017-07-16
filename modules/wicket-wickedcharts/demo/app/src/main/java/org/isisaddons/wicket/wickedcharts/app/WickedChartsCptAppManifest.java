@@ -11,14 +11,14 @@ import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.wicket.wickedcharts.cpt.ui.WickedChartsUiModule;
-import org.isisaddons.wicket.wickedcharts.fixture.WickedChartsCptDemoFixtureModule;
+import domainapp.modules.exampledom.wicket.wickedcharts.ExampleDomWicketWickedChartsModule;
 
 public class WickedChartsCptAppManifest implements AppManifest {
     @Override
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 WickedChartsUiModule.class,
-                WickedChartsCptDemoFixtureModule.class,
+                ExampleDomWicketWickedChartsModule.class,
                 WickedChartsAppModule.class
         );
     }

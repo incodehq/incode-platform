@@ -11,14 +11,14 @@ import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.wicket.fullcalendar2.cpt.ui.FullCalendar2UiModule;
-import org.isisaddons.wicket.fullcalendar2.fixture.FullCalendar2CptDemoFixtureModule;
+import domainapp.modules.exampledom.wicket.fullcalendar2.ExampleDomWicketFullCalendar2Module;
 
 public class FullCalendar2CptAppManifest implements AppManifest {
     @Override
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 FullCalendar2UiModule.class,
-                FullCalendar2CptDemoFixtureModule.class,
+                ExampleDomWicketFullCalendar2Module.class,
                 FullCalendar2AppModule.class
         );
     }

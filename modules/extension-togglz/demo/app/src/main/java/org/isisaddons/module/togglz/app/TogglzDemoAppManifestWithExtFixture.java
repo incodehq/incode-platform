@@ -7,7 +7,7 @@ import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.isisaddons.module.togglz.fixture.scripts.scenarios.TogglzDemoObjectsFixture;
+import domainapp.modules.exampledom.ext.togglz.fixture.TogglzDemoObjectsFixture;
 
 public class TogglzDemoAppManifestWithExtFixture extends TogglzExtAppManifest {
 

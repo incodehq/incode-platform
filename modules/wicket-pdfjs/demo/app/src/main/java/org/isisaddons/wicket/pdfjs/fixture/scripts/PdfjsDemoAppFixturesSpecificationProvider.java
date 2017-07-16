@@ -6,7 +6,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecification;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationProvider;
 
-import org.isisaddons.wicket.pdfjs.fixture.scripts.scenarios.PdfjsDemoAppDemoFixture;
+import domainapp.modules.exampledom.wicket.pdfjs.fixture.PdfjsDemoAppDemoFixture;
 
 /**
  * Specifies where to find fixtures, and other settings.

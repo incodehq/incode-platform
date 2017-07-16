@@ -7,7 +7,7 @@ import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.isisaddons.wicket.fullcalendar2.fixture.scripts.FullCalendar2WicketSetUpFixture;
+import domainapp.modules.exampledom.wicket.fullcalendar2.fixture.FullCalendar2WicketSetUpFixture;
 
 public class FullCalendar2DemoAppManifestWithCptFixture extends FullCalendar2CptAppManifest {
 

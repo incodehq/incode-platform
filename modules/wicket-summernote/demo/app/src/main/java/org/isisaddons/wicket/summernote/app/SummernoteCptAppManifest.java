@@ -11,14 +11,14 @@ import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.wicket.summernote.cpt.ui.SummernoteUiModule;
-import org.isisaddons.wicket.summernote.fixture.SummernoteCptDemoFixtureModule;
+import domainapp.modules.exampledom.wicket.summernote.ExampleDomWicketSummernoteModule;
 
 public class SummernoteCptAppManifest implements AppManifest {
     @Override
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 SummernoteUiModule.class,
-                SummernoteCptDemoFixtureModule.class,
+                ExampleDomWicketSummernoteModule.class,
                 SummernoteAppModule.class
         );
     }

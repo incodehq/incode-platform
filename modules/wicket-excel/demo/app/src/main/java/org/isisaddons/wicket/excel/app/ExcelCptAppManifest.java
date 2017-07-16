@@ -11,14 +11,14 @@ import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.wicket.excel.cpt.ui.ExcelUiModule;
-import org.isisaddons.wicket.excel.fixture.ExcelCptDemoFixtureModule;
+import domainapp.modules.exampledom.wicket.excel.ExampleDomWicketExcelModule;
 
 public class ExcelCptAppManifest implements AppManifest {
     @Override
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 ExcelUiModule.class,
-                ExcelCptDemoFixtureModule.class,
+                ExampleDomWicketExcelModule.class,
                 ExcelCptDemoAppModule.class
         );
     }

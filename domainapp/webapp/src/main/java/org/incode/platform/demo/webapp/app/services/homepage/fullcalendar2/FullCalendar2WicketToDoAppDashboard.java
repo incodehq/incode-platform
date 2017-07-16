@@ -1,8 +1,8 @@
 package org.incode.platform.demo.webapp.app.services.homepage.fullcalendar2;
 
 import java.util.List;
-import org.isisaddons.wicket.fullcalendar2.fixture.dom.FullCalendar2WicketToDoItem;
-import org.isisaddons.wicket.fullcalendar2.fixture.dom.FullCalendar2WicketToDoItems;
+import domainapp.modules.exampledom.wicket.fullcalendar2.dom.demo.FullCalendar2WicketToDoItem;
+import domainapp.modules.exampledom.wicket.fullcalendar2.dom.demo.FullCalendar2WicketToDoItems;
 import org.apache.isis.applib.AbstractViewModel;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.DomainObject;
