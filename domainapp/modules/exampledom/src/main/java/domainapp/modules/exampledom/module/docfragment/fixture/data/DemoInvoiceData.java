@@ -1,11 +1,11 @@
-package org.incode.module.docfragment.demo.module.fixture.invoices;
+package domainapp.modules.exampledom.module.docfragment.fixture.data;
 
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 
-import org.incode.module.docfragment.demo.module.dom.impl.invoices.DemoInvoice;
+import domainapp.modules.exampledom.module.docfragment.dom.demoinvoice.DemoInvoice;
 import org.incode.module.fixturesupport.dom.data.DemoData;
 import org.incode.module.fixturesupport.dom.data.DemoDataPersistAbstract;
 

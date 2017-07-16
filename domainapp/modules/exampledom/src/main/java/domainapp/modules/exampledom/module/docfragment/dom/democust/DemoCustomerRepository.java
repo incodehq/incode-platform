@@ -1,11 +1,9 @@
-package org.incode.module.docfragment.demo.module.dom.impl.customers;
+package domainapp.modules.exampledom.module.docfragment.dom.democust;
 
 import java.util.List;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.query.QueryDefault;
-import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
 @DomainService(

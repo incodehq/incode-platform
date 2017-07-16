@@ -1,15 +1,12 @@
-package org.incode.module.docfragment.demo.module.dom.impl;
-
-import java.util.List;
-
-import com.google.common.collect.Lists;
+package domainapp.modules.exampledom.module.docfragment.dom.spiimpl;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
-import org.incode.module.docfragment.demo.module.dom.impl.customers.DemoCustomer;
-import org.incode.module.docfragment.demo.module.dom.impl.invoices.DemoInvoice;
 import org.incode.module.docfragment.dom.spi.ApplicationTenancyService;
+
+import domainapp.modules.exampledom.module.docfragment.dom.democust.DemoCustomer;
+import domainapp.modules.exampledom.module.docfragment.dom.demoinvoice.DemoInvoice;
 
 @DomainService(nature = NatureOfService.DOMAIN)
 public class DemoApplicationTenancyService implements ApplicationTenancyService {

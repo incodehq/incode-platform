@@ -1,4 +1,4 @@
-package org.incode.module.docfragment.demo.module.dom.impl.customers;
+package domainapp.modules.exampledom.module.docfragment.dom.democust;
 
 import java.util.List;
 

@@ -9,10 +9,10 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
-import org.incode.module.docfragment.demo.application.fixture.scenarios.DemoAppFixture;
+import domainapp.modules.exampledom.module.docfragment.fixture.DemoAppFixture;
 import org.incode.module.docfragment.demo.application.integtests.DocFragmentModuleIntegTestAbstract;
-import org.incode.module.docfragment.demo.module.dom.impl.invoices.DemoInvoice;
-import org.incode.module.docfragment.demo.module.fixture.invoices.DemoInvoiceData;
+import domainapp.modules.exampledom.module.docfragment.dom.demoinvoice.DemoInvoice;
+import domainapp.modules.exampledom.module.docfragment.fixture.data.DemoInvoiceData;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

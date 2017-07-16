@@ -1,11 +1,10 @@
-package org.incode.module.docfragment.demo.application.fixture.scenarios;
+package domainapp.modules.exampledom.module.docfragment.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.module.docfragment.demo.application.fixture.teardown.DemoAppTearDown;
-import org.incode.module.docfragment.demo.module.fixture.customers.DemoCustomerData;
-import org.incode.module.docfragment.demo.module.fixture.invoices.DemoInvoiceData;
-import org.incode.module.docfragment.fixture.scenario.DocFragmentData;
+import domainapp.modules.exampledom.module.docfragment.fixture.data.DemoCustomerData;
+import domainapp.modules.exampledom.module.docfragment.fixture.data.DemoInvoiceData;
+import domainapp.modules.exampledom.module.docfragment.fixture.data.DocFragmentData;
 
 public class DemoAppFixture extends FixtureScript {
 

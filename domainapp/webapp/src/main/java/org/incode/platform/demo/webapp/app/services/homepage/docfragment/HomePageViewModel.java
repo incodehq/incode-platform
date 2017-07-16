@@ -5,10 +5,10 @@ import java.util.List;
 import org.apache.isis.applib.annotation.ViewModel;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
-import org.incode.module.docfragment.demo.module.dom.impl.customers.DemoCustomer;
-import org.incode.module.docfragment.demo.module.dom.impl.customers.DemoCustomerRepository;
-import org.incode.module.docfragment.demo.module.dom.impl.invoices.DemoInvoice;
-import org.incode.module.docfragment.demo.module.dom.impl.invoices.DemoInvoiceRepository;
+import domainapp.modules.exampledom.module.docfragment.dom.democust.DemoCustomer;
+import domainapp.modules.exampledom.module.docfragment.dom.democust.DemoCustomerRepository;
+import domainapp.modules.exampledom.module.docfragment.dom.demoinvoice.DemoInvoice;
+import domainapp.modules.exampledom.module.docfragment.dom.demoinvoice.DemoInvoiceRepository;
 import org.incode.module.docfragment.dom.impl.DocFragment;
 import org.incode.module.docfragment.dom.impl.DocFragmentRepository;
 

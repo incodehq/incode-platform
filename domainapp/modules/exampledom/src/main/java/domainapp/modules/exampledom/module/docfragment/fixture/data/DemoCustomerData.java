@@ -1,9 +1,9 @@
-package org.incode.module.docfragment.demo.module.fixture.customers;
+package domainapp.modules.exampledom.module.docfragment.fixture.data;
 
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 
-import org.incode.module.docfragment.demo.module.dom.impl.customers.DemoCustomer;
+import domainapp.modules.exampledom.module.docfragment.dom.democust.DemoCustomer;
 import org.incode.module.fixturesupport.dom.data.DemoData;
 import org.incode.module.fixturesupport.dom.data.DemoDataPersistAbstract;
 

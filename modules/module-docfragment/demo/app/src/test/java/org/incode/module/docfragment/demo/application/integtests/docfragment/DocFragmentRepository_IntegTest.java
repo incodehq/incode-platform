@@ -18,12 +18,12 @@ import org.apache.isis.applib.services.xactn.TransactionService;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.module.docfragment.demo.application.fixture.scenarios.DemoAppFixture;
+import domainapp.modules.exampledom.module.docfragment.fixture.DemoAppFixture;
 import org.incode.module.docfragment.demo.application.integtests.DocFragmentModuleIntegTestAbstract;
 import org.incode.module.docfragment.dom.impl.DocFragment;
 import org.incode.module.docfragment.dom.impl.DocFragmentRepository;
-import org.incode.module.docfragment.fixture.scenario.DocFragmentData;
-import org.incode.module.docfragment.fixture.teardown.DocFragmentModuleTearDown;
+import domainapp.modules.exampledom.module.docfragment.fixture.data.DocFragmentData;
+import domainapp.modules.exampledom.module.docfragment.fixture.teardown.DocFragmentModuleTearDown;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.incode.module.docfragment.demo.application.integtests.docfragment.DocFragmentRepository_IntegTest.FindByObjectTypeAndNameAndAtPath.causalChainContains;

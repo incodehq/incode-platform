@@ -1,9 +1,9 @@
-package org.incode.module.docfragment.demo.application.fixture.teardown;
+package domainapp.modules.exampledom.module.docfragment.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.module.docfragment.demo.module.fixture.teardown.DemoModuleTearDown;
-import org.incode.module.docfragment.fixture.teardown.DocFragmentModuleTearDown;
+import domainapp.modules.exampledom.module.docfragment.fixture.teardown.DemoModuleTearDown;
+import domainapp.modules.exampledom.module.docfragment.fixture.teardown.DocFragmentModuleTearDown;
 
 public class DemoAppTearDown extends FixtureScript {
 

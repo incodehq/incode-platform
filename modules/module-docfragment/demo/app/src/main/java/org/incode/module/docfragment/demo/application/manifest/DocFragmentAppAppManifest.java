@@ -12,8 +12,9 @@ import org.isisaddons.module.freemarker.dom.FreeMarkerModule;
 
 import org.incode.module.docfragment.demo.application.fixture.DemoAppApplicationModuleFixtureSubmodule;
 import org.incode.module.docfragment.demo.application.services.DemoAppApplicationModuleServicesSubmodule;
-import org.incode.module.docfragment.demo.module.dom.DemoModuleDomSubmodule;
 import org.incode.module.docfragment.dom.DocFragmentModuleDomModule;
+
+import domainapp.modules.exampledom.module.docfragment.ExampleDomModuleDocFragmentModule;
 
 /**
  * Bootstrap the application.
@@ -27,7 +28,7 @@ public class DocFragmentAppAppManifest implements AppManifest {
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 DocFragmentModuleDomModule.class,
-                DemoModuleDomSubmodule.class,
+                ExampleDomModuleDocFragmentModule.class,
                 DemoAppApplicationModuleFixtureSubmodule.class,
                 DemoAppApplicationModuleServicesSubmodule.class,
 

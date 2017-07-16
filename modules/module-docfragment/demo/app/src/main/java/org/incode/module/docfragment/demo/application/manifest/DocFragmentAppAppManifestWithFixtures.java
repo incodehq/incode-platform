@@ -9,7 +9,7 @@ import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.module.docfragment.demo.application.fixture.scenarios.DemoAppFixture;
+import domainapp.modules.exampledom.module.docfragment.fixture.DemoAppFixture;
 
 /**
  * Run the app but without setting up any fixtures.
