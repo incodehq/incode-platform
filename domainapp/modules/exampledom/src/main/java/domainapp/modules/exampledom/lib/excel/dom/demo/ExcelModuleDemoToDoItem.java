@@ -55,36 +55,36 @@ import org.isisaddons.module.excel.dom.ExcelService;
     @javax.jdo.annotations.Query(
             name = "todo_all", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem "
+                    + "FROM domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItem "
                     + "WHERE ownedBy == :ownedBy"),
     @javax.jdo.annotations.Query(
             name = "todo_notYetComplete", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem "
+                    + "FROM domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "   && complete == false"),
     @javax.jdo.annotations.Query(
             name = "findByDescription", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem "
+                    + "FROM domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "   && description == :description"),
     @javax.jdo.annotations.Query(
             name = "todo_complete", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem "
+                    + "FROM domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "&& complete == true"),
     @javax.jdo.annotations.Query(
             name = "todo_similarTo", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem "
+                    + "FROM domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "&& category == :category"),
     @javax.jdo.annotations.Query(
             name = "todo_autoComplete", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem "
+                    + "FROM domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItem "
                     + "WHERE ownedBy == :ownedBy && "
                     + "description.indexOf(:description) >= 0")
 })
