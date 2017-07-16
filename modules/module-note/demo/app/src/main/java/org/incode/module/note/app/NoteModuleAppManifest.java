@@ -10,7 +10,7 @@ import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.module.note.dom.NoteModule;
-import org.incode.module.note.fixture.NoteFixtureModule;
+import domainapp.modules.exampledom.module.note.ExampleDomModuleNoteModule;
 
 /**
  * Bootstrap the application.
@@ -22,7 +22,7 @@ public class NoteModuleAppManifest implements AppManifest {
     public NoteModuleAppManifest() {
         withModules(
                 NoteModule.class, // dom module
-                NoteFixtureModule.class,
+                ExampleDomModuleNoteModule.class,
                 NoteAppModule.class
         );
     }

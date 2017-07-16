@@ -1,4 +1,4 @@
-package org.incode.module.commchannel.fixture.dom;
+package domainapp.modules.exampledom.module.commchannel.dom.demolink;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
@@ -15,6 +15,8 @@ import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwne
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
 import org.incode.module.commchannel.dom.impl.phoneorfax.T_addPhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.postaladdress.T_addPostalAddress;
+
+import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObject;
 
 @javax.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE, schema ="incodeCommChannelDemo")
 @javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)

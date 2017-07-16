@@ -6,7 +6,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecification;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationProvider;
 
-import org.incode.module.commchannel.fixture.scripts.scenarios.CommChannelDemoObjectsFixture;
+import domainapp.modules.exampledom.module.commchannel.fixture.CommChannelDemoObjectsFixture;
 
 /**
  * Specifies where to find fixtures, and other settings.

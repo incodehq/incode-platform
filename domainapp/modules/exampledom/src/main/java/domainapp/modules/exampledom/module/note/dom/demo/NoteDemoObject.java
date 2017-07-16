@@ -1,6 +1,4 @@
-package org.incode.module.commchannel.fixture.dom;
-
-import java.util.List;
+package domainapp.modules.exampledom.module.note.dom.demo;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
@@ -11,14 +9,13 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Title;
-import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import org.incode.module.note.dom.impl.note.NoteRepository;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
-        schema="incodeCommChannelDemo",
-        table="CommChannelDemoObject")
+        schema="incodeNoteDemo")
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="id")
@@ -26,14 +23,13 @@ import org.apache.isis.applib.util.ObjectContracts;
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
 @DomainObject(
-        objectType = "incodeCommChannelDemo.CommChannelDemoObject",
+        objectType = "incodeNoteDemo.NoteDemoObject",
         editing = Editing.DISABLED
 )
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
 )
-public class CommChannelDemoObject implements Comparable<CommChannelDemoObject> {
-
+public class NoteDemoObject implements Comparable<NoteDemoObject> {
 
     //region > name (property)
     
@@ -51,8 +47,6 @@ public class CommChannelDemoObject implements Comparable<CommChannelDemoObject> 
 
     //endregion
 
-
-
     //region > toString, compareTo
 
     @Override
@@ -61,16 +55,10 @@ public class CommChannelDemoObject implements Comparable<CommChannelDemoObject> 
     }
 
     @Override
-    public int compareTo(final CommChannelDemoObject other) {
+    public int compareTo(final NoteDemoObject other) {
         return ObjectContracts.compare(this, other, "name");
     }
 
-    //endregion
-
-    //region > helpers
-    private static <T> T firstOf(final List<T> list) {
-        return list.isEmpty()? null: list.get(0);
-    }
     //endregion
 
     //region > injected services
@@ -80,7 +68,7 @@ public class CommChannelDemoObject implements Comparable<CommChannelDemoObject> 
     DomainObjectContainer container;
 
     @javax.inject.Inject
-    ClockService clockService;
+    NoteRepository noteRepository;
 
     //endregion
 

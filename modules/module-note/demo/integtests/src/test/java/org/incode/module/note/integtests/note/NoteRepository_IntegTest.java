@@ -12,10 +12,10 @@ import org.junit.Test;
 
 import org.incode.module.note.dom.impl.note.Note;
 import org.incode.module.note.dom.impl.note.NoteRepository;
-import org.incode.module.note.fixture.dom.calendarname.CalendarNameRepositoryForDemo;
-import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
-import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObjectMenu;
-import org.incode.module.note.fixture.scripts.teardown.NoteDemoObjectsTearDownFixture;
+import domainapp.modules.exampledom.module.note.dom.spiimpl.CalendarNameRepositoryForDemo;
+import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObject;
+import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObjectMenu;
+import domainapp.modules.exampledom.module.note.fixture.NoteDemoObjectsTearDownFixture;
 import org.incode.module.note.integtests.NoteModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;

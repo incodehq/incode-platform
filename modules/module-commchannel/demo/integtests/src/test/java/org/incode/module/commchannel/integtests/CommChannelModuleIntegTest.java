@@ -33,8 +33,8 @@ import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_remov
 import org.incode.module.commchannel.dom.impl.emailaddress.T_addEmailAddress;
 import org.incode.module.commchannel.dom.impl.phoneorfax.T_addPhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.postaladdress.T_addPostalAddress;
-import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
-import org.incode.module.commchannel.fixture.dom.CommunicationChannelOwnerLinkForDemoObject;
+import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObject;
+import domainapp.modules.exampledom.module.commchannel.dom.demolink.CommunicationChannelOwnerLinkForDemoObject;
 
 public abstract class CommChannelModuleIntegTest extends IntegrationTestAbstract {
 

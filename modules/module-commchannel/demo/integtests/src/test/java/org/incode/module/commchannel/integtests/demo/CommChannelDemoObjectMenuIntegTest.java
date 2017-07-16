@@ -10,9 +10,9 @@ import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
-import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
-import org.incode.module.commchannel.fixture.dom.CommChannelDemoObjectMenu;
-import org.incode.module.commchannel.fixture.scripts.scenarios.CommChannelDemoObjectsFixture;
+import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObject;
+import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObjectMenu;
+import domainapp.modules.exampledom.module.commchannel.fixture.CommChannelDemoObjectsFixture;
 import org.incode.module.commchannel.integtests.CommChannelModuleIntegTest;
 
 public class CommChannelDemoObjectMenuIntegTest extends CommChannelModuleIntegTest {

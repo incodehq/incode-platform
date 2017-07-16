@@ -1,4 +1,4 @@
-package org.incode.module.note.fixture.dom.notablelink;
+package domainapp.modules.exampledom.module.note.dom.demolink;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
@@ -14,7 +14,7 @@ import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
 import org.incode.module.note.dom.impl.note.T_addNote;
 import org.incode.module.note.dom.impl.note.T_notes;
 import org.incode.module.note.dom.impl.note.T_removeNote;
-import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
+import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObject;
 
 @javax.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE, schema ="incodeNoteDemo")
 @javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)

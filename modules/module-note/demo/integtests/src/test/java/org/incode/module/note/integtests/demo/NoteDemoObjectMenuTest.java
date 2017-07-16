@@ -8,9 +8,9 @@ import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
-import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObjectMenu;
-import org.incode.module.note.fixture.scripts.scenarios.NoteDemoObjectsFixture;
+import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObject;
+import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObjectMenu;
+import domainapp.modules.exampledom.module.note.fixture.NoteDemoObjectsFixture;
 import org.incode.module.note.integtests.NoteModuleIntegTest;
 
 public class NoteDemoObjectMenuTest extends NoteModuleIntegTest {

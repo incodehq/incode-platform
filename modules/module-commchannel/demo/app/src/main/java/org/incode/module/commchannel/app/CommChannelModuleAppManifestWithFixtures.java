@@ -9,7 +9,7 @@ import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.module.commchannel.fixture.scripts.scenarios.CommChannelDemoObjectsFixture;
+import domainapp.modules.exampledom.module.commchannel.fixture.CommChannelDemoObjectsFixture;
 
 /**
  * Run the app but without setting up any fixtures.

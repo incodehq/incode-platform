@@ -1,4 +1,4 @@
-package org.incode.module.commchannel.fixture.dom;
+package domainapp.modules.exampledom.module.commchannel.dom.spiimpl;
 
 import java.util.Arrays;
 import java.util.Collection;

@@ -1,4 +1,4 @@
-package org.incode.module.note.fixture.scripts.scenarios;
+package domainapp.modules.exampledom.module.note.fixture;
 
 import org.joda.time.LocalDate;
 
@@ -6,10 +6,9 @@ import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.apache.isis.applib.services.clock.ClockService;
 
 import org.incode.module.note.dom.impl.note.T_addNote;
-import org.incode.module.note.fixture.dom.notablelink.NotableLinkForDemoObject;
-import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
-import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObjectMenu;
-import org.incode.module.note.fixture.scripts.teardown.NoteDemoObjectsTearDownFixture;
+import domainapp.modules.exampledom.module.note.dom.demolink.NotableLinkForDemoObject;
+import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObject;
+import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObjectMenu;
 
 public class NoteDemoObjectsFixture extends DiscoverableFixtureScript {
 

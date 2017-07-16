@@ -1,4 +1,4 @@
-package org.incode.module.commchannel.fixture.scripts.scenarios;
+package domainapp.modules.exampledom.module.commchannel.fixture;
 
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.apache.isis.applib.services.clock.ClockService;
@@ -7,10 +7,9 @@ import org.incode.module.commchannel.dom.impl.emailaddress.T_addEmailAddress;
 import org.incode.module.commchannel.dom.impl.phoneorfax.T_addPhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.postaladdress.T_addPostalAddress;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
-import org.incode.module.commchannel.fixture.dom.CommChannelDemoObject;
-import org.incode.module.commchannel.fixture.dom.CommChannelDemoObjectMenu;
-import org.incode.module.commchannel.fixture.dom.CommunicationChannelOwnerLinkForDemoObject;
-import org.incode.module.commchannel.fixture.scripts.teardown.CommChannelDemoObjectsTearDownFixture;
+import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObject;
+import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObjectMenu;
+import domainapp.modules.exampledom.module.commchannel.dom.demolink.CommunicationChannelOwnerLinkForDemoObject;
 
 public class CommChannelDemoObjectsFixture extends DiscoverableFixtureScript {
 

@@ -1,4 +1,4 @@
-package org.incode.module.note.fixture.dom.notedemoobject;
+package domainapp.modules.exampledom.module.commchannel.dom.demo;
 
 import java.util.List;
 import org.apache.isis.applib.DomainObjectContainer;
@@ -14,12 +14,12 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
         nature = NatureOfService.VIEW,
-        repositoryFor = NoteDemoObject.class
+        repositoryFor = CommChannelDemoObject.class
 )
 @DomainServiceLayout(
         menuOrder = "10"
 )
-public class NoteDemoObjectMenu {
+public class CommChannelDemoObjectMenu {
 
 
     //region > listAll (action)
@@ -31,8 +31,8 @@ public class NoteDemoObjectMenu {
             bookmarking = BookmarkPolicy.AS_ROOT
     )
     @MemberOrder(sequence = "1")
-    public List<NoteDemoObject> listAll() {
-        return container.allInstances(NoteDemoObject.class);
+    public List<CommChannelDemoObject> listAll() {
+        return container.allInstances(CommChannelDemoObject.class);
     }
 
     //endregion
@@ -40,10 +40,10 @@ public class NoteDemoObjectMenu {
     //region > create (action)
     
     @MemberOrder(sequence = "2")
-    public NoteDemoObject create(
+    public CommChannelDemoObject create(
             @ParameterLayout(named = "Name")
             final String name) {
-        final NoteDemoObject obj = container.newTransientInstance(NoteDemoObject.class);
+        final CommChannelDemoObject obj = container.newTransientInstance(CommChannelDemoObject.class);
         obj.setName(name);
         container.persistIfNotAlready(obj);
         return obj;

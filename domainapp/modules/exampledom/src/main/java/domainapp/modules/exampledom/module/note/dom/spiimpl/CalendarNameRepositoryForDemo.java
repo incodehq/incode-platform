@@ -1,4 +1,4 @@
-package org.incode.module.note.fixture.dom.calendarname;
+package domainapp.modules.exampledom.module.note.dom.spiimpl;
 
 import java.util.Collection;
 import java.util.List;
@@ -12,7 +12,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
 import org.incode.module.note.dom.spi.CalendarNameRepository;
-import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
+import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObject;
 
 @DomainService(
     nature = NatureOfService.DOMAIN

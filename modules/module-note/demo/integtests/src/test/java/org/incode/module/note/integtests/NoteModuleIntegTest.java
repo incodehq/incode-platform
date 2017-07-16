@@ -27,8 +27,8 @@ import org.incode.module.note.dom.impl.note.Note;
 import org.incode.module.note.dom.impl.note.Note_changeDate;
 import org.incode.module.note.dom.impl.note.Note_changeNotes;
 import org.incode.module.note.dom.impl.note.Note_remove;
-import org.incode.module.note.fixture.dom.notablelink.NotableLinkForDemoObject;
-import org.incode.module.note.fixture.dom.notedemoobject.NoteDemoObject;
+import domainapp.modules.exampledom.module.note.dom.demolink.NotableLinkForDemoObject;
+import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObject;
 
 public abstract class NoteModuleIntegTest extends IntegrationTestAbstract {
 
