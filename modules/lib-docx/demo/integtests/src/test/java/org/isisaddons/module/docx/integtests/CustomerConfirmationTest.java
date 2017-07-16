@@ -2,10 +2,10 @@ package org.isisaddons.module.docx.integtests;
 
 import java.util.List;
 import javax.inject.Inject;
-import org.isisaddons.module.docx.fixture.dom.Order;
-import org.isisaddons.module.docx.fixture.dom.Orders;
-import org.isisaddons.module.docx.fixture.dom.templates.CustomerConfirmation;
-import org.isisaddons.module.docx.fixture.scripts.DocxModuleAppSetupFixture;
+import domainapp.modules.exampledom.lib.docx.dom.demo.Order;
+import domainapp.modules.exampledom.lib.docx.dom.demo.Orders;
+import domainapp.modules.exampledom.lib.docx.dom.demo.custconfirm.CustomerConfirmation;
+import domainapp.modules.exampledom.lib.docx.fixture.DocxModuleAppSetupFixture;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

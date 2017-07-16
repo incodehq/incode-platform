@@ -1,4 +1,4 @@
-package org.isisaddons.module.docx.fixture.dom;
+package domainapp.modules.exampledom.lib.docx.dom.demo;
 
 import java.math.BigDecimal;
 import java.util.Collection;

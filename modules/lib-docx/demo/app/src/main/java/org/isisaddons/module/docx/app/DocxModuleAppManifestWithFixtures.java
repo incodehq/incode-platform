@@ -9,6 +9,8 @@ import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import domainapp.modules.exampledom.lib.docx.fixture.DocxModuleAppSetupFixture;
+
 public class DocxModuleAppManifestWithFixtures extends DocxModuleAppManifest {
 
     /**
@@ -16,7 +18,7 @@ public class DocxModuleAppManifestWithFixtures extends DocxModuleAppManifest {
      */
     @Override
     public List<Class<? extends FixtureScript>> getFixtures() {
-        return Lists.<Class<? extends FixtureScript>>newArrayList(org.isisaddons.module.docx.fixture.scripts.DocxModuleAppSetupFixture.class);
+        return Lists.<Class<? extends FixtureScript>>newArrayList(DocxModuleAppSetupFixture.class);
     }
 
     /**

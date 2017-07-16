@@ -10,7 +10,7 @@ import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.docx.DocxModule;
-import org.isisaddons.module.docx.fixture.DocxFixtureModule;
+import domainapp.modules.exampledom.lib.docx.ExampleDomLibDocxModule;
 
 public class DocxModuleAppManifest implements AppManifest {
 
@@ -18,7 +18,7 @@ public class DocxModuleAppManifest implements AppManifest {
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 DocxAppModule.class,
-                DocxFixtureModule.class,
+                ExampleDomLibDocxModule.class,
                 DocxModule.class
         );
     }

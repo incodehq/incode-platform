@@ -1,8 +1,8 @@
-package org.isisaddons.module.docx.fixture.scripts;
+package domainapp.modules.exampledom.lib.docx.fixture;
 
 import java.math.BigDecimal;
-import org.isisaddons.module.docx.fixture.dom.Order;
-import org.isisaddons.module.docx.fixture.dom.Orders;
+import domainapp.modules.exampledom.lib.docx.dom.demo.Order;
+import domainapp.modules.exampledom.lib.docx.dom.demo.Orders;
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;

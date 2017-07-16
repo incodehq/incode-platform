@@ -1,4 +1,4 @@
-package org.isisaddons.module.docx.fixture.scripts;
+package domainapp.modules.exampledom.lib.docx.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
