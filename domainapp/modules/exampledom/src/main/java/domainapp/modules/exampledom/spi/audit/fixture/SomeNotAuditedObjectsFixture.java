@@ -1,10 +1,10 @@
-package org.isisaddons.module.audit.fixture.scripts;
+package domainapp.modules.exampledom.spi.audit.fixture;
 
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-import org.isisaddons.module.audit.fixture.dom.notaudited.SomeNotAuditedObject;
-import org.isisaddons.module.audit.fixture.dom.notaudited.SomeNotAuditedObjects;
+import domainapp.modules.exampledom.spi.audit.dom.nonaudited.SomeNotAuditedObject;
+import domainapp.modules.exampledom.spi.audit.dom.nonaudited.SomeNotAuditedObjects;
 
 public class SomeNotAuditedObjectsFixture extends DiscoverableFixtureScript {
 

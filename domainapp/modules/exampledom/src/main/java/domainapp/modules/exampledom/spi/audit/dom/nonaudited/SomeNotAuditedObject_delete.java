@@ -1,4 +1,4 @@
-package org.isisaddons.module.audit.fixture.dom.notaudited;
+package domainapp.modules.exampledom.spi.audit.dom.nonaudited;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.Mixin;

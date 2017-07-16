@@ -23,9 +23,9 @@ import org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract;
 
 import org.isisaddons.module.audit.dom.AuditEntry;
 import org.isisaddons.module.audit.dom.AuditingServiceRepository;
-import org.isisaddons.module.audit.fixture.dom.audited.SomeAuditedObject;
-import org.isisaddons.module.audit.fixture.dom.audited.SomeAuditedObjects;
-import org.isisaddons.module.audit.fixture.scripts.AuditDemoAppFixture;
+import domainapp.modules.exampledom.spi.audit.dom.audited.SomeAuditedObject;
+import domainapp.modules.exampledom.spi.audit.dom.audited.SomeAuditedObjects;
+import domainapp.modules.exampledom.spi.audit.fixture.AuditDemoAppFixture;
 import org.isisaddons.module.audit.integtests.AuditModuleIntegTest;
 
 import static org.hamcrest.CoreMatchers.is;

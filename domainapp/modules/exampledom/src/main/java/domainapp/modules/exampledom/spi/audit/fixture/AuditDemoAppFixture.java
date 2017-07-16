@@ -1,14 +1,14 @@
-package org.isisaddons.module.audit.fixture.scripts;
+package domainapp.modules.exampledom.spi.audit.fixture;
 
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-import org.isisaddons.module.audit.fixture.dom.audited.SomeAuditedObject;
-import org.isisaddons.module.audit.fixture.dom.audited.SomeAuditedObjects;
+import domainapp.modules.exampledom.spi.audit.dom.audited.SomeAuditedObject;
+import domainapp.modules.exampledom.spi.audit.dom.audited.SomeAuditedObjects;
 
-public class SomeAuditedObjectsFixture extends DiscoverableFixtureScript {
+public class AuditDemoAppFixture extends DiscoverableFixtureScript {
 
-    public SomeAuditedObjectsFixture() {
+    public AuditDemoAppFixture() {
         withDiscoverability(Discoverability.DISCOVERABLE);
     }
 
@@ -18,9 +18,12 @@ public class SomeAuditedObjectsFixture extends DiscoverableFixtureScript {
     @Override
     protected void execute(ExecutionContext executionContext) {
 
-        create("Foo", executionContext);
-        create("Bar", executionContext);
-        create("Baz", executionContext);
+        // prereqs
+        executionContext.executeChild(this, new AuditDemoAppTearDownFixture());
+
+        executionContext.executeChild(this, new SomeAuditedObjectsFixture());
+        executionContext.executeChild(this, new SomeNotAuditedObjectsFixture());
+
     }
 
     // //////////////////////////////////////

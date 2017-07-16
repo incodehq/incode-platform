@@ -1,24 +1,15 @@
-package org.isisaddons.module.audit.fixture.dom.notaudited;
+package domainapp.modules.exampledom.spi.audit.dom.audited;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
-
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.Action;
-import org.apache.isis.applib.annotation.Auditing;
-import org.apache.isis.applib.annotation.BookmarkPolicy;
-import org.apache.isis.applib.annotation.DomainObject;
-import org.apache.isis.applib.annotation.DomainObjectLayout;
-import org.apache.isis.applib.annotation.Optionality;
-import org.apache.isis.applib.annotation.Parameter;
-import org.apache.isis.applib.annotation.ParameterLayout;
-import org.apache.isis.applib.annotation.Title;
+import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.util.ObjectContracts;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
         schema = "isisauditdemo",
-        table = "SomeNotAuditedObject"
+        table = "SomeAuditedObject"
 )
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
@@ -27,18 +18,18 @@ import org.apache.isis.applib.util.ObjectContracts;
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
 @DomainObject(
-        objectType = "isisauditdemo.SomeNotAuditedObject",
-        auditing = Auditing.DISABLED
+        objectType = "isisauditdemo.SomeAuditedObject",
+        auditing = Auditing.ENABLED
 )
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
 )
-public class SomeNotAuditedObject implements Comparable<SomeNotAuditedObject> {
+public class SomeAuditedObject implements Comparable<SomeAuditedObject> {
 
     //region > updateNameAndNumber
 
     @Action()
-    public SomeNotAuditedObject updateNameAndNumber(
+    public SomeAuditedObject updateNameAndNumber(
             @ParameterLayout(named = "Name")
             final String name,
             @Parameter(optionality = Optionality.OPTIONAL)
@@ -90,7 +81,7 @@ public class SomeNotAuditedObject implements Comparable<SomeNotAuditedObject> {
     //region > compareTo
 
     @Override
-    public int compareTo(SomeNotAuditedObject other) {
+    public int compareTo(SomeAuditedObject other) {
         return ObjectContracts.compare(this, other, "name");
     }
 

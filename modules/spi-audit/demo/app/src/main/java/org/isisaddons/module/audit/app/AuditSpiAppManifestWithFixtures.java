@@ -8,7 +8,7 @@ import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.isisaddons.module.audit.fixture.scripts.AuditDemoAppFixture;
+import domainapp.modules.exampledom.spi.audit.fixture.AuditDemoAppFixture;
 
 public class AuditSpiAppManifestWithFixtures extends AuditSpiAppManifest {
 

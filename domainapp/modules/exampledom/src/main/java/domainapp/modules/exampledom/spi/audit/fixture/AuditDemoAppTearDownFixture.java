@@ -1,4 +1,4 @@
-package org.isisaddons.module.audit.fixture.scripts;
+package domainapp.modules.exampledom.spi.audit.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;

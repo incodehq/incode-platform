@@ -1,4 +1,4 @@
-package org.isisaddons.module.audit.fixture.dom;
+package domainapp.modules.exampledom.spi.audit.dom;
 
 import java.util.List;
 

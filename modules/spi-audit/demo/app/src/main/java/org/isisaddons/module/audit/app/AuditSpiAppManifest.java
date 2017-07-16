@@ -8,14 +8,14 @@ import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.audit.AuditModule;
-import org.isisaddons.module.audit.fixture.AuditFixtureModule;
+import domainapp.modules.exampledom.spi.audit.ExampleDomSpiAuditModule;
 
 public class AuditSpiAppManifest implements AppManifest {
     @Override
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 AuditModule.class,
-                AuditFixtureModule.class,
+                ExampleDomSpiAuditModule.class,
                 AuditAppModule.class
         );
     }

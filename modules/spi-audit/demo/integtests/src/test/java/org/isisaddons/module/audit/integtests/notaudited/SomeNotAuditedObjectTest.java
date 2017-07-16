@@ -20,9 +20,9 @@ import org.apache.isis.applib.services.xactn.TransactionService;
 
 import org.isisaddons.module.audit.dom.AuditEntry;
 import org.isisaddons.module.audit.dom.AuditingServiceRepository;
-import org.isisaddons.module.audit.fixture.dom.notaudited.SomeNotAuditedObject;
-import org.isisaddons.module.audit.fixture.dom.notaudited.SomeNotAuditedObjects;
-import org.isisaddons.module.audit.fixture.scripts.AuditDemoAppFixture;
+import domainapp.modules.exampledom.spi.audit.dom.nonaudited.SomeNotAuditedObject;
+import domainapp.modules.exampledom.spi.audit.dom.nonaudited.SomeNotAuditedObjects;
+import domainapp.modules.exampledom.spi.audit.fixture.AuditDemoAppFixture;
 import org.isisaddons.module.audit.integtests.AuditModuleIntegTest;
 
 import static org.hamcrest.CoreMatchers.is;
