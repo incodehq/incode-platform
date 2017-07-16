@@ -9,6 +9,8 @@ import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import domainapp.modules.exampledom.lib.stringinterpolator.fixture.StringInterpolatorDemoToDoItemsFixture;
+
 public class StringInterpolatorLibAppManifestWithFixtures extends StringInterpolatorLibAppManifest {
 
     /**
@@ -16,7 +18,7 @@ public class StringInterpolatorLibAppManifestWithFixtures extends StringInterpol
      */
     @Override
     public List<Class<? extends FixtureScript>> getFixtures() {
-        return Lists.<Class<? extends FixtureScript>>newArrayList(org.isisaddons.module.stringinterpolator.fixture.scripts.StringInterpolatorDemoToDoItemsFixture.class);
+        return Lists.<Class<? extends FixtureScript>>newArrayList(StringInterpolatorDemoToDoItemsFixture.class);
     }
 
     /**

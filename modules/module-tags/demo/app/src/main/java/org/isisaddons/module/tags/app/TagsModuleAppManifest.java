@@ -8,15 +8,15 @@ import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.tags.TagsModule;
-import org.isisaddons.module.tags.fixture.TagsFixtureModule;
+import domainapp.modules.exampledom.module.tags.ExampleDomModuleTagsModule;
 
 public class TagsModuleAppManifest implements AppManifest {
     @Override
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 TagsModule.class,
-                TagsFixtureModule.class,
-                org.isisaddons.module.tags.fixture.TagsFixtureModule.class
+                ExampleDomModuleTagsModule.class,
+                ExampleDomModuleTagsModule.class
         );
     }
     @Override

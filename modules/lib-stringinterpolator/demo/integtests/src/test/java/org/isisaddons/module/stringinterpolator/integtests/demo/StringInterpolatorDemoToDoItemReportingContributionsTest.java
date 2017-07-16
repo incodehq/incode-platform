@@ -1,18 +1,20 @@
 package org.isisaddons.module.stringinterpolator.integtests.demo;
 
 import java.net.URL;
+
 import javax.inject.Inject;
 
-import org.apache.isis.core.commons.config.IsisConfiguration;
-import org.isisaddons.module.stringinterpolator.fixture.dom.StringInterpolatorDemoToDoItem;
-import org.isisaddons.module.stringinterpolator.fixture.dom.StringInterpolatorDemoToDoItemReportingContributions;
-import org.isisaddons.module.stringinterpolator.fixture.dom.StringInterpolatorDemoToDoItems;
-import org.isisaddons.module.stringinterpolator.fixture.scripts.StringInterpolatorDemoToDoItemsFixture;
-import org.isisaddons.module.stringinterpolator.integtests.StringInterpolatorDemoIntegTest;
 import org.junit.Before;
 import org.junit.Test;
-import org.apache.isis.core.runtime.system.context.IsisContext;
 
+import org.apache.isis.core.commons.config.IsisConfiguration;
+
+import org.isisaddons.module.stringinterpolator.integtests.StringInterpolatorDemoIntegTest;
+
+import domainapp.modules.exampledom.lib.stringinterpolator.dom.demo.StringInterpolatorDemoToDoItem;
+import domainapp.modules.exampledom.lib.stringinterpolator.dom.demo.StringInterpolatorDemoToDoItemReportingContributions;
+import domainapp.modules.exampledom.lib.stringinterpolator.dom.demo.StringInterpolatorDemoToDoItems;
+import domainapp.modules.exampledom.lib.stringinterpolator.fixture.StringInterpolatorDemoToDoItemsFixture;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 

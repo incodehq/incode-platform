@@ -8,14 +8,14 @@ import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.settings.SettingsModule;
-import org.isisaddons.module.settings.fixture.SettingsFixtureModule;
+import domainapp.modules.exampledom.module.settings.ExampleDomModuleSettingsModule;
 
 public class SettingsModuleAppManifest implements AppManifest {
     @Override
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 SettingsModule.class,
-                SettingsFixtureModule.class,
+                ExampleDomModuleSettingsModule.class,
                 SettingsAppModule.class
         );
     }

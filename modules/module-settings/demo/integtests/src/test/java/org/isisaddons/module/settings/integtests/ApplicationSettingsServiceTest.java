@@ -3,7 +3,7 @@ package org.isisaddons.module.settings.integtests;
 import java.util.List;
 import org.isisaddons.module.settings.dom.ApplicationSetting;
 import org.isisaddons.module.settings.dom.ApplicationSettingsServiceRW;
-import org.isisaddons.module.settings.fixture.scripts.SettingsModuleAppSetUpFixture;
+import domainapp.modules.exampledom.module.settings.fixture.SettingsModuleAppSetUpFixture;
 import org.junit.Before;
 import org.junit.Test;
 

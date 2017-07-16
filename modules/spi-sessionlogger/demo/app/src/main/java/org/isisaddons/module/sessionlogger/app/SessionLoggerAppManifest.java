@@ -7,7 +7,7 @@ import java.util.Map;
 import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.isisaddons.module.sessionlogger.fixture.SessionLoggerFixtureModule;
+import domainapp.modules.exampledom.spi.sessionlogger.ExampleDomSpiSessionLoggerModule;
 import org.isisaddons.module.sessionlogger.SessionLoggerModule;
 
 public final class SessionLoggerAppManifest implements AppManifest {
@@ -15,7 +15,7 @@ public final class SessionLoggerAppManifest implements AppManifest {
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 SessionLoggerModule.class,
-                SessionLoggerFixtureModule.class,
+                ExampleDomSpiSessionLoggerModule.class,
                 SessionLoggerAppModule.class
         );
     }

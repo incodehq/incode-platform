@@ -10,7 +10,7 @@ import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.stringinterpolator.StringInterpolatorModule;
-import org.isisaddons.module.stringinterpolator.fixture.StringInterpolatorFixtureModule;
+import domainapp.modules.exampledom.lib.stringinterpolator.ExampleDomLibStringInterpolatorModule;
 
 public class StringInterpolatorLibAppManifest implements AppManifest {
 
@@ -18,7 +18,7 @@ public class StringInterpolatorLibAppManifest implements AppManifest {
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 StringInterpolatorModule.class,
-                StringInterpolatorFixtureModule.class,
+                ExampleDomLibStringInterpolatorModule.class,
                 StringInterpolatorAppModule.class
         );
     }
