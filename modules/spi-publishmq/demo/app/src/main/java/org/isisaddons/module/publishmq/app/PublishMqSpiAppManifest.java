@@ -8,6 +8,8 @@ import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.publishmq.PublishMqModule;
+
+import domainapp.modules.exampledom.spi.publishmq.ExampleDomSpiPublishMqModule;
 import domainapp.modules.exampledom.spi.publishmq.fixture.PublishMqDemoObjectsFixture;
 
 public class PublishMqSpiAppManifest implements AppManifest {
@@ -15,7 +17,7 @@ public class PublishMqSpiAppManifest implements AppManifest {
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 PublishMqModule.class,
-                PublishMqDemoObjectsFixture.class,
+                ExampleDomSpiPublishMqModule.class,
                 PublishMqAppModule.class
         );
     }
