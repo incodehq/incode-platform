@@ -22,10 +22,10 @@ import domainapp.modules.exampledom.ext.flywaydb.dom.FlywayDemoObject;
 import domainapp.modules.exampledom.ext.flywaydb.dom.FlywayDemoObjectMenu;
 import domainapp.modules.exampledom.ext.flywaydb.fixture.scenario.RecreateFlywayDemoObjects;
 import domainapp.modules.exampledom.ext.flywaydb.fixture.teardown.FlywayDemoModuleTearDown;
-import domainapp.modules.exampledom.ext.flywaydb.integtests.SimpleModuleIntegTestAbstract;
+import domainapp.modules.exampledom.ext.flywaydb.integtests.FlywayDbModuleIntegTestAbstract;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class FlywayDemoObjectMenu_IntegTest extends SimpleModuleIntegTestAbstract {
+public class FlywayDemoObjectMenu_IntegTest extends FlywayDbModuleIntegTestAbstract {
 
     @Inject
     FixtureScripts fixtureScripts;

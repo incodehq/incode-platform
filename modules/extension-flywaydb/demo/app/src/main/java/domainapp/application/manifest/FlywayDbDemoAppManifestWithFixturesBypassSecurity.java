@@ -3,7 +3,7 @@ package domainapp.application.manifest;
 /**
  * Bypasses security, meaning any user/password combination can be used to login.
  */
-public class DomainAppAppManifestWithFixturesBypassSecurity extends DomainAppAppManifestWithFixtures {
+public class FlywayDbDemoAppManifestWithFixturesBypassSecurity extends FlywayDbDemoAppManifestWithFixtures {
 
     @Override
     public String getAuthenticationMechanism() {

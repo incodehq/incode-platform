@@ -14,7 +14,7 @@ import domainapp.modules.exampledom.ext.flywaydb.fixture.scenario.RecreateFlyway
 /**
  * Run the app but without setting up any fixtures.
  */
-public class DomainAppAppManifestWithFixtures extends DomainAppAppManifest {
+public class FlywayDbDemoAppManifestWithFixtures extends FlywayDbDemoAppManifest {
 
     /**
      * Fixtures to be installed.

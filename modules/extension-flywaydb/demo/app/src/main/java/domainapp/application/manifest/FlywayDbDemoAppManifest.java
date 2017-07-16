@@ -8,14 +8,14 @@ import java.util.Map;
 import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.application.fixture.ExampleDomFixtureSubmodule;
-import domainapp.application.services.ExampleDomServicesSubmodule;
-import domainapp.modules.exampledom.ExampleDomSubmodule;
+import domainapp.application.fixture.FlywayDemoFixtureSubmodule;
+import domainapp.application.services.FlywayDemoServicesSubmodule;
+import domainapp.modules.exampledom.ext.flywaydb.ExampleDomExtFlywayDbModule;
 
 /**
  * Bootstrap the application.
  */
-public class DomainAppAppManifest implements AppManifest {
+public class FlywayDbDemoAppManifest implements AppManifest {
 
     /**
      * Load all services and entities found in (the packages and subpackages within) these modules
@@ -23,9 +23,9 @@ public class DomainAppAppManifest implements AppManifest {
     @Override
     public List<Class<?>> getModules() {
         return Arrays.asList(
-                ExampleDomSubmodule.class,
-                ExampleDomFixtureSubmodule.class,
-                ExampleDomServicesSubmodule.class
+                ExampleDomExtFlywayDbModule.class,
+                FlywayDemoFixtureSubmodule.class,
+                FlywayDemoServicesSubmodule.class
         );
     }
 

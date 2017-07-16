@@ -23,11 +23,11 @@ import org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract;
 
 import org.isisaddons.module.audit.dom.AuditEntry;
 import org.isisaddons.module.audit.dom.AuditingServiceRepository;
+import org.isisaddons.module.audit.integtests.AuditModuleIntegTest;
+
 import domainapp.modules.exampledom.spi.audit.dom.audited.SomeAuditedObject;
 import domainapp.modules.exampledom.spi.audit.dom.audited.SomeAuditedObjects;
 import domainapp.modules.exampledom.spi.audit.fixture.AuditDemoAppFixture;
-import org.isisaddons.module.audit.integtests.AuditModuleIntegTest;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -122,7 +122,7 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
         assertThat(transactionId, is(notNullValue()));
         assertThat(auditEntry1.getTargetClass(), is("Some Audited Object"));
         assertThat(auditEntry1.getTargetStr(), startsWith("isisauditdemo.SomeAuditedObject:"));
-        assertThat(auditEntry1.getMemberIdentifier(), is("org.isisaddons.module.audit.fixture.dom.audited.SomeAuditedObject#name"));
+        assertThat(auditEntry1.getMemberIdentifier(), is(SomeAuditedObject.class.getName() + "#name"));
         assertThat(auditEntry1.getPropertyId(), is("name"));
         assertThat(auditEntry1.getPreValue(), is("[NEW]"));
         assertThat(auditEntry1.getPostValue(), is("Faz"));
@@ -137,7 +137,7 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
         assertThat(transactionId2, is(transactionId));
         assertThat(auditEntry2.getTargetClass(), is("Some Audited Object"));
         assertThat(auditEntry1.getTargetStr(), startsWith("isisauditdemo.SomeAuditedObject:"));
-        assertThat(auditEntry2.getMemberIdentifier(), is("org.isisaddons.module.audit.fixture.dom.audited.SomeAuditedObject#number"));
+        assertThat(auditEntry2.getMemberIdentifier(), is(SomeAuditedObject.class.getName() + "#number"));
         assertThat(auditEntry2.getPropertyId(), is("number"));
         assertThat(auditEntry2.getPreValue(), is("[NEW]"));
         assertThat(auditEntry2.getPostValue(), is(nullValue()));
@@ -179,7 +179,7 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
         assertThat(transactionId, is(notNullValue()));
         assertThat(auditEntry1.getTargetClass(), is("Some Audited Object"));
         assertThat(auditEntry1.getTargetStr(), startsWith("isisauditdemo.SomeAuditedObject:"));
-        assertThat(auditEntry1.getMemberIdentifier(), is("org.isisaddons.module.audit.fixture.dom.audited.SomeAuditedObject#name"));
+        assertThat(auditEntry1.getMemberIdentifier(), is(SomeAuditedObject.class.getName() + "#name"));
         assertThat(auditEntry1.getPropertyId(), is("name"));
         assertThat(auditEntry1.getPreValue(), is("Foo"));
         assertThat(auditEntry1.getPostValue(), is("Bob"));
@@ -194,7 +194,7 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
         assertThat(transactionId2, is(transactionId));
         assertThat(auditEntry2.getTargetClass(), is("Some Audited Object"));
         assertThat(auditEntry2.getTargetStr(), startsWith("isisauditdemo.SomeAuditedObject:"));
-        assertThat(auditEntry2.getMemberIdentifier(), is("org.isisaddons.module.audit.fixture.dom.audited.SomeAuditedObject#number"));
+        assertThat(auditEntry2.getMemberIdentifier(), is(SomeAuditedObject.class.getName() + "#number"));
         assertThat(auditEntry2.getPropertyId(), is("number"));
         assertThat(auditEntry2.getPreValue(), is(nullValue()));
         assertThat(auditEntry2.getPostValue(), is("123"));
@@ -202,12 +202,7 @@ public class SomeAuditedObjectTest extends AuditModuleIntegTest {
     }
 
     private static List<AuditEntry> sorted(List<AuditEntry> auditEntries) {
-        Collections.sort(auditEntries, new Comparator<AuditEntry>() {
-            @Override
-            public int compare(AuditEntry o1, AuditEntry o2) {
-                return o1.getMemberIdentifier().compareTo(o2.getMemberIdentifier());
-            }
-        });
+        Collections.sort(auditEntries, Comparator.comparing(AuditEntry::getMemberIdentifier));
         return auditEntries;
     }
 

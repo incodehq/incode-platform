@@ -17,10 +17,10 @@ import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleu
 
 import domainapp.modules.exampledom.ext.flywaydb.dom.FlywayDemoObject;
 import domainapp.modules.exampledom.ext.flywaydb.fixture.scenario.RecreateFlywayDemoObjects;
-import domainapp.modules.exampledom.ext.flywaydb.integtests.SimpleModuleIntegTestAbstract;
+import domainapp.modules.exampledom.ext.flywaydb.integtests.FlywayDbModuleIntegTestAbstract;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class FlywayDemoObject_IntegTest extends SimpleModuleIntegTestAbstract {
+public class FlywayDemoObject_IntegTest extends FlywayDbModuleIntegTestAbstract {
 
     @Inject
     FixtureScripts fixtureScripts;
