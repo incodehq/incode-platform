@@ -1,4 +1,4 @@
-package domainapp.modules.exampledom.spi.audit.dom;
+package domainapp.modules.exampledom.spi.audit.dom.entries;
 
 import java.util.List;
 

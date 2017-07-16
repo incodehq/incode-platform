@@ -1,7 +1,10 @@
-package domainapp.modules.exampledom.spi.audit.dom.nonaudited;
+package domainapp.modules.exampledom.spi.audit.dom.demo2.delete;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.Mixin;
+
+import domainapp.modules.exampledom.spi.audit.dom.demo2.SomeNotAuditedObject;
+import domainapp.modules.exampledom.spi.audit.dom.demo2.SomeNotAuditedObjects;
 
 @Mixin
 public class SomeNotAuditedObject_delete {

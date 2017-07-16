@@ -25,8 +25,8 @@ import org.isisaddons.module.audit.dom.AuditEntry;
 import org.isisaddons.module.audit.dom.AuditingServiceRepository;
 import org.isisaddons.module.audit.integtests.AuditModuleIntegTest;
 
-import domainapp.modules.exampledom.spi.audit.dom.audited.SomeAuditedObject;
-import domainapp.modules.exampledom.spi.audit.dom.audited.SomeAuditedObjects;
+import domainapp.modules.exampledom.spi.audit.dom.demo.SomeAuditedObject;
+import domainapp.modules.exampledom.spi.audit.dom.demo.SomeAuditedObjects;
 import domainapp.modules.exampledom.spi.audit.fixture.AuditDemoAppFixture;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;

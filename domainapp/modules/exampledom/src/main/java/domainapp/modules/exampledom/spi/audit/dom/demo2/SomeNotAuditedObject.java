@@ -1,4 +1,4 @@
-package domainapp.modules.exampledom.spi.audit.dom.nonaudited;
+package domainapp.modules.exampledom.spi.audit.dom.demo2;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;

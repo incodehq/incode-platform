@@ -20,8 +20,8 @@ import org.apache.isis.applib.services.xactn.TransactionService;
 
 import org.isisaddons.module.audit.dom.AuditEntry;
 import org.isisaddons.module.audit.dom.AuditingServiceRepository;
-import domainapp.modules.exampledom.spi.audit.dom.nonaudited.SomeNotAuditedObject;
-import domainapp.modules.exampledom.spi.audit.dom.nonaudited.SomeNotAuditedObjects;
+import domainapp.modules.exampledom.spi.audit.dom.demo2.SomeNotAuditedObject;
+import domainapp.modules.exampledom.spi.audit.dom.demo2.SomeNotAuditedObjects;
 import domainapp.modules.exampledom.spi.audit.fixture.AuditDemoAppFixture;
 import org.isisaddons.module.audit.integtests.AuditModuleIntegTest;
 
