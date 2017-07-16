@@ -1,4 +1,4 @@
-package org.isisaddons.module.command.fixture.dom;
+package domainapp.modules.exampledom.spi.command.dom.demo.desc;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.CommandReification;
@@ -9,6 +9,8 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.background.BackgroundService2;
 import org.apache.isis.applib.services.factory.FactoryService;
+
+import domainapp.modules.exampledom.spi.command.dom.demo.SomeCommandAnnotatedObject;
 
 @Mixin
 public class SomeCommandAnnotatedObject_changeDescriptionExplicitlyInBackground {

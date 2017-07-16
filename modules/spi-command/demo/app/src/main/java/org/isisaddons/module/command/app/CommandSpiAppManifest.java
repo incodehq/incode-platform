@@ -8,14 +8,14 @@ import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.command.CommandModule;
-import org.isisaddons.module.command.fixture.CommandFixtureModule;
+import domainapp.modules.exampledom.spi.command.ExampleDomSpiCommandModule;
 
 public class CommandSpiAppManifest implements AppManifest {
     @Override
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 CommandModule.class,
-                CommandFixtureModule.class,
+                ExampleDomSpiCommandModule.class,
                 CommandAppModule.class
         );
     }

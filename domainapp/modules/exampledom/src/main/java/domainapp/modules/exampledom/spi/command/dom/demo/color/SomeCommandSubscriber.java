@@ -1,4 +1,4 @@
-package org.isisaddons.module.command.fixture.dom;
+package domainapp.modules.exampledom.spi.command.dom.demo.color;
 
 import javax.inject.Inject;
 
@@ -9,6 +9,8 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.background.BackgroundService2;
 import org.apache.isis.applib.services.user.UserService;
+
+import domainapp.modules.exampledom.spi.command.dom.demo.SomeCommandAnnotatedObject;
 
 @DomainService(
         nature = NatureOfService.DOMAIN

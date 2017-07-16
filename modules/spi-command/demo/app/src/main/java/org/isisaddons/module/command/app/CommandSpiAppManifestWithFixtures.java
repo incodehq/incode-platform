@@ -9,7 +9,7 @@ import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.isisaddons.module.command.fixture.scripts.SomeCommandAnnotatedObjectsFixture;
+import domainapp.modules.exampledom.spi.command.fixture.SomeCommandAnnotatedObjectsFixture;
 
 public final class CommandSpiAppManifestWithFixtures extends CommandSpiAppManifest {
 

@@ -1,10 +1,12 @@
-package org.isisaddons.module.command.fixture.dom;
+package domainapp.modules.exampledom.spi.command.dom.demo.toggle;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.CommandReification;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
+
+import domainapp.modules.exampledom.spi.command.dom.demo.SomeCommandAnnotatedObject;
 
 @Mixin
 public class SomeCommandAnnotatedObject_toggleViaMixin {

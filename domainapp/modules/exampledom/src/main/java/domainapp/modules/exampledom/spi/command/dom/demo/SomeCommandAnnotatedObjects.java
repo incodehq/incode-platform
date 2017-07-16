@@ -1,4 +1,4 @@
-package org.isisaddons.module.command.fixture.dom;
+package domainapp.modules.exampledom.spi.command.dom.demo;
 
 import java.util.List;
 import org.apache.isis.applib.DomainObjectContainer;
@@ -7,7 +7,6 @@ import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
-import org.apache.isis.applib.annotation.HomePage;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.ParameterLayout;

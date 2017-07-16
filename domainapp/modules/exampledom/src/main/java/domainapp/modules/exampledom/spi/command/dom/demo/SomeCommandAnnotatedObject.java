@@ -1,4 +1,4 @@
-package org.isisaddons.module.command.fixture.dom;
+package domainapp.modules.exampledom.spi.command.dom.demo;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;

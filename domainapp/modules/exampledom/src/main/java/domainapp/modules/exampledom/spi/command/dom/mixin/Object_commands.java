@@ -1,4 +1,4 @@
-package org.isisaddons.module.command.fixture.dom;
+package domainapp.modules.exampledom.spi.command.dom.mixin;
 
 import java.util.List;
 
@@ -9,7 +9,6 @@ import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.Mixin;
-import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.HasTransactionId;
 import org.apache.isis.applib.services.bookmark.Bookmark;

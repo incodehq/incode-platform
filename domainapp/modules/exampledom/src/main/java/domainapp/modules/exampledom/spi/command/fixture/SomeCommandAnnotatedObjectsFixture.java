@@ -1,10 +1,9 @@
-package org.isisaddons.module.command.fixture.scripts;
+package domainapp.modules.exampledom.spi.command.fixture;
 
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
-import org.apache.isis.applib.services.wrapper.WrapperFactory;
 
-import org.isisaddons.module.command.fixture.dom.SomeCommandAnnotatedObject;
-import org.isisaddons.module.command.fixture.dom.SomeCommandAnnotatedObjects;
+import domainapp.modules.exampledom.spi.command.dom.demo.SomeCommandAnnotatedObject;
+import domainapp.modules.exampledom.spi.command.dom.demo.SomeCommandAnnotatedObjects;
 
 public class SomeCommandAnnotatedObjectsFixture extends DiscoverableFixtureScript {
 

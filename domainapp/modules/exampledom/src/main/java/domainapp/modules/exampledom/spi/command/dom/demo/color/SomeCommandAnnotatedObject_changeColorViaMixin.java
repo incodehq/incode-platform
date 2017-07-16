@@ -1,7 +1,9 @@
-package org.isisaddons.module.command.fixture.dom;
+package domainapp.modules.exampledom.spi.command.dom.demo.color;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.Mixin;
+
+import domainapp.modules.exampledom.spi.command.dom.demo.SomeCommandAnnotatedObject;
 
 @Mixin
 public class SomeCommandAnnotatedObject_changeColorViaMixin {
