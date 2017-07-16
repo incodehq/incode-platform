@@ -11,7 +11,7 @@ import org.incode.module.alias.dom.spi.AliasTypeRepository;
 import org.incode.module.alias.dom.spi.ApplicationTenancyRepository;
 import domainapp.modules.exampledom.module.alias.dom.demo.DemoObjectMenu;
 import domainapp.modules.exampledom.module.alias.fixture.AliasDemoObjectsTearDownFixture;
-import org.incode.module.alias.integtests.AliasModuleIntegTest;
+import org.incode.module.alias.integtests.AliasModuleIntegTestAbstract;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,7 +23,7 @@ import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class T_addAlias_IntegTest extends AliasModuleIntegTest {
+public class T_addAlias_IntegTest extends AliasModuleIntegTestAbstract {
 
     @Inject
     DemoObjectMenu demoObjectMenu;

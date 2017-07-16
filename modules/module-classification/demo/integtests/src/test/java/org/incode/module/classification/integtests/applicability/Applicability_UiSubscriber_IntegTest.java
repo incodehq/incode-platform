@@ -6,13 +6,13 @@ import org.incode.module.classification.dom.impl.classification.ClassificationRe
 import org.incode.module.classification.dom.spi.ApplicationTenancyService;
 import domainapp.modules.exampledom.module.classification.dom.demo.DemoObjectMenu;
 import domainapp.modules.exampledom.module.classification.fixture.ClassifiedDemoObjectsFixture;
-import org.incode.module.classification.integtests.ClassificationModuleIntegTest;
+import org.incode.module.classification.integtests.ClassificationModuleIntegTestAbstract;
 import org.junit.Before;
 import org.junit.Ignore;
 
 import javax.inject.Inject;
 
-public class Applicability_UiSubscriber_IntegTest extends ClassificationModuleIntegTest {
+public class Applicability_UiSubscriber_IntegTest extends ClassificationModuleIntegTestAbstract {
 
     @Inject
     ClassificationRepository classificationRepository;

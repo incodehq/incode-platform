@@ -19,11 +19,11 @@ import org.incode.module.commchannel.dom.impl.emailaddress.EmailAddress_update;
 import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObject;
 import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObjectMenu;
 import domainapp.modules.exampledom.module.commchannel.fixture.CommChannelDemoObjectsTearDownFixture;
-import org.incode.module.commchannel.integtests.CommChannelModuleIntegTest;
+import org.incode.module.commchannel.integtests.CommChannelModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class EmailAddress_update_IntegTest extends CommChannelModuleIntegTest {
+public class EmailAddress_update_IntegTest extends CommChannelModuleIntegTestAbstract {
 
     @Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;

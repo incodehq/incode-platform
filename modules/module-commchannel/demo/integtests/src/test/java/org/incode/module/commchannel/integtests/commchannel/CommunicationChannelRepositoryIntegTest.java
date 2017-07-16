@@ -13,11 +13,11 @@ import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObject;
 import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObjectMenu;
 import domainapp.modules.exampledom.module.commchannel.fixture.CommChannelDemoObjectsTearDownFixture;
-import org.incode.module.commchannel.integtests.CommChannelModuleIntegTest;
+import org.incode.module.commchannel.integtests.CommChannelModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CommunicationChannelRepositoryIntegTest extends CommChannelModuleIntegTest {
+public class CommunicationChannelRepositoryIntegTest extends CommChannelModuleIntegTestAbstract {
 
     @Inject
     CommChannelDemoObjectMenu commChannelDemoObjectMenu;

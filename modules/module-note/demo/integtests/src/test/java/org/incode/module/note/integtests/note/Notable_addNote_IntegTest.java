@@ -21,11 +21,11 @@ import domainapp.modules.exampledom.module.note.dom.spiimpl.CalendarNameReposito
 import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObject;
 import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObjectMenu;
 import domainapp.modules.exampledom.module.note.fixture.NoteDemoObjectsTearDownFixture;
-import org.incode.module.note.integtests.NoteModuleIntegTest;
+import org.incode.module.note.integtests.NoteModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class Notable_addNote_IntegTest extends NoteModuleIntegTest {
+public class Notable_addNote_IntegTest extends NoteModuleIntegTestAbstract {
 
     @Inject
     CalendarNameRepositoryForDemo calendarNameRepository;

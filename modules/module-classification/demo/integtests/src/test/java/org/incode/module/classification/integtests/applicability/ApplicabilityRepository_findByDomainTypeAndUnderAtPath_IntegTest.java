@@ -15,11 +15,12 @@ import org.incode.module.classification.dom.spi.ApplicationTenancyService;
 import domainapp.modules.exampledom.module.classification.dom.demo.DemoObject;
 import domainapp.modules.exampledom.module.classification.fixture.ClassifiedDemoObjectsFixture;
 import domainapp.modules.exampledom.module.classification.fixture.ClassificationDemoAppTearDownFixture;
-import org.incode.module.classification.integtests.ClassificationModuleIntegTest;
+import org.incode.module.classification.integtests.ClassificationModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ApplicabilityRepository_findByDomainTypeAndUnderAtPath_IntegTest extends ClassificationModuleIntegTest {
+public class ApplicabilityRepository_findByDomainTypeAndUnderAtPath_IntegTest extends
+        ClassificationModuleIntegTestAbstract {
 
     @Inject
     ClassificationRepository classificationRepository;

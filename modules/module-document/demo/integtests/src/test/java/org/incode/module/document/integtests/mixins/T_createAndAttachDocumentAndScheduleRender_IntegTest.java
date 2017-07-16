@@ -14,14 +14,14 @@ import domainapp.modules.exampledom.module.document.dom.demo.DemoObject;
 import domainapp.modules.exampledom.module.document.fixture.data.DemoObjectsFixture;
 import domainapp.modules.exampledom.module.document.fixture.DocumentDemoAppTearDownFixture;
 import domainapp.modules.exampledom.module.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
-import org.incode.module.document.integtests.DocumentModuleIntegTest;
+import org.incode.module.document.integtests.DocumentModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assume.assumeThat;
 
-public class T_createAndAttachDocumentAndScheduleRender_IntegTest extends DocumentModuleIntegTest {
+public class T_createAndAttachDocumentAndScheduleRender_IntegTest extends DocumentModuleIntegTestAbstract {
 
     DemoObject demoObject;
 

@@ -21,11 +21,11 @@ import domainapp.modules.exampledom.module.classification.dom.demo.DemoObjectMen
 import domainapp.modules.exampledom.module.classification.dom.demo2.OtherObject;
 import domainapp.modules.exampledom.module.classification.dom.demo2.OtherObjectMenu;
 import domainapp.modules.exampledom.module.classification.fixture.ClassifiedDemoObjectsFixture;
-import org.incode.module.classification.integtests.ClassificationModuleIntegTest;
+import org.incode.module.classification.integtests.ClassificationModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class T_unclassify_IntegTest extends ClassificationModuleIntegTest {
+public class T_unclassify_IntegTest extends ClassificationModuleIntegTestAbstract {
 
     @Inject
     ClassificationRepository classificationRepository;

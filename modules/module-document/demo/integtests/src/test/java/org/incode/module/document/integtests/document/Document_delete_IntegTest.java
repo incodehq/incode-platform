@@ -13,11 +13,11 @@ import domainapp.modules.exampledom.module.document.fixture.data.DemoObjectsFixt
 import domainapp.modules.exampledom.module.document.fixture.data.OtherObjectsFixture;
 import domainapp.modules.exampledom.module.document.fixture.DocumentDemoAppTearDownFixture;
 import domainapp.modules.exampledom.module.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
-import org.incode.module.document.integtests.DocumentModuleIntegTest;
+import org.incode.module.document.integtests.DocumentModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class Document_delete_IntegTest extends DocumentModuleIntegTest {
+public class Document_delete_IntegTest extends DocumentModuleIntegTestAbstract {
 
     DemoObject demoObject;
     OtherObject otherObject;

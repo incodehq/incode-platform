@@ -18,11 +18,11 @@ import domainapp.modules.exampledom.module.classification.dom.demo.DemoObject;
 import domainapp.modules.exampledom.module.classification.dom.demo.DemoObjectMenu;
 import domainapp.modules.exampledom.module.classification.fixture.ClassifiedDemoObjectsFixture;
 import domainapp.modules.exampledom.module.classification.fixture.ClassificationDemoAppTearDownFixture;
-import org.incode.module.classification.integtests.ClassificationModuleIntegTest;
+import org.incode.module.classification.integtests.ClassificationModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class Taxonomy_notApplicable_IntegTest extends ClassificationModuleIntegTest {
+public class Taxonomy_notApplicable_IntegTest extends ClassificationModuleIntegTestAbstract {
 
     @Inject
     ClassificationRepository classificationRepository;

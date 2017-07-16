@@ -22,11 +22,11 @@ import domainapp.modules.exampledom.module.classification.dom.demo.DemoObjectMen
 import domainapp.modules.exampledom.module.classification.dom.demo2.OtherObject;
 import domainapp.modules.exampledom.module.classification.fixture.ClassifiedDemoObjectsFixture;
 import domainapp.modules.exampledom.module.classification.fixture.ClassificationDemoAppTearDownFixture;
-import org.incode.module.classification.integtests.ClassificationModuleIntegTest;
+import org.incode.module.classification.integtests.ClassificationModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class Taxonomy_applicable_IntegTest extends ClassificationModuleIntegTest {
+public class Taxonomy_applicable_IntegTest extends ClassificationModuleIntegTestAbstract {
 
     @Inject
     ClassificationRepository classificationRepository;

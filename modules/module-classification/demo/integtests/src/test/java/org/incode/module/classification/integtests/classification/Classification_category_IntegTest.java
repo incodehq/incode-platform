@@ -14,11 +14,11 @@ import org.incode.module.classification.dom.spi.ApplicationTenancyService;
 import domainapp.modules.exampledom.module.classification.dom.demo.DemoObject;
 import domainapp.modules.exampledom.module.classification.dom.demo.DemoObjectMenu;
 import domainapp.modules.exampledom.module.classification.fixture.ClassifiedDemoObjectsFixture;
-import org.incode.module.classification.integtests.ClassificationModuleIntegTest;
+import org.incode.module.classification.integtests.ClassificationModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class Classification_category_IntegTest extends ClassificationModuleIntegTest {
+public class Classification_category_IntegTest extends ClassificationModuleIntegTestAbstract {
 
     @Inject
     ClassificationRepository classificationRepository;
