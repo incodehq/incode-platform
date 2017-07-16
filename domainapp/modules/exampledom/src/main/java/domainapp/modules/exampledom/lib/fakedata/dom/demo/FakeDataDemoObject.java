@@ -1,4 +1,4 @@
-package org.isisaddons.module.fakedata.fixture.dom;
+package domainapp.modules.exampledom.lib.fakedata.dom.demo;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

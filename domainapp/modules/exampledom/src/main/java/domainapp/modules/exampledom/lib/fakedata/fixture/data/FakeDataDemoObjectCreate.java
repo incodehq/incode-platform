@@ -1,8 +1,8 @@
-package org.isisaddons.module.fakedata.fixture.scripts.modules.fakedata;
+package domainapp.modules.exampledom.lib.fakedata.fixture.data;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
-import org.isisaddons.module.fakedata.fixture.dom.FakeDataDemoObject;
-import org.isisaddons.module.fakedata.fixture.dom.FakeDataDemoObjects;
+import domainapp.modules.exampledom.lib.fakedata.dom.demo.FakeDataDemoObject;
+import domainapp.modules.exampledom.lib.fakedata.dom.demo.FakeDataDemoObjects;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 

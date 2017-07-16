@@ -1,4 +1,4 @@
-package org.isisaddons.module.fakedata.fixture.dom;
+package domainapp.modules.exampledom.lib.fakedata.dom.demo;
 
 import java.util.List;
 import org.apache.isis.applib.DomainObjectContainer;

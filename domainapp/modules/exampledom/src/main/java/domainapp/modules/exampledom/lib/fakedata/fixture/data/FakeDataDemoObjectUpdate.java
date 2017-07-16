@@ -1,4 +1,4 @@
-package org.isisaddons.module.fakedata.fixture.scripts.modules.fakedata;
+package domainapp.modules.exampledom.lib.fakedata.fixture.data;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -7,8 +7,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.UUID;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
-import org.isisaddons.module.fakedata.fixture.dom.EnumOf3;
-import org.isisaddons.module.fakedata.fixture.dom.FakeDataDemoObject;
+import domainapp.modules.exampledom.lib.fakedata.dom.demo.EnumOf3;
+import domainapp.modules.exampledom.lib.fakedata.dom.demo.FakeDataDemoObject;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;

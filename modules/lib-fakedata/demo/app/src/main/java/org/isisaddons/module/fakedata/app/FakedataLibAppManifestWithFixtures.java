@@ -9,6 +9,8 @@ import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import domainapp.modules.exampledom.lib.fakedata.fixture.FakeDataDemoObjectsScenario;
+
 public class FakedataLibAppManifestWithFixtures extends FakedataLibAppManifest {
 
     /**
@@ -16,7 +18,7 @@ public class FakedataLibAppManifestWithFixtures extends FakedataLibAppManifest {
      */
     @Override
     public List<Class<? extends FixtureScript>> getFixtures() {
-        return Lists.<Class<? extends FixtureScript>>newArrayList(org.isisaddons.module.fakedata.fixture.scripts.scenarios.FakeDataDemoObjectsScenario.class);
+        return Lists.<Class<? extends FixtureScript>>newArrayList(FakeDataDemoObjectsScenario.class);
     }
 
     /**

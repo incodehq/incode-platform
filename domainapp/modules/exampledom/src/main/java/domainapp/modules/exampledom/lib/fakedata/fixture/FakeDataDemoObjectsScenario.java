@@ -1,11 +1,11 @@
-package org.isisaddons.module.fakedata.fixture.scripts.scenarios;
+package domainapp.modules.exampledom.lib.fakedata.fixture;
 
 import java.util.List;
 import com.google.common.collect.Lists;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
-import org.isisaddons.module.fakedata.fixture.dom.FakeDataDemoObject;
-import org.isisaddons.module.fakedata.fixture.scripts.FakeDataDemoObjectsTearDownFixture;
-import org.isisaddons.module.fakedata.fixture.scripts.modules.fakedata.FakeDataDemoObjectCreate;
+import domainapp.modules.exampledom.lib.fakedata.dom.demo.FakeDataDemoObject;
+
+import domainapp.modules.exampledom.lib.fakedata.fixture.data.FakeDataDemoObjectCreate;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 

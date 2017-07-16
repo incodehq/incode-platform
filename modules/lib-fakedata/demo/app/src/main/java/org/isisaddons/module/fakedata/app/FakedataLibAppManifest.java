@@ -10,7 +10,7 @@ import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.fakedata.FakeDataModule;
-import org.isisaddons.module.fakedata.fixture.FakeDataFixtureModule;
+import domainapp.modules.exampledom.lib.fakedata.ExampleDomLibFakeDataModule;
 
 public class FakedataLibAppManifest implements AppManifest {
 
@@ -18,7 +18,7 @@ public class FakedataLibAppManifest implements AppManifest {
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 FakeDataModule.class,
-                FakeDataFixtureModule.class,
+                ExampleDomLibFakeDataModule.class,
                 FakedataAppModule.class
         );
     }

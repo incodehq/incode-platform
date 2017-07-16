@@ -1,4 +1,4 @@
-package org.isisaddons.module.fakedata.fixture.scripts;
+package domainapp.modules.exampledom.lib.fakedata.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;

@@ -1,4 +1,4 @@
-package org.isisaddons.module.fakedata.fixture.dom;
+package domainapp.modules.exampledom.lib.fakedata.dom.demo;
 
 public enum EnumOf3 {
     VISA,
