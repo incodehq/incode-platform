@@ -1,4 +1,4 @@
-package org.isisaddons.module.poly.fixture.dom.app.homepage;
+package org.incode.platform.demo.webapp.app.services.homepage.poly;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;

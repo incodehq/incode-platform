@@ -1,4 +1,4 @@
-package org.isisaddons.module.poly.fixture.dom.app.homepage;
+package org.incode.platform.demo.webapp.app.services.homepage.poly;
 
 import domainapp.modules.exampledom.lib.poly.dom.democasemgmt.Case;
 import domainapp.modules.exampledom.lib.poly.dom.democasemgmt.Cases;

@@ -1,4 +1,4 @@
-package org.isisaddons.module.publishmq.fixture.dom;
+package domainapp.modules.exampledom.spi.publishmq.dom.touch;
 
 import org.apache.isis.applib.annotation.*;
 

@@ -1,4 +1,4 @@
-package org.isisaddons.module.publishmq.fixcanonicalmappings;
+package domainapp.modules.exampledom.spi.publishmq.dom.spiimpl;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.schema.common.v1.OidDto;
 
 import org.isisaddons.module.publishmq.canonical.demoobject.DemoObjectDto;
-import org.isisaddons.module.publishmq.fixture.dom.PublishMqDemoObject;
+import domainapp.modules.exampledom.spi.publishmq.dom.demo.PublishMqDemoObject;
 
 
 @DomainService(

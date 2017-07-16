@@ -8,7 +8,7 @@ import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.isisaddons.module.publishmq.fixture.scripts.scenarios.PublishMqDemoObjectsFixture;
+import domainapp.modules.exampledom.spi.publishmq.fixture.PublishMqDemoObjectsFixture;
 
 public class PublishMqSpiAppManifestWithFixtures extends PublishMqSpiAppManifest {
 

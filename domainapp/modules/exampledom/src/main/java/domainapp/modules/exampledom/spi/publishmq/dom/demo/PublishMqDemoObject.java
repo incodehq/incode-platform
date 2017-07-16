@@ -1,4 +1,4 @@
-package org.isisaddons.module.publishmq.fixture.dom;
+package domainapp.modules.exampledom.spi.publishmq.dom.demo;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
@@ -20,6 +20,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.services.wrapper.WrapperFactory;
 import org.apache.isis.applib.util.ObjectContracts;
+
+import domainapp.modules.exampledom.spi.publishmq.dom.touch.Touchable;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,

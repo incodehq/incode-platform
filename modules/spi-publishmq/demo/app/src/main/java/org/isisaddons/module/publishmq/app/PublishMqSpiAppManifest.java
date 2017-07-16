@@ -8,7 +8,7 @@ import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.publishmq.PublishMqModule;
-import org.isisaddons.module.publishmq.fixture.scripts.scenarios.PublishMqDemoObjectsFixture;
+import domainapp.modules.exampledom.spi.publishmq.fixture.PublishMqDemoObjectsFixture;
 
 public class PublishMqSpiAppManifest implements AppManifest {
     @Override

@@ -1,4 +1,4 @@
-package org.isisaddons.module.publishmq.fixture.dom;
+package domainapp.modules.exampledom.spi.publishmq.dom.demo;
 
 import java.util.List;
 import org.apache.isis.applib.DomainObjectContainer;

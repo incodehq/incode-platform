@@ -1,4 +1,4 @@
-package org.isisaddons.module.publishmq.fixture.scripts.teardown;
+package domainapp.modules.exampledom.spi.publishmq.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;

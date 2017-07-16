@@ -6,7 +6,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecification;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationProvider;
 
-import org.isisaddons.module.publishmq.fixture.scripts.scenarios.PublishMqDemoObjectsFixture;
+import domainapp.modules.exampledom.spi.publishmq.fixture.PublishMqDemoObjectsFixture;
 
 @DomainService(nature = NatureOfService.DOMAIN)
 public class PublishMqDemoFixtureScriptsSpecificationProvider

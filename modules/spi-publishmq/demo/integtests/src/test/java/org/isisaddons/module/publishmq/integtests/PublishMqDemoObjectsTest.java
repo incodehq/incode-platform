@@ -10,9 +10,9 @@ import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
-import org.isisaddons.module.publishmq.fixture.dom.PublishMqDemoObject;
-import org.isisaddons.module.publishmq.fixture.dom.PublishMqDemoObjects;
-import org.isisaddons.module.publishmq.fixture.scripts.scenarios.PublishMqDemoObjectsFixture;
+import domainapp.modules.exampledom.spi.publishmq.dom.demo.PublishMqDemoObject;
+import domainapp.modules.exampledom.spi.publishmq.dom.demo.PublishMqDemoObjects;
+import domainapp.modules.exampledom.spi.publishmq.fixture.PublishMqDemoObjectsFixture;
 
 
 public class PublishMqDemoObjectsTest extends PublishMqModuleIntegTest {

@@ -1,10 +1,9 @@
-package org.isisaddons.module.publishmq.fixture.scripts.scenarios;
+package domainapp.modules.exampledom.spi.publishmq.fixture;
 
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
-import org.isisaddons.module.publishmq.fixture.dom.PublishMqDemoObject;
-import org.isisaddons.module.publishmq.fixture.dom.PublishMqDemoObjects;
-import org.isisaddons.module.publishmq.fixture.scripts.teardown.PublishMqDemoObjectsTearDownFixture;
+import domainapp.modules.exampledom.spi.publishmq.dom.demo.PublishMqDemoObject;
+import domainapp.modules.exampledom.spi.publishmq.dom.demo.PublishMqDemoObjects;
 
 public class PublishMqDemoObjectsFixture extends DiscoverableFixtureScript {
 
