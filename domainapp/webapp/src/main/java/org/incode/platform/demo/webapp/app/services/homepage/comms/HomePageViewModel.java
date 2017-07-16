@@ -5,10 +5,10 @@ import java.util.List;
 import org.apache.isis.applib.annotation.ViewModel;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
-import org.incode.module.communications.demo.module.dom.impl.customers.DemoCustomer;
-import org.incode.module.communications.demo.module.dom.impl.customers.DemoCustomerRepository;
-import org.incode.module.communications.demo.module.dom.impl.invoices.DemoInvoice;
-import org.incode.module.communications.demo.module.dom.impl.invoices.DemoInvoiceRepository;
+import domainapp.modules.exampledom.module.communications.dom.demo.DemoCustomer;
+import domainapp.modules.exampledom.module.communications.dom.demo.DemoCustomerRepository;
+import domainapp.modules.exampledom.module.communications.dom.demo2.DemoInvoice;
+import domainapp.modules.exampledom.module.communications.dom.demo2.DemoInvoiceRepository;
 
 @ViewModel
 public class HomePageViewModel {
