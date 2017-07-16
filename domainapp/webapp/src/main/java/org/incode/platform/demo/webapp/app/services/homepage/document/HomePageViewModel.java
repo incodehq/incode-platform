@@ -6,10 +6,10 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Nature;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
-import org.incode.module.document.fixture.dom.demo.DemoObject;
-import org.incode.module.document.fixture.dom.demo.DemoObjectMenu;
-import org.incode.module.document.fixture.dom.other.OtherObject;
-import org.incode.module.document.fixture.dom.other.OtherObjectMenu;
+import domainapp.modules.exampledom.module.document.dom.demo.DemoObject;
+import domainapp.modules.exampledom.module.document.dom.demo.DemoObjectMenu;
+import domainapp.modules.exampledom.module.document.dom.demo2.OtherObject;
+import domainapp.modules.exampledom.module.document.dom.demo2.OtherObjectMenu;
 
 @DomainObject(
         nature = Nature.VIEW_MODEL,

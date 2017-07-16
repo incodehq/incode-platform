@@ -20,7 +20,7 @@ import org.incode.module.docrendering.freemarker.dom.FreemarkerDocRenderingModul
 import org.incode.module.docrendering.stringinterpolator.dom.StringInterpolatorDocRenderingModule;
 import org.incode.module.docrendering.xdocreport.dom.XDocReportDocRenderingModule;
 import org.incode.module.document.dom.DocumentModule;
-import org.incode.module.document.fixture.DocumentFixtureModule;
+import domainapp.modules.exampledom.module.document.ExampleDomModuleDocumentModule;
 
 /**
  * Bootstrap the application.
@@ -32,7 +32,7 @@ public class DocumentModuleAppManifest implements AppManifest {
     public DocumentModuleAppManifest() {
         withModules(
                 DocumentModule.class, // dom module
-                DocumentFixtureModule.class,
+                ExampleDomModuleDocumentModule.class,
                 DocumentAppModule.class,
 
                 CommandModule.class,

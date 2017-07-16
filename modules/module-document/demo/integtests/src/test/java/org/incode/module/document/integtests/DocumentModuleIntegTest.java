@@ -25,10 +25,10 @@ import org.isisaddons.module.fakedata.dom.FakeDataService;
 import org.incode.module.document.app.DocumentModuleAppManifest;
 import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.Document_delete;
-import org.incode.module.document.fixture.app.paperclips.demo.PaperclipForDemoObject;
-import org.incode.module.document.fixture.app.paperclips.other.PaperclipForOtherObject;
-import org.incode.module.document.fixture.dom.demo.DemoObject;
-import org.incode.module.document.fixture.dom.other.OtherObject;
+import domainapp.modules.exampledom.module.document.dom.paperclips.demo.PaperclipForDemoObject;
+import domainapp.modules.exampledom.module.document.dom.paperclips.demo2.PaperclipForOtherObject;
+import domainapp.modules.exampledom.module.document.dom.demo.DemoObject;
+import domainapp.modules.exampledom.module.document.dom.demo2.OtherObject;
 
 public abstract class DocumentModuleIntegTest extends IntegrationTestAbstract {
 

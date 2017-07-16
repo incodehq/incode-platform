@@ -7,12 +7,12 @@ import org.junit.Test;
 
 import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
-import org.incode.module.document.fixture.dom.demo.DemoObject;
-import org.incode.module.document.fixture.dom.other.OtherObject;
-import org.incode.module.document.fixture.scripts.data.DemoObjectsFixture;
-import org.incode.module.document.fixture.scripts.data.OtherObjectsFixture;
-import org.incode.module.document.fixture.scripts.teardown.DocumentDemoAppTearDownFixture;
-import org.incode.module.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
+import domainapp.modules.exampledom.module.document.dom.demo.DemoObject;
+import domainapp.modules.exampledom.module.document.dom.demo2.OtherObject;
+import domainapp.modules.exampledom.module.document.fixture.data.DemoObjectsFixture;
+import domainapp.modules.exampledom.module.document.fixture.data.OtherObjectsFixture;
+import domainapp.modules.exampledom.module.document.fixture.DocumentDemoAppTearDownFixture;
+import domainapp.modules.exampledom.module.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
 import org.incode.module.document.integtests.DocumentModuleIntegTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
