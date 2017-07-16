@@ -1,4 +1,4 @@
-package domainapp.modules.exampledom.module.alias.dom.alias;
+package domainapp.modules.exampledom.module.alias.dom.demoalias;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;

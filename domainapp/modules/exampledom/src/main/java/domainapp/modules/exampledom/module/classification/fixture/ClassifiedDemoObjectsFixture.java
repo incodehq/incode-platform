@@ -1,4 +1,4 @@
-package org.incode.module.classification.fixture.scripts.scenarios;
+package domainapp.modules.exampledom.module.classification.fixture;
 
 import java.util.List;
 
@@ -13,12 +13,11 @@ import org.incode.module.classification.dom.impl.category.Category;
 import org.incode.module.classification.dom.impl.category.CategoryRepository;
 import org.incode.module.classification.dom.impl.category.taxonomy.Taxonomy;
 import org.incode.module.classification.dom.impl.classification.T_classify;
-import org.incode.module.classification.fixture.app.classification.demo.ClassificationForDemoObject;
-import org.incode.module.classification.fixture.dom.demo.first.DemoObject;
-import org.incode.module.classification.fixture.dom.demo.first.DemoObjectMenu;
-import org.incode.module.classification.fixture.dom.demo.other.OtherObject;
-import org.incode.module.classification.fixture.dom.demo.other.OtherObjectMenu;
-import org.incode.module.classification.fixture.scripts.teardown.ClassificationDemoAppTearDownFixture;
+import domainapp.modules.exampledom.module.classification.dom.democlassification.ClassificationForDemoObject;
+import domainapp.modules.exampledom.module.classification.dom.demo.DemoObject;
+import domainapp.modules.exampledom.module.classification.dom.demo.DemoObjectMenu;
+import domainapp.modules.exampledom.module.classification.dom.demo2.OtherObject;
+import domainapp.modules.exampledom.module.classification.dom.demo2.OtherObjectMenu;
 
 public class ClassifiedDemoObjectsFixture extends DiscoverableFixtureScript {
 

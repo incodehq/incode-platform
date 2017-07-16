@@ -9,7 +9,7 @@ import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.module.classification.fixture.scripts.scenarios.ClassifiedDemoObjectsFixture;
+import domainapp.modules.exampledom.module.classification.fixture.ClassifiedDemoObjectsFixture;
 
 /**
  * Run the app but without setting up any fixtures.

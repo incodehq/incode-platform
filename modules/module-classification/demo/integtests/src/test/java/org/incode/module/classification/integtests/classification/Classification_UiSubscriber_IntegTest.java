@@ -4,8 +4,8 @@ import org.incode.module.classification.dom.impl.applicability.ApplicabilityRepo
 import org.incode.module.classification.dom.impl.category.CategoryRepository;
 import org.incode.module.classification.dom.impl.classification.ClassificationRepository;
 import org.incode.module.classification.dom.spi.ApplicationTenancyService;
-import org.incode.module.classification.fixture.dom.demo.first.DemoObjectMenu;
-import org.incode.module.classification.fixture.scripts.scenarios.ClassifiedDemoObjectsFixture;
+import domainapp.modules.exampledom.module.classification.dom.demo.DemoObjectMenu;
+import domainapp.modules.exampledom.module.classification.fixture.ClassifiedDemoObjectsFixture;
 import org.incode.module.classification.integtests.ClassificationModuleIntegTest;
 import org.junit.Before;
 import org.junit.Ignore;

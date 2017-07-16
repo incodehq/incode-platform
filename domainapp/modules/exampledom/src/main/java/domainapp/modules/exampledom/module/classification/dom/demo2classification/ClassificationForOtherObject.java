@@ -1,4 +1,4 @@
-package org.incode.module.classification.fixture.app.classification.demo;
+package domainapp.modules.exampledom.module.classification.dom.demo2classification;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
@@ -17,48 +17,51 @@ import org.incode.module.classification.dom.impl.classification.T_classification
 import org.incode.module.classification.dom.impl.classification.T_classify;
 import org.incode.module.classification.dom.impl.classification.T_unclassify;
 import org.incode.module.classification.dom.spi.ApplicationTenancyService;
-import org.incode.module.classification.fixture.dom.demo.first.DemoObject;
+import domainapp.modules.exampledom.module.classification.dom.demo2.OtherObject;
 
-@javax.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE, schema ="incodeClassificationDemo")
+@javax.jdo.annotations.PersistenceCapable(
+        identityType= IdentityType.DATASTORE,
+        schema="incodeClassificationDemo")
 @javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @DomainObject(
-        objectType = "incodeClassificationDemo.ClassificationForDemoObject"
+        objectType = "incodeClassificationDemo.ClassificationForOtherObject"
 )
-public class ClassificationForDemoObject extends Classification {
+public class ClassificationForOtherObject extends Classification {
 
-    //region > demoObject (property)
-    private DemoObject demoObject;
+    //region > otherObject (property)
+    private OtherObject otherObject;
 
-    @Column(allowsNull = "false", name = "demoObjectId")
+    @Column(allowsNull = "false", name = "otherObjectId")
     @Property(editing = Editing.DISABLED)
-    public DemoObject getDemoObject() {
-        return demoObject;
+    public OtherObject getOtherObject() {
+        return otherObject;
     }
 
-    public void setDemoObject(final DemoObject demoObject) {
-        this.demoObject = demoObject;
+    public void setOtherObject(final OtherObject otherObject) {
+        this.otherObject = otherObject;
     }
     //endregion
 
     //region > classified (hook, derived)
     @Override
     public Object getClassified() {
-        return getDemoObject();
+        return getOtherObject();
     }
 
     @Override
     protected void setClassified(final Object classified) {
-        setDemoObject((DemoObject) classified);
+        setOtherObject((OtherObject) classified);
     }
     //endregion
 
     //region > ApplicationTenancyService SPI implementation
     @DomainService(nature = NatureOfService.DOMAIN)
-    public static class ApplicationTenancyServiceForDemoObject implements ApplicationTenancyService {
+    public static class ApplicationTenancyServiceForOtherObject implements ApplicationTenancyService {
+
         @Override
         public String atPathFor(final Object domainObjectToClassify) {
-            if(domainObjectToClassify instanceof DemoObject) {
-                return ((DemoObject) domainObjectToClassify).getAtPath();
+            if(domainObjectToClassify instanceof OtherObject) {
+                return ((OtherObject) domainObjectToClassify).getAtPath();
             }
             return null;
         }
@@ -69,7 +72,7 @@ public class ClassificationForDemoObject extends Classification {
     @DomainService(nature = NatureOfService.DOMAIN)
     public static class SubtypeProvider extends ClassificationRepository.SubtypeProviderAbstract {
         public SubtypeProvider() {
-            super(DemoObject.class, ClassificationForDemoObject.class);
+            super(OtherObject.class, ClassificationForOtherObject.class);
         }
     }
     //endregion
@@ -77,22 +80,22 @@ public class ClassificationForDemoObject extends Classification {
     //region > mixins
 
     @Mixin
-    public static class _classifications extends T_classifications<DemoObject> {
-        public _classifications(final DemoObject classified) {
+    public static class _classifications extends T_classifications<OtherObject> {
+        public _classifications(final OtherObject classified) {
             super(classified);
         }
     }
 
     @Mixin
-    public static class _classify extends T_classify<DemoObject> {
-        public _classify(final DemoObject classified) {
+    public static class _classify extends T_classify<OtherObject> {
+        public _classify(final OtherObject classified) {
             super(classified);
         }
     }
 
     @Mixin
-    public static class _unclassify extends T_unclassify<DemoObject> {
-        public _unclassify(final DemoObject classified) {
+    public static class _unclassify extends T_unclassify<OtherObject> {
+        public _unclassify(final OtherObject classified) {
             super(classified);
         }
     }

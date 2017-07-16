@@ -1,4 +1,4 @@
-package org.incode.module.classification.fixture.app.menu;
+package domainapp.modules.exampledom.module.classification.dom.menu;
 
 import org.apache.isis.applib.annotation.*;
 import org.incode.module.classification.dom.impl.category.Category;

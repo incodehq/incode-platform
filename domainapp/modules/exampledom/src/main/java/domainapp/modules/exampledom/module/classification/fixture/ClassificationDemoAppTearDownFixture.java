@@ -1,4 +1,4 @@
-package org.incode.module.classification.fixture.scripts.teardown;
+package domainapp.modules.exampledom.module.classification.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;

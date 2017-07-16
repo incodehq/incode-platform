@@ -1,4 +1,4 @@
-package org.incode.module.classification.fixture.dom.demo.other;
+package domainapp.modules.exampledom.module.classification.dom.demo;
 
 import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.util.ObjectContracts;
@@ -21,9 +21,9 @@ import javax.jdo.annotations.VersionStrategy;
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
 )
-public class OtherObject implements Comparable<OtherObject> {
+public class DemoObject implements Comparable<DemoObject> {
 
-    public OtherObject(final String name, final String atPath) {
+    public DemoObject(final String name, final String atPath) {
         setName(name);
         setAtPath(atPath);
     }
@@ -67,7 +67,7 @@ public class OtherObject implements Comparable<OtherObject> {
     }
 
     @Override
-    public int compareTo(final OtherObject other) {
+    public int compareTo(final DemoObject other) {
         return ObjectContracts.compare(this, other, "name");
     }
 

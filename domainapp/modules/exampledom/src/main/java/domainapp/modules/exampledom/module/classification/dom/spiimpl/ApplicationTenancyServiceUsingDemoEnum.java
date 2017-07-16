@@ -1,10 +1,10 @@
-package org.incode.module.classification.fixture.app.spiimpl;
+package domainapp.modules.exampledom.module.classification.dom.spiimpl;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.incode.module.classification.dom.spi.ApplicationTenancyService;
-import org.incode.module.classification.fixture.dom.demo.first.DemoObject;
-import org.incode.module.classification.fixture.dom.demo.other.OtherObject;
+import domainapp.modules.exampledom.module.classification.dom.demo.DemoObject;
+import domainapp.modules.exampledom.module.classification.dom.demo2.OtherObject;
 
 @DomainService(
     nature = NatureOfService.DOMAIN

@@ -1,4 +1,4 @@
-package org.incode.module.classification.fixture.app.spiimpl;
+package domainapp.modules.exampledom.module.classification.dom.spiimpl;
 
 /**
  * In a real (not demo) application this would probably be the isisaddons' security module's <code>ApplicationTenancy</code> entity.

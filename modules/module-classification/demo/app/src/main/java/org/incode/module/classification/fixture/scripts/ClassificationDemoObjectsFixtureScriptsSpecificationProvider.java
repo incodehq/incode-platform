@@ -6,7 +6,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecification;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationProvider;
 
-import org.incode.module.classification.fixture.scripts.scenarios.ClassifiedDemoObjectsFixture;
+import domainapp.modules.exampledom.module.classification.fixture.ClassifiedDemoObjectsFixture;
 
 /**
  * Specifies where to find fixtures, and other settings.

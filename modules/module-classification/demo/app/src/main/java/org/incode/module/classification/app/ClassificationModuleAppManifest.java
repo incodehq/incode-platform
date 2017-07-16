@@ -10,7 +10,7 @@ import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.module.classification.dom.ClassificationModule;
-import org.incode.module.classification.fixture.ClassificationFixtureModule;
+import domainapp.modules.exampledom.module.classification.ExampleDomModuleClassificationModule;
 
 /**
  * Bootstrap the application.
@@ -22,7 +22,7 @@ public class ClassificationModuleAppManifest implements AppManifest {
     public ClassificationModuleAppManifest() {
         withModules(
                 ClassificationModule.class, // dom module
-                ClassificationFixtureModule.class,
+                ExampleDomModuleClassificationModule.class,
                 ClassificationAppModule.class
         );
     }

@@ -1,4 +1,4 @@
-package org.incode.module.classification.fixture.dom.demo.other;
+package domainapp.modules.exampledom.module.classification.dom.demo;
 
 import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.services.repository.RepositoryService;
@@ -7,13 +7,13 @@ import java.util.List;
 
 @DomainService(
         nature = NatureOfService.VIEW,
-        repositoryFor = OtherObject.class
+        repositoryFor = DemoObject.class
 )
 @DomainServiceLayout(
-        named = "Others",
-        menuOrder = "11"
+        named = "Some",
+        menuOrder = "10"
 )
-public class OtherObjectMenu {
+public class DemoObjectMenu {
 
 
     //region > listAll (action)
@@ -25,8 +25,8 @@ public class OtherObjectMenu {
             bookmarking = BookmarkPolicy.AS_ROOT
     )
     @MemberOrder(sequence = "1")
-    public List<OtherObject> listAll() {
-        return repositoryService.allInstances(OtherObject.class);
+    public List<DemoObject> listAll() {
+        return repositoryService.allInstances(DemoObject.class);
     }
 
     //endregion
@@ -34,12 +34,12 @@ public class OtherObjectMenu {
     //region > createTopLevel (action)
     
     @MemberOrder(sequence = "2")
-    public OtherObject create(
+    public DemoObject create(
             @ParameterLayout(named = "Name")
             final String name,
             @ParameterLayout(named = "Application tenancy")
             final String atPath) {
-        final OtherObject obj = new OtherObject(name, atPath);
+        final DemoObject obj = new DemoObject(name, atPath);
         repositoryService.persist(obj);
         return obj;
     }
