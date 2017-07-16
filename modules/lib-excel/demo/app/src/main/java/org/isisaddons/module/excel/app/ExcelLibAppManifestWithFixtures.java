@@ -9,6 +9,8 @@ import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import domainapp.modules.exampledom.lib.excel.fixture.RecreateToDoItems;
+
 public class ExcelLibAppManifestWithFixtures extends ExcelLibAppManifest {
 
     /**
@@ -16,7 +18,7 @@ public class ExcelLibAppManifestWithFixtures extends ExcelLibAppManifest {
      */
     @Override
     public List<Class<? extends FixtureScript>> getFixtures() {
-        return Lists.<Class<? extends FixtureScript>>newArrayList(org.isisaddons.module.excel.fixture.scripts.RecreateToDoItems.class);
+        return Lists.<Class<? extends FixtureScript>>newArrayList(RecreateToDoItems.class);
     }
 
     /**

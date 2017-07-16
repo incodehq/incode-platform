@@ -1,4 +1,4 @@
-package org.isisaddons.module.excel.fixture.scripts;
+package domainapp.modules.exampledom.lib.excel.fixture.data;
 
 import java.util.List;
 

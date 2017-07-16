@@ -1,4 +1,4 @@
-package org.isisaddons.module.excel.fixture.app;
+package domainapp.modules.exampledom.lib.excel.dom.bulkupdate;
 
 import java.math.BigDecimal;
 
@@ -14,10 +14,10 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.actinvoc.ActionInvocationContext;
 
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Category;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Subcategory;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItems;
+import domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItem;
+import domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItem.Category;
+import domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItem.Subcategory;
+import domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItems;
 
 @DomainObject(
         objectType = "org.isisaddons.module.excel.fixture.app.ExcelModuleDemoToDoItemBulkUpdateLineItem"

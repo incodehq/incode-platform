@@ -1,6 +1,9 @@
-package org.isisaddons.module.excel.fixture.scripts;
+package domainapp.modules.exampledom.lib.excel.fixture;
 
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+
+import domainapp.modules.exampledom.lib.excel.fixture.data.CreateAllToDoItems;
+import domainapp.modules.exampledom.lib.excel.fixture.data.DeleteAllToDoItems;
 
 public class RecreateToDoItems extends DiscoverableFixtureScript {
 

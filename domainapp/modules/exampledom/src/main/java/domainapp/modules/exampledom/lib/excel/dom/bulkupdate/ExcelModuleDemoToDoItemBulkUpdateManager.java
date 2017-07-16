@@ -1,4 +1,4 @@
-package org.isisaddons.module.excel.fixture.app;
+package domainapp.modules.exampledom.lib.excel.dom.bulkupdate;
 
 import java.util.List;
 
@@ -25,9 +25,9 @@ import org.apache.isis.applib.value.Blob;
 import org.isisaddons.module.excel.dom.ExcelService;
 import org.isisaddons.module.excel.dom.WorksheetContent;
 import org.isisaddons.module.excel.dom.WorksheetSpec;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Category;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Subcategory;
+import domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItem;
+import domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItem.Category;
+import domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItem.Subcategory;
 
 import lombok.Getter;
 import lombok.Setter;

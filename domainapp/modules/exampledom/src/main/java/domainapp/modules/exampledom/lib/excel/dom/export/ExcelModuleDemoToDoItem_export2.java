@@ -1,6 +1,8 @@
-package org.isisaddons.module.excel.fixture.app;
+package domainapp.modules.exampledom.lib.excel.dom.export;
 
 import java.util.List;
+
+import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
@@ -11,15 +13,17 @@ import org.apache.isis.applib.services.actinvoc.ActionInvocationContext;
 import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.ExcelService;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItems;
+import org.isisaddons.module.excel.dom.WorksheetContent;
+import org.isisaddons.module.excel.dom.WorksheetSpec;
+import domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItem;
+import domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItems;
 
 @Mixin
-public class ExcelModuleDemoToDoItem_export {
+public class ExcelModuleDemoToDoItem_export2 {
 
     private final ExcelModuleDemoToDoItem toDoItem;
 
-    public ExcelModuleDemoToDoItem_export(final ExcelModuleDemoToDoItem toDoItem) {
+    public ExcelModuleDemoToDoItem_export2(final ExcelModuleDemoToDoItem toDoItem) {
         this.toDoItem = toDoItem;
     }
 
@@ -34,7 +38,11 @@ public class ExcelModuleDemoToDoItem_export {
         if(actionInvocationContext.isLast()) {
             // ie current object only
             final List toDoItems = actionInvocationContext.getDomainObjects();
-            return excelService.toExcel(toDoItems, ExcelModuleDemoToDoItem.class, ExcelModuleDemoToDoItem.class.getSimpleName(), "toDoItems.xlsx");
+            final List<ExcelModuleDemoToDoItem> allItems = this.excelModuleDemoToDoItems.allInstances();
+            final List<WorksheetContent> worksheetContents = Lists.newArrayList(
+                    new WorksheetContent(toDoItems, new WorksheetSpec(ExcelModuleDemoToDoItem.class, "current")),
+                    new WorksheetContent(allItems, new WorksheetSpec(ExcelModuleDemoToDoItem.class, "all")));
+            return excelService.toExcel(worksheetContents, "toDoItems.xlsx");
         } else {
             return null;
         }

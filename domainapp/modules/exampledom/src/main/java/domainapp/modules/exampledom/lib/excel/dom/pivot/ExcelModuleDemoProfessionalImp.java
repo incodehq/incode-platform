@@ -1,4 +1,4 @@
-package org.isisaddons.module.excel.fixture.viewmodels;
+package domainapp.modules.exampledom.lib.excel.dom.pivot;
 
 import java.math.BigDecimal;
 import java.util.Collections;
@@ -15,8 +15,8 @@ import org.apache.isis.applib.services.wrapper.WrapperFactory;
 
 import org.isisaddons.module.excel.dom.ExcelFixture;
 import org.isisaddons.module.excel.dom.ExcelFixtureRowHandler;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItems;
+import domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItem;
+import domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItems;
 
 import lombok.Getter;
 import lombok.Setter;

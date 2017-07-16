@@ -1,4 +1,4 @@
-package org.isisaddons.module.excel.fixture.dom;
+package domainapp.modules.exampledom.lib.excel.dom.demo;
 
 import java.math.BigDecimal;
 import java.util.Arrays;

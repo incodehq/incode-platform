@@ -1,4 +1,4 @@
-package org.isisaddons.module.excel.fixture.viewmodels;
+package domainapp.modules.exampledom.lib.excel.dom.pivot;
 
 import java.math.BigDecimal;
 
@@ -9,7 +9,7 @@ import org.isisaddons.module.excel.dom.AggregationType;
 import org.isisaddons.module.excel.dom.PivotColumn;
 import org.isisaddons.module.excel.dom.PivotRow;
 import org.isisaddons.module.excel.dom.PivotValue;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
+import domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItem;
 
 import lombok.Getter;
 import lombok.Setter;

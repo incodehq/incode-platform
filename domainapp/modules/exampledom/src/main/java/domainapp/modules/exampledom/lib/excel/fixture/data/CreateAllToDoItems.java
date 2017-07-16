@@ -1,4 +1,4 @@
-package org.isisaddons.module.excel.fixture.scripts;
+package domainapp.modules.exampledom.lib.excel.fixture.data;
 
 import java.net.URL;
 import java.util.List;
@@ -10,7 +10,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
 
 import org.isisaddons.module.excel.dom.ExcelFixture;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
+import domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItem;
 
 public class CreateAllToDoItems extends FixtureScript {
 

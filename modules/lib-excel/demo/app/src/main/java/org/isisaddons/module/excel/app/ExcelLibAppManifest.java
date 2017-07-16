@@ -10,7 +10,7 @@ import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.excel.ExcelModule;
-import org.isisaddons.module.excel.fixture.ExcelFixtureModule;
+import domainapp.modules.exampledom.lib.excel.ExampleDomLibExcelModule;
 
 public class ExcelLibAppManifest implements AppManifest {
 
@@ -18,7 +18,7 @@ public class ExcelLibAppManifest implements AppManifest {
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 ExcelModule.class,
-                ExcelFixtureModule.class,
+                ExampleDomLibExcelModule.class,
                 ExcelAppModule.class
         );
     }

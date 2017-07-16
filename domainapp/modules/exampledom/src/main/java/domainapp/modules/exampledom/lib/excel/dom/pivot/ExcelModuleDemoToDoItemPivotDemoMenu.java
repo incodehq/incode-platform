@@ -1,4 +1,4 @@
-package org.isisaddons.module.excel.fixture.app;
+package domainapp.modules.exampledom.lib.excel.dom.pivot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +14,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.ExcelService;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
-import org.isisaddons.module.excel.fixture.viewmodels.ExcelModuleDemoPivot;
+
+import domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItem;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,

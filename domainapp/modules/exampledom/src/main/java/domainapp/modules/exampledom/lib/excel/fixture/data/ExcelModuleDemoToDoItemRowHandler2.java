@@ -1,4 +1,4 @@
-package org.isisaddons.module.excel.fixture.scripts;
+package domainapp.modules.exampledom.lib.excel.fixture.data;
 
 import java.math.BigDecimal;
 
@@ -7,7 +7,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.isisaddons.module.excel.dom.ExcelFixture2;
 import org.isisaddons.module.excel.dom.ExcelMetaDataEnabled;
 import org.isisaddons.module.excel.dom.FixtureAwareRowHandler;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
+import domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItem;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -34,7 +34,7 @@ public class ExcelModuleDemoToDoItemRowHandler2 implements FixtureAwareRowHandle
 
     @Override
     public void handleRow(final ExcelModuleDemoToDoItemRowHandler2 previousRow) {
-        final ExcelModuleDemoToDoItemRowHandler2 previous = (ExcelModuleDemoToDoItemRowHandler2) previousRow;
+        final ExcelModuleDemoToDoItemRowHandler2 previous = previousRow;
         if(category == null) {
             category = previous.category;
         }

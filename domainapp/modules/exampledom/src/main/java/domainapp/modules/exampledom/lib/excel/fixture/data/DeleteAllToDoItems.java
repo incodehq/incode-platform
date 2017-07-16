@@ -1,6 +1,6 @@
-package org.isisaddons.module.excel.fixture.scripts;
+package domainapp.modules.exampledom.lib.excel.fixture.data;
 
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
+import domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItem;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 

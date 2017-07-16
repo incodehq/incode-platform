@@ -1,4 +1,4 @@
-package org.isisaddons.module.excel.fixture.app;
+package domainapp.modules.exampledom.lib.excel.dom.upload;
 
 import java.util.List;
 
@@ -16,8 +16,8 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.ExcelFixture;
-import org.isisaddons.module.excel.fixture.scripts.ExcelModuleDemoToDoItemRowHandler;
-import org.isisaddons.module.excel.fixture.viewmodels.ExcelModuleDemoProfessionalImp;
+import domainapp.modules.exampledom.lib.excel.fixture.data.ExcelModuleDemoToDoItemRowHandler;
+import domainapp.modules.exampledom.lib.excel.dom.pivot.ExcelModuleDemoProfessionalImp;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,

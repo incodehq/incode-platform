@@ -1,4 +1,4 @@
-package org.isisaddons.module.excel.fixture.dom;
+package domainapp.modules.exampledom.lib.excel.dom.demo;
 
 import java.math.BigDecimal;
 import java.util.Collections;
@@ -22,8 +22,9 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.clock.ClockService;
 
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Category;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem.Subcategory;
+import domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItem;
+import domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItem.Category;
+import domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItem.Subcategory;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,

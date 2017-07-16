@@ -14,10 +14,10 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.util.ExcelFileBlobConverter;
-import org.isisaddons.module.excel.fixture.app.ExcelModuleDemoUploadService;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItem;
-import org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItems;
-import org.isisaddons.module.excel.fixture.scripts.DeleteAllToDoItems;
+import domainapp.modules.exampledom.lib.excel.dom.upload.ExcelModuleDemoUploadService;
+import domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItem;
+import domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItems;
+import domainapp.modules.exampledom.lib.excel.fixture.data.DeleteAllToDoItems;
 import org.isisaddons.module.excel.integtests.ExcelModuleModuleIntegTest;
 
 import static org.hamcrest.core.Is.is;
