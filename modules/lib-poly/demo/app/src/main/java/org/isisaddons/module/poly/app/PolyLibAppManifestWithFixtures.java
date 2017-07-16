@@ -9,6 +9,8 @@ import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import domainapp.modules.exampledom.lib.poly.fixture.RecreateAll;
+
 public class PolyLibAppManifestWithFixtures extends PolyLibAppManifest {
 
     /**
@@ -16,7 +18,7 @@ public class PolyLibAppManifestWithFixtures extends PolyLibAppManifest {
      */
     @Override
     public List<Class<? extends FixtureScript>> getFixtures() {
-        return Lists.<Class<? extends FixtureScript>>newArrayList(org.isisaddons.module.poly.fixture.scripts.scenarios.RecreateAll.class);
+        return Lists.<Class<? extends FixtureScript>>newArrayList(RecreateAll.class);
     }
 
     /**

@@ -1,21 +1,24 @@
 package org.isisaddons.module.poly.integtests.tests.modules.comms;
 
-import org.isisaddons.module.poly.fixture.dom.modules.comms.CommunicationChannel;
-import org.isisaddons.module.poly.fixture.dom.modules.comms.CommunicationChannels;
-import org.isisaddons.module.poly.fixture.dom.modules.fixedasset.FixedAsset;
-import org.isisaddons.module.poly.fixture.scripts.scenarios.RecreateFixedAssets;
-import org.isisaddons.module.poly.integtests.tests.PolyAppIntegTest;
-
 import java.util.List;
+
 import javax.inject.Inject;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.wrapper.DisabledException;
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
+import org.isisaddons.module.poly.integtests.tests.PolyAppIntegTest;
+
+import domainapp.modules.exampledom.lib.poly.dom.democommchannel.CommunicationChannel;
+import domainapp.modules.exampledom.lib.poly.dom.democommchannel.CommunicationChannels;
+import domainapp.modules.exampledom.lib.poly.dom.demofixedasset.FixedAsset;
+import domainapp.modules.exampledom.lib.poly.fixture.data.demofixedasset.RecreateFixedAssets;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;

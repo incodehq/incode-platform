@@ -1,13 +1,13 @@
 package org.isisaddons.module.poly.fixture.dom.app.homepage;
 
-import org.isisaddons.module.poly.fixture.dom.modules.casemgmt.Case;
-import org.isisaddons.module.poly.fixture.dom.modules.casemgmt.Cases;
-import org.isisaddons.module.poly.fixture.dom.modules.comms.CommunicationChannel;
-import org.isisaddons.module.poly.fixture.dom.modules.comms.CommunicationChannels;
-import org.isisaddons.module.poly.fixture.dom.modules.fixedasset.FixedAsset;
-import org.isisaddons.module.poly.fixture.dom.modules.fixedasset.FixedAssets;
-import org.isisaddons.module.poly.fixture.dom.modules.party.Parties;
-import org.isisaddons.module.poly.fixture.dom.modules.party.Party;
+import domainapp.modules.exampledom.lib.poly.dom.democasemgmt.Case;
+import domainapp.modules.exampledom.lib.poly.dom.democasemgmt.Cases;
+import domainapp.modules.exampledom.lib.poly.dom.democommchannel.CommunicationChannel;
+import domainapp.modules.exampledom.lib.poly.dom.democommchannel.CommunicationChannels;
+import domainapp.modules.exampledom.lib.poly.dom.demofixedasset.FixedAsset;
+import domainapp.modules.exampledom.lib.poly.dom.demofixedasset.FixedAssets;
+import domainapp.modules.exampledom.lib.poly.dom.demoparty.Parties;
+import domainapp.modules.exampledom.lib.poly.dom.demoparty.Party;
 
 import java.util.List;
 import org.apache.isis.applib.annotation.ViewModel;
