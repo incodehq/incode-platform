@@ -22,9 +22,9 @@ import org.apache.isis.core.metamodel.services.appfeat.ApplicationFeature;
 import org.apache.isis.core.metamodel.services.appfeat.ApplicationFeatureId;
 import org.apache.isis.core.metamodel.services.appfeat.ApplicationFeatureRepositoryDefault;
 
-import domainapp.modules.exampledom.spi.security.fixture.SecurityModuleAppTearDown;
 import org.isisaddons.module.security.integtests.SecurityModuleAppIntegTest;
 
+import domainapp.modules.exampledom.spi.security.fixture.SecurityModuleAppTearDown;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.greaterThan;
@@ -56,21 +56,14 @@ public class ApplicationFeaturesIntegTest extends SecurityModuleAppIntegTest {
             assertThat(packages.size(), greaterThan(0));
 
             assertThat(packages, transformedBy(ApplicationFeature.Functions.GET_ID, containsAtLeast(
-                    ApplicationFeatureId.newPackage("org")
-                    ,
-                    ApplicationFeatureId.newPackage("org.apache"),
-                    ApplicationFeatureId.newPackage("org.apache.isis"),
-                    ApplicationFeatureId.newPackage("org.apache.isis.applib"),
-                    ApplicationFeatureId.newPackage("org.isisaddons"),
-                    ApplicationFeatureId.newPackage("org.isisaddons.module"),
-                    ApplicationFeatureId.newPackage("org.isisaddons.module.security"),
-                    ApplicationFeatureId.newPackage("org.isisaddons.module.security.app.feature"),
-                    ApplicationFeatureId.newPackage("org.isisaddons.module.security.app.user"),
-                    ApplicationFeatureId.newPackage("org.isisaddons.module.security.dom"),
-                    ApplicationFeatureId.newPackage("org.isisaddons.module.security.dom.role"),
-                    ApplicationFeatureId.newPackage("org.isisaddons.module.security.dom.tenancy"),
-                    ApplicationFeatureId.newPackage("org.isisaddons.module.security.dom.user"),
-                    ApplicationFeatureId.newPackage("org.isisaddons.module.security.fixture.dom")
+                    ApplicationFeatureId.newPackage("domainapp"),
+                    ApplicationFeatureId.newPackage("domainapp.modules"),
+                    ApplicationFeatureId.newPackage("domainapp.modules.exampledom"),
+                    ApplicationFeatureId.newPackage("domainapp.modules.exampledom.spi"),
+                    ApplicationFeatureId.newPackage("domainapp.modules.exampledom.spi.security"),
+                    ApplicationFeatureId.newPackage("domainapp.modules.exampledom.spi.security.dom"),
+                    ApplicationFeatureId.newPackage("domainapp.modules.exampledom.spi.security.dom.demotenanted"),
+                    ApplicationFeatureId.newPackage("domainapp.modules.exampledom.spi.security.dom.demonontenanted")
             )));
         }
 
