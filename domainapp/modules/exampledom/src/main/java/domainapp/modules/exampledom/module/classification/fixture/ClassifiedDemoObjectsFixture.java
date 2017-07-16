@@ -13,7 +13,7 @@ import org.incode.module.classification.dom.impl.category.Category;
 import org.incode.module.classification.dom.impl.category.CategoryRepository;
 import org.incode.module.classification.dom.impl.category.taxonomy.Taxonomy;
 import org.incode.module.classification.dom.impl.classification.T_classify;
-import domainapp.modules.exampledom.module.classification.dom.democlassification.ClassificationForDemoObject;
+import domainapp.modules.exampledom.module.classification.dom.classification.demo.ClassificationForDemoObject;
 import domainapp.modules.exampledom.module.classification.dom.demo.DemoObject;
 import domainapp.modules.exampledom.module.classification.dom.demo.DemoObjectMenu;
 import domainapp.modules.exampledom.module.classification.dom.demo2.OtherObject;

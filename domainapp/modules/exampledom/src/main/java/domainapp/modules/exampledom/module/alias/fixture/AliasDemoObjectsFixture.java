@@ -3,7 +3,7 @@ package domainapp.modules.exampledom.module.alias.fixture;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
 import org.incode.module.alias.dom.impl.T_addAlias;
-import domainapp.modules.exampledom.module.alias.dom.demoalias.AliasForDemoObject;
+import domainapp.modules.exampledom.module.alias.dom.alias.demo.AliasForDemoObject;
 import domainapp.modules.exampledom.module.alias.dom.spiimpl.aliastype.AliasTypeDemoEnum;
 import domainapp.modules.exampledom.module.alias.dom.demo.DemoObject;
 import domainapp.modules.exampledom.module.alias.dom.demo.DemoObjectMenu;

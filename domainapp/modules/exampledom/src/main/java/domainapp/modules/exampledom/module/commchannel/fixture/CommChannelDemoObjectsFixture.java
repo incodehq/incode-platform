@@ -9,7 +9,7 @@ import org.incode.module.commchannel.dom.impl.postaladdress.T_addPostalAddress;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObject;
 import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObjectMenu;
-import domainapp.modules.exampledom.module.commchannel.dom.demolink.CommunicationChannelOwnerLinkForDemoObject;
+import domainapp.modules.exampledom.module.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject;
 
 public class CommChannelDemoObjectsFixture extends DiscoverableFixtureScript {
 

@@ -34,7 +34,7 @@ import org.incode.module.commchannel.dom.impl.emailaddress.T_addEmailAddress;
 import org.incode.module.commchannel.dom.impl.phoneorfax.T_addPhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.postaladdress.T_addPostalAddress;
 import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObject;
-import domainapp.modules.exampledom.module.commchannel.dom.demolink.CommunicationChannelOwnerLinkForDemoObject;
+import domainapp.modules.exampledom.module.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject;
 
 public abstract class CommChannelModuleIntegTest extends IntegrationTestAbstract {
 

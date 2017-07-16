@@ -1,4 +1,4 @@
-package domainapp.modules.exampledom.module.commchannel.dom.demolink;
+package domainapp.modules.exampledom.module.commchannel.dom.ccolink.demo;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
