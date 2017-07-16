@@ -17,7 +17,7 @@ import org.isisaddons.module.security.dom.role.ApplicationRoleRepository;
 import org.isisaddons.module.security.dom.user.ApplicationUser;
 import org.isisaddons.module.security.dom.user.ApplicationUserMenu;
 import org.isisaddons.module.security.dom.user.ApplicationUserRepository;
-import org.isisaddons.module.security.fixture.scripts.SecurityModuleAppTearDown;
+import domainapp.modules.exampledom.spi.security.fixture.SecurityModuleAppTearDown;
 import org.isisaddons.module.security.integtests.SecurityModuleAppIntegTest;
 import org.isisaddons.module.security.integtests.ThrowableMatchers;
 

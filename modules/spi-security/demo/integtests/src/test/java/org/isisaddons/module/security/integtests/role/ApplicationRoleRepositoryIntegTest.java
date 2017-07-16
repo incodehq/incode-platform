@@ -11,7 +11,7 @@ import org.junit.rules.ExpectedException;
 
 import org.isisaddons.module.security.dom.role.ApplicationRole;
 import org.isisaddons.module.security.dom.role.ApplicationRoleRepository;
-import org.isisaddons.module.security.fixture.scripts.SecurityModuleAppTearDown;
+import domainapp.modules.exampledom.spi.security.fixture.SecurityModuleAppTearDown;
 import org.isisaddons.module.security.integtests.SecurityModuleAppIntegTest;
 
 import static org.hamcrest.CoreMatchers.not;

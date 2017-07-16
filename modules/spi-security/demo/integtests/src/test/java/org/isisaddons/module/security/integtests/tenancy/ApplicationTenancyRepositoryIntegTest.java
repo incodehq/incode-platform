@@ -12,7 +12,7 @@ import org.junit.rules.ExpectedException;
 
 import org.isisaddons.module.security.dom.tenancy.ApplicationTenancy;
 import org.isisaddons.module.security.dom.tenancy.ApplicationTenancyRepository;
-import org.isisaddons.module.security.fixture.scripts.SecurityModuleAppTearDown;
+import domainapp.modules.exampledom.spi.security.fixture.SecurityModuleAppTearDown;
 import org.isisaddons.module.security.integtests.SecurityModuleAppIntegTest;
 
 import static org.hamcrest.CoreMatchers.not;

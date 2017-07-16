@@ -9,7 +9,7 @@ import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.isisaddons.module.security.fixture.scripts.SecurityModuleAppSetUp;
+import domainapp.modules.exampledom.spi.security.fixture.SecurityModuleAppSetUp;
 
 public class SecuritySpiAppManifestWithFixtures extends SecuritySpiAppManifest {
 

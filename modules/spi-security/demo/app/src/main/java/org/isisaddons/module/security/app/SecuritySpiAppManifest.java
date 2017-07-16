@@ -10,7 +10,7 @@ import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.security.SecurityModule;
-import org.isisaddons.module.security.fixture.SecurityFixtureModule;
+import domainapp.modules.exampledom.spi.security.ExampleDomSpiSecurityModule;
 
 public class SecuritySpiAppManifest implements AppManifest {
 
@@ -18,7 +18,7 @@ public class SecuritySpiAppManifest implements AppManifest {
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 SecurityModule.class,
-                SecurityFixtureModule.class,
+                ExampleDomSpiSecurityModule.class,
                 SecurityAppModule.class
         );
     }

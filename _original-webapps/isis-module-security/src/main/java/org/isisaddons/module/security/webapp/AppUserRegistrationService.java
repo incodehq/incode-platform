@@ -10,13 +10,13 @@ import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.isisaddons.module.security.dom.role.ApplicationRole;
 import org.isisaddons.module.security.dom.role.ApplicationRoleRepository;
-import org.isisaddons.module.security.fixture.scripts.roles.ExampleFixtureScriptsRoleAndPermissions;
-import org.isisaddons.module.security.fixture.scripts.roles.ExampleRegularRoleAndPermissions;
+import domainapp.modules.exampledom.spi.security.fixture.roles.ExampleFixtureScriptsRoleAndPermissions;
+import domainapp.modules.exampledom.spi.security.fixture.roles.ExampleRegularRoleAndPermissions;
 import org.isisaddons.module.security.userreg.SecurityModuleAppUserRegistrationServiceAbstract;
 
 /**
  * An override of the default impl of {@link org.apache.isis.applib.services.userreg.UserRegistrationService}
- * that uses {@link org.isisaddons.module.security.fixture.scripts.roles.ExampleFixtureScriptsRoleAndPermissions#ROLE_NAME}
+ * that uses {@link domainapp.modules.exampledom.spi.security.fixture.roles.ExampleFixtureScriptsRoleAndPermissions#ROLE_NAME}
  * as initial role
  */
 @DomainService(

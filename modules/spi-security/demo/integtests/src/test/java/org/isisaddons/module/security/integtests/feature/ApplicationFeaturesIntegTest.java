@@ -22,7 +22,7 @@ import org.apache.isis.core.metamodel.services.appfeat.ApplicationFeature;
 import org.apache.isis.core.metamodel.services.appfeat.ApplicationFeatureId;
 import org.apache.isis.core.metamodel.services.appfeat.ApplicationFeatureRepositoryDefault;
 
-import org.isisaddons.module.security.fixture.scripts.SecurityModuleAppTearDown;
+import domainapp.modules.exampledom.spi.security.fixture.SecurityModuleAppTearDown;
 import org.isisaddons.module.security.integtests.SecurityModuleAppIntegTest;
 
 import static org.hamcrest.CoreMatchers.is;

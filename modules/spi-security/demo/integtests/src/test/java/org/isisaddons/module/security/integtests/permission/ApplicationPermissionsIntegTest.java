@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import org.isisaddons.module.security.dom.permission.ApplicationPermissionRepository;
-import org.isisaddons.module.security.fixture.scripts.SecurityModuleAppTearDown;
+import domainapp.modules.exampledom.spi.security.fixture.SecurityModuleAppTearDown;
 import org.isisaddons.module.security.integtests.SecurityModuleAppIntegTest;
 
 public class ApplicationPermissionsIntegTest extends SecurityModuleAppIntegTest {
