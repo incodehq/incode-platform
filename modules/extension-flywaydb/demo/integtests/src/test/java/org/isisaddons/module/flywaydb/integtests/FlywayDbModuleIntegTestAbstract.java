@@ -1,4 +1,4 @@
-package domainapp.modules.exampledom.ext.flywaydb.integtests;
+package org.isisaddons.module.flywaydb.integtests;
 
 import java.util.List;
 import java.util.Map;
