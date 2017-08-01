@@ -1,14 +1,17 @@
 package org.isisaddons.metamodel.paraname8.integtests;
 
+import java.util.List;
+import java.util.Map;
+
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+
 import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
 import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegTests;
 
-import java.util.List;
-import java.util.Map;
+import domainapp.modules.exampledom.metamodel.paraname8.ExampleDomMetaModelParaname8Module;
 
 /**
  * Holds an instance of an {@link IsisSystemForTest} as a {@link ThreadLocal} on the current thread,
@@ -35,7 +38,7 @@ public class Paraname8ModuleSystemInitializer {
             with(new AppManifest() {
                 @Override
                 public List<Class<?>> getModules() {
-                    return Lists.newArrayList(org.isisaddons.metamodel.paraname8.NamedFacetOnParameterParaname8Factory.class);
+                    return Lists.newArrayList(ExampleDomMetaModelParaname8Module.class);
                 }
 
                 @Override

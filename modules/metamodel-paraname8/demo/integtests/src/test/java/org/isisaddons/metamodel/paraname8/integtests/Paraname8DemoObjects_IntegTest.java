@@ -13,7 +13,7 @@ import domainapp.modules.exampledom.metamodel.paraname8.fixture.Paraname8DemoObj
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class Paraname8DemoObjectsTest extends Paraname8ModuleIntegTest {
+public class Paraname8DemoObjects_IntegTest extends Paraname8ModuleIntegTest {
 
     @Before
     public void setUpData() throws Exception {

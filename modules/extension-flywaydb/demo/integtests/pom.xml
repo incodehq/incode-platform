@@ -67,12 +67,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.isisaddons.module.flywaydb</groupId>
-            <artifactId>isis-module-flywaydb-application</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-applib</artifactId>
             <scope>test</scope>

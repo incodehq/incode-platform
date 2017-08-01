@@ -106,7 +106,8 @@
         <!-- this app -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-flywaydb-application</artifactId>
+            <artifactId>isis-module-flywaydb-integtests</artifactId>
+            <type>test-jar</type>
         </dependency>
 
         <!-- isis -->
