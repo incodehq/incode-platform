@@ -4,13 +4,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.incode.module.classification</groupId>
-        <artifactId>incode-module-classification</artifactId>
+        <groupId>org.incode</groupId>
+        <artifactId>incode-parent</artifactId>
         <version>1.15.0-SNAPSHOT</version>
+        <relativePath>../../../pom.xml</relativePath>
     </parent>
 
     <artifactId>incode-module-classification-integtests</artifactId>
-    <name>Incode Platform Module Classification Demo IntegTests</name>
+    <name>Incode Platform Module Classification IntegTests</name>
 
     <build>
         <plugins>

@@ -4,13 +4,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.incode.module.commchannel</groupId>
-        <artifactId>incode-module-commchannel</artifactId>
+        <groupId>org.incode</groupId>
+        <artifactId>incode-parent</artifactId>
         <version>1.15.0-SNAPSHOT</version>
+        <relativePath>../../../pom.xml</relativePath>
     </parent>
 
     <artifactId>incode-module-commchannel-integtests</artifactId>
-    <name>Incode Platform Module CommChannel Demo IntegTests</name>
+    <name>Incode Platform Module CommChannel IntegTests</name>
 
     <build>
         <plugins>

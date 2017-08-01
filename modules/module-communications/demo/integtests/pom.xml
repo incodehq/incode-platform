@@ -3,13 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.incode.module.communications</groupId>
-        <artifactId>incode-module-communications</artifactId>
+        <groupId>org.incode</groupId>
+        <artifactId>incode-parent</artifactId>
         <version>1.15.0-SNAPSHOT</version>
+        <relativePath>../../../pom.xml</relativePath>
     </parent>
 
     <artifactId>incode-module-communications-demo-integtests</artifactId>
-    <name>Incode Platform Module Communications Demo IntegTests</name>
+    <name>Incode Platform Module Communications IntegTests</name>
 
     <build>
         <plugins>
@@ -37,14 +38,16 @@
     <dependencies>
 
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.incode.module.communications</groupId>
             <artifactId>incode-module-communications-dom</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.incode</groupId>
             <artifactId>incode-domainapp-module-exampledom</artifactId>
             <version>${project.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -66,10 +69,16 @@
         </dependency>
 
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.incode.module.communications</groupId>
             <artifactId>incode-module-communications-dom</artifactId>
             <type>test-jar</type>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>

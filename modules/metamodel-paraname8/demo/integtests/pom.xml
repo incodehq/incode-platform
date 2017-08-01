@@ -4,13 +4,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.isisaddons.metamodel.paraname8</groupId>
-        <artifactId>isis-metamodel-paraname8</artifactId>
+        <groupId>org.incode</groupId>
+        <artifactId>incode-parent</artifactId>
         <version>1.15.0-SNAPSHOT</version>
+        <relativePath>../../../pom.xml</relativePath>
     </parent>
 
     <artifactId>isis-metamodel-paraname8-integtests</artifactId>
-    <name>Incode Platform MetaModel Paraname8 Demo IntegTests</name>
+    <name>Incode Platform MetaModel Paraname8 IntegTests</name>
 
     <build>
         <plugins>
@@ -56,6 +57,11 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
     </dependencies>
 

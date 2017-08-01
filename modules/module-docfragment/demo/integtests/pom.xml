@@ -3,13 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.incode.module.docfragment</groupId>
-        <artifactId>incode-module-docfragment</artifactId>
+        <groupId>org.incode</groupId>
+        <artifactId>incode-parent</artifactId>
         <version>1.15.0-SNAPSHOT</version>
+        <relativePath>../../../pom.xml</relativePath>
     </parent>
 
     <artifactId>incode-module-docfragment-demo-integtests</artifactId>
-    <name>Incode Platform Module DocFragment Demo IntegTests</name>
+    <name>Incode Platform Module DocFragment IntegTests</name>
 
     <build>
         <plugins>
@@ -38,7 +39,7 @@
 
         <!-- this app -->
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.incode.module.docfragment</groupId>
             <artifactId>incode-module-docfragment-dom</artifactId>
         </dependency>
 
@@ -73,12 +74,17 @@
         </dependency>
 
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.incode.module.docfragment</groupId>
             <artifactId>incode-module-docfragment-dom</artifactId>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
     </dependencies>
 

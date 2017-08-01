@@ -74,7 +74,7 @@
             </activation>
             <modules>
                 <module>modules/lib-docx/lib</module>
-                <module>modules/lib-docx/demo</module>
+                <module>modules/lib-docx/demo/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -86,7 +86,7 @@
             </activation>
             <modules>
                 <module>modules/lib-excel/lib</module>
-                <module>modules/lib-excel/demo</module>
+                <module>modules/lib-excel/demo/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -98,7 +98,7 @@
             </activation>
             <modules>
                 <module>modules/lib-fakedata/lib</module>
-                <module>modules/lib-fakedata/demo</module>
+                <module>modules/lib-fakedata/demo/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -110,7 +110,7 @@
             </activation>
             <modules>
                 <module>modules/lib-poly/lib</module>
-                <module>modules/lib-poly/demo</module>
+                <module>modules/lib-poly/demo/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -133,7 +133,7 @@
             </activation>
             <modules>
                 <module>modules/lib-stringinterpolator/lib</module>
-                <module>modules/lib-stringinterpolator/demo</module>
+                <module>modules/lib-stringinterpolator/demo/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -145,7 +145,7 @@
             </activation>
             <modules>
                 <module>modules/module-alias/module</module>
-                <module>modules/module-alias/demo</module>
+                <module>modules/module-alias/demo/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -157,7 +157,7 @@
             </activation>
             <modules>
                 <module>modules/module-classification/module</module>
-                <module>modules/module-classification/demo</module>
+                <module>modules/module-classification/demo/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -169,7 +169,7 @@
             </activation>
             <modules>
                 <module>modules/module-commchannel/module</module>
-                <module>modules/module-commchannel/demo</module>
+                <module>modules/module-commchannel/demo/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -181,7 +181,7 @@
             </activation>
             <modules>
                 <module>modules/module-communications/module</module>
-                <module>modules/module-communications/demo</module>
+                <module>modules/module-communications/demo/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -193,7 +193,7 @@
             </activation>
             <modules>
                 <module>modules/module-docfragment/module</module>
-                <module>modules/module-docfragment/demo</module>
+                <module>modules/module-docfragment/demo/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -205,7 +205,7 @@
             </activation>
             <modules>
                 <module>modules/module-document/module</module>
-                <module>modules/module-document/demo</module>
+                <module>modules/module-document/demo/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -217,7 +217,7 @@
             </activation>
             <modules>
                 <module>modules/module-note/module</module>
-                <module>modules/module-note/demo</module>
+                <module>modules/module-note/demo/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -229,7 +229,7 @@
             </activation>
             <modules>
                 <module>modules/module-settings/module</module>
-                <module>modules/module-settings/demo</module>
+                <module>modules/module-settings/demo/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -241,7 +241,7 @@
             </activation>
             <modules>
                 <module>modules/module-tags/module</module>
-                <module>modules/module-tags/demo</module>
+                <module>modules/module-tags/demo/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -253,7 +253,7 @@
             </activation>
             <modules>
                 <module>modules/metamodel-paraname8/metamodel</module>
-                <module>modules/metamodel-paraname8/demo</module>
+                <module>modules/metamodel-paraname8/demo/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -265,7 +265,7 @@
             </activation>
             <modules>
                 <module>modules/spi-audit/spi</module>
-                <module>modules/spi-audit/demo</module>
+                <module>modules/spi-audit/demo/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -277,7 +277,7 @@
             </activation>
             <modules>
                 <module>modules/spi-command/spi</module>
-                <module>modules/spi-command/demo</module>
+                <module>modules/spi-command/demo/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -301,7 +301,7 @@
             </activation>
             <modules>
                 <module>modules/spi-security/spi</module>
-                <module>modules/spi-security/demo</module>
+                <module>modules/spi-security/demo/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -313,7 +313,7 @@
             </activation>
             <modules>
                 <module>modules/spi-sessionlogger/spi</module>
-                <module>modules/spi-sessionlogger/demo</module>
+                <module>modules/spi-sessionlogger/demo/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -325,7 +325,6 @@
             </activation>
             <modules>
                 <module>modules/wicket-excel/wicket</module>
-                <module>modules/wicket-excel/demo</module>
             </modules>
         </profile>
         <profile>
@@ -337,7 +336,6 @@
             </activation>
             <modules>
                 <module>modules/wicket-fullcalendar2/wicket</module>
-                <module>modules/wicket-fullcalendar2/demo</module>
             </modules>
         </profile>
         <profile>
@@ -349,7 +347,6 @@
             </activation>
             <modules>
                 <module>modules/wicket-gmap3/wicket</module>
-                <module>modules/wicket-gmap3/demo</module>
             </modules>
         </profile>
         <profile>
@@ -361,7 +358,6 @@
             </activation>
             <modules>
                 <module>modules/wicket-pdfjs/wicket</module>
-                <module>modules/wicket-pdfjs/demo</module>
             </modules>
         </profile>
         <profile>
@@ -373,7 +369,6 @@
             </activation>
             <modules>
                 <module>modules/wicket-summernote/wicket</module>
-                <module>modules/wicket-summernote/demo</module>
             </modules>
         </profile>
         <profile>
@@ -385,7 +380,6 @@
             </activation>
             <modules>
                 <module>modules/wicket-wickedcharts/wicket</module>
-                <module>modules/wicket-wickedcharts/demo</module>
             </modules>
         </profile>
         <profile>
@@ -397,7 +391,7 @@
             </activation>
             <modules>
                 <module>modules/extension-flywaydb/extension</module>
-                <module>modules/extension-flywaydb/demo</module>
+                <module>modules/extension-flywaydb/demo/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -409,7 +403,7 @@
             </activation>
             <modules>
                 <module>modules/extension-togglz/extension</module>
-                <module>modules/extension-togglz/demo</module>
+                <module>modules/extension-togglz/demo/integtests</module>
             </modules>
         </profile>
 
@@ -431,32 +425,32 @@
 
                 <!-- per-module testing -->
 
-                <module>modules/extension-flywaydb/demo</module>
-                <module>modules/extension-togglz/demo</module>
+                <module>modules/extension-flywaydb/demo/integtests</module>
+                <module>modules/extension-togglz/demo/integtests</module>
 
-                <module>modules/lib-docx/demo</module>
-                <module>modules/lib-excel/demo</module>
-                <module>modules/lib-fakedata/demo</module>
-                <module>modules/lib-poly/demo</module>
-                <module>modules/lib-stringinterpolator/demo</module>
+                <module>modules/lib-docx/demo/integtests</module>
+                <module>modules/lib-excel/demo/integtests</module>
+                <module>modules/lib-fakedata/demo/integtests</module>
+                <module>modules/lib-poly/demo/integtests</module>
+                <module>modules/lib-stringinterpolator/demo/integtests</module>
 
-                <module>modules/module-alias/demo</module>
-                <module>modules/module-classification/demo</module>
-                <module>modules/module-commchannel/demo</module>
-                <module>modules/module-communications/demo</module>
-                <module>modules/module-docfragment/demo</module>
-                <module>modules/module-document/demo</module>
-                <module>modules/module-note/demo</module>
-                <module>modules/module-settings/demo</module>
-                <module>modules/module-tags/demo</module>
+                <module>modules/module-alias/demo/integtests</module>
+                <module>modules/module-classification/demo/integtests</module>
+                <module>modules/module-commchannel/demo/integtests</module>
+                <module>modules/module-communications/demo/integtests</module>
+                <module>modules/module-docfragment/demo/integtests</module>
+                <module>modules/module-document/demo/integtests</module>
+                <module>modules/module-note/demo/integtests</module>
+                <module>modules/module-settings/demo/integtests</module>
+                <module>modules/module-tags/demo/integtests</module>
 
-                <module>modules/metamodel-paraname8/demo</module>
+                <module>modules/metamodel-paraname8/demo/integtests</module>
 
-                <module>modules/spi-audit/demo</module>
-                <module>modules/spi-command/demo</module>
+                <module>modules/spi-audit/demo/integtests</module>
+                <module>modules/spi-command/demo/integtests</module>
                 <module>modules/spi-publishmq/demo</module>
-                <module>modules/spi-security/demo</module>
-                <module>modules/spi-sessionlogger/demo</module>
+                <module>modules/spi-security/demo/integtests</module>
+                <module>modules/spi-sessionlogger/demo/integtests</module>
 
             </modules>
         </profile>
