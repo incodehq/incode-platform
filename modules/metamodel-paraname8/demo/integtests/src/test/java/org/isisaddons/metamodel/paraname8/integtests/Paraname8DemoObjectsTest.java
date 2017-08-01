@@ -1,14 +1,15 @@
 package org.isisaddons.metamodel.paraname8.integtests;
 
-import domainapp.modules.exampledom.metamodel.paraname8.dom.fixture.dom.Paraname8DemoObject;
-import domainapp.modules.exampledom.metamodel.paraname8.dom.fixture.dom.Paraname8DemoObjects;
-import domainapp.modules.exampledom.metamodel.paraname8.dom.fixture.scripts.Paraname8DemoObjectsFixture;
-
 import java.util.List;
+
 import javax.inject.Inject;
+
 import org.junit.Before;
 import org.junit.Test;
 
+import domainapp.modules.exampledom.metamodel.paraname8.dom.Paraname8DemoObject;
+import domainapp.modules.exampledom.metamodel.paraname8.dom.Paraname8DemoObjects;
+import domainapp.modules.exampledom.metamodel.paraname8.fixture.Paraname8DemoObjectsFixture;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 

@@ -38,7 +38,7 @@
     </dependencies>
 
     <modules>
-        <module>app</module>
+        <module>integtests</module>
     </modules>
 
 </project>

@@ -36,8 +36,15 @@
     <dependencies>
 
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-security-app</artifactId>
+            <groupId>org.isisaddons.module.security</groupId>
+            <artifactId>isis-module-security-dom</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode</groupId>
+            <artifactId>incode-domainapp-module-exampledom</artifactId>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 

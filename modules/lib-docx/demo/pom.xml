@@ -17,18 +17,6 @@
 
     <packaging>pom</packaging>
 
-    <dependencyManagement>
-        <dependencies>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>isis-module-docx-app</artifactId>
-                <version>1.15.0-SNAPSHOT</version>
-            </dependency>
-
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -38,7 +26,6 @@
     </dependencies>
 
     <modules>
-        <module>app</module>
         <module>integtests</module>
     </modules>
 
