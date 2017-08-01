@@ -1,15 +1,6 @@
 package org.isisaddons.wicket.wickedcharts.cpt.applib;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
 import java.util.Arrays;
-
-import org.apache.isis.applib.adapters.EncoderDecoder;
-import org.isisaddons.wicket.wickedcharts.cpt.applib.WickedChart;
-import org.isisaddons.wicket.wickedcharts.cpt.applib.WickedChartSemanticsProvider;
-import org.junit.Before;
-import org.junit.Test;
 
 import com.googlecode.wickedcharts.highcharts.jackson.JsonRenderer;
 import com.googlecode.wickedcharts.highcharts.options.Axis;
@@ -22,6 +13,14 @@ import com.googlecode.wickedcharts.highcharts.options.SeriesType;
 import com.googlecode.wickedcharts.highcharts.options.Title;
 import com.googlecode.wickedcharts.highcharts.options.VerticalAlignment;
 import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import org.apache.isis.applib.adapters.EncoderDecoder;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class WicketChartSemanticsProviderEncoderDecoderTest {
 

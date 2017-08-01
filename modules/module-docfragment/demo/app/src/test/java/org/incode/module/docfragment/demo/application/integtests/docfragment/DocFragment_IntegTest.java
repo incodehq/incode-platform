@@ -192,7 +192,7 @@ public class DocFragment_IntegTest extends DocFragmentModuleIntegTestAbstract {
         @Test
         public void should_be_populated() throws Exception {
             // when
-            final Long id = mixin(Persistable_datanucleusIdLong.class, domainObject).exec();
+            final Long id = mixin(Persistable_datanucleusIdLong.class, domainObject).prop();
 
             // then
             assertThat(id).isGreaterThanOrEqualTo(0);
@@ -204,7 +204,7 @@ public class DocFragment_IntegTest extends DocFragmentModuleIntegTestAbstract {
         @Test
         public void should_be_populated() throws Exception {
             // when
-            final Long version = mixin(Persistable_datanucleusVersionLong.class, domainObject).exec();
+            final Long version = mixin(Persistable_datanucleusVersionLong.class, domainObject).prop();
             // then
             assertThat(version).isNotNull();
         }

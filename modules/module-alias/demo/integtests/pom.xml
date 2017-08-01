@@ -38,9 +38,10 @@
     <dependencies>
 
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>incode-module-alias-app</artifactId>
+            <groupId>org.incode</groupId>
+            <artifactId>incode-domainapp-module-exampledom</artifactId>
             <scope>test</scope>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
