@@ -34,7 +34,7 @@
 
             <camel:choice>
                 <camel:when>
-                    <camel:simple>${header.ixn[execution$memberIdentifier]} == 'org.isisaddons.module.publishmq.fixture.dom.PublishMqDemoObject#updateName()'</camel:simple>
+                    <camel:simple>${header.ixn[execution$memberIdentifier]} == 'org.incode.domainapp.example.dom.spi.publishmq.dom.demo.PublishMqDemoObject#updateName()'</camel:simple>
 
                     <log message="updateName() received... "/>
 
@@ -45,7 +45,7 @@
                     <camel:to uri="stream:out"/>
                 </camel:when>
                 <camel:when>
-                    <camel:simple>${header.ixn[execution$memberIdentifier]} == 'org.isisaddons.module.publishmq.fixture.dom.PublishMqDemoObject#updateDescription()'</camel:simple>
+                    <camel:simple>${header.ixn[execution$memberIdentifier]} == 'org.incode.domainapp.example.dom.spi.publishmq.dom.demo.PublishMqDemoObject#updateDescription()'</camel:simple>
 
                     <log message="updateDescription() received... "/>
 
@@ -78,7 +78,7 @@
     </bean>
 
     <bean id="postToFakeExternalSoapService"
-          class="org.isisaddons.module.publishmq.fixture.routing.PostToExternalWebServiceUsingSoap"
+          class="org.incode.domainapp.example.publishmq.routing.PostToExternalWebServiceUsingSoap"
           init-method="init">
         <!-- see propertyPlaceholderConfigurer-config.xml -->
         <property name="endpointAddressBase"

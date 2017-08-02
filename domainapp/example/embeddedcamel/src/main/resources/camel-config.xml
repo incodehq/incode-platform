@@ -67,7 +67,7 @@
           class="org.isisaddons.module.publishmq.dom.camel.AddExchangeHeaders"/>
 
     <bean id="attachDomCanonicalDtoUsingRestfulObjects"
-          class="org.isisaddons.module.publishmq.fixture.routing.AttachDemoObjectDto"
+          class="org.incode.domainapp.example.publishmq.embeddedcamel.fixture.routing.AttachDemoObjectDto"
           init-method="init">
         <!-- see propertyPlaceholderConfigurer-config.xml -->
         <property name="base" value="${restful.base}"/>
