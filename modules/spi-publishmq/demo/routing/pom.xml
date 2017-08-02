@@ -58,8 +58,8 @@
         </dependency>
 
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-publishmq-externalsystemadapter-wsdlgen</artifactId>
+            <groupId>org.incode</groupId>
+            <artifactId>incode-domainapp-externalsystemadapter-wsdlgen</artifactId>
             <version>${project.version}</version>
         </dependency>
 

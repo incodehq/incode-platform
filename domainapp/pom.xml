@@ -14,6 +14,10 @@
     <name>Incode Platform DomainApp</name>
     <description>Domain application leveraging the Incode Platform.</description>
 
+    <properties>
+        <cxf.version>3.1.1</cxf.version>
+        <cxf.xjc-utils.version>3.0.3</cxf.xjc-utils.version>
+    </properties>
 
     <packaging>pom</packaging>
 
@@ -26,8 +30,8 @@
             </dependency>
 			
 			<dependency>
-                <groupId>org.isisaddons.module.publishmq</groupId>
-                <artifactId>isis-module-publishmq-externalsystemadapter</artifactId>
+                <groupId>org.incode</groupId>
+                <artifactId>incode-domainapp-externalsystemadapter</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -52,15 +56,34 @@
                 <artifactId>incode-domainapp-webapp</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <!-- 3rd party dependencies, as used by externalsystemadapter -->
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-frontend-jaxws</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http-jetty</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf.xjc-utils</groupId>
+                <artifactId>cxf-xjc-runtime</artifactId>
+                <version>${cxf.xjc-utils.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
+
     </dependencies>
 
     <modules>
