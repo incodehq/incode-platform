@@ -1,10 +1,6 @@
 package org.isisaddons.module.audit.app;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-
-import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
@@ -12,17 +8,8 @@ import domainapp.modules.exampledom.spi.audit.fixture.AuditDemoAppFixture;
 
 public class AuditSpiAppManifestWithFixtures extends AuditSpiAppManifest {
 
-    @Override
-    public List<Class<? extends FixtureScript>> getFixtures() {
-        return Arrays.<Class<? extends FixtureScript>>asList(
-                AuditDemoAppFixture.class);
-
-    }
-    @Override
-    public Map<String, String> getConfigurationProperties() {
-        final Map<String, String> props = Maps.newHashMap();
-        props.put("isis.persistor.datanucleus.install-fixtures", "true");
-        return props;
+    @Override protected void overrideFixtures(final List<Class<? extends FixtureScript>> fixtureScripts) {
+        fixtureScripts.add(AuditDemoAppFixture.class);
     }
 
 }

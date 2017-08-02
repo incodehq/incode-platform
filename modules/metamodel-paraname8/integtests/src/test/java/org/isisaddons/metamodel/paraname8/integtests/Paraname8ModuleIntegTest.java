@@ -2,18 +2,15 @@ package org.isisaddons.metamodel.paraname8.integtests;
 
 import org.junit.BeforeClass;
 
-import org.apache.isis.core.integtestsupport.IntegrationTestAbstract;
-import org.apache.isis.core.integtestsupport.scenarios.ScenarioExecutionForIntegration;
+import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 
-public abstract class Paraname8ModuleIntegTest extends IntegrationTestAbstract {
+import org.isisaddons.metamodel.paraname8.app.Paraname8MetaModelAppManifest;
+
+public abstract class Paraname8ModuleIntegTest extends IntegrationTestAbstract2 {
 
     @BeforeClass
     public static void initClass() {
-        org.apache.log4j.PropertyConfigurator.configure("logging-integtest.properties");
-        Paraname8ModuleSystemInitializer.initIsft();
-        
-        // instantiating will install onto ThreadLocal
-        new ScenarioExecutionForIntegration();
+        bootstrapUsing(new Paraname8MetaModelAppManifest());
     }
 
 }

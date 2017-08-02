@@ -6,12 +6,8 @@ package org.incode.module.alias.app;
 public class AliasModuleAppManifestBypassSecurity extends AliasModuleAppManifest {
 
     @Override
-    public String getAuthenticationMechanism() {
+    protected String overrideAuthMechanism() {
         return "bypass";
     }
 
-    @Override
-    public String getAuthorizationMechanism() {
-        return "bypass";
-    }
 }

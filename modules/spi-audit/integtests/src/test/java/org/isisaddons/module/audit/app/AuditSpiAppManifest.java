@@ -1,33 +1,20 @@
 package org.isisaddons.module.audit.app;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.isis.applib.AppManifest;
-import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.AppManifestAbstract;
 
 import org.isisaddons.module.audit.AuditModule;
+
 import domainapp.modules.exampledom.spi.audit.ExampleDomSpiAuditModule;
 
-public class AuditSpiAppManifest implements AppManifest {
-    @Override
-    public List<Class<?>> getModules() {
-        return Arrays.asList(
-                AuditModule.class,
-                ExampleDomSpiAuditModule.class,
-                AuditAppModule.class
-        );
+public class AuditSpiAppManifest extends AppManifestAbstract {
+
+    public static final Builder BUILDER = Builder.withModules(
+            AuditModule.class,
+            ExampleDomSpiAuditModule.class
+    );
+
+    public AuditSpiAppManifest() {
+        super(BUILDER);
     }
-    @Override
-    public List<Class<?>> getAdditionalServices() { return null; }
-    @Override
-    public String getAuthenticationMechanism() { return null; }
-    @Override
-    public String getAuthorizationMechanism() { return null; }
-    @Override
-    public List<Class<? extends FixtureScript>> getFixtures() { return null; }
-    @Override
-    public Map<String, String> getConfigurationProperties() { return null; }
 
 }

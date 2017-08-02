@@ -6,13 +6,8 @@ package org.incode.module.communications.demo.application.manifest;
 public class CommunicationsModuleAppManifestWithFixturesBypassSecurity
         extends CommunicationsModuleAppManifestWithFixtures {
 
-    @Override
-    public String getAuthenticationMechanism() {
+    @Override protected String overrideAuthMechanism() {
         return "bypass";
     }
 
-    @Override
-    public String getAuthorizationMechanism() {
-        return "bypass";
-    }
 }

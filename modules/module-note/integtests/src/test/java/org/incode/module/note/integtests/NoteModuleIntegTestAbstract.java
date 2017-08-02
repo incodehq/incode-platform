@@ -7,40 +7,36 @@ import javax.inject.Inject;
 import com.google.common.collect.Lists;
 
 import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.rules.ExpectedException;
 
-import org.apache.isis.applib.fixturescripts.FixtureScripts;
-import org.apache.isis.core.integtestsupport.IntegrationTestAbstract;
-import org.apache.isis.core.integtestsupport.IsisSystemForTest;
-import org.apache.isis.core.integtestsupport.scenarios.ScenarioExecutionForIntegration;
-import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegTests;
+import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 
 import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
 import org.incode.module.note.app.NoteModuleAppManifest;
-import org.incode.module.note.dom.impl.note.T_addNote;
-import org.incode.module.note.dom.impl.note.T_notes;
-import org.incode.module.note.dom.impl.note.T_removeNote;
 import org.incode.module.note.dom.impl.note.Note;
 import org.incode.module.note.dom.impl.note.Note_changeDate;
 import org.incode.module.note.dom.impl.note.Note_changeNotes;
 import org.incode.module.note.dom.impl.note.Note_remove;
-import domainapp.modules.exampledom.module.note.dom.demolink.NotableLinkForDemoObject;
+import org.incode.module.note.dom.impl.note.T_addNote;
+import org.incode.module.note.dom.impl.note.T_notes;
+import org.incode.module.note.dom.impl.note.T_removeNote;
+
 import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObject;
+import domainapp.modules.exampledom.module.note.dom.demolink.NotableLinkForDemoObject;
 
-public abstract class NoteModuleIntegTestAbstract extends IntegrationTestAbstract {
+public abstract class NoteModuleIntegTestAbstract extends IntegrationTestAbstract2 {
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
-    @Inject
-    protected FixtureScripts fixtureScripts;
+    @BeforeClass
+    public static void initClass() {
+        bootstrapUsing(
+                NoteModuleAppManifest.BUILDER
+                        .withAdditionalModules(NoteModuleIntegTestAbstract.class, FakeDataModule.class)
+                        .build());
+    }
 
     @Inject
     protected FakeDataService fakeData;
-
 
     protected T_addNote mixinAddNote(final NoteDemoObject notable) {
         return mixin(NotableLinkForDemoObject._addNote.class, notable);
@@ -67,23 +63,4 @@ public abstract class NoteModuleIntegTestAbstract extends IntegrationTestAbstrac
         return Lists.newArrayList(iterable);
     }
 
-    @BeforeClass
-    public static void initClass() {
-        org.apache.log4j.PropertyConfigurator.configure("logging-integtest.properties");
-
-        IsisSystemForTest isft = IsisSystemForTest.getElseNull();
-        if(isft == null) {
-            isft = new IsisSystemForTest.Builder()
-                    .withLoggingAt(org.apache.log4j.Level.INFO)
-                    .with(new NoteModuleAppManifest()
-                            .withModules(NoteModuleIntegTestAbstract.class, FakeDataModule.class))
-                    .with(new IsisConfigurationForJdoIntegTests())
-                    .build()
-                    .setUpSystem();
-            IsisSystemForTest.set(isft);
-        }
-
-        // instantiating will install onto ThreadLocal
-        new ScenarioExecutionForIntegration();
-    }
 }

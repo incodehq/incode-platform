@@ -5,13 +5,8 @@ package org.incode.module.commchannel.app;
  */
 public class CommChannelModuleAppManifestBypassSecurity extends CommChannelModuleAppManifest {
 
-    @Override
-    public String getAuthenticationMechanism() {
+    @Override protected String overrideAuthMechanism() {
         return "bypass";
     }
 
-    @Override
-    public String getAuthorizationMechanism() {
-        return "bypass";
-    }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.isis.applib.AppManifest;
+import org.apache.isis.applib.AppManifestAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.command.CommandModule;
@@ -23,65 +24,23 @@ import org.incode.module.document.dom.DocumentModule;
 /**
  * Bootstrap the application.
  */
-public class CommunicationsModuleAppManifest implements AppManifest {
+public class CommunicationsModuleAppManifest extends AppManifestAbstract {
 
-    /**
-     * Load all services and entities found in (the packages and subpackages within) these modules
-     */
-    @Override
-    public List<Class<?>> getModules() {
-        return Arrays.asList(
-                CommunicationsModuleDomModule.class,
-                DocumentModule.class,
-                CountryModule.class,
-                ExampleDomModuleCommunicationsModule.class,
-                DemoAppApplicationModuleFixtureSubmodule.class,
-                DemoAppApplicationModuleServicesSubmodule.class,
-                PdfBoxModule.class,
-                CommandModule.class,
-                FreeMarkerModule.class,
-                FakeDataModule.class
-        );
-    }
+    public static final Builder BUILDER = Builder.withModules(CommunicationsModuleDomModule.class,
+            DocumentModule.class,
+            CountryModule.class,
+            ExampleDomModuleCommunicationsModule.class,
+            DemoAppApplicationModuleFixtureSubmodule.class,
+            DemoAppApplicationModuleServicesSubmodule.class,
+            PdfBoxModule.class,
+            CommandModule.class,
+            FreeMarkerModule.class,
+            FakeDataModule.class
+    );
 
-    /**
-     * No additional services.
-     */
-    @Override
-    public List<Class<?>> getAdditionalServices() {
-        return Collections.emptyList();
-    }
 
-    /**
-     * Use shiro for authentication.
-     */
-    @Override
-    public String getAuthenticationMechanism() {
-        return "shiro";
-    }
-
-    /**
-     * Use shiro for authorization.
-     */
-    @Override
-    public String getAuthorizationMechanism() {
-        return "shiro";
-    }
-
-    /**
-     * No fixtures.
-     */
-    @Override
-    public List<Class<? extends FixtureScript>> getFixtures() {
-        return Collections.emptyList();
-    }
-
-    /**
-     * No overrides.
-     */
-    @Override
-    public Map<String, String> getConfigurationProperties() {
-        return null;
+    public CommunicationsModuleAppManifest() {
+        super(BUILDER);
     }
 
 }

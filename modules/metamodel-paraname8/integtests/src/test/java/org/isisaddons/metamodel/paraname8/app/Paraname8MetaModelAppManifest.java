@@ -1,36 +1,21 @@
 package org.isisaddons.metamodel.paraname8.app;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
-import com.google.common.collect.Lists;
-
-import org.apache.isis.applib.AppManifest;
-import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.AppManifestAbstract;
 
 import domainapp.modules.exampledom.metamodel.paraname8.ExampleDomMetaModelParaname8Module;
 
-public class Paraname8MetaModelAppManifest implements AppManifest {
+public class Paraname8MetaModelAppManifest extends AppManifestAbstract {
 
-    @Override
-    public List<Class<?>> getModules() {
-        return Arrays.asList(
-                Paraname8AppModule.class,
-                ExampleDomMetaModelParaname8Module.class
-        );
+    public static final Builder BUILDER = Builder
+            .withModules(
+                    Paraname8AppModule.class,
+                    ExampleDomMetaModelParaname8Module.class)
+            .withConfigurationProperty(
+                    "isis.reflector.facets.include",
+                    org.isisaddons.metamodel.paraname8.NamedFacetOnParameterParaname8Factory.class.getName());
+
+    public Paraname8MetaModelAppManifest() {
+        super(BUILDER);
     }
-    @Override
-    public List<Class<?>> getAdditionalServices() {
-        return Lists.newArrayList();
-    }
-    @Override
-    public String getAuthenticationMechanism() { return null; }
-    @Override
-    public String getAuthorizationMechanism() { return null; }
-    @Override
-    public List<Class<? extends FixtureScript>> getFixtures() { return null; }
-    @Override
-    public Map<String, String> getConfigurationProperties() { return null; }
 
 }

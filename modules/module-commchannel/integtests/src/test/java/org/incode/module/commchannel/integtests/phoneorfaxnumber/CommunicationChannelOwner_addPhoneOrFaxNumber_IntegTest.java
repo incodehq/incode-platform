@@ -16,14 +16,14 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
-import org.incode.module.commchannel.dom.impl.phoneorfax.T_addPhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber;
+import org.incode.module.commchannel.dom.impl.phoneorfax.T_addPhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
+import org.incode.module.commchannel.integtests.CommChannelModuleIntegTestAbstract;
+
 import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObject;
 import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObjectMenu;
 import domainapp.modules.exampledom.module.commchannel.fixture.CommChannelDemoObjectsTearDownFixture;
-import org.incode.module.commchannel.integtests.CommChannelModuleIntegTestAbstract;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CommunicationChannelOwner_addPhoneOrFaxNumber_IntegTest extends CommChannelModuleIntegTestAbstract {
@@ -80,8 +80,8 @@ public class CommunicationChannelOwner_addPhoneOrFaxNumber_IntegTest extends Com
         @Test
         public void attempt_to_create_with_invalid_type() throws Exception {
 
-            expectedException.expect(InvalidException.class);
-            expectedException.expectMessage("");
+            expectedExceptions.expect(InvalidException.class);
+            expectedExceptions.expectMessage("");
 
             wrap(mixinNewPhoneOrFaxNumber(fredDemoOwner)).$$(
                     CommunicationChannelType.EMAIL_ADDRESS,

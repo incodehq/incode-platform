@@ -16,23 +16,8 @@ import domainapp.modules.exampledom.module.commchannel.fixture.CommChannelDemoOb
  */
 public class CommChannelModuleAppManifestWithFixtures extends CommChannelModuleAppManifest {
 
-    /**
-     * Fixtures to be installed.
-     */
-    @Override
-    public List<Class<? extends FixtureScript>> getFixtures() {
-        return Lists.newArrayList(CommChannelDemoObjectsFixture.class);
-    }
-
-    /**
-     * Force fixtures to be loaded.
-     */
-    @Override
-    public Map<String, String> getConfigurationProperties() {
-        HashMap<String,String> props = Maps.newHashMap();
-        props.put("isis.persistor.datanucleus.install-fixtures","true");
-        //props.put("application.GeocodingService.demo","true");
-        return props;
+    @Override protected void overrideFixtures(final List<Class<? extends FixtureScript>> fixtureScripts) {
+        fixtureScripts.add(CommChannelDemoObjectsFixture.class);
     }
 
 }

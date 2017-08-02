@@ -18,12 +18,12 @@ import org.incode.module.note.dom.impl.notablelink.NotableLink;
 import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
 import org.incode.module.note.dom.impl.note.Note;
 import org.incode.module.note.dom.impl.note.NoteRepository;
-import domainapp.modules.exampledom.module.note.dom.spiimpl.CalendarNameRepositoryForDemo;
-import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObject;
-import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObjectMenu;
-import domainapp.modules.exampledom.module.note.fixture.NoteDemoObjectsTearDownFixture;
 import org.incode.module.note.integtests.NoteModuleIntegTestAbstract;
 
+import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObject;
+import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObjectMenu;
+import domainapp.modules.exampledom.module.note.dom.spiimpl.CalendarNameRepositoryForDemo;
+import domainapp.modules.exampledom.module.note.fixture.NoteDemoObjectsTearDownFixture;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class Note_changeDate_IntegTest extends NoteModuleIntegTestAbstract {
@@ -195,8 +195,8 @@ public class Note_changeDate_IntegTest extends NoteModuleIntegTestAbstract {
         public void cannot_set_date_to_null_when_has_no_text() throws Exception {
 
             // expecting
-            expectedException.expect(InvalidException.class);
-            expectedException.expectMessage("Must specify either note text or a date/calendar (or both)");
+            expectedExceptions.expect(InvalidException.class);
+            expectedExceptions.expectMessage("Must specify either note text or a date/calendar (or both)");
 
             // when
             wrap(mixinChangeDate(noteWithoutText)).$$(null, null);

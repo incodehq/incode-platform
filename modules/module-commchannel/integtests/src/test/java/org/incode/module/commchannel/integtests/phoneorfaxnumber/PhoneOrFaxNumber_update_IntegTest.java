@@ -16,11 +16,11 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber_update;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
+import org.incode.module.commchannel.integtests.CommChannelModuleIntegTestAbstract;
+
 import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObject;
 import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObjectMenu;
 import domainapp.modules.exampledom.module.commchannel.fixture.CommChannelDemoObjectsTearDownFixture;
-import org.incode.module.commchannel.integtests.CommChannelModuleIntegTestAbstract;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTestAbstract {
@@ -32,7 +32,7 @@ public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTes
     PhoneOrFaxNumber fredPhone;
 
     PhoneOrFaxNumber_update mixinUpdate(final PhoneOrFaxNumber phoneOrFaxNumber) {
-        return container.mixin(PhoneOrFaxNumber_update.class, phoneOrFaxNumber);
+        return mixin(PhoneOrFaxNumber_update.class, phoneOrFaxNumber);
     }
 
     @Before

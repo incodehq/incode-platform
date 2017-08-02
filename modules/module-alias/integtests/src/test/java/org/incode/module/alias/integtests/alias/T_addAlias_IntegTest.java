@@ -1,26 +1,30 @@
 package org.incode.module.alias.integtests.alias;
 
-import com.google.common.eventbus.Subscribe;
-import org.apache.isis.applib.AbstractSubscriber;
-import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.NatureOfService;
-import org.incode.module.alias.dom.impl.Alias;
-import org.incode.module.alias.dom.impl.T_addAlias;
-import org.incode.module.alias.dom.spi.AliasType;
-import org.incode.module.alias.dom.spi.AliasTypeRepository;
-import org.incode.module.alias.dom.spi.ApplicationTenancyRepository;
-import domainapp.modules.exampledom.module.alias.dom.demo.DemoObjectMenu;
-import domainapp.modules.exampledom.module.alias.fixture.AliasDemoObjectsTearDownFixture;
-import org.incode.module.alias.integtests.AliasModuleIntegTestAbstract;
-import org.junit.Before;
-import org.junit.Test;
-
-import javax.inject.Inject;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
+import javax.inject.Inject;
+
+import com.google.common.eventbus.Subscribe;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import org.apache.isis.applib.AbstractSubscriber;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
+
+import org.incode.module.alias.dom.impl.Alias;
+import org.incode.module.alias.dom.impl.T_addAlias;
+import org.incode.module.alias.dom.spi.AliasType;
+import org.incode.module.alias.dom.spi.AliasTypeRepository;
+import org.incode.module.alias.dom.spi.ApplicationTenancyRepository;
+import org.incode.module.alias.integtests.AliasModuleIntegTestAbstract;
+
+import domainapp.modules.exampledom.module.alias.dom.demo.DemoObjectMenu;
+import domainapp.modules.exampledom.module.alias.fixture.AliasDemoObjectsTearDownFixture;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class T_addAlias_IntegTest extends AliasModuleIntegTestAbstract {
@@ -114,7 +118,7 @@ public class T_addAlias_IntegTest extends AliasModuleIntegTestAbstract {
         @Test
         public void cannot_add_to_same_ref_to_same_atPath_and_same_aliasType() throws Exception {
 
-            expectedException.expectCause(of(SQLIntegrityConstraintViolationException.class));
+            expectedExceptions.expectCause(of(SQLIntegrityConstraintViolationException.class));
 
             // given
             final Collection<String> atPaths = applicationTenancyRepository.atPathsFor(aliased);
@@ -137,7 +141,7 @@ public class T_addAlias_IntegTest extends AliasModuleIntegTestAbstract {
         @Test
         public void cannot_add_to_different_ref_to_same_atPath_and_same_aliasTypes() throws Exception {
 
-            expectedException.expectCause(of(SQLIntegrityConstraintViolationException.class));
+            expectedExceptions.expectCause(of(SQLIntegrityConstraintViolationException.class));
 
             // when
             final Collection<String> atPaths = applicationTenancyRepository.atPathsFor(aliased);

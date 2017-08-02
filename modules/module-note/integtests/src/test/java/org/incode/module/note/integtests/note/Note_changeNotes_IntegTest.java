@@ -12,12 +12,12 @@ import org.junit.Test;
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
 import org.incode.module.note.dom.impl.note.Note;
-import domainapp.modules.exampledom.module.note.dom.spiimpl.CalendarNameRepositoryForDemo;
-import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObject;
-import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObjectMenu;
-import domainapp.modules.exampledom.module.note.fixture.NoteDemoObjectsTearDownFixture;
 import org.incode.module.note.integtests.NoteModuleIntegTestAbstract;
 
+import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObject;
+import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObjectMenu;
+import domainapp.modules.exampledom.module.note.dom.spiimpl.CalendarNameRepositoryForDemo;
+import domainapp.modules.exampledom.module.note.fixture.NoteDemoObjectsTearDownFixture;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class Note_changeNotes_IntegTest extends NoteModuleIntegTestAbstract {
@@ -117,8 +117,8 @@ public class Note_changeNotes_IntegTest extends NoteModuleIntegTestAbstract {
             assertThat(wrap(noteWithoutDate).getDate()).isNull();
 
             // expecting
-            expectedException.expect(InvalidException.class);
-            expectedException.expectMessage("Must specify either note text or a date (or both)");
+            expectedExceptions.expect(InvalidException.class);
+            expectedExceptions.expectMessage("Must specify either note text or a date (or both)");
 
             // when
             wrap(mixinChangeNotes(noteWithoutDate)).$$(null);

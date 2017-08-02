@@ -16,22 +16,9 @@ import domainapp.modules.exampledom.module.document.fixture.DocumentDemoAppDemoF
  */
 public class DocumentModuleAppManifestWithFixtures extends DocumentModuleAppManifest {
 
-    /**
-     * Fixtures to be installed.
-     */
-    @Override
-    public List<Class<? extends FixtureScript>> getFixtures() {
-        return Lists.newArrayList(DocumentDemoAppDemoFixture.class);
+    @Override protected void overrideFixtures(final List<Class<? extends FixtureScript>> fixtureScripts) {
+        fixtureScripts.add(DocumentDemoAppDemoFixture.class);
     }
 
-    /**
-     * Force fixtures to be loaded.
-     */
-    @Override
-    public Map<String, String> getConfigurationProperties() {
-        HashMap<String,String> props = Maps.newHashMap();
-        props.put("isis.persistor.datanucleus.install-fixtures","true");
-        return props;
-    }
 
 }

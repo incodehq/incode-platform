@@ -3,24 +3,12 @@ package org.incode.module.commchannel.integtests;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.UnknownHostException;
-import java.util.Map;
 
 import javax.inject.Inject;
 
-import com.google.common.collect.ImmutableMap;
-
-import org.apache.log4j.Level;
 import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.rules.ExpectedException;
 
-import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.fixturescripts.FixtureScripts;
-import org.apache.isis.core.integtestsupport.IntegrationTestAbstract;
-import org.apache.isis.core.integtestsupport.IsisSystemForTest;
-import org.apache.isis.core.integtestsupport.scenarios.ScenarioExecutionForIntegration;
-import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegTests;
+import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 
 import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
@@ -28,51 +16,27 @@ import org.isisaddons.module.fakedata.dom.FakeDataService;
 import org.incode.module.commchannel.app.CommChannelModuleAppManifest;
 import org.incode.module.commchannel.dom.api.GeocodingService;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
-import org.incode.module.commchannel.dom.impl.channel.T_communicationChannels;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_remove1;
+import org.incode.module.commchannel.dom.impl.channel.T_communicationChannels;
 import org.incode.module.commchannel.dom.impl.emailaddress.T_addEmailAddress;
 import org.incode.module.commchannel.dom.impl.phoneorfax.T_addPhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.postaladdress.T_addPostalAddress;
-import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObject;
+
 import domainapp.modules.exampledom.module.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject;
+import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObject;
 
-public abstract class CommChannelModuleIntegTestAbstract extends IntegrationTestAbstract {
-
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
-    @Inject
-    protected DomainObjectContainer container;
-
-    @Inject
-    protected FixtureScripts fixtureScripts;
+public abstract class CommChannelModuleIntegTestAbstract extends IntegrationTestAbstract2 {
 
     @Inject
     protected FakeDataService fakeDataService;
 
     @BeforeClass
     public static void initClass() {
-        org.apache.log4j.PropertyConfigurator.configure("logging-integtest.properties");
-        IsisSystemForTest isft = IsisSystemForTest.getElseNull();
-        if(isft == null) {
-            isft = new IsisSystemForTest.Builder()
-                    .withLoggingAt(Level.INFO)
-                    .with(new CommChannelModuleAppManifest() {
-                                @Override
-                                public Map<String, String> getConfigurationProperties() {
-                                    return ImmutableMap.of(GeocodingService.class.getCanonicalName() + ".demo", "true");
-                                }
-                            }
-                            .withModules(CommChannelModuleIntegTestAbstract.class, FakeDataModule.class)
-                    )
-                    .with(new IsisConfigurationForJdoIntegTests())
-                    .build();
-            isft.setUpSystem();
-            IsisSystemForTest.set(isft);
-        }
-
-        // instantiating will install onto ThreadLocal
-        new ScenarioExecutionForIntegration();
+        bootstrapUsing(CommChannelModuleAppManifest.BUILDER
+                .withAdditionalModules(CommChannelModuleIntegTestAbstract.class, FakeDataModule.class)
+                .withConfigurationProperty(GeocodingService.class.getCanonicalName() + ".demo", "true")
+                .build()
+        );
     }
 
     protected T_addEmailAddress mixinNewEmailAddress(final CommChannelDemoObject owner) {
@@ -106,8 +70,6 @@ public abstract class CommChannelModuleIntegTestAbstract extends IntegrationTest
             urlConnect.setConnectTimeout(1000);
             urlConnect.getContent();
             urlConnect.disconnect();
-        } catch (UnknownHostException e) {
-            return false;
         } catch (IOException e) {
             return false;
         }

@@ -1,35 +1,19 @@
 package org.isisaddons.module.publishmq.app;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.isis.applib.AppManifest;
-import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.AppManifestAbstract;
 
 import org.isisaddons.module.publishmq.PublishMqModule;
 
 import domainapp.modules.exampledom.spi.publishmq.ExampleDomSpiPublishMqModule;
-import domainapp.modules.exampledom.spi.publishmq.fixture.PublishMqDemoObjectsFixture;
 
-public class PublishMqSpiAppManifest implements AppManifest {
-    @Override
-    public List<Class<?>> getModules() {
-        return Arrays.asList(
-                PublishMqModule.class,
-                ExampleDomSpiPublishMqModule.class,
-                PublishMqAppModule.class
-        );
+public class PublishMqSpiAppManifest extends AppManifestAbstract {
+
+    public static final Builder BUILDER = Builder.withModules(PublishMqModule.class,
+            ExampleDomSpiPublishMqModule.class,
+            PublishMqAppModule.class);
+
+    public PublishMqSpiAppManifest() {
+        super(BUILDER);
     }
-    @Override
-    public List<Class<?>> getAdditionalServices() { return null; }
-    @Override
-    public String getAuthenticationMechanism() { return null; }
-    @Override
-    public String getAuthorizationMechanism() { return null; }
-    @Override
-    public List<Class<? extends FixtureScript>> getFixtures() { return null; }
-    @Override
-    public Map<String, String> getConfigurationProperties() { return null; }
 
 }

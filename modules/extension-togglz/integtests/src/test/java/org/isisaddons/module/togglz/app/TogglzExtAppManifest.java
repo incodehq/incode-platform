@@ -8,6 +8,7 @@ import java.util.Map;
 import com.google.common.collect.Maps;
 
 import org.apache.isis.applib.AppManifest;
+import org.apache.isis.applib.AppManifestAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.security.SecurityModule;
@@ -15,30 +16,17 @@ import org.isisaddons.module.settings.SettingsModule;
 import org.isisaddons.module.togglz.TogglzModule;
 import domainapp.modules.exampledom.ext.togglz.ExampleDomExtTogglzModule;
 
-public class TogglzExtAppManifest implements AppManifest {
-    @Override
-    public List<Class<?>> getModules() {
-        return Arrays.asList(
-                TogglzModule.class,
-                ExampleDomExtTogglzModule.class,
-                TogglzDemoAppModule.class,
-                SecurityModule.class,
-                SettingsModule.class
-        );
-    }
-    @Override
-    public List<Class<?>> getAdditionalServices() { return null; }
-    @Override
-    public String getAuthenticationMechanism() { return null; }
-    @Override
-    public String getAuthorizationMechanism() { return null; }
-    @Override
-    public List<Class<? extends FixtureScript>> getFixtures() { return null; }
-    @Override
-    public Map<String, String> getConfigurationProperties() {
-        HashMap<String,String> props = Maps.newHashMap();
-        props.put("isis.viewer.wicket.rememberMe.cookieKey","DemoAppEncryptionKey");
-        return props;
+public class TogglzExtAppManifest extends AppManifestAbstract {
+
+    public static final Builder BUILDER = Builder.withModules(
+            TogglzModule.class,
+            ExampleDomExtTogglzModule.class,
+            SecurityModule.class,
+            SettingsModule.class
+    ).withConfigurationProperty("isis.viewer.wicket.rememberMe.cookieKey","DemoAppEncryptionKey");
+
+    public TogglzExtAppManifest() {
+        super(BUILDER);
     }
 
 }

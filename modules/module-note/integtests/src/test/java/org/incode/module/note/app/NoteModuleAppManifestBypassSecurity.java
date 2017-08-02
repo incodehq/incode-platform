@@ -5,13 +5,8 @@ package org.incode.module.note.app;
  */
 public class NoteModuleAppManifestBypassSecurity extends NoteModuleAppManifest {
 
-    @Override
-    public String getAuthenticationMechanism() {
+    @Override protected String overrideAuthMechanism() {
         return "bypass";
     }
 
-    @Override
-    public String getAuthorizationMechanism() {
-        return "bypass";
-    }
 }

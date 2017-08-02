@@ -5,13 +5,7 @@ package org.incode.module.classification.app;
  */
 public class ClassificationModuleAppManifestBypassSecurity extends ClassificationModuleAppManifest {
 
-    @Override
-    public String getAuthenticationMechanism() {
-        return "bypass";
-    }
-
-    @Override
-    public String getAuthorizationMechanism() {
+    @Override protected String overrideAuthMechanism() {
         return "bypass";
     }
 }

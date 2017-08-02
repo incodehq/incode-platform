@@ -6,12 +6,8 @@ package org.incode.module.document.app;
 public class DocumentModuleAppManifestBypassSecurity extends DocumentModuleAppManifest {
 
     @Override
-    public String getAuthenticationMechanism() {
+    protected String overrideAuthMechanism() {
         return "bypass";
     }
 
-    @Override
-    public String getAuthorizationMechanism() {
-        return "bypass";
-    }
 }

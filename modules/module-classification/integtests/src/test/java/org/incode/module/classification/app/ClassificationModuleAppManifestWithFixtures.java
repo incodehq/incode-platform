@@ -16,22 +16,9 @@ import domainapp.modules.exampledom.module.classification.fixture.ClassifiedDemo
  */
 public class ClassificationModuleAppManifestWithFixtures extends ClassificationModuleAppManifest {
 
-    /**
-     * Fixtures to be installed.
-     */
-    @Override
-    public List<Class<? extends FixtureScript>> getFixtures() {
-        return Lists.newArrayList(ClassifiedDemoObjectsFixture.class);
+    @Override protected void overrideFixtures(final List<Class<? extends FixtureScript>> fixtureScripts) {
+        fixtureScripts.add(ClassifiedDemoObjectsFixture.class);
     }
 
-    /**
-     * Force fixtures to be loaded.
-     */
-    @Override
-    public Map<String, String> getConfigurationProperties() {
-        HashMap<String,String> props = Maps.newHashMap();
-        props.put("isis.persistor.datanucleus.install-fixtures","true");
-        return props;
-    }
 
 }

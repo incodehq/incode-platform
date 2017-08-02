@@ -16,15 +16,15 @@ import org.apache.isis.applib.services.wrapper.DisabledException;
 
 import org.incode.module.note.dom.impl.notablelink.NotableLink;
 import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
-import org.incode.module.note.dom.impl.note.T_removeNote;
 import org.incode.module.note.dom.impl.note.Note;
 import org.incode.module.note.dom.impl.note.NoteRepository;
-import domainapp.modules.exampledom.module.note.dom.spiimpl.CalendarNameRepositoryForDemo;
-import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObject;
-import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObjectMenu;
-import domainapp.modules.exampledom.module.note.fixture.NoteDemoObjectsTearDownFixture;
+import org.incode.module.note.dom.impl.note.T_removeNote;
 import org.incode.module.note.integtests.NoteModuleIntegTestAbstract;
 
+import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObject;
+import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObjectMenu;
+import domainapp.modules.exampledom.module.note.dom.spiimpl.CalendarNameRepositoryForDemo;
+import domainapp.modules.exampledom.module.note.fixture.NoteDemoObjectsTearDownFixture;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class Notable_removeNote_IntegTest extends NoteModuleIntegTestAbstract {
@@ -100,8 +100,8 @@ public class Notable_removeNote_IntegTest extends NoteModuleIntegTestAbstract {
             assertThat(noteList).isEmpty();
 
             // expecting
-            expectedException.expect(DisabledException.class);
-            expectedException.expectMessage("No content to remove");
+            expectedExceptions.expect(DisabledException.class);
+            expectedExceptions.expectMessage("No content to remove");
 
             // when
             final Note note = null;

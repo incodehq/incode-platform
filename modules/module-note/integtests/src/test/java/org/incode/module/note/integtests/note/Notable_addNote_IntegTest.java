@@ -15,14 +15,14 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
-import org.incode.module.note.dom.impl.note.T_addNote;
 import org.incode.module.note.dom.impl.note.Note;
-import domainapp.modules.exampledom.module.note.dom.spiimpl.CalendarNameRepositoryForDemo;
-import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObject;
-import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObjectMenu;
-import domainapp.modules.exampledom.module.note.fixture.NoteDemoObjectsTearDownFixture;
+import org.incode.module.note.dom.impl.note.T_addNote;
 import org.incode.module.note.integtests.NoteModuleIntegTestAbstract;
 
+import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObject;
+import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObjectMenu;
+import domainapp.modules.exampledom.module.note.dom.spiimpl.CalendarNameRepositoryForDemo;
+import domainapp.modules.exampledom.module.note.fixture.NoteDemoObjectsTearDownFixture;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class Notable_addNote_IntegTest extends NoteModuleIntegTestAbstract {
@@ -123,8 +123,8 @@ public class Notable_addNote_IntegTest extends NoteModuleIntegTestAbstract {
             wrap(mixinAddNote(notable)).$$("", fakeData.jodaLocalDates().any(), "BLUE");
 
             // expect
-            expectedException.expect(InvalidException.class);
-            expectedException.expectMessage("This object already has a note on calendar 'BLUE'");
+            expectedExceptions.expect(InvalidException.class);
+            expectedExceptions.expectMessage("This object already has a note on calendar 'BLUE'");
 
             // when
             wrap(mixinAddNote(notable)).$$("", fakeData.jodaLocalDates().any(), "BLUE");
@@ -184,8 +184,8 @@ public class Notable_addNote_IntegTest extends NoteModuleIntegTestAbstract {
             wrap(mixinAddNote(notable)).$$("", fakeData.jodaLocalDates().any(), "GREEN");
 
             // expect
-            expectedException.expect(InvalidException.class);
-            expectedException.expectMessage("already has a note on calendar 'GREEN'");
+            expectedExceptions.expect(InvalidException.class);
+            expectedExceptions.expectMessage("already has a note on calendar 'GREEN'");
 
             // when
             wrap(mixinAddNote(notable)).$$("", fakeData.jodaLocalDates().any(), "GREEN");
@@ -198,8 +198,8 @@ public class Notable_addNote_IntegTest extends NoteModuleIntegTestAbstract {
             assertThat(wrap(mixinNotes(notable)).$$()).isEmpty();
 
             // expect
-            expectedException.expect(InvalidException.class);
-            expectedException.expectMessage("Must also specify a calendar for the date");
+            expectedExceptions.expect(InvalidException.class);
+            expectedExceptions.expectMessage("Must also specify a calendar for the date");
 
             // when
             wrap(mixinAddNote(notable)).$$(fakeData.lorem().paragraph(), fakeData.jodaLocalDates().any(), null);
@@ -212,8 +212,8 @@ public class Notable_addNote_IntegTest extends NoteModuleIntegTestAbstract {
             assertThat(wrap(mixinNotes(notable)).$$()).isEmpty();
 
             // expect
-            expectedException.expect(InvalidException.class);
-            expectedException.expectMessage("Must also specify a date if calendar has been selected");
+            expectedExceptions.expect(InvalidException.class);
+            expectedExceptions.expectMessage("Must also specify a date if calendar has been selected");
 
             // when
             wrap(mixinAddNote(notable)).$$(fakeData.lorem().paragraph(), null, anyCalendarNameFor(notable));
@@ -226,8 +226,8 @@ public class Notable_addNote_IntegTest extends NoteModuleIntegTestAbstract {
             assertThat(wrap(mixinNotes(notable)).$$()).isEmpty();
 
             // expect
-            expectedException.expect(InvalidException.class);
-            expectedException.expectMessage("Must specify either note text or a date (or both)");
+            expectedExceptions.expect(InvalidException.class);
+            expectedExceptions.expectMessage("Must specify either note text or a date (or both)");
 
             // when
             wrap(mixinAddNote(notable)).$$(null, null, anyCalendarNameFor(notable));

@@ -5,13 +5,7 @@ package org.incode.module.docfragment.demo.application.manifest;
  */
 public class DocFragmentAppAppManifestBypassSecurity extends DocFragmentAppAppManifest {
 
-    @Override
-    public String getAuthenticationMechanism() {
-        return "bypass";
-    }
-
-    @Override
-    public String getAuthorizationMechanism() {
+    @Override protected String overrideAuthMechanism() {
         return "bypass";
     }
 }
