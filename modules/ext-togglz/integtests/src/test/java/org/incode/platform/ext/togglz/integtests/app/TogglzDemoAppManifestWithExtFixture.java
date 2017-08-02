@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.modules.exampledom.ext.togglz.fixture.TogglzDemoObjectsFixture;
+import org.incode.domainapp.example.dom.ext.togglz.fixture.TogglzDemoObjectsFixture;
 
 public class TogglzDemoAppManifestWithExtFixture extends TogglzExtAppManifest {
 

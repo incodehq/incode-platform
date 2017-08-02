@@ -6,7 +6,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecification;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationProvider;
 
-import domainapp.modules.exampledom.module.docfragment.fixture.DemoAppFixture;
+import org.incode.domainapp.example.dom.dom.docfragment.fixture.DemoAppFixture;
 
 /**
  * Specifies where to find fixtures, and other settings.

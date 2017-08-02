@@ -3,7 +3,7 @@ package org.incode.platform.ext.flywaydb.integtests.app.fixtures.scenarios;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.platform.ext.flywaydb.integtests.app.fixtures.teardown.DomainAppTearDown;
-import domainapp.modules.exampledom.ext.flywaydb.fixture.scenario.RecreateFlywayDemoObjects;
+import org.incode.domainapp.example.dom.ext.flywaydb.fixture.scenario.RecreateFlywayDemoObjects;
 
 public class DomainAppDemo extends FixtureScript {
 

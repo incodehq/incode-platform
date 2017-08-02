@@ -5,7 +5,7 @@ import org.apache.isis.applib.AppManifestAbstract;
 import org.isisaddons.module.security.SecurityModule;
 import org.isisaddons.module.settings.SettingsModule;
 import org.isisaddons.module.togglz.TogglzModule;
-import domainapp.modules.exampledom.ext.togglz.ExampleDomExtTogglzModule;
+import org.incode.domainapp.example.dom.ext.togglz.ExampleDomExtTogglzModule;
 
 public class TogglzExtAppManifest extends AppManifestAbstract {
 

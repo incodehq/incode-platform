@@ -4,7 +4,7 @@ import org.apache.isis.applib.AppManifestAbstract;
 
 import org.isisaddons.module.command.CommandModule;
 
-import domainapp.modules.exampledom.spi.command.ExampleDomSpiCommandModule;
+import org.incode.domainapp.example.dom.spi.command.ExampleDomSpiCommandModule;
 
 public class CommandSpiAppManifest extends AppManifestAbstract {
 

@@ -25,9 +25,9 @@ import org.isisaddons.module.audit.dom.AuditEntry;
 import org.isisaddons.module.audit.dom.AuditingServiceRepository;
 import org.incode.platform.spi.audit.integtests.AuditModuleIntegTestAbstract;
 
-import domainapp.modules.exampledom.spi.audit.dom.demo.SomeAuditedObject;
-import domainapp.modules.exampledom.spi.audit.dom.demo.SomeAuditedObjects;
-import domainapp.modules.exampledom.spi.audit.fixture.AuditDemoAppFixture;
+import org.incode.domainapp.example.dom.spi.audit.dom.demo.SomeAuditedObject;
+import org.incode.domainapp.example.dom.spi.audit.dom.demo.SomeAuditedObjects;
+import org.incode.domainapp.example.dom.spi.audit.fixture.AuditDemoAppFixture;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;

@@ -3,7 +3,7 @@ package org.incode.platform.dom.classification.integtests.app;
 import org.apache.isis.applib.AppManifestAbstract;
 
 import org.incode.module.classification.dom.ClassificationModule;
-import domainapp.modules.exampledom.module.classification.ExampleDomModuleClassificationModule;
+import org.incode.domainapp.example.dom.dom.classification.ExampleDomModuleClassificationModule;
 
 /**
  * Bootstrap the application.

@@ -10,10 +10,10 @@ import org.incode.platform.dom.document.integtests.app.DocumentModuleAppManifest
 import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.Document_delete;
 
-import domainapp.modules.exampledom.module.document.dom.demo.DemoObject;
-import domainapp.modules.exampledom.module.document.dom.demo2.OtherObject;
-import domainapp.modules.exampledom.module.document.dom.paperclips.demo.PaperclipForDemoObject;
-import domainapp.modules.exampledom.module.document.dom.paperclips.demo2.PaperclipForOtherObject;
+import org.incode.domainapp.example.dom.dom.document.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.dom.document.dom.demo2.OtherObject;
+import org.incode.domainapp.example.dom.dom.document.dom.paperclips.demo.PaperclipForDemoObject;
+import org.incode.domainapp.example.dom.dom.document.dom.paperclips.demo2.PaperclipForOtherObject;
 
 public abstract class DocumentModuleIntegTestAbstract extends IntegrationTestAbstract2 {
 

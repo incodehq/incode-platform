@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.modules.exampledom.module.classification.fixture.ClassifiedDemoObjectsFixture;
+import org.incode.domainapp.example.dom.dom.classification.fixture.ClassifiedDemoObjectsFixture;
 
 /**
  * Run the app but without setting up any fixtures.

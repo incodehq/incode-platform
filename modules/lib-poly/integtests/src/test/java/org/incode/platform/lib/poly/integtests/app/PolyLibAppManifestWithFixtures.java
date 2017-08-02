@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.modules.exampledom.lib.poly.fixture.RecreateAll;
+import org.incode.domainapp.example.dom.lib.poly.fixture.RecreateAll;
 
 public class PolyLibAppManifestWithFixtures extends PolyLibAppManifest {
 

@@ -1,9 +1,9 @@
 package org.incode.platform.dom.classification.integtests.tests.demo;
 
 import org.assertj.core.api.Assertions;
-import domainapp.modules.exampledom.module.classification.dom.demo.DemoObject;
-import domainapp.modules.exampledom.module.classification.dom.demo.DemoObjectMenu;
-import domainapp.modules.exampledom.module.classification.fixture.ClassifiedDemoObjectsFixture;
+import org.incode.domainapp.example.dom.dom.classification.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.dom.classification.dom.demo.DemoObjectMenu;
+import org.incode.domainapp.example.dom.dom.classification.fixture.ClassifiedDemoObjectsFixture;
 import org.incode.platform.dom.classification.integtests.ClassificationModuleIntegTestAbstract;
 import org.junit.Before;
 import org.junit.Test;

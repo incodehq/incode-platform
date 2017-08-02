@@ -17,9 +17,9 @@ import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.emailaddress.T_addEmailAddress;
 import org.incode.module.commchannel.dom.impl.emailaddress.EmailAddress;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
-import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObject;
-import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObjectMenu;
-import domainapp.modules.exampledom.module.commchannel.fixture.CommChannelDemoObjectsTearDownFixture;
+import org.incode.domainapp.example.dom.dom.commchannel.dom.demo.CommChannelDemoObject;
+import org.incode.domainapp.example.dom.dom.commchannel.dom.demo.CommChannelDemoObjectMenu;
+import org.incode.domainapp.example.dom.dom.commchannel.fixture.CommChannelDemoObjectsTearDownFixture;
 import org.incode.platform.dom.commchannel.integtests.CommChannelModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.modules.exampledom.lib.docx.fixture.DocxModuleAppSetupFixture;
+import org.incode.domainapp.example.dom.lib.docx.fixture.DocxModuleAppSetupFixture;
 
 public class DocxModuleAppManifestWithFixtures extends DocxModuleAppManifest {
 

@@ -10,9 +10,9 @@ import org.junit.Test;
 
 import org.incode.platform.dom.note.integtests.NoteModuleIntegTestAbstract;
 
-import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObject;
-import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObjectMenu;
-import domainapp.modules.exampledom.module.note.fixture.NoteDemoObjectsFixture;
+import org.incode.domainapp.example.dom.dom.note.dom.demo.NoteDemoObject;
+import org.incode.domainapp.example.dom.dom.note.dom.demo.NoteDemoObjectMenu;
+import org.incode.domainapp.example.dom.dom.note.fixture.NoteDemoObjectsFixture;
 
 public class NoteDemoObjectMenu_IntegTest extends NoteModuleIntegTestAbstract {
 

@@ -22,8 +22,8 @@ import org.incode.module.note.dom.impl.note.T_addNote;
 import org.incode.module.note.dom.impl.note.T_notes;
 import org.incode.module.note.dom.impl.note.T_removeNote;
 
-import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObject;
-import domainapp.modules.exampledom.module.note.dom.demolink.NotableLinkForDemoObject;
+import org.incode.domainapp.example.dom.dom.note.dom.demo.NoteDemoObject;
+import org.incode.domainapp.example.dom.dom.note.dom.demolink.NotableLinkForDemoObject;
 
 public abstract class NoteModuleIntegTestAbstract extends IntegrationTestAbstract2 {
 

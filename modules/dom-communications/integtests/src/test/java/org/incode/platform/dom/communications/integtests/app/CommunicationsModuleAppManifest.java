@@ -13,7 +13,7 @@ import org.incode.module.document.dom.DocumentModule;
 import org.incode.platform.dom.communications.integtests.app.fixtures.DemoAppApplicationModuleFixtureSubmodule;
 import org.incode.platform.dom.communications.integtests.app.services.DemoAppApplicationModuleServicesSubmodule;
 
-import domainapp.modules.exampledom.module.communications.ExampleDomModuleCommunicationsModule;
+import org.incode.domainapp.example.dom.dom.communications.ExampleDomModuleCommunicationsModule;
 
 /**
  * Bootstrap the application.

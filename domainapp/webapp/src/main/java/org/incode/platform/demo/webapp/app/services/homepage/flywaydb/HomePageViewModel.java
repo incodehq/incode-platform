@@ -5,8 +5,8 @@ import java.util.List;
 import org.apache.isis.applib.annotation.ViewModel;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
-import domainapp.modules.exampledom.ext.flywaydb.dom.FlywayDemoObject;
-import domainapp.modules.exampledom.ext.flywaydb.dom.FlywayDemoObjectRepository;
+import org.incode.domainapp.example.dom.ext.flywaydb.dom.FlywayDemoObject;
+import org.incode.domainapp.example.dom.ext.flywaydb.dom.FlywayDemoObjectRepository;
 
 @ViewModel
 public class HomePageViewModel {

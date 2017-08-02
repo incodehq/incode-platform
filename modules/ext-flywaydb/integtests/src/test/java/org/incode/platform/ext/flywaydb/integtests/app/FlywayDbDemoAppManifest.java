@@ -4,7 +4,7 @@ import org.apache.isis.applib.AppManifestAbstract;
 
 import org.incode.platform.ext.flywaydb.integtests.app.fixtures.FlywayDemoFixtureSubmodule;
 
-import domainapp.modules.exampledom.ext.flywaydb.ExampleDomExtFlywayDbModule;
+import org.incode.domainapp.example.dom.ext.flywaydb.ExampleDomExtFlywayDbModule;
 
 /**
  * Bootstrap the application.

@@ -14,10 +14,10 @@ import org.apache.isis.applib.services.wrapper.InvalidException;
 
 import org.incode.platform.lib.poly.integtests.PolyAppIntegTestAbstract;
 
-import domainapp.modules.exampledom.lib.poly.dom.democommchannel.CommunicationChannel;
-import domainapp.modules.exampledom.lib.poly.dom.democommchannel.CommunicationChannels;
-import domainapp.modules.exampledom.lib.poly.dom.demoparty.Party;
-import domainapp.modules.exampledom.lib.poly.fixture.data.demoparty.RecreateParties;
+import org.incode.domainapp.example.dom.lib.poly.dom.democommchannel.CommunicationChannel;
+import org.incode.domainapp.example.dom.lib.poly.dom.democommchannel.CommunicationChannels;
+import org.incode.domainapp.example.dom.lib.poly.dom.demoparty.Party;
+import org.incode.domainapp.example.dom.lib.poly.fixture.data.demoparty.RecreateParties;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 

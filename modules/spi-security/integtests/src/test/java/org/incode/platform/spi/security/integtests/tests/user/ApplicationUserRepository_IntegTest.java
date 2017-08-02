@@ -20,7 +20,7 @@ import org.isisaddons.module.security.dom.user.ApplicationUserRepository;
 
 import org.incode.platform.spi.security.integtests.SecurityModuleAppIntegTestAbstract;
 
-import domainapp.modules.exampledom.spi.security.fixture.SecurityModuleAppTearDown;
+import org.incode.domainapp.example.dom.spi.security.fixture.SecurityModuleAppTearDown;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.core.Is.is;

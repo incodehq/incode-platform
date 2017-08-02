@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.modules.exampledom.lib.excel.fixture.RecreateToDoItems;
+import org.incode.domainapp.example.dom.lib.excel.fixture.RecreateToDoItems;
 
 public class ExcelLibAppManifestWithFixtures extends ExcelLibAppManifest {
 

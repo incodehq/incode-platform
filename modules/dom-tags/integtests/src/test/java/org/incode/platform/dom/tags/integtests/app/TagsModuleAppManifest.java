@@ -4,7 +4,7 @@ import org.apache.isis.applib.AppManifestAbstract;
 
 import org.isisaddons.module.tags.TagsModule;
 
-import domainapp.modules.exampledom.module.tags.ExampleDomModuleTagsModule;
+import org.incode.domainapp.example.dom.dom.tags.ExampleDomModuleTagsModule;
 
 public class TagsModuleAppManifest extends AppManifestAbstract {
 

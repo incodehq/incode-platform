@@ -6,7 +6,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecification;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationProvider;
 
-import domainapp.modules.exampledom.spi.command.fixture.SomeCommandAnnotatedObjectsFixture;
+import org.incode.domainapp.example.dom.spi.command.fixture.SomeCommandAnnotatedObjectsFixture;
 
 @DomainService(nature = NatureOfService.DOMAIN)
 public class SomeCommandAnnotatedObjectsFixtureScriptsSpecificationProvider

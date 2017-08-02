@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.modules.exampledom.lib.fakedata.fixture.FakeDataDemoObjectsScenario;
+import org.incode.domainapp.example.dom.lib.fakedata.fixture.FakeDataDemoObjectsScenario;
 
 public class FakedataLibAppManifestWithFixtures extends FakedataLibAppManifest {
 

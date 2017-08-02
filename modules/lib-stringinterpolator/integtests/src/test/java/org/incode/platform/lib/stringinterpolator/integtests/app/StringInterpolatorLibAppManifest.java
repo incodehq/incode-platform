@@ -4,7 +4,7 @@ import org.apache.isis.applib.AppManifestAbstract;
 
 import org.isisaddons.module.stringinterpolator.StringInterpolatorModule;
 
-import domainapp.modules.exampledom.lib.stringinterpolator.ExampleDomLibStringInterpolatorModule;
+import org.incode.domainapp.example.dom.lib.stringinterpolator.ExampleDomLibStringInterpolatorModule;
 
 public class StringInterpolatorLibAppManifest extends AppManifestAbstract {
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.modules.exampledom.spi.command.fixture.SomeCommandAnnotatedObjectsFixture;
+import org.incode.domainapp.example.dom.spi.command.fixture.SomeCommandAnnotatedObjectsFixture;
 
 public final class CommandSpiAppManifestWithFixtures extends CommandSpiAppManifest {
 

@@ -4,7 +4,7 @@ import org.apache.isis.applib.AppManifestAbstract;
 
 import org.isisaddons.module.docx.DocxModule;
 
-import domainapp.modules.exampledom.lib.docx.ExampleDomLibDocxModule;
+import org.incode.domainapp.example.dom.lib.docx.ExampleDomLibDocxModule;
 
 public class DocxModuleAppManifest extends AppManifestAbstract {
 

@@ -10,10 +10,10 @@ import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.wrapper.DisabledException;
 
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
-import domainapp.modules.exampledom.module.document.dom.demo.DemoObject;
-import domainapp.modules.exampledom.module.document.fixture.data.DemoObjectsFixture;
-import domainapp.modules.exampledom.module.document.fixture.DocumentDemoAppTearDownFixture;
-import domainapp.modules.exampledom.module.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
+import org.incode.domainapp.example.dom.dom.document.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.dom.document.fixture.data.DemoObjectsFixture;
+import org.incode.domainapp.example.dom.dom.document.fixture.DocumentDemoAppTearDownFixture;
+import org.incode.domainapp.example.dom.dom.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
 import org.incode.platform.dom.document.integtests.DocumentModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;

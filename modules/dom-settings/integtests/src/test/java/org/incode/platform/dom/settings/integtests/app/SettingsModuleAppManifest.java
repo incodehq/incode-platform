@@ -4,7 +4,7 @@ import org.apache.isis.applib.AppManifestAbstract;
 
 import org.isisaddons.module.settings.SettingsModule;
 
-import domainapp.modules.exampledom.module.settings.ExampleDomModuleSettingsModule;
+import org.incode.domainapp.example.dom.dom.settings.ExampleDomModuleSettingsModule;
 
 public class SettingsModuleAppManifest extends AppManifestAbstract {
 

@@ -10,8 +10,8 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
 import org.incode.platform.ext.flywaydb.integtests.app.fixtures.teardown.DomainAppTearDown;
-import domainapp.modules.exampledom.ext.flywaydb.dom.FlywayDemoObject;
-import domainapp.modules.exampledom.ext.flywaydb.dom.FlywayDemoObjectMenu;
+import org.incode.domainapp.example.dom.ext.flywaydb.dom.FlywayDemoObject;
+import org.incode.domainapp.example.dom.ext.flywaydb.dom.FlywayDemoObjectMenu;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class Smoke_IntegTest extends DomainAppIntegTestAbstract {

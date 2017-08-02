@@ -4,7 +4,7 @@ import javax.annotation.Nullable;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.modules.exampledom.module.communications.fixture.DemoModuleFixture;
+import org.incode.domainapp.example.dom.dom.communications.fixture.DemoModuleFixture;
 
 import lombok.Getter;
 import lombok.Setter;

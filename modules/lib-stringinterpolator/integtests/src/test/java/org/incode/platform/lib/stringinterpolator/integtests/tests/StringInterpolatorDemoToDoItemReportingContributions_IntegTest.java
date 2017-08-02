@@ -11,10 +11,10 @@ import org.apache.isis.core.commons.config.IsisConfiguration;
 
 import org.incode.platform.lib.stringinterpolator.integtests.StringInterpolatorDemoIntegTestAbstract;
 
-import domainapp.modules.exampledom.lib.stringinterpolator.dom.demo.StringInterpolatorDemoToDoItem;
-import domainapp.modules.exampledom.lib.stringinterpolator.dom.demo.StringInterpolatorDemoToDoItemReportingContributions;
-import domainapp.modules.exampledom.lib.stringinterpolator.dom.demo.StringInterpolatorDemoToDoItems;
-import domainapp.modules.exampledom.lib.stringinterpolator.fixture.StringInterpolatorDemoToDoItemsFixture;
+import org.incode.domainapp.example.dom.lib.stringinterpolator.dom.demo.StringInterpolatorDemoToDoItem;
+import org.incode.domainapp.example.dom.lib.stringinterpolator.dom.demo.StringInterpolatorDemoToDoItemReportingContributions;
+import org.incode.domainapp.example.dom.lib.stringinterpolator.dom.demo.StringInterpolatorDemoToDoItems;
+import org.incode.domainapp.example.dom.lib.stringinterpolator.fixture.StringInterpolatorDemoToDoItemsFixture;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 

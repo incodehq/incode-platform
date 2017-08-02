@@ -18,9 +18,9 @@ import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber_update
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 import org.incode.platform.dom.commchannel.integtests.CommChannelModuleIntegTestAbstract;
 
-import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObject;
-import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObjectMenu;
-import domainapp.modules.exampledom.module.commchannel.fixture.CommChannelDemoObjectsTearDownFixture;
+import org.incode.domainapp.example.dom.dom.commchannel.dom.demo.CommChannelDemoObject;
+import org.incode.domainapp.example.dom.dom.commchannel.dom.demo.CommChannelDemoObjectMenu;
+import org.incode.domainapp.example.dom.dom.commchannel.fixture.CommChannelDemoObjectsTearDownFixture;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTestAbstract {

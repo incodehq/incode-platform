@@ -8,9 +8,9 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
-import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObject;
-import domainapp.modules.exampledom.module.commchannel.dom.demo.CommChannelDemoObjectMenu;
-import domainapp.modules.exampledom.module.commchannel.fixture.CommChannelDemoObjectsTearDownFixture;
+import org.incode.domainapp.example.dom.dom.commchannel.dom.demo.CommChannelDemoObject;
+import org.incode.domainapp.example.dom.dom.commchannel.dom.demo.CommChannelDemoObjectMenu;
+import org.incode.domainapp.example.dom.dom.commchannel.fixture.CommChannelDemoObjectsTearDownFixture;
 import org.incode.platform.dom.commchannel.integtests.CommChannelModuleIntegTestAbstract;
 
 public class CommunicationChannelOwnerLinkRepository_IntegTest extends CommChannelModuleIntegTestAbstract {

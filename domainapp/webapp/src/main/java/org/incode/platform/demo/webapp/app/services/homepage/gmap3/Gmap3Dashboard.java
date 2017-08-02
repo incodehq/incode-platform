@@ -11,8 +11,8 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Nature;
 import org.apache.isis.applib.annotation.RenderType;
 
-import domainapp.modules.exampledom.wicket.gmap3.dom.demo.Gmap3ToDoItem;
-import domainapp.modules.exampledom.wicket.gmap3.dom.demo.Gmap3WicketToDoItems;
+import org.incode.domainapp.example.dom.wkt.gmap3.dom.demo.Gmap3ToDoItem;
+import org.incode.domainapp.example.dom.wkt.gmap3.dom.demo.Gmap3WicketToDoItems;
 
 @DomainObject(
         nature = Nature.VIEW_MODEL

@@ -15,10 +15,10 @@ import org.apache.isis.applib.services.wrapper.InvalidException;
 
 import org.incode.platform.lib.poly.integtests.PolyAppIntegTestAbstract;
 
-import domainapp.modules.exampledom.lib.poly.dom.democommchannel.CommunicationChannel;
-import domainapp.modules.exampledom.lib.poly.dom.democommchannel.CommunicationChannels;
-import domainapp.modules.exampledom.lib.poly.dom.demofixedasset.FixedAsset;
-import domainapp.modules.exampledom.lib.poly.fixture.data.demofixedasset.RecreateFixedAssets;
+import org.incode.domainapp.example.dom.lib.poly.dom.democommchannel.CommunicationChannel;
+import org.incode.domainapp.example.dom.lib.poly.dom.democommchannel.CommunicationChannels;
+import org.incode.domainapp.example.dom.lib.poly.dom.demofixedasset.FixedAsset;
+import org.incode.domainapp.example.dom.lib.poly.fixture.data.demofixedasset.RecreateFixedAssets;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;

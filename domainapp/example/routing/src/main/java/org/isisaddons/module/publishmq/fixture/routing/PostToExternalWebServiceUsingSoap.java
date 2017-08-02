@@ -8,7 +8,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
 
-import org.isisaddons.module.publishmq.canonical.demoobject.DemoObjectDto;
+import org.incode.domainapp.example.publishmq.canonical.DemoObjectDto;
 import org.isisaddons.module.publishmq.dom.statusclient.StatusMessage;
 import org.isisaddons.module.publishmq.dom.statusclient.StatusMessageClient;
 import org.isisaddons.module.publishmq.externalsystemadapter.demoobject.DemoObject;

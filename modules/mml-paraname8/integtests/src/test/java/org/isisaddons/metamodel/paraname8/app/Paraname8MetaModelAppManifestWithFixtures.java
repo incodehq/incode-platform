@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.modules.exampledom.metamodel.paraname8.fixture.Paraname8DemoObjectsFixture;
+import org.incode.domainapp.example.dom.mml.paraname8.fixture.Paraname8DemoObjectsFixture;
 
 public class Paraname8MetaModelAppManifestWithFixtures extends Paraname8MetaModelAppManifest {
 

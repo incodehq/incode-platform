@@ -9,7 +9,7 @@ import org.isisaddons.module.settings.dom.UserSetting;
 import org.isisaddons.module.settings.dom.UserSettingsServiceRW;
 import org.incode.platform.dom.settings.integtests.SettingsModuleIntegTestAbstract;
 
-import domainapp.modules.exampledom.module.settings.fixture.SettingsModuleAppSetUpFixture;
+import org.incode.domainapp.example.dom.dom.settings.fixture.SettingsModuleAppSetUpFixture;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 

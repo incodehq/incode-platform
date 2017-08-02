@@ -4,7 +4,7 @@ import org.apache.isis.applib.AppManifestAbstract;
 
 import org.isisaddons.module.audit.AuditModule;
 
-import domainapp.modules.exampledom.spi.audit.ExampleDomSpiAuditModule;
+import org.incode.domainapp.example.dom.spi.audit.ExampleDomSpiAuditModule;
 
 public class AuditSpiAppManifest extends AppManifestAbstract {
 

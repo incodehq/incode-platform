@@ -13,10 +13,10 @@ import org.apache.isis.applib.value.Clob;
 
 import org.incode.platform.lib.docx.integtests.DocxModuleIntegTestAbstract;
 
-import domainapp.modules.exampledom.lib.docx.dom.demo.Order;
-import domainapp.modules.exampledom.lib.docx.dom.demo.Orders;
-import domainapp.modules.exampledom.lib.docx.dom.demo.custconfirm.CustomerConfirmation;
-import domainapp.modules.exampledom.lib.docx.fixture.DocxModuleAppSetupFixture;
+import org.incode.domainapp.example.dom.lib.docx.dom.demo.Order;
+import org.incode.domainapp.example.dom.lib.docx.dom.demo.Orders;
+import org.incode.domainapp.example.dom.lib.docx.dom.demo.custconfirm.CustomerConfirmation;
+import org.incode.domainapp.example.dom.lib.docx.fixture.DocxModuleAppSetupFixture;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertThat;

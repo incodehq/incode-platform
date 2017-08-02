@@ -21,11 +21,11 @@ import org.isisaddons.module.excel.dom.ExcelService;
 
 import org.incode.platform.lib.excel.integtests.ExcelModuleModuleIntegTestAbstract;
 
-import domainapp.modules.exampledom.lib.excel.dom.bulkupdate.ExcelModuleDemoToDoItemBulkUpdateLineItem;
-import domainapp.modules.exampledom.lib.excel.dom.bulkupdate.ExcelModuleDemoToDoItemBulkUpdateManager;
-import domainapp.modules.exampledom.lib.excel.dom.bulkupdate.ExcelModuleDemoToDoItemBulkUpdateMenu;
-import domainapp.modules.exampledom.lib.excel.dom.demo.ExcelModuleDemoToDoItems;
-import domainapp.modules.exampledom.lib.excel.fixture.RecreateToDoItems;
+import org.incode.domainapp.example.dom.lib.excel.dom.bulkupdate.ExcelModuleDemoToDoItemBulkUpdateLineItem;
+import org.incode.domainapp.example.dom.lib.excel.dom.bulkupdate.ExcelModuleDemoToDoItemBulkUpdateManager;
+import org.incode.domainapp.example.dom.lib.excel.dom.bulkupdate.ExcelModuleDemoToDoItemBulkUpdateMenu;
+import org.incode.domainapp.example.dom.lib.excel.dom.demo.ExcelModuleDemoToDoItems;
+import org.incode.domainapp.example.dom.lib.excel.fixture.RecreateToDoItems;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 

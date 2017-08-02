@@ -2,7 +2,7 @@ package org.isisaddons.metamodel.paraname8.app;
 
 import org.apache.isis.applib.AppManifestAbstract;
 
-import domainapp.modules.exampledom.metamodel.paraname8.ExampleDomMetaModelParaname8Module;
+import org.incode.domainapp.example.dom.mml.paraname8.ExampleDomMetaModelParaname8Module;
 
 public class Paraname8MetaModelAppManifest extends AppManifestAbstract {
 

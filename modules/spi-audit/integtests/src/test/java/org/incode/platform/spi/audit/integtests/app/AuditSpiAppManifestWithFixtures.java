@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.modules.exampledom.spi.audit.fixture.AuditDemoAppFixture;
+import org.incode.domainapp.example.dom.spi.audit.fixture.AuditDemoAppFixture;
 
 public class AuditSpiAppManifestWithFixtures extends AuditSpiAppManifest {
 

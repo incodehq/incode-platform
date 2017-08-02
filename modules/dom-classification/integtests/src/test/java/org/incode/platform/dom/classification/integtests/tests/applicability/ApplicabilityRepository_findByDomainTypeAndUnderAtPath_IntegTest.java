@@ -12,9 +12,9 @@ import org.incode.module.classification.dom.impl.applicability.ApplicabilityRepo
 import org.incode.module.classification.dom.impl.category.CategoryRepository;
 import org.incode.module.classification.dom.impl.classification.ClassificationRepository;
 import org.incode.module.classification.dom.spi.ApplicationTenancyService;
-import domainapp.modules.exampledom.module.classification.dom.demo.DemoObject;
-import domainapp.modules.exampledom.module.classification.fixture.ClassifiedDemoObjectsFixture;
-import domainapp.modules.exampledom.module.classification.fixture.ClassificationDemoAppTearDownFixture;
+import org.incode.domainapp.example.dom.dom.classification.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.dom.classification.fixture.ClassifiedDemoObjectsFixture;
+import org.incode.domainapp.example.dom.dom.classification.fixture.ClassificationDemoAppTearDownFixture;
 import org.incode.platform.dom.classification.integtests.ClassificationModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;

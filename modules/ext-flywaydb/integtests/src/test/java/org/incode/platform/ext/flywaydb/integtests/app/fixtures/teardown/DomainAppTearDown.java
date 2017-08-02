@@ -3,7 +3,7 @@ package org.incode.platform.ext.flywaydb.integtests.app.fixtures.teardown;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-import domainapp.modules.exampledom.ext.flywaydb.fixture.teardown.FlywayDemoModuleTearDown;
+import org.incode.domainapp.example.dom.ext.flywaydb.fixture.teardown.FlywayDemoModuleTearDown;
 
 public class DomainAppTearDown extends FixtureScript {
 

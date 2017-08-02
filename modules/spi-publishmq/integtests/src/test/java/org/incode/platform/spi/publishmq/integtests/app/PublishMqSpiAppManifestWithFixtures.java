@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.modules.exampledom.spi.publishmq.fixture.PublishMqDemoObjectsFixture;
+import org.incode.domainapp.example.dom.spi.publishmq.fixture.PublishMqDemoObjectsFixture;
 
 public class PublishMqSpiAppManifestWithFixtures extends PublishMqSpiAppManifest {
 

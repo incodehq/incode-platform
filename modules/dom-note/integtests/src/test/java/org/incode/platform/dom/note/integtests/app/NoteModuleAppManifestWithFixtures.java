@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.modules.exampledom.module.note.fixture.NoteDemoObjectsFixture;
+import org.incode.domainapp.example.dom.dom.note.fixture.NoteDemoObjectsFixture;
 
 /**
  * Run the app but without setting up any fixtures.

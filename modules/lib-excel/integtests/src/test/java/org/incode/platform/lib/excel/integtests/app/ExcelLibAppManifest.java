@@ -4,7 +4,7 @@ import org.apache.isis.applib.AppManifestAbstract;
 
 import org.isisaddons.module.excel.ExcelModule;
 
-import domainapp.modules.exampledom.lib.excel.ExampleDomLibExcelModule;
+import org.incode.domainapp.example.dom.lib.excel.ExampleDomLibExcelModule;
 
 public class ExcelLibAppManifest extends AppManifestAbstract {
 

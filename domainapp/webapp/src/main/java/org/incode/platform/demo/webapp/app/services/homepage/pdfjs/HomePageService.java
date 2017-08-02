@@ -8,7 +8,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.factory.FactoryService;
 
-import domainapp.modules.exampledom.wicket.pdfjs.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.wkt.pdfjs.dom.demo.DemoObject;
 
 @DomainService(
         nature = NatureOfService.DOMAIN

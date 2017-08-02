@@ -12,9 +12,9 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
 import org.incode.platform.spi.publishmq.integtests.PublishMqModuleIntegTestAbstract;
 
-import domainapp.modules.exampledom.spi.publishmq.dom.demo.PublishMqDemoObject;
-import domainapp.modules.exampledom.spi.publishmq.dom.demo.PublishMqDemoObjects;
-import domainapp.modules.exampledom.spi.publishmq.fixture.PublishMqDemoObjectsFixture;
+import org.incode.domainapp.example.dom.spi.publishmq.dom.demo.PublishMqDemoObject;
+import org.incode.domainapp.example.dom.spi.publishmq.dom.demo.PublishMqDemoObjects;
+import org.incode.domainapp.example.dom.spi.publishmq.fixture.PublishMqDemoObjectsFixture;
 
 
 public class PublishMqDemoObjects_IntegTest extends PublishMqModuleIntegTestAbstract {

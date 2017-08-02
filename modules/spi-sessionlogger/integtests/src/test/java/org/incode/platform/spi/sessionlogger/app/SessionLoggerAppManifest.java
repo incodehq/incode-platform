@@ -4,7 +4,7 @@ import org.apache.isis.applib.AppManifestAbstract;
 
 import org.isisaddons.module.sessionlogger.SessionLoggerModule;
 
-import domainapp.modules.exampledom.spi.sessionlogger.ExampleDomSpiSessionLoggerModule;
+import org.incode.domainapp.example.dom.spi.sessionlogger.ExampleDomSpiSessionLoggerModule;
 
 public class SessionLoggerAppManifest extends AppManifestAbstract {
 

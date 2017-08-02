@@ -4,7 +4,7 @@ import org.apache.isis.applib.AppManifestAbstract;
 
 import org.incode.module.alias.dom.AliasModule;
 
-import domainapp.modules.exampledom.module.alias.ExampleDomModuleAliasModule;
+import org.incode.domainapp.example.dom.dom.alias.ExampleDomModuleAliasModule;
 
 /**
  * Bootstrap the application.

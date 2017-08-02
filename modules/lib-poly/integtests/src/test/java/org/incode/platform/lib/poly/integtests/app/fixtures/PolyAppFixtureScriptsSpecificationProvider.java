@@ -5,7 +5,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecification;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationProvider;
-import domainapp.modules.exampledom.lib.poly.fixture.RecreateAll;
+import org.incode.domainapp.example.dom.lib.poly.fixture.RecreateAll;
 
 /**
  * Specifies where to find fixtures, and other settings.

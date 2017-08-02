@@ -13,7 +13,7 @@ import com.google.common.collect.ImmutableMap;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import org.isisaddons.module.publishmq.canonical.demoobject.DemoObjectDto;
+import org.incode.domainapp.example.publishmq.canonical.DemoObjectDto;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;

@@ -5,7 +5,7 @@ import org.isisaddons.module.settings.dom.ApplicationSetting;
 import org.isisaddons.module.settings.dom.ApplicationSettingsServiceRW;
 import org.incode.platform.dom.settings.integtests.SettingsModuleIntegTestAbstract;
 
-import domainapp.modules.exampledom.module.settings.fixture.SettingsModuleAppSetUpFixture;
+import org.incode.domainapp.example.dom.dom.settings.fixture.SettingsModuleAppSetUpFixture;
 import org.junit.Before;
 import org.junit.Test;
 

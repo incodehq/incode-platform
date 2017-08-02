@@ -7,7 +7,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecification;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationProvider;
 
-import domainapp.modules.exampledom.lib.excel.fixture.RecreateToDoItems;
+import org.incode.domainapp.example.dom.lib.excel.fixture.RecreateToDoItems;
 
 @DomainService(
         nature = NatureOfService.DOMAIN

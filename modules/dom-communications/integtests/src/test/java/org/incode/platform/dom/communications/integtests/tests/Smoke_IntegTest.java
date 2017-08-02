@@ -15,12 +15,12 @@ import org.apache.isis.applib.services.xactn.TransactionService;
 
 import org.incode.platform.dom.communications.integtests.app.services.fakeemail.EmailMessage;
 import org.incode.platform.dom.communications.integtests.app.services.fakeemail.FakeEmailService;
-import domainapp.modules.exampledom.module.communications.dom.demo.DemoCustomer;
-import domainapp.modules.exampledom.module.communications.dom.demo.DemoCustomerMenu;
-import domainapp.modules.exampledom.module.communications.dom.demo2.DemoInvoice;
-import domainapp.modules.exampledom.module.communications.dom.demo2.DemoInvoiceRepository;
-import domainapp.modules.exampledom.module.communications.fixture.data.demo.DemoCustomersFixture;
-import domainapp.modules.exampledom.module.communications.fixture.DemoModuleFixture;
+import org.incode.domainapp.example.dom.dom.communications.dom.demo.DemoCustomer;
+import org.incode.domainapp.example.dom.dom.communications.dom.demo.DemoCustomerMenu;
+import org.incode.domainapp.example.dom.dom.communications.dom.demo2.DemoInvoice;
+import org.incode.domainapp.example.dom.dom.communications.dom.demo2.DemoInvoiceRepository;
+import org.incode.domainapp.example.dom.dom.communications.fixture.data.demo.DemoCustomersFixture;
+import org.incode.domainapp.example.dom.dom.communications.fixture.DemoModuleFixture;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannel;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwnerLinkRepository;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelType;

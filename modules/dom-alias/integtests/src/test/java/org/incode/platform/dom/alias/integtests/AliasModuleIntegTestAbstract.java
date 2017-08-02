@@ -11,7 +11,7 @@ import org.isisaddons.module.fakedata.dom.FakeDataService;
 
 import org.incode.platform.dom.alias.integtests.app.AliasModuleAppManifest;
 
-import domainapp.modules.exampledom.module.alias.dom.alias.demo.AliasForDemoObject;
+import org.incode.domainapp.example.dom.dom.alias.dom.alias.demo.AliasForDemoObject;
 
 public abstract class AliasModuleIntegTestAbstract extends IntegrationTestAbstract2 {
 

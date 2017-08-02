@@ -12,8 +12,8 @@ import org.apache.isis.applib.fixturescripts.FixtureResult;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
-import domainapp.modules.exampledom.lib.excel.fixture.data.ExcelModuleDemoToDoItemRowHandler2;
-import domainapp.modules.exampledom.lib.excel.fixture.data.ExcelModuleDemoExtendingExcelFixture2;
+import org.incode.domainapp.example.dom.lib.excel.fixture.data.ExcelModuleDemoToDoItemRowHandler2;
+import org.incode.domainapp.example.dom.lib.excel.fixture.data.ExcelModuleDemoExtendingExcelFixture2;
 import org.incode.platform.lib.excel.integtests.ExcelModuleModuleIntegTestAbstract;
 
 import static org.hamcrest.core.Is.is;

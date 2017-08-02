@@ -23,8 +23,8 @@ import org.incode.module.alias.dom.spi.AliasTypeRepository;
 import org.incode.module.alias.dom.spi.ApplicationTenancyRepository;
 import org.incode.platform.dom.alias.integtests.AliasModuleIntegTestAbstract;
 
-import domainapp.modules.exampledom.module.alias.dom.demo.DemoObjectMenu;
-import domainapp.modules.exampledom.module.alias.fixture.AliasDemoObjectsTearDownFixture;
+import org.incode.domainapp.example.dom.dom.alias.dom.demo.DemoObjectMenu;
+import org.incode.domainapp.example.dom.dom.alias.fixture.AliasDemoObjectsTearDownFixture;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class T_addAlias_IntegTest extends AliasModuleIntegTestAbstract {

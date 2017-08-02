@@ -12,9 +12,9 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
 import org.incode.platform.ext.togglz.integtests.TogglzModuleIntegTestAbstract;
 
-import domainapp.modules.exampledom.ext.togglz.dom.demo.TogglzDemoObject;
-import domainapp.modules.exampledom.ext.togglz.dom.demo.TogglzDemoObjects;
-import domainapp.modules.exampledom.ext.togglz.fixture.TogglzDemoObjectsFixture;
+import org.incode.domainapp.example.dom.ext.togglz.dom.demo.TogglzDemoObject;
+import org.incode.domainapp.example.dom.ext.togglz.dom.demo.TogglzDemoObjects;
+import org.incode.domainapp.example.dom.ext.togglz.fixture.TogglzDemoObjectsFixture;
 
 
 public class TogglzDemoObjects_IntegTest extends TogglzModuleIntegTestAbstract {

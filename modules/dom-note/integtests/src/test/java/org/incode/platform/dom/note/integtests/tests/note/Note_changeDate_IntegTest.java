@@ -20,10 +20,10 @@ import org.incode.module.note.dom.impl.note.Note;
 import org.incode.module.note.dom.impl.note.NoteRepository;
 import org.incode.platform.dom.note.integtests.NoteModuleIntegTestAbstract;
 
-import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObject;
-import domainapp.modules.exampledom.module.note.dom.demo.NoteDemoObjectMenu;
-import domainapp.modules.exampledom.module.note.dom.spiimpl.CalendarNameRepositoryForDemo;
-import domainapp.modules.exampledom.module.note.fixture.NoteDemoObjectsTearDownFixture;
+import org.incode.domainapp.example.dom.dom.note.dom.demo.NoteDemoObject;
+import org.incode.domainapp.example.dom.dom.note.dom.demo.NoteDemoObjectMenu;
+import org.incode.domainapp.example.dom.dom.note.dom.spiimpl.CalendarNameRepositoryForDemo;
+import org.incode.domainapp.example.dom.dom.note.fixture.NoteDemoObjectsTearDownFixture;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class Note_changeDate_IntegTest extends NoteModuleIntegTestAbstract {

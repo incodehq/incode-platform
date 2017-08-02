@@ -4,7 +4,7 @@ import org.apache.isis.applib.AppManifestAbstract;
 
 import org.isisaddons.module.security.SecurityModule;
 
-import domainapp.modules.exampledom.spi.security.ExampleDomSpiSecurityModule;
+import org.incode.domainapp.example.dom.spi.security.ExampleDomSpiSecurityModule;
 
 public class SecuritySpiAppManifest extends AppManifestAbstract {
 

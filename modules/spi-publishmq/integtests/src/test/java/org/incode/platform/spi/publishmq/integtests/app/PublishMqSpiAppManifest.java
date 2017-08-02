@@ -4,7 +4,7 @@ import org.apache.isis.applib.AppManifestAbstract;
 
 import org.isisaddons.module.publishmq.PublishMqModule;
 
-import domainapp.modules.exampledom.spi.publishmq.ExampleDomSpiPublishMqModule;
+import org.incode.domainapp.example.dom.spi.publishmq.ExampleDomSpiPublishMqModule;
 
 public class PublishMqSpiAppManifest extends AppManifestAbstract {
 

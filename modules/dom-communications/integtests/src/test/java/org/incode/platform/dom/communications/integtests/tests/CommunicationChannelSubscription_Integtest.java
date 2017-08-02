@@ -10,10 +10,10 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.wrapper.WrapperFactory;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
-import domainapp.modules.exampledom.module.communications.dom.demo.DemoCustomer;
-import domainapp.modules.exampledom.module.communications.dom.demo.DemoCustomerMenu;
-import domainapp.modules.exampledom.module.communications.fixture.data.demo.DemoCustomersFixture;
-import domainapp.modules.exampledom.module.communications.fixture.DemoModuleFixture;
+import org.incode.domainapp.example.dom.dom.communications.dom.demo.DemoCustomer;
+import org.incode.domainapp.example.dom.dom.communications.dom.demo.DemoCustomerMenu;
+import org.incode.domainapp.example.dom.dom.communications.fixture.data.demo.DemoCustomersFixture;
+import org.incode.domainapp.example.dom.dom.communications.fixture.DemoModuleFixture;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwnerLinkRepository;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelRepository;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelType;

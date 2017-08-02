@@ -24,7 +24,7 @@ import org.apache.isis.core.metamodel.services.appfeat.ApplicationFeatureReposit
 
 import org.incode.platform.spi.security.integtests.SecurityModuleAppIntegTestAbstract;
 
-import domainapp.modules.exampledom.spi.security.fixture.SecurityModuleAppTearDown;
+import org.incode.domainapp.example.dom.spi.security.fixture.SecurityModuleAppTearDown;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.greaterThan;
@@ -56,14 +56,12 @@ public class ApplicationFeatures_IntegTest extends SecurityModuleAppIntegTestAbs
             assertThat(packages.size(), greaterThan(0));
 
             assertThat(packages, transformedBy(ApplicationFeature.Functions.GET_ID, containsAtLeast(
-                    ApplicationFeatureId.newPackage("domainapp"),
-                    ApplicationFeatureId.newPackage("domainapp.modules"),
-                    ApplicationFeatureId.newPackage("domainapp.modules.exampledom"),
-                    ApplicationFeatureId.newPackage("domainapp.modules.exampledom.spi"),
-                    ApplicationFeatureId.newPackage("domainapp.modules.exampledom.spi.security"),
-                    ApplicationFeatureId.newPackage("domainapp.modules.exampledom.spi.security.dom"),
-                    ApplicationFeatureId.newPackage("domainapp.modules.exampledom.spi.security.dom.demotenanted"),
-                    ApplicationFeatureId.newPackage("domainapp.modules.exampledom.spi.security.dom.demonontenanted")
+                    ApplicationFeatureId.newPackage("org.incode.domainapp.example.dom"),
+                    ApplicationFeatureId.newPackage("org.incode.domainapp.example.dom.spi"),
+                    ApplicationFeatureId.newPackage("org.incode.domainapp.example.dom.spi.security"),
+                    ApplicationFeatureId.newPackage("org.incode.domainapp.example.dom.spi.security.dom"),
+                    ApplicationFeatureId.newPackage("org.incode.domainapp.example.dom.spi.security.dom.demotenanted"),
+                    ApplicationFeatureId.newPackage("org.incode.domainapp.example.dom.spi.security.dom.demonontenanted")
             )));
         }
 

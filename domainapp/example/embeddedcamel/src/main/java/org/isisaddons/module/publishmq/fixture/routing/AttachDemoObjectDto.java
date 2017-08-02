@@ -18,7 +18,7 @@ import org.apache.camel.Processor;
 
 import org.apache.isis.schema.ixn.v1.InteractionDto;
 
-import org.isisaddons.module.publishmq.canonical.demoobject.DemoObjectDto;
+import org.incode.domainapp.example.publishmq.canonical.DemoObjectDto;
 import org.isisaddons.module.publishmq.dom.statusclient.StatusMessage;
 import org.isisaddons.module.publishmq.dom.statusclient.StatusMessageClient;
 

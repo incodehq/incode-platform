@@ -7,9 +7,9 @@ import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.Test;
 
-import domainapp.modules.exampledom.metamodel.paraname8.dom.Paraname8DemoObject;
-import domainapp.modules.exampledom.metamodel.paraname8.dom.Paraname8DemoObjects;
-import domainapp.modules.exampledom.metamodel.paraname8.fixture.Paraname8DemoObjectsFixture;
+import org.incode.domainapp.example.dom.mml.paraname8.dom.Paraname8DemoObject;
+import org.incode.domainapp.example.dom.mml.paraname8.dom.Paraname8DemoObjects;
+import org.incode.domainapp.example.dom.mml.paraname8.fixture.Paraname8DemoObjectsFixture;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
