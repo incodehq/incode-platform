@@ -26,7 +26,6 @@ import domainapp.modules.exampledom.module.docfragment.fixture.data.DocFragmentD
 import domainapp.modules.exampledom.module.docfragment.fixture.teardown.DocFragmentModuleTearDown;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.incode.platform.dom.docfragment.integtests.tests.DocFragmentRepository_IntegTest.FindByObjectTypeAndNameAndAtPath.causalChainContains;
 
 public class DocFragmentRepository_IntegTest extends DocFragmentModuleIntegTestAbstract {
 
@@ -108,7 +107,7 @@ public class DocFragmentRepository_IntegTest extends DocFragmentModuleIntegTestA
             transactionService.nextTransaction();
 
             // then
-            expectedExceptions.expectCause(causalChainContains(SQLIntegrityConstraintViolationException.class));
+            expectedExceptions.expectCause(causedBy(SQLIntegrityConstraintViolationException.class));
 
             // when
             random.createWith(repository);
