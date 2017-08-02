@@ -4,11 +4,11 @@
 
     <parent>
         <groupId>org.incode</groupId>
-        <artifactId>incode-domainapp-example-externalsystemadapter</artifactId>
+        <artifactId>incode-domainapp-example-publishmq-externalsystemadapter</artifactId>
         <version>1.15.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>incode-domainapp-example-externalsystemadapter-wsdlgen</artifactId>
+    <artifactId>incode-domainapp-example-publishmq-externalsystemadapter-wsdlgen</artifactId>
     <name>Incode Platform SPI PublishMQ Demo ExtSysAdapter WSDL Codegen</name>
 
     <properties>
@@ -39,7 +39,7 @@
     <dependencies>
         <dependency>
             <groupId>org.incode</groupId>
-            <artifactId>incode-domainapp-example-externalsystemadapter-wsdl</artifactId>
+            <artifactId>incode-domainapp-example-publishmq-externalsystemadapter-wsdl</artifactId>
         </dependency>
     </dependencies>
 

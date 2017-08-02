@@ -20,13 +20,13 @@
 
             <dependency>
                 <groupId>org.incode</groupId>
-                <artifactId>incode-domainapp-example-externalsystemadapter</artifactId>
+                <artifactId>incode-domainapp-example-publishmq-externalsystemadapter</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-domainapp-example-canonical</artifactId>
+                <artifactId>incode-domainapp-example-publishmq-canonical</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -38,13 +38,13 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-domainapp-example-embeddedcamel</artifactId>
+                <artifactId>incode-domainapp-example-publishmq-embeddedcamel</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.incode</groupId>
-                <artifactId>incode-domainapp-example-routing</artifactId>
+                <artifactId>incode-domainapp-example-publishmq-routing</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

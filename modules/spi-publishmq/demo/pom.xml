@@ -28,14 +28,14 @@
 
             <dependency>
                 <groupId>org.incode</groupId>
-                <artifactId>incode-domainapp-example-externalsystemadapter</artifactId>
+                <artifactId>incode-domainapp-example-publishmq-externalsystemadapter</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- can these children be declared in -fix parent ? -->
             <dependency>
                 <groupId>org.incode</groupId>
-                <artifactId>incode-domainapp-example-routing</artifactId>
+                <artifactId>incode-domainapp-example-publishmq-routing</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

@@ -40,7 +40,7 @@
 
         <dependency>
             <groupId>org.incode</groupId>
-            <artifactId>incode-domainapp-example-routing</artifactId>
+            <artifactId>incode-domainapp-example-publishmq-routing</artifactId>
         </dependency>
 
         <dependency>

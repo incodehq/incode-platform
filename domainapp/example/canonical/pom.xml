@@ -8,7 +8,7 @@
         <version>1.15.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>incode-domainapp-example-canonical</artifactId>
+    <artifactId>incode-domainapp-example-publishmq-canonical</artifactId>
 
     <name>Incode Platform DomainApp Modules: Canonical DTOs</name>
     <description>

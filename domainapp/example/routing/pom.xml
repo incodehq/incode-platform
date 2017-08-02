@@ -8,7 +8,7 @@
         <version>1.15.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>incode-domainapp-example-routing</artifactId>
+    <artifactId>incode-domainapp-example-publishmq-routing</artifactId>
 
     <name>Incode Platform SPI PublishMQ Demo Fixtures (Routing)</name>
     <description>
@@ -59,7 +59,7 @@
 
         <dependency>
             <groupId>org.incode</groupId>
-            <artifactId>incode-domainapp-example-externalsystemadapter-wsdlgen</artifactId>
+            <artifactId>incode-domainapp-example-publishmq-externalsystemadapter-wsdlgen</artifactId>
             <version>${project.version}</version>
         </dependency>
 

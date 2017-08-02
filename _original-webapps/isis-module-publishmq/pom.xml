@@ -103,7 +103,7 @@
         </dependency>
         <dependency>
             <groupId>org.incode</groupId>
-            <artifactId>incode-domainapp-example-routing</artifactId>
+            <artifactId>incode-domainapp-example-publishmq-routing</artifactId>
         </dependency>
 
         <!-- isis -->
@@ -265,7 +265,7 @@
             <dependencies>
                 <dependency>
                     <groupId>org.isisaddons.module.publishmq</groupId>
-                    <artifactId>incode-domainapp-example-externalsystemadapter-fakeserver</artifactId>
+                    <artifactId>incode-domainapp-example-publishmq-externalsystemadapter-fakeserver</artifactId>
                     <version>1.15.0-SNAPSHOT</version>
                     <exclusions>
                         <exclusion>
