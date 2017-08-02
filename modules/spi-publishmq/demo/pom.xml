@@ -21,12 +21,6 @@
         <dependencies>
 
             <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>isis-module-publishmq-app</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>org.incode</groupId>
                 <artifactId>incode-domainapp-example-publishmq-externalsystemadapter</artifactId>
                 <version>${project.version}</version>
@@ -57,7 +51,6 @@
     </dependencies>
 
     <modules>
-        <module>app</module>
         <module>integtests</module>
     </modules>
 

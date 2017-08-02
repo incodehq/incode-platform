@@ -52,8 +52,33 @@
     <dependencies>
 
         <dependency>
+            <groupId>org.incode</groupId>
+            <artifactId>incode-domainapp-example-dom</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode</groupId>
+            <artifactId>incode-domainapp-example-publishmq-routing</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-publishmq-app</artifactId>
+            <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>isis-module-publishmq-dom-jdo</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>isis-module-publishmq-dom-camel</artifactId>
             <scope>test</scope>
         </dependency>
 
