@@ -9,7 +9,7 @@ import domainapp.modules.exampledom.lib.poly.ExampleDomLibPolyModule;
 public class PolyLibAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER =
-            Builder.withModules(
+            Builder.forModules(
                     PolyModule.class,
                     ExampleDomLibPolyModule.class,
                     PolyAppModule.class

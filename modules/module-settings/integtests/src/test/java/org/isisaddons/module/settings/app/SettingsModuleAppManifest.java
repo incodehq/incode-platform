@@ -9,7 +9,7 @@ import domainapp.modules.exampledom.module.settings.ExampleDomModuleSettingsModu
 public class SettingsModuleAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER =
-            Builder.withModules(
+            Builder.forModules(
                     SettingsModule.class,
                     ExampleDomModuleSettingsModule.class,
                     SettingsAppModule.class);

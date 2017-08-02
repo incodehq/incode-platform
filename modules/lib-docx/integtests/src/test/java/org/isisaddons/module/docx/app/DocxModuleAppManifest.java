@@ -8,7 +8,7 @@ import domainapp.modules.exampledom.lib.docx.ExampleDomLibDocxModule;
 
 public class DocxModuleAppManifest extends AppManifestAbstract {
 
-    public static final Builder BUILDER = Builder.withModules(DocxAppModule.class,
+    public static final Builder BUILDER = Builder.forModules(DocxAppModule.class,
             ExampleDomLibDocxModule.class,
             DocxModule.class);
 

@@ -14,7 +14,7 @@ import domainapp.modules.exampledom.module.commchannel.ExampleDomModuleCommChann
  */
 public class CommChannelModuleAppManifest extends AppManifestAbstract {
 
-    public static final Builder BUILDER = Builder.withModules(
+    public static final Builder BUILDER = Builder.forModules(
             CommChannelModule.class, // dom module
             ExampleDomModuleCommChannelModule.class,
             Gmap3ApplibModule.class,

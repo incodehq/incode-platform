@@ -8,7 +8,7 @@ import domainapp.modules.exampledom.module.tags.ExampleDomModuleTagsModule;
 
 public class TagsModuleAppManifest extends AppManifestAbstract {
 
-    public static final Builder BUILDER = Builder.withModules(TagsModule.class,
+    public static final Builder BUILDER = Builder.forModules(TagsModule.class,
             ExampleDomModuleTagsModule.class,
             ExampleDomModuleTagsModule.class
     );

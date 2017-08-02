@@ -11,7 +11,7 @@ import domainapp.modules.exampledom.module.note.ExampleDomModuleNoteModule;
  */
 public class NoteModuleAppManifest extends AppManifestAbstract {
 
-    public static final Builder BUILDER = Builder.withModules(
+    public static final Builder BUILDER = Builder.forModules(
             NoteModule.class, // dom module
             ExampleDomModuleNoteModule.class,
             NoteAppModule.class

@@ -7,7 +7,7 @@ import domainapp.modules.exampledom.metamodel.paraname8.ExampleDomMetaModelParan
 public class Paraname8MetaModelAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = Builder
-            .withModules(
+            .forModules(
                     Paraname8AppModule.class,
                     ExampleDomMetaModelParaname8Module.class)
             .withConfigurationProperty(

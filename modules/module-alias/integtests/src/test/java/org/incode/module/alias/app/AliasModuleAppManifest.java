@@ -11,7 +11,7 @@ import domainapp.modules.exampledom.module.alias.ExampleDomModuleAliasModule;
  */
 public class AliasModuleAppManifest extends AppManifestAbstract {
 
-    public static final Builder BUILDER = Builder.withModules(
+    public static final Builder BUILDER = Builder.forModules(
             AliasModule.class, // dom module
             ExampleDomModuleAliasModule.class,
             AliasAppModule.class

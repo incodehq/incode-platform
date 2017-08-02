@@ -11,7 +11,7 @@ import domainapp.modules.exampledom.ext.flywaydb.ExampleDomExtFlywayDbModule;
  */
 public class FlywayDbDemoAppManifest extends AppManifestAbstract {
 
-    public static final Builder BUILDER = Builder.withModules(
+    public static final Builder BUILDER = Builder.forModules(
             ExampleDomExtFlywayDbModule.class,
             FlywayDemoFixtureSubmodule.class,
             FlywayDemoServicesSubmodule.class

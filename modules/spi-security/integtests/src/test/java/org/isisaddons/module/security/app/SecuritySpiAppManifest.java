@@ -9,7 +9,7 @@ import domainapp.modules.exampledom.spi.security.ExampleDomSpiSecurityModule;
 public class SecuritySpiAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = Builder
-            .withModules(
+            .forModules(
                     SecurityModule.class,
                     ExampleDomSpiSecurityModule.class
             )

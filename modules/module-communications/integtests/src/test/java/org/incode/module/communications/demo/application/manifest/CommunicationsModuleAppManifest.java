@@ -1,13 +1,6 @@
 package org.incode.module.communications.demo.application.manifest;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.AppManifestAbstract;
-import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.command.CommandModule;
 import org.isisaddons.module.fakedata.FakeDataModule;
@@ -26,7 +19,7 @@ import org.incode.module.document.dom.DocumentModule;
  */
 public class CommunicationsModuleAppManifest extends AppManifestAbstract {
 
-    public static final Builder BUILDER = Builder.withModules(CommunicationsModuleDomModule.class,
+    public static final Builder BUILDER = Builder.forModules(CommunicationsModuleDomModule.class,
             DocumentModule.class,
             CountryModule.class,
             ExampleDomModuleCommunicationsModule.class,

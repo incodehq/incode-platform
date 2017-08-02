@@ -8,7 +8,7 @@ import domainapp.modules.exampledom.lib.fakedata.ExampleDomLibFakeDataModule;
 
 public class FakedataLibAppManifest extends AppManifestAbstract {
 
-    public static final Builder BUILDER = Builder.withModules(
+    public static final Builder BUILDER = Builder.forModules(
             FakeDataModule.class,
             ExampleDomLibFakeDataModule.class
     );

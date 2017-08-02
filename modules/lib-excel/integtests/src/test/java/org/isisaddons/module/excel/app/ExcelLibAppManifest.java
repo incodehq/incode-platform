@@ -8,7 +8,7 @@ import domainapp.modules.exampledom.lib.excel.ExampleDomLibExcelModule;
 
 public class ExcelLibAppManifest extends AppManifestAbstract {
 
-    public static final Builder BUILDER = Builder.withModules(
+    public static final Builder BUILDER = Builder.forModules(
             ExcelModule.class,
             ExampleDomLibExcelModule.class,
             ExcelAppModule.class

@@ -8,7 +8,7 @@ import domainapp.modules.exampledom.spi.command.ExampleDomSpiCommandModule;
 
 public class CommandSpiAppManifest extends AppManifestAbstract {
 
-    public static final Builder BUILDER = Builder.withModules(
+    public static final Builder BUILDER = Builder.forModules(
             CommandModule.class,
             ExampleDomSpiCommandModule.class
     );

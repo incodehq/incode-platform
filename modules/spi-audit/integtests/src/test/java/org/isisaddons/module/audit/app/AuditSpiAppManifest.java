@@ -8,7 +8,7 @@ import domainapp.modules.exampledom.spi.audit.ExampleDomSpiAuditModule;
 
 public class AuditSpiAppManifest extends AppManifestAbstract {
 
-    public static final Builder BUILDER = Builder.withModules(
+    public static final Builder BUILDER = Builder.forModules(
             AuditModule.class,
             ExampleDomSpiAuditModule.class
     );

@@ -15,50 +15,27 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecification;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationProvider;
+import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 import org.apache.isis.core.integtestsupport.IsisSystemForTest;
 import org.apache.isis.core.integtestsupport.scenarios.ScenarioExecutionForIntegration;
 
 import org.incode.module.country.CountryModuleDomManifest;
 import org.incode.module.country.fixture.teardown.CountryModuleTearDown;
-import org.incode.module.integtestsupport.dom.IncodeIntegrationTestAbstract;
 
-public abstract class CountryModuleIntegTestAbstract extends IncodeIntegrationTestAbstract {
+public abstract class CountryModuleIntegTestAbstract extends IntegrationTestAbstract2 {
+
+    @BeforeClass
+    public static void initSystem() {
+        bootstrapUsing(CountryModuleDomManifest.BUILDER
+                        .withAdditionalServices(ModuleFixtureScriptsSpecificationProvider.class)
+                        .build());
+    }
 
     @Before
     public void cleanUpFromPreviousTest() {
         runFixtureScript(new CountryModuleTearDown());
     }
 
-    @BeforeClass
-    public static void initSystem() {
-        org.apache.log4j.PropertyConfigurator.configure("logging-integtest.properties");
-        IsisSystemForTest isft = IsisSystemForTest.getElseNull();
-        if(isft == null) {
-            isft = new IsisSystemForTest.Builder()
-                    .withLoggingAt(org.apache.log4j.Level.INFO)
-                    .with(new CountryModuleDomManifest() {
-                        @Override
-                        public Map<String, String> getConfigurationProperties() {
-                            final Map<String, String> map = Maps.newHashMap();
-                            AppManifest.Util.withJavaxJdoRunInMemoryProperties(map);
-                            AppManifest.Util.withDataNucleusProperties(map);
-                            AppManifest.Util.withIsisIntegTestProperties(map);
-                            return map;
-                        }
-
-                        @Override public List<Class<?>> getAdditionalServices() {
-                            return Lists.newArrayList(ModuleFixtureScriptsSpecificationProvider.class);
-                        }
-                    })
-
-                    .build();
-            isft.setUpSystem();
-            IsisSystemForTest.set(isft);
-        }
-
-        // instantiating will install onto ThreadLocal
-        new ScenarioExecutionForIntegration();
-    }
 
     @DomainService(nature = NatureOfService.DOMAIN)
     public static class ModuleFixtureScriptsSpecificationProvider implements FixtureScriptsSpecificationProvider {

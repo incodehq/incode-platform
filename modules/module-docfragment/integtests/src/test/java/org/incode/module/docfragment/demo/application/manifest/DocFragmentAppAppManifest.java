@@ -15,7 +15,7 @@ import domainapp.modules.exampledom.module.docfragment.ExampleDomModuleDocFragme
  */
 public class DocFragmentAppAppManifest extends AppManifestAbstract {
 
-    public static final Builder BUILDER = Builder.withModules(
+    public static final Builder BUILDER = Builder.forModules(
             DocFragmentModuleDomModule.class,
             ExampleDomModuleDocFragmentModule.class,
             DemoAppApplicationModuleFixtureSubmodule.class,

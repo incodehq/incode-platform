@@ -8,7 +8,7 @@ import domainapp.modules.exampledom.spi.publishmq.ExampleDomSpiPublishMqModule;
 
 public class PublishMqSpiAppManifest extends AppManifestAbstract {
 
-    public static final Builder BUILDER = Builder.withModules(PublishMqModule.class,
+    public static final Builder BUILDER = Builder.forModules(PublishMqModule.class,
             ExampleDomSpiPublishMqModule.class,
             PublishMqAppModule.class);
 

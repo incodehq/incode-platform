@@ -11,14 +11,9 @@ import domainapp.modules.exampledom.wicket.excel.fixture.ExcelWicketSetUpFixture
 
 public class DomainappAppManifestWithDemoFixture extends DomainappAppManifest {
 
-    @Override
-    public List<Class<? extends FixtureScript>> getFixtures() { return Lists.<Class<? extends FixtureScript>>newArrayList(ExcelWicketSetUpFixtureForSven.class); }
-
-    @Override
-    public Map<String, String> getConfigurationProperties() {
-        Map<String,String> props = super.getConfigurationProperties();
-        props.put("isis.persistor.datanucleus.install-fixtures","true");
-        return props;
+    @Override protected void overrideFixtures(final List<Class<? extends FixtureScript>> fixtureScripts) {
+        fixtureScripts.add(ExcelWicketSetUpFixtureForSven.class);
     }
+
 
 }

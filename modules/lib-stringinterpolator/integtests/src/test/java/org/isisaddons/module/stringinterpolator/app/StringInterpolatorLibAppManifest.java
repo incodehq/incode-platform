@@ -8,7 +8,7 @@ import domainapp.modules.exampledom.lib.stringinterpolator.ExampleDomLibStringIn
 
 public class StringInterpolatorLibAppManifest extends AppManifestAbstract {
 
-    public static final Builder BUILDER = Builder.withModules(
+    public static final Builder BUILDER = Builder.forModules(
             StringInterpolatorModule.class,
             ExampleDomLibStringInterpolatorModule.class
     );

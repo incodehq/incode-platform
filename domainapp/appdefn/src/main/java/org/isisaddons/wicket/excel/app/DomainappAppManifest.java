@@ -1,14 +1,6 @@
 package org.isisaddons.wicket.excel.app;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.google.common.collect.Maps;
-
-import org.apache.isis.applib.AppManifest;
-import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.AppManifestAbstract;
 
 import org.isisaddons.module.audit.AuditModule;
 import org.isisaddons.module.command.CommandModule;
@@ -49,79 +41,64 @@ import org.incode.module.note.dom.NoteModule;
 
 import domainapp.modules.exampledom.ExampleDomSubmodule;
 
-public class DomainappAppManifest implements AppManifest {
+public class DomainappAppManifest extends AppManifestAbstract {
 
-    @Override
-    public List<Class<?>> getModules() {
-        return Arrays.asList(
+    public static final Builder BUILDER = Builder.forModules(
 
-                ExampleDomSubmodule.class,
+            ExampleDomSubmodule.class,
 
-                // extensions
-                TogglzModule.class,
+            // extensions
+            TogglzModule.class,
 
-                // lib
-                FreemarkerDocRenderingModule.class,
-                StringInterpolatorDocRenderingModule.class,
-                XDocReportDocRenderingModule.class,
-                DocxModule.class,
-                ExcelModule.class,
-                FakeDataModule.class,
-                FreeMarkerModule.class,
-                PdfBoxModule.class,
-                ServletApiModule.class,
-                StringInterpolatorModule.class,
-                XDocReportModule.class,
+            // lib
+            FreemarkerDocRenderingModule.class,
+            StringInterpolatorDocRenderingModule.class,
+            XDocReportDocRenderingModule.class,
+            DocxModule.class,
+            ExcelModule.class,
+            FakeDataModule.class,
+            FreeMarkerModule.class,
+            PdfBoxModule.class,
+            ServletApiModule.class,
+            StringInterpolatorModule.class,
+            XDocReportModule.class,
 
-                // modules
-                AliasModule.class,
-                ClassificationModule.class,
-                CommChannelModule.class,
-                CommunicationsModuleDomModule.class,
-                CountryModule.class,
-                DocFragmentModuleDomModule.class,
-                DocumentModule.class,
-                NoteModule.class,
-                SettingsModule.class,
-                TagsModule.class,
+            // modules
+            AliasModule.class,
+            ClassificationModule.class,
+            CommChannelModule.class,
+            CommunicationsModuleDomModule.class,
+            CountryModule.class,
+            DocFragmentModuleDomModule.class,
+            DocumentModule.class,
+            NoteModule.class,
+            SettingsModule.class,
+            TagsModule.class,
 
-                // spi
-                AuditModule.class,
-                CommandModule.class,
-                PublishMqModule.class,
-                SecurityModule.class,
-                SessionLoggerModule.class,
+            // spi
+            AuditModule.class,
+            CommandModule.class,
+            PublishMqModule.class,
+            SecurityModule.class,
+            SessionLoggerModule.class,
 
-                // cpt (wicket ui)
-                ExcelUiModule.class,
-                FullCalendar2UiModule.class,
-                Gmap3ApplibModule.class,
-                Gmap3ServiceModule.class,
-                Gmap3UiModule.class,
-                PdfjsCptModule.class,
-                SummernoteUiModule.class,
-                WickedChartsUiModule.class
+            // cpt (wicket ui)
+            ExcelUiModule.class,
+            FullCalendar2UiModule.class,
+            Gmap3ApplibModule.class,
+            Gmap3ServiceModule.class,
+            Gmap3UiModule.class,
+            PdfjsCptModule.class,
+            SummernoteUiModule.class,
+            WickedChartsUiModule.class
 
-                // deprecated
-                // PolyModule.class
+            // deprecated
+            // PolyModule.class
 
-        );
-    }
+    ).withConfigurationProperty("isis.viewer.wicket.rememberMe.cookieKey","DomainAppEncryptionKey");
 
-
-    @Override
-    public List<Class<?>> getAdditionalServices() { return null; }
-    @Override
-    public String getAuthenticationMechanism() { return null; }
-    @Override
-    public String getAuthorizationMechanism() { return null; }
-    @Override
-    public List<Class<? extends FixtureScript>> getFixtures() { return null; }
-    @Override
-    public Map<String, String> getConfigurationProperties() {
-        HashMap<String,String> props = Maps.newHashMap();
-        props.put("isis.viewer.wicket.rememberMe.cookieKey","DomainAppEncryptionKey");
-        return props;
+    public DomainappAppManifest() {
+        super(BUILDER);
     }
 
 }

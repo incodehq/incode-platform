@@ -20,7 +20,7 @@ import domainapp.modules.exampledom.module.document.ExampleDomModuleDocumentModu
  */
 public class DocumentModuleAppManifest extends AppManifestAbstract {
 
-    public static final Builder BUILDER = Builder.withModules(
+    public static final Builder BUILDER = Builder.forModules(
             DocumentModule.class, // dom module
             ExampleDomModuleDocumentModule.class,
             DocumentAppModule.class,
