@@ -4,9 +4,8 @@
 
     <parent>
         <groupId>org.incode</groupId>
-        <artifactId>incode-domainapp</artifactId>
+        <artifactId>incode-domainapp-example</artifactId>
         <version>1.15.0-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>incode-domainapp-example-embeddedcamel</artifactId>

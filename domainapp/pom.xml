@@ -88,10 +88,7 @@
 
     <modules>
         <module>appdefn</module>
-        <module>externalsystemadapter</module>
-        <module>modules/examplecanonical</module>
-        <module>modules/exampledom</module>
-        <module>modules/exampleembeddedcamel</module>
+        <module>example</module>
         <module>webapp</module>
     </modules>
 
