@@ -1140,52 +1140,52 @@
 
     <modules>
 
-        <module>extension-flywaydb/extension</module>
-        <module>extension-quartz/extension</module>
-        <module>extension-togglz/extension</module>
+        <module>ext-flywaydb/impl</module>
+        <module>ext-quartz/impl</module>
+        <module>ext-togglz/impl</module>
 
-        <module>lib-base/lib</module>
-        <module>lib-docrendering-freemarker/lib</module>
-        <module>lib-docrendering-stringinterpolator/lib</module>
-        <module>lib-docrendering-xdocreport/lib</module>
-        <module>lib-docx/lib</module>
-        <module>lib-excel/lib</module>
-        <module>lib-fakedata/lib</module>
-        <module>lib-fixturesupport/lib</module>
-        <module>lib-freemarker/lib</module>
-        <module>lib-integtestsupport/lib</module>
-        <module>lib-pdfbox/lib</module>
-        <module>lib-poly/lib</module>
-        <module>lib-servletapi/lib</module>
-        <module>lib-stringinterpolator/lib</module>
-        <module>lib-unittestsupport/lib</module>
-        <module>lib-xdocreport/lib</module>
+        <module>lib-base/impl</module>
+        <module>lib-docrendering-freemarker/impl</module>
+        <module>lib-docrendering-stringinterpolator/impl</module>
+        <module>lib-docrendering-xdocreport/impl</module>
+        <module>lib-docx/impl</module>
+        <module>lib-excel/impl</module>
+        <module>lib-fakedata/impl</module>
+        <module>lib-fixturesupport/impl</module>
+        <module>lib-freemarker/impl</module>
+        <module>lib-integtestsupport/impl</module>
+        <module>lib-pdfbox/impl</module>
+        <module>lib-poly/impl</module>
+        <module>lib-servletapi/impl</module>
+        <module>lib-stringinterpolator/impl</module>
+        <module>lib-unittestsupport/impl</module>
+        <module>lib-xdocreport/impl</module>
 
-        <module>module-alias/module</module>
-        <module>module-classification/module</module>
-        <module>module-commchannel/module</module>
-        <module>module-communications/module</module>
-        <module>module-country/module</module>
-        <module>module-docfragment/module</module>
-        <module>module-document/module</module>
-        <module>module-note/module</module>
-        <module>module-settings/module</module>
-        <module>module-tags/module</module>
+        <module>dom-alias/impl</module>
+        <module>dom-classification/impl</module>
+        <module>dom-commchannel/impl</module>
+        <module>dom-communications/impl</module>
+        <module>dom-country/impl</module>
+        <module>dom-docfragment/impl</module>
+        <module>dom-document/impl</module>
+        <module>dom-note/impl</module>
+        <module>dom-settings/impl</module>
+        <module>dom-tags/impl</module>
 
-        <module>metamodel-paraname8/metamodel</module>
+        <module>mml-paraname8/impl</module>
 
-        <module>spi-audit/spi</module>
-        <module>spi-command/spi</module>
-        <module>spi-publishmq/spi</module>
-        <module>spi-security/spi</module>
-        <module>spi-sessionlogger/spi</module>
+        <module>spi-audit/impl</module>
+        <module>spi-command/impl</module>
+        <module>spi-publishmq/impl</module>
+        <module>spi-security/impl</module>
+        <module>spi-sessionlogger/impl</module>
 
-        <module>wicket-excel/wicket</module>
-        <module>wicket-fullcalendar2/wicket</module>
-        <module>wicket-gmap3/wicket</module>
-        <module>wicket-pdfjs/wicket</module>
-        <module>wicket-summernote/wicket</module>
-        <module>wicket-wickedcharts/wicket</module>
+        <module>wkt-excel/impl</module>
+        <module>wkt-fullcalendar2/impl</module>
+        <module>wkt-gmap3/impl</module>
+        <module>wkt-pdfjs/impl</module>
+        <module>wkt-summernote/impl</module>
+        <module>wkt-wickedcharts/impl</module>
     </modules>
 
 </project>

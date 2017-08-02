@@ -50,28 +50,27 @@
                 </property>
             </activation>
             <modules>
-                <module>domainapp/modules/exampledom</module>
+                <module>domainapp/example/dom</module>
 
-                <module>modules/module-alias/module</module>
-                <module>modules/module-classification/module</module>
-                <module>modules/module-communications/module</module>
-                <module>modules/module-commchannel/module</module>
+                <module>modules/dom-alias/impl</module>
+                <module>modules/dom-classification/impl</module>
+                <module>modules/dom-communications/impl</module>
+                <module>modules/dom-commchannel/impl</module>
 
-                <module>modules/module-country/module</module>
+                <module>modules/dom-country/impl</module>
 
-                <module>modules/module-docfragment/module</module>
-                <module>modules/module-document/module</module>
-                <module>modules/module-note/module</module>
+                <module>modules/dom-docfragment/impl</module>
+                <module>modules/dom-document/impl</module>
+                <module>modules/dom-note/impl</module>
 
-                <module>modules/module-settings/module</module>
+                <module>modules/dom-settings/impl</module>
+                <module>modules/dom-tags/impl</module>
 
-                <module>modules/module-tags/module</module>
-
-                <module>modules/spi-audit/spi</module>
-                <module>modules/spi-command/spi</module>
-                <module>modules/spi-publishmq/spi/jdo</module>
-                <module>modules/spi-security/spi</module>
-                <module>modules/spi-sessionlogger/spi</module>
+                <module>modules/spi-audit/impl</module>
+                <module>modules/spi-command/impl</module>
+                <module>modules/spi-publishmq/impl/jdo</module>
+                <module>modules/spi-security/impl</module>
+                <module>modules/spi-sessionlogger/impl</module>
             </modules>
         </profile>
 
@@ -83,7 +82,7 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/lib-docx/lib</module>
+                <module>modules/lib-docx/impl</module>
                 <module>modules/lib-docx/integtests</module>
             </modules>
         </profile>
@@ -95,7 +94,7 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/lib-excel/lib</module>
+                <module>modules/lib-excel/impl</module>
                 <module>modules/lib-excel/integtests</module>
             </modules>
         </profile>
@@ -107,7 +106,7 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/lib-fakedata/lib</module>
+                <module>modules/lib-fakedata/impl</module>
                 <module>modules/lib-fakedata/integtests</module>
             </modules>
         </profile>
@@ -119,7 +118,7 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/lib-poly/lib</module>
+                <module>modules/lib-poly/impl</module>
                 <module>modules/lib-poly/integtests</module>
             </modules>
         </profile>
@@ -131,7 +130,7 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/lib-servletapi/lib</module>
+                <module>modules/lib-servletapi/impl</module>
             </modules>
         </profile>
         <profile>
@@ -142,128 +141,128 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/lib-stringinterpolator/lib</module>
+                <module>modules/lib-stringinterpolator/impl</module>
                 <module>modules/lib-stringinterpolator/integtests</module>
             </modules>
         </profile>
         <profile>
-            <id>module-alias</id>
+            <id>dom-alias</id>
             <activation>
                 <property>
-                    <name>module-alias</name>
+                    <name>dom-alias</name>
                 </property>
             </activation>
             <modules>
-                <module>modules/module-alias/module</module>
-                <module>modules/module-alias/integtests</module>
+                <module>modules/dom-alias/impl</module>
+                <module>modules/dom-alias/integtests</module>
             </modules>
         </profile>
         <profile>
-            <id>module-classification</id>
+            <id>dom-classification</id>
             <activation>
                 <property>
-                    <name>module-classification</name>
+                    <name>dom-classification</name>
                 </property>
             </activation>
             <modules>
-                <module>modules/module-classification/module</module>
-                <module>modules/module-classification/integtests</module>
+                <module>modules/dom-classification/impl</module>
+                <module>modules/dom-classification/integtests</module>
             </modules>
         </profile>
         <profile>
-            <id>module-commchannel</id>
+            <id>dom-commchannel</id>
             <activation>
                 <property>
-                    <name>module-commchannel</name>
+                    <name>dom-commchannel</name>
                 </property>
             </activation>
             <modules>
-                <module>modules/module-commchannel/module</module>
-                <module>modules/module-commchannel/integtests</module>
+                <module>modules/dom-commchannel/impl</module>
+                <module>modules/dom-commchannel/integtests</module>
             </modules>
         </profile>
         <profile>
-            <id>module-communications</id>
+            <id>dom-communications</id>
             <activation>
                 <property>
-                    <name>module-communications</name>
+                    <name>dom-communications</name>
                 </property>
             </activation>
             <modules>
-                <module>modules/module-communications/module</module>
-                <module>modules/module-communications/integtests</module>
+                <module>modules/dom-communications/impl</module>
+                <module>modules/dom-communications/integtests</module>
             </modules>
         </profile>
         <profile>
-            <id>module-docfragment</id>
+            <id>dom-docfragment</id>
             <activation>
                 <property>
-                    <name>module-docfragment</name>
+                    <name>dom-docfragment</name>
                 </property>
             </activation>
             <modules>
-                <module>modules/module-docfragment/module</module>
-                <module>modules/module-docfragment/integtests</module>
+                <module>modules/dom-docfragment/impl</module>
+                <module>modules/dom-docfragment/integtests</module>
             </modules>
         </profile>
         <profile>
-            <id>module-document</id>
+            <id>dom-document</id>
             <activation>
                 <property>
-                    <name>module-document</name>
+                    <name>dom-document</name>
                 </property>
             </activation>
             <modules>
-                <module>modules/module-document/module</module>
-                <module>modules/module-document/integtests</module>
+                <module>modules/dom-document/impl</module>
+                <module>modules/dom-document/integtests</module>
             </modules>
         </profile>
         <profile>
-            <id>module-note</id>
+            <id>dom-note</id>
             <activation>
                 <property>
-                    <name>module-note</name>
+                    <name>dom-note</name>
                 </property>
             </activation>
             <modules>
-                <module>modules/module-note/module</module>
-                <module>modules/module-note/integtests</module>
+                <module>modules/dom-note/impl</module>
+                <module>modules/dom-note/integtests</module>
             </modules>
         </profile>
         <profile>
-            <id>module-settings</id>
+            <id>dom-settings</id>
             <activation>
                 <property>
-                    <name>module-settings</name>
+                    <name>dom-settings</name>
                 </property>
             </activation>
             <modules>
-                <module>modules/module-settings/module</module>
-                <module>modules/module-settings/integtests</module>
+                <module>modules/dom-settings/impl</module>
+                <module>modules/dom-settings/integtests</module>
             </modules>
         </profile>
         <profile>
-            <id>module-tags</id>
+            <id>dom-tags</id>
             <activation>
                 <property>
-                    <name>module-tags</name>
+                    <name>dom-tags</name>
                 </property>
             </activation>
             <modules>
-                <module>modules/module-tags/module</module>
-                <module>modules/module-tags/integtests</module>
+                <module>modules/dom-tags/impl</module>
+                <module>modules/dom-tags/integtests</module>
             </modules>
         </profile>
         <profile>
-            <id>metamodel-paraname8dit</id>
+            <id>mml-paraname8dit</id>
             <activation>
                 <property>
-                    <name>metamodel-paraname8/metamodel</name>
+                    <name>mml-paraname8/metamodel</name>
                 </property>
             </activation>
             <modules>
-                <module>modules/metamodel-paraname8/metamodel</module>
-                <module>modules/metamodel-paraname8/integtests</module>
+                <module>modules/mml-paraname8/impl</module>
+                <module>modules/mml-paraname8/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -274,7 +273,7 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/spi-audit/spi</module>
+                <module>modules/spi-audit/impl</module>
                 <module>modules/spi-audit/integtests</module>
             </modules>
         </profile>
@@ -286,7 +285,7 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/spi-command/spi</module>
+                <module>modules/spi-command/impl</module>
                 <module>modules/spi-command/integtests</module>
             </modules>
         </profile>
@@ -298,7 +297,7 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/spi-publishmq/spi</module>
+                <module>modules/spi-publishmq/impl</module>
                 <module>modules/spi-publishmq/integtests</module>
             </modules>
         </profile>
@@ -310,7 +309,7 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/spi-security/spi</module>
+                <module>modules/spi-security/impl</module>
                 <module>modules/spi-security/integtests</module>
             </modules>
         </profile>
@@ -322,98 +321,98 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/spi-sessionlogger/spi</module>
+                <module>modules/spi-sessionlogger/impl</module>
                 <module>modules/spi-sessionlogger/integtests</module>
             </modules>
         </profile>
         <profile>
-            <id>wicket-excel</id>
+            <id>wkt-excel</id>
             <activation>
                 <property>
-                    <name>wicket-excel</name>
+                    <name>wkt-excel</name>
                 </property>
             </activation>
             <modules>
-                <module>modules/wicket-excel/wicket</module>
+                <module>modules/wkt-excel/impl</module>
             </modules>
         </profile>
         <profile>
-            <id>wicket-fullcalendar2</id>
+            <id>wkt-fullcalendar2</id>
             <activation>
                 <property>
-                    <name>wicket-fullcalendar2</name>
+                    <name>wkt-fullcalendar2</name>
                 </property>
             </activation>
             <modules>
-                <module>modules/wicket-fullcalendar2/wicket</module>
+                <module>modules/wkt-fullcalendar2/impl</module>
             </modules>
         </profile>
         <profile>
-            <id>wicket-gmap3</id>
+            <id>wkt-gmap3</id>
             <activation>
                 <property>
-                    <name>wicket-gmap3</name>
+                    <name>wkt-gmap3</name>
                 </property>
             </activation>
             <modules>
-                <module>modules/wicket-gmap3/wicket</module>
+                <module>modules/wkt-gmap3/impl</module>
             </modules>
         </profile>
         <profile>
-            <id>wicket-pdfjs</id>
+            <id>wkt-pdfjs</id>
             <activation>
                 <property>
-                    <name>wicket-pdfjs</name>
+                    <name>wkt-pdfjs</name>
                 </property>
             </activation>
             <modules>
-                <module>modules/wicket-pdfjs/wicket</module>
+                <module>modules/wkt-pdfjs/impl</module>
             </modules>
         </profile>
         <profile>
-            <id>wicket-summernote</id>
+            <id>wkt-summernote</id>
             <activation>
                 <property>
-                    <name>wicket-summernote</name>
+                    <name>wkt-summernote</name>
                 </property>
             </activation>
             <modules>
-                <module>modules/wicket-summernote/wicket</module>
+                <module>modules/wkt-summernote/impl</module>
             </modules>
         </profile>
         <profile>
-            <id>wicket-wickedcharts</id>
+            <id>wkt-wickedcharts</id>
             <activation>
                 <property>
-                    <name>wicket-wickedcharts</name>
+                    <name>wkt-wickedcharts</name>
                 </property>
             </activation>
             <modules>
-                <module>modules/wicket-wickedcharts/wicket</module>
+                <module>modules/wkt-wickedcharts/impl</module>
             </modules>
         </profile>
         <profile>
-            <id>extension-flywaydb</id>
+            <id>ext-flywaydb</id>
             <activation>
                 <property>
-                    <name>extension-flywaydb</name>
+                    <name>ext-flywaydb</name>
                 </property>
             </activation>
             <modules>
-                <module>modules/extension-flywaydb/extension</module>
-                <module>modules/extension-flywaydb/integtests</module>
+                <module>modules/ext-flywaydb/impl</module>
+                <module>modules/ext-flywaydb/integtests</module>
             </modules>
         </profile>
         <profile>
-            <id>extension-togglz</id>
+            <id>ext-togglz</id>
             <activation>
                 <property>
-                    <name>extension-togglz</name>
+                    <name>ext-togglz</name>
                 </property>
             </activation>
             <modules>
-                <module>modules/extension-togglz/extension</module>
-                <module>modules/extension-togglz/integtests</module>
+                <module>modules/ext-togglz/impl</module>
+                <module>modules/ext-togglz/integtests</module>
             </modules>
         </profile>
 
@@ -435,8 +434,8 @@
 
                 <!-- per-module testing -->
 
-                <module>modules/extension-flywaydb/integtests</module>
-                <module>modules/extension-togglz/integtests</module>
+                <module>modules/ext-flywaydb/integtests</module>
+                <module>modules/ext-togglz/integtests</module>
 
                 <module>modules/lib-docx/integtests</module>
                 <module>modules/lib-excel/integtests</module>
@@ -444,17 +443,17 @@
                 <module>modules/lib-poly/integtests</module>
                 <module>modules/lib-stringinterpolator/integtests</module>
 
-                <module>modules/module-alias/integtests</module>
-                <module>modules/module-classification/integtests</module>
-                <module>modules/module-commchannel/integtests</module>
-                <module>modules/module-communications/integtests</module>
-                <module>modules/module-docfragment/integtests</module>
-                <module>modules/module-document/integtests</module>
-                <module>modules/module-note/integtests</module>
-                <module>modules/module-settings/integtests</module>
-                <module>modules/module-tags/integtests</module>
+                <module>modules/dom-alias/integtests</module>
+                <module>modules/dom-classification/integtests</module>
+                <module>modules/dom-commchannel/integtests</module>
+                <module>modules/dom-communications/integtests</module>
+                <module>modules/dom-docfragment/integtests</module>
+                <module>modules/dom-document/integtests</module>
+                <module>modules/dom-note/integtests</module>
+                <module>modules/dom-settings/integtests</module>
+                <module>modules/dom-tags/integtests</module>
 
-                <module>modules/metamodel-paraname8/integtests</module>
+                <module>modules/mml-paraname8/integtests</module>
 
                 <module>modules/spi-audit/integtests</module>
                 <module>modules/spi-command/integtests</module>
