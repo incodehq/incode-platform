@@ -269,7 +269,7 @@
             <dependencies>
                 <dependency>
                     <groupId>org.isisaddons.module.publishmq</groupId>
-                    <artifactId>incode-domainapp-externalsystemadapter-fakeserver</artifactId>
+                    <artifactId>incode-domainapp-example-externalsystemadapter-fakeserver</artifactId>
                     <version>1.15.0-SNAPSHOT</version>
                     <exclusions>
                         <exclusion>

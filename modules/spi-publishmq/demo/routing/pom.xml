@@ -53,13 +53,13 @@
 
         <dependency>
             <groupId>org.incode</groupId>
-            <artifactId>incode-domainapp-module-exampledom</artifactId>
+            <artifactId>incode-domainapp-example-dom</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.incode</groupId>
-            <artifactId>incode-domainapp-externalsystemadapter-wsdlgen</artifactId>
+            <artifactId>incode-domainapp-example-externalsystemadapter-wsdlgen</artifactId>
             <version>${project.version}</version>
         </dependency>
 

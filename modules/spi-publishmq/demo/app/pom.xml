@@ -34,7 +34,7 @@
 
         <dependency>
             <groupId>org.incode</groupId>
-            <artifactId>incode-domainapp-module-exampledom</artifactId>
+            <artifactId>incode-domainapp-example-dom</artifactId>
             <version>${project.version}</version>
         </dependency>
 

@@ -31,24 +31,24 @@
 			
 			<dependency>
                 <groupId>org.incode</groupId>
-                <artifactId>incode-domainapp-externalsystemadapter</artifactId>
+                <artifactId>incode-domainapp-example-externalsystemadapter</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
 			
             <dependency>
                 <groupId>org.incode</groupId>
-                <artifactId>incode-domainapp-module-examplecanonical</artifactId>
+                <artifactId>incode-domainapp-example-canonical</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.incode</groupId>
-                <artifactId>incode-domainapp-module-exampledom</artifactId>
+                <artifactId>incode-domainapp-example-dom</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.incode</groupId>
-                <artifactId>incode-domainapp-module-exampleembeddedcamel</artifactId>
+                <artifactId>incode-domainapp-example-embeddedcamel</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

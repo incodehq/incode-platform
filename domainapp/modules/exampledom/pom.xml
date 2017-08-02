@@ -10,7 +10,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>incode-domainapp-module-exampledom</artifactId>
+    <artifactId>incode-domainapp-example-dom</artifactId>
     <name>Incode Platform DomainApp Module: Example DOM</name>
 
     <properties>
@@ -401,7 +401,7 @@
             <dependencies>
                 <dependency>
                     <groupId>org.incode</groupId>
-                    <artifactId>incode-domainapp-module-examplecanonical</artifactId>
+                    <artifactId>incode-domainapp-example-canonical</artifactId>
                 </dependency>
                 <dependency>
                     <groupId>org.isisaddons.module.publishmq</groupId>

@@ -33,7 +33,7 @@
 
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
-                <artifactId>incode-domainapp-externalsystemadapter</artifactId>
+                <artifactId>incode-domainapp-example-externalsystemadapter</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
