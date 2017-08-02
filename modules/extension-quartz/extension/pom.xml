@@ -15,7 +15,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Extension Quartz Extension</name>
+    <name>Incode Platform Extension Quartz Impl</name>
     <description>
         A module wrapping up Quartz scheduler
     </description>

@@ -15,7 +15,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Lib StringInterpolator Lib</name>
+    <name>Incode Platform Lib StringInterpolator Impl</name>
     <description>
         A module for generating (mail-merging) .stringinterpolator files
         based on a template .stringinterpolator and an input XML file. Designed for use within

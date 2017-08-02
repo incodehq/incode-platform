@@ -10,8 +10,8 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>isis-module-docx-integtests</artifactId>
-    <name>Incode Platform Lib Docx Demo IntegTests</name>
+    <artifactId>incode-platform-lib-docx-integtests</artifactId>
+    <name>Incode Platform Lib Docx IntegTests</name>
 
     <build>
         <plugins>

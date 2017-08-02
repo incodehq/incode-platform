@@ -10,7 +10,7 @@
 
     <artifactId>incode-domainapp-example-publishmq-routing</artifactId>
 
-    <name>Incode Platform SPI PublishMQ Demo Fixtures (Routing)</name>
+    <name>Incode Platform DomainApp Example: PublishMQ Routing</name>
     <description>
         Contains routing and supporting beans for Camel
     </description>

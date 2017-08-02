@@ -10,7 +10,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>isis-module-togglz-integtests</artifactId>
+    <artifactId>incode-platform-ext-togglz-integtests</artifactId>
     <name>Incode Platform Extension Togglz Demo IntegTests</name>
 
     <build>

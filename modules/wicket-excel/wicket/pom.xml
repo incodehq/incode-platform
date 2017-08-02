@@ -14,7 +14,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Wicket Excel Wicket</name>
+    <name>Incode Platform Wicket Excel Component</name>
     <description>
         A component for Apache Isis' Wicket viewer, allowing tables to be
         downloaded as Excel spreadsheets.

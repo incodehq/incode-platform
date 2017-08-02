@@ -14,7 +14,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform ModuleTags Module</name>
+    <name>Incode Platform Subdomain Tags Impl</name>
     <description>
         A module providing the ability to tag or label entities.
     </description>

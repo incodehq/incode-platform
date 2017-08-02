@@ -14,7 +14,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Lib Excel Lib</name>
+    <name>Incode Platform Lib Excel Impl</name>
     <description>
         A domain service for Apache Isis', allowing collections
         of (view model) objects to be exported/imported to/from an

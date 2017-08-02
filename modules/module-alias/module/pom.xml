@@ -14,7 +14,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Module Alias Module</name>
+    <name>Incode Platform Subdomain Alias Impl</name>
     <description>
         A module providing aliases.
     </description>

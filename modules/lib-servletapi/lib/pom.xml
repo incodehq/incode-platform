@@ -14,7 +14,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Lib Servlet API Lib</name>
+    <name>Incode Platform Lib Servlet API Impl</name>
     <description>
         A module providing access to elements of the Servlet API.
     </description>

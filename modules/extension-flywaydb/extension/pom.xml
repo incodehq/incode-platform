@@ -27,7 +27,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Extension FlywayDB Extension</name>
+    <name>Incode Platform Extension FlywayDB Impl</name>
     <description>
         A module integrating with FlywayDB by providing an implementation of DataNucleus' PersistenceManagerFactory
     </description>

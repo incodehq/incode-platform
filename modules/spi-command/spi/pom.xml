@@ -15,7 +15,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform SPI Command SPI</name>
+    <name>Incode Platform SPI Command Impl</name>
     <description>
         A module providing command persistence, enabling profiling, background execution and
         extended auditing capabilities.

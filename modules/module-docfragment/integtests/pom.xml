@@ -9,8 +9,8 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>incode-module-docfragment-demo-integtests</artifactId>
-    <name>Incode Platform Module DocFragment IntegTests</name>
+    <artifactId>incode-platform-dom-docfragment-integtests</artifactId>
+    <name>Incode Platform Subdomain DocFragment IntegTests</name>
 
     <build>
         <plugins>

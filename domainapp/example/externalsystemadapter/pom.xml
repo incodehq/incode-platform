@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>incode-domainapp-example-publishmq-externalsystemadapter</artifactId>
-    <name>Incode Platform SPI PublishMQ Demo ExtSysAdapter</name>
+    <name>Incode Platform DomainApp Example: PublishMQ ExtSysAdapter</name>
 
     <packaging>pom</packaging>
 

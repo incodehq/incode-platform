@@ -10,8 +10,8 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>isis-module-stringinterpolator-integtests</artifactId>
-    <name>Incode Platform Lib StringInterpolator Demo IntegTests</name>
+    <artifactId>incode-platform-lib-stringinterpolator-integtests</artifactId>
+    <name>Incode Platform Lib StringInterpolator IntegTests</name>
 
     <build>
         <plugins>

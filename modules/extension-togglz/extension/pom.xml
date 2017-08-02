@@ -14,7 +14,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Extension Togglz Extension</name>
+    <name>Incode Platform Extension Togglz Impl</name>
     <description>
         A module providing togglz.
     </description>

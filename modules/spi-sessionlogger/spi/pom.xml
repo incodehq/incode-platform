@@ -15,7 +15,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform SPI SessionLogger SPI</name>
+    <name>Incode Platform SPI SessionLogger Impl</name>
     <description>
         A module to log when a user logs in or logs out, or when a user session timeout occurs.
     </description>

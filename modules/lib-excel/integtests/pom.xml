@@ -10,8 +10,8 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>isis-module-excel-integtests</artifactId>
-    <name>Incode Platform Lib Excel Demo IntegTests</name>
+    <artifactId>incode-platform-lib-excel-integtests</artifactId>
+    <name>Incode Platform Lib Excel IntegTests</name>
 
     <build>
         <testResources>

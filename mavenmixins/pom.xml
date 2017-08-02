@@ -9,7 +9,7 @@
 
     <packaging>pom</packaging>
     
-    <name>Incode Platform Maven Mixin Parent POM</name>
+    <name>Incode Platform Maven Mixin (parent)</name>
     <description>
         Aggregator pom
     </description>

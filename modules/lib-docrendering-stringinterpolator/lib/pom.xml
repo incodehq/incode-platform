@@ -14,7 +14,7 @@
 
     <packaging>jar</packaging>
     
-    <name>Incode Platform Lib DocRendering StringInterpolator Lib</name>
+    <name>Incode Platform Lib DocRendering StringInterpolator Impl</name>
     <description>
         Rendering strategy implementations that uses string interpolator, either to return text or a URL (for capture).
     </description>

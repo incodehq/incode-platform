@@ -15,7 +15,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform SPI Audit SPI</name>
+    <name>Incode Platform SPI Audit Impl</name>
     <description>
         A module providing audit persistence, enabling profiling, background execution and
         extended auditing capabilities.

@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>incode-domainapp-example-publishmq-externalsystemadapter-fakeserver</artifactId>
-    <name>Incode Platform SPI PublishMQ Demo ExtSysAdapter Fakeserver</name>
+    <name>Incode Platform DomainApp Example: PublishMQ ExtSysAdapter Fakeserver</name>
 
     <packaging>jar</packaging>
 

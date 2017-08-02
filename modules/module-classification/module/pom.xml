@@ -14,7 +14,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Module Classification Module</name>
+    <name>Incode Platform Subdomain Classification Impl</name>
     <description>
         A module providing event.
     </description>

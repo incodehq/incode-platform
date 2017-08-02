@@ -9,8 +9,8 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>incode-module-communications-demo-integtests</artifactId>
-    <name>Incode Platform Module Communications IntegTests</name>
+    <artifactId>incode-platform-dom-communications-integtests</artifactId>
+    <name>Incode Platform Subdomain Communications IntegTests</name>
 
     <build>
         <plugins>

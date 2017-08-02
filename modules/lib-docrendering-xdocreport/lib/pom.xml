@@ -14,7 +14,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Lib DocRendering XDocReport Lib</name>
+    <name>Incode Platform Lib DocRendering XDocReport Impl</name>
     <description>
         A rendering strategy implementation using XDocReport.
     </description>

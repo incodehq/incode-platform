@@ -10,8 +10,8 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>isis-module-poly-integtests</artifactId>
-    <name>Incode Platform Lib Poly Demo IntegTests</name>
+    <artifactId>incode-platform-lib-poly-integtests</artifactId>
+    <name>Incode Platform Lib Poly IntegTests</name>
 
     <build>
         <plugins>

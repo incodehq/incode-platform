@@ -15,7 +15,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Lib XDocReport Lib</name>
+    <name>Incode Platform Lib XDocReport Impl</name>
     <description>
         A module providing a service that wraps xdocreport
     </description>

@@ -10,8 +10,8 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>incode-module-note-integtests</artifactId>
-    <name>Incode Platform Module Note IntegTests</name>
+    <artifactId>incode-platform-dom-note-integtests</artifactId>
+    <name>Incode Platform Subdomain Note IntegTests</name>
 
     <build>
         <plugins>

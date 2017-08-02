@@ -10,7 +10,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>isis-metamodel-paraname8-integtests</artifactId>
+    <artifactId>incode-platform-mml-paraname8-integtests</artifactId>
     <name>Incode Platform MetaModel Paraname8 IntegTests</name>
 
     <build>

@@ -12,7 +12,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform SPI PublishMQ SPI JDO Persistence</name>
+    <name>Incode Platform SPI PublishMQ Impl JDO Persistence</name>
     <description>
         A module providing the persistence of published events.
     </description>

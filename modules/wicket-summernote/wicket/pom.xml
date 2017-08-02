@@ -14,7 +14,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Wicket Summernote Wicket</name>
+    <name>Incode Platform Wicket Summernote Component</name>
     <description>
         A number of components for Apache Isis' Wicket viewer, to render a WYSIWYG rich editor based on Summernote
     </description>

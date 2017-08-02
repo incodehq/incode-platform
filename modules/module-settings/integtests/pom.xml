@@ -10,8 +10,8 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>isis-module-settings-integtests</artifactId>
-    <name>Incode Platform Module Settings Demo IntegTests</name>
+    <artifactId>incode-platform-dom-settings-integtests</artifactId>
+    <name>Incode Platform Subdomain Settings IntegTests</name>
 
     <build>
         <plugins>

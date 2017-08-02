@@ -15,7 +15,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Lib Poly Lib</name>
+    <name>Incode Platform Lib Poly Impl</name>
     <description>
         A module providing helper classes for polymorphic relationships
         using the &quot;table-of-two-halves&quot; pattern.  Designed for use within

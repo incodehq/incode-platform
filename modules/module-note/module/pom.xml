@@ -14,7 +14,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Module Note Module</name>
+    <name>Incode Platform Subdomain Note Impl</name>
     <description>
         A module allowing notes (optionally asociated with dates/calendar).
     </description>

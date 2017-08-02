@@ -10,8 +10,8 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>isis-module-fakedata-integtests</artifactId>
-    <name>Incode Platform Lib FakeData Demo IntegTests</name>
+    <artifactId>incode-platform-lib-fakedata-integtests</artifactId>
+    <name>Incode Platform Lib FakeData IntegTests</name>
 
     <build>
         <testResources>

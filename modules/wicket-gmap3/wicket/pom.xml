@@ -14,7 +14,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Wicket GMap3 Wicket</name>
+    <name>Incode Platform Wicket GMap3 Component</name>
     <description>
         A Wicket component for Apache Isis' Wicket viewer to 
         render any collection of entities that implement

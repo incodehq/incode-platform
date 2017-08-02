@@ -14,7 +14,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Module Settings Module</name>
+    <name>Incode Platform Subdomain Settings Impl</name>
     <description>
         A module providing settings persistence, enabling profiling, background execution and
         extended auditing capabilities.

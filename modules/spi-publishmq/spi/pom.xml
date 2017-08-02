@@ -15,7 +15,7 @@
 
     <packaging>pom</packaging>
 
-    <name>Incode Platform SPI PublishMQ SPI</name>
+    <name>Incode Platform SPI PublishMQ Impl</name>
     <description>
         Parent module for the various submodules that make up the publishmq service.
     </description>

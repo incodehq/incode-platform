@@ -15,7 +15,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Lib Freemarker Lib</name>
+    <name>Incode Platform Lib Freemarker Impl</name>
     <description>
         A module providing a service that wraps freemarker
     </description>

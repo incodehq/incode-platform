@@ -9,8 +9,8 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>isis-module-flywaydb-module-fixturedom</artifactId>
-    <name>Incode Platform Extension FlywayDB Demo IntegTests</name>
+    <artifactId>incode-platform-ext-flywaydb-integtests</artifactId>
+    <name>Incode Platform Extension FlywayDB IntegTests</name>
 
     <properties>
         <isis-maven-plugin.validate.appManifest>domainapp.modules.simple.DomainappDomManifest</isis-maven-plugin.validate.appManifest>

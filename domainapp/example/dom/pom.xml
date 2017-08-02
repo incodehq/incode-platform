@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>incode-domainapp-example-dom</artifactId>
-    <name>Incode Platform DomainApp Module: Example DOM</name>
+    <name>Incode Platform DomainApp Example: DOM</name>
 
     <properties>
         <isis-maven-plugin.validate.appManifest>domainapp.modules.exampledom.ExampleDomManifest</isis-maven-plugin.validate.appManifest>

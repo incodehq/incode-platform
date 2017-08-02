@@ -9,8 +9,8 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>isis-module-sessionlogger-integtests</artifactId>
-    <name>Incode Platform SPI SessionLogger Demo IntegTests</name>
+    <artifactId>incode-platform-spi-sessionlogger-integtests</artifactId>
+    <name>Incode Platform SPI SessionLogger IntegTests</name>
 
     <build>
         <plugins>

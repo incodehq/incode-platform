@@ -10,8 +10,8 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>isis-module-audit-integtests</artifactId>
-    <name>Incode Platform SPI Audit Demo IntegTests</name>
+    <artifactId>incode-platform-spi-audit-integtests</artifactId>
+    <name>Incode Platform SPI Audit IntegTests</name>
 
     <build>
         <plugins>

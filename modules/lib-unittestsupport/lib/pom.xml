@@ -14,7 +14,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Lib Unit Testing Support Lib</name>
+    <name>Incode Platform Lib Unit TestingSupport Impl</name>
     <description>
         A module providing test utilities for unit testing of domain modules
     </description>

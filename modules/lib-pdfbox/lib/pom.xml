@@ -15,7 +15,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Lib PdfBox Lib</name>
+    <name>Incode Platform Lib PdfBox Impl</name>
     <description>
         A module providing a service that wraps Apache PDFBox
     </description>

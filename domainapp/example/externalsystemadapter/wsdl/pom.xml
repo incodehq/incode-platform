@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>incode-domainapp-example-publishmq-externalsystemadapter-wsdl</artifactId>
-    <name>Incode Platform SPI PublishMQ Demo ExtSysAdapter WSDL</name>
+    <name>Incode Platform DomainApp Example: PublishMQ ExtSysAdapter WSDL</name>
 
     <build>
         <plugins>

@@ -10,9 +10,8 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.isisaddons.module.publishmq</groupId>
-    <artifactId>isis-module-publishmq-integtests</artifactId>
-    <name>Incode Platform SPI PublishMQ Demo IntegTests</name>
+    <artifactId>incode-platform-spi-publishmq-integtests</artifactId>
+    <name>Incode Platform SPI PublishMQ IntegTests</name>
 
     <build>
         <testResources>
@@ -92,19 +91,19 @@
         </dependency>
 
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.isisaddons.module.publishmq</groupId>
             <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.isisaddons.module.publishmq</groupId>
             <artifactId>isis-module-publishmq-dom-jdo</artifactId>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.isisaddons.module.publishmq</groupId>
             <artifactId>isis-module-publishmq-dom-camel</artifactId>
             <scope>test</scope>
         </dependency>

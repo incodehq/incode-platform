@@ -14,7 +14,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Wicket FullCalendar2 Wicket</name>
+    <name>Incode Platform Wicket FullCalendar2 Component</name>
     <description>
         A component for Apache Isis' Wicket viewer, rendering any collection of
         entities that implements Calendarable in a fullpage calendar
