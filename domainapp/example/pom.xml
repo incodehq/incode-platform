@@ -15,11 +15,54 @@
 
     <packaging>pom</packaging>
 
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>org.incode</groupId>
+                <artifactId>incode-domainapp-example-externalsystemadapter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-domainapp-example-canonical</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-domainapp-example-dom</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-domainapp-example-embeddedcamel</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode</groupId>
+                <artifactId>incode-domainapp-example-routing</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
     <modules>
         <module>canonical</module>
         <module>dom</module>
         <module>embeddedcamel</module>
         <module>externalsystemadapter</module>
+        <module>routing</module>
     </modules>
 
 </project>

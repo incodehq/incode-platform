@@ -102,12 +102,8 @@
             <artifactId>isis-module-publishmq-dom-camel</artifactId>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-publishmq-fixture-canonicalmappings</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>isis-module-publishmq-fixture-routing</artifactId>
+            <groupId>org.incode</groupId>
+            <artifactId>incode-domainapp-example-routing</artifactId>
         </dependency>
 
         <!-- isis -->
