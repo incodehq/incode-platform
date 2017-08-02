@@ -143,35 +143,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.incode.module.base</groupId>
-            <artifactId>incode-module-base-dom</artifactId>
-            <type>test-jar</type>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.incode.module.unittestsupport</groupId>
-            <artifactId>incode-module-unittestsupport-dom</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.incode.module.integtestsupport</groupId>
-            <artifactId>incode-module-integtestsupport-dom</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.datanucleus</groupId>
-            <artifactId>datanucleus-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>

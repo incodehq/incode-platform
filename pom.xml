@@ -194,6 +194,18 @@
             </modules>
         </profile>
         <profile>
+            <id>dom-country</id>
+            <activation>
+                <property>
+                    <name>dom-country</name>
+                </property>
+            </activation>
+            <modules>
+                <module>modules/dom-country/impl</module>
+                <module>modules/dom-country/integtests</module>
+            </modules>
+        </profile>
+        <profile>
             <id>dom-docfragment</id>
             <activation>
                 <property>
@@ -446,6 +458,7 @@
                 <module>modules/dom-alias/integtests</module>
                 <module>modules/dom-classification/integtests</module>
                 <module>modules/dom-commchannel/integtests</module>
+                <module>modules/dom-country/integtests</module>
                 <module>modules/dom-communications/integtests</module>
                 <module>modules/dom-docfragment/integtests</module>
                 <module>modules/dom-document/integtests</module>
