@@ -50,14 +50,17 @@
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-schema</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.incode</groupId>
-            <artifactId>incode-domainapp-module-examplecanonical</artifactId>
+            <artifactId>incode-domainapp-module-exampledom</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>isis-module-publishmq-externalsystemadapter-wsdlgen</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
