@@ -299,7 +299,7 @@
             </activation>
             <modules>
                 <module>modules/spi-publishmq/spi</module>
-                <module>modules/spi-publishmq/demo</module>
+                <module>modules/spi-publishmq/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -458,7 +458,7 @@
 
                 <module>modules/spi-audit/integtests</module>
                 <module>modules/spi-command/integtests</module>
-                <module>modules/spi-publishmq/demo</module>
+                <module>modules/spi-publishmq/integtests</module>
                 <module>modules/spi-security/integtests</module>
                 <module>modules/spi-sessionlogger/integtests</module>
 
