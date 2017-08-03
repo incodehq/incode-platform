@@ -62,7 +62,7 @@
             <!-- can these children be declared in -fix parent ? -->
             <dependency>
                 <groupId>org.incode</groupId>
-                <artifactId>incode-domainapp-example-publishmq-routing</artifactId>
+                <artifactId>incode-domainapp-example-publishmq-embeddedcamel_to_externalsystem</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -86,7 +86,7 @@
 
         <dependency>
             <groupId>org.incode</groupId>
-            <artifactId>incode-domainapp-example-publishmq-routing</artifactId>
+            <artifactId>incode-domainapp-example-publishmq-embeddedcamel_to_externalsystem</artifactId>
             <scope>test</scope>
         </dependency>
 

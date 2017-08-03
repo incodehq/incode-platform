@@ -14,7 +14,6 @@ logs/
 JArchitectOut/
 *.jdproj
 
-
 # log files
 datanucleus.log
 isis.log

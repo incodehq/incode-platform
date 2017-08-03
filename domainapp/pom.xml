@@ -15,8 +15,24 @@
     <description>Domain application leveraging the Incode Platform.</description>
 
     <properties>
-        <cxf.version>3.1.1</cxf.version>
+
+        <spring.version>4.1.9.RELEASE</spring.version>
+        <jetty.version>9.4.3.v20170317</jetty.version>
+        <activemq-web.version>5.14.3</activemq-web.version>
+        <camel.version>2.16.3</camel.version>
+
+        <!-- override properties inherited from incode-parent -->
+        <activemq.version>${activemq-web.version}</activemq.version>
+
+        <xbean-spring.version>4.3</xbean-spring.version>
+        <jackson.version>1.9.12</jackson.version>
+
+        <snakeyaml.version>1.13</snakeyaml.version>
+
+        <cxf.version>3.1.5</cxf.version>
         <cxf.xjc-utils.version>3.0.3</cxf.xjc-utils.version>
+        <jaxb-impl.version>2.2.11</jaxb-impl.version>
+        <jquery-selectors.version>0.2.4</jquery-selectors.version>
     </properties>
 
     <packaging>pom</packaging>

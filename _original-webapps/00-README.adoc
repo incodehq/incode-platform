@@ -1,5 +1,0 @@
-= README
-
-These are fragments of the original webapp modules for each of the individual isis addons/incode catalog, where there is some additional configuration required within the webapp module itself.
-
-The intention is to incorporate this configuration into the incode-platform-demo-webapp module.

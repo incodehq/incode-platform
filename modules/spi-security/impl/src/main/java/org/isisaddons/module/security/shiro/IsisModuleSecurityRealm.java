@@ -1,23 +1,32 @@
 package org.isisaddons.module.security.shiro;
 
+import java.util.concurrent.Callable;
+
+import javax.inject.Inject;
+
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationInfo;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.CredentialsException;
+import org.apache.shiro.authc.DisabledAccountException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.realm.AuthenticatingRealm;
+import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.subject.PrincipalCollection;
+
 import org.apache.isis.core.runtime.system.context.IsisContext;
 import org.apache.isis.core.runtime.system.persistence.PersistenceSession;
 import org.apache.isis.core.runtime.system.session.IsisSessionFactory;
 import org.apache.isis.core.runtime.system.transaction.IsisTransactionManager;
 import org.apache.isis.core.runtime.system.transaction.TransactionalClosureWithReturn;
 import org.apache.isis.core.runtime.system.transaction.TransactionalClosureWithReturnAbstract;
-import org.apache.shiro.authc.*;
-import org.apache.shiro.authz.AuthorizationInfo;
-import org.apache.shiro.realm.AuthenticatingRealm;
-import org.apache.shiro.realm.AuthorizingRealm;
-import org.apache.shiro.subject.PrincipalCollection;
+
 import org.isisaddons.module.security.dom.password.PasswordEncryptionService;
 import org.isisaddons.module.security.dom.user.AccountType;
 import org.isisaddons.module.security.dom.user.ApplicationUser;
 import org.isisaddons.module.security.dom.user.ApplicationUserRepository;
-
-import javax.inject.Inject;
-import java.util.concurrent.Callable;
 
 public class IsisModuleSecurityRealm extends AuthorizingRealm {
 
@@ -87,7 +96,7 @@ public class IsisModuleSecurityRealm extends AuthorizingRealm {
                 case OK:
                     break;
                 case BAD_PASSWORD:
-                    throw new CredentialsException("Unknown user/password combination");
+                    throw new IncorrectCredentialsException("Unknown user/password combination");
                 case NO_PASSWORD_ENCRYPTION_SERVICE_CONFIGURED:
                     throw new AuthenticationException("No password encryption service is installed");
                 default:

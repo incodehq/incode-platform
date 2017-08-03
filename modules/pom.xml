@@ -92,11 +92,15 @@
         <shiro-core.version>1.2.3</shiro-core.version>
         <spring.version>4.1.6.RELEASE</spring.version>
         <togglz.version>2.1.0.Final</togglz.version>
+
         <wicked-charts.version>2.0.1</wicked-charts.version>
-        <wicket.version>7.6.0</wicket.version>
-        <wicket-bootstrap-core.version>0.10.6</wicket-bootstrap-core.version>
+
+        <wicket.version>7.8.0</wicket.version>
+        <wicket-bootstrap-core.version>0.10.16</wicket-bootstrap-core.version>
+
         <wicket-fullcalendar.version>2.2.0</wicket-fullcalendar.version>
-        <wicketstuff-gmap3.version>6.25.0</wicketstuff-gmap3.version>
+        <wicketstuff-gmap3.version>${wicket.version}</wicketstuff-gmap3.version>
+
         <xdocreport.version>1.0.6</xdocreport.version>
 
         <compileSource>1.8</compileSource>

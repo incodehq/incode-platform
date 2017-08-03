@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import com.google.common.eventbus.Subscribe;
 
+import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -19,7 +20,7 @@ import org.incode.module.communications.dom.impl.commchannel.CommunicationChanne
 @DomainService(
         nature = NatureOfService.DOMAIN
 )
-public class CommunicationChannelSubscriptions {
+public class CommunicationChannelSubscriptions extends AbstractSubscriber {
 
     @Subscribe
     public void on(final CommunicationChannel.RemoveEvent ev) {
@@ -49,21 +50,6 @@ public class CommunicationChannelSubscriptions {
 
     @Inject
     CommunicationRepository communicationRepository;
-
-    @Programmatic
-    @PostConstruct
-    public void init(final Map<String, String> properties) {
-        eventBusService.register(this);
-    }
-
-    @Programmatic
-    @PreDestroy
-    public void shutdown() {
-        eventBusService.unregister(this);
-    }
-
-    @javax.inject.Inject
-    private EventBusService eventBusService;
 
 
 }

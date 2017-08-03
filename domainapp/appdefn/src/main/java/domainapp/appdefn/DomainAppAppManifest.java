@@ -11,6 +11,8 @@ import org.isisaddons.module.freemarker.dom.FreeMarkerModule;
 import org.isisaddons.module.pdfbox.dom.PdfBoxModule;
 import org.isisaddons.module.publishmq.PublishMqModule;
 import org.isisaddons.module.security.SecurityModule;
+import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
+import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 import org.isisaddons.module.servletapi.ServletApiModule;
 import org.isisaddons.module.sessionlogger.SessionLoggerModule;
 import org.isisaddons.module.settings.SettingsModule;
@@ -29,6 +31,7 @@ import org.isisaddons.wicket.wickedcharts.cpt.ui.WickedChartsUiModule;
 
 import org.incode.domainapp.example.dom.ExampleDomSubmodule;
 import org.incode.module.alias.dom.AliasModule;
+import org.incode.module.base.services.BaseServicesModule;
 import org.incode.module.classification.dom.ClassificationModule;
 import org.incode.module.commchannel.dom.CommChannelModule;
 import org.incode.module.communications.dom.CommunicationsModuleDomModule;
@@ -53,7 +56,9 @@ public class DomainAppAppManifest extends AppManifestAbstract {
             // extensions
             TogglzModule.class,
 
+
             // lib
+            BaseServicesModule.class,
             FreemarkerDocRenderingModule.class,
             StringInterpolatorDocRenderingModule.class,
             XDocReportDocRenderingModule.class,
@@ -98,12 +103,18 @@ public class DomainAppAppManifest extends AppManifestAbstract {
             // deprecated
             // PolyModule.class
     )
-    .withConfigurationPropertiesFile(DomainAppAppManifest.class, "isis.properties")
-    .withConfigurationPropertiesFile(DomainAppAppManifest.class, "authentication_shiro.properties")
-    .withConfigurationPropertiesFile(DomainAppAppManifest.class, "persistor_datanucleus.properties")
-    .withConfigurationPropertiesFile(DomainAppAppManifest.class, "viewer_restfulobjects.properties")
-    .withConfigurationPropertiesFile(DomainAppAppManifest.class, "viewer_wicket.properties")
-    .withConfigurationProperty("isis.viewer.wicket.rememberMe.cookieKey","DomainAppEncryptionKey");
+    .withAdditionalServices(
+            PasswordEncryptionServiceUsingJBcrypt.class,
+            PermissionsEvaluationServiceAllowBeatsVeto.class
+    )
+    .withConfigurationPropertiesFile(DomainAppAppManifest.class,
+            "isis.properties",
+            "authentication_shiro.properties",
+            "persistor_datanucleus.properties",
+            "viewer_restfulobjects.properties",
+            "viewer_wicket.properties"
+    )
+    .withConfigurationProperty("isis.viewer.wicket.rememberMe.cookieKey", "DomainAppEncryptionKey");
 
     public DomainAppAppManifest() {
         super(BUILDER);

@@ -44,7 +44,7 @@
 
             <dependency>
                 <groupId>org.incode</groupId>
-                <artifactId>incode-domainapp-example-publishmq-routing</artifactId>
+                <artifactId>incode-domainapp-example-publishmq-embeddedcamel_to_externalsystem</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -61,8 +61,8 @@
         <module>canonical</module>
         <module>dom</module>
         <module>embeddedcamel</module>
+        <module>embeddedcamel_to_externalsystem</module>
         <module>externalsystemadapter</module>
-        <module>routing</module>
     </modules>
 
 </project>
