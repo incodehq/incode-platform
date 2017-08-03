@@ -17,11 +17,12 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
 import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 
-@DomainService
+@DomainService(nature = NatureOfService.DOMAIN)
 public class LocationLookupService {
 
     // Greenwich Royal Observatory (unused)

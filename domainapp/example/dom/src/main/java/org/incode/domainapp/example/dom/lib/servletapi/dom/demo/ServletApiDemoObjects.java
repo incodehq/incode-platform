@@ -8,27 +8,19 @@ import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-@DomainService(repositoryFor = ServletApiDemoObject.class)
+@DomainService(
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "exampleLibServletApi.DemoObjects"
+)
 @DomainServiceLayout(
-        menuOrder = "10"
+        menuOrder = "10",
+        named = "Servlet Api Demo Objects"
 )
 public class ServletApiDemoObjects {
-
-    //region > identification in the UI
-    // //////////////////////////////////////
-
-    public String getId() {
-        return "simple";
-    }
-
-    public String iconName() {
-        return "SimpleObject";
-    }
-
-    //endregion
 
     //region > listAll (action)
     // //////////////////////////////////////

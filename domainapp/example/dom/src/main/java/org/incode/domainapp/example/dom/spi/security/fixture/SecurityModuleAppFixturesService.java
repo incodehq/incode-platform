@@ -23,7 +23,7 @@ import org.isisaddons.module.security.dom.role.ApplicationRole;
  */
 @DomainService(
     nature = NatureOfService.VIEW_MENU_ONLY,
-    objectType = "isissecurityDemo.FixturesService"
+    objectType = "exampleSpiSecurity.FixturesService"
 )
 @DomainServiceLayout(
         named="Prototyping",

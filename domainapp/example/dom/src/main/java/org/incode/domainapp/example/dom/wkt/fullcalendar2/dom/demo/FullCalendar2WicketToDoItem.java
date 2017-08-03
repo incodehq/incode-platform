@@ -4,14 +4,16 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
+
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Ordering;
-import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEvent;
-import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
+
 import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.CollectionLayout;
@@ -29,7 +31,13 @@ import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
 
-@javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
+import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEvent;
+import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
+
+@javax.jdo.annotations.PersistenceCapable(
+        identityType=IdentityType.DATASTORE,
+        schema = "exampleWktFullCalendar2"
+)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="id")
@@ -38,38 +46,36 @@ import org.apache.isis.applib.util.TitleBuffer;
         column="version")
 @javax.jdo.annotations.Uniques({
     @javax.jdo.annotations.Unique(
-            name="ToDoItem_description_must_be_unique", 
+            name="ToDoItem_description_must_be_unique",
             members={"ownedBy","description"})
 })
 @javax.jdo.annotations.Queries( {
     @javax.jdo.annotations.Query(
             name = "todo_all", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.isisaddons.wicket.fullcalendar2.fixture.dom.FullCalendar2WicketToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.wkt.fullcalendar2.dom.demo.FullCalendar2WicketToDoItem "
                     + "WHERE ownedBy == :ownedBy"),
     @javax.jdo.annotations.Query(
             name = "todo_notYetComplete", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.isisaddons.wicket.fullcalendar2.fixture.dom.FullCalendar2WicketToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.wkt.fullcalendar2.dom.demo.FullCalendar2WicketToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "   && complete == false"),
     @javax.jdo.annotations.Query(
             name = "todo_complete", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.isisaddons.wicket.fullcalendar2.fixture.dom.FullCalendar2WicketToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.wkt.fullcalendar2.dom.demo.FullCalendar2WicketToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "&& complete == true"),
     @javax.jdo.annotations.Query(
             name = "todo_autoComplete", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.isisaddons.wicket.fullcalendar2.fixture.dom.FullCalendar2WicketToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.wkt.fullcalendar2.dom.demo.FullCalendar2WicketToDoItem "
                     + "WHERE ownedBy == :ownedBy && "
                     + "description.indexOf(:description) >= 0")
 })
 @DomainObject(
-        objectType = "TODO",
-        autoCompleteRepository = FullCalendar2WicketToDoItems.class,
-        autoCompleteAction = "autoComplete"
+        autoCompleteRepository = FullCalendar2WicketToDoItems.class
 )
 @DomainObjectLayout(
         named = "ToDo Item",
@@ -264,7 +270,7 @@ public class FullCalendar2WicketToDoItem implements Comparable<FullCalendar2Wick
         return list;
     }
 
-    public String disableAdd(final FullCalendar2WicketToDoItem toDoItem) {
+    public String disableAdd() {
         if(isComplete()) {
             return "Cannot add dependencies for items that are complete";
         }
@@ -287,7 +293,7 @@ public class FullCalendar2WicketToDoItem implements Comparable<FullCalendar2Wick
         return this;
     }
     // disable action dependent on state of object
-    public String disableRemove(final FullCalendar2WicketToDoItem toDoItem) {
+    public String disableRemove() {
         if(isComplete()) {
             return "Cannot remove dependencies for items that are complete";
         }

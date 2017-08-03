@@ -15,11 +15,11 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "incodeDocumentDemo.DemoObjectMenu",
+        objectType = "exampleDomDocument.DemoObjectMenu",
         repositoryFor = DemoObject.class
 )
 @DomainServiceLayout(
-        named = "Demo Objects",
+        named = "Document Demo Objects",
         menuOrder = "10"
 )
 public class DemoObjectMenu {

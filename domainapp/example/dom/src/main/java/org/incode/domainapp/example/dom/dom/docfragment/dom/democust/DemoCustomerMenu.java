@@ -13,10 +13,10 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        repositoryFor = DemoCustomer.class
+        objectType = "exampleDomDocFragment.DemoCustomerMenu"
 )
 @DomainServiceLayout(
-        named = "Demo Customers",
+        named = "DocFragment Customers",
         menuOrder = "10"
 )
 public class DemoCustomerMenu {

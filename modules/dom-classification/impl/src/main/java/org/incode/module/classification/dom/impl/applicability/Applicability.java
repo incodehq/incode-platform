@@ -1,20 +1,30 @@
 package org.incode.module.classification.dom.impl.applicability;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.VersionStrategy;
+
 import com.google.common.eventbus.Subscribe;
-import lombok.Getter;
-import lombok.Setter;
+
+import org.axonframework.eventhandling.annotation.EventHandler;
+
 import org.apache.isis.applib.AbstractSubscriber;
-import org.apache.isis.applib.annotation.*;
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
-import org.axonframework.eventhandling.annotation.EventHandler;
+
 import org.incode.module.classification.dom.ClassificationModule;
 import org.incode.module.classification.dom.impl.category.Category;
 import org.incode.module.classification.dom.impl.category.taxonomy.Taxonomy;
 
-import javax.jdo.annotations.IdGeneratorStrategy;
-import javax.jdo.annotations.IdentityType;
-import javax.jdo.annotations.VersionStrategy;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Indicates whether a domain object('s type) is applicable to a particular {@link Category}, with respect to
@@ -96,7 +106,7 @@ public class Applicability implements Comparable<Applicability> {
         }
     }
 
-    @DomainService
+    @DomainService(nature = NatureOfService.DOMAIN)
     public static class IconSubscriber extends AbstractSubscriber {
         @EventHandler
         @Subscribe
@@ -111,7 +121,7 @@ public class Applicability implements Comparable<Applicability> {
     /**
      * Implemented as a subscriber so can be overridden by consuming application if required.
      */
-    @DomainService
+    @DomainService(nature = NatureOfService.DOMAIN)
     public static class CssClassSubscriber extends AbstractSubscriber {
         @EventHandler
         @Subscribe

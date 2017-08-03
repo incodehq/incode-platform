@@ -8,27 +8,20 @@ import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-@DomainService
+@DomainService(
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "exampleDomTags.Taggable Entities"
+)
 @DomainServiceLayout(
-        menuOrder = "10"
+        menuOrder = "10",
+        named = "Taggable Entities"
 )
 public class ExampleTaggableEntities {
 
-    //region > identification in the UI
-    // //////////////////////////////////////
-
-    public String getId() {
-        return "simple";
-    }
-
-    public String iconName() {
-        return "SimpleObject";
-    }
-
-    //endregion
 
     //region > listAll (action)
     // //////////////////////////////////////

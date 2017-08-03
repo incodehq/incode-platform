@@ -28,8 +28,7 @@ import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
-        schema = "flywayDemo",
-        table = "FlywayDemoObject"
+        schema = "exampleExtFlywayDb"
 )
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
@@ -46,7 +45,6 @@ import lombok.Setter;
 })
 @javax.jdo.annotations.Unique(name="FlywayDemoObject_name_UNQ", members = {"name"})
 @DomainObject(
-        objectType = "flywayDemo.FlywayDemoObject",
         auditing = Auditing.ENABLED,
         publishing = Publishing.ENABLED
 )

@@ -6,7 +6,10 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.util.ObjectContracts;
 
-@javax.jdo.annotations.PersistenceCapable(identityType = IdentityType.DATASTORE)
+@javax.jdo.annotations.PersistenceCapable(
+        identityType = IdentityType.DATASTORE,
+        schema = "exampleLibStringInterpolator"
+)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id")
@@ -18,9 +21,7 @@ import org.apache.isis.applib.util.ObjectContracts;
                 name = "ToDoItem_description_must_be_unique",
                 members = {"description"})
 })
-@DomainObject(
-        objectType = "TODO"
-)
+@DomainObject
 @DomainObjectLayout(
         named = "To Do Item",
         bookmarking = BookmarkPolicy.AS_ROOT

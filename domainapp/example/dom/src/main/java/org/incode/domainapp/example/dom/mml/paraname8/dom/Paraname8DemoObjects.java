@@ -9,14 +9,17 @@ import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
-        repositoryFor = Paraname8DemoObject.class
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "exampleMmlParaname8.Paraname8DemoObjects"
 )
 @DomainServiceLayout(
-        menuOrder = "10"
+        menuOrder = "10",
+        named = "Paraname8 Demo Objects"
 )
 public class Paraname8DemoObjects {
 

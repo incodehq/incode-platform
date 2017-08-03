@@ -21,7 +21,10 @@ import org.incode.domainapp.example.dom.lib.poly.dom.poly.ccowner.CommunicationC
 import org.incode.domainapp.example.dom.lib.poly.dom.poly.ccowner.CommunicationChannelOwnerLink;
 import org.incode.domainapp.example.dom.lib.poly.dom.poly.ccowner.CommunicationChannelOwnerLinks;
 
-@javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
+@javax.jdo.annotations.PersistenceCapable(
+        identityType=IdentityType.DATASTORE,
+        schema = "exampleLibPoly"
+)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="id")
@@ -39,9 +42,7 @@ import org.incode.domainapp.example.dom.lib.poly.dom.poly.ccowner.CommunicationC
                         + "FROM org.incode.domainapp.example.dom.lib.poly.dom.democommchannel.CommunicationChannel "
                         + "WHERE name.indexOf(:name) >= 0 ")
 })
-@DomainObject(
-        objectType = "comms.CommunicationChannel"
-)
+@DomainObject
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
 )

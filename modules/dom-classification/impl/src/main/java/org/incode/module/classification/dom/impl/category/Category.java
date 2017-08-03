@@ -47,8 +47,8 @@ import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
         schema = "incodeClassification",
-        table = "Category",
-        identityType = IdentityType.DATASTORE)
+        identityType = IdentityType.DATASTORE
+)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy = IdGeneratorStrategy.NATIVE,
         column = "id")
@@ -159,7 +159,7 @@ public class Category implements Comparable<Category> {
         }
     }
 
-    @DomainService
+    @DomainService(nature = NatureOfService.DOMAIN)
     public static class IconSubscriber extends AbstractSubscriber {
         @EventHandler
         @Subscribe
@@ -174,7 +174,7 @@ public class Category implements Comparable<Category> {
     /**
      * Implemented as a subscriber so can be overridden by consuming application if required.
      */
-    @DomainService
+    @DomainService(nature = NatureOfService.DOMAIN)
     public static class CssClassSubscriber extends AbstractSubscriber {
         @EventHandler
         @Subscribe

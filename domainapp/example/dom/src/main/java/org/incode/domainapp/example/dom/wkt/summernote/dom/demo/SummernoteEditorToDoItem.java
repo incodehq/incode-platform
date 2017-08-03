@@ -41,7 +41,10 @@ import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.wicket.summernote.cpt.applib.SummernoteEditor;
 
-@javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
+@javax.jdo.annotations.PersistenceCapable(
+        identityType=IdentityType.DATASTORE,
+        schema = "exampleWktSummernote"
+)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="id")
@@ -57,37 +60,35 @@ import org.isisaddons.wicket.summernote.cpt.applib.SummernoteEditor;
     @javax.jdo.annotations.Query(
             name = "todo_all", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.isisaddons.wicket.summernote.fixture.dom.SummernoteEditorToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.wkt.summernote.dom.demo.SummernoteEditorToDoItem "
                     + "WHERE ownedBy == :ownedBy"),
     @javax.jdo.annotations.Query(
             name = "todo_notYetComplete", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.isisaddons.wicket.summernote.fixture.dom.SummernoteEditorToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.wkt.summernote.dom.demo.SummernoteEditorToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "   && complete == false"),
     @javax.jdo.annotations.Query(
             name = "todo_complete", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.isisaddons.wicket.summernote.fixture.dom.SummernoteEditorToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.wkt.summernote.dom.demo.SummernoteEditorToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "&& complete == true"),
     @javax.jdo.annotations.Query(
             name = "todo_similarTo", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.isisaddons.wicket.summernote.fixture.dom.SummernoteEditorToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.wkt.summernote.dom.demo.SummernoteEditorToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "&& category == :category"),
     @javax.jdo.annotations.Query(
             name = "todo_autoComplete", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.isisaddons.wicket.summernote.fixture.dom.SummernoteEditorToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.wkt.summernote.dom.demo.SummernoteEditorToDoItem "
                     + "WHERE ownedBy == :ownedBy && "
                     + "description.indexOf(:description) >= 0")
 })
 @DomainObject(
-        objectType = "TODO",
-        autoCompleteRepository = SummernoteEditorToDoItems.class,
-        autoCompleteAction = "autoComplete"
+        autoCompleteRepository = SummernoteEditorToDoItems.class
 )
 @DomainObjectLayout(
         named = "ToDo Item"
@@ -468,7 +469,7 @@ public class SummernoteEditorToDoItem implements Comparable<SummernoteEditorToDo
         return list;
     }
 
-    public String disableAdd(final SummernoteEditorToDoItem toDoItem) {
+    public String disableAdd() {
         if(isComplete()) {
             return "Cannot add dependencies for items that are complete";
         }
@@ -490,7 +491,7 @@ public class SummernoteEditorToDoItem implements Comparable<SummernoteEditorToDo
         return this;
     }
     // disable action dependent on state of object
-    public String disableRemove(final SummernoteEditorToDoItem toDoItem) {
+    public String disableRemove() {
         if(isComplete()) {
             return "Cannot remove dependencies for items that are complete";
         }

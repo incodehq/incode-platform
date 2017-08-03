@@ -22,7 +22,10 @@ import org.isisaddons.module.tags.dom.Tags;
  * Represents a general purpose mechanism for tagging (or labelling) any entity with a named
  * (string) value.
  */
-@javax.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE)
+@javax.jdo.annotations.PersistenceCapable(
+        identityType= IdentityType.DATASTORE,
+        schema = "exampleDomTags"
+)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy= IdGeneratorStrategy.NATIVE,
         column="id")

@@ -18,11 +18,12 @@ import org.incode.module.commchannel.dom.impl.postaladdress.T_addPostalAddress;
 
 import org.incode.domainapp.example.dom.dom.commchannel.dom.demo.CommChannelDemoObject;
 
-@javax.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE, schema ="incodeCommChannelDemo")
-@javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
-@DomainObject(
-        objectType = "incodeCommChannelDemo.CommunicationChannelOwnerLinkForDemoObject"
+@javax.jdo.annotations.PersistenceCapable(
+        identityType= IdentityType.DATASTORE,
+        schema ="exampleDomCommChannel"
 )
+@javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
+@DomainObject
 public class CommunicationChannelOwnerLinkForDemoObject extends CommunicationChannelOwnerLink {
 
     //region > demoObject (property)

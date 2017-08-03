@@ -105,6 +105,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.isisaddons.module.quartz</groupId>
+            <artifactId>isis-module-quartz-dom</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.isis.mavendeps</groupId>
             <artifactId>isis-mavendeps-webapp</artifactId>
             <type>pom</type>
@@ -118,6 +123,29 @@
     </dependencies>
 
     <profiles>
+
+        <profile>
+            <id>dependency-conflict-resolution</id>
+            <activation>
+                <property>
+                    <name>!skip.dependency-conflict-resolution</name>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>commons-io</groupId>
+                        <artifactId>commons-io</artifactId>
+                        <version>2.4</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>commons-lang</groupId>
+                        <artifactId>commons-lang</artifactId>
+                        <version>2.6</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
 
         <profile>
             <id>jdbc-hsqldb</id>

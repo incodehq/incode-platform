@@ -11,16 +11,17 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.util.ObjectContracts;
 
-@javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
+@javax.jdo.annotations.PersistenceCapable(
+        identityType=IdentityType.DATASTORE,
+        schema = "exampleLibDocx"
+)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="id")
 @javax.jdo.annotations.Version(
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
-@DomainObject(
-    objectType = "ORDER"
-)
+@DomainObject()
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
 )

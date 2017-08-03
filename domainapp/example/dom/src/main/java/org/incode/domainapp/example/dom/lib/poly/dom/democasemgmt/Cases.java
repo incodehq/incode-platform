@@ -14,9 +14,12 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        repositoryFor = Case.class
+        objectType = "exampleLibPoly.Cases"
 )
-@DomainServiceLayout(menuOrder = "30")
+@DomainServiceLayout(
+        menuOrder = "30",
+        named = "Poly Cases"
+)
 public class Cases {
 
     //region > listAll (action)

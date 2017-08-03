@@ -15,11 +15,12 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "isispublishmqDemo.PublishMqDemoObjects",
+        objectType = "exampleSpiPublishMq.PublishMqDemoObjects",
         repositoryFor = PublishMqDemoObject.class
 )
 @DomainServiceLayout(
-        menuOrder = "10"
+        menuOrder = "10",
+        named = "PublishMq Demo Objects"
 )
 public class PublishMqDemoObjects {
 

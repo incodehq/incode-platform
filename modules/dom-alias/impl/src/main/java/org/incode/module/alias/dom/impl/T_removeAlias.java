@@ -1,11 +1,17 @@
 package org.incode.module.alias.dom.impl;
 
-import org.apache.isis.applib.annotation.*;
-import org.incode.module.alias.dom.AliasModule;
-
-import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
+
+import javax.inject.Inject;
+
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.Contributed;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.SemanticsOf;
+
+import org.incode.module.alias.dom.AliasModule;
 
 public abstract class T_removeAlias<T> {
 
@@ -45,7 +51,7 @@ public abstract class T_removeAlias<T> {
         return this.aliased;
     }
 
-    public String disable$$(final Alias alias) {
+    public String disable$$() {
         return choices0$$().isEmpty() ? "No aliases to remove" : null;
     }
 

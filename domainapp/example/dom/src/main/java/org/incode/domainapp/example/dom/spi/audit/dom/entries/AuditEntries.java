@@ -20,11 +20,11 @@ import org.isisaddons.module.audit.dom.AuditingServiceRepository;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "org.isisaddons.module.audit.fixture.dom.AuditEntries"
+        objectType = "exampleSpiAudit.AuditEntries"
 )
 @DomainServiceLayout(
         menuBar = DomainServiceLayout.MenuBar.SECONDARY,
-        named = "Activity"
+        named = "Audit Entries"
 )
 public class AuditEntries {
 

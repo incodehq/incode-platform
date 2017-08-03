@@ -32,7 +32,10 @@ import org.incode.domainapp.example.dom.lib.poly.dom.poly.ccowner.CommunicationC
 import org.incode.domainapp.example.dom.lib.poly.dom.poly.ccowner.CommunicationChannelOwnerLink;
 import org.incode.domainapp.example.dom.lib.poly.dom.poly.ccowner.CommunicationChannelOwnerLinks;
 
-@javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
+@javax.jdo.annotations.PersistenceCapable(
+        identityType=IdentityType.DATASTORE,
+        schema = "exampleLibPoly"
+)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="id")
@@ -47,7 +50,6 @@ import org.incode.domainapp.example.dom.lib.poly.dom.poly.ccowner.CommunicationC
 })
 @javax.jdo.annotations.Unique(name="Party_name_UNQ", members = {"name"})
 @DomainObject(
-        objectType = "PARTY",
         bounded = true
 )
 @DomainObjectLayout(
@@ -160,7 +162,7 @@ public class Party implements CommunicationChannelOwner, CaseContent, Comparable
         return this;
     }
 
-    public String disableRemoveCommunicationChannel(final CommunicationChannel communicationChannel) {
+    public String disableRemoveCommunicationChannel() {
         final List<CommunicationChannelOwnerLink> ownerLinks =
                 communicationChannelOwnerLinks.findByOwner(this);
         return ownerLinks.isEmpty()? "Does not own a communication channel": null;

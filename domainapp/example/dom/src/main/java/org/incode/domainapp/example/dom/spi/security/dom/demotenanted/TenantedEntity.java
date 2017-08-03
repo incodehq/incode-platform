@@ -15,7 +15,10 @@ import org.isisaddons.module.security.dom.tenancy.HasAtPath;
 import lombok.Getter;
 import lombok.Setter;
 
-@javax.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE)
+@javax.jdo.annotations.PersistenceCapable(
+        identityType= IdentityType.DATASTORE,
+        schema = "exampleSpiSecurity"
+)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy= IdGeneratorStrategy.NATIVE,
         column="id")
@@ -26,9 +29,7 @@ import lombok.Setter;
         @javax.jdo.annotations.Unique(
                 name = "TenantedEntity_name_UNQ", members = { "name" })
 })
-@DomainObject(
-        objectType = "isissecurityDemo.TenantedEntity"
-)
+@DomainObject
 @MemberGroupLayout(columnSpans = {4,4,4,12},
         left = {"General"},
         middle = {},

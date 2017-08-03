@@ -20,7 +20,7 @@ import org.incode.domainapp.example.dom.lib.excel.dom.demo.ExcelModuleDemoToDoIt
 import org.incode.domainapp.example.dom.lib.excel.dom.demo.ExcelModuleDemoToDoItems;
 
 @DomainObject(
-        objectType = "org.isisaddons.module.excel.fixture.app.ExcelModuleDemoToDoItemBulkUpdateLineItem"
+        objectType = "exampleLibExcel.ExcelModuleDemoToDoItemBulkUpdateLineItem"
 )
 @DomainObjectLayout(
         named = "Bulk update line item",

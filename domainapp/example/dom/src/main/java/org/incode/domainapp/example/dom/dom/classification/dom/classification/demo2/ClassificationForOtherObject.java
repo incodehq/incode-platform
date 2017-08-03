@@ -21,11 +21,10 @@ import org.incode.domainapp.example.dom.dom.classification.dom.demo2.OtherObject
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType= IdentityType.DATASTORE,
-        schema="incodeClassificationDemo")
-@javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
-@DomainObject(
-        objectType = "incodeClassificationDemo.ClassificationForOtherObject"
+        schema="exampleDomClassification"
 )
+@javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
+@DomainObject
 public class ClassificationForOtherObject extends Classification {
 
     //region > otherObject (property)

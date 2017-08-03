@@ -18,7 +18,10 @@ import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.applib.value.Blob;
 
-@javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
+@javax.jdo.annotations.PersistenceCapable(
+        identityType=IdentityType.DATASTORE,
+        schema = "exampleWktWickedCharts"
+)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="id")
@@ -32,39 +35,37 @@ import org.apache.isis.applib.value.Blob;
 })
 @javax.jdo.annotations.Queries( {
     @javax.jdo.annotations.Query(
-            name = "todo_all", language = "JDOQL",
+            name = "todo_all",
             value = "SELECT "
-                    + "FROM org.isisaddons.wicket.wickedcharts.fixture.dom.WickedChartsWicketToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.wkt.wickedcharts.dom.demo.WickedChartsWicketToDoItem "
                     + "WHERE ownedBy == :ownedBy"),
     @javax.jdo.annotations.Query(
-            name = "todo_notYetComplete", language = "JDOQL",
+            name = "todo_notYetComplete",
             value = "SELECT "
-                    + "FROM org.isisaddons.wicket.wickedcharts.fixture.dom.WickedChartsWicketToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.wkt.wickedcharts.dom.demo.WickedChartsWicketToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "   && complete == false"),
     @javax.jdo.annotations.Query(
-            name = "todo_complete", language = "JDOQL",
+            name = "todo_complete",
             value = "SELECT "
-                    + "FROM org.isisaddons.wicket.wickedcharts.fixture.dom.WickedChartsWicketToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.wkt.wickedcharts.dom.demo.WickedChartsWicketToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "&& complete == true"),
     @javax.jdo.annotations.Query(
-            name = "todo_similarTo", language = "JDOQL",
+            name = "todo_similarTo",
             value = "SELECT "
-                    + "FROM org.isisaddons.wicket.wickedcharts.fixture.dom.WickedChartsWicketToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.wkt.wickedcharts.dom.demo.WickedChartsWicketToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "&& category == :category"),
     @javax.jdo.annotations.Query(
-            name = "todo_autoComplete", language = "JDOQL",
+            name = "todo_autoComplete",
             value = "SELECT "
-                    + "FROM org.isisaddons.wicket.wickedcharts.fixture.dom.WickedChartsWicketToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.wkt.wickedcharts.dom.demo.WickedChartsWicketToDoItem "
                     + "WHERE ownedBy == :ownedBy && "
                     + "description.indexOf(:description) >= 0")
 })
 @DomainObject(
-        objectType = "TODO",
-        autoCompleteRepository = WickedChartsWicketToDoItems.class,
-        autoCompleteAction = "autoComplete"
+        autoCompleteRepository = WickedChartsWicketToDoItems.class
 )
 @DomainObjectLayout(
         named = "ToDo Item"
@@ -450,7 +451,7 @@ public class WickedChartsWicketToDoItem implements Comparable<WickedChartsWicket
         return list;
     }
 
-    public String disableAdd(final WickedChartsWicketToDoItem toDoItem) {
+    public String disableAdd() {
         if(isComplete()) {
             return "Cannot add dependencies for items that are complete";
         }
@@ -472,7 +473,7 @@ public class WickedChartsWicketToDoItem implements Comparable<WickedChartsWicket
         return this;
     }
     // disable action dependent on state of object
-    public String disableRemove(final WickedChartsWicketToDoItem toDoItem) {
+    public String disableRemove() {
         if(isComplete()) {
             return "Cannot remove dependencies for items that are complete";
         }

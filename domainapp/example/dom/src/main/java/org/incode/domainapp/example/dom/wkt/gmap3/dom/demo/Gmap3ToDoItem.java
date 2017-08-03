@@ -35,7 +35,10 @@ import org.isisaddons.wicket.gmap3.cpt.applib.Locatable;
 import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 import org.isisaddons.wicket.gmap3.cpt.service.LocationLookupService;
 
-@javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
+@javax.jdo.annotations.PersistenceCapable(
+        identityType=IdentityType.DATASTORE,
+        schema = "exampleWktGmap3"
+)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="id")
@@ -44,36 +47,35 @@ import org.isisaddons.wicket.gmap3.cpt.service.LocationLookupService;
         column="version")
 @javax.jdo.annotations.Uniques({
     @javax.jdo.annotations.Unique(
-            name="ToDoItem_description_must_be_unique", 
+            name="ToDoItem_description_must_be_unique",
             members={"ownedBy","description"})
 })
 @javax.jdo.annotations.Queries( {
     @javax.jdo.annotations.Query(
             name = "todo_all",
             value = "SELECT "
-                    + "FROM org.isisaddons.wicket.gmap3.fixture.dom.Gmap3ToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.wkt.gmap3.dom.demo.Gmap3ToDoItem "
                     + "WHERE ownedBy == :ownedBy"),
     @javax.jdo.annotations.Query(
             name = "todo_notYetComplete",
             value = "SELECT "
-                    + "FROM org.isisaddons.wicket.gmap3.fixture.dom.Gmap3ToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.wkt.gmap3.dom.demo.Gmap3ToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "   && complete == false"),
     @javax.jdo.annotations.Query(
             name = "todo_complete",
             value = "SELECT "
-                    + "FROM org.isisaddons.wicket.gmap3.fixture.dom.Gmap3ToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.wkt.gmap3.dom.demo.Gmap3ToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "&& complete == true"),
     @javax.jdo.annotations.Query(
             name = "todo_autoComplete",
             value = "SELECT "
-                    + "FROM org.isisaddons.wicket.gmap3.fixture.dom.Gmap3ToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.wkt.gmap3.dom.demo.Gmap3ToDoItem "
                     + "WHERE ownedBy == :ownedBy && "
                     + "description.indexOf(:description) >= 0")
 })
 @DomainObject(
-        objectType = "TODO",
         autoCompleteRepository = Gmap3WicketToDoItems.class
 )
 @DomainObjectLayout(
@@ -255,7 +257,7 @@ public class Gmap3ToDoItem implements Comparable<Gmap3ToDoItem>, Locatable {
         return list;
     }
 
-    public String disableAdd(final Gmap3ToDoItem toDoItem) {
+    public String disableAdd() {
         if(isComplete()) {
             return "Cannot add dependencies for items that are complete";
         }
@@ -278,7 +280,7 @@ public class Gmap3ToDoItem implements Comparable<Gmap3ToDoItem>, Locatable {
         return this;
     }
     // disable action dependent on state of object
-    public String disableRemove(final Gmap3ToDoItem toDoItem) {
+    public String disableRemove() {
         if(isComplete()) {
             return "Cannot remove dependencies for items that are complete";
         }

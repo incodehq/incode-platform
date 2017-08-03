@@ -29,7 +29,10 @@ import org.incode.domainapp.example.dom.lib.poly.dom.poly.ccowner.CommunicationC
 import org.incode.domainapp.example.dom.lib.poly.dom.poly.ccowner.CommunicationChannelOwnerLink;
 import org.incode.domainapp.example.dom.lib.poly.dom.poly.ccowner.CommunicationChannelOwnerLinks;
 
-@javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
+@javax.jdo.annotations.PersistenceCapable(
+        identityType=IdentityType.DATASTORE,
+        schema = "exampleLibPoly"
+)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="id")
@@ -44,7 +47,6 @@ import org.incode.domainapp.example.dom.lib.poly.dom.poly.ccowner.CommunicationC
 })
 @javax.jdo.annotations.Unique(name="FixedAsset_name_UNQ", members = {"name"})
 @DomainObject(
-        objectType = "FIXED_ASSET",
         bounded = true
 )
 @DomainObjectLayout(
@@ -117,8 +119,7 @@ public class FixedAsset implements CommunicationChannelOwner, CaseContent, Compa
         return this;
     }
 
-    public String disableCreateCommunicationChannel(
-            final String details) {
+    public String disableCreateCommunicationChannel() {
         return getCommunicationChannel() != null? "Already owns a communication channel": null;
     }
 

@@ -9,6 +9,7 @@ import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -21,24 +22,17 @@ import org.apache.isis.applib.services.user.UserService;
 
 import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 
-@DomainService(menuOrder = "10")
+@DomainService(
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "exampleWktGmap3.ToDoItems"
+)
 @DomainServiceLayout(
-        named = "ToDos"
+        named = "GMap3 ToDos",
+        menuOrder = "10"
 )
 public class Gmap3WicketToDoItems {
 
 
-    //region > identification in the UI
-
-    public String getId() {
-        return "toDoItems";
-    }
-
-    public String iconName() {
-        return "ToDoItem";
-    }
-
-    //endregion
 
     //region > notYetComplete (action)
 

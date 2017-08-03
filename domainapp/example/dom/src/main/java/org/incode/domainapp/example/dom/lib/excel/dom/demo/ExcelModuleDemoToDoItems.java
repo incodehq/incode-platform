@@ -27,7 +27,7 @@ import org.incode.domainapp.example.dom.lib.excel.dom.demo.ExcelModuleDemoToDoIt
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "org.isisaddons.module.excel.fixture.dom.ExcelModuleDemoToDoItems"
+        objectType = "exampleLibExcel.ExcelModuleDemoToDoItems"
 )
 @DomainServiceLayout(
         named = "ToDos"

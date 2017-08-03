@@ -19,7 +19,7 @@ import org.incode.domainapp.example.dom.spi.audit.dom.demo.SomeAuditedObject;
 
 @DomainService (
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "org.isisaddons.module.audit.fixture.dom.notaudited.SomeNotAuditedObjects",
+        objectType = "exampleSpiAudit.SomeNotAuditedObjects",
         repositoryFor = SomeAuditedObject.class
 )
 @DomainServiceLayout(

@@ -6,26 +6,21 @@ import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-@DomainService
-@DomainServiceLayout(named = "ToDos")
+@DomainService(
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "exampleLibStringInterpolator.ToDoItems"
+)
+@DomainServiceLayout(
+        menuOrder = "10",
+        named = "StringInterpolator ToDos"
+)
 public class StringInterpolatorDemoToDoItems {
 
-
-    //region > identification
-
-    public String getId() {
-        return "toDoItems";
-    }
-
-    public String iconName() {
-        return "ToDoItem";
-    }
-
-    //endregion
 
     //region > newToDo (action)
 

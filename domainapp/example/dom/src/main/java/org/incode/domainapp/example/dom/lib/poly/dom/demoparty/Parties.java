@@ -1,8 +1,7 @@
 package org.incode.domainapp.example.dom.lib.poly.dom.demoparty;
 
-import org.incode.domainapp.example.dom.lib.poly.dom.democommchannel.CommunicationChannel;
-
 import java.util.List;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
@@ -10,11 +9,18 @@ import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-@DomainService(repositoryFor = CommunicationChannel.class)
-@DomainServiceLayout(menuOrder = "20")
+@DomainService(
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "exampleLibPoly.Parties"
+)
+@DomainServiceLayout(
+        menuOrder = "20",
+        named = "Poly Parties"
+)
 public class Parties {
 
     //region > listAll (action)

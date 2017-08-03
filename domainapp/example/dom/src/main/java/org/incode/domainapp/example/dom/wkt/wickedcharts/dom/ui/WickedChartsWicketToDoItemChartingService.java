@@ -26,6 +26,7 @@ import com.googlecode.wickedcharts.highcharts.options.series.Series;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.isisaddons.wicket.wickedcharts.cpt.applib.WickedChart;
@@ -34,9 +35,12 @@ import org.incode.domainapp.example.dom.wkt.wickedcharts.dom.demo.WickedChartsWi
 import org.incode.domainapp.example.dom.wkt.wickedcharts.dom.demo.WickedChartsWicketToDoItem.Category;
 import org.incode.domainapp.example.dom.wkt.wickedcharts.dom.demo.WickedChartsWicketToDoItems;
 
-@DomainService()
+@DomainService(
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "exampleWktWickedCharts.WickedChartsWicketToDoItemChartingService"
+)
 @DomainServiceLayout(
-        named = "Charts",
+        named = "WickedCharts Example",
         menuOrder = "15"
 )
 public class WickedChartsWicketToDoItemChartingService {

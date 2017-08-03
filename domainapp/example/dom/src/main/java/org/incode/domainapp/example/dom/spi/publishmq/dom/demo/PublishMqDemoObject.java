@@ -25,7 +25,8 @@ import org.incode.domainapp.example.dom.spi.publishmq.dom.touch.Touchable;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
-        schema="publishmq")
+        schema="exampleSpiPublishMq"
+)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="id")
@@ -33,7 +34,6 @@ import org.incode.domainapp.example.dom.spi.publishmq.dom.touch.Touchable;
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
 @DomainObject(
-        objectType = "isispublishmqDemo.PublishMqDemoObject",
         publishing = Publishing.ENABLED
 )
 @DomainObjectLayout(

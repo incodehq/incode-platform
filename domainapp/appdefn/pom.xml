@@ -36,6 +36,12 @@
             <artifactId>incode-domainapp-example-dom</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.axonframework</groupId>
+            <artifactId>axon-core</artifactId>
+        </dependency>
+
     </dependencies>
 
     <profiles>

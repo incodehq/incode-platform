@@ -1,11 +1,10 @@
 package org.incode.domainapp.example.dom.lib.servletapi.dom.demo;
 
 import java.io.IOException;
+
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
-import org.isisaddons.module.servletapi.dom.HttpServletRequestProvider;
-import org.isisaddons.module.servletapi.dom.HttpServletResponseProvider;
-import org.isisaddons.module.servletapi.dom.ServletContextProvider;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
@@ -15,16 +14,21 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.util.ObjectContracts;
 
-@javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
+import org.isisaddons.module.servletapi.dom.HttpServletRequestProvider;
+import org.isisaddons.module.servletapi.dom.HttpServletResponseProvider;
+import org.isisaddons.module.servletapi.dom.ServletContextProvider;
+
+@javax.jdo.annotations.PersistenceCapable(
+        identityType=IdentityType.DATASTORE,
+        schema = "exampleLibServletApi"
+)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="id")
 @javax.jdo.annotations.Version(
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
-@DomainObject(
-        objectType = "SERVLETAPI_DEMO_OBJECT"
-)
+@DomainObject
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
 )

@@ -24,7 +24,7 @@ import org.incode.domainapp.example.dom.lib.excel.dom.demo.ExcelModuleDemoToDoIt
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "org.isisaddons.module.excel.fixture.app.ExcelModuleDemoToDoItemBulkUpdateMenu"
+        objectType = "exampleLibExcel.ExcelModuleDemoToDoItemBulkUpdateMenu"
 )
 public class ExcelModuleDemoToDoItemBulkUpdateMenu {
 

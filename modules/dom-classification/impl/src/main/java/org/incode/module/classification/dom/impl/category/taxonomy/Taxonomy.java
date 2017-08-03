@@ -1,24 +1,33 @@
 package org.incode.module.classification.dom.impl.category.taxonomy;
 
-import lombok.Getter;
-import lombok.Setter;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
-import org.apache.isis.applib.annotation.*;
+import javax.inject.Inject;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.InheritanceStrategy;
+
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Collection;
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
 import org.incode.module.classification.dom.impl.applicability.Applicability;
 import org.incode.module.classification.dom.impl.category.Category;
 import org.incode.module.classification.dom.impl.category.CategoryRepository;
 
-import javax.inject.Inject;
-import javax.jdo.annotations.InheritanceStrategy;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.*;
-import java.util.Optional;
-import java.util.function.Predicate;
-
-@javax.jdo.annotations.PersistenceCapable
+@javax.jdo.annotations.PersistenceCapable(
+        identityType = IdentityType.DATASTORE,
+        schema = "incodeClassification"
+)
 @javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.SUPERCLASS_TABLE)
 @DomainObject(
         editing = Editing.DISABLED

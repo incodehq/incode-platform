@@ -22,7 +22,8 @@ import org.incode.domainapp.example.dom.dom.document.dom.demo.DemoObject;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType= IdentityType.DATASTORE,
-        schema="incodeDocumentDemo")
+        schema="exampleDomDocument"
+)
 @javax.jdo.annotations.Inheritance(
         strategy = InheritanceStrategy.NEW_TABLE)
 @DomainObject

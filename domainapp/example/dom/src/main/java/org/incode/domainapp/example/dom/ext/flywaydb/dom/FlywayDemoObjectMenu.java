@@ -15,10 +15,10 @@ import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        repositoryFor = FlywayDemoObject.class
+        objectType = "exampleExtFlywayDb.FlywayDemoObjectMenu"
 )
 @DomainServiceLayout(
-        named = "Simple Objects",
+        named = "FlywayDB Demo Objects",
         menuOrder = "10"
 )
 public class FlywayDemoObjectMenu {

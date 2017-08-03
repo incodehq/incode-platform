@@ -17,7 +17,7 @@ import org.apache.isis.applib.services.xactn.TransactionService;
 
 @DomainService (
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "org.isisaddons.module.audit.fixture.dom.audited.SomeAuditedObjects",
+        objectType = "exampleSpiAudit.SomeAuditedObjects",
         repositoryFor = SomeAuditedObject.class
 )
 @DomainServiceLayout(

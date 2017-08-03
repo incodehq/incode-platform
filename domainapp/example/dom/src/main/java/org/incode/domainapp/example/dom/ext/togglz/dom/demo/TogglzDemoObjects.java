@@ -20,7 +20,7 @@ import org.incode.domainapp.example.dom.ext.togglz.dom.featuretoggle.TogglzDemoF
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "isistogglzDemo.TogglzDemoObjects",
+        objectType = "exampleExtTogglz.TogglzDemoObjects",
         repositoryFor = TogglzDemoObject.class
 )
 @DomainServiceLayout(

@@ -1,13 +1,22 @@
 package org.incode.domainapp.example.dom.dom.classification.dom.menu;
 
-import org.apache.isis.applib.annotation.*;
+import java.util.List;
+
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.SemanticsOf;
+
 import org.incode.module.classification.dom.impl.category.Category;
 import org.incode.module.classification.dom.impl.category.CategoryRepository;
 
-import java.util.List;
-
 @DomainService(
-        nature = NatureOfService.VIEW_MENU_ONLY
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "exampleDomClassification.TaxonomyMenu"
 )
 @DomainServiceLayout(
         named = "Taxonomies",

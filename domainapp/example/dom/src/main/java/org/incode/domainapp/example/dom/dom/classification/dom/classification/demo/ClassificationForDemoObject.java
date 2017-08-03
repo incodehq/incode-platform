@@ -20,11 +20,12 @@ import org.incode.module.classification.dom.spi.ApplicationTenancyService;
 
 import org.incode.domainapp.example.dom.dom.classification.dom.demo.DemoObject;
 
-@javax.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE, schema ="incodeClassificationDemo")
-@javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
-@DomainObject(
-        objectType = "incodeClassificationDemo.ClassificationForDemoObject"
+@javax.jdo.annotations.PersistenceCapable(
+        identityType= IdentityType.DATASTORE,
+        schema ="exampleDomClassification"
 )
+@javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
+@DomainObject
 public class ClassificationForDemoObject extends Classification {
 
     //region > demoObject (property)

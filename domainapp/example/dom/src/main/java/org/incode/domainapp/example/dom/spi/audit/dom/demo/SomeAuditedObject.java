@@ -8,8 +8,7 @@ import org.apache.isis.applib.util.ObjectContracts;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
-        schema = "isisauditdemo",
-        table = "SomeAuditedObject"
+        schema = "exampleSpiAudit"
 )
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
@@ -18,7 +17,6 @@ import org.apache.isis.applib.util.ObjectContracts;
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
 @DomainObject(
-        objectType = "isisauditdemo.SomeAuditedObject",
         auditing = Auditing.ENABLED
 )
 @DomainObjectLayout(

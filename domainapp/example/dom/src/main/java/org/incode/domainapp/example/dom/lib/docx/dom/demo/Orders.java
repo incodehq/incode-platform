@@ -17,25 +17,15 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        repositoryFor = Order.class
+        repositoryFor = Order.class,
+        objectType = "exampleLibDocx.Orders"
 )
 @DomainServiceLayout(
-        menuOrder = "10"
+        menuOrder = "10",
+        named = "Docx Orders"
 )
 public class Orders {
 
-    //region > identification in the UI
-    // //////////////////////////////////////
-
-    public String getId() {
-        return "simple";
-    }
-
-    public String iconName() {
-        return "SimpleObject";
-    }
-
-    //endregion
 
     //region > listAll (action)
     // //////////////////////////////////////

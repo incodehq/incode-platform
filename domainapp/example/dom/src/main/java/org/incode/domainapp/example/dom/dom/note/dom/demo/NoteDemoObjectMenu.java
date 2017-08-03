@@ -13,11 +13,12 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
-        nature = NatureOfService.VIEW,
-        repositoryFor = NoteDemoObject.class
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "exampleDomNote.NoteDemoObjectMenu"
 )
 @DomainServiceLayout(
-        menuOrder = "10"
+        menuOrder = "10",
+        named = "Note Demo Objects"
 )
 public class NoteDemoObjectMenu {
 

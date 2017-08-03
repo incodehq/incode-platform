@@ -9,7 +9,6 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
-import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.util.ObjectContracts;
@@ -17,18 +16,15 @@ import org.apache.isis.applib.util.ObjectContracts;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
-        schema="incodeCommChannelDemo",
-        table="CommChannelDemoObject")
+        schema="exampleDomCommChannel"
+)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="id")
 @javax.jdo.annotations.Version(
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
-@DomainObject(
-        objectType = "incodeCommChannelDemo.CommChannelDemoObject",
-        editing = Editing.DISABLED
-)
+@DomainObject
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
 )

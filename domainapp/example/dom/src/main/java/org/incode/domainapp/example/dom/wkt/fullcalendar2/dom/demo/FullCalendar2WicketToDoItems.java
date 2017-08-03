@@ -9,6 +9,7 @@ import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -16,21 +17,15 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.clock.ClockService;
 
-@DomainService(menuOrder = "10")
+@DomainService(
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "exampleWktFullCalendar2.ToDoItems"
+)
 @DomainServiceLayout(
-        named = "ToDos"
+        named = "FullCalendar2 ToDos",
+        menuOrder = "10"
 )
 public class FullCalendar2WicketToDoItems {
-
-    //region > identification in the UI
-    
-    public String getId() {
-        return "toDoItems";
-    }
-
-    public String iconName() {
-        return "ToDoItem";
-    }
 
     //endregion
 

@@ -33,7 +33,8 @@ import org.apache.isis.applib.value.Password;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
-        schema = "fakedata")
+        schema = "exampleLibFakeData"
+)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="id")
@@ -41,7 +42,6 @@ import org.apache.isis.applib.value.Password;
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
 @DomainObject(
-        objectType = "FAKEDATA_DEMO_OBJECT",
         editing = Editing.DISABLED
 )
 @DomainObjectLayout(

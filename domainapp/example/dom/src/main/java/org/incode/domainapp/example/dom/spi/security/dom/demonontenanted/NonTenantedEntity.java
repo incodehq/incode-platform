@@ -10,7 +10,10 @@ import org.apache.isis.applib.annotation.MemberGroupLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Title;
 
-@javax.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE)
+@javax.jdo.annotations.PersistenceCapable(
+        identityType= IdentityType.DATASTORE,
+        schema = "exampleSpiSecurity"
+)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy= IdGeneratorStrategy.NATIVE,
         column="id")
@@ -21,9 +24,7 @@ import org.apache.isis.applib.annotation.Title;
         @javax.jdo.annotations.Unique(
                 name = "NonTenantedEntity_name_UNQ", members = { "name" })
 })
-@DomainObject(
-        objectType = "isissecurityDemo.NonTenantedEntity"
-)
+@DomainObject
 @MemberGroupLayout(columnSpans = {4,4,4,12},
         left = {"General"},
         middle = {},

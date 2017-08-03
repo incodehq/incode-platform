@@ -16,7 +16,10 @@ import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 import org.incode.domainapp.example.dom.lib.poly.dom.democasemgmt.Case;
 import org.incode.domainapp.example.dom.lib.poly.dom.poly.casecontent.CaseContent;
 
-@javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
+@javax.jdo.annotations.PersistenceCapable(
+        identityType=IdentityType.DATASTORE,
+        schema = "exampleLibPoly"
+)
 @javax.jdo.annotations.DatastoreIdentity(strategy = IdGeneratorStrategy.IDENTITY, column = "id")
 @javax.jdo.annotations.Inheritance(
         strategy = InheritanceStrategy.NEW_TABLE)
@@ -41,9 +44,7 @@ import org.incode.domainapp.example.dom.lib.poly.dom.poly.casecontent.CaseConten
                         + "   && contentIdentifier == :contentIdentifier ")
 })
 @javax.jdo.annotations.Unique(name="CasePrimaryContentLink_case_content_UNQ", members = {"case","contentObjectType","contentIdentifier"})
-@DomainObject(
-        objectType = "casemgmt.CasePrimaryContentLink"
-)
+@DomainObject
 public abstract class CasePrimaryContentLink extends PolymorphicAssociationLink<Case, CaseContent, CasePrimaryContentLink> {
 
     public static class InstantiateEvent

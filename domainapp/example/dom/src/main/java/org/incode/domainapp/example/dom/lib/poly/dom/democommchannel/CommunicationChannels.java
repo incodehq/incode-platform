@@ -8,10 +8,17 @@ import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-@DomainService(repositoryFor = CommunicationChannel.class )
-@DomainServiceLayout(menuOrder = "40")
+@DomainService(
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "exampleLibPoly.CommunicationChannels"
+)
+@DomainServiceLayout(
+        menuOrder = "40",
+        named = "Poly Communication Channels"
+)
 public class CommunicationChannels {
 
     //region > listAll (action)

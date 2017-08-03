@@ -39,7 +39,10 @@ import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.ExcelService;
 
-@javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
+@javax.jdo.annotations.PersistenceCapable(
+        identityType=IdentityType.DATASTORE,
+        schema = "exampleLibExcel"
+)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="id")
@@ -48,7 +51,7 @@ import org.isisaddons.module.excel.dom.ExcelService;
         column="version")
 @javax.jdo.annotations.Uniques({
     @javax.jdo.annotations.Unique(
-            name="ToDoItem_description_must_be_unique", 
+            name="ToDoItem_description_must_be_unique",
             members={"ownedBy","description"})
 })
 @javax.jdo.annotations.Queries( {
@@ -89,7 +92,6 @@ import org.isisaddons.module.excel.dom.ExcelService;
                     + "description.indexOf(:description) >= 0")
 })
 @DomainObject(
-        objectType = "TODO",
         autoCompleteRepository = ExcelModuleDemoToDoItems.class,
         autoCompleteAction = "autoComplete"
 )

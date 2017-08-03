@@ -1,6 +1,7 @@
 package org.incode.domainapp.example.dom.lib.poly.dom.poly.casecontent.fixedasset;
 
 import javax.jdo.annotations.Column;
+import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
 
 import com.google.common.eventbus.Subscribe;
@@ -17,12 +18,13 @@ import org.incode.domainapp.example.dom.lib.poly.dom.demofixedasset.FixedAsset;
 import org.incode.domainapp.example.dom.lib.poly.dom.poly.casecontent.CaseContent;
 import org.incode.domainapp.example.dom.lib.poly.dom.poly.casecontent.CaseContentLink;
 
-@javax.jdo.annotations.PersistenceCapable()
+@javax.jdo.annotations.PersistenceCapable(
+        identityType = IdentityType.DATASTORE,
+        schema = "exampleLibPoly"
+)
 @javax.jdo.annotations.Inheritance(
         strategy = InheritanceStrategy.NEW_TABLE)
-@DomainObject(
-        objectType = "fixedasset.CaseContentLinkForFixedAsset"
-)
+@DomainObject
 public class CaseContentLinkForFixedAsset extends CaseContentLink {
 
     @DomainService(nature = NatureOfService.DOMAIN)

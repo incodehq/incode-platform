@@ -13,11 +13,12 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
-        nature = NatureOfService.VIEW,
-        repositoryFor = CommChannelDemoObject.class
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "exampleDomCommChannel.CommChannelDemoObjectMenu"
 )
 @DomainServiceLayout(
-        menuOrder = "10"
+        menuOrder = "10",
+        named = "CommChannel Demo Objects"
 )
 public class CommChannelDemoObjectMenu {
 

@@ -14,11 +14,11 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
 @DomainService(
-        nature = NatureOfService.VIEW,
-        repositoryFor = DemoObject.class
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "exampleWktPdfjs.DemoObjectMenu"
 )
 @DomainServiceLayout(
-        named = "Demo Objects",
+        named = "PdfJs Demo Objects",
         menuOrder = "10"
 )
 public class DemoObjectMenu {

@@ -15,10 +15,10 @@ import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "incodeCommunicationsDemo.DemoCustomerMenu"
+        objectType = "exampleDomCommunications.DemoCustomerMenu"
 )
 @DomainServiceLayout(
-        named = "Demo Customers",
+        named = "Communications Demo Customers",
         menuOrder = "10"
 )
 public class DemoCustomerMenu {

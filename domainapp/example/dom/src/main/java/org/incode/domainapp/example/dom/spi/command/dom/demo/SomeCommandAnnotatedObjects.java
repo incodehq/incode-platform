@@ -14,25 +14,15 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "org.isisaddons.module.command.fixture.dom.SomeCommandAnnotatedObjects",
+        objectType = "exampleSpiCommand.SomeCommandAnnotatedObjects",
         repositoryFor = SomeCommandAnnotatedObject.class
 )
 @DomainServiceLayout(
-        menuOrder = "10"
+        menuOrder = "10",
+        named = "Command annotated objects"
 )
 public class SomeCommandAnnotatedObjects {
 
-    //region > identification in the UI
-
-    public String getId() {
-        return "simple";
-    }
-
-    public String iconName() {
-        return "SimpleObject";
-    }
-
-    //endregion
 
     //region > listAll (action)
 

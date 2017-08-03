@@ -20,10 +20,13 @@ import org.incode.domainapp.example.dom.spi.security.dom.demonontenanted.NonTena
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "isissecurityDemo.TenantedEntities",
+        objectType = "exampleSpiSecurity.TenantedEntities",
         repositoryFor = TenantedEntity.class
 )
-@DomainServiceLayout(menuOrder = "20")
+@DomainServiceLayout(
+        menuOrder = "20",
+        named = "Security Tenanted"
+)
 public class TenantedEntities {
 
     @Programmatic

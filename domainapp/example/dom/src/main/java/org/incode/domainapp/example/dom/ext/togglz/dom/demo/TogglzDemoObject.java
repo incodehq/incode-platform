@@ -12,16 +12,15 @@ import org.apache.isis.applib.util.ObjectContracts;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
-        schema="togglz")
+        schema="exampleExtTogglz"
+)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="id")
 @javax.jdo.annotations.Version(
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
-@DomainObject(
-        objectType = "XXX_DEMO_OBJECT"
-)
+@DomainObject
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
 )

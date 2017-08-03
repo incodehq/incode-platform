@@ -23,7 +23,8 @@ import org.incode.domainapp.example.dom.dom.communications.dom.demo2.DemoInvoice
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType= IdentityType.DATASTORE,
-        schema="incodeCommunicationsDemo")
+        schema="exampleDomCommunications"
+)
 @javax.jdo.annotations.Inheritance(
         strategy = InheritanceStrategy.NEW_TABLE)
 @DomainObject(

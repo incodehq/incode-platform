@@ -18,6 +18,7 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
@@ -83,7 +84,7 @@ public abstract class Alias implements Comparable<Alias> {
     /**
      * Implemented as a subscriber so can be overridden by consuming application if required.
      */
-    @DomainService
+    @DomainService(nature = NatureOfService.DOMAIN)
     public static class TitleSubscriber extends AbstractSubscriber {
         @EventHandler
         @Subscribe
@@ -111,7 +112,7 @@ public abstract class Alias implements Comparable<Alias> {
     /**
      * Implemented as a subscriber so can be overridden by consuming application if required.
      */
-    @DomainService
+    @DomainService(nature = NatureOfService.DOMAIN)
     public static class IconSubscriber extends AbstractSubscriber {
         @EventHandler
         @Subscribe
@@ -126,7 +127,7 @@ public abstract class Alias implements Comparable<Alias> {
     /**
      * Implemented as a subscriber so can be overridden by consuming application if required.
      */
-    @DomainService
+    @DomainService(nature = NatureOfService.DOMAIN)
     public static class CssClassSubscriber extends AbstractSubscriber {
         @EventHandler
         @Subscribe

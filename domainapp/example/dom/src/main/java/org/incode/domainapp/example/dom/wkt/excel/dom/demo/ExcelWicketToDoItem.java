@@ -18,7 +18,10 @@ import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.applib.value.Blob;
 
-@javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
+@javax.jdo.annotations.PersistenceCapable(
+        identityType=IdentityType.DATASTORE,
+        schema = "exampleWktExcel"
+)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="id")
@@ -27,44 +30,42 @@ import org.apache.isis.applib.value.Blob;
         column="version")
 @javax.jdo.annotations.Uniques({
     @javax.jdo.annotations.Unique(
-            name="ToDoItem_description_must_be_unique", 
+            name="ToDoItem_description_must_be_unique",
             members={"ownedBy","description"})
 })
 @javax.jdo.annotations.Queries( {
     @javax.jdo.annotations.Query(
             name = "todo_all", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.isisaddons.wicket.excel.fixture.dom.ExcelWicketToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.wkt.excel.dom.demo.ExcelWicketToDoItem "
                     + "WHERE ownedBy == :ownedBy"),
     @javax.jdo.annotations.Query(
             name = "todo_notYetComplete", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.isisaddons.wicket.excel.fixture.dom.ExcelWicketToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.wkt.excel.dom.demo.ExcelWicketToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "   && complete == false"),
     @javax.jdo.annotations.Query(
             name = "todo_complete", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.isisaddons.wicket.excel.fixture.dom.ExcelWicketToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.wkt.excel.dom.demo.ExcelWicketToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "&& complete == true"),
     @javax.jdo.annotations.Query(
             name = "todo_similarTo", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.isisaddons.wicket.excel.fixture.dom.ExcelWicketToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.wkt.excel.dom.demo.ExcelWicketToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "&& category == :category"),
     @javax.jdo.annotations.Query(
             name = "todo_autoComplete", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.isisaddons.wicket.excel.fixture.dom.ExcelWicketToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.wkt.excel.dom.demo.ExcelWicketToDoItem "
                     + "WHERE ownedBy == :ownedBy && "
                     + "description.indexOf(:description) >= 0")
 })
 @DomainObject(
-        objectType = "TODO",
-        autoCompleteRepository = ExcelWicketToDoItems.class,
-        autoCompleteAction = "autoComplete"
+        autoCompleteRepository = ExcelWicketToDoItems.class
 )
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT,
@@ -415,7 +416,7 @@ public class ExcelWicketToDoItem implements Comparable<ExcelWicketToDoItem> {
         return list;
     }
 
-    public String disableAdd(final ExcelWicketToDoItem toDoItem) {
+    public String disableAdd() {
         if(isComplete()) {
             return "Cannot add dependencies for items that are complete";
         }
@@ -437,7 +438,7 @@ public class ExcelWicketToDoItem implements Comparable<ExcelWicketToDoItem> {
         return this;
     }
     // disable action dependent on state of object
-    public String disableRemove(final ExcelWicketToDoItem toDoItem) {
+    public String disableRemove() {
         if(isComplete()) {
             return "Cannot remove dependencies for items that are complete";
         }

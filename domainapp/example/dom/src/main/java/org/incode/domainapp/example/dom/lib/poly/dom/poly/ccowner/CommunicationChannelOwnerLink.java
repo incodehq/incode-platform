@@ -14,7 +14,10 @@ import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 
 import org.incode.domainapp.example.dom.lib.poly.dom.democommchannel.CommunicationChannel;
 
-@javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
+@javax.jdo.annotations.PersistenceCapable(
+        identityType=IdentityType.DATASTORE,
+        schema = "exampleLibPoly"
+)
 @javax.jdo.annotations.DatastoreIdentity(strategy = IdGeneratorStrategy.IDENTITY, column = "id")
 @javax.jdo.annotations.Inheritance(
         strategy = InheritanceStrategy.NEW_TABLE)
@@ -32,9 +35,7 @@ import org.incode.domainapp.example.dom.lib.poly.dom.democommchannel.Communicati
                         + "   && ownerIdentifier == :ownerIdentifier ")
 })
 @javax.jdo.annotations.Unique(name="CommunicationChannelOwnerLink_commchannel_owner_UNQ", members = {"communicationChannel","ownerObjectType","ownerIdentifier"})
-@DomainObject(
-        objectType = "comms.CommunicationChannelOwnerLink"
-)
+@DomainObject
 public abstract class CommunicationChannelOwnerLink extends PolymorphicAssociationLink<CommunicationChannel, CommunicationChannelOwner, CommunicationChannelOwnerLink> {
 
 

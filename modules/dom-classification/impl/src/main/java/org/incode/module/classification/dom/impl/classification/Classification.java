@@ -1,24 +1,38 @@
 package org.incode.module.classification.dom.impl.classification;
 
-import com.google.common.eventbus.Subscribe;
-import lombok.Getter;
-import lombok.Setter;
-import org.apache.isis.applib.AbstractSubscriber;
-import org.apache.isis.applib.annotation.*;
-import org.apache.isis.applib.services.title.TitleService;
-import org.apache.isis.applib.util.ObjectContracts;
-import org.axonframework.eventhandling.annotation.EventHandler;
-import org.incode.module.classification.dom.ClassificationModule;
-import org.incode.module.classification.dom.impl.category.Category;
-import org.incode.module.classification.dom.impl.category.CategoryRepository;
-import org.incode.module.classification.dom.impl.category.taxonomy.Taxonomy;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
-import java.util.List;
-import java.util.stream.Collectors;
+
+import com.google.common.eventbus.Subscribe;
+
+import org.axonframework.eventhandling.annotation.EventHandler;
+
+import org.apache.isis.applib.AbstractSubscriber;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.services.title.TitleService;
+import org.apache.isis.applib.util.ObjectContracts;
+
+import org.incode.module.classification.dom.ClassificationModule;
+import org.incode.module.classification.dom.impl.category.Category;
+import org.incode.module.classification.dom.impl.category.CategoryRepository;
+import org.incode.module.classification.dom.impl.category.taxonomy.Taxonomy;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
@@ -114,7 +128,7 @@ public abstract class Classification implements Comparable<Classification> {
     /**
      * Implemented as a subscriber so can be overridden by consuming application if required.
      */
-    @DomainService
+    @DomainService(nature = NatureOfService.DOMAIN)
     public static class IconSubscriber extends AbstractSubscriber {
         @EventHandler
         @Subscribe
@@ -129,7 +143,7 @@ public abstract class Classification implements Comparable<Classification> {
     /**
      * Implemented as a subscriber so can be overridden by consuming application if required.
      */
-    @DomainService
+    @DomainService(nature = NatureOfService.DOMAIN)
     public static class CssClassSubscriber extends AbstractSubscriber {
         @EventHandler
         @Subscribe

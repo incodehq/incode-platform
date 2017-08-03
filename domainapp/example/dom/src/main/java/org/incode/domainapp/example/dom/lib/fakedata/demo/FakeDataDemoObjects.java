@@ -13,11 +13,12 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
-        nature = NatureOfService.VIEW,
-        repositoryFor = FakeDataDemoObject.class
+        nature = NatureOfService.VIEW_MENU_ONLY,
+        objectType = "exampleLibFakeData.FakeDataDemoObjects"
 )
 @DomainServiceLayout(
-        menuOrder = "10"
+        menuOrder = "10",
+        named = "FakeData Demo Objects"
 )
 public class FakeDataDemoObjects {
 

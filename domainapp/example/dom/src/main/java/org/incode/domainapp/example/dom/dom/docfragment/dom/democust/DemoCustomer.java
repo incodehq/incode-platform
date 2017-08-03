@@ -28,8 +28,7 @@ import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
-        schema = "incodeDocFragmentDemo",
-        table = "DemoCustomer"
+        schema = "exampleDomDocFragment"
 )
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
@@ -37,8 +36,7 @@ import lombok.Setter;
 @javax.jdo.annotations.Version(
         strategy= VersionStrategy.VERSION_NUMBER,
         column="version")
-@DomainObject(
-        objectType = "docfragmentdemo.DemoCustomer")
+@DomainObject
 public class DemoCustomer implements Comparable<DemoCustomer> {
 
     @Builder

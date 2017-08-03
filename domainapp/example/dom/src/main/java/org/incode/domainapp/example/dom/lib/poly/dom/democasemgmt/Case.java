@@ -16,7 +16,10 @@ import org.apache.isis.applib.util.ObjectContracts;
 
 import org.incode.domainapp.example.dom.lib.poly.dom.poly.casecontent.CaseContentLinks;
 
-@javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
+@javax.jdo.annotations.PersistenceCapable(
+        identityType=IdentityType.DATASTORE,
+        schema = "exampleLibPoly"
+)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="id")
@@ -34,9 +37,7 @@ import org.incode.domainapp.example.dom.lib.poly.dom.poly.casecontent.CaseConten
                         + "FROM org.incode.domainapp.example.dom.lib.poly.dom.democasemgmt.Case "
                         + "WHERE name.indexOf(:name) >= 0 ")
 })
-@DomainObject(
-        objectType = "casemgmt.Case"
-)
+@DomainObject()
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
 )

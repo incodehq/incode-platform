@@ -21,7 +21,7 @@
     xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
-    <display-name>Demo app</display-name>
+    <display-name>Domain App</display-name>
 
     <welcome-file-list>
         <welcome-file>about/index.html</welcome-file>
@@ -218,7 +218,7 @@
         <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
         <init-param>
             <param-name>applicationClassName</param-name>
-            <param-value>org.incode.platform.demo.webapp.DemoApplication</param-value>
+            <param-value>domainapp.webapp.DomainAppWicketApplication</param-value>
         </init-param>
     </filter>
     <filter-mapping>
@@ -350,5 +350,23 @@
         <res-auth>Container</res-auth>
     </resource-ref>
      -->
+
+    <servlet>
+        <servlet-name>QuartzInitializer</servlet-name>
+        <servlet-class>org.quartz.ee.servlet.QuartzInitializerServlet</servlet-class>
+        <init-param>
+            <param-name>config-file</param-name>
+            <param-value>domainapp/webapp/quartz/quartz.properties</param-value>
+        </init-param>
+        <init-param>
+            <param-name>shutdown-on-unload</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>start-scheduler-on-load</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 
 </web-app>

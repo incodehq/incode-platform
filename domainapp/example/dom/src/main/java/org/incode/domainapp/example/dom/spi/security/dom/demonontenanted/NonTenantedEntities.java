@@ -17,10 +17,13 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "isissecurityDemo.NonTenantedEntities",
+        objectType = "exampleSpiSecurity.NonTenantedEntities",
         repositoryFor = NonTenantedEntity.class
 )
-@DomainServiceLayout(menuOrder = "10")
+@DomainServiceLayout(
+        menuOrder = "10",
+        named = "Security Non-tenanted"
+)
 public class NonTenantedEntities {
 
     //region > identification in the UI

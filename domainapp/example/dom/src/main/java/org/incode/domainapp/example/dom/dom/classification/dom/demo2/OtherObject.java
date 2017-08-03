@@ -1,14 +1,19 @@
 package org.incode.domainapp.example.dom.dom.classification.dom.demo2;
 
-import org.apache.isis.applib.annotation.*;
-import org.apache.isis.applib.util.ObjectContracts;
-
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 
+import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
+import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.Title;
+import org.apache.isis.applib.util.ObjectContracts;
+
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
-        schema="incodeClassificationDemo")
+        schema="exampleDomClassification"
+)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="id")

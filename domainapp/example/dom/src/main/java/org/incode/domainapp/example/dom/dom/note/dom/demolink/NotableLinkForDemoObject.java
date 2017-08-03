@@ -16,11 +16,12 @@ import org.incode.module.note.dom.impl.note.T_notes;
 import org.incode.module.note.dom.impl.note.T_removeNote;
 import org.incode.domainapp.example.dom.dom.note.dom.demo.NoteDemoObject;
 
-@javax.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE, schema ="incodeNoteDemo")
-@javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
-@DomainObject(
-        objectType = "incodeNoteDemo.NotableLinkForDemoObject"
+@javax.jdo.annotations.PersistenceCapable(
+        identityType= IdentityType.DATASTORE,
+        schema ="exampleDomNote"
 )
+@javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
+@DomainObject()
 public class NotableLinkForDemoObject extends NotableLink {
 
 
