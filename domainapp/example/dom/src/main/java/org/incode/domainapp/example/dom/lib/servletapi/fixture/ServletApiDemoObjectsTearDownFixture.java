@@ -7,7 +7,7 @@ public class ServletApiDemoObjectsTearDownFixture extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"ServletApiDemoObject\"");
+        isisJdoSupport.executeUpdate("delete from \"exampleLibServletApi\".\"ServletApiDemoObject\"");
     }
 
 

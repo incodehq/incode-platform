@@ -7,7 +7,7 @@ public class PublishMqDemoObjectsTearDownFixture extends FixtureScript {
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"publishmq\".\"PublishMqDemoObject\"");
+        isisJdoSupport.executeUpdate("delete from \"exampleSpiPublishMq\".\"PublishMqDemoObject\"");
     }
 
     @javax.inject.Inject

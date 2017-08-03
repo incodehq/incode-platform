@@ -9,10 +9,10 @@ public class DocumentDemoAppTearDownFixture extends FixtureScript {
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"incodeDocumentDemo\".\"PaperclipForDemoObject\"");
-        isisJdoSupport.executeUpdate("delete from \"incodeDocumentDemo\".\"DemoObject\"");
-        isisJdoSupport.executeUpdate("delete from \"incodeDocumentDemo\".\"PaperclipForOtherObject\"");
-        isisJdoSupport.executeUpdate("delete from \"incodeDocumentDemo\".\"OtherObject\"");
+        isisJdoSupport.executeUpdate("delete from \"exampleDomDocument\".\"PaperclipForDemoObject\"");
+        isisJdoSupport.executeUpdate("delete from \"exampleDomDocument\".\"DemoObject\"");
+        isisJdoSupport.executeUpdate("delete from \"exampleDomDocument\".\"PaperclipForOtherObject\"");
+        isisJdoSupport.executeUpdate("delete from \"exampleDomDocument\".\"OtherObject\"");
 
         executionContext.executeChild(this, new DocumentModuleTearDown());
     }

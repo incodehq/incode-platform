@@ -7,8 +7,8 @@ public class DocxModuleAppTeardownFixture extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"OrderLine\"");
-        isisJdoSupport.executeUpdate("delete from \"Order\"");
+        isisJdoSupport.executeUpdate("delete from \"exampleLibDocx\".\"OrderLine\"");
+        isisJdoSupport.executeUpdate("delete from \"exampleLibDocx\".\"Order\"");
     }
 
 

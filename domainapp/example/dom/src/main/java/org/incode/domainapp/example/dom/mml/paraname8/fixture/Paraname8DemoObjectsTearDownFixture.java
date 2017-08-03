@@ -7,7 +7,7 @@ public class Paraname8DemoObjectsTearDownFixture extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"Paraname8DemoObject\"");
+        isisJdoSupport.executeUpdate("delete from \"exampleMmlParaname8\".\"Paraname8DemoObject\"");
     }
 
 

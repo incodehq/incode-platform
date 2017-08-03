@@ -92,8 +92,7 @@ import org.isisaddons.module.excel.dom.ExcelService;
                     + "description.indexOf(:description) >= 0")
 })
 @DomainObject(
-        autoCompleteRepository = ExcelModuleDemoToDoItems.class,
-        autoCompleteAction = "autoComplete"
+        autoCompleteRepository = ExcelModuleDemoToDoItems.class
 )
 @DomainObjectLayout(
         named = "To Do Item",

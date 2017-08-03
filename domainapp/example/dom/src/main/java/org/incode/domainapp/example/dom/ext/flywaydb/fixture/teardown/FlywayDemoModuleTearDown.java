@@ -7,7 +7,7 @@ public class FlywayDemoModuleTearDown extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"flywayDemo\".\"FlywayDemoObject\"");
+        isisJdoSupport.executeUpdate("delete from \"exampleExtFlywayDb\".\"FlywayDemoObject\"");
     }
 
 

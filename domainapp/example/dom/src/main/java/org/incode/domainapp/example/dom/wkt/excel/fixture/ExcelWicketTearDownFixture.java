@@ -15,12 +15,12 @@ public class ExcelWicketTearDownFixture extends FixtureScript {
     protected void execute(ExecutionContext executionContext) {
 
         if(ownedBy != null) {
-            isisJdoSupport.executeUpdate("delete from \"ExcelWicketToDoItemDependencies\" where \"dependingId\" IN (select \"id\" from \"ExcelWicketToDoItem\" where \"ownedBy\" = '" + ownedBy + "') ");
-            isisJdoSupport.executeUpdate("delete from \"ExcelWicketToDoItemDependencies\" where \"dependentId\" IN (select \"id\" from \"ExcelWicketToDoItem\" where \"ownedBy\" = '" + ownedBy + "') ");
-            isisJdoSupport.executeUpdate("delete from \"ExcelWicketToDoItem\" where \"ownedBy\" = '" + ownedBy + "'");
+            isisJdoSupport.executeUpdate("delete from \"exampleWktExcel\".\"ExcelWicketToDoItemDependencies\" where \"dependingId\" IN (select \"id\" from \"exampleWktExcel\".\"ExcelWicketToDoItem\" where \"ownedBy\" = '" + ownedBy + "') ");
+            isisJdoSupport.executeUpdate("delete from \"exampleWktExcel\".\"ExcelWicketToDoItemDependencies\" where \"dependentId\" IN (select \"id\" from \"exampleWktExcel\".\"ExcelWicketToDoItem\" where \"ownedBy\" = '" + ownedBy + "') ");
+            isisJdoSupport.executeUpdate("delete from \"exampleWktExcel\".\"ExcelWicketToDoItem\" where \"ownedBy\" = '" + ownedBy + "'");
         } else {
-            isisJdoSupport.executeUpdate("delete from \"ExcelWicketToDoItemDependencies\"");
-            isisJdoSupport.executeUpdate("delete from \"ExcelWicketToDoItem\"");
+            isisJdoSupport.executeUpdate("delete from \"exampleWktExcel\".\"ExcelWicketToDoItemDependencies\"");
+            isisJdoSupport.executeUpdate("delete from \"exampleWktExcel\".\"ExcelWicketToDoItem\"");
         }
     }
 

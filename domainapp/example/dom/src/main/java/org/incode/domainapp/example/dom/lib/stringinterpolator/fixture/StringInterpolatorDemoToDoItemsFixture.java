@@ -1,10 +1,10 @@
 package org.incode.domainapp.example.dom.lib.stringinterpolator.fixture;
 
-import org.incode.domainapp.example.dom.lib.stringinterpolator.dom.demo.StringInterpolatorDemoToDoItem;
-import org.incode.domainapp.example.dom.lib.stringinterpolator.dom.demo.StringInterpolatorDemoToDoItems;
-
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
+
+import org.incode.domainapp.example.dom.lib.stringinterpolator.dom.demo.StringInterpolatorDemoToDoItem;
+import org.incode.domainapp.example.dom.lib.stringinterpolator.dom.demo.StringInterpolatorDemoToDoItems;
 
 public class StringInterpolatorDemoToDoItemsFixture extends DiscoverableFixtureScript {
 
@@ -21,7 +21,7 @@ public class StringInterpolatorDemoToDoItemsFixture extends DiscoverableFixtureS
     @Override
     public void execute(final ExecutionContext executionContext) {
 
-        isisJdoSupport.executeUpdate("delete from \"StringInterpolatorDemoToDoItem\"");
+        isisJdoSupport.executeUpdate("delete from \"exampleLibStringInterpolator\".\"StringInterpolatorDemoToDoItem\"");
 
         installFor(executionContext);
 

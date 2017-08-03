@@ -8,8 +8,8 @@ public class AuditDemoAppTearDownFixture extends FixtureScript {
     @Override
     protected void execute(ExecutionContext executionContext) {
         isisJdoSupport.executeUpdate("delete from \"isisaudit\".\"AuditEntry\"");
-        isisJdoSupport.executeUpdate("delete from \"isisauditdemo\".\"SomeAuditedObject\"");
-        isisJdoSupport.executeUpdate("delete from \"isisauditdemo\".\"SomeNotAuditedObject\"");
+        isisJdoSupport.executeUpdate("delete from \"exampleSpiAudit\".\"SomeAuditedObject\"");
+        isisJdoSupport.executeUpdate("delete from \"exampleSpiAudit\".\"SomeNotAuditedObject\"");
     }
 
 

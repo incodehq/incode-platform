@@ -12,6 +12,12 @@
     <artifactId>incode-platform-dom-docfragment-integtests</artifactId>
     <name>Incode Platform Subdomain DocFragment IntegTests</name>
 
+    <properties>
+        <!--
+        <skipTests>true</skipTests>
+        -->
+    </properties>
+
     <build>
         <plugins>
             <plugin>

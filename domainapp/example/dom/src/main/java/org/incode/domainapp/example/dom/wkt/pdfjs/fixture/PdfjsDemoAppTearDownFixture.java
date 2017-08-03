@@ -7,7 +7,7 @@ public class PdfjsDemoAppTearDownFixture extends FixtureScript {
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"isisaddonsPdfjsDemo\".\"DemoObject\"");
+        isisJdoSupport.executeUpdate("delete from \"exampleWktPdfjs\".\"DemoObject\"");
     }
 
 

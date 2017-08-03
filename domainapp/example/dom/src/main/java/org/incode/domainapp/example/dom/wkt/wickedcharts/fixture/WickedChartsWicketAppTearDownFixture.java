@@ -14,12 +14,12 @@ public class WickedChartsWicketAppTearDownFixture extends FixtureScript {
     protected void execute(ExecutionContext executionContext) {
 
         if(ownedBy != null) {
-            isisJdoSupport.executeUpdate("delete from \"WickedChartsWicketToDoItemDependencies\" where \"dependingId\" IN (select \"id\" from \"WickedChartsWicketToDoItem\" where \"ownedBy\" = '" + ownedBy + "') ");
-            isisJdoSupport.executeUpdate("delete from \"WickedChartsWicketToDoItemDependencies\" where \"dependentId\" IN (select \"id\" from \"WickedChartsWicketToDoItem\" where \"ownedBy\" = '" + ownedBy + "') ");
-            isisJdoSupport.executeUpdate("delete from \"WickedChartsWicketToDoItem\" where \"ownedBy\" = '" + ownedBy + "'");
+            isisJdoSupport.executeUpdate("delete from \"exampleWktWickedCharts\".\"WickedChartsWicketToDoItemDependencies\" where \"dependingId\" IN (select \"id\" from \"exampleWktWickedCharts\".\"WickedChartsWicketToDoItem\" where \"ownedBy\" = '" + ownedBy + "') ");
+            isisJdoSupport.executeUpdate("delete from \"exampleWktWickedCharts\".\"WickedChartsWicketToDoItemDependencies\" where \"dependentId\" IN (select \"id\" from \"exampleWktWickedCharts\".\"WickedChartsWicketToDoItem\" where \"ownedBy\" = '" + ownedBy + "') ");
+            isisJdoSupport.executeUpdate("delete from \"exampleWktWickedCharts\".\"WickedChartsWicketToDoItem\" where \"ownedBy\" = '" + ownedBy + "'");
         } else {
-            isisJdoSupport.executeUpdate("delete from \"WickedChartsWicketToDoItemDependencies\"");
-            isisJdoSupport.executeUpdate("delete from \"WickedChartsWicketToDoItem\"");
+            isisJdoSupport.executeUpdate("delete from \"exampleWktWickedCharts\".\"WickedChartsWicketToDoItemDependencies\"");
+            isisJdoSupport.executeUpdate("delete from \"exampleWktWickedCharts\".\"WickedChartsWicketToDoItem\"");
         }
     }
 

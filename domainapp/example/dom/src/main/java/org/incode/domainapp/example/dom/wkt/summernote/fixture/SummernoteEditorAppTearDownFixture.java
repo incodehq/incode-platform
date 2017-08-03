@@ -14,12 +14,12 @@ public class SummernoteEditorAppTearDownFixture extends FixtureScript {
     protected void execute(ExecutionContext executionContext) {
 
         if(ownedBy != null) {
-            isisJdoSupport.executeUpdate("delete from \"SummernoteEditorToDoItemDependencies\" where \"dependingId\" IN (select \"id\" from \"SummernoteEditorToDoItem\" where \"ownedBy\" = '" + ownedBy + "') ");
-            isisJdoSupport.executeUpdate("delete from \"SummernoteEditorToDoItemDependencies\" where \"dependentId\" IN (select \"id\" from \"SummernoteEditorToDoItem\" where \"ownedBy\" = '" + ownedBy + "') ");
-            isisJdoSupport.executeUpdate("delete from \"SummernoteEditorToDoItem\" where \"ownedBy\" = '" + ownedBy + "'");
+            isisJdoSupport.executeUpdate("delete from \"exampleWktSummernote\".\"SummernoteEditorToDoItemDependencies\" where \"dependingId\" IN (select \"id\" from \"exampleWktSummernote\".\"SummernoteEditorToDoItem\" where \"ownedBy\" = '" + ownedBy + "') ");
+            isisJdoSupport.executeUpdate("delete from \"exampleWktSummernote\".\"SummernoteEditorToDoItemDependencies\" where \"dependentId\" IN (select \"id\" from \"exampleWktSummernote\".\"SummernoteEditorToDoItem\" where \"ownedBy\" = '" + ownedBy + "') ");
+            isisJdoSupport.executeUpdate("delete from \"exampleWktSummernote\".\"SummernoteEditorToDoItem\" where \"ownedBy\" = '" + ownedBy + "'");
         } else {
-            isisJdoSupport.executeUpdate("delete from \"SummernoteEditorToDoItemDependencies\"");
-            isisJdoSupport.executeUpdate("delete from \"SummernoteEditorWicketToDoItem\"");
+            isisJdoSupport.executeUpdate("delete from \"exampleWktSummernote\".\"SummernoteEditorToDoItemDependencies\"");
+            isisJdoSupport.executeUpdate("delete from \"exampleWktSummernote\".\"SummernoteEditorWicketToDoItem\"");
         }
     }
 

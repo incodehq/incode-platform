@@ -7,8 +7,8 @@ public class CommChannelDemoObjectsTearDownFixture extends FixtureScript {
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"incodeCommChannelDemo\".\"CommunicationChannelOwnerLinkForDemoObject\"");
-        isisJdoSupport.executeUpdate("delete from \"incodeCommChannelDemo\".\"CommChannelDemoObject\"");
+        isisJdoSupport.executeUpdate("delete from \"exampleDomCommChannel\".\"CommunicationChannelOwnerLinkForDemoObject\"");
+        isisJdoSupport.executeUpdate("delete from \"exampleDomCommChannel\".\"CommChannelDemoObject\"");
 
         isisJdoSupport.executeUpdate("delete from \"incodeCommChannel\".\"CommunicationChannelOwnerLink\"");
         isisJdoSupport.executeUpdate("delete from \"incodeCommChannel\".\"CommunicationChannel\"");

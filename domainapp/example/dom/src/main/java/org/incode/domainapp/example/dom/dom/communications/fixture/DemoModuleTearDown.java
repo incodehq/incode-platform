@@ -12,10 +12,10 @@ public class DemoModuleTearDown extends FixtureScript {
     @Override
     protected void execute(ExecutionContext executionContext) {
 
-        isisJdoSupport.executeUpdate("delete from \"incodeCommunicationsDemo\".\"PaperclipForDemoInvoice\"");
-        isisJdoSupport.executeUpdate("delete from \"incodeCommunicationsDemo\".\"DemoInvoice\"");
-        isisJdoSupport.executeUpdate("delete from \"incodeCommunicationsDemo\".\"CommunicationChannelOwnerLinkForDemoCustomer\"");
-        isisJdoSupport.executeUpdate("delete from \"incodeCommunicationsDemo\".\"DemoCustomer\"");
+        isisJdoSupport.executeUpdate("delete from \"exampleDomCommunications\".\"PaperclipForDemoInvoice\"");
+        isisJdoSupport.executeUpdate("delete from \"exampleDomCommunications\".\"DemoInvoice\"");
+        isisJdoSupport.executeUpdate("delete from \"exampleDomCommunications\".\"CommunicationChannelOwnerLinkForDemoCustomer\"");
+        isisJdoSupport.executeUpdate("delete from \"exampleDomCommunications\".\"DemoCustomer\"");
 
         executionContext.executeChild(this, new CommunicationModuleTearDown());
         executionContext.executeChild(this, new DocumentModuleTearDown());
