@@ -7,6 +7,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.factory.FactoryService;
 
 @DomainService(
+        objectType = "domainapp.appdefn.services.homepage.docfragment.HomePageService",
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY // trick to suppress the actions from the top-level menu
 )
 public class HomePageService {

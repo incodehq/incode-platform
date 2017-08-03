@@ -6,9 +6,8 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import domainapp.appdefn.services.homepage.poly.HomePage;
-
 @DomainService(
+        objectType = "domainapp.appdefn.services.homepage.poly.HomePageService",
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY // trick to suppress the actions from the top-level menu
 )
 public class HomePageService {
@@ -18,7 +17,7 @@ public class HomePageService {
     @Action(
             semantics = SemanticsOf.SAFE
     )
-    @org.apache.isis.applib.annotation.HomePage
+//    @HomePage
     public HomePage homePage() {
         return container.injectServicesInto(new HomePage());
     }

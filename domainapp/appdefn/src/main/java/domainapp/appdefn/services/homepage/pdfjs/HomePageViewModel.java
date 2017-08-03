@@ -14,6 +14,7 @@ import org.axonframework.eventhandling.annotation.EventHandler;
 import org.wicketstuff.pdfjs.Scale;
 
 import org.apache.isis.applib.AbstractSubscriber;
+import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Property;
@@ -27,12 +28,16 @@ import org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewer;
 import org.incode.domainapp.example.dom.wkt.pdfjs.dom.demo.DemoObject;
 import org.incode.domainapp.example.dom.wkt.pdfjs.dom.demo.DemoObjectMenu;
 
-@XmlRootElement(name = "toDoItemDto")
+@XmlRootElement(name = "HomePageViewModel")
 @XmlType(
         propOrder = {
                 "idx"
         }
-)public class HomePageViewModel {
+)
+@DomainObject(
+        objectType = "domainapp.appdefn.services.homepage.pdfjs.HomePageViewModel"
+)
+public class HomePageViewModel {
 
 
     @DomainService(nature = NatureOfService.DOMAIN)

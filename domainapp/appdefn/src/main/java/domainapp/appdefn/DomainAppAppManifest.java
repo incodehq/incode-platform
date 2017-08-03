@@ -27,6 +27,7 @@ import org.isisaddons.wicket.pdfjs.cpt.PdfjsCptModule;
 import org.isisaddons.wicket.summernote.cpt.ui.SummernoteUiModule;
 import org.isisaddons.wicket.wickedcharts.cpt.ui.WickedChartsUiModule;
 
+import org.incode.domainapp.example.dom.ExampleDomSubmodule;
 import org.incode.module.alias.dom.AliasModule;
 import org.incode.module.classification.dom.ClassificationModule;
 import org.incode.module.commchannel.dom.CommChannelModule;
@@ -39,13 +40,15 @@ import org.incode.module.docrendering.xdocreport.dom.XDocReportDocRenderingModul
 import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.note.dom.NoteModule;
 
-import org.incode.domainapp.example.dom.ExampleDomSubmodule;
+import domainapp.appdefn.services.DomainAppAppDefnServicesModule;
 
 public class DomainAppAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = Builder.forModules(
 
             ExampleDomSubmodule.class,
+
+            DomainAppAppDefnServicesModule.class,
 
             // extensions
             TogglzModule.class,

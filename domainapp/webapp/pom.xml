@@ -110,6 +110,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.isisaddons.module.togglz</groupId>
+            <artifactId>isis-module-togglz-glue</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.isis.mavendeps</groupId>
             <artifactId>isis-mavendeps-webapp</artifactId>
             <type>pom</type>

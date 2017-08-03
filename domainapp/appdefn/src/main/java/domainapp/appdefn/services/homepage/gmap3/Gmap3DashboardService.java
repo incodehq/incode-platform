@@ -7,6 +7,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
+        objectType = "domainapp.appdefn.services.homepage.gmap3.Gmap3DashboardService",
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY // trick
 )
 public class Gmap3DashboardService {

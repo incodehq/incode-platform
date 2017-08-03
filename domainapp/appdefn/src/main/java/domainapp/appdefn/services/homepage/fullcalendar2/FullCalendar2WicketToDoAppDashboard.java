@@ -1,8 +1,7 @@
 package domainapp.appdefn.services.homepage.fullcalendar2;
 
 import java.util.List;
-import org.incode.domainapp.example.dom.wkt.fullcalendar2.dom.demo.FullCalendar2WicketToDoItem;
-import org.incode.domainapp.example.dom.wkt.fullcalendar2.dom.demo.FullCalendar2WicketToDoItems;
+
 import org.apache.isis.applib.AbstractViewModel;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.DomainObject;
@@ -11,8 +10,12 @@ import org.apache.isis.applib.annotation.MemberGroupLayout;
 import org.apache.isis.applib.annotation.Nature;
 import org.apache.isis.applib.annotation.RenderType;
 
+import org.incode.domainapp.example.dom.wkt.fullcalendar2.dom.demo.FullCalendar2WicketToDoItem;
+import org.incode.domainapp.example.dom.wkt.fullcalendar2.dom.demo.FullCalendar2WicketToDoItems;
+
 @DomainObject(
-        nature = Nature.VIEW_MODEL
+        nature = Nature.VIEW_MODEL,
+        objectType = "domainapp.appdefn.services.homepage.fullcalendar2.FullCalendar2WicketToDoAppDashboard"
 )
 @DomainObjectLayout(
         named = "Dashboard"
@@ -20,16 +23,6 @@ import org.apache.isis.applib.annotation.RenderType;
 @MemberGroupLayout(columnSpans={0,0,0,12})
 public class FullCalendar2WicketToDoAppDashboard extends AbstractViewModel {
 
-    //region > title, iconName
-
-    public String title() {
-        return "Dashboard";
-    }
-    
-    public String iconName() {
-        return "Dashboard";
-    }
-    //endregion
 
     //region > Viewmodel contract
 

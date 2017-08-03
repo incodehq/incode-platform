@@ -2,7 +2,8 @@ package domainapp.appdefn.services.homepage.comms;
 
 import java.util.List;
 
-import org.apache.isis.applib.annotation.ViewModel;
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.Nature;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
 import org.incode.domainapp.example.dom.dom.communications.dom.demo.DemoCustomer;
@@ -10,7 +11,10 @@ import org.incode.domainapp.example.dom.dom.communications.dom.demo.DemoCustomer
 import org.incode.domainapp.example.dom.dom.communications.dom.demo2.DemoInvoice;
 import org.incode.domainapp.example.dom.dom.communications.dom.demo2.DemoInvoiceRepository;
 
-@ViewModel
+@DomainObject(
+        nature = Nature.VIEW_MODEL,
+        objectType = "domainapp.appdefn.services.homepage.comms.HomePageViewModel"
+)
 public class HomePageViewModel {
 
     public TranslatableString title() {

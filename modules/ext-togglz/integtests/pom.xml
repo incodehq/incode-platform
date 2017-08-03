@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>incode-platform-ext-togglz-integtests</artifactId>
-    <name>Incode Platform Extension Togglz Demo IntegTests</name>
+    <name>Incode Platform Extension Togglz IntegTests</name>
 
     <build>
         <plugins>

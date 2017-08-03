@@ -1,5 +1,10 @@
 package domainapp.appdefn.services.homepage.poly;
 
+import java.util.List;
+
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.Nature;
+
 import org.incode.domainapp.example.dom.lib.poly.dom.democasemgmt.Case;
 import org.incode.domainapp.example.dom.lib.poly.dom.democasemgmt.Cases;
 import org.incode.domainapp.example.dom.lib.poly.dom.democommchannel.CommunicationChannel;
@@ -9,10 +14,10 @@ import org.incode.domainapp.example.dom.lib.poly.dom.demofixedasset.FixedAssets;
 import org.incode.domainapp.example.dom.lib.poly.dom.demoparty.Parties;
 import org.incode.domainapp.example.dom.lib.poly.dom.demoparty.Party;
 
-import java.util.List;
-import org.apache.isis.applib.annotation.ViewModel;
-
-@ViewModel
+@DomainObject(
+        nature = Nature.VIEW_MODEL,
+        objectType = "domainapp.appdefn.services.homepage.poly.HomePage"
+)
 public class HomePage {
 
     //region > title

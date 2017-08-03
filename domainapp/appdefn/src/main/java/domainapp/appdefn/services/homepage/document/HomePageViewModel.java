@@ -13,7 +13,7 @@ import org.incode.domainapp.example.dom.dom.document.dom.demo2.OtherObjectMenu;
 
 @DomainObject(
         nature = Nature.VIEW_MODEL,
-        objectType = "domainapp.HomePageViewModel"
+        objectType = "domainapp.appdefn.services.homepage.document.HomePageViewModel"
 )
 public class HomePageViewModel {
 

@@ -11,6 +11,7 @@ import org.apache.isis.applib.services.factory.FactoryService;
 import org.incode.domainapp.example.dom.wkt.pdfjs.dom.demo.DemoObject;
 
 @DomainService(
+        objectType = "domainapp.appdefn.services.homepage.pdfjs.HomePageService",
         nature = NatureOfService.DOMAIN
 )
 public class HomePageService {

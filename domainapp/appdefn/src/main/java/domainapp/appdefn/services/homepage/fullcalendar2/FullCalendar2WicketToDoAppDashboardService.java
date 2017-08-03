@@ -7,6 +7,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
+        objectType = "domainapp.appdefn.services.homepage.fullcalendar2.FullCalendar2WicketToDoAppDashboardService",
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY // trick
 )
 public class FullCalendar2WicketToDoAppDashboardService {
@@ -14,14 +15,6 @@ public class FullCalendar2WicketToDoAppDashboardService {
     //region > identification in the UI
 
     private static final String ID = "dashboard";
-
-    public String getId() {
-        return ID;
-    }
-
-    public String iconName() {
-        return ID;
-    }
 
     //endregion
 

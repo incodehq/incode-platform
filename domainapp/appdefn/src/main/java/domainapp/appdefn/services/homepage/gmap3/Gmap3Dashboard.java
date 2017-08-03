@@ -15,7 +15,8 @@ import org.incode.domainapp.example.dom.wkt.gmap3.dom.demo.Gmap3ToDoItem;
 import org.incode.domainapp.example.dom.wkt.gmap3.dom.demo.Gmap3WicketToDoItems;
 
 @DomainObject(
-        nature = Nature.VIEW_MODEL
+        nature = Nature.VIEW_MODEL,
+        objectType = "domainapp.appdefn.services.homepage.gmap3.Gmap3Dashboard"
 )
 @DomainObjectLayout(
         named = "Dashboard"
