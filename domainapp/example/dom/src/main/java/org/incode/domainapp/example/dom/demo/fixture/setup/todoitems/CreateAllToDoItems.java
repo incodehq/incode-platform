@@ -11,7 +11,7 @@ import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
 
 import org.isisaddons.module.excel.dom.ExcelFixture;
 
-import org.incode.domainapp.example.dom.demo.todo.DemoToDoItem;
+import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItem;
 
 public class CreateAllToDoItems extends FixtureScript {
 

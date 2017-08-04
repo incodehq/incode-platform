@@ -11,8 +11,8 @@ import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
 import org.incode.platform.spi.security.integtests.SecurityModuleAppIntegTestAbstract;
 
-import org.incode.domainapp.example.dom.spi.security.dom.demonontenanted.NonTenantedEntities;
-import org.incode.domainapp.example.dom.spi.security.dom.demonontenanted.NonTenantedEntity;
+import org.incode.domainapp.example.dom.spi.security.dom.demo.nontenanted.NonTenantedEntities;
+import org.incode.domainapp.example.dom.spi.security.dom.demo.nontenanted.NonTenantedEntity;
 import org.incode.domainapp.example.dom.spi.security.fixture.SecurityModuleAppTearDown;
 import org.incode.domainapp.example.dom.spi.security.fixture.example.nontenanted.BarNonTenantedEntity;
 import org.incode.domainapp.example.dom.spi.security.fixture.example.nontenanted.BazNonTenantedEntity;

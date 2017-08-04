@@ -3,8 +3,8 @@ package org.incode.domainapp.example.dom.spi.audit.fixture;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.SomeAuditedObject;
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.SomeAuditedObjects;
+import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObject;
+import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObjects;
 
 public class AuditDemoAppFixture extends DiscoverableFixtureScript {
 

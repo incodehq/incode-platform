@@ -2,7 +2,7 @@ package org.incode.domainapp.example.dom.spi.security.fixture.roles;
 
 import org.isisaddons.module.security.dom.permission.ApplicationPermissionMode;
 import org.isisaddons.module.security.dom.permission.ApplicationPermissionRule;
-import org.incode.domainapp.example.dom.spi.security.dom.demonontenanted.NonTenantedEntity;
+import org.incode.domainapp.example.dom.spi.security.dom.demo.nontenanted.NonTenantedEntity;
 import org.isisaddons.module.security.seed.scripts.AbstractRoleAndPermissionsFixtureScript;
 
 /**

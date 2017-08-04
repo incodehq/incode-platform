@@ -1,6 +1,6 @@
 package org.incode.domainapp.example.dom.spi.security.fixture.example.nontenanted;
 
-import org.incode.domainapp.example.dom.spi.security.dom.demonontenanted.NonTenantedEntities;
+import org.incode.domainapp.example.dom.spi.security.dom.demo.nontenanted.NonTenantedEntities;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
 public class AllExampleNonTenantedEntities extends DiscoverableFixtureScript {

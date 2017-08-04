@@ -1,7 +1,11 @@
 package org.incode.domainapp.example.dom.spi.publishmq.dom.demo;
 
+import javax.annotation.Nullable;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.google.common.collect.Ordering;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
@@ -10,18 +14,20 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.InvokeOn;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Optionality;
-import org.apache.isis.applib.annotation.Parameter;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Publishing;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.services.wrapper.WrapperFactory;
-import org.apache.isis.applib.util.ObjectContracts;
+import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
 
 import org.incode.domainapp.example.dom.spi.publishmq.dom.touch.Touchable;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
@@ -33,47 +39,49 @@ import org.incode.domainapp.example.dom.spi.publishmq.dom.touch.Touchable;
 @javax.jdo.annotations.Version(
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
-@DomainObject(
-        publishing = Publishing.ENABLED
-)
-@DomainObjectLayout(
-        bookmarking = BookmarkPolicy.AS_ROOT
-)
+@DomainObjectLayout(bookmarking = BookmarkPolicy.AS_ROOT )
+@DomainObject(publishing = Publishing.ENABLED )             // <<<<<<<<<<<<<<< ENABLED
+@XmlJavaTypeAdapter(PersistentEntityAdapter.class)
 public class PublishMqDemoObject implements Comparable<PublishMqDemoObject>, Touchable {
 
-    //region > name (property)
-    
-    private String name;
+    @Builder
+    public PublishMqDemoObject(final String name, final String description, final Integer count) {
+        this.name = name;
+        this.description = description;
+        this.count = count;
+    }
 
     @javax.jdo.annotations.Column(allowsNull="false")
     @Title(sequence="1")
-    @Property(
-            publishing = Publishing.ENABLED
-    )
-    @PropertyLayout(
-            describedAs = "Publishing enabled"
-    )
+    @Getter @Setter
+    @Property(publishing = Publishing.ENABLED)              // <<<<<<<<<<<<<<< ENABLED
+    @PropertyLayout(describedAs = "Publishing enabled")
     @MemberOrder(sequence="1")
-    public String getName() {
-        return name;
-    }
+    private String name;
+    public void setName(final String name) { this.name = name; }
 
-    public void setName(final String name) {
-        this.name = name;
-    }
 
-    //endregion
+    @javax.jdo.annotations.Column(allowsNull="true")
+    @Getter @Setter
+    @Property(publishing = Publishing.AS_CONFIGURED)        // <<<<<<<<<<<<<<< AS_CONFIGURED
+    @PropertyLayout(describedAs = "Publishing as configured")
+    private String description;
+
+
+
+    @javax.jdo.annotations.Column(allowsNull="true")
+    @Getter @Setter
+    @Property(publishing = Publishing.DISABLED)             // <<<<<<<<<<<<<<< DISABLED
+    @PropertyLayout(describedAs = "Publishing disabled")
+    private Integer count;
 
     //region > updateName (action)
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
-            publishing = Publishing.ENABLED
+            publishing = Publishing.ENABLED                 // <<<<<<<<<<<<<<< ENABLED
     )
-    @ActionLayout(
-            describedAs = "Publishing enabled"
-    )
+    @ActionLayout(describedAs = "Publishing enabled")
     public PublishMqDemoObject updateName(
-            @ParameterLayout(named="Name")
             final String name) {
         setName(name);
         return this;
@@ -81,40 +89,20 @@ public class PublishMqDemoObject implements Comparable<PublishMqDemoObject>, Tou
     public String default0UpdateName() {
         return getName();
     }
-    //endregion
-
-    //region > description (property)
-
-    private String description;
-
-    @javax.jdo.annotations.Column(allowsNull="true")
-    @Property(
-            publishing = Publishing.AS_CONFIGURED
-    )
-    @PropertyLayout(
-            describedAs = "Publishing as configured"
-    )
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(final String description) {
-        this.description = description;
-    }
 
     //endregion
+
 
     //region > updateDescription (action)
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
-            publishing = Publishing.AS_CONFIGURED
+            publishing = Publishing.AS_CONFIGURED           // <<<<<<<<<<<<<<< AS_CONFIGURED
     )
     @ActionLayout(
             describedAs = "Publishing as configured"
     )
     public PublishMqDemoObject updateDescription(
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named="Description")
+            @Nullable
             final String description) {
         setDescription(description);
         return this;
@@ -124,38 +112,17 @@ public class PublishMqDemoObject implements Comparable<PublishMqDemoObject>, Tou
     }
     //endregion
 
-    //region > count (property)
-
-    private Integer count;
-
-    @javax.jdo.annotations.Column(allowsNull="true")
-    @Property(
-            publishing = Publishing.DISABLED
-    )
-    @PropertyLayout(
-            describedAs = "Publishing disabled"
-    )
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(final Integer count) {
-        this.count = count;
-    }
-
-    //endregion
 
     //region > updateCount (action)
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
-            publishing = Publishing.DISABLED
+            publishing = Publishing.DISABLED            // <<<<<<<<<<<<<<< DISABLED
     )
     @ActionLayout(
             describedAs = "Publishing disabled"
     )
     public PublishMqDemoObject updateCount(
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named="Count")
+            @Nullable
             final Integer count) {
         setCount(count);
         return this;
@@ -164,6 +131,7 @@ public class PublishMqDemoObject implements Comparable<PublishMqDemoObject>, Tou
         return getCount();
     }
     //endregion
+
 
     //region > updateCountInBulk (action)
     @Action(
@@ -183,6 +151,7 @@ public class PublishMqDemoObject implements Comparable<PublishMqDemoObject>, Tou
     }
     //endregion
 
+
     //region > updateNameAndDescriptionAndCount (action)
     @Action(
             semantics = SemanticsOf.IDEMPOTENT,
@@ -192,13 +161,10 @@ public class PublishMqDemoObject implements Comparable<PublishMqDemoObject>, Tou
             describedAs = "Updates name, description and count as sub-actions"
     )
     public PublishMqDemoObject updateNameAndDescriptionAndCount(
-            @ParameterLayout(named="Name")
             final String name,
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named="Description")
+            @Nullable
             final String description,
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named="Count")
+            @Nullable
             final Integer count) {
         wrapperFactory.wrap(this).updateName(name);
         wrapperFactory.wrap(this).updateDescription(description);
@@ -222,17 +188,14 @@ public class PublishMqDemoObject implements Comparable<PublishMqDemoObject>, Tou
 
     @Override
     public int compareTo(PublishMqDemoObject other) {
-        return ObjectContracts.compare(this, other, "name");
+        return Ordering.natural().onResultOf(PublishMqDemoObject::getName).compare(this, other);
     }
 
     //endregion
 
-    //region > injected services
 
     @javax.inject.Inject
-    @SuppressWarnings("unused")
-    private WrapperFactory wrapperFactory;
+    WrapperFactory wrapperFactory;
 
-    //endregion
 
 }

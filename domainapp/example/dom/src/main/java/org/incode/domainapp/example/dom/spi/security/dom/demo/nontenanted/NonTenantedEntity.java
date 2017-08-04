@@ -1,25 +1,30 @@
 
-package org.incode.domainapp.example.dom.spi.security.dom.demonontenanted;
+package org.incode.domainapp.example.dom.spi.security.dom.demo.nontenanted;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.google.common.collect.Ordering;
 
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.MemberGroupLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Title;
+import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType= IdentityType.DATASTORE,
         schema = "exampleSpiSecurity"
 )
-@javax.jdo.annotations.DatastoreIdentity(
-        strategy= IdGeneratorStrategy.NATIVE,
-        column="id")
-@javax.jdo.annotations.Version(
-        strategy = VersionStrategy.VERSION_NUMBER,
-        column = "version")
+@javax.jdo.annotations.DatastoreIdentity(strategy= IdGeneratorStrategy.INCREMENT, column ="id")
+@javax.jdo.annotations.Version(strategy = VersionStrategy.VERSION_NUMBER, column = "version")
 @javax.jdo.annotations.Uniques({
         @javax.jdo.annotations.Unique(
                 name = "NonTenantedEntity_name_UNQ", members = { "name" })
@@ -30,41 +35,32 @@ import org.apache.isis.applib.annotation.Title;
         middle = {},
         right = {}
 )
-public class NonTenantedEntity {
+@AllArgsConstructor
+@Builder
+@XmlJavaTypeAdapter(PersistentEntityAdapter.class)
+public class NonTenantedEntity implements Comparable<NonTenantedEntity> {
+
 
     public static final int MAX_LENGTH_NAME = 30;
     public static final int MAX_LENGTH_DESCRIPTION = 254;
 
-    //region > name
-
-    private String name;
 
     @javax.jdo.annotations.Column(allowsNull="false", length = MAX_LENGTH_NAME)
+    @Getter @Setter
     @Title(sequence="1")
     @MemberOrder(sequence="1")
-    public String getName() {
-        return name;
-    }
+    private String name;
+    public String getName() { return name; }
 
-    public void setName(final String name) {
-        this.name = name;
-    }
-    //endregion
-
-    //region > description
-
-    private String description;
 
     @javax.jdo.annotations.Column(allowsNull="true", length = MAX_LENGTH_DESCRIPTION)
+    @Getter @Setter
     @MemberOrder(sequence="2")
-    public String getDescription() {
-        return description;
+    private String description;
+
+
+    @Override
+    public int compareTo(final NonTenantedEntity o) {
+        return Ordering.natural().onResultOf(NonTenantedEntity::getName).compare(this, o);
     }
-
-    public void setDescription(final String description) {
-        this.description = description;
-    }
-    //endregion
-
-
 }

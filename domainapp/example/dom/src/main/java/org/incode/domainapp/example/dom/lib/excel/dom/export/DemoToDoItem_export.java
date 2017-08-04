@@ -12,8 +12,8 @@ import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.ExcelService;
 
-import org.incode.domainapp.example.dom.demo.todo.DemoToDoItem;
-import org.incode.domainapp.example.dom.demo.todo.DemoToDoItemMenu;
+import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItem;
+import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItemMenu;
 
 @Mixin(method = "act")
 public class DemoToDoItem_export {

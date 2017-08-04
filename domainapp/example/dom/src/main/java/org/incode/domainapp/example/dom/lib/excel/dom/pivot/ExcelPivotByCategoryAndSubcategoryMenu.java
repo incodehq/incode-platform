@@ -15,7 +15,7 @@ import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.ExcelService;
 
-import org.incode.domainapp.example.dom.demo.todo.DemoToDoItem;
+import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItem;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,

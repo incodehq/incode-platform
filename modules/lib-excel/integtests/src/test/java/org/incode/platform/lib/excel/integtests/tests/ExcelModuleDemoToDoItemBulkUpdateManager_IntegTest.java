@@ -20,7 +20,7 @@ import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.ExcelService;
 
-import org.incode.domainapp.example.dom.demo.todo.DemoToDoItemMenu;
+import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItemMenu;
 import org.incode.platform.lib.excel.integtests.ExcelModuleModuleIntegTestAbstract;
 
 import org.incode.domainapp.example.dom.lib.excel.dom.bulkupdate.BulkUpdateLineItemForDemoToDoItem;

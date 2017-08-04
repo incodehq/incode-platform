@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.spi.audit.dom.demo2;
+package org.incode.domainapp.example.dom.spi.audit.dom.demo.notaudited;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.SomeAuditedObject;
+import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObject;
 
 @DomainService (
         nature = NatureOfService.VIEW_MENU_ONLY,
@@ -27,7 +27,6 @@ import org.incode.domainapp.example.dom.spi.audit.dom.demo.SomeAuditedObject;
 )
 public class SomeNotAuditedObjects {
 
-    //region > listAll (action)
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
@@ -36,23 +35,17 @@ public class SomeNotAuditedObjects {
         return repositoryService.allInstances(SomeNotAuditedObject.class);
     }
 
-    //endregion
 
-    //region > create (action)
 
     @MemberOrder(sequence = "2")
     public SomeNotAuditedObject create(
             @ParameterLayout(named = "Name")
             final String name) {
-        final SomeNotAuditedObject obj = repositoryService.instantiate(SomeNotAuditedObject.class);
+        final SomeNotAuditedObject obj = new SomeNotAuditedObject(name, null);
         obj.setName(name);
         repositoryService.persist(obj);
         return obj;
     }
-
-    //endregion
-
-    //region > delete (action)
 
     @Programmatic
     public List<SomeNotAuditedObject> delete(final SomeNotAuditedObject object) {
@@ -61,16 +54,11 @@ public class SomeNotAuditedObjects {
         return listAll();
     }
 
-    //endregion
-
-    //region > injected services
 
     @javax.inject.Inject
     RepositoryService repositoryService;
-
     @javax.inject.Inject
     TransactionService transactionService;
 
-    //endregion
 
 }

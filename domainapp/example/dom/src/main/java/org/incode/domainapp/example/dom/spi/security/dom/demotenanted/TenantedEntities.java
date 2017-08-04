@@ -12,11 +12,11 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
-import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.isisaddons.module.security.dom.tenancy.ApplicationTenancy;
-import org.incode.domainapp.example.dom.spi.security.dom.demonontenanted.NonTenantedEntity;
+
+import org.incode.domainapp.example.dom.spi.security.dom.demo.nontenanted.NonTenantedEntity;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
@@ -28,15 +28,6 @@ import org.incode.domainapp.example.dom.spi.security.dom.demonontenanted.NonTena
         named = "Security Tenanted"
 )
 public class TenantedEntities {
-
-    @Programmatic
-    public String getId() {
-        return "TenantedEntities";
-    }
-
-    public String iconName() {
-        return "TenantedEntity";
-    }
 
 
 
@@ -52,7 +43,6 @@ public class TenantedEntities {
     @MemberOrder(sequence = "2")
     public TenantedEntity create(
             @Parameter(maxLength = NonTenantedEntity.MAX_LENGTH_NAME)
-            @ParameterLayout(named="Name")
             final String name,
             final ApplicationTenancy tenancy) {
         final TenantedEntity obj = new TenantedEntity(name, null, tenancy.getPath());

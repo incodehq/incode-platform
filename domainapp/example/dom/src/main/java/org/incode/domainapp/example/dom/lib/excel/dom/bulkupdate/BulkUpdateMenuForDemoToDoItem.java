@@ -19,9 +19,9 @@ import org.apache.isis.applib.services.memento.MementoService.Memento;
 
 import org.isisaddons.module.excel.dom.ExcelService;
 
-import org.incode.domainapp.example.dom.demo.todo.DemoToDoItem;
-import org.incode.domainapp.example.dom.demo.todo.Category;
-import org.incode.domainapp.example.dom.demo.todo.Subcategory;
+import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItem;
+import org.incode.domainapp.example.dom.demo.dom.todo.Category;
+import org.incode.domainapp.example.dom.demo.dom.todo.Subcategory;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,

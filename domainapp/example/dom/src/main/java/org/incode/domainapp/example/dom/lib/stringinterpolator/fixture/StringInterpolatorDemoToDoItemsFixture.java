@@ -1,10 +1,10 @@
 package org.incode.domainapp.example.dom.lib.stringinterpolator.fixture;
 
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
-import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
 
-import org.incode.domainapp.example.dom.lib.stringinterpolator.dom.demo.StringInterpolatorDemoToDoItem;
-import org.incode.domainapp.example.dom.lib.stringinterpolator.dom.demo.StringInterpolatorDemoToDoItems;
+import org.incode.domainapp.example.dom.demo.dom.todo2.DemoToDoItem2;
+import org.incode.domainapp.example.dom.demo.dom.todo2.DemoToDoItem2Menu;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoToDoItem2TearDown;
 
 public class StringInterpolatorDemoToDoItemsFixture extends DiscoverableFixtureScript {
 
@@ -21,7 +21,7 @@ public class StringInterpolatorDemoToDoItemsFixture extends DiscoverableFixtureS
     @Override
     public void execute(final ExecutionContext executionContext) {
 
-        isisJdoSupport.executeUpdate("delete from \"exampleLibStringInterpolator\".\"StringInterpolatorDemoToDoItem\"");
+        executionContext.executeChild(this, new DemoToDoItem2TearDown());
 
         installFor(executionContext);
 
@@ -35,14 +35,14 @@ public class StringInterpolatorDemoToDoItemsFixture extends DiscoverableFixtureS
         executionContext.add(this, createToDoItem("Lookup some Isis articles", "intro/learning-more/articles-and-presentations.html"));
         executionContext.add(this, createToDoItem("Learn about profiling in Isis", "reference/services/command-context.html"));
 
-        getContainer().flush();
+        transactionService.flushTransaction();
     }
 
 
     // //////////////////////////////////////
 
-    private StringInterpolatorDemoToDoItem createToDoItem(final String description, final String documentationPage) {
-        return toDoItems.newToDo(description, documentationPage);
+    private DemoToDoItem2 createToDoItem(final String description, final String documentationPage) {
+        return toDoItem2Menu.newToDo(description, documentationPage);
     }
 
 
@@ -51,9 +51,7 @@ public class StringInterpolatorDemoToDoItemsFixture extends DiscoverableFixtureS
     // //////////////////////////////////////
 
     @javax.inject.Inject
-    private StringInterpolatorDemoToDoItems toDoItems;
+    DemoToDoItem2Menu toDoItem2Menu;
 
-    @javax.inject.Inject
-    private IsisJdoSupport isisJdoSupport;
 
 }

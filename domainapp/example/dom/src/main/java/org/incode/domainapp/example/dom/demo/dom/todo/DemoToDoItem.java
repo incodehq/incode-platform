@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.demo.todo;
+package org.incode.domainapp.example.dom.demo.dom.todo;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -22,7 +22,9 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.InvokeOn;
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.MinLength;
+import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.SemanticsOf;
@@ -32,6 +34,11 @@ import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.ExcelService;
+import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEvent;
+import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
+import org.isisaddons.wicket.gmap3.cpt.applib.Location;
+import org.isisaddons.wicket.gmap3.cpt.service.LocationLookupService;
+import org.isisaddons.wicket.summernote.cpt.applib.SummernoteEditor;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -55,36 +62,36 @@ import lombok.Setter;
     @javax.jdo.annotations.Query(
             name = "todo_all", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.incode.domainapp.example.dom.demo.todo.DemoToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItem "
                     + "WHERE ownedBy == :ownedBy"),
     @javax.jdo.annotations.Query(
             name = "todo_notYetComplete", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.incode.domainapp.example.dom.demo.todo.DemoToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "   && complete == false"),
     @javax.jdo.annotations.Query(
             name = "findByDescription", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.incode.domainapp.example.dom.demo.todo.DemoToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "   && description == :description"),
     @javax.jdo.annotations.Query(
             name = "todo_complete", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.incode.domainapp.example.dom.demo.todo.DemoToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "&& complete == true"),
     @javax.jdo.annotations.Query(
             name = "todo_similarTo", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.incode.domainapp.example.dom.demo.todo.DemoToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "&& category == :category"),
     @javax.jdo.annotations.Query(
             name = "todo_autoComplete", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.incode.domainapp.example.dom.demo.todo.DemoToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItem "
                     + "WHERE ownedBy == :ownedBy && "
                     + "description.indexOf(:description) >= 0")
 })
@@ -95,7 +102,7 @@ import lombok.Setter;
         named = "To Do Item",
         bookmarking = BookmarkPolicy.AS_ROOT
 )
-public class DemoToDoItem implements Comparable<DemoToDoItem> {
+public class DemoToDoItem implements Comparable<DemoToDoItem>, CalendarEventable {
 
     //region > title, iconName
 
@@ -156,6 +163,12 @@ public class DemoToDoItem implements Comparable<DemoToDoItem> {
     @Getter @Setter
     @javax.jdo.annotations.Column(allowsNull="true", length=400)
     private String notes;
+    @SummernoteEditor(height = 100, maxHeight = 300)
+    public String getNotes() {
+        return notes;
+    }
+
+
 
     @Getter @Setter
     @javax.jdo.annotations.Persistent(defaultFetchGroup="false")
@@ -170,12 +183,23 @@ public class DemoToDoItem implements Comparable<DemoToDoItem> {
     private SortedSet<DemoToDoItem> dependencies = new TreeSet<>();
 
 
+
+    @Getter @Setter
+    private Double locationLatitude;
+
+    @Getter @Setter
+    private Double locationLongitude;
+
+
     public String validateDueBy(final LocalDate dueBy) {
         if (dueBy == null) {
             return null;
         }
         return isMoreThanOneWeekInPast(dueBy) ? "Due by date cannot be more than one week old" : null;
     }
+
+
+
 
 
     //region > completed (action)
@@ -392,5 +416,55 @@ public class DemoToDoItem implements Comparable<DemoToDoItem> {
     private ExcelService excelService;
 
     //endregion
+
+
+
+
+
+    //region > fullcalendar2: CalendarEventable impl
+
+    @Programmatic
+    @Override
+    public String getCalendarName() {
+        return getCategory().name();
+    }
+
+    @Programmatic
+    @Override
+    public CalendarEvent toCalendarEvent() {
+        if(getDueBy() == null) {
+            return null;
+        }
+        return new CalendarEvent(getDueBy().toDateTimeAtStartOfDay(), getCalendarName(), container.titleOf(this));
+    }
+
+    //endregion
+
+    //region > gmap3: location (derived property) / updateLocation (action)
+    @Property(
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.DISABLED
+    )
+    @MemberOrder(sequence="3")
+    public Location getLocation() {
+        return locationLatitude != null && locationLongitude != null? new Location(locationLatitude, locationLongitude): null;
+    }
+    public void setLocation(final Location location) {
+        locationLongitude = location != null ? location.getLongitude() : null;
+        locationLatitude = location != null ? location.getLatitude() : null;
+    }
+
+    @MemberOrder(name="location", sequence="1")
+    public DemoToDoItem updateLocation(final String address) {
+        final Location location = this.locationLookupService.lookup(address);
+        setLocation(location);
+        return this;
+    }
+
+    @javax.inject.Inject
+    private LocationLookupService locationLookupService;
+
+    //endregion
+
 
 }

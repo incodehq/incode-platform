@@ -1,7 +1,9 @@
 package org.incode.domainapp.example.dom.spi.command.dom.demo;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
@@ -23,6 +25,7 @@ import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 import org.apache.isis.applib.services.eventbus.ObjectUpdatedEvent;
 import org.apache.isis.applib.services.eventbus.ObjectUpdatingEvent;
 import org.apache.isis.applib.util.ObjectContracts;
+import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -31,20 +34,15 @@ import lombok.Setter;
         identityType=IdentityType.DATASTORE,
         schema = "exampleSpiCommand"
 )
-@javax.jdo.annotations.DatastoreIdentity(
-        strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-         column="id")
-@javax.jdo.annotations.Version(
-        strategy=VersionStrategy.VERSION_NUMBER, 
-        column="version")
+@javax.jdo.annotations.DatastoreIdentity(strategy= IdGeneratorStrategy.IDENTITY, column = "id")
+@javax.jdo.annotations.Version(strategy=VersionStrategy.VERSION_NUMBER, column = "version")
+@javax.jdo.annotations.Unique(name="SomeCommandAnnotatedObject_name_UNQ", members = {"name"})
 @DomainObject(
         updatingLifecycleEvent = ObjectUpdatingEvent.Doop.class,
         updatedLifecycleEvent = ObjectUpdatedEvent.Doop.class
 )
-@javax.jdo.annotations.Unique(name="SomeCommandAnnotatedObject_name_UNQ", members = {"name"})
-@DomainObjectLayout(
-        bookmarking = BookmarkPolicy.AS_ROOT
-)
+@DomainObjectLayout(bookmarking = BookmarkPolicy.AS_ROOT )
+@XmlJavaTypeAdapter(PersistentEntityAdapter.class)
 public class SomeCommandAnnotatedObject implements Comparable<SomeCommandAnnotatedObject> {
 
     public enum Colour {

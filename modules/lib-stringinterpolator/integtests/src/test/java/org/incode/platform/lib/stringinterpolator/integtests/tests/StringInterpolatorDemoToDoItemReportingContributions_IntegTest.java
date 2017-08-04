@@ -9,11 +9,11 @@ import org.junit.Test;
 
 import org.apache.isis.core.commons.config.IsisConfiguration;
 
+import org.incode.domainapp.example.dom.demo.dom.todo2.DemoToDoItem2;
 import org.incode.platform.lib.stringinterpolator.integtests.StringInterpolatorDemoIntegTestAbstract;
 
-import org.incode.domainapp.example.dom.lib.stringinterpolator.dom.demo.StringInterpolatorDemoToDoItem;
-import org.incode.domainapp.example.dom.lib.stringinterpolator.dom.demo.StringInterpolatorDemoToDoItemReportingContributions;
-import org.incode.domainapp.example.dom.lib.stringinterpolator.dom.demo.StringInterpolatorDemoToDoItems;
+import org.incode.domainapp.example.dom.lib.stringinterpolator.dom.DemoToDoItem2StringInterpolatorContributions;
+import org.incode.domainapp.example.dom.demo.dom.todo2.DemoToDoItem2Menu;
 import org.incode.domainapp.example.dom.lib.stringinterpolator.fixture.StringInterpolatorDemoToDoItemsFixture;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -26,13 +26,13 @@ public class StringInterpolatorDemoToDoItemReportingContributions_IntegTest exte
     }
 
     @Inject
-    StringInterpolatorDemoToDoItems toDoItems;
+    DemoToDoItem2Menu toDoItems;
 
     @Inject
     IsisConfiguration configuration;
 
     @Inject
-    StringInterpolatorDemoToDoItemReportingContributions toDoItemReportingContributions;
+    DemoToDoItem2StringInterpolatorContributions toDoItemReportingContributions;
 
     public static class Open extends StringInterpolatorDemoToDoItemReportingContributions_IntegTest {
 
@@ -43,7 +43,7 @@ public class StringInterpolatorDemoToDoItemReportingContributions_IntegTest exte
             assertThat(configuration.getString("isis.website"), is("http://isis.apache.org"));
             assertThat(toDoItemReportingContributions.TEMPLATE, is("${properties['isis.website']}/${this.documentationPage}"));
 
-            final StringInterpolatorDemoToDoItem toDoItem = toDoItems.allToDos().get(0);
+            final DemoToDoItem2 toDoItem = toDoItems.allToDos().get(0);
             assertThat(toDoItem.getDocumentationPage(), is("documentation.html"));
 
             // when

@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.demo.todo;
+package org.incode.domainapp.example.dom.demo.dom.todo;
 
 import java.math.BigDecimal;
 import java.util.Collections;

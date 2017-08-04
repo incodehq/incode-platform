@@ -1,6 +1,6 @@
 package org.incode.domainapp.example.dom.spi.security.fixture;
 
-import org.incode.domainapp.example.dom.spi.security.dom.demonontenanted.NonTenantedEntities;
+import org.incode.domainapp.example.dom.spi.security.dom.demo.nontenanted.NonTenantedEntities;
 import org.incode.domainapp.example.dom.spi.security.fixture.example.AllExampleEntities;
 import org.incode.domainapp.example.dom.spi.security.fixture.roles.AllExampleRolesAndPermissions;
 import org.incode.domainapp.example.dom.spi.security.fixture.roles.ExampleFixtureScriptsRoleAndPermissions;

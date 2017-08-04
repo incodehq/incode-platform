@@ -1,6 +1,7 @@
 package org.incode.domainapp.example.dom.spi.publishmq.dom.demo;
 
 import java.util.List;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
@@ -9,7 +10,6 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Publishing;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
@@ -25,35 +25,24 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 public class PublishMqDemoObjects {
 
 
-    //region > listAll (action)
 
-    @Action(
-            semantics = SemanticsOf.SAFE
-    )
-    @ActionLayout(
-            bookmarking = BookmarkPolicy.AS_ROOT
-    )
+    @Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
     public List<PublishMqDemoObject> listAll() {
         return container.allInstances(PublishMqDemoObject.class);
     }
 
-    //endregion
 
-    //region > create (action)
-    
+
     @MemberOrder(sequence = "2")
     public PublishMqDemoObject create(
-            final @ParameterLayout(named = "Name") String name) {
-        final PublishMqDemoObject obj = container.newTransientInstance(PublishMqDemoObject.class);
-        obj.setName(name);
+            final String name) {
+        final PublishMqDemoObject obj = new PublishMqDemoObject(name, null, null);
         container.persistIfNotAlready(obj);
         return obj;
     }
 
-    //endregion
-
-    //region > listAll (action)
 
     @Action(
             semantics = SemanticsOf.NON_IDEMPOTENT,
@@ -68,14 +57,10 @@ public class PublishMqDemoObjects {
         return publishMqDemoObjects;
     }
 
-    //endregion
 
 
-    //region > injected services
-
-    @javax.inject.Inject 
+    @javax.inject.Inject
     DomainObjectContainer container;
 
-    //endregion
 
 }

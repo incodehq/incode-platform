@@ -1,10 +1,7 @@
-package org.incode.domainapp.example.dom.spi.audit.dom.demo.delete;
+package org.incode.domainapp.example.dom.spi.audit.dom.demo.audited;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.Mixin;
-
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.SomeAuditedObject;
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.SomeAuditedObjects;
 
 @Mixin
 public class SomeAuditedObject_delete {

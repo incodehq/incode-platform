@@ -12,6 +12,8 @@ import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObjectWith
 import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObjectWithNotesTearDown;
 import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObjectWithUrlTearDown;
 import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoOrderAndOrderLineTearDown;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoToDoItem2TearDown;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoToDoItemTearDown;
 import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.OtherObjectTearDown;
 import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.OtherObjectWithAtPathTearDown;
 
@@ -20,6 +22,8 @@ public class DemoModuleTearDown extends FixtureScript {
     @Override
     protected void execute(ExecutionContext executionContext) {
         executionContext.executeChild(this, new DemoObjectTearDown());
+        executionContext.executeChild(this, new DemoToDoItemTearDown());
+        executionContext.executeChild(this, new DemoToDoItem2TearDown());
         executionContext.executeChild(this, new DemoOrderAndOrderLineTearDown());
         executionContext.executeChild(this, new DemoObjectWithUrlTearDown());
         executionContext.executeChild(this, new DemoObjectWithAllTearDown());

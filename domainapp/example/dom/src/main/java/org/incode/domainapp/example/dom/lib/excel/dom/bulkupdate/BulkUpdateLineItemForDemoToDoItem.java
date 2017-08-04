@@ -14,10 +14,10 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.actinvoc.ActionInvocationContext;
 
-import org.incode.domainapp.example.dom.demo.todo.DemoToDoItem;
-import org.incode.domainapp.example.dom.demo.todo.DemoToDoItemMenu;
-import org.incode.domainapp.example.dom.demo.todo.Category;
-import org.incode.domainapp.example.dom.demo.todo.Subcategory;
+import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItem;
+import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItemMenu;
+import org.incode.domainapp.example.dom.demo.dom.todo.Category;
+import org.incode.domainapp.example.dom.demo.dom.todo.Subcategory;
 
 @DomainObject(
         objectType = "exampleLibExcel.BulkUpdateLineItemForDemoToDoItem"

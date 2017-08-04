@@ -26,9 +26,9 @@ import org.isisaddons.module.excel.dom.ExcelService;
 import org.isisaddons.module.excel.dom.WorksheetContent;
 import org.isisaddons.module.excel.dom.WorksheetSpec;
 
-import org.incode.domainapp.example.dom.demo.todo.DemoToDoItem;
-import org.incode.domainapp.example.dom.demo.todo.Category;
-import org.incode.domainapp.example.dom.demo.todo.Subcategory;
+import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItem;
+import org.incode.domainapp.example.dom.demo.dom.todo.Category;
+import org.incode.domainapp.example.dom.demo.dom.todo.Subcategory;
 
 import lombok.Getter;
 import lombok.Setter;

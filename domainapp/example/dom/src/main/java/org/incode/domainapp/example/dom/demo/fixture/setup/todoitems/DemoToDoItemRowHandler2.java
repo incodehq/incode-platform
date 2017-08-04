@@ -8,8 +8,8 @@ import org.isisaddons.module.excel.dom.ExcelFixture2;
 import org.isisaddons.module.excel.dom.ExcelMetaDataEnabled;
 import org.isisaddons.module.excel.dom.FixtureAwareRowHandler;
 
-import org.incode.domainapp.example.dom.demo.todo.Category;
-import org.incode.domainapp.example.dom.demo.todo.Subcategory;
+import org.incode.domainapp.example.dom.demo.dom.todo.Category;
+import org.incode.domainapp.example.dom.demo.dom.todo.Subcategory;
 
 import lombok.Getter;
 import lombok.Setter;

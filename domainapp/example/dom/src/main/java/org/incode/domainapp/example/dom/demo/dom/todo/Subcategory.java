@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.demo.todo;
+package org.incode.domainapp.example.dom.demo.dom.todo;
 
 import java.util.Collections;
 import java.util.List;

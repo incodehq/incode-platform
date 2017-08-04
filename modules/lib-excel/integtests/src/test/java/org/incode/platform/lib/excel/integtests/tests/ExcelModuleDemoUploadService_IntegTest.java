@@ -15,8 +15,8 @@ import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.util.ExcelFileBlobConverter;
 
-import org.incode.domainapp.example.dom.demo.todo.DemoToDoItem;
-import org.incode.domainapp.example.dom.demo.todo.DemoToDoItemMenu;
+import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItem;
+import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItemMenu;
 import org.incode.domainapp.example.dom.lib.excel.dom.upload.ExcelUploadServiceForDemoToDoItem;
 import org.incode.domainapp.example.dom.demo.fixture.setup.todoitems.DeleteToDoItemsForUser;
 import org.incode.platform.lib.excel.integtests.ExcelModuleModuleIntegTestAbstract;
