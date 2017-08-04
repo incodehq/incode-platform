@@ -197,10 +197,8 @@ public class DemoToDoItem implements Comparable<DemoToDoItem>, CalendarEventable
 
 
 
-    @Getter @Setter
+    // no getter/setter (therefore persisted but not part of Isis' metamodel)
     private Double locationLatitude;
-
-    @Getter @Setter
     private Double locationLongitude;
 
 

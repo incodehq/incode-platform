@@ -23,7 +23,7 @@ import lombok.Setter;
         identityType= IdentityType.DATASTORE,
         schema = "exampleSpiSecurity"
 )
-@javax.jdo.annotations.DatastoreIdentity(strategy= IdGeneratorStrategy.INCREMENT, column ="id")
+@javax.jdo.annotations.DatastoreIdentity(strategy= IdGeneratorStrategy.IDENTITY, column ="id")
 @javax.jdo.annotations.Version(strategy = VersionStrategy.VERSION_NUMBER, column = "version")
 @javax.jdo.annotations.Uniques({
         @javax.jdo.annotations.Unique(

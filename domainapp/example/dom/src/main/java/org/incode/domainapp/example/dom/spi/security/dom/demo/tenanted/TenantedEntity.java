@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.spi.security.dom.demotenanted;
+package org.incode.domainapp.example.dom.spi.security.dom.demo.tenanted;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;

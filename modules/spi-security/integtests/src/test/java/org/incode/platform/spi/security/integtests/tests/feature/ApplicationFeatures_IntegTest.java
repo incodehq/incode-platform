@@ -60,8 +60,8 @@ public class ApplicationFeatures_IntegTest extends SecurityModuleAppIntegTestAbs
                     ApplicationFeatureId.newPackage("org.incode.domainapp.example.dom.spi"),
                     ApplicationFeatureId.newPackage("org.incode.domainapp.example.dom.spi.security"),
                     ApplicationFeatureId.newPackage("org.incode.domainapp.example.dom.spi.security.dom"),
-                    ApplicationFeatureId.newPackage("org.incode.domainapp.example.dom.spi.security.dom.demotenanted"),
-                    ApplicationFeatureId.newPackage("org.incode.domainapp.example.dom.spi.security.dom.demonontenanted")
+                    ApplicationFeatureId.newPackage("org.incode.domainapp.example.dom.spi.security.dom.demo.tenanted"),
+                    ApplicationFeatureId.newPackage("org.incode.domainapp.example.dom.spi.security.dom.demo.nontenanted")
             )));
         }
 

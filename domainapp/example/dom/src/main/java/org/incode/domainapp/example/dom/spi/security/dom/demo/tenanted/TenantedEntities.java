@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.spi.security.dom.demotenanted;
+package org.incode.domainapp.example.dom.spi.security.dom.demo.tenanted;
 
 import java.util.List;
 
@@ -11,7 +11,6 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Parameter;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.isisaddons.module.security.dom.tenancy.ApplicationTenancy;

@@ -4,8 +4,8 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.security.dom.tenancy.ApplicationTenancy;
 import org.isisaddons.module.security.dom.tenancy.ApplicationTenancyRepository;
-import org.incode.domainapp.example.dom.spi.security.dom.demotenanted.TenantedEntities;
-import org.incode.domainapp.example.dom.spi.security.dom.demotenanted.TenantedEntity;
+import org.incode.domainapp.example.dom.spi.security.dom.demo.tenanted.TenantedEntities;
+import org.incode.domainapp.example.dom.spi.security.dom.demo.tenanted.TenantedEntity;
 
 public abstract class AbstractTenantedEntityFixtureScript extends FixtureScript {
 
