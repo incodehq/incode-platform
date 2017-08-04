@@ -8,6 +8,7 @@ import java.util.TreeSet;
 import javax.annotation.Nullable;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
@@ -32,6 +33,7 @@ import org.apache.isis.applib.clock.Clock;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.applib.value.Blob;
+import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
 
 import org.isisaddons.module.excel.dom.ExcelService;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEvent;
@@ -102,6 +104,7 @@ import lombok.Setter;
         named = "To Do Item",
         bookmarking = BookmarkPolicy.AS_ROOT
 )
+@XmlJavaTypeAdapter(PersistentEntityAdapter.class)
 public class DemoToDoItem implements Comparable<DemoToDoItem>, CalendarEventable {
 
     //region > title, iconName
@@ -135,7 +138,7 @@ public class DemoToDoItem implements Comparable<DemoToDoItem>, CalendarEventable
     @Getter @Setter
     private LocalDate dueBy;
 
-    @javax.jdo.annotations.Column(allowsNull="false")
+    @javax.jdo.annotations.Column(allowsNull="true")
     @Getter @Setter
     private Category category;
 
@@ -160,6 +163,16 @@ public class DemoToDoItem implements Comparable<DemoToDoItem>, CalendarEventable
     @Getter @Setter
     private BigDecimal cost;
 
+    @javax.jdo.annotations.Column(allowsNull="true", scale=2)
+    @javax.validation.constraints.Digits(integer=10, fraction=2)
+    @Property(
+            editing = Editing.DISABLED,
+            editingDisabledReason = "Update using action"
+    )
+    @Getter @Setter
+    private BigDecimal previousCost;
+
+
     @Getter @Setter
     @javax.jdo.annotations.Column(allowsNull="true", length=400)
     private String notes;
@@ -176,7 +189,7 @@ public class DemoToDoItem implements Comparable<DemoToDoItem>, CalendarEventable
     private Blob attachment;
 
     @Getter @Setter
-    @javax.jdo.annotations.Persistent(table="ToDoItemDependencies")
+    @javax.jdo.annotations.Persistent(table="DemoToDoItemDependencies")
     @javax.jdo.annotations.Join(column="dependingId")
     @javax.jdo.annotations.Element(column="dependentId")
     @CollectionLayout(sortedBy = DependenciesComparator.class)
@@ -197,7 +210,6 @@ public class DemoToDoItem implements Comparable<DemoToDoItem>, CalendarEventable
         }
         return isMoreThanOneWeekInPast(dueBy) ? "Due by date cannot be more than one week old" : null;
     }
-
 
 
 
@@ -228,29 +240,36 @@ public class DemoToDoItem implements Comparable<DemoToDoItem>, CalendarEventable
 
     //endregion
 
-    //region > updateCost (action)
-
-
-    public DemoToDoItem updateCost(
-            @javax.validation.constraints.Digits(integer=10, fraction=2)
+    //region > updateCosts (action)
+    public DemoToDoItem updateCosts(
             @Nullable
-            final BigDecimal newCost) {
-        setCost(newCost);
+            @javax.validation.constraints.Digits(integer=10, fraction=2)
+            final BigDecimal cost,
+            @Nullable
+            @javax.validation.constraints.Digits(integer=10, fraction=2)
+            final BigDecimal previousCost
+    ) {
+        setCost(cost);
+        setPreviousCost(previousCost);
         return this;
     }
-
-    // provide a default value for argument #0
-    public BigDecimal default0UpdateCost() {
+    public BigDecimal default0UpdateCosts() {
         return getCost();
     }
-
-    // validate action arguments
-    public String validateUpdateCost(final BigDecimal proposedCost) {
-        if(proposedCost == null) { return null; }
-        return proposedCost.compareTo(BigDecimal.ZERO) < 0? "Cost must be positive": null;
+    public BigDecimal default1UpdateCosts() {
+        return getPreviousCost();
     }
-
+    public String validateUpdateCosts(final BigDecimal proposedCost, final BigDecimal proposedPreviousCost) {
+        if (proposedCost != null && proposedCost.compareTo(BigDecimal.ZERO) < 0) {
+            return "Cost must be positive";
+        }
+        if (proposedPreviousCost != null && proposedPreviousCost.compareTo(BigDecimal.ZERO) < 0) {
+            return "Previous cost must be positive";
+        }
+        return null;
+    }
     //endregion
+
 
     //region > add (action)
 

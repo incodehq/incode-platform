@@ -2,8 +2,8 @@ package org.incode.domainapp.example.dom.lib.excel.fixture;
 
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
-import org.incode.domainapp.example.dom.demo.fixture.setup.todoitems.CreateAllToDoItems;
-import org.incode.domainapp.example.dom.demo.fixture.setup.todoitems.DeleteToDoItemsForUser;
+import org.incode.domainapp.example.dom.demo.fixture.todoitems.CreateAllToDoItems;
+import org.incode.domainapp.example.dom.demo.fixture.todoitems.DeleteToDoItemsForUser;
 
 public class RecreateToDoItems extends DiscoverableFixtureScript {
 

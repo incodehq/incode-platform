@@ -11,8 +11,8 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Nature;
 import org.apache.isis.applib.annotation.RenderType;
 
-import org.incode.domainapp.example.dom.wkt.gmap3.dom.demo.Gmap3ToDoItem;
-import org.incode.domainapp.example.dom.wkt.gmap3.dom.demo.Gmap3WicketToDoItems;
+import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItem;
+import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItemMenu;
 
 @DomainObject(
         nature = Nature.VIEW_MODEL,
@@ -24,18 +24,7 @@ import org.incode.domainapp.example.dom.wkt.gmap3.dom.demo.Gmap3WicketToDoItems;
 @MemberGroupLayout(columnSpans = { 0, 0, 0, 12 })
 public class Gmap3Dashboard extends AbstractViewModel {
 
-    //region > title, iconName
 
-    public String title() {
-        return "Dashboard";
-    }
-
-    public String iconName() {
-        return "Dashboard";
-    }
-    //endregion
-
-    //region > Viewmodel contract
 
     @Override
     public String viewModelMemento() {
@@ -46,33 +35,27 @@ public class Gmap3Dashboard extends AbstractViewModel {
     public void viewModelInit(String memento) {
         // nothing to do
     }
-    //endregion
 
-    //region > notYetComplete (derived collection)
 
     @MemberOrder(sequence = "1")
     @CollectionLayout(
             render = RenderType.EAGERLY
     )
-    public List<Gmap3ToDoItem> getNotYetComplete() {
-        return gmap3WicketToDoItems.notYetCompleteNoUi();
+    public List<DemoToDoItem> getNotYetComplete() {
+        return demoToDoItemMenu.notYetCompleteNoUi();
     }
-    //endregion
 
-    //region > complete (derived collection)
 
     @MemberOrder(sequence = "2")
     @CollectionLayout(
             render = RenderType.EAGERLY
     )
-    public List<Gmap3ToDoItem> getComplete() {
-        return gmap3WicketToDoItems.completeNoUi();
+    public List<DemoToDoItem> getComplete() {
+        return demoToDoItemMenu.completeNoUi();
     }
-    //endregion
 
-    //region > injected services
+
     @javax.inject.Inject
-    private Gmap3WicketToDoItems gmap3WicketToDoItems;
-    //endregion
+    private DemoToDoItemMenu demoToDoItemMenu;
 
 }

@@ -25,8 +25,9 @@ import org.apache.isis.applib.services.scratchpad.Scratchpad;
 import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewer;
-import org.incode.domainapp.example.dom.wkt.pdfjs.dom.demo.DemoObject;
-import org.incode.domainapp.example.dom.wkt.pdfjs.dom.demo.DemoObjectMenu;
+
+import org.incode.domainapp.example.dom.demo.dom.demowithblob.DemoObjectWithBlob;
+import org.incode.domainapp.example.dom.demo.dom.demowithblob.DemoObjectWithBlobMenu;
 
 @XmlRootElement(name = "HomePageViewModel")
 @XmlType(
@@ -45,11 +46,11 @@ public class HomePageViewModel {
 
         @EventHandler
         @Subscribe
-        public void on(DemoObject.CssClassUiEvent ev) {
+        public void on(DemoObjectWithBlob.CssClassUiEvent ev) {
             if(getContext() == null) {
                 return;
             }
-            DemoObject selectedDemoObject = getContext().getSelected();
+            DemoObjectWithBlob selectedDemoObject = getContext().getSelected();
             if(ev.getSource() == selectedDemoObject) {
                 ev.setCssClass("selected");
             }
@@ -73,7 +74,7 @@ public class HomePageViewModel {
     }
 
 
-    public List<DemoObject> getDemoObjects() {
+    public List<DemoObjectWithBlob> getDemoObjects() {
         return demoObjectMenu.listAll();
     }
 
@@ -107,7 +108,7 @@ public class HomePageViewModel {
 
 
     @XmlTransient
-    public DemoObject getSelected() {
+    public DemoObjectWithBlob getSelected() {
         return getDemoObjects().get(getIdx());
     }
 
@@ -139,7 +140,7 @@ public class HomePageViewModel {
 
 
     @javax.inject.Inject
-    DemoObjectMenu demoObjectMenu;
+    DemoObjectWithBlobMenu demoObjectMenu;
 
     @javax.inject.Inject
     CssHighlighter cssHighlighter;

@@ -10,8 +10,8 @@ import org.apache.isis.applib.annotation.MemberGroupLayout;
 import org.apache.isis.applib.annotation.Nature;
 import org.apache.isis.applib.annotation.RenderType;
 
-import org.incode.domainapp.example.dom.wkt.fullcalendar2.dom.demo.FullCalendar2WicketToDoItem;
-import org.incode.domainapp.example.dom.wkt.fullcalendar2.dom.demo.FullCalendar2WicketToDoItems;
+import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItem;
+import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItemMenu;
 
 @DomainObject(
         nature = Nature.VIEW_MODEL,
@@ -24,7 +24,6 @@ import org.incode.domainapp.example.dom.wkt.fullcalendar2.dom.demo.FullCalendar2
 public class FullCalendar2WicketToDoAppDashboard extends AbstractViewModel {
 
 
-    //region > Viewmodel contract
 
     @Override
     public String viewModelMemento() {
@@ -35,21 +34,15 @@ public class FullCalendar2WicketToDoAppDashboard extends AbstractViewModel {
     public void viewModelInit(String memento) {
         // nothing to do
     }
-    //endregion
 
-    //region > notYetComplete (derived collection)
 
-    @CollectionLayout(
-            render = RenderType.EAGERLY
-    )
-    public List<FullCalendar2WicketToDoItem> getNotYetComplete() {
-        return toDoItems.notYetCompleteNoUi();
+    @CollectionLayout(render = RenderType.EAGERLY)
+    public List<DemoToDoItem> getNotYetComplete() {
+        return demoToDoItemMenu.notYetCompleteNoUi();
     }
-    //endregion
 
-    //region > injected services
+
     @javax.inject.Inject
-    private FullCalendar2WicketToDoItems toDoItems;
-    //endregion
+    DemoToDoItemMenu demoToDoItemMenu;
 
 }

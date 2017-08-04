@@ -8,7 +8,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.factory.FactoryService;
 
-import org.incode.domainapp.example.dom.wkt.pdfjs.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.demo.dom.demowithblob.DemoObjectWithBlob;
 
 @DomainService(
         objectType = "domainapp.appdefn.services.homepage.pdfjs.HomePageService",
@@ -20,7 +20,7 @@ public class HomePageService {
 //    @HomePage
     public HomePageViewModel homePage() {
         final HomePageViewModel viewModel = factoryService.instantiate(HomePageViewModel.class);
-        final List<DemoObject> demoObjects = viewModel.getDemoObjects();
+        final List<DemoObjectWithBlob> demoObjects = viewModel.getDemoObjects();
         if (!demoObjects.isEmpty()) {
             viewModel.setIdx(0);
         }

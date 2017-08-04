@@ -8,7 +8,6 @@ import javax.annotation.Nullable;
 
 import org.joda.time.LocalDate;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
@@ -22,6 +21,11 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.clock.ClockService;
+import org.apache.isis.applib.services.message.MessageService;
+import org.apache.isis.applib.services.repository.RepositoryService;
+import org.apache.isis.applib.services.user.UserService;
+
+import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
@@ -40,14 +44,14 @@ public class DemoToDoItemMenu {
     public List<DemoToDoItem> notYetComplete() {
         final List<DemoToDoItem> items = notYetCompleteNoUi();
         if(items.isEmpty()) {
-            container.informUser("All to-do items have been completed :-)");
+            messageService.informUser("All to-do items have been completed :-)");
         }
         return items;
     }
 
     @Programmatic
     public List<DemoToDoItem> notYetCompleteNoUi() {
-        return container.allMatches(
+        return repositoryService.allMatches(
                 new QueryDefault<>(DemoToDoItem.class,
                         "todo_notYetComplete", 
                         "ownedBy", currentUserName()));
@@ -58,7 +62,7 @@ public class DemoToDoItemMenu {
 
     @Programmatic
     public DemoToDoItem findByDescription(final String description) {
-        return container.firstMatch(
+        return repositoryService.firstMatch(
                 new QueryDefault<>(DemoToDoItem.class,
                         "findByDescription",
                         "description", description,
@@ -76,14 +80,14 @@ public class DemoToDoItemMenu {
     public List<DemoToDoItem> complete() {
         final List<DemoToDoItem> items = completeNoUi();
         if(items.isEmpty()) {
-            container.informUser("No to-do items have yet been completed :-(");
+            messageService.informUser("No to-do items have yet been completed :-(");
         }
         return items;
     }
 
     @Programmatic
     public List<DemoToDoItem> completeNoUi() {
-        return container.allMatches(
+        return repositoryService.allMatches(
             new QueryDefault<>(DemoToDoItem.class,
                     "todo_complete", 
                     "ownedBy", currentUserName()));
@@ -133,10 +137,10 @@ public class DemoToDoItemMenu {
     @MemberOrder(sequence = "50")
     public List<DemoToDoItem> allMyToDos() {
         final String currentUser = currentUserName();
-        final List<DemoToDoItem> items = container.allMatches(DemoToDoItem.class, DemoToDoItem.Predicates.thoseOwnedBy(currentUser));
+        final List<DemoToDoItem> items = repositoryService.allMatches(DemoToDoItem.class, DemoToDoItem.Predicates.thoseOwnedBy(currentUser));
         Collections.sort(items);
         if(items.isEmpty()) {
-            container.warnUser("No to-do items found.");
+            messageService.warnUser("No to-do items found.");
         }
         return items;
     }
@@ -146,7 +150,7 @@ public class DemoToDoItemMenu {
     //region > autoComplete (programmatic)
     @Programmatic
     public List<DemoToDoItem> autoComplete(@MinLength(1) final String description) {
-        return container.allMatches(
+        return repositoryService.allMatches(
                 new QueryDefault<>(DemoToDoItem.class,
                         "todo_autoComplete", 
                         "ownedBy", currentUserName(), 
@@ -163,7 +167,7 @@ public class DemoToDoItemMenu {
             final Subcategory subcategory,
             final String userName, 
             final LocalDate dueBy, final BigDecimal cost) {
-        final DemoToDoItem toDoItem = container.newTransientInstance(DemoToDoItem.class);
+        final DemoToDoItem toDoItem = new DemoToDoItem();
         toDoItem.setDescription(description);
         toDoItem.setCategory(category);
         toDoItem.setSubcategory(subcategory);
@@ -171,31 +175,57 @@ public class DemoToDoItemMenu {
         toDoItem.setDueBy(dueBy);
         toDoItem.setCost(cost);
 
-        container.persist(toDoItem);
-        //container.flush();
+        toDoItem.setLocation(
+                new Location(51.5172+random(-0.05, +0.05), 0.1182 + random(-0.05, +0.05)));
+
+        LocalDate today = clockService.now();
+        toDoItem.setDueBy(today.plusDays(random(10)-2));
+
+        repositoryService.persist(toDoItem);
 
         return toDoItem;
     }
 
     @Programmatic
+    public DemoToDoItem newToDo(final String description, final String user) {
+        return newToDo(description, null, null, user, null, null);
+    }
+
+    private static double random(final double from, final double to) {
+        return Math.random() * (to-from) + from;
+    }
+
+    private static int random(int n) {
+        return (int) (Math.random() * n);
+    }
+
+
+    @Programmatic
     public List<DemoToDoItem> allInstances() {
-        return container.allInstances(DemoToDoItem.class);
+        return repositoryService.allInstances(DemoToDoItem.class);
     }
     
     private String currentUserName() {
-        return container.getUser().getName();
+        return userService.getUser().getName();
     }
 
 
     //endregion
 
-    //region > Injected Services
-    @javax.inject.Inject
-    private DomainObjectContainer container;
+
 
     @javax.inject.Inject
-    private ClockService clockService;
+    MessageService messageService;
 
-    //endregion
+    @javax.inject.Inject
+    RepositoryService repositoryService;
+
+    @javax.inject.Inject
+    UserService userService;
+
+    @javax.inject.Inject
+    ClockService clockService;
+
+
 
 }
