@@ -16,7 +16,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.ExcelFixture;
-import org.incode.domainapp.example.dom.demo.fixture.setup.todoitems.ExcelModuleDemoToDoItemRowHandler;
+import org.incode.domainapp.example.dom.demo.fixture.setup.todoitems.DemoToDoItemRowHandler;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
@@ -37,8 +37,8 @@ public class ExcelUploadServiceForDemoToDoItem {
             final String parameters){
         FixtureScript script = new ExcelFixture(
                 file,
-                ExcelModuleDemoToDoItemRowHandler.class,
-                ExcelUploadRowHandlerForDemoToDoItem.class);
+                DemoToDoItemRowHandler.class,
+                ExcelUploadRowHandler4ToDoItem.class);
         return fixtureScripts.runFixtureScript(script, parameters);
     }
 

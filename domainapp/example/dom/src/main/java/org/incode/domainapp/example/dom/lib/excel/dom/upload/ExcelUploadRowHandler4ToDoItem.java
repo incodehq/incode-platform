@@ -25,7 +25,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @DomainObject(nature = Nature.VIEW_MODEL)
-public class ExcelUploadRowHandlerForDemoToDoItem implements ExcelFixtureRowHandler {
+public class ExcelUploadRowHandler4ToDoItem implements ExcelFixtureRowHandler {
 
     @Getter @Setter
     private String description;

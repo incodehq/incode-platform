@@ -9,11 +9,24 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
+import org.incode.domainapp.example.dom.demo.ExampleDemoSubmodule;
 import org.incode.platform.dom.alias.integtests.app.AliasModuleAppManifest;
 
 import org.incode.domainapp.example.dom.dom.alias.dom.AliasForDemoObject;
 
 public abstract class AliasModuleIntegTestAbstract extends IntegrationTestAbstract2 {
+
+    @BeforeClass
+    public static void initClass() {
+        bootstrapUsing(
+                AliasModuleAppManifest.BUILDER.
+                        withAdditionalModules(
+                                ExampleDemoSubmodule.class,
+                                AliasModuleIntegTestAbstract.class,
+                                FakeDataModule.class
+                        )
+                        .build());
+    }
 
     @Inject
     protected FakeDataService fakeData;
@@ -30,11 +43,4 @@ public abstract class AliasModuleIntegTestAbstract extends IntegrationTestAbstra
     }
 
 
-    @BeforeClass
-    public static void initClass() {
-        bootstrapUsing(
-                AliasModuleAppManifest.BUILDER.
-                        withAdditionalModules(AliasModuleIntegTestAbstract.class, FakeDataModule.class)
-                        .build());
-    }
 }

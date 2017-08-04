@@ -13,6 +13,7 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
+import org.incode.domainapp.example.dom.demo.ExampleDemoSubmodule;
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
 import org.incode.domainapp.example.dom.dom.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addEmailAddress;
 import org.incode.domainapp.example.dom.dom.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addPhoneOrFaxNumber;
@@ -35,7 +36,11 @@ public abstract class CommChannelModuleIntegTestAbstract extends IntegrationTest
     @BeforeClass
     public static void initClass() {
         bootstrapUsing(CommChannelModuleAppManifest.BUILDER
-                .withAdditionalModules(CommChannelModuleIntegTestAbstract.class, FakeDataModule.class)
+                .withAdditionalModules(
+                        ExampleDemoSubmodule.class,
+                        CommChannelModuleIntegTestAbstract.class,
+                        FakeDataModule.class
+                )
                 .withConfigurationProperty(GeocodingService.class.getCanonicalName() + ".demo", "true")
                 .build()
         );

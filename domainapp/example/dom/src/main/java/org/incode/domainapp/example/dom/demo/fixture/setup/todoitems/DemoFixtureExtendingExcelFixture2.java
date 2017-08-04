@@ -11,9 +11,9 @@ import org.isisaddons.module.excel.dom.util.Mode;
 import lombok.Getter;
 import lombok.Setter;
 
-public class ExcelModuleDemoExtendingExcelFixture2 extends ExcelFixture2 {
+public class DemoFixtureExtendingExcelFixture2 extends ExcelFixture2 {
 
-    public ExcelModuleDemoExtendingExcelFixture2(){
+    public DemoFixtureExtendingExcelFixture2(){
         this.resourceName = "ToDoItems.xlsx";
     }
 
@@ -30,7 +30,7 @@ public class ExcelModuleDemoExtendingExcelFixture2 extends ExcelFixture2 {
 
                 if (sheetName.startsWith("Sheet")) {
                     return new WorksheetSpec(
-                            ExcelModuleDemoExtendingExcelFixture2.this.rowFactoryFor(ExcelModuleDemoToDoItemRowHandler2.class, executionContext),
+                            DemoFixtureExtendingExcelFixture2.this.rowFactoryFor(DemoToDoItemRowHandler2.class, executionContext),
                             sheetName,
                             Mode.RELAXED);
                 } else

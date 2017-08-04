@@ -60,7 +60,7 @@ public class CreateAllToDoItems extends FixtureScript {
             final ExecutionContext executionContext,
             final String resourceName) {
         final URL excelResource = Resources.getResource(getClass(), resourceName);
-        final ExcelFixture excelFixture = new ExcelFixture(excelResource, ExcelModuleDemoToDoItemRowHandler.class);
+        final ExcelFixture excelFixture = new ExcelFixture(excelResource, DemoToDoItemRowHandler.class);
         excelFixture.setExcelResourceName(resourceName);
         executionContext.executeChild(this, excelFixture);
 

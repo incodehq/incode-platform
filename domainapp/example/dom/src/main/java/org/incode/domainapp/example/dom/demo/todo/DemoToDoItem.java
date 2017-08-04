@@ -55,36 +55,36 @@ import lombok.Setter;
     @javax.jdo.annotations.Query(
             name = "todo_all", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.incode.domainapp.example.dom.lib.excel.dom.demo.ExcelModuleDemoToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.demo.todo.DemoToDoItem "
                     + "WHERE ownedBy == :ownedBy"),
     @javax.jdo.annotations.Query(
             name = "todo_notYetComplete", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.incode.domainapp.example.dom.lib.excel.dom.demo.ExcelModuleDemoToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.demo.todo.DemoToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "   && complete == false"),
     @javax.jdo.annotations.Query(
             name = "findByDescription", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.incode.domainapp.example.dom.lib.excel.dom.demo.ExcelModuleDemoToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.demo.todo.DemoToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "   && description == :description"),
     @javax.jdo.annotations.Query(
             name = "todo_complete", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.incode.domainapp.example.dom.lib.excel.dom.demo.ExcelModuleDemoToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.demo.todo.DemoToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "&& complete == true"),
     @javax.jdo.annotations.Query(
             name = "todo_similarTo", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.incode.domainapp.example.dom.lib.excel.dom.demo.ExcelModuleDemoToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.demo.todo.DemoToDoItem "
                     + "WHERE ownedBy == :ownedBy "
                     + "&& category == :category"),
     @javax.jdo.annotations.Query(
             name = "todo_autoComplete", language = "JDOQL",
             value = "SELECT "
-                    + "FROM org.incode.domainapp.example.dom.lib.excel.dom.demo.ExcelModuleDemoToDoItem "
+                    + "FROM org.incode.domainapp.example.dom.demo.todo.DemoToDoItem "
                     + "WHERE ownedBy == :ownedBy && "
                     + "description.indexOf(:description) >= 0")
 })

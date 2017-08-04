@@ -12,6 +12,7 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Title;
+import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
 
 import lombok.AllArgsConstructor;
@@ -49,7 +50,7 @@ public class DemoObject implements Comparable<DemoObject> {
 
     @Override
     public String toString() {
-        return getName();
+        return ObjectContracts.toString(this, "name");
     }
 
     @Override
@@ -58,4 +59,14 @@ public class DemoObject implements Comparable<DemoObject> {
     }
 
 
+    // required by DemoObjectData#findUsing
+    @Override
+    public boolean equals(final Object o) {
+        return ObjectContracts.equals(this,o, "name");
+    }
+
+    @Override
+    public int hashCode() {
+        return ObjectContracts.hashCode(this, "name");
+    }
 }

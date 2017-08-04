@@ -8,6 +8,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.incode.domainapp.example.dom.demo.fixture.data.DemoObjectData;
 import org.incode.platform.dom.alias.integtests.AliasModuleIntegTestAbstract;
 
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
@@ -28,7 +29,7 @@ public class DemoObjectMenu_IntegTest extends AliasModuleIntegTestAbstract {
     public void listAll() throws Exception {
 
         final List<DemoObject> all = wrap(demoObjectMenu).listAll();
-        Assertions.assertThat(all.size()).isEqualTo(3);
+        Assertions.assertThat(all.size()).isEqualTo(DemoObjectData.values().length);
         
         DemoObject demoObject = wrap(all.get(0));
         Assertions.assertThat(demoObject.getName()).isEqualTo("Foo");
@@ -40,7 +41,7 @@ public class DemoObjectMenu_IntegTest extends AliasModuleIntegTestAbstract {
         wrap(demoObjectMenu).create("Faz");
         
         final List<DemoObject> all = wrap(demoObjectMenu).listAll();
-        Assertions.assertThat(all.size()).isEqualTo(4);
+        Assertions.assertThat(all.size()).isEqualTo(DemoObjectData.values().length+1);
     }
 
 }

@@ -12,8 +12,8 @@ import org.apache.isis.applib.fixturescripts.FixtureResult;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
-import org.incode.domainapp.example.dom.demo.fixture.setup.todoitems.ExcelModuleDemoToDoItemRowHandler2;
-import org.incode.domainapp.example.dom.demo.fixture.setup.todoitems.ExcelModuleDemoExtendingExcelFixture2;
+import org.incode.domainapp.example.dom.demo.fixture.setup.todoitems.DemoToDoItemRowHandler2;
+import org.incode.domainapp.example.dom.demo.fixture.setup.todoitems.DemoFixtureExtendingExcelFixture2;
 import org.incode.platform.lib.excel.integtests.ExcelModuleModuleIntegTestAbstract;
 
 import static org.hamcrest.core.Is.is;
@@ -28,7 +28,7 @@ public class ExcelModuleDemoMetaDataEnabled_IntegTest extends ExcelModuleModuleI
         FixtureScript script = new FixtureScript() {
             @Override
             protected void execute(final FixtureScript.ExecutionContext executionContext) {
-                executionContext.executeChild(this, new ExcelModuleDemoExtendingExcelFixture2());
+                executionContext.executeChild(this, new DemoFixtureExtendingExcelFixture2());
                 fixtureResults = executionContext.getResults();
             }
         };
@@ -41,9 +41,9 @@ public class ExcelModuleDemoMetaDataEnabled_IntegTest extends ExcelModuleModuleI
 
         assertThat(fixtureResults.size(), is(8));
 
-        List<ExcelModuleDemoToDoItemRowHandler2> resultToTest = new ArrayList<>();
+        List<DemoToDoItemRowHandler2> resultToTest = new ArrayList<>();
         for (FixtureResult fr : fixtureResults){
-            resultToTest.add((ExcelModuleDemoToDoItemRowHandler2) fr.getObject());
+            resultToTest.add((DemoToDoItemRowHandler2) fr.getObject());
         }
 
         assertThat(resultToTest.get(0).getExcelRowNumber(), is(1));

@@ -34,8 +34,7 @@ public class OtherObjectMenu {
 
     @MemberOrder(sequence = "2")
     public OtherObject create(final String name) {
-        final OtherObject obj = repositoryService.instantiate(OtherObject.class);
-        obj.setName(name);
+        final OtherObject obj = new OtherObject(name);
         repositoryService.persist(obj);
         return obj;
     }

@@ -21,6 +21,7 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Title;
+import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
 
 import org.incode.module.docfragment.dom.api.DocFragmentService;
@@ -116,6 +117,24 @@ public class DemoInvoice implements Comparable<DemoInvoice> {
         return Ordering.natural().onResultOf(DemoInvoice::getNum).compare(this, other);
     }
 
+    /**
+     *  required by {@link org.incode.domainapp.example.dom.demo.fixture.data.DemoInvoiceData#findUsing(ServiceRegistry2)}.
+     */
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        final DemoInvoice that = (DemoInvoice) o;
+
+        return num == that.num;
+    }
+
+    @Override public int hashCode() {
+        return num;
+    }
 
     @Inject
     DocFragmentService docFragmentService;

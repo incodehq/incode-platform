@@ -8,11 +8,13 @@ import org.incode.domainapp.example.dom.spi.sessionlogger.ExampleDomSpiSessionLo
 
 public class SessionLoggerAppManifest extends AppManifestAbstract {
 
+    public static final Builder BUILDER = Builder.forModules(
+            SessionLoggerModule.class,
+            ExampleDomSpiSessionLoggerModule.class
+    );
+
     public SessionLoggerAppManifest() {
-        super(Builder.forModules(
-                SessionLoggerModule.class,
-                ExampleDomSpiSessionLoggerModule.class
-        ));
+        super(BUILDER);
     }
 
 }

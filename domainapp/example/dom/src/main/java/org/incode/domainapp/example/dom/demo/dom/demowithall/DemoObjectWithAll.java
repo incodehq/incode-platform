@@ -12,6 +12,7 @@ import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 import javax.validation.constraints.Digits;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.google.common.collect.Ordering;
 
@@ -34,6 +35,7 @@ import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
 import org.apache.isis.applib.value.Money;
 import org.apache.isis.applib.value.Password;
+import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -54,6 +56,7 @@ import lombok.Setter;
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_ROOT
 )
+@XmlJavaTypeAdapter(PersistentEntityAdapter.class)
 public class DemoObjectWithAll implements Comparable<DemoObjectWithAll> {
 
 

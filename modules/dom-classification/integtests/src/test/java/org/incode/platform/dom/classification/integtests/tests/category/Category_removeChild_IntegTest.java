@@ -80,8 +80,8 @@ public class Category_removeChild_IntegTest extends ClassificationModuleIntegTes
         Category medium = categoryRepository.findByReference("M");
 
         // then
-        expectedException.expect(InvalidException.class);
-        expectedException.expectMessage("Child 'Sizes/Medium' is classified by 'DemoObject{name=Demo foo (in Italy)}' and cannot be removed");
+        expectedExceptions.expect(InvalidException.class);
+        expectedExceptions.expectMessage("Child 'Sizes/Medium' is classified by 'Demo foo (in Italy)' and cannot be removed");
 
         // when
         wrap(sizes).removeChild(medium);
@@ -94,8 +94,8 @@ public class Category_removeChild_IntegTest extends ClassificationModuleIntegTes
         Category small = categoryRepository.findByReference("SML");
 
         // then
-        expectedException.expect(InvalidException.class);
-        expectedException.expectMessage("Child 'Sizes/Small/Smaller' is classified by 'DemoObject{name=Demo bar (in France)}' and cannot be removed");
+        expectedExceptions.expect(InvalidException.class);
+        expectedExceptions.expectMessage("Child 'Sizes/Small/Smaller' is classified by 'Demo bar (in France)' and cannot be removed");
 
         // when
         wrap(sizes).removeChild(small);

@@ -43,8 +43,7 @@ public class DemoObjectWithUrlMenu {
     public DemoObjectWithUrl create(
             @ParameterLayout(named = "Name")
             final String name) {
-        final DemoObjectWithUrl obj = repositoryService.instantiate(DemoObjectWithUrl.class);
-        obj.setName(name);
+        final DemoObjectWithUrl obj = new DemoObjectWithUrl(name, null);
         repositoryService.persist(obj);
         return obj;
     }

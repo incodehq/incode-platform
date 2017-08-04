@@ -7,6 +7,7 @@ import java.util.TreeSet;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.google.common.collect.Ordering;
 
@@ -23,7 +24,9 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.Title;
+import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -42,7 +45,17 @@ import lombok.Setter;
         bookmarking = BookmarkPolicy.AS_ROOT
 )
 @MemberGroupLayout(columnSpans = {6,0,0,6})
+@XmlJavaTypeAdapter(PersistentEntityAdapter.class)
 public class DemoOrder implements Comparable<DemoOrder> {
+
+    @Builder
+    public DemoOrder(
+            final String number, final String customerName, final LocalDate date, final String preferences) {
+        this.number = number;
+        this.customerName = customerName;
+        this.date = date;
+        this.preferences = preferences;
+    }
 
     @javax.jdo.annotations.Column(allowsNull="false")
     @Title(sequence = "1")
@@ -93,11 +106,8 @@ public class DemoOrder implements Comparable<DemoOrder> {
             @ParameterLayout(named="Quantity")
             final int quantity) {
 
-        final DemoOrderLine orderLine = container.newTransientInstance(DemoOrderLine.class);
-        orderLine.setCost(cost);
-        orderLine.setDescription(description);
-        orderLine.setQuantity(quantity);
-        getOrderLines().add(orderLine); // will set the parent on the OrderLine
+        final DemoOrderLine orderLine = new DemoOrderLine(this, description, quantity, cost);
+        getOrderLines().add(orderLine);
 
         container.persistIfNotAlready(orderLine);
 

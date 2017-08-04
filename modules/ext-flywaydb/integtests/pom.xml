@@ -8,6 +8,14 @@
         <version>1.15.0-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
+<!--
+    <parent>
+        <groupId>org.incode</groupId>
+        <artifactId>incode-platform-integtests</artifactId>
+        <version>1.15.0-SNAPSHOT</version>
+        <relativePath>../../../integtest-parent/pom.xml</relativePath>
+    </parent>
+-->
 
     <artifactId>incode-platform-ext-flywaydb-integtests</artifactId>
     <name>Incode Platform Extension FlywayDB IntegTests</name>
@@ -17,7 +25,6 @@
 
         <maven-checkstyle-plugin.configLocation>${project.parent.basedir}/_checks/checkstyle.xml</maven-checkstyle-plugin.configLocation>
         <maven-pmd-plugin.ruleset>${project.parent.basedir}/_checks/pmd.xml</maven-pmd-plugin.ruleset>
-
     </properties>
 
     <build>

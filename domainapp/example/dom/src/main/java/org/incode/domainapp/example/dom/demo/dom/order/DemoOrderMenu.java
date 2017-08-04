@@ -1,7 +1,11 @@
 package org.incode.domainapp.example.dom.demo.dom.order;
 
 import java.util.List;
+
+import javax.annotation.Nullable;
+
 import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
@@ -10,9 +14,6 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.Optionality;
-import org.apache.isis.applib.annotation.Parameter;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
@@ -48,20 +49,12 @@ public class DemoOrderMenu {
     
     @MemberOrder(sequence = "2")
     public DemoOrder create(
-            @ParameterLayout(named="Order Number")
-            final String number,
-            @ParameterLayout(named="Customer Name")
+            final String orderNumber,
             final String customerName,
-            @ParameterLayout(named="Order Date")
-            final LocalDate date,
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(named="Preferences")
+            final LocalDate orderDate,
+            @Nullable
             final String preferences) {
-        final DemoOrder obj = container.newTransientInstance(DemoOrder.class);
-        obj.setNumber(number);
-        obj.setDate(date);
-        obj.setCustomerName(customerName);
-        obj.setPreferences(preferences);
+        final DemoOrder obj = new DemoOrder(orderNumber, customerName, orderDate, preferences);
         container.persistIfNotAlready(obj);
         return obj;
     }

@@ -74,8 +74,8 @@ public class Category_name_IntegTest extends ClassificationModuleIntegTestAbstra
         Category red = categoryRepository.findByReference("FRRED");
 
         // then
-        expectedException.expect(InvalidException.class);
-        expectedException.expectMessage("A category with name 'White' already exists (under this parent)");
+        expectedExceptions.expect(InvalidException.class);
+        expectedExceptions.expectMessage("A category with name 'White' already exists (under this parent)");
 
         // when
         wrap(red).setName("White");

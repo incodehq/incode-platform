@@ -10,9 +10,7 @@ public abstract class FlywayDbModuleIntegTestAbstract extends IntegrationTestAbs
 
     @BeforeClass
     public static void initSystem() {
-        bootstrapUsing(FlywayDbDemoAppManifest.BUILDER
-                //.withAdditionalServices(ModuleFixtureScriptsSpecificationProvider.class)
-                .build());
+        bootstrapUsing(FlywayDbDemoAppManifest.BUILDER.build());
     }
 
 }

@@ -14,7 +14,7 @@ import org.incode.domainapp.example.dom.demo.todo.Subcategory;
 import lombok.Getter;
 import lombok.Setter;
 
-public class ExcelModuleDemoToDoItemRowHandler2 implements FixtureAwareRowHandler<ExcelModuleDemoToDoItemRowHandler2>, ExcelMetaDataEnabled {
+public class DemoToDoItemRowHandler2 implements FixtureAwareRowHandler<DemoToDoItemRowHandler2>, ExcelMetaDataEnabled {
 
     @Getter @Setter
     private String excelSheetName;
@@ -35,8 +35,8 @@ public class ExcelModuleDemoToDoItemRowHandler2 implements FixtureAwareRowHandle
     private BigDecimal cost;
 
     @Override
-    public void handleRow(final ExcelModuleDemoToDoItemRowHandler2 previousRow) {
-        final ExcelModuleDemoToDoItemRowHandler2 previous = previousRow;
+    public void handleRow(final DemoToDoItemRowHandler2 previousRow) {
+        final DemoToDoItemRowHandler2 previous = previousRow;
         if(category == null) {
             category = previous.category;
         }

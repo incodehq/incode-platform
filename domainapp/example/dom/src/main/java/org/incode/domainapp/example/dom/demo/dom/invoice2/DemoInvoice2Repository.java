@@ -34,9 +34,7 @@ public class DemoInvoice2Repository {
     public DemoInvoice2 create(
             final String num,
             final DemoObjectWithNotes customer) {
-        final DemoInvoice2 obj = repositoryService.instantiate(DemoInvoice2.class);
-        obj.setNum(num);
-        obj.setCustomer(customer);
+        final DemoInvoice2 obj = new DemoInvoice2(num, customer);
         repositoryService.persist(obj);
         return obj;
     }

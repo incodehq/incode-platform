@@ -21,7 +21,7 @@ import org.incode.domainapp.example.dom.demo.todo.Subcategory;
 import lombok.Getter;
 import lombok.Setter;
 
-public class ExcelModuleDemoToDoItemRowHandler implements ExcelFixtureRowHandler {
+public class DemoToDoItemRowHandler implements ExcelFixtureRowHandler {
 
     @Getter @Setter
     private String description;
@@ -43,7 +43,7 @@ public class ExcelModuleDemoToDoItemRowHandler implements ExcelFixtureRowHandler
             final FixtureScript.ExecutionContext executionContext,
             final ExcelFixture excelFixture,
             final Object previousRow) {
-        final ExcelModuleDemoToDoItemRowHandler previous = (ExcelModuleDemoToDoItemRowHandler) previousRow;
+        final DemoToDoItemRowHandler previous = (DemoToDoItemRowHandler) previousRow;
         if(category == null) {
             category = previous.category;
         }

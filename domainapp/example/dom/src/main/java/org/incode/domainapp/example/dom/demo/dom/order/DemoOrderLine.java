@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.google.common.collect.Ordering;
 
@@ -14,7 +15,10 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.Where;
+import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,6 +36,9 @@ import lombok.Setter;
 @DomainObjectLayout(
         bookmarking = BookmarkPolicy.AS_CHILD
 )
+@AllArgsConstructor
+@Builder
+@XmlJavaTypeAdapter(PersistentEntityAdapter.class)
 public class DemoOrderLine implements Comparable<DemoOrderLine> {
 
 
