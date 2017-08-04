@@ -1,13 +1,19 @@
 package org.incode.domainapp.example.dom.lib.fakedata.fixture;
 
 import java.util.List;
-import com.google.common.collect.Lists;
-import org.isisaddons.module.fakedata.dom.FakeDataService;
-import org.incode.domainapp.example.dom.lib.fakedata.demo.FakeDataDemoObject;
 
-import org.incode.domainapp.example.dom.lib.fakedata.fixture.data.FakeDataDemoObjectCreate;
+import com.google.common.collect.Lists;
+
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+
+import org.isisaddons.module.fakedata.dom.FakeDataService;
+
+import org.incode.domainapp.example.dom.demo.dom.demowithall.DemoObjectWithAll;
+import org.incode.domainapp.example.dom.lib.fakedata.fixture.data.DemoObjectWithAllCreate;
+
+import lombok.Getter;
+import lombok.Setter;
 
 public class FakeDataDemoObjectsScenario extends DiscoverableFixtureScript {
 
@@ -15,25 +21,11 @@ public class FakeDataDemoObjectsScenario extends DiscoverableFixtureScript {
         withDiscoverability(Discoverability.DISCOVERABLE);
     }
 
-    //region > numberToCreate (input property)
+    @Getter(onMethod = @__( @Programmatic )) @Setter
     private Integer numberToCreate;
-    @Programmatic
-    public Integer getNumberToCreate() {
-        return numberToCreate;
-    }
-    public void setNumberToCreate(final Integer numberToCreate) {
-        this.numberToCreate = numberToCreate;
-    }
-    //endregion
 
-    //region > fakeDataDemoObjects (output property)
-    private List<FakeDataDemoObject> fakeDataDemoObjects = Lists.newArrayList();
-
-    @Programmatic
-    public List<FakeDataDemoObject> getFakeDataDemoObjects() {
-        return fakeDataDemoObjects;
-    }
-    //endregion
+    @Getter(onMethod = @__( @Programmatic ))
+    private List<DemoObjectWithAll> fakeDataDemoObjects = Lists.newArrayList();
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
@@ -45,17 +37,13 @@ public class FakeDataDemoObjectsScenario extends DiscoverableFixtureScript {
 
         // create as many as requested
         for (int i = 0; i < getNumberToCreate(); i++) {
-            final FakeDataDemoObjectCreate fs = new FakeDataDemoObjectCreate();
+            final DemoObjectWithAllCreate fs = new DemoObjectWithAllCreate();
             executionContext.executeChildT(this, fs);
             fakeDataDemoObjects.add(fs.getFakeDataDemoObject());
         }
 
     }
 
-    // //////////////////////////////////////
-
-    // //////////////////////////////////////
-
     @javax.inject.Inject
-    private FakeDataService fakeDataService;
+    FakeDataService fakeDataService;
 }

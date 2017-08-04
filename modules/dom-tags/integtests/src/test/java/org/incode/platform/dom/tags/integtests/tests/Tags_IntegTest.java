@@ -18,7 +18,7 @@ import org.isisaddons.module.tags.dom.Tag;
 import org.isisaddons.module.tags.dom.Tags;
 import org.incode.platform.dom.tags.integtests.TagsModuleIntegTestAbstract;
 
-import org.incode.domainapp.example.dom.dom.tags.dom.demo.ExampleTaggableEntities;
+import org.incode.domainapp.example.dom.dom.tags.dom.demo.ExampleTaggableEntityMenu;
 import org.incode.domainapp.example.dom.dom.tags.dom.demo.ExampleTaggableEntity;
 import org.incode.domainapp.example.dom.dom.tags.fixture.ExampleTaggableEntitiesTearDownFixture;
 import org.incode.domainapp.example.dom.dom.tags.fixture.data.Bar_Pepsi_Drink;
@@ -46,7 +46,7 @@ public class Tags_IntegTest extends TagsModuleIntegTestAbstract {
     }
 
     @Inject
-    ExampleTaggableEntities exampleTaggableEntities;
+    ExampleTaggableEntityMenu exampleTaggableEntities;
 
     @Inject
     Tags tags;

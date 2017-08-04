@@ -4,14 +4,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotes;
+import org.incode.domainapp.example.dom.demo.dom.invoice2.DemoInvoice2;
 import org.incode.module.document.dom.impl.applicability.RendererModelFactoryAbstract;
 import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 import org.incode.module.document.dom.impl.paperclips.Paperclip;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
 
-import org.incode.domainapp.example.dom.dom.communications.dom.demo.DemoCustomer;
-import org.incode.domainapp.example.dom.dom.communications.dom.demo2.DemoInvoice;
 import lombok.Value;
 
 public class RenderModelFactoryOfDocumentAttachedToDemoInvoice extends RendererModelFactoryAbstract<Document> {
@@ -25,10 +25,10 @@ public class RenderModelFactoryOfDocumentAttachedToDemoInvoice extends RendererM
             final DocumentTemplate documentTemplate, final Document document) {
 
         final List<Paperclip> paperclips = paperclipRepository.findByDocument(document);
-        final DemoInvoice demoInvoice =
+        final DemoInvoice2 demoInvoice =
                 paperclips.stream().map(Paperclip::getAttachedTo)
-                .filter(DemoInvoice.class::isInstance)
-                .map(DemoInvoice.class::cast)
+                .filter(DemoInvoice2.class::isInstance)
+                .map(DemoInvoice2.class::cast)
                 .findFirst()
                 .get(); // is safe to do this, because attachment advisor will have already run
 
@@ -41,8 +41,8 @@ public class RenderModelFactoryOfDocumentAttachedToDemoInvoice extends RendererM
 
     @Value
     public static class DataModel {
-        DemoCustomer demoCustomer;
-        DemoInvoice demoInvoice;
+        DemoObjectWithNotes demoCustomer;
+        DemoInvoice2 demoInvoice;
     }
 
 

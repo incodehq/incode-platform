@@ -22,13 +22,14 @@ import org.apache.isis.applib.value.Money;
 import org.apache.isis.applib.value.Password;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
+
+import org.incode.domainapp.example.dom.demo.dom.demowithall.DemoObjectWithAll;
 import org.incode.platform.lib.fakedata.integtests.FakeDataModuleIntegTestAbstract;
 
-import org.incode.domainapp.example.dom.lib.fakedata.demo.EnumOf3;
-import org.incode.domainapp.example.dom.lib.fakedata.demo.FakeDataDemoObject;
-import org.incode.domainapp.example.dom.lib.fakedata.demo.FakeDataDemoObjects;
+import org.incode.domainapp.example.dom.demo.dom.demowithall.EnumOf3;
+import org.incode.domainapp.example.dom.demo.dom.demowithall.DemoObjectWithAllMenu;
 import org.incode.domainapp.example.dom.lib.fakedata.fixture.FakeDataDemoObjectsScenario;
-import org.incode.domainapp.example.dom.lib.fakedata.fixture.data.FakeDataDemoObjectUpdate;
+import org.incode.domainapp.example.dom.lib.fakedata.fixture.data.DemoObjectWithAllUpdate;
 
 public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstract {
 
@@ -36,7 +37,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
     FixtureScripts fixtureScripts;
 
     @Inject
-    FakeDataDemoObjects fakeDataDemoObjects;
+    DemoObjectWithAllMenu fakeDataDemoObjects;
 
     @Inject
     FakeDataService fakeDataService;
@@ -62,10 +63,10 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            final List<FakeDataDemoObject> all = wrap(fakeDataDemoObjects).listAll();
+            final List<DemoObjectWithAll> all = wrap(fakeDataDemoObjects).listAll();
             Assertions.assertThat(all.size()).isEqualTo(1);
 
-            FakeDataDemoObject fakeDataDemoObject = all.get(0);
+            DemoObjectWithAll fakeDataDemoObject = all.get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeBooleanWrapper()).isNull();
             Assertions.assertThat(fakeDataDemoObject.getSomeCharacterWrapper()).isNull();
@@ -102,8 +103,8 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
 
     public static class FakeDataDemoObjectUpdateTest extends FakeDataDemoObjects_IntegTest {
 
-        FakeDataDemoObject fakeDataDemoObject;
-        FakeDataDemoObjectUpdate updateScript;
+        DemoObjectWithAll fakeDataDemoObject;
+        DemoObjectWithAllUpdate updateScript;
 
         @Before
         public void setUp() throws Exception {
@@ -118,10 +119,10 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
 
             nextTransaction();
 
-            final List<FakeDataDemoObject> all = wrap(fakeDataDemoObjects).listAll();
+            final List<DemoObjectWithAll> all = wrap(fakeDataDemoObjects).listAll();
             fakeDataDemoObject = all.get(0);
 
-            updateScript = new FakeDataDemoObjectUpdate();
+            updateScript = new DemoObjectWithAllUpdate();
         }
 
         @Test
@@ -195,7 +196,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             // then
             //
             fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
-            Assertions.assertThat(fakeDataDemoObject.getSomeBoolean()).isTrue();
+            Assertions.assertThat(fakeDataDemoObject.isSomeBoolean()).isTrue();
             Assertions.assertThat(fakeDataDemoObject.getSomeBooleanWrapper()).isTrue();
 
 
@@ -213,7 +214,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             // then
             //
             fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
-            Assertions.assertThat(fakeDataDemoObject.getSomeBoolean()).isFalse();
+            Assertions.assertThat(fakeDataDemoObject.isSomeBoolean()).isFalse();
             Assertions.assertThat(fakeDataDemoObject.getSomeBooleanWrapper()).isFalse();
 
         }

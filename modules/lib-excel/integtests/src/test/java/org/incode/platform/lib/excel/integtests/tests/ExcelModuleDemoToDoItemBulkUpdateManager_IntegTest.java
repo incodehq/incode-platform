@@ -20,12 +20,12 @@ import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.ExcelService;
 
+import org.incode.domainapp.example.dom.demo.todo.DemoToDoItemMenu;
 import org.incode.platform.lib.excel.integtests.ExcelModuleModuleIntegTestAbstract;
 
-import org.incode.domainapp.example.dom.lib.excel.dom.bulkupdate.ExcelModuleDemoToDoItemBulkUpdateLineItem;
-import org.incode.domainapp.example.dom.lib.excel.dom.bulkupdate.ExcelModuleDemoToDoItemBulkUpdateManager;
-import org.incode.domainapp.example.dom.lib.excel.dom.bulkupdate.ExcelModuleDemoToDoItemBulkUpdateMenu;
-import org.incode.domainapp.example.dom.lib.excel.dom.demo.ExcelModuleDemoToDoItems;
+import org.incode.domainapp.example.dom.lib.excel.dom.bulkupdate.BulkUpdateLineItemForDemoToDoItem;
+import org.incode.domainapp.example.dom.lib.excel.dom.bulkupdate.BulkUpdateManagerForDemoToDoItem;
+import org.incode.domainapp.example.dom.lib.excel.dom.bulkupdate.BulkUpdateMenuForDemoToDoItem;
 import org.incode.domainapp.example.dom.lib.excel.fixture.RecreateToDoItems;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -38,12 +38,12 @@ public class ExcelModuleDemoToDoItemBulkUpdateManager_IntegTest extends ExcelMod
     }
 
     @Inject
-    private ExcelModuleDemoToDoItems toDoItems;
+    private DemoToDoItemMenu toDoItems;
 
     @javax.inject.Inject
-    private ExcelModuleDemoToDoItemBulkUpdateMenu exportImportService;
+    private BulkUpdateMenuForDemoToDoItem exportImportService;
 
-    private ExcelModuleDemoToDoItemBulkUpdateManager bulkUpdateManager;
+    private BulkUpdateManagerForDemoToDoItem bulkUpdateManager;
 
     @Before
     public void setUp() throws Exception {
@@ -73,14 +73,14 @@ public class ExcelModuleDemoToDoItemBulkUpdateManager_IntegTest extends ExcelMod
         final byte[] updatedBytes = getBytes(getClass(), "toDoItems-updated.xlsx");
 
         // when
-        final List<ExcelModuleDemoToDoItemBulkUpdateLineItem> lineItems =
+        final List<BulkUpdateLineItemForDemoToDoItem> lineItems =
                 bulkUpdateManager.importBlob(new Blob("toDoItems-updated.xlsx", ExcelService.XSLX_MIME_TYPE, updatedBytes));
 
         // then
         assertThat(lineItems.size(), is(2));
 
-        final ExcelModuleDemoToDoItemBulkUpdateLineItem lineItem1 = lineItems.get(0);
-        final ExcelModuleDemoToDoItemBulkUpdateLineItem lineItem2 = lineItems.get(1);
+        final BulkUpdateLineItemForDemoToDoItem lineItem1 = lineItems.get(0);
+        final BulkUpdateLineItemForDemoToDoItem lineItem2 = lineItems.get(1);
 
         assertThat(lineItem1.getDescription(), is("Buy milk - updated!"));
         assertThat(lineItem2.getNotes(), is("Get sliced brown if possible."));

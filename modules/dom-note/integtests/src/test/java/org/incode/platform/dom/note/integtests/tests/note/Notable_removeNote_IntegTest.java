@@ -14,6 +14,10 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.wrapper.DisabledException;
 
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
+import org.incode.domainapp.example.dom.dom.note.dom.spiimpl.CalendarNameRepositoryForDemo;
+import org.incode.domainapp.example.dom.dom.note.fixture.NoteDemoObjectsTearDownFixture;
 import org.incode.module.note.dom.impl.notablelink.NotableLink;
 import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
 import org.incode.module.note.dom.impl.note.Note;
@@ -21,10 +25,6 @@ import org.incode.module.note.dom.impl.note.NoteRepository;
 import org.incode.module.note.dom.impl.note.T_removeNote;
 import org.incode.platform.dom.note.integtests.NoteModuleIntegTestAbstract;
 
-import org.incode.domainapp.example.dom.dom.note.dom.demo.NoteDemoObject;
-import org.incode.domainapp.example.dom.dom.note.dom.demo.NoteDemoObjectMenu;
-import org.incode.domainapp.example.dom.dom.note.dom.spiimpl.CalendarNameRepositoryForDemo;
-import org.incode.domainapp.example.dom.dom.note.fixture.NoteDemoObjectsTearDownFixture;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class Notable_removeNote_IntegTest extends NoteModuleIntegTestAbstract {
@@ -33,7 +33,7 @@ public class Notable_removeNote_IntegTest extends NoteModuleIntegTestAbstract {
     CalendarNameRepositoryForDemo calendarNameRepository;
 
     @Inject
-    NoteDemoObjectMenu noteDemoObjectMenu;
+    DemoObjectMenu noteDemoObjectMenu;
 
     @Inject
     NoteRepository noteRepository;
@@ -42,14 +42,14 @@ public class Notable_removeNote_IntegTest extends NoteModuleIntegTestAbstract {
     NotableLinkRepository notableLinkRepository;
 
 
-    NoteDemoObject notable;
+    DemoObject notable;
 
     @Before
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new NoteDemoObjectsTearDownFixture(), null);
 
         notable = wrap(noteDemoObjectMenu).create("Foo");
-        calendarNameRepository.setCalendarNames(NoteDemoObject.class, "BLUE", "GREEN", "RED");
+        calendarNameRepository.setCalendarNames(DemoObject.class, "BLUE", "GREEN", "RED");
     }
 
     public static class ActionImplementationIntegTest extends Notable_removeNote_IntegTest {

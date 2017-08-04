@@ -6,11 +6,11 @@ import org.junit.Before;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
+import org.incode.domainapp.example.dom.dom.commchannel.fixture.CommChannelDemoObjectsTearDownFixture;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
-import org.incode.domainapp.example.dom.dom.commchannel.dom.demo.CommChannelDemoObject;
-import org.incode.domainapp.example.dom.dom.commchannel.dom.demo.CommChannelDemoObjectMenu;
-import org.incode.domainapp.example.dom.dom.commchannel.fixture.CommChannelDemoObjectsTearDownFixture;
 import org.incode.platform.dom.commchannel.integtests.CommChannelModuleIntegTestAbstract;
 
 public class CommunicationChannelOwnerLinkRepository_IntegTest extends CommChannelModuleIntegTestAbstract {
@@ -19,10 +19,10 @@ public class CommunicationChannelOwnerLinkRepository_IntegTest extends CommChann
     FixtureScripts fixtureScripts;
 
     @Inject
-    CommChannelDemoObjectMenu commChannelDemoObjectMenu;
+    DemoObjectMenu commChannelDemoObjectMenu;
 
-    CommChannelDemoObject fredDemoOwner;
-    CommChannelDemoObject billDemoOwner;
+    DemoObject fredDemoOwner;
+    DemoObject billDemoOwner;
 
     @Inject
     CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;

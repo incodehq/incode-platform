@@ -18,6 +18,9 @@ import org.apache.isis.applib.annotation.Where;
 import org.isisaddons.module.tags.dom.Tag;
 import org.isisaddons.module.tags.dom.Tags;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Represents a general purpose mechanism for tagging (or labelling) any entity with a named
  * (string) value.
@@ -43,42 +46,29 @@ import org.isisaddons.module.tags.dom.Tags;
 )
 public class ExampleTaggableEntity {
 
+
     private static final String TAG_NAME_BRAND = "Brand";
     private static final String TAG_NAME_SECTOR = "Sector";
 
-    // //////////////////////////////////////
-
-    private String name;
 
     @javax.jdo.annotations.Column(allowsNull="false")
     @Title(sequence="1")
     @MemberOrder(sequence="1")
-    public String getName() {
-        return name;
-    }
+    @Getter @Setter
+    private String name;
 
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-
-    // //////////////////////////////////////
-
-    private Tag brandTag;
 
     @javax.jdo.annotations.Column(name = "BRANDTAG_ID", allowsNull="true")
-    @Property(
-            hidden = Where.EVERYWHERE
-    )
-    public Tag getBrandTag() {
-        return brandTag;
-    }
+    @Property(hidden = Where.EVERYWHERE)
+    @Getter @Setter
+    private Tag brandTag;
 
-    public void setBrandTag(final Tag brandTag) {
-        this.brandTag = brandTag;
-    }
 
-    // //////////////////////////////////////
+    @javax.jdo.annotations.Column(name = "SECTORTAG_ID", allowsNull="true")
+    @Property(hidden = Where.EVERYWHERE)
+    @Getter @Setter
+    private Tag sectorTag;
+
 
 
     @javax.jdo.annotations.NotPersistent
@@ -98,7 +88,10 @@ public class ExampleTaggableEntity {
         return tags.choices(this, TAG_NAME_BRAND);
     }
 
-    // //////////////////////////////////////
+
+
+
+
 
     @MemberOrder(name="brand", sequence = "2")
     public ExampleTaggableEntity updateBrand(
@@ -116,7 +109,9 @@ public class ExampleTaggableEntity {
         return tags.choices(this, TAG_NAME_BRAND);
     }
 
-    // //////////////////////////////////////
+
+
+
 
     @MemberOrder(name="brand", sequence = "1")
     public ExampleTaggableEntity newBrand(
@@ -131,23 +126,7 @@ public class ExampleTaggableEntity {
     }
 
 
-    // //////////////////////////////////////
 
-    private Tag sectorTag;
-
-    @javax.jdo.annotations.Column(name = "SECTORTAG_ID", allowsNull="true")
-    @Property(
-            hidden = Where.EVERYWHERE
-    )
-    public Tag getSectorTag() {
-        return sectorTag;
-    }
-
-    public void setSectorTag(final Tag sectorTag) {
-        this.sectorTag = sectorTag;
-    }
-
-    // //////////////////////////////////////
 
     @javax.jdo.annotations.NotPersistent
     @MemberOrder(sequence="2")
@@ -166,7 +145,7 @@ public class ExampleTaggableEntity {
         return tags.choices(this, TAG_NAME_SECTOR);
     }
 
-    // //////////////////////////////////////
+
 
     @MemberOrder(name="sector", sequence = "2")
     public ExampleTaggableEntity updateSector(
@@ -184,7 +163,7 @@ public class ExampleTaggableEntity {
         return tags.choices(this, TAG_NAME_SECTOR);
     }
 
-    // //////////////////////////////////////
+
 
     @MemberOrder(name="sector", sequence = "1")
     public ExampleTaggableEntity newSector(

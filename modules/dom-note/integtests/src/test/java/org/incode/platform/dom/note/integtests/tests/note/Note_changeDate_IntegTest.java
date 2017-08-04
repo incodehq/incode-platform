@@ -14,16 +14,16 @@ import org.junit.Test;
 
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
+import org.incode.domainapp.example.dom.dom.note.dom.spiimpl.CalendarNameRepositoryForDemo;
+import org.incode.domainapp.example.dom.dom.note.fixture.NoteDemoObjectsTearDownFixture;
 import org.incode.module.note.dom.impl.notablelink.NotableLink;
 import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
 import org.incode.module.note.dom.impl.note.Note;
 import org.incode.module.note.dom.impl.note.NoteRepository;
 import org.incode.platform.dom.note.integtests.NoteModuleIntegTestAbstract;
 
-import org.incode.domainapp.example.dom.dom.note.dom.demo.NoteDemoObject;
-import org.incode.domainapp.example.dom.dom.note.dom.demo.NoteDemoObjectMenu;
-import org.incode.domainapp.example.dom.dom.note.dom.spiimpl.CalendarNameRepositoryForDemo;
-import org.incode.domainapp.example.dom.dom.note.fixture.NoteDemoObjectsTearDownFixture;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class Note_changeDate_IntegTest extends NoteModuleIntegTestAbstract {
@@ -32,7 +32,7 @@ public class Note_changeDate_IntegTest extends NoteModuleIntegTestAbstract {
     CalendarNameRepositoryForDemo calendarNameRepository;
 
     @Inject
-    NoteDemoObjectMenu noteDemoObjectMenu;
+    DemoObjectMenu noteDemoObjectMenu;
 
     @Inject
     NoteRepository noteRepository;
@@ -40,7 +40,7 @@ public class Note_changeDate_IntegTest extends NoteModuleIntegTestAbstract {
     @Inject
     NotableLinkRepository notableLinkRepository;
 
-    NoteDemoObject notable;
+    DemoObject notable;
     Note note;
     Note noteWithoutDate;
     Note noteWithoutText;
@@ -50,7 +50,7 @@ public class Note_changeDate_IntegTest extends NoteModuleIntegTestAbstract {
         fixtureScripts.runFixtureScript(new NoteDemoObjectsTearDownFixture(), null);
 
         notable = wrap(noteDemoObjectMenu).create("Foo");
-        calendarNameRepository.setCalendarNames(NoteDemoObject.class, "BLUE", "GREEN", "RED");
+        calendarNameRepository.setCalendarNames(DemoObject.class, "BLUE", "GREEN", "RED");
 
         final LocalDate someDate = fakeData.jodaLocalDates().any();
         final LocalDate someOtherDate = someDate.plusDays(7);

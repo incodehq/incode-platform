@@ -2,9 +2,7 @@ package org.incode.platform.ext.flywaydb.integtests.app;
 
 import org.apache.isis.applib.AppManifestAbstract;
 
-import org.incode.platform.ext.flywaydb.integtests.app.fixtures.FlywayDemoFixtureSubmodule;
-
-import org.incode.domainapp.example.dom.ext.flywaydb.ExampleDomExtFlywayDbModule;
+import org.incode.domainapp.example.dom.ExampleDomSubmodule;
 
 /**
  * Bootstrap the application.
@@ -12,9 +10,7 @@ import org.incode.domainapp.example.dom.ext.flywaydb.ExampleDomExtFlywayDbModule
 public class FlywayDbDemoAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = Builder.forModules(
-            ExampleDomExtFlywayDbModule.class,
-            FlywayDemoFixtureSubmodule.class
-
+            ExampleDomSubmodule.class
     );
 
     public FlywayDbDemoAppManifest() {

@@ -10,8 +10,8 @@ import org.junit.Test;
 
 import org.incode.platform.dom.alias.integtests.AliasModuleIntegTestAbstract;
 
-import org.incode.domainapp.example.dom.dom.alias.dom.demo.DemoObject;
-import org.incode.domainapp.example.dom.dom.alias.dom.demo.DemoObjectMenu;
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
 import org.incode.domainapp.example.dom.dom.alias.fixture.AliasDemoObjectsFixture;
 
 public class DemoObjectMenu_IntegTest extends AliasModuleIntegTestAbstract {

@@ -8,6 +8,8 @@ import javax.inject.Inject;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
+import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotes;
+import org.incode.domainapp.example.dom.demo.dom.invoice2.DemoInvoice2;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannel;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwnerLink;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwnerLinkRepository;
@@ -22,8 +24,6 @@ import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
 import org.incode.module.document.dom.impl.types.DocumentType;
 import org.incode.module.document.dom.impl.types.DocumentTypeRepository;
 
-import org.incode.domainapp.example.dom.dom.communications.dom.demo.DemoCustomer;
-import org.incode.domainapp.example.dom.dom.communications.dom.demo2.DemoInvoice;
 import org.incode.domainapp.example.dom.dom.communications.fixture.data.doctypes.DocumentTypesAndTemplatesFixture;
 
 @DomainService(nature = NatureOfService.DOMAIN)
@@ -32,7 +32,7 @@ public class DocumentCommunicationSupportForDocumentsAttachedToDemoInvoice imple
     @Override
     public DocumentType emailCoverNoteDocumentTypeFor(final Document document) {
 
-        final DemoInvoice invoice = paperclipRepository.paperclipAttaches(document, DemoInvoice.class);
+        final DemoInvoice2 invoice = paperclipRepository.paperclipAttaches(document, DemoInvoice2.class);
         if (invoice == null) {
             return null;
         }
@@ -65,8 +65,8 @@ public class DocumentCommunicationSupportForDocumentsAttachedToDemoInvoice imple
         for (final Paperclip paperclip : paperclips) {
             final Object attachedTo = paperclip.getAttachedTo();
 
-            if(attachedTo instanceof DemoInvoice) {
-                final DemoInvoice invoice = (DemoInvoice) attachedTo;
+            if(attachedTo instanceof DemoInvoice2) {
+                final DemoInvoice2 invoice = (DemoInvoice2) attachedTo;
                 addTo(invoice, header, channelType);
             }
         }
@@ -77,11 +77,11 @@ public class DocumentCommunicationSupportForDocumentsAttachedToDemoInvoice imple
     }
 
     private <T extends CommunicationChannel> void addTo(
-            final DemoInvoice invoice,
+            final DemoInvoice2 invoice,
             final CommHeaderAbstract<T> header,
             final CommunicationChannelType channelType) {
 
-        final DemoCustomer customer = invoice.getCustomer();
+        final DemoObjectWithNotes customer = invoice.getCustomer();
 
         final List<CommunicationChannelOwnerLink> links =
                 communicationChannelOwnerLinkRepository.findByOwner(customer);

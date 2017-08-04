@@ -7,7 +7,7 @@ import org.apache.isis.applib.services.queryresultscache.QueryResultsCache;
 
 import org.incode.domainapp.example.dom.dom.communications.fixture.data.doctypes.DocumentTypesAndTemplatesFixture;
 import org.incode.domainapp.example.dom.dom.communications.fixture.data.doctypes.RenderingStrategiesFixture;
-import org.incode.domainapp.example.dom.dom.communications.fixture.data.demo.DemoCustomersFixture;
+import org.incode.domainapp.example.dom.dom.communications.fixture.data.democust2.DemoCustomer2sFixture;
 
 import org.incode.module.country.fixture.CountriesRefData;
 
@@ -29,7 +29,7 @@ public class DemoModuleFixture extends DiscoverableFixtureScript {
         executionContext.executeChild(this, new DocumentTypesAndTemplatesFixture());
     	queryResultsCache.resetForNextTransaction();
 
-    	executionContext.executeChild(this, new DemoCustomersFixture());
+    	executionContext.executeChild(this, new DemoCustomer2sFixture());
     }
 
     @Inject

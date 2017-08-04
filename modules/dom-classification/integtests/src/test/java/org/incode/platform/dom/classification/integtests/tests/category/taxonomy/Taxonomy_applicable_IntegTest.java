@@ -11,15 +11,15 @@ import org.junit.rules.ExpectedException;
 
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
+import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPath;
+import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPath;
 import org.incode.module.classification.dom.impl.applicability.Applicability;
 import org.incode.module.classification.dom.impl.applicability.ApplicabilityRepository;
 import org.incode.module.classification.dom.impl.category.CategoryRepository;
 import org.incode.module.classification.dom.impl.category.taxonomy.Taxonomy;
 import org.incode.module.classification.dom.impl.classification.ClassificationRepository;
 import org.incode.module.classification.dom.spi.ApplicationTenancyService;
-import org.incode.domainapp.example.dom.dom.classification.dom.demo.DemoObject;
-import org.incode.domainapp.example.dom.dom.classification.dom.demo.DemoObjectMenu;
-import org.incode.domainapp.example.dom.dom.classification.dom.demo2.OtherObject;
+import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPathMenu;
 import org.incode.domainapp.example.dom.dom.classification.fixture.ClassifiedDemoObjectsFixture;
 import org.incode.domainapp.example.dom.dom.classification.fixture.ClassificationDemoAppTearDownFixture;
 import org.incode.platform.dom.classification.integtests.ClassificationModuleIntegTestAbstract;
@@ -36,7 +36,7 @@ public class Taxonomy_applicable_IntegTest extends ClassificationModuleIntegTest
     ApplicabilityRepository applicabilityRepository;
 
     @Inject
-    DemoObjectMenu demoObjectMenu;
+    DemoObjectWithAtPathMenu demoObjectMenu;
     @Inject
     ApplicationTenancyService applicationTenancyService;
 
@@ -53,13 +53,13 @@ public class Taxonomy_applicable_IntegTest extends ClassificationModuleIntegTest
     public void can_add_applicability_for_different_domain_types_with_same_atPath() {
         // given
         Taxonomy frenchColours = (Taxonomy) categoryRepository.findByParentAndName(null, "French Colours");
-        assertThat(applicabilityRepository.findByDomainTypeAndUnderAtPath(OtherObject.class, "/FRA")).isEmpty();
+        assertThat(applicabilityRepository.findByDomainTypeAndUnderAtPath(OtherObjectWithAtPath.class, "/FRA")).isEmpty();
 
         // when
-        wrap(frenchColours).applicable("/FRA", OtherObject.class.getName());
+        wrap(frenchColours).applicable("/FRA", OtherObjectWithAtPath.class.getName());
 
         // then
-        assertThat(applicabilityRepository.findByDomainTypeAndUnderAtPath(OtherObject.class, "/FRA")).hasSize(1);
+        assertThat(applicabilityRepository.findByDomainTypeAndUnderAtPath(OtherObjectWithAtPath.class, "/FRA")).hasSize(1);
     }
 
     @Test
@@ -67,15 +67,15 @@ public class Taxonomy_applicable_IntegTest extends ClassificationModuleIntegTest
 
         // eg given an applicability for "/ITA" and 'DemoObject', can also add an applicability for "/ITA/MIL" and 'DemoObject'
         Taxonomy italianColours = (Taxonomy) categoryRepository.findByParentAndName(null, "Italian Colours");
-        final List<Applicability> byDomainTypeAndUnderAtPath = applicabilityRepository.findByDomainTypeAndUnderAtPath(DemoObject.class, "/ITA");
+        final List<Applicability> byDomainTypeAndUnderAtPath = applicabilityRepository.findByDomainTypeAndUnderAtPath(DemoObjectWithAtPath.class, "/ITA");
         assertThat(byDomainTypeAndUnderAtPath).hasSize(2);
         assertThat(byDomainTypeAndUnderAtPath).extracting(Applicability::getTaxonomy).extracting(Taxonomy::getFullyQualifiedName).containsOnly("Italian Colours", "Sizes");
 
         // when
-        wrap(italianColours).applicable("/ITA/MIL", DemoObject.class.getName());
+        wrap(italianColours).applicable("/ITA/MIL", DemoObjectWithAtPath.class.getName());
 
         // then
-        final List<Applicability> byDomainTypeAndUnderAtPathNew = applicabilityRepository.findByDomainTypeAndUnderAtPath(DemoObject.class, "/ITA/MIL");
+        final List<Applicability> byDomainTypeAndUnderAtPathNew = applicabilityRepository.findByDomainTypeAndUnderAtPath(DemoObjectWithAtPath.class, "/ITA/MIL");
         assertThat(byDomainTypeAndUnderAtPathNew).hasSize(3);
         assertThat(byDomainTypeAndUnderAtPathNew).extracting(Applicability::getTaxonomy).extracting(Taxonomy::getFullyQualifiedName).containsOnly("Italian Colours", "Sizes");
     }
@@ -89,10 +89,10 @@ public class Taxonomy_applicable_IntegTest extends ClassificationModuleIntegTest
 
         // then
         expectedException.expect(InvalidException.class);
-        expectedException.expectMessage("Already applicable for '/ITA' and '" + DemoObject.class.getName() + "'");
+        expectedException.expectMessage("Already applicable for '/ITA' and '" + DemoObjectWithAtPath.class.getName() + "'");
 
         // when
-        wrap(italianColours).applicable("/ITA", DemoObject.class.getName());
+        wrap(italianColours).applicable("/ITA", DemoObjectWithAtPath.class.getName());
 
     }
 

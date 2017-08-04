@@ -1,9 +1,11 @@
 package org.incode.domainapp.example.dom.dom.settings.fixture;
 
+import org.joda.time.LocalDate;
+
+import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+
 import org.isisaddons.module.settings.dom.ApplicationSettingsServiceRW;
 import org.isisaddons.module.settings.dom.UserSettingsServiceRW;
-import org.joda.time.LocalDate;
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
 public class SettingsModuleAppSetUpFixture extends DiscoverableFixtureScript {
 
@@ -14,10 +16,7 @@ public class SettingsModuleAppSetUpFixture extends DiscoverableFixtureScript {
     @Override
     protected void execute(ExecutionContext executionContext) {
 
-        // prereqs
-        execute(new SettingsModuleAppTearDownFixture(), executionContext);
-
-        // create
+        executionContext.executeChild(this, new SettingsModuleAppTearDownFixture());
 
         executionContext.add(this, applicationSettingsServiceRW.newBoolean("demoSettingEnableJmx", "(Demo) Whether JMX beans are enabled", true));
         executionContext.add(this, applicationSettingsServiceRW.newInt("demoSettingWebServiceRetries", "(Demo) # times to retry submitting web service retries before failing", 3));

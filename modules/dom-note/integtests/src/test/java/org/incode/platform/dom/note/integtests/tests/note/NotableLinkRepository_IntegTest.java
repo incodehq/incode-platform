@@ -10,13 +10,13 @@ import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
+import org.incode.domainapp.example.dom.dom.note.dom.spiimpl.CalendarNameRepositoryForDemo;
+import org.incode.domainapp.example.dom.dom.note.fixture.NoteDemoObjectsTearDownFixture;
 import org.incode.module.note.dom.impl.notablelink.NotableLink;
 import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
 import org.incode.module.note.dom.impl.note.Note;
-import org.incode.domainapp.example.dom.dom.note.dom.spiimpl.CalendarNameRepositoryForDemo;
-import org.incode.domainapp.example.dom.dom.note.dom.demo.NoteDemoObject;
-import org.incode.domainapp.example.dom.dom.note.dom.demo.NoteDemoObjectMenu;
-import org.incode.domainapp.example.dom.dom.note.fixture.NoteDemoObjectsTearDownFixture;
 import org.incode.platform.dom.note.integtests.NoteModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,13 +27,13 @@ public class NotableLinkRepository_IntegTest extends NoteModuleIntegTestAbstract
     CalendarNameRepositoryForDemo calendarNameRepository;
 
     @Inject
-    NoteDemoObjectMenu noteDemoObjectMenu;
+    DemoObjectMenu noteDemoObjectMenu;
 
     @Inject
     NotableLinkRepository notableLinkRepository;
 
-    NoteDemoObject notable1;
-    NoteDemoObject notable2;
+    DemoObject notable1;
+    DemoObject notable2;
 
     @Before
     public void setUpData() throws Exception {
@@ -42,7 +42,7 @@ public class NotableLinkRepository_IntegTest extends NoteModuleIntegTestAbstract
         notable1 = wrap(noteDemoObjectMenu).create("Foo");
         notable2 = wrap(noteDemoObjectMenu).create("Bar");
 
-        calendarNameRepository.setCalendarNames(NoteDemoObject.class, "BLUE", "GREEN", "RED");
+        calendarNameRepository.setCalendarNames(DemoObject.class, "BLUE", "GREEN", "RED");
     }
 
     public static class FindByNotableLinkIntegTest extends NotableLinkRepository_IntegTest {

@@ -14,12 +14,12 @@ import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
+import org.incode.domainapp.example.dom.dom.note.dom.spiimpl.CalendarNameRepositoryForDemo;
+import org.incode.domainapp.example.dom.dom.note.fixture.NoteDemoObjectsTearDownFixture;
 import org.incode.module.note.dom.impl.note.Note;
 import org.incode.module.note.dom.impl.note.Note_remove;
-import org.incode.domainapp.example.dom.dom.note.dom.spiimpl.CalendarNameRepositoryForDemo;
-import org.incode.domainapp.example.dom.dom.note.dom.demo.NoteDemoObject;
-import org.incode.domainapp.example.dom.dom.note.dom.demo.NoteDemoObjectMenu;
-import org.incode.domainapp.example.dom.dom.note.fixture.NoteDemoObjectsTearDownFixture;
 import org.incode.platform.dom.note.integtests.NoteModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,9 +33,9 @@ public class Note_remove_IntegTest extends NoteModuleIntegTestAbstract {
     CalendarNameRepositoryForDemo calendarNameRepository;
 
     @Inject
-    NoteDemoObjectMenu noteDemoObjectMenu;
+    DemoObjectMenu noteDemoObjectMenu;
 
-    NoteDemoObject notable;
+    DemoObject notable;
     Note note;
     Note noteWithoutDate;
     Note noteWithoutText;
@@ -45,7 +45,7 @@ public class Note_remove_IntegTest extends NoteModuleIntegTestAbstract {
         fixtureScripts.runFixtureScript(new NoteDemoObjectsTearDownFixture(), null);
 
         notable = wrap(noteDemoObjectMenu).create("Foo");
-        calendarNameRepository.setCalendarNames(NoteDemoObject.class, "BLUE", "GREEN", "RED");
+        calendarNameRepository.setCalendarNames(DemoObject.class, "BLUE", "GREEN", "RED");
 
         wrap(mixinAddNote(notable)).$$("note A", fakeData.jodaLocalDates().any(), "GREEN");
         wrap(mixinAddNote(notable)).$$("note B", null, null);

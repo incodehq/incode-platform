@@ -13,6 +13,10 @@ import org.junit.rules.ExpectedException;
 
 import org.apache.isis.applib.services.factory.FactoryService;
 
+import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPath;
+import org.incode.domainapp.example.dom.dom.classification.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath_classify;
+import org.incode.domainapp.example.dom.dom.classification.dom.classification.otherwithatpath.ClassificationForOtherObjectWithAtPath_classify;
+import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPath;
 import org.incode.module.classification.dom.impl.applicability.ApplicabilityRepository;
 import org.incode.module.classification.dom.impl.category.Category;
 import org.incode.module.classification.dom.impl.category.CategoryRepository;
@@ -20,12 +24,8 @@ import org.incode.module.classification.dom.impl.category.taxonomy.Taxonomy;
 import org.incode.module.classification.dom.impl.classification.Classification;
 import org.incode.module.classification.dom.impl.classification.ClassificationRepository;
 import org.incode.module.classification.dom.spi.ApplicationTenancyService;
-import org.incode.domainapp.example.dom.dom.classification.dom.classification.demo.ClassificationForDemoObject;
-import org.incode.domainapp.example.dom.dom.classification.dom.classification.demo2.ClassificationForOtherObject;
-import org.incode.domainapp.example.dom.dom.classification.dom.demo.DemoObject;
-import org.incode.domainapp.example.dom.dom.classification.dom.demo.DemoObjectMenu;
-import org.incode.domainapp.example.dom.dom.classification.dom.demo2.OtherObject;
-import org.incode.domainapp.example.dom.dom.classification.dom.demo2.OtherObjectMenu;
+import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPathMenu;
+import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPathMenu;
 import org.incode.domainapp.example.dom.dom.classification.fixture.ClassifiedDemoObjectsFixture;
 import org.incode.platform.dom.classification.integtests.ClassificationModuleIntegTestAbstract;
 
@@ -41,9 +41,9 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
     ApplicabilityRepository applicabilityRepository;
 
     @Inject
-    DemoObjectMenu demoObjectMenu;
+    DemoObjectWithAtPathMenu demoObjectMenu;
     @Inject
-    OtherObjectMenu otherObjectMenu;
+    OtherObjectWithAtPathMenu otherObjectMenu;
 
     @Inject
     ApplicationTenancyService applicationTenancyService;
@@ -61,7 +61,7 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
     @Test
     public void when_applicability_and_no_classification() {
         // given
-        DemoObject demoBip = demoObjectMenu.listAll()
+        DemoObjectWithAtPath demoBip = demoObjectMenu.listAll()
                 .stream()
                 .filter(demoObject -> demoObject.getName().equals("Demo bip (in Milan)"))
                 .findFirst()
@@ -69,7 +69,7 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
         assertThat(classificationRepository.findByClassified(demoBip)).isEmpty();
 
         // when
-        final ClassificationForDemoObject._classify classification = factoryService.mixin(ClassificationForDemoObject._classify.class, demoBip);
+        final ClassificationForDemoObjectWithAtPath_classify classification = factoryService.mixin(ClassificationForDemoObjectWithAtPath_classify.class, demoBip);
         Collection<Taxonomy> choices0Classify = classification.choices0Classify();
         assertThat(choices0Classify)
                 .extracting(Taxonomy::getName)
@@ -93,7 +93,7 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
     @Test
     public void cannot_classify_when_applicability_but_classifications_already_defined() {
         // given
-        DemoObject demoFooInItaly = demoObjectMenu.listAll()
+        DemoObjectWithAtPath demoFooInItaly = demoObjectMenu.listAll()
                 .stream()
                 .filter(demoObject -> demoObject.getName().equals("Demo foo (in Italy)"))
                 .findFirst()
@@ -103,7 +103,7 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
                 .extracting(Category::getName)
                 .contains("Red", "Medium");
 
-        final ClassificationForDemoObject._classify classification = factoryService.mixin(ClassificationForDemoObject._classify.class, demoFooInItaly);
+        final ClassificationForDemoObjectWithAtPath_classify classification = factoryService.mixin(ClassificationForDemoObjectWithAtPath_classify.class, demoFooInItaly);
 
         // when
         final String message = classification.disableClassify().toString();
@@ -115,14 +115,14 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
     @Test
     public void cannot_classify_when_no_applicability_for_domain_type() {
         // given
-        OtherObject otherBaz = otherObjectMenu.listAll()
+        OtherObjectWithAtPath otherBaz = otherObjectMenu.listAll()
                 .stream()
                 .filter(otherObject -> otherObject.getName().equals("Other baz (Global)"))
                 .findFirst()
                 .get();
         assertThat(applicabilityRepository.findByDomainTypeAndUnderAtPath(otherBaz.getClass(), otherBaz.getAtPath())).isEmpty();
 
-        final ClassificationForOtherObject._classify classification = factoryService.mixin(ClassificationForOtherObject._classify.class, otherBaz);
+        final ClassificationForOtherObjectWithAtPath_classify classification = factoryService.mixin(ClassificationForOtherObjectWithAtPath_classify.class, otherBaz);
 
         // when
         final String message = classification.disableClassify().toString();
@@ -134,14 +134,14 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
     @Test
     public void cannot_classify_when_no_applicability_for_atPath() {
         // given
-        OtherObject otherBarInFrance = otherObjectMenu.listAll()
+        OtherObjectWithAtPath otherBarInFrance = otherObjectMenu.listAll()
                 .stream()
                 .filter(otherObject -> otherObject.getName().equals("Other bar (in France)"))
                 .findFirst()
                 .get();
         assertThat(applicabilityRepository.findByDomainTypeAndUnderAtPath(otherBarInFrance.getClass(), otherBarInFrance.getAtPath())).isEmpty();
 
-        final ClassificationForOtherObject._classify classification = factoryService.mixin(ClassificationForOtherObject._classify.class, otherBarInFrance);
+        final ClassificationForOtherObjectWithAtPath_classify classification = factoryService.mixin(ClassificationForOtherObjectWithAtPath_classify.class, otherBarInFrance);
 
         // when
         final String message = classification.disableClassify().toString();

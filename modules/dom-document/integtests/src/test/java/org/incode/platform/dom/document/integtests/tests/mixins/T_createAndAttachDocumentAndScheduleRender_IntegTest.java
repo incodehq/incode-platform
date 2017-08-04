@@ -9,9 +9,9 @@ import org.apache.isis.applib.services.background.BackgroundCommandService;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.wrapper.DisabledException;
 
+import org.incode.domainapp.example.dom.demo.dom.demowithurl.DemoObjectWithUrl;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
-import org.incode.domainapp.example.dom.dom.document.dom.demo.DemoObject;
-import org.incode.domainapp.example.dom.dom.document.fixture.data.DemoObjectsFixture;
+import org.incode.domainapp.example.dom.demo.fixture.setup.DemoObjectWithUrlFixture;
 import org.incode.domainapp.example.dom.dom.document.fixture.DocumentDemoAppTearDownFixture;
 import org.incode.domainapp.example.dom.dom.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
 import org.incode.platform.dom.document.integtests.DocumentModuleIntegTestAbstract;
@@ -23,7 +23,7 @@ import static org.junit.Assume.assumeThat;
 
 public class T_createAndAttachDocumentAndScheduleRender_IntegTest extends DocumentModuleIntegTestAbstract {
 
-    DemoObject demoObject;
+    DemoObjectWithUrl demoObject;
 
 
     DocumentTypeAndTemplatesApplicableForDemoObjectFixture templateFs;
@@ -37,9 +37,9 @@ public class T_createAndAttachDocumentAndScheduleRender_IntegTest extends Docume
         fixtureScripts.runFixtureScript(templateFs, null);
 
         // demo objects
-        final DemoObjectsFixture demoObjectsFixture = new DemoObjectsFixture();
-        fixtureScripts.runFixtureScript(demoObjectsFixture, null);
-        demoObject = demoObjectsFixture.getDemoObjects().get(0);
+        final DemoObjectWithUrlFixture demoObjectWithUrlFixture = new DemoObjectWithUrlFixture();
+        fixtureScripts.runFixtureScript(demoObjectWithUrlFixture, null);
+        demoObject = demoObjectWithUrlFixture.getDemoObjects().get(0);
 
         transactionService.flushTransaction();
     }

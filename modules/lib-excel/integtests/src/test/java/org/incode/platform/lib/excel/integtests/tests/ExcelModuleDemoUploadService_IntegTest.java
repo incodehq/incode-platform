@@ -14,10 +14,11 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.util.ExcelFileBlobConverter;
-import org.incode.domainapp.example.dom.lib.excel.dom.upload.ExcelModuleDemoUploadService;
-import org.incode.domainapp.example.dom.lib.excel.dom.demo.ExcelModuleDemoToDoItem;
-import org.incode.domainapp.example.dom.lib.excel.dom.demo.ExcelModuleDemoToDoItems;
-import org.incode.domainapp.example.dom.lib.excel.fixture.data.DeleteAllToDoItems;
+
+import org.incode.domainapp.example.dom.demo.todo.DemoToDoItem;
+import org.incode.domainapp.example.dom.demo.todo.DemoToDoItemMenu;
+import org.incode.domainapp.example.dom.lib.excel.dom.upload.ExcelUploadServiceForDemoToDoItem;
+import org.incode.domainapp.example.dom.demo.fixture.setup.todoitems.DeleteToDoItemsForUser;
 import org.incode.platform.lib.excel.integtests.ExcelModuleModuleIntegTestAbstract;
 
 import static org.hamcrest.core.Is.is;
@@ -26,11 +27,11 @@ import static org.junit.Assert.assertThat;
 public class ExcelModuleDemoUploadService_IntegTest extends ExcelModuleModuleIntegTestAbstract {
 
     @Inject
-    private ExcelModuleDemoUploadService uploadService;
+    private ExcelUploadServiceForDemoToDoItem uploadService;
 
     @Before
     public void setUpData() throws Exception {
-        scenarioExecution().install(new DeleteAllToDoItems());
+        scenarioExecution().install(new DeleteToDoItemsForUser());
     }
 
     @Before
@@ -49,13 +50,13 @@ public class ExcelModuleDemoUploadService_IntegTest extends ExcelModuleModuleInt
         uploadService.uploadSpreadsheet(blob, null);
 
         // Then
-        final List<ExcelModuleDemoToDoItem> all = toDoItems.allInstances();
+        final List<DemoToDoItem> all = toDoItems.allInstances();
 
         assertThat(all.size(), is(8));
     }
 
     @Inject
-    private ExcelModuleDemoToDoItems toDoItems;
+    private DemoToDoItemMenu toDoItems;
 
     @Inject
     DomainObjectContainer container;

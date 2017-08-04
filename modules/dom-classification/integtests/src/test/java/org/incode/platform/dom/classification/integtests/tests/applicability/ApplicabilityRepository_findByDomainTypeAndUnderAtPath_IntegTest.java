@@ -7,12 +7,12 @@ import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPath;
 import org.incode.module.classification.dom.impl.applicability.Applicability;
 import org.incode.module.classification.dom.impl.applicability.ApplicabilityRepository;
 import org.incode.module.classification.dom.impl.category.CategoryRepository;
 import org.incode.module.classification.dom.impl.classification.ClassificationRepository;
 import org.incode.module.classification.dom.spi.ApplicationTenancyService;
-import org.incode.domainapp.example.dom.dom.classification.dom.demo.DemoObject;
 import org.incode.domainapp.example.dom.dom.classification.fixture.ClassifiedDemoObjectsFixture;
 import org.incode.domainapp.example.dom.dom.classification.fixture.ClassificationDemoAppTearDownFixture;
 import org.incode.platform.dom.classification.integtests.ClassificationModuleIntegTestAbstract;
@@ -42,13 +42,13 @@ public class ApplicabilityRepository_findByDomainTypeAndUnderAtPath_IntegTest ex
     public void exact_match_on_application_tenancy() {
 
         // /ITA matches /ITA and /
-        assertThat(applicabilityRepository.findByDomainTypeAndUnderAtPath(DemoObject.class, "/ITA").size()).isEqualTo(2);
+        assertThat(applicabilityRepository.findByDomainTypeAndUnderAtPath(DemoObjectWithAtPath.class, "/ITA").size()).isEqualTo(2);
     }
 
     @Test
     public void matches_on_sub_application_tenancy() {
 
-        final List<Applicability> byDomainTypeAndUnderAtPath = applicabilityRepository.findByDomainTypeAndUnderAtPath(DemoObject.class, "/ITA/XYZ");
+        final List<Applicability> byDomainTypeAndUnderAtPath = applicabilityRepository.findByDomainTypeAndUnderAtPath(DemoObjectWithAtPath.class, "/ITA/XYZ");
         assertThat(byDomainTypeAndUnderAtPath.size()).isEqualTo(2);
         assertThat(byDomainTypeAndUnderAtPath).extracting(Applicability::getAtPath).containsOnly("/ITA", "/");
         // eg set up for "/ITA", search for app tenancy "/ITA/MIL"
@@ -57,7 +57,7 @@ public class ApplicabilityRepository_findByDomainTypeAndUnderAtPath_IntegTest ex
 
     @Test
     public void does_not_match_on_super_application_tenancy() {
-        assertThat(applicabilityRepository.findByDomainTypeAndUnderAtPath(DemoObject.class, "/").size()).isEqualTo(1);
+        assertThat(applicabilityRepository.findByDomainTypeAndUnderAtPath(DemoObjectWithAtPath.class, "/").size()).isEqualTo(1);
     }
 
 }

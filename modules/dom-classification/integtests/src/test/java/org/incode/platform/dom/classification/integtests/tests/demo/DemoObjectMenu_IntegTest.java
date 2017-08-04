@@ -1,8 +1,8 @@
 package org.incode.platform.dom.classification.integtests.tests.demo;
 
 import org.assertj.core.api.Assertions;
-import org.incode.domainapp.example.dom.dom.classification.dom.demo.DemoObject;
-import org.incode.domainapp.example.dom.dom.classification.dom.demo.DemoObjectMenu;
+import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPath;
+import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPathMenu;
 import org.incode.domainapp.example.dom.dom.classification.fixture.ClassifiedDemoObjectsFixture;
 import org.incode.platform.dom.classification.integtests.ClassificationModuleIntegTestAbstract;
 import org.junit.Before;
@@ -28,7 +28,7 @@ public class DemoObjectMenu_IntegTest extends ClassificationModuleIntegTestAbstr
         int numDemoObjects = fs.getDemoObjects().size();
 
         // when
-        final List<DemoObject> all = wrap(demoObjectMenu).listAll();
+        final List<DemoObjectWithAtPath> all = wrap(demoObjectMenu).listAll();
 
         // then
         Assertions.assertThat(all.size()).isEqualTo(numDemoObjects);
@@ -38,19 +38,19 @@ public class DemoObjectMenu_IntegTest extends ClassificationModuleIntegTestAbstr
     public void create() throws Exception {
 
         // given
-        final List<DemoObject> before = wrap(demoObjectMenu).listAll();
+        final List<DemoObjectWithAtPath> before = wrap(demoObjectMenu).listAll();
         int numBefore = before.size();
 
         // when
         wrap(demoObjectMenu).create("Faz", "/");
 
         // then
-        final List<DemoObject> after = wrap(demoObjectMenu).listAll();
+        final List<DemoObjectWithAtPath> after = wrap(demoObjectMenu).listAll();
         Assertions.assertThat(after.size()).isEqualTo(numBefore+1);
     }
 
     @Inject
-    DemoObjectMenu demoObjectMenu;
+    DemoObjectWithAtPathMenu demoObjectMenu;
 
 
 }

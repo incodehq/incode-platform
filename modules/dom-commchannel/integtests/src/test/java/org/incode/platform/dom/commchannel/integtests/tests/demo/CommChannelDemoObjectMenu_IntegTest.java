@@ -10,8 +10,8 @@ import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
-import org.incode.domainapp.example.dom.dom.commchannel.dom.demo.CommChannelDemoObject;
-import org.incode.domainapp.example.dom.dom.commchannel.dom.demo.CommChannelDemoObjectMenu;
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
 import org.incode.domainapp.example.dom.dom.commchannel.fixture.CommChannelDemoObjectsFixture;
 import org.incode.platform.dom.commchannel.integtests.CommChannelModuleIntegTestAbstract;
 
@@ -21,7 +21,7 @@ public class CommChannelDemoObjectMenu_IntegTest extends CommChannelModuleIntegT
     FixtureScripts fixtureScripts;
 
     @Inject
-    private CommChannelDemoObjectMenu commChannelDemoObjectMenu;
+    private DemoObjectMenu demoObjectMenu;
 
     @Before
     public void setUpData() throws Exception {
@@ -32,19 +32,19 @@ public class CommChannelDemoObjectMenu_IntegTest extends CommChannelModuleIntegT
     @Test
     public void listAll() throws Exception {
 
-        final List<CommChannelDemoObject> all = wrap(commChannelDemoObjectMenu).listAll();
+        final List<DemoObject> all = wrap(demoObjectMenu).listAll();
         Assertions.assertThat(all.size()).isEqualTo(3);
         
-        CommChannelDemoObject commChannelDemoObject = wrap(all.get(0));
+        DemoObject commChannelDemoObject = wrap(all.get(0));
         Assertions.assertThat(commChannelDemoObject.getName()).isEqualTo("Foo");
     }
     
     @Test
     public void create() throws Exception {
 
-        wrap(commChannelDemoObjectMenu).create("Faz");
+        wrap(demoObjectMenu).create("Faz");
         
-        final List<CommChannelDemoObject> all = wrap(commChannelDemoObjectMenu).listAll();
+        final List<DemoObject> all = wrap(demoObjectMenu).listAll();
         Assertions.assertThat(all.size()).isEqualTo(4);
     }
 

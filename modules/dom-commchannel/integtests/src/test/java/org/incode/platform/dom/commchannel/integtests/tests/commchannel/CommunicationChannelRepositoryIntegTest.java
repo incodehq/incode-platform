@@ -7,12 +7,12 @@ import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
+import org.incode.domainapp.example.dom.dom.commchannel.fixture.CommChannelDemoObjectsTearDownFixture;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelRepository;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
-import org.incode.domainapp.example.dom.dom.commchannel.dom.demo.CommChannelDemoObject;
-import org.incode.domainapp.example.dom.dom.commchannel.dom.demo.CommChannelDemoObjectMenu;
-import org.incode.domainapp.example.dom.dom.commchannel.fixture.CommChannelDemoObjectsTearDownFixture;
 import org.incode.platform.dom.commchannel.integtests.CommChannelModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,10 +20,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CommunicationChannelRepositoryIntegTest extends CommChannelModuleIntegTestAbstract {
 
     @Inject
-    CommChannelDemoObjectMenu commChannelDemoObjectMenu;
+    DemoObjectMenu commChannelDemoObjectMenu;
 
-    CommChannelDemoObject fredDemoOwner;
-    CommChannelDemoObject billDemoOwner;
+    DemoObject fredDemoOwner;
+    DemoObject billDemoOwner;
 
     @Inject
     CommunicationChannelRepository communicationChannelRepository;

@@ -15,23 +15,23 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
+import org.incode.domainapp.example.dom.dom.commchannel.fixture.CommChannelDemoObjectsTearDownFixture;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.phoneorfax.T_addPhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 import org.incode.platform.dom.commchannel.integtests.CommChannelModuleIntegTestAbstract;
 
-import org.incode.domainapp.example.dom.dom.commchannel.dom.demo.CommChannelDemoObject;
-import org.incode.domainapp.example.dom.dom.commchannel.dom.demo.CommChannelDemoObjectMenu;
-import org.incode.domainapp.example.dom.dom.commchannel.fixture.CommChannelDemoObjectsTearDownFixture;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CommunicationChannelOwner_addPhoneOrFaxNumber_IntegTest extends CommChannelModuleIntegTestAbstract {
 
     @Inject
-    CommChannelDemoObjectMenu commChannelDemoObjectMenu;
+    DemoObjectMenu commChannelDemoObjectMenu;
 
-    CommChannelDemoObject fredDemoOwner;
+    DemoObject fredDemoOwner;
 
 
     @Before

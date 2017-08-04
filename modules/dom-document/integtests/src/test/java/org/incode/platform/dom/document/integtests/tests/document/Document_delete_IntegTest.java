@@ -5,12 +5,12 @@ import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.incode.domainapp.example.dom.demo.dom.demowithurl.DemoObjectWithUrl;
 import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
-import org.incode.domainapp.example.dom.dom.document.dom.demo.DemoObject;
-import org.incode.domainapp.example.dom.dom.document.dom.demo2.OtherObject;
-import org.incode.domainapp.example.dom.dom.document.fixture.data.DemoObjectsFixture;
-import org.incode.domainapp.example.dom.dom.document.fixture.data.OtherObjectsFixture;
+import org.incode.domainapp.example.dom.demo.dom.other.OtherObject;
+import org.incode.domainapp.example.dom.demo.fixture.setup.DemoObjectWithUrlFixture;
+import org.incode.domainapp.example.dom.demo.fixture.setup.OtherObjectsFixture;
 import org.incode.domainapp.example.dom.dom.document.fixture.DocumentDemoAppTearDownFixture;
 import org.incode.domainapp.example.dom.dom.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
 import org.incode.platform.dom.document.integtests.DocumentModuleIntegTestAbstract;
@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class Document_delete_IntegTest extends DocumentModuleIntegTestAbstract {
 
-    DemoObject demoObject;
+    DemoObjectWithUrl demoObject;
     OtherObject otherObject;
 
     DocumentTypeAndTemplatesApplicableForDemoObjectFixture templateFixture;
@@ -37,9 +37,9 @@ public class Document_delete_IntegTest extends DocumentModuleIntegTestAbstract {
         fixtureScripts.runFixtureScript(templateFixture, null);
 
         // demo objects
-        final DemoObjectsFixture demoObjectsFixture = new DemoObjectsFixture();
-        fixtureScripts.runFixtureScript(demoObjectsFixture, null);
-        demoObject = demoObjectsFixture.getDemoObjects().get(0);
+        final DemoObjectWithUrlFixture demoObjectWithUrlFixture = new DemoObjectWithUrlFixture();
+        fixtureScripts.runFixtureScript(demoObjectWithUrlFixture, null);
+        demoObject = demoObjectWithUrlFixture.getDemoObjects().get(0);
 
         // other objects
         final OtherObjectsFixture otherObjectsFixture = new OtherObjectsFixture();

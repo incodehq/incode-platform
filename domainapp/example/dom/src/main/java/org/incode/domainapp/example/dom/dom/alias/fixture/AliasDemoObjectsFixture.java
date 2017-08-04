@@ -2,58 +2,43 @@ package org.incode.domainapp.example.dom.dom.alias.fixture;
 
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
-import org.incode.module.alias.dom.impl.T_addAlias;
-import org.incode.domainapp.example.dom.dom.alias.dom.alias.demo.AliasForDemoObject;
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
+import org.incode.domainapp.example.dom.demo.fixture.data.DemoObjectData;
+import org.incode.domainapp.example.dom.dom.alias.dom.AliasForDemoObject;
 import org.incode.domainapp.example.dom.dom.alias.dom.spiimpl.aliastype.AliasTypeDemoEnum;
-import org.incode.domainapp.example.dom.dom.alias.dom.demo.DemoObject;
-import org.incode.domainapp.example.dom.dom.alias.dom.demo.DemoObjectMenu;
+import org.incode.module.alias.dom.impl.T_addAlias;
 
 public class AliasDemoObjectsFixture extends DiscoverableFixtureScript {
 
-    //region > injected services
     @javax.inject.Inject
     DemoObjectMenu demoObjectMenu;
-    //endregion
 
-    //region > constructor
     public AliasDemoObjectsFixture() {
         withDiscoverability(Discoverability.DISCOVERABLE);
     }
-    //endregion
 
-    //region > mixins
     T_addAlias mixinAddAlias(final Object aliased) {
-        return container.mixin(AliasForDemoObject._addAlias.class, aliased);
+        return factoryService.mixin(AliasForDemoObject._addAlias.class, aliased);
     }
-    //endregion
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
 
         // prereqs
         executionContext.executeChild(this, new AliasDemoObjectsTearDownFixture());
+        executionContext.executeChild(this, new DemoObjectData.PersistScript());
 
-        final DemoObject foo = create("Foo", executionContext);
+        final DemoObject foo = DemoObjectData.Foo.findUsing(serviceRegistry);
+        final DemoObject bar = DemoObjectData.Bar.findUsing(serviceRegistry);
+
         wrap(mixinAddAlias(foo)).$$("/uk", AliasTypeDemoEnum.GENERAL_LEDGER, "12345");
         wrap(mixinAddAlias(foo)).$$("/uk", AliasTypeDemoEnum.DOCUMENT_MANAGEMENT, "http://docserver.mycompany/url/12345");
         wrap(mixinAddAlias(foo)).$$("/uk", AliasTypeDemoEnum.PERSONNEL_SYSTEM, "12345");
 
-        final DemoObject bar = create("Bar", executionContext);
         wrap(mixinAddAlias(bar)).$$("/uk", AliasTypeDemoEnum.GENERAL_LEDGER, "98765");
-
-        final DemoObject baz = create("Baz", executionContext);
         wrap(mixinAddAlias(bar)).$$("/nl", AliasTypeDemoEnum.GENERAL_LEDGER, "12345");
         wrap(mixinAddAlias(foo)).$$("/nl", AliasTypeDemoEnum.DOCUMENT_MANAGEMENT, "http://docserver.mycompany/url/12345");
-    }
-
-
-    // //////////////////////////////////////
-
-    private DemoObject create(
-            final String name,
-            final ExecutionContext executionContext) {
-
-        return executionContext.addResult(this, wrap(demoObjectMenu).create(name));
     }
 
 

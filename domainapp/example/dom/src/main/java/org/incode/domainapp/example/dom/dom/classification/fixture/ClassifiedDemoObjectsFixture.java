@@ -9,15 +9,15 @@ import com.google.common.collect.Lists;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.apache.isis.applib.services.factory.FactoryService;
 
+import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPath;
+import org.incode.domainapp.example.dom.dom.classification.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath_classify;
+import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPath;
 import org.incode.module.classification.dom.impl.category.Category;
 import org.incode.module.classification.dom.impl.category.CategoryRepository;
 import org.incode.module.classification.dom.impl.category.taxonomy.Taxonomy;
 import org.incode.module.classification.dom.impl.classification.T_classify;
-import org.incode.domainapp.example.dom.dom.classification.dom.classification.demo.ClassificationForDemoObject;
-import org.incode.domainapp.example.dom.dom.classification.dom.demo.DemoObject;
-import org.incode.domainapp.example.dom.dom.classification.dom.demo.DemoObjectMenu;
-import org.incode.domainapp.example.dom.dom.classification.dom.demo2.OtherObject;
-import org.incode.domainapp.example.dom.dom.classification.dom.demo2.OtherObjectMenu;
+import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPathMenu;
+import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPathMenu;
 
 public class ClassifiedDemoObjectsFixture extends DiscoverableFixtureScript {
 
@@ -29,22 +29,22 @@ public class ClassifiedDemoObjectsFixture extends DiscoverableFixtureScript {
 
     //region > mixins
     T_classify classify(final Object classifiable) {
-        return mixin(ClassificationForDemoObject._classify.class, classifiable);
+        return mixin(ClassificationForDemoObjectWithAtPath_classify.class, classifiable);
     }
     //endregion
 
     //region > demoObjects (output)
-    private List<DemoObject> demoObjects = Lists.newArrayList();
+    private List<DemoObjectWithAtPath> demoObjects = Lists.newArrayList();
 
-    public List<DemoObject> getDemoObjects() {
+    public List<DemoObjectWithAtPath> getDemoObjects() {
         return demoObjects;
     }
     //endregion
 
     //region > otherObjects (output)
-    private List<OtherObject> otherObjects = Lists.newArrayList();
+    private List<OtherObjectWithAtPath> otherObjects = Lists.newArrayList();
 
-    public List<OtherObject> getOtherObjects() {
+    public List<OtherObjectWithAtPath> getOtherObjects() {
         return otherObjects;
     }
     //endregion
@@ -61,8 +61,8 @@ public class ClassifiedDemoObjectsFixture extends DiscoverableFixtureScript {
         Category italianGreen = italianColours.addChild("Green", "GREEN", null);
         Category italianWhite = italianColours.addChild("White", "WHITE", null);
 
-        wrap(italianColours).applicable("/ITA", DemoObject.class.getName());
-        wrap(italianColours).applicable("/ITA", OtherObject.class.getName());
+        wrap(italianColours).applicable("/ITA", DemoObjectWithAtPath.class.getName());
+        wrap(italianColours).applicable("/ITA", OtherObjectWithAtPath.class.getName());
 
         // french taxonomy applicable only to French DemoObject (and not to OtherObject even if with FRA app tenancy)
         Taxonomy frenchColours = categoryRepository.createTaxonomy("French Colours");
@@ -71,7 +71,7 @@ public class ClassifiedDemoObjectsFixture extends DiscoverableFixtureScript {
         Category frenchWhite = frenchColours.addChild("White", "FRWHITE", null);
         Category frenchBlue = frenchColours.addChild("Blue", "FRBLUE", null);
 
-        wrap(frenchColours).applicable("/FRA", DemoObject.class.getName());
+        wrap(frenchColours).applicable("/FRA", DemoObjectWithAtPath.class.getName());
 
         // global taxonomy applicable only to DemoObject (any app tenancy)
         Taxonomy globalSizes = categoryRepository.createTaxonomy("Sizes");
@@ -88,28 +88,28 @@ public class ClassifiedDemoObjectsFixture extends DiscoverableFixtureScript {
         Category smallSmaller = small.addChild("Smaller", "XS", 2);
         Category smallSmallest = small.addChild("Smallest", "XXS", 3);
 
-        wrap(globalSizes).applicable("/", DemoObject.class.getName());
+        wrap(globalSizes).applicable("/", DemoObjectWithAtPath.class.getName());
 
         // create a sample set of DemoObject and OtherObject, for various app tenancies
 
-        final DemoObject demoFooInItaly = createDemo("Demo foo (in Italy)", "/ITA", executionContext);
-        final DemoObject demoBarInFrance = createDemo("Demo bar (in France)", "/FRA", executionContext);
-        final DemoObject demoBaz = createDemo("Demo baz (Global)", "/", executionContext);
-        final DemoObject demoBip = createDemo("Demo bip (in Milan)", "/ITA/I-MIL", executionContext);
-        final DemoObject demoBop = createDemo("Demo bop (in Paris)", "/FRA/F-PAR", executionContext);
+        final DemoObjectWithAtPath demoFooInItaly = createDemo("Demo foo (in Italy)", "/ITA", executionContext);
+        final DemoObjectWithAtPath demoBarInFrance = createDemo("Demo bar (in France)", "/FRA", executionContext);
+        final DemoObjectWithAtPath demoBaz = createDemo("Demo baz (Global)", "/", executionContext);
+        final DemoObjectWithAtPath demoBip = createDemo("Demo bip (in Milan)", "/ITA/I-MIL", executionContext);
+        final DemoObjectWithAtPath demoBop = createDemo("Demo bop (in Paris)", "/FRA/F-PAR", executionContext);
 
-        final OtherObject otherFooInItaly = createOther("Other foo (in Italy)", "/ITA", executionContext);
+        final OtherObjectWithAtPath otherFooInItaly = createOther("Other foo (in Italy)", "/ITA", executionContext);
 
-        final OtherObject otherBarInFrance = createOther("Other bar (in France)", "/FRA", executionContext);
-        final OtherObject otherBaz = createOther("Other baz (Global)", "/", executionContext);
-        final OtherObject otherBip = createOther("Other bip (in Milan)", "/ITA/I-MIL", executionContext);
-        final OtherObject otherBop = createOther("Other bop (in Paris)", "/FRA/F-PAR", executionContext);
+        final OtherObjectWithAtPath otherBarInFrance = createOther("Other bar (in France)", "/FRA", executionContext);
+        final OtherObjectWithAtPath otherBaz = createOther("Other baz (Global)", "/", executionContext);
+        final OtherObjectWithAtPath otherBip = createOther("Other bip (in Milan)", "/ITA/I-MIL", executionContext);
+        final OtherObjectWithAtPath otherBop = createOther("Other bop (in Paris)", "/FRA/F-PAR", executionContext);
 
         // classify DemoObject
 
-        final ClassificationForDemoObject._classify mixinFrance = factoryService.mixin(ClassificationForDemoObject._classify.class, demoBarInFrance);
-        final ClassificationForDemoObject._classify mixin = factoryService.mixin(ClassificationForDemoObject._classify.class, demoFooInItaly);
-        final ClassificationForDemoObject._classify mixin1 = factoryService.mixin(ClassificationForDemoObject._classify.class, demoFooInItaly);
+        final ClassificationForDemoObjectWithAtPath_classify mixinFrance = factoryService.mixin(ClassificationForDemoObjectWithAtPath_classify.class, demoBarInFrance);
+        final ClassificationForDemoObjectWithAtPath_classify mixin = factoryService.mixin(ClassificationForDemoObjectWithAtPath_classify.class, demoFooInItaly);
+        final ClassificationForDemoObjectWithAtPath_classify mixin1 = factoryService.mixin(ClassificationForDemoObjectWithAtPath_classify.class, demoFooInItaly);
         wrap(mixin).classify(italianColours, italianRed);
 
         wrap(mixin1).classify(globalSizes, medium);
@@ -120,29 +120,29 @@ public class ClassifiedDemoObjectsFixture extends DiscoverableFixtureScript {
 
     }
 
-    private DemoObject createDemo(
+    private DemoObjectWithAtPath createDemo(
             final String name,
             final String atPath,
             final ExecutionContext executionContext) {
-        final DemoObject demoObject = wrap(demoObjectMenu).create(name, atPath);
+        final DemoObjectWithAtPath demoObject = wrap(demoObjectMenu).create(name, atPath);
         demoObjects.add(demoObject);
         return executionContext.addResult(this, demoObject);
     }
 
-    private OtherObject createOther(
+    private OtherObjectWithAtPath createOther(
             final String name,
             final String atPath,
             final ExecutionContext executionContext) {
-        final OtherObject otherObject = wrap(otherObjectMenu).create(name, atPath);
+        final OtherObjectWithAtPath otherObject = wrap(otherObjectMenu).create(name, atPath);
         otherObjects.add(otherObject);
         return executionContext.addResult(this, otherObject);
     }
 
     //region > injected services
     @javax.inject.Inject
-    DemoObjectMenu demoObjectMenu;
+    DemoObjectWithAtPathMenu demoObjectMenu;
     @javax.inject.Inject
-    OtherObjectMenu otherObjectMenu;
+    OtherObjectWithAtPathMenu otherObjectMenu;
     @javax.inject.Inject
     CategoryRepository categoryRepository;
     //endregion

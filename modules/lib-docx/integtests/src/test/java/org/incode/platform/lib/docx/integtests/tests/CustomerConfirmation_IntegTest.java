@@ -13,10 +13,10 @@ import org.apache.isis.applib.value.Clob;
 
 import org.incode.platform.lib.docx.integtests.DocxModuleIntegTestAbstract;
 
-import org.incode.domainapp.example.dom.lib.docx.dom.demo.Order;
-import org.incode.domainapp.example.dom.lib.docx.dom.demo.Orders;
-import org.incode.domainapp.example.dom.lib.docx.dom.demo.custconfirm.CustomerConfirmation;
-import org.incode.domainapp.example.dom.lib.docx.fixture.DocxModuleAppSetupFixture;
+import org.incode.domainapp.example.dom.demo.dom.order.DemoOrder;
+import org.incode.domainapp.example.dom.demo.dom.order.DemoOrderMenu;
+import org.incode.domainapp.example.dom.lib.docx.dom.custconfirm.CustomerConfirmation;
+import org.incode.domainapp.example.dom.demo.fixture.setup.DemoOrderAndOrderLineSetup;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertThat;
@@ -25,20 +25,20 @@ public class CustomerConfirmation_IntegTest extends DocxModuleIntegTestAbstract 
 
     @Before
     public void setUpData() throws Exception {
-        scenarioExecution().install(new DocxModuleAppSetupFixture());
+        scenarioExecution().install(new DemoOrderAndOrderLineSetup());
     }
 
     @Inject
-    private Orders orders;
+    private DemoOrderMenu orders;
 
     @Inject
     private CustomerConfirmation customerConfirmation;
 
-    private Order order;
+    private DemoOrder order;
 
     @Before
     public void setUp() throws Exception {
-        final List<Order> all = wrap(orders).listAll();
+        final List<DemoOrder> all = wrap(orders).listAll();
         assertThat(all.size(), is(1));
 
         order = all.get(0);

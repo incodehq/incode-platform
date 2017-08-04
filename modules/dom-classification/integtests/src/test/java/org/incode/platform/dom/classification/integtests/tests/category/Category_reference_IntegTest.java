@@ -14,7 +14,7 @@ import org.incode.module.classification.dom.impl.category.Category;
 import org.incode.module.classification.dom.impl.category.CategoryRepository;
 import org.incode.module.classification.dom.impl.classification.ClassificationRepository;
 import org.incode.module.classification.dom.spi.ApplicationTenancyService;
-import org.incode.domainapp.example.dom.dom.classification.dom.demo.DemoObjectMenu;
+import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPathMenu;
 import org.incode.domainapp.example.dom.dom.classification.fixture.ClassifiedDemoObjectsFixture;
 import org.incode.platform.dom.classification.integtests.ClassificationModuleIntegTestAbstract;
 
@@ -30,7 +30,7 @@ public class Category_reference_IntegTest extends ClassificationModuleIntegTestA
     ApplicabilityRepository applicabilityRepository;
 
     @Inject
-    DemoObjectMenu demoObjectMenu;
+    DemoObjectWithAtPathMenu demoObjectMenu;
     @Inject
     ApplicationTenancyService applicationTenancyService;
 

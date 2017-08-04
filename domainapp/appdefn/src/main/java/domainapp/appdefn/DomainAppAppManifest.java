@@ -30,6 +30,7 @@ import org.isisaddons.wicket.summernote.cpt.ui.SummernoteUiModule;
 import org.isisaddons.wicket.wickedcharts.cpt.ui.WickedChartsUiModule;
 
 import org.incode.domainapp.example.dom.ExampleDomSubmodule;
+import org.incode.domainapp.example.dom.demo.ExampleDemoSubmodule;
 import org.incode.module.alias.dom.AliasModule;
 import org.incode.module.base.services.BaseServicesModule;
 import org.incode.module.classification.dom.ClassificationModule;
@@ -43,19 +44,19 @@ import org.incode.module.docrendering.xdocreport.dom.XDocReportDocRenderingModul
 import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.note.dom.NoteModule;
 
-import domainapp.appdefn.services.DomainAppAppDefnServicesModule;
+import domainapp.appdefn.services.DomainAppAppDefnServicesSubmodule;
 
 public class DomainAppAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = Builder.forModules(
 
-            ExampleDomSubmodule.class,
+            DomainAppAppDefnServicesSubmodule.class,
 
-            DomainAppAppDefnServicesModule.class,
+            ExampleDomSubmodule.class,
+            ExampleDemoSubmodule.class,
 
             // extensions
             TogglzModule.class,
-
 
             // lib
             BaseServicesModule.class,

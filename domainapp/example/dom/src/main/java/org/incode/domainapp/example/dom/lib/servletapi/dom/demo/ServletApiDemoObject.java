@@ -5,18 +5,21 @@ import java.io.IOException;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 
+import com.google.common.collect.Ordering;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Title;
-import org.apache.isis.applib.util.ObjectContracts;
 
 import org.isisaddons.module.servletapi.dom.HttpServletRequestProvider;
 import org.isisaddons.module.servletapi.dom.HttpServletResponseProvider;
 import org.isisaddons.module.servletapi.dom.ServletContextProvider;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
@@ -34,22 +37,13 @@ import org.isisaddons.module.servletapi.dom.ServletContextProvider;
 )
 public class ServletApiDemoObject implements Comparable<ServletApiDemoObject> {
 
-    //region > name (property)
 
-    private String name;
-
+    @Getter @Setter
     @javax.jdo.annotations.Column(allowsNull="false")
     @Title(sequence="1")
     @MemberOrder(sequence="1")
-    public String getName() {
-        return name;
-    }
+    private String name;
 
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    //endregion
 
     //region > servlet context name (derived property)
     public String getServletContextName() {
@@ -63,12 +57,11 @@ public class ServletApiDemoObject implements Comparable<ServletApiDemoObject> {
     }
     //endregion
 
+
     //region > cookie (action)
     @MemberOrder(sequence = "1")
     public ServletApiDemoObject addHeader(
-            @ParameterLayout(named = "Header")
             final String header,
-            @ParameterLayout(named = "Value")
             final String value) throws IOException {
         httpServletResponseProvider.getServletResponse().addHeader(header, value);
         return this;
@@ -83,14 +76,11 @@ public class ServletApiDemoObject implements Comparable<ServletApiDemoObject> {
     //endregion
 
 
-    //region > compareTo
-
     @Override
     public int compareTo(ServletApiDemoObject other) {
-        return ObjectContracts.compare(this, other, "name");
+        return Ordering.natural().onResultOf(ServletApiDemoObject::getName).compare(this, other);
     }
 
-    //endregion
 
     //region > injected services
 

@@ -15,9 +15,7 @@ import org.incode.module.alias.dom.spi.AliasTypeRepository;
 /**
  * Mandatory implementation of the {@link AliasTypeRepository} SPI.
  */
-@DomainService(
-    nature = NatureOfService.DOMAIN
-)
+@DomainService(nature = NatureOfService.DOMAIN)
 public class AliasTypeDemoEnumRepository implements AliasTypeRepository {
 
     @Override

@@ -13,7 +13,10 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.platform.dom.note.integtests.app.NoteModuleAppManifest;
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.dom.note.dom.demolink.NotableLinkForDemoObject_addNote;
+import org.incode.domainapp.example.dom.dom.note.dom.demolink.NotableLinkForDemoObject_notes;
+import org.incode.domainapp.example.dom.dom.note.dom.demolink.NotableLinkForDemoObject_removeNote;
 import org.incode.module.note.dom.impl.note.Note;
 import org.incode.module.note.dom.impl.note.Note_changeDate;
 import org.incode.module.note.dom.impl.note.Note_changeNotes;
@@ -21,9 +24,7 @@ import org.incode.module.note.dom.impl.note.Note_remove;
 import org.incode.module.note.dom.impl.note.T_addNote;
 import org.incode.module.note.dom.impl.note.T_notes;
 import org.incode.module.note.dom.impl.note.T_removeNote;
-
-import org.incode.domainapp.example.dom.dom.note.dom.demo.NoteDemoObject;
-import org.incode.domainapp.example.dom.dom.note.dom.demolink.NotableLinkForDemoObject;
+import org.incode.platform.dom.note.integtests.app.NoteModuleAppManifest;
 
 public abstract class NoteModuleIntegTestAbstract extends IntegrationTestAbstract2 {
 
@@ -38,15 +39,15 @@ public abstract class NoteModuleIntegTestAbstract extends IntegrationTestAbstrac
     @Inject
     protected FakeDataService fakeData;
 
-    protected T_addNote mixinAddNote(final NoteDemoObject notable) {
-        return mixin(NotableLinkForDemoObject._addNote.class, notable);
+    protected T_addNote mixinAddNote(final DemoObject notable) {
+        return mixin(NotableLinkForDemoObject_addNote.class, notable);
     }
-    protected T_removeNote mixinRemoveNote(final NoteDemoObject notable) {
-        return mixin(NotableLinkForDemoObject._removeNote.class, notable);
+    protected T_removeNote mixinRemoveNote(final DemoObject notable) {
+        return mixin(NotableLinkForDemoObject_removeNote.class, notable);
     }
 
-    protected T_notes mixinNotes(final NoteDemoObject notable) {
-        return mixin(NotableLinkForDemoObject._notes.class, notable);
+    protected T_notes mixinNotes(final DemoObject notable) {
+        return mixin(NotableLinkForDemoObject_notes.class, notable);
     }
 
     protected Note_changeDate mixinChangeDate(final Note note) {

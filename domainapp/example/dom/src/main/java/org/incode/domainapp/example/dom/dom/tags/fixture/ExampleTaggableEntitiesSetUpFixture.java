@@ -1,6 +1,6 @@
 package org.incode.domainapp.example.dom.dom.tags.fixture;
 
-import org.incode.domainapp.example.dom.dom.tags.dom.demo.ExampleTaggableEntities;
+import org.incode.domainapp.example.dom.dom.tags.dom.demo.ExampleTaggableEntityMenu;
 import org.incode.domainapp.example.dom.dom.tags.fixture.data.Bar_Pepsi_Drink;
 import org.incode.domainapp.example.dom.dom.tags.fixture.data.Baz_McDonalds_FastFood;
 import org.incode.domainapp.example.dom.dom.tags.fixture.data.Bip_CocaCola_Drink;
@@ -23,6 +23,6 @@ public class ExampleTaggableEntitiesSetUpFixture extends DiscoverableFixtureScri
     // //////////////////////////////////////
 
     @javax.inject.Inject
-    private ExampleTaggableEntities exampleTaggableEntities;
+    private ExampleTaggableEntityMenu exampleTaggableEntities;
 
 }

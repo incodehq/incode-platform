@@ -7,14 +7,14 @@ import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPath;
 import org.incode.module.classification.dom.impl.applicability.ApplicabilityRepository;
 import org.incode.module.classification.dom.impl.category.Category;
 import org.incode.module.classification.dom.impl.category.CategoryRepository;
 import org.incode.module.classification.dom.impl.classification.Classification;
 import org.incode.module.classification.dom.impl.classification.ClassificationRepository;
 import org.incode.module.classification.dom.spi.ApplicationTenancyService;
-import org.incode.domainapp.example.dom.dom.classification.dom.demo.DemoObject;
-import org.incode.domainapp.example.dom.dom.classification.dom.demo.DemoObjectMenu;
+import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPathMenu;
 import org.incode.domainapp.example.dom.dom.classification.fixture.ClassifiedDemoObjectsFixture;
 import org.incode.platform.dom.classification.integtests.ClassificationModuleIntegTestAbstract;
 
@@ -30,7 +30,7 @@ public class CategoryRepository_findByClassified_IntegTest extends Classificatio
     ApplicabilityRepository applicabilityRepository;
 
     @Inject
-    DemoObjectMenu demoObjectMenu;
+    DemoObjectWithAtPathMenu demoObjectMenu;
     @Inject
     ApplicationTenancyService applicationTenancyService;
 
@@ -42,7 +42,7 @@ public class CategoryRepository_findByClassified_IntegTest extends Classificatio
     @Test
     public void happy_case() {
         // given
-        DemoObject demoFooInItaly = demoObjectMenu.listAll().stream()
+        DemoObjectWithAtPath demoFooInItaly = demoObjectMenu.listAll().stream()
                 .filter(d -> d.getName().equals("Demo foo (in Italy)"))
                 .findFirst().get();
         assertThat(demoFooInItaly).isNotNull();

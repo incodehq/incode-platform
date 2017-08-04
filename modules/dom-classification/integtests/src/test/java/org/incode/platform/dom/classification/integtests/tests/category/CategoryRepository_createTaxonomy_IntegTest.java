@@ -13,7 +13,7 @@ import org.incode.module.classification.dom.impl.category.CategoryRepository;
 import org.incode.module.classification.dom.impl.category.taxonomy.Taxonomy;
 import org.incode.module.classification.dom.impl.classification.ClassificationRepository;
 import org.incode.module.classification.dom.spi.ApplicationTenancyService;
-import org.incode.domainapp.example.dom.dom.classification.dom.demo.DemoObjectMenu;
+import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPathMenu;
 import org.incode.domainapp.example.dom.dom.classification.fixture.ClassifiedDemoObjectsFixture;
 import org.incode.domainapp.example.dom.dom.classification.fixture.ClassificationDemoAppTearDownFixture;
 import org.incode.platform.dom.classification.integtests.ClassificationModuleIntegTestAbstract;
@@ -30,7 +30,7 @@ public class CategoryRepository_createTaxonomy_IntegTest extends ClassificationM
     ApplicabilityRepository applicabilityRepository;
 
     @Inject
-    DemoObjectMenu demoObjectMenu;
+    DemoObjectWithAtPathMenu demoObjectMenu;
     @Inject
     ApplicationTenancyService applicationTenancyService;
 

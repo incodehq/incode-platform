@@ -4,27 +4,27 @@ import org.isisaddons.module.stringinterpolator.dom.StringInterpolatorService;
 
 import org.incode.module.document.dom.impl.applicability.RendererModelFactoryAbstract;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
-import org.incode.domainapp.example.dom.dom.document.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.demo.dom.demowithurl.DemoObjectWithUrl;
 
 import lombok.Getter;
 
-public class StringInterpolatorRootOfDemoObject extends RendererModelFactoryAbstract<DemoObject> {
+public class StringInterpolatorRootOfDemoObject extends RendererModelFactoryAbstract<DemoObjectWithUrl> {
 
     public StringInterpolatorRootOfDemoObject() {
-        super(DemoObject.class);
+        super(DemoObjectWithUrl.class);
     }
 
     @Override
     protected Object doNewRendererModel(
-            final DocumentTemplate documentTemplate, final DemoObject demoObject) {
+            final DocumentTemplate documentTemplate, final DemoObjectWithUrl demoObject) {
         return new DataModel(demoObject);
     }
 
     public static class DataModel extends StringInterpolatorService.Root {
         @Getter
-        private final DemoObject demoObject;
+        private final DemoObjectWithUrl demoObject;
 
-        public DataModel(final DemoObject demoObject) {
+        public DataModel(final DemoObjectWithUrl demoObject) {
             super(demoObject);
             this.demoObject = demoObject;
         }

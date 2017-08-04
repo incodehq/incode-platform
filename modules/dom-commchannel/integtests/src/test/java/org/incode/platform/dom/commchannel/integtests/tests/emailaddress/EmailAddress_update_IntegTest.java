@@ -13,12 +13,12 @@ import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
+import org.incode.domainapp.example.dom.dom.commchannel.fixture.CommChannelDemoObjectsTearDownFixture;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.emailaddress.EmailAddress;
 import org.incode.module.commchannel.dom.impl.emailaddress.EmailAddress_update;
-import org.incode.domainapp.example.dom.dom.commchannel.dom.demo.CommChannelDemoObject;
-import org.incode.domainapp.example.dom.dom.commchannel.dom.demo.CommChannelDemoObjectMenu;
-import org.incode.domainapp.example.dom.dom.commchannel.fixture.CommChannelDemoObjectsTearDownFixture;
 import org.incode.platform.dom.commchannel.integtests.CommChannelModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,9 +26,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class EmailAddress_update_IntegTest extends CommChannelModuleIntegTestAbstract {
 
     @Inject
-    CommChannelDemoObjectMenu commChannelDemoObjectMenu;
+    DemoObjectMenu commChannelDemoObjectMenu;
 
-    CommChannelDemoObject fredDemoOwner;
+    DemoObject fredDemoOwner;
     EmailAddress fredEmail;
 
     EmailAddress_update mixinUpdate(final EmailAddress emailAddress) {

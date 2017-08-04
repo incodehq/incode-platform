@@ -1,5 +1,7 @@
 package org.incode.domainapp.example.dom.dom.alias.dom.spiimpl.apptenancy;
 
+import lombok.Getter;
+
 /**
  * In a real (not demo) application this would probably be the isisaddons' security module's <code>ApplicationTenancy</code> entity.
  */
@@ -12,14 +14,12 @@ public enum ApplicationTenancyDemoEnum {
     SW("/sw"),
     FR("/fr");
 
+    @Getter
     private final String path;
 
     ApplicationTenancyDemoEnum(final String path) {
         this.path = path;
     }
 
-    public String getPath() {
-        return path;
-    }
 }
 

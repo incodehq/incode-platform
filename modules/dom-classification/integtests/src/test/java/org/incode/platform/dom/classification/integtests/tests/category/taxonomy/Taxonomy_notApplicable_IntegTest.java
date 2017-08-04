@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPath;
 import org.incode.module.classification.dom.impl.applicability.Applicability;
 import org.incode.module.classification.dom.impl.applicability.ApplicabilityRepository;
 import org.incode.module.classification.dom.impl.category.CategoryRepository;
@@ -14,8 +15,7 @@ import org.incode.module.classification.dom.impl.category.taxonomy.Taxonomy;
 import org.incode.module.classification.dom.impl.classification.Classification;
 import org.incode.module.classification.dom.impl.classification.ClassificationRepository;
 import org.incode.module.classification.dom.spi.ApplicationTenancyService;
-import org.incode.domainapp.example.dom.dom.classification.dom.demo.DemoObject;
-import org.incode.domainapp.example.dom.dom.classification.dom.demo.DemoObjectMenu;
+import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPathMenu;
 import org.incode.domainapp.example.dom.dom.classification.fixture.ClassifiedDemoObjectsFixture;
 import org.incode.domainapp.example.dom.dom.classification.fixture.ClassificationDemoAppTearDownFixture;
 import org.incode.platform.dom.classification.integtests.ClassificationModuleIntegTestAbstract;
@@ -32,7 +32,7 @@ public class Taxonomy_notApplicable_IntegTest extends ClassificationModuleIntegT
     ApplicabilityRepository applicabilityRepository;
 
     @Inject
-    DemoObjectMenu demoObjectMenu;
+    DemoObjectWithAtPathMenu demoObjectMenu;
     @Inject
     ApplicationTenancyService applicationTenancyService;
 
@@ -46,7 +46,7 @@ public class Taxonomy_notApplicable_IntegTest extends ClassificationModuleIntegT
     public void happy_case() {
         // given
         Taxonomy italianColours = (Taxonomy) categoryRepository.findByParentAndName(null, "Italian Colours");
-        List<Applicability> applicabilities = applicabilityRepository.findByDomainTypeAndUnderAtPath(DemoObject.class, "/ITA");
+        List<Applicability> applicabilities = applicabilityRepository.findByDomainTypeAndUnderAtPath(DemoObjectWithAtPath.class, "/ITA");
         assertThat(applicabilities).extracting(Applicability::getTaxonomy).extracting(Taxonomy::getName).containsOnly("Italian Colours", "Sizes");
 
         Applicability italianColoursApplicability = applicabilities.stream()
@@ -58,7 +58,7 @@ public class Taxonomy_notApplicable_IntegTest extends ClassificationModuleIntegT
         wrap(italianColours).notApplicable(italianColoursApplicability);
 
         // then
-        List<Applicability> newApplicabilities = applicabilityRepository.findByDomainTypeAndUnderAtPath(DemoObject.class, "/ITA");
+        List<Applicability> newApplicabilities = applicabilityRepository.findByDomainTypeAndUnderAtPath(DemoObjectWithAtPath.class, "/ITA");
         assertThat(newApplicabilities).extracting(Applicability::getTaxonomy).extracting(Taxonomy::getName).containsOnly("Sizes");
     }
 
@@ -66,7 +66,7 @@ public class Taxonomy_notApplicable_IntegTest extends ClassificationModuleIntegT
     public void existing_classifications_are_ignored() {
         // given
         Taxonomy italianColours = (Taxonomy) categoryRepository.findByParentAndName(null, "Italian Colours");
-        List<Applicability> applicabilities = applicabilityRepository.findByDomainTypeAndUnderAtPath(DemoObject.class, "/ITA");
+        List<Applicability> applicabilities = applicabilityRepository.findByDomainTypeAndUnderAtPath(DemoObjectWithAtPath.class, "/ITA");
         assertThat(applicabilities).extracting(Applicability::getTaxonomy).extracting(Taxonomy::getName).contains("Italian Colours");
 
         Applicability italianColoursApplicability = applicabilities.stream()
@@ -74,7 +74,7 @@ public class Taxonomy_notApplicable_IntegTest extends ClassificationModuleIntegT
                 .findFirst()
                 .get();
 
-        DemoObject demoFooInItaly = demoObjectMenu.listAll().stream()
+        DemoObjectWithAtPath demoFooInItaly = demoObjectMenu.listAll().stream()
                 .filter(d -> d.getName().equals("Demo foo (in Italy)"))
                 .findFirst()
                 .get();

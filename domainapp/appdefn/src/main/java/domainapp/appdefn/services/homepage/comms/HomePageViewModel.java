@@ -6,10 +6,10 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Nature;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
-import org.incode.domainapp.example.dom.dom.communications.dom.demo.DemoCustomer;
-import org.incode.domainapp.example.dom.dom.communications.dom.demo.DemoCustomerRepository;
-import org.incode.domainapp.example.dom.dom.communications.dom.demo2.DemoInvoice;
-import org.incode.domainapp.example.dom.dom.communications.dom.demo2.DemoInvoiceRepository;
+import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotes;
+import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotesRepository;
+import org.incode.domainapp.example.dom.demo.dom.invoice2.DemoInvoice2;
+import org.incode.domainapp.example.dom.demo.dom.invoice2.DemoInvoice2Repository;
 
 @DomainObject(
         nature = Nature.VIEW_MODEL,
@@ -21,18 +21,18 @@ public class HomePageViewModel {
         return TranslatableString.tr("{cus} customers, {inv} invoices", "cus", getDemoCustomers().size(), "inv", getDemoInvoices().size());
     }
 
-    public List<DemoCustomer> getDemoCustomers() {
+    public List<DemoObjectWithNotes> getDemoCustomers() {
         return demoCustomerRepository.listAll();
     }
 
-    public List<DemoInvoice> getDemoInvoices() {
+    public List<DemoInvoice2> getDemoInvoices() {
         return demoInvoiceRepository.listAll();
     }
 
     @javax.inject.Inject
-    DemoCustomerRepository demoCustomerRepository;
+    DemoObjectWithNotesRepository demoCustomerRepository;
 
     @javax.inject.Inject
-    DemoInvoiceRepository demoInvoiceRepository;
+    DemoInvoice2Repository demoInvoiceRepository;
 
 }

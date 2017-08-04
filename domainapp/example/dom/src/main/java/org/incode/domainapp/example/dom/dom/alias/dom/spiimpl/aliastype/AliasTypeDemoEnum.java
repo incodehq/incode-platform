@@ -4,6 +4,8 @@ import org.apache.isis.applib.annotation.Title;
 
 import org.incode.module.alias.dom.spi.AliasType;
 
+import lombok.Getter;
+
 public enum AliasTypeDemoEnum implements AliasType {
 
     // in UK and NL
@@ -14,16 +16,13 @@ public enum AliasTypeDemoEnum implements AliasType {
     PERSONNEL_SYSTEM("HR")
     ;
 
+    @Title
+    @Getter
     private final String id;
 
     AliasTypeDemoEnum(final String id) {
         this.id = id;
     }
 
-    @Title
-    @Override
-    public String getId() {
-        return id;
-    }
 }
 

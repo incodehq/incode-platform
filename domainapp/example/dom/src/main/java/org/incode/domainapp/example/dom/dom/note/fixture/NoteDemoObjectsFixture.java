@@ -5,16 +5,16 @@ import org.joda.time.LocalDate;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.apache.isis.applib.services.clock.ClockService;
 
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
+import org.incode.domainapp.example.dom.dom.note.dom.demolink.NotableLinkForDemoObject_addNote;
 import org.incode.module.note.dom.impl.note.T_addNote;
-import org.incode.domainapp.example.dom.dom.note.dom.demolink.NotableLinkForDemoObject;
-import org.incode.domainapp.example.dom.dom.note.dom.demo.NoteDemoObject;
-import org.incode.domainapp.example.dom.dom.note.dom.demo.NoteDemoObjectMenu;
 
 public class NoteDemoObjectsFixture extends DiscoverableFixtureScript {
 
     //region > injected services
     @javax.inject.Inject
-    NoteDemoObjectMenu noteDemoObjectMenu;
+    DemoObjectMenu noteDemoObjectMenu;
     @javax.inject.Inject
     ClockService clockService;
     //endregion
@@ -27,7 +27,7 @@ public class NoteDemoObjectsFixture extends DiscoverableFixtureScript {
 
     //region > mixins
     T_addNote mixinAddNote(final Object notable) {
-        return mixin(NotableLinkForDemoObject._addNote.class, notable);
+        return mixin(NotableLinkForDemoObject_addNote.class, notable);
     }
     //endregion
 
@@ -39,24 +39,23 @@ public class NoteDemoObjectsFixture extends DiscoverableFixtureScript {
 
         final LocalDate now = clockService.now();
 
-        final NoteDemoObject foo = create("Foo", executionContext);
+        final DemoObject foo = create("Foo", executionContext);
         wrap(mixinAddNote(foo)).$$("Note A", now, "BLUE");
         wrap(mixinAddNote(foo)).$$("Note B", now.plusDays(1), "GREEN");
         wrap(mixinAddNote(foo)).$$("Note C", now.plusDays(2), "RED");
 
-        final NoteDemoObject bar = create("Bar", executionContext);
+        final DemoObject bar = create("Bar", executionContext);
         wrap(mixinAddNote(bar)).$$("Note #1", null, null);
         wrap(mixinAddNote(bar)).$$("Note #2", now.plusDays(-1),
                 "RED");
 
-        final NoteDemoObject baz = create("Baz", executionContext);
+        final DemoObject baz = create("Baz", executionContext);
         wrap(mixinAddNote(baz)).$$("Another note", now.plusDays(1), "RED");
     }
 
 
-    // //////////////////////////////////////
 
-    private NoteDemoObject create(
+    private DemoObject create(
             final String name,
             final ExecutionContext executionContext) {
 

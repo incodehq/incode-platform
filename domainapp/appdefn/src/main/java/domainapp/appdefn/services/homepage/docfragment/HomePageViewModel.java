@@ -6,10 +6,10 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Nature;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
-import org.incode.domainapp.example.dom.dom.docfragment.dom.democust.DemoCustomer;
-import org.incode.domainapp.example.dom.dom.docfragment.dom.democust.DemoCustomerRepository;
-import org.incode.domainapp.example.dom.dom.docfragment.dom.demoinvoice.DemoInvoice;
-import org.incode.domainapp.example.dom.dom.docfragment.dom.demoinvoice.DemoInvoiceRepository;
+import org.incode.domainapp.example.dom.demo.dom.customer.DemoCustomer;
+import org.incode.domainapp.example.dom.demo.dom.customer.DemoCustomerRepository;
+import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoice;
+import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoiceRepository;
 import org.incode.module.docfragment.dom.impl.DocFragment;
 import org.incode.module.docfragment.dom.impl.DocFragmentRepository;
 

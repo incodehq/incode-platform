@@ -8,7 +8,7 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 
 import org.incode.platform.ext.togglz.integtests.app.TogglzExtAppManifest;
 
-import org.incode.domainapp.example.dom.ext.togglz.dom.featuretoggle.TogglzDemoFeature;
+import org.incode.domainapp.example.dom.ext.togglz.dom.TogglzDemoFeature;
 
 public abstract class TogglzModuleIntegTestAbstract extends IntegrationTestAbstract2 {
 

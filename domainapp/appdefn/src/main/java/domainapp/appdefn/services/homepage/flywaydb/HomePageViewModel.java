@@ -6,8 +6,8 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Nature;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
-import org.incode.domainapp.example.dom.ext.flywaydb.dom.FlywayDemoObject;
-import org.incode.domainapp.example.dom.ext.flywaydb.dom.FlywayDemoObjectRepository;
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectRepository;
 
 @DomainObject(
         nature = Nature.VIEW_MODEL,
@@ -23,7 +23,7 @@ public class HomePageViewModel {
 
     //region > object (collection)
 //    @HomePage
-    public List<FlywayDemoObject> getObjects() {
+    public List<DemoObject> getObjects() {
         return flywayDemoObjectRepository.listAll();
     }
     //endregion
@@ -31,7 +31,7 @@ public class HomePageViewModel {
     //region > injected services
 
     @javax.inject.Inject
-    FlywayDemoObjectRepository flywayDemoObjectRepository;
+    DemoObjectRepository flywayDemoObjectRepository;
 
     //endregion
 }

@@ -10,9 +10,9 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.wrapper.WrapperFactory;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
-import org.incode.domainapp.example.dom.dom.communications.dom.demo.DemoCustomer;
-import org.incode.domainapp.example.dom.dom.communications.dom.demo.DemoCustomerMenu;
-import org.incode.domainapp.example.dom.dom.communications.fixture.data.demo.DemoCustomersFixture;
+import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotes;
+import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotesMenu;
+import org.incode.domainapp.example.dom.dom.communications.fixture.data.democust2.DemoCustomer2sFixture;
 import org.incode.domainapp.example.dom.dom.communications.fixture.DemoModuleFixture;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwnerLinkRepository;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelRepository;
@@ -36,7 +36,7 @@ public class CommunicationChannelSubscription_Integtest extends CommunicationsIn
     TransactionService transactionService;
 
     @Inject
-    DemoCustomerMenu customerMenu;
+    DemoObjectWithNotesMenu customerMenu;
 
     @Inject
     CommunicationChannelOwnerLinkRepository linkRepository;
@@ -51,7 +51,7 @@ public class CommunicationChannelSubscription_Integtest extends CommunicationsIn
         transactionService.nextTransaction();
 
         // and so given customer with an email
-        final DemoCustomer fred = customerMenu.findByName(DemoCustomersFixture.FRED_HAS_EMAIL_AND_PHONE).get(0);
+        final DemoObjectWithNotes fred = customerMenu.findByName(DemoCustomer2sFixture.FRED_HAS_EMAIL_AND_PHONE).get(0);
 
         final EmailAddress fredEmail = (EmailAddress) linkRepository
                 .findByOwnerAndCommunicationChannelType(fred, CommunicationChannelType.EMAIL_ADDRESS)
@@ -63,7 +63,7 @@ public class CommunicationChannelSubscription_Integtest extends CommunicationsIn
     @Test
     public void replacement_provided() throws Exception {
         // Given
-        final DemoCustomer owner = customerMenu.findByName(DemoCustomersFixture.FRED_HAS_EMAIL_AND_PHONE).get(0);
+        final DemoObjectWithNotes owner = customerMenu.findByName(DemoCustomer2sFixture.FRED_HAS_EMAIL_AND_PHONE).get(0);
         final PostalAddress postalAddress = communicationChannelRepository.newPostal(
                 owner,
                 CommunicationChannelType.POSTAL_ADDRESS,
@@ -100,7 +100,7 @@ public class CommunicationChannelSubscription_Integtest extends CommunicationsIn
     @Test
     public void validate_fails_when_no_replacement_is_provided() throws Exception {
         // Given
-        final DemoCustomer owner = customerMenu.findByName(DemoCustomersFixture.FRED_HAS_EMAIL_AND_PHONE).get(0);
+        final DemoObjectWithNotes owner = customerMenu.findByName(DemoCustomer2sFixture.FRED_HAS_EMAIL_AND_PHONE).get(0);
         final PostalAddress postalAddress = communicationChannelRepository.newPostal(
                 owner,
                 CommunicationChannelType.POSTAL_ADDRESS,

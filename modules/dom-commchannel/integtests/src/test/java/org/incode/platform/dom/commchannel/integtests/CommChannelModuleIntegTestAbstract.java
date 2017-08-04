@@ -13,7 +13,11 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.platform.dom.commchannel.integtests.app.CommChannelModuleAppManifest;
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.dom.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addEmailAddress;
+import org.incode.domainapp.example.dom.dom.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addPhoneOrFaxNumber;
+import org.incode.domainapp.example.dom.dom.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addPostalAddress;
+import org.incode.domainapp.example.dom.dom.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_communicationChannels;
 import org.incode.module.commchannel.dom.api.GeocodingService;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_remove1;
@@ -21,9 +25,7 @@ import org.incode.module.commchannel.dom.impl.channel.T_communicationChannels;
 import org.incode.module.commchannel.dom.impl.emailaddress.T_addEmailAddress;
 import org.incode.module.commchannel.dom.impl.phoneorfax.T_addPhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.postaladdress.T_addPostalAddress;
-
-import org.incode.domainapp.example.dom.dom.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject;
-import org.incode.domainapp.example.dom.dom.commchannel.dom.demo.CommChannelDemoObject;
+import org.incode.platform.dom.commchannel.integtests.app.CommChannelModuleAppManifest;
 
 public abstract class CommChannelModuleIntegTestAbstract extends IntegrationTestAbstract2 {
 
@@ -39,24 +41,24 @@ public abstract class CommChannelModuleIntegTestAbstract extends IntegrationTest
         );
     }
 
-    protected T_addEmailAddress mixinNewEmailAddress(final CommChannelDemoObject owner) {
-        return mixin(CommunicationChannelOwnerLinkForDemoObject._addEmailAddress.class, owner);
+    protected T_addEmailAddress mixinNewEmailAddress(final DemoObject owner) {
+        return mixin(CommunicationChannelOwnerLinkForDemoObject_addEmailAddress.class, owner);
     }
 
-    protected T_addPostalAddress mixinNewPostalAddress(final CommChannelDemoObject owner) {
-        return mixin(CommunicationChannelOwnerLinkForDemoObject._addPostalAddress.class, owner);
+    protected T_addPostalAddress mixinNewPostalAddress(final DemoObject owner) {
+        return mixin(CommunicationChannelOwnerLinkForDemoObject_addPostalAddress.class, owner);
     }
 
-    protected T_addPhoneOrFaxNumber mixinNewPhoneOrFaxNumber(final CommChannelDemoObject owner) {
-        return mixin(CommunicationChannelOwnerLinkForDemoObject._addPhoneOrFaxNumber.class, owner);
+    protected T_addPhoneOrFaxNumber mixinNewPhoneOrFaxNumber(final DemoObject owner) {
+        return mixin(CommunicationChannelOwnerLinkForDemoObject_addPhoneOrFaxNumber.class, owner);
     }
 
     protected CommunicationChannel_remove1 mixinRemove(final CommunicationChannel channel) {
         return mixin(CommunicationChannel_remove1.class, channel);
     }
 
-    protected T_communicationChannels mixinCommunicationChannels(final CommChannelDemoObject owner) {
-        return mixin(CommunicationChannelOwnerLinkForDemoObject._communicationChannels.class, owner);
+    protected T_communicationChannels mixinCommunicationChannels(final DemoObject owner) {
+        return mixin(CommunicationChannelOwnerLinkForDemoObject_communicationChannels.class, owner);
     }
 
     /**

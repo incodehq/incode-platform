@@ -6,8 +6,8 @@ import org.junit.Before;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
-import org.incode.domainapp.example.dom.dom.commchannel.dom.demo.CommChannelDemoObject;
-import org.incode.domainapp.example.dom.dom.commchannel.dom.demo.CommChannelDemoObjectMenu;
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
 import org.incode.domainapp.example.dom.dom.commchannel.fixture.CommChannelDemoObjectsTearDownFixture;
 import org.incode.platform.dom.commchannel.integtests.CommChannelModuleIntegTestAbstract;
 
@@ -17,9 +17,9 @@ public class CommChannelDemoObject_IntegTest extends CommChannelModuleIntegTestA
     FixtureScripts fixtureScripts;
 
     @Inject
-    CommChannelDemoObjectMenu commChannelDemoObjectMenu;
+    DemoObjectMenu commChannelDemoObjectMenu;
 
-    CommChannelDemoObject commChannelDemoObject;
+    DemoObject commChannelDemoObject;
 
     @Before
     public void setUpData() throws Exception {

@@ -15,16 +15,16 @@ import org.junit.Test;
 import org.apache.isis.applib.services.queryresultscache.QueryResultsCache;
 import org.apache.isis.applib.services.wrapper.HiddenException;
 
+import org.incode.domainapp.example.dom.demo.dom.demowithurl.DemoObjectWithUrl;
 import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.DocumentAbstract;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 import org.incode.module.document.dom.impl.paperclips.Paperclip;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
-import org.incode.domainapp.example.dom.dom.document.dom.paperclips.demo.PaperclipForDemoObject;
-import org.incode.domainapp.example.dom.dom.document.dom.demo.DemoObject;
-import org.incode.domainapp.example.dom.dom.document.dom.demo2.OtherObject;
-import org.incode.domainapp.example.dom.dom.document.fixture.data.DemoObjectsFixture;
-import org.incode.domainapp.example.dom.dom.document.fixture.data.OtherObjectsFixture;
+import org.incode.domainapp.example.dom.dom.document.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
+import org.incode.domainapp.example.dom.demo.dom.other.OtherObject;
+import org.incode.domainapp.example.dom.demo.fixture.setup.DemoObjectWithUrlFixture;
+import org.incode.domainapp.example.dom.demo.fixture.setup.OtherObjectsFixture;
 import org.incode.domainapp.example.dom.dom.document.fixture.DocumentDemoAppTearDownFixture;
 import org.incode.domainapp.example.dom.dom.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
 import org.incode.platform.dom.document.integtests.DocumentModuleIntegTestAbstract;
@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class T_createAndAttachDocumentAndRender_IntegTest extends DocumentModuleIntegTestAbstract {
 
-    DemoObject demoObject;
+    DemoObjectWithUrl demoObject;
     OtherObject otherObject;
 
     DocumentTypeAndTemplatesApplicableForDemoObjectFixture templateFixture;
@@ -48,9 +48,9 @@ public class T_createAndAttachDocumentAndRender_IntegTest extends DocumentModule
         fixtureScripts.runFixtureScript(templateFixture, null);
 
         // demo objects
-        final DemoObjectsFixture demoObjectsFixture = new DemoObjectsFixture();
-        fixtureScripts.runFixtureScript(demoObjectsFixture, null);
-        demoObject = demoObjectsFixture.getDemoObjects().get(0);
+        final DemoObjectWithUrlFixture demoObjectWithUrlFixture = new DemoObjectWithUrlFixture();
+        fixtureScripts.runFixtureScript(demoObjectWithUrlFixture, null);
+        demoObject = demoObjectWithUrlFixture.getDemoObjects().get(0);
 
         // other objects
         final OtherObjectsFixture otherObjectsFixture = new OtherObjectsFixture();
@@ -135,7 +135,7 @@ public class T_createAndAttachDocumentAndRender_IntegTest extends DocumentModule
 
 
             // then
-            final PaperclipForDemoObject._documents wrappedMixin = wrap(_documents(demoObject));
+            final PaperclipForDemoObjectWithUrl._documents wrappedMixin = wrap(_documents(demoObject));
             final List<Paperclip> clips = wrappedMixin.$$();
             assertThat(clips).hasSize(4);
 

@@ -1,6 +1,6 @@
 package org.incode.domainapp.example.dom.dom.tags.fixture.data;
 
-import org.incode.domainapp.example.dom.dom.tags.dom.demo.ExampleTaggableEntities;
+import org.incode.domainapp.example.dom.dom.tags.dom.demo.ExampleTaggableEntityMenu;
 import org.incode.domainapp.example.dom.dom.tags.dom.demo.ExampleTaggableEntity;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
@@ -15,6 +15,6 @@ public abstract class AbstractEntityFixture extends FixtureScript {
     }
 
     @javax.inject.Inject
-    private ExampleTaggableEntities exampleTaggableEntities;
+    private ExampleTaggableEntityMenu exampleTaggableEntities;
 
 }

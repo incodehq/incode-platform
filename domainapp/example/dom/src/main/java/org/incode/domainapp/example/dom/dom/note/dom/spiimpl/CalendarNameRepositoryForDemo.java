@@ -11,8 +11,8 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
 import org.incode.module.note.dom.spi.CalendarNameRepository;
-import org.incode.domainapp.example.dom.dom.note.dom.demo.NoteDemoObject;
 
 @DomainService(
     nature = NatureOfService.DOMAIN
@@ -22,7 +22,7 @@ public class CalendarNameRepositoryForDemo implements CalendarNameRepository {
     private final Map<Class<?>, List<String>> namesByClass = Maps.newHashMap();
 
     public CalendarNameRepositoryForDemo() {
-        setCalendarNames(NoteDemoObject.class, "BLUE", "GREEN", "RED");
+        setCalendarNames(DemoObject.class, "BLUE", "GREEN", "RED");
     }
 
     @Programmatic

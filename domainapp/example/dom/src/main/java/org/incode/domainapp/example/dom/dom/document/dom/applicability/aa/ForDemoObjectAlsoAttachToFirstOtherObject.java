@@ -13,20 +13,20 @@ import org.incode.module.document.dom.impl.applicability.AttachmentAdvisor;
 import org.incode.module.document.dom.impl.applicability.AttachmentAdvisorAbstract;
 import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
-import org.incode.domainapp.example.dom.dom.document.dom.demo.DemoObject;
-import org.incode.domainapp.example.dom.dom.document.dom.demo2.OtherObject;
+import org.incode.domainapp.example.dom.demo.dom.demowithurl.DemoObjectWithUrl;
+import org.incode.domainapp.example.dom.demo.dom.other.OtherObject;
 
 public class ForDemoObjectAlsoAttachToFirstOtherObject extends
-        AttachmentAdvisorAbstract<DemoObject> {
+        AttachmentAdvisorAbstract<DemoObjectWithUrl> {
 
     public ForDemoObjectAlsoAttachToFirstOtherObject() {
-        super(DemoObject.class);
+        super(DemoObjectWithUrl.class);
     }
 
     @Override
     protected List<AttachmentAdvisor.PaperclipSpec> doAdvise(
             final DocumentTemplate documentTemplate,
-            final DemoObject demoObject,
+            final DemoObjectWithUrl demoObject,
             final Document createdDocument) {
         return determinePaperclipSpecs(demoObject, createdDocument);
     }

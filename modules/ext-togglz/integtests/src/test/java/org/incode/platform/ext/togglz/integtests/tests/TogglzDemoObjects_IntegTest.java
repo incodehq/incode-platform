@@ -10,11 +10,10 @@ import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
+import org.incode.domainapp.example.dom.ext.togglz.fixture.DemoObjectsFixture;
 import org.incode.platform.ext.togglz.integtests.TogglzModuleIntegTestAbstract;
-
-import org.incode.domainapp.example.dom.ext.togglz.dom.demo.TogglzDemoObject;
-import org.incode.domainapp.example.dom.ext.togglz.dom.demo.TogglzDemoObjects;
-import org.incode.domainapp.example.dom.ext.togglz.fixture.TogglzDemoObjectsFixture;
 
 
 public class TogglzDemoObjects_IntegTest extends TogglzModuleIntegTestAbstract {
@@ -23,30 +22,30 @@ public class TogglzDemoObjects_IntegTest extends TogglzModuleIntegTestAbstract {
     FixtureScripts fixtureScripts;
 
     @Inject
-    private TogglzDemoObjects togglzDemoObjects;
+    private DemoObjectMenu demoObjectMenu;
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new TogglzDemoObjectsFixture(), null);
+        fixtureScripts.runFixtureScript(new DemoObjectsFixture(), null);
     }
 
 
     @Test
     public void listAll() throws Exception {
 
-        final List<TogglzDemoObject> all = wrap(togglzDemoObjects).listAll();
+        final List<DemoObject> all = wrap(demoObjectMenu).listAll();
         Assertions.assertThat(all.size()).isEqualTo(3);
         
-        TogglzDemoObject togglzDemoObject = wrap(all.get(0));
+        DemoObject togglzDemoObject = wrap(all.get(0));
         Assertions.assertThat(togglzDemoObject.getName()).isEqualTo("Foo");
     }
     
     @Test
     public void create() throws Exception {
 
-        wrap(togglzDemoObjects).create("Faz");
+        wrap(demoObjectMenu).create("Faz");
         
-        final List<TogglzDemoObject> all = wrap(togglzDemoObjects).listAll();
+        final List<DemoObject> all = wrap(demoObjectMenu).listAll();
         Assertions.assertThat(all.size()).isEqualTo(4);
     }
 

@@ -2,8 +2,8 @@ package org.incode.domainapp.example.dom.lib.excel.fixture;
 
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
-import org.incode.domainapp.example.dom.lib.excel.fixture.data.CreateAllToDoItems;
-import org.incode.domainapp.example.dom.lib.excel.fixture.data.DeleteAllToDoItems;
+import org.incode.domainapp.example.dom.demo.fixture.setup.todoitems.CreateAllToDoItems;
+import org.incode.domainapp.example.dom.demo.fixture.setup.todoitems.DeleteToDoItemsForUser;
 
 public class RecreateToDoItems extends DiscoverableFixtureScript {
 
@@ -22,7 +22,7 @@ public class RecreateToDoItems extends DiscoverableFixtureScript {
 
         final String ownedBy = this.user != null ? this.user : getContainer().getUser().getName();
 
-        executionContext.executeChild(this, new DeleteAllToDoItems(ownedBy));
+        executionContext.executeChild(this, new DeleteToDoItemsForUser(ownedBy));
         executionContext.executeChild(this, new CreateAllToDoItems(ownedBy));
 
         getContainer().flush();

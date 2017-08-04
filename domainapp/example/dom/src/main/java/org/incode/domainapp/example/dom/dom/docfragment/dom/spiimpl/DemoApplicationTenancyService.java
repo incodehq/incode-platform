@@ -5,8 +5,8 @@ import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.module.docfragment.dom.spi.ApplicationTenancyService;
 
-import org.incode.domainapp.example.dom.dom.docfragment.dom.democust.DemoCustomer;
-import org.incode.domainapp.example.dom.dom.docfragment.dom.demoinvoice.DemoInvoice;
+import org.incode.domainapp.example.dom.demo.dom.customer.DemoCustomer;
+import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoice;
 
 @DomainService(nature = NatureOfService.DOMAIN)
 public class DemoApplicationTenancyService implements ApplicationTenancyService {

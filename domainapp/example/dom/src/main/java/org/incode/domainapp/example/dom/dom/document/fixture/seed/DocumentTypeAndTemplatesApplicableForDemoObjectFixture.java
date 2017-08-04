@@ -14,6 +14,7 @@ import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
 
+import org.incode.domainapp.example.dom.demo.dom.demowithurl.DemoObjectWithUrl;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 import org.incode.module.document.dom.impl.rendering.RenderingStrategy;
 import org.incode.module.document.dom.impl.rendering.RenderingStrategyRepository;
@@ -24,7 +25,6 @@ import org.incode.domainapp.example.dom.dom.document.dom.applicability.aa.ForDem
 import org.incode.domainapp.example.dom.dom.document.dom.applicability.rmf.FreemarkerModelOfDemoObject;
 import org.incode.domainapp.example.dom.dom.document.dom.applicability.rmf.StringInterpolatorRootOfDemoObject;
 import org.incode.domainapp.example.dom.dom.document.dom.applicability.rmf.XDocReportModelOfDemoObject;
-import org.incode.domainapp.example.dom.dom.document.dom.demo.DemoObject;
 
 import lombok.Getter;
 
@@ -92,7 +92,7 @@ public class DocumentTypeAndTemplatesApplicableForDemoObjectFixture extends Docu
                 executionContext);
 
         mixin(DocumentTemplate._applicable.class, fmkTemplate).applicable(
-                DemoObject.class,
+                DemoObjectWithUrl.class,
                 FreemarkerModelOfDemoObject.class,
                 ForDemoObjectAttachToSame.class);
 
@@ -117,7 +117,7 @@ public class DocumentTypeAndTemplatesApplicableForDemoObjectFixture extends Docu
                 executionContext);
 
         mixin(DocumentTemplate._applicable.class, siTemplate).applicable(
-                DemoObject.class,
+                DemoObjectWithUrl.class,
                 StringInterpolatorRootOfDemoObject.class,
                 ForDemoObjectAttachToSame.class);
 
@@ -142,7 +142,7 @@ public class DocumentTypeAndTemplatesApplicableForDemoObjectFixture extends Docu
                 executionContext);
 
         mixin(DocumentTemplate._applicable.class, xdpTemplate).applicable(
-                DemoObject.class,
+                DemoObjectWithUrl.class,
                 XDocReportModelOfDemoObject.class,
                 ForDemoObjectAttachToSame.class);
 
@@ -167,7 +167,7 @@ public class DocumentTypeAndTemplatesApplicableForDemoObjectFixture extends Docu
                 executionContext);
 
         mixin(DocumentTemplate._applicable.class, xddTemplate).applicable(
-                DemoObject.class,
+                DemoObjectWithUrl.class,
                 XDocReportModelOfDemoObject.class,
                 ForDemoObjectAlsoAttachToFirstOtherObject.class);
 

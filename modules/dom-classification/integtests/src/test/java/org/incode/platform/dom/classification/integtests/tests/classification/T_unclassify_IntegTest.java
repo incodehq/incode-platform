@@ -9,17 +9,17 @@ import org.junit.Test;
 
 import org.apache.isis.applib.services.factory.FactoryService;
 
+import org.incode.domainapp.example.dom.dom.classification.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath_unclassify;
+import org.incode.domainapp.example.dom.dom.classification.dom.classification.otherwithatpath.ClassificationForOtherObjectWithAtPath_unclassify;
 import org.incode.module.classification.dom.impl.applicability.ApplicabilityRepository;
 import org.incode.module.classification.dom.impl.category.CategoryRepository;
 import org.incode.module.classification.dom.impl.classification.Classification;
 import org.incode.module.classification.dom.impl.classification.ClassificationRepository;
 import org.incode.module.classification.dom.spi.ApplicationTenancyService;
-import org.incode.domainapp.example.dom.dom.classification.dom.classification.demo.ClassificationForDemoObject;
-import org.incode.domainapp.example.dom.dom.classification.dom.classification.demo2.ClassificationForOtherObject;
-import org.incode.domainapp.example.dom.dom.classification.dom.demo.DemoObject;
-import org.incode.domainapp.example.dom.dom.classification.dom.demo.DemoObjectMenu;
-import org.incode.domainapp.example.dom.dom.classification.dom.demo2.OtherObject;
-import org.incode.domainapp.example.dom.dom.classification.dom.demo2.OtherObjectMenu;
+import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPath;
+import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPathMenu;
+import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPath;
+import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPathMenu;
 import org.incode.domainapp.example.dom.dom.classification.fixture.ClassifiedDemoObjectsFixture;
 import org.incode.platform.dom.classification.integtests.ClassificationModuleIntegTestAbstract;
 
@@ -35,9 +35,9 @@ public class T_unclassify_IntegTest extends ClassificationModuleIntegTestAbstrac
     ApplicabilityRepository applicabilityRepository;
 
     @Inject
-    DemoObjectMenu demoObjectMenu;
+    DemoObjectWithAtPathMenu demoObjectMenu;
     @Inject
-    OtherObjectMenu otherObjectMenu;
+    OtherObjectWithAtPathMenu otherObjectMenu;
 
     @Inject
     ApplicationTenancyService applicationTenancyService;
@@ -52,7 +52,7 @@ public class T_unclassify_IntegTest extends ClassificationModuleIntegTestAbstrac
     @Test
     public void enabled_when_classifications_exist() {
         // given
-        DemoObject demoFooInItaly = demoObjectMenu.listAll()
+        DemoObjectWithAtPath demoFooInItaly = demoObjectMenu.listAll()
                 .stream()
                 .filter(demoObject -> demoObject.getName().equals("Demo foo (in Italy)"))
                 .findFirst()
@@ -61,7 +61,7 @@ public class T_unclassify_IntegTest extends ClassificationModuleIntegTestAbstrac
         assertThat(byClassified).hasSize(2);
 
         // when
-        final ClassificationForDemoObject._unclassify unclassify = factoryService.mixin(ClassificationForDemoObject._unclassify.class, demoFooInItaly);
+        final ClassificationForDemoObjectWithAtPath_unclassify unclassify = factoryService.mixin(ClassificationForDemoObjectWithAtPath_unclassify.class, demoFooInItaly);
         wrap(unclassify).unclassify(byClassified.get(0));
 
         // then
@@ -73,14 +73,14 @@ public class T_unclassify_IntegTest extends ClassificationModuleIntegTestAbstrac
 
         // given "Other bar (in Paris)", that has no classifications
         // given
-        OtherObject otherBarInFrance = otherObjectMenu.listAll()
+        OtherObjectWithAtPath otherBarInFrance = otherObjectMenu.listAll()
                 .stream()
                 .filter(otherObject -> otherObject.getName().equals("Other bar (in France)"))
                 .findFirst()
                 .get();
         assertThat(classificationRepository.findByClassified(otherBarInFrance)).isEmpty();
 
-        final ClassificationForOtherObject._unclassify unclassify = factoryService.mixin(ClassificationForOtherObject._unclassify.class, otherBarInFrance);
+        final ClassificationForOtherObjectWithAtPath_unclassify unclassify = factoryService.mixin(ClassificationForOtherObjectWithAtPath_unclassify.class, otherBarInFrance);
 
         // when
         final String message = unclassify.disableUnclassify().toString();

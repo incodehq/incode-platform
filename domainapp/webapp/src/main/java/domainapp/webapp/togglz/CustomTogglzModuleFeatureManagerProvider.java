@@ -2,7 +2,7 @@ package domainapp.webapp.togglz;
 
 import org.isisaddons.module.togglz.glue.spi.TogglzModuleFeatureManagerProviderAbstract;
 
-import org.incode.domainapp.example.dom.ext.togglz.dom.featuretoggle.TogglzDemoFeature;
+import org.incode.domainapp.example.dom.ext.togglz.dom.TogglzDemoFeature;
 
 /**
  * Registered in META-INF/services, as per http://www.togglz.org/documentation/advanced-config.html

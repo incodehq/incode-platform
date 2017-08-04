@@ -11,8 +11,8 @@ import org.apache.isis.applib.services.xactn.TransactionService;
 
 import org.incode.domainapp.example.dom.dom.docfragment.fixture.DemoAppFixture;
 import org.incode.platform.dom.docfragment.integtests.DocFragmentModuleIntegTestAbstract;
-import org.incode.domainapp.example.dom.dom.docfragment.dom.demoinvoice.DemoInvoice;
-import org.incode.domainapp.example.dom.dom.docfragment.fixture.data.DemoInvoiceData;
+import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoice;
+import org.incode.domainapp.example.dom.demo.fixture.data.DemoInvoiceData;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

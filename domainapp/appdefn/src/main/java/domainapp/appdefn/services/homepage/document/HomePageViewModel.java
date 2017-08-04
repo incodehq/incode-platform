@@ -6,10 +6,10 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Nature;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
-import org.incode.domainapp.example.dom.dom.document.dom.demo.DemoObject;
-import org.incode.domainapp.example.dom.dom.document.dom.demo.DemoObjectMenu;
-import org.incode.domainapp.example.dom.dom.document.dom.demo2.OtherObject;
-import org.incode.domainapp.example.dom.dom.document.dom.demo2.OtherObjectMenu;
+import org.incode.domainapp.example.dom.demo.dom.demowithurl.DemoObjectWithUrl;
+import org.incode.domainapp.example.dom.demo.dom.demowithurl.DemoObjectWithUrlMenu;
+import org.incode.domainapp.example.dom.demo.dom.other.OtherObject;
+import org.incode.domainapp.example.dom.demo.dom.other.OtherObjectMenu;
 
 @DomainObject(
         nature = Nature.VIEW_MODEL,
@@ -21,7 +21,7 @@ public class HomePageViewModel {
         return TranslatableString.tr("{demo} demo, {other} other", "demo", getDemoObjects().size(), "other", getOtherObjects().size());
     }
 
-    public List<DemoObject> getDemoObjects() {
+    public List<DemoObjectWithUrl> getDemoObjects() {
         return demoObjectMenu.listAll();
     }
 
@@ -30,7 +30,7 @@ public class HomePageViewModel {
     }
 
     @javax.inject.Inject
-    DemoObjectMenu demoObjectMenu;
+    DemoObjectWithUrlMenu demoObjectMenu;
 
     @javax.inject.Inject
     OtherObjectMenu otherObjectMenu;
