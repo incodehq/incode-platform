@@ -495,19 +495,6 @@
             </dependency>
 
             <dependency>
-                <groupId>org.isisaddons.module.poly</groupId>
-                <artifactId>isis-module-poly-dom</artifactId>
-                <version>1.15.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.poly</groupId>
-                <artifactId>isis-module-poly-dom</artifactId>
-                <version>1.15.0-SNAPSHOT</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom</artifactId>
                 <version>1.15.0-SNAPSHOT</version>
@@ -1159,7 +1146,6 @@
         <module>lib-freemarker/impl</module>
         <module>lib-integtestsupport/impl</module>
         <module>lib-pdfbox/impl</module>
-        <module>lib-poly/impl</module>
         <module>lib-servletapi/impl</module>
         <module>lib-stringinterpolator/impl</module>
         <module>lib-unittestsupport/impl</module>

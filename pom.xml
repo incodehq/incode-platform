@@ -111,18 +111,6 @@
             </modules>
         </profile>
         <profile>
-            <id>lib-poly</id>
-            <activation>
-                <property>
-                    <name>lib-poly</name>
-                </property>
-            </activation>
-            <modules>
-                <module>modules/lib-poly/impl</module>
-                <module>modules/lib-poly/integtests</module>
-            </modules>
-        </profile>
-        <profile>
             <id>lib-servletapi</id>
             <activation>
                 <property>
@@ -453,7 +441,6 @@
                 <module>modules/lib-docx/integtests</module>
                 <module>modules/lib-excel/integtests</module>
                 <module>modules/lib-fakedata/integtests</module>
-                <module>modules/lib-poly/integtests</module>
                 <module>modules/lib-stringinterpolator/integtests</module>
 
                 <module>modules/dom-alias/integtests</module>

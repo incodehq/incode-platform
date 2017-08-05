@@ -129,10 +129,6 @@
             <artifactId>isis-module-pdfbox-dom</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.isisaddons.module.poly</groupId>
-            <artifactId>isis-module-poly-dom</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.incode.module.base</groupId>
             <artifactId>incode-module-base-dom</artifactId>
         </dependency>
