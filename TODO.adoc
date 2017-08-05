@@ -1,0 +1,68 @@
+= TODO
+
+* remove incode-platform-integtests, unused after all
+
+* delete the unused subclasses of AppManifest* in the integtest modules
+
+* add in simpledom module for domainapp
+
+* add prototyping to open up the "togglz" admin page
+
+* create a unified fixture
+
+* add an implementation of FixtureScriptsSpecificationProvider
+
+* sort out home pages
+
+* sort out menus
+
+* update documentation
+
+* publish website to platform.incode.org
+
+
+update original isisaddons.org/catalog.incode.org + github repos, refer to the new platform
+
+
+* add pmd checks etc (from docfragment) +
++
+[source]
+----
+<!--
+        <maven-checkstyle-plugin.configLocation>../_checks/checkstyle.xml</maven-checkstyle-plugin.configLocation>
+        <maven-pmd-plugin.ruleset>../_checks/pmd.xml</maven-pmd-plugin.ruleset>
+-->
+
+<!--
+<mixin>
+    <groupId>com.danhaywood.mavenmixin</groupId>
+    <artifactId>staticanalysis</artifactId>
+</mixin>
+-->
+----
+
+* add in isisvalidate for:
+** audit
+** command
+** publishmq
+** security
+** sessionlogger
+** settings
+** tags
+
+
+* recreate all outstanding tickets against incode-platform
+
+* "spring-boot" style website
+
+
+* new tickets:
+** rework communications, remove dependency on lib-poly
+** mothball lib-poly
+
+* apply outstanding pull requests
+
+
+
+
+
