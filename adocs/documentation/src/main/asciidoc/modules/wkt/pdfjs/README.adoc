@@ -1,0 +1,427 @@
+= isis-wicket-pdfjs
+:_basedir: ../../../
+:_imagesdir: images/
+
+image:https://travis-ci.org/isisaddons/isis-wicket-pdfjs.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-wicket-pdfjs]
+
+This component, intended for use with http://isis.apache.org[Apache Isis]'s Wicket viewer, allows a BLOB containing an PDF to be rendered as a panel using https://mozilla.github.io/pdf.js[pdf.js].
+ 
+
+
+== Screenshots
+
+The following screenshots show the demo app's usage of the component with some sample fixture data:
+
+image::https://raw.github.com/isisaddons/isis-wicket-pdfjs/master/images/010-home-page.png[link="https://raw.github.com/isisaddons/isis-wicket-pdfjs/master/images/010-home-page.png"]
+
+The component lets the user page through the PDF document, zoom in and out, and change the height of the panel.  In addition, the user can download PDF and print the PDF.
+
+
+
+== How to run the Demo App
+
+The prerequisite software is:
+
+* Java JDK 7
+** note that the compile source and target remains at JDK 7
+* http://maven.apache.org[maven 3] (3.3.x is recommended).
+
+To build the demo app:
+
+[source,bash]
+----
+git clone https://github.com/isisaddons/isis-wicket-pdfjs.git
+mvn clean install
+----
+
+To run the demo app:
+
+[source,bash]
+----
+mvn -pl webapp jetty:run
+----
+
+Then log on using user: `sven`, password: `pass`
+
+This app is preconfigured to use the `org.isisaddons.wicket.pdfjs.app.PdfjsDemoAppManifestWithCptFixture` app manifest, and should open at the home page shown in the screenshot above.
+
+
+== API &  Usage
+
+The PDF viewer is only enabled for `Blob` properties that contain a PDF.
+These must also be explicitly annotated with the `@PdfJsViewer` annotation:
+
+[source,java]
+----
+public @interface PdfJsViewer {
+    int initialPageNum() default 1;                 // <1>
+    Scale initialScale() default Scale._1_00;       // <2>
+    int initialHeight() default 800;                // <3>
+}
+----
+<1> The page to render the first time this particular domain object('s property) is rendered..
+<2> The scale to render; defaults to 100%.
+<3> The height of the panel; defaults to 800px.
+
+
+For example:
+
+[source,java]
+----
+@PdfJsViewer(
+    initialPageNum = 1,
+    initialScale = Scale._0_75,
+    initialHeight = 600
+)
+public Blob getBlob() {
+    return this.blob;
+}
+----
+
+
+The `Scale` enum corresponds to the scale drop-down in the view, and is defined as:
+
+[source,java]
+----
+public enum Scale {
+    AUTOMATIC,      // <1>
+    ACTUAL_SIZE,
+    PAGE_FIT,
+    PAGE_WIDTH,
+    _0_50,          // <2>
+    _0_75,
+    ...
+    _4_00;          // <3>
+}
+----
+<1> predefined scaling strategies, depend on the width/height of the panel available to render in
+<2> 50%
+<3> 400% etc
+
+
+
+== SPI Services
+
+Often a user may need to browse through many documents at a time, for example to process a number of scanned documents.
+To fit their particular screen, they may want to adjust the zoom level and/or height of the panel.
+It would however be very tiresome of the next document viewed reset to the defaults specified in the `@PdfJsViewer`.
+
+Related, support a user views a first document and navigate to some other page.
+She then moves on to second document, and then goes back to the first document once more.
+It would again be annoying if she had start back at page 1 and navigate once more to the page they were previously at.
+
+To support these two use cases the component therefore provides an optional SPI service.
+Implementations of this SPI service can provide hints (`Advice`) which override the defaults of the `@PdfJsViewer` annotation.
+
+The SPI is defined as:
+
+[source,java]
+----
+public interface PdfJsViewerAdvisor {
+
+    class InstanceKey { ... }                               // <1>
+    class Advice { ... }                                    // <2>
+
+    Advice advise(InstanceKey key);                         // <3>
+
+    void pageNumChangedTo(InstanceKey key, int pageNum);    // <4>
+    void scaleChangedTo(InstanceKey key, Scale scale);      // <4>
+    void heightChangedTo(InstanceKey key, int height);      // <4>
+}
+----
+<1> Value type that identifies an object type and identifier, its (PDF) property and the user that is viewing the object.
+<2> Value type that specifies the page number, scale and height to render the object
+<3> The main SPI called by the viewer;
+<4> Updates the service implementation whenever the user updates the page number, scale or height for a particular object/property/user (ie `ViewerKey`).
+
+There can be multiple implementations of this service; the first implementation to return a non-null `Advice` is used.
+If there _are_ multiple implementations, then _all_ are called whenever the user updates the view.
+
+The demo application shows one such implementation that fulfills the two user goals:
+
+* it remembers the scale/height for each object type/property (per user), so that any other documents of the same type are shown with the same layout
+* it remembers the page that each user was viewing a document, so resumes at that page if the same document is viewed more than once
+
+To do this the demo implementation relies upon the inner value types `InstanceKey.TypeKey` and `Advice.TypeAdvice` which track the hints at the object type -- rather than instance -- level.
+
+
+
+=== Demo App: Highlighting Current
+
+As a by-the-by, the demo app has one further "trick up its sleeve".
+If you run the app you'll notice that the currently selected `DemoObject` is highlighted in the left-hand table of the `HomePageViewModel`.
+
+This is accomplished by having the view model collaborate with a subscribing domain service that configures a CSS class.
+
+We start by ensuring that the `DemoObject` emits an event for its CSS class:
+
+[source,java]
+.DemoObject.java
+----
+@DomainObjectLayout(
+        ...
+        cssClassUiEvent = DemoObject.CssClassUiEvent.class
+)
+public class DemoObject ... {
+
+    public static class CssClassUiEvent
+            extends org.apache.isis.applib.services.eventbus.CssClassUiEvent<DemoObject> {}
+    ...
+}
+----
+
+Next, we define the domain service to act as the subscriber.
+Since it will be interact
+
+[source,java]
+.HomePageViewModel.java
+----
+public class HomePageViewModel ... {
+
+    @DomainService(nature = NatureOfService.DOMAIN)
+    public static class CssHighlighter extends AbstractSubscriber {
+
+        @EventHandler
+        @Subscribe
+        public void on(DemoObject.CssClassUiEvent ev) {
+            if(getContext() == null) {
+                return;
+            }
+            if(ev.getSource() == getContext().getSelected()) {      // <1>
+                ev.setCssClass("selected");
+            }
+        }
+
+        private HomePageViewModel getContext() {                    // <2>
+            return (HomePageViewModel) scratchpad.get("context");
+        }
+        void setContext(final HomePageViewModel homePageViewModel) {
+            scratchpad.put("context", homePageViewModel);
+        }
+
+        @Inject
+        Scratchpad scratchpad;                                      // <3>
+    }
+}
+----
+<1> If the domain object is the currently selected then set the CSS class
+<2> Provide methods to set and get the current `HomePageViewModel` (acting as the context)
+<3> Store the context using the `Scratchpad` domain service (request-scoped so thread-safe).
+
+The `HomePageViewModel` is responsible for setting itself as the context for the domain service:
+
+[source,java]
+.HomePageViewModel.java
+----
+public class HomePageViewModel ... {
+    ...
+    public TranslatableString title() {
+        cssHighlighter.setContext(this);    // <1>
+        ...
+    }
+    ...
+    @javax.inject.Inject
+    CssHighlighter cssHighlighter;
+}
+----
+<1> set the context on the domain service
+
+
+Finally we just need some CSS, in the `application.css` file:
+
+
+[source,css]
+.application.css
+----
+.selected {
+    font-style: italic;
+    font-weight: bolder;
+}
+----
+
+
+== How to configure/use
+
+
+To use "out-of-the-box", add the component to your project's `dom` module's `pom.xml`:
+
+[source,xml]
+----
+<dependency>
+    <groupId>com.eurocommercialproperties.pdfjsdemo</groupId>
+    <artifactId>ecp-wicket-pdfjs-cpt</artifactId>
+    <version>1.15.0</version>
+</dependency>
+----
+
+Check for later releases by searching http://search.maven.org/#search|ga|1|isis-wicket-pdfjs-cpt[Maven Central Repo].
+
+* (assuming you are using an `AppManifest`), update its `getModules()` method:
+
+[source,java]
+----
+@Override
+public List<Class<?>> getModules() {
+     return Arrays.asList(
+        ...
+        org.isisaddons.wicket.pdfjs.cpt.PdfjsCptModule.class,
+        ...
+     );
+}
+----
+
+* Set up the facet factory in `isis.properties` (or in the `AppManifest#getConfigurationProperties()`): +
++
+[source,ini]
+.isis.properties
+----
+isis.reflector.facets.include=\
+    org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewerFacetFromAnnotationFactory
+----
+
+
+
+=== Forking the repo
+
+If instead you want to extend this component's functionality, then we recommend that you fork this repo. The repo is
+structured as follows:
+
+* `pom.xml` - parent pom
+* `app` - the demo app's `AppManifest`
+* `cpt` - the component implementation
+* `fixture` - the demo app's fixtures, holding sample domain object classes and fixture scripts
+* `webapp` - the demo app's webapp
+
+Only the `cpt` project is released to Maven central. The versions of the other modules
+are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
+
+
+== Known Issues
+
+The Javascript isn't fully thread-safe, so avoid having more than one instance of this component rendered on the page at the same time.
+This also means that the component should never be rendered in a table ("compact" view).
+
+
+== Change Log
+
+* `1.15.0` - (TODO; will be) released against Isis 1.15.0
+
+
+== Legal Stuff
+
+=== License
+
+[source]
+----
+Copyright 2016~date Martin Grigorov and Dan Haywood
+
+Licensed under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+----
+
+=== Dependencies
+
+In addition to Apache Isis, this component depends on:
+
+TODO: something in wicketstuff, I believe...
+
+
+== Maven deploy notes
+
+Only the `cpt` module is deployed, and is done so using Sonatype's OSS support (see
+http://central.sonatype.org/pages/apache-maven.html[user guide]).
+
+
+=== Release to Sonatype's Snapshot Repo
+
+To deploy a snapshot, use:
+
+[source,bash]
+----
+pushd cpt
+mvn clean deploy
+popd
+----
+
+The artifacts should be available in Sonatype's
+https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
+
+
+
+=== Release an Interim Build
+
+If you have commit access to this project (or a fork of your own) then you can create interim releases using the `interim-release.sh` script.
+
+The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.15.0.20170430-0738`).
+It then pushes the branch (and a tag) to the specified remote.
+
+A CI server such as Jenkins can monitor the branches matching the wildcard `origin/interim/*` and create a build.
+These artifacts can then be published to a snapshot repository.
+
+For example:
+
+[source]
+----
+sh interim-release.sh 1.15.0 origin
+----
+
+where
+
+* `1.15.0` is the base release
+* `origin` is the name of the remote to which you have permissions to write to.
+
+
+
+
+=== Release to Maven Central
+
+The `release.sh` script automates the release process. It performs the following:
+
+* performs a sanity check (`mvn clean install -o`) that everything builds ok
+* bumps the `pom.xml` to a specified release version, and tag
+* performs a double check (`mvn clean install -o`) that everything still builds ok
+* releases the code using `mvn clean deploy`
+* bumps the `pom.xml` to a specified release version
+
+For example:
+
+[source]
+----
+sh release.sh 1.15.0 \
+              1.16.0-SNAPSHOT \
+              dan@haywood-associates.co.uk \
+              "this is not really my passphrase"
+----
+
+where
+* `$1` is the release version
+* `$2` is the snapshot version
+* `$3` is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
+* `$4` is the corresponding passphrase for that secret key.
+
+Other ways of specifying the key and passphrase are available, see the `pgp-maven-plugin`'s
+http://kohsuke.org/pgp-maven-plugin/secretkey.html[documentation]).
+
+If the script completes successfully, then push changes:
+
+[source]
+----
+git push origin master && git push origin 1.15.0
+----
+
+If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
+before trying again. Note that in the `cpt`'s `pom.xml` the `nexus-staging-maven-plugin` has the
+`autoReleaseAfterClose` setting set to `true` (to automatically stage, close and the release the repo). You may want
+to set this to `false` if debugging an issue.
+
+According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update http://search.maven.org[search].

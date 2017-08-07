@@ -1,0 +1,4 @@
+= Incode Platform
+:_basedir: ../
+:_imagesdir: images/
+

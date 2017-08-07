@@ -1,0 +1,235 @@
+= isis-module-pdfbox
+:_basedir: ../../../
+:_imagesdir: images/
+
+image:https://travis-ci.org/isisaddons/isis-module-pdfbox.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-pdfbox]
+
+This module, intended for use with http://isis.apache.org[Apache Isis], provides a wrapper around link:https://pdfbox.apache.org[Apache PDFBox].
+
+
+
+== How to configure/use
+
+You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
+
+To use "out-of-the-box":
+
+* update your classpath by adding this dependency in your dom project's `pom.xml`: +
++
+[source,xml]
+----
+<dependency>
+    <groupId>org.isisaddons.module.pdfbox</groupId>
+    <artifactId>isis-module-pdfbox-dom</artifactId>
+    <version>1.14.0</version>
+</dependency>
+----
+
+* update the `getModules()` method of your `AppManifest`: +
++
+[source,java]
+----
+@Override
+public List<Class<?>> getModules() {
+    return Arrays.asList(
+            ...
+            org.isisaddons.module.pdfbox.dom.PdfBoxModule.class,
+            ...
+    );
+}
+----
+
+
+
+=== Supporting encrypted PDFs
+
+Encrypted PDFs can be handled by adding the optional link:http://www.bouncycastle.org/[Legion of the Bouncy Castle] encryption libraries.
+These can be included in your Maven project using three or so dependencies.
+At the time of writing these were:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.bouncycastle</groupId>
+    <artifactId>bcprov-jdk15on</artifactId>
+    <version>1.54</version>
+</dependency>
+
+<dependency>
+    <groupId>org.bouncycastle</groupId>
+    <artifactId>bcmail-jdk15on</artifactId>
+    <version>1.54</version>
+</dependency>
+
+<dependency>
+    <groupId>org.bouncycastle</groupId>
+    <artifactId>bcpkix-jdk15on</artifactId>
+    <version>1.54</version>
+</dependency>
+----
+
+
+
+See the link:https://pdfbox.apache.org/2.0/dependencies.html[PDFBox documentation] for the most up-to-date information.
+
+
+
+== API
+
+This module provides a single service, called `PdfBoxService`.
+It has the following API:
+
+[source,java]
+----
+@DomainService(nature = NatureOfService.DOMAIN)
+public class PdfBoxService {
+
+    public byte[] merge(byte[]... pdfByteArrays) throws IOException { }     // <1>
+
+    public void merge(                                                      // <2>
+            OutputStream outputStream,
+            InputStream... inputStreams
+        ) throws IOException { }
+}
+----
+<1> merge an arbitrary number of PDFs, represented as arrays of bytes, to another byte array
+<2> merge an arbitrary number of PDFs, represented as an input stream, to an output stream
+
+
+
+
+== Change Log
+
+* `1.14.0` - released against Isis 1.14.0
+* `1.13.0` - released against Isis 1.13.0
+
+
+
+== Legal Stuff
+
+=== License
+
+[source]
+----
+Copyright 2016 Dan Haywood
+
+Licensed under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+----
+
+
+=== Dependencies
+
+link:https://pdfbox.apache.org[Apache PDFBox] and optionally link:http://www.bouncycastle.org/[Legion of the Bouncy Castle] to handle encrypted PDFs.
+
+
+
+=== Forking the repo
+
+If you want to extend this module's functionality, then we recommend that you fork this repo.
+The repo is structured as follows:
+
+* `pom.xml` - parent pom
+* `dom` - the module implementation, depends on Isis applib
+
+
+
+
+
+== Maven deploy notes
+
+Only the `dom` module is deployed, and is done so using Sonatype's OSS support (see
+http://central.sonatype.org/pages/apache-maven.html[user guide]).
+
+=== Release to Sonatype's Snapshot Repo
+
+To deploy a snapshot, use:
+
+[source]
+----
+pushd dom
+mvn clean deploy
+popd
+----
+
+The artifacts should be available in Sonatype's
+https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
+
+
+=== Release an Interim Build
+
+If you have commit access to this project (or a fork of your own) then you can create interim releases using the `interim-release.sh` script.
+
+The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.14.0.20170227-0738`).
+It then pushes the branch (and a tag) to the specified remote.
+
+A CI server such as Jenkins can monitor the branches matching the wildcard `origin/interim/*` and create a build.
+These artifacts can then be published to a snapshot repository.
+
+For example:
+
+[source]
+----
+sh interim-release.sh 1.14.0 origin
+----
+
+where
+
+* `1.14.0` is the base release
+* `origin` is the name of the remote to which you have permissions to write to.
+
+
+
+=== Release to Maven Central
+
+The `release.sh` script automates the release process. It performs the following:
+
+* performs a sanity check (`mvn clean install -o`) that everything builds ok
+* bumps the `pom.xml` to a specified release version, and tag
+* performs a double check (`mvn clean install -o`) that everything still builds ok
+* releases the code using `mvn clean deploy`
+* bumps the `pom.xml` to a specified release version
+
+For example:
+
+[source]
+----
+sh release.sh 1.14.0 \
+              1.15.0-SNAPSHOT \
+              dan@haywood-associates.co.uk \
+              "this is not really my passphrase"
+----
+
+where
+
+* `$1` is the release version
+* `$2` is the snapshot version
+* `$3` is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
+* `$4` is the corresponding passphrase for that secret key.
+
+Other ways of specifying the key and passphrase are available, see the `pgp-maven-plugin`'s
+http://kohsuke.org/pgp-maven-plugin/secretkey.html[documentation]).
+
+If the script completes successfully, then push changes:
+
+[source]
+----
+git push origin master && git push origin 1.14.0
+----
+
+If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
+before trying again. Note that in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the
+`autoReleaseAfterClose` setting set to `true` (to automatically stage, close and the release the repo). You may want
+to set this to `false` if debugging an issue.
+
+According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update http://search.maven.org[search].

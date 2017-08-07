@@ -1,0 +1,596 @@
+[[incode-module-communications]]
+= incode-module-communications
+:_basedir: ../../../
+:_imagesdir: images/
+
+image:https://travis-ci.org/incodehq/incode-module-communications.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-communications]
+
+This module, intended for use with link:http://isis.apache.org[Apache Isis], defines ``CommunicationChannel``s (email address, postal address or phone/fax number), and also allows ``Document``s (implemented by the Incode http://github.com/incodehq/incode-module-document[Document] module) to be sent as ``Communication``s either to an email address or to a postal address.
+
+A `Document` is an entity that holds some sort of content, either binary such as PDF or Word document or text such as HTML; they can be rendered in various ways.
+``Document``s can be attached to arbitrary domain objects using ``Paperclip``s.
+
+A `Communication` is an entity that is a record of sending a `Document` to some party by way of their `CommunicationChannel`; these are the "correspondents" of the `Communication`.
+A `Communication` can be created either by sending the `Document` by email (ie to an email address), or by post (ie to a postal address).
+The module does not currently provided any capability to "send" a `Document` by phone or by fax.
+
+Email ``Communication``s always have an HTML cover note `Document` generated and associated with the `Communication`; the original `Document` is also associated.
+This cover note is used as the body of the actual email, while the original `Document` is included as an email attachment.
+If the original `Document` had supporting ``Document``s associated with it (eg a tax or supplier receipt for an invoice), then these supporting documents are also included as attachments.
+
+Postal ``Communication``s do _not_ have any sort of cover note, and the act of sending them is manual: the end-user downloads the original `Document` "through" the `Communication`; this marks the `Communication` as having been sent.
+If the original `Document` had supporting ``Document``s associated with it then (as a convenience) a single PDF is downloaded that merges together the original `Document` along with any supporting documents.
+
+
+[WARNING]
+====
+There is some overlap between this module and the Incode http://github.com/incodehq/incode-module-commchannel[CommunicationChannel] module).
+At some stage we intend to refactor this module to reuse the CommunicationChannel module, and then to remove any duplicate concepts (`EmailAddress` etc).
+
+Also, note that the discriminators for `CommunicationChannel` subtypes currently are hard-coded to those for http://github.com/estatio/estatio[Estatio].
+These can be overridden using DataNucleus `.orm` files if required.
+====
+
+
+
+[[_incode-module-communications_screenshots]]
+== Screenshots
+
+We start off by creating some fixture data:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/010-run-fixture-script.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/010-run-fixture-script.png"]
+
+This creates:
+
+* demo customers, with a variety of ``CommunicationChannel``s.
+
+* demo invoices, each of which has a `Document` that has an associated document (simulating it having been generated already).
+Each invoice is also associated with ("owned" by) a customer
+
+* prerequisite reference data to generate email cover notes:
+
+** A `DocumentType` for the email cover notes. +
++
+This is referenced by the demo app's implementation of the `DocumentCommunicationSupport` SPI service
+
+** A corresponding `DocumentTemplate` for email cover notes
+
+** The Freemarker rendering strategy (from the link:https://github.com/incodehq/incode-module-docrendering-freemarker[Incode Freemarker DocRendering] module).
+This is referenced by the `DocumentTemplate`, instructing the document module to render the email cover note using freemarker.
+
+* `Country` ref data (from the link:https://github.com/incodehq/incode-module-country[Incode Country] module). +
++
+This is required because `PostalAddress` communication channels reference the `Country`.
+
+The home page lists the demo customers and invoices:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/020-demo-customers-and-invoices.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/020-demo-customers-and-invoices.png"]
+
+
+[[_incode-module-communications_screenshots_sending-an-email]]
+=== Sending an Email
+
+If we inspect one of the invoices for "Fred" (who has email addresses), we see it has an attached `Document` (simulating it having been generated from the invoice):
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/030-demo-invoice-for-customer-with-email-addresses.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/030-demo-invoice-for-customer-with-email-addresses.png"]
+
+If we inspect that `Document` in turn, we can see that the "send by email" action is enabled:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/040-document-to-sendByEmail.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/040-document-to-sendByEmail.png"]
+
+This is because the demo app's implementation of the `DocumentCommunicationSupport` SPI service was able to figure out an email address to use (the document's invoice's customer).
+
+The "sendByEmail" action prompt shows these emails:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/050-sendByEmail-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/050-sendByEmail-prompt.png"]
+
+Invoking the action results in an email `Communication`:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/052-sendByEmail-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/052-sendByEmail-result.png"]
+
+When an email `Communication` is created, it also automatically create a cover note `Document.
+The cover note is used as the body of the email, while the original `Document` is sent as an attachment.
+The cover note `Document` is automatically associated with the `Communication`, shown by the "coverNoteFor" property:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/054-cover-note-generated.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/054-cover-note-generated.png"]
+
+The generated cover note is required to be HTML (so that it can be used as the body of the email).
+In the case of the demo app this cover note is generated using Freemarker:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/055-cover-note-text.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/055-cover-note-text.png"]
+
+The generated `Communication` is also associated with the original `Document`:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/056-document-associated-with-communication.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/056-document-associated-with-communication.png"]
+
+Looking again at the generated email `Communication`, we see that it is scheduled to be sent in the background command:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/060-communication-sent-in-background.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/060-communication-sent-in-background.png"]
+
+The demo app has not been configured with a background scheduler, but does provide a "fake" scheduler which can be used to run such commands:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/062-fake-scheduler.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/062-fake-scheduler.png"]
+
+Which results in the email being sent:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/064-email-sent.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/064-email-sent.png"]
+
+In fact, the demo app is not configured with a real email service either; instead it has a fake service that allows "sent" email messages to be inspected:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/066-list-sent-emails.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/066-list-sent-emails.png"]
+
+The sent email has the correct body, and one attachment (the original `Document`):
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/068-view-sent-email.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/068-view-sent-email.png"]
+
+
+
+[[_incode-module-communications_screenshots_sending-a-postal-communication]]
+=== Sending a Postal Communication
+
+The "Mary" demo customer has postal addresses, so the ``Document``s attached to her invoices can be sent by post.
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/070-sendByPost-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/070-sendByPost-prompt.png"]
+
+As for email, this also results in a `Communication`:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/072-sendByPost-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/072-sendByPost-result.png"]
+
+What's different here is that there is no cover note,  there is no "prepared by" correspondent, and there is no background command.
+
+Instead, the object provides the "download PDF for posting" action:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/080-downloadPdfForPosting-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/080-downloadPdfForPosting-prompt.png"]
+
+
+The idea is that (through the `Communication`) the user just downloads the original (PDF) `Document` that it references; the act of doing this marks the `Communication` as sent:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/082-downloadPdfForPosting-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/082-downloadPdfForPosting-result.png"]
+
+The user can then open up the downloaded PDF, manually print it and manually put it into an envelope.
+
+
+[[_incode-module-communications_screenshots_supporting-documents]]
+=== Supporting Documents
+
+The link:https://github.com/incodehq/incode-module-document[Incode Document] module (on which this communications module) depends has the concept of "supporting" documents.
+For example, a generated `Document` of an invoice might have associated tax or supplier receipts which have been previously scanned in and which are available as PDFs.
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/090-attachSupportingPdf-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/090-attachSupportingPdf-prompt.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/092-attachSupportingPdf-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/092-attachSupportingPdf-result.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/100-sendByEmail-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/100-sendByEmail-prompt.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/102-sendByEmail-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/102-sendByEmail-result.png"]
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/104-sent-email.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/104-sent-email.png"]
+
+It is also possible to send a postal communication with supporting documents:
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/110-sendByPost-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/110-sendByPost-prompt.png"]
+
+
+The only difference is that, when the ``Document``s are downloaded for printing via the `Communication`, for convenience the PDFs will be stitched together into a single PDF for printing.
+The action prompt suggests a filename based on the original `Document` and supporting ``Document``s.
+
+image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/120-downloadPdfForPosting-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/120-downloadPdfForPosting-prompt.png"]
+
+
+
+[[_incode-module-communications_domain-model]]
+== Domain Model
+
+The main concepts of the module are shown below:
+
+image:domain-model.png[]
+
+One side of the domain model defines ``CommunicationChannel``s, owned by ``CommunicationChannelOwner``s.
+
+On the other side is `Communication`, which relates to a `Document` by way of an implementation of the (link:https://github.com/incodehq/incode-module-document[Incode Document module]'s) `Paperclip` class.
+Each `Communication` relates to one or more ``CommunicationChannel``s by way of `CommChannelRole`, basically indicating the nature of the correspondent in that `Communication`.
+
+
+[[_incode-module-communications_commchannel-mixins]]
+== (CommunicationChannel) Contributions
+
+[***TODO - to document ***]
+
+The `CommunicationChannelOwner_newChannelContributions` ...
+
+The `CommunicationChannelOwner_emailAddressTitles` & `CommunicationChannelOwner_phoneNumberTitles` ...
+
+
+
+[[_incode-module-communications_mixins]]
+== (Document) Mixins
+
+The modules provides a number of mixins that, by default, will be rendered in the UI.
+In the case of this module, all mixins are on the `Document` entity.
+
+The mixins can be suppressed if necessary using vetoing subscribers to their corresponding domain events.
+
+
+[[_incode-module-communications_mixins_send-by]]
+=== Document_sendByEmail & Document_sendByPost
+
+These mixins on `Document` are used to create either email or postal ``Communication``s.
+They are supported by the `DocumentCommunicationSupport` SPI service, described xref:_incode-module-communications_services-spi_document-communication-support[below].
+
+The xref:_incode-module-communications_services-spi_document-communication-support[DocumentCommunicationSupport] SPI provides the cover note template to use.
+
+
+[IMPORTANT]
+====
+Note that the cover note template should have an `AttachmentAdvisor` set to "atach to none"; the mixin action has the responsibility of wiring the cover note `Document` to the newly created `Communication`.
+====
+
+
+
+
+[[_incode-module-communications_mixins_communications]]
+=== Document_communications
+
+The `Document_communications` collection mixin shows all ``Communication``s to which a `Document` has been sent as an attachment (in the case of an email) or to be printed out (in the case of a postal comm).
+
+Note that this mixin is suppressed for cover notes; instead these have the `Document_coverNoteFor` mixin, described  xref:_incode-module-communications_mixins_cover-note-for[below].
+
+
+[[_incode-module-communications_mixins_communication-attachments]]
+=== Document_communicationAttachments
+
+The `Document_communicationAttachments` collection mixin lists all of the ``Document``s that would be included as attachments if and when a new `Communication` is created.
+
+This list always includes the target `Document` itself, and will also include any supporting `Document`s that may have been attached (using the link:https://github.com/incodehq/incode-module-document[Incode Document] module's `Document_attachSupportingPdf` mixin).
+
+
+[[_incode-module-communications_mixins_cover-note-for]]
+=== Document_coverNoteFor
+
+The `Document_coverNoteFor` property mixin applies only to ``Document``s that have been created as email cover notes.
+It returns a reference to the email `Communication` to which it was associated (with a role of "cover note"); its content is used as the body of the actual email.
+
+
+
+[[_incode-module-communications_services-api]]
+== Services (API)
+
+The module currently does not provide a service to programmatically create ``Communication``s.
+Instead, the various xref:_incode-module-communications_mixins[mixins] can be used.
+
+
+[[_incode-module-communications_services-spi]]
+== Services (SPI)
+
+SPI services are called by the module.
+
+[[_incode-module-communications_services-spi_document-communication-support]]
+=== DocumentCommunicationSupport (required)
+
+An implementation of the `DocumentCommunicationSupport` SPI domain service is required to send communications of any type.
+Its signature is:
+
+[source,java]
+----
+public interface DocumentCommunicationSupport {
+    DocumentType emailCoverNoteDocumentTypeFor(Document document);
+    void inferEmailHeaderFor(Document document, CommHeaderForEmail header);
+    void inferPrintHeaderFor(Document document, CommHeaderForPost header);
+}
+----
+
+where `CommHeaderForEmail` is:
+
+[source,java]
+----
+public class CommHeaderForEmail ... {
+
+    @Getter @Setter
+    private EmailAddress toDefault;
+    @Getter
+    private final Set<EmailAddress> toChoices = Sets.newTreeSet();
+
+    @Getter @Setter
+    private String cc ;
+    @Getter @Setter
+    private String bcc;
+
+    @Getter @Setter
+    private EmailAddress from;
+
+    @Getter @Setter
+    private String disabledReason;  // <1>
+}
+----
+<1> Reason, if any, why the communication cannot be sent by email.
+
+and where `CommHeaderForPost` is:
+
+[source,java]
+----
+public class CommHeaderForPost ... {
+    @Getter @Setter
+    private PostalAddress toDefault;
+    @Getter
+    private final Set<PostalAddress> toChoices = Sets.newTreeSet();
+
+    @Getter @Setter
+    private String disabledReason;  // <1>
+}
+----
+<1> Reason, if any, why the communication cannot be sent by post.
+
+
+[IMPORTANT]
+====
+Note that the cover note template should have an `AttachmentAdvisor` set to "atach to none"; the mixin action has the responsibility of wiring the cover note `Document` to the newly created `Communication`.
+====
+
+
+[[_incode-module-communications_services-spi_current-user-email-address-provider]]
+=== CurrentUserEmailAddressProvider
+
+The optional `CurrentUserEmailAddressProvider` SPI service provides the email address of the current user, in order to create a `CommChannelRole` indicating that the `Communication` was "prepared by" such-and-such a user.
+
+Its signature is:
+
+[source,java]
+----
+public interface CurrentUserEmailAddressProvider {
+    String currentUserEmailAddress();
+----
+
+The module does provide a default implementation, `CurrentUserEmailAddressProvider.UsingMeService`, that uses the `MeService` of the (non-ASF) http://github.com/isisaddons/isis-module-security[Isis addons' security] module.
+In many case therefore there will be no need to provide an alternative implementation of this SPI service.
+
+
+[[_incode-module-communications_how-to-run-the-demo-app]]
+== How to run the Demo App
+
+
+The prerequisite software is:
+
+* Java JDK 8
+* http://maven.apache.org[maven 3] (3.3.x or later is recommended).
+
+To build the demo app:
+
+[source]
+----
+git clone https://github.com/incodehq/isis-module-communications.git
+cd isis-module-communications
+mvn clean install
+----
+
+
+To run the demo app:
+
+[source]
+----
+mvn -pl webapp -Dmavenmixin-jettywar jetty:run
+----
+
+Then log on using user: `sven`, password: `pass`
+
+
+
+[[_incode-module-communications_how-to-configure-use]]
+== How to configure/use
+
+You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
+
+To use "out-of-the-box":
+
+* update your classpath by adding this dependency in your dom project's `pom.xml`: +
++
+[source,xml]
+----
+<dependency>
+    <groupId>org.incode.module.communications</groupId>
+    <artifactId>incode-module-communications-dom</artifactId>
+    <version>1.14.7</version>
+</dependency>
+----
+
+* in the `AppManifest`, update its `getModules()` method: +
++
+[source,java]
+----
+@Override
+public List<Class<?>> getModules() {
+    return Arrays.asList(
+            ...
+            org.incode.module.communications.dom.CommunicationsModule.class,
+    );
+}
+----
+
+Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-communications-dom[Maven Central Repo].
+
+
+
+
+[[_incode-module-communications_known-issues]]
+== Known issues
+
+(none)
+
+
+[[_incode-module-communications_change-log]]
+== Change Log
+
+
+* `1.14.7 - fixes https://github.com/incodehq/incode-module-communications/issues/17[#17] (Document_sendByEmail mixin throws exception instead of disabling if no template)
+
+* `1.14.6 - fixes https://github.com/incodehq/incode-module-communications/issues/16[#16] (communication subject name)
+
+* `1.14.5` - fixes https://github.com/incodehq/incode-module-communications/issues/15[#15] (renames `Communication#queuedAt` to `createdAt`, always populated so no longer nullable)
++
+[NOTE]
+====
+This release is not backwardly compatible with previous release, and requires a schema DB migration.
+====
+
+* `1.14.4` - fixes https://github.com/incodehq/incode-module-communications/issues/14[#14] (findByCommunicationChannelAndPendingOrQueuedBetweenOrSentBetween query)
+
+* `1.14.3` - fixes https://github.com/incodehq/incode-module-communications/issues/8[#8] (extend cc2,cc3,bcc2); https://github.com/incodehq/incode-module-communications/issues/9[#9] (use link:https://github.com/incodehq/incode-module-document[document] module SPI); https://github.com/incodehq/incode-module-communications/issues/10[#10] (find/recent docs for channel); https://github.com/incodehq/incode-module-communications/issues/11[#11] (mixin names); https://github.com/incodehq/incode-module-communications/issues/12[#12] (primary doc); https://github.com/incodehq/incode-module-communications/issues/13[#13] (find/recent docs for channel owner); references link:https://github.com/incodehq/incode-module-document[document] module v1.14.6
+
+* `1.14.2` - fixes https://github.com/incodehq/incode-module-communications/issues/7[#7] (``DocumentCommunicationSupport``); references link:https://github.com/incodehq/incode-module-document[document] module v1.14.3
++
+[NOTE]
+====
+This release is not backwardly compatible with previous release.
+====
+
+* `1.14.1` - fixes https://github.com/incodehq/incode-module-communications/issues/1[#1], https://github.com/incodehq/incode-module-communications/issues/2[#2], https://github.com/incodehq/incode-module-communications/issues/3[#3], https://github.com/incodehq/incode-module-communications/issues/4[#4], https://github.com/incodehq/incode-module-communications/issues/5[#5], https://github.com/incodehq/incode-module-communications/issues/6[#6]; references link:https://github.com/incodehq/incode-module-document[document] module v1.14.2
+
+* `1.14.0` - released against Isis 1.14.0
+
+* `1.13.0` - released against Isis 1.13.2, extracted from Estatio codebase
+
+
+
+[[_incode-module-communications_legal-stuff]]
+== Legal Stuff
+
+=== License
+
+[source]
+----
+Copyright 2016-2017 Dan Haywood
+
+Licensed under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+----
+
+=== Dependencies
+
+None.
+
+
+=== Icons
+
+The icons are provided by https://icons8.com/[Icons8].
+
+
+
+[[_incode-module-communications_legal-stuff_forking-the-repo]]
+=== Forking the repo
+
+If you want to extend this module's functionality, then we recommend that you fork this repo.
+The repo is structured as follows:
+
+* `pom.xml` - parent pom
+* `module-dom` - the module implementation itself
+* `demo/module-dom` - demo app's supporting domain that uses `module-dom` in some way
+* `demo/application` - demo app's app manifest and application-level integration tets
+* `demo/webapp` - demo app's webapp, to create war and docker images
+
+
+Only the `module-dom` project is released to Maven Central Repo.
+The versions of the other modules are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
+
+
+Note that the module uses link:https://projectlombok.org/[Project Lombok].
+eTo compile the code within your IDE you will
+therefore require the appropriate Lombok plugin.  See the link:https://projectlombok.org/download.html[Lombok download page] for more information.
+
+
+
+==  Maven deploy notes
+
+Only the `dom` module is deployed, and is done so using Sonatype's OSS support (see
+http://central.sonatype.org/pages/apache-maven.html[user guide]).
+
+=== Release to Sonatype's Snapshot Repo
+
+To deploy a snapshot, use:
+
+[source]
+----
+pushd dom
+mvn clean deploy
+popd
+----
+
+The artifacts should be available in Sonatype's
+https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
+
+
+
+=== Release an Interim Build
+
+If you have commit access to this project (or a fork of your own) then you can create interim releases using the `interim-release.sh` script.
+
+The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.14.7.20170331-0740`).
+It then pushes the branch (and a tag) to the specified remote.
+
+A CI server such as Jenkins can monitor the branches matching the wildcard `origin/interim/*` and create a build.
+These artifacts can then be published to a snapshot repository.
+
+For example:
+
+[source]
+----
+sh interim-release.sh 1.14.7 origin
+----
+
+where
+
+* `1.14.7` is the base release
+* `origin` is the name of the remote to which you have permissions to write to.
+
+
+
+
+=== Release to Maven Central
+
+The `release.sh` script automates the release process. It performs the following:
+
+* performs a sanity check (`mvn clean install -o`) that everything builds ok
+* bumps the `pom.xml` to a specified release version, and tag
+* performs a double check (`mvn clean install -o`) that everything still builds ok
+* releases the code using `mvn clean deploy`
+* bumps the `pom.xml` to a specified release version
+
+For example:
+
+[source]
+----
+sh release.sh 1.14.7 \
+              1.15.0-SNAPSHOT \
+              dan@haywood-associates.co.uk \
+              "this is not really my passphrase"
+----
+
+where
+* `$1` is the release version
+* `$2` is the snapshot version
+* `$3` is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
+* `$4` is the corresponding passphrase for that secret key.
+
+Other ways of specifying the key and passphrase are available, see the `pgp-maven-plugin`'s
+http://kohsuke.org/pgp-maven-plugin/secretkey.html[documentation]).
+
+If the script completes successfully, then push changes:
+
+[source]
+----
+git push origin master && git push origin 1.14.7
+----
+
+If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue before trying again.
+Note that in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the `autoReleaseAfterClose` setting set to `true` (to automatically stage, close and the release the repo).
+You may want to set this to `false` if debugging an issue.
+
+According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update http://search.maven.org[search].
