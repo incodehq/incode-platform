@@ -1,11 +1,10 @@
-= isis-module-audit
+[[spi-audit]]
+= Audit SPI Implementation
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/isisaddons/isis-module-audit.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-audit]
 
-This module, intended for use within http://isis.apache.org[Apache Isis], provides an implementation of Isis'
-`AuditerService` SPI (introduced in `1.13.0`, replacing the earlier `AuditingService3` SPI).
+This module (`isis-module-audit`) provides an implementation of Isis' `AuditerService` SPI (introduced in `1.13.0`, replacing the earlier `AuditingService3` SPI).
 The implementation persists audit entries using Isis' own (JDO) objectstore.
 Typically this will be to a relational database; the module's `AuditEntry` entity is mapped to the "isisaudit.AuditEntry" table.
 

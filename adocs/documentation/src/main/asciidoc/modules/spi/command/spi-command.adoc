@@ -1,11 +1,9 @@
-= isis-module-command
+[[spi-command]]
+= Command SPI Implementation
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/isisaddons/isis-module-command.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-command]
-
-This module, intended for use with http://isis.apache.org[Apache Isis], provides an implementation of Isis'
-`CommandService` API that enables action invocations (`Command`s) to be persisted using Isis' own (JDO) objectstore.
+This module (`isis-module-command`) provides an implementation of Isis' `CommandService` API that enables action invocations (`Command`s) to be persisted using Isis' own (JDO) objectstore.
 This supports two main use cases:
 
 * profiling: determine which actions are invoked most frequently, what is the elapsed time for each command)

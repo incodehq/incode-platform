@@ -1,10 +1,9 @@
-= incode-module-unittestsupport
+[[lib-unittestsupport]]
+= Unit Testing Support Library
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/incodehq/incode-module-unittestsupport.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-unittestsupport]
-
-This module, intended for use with link:http://isis.apache.org[Apache Isis], provides a set of testing utilities to support unit testing.
+This module (`incode-module-unittestsupport`)provides a set of testing utilities to support unit testing.
 
 
 

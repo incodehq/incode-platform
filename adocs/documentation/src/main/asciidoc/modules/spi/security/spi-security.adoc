@@ -1,10 +1,10 @@
-= isis-module-security
+[[spi-security]]
+= Security SPI Implementation
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/isisaddons/isis-module-security.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-security]
 
-This module, intended for use within http://isis.apache.org[Apache Isis], provides the ability to manage *user*s, *role*s,
+This module (`isis-module-security`) provides the ability to manage *user*s, *role*s,
 and *permission*s.
 Users have roles, roles have permissions, and permissions are associated with *application feature*s.
 These features are derived from the Isis metamodel and can be scoped at either a _package_, _class_ or individual _class member_.

@@ -1,10 +1,10 @@
-= isis-module-publishmq
+[[spi-publishmq]]
+= PublishMQ SPI Implementation
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/isisaddons/isis-module-publishmq.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-publishmq]
 
-This module, intended for use with http://isis.apache.org[Apache Isis], provides an implementation of Apache Isis` link:http://isis.apache.org/guides/rg.html#_rg_services-spi_manpage-PublishingService[`PublishingService`] SPI that submits an XML representation of an link:https://github.com/apache/isis/blob/master/core/schema/src/main/resources/org/apache/isis/schema/ixn/ixn.xsd[`MemberInteractionDto`]s to an link:http://activemq.apache.org[ActiveMQ] queue.
+This module (`isis-module-publishmq`) provides an implementation of Apache Isis` link:http://isis.apache.org/guides/rg.html#_rg_services-spi_manpage-PublishingService[`PublishingService`] SPI that submits an XML representation of an link:https://github.com/apache/isis/blob/master/core/schema/src/main/resources/org/apache/isis/schema/ixn/ixn.xsd[`MemberInteractionDto`]s to an link:http://activemq.apache.org[ActiveMQ] queue.
 
 The example app itself also demonstrates how this member interaction event (action invocation or property edit) can
 be routed using link:http://camel.apache.org[Apache Camel]:

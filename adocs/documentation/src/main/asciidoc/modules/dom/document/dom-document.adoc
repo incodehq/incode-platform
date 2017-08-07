@@ -1,11 +1,10 @@
-[[incode-module-document]]
-= incode-module-document
+[[dom-document]]
+= Document Subdomain
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/incodehq/incode-module-document.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-document]
+This module (`incode-module-document`) provides the ability to create and attach `Document` objects to arbitrary domain objects from ``DocumentTemplate``s.
 
-This module, intended for use with link:http://isis.apache.org[Apache Isis], provides the ability to create and attach `Document` objects to arbitrary domain objects from ``DocumentTemplate``s.
 
 ``Document``s can be rendered using a number of technologies:
 

@@ -1,11 +1,12 @@
-= isis-module-flywaydb
+[[ext-flywaydb]]
+= FlywayDB Extension
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/isisaddons/isis-module-flywaydb.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-flywaydb]
-
-This module, intended for use within http://isis.apache.org[Apache Isis], provides an implementation of the link:http://datanucleus.org/[DataNucleus] link:http://www.datanucleus.org/products/accessplatform_4_1/jdo/pmf.html[`PersistenceManagerFactory`] class.
+This module (`isis-module-flywaydb`) provides an implementation of the link:http://datanucleus.org/[DataNucleus] link:http://www.datanucleus.org/products/accessplatform_4_1/jdo/pmf.html[`PersistenceManagerFactory`] class.
 This uses link:https://flywaydb.org[Flyway] API to automatically apply any database migration scripts prior to the bootstrapping of the rest of the Apache Isis runtime.
+
+
 
 [IMPORTANT]
 ====

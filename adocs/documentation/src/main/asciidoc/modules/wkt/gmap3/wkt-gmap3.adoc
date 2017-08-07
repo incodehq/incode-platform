@@ -1,11 +1,9 @@
-= isis-wicket-gmap3
+[[wkt-gmap3]]
+= GMap3 Wicket Component
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/isisaddons/isis-wicket-gmap3.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-wicket-gmap3]
-
-This component, intended for use with http://isis.apache.org[Apache Isis]'s Wicket viewer, allows an entity or collection of
-entities to be rendered within a map (using google's https://developers.google.com/maps/documentation/javascript/[gmap3] API).
+This component (`isis-wicket-gmap3`) allows an entity or collection of entities to be rendered within a map (using google's https://developers.google.com/maps/documentation/javascript/[gmap3] API).
 
 == Screenshots
 

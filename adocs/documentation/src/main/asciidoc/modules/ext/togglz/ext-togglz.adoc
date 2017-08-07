@@ -1,10 +1,9 @@
-= isis-module-togglz
+[[ext-togglz]]
+= Togglz Extension
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/isisaddons/isis-module-togglz.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-togglz]
-
-This module, intended for use with http://isis.apache.org[Apache Isis], provides an integration with http://www.togglz.org[Togglz] to provide a http://martinfowler.com/bliki/FeatureToggle.html[feature toggle] capability. 
+This module (`isis-module-togglz`) provides an integration with http://www.togglz.org[Togglz] to provide a http://martinfowler.com/bliki/FeatureToggle.html[feature toggle] capability.
 
 Courtesy of Togglz, this integration has an embedded console and has support for integration testing through a custom JUnit rule.
 

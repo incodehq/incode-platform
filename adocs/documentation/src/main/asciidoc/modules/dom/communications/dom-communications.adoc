@@ -1,11 +1,11 @@
-[[incode-module-communications]]
-= incode-module-communications
+[[dom-communications]]
+= Communications Subdomain
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/incodehq/incode-module-communications.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-communications]
+This module (`incode-module-communications`) defines ``CommunicationChannel``s (email address, postal address or phone/fax number), and also allows ``Document``s (implemented by the Incode http://github.com/incodehq/incode-module-document[Document] module) to be sent as ``Communication``s either to an email address or to a postal address.
 
-This module, intended for use with link:http://isis.apache.org[Apache Isis], defines ``CommunicationChannel``s (email address, postal address or phone/fax number), and also allows ``Document``s (implemented by the Incode http://github.com/incodehq/incode-module-document[Document] module) to be sent as ``Communication``s either to an email address or to a postal address.
+
 
 A `Document` is an entity that holds some sort of content, either binary such as PDF or Word document or text such as HTML; they can be rendered in various ways.
 ``Document``s can be attached to arbitrary domain objects using ``Paperclip``s.

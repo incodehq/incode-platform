@@ -1,12 +1,12 @@
-= isis-wicket-summernote
+[[wkt-summernote]]
+= SummerNote Wicket Component
 :_basedir: ../../../
 :_imagesdir: images/
 
-Apache Isis module that provides WYSIWYG rich editor based on Summernote
 
-image:https://travis-ci.org/isisaddons/isis-wicket-summernote.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-wicket-summernote]
+This module (`isis-wicket-summernote`) integrates http://summernote.org[Summernote editor].
+_Summernote_ is a JavaScript library based on http://getbootstrap.com/[Bootstrap] that helps you create WYSIWYG editors online.
 
-This component, intended for use with http://isis.apache.org[Apache Isis]'s Wicket viewer, integrates http://summernote.org[Summernote editor]. _Summernote_ is a JavaScript library based on http://getbootstrap.com/[Bootstrap] that helps you create WYSIWYG editors online.
 
 
 == Screenshots

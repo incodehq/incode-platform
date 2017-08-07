@@ -1,10 +1,9 @@
-= isis-module-pdfbox
+[[lib-pdfbox]]
+= PDFBox Library
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/isisaddons/isis-module-pdfbox.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-pdfbox]
-
-This module, intended for use with http://isis.apache.org[Apache Isis], provides a wrapper around link:https://pdfbox.apache.org[Apache PDFBox].
+This module (`isis-module-pdfbox`) provides a wrapper around link:https://pdfbox.apache.org[Apache PDFBox].
 
 
 

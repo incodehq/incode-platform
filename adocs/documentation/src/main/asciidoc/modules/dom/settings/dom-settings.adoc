@@ -1,11 +1,12 @@
-= isis-module-settings
+[[dom-settings]]
+= Settings Subdomain
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/isisaddons/isis-module-settings.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-settings]
 
-This module, intended for use with http://isis.apache.org[Apache Isis], is a provides two services provide the
-ability to persist configuration settings using Isis' own JDO Objectstore.
+This module (`isis-module-settings`) provides two services provide the ability to persist configuration settings using Isis' own JDO Objectstore.
+
+
 
 With `ApplicationSettingsService` these settings have global scope; for the `UserSettingsService` the settings are
 scoped per user.

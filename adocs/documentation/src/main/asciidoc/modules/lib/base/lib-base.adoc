@@ -1,10 +1,10 @@
-= incode-module-base
+[[lib-base]]
+= Base Library
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/incodehq/incode-module-base.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-base]
 
-This module, intended for use with link:http://isis.apache.org[Apache Isis], provides a set of base libraries and testing utilities.
+This module (`incode-module-base`) provides a base library of utility classes.
 
 
 

@@ -1,10 +1,9 @@
-= isis-module-freemarker
+[[lib-freemarker]]
+= FreeMarker Library
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/isisaddons/isis-module-freemarker.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-freemarker]
-
-This module, intended for use with http://isis.apache.org[Apache Isis], provides a wrapper around Freemarker
+This module (`isis-module-freemarker`) provides a wrapper around Freemarker
 templating engine.
 
 

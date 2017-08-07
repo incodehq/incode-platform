@@ -1,10 +1,11 @@
-= incode-module-docfragment
+[[dom-docfragment]]
+= Document Fragment Subdomain
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/incodehq/incode-module-docfragment.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-docfragment]
+This module (`incode-module-docfragment`) is a simple wrapper around the (non-ASF) http://github.com/isisaddons/isis-module-freemarker[Isis addons' freemarker] module to interpolate fragments of text with respect to a domain object.
 
-This module, intended for use with link:http://isis.apache.org[Apache Isis], is a simple wrapper around the (non-ASF) http://github.com/isisaddons/isis-module-freemarker[Isis addons' freemarker] module to interpolate fragments of text with respect to a domain object.
+
 
 The module defines only a single entity - `DocFragment` - which holds the template text.
 The result of the interpolation is a simple string; normally the calling object will then persist this somewhere (eg for use when rendering a `Document` as provided by the https://github.com/incodehq/incode-module-document[Incode Document] module).

@@ -1,11 +1,12 @@
-= isis-wicket-fullcalendar2
+[[wkt-fullcalendar2]]
+= FullCalendar2 Wicket Component
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/isisaddons/isis-wicket-fullcalendar2.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-wicket-fullcalendar2]
 
-This component, intended for use with http://isis.apache.org[Apache Isis]'s Wicket viewer, renders events for a collection of
-entities within a fullpage calendar. Underneath the covers it uses this https://github.com/42Lines/wicket-fullcalendar[fullcalendar] widget.
+This component (`isis-wicket-fullcalendar2`) renders events for a collection of
+entities within a fullpage calendar.
+Underneath the covers it uses this https://github.com/42Lines/wicket-fullcalendar[fullcalendar] widget.
 
 == Screenshots
 

@@ -1,13 +1,13 @@
-= incode-module-classification
+[[dom-classification]]
+= Classification Subdomain
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/incodehq/incode-module-classification.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-classification]
+This module (`incode-module-classification`) provides the ability to classify any (arbitrary) domain object as belonging to a pre-defined `Category` within a particular `Taxonomy`.
+  A given domain object can only be associated with one `Category` per `Taxonomy`, but each `Category` can optionally have child (sub-) categories.
 
-This module, intended for use with link:http://isis.apache.org[Apache Isis], provides the ability to classify any
-(arbitrary) domain object as belonging to a pre-defined `Category` within a particular `Taxonomy`.  A given domain
-object can only be associated with one `Category` per `Taxonomy`, but each `Category` can optionally have child (sub-)
-categories.
+
+
 
 Not every `Taxonomy` is applicable to every domain object.  Instead, the `Taxonomy` is qualified by both the domain
 object's type and also its application tenancy (eg country within a multi-tenancy environment).

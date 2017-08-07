@@ -1,9 +1,11 @@
-= incode-module-alias
+[[dom-alias]]
+= Alias Subdomain
 :_basedir: ../../../
 :_imagesdir: images/
 
-This module provides the ability to attach `Alias` objects to arbitrary domain objects, where "alias" means an alternative identifier for the object.
+This module (`incode-module-alias`) provides the ability to attach `Alias` objects to arbitrary domain objects, where "alias" means an alternative identifier for the object.
 Most commonly this is the identifier within some external system (in DDD terms: in some other bounded context).
+
 
 The identity of the external system itself is represented in two ways: first by the "alias type" (general ledger, document management system" etc), and also by an "application tenancy path".
 The latter is the same concept as exists within the xref:../../spi/security/spi-security.adoc[Security SPI] module, and generally represents a multi-tenancy environment, eg to distinguish different countries.

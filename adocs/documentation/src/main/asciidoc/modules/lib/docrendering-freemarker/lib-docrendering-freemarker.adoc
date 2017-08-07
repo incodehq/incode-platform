@@ -1,10 +1,10 @@
-= incode-module-docrendering-freemarker
+[[lib-docrendering-freemarker]]
+= Freemarker Document Rendering Library
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/incodehq/incode-module-docrendering-freemarker.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-docrendering-freemarker]
 
-This module, intended for use with link:http://isis.apache.org[Apache Isis], provides an implementation of the Incode http://github.com/incodehq/incode-module-document[Document] module's `Renderer` interface using the (non-ASF) http://github.com/isisaddons/isis-module-freemarker[Isis addons' freemarker] module.
+This module (`incode-module-docrendering-freemarker`) provides an implementation of the Incode http://github.com/incodehq/incode-module-document[Document] module's `Renderer` interface using the (non-ASF) http://github.com/isisaddons/isis-module-freemarker[Isis addons' freemarker] module.
 
 
 == API

@@ -1,10 +1,9 @@
-= incode-module-fixturesupport
+[[lib-fixturesupport]]
+= FixtureSupport Library
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/incodehq/incode-module-fixturesupport.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-fixturesupport]
-
-This module, intended for use with link:http://isis.apache.org[Apache Isis], provides support for writing fixtures.
+This module (`incode-module-fixturesupport`) provides support for writing fixtures.
 
 
 

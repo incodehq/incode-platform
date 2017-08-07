@@ -1,10 +1,9 @@
-= incode-module-docrendering-stringinterpolator
+[[lib-docrendering-stringinterpolator]]
+= StringInterpolator Document Rendering Library
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/incodehq/incode-module-docrendering-stringinterpolator.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-docrendering-stringinterpolator]
-
-This module, intended for use with link:http://isis.apache.org[Apache Isis], provides an implementation of the Incode http://github.com/incodehq/incode-module-document[Document] module's `Renderer` interface using the (non-ASF) http://github.com/isisaddons/isis-module-stringinterpolator[Isis addons' stringinterpolator] module.
+This module (`incode-module-docrendering-stringinterpolator`) provides an implementation of the Incode http://github.com/incodehq/incode-module-document[Document] module's `Renderer` interface using the (non-ASF) http://github.com/isisaddons/isis-module-stringinterpolator[Isis addons' stringinterpolator] module.
 
 
 == API

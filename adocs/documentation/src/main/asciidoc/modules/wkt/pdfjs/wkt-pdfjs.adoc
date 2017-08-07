@@ -1,10 +1,10 @@
-= isis-wicket-pdfjs
+[[wkt-pdfjs]]
+= Pdf.js Wicket Component
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/isisaddons/isis-wicket-pdfjs.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-wicket-pdfjs]
 
-This component, intended for use with http://isis.apache.org[Apache Isis]'s Wicket viewer, allows a BLOB containing an PDF to be rendered as a panel using https://mozilla.github.io/pdf.js[pdf.js].
+This component (`isis-wicket-pdfjs`) allows a BLOB containing an PDF to be rendered as a panel using https://mozilla.github.io/pdf.js[pdf.js].
  
 
 

@@ -1,8 +1,8 @@
-= isis-module-xdocreport
+[[lib-xdocreport]]
+= XDocReport Library
 
-image:https://travis-ci.org/isisaddons/isis-module-xdocreport.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-xdocreport]
-
-This module, intended for use with http://isis.apache.org[Apache Isis], provides a wrapper around link:https://github.com/opensagres/xdocreport[XDocReport].  XDocReport is an API to merge XML documents into MS Office (.docx) or OpenOffice (.odt) files, optionally converting into another format, notably PDF.
+This module [`isis-module-xdocreport`] provides a wrapper around link:https://github.com/opensagres/xdocreport[XDocReport].
+XDocReport is an API to merge XML documents into MS Office (.docx) or OpenOffice (.odt) files, optionally converting into another format, notably PDF.
 
 
 == How to configure/use

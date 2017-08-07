@@ -1,10 +1,9 @@
-= incode-module-integtestsupport
+[[lib-integtestsupport]]
+= Integration Testing Support Library
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/incodehq/incode-module-integtestsupport.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-integtestsupport]
-
-This module, intended for use with link:http://isis.apache.org[Apache Isis], provides a set of testing utilities to support integration testing.
+This module (`incode-module-integtestsupport`) provides a set of testing utilities to support integration testing.
 
 
 

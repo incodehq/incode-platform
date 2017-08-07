@@ -1,12 +1,11 @@
-= isis-module-sessionlogger
+[[spi-sessionlogger]]
+= SessionLogger SPI Implementation
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/isisaddons/isis-module-sessionlogger.png?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-sessionlogger]
 
-This module, intended for use within http://isis.apache.org[Apache Isis], provides an implementation of Isis'
-`SessionLoggingService` API that persists audit entries using Isis' own (JDO) objectstore. Typically this will be to a
-relational database; the module's `SessionLogEntry` entity is mapped to the "IsisSessionLogEntry" table.
+This module (`isis-module-sessionlogger`) provides an implementation of Isis' `SessionLoggingService` API that persists audit entries using Isis' own (JDO) objectstore.
+Typically this will be to a relational database; the module's `SessionLogEntry` entity is mapped to the "IsisSessionLogEntry" table.
 
 
 == Screenshots

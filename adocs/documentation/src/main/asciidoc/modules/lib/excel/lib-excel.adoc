@@ -1,11 +1,11 @@
-= isis-module-excel
+[[lib-excel]]
+= Excel Library
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/isisaddons/isis-module-excel.svg?branch=master[Build Status,link=https://travis-ci.org/isisaddons/isis-module-excel]
+This module (`isis-module-excel`) provides a domain service so that a collection of (view model) object scan be exported to an Excel spreadsheet, or recreated by importing from Excel.
 
-This module, intended for use with http://isis.apache.org[Apache Isis], provides a domain service so that a
-collection of (view model) object scan be exported to an Excel spreadsheet, or recreated by importing from Excel.
+
 
 It also provides a fixture to allow data to be imported from an Excel spreadsheet, with each row either corresponding to
 a persistent entity or alternatively to a view model which in turn persists data.
