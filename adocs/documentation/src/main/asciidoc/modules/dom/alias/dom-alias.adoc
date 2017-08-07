@@ -2,17 +2,12 @@
 :_basedir: ../../../
 :_imagesdir: images/
 
-image:https://travis-ci.org/incodehq/incode-module-alias.png?branch=master[Build Status,link=https://travis-ci.org/incodehq/incode-module-alias]
+This module provides the ability to attach `Alias` objects to arbitrary domain objects, where "alias" means an alternative identifier for the object.
+Most commonly this is the identifier within some external system (in DDD terms: in some other bounded context).
 
-This module, intended for use with link:http://isis.apache.org[Apache Isis], provides the ability to attach `Alias`
-objects to arbitrary domain objects, where "alias" means an alternative identifier for the object.  Most commonly this
-is the identifier within some external system (in DDD terms: in some other bounded context).
-
-The identity of the external system itself is represented in two ways: first by the "alias type" (general ledger,
-document management system" etc), and also by an "application tenancy path".  The latter is the same concept as exists
-within the link:http://www.isisaddons.org[Isis Addons]' link:http://github.com/isisaddons/isis-module-security[security]
-module, and generally represents a multi-tenancy environment, eg to distinguish different countries. Thus, an `Alias`
-is the combination of the app tenancy, an alias type, and the alias reference itself (a simple string).
+The identity of the external system itself is represented in two ways: first by the "alias type" (general ledger, document management system" etc), and also by an "application tenancy path".
+The latter is the same concept as exists within the xref:../../spi/security/spi-security.adoc[Security SPI] module, and generally represents a multi-tenancy environment, eg to distinguish different countries.
+Thus, an `Alias` is the combination of the app tenancy, an alias type, and the alias reference itself (a simple string).
 
 For example, a `Party` entity might have a different identifier within a general ledger system for France say, and
 another identifier again in centrally-managed document management system.
