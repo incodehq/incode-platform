@@ -372,34 +372,6 @@ Once a ``Document``'s content has been moved to be stored externally, it can sub
 
 
 
-[[_incode-module-document_how-to-run-the-demo-app]]
-== How to run the Demo App
-
-The prerequisite software is:
-
-* Java JDK 8
-* http://maven.apache.org[maven 3] (3.2.x or later is recommended).
-
-To build the demo app:
-
-[source]
-----
-git clone https://github.com/incodehq/isis-module-document.git
-mvn clean install
-----
-
-To run the demo app:
-
-[source]
-----
-cd webapp
-mvn jetty:run
-----
-
-Then log on using user: `sven`, password: `pass`
-
-
-
 [[_incode-module-document_how-to-configure-use]]
 == How to configure/use
 

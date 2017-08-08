@@ -1,0 +1,13 @@
+[[change-log]]
+= Change Log
+:_basedir: ../../
+:_imagesdir: images/
+
+
+include::_change-log_dom-alias.adoc[leveloffset=+1]
+include::_change-log_dom-classification.adoc[leveloffset=+1]
+include::_change-log_dom-comm-channel.adoc[leveloffset=+1]
+include::_change-log_dom-communications.adoc[leveloffset=+1]
+include::_change-log_dom-country.adoc[leveloffset=+1]
+
+

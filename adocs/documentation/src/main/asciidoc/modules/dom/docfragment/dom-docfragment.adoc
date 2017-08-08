@@ -122,34 +122,6 @@ public interface ApplicationTenancyService {
 <1> Used by `DocFragmentService` to determine the `atPath` of the domain object, so as to lookup the appropriate `DocFragment`.
 
 
-== How to run the Demo App
-
-
-The prerequisite software is:
-
-* Java JDK 8
-* http://maven.apache.org[maven 3] (3.2.x or later is recommended).
-
-To build the demo app:
-
-[source]
-----
-git clone https://github.com/incodehq/isis-module-docfragment.git
-cd isis-module-docfragment
-mvn clean install
-----
-
-
-To run the demo app:
-
-[source]
-----
-mvn -pl demo/webapp -Dmavenmixin-jettywar jetty:run
-----
-
-Then log on using user: `sven`, password: `pass`
-
-
 
 == How to configure/use
 

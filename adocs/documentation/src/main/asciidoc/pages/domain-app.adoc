@@ -1,0 +1,51 @@
+[[domain-app]]
+= Domain App
+:_basedir: ../../
+:_imagesdir: images/
+
+
+
+
+
+The purpose of ...
+
+== Structure
+
+== Example Modules
+
+
+== How to run the Demo App
+
+TODO: out of date, this material copied from original READMEs.
+
+The prerequisite software is:
+
+* Java JDK 8
+* http://maven.apache.org[maven 3] (3.3.x or later is recommended).
+
+To build the demo app:
+
+[source]
+----
+git clone https://github.com/incodehq/isis-module-communications.git
+cd isis-module-communications
+mvn clean install
+----
+
+
+To run the demo app:
+
+[source]
+----
+mvn -pl webapp jetty:run
+----
+
+Then log on using user: `sven`, password: `pass`
+
+
+
+
+== Icons
+
+The icons used in the domainapp are provided by https://icons8.com/[Icons8].
+
