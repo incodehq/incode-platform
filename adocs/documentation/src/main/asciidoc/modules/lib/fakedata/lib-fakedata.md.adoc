@@ -1,12 +1,13 @@
-# isis-module-fakedata #
+[[lib-fakedata]]
+= Fake Data Library
 
 :_basedir: ../../../
 :_imagesdir: images/
 
-[![Build Status](https://travis-ci.org/isisaddons/isis-module-fakedata.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-fakedata)
+This module (`isis-module-fakedata`) provides a domain service that generates fake random data.
+The random values generated can then be used within unit and integration tests.
 
-This module, intended for use with [Apache Isis](http://isis.apache.org), provides a domain service that generates
-fake random data.  The random values generated can then be used within unit and integration tests.
+
 
 The module consists of a single domain service `FakeDataDomainService`.  This can be injected into fixtures and
 integration tests just like any other domain service.

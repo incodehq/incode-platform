@@ -1,10 +1,11 @@
-# isis-metamodel-paraname8 #
+[[mml-paraname8]]
+= Paraname8 MetaModel Facets
 :_basedir: ../../../
 :_imagesdir: images/
 
-[![Build Status](https://travis-ci.org/isisaddons/isis-metamodel-paraname8.png?branch=master)](https://travis-ci.org/isisaddons/isis-metamodel-paraname8)
 
-This extension for Apache Isis' metamodel support means that the name of action parameters can be inferred from the parameter name itself; that is, there is no need to annotate the parameter.
+This extension (`isis-metamodel-paraname8`) for Apache Isis' metamodel support means that the name of action parameters can be inferred from the parameter name itself; that is, there is no need to annotate the parameter.
+
 
 ## Background
 

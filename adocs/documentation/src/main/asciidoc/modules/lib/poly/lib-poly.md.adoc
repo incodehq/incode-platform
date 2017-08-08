@@ -1,12 +1,12 @@
-# isis-module-poly #
+[[lib-poly]]
+= Polymorphic Associations Library
 :_basedir: ../../../
 :_imagesdir: images/
 
-[![Build Status](https://travis-ci.org/isisaddons/isis-module-poly.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-poly)
 
-This module, intended for use within [Apache Isis](http://isis.apache.org), provides a set of helpers to support the
-definition of polymorphic associations; that is: relationships from one persistent entity to another by means of a
-(Java) interface.
+This module (`isis-module-poly`) provides a set of helpers to support the definition of polymorphic associations; that is: relationships from one persistent entity to another by means of a (Java) interface.
+
+
 
 #### Rationale
 

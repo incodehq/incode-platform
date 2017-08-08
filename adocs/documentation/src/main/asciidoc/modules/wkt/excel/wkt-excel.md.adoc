@@ -1,55 +1,34 @@
-# isis-wicket-wickedcharts #
+[[wkt-excel]]
+= Excel Wicket Component
 :_basedir: ../../../
 :_imagesdir: images/
 
 
-[![Build Status](https://travis-ci.org/isisaddons/isis-wicket-wickedcharts.png?branch=master)](https://travis-ci.org/isisaddons/isis-wicket-wickedcharts)
+This component (`isis-wicket-excel`) allows a collection of entities to be downloaded as an Excel spreadsheet (using [Apache POI](http://poi.apache.org)).
 
-This component, intended for use with [Apache Isis](http://isis.apache.org)'s Wicket viewer, integrates [Wicked Charts](https://code.google.com/p/wicked-charts/).  
-*Wicked Charts* is in turn an integration between [Apache Wicket](http://wicket.apache.org) and the [Highcharts](http://www.highcharts.com/) JS charting library).
-
-**Please note that while this project and *Wicked Charts* are licensed under Apache 2.0 License, *Highcharts* itself is only free for non-commercial use.  See [here](http://shop.highsoft.com/highcharts.html) for further details.**
-
-There are in fact two separate components:
-
-* `summarycharts`: render a standalone collection with `BigDecimal` properties as a chart.  (This component can be thought of as an enhancement of the base `summary` view provided by Isis Wicket viewer).
-
-* `scalarchart`: renders a standalone scalar value (from an action invocation) as a chart
-
+See also the [Isis Addons Excel module](https://github.com/isisaddons/isis-module-excel), which allows programmatic 
+export and import, eg to support bulk updating/inserting.
 
 ## Screenshots ##
 
-The following screenshots show the example app's usage of the component with some sample fixture data:
+The module contributes an additional "view" for both standalone and parented collections:
 
-![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/010-install-fixtures.png)
+For example, assuming some fixtures have been installed:
 
-Note that the example entity (todo item) has two numeric (`BigDecimal`) properties: 
+![](https://raw.github.com/isisaddons/isis-wicket-excel/master/images/010-install-fixtures.png)
 
-![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/020-entity-with-numeric-properties.png)
+Then the standalone collection of all incomplete todo items shows
+an additional link to select the excel view:
 
-#### Summary Charts ####
+![](https://raw.github.com/isisaddons/isis-wicket-excel/master/images/020-excel-tab.png)
 
-Invoking an action that returns a collection of entities:
+In both cases this view is simply a button to download the collection as an Excel spreadsheet:
 
-![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/030-all-entities.png)
+![](https://raw.github.com/isisaddons/isis-wicket-excel/master/images/030-download-link.png)
 
-... shows an additional button to view those entities in a summary chart:
+And the spreadsheet contains the contents of the collection:
 
-![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/040-standalone-collection-additional-button-for-summary-chart.png)
-
-Clicking on the button renders a chart where the values of all numeric (`BigDecimal`) properties are plotted:
-
-![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/050-summary-chart.png)
-
-#### Scalar Charts ####
-
-Arbitrary charts can be returned from any action.  For example this action:
-
-![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/060-arbitrary-charts.png)
-
-... renders a pie chart splitting out the example Todo entities by their category:
-
-![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/070-scalar-chart.png)
+![](https://raw.github.com/isisaddons/isis-wicket-excel/master/images/040-excel.png)
 
 
 ## How to run the Demo App ##
@@ -62,7 +41,7 @@ The prerequisite software is:
 
 To build the demo app:
 
-    git clone https://github.com/isisaddons/isis-wicket-wickedcharts.git
+    git clone https://github.com/isisaddons/isis-wicket-excel.git
     mvn clean install
 
 To run the demo app:
@@ -72,47 +51,25 @@ To run the demo app:
 Then log on using user: `sven`, password: `pass`
 
 
-## API & Usage ##
-
-### Summary Charts ###
-
-There is no special usage; a standalone collection of any entity with one or more properties of type `BigDecimal` 
-will be rendered using the `summarycharts` extension.
-
-
-### Scalar Chart ###
-
-Any action returning the `WickedChart` value type should be rendered as a chart.  The `WickedChart` value type is 
-simply a wrapper around the wicked chart's `Options` class:
-
-    import com.googlecode.wickedcharts.highcharts.options.Options;
-
-    public class WickedChart implements Serializable {
-
-        private Options options;
-        
-        public WickedChart(Options options) { ... }
-        ...
-    }
-
-Any chart supported by *Wicked Charts* (see their [showcase](http://wicked-charts.appspot.com/) app) should work.  
-
-
 ## How to configure/use ##
 
-You can either use this component "out-of-the-box", or you can fork this repo and extend to your own requirements.
+You can either use this extension "out-of-the-box", or you can fork this repo and extend to your own requirements. 
 
 #### "Out-of-the-box" ####
 
-To use "out-of-the-box", add the component to your project's `dom` module's `pom.xml`:
+To use "out-of-the-box", simply add this component to your classpath, eg:
 
     <dependency>
-        <groupId>org.isisaddons.wicket.wickedcharts</groupId>
-        <artifactId>isis-wicket-wickedcharts-cpt</artifactId>
+        <groupId>org.isisaddons.wicket.excel</groupId>
+        <artifactId>isis-wicket-excel-cpt</artifactId>
         <version>1.13.0</version>
     </dependency>
 
-Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-wickedcharts-cpt).
+Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-excel-cpt).
+
+You should then find that a new view is provided for all collections of entities (either as returned from an action, 
+or as a parented collection), from which a link to download the spreadsheet can be accessed.  Check for later releases 
+by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-excel-cpt).
 
 
 #### "Out-of-the-box" (-SNAPSHOT) ####
@@ -151,41 +108,23 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 
 #### Forking the repo ####
 
-If instead you want to extend these components' functionality, then we recommend that you fork this repo.  The repo is 
+If instead you want to extend this component's functionality, then we recommend that you fork this repo.  The repo is 
 structured as follows:
 
 * `pom.xml    ` - parent pom
 * `cpt        ` - the component implementation
-* `fixture    ` - fixtures, holding a sample domain objects and fixture scripts
+* `fixture    ` - fixtures, containing sample domain object classes and fixture scripts
 * `webapp     ` - demo webapp (see above screenshots)
 
-Only the `cpt` project (and its submodules) is released to Maven central.  The versions of the other modules 
+Only the `cpt` project is released to Maven central.  The versions of the other modules 
 are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
 
 
-## Limitations ##
+## Related Modules ##
 
-Although the `WickedChart` class (in the `scalarchart`'s API) has value semantics, it will (currently) not render as a 
-chart if used as an entity property.
+See also the [Excel module](https://github.com/isisaddons/isis-module-excel), which provides programmatic ability to
+export or import objects to/from an Excel spreadsheet.
 
-Such a property should be persistable, however.  
-
-Therefore a workaround is to hide the property and instead provide an action to show the chart.  
-
-For example:
-
-    public class MyEntity {
-
-        private WickedChart chart;
-        @Hidden
-        public WickedChart getChart() { ... }
-        public void setChart(WickedChart chart) { ... }
-
-        public WickedChart showChart() {
-            return getChart();
-        }
-    }
-    
 
 ## Change Log ##
 
@@ -196,13 +135,11 @@ For example:
 * `1.9.0` - released against Isis 1.9.0
 * `1.8.0` - released against Isis 1.8.0
 * `1.7.0` - released against Isis 1.7.0
-* `1.6.0` - re-released as part of isisaddons, changed package names for API to `org.isisaddons.wicket.wickedcharts`
+* `1.6.1` - (breaking change) changed package names for API to `org.isisaddons.wicket.excel.cpt.applib`
+* `1.6.0` - re-released as part of isisaddons, changed package names for API to `org.isisaddons.wicket.excel.applib`
 
 
 ## Legal Stuff ##
-
-**Please note that while this project and *Wicked Charts* are licensed under Apache 2.0 License, *Highcharts* itself 
-is only free for non-commercial use.  See [here](http://shop.highsoft.com/highcharts.html) for further details.**
 
 #### License ####
 
@@ -225,9 +162,9 @@ is only free for non-commercial use.  See [here](http://shop.highsoft.com/highch
 
 In addition to Apache Isis, this component depends on:
 
-* `commons-codec:commons-codec` (ASL v2.0 License)
-* `com.googlecode.wicked-charts:wicked-charts-wicket6` (ASL v2.0 License)
-* http://highcharts.com/license  (commercial license required unless personal/open source project)  
+* `org.apache.poi:poi` (ASL v2.0 License)
+* `org.apache.poi:poi-ooxml` (ASL v2.0 License)
+* `org.apache.poi:poi-ooxml-schemas` (ASL v2.0 License)
 
 
 ##  Maven deploy notes ##
@@ -245,7 +182,6 @@ To deploy a snapshot, use:
 
 The artifacts should be available in Sonatype's 
 [Snapshot Repo](https://oss.sonatype.org/content/repositories/snapshots).
-
 
 #### Release an Interim Build ####
 
@@ -299,9 +235,8 @@ If the script completes successfully, then push changes:
     git push origin 1.13.0
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
-before trying again.  Note that in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the 
+before trying again.  Note that in the `cpt`'s `pom.xml` the `nexus-staging-maven-plugin` has the 
 `autoReleaseAfterClose` setting set to `true` (to automatically stage, close and the release the repo).  You may want
 to set this to `false` if debugging an issue.
  
 According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update [search](http://search.maven.org).
-

@@ -1,19 +1,15 @@
-# isis-module-tags #
+[[dom-tags]]
+= Tags Subdomain
 :_basedir: ../../../
 :_imagesdir: images/
 
 
-[![Build Status](https://travis-ci.org/isisaddons/isis-module-tags.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-tags)
+This module (`isis-module-tags`) provides the ability to add multiple tags (or labels) to any entity.
 
-This module, intended for use within [Apache Isis](http://isis.apache.org), provides the ability to add multiple tags
-(or labels) to any entity.
+For example, an `Email` entity could be associated with a `priority` tag of 'urgent', 'normal' or 'low', and could also have a `category` tag of 'work', 'family', 'friends'.
 
-For example, an `Email` entity could be associated with a `priority` tag of 'urgent', 'normal' or 'low', and could also
-have a `category` tag of 'work', 'family', 'friends'.
-
-The idea is to allow a user to label an entity by offering a choice of other existing tags associated with other 
-entities of the same type and also tag type.   That is, the combination of the entity type (eg `com.mycompany.myapp.Email`) and the tag type 
-(eg `priority`) creates a named set of available tags (eg 'urgent', 'normal', low').
+The idea is to allow a user to label an entity by offering a choice of other existing tags associated with other entities of the same type and also tag type.
+That is, the combination of the entity type (eg `com.mycompany.myapp.Email`) and the tag type (eg `priority`) creates a named set of available tags (eg 'urgent', 'normal', low').
 
 As well as listing existing tags, new tags can of course also be created, and existing tags updated or removed.  
 

@@ -1,11 +1,11 @@
-# isis-module-stringinterpolator #
+[[lib-stringinterpolator]]
+= String Interpolator (OGNL) Library
 :_basedir: ../../../
 :_imagesdir: images/
 
-[![Build Status](https://travis-ci.org/isisaddons/isis-module-stringinterpolator.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-stringinterpolator)
 
-This module, intended for use within [Apache Isis](http://isis.apache.org), provides a mechanism to interpolate string 
-templates with either Isis system properties or values obtained from a domain object.
+This module (`isis-module-stringinterpolator`) provides a mechanism to interpolate string templates with either Isis system properties or values obtained from a domain object.
+
 
 One use case for this service is in building URLs based on an object's state, parameterized
 by environment (prod/test/dev etc).  These URLs could be anything; for example, to a reporting service:

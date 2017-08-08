@@ -1,36 +1,33 @@
-# isis-wicket-excel #
+[[lib-servletapi]]
+= Servlet API Library
 :_basedir: ../../../
 :_imagesdir: images/
 
-[![Build Status](https://travis-ci.org/isisaddons/isis-wicket-excel.png?branch=master)](https://travis-ci.org/isisaddons/isis-wicket-excel)
 
-This component, intended for use with [Apache Isis](http://isis.apache.org)'s Wicket viewer, allows a collection of 
-entities to be downloaded as an Excel spreadsheet (using [Apache POI](http://poi.apache.org)).
+This module (`isis-module-servletapi`) provides access to various elements of the Servlet API, namely the `ServletContext`, the `HttpServletRequest` and the `HttpServletResponse`.
 
-See also the [Isis Addons Excel module](https://github.com/isisaddons/isis-module-excel), which allows programmatic 
-export and import, eg to support bulk updating/inserting.
+
+For each of these APIs a corresponding "provider" domain service exists; for example `ServletContextProvider` service provides access to the `ServletContext`.
+
 
 ## Screenshots ##
 
-The module contributes an additional "view" for both standalone and parented collections:
+The following screenshots show an example app's usage of the module with some sample data:
 
-For example, assuming some fixtures have been installed:
+![](https://raw.github.com/isisaddons/isis-module-servletapi/master/images/010-install-fixtures.png)
 
-![](https://raw.github.com/isisaddons/isis-wicket-excel/master/images/010-install-fixtures.png)
+The demo object has all of the various "provider" domain serviecs injected into it.  It uses the `ServletContextProvider`
+ and the `HttpServletRequestProvider` services to simply show the servlet context name and user's locale:
 
-Then the standalone collection of all incomplete todo items shows
-an additional link to select the excel view:
+![](https://raw.github.com/isisaddons/isis-module-servletapi/master/images/020-servlet-and-request.png)
 
-![](https://raw.github.com/isisaddons/isis-wicket-excel/master/images/020-excel-tab.png)
+To demonstrate the use of the `HttpServletResponseProvider`, the demo object provides an "addHeader" action:
 
-In both cases this view is simply a button to download the collection as an Excel spreadsheet:
+![](https://raw.github.com/isisaddons/isis-module-servletapi/master/images/030-response.png)
 
-![](https://raw.github.com/isisaddons/isis-wicket-excel/master/images/030-download-link.png)
+When invoked, this adds a HTTP header to the response:
 
-And the spreadsheet contains the contents of the collection:
-
-![](https://raw.github.com/isisaddons/isis-wicket-excel/master/images/040-excel.png)
-
+![](https://raw.github.com/isisaddons/isis-module-servletapi/master/images/040-response-header.png)
 
 ## How to run the Demo App ##
 
@@ -42,7 +39,26 @@ The prerequisite software is:
 
 To build the demo app:
 
-    git clone https://github.com/isisaddons/isis-wicket-excel.git
+    git clone https://github.com/isisaddons/isis-module-servletapi.git
+    mvn clean install
+
+To run the demo app:
+
+    mvn antrun:run -P self-host
+    
+Then log on using user: `sven`, password: `pass`
+
+
+## How to run the Demo App ##
+
+The prerequisite software is:
+
+* Java JDK 7 (nb: Isis currently does not support JDK 8)
+* [maven 3](http://maven.apache.org) (3.2.x is recommended).
+
+To build the demo app:
+
+    git clone https://github.com/isisaddons/isis-module-audit.git
     mvn clean install
 
 To run the demo app:
@@ -54,23 +70,44 @@ Then log on using user: `sven`, password: `pass`
 
 ## How to configure/use ##
 
-You can either use this extension "out-of-the-box", or you can fork this repo and extend to your own requirements. 
+You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
 
 #### "Out-of-the-box" ####
 
-To use "out-of-the-box", simply add this component to your classpath, eg:
+To use "out-of-the-box":
 
-    <dependency>
-        <groupId>org.isisaddons.wicket.excel</groupId>
-        <artifactId>isis-wicket-excel-cpt</artifactId>
-        <version>1.13.0</version>
-    </dependency>
+* update your classpath by adding this dependency in your `dom` project's `pom.xml`:
 
-Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-excel-cpt).
+<pre>
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.isisaddons.module.servletapi&lt;/groupId&gt;
+        &lt;artifactId&gt;isis-module-servletapi-dom&lt;/artifactId&gt;
+        &lt;version&gt;1.13.0&lt;/version&gt;
+    &lt;/dependency&gt;
+</pre>
 
-You should then find that a new view is provided for all collections of entities (either as returned from an action, 
-or as a parented collection), from which a link to download the spreadsheet can be accessed.  Check for later releases 
-by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-excel-cpt).
+* if using `AppManifest`, then update its `getModules()` method:
+
+    @Override
+    public List<Class<?>> getModules() {
+        return Arrays.asList(
+                ...
+                org.isisaddons.module.servletapi.ServletApiModule.class,
+                ...
+        );
+    }
+
+* otherwise, update your `WEB-INF/isis.properties`:
+
+<pre>
+    isis.services-installer=configuration-and-annotation
+    isis.services.ServicesInstallerFromAnnotation.packagePrefix=
+                    ...,\
+                    org.isisaddons.module.servletapi.dom,\
+                    ...
+</pre>
+
+Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-servletapi-dom)).
 
 
 #### "Out-of-the-box" (-SNAPSHOT) ####
@@ -109,23 +146,45 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 
 #### Forking the repo ####
 
-If instead you want to extend this component's functionality, then we recommend that you fork this repo.  The repo is 
+If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is 
 structured as follows:
 
-* `pom.xml    ` - parent pom
-* `cpt        ` - the component implementation
-* `fixture    ` - fixtures, containing sample domain object classes and fixture scripts
-* `webapp     ` - demo webapp (see above screenshots)
+* `pom.xml   ` - parent pom
+* `dom       ` - the module implementation, depends on Isis applib
+* `fixture   ` - fixtures, holding a sample domain objects and fixture scripts; depends on `dom`
+* `integtests` - integration tests for the module; depends on `fixture`
+* `webapp    ` - demo webapp (see above screenshots); depends on `dom` and `fixture`
 
-Only the `cpt` project is released to Maven central.  The versions of the other modules 
-are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
+Only the `dom` project is released to Maven Central Repo.  The versions of the other modules are purposely left at 
+`0.0.1-SNAPSHOT` because they are not intended to be released.
 
+## API & Implementation ##
 
-## Related Modules ##
+The `ServletContextProvider` defines the following API:
 
-See also the [Excel module](https://github.com/isisaddons/isis-module-excel), which provides programmatic ability to
-export or import objects to/from an Excel spreadsheet.
+<pre>
+public class ServletContextProvider {
+    public ServletContext getServletContext() { ... }
+}
+</pre>
 
+The `HttpServletRequestProvider` defines the following API:
+
+<pre>
+public class HttpServletRequestProvider {
+    public HttpServletRequest getHttpServletRequest() { ... }
+}
+</pre>
+
+And finally the `HttpServletResponseProvider` defines the following API:
+
+<pre>
+public class HttpServletResponseProvider {
+    public HttpServletResponse getHttpServletResponse() { ... }
+}
+</pre>
+
+These actions are all programmatic and do not appear in the UI.
 
 ## Change Log ##
 
@@ -135,16 +194,13 @@ export or import objects to/from an Excel spreadsheet.
 * `1.10.0` - released against Isis 1.10.0
 * `1.9.0` - released against Isis 1.9.0
 * `1.8.0` - released against Isis 1.8.0
-* `1.7.0` - released against Isis 1.7.0
-* `1.6.1` - (breaking change) changed package names for API to `org.isisaddons.wicket.excel.cpt.applib`
-* `1.6.0` - re-released as part of isisaddons, changed package names for API to `org.isisaddons.wicket.excel.applib`
 
 
 ## Legal Stuff ##
-
+ 
 #### License ####
 
-    Copyright 2013~2016 Dan Haywood
+    Copyright 2015-2016 Dan Haywood
 
     Licensed under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
@@ -159,30 +215,29 @@ export or import objects to/from an Excel spreadsheet.
     specific language governing permissions and limitations
     under the License.
 
+
 #### Dependencies ####
 
-In addition to Apache Isis, this component depends on:
-
-* `org.apache.poi:poi` (ASL v2.0 License)
-* `org.apache.poi:poi-ooxml` (ASL v2.0 License)
-* `org.apache.poi:poi-ooxml-schemas` (ASL v2.0 License)
-
+The module implementation currently depends on Wicket (so cannot be used within Restful Objects viewer).
 
 ##  Maven deploy notes ##
 
-Only the `cpt` module is deployed, and is done so using Sonatype's OSS support (see 
+Only the `dom` module is deployed, and is done so using Sonatype's OSS support (see 
 [user guide](http://central.sonatype.org/pages/apache-maven.html)).
 
 #### Release to Sonatype's Snapshot Repo ####
 
 To deploy a snapshot, use:
 
-    pushd cpt
+    pushd dom
     mvn clean deploy
     popd
 
 The artifacts should be available in Sonatype's 
 [Snapshot Repo](https://oss.sonatype.org/content/repositories/snapshots).
+
+
+
 
 #### Release an Interim Build ####
 
@@ -202,6 +257,7 @@ where
 
 * `1.14.0` is the base release
 * `origin` is the name of the remote to which you have permissions to write to.
+
 
 
 #### Release to Maven Central ####
@@ -236,7 +292,7 @@ If the script completes successfully, then push changes:
     git push origin 1.13.0
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
-before trying again.  Note that in the `cpt`'s `pom.xml` the `nexus-staging-maven-plugin` has the 
+before trying again.  Note that in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the 
 `autoReleaseAfterClose` setting set to `true` (to automatically stage, close and the release the repo).  You may want
 to set this to `false` if debugging an issue.
  

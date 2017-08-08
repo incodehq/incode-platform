@@ -1,12 +1,11 @@
-# isis-module-docx #
+[[lib-docx]]
+= Docx (MS Word) Library
 :_basedir: ../../../
 :_imagesdir: images/
 
 
-[![Build Status](https://travis-ci.org/isisaddons/isis-module-docx.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-docx)
-
-This module, intended for use with [Apache Isis](http://isis.apache.org), provides a mail-merge capability of input 
-data into an MS Word `.docx` templates.  The generated output document is either Word `.docx` or Acrobat `.pdf`.
+This module (`isis-module-docx`) provides a mail-merge capability of input data into an MS Word `.docx` templates.
+The generated output document is either Word `.docx` or Acrobat `.pdf`.
 
 > Note: exporting to PDF requires more memory, both heap and permgen. If the PDF generation hangs then increase the memory settings, eg `-Xmx1024m -XX:MaxPermSize=128m`
 
