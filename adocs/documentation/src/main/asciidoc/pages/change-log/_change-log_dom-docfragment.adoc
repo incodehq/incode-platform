@@ -1,0 +1,13 @@
+[[_change-log_dom-docfragment]]
+= Document Fragment Subdomain
+:_basedir: ../../
+:_imagesdir: images/
+
+
+* `1.14.0` - released against Isis 1.14.0
+* `1.13.3` - fixes https://github.com/incodehq/incode-module-docfragment/issues/5[#5] - changeTemplateText action
+* `1.13.2` - fixes link:https://github.com/incodehq/incode-module-docfragment/issues/2[#2], link:https://github.com/incodehq/incode-module-docfragment/issues/3[#3], link:https://github.com/incodehq/incode-module-docfragment/issues/4[#4].
+Note that there is a minor breakage in backward compatibility (`ApplicationTenancyService` no longer defines the `atPaths()` method.
+* `1.13.1` - fixes link:https://github.com/incodehq/incode-module-docfragment/issues/1[#1] (update to use link:https://github.com/incodehq/incode-module-fixturesupport[fixturesupport] 1.13.1)
+* `1.13.0` - released against Isis 1.13.2
+

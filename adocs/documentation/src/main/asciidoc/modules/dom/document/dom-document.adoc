@@ -30,7 +30,7 @@ In the latter, a "supports" mixin property points back to the `Document` being s
 
 
 
-[[_incode-module-document_screenshots]]
+[[__dom-document_screenshots]]
 == Screenshots
 
 
@@ -39,7 +39,7 @@ We create some fixture data (both sample document templates and demo domain obje
 image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/010-run-fixture-script.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/010-run-fixture-script.png"]
 
 
-[[_incode-module-document_screenshots_document-types]]
+[[__dom-document_screenshots_document-types]]
 === Document Types
 
 This fixture script defines a set of ``DocumentType``s.
@@ -57,7 +57,7 @@ The two ``DocumentType``s for XDocreport are very similar; the difference is onl
 
 
 
-[[_incode-module-document_screenshots_freemarker-document-template]]
+[[__dom-document_screenshots_freemarker-document-template]]
 === Freemarker Document Template
 
 A `DocumentType` holds a collection of ``DocumentTemplate``s, by date.
@@ -94,7 +94,7 @@ image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/
 Along with the "content" and "name" text/clob/blob, the template also specifies the `RenderingStrategy` for each; these are used to interpolate the content/name.
 
 
-[[_incode-module-document_screenshots_applicability]]
+[[__dom-document_screenshots_applicability]]
 === Applicability
 
 The renderer(s) associated with each `DocumentTemplate` require data (a "renderer model") to interpolate the placeholders in the content/name text; this renderer model ultimately is obtained from a domain object.
@@ -106,7 +106,7 @@ The `RendererModelFactory` of the `Applicability` is used to create the "rendere
 
 
 
-[[_incode-module-document_screenshots_string-interpolator-template]]
+[[__dom-document_screenshots_string-interpolator-template]]
 === String Interpolator Template
 
 The example String Interpolator `DocumentTemplate` obtains its content by interpolating (using the http://github.com/isisaddons/isis-module-stringinterpolator[Isis addons' stringinterpolator] module) the content placeholder text; the resultant string is parsed as a URL and the contents of that URL downloaded:
@@ -124,7 +124,7 @@ This is true for all ``DocumentTemplate``s.
 ====
 
 
-[[_incode-module-document_screenshots_xdocreport-template]]
+[[__dom-document_screenshots_xdocreport-template]]
 === XDocReport Templates
 
 There are two example ``DocumentTemplate``s that use XDocReport for rendering.
@@ -159,7 +159,7 @@ image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/
 The only difference is that a different `RenderingStrategy` is used.
 
 
-[[_incode-module-document_screenshots_previewing-documents]]
+[[__dom-document_screenshots_previewing-documents]]
 === Previewing Documents
 
 The fixture script also defines a number of demo domain objects, set up to allow ``Document``s to be generated from them (for all the ``DocumentTemplate``s described above) and for those resultant ``Document``s to be attached to them:
@@ -178,7 +178,7 @@ The resultant URL is opened up as a new tab; no new `Document` is created:
 image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/112-preview-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/112-preview-result.png"]
 
 
-[[_incode-module-document_screenshots_generating-documents]]
+[[__dom-document_screenshots_generating-documents]]
 === Generating Documents
 
 Generating a `Document` for the Freemarker `DocumentTemplate`:
@@ -234,7 +234,7 @@ This is configured through the `AttachmentAdvisor` of the relevant `Applicabilit
 image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/154-XDocReportDocx-applicability.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/154-XDocReportDocx-applicability.png"]
 
 
-[[_incode-module-document_screenshots_generating-documents-in-background]]
+[[__dom-document_screenshots_generating-documents-in-background]]
 === Generating Documents in Background
 
 Documents can also be rendered in the background:
@@ -255,7 +255,7 @@ After the background commands have run, the document now has content and its sta
 image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/166-documentRendered.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/166-documentRendered.png"]
 
 
-[[_incode-module-document_screenshots_attaching-supporting-documents]]
+[[__dom-document_screenshots_attaching-supporting-documents]]
 === Attaching Supporting Documents
 
 On any (generated) `Document`, it is also possible to attach supporting PDF documents.
@@ -276,10 +276,10 @@ image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/
 
 
 
-[[_incode-module-document_domain-model]]
+[[__dom-document_domain-model]]
 == Domain Model
 
-[[_incode-module-document_domain-model_document-document-template-and-paperclip]]
+[[__dom-document_domain-model_document-document-template-and-paperclip]]
 === Document, DocumentTemplate and Paperclip
 
 The following class diagram highlights the main concepts:
@@ -332,7 +332,7 @@ This can be scheduled using, for example, the link:http://github.com/isisaddons/
 
 
 
-[[_incode-module-document_domain-model_rendering-strategy-and-renderer]]
+[[__dom-document_domain-model_rendering-strategy-and-renderer]]
 === RenderingStrategy & Renderer
 
 The  `Renderer` interface has the following subtypes and (example) implementations:
@@ -344,7 +344,7 @@ Note that a `Renderer` may produce nature of the inputs vs outputs may vary: a c
 
 
 
-[[_incode-module-document_domain-model_external-blob-clob-storage]]
+[[__dom-document_domain-model_external-blob-clob-storage]]
 === External blob/clob storage
 
 When a `Document` is initially generated, it will contain content as either a text string, a clob or as a blob; its `#getSort()` accessor - returning the `DocumentSort` enum - specifies which.
@@ -372,15 +372,13 @@ Once a ``Document``'s content has been moved to be stored externally, it can sub
 
 
 
-[[_incode-module-document_how-to-configure-use]]
+[[__dom-document_how-to-configure-use]]
 == How to configure/use
 
-You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
+=== Classpath
 
-To use "out-of-the-box":
+Update your classpath by adding this dependency in your dom project's `pom.xml`:
 
-* update your classpath by adding this dependency in your dom project's `pom.xml`: +
-+
 [source,xml]
 ----
 <dependency>
@@ -390,8 +388,17 @@ To use "out-of-the-box":
 </dependency>
 ----
 
-* in the `AppManifest`, update its `getModules()` method: +
-+
+[TIP]
+====
+Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-document-dom[Maven Central Repo].
+
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
+====
+
+=== Bootstrapping
+
+In the `AppManifest`, update its `getModules()` method:
+
 [source,java]
 ----
 @Override
@@ -403,12 +410,9 @@ public List<Class<?>> getModules() {
 }
 ----
 
-Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-document-dom[Maven Central Repo].
 
 
-
-
-[[_incode-module-document_how-to-configure-use_input]]
+[[__dom-document_how-to-configure-use_input]]
 === Input
 
 For each domain object class that you want to use as the input data to a `DocumentTemplate`, you need to:
@@ -480,7 +484,7 @@ The `AttachmentAdvisorAbstract<T>` can be used to implement the `AttachmentAdvis
 ====
 
 
-[[_incode-module-document_how-to-configure-use_renderers]]
+[[__dom-document_how-to-configure-use_renderers]]
 === Renderers
 
 For each rendering technology, an implementation of `Renderer` is required.  
@@ -488,7 +492,7 @@ A number of such ``Rendererer``s have been developed, using Freemarker, XDocRepo
 
 
 
-[[_incode-module-document_how-to-configure-use_paperclips]]
+[[__dom-document_how-to-configure-use_paperclips]]
 === Paperclips (attach output)
 
 For each domain object that you want to attach ``Document``s (that is, add ``Paperclip``s to), you need to
@@ -554,14 +558,14 @@ To view the ``Paperclip``s once created there is also a `T_paperclips` mixin col
 ====
 
 
-[[_incode-module-document_mixins]]
+[[__dom-document_mixins]]
 == Mixins
 
 The document module is fully data-driven, in that the ability to be able to preview and create a document for any given domain entity is defined by the data held in `DocumentTemplate` (its `atPath`) and `Applicability` (the `domainClassName` and corresponding `RendererModelFactory` and `AttachmentAdvisor` implementations).
 
 This is generally done using mixins (though ``Document``s can also be created programmatically, see xref:_incode-module-document_services-api_document-creator-service[below].
 
-[[_incode-module-document_mixins_t-preview]]
+[[__dom-document_mixins_t-preview]]
 === T_preview
 
 The `T_preview` mixin action provides the ability to preview a document without creating it.
@@ -582,7 +586,7 @@ public class Invoice_preview extends T_preview<Invoice> {
 Add similar mixins for all classes where there exists a `DocumentTemplate` and `Applicability` capable of consuming the object as an input to the template, and where (as noted just above) the `DocumentTemplate` has a content `RenderingStrategy` that supports previewing to a URL.
 
 
-[[_incode-module-document_t-create-document-and-render]]
+[[__dom-document_t-create-document-and-render]]
 === T_createDocumentAndRender, T_createDocumentAndScheduleRender
 
 The `T_createDocumentAndRender` and `T_createDocumentAndScheduleRender` mixin actions provide the ability to create and render a document, either in the foreground or as a background command (so that the rendering can be performed asynchronously).
@@ -619,7 +623,7 @@ The reason that the module doesn't just provide this mixin out-of-the-box is (a)
 ====
 
 
-[[_incode-module-document_mixins_t-documents]]
+[[__dom-document_mixins_t-documents]]
 === T_documents
 
 The `T_documents` mixin collection returns the list of ``Paperclip``s that each attach a `Document` to the specified domain object.
@@ -641,7 +645,7 @@ public class PaperclipForInvoice extends Paperclip {
 }
 ----
 
-[[_incode-module-document_mixins_document-supportingDocuments]]
+[[__dom-document_mixins_document-supportingDocuments]]
 === Document_supportingDocuments, Document_attachSupportingPdf & Document_supports
 
 These three mixins work together.
@@ -658,10 +662,10 @@ The `_supportingDocuments` collection mixin is hidden for "secondary" supporting
 
 
 
-[[_incode-module-document_services-api]]
+[[__dom-document_services-api]]
 == Services (API)
 
-[[_incode-module-document_services-api_document-service]]
+[[__dom-document_services-api_document-service]]
 === DocumentService
 
 The `DocumentService` service allows documents to be created and attached (using ``Paperclip``s) programmatically to other domain objects.
@@ -698,7 +702,7 @@ public class DocumentService {
 <3> documentName - override the name of the blob (if null, then uses the blob's name)
 
 
-[[_incode-module-document_services-spi]]
+[[__dom-document_services-spi]]
 == SPI Services
 
 === UrlDownloadService
@@ -865,7 +869,7 @@ This implementation can be suppressed if necessary in the usual fashion of a hig
 
 
 
-[[_incode-module-document_services-internal]]
+[[__dom-document_services-internal]]
 == Internal Services
 
 These are services that are not part of the formal API/SPI, but nevertheless allow the behaviour of the module to be overridden/fine-tuned.
@@ -891,208 +895,16 @@ However, the  "ForAtPath" bit of the name of this service is a mistake, because 
 
 
 
-[[_incode-module-document_known-issues]]
+[[__dom-document_known-issues]]
 == Known issues
 
-When using with PostgreSQL or MsSQL server you are likely to run into data-type issues with the
-mapping of jdbc-type `BLOB` and/or `CLOB`. By using `.orm`-files we can override the mapping. To activate use
-setting `isis.persistor.datanucleus.impl.datanucleus.Mapping=xxx` in link:https://github.com/incodehq/incode-module-document/blob/master/webapp/src/main/webapp/WEB-INF/persistor_datanucleus.properties[persistor_datanucleus.properties]. Setting to `postgres` will activate
-  link: https://github.com/incodehq/incode-module-document/tree/master/dom/src/main/java/org/incode/module/document/dom/impl/docs/DocumentAbstract-postgres.orm[DocumentAbstract-postgres.orm] and to `sqlserver` link: https://github.com/incodehq/incode-module-document/tree/master/dom/src/main/java/org/incode/module/document/dom/impl/docs/DocumentAbstract-postgres.orm[DocumentAbstract-sqlserver.orm] by naming convention.
+When using with PostgreSQL or MsSQL server you are likely to run into data-type issues with the mapping of jdbc-type `BLOB` and/or `CLOB`.
+By using `.orm`-files we can override the mapping.
+To activate use setting `isis.persistor.datanucleus.impl.datanucleus.Mapping=xxx` in `persistor_datanucleus.properties`.
+Thus, setting to `postgres` will activate `DocumentAbstract-postgres.orm` and to `sqlserver` `DocumentAbstract-sqlserver.orm` by naming convention.
 
-
-[[_incode-module-document_change-log]]
-== Change Log
-
-* `1.14.9` - , https://github.com/incodehq/incode-module-document/issues/27[#26] (JAXB support)
-* `1.14.8` - , https://github.com/incodehq/incode-module-document/issues/25[#25] (DocumentService), https://github.com/incodehq/incode-module-document/issues/26[#26] (find docs with no paperclips)
-* `1.14.7` - https://github.com/incodehq/incode-module-document/issues/24[#24] (remove SQL Server-specific mapping for clobChars)
-* `1.14.6` -  https://github.com/incodehq/incode-module-document/issues/21[#21] (remove attachments), https://github.com/incodehq/incode-module-document/issues/22[#22] (`PaperclipForDocument.attachedToId` column), https://github.com/incodehq/incode-module-document/issues/23[#23] (`_supports` mixin)
-+
-[NOTE]
-====
-This release is not backwardly compatible with previous release (change to `SupportingDocumentEvaluator`) and also requires a database migration (the `PaperclipForDocument` table's `communicationId` column has been renamed to be called `attachedToId`).
-====
-
-* `1.14.5` - fixes https://github.com/incodehq/incode-module-document/issues/20[#20] (`SupportingDocumentEvaluator`).
-
-* `1.14.4` - fixes https://github.com/incodehq/incode-module-document/issues/19[#19] (`AttachmentAdvisor`). +
-+
-[NOTE]
-====
-This release is not backwardly compatible with previous release.
-====
-
-* `1.14.3` - fixes https://github.com/incodehq/incode-module-document/issues/18[#18]
-
-* `1.14.2` - fixes https://github.com/incodehq/incode-module-document/issues/14[#14], https://github.com/incodehq/incode-module-document/issues/15[#15], https://github.com/incodehq/incode-module-document/issues/16[#16],  https://github.com/incodehq/incode-module-document/issues/17[#17]
-
-* `1.14.1` - fixes https://github.com/incodehq/incode-module-document/issues/13[#13]
-
-* `1.14.0` - released against Isis 1.14.0
-
-* `1.13.12` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/12[#12] (remove `Paperclip_delete()` action).
-
-* `1.13.11` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/9[#9], https://github.com/incodehq/incode-module-document/issues/10[#10], https://github.com/incodehq/incode-module-document/issues/11[#11].
-
-* `1.13.10` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/3[#3], https://github.com/incodehq/incode-module-document/issues/4[#4], https://github.com/incodehq/incode-module-document/issues/5[#5], https://github.com/incodehq/incode-module-document/issues/6[#6], https://github.com/incodehq/incode-module-document/issues/7[#7], https://github.com/incodehq/incode-module-document/issues/8[#8].  +
-+
-[NOTE]
-====
-This release is not backwardly compatible with previous release
-====
-
-* `1.13.6` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/2[#2]
-
-* `1.13.5` - released against Isis 1.13.0.  Fixes https://github.com/incodehq/incode-module-document/issues/1[#1], with various additional extensions to functionality.  +
-+
-[NOTE]
-====
-This release is not backwardly compatible with previous release
-====
-
-* `1.13.0` - released against Isis 1.13.0
-
-
-
-
-== Legal Stuff
-
-=== License
-
-[source]
-----
-Copyright 2016 Dan Haywood
-
-Licensed under the Apache License, Version 2.0 (the
-"License"); you may not use this file except in compliance
-with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
-----
 
 === Dependencies
 
-None.
-
-
-=== Forking the repo
-
-If you want to extend this module's functionality, then we recommend that you fork this repo.
-The repo is structured as follows:
-
-* `pom.xml` - parent pom
-* `app` - the demo webapp's `AppManifest`
-* `dom` - the module implementation, depends on Isis applib
-* `fixture` - fixtures, holding a sample domain objects and fixture scripts; depends on `dom`
-* `integtests` - integration tests for the module; depends on `fixture`
-* `webapp` - demo webapp (see above screenshots); depends on `dom` and `fixture`
-
-Only the `dom` project is released to Maven Central Repo
- The versions of the other modules are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
-
-
-Note that the module uses link:https://projectlombok.org/[Project Lombok].  To compile the code within your IDE you will
-therefore require the appropriate Lombok plugin.  See the link:https://projectlombok.org/download.html[Lombok download page] for more information.
-
-
-
-=== Icons
-
-The icons are provided by https://icons8.com/[Icons8].
-
-
-==  Maven deploy notes
-
-Only the `dom` module is deployed, and is done so using Sonatype's OSS support (see
-http://central.sonatype.org/pages/apache-maven.html[user guide]).
-
-=== Release to Sonatype's Snapshot Repo
-
-To deploy a snapshot, use:
-
-[source]
-----
-pushd dom
-mvn clean deploy
-popd
-----
-
-The artifacts should be available in Sonatype's
-https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
-
-
-
-=== Release an Interim Build
-
-If you have commit access to this project (or a fork of your own) then you can create interim releases using the `interim-release.sh` script.
-
-The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.14.6.20170331-0740`).
-It then pushes the branch (and a tag) to the specified remote.
-
-A CI server such as Jenkins can monitor the branches matching the wildcard `origin/interim/*` and create a build.
-These artifacts can then be published to a snapshot repository.
-
-For example:
-
-[source]
-----
-sh interim-release.sh 1.14.9 origin
-----
-
-where
-
-* `1.14.9` is the base release
-* `origin` is the name of the remote to which you have permissions to write to.
-
-
-
-
-=== Release to Maven Central
-
-The `release.sh` script automates the release process. It performs the following:
-
-* performs a sanity check (`mvn clean install -o`) that everything builds ok
-* bumps the `pom.xml` to a specified release version, and tag
-* performs a double check (`mvn clean install -o`) that everything still builds ok
-* releases the code using `mvn clean deploy`
-* bumps the `pom.xml` to a specified release version
-
-For example:
-
-[source]
-----
-sh release.sh 1.14.9 \
-              1.15.0-SNAPSHOT \
-              dan@haywood-associates.co.uk \
-              "this is not really my passphrase"
-----
-
-where
-* `$1` is the release version
-* `$2` is the snapshot version
-* `$3` is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
-* `$4` is the corresponding passphrase for that secret key.
-
-Other ways of specifying the key and passphrase are available, see the `pgp-maven-plugin`'s
-http://kohsuke.org/pgp-maven-plugin/secretkey.html[documentation]).
-
-If the script completes successfully, then push changes:
-
-[source]
-----
-git push origin master && git push origin 1.14.9
-----
-
-If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue before trying again.
-Note that in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the `autoReleaseAfterClose` setting set to `true` (to automatically stage, close and the release the repo).
-You may want to set this to `false` if debugging an issue.
-
-According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update http://search.maven.org[search].
-
+The module uses icons from link:https://icons8.com/[icons8].
+There are other no third-party dependencies.

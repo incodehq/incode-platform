@@ -9,5 +9,9 @@ include::_change-log_dom-classification.adoc[leveloffset=+1]
 include::_change-log_dom-comm-channel.adoc[leveloffset=+1]
 include::_change-log_dom-communications.adoc[leveloffset=+1]
 include::_change-log_dom-country.adoc[leveloffset=+1]
+include::_change-log_dom-docfragment.adoc[leveloffset=+1]
+include::_change-log_dom-document.adoc[leveloffset=+1]
+include::_change-log_dom-note.adoc[leveloffset=+1]
+include::_change-log_dom-settings.adoc[leveloffset=+1]
 
 

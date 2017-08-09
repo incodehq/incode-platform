@@ -33,7 +33,7 @@ These can be overridden using DataNucleus `.orm` files if required.
 
 
 
-[[_incode-module-communications_screenshots]]
+[[__dom-communications_screenshots]]
 == Screenshots
 
 We start off by creating some fixture data:
@@ -67,7 +67,7 @@ The home page lists the demo customers and invoices:
 image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/020-demo-customers-and-invoices.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/020-demo-customers-and-invoices.png"]
 
 
-[[_incode-module-communications_screenshots_sending-an-email]]
+[[__dom-communications_screenshots_sending-an-email]]
 === Sending an Email
 
 If we inspect one of the invoices for "Fred" (who has email addresses), we see it has an attached `Document` (simulating it having been generated from the invoice):
@@ -125,7 +125,7 @@ image::https://raw.githubusercontent.com/incodehq/incode-module-communications/m
 
 
 
-[[_incode-module-communications_screenshots_sending-a-postal-communication]]
+[[__dom-communications_screenshots_sending-a-postal-communication]]
 === Sending a Postal Communication
 
 The "Mary" demo customer has postal addresses, so the ``Document``s attached to her invoices can be sent by post.
@@ -150,7 +150,7 @@ image::https://raw.githubusercontent.com/incodehq/incode-module-communications/m
 The user can then open up the downloaded PDF, manually print it and manually put it into an envelope.
 
 
-[[_incode-module-communications_screenshots_supporting-documents]]
+[[__dom-communications_screenshots_supporting-documents]]
 === Supporting Documents
 
 The link:https://github.com/incodehq/incode-module-document[Incode Document] module (on which this communications module) depends has the concept of "supporting" documents.
@@ -178,7 +178,7 @@ image::https://raw.githubusercontent.com/incodehq/incode-module-communications/m
 
 
 
-[[_incode-module-communications_domain-model]]
+[[__dom-communications_domain-model]]
 == Domain Model
 
 The main concepts of the module are shown below:
@@ -191,7 +191,7 @@ On the other side is `Communication`, which relates to a `Document` by way of an
 Each `Communication` relates to one or more ``CommunicationChannel``s by way of `CommChannelRole`, basically indicating the nature of the correspondent in that `Communication`.
 
 
-[[_incode-module-communications_commchannel-mixins]]
+[[__dom-communications_commchannel-mixins]]
 == (CommunicationChannel) Contributions
 
 [***TODO - to document ***]
@@ -202,7 +202,7 @@ The `CommunicationChannelOwner_emailAddressTitles` & `CommunicationChannelOwner_
 
 
 
-[[_incode-module-communications_mixins]]
+[[__dom-communications_mixins]]
 == (Document) Mixins
 
 The modules provides a number of mixins that, by default, will be rendered in the UI.
@@ -211,7 +211,7 @@ In the case of this module, all mixins are on the `Document` entity.
 The mixins can be suppressed if necessary using vetoing subscribers to their corresponding domain events.
 
 
-[[_incode-module-communications_mixins_send-by]]
+[[__dom-communications_mixins_send-by]]
 === Document_sendByEmail & Document_sendByPost
 
 These mixins on `Document` are used to create either email or postal ``Communication``s.
@@ -228,7 +228,7 @@ Note that the cover note template should have an `AttachmentAdvisor` set to "ata
 
 
 
-[[_incode-module-communications_mixins_communications]]
+[[__dom-communications_mixins_communications]]
 === Document_communications
 
 The `Document_communications` collection mixin shows all ``Communication``s to which a `Document` has been sent as an attachment (in the case of an email) or to be printed out (in the case of a postal comm).
@@ -236,7 +236,7 @@ The `Document_communications` collection mixin shows all ``Communication``s to w
 Note that this mixin is suppressed for cover notes; instead these have the `Document_coverNoteFor` mixin, described  xref:_incode-module-communications_mixins_cover-note-for[below].
 
 
-[[_incode-module-communications_mixins_communication-attachments]]
+[[__dom-communications_mixins_communication-attachments]]
 === Document_communicationAttachments
 
 The `Document_communicationAttachments` collection mixin lists all of the ``Document``s that would be included as attachments if and when a new `Communication` is created.
@@ -244,7 +244,7 @@ The `Document_communicationAttachments` collection mixin lists all of the ``Docu
 This list always includes the target `Document` itself, and will also include any supporting `Document`s that may have been attached (using the link:https://github.com/incodehq/incode-module-document[Incode Document] module's `Document_attachSupportingPdf` mixin).
 
 
-[[_incode-module-communications_mixins_cover-note-for]]
+[[__dom-communications_mixins_cover-note-for]]
 === Document_coverNoteFor
 
 The `Document_coverNoteFor` property mixin applies only to ``Document``s that have been created as email cover notes.
@@ -252,19 +252,19 @@ It returns a reference to the email `Communication` to which it was associated (
 
 
 
-[[_incode-module-communications_services-api]]
+[[__dom-communications_services-api]]
 == Services (API)
 
 The module currently does not provide a service to programmatically create ``Communication``s.
 Instead, the various xref:_incode-module-communications_mixins[mixins] can be used.
 
 
-[[_incode-module-communications_services-spi]]
+[[__dom-communications_services-spi]]
 == Services (SPI)
 
 SPI services are called by the module.
 
-[[_incode-module-communications_services-spi_document-communication-support]]
+[[__dom-communications_services-spi_document-communication-support]]
 === DocumentCommunicationSupport (required)
 
 An implementation of the `DocumentCommunicationSupport` SPI domain service is required to send communications of any type.
@@ -327,7 +327,7 @@ Note that the cover note template should have an `AttachmentAdvisor` set to "ata
 ====
 
 
-[[_incode-module-communications_services-spi_current-user-email-address-provider]]
+[[__dom-communications_services-spi_current-user-email-address-provider]]
 === CurrentUserEmailAddressProvider
 
 The optional `CurrentUserEmailAddressProvider` SPI service provides the email address of the current user, in order to create a `CommChannelRole` indicating that the `Communication` was "prepared by" such-and-such a user.
@@ -344,26 +344,34 @@ The module does provide a default implementation, `CurrentUserEmailAddressProvid
 In many case therefore there will be no need to provide an alternative implementation of this SPI service.
 
 
-[[_incode-module-communications_how-to-configure-use]]
+[[__dom-communications_how-to-configure-use]]
 == How to configure/use
 
-You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
+=== Classpath
 
-To use "out-of-the-box":
+Update your classpath by adding this dependency in your dom project's `pom.xml`:
 
-* update your classpath by adding this dependency in your dom project's `pom.xml`: +
-+
 [source,xml]
 ----
 <dependency>
     <groupId>org.incode.module.communications</groupId>
     <artifactId>incode-module-communications-dom</artifactId>
-    <version>1.14.7</version>
+    <version>1.15.0</version>
 </dependency>
 ----
 
-* in the `AppManifest`, update its `getModules()` method: +
-+
+[TIP]
+====
+Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-communications-dom[Maven Central Repo].
+
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
+====
+
+
+=== Bootstrapping
+
+In the `AppManifest`, update its `getModules()` method, eg:
+
 [source,java]
 ----
 @Override
@@ -375,14 +383,17 @@ public List<Class<?>> getModules() {
 }
 ----
 
-Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-communications-dom[Maven Central Repo].
 
-
-
-
-[[_incode-module-communications_known-issues]]
+[[__dom-communications_known-issues]]
 == Known issues
 
-(none)
+None known at this time.
+
+
+== Dependencies
+
+The module uses icons from link:https://icons8.com/[icons8].
+There are other no third-party dependencies.
+
 
 
