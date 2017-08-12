@@ -81,9 +81,9 @@ This shows the migration scripts have been run, and the Flyway schema tables cre
 [[how-to-configure]]
 == How to Configure
 
-To configure:
+=== Classpath
 
-* update your classpath by adding this dependency in your project's `webapp` module's `pom.xml`: +
+Update your classpath by adding this dependency in your project's `webapp` module's `pom.xml`: +
 +
 [source,xml]
 ----
@@ -94,8 +94,15 @@ To configure:
 </dependency>
 ----
 
-* In the ``webapp``'s ``persistor_datanucleus.properties`` file, set: +
-+
+Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-flywaydb-dom).
+
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
+
+
+=== Configuration Properties
+
+Set the following configuration properties:
+
 [source,properties]
 ----
 isis.persistor.datanucleus.impl.javax.jdo.PersistenceManagerFactoryClass=\

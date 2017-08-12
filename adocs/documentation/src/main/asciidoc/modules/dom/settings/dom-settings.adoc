@@ -93,6 +93,8 @@ Otherwise the functionality is identical; warts and all!
 
 Isis 1.7.0 no longer ships with `org.apache.isis.module:isis-module-settings`; instead use this addon module.
 
+
+
 == How to configure/use
 
 === Classpath
@@ -108,12 +110,9 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 </dependency>
 ----
 
-[TIP]
-====
 Check for later releases by searching http://search.maven.org/#search|ga|1|isis-module-settings[Maven Central Repo].
 
 For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
-====
 
 
 === Bootstrapping

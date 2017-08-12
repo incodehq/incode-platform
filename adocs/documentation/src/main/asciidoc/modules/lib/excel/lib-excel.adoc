@@ -109,28 +109,31 @@ mvn jetty:run
 
 Then log on using user: `sven`, password: `pass`
 
+
 == How to configure/use
 
-You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
+=== Classpath
 
-==== "Out-of-the-box"
+Update your classpath by adding this dependency in your `dom` project's `pom.xml`:
 
-To use "out-of-the-box":
-
-* update your classpath by adding this dependency in your `dom` project's `pom.xml`: +
-+
 [source,xml]
 ----
 <dependency>
     <groupId>org.isisaddons.module.excel</groupId>
     <artifactId>isis-module-excel-dom</artifactId>
-    <version>1.14.2</version>
+    <version>1.15.0</version>
 </dependency>
 ----
 
+Check for later releases by searching http://search.maven.org/#search|ga|1|isis-module-excel-dom[Maven Central Repo].
 
-* if using `AppManifest`, then update its `getModules()` method: +
-+
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
+
+
+=== Bootstrapping
+
+In the `AppManifest`, update its `getModules()` method, eg:
+
 [source,java]
 ----
 @Override
@@ -142,71 +145,7 @@ public List<Class<?>> getModules() {
 }
 ----
 
-* otherwise, update your `WEB-INF/isis.properties`:
 
-[source,ini]
-----
-isis.services-installer=configuration-and-annotation
-isis.services.ServicesInstallerFromAnnotation.packagePrefix=
-                ...,\
-                org.isisaddons.module.excel,\
-                ...
-----
-
-
-
-
-Check for later releases by searching http://search.maven.org/#search|ga|1|isis-module-excel-dom[Maven Central Repo].
-
-==== "Out-of-the-box" (-SNAPSHOT)
-
-If you want to use the current `-SNAPSHOT`, then the steps are the same as above, except:
-
-* when updating the classpath, specify the appropriate -SNAPSHOT version: +
-+
-[source,xml]
-----
-<version>1.15.0-SNAPSHOT</version>
-----
-
-* add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service). We suggest defining the repository in a `&lt;profile&gt;`: +
-+
-[source,xml]
-----
-<profile>
-    <id>cloudbees-snapshots</id>
-    <activation>
-        <activeByDefault>true</activeByDefault>
-    </activation>
-    <repositories>
-        <repository>
-            <id>snapshots-repo</id>
-            <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-</profile>
-----
-
-
-==== Forking the repo
-
-If instead you want to extend this module's functionality, then we recommend that you fork this repo. The repo is
-structured as follows:
-
-* `pom.xml` - parent pom
-* `dom` - the module implementation, depends on Isis applib
-* `fixture` - fixtures, holding a sample domain objects and fixture scripts; depends on `dom`
-* `integtests` - integration tests for the module; depends on `fixture`
-* `webapp` - demo webapp (see above screenshots); depends on `dom` and `fixture`
-
-Only the `dom` project is released to Maven Central Repo. The versions of the other modules are purposely left at
-`0.0.1-SNAPSHOT` because they are not intended to be released.
 
 
 

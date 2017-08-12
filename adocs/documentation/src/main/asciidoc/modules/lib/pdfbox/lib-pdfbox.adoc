@@ -9,41 +9,29 @@ This module (`isis-module-pdfbox`) provides a wrapper around link:https://pdfbox
 
 == How to configure/use
 
-You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
+=== Classpath
 
-To use "out-of-the-box":
+Update your classpath by adding this dependency in your dom project's `pom.xml`:
 
-* update your classpath by adding this dependency in your dom project's `pom.xml`: +
-+
 [source,xml]
 ----
 <dependency>
     <groupId>org.isisaddons.module.pdfbox</groupId>
     <artifactId>isis-module-pdfbox-dom</artifactId>
-    <version>1.14.0</version>
+    <version>1.15.0</version>
 </dependency>
 ----
 
-* update the `getModules()` method of your `AppManifest`: +
-+
-[source,java]
-----
-@Override
-public List<Class<?>> getModules() {
-    return Arrays.asList(
-            ...
-            org.isisaddons.module.pdfbox.dom.PdfBoxModule.class,
-            ...
-    );
-}
-----
+Check for later releases by searching http://search.maven.org/#search|ga|1|isis-module-pdfbox-dom[Maven Central Repo].
 
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
 
 
 === Supporting encrypted PDFs
 
-Encrypted PDFs can be handled by adding the optional link:http://www.bouncycastle.org/[Legion of the Bouncy Castle] encryption libraries.
+Optionally, encrypted PDFs can be handled by adding the  link:http://www.bouncycastle.org/[Legion of the Bouncy Castle] encryption libraries.
 These can be included in your Maven project using three or so dependencies.
+
 At the time of writing these were:
 
 [source,xml]
@@ -67,9 +55,26 @@ At the time of writing these were:
 </dependency>
 ----
 
-
-
 See the link:https://pdfbox.apache.org/2.0/dependencies.html[PDFBox documentation] for the most up-to-date information.
+
+=== Bootstrapping
+
+In the `AppManifest`, update its `getModules()` method, eg:
+
+[source,java]
+----
+@Override
+public List<Class<?>> getModules() {
+    return Arrays.asList(
+            ...
+            org.isisaddons.module.pdfbox.dom.PdfBoxModule.class,
+            ...
+    );
+}
+----
+
+
+
 
 
 

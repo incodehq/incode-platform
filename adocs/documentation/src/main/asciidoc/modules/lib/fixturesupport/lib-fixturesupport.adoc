@@ -9,29 +9,23 @@ This module (`incode-module-fixturesupport`) provides support for writing fixtur
 
 == How to configure/use
 
-You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
+=== Classpath
 
-=== "Out-of-the-box"
+Update your classpath by adding this dependency in your dom project's `pom.xml`:
 
-To use "out-of-the-box":
-
-* update your classpath by adding this dependency in your dom project's `pom.xml`: +
-+
 [source,xml]
 ----
 <dependency>
     <groupId>org.incode.module.fixturesupport</groupId>
     <artifactId>incode-module-fixturesupport-dom</artifactId>
-    <version>1.14.0</version>
-    <scope>test</scope>
+    <version>1.15.0</version>
 </dependency>
 ----
 
 
+Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-fixturesupport-dom[Maven Central Repo].
 
-Notes:
-
-* Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-fixturesupport-dom[Maven Central Repo].
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
 
 
 

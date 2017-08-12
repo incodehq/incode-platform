@@ -7,10 +7,15 @@
 This module (`isis-module-docx`) provides a mail-merge capability of input data into an MS Word `.docx` templates.
 The generated output document is either Word `.docx` or Acrobat `.pdf`.
 
-> Note: exporting to PDF requires more memory, both heap and permgen. If the PDF generation hangs then increase the memory settings, eg `-Xmx1024m -XX:MaxPermSize=128m`
+[IMPORTANT]
+====
+Exporting to PDF requires more memory, both heap and permgen.
+If the PDF generation hangs then increase the memory settings, eg `-Xmx1024m -XX:MaxPermSize=128m`
+====
 
-The module consists of a single domain service, `DocxService`.  This provides an API to merge a `.docx` template
-against its input data. The input data is represented as a simple HTML file.
+The module consists of a single domain service, `DocxService`.
+This provides an API to merge a `.docx` template against its input data. The input data is represented as a simple HTML file.
+
 
 The service supports several data types:
 
@@ -20,16 +25,17 @@ The service supports several data types:
 * bulleted list
 * tables
 
-The implementation uses [docx4j](http://www.docx4java.org), [guava](https://code.google.com/p/guava-libraries/) and
-[jdom2](http://www.jdom.org).  Databinding to custom XML parts (the `.docx` file format's in-built support) is *not*
-used (as repeating datasets - required for lists and tables - was not supported prior to Word 2013).
+The implementation uses link:http://www.docx4java.org[docx4j], link:https://code.google.com/p/guava-libraries/[guava] and link:http://www.jdom.org[jdom2].
+Databinding to custom XML parts (the `.docx` file format's in-built support) is *not* used (as repeating datasets - required for lists and tables - was not supported prior to Word 2013).
 
 
-## Screenshots and Usage ##
+
+== Screenshots and Usage
 
 The following screenshots and code fragments show an example app's usage of the module.
 
-#### Installing the Fixture Data ####
+
+=== Installing the Fixture Data
 
 Installing fixture data...
 
@@ -40,7 +46,7 @@ Installing fixture data...
 ![](https://raw.github.com/isisaddons/isis-module-docx/master/images/example-app-order-entity.png)
 
 
-#### The .docx template ####
+=== The `.docx` template
 
 The template `.docx` itself is marked up using smart tags, as specified on the
 [DEVELOPER](http://msdn.microsoft.com/en-us/library/bb608625.aspx "How to show the DEVELOPER tab in Word") tab.
@@ -49,15 +55,17 @@ The template `.docx` itself is marked up using smart tags, as specified on the
 
 The actual `.docx` used in the example app can be found [here](https://github.com/isisaddons/isis-module-docx/blob/master/fixture/src/main/java/org/isisaddons/module/docx/fixture/dom/templates/CustomerConfirmation.docx?raw=true).
 
-#### Generating the Document ####
+
+=== Generating the Document
 
 In the example app's design the `CustomerConfirmation` example domain service is in essence an intelligent wrapper
 around the `CustomerConfirmation.docx` template.  It contributes two actions to `Order`, the more
 significant of which is `downloadCustomerConfirmation()`.  
 
 The `.docx` is simply loaded as a simple resource from the classpath:
-  
-<pre>
+
+[source,java]
+----
 @DomainService
 public class CustomerConfirmation {
 
@@ -71,19 +79,21 @@ public class CustomerConfirmation {
     }
     ...
 }
-</pre>
-  
-A more sophisticated service implementation could perhaps have retrieved and cached the .docx template bytes from a 
-`Blob` property of a `CommunicationTemplate` entity, say.
+----
+
+A more sophisticated service implementation could perhaps have retrieved and cached the `.docx` template bytes from a `Blob` property of a `CommunicationTemplate` entity, say.
 
 Then, in the `downloadCustomerConfirmation` contributed action the `CustomerConfirmation` performs several steps:
+
 * it converts the `Order` into the HTML input for the `DocxService`
 * it calls the `DocxService` to convert this HTML into a `.docx` file
 * finally it emits the generated `.docx` as a Blob; in the web browser this is then downloaded:
 
+
 This can be seen below:
 
-<pre>
+[source,java]
+----
 public Blob downloadCustomerConfirmation(
         final Order order) throws IOException, JDOMException, MergeException {
 
@@ -94,13 +104,13 @@ public Blob downloadCustomerConfirmation(
         w3cDocument, wordprocessingMLPackage, docxTarget, DocxService.MatchingPolicy.LAX);
 
     final String blobName = "customerConfirmation-" + order.getNumber() + ".docx";
-    final String blobMimeType = 
+    final String blobMimeType =
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
     final byte[] blobBytes = docxTarget.toByteArray();
 
     return new Blob(blobName, blobMimeType, blobBytes);
 }
-</pre>
+----
 
 Invoking this action is shown below:
 
@@ -131,226 +141,174 @@ Note how the table rows are repeated for each `OrderLine` item, and similarly a 
 preference.
 
 
-## How to run the Demo App ##
-
-The prerequisite software is:
-
-* Java JDK 8 (>= 1.9.0) or Java JDK 7 (<= 1.8.0)
-** note that the compile source and target remains at JDK 7
-* [maven 3](http://maven.apache.org) (3.2.x is recommended).
-
-To build the demo app:
-
-    git clone https://github.com/isisaddons/isis-module-docx.git
-    mvn clean install
-
-To run the demo app:
-
-    mvn antrun:run -P self-host
-    
-Then log on using user: `sven`, password: `pass`
 
 
-## How to configure/use ##
+== How to configure/use
 
-You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
+=== Classpath
 
-#### "Out-of-the-box" ####
+Update your classpath by adding this dependency in your dom project's `pom.xml`:
 
-To use "out-of-the-box":
+[source,xml]
+----
+<dependency>
+    <groupId>org.isisaddons.module.docx</groupId>
+    <artifactId>isis-module-docx-dom</artifactId>
+    <version>1.13.0</version>
+</dependency>
+----
 
-* update your classpath by adding this dependency in your dom project's `pom.xml`:
+Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-docx-dom).
 
-<pre>
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.isisaddons.module.docx&lt;/groupId&gt;
-        &lt;artifactId&gt;isis-module-docx-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.13.0&lt;/version&gt;
-    &lt;/dependency&gt;
-</pre>
-
-* if using `AppManifest`, then update its `getModules()` method:
-
-    @Override
-    public List<Class<?>> getModules() {
-        return Arrays.asList(
-                ...
-                org.isisaddons.module.docx.DocxModule.class,
-        );
-    }
-
-* otherwise, update your `WEB-INF/isis.properties`:
-
-<pre>
-    isis.services-installer=configuration-and-annotation
-    isis.services.ServicesInstallerFromAnnotation.packagePrefix=
-                    ...,\
-                    org.isisaddons.module.docx.dom,\
-                    ...
-</pre>
-
-Notes:
-* Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-docx-dom).
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
 
 
-#### "Out-of-the-box" (-SNAPSHOT) ####
+=== Bootstrapping
 
-If you want to use the current `-SNAPSHOT`, then the steps are the same as above, except:
+In the `AppManifest`, update its `getModules()` method, eg:
 
-* when updating the classpath, specify the appropriate -SNAPSHOT version:
-
-<pre>
-    &lt;version&gt;1.14.0-SNAPSHOT&lt;/version&gt;
-</pre>
-
-* add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
-
-<pre>
-    &lt;profile&gt;
-        &lt;id&gt;cloudbees-snapshots&lt;/id&gt;
-        &lt;activation&gt;
-            &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
-        &lt;/activation&gt;
-        &lt;repositories&gt;
-            &lt;repository&gt;
-                &lt;id&gt;snapshots-repo&lt;/id&gt;
-                &lt;url&gt;http://repository-estatio.forge.cloudbees.com/snapshot/&lt;/url&gt;
-                &lt;releases&gt;
-                    &lt;enabled&gt;false&lt;/enabled&gt;
-                &lt;/releases&gt;
-                &lt;snapshots&gt;
-                    &lt;enabled&gt;true&lt;/enabled&gt;
-                &lt;/snapshots&gt;
-            &lt;/repository&gt;
-        &lt;/repositories&gt;
-    &lt;/profile&gt;
-</pre>
+[source,java]
+----
+@Override
+public List<Class<?>> getModules() {
+    return Arrays.asList(
+            ...
+            org.isisaddons.module.docx.DocxModule.class,
+    );
+}
+----
 
 
-#### Forking the repo ####
 
-If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is 
-structured as follows:
-
-* `pom.xml`    // parent pom
-* `dom`        // the module implementation, depends on Isis applib
-* `fixture`    // fixtures, holding a sample domain objects and fixture scripts; depends on `dom`
-* `integtests` // integration tests for the module; depends on `fixture`
-* `webapp`     // demo webapp (see above screenshots); depends on `dom` and `fixture`
-
-Only the `dom` project is released to Maven Central Repo.  The versions of the other modules are purposely left at 
-`0.0.1-SNAPSHOT` because they are not intended to be released.
-
-
-## API & Implementation ##
+== API & Implementation
 
 The main API is:
- 
-    public void merge(
-             String html, 
-             InputStream docxTemplate, 
-             OutputStream docxTarget, 
-             MatchingPolicy matchingPolicy,
-             OutputType outputType)
-         throws LoadInputException, 
-                LoadTemplateException, 
-                MergeException
 
-The `MatchingPolicy` specifies whether unmatched input values or unmatched placeholders in the template are allowed
-or should be considered as a failure.
-The `OutputType` specifies the type of the generated output. Two possible types are supported: `DOCX` and `PDF`.
-
-> Note: exporting to PDF requires more memory, both heap and permgen. If the PDF generation hangs then increase the memory settings, eg `-Xmx1024m -XX:MaxPermSize=128m`
+[source,java]
+----
+public void merge(
+         String html,
+         InputStream docxTemplate,
+         OutputStream docxTarget,
+         MatchingPolicy matchingPolicy,     // <1>
+         OutputType outputType)             // <2>
+     throws LoadInputException,
+            LoadTemplateException,
+            MergeException
+----
+<1> The `MatchingPolicy` specifies whether unmatched input values or unmatched placeholders in the template are allowed or should be considered as a failure.
+<2> The `OutputType` specifies the type of the generated output.
+Two possible types are supported: `DOCX` and `PDF`.
 
 Overloaded versions of the `merge(...)` method exist:
 
-  - the `html` may instead be provided as a `org.w3c.dom.Document`
-  - the `docxTemplate` may instead be provided as a doc4j `WordprocessingMLPackage` (an in-memory object structure
-    that could be considered as analogous to an w3c `Document`, but representing a `.docx`).
+* the `html` may instead be provided as a `org.w3c.dom.Document`
+* the `docxTemplate` may instead be provided as a doc4j `WordprocessingMLPackage` (an in-memory object structure that could be considered as analogous to an w3c `Document`, but representing a `.docx`).
 
 The `WordprocessingMLPackage` can be obtained from a supplementary API method:
 
-    public WordprocessingMLPackage loadPackage(
-            InputStream docxTemplate) 
-        throws LoadTemplateException
+[source,java]
+----
+public WordprocessingMLPackage loadPackage(
+        InputStream docxTemplate)
+    throws LoadTemplateException
+----
+
 
 This exists because the parsing of the input stream into a `WordprocessingMLPackage` is not particularly quick.
-Therefore clients may wish to cache this in-memory object structure.  If calling the overloaded version of `merge(...)` that accepts the `WordprocessingMLPackage` then the service performs a defensive copy of the template.
+Therefore clients may wish to cache this in-memory object structure.
+If calling the overloaded version of `merge(...)` that accepts the `WordprocessingMLPackage` then the service performs a defensive copy of the template.
 
 In the example app the `CustomerConfirmation` domain service does indeed cache this package in its `init()` method.
 
 
 
-## input HTML ##
+== input HTML
 
-The input data is provided as an XHTML form, and the service merges using the `@id` attribute of the XHTML against the
-tag of the smart tag field in the `.docx`.
+The input data is provided as an XHTML form, and the service merges using the `@id` attribute of the XHTML against the tag of the smart tag field in the `.docx`.
 
 To specify a **plain** field, use:
 
-    <p id="CustomerId" class="plain">12345</p>
+[source,xml]
+----
+<p id="CustomerId" class="plain">12345</p>
+----
+
 
 To specify a **date** field, use:
 
-    <p id="RenewalDate" class="date">20-Jan-2013</p>
+[source,xml]
+----
+<p id="RenewalDate" class="date">20-Jan-2013</p>
+----
 
 To specify a **rich** field, use:
 
-    <p id="PromoText" class="rich">
-        Roll up, roll up, step right this way!
-    </p>
+[source,xml]
+----
+<p id="PromoText" class="rich">
+    Roll up, roll up, step right this way!
+</p>
+----
 
 To specify a **list** field, use:
 
-    <ul id="Albums">
-        <li>
-            <p>Please Please Me</p>
-            <p>1963</p>
-        </li>
-        <li>
-            <p>Help</p>
-        </li>
-        <li>
-            <p>Sgt Peppers Lonely Hearts Club Band</p>
-            <p>1965</p>
-            <p>Better than Revolver, or not?</p>
-        </li>
-    </ul>
+[source,xml]
+----
+<ul id="Albums">
+    <li>
+        <p>Please Please Me</p>
+        <p>1963</p>
+    </li>
+    <li>
+        <p>Help</p>
+    </li>
+    <li>
+        <p>Sgt Peppers Lonely Hearts Club Band</p>
+        <p>1965</p>
+        <p>Better than Revolver, or not?</p>
+    </li>
+</ul>
+----
+
 
 To specify a **table** field, use:
 
-    <table id="BandMembers">
-        <tr>
-            <td>John Lennon</td>
-            <td>Rhythm guitar</td>
-        </tr>
-        <tr>
-            <td>Paul McCartney</td>
-            <td>Bass guitar</td>
-        </tr>
-        <tr>
-            <td>George Harrison</td>
-            <td>Lead guitar</td>
-        </tr>
-        <tr>
-            <td>Ringo Starr</td>
-            <td>Drums</td>
-        </tr>
-    </table>
+[source,xml]
+----
+<table id="BandMembers">
+    <tr>
+        <td>John Lennon</td>
+        <td>Rhythm guitar</td>
+    </tr>
+    <tr>
+        <td>Paul McCartney</td>
+        <td>Bass guitar</td>
+    </tr>
+    <tr>
+        <td>George Harrison</td>
+        <td>Lead guitar</td>
+    </tr>
+    <tr>
+        <td>Ringo Starr</td>
+        <td>Drums</td>
+    </tr>
+</table>
+----
 
 
-## Generated output ##
 
-For simple data types such as plain text, rich text and date, the service simply substitutes the input data into the
-placeholder fields in the `.docx`.
+== Generated output
 
-For lists, the service expects the contents of the placeholder to be a bulleted list, with an optional second paragraph
-of a different style.  The service clones the paragraphs for each item in the input list.  If the input specifies more
-than one paragraph in the list item, then the second paragraph from the template is used for those additional paragraphs.
+For simple data types such as plain text, rich text and date, the service simply substitutes the input data into the placeholder fields in the `.docx`.
 
-For tables, the service expects the placeholder to be a table, with a header and either one or two body rows.  The
-header is left untouched, the body rows are used as the template for the input data.  Any surplus cells in the input
-data are ignored.
+For lists, the service expects the contents of the placeholder to be a bulleted list, with an optional second paragraph of a different style.
+The service clones the paragraphs for each item in the input list.
+If the input specifies more than one paragraph in the list item, then the second paragraph from the template is used for those additional paragraphs.
+
+For tables, the service expects the placeholder to be a table, with a header and either one or two body rows.
+The header is left untouched, the body rows are used as the template for the input data.
+Any surplus cells in the input data are ignored.
         
 
         

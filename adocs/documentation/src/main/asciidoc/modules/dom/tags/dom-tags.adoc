@@ -73,12 +73,9 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 </dependency>
 ----
 
-[TIP]
-====
 Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-tags-dom).
 
 For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
-====
 
 
 === Bootstrapping

@@ -8,12 +8,11 @@ This module (`isis-module-fakedata`) provides a domain service that generates fa
 The random values generated can then be used within unit and integration tests.
 
 
+The module consists of a single domain service `FakeDataDomainService`.
+  This can be injected into fixtures and integration tests just like any other domain service.
 
-The module consists of a single domain service `FakeDataDomainService`.  This can be injected into fixtures and
-integration tests just like any other domain service.
+In addition, this module also acts as a useful regression suite for DataNucleus' persistence of value types (including our custom mappings of Isis' own value types).
 
-In addition, this module also acts as a useful regression suite for DataNucleus' persistence of value types (including 
-our custom mappings of Isis' own value types).
 
 == Screenshots
 
@@ -32,9 +31,8 @@ will return an example demo object:
 
 Probably of more interest are the fixtures and integration tests that actually use the `FakeDataService`. 
 
-For example the `FakeDataDemoObjectUpdate` fixture script will update a demo object using the provided values (set as 
-properties of the fixture script itself).   However, if no value has been set by the calling test, then a random value,
-obtained from `FakeDataService`, will be used instead:
+For example the `FakeDataDemoObjectUpdate` fixture script will update a demo object using the provided values (set as properties of the fixture script itself).
+However, if no value has been set by the calling test, then a random value, obtained from `FakeDataService`, will be used instead:
  
     public class FakeDataDemoObjectUpdate extends DiscoverableFixtureScript {
 
@@ -78,8 +76,8 @@ obtained from `FakeDataService`, will be used instead:
         private FakeDataService fakeDataService;
     }
 
-The `FakeDataService` can also be used within integration tests.  For example, in `FakeDataDemoObjectsTest` a fake
-value is used to obtain a blob for update:
+The `FakeDataService` can also be used within integration tests.
+For example, in `FakeDataDemoObjectsTest` a fake value is used to obtain a blob for update:
 
         @Test
         public void when_blob() throws Exception {
@@ -109,58 +107,44 @@ value is used to obtain a blob for update:
 
 Note the use of `FakeDataService` in the "given" to obtain a PDF blob.
 
-## How to run the Demo App ##
 
-The prerequisite software is:
-
-* Java JDK 8 (>= 1.9.0) or Java JDK 7 (<= 1.8.0)
-** note that the compile source and target remains at JDK 7
-* [maven 3](http://maven.apache.org) (3.2.x is recommended).
-
-To build the demo app:
-
-    git clone https://github.com/isisaddons/isis-module-fakedata.git
-    mvn clean install
-
-To run the demo app:
-
-    mvn antrun:run -P self-host
-    
-Then log on using user: `sven`, password: `pass`
 
 
 == How to configure/use
-
-You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements.
 
 === Classpath
 
 Update your classpath by adding this dependency in your project's `dom` module's `pom.xml`:
 
-<pre>
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.isisaddons.module.fakedata&lt;/groupId&gt;
-        &lt;artifactId&gt;isis-module-fakedata-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.13.0&lt;/version&gt;
-    &lt;/dependency&gt;
-</pre>
+[source,xml]
+----
+<dependency>
+    <groupId>org.isisaddons.module.fakedata</groupId>
+    <artifactId>isis-module-fakedata-dom</artifactId>
+    <version>1.13.0</version>
+</dependency>
+----
 
-Notes:
-* Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-fakedata-dom)).
+Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-fakedata-dom)).
+
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
 
 
 === Bootstrapping
 
-* if using `AppManifest`, then update its `getModules()` method:
+In the `AppManifest`, update its `getModules()` method, eg:
 
-    @Override
-    public List<Class<?>> getModules() {
-        return Arrays.asList(
-                ...
-                org.isisaddons.module.fakedata.FakeDataModule.class,
-                ...
-        );
-    }
+[source,java]
+----
+@Override
+public List<Class<?>> getModules() {
+    return Arrays.asList(
+            ...
+            org.isisaddons.module.fakedata.FakeDataModule.class,
+            ...
+    );
+}
+----
 
 
 
@@ -169,82 +153,96 @@ Notes:
 
 The `FakeDataService` defines the following API:
 
-    public interface FakeDataService {
-    
-        public Names name() { ... }
-        public Comms comms() { ... }
-        public Lorem lorem() { ... }
-        public Addresses addresses() { ... }
-        public CreditCards creditCard() { ... }
-        public Books books() { ... }
-    
-        public Bytes bytes() { ... }
-        public Shorts shorts() { ... }
-        public Integers ints() { ... }
-        public Longs longs() { ... }
-        public Floats floats() { ... }
-        public Doubles doubles() { ... }
-        public Chars chars() { ... }
-        public Booleans booleans() { ... }
-    
-        public Strings strings() { ... }
-        
-        public Collections collections() { ... }
-        public Enums enums() { ... }
+[source,java]
+----
+public interface FakeDataService {
 
-        public JavaUtilDates javaUtilDates() { ... }
-        public JavaSqlDates javaSqlDates() { ... }
-        public JavaSqlTimestamps javaSqlTimestamps() { ... }
-        public JodaLocalDates jodaLocalDates() { ... }
-        public JodaDateTimes jodaDateTimes() { ... }
-        public JodaPeriods jodaPeriods() { ... }
+    public Names name() { ... }
+    public Comms comms() { ... }
+    public Lorem lorem() { ... }
+    public Addresses addresses() { ... }
+    public CreditCards creditCard() { ... }
+    public Books books() { ... }
 
-        public BigDecimals bigDecimals() { ... }
-        public BigIntegers bigIntegers() { ... }
-        
-        public Urls urls() { ... }
-        public Uuids uuids() { ... }
+    public Bytes bytes() { ... }
+    public Shorts shorts() { ... }
+    public Integers ints() { ... }
+    public Longs longs() { ... }
+    public Floats floats() { ... }
+    public Doubles doubles() { ... }
+    public Chars chars() { ... }
+    public Booleans booleans() { ... }
 
-        public IsisPasswords isisPasswords() { ... }
-        public IsisMoneys isisMoneys() { ... }
-        public IsisBlobs isisBlobs() { ... }
-        public IsisClobs isisClobs() { ... }
-        
-    }
-    
+    public Strings strings() { ... }
+
+    public Collections collections() { ... }
+    public Enums enums() { ... }
+
+    public JavaUtilDates javaUtilDates() { ... }
+    public JavaSqlDates javaSqlDates() { ... }
+    public JavaSqlTimestamps javaSqlTimestamps() { ... }
+    public JodaLocalDates jodaLocalDates() { ... }
+    public JodaDateTimes jodaDateTimes() { ... }
+    public JodaPeriods jodaPeriods() { ... }
+
+    public BigDecimals bigDecimals() { ... }
+    public BigIntegers bigIntegers() { ... }
+
+    public Urls urls() { ... }
+    public Uuids uuids() { ... }
+
+    public IsisPasswords isisPasswords() { ... }
+    public IsisMoneys isisMoneys() { ... }
+    public IsisBlobs isisBlobs() { ... }
+    public IsisClobs isisClobs() { ... }
+
+}
+----
+
 where each of the returned classes then provides suitable methods for obtaining values within that domain of values.
 
 For example, `Names` provides:
 
-    public class Names ... {
-        public String fullName() { ... }
-        public String firstName() { ... }
-        public String lastName() { ... }
-        public String prefix() { ... }
-        public String suffix() { ... }
-    }
+[source,java]
+----
+public class Names ... {
+    public String fullName() { ... }
+    public String firstName() { ... }
+    public String lastName() { ... }
+    public String prefix() { ... }
+    public String suffix() { ... }
+}
+----
 
 and `IsisBlobs` provides:
 
-    public class IsisBlobs ... {
-        public Blob any() { ... }
-        public Blob anyJpg() { ... }
-        public Blob anyPdf() { ... }
-    }
+[source,java]
+----
+public class IsisBlobs ... {
+    public Blob any() { ... }
+    public Blob anyJpg() { ... }
+    public Blob anyPdf() { ... }
+}
+----
 
 and `Collections` API includes:
 
-    public class Collections ... {
-        public <T> T anyOf(final Collection<T> collection) { ... }
-        public <T> T anyOfExcept(final Collection<T> collection, final Predicate<T> except) { ... }
-        public <T> T anyOf(final T... elements) { ... }
-        public <T> T anyOfExcept(final T[] elements, final Predicate<T> except) { ... }
-        ...
-        public <E extends Enum<E>> E anyEnum(final Class<E> enumType) { ... }
-        public <E extends Enum<E>> E anyEnumExcept(final Class<E> enumType, final Predicate<E> except) { ... }
-        public <T> T anyBounded(final Class<T> cls) { ... }
-        public <T> T anyBoundedExcept(final Class<T> cls, final Predicate<T> except) { ... }
-    }
+
+[source,java]
+----
+public class Collections ... {
+    public <T> T anyOf(final Collection<T> collection) { ... }
+    public <T> T anyOfExcept(final Collection<T> collection, final Predicate<T> except) { ... }
+    public <T> T anyOf(final T... elements) { ... }
+    public <T> T anyOfExcept(final T[] elements, final Predicate<T> except) { ... }
+    ...
+    public <E extends Enum<E>> E anyEnum(final Class<E> enumType) { ... }
+    public <E extends Enum<E>> E anyEnumExcept(final Class<E> enumType, final Predicate<E> except) { ... }
+    public <T> T anyBounded(final Class<T> cls) { ... }
+    public <T> T anyBoundedExcept(final Class<T> cls, final Predicate<T> except) { ... }
+}
+----
+
 
 with similar methods for all the primitives
 

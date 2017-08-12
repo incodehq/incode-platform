@@ -87,12 +87,9 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 </dependency>
 ----
 
-[TIP]
-====
 Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-alias-dom[Maven Central Repo].
 
 For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
-====
 
 
 === Bootstrapping
@@ -208,8 +205,7 @@ to instantiate to attach to the "aliased" domain object
 
 There are two further mandatory SPI domain services that must be implemented:
 
-* First, the `ApplicationTenancyRepository` returns the application tenancy (path)s that are available to locate
-alias types for a given aliased: +
+* First, the `ApplicationTenancyRepository` returns the application tenancy (path)s that are available to locate alias types for a given aliased: +
 +
 [source,java]
 ----
@@ -218,12 +214,10 @@ public interface ApplicationTenancyRepository {
 }
 ----
 +
-Note that this isn't (necessarily) the same as the application tenancy path of the object being aliased; rather it is
-the list of the paths available (eg: countries/regions) for which there is an alias type (eg an external system) that
+Note that this isn't (necessarily) the same as the application tenancy path of the object being aliased; rather it is the list of the paths available (eg: countries/regions) for which there is an alias type (eg an external system) that
 may contain an alias (external system identifier).
 
-* Second, the `AliasTypeRepository` interface returns the available alias types for a given application tenancy path and
-aliased: +
+* Second, the `AliasTypeRepository` interface returns the available alias types for a given application tenancy path and aliased: +
 +
 [source,java]
 ----
@@ -241,8 +235,8 @@ public interface AliasType {
 }
 ----
 +
-Typically `AliasType` will be implemented as an entity or perhaps a view model.  The "id" is used as a column in
-the database tables, but in the UI the end-user sees the title of the object that implements the interface.
+Typically `AliasType` will be implemented as an entity or perhaps a view model.
+The "id" is used as a column in the database tables, but in the UI the end-user sees the title of the object that implements the interface.
 +
 [WARNING]
 ====
