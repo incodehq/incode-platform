@@ -16,46 +16,55 @@ As well as listing existing tags, new tags can of course also be created, and ex
 
 == Screenshots
 
+TODO: update screenshots
+
 The following screenshots show an example app's usage of the module with some sample fixture data:
 
 === Install example fixtures
 
-![](https://raw.github.com/isisaddons/isis-module-tags/master/images/010-install-fixtures.png)
+image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
 
-... returning an example entity "Bip".  The class of this entity is not of interest, what _is_ of interest is that it
+/... returning an example entity "Bip".  The class of this entity is not of interest, what _is_ of interest is that it
 has two properties, `brand` and `sector`, that correspond to `Tag`s:
 
-![](https://raw.github.com/isisaddons/isis-module-tags/master/images/020-example-entity-with-two-tag-categories.png)
+image::{_imagesdir}020-example-entity-with-two-tag-categories.png[width="600px",link="{_imagesdir}020-example-entity-with-two-tag-categories.png"]
+
 
 === Update tag
 
-Using the action, can update tag.  The `Tags` service provides a list of available tag (names) for this entity type
-and tag name ("brand"):
+Using the action, can update tag.
+The `Tags` service provides a list of available tag (names) for this entity type and tag name ("brand"):
 
-![](https://raw.github.com/isisaddons/isis-module-tags/master/images/040-available-tags-for-brand.png)
+image::{_imagesdir}040-available-tags-for-brand.png[width="600px",link="{_imagesdir}040-available-tags-for-brand.png"]
+
 
 The tag can then be saved:
 
-![](https://raw.github.com/isisaddons/isis-module-tags/master/images/050-updated-brand.png)
+image::{_imagesdir}050-updated-brand.png[width="600px",link="{_imagesdir}050-updated-brand.png"]
 
-If the tag is updated once more, note that the original tag ("Coca Cola") is no longer listed.  This is because there
-are no other entities that have this label:
 
-![](https://raw.github.com/isisaddons/isis-module-tags/master/images/060-previous-brand-removed.png)
+If the tag is updated once more, note that the original tag ("Coca Cola") is no longer listed.
+This is because there are no other entities that have this label:
+
+image::{_imagesdir}060-previous-brand-removed.png[width="600px",link="{_imagesdir}060-previous-brand-removed.png"]
 
 === New tags
 
-New tags can also be created.  Enter the tag name:
+New tags can also be created.
+Enter the tag name:
 
-![](https://raw.github.com/isisaddons/isis-module-tags/master/images/080-new-brand-specified.png)
+image::{_imagesdir}080-new-brand-specified.png[width="600px",link="{_imagesdir}080-new-brand-specified.png"]
+
 
 The tag is saved:
 
-![](https://raw.github.com/isisaddons/isis-module-tags/master/images/090-new-brand-saved.png)
+image::{_imagesdir}090-new-brand-saved.png[width="600px",link="{_imagesdir}090-new-brand-saved.png"]
 
-... and is available as a choice for this or any other entity of the same type:
 
-![](https://raw.github.com/isisaddons/isis-module-tags/master/images/100-new-brand-available-as-choice.png)
+/... and is available as a choice for this or any other entity of the same type:
+
+image::{_imagesdir}100-new-brand-available-as-choice.png[width="600px",link="{_imagesdir}100-new-brand-available-as-choice.png"]
+
 
 
 == How to configure/use
