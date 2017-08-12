@@ -6,14 +6,15 @@
 
 This module (`isis-module-settings`) provides two services provide the ability to persist configuration settings using Isis' own JDO Objectstore.
 
-
-With `ApplicationSettingsService` these settings have global scope; for the `UserSettingsService` the settings are
-scoped per user.
+With `ApplicationSettingsService` these settings have global scope; for the `UserSettingsService` the settings are scoped per user.
 
 The settings themselves are keyed by a simple string, and can store any of boolean, String, int, long and `LocalDate`.
 The implementation persists these values in a single raw format, but the API exposed by the services aims to be type-safe. 
 
+
 == Screenshots
+
+TODO: update screenshots
 
 The following screenshots show an example app's usage of the module.
 
@@ -21,76 +22,42 @@ The following screenshots show an example app's usage of the module.
 
 Install sample fixtures:
 
-image::https://raw.github.com/isisaddons/isis-module-settings/master/images/010-install-fixtures.png[link="https://raw.github.com/isisaddons/isis-module-settings/master/images/010-install-fixtures.png"]
+image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
+
 
 === App Settings
 
 List all (demo) application settings:
 
-image::https://raw.github.com/isisaddons/isis-module-settings/master/images/020-list-appsettings.png[link="https://raw.github.com/isisaddons/isis-module-settings/master/images/020-list-appsettings.png"]
+image::{_imagesdir}020-list-appsettings.png[width="600px",link="{_imagesdir}020-list-appsettings.png"]
+
 
 listed in a table:
 
-image::https://raw.github.com/isisaddons/isis-module-settings/master/images/030-appsettings.png[link="https://raw.github.com/isisaddons/isis-module-settings/master/images/030-appsettings.png"]
+image::{_imagesdir}030-appsettings.png[width="600px",link="{_imagesdir}030-appsettings.png"]
+
 
 and inspect detail:
 
-image::https://raw.github.com/isisaddons/isis-module-settings/master/images/040-appsetting-detail.png[link="https://raw.github.com/isisaddons/isis-module-settings/master/images/040-appsetting-detail.png"]
+image::{_imagesdir}040-appsetting-detail.png[width="600px",link="{_imagesdir}040-appsetting-detail.png"]
+
 
 === User Settings
 
 List all (demo) user settings:
 
-image::https://raw.github.com/isisaddons/isis-module-settings/master/images/050-list-usersettings.png[link="https://raw.github.com/isisaddons/isis-module-settings/master/images/050-list-usersettings.png"]
+image::{_imagesdir}050-list-usersettings.png[width="600px",link="{_imagesdir}050-list-usersettings.png"]
+
 
 listed in a table:
 
-image::https://raw.github.com/isisaddons/isis-module-settings/master/images/060-usersettings.png[link="https://raw.github.com/isisaddons/isis-module-settings/master/images/060-usersettings.png"]
+image::{_imagesdir}060-usersettings.png[width="600px",link="{_imagesdir}050-list-usersettings.png"]
+
 
 
 and inspect detail:
 
-image::https://raw.github.com/isisaddons/isis-module-settings/master/images/070-usersetting-detail.png[link="https://raw.github.com/isisaddons/isis-module-settings/master/images/070-usersetting-detail.png"]
-
-
-== How to run the Demo App
-
-The prerequisite software is:
-
-* Java JDK 8 (&gt;= 1.9.0) or Java JDK 7 (&lt;= 1.8.0)
-** note that the compile source and target remains at JDK 7
-* http://maven.apache.org[maven 3] (3.2.x is recommended).
-
-To build the demo app:
-
-[source]
-----
-git clone https://github.com/isisaddons/isis-module-settings.git
-mvn clean install
-----
-
-To run the demo app:
-
-[source]
-----
-cd webapp
-mvn jetty:run
-----
-
-Then log on using user: `sven`, password: `pass`
-
-== Relationship to Apache Isis Core
-
-Isis Core 1.6.0 included the `org.apache.isis.module:isis-module-settings:1.6.0` Maven artifact (and its submodules, `isis-module-settings-applib` and `isis-module-settings-impl-jdo`. This module is a direct copy of that code, with the following changes:
-
-* package names have been altered from `org.apache.isis` to `org.isisaddons.module.settings`
-* the `persistent-unit` (in the JDO manifest) has changed from `isis-module-settings` to
- `org-isisaddons-module-settings-dom`
-* for simplicity, the applib and impl submodules have been combined into a single module
-
-Otherwise the functionality is identical; warts and all!
-
-Isis 1.7.0 no longer ships with `org.apache.isis.module:isis-module-settings`; instead use this addon module.
+image::{_imagesdir}070-usersetting-detail.png[width="600px",link="{_imagesdir}050-list-usersettings.png"]
 
 
 
@@ -116,7 +83,7 @@ For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pag
 
 === Bootstrapping
 
-If using `AppManifest`, then update its `getModules()` method:
+In the `AppManifest`, update its `getModules()` method, eg:
 
 [source,java]
 ----
@@ -135,7 +102,8 @@ public List<Class<?>> getModules() {
 
 === ApplicationSettingsService and ApplicationSettingsServiceRW
 
-The module defines two interfaces for application settings. The first, `ApplicationSettingsService`, provides read-only access:
+The module defines two interfaces for application settings.
+The first, `ApplicationSettingsService`, provides read-only access:
 
 
 [source,java]
@@ -162,8 +130,8 @@ public interface ApplicationSettingsServiceRW extends ApplicationSettingsService
 
 === UserSettingsService and UserSettingsServiceRW
 
-The module defines two interfaces for user settings. These are almost identical to the application settings above, the
-significant difference being each setting is additional identified by the username that 'owns' it.
+The module defines two interfaces for user settings.
+These are almost identical to the application settings above, the significant difference being each setting is additional identified by the username that 'owns' it.
 
 The first interface, `UserSettingsService`, provides read-only access:
 
@@ -196,18 +164,6 @@ The `ApplicationSettingsServiceJdo` implements `ApplicationSettingsServiceRW` (a
 
 Similarly, the `UserSettingsServiceJdo` implements `UserSettingsServiceRW` (and therefore also `UserSettingsService`).
 
-In 1.7.0, it was necessary to explicitly register these services in `isis.properties`, rationale being that the service
-contributes functionality that appears in the user interface. The module also provided "hidden" equivalents
-(`ApplicationSettingsServiceJdoHidden` and `UserSettingsServiceJdoHidden`) which could be registered which also
-implement the same services, but do not contribute actions to the UI.
-
-In 1.8.0 the above policy is reversed: the `ApplicationSettingsServiceJdo` and `UserSettingsServiceJdo`
-services are both automatically registered, and both will provide functionality that will appear in the user interface.
-If this is not required, then either use security permissions or write a vetoing subscriber on the event bus to hide
-this functionality.
-
-
-The two "hidden" equivalent services are deprecated in 1.8.0.
 
 
 == Known issues
