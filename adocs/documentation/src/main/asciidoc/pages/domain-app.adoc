@@ -45,6 +45,17 @@ Then log on using user: `sven`, password: `pass`
 
 
 
+TODO: as per the flywaydb, generate the schema
+
+The app will bootstrap against an in-memory database, however it will be Flyway that sets up the database schema (rather than DataNucleus automatically creating the database as might normally be the case).
+This is discussed in a little more detail xref:what-happens-during-bootstrapping[below].
+
+Then log on using user: `sven`, password: `pass`
+
+
+
+
+
 == Icons
 
 The icons used in the domainapp are provided by https://icons8.com/[Icons8].

@@ -11,73 +11,59 @@ The module integrates both Togglz and uses Isis Addons' http://github.com/isisad
 
 == Screenshots
 
+TODO: update screenshots
+
 The following screenshots show an example app's usage of the module.
 
 === Login as administrator
 
-image::https://raw.github.com/isisaddons/isis-module-togglz/master/images/010-login-as-admin.png[width="600px",link="https://raw.github.com/isisaddons/isis-module-togglz/master/images/010-login-as-admin.png"]
+image::{_imagesdir}010-login-as-admin.png[width="600px",link="{_imagesdir}010-login-as-admin.png"]
+
 
 
 === Feature disabled
 
-In the demo app the "Togglz Demo Objects" service has three actions, all of which are protected behind features. Two of these (for "create" and "listAll") are enabled by default, but one (for "findByName") is disabled by default, meaning that the action is suppressed from the UI:
+In the demo app the "Togglz Demo Objects" service has three actions, all of which are protected behind features.
+Two of these (for "create" and "listAll") are enabled by default, but one (for "findByName") is disabled by default, meaning that the action is suppressed from the UI:
 
-image::https://raw.github.com/isisaddons/isis-module-togglz/master/images/020-findByName-feature-disabled.png[width="600px",link="https://raw.github.com/isisaddons/isis-module-togglz/master/images/020-findByName-feature-disabled.png"]
+image::{_imagesdir}020-findByName-feature-disabled.png[width="600px",link="{_imagesdir}020-findByName-feature-disabled.png"]
+
 
 === Togglz Console
 
 Users with the appropriate role (`isis-module-togglz-admin`) can access the Togglz console, which lists all features:
 
-image::https://raw.github.com/isisaddons/isis-module-togglz/master/images/030-togglz-console-list-all.png[width="600px",link="https://raw.github.com/isisaddons/isis-module-togglz/master/images/030-togglz-console-list-all.png"]
+image::{_imagesdir}030-togglz-console-list-all.png[width="600px",link="{_imagesdir}030-togglz-console-list-all.png"]
+
 
 Using the console, we can edit the feature:
 
-image::https://raw.github.com/isisaddons/isis-module-togglz/master/images/040-enable-feature.png[width="600px",link="https://raw.github.com/isisaddons/isis-module-togglz/master/images/040-enable-feature.png"]
+image::{_imagesdir}040-enable-feature.png[width="600px",link="{_imagesdir}040-enable-feature.png"]
+
 
 so it is now enabled:
 
-image::https://raw.github.com/isisaddons/isis-module-togglz/master/images/050-feature-enabled.png[width="600px",link="https://raw.github.com/isisaddons/isis-module-togglz/master/images/050-feature-enabled.png"]
+image::{_imagesdir}050-feature-enabled.png[width="600px",link="{_imagesdir}050-feature-enabled.png"]
+
 
 === Feature enabled
 
 Back in the demo app the feature ("findByName") is now visible:
 
-image::https://raw.github.com/isisaddons/isis-module-togglz/master/images/060-findByName-feature-enabled.png[width="600px",link="https://raw.github.com/isisaddons/isis-module-togglz/master/images/060-findByName-feature-enabled.png"]
+image::{_imagesdir}060-findByName-feature-enabled.png[width="600px",link="{_imagesdir}060-findByName-feature-enabled.png"]
+
 
 === Feature persistence
 
 The module uses Isis addons' http://github.com/isisaddons/isis-module-settings[settings module] for feature persistence. 
 
-image::https://raw.github.com/isisaddons/isis-module-togglz/master/images/070-list-app-settings.png[width="600px",link="https://raw.github.com/isisaddons/isis-module-togglz/master/images/070-list-app-settings.png"]
+image::{_imagesdir}070-list-app-settings.png[width="600px",link="{_imagesdir}070-list-app-settings.png"]
+
 
 Each feature's state is serialized to/from JSON:
 
-image::https://raw.github.com/isisaddons/isis-module-togglz/master/images/080-setting-created-for-feature.png[width="600px",link="https://raw.github.com/isisaddons/isis-module-togglz/master/images/080-setting-created-for-feature.png"]
 
-== How to run the Demo App
-
-The prerequisite software is:
-
-* Java JDK 8
-** note that the compile source and target is JDK 7
-* http://maven.apache.org[maven 3] (3.2.x is recommended).
-
-To build the demo app:
-
-[source,bash]
-----
-git clone https://github.com/isisaddons/isis-module-togglz.git
-mvn clean install
-----
-
-To run the demo app:
-
-[source,bash]
-----
-mvn antrun:run -P self-host
-----
-
-Then log on using user: `sven`, password: `pass`
+image::{_imagesdir}080-setting-created-for-feature.png[width="600px",link="{_imagesdir}080-setting-created-for-feature.png"]
 
 
 == Service SPIs
@@ -192,12 +178,12 @@ public TogglzRule togglzRule = TogglzRule.allEnabled(TogglzDemoFeature.class);
 <dependency>
     <groupId>org.isisaddons.module.togglz</groupId>
     <artifactId>isis-module-togglz-glue</artifactId>
-    <version>1.14.0</version>
+    <version>1.15.0</version>
 </dependency>
 <dependency>
     <groupId>org.isisaddons.module.security</groupId>
     <artifactId>isis-module-security-dom</artifactId>
-    <version>1.14.0</version>                               <!--1-->
+    <version>1.15.0</version>                               <!--1-->
 </dependency>
 ----
 <1> or which ever is the latest version
@@ -214,7 +200,8 @@ public class CustomTogglzModuleFeatureManagerProvider
 }
 ----
 
-* also in your project's `app` module, in `src/main/resources`, register the provider by creating a file `META-INF/services/org.togglz.core.spi.FeatureManagerProvider`.  Its contents is the fully qualified class name of your feature manager provider implementation. +
+* also in your project's `app` module, in `src/main/resources`, register the provider by creating a file `META-INF/services/org.togglz.core.spi.FeatureManagerProvider`.
+Its contents is the fully qualified class name of your feature manager provider implementation. +
 +
 For example, the demo app's file consists of: +
 +
