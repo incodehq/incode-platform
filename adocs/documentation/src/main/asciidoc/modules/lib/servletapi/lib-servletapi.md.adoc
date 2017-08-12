@@ -10,28 +10,31 @@ This module (`isis-module-servletapi`) provides access to various elements of th
 For each of these APIs a corresponding "provider" domain service exists; for example `ServletContextProvider` service provides access to the `ServletContext`.
 
 
+
 == Screenshots
 
 The following screenshots show an example app's usage of the module with some sample data:
 
 ![](https://raw.github.com/isisaddons/isis-module-servletapi/master/images/010-install-fixtures.png)
 
-The demo object has all of the various "provider" domain serviecs injected into it.  It uses the `ServletContextProvider`
- and the `HttpServletRequestProvider` services to simply show the servlet context name and user's locale:
+The demo object has all of the various "provider" domain serviecs injected into it.
+It uses the `ServletContextProvider` and the `HttpServletRequestProvider` services to simply show the servlet context name and user's locale:
 
 ![](https://raw.github.com/isisaddons/isis-module-servletapi/master/images/020-servlet-and-request.png)
+
 
 To demonstrate the use of the `HttpServletResponseProvider`, the demo object provides an "addHeader" action:
 
 ![](https://raw.github.com/isisaddons/isis-module-servletapi/master/images/030-response.png)
+
 
 When invoked, this adds a HTTP header to the response:
 
 ![](https://raw.github.com/isisaddons/isis-module-servletapi/master/images/040-response-header.png)
 
 
-== How to configure/use
 
+== How to configure/use
 
 === Classpath
 
@@ -42,25 +45,30 @@ Update your classpath by adding this dependency in your `dom` project's `pom.xml
 <dependency>
     <groupId>org.isisaddons.module.servletapi</groupId>
     <artifactId>isis-module-servletapi-dom</artifactId>
-    <version>1.13.0</version>
+    <version>1.15.0</version>
 </dependency>
-
 ----
 
 Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-servletapi-dom)).
 
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
+
+
 === Bootstrapping
 
-if using `AppManifest`, then update its `getModules()` method:
+In the `AppManifest`, update its `getModules()` method, eg:
 
-    @Override
-    public List<Class<?>> getModules() {
-        return Arrays.asList(
-                ...
-                org.isisaddons.module.servletapi.ServletApiModule.class,
-                ...
-        );
-    }
+[source,java]
+----
+@Override
+public List<Class<?>> getModules() {
+    return Arrays.asList(
+            ...
+            org.isisaddons.module.servletapi.ServletApiModule.class,
+            ...
+    );
+}
+----
 
 
 

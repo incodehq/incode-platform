@@ -20,3 +20,18 @@
 * `1.7.0` - released against Isis 1.7.0
 * `1.6.1` - https://github.com/isisaddons/isis-module-command/issues/1[#1] (don't store bookmarks beyond 2000 characters)
 * `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.command`
+
+
+== Relationship to Apache Isis Core
+
+Isis Core 1.6.0 included the `org.apache.isis.module:isis-module-command-jdo:1.6.0` Maven artifact. This module is a
+direct copy of that code, with the following changes:
+
+* package names have been altered from `org.apache.isis` to `org.isisaddons.module.command`
+* the `persistent-unit` (in the JDO manifest) has changed from `isis-module-command-jdo` to
+ `org-isisaddons-module-command-dom`
+* a copy-n-paste error in some of the JDO queries for `CommandJdo` have been fixed
+
+Otherwise the functionality is identical; warts and all!
+
+Isis 1.7.0 (and later) no longer ships with `org.apache.isis.module:isis-module-command-jdo`; use this addon module instead.

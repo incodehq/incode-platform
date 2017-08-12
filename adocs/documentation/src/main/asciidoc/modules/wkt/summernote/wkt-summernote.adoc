@@ -11,6 +11,8 @@ _Summernote_ is a JavaScript library based on http://getbootstrap.com/[Bootstrap
 
 == Screenshots
 
+TODO: to update
+
 The following screenshots show the example app's usage of the component with some sample fixture data:
 
 image::https://raw.github.com/isisaddons/isis-wicket-summernote/master/images/010-install-fixtures.png[https://raw.github.com/isisaddons/isis-wicket-summernote/master/images/010-install-fixtures.png]
@@ -25,29 +27,7 @@ image::https://raw.github.com/isisaddons/isis-wicket-summernote/master/images/03
 
 … shows an additional button to view those entities in a summary chart:
 
-== How to run the Demo App
 
-The prerequisite software is:
-
-* Java JDK 8 (>= 1.9.0)
-* http://maven.apache.org[maven 3] (3.2.x is recommended).
-
-To build the demo app:
-
-[source]
-----
-git clone https://github.com/isisaddons/isis-wicket-summernote.git
-mvn clean install
-----
-
-To run the demo app:
-
-[source]
-----
-mvn antrun:run -P self-host
-----
-
-Then log on using user: `sven`, password: `pass`
 
 == API & Usage
 
@@ -71,8 +51,11 @@ public class SummernoteEditorToDoItem implements Comparable<SummernoteEditorToDo
 }.
 ----
 
+
 == How to configure/use
 
+
+=== Classpath
 
 Add the component to your project's `dom` module's `pom.xml`:
 
@@ -81,13 +64,27 @@ Add the component to your project's `dom` module's `pom.xml`:
 <dependency>
     <groupId>org.isisaddons.wicket.summernote</groupId>
     <artifactId>isis-wicket-summernote-cpt</artifactId>
-    <version>1.14.0</version>
+    <version>1.15.0</version>
 </dependency>
 ----
 
 Check for later releases by searching http://search.maven.org/#search|ga|1|isis-wicket-summernote-cpt[Maven Central Repo].
 
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
 
+
+
+
+=== Configuration Proeprties
+
+Set up the facet factory in `isis.properties` (or in the `AppManifest#getConfigurationProperties()`):
+
+[source,ini]
+.isis.properties
+----
+isis.reflector.facets.include=\
+    org.isisaddons.wicket.summernote.cpt.applib.SummernoteEditorFacetFactory
+----
 
 
 == Known Issues

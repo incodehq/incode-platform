@@ -10,7 +10,8 @@ This extension (`isis-metamodel-paraname8`) for Apache Isis' metamodel support m
 
 == Background
 
-Prior to Java 8 it was not possible to obtain the parameter names of methods using reflection.  Since Isis builds the UI from the code features, this required the parameters to be annotated with `@ParameterLayout(named=...)` or `@Named(...)`.
+Prior to Java 8 it was not possible to obtain the parameter names of methods using reflection.
+Since Isis builds the UI from the code features, this required the parameters to be annotated with `@ParameterLayout(named=...)` or `@Named(...)`.
 
 In Java 8 the Reflections API has been extended so that the parameter name is available (with the proviso that the code must also be compiled with a new `-parameters` compile flag).
 
@@ -18,6 +19,8 @@ This module provides an implemenation of Apache Isis' `FacetFactory` for Apache 
 
 
 == Screenshot and Corresponding Code
+
+TODO: update
 
 From the demo app, here's the screenshot of an action to create a new object:
 
@@ -58,10 +61,11 @@ public Paraname8DemoObject create(
 
 
 
-
 == How to Configure/Use
 
 === Compiler plugin
+
+TODO: if using mavenmixins...
 
 In your project's root `pom.xml`, update the `maven-compiler-plugin` definition (in `<build>/<pluginManagement>/<plugins>`) to compile with JDK8, and specify the `-parameters` argument:
 
@@ -99,16 +103,19 @@ Update your classpath in the `pom.xml` of your project's `integtests` module and
 <dependency>
     <groupId>org.isisaddons.metamodel.paraname8</groupId>
     <artifactId>isis-metamodel-paraname8-dom</artifactId>
-    <version&gt1.14.0</version>
+    <version&gt1.15.0</version>
 </dependency>
 ----
 
-* Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-metamodel-paraname8-dom).
+Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-metamodel-paraname8-dom).
+
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
 
 
-=== Configuration
 
-In your project's `webapp` module, update your `WEB-INF/isis.properties`:
+=== Configuration Properties
+
+Update the `isis.reflector.facets.include` configuration property, eg in the `AppManifest` or in `isis.properties`:
 
 [source,properties]
 ----
@@ -121,15 +128,17 @@ isis.reflector.facets.include=\
 
 == Configuring your IDE
 
-Most IDEs compile the Java source code independently of Maven; this is certainly the case with both IntelliJ IDEA and Eclipse.  You will therefore need to ensure that the IDE is set up to build using the `-parameters` flag.
+Most IDEs compile the Java source code independently of Maven; this is certainly the case with both IntelliJ IDEA and Eclipse.
+You will therefore need to ensure that the IDE is set up to build using the `-parameters` flag.
  
 For IntelliJ IDEA, for example, this can be found under the "Settings" dialog:
  
 ![](https://raw.github.com/isisaddons/isis-metamodel-paraname8/master/images/03-intellij-support.png)
  
-Other IDEs should have similar dialogues.
+Other IDEs should have similar dialogs.
 
-You'll also need to make sure that the IDE is set up to build and run with JDK8.  In IntelliJ, this can be found under the "Project Structure" dialog.
+You'll also need to make sure that the IDE is set up to build and run with JDK8.
+In IntelliJ, this can be found under the "Project Structure" dialog.
 
 
 

@@ -56,3 +56,16 @@ create index AuditEntry_ak
 go
 ----
 
+== Relationship to Apache Isis Core
+
+Apache Isis Core 1.6.0 included the `org.apache.isis.module:isis-module-audit-jdo:1.6.0` Maven artifact.
+This module is a direct copy of that code, with the following changes:
+
+* package names have been altered from `org.apache.isis` to `org.isisaddons.module.audit`
+* the `persistent-unit` (in the JDO manifest) has changed from `isis-module-audit-jdo` to
+ `org-isisaddons-module-audit-dom`
+
+Otherwise the functionality is identical.
+
+Apache Isis 1.7.0 (and later) no longer ships the `org.apache.isis.module:isis-module-audit-jdo` module; use this addon module instead.
+

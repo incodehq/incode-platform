@@ -6,10 +6,10 @@
 
 This module (`isis-module-publishmq`) provides an implementation of Apache Isis` link:http://isis.apache.org/guides/rg.html#_rg_services-spi_manpage-PublishingService[`PublishingService`] SPI that submits an XML representation of an link:https://github.com/apache/isis/blob/master/core/schema/src/main/resources/org/apache/isis/schema/ixn/ixn.xsd[`MemberInteractionDto`]s to an link:http://activemq.apache.org[ActiveMQ] queue.
 
-The example app itself also demonstrates how this member interaction event (action invocation or property edit) can
-be routed using link:http://camel.apache.org[Apache Camel]:
+The example app itself also demonstrates how this member interaction event (action invocation or property edit) can be routed using link:http://camel.apache.org[Apache Camel]:
 
-* the payload is enriched using Apache Isis' own link:http://isis.apache.org/guides/ug.html#_ug_restfulobjects-viewer[Restful Objects] viewer (obtaining additional information).
+* the payload is enriched using Apache Isis' own link:http://isis.apache.org/guides/ug.html#_ug_restfulobjects-viewer[Restful Objects] viewer (obtaining additional information);
+
 * the enriched message is used to post to a (fake) external SOAP, eg representing a General Ledger.
 
 In addition, the example app configures link:https://jolokia.org/[Jolokia], allowing the ActiveMQ, Camel and other JMX beans to be administered from an external console such as link:hawt.io[Hawt.io].
@@ -19,17 +19,20 @@ The diagram below shows the moving parts:
 image::webapp/src/main/webapp/images/overview.png[link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/webapp/src/main/webapp/images/overview.png"]
 
 
-One of the design objectives for the PublishMq module is to allow the ActiveMQ queue (and therefore any Camel routing) to be either embedded (as in the example app) or to be remote.  This is one of the reasons why the payload posted to the queue is the XML representation of a JAXB object (the `InvocationDto`).
+One of the design objectives for the PublishMq module is to allow the ActiveMQ queue (and therefore any Camel routing) to be either embedded (as in the example app) or to be remote.
+This is one of the reasons why the payload posted to the queue is the XML representation of a JAXB object (the `InvocationDto`).
 
-To make the example app easier to run, the fake SOAP service representing the external system is actually deployed as a CXF servlet within the example app itself, mounted at `/soap/ExternalSystemAdapter/DemoObject`.   It exposes an API for the Camel routing to post to, and also exposes a query API that simply lists the messages received.  Of course, "in real life" this external system would be running somewhere else on the network (as the diagram shows).
+To make the example app easier to run, the fake SOAP service representing the external system is actually deployed as a CXF servlet within the example app itself, mounted at `/soap/ExternalSystemAdapter/DemoObject`.
+It exposes an API for the Camel routing to post to, and also exposes a query API that simply lists the messages received.
+Of course, "in real life" this external system would be running somewhere else on the network (as the diagram shows).
 
 
 
 
 == Application walk-through
 
-The following screenshots show how the publishing service publishes the member interaction events that are then routed
-through to the (fake) external system using Camel.
+The following screenshots show how the publishing service publishes the member interaction events that are then routed through to the (fake) external system using Camel.
+
 
 === Installing the Fixture Data
 
@@ -101,9 +104,11 @@ The example app defines the following Camel route (link:fixture/routing/src/main
   </route>
 </camelContext>
 ----
-<1> subscribe to ActiveMQ for incoming member interaction events (in XML form).  This uses the internal `vm://` protocol for speed
+<1> subscribe to ActiveMQ for incoming member interaction events (in XML form).
+This uses the internal `vm://` protocol for speed
 <2> unmarshal to a (JAXB annotated) `InteractionDto` object
-<3> using the `AddExchangeHeaders` component provided by this module to add the metadata from the `InteractionDto` to the Camel message.  This allows the message to be routed
+<3> using the `AddExchangeHeaders` component provided by this module to add the metadata from the `InteractionDto` to the Camel message.
+This allows the message to be routed
 <4> use Camel to select which sub-route to following, using...
 <5> ... the header attached earlier.  The action identifier header is usually used as the predicate for selecting the sub-route
 <6> Use a processor (implemented in the example app) to attach a DTO obtained from a call to Restful Objects.
@@ -141,14 +146,16 @@ The referenced beans are defined as:
 <2> calls Restful Objects to obtain a DTO representing the updated entity (step 6 in the route)
 <3> calls fake SOAP service (step 7 in the route)
 
-There are two observable side-effects from the execution of this route.  Firstly, when the fake SOAP service is
-called, it should return an internal Id.  This, along with the rest of the message payload, are logged to the console:
+There are two observable side-effects from the execution of this route.
+Firstly, when the fake SOAP service is called, it should return an internal Id.
+This, along with the rest of the message payload, are logged to the console:
 
 image::images/050-camel-route-logging.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/050-camel-route-logging.png"]
 
 The screenshot also highlights the two important pieces of information used by the route: the member identifier metadata -- added as a Camel header for routing -- and the target object has was updated.
 
-Second, we can query the fake SOAP service to se the data that was posted to it.  The screenshot below uses link:http://www.soapui.org/[SOAP UI], which can generate stub requests from the fake SOAP service's WSDL (http://localhost:8080/soap/ExternalSystemAdapter/DemoObject?wsdl[http://localhost:8080/soap/ExternalSystemAdapter/DemoObject?wsdl]):
+Second, we can query the fake SOAP service to se the data that was posted to it.
+The screenshot below uses link:http://www.soapui.org/[SOAP UI], which can generate stub requests from the fake SOAP service's WSDL (http://localhost:8080/soap/ExternalSystemAdapter/DemoObject?wsdl[http://localhost:8080/soap/ExternalSystemAdapter/DemoObject?wsdl]):
 
 image::images/060-query-fake-server.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/060-query-fake-server.png"]
 
@@ -160,7 +167,8 @@ The above screenshot is out-of-date, showing the format of the `aim.xsd` for 1.1
 
 === Proxying the REST and SOAP calls
 
-To see in a little more detail what the `attachDtoFromRestfulObjects` and `postToFakeExternalSoapService` processors actually do, we can use the venerable link:http://ws.apache.org/tcpmon/download.cgi[tcpmon] to act as a proxy.  For example, we can set up port 6060 to forward onto port 8080:
+To see in a little more detail what the `attachDtoFromRestfulObjects` and `postToFakeExternalSoapService` processors actually do, we can use the venerable link:http://ws.apache.org/tcpmon/download.cgi[tcpmon] to act as a proxy.
+For example, we can set up port 6060 to forward onto port 8080:
 
 image::images/110-proxy-restful-objects.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/110-proxy-restful-objects.png"]
 
@@ -179,11 +187,9 @@ When we run once more, we can see that the `attachDtoFromRestfulObjects` process
 
 image::images/120-conneg.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/120-conneg.png"]
 
-Using DTOs in this way is important because we want the Camel event bus logic to be decoupled from changes to the
-internals of the Apache Isis app.  As the screenshot shows, the processor specifies an HTTP Accept header.  The
-Restful Objects viewer delegates to the configured
-link:http://isis.apache.org/guides/rg.html#_rg_services-spi_manpage-ContentNegotiationService[`ContentNegotiationService`]
-SPI, which knows how to map the `PublishedMqDemoObject` entity into the requested `DemObjectDto` DTO:
+Using DTOs in this way is important because we want the Camel event bus logic to be decoupled from changes to the internals of the Apache Isis app.
+As the screenshot shows, the processor specifies an HTTP Accept header.
+The Restful Objects viewer delegates to the configured link:http://isis.apache.org/guides/rg.html#_rg_services-spi_manpage-ContentNegotiationService[`ContentNegotiationService`] SPI, which knows how to map the `PublishedMqDemoObject` entity into the requested `DemObjectDto` DTO:
 
 [source,java]
 ----
@@ -209,10 +215,10 @@ public class PublishMqDemoContentMappingService implements ContentMappingService
 }
 ----
 
-The call to the fake SOAP service meanwhile is more straightforward: we observe just the regular SOAP messages (the
-implementation uses `wsdl2java` to create stubs, so the code is very straightforward):
+The call to the fake SOAP service meanwhile is more straightforward: we observe just the regular SOAP messages (the implementation uses `wsdl2java` to create stubs, so the code is very straightforward):
 
 image::images/210-proxy-soapservice.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/210-proxy-soapservice.png"]
+
 
 === Jolokia and Hawt.io
 
@@ -246,7 +252,8 @@ With this done, we can use Hawt.io to connect to the service:
 
 image::images/310-connect-activemq.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/310-connect-activemq.png"]
 
-Hawt.io itself runs as a separate webapp.  For testing purposes, it can also be run from the command line, eg:
+Hawt.io itself runs as a separate webapp.
+For testing purposes, it can also be run from the command line, eg:
 
 [source,bash]
 ----
@@ -267,39 +274,6 @@ image::images/330-monitor-camel.png[width=800,height=469,link="https://raw.githu
 
 
 
-== How to run the Demo App
-
-The prerequisite software is:
-
-* Java JDK 7 (nb: Isis currently does not support JDK 8)
-* http://maven.apache.org[maven 3] (3.2.x or later is recommended).
-
-To build the demo app:
-
-[source]
-----
-git clone https://github.com/isisaddons/isis-module-publishmq.git
-mvn clean install
-----
-
-To run the demo app:
-
-[source]
-----
-mvn antrun:run -P self-host
-----
-
-Then log on using user: `sven`, password: `pass`
-
-
-If you want to proxy the Restful Objects and/or fake SOAP servers, then update `spring.properties` and run `tcpmon` or similar (as shown in the app walkthrough, above).
-
-Hawt.io is a standalone utility that is _not_ integrated into the example webapp; if you want to run it then specify `--port` so that it runs on some other port than its default, 8080.
-
-
-
-
-
 == How to configure/use
 
 You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements.
@@ -312,20 +286,20 @@ The module itself consists of submodules:
 
 
 
-=== "Out-of-the-box"
+=== Classpath
 
-To use "out-of-the-box":
+Update your classpath:
 
-* update your classpath by adding importing the parent module's dependency into in your parent module's `pom.xml`: +
+* by adding importing the parent module's dependency into in your parent module's `pom.xml`: +
 +
 [source,xml]
 ----
 <dependencyManagement>
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.isisaddons.module.publishmq</groupId>
             <artifactId>isis-module-publishmq-dom</artifactId>
-            <version>1.14.0</artifactId>
+            <version>1.15.0</artifactId>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -334,7 +308,46 @@ To use "out-of-the-box":
 </dependencyManagement>
 ----
 
-* if using `AppManifest`, then update its `getModules()` method: +
+* by adding the `-dom-servicespi` dependency in your project's `dom` module's `pom.xml`: +
++
+[source,xml]
+----
+<dependencies>
+    <dependency>
+        <groupId>org.isisaddons.module.publishmq</groupId>
+        <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
+    </dependency>
+    ...
+</dependencies>
+----
+
+* (if you are using Camel for routing and want to use the `AddExchangeHeaders` utility class) by adding (in the appropriate module within your app) the dependency: +
++
+[source,xml]
+----
+<dependencies>
+    <dependency>
+        <groupId>org.isisaddons.module.publishmq</groupId>
+        <artifactId>isis-module-publishmq-dom-camel</artifactId>
+    </dependency>
+    ...
+</dependencies>
+----
+
+TODO: update these words which xref the example app...  In the example app all the Camel routing can be found in the `-fixture-routing` module.
+
+
+
+Check for later releases by searching http://search.maven.org/#search|ga|1|isis-module-publishmq-dom[Maven Central Repo].
+
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
+
+
+
+
+=== Bootstrapping
+
+In the `AppManifest`, update its `getModules()` method, eg:
 
 [source,xml]
 ----
@@ -348,49 +361,15 @@ To use "out-of-the-box":
     }
 ----
 
-* otherwise, in your project's `webapp` module, update your `WEB-INF/isis.properties`. +
-+
-[source,xml]
-----
-  isis.services.ServicesInstallerFromAnnotation.packagePrefix=\
-                                ...\
-                                org.isisaddons.module.publishmq.dom,\
-                                ...
-----
-+
 You might also need to specify the package for any new services that you have written, eg implementation of `ContentNegotiationService` or similar.
 
-* update your classpath by adding importing the `-dom-servicespi` dependency in your project's `dom` module's `pom.xml`: +
-+
-[source,xml]
-----
-<dependencies>
-    <dependency>
-        <groupId>org.isisaddons.module.publishmq</groupId>
-        <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
-    </dependency>
-    ...
-</dependencies>
-----
 
-* if you are using Camel for routing and want to use the `AddExchangeHeaders` utility class, then -- in the appropriate module within your app -- add the dependency: +
-+
-[source,xml]
-----
-<dependencies>
-    <dependency>
-        <groupId>org.isisaddons.module.publishmq</groupId>
-        <artifactId>isis-module-publishmq-dom-camel</artifactId>
-    </dependency>
-    ...
-</dependencies>
-----
-+
-In the example app all the Camel routing can be found in the `-fixture-routing` module.
+=== Configure ActiveMQ
 
+Configure ActiveMQ so that the publishing service implementation can post to a queue called `memberInteractionsQueue`.
 
-* configure ActiveMQ so that the publishing service implementation can post to a queue called `memberInteractionsQueue`. +
-+
+TODO: update these words xref the example app
+
 In the example app this is done using Spring (link:webapp/src/main/resources/activemq-config.xml[activemq-config.xml]):
 +
 [source,xml]
@@ -414,9 +393,9 @@ In the example app this is done using Spring (link:webapp/src/main/resources/act
     </broker>
 </beans>
 ----
-+
+
 This is bootstrapped in the `web.xml`:
-+
+
 [source,xml]
 ----
 <listener>
@@ -430,75 +409,15 @@ This is bootstrapped in the `web.xml`:
 </context-param>
 ----
 
-Notes:
-
-* Check for later releases by searching http://search.maven.org/#search|ga|1|isis-module-publishmq-dom[Maven Central Repo].
-
-
-==== "Out-of-the-box" (-SNAPSHOT)
-
-If you want to use the current `-SNAPSHOT`, then the steps are the same as above, except:
-
-* when updating the classpath, specify the appropriate -SNAPSHOT version:
-
-[source,xml]
-----
-<version>1.15.0-SNAPSHOT</version>
-----
-
-* add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
-
-[source,xml]
-----
-<profile>
-    <id>cloudbees-snapshots</id>
-    <activation>
-        <activeByDefault>true</activeByDefault>
-    </activation>
-    <repositories>
-        <repository>
-            <id>snapshots-repo<;/id>
-            <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
-            <releases>
-                <enabled>false>/enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-</profile>
-----
-
-=== Forking the repo
-
-If instead you want to extend this module's functionality, then we recommend that you fork this repo. The repo is
-structured as follows:
-
-* `pom.xml` - parent pom
-* `dom` - the module implementation, itself a parent with submodules:
-** `dom-servicespi` - the implementation of `PublishingServiceUsingActiveMq`; depends on the Apache Isis applib
-** `dom-camel` - providing the `AddExchangeHeaders` utility for routing messages using Camel
-* `fixture` - fixtures, itself a parent with submodules:
-** `fixture-dom` - holding a sample domain objects; depends on `dom-servicespi`
-** `fixture-scripts` - holding sample fixture (data) setup scripts
-** `fixture-canonical` - defines the canonical `DemoObjectDto`, as queried for using Restful Objects.  This uses `xjc` to convert the XSD into the Java DTO.
-** `fixture-canonicalmappings` - contains the implementation of `ContentMappingService` to map the `PublishMqDemoObject` entity to `DemoObjectDto` DTO
-** `fixture-routing` - contains the example Camel rout
-* `externalsystemadapter` - parent module for the fake external system exposing a SOAP web service:
-** `externalsystemadapter-wsdl` - defines the WSDL for the fake SOAP service
-** `externalsystemadapter-wsdlgen` - generates the stub classes for both client and server
-** `externalsystemadapter-fakeserver` - implementation of the fake server (embedded in the example webapp for convenience/testing)
-* `integtests` - (TODO) integration tests for the module; depends on `fixture-dom`
-* `webapp` - demo webapp (see above screenshots); depends on `dom` and `fixture`
-
-Only the `dom` module (with its submodules) is released to Maven Central Repo. The versions of the other modules are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
 
 
 
-== Also of note
+== Canonical DTOs
+
+TODO: update these words xref the example app
 
 The example app contains a few other little tricks that may be useful if you are looking to deploy a similar architecture for your own application.
+
 
 === Generate Canonical DTO referencing Apache Isis' DTOs
 
@@ -563,8 +482,5 @@ In addition to Apache Isis, this module also depends upon:
 * (optional) link:http://camel.apache.org[Camel] +
 +
 This dependency is considered optional because it merely provides a supporting utility class (`AddExchangeHeaders`).
-
-
-
 
 

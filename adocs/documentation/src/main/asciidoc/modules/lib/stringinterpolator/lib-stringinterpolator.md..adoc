@@ -8,7 +8,8 @@ This module (`isis-module-stringinterpolator`) provides a mechanism to interpola
 
 
 One use case for this service is in building URLs based on an object's state, parameterized
-by environment (prod/test/dev etc).  These URLs could be anything; for example, to a reporting service:
+by environment (prod/test/dev etc).
+These URLs could be anything; for example, to a reporting service:
 
 [source]
 ----
@@ -18,8 +19,7 @@ ${property['reportServerBase']}/ReportViewer.aspx?/InvoicesDue&propertyId=${this
 where:
 
 * `${property['reportServerBase']}` is an Isis system property
-* `${this.property.id}` is an expression that is evaluated in the context of a domain object (`this`), returning
-   `this.getProperty().getId()`
+* `${this.property.id}` is an expression that is evaluated in the context of a domain object (`this`), returning `this.getProperty().getId()`
 
 Apache Isis system properties are exposed as the `properties` map, while the target object is exposed as the `this` object.
 
@@ -48,7 +48,7 @@ public URL open(ToDoItem toDoItem) throws MalformedURLException {
 ----
 
 
-where `WEB-INF/isis.properties` contains:
+where the configuration property "isis.website" has been set, eg in `WEB-INF/isis.properties`:
 
 [source]
 ----
@@ -70,8 +70,7 @@ public class ToDoItem ... {
 
 
 
-Invoking the `Open` action computes the `urlStr` local variable, and then (because the action returns a `URL`), results
-in the browser opening the appropriate web page:
+Invoking the `Open` action computes the `urlStr` local variable, and then (because the action returns a `URL`), results in the browser opening the appropriate web page:
 
 ![](https://raw.github.com/isisaddons/isis-module-stringinterpolator/master/images/030-opened-page.png)
 
@@ -88,24 +87,31 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 <dependency>
     <groupId>org.isisaddons.module.stringinterpolator</groupId>
     <artifactId>isis-module-stringinterpolator-dom</artifactId>
-    <version>1.13.0</version>
+    <version>1.15.0</version>
 </dependency>
 ----
 
 Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-stringinterpolator-dom).
 
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
+
+
 === Bootstrapping
 
 
-* update your `WEB-INF/isis.properties`:
+In the `AppManifest`, update its `getModules()` method, eg:
 
-<pre>
-    isis.services-installer=configuration-and-annotation
-    isis.services.ServicesInstallerFromAnnotation.packagePrefix=
-                    ...,\
-                    org.isisaddons.module.stringinterpolator.dom,\
-                    ...
-</pre>
+[source,java]
+----
+@Override
+public List<Class<?>> getModules() {
+    return Arrays.asList(
+            ...
+            org.isisaddons.module.stringinterpolator.StringInterpolatorModule.class,
+            ...
+    );
+}
+----
 
 
 
@@ -113,8 +119,8 @@ Check for later releases by searching [Maven Central Repo](http://search.maven.o
 
 The module consists of a single domain service, `StringInterpolatorService`.
 
-The interpolation replaces each occurrence of `${...}` with its interpolated value.  The expression in within the
-braces is interpreted using [OGNL](http://commons.apache.org/proper/commons-ognl/).
+The interpolation replaces each occurrence of `${...}` with its interpolated value.
+The expression in within the braces is interpreted using [OGNL](http://commons.apache.org/proper/commons-ognl/).
 
 
 === Object graph interpolation
@@ -219,7 +225,8 @@ final class CustomRoot extends StringInterpolatorService.Root {
 ----
 
 
-The example above exposes the `customer` property.  This can then be used in the template, eg:
+The example above exposes the `customer` property.
+This can then be used in the template, eg:
 
 [source,java]
 ----
@@ -235,8 +242,7 @@ public void simple() throws Exception {
 
 === Strict Mode (applies to both APIs)
 
-By default, any expression that cannot be parsed or would generate an exception (eg null pointer exception) is instead
-returned unchanged in the interpolated string.
+By default, any expression that cannot be parsed or would generate an exception (eg null pointer exception) is instead returned unchanged in the interpolated string.
 
 The service also provides a "strict" mode, which is useful for testing expressions:
 

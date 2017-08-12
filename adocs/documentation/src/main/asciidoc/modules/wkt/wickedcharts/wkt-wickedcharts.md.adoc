@@ -17,13 +17,16 @@ See link:http://shop.highsoft.com/highcharts.html[here] for further details.
 
 There are in fact two separate components:
 
-* `summarycharts`: render a standalone collection with `BigDecimal` properties as a chart.  (This component can be thought of as an enhancement of the base `summary` view provided by Isis Wicket viewer).
+* `summarycharts`: render a standalone collection with `BigDecimal` properties as a chart.
+(This component can be thought of as an enhancement of the base `summary` view provided by Isis Wicket viewer).
 
 * `scalarchart`: renders a standalone scalar value (from an action invocation) as a chart
 
 
 
 == Screenshots
+
+TODO: to update
 
 The following screenshots show the example app's usage of the component with some sample fixture data:
 
@@ -51,11 +54,12 @@ Clicking on the button renders a chart where the values of all numeric (`BigDeci
 
 === Scalar Charts
 
-Arbitrary charts can be returned from any action.  For example this action:
+Arbitrary charts can be returned from any action.
+For example this action:
 
 ![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/060-arbitrary-charts.png)
 
-... renders a pie chart splitting out the example Todo entities by their category:
+/... renders a pie chart splitting out the example Todo entities by their category:
 
 ![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/070-scalar-chart.png)
 
@@ -64,14 +68,13 @@ Arbitrary charts can be returned from any action.  For example this action:
 
 === Summary Charts
 
-There is no special usage; a standalone collection of any entity with one or more properties of type `BigDecimal` 
-will be rendered using the `summarycharts` extension.
+There is no special usage; a standalone collection of any entity with one or more properties of type `BigDecimal` will be rendered using the `summarycharts` extension.
 
 
 === Scalar Chart
 
-Any action returning the `WickedChart` value type should be rendered as a chart.  The `WickedChart` value type is 
-simply a wrapper around the wicked chart's `Options` class:
+Any action returning the `WickedChart` value type should be rendered as a chart.
+The `WickedChart` value type is simply a wrapper around the wicked chart's `Options` class:
 
     import com.googlecode.wickedcharts.highcharts.options.Options;
 
@@ -89,6 +92,8 @@ Any chart supported by *Wicked Charts* (see their [showcase](http://wicked-chart
 
 == How to configure/use
 
+=== Classpath
+
 Add the component to your project's `dom` module's `pom.xml`:
 
 [source,xml]
@@ -96,24 +101,22 @@ Add the component to your project's `dom` module's `pom.xml`:
 <dependency>
     <groupId>org.isisaddons.wicket.wickedcharts</groupId>
     <artifactId>isis-wicket-wickedcharts-cpt</artifactId>
-    <version>1.13.0</version>
+    <version>1.15.0</version>
 </dependency>
 ----
 
 
 Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-wickedcharts-cpt).
 
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
 
 
 
 == Known issues / Limitations
 
-Although the `WickedChart` class (in the `scalarchart`'s API) has value semantics, it will (currently) not render as a 
-chart if used as an entity property.
-
-Such a property should be persistable, however.  
-
-Therefore a workaround is to hide the property and instead provide an action to show the chart.  
+Although the `WickedChart` class (in the `scalarchart`'s API) has value semantics, it will (currently) not render as a chart if used as an entity property.
+Such a property should be persistable, however.
+Therefore a workaround is to hide the property and instead provide an action to show the chart.
 
 For example:
 
@@ -132,6 +135,7 @@ public class MyEntity {
     ...
 }
 ----
+
 
 
 == Dependencies

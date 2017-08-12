@@ -5,7 +5,10 @@
 
 This component (`isis-wicket-gmap3`) allows an entity or collection of entities to be rendered within a map (using google's https://developers.google.com/maps/documentation/javascript/[gmap3] API).
 
+
 == Screenshots
+
+TODO: to update
 
 The following screenshots show the example app's usage of the component with some sample fixture data:
 
@@ -55,7 +58,8 @@ image::https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/060-vie
 
 image::https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/070-gmap-button-available-on-standalone-collection.png[link="https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/070-gmap-button-available-on-standalone-collection.png"]
 
-\... which then renders the items in a map. Note the tooltips:
+\... which then renders the items in a map.
+Note the tooltips:
 
 image::https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/080-view-collection-in-gmap3.png[link="https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/080-view-collection-in-gmap3.png"]
 
@@ -69,47 +73,7 @@ image::https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/090-cli
 
 
 
-== How to run the Demo App
-
-The prerequisite software is:
-
-* Java JDK 8 (>= Isis 1.9.0) or Java JDK 7 (<= Isis 1.8.0)
-** note that the compile source and target remains at JDK 7
-* http://maven.apache.org[maven 3] (3.2.x is recommended).
-
-To build the demo app:
-
-[source,bash]
-----
-git clone https://github.com/isisaddons/isis-wicket-gmap3.git
-mvn clean install
-----
-
-To run the demo app:
-
-[source,bash]
-----
-mvn -pl webapp jetty:run
-----
-
-Then log on using user: `sven`, password: `pass`
-
-
-
 == API &  Usage
-
-=== gmap3 API Key
-
-In order to use the component an API key is required.
-See the link:https://developers.google.com/maps/documentation/javascript/get-api-key#key[google documentation] for instructions as to how to do this; a free key (with quite generous daily limits) can be used.
-
-Configure the key in `WEB-INF/viewer_wicket.properties` (or `WEB-INF/isis.properties`):
-
-[source,ini]
-----
-isis.viewer.wicket.gmap3.apiKey=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-XXXXXX
-----
-
 
 
 === Rendering objects on a map
@@ -208,11 +172,9 @@ The order in which they are checked depends upon the `@DomainServiceLayout(menuO
 
 == How to configure/use
 
-You can either use this component "out-of-the-box", or you can fork this repo and extend to your own requirements. 
+=== Classpath
 
-=== "Out-of-the-box"
-
-To use "out-of-the-box", add the component to your project's `dom` module's `pom.xml`:
+Add the component to your project's `dom` module's `pom.xml`:
 
 [source,xml]
 ----
@@ -225,39 +187,42 @@ To use "out-of-the-box", add the component to your project's `dom` module's `pom
 
 Check for later releases by searching http://search.maven.org/#search|ga|1|isis-wicket-gmap3-cpt[Maven Central Repo].
 
-If you wish to use this the `LocationLookupService`, this needs to be registered:
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
 
-* 
 
-if using `AppManifest`, then update its `getModules()` method:
+=== Bootstrapping
+
+In the `AppManifest`, update its `getModules()` method, eg:
 
 [source,java]
 ----
 @Override
 public List<Class<?>> getModules() {
-     return Arrays.asList(
-        ...
-        org.isisaddons.wicket.gmap3.cpt.applib.Gmap3ApplibModule.class,
-        org.isisaddons.wicket.gmap3.cpt.service.Gmap3ServiceModule.class,
-        ...
-     );
+    return Arrays.asList(
+            ...
+            org.isisaddons.wicket.gmap3.cpt.applib.Gmap3ApplibModule.class,
+            org.isisaddons.wicket.gmap3.cpt.service.Gmap3ServiceModule.class,
+    );
 }
 ----
 
+This will register the `LocationLookupService`.
 
-* otherwise, update the `isis.properties` file:
+
+
+=== Configuration Properties
+
+==== gmap3 API Key
+
+In order to use the component an API key is required.
+See the link:https://developers.google.com/maps/documentation/javascript/get-api-key#key[google documentation] for instructions as to how to do this; a free key (with quite generous daily limits) can be used.
+
+Configure the key in `WEB-INF/viewer_wicket.properties` (or `WEB-INF/isis.properties`):
 
 [source,ini]
 ----
-isis.services-installer=configuration-and-annotation
-isis.services.ServicesInstallerFromAnnotation.packagePrefix=\
-            ...,
-            org.isisaddons.wicket.gmap3.cpt,
-            ...,
+isis.viewer.wicket.gmap3.apiKey=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-XXXXXX
 ----
-
-And if you have integration tests then register the services' package using `IsisSystemForTest.Builder#withServicesIn(...)` method.
-
 
 
 

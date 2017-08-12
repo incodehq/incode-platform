@@ -10,6 +10,8 @@ Typically this will be to a relational database; the module's `SessionLogEntry` 
 
 == Screenshots
 
+TODO: to update
+
 The sessionlogger module automatically creates log entries whenever a user logs on or logs out. The currently logged on users of the application (that is: those for whom there is a valid non-expired HTTP session) can be found from the activity menu:
 
 image::https://raw.github.com/isisaddons/isis-module-sessionlogger/master/images/010-active-sessions.png[link="https://raw.github.com/isisaddons/isis-module-sessionlogger/master/images/010-active-sessions.png"]
@@ -35,61 +37,35 @@ returning matching sessions:
 image::https://raw.github.com/isisaddons/isis-module-sessionlogger/master/images/050-find-sessions-listed.png[link="https://raw.github.com/isisaddons/isis-module-sessionlogger/master/images/050-find-sessions-listed.png"]
 
 
-== How to run the Demo App
-
-The prerequisite software is:
-
-* Java JDK 8 (>= 1.9.0) or Java JDK 7 (>= 1.8.0)
-** note that the compile source and target remains at JDK 7
-* http://maven.apache.org[maven 3] (3.2.x is recommended).
-
-To build the demo app:
-
-[source,bash]
-----
-git clone https://github.com/isisaddons/isis-module-audit.git
-mvn clean install
-----
-
-To run the demo app:
-
-[source,bash]
-----
-cd webapp
-mvn jetty:run
-----
-
-Then log on using user: `sven`, password: `pass`
-
-
 
 == How to Configure/Use
 
-You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
+=== Classpath
 
-=== "Out-of-the-box"
-
-To use "out-of-the-box":
-
-* update your classpath by adding this dependency in your project's `dom` module's `pom.xml`:
+Update your classpath by adding this dependency in your project's `dom` module's `pom.xml`:
 
 [source,xml]
 ----
 <dependency>
     <groupId>org.isisaddons.module.sessionlogger</groupId>
     <artifactId>isis-module-sessionlogger-dom</artifactId>
-    <version>1.14.0</version>
+    <version>1.15.0</version>
 </dependency>
 ----
 
-Remaining steps to configure:
+Check for releases by searching http://search.maven.org/#search|ga|1|isis-module-sessionlogger-dom[Maven Central Repo].
 
-* if using `AppManifest`, then update its `getModules()` method: +
-+
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
+
+
+=== Bootstrapping
+
+In the `AppManifest`, update its `getModules()` method, eg:
+
 [source,java]
 ----
 @Override
-public List&lt;Class&lt;?&gt;&gt; getModules() {
+public List<Class<?>> getModules() {
     return Arrays.asList(
         ...
         org.isisaddons.module.sessionlogger.SessionLoggerModule.class,
@@ -98,75 +74,7 @@ public List&lt;Class&lt;?&gt;&gt; getModules() {
 }
 ----
 
-* otherwise, update your `WEB-INF/isis.properties`: +
-+
-[source,xml]
-----
-isis.services-installer=configuration-and-annotation
-isis.services.ServicesInstallerFromAnnotation.packagePrefix=\
-                ...,\
-                org.isisaddons.module.sessionlogger.dom,\
-                ...
-----
 
-Notes:
-
-* Check for releases by searching http://search.maven.org/#search|ga|1|isis-module-sessionlogger-dom[Maven Central Repo].
-
-* The `SessionLoggingServiceMenu` service is optional but recommended; see below for more information.
-
-
-
-=== "Out-of-the-box" (-SNAPSHOT)
-
-If you want to use the current `-SNAPSHOT`, then the steps are the same as above, except:
-
-* when updating the classpath, specify the appropriate -SNAPSHOT version: +
-+
-[source,xml]
-----
-<version>1.15.0-SNAPSHOT</version>
-----
-
-* add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service). We suggest defining the repository in a `<profile>`: +
-+
-[source,xml]
-----
-<profile>
-    <id>cloudbees-snapshots</id>
-    <activation>
-        <activeByDefault>true</activeByDefault>
-    </activation>
-    <repositories>
-        <repository>
-            <id>snapshots-repo</id>
-            <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-</profile>
-----
-
-
-
-=== Forking the repo
-
-If instead you want to extend this module's functionality, then we recommend that you fork this repo. The repo is
-structured as follows:
-
-* `pom.xml` - parent pom
-* `dom` - the module implementation, depends on Isis applib
-* `fixture` - fixtures, holding a sample domain objects and fixture scripts; depends on `dom`
-* `integtests` - integration tests for the module; depends on `fixture`
-* `webapp` - demo webapp (see above screenshots); depends on `dom` and `fixture`
-
-Only the `dom` project is released to Maven Central Repo. The versions of the other modules are purposely left at
-`0.0.1-SNAPSHOT` because they are not intended to be released.
 
 == API
 
@@ -205,8 +113,7 @@ and mark as complete and sessions that were in-progress if the webserver is rest
 == Implementation
 
 The `SessionLoggingService` API is implemented in this module by the `org.isisaddons.module.sessionlogger.SessionLoggingServiceDefault` class.
-This implementation simply inserts a session log entry (`SessionLogEntry`) when either a user logs on, logs out or if
-their session expires.
+This implementation simply inserts a session log entry (`SessionLogEntry`) when either a user logs on, logs out or if their session expires.
 
 The `SessionLogEntry` properties directly correspond to parameters of the `SessionLoggingService` `log()` API:
 
@@ -223,7 +130,8 @@ public class SessionLogEntry
     ...
 }
 ----
-<1> `sessionId` identifies the user's session. Primary key. (*Note*: it is not the http session id!)
+<1> `sessionId` identifies the user's session. Primary key.
+(*Note*: it is not the http session id!)
 <2> `username` identifies the user that has logged in/out
 <3> `type` determines whether this was a login or logout.
 <4> `loginTimestamp` is the date that the login of the session event occurred
@@ -236,20 +144,18 @@ The `SessionLogEntry` entity is designed such that it can be rendered on an Isis
 
 == Supporting Services
 
-As well as the `SessionLoggingServiceDefault` service (that implements the `SessionLoggingService` API), the module
-also provides two further domain services:
+As well as the `SessionLoggingServiceDefault` service (that implements the `SessionLoggingService` API), the module also provides two further domain services:
 
-* `SessionLogEntryRepository` provides the ability to search for persisted (`SessionLogEntry`) entries. None of its
- actions are visible in the user interface (they are all `@Programmatic`) and so this service is automatically
- registered.
+* `SessionLogEntryRepository` provides the ability to search for persisted (`SessionLogEntry`) entries. +
++
+None of its actions are visible in the user interface (they are all `@Programmatic`) and so this service is automatically registered.
 
-* `SessionLoggingServiceMenu` provides the secondary "Activity" menu for listing all active sessions and for searching for session entries by user and by date.
-
-The `SessionLoggingServiceMenu` is automatically registered as a domain service; as such its actions will appear in the
-user interface. If this is not required, then either use security permissions or write a vetoing subscriber on the
-event bus to hide this functionality, eg:
-
-
+* `SessionLoggingServiceMenu` provides the secondary "Activity" menu for listing all active sessions and for searching for session entries by user and by date. +
++
+The `SessionLoggingServiceMenu` is automatically registered as a domain service; as such its actions will appear in the user interface.
+If this is not required, then either use security permissions or write a vetoing subscriber on the
+event bus to hide this functionality, eg: +
++
 [source,java]
 ----
 @DomainService(nature = NatureOfService.DOMAIN)
@@ -258,7 +164,6 @@ public class HideIsisAddonsSessionLoggerFunctionality extends AbstractSubscriber
     public void on(final SessionLoggerModule.ActionDomainEvent<?> event) { event.hide(); }
 }
 ----
-
 
 
 
@@ -278,6 +183,6 @@ This module has no dependencies other than Apache Isis.
 
 == Related Modules/Services
 
-There is some overlap with the`AuditingService3` API, which audits changes to entities by end-users. Implementations
-of this service are referenced by the http://www.isisaddons.org[Isis Add-ons] website.
+There is some overlap with the`AuditingService3` API, which audits changes to entities by end-users.
+Implementations of this service are referenced by the http://www.isisaddons.org[Isis Add-ons] website.
 

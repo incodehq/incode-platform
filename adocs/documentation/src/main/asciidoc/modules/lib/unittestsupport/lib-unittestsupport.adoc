@@ -9,14 +9,11 @@ This module (`incode-module-unittestsupport`)provides a set of testing utilities
 
 == How to configure/use
 
-You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
 
-=== "Out-of-the-box"
+=== Classpath
 
-To use "out-of-the-box":
+Update your classpath by adding this dependency in your dom project's `pom.xml`:
 
-* update your classpath by adding this dependency in your dom project's `pom.xml`: +
-+
 [source,xml]
 ----
 <dependency>
@@ -27,48 +24,9 @@ To use "out-of-the-box":
 </dependency>
 ----
 
+Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-unittestsupport-dom[Maven Central Repo].
 
-
-Notes:
-
-* Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-unittestsupport-dom[Maven Central Repo].
-
-
-==== "Out-of-the-box" (-SNAPSHOT)
-
-If you want to use the current `-SNAPSHOT`, then the steps are the same as above, except:
-
-* when updating the classpath, specify the appropriate -SNAPSHOT version:
-
-[source,xml]
-----
-<version>1.14.0-SNAPSHOT</version>
-----
-
-* add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
-
-[source,xml]
-----
-<profile>
-    <id>cloudbees-snapshots</id>
-    <activation>
-        <activeByDefault>true</activeByDefault>
-    </activation>
-    <repositories>
-        <repository>
-            <id>snapshots-repo</id>
-            <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-</profile>
-----
-
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
 
 
 

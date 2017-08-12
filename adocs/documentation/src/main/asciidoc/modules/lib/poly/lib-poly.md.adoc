@@ -32,9 +32,9 @@ TODO: to update
 
 This module has a comprehensive demo application that demonstrates four different polymorphic associations:
 
-- 1-to-1 and n-to-1: a `CommunicationChannel` may be owned by a `CommunicationChannelOwner`.
-- 1-to-n: a `Case` may contain multiple `CaseContent`s
-- 1-to-1: a `Case` may have a primary `CaseContent`.
+* 1-to-1 and n-to-1: a `CommunicationChannel` may be owned by a `CommunicationChannelOwner`.
+* 1-to-n: a `Case` may contain multiple `CaseContent`s
+* 1-to-1: a `Case` may have a primary `CaseContent`.
 
 The `CommunicationChannel` and `Case` are regular entities, while `CommunicationChannelOwner` and `CaseContent` are (Java) interfaces.
 
@@ -49,6 +49,7 @@ The following UML diagram shows the "logical" polymorphic association between `C
 `CommunicationChannelOwner`:
 
 <img src="https://raw.github.com/isisaddons/isis-module-poly/master/images/comm-channel-uml.png" width="600">
+
 
 This is realized using the following entities:
 

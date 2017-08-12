@@ -11,6 +11,8 @@ Typically this will be to a relational database; the module's `AuditEntry` entit
 
 == Screenshots
 
+TODO: to update
+
 The following screenshots show an example app's usage of the module.
 
 === Installing the Fixture Data
@@ -21,13 +23,11 @@ image::https://raw.github.com/isisaddons/isis-module-audit/master/images/01-inst
 
 === Object with initial (creation) audit entries
 
-Because the example entity is annotated with `@DomainObject(auditing = Auditing.ENABLED)`, the initial creation of
-that object already results in some audit entries:
+Because the example entity is annotated with `@DomainObject(auditing = Auditing.ENABLED)`, the initial creation of that object already results in some audit entries:
 
 image::https://raw.github.com/isisaddons/isis-module-audit/master/images/02-first-object-with-initial-audit-entries.png[link="https://raw.github.com/isisaddons/isis-module-audit/master/images/02-first-object-with-initial-audit-entries.png"]
 
-As the screenshot shows, the demo app lists the audit entries for the example entity (a polymorphic association
-utilizing the `BookmarkService`).
+As the screenshot shows, the demo app lists the audit entries for the example entity (a polymorphic association utilizing the `BookmarkService`).
 
 === Audit Entry for each changed property
 
@@ -53,69 +53,34 @@ It is of course also possible to navigate back to audited object:
 image::https://raw.github.com/isisaddons/isis-module-audit/master/images/06-navigate-back-to-audited-object.png[link="https://raw.github.com/isisaddons/isis-module-audit/master/images/06-navigate-back-to-audited-object.png"]
 
 
-== How to run the Demo App
-
-The prerequisite software is:
-
-* Java JDK 7
-* http://maven.apache.org[maven 3] (3.3.x is recommended).
-
-To build the demo app:
-
-[source]
-----
-git clone https://github.com/isisaddons/isis-module-audit.git
-mvn clean install
-----
-
-To run the demo app:
-
-[source]
-----
-cd webapp
-mvn jetty:run
-----
-
-Then log on using user: `sven`, password: `pass`
-
-
-
-== Relationship to Apache Isis Core
-
-Apache Isis Core 1.6.0 included the `org.apache.isis.module:isis-module-audit-jdo:1.6.0` Maven artifact.
-This module is a direct copy of that code, with the following changes:
-
-* package names have been altered from `org.apache.isis` to `org.isisaddons.module.audit`
-* the `persistent-unit` (in the JDO manifest) has changed from `isis-module-audit-jdo` to
- `org-isisaddons-module-audit-dom`
-
-Otherwise the functionality is identical.
-
-Apache Isis 1.7.0 (and later) no longer ships the `org.apache.isis.module:isis-module-audit-jdo` module; use this addon module instead.
 
 
 
 == How to Configure/Use
 
-You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements. 
+=== Classpath
 
-=== "Out-of-the-box"
+Update your classpath by adding this dependency in your project's `dom` module's `pom.xml`:
 
-To use "out-of-the-box":
-
-* update your classpath by adding this dependency in your project's `dom` module's `pom.xml`: +
-+
 [source,xml]
 ----
 <dependency>
     <groupId>org.isisaddons.module.audit</groupId>
     <artifactId>isis-module-audit-dom</artifactId>
-    <version>1.14.0</version>
+    <version>1.15.0</version>
 </dependency>
 ----
 
-* if using `AppManifest`, then update its `getModules()` method: +
-+
+Check for later releases by searching http://search.maven.org/#search|ga|1|isis-module-audit-dom[Maven Central Repo].
+
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
+
+
+
+=== Bootstrapping
+
+In the `AppManifest`, update its `getModules()` method, eg:
+
 [source,java]
 ----
 @Override
@@ -128,25 +93,11 @@ public List<Class<?>> getModules() {
 ----
 
 
-* otherwise, update your `WEB-INF/isis.properties`: +
-+
-[source,ini]
-----
-isis.services-installer=configuration-and-annotation
-isis.services.ServicesInstallerFromAnnotation.packagePrefix=\
-                ...,\
-                org.isisaddons.module.audit.dom,\
-                ...
-----
+=== Configuration Properties
 
 
-
-Notes:
-
-* Check for later releases by searching http://search.maven.org/#search|ga|1|isis-module-audit-dom[Maven Central Repo]. +
-+
 For audit entries to be created when an object is changed, some configuration is required.
-This can be either on a case-by-case basis, or globally
+This can be either on a case-by-case basis, or globally:
 
 * by default no object is treated as being audited unless it has explicitly annotated using `@Audited`.
 This is the option used in the example app described above.
@@ -190,7 +141,7 @@ The method is called often, once for every individual property of a domain objec
 
 == Implementation
 
-The `AuditerService` API is implemented in this module by the `org.isisaddons.module.audit.AuditerServiceUsingJdo` class.
+The `AuditerService` SPI is implemented in this module by the `org.isisaddons.module.audit.AuditerServiceUsingJdo` class.
 This implementation simply persists an audit entry (`AuditEntry`) each time it is called.
 This results in a fine-grained audit trail.
 
@@ -232,19 +183,16 @@ If the string is too long, it will be truncated with ellipses '…'.
 If the object has been deleted then it holds the value "[DELETED]".
 If the string is too long, it will be truncated with ellipses '…'.
 
-The combination of `transactionId`, `targetStr` and `propertyId` make up an alternative key to uniquely identify an
-audit entry.
+The combination of `transactionId`, `targetStr` and `propertyId` make up an alternative key to uniquely identify an audit entry.
 However, there is (deliberately) no uniqueness constraint to enforce this rule.
 
 The `AuditEntry` entity is designed such that it can be rendered on an Isis user interface if required.
 
 == Supporting Services and Mixins
 
-As well as the `AuditingService` service (that implements the `AuditingService3` API), the module also provides two
-further domain services:
+As well as the `AuditingService` service (that implements the `AuditingService3` API), the module also provides two further domain services:
 
-* The `AuditingServiceMenu` provides actions to search for `AuditEntry`s, underneath an 'Activity' menu on the
-secondary menu bar.
+* The `AuditingServiceMenu` provides actions to search for `AuditEntry`s, underneath an 'Activity' menu on the secondary menu bar.
 
 * `AuditingServiceRepository` provides the ability to search for persisted (`AuditEntry`) audit entries.
 None of its actions are visible in the user interface (they are all `@Programmatic`) and so this service is automatically registered.
@@ -252,8 +200,7 @@ None of its actions are visible in the user interface (they are all `@Programmat
 * `HasTransactionId_auditEntries` mixin contribues the `auditEntries` collection to the `HasTransactionId` interface.
 This will therefore display all audit entries that occurred in a given transaction, in other words whenever a command, a published event or another audit entry is displayed.
 
-(As of 1.8.x and later) these services are automatically registered, meaning that any UI functionality they provide
-will appear in the user interface.
+(As of 1.8.x and later) these services are automatically registered, meaning that any UI functionality they provide will appear in the user interface.
 If this is not required, then either use security permissions or write a vetoing subscriber on the event bus to hide this functionality, eg:
 
 [source,java]
@@ -292,12 +239,10 @@ The `CommandContext` defines the `Command` class which provides request-scoped i
 Commands can be thought of as being the cause of an action; they are created "before the fact".
 Some of the parameters passed to `AuditingService3` - such as `target`, `user`, and `timestamp` - correspond exactly to the `Command` class.
 
-The `CommandService` service is an optional service that acts as a `Command` factory and allows `Command`s to be
-persisted.
+The `CommandService` service is an optional service that acts as a `Command` factory and allows `Command`s to be persisted.
 `CommandService`'s API introduces the concept of a `transactionId`; once again this is the same value as is passed to the `AuditingService3`.
 
-The `PublishingService` is another optional service that allows an event to be published when either an object has
-changed or an actions has been invoked.
+The `PublishingService` is another optional service that allows an event to be published when either an object has changed or an actions has been invoked.
 There are some similarities between publishing to auditing; they both occur "after the fact".
 However the publishing service's primary use case is to enable inter-system co-ordination (in DDD terminology, between bounded contexts).
 As such, publishing is much coarser-grained than auditing, and not every change need be published.
