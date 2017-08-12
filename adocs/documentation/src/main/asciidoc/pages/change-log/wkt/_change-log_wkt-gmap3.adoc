@@ -1,5 +1,17 @@
 [[_change-log_wkt-gmap3]]
-= Xxx
+= GMap3 Wicket Component
 :_basedir: ../../../
 :_imagesdir: images/
 
+
+* `1.14.0` - released against Isis 1.14.0
+* `1.13.1` - released against Isis 1.13.2, now require an API key.
+Also uses mavenmixins (to simplify `pom.xml` configuration) and as a consequence now runs only on JDK 1.8.
+* `1.13.0` - released against Isis 1.13.0
+* `1.12.0` - released against Isis 1.12.0
+* `1.11.0` - released against Isis 1.11.0
+* `1.10.0` - released against Isis 1.10.0; `LocationDereferencingService`, issues #8 and #9.
+* `1.9.0` - released against Isis 1.9.0
+* `1.8.0` - released against Isis 1.8.0
+* `1.7.0` - released against Isis 1.7.0
+* `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.wicket.gmap3`

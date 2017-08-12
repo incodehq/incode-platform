@@ -261,10 +261,6 @@ public class HideIsisAddonsSessionLoggerFunctionality extends AbstractSubscriber
 
 
 
-== Related Modules/Services
-
-There is some overlap with the`AuditingService3` API, which audits changes to entities by end-users. Implementations
-of this service are referenced by the http://www.isisaddons.org[Isis Add-ons] website.
 
 
 == Known issues or Limitations
@@ -272,135 +268,16 @@ of this service are referenced by the http://www.isisaddons.org[Isis Add-ons] we
 The Restful Objects viewer currently does not support this service.
 
 
-== Change Log
 
-* `1.14.0` - released against Isis 1.14.0
-* `1.13.1` - released against Isis 1.13.0, fixes link:https://github.com/isisaddons/isis-module-sessionlogger/issues/7[ticket #7]
-* `1.13.0` - released against Isis 1.13.0
-* `1.12.1` - released against Isis 1.12.1, updating to current programming model.
-* `1.12.0` - released against Isis 1.12.0
-* `1.11.0` - released against Isis 1.11.0
-* `1.10.0` - released against Isis 1.10.0
-* `1.9.0` - released against Isis 1.9.0
-* `1.8.2` - released against Isis 1.8.0
-* `1.8.1` - released against Isis 1.8.0; further CI grief.
-* `1.8.0` - released against Isis 1.8.0; dom module OK, but problem with CI/support files
+
+== Dependencies
+
+This module has no dependencies other than Apache Isis.
 
 
 
-== Legal Stuff
+== Related Modules/Services
 
-=== License
+There is some overlap with the`AuditingService3` API, which audits changes to entities by end-users. Implementations
+of this service are referenced by the http://www.isisaddons.org[Isis Add-ons] website.
 
-[source]
-----
-Copyright 2015-2016 Martin Grigorov & Dan Haywood
-
-Licensed under the Apache License, Version 2.0 (the
-"License"); you may not use this file except in compliance
-with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
-----
-
-=== Dependencies
-
-There are no third-party dependencies, however it does use icons from link:http://icons8.com[icons8.com].
-
-
-
-== Maven deploy notes
-
-Only the `dom` module is deployed, and is done so using Sonatype's OSS support (see
-http://central.sonatype.org/pages/apache-maven.html[user guide]).
-
-=== Release to Sonatype's Snapshot Repo
-
-To deploy a snapshot, use:
-
-[source]
-----
-pushd dom
-mvn clean deploy
-popd
-----
-
-The artifacts should be available in Sonatype's
-https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
-
-
-
-=== Release an Interim Build
-
-If you have commit access to this project (or a fork of your own) then you can create interim releases using the `interim-release.sh` script.
-
-The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.14.0.20170227-0738`).
-It then pushes the branch (and a tag) to the specified remote.
-
-A CI server such as Jenkins can monitor the branches matching the wildcard `origin/interim/*` and create a build.
-These artifacts can then be published to a snapshot repository.
-
-For example:
-
-[source]
-----
-sh interim-release.sh 1.14.0 origin
-----
-
-where
-
-* `1.15.0` is the base release
-* `origin` is the name of the remote to which you have permissions to write to.
-
-
-
-
-==== Release to Maven Central
-
-The `release.sh` script automates the release process. It performs the following:
-
-* performs a sanity check (`mvn clean install -o`) that everything builds ok
-* bumps the `pom.xml` to a specified release version, and tag
-* performs a double check (`mvn clean install -o`) that everything still builds ok
-* releases the code using `mvn clean deploy`
-* bumps the `pom.xml` to a specified release version
-
-For example:
-
-[source]
-----
-sh release.sh 1.14.0 \
-              1.15.0-SNAPSHOT \
-              dan@haywood-associates.co.uk \
-              "this is not really my passphrase"
-----
-
-where
-* `$1` is the release version
-* `$2` is the snapshot version
-* `$3` is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
-* `$4` is the corresponding passphrase for that secret key.
-
-Other ways of specifying the key and passphrase are available, see the `pgp-maven-plugin`'s
-http://kohsuke.org/pgp-maven-plugin/secretkey.html[documentation]).
-
-If the script completes successfully, then push changes:
-
-[source]
-----
-git push origin master && git push origin 1.14.0
-----
-
-If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue
-before trying again. Note that in the `dom`'s `pom.xml` the `nexus-staging-maven-plugin` has the
-`autoReleaseAfterClose` setting set to `true` (to automatically stage, close and the release the repo). You may want
-to set this to `false` if debugging an issue.
-
-According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update http://search.maven.org[search].
