@@ -33,10 +33,11 @@ In the latter, a "supports" mixin property points back to the `Document` being s
 [[__dom-document_screenshots]]
 == Screenshots
 
+TODO: update screenshots
 
 We create some fixture data (both sample document templates and demo domain objects to attach documents once created):
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/010-run-fixture-script.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/010-run-fixture-script.png"]
+image::{_imagesdir}010-run-fixture-script.png[width="600px",link="{_imagesdir}010-run-fixture-script.png"]
 
 
 [[__dom-document_screenshots_document-types]]
@@ -45,13 +46,13 @@ image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/
 This fixture script defines a set of ``DocumentType``s.
 These are reference data:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/020-list-all-document-types.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/020-list-all-document-types.png"]
-
+image::{_imagesdir}020-list-all-document-types.png[width="600px",link="{_imagesdir}020-list-all-document-types.png"]
 
 
 Four example ``DocumentType``s are set up, showcasing the four ``RenderingStrategy``s provided by the link:https://github.com/incodehq/incode-module-docrendering-freemarker[Freemarker docrendering], link:https://github.com/incodehq/incode-module-docrendering-stringinterpolator[StringInterpolator docrendering] and link:https://github.com/incodehq/incode-module-docrendering-xdocreport[XDocReport docrendering] modules:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/025-all-document-types.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/025-all-document-types.png"]
+image::{_imagesdir}025-all-document-types.png[width="600px",link="{_imagesdir}025-all-document-types.png"]
+
 
 The two ``DocumentType``s for XDocreport are very similar; the difference is only that one results in a PDF, while the other results in a Word `.docx` document.
 
@@ -65,21 +66,22 @@ This allows new versions of  template to be altered/evolved over time.
 
 The example `DocumentType` for Freemarker defines just a single `DocumentTemplate`:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/030-freemarker-document-type.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/030-freemarker-document-type.png"]
+image::{_imagesdir}030-freemarker-document-type.png[width="600px",link="{_imagesdir}030-freemarker-document-type.png"]
+
 
 
 
 The `DocumentTemplate` contains template text that can be either text, clob or a blob.
 In the case of the demo freemarker template it is a clob:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/032-freemarker-template-content-tab.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/032-freemarker-template-content-tab.png"]
+image::{_imagesdir}032-freemarker-template-content-tab.png[width="600px",link="{_imagesdir}032-freemarker-template-content-tab.png"]
 
 
 
 The clob itself is an HTML email file.
 This can be downloaded from the template:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/033-freemarker-template-content-text.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/033-freemarker-template-content-text.png"]
+image::{_imagesdir}033-freemarker-template-content-text.png[width="600px",link="{_imagesdir}033-freemarker-template-content-text.png"]
 
 
 The template text clob can be modified by uploading new versions.
@@ -88,7 +90,7 @@ However, once ``Document``s have been created from a `DocumentTemplate`, the tem
 
 Each `DocumentTemplate` also defines placeholder text for the name of the resultant `Document`:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/034-freemarker-template-name-tab.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/034-freemarker-template-name-tab.png"]
+image::{_imagesdir}034-freemarker-template-name-tab.png[width="600px",link="{_imagesdir}034-freemarker-template-name-tab.png"]
 
 
 Along with the "content" and "name" text/clob/blob, the template also specifies the `RenderingStrategy` for each; these are used to interpolate the content/name.
@@ -100,7 +102,8 @@ Along with the "content" and "name" text/clob/blob, the template also specifies 
 The renderer(s) associated with each `DocumentTemplate` require data (a "renderer model") to interpolate the placeholders in the content/name text; this renderer model ultimately is obtained from a domain object.
 Obviously not every domain object can be used with every `DocumentTemplate`; the `Applicability` entity catalogues which domain object types can be used as the input to the renderer(s) of its associated `DocumentTemplate`:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/036-freemarker-template-applicability.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/036-freemarker-template-applicability.png"]
+image::{_imagesdir}036-freemarker-template-applicability.png[width="600px",link="{_imagesdir}036-freemarker-template-applicability.png"]
+
 
 The `RendererModelFactory` of the `Applicability` is used to create the "renderer model" from the input domain object, while the `AttachmentAdvisor` is used to indicate which domain object(s) the resultant `Document` should be attached (often just the input domain object, but potentially to other domain objects also).
 
@@ -111,11 +114,13 @@ The `RendererModelFactory` of the `Applicability` is used to create the "rendere
 
 The example String Interpolator `DocumentTemplate` obtains its content by interpolating (using the http://github.com/isisaddons/isis-module-stringinterpolator[Isis addons' stringinterpolator] module) the content placeholder text; the resultant string is parsed as a URL and the contents of that URL downloaded:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/042-stringinterpolator-template-content-tab.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/042-stringinterpolator-template-content-tab.png"]
+image::{_imagesdir}042-stringinterpolator-template-content-tab.png[width="600px",link="{_imagesdir}042-stringinterpolator-template-content-tab.png"]
+
 
 The name of ``Document``s generated from this template also uses the http://github.com/isisaddons/isis-module-stringinterpolator[stringinterpolator] module:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/044-stringinterpolator-template-name-tab.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/044-stringinterpolator-template-name-tab.png"]
+image::{_imagesdir}044-stringinterpolator-template-name-tab.png[width="600px",link="{_imagesdir}044-stringinterpolator-template-name-tab.png"]
+
 
 [WARNING]
 ====
@@ -133,11 +138,13 @@ The difference between them is simply that one renders this `.docx` and outputs 
 
 The example `DocumentTemplate` for the XDocReportPdf has the following content:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/052-xdocreport-pdf-template-content-tab.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/052-xdocreport-pdf-template-content-tab.png"]
+image::{_imagesdir}052-xdocreport-pdf-template-content-tab.png[width="600px",link="{_imagesdir}052-xdocreport-pdf-template-content-tab.png"]
+
 
 Where the BLOB is a Word document:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/053-xdocreport-pdf-template-content.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/053-xdocreport-pdf-template-content.png"]
+image::{_imagesdir}053-xdocreport-pdf-template-content.png[width="600px",link="{_imagesdir}053-xdocreport-pdf-template-content.png"]
+
 
 This Word file uses Freemarker placeholders.
 
@@ -149,12 +156,14 @@ While XDocReport itself as a technology supports both Freemarker and Velocity, t
 
 The name text (used to create the name of the resultant `Document`) is also interpolated using Freemarker:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/054-xdocreport-pdf-template-name-tab.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/054-xdocreport-pdf-template-name-tab.png"]
+image::{_imagesdir}054-xdocreport-pdf-template-name-tab.png[width="600px",link="{_imagesdir}054-xdocreport-pdf-template-name-tab.png"]
+
 
 
 The content of example `DocumentTemplate` for XDocReportDocx is almost identical:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/062-xdocreport-docx-template-content-tab.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/062-xdocreport-docx-template-content-tab.png"]
+image::{_imagesdir}062-xdocreport-docx-template-content-tab.png[width="600px",link="{_imagesdir}062-xdocreport-docx-template-content-tab.png"]
+
 
 The only difference is that a different `RenderingStrategy` is used.
 
@@ -164,18 +173,20 @@ The only difference is that a different `RenderingStrategy` is used.
 
 The fixture script also defines a number of demo domain objects, set up to allow ``Document``s to be generated from them (for all the ``DocumentTemplate``s described above) and for those resultant ``Document``s to be attached to them:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/100-demo-object.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/100-demo-object.png"]
+image::{_imagesdir}100-demo-object.png[width="600px",link="{_imagesdir}100-demo-object.png"]
 
 
 
 In the case of the String Interpolator `DocumentTemplate`, this also supports previewing:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/110-preview-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/110-preview-prompt.png"]
+image::{_imagesdir}110-preview-prompt.png[width="600px",link="{_imagesdir}110-preview-prompt.png"]
+
 
 
 The resultant URL is opened up as a new tab; no new `Document` is created:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/112-preview-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/112-preview-result.png"]
+image::{_imagesdir}112-preview-result.png[width="600px",link="{_imagesdir}112-preview-result.png"]
+
 
 
 [[__dom-document_screenshots_generating-documents]]
@@ -183,55 +194,66 @@ image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/
 
 Generating a `Document` for the Freemarker `DocumentTemplate`:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/120-createAndAttachDocument-Freemarker-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/120-createAndAttachDocument-Freemarker-prompt.png"]
+image::{_imagesdir}120-createAndAttachDocument-Freemarker-prompt.png[width="600px",link="{_imagesdir}120-createAndAttachDocument-Freemarker-prompt.png"]
 
 Results in a new `Document` attached to the demo object:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/122-createAndAttachDocument-Freemarker-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/122-createAndAttachDocument-Freemarker-result.png"]
+image::{_imagesdir}122-createAndAttachDocument-Freemarker-result.png[width="600px",link="{_imagesdir}122-createAndAttachDocument-Freemarker-result.png"]
+
 
 The content of this `Document` (HTML text) has correctly interpolated the details from the input demo object:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/124-createAndAttachDocument-Freemarker-rendered-content.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/124-createAndAttachDocument-Freemarker-rendered-content.png"]
+image::{_imagesdir}124-createAndAttachDocument-Freemarker-rendered-content.png[width="600px",link="{_imagesdir}124-createAndAttachDocument-Freemarker-rendered-content.png"]
+
 
 
 The StringInterpolator `DocumentTemplate` can similarly be used:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/130-createAndAttachDocument-StringInterpolatorUrl-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/130-createAndAttachDocument-StringInterpolatorUrl-prompt.png"]
+image::{_imagesdir}130-createAndAttachDocument-StringInterpolatorUrl-prompt.png[width="600px",link="{_imagesdir}130-createAndAttachDocument-StringInterpolatorUrl-prompt.png"]
+
 
 To create a new `Document` attached to the demo object:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/132-createAndAttachDocument-StringInterpolatorUrl-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/132-createAndAttachDocument-StringInterpolatorUrl-result.png"]
+image::{_imagesdir}132-createAndAttachDocument-StringInterpolatorUrl-result.png[width="600px",link="{_imagesdir}132-createAndAttachDocument-StringInterpolatorUrl-result.png"]
+
 
 Its content is the contents of the interpolated URL:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/134-createAndAttachDocument-StringInterpolatorUrl-rendered-content.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/134-createAndAttachDocument-StringInterpolatorUrl-rendered-content.png"]
+image::{_imagesdir}134-createAndAttachDocument-StringInterpolatorUrl-rendered-content.png[width="600px",link="{_imagesdir}134-createAndAttachDocument-StringInterpolatorUrl-rendered-content.png"]
+
 
 
 And again, the XDocReportPdf `DocumentTemplate` can be used:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/140-createAndAttachDocument-XDocReportPdf-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/140-createAndAttachDocument-XDocReportPdf-prompt.png"]
+image::{_imagesdir}140-createAndAttachDocument-XDocReportPdf-prompt.png[width="600px",link="{_imagesdir}140-createAndAttachDocument-XDocReportPdf-prompt.png"]
+
 
 To create a new `Document` attached to the demo object:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/142-createAndAttachDocument-XDocReportPdf-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/142-createAndAttachDocument-XDocReportPdf-result.png"]
+image::{_imagesdir}142-createAndAttachDocument-XDocReportPdf-result.png[width="600px",link="{_imagesdir}142-createAndAttachDocument-XDocReportPdf-result.png"]
+
 
 Its content is a PDF generated from the Word `.docx` of the template:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/144-createAndAttachDocument-XDocReportPdf-rendered-content.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/144-createAndAttachDocument-XDocReportPdf-rendered-content.png"]
+image::{_imagesdir}144-createAndAttachDocument-XDocReportPdf-rendered-content.png[width="600px",link="{_imagesdir}144-createAndAttachDocument-XDocReportPdf-rendered-content.png"]
+
 
 
 Finally, the XDocReportDoc `DocumentTemplate` can be used:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/150-createAndAttachDocument-XDocReportDocx-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/150-createAndAttachDocument-XDocReportDocx-prompt.png"]
+image::{_imagesdir}150-createAndAttachDocument-XDocReportDocx-prompt.png[width="600px",link="{_imagesdir}150-createAndAttachDocument-XDocReportDocx-prompt.png"]
+
 
 To create a new `Document` attached to the demo object, where the content is in this case a Word document.
 To demonstrate that ``Document``s can be attached to arbitrary objects, this final template is set up so that the generated `Document` is attached both to the input demo object and also to one other object:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/152-createAndAttachDocument-XDocReportDocx-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/152-createAndAttachDocument-XDocReportDocx-result.png"]
+image::{_imagesdir}152-createAndAttachDocument-XDocReportDocx-result.png[width="600px",link="{_imagesdir}152-createAndAttachDocument-XDocReportDocx-result.png"]
+
 
 This is configured through the `AttachmentAdvisor` of the relevant `Applicability` of the `DocumentTemplate` for this input demo object's type:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/154-XDocReportDocx-applicability.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/154-XDocReportDocx-applicability.png"]
+image::{_imagesdir}154-XDocReportDocx-applicability.png[width="600px",link="{_imagesdir}154-XDocReportDocx-applicability.png"]
+
 
 
 [[__dom-document_screenshots_generating-documents-in-background]]
@@ -239,20 +261,24 @@ image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/
 
 Documents can also be rendered in the background:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/160-createAndAttachDocumentAndScheduleRender-StringInterpolatorUrl-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/160-createAndAttachDocumentAndScheduleRender-StringInterpolatorUrl-prompt.png"]
+image::{_imagesdir}160-createAndAttachDocumentAndScheduleRender-StringInterpolatorUrl-prompt.png[width="600px",link="{_imagesdir}160-createAndAttachDocumentAndScheduleRender-StringInterpolatorUrl-prompt.png"]
+
 
 This results in a `Document` with an associated background command.
 Note that the document, at this stage, has a state of "Not rendered" and it has no content:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/162-createAndAttachDocumentAndScheduleRender-StringInterpolatorUrl-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/162-createAndAttachDocumentAndScheduleRender-StringInterpolatorUrl-result.png"]
+image::{_imagesdir}162-createAndAttachDocumentAndScheduleRender-StringInterpolatorUrl-result.png[width="600px",link="{_imagesdir}162-createAndAttachDocumentAndScheduleRender-StringInterpolatorUrl-result.png"]
+
 
 The demo app has not been configured with a background scheduler, but does provide a "fake" scheduler which can be used to run such commands:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/164-runBackgroundCommands.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/164-runBackgroundCommands.png"]
+image::{_imagesdir}164-runBackgroundCommands.png[width="600px",link="{_imagesdir}164-runBackgroundCommands.png"]
+
 
 After the background commands have run, the document now has content and its state changes to "Rendered":
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/166-documentRendered.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/166-documentRendered.png"]
+image::{_imagesdir}166-documentRendered.png[width="600px",link="{_imagesdir}166-documentRendered.png"]
+
 
 
 [[__dom-document_screenshots_attaching-supporting-documents]]
@@ -262,22 +288,28 @@ On any (generated) `Document`, it is also possible to attach supporting PDF docu
 For example, this could be a tax or supplier receipt.
 The "attachSupportingPdf" action uses the `DocumentAttachmentAdvisor` SPI service to obtain a list of appropriate ``DocumentType``s to display:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/200-attachSupportingPdf-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/200-attachSupportingPdf-prompt.png"]
+image::{_imagesdir}200-attachSupportingPdf-prompt.png[width="600px",link="{_imagesdir}200-attachSupportingPdf-prompt.png"]
+
 
 The uploaded PDFs are wrapped in a `Document` of their own, and listed in the "supporting documents" collection:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/202-attachSupportingPdf-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/202-attachSupportingPdf-result.png"]
+image::{_imagesdir}202-attachSupportingPdf-result.png[width="600px",link="{_imagesdir}202-attachSupportingPdf-result.png"]
+
 
 The supporting `Document` itself can also be viewed.
 The "supports" property refers back to the `Document` that it supports:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/204-supportingDocument.png[link="https://raw.githubusercontent.com/incodehq/incode-module-document/master/images/204-supportingDocument.png"]
+image::{_imagesdir}204-supportingDocument.png[width="600px",link="{_imagesdir}204-supportingDocument.png"]
+
 
 
 
 
 [[__dom-document_domain-model]]
 == Domain Model
+
+TODO: rework using plantuml
+
 
 [[__dom-document_domain-model_document-document-template-and-paperclip]]
 === Document, DocumentTemplate and Paperclip
@@ -384,7 +416,7 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 <dependency>
     <groupId>org.incode.module.document</groupId>
     <artifactId>incode-module-document-dom</artifactId>
-    <version>1.14.9</version>
+    <version>1.15.0</version>
 </dependency>
 ----
 
