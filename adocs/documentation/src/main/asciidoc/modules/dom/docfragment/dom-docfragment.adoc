@@ -14,39 +14,49 @@ The result of the interpolation is a simple string; normally the calling object 
 
 == Screenshots
 
+TODO: update screenshots
+
 The home page shows some sample ``DocFragment``s, along with some ``DemoCustomer`` and ``DemoInvoice`` domain objects that use the module:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/010-home-page.png[link="https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/010-home-page.png"]
+image::{_imagesdir}010-home-page.png[width="600px",link="{_imagesdir}010-home-page.png"]
+
 
 There are four ``DocFragment``s for ``DemoCustomer``, with different ``name``s and ``atPath``s, and some ``DocFragment``s for ``DemoInvoice`` with different ``atPath``s.
 
 For a `DemoCustomer` (with a global "/" `atPath`) we can invoke the "render" action:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/020-customer-hello.png[link="https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/020-customer-hello.png"]
+image::{_imagesdir}020-customer-hello.png[width="600px",link="{_imagesdir}020-customer-hello.png"]
+
 
 This updates the "rendered" property, interpolating the state from the ``DemoCustomer`` domain object:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/030-customer-hello-rendered.png[link="https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/030-customer-hello-rendered.png"]
+image::{_imagesdir}030-customer-hello-rendered.png[width="600px",link="{_imagesdir}030-customer-hello-rendered.png"]
+
 
 For a different `DemoCustomer` with a different ("/FRA") `atPath`, we can do likewise:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/040-customer-FRA-hello.png[link="https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/040-customer-FRA-hello.png"]
+image::{_imagesdir}040-customer-FRA-hello.png[width="600px",link="{_imagesdir}040-customer-FRA-hello.png"]
+
 
 This looks up a different `DocFragment` (for the "/FRA" `atPath`), resulting in a different rendering:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/050-customer-FRA-hello-rendered.png[link="https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/050-customer-FRA-hello-rendered.png"]
+image::{_imagesdir}050-customer-FRA-hello-rendered.png[width="600px",link="{_imagesdir}050-customer-FRA-hello-rendered.png"]
+
 
 For the `DemoInvoice`, one of the instances is for an `atPath` ("/ITA") where there is only a global `DocFragment`:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/060-invoice-fallback-to-global.png[link="https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/060-invoice-fallback-to-global.png"]
+image::{_imagesdir}060-invoice-fallback-to-global.png[width="600px",link="{_imagesdir}060-invoice-fallback-to-global.png"]
+
 
 When this is rendered:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/070-invoice-due-render.png[link="https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/070-invoice-due-render.png"]
+image::{_imagesdir}070-invoice-due-render.png[width="600px",link="{_imagesdir}070-invoice-due-render.png"]
+
 
 Then the rendering uses the "global" `DocFragment`:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/080-invoice-due-rendered.png[link="https://raw.githubusercontent.com/incodehq/incode-module-docfragment/master/images/080-invoice-due-rendered.png"]
+image::{_imagesdir}080-invoice-due-rendered.png[width="600px",link="{_imagesdir}080-invoice-due-rendered.png"]
+
 
 Note also that the `DemoInvoice` has a JODA `LocalDate`.
 This is interpolated as a date, rather than as a generic Object.
@@ -54,6 +64,8 @@ This is interpolated as a date, rather than as a generic Object.
 
 
 == Domain Model
+
+TODO: update to use plantuml
 
 The following class diagram highlights the main concepts:
 
@@ -78,6 +90,8 @@ The domain object is used in two ways:
 * (optionally but typically) it is used to infer the `atPath`, in other words which `DocFragment` translation to use.
 
 The API and mandatory SPIs for the module are discussed below.
+
+
 
 == API
 

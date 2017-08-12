@@ -42,33 +42,38 @@ TODO: rework from domainapp
 The following screenshots show the demo app's usage of the module.
 We start by installing some demo fixture data:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/010-run-fixture-script.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/010-run-fixture-script.png"]
+image::{_imagesdir}010-run-fixture-script.png[width="600px",link="{_imagesdir}010-run-fixture-script.png"]
 
 This installs some very simple (demo) domain objects, the first of which is returned.
 These aliasable objects have a (contributed) `aliases` collection, and we can also add new aliases using a (contributed) `addAlias(...)` action:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/040-add-alias.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/040-add-alias.png"]
+image::{_imagesdir}040-add-alias.png[width="600px",link="{_imagesdir}040-add-alias.png"]
+
 
 The action requires the application tenancy of the alias (as returned from the `ApplicationTenancyRepository` SPI service) to be specified:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/050-enter-alias-details.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/050-enter-alias-details.png"]
+image::{_imagesdir}050-enter-alias-details.png[width="600px",link="{_imagesdir}050-enter-alias-details.png"]
+
 
 and also the alias type (as returned from the `AliasTypeRepository` SPI service) to be specified:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/052-enter-alias-details.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/052-enter-alias-details.png"]
+image::{_imagesdir}052-enter-alias-details.png[width="600px",link="{_imagesdir}052-enter-alias-details.png"]
+
 
 and finally the external alias reference itself must be specified also:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/054-enter-alias-details.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/054-enter-alias-details.png"]
+image::{_imagesdir}054-enter-alias-details.png[width="600px",link="{_imagesdir}054-enter-alias-details.png"]
 
 
 The aliases for the `Alias` domain object is added to:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/060-alias_added_to_collection.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/060-alias_added_to_collection.png"]
+image::{_imagesdir}060-alias_added_to_collection.png[width="600px",link="{_imagesdir}060-alias_added_to_collection.png"]
+
 
 Each `Alias` can also be viewed:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/070-view-alias.png[link="https://raw.githubusercontent.com/incodehq/incode-module-alias/master/images/070-view-alias.png"]
+image::{_imagesdir}070-view-alias.png[width="600px",link="{_imagesdir}070-view-alias.png"]
+
 
 
 
@@ -353,6 +358,6 @@ app shows how a view model can be used as a work-around.
 == Dependencies
 
 The module uses icons from link:https://icons8.com/[icons8].
-There are other no third-party dependencies.
+Other than Apache Isis, there are no other dependencies.
 
 

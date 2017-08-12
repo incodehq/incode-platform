@@ -38,7 +38,7 @@ These can be overridden using DataNucleus `.orm` files if required.
 
 We start off by creating some fixture data:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/010-run-fixture-script.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/010-run-fixture-script.png"]
+image::{_imagesdir}010-run-fixture-script.png[width="600px",link="{_imagesdir}010-run-fixture-script.png"]
 
 This creates:
 
@@ -64,7 +64,8 @@ This is required because `PostalAddress` communication channels reference the `C
 
 The home page lists the demo customers and invoices:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/020-demo-customers-and-invoices.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/020-demo-customers-and-invoices.png"]
+image::{_imagesdir}020-demo-customers-and-invoices.png[width="600px",link="{_imagesdir}020-demo-customers-and-invoices.png"]
+
 
 
 [[__dom-communications_screenshots_sending-an-email]]
@@ -72,56 +73,68 @@ image::https://raw.githubusercontent.com/incodehq/incode-module-communications/m
 
 If we inspect one of the invoices for "Fred" (who has email addresses), we see it has an attached `Document` (simulating it having been generated from the invoice):
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/030-demo-invoice-for-customer-with-email-addresses.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/030-demo-invoice-for-customer-with-email-addresses.png"]
+image::{_imagesdir}030-demo-invoice-for-customer-with-email-addresses.png[width="600px",link="{_imagesdir}030-demo-invoice-for-customer-with-email-addresses.png"]
+
 
 If we inspect that `Document` in turn, we can see that the "send by email" action is enabled:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/040-document-to-sendByEmail.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/040-document-to-sendByEmail.png"]
+image::{_imagesdir}040-document-to-sendByEmail.png[width="600px",link="{_imagesdir}040-document-to-sendByEmail.png"]
+
 
 This is because the demo app's implementation of the `DocumentCommunicationSupport` SPI service was able to figure out an email address to use (the document's invoice's customer).
 
 The "sendByEmail" action prompt shows these emails:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/050-sendByEmail-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/050-sendByEmail-prompt.png"]
+image::{_imagesdir}050-sendByEmail-prompt.png[width="600px",link="{_imagesdir}050-sendByEmail-prompt.png"]
+
 
 Invoking the action results in an email `Communication`:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/052-sendByEmail-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/052-sendByEmail-result.png"]
+image::{_imagesdir}052-sendByEmail-result.png[width="600px",link="{_imagesdir}052-sendByEmail-result.png"]
+
 
 When an email `Communication` is created, it also automatically create a cover note `Document.
 The cover note is used as the body of the email, while the original `Document` is sent as an attachment.
 The cover note `Document` is automatically associated with the `Communication`, shown by the "coverNoteFor" property:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/054-cover-note-generated.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/054-cover-note-generated.png"]
+image::{_imagesdir}054-cover-note-generated.png[width="600px",link="{_imagesdir}054-cover-note-generated.png"]
+
 
 The generated cover note is required to be HTML (so that it can be used as the body of the email).
 In the case of the demo app this cover note is generated using Freemarker:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/055-cover-note-text.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/055-cover-note-text.png"]
+image::{_imagesdir}055-cover-note-text.png[width="600px",link="{_imagesdir}055-cover-note-text.png"]
+
 
 The generated `Communication` is also associated with the original `Document`:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/056-document-associated-with-communication.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/056-document-associated-with-communication.png"]
+image::{_imagesdir}056-document-associated-with-communication.png[width="600px",link="{_imagesdir}056-document-associated-with-communication.png"]
+
 
 Looking again at the generated email `Communication`, we see that it is scheduled to be sent in the background command:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/060-communication-sent-in-background.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/060-communication-sent-in-background.png"]
+image::{_imagesdir}060-communication-sent-in-background.png[width="600px",link="{_imagesdir}060-communication-sent-in-background.png"]
+
 
 The demo app has not been configured with a background scheduler, but does provide a "fake" scheduler which can be used to run such commands:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/062-fake-scheduler.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/062-fake-scheduler.png"]
+image::{_imagesdir}062-fake-scheduler.png[width="600px",link="{_imagesdir}062-fake-scheduler.png"]
+
 
 Which results in the email being sent:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/064-email-sent.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/064-email-sent.png"]
+image::{_imagesdir}064-email-sent.png[width="600px",link="{_imagesdir}064-email-sent.png"]
+
 
 In fact, the demo app is not configured with a real email service either; instead it has a fake service that allows "sent" email messages to be inspected:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/066-list-sent-emails.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/066-list-sent-emails.png"]
+image::{_imagesdir}066-list-sent-emails.png[width="600px",link="{_imagesdir}066-list-sent-emails.png"]
+
 
 The sent email has the correct body, and one attachment (the original `Document`):
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/068-view-sent-email.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/068-view-sent-email.png"]
+image::{_imagesdir}068-view-sent-email.png[width="600px",link="{_imagesdir}068-view-sent-email.png"]
+
 
 
 
@@ -130,22 +143,26 @@ image::https://raw.githubusercontent.com/incodehq/incode-module-communications/m
 
 The "Mary" demo customer has postal addresses, so the ``Document``s attached to her invoices can be sent by post.
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/070-sendByPost-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/070-sendByPost-prompt.png"]
+image::{_imagesdir}070-sendByPost-prompt.png[width="600px",link="{_imagesdir}070-sendByPost-prompt.png"]
+
 
 As for email, this also results in a `Communication`:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/072-sendByPost-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/072-sendByPost-result.png"]
+image::{_imagesdir}072-sendByPost-result.png[width="600px",link="{_imagesdir}072-sendByPost-result.png"]
+
 
 What's different here is that there is no cover note,  there is no "prepared by" correspondent, and there is no background command.
 
 Instead, the object provides the "download PDF for posting" action:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/080-downloadPdfForPosting-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/080-downloadPdfForPosting-prompt.png"]
+image::{_imagesdir}080-downloadPdfForPosting-prompt.png[width="600px",link="{_imagesdir}080-downloadPdfForPosting-prompt.png"]
+
 
 
 The idea is that (through the `Communication`) the user just downloads the original (PDF) `Document` that it references; the act of doing this marks the `Communication` as sent:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/082-downloadPdfForPosting-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/082-downloadPdfForPosting-result.png"]
+image::{_imagesdir}082-downloadPdfForPosting-result.png[width="600px",link="{_imagesdir}082-downloadPdfForPosting-result.png"]
+
 
 The user can then open up the downloaded PDF, manually print it and manually put it into an envelope.
 
@@ -156,25 +173,28 @@ The user can then open up the downloaded PDF, manually print it and manually put
 The link:https://github.com/incodehq/incode-module-document[Incode Document] module (on which this communications module) depends has the concept of "supporting" documents.
 For example, a generated `Document` of an invoice might have associated tax or supplier receipts which have been previously scanned in and which are available as PDFs.
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/090-attachSupportingPdf-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/090-attachSupportingPdf-prompt.png"]
+image::{_imagesdir}090-attachSupportingPdf-prompt.png[width="600px",link="{_imagesdir}090-attachSupportingPdf-prompt.png"]
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/092-attachSupportingPdf-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/092-attachSupportingPdf-result.png"]
+image::{_imagesdir}092-attachSupportingPdf-result.png[width="600px",link="{_imagesdir}092-attachSupportingPdf-result.png"]
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/100-sendByEmail-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/100-sendByEmail-prompt.png"]
+image::{_imagesdir}100-sendByEmail-prompt.png[width="600px",link="{_imagesdir}100-sendByEmail-prompt.png"]
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/102-sendByEmail-result.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/102-sendByEmail-result.png"]
+image::{_imagesdir}102-sendByEmail-result.png[width="600px",link="{_imagesdir}102-sendByEmail-result.png"]
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/104-sent-email.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/104-sent-email.png"]
+image::{_imagesdir}104-sent-email.png[width="600px",link="{_imagesdir}104-sent-email.png"]
+
+
 
 It is also possible to send a postal communication with supporting documents:
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/110-sendByPost-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/110-sendByPost-prompt.png"]
+image::{_imagesdir}110-sendByPost-prompt.png[width="600px",link="{_imagesdir}110-sendByPost-prompt.png"]
 
 
 The only difference is that, when the ``Document``s are downloaded for printing via the `Communication`, for convenience the PDFs will be stitched together into a single PDF for printing.
 The action prompt suggests a filename based on the original `Document` and supporting ``Document``s.
 
-image::https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/120-downloadPdfForPosting-prompt.png[link="https://raw.githubusercontent.com/incodehq/incode-module-communications/master/images/120-downloadPdfForPosting-prompt.png"]
+image::{_imagesdir}120-downloadPdfForPosting-prompt-prompt.png[width="600px",link="{_imagesdir}120-downloadPdfForPosting-prompt-prompt.png"]
+
 
 
 
@@ -183,7 +203,8 @@ image::https://raw.githubusercontent.com/incodehq/incode-module-communications/m
 
 The main concepts of the module are shown below:
 
-image:domain-model.png[]
+image::{_imagesdir}domain-model.png[width="600px",link="{_imagesdir}domain-model.png"]
+
 
 One side of the domain model defines ``CommunicationChannel``s, owned by ``CommunicationChannelOwner``s.
 
@@ -390,7 +411,7 @@ None known at this time.
 == Dependencies
 
 The module uses icons from link:https://icons8.com/[icons8].
-There are other no third-party dependencies.
+Other than Apache Isis, there are no other dependencies.
 
 
 
