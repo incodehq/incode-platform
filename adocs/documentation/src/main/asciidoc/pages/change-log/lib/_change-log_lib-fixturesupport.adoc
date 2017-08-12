@@ -1,0 +1,12 @@
+[[_change-log_lib-fixturesupport]]
+= FixtureSupport Library
+:_basedir: ../../../
+:_imagesdir: images/
+
+
+* `1.14.0` - released against Isis 1.14.0
+
+* `1.13.1` - fixes link:https://github.com/incodehq/incode-module-fixturesupport/issues/1[#1] - generalizes the `DemoData` API to use `ServiceRegistry2` rather than `RepositoryService`.
+Note that *this release is not backwards-compatible* with previous release.
+
+* `1.13.0` - released against Isis 1.13.0 (moving some test support functionality out of Estatio for reuse elsewhere)

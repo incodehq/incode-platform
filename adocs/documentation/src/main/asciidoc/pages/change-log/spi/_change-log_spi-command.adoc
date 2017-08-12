@@ -1,0 +1,5 @@
+[[_change-log_spi-command]]
+= Xxx
+:_basedir: ../../../
+:_imagesdir: images/
+

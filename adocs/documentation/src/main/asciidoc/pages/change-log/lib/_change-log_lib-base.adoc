@@ -1,0 +1,15 @@
+[[_change-log_lib-base]]
+= Base Library
+:_basedir: ../../../
+:_imagesdir: images/
+
+
+
+* `1.14.0` - released against Isis 1.14.0
+* `1.13.6` - fixes link:https://github.com/incodehq/incode-module-base/issues/5[#5] - Add `MessageUtils` to normalize messages of exceptions thrown from wrapper factory
+* `1.13.5` - fixes link:https://github.com/incodehq/incode-module-base/issues/4[#4]- removes further contract tests (moved to http://github.com/incodehq/incode-module-unittestsupport[incode-module-unittestsupport])
+* `1.13.4` - fixes link:https://github.com/incodehq/incode-module-base/issues/3[#3] - removes contract tests (moved to http://github.com/incodehq/incode-module-unittestsupport[incode-module-unittestsupport])
+* `1.13.3` - fixes link:https://github.com/incodehq/incode-module-base/issues/2[#2] - removes dependency on http://github.com/isisaddons/isis-module-security[isisaddons' security module]
+* `1.13.2` - fixes link:https://github.com/incodehq/incode-module-base/issues/1[#1] - removes `EstatioUserRole` class.
+* `1.13.1` - additional classes moved out from estatio/estatio's udo-base module.
+* `1.13.0` - released against Isis 1.13.0.

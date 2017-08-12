@@ -1,0 +1,5 @@
+[[_change-log_spi-sessionlogger]]
+= Xxx
+:_basedir: ../../../
+:_imagesdir: images/
+

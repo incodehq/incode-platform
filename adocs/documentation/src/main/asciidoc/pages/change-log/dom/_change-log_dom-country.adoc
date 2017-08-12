@@ -1,6 +1,6 @@
 [[_change-log_dom-country]]
 = Country Subdomain
-:_basedir: ../../
+:_basedir: ../../../
 :_imagesdir: images/
 
 

@@ -1,6 +1,6 @@
 [[_change-log_note]]
 = Note Subdomain
-:_basedir: ../../
+:_basedir: ../../../
 :_imagesdir: images/
 
 

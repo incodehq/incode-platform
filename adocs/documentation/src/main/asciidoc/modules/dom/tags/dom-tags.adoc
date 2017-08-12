@@ -1,0 +1,139 @@
+[[dom-tags]]
+= Tags Subdomain
+:_basedir: ../../../
+:_imagesdir: images/
+
+
+This module (`isis-module-tags`) provides the ability to add multiple tags (or labels) to any entity.
+
+For example, an `Email` entity could be associated with a `priority` tag of 'urgent', 'normal' or 'low', and could also have a `category` tag of 'work', 'family', 'friends'.
+
+The idea is to allow a user to label an entity by offering a choice of other existing tags associated with other entities of the same type and also tag type.
+That is, the combination of the entity type (eg `com.mycompany.myapp.Email`) and the tag type (eg `priority`) creates a named set of available tags (eg 'urgent', 'normal', low').
+
+As well as listing existing tags, new tags can of course also be created, and existing tags updated or removed.  
+
+
+== Screenshots
+
+The following screenshots show an example app's usage of the module with some sample fixture data:
+
+=== Install example fixtures
+
+![](https://raw.github.com/isisaddons/isis-module-tags/master/images/010-install-fixtures.png)
+
+... returning an example entity "Bip".  The class of this entity is not of interest, what _is_ of interest is that it
+has two properties, `brand` and `sector`, that correspond to `Tag`s:
+
+![](https://raw.github.com/isisaddons/isis-module-tags/master/images/020-example-entity-with-two-tag-categories.png)
+
+=== Update tag
+
+Using the action, can update tag.  The `Tags` service provides a list of available tag (names) for this entity type
+and tag name ("brand"):
+
+![](https://raw.github.com/isisaddons/isis-module-tags/master/images/040-available-tags-for-brand.png)
+
+The tag can then be saved:
+
+![](https://raw.github.com/isisaddons/isis-module-tags/master/images/050-updated-brand.png)
+
+If the tag is updated once more, note that the original tag ("Coca Cola") is no longer listed.  This is because there
+are no other entities that have this label:
+
+![](https://raw.github.com/isisaddons/isis-module-tags/master/images/060-previous-brand-removed.png)
+
+=== New tags
+
+New tags can also be created.  Enter the tag name:
+
+![](https://raw.github.com/isisaddons/isis-module-tags/master/images/080-new-brand-specified.png)
+
+The tag is saved:
+
+![](https://raw.github.com/isisaddons/isis-module-tags/master/images/090-new-brand-saved.png)
+
+... and is available as a choice for this or any other entity of the same type:
+
+![](https://raw.github.com/isisaddons/isis-module-tags/master/images/100-new-brand-available-as-choice.png)
+
+
+== How to configure/use
+
+=== Classpath
+
+Update your classpath by adding this dependency in your dom project's `pom.xml`:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.isisaddons.module.tags</groupId>
+    <artifactId>isis-module-tags-dom</artifactId>
+    <version>1.15.0</version>
+</dependency>
+----
+
+[TIP]
+====
+Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-tags-dom).
+
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
+====
+
+
+=== Bootstrapping
+
+In the `AppManifest`, update its `getModules()` method, eg:
+
+[source,java]
+----
+@Override
+public List<Class<?>> getModules() {
+    return Arrays.asList(
+            ...
+            org.isisaddons.module.tags.TagsModule.class,
+            ...
+    );
+}
+----
+
+
+== API
+
+The main functionality is exposed through the `Tags` domain service, which provides two methods:
+
+[source,java]
+----
+public class Tags {
+
+    @Programmatic
+    public List<String> choices(                                        // <1>
+        final Object taggedObject, final String tagKey) { ... }
+
+    @Programmatic
+    public Tag tagFor(                                                  // <2>
+            final Object taggedObject,
+            final Tag existingTag,
+            final String tagKey, final String tagValue) { ... }
+}
+----
+<1>`choices(...)` returns a list of tags as strings for the object being tagged (eg `Email`) and for the tag key (eg `priority`)
+<2> `tagFor(...)` will create/update a tag for the object being tagged (eg `Email`), the tag key (eg `priority`) and the tag value (eg 'urgent').
+The existing tag (if any) is passed in so that it can be removed if the tag value is left as null.
+   
+   
+
+   
+== Known issues
+
+None known at this time.
+
+
+
+
+== Dependencies
+
+The module uses icons from link:https://icons8.com/[icons8].
+There are other no third-party dependencies.
+
+

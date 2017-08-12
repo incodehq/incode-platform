@@ -1,6 +1,6 @@
 [[_change-log_dom-alias]]
 = Alias Subdomain
-:_basedir: ../../
+:_basedir: ../../../
 :_imagesdir: images/
 
 * `1.14.0` - released against Isis 1.14.0

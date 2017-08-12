@@ -1,5 +1,0 @@
-[[_change-log_xxx]]
-= Xxx
-:_basedir: ../../
-:_imagesdir: images/
-

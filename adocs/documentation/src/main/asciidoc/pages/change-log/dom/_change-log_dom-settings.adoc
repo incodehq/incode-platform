@@ -1,6 +1,6 @@
 [[_change-log_dom-settings]]
 = Settings Subdomain
-:_basedir: ../../
+:_basedir: ../../../
 :_imagesdir: images/
 
 

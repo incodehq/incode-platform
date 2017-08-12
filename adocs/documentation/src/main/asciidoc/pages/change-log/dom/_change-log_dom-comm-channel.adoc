@@ -1,6 +1,6 @@
 [[_change-log_dom-comm-channel]]
 = Communication Channel Subdomain
-:_basedir: ../../
+:_basedir: ../../../
 :_imagesdir: images/
 
 

@@ -1,0 +1,5 @@
+[[_change-log_wkt-excel]]
+= Xxx
+:_basedir: ../../../
+:_imagesdir: images/
+

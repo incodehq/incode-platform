@@ -1,0 +1,12 @@
+[[_change-log_lib-unittestsupport]]
+= Unit Testing Support Library
+:_basedir: ../../../
+:_imagesdir: images/
+
+
+* `1.14.0` - released against Isis 1.14.0
+* `1.13.4` - fixes link:https://github.com/incodehq/incode-module-unittestsupport/issues/4[#4] - new `ReflectUtils` class.
+* `1.13.3` - fixes link:https://github.com/incodehq/incode-module-unittestsupport/issues/3[#3] - moving assertions and matchers out from Estatio's EstatioIntegrationTestAbstract base class
+* `1.13.2` - fixes link:https://github.com/incodehq/incode-module-unittestsupport/issues/2[#2] - moving further contract tests from incode-module-base into this repo
+* `1.13.1` - fixes link:https://github.com/incodehq/incode-module-unittestsupport/issues/1[#1] - moving contract tests from incode-module-base into this repo
+* `1.13.0` - released against Isis 1.13.0 (copied from incode-module-base)

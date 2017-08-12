@@ -1,0 +1,29 @@
+[[_change-log_lib-excel]]
+= Excel Library
+:_basedir: ../../../
+:_imagesdir: images/
+
+
+
+* `1.14.2` - released against Isis 1.14.0, fixes https://github.com/isisaddons/isis-module-excel/issues/21[#21]
+* `1.14.1` - released against Isis 1.14.0, fixes https://github.com/isisaddons/isis-module-excel/issues/19[#19]
+* `1.14.0` - released against Isis 1.14.0
+* `1.13.6` - maximum length for sheets is 31 chars, not 30 chars.
+* `1.13.5.1` - patch for 1.13.5 (error with `#toExcelPivot(...)`.
+* `1.13.5` - released against Isis 1.13.0; includes limited support for pivot tables; link:https://github.com/isisaddons/isis-module-excel/issues/17[#17] (remove overloads for `#fromExcel()` and ``#toExcel()``). +
++
+[NOTE]
+====
+This release is a minor breaking change to the API.
+To convert the code, use `cls.getSimpleName()` as the (now mandatory) value of the sheet name. ensuring that its length does not exceed 30 characters.
+====
+
+* `1.13.1` - released against Isis 1.13.0; includes link:https://github.com/isisaddons/isis-module-excel/issues/15[#15] (multiple sheets)
+* `1.13.0` - released against Isis 1.13.0
+* `1.12.0` - released against Isis 1.12.0
+* `1.11.0` - released against Isis 1.11.0
+* `1.10.0` - released against Isis 1.10.0; includes `ExcelFixture`
+* `1.9.0` - released against Isis 1.9.0
+* `1.8.0` - released against Isis 1.8.0
+* `1.7.0` - released against Isis 1.7.0
+* `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.excel`

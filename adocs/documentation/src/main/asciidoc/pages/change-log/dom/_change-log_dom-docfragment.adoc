@@ -1,6 +1,6 @@
 [[_change-log_dom-docfragment]]
 = Document Fragment Subdomain
-:_basedir: ../../
+:_basedir: ../../../
 :_imagesdir: images/
 
 

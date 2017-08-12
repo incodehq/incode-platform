@@ -1,6 +1,6 @@
 [[_change-log_dom-communications]]
 = Communications Subdomain
-:_basedir: ../../
+:_basedir: ../../../
 :_imagesdir: images/
 
 

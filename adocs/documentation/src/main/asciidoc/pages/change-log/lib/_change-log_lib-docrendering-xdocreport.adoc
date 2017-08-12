@@ -1,0 +1,10 @@
+[[_change-log_lib-docrendering-xdocreport]]
+= XDocReport Document Rendering Library
+:_basedir: ../../../
+:_imagesdir: images/
+
+
+
+* `1.14.0` - released against Isis 1.14.0
+* `1.13.1` - released against Isis 1.13.0, and fixes https://github.com/incodehq/incode-module-docrendering-xdocreport/issues/1[#1] (use v1.13.1 of https://github.com/isisaddons/isis-module-xdocreport[isis-module-xdocreport])
+* `1.13.0` - released against Isis 1.13.0

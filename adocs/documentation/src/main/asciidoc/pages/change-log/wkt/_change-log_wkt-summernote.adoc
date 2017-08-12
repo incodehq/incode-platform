@@ -1,0 +1,5 @@
+[[_change-log_wkt-summernote]]
+= Xxx
+:_basedir: ../../../
+:_imagesdir: images/
+

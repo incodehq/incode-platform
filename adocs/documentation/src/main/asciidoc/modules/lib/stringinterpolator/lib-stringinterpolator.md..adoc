@@ -1,0 +1,271 @@
+[[lib-stringinterpolator]]
+= String Interpolator (OGNL) Library
+:_basedir: ../../../
+:_imagesdir: images/
+
+
+This module (`isis-module-stringinterpolator`) provides a mechanism to interpolate string templates with either Isis system properties or values obtained from a domain object.
+
+
+One use case for this service is in building URLs based on an object's state, parameterized
+by environment (prod/test/dev etc).  These URLs could be anything; for example, to a reporting service:
+
+[source]
+----
+${property['reportServerBase']}/ReportViewer.aspx?/InvoicesDue&propertyId=${this.property.id}
+----
+
+where:
+
+* `${property['reportServerBase']}` is an Isis system property
+* `${this.property.id}` is an expression that is evaluated in the context of a domain object (`this`), returning
+   `this.getProperty().getId()`
+
+Apache Isis system properties are exposed as the `properties` map, while the target object is exposed as the `this` object.
+
+
+== Screenshots
+
+The screenshots below show an example app's usage of the _stringinterpolator_ module:
+
+=== Install example fixtures
+
+![](https://raw.github.com/isisaddons/isis-module-stringinterpolator/master/images/010-install-fixtures.png)
+
+\... returning an example entity:
+
+![](https://raw.github.com/isisaddons/isis-module-stringinterpolator/master/images/020-example-entity.png)
+
+The `Open` (contributed) action is:
+
+[source,java]
+----
+public URL open(ToDoItem toDoItem) throws MalformedURLException {
+    String urlStr = stringInterpolatorService.interpolate(
+        toDoItem, "${properties['isis.website']}/${this.documentationPage}");
+    return new URL(urlStr);
+}
+----
+
+
+where `WEB-INF/isis.properties` contains:
+
+[source]
+----
+isis.website=http://isis.apache.org
+----
+
+and where (as the screenshot shows) `ToDoItem` entity has the structure:
+
+[source,java]
+----
+public class ToDoItem ... {
+
+    private String description;
+    private String documentationPage;
+
+    // getters and setters omitted
+}
+----
+
+
+
+Invoking the `Open` action computes the `urlStr` local variable, and then (because the action returns a `URL`), results
+in the browser opening the appropriate web page:
+
+![](https://raw.github.com/isisaddons/isis-module-stringinterpolator/master/images/030-opened-page.png)
+
+
+
+== How to configure/use
+
+=== Classpath
+
+Update your classpath by adding this dependency in your dom project's `pom.xml`:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.isisaddons.module.stringinterpolator</groupId>
+    <artifactId>isis-module-stringinterpolator-dom</artifactId>
+    <version>1.13.0</version>
+</dependency>
+----
+
+Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-stringinterpolator-dom).
+
+=== Bootstrapping
+
+
+* update your `WEB-INF/isis.properties`:
+
+<pre>
+    isis.services-installer=configuration-and-annotation
+    isis.services.ServicesInstallerFromAnnotation.packagePrefix=
+                    ...,\
+                    org.isisaddons.module.stringinterpolator.dom,\
+                    ...
+</pre>
+
+
+
+== API and Usage
+
+The module consists of a single domain service, `StringInterpolatorService`.
+
+The interpolation replaces each occurrence of `${...}` with its interpolated value.  The expression in within the
+braces is interpreted using [OGNL](http://commons.apache.org/proper/commons-ognl/).
+
+
+=== Object graph interpolation
+
+The main API exposed by this service provides object-graph interpolation:
+
+[source,java]
+----
+public class StringInterpolatorService {
+
+    @PostConstruct
+    public void init(                                       // <1>
+        Map<String,String> properties) { ... }
+
+    public String interpolate(                              // <2>
+        Object domainObject, String template) { ... }
+
+    ...
+}
+
+----
+<1> called by Isis (which passes in all Isis properties)
+<2> public API
+
+Using this API makes `domainObject` available as `this` in the template.
+
+For example, assuming an instance of the `Customer` class:
+
+[source,java]
+----
+public class Customer {
+    private String firstName;
+    private String lastName;
+    private Address address;
+    private Address billingAddress;
+
+    // getters and setters omitted
+}
+----
+
+\... that in turn has relationships to the `Address` class
+
+[source,java]
+----
+public class Address {
+    private int houseNumber;
+    private String town;
+    private String postalCode;
+
+    // getters and setters omitted
+}
+----
+
+then the following are valid expressions:
+
+* `${this.firstName}`
+* `${this.lastName != null? this.lastName : ''}`
+* `${this.address.houseNumber}`
+
+
+=== Object graph interpolation (using the lower-level API)
+
+The service also offers a lower-level API which allows multiple objects to be made accessible from the context:
+
+[source,java]
+----
+public class StringInterpolatorService {
+
+    public static class Root {
+        ...
+        public Root(final Object context) {
+            this._this = context;
+        }
+        public Object getThis() { return _this; }
+        ...
+    }
+
+    // public API
+    public String interpolate(Root root, String template) { ... }
+
+    ...
+}
+----
+
+
+The `Root` class can be extended as necessary.
+
+For example, create a custom subclass of the `Root` class:
+
+[source,java]
+----
+final class CustomRoot extends StringInterpolatorService.Root {
+    private Customer customer;
+    public CustomRoot(Object context, Customer customer) {
+        super(context);
+        this.customer = customer;
+    }
+    public Customer getCustomer() {
+        return customer;
+    }
+}
+----
+
+
+The example above exposes the `customer` property.  This can then be used in the template, eg:
+
+[source,java]
+----
+@Test
+public void simple() throws Exception {
+    String interpolated = service.interpolate(
+        new CustomRoot(null, customer), "${customer.firstName}");
+    assertThat(interpolated, is("Fred"));
+}
+----
+
+
+
+=== Strict Mode (applies to both APIs)
+
+By default, any expression that cannot be parsed or would generate an exception (eg null pointer exception) is instead
+returned unchanged in the interpolated string.
+
+The service also provides a "strict" mode, which is useful for testing expressions:
+
+[source,java]
+----
+StringInterpolatorService service = new StringInterpolatorService().withStrict(true);
+----
+
+If enabled, then an exception is thrown instead.
+
+
+
+== Known issues
+
+None known at this time.
+
+
+
+
+
+== Dependencies
+
+In addition to Apache Isis, this module depends on:
+
+* `ognl:ognl` (ASL v2.0 License)
+
+
+
+== Related Modules/Services
+
+TODO: to update
+

@@ -1,6 +1,6 @@
 [[_change-log_dom-document]]
 = Document Subdomain
-:_basedir: ../../
+:_basedir: ../../../
 :_imagesdir: images/
 
 

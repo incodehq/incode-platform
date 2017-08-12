@@ -1,0 +1,5 @@
+[[_change-log_wkt-gmap3]]
+= Xxx
+:_basedir: ../../../
+:_imagesdir: images/
+
