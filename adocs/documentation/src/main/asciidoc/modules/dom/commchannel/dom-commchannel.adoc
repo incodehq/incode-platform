@@ -12,7 +12,7 @@ A subclass of `CommunicationChannelOwnerLink` abstract class is required (about 
 For postal address, the geocoding data can be looked up by invoking the link:https://developers.google.com/maps/documentation/geocoding[Google Geocoding] API.
 This allows free-form text entry of an address to be converted into its geocoded equivalent, including latitude and longitude.
 This in turn allows each postal address object to implement the `Location` interface (from
-link:http://github.com/isisaddons/isis-wicket-gmap3[Gmap3 wicket component]) meaning that they can be rendered in a map view.
+xref:../../wkt/gmap3/wkt-gmap3.adoc#[Gmap3 wicket component]) meaning that they can be rendered in a map view.
 
 Each communication channel object can optionally be categorized with a predefined "purpose", where the available list of "purposes" is defined by the optional `CommunicationChannelPurposeRepository` SPI service.
 The list of purposes can vary by both the communication channel type (postal address/email/phone) and also by the "owner" domain object; for example address objects the list could be "billing address" and "shipping address", whereas for emails the list of purposes might be "work email" or "home email".
@@ -134,7 +134,7 @@ When creating a new `PostalAddress`, the geocode information can be looked up at
 image::{_imagesdir}160-another-postal-address-lookup-geocode.png[width="600px",link="{_imagesdir}160-another-postal-address-lookup-geocode.png"]
 
 
-The `PostalAddress` entity implements the (non-ASF) http://github.com/isisaddons/isis-wicket-gmap3[Isis addons' gmap3] wicket extension's `Locatable` interface, meaning that it can be rendered on a map.
+The `PostalAddress` entity implements the xref:../../wkt/gmap3/wkt-gmap3.adoc#[gmap3 component]'s `Locatable` interface, meaning that it can be rendered on a map.
 Assuming that the extension has been configured on the classpath:
 
 image::{_imagesdir}170-lookup-as-map.png[width="600px",link="{_imagesdir}170-lookup-as-map.png"]
@@ -399,7 +399,7 @@ This repository is likely to be less useful than `CommunicationChannelRepository
 
 == Related Modules/Services
 
-The module implements the http://github.com/isisaddons/isis-wicket-gmap3[Isis addons' gmap3]'s
+The module implements the xref:../../wkt/gmap3/wkt-gmap3.adoc#[gmap3 component]'s
  `LocationDereferencingService` SPI, so that clicking on a marker on a map will render the "owning" domain object,
  rather than the details of the `CommunicationChannel` itself.
 

@@ -5,12 +5,12 @@
 
 This module (`incode-module-note`) provides the ability to attach `Note` objects to arbitrary domain objects.
 There are _no_ requirements for those domain objects implement any interfaces.
-A subclass of the `NotableLink` abstract class is required (about link:https://github.com/incodehq/incode-module-note/blob/master/fixture/src/main/java/org/incode/module/note/fixture/dom/notablelink/NotableLinkForDemoObject.java[50 lines of boilerplate])), acting as the "glue" between the note and the "notable" domain object.
+A subclass of the `NotableLink` abstract class is required (about 50 lines of boilerplate), acting as the "glue" between the note and the "notable" domain object.
 
 
 
 Each `Note` can optionally have a date associated with it, and corresponding (predefined) calendar.
-The `Note` implements the `CalendarEventable` interface (from the link:http://isisaddons.org[Isis Addons]' link:http://github.com/isisaddons/isis-wicket-fullcalendar2[fullcalendar2]) wicket component) meaning that they can then be rendered in a calendar view.
+The `Note` implements the `CalendarEventable` interface (from the xref:../../wkt/fullcalendar2/wkt-fullcalendar2.adoc#[fullcalendar2] wicket component) meaning that they can then be rendered in a calendar view.
 This makes the notes useful for a simple task list.
 
 The optional `CalendarNameRepository` SPI service is used to enumerate the calendars for any given "notable" domain object.
@@ -96,12 +96,12 @@ allows the note's date/calendar to be updated (or cleared/set to null if the not
 image::{_imagesdir}100-change-date-details.png[width="600px",link="{_imagesdir}100-change-date-details.png"]
 
 
-Each `Note` implements the (non-ASF) http://github.com/isisaddons/isis-wicket-fullcalendar2[Isis addons' fullcalendar2] wicket extension's `CalendarEventable` interface, meaning ...
+Each `Note` implements the xref:../../wkt/fullcalendar2/wkt-fullcalendar2.adoc#[fullcalendar2 component]'s `CalendarEventable` interface, meaning ...
 
 image::{_imagesdir}110-view-on-fullcalendar2.png[width="600px",link="{_imagesdir}110-view-on-fullcalendar2.png"]
 
 
-that it can be rendered on a calendar:
+\... that it can be rendered on a calendar:
 
 image::{_imagesdir}120-fullcalendar2.png[width="600px",link="{_imagesdir}120-fullcalendar2.png"]
 

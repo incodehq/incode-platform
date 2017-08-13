@@ -141,9 +141,7 @@ These contribute the "aliases" collection and actions to add and remove ``Alias`
 
 Typically the SPI implementations and the mixin classes are nested static classes of the `Alias` subtype.
 
-For example, in the demo app the `DemoObject` domain object can have aliases by virtue of the 
-link:https://github.com/incodehq/incode-module-alias/blob/master/fixture/src/main/java/org/incode/module/alias/fixture/app/alias/AliasForDemoObject.java[`AliasForDemoObject`]
-subclass:
+For example, in the demo app the `DemoObject` domain object can have aliases by virtue of the `AliasForDemoObject` subclass:
 
 [source,java]
 ----
@@ -261,15 +259,13 @@ The attached `Alias` objects are shown in two contexts: as a table of `Alias` ob
 and then as the actual subtype when the alias object itself is shown (eg `AliasForDemoObject` in the demo app).
 
 In the former case (as a table) the `Alias` will be rendered according to the `Alias.layout.xml` provided by the module.
-In the latter (as an object) the alias will be rendered according to the layout provided by the consuming app, offering
-full control of the layout.  The layout provided in the demo app
-(ie link:https://github.com/incodehq/incode-module-alias/blob/master/fixture/src/main/java/org/incode/module/alias/fixture/app/alias/AliasForDemoObject.layout.xml[`AliasForDemoObject.layout.xml`])
-is a good starting point.
+In the latter (as an object) the alias will be rendered according to the layout provided by the consuming app, offering full control of the layout.
+The layout provided in the demo app (ie `AliasForDemoObject.layout.xml`) is a good starting point.
 
 [TIP]
 ====
-The example `AliasForDemoObject.layout.xml` uses a little bit of custom CSS to adjust the right-hand column down
-a number of pixels.  This resides in link:https://github.com/incodehq/incode-module-alias/blob/master/webapp/src/main/webapp/css/application.css[`application.css`]:
+The example `AliasForDemoObject.layout.xml` uses a little bit of custom CSS to adjust the right-hand column down a number of pixels.
+This resides in `application.css`:
 
 [source,css]
 ----
@@ -279,10 +275,8 @@ a number of pixels.  This resides in link:https://github.com/incodehq/incode-mod
 ----
 ====
 
-The module also allows the title, icon and CSS for `Alias` objects to be customised.  By default the values for these
-are obtained using default subscribers, namely - `Alias.TitleSubscriber`, `Alias.IconSubscriber` and
-`Alias.CssClassSubscriber`.  The consuming module can override these values simply by providing alternative
-implementations.
+The module also allows the title, icon and CSS for `Alias` objects to be customised.  By default the values for these are obtained using default subscribers, namely - `Alias.TitleSubscriber`, `Alias.IconSubscriber` and `Alias.CssClassSubscriber`.
+The consuming module can override these values simply by providing alternative implementations.
 
 For example, the demo app has this demo implementation:
 
@@ -323,10 +317,8 @@ public class DemoUiSubscriber extends AbstractSubscriber {
 
 which returns a different title, icon and alias.
 
-The custom png icons are picked up from `org.incode.module.alias.dom.impl` package (in this case, `Alias-docMgmt.png`
-and `Alias-GL.png`;see the link:https://github.com/incodehq/incode-module-alias/tree/master/fixture/src/main/java/org/incode/module/alias/dom/impl[source] ).
-The custom CSS is supplied in the link:https://github.com/incodehq/incode-module-alias/blob/master/webapp/src/main/webapp/css/application.css[`application.css`]
-of the demo app:
+The custom png icons are picked up from `org.incode.module.alias.dom.impl` package (in this case, `Alias-docMgmt.png` and `Alias-GL.png`.
+The custom CSS is supplied in the `application.css` of the demo app:
 
 [source,css]
 ----

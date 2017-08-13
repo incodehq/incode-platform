@@ -59,7 +59,7 @@ image::{_imagesdir}030-customer-confirmation-docx-template.png[width="600px",lin
 
 TODO: update ref below
 
-The actual `.docx` used in the example app can be found [here](https://github.com/isisaddons/isis-module-docx/blob/master/fixture/src/main/java/org/isisaddons/module/docx/fixture/dom/templates/CustomerConfirmation.docx?raw=true).
+The actual `.docx` used in the example app can be found link:https://github.com/isisaddons/isis-module-docx/blob/master/fixture/src/main/java/org/isisaddons/module/docx/fixture/dom/templates/CustomerConfirmation.docx?raw=true).
 
 
 === Generating the Document

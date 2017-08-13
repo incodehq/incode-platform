@@ -3,7 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 
-This module (`incode-module-communications`) defines ``CommunicationChannel``s (email address, postal address or phone/fax number), and also allows ``Document``s (implemented by the Incode http://github.com/incodehq/incode-module-document[Document] module) to be sent as ``Communication``s either to an email address or to a postal address.
+This module (`incode-module-communications`) defines ``CommunicationChannel``s (email address, postal address or phone/fax number), and also allows ``Document``s (implemented by the xref:../../dom/document/dom-document.adoc#[Document subdomain] module) to be sent as ``Communication``s either to an email address or to a postal address.
 
 
 
@@ -24,7 +24,7 @@ If the original `Document` had supporting ``Document``s associated with it then 
 
 [WARNING]
 ====
-There is some overlap between this module and the Incode http://github.com/incodehq/incode-module-commchannel[CommunicationChannel] module).
+There is some overlap between this module and the xref:../../dom/commchannel/dom-commchannel.adoc#[CommunicationChannel subdomain] module).
 At some stage we intend to refactor this module to reuse the CommunicationChannel module, and then to remove any duplicate concepts (`EmailAddress` etc).
 
 Also, note that the discriminators for `CommunicationChannel` subtypes currently are hard-coded to those for http://github.com/estatio/estatio[Estatio].
@@ -55,10 +55,10 @@ This is referenced by the demo app's implementation of the `DocumentCommunicatio
 
 ** A corresponding `DocumentTemplate` for email cover notes
 
-** The Freemarker rendering strategy (from the link:https://github.com/incodehq/incode-module-docrendering-freemarker[Incode Freemarker DocRendering] module).
+** The Freemarker rendering strategy (from the xref:../../lib/docrendering-freemarker/lib-docrendering-freemarker.adoc#[Freemarker DocRendering library] module).
 This is referenced by the `DocumentTemplate`, instructing the document module to render the email cover note using freemarker.
 
-* `Country` ref data (from the link:https://github.com/incodehq/incode-module-country[Incode Country] module). +
+* `Country` ref data (from the xref:../../dom/country/dom-country.adoc#[Country subdomain] module). +
 +
 This is required because `PostalAddress` communication channels reference the `Country`.
 
@@ -170,7 +170,7 @@ The user can then open up the downloaded PDF, manually print it and manually put
 [[__dom-communications_screenshots_supporting-documents]]
 === Supporting Documents
 
-The link:https://github.com/incodehq/incode-module-document[Incode Document] module (on which this communications module) depends has the concept of "supporting" documents.
+The xref:../../dom/document/dom-document.adoc#[Document subdomain] module (on which this communications module) depends has the concept of "supporting" documents.
 For example, a generated `Document` of an invoice might have associated tax or supplier receipts which have been previously scanned in and which are available as PDFs.
 
 image::{_imagesdir}090-attachSupportingPdf-prompt.png[width="600px",link="{_imagesdir}090-attachSupportingPdf-prompt.png"]
@@ -208,7 +208,7 @@ image::{_imagesdir}domain-model.png[width="600px",link="{_imagesdir}domain-model
 
 One side of the domain model defines ``CommunicationChannel``s, owned by ``CommunicationChannelOwner``s.
 
-On the other side is `Communication`, which relates to a `Document` by way of an implementation of the (link:https://github.com/incodehq/incode-module-document[Incode Document module]'s) `Paperclip` class.
+On the other side is `Communication`, which relates to a `Document` by way of an implementation of the (xref:../../dom/document/dom-document.adoc#[Document subdomain] module's) `Paperclip` class.
 Each `Communication` relates to one or more ``CommunicationChannel``s by way of `CommChannelRole`, basically indicating the nature of the correspondent in that `Communication`.
 
 
@@ -262,7 +262,7 @@ Note that this mixin is suppressed for cover notes; instead these have the `Docu
 
 The `Document_communicationAttachments` collection mixin lists all of the ``Document``s that would be included as attachments if and when a new `Communication` is created.
 
-This list always includes the target `Document` itself, and will also include any supporting `Document`s that may have been attached (using the link:https://github.com/incodehq/incode-module-document[Incode Document] module's `Document_attachSupportingPdf` mixin).
+This list always includes the target `Document` itself, and will also include any supporting `Document`s that may have been attached (using the xref:../../dom/document/dom-document.adoc#[Document subdomain] module's `Document_attachSupportingPdf` mixin).
 
 
 [[__dom-communications_mixins_cover-note-for]]
@@ -361,7 +361,7 @@ public interface CurrentUserEmailAddressProvider {
     String currentUserEmailAddress();
 ----
 
-The module does provide a default implementation, `CurrentUserEmailAddressProvider.UsingMeService`, that uses the `MeService` of the (non-ASF) http://github.com/isisaddons/isis-module-security[Isis addons' security] module.
+The module does provide a default implementation, `CurrentUserEmailAddressProvider.UsingMeService`, that uses the `MeService` of the xref:../../spi/security/spi-security.adoc#[security] module.
 In many case therefore there will be no need to provide an alternative implementation of this SPI service.
 
 

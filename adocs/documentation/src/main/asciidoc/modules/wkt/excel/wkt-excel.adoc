@@ -74,4 +74,4 @@ In addition to Apache Isis, this component depends on:
 
 == Related Modules
 
-See also the link:https://github.com/isisaddons/isis-module-excel[Excel module], which provides programmatic ability to export or import objects to/from an Excel spreadsheet.
+See also the xref:../../lib/excel/lib-excel.adoc#[Excel library] module, which provides programmatic ability to export or import objects to/from an Excel spreadsheet.

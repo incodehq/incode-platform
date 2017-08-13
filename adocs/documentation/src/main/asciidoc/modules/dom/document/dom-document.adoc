@@ -8,11 +8,13 @@ This module (`incode-module-document`) provides the ability to create and attach
 
 ``Document``s can be rendered using a number of technologies:
 
-* link:http://freemarker.org/[Apache Freemarker] (using the link:https://github.com/incodehq/incode-module-docrendering-freemarker[Freemarker docrendering] module)
+* link:http://freemarker.org/[Apache Freemarker] (using the xref:../../lib/docrendering-freemarker/lib-docrendering-freemarker.adoc#[Freemarker docrendering library] module)
 
-* http://github.com/isisaddons/isis-module-stringinterpolator[Isis addons' stringinterpolator] module to interpolate and download a URL (using the link:https://github.com/incodehq/incode-module-docrendering-stringinterpolator[StringInterpolator docrendering] module).  This can be used to integrate with pre-existing reporting servers (for example Microsoft's link:https://msdn.microsoft.com/en-us/library/ms159106.aspx[SQL Server Reporting Services]).
+* xref:../../lib/stringinterpolator/lib-stringinterpolator.adoc#[stringinterpolator] module to interpolate and download a URL (using the xref:../../lib/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.adoc#[StringInterpolator docrendering] module). +
++
+This can be used to integrate with pre-existing reporting servers (for example Microsoft's link:https://msdn.microsoft.com/en-us/library/ms159106.aspx[SQL Server Reporting Services]).
 
-* link:https://github.com/opensagres/xdocreport[XDocReport] (using the link:https://github.com/incodehq/incode-module-docrendering-xdocreport[XDocReport docrendering] module).
+* link:https://github.com/opensagres/xdocreport[XDocReport] (using the xref:../../lib/docrendering-xdocreport/docrendering-xdocreport.adoc#[XDocReport docrendering] module).
 
 The rendering mechanism is pluggable; additional implementations can be plugged in as required.
 
@@ -49,7 +51,7 @@ These are reference data:
 image::{_imagesdir}020-list-all-document-types.png[width="600px",link="{_imagesdir}020-list-all-document-types.png"]
 
 
-Four example ``DocumentType``s are set up, showcasing the four ``RenderingStrategy``s provided by the link:https://github.com/incodehq/incode-module-docrendering-freemarker[Freemarker docrendering], link:https://github.com/incodehq/incode-module-docrendering-stringinterpolator[StringInterpolator docrendering] and link:https://github.com/incodehq/incode-module-docrendering-xdocreport[XDocReport docrendering] modules:
+Four example ``DocumentType``s are set up, showcasing the four ``RenderingStrategy``s provided by the xref:../../lib/docrendering-freemarker/lib-docrendering-freemarker.adoc#[Freemarker docrendering library], xref:../../lib/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.adoc#[StringInterpolator docrendering library] and xref:../../lib/docrendering-xdocreport/lib-docrendering-xdocreport.adoc#[XDocReport docrendering library] modules:
 
 image::{_imagesdir}025-all-document-types.png[width="600px",link="{_imagesdir}025-all-document-types.png"]
 
@@ -112,12 +114,12 @@ The `RendererModelFactory` of the `Applicability` is used to create the "rendere
 [[__dom-document_screenshots_string-interpolator-template]]
 === String Interpolator Template
 
-The example String Interpolator `DocumentTemplate` obtains its content by interpolating (using the http://github.com/isisaddons/isis-module-stringinterpolator[Isis addons' stringinterpolator] module) the content placeholder text; the resultant string is parsed as a URL and the contents of that URL downloaded:
+The example String Interpolator `DocumentTemplate` obtains its content by interpolating (using the xref:../../lib/stringinterpolator/lib-stringinterpolator.adoc#[stringinterpolator] module) the content placeholder text; the resultant string is parsed as a URL and the contents of that URL downloaded:
 
 image::{_imagesdir}042-stringinterpolator-template-content-tab.png[width="600px",link="{_imagesdir}042-stringinterpolator-template-content-tab.png"]
 
 
-The name of ``Document``s generated from this template also uses the http://github.com/isisaddons/isis-module-stringinterpolator[stringinterpolator] module:
+The name of ``Document``s generated from this template also uses the xref:../../lib/stringinterpolator/lib-stringinterpolator.adoc#[stringinterpolator] module:
 
 image::{_imagesdir}044-stringinterpolator-template-name-tab.png[width="600px",link="{_imagesdir}044-stringinterpolator-template-name-tab.png"]
 
@@ -150,7 +152,7 @@ This Word file uses Freemarker placeholders.
 
 [NOTE]
 ====
-While XDocReport itself as a technology supports both Freemarker and Velocity, the integration here (in link:https://github.com/incodehq/incode-module-docrendering-xdocreport[XDocReport docrendering] module) allows only Freemarker to be used.
+While XDocReport itself as a technology supports both Freemarker and Velocity, the integration here (in xref:../../lib/docrendering-xdocreport/lib-docrendering-xdocreport.adoc#[XDocReport docrendering library] module) allows only Freemarker to be used.
 ====
 
 
@@ -359,8 +361,8 @@ Previewing means to return a representation as a URL; the end-user can then navi
 Rendering on the other hand means the creation and persisting of a `Document` from the `DocumentTemplate`.
 
 The `createAndAttachDocumentAndRender()` mixin is contributed to all domain objects where there is a `DocumentTemplate` available for the domain object's application tenancy path (`atPath`) that supports either previewing and/or rendering.
-The similar `createAndAttachDocumentAndScheduleRender()` mixin is also available, allowing the rendering to be performed as a background task using link:http://github.com/isisaddons/isis-module-command[Isis addons' command] module.
-This can be scheduled using, for example, the link:http://github.com/isisaddons/isis-module-quartz[Isis addons' quartz] module.
+The similar `createAndAttachDocumentAndScheduleRender()` mixin is also available, allowing the rendering to be performed as a background task using xref:../../spi/command/spi-command.adoc#[command spi] module.
+This can be scheduled using, for example, the xref:../../ext/quartz/ext-quartz.adoc#[quartz extension] module.
 
 
 

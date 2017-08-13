@@ -5,8 +5,7 @@
 
 
 * `1.14.0` - released against Isis 1.14.0
-* `1.13.0` - released against Isis 1.13.0; removed the `Notable` interface  and changed implementation to
-remove dependency on the http://github.com/isisaddons/isis-module-poly[Isis addons' poly]; also uses `.layout.xml`
+* `1.13.0` - released against Isis 1.13.0; removed the `Notable` interface  and changed implementation to remove dependency on the http://github.com/isisaddons/isis-module-poly[Isis addons' poly]; also uses `.layout.xml`
 for layouts
 * `1.12.1` - released against Isis 1.12.1, fixes #4.
 * `1.12.0` - released against Isis 1.12.0

@@ -467,6 +467,8 @@ If necessary the location of this config file can be overridden; see link:http:/
 
 === WSDL to Java
 
+TODO: update link below
+
 Similar to the way in which the .xsd schemas are converted to Java, `wsdl2java` is used to convert the fake server's WSDL to Java stubs.
 This WSDL can be found link:externalsystemadapter/wsdl/src/main/resources/org/isisaddons/module/publishmq/externalsystemadapter/wsdl/DemoObject.wsdl[here]; the `pom.xml` configuration can be found link:https://github.com/isisaddons/isis-module-publishmq/blob/master/externalsystemadapter/wsdlgen/pom.xml#L76[here].
 

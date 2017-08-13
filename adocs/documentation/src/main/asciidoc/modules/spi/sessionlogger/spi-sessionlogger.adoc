@@ -104,9 +104,7 @@ The framework will automatically call the `log(...)` method on the service imple
 The framework only ever calls `log(...)` with a `CausedBy` value of either "USER" (the user has explicitly logged in
 or logged out), or with "SESSION_EXPIRATION" (the Wicket viewer session has timed out).
 
-The "RESTART" value is provided for implementations (such as the (non-ASF)
-http://github.com/isisaddons/isis-module-sessionlogger[Isis addons' sessionlogger] module) which automatically "tidy-up"
-and mark as complete and sessions that were in-progress if the webserver is restarted.
+The "RESTART" value is provided for implementations (such as the xref:../../spi/sessionlogger/spi-sessionlogger.adoc#[sessionlogger spi] module) which automatically "tidy-up" and mark as complete and sessions that were in-progress if the webserver is restarted.
 ====
 
 

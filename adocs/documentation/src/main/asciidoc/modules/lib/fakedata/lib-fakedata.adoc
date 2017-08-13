@@ -21,8 +21,6 @@ The example app consists of a single domain entity that has a property for each 
 
 Installing the fixture scenario:
 
-![](https://raw.github.com/isisaddons/isis-module-fakedata/master/images/010-install-fixtures.png)
-
 image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
 
 

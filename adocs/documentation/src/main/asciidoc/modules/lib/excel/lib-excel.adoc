@@ -528,6 +528,5 @@ In addition to Apache Isis, this module depends on:
 
 == Related Modules
 
-See also the https://github.com/isisaddons/isis-wicket-excel[Excel wicket extension], which makes every collection
-downloadable as an Excel spreadsheet.
+See also the xref:../../wkt/excel/wkt-excel.adoc#[Excel wicket component], which makes every collection downloadable as an Excel spreadsheet.
 

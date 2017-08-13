@@ -1,0 +1,13 @@
+[[_change-log_incode-parent]]
+= Incode Parent
+:_basedir: ../../
+:_imagesdir: images/
+
+
+
+* 1.14.0 - released against Isis 1.14.0
+* 1.13.2.2 - fixes link:https://github.com/incodehq/incode-parent/issues/1[#1] - add in missing ${maven-cucumber-reporting.version} property.
+* 1.13.2.1 - updates mavenmixin-docker from 0.0.2 to 0.0.3, updates mavenmixin-standard from 0.0.2 to 0.0.3.
+* 1.13.2 - updated Isis 1.13.2, also includes mavenmixin-docker, and removes the versions for isisaddons and incodehq modules (to avoid a circular dependency)
+* 1.13.1 - initial version against Isis 1.13.1
+

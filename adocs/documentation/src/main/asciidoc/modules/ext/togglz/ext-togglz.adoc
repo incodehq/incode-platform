@@ -7,7 +7,7 @@ This module (`isis-module-togglz`) provides an integration with http://www.toggl
 
 Courtesy of Togglz, this integration has an embedded console and has support for integration testing through a custom JUnit rule.
 
-The module integrates both Togglz and uses Isis Addons' http://github.com/isisaddons/isis-module-settings[settings module] for feature persistence.
+The module integrates both Togglz and uses Isis Addons' xref:../../dom/settings/dom-settings.adoc#[settings subdomain] for feature persistence.
 
 == Screenshots
 
@@ -55,7 +55,7 @@ image::{_imagesdir}060-findByName-feature-enabled.png[width="600px",link="{_imag
 
 === Feature persistence
 
-The module uses Isis addons' http://github.com/isisaddons/isis-module-settings[settings module] for feature persistence. 
+The module uses xref:../../dom/settings/dom-settings.adoc#[settings subdomain] module for feature persistence.
 
 image::{_imagesdir}070-list-app-settings.png[width="600px",link="{_imagesdir}070-list-app-settings.png"]
 
@@ -211,7 +211,7 @@ org.isisaddons.module.togglz.webapp.CustomTogglzModuleFeatureManagerProvider
 ----
 
 * also in your project's `app` module, write an implementation of the  `FeatureStateRepository` SPI service (defined by this module).
-This SPI service is designed to be easy to be implemented using the(non-ASF) http://github.com/isisaddons/isis-module-settings[Isis addons' settings] module (though you can of course use some other persistence mechanism if you wish).
+This SPI service is designed to be easy to be implemented using the xref:../../dom/settings/dom-settings.adoc#[settings subdomain] module (though you can of course use some other persistence mechanism if you wish).
 For example: +
 +
 [source,java]
@@ -333,7 +333,7 @@ isis.services.togglz.FeatureToggleConsoleAccessor.hideAction=false              
 <1> URL that hosts the togglz console
 <2> whether to hide the action that can be used to access the URL.
 
-If you are using some other security mechanism, eg Isis addons https://github.com/isisaddons/isis-module-security[security module], then define a role with the same name and grant to users.
+If you are using some other security mechanism, eg Isis addons xref:../../spi/security/spi-security.adoc#[security spi] module, then define a role with the same name and grant to users.
 You can use the `TogglzModuleAdminRole` to setup fixture/seed data for the security module.
 
 [NOTE]
@@ -365,5 +365,5 @@ None known at this time.
 TODO: to complete
 
 
-This service uses the Isis Addons' http://github.com/isisaddons/isis-module-settings[settings module] for feature persistence.
+This service uses the Isis Addons' xref:../../dom/settings/dom-settings.adoc#[settings subdomain] module for feature persistence.
 

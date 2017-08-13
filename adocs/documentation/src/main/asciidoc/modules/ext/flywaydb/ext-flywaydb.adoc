@@ -305,7 +305,7 @@ The underlying reason for this occurring will vary; one reason is a buggy JDBC d
 It is however possible to workaround this issue.
 
 By way of example, when running against MS SQL Server you may find that BLOB/CLOB columns are reported as being invalid.
-One common example is the `CommandJdo` entity (in the link:http://github.com/isisaddons/isis-module-command[Isis addons' command] module), with its `exception` and a `memento` properties.
+One common example is the `CommandJdo` entity (in the xref:../../spi/command/spi-command.adoc#[command spi] module), with its `exception` and a `memento` properties.
 This is defined as:
 
 [source,java]
@@ -353,7 +353,7 @@ For example, `CommandJdo` can be made to work by adding `CommandJdo-sqlserver.or
 
 This should reside in the appropriate package (`org.isisaddons.module.command.dom` in this case).
 
-Another example is the `DocumentAbstract` entity (in the link:http://github.com/incodehq/incode-module-document[Incode catalogs' document] module), with its `blob_byte` and a `memento` properties.
+Another example is the `DocumentAbstract` entity (in the xref:../../dom/document/dom-document.adoc#[document subdomain] module), with its `blob_byte` and a `memento` properties.
 
 [source,java]
 ----
