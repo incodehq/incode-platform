@@ -66,32 +66,33 @@ understand a little of the API/SPI exposed by FreeMarker itself.
 
 === FreeMarker's Design
 
-Freemarker's design is that templates are identified by a template name and a version.  Freemarker's `TemplateLoader`
-SPI is used to lookup the template text and to check whether that template text is stale; Freemarker automatically
-caches any template text and only reads in new text if a "lastModified" property has changed.  The sequence is:
+Freemarker's design is that templates are identified by a template name and a version.
+Freemarker's `TemplateLoader` SPI is used to lookup the template text and to check whether that template text is stale; Freemarker automatically caches any template text and only reads in new text if a "lastModified" property has changed.
+The sequence is:
 
 * calls `TemplateLoader#findTemplateSource(templateName) +
 +
-to look up an object that can act as the source of the template text (can return a reader).  For example, this
-templateName might just be a file name.
+to look up an object that can act as the source of the template text (can return a reader).
+For example, this templateName might just be a file name.
 
 * then calls `TemplateLoader#getLastModified(templateSource)` +
 +
-to determine the time (ie versoin) of this particular source.  For example, if the template source is a file, then this
-would be the lastModified timestamp on this file.
+to determine the time (ie versoin) of this particular source.
+For example, if the template source is a file, then this would be the lastModified timestamp on this file.
 
 * if necessary, then calls `TemplateLoader#getReader(templateSource, encoding)`. +
 +
 Freemarker automatically caches template text, so it will only make this call if the templateSource returns a newer
 lastModified timestamp than cached.
 
-When FreeMarker passes in the templateName to `#findTemplateSource(.)` it also appends a locale, eg "_en_GB".  The idea,
-obviously, is that locale-specific versions of templates can be returned.
+When FreeMarker passes in the templateName to `#findTemplateSource(.)` it also appends a locale, eg "_en_GB".
+The idea, obviously, is that locale-specific versions of templates can be returned.
 
 
 === FreeMarkerService
 
-This module provides a single service, called `FreeMarkerService`.  It has the following API:
+This module provides a single service, called `FreeMarkerService`.
+It has the following API:
 
 [source,java]
 ----
@@ -107,41 +108,33 @@ public class FreeMarkerService {
 ----
 <1> the name/version of the template, corresponding directly to FreeMarker's "templateName".
 <3> the `templateChars` is the actual template text itself
-<4> the `dataModel` is the object whose values are interpolated by Freemarker into the template.  This can either be
-a strongly typed DTO or just a simple `Map`.
+<4> the `dataModel` is the object whose values are interpolated by Freemarker into the template.
+This can either be a strongly typed DTO or just a simple `Map`.
 
 
-This method takes parameters that (from FreeMarker's point of view) represent both the input to finding a template
-and also the output (the text of that template):
+This method takes parameters that (from FreeMarker's point of view) represent both the input to finding a template and also the output (the text of that template):
 
 * the `templateName` broadly corresponds directly to FreeMarker's "templateName". +
 +
-To support multiple versions of a template over time, just create a composite name.  Similarly, if multiple versions
-of a template are needed for different app tenancies, combine that into the composite name also. +
+To support multiple versions of a template over time, just create a composite name.
+Similarly, if multiple versions of a template are needed for different app tenancies, combine that into the composite name also. +
 +
-For example, to support two versions of an "InvoiceTemplate" for France and for Italy, each published on 1 Dec 2015,
-one could pass in a template of "Invoice:/FRA:2015-12-01" or "Invoice:/ITA:2015-12-01".
+For example, to support two versions of an "InvoiceTemplate" for France and for Italy, each published on 1 Dec 2015, one could pass in a template of "Invoice:/FRA:2015-12-01" or "Invoice:/ITA:2015-12-01".
 
-* the `templateChars` is the template text that is used to return a StringReader if and when FreeMarker calls
-`#getReader(...)`.
+* the `templateChars` is the template text that is used to return a StringReader if and when FreeMarker calls `#getReader(...)`.
 
-Internally FreeMarker caches the template characters; it uses the `templateName` and the `version` as a way to
-determine whether its internal cache is invalid.  As a small wrinkle, it also performs the caching on a per-locale
-basis; the `templateName` used internally will have a locale appended to it (eg "_en_GB").
+Internally FreeMarker caches the template characters; it uses the `templateName` and the `version` as a way to determine whether its internal cache is invalid.
+As a small wrinkle, it also performs the caching on a per-locale basis; the `templateName` used internally will have a locale appended to it (eg "_en_GB").
 
-All this caching is irrelevant to the `FreeMarkerService`, because it passes in the template characters irrespective; these
-are simply made available on a thread-local.  The responsibility for caching therefore moves outside of FreeMarker,
-and to the calling application.  Thus, the intended usage is that the template characters will be stored in an entity
-(let's call it `DocumentTemplate`, say) which could be identified by `documentType` and `atPath`, say, and which also
-is versioned.  The `documentType` and `atPath` can simply be joined together to create the logical template name.
+All this caching is irrelevant to the `FreeMarkerService`, because it passes in the template characters irrespective; these are simply made available on a thread-local.
+The responsibility for caching therefore moves outside of FreeMarker, and to the calling application.
+Thus, the intended usage is that the template characters will be stored in an entity (let's call it `DocumentTemplate`, say) which could be identified by `documentType` and `atPath`, say, and which also is versioned.
+The `documentType` and `atPath` can simply be joined together to create the logical template name.
 
 [NOTE]
 ====
-FreeMarker also supports the notion of versioned templates (the `TemplateSourc#getLastModified()` API), however
-there's clearly a subtlety going on somewhere because in an earlier design of this service (which took in a `version`
-parameter for the template) it didn't seem to work.  Since in most cases the templateName is likely to be a composite
-anyway (for application tenancy), the decision is simply to also include the version number as well in this
-"template name".
+FreeMarker also supports the notion of versioned templates (the `TemplateSourc#getLastModified()` API), however there's clearly a subtlety going on somewhere because in an earlier design of this service (which took in a `version` parameter for the template) it didn't seem to work.
+Since in most cases the templateName is likely to be a composite anyway (for application tenancy), the decision is simply to also include the version number as well in this "template name".
 ====
 
 

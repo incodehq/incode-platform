@@ -11,11 +11,12 @@ This extension (`isis-metamodel-paraname8`) for Apache Isis' metamodel support m
 == Background
 
 Prior to Java 8 it was not possible to obtain the parameter names of methods using reflection.
-Since Isis builds the UI from the code features, this required the parameters to be annotated with `@ParameterLayout(named=...)` or `@Named(...)`.
+Since Apache Isis builds the UI from the code features, this required the parameters to be annotated with the `@ParameterLayout(named=...)` annotation or the (deprecated) `@Named(...)` annotation.
 
 In Java 8 the Reflections API has been extended so that the parameter name is available (with the proviso that the code must also be compiled with a new `-parameters` compile flag).
 
 This module provides an implemenation of Apache Isis' `FacetFactory` for Apache Isis so that this parameter name can be used, thereby avoiding the need to annotate action parameters. 
+
 
 
 == Screenshot and Corresponding Code
@@ -24,11 +25,13 @@ TODO: update
 
 From the demo app, here's the screenshot of an action to create a new object:
 
-![](https://raw.github.com/isisaddons/isis-metamodel-paraname8/master/images/01-create-menu.png)
+image::{_imagesdir}010-create-menu.png[width="600px",link="{_imagesdir}010-create-menu.png"]
+
 
 which renders the following prompt:
 
-![](https://raw.github.com/isisaddons/isis-metamodel-paraname8/master/images/02-create-prompt.png)
+image::{_imagesdir}020-create-prompt.png[width="600px",link="{_imagesdir}020-create-prompt.png"]
+
 
 The corresponding code is simply:
 
@@ -44,20 +47,12 @@ Compare this to the "normal" way, which required using either the `@ParameterLay
 [source,java]
 ----
 public Paraname8DemoObject create(
-        final @ParameterLayout(named="Name") String name) {
+        @ParameterLayout(named="Name")
+        final String name) {
     ...
 }
 ----
 
-or alternatively the (deprecated) `@Named(...)` annotation:
-
-[source,java]
-----
-public Paraname8DemoObject create(
-        final @Named("Name") String name) {
-    ...
-}
-----
 
 
 
@@ -107,7 +102,7 @@ Update your classpath in the `pom.xml` of your project's `integtests` module and
 </dependency>
 ----
 
-Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-metamodel-paraname8-dom).
+Check for later releases by searching link:http://search.maven.org/#search|ga|1|isis-metamodel-paraname8-dom[Maven Central Repo].
 
 For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
 
@@ -133,8 +128,9 @@ You will therefore need to ensure that the IDE is set up to build using the `-pa
  
 For IntelliJ IDEA, for example, this can be found under the "Settings" dialog:
  
-![](https://raw.github.com/isisaddons/isis-metamodel-paraname8/master/images/03-intellij-support.png)
- 
+image::{_imagesdir}030-intellij-support.png[width="600px",link="{_imagesdir}030-intellij-support.png"]
+
+
 Other IDEs should have similar dialogs.
 
 You'll also need to make sure that the IDE is set up to build and run with JDK8.

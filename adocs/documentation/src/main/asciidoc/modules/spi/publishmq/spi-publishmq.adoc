@@ -12,11 +12,11 @@ The example app itself also demonstrates how this member interaction event (acti
 
 * the enriched message is used to post to a (fake) external SOAP, eg representing a General Ledger.
 
-In addition, the example app configures link:https://jolokia.org/[Jolokia], allowing the ActiveMQ, Camel and other JMX beans to be administered from an external console such as link:hawt.io[Hawt.io].
+In addition, the example app configures link:https://jolokia.org/[Jolokia], allowing the ActiveMQ, Camel and other JMX beans to be administered from an external console such as link:http://hawt.io[Hawt.io].
 
 The diagram below shows the moving parts:
 
-image::webapp/src/main/webapp/images/overview.png[link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/webapp/src/main/webapp/images/overview.png"]
+image::{_imagesdir}overview.png[width="600px",link="{_imagesdir}overview.png"]
 
 
 One of the design objectives for the PublishMq module is to allow the ActiveMQ queue (and therefore any Camel routing) to be either embedded (as in the example app) or to be remote.
@@ -38,11 +38,12 @@ The following screenshots show how the publishing service publishes the member i
 
 First, install sample data:
 
-image::images/010-install-fixtures.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/010-install-fixtures.png"]
+image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
 
 This returns the first demo object (an instance of `PublishMqDemoObject`):
 
-image::images/020-update-demo-object.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/020-update-demo-object.png"]
+image::{_imagesdir}020-update-demo-object.png[width="600px",link="{_imagesdir}020-update-demo-object.png"]
+
 
 === Invoke an action
 
@@ -65,7 +66,8 @@ public PublishMqDemoObject updateName(
 
 Invoke the action:
 
-image::images/030-update-demo-object.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/030-update-demo-object.png"]
+image::{_imagesdir}030-update-demo-object.png[width="600px",link="{_imagesdir}030-update-demo-object.png"]
+
 
 the value of the `name` property should, of course, be updated:
 
@@ -110,11 +112,14 @@ This uses the internal `vm://` protocol for speed
 <3> using the `AddExchangeHeaders` component provided by this module to add the metadata from the `InteractionDto` to the Camel message.
 This allows the message to be routed
 <4> use Camel to select which sub-route to following, using...
-<5> ... the header attached earlier.  The action identifier header is usually used as the predicate for selecting the sub-route
+<5> /... the header attached earlier.
+The action identifier header is usually used as the predicate for selecting the sub-route
 <6> Use a processor (implemented in the example app) to attach a DTO obtained from a call to Restful Objects.
 <7> Use a processor (implemented in the example app) to post a message to the fake external SOAP service.
-<8> Log the id allocated by the fake server to the console.  This will increment for each call
-<9> Log the message payload to the console.  Note that this does not include any attachments
+<8> Log the id allocated by the fake server to the console.
+This will increment for each call
+<9> Log the message payload to the console.
+Note that this does not include any attachments
 
 The referenced beans are defined as:
 
@@ -150,14 +155,16 @@ There are two observable side-effects from the execution of this route.
 Firstly, when the fake SOAP service is called, it should return an internal Id.
 This, along with the rest of the message payload, are logged to the console:
 
-image::images/050-camel-route-logging.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/050-camel-route-logging.png"]
+image::{_imagesdir}050-camel-route-logging.png[width="600px",link="{_imagesdir}050-camel-route-logging.png"]
+
 
 The screenshot also highlights the two important pieces of information used by the route: the member identifier metadata -- added as a Camel header for routing -- and the target object has was updated.
 
 Second, we can query the fake SOAP service to se the data that was posted to it.
 The screenshot below uses link:http://www.soapui.org/[SOAP UI], which can generate stub requests from the fake SOAP service's WSDL (http://localhost:8080/soap/ExternalSystemAdapter/DemoObject?wsdl[http://localhost:8080/soap/ExternalSystemAdapter/DemoObject?wsdl]):
 
-image::images/060-query-fake-server.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/060-query-fake-server.png"]
+image::{_imagesdir}060-query-fake-server.png[width="600px",link="{_imagesdir}060-query-fake-server.png"]
+
 
 [WARNING]
 ====
@@ -170,7 +177,8 @@ The above screenshot is out-of-date, showing the format of the `aim.xsd` for 1.1
 To see in a little more detail what the `attachDtoFromRestfulObjects` and `postToFakeExternalSoapService` processors actually do, we can use the venerable link:http://ws.apache.org/tcpmon/download.cgi[tcpmon] to act as a proxy.
 For example, we can set up port 6060 to forward onto port 8080:
 
-image::images/110-proxy-restful-objects.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/110-proxy-restful-objects.png"]
+image::{_imagesdir}110-proxy-restful-objects.png[width="600px",link="{_imagesdir}110-proxy-restful-objects.png"]
+
 
 We can similarly do the same for port 7070, also forwarding onto port 8080.
 
@@ -185,7 +193,8 @@ updateExternalSystemAdapter.endpointAddressBase=http://localhost:7070/soap/
 
 When we run once more, we can see that the `attachDtoFromRestfulObjects` processor uses conneg support to obtain a specific canonical DTO that represents the original `PublishedMqDemoObject` entity:
 
-image::images/120-conneg.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/120-conneg.png"]
+image::{_imagesdir}120-conneg.png[width="600px",link="{_imagesdir}120-conneg.png"]
+
 
 Using DTOs in this way is important because we want the Camel event bus logic to be decoupled from changes to the internals of the Apache Isis app.
 As the screenshot shows, the processor specifies an HTTP Accept header.
@@ -217,7 +226,7 @@ public class PublishMqDemoContentMappingService implements ContentMappingService
 
 The call to the fake SOAP service meanwhile is more straightforward: we observe just the regular SOAP messages (the implementation uses `wsdl2java` to create stubs, so the code is very straightforward):
 
-image::images/210-proxy-soapservice.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/210-proxy-soapservice.png"]
+image::{_imagesdir}210-proxy-soapservice.png[width="600px",link="{_imagesdir}210-proxy-soapservice.png"]
 
 
 === Jolokia and Hawt.io
@@ -250,7 +259,7 @@ Configuring Jolokia itself turns out to be as simple as updating the classpath a
 
 With this done, we can use Hawt.io to connect to the service:
 
-image::images/310-connect-activemq.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/310-connect-activemq.png"]
+image::{_imagesdir}310-connect-activemq.png[width="600px",link="{_imagesdir}310-connect-activemq.png"]
 
 Hawt.io itself runs as a separate webapp.
 For testing purposes, it can also be run from the command line, eg:
@@ -265,12 +274,13 @@ java -jar hawtio-app-1.4.51.jar --port 9090
 
 Once connected we can navigate to the ActiveMQ tab:
 
-image::images/320-monitor-activemq.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/320-monitor-activemq.png"]
+image::{_imagesdir}320-monitor-activemq.png[width="600px",link="{_imagesdir}320-monitor-activemq.png"]
+
+
 
 and similarly to the Camel tab:
 
-image::images/330-monitor-camel.png[width=800,height=469,link="https://raw.githubusercontent.com/isisaddons/isis-module-publishmq/master/images/330-monitor-camel.png"]
-
+image::{_imagesdir}330-monitor-camel.png[width="600px",link="{_imagesdir}330-monitor-camel.png"]
 
 
 
@@ -421,18 +431,16 @@ The example app contains a few other little tricks that may be useful if you are
 
 === Generate Canonical DTO referencing Apache Isis' DTOs
 
-As of 1.13.0 Apache Isis includes the link:http://isis.apache.org/schema/ixn/ixn.xsd[`ixn.xsd`] (member interaction)
-schema (replacing and generalizing the `aim.xsd` provided from 1.9.0 through 1.12.x).  The `PublishingServiceMq` uses
-this `ixn.xsd` schema (or rather, its Java JAXB equivalent, `InteractionDto`), directly.
+As of 1.13.0 Apache Isis includes the link:http://isis.apache.org/schema/ixn/ixn.xsd[`ixn.xsd`] (member interaction) schema (replacing and generalizing the `aim.xsd` provided from 1.9.0 through 1.12.x).
+The `PublishingServiceMq` uses this `ixn.xsd` schema (or rather, its Java JAXB equivalent, `InteractionDto`), directly.
 
-The similar `common.xsd` is _also_ used by the demo app in the construction of its own canonical `DemoObjectDto` (use of
-`OidDto` to represent a bookmark to a published domain object).
+The similar `common.xsd` is _also_ used by the demo app in the construction of its own canonical `DemoObjectDto` (use of `OidDto` to represent a bookmark to a published domain object).
 
 
 === Centralized Spring configuration
 
-In the example app Spring is used to bootstrap ActiveMQ (link:webapp/src/main/resources/activemq-config.xml[`activemq-config.xml`]), and Camel (link:fixture/routing/src/main/resources/camel-config.xml[`camel-config.xml`]), and also the fake SOAP Subscriber (link:webapp/src/main/resources/externalSystemFakeServer-config.xml[`externalSystemFakeServer-config.xml`]).  The configuration for all is centralized through a propertyPlaceholderConfigurer bean (defined in link:webapp/src/main/resources/propertyPlaceholderConfigurer-config.xml#L23[`propertyPlaceholderConfigurer-config.xml`]).
-
+In the example app Spring is used to bootstrap ActiveMQ (link:webapp/src/main/resources/activemq-config.xml[`activemq-config.xml`]), and Camel (link:fixture/routing/src/main/resources/camel-config.xml[`camel-config.xml`]), and also the fake SOAP Subscriber (link:webapp/src/main/resources/externalSystemFakeServer-config.xml[`externalSystemFakeServer-config.xml`]).
+The configuration for all is centralized through a propertyPlaceholderConfigurer bean (defined in link:webapp/src/main/resources/propertyPlaceholderConfigurer-config.xml#L23[`propertyPlaceholderConfigurer-config.xml`]).
 The location of the property file is specified in the link:webapp/src/main/webapp/WEB-INF/web.xml#L44[`web.xml`]:
 
 [source,xml]
@@ -459,7 +467,8 @@ If necessary the location of this config file can be overridden; see link:http:/
 
 === WSDL to Java
 
-Similar to the way in which the .xsd schemas are converted to Java, `wsdl2java` is used to convert the fake server's WSDL to Java stubs.  This WSDL can be found link:externalsystemadapter/wsdl/src/main/resources/org/isisaddons/module/publishmq/externalsystemadapter/wsdl/DemoObject.wsdl[here]; the `pom.xml` configuration can be found link:https://github.com/isisaddons/isis-module-publishmq/blob/master/externalsystemadapter/wsdlgen/pom.xml#L76[here].
+Similar to the way in which the .xsd schemas are converted to Java, `wsdl2java` is used to convert the fake server's WSDL to Java stubs.
+This WSDL can be found link:externalsystemadapter/wsdl/src/main/resources/org/isisaddons/module/publishmq/externalsystemadapter/wsdl/DemoObject.wsdl[here]; the `pom.xml` configuration can be found link:https://github.com/isisaddons/isis-module-publishmq/blob/master/externalsystemadapter/wsdlgen/pom.xml#L76[here].
 
 
 

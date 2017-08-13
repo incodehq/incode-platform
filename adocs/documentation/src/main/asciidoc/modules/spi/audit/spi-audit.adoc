@@ -19,39 +19,42 @@ The following screenshots show an example app's usage of the module.
 
 Install some sample fixture data …
 
-image::https://raw.github.com/isisaddons/isis-module-audit/master/images/01-install-fixtures.png[link="https://raw.github.com/isisaddons/isis-module-audit/master/images/01-install-fixtures.png"]
+image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
+
 
 === Object with initial (creation) audit entries
 
 Because the example entity is annotated with `@DomainObject(auditing = Auditing.ENABLED)`, the initial creation of that object already results in some audit entries:
 
-image::https://raw.github.com/isisaddons/isis-module-audit/master/images/02-first-object-with-initial-audit-entries.png[link="https://raw.github.com/isisaddons/isis-module-audit/master/images/02-first-object-with-initial-audit-entries.png"]
+image::{_imagesdir}020-first-object-with-initial-audit-entries.png[width="600px",link="{_imagesdir}020-first-object-with-initial-audit-entries.png"]
+
 
 As the screenshot shows, the demo app lists the audit entries for the example entity (a polymorphic association utilizing the `BookmarkService`).
+
 
 === Audit Entry for each changed property
 
 Changing two properties on an object:
 
-image::https://raw.github.com/isisaddons/isis-module-audit/master/images/03-changing-two-properties-on-object.png[link="https://raw.github.com/isisaddons/isis-module-audit/master/images/03-changing-two-properties-on-object.png"]
+image::{_imagesdir}030-changing-two-properties-on-object.png[width="600px",link="{_imagesdir}030-changing-two-properties-on-object.png"]
+
 
 
 which results in _two_ audit entries created, one for each property:
 
-image::https://raw.github.com/isisaddons/isis-module-audit/master/images/04-two-audit-entries-created.png[link="https://raw.github.com/isisaddons/isis-module-audit/master/images/04-two-audit-entries-created.png"]
+image::{_imagesdir}040-two-audit-entries-created.png[width="600px",link="{_imagesdir}040-two-audit-entries-created.png"]
 
 
 === Audit entry
 
 The audit entry is an immutable record, can also inspect other audit entries created in the same transaction:
 
-image::https://raw.github.com/isisaddons/isis-module-audit/master/images/05-navigate-to-audit-entry-see-other-audit-entries.png[link="https://raw.github.com/isisaddons/isis-module-audit/master/images/05-navigate-to-audit-entry-see-other-audit-entries.png"]
+image::{_imagesdir}050-navigate-to-audit-entry-see-other-audit-entries.png[width="600px",link="{_imagesdir}050-navigate-to-audit-entry-see-other-audit-entries.png"]
 
 
 It is of course also possible to navigate back to audited object:
 
-image::https://raw.github.com/isisaddons/isis-module-audit/master/images/06-navigate-back-to-audited-object.png[link="https://raw.github.com/isisaddons/isis-module-audit/master/images/06-navigate-back-to-audited-object.png"]
-
+image::{_imagesdir}060-navigate-back-to-audited-object.png[width="600px",link="{_imagesdir}060-navigate-back-to-audited-object.png"]
 
 
 
@@ -171,10 +174,9 @@ where:
 * `transactionId` is a unique identifier (a GUID) of the transaction in which this audit entry was persisted.
 * `timestamp` is the timestamp for the transaction
 * `targetClass` holds the class of the audited object, eg `com.mycompany.myapp.Customer`
-* `targetStr` stores a serialized form of the `Bookmark`, in other words a provides a mechanism to look up the audited
- object, eg `CUS:1234` to identify customer with id 1234. ("CUS" corresponds to the `@ObjectType` annotation/facet).
-* `memberIdentifier` is the fully-qualified class and property Id, similar to the way that Javadoc words, eg
- `com.mycompany.myapp.Customer#firstName`
+* `targetStr` stores a serialized form of the `Bookmark`, in other words a provides a mechanism to look up the audited object, eg `CUS:1234` to identify customer with id 1234.
+("CUS" corresponds to the `@ObjectType` annotation/facet).
+* `memberIdentifier` is the fully-qualified class and property Id, similar to the way that Javadoc words, eg `com.mycompany.myapp.Customer#firstName`
 * `propertyId` is the property identifier, eg `firstName`
 * `preValue` holds a string representation of the property's value prior to it being changed.
 If the object has been created then it holds the value "[NEW]".
@@ -187,6 +189,8 @@ The combination of `transactionId`, `targetStr` and `propertyId` make up an alte
 However, there is (deliberately) no uniqueness constraint to enforce this rule.
 
 The `AuditEntry` entity is designed such that it can be rendered on an Isis user interface if required.
+
+
 
 == Supporting Services and Mixins
 

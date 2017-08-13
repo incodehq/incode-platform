@@ -32,6 +32,8 @@ Databinding to custom XML parts (the `.docx` file format's in-built support) is 
 
 == Screenshots and Usage
 
+TODO: update screenshots
+
 The following screenshots and code fragments show an example app's usage of the module.
 
 
@@ -39,11 +41,12 @@ The following screenshots and code fragments show an example app's usage of the 
 
 Installing fixture data...
 
-![](https://raw.github.com/isisaddons/isis-module-docx/master/images/example-app-install-fixtures.png)
 
-... creates a single demo `Order` entity, with properties of different data types and a collection of child (`OrderLine`) entities: 
+image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
 
-![](https://raw.github.com/isisaddons/isis-module-docx/master/images/example-app-order-entity.png)
+/... creates a single demo `Order` entity, with properties of different data types and a collection of child (`OrderLine`) entities:
+
+image::{_imagesdir}020-order-entity.png[width="600px",link="{_imagesdir}020-order-entity.png"]
 
 
 === The `.docx` template
@@ -51,16 +54,18 @@ Installing fixture data...
 The template `.docx` itself is marked up using smart tags, as specified on the
 [DEVELOPER](http://msdn.microsoft.com/en-us/library/bb608625.aspx "How to show the DEVELOPER tab in Word") tab.
 
-![](https://raw.github.com/isisaddons/isis-module-docx/master/images/customer-confirmation-docx-template.png)
+image::{_imagesdir}030-customer-confirmation-docx-template.png[width="600px",link="{_imagesdir}030-customer-confirmation-docx-template.png"]
+
+
+TODO: update ref below
 
 The actual `.docx` used in the example app can be found [here](https://github.com/isisaddons/isis-module-docx/blob/master/fixture/src/main/java/org/isisaddons/module/docx/fixture/dom/templates/CustomerConfirmation.docx?raw=true).
 
 
 === Generating the Document
 
-In the example app's design the `CustomerConfirmation` example domain service is in essence an intelligent wrapper
-around the `CustomerConfirmation.docx` template.  It contributes two actions to `Order`, the more
-significant of which is `downloadCustomerConfirmation()`.  
+In the example app's design the `CustomerConfirmation` example domain service is in essence an intelligent wrapper around the `CustomerConfirmation.docx` template.
+It contributes two actions to `Order`, the more significant of which is `downloadCustomerConfirmation()`.
 
 The `.docx` is simply loaded as a simple resource from the classpath:
 
@@ -114,28 +119,33 @@ public Blob downloadCustomerConfirmation(
 
 Invoking this action is shown below:
 
-![](https://raw.github.com/isisaddons/isis-module-docx/master/images/customer-confirmation-generated-download.png)
+image::{_imagesdir}100-customer-confirmation-generated-download.png[width="600px",link="{_imagesdir}100-customer-confirmation-generated-download.png"]
 
 which when opened in MS Word looks like:
 
-![](https://raw.github.com/isisaddons/isis-module-docx/master/images/customer-confirmation-generated-view.png)
+image::{_imagesdir}110-customer-confirmation-generated-view.png[width="600px",link="{_imagesdir}110-customer-confirmation-generated-view.png"]
+
+
 
 A similar action downloads the generated document as a PDF:
 
-![](https://raw.github.com/isisaddons/isis-module-docx/master/images/customer-confirmation-generated-download-pdf.png)
+image::{_imagesdir}120-customer-confirmation-generated-download-pdf.png[width="600px",link="{_imagesdir}120-customer-confirmation-generated-download-pdf.png"]
+
 
 which when opened in Acrobat looks like:
 
-![](https://raw.github.com/isisaddons/isis-module-docx/master/images/customer-confirmation-generated-view-pdf.png)
+image::{_imagesdir}130-customer-confirmation-generated-view-pdf.png[width="600px",link="{_imagesdir}130-customer-confirmation-generated-view-pdf.png"]
 
-The `CustomerConfirmation` service also contributes a second (prototype) action to allow the input HTML document
-(fed into the `DocxService`) to be inspected:
 
-![](https://raw.github.com/isisaddons/isis-module-docx/master/images/customer-confirmation-input-download.png)
+The `CustomerConfirmation` service also contributes a second (prototype) action to allow the input HTML document (fed into the `DocxService`) to be inspected:
+
+image::{_imagesdir}140-customer-confirmation-input-download.png[width="600px",link="{_imagesdir}140-customer-confirmation-input-download.png"]
+
 
 which when opened in a simple text editor looks like:
 
-![](https://raw.github.com/isisaddons/isis-module-docx/master/images/customer-confirmation-input-view.png)
+image::{_imagesdir}150-customer-confirmation-input-view.png[width="600px",link="{_imagesdir}150-customer-confirmation-input-view.png"]
+
 
 Note how the table rows are repeated for each `OrderLine` item, and similarly a new bullet list for each `Order`
 preference.

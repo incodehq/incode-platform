@@ -8,9 +8,11 @@ This supports two main use cases:
 
 * profiling: determine which actions are invoked most frequently, what is the elapsed time for each command)
 
-* enhanced auditing: the command represents the "cause" of a change to the system, while the related link:http://isisaddons.org[Audit module] captures the "effect" of the change. The two are correlated together using a unique transaction Id (a GUID).
+* enhanced auditing: the command represents the "cause" of a change to the system, while the related link:http://isisaddons.org[Audit module] captures the "effect" of the change.
+The two are correlated together using a unique transaction Id (a GUID).
 
-In addition, this module also provides an implementation of the `BackgroundCommandService` API. This enables commands to be persisted but the action not invoked.
+In addition, this module also provides an implementation of the `BackgroundCommandService` API.
+This enables commands to be persisted but the action not invoked.
 A scheduler can then be used to pick up the scheduled background commands and invoke them at some later time.
 The module provides a subclass of the `BackgroundCommandExecution` class (in Isis core) to make it easy to write such scheduler jobs.
 
@@ -24,14 +26,15 @@ The following screenshots show an example app's usage of the module.
 
 Install some sample fixture data:
 
-image::https://raw.github.com/isisaddons/isis-module-command/master/images/01-install-fixtures.png[link="https://raw.github.com/isisaddons/isis-module-command/master/images/01-install-fixtures.png"]
+image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
 
 
 === Commands
 
 Commands can be associated with any object (as a polymorphic association utilizing the `BookmarkService`), and so the demo app lists the commands associated with the example entity:
 
-image::https://raw.github.com/isisaddons/isis-module-command/master/images/02-example-object.png[link="https://raw.github.com/isisaddons/isis-module-command/master/images/02-example-object.png"]
+image::{_imagesdir}020-example-object.png[width="600px",link="{_imagesdir}020-example-object.png"]
+
 
 
 === Commands created for action invocations
@@ -52,16 +55,19 @@ public SomeCommandAnnotatedObject changeName(final String newName) {
 
 which means that when the `changeName` action is invoked with some argument:
 
-image::https://raw.github.com/isisaddons/isis-module-command/master/images/04-change-name-args.png[link="https://raw.github.com/isisaddons/isis-module-command/master/images/04-change-name-args.png"]
+image::{_imagesdir}040-change-name-prompt.png[width="600px",link="{_imagesdir}040-change-name-prompt.png"]
+
 
 
 then a command object is created:
 
-image::https://raw.github.com/isisaddons/isis-module-command/master/images/05-change-name-results.png[link="https://raw.github.com/isisaddons/isis-module-command/master/images/05-change-name-results.png"]
+image::{_imagesdir}050-change-name-result.png[width="600px",link="{_imagesdir}050-change-name-result.png"]
+
 
 identifying the action, captures the target and action arguments, also timings and user:
 
-image::https://raw.github.com/isisaddons/isis-module-command/master/images/06-change-name-command-persisted.png[link="https://raw.github.com/isisaddons/isis-module-command/master/images/06-change-name-command-persisted.png"]
+image::{_imagesdir}060-change-name-command-persisted.png[width="600px",link="{_imagesdir}060-change-name-command-persisted.png"]
+
 
 === Background Commands using the Background Service
 
@@ -86,21 +92,23 @@ public void changeNameExplicitlyInBackground(
 
 In the screenshots below the action (labelled "Schedule" in the UI) is called with arguments:
 
-image::https://raw.github.com/isisaddons/isis-module-command/master/images/08-schedule-args.png[link="https://raw.github.com/isisaddons/isis-module-command/master/images/08-schedule-args.png"]
+image::{_imagesdir}080-schedule-prompt.png[width="600px",link="{_imagesdir}080-schedule-prompt.png"]
+
+
 
 This results in _two_ persisted commands, a foreground command and a background command:
 
-image::https://raw.github.com/isisaddons/isis-module-command/master/images/11-schedule-commands.png[link="https://raw.github.com/isisaddons/isis-module-command/master/images/11-schedule-commands.png"]
+image::{_imagesdir}110-schedule-commands.png[width="600px",link="{_imagesdir}110-schedule-commands.png"]
 
 
 The foreground command has been executed:
 
-image::https://raw.github.com/isisaddons/isis-module-command/master/images/13-schedule-foreground-command-with-background-command.png[link="https://raw.github.com/isisaddons/isis-module-command/master/images/13-schedule-foreground-command-with-background-command.png"]
+image::{_imagesdir}130-schedule-foreground-command-with-background-command.png[width="600px",link="{_imagesdir}130-schedule-foreground-command-with-background-command.png"]
 
 
 The background command has not (yet):
 
-image::https://raw.github.com/isisaddons/isis-module-command/master/images/14-schedule-background-command-not-yet-run.png[link="https://raw.github.com/isisaddons/isis-module-command/master/images/14-schedule-background-command-not-yet-run.png"]
+image::{_imagesdir}140-schedule-background-command-not-yet-run.png[width="600px",link="{_imagesdir}140-schedule-background-command-not-yet-run.png"]
 
 
 The background command can then be invoked through a separate process, for example using a Quartz Scheduler.
@@ -131,17 +139,18 @@ public SomeCommandAnnotatedObject changeNameImplicitlyInBackground(
 
 If invoked Apache Isis will gather the arguments as usual:
 
-image::https://raw.github.com/isisaddons/isis-module-command/master/images/16-schedule-implicitly-args.png[link="https://raw.github.com/isisaddons/isis-module-command/master/images/16-schedule-implicitly-args.png"]
+image::{_imagesdir}160-schedule-implicitly-args.png[width="600px",link="{_imagesdir}160-schedule-implicitly-args.png"]
 
 
 but then does _not_ invoke the action, but instead creates the and returns the persisted background command:
 
-image::https://raw.github.com/isisaddons/isis-module-command/master/images/17-schedule-implicitly-direct-to-results.png[link="https://raw.github.com/isisaddons/isis-module-command/master/images/17-schedule-implicitly-direct-to-results.png"]
+image::{_imagesdir}170-schedule-implicitly-direct-to-results.png[width="600px",link="{_imagesdir}170-schedule-implicitly-direct-to-results.png"]
+
 
 
 As the screenshot below shows, with this approach only a single background command is created (no foreground command at all):
 
-image::https://raw.github.com/isisaddons/isis-module-command/master/images/18-schedule-implicitly-only-one-command.png[link="https://raw.github.com/isisaddons/isis-module-command/master/images/18-schedule-implicitly-only-one-command.png"]
+image::{_imagesdir}180-schedule-implicitly-only-one-command.png[width="600px",link="{_imagesdir}180-schedule-implicitly-only-one-command.png"]
 
 
 
@@ -214,8 +223,8 @@ An individual action can then be explicitly excluded from having a persisted com
 
 == API
 
-This module implements two service APIs, `CommandService` and `BackgroundCommandService`. It also provides the
-`BackgroundCommandExecutionFromBackgroundCommandServiceJdo` to retrieve background commands for a scheduler to execute.
+This module implements two service APIs, `CommandService` and `BackgroundCommandService`.
+It also provides the `BackgroundCommandExecutionFromBackgroundCommandServiceJdo` to retrieve background commands for a scheduler to execute.
 
 === `CommandService`
 
@@ -238,8 +247,8 @@ public interface CommandService {
 }
 ----
 
-Isis will call this service (if available) to create an instance of (the module's implementation of) `Command`
-and to indicate when the transaction wrapping the action is starting and completing.
+Isis will call this service (if available) to create an instance of (the module's implementation of) `Command` and to indicate when the transaction wrapping the action is starting and completing.
+
 
 === `BackgroundCommandService`
 

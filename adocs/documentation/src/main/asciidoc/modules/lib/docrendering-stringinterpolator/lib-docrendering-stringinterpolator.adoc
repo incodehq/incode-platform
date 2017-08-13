@@ -11,12 +11,18 @@ This module (`incode-module-docrendering-stringinterpolator`) provides an implem
 The module provides three different implementations of `Renderer`:
 
 * `RendererForStringInterpolator` which implements `RendererFromCharsToChars`
+
 ** useful for interpolating document names or simple text (eg an HTML email)
+
 * `RendererForStringInterpolatorCaptureUrl` which implements `RendererFromCharsToBytes`
+
 ** interpolates to a URL, then uses the `UrlDownloaderService` (SPI service, discussed below) to download the URL and return its content as a `byte[]`.
 For example, could be used to download a PDF or Word document.
+
 * `RendererForStringInterpolatorPreviewAndCaptureUrl` which implements `RendererFromCharsToBytesWithPreviewToUrl`
+
 ** this is very similar to the previous renderer, but also provides access to the intermediary URL, thereby allowing the Document module to provide an action to preview the document.
+
 
 These classes can be used as the `Renderer` implementation for a Document `RenderingStrategy`.
 Subclasses of the `RenderingStrategyFSAbstract` fixture script can be used to create such an entity, eg:

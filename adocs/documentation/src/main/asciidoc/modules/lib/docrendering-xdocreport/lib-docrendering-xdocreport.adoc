@@ -11,9 +11,13 @@ This module (`incode-module-docrendering-xdocreport`) provides an implementation
 The module provides two different implementations of `Renderer`:
 
 * `RendererForXDocReportToDocx` which implements `RendererFromBytesToBytes`
+
 ** uses Freemarker to mail-merge a Word template document, returning the `byte[]` of the resultant Word document
+
 * `RendererForXDocReportToPdf` which implements `RendererFromBytesToBytes`
+
 ** almost the same as the previous renderer, but returns a `byte[]` array of a PDF rather than a Word document.
+
 
 
 These classes can be used as the `Renderer` implementation for a Document `RenderingStrategy`.

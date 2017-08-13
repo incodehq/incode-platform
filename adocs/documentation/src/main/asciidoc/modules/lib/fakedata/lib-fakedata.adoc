@@ -4,6 +4,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 
+
 This module (`isis-module-fakedata`) provides a domain service that generates fake random data.
 The random values generated can then be used within unit and integration tests.
 
@@ -22,9 +23,12 @@ Installing the fixture scenario:
 
 ![](https://raw.github.com/isisaddons/isis-module-fakedata/master/images/010-install-fixtures.png)
 
+image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
+
+
 will return an example demo object:
 
-![](https://raw.github.com/isisaddons/isis-module-fakedata/master/images/020-demo-object.png)
+image::{_imagesdir}020-demo-object.png[width="600px",link="{_imagesdir}020-demo-object.png"]
 
 
 == Fixtures and Integration Tests

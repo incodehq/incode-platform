@@ -4,6 +4,7 @@
 :_imagesdir: images/
 
 
+TODO: to update
 
 
 
@@ -44,6 +45,7 @@ Then log on using user: `sven`, password: `pass`
 
 
 
+== FlywayDB
 
 TODO: as per the flywaydb, generate the schema
 
@@ -53,6 +55,34 @@ This is discussed in a little more detail xref:what-happens-during-bootstrapping
 Then log on using user: `sven`, password: `pass`
 
 
+
+[[__domain-app_running-against-sql-server]]
+== Running demo against SQL Server
+
+To run the demo application against SQL Server (as opposed to inmemory):
+
+* create a new and empty database, eg `securitydemo`, with corresponding user and password
+
+* edit the `webapp/pom.xml` to include the sqljdbc4 driver
+
+* edit the JDBC properties in `persistor.properties` file:
++
+[source,properties]
+----
+isis.persistor.datanucleus.impl.javax.jdo.option.ConnectionDriverName=com.microsoft.sqlserver.jdbc.SQLServerDriver
+isis.persistor.datanucleus.impl.javax.jdo.option.ConnectionURL=jdbc:sqlserver://127.0.0.1.1533;instance=.;databaseName=securitydemo
+isis.persistor.datanucleus.impl.javax.jdo.option.ConnectionUserName=securitydemo
+isis.persistor.datanucleus.impl.javax.jdo.option.ConnectionPassword=pass
+----
+
+* configure to auto-create schema/tables in empty database, by adding to `persistor_datanucleus.properties`: +
++
+[source,properties]
+----
+isis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll=true
+isis.persistor.datanucleus.impl.datanucleus.schema.validateTables=true
+isis.persistor.datanucleus.impl.datanucleus.schema.validateConstraints=true
+----
 
 
 

@@ -7,8 +7,7 @@ This module (`isis-module-excel`) provides a domain service so that a collection
 
 
 
-It also provides a fixture to allow data to be imported from an Excel spreadsheet, with each row either corresponding to
-a persistent entity or alternatively to a view model which in turn persists data.
+It also provides a fixture to allow data to be imported from an Excel spreadsheet, with each row either corresponding to a persistent entity or alternatively to a view model which in turn persists data.
 
 The underlying technology used is http://poi.apache.org[Apache POI].
 
@@ -16,98 +15,84 @@ The underlying technology used is http://poi.apache.org[Apache POI].
 
 == Screenshots
 
+TODO: update screenshots
+
 The following screenshots show an example app's usage of the module.
 
-==== Installing the Fixture Data
+
+=== Installing the Fixture Data
 
 The fixture data creates a set of todo items in various categories:
 
+image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
 
-image::https://raw.github.com/isisaddons/isis-module-excel/master/images/010-install-fixtures.png[link="https://raw.github.com/isisaddons/isis-module-excel/master/images/010-install-fixtures.png"]
 
-
-==== Exporting items using the (example) bulk update manager
+=== Exporting items using the (example) bulk update manager
 
 The example app has a bulk update manager as a wrapper around the ExcelService:
 
-image::https://raw.github.com/isisaddons/isis-module-excel/master/images/020-run-bulk-update-manager.png[link="https://raw.github.com/isisaddons/isis-module-excel/master/images/020-run-bulk-update-manager.png"]
+image::{_imagesdir}020-run-bulk-update-manager.png[width="600px",link="{_imagesdir}020-run-bulk-update-manager.png"]
+
 
 The (example) bulk update manager allows the end-user to define a criteria to exporting a (sub)set of items:
 
-image::https://raw.github.com/isisaddons/isis-module-excel/master/images/030-export.png[link="https://raw.github.com/isisaddons/isis-module-excel/master/images/030-export.png"]
+image::{_imagesdir}030-export.png[width="600px",link="{_imagesdir}030-export.png"]
+
 
 which are then downloaded ...
 
-image::https://raw.github.com/isisaddons/isis-module-excel/master/images/040-open-xlsx.png[link="https://raw.github.com/isisaddons/isis-module-excel/master/images/040-open-xlsx.png"]
+image::{_imagesdir}040-open-xlsx.png[width="600px",link="{_imagesdir}040-open-xlsx.png"]
+
 
 \... and can be viewed in Microsoft Excel:
 
-image::https://raw.github.com/isisaddons/isis-module-excel/master/images/050-xlsx.png[link="https://raw.github.com/isisaddons/isis-module-excel/master/images/050-xlsx.png"]
+image::{_imagesdir}050-xlsx.png[width="600px",link="{_imagesdir}050-xlsx.png"]
 
 
-==== Importing Exporting Excel
+=== Importing Exporting Excel
 
 Using Excel the user can update data:
 
-image::https://raw.github.com/isisaddons/isis-module-excel/master/images/060-xlsx-updated.png[link="https://raw.github.com/isisaddons/isis-module-excel/master/images/060-xlsx-updated.png"]
+image::{_imagesdir}060-xlsx-updated.png[width="600px",link="{_imagesdir}060-xlsx-updated.png"]
 
 \... and the use the (example) bulk update manager to import:
 
-image::https://raw.github.com/isisaddons/isis-module-excel/master/images/070-import.png[link="https://raw.github.com/isisaddons/isis-module-excel/master/images/070-import.png"]
+image::{_imagesdir}070-import.png[width="600px",link="{_imagesdir}070-import.png"]
+
 
 specifying the updated spreadsheet in the dialog:
 
-image::https://raw.github.com/isisaddons/isis-module-excel/master/images/080-import-dialog.png[link="https://raw.github.com/isisaddons/isis-module-excel/master/images/080-import-dialog.png"]
+image::{_imagesdir}080-import-dialog.png[width="600px",link="{_imagesdir}080-import-dialog.png"]
 
-==== View models represent the Excel rows
+
+=== View models represent the Excel rows
 
 For each row in the spreadsheet the `ExcelService` instantiates a corresponding view model.
 
-image::https://raw.github.com/isisaddons/isis-module-excel/master/images/090-line-items.png[link="https://raw.github.com/isisaddons/isis-module-excel/master/images/090-line-items.png"]
+image::{_imagesdir}090-line-items.png[width="600px",link="{_imagesdir}090-line-items.png"]
 
-The view model can then provide a bulk `apply` action… 
 
-image::https://raw.github.com/isisaddons/isis-module-excel/master/images/100-bulk-apply.png[link="https://raw.github.com/isisaddons/isis-module-excel/master/images/100-bulk-apply.png"]
+The view model can then provide a bulk `apply` action…
+
+image::{_imagesdir}100-bulk-apply.png[width="600px",link="{_imagesdir}100-bulk-apply.png"]
+
 
 to update the corresponding entity:
 
-image::https://raw.github.com/isisaddons/isis-module-excel/master/images/110-updated-todo-item.png[link="https://raw.github.com/isisaddons/isis-module-excel/master/images/110-updated-todo-item.png"]
+image::{_imagesdir}110-updated-todo-item.png[width="600px",link="{_imagesdir}110-updated-todo-item.png"]
 
-==== Limited pivot support for Import
+
+=== (Limited) pivot support for Import
 
 This module has support for pivot tables (export only) which is demonstrated by:
 
-image::https://raw.github.com/isisaddons/isis-module-excel/master/images/120-demo-pivot-menu.png[link="https://raw.github.com/isisaddons/isis-module-excel/master/images/120-demo-pivot-menu.png"]
+image::{_imagesdir}120-demo-pivot-menu.png[width="600px",link="{_imagesdir}120-demo-pivot-menu.png"]
 
 which are then downloaded and can be viewed in Microsoft Excel:
 
-image::https://raw.github.com/isisaddons/isis-module-excel/master/images/130-demo-pivot-sheet.png[link="https://raw.github.com/isisaddons/isis-module-excel/master/images/120-demo-pivot-sheet.png"]
+image::{_imagesdir}130-demo-pivot-sheet.png[width="600px",link="{_imagesdir}130-demo-pivot-sheet.png"]
 
-== How to run the Demo App
 
-The prerequisite software is:
-
-* Java JDK 8 (&gt;= 1.9.0) or Java JDK 7 (&lt;= 1.8.0)
-** note that the compile source and target remains at JDK 7
-* http://maven.apache.org[maven 3] (3.2.x is recommended).
-
-To build the demo app:
-
-[source]
-----
-git clone https://github.com/isisaddons/isis-module-excel.git
-mvn clean install
-----
-
-To run the demo app:
-
-[source]
-----
-cd webapp
-mvn jetty:run
-----
-
-Then log on using user: `sven`, password: `pass`
 
 
 == How to configure/use
@@ -144,7 +129,6 @@ public List<Class<?>> getModules() {
     );
 }
 ----
-
 
 
 
@@ -204,7 +188,8 @@ public class WorksheetSpec {
 }
 ----
 <1> the class of those domain objects
-<2> the name of the sheet to be read.  If omitted, then the simple name of the domain object class will be used.
+<2> the name of the sheet to be read.
+If omitted, then the simple name of the domain object class will be used.
 In all cases the sheet name must be 30 characters or less in length.
 
 
@@ -275,7 +260,7 @@ public class WorksheetContent {
 <1> the list of domain objects to be exported as an excel sheet
 <2> the `WorksheetSpec`, describing the class of those domain objects and the worksheet name to use
 
-In a like wise manner the following methods allow (annotated) domain objects to be exported to an Excel workbook in a pivot table.
+In a likewise manner the following methods allow (annotated) domain objects to be exported to an Excel workbook in a pivot table.
 
 [source,java]
 ----
@@ -382,11 +367,13 @@ Type specifies the aggregation type, that defaults to AggregationType.SUM. At th
 
 [source,java]
 ----
-@PivotDecoration(order = ..)
+@PivotDecoration(order = ...)
 ----
-Indicates that the distinct values of the property will be used as 'extra' values besides the row label. (They 'decorate' the label.)
-This annotation is optional. More than 1 annotation is supported and they will be used in the order specified.
-Decoration assumes that all distinct labels are decorated with the same values. This is not enforced however: the first decoration found will be used.
+Indicates that the distinct values of the property will be used as 'extra' values besides the row label (they "decorate" the label).
+This annotation is optional.
+More than 1 annotation is supported and they will be used in the order specified.
+Decoration assumes that all distinct labels are decorated with the same values.
+This is not enforced however: the first decoration found will be used.
 
 Here is the example used in the demo application
 
@@ -411,8 +398,8 @@ public class ExcelModuleDemoPivot {
 
 == `ExcelFixture`
 
-The `ExcelFixture` is intended for use as part of the application's fixtures, as used for prototyping/demos and for
-integration tests.  Behind the scenes it (re)uses the `ExcelService`.
+The `ExcelFixture` is intended for use as part of the application's fixtures, as used for prototyping/demos and for integration tests.
+Behind the scenes it (re)uses the `ExcelService`.
 
 === API
 
@@ -432,8 +419,8 @@ public class ExcelFixture {
 ----
 <1> the `URL` to the Excel spreadsheet
 <2> a list of classes to process each of the sheets in the spreadsheet.
-<3> optionally, specify the name of the sheet.  This is used only to disambiguate any results added to the `FixtureResultList`
- (displayed in the UI) if multiple spreadsheets are loaded using different `ExcelFixture` instances.
+<3> optionally, specify the name of the sheet.
+This is used only to disambiguate any results added to the `FixtureResultList` (displayed in the UI) if multiple spreadsheets are loaded using different `ExcelFixture` instances.
 
 Each of the classes must either be a persistable entity or must implement the `ExcelFixtureRowHandler` interface:
 
@@ -448,7 +435,8 @@ public interface ExcelFixtureRowHandler {
 ----
 <1> to look up execution parameters, and to call `addResult(...)` (to make results available in the UI)
 <2> provided principally so that `addResult(...)` can be called.
-<3> to support sparsely populated spreadsheets where a null cell means to use the value from the previous row.  Particularly useful for spreadsheets that group together multiple entities (eg category/subcategory/item).
+<3> to support sparsely populated spreadsheets where a null cell means to use the value from the previous row.
+Particularly useful for spreadsheets that group together multiple entities (eg category/subcategory/item).
 
 The fixture is instantiated and executed in the usual way, as per any other fixture script.
 
@@ -464,8 +452,10 @@ For example, the class `ExcelModuleDemoToDoItemRowHandler` will match a sheet na
 Excel sheet names can be no longer than 30 characters
 ====
 
-Assuming the sheet has been located, the fixture will instantiate an instance of the class for each row, and set the
-properties of the sheet according to the headers.  If the class is persistable, it will then attempt to persist the object using `DomainObjectContainer#persist(...)`.  Otherwise (where the class implements `ExcelFixtureRowHandler`), the `handleRow(...)` method will be called.
+Assuming the sheet has been located, the fixture will instantiate an instance of the class for each row, and set the properties of the sheet according to the headers.
+If the class is persistable, it will then attempt to persist the object using `DomainObjectContainer#persist(...)`.
+Otherwise (where the class implements `ExcelFixtureRowHandler`), the `handleRow(...)` method will be called.
+
 
 The fixture makes all created objects available to the caller through two accessors:
 

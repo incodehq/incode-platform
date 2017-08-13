@@ -12,30 +12,31 @@ Typically this will be to a relational database; the module's `SessionLogEntry` 
 
 TODO: to update
 
-The sessionlogger module automatically creates log entries whenever a user logs on or logs out. The currently logged on users of the application (that is: those for whom there is a valid non-expired HTTP session) can be found from the activity menu:
+The sessionlogger module automatically creates log entries whenever a user logs on or logs out.
+The currently logged on users of the application (that is: those for whom there is a valid non-expired HTTP session) can be found from the activity menu:
 
-image::https://raw.github.com/isisaddons/isis-module-sessionlogger/master/images/010-active-sessions.png[link="https://raw.github.com/isisaddons/isis-module-sessionlogger/master/images/010-active-sessions.png"]
+image::{_imagesdir}010-active-sessions.png[width="600px",link="{_imagesdir}010-active-sessions.png"]
 
 
 In the screenshot below there are two currently active users:
 
-image::https://raw.github.com/isisaddons/isis-module-sessionlogger/master/images/020-active-sessions-listed.png[link="https://raw.github.com/isisaddons/isis-module-sessionlogger/master/images/020-active-sessions-listed.png"]
+image::{_imagesdir}020-active-sessions-listed.png[width="600px",link="{_imagesdir}020-active-sessions-listed.png"]
 
 
 The module also allows current and previously active sessions to be searched for:
 
-image::https://raw.github.com/isisaddons/isis-module-sessionlogger/master/images/030-find-sessions.png[link="https://raw.github.com/isisaddons/isis-module-sessionlogger/master/images/030-find-sessions.png"]
+image::{_imagesdir}030-find-sessions.png[width="600px",link="{_imagesdir}030-find-sessions.png"]
 
 
 The list of sessions can optionally be filtered by user and date range:
 
-image::https://raw.github.com/isisaddons/isis-module-sessionlogger/master/images/040-find-sessions-prompt.png[link="https://raw.github.com/isisaddons/isis-module-sessionlogger/master/images/040-find-sessions-prompt.png"]
+image::{_imagesdir}040-find-sessions-prompt.png[width="600px",link="{_imagesdir}040-find-sessions-prompt.png"]
+
 
 
 returning matching sessions:
 
-image::https://raw.github.com/isisaddons/isis-module-sessionlogger/master/images/050-find-sessions-listed.png[link="https://raw.github.com/isisaddons/isis-module-sessionlogger/master/images/050-find-sessions-listed.png"]
-
+image::{_imagesdir}050-find-sessions-listed.png[width="600px",link="{_imagesdir}050-find-sessions-listed.png"]
 
 
 == How to Configure/Use

@@ -7,8 +7,7 @@
 This module (`isis-module-stringinterpolator`) provides a mechanism to interpolate string templates with either Isis system properties or values obtained from a domain object.
 
 
-One use case for this service is in building URLs based on an object's state, parameterized
-by environment (prod/test/dev etc).
+One use case for this service is in building URLs based on an object's state, parameterized by environment (prod/test/dev etc).
 These URLs could be anything; for example, to a reporting service:
 
 [source]
@@ -26,15 +25,20 @@ Apache Isis system properties are exposed as the `properties` map, while the tar
 
 == Screenshots
 
+TODO: update screenshots
+
 The screenshots below show an example app's usage of the _stringinterpolator_ module:
 
 === Install example fixtures
 
-![](https://raw.github.com/isisaddons/isis-module-stringinterpolator/master/images/010-install-fixtures.png)
+image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
+
 
 \... returning an example entity:
 
-![](https://raw.github.com/isisaddons/isis-module-stringinterpolator/master/images/020-example-entity.png)
+image::{_imagesdir}020-example-entity.png[width="600px",link="{_imagesdir}020-example-entity.png"]
+
+
 
 The `Open` (contributed) action is:
 
@@ -48,7 +52,7 @@ public URL open(ToDoItem toDoItem) throws MalformedURLException {
 ----
 
 
-where the configuration property "isis.website" has been set, eg in `WEB-INF/isis.properties`:
+where the configuration property "isis.website" has been set (eg in `WEB-INF/isis.properties`):
 
 [source]
 ----
@@ -72,7 +76,8 @@ public class ToDoItem ... {
 
 Invoking the `Open` action computes the `urlStr` local variable, and then (because the action returns a `URL`), results in the browser opening the appropriate web page:
 
-![](https://raw.github.com/isisaddons/isis-module-stringinterpolator/master/images/030-opened-page.png)
+
+image::{_imagesdir}030-opened-page.png[width="600px",link="{_imagesdir}030-opened-page.png"]
 
 
 
@@ -91,7 +96,7 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 </dependency>
 ----
 
-Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-stringinterpolator-dom).
+Check for later releases by searching link:http://search.maven.org/#search|ga|1|isis-module-stringinterpolator-dom[Maven Central Repo].
 
 For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
 
@@ -120,7 +125,7 @@ public List<Class<?>> getModules() {
 The module consists of a single domain service, `StringInterpolatorService`.
 
 The interpolation replaces each occurrence of `${...}` with its interpolated value.
-The expression in within the braces is interpreted using [OGNL](http://commons.apache.org/proper/commons-ognl/).
+The expression in within the braces is interpreted using link:http://commons.apache.org/proper/commons-ognl[OGNL].
 
 
 === Object graph interpolation

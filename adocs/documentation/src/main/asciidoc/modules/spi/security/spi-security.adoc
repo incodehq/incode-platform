@@ -4,8 +4,7 @@
 :_imagesdir: images/
 
 
-This module (`isis-module-security`) provides the ability to manage *user*s, *role*s,
-and *permission*s.
+This module (`isis-module-security`) provides the ability to manage *user*s, *role*s, and *permission*s.
 Users have roles, roles have permissions, and permissions are associated with *application feature*s.
 These features are derived from the Isis metamodel and can be scoped at either a _package_, _class_ or individual _class member_.
 Permissions themselves can either _allow_ or _veto_ the ability to _view_ or _change_ any application feature.
@@ -29,7 +28,7 @@ For example, users would typically have the ability to view/edit data in "their"
 * As of v1.13.3, this has been generalized; the interpretation of the "atPath" is entirely application-specific (with legacy support for the original design).
 
 * As of v1.13.6, this has been generalized further; an ``ApplicationUser``'s "atPath" is no longer a reference to a particular `ApplicationTenancy` entity; it is simply a string.
-That string could of course still be used to represent the identifier of a single `ApplicationTenancy`, but it need not: it should be thought of instead as encoding and and all characteristics of the user or domain object which pertain to determining visibility/editability.
+That string could of course still be used to represent the identifier of a single `ApplicationTenancy`, but it need not: it should be thought of instead as encoding all the characteristics of the user or domain object which pertain to determining visibility/editability.
 The `ApplicationTenancy` entity has been retained only to make it easier to migrate to this more generalized model.
 
 
@@ -72,16 +71,18 @@ For further screenshots, see the https://github.com/isisaddons/isis-module-secur
 When the security module starts up, it will automatically (idempotently) seed a number of roles, corresponding permissions and a default `isis-module-security-admin` user.
 This user has access to the security menu:
 
-image::https://raw.github.com/isisaddons/isis-module-security/master/images/010-menus.png[link="https://raw.github.com/isisaddons/isis-module-security/master/images/010-menus.png"]
+image::{_imagesdir}010-menus.png[width="600px",link="{_imagesdir}010-menus.png"]
+
 
 One of the roles granted to the `isis-module-security-admin` user is the corresponding (similarly named) `isis-module-security-admin` role.
 It is this that grants all permissions to all classes in the security module itself:
 
-image::https://raw.github.com/isisaddons/isis-module-security/master/images/030-role.png[link="https://raw.github.com/isisaddons/isis-module-security/master/images/030-role.png"]
+image::{_imagesdir}030-role.png[width="600px",link="{_imagesdir}030-role.png"]
+
 
 The `isis-module-security-regular-user` role grants selected permissions to viewing/changing members of the `ApplicationUser` class (so that a user with this role can view/update their own record):
 
-image::https://raw.github.com/isisaddons/isis-module-security/master/images/035-role-regular-user.png[link="https://raw.github.com/isisaddons/isis-module-security/master/images/035-role-regular-user.png"]
+image::{_imagesdir}035-role-regular-user.png[width="600px",link="{_imagesdir}035-role-regular-user.png"]
 
 
 === Add permission at different scopes
@@ -105,7 +106,7 @@ Permissions can either grant (allow) access or prevent (veto) access.
 If a user has permissions that contradict each other (for example, they are a member of "roleA" that allows the permission, but also of "roleB" that vetoes the permission) then by default the allow wins.
 However, this is strategy is pluggable, and the security module can be configured such that a veto would override an allow if required.
 
-image::https://raw.github.com/isisaddons/isis-module-security/master/images/050-permission-rule.png[link="https://raw.github.com/isisaddons/isis-module-security/master/images/050-permission-rule.png"]
+image::{_imagesdir}050-permission-rule.png[width="600px",link="{_imagesdir}050-permission-rule.png"]
 
 
 === Permissions can apply to VIEWING or CHANGING the feature
@@ -114,7 +115,8 @@ For a property, "changing" means being able to edit it.
 For a collection, "changing" means being able to add or remove from it.
 For an action, "changing" means being able to invoke it.
 
-image::https://raw.github.com/isisaddons/isis-module-security/master/images/060-permission-mode.png[link="https://raw.github.com/isisaddons/isis-module-security/master/images/060-permission-mode.png"]
+image::{_imagesdir}060-permission-mode.png[width="600px",link="{_imagesdir}060-permission-mode.png"]
+
 
 Note that Isis' Wicket viewer currently does not support the concept of "changing" collections; the work-around is instead create a pair of actions to add/remove instead.
 This level of control is usually needed anyway.
@@ -126,7 +128,8 @@ An _allow/changing_ permission naturally enough implies _allow/viewing_, while c
 
 The list of packages (or classes, or class members) is derived from Isis' own metamodel.
 
-image::https://raw.github.com/isisaddons/isis-module-security/master/images/070-permission-package-from-isis-metamodel.png[link="https://raw.github.com/isisaddons/isis-module-security/master/images/070-permission-package-from-isis-metamodel.png"]
+image::{_imagesdir}070-permission-package-from-isis-metamodel.png[width="600px",link="{_imagesdir}070-permission-package-from-isis-metamodel.png"]
+
 
 
 === Application users
@@ -137,14 +140,15 @@ Application users can have either a _local_ or a _delegated_ account type.
 The users are created explicitly by the administrator.
 
 * Optionally a delegate authentication realm can be configured; if so then delegated users can be created and their credentials will be authenticated by the delegate authentication realm.
-By default, users are created _automatically_ when that user attempts to log in (though this feature can be disabled, see xref:shiro-configuration[below])
+By default, users are created _automatically_ when that user attempts to log in (though this feature can be disabled, see xref:shiro-configuration[below]).
 However, for safety their `ApplicationUser` accounts are created in a disabled state and with no roles, so the administrator is still required to update them.
 
 Once the user is created, then additional information about that user can be captured, including their name and contact details.
 This information is not otherwise used by the security module, but may be of use to other parts of the application.
 The users' roles and effective permissions are also shown.
 
-image::https://raw.github.com/isisaddons/isis-module-security/master/images/289-user-details.png[link="https://raw.github.com/isisaddons/isis-module-security/master/images/289-user-details.png"]
+image::{_imagesdir}080-permission-added.png[width="600px",link="{_imagesdir}080-permission-added.png"]
+
 
 A user can maintain their own details, but may not alter other users' details.
 An administrator can alter all details, as well as reset a users' password.
@@ -162,27 +166,28 @@ Apache Isis allows users to sign-up (self-register) with an application provided
 
 The sign-up link is shown on the initial login page:
 
-image::https://raw.github.com/isisaddons/isis-module-security/master/images/500-sign-in-register-link.png[link="https://raw.github.com/isisaddons/isis-module-security/master/images/500-sign-in-register-link.png"]
+image::{_imagesdir}500-sign-in-register-link.png[width="600px",link="{_imagesdir}500-sign-in-register-link.png"]
 
 
 Following the link prompts for an email:
 
-image::https://raw.github.com/isisaddons/isis-module-security/master/images/510-sign-up.png[link="https://raw.github.com/isisaddons/isis-module-security/master/images/510-sign-up.png"]
+image::{_imagesdir}510-sign-up.png[width="600px",link="{_imagesdir}510-sign-up.png"]
 
 
 An email is sent to the specified address, with a link to complete the registration:
 
-image::https://raw.github.com/isisaddons/isis-module-security/master/images/530-sign-up-email.png[link="https://raw.github.com/isisaddons/isis-module-security/master/images/530-sign-up-email.png"]
+image::{_imagesdir}530-sign-up-email.png[width="600px",link="{_imagesdir}530-sign-up-email.png"]
+
 
 
 Completing registration consists of selecting a username and password:
 
-image::https://raw.github.com/isisaddons/isis-module-security/master/images/540-complete-registration.png[link="https://raw.github.com/isisaddons/isis-module-security/master/images/540-complete-registration.png"]
+image::{_imagesdir}540-complete-registration.png[width="600px",link="{_imagesdir}540-complete-registration.png"]
 
 
 The user can then login:
 
-image::https://raw.github.com/isisaddons/isis-module-security/master/images/550-logged-in.png[link="https://raw.github.com/isisaddons/isis-module-security/master/images/550-logged-in.png"]
+image::{_imagesdir}550-logged-in.png[width="600px",link="{_imagesdir}550-logged-in.png"]
 
 
 In the screenshot above note that the user has a default set of permissions.
@@ -557,32 +562,7 @@ isis.persistor.datanucleus.impl.datanucleus.Mapping=sqlserver
 This will cause DataNucleus to also search for `ApplicationUser-**sqlserver**.orm` files and use them if found.
 
 
-=== Running demo against SQL Server
-
-To run the demo application against SQL Server (as opposed to inmemory):
-
-* create a new and empty database, eg `securitydemo`, with corresponding user and password
-
-* edit the `webapp/pom.xml` to include the sqljdbc4 driver
-
-* edit the JDBC properties in `persistor.properties` file:
-+
-[source,properties]
-----
-isis.persistor.datanucleus.impl.javax.jdo.option.ConnectionDriverName=com.microsoft.sqlserver.jdbc.SQLServerDriver
-isis.persistor.datanucleus.impl.javax.jdo.option.ConnectionURL=jdbc:sqlserver://127.0.0.1.1533;instance=.;databaseName=securitydemo
-isis.persistor.datanucleus.impl.javax.jdo.option.ConnectionUserName=securitydemo
-isis.persistor.datanucleus.impl.javax.jdo.option.ConnectionPassword=pass
-----
-
-* configure to auto-create schema/tables in empty database, by adding to `persistor_datanucleus.properties`: +
-+
-[source,properties]
-----
-isis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll=true
-isis.persistor.datanucleus.impl.datanucleus.schema.validateTables=true
-isis.persistor.datanucleus.impl.datanucleus.schema.validateConstraints=true
-----
+See xref:../../../pages/domain-app.adoc#__domain-app_running-against-sql-server[here] for details on how to run the domain app (with example module) against SQL Server.
 
 
 

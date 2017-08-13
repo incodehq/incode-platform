@@ -9,17 +9,19 @@ This module (`isis-module-poly`) provides a set of helpers to support the defini
 
 == Rationale
 
-Persistable polymorphic associations are important because they allow decoupling between classes using the [dependency inversion principle](http://en.wikipedia.org/wiki/Dependency_inversion_principle); module dependencies can therefore by kept acyclic.
-This is key to long-term maintainability of the codebase (avoiding the [big ball of mud](http://en.wikipedia.org/wiki/Big_ball_of_mud) anti-pattern).
+Persistable polymorphic associations are important because they allow decoupling between classes using the link:http://en.wikipedia.org/wiki/Dependency_inversion_principle[dependency inversion principle]; module dependencies can therefore by kept acyclic.
+This is key to long-term maintainability of the codebase (avoiding the link:http://en.wikipedia.org/wiki/Big_ball_of_mud[big ball of mud] anti-pattern).
 
-While JDO/DataNucleus has several [built-in strategies](http://www.datanucleus.org/products/datanucleus/jdo/orm/interfaces.html) to support polymorphic associations, none allow both a persisted reference to be arbitrarily extensible as well as supporting foreign keys (for RDBMS-enforced referential integrity).
+While JDO/DataNucleus has several link:http://www.datanucleus.org/products/datanucleus/jdo/orm/interfaces.html[built-in strategies] to support polymorphic associations, none allow both a persisted reference to be arbitrarily extensible as well as supporting foreign keys (for RDBMS-enforced referential integrity).
 The purpose of this module is therefore to provide helper classes that use a different approach, namely the "table of two halves" pattern.
 
 
 === Table of Two Halves Pattern
 
 The "table of two halves" pattern models the relationship tuple itself as a class hierarchy.
-The supertype table holds a generic polymorphic reference to the target object (leveraging Isis' [Bookmark Service](http://isis.apache.org/reference/services/bookmark-service.html)) while the subtype table holds a foreign key is held within the subtype.
+The supertype table holds a generic polymorphic reference to the target object (leveraging Apache Isis' link:http://isis.apache.org/reference/services/bookmark-service.html[Bookmark Service]) while the subtype table holds a foreign key is held within the subtype.
+
+TODO: update link above, is stale
 
 It is quite possible to implement the "table of two halves" pattern without using the helpers provided by this module; indeed arguably there's more value in the demo application that accompanies this module (discussed below) than in the helpers themselves.
 Still, the helpers do provide useful structure to help implement the pattern.
@@ -48,93 +50,110 @@ Meanwhile both `FixedAsset` and `Party` can be added as the "contents" of multip
 The following UML diagram shows the "logical" polymorphic association between `CommunicationChannel` and its owning
 `CommunicationChannelOwner`:
 
-<img src="https://raw.github.com/isisaddons/isis-module-poly/master/images/comm-channel-uml.png" width="600">
+image::{_imagesdir}comm-channel-uml.png[width="600px",link="{_imagesdir}comm-channel-uml.png"]
 
 
 This is realized using the following entities:
 
-<img src="https://raw.github.com/isisaddons/isis-module-poly/master/images/comm-channel-link-uml.png" width="600">
+image::{_imagesdir}comm-channel-link-uml.png[width="600px",link="{_imagesdir}comm-channel-link-uml.png"]
 
 Here the `CommunicationChannelOwnerLink` is a persistent entity that has subtypes for each of the implementations of the `CommunicationChannelOwner` interface, namely `CommunicationChannelOwnerLinkForFixedAsset` and `CommunicationChannelOwnerLinkForParty`.
 This inheritance hierarchy can be persisted using any of the [standard strategies](http://www.datanucleus.org/products/datanucleus/jdo/orm/inheritance.html) supported by JDO/DataNucleus.
 
-In the demo application the [NEW_TABLE](http://www.datanucleus.org/products/datanucleus/jdo/orm/inheritance.html#newtable) strategy is used, giving rise to these tables:
 
-<img src="https://raw.github.com/isisaddons/isis-module-poly/master/images/comm-channel-rdbms.png" width="600">
+In the demo application the link:http://www.datanucleus.org/products/datanucleus/jdo/orm/inheritance.html#newtable[NEW_TABLE] strategy is used, giving rise to these tables:
+
+image::{_imagesdir}comm-channel-rdbms.png[width="600px",link="{_imagesdir}comm-channel-rdbms.png"]
 
 
 === Case Contents
 
 The following UML diagram shows the (two) "logical" polymorphic assocations between `Case` and its `CaseContent`s:
 
-<img src="https://raw.github.com/isisaddons/isis-module-poly/master/images/case-content-uml.png" width="600">
+image::{_imagesdir}case-content-uml.png[width="600px",link="{_imagesdir}case-content-uml.png"]
+
 
 Note how `Case` actually has _two_ polymorphic associations: a 1:n to its "contents", and a 1:1 to its "primary content".
 
 This is realized using the following entities:
 
-<img src="https://raw.github.com/isisaddons/isis-module-poly/master/images/case-content-link-uml.png" width="600">
+image::{_imagesdir}case-content-link-uml.png[width="600px",link="{_imagesdir}case-content-link-uml.png"]
+
 
 Here the `CaseContentLink` is a persistent entity that (as for communication channels) has subtypes for each of the implementations of the `CaseContent` interface.
 But because `Case` actually has two associations to `CaseContent`, there is also a further `CasePrimaryContentLink` persistent entity, again with subtypes.
 
-In the demo application the [NEW_TABLE](http://www.datanucleus.org/products/datanucleus/jdo/orm/inheritance.html#newtable) strategy is used for both, giving rise to these tables for the "case content" association:
+In the demo application the link:http://www.datanucleus.org/products/datanucleus/jdo/orm/inheritance.html#newtable[NEW_TABLE] strategy is used for both, giving rise to these tables for the "case content" association:
 
-<img src="https://raw.github.com/isisaddons/isis-module-poly/master/images/case-content-contents-rdbms.png" width="600">
+image::{_imagesdir}case-content-contents-rdbms.png[width="600px",link="{_imagesdir}case-content-contents-rdbms.png"]
+
 
 and also to these for the "primary content" association:
 
-<img src="https://raw.github.com/isisaddons/isis-module-poly/master/images/case-content-primary-rdbms.png" width="600">
+image::{_imagesdir}case-content-primary-rdbms.png[width="600px",link="{_imagesdir}case-content-primary-rdbms.png"]
+
 
 
 == Screenshots
 
+TODO: update screenshots
+
 The screenshots below show the demo app's usage of the _poly_ module.
 We start by installing some fixture data:
 
-![](https://raw.github.com/isisaddons/isis-module-poly/master/images/010-install-fixtures.png)
+image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
+
 
 This sets up 3 parties, 3 fixed assets which between them have 9 communication channels.
 There are also 3 cases and the parties and fixed assets are variously contained within.
 This is summarized on the home page:
 
-![](https://raw.github.com/isisaddons/isis-module-poly/master/images/020-dashboard.png)
+image::{_imagesdir}020-dashboard.png[width="600px",link="{_imagesdir}020-dashboard.png"]
+
 
 If we navigate to the `Party` entity, we can see that it shows a collection of `CommunicationChannel`s that the party owns, and also a collection of the `Case`s within which the party is contained:
 
-![](https://raw.github.com/isisaddons/isis-module-poly/master/images/030-party.png)
+image::{_imagesdir}030-party.png[width="600px",link="{_imagesdir}030-party.png"]
+
+
 
 The `FixedAsset` entity is similar in that it also has a collection of `Case`s.
 However, in our demo app we have a business rule that the fixed asset can own only a single `CommunicationChannel`.
 
-![](https://raw.github.com/isisaddons/isis-module-poly/master/images/040-fixed-asset.png)
+image::{_imagesdir}040-fixed-asset.png[width="600px",link="{_imagesdir}040-fixed-asset.png"]
+
 
 On the `Party` entity we can add (and remove) `CommunicationChannel`s:
 
-![](https://raw.github.com/isisaddons/isis-module-poly/master/images/050-party-add-comm-channel.png)
+image::{_imagesdir}050-party-add-comm-channel.png[width="600px",link="{_imagesdir}050-party-add-comm-channel.png"]
+
 
 In this demo app, because communication channels are _not_ shared by entities, this will actually create and persist the corresponding `CommunicationChannel`.
 
+
 We can also add (or remove) from `Case`s:
 
-![](https://raw.github.com/isisaddons/isis-module-poly/master/images/060-party-add-to-case.png)
+image::{_imagesdir}060-party-add-to-case.png[width="600px",link="{_imagesdir}060-party-add-to-case.png"]
+
 
 Here the rule is slightly different: the `Case` already exists and so the party is merely associated with an existing case.
 
 From the `Case` entity's perspective, we can see its contents and also its primary content:
 
-![](https://raw.github.com/isisaddons/isis-module-poly/master/images/070-case.png)
+image::{_imagesdir}070-case.png[width="600px",link="{_imagesdir}070-case.png"]
+
 
 As might be expected, we have an action to set (or clear) the primary content:
 
-![](https://raw.github.com/isisaddons/isis-module-poly/master/images/080-case-set-primary-contents.png)
-
+image::{_imagesdir}080-case-set-primary-contents.png[width="600px",link="{_imagesdir}080-case-set-primary-contents.png"]
 
 
 
 == Design
 
-The key design idea is to leverage Isis' [event bus service](http://isis.apache.org/reference/services/event-bus-service.html) to determine which concrete subtype should be created and persisted to hold the association.
+TODO: update link below
+
+The key design idea is to leverage Isis' link:http://isis.apache.org/reference/services/event-bus-service.html[event bus service] to determine which concrete subtype should be created and persisted to hold the association.
 
 * when the association needs to be created, an event is posted to the event bus
 
@@ -557,7 +576,7 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 </dependency>
 ----
 
-Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-poly-dom).
+Check for later releases by searching link:http://search.maven.org/#search|ga|1|isis-module-poly-dom[Maven Central Repo].
 
 For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
 
