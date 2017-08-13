@@ -18,39 +18,43 @@ The following screenshots show an example app's usage of the component.
 
 Install fixtures for the example app:
 
-image::https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/010-install-fixtures.png[link="https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/010-install-fixtures.png"]
+image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
 
 
 === Parented collection as calendar
 
 The todo item's collection contains a list of `Calendarable` entities (also todo items); this is indicated through a button to switch the view:
 
-image::https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/020-calendar-button-for-parented-collection.png[link="https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/020-calendar-button-for-parented-collection.png"]
+image::{_imagesdir}020-calendar-button-for-parented-collection.png[width="600px",link="{_imagesdir}020-calendar-button-for-parented-collection.png"]
+
 
 Clicking the button shows the same entities on a fullpage calendar:
 
-image::https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/030-view-items-in-calendar.png[link="https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/030-view-items-in-calendar.png"]
+image::{_imagesdir}030-view-items-in-calendar.png[width="600px",link="{_imagesdir}030-view-items-in-calendar.png"]
+
 
 === Drill down
 
 Clicking on the event in the calendar drills down to the corresponding entity:
 
-image::https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/040-drill-down.png[link="https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/040-drill-down.png"]
+image::{_imagesdir}040-drill-down.png[width="600px",link="{_imagesdir}040-drill-down.png"]
 
 
 === Standalone collection as calendar
 
 Invoking an action that returns a list of `Calendarable` entities:
 
-image::https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/050-view-all.png[link="https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/050-view-all.png"]
+image::{_imagesdir}050-view-all.png[width="600px",link="{_imagesdir}050-view-all.png"]
 
-/... also results in the button to view in a fullpage calendar:
 
-image::https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/060-calendar-button-for-standalone-collection.png[link="https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/060-calendar-button-for-standalone-collection.png"]
+\... also results in the button to view in a fullpage calendar:
+
+image::{_imagesdir}060-calendar-button-for-standalone-collection.png[width="600px",link="{_imagesdir}060-calendar-button-for-standalone-collection.png"]
+
 
 Each item is shown in the calendar view:
 
-image::https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/070-toggle-calendars.png[link="https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/070-toggle-calendars.png"]
+image::{_imagesdir}070-toggle-calendars.png[width="600px",link="{_imagesdir}070-toggle-calendars.png"]
 
 
 === Calendars
@@ -78,8 +82,7 @@ public CalendarEvent toCalendarEvent() {
 The full page calendar uses colour coding to indicate the calendars, as well as checkboxes to show/hide each calendar.
 Unchecking the calendar toggle hides all events in that calendar:
 
-image::https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/080-calendar-updated.png[link="https://raw.github.com/isisaddons/isis-wicket-fullcalendar2/master/images/080-calendar-updated.png"]
-
+image::{_imagesdir}080-calendar-updated.png[width="600px",link="{_imagesdir}080-calendar-updated.png"]
 
 
 
@@ -224,6 +227,3 @@ In addition to Apache Isis, this component depends on:
 * http://jquery.com[http://jquery.com] (MIT License)
 
 
-== Related Modules
-
-TODO: to update

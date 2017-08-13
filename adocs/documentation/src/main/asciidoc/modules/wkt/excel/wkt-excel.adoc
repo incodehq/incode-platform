@@ -4,9 +4,8 @@
 :_imagesdir: images/
 
 
-This component (`isis-wicket-excel`) allows a collection of entities to be downloaded as an Excel spreadsheet (using [Apache POI](http://poi.apache.org)).
+This component (`isis-wicket-excel`) allows a collection of entities to be downloaded as an Excel spreadsheet (using link:http://poi.apache.org[Apache POI]).
 
-See also the [Isis Addons Excel module](https://github.com/isisaddons/isis-module-excel), which allows programmatic export and import, eg to support bulk updating/inserting.
 
 
 == Screenshots
@@ -15,21 +14,23 @@ The module contributes an additional "view" for both standalone and parented col
 
 For example, assuming some fixtures have been installed:
 
-![](https://raw.github.com/isisaddons/isis-wicket-excel/master/images/010-install-fixtures.png)
+image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
+
 
 Then the standalone collection of all incomplete todo items shows
 an additional link to select the excel view:
 
-![](https://raw.github.com/isisaddons/isis-wicket-excel/master/images/020-excel-tab.png)
+image::{_imagesdir}020-excel-tab.png[width="600px",link="{_imagesdir}020-excel-tab.png"]
+
 
 In both cases this view is simply a button to download the collection as an Excel spreadsheet:
 
-![](https://raw.github.com/isisaddons/isis-wicket-excel/master/images/030-download-link.png)
+image::{_imagesdir}030-download-link.png[width="600px",link="{_imagesdir}030-download-link.png"]
+
 
 And the spreadsheet contains the contents of the collection:
 
-![](https://raw.github.com/isisaddons/isis-wicket-excel/master/images/040-excel.png)
-
+image::{_imagesdir}040-excel.png[width="600px",link="{_imagesdir}040-excel.png"]
 
 
 == How to configure/use
@@ -48,7 +49,7 @@ Simply add this component to your classpath, eg:
 You should then find that a new view is provided for all collections of entities (either as returned from an action, or as a parented collection), from which a link to download the spreadsheet can be accessed.
 
 
-Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-excel-cpt).
+Check for later releases by searching link:http://search.maven.org/#search|ga|1|isis-wicket-excel-cpt[Maven Central Repo].
 
 
 For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
@@ -66,11 +67,11 @@ None known at this time.
 
 In addition to Apache Isis, this component depends on:
 
-* `org.apache.poi:poi` (ASL v2.0 License)
+* `org.apache.poi:poi` (ASL v2.0 License), link:http://poi.apache.org[Apache POI]
 * `org.apache.poi:poi-ooxml` (ASL v2.0 License)
 * `org.apache.poi:poi-ooxml-schemas` (ASL v2.0 License)
 
 
 == Related Modules
 
-See also the [Excel module](https://github.com/isisaddons/isis-module-excel), which provides programmatic ability to export or import objects to/from an Excel spreadsheet.
+See also the link:https://github.com/isisaddons/isis-module-excel[Excel module], which provides programmatic ability to export or import objects to/from an Excel spreadsheet.

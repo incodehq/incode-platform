@@ -44,7 +44,7 @@ Installing fixture data...
 
 image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
 
-/... creates a single demo `Order` entity, with properties of different data types and a collection of child (`OrderLine`) entities:
+\... creates a single demo `Order` entity, with properties of different data types and a collection of child (`OrderLine`) entities:
 
 image::{_imagesdir}020-order-entity.png[width="600px",link="{_imagesdir}020-order-entity.png"]
 

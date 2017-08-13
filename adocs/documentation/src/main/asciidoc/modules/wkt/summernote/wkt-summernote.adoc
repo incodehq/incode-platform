@@ -4,7 +4,7 @@
 :_imagesdir: images/
 
 
-This module (`isis-wicket-summernote`) integrates http://summernote.org[Summernote editor].
+This module (`isis-wicket-summernote`) integrates link:http://summernote.org[Summernote editor].
 _Summernote_ is a JavaScript library based on http://getbootstrap.com/[Bootstrap] that helps you create WYSIWYG editors online.
 
 
@@ -15,17 +15,20 @@ TODO: to update
 
 The following screenshots show the example app's usage of the component with some sample fixture data:
 
-image::https://raw.github.com/isisaddons/isis-wicket-summernote/master/images/010-install-fixtures.png[https://raw.github.com/isisaddons/isis-wicket-summernote/master/images/010-install-fixtures.png]
+image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
+
 
 Edit mode:
 
-image::https://raw.github.com/isisaddons/isis-wicket-summernote/master/images/020-edit-mode.png[https://raw.github.com/isisaddons/isis-wicket-summernote/master/images/020-edit-mode.png]
+image::{_imagesdir}020-edit-mode.png[width="600px",link="{_imagesdir}020-edit-mode.png"]
+
 
 View mode:
 
-image::https://raw.github.com/isisaddons/isis-wicket-summernote/master/images/030-view-mode.png[https://raw.github.com/isisaddons/isis-wicket-summernote/master/images/030-view-mode.png]
+image::{_imagesdir}030-view-mode.png[width="600px",link="{_imagesdir}030-view-mode.png"]
 
-… shows an additional button to view those entities in a summary chart:
+
+\... shows an additional button to view those entities in a summary chart:
 
 
 
@@ -68,7 +71,7 @@ Add the component to your project's `dom` module's `pom.xml`:
 </dependency>
 ----
 
-Check for later releases by searching http://search.maven.org/#search|ga|1|isis-wicket-summernote-cpt[Maven Central Repo].
+Check for later releases by searching link:http://search.maven.org/#search|ga|1|isis-wicket-summernote-cpt[Maven Central Repo].
 
 For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
 
@@ -96,5 +99,4 @@ None known at this time.
 
 In addition to Apache Isis, this component depends on:
 
-TODO: to update.
-
+* link:http://summernote.org[Summernote editor].

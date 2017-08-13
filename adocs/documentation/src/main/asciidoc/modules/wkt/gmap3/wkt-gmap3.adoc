@@ -12,18 +12,22 @@ TODO: to update
 
 The following screenshots show the example app's usage of the component with some sample fixture data:
 
-image::https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/010-install-fixtures.png[link="https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/010-install-fixtures.png"]
+image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
+
 
 
 === Parented collection as gmap
 
 The todo item's collection contains a list of `Locatable` entities (also todo items); this is indicated through a button to switch the view:
 
-image::https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/020-gmap-button-available-on-parented-collection.png[link="https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/020-gmap-button-available-on-parented-collection.png"]
+image::{_imagesdir}020-gmap-button-available-on-parented-collection.png[width="600px",link="{_imagesdir}020-gmap-button-available-on-parented-collection.png"]
+
 
 Clicking the button shows the same entities on a gmap3:
 
-image::https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/030-view-collection-in-gmap3-next-update-location.png[link="https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/030-view-collection-in-gmap3-next-update-location.png"]
+image::{_imagesdir}030-view-collection-in-gmap3-next-update-location.png[width="600px",link="{_imagesdir}030-view-collection-in-gmap3-next-update-location.png"]
+
+
 
 === Update location using service
 
@@ -42,34 +46,37 @@ public Gmap3WicketToDoItem updateLocation(
 
 When invoked:
 
-image::https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/040-update-location-invoke.png[link="https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/040-update-location-invoke.png"]
+image::{_imagesdir}040-update-location-invoke.png[width="600px",link="{_imagesdir}040-update-location-invoke.png"]
+
 
 \... it updates the location:
 
-image::https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/050-location-updated.png[link="https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/050-location-updated.png"]
+image::{_imagesdir}050-location-updated.png[width="600px",link="{_imagesdir}050-location-updated.png"]
+
 
 === Standalone location as gmap
 
 Invoking an action that returns a list of `Locatable` entities:
 
-image::https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/060-view-all-items.png[link="https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/060-view-all-items.png"]
+image::{_imagesdir}060-view-all-items.png[width="600px",link="{_imagesdir}060-view-all-items.png"]
+
 
 \... also results in the button to view in a gmap3:
 
-image::https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/070-gmap-button-available-on-standalone-collection.png[link="https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/070-gmap-button-available-on-standalone-collection.png"]
+image::{_imagesdir}070-gmap-button-available-on-standalone-collection.png[width="600px",link="{_imagesdir}070-gmap-button-available-on-standalone-collection.png"]
+
 
 \... which then renders the items in a map.
 Note the tooltips:
 
-image::https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/080-view-collection-in-gmap3.png[link="https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/080-view-collection-in-gmap3.png"]
+image::{_imagesdir}080-view-collection-in-gmap3.png[width="600px",link="{_imagesdir}080-view-collection-in-gmap3.png"]
 
 
 === Click through
 
 Clicking on a map marker drills down to the entity:
 
-image::https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/090-click-through-to-entity.png[link="https://raw.github.com/isisaddons/isis-wicket-gmap3/master/images/090-click-through-to-entity.png"]
-
+image::{_imagesdir}090-click-through-to-entity.png[width="600px",link="{_imagesdir}090-click-through-to-entity.png"]
 
 
 
@@ -127,8 +134,8 @@ To use this the `LocationLookupService` needs to be registered; see below.
 
 [NOTE]
 ====
-Alternatively, the `Location` can also be specified directly as a string. The format is `mmm.mmm;nnn.nnn`, where
-`mmm.mmm` is the latitude, and `nnn.nnn` is the longitude
+Alternatively, the `Location` can also be specified directly as a string.
+The format is `mmm.mmm;nnn.nnn`, where `mmm.mmm` is the latitude, and `nnn.nnn` is the longitude
 ====
 
 
@@ -136,8 +143,7 @@ Alternatively, the `Location` can also be specified directly as a string. The fo
 === `LocationDereferencingService`
 
 Sometimes the domain object that implements `Locatable` will be a supporting object such as an `Address`, belonging to a `Customer`, say.
-When the location marker is clicked in the map, we would rather that the UI opens up the `Customer` rather than the
-associated `Address` (in other words, saving a click).
+When the location marker is clicked in the map, we would rather that the UI opens up the `Customer` rather than the associated `Address` (in other words, saving a click).
 
 This requirement is supported by providing an implementation of the `LocationDereferencingService`:
 

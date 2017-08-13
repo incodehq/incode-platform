@@ -112,7 +112,7 @@ This uses the internal `vm://` protocol for speed
 <3> using the `AddExchangeHeaders` component provided by this module to add the metadata from the `InteractionDto` to the Camel message.
 This allows the message to be routed
 <4> use Camel to select which sub-route to following, using...
-<5> /... the header attached earlier.
+<5> \... the header attached earlier.
 The action identifier header is usually used as the predicate for selecting the sub-route
 <6> Use a processor (implemented in the example app) to attach a DTO obtained from a call to Restful Objects.
 <7> Use a processor (implemented in the example app) to post a message to the fake external SOAP service.

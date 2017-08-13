@@ -12,7 +12,8 @@ This component (`isis-wicket-pdfjs`) allows a BLOB containing an PDF to be rende
 
 The following screenshots show the demo app's usage of the component with some sample fixture data:
 
-image::https://raw.github.com/isisaddons/isis-wicket-pdfjs/master/images/010-home-page.png[link="https://raw.github.com/isisaddons/isis-wicket-pdfjs/master/images/010-home-page.png"]
+image::{_imagesdir}010-home-page.png[width="600px",link="{_imagesdir}010-home-page.png"]
+
 
 The component lets the user page through the PDF document, zoom in and out, and change the height of the panel.
 In addition, the user can download PDF and print the PDF.

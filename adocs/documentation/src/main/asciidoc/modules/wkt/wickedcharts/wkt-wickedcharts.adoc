@@ -4,13 +4,13 @@
 :_imagesdir: images/
 
 
-This component (`isis-wicket-wickedcharts`) integrates [Wicked Charts](https://code.google.com/p/wicked-charts/).
-*Wicked Charts* is in turn an integration between [Apache Wicket](http://wicket.apache.org) and the [Highcharts](http://www.highcharts.com/) JS charting library).
+This component (`isis-wicket-wickedcharts`) integrates link:https://code.google.com/p/wicked-charts/[Wicked Charts].
+*Wicked Charts* is in turn an integration between link:http://wicket.apache.org[Apache Wicket] and the link:http://www.highcharts.com/[Highcharts] JS charting library).
 
 [NOTE]
 ====
 Please note that while this project and *Wicked Charts* are licensed under Apache 2.0 License, *Highcharts* itself is only free for non-commercial use.
-See link:http://shop.highsoft.com/highcharts.html[here] for further details.
+See the link:http://shop.highsoft.com/highcharts.html[Highcharts website] for further details.
 ====
 
 
@@ -30,26 +30,29 @@ TODO: to update
 
 The following screenshots show the example app's usage of the component with some sample fixture data:
 
-![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/010-install-fixtures.png)
+image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
 
-Note that the example entity (todo item) has two numeric (`BigDecimal`) properties: 
 
-![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/020-entity-with-numeric-properties.png)
+Note that the example entity (todo item) has two numeric (`BigDecimal`) properties:
+
+image::{_imagesdir}020-entity-with-numeric-properties.png[width="600px",link="{_imagesdir}020-entity-with-numeric-properties.png"]
 
 
 === Summary Charts
 
 Invoking an action that returns a collection of entities:
 
-![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/030-all-entities.png)
+image::{_imagesdir}030-all-entities.png[width="600px",link="{_imagesdir}030-all-entities.png"]
 
-/... shows an additional button to view those entities in a summary chart:
 
-![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/040-standalone-collection-additional-button-for-summary-chart.png)
+\... shows an additional button to view those entities in a summary chart:
+
+image::{_imagesdir}040-standalone-collection-additional-button-for-summary-chart.png[width="600px",link="{_imagesdir}040-standalone-collection-additional-button-for-summary-chart.png"]
+
 
 Clicking on the button renders a chart where the values of all numeric (`BigDecimal`) properties are plotted:
 
-![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/050-summary-chart.png)
+image::{_imagesdir}050-summary-chart.png[width="600px",link="{_imagesdir}050-summary-chart.png"]
 
 
 === Scalar Charts
@@ -57,11 +60,12 @@ Clicking on the button renders a chart where the values of all numeric (`BigDeci
 Arbitrary charts can be returned from any action.
 For example this action:
 
-![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/060-arbitrary-charts.png)
+image::{_imagesdir}060-arbitrary-charts.png[width="600px",link="{_imagesdir}060-arbitrary-charts.png"]
 
-/... renders a pie chart splitting out the example Todo entities by their category:
 
-![](https://raw.github.com/isisaddons/isis-wicket-wickedcharts/master/images/070-scalar-chart.png)
+\... renders a pie chart splitting out the example Todo entities by their category:
+
+image::{_imagesdir}070-scalar-chart.png[width="600px",link="{_imagesdir}070-scalar-chart.png"]
 
 
 == API & Usage
@@ -76,17 +80,21 @@ There is no special usage; a standalone collection of any entity with one or mor
 Any action returning the `WickedChart` value type should be rendered as a chart.
 The `WickedChart` value type is simply a wrapper around the wicked chart's `Options` class:
 
-    import com.googlecode.wickedcharts.highcharts.options.Options;
+[source,java]
+----
+import com.googlecode.wickedcharts.highcharts.options.Options;
 
-    public class WickedChart implements Serializable {
+public class WickedChart implements Serializable {
 
-        private Options options;
-        
-        public WickedChart(Options options) { ... }
-        ...
-    }
+    private Options options;
 
-Any chart supported by *Wicked Charts* (see their [showcase](http://wicked-charts.appspot.com/) app) should work.  
+    public WickedChart(Options options) { ... }
+    ...
+}
+----
+
+
+Any chart supported by *Wicked Charts* (see their link:http://wicked-charts.appspot.com/[showcase] app) should work.
 
 
 
@@ -106,7 +114,7 @@ Add the component to your project's `dom` module's `pom.xml`:
 ----
 
 
-Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-wicket-wickedcharts-cpt).
+Check for later releases by searching link:http://search.maven.org/#search|ga|1|isis-wicket-wickedcharts-cpt[Maven Central Repo].
 
 For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
 
@@ -143,7 +151,7 @@ public class MyEntity {
 In addition to Apache Isis, this component depends on:
 
 * `commons-codec:commons-codec` (ASL v2.0 License)
-* `com.googlecode.wicked-charts:wicked-charts-wicket6` (ASL v2.0 License)
-* http://highcharts.com/license  (commercial license required unless personal/open source project)
+* link:https://code.google.com/p/wicked-charts/[Wicked Charts], `com.googlecode.wicked-charts:wicked-charts-wicket6` (ASL v2.0 License)
+* link:http://www.highcharts.com/[Highcharts], http://highcharts.com/license (*commercial license required unless personal/open source project*)
 
 

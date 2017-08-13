@@ -24,7 +24,7 @@ The following screenshots show an example app's usage of the module with some sa
 
 image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
 
-/... returning an example entity "Bip".  The class of this entity is not of interest, what _is_ of interest is that it
+\... returning an example entity "Bip".  The class of this entity is not of interest, what _is_ of interest is that it
 has two properties, `brand` and `sector`, that correspond to `Tag`s:
 
 image::{_imagesdir}020-example-entity-with-two-tag-categories.png[width="600px",link="{_imagesdir}020-example-entity-with-two-tag-categories.png"]
@@ -61,7 +61,7 @@ The tag is saved:
 image::{_imagesdir}090-new-brand-saved.png[width="600px",link="{_imagesdir}090-new-brand-saved.png"]
 
 
-/... and is available as a choice for this or any other entity of the same type:
+\... and is available as a choice for this or any other entity of the same type:
 
 image::{_imagesdir}100-new-brand-available-as-choice.png[width="600px",link="{_imagesdir}100-new-brand-available-as-choice.png"]
 
