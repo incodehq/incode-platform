@@ -14,7 +14,10 @@ The result of the interpolation is a simple string; normally the calling object 
 
 == Screenshots
 
-TODO: update screenshots
+[NOTE]
+====
+The screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
+====
 
 The home page shows some sample ``DocFragment``s, along with some ``DemoCustomer`` and ``DemoInvoice`` domain objects that use the module:
 

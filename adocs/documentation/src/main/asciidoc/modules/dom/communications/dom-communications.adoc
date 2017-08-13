@@ -36,6 +36,11 @@ These can be overridden using DataNucleus `.orm` files if required.
 [[__dom-communications_screenshots]]
 == Screenshots
 
+[NOTE]
+====
+The screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
+====
+
 We start off by creating some fixture data:
 
 image::{_imagesdir}010-run-fixture-script.png[width="600px",link="{_imagesdir}010-run-fixture-script.png"]

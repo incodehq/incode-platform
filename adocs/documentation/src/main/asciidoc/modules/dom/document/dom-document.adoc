@@ -35,7 +35,10 @@ In the latter, a "supports" mixin property points back to the `Document` being s
 [[__dom-document_screenshots]]
 == Screenshots
 
-TODO: update screenshots
+[NOTE]
+====
+The screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
+====
 
 We create some fixture data (both sample document templates and demo domain objects to attach documents once created):
 

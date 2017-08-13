@@ -10,6 +10,11 @@ This component (`isis-wicket-excel`) allows a collection of entities to be downl
 
 == Screenshots
 
+[NOTE]
+====
+The screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
+====
+
 The module contributes an additional "view" for both standalone and parented collections:
 
 For example, assuming some fixtures have been installed:

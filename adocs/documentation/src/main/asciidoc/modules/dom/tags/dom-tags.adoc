@@ -16,7 +16,10 @@ As well as listing existing tags, new tags can of course also be created, and ex
 
 == Screenshots
 
-TODO: update screenshots
+[NOTE]
+====
+The screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
+====
 
 The following screenshots show an example app's usage of the module with some sample fixture data:
 

@@ -10,7 +10,10 @@ Underneath the covers it uses this https://github.com/42Lines/wicket-fullcalenda
 
 == Screenshots
 
-TODO: to update
+[NOTE]
+====
+The screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
+====
 
 The following screenshots show an example app's usage of the component.
 

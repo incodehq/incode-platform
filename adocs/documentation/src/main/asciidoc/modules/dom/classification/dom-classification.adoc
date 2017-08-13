@@ -81,7 +81,10 @@ The module does _not_ prevent an `Applicability` from being removed, even if the
 
 == Screenshots
 
-TODO: update from domainapp example module
+[NOTE]
+====
+The screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
+====
 
 The module's functionality is demonstrated/tested using a demo app.
 This has a small hierarchy of app tenancies, namely "/" (global), "/ITA" (Italy)", "/FRA" (France) and two sub-tenancies of Italy and France, "/ITA/MIL" (Milan) and "/FRA/PAR" (Paris).

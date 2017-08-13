@@ -10,7 +10,10 @@ Typically this will be to a relational database; the module's `SessionLogEntry` 
 
 == Screenshots
 
-TODO: to update
+[NOTE]
+====
+The screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
+====
 
 The sessionlogger module automatically creates log entries whenever a user logs on or logs out.
 The currently logged on users of the application (that is: those for whom there is a valid non-expired HTTP session) can be found from the activity menu:

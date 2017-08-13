@@ -31,6 +31,11 @@ Of course, "in real life" this external system would be running somewhere else o
 
 == Application walk-through
 
+[NOTE]
+====
+The screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
+====
+
 The following screenshots show how the publishing service publishes the member interaction events that are then routed through to the (fake) external system using Camel.
 
 

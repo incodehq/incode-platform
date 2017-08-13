@@ -13,6 +13,11 @@ For each of these APIs a corresponding "provider" domain service exists; for exa
 
 == Screenshots
 
+[NOTE]
+====
+The screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
+====
+
 The following screenshots show an example app's usage of the module with some sample data:
 
 image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
@@ -49,7 +54,7 @@ Update your classpath by adding this dependency in your `dom` project's `pom.xml
 </dependency>
 ----
 
-Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-servletapi-dom)).
+Check for later releases by searching link:http://search.maven.org/#search|ga|1|isis-module-servletapi-dom[Maven Central Repo].
 
 For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
 

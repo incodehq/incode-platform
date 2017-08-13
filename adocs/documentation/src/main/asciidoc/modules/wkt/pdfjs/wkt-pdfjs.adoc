@@ -10,6 +10,11 @@ This component (`isis-wicket-pdfjs`) allows a BLOB containing an PDF to be rende
 
 == Screenshots
 
+[NOTE]
+====
+The screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
+====
+
 The following screenshots show the demo app's usage of the component with some sample fixture data:
 
 image::{_imagesdir}010-home-page.png[width="600px",link="{_imagesdir}010-home-page.png"]

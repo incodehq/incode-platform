@@ -21,7 +21,10 @@ This module provides an implemenation of Apache Isis' `FacetFactory` for Apache 
 
 == Screenshot and Corresponding Code
 
-TODO: update
+[NOTE]
+====
+The screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
+====
 
 From the demo app, here's the screenshot of an action to create a new object:
 

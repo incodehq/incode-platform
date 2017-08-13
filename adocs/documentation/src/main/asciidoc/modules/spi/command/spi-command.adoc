@@ -20,6 +20,11 @@ The module provides a subclass of the `BackgroundCommandExecution` class (in Isi
 
 == Screenshots
 
+[NOTE]
+====
+The screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
+====
+
 The following screenshots show an example app's usage of the module.
 
 === Installing the Fixture Data
