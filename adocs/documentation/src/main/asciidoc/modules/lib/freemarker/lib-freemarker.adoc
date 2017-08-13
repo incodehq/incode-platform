@@ -168,10 +168,7 @@ None known at this time.
 
 In addition to Apache Isis, this module depends on:
 
-TODO: to update
+TODO: dependencies to update
 
 
 
-= Related Modules/Services
-
-TODO: to update

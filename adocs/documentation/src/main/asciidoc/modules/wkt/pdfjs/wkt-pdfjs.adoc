@@ -283,4 +283,4 @@ This also means that the component should never be rendered in a table ("compact
 
 In addition to Apache Isis, this component depends on:
 
-TODO: something in wicketstuff, I believe...
+TODO: dependencies to update

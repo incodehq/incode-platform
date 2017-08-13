@@ -48,7 +48,7 @@ The module provides a default implementation based on http://www.mindrot.org/pro
 
 == Domain Model
 
-TODO: translate to plantuml
+TODO: rework using plantuml
 
 image::http://yuml.me/1b23e034[link="http://yuml.me/1b23e034"]
 

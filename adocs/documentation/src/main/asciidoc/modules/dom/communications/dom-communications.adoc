@@ -220,7 +220,7 @@ Each `Communication` relates to one or more ``CommunicationChannel``s by way of 
 [[__dom-communications_commchannel-mixins]]
 == (CommunicationChannel) Contributions
 
-[***TODO - to document ***]
+TODO: to document
 
 The `CommunicationChannelOwner_newChannelContributions` ...
 

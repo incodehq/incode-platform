@@ -365,7 +365,7 @@ None known at this time.
 
 == Dependencies
 
-TODO: to complete
+TODO: dependencies to complete
 
 
 This service uses the Isis Addons' xref:../../dom/settings/dom-settings.adoc#[settings subdomain] module for feature persistence.

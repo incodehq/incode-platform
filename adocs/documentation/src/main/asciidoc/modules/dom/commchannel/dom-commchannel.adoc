@@ -21,7 +21,7 @@ The list of purposes can vary by both the communication channel type (postal add
 
 == Domain Model
 
-TODO: update to use plantuml
+TODO: rework using plantuml
 
 The following http://yuml.me[] class diagram highlights the main concepts:
 

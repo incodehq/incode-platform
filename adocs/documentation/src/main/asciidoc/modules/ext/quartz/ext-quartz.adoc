@@ -133,5 +133,5 @@ None known at this time.
 
 == Dependencies
 
-TODO: to complete
+TODO: dependencies to complete
 

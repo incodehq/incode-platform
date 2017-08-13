@@ -177,6 +177,6 @@ None known at this time.
 
 === Dependencies
 
-TODO: to update
+TODO: dependencies to update
 
 

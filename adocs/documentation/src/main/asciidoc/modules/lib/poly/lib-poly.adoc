@@ -30,7 +30,7 @@ Still, the helpers do provide useful structure to help implement the pattern.
 
 == Demo Application
 
-TODO: to update
+TODO: to update, x-ref domain-app
 
 This module has a comprehensive demo application that demonstrates four different polymorphic associations:
 

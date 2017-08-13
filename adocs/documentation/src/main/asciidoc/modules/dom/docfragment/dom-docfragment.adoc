@@ -68,7 +68,7 @@ This is interpolated as a date, rather than as a generic Object.
 
 == Domain Model
 
-TODO: update to use plantuml
+TODO: rework using plantuml
 
 The following class diagram highlights the main concepts:
 

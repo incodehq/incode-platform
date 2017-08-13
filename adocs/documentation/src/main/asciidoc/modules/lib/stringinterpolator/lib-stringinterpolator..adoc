@@ -281,5 +281,5 @@ In addition to Apache Isis, this module depends on:
 
 == Related Modules/Services
 
-TODO: to update
+TODO: dependencies to update
 

@@ -22,7 +22,7 @@ The value of the application tenancy path of a domain object is provided through
 
 == Domain Model
 
-TODO: update to use plantuml
+TODO: rework using plantuml
 
 The following http://yuml.me[] class diagram highlights the main concepts:
 
