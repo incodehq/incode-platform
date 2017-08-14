@@ -146,20 +146,6 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- maven mixins -->
-            <dependency>
-                <groupId>org.incode.mavenmixin</groupId>
-                <artifactId>incode-mavenmixin-swagger</artifactId>
-                <version>${isis.version}</version>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.mavenmixin</groupId>
-                <artifactId>incode-mavenmixin-validate</artifactId>
-                <version>${isis.version}</version>
-                <type>pom</type>
-            </dependency>
-
             <!-- maven deps -->
             <dependency>
                 <groupId>org.apache.isis.mavendeps</groupId>
