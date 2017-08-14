@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.incode</groupId>
+        <artifactId>incode-parent</artifactId>
+        <version>1.15.0-SNAPSHOT</version>
+        <relativePath>../../../pom.xml</relativePath>
+    </parent>
+
+    <groupId>org.isisaddons.module.publishmq</groupId>
+    <artifactId>isis-module-publishmq-dom</artifactId>
+
+    <packaging>pom</packaging>
+
+    <name>Incode Platform SPI PublishMQ Impl</name>
+    <description>
+        Parent module for the various submodules that make up the publishmq service.
+    </description>
+
+    <url>https://github.com/incodehq/incode-platform</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git@github.com:incodehq/incode-platform.git</connection>
+        <developerConnection>scm:git:git@github.com:incodehq/incode-platform.git</developerConnection>
+        <url>git@github.com:incodehq/incode-platform.git</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>dhaywood</id>
+            <name>Dan Haywood</name>
+            <email>dhaywood@incode.org</email>
+        </developer>
+        <developer>
+            <id>jvanderwal</id>
+            <name>Jeroen van der Wal</name>
+            <email>jvanderwal@incode.org</email>
+        </developer>
+        <developer>
+            <id>jdoornenbal</id>
+            <name>Johan Doornenbal</name>
+            <email>jdoornenbal@incode.org</email>
+        </developer>
+    </developers>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-all</artifactId>
+                <version>${activemq.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <modules>
+        <module>servicespi</module>
+        <module>jdo</module>
+        <module>camel</module>
+        <module>statusclient</module>
+    </modules>
+
+
+</project>

@@ -52,25 +52,25 @@
             <modules>
                 <module>domainapp/example/dom</module>
 
-                <module>modules/dom-alias/impl</module>
-                <module>modules/dom-classification/impl</module>
-                <module>modules/dom-communications/impl</module>
-                <module>modules/dom-commchannel/impl</module>
+                <module>modules/dom/alias/impl</module>
+                <module>modules/dom/classification/impl</module>
+                <module>modules/dom/communications/impl</module>
+                <module>modules/dom/commchannel/impl</module>
 
-                <module>modules/dom-country/impl</module>
+                <module>modules/dom/country/impl</module>
 
-                <module>modules/dom-docfragment/impl</module>
-                <module>modules/dom-document/impl</module>
-                <module>modules/dom-note/impl</module>
+                <module>modules/dom/docfragment/impl</module>
+                <module>modules/dom/document/impl</module>
+                <module>modules/dom/note/impl</module>
 
-                <module>modules/dom-settings/impl</module>
-                <module>modules/dom-tags/impl</module>
+                <module>modules/dom/settings/impl</module>
+                <module>modules/dom/tags/impl</module>
 
-                <module>modules/spi-audit/impl</module>
-                <module>modules/spi-command/impl</module>
-                <module>modules/spi-publishmq/impl/jdo</module>
-                <module>modules/spi-security/impl</module>
-                <module>modules/spi-sessionlogger/impl</module>
+                <module>modules/spi/audit/impl</module>
+                <module>modules/spi/command/impl</module>
+                <module>modules/spi/publishmq/impl/jdo</module>
+                <module>modules/spi/security/impl</module>
+                <module>modules/spi/sessionlogger/impl</module>
             </modules>
         </profile>
 
@@ -82,8 +82,8 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/lib-docx/impl</module>
-                <module>modules/lib-docx/integtests</module>
+                <module>modules/lib/docx/impl</module>
+                <module>modules/lib/docx/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -94,8 +94,8 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/lib-excel/impl</module>
-                <module>modules/lib-excel/integtests</module>
+                <module>modules/lib/excel/impl</module>
+                <module>modules/lib/excel/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -106,8 +106,8 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/lib-fakedata/impl</module>
-                <module>modules/lib-fakedata/integtests</module>
+                <module>modules/lib/fakedata/impl</module>
+                <module>modules/lib/fakedata/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -118,8 +118,8 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/lib-poly/impl</module>
-                <module>modules/lib-poly/integtests</module>
+                <module>modules/lib/poly/impl</module>
+                <module>modules/lib/poly/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -130,7 +130,7 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/lib-servletapi/impl</module>
+                <module>modules/lib/servletapi/impl</module>
             </modules>
         </profile>
         <profile>
@@ -141,8 +141,8 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/lib-stringinterpolator/impl</module>
-                <module>modules/lib-stringinterpolator/integtests</module>
+                <module>modules/lib/stringinterpolator/impl</module>
+                <module>modules/lib/stringinterpolator/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -153,8 +153,8 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/dom-alias/impl</module>
-                <module>modules/dom-alias/integtests</module>
+                <module>modules/dom/alias/impl</module>
+                <module>modules/dom/alias/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -165,8 +165,8 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/dom-classification/impl</module>
-                <module>modules/dom-classification/integtests</module>
+                <module>modules/dom/classification/impl</module>
+                <module>modules/dom/classification/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -177,8 +177,8 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/dom-commchannel/impl</module>
-                <module>modules/dom-commchannel/integtests</module>
+                <module>modules/dom/commchannel/impl</module>
+                <module>modules/dom/commchannel/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -189,8 +189,8 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/dom-communications/impl</module>
-                <module>modules/dom-communications/integtests</module>
+                <module>modules/dom/communications/impl</module>
+                <module>modules/dom/communications/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -201,8 +201,8 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/dom-country/impl</module>
-                <module>modules/dom-country/integtests</module>
+                <module>modules/dom/country/impl</module>
+                <module>modules/dom/country/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -213,8 +213,8 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/dom-docfragment/impl</module>
-                <module>modules/dom-docfragment/integtests</module>
+                <module>modules/dom/docfragment/impl</module>
+                <module>modules/dom/docfragment/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -225,8 +225,8 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/dom-document/impl</module>
-                <module>modules/dom-document/integtests</module>
+                <module>modules/dom/document/impl</module>
+                <module>modules/dom/document/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -237,8 +237,8 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/dom-note/impl</module>
-                <module>modules/dom-note/integtests</module>
+                <module>modules/dom/note/impl</module>
+                <module>modules/dom/note/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -249,8 +249,8 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/dom-settings/impl</module>
-                <module>modules/dom-settings/integtests</module>
+                <module>modules/dom/settings/impl</module>
+                <module>modules/dom/settings/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -261,8 +261,8 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/dom-tags/impl</module>
-                <module>modules/dom-tags/integtests</module>
+                <module>modules/dom/tags/impl</module>
+                <module>modules/dom/tags/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -273,8 +273,8 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/mml-paraname8/impl</module>
-                <module>modules/mml-paraname8/integtests</module>
+                <module>modules/mml/paraname8/impl</module>
+                <module>modules/mml/paraname8/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -285,8 +285,8 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/spi-audit/impl</module>
-                <module>modules/spi-audit/integtests</module>
+                <module>modules/spi/audit/impl</module>
+                <module>modules/spi/audit/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -297,8 +297,8 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/spi-command/impl</module>
-                <module>modules/spi-command/integtests</module>
+                <module>modules/spi/command/impl</module>
+                <module>modules/spi/command/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -309,8 +309,8 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/spi-publishmq/impl</module>
-                <module>modules/spi-publishmq/integtests</module>
+                <module>modules/spi/publishmq/impl</module>
+                <module>modules/spi/publishmq/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -321,8 +321,8 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/spi-security/impl</module>
-                <module>modules/spi-security/integtests</module>
+                <module>modules/spi/security/impl</module>
+                <module>modules/spi/security/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -333,8 +333,8 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/spi-sessionlogger/impl</module>
-                <module>modules/spi-sessionlogger/integtests</module>
+                <module>modules/spi/sessionlogger/impl</module>
+                <module>modules/spi/sessionlogger/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -345,7 +345,7 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/wkt-excel/impl</module>
+                <module>modules/wkt/excel/impl</module>
             </modules>
         </profile>
         <profile>
@@ -356,7 +356,7 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/wkt-fullcalendar2/impl</module>
+                <module>modules/wkt/fullcalendar2/impl</module>
             </modules>
         </profile>
         <profile>
@@ -367,7 +367,7 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/wkt-gmap3/impl</module>
+                <module>modules/wkt/gmap3/impl</module>
             </modules>
         </profile>
         <profile>
@@ -378,7 +378,7 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/wkt-pdfjs/impl</module>
+                <module>modules/wkt/pdfjs/impl</module>
             </modules>
         </profile>
         <profile>
@@ -389,7 +389,7 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/wkt-summernote/impl</module>
+                <module>modules/wkt/summernote/impl</module>
             </modules>
         </profile>
         <profile>
@@ -400,7 +400,7 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/wkt-wickedcharts/impl</module>
+                <module>modules/wkt/wickedcharts/impl</module>
             </modules>
         </profile>
         <profile>
@@ -411,8 +411,8 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/ext-flywaydb/impl</module>
-                <module>modules/ext-flywaydb/integtests</module>
+                <module>modules/ext/flywaydb/impl</module>
+                <module>modules/ext/flywaydb/integtests</module>
             </modules>
         </profile>
         <profile>
@@ -423,8 +423,8 @@
                 </property>
             </activation>
             <modules>
-                <module>modules/ext-togglz/impl</module>
-                <module>modules/ext-togglz/integtests</module>
+                <module>modules/ext/togglz/impl</module>
+                <module>modules/ext/togglz/integtests</module>
             </modules>
         </profile>
 
@@ -446,33 +446,33 @@
 
                 <!-- per-module testing -->
 
-                <module>modules/ext-flywaydb/integtests</module>
-                <module>modules/ext-togglz/integtests</module>
+                <module>modules/ext/flywaydb/integtests</module>
+                <module>modules/ext/togglz/integtests</module>
 
-                <module>modules/lib-docx/integtests</module>
-                <module>modules/lib-excel/integtests</module>
-                <module>modules/lib-fakedata/integtests</module>
-                <module>modules/lib-poly/integtests</module>
-                <module>modules/lib-stringinterpolator/integtests</module>
+                <module>modules/lib/docx/integtests</module>
+                <module>modules/lib/excel/integtests</module>
+                <module>modules/lib/fakedata/integtests</module>
+                <module>modules/lib/poly/integtests</module>
+                <module>modules/lib/stringinterpolator/integtests</module>
 
-                <module>modules/dom-alias/integtests</module>
-                <module>modules/dom-classification/integtests</module>
-                <module>modules/dom-commchannel/integtests</module>
-                <module>modules/dom-country/integtests</module>
-                <module>modules/dom-communications/integtests</module>
-                <module>modules/dom-docfragment/integtests</module>
-                <module>modules/dom-document/integtests</module>
-                <module>modules/dom-note/integtests</module>
-                <module>modules/dom-settings/integtests</module>
-                <module>modules/dom-tags/integtests</module>
+                <module>modules/dom/alias/integtests</module>
+                <module>modules/dom/classification/integtests</module>
+                <module>modules/dom/commchannel/integtests</module>
+                <module>modules/dom/country/integtests</module>
+                <module>modules/dom/communications/integtests</module>
+                <module>modules/dom/docfragment/integtests</module>
+                <module>modules/dom/document/integtests</module>
+                <module>modules/dom/note/integtests</module>
+                <module>modules/dom/settings/integtests</module>
+                <module>modules/dom/tags/integtests</module>
 
-                <module>modules/mml-paraname8/integtests</module>
+                <module>modules/mml/paraname8/integtests</module>
 
-                <module>modules/spi-audit/integtests</module>
-                <module>modules/spi-command/integtests</module>
-                <module>modules/spi-publishmq/integtests</module>
-                <module>modules/spi-security/integtests</module>
-                <module>modules/spi-sessionlogger/integtests</module>
+                <module>modules/spi/audit/integtests</module>
+                <module>modules/spi/command/integtests</module>
+                <module>modules/spi/publishmq/integtests</module>
+                <module>modules/spi/security/integtests</module>
+                <module>modules/spi/sessionlogger/integtests</module>
 
             </modules>
         </profile>
