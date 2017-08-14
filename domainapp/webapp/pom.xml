@@ -78,13 +78,10 @@
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>docker</artifactId>
-                            <version>${mavenmixin-docker.version}</version>
                         </mixin>
-
                         <mixin>
                             <groupId>org.incode.mavenmixin</groupId>
                             <artifactId>incode-mavenmixin-swagger</artifactId>
-                            <version>${isis.version}</version>
                         </mixin>
                     </mixins>
                 </configuration>
@@ -146,7 +143,6 @@
     </dependencies>
 
     <profiles>
-
         <profile>
             <id>resolving-conflicts</id>
             <activation>
@@ -295,7 +291,7 @@
                     <dependency>
                         <groupId>ognl</groupId>
                         <artifactId>ognl</artifactId>
-                        <version>3.0.9</version>
+                        <version>${ognl.version}</version>
                     </dependency>
 
                 </dependencies>
@@ -332,7 +328,6 @@
             </dependencies>
         </profile>
 
-
         <profile>
             <id>activemq-camel</id>
             <activation>
@@ -362,7 +357,7 @@
                 <dependency>
                     <groupId>ognl</groupId>
                     <artifactId>ognl</artifactId>
-                    <version>3.0.9</version>
+                    <version>${ognl.version}</version>
                     <exclusions>
                         <exclusion>
                             <!-- bundles old version, so hitting https://code.google.com/archive/p/reflections/issues/178 -->

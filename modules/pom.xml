@@ -150,13 +150,13 @@
             <dependency>
                 <groupId>org.incode.mavenmixin</groupId>
                 <artifactId>incode-mavenmixin-swagger</artifactId>
-                <version>${isis.version}</version>
+                <version>1.15.0-SNAPSHOT</version>
                 <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>org.incode.mavenmixin</groupId>
                 <artifactId>incode-mavenmixin-validate</artifactId>
-                <version>${isis.version}</version>
+                <version>1.15.0-SNAPSHOT</version>
                 <type>pom</type>
             </dependency>
 
