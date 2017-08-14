@@ -439,7 +439,6 @@
 
                 <module>mavenmixins</module>
                 <module>modules</module>
-                <module>integtest-parent</module>
 
                 <!-- domain app (to use as reference) -->
 

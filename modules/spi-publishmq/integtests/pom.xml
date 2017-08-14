@@ -5,9 +5,9 @@
 
     <parent>
         <groupId>org.incode</groupId>
-        <artifactId>incode-platform-integtests</artifactId>
+        <artifactId>incode-parent</artifactId>
         <version>1.15.0-SNAPSHOT</version>
-        <relativePath>../../../integtest-parent/pom.xml</relativePath>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>incode-platform-spi-publishmq-integtests</artifactId>
