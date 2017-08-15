@@ -1,31 +1,33 @@
 package org.incode.domainapp.example.dom.spi.security.fixture;
 
+import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+
+import org.isisaddons.module.security.seed.SeedUsersAndRolesFixtureScript;
+
 import org.incode.domainapp.example.dom.spi.security.dom.demo.nontenanted.NonTenantedEntities;
 import org.incode.domainapp.example.dom.spi.security.fixture.example.AllExampleEntities;
-import org.incode.domainapp.example.dom.spi.security.fixture.roles.AllExampleRolesAndPermissions;
-import org.incode.domainapp.example.dom.spi.security.fixture.roles.ExampleFixtureScriptsRoleAndPermissions;
-import org.incode.domainapp.example.dom.spi.security.fixture.roles.ExampleGuestRoleAndPermissions;
-import org.incode.domainapp.example.dom.spi.security.fixture.roles.ExampleHideNonTenantedEntityDescriptionRoleAndPermissions;
-import org.incode.domainapp.example.dom.spi.security.fixture.roles.ExampleNoGuestRoleAndPremissions;
-import org.incode.domainapp.example.dom.spi.security.fixture.roles.ExampleRegularRoleAndPermissions;
-import org.incode.domainapp.example.dom.spi.security.fixture.tenancy.AllTenancies;
-import org.incode.domainapp.example.dom.spi.security.fixture.userrole.BertTenantedUser_Has_ExampleRegularRole;
-import org.incode.domainapp.example.dom.spi.security.fixture.userrole.BertTenantedUser_Has_IsisSecurityModuleRegularRole;
-import org.incode.domainapp.example.dom.spi.security.fixture.userrole.BillNonTenantedUser_Has_ExampleRegularRole;
-import org.incode.domainapp.example.dom.spi.security.fixture.userrole.BillNonTenantedUser_Has_IsisSecurityModuleRegularRole;
-import org.incode.domainapp.example.dom.spi.security.fixture.userrole.BobUser_Has_ExampleHideEntityDescriptionRole;
-import org.incode.domainapp.example.dom.spi.security.fixture.userrole.BobUser_Has_IsisSecurityAdminRole;
-import org.incode.domainapp.example.dom.spi.security.fixture.userrole.ConflictedUser_Has_ExampleConflictingRoles;
-import org.incode.domainapp.example.dom.spi.security.fixture.userrole.DickUser_Has_ExampleRegularRole;
-import org.incode.domainapp.example.dom.spi.security.fixture.userrole.DickUser_Has_IsisSecurityModuleRegularRole;
-import org.incode.domainapp.example.dom.spi.security.fixture.userrole.GuestUser_Has_ExampleGuestRole;
-import org.incode.domainapp.example.dom.spi.security.fixture.userrole.GuestUser_Has_IsisSecurityModuleRegularRole;
-import org.incode.domainapp.example.dom.spi.security.fixture.userrole.JoeUser_Has_ExampleGuestRole;
-import org.incode.domainapp.example.dom.spi.security.fixture.userrole.JoeUser_Has_IsisSecurityModuleRegularRole;
-import org.incode.domainapp.example.dom.spi.security.fixture.userrole.SvenUser_Has_IsisSecurityAdminRole;
+import org.incode.domainapp.example.dom.spi.security.fixture.roles.RolesAndPermissions_create2;
+import org.incode.domainapp.example.dom.spi.security.fixture.roles.sub.RoleAndPermissions_create_exampleFixtureScripts;
+import org.incode.domainapp.example.dom.spi.security.fixture.roles.sub.RoleAndPermissions_create_exampleGuest;
+import org.incode.domainapp.example.dom.spi.security.fixture.roles.sub.RoleAndPermissions_create_exampleHideNonTenantedEntityDescription;
+import org.incode.domainapp.example.dom.spi.security.fixture.roles.sub.RoleAndPermissions_create_exampleRegularRole;
+import org.incode.domainapp.example.dom.spi.security.fixture.roles.sub.RoleAndPremissions_create_exampleNoGuest;
+import org.incode.domainapp.example.dom.spi.security.fixture.tenancy.ApplicationTenancy_create10;
+import org.incode.domainapp.example.dom.spi.security.fixture.userrole.UserRole_create_Bert_exampleRegularRole;
+import org.incode.domainapp.example.dom.spi.security.fixture.userrole.UserRole_create_Bert_isisSecurityModuleRegularRole;
+import org.incode.domainapp.example.dom.spi.security.fixture.userrole.UserRole_create_Bill_IsisSecurityModuleRegularRole;
+import org.incode.domainapp.example.dom.spi.security.fixture.userrole.UserRole_create_Bill_exampleRegularRole;
+import org.incode.domainapp.example.dom.spi.security.fixture.userrole.UserRole_create_Bob_exampleHideEntityDescriptionRole;
+import org.incode.domainapp.example.dom.spi.security.fixture.userrole.UserRole_create_Bob_isisSecurityAdminRole;
+import org.incode.domainapp.example.dom.spi.security.fixture.userrole.UserRole_create_Conflicted_has_conflicting_roles;
+import org.incode.domainapp.example.dom.spi.security.fixture.userrole.UserRole_create_Dick_exampleRegularRole;
+import org.incode.domainapp.example.dom.spi.security.fixture.userrole.UserRole_create_Dick_isisSecurityModuleRegularRole;
+import org.incode.domainapp.example.dom.spi.security.fixture.userrole.UserRole_create_Guest_IsisSecurityModuleRegularRole;
+import org.incode.domainapp.example.dom.spi.security.fixture.userrole.UserRole_create_Guest_exampleGuestRole;
+import org.incode.domainapp.example.dom.spi.security.fixture.userrole.UserRole_create_Joe_exampleGuestRole;
+import org.incode.domainapp.example.dom.spi.security.fixture.userrole.UserRole_create_Joe_isisSecurityModuleRegularRole;
+import org.incode.domainapp.example.dom.spi.security.fixture.userrole.UserRole_create_SvenUser_IsisSecurityAdminRole;
 import org.incode.domainapp.example.dom.spi.security.fixture.users.AllUsers;
-import org.isisaddons.module.security.seed.SeedUsersAndRolesFixtureScript;
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
 public class SecurityModuleAppSetUp extends DiscoverableFixtureScript {
 
@@ -36,39 +38,39 @@ public class SecurityModuleAppSetUp extends DiscoverableFixtureScript {
         executionContext.executeChild(this, new SeedUsersAndRolesFixtureScript());
 
         // roles and perms
-        executionContext.executeChild(this, new ExampleGuestRoleAndPermissions());
-        executionContext.executeChild(this, new ExampleNoGuestRoleAndPremissions());
-        executionContext.executeChild(this, new ExampleRegularRoleAndPermissions());
-        executionContext.executeChild(this, new ExampleFixtureScriptsRoleAndPermissions());
-        executionContext.executeChild(this, new ExampleHideNonTenantedEntityDescriptionRoleAndPermissions());
+        executionContext.executeChild(this, new RoleAndPermissions_create_exampleGuest());
+        executionContext.executeChild(this, new RoleAndPremissions_create_exampleNoGuest());
+        executionContext.executeChild(this, new RoleAndPermissions_create_exampleRegularRole());
+        executionContext.executeChild(this, new RoleAndPermissions_create_exampleFixtureScripts());
+        executionContext.executeChild(this, new RoleAndPermissions_create_exampleHideNonTenantedEntityDescription());
 
-        executionContext.executeChild(this, new AllExampleRolesAndPermissions());
+        executionContext.executeChild(this, new RolesAndPermissions_create2());
 
         // users, tenancies
-        executionContext.executeChild(this, new AllTenancies());
+        executionContext.executeChild(this, new ApplicationTenancy_create10());
         executionContext.executeChild(this, new AllUsers());
 
         // user/role
-        executionContext.executeChild(this, new BobUser_Has_IsisSecurityAdminRole());
-        executionContext.executeChild(this, new BobUser_Has_ExampleHideEntityDescriptionRole());
+        executionContext.executeChild(this, new UserRole_create_Bob_isisSecurityAdminRole());
+        executionContext.executeChild(this, new UserRole_create_Bob_exampleHideEntityDescriptionRole());
 
-        executionContext.executeChild(this, new DickUser_Has_ExampleRegularRole());
-        executionContext.executeChild(this, new DickUser_Has_IsisSecurityModuleRegularRole());
+        executionContext.executeChild(this, new UserRole_create_Dick_exampleRegularRole());
+        executionContext.executeChild(this, new UserRole_create_Dick_isisSecurityModuleRegularRole());
 
-        executionContext.executeChild(this, new GuestUser_Has_ExampleGuestRole());
-        executionContext.executeChild(this, new GuestUser_Has_IsisSecurityModuleRegularRole());
+        executionContext.executeChild(this, new UserRole_create_Guest_exampleGuestRole());
+        executionContext.executeChild(this, new UserRole_create_Guest_IsisSecurityModuleRegularRole());
 
-        executionContext.executeChild(this, new JoeUser_Has_ExampleGuestRole());
-        executionContext.executeChild(this, new JoeUser_Has_IsisSecurityModuleRegularRole());
+        executionContext.executeChild(this, new UserRole_create_Joe_exampleGuestRole());
+        executionContext.executeChild(this, new UserRole_create_Joe_isisSecurityModuleRegularRole());
 
-        executionContext.executeChild(this, new SvenUser_Has_IsisSecurityAdminRole());
+        executionContext.executeChild(this, new UserRole_create_SvenUser_IsisSecurityAdminRole());
 
-        executionContext.executeChild(this, new ConflictedUser_Has_ExampleConflictingRoles());
+        executionContext.executeChild(this, new UserRole_create_Conflicted_has_conflicting_roles());
 
-        executionContext.executeChild(this, new BertTenantedUser_Has_ExampleRegularRole());
-        executionContext.executeChild(this, new BertTenantedUser_Has_IsisSecurityModuleRegularRole());
-        executionContext.executeChild(this, new BillNonTenantedUser_Has_ExampleRegularRole());
-        executionContext.executeChild(this, new BillNonTenantedUser_Has_IsisSecurityModuleRegularRole());
+        executionContext.executeChild(this, new UserRole_create_Bert_exampleRegularRole());
+        executionContext.executeChild(this, new UserRole_create_Bert_isisSecurityModuleRegularRole());
+        executionContext.executeChild(this, new UserRole_create_Bill_exampleRegularRole());
+        executionContext.executeChild(this, new UserRole_create_Bill_IsisSecurityModuleRegularRole());
 
         //  example entities
         executionContext.executeChild(this, new AllExampleEntities());

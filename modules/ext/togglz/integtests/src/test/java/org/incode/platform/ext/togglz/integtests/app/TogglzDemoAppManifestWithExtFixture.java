@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.example.dom.ext.togglz.fixture.DemoObjectsFixture;
+import org.incode.domainapp.example.dom.ext.togglz.fixture.DemoObject_recreate3;
 
 public class TogglzDemoAppManifestWithExtFixture extends TogglzExtAppManifest {
 
     @Override protected void overrideFixtures(final List<Class<? extends FixtureScript>> fixtureScripts) {
-        fixtureScripts.add(DemoObjectsFixture.class); }
+        fixtureScripts.add(DemoObject_recreate3.class); }
 
 
 }

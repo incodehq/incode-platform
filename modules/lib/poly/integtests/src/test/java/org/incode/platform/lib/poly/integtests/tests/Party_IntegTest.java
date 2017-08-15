@@ -17,7 +17,7 @@ import org.incode.platform.lib.poly.integtests.PolyAppIntegTestAbstract;
 import org.incode.domainapp.example.dom.lib.poly.dom.democommchannel.CommunicationChannel;
 import org.incode.domainapp.example.dom.lib.poly.dom.democommchannel.CommunicationChannels;
 import org.incode.domainapp.example.dom.lib.poly.dom.demoparty.Party;
-import org.incode.domainapp.example.dom.lib.poly.fixture.data.demoparty.RecreateParties;
+import org.incode.domainapp.example.dom.lib.poly.fixture.data.demoparty.Party_recreate3;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -33,14 +33,14 @@ public class Party_IntegTest extends PolyAppIntegTestAbstract {
 
     public static class AddCommunicationChannel extends Party_IntegTest {
 
-        private RecreateParties fs;
+        private Party_recreate3 fs;
         private Party party;
 
         @Before
         public void setUp() throws Exception {
 
             // given
-            fs = new RecreateParties();
+            fs = new Party_recreate3();
             fixtureScripts.runFixtureScript(fs, null);
             nextTransaction();
 
@@ -96,14 +96,14 @@ public class Party_IntegTest extends PolyAppIntegTestAbstract {
 
     public static class RemoveCommunicationChannel extends Party_IntegTest {
 
-        private RecreateParties fs;
+        private Party_recreate3 fs;
         private Party party;
 
         @Before
         public void setUp() throws Exception {
 
             // given
-            fs = new RecreateParties();
+            fs = new Party_recreate3();
             fixtureScripts.runFixtureScript(fs, null);
             nextTransaction();
 

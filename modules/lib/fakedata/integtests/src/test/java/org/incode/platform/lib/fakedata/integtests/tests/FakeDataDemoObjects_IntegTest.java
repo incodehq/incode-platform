@@ -28,8 +28,8 @@ import org.incode.platform.lib.fakedata.integtests.FakeDataModuleIntegTestAbstra
 
 import org.incode.domainapp.example.dom.demo.dom.demowithall.EnumOf3;
 import org.incode.domainapp.example.dom.demo.dom.demowithall.DemoObjectWithAllMenu;
-import org.incode.domainapp.example.dom.lib.fakedata.fixture.FakeDataDemoObjectsScenario;
-import org.incode.domainapp.example.dom.lib.fakedata.fixture.data.DemoObjectWithAllUpdate;
+import org.incode.domainapp.example.dom.lib.fakedata.fixture.DemoObjectWithAll_recreate3;
+import org.incode.domainapp.example.dom.lib.fakedata.fixture.data.DemoObjectWithAll_update_withFakeData;
 
 public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstract {
 
@@ -52,7 +52,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             // when
             //
 
-            final FakeDataDemoObjectsScenario scenario = new FakeDataDemoObjectsScenario();
+            final DemoObjectWithAll_recreate3 scenario = new DemoObjectWithAll_recreate3();
             scenario.setNumberToCreate(1);
 
             fixtureScripts.runFixtureScript(scenario, null);
@@ -104,7 +104,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
     public static class FakeDataDemoObjectUpdateTest extends FakeDataDemoObjects_IntegTest {
 
         DemoObjectWithAll fakeDataDemoObject;
-        DemoObjectWithAllUpdate updateScript;
+        DemoObjectWithAll_update_withFakeData updateScript;
 
         @Before
         public void setUp() throws Exception {
@@ -112,7 +112,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // given
             //
-            final FakeDataDemoObjectsScenario fs = new FakeDataDemoObjectsScenario();
+            final DemoObjectWithAll_recreate3 fs = new DemoObjectWithAll_recreate3();
             fs.setNumberToCreate(1);
 
             fixtureScripts.runFixtureScript(fs, null);
@@ -122,7 +122,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             final List<DemoObjectWithAll> all = wrap(fakeDataDemoObjects).listAll();
             fakeDataDemoObject = all.get(0);
 
-            updateScript = new DemoObjectWithAllUpdate();
+            updateScript = new DemoObjectWithAll_update_withFakeData();
         }
 
         @Test

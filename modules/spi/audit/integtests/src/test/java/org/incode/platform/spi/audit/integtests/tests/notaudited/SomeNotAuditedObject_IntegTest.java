@@ -22,7 +22,7 @@ import org.isisaddons.module.audit.dom.AuditEntry;
 import org.isisaddons.module.audit.dom.AuditingServiceRepository;
 import org.incode.domainapp.example.dom.spi.audit.dom.demo.notaudited.SomeNotAuditedObject;
 import org.incode.domainapp.example.dom.spi.audit.dom.demo.notaudited.SomeNotAuditedObjects;
-import org.incode.domainapp.example.dom.spi.audit.fixture.AuditDemoAppFixture;
+import org.incode.domainapp.example.dom.spi.audit.fixture.SomeAuditedObject_and_SomeNonAuditedObject_recreate3;
 import org.incode.platform.spi.audit.integtests.AuditModuleIntegTestAbstract;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -33,7 +33,7 @@ public class SomeNotAuditedObject_IntegTest extends AuditModuleIntegTestAbstract
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new AuditDemoAppFixture(), null);
+        fixtureScripts.runFixtureScript(new SomeAuditedObject_and_SomeNonAuditedObject_recreate3(), null);
         transactionService.nextTransaction();
     }
 

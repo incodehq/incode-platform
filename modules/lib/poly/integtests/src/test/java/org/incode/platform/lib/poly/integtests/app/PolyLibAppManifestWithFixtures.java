@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.example.dom.lib.poly.fixture.RecreateAll;
+import org.incode.domainapp.example.dom.lib.poly.fixture.Case_FixedAsset_Party_recreateAll;
 
 public class PolyLibAppManifestWithFixtures extends PolyLibAppManifest {
 
     @Override
     protected void overrideFixtures(final List<Class<? extends FixtureScript>> fixtureScripts) {
-        fixtureScripts.add(RecreateAll.class);
+        fixtureScripts.add(Case_FixedAsset_Party_recreateAll.class);
     }
 
 }

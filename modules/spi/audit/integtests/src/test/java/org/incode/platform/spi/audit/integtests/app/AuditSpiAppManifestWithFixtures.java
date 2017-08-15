@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.example.dom.spi.audit.fixture.AuditDemoAppFixture;
+import org.incode.domainapp.example.dom.spi.audit.fixture.SomeAuditedObject_and_SomeNonAuditedObject_recreate3;
 
 public class AuditSpiAppManifestWithFixtures extends AuditSpiAppManifest {
 
     @Override protected void overrideFixtures(final List<Class<? extends FixtureScript>> fixtureScripts) {
-        fixtureScripts.add(AuditDemoAppFixture.class);
+        fixtureScripts.add(SomeAuditedObject_and_SomeNonAuditedObject_recreate3.class);
     }
 
 }

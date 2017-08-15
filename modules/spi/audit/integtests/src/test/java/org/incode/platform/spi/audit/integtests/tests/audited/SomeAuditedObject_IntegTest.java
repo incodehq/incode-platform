@@ -27,7 +27,7 @@ import org.incode.platform.spi.audit.integtests.AuditModuleIntegTestAbstract;
 
 import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObject;
 import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObjects;
-import org.incode.domainapp.example.dom.spi.audit.fixture.AuditDemoAppFixture;
+import org.incode.domainapp.example.dom.spi.audit.fixture.SomeAuditedObject_and_SomeNonAuditedObject_recreate3;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -38,7 +38,7 @@ public class SomeAuditedObject_IntegTest extends AuditModuleIntegTestAbstract {
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new AuditDemoAppFixture(), null);
+        fixtureScripts.runFixtureScript(new SomeAuditedObject_and_SomeNonAuditedObject_recreate3(), null);
         transactionService.nextTransaction();
     }
 

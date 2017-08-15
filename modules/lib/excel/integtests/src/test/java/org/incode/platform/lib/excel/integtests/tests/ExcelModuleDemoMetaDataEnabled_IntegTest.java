@@ -13,7 +13,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
 import org.incode.domainapp.example.dom.demo.fixture.todoitems.DemoToDoItemRowHandler2;
-import org.incode.domainapp.example.dom.demo.fixture.todoitems.DemoFixtureExtendingExcelFixture2;
+import org.incode.domainapp.example.dom.demo.fixture.todoitems.DemoFixture_extending_ExcelFixture2;
 import org.incode.platform.lib.excel.integtests.ExcelModuleModuleIntegTestAbstract;
 
 import static org.hamcrest.core.Is.is;
@@ -28,7 +28,7 @@ public class ExcelModuleDemoMetaDataEnabled_IntegTest extends ExcelModuleModuleI
         FixtureScript script = new FixtureScript() {
             @Override
             protected void execute(final FixtureScript.ExecutionContext executionContext) {
-                executionContext.executeChild(this, new DemoFixtureExtendingExcelFixture2());
+                executionContext.executeChild(this, new DemoFixture_extending_ExcelFixture2());
                 fixtureResults = executionContext.getResults();
             }
         };

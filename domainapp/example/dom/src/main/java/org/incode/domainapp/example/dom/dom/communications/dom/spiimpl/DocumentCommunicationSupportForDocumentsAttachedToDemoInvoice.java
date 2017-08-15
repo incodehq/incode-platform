@@ -24,7 +24,7 @@ import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
 import org.incode.module.document.dom.impl.types.DocumentType;
 import org.incode.module.document.dom.impl.types.DocumentTypeRepository;
 
-import org.incode.domainapp.example.dom.dom.communications.fixture.data.doctypes.DocumentTypesAndTemplatesFixture;
+import org.incode.domainapp.example.dom.dom.communications.fixture.data.doctypes.DocumentType_and_DocumentTemplates_createSome;
 
 @DomainService(nature = NatureOfService.DOMAIN)
 public class DocumentCommunicationSupportForDocumentsAttachedToDemoInvoice implements DocumentCommunicationSupport {
@@ -37,7 +37,7 @@ public class DocumentCommunicationSupportForDocumentsAttachedToDemoInvoice imple
             return null;
         }
 
-        return documentTypeRepository.findByReference(DocumentTypesAndTemplatesFixture.DOC_TYPE_REF_FREEMARKER_HTML);
+        return documentTypeRepository.findByReference(DocumentType_and_DocumentTemplates_createSome.DOC_TYPE_REF_FREEMARKER_HTML);
     }
 
 

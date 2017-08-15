@@ -26,7 +26,7 @@ import org.incode.platform.lib.excel.integtests.ExcelModuleModuleIntegTestAbstra
 import org.incode.domainapp.example.dom.lib.excel.dom.bulkupdate.BulkUpdateLineItemForDemoToDoItem;
 import org.incode.domainapp.example.dom.lib.excel.dom.bulkupdate.BulkUpdateManagerForDemoToDoItem;
 import org.incode.domainapp.example.dom.lib.excel.dom.bulkupdate.BulkUpdateMenuForDemoToDoItem;
-import org.incode.domainapp.example.dom.lib.excel.fixture.RecreateToDoItems;
+import org.incode.domainapp.example.dom.demo.fixture.todoitems.DemoToDoItem_recreate_usingExcelFixture;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -34,7 +34,7 @@ public class ExcelModuleDemoToDoItemBulkUpdateManager_IntegTest extends ExcelMod
 
     @Before
     public void setUpData() throws Exception {
-        scenarioExecution().install(new RecreateToDoItems());
+        scenarioExecution().install(new DemoToDoItem_recreate_usingExcelFixture());
     }
 
     @Inject

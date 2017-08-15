@@ -18,12 +18,12 @@ import org.isisaddons.module.security.dom.user.ApplicationUser;
 import org.isisaddons.module.security.dom.user.ApplicationUserMenu;
 import org.isisaddons.module.security.dom.user.ApplicationUserRepository;
 import org.incode.domainapp.example.dom.spi.security.fixture.SecurityModuleAppTearDown;
-import org.incode.domainapp.example.dom.spi.security.fixture.roles.AllExampleRolesAndPermissions;
-import org.incode.domainapp.example.dom.spi.security.fixture.roles.ExampleRegularRoleAndPermissions;
-import org.incode.domainapp.example.dom.spi.security.fixture.tenancy.AllTenancies;
-import org.incode.domainapp.example.dom.spi.security.fixture.tenancy.FranceTenancy;
-import org.incode.domainapp.example.dom.spi.security.fixture.tenancy.SwedenTenancy;
-import org.incode.domainapp.example.dom.spi.security.fixture.users.SvenUser;
+import org.incode.domainapp.example.dom.spi.security.fixture.roles.RolesAndPermissions_create2;
+import org.incode.domainapp.example.dom.spi.security.fixture.roles.sub.RoleAndPermissions_create_exampleRegularRole;
+import org.incode.domainapp.example.dom.spi.security.fixture.tenancy.ApplicationTenancy_create10;
+import org.incode.domainapp.example.dom.spi.security.fixture.tenancy.sub.ApplicationTenancy_create_France;
+import org.incode.domainapp.example.dom.spi.security.fixture.tenancy.sub.ApplicationTenancy_create_Sweden;
+import org.incode.domainapp.example.dom.spi.security.fixture.users.ApplicationUser_create_Sven;
 import org.incode.platform.spi.security.integtests.SecurityModuleAppIntegTestAbstract;
 import org.isisaddons.module.security.seed.scripts.IsisModuleSecurityAdminRoleAndPermissions;
 
@@ -46,7 +46,7 @@ public class ApplicationUser_IntegTest extends SecurityModuleAppIntegTestAbstrac
         scenarioExecution().install(
                 new SecurityModuleAppTearDown(),
                 new IsisModuleSecurityAdminRoleAndPermissions(),
-                new SvenUser()
+                new ApplicationUser_create_Sven()
         );
     }
 
@@ -60,11 +60,11 @@ public class ApplicationUser_IntegTest extends SecurityModuleAppIntegTestAbstrac
 
     @Before
     public void setUp() throws Exception {
-        user = wrap(applicationUserRepository.findOrCreateUserByUsername(SvenUser.USER_NAME));
+        user = wrap(applicationUserRepository.findOrCreateUserByUsername(ApplicationUser_create_Sven.USER_NAME));
         assertThat(unwrap(user).getRoles().size(), is(0));
 
         assertThat(user, is(not(nullValue())));
-        assertThat(user.getUsername(), is(SvenUser.USER_NAME));
+        assertThat(user.getUsername(), is(ApplicationUser_create_Sven.USER_NAME));
     }
 
     public static class Username_and_UpdateUsername extends ApplicationUser_IntegTest {
@@ -119,13 +119,13 @@ public class ApplicationUser_IntegTest extends SecurityModuleAppIntegTestAbstrac
         @Before
         public void setUpTenancies() throws Exception {
             scenarioExecution().install(
-                    new AllTenancies()
+                    new ApplicationTenancy_create10()
             );
             // necessary to lookup again because above fixtures will be installed in a new xactn
-            user = wrap(applicationUserRepository.findOrCreateUserByUsername(SvenUser.USER_NAME));
+            user = wrap(applicationUserRepository.findOrCreateUserByUsername(ApplicationUser_create_Sven.USER_NAME));
 
-            swedenTenancy = applicationTenancyRepository.findByNameCached(SwedenTenancy.TENANCY_NAME);
-            franceTenancy = applicationTenancyRepository.findByNameCached(FranceTenancy.TENANCY_NAME);
+            swedenTenancy = applicationTenancyRepository.findByNameCached(ApplicationTenancy_create_Sweden.TENANCY_NAME);
+            franceTenancy = applicationTenancyRepository.findByNameCached(ApplicationTenancy_create_France.TENANCY_NAME);
 
             assertThat(swedenTenancy, is(notNullValue()));
             assertThat(franceTenancy, is(notNullValue()));
@@ -205,14 +205,14 @@ public class ApplicationUser_IntegTest extends SecurityModuleAppIntegTestAbstrac
         @Before
         public void setUpRoles() throws Exception {
             scenarioExecution().install(
-                    new AllExampleRolesAndPermissions()
+                    new RolesAndPermissions_create2()
             );
 
             // necessary to lookup again because above fixtures will be installed in a new xactn
-            user = wrap(applicationUserRepository.findOrCreateUserByUsername(SvenUser.USER_NAME));
+            user = wrap(applicationUserRepository.findOrCreateUserByUsername(ApplicationUser_create_Sven.USER_NAME));
 
             adminRole = applicationRoleRepository.findByNameCached(IsisModuleSecurityAdminRoleAndPermissions.ROLE_NAME);
-            userRole = applicationRoleRepository.findByNameCached(ExampleRegularRoleAndPermissions.ROLE_NAME);
+            userRole = applicationRoleRepository.findByNameCached(RoleAndPermissions_create_exampleRegularRole.ROLE_NAME);
 
             assertThat(adminRole, is(notNullValue()));
             assertThat(userRole, is(notNullValue()));

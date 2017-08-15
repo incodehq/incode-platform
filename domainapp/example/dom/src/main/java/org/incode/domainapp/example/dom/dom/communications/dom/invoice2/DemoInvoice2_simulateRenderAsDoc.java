@@ -17,7 +17,7 @@ import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.value.Blob;
 
 import org.incode.domainapp.example.dom.demo.dom.invoice2.DemoInvoice2;
-import org.incode.domainapp.example.dom.dom.communications.fixture.data.doctypes.DocumentTypesAndTemplatesFixture;
+import org.incode.domainapp.example.dom.dom.communications.fixture.data.doctypes.DocumentType_and_DocumentTemplates_createSome;
 import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.DocumentRepository;
 import org.incode.module.document.dom.impl.docs.DocumentSort;
@@ -62,7 +62,7 @@ public class DemoInvoice2_simulateRenderAsDoc {
 
         String name = determineName(document, fileName);
 
-        final DocumentType documentType = findDocumentType(DocumentTypesAndTemplatesFixture.DOC_TYPE_REF_INVOICE);
+        final DocumentType documentType = findDocumentType(DocumentType_and_DocumentTemplates_createSome.DOC_TYPE_REF_INVOICE);
 
         final Document receiptDoc = documentRepository
                 .create(documentType, AT_PATH,

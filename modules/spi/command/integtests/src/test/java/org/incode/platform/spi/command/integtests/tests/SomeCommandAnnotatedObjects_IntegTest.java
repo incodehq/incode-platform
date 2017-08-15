@@ -18,7 +18,7 @@ import org.incode.platform.spi.command.integtests.CommandModuleIntegTestAbstract
 
 import org.incode.domainapp.example.dom.spi.command.dom.demo.SomeCommandAnnotatedObject;
 import org.incode.domainapp.example.dom.spi.command.dom.demo.SomeCommandAnnotatedObjects;
-import org.incode.domainapp.example.dom.spi.command.fixture.SomeCommandAnnotatedObjectsFixture;
+import org.incode.domainapp.example.dom.spi.command.fixture.SomeCommandAnnotatedObject_recreate3;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.empty;
@@ -29,7 +29,7 @@ public class SomeCommandAnnotatedObjects_IntegTest extends CommandModuleIntegTes
 
     @Before
     public void setUpData() throws Exception {
-        scenarioExecution().install(new SomeCommandAnnotatedObjectsFixture());
+        scenarioExecution().install(new SomeCommandAnnotatedObject_recreate3());
     }
 
     @Inject

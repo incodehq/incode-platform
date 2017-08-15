@@ -14,7 +14,7 @@ import org.incode.module.document.dom.impl.types.DocumentType;
 import org.incode.module.document.dom.impl.types.DocumentTypeRepository;
 import org.incode.module.document.dom.spi.DocumentAttachmentAdvisor;
 
-import org.incode.domainapp.example.dom.dom.communications.fixture.data.doctypes.DocumentTypesAndTemplatesFixture;
+import org.incode.domainapp.example.dom.dom.communications.fixture.data.doctypes.DocumentType_and_DocumentTemplates_createSome;
 
 @DomainService(nature = NatureOfService.DOMAIN)
 public class DocumentAttachmentAdvisorForReceipts implements DocumentAttachmentAdvisor {
@@ -24,7 +24,7 @@ public class DocumentAttachmentAdvisorForReceipts implements DocumentAttachmentA
     @Override
     public List<DocumentType> documentTypeChoicesFor(final Document document) {
         final DocumentType documentType = documentTypeRepository
-                .findByReference(DocumentTypesAndTemplatesFixture.DOC_TYPE_REF_RECEIPT);
+                .findByReference(DocumentType_and_DocumentTemplates_createSome.DOC_TYPE_REF_RECEIPT);
         return Lists.newArrayList(documentType);
     }
 

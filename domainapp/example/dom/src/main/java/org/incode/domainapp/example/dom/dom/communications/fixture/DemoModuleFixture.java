@@ -5,8 +5,8 @@ import javax.inject.Inject;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.apache.isis.applib.services.queryresultscache.QueryResultsCache;
 
-import org.incode.domainapp.example.dom.dom.communications.fixture.data.doctypes.DocumentTypesAndTemplatesFixture;
-import org.incode.domainapp.example.dom.dom.communications.fixture.data.doctypes.RenderingStrategiesFixture;
+import org.incode.domainapp.example.dom.dom.communications.fixture.data.doctypes.DocumentType_and_DocumentTemplates_createSome;
+import org.incode.domainapp.example.dom.dom.communications.fixture.data.doctypes.RenderingStrategy_create1;
 import org.incode.domainapp.example.dom.dom.communications.fixture.data.democust2.DemoObjectWithNote_and_DemoInvoice2_withComms_create3;
 
 import org.incode.module.country.fixture.CountriesRefData;
@@ -25,8 +25,8 @@ public class DemoModuleFixture extends DiscoverableFixtureScript {
 
         // prereqs
     	executionContext.executeChild(this, new CountriesRefData());
-        executionContext.executeChild(this, new RenderingStrategiesFixture());
-        executionContext.executeChild(this, new DocumentTypesAndTemplatesFixture());
+        executionContext.executeChild(this, new RenderingStrategy_create1());
+        executionContext.executeChild(this, new DocumentType_and_DocumentTemplates_createSome());
     	queryResultsCache.resetForNextTransaction();
 
     	executionContext.executeChild(this, new DemoObjectWithNote_and_DemoInvoice2_withComms_create3());

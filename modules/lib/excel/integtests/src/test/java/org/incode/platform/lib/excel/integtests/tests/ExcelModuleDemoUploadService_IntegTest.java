@@ -18,7 +18,7 @@ import org.isisaddons.module.excel.dom.util.ExcelFileBlobConverter;
 import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItem;
 import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItemMenu;
 import org.incode.domainapp.example.dom.lib.excel.dom.upload.ExcelUploadServiceForDemoToDoItem;
-import org.incode.domainapp.example.dom.demo.fixture.todoitems.DeleteToDoItemsForUser;
+import org.incode.domainapp.example.dom.demo.fixture.todoitems.DemoToDoItem_tearDown;
 import org.incode.platform.lib.excel.integtests.ExcelModuleModuleIntegTestAbstract;
 
 import static org.hamcrest.core.Is.is;
@@ -31,7 +31,7 @@ public class ExcelModuleDemoUploadService_IntegTest extends ExcelModuleModuleInt
 
     @Before
     public void setUpData() throws Exception {
-        scenarioExecution().install(new DeleteToDoItemsForUser());
+        scenarioExecution().install(new DemoToDoItem_tearDown());
     }
 
     @Before

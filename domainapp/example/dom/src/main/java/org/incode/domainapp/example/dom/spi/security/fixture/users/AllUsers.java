@@ -4,16 +4,16 @@ public class AllUsers extends AbstractUserFixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-        executionContext.executeChild(this, new BobUser());
-        executionContext.executeChild(this, new DickUser());
-        executionContext.executeChild(this, new GuestUser());
-        executionContext.executeChild(this, new JoeUser());
-        executionContext.executeChild(this, new SvenUser());
+        executionContext.executeChild(this, new ApplicationUser_create_Bob());
+        executionContext.executeChild(this, new ApplicationUser_create_Dick());
+        executionContext.executeChild(this, new ApplicationUser_create_Guest());
+        executionContext.executeChild(this, new ApplicationUser_create_Joe());
+        executionContext.executeChild(this, new ApplicationUser_create_Sven());
 
-        executionContext.executeChild(this, new ConflictedUser());
+        executionContext.executeChild(this, new ApplicationUser_Conflicted());
 
-        executionContext.executeChild(this, new BillNonTenantedUser());
-        executionContext.executeChild(this, new BertTenantedUser());
+        executionContext.executeChild(this, new ApplicationUser_create_Bill());
+        executionContext.executeChild(this, new ApplicationUser_create_Bert_in_Italy());
     }
 
 }

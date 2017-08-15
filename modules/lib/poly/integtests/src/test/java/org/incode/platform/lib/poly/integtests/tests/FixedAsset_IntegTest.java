@@ -18,7 +18,7 @@ import org.incode.platform.lib.poly.integtests.PolyAppIntegTestAbstract;
 import org.incode.domainapp.example.dom.lib.poly.dom.democommchannel.CommunicationChannel;
 import org.incode.domainapp.example.dom.lib.poly.dom.democommchannel.CommunicationChannels;
 import org.incode.domainapp.example.dom.lib.poly.dom.demofixedasset.FixedAsset;
-import org.incode.domainapp.example.dom.lib.poly.fixture.data.demofixedasset.RecreateFixedAssets;
+import org.incode.domainapp.example.dom.lib.poly.fixture.data.demofixedasset.FixedAsset_recreate6;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
@@ -33,13 +33,13 @@ public class FixedAsset_IntegTest extends PolyAppIntegTestAbstract {
     @Inject
     CommunicationChannels communicationChannelsMenu;
 
-    RecreateFixedAssets fs;
+    FixedAsset_recreate6 fs;
     FixedAsset fixedAsset;
 
     @Before
     public void setUp() throws Exception {
 
-        fs = new RecreateFixedAssets();
+        fs = new FixedAsset_recreate6();
         fixtureScripts.runFixtureScript(fs, null);
         nextTransaction();
 

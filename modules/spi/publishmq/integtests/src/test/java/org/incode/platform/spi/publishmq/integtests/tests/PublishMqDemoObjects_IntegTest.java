@@ -14,7 +14,7 @@ import org.incode.platform.spi.publishmq.integtests.PublishMqModuleIntegTestAbst
 
 import org.incode.domainapp.example.dom.spi.publishmq.dom.demo.PublishMqDemoObject;
 import org.incode.domainapp.example.dom.spi.publishmq.dom.demo.PublishMqDemoObjects;
-import org.incode.domainapp.example.dom.spi.publishmq.fixture.PublishMqDemoObjectsFixture;
+import org.incode.domainapp.example.dom.spi.publishmq.fixture.PublishMqDemoObject_recreate3;
 
 
 public class PublishMqDemoObjects_IntegTest extends PublishMqModuleIntegTestAbstract {
@@ -27,7 +27,7 @@ public class PublishMqDemoObjects_IntegTest extends PublishMqModuleIntegTestAbst
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new PublishMqDemoObjectsFixture(), null);
+        fixtureScripts.runFixtureScript(new PublishMqDemoObject_recreate3(), null);
     }
 
 

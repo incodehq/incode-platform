@@ -14,7 +14,7 @@ import org.incode.platform.lib.stringinterpolator.integtests.StringInterpolatorD
 
 import org.incode.domainapp.example.dom.lib.stringinterpolator.dom.DemoToDoItem2StringInterpolatorContributions;
 import org.incode.domainapp.example.dom.demo.dom.todo2.DemoToDoItem2Menu;
-import org.incode.domainapp.example.dom.lib.stringinterpolator.fixture.StringInterpolatorDemoToDoItemsFixture;
+import org.incode.domainapp.example.dom.demo.fixture.todoitems2.DemoToDoItem2_recreate4;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -22,7 +22,7 @@ public class StringInterpolatorDemoToDoItemReportingContributions_IntegTest exte
 
     @Before
     public void setUpData() throws Exception {
-        scenarioExecution().install(new StringInterpolatorDemoToDoItemsFixture());
+        scenarioExecution().install(new DemoToDoItem2_recreate4());
     }
 
     @Inject

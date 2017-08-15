@@ -12,12 +12,12 @@ import org.isisaddons.module.security.dom.role.ApplicationRole;
 import org.isisaddons.module.security.dom.role.ApplicationRoleRepository;
 import org.isisaddons.module.security.userreg.SecurityModuleAppUserRegistrationServiceAbstract;
 
-import org.incode.domainapp.example.dom.spi.security.fixture.roles.ExampleFixtureScriptsRoleAndPermissions;
-import org.incode.domainapp.example.dom.spi.security.fixture.roles.ExampleRegularRoleAndPermissions;
+import org.incode.domainapp.example.dom.spi.security.fixture.roles.sub.RoleAndPermissions_create_exampleFixtureScripts;
+import org.incode.domainapp.example.dom.spi.security.fixture.roles.sub.RoleAndPermissions_create_exampleRegularRole;
 
 /**
  * An override of the default impl of {@link org.apache.isis.applib.services.userreg.UserRegistrationService}
- * that uses {@link ExampleFixtureScriptsRoleAndPermissions#ROLE_NAME}
+ * that uses {@link RoleAndPermissions_create_exampleFixtureScripts#ROLE_NAME}
  * as initial role
  */
 @DomainService(
@@ -27,12 +27,12 @@ public class AppUserRegistrationService extends SecurityModuleAppUserRegistratio
 
     @Override
     protected ApplicationRole getInitialRole() {
-        return findRole(ExampleFixtureScriptsRoleAndPermissions.ROLE_NAME);
+        return findRole(RoleAndPermissions_create_exampleFixtureScripts.ROLE_NAME);
     }
 
     @Override
     protected Set<ApplicationRole> getAdditionalInitialRoles() {
-        return Collections.singleton(findRole(ExampleRegularRoleAndPermissions.ROLE_NAME));
+        return Collections.singleton(findRole(RoleAndPermissions_create_exampleRegularRole.ROLE_NAME));
     }
 
     private ApplicationRole findRole(final String roleName) {
