@@ -437,7 +437,6 @@
             </activation>
             <modules>
 
-                <module>adocs/documentation</module>
                 <module>mavenmixins</module>
                 <module>modules</module>
 
