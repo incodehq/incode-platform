@@ -11,8 +11,8 @@ import org.apache.isis.applib.services.wrapper.DisabledException;
 
 import org.incode.domainapp.example.dom.demo.dom.demowithurl.DemoObjectWithUrl;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
-import org.incode.domainapp.example.dom.demo.fixture.setup.DemoObjectWithUrlFixture;
-import org.incode.domainapp.example.dom.dom.document.fixture.DocumentDemoAppTearDownFixture;
+import org.incode.domainapp.example.dom.demo.fixture.setup.DemoObjectWithUrl_createUpTo5_fakeData;
+import org.incode.domainapp.example.dom.dom.document.fixture.DemoModule_and_DocTypesAndTemplates_tearDown;
 import org.incode.domainapp.example.dom.dom.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
 import org.incode.platform.dom.document.integtests.DocumentModuleIntegTestAbstract;
 
@@ -30,14 +30,14 @@ public class T_createAndAttachDocumentAndScheduleRender_IntegTest extends Docume
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new DocumentDemoAppTearDownFixture(), null);
+        fixtureScripts.runFixtureScript(new DemoModule_and_DocTypesAndTemplates_tearDown(), null);
 
         // types + templates
         templateFs = new DocumentTypeAndTemplatesApplicableForDemoObjectFixture();
         fixtureScripts.runFixtureScript(templateFs, null);
 
         // demo objects
-        final DemoObjectWithUrlFixture demoObjectWithUrlFixture = new DemoObjectWithUrlFixture();
+        final DemoObjectWithUrl_createUpTo5_fakeData demoObjectWithUrlFixture = new DemoObjectWithUrl_createUpTo5_fakeData();
         fixtureScripts.runFixtureScript(demoObjectWithUrlFixture, null);
         demoObject = demoObjectWithUrlFixture.getDemoObjects().get(0);
 

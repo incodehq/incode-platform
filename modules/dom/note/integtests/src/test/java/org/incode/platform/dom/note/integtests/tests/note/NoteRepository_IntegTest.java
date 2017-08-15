@@ -13,7 +13,7 @@ import org.junit.Test;
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
 import org.incode.domainapp.example.dom.dom.note.dom.spiimpl.CalendarNameRepositoryForDemo;
-import org.incode.domainapp.example.dom.dom.note.fixture.NoteDemoObjectsTearDownFixture;
+import org.incode.domainapp.example.dom.dom.note.fixture.DemoModule_withNotes_tearDown;
 import org.incode.module.note.dom.impl.note.Note;
 import org.incode.module.note.dom.impl.note.NoteRepository;
 import org.incode.platform.dom.note.integtests.NoteModuleIntegTestAbstract;
@@ -36,7 +36,7 @@ public class NoteRepository_IntegTest extends NoteModuleIntegTestAbstract {
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new NoteDemoObjectsTearDownFixture(), null);
+        fixtureScripts.runFixtureScript(new DemoModule_withNotes_tearDown(), null);
 
         notable1 = wrap(noteDemoObjectMenu).create("Foo");
         notable2 = wrap(noteDemoObjectMenu).create("Bar");

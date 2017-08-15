@@ -17,7 +17,7 @@ import org.apache.isis.applib.services.wrapper.DisabledException;
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
 import org.incode.domainapp.example.dom.dom.note.dom.spiimpl.CalendarNameRepositoryForDemo;
-import org.incode.domainapp.example.dom.dom.note.fixture.NoteDemoObjectsTearDownFixture;
+import org.incode.domainapp.example.dom.dom.note.fixture.DemoModule_withNotes_tearDown;
 import org.incode.module.note.dom.impl.notablelink.NotableLink;
 import org.incode.module.note.dom.impl.notablelink.NotableLinkRepository;
 import org.incode.module.note.dom.impl.note.Note;
@@ -46,7 +46,7 @@ public class Notable_removeNote_IntegTest extends NoteModuleIntegTestAbstract {
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new NoteDemoObjectsTearDownFixture(), null);
+        fixtureScripts.runFixtureScript(new DemoModule_withNotes_tearDown(), null);
 
         notable = wrap(noteDemoObjectMenu).create("Foo");
         calendarNameRepository.setCalendarNames(DemoObject.class, "BLUE", "GREEN", "RED");

@@ -9,7 +9,7 @@ import org.isisaddons.module.settings.dom.UserSetting;
 import org.isisaddons.module.settings.dom.UserSettingsServiceRW;
 import org.incode.platform.dom.settings.integtests.SettingsModuleIntegTestAbstract;
 
-import org.incode.domainapp.example.dom.dom.settings.fixture.SettingsModuleAppSetUpFixture;
+import org.incode.domainapp.example.dom.dom.settings.fixture.ApplicationSetting_and_UserSetting_recreate5;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -17,7 +17,7 @@ public class UserSettingsService_IntegTest extends SettingsModuleIntegTestAbstra
 
     @Before
     public void setUpData() throws Exception {
-        scenarioExecution().install(new SettingsModuleAppSetUpFixture());
+        scenarioExecution().install(new ApplicationSetting_and_UserSetting_recreate5());
     }
 
     @javax.inject.Inject

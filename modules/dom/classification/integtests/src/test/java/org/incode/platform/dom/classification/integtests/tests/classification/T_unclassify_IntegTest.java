@@ -20,7 +20,7 @@ import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAt
 import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPathMenu;
 import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPath;
 import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPathMenu;
-import org.incode.domainapp.example.dom.dom.classification.fixture.ClassifiedDemoObjectsFixture;
+import org.incode.domainapp.example.dom.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_create3;
 import org.incode.platform.dom.classification.integtests.ClassificationModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -46,7 +46,7 @@ public class T_unclassify_IntegTest extends ClassificationModuleIntegTestAbstrac
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new ClassifiedDemoObjectsFixture(), null);
+        fixtureScripts.runFixtureScript(new DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_create3(), null);
     }
 
     @Test

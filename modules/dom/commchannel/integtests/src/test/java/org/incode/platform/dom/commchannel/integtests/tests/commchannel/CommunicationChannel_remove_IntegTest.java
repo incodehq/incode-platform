@@ -16,7 +16,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
-import org.incode.domainapp.example.dom.dom.commchannel.fixture.CommChannelDemoObjectsTearDownFixture;
+import org.incode.domainapp.example.dom.dom.commchannel.fixture.DemoObject_withCommChannels_tearDown;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannelRepository;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel_remove1;
@@ -42,7 +42,7 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new CommChannelDemoObjectsTearDownFixture(), null);
+        fixtureScripts.runFixtureScript(new DemoObject_withCommChannels_tearDown(), null);
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
 

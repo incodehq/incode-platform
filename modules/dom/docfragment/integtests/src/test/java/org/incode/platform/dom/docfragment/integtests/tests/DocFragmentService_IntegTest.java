@@ -9,7 +9,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
-import org.incode.domainapp.example.dom.dom.docfragment.fixture.DemoAppFixture;
+import org.incode.domainapp.example.dom.dom.docfragment.fixture.DemoCustomer_and_DemoInvoice_and_DocFragment_recreateSome;
 import org.incode.platform.dom.docfragment.integtests.DocFragmentModuleIntegTestAbstract;
 import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoice;
 import org.incode.domainapp.example.dom.demo.fixture.data.DemoInvoiceData;
@@ -30,7 +30,7 @@ public class DocFragmentService_IntegTest extends DocFragmentModuleIntegTestAbst
     @Before
     public void setUp() throws Exception {
         // given
-        fixtureScripts.runFixtureScript(new DemoAppFixture(), null);
+        fixtureScripts.runFixtureScript(new DemoCustomer_and_DemoInvoice_and_DocFragment_recreateSome(), null);
         transactionService.nextTransaction();
     }
 

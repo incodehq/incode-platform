@@ -5,7 +5,7 @@ import org.isisaddons.module.settings.dom.ApplicationSetting;
 import org.isisaddons.module.settings.dom.ApplicationSettingsServiceRW;
 import org.incode.platform.dom.settings.integtests.SettingsModuleIntegTestAbstract;
 
-import org.incode.domainapp.example.dom.dom.settings.fixture.SettingsModuleAppSetUpFixture;
+import org.incode.domainapp.example.dom.dom.settings.fixture.ApplicationSetting_and_UserSetting_recreate5;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,7 +16,7 @@ public class ApplicationSettingsService_IntegTest extends SettingsModuleIntegTes
 
     @Before
     public void setUpData() throws Exception {
-        scenarioExecution().install(new SettingsModuleAppSetUpFixture());
+        scenarioExecution().install(new ApplicationSetting_and_UserSetting_recreate5());
     }
 
     @javax.inject.Inject

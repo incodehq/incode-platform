@@ -8,7 +8,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
-import org.incode.domainapp.example.dom.dom.commchannel.fixture.CommChannelDemoObjectsTearDownFixture;
+import org.incode.domainapp.example.dom.dom.commchannel.fixture.DemoObject_withCommChannels_tearDown;
 import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 import org.incode.platform.dom.commchannel.integtests.CommChannelModuleIntegTestAbstract;
@@ -29,7 +29,7 @@ public class CommunicationChannelOwnerLinkRepository_IntegTest extends CommChann
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new CommChannelDemoObjectsTearDownFixture(), null);
+        fixtureScripts.runFixtureScript(new DemoObject_withCommChannels_tearDown(), null);
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
         billDemoOwner = wrap(commChannelDemoObjectMenu).create("Bill");

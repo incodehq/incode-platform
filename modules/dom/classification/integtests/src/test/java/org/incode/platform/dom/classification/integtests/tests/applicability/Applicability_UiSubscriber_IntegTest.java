@@ -5,7 +5,7 @@ import org.incode.module.classification.dom.impl.category.CategoryRepository;
 import org.incode.module.classification.dom.impl.classification.ClassificationRepository;
 import org.incode.module.classification.dom.spi.ApplicationTenancyService;
 import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPathMenu;
-import org.incode.domainapp.example.dom.dom.classification.fixture.ClassifiedDemoObjectsFixture;
+import org.incode.domainapp.example.dom.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_create3;
 import org.incode.platform.dom.classification.integtests.ClassificationModuleIntegTestAbstract;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -28,7 +28,7 @@ public class Applicability_UiSubscriber_IntegTest extends ClassificationModuleIn
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new ClassifiedDemoObjectsFixture(), null);
+        fixtureScripts.runFixtureScript(new DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_create3(), null);
     }
 
 

@@ -3,7 +3,7 @@ package org.incode.platform.dom.classification.integtests.tests.demo;
 import org.assertj.core.api.Assertions;
 import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPath;
 import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPathMenu;
-import org.incode.domainapp.example.dom.dom.classification.fixture.ClassifiedDemoObjectsFixture;
+import org.incode.domainapp.example.dom.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_create3;
 import org.incode.platform.dom.classification.integtests.ClassificationModuleIntegTestAbstract;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,11 +13,11 @@ import java.util.List;
 
 public class DemoObjectMenu_IntegTest extends ClassificationModuleIntegTestAbstract {
 
-    ClassifiedDemoObjectsFixture fs;
+    DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_create3 fs;
 
     @Before
     public void setUpData() throws Exception {
-        fs = new ClassifiedDemoObjectsFixture();
+        fs = new DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_create3();
         fixtureScripts.runFixtureScript(fs, null);
     }
 

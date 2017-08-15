@@ -13,7 +13,7 @@ import org.incode.module.classification.dom.impl.classification.ClassificationRe
 import org.incode.module.classification.dom.spi.ApplicationTenancyService;
 import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPath;
 import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPathMenu;
-import org.incode.domainapp.example.dom.dom.classification.fixture.ClassifiedDemoObjectsFixture;
+import org.incode.domainapp.example.dom.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_create3;
 import org.incode.platform.dom.classification.integtests.ClassificationModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -36,7 +36,7 @@ public class Classification_remove_IntegTest extends ClassificationModuleIntegTe
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new ClassifiedDemoObjectsFixture(), null);
+        fixtureScripts.runFixtureScript(new DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_create3(), null);
     }
 
     @Test

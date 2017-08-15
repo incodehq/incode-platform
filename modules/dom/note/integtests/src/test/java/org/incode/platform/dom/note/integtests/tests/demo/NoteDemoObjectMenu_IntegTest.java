@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
-import org.incode.domainapp.example.dom.dom.note.fixture.NoteDemoObjectsFixture;
+import org.incode.domainapp.example.dom.dom.note.fixture.DemoObject_withNotes_recreate3;
 import org.incode.platform.dom.note.integtests.NoteModuleIntegTestAbstract;
 
 public class NoteDemoObjectMenu_IntegTest extends NoteModuleIntegTestAbstract {
@@ -20,7 +20,7 @@ public class NoteDemoObjectMenu_IntegTest extends NoteModuleIntegTestAbstract {
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new NoteDemoObjectsFixture(), null);
+        fixtureScripts.runFixtureScript(new DemoObject_withNotes_recreate3(), null);
     }
 
     @Test

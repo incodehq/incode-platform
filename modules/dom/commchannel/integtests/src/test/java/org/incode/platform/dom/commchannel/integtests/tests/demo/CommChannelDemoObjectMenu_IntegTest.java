@@ -12,7 +12,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
-import org.incode.domainapp.example.dom.dom.commchannel.fixture.CommChannelDemoObjectsFixture;
+import org.incode.domainapp.example.dom.dom.commchannel.fixture.DemoObject_withCommChannels_create3;
 import org.incode.platform.dom.commchannel.integtests.CommChannelModuleIntegTestAbstract;
 
 public class CommChannelDemoObjectMenu_IntegTest extends CommChannelModuleIntegTestAbstract {
@@ -25,7 +25,7 @@ public class CommChannelDemoObjectMenu_IntegTest extends CommChannelModuleIntegT
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new CommChannelDemoObjectsFixture(), null);
+        fixtureScripts.runFixtureScript(new DemoObject_withCommChannels_create3(), null);
     }
 
 

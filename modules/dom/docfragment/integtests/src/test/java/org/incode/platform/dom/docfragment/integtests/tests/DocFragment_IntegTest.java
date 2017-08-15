@@ -17,7 +17,7 @@ import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleu
 import org.incode.platform.dom.docfragment.integtests.DocFragmentModuleIntegTestAbstract;
 import org.incode.module.docfragment.dom.impl.DocFragment;
 import org.incode.domainapp.example.dom.dom.docfragment.fixture.data.DocFragmentData;
-import org.incode.domainapp.example.dom.dom.docfragment.fixture.teardown.DocFragmentModuleTearDown;
+import org.incode.domainapp.example.dom.dom.docfragment.fixture.sub.DocFragment_tearDown;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -33,7 +33,7 @@ public class DocFragment_IntegTest extends DocFragmentModuleIntegTestAbstract {
     @Before
     public void setUp() throws Exception {
         // given
-        fixtureScripts.runFixtureScript(new DocFragmentModuleTearDown(), null);
+        fixtureScripts.runFixtureScript(new DocFragment_tearDown(), null);
         final DocFragmentData.PersistScript fs = new DocFragmentData.PersistScript().setNumber(1);
         fixtureScripts.runFixtureScript(fs, null);
         transactionService.nextTransaction();

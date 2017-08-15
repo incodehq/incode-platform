@@ -18,12 +18,12 @@ import org.apache.isis.applib.services.xactn.TransactionService;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.domainapp.example.dom.dom.docfragment.fixture.DemoAppFixture;
+import org.incode.domainapp.example.dom.dom.docfragment.fixture.DemoCustomer_and_DemoInvoice_and_DocFragment_recreateSome;
 import org.incode.platform.dom.docfragment.integtests.DocFragmentModuleIntegTestAbstract;
 import org.incode.module.docfragment.dom.impl.DocFragment;
 import org.incode.module.docfragment.dom.impl.DocFragmentRepository;
 import org.incode.domainapp.example.dom.dom.docfragment.fixture.data.DocFragmentData;
-import org.incode.domainapp.example.dom.dom.docfragment.fixture.teardown.DocFragmentModuleTearDown;
+import org.incode.domainapp.example.dom.dom.docfragment.fixture.sub.DocFragment_tearDown;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -44,7 +44,7 @@ public class DocFragmentRepository_IntegTest extends DocFragmentModuleIntegTestA
         public void happyCase() throws Exception {
 
             // given
-            fixtureScripts.runFixtureScript(new DocFragmentModuleTearDown(), null);
+            fixtureScripts.runFixtureScript(new DocFragment_tearDown(), null);
             DocFragmentData.PersistScript fs = new DocFragmentData.PersistScript();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
@@ -63,7 +63,7 @@ public class DocFragmentRepository_IntegTest extends DocFragmentModuleIntegTestA
         public void whenNone() throws Exception {
 
             // given
-            FixtureScript fs = new DocFragmentModuleTearDown();
+            FixtureScript fs = new DocFragment_tearDown();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 
@@ -81,7 +81,7 @@ public class DocFragmentRepository_IntegTest extends DocFragmentModuleIntegTestA
         public void happyCase() throws Exception {
 
             // given
-            FixtureScript fs = new DocFragmentModuleTearDown();
+            FixtureScript fs = new DocFragment_tearDown();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 
@@ -98,7 +98,7 @@ public class DocFragmentRepository_IntegTest extends DocFragmentModuleIntegTestA
         public void whenAlreadyExists() throws Exception {
 
             // given
-            FixtureScript fs = new DocFragmentModuleTearDown();
+            FixtureScript fs = new DocFragment_tearDown();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 
@@ -122,7 +122,7 @@ public class DocFragmentRepository_IntegTest extends DocFragmentModuleIntegTestA
         public void when_exact_match() throws Exception {
 
             // given
-            FixtureScript fs = new DemoAppFixture();
+            FixtureScript fs = new DemoCustomer_and_DemoInvoice_and_DocFragment_recreateSome();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 
@@ -142,7 +142,7 @@ public class DocFragmentRepository_IntegTest extends DocFragmentModuleIntegTestA
         public void when_fallback_match() throws Exception {
 
             // given
-            FixtureScript fs = new DemoAppFixture();
+            FixtureScript fs = new DemoCustomer_and_DemoInvoice_and_DocFragment_recreateSome();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 
@@ -162,7 +162,7 @@ public class DocFragmentRepository_IntegTest extends DocFragmentModuleIntegTestA
         public void when_no_match() throws Exception {
 
             // given
-            FixtureScript fs = new DemoAppFixture();
+            FixtureScript fs = new DemoCustomer_and_DemoInvoice_and_DocFragment_recreateSome();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 
@@ -185,7 +185,7 @@ public class DocFragmentRepository_IntegTest extends DocFragmentModuleIntegTestA
         public void when_match() throws Exception {
 
             // given
-            FixtureScript fs = new DemoAppFixture();
+            FixtureScript fs = new DemoCustomer_and_DemoInvoice_and_DocFragment_recreateSome();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 
@@ -205,7 +205,7 @@ public class DocFragmentRepository_IntegTest extends DocFragmentModuleIntegTestA
         public void when_no_match() throws Exception {
 
             // given
-            FixtureScript fs = new DemoAppFixture();
+            FixtureScript fs = new DemoCustomer_and_DemoInvoice_and_DocFragment_recreateSome();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 

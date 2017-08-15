@@ -4,7 +4,7 @@ import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
 import org.incode.domainapp.example.dom.demo.dom.todo2.DemoToDoItem2;
 import org.incode.domainapp.example.dom.demo.dom.todo2.DemoToDoItem2Menu;
-import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoToDoItem2TearDown;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoToDoItem2_tearDown;
 
 public class StringInterpolatorDemoToDoItemsFixture extends DiscoverableFixtureScript {
 
@@ -21,7 +21,7 @@ public class StringInterpolatorDemoToDoItemsFixture extends DiscoverableFixtureS
     @Override
     public void execute(final ExecutionContext executionContext) {
 
-        executionContext.executeChild(this, new DemoToDoItem2TearDown());
+        executionContext.executeChild(this, new DemoToDoItem2_tearDown());
 
         installFor(executionContext);
 

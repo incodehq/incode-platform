@@ -3,7 +3,7 @@ package org.incode.domainapp.example.dom.demo.fixture.todoitems;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoToDoItemTearDown;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoToDoItem_tearDown;
 
 public class DeleteToDoItemsForUserOrAll extends FixtureScript {
 
@@ -20,7 +20,7 @@ public class DeleteToDoItemsForUserOrAll extends FixtureScript {
         final FixtureScript fs =
                 ownedBy != null
                         ? new DeleteToDoItemsForUser(ownedBy)
-                        : new DemoToDoItemTearDown();
+                        : new DemoToDoItem_tearDown();
         executionContext.executeChild(this, fs);
     }
 

@@ -15,7 +15,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
-import org.incode.domainapp.example.dom.dom.commchannel.fixture.CommChannelDemoObjectsTearDownFixture;
+import org.incode.domainapp.example.dom.dom.commchannel.fixture.DemoObject_withCommChannels_tearDown;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.emailaddress.EmailAddress;
 import org.incode.module.commchannel.dom.impl.emailaddress.T_addEmailAddress;
@@ -33,7 +33,7 @@ public class CommunicationChannelOwner_addEmailAddress_IntegTest extends CommCha
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new CommChannelDemoObjectsTearDownFixture(), null);
+        fixtureScripts.runFixtureScript(new DemoObject_withCommChannels_tearDown(), null);
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
     }

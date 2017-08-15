@@ -1,41 +1,40 @@
 package org.incode.domainapp.example.dom.demo.fixture.teardown;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
-import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoCustomerTearDown;
-import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoInvoice2TearDown;
-import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoInvoiceTearDown;
-import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObjectTearDown;
-import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObjectWithAllTearDown;
-import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObjectWithAtPathTearDown;
-import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObjectWithBlobTearDown;
-import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObjectWithNotesTearDown;
-import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObjectWithUrlTearDown;
-import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoOrderAndOrderLineTearDown;
-import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoToDoItem2TearDown;
-import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoToDoItemTearDown;
-import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.OtherObjectTearDown;
-import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.OtherObjectWithAtPathTearDown;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoCustomer_tearDown;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoInvoice2_tearDown;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoInvoice_tearDown;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObject_tearDown;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObjectWithAll_tearDown;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObjectWithAtPath_tearDown;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObjectWithBlob_tearDown;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObjectWithNotes_tearDown;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObjectWithUrl_tearDown;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoOrderAndOrderLine_tearDown;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoToDoItem2_tearDown;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoToDoItem_tearDown;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.OtherObject_tearDown;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.OtherObjectWithAtPath_tearDown;
 
 public class DemoModuleTearDown extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-        executionContext.executeChild(this, new DemoCustomerTearDown());
-        executionContext.executeChild(this, new DemoInvoice2TearDown());
-        executionContext.executeChild(this, new DemoInvoiceTearDown());
-        executionContext.executeChild(this, new DemoObjectTearDown());
-        executionContext.executeChild(this, new DemoObjectWithAllTearDown());
-        executionContext.executeChild(this, new DemoObjectWithAtPathTearDown());
-        executionContext.executeChild(this, new DemoObjectWithBlobTearDown());
-        executionContext.executeChild(this, new DemoObjectWithNotesTearDown());
-        executionContext.executeChild(this, new DemoObjectWithUrlTearDown());
-        executionContext.executeChild(this, new DemoOrderAndOrderLineTearDown());
-        executionContext.executeChild(this, new DemoToDoItem2TearDown());
-        executionContext.executeChild(this, new DemoToDoItemTearDown());
-        executionContext.executeChild(this, new OtherObjectTearDown());
-        executionContext.executeChild(this, new OtherObjectWithAtPathTearDown());
+        executionContext.executeChild(this, new DemoCustomer_tearDown());
+        executionContext.executeChild(this, new DemoInvoice2_tearDown());
+        executionContext.executeChild(this, new DemoInvoice_tearDown());
+        executionContext.executeChild(this, new DemoObject_tearDown());
+        executionContext.executeChild(this, new DemoObjectWithAll_tearDown());
+        executionContext.executeChild(this, new DemoObjectWithAtPath_tearDown());
+        executionContext.executeChild(this, new DemoObjectWithBlob_tearDown());
+        executionContext.executeChild(this, new DemoObjectWithNotes_tearDown());
+        executionContext.executeChild(this, new DemoObjectWithUrl_tearDown());
+        executionContext.executeChild(this, new DemoOrderAndOrderLine_tearDown());
+        executionContext.executeChild(this, new DemoToDoItem2_tearDown());
+        executionContext.executeChild(this, new DemoToDoItem_tearDown());
+        executionContext.executeChild(this, new OtherObject_tearDown());
+        executionContext.executeChild(this, new OtherObjectWithAtPath_tearDown());
     }
 
 }

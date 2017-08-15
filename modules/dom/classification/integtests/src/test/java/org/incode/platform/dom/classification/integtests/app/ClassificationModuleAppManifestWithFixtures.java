@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.example.dom.dom.classification.fixture.ClassifiedDemoObjectsFixture;
+import org.incode.domainapp.example.dom.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_create3;
 
 /**
  * Run the app but without setting up any fixtures.
@@ -12,7 +12,7 @@ import org.incode.domainapp.example.dom.dom.classification.fixture.ClassifiedDem
 public class ClassificationModuleAppManifestWithFixtures extends ClassificationModuleAppManifest {
 
     @Override protected void overrideFixtures(final List<Class<? extends FixtureScript>> fixtureScripts) {
-        fixtureScripts.add(ClassifiedDemoObjectsFixture.class);
+        fixtureScripts.add(DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_create3.class);
     }
 
 

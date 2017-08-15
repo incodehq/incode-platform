@@ -21,10 +21,10 @@ import org.incode.platform.dom.tags.integtests.TagsModuleIntegTestAbstract;
 import org.incode.domainapp.example.dom.dom.tags.dom.demo.ExampleTaggableEntityMenu;
 import org.incode.domainapp.example.dom.dom.tags.dom.demo.ExampleTaggableEntity;
 import org.incode.domainapp.example.dom.dom.tags.fixture.ExampleTaggableEntitiesTearDownFixture;
-import org.incode.domainapp.example.dom.dom.tags.fixture.data.Bar_Pepsi_Drink;
-import org.incode.domainapp.example.dom.dom.tags.fixture.data.Baz_McDonalds_FastFood;
-import org.incode.domainapp.example.dom.dom.tags.fixture.data.Bip_CocaCola_Drink;
-import org.incode.domainapp.example.dom.dom.tags.fixture.data.Bop_Levis_Clothing;
+import org.incode.domainapp.example.dom.dom.tags.fixture.data.ExampleTaggableEntity_Bar_Pepsi_Drink;
+import org.incode.domainapp.example.dom.dom.tags.fixture.data.ExampleTaggableEntity_Baz_McDonalds_FastFood;
+import org.incode.domainapp.example.dom.dom.tags.fixture.data.ExampleTaggableEntity_Bip_CocaCola_Drink;
+import org.incode.domainapp.example.dom.dom.tags.fixture.data.ExampleTaggableEntity_Bop_Levis_Clothing;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
@@ -38,10 +38,10 @@ public class Tags_IntegTest extends TagsModuleIntegTestAbstract {
     public void setUpData() throws Exception {
         scenarioExecution().install(
                 new ExampleTaggableEntitiesTearDownFixture(),
-                new Bip_CocaCola_Drink(),
-                new Bar_Pepsi_Drink(),
-                new Baz_McDonalds_FastFood(),
-                new Bop_Levis_Clothing()
+                new ExampleTaggableEntity_Bip_CocaCola_Drink(),
+                new ExampleTaggableEntity_Bar_Pepsi_Drink(),
+                new ExampleTaggableEntity_Baz_McDonalds_FastFood(),
+                new ExampleTaggableEntity_Bop_Levis_Clothing()
                 );
     }
 

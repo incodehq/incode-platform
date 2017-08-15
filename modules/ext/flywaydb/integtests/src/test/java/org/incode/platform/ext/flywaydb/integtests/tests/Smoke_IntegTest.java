@@ -11,7 +11,7 @@ import org.apache.isis.applib.services.xactn.TransactionService;
 
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
-import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObjectTearDown;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObject_tearDown;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,7 +28,7 @@ public class Smoke_IntegTest extends DomainAppIntegTestAbstract {
     public void create() throws Exception {
 
         // given
-        fixtureScripts.runFixtureScript(new DemoObjectTearDown(), null);
+        fixtureScripts.runFixtureScript(new DemoObject_tearDown(), null);
         transactionService.nextTransaction();
 
 

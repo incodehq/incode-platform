@@ -24,7 +24,7 @@ import org.incode.module.alias.dom.spi.ApplicationTenancyRepository;
 import org.incode.platform.dom.alias.integtests.AliasModuleIntegTestAbstract;
 
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
-import org.incode.domainapp.example.dom.dom.alias.fixture.AliasDemoObjectsTearDownFixture;
+import org.incode.domainapp.example.dom.dom.alias.fixture.DemoObject_withAliases_tearDown;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class T_addAlias_IntegTest extends AliasModuleIntegTestAbstract {
@@ -42,7 +42,7 @@ public class T_addAlias_IntegTest extends AliasModuleIntegTestAbstract {
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new AliasDemoObjectsTearDownFixture(), null);
+        fixtureScripts.runFixtureScript(new DemoObject_withAliases_tearDown(), null);
 
         aliased = wrap(demoObjectMenu).create("Foo");
     }

@@ -12,7 +12,7 @@ import org.apache.isis.applib.services.xactn.TransactionService;
 
 import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotes;
 import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotesMenu;
-import org.incode.domainapp.example.dom.dom.communications.fixture.data.democust2.DemoCustomer2sFixture;
+import org.incode.domainapp.example.dom.dom.communications.fixture.data.democust2.DemoObjectWithNote_and_DemoInvoice2_withComms_create3;
 import org.incode.domainapp.example.dom.dom.communications.fixture.DemoModuleFixture;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwnerLinkRepository;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelRepository;
@@ -51,7 +51,7 @@ public class CommunicationChannelSubscription_Integtest extends CommunicationsIn
         transactionService.nextTransaction();
 
         // and so given customer with an email
-        final DemoObjectWithNotes fred = customerMenu.findByName(DemoCustomer2sFixture.FRED_HAS_EMAIL_AND_PHONE).get(0);
+        final DemoObjectWithNotes fred = customerMenu.findByName(DemoObjectWithNote_and_DemoInvoice2_withComms_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
 
         final EmailAddress fredEmail = (EmailAddress) linkRepository
                 .findByOwnerAndCommunicationChannelType(fred, CommunicationChannelType.EMAIL_ADDRESS)
@@ -63,7 +63,7 @@ public class CommunicationChannelSubscription_Integtest extends CommunicationsIn
     @Test
     public void replacement_provided() throws Exception {
         // Given
-        final DemoObjectWithNotes owner = customerMenu.findByName(DemoCustomer2sFixture.FRED_HAS_EMAIL_AND_PHONE).get(0);
+        final DemoObjectWithNotes owner = customerMenu.findByName(DemoObjectWithNote_and_DemoInvoice2_withComms_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
         final PostalAddress postalAddress = communicationChannelRepository.newPostal(
                 owner,
                 CommunicationChannelType.POSTAL_ADDRESS,
@@ -100,7 +100,7 @@ public class CommunicationChannelSubscription_Integtest extends CommunicationsIn
     @Test
     public void validate_fails_when_no_replacement_is_provided() throws Exception {
         // Given
-        final DemoObjectWithNotes owner = customerMenu.findByName(DemoCustomer2sFixture.FRED_HAS_EMAIL_AND_PHONE).get(0);
+        final DemoObjectWithNotes owner = customerMenu.findByName(DemoObjectWithNote_and_DemoInvoice2_withComms_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
         final PostalAddress postalAddress = communicationChannelRepository.newPostal(
                 owner,
                 CommunicationChannelType.POSTAL_ADDRESS,

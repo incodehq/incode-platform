@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
 import org.incode.domainapp.example.dom.demo.fixture.data.DemoObjectData;
-import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObjectTearDown;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObject_tearDown;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -19,7 +19,7 @@ public class Paraname8DemoObjects_IntegTest extends Paraname8ModuleIntegTest {
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new DemoObjectTearDown(), null);
+        fixtureScripts.runFixtureScript(new DemoObject_tearDown(), null);
         fixtureScripts.runFixtureScript(new DemoObjectData.PersistScript(), null);
     }
 

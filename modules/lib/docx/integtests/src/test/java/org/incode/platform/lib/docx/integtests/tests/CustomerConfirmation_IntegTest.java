@@ -16,7 +16,7 @@ import org.incode.platform.lib.docx.integtests.DocxModuleIntegTestAbstract;
 import org.incode.domainapp.example.dom.demo.dom.order.DemoOrder;
 import org.incode.domainapp.example.dom.demo.dom.order.DemoOrderMenu;
 import org.incode.domainapp.example.dom.lib.docx.dom.custconfirm.CustomerConfirmation;
-import org.incode.domainapp.example.dom.demo.fixture.setup.DemoOrderAndOrderLineSetup;
+import org.incode.domainapp.example.dom.demo.fixture.setup.DemoOrderAndOrderLine_recreate4_hardcodedData;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertThat;
@@ -25,7 +25,7 @@ public class CustomerConfirmation_IntegTest extends DocxModuleIntegTestAbstract 
 
     @Before
     public void setUpData() throws Exception {
-        scenarioExecution().install(new DemoOrderAndOrderLineSetup());
+        scenarioExecution().install(new DemoOrderAndOrderLine_recreate4_hardcodedData());
     }
 
     @Inject

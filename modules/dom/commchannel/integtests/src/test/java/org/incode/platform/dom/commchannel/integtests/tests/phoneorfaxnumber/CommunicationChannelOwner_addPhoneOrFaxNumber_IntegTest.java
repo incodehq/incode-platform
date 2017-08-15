@@ -17,7 +17,7 @@ import org.apache.isis.applib.services.wrapper.InvalidException;
 
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
-import org.incode.domainapp.example.dom.dom.commchannel.fixture.CommChannelDemoObjectsTearDownFixture;
+import org.incode.domainapp.example.dom.dom.commchannel.fixture.DemoObject_withCommChannels_tearDown;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.phoneorfax.T_addPhoneOrFaxNumber;
@@ -36,7 +36,7 @@ public class CommunicationChannelOwner_addPhoneOrFaxNumber_IntegTest extends Com
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new CommChannelDemoObjectsTearDownFixture(), null);
+        fixtureScripts.runFixtureScript(new DemoObject_withCommChannels_tearDown(), null);
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
     }

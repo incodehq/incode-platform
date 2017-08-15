@@ -23,9 +23,9 @@ import org.incode.module.document.dom.impl.paperclips.Paperclip;
 import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
 import org.incode.domainapp.example.dom.dom.document.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
 import org.incode.domainapp.example.dom.demo.dom.other.OtherObject;
-import org.incode.domainapp.example.dom.demo.fixture.setup.DemoObjectWithUrlFixture;
-import org.incode.domainapp.example.dom.demo.fixture.setup.OtherObjectsFixture;
-import org.incode.domainapp.example.dom.dom.document.fixture.DocumentDemoAppTearDownFixture;
+import org.incode.domainapp.example.dom.demo.fixture.setup.DemoObjectWithUrl_createUpTo5_fakeData;
+import org.incode.domainapp.example.dom.demo.fixture.setup.OtherObject_createUpTo5_fakeData;
+import org.incode.domainapp.example.dom.dom.document.fixture.DemoModule_and_DocTypesAndTemplates_tearDown;
 import org.incode.domainapp.example.dom.dom.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
 import org.incode.platform.dom.document.integtests.DocumentModuleIntegTestAbstract;
 
@@ -41,19 +41,19 @@ public class T_createAndAttachDocumentAndRender_IntegTest extends DocumentModule
     @Before
     public void setUpData() throws Exception {
 
-        fixtureScripts.runFixtureScript(new DocumentDemoAppTearDownFixture(), null);
+        fixtureScripts.runFixtureScript(new DemoModule_and_DocTypesAndTemplates_tearDown(), null);
 
         // types + templates
         templateFixture = new DocumentTypeAndTemplatesApplicableForDemoObjectFixture();
         fixtureScripts.runFixtureScript(templateFixture, null);
 
         // demo objects
-        final DemoObjectWithUrlFixture demoObjectWithUrlFixture = new DemoObjectWithUrlFixture();
+        final DemoObjectWithUrl_createUpTo5_fakeData demoObjectWithUrlFixture = new DemoObjectWithUrl_createUpTo5_fakeData();
         fixtureScripts.runFixtureScript(demoObjectWithUrlFixture, null);
         demoObject = demoObjectWithUrlFixture.getDemoObjects().get(0);
 
         // other objects
-        final OtherObjectsFixture otherObjectsFixture = new OtherObjectsFixture();
+        final OtherObject_createUpTo5_fakeData otherObjectsFixture = new OtherObject_createUpTo5_fakeData();
         fixtureScripts.runFixtureScript(otherObjectsFixture, null);
         otherObject = otherObjectsFixture.getOtherObjects().get(0);
 

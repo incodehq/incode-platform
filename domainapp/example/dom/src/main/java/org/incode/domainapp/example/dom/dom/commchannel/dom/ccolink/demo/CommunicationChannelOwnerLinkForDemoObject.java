@@ -25,9 +25,6 @@ public class CommunicationChannelOwnerLinkForDemoObject extends CommunicationCha
     @Column(allowsNull = "false", name = "demoObjectId")
     private DemoObject demoObject;
 
-
-
-
     @Override
     public Object getOwner() {
         return getDemoObject();
