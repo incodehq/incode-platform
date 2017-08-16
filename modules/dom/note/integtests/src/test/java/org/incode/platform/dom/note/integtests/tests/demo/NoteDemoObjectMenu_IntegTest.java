@@ -26,7 +26,7 @@ public class NoteDemoObjectMenu_IntegTest extends NoteModuleIntegTestAbstract {
     @Test
     public void listAll() throws Exception {
 
-        final List<DemoObject> all = wrap(noteDemoObjectMenu).listAll();
+        final List<DemoObject> all = wrap(noteDemoObjectMenu).listAllDemoObjects();
         Assertions.assertThat(all.size()).isEqualTo(3);
         
         DemoObject noteDemoObject = wrap(all.get(0));
@@ -36,9 +36,9 @@ public class NoteDemoObjectMenu_IntegTest extends NoteModuleIntegTestAbstract {
     @Test
     public void create() throws Exception {
 
-        wrap(noteDemoObjectMenu).create("Faz");
+        wrap(noteDemoObjectMenu).createDemoObject("Faz");
         
-        final List<DemoObject> all = wrap(noteDemoObjectMenu).listAll();
+        final List<DemoObject> all = wrap(noteDemoObjectMenu).listAllDemoObjects();
         Assertions.assertThat(all.size()).isEqualTo(4);
     }
 

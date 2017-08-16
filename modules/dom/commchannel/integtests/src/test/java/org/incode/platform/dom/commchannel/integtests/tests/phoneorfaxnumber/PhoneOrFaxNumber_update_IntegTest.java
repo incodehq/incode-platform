@@ -39,7 +39,7 @@ public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTes
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new DemoObject_withCommChannels_tearDown(), null);
 
-        fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
+        fredDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Fred");
         wrap(mixinNewPhoneOrFaxNumber(fredDemoOwner))
                 .$$(CommunicationChannelType.PHONE_NUMBER, "0207 999 8888", "Home",
                         "Fred Smith's home phone");

@@ -39,8 +39,8 @@ public class NotableLinkRepository_IntegTest extends NoteModuleIntegTestAbstract
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new DemoModule_withNotes_tearDown(), null);
 
-        notable1 = wrap(noteDemoObjectMenu).create("Foo");
-        notable2 = wrap(noteDemoObjectMenu).create("Bar");
+        notable1 = wrap(noteDemoObjectMenu).createDemoObject("Foo");
+        notable2 = wrap(noteDemoObjectMenu).createDemoObject("Bar");
 
         calendarNameRepository.setCalendarNames(DemoObject.class, "BLUE", "GREEN", "RED");
     }

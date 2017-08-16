@@ -33,7 +33,7 @@ public class TogglzDemoObjects_IntegTest extends TogglzModuleIntegTestAbstract {
     @Test
     public void listAll() throws Exception {
 
-        final List<DemoObject> all = wrap(demoObjectMenu).listAll();
+        final List<DemoObject> all = wrap(demoObjectMenu).listAllDemoObjects();
         Assertions.assertThat(all.size()).isEqualTo(3);
         
         DemoObject togglzDemoObject = wrap(all.get(0));
@@ -43,9 +43,9 @@ public class TogglzDemoObjects_IntegTest extends TogglzModuleIntegTestAbstract {
     @Test
     public void create() throws Exception {
 
-        wrap(demoObjectMenu).create("Faz");
+        wrap(demoObjectMenu).createDemoObject("Faz");
         
-        final List<DemoObject> all = wrap(demoObjectMenu).listAll();
+        final List<DemoObject> all = wrap(demoObjectMenu).listAllDemoObjects();
         Assertions.assertThat(all.size()).isEqualTo(4);
     }
 

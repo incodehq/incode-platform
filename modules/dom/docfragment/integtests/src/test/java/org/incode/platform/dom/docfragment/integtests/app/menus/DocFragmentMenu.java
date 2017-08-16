@@ -29,15 +29,15 @@ import org.incode.module.docfragment.dom.types.TemplateTextType;
         repositoryFor = DocFragment.class
 )
 @DomainServiceLayout(
-        named = "Other",
+        named = "Demo objects",
         menuBar = DomainServiceLayout.MenuBar.PRIMARY,
-        menuOrder = "80.14")
+        menuOrder = "1")
 public class DocFragmentMenu {
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<DocFragment> listAll() {
+    public List<DocFragment> listAllDocFragments() {
         return docfragmentRepository.listAll();
     }
 
@@ -45,7 +45,7 @@ public class DocFragmentMenu {
     public static class CreateDomainEvent extends ActionDomainEvent<DocFragmentMenu> {}
     @Action(domainEvent = CreateDomainEvent.class)
     @MemberOrder(sequence = "3")
-    public DocFragment create(
+    public DocFragment createDocFragment(
             @ParameterLayout(named="Object type")
             final String objectType,
             @ParameterLayout(named="Name")

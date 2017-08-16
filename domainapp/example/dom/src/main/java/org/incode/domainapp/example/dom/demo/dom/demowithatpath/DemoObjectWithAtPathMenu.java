@@ -18,8 +18,8 @@ import org.apache.isis.applib.services.repository.RepositoryService;
         objectType = "exampleDemo.DemoObjectWithAtPathMenu"
 )
 @DomainServiceLayout(
-        named = "Classification DemoObjects",
-        menuOrder = "10"
+        named = "Demo objects",
+        menuOrder = "3"
 )
 public class DemoObjectWithAtPathMenu {
 
@@ -33,7 +33,7 @@ public class DemoObjectWithAtPathMenu {
             bookmarking = BookmarkPolicy.AS_ROOT
     )
     @MemberOrder(sequence = "1")
-    public List<DemoObjectWithAtPath> listAll() {
+    public List<DemoObjectWithAtPath> listAllDemoObjectsWithAtPath() {
         return repositoryService.allInstances(DemoObjectWithAtPath.class);
     }
 

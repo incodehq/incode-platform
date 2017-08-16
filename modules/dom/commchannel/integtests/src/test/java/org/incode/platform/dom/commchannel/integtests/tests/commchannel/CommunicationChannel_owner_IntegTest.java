@@ -38,7 +38,7 @@ public class CommunicationChannel_owner_IntegTest extends CommChannelModuleInteg
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new DemoObject_withCommChannels_tearDown(), null);
 
-        fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
+        fredDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Fred");
         wrap(mixinNewEmailAddress(fredDemoOwner))
                 .$$("fred@gmail.com", "Home Email", "Fred Smith's home email");
         wrap(mixinNewEmailAddress(fredDemoOwner))
@@ -46,7 +46,7 @@ public class CommunicationChannel_owner_IntegTest extends CommChannelModuleInteg
         fredChannels = communicationChannelRepository.findByOwner(fredDemoOwner);
         assertThat(fredChannels).hasSize(2);
 
-        billDemoOwner = wrap(commChannelDemoObjectMenu).create("Bill");
+        billDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Bill");
         wrap(mixinNewEmailAddress(billDemoOwner))
                 .$$("bill@yahoo.com", "Home Email", "Bill Jones' home email");
         billChannels = communicationChannelRepository.findByOwner(billDemoOwner);

@@ -63,7 +63,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            final List<DemoObjectWithAll> all = wrap(fakeDataDemoObjects).listAll();
+            final List<DemoObjectWithAll> all = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll();
             Assertions.assertThat(all.size()).isEqualTo(1);
 
             DemoObjectWithAll fakeDataDemoObject = all.get(0);
@@ -119,7 +119,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
 
             nextTransaction();
 
-            final List<DemoObjectWithAll> all = wrap(fakeDataDemoObjects).listAll();
+            final List<DemoObjectWithAll> all = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll();
             fakeDataDemoObject = all.get(0);
 
             updateScript = new DemoObjectWithAll_update_withFakeData();
@@ -141,7 +141,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeBooleanWrapper()).isNotNull();
             Assertions.assertThat(fakeDataDemoObject.getSomeCharacterWrapper()).isNotNull();
@@ -195,7 +195,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
             Assertions.assertThat(fakeDataDemoObject.isSomeBoolean()).isTrue();
             Assertions.assertThat(fakeDataDemoObject.getSomeBooleanWrapper()).isTrue();
 
@@ -213,7 +213,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
             Assertions.assertThat(fakeDataDemoObject.isSomeBoolean()).isFalse();
             Assertions.assertThat(fakeDataDemoObject.getSomeBooleanWrapper()).isFalse();
 
@@ -244,7 +244,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeChar()).isEqualTo(theChar);
             Assertions.assertThat(fakeDataDemoObject.getSomeCharacterWrapper()).isEqualTo(theChar);
@@ -274,7 +274,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeByte()).isEqualTo(theByte);
             Assertions.assertThat(fakeDataDemoObject.getSomeByteWrapper()).isEqualTo(theByte);
@@ -305,7 +305,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeShort()).isEqualTo(theShort);
             Assertions.assertThat(fakeDataDemoObject.getSomeShortWrapper()).isEqualTo(theShort);
@@ -337,7 +337,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeInt()).isEqualTo(theInt);
             Assertions.assertThat(fakeDataDemoObject.getSomeIntegerWrapper()).isEqualTo(theInt);
@@ -368,7 +368,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeLong()).isEqualTo(theLong);
             Assertions.assertThat(fakeDataDemoObject.getSomeLongWrapper()).isEqualTo(theLong);
@@ -398,7 +398,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeFloat()).isEqualTo(theFloat);
             Assertions.assertThat(fakeDataDemoObject.getSomeFloatWrapper()).isEqualTo(theFloat);
@@ -430,7 +430,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeDouble()).isEqualTo(theDouble);
             Assertions.assertThat(fakeDataDemoObject.getSomeDoubleWrapper()).isEqualTo(theDouble);
@@ -461,7 +461,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeString()).isEqualTo(theString);
         }
@@ -491,7 +491,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomePassword()).isEqualTo(thePassword);
 
@@ -522,7 +522,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeBigDecimal()).isEqualTo(theBigDecimal);
 
@@ -552,7 +552,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeBigInteger()).isEqualTo(theBigInteger);
         }
@@ -582,7 +582,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeBlob()).isNotNull();
             Assertions.assertThat(fakeDataDemoObject.getSomeBlob().getMimeType().toString()).isEqualTo("application/pdf");
@@ -613,7 +613,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeClob()).isNotNull();
             Assertions.assertThat(fakeDataDemoObject.getSomeClob().getMimeType().toString()).isEqualTo("text/xml");
@@ -643,7 +643,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeJavaUtilDate()).isEqualTo(theDate);
 
@@ -674,7 +674,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeJavaSqlDate()).isEqualTo(theDate);
 
@@ -705,7 +705,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeJavaSqlTimestamp()).isEqualTo(theTimestamp);
 
@@ -736,7 +736,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeJodaDateTime()).isEqualTo(theDate);
 
@@ -766,7 +766,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeJodaLocalDate()).isEqualTo(theDate);
 
@@ -797,7 +797,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeUrl()).isEqualTo(theUrl);
 
@@ -828,7 +828,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeUuid()).isEqualTo(theUuid);
 
@@ -862,7 +862,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeMoney()).isEqualTo(theMoney);
 
@@ -895,7 +895,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAll().get(0);
+            fakeDataDemoObject = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll().get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeEnumOf3()).isEqualTo(theEnumConstant);
 

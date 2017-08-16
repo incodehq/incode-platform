@@ -75,7 +75,7 @@ public class HomePageViewModel {
 
 
     public List<DemoObjectWithBlob> getDemoObjects() {
-        return demoObjectMenu.listAll();
+        return demoObjectMenu.listAllDemoObjectsWithBlob();
     }
 
 

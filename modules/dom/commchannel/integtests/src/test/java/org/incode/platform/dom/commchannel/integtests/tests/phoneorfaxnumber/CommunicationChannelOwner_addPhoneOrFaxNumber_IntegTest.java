@@ -38,7 +38,7 @@ public class CommunicationChannelOwner_addPhoneOrFaxNumber_IntegTest extends Com
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new DemoObject_withCommChannels_tearDown(), null);
 
-        fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
+        fredDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Fred");
     }
 
     public static class ActionImplementationIntegrationTest extends

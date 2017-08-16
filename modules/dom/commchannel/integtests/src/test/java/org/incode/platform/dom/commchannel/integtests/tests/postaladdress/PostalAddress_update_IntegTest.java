@@ -43,7 +43,7 @@ public class PostalAddress_update_IntegTest extends CommChannelModuleIntegTestAb
 
         fixtureScripts.runFixtureScript(new DemoObject_withCommChannels_tearDown(), null);
 
-        fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
+        fredDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Fred");
 
         wrap(mixinNewPostalAddress(fredDemoOwner)).$$(
                 "Flat 2a", "45 Penny Lane", "Allerton", "Liverpool", "L39 5AA", "UK", "Work", "Fred Smith's work",

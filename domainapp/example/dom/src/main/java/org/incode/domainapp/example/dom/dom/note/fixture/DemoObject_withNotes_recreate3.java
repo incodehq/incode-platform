@@ -53,7 +53,7 @@ public class DemoObject_withNotes_recreate3 extends DiscoverableFixtureScript {
             final String name,
             final ExecutionContext executionContext) {
 
-        return executionContext.addResult(this, wrap(noteDemoObjectMenu).create(name));
+        return executionContext.addResult(this, wrap(noteDemoObjectMenu).createDemoObject(name));
     }
 
 

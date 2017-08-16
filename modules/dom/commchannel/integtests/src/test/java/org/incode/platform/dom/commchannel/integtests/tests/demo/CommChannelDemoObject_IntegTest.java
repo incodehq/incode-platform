@@ -25,7 +25,7 @@ public class CommChannelDemoObject_IntegTest extends CommChannelModuleIntegTestA
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new DemoObject_withCommChannels_tearDown(), null);
 
-        commChannelDemoObject = wrap(commChannelDemoObjectMenu).create("Foo");
+        commChannelDemoObject = wrap(commChannelDemoObjectMenu).createDemoObject("Foo");
     }
 
 

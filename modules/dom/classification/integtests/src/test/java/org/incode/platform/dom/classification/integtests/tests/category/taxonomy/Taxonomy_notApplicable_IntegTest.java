@@ -74,7 +74,7 @@ public class Taxonomy_notApplicable_IntegTest extends ClassificationModuleIntegT
                 .findFirst()
                 .get();
 
-        DemoObjectWithAtPath demoFooInItaly = demoObjectMenu.listAll().stream()
+        DemoObjectWithAtPath demoFooInItaly = demoObjectMenu.listAllDemoObjectsWithAtPath().stream()
                 .filter(d -> d.getName().equals("Demo foo (in Italy)"))
                 .findFirst()
                 .get();

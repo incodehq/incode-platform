@@ -44,7 +44,7 @@ public class CommunicationChannel_remove_IntegTest extends CommChannelModuleInte
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new DemoObject_withCommChannels_tearDown(), null);
 
-        fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
+        fredDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Fred");
 
         wrap(mixinNewEmailAddress(fredDemoOwner)).$$("fred@gmail.com", "Home Email", "Fred Smith's home email");
         wrap(mixinNewEmailAddress(fredDemoOwner)).$$("fred.smith@somecompany.com", "Work Email",

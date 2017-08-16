@@ -16,7 +16,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
         objectType = "exampleDemo.DemoCustomerMenu"
 )
 @DomainServiceLayout(
-        named = "DocFragment Customers",
+        named = "Demo Customers",
         menuOrder = "10"
 )
 public class DemoCustomerMenu {

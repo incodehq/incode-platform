@@ -29,7 +29,7 @@ public class Paraname8DemoObjects_IntegTest extends Paraname8ModuleIntegTest {
     @Test
     public void listAll() throws Exception {
 
-        final List<DemoObject> all = wrap(demoObjectMenu).listAll();
+        final List<DemoObject> all = wrap(demoObjectMenu).listAllDemoObjects();
         assertThat(all.size(), is(DemoObjectData.values().length));
         
         DemoObject paraname8DemoObject = wrap(all.get(0));

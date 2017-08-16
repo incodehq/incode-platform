@@ -17,24 +17,23 @@ import org.apache.isis.applib.annotation.SemanticsOf;
         objectType = "exampleDemo.DemoObjectMenu"
 )
 @DomainServiceLayout(
-        named = "Demo Objects",
-        menuOrder = "10"
+        named = "Demo objects",
+        menuOrder = "2"
 )
 public class DemoObjectMenu {
-
 
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<DemoObject> listAll() {
+    public List<DemoObject> listAllDemoObjects() {
         return repository.listAll();
     }
 
 
 
     @MemberOrder(sequence = "2")
-    public DemoObject create(
+    public DemoObject createDemoObject(
             @ParameterLayout(named = "Name")
             final String name) {
         return repository.create(name);

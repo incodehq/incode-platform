@@ -18,8 +18,8 @@ import org.apache.isis.applib.services.repository.RepositoryService;
         objectType = "exampleWktPdfjs.DemoObjectMenu"
 )
 @DomainServiceLayout(
-        named = "PdfJs Demo Objects",
-        menuOrder = "10"
+        named = "Demo objects",
+        menuOrder = "4"
 )
 public class DemoObjectWithBlobMenu {
 
@@ -33,7 +33,7 @@ public class DemoObjectWithBlobMenu {
             bookmarking = BookmarkPolicy.AS_ROOT
     )
     @MemberOrder(sequence = "1")
-    public List<DemoObjectWithBlob> listAll() {
+    public List<DemoObjectWithBlob> listAllDemoObjectsWithBlob() {
         return repositoryService.allInstances(DemoObjectWithBlob.class);
     }
 
@@ -42,7 +42,7 @@ public class DemoObjectWithBlobMenu {
     //region > create (action)
 
     @MemberOrder(sequence = "2")
-    public DemoObjectWithBlob create(
+    public DemoObjectWithBlob createDemoObjectWithBlob(
             @ParameterLayout(named = "Name")
             final String name) {
         final DemoObjectWithBlob obj = repositoryService.instantiate(DemoObjectWithBlob.class);

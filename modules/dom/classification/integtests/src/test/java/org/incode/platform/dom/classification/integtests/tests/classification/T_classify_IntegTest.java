@@ -61,7 +61,7 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
     @Test
     public void when_applicability_and_no_classification() {
         // given
-        DemoObjectWithAtPath demoBip = demoObjectMenu.listAll()
+        DemoObjectWithAtPath demoBip = demoObjectMenu.listAllDemoObjectsWithAtPath()
                 .stream()
                 .filter(demoObject -> demoObject.getName().equals("Demo bip (in Milan)"))
                 .findFirst()
@@ -93,7 +93,7 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
     @Test
     public void cannot_classify_when_applicability_but_classifications_already_defined() {
         // given
-        DemoObjectWithAtPath demoFooInItaly = demoObjectMenu.listAll()
+        DemoObjectWithAtPath demoFooInItaly = demoObjectMenu.listAllDemoObjectsWithAtPath()
                 .stream()
                 .filter(demoObject -> demoObject.getName().equals("Demo foo (in Italy)"))
                 .findFirst()

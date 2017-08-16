@@ -32,7 +32,7 @@ public class CommChannelDemoObjectMenu_IntegTest extends CommChannelModuleIntegT
     @Test
     public void listAll() throws Exception {
 
-        final List<DemoObject> all = wrap(demoObjectMenu).listAll();
+        final List<DemoObject> all = wrap(demoObjectMenu).listAllDemoObjects();
         Assertions.assertThat(all.size()).isEqualTo(3);
         
         DemoObject commChannelDemoObject = wrap(all.get(0));
@@ -42,9 +42,9 @@ public class CommChannelDemoObjectMenu_IntegTest extends CommChannelModuleIntegT
     @Test
     public void create() throws Exception {
 
-        wrap(demoObjectMenu).create("Faz");
+        wrap(demoObjectMenu).createDemoObject("Faz");
         
-        final List<DemoObject> all = wrap(demoObjectMenu).listAll();
+        final List<DemoObject> all = wrap(demoObjectMenu).listAllDemoObjects();
         Assertions.assertThat(all.size()).isEqualTo(4);
     }
 

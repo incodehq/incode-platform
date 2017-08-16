@@ -63,7 +63,7 @@ public class DemoObjectWithBlob_createUpTo5_fakeData extends FixtureScript {
 
         Blob blob = asBlob(documentName, urlStr);
 
-        final DemoObjectWithBlob demoObject = wrap(demoObjectMenu).create(name);
+        final DemoObjectWithBlob demoObject = wrap(demoObjectMenu).createDemoObjectWithBlob(name);
         wrap(demoObject).setUrl(urlStr);
         wrap(demoObject).setBlob(blob);
 

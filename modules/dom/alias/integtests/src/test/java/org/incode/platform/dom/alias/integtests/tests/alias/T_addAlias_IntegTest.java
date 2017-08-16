@@ -44,7 +44,7 @@ public class T_addAlias_IntegTest extends AliasModuleIntegTestAbstract {
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new DemoObject_withAliases_tearDown(), null);
 
-        aliased = wrap(demoObjectMenu).create("Foo");
+        aliased = wrap(demoObjectMenu).createDemoObject("Foo");
     }
 
     public static class ActionImplementationIntegTest extends T_addAlias_IntegTest {

@@ -17,8 +17,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
         objectType = "exampleLibFakeData.DemoObjectWithAllMenu"
 )
 @DomainServiceLayout(
-        menuOrder = "10",
-        named = "Demo Objects with all"
+        named = "Demo objects",
+        menuOrder = "3"
 )
 public class DemoObjectWithAllMenu {
 
@@ -26,13 +26,13 @@ public class DemoObjectWithAllMenu {
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<DemoObjectWithAll> listAll() {
+    public List<DemoObjectWithAll> listAllDemoObjectsWithAll() {
         return container.allInstances(DemoObjectWithAll.class);
     }
 
 
     @MemberOrder(sequence = "2")
-    public DemoObjectWithAll create(
+    public DemoObjectWithAll createDemoObjectWithAll(
             final String name,
             final boolean someBoolean,
             final char someChar,

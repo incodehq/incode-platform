@@ -27,7 +27,7 @@ public class DemoObject_create extends FixtureScript {
 
         String name = checkParam("name", ec, String.class);
 
-        this.demoObject = wrap(demoObjectMenu).create(name);
+        this.demoObject = wrap(demoObjectMenu).createDemoObject(name);
         ec.addResult(this, demoObject);
     }
 

@@ -39,7 +39,7 @@ public class EmailAddress_update_IntegTest extends CommChannelModuleIntegTestAbs
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new DemoObject_withCommChannels_tearDown(), null);
 
-        fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
+        fredDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Fred");
         wrap(mixinNewEmailAddress(fredDemoOwner)).$$(
                 "fred@gmail.com", "Home", "Fred Smith's home email");
 

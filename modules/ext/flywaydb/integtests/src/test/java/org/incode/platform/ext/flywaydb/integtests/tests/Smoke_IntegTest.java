@@ -33,7 +33,7 @@ public class Smoke_IntegTest extends DomainAppIntegTestAbstract {
 
 
         // when
-        List<DemoObject> all = wrap(menu).listAll();
+        List<DemoObject> all = wrap(menu).listAllDemoObjects();
 
         // then
         assertThat(all).isEmpty();
@@ -41,22 +41,22 @@ public class Smoke_IntegTest extends DomainAppIntegTestAbstract {
 
 
         // when
-        final DemoObject fred = wrap(menu).create("Fred");
+        final DemoObject fred = wrap(menu).createDemoObject("Fred");
         transactionService.flushTransaction();
 
         // then
-        all = wrap(menu).listAll();
+        all = wrap(menu).listAllDemoObjects();
         assertThat(all).hasSize(1);
         assertThat(all).contains(fred);
 
 
 
         // when
-        final DemoObject bill = wrap(menu).create("Bill");
+        final DemoObject bill = wrap(menu).createDemoObject("Bill");
         transactionService.flushTransaction();
 
         // then
-        all = wrap(menu).listAll();
+        all = wrap(menu).listAllDemoObjects();
         assertThat(all).hasSize(2);
         assertThat(all).contains(fred, bill);
 

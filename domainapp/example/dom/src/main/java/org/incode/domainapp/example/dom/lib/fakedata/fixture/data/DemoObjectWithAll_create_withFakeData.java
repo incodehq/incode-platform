@@ -60,7 +60,7 @@ public class DemoObjectWithAll_create_withFakeData extends DiscoverableFixtureSc
 
         // create
         this.fakeDataDemoObject =
-                wrap(demoObjectWithAllMenu).create(getName(), getSomeBoolean(), getSomeChar(), getSomeByte(), getSomeShort(), getSomeInt(), getSomeLong(), getSomeFloat(), getSomeDouble());
+                wrap(demoObjectWithAllMenu).createDemoObjectWithAll(getName(), getSomeBoolean(), getSomeChar(), getSomeByte(), getSomeShort(), getSomeInt(), getSomeLong(), getSomeFloat(), getSomeDouble());
 
         executionContext.addResult(this, fakeDataDemoObject);
     }

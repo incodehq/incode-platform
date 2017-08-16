@@ -32,8 +32,8 @@ public class CommunicationChannelRepositoryIntegTest extends CommChannelModuleIn
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new DemoObject_withCommChannels_tearDown(), null);
 
-        fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
-        billDemoOwner = wrap(commChannelDemoObjectMenu).create("Bill");
+        fredDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Fred");
+        billDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Bill");
 
         wrap(mixinNewEmailAddress(fredDemoOwner)).$$("fred@gmail.com", "Home Email", "Fred Smith's home email");
         wrap(mixinNewEmailAddress(fredDemoOwner)).$$("fred.smith@somecompany.com", "Work Email",

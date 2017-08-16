@@ -42,7 +42,7 @@ public class PostalAddress_lookupGeocode_IntegTest extends CommChannelModuleInte
 
         fixtureScripts.runFixtureScript(new DemoObject_withCommChannels_tearDown(), null);
 
-        fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
+        fredDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Fred");
 
         wrap(mixinNewPostalAddress(fredDemoOwner)).$$(
                 "45", "High Street", "Oxford", null, "OX1", "UK", "Work", "Fred Smith's work", false);

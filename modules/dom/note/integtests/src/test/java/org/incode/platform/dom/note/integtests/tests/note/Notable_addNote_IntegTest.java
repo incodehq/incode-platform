@@ -40,7 +40,7 @@ public class Notable_addNote_IntegTest extends NoteModuleIntegTestAbstract {
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new DemoModule_withNotes_tearDown(), null);
 
-        notable = wrap(noteDemoObjectMenu).create("Foo");
+        notable = wrap(noteDemoObjectMenu).createDemoObject("Foo");
         calendarNameRepository.setCalendarNames(DemoObject.class, "BLUE", "GREEN", "RED");
     }
 

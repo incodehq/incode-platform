@@ -56,7 +56,7 @@ public class DemoObject_withCommChannels_create3 extends DiscoverableFixtureScri
             final String name,
             final ExecutionContext executionContext) {
 
-        return executionContext.addResult(this, wrap(demoObjectMenu).create(name));
+        return executionContext.addResult(this, wrap(demoObjectMenu).createDemoObject(name));
     }
 
 

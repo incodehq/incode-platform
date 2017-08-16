@@ -35,7 +35,7 @@ public class CommunicationChannelOwner_addEmailAddress_IntegTest extends CommCha
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new DemoObject_withCommChannels_tearDown(), null);
 
-        fredDemoOwner = wrap(commChannelDemoObjectMenu).create("Fred");
+        fredDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Fred");
     }
 
     public static class ActionImplementationIntegrationTest extends
