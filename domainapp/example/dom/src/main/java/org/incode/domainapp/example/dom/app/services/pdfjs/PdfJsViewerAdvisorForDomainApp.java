@@ -1,4 +1,4 @@
-package domainapp.appdefn.services.pdfjs;
+package org.incode.domainapp.example.dom.app.services.pdfjs;
 
 import java.util.Map;
 import java.util.Objects;
@@ -18,7 +18,7 @@ import org.apache.isis.applib.services.urlencoding.UrlEncodingService;
 
 import org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewerAdvisor;
 
-import domainapp.appdefn.services.homepage.pdfjs.HomePageViewModel;
+import org.incode.domainapp.example.dom.app.services.homepage.HomePageViewModel;
 
 @DomainService(nature = NatureOfService.DOMAIN)
 public class PdfJsViewerAdvisorForDomainApp implements PdfJsViewerAdvisor {

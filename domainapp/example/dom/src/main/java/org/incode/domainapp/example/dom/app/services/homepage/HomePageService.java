@@ -1,4 +1,6 @@
-package org.incode.domainapp.example.dom.app;
+package org.incode.domainapp.example.dom.app.services.homepage;
+
+import java.util.List;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
@@ -6,6 +8,8 @@ import org.apache.isis.applib.annotation.HomePage;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.factory.FactoryService;
+
+import org.incode.domainapp.example.dom.demo.dom.demowithblob.DemoObjectWithBlob;
 
 @DomainService(
         objectType = "org.incode.domainapp.example.dom.app.HomePageService",
@@ -16,7 +20,14 @@ public class HomePageService {
     @Action(semantics = SemanticsOf.SAFE)
     @HomePage
     public HomePageViewModel homePage() {
-        return factoryService.instantiate(HomePageViewModel.class);
+        HomePageViewModel viewModel = factoryService.instantiate(HomePageViewModel.class);
+
+        final List<DemoObjectWithBlob> demoObjects = viewModel.getDemoObjectsWithBlob();
+        if (!demoObjects.isEmpty()) {
+            viewModel.setIdx(0);
+        }
+
+        return viewModel;
     }
 
 

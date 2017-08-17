@@ -58,6 +58,51 @@
                 <version>${project.version}</version>
             </dependency>
 
+            <!-- example modules in this application -->
+            <dependency>
+                <groupId>org.incode</groupId>
+                <artifactId>incode-domainapp-example-publishmq-externalsystemadapter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode</groupId>
+                <artifactId>incode-domainapp-example-publishmq-canonical</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode</groupId>
+                <artifactId>incode-domainapp-example-dom</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode</groupId>
+                <artifactId>incode-domainapp-example-publishmq-embeddedcamel</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- 3rd party dependencies, as used by externalsystemadapter -->
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-frontend-jaxws</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http-jetty</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf.xjc-utils</groupId>
+                <artifactId>cxf-xjc-runtime</artifactId>
+                <version>${cxf.xjc-utils.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -67,81 +112,8 @@
 
     <modules>
         <module>appdefn</module>
+        <module>example</module>
         <module>webapp</module>
     </modules>
-
-    <profiles>
-        <profile>
-            <id>application-with-example-module</id>
-            <activation>
-                <!--
-                <activeByDefault>false</activeByDefault>
-                -->
-                <property>
-                    <name>!skip.example</name>
-                </property>
-            </activation>
-
-            <properties>
-
-            </properties>
-            <dependencyManagement>
-                <dependencies>
-
-                    <!-- example modules in this application -->
-                    <dependency>
-                        <groupId>org.incode</groupId>
-                        <artifactId>incode-domainapp-example-publishmq-externalsystemadapter</artifactId>
-                        <version>${project.version}</version>
-                    </dependency>
-
-                    <dependency>
-                        <groupId>org.incode</groupId>
-                        <artifactId>incode-domainapp-example-publishmq-canonical</artifactId>
-                        <version>${project.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.incode</groupId>
-                        <artifactId>incode-domainapp-example-dom</artifactId>
-                        <version>${project.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.incode</groupId>
-                        <artifactId>incode-domainapp-example-publishmq-embeddedcamel</artifactId>
-                        <version>${project.version}</version>
-                    </dependency>
-
-                    <!-- 3rd party dependencies, as used by externalsystemadapter -->
-                    <dependency>
-                        <groupId>org.apache.cxf</groupId>
-                        <artifactId>cxf-rt-frontend-jaxws</artifactId>
-                        <version>${cxf.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.cxf</groupId>
-                        <artifactId>cxf-rt-transports-http</artifactId>
-                        <version>${cxf.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.cxf</groupId>
-                        <artifactId>cxf-rt-transports-http-jetty</artifactId>
-                        <version>${cxf.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.cxf.xjc-utils</groupId>
-                        <artifactId>cxf-xjc-runtime</artifactId>
-                        <version>${cxf.xjc-utils.version}</version>
-                    </dependency>
-
-                </dependencies>
-            </dependencyManagement>
-
-            <modules>
-                <module>appdefn</module>
-                <module>example</module>
-                <module>webapp</module>
-            </modules>
-        </profile>
-    </profiles>
 
 </project>

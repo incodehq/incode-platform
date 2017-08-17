@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.appdefn.fixtures.security.SeedSuperAdministratorRoleAndSvenSuperUser;
+import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 
 public class DomainAppAppManifestWithFixtures extends DomainAppAppManifest {
 

@@ -1,4 +1,4 @@
-package domainapp.appdefn.fixtures.security;
+package domainapp.appdefn.seed.security;
 
 import java.util.Arrays;
 
