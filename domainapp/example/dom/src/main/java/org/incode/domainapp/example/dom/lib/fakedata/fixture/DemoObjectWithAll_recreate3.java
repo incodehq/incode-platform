@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
@@ -16,11 +16,7 @@ import org.incode.domainapp.example.dom.lib.fakedata.fixture.data.DemoObjectWith
 import lombok.Getter;
 import lombok.Setter;
 
-public class DemoObjectWithAll_recreate3 extends DiscoverableFixtureScript {
-
-    public DemoObjectWithAll_recreate3() {
-        withDiscoverability(Discoverability.DISCOVERABLE);
-    }
+public class DemoObjectWithAll_recreate3 extends FixtureScript {
 
     @Getter(onMethod = @__( @Programmatic )) @Setter
     private Integer numberToCreate;

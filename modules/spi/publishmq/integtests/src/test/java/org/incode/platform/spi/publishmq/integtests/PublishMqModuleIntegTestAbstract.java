@@ -4,7 +4,7 @@ import org.junit.BeforeClass;
 
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 
-import org.incode.domainapp.example.dom.demo.ExampleDemoSubmodule;
+import org.incode.domainapp.example.dom.demo.ExampleDomDemoDomSubmodule;
 import org.incode.platform.spi.publishmq.integtests.app.PublishMqSpiAppManifest;
 
 public abstract class PublishMqModuleIntegTestAbstract extends IntegrationTestAbstract2 {
@@ -12,7 +12,7 @@ public abstract class PublishMqModuleIntegTestAbstract extends IntegrationTestAb
     @BeforeClass
     public static void initClass() {
         bootstrapUsing(PublishMqSpiAppManifest.BUILDER
-                .withAdditionalModules(ExampleDemoSubmodule.class)
+                .withAdditionalModules(ExampleDomDemoDomSubmodule.class)
         );
     }
 

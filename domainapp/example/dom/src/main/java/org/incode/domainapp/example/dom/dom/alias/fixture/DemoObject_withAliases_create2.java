@@ -1,6 +1,6 @@
 package org.incode.domainapp.example.dom.dom.alias.fixture;
 
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
 import org.incode.domainapp.example.dom.demo.fixture.data.DemoObjectData;
@@ -8,11 +8,7 @@ import org.incode.domainapp.example.dom.dom.alias.dom.AliasForDemoObject;
 import org.incode.domainapp.example.dom.dom.alias.dom.spiimpl.aliastype.AliasTypeDemoEnum;
 import org.incode.module.alias.dom.impl.T_addAlias;
 
-public class DemoObject_withAliases_create2 extends DiscoverableFixtureScript {
-
-    public DemoObject_withAliases_create2() {
-        withDiscoverability(Discoverability.DISCOVERABLE);
-    }
+public class DemoObject_withAliases_create2 extends FixtureScript {
 
     T_addAlias mixinAddAlias(final Object aliased) {
         return factoryService.mixin(AliasForDemoObject._addAlias.class, aliased);

@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import com.google.common.collect.Lists;
 
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.factory.FactoryService;
 
 import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPath;
@@ -20,11 +20,8 @@ import org.incode.module.classification.dom.impl.category.taxonomy.Taxonomy;
 
 import lombok.Getter;
 
-public class DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_create3 extends DiscoverableFixtureScript {
-
-    public DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_create3() {
-        withDiscoverability(Discoverability.DISCOVERABLE);
-    }
+public class DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_create3
+        extends FixtureScript {
 
     @Getter
     private List<DemoObjectWithAtPath> demoObjects = Lists.newArrayList();
@@ -34,8 +31,6 @@ public class DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
-        // prereqs
-        executionContext.executeChild(this, new DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_tearDown());
 
         // italian taxonomy applicable only to Italian DemoObject and OtherObject
         Taxonomy italianColours = categoryRepository.createTaxonomy("Italian Colours");
@@ -119,11 +114,11 @@ public class DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_
     }
 
     //region > injected services
-    @javax.inject.Inject
+    @Inject
     DemoObjectWithAtPathMenu demoObjectMenu;
-    @javax.inject.Inject
+    @Inject
     OtherObjectWithAtPathMenu otherObjectMenu;
-    @javax.inject.Inject
+    @Inject
     CategoryRepository categoryRepository;
     //endregion
 

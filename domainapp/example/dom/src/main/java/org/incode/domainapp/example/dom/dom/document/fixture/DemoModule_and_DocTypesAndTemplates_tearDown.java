@@ -4,7 +4,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
 import org.incode.domainapp.example.dom.demo.fixture.teardown.DemoModuleTearDown;
-import org.incode.module.document.fixture.teardown.DocumentModuleTearDown;
+import org.incode.module.document.fixture.teardown.DocumentModule_tearDown;
 
 public class DemoModule_and_DocTypesAndTemplates_tearDown extends FixtureScript {
 
@@ -17,7 +17,7 @@ public class DemoModule_and_DocTypesAndTemplates_tearDown extends FixtureScript 
         isisJdoSupport.executeUpdate("delete from \"exampleDomDocument\".\"PaperclipForOtherObject\"");
 
         // documents
-        executionContext.executeChild(this, new DocumentModuleTearDown());
+        executionContext.executeChild(this, new DocumentModule_tearDown());
 
         // demo objects
         executionContext.executeChild(this, new DemoModuleTearDown());

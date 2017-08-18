@@ -2,12 +2,12 @@ package org.incode.domainapp.example.dom.dom.settings.fixture;
 
 import org.joda.time.LocalDate;
 
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.settings.dom.ApplicationSettingsServiceRW;
 import org.isisaddons.module.settings.dom.UserSettingsServiceRW;
 
-public class ApplicationSetting_and_UserSetting_recreate5 extends DiscoverableFixtureScript {
+public class ApplicationSetting_and_UserSetting_recreate5 extends FixtureScript {
 
 
     @javax.inject.Inject
@@ -15,10 +15,6 @@ public class ApplicationSetting_and_UserSetting_recreate5 extends DiscoverableFi
 
     @javax.inject.Inject
     UserSettingsServiceRW userSettingsServiceRW;
-
-    public ApplicationSetting_and_UserSetting_recreate5() {
-        withDiscoverability(Discoverability.DISCOVERABLE);
-    }
 
     @Override
     protected void execute(ExecutionContext executionContext) {

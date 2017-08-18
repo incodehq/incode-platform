@@ -10,13 +10,7 @@ public class DemoObject_withCommChannels_tearDown extends FixtureScript {
     @Override
     protected void execute(final ExecutionContext executionContext) {
 
-        // comm channels
-        isisJdoSupport.executeUpdate("delete from \"exampleDomCommChannel\".\"CommunicationChannelOwnerLinkForDemoObject\"");
-
-        isisJdoSupport.executeUpdate("delete from \"incodeCommChannel\".\"CommunicationChannelOwnerLink\"");
-        isisJdoSupport.executeUpdate("delete from \"incodeCommChannel\".\"CommunicationChannel\"");
-
-        // demo objects
+        executionContext.executeChild(this, new CommChannelModule_tearDown());
         executionContext.executeChild(this, new DemoModuleTearDown());
     }
 

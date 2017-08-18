@@ -1,13 +1,12 @@
 package org.incode.domainapp.example.dom.dom.document.fixture;
 
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.domainapp.example.dom.demo.fixture.setup.DemoObjectWithUrl_createUpTo5_fakeData;
 import org.incode.domainapp.example.dom.demo.fixture.setup.OtherObject_createUpTo5_fakeData;
-
 import org.incode.domainapp.example.dom.dom.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
 
-public class DemoObjectWithUrl_and_OtherObject_and_DocTypesAndTemplates_recreateUpTo5 extends DiscoverableFixtureScript {
+public class DemoObjectWithUrl_and_OtherObject_and_DocTypesAndTemplates_recreateUpTo5 extends FixtureScript {
 
     @Override
     protected void execute(final ExecutionContext ec) {

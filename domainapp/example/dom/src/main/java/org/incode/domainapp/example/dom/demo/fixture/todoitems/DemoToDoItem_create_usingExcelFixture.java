@@ -47,7 +47,6 @@ public class DemoToDoItem_create_usingExcelFixture extends FixtureScript {
 
         this.todoItems.addAll(load(ec, "ToDoItems.xlsx"));
         this.todoItems.addAll(load(ec, "MoreToDoItems.xlsx"));
-        this.todoItems.addAll(load(ec, "ToDoItems.xlsx")); // should be ignored because of execution strategy
 
         getContainer().flush();
     }

@@ -1,11 +1,10 @@
-package org.incode.domainapp.example.dom.app.services.homepage;
+package org.incode.domainapp.example.app.services.homepage;
 
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.xml.bind.annotation.XmlTransient;
 
-import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
 import org.axonframework.eventhandling.annotation.EventHandler;
@@ -73,7 +72,6 @@ import org.incode.domainapp.example.dom.demo.dom.reminder.DemoReminder;
 import org.incode.domainapp.example.dom.demo.dom.reminder.DemoReminderMenu;
 import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItem;
 import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItemMenu;
-import org.incode.domainapp.example.dom.dom.alias.dom.spiimpl.aliastype.AliasTypeDemoEnum;
 import org.incode.domainapp.example.dom.dom.classification.dom.menu.TaxonomyMenu;
 import org.incode.domainapp.example.dom.dom.document.dom.menu.DocumentTypeMenu;
 import org.incode.domainapp.example.dom.dom.tags.dom.demo.DemoTaggableObject;
@@ -91,14 +89,16 @@ import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedOb
 import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObjects;
 import org.incode.domainapp.example.dom.spi.audit.dom.demo.notaudited.SomeNotAuditedObject;
 import org.incode.domainapp.example.dom.spi.audit.dom.demo.notaudited.SomeNotAuditedObjects;
-import org.incode.domainapp.example.dom.spi.audit.dom.entries.AuditEntries;
 import org.incode.domainapp.example.dom.spi.command.dom.demo.SomeCommandAnnotatedObject;
 import org.incode.domainapp.example.dom.spi.command.dom.demo.SomeCommandAnnotatedObjects;
 import org.incode.domainapp.example.dom.spi.publishmq.dom.demo.PublishMqDemoObject;
 import org.incode.domainapp.example.dom.spi.publishmq.dom.demo.PublishMqDemoObjects;
+import org.incode.domainapp.example.dom.spi.security.dom.demo.nontenanted.NonTenantedEntities;
+import org.incode.domainapp.example.dom.spi.security.dom.demo.nontenanted.NonTenantedEntity;
+import org.incode.domainapp.example.dom.spi.security.dom.demo.tenanted.TenantedEntities;
+import org.incode.domainapp.example.dom.spi.security.dom.demo.tenanted.TenantedEntity;
 import org.incode.module.alias.dom.impl.Alias;
 import org.incode.module.alias.dom.impl.AliasRepository;
-import org.incode.module.alias.dom.spi.AliasType;
 import org.incode.module.alias.dom.spi.AliasTypeRepository;
 import org.incode.module.classification.dom.impl.applicability.Applicability;
 import org.incode.module.classification.dom.impl.category.Category;
@@ -107,6 +107,7 @@ import org.incode.module.commchannel.dom.impl.emailaddress.EmailAddress;
 import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress;
 import org.incode.module.communications.dom.impl.comms.CommChannelRole;
+import org.incode.module.communications.dom.impl.comms.Communication;
 import org.incode.module.communications.dom.impl.paperclips.PaperclipForCommunication;
 import org.incode.module.country.dom.impl.Country;
 import org.incode.module.country.dom.impl.State;
@@ -116,6 +117,8 @@ import org.incode.module.document.dom.impl.docs.DocumentAbstract;
 import org.incode.module.document.dom.impl.docs.DocumentRepository;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
 import org.incode.module.document.dom.impl.docs.DocumentTemplateRepository;
+import org.incode.module.document.dom.impl.rendering.RenderingStrategy;
+import org.incode.module.document.dom.impl.rendering.RenderingStrategyRepository;
 import org.incode.module.document.dom.impl.types.DocumentType;
 import org.incode.module.note.dom.impl.note.Note;
 import org.incode.module.note.dom.impl.note.NoteRepository;
@@ -125,10 +128,13 @@ import lombok.Setter;
 
 @DomainObject(
         nature = Nature.VIEW_MODEL,
-        objectType = "org.incode.domainapp.example.dom.app.HomePageViewModel"
+        objectType = "org.incode.domainapp.example.app.HomePageViewModel"
 )
 public class HomePageViewModel {
 
+    public String title() {
+        return "Home page";
+    }
 
     // demo
 
@@ -245,10 +251,6 @@ public class HomePageViewModel {
 
     // alias
 
-    public List<AliasType> getAliasTypes() {
-        return Lists.newArrayList(AliasTypeDemoEnum.values());
-    }
-
     public List<Alias> getAliases() {
         return repositoryService.allInstances(Alias.class);
     }
@@ -293,7 +295,7 @@ public class HomePageViewModel {
         return repositoryService.allInstances(EmailAddress.class);
     }
 
-    public List<PhoneOrFaxNumber> getCcPhoneorFaxNumbers() {
+    public List<PhoneOrFaxNumber> getCcPhoneOrFaxNumbers() {
         return repositoryService.allInstances(PhoneOrFaxNumber.class);
     }
 
@@ -311,12 +313,16 @@ public class HomePageViewModel {
         return repositoryService.allInstances(org.incode.module.communications.dom.impl.commchannel.EmailAddress.class);
     }
 
-    public List<org.incode.module.communications.dom.impl.commchannel.PhoneOrFaxNumber> getPhoneorFaxNumbers() {
+    public List<org.incode.module.communications.dom.impl.commchannel.PhoneOrFaxNumber> getPhoneOrFaxNumbers() {
         return repositoryService.allInstances(org.incode.module.communications.dom.impl.commchannel.PhoneOrFaxNumber.class);
     }
 
     public List<PaperclipForCommunication> getPaperclipForCommunications() {
         return repositoryService.allInstances(PaperclipForCommunication.class);
+    }
+
+    public List<Communication> getCommunications() {
+        return repositoryService.allInstances(Communication.class);
     }
 
 
@@ -351,6 +357,10 @@ public class HomePageViewModel {
         return documentTypeMenu.allDocumentTypes();
     }
 
+    public List<RenderingStrategy> getRenderingStrategies() {
+        return renderingStrategyRepository.allStrategies();
+    }
+
     public List<DocumentTemplate> getDocumentTemplates() {
         return documentTemplateRepository.allTemplates();
     }
@@ -366,6 +376,9 @@ public class HomePageViewModel {
 
     @javax.inject.Inject
     DocumentTypeMenu documentTypeMenu;
+
+    @javax.inject.Inject
+    RenderingStrategyRepository renderingStrategyRepository;
 
     @javax.inject.Inject
     DocumentTemplateRepository documentTemplateRepository;
@@ -477,8 +490,6 @@ public class HomePageViewModel {
     @Inject
     SomeNotAuditedObjects someNotAuditedObjects;
 
-    @Inject
-    AuditEntries auditEntries;
 
 
     // command
@@ -539,6 +550,14 @@ public class HomePageViewModel {
         return applicationTenancyMenu.allTenancies();
     }
 
+    public List<TenantedEntity> getTenantedEntities() {
+        return tenantedEntities.listAllTenantedEntities();
+    }
+
+    public List<NonTenantedEntity> getNonTenantedEntities() {
+        return nonTenantedEntities.listAllNonTenantedEntities();
+    }
+
     @Inject
     ApplicationUserMenu applicationUserMenu;
 
@@ -550,6 +569,12 @@ public class HomePageViewModel {
 
     @Inject
     ApplicationTenancyMenu applicationTenancyMenu;
+
+    @Inject
+    TenantedEntities tenantedEntities;
+
+    @Inject
+    NonTenantedEntities nonTenantedEntities;
 
     // sessionlogger
 
@@ -648,8 +673,6 @@ public class HomePageViewModel {
 
     @javax.inject.Inject
     CssHighlighter cssHighlighter;
-
-
 
 
 

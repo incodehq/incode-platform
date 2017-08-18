@@ -2,7 +2,6 @@ package org.incode.domainapp.example.dom.dom.tags.dom.demo;
 
 import java.util.List;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
@@ -11,6 +10,8 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.services.repository.RepositoryService;
+import org.apache.isis.applib.services.xactn.TransactionService;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
@@ -27,7 +28,7 @@ public class DemoTaggableObjectMenu {
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
     public List<DemoTaggableObject> listAllTaggableObjects() {
-        return container.allInstances(DemoTaggableObject.class);
+        return repositoryService.allInstances(DemoTaggableObject.class);
     }
 
 
@@ -36,17 +37,20 @@ public class DemoTaggableObjectMenu {
             final String name,
             final String brand,
             final String sector) {
-        final DemoTaggableObject obj = container.newTransientInstance(DemoTaggableObject.class);
+        final DemoTaggableObject obj = repositoryService.instantiate(DemoTaggableObject.class);
         obj.setName(name);
+        repositoryService.persistAndFlush(obj);
         obj.setBrand(brand);
         obj.setSector(sector);
-        container.persistIfNotAlready(obj);
+        transactionService.flushTransaction();
         return obj;
     }
 
 
-    @javax.inject.Inject 
-    DomainObjectContainer container;
+    @javax.inject.Inject
+    RepositoryService repositoryService;
+
+    @javax.inject.Inject TransactionService transactionService;
 
 
 }

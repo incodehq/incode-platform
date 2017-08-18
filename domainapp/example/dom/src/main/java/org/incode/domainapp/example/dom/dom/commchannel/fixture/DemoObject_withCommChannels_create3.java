@@ -1,6 +1,6 @@
 package org.incode.domainapp.example.dom.dom.commchannel.fixture;
 
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
@@ -12,11 +12,7 @@ import org.incode.module.commchannel.dom.impl.phoneorfax.T_addPhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.postaladdress.T_addPostalAddress;
 import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
 
-public class DemoObject_withCommChannels_create3 extends DiscoverableFixtureScript {
-
-    public DemoObject_withCommChannels_create3() {
-        withDiscoverability(Discoverability.DISCOVERABLE);
-    }
+public class DemoObject_withCommChannels_create3 extends FixtureScript {
 
     @Override
     protected void execute(final ExecutionContext executionContext) {

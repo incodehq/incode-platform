@@ -34,7 +34,7 @@ public class OtherObject_createUpTo5_fakeData extends FixtureScript {
     @Override
     protected void execute(final ExecutionContext ec) {
 
-        defaultParam("number", ec, 3);
+        defaultParam("number", ec, 5);
         if(getNumber() < 1 || getNumber() > 5) {
             throw new IllegalArgumentException("number of other objects to create must be within [1,5]");
         }

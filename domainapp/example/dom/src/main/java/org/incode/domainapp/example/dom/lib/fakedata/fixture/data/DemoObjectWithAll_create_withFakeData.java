@@ -1,7 +1,7 @@
 package org.incode.domainapp.example.dom.lib.fakedata.fixture.data;
 
 import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
@@ -11,7 +11,7 @@ import org.incode.domainapp.example.dom.demo.dom.demowithall.DemoObjectWithAllMe
 import lombok.Getter;
 import lombok.Setter;
 
-public class DemoObjectWithAll_create_withFakeData extends DiscoverableFixtureScript {
+public class DemoObjectWithAll_create_withFakeData extends FixtureScript {
 
     @Getter(onMethod = @__( @Programmatic )) @Setter
     private String name;

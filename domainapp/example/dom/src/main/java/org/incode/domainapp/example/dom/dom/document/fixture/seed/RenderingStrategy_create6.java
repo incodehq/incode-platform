@@ -8,7 +8,7 @@ import org.incode.module.docrendering.xdocreport.fixture.RenderingStrategyFSForX
 import org.incode.module.docrendering.xdocreport.fixture.RenderingStrategyFSForXDocReportToPdf;
 import org.incode.module.document.fixture.DocumentTemplateFSAbstract;
 
-public class RenderingStrategiesFixture extends DocumentTemplateFSAbstract {
+public class RenderingStrategy_create6 extends DocumentTemplateFSAbstract {
 
     public static final String REF_SIPC = RenderingStrategyFSForStringInterpolatorPreviewAndCaptureUrl.REF;
     public static final String REF_SINC = RenderingStrategyFSForStringInterpolatorCaptureUrl.REF;

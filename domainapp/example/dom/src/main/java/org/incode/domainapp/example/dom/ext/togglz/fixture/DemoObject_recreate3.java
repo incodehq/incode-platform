@@ -1,15 +1,11 @@
 package org.incode.domainapp.example.dom.ext.togglz.fixture;
 
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectRepository;
 
-public class DemoObject_recreate3 extends DiscoverableFixtureScript {
-
-    public DemoObject_recreate3() {
-        withDiscoverability(Discoverability.DISCOVERABLE);
-    }
+public class DemoObject_recreate3 extends FixtureScript {
 
     @Override
     protected void execute(final ExecutionContext executionContext) {

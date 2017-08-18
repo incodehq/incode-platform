@@ -1,11 +1,11 @@
 package org.incode.domainapp.example.dom.spi.audit.fixture.sub;
 
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObject;
 import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObjects;
 
-public class SomeAuditedObject_create3 extends DiscoverableFixtureScript {
+public class SomeAuditedObject_create3 extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {

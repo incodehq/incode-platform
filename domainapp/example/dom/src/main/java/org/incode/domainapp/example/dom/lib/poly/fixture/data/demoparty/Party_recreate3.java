@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.domainapp.example.dom.lib.poly.dom.demoparty.Party;
 import org.incode.domainapp.example.dom.lib.poly.fixture.Case_FixedAsset_Party_andLinks_tearDown;
@@ -16,7 +16,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Accessors(chain = true)
-public class Party_recreate3 extends DiscoverableFixtureScript {
+public class Party_recreate3 extends FixtureScript {
 
     public final List<String> PARTY_NAMES = Collections.unmodifiableList(Arrays.asList(
             "Mary", "Mungo", "Midge"));

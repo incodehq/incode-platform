@@ -27,7 +27,7 @@ import org.incode.module.country.fixture.CountriesRefData;
 import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.Document_attachSupportingPdf;
 
-public class DemoObjectWithNote_and_DemoInvoice2_withComms_create3 extends FixtureScript {
+public class DemoObjectWithNote_and_DemoInvoiceWithAtPath_withComms_create3 extends FixtureScript {
 
     public static final String FRED_HAS_EMAIL_AND_PHONE = "Fred HasEmailAndPhone";
     public static final String MARY_HAS_PHONE_AND_POST = "Mary HasPhoneAndPost";
@@ -103,7 +103,7 @@ public class DemoObjectWithNote_and_DemoInvoice2_withComms_create3 extends Fixtu
 
     private static byte[] loadResourceBytes(final String resourceName) {
         final URL templateUrl = Resources
-                .getResource(DemoObjectWithNote_and_DemoInvoice2_withComms_create3.class, resourceName);
+                .getResource(DemoObjectWithNote_and_DemoInvoiceWithAtPath_withComms_create3.class, resourceName);
         try {
             return Resources.toByteArray(templateUrl);
         } catch (IOException e) {

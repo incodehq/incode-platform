@@ -18,14 +18,10 @@ import org.isisaddons.module.tags.dom.Tag;
 import org.isisaddons.module.tags.dom.Tags;
 
 import org.incode.domainapp.example.dom.dom.tags.dom.demo.DemoTaggableObject;
+import org.incode.domainapp.example.dom.dom.tags.dom.demo.DemoTaggableObjectMenu;
+import org.incode.domainapp.example.dom.dom.tags.fixture.DemoTaggableObject_withTags_recreate3;
 import org.incode.platform.dom.tags.integtests.TagsModuleIntegTestAbstract;
 
-import org.incode.domainapp.example.dom.dom.tags.dom.demo.DemoTaggableObjectMenu;
-import org.incode.domainapp.example.dom.dom.tags.fixture.DemoTaggableObjects_tearDown;
-import org.incode.domainapp.example.dom.dom.tags.fixture.data.DemoTaggableObject_Bar_Pepsi_Drink;
-import org.incode.domainapp.example.dom.dom.tags.fixture.data.DemoTaggableObject_Baz_McDonalds_FastFood;
-import org.incode.domainapp.example.dom.dom.tags.fixture.data.DemoTaggableObject_Bip_CocaCola_Drink;
-import org.incode.domainapp.example.dom.dom.tags.fixture.data.DemoTaggableObject_Bop_Levis_Clothing;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
@@ -38,11 +34,7 @@ public class Tags_IntegTest extends TagsModuleIntegTestAbstract {
     @Before
     public void setUpData() throws Exception {
         scenarioExecution().install(
-                new DemoTaggableObjects_tearDown(),
-                new DemoTaggableObject_Bip_CocaCola_Drink(),
-                new DemoTaggableObject_Bar_Pepsi_Drink(),
-                new DemoTaggableObject_Baz_McDonalds_FastFood(),
-                new DemoTaggableObject_Bop_Levis_Clothing()
+                new DemoTaggableObject_withTags_recreate3()
                 );
     }
 

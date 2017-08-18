@@ -13,7 +13,7 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.domainapp.example.dom.demo.ExampleDemoSubmodule;
+import org.incode.domainapp.example.dom.demo.ExampleDomDemoDomSubmodule;
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
 import org.incode.domainapp.example.dom.dom.note.dom.demolink.NotableLinkForDemoObject_addNote;
 import org.incode.domainapp.example.dom.dom.note.dom.demolink.NotableLinkForDemoObject_notes;
@@ -34,7 +34,7 @@ public abstract class NoteModuleIntegTestAbstract extends IntegrationTestAbstrac
         bootstrapUsing(
                 NoteModuleAppManifest.BUILDER
                         .withAdditionalModules(
-                                ExampleDemoSubmodule.class,
+                                ExampleDomDemoDomSubmodule.class,
                                 NoteModuleIntegTestAbstract.class,
                                 FakeDataModule.class
                         )

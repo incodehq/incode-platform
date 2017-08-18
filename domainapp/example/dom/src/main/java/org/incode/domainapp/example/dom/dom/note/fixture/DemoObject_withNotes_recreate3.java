@@ -2,7 +2,7 @@ package org.incode.domainapp.example.dom.dom.note.fixture;
 
 import org.joda.time.LocalDate;
 
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.clock.ClockService;
 
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
@@ -10,16 +10,12 @@ import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
 import org.incode.domainapp.example.dom.dom.note.dom.demolink.NotableLinkForDemoObject_addNote;
 import org.incode.module.note.dom.impl.note.T_addNote;
 
-public class DemoObject_withNotes_recreate3 extends DiscoverableFixtureScript {
+public class DemoObject_withNotes_recreate3 extends FixtureScript {
 
     @javax.inject.Inject
     DemoObjectMenu noteDemoObjectMenu;
     @javax.inject.Inject
     ClockService clockService;
-
-    public DemoObject_withNotes_recreate3() {
-        withDiscoverability(Discoverability.DISCOVERABLE);
-    }
 
     T_addNote mixinAddNote(final Object notable) {
         return mixin(NotableLinkForDemoObject_addNote.class, notable);

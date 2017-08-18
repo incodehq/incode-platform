@@ -41,8 +41,8 @@ public class DemoObjectWithUrl implements Comparable<DemoObjectWithUrl> {
     private String name;
 
 
-    @Property
     @javax.jdo.annotations.Column(allowsNull="true")
+    @Property(editing = Editing.ENABLED)
     @Getter @Setter
     private String url;
 

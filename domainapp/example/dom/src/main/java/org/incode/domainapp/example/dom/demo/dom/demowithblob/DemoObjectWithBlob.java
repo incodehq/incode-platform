@@ -66,8 +66,8 @@ public class DemoObjectWithBlob implements Comparable<DemoObjectWithBlob> {
 
 
 
-    @Property
     @javax.jdo.annotations.Column(allowsNull="true")
+    @Property(editing = Editing.ENABLED)
     @Getter @Setter
     private String url;
 
@@ -78,7 +78,7 @@ public class DemoObjectWithBlob implements Comparable<DemoObjectWithBlob> {
             @javax.jdo.annotations.Column(name = "blob_mimetype"),
             @javax.jdo.annotations.Column(name = "blob_bytes", jdbcType = "BLOB", sqlType = "LONGVARBINARY")
     })
-    @Property(optionality = Optionality.OPTIONAL)
+    @Property(optionality = Optionality.OPTIONAL, editing = Editing.ENABLED)
     @PropertyLayout(hidden = Where.ALL_TABLES)
     @Setter
     private Blob blob;

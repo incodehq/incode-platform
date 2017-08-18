@@ -55,7 +55,7 @@ public class DocumentTypeAndTemplatesApplicableForDemoObjectFixture extends Docu
     protected void execute(final ExecutionContext executionContext) {
 
         // prereqs
-        executionContext.executeChild(this, new RenderingStrategiesFixture());
+        executionContext.executeChild(this, new RenderingStrategy_create6());
 
         // these document types have no associated templates (for attachPdf mixin)
         final DocumentType invoiceType =
@@ -67,11 +67,16 @@ public class DocumentTypeAndTemplatesApplicableForDemoObjectFixture extends Docu
         final DocumentType docTypeForFreemarkerHtml =
                 upsertType(DOC_TYPE_REF_FREEMARKER_HTML, "Demo Freemarker HTML (eg email Cover Note)", executionContext);
 
-        final RenderingStrategy fmkRenderingStrategy = renderingStrategyRepository.findByReference(RenderingStrategiesFixture.REF_FMK);
-        final RenderingStrategy sipcRenderingStrategy = renderingStrategyRepository.findByReference(RenderingStrategiesFixture.REF_SIPC);
-        final RenderingStrategy siRenderingStrategy = renderingStrategyRepository.findByReference(RenderingStrategiesFixture.REF_SI);
-        final RenderingStrategy xdpRenderingStrategy = renderingStrategyRepository.findByReference(RenderingStrategiesFixture.REF_XDP);
-        final RenderingStrategy xddRenderingStrategy = renderingStrategyRepository.findByReference(RenderingStrategiesFixture.REF_XDD);
+        final RenderingStrategy fmkRenderingStrategy = renderingStrategyRepository.findByReference(
+                RenderingStrategy_create6.REF_FMK);
+        final RenderingStrategy sipcRenderingStrategy = renderingStrategyRepository.findByReference(
+                RenderingStrategy_create6.REF_SIPC);
+        final RenderingStrategy siRenderingStrategy = renderingStrategyRepository.findByReference(
+                RenderingStrategy_create6.REF_SI);
+        final RenderingStrategy xdpRenderingStrategy = renderingStrategyRepository.findByReference(
+                RenderingStrategy_create6.REF_XDP);
+        final RenderingStrategy xddRenderingStrategy = renderingStrategyRepository.findByReference(
+                RenderingStrategy_create6.REF_XDD);
 
         final String atPath = "/";
 

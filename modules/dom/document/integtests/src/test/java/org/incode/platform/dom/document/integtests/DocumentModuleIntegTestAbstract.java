@@ -6,7 +6,7 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 
 import org.isisaddons.module.fakedata.FakeDataModule;
 
-import org.incode.domainapp.example.dom.demo.ExampleDemoSubmodule;
+import org.incode.domainapp.example.dom.demo.ExampleDomDemoDomSubmodule;
 import org.incode.domainapp.example.dom.dom.document.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
 import org.incode.platform.dom.document.integtests.app.DocumentModuleAppManifest;
 import org.incode.module.document.dom.impl.docs.Document;
@@ -23,7 +23,7 @@ public abstract class DocumentModuleIntegTestAbstract extends IntegrationTestAbs
         bootstrapUsing(
                 DocumentModuleAppManifest.BUILDER.
                         withAdditionalModules(
-                                ExampleDemoSubmodule.class,
+                                ExampleDomDemoDomSubmodule.class,
                                 DocumentModuleIntegTestAbstract.class,
                                 FakeDataModule.class
                         )

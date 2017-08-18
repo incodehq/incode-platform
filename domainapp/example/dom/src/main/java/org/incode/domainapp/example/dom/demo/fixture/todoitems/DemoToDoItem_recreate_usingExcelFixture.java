@@ -1,8 +1,8 @@
 package org.incode.domainapp.example.dom.demo.fixture.todoitems;
 
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-public class DemoToDoItem_recreate_usingExcelFixture extends DiscoverableFixtureScript {
+public class DemoToDoItem_recreate_usingExcelFixture extends FixtureScript {
 
     private final String user;
 

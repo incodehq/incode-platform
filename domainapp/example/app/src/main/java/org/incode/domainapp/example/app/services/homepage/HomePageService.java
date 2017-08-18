@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.app.services.homepage;
+package org.incode.domainapp.example.app.services.homepage;
 
 import java.util.List;
 

@@ -1,11 +1,12 @@
 package org.incode.domainapp.example.dom.spi.security.fixture.example;
 
+import org.apache.isis.applib.fixturescripts.FixtureScript;
+
 import org.incode.domainapp.example.dom.spi.security.dom.demo.nontenanted.NonTenantedEntities;
 import org.incode.domainapp.example.dom.spi.security.fixture.example.nontenanted.NonTenantedEntity_create4;
 import org.incode.domainapp.example.dom.spi.security.fixture.example.tenanted.TenantedEntity_create4;
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
-public class AllExampleEntities extends DiscoverableFixtureScript {
+public class AllExampleEntities extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {

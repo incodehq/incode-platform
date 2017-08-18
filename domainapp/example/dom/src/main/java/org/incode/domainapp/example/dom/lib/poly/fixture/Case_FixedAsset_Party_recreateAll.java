@@ -22,10 +22,6 @@ public class Case_FixedAsset_Party_recreateAll extends FixtureScript {
     private FixedAsset_recreate6 recreateFixedAssets;
     private Party_recreate3 recreateParties;
 
-    public Case_FixedAsset_Party_recreateAll() {
-        withDiscoverability(Discoverability.DISCOVERABLE);
-    }
-
     public List<FixedAsset> getFixedAssets() {
         return recreateFixedAssets.getFixedAssets();
     }

@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.clock.Clock;
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
 
 import org.incode.domainapp.example.dom.demo.dom.todo.Category;
@@ -13,7 +13,7 @@ import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItem;
 import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItemMenu;
 import org.incode.domainapp.example.dom.demo.dom.todo.Subcategory;
 
-public class DemoToDoItem_recreate5_for extends DiscoverableFixtureScript {
+public class DemoToDoItem_recreate5_for extends FixtureScript {
 
     private final String user;
 

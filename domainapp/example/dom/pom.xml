@@ -65,6 +65,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-wrapper</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.isisaddons.module.fakedata</groupId>
             <artifactId>isis-module-fakedata-dom</artifactId>
         </dependency>

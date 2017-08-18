@@ -10,18 +10,8 @@ public class DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_
     @Override
     protected void execute(final ExecutionContext executionContext) {
 
-        // classifications
-        isisJdoSupport.executeUpdate("delete from \"exampleDomClassification\".\"ClassificationForOtherObjectWithAtPath\"");
+        executionContext.executeChild(this, new ClassificationModule_tearDown());
 
-        isisJdoSupport.executeUpdate("delete from \"exampleDomClassification\".\"ClassificationForDemoObjectWithAtPath\"");
-
-
-        // classification refdata
-        isisJdoSupport.executeUpdate("delete from \"incodeClassification\".\"Classification\"");
-        isisJdoSupport.executeUpdate("delete from \"incodeClassification\".\"Applicability\"");
-        isisJdoSupport.executeUpdate("delete from \"incodeClassification\".\"Category\"");
-
-        // demo objects
         executionContext.executeChild(this, new DemoModuleTearDown());
 
     }

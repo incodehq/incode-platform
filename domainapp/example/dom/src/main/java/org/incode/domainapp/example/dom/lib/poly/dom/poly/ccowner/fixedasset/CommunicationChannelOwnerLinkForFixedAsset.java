@@ -6,12 +6,13 @@ import javax.jdo.annotations.InheritanceStrategy;
 
 import com.google.common.eventbus.Subscribe;
 
+import org.axonframework.eventhandling.annotation.EventHandler;
+
 import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 
 import org.incode.domainapp.example.dom.lib.poly.dom.demofixedasset.FixedAsset;
@@ -30,7 +31,7 @@ public class CommunicationChannelOwnerLinkForFixedAsset extends CommunicationCha
     @DomainService(nature = NatureOfService.DOMAIN)
     public static class InstantiationSubscriber extends AbstractSubscriber {
 
-        @Programmatic
+        @EventHandler
         @Subscribe
         public void on(final CommunicationChannelOwnerLink.InstantiateEvent ev) {
             if(ev.getPolymorphicReference() instanceof FixedAsset) {

@@ -32,6 +32,12 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
+                <artifactId>incode-domainapp-example-app</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>incode-domainapp-example-dom</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -59,6 +65,7 @@
 
     <modules>
         <module>canonical</module>
+        <module>app</module>
         <module>dom</module>
         <module>embeddedcamel</module>
         <module>embeddedcamel_to_externalsystem</module>

@@ -6,7 +6,7 @@ import org.junit.BeforeClass;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 
 import org.incode.module.country.CountryModuleDomManifest;
-import org.incode.module.country.fixture.teardown.CountryModuleTearDown;
+import org.incode.module.country.fixture.teardown.CountryModule_tearDown;
 
 public abstract class CountryModuleIntegTestAbstract extends IntegrationTestAbstract2 {
 
@@ -20,7 +20,7 @@ public abstract class CountryModuleIntegTestAbstract extends IntegrationTestAbst
 
     @Before
     public void cleanUpFromPreviousTest() {
-        runFixtureScript(new CountryModuleTearDown());
+        runFixtureScript(new CountryModule_tearDown());
     }
 
 

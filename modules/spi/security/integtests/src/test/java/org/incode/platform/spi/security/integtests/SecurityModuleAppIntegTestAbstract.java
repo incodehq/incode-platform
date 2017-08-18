@@ -4,7 +4,7 @@ import org.junit.BeforeClass;
 
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 
-import org.incode.domainapp.example.dom.demo.ExampleDemoSubmodule;
+import org.incode.domainapp.example.dom.demo.ExampleDomDemoDomSubmodule;
 import org.incode.platform.spi.security.integtests.app.SecuritySpiAppManifest;
 
 public abstract class SecurityModuleAppIntegTestAbstract extends IntegrationTestAbstract2 {
@@ -12,7 +12,7 @@ public abstract class SecurityModuleAppIntegTestAbstract extends IntegrationTest
     @BeforeClass
     public static void initClass() {
         bootstrapUsing(SecuritySpiAppManifest.BUILDER
-                .withAdditionalModules(ExampleDemoSubmodule.class)
+                .withAdditionalModules(ExampleDomDemoDomSubmodule.class)
         );
     }
 

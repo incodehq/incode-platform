@@ -13,7 +13,7 @@ import org.incode.module.classification.dom.impl.applicability.ApplicabilityRepo
 import org.incode.module.classification.dom.impl.category.CategoryRepository;
 import org.incode.module.classification.dom.impl.classification.ClassificationRepository;
 import org.incode.module.classification.dom.spi.ApplicationTenancyService;
-import org.incode.domainapp.example.dom.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_create3;
+import org.incode.domainapp.example.dom.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_recreate3;
 import org.incode.domainapp.example.dom.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_tearDown;
 import org.incode.platform.dom.classification.integtests.ClassificationModuleIntegTestAbstract;
 
@@ -35,7 +35,7 @@ public class ApplicabilityRepository_findByDomainTypeAndUnderAtPath_IntegTest ex
     @Before
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_tearDown(), null);
-        fixtureScripts.runFixtureScript(new DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_create3(), null);
+        fixtureScripts.runFixtureScript(new DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_recreate3(), null);
     }
 
     @Test

@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.domainapp.example.dom.lib.poly.dom.demofixedasset.FixedAsset;
 import org.incode.domainapp.example.dom.lib.poly.fixture.Case_FixedAsset_Party_andLinks_tearDown;
@@ -16,7 +16,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Accessors(chain = true)
-public class FixedAsset_recreate6 extends DiscoverableFixtureScript {
+public class FixedAsset_recreate6 extends FixtureScript {
 
     public final List<String> FIXED_ASSET_NAMES = Collections.unmodifiableList(Arrays.asList(
             "Westgate Centre, Oxford", "Bond Street, London", "Arndale Centre, Manchester"));

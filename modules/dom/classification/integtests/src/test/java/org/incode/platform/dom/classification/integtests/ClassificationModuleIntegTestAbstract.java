@@ -9,7 +9,7 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.domainapp.example.dom.demo.ExampleDemoSubmodule;
+import org.incode.domainapp.example.dom.demo.ExampleDomDemoDomSubmodule;
 import org.incode.module.classification.dom.impl.classification.T_classifications;
 import org.incode.module.classification.dom.impl.classification.T_classify;
 import org.incode.module.classification.dom.impl.classification.T_unclassify;
@@ -22,7 +22,7 @@ public abstract class ClassificationModuleIntegTestAbstract extends IntegrationT
         bootstrapUsing(
                 ClassificationModuleAppManifest.BUILDER
                     .withAdditionalModules(
-                            ExampleDemoSubmodule.class,
+                            ExampleDomDemoDomSubmodule.class,
                             ClassificationModuleIntegTestAbstract.class,
                             FakeDataModule.class
                     )

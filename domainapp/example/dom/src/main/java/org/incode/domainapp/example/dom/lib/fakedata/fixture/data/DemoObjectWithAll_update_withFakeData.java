@@ -11,7 +11,7 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
 import org.apache.isis.applib.value.Money;
@@ -25,7 +25,7 @@ import org.incode.domainapp.example.dom.demo.dom.demowithall.EnumOf3;
 import lombok.Getter;
 import lombok.Setter;
 
-public class DemoObjectWithAll_update_withFakeData extends DiscoverableFixtureScript {
+public class DemoObjectWithAll_update_withFakeData extends FixtureScript {
 
 
     @Getter(onMethod = @__( @Programmatic )) @Setter

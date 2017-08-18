@@ -6,11 +6,12 @@ import javax.jdo.annotations.InheritanceStrategy;
 
 import com.google.common.eventbus.Subscribe;
 
+import org.axonframework.eventhandling.annotation.EventHandler;
+
 import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.Programmatic;
 
 import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotes;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwner;
@@ -71,7 +72,8 @@ public class CommunicationChannelOwnerLinkForDemoObjectWithNotes extends Communi
 
     @DomainService(nature = NatureOfService.DOMAIN)
     public static class InstantiationSubscriber extends AbstractSubscriber {
-        @Programmatic
+
+        @EventHandler
         @Subscribe
         public void on(final CommunicationChannelOwnerLink.InstantiateEvent ev) {
             if(ev.getPolymorphicReference() instanceof DemoObjectWithNotes) {

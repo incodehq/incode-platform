@@ -1,9 +1,9 @@
 package org.incode.domainapp.example.dom.demo.fixture.todoitems;
 
-import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-public class DemoToDoItem_tearDown extends DiscoverableFixtureScript {
+public class DemoToDoItem_tearDown extends FixtureScript {
 
     private final String user;
 

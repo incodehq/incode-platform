@@ -9,6 +9,7 @@ import org.isisaddons.module.excel.ExcelModule;
 import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.freemarker.dom.FreeMarkerModule;
 import org.isisaddons.module.pdfbox.dom.PdfBoxModule;
+import org.isisaddons.module.poly.PolyModule;
 import org.isisaddons.module.publishmq.PublishMqModule;
 import org.isisaddons.module.security.SecurityModule;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
@@ -29,8 +30,8 @@ import org.isisaddons.wicket.pdfjs.cpt.PdfjsCptModule;
 import org.isisaddons.wicket.summernote.cpt.ui.SummernoteUiModule;
 import org.isisaddons.wicket.wickedcharts.cpt.ui.WickedChartsUiModule;
 
+import org.incode.domainapp.example.app.ExampleAppSubmodule;
 import org.incode.domainapp.example.dom.ExampleDomSubmodule;
-import org.incode.domainapp.example.dom.demo.ExampleDemoSubmodule;
 import org.incode.module.alias.dom.AliasModule;
 import org.incode.module.base.services.BaseServicesModule;
 import org.incode.module.classification.dom.ClassificationModule;
@@ -52,8 +53,8 @@ public class DomainAppAppManifest extends AppManifestAbstract {
 
             DomainAppAppDefnServicesSubmodule.class,
 
+            ExampleAppSubmodule.class,
             ExampleDomSubmodule.class,
-            ExampleDemoSubmodule.class,
 
             // extensions
             TogglzModule.class,
@@ -67,12 +68,13 @@ public class DomainAppAppManifest extends AppManifestAbstract {
             ExcelModule.class,
             FakeDataModule.class,
             FreeMarkerModule.class,
+            PolyModule.class,
             PdfBoxModule.class,
             ServletApiModule.class,
             StringInterpolatorModule.class,
             XDocReportModule.class,
 
-            // modules
+            // subdomains (dom)
             AliasModule.class,
             ClassificationModule.class,
             CommChannelModule.class,
@@ -101,8 +103,6 @@ public class DomainAppAppManifest extends AppManifestAbstract {
             SummernoteUiModule.class,
             WickedChartsUiModule.class
 
-            // deprecated
-            // PolyModule.class
     )
     .withAdditionalServices(
             PasswordEncryptionServiceUsingJBcrypt.class,

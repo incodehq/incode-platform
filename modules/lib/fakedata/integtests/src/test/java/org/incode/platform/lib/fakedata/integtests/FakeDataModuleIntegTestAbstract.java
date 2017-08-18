@@ -4,7 +4,7 @@ import org.junit.BeforeClass;
 
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 
-import org.incode.domainapp.example.dom.demo.ExampleDemoSubmodule;
+import org.incode.domainapp.example.dom.demo.ExampleDomDemoDomSubmodule;
 import org.incode.platform.lib.fakedata.integtests.app.FakedataLibAppManifest;
 
 public abstract class FakeDataModuleIntegTestAbstract extends IntegrationTestAbstract2 {
@@ -12,7 +12,7 @@ public abstract class FakeDataModuleIntegTestAbstract extends IntegrationTestAbs
     @BeforeClass
     public static void initClass() {
         bootstrapUsing(FakedataLibAppManifest.BUILDER
-                .withAdditionalModules(ExampleDemoSubmodule.class)
+                .withAdditionalModules(ExampleDomDemoDomSubmodule.class)
         );
     }
 
