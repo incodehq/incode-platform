@@ -20,8 +20,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
         objectType = "exampleLibPoly.FixedAssets"
 )
 @DomainServiceLayout(
-        menuOrder = "10",
-        named = "Polymorphic Associations"
+        named = "Library Modules",
+        menuOrder = "40.3.3"
 )
 public class FixedAssets {
 

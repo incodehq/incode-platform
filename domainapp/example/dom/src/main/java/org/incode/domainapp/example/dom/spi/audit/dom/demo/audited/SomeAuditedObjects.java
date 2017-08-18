@@ -19,8 +19,8 @@ import org.apache.isis.applib.services.repository.RepositoryService;
         repositoryFor = SomeAuditedObject.class
 )
 @DomainServiceLayout(
-        named = "Audit",
-        menuOrder = "10"
+        named = "SPI Modules",
+        menuOrder = "50.1.1"
 )
 public class SomeAuditedObjects {
 

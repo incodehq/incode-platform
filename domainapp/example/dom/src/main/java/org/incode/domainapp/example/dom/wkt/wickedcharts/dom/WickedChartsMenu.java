@@ -40,8 +40,8 @@ import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItemMenu;
         objectType = "exampleWktWickedCharts.WickedChartsMenu"
 )
 @DomainServiceLayout(
-        named = "Wicked Charts",
-        menuOrder = "15"
+        named = "Wicket Components",
+        menuOrder = "60.6"
 )
 public class WickedChartsMenu {
 

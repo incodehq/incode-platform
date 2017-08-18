@@ -18,8 +18,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
         objectType = "exampleLibPoly.Parties"
 )
 @DomainServiceLayout(
-        menuOrder = "20",
-        named = "Polymorphic Associations"
+        named = "Library Modules",
+        menuOrder = "40.3.4"
 )
 public class Parties {
 

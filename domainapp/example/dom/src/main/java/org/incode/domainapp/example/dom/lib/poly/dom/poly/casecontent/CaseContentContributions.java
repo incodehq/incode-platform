@@ -42,7 +42,7 @@ public class CaseContentContributions {
     }
 
     public List<Case> choices0AddToCase(final Case aCase, final CaseContent caseContent) {
-        final List<Case> caseList = Lists.newArrayList(cases.listAll());
+        final List<Case> caseList = Lists.newArrayList(cases.listAllCases());
         final List<Case> currentCases = choices0RemoveFromCase(null, caseContent);
         caseList.removeAll(currentCases);
         return caseList;

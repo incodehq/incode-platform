@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
@@ -20,6 +21,10 @@ import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItem;
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
         objectType = "exampleLibExcel.ExcelModuleDemoToDoItemPivotDemoMenu"
+)
+@DomainServiceLayout(
+        named = "Wicket Components",
+        menuOrder = "60.1.2"
 )
 public class ExcelPivotByCategoryAndSubcategoryMenu {
 
@@ -36,7 +41,7 @@ public class ExcelPivotByCategoryAndSubcategoryMenu {
     @Action(
             semantics = SemanticsOf.IDEMPOTENT
     )
-    @MemberOrder(name="ToDos", sequence="90.2")
+    @MemberOrder(sequence="90.2")
     public Blob downloadDemoPivotsheet(){
         return excelService.toExcelPivot(vm1list(), ExcelPivotByCategoryAndSubcategory.class, ExcelPivotByCategoryAndSubcategory.class.getSimpleName(), "demo-pivots.xlsx");
     }

@@ -148,7 +148,7 @@ public class HomePageViewModel {
     }
 
     public List<Case> getCases() {
-        return cases.listAll();
+        return cases.listAllCases();
     }
 
     @javax.inject.Inject

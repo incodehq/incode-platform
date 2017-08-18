@@ -19,8 +19,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
         repositoryFor = PublishMqDemoObject.class
 )
 @DomainServiceLayout(
-        menuOrder = "10",
-        named = "PublishMq"
+        named = "SPI Modules",
+        menuOrder = "50.3"
 )
 public class PublishMqDemoObjects {
 

@@ -17,8 +17,8 @@ import org.apache.isis.applib.services.repository.RepositoryService;
         objectType = "exampleDemo.OtherObjectMenu"
 )
 @DomainServiceLayout(
-        named = "Other Objects",
-        menuOrder = "11"
+        named = "Demo",
+        menuOrder = "10.10"
 )
 public class OtherObjectMenu {
 

@@ -18,8 +18,8 @@ import org.apache.isis.applib.services.repository.RepositoryService;
         objectType = "exampleWktPdfjs.DemoObjectMenu"
 )
 @DomainServiceLayout(
-        named = "Demo Objects",
-        menuOrder = "4"
+        named = "Demo",
+        menuOrder = "10.4"
 )
 public class DemoObjectWithBlobMenu {
 

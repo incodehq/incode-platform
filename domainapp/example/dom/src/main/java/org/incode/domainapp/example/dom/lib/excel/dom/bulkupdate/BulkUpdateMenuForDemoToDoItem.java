@@ -29,7 +29,8 @@ import org.incode.domainapp.example.dom.demo.dom.todo.Subcategory;
         objectType = "exampleLibExcel.BulkUpdateMenuForDemoToDoItem"
 )
 @DomainServiceLayout(
-        named = "Excel"
+        named = "Wicket Components",
+        menuOrder = "60.1.1"
 )
 public class BulkUpdateMenuForDemoToDoItem {
 
@@ -50,7 +51,7 @@ public class BulkUpdateMenuForDemoToDoItem {
     @Action(
             semantics = SemanticsOf.IDEMPOTENT
     )
-    @MemberOrder(name="ToDos", sequence="90.1")
+    @MemberOrder(sequence="90.1")
     public BulkUpdateManagerForDemoToDoItem bulkUpdateManager() {
         BulkUpdateManagerForDemoToDoItem template = new BulkUpdateManagerForDemoToDoItem();
         template.setFileName("toDoItems.xlsx");

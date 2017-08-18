@@ -32,7 +32,8 @@ import org.isisaddons.wicket.gmap3.cpt.applib.Location;
         objectType = "exampleDemo.DemoToDoItemMenu"
 )
 @DomainServiceLayout(
-        named = "Demo ToDos"
+        named = "More Demo",
+        menuOrder = "20.7"
 )
 public class DemoToDoItemMenu {
 

@@ -18,8 +18,8 @@ import org.apache.isis.applib.services.repository.RepositoryService;
         objectType = "exampleDemo.DemoObjectWithAtPathMenu"
 )
 @DomainServiceLayout(
-        named = "Demo Objects",
-        menuOrder = "3"
+        named = "Demo",
+        menuOrder = "10.3"
 )
 public class DemoObjectWithAtPathMenu {
 
@@ -42,7 +42,7 @@ public class DemoObjectWithAtPathMenu {
     //region > createTopLevel (action)
     
     @MemberOrder(sequence = "2")
-    public DemoObjectWithAtPath create(
+    public DemoObjectWithAtPath createDemoObjectWithAtPath(
             @ParameterLayout(named = "Name")
             final String name,
             @ParameterLayout(named = "Application tenancy")

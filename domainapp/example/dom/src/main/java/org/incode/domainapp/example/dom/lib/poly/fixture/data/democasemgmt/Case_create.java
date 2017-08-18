@@ -23,7 +23,7 @@ public class Case_create extends FixtureScript {
 
         final String name = checkParam("name", ec, String.class);
 
-        this.aCase = cases.create(name);
+        this.aCase = cases.createCase(name);
 
         // also make available to UI
         ec.addResult(this, aCase);

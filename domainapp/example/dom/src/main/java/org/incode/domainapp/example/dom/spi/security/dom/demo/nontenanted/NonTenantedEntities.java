@@ -19,8 +19,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
         repositoryFor = NonTenantedEntity.class
 )
 @DomainServiceLayout(
-        menuOrder = "10",
-        named = "Security"
+        named = "SPI Modules",
+        menuOrder = "50.4.2"
 )
 public class NonTenantedEntities {
 

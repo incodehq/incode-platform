@@ -19,8 +19,8 @@ import org.incode.module.classification.dom.impl.category.CategoryRepository;
         objectType = "exampleDomClassification.TaxonomyMenu"
 )
 @DomainServiceLayout(
-        named = "Taxonomies",
-        menuOrder = "10"
+        named = "Dom Modules",
+        menuOrder = "30.1"
 )
 public class TaxonomyMenu {
 

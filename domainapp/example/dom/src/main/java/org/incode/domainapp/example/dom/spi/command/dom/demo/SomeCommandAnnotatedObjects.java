@@ -18,8 +18,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
         repositoryFor = SomeCommandAnnotatedObject.class
 )
 @DomainServiceLayout(
-        menuOrder = "10",
-        named = "Command"
+        named = "SPI Modules",
+        menuOrder = "50.2"
 )
 public class SomeCommandAnnotatedObjects {
 

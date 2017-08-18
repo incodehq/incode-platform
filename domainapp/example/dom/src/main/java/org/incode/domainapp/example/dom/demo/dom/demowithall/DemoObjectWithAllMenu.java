@@ -17,8 +17,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
         objectType = "exampleLibFakeData.DemoObjectWithAllMenu"
 )
 @DomainServiceLayout(
-        named = "Demo Objects",
-        menuOrder = "3"
+        named = "Demo",
+        menuOrder = "10.2"
 )
 public class DemoObjectWithAllMenu {
 

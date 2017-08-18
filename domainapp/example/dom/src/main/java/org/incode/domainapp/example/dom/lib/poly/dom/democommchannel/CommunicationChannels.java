@@ -16,8 +16,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
         objectType = "exampleLibPoly.CommunicationChannels"
 )
 @DomainServiceLayout(
-        menuOrder = "40",
-        named = "Polymorphic Associations"
+        named = "Library Modules",
+        menuOrder = "40.3.2"
 )
 public class CommunicationChannels {
 

@@ -12,7 +12,6 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.repository.RepositoryService;
-import org.apache.isis.applib.services.xactn.TransactionService;
 
 import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObject;
 
@@ -22,8 +21,8 @@ import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedOb
         repositoryFor = SomeAuditedObject.class
 )
 @DomainServiceLayout(
-        named = "Audit",
-        menuOrder = "10"
+        named = "SPI Modules",
+        menuOrder = "50.1.2"
 )
 public class SomeNotAuditedObjects {
 

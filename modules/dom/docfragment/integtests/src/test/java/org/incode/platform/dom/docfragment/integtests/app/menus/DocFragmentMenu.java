@@ -29,7 +29,7 @@ import org.incode.module.docfragment.dom.types.TemplateTextType;
         repositoryFor = DocFragment.class
 )
 @DomainServiceLayout(
-        named = "Demo Objects",
+        named = "Demo",
         menuBar = DomainServiceLayout.MenuBar.PRIMARY,
         menuOrder = "1")
 public class DocFragmentMenu {

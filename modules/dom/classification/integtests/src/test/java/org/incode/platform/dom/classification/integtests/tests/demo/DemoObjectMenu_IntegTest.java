@@ -42,7 +42,7 @@ public class DemoObjectMenu_IntegTest extends ClassificationModuleIntegTestAbstr
         int numBefore = before.size();
 
         // when
-        wrap(demoObjectMenu).create("Faz", "/");
+        wrap(demoObjectMenu).createDemoObjectWithAtPath("Faz", "/");
 
         // then
         final List<DemoObjectWithAtPath> after = wrap(demoObjectMenu).listAllDemoObjectsWithAtPath();

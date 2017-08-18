@@ -1,6 +1,7 @@
 package org.incode.domainapp.example.dom.lib.poly.dom.democasemgmt;
 
 import java.util.List;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
@@ -9,7 +10,6 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
@@ -17,8 +17,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
         objectType = "exampleLibPoly.Cases"
 )
 @DomainServiceLayout(
-        menuOrder = "30",
-        named = "Poly Cases"
+        named = "Library Modules",
+        menuOrder = "40.3.1"
 )
 public class Cases {
 
@@ -30,7 +30,7 @@ public class Cases {
             bookmarking = BookmarkPolicy.AS_ROOT
     )
     @MemberOrder(sequence = "1")
-    public List<Case> listAll() {
+    public List<Case> listAllCases() {
         return container.allInstances(Case.class);
     }
     //endregion
@@ -38,8 +38,7 @@ public class Cases {
     //region > create (action)
 
     @MemberOrder(sequence = "3")
-    public Case create(
-            final @ParameterLayout(named = "Name") String name) {
+    public Case createCase(final String name) {
         final Case aCase = container.newTransientInstance(Case.class);
         aCase.setName(name);
 

@@ -16,8 +16,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
         objectType = "exampleDemo.DemoCustomerMenu"
 )
 @DomainServiceLayout(
-        named = "Demo Customers",
-        menuOrder = "10"
+        named = "More Demo",
+        menuOrder = "20.1"
 )
 public class DemoCustomerMenu {
 
@@ -25,7 +25,7 @@ public class DemoCustomerMenu {
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<DemoCustomer> listAll() {
+    public List<DemoCustomer> listAllDemoCustomers() {
         return demoCustomerRepository.listAll();
     }
 

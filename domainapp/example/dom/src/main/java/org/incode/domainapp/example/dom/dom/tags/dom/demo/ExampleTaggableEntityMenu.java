@@ -17,8 +17,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
         objectType = "exampleDomTags.Taggable Entities"
 )
 @DomainServiceLayout(
-        menuOrder = "10",
-        named = "Taggable Entities"
+        named = "Dom Modules",
+        menuOrder = "30.2"
 )
 public class ExampleTaggableEntityMenu {
 

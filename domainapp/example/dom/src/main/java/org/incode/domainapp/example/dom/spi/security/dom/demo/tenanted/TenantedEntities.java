@@ -23,8 +23,8 @@ import org.incode.domainapp.example.dom.spi.security.dom.demo.nontenanted.NonTen
         repositoryFor = TenantedEntity.class
 )
 @DomainServiceLayout(
-        menuOrder = "20",
-        named = "Security"
+        named = "SPI Modules",
+        menuOrder = "50.4.1"
 )
 public class TenantedEntities {
 
