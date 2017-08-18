@@ -5,7 +5,7 @@ import org.joda.time.LocalDate;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 
-import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoice;
+import org.incode.domainapp.example.dom.demo.dom.invoicewithatpath.DemoInvoiceWithAtPath;
 import org.incode.module.fixturesupport.dom.data.DemoData;
 import org.incode.module.fixturesupport.dom.data.DemoDataPersistAbstract;
 
@@ -14,7 +14,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public enum DemoInvoiceData implements DemoData<DemoInvoiceData, DemoInvoice> {
+public enum DemoInvoiceData implements DemoData<DemoInvoiceData, DemoInvoiceWithAtPath> {
 
     Invoice1(1, new LocalDate(2017,1,31), 30, "/"),
     Invoice2(2, new LocalDate(2017,1,20), 60, "/ITA"),
@@ -27,18 +27,18 @@ public enum DemoInvoiceData implements DemoData<DemoInvoiceData, DemoInvoice> {
     private final String atPath;
 
     @Programmatic
-    public DemoInvoice persistUsing(final ServiceRegistry2 serviceRegistry) {
+    public DemoInvoiceWithAtPath persistUsing(final ServiceRegistry2 serviceRegistry) {
         return Util.persist(this, serviceRegistry);
     }
 
     @Programmatic
-    public DemoInvoice findUsing(final ServiceRegistry2 serviceRegistry) {
+    public DemoInvoiceWithAtPath findUsing(final ServiceRegistry2 serviceRegistry) {
         return Util.uniqueMatch(this, serviceRegistry);
     }
 
     @Programmatic
-    public DemoInvoice asDomainObject() {
-        return DemoInvoice.builder()
+    public DemoInvoiceWithAtPath asDomainObject() {
+        return DemoInvoiceWithAtPath.builder()
                     .num(num)
                     .dueBy(dueBy)
                     .numDays(numDay)
@@ -46,7 +46,7 @@ public enum DemoInvoiceData implements DemoData<DemoInvoiceData, DemoInvoice> {
                     .build();
     }
 
-    public static class PersistScript extends DemoDataPersistAbstract<PersistScript, DemoInvoiceData, DemoInvoice> {
+    public static class PersistScript extends DemoDataPersistAbstract<PersistScript, DemoInvoiceData, DemoInvoiceWithAtPath> {
         public PersistScript() {
             super(DemoInvoiceData.class);
         }

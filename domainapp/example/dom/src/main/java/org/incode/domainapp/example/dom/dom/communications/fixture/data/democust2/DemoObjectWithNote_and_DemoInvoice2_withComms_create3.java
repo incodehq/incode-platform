@@ -12,12 +12,12 @@ import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
+import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoice;
 import org.incode.domainapp.example.dom.dom.communications.dom.apiimpl.DemoAppCommunicationChannelOwner_newChannelContributions;
 import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotes;
 import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotesMenu;
-import org.incode.domainapp.example.dom.demo.dom.invoice2.DemoInvoice2;
-import org.incode.domainapp.example.dom.demo.dom.invoice2.DemoInvoice2Repository;
-import org.incode.domainapp.example.dom.dom.communications.dom.invoice2.DemoInvoice2_simulateRenderAsDoc;
+import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoiceRepository;
+import org.incode.domainapp.example.dom.dom.communications.dom.invoice.DemoInvoice_simulateRenderAsDoc;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwner;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelType;
 import org.incode.module.country.dom.impl.Country;
@@ -45,10 +45,10 @@ public class DemoObjectWithNote_and_DemoInvoice2_withComms_create3 extends Fixtu
         addPhoneOrFaxNumber(custA, CommunicationChannelType.PHONE_NUMBER, "555 1234");
         addPhoneOrFaxNumber(custA, CommunicationChannelType.FAX_NUMBER, "555 4321");
 
-        final DemoInvoice2 custA_1 = demoInvoiceRepository.create("1", custA);
+        final DemoInvoice custA_1 = demoInvoiceRepository.create("1", custA);
         attachReceipt(custA_1, "Sample4.PDF");
 
-        final DemoInvoice2 custA_2 = demoInvoiceRepository.create("2", custA);
+        final DemoInvoice custA_2 = demoInvoiceRepository.create("2", custA);
         attachReceipt(custA_2, "Sample5.PDF");
 
 
@@ -58,10 +58,10 @@ public class DemoObjectWithNote_and_DemoInvoice2_withComms_create3 extends Fixtu
         addPostalAddress(custB, gbrCountry, null, "45", "High Street", null, "OX1 4BJ", "Oxford");
         addPostalAddress(custB, gbrCountry, null, "23", "Railway Road", null, "WN7 4AA", "Leigh");
 
-        final DemoInvoice2 custB_1 = demoInvoiceRepository.create("1", custB);
+        final DemoInvoice custB_1 = demoInvoiceRepository.create("1", custB);
         attachReceipt(custB_1, "xlsdemo1.pdf");
 
-        final DemoInvoice2 custB_2 = demoInvoiceRepository.create("2", custB);
+        final DemoInvoice custB_2 = demoInvoiceRepository.create("2", custB);
         attachReceipt(custB_2, "xlsdemo2.pdf");
 
         final DemoObjectWithNotes custC = wrap(demoCustomerMenu).createDemoObjectWithNotes(JOE_HAS_EMAIL_AND_POST);
@@ -70,17 +70,17 @@ public class DemoObjectWithNote_and_DemoInvoice2_withComms_create3 extends Fixtu
         addPostalAddress(custC, gbrCountry, null, "5", "Witney Gardens", null, "WA4 5HT", "Warrington");
         addPostalAddress(custC, gbrCountry, null, "3", "St. Nicholas Street Road", null, "YO11 2HF", "Scarborough");
 
-        final DemoInvoice2 custC_1 = demoInvoiceRepository.create("1", custC);
+        final DemoInvoice custC_1 = demoInvoiceRepository.create("1", custC);
         attachReceipt(custC_1, "pptdemo1.pdf");
 
-        final DemoInvoice2 custC_2 = demoInvoiceRepository.create("2", custC);
+        final DemoInvoice custC_2 = demoInvoiceRepository.create("2", custC);
         attachReceipt(custC_2, "pptdemo2.pdf");
     }
 
-    private Document attachReceipt(final DemoInvoice2 invoice, final String resourceName) {
+    private Document attachReceipt(final DemoInvoice invoice, final String resourceName) {
         final Blob blob = loadPdf(resourceName);
         try {
-            return wrap(mixin(DemoInvoice2_simulateRenderAsDoc.class, invoice)).$$(blob, null);
+            return wrap(mixin(DemoInvoice_simulateRenderAsDoc.class, invoice)).$$(blob, null);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -146,7 +146,7 @@ public class DemoObjectWithNote_and_DemoInvoice2_withComms_create3 extends Fixtu
     CountryRepository countryRepository;
 
     @javax.inject.Inject
-    DemoInvoice2Repository demoInvoiceRepository;
+    DemoInvoiceRepository demoInvoiceRepository;
 
     @javax.inject.Inject
     FakeDataService fakeDataService;

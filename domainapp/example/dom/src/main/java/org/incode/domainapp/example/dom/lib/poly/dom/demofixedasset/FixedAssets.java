@@ -20,7 +20,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
         objectType = "exampleLibPoly.FixedAssets"
 )
 @DomainServiceLayout(
-        named = "Library Modules",
+        named = "Libraries",
         menuOrder = "40.3.3"
 )
 public class FixedAssets {

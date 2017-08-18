@@ -17,7 +17,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
         objectType = "exampleLibServletApi.DemoObjects"
 )
 @DomainServiceLayout(
-        named = "Library Modules",
+        named = "Libraries",
         menuOrder = "60.1"
 )
 public class ServletApiDemoObjects {

@@ -9,7 +9,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotes;
-import org.incode.domainapp.example.dom.demo.dom.invoice2.DemoInvoice2;
+import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoice;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannel;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwnerLink;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwnerLinkRepository;
@@ -32,7 +32,7 @@ public class DocumentCommunicationSupportForDocumentsAttachedToDemoInvoice imple
     @Override
     public DocumentType emailCoverNoteDocumentTypeFor(final Document document) {
 
-        final DemoInvoice2 invoice = paperclipRepository.paperclipAttaches(document, DemoInvoice2.class);
+        final DemoInvoice invoice = paperclipRepository.paperclipAttaches(document, DemoInvoice.class);
         if (invoice == null) {
             return null;
         }
@@ -65,8 +65,8 @@ public class DocumentCommunicationSupportForDocumentsAttachedToDemoInvoice imple
         for (final Paperclip paperclip : paperclips) {
             final Object attachedTo = paperclip.getAttachedTo();
 
-            if(attachedTo instanceof DemoInvoice2) {
-                final DemoInvoice2 invoice = (DemoInvoice2) attachedTo;
+            if(attachedTo instanceof DemoInvoice) {
+                final DemoInvoice invoice = (DemoInvoice) attachedTo;
                 addTo(invoice, header, channelType);
             }
         }
@@ -77,7 +77,7 @@ public class DocumentCommunicationSupportForDocumentsAttachedToDemoInvoice imple
     }
 
     private <T extends CommunicationChannel> void addTo(
-            final DemoInvoice2 invoice,
+            final DemoInvoice invoice,
             final CommHeaderAbstract<T> header,
             final CommunicationChannelType channelType) {
 

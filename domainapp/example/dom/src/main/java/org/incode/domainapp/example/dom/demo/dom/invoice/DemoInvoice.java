@@ -1,143 +1,64 @@
 package org.incode.domainapp.example.dom.demo.dom.invoice;
 
-import java.io.IOException;
-
-import javax.inject.Inject;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.google.common.collect.Ordering;
-
-import org.joda.time.LocalDate;
-
-import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Property;
-import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Title;
-import org.apache.isis.applib.services.registry.ServiceRegistry2;
+import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
 
-import org.incode.module.docfragment.dom.api.DocFragmentService;
-import org.incode.module.docfragment.dom.types.AtPathType;
+import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotes;
 
-import freemarker.template.TemplateException;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
-        schema = "exampleDemo"
+        schema="exampleDemo"
 )
-@javax.jdo.annotations.DatastoreIdentity(strategy= IdGeneratorStrategy.IDENTITY, column ="id")
-@javax.jdo.annotations.Version(strategy= VersionStrategy.VERSION_NUMBER, column ="version")
+@javax.jdo.annotations.DatastoreIdentity(strategy= IdGeneratorStrategy.IDENTITY, column = "id")
+@javax.jdo.annotations.Version(strategy=VersionStrategy.VERSION_NUMBER, column = "version")
 @DomainObject
 @DomainObjectLayout(bookmarking = BookmarkPolicy.AS_ROOT )
+@AllArgsConstructor
+@Builder
 @XmlJavaTypeAdapter(PersistentEntityAdapter.class)
 public class DemoInvoice implements Comparable<DemoInvoice> {
 
-    @Builder
-    public DemoInvoice(final int num, final LocalDate dueBy, final int numDays, final String atPath) {
-        this.num = num;
-        this.dueBy = dueBy;
-        this.numDays = numDays;
-        this.atPath = atPath;
-    }
-
-    @javax.jdo.annotations.Column(allowsNull = "false")
+    @javax.jdo.annotations.Column(allowsNull="false")
+    @Title(sequence="1", prepend = "Invoice #")
     @Property(editing = Editing.DISABLED)
     @Getter @Setter
-    @Title(sequence = "1", prepend = "Invoice #")
-    private int num;
+    private String num;
 
 
-    @javax.jdo.annotations.Column(allowsNull = "false")
-    @Property(editing = Editing.ENABLED)
+    @javax.jdo.annotations.Column(allowsNull = "false", name = "customerId")
+    @Title(sequence="2", prepend = " for ")
+    @Property
     @Getter @Setter
-    private LocalDate dueBy;
-
-
-    @javax.jdo.annotations.Column(allowsNull = "false")
-    @Property(editing = Editing.ENABLED)
-    @Getter @Setter
-    private int numDays;
-
-
-    @javax.jdo.annotations.Column(allowsNull = "false", length = AtPathType.Meta.MAX_LEN)
-    @Property(editing = Editing.DISABLED)
-    @Getter @Setter
-    private String atPath;
-
-
-    @Property(editing = Editing.DISABLED)
-    @javax.jdo.annotations.Column(allowsNull = "true")
-    @Getter @Setter
-    private String rendered;
-
-
-    @Action(semantics = SemanticsOf.IDEMPOTENT)
-    public DemoInvoice render(
-            @ParameterLayout(named = "Fragment name")
-            final String fragmentName) {
-        final String rendered = doRender(fragmentName);
-        setRendered(rendered);
-        return this;
-    }
-
-    public String default0Render() {
-        return "due";
-    }
-    
-
-    private String doRender(final String name) {
-        try {
-            return docFragmentService.render(this, name);
-        } catch (IOException | TemplateException e) {
-            return "failed to render";
-        }
-    }
+    private DemoObjectWithNotes customer;
 
 
 
 
     @Override
     public String toString() {
-        return ""+getNum();
+        return ObjectContracts.toString(this, "num", "customer");
     }
 
     @Override
     public int compareTo(final DemoInvoice other) {
-        return Ordering.natural().onResultOf(DemoInvoice::getNum).compare(this, other);
+        return ObjectContracts.compare(this, other, "num", "customer");
     }
-
-    /**
-     *  required by {@link org.incode.domainapp.example.dom.demo.fixture.data.DemoInvoiceData#findUsing(ServiceRegistry2)}.
-     */
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-
-        final DemoInvoice that = (DemoInvoice) o;
-
-        return num == that.num;
-    }
-
-    @Override public int hashCode() {
-        return num;
-    }
-
-    @Inject
-    DocFragmentService docFragmentService;
 
 
 }

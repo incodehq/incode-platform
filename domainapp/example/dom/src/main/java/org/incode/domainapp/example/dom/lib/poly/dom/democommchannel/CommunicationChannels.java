@@ -16,7 +16,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
         objectType = "exampleLibPoly.CommunicationChannels"
 )
 @DomainServiceLayout(
-        named = "Library Modules",
+        named = "Libraries",
         menuOrder = "40.3.2"
 )
 public class CommunicationChannels {

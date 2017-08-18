@@ -12,7 +12,7 @@ import org.apache.isis.core.commons.config.IsisConfiguration;
 import org.incode.domainapp.example.dom.demo.dom.reminder.DemoReminder;
 import org.incode.platform.lib.stringinterpolator.integtests.StringInterpolatorDemoIntegTestAbstract;
 
-import org.incode.domainapp.example.dom.lib.stringinterpolator.dom.DemoToDoItem2StringInterpolatorContributions;
+import org.incode.domainapp.example.dom.lib.stringinterpolator.dom.DemoReminderStringInterpolatorContributions;
 import org.incode.domainapp.example.dom.demo.dom.reminder.DemoReminderMenu;
 import org.incode.domainapp.example.dom.demo.fixture.reminders.DemoReminder_recreate4;
 import static org.hamcrest.CoreMatchers.is;
@@ -32,7 +32,7 @@ public class StringInterpolatorDemoReminderReportingContributions_IntegTest exte
     IsisConfiguration configuration;
 
     @Inject
-    DemoToDoItem2StringInterpolatorContributions toDoItemReportingContributions;
+    DemoReminderStringInterpolatorContributions toDoItemReportingContributions;
 
     public static class Open extends StringInterpolatorDemoReminderReportingContributions_IntegTest {
 

@@ -16,15 +16,16 @@ import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
 import org.isisaddons.module.tags.dom.Tag;
 import org.isisaddons.module.tags.dom.Tags;
+
+import org.incode.domainapp.example.dom.dom.tags.dom.demo.DemoTaggableObject;
 import org.incode.platform.dom.tags.integtests.TagsModuleIntegTestAbstract;
 
-import org.incode.domainapp.example.dom.dom.tags.dom.demo.ExampleTaggableEntityMenu;
-import org.incode.domainapp.example.dom.dom.tags.dom.demo.ExampleTaggableEntity;
-import org.incode.domainapp.example.dom.dom.tags.fixture.ExampleTaggableEntitiesTearDownFixture;
-import org.incode.domainapp.example.dom.dom.tags.fixture.data.ExampleTaggableEntity_Bar_Pepsi_Drink;
-import org.incode.domainapp.example.dom.dom.tags.fixture.data.ExampleTaggableEntity_Baz_McDonalds_FastFood;
-import org.incode.domainapp.example.dom.dom.tags.fixture.data.ExampleTaggableEntity_Bip_CocaCola_Drink;
-import org.incode.domainapp.example.dom.dom.tags.fixture.data.ExampleTaggableEntity_Bop_Levis_Clothing;
+import org.incode.domainapp.example.dom.dom.tags.dom.demo.DemoTaggableObjectMenu;
+import org.incode.domainapp.example.dom.dom.tags.fixture.DemoTaggableObjects_tearDown;
+import org.incode.domainapp.example.dom.dom.tags.fixture.data.DemoTaggableObject_Bar_Pepsi_Drink;
+import org.incode.domainapp.example.dom.dom.tags.fixture.data.DemoTaggableObject_Baz_McDonalds_FastFood;
+import org.incode.domainapp.example.dom.dom.tags.fixture.data.DemoTaggableObject_Bip_CocaCola_Drink;
+import org.incode.domainapp.example.dom.dom.tags.fixture.data.DemoTaggableObject_Bop_Levis_Clothing;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
@@ -32,21 +33,21 @@ import static org.junit.Assert.assertThat;
 
 public class Tags_IntegTest extends TagsModuleIntegTestAbstract {
 
-    ExampleTaggableEntity entity;
+    DemoTaggableObject entity;
 
     @Before
     public void setUpData() throws Exception {
         scenarioExecution().install(
-                new ExampleTaggableEntitiesTearDownFixture(),
-                new ExampleTaggableEntity_Bip_CocaCola_Drink(),
-                new ExampleTaggableEntity_Bar_Pepsi_Drink(),
-                new ExampleTaggableEntity_Baz_McDonalds_FastFood(),
-                new ExampleTaggableEntity_Bop_Levis_Clothing()
+                new DemoTaggableObjects_tearDown(),
+                new DemoTaggableObject_Bip_CocaCola_Drink(),
+                new DemoTaggableObject_Bar_Pepsi_Drink(),
+                new DemoTaggableObject_Baz_McDonalds_FastFood(),
+                new DemoTaggableObject_Bop_Levis_Clothing()
                 );
     }
 
     @Inject
-    ExampleTaggableEntityMenu exampleTaggableEntities;
+    DemoTaggableObjectMenu exampleTaggableEntities;
 
     @Inject
     Tags tags;
@@ -56,7 +57,7 @@ public class Tags_IntegTest extends TagsModuleIntegTestAbstract {
 
     @Before
     public void setUp() throws Exception {
-        final List<ExampleTaggableEntity> all = wrap(exampleTaggableEntities).listAllTaggableEntities();
+        final List<DemoTaggableObject> all = wrap(exampleTaggableEntities).listAllTaggableObjects();
         assertThat(all.size(), is(4));
 
         entity = all.get(0);

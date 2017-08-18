@@ -3,8 +3,8 @@ package org.incode.domainapp.example.dom.demo.fixture.teardown;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoCustomer_tearDown;
-import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoInvoice2_tearDown;
 import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoInvoice_tearDown;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoInvoiceWithAtPath_tearDown;
 import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObject_tearDown;
 import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObjectWithAll_tearDown;
 import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObjectWithAtPath_tearDown;
@@ -22,8 +22,8 @@ public class DemoModuleTearDown extends FixtureScript {
     @Override
     protected void execute(ExecutionContext executionContext) {
         executionContext.executeChild(this, new DemoCustomer_tearDown());
-        executionContext.executeChild(this, new DemoInvoice2_tearDown());
         executionContext.executeChild(this, new DemoInvoice_tearDown());
+        executionContext.executeChild(this, new DemoInvoiceWithAtPath_tearDown());
         executionContext.executeChild(this, new DemoObject_tearDown());
         executionContext.executeChild(this, new DemoObjectWithAll_tearDown());
         executionContext.executeChild(this, new DemoObjectWithAtPath_tearDown());

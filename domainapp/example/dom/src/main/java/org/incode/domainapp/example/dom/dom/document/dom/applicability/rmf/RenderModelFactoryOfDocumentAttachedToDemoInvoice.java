@@ -5,7 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotes;
-import org.incode.domainapp.example.dom.demo.dom.invoice2.DemoInvoice2;
+import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoice;
 import org.incode.module.document.dom.impl.applicability.RendererModelFactoryAbstract;
 import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
@@ -25,10 +25,10 @@ public class RenderModelFactoryOfDocumentAttachedToDemoInvoice extends RendererM
             final DocumentTemplate documentTemplate, final Document document) {
 
         final List<Paperclip> paperclips = paperclipRepository.findByDocument(document);
-        final DemoInvoice2 demoInvoice =
+        final DemoInvoice demoInvoice =
                 paperclips.stream().map(Paperclip::getAttachedTo)
-                .filter(DemoInvoice2.class::isInstance)
-                .map(DemoInvoice2.class::cast)
+                .filter(DemoInvoice.class::isInstance)
+                .map(DemoInvoice.class::cast)
                 .findFirst()
                 .get(); // is safe to do this, because attachment advisor will have already run
 
@@ -42,7 +42,7 @@ public class RenderModelFactoryOfDocumentAttachedToDemoInvoice extends RendererM
     @Value
     public static class DataModel {
         DemoObjectWithNotes demoCustomer;
-        DemoInvoice2 demoInvoice;
+        DemoInvoice demoInvoice;
     }
 
 

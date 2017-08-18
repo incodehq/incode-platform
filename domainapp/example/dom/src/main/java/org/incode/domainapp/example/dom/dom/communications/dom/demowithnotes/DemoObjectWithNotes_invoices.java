@@ -12,8 +12,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 
 import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotes;
-import org.incode.domainapp.example.dom.demo.dom.invoice2.DemoInvoice2;
-import org.incode.domainapp.example.dom.demo.dom.invoice2.DemoInvoice2Repository;
+import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoice;
+import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoiceRepository;
 
 @Mixin(method = "coll")
 public class DemoObjectWithNotes_invoices {
@@ -28,10 +28,10 @@ public class DemoObjectWithNotes_invoices {
 
     @Action(semantics = SemanticsOf.SAFE, domainEvent = DomainEvent.class)
     @ActionLayout(contributed = Contributed.AS_ASSOCIATION)
-    public List<DemoInvoice2> coll() {
+    public List<DemoInvoice> coll() {
         return invoiceRepository.findByCustomer(demoCustomer);
     }
 
     @Inject
-    DemoInvoice2Repository invoiceRepository;
+    DemoInvoiceRepository invoiceRepository;
 }

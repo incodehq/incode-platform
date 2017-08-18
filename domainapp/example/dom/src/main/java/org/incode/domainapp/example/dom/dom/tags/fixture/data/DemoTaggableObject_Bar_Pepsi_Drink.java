@@ -1,10 +1,10 @@
 package org.incode.domainapp.example.dom.dom.tags.fixture.data;
 
-public class ExampleTaggableEntity_Bop_Levis_Clothing extends AbstractEntityFixture {
+public class DemoTaggableObject_Bar_Pepsi_Drink extends AbstractTaggableObjectFixture {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-        create("Bop", "Levi's", "Clothing", executionContext);
+        create("Bar", "Pepsi", "Drink", executionContext);
     }
 
 }

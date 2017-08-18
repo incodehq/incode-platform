@@ -15,7 +15,7 @@ import org.incode.domainapp.example.dom.demo.dom.reminder.DemoReminder;
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
 )
-public class DemoToDoItem2StringInterpolatorContributions {
+public class DemoReminderStringInterpolatorContributions {
 
 
     public static final String TEMPLATE = "${properties['isis.website']}/${this.documentationPage}";

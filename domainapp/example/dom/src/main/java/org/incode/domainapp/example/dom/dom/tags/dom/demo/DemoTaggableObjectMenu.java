@@ -14,29 +14,29 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "exampleDomTags.Taggable Entities"
+        objectType = "exampleDomTags.DemoTaggableEntityMenu"
 )
 @DomainServiceLayout(
-        named = "Dom Modules",
+        named = "Subdomains",
         menuOrder = "30.2"
 )
-public class ExampleTaggableEntityMenu {
+public class DemoTaggableObjectMenu {
 
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<ExampleTaggableEntity> listAllTaggableEntities() {
-        return container.allInstances(ExampleTaggableEntity.class);
+    public List<DemoTaggableObject> listAllTaggableObjects() {
+        return container.allInstances(DemoTaggableObject.class);
     }
 
 
     @MemberOrder(sequence = "2")
-    public ExampleTaggableEntity createTaggableEntity(
+    public DemoTaggableObject createTaggableEntity(
             final String name,
             final String brand,
             final String sector) {
-        final ExampleTaggableEntity obj = container.newTransientInstance(ExampleTaggableEntity.class);
+        final DemoTaggableObject obj = container.newTransientInstance(DemoTaggableObject.class);
         obj.setName(name);
         obj.setBrand(brand);
         obj.setSector(sector);

@@ -44,7 +44,7 @@ import lombok.Setter;
         middle = {"Tagged"},
         right = {"Value"}
 )
-public class ExampleTaggableEntity {
+public class DemoTaggableObject {
 
 
     private static final String TAG_NAME_BRAND = "Brand";
@@ -94,7 +94,7 @@ public class ExampleTaggableEntity {
 
 
     @MemberOrder(name="brand", sequence = "2")
-    public ExampleTaggableEntity updateBrand(
+    public DemoTaggableObject updateBrand(
             @ParameterLayout(named="Tag") @Parameter(optionality = Optionality.OPTIONAL)
             final String brand) {
         setBrand(brand);
@@ -114,7 +114,7 @@ public class ExampleTaggableEntity {
 
 
     @MemberOrder(name="brand", sequence = "1")
-    public ExampleTaggableEntity newBrand(
+    public DemoTaggableObject newBrand(
             @ParameterLayout(named="Tag") @Parameter(optionality = Optionality.OPTIONAL)
             final String brand) {
         setBrand(brand);
@@ -148,7 +148,7 @@ public class ExampleTaggableEntity {
 
 
     @MemberOrder(name="sector", sequence = "2")
-    public ExampleTaggableEntity updateSector(
+    public DemoTaggableObject updateSector(
             @ParameterLayout(named="Tag") @Parameter(optionality = Optionality.OPTIONAL)
             final String sector) {
         setSector(sector);
@@ -166,7 +166,7 @@ public class ExampleTaggableEntity {
 
 
     @MemberOrder(name="sector", sequence = "1")
-    public ExampleTaggableEntity newSector(
+    public DemoTaggableObject newSector(
             @ParameterLayout(named="Tag") @Parameter(optionality = Optionality.OPTIONAL)
             final String sector) {
         setSector(sector);

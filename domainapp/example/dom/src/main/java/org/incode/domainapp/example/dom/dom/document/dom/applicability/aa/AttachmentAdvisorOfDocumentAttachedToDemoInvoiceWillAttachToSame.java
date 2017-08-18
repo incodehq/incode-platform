@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import javax.inject.Inject;
 
-import org.incode.domainapp.example.dom.demo.dom.invoice2.DemoInvoice2;
+import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoice;
 import org.incode.module.document.dom.impl.applicability.AttachmentAdvisorAbstract;
 import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.DocumentTemplate;
@@ -26,10 +26,10 @@ public class AttachmentAdvisorOfDocumentAttachedToDemoInvoiceWillAttachToSame ex
             final Document createdDocument) {
 
         final List<Paperclip> paperclips = paperclipRepository.findByDocument(document);
-        final Optional<DemoInvoice2> demoInvoiceIfAny =
+        final Optional<DemoInvoice> demoInvoiceIfAny =
                 paperclips.stream().map(Paperclip::getAttachedTo)
-                        .filter(DemoInvoice2.class::isInstance)
-                        .map(DemoInvoice2.class::cast)
+                        .filter(DemoInvoice.class::isInstance)
+                        .map(DemoInvoice.class::cast)
                         .findFirst();
 
         return demoInvoiceIfAny.isPresent()

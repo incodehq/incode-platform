@@ -21,8 +21,8 @@ public enum DocFragmentData implements DemoData<DocFragmentData, DocFragment> {
     Customer_hello_ITA("exampledemo.DemoCustomer", "hello", "/ITA", "Ciao, piacere di conoscerti, ${title} ${lastName}"),
     Customer_hello_FRA("exampledemo.DemoCustomer", "hello", "/FRA", "Bonjour, ${title} ${lastName}, agréable de vous rencontrer"),
     Customer_goodbye_GLOBAL("exampledemo.DemoCustomer", "goodbye", "/", "So long, ${firstName}"),
-    Invoice_due_GLOBAL("exampledemo.DemoInvoice", "due", "/", "The invoice will be due on the ${dueBy}, payable in ${numDays} days"),
-    Invoice_due_FRA("exampledemo.DemoInvoice", "due", "/FRA", "La facture sera due sur le ${dueBy}, payable dans ${numDays} jours");
+    Invoice_due_GLOBAL("exampledemo.DemoInvoiceWithAtPath", "due", "/", "The invoice will be due on the ${dueBy}, payable in ${numDays} days"),
+    Invoice_due_FRA("exampledemo.DemoInvoiceWithAtPath", "due", "/FRA", "La facture sera due sur le ${dueBy}, payable dans ${numDays} jours");
 
     private final String objectType;
     private final String name;

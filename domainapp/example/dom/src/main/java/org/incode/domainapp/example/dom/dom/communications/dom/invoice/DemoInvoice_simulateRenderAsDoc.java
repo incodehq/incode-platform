@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.communications.dom.invoice2;
+package org.incode.domainapp.example.dom.dom.communications.dom.invoice;
 
 import java.io.IOException;
 
@@ -16,7 +16,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.value.Blob;
 
-import org.incode.domainapp.example.dom.demo.dom.invoice2.DemoInvoice2;
+import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoice;
 import org.incode.domainapp.example.dom.dom.communications.fixture.data.doctypes.DocumentType_and_DocumentTemplates_createSome;
 import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.DocumentRepository;
@@ -36,14 +36,14 @@ import org.incode.module.document.dom.impl.types.DocumentTypeRepository;
  * {@link Document} to our demo invoice.
  */
 @Mixin
-public class DemoInvoice2_simulateRenderAsDoc {
+public class DemoInvoice_simulateRenderAsDoc {
 
     private static final String AT_PATH = "/";
     private static final String ROLE_NAME = null;
 
-    private final DemoInvoice2 invoice;
+    private final DemoInvoice invoice;
 
-    public DemoInvoice2_simulateRenderAsDoc(final DemoInvoice2 invoice) {
+    public DemoInvoice_simulateRenderAsDoc(final DemoInvoice invoice) {
         this.invoice = invoice;
     }
 

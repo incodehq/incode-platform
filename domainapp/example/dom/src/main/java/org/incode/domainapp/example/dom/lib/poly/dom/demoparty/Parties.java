@@ -18,7 +18,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
         objectType = "exampleLibPoly.Parties"
 )
 @DomainServiceLayout(
-        named = "Library Modules",
+        named = "Libraries",
         menuOrder = "40.3.4"
 )
 public class Parties {

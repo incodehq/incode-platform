@@ -17,7 +17,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
         objectType = "exampleLibPoly.Cases"
 )
 @DomainServiceLayout(
-        named = "Library Modules",
+        named = "Libraries",
         menuOrder = "40.3.1"
 )
 public class Cases {

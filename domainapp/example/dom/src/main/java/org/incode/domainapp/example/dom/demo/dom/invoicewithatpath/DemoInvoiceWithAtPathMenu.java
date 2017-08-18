@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.demo.dom.invoice;
+package org.incode.domainapp.example.dom.demo.dom.invoicewithatpath;
 
 import java.util.List;
 
@@ -22,18 +22,18 @@ import org.apache.isis.applib.annotation.SemanticsOf;
         named = "More Demo",
         menuOrder = "20.2"
 )
-public class DemoInvoiceMenu {
+public class DemoInvoiceWithAtPathMenu {
 
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<DemoInvoice> listAllDemoInvoices() {
-        return demoInvoiceRepository.listAll();
+    public List<DemoInvoiceWithAtPath> listAllDemoInvoices() {
+        return demoInvoiceWithAtPathRepository.listAll();
     }
 
 
     @javax.inject.Inject
-    DemoInvoiceRepository demoInvoiceRepository;
+    DemoInvoiceWithAtPathRepository demoInvoiceWithAtPathRepository;
 
 }

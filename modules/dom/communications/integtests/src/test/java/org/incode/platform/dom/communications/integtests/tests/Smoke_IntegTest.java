@@ -14,11 +14,11 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
 import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotes;
+import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoice;
 import org.incode.platform.dom.communications.integtests.app.services.fakeemail.EmailMessage;
 import org.incode.platform.dom.communications.integtests.app.services.fakeemail.FakeEmailService;
 import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotesMenu;
-import org.incode.domainapp.example.dom.demo.dom.invoice2.DemoInvoice2;
-import org.incode.domainapp.example.dom.demo.dom.invoice2.DemoInvoice2Repository;
+import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoiceRepository;
 import org.incode.domainapp.example.dom.dom.communications.fixture.data.democust2.DemoObjectWithNote_and_DemoInvoice2_withComms_create3;
 import org.incode.domainapp.example.dom.dom.communications.fixture.DemoModuleFixture;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannel;
@@ -54,7 +54,7 @@ public class Smoke_IntegTest extends CommunicationsIntegTestAbstract {
     CommunicationChannelOwnerLinkRepository linkRepository;
 
     @Inject
-    DemoInvoice2Repository invoiceRepository;
+    DemoInvoiceRepository invoiceRepository;
 
     @Inject
     PaperclipRepository paperclipRepository;
@@ -76,7 +76,7 @@ public class Smoke_IntegTest extends CommunicationsIntegTestAbstract {
                 .getCommunicationChannel();
 
         // and with an invoice
-        final DemoInvoice2 fredInvoice = invoiceRepository.findByCustomer(fred).get(0);
+        final DemoInvoice fredInvoice = invoiceRepository.findByCustomer(fred).get(0);
 
         // that has an attached document
         final Paperclip paperclip = paperclipRepository.findByAttachedTo(fredInvoice).get(0);
@@ -140,7 +140,7 @@ public class Smoke_IntegTest extends CommunicationsIntegTestAbstract {
                 .getCommunicationChannel();
 
         // and with an invoice
-        final DemoInvoice2 fredInvoice = invoiceRepository.findByCustomer(mary).get(0);
+        final DemoInvoice fredInvoice = invoiceRepository.findByCustomer(mary).get(0);
 
         // that has an attached document
         final Paperclip paperclip = paperclipRepository.findByAttachedTo(fredInvoice).get(0);
