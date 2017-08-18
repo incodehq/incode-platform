@@ -19,7 +19,7 @@ import org.apache.isis.applib.services.repository.RepositoryService;
         repositoryFor = DemoObjectWithUrl.class
 )
 @DomainServiceLayout(
-        named = "Document Demo Objects",
+        named = "Demo Objects",
         menuOrder = "10"
 )
 public class DemoObjectWithUrlMenu {
@@ -33,14 +33,14 @@ public class DemoObjectWithUrlMenu {
             bookmarking = BookmarkPolicy.AS_ROOT
     )
     @MemberOrder(sequence = "1")
-    public List<DemoObjectWithUrl> listAll() {
+    public List<DemoObjectWithUrl> listAllDemoObjectsWithUrl() {
         return repositoryService.allInstances(DemoObjectWithUrl.class);
     }
 
 
 
     @MemberOrder(sequence = "2")
-    public DemoObjectWithUrl create(
+    public DemoObjectWithUrl createDemoObjectWithUrl(
             @ParameterLayout(named = "Name")
             final String name) {
         final DemoObjectWithUrl obj = new DemoObjectWithUrl(name, null);

@@ -12,7 +12,7 @@ import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObjectWith
 import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObjectWithNotes_tearDown;
 import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObjectWithUrl_tearDown;
 import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoOrderAndOrderLine_tearDown;
-import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoToDoItem2_tearDown;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoReminder_tearDown;
 import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoToDoItem_tearDown;
 import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.OtherObject_tearDown;
 import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.OtherObjectWithAtPath_tearDown;
@@ -31,7 +31,7 @@ public class DemoModuleTearDown extends FixtureScript {
         executionContext.executeChild(this, new DemoObjectWithNotes_tearDown());
         executionContext.executeChild(this, new DemoObjectWithUrl_tearDown());
         executionContext.executeChild(this, new DemoOrderAndOrderLine_tearDown());
-        executionContext.executeChild(this, new DemoToDoItem2_tearDown());
+        executionContext.executeChild(this, new DemoReminder_tearDown());
         executionContext.executeChild(this, new DemoToDoItem_tearDown());
         executionContext.executeChild(this, new OtherObject_tearDown());
         executionContext.executeChild(this, new OtherObjectWithAtPath_tearDown());

@@ -58,7 +58,6 @@ public class PublishMqDemoObject implements Comparable<PublishMqDemoObject>, Tou
     @PropertyLayout(describedAs = "Publishing enabled")
     @MemberOrder(sequence="1")
     private String name;
-    public void setName(final String name) { this.name = name; }
 
 
     @javax.jdo.annotations.Column(allowsNull="true")

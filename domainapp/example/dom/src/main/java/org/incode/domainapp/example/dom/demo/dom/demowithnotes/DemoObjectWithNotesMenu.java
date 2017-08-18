@@ -11,14 +11,13 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
-import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
         objectType = "exampleDemo.DemoObjectWithNotesMenu"
 )
 @DomainServiceLayout(
-        named = "Demo Customers",
+        named = "Demo Objects",
         menuOrder = "10"
 )
 public class DemoObjectWithNotesMenu {
@@ -27,33 +26,32 @@ public class DemoObjectWithNotesMenu {
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<DemoObjectWithNotes> listAll() {
-        return demoCustomerRepository.listAll();
+    public List<DemoObjectWithNotes> listAllDemoObjectsWithNotes() {
+        return demoObjectWithNotesRepository.listAll();
     }
 
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "2")
-    public List<DemoObjectWithNotes> findByName(
+    public List<DemoObjectWithNotes> findDemoObjectsWithNotesByName(
             @ParameterLayout(named="Name")
             final String name
     ) {
-        return demoCustomerRepository.findByName(name);
+        return demoObjectWithNotesRepository.findByName(name);
     }
 
 
-    public static class CreateDomainEvent extends ActionDomainEvent<DemoObjectWithNotesMenu> {}
-    @Action(domainEvent = CreateDomainEvent.class)
+    @Action(semantics = SemanticsOf.NON_IDEMPOTENT)
     @MemberOrder(sequence = "3")
-    public DemoObjectWithNotes create(
+    public DemoObjectWithNotes createDemoObjectWithNotes(
             @ParameterLayout(named="Name")
             final String name) {
-        return demoCustomerRepository.create(name);
+        return demoObjectWithNotesRepository.create(name);
     }
 
 
     @javax.inject.Inject
-    DemoObjectWithNotesRepository demoCustomerRepository;
+    DemoObjectWithNotesRepository demoObjectWithNotesRepository;
 
 }

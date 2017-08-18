@@ -57,7 +57,7 @@ public class FixedAsset_IntegTest extends PolyAppIntegTestAbstract {
             nextTransaction();
 
             // then
-            final List<CommunicationChannel> all = communicationChannelsMenu.listAll();
+            final List<CommunicationChannel> all = communicationChannelsMenu.listAllCommunicationChannels();
             assertThat(all.size(), is(1));
 
             final CommunicationChannel communicationChannel = fixedAsset.getCommunicationChannel();
@@ -107,7 +107,7 @@ public class FixedAsset_IntegTest extends PolyAppIntegTestAbstract {
 
             // then
             assertThat(wrap(fixedAsset).getCommunicationChannel(), is(nullValue()));
-            assertThat(wrap(communicationChannelsMenu).listAll().size(), is(0));
+            assertThat(wrap(communicationChannelsMenu).listAllCommunicationChannels().size(), is(0));
         }
 
         @Test

@@ -44,7 +44,7 @@ public class SecurityModuleAppEntity_IntegTest extends SecurityModuleAppIntegTes
 
     @Before
     public void setUp() throws Exception {
-        final List<NonTenantedEntity> all = wrap(exampleNonTenantedEntities).listAll();
+        final List<NonTenantedEntity> all = wrap(exampleNonTenantedEntities).listAllNonTenantedEntities();
         assertThat(all.size(), is(4));
 
         entity = all.get(0);

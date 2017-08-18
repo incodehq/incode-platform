@@ -37,11 +37,10 @@ import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 public class DemoToDoItemMenu {
 
 
-    //region > notYetComplete (action)
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<DemoToDoItem> notYetComplete() {
+    public List<DemoToDoItem> toDoItemsNotYetComplete() {
         final List<DemoToDoItem> items = notYetCompleteNoUi();
         if(items.isEmpty()) {
             messageService.informUser("All to-do items have been completed :-)");
@@ -56,12 +55,9 @@ public class DemoToDoItemMenu {
                         "todo_notYetComplete", 
                         "ownedBy", currentUserName()));
     }
-    //endregion
-
-    //region > findByDescription (action)
 
     @Programmatic
-    public DemoToDoItem findByDescription(final String description) {
+    public DemoToDoItem findToDoItemsByDescription(final String description) {
         return repositoryService.firstMatch(
                 new QueryDefault<>(DemoToDoItem.class,
                         "findByDescription",
@@ -69,15 +65,11 @@ public class DemoToDoItemMenu {
                         "ownedBy", currentUserName()));
     }
 
-    //endregion
 
-    //region > complete (action)
 
-    @Action(
-            semantics = SemanticsOf.SAFE
-    )
+    @Action(semantics = SemanticsOf.SAFE)
     @MemberOrder(sequence = "3")
-    public List<DemoToDoItem> complete() {
+    public List<DemoToDoItem> toDoItemsComplete() {
         final List<DemoToDoItem> items = completeNoUi();
         if(items.isEmpty()) {
             messageService.informUser("No to-do items have yet been completed :-(");
@@ -93,12 +85,10 @@ public class DemoToDoItemMenu {
                     "ownedBy", currentUserName()));
     }
 
-    //endregion
 
-    //region > newToDo (action)
 
     @MemberOrder(sequence = "40")
-    public DemoToDoItem newToDo(
+    public DemoToDoItem newToDoItem(
             @Parameter(regexPattern = "\\w[@&:\\-\\,\\.\\+ \\w]*")
             final String description,
             final Category category,
@@ -108,34 +98,32 @@ public class DemoToDoItemMenu {
             @Nullable
             final BigDecimal cost) {
         final String ownedBy = currentUserName();
-        return newToDo(description, category, subcategory, ownedBy, dueBy, cost);
+        return newToDoItem(description, category, subcategory, ownedBy, dueBy, cost);
     }
-    public Category default1NewToDo() {
+    public Category default1NewToDoItem() {
         return Category.Professional;
     }
-    public Subcategory default2NewToDo() {
+    public Subcategory default2NewToDoItem() {
         return Category.Professional.subcategories().get(0);
     }
-    public LocalDate default3NewToDo() {
+    public LocalDate default3NewToDoItem() {
         return clockService.now().plusDays(14);
     }
-    public List<Subcategory> choices2NewToDo(
+    public List<Subcategory> choices2NewToDoItem(
             final String description, final Category category) {
         return Subcategory.listFor(category);
     }
-    public String validateNewToDo(
+    public String validateNewToDoItem(
             final String description, 
             final Category category, final Subcategory subcategory, 
             final LocalDate dueBy, final BigDecimal cost) {
         return Subcategory.validate(category, subcategory);
     }
 
-    //endregion
 
-    //region > allMyToDos (action)
     @Action(semantics = SemanticsOf.SAFE)
     @MemberOrder(sequence = "50")
-    public List<DemoToDoItem> allMyToDos() {
+    public List<DemoToDoItem> allMyToDoItems() {
         final String currentUser = currentUserName();
         final List<DemoToDoItem> items = repositoryService.allMatches(DemoToDoItem.class, DemoToDoItem.Predicates.thoseOwnedBy(currentUser));
         Collections.sort(items);
@@ -144,10 +132,8 @@ public class DemoToDoItemMenu {
         }
         return items;
     }
-    //endregion
 
 
-    //region > autoComplete (programmatic)
     @Programmatic
     public List<DemoToDoItem> autoComplete(@MinLength(1) final String description) {
         return repositoryService.allMatches(
@@ -157,11 +143,9 @@ public class DemoToDoItemMenu {
                         "description", description));
     }
 
-    //endregion
 
-    //region > Programmatic Helpers
     @Programmatic // for use by fixtures
-    public DemoToDoItem newToDo(
+    public DemoToDoItem newToDoItem(
             final String description, 
             final Category category, 
             final Subcategory subcategory,
@@ -187,8 +171,8 @@ public class DemoToDoItemMenu {
     }
 
     @Programmatic
-    public DemoToDoItem newToDo(final String description, final String user) {
-        return newToDo(description, null, null, user, null, null);
+    public DemoToDoItem newToDoItem(final String description, final String user) {
+        return newToDoItem(description, null, null, user, null, null);
     }
 
     private static double random(final double from, final double to) {
@@ -210,7 +194,6 @@ public class DemoToDoItemMenu {
     }
 
 
-    //endregion
 
 
 

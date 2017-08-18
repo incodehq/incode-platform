@@ -10,51 +10,40 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
+/**
+ * As used by lib-poly
+ */
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
         objectType = "exampleLibPoly.FixedAssets"
 )
 @DomainServiceLayout(
         menuOrder = "10",
-        named = "Poly Fixed Assets"
+        named = "Polymorphic Associations"
 )
 public class FixedAssets {
 
-    //region > listAll (action)
-    @Action(
-            semantics = SemanticsOf.SAFE
-    )
-    @ActionLayout(
-            bookmarking = BookmarkPolicy.AS_ROOT
-    )
+
+    @Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<FixedAsset> listAll() {
+    public List<FixedAsset> listAllFixedAssets() {
         return container.allInstances(FixedAsset.class);
     }
-    //endregion
 
 
-    //region > create (action)
 
     @MemberOrder(sequence = "3")
-    public FixedAsset create(
-            final @ParameterLayout(named = "Name") String name) {
+    public FixedAsset createFixedAsset(final String name) {
         final FixedAsset party = container.newTransientInstance(FixedAsset.class);
         party.setName(name);
-
         container.persistIfNotAlready(party);
         return party;
     }
 
-    //endregion
-
-    //region > injected services
-
-    @javax.inject.Inject 
+    @javax.inject.Inject
     DomainObjectContainer container;
 
-    //endregion
 }

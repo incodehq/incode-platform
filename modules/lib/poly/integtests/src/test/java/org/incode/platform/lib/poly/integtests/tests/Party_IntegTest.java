@@ -58,7 +58,7 @@ public class Party_IntegTest extends PolyAppIntegTestAbstract {
             assertThat(parties.size(), is(1));
             assertThat(parties.get(0).getDetails(), is("0207 123 4567"));
 
-            parties = communicationChannelsMenu.listAll();
+            parties = communicationChannelsMenu.listAllCommunicationChannels();
             assertThat(parties.size(), is(1));
         }
 

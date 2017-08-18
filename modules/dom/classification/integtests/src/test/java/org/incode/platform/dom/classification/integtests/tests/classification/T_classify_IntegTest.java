@@ -115,7 +115,7 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
     @Test
     public void cannot_classify_when_no_applicability_for_domain_type() {
         // given
-        OtherObjectWithAtPath otherBaz = otherObjectMenu.listAll()
+        OtherObjectWithAtPath otherBaz = otherObjectMenu.listAllOtherObjectsWithAtPath()
                 .stream()
                 .filter(otherObject -> otherObject.getName().equals("Other baz (Global)"))
                 .findFirst()
@@ -134,7 +134,7 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
     @Test
     public void cannot_classify_when_no_applicability_for_atPath() {
         // given
-        OtherObjectWithAtPath otherBarInFrance = otherObjectMenu.listAll()
+        OtherObjectWithAtPath otherBarInFrance = otherObjectMenu.listAllOtherObjectsWithAtPath()
                 .stream()
                 .filter(otherObject -> otherObject.getName().equals("Other bar (in France)"))
                 .findFirst()

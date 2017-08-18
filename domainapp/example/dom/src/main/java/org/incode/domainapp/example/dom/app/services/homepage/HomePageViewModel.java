@@ -118,11 +118,11 @@ public class HomePageViewModel {
     // document
 
     public List<DemoObjectWithUrl> getDemoObjectsWithUrl() {
-        return demoObjectWithUrlMenu.listAll();
+        return demoObjectWithUrlMenu.listAllDemoObjectsWithUrl();
     }
 
     public List<OtherObject> getOtherObjects() {
-        return otherObjectMenu.listAll();
+        return otherObjectMenu.listAllOtherObjects();
     }
 
     @javax.inject.Inject
@@ -136,15 +136,15 @@ public class HomePageViewModel {
     // poly
 
     public List<CommunicationChannel> getCommunicationChannels() {
-        return communicationChannelsMenu.listAll();
+        return communicationChannelsMenu.listAllCommunicationChannels();
     }
 
     public List<Party> getParties() {
-        return parties.listAll();
+        return parties.listAllParties();
     }
 
     public List<FixedAsset> getFixedAssets() {
-        return fixedAssets.listAll();
+        return fixedAssets.listAllFixedAssets();
     }
 
     public List<Case> getCases() {
@@ -241,7 +241,8 @@ public class HomePageViewModel {
 
     @XmlTransient
     public DemoObjectWithBlob getSelected() {
-        return getDemoObjectsWithBlob().get(getIdx());
+        final List<DemoObjectWithBlob> demoObjectsWithBlob = getDemoObjectsWithBlob();
+        return demoObjectsWithBlob.isEmpty() ? null : demoObjectsWithBlob.get(getIdx());
     }
 
 

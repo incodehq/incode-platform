@@ -38,7 +38,7 @@ public class CustomerConfirmation_IntegTest extends DocxModuleIntegTestAbstract 
 
     @Before
     public void setUp() throws Exception {
-        final List<DemoOrder> all = wrap(orders).listAll();
+        final List<DemoOrder> all = wrap(orders).listAllDemoOrders();
         assertThat(all.size(), is(1));
 
         order = all.get(0);

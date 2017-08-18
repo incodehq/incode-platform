@@ -18,7 +18,7 @@ import org.apache.isis.applib.services.repository.RepositoryService;
         objectType = "exampleDemo.DemoObjectWithAtPathMenu"
 )
 @DomainServiceLayout(
-        named = "Demo objects",
+        named = "Demo Objects",
         menuOrder = "3"
 )
 public class DemoObjectWithAtPathMenu {

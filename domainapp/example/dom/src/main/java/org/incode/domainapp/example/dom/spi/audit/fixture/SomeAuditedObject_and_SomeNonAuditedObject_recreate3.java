@@ -23,7 +23,7 @@ public class SomeAuditedObject_and_SomeNonAuditedObject_recreate3 extends Discov
     // //////////////////////////////////////
 
     private SomeAuditedObject create(final String name, ExecutionContext executionContext) {
-        return executionContext.add(this, someAuditedObjects.create(name));
+        return executionContext.add(this, someAuditedObjects.createSomeAuditedObject(name));
     }
 
     // //////////////////////////////////////

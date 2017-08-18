@@ -9,7 +9,6 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.repository.RepositoryService;
@@ -23,6 +22,7 @@ import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedOb
         repositoryFor = SomeAuditedObject.class
 )
 @DomainServiceLayout(
+        named = "Audit",
         menuOrder = "10"
 )
 public class SomeNotAuditedObjects {
@@ -31,16 +31,14 @@ public class SomeNotAuditedObjects {
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<SomeNotAuditedObject> listAll() {
+    public List<SomeNotAuditedObject> listAllSomeNotAuditedObjects() {
         return repositoryService.allInstances(SomeNotAuditedObject.class);
     }
 
 
 
     @MemberOrder(sequence = "2")
-    public SomeNotAuditedObject create(
-            @ParameterLayout(named = "Name")
-            final String name) {
+    public SomeNotAuditedObject createSomeNotAuditedObject(final String name) {
         final SomeNotAuditedObject obj = new SomeNotAuditedObject(name, null);
         obj.setName(name);
         repositoryService.persist(obj);
@@ -48,17 +46,14 @@ public class SomeNotAuditedObjects {
     }
 
     @Programmatic
-    public List<SomeNotAuditedObject> delete(final SomeNotAuditedObject object) {
-        repositoryService.remove(object);
-        transactionService.flushTransaction();
-        return listAll();
+    public List<SomeNotAuditedObject> deleteSomeNotAuditedObject(final SomeNotAuditedObject object) {
+        repositoryService.removeAndFlush(object);
+        return listAllSomeNotAuditedObjects();
     }
 
 
     @javax.inject.Inject
     RepositoryService repositoryService;
-    @javax.inject.Inject
-    TransactionService transactionService;
 
 
 }

@@ -71,7 +71,7 @@ public class SomeAuditedObject_IntegTest extends AuditModuleIntegTestAbstract {
         transactionService.flushTransaction();
 
         // when
-        wrap(someAuditedObjects).create("Faz");
+        wrap(someAuditedObjects).createSomeAuditedObject("Faz");
 
         // currently necessary to ensure that created objects are picked up and enlisted in the transaction as newly created
         transactionService.flushTransaction();
@@ -96,7 +96,7 @@ public class SomeAuditedObject_IntegTest extends AuditModuleIntegTestAbstract {
         transactionService.flushTransaction();
 
         // when
-        final SomeAuditedObject newObject = wrap(someAuditedObjects).create("Faz");
+        final SomeAuditedObject newObject = wrap(someAuditedObjects).createSomeAuditedObject("Faz");
 
         // currently necessary to ensure that created objects are picked up and enlisted in the transaction as newly created
         transactionService.flushTransaction();
@@ -149,7 +149,7 @@ public class SomeAuditedObject_IntegTest extends AuditModuleIntegTestAbstract {
     public void update() throws Exception {
 
         // given
-        final SomeAuditedObject someAuditedObject = someAuditedObjects.listAll().get(0);
+        final SomeAuditedObject someAuditedObject = someAuditedObjects.listAllSomeAuditedObjects().get(0);
         final Bookmark bookmark = bookmarkService.bookmarkFor(someAuditedObject);
 
         assertThat(someAuditedObject.getName(), is("Foo"));

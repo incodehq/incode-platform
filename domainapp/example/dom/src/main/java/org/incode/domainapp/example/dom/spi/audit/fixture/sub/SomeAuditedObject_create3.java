@@ -16,7 +16,7 @@ public class SomeAuditedObject_create3 extends DiscoverableFixtureScript {
     }
 
     private SomeAuditedObject create(final String name, ExecutionContext executionContext) {
-        return executionContext.addResult(this, someAuditedObjects.create(name));
+        return executionContext.addResult(this, someAuditedObjects.createSomeAuditedObject(name));
     }
 
     @javax.inject.Inject

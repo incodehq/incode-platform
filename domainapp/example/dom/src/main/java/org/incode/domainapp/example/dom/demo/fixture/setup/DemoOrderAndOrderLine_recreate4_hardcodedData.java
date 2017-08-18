@@ -45,7 +45,7 @@ public class DemoOrderAndOrderLine_recreate4_hardcodedData extends FixtureScript
             final LocalDate date,
             final String preferences,
             final ExecutionContext executionContext) {
-        return executionContext.add(this, demoOrderMenu.create(number, customerName, date, preferences));
+        return executionContext.add(this, demoOrderMenu.createDemoOrder(number, customerName, date, preferences));
     }
 
 

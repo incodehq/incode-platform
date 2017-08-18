@@ -68,7 +68,7 @@ public class Smoke_IntegTest extends CommunicationsIntegTestAbstract {
         transactionService.nextTransaction();
 
         // and so given customer with an email
-        final DemoObjectWithNotes fred = customerMenu.findByName(DemoObjectWithNote_and_DemoInvoice2_withComms_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
+        final DemoObjectWithNotes fred = customerMenu.findDemoObjectsWithNotesByName(DemoObjectWithNote_and_DemoInvoice2_withComms_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
 
         final EmailAddress fredEmail = (EmailAddress) linkRepository
                 .findByOwnerAndCommunicationChannelType(fred, CommunicationChannelType.EMAIL_ADDRESS)
@@ -132,7 +132,7 @@ public class Smoke_IntegTest extends CommunicationsIntegTestAbstract {
         transactionService.nextTransaction();
 
         // and so given customer with an email
-        final DemoObjectWithNotes mary = customerMenu.findByName(DemoObjectWithNote_and_DemoInvoice2_withComms_create3.MARY_HAS_PHONE_AND_POST).get(0);
+        final DemoObjectWithNotes mary = customerMenu.findDemoObjectsWithNotesByName(DemoObjectWithNote_and_DemoInvoice2_withComms_create3.MARY_HAS_PHONE_AND_POST).get(0);
 
         final PostalAddress maryPost = (PostalAddress) linkRepository
                 .findByOwnerAndCommunicationChannelType(mary, CommunicationChannelType.POSTAL_ADDRESS)

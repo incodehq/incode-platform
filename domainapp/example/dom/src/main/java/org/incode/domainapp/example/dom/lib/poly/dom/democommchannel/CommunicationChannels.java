@@ -17,27 +17,18 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 )
 @DomainServiceLayout(
         menuOrder = "40",
-        named = "Poly Communication Channels"
+        named = "Polymorphic Associations"
 )
 public class CommunicationChannels {
 
-    //region > listAll (action)
-    @Action(
-            semantics = SemanticsOf.SAFE
-    )
-    @ActionLayout(
-            bookmarking = BookmarkPolicy.AS_ROOT
-    )
+    @Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<CommunicationChannel> listAll() {
+    public List<CommunicationChannel> listAllCommunicationChannels() {
         return container.allInstances(CommunicationChannel.class);
     }
-    //endregion
 
-    //region > injected services
 
     @javax.inject.Inject 
     DomainObjectContainer container;
-
-    //endregion
 }

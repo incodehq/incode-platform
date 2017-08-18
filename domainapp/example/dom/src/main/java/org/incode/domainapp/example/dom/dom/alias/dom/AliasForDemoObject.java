@@ -30,24 +30,22 @@ import lombok.Setter;
 @DomainObject
 public class AliasForDemoObject extends Alias {
 
+
     @Column(allowsNull = "false", name = "demoObjectId")
     @Property(editing = Editing.DISABLED)
     @Getter @Setter
     private DemoObject demoObject;
 
-    //region > aliased (hook, derived)
+
     @Override
     public Object getAliased() {
         return getDemoObject();
     }
-
     @Override
     protected void setAliased(final Object aliased) {
         setDemoObject((DemoObject) aliased);
     }
-    //endregion
 
-    //region > SubtypeProvider SPI implementation
 
     @DomainService(nature = NatureOfService.DOMAIN)
     public static class SubtypeProvider extends AliasRepository.SubtypeProviderAbstract {
@@ -55,9 +53,7 @@ public class AliasForDemoObject extends Alias {
             super(DemoObject.class, AliasForDemoObject.class);
         }
     }
-    //endregion
 
-    //region > mixins
 
     @Mixin
     public static class _aliases extends T_aliases<DemoObject> {
@@ -65,21 +61,17 @@ public class AliasForDemoObject extends Alias {
             super(aliased);
         }
     }
-
     @Mixin
     public static class _addAlias extends T_addAlias<DemoObject> {
         public _addAlias(final DemoObject aliased) {
             super(aliased);
         }
     }
-
     @Mixin
     public static class _removeAlias extends T_removeAlias<DemoObject> {
         public _removeAlias(final DemoObject aliased) {
             super(aliased);
         }
     }
-
-    //endregion
 
 }

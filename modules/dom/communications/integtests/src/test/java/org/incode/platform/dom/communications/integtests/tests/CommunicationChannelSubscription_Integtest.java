@@ -51,7 +51,7 @@ public class CommunicationChannelSubscription_Integtest extends CommunicationsIn
         transactionService.nextTransaction();
 
         // and so given customer with an email
-        final DemoObjectWithNotes fred = customerMenu.findByName(DemoObjectWithNote_and_DemoInvoice2_withComms_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
+        final DemoObjectWithNotes fred = customerMenu.findDemoObjectsWithNotesByName(DemoObjectWithNote_and_DemoInvoice2_withComms_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
 
         final EmailAddress fredEmail = (EmailAddress) linkRepository
                 .findByOwnerAndCommunicationChannelType(fred, CommunicationChannelType.EMAIL_ADDRESS)
@@ -63,7 +63,7 @@ public class CommunicationChannelSubscription_Integtest extends CommunicationsIn
     @Test
     public void replacement_provided() throws Exception {
         // Given
-        final DemoObjectWithNotes owner = customerMenu.findByName(DemoObjectWithNote_and_DemoInvoice2_withComms_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
+        final DemoObjectWithNotes owner = customerMenu.findDemoObjectsWithNotesByName(DemoObjectWithNote_and_DemoInvoice2_withComms_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
         final PostalAddress postalAddress = communicationChannelRepository.newPostal(
                 owner,
                 CommunicationChannelType.POSTAL_ADDRESS,
@@ -100,7 +100,7 @@ public class CommunicationChannelSubscription_Integtest extends CommunicationsIn
     @Test
     public void validate_fails_when_no_replacement_is_provided() throws Exception {
         // Given
-        final DemoObjectWithNotes owner = customerMenu.findByName(DemoObjectWithNote_and_DemoInvoice2_withComms_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
+        final DemoObjectWithNotes owner = customerMenu.findDemoObjectsWithNotesByName(DemoObjectWithNote_and_DemoInvoice2_withComms_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
         final PostalAddress postalAddress = communicationChannelRepository.newPostal(
                 owner,
                 CommunicationChannelType.POSTAL_ADDRESS,

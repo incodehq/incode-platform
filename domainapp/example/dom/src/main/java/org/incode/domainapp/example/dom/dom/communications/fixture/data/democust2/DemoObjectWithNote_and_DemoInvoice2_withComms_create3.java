@@ -39,7 +39,7 @@ public class DemoObjectWithNote_and_DemoInvoice2_withComms_create3 extends Fixtu
 
         final Country gbrCountry = countryRepository.findCountry(CountriesRefData.GBR);
 
-        final DemoObjectWithNotes custA = wrap(demoCustomerMenu).create(FRED_HAS_EMAIL_AND_PHONE);
+        final DemoObjectWithNotes custA = wrap(demoCustomerMenu).createDemoObjectWithNotes(FRED_HAS_EMAIL_AND_PHONE);
         addEmailAddress(custA, "fred@gmail.com");
         addEmailAddress(custA, "freddy@msn.com");
         addPhoneOrFaxNumber(custA, CommunicationChannelType.PHONE_NUMBER, "555 1234");
@@ -52,7 +52,7 @@ public class DemoObjectWithNote_and_DemoInvoice2_withComms_create3 extends Fixtu
         attachReceipt(custA_2, "Sample5.PDF");
 
 
-        final DemoObjectWithNotes custB = wrap(demoCustomerMenu).create(MARY_HAS_PHONE_AND_POST);
+        final DemoObjectWithNotes custB = wrap(demoCustomerMenu).createDemoObjectWithNotes(MARY_HAS_PHONE_AND_POST);
         addPhoneOrFaxNumber(custB, CommunicationChannelType.PHONE_NUMBER, "777 0987");
         addPhoneOrFaxNumber(custB, CommunicationChannelType.FAX_NUMBER, "777 7890");
         addPostalAddress(custB, gbrCountry, null, "45", "High Street", null, "OX1 4BJ", "Oxford");
@@ -64,7 +64,7 @@ public class DemoObjectWithNote_and_DemoInvoice2_withComms_create3 extends Fixtu
         final DemoInvoice2 custB_2 = demoInvoiceRepository.create("2", custB);
         attachReceipt(custB_2, "xlsdemo2.pdf");
 
-        final DemoObjectWithNotes custC = wrap(demoCustomerMenu).create(JOE_HAS_EMAIL_AND_POST);
+        final DemoObjectWithNotes custC = wrap(demoCustomerMenu).createDemoObjectWithNotes(JOE_HAS_EMAIL_AND_POST);
         addEmailAddress(custC, "joe@yahoo.com");
         addEmailAddress(custC, "joey@friends.com");
         addPostalAddress(custC, gbrCountry, null, "5", "Witney Gardens", null, "WA4 5HT", "Warrington");

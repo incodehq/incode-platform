@@ -28,7 +28,7 @@ public class TaxonomyMenu {
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<Category> listAll() {
+    public List<Category> listAllTaxonomies() {
         return categoryRepository.findByParent(null);
     }
 

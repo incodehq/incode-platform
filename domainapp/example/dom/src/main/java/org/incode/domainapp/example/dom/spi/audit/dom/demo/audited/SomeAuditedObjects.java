@@ -12,7 +12,6 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.repository.RepositoryService;
-import org.apache.isis.applib.services.xactn.TransactionService;
 
 @DomainService (
         nature = NatureOfService.VIEW_MENU_ONLY,
@@ -20,6 +19,7 @@ import org.apache.isis.applib.services.xactn.TransactionService;
         repositoryFor = SomeAuditedObject.class
 )
 @DomainServiceLayout(
+        named = "Audit",
         menuOrder = "10"
 )
 public class SomeAuditedObjects {
@@ -28,14 +28,14 @@ public class SomeAuditedObjects {
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<SomeAuditedObject> listAll() {
+    public List<SomeAuditedObject> listAllSomeAuditedObjects() {
         return repositoryService.allInstances(SomeAuditedObject.class);
     }
 
 
 
     @MemberOrder(sequence = "2")
-    public SomeAuditedObject create(final String name) {
+    public SomeAuditedObject createSomeAuditedObject(final String name) {
         final SomeAuditedObject obj = new SomeAuditedObject(name, null);
         repositoryService.persist(obj);
         return obj;
@@ -43,10 +43,9 @@ public class SomeAuditedObjects {
 
 
     @Programmatic
-    public List<SomeAuditedObject> delete(final SomeAuditedObject object) {
-        repositoryService.remove(object);
-        transactionService.flushTransaction();
-        return listAll();
+    public List<SomeAuditedObject> deleteSomeAuditedObject(final SomeAuditedObject object) {
+        repositoryService.removeAndFlush(object);
+        return listAllSomeAuditedObjects();
     }
 
 
@@ -54,8 +53,6 @@ public class SomeAuditedObjects {
     @javax.inject.Inject
     RepositoryService repositoryService;
 
-    @javax.inject.Inject
-    TransactionService transactionService;
 
 
 }

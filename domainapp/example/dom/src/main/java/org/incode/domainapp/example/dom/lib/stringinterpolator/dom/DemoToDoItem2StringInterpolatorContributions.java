@@ -10,7 +10,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.isisaddons.module.stringinterpolator.dom.StringInterpolatorService;
 
-import org.incode.domainapp.example.dom.demo.dom.todo2.DemoToDoItem2;
+import org.incode.domainapp.example.dom.demo.dom.reminder.DemoReminder;
 
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
@@ -23,8 +23,8 @@ public class DemoToDoItem2StringInterpolatorContributions {
     @ActionLayout(
             contributed = Contributed.AS_ACTION
     )
-    public URL open(final DemoToDoItem2 toDoItem) throws MalformedURLException {
-        final String urlStr = stringInterpolatorService.interpolate(toDoItem, TEMPLATE);
+    public URL open(final DemoReminder reminder) throws MalformedURLException {
+        final String urlStr = stringInterpolatorService.interpolate(reminder, TEMPLATE);
         return new URL(urlStr);
     }
 

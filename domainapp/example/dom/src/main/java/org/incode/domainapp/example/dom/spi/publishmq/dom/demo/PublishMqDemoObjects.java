@@ -20,7 +20,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 )
 @DomainServiceLayout(
         menuOrder = "10",
-        named = "PublishMq Demo Objects"
+        named = "PublishMq"
 )
 public class PublishMqDemoObjects {
 
@@ -29,14 +29,14 @@ public class PublishMqDemoObjects {
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<PublishMqDemoObject> listAll() {
+    public List<PublishMqDemoObject> listAllPublishMqDemoObjects() {
         return container.allInstances(PublishMqDemoObject.class);
     }
 
 
 
     @MemberOrder(sequence = "2")
-    public PublishMqDemoObject create(
+    public PublishMqDemoObject createPublishMqDemoObject(
             final String name) {
         final PublishMqDemoObject obj = new PublishMqDemoObject(name, null, null);
         container.persistIfNotAlready(obj);
@@ -49,8 +49,8 @@ public class PublishMqDemoObjects {
             publishing = Publishing.ENABLED
     )
     @MemberOrder(sequence = "3")
-    public List<PublishMqDemoObject> incrementAll() {
-        final List<PublishMqDemoObject> publishMqDemoObjects = listAll();
+    public List<PublishMqDemoObject> incrementAllPublishMqDemoObjects() {
+        final List<PublishMqDemoObject> publishMqDemoObjects = listAllPublishMqDemoObjects();
         for (PublishMqDemoObject publishMqDemoObject : publishMqDemoObjects) {
             publishMqDemoObject.incrementCountInBulk();
         }

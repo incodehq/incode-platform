@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.demo.dom.todo2;
+package org.incode.domainapp.example.dom.demo.dom.reminder;
 
 import java.util.List;
 
@@ -13,35 +13,35 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "exampleDemo.DemoToDoItem2Menu"
+        objectType = "exampleDemo.DemoReminderMenu"
 )
 @DomainServiceLayout(
         menuOrder = "10",
-        named = "Demo ToDoItem2s"
+        named = "Demo Reminders"
 )
-public class DemoToDoItem2Menu {
+public class DemoReminderMenu {
 
 
 
     @MemberOrder(sequence = "40")
-    public DemoToDoItem2 newToDo(
+    public DemoReminder newReminder(
             @Parameter(regexPattern = "\\w[@&:\\-\\,\\.\\+ \\w]*")
             final String description,
             final String documentationPage) {
 
-        final DemoToDoItem2 toDoItem = new DemoToDoItem2(description, documentationPage);
+        final DemoReminder reminder = new DemoReminder(description, documentationPage);
 
-        container.persist(toDoItem);
+        container.persist(reminder);
         container.flush();
 
-        return toDoItem;
+        return reminder;
     }
 
 
     @Action(semantics = SemanticsOf.SAFE)
     @MemberOrder(sequence = "50")
-    public List<DemoToDoItem2> allToDos() {
-        return container.allInstances(DemoToDoItem2.class);
+    public List<DemoReminder> listAllReminders() {
+        return container.allInstances(DemoReminder.class);
     }
 
 

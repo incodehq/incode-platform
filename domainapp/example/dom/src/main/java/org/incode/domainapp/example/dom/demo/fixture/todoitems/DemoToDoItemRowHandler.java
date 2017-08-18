@@ -54,7 +54,7 @@ public class DemoToDoItemRowHandler implements ExcelFixtureRowHandler {
         final LocalDate dueBy = daysFromToday(daysFromToday);
         final String user = executionContext.getParameter("user");
         final String username = user != null && user.length() > 0 ? user : container.getUser().getName();
-        DemoToDoItem toDoItem = toDoItemRepository.findByDescription(description);
+        DemoToDoItem toDoItem = toDoItemRepository.findToDoItemsByDescription(description);
         if(toDoItem != null) {
             toDoItem.setCategory(category);
             toDoItem.setSubcategory(subcategory);
@@ -62,7 +62,7 @@ public class DemoToDoItemRowHandler implements ExcelFixtureRowHandler {
             toDoItem.setCost(cost);
             toDoItem.setOwnedBy(username);
         } else {
-            toDoItem = toDoItemRepository.newToDo(description, category, subcategory, username, dueBy, cost);
+            toDoItem = toDoItemRepository.newToDoItem(description, category, subcategory, username, dueBy, cost);
         }
         executionContext.addResult(excelFixture, toDoItem);
         return Collections.<Object>singletonList(toDoItem);

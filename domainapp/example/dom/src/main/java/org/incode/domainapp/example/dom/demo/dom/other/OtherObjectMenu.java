@@ -26,14 +26,14 @@ public class OtherObjectMenu {
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<OtherObject> listAll() {
+    public List<OtherObject> listAllOtherObjects() {
         return repositoryService.allInstances(OtherObject.class);
     }
 
 
 
     @MemberOrder(sequence = "2")
-    public OtherObject create(final String name) {
+    public OtherObject createOtherObjects(final String name) {
         final OtherObject obj = new OtherObject(name);
         repositoryService.persist(obj);
         return obj;

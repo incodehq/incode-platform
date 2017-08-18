@@ -21,7 +21,7 @@ public class PublishMqDemoObject_recreate3 extends DiscoverableFixtureScript {
     // //////////////////////////////////////
 
     private PublishMqDemoObject create(final String name, final ExecutionContext executionContext) {
-        return executionContext.addResult(this, publishmqDemoObjects.create(name));
+        return executionContext.addResult(this, publishmqDemoObjects.createPublishMqDemoObject(name));
     }
 
     // //////////////////////////////////////

@@ -113,7 +113,7 @@ public class DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_
             final String name,
             final String atPath,
             final ExecutionContext executionContext) {
-        final OtherObjectWithAtPath otherObject = wrap(otherObjectMenu).create(name, atPath);
+        final OtherObjectWithAtPath otherObject = wrap(otherObjectMenu).createOtherObjectWithAtPath(name, atPath);
         otherObjects.add(otherObject);
         return executionContext.addResult(this, otherObject);
     }

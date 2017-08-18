@@ -74,7 +74,7 @@ public class DemoToDoItem_recreate5_for extends DiscoverableFixtureScript {
     // //////////////////////////////////////
 
     private DemoToDoItem createToDoItemForUser(final String description, final Category category, Subcategory subcategory, String user, final LocalDate dueBy, final BigDecimal cost, ExecutionContext executionContext) {
-        final DemoToDoItem toDoItem = demoToDoItemMenu.newToDo(description, category, subcategory, user, dueBy, cost);
+        final DemoToDoItem toDoItem = demoToDoItemMenu.newToDoItem(description, category, subcategory, user, dueBy, cost);
         executionContext.add(this, toDoItem);
         return toDoItem;
     }

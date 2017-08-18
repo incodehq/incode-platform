@@ -340,7 +340,7 @@ public class DemoToDoItem implements Comparable<DemoToDoItem>, CalendarEventable
         container.removeIfNotAlready(this);
         container.informUser("Deleted " + container.titleOf(this));
         // invalid to return 'this' (cannot render a deleted object)
-        return toDoItems.notYetComplete(); 
+        return toDoItems.toDoItemsNotYetComplete();
     }
 
     //endregion

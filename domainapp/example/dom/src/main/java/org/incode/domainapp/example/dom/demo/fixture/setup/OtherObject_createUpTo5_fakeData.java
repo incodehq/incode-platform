@@ -48,7 +48,7 @@ public class OtherObject_createUpTo5_fakeData extends FixtureScript {
     private OtherObject create(final ExecutionContext ec) {
         final String name = fakeDataService.name().firstName();
 
-        final OtherObject otherObject = wrap(otherObjectMenu).create(name);
+        final OtherObject otherObject = wrap(otherObjectMenu).createOtherObjects(name);
 
         return ec.addResult(this, otherObject);
     }

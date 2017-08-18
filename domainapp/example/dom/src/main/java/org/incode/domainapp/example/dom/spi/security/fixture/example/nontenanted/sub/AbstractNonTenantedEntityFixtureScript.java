@@ -10,7 +10,7 @@ public abstract class AbstractNonTenantedEntityFixtureScript extends FixtureScri
     protected NonTenantedEntity create(
             final String name,
             final ExecutionContext executionContext) {
-        final NonTenantedEntity entity = exampleNonTenantedEntities.create(name);
+        final NonTenantedEntity entity = exampleNonTenantedEntities.createNonTenantedEntity(name);
         executionContext.addResult(this, name, entity);
         return entity;
     }

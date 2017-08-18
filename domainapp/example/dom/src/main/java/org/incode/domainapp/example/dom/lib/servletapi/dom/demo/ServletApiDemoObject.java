@@ -45,20 +45,22 @@ public class ServletApiDemoObject implements Comparable<ServletApiDemoObject> {
     private String name;
 
 
-    //region > servlet context name (derived property)
+    /**
+     * derived property
+     */
     public String getServletContextName() {
         return servletContextProvider.getServletContext().getServletContextName();
     }
-    //endregion
 
-    //region > request locale name (derived property)
+    /**
+     * derived property
+     */
     public String getRequestLocale() {
         return httpServletRequestProvider.getServletRequest().getLocale().toString();
     }
-    //endregion
 
 
-    //region > cookie (action)
+
     @MemberOrder(sequence = "1")
     public ServletApiDemoObject addHeader(
             final String header,
@@ -73,7 +75,8 @@ public class ServletApiDemoObject implements Comparable<ServletApiDemoObject> {
     public String default1AddHeader() {
         return "hello!";
     }
-    //endregion
+
+
 
 
     @Override
@@ -82,7 +85,7 @@ public class ServletApiDemoObject implements Comparable<ServletApiDemoObject> {
     }
 
 
-    //region > injected services
+
 
     @javax.inject.Inject
     @SuppressWarnings("unused")
@@ -96,6 +99,5 @@ public class ServletApiDemoObject implements Comparable<ServletApiDemoObject> {
 
     @javax.inject.Inject
     private HttpServletResponseProvider httpServletResponseProvider;
-    //endregion
 
 }

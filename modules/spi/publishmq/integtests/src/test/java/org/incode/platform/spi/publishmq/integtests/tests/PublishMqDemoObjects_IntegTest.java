@@ -34,7 +34,7 @@ public class PublishMqDemoObjects_IntegTest extends PublishMqModuleIntegTestAbst
     @Test
     public void listAll() throws Exception {
 
-        final List<PublishMqDemoObject> all = wrap(publishmqDemoObjects).listAll();
+        final List<PublishMqDemoObject> all = wrap(publishmqDemoObjects).listAllPublishMqDemoObjects();
         Assertions.assertThat(all.size()).isEqualTo(3);
         
         PublishMqDemoObject publishmqDemoObject = wrap(all.get(0));
@@ -44,9 +44,9 @@ public class PublishMqDemoObjects_IntegTest extends PublishMqModuleIntegTestAbst
     @Test
     public void create() throws Exception {
 
-        wrap(publishmqDemoObjects).create("Faz");
+        wrap(publishmqDemoObjects).createPublishMqDemoObject("Faz");
         
-        final List<PublishMqDemoObject> all = wrap(publishmqDemoObjects).listAll();
+        final List<PublishMqDemoObject> all = wrap(publishmqDemoObjects).listAllPublishMqDemoObjects();
         Assertions.assertThat(all.size()).isEqualTo(4);
     }
 

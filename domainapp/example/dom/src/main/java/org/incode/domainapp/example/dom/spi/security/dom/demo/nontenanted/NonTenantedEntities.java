@@ -20,7 +20,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 )
 @DomainServiceLayout(
         menuOrder = "10",
-        named = "Security Non-tenanted"
+        named = "Security"
 )
 public class NonTenantedEntities {
 
@@ -28,13 +28,13 @@ public class NonTenantedEntities {
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<NonTenantedEntity> listAll() {
+    public List<NonTenantedEntity> listAllNonTenantedEntities() {
         return container.allInstances(NonTenantedEntity.class);
     }
 
 
     @MemberOrder(sequence = "2")
-    public NonTenantedEntity create(
+    public NonTenantedEntity createNonTenantedEntity(
             @Parameter(maxLength = NonTenantedEntity.MAX_LENGTH_NAME)
             final String name) {
         final NonTenantedEntity obj = new NonTenantedEntity(name, null);

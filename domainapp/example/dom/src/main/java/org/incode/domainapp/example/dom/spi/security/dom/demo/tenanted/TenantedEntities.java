@@ -24,7 +24,7 @@ import org.incode.domainapp.example.dom.spi.security.dom.demo.nontenanted.NonTen
 )
 @DomainServiceLayout(
         menuOrder = "20",
-        named = "Security Tenanted"
+        named = "Security"
 )
 public class TenantedEntities {
 
@@ -33,14 +33,14 @@ public class TenantedEntities {
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<TenantedEntity> listAll() {
+    public List<TenantedEntity> listAllTenantedEntities() {
         return container.allInstances(TenantedEntity.class);
     }
 
 
 
     @MemberOrder(sequence = "2")
-    public TenantedEntity create(
+    public TenantedEntity createTenantedEntity(
             @Parameter(maxLength = NonTenantedEntity.MAX_LENGTH_NAME)
             final String name,
             final ApplicationTenancy tenancy) {

@@ -66,7 +66,7 @@ public class SomeNotAuditedObject_IntegTest extends AuditModuleIntegTestAbstract
         transactionService.flushTransaction();
 
         // when
-        wrap(someNotAuditedObjects).create("Faz");
+        wrap(someNotAuditedObjects).createSomeNotAuditedObject("Faz");
 
         // currently necessary to ensure that created objects are picked up and enlisted in the transaction as newly created
         transactionService.flushTransaction();
@@ -87,7 +87,7 @@ public class SomeNotAuditedObject_IntegTest extends AuditModuleIntegTestAbstract
     public void update() throws Exception {
 
         // given
-        final SomeNotAuditedObject someNotAuditedObject = someNotAuditedObjects.listAll().get(0);
+        final SomeNotAuditedObject someNotAuditedObject = someNotAuditedObjects.listAllSomeNotAuditedObjects().get(0);
         final Bookmark bookmark = bookmarkService.bookmarkFor(someNotAuditedObject);
 
         assertThat(someNotAuditedObject.getName(), is("Foo"));

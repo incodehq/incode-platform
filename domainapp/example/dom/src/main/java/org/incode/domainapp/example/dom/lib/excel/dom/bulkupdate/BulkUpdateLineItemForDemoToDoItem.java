@@ -215,13 +215,13 @@ public class BulkUpdateLineItemForDemoToDoItem
         DemoToDoItem item = getToDoItem();
         if(item == null) {
             // description must be unique, so check
-            item = toDoItems.findByDescription(getDescription());
+            item = toDoItems.findToDoItemsByDescription(getDescription());
             if(item != null) {
                 getContainer().warnUser("Item already exists with description '" + getDescription() + "'");
             } else {
                 // create new item
                 // (since this is just a demo, haven't bothered to validate new values)
-                item = toDoItems.newToDo(getDescription(), getCategory(), getSubcategory(), getDueBy(), getCost());
+                item = toDoItems.newToDoItem(getDescription(), getCategory(), getSubcategory(), getDueBy(), getCost());
                 item.setNotes(getNotes());
                 item.setOwnedBy(getOwnedBy());
                 item.setComplete(isComplete());

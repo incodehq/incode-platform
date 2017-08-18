@@ -23,7 +23,7 @@ public class FixedAsset_create extends FixtureScript {
 
         final String name = checkParam("name", ec, String.class);
 
-        this.fixedAsset = fixedAssets.create(name);
+        this.fixedAsset = fixedAssets.createFixedAsset(name);
 
         // also make available to UI
         ec.addResult(this, fixedAsset);

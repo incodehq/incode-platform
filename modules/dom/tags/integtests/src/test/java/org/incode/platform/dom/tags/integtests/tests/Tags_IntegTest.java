@@ -56,7 +56,7 @@ public class Tags_IntegTest extends TagsModuleIntegTestAbstract {
 
     @Before
     public void setUp() throws Exception {
-        final List<ExampleTaggableEntity> all = wrap(exampleTaggableEntities).listAll();
+        final List<ExampleTaggableEntity> all = wrap(exampleTaggableEntities).listAllTaggableEntities();
         assertThat(all.size(), is(4));
 
         entity = all.get(0);

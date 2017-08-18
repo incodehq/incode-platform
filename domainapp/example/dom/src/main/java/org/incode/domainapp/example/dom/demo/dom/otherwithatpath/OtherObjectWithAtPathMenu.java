@@ -18,31 +18,22 @@ import org.apache.isis.applib.services.repository.RepositoryService;
         objectType = "exampleDemo.OtherObjectWithAtPathMenu"
 )
 @DomainServiceLayout(
-        named = "OthersWithAtPath",
+        named = "Other Objects",
         menuOrder = "11"
 )
 public class OtherObjectWithAtPathMenu {
 
 
-    //region > listAll (action)
-
-    @Action(
-            semantics = SemanticsOf.SAFE
-    )
-    @ActionLayout(
-            bookmarking = BookmarkPolicy.AS_ROOT
-    )
+    @Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<OtherObjectWithAtPath> listAll() {
+    public List<OtherObjectWithAtPath> listAllOtherObjectsWithAtPath() {
         return repositoryService.allInstances(OtherObjectWithAtPath.class);
     }
 
-    //endregion
 
-    //region > createTopLevel (action)
-    
     @MemberOrder(sequence = "2")
-    public OtherObjectWithAtPath create(
+    public OtherObjectWithAtPath createOtherObjectWithAtPath(
             final String name,
             @ParameterLayout(named = "Application tenancy")
             final String atPath) {
@@ -51,13 +42,10 @@ public class OtherObjectWithAtPathMenu {
         return obj;
     }
 
-    //endregion
 
-    //region > injected services
 
     @javax.inject.Inject
     RepositoryService repositoryService;
 
-    //endregion
 
 }

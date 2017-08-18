@@ -19,11 +19,10 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 )
 @DomainServiceLayout(
         menuOrder = "20",
-        named = "Poly Parties"
+        named = "Polymorphic Associations"
 )
 public class Parties {
 
-    //region > listAll (action)
     @Action(
             semantics = SemanticsOf.SAFE
     )
@@ -31,16 +30,13 @@ public class Parties {
             bookmarking = BookmarkPolicy.AS_ROOT
     )
     @MemberOrder(sequence = "1")
-    public List<Party> listAll() {
+    public List<Party> listAllParties() {
         return container.allInstances(Party.class);
     }
-    //endregion
 
-
-    //region > create (action)
 
     @MemberOrder(sequence = "3")
-    public Party create(
+    public Party createParty(
             final @ParameterLayout(named = "Name") String name) {
         final Party party = container.newTransientInstance(Party.class);
         party.setName(name);
@@ -49,12 +45,7 @@ public class Parties {
         return party;
     }
 
-    //endregion
-
-    //region > injected services
 
     @javax.inject.Inject 
     DomainObjectContainer container;
-
-    //endregion
 }

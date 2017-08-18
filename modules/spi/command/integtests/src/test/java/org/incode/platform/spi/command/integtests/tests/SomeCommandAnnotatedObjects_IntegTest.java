@@ -49,7 +49,7 @@ public class SomeCommandAnnotatedObjects_IntegTest extends CommandModuleIntegTes
 
     @Before
     public void setUp() throws Exception {
-        final List<SomeCommandAnnotatedObject> all = wrap(someCommandAnnotatedObjects).listAll();
+        final List<SomeCommandAnnotatedObject> all = wrap(someCommandAnnotatedObjects).listAllSomeCommandAnnotatedObjects();
         assertThat(all.size(), is(3));
 
         entity = wrap(all.get(0));

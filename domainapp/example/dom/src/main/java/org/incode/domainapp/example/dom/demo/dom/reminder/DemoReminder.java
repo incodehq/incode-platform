@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.demo.dom.todo2;
+package org.incode.domainapp.example.dom.demo.dom.reminder;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -28,7 +28,7 @@ import lombok.Setter;
 @javax.jdo.annotations.Version(strategy = VersionStrategy.VERSION_NUMBER, column = "version")
 @javax.jdo.annotations.Uniques({
         @javax.jdo.annotations.Unique(
-                name = "ToDoItem2_description_must_be_unique",
+                name = "Reminder_description_must_be_unique",
                 members = {"description"})
 })
 @DomainObject
@@ -36,7 +36,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @XmlJavaTypeAdapter(PersistentEntityAdapter.class)
-public class DemoToDoItem2 implements Comparable<DemoToDoItem2> {
+public class DemoReminder implements Comparable<DemoReminder> {
 
     @Title
     @javax.jdo.annotations.Column(allowsNull = "false", length = 100)
@@ -52,12 +52,12 @@ public class DemoToDoItem2 implements Comparable<DemoToDoItem2> {
 
 
     public String toString() {
-        return ObjectContracts.toString(this, "description,complete,ownedBy");
+        return ObjectContracts.toString(this, "description,documentationPage");
     }
 
     @Override
-    public int compareTo(final DemoToDoItem2 other) {
-        return Ordering.natural().onResultOf(DemoToDoItem2::getDescription).compare(this, other);
+    public int compareTo(final DemoReminder other) {
+        return Ordering.natural().onResultOf(DemoReminder::getDescription).compare(this, other);
     }
 
 }

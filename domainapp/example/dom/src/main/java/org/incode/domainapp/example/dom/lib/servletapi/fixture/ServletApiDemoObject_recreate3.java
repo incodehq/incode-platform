@@ -22,7 +22,7 @@ public class ServletApiDemoObject_recreate3 extends DiscoverableFixtureScript {
     // //////////////////////////////////////
 
     private ServletApiDemoObject create(final String name, final ExecutionContext executionContext) {
-        return executionContext.addResult(this, servletApiDemoObjects.create(name));
+        return executionContext.addResult(this, servletApiDemoObjects.createServletApiDemoObject(name));
     }
 
     // //////////////////////////////////////

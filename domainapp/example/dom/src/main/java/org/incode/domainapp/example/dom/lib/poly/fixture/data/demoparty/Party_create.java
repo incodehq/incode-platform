@@ -23,7 +23,7 @@ public class Party_create extends FixtureScript {
 
         final String name = checkParam("name", ec, String.class);
 
-        this.party = parties.create(name);
+        this.party = parties.createParty(name);
 
         // also make available to UI
         ec.addResult(this, party);

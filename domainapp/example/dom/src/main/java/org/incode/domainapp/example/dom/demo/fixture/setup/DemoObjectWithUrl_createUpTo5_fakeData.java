@@ -53,7 +53,7 @@ public class DemoObjectWithUrl_createUpTo5_fakeData extends FixtureScript {
         final String name = fakeDataService.name().firstName();
         final String url = "http://www.pdfpdf.com/samples/Sample" + (n+1) + ".PDF";
 
-        final DemoObjectWithUrl demoObject = wrap(demoObjectMenu).create(name);
+        final DemoObjectWithUrl demoObject = wrap(demoObjectMenu).createDemoObjectWithUrl(name);
         wrap(demoObject).setUrl(url);
 
         return ec.addResult(this, demoObject);

@@ -14,7 +14,7 @@ public class SomeNotAuditedObject_delete {
 
     @Action()
     public void $$() {
-        someNotAuditedObjects.delete(someNotAuditedObject);
+        someNotAuditedObjects.deleteSomeNotAuditedObject(someNotAuditedObject);
     }
 
 

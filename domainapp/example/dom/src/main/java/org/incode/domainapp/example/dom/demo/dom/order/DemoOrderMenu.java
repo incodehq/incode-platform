@@ -16,6 +16,9 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
+/**
+ * As used by DocX.
+ */
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
         repositoryFor = DemoOrder.class,
@@ -23,7 +26,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 )
 @DomainServiceLayout(
         menuOrder = "10",
-        named = "Docx Orders"
+        named = "Demo Orders"
 )
 public class DemoOrderMenu {
 
@@ -38,7 +41,7 @@ public class DemoOrderMenu {
             bookmarking = BookmarkPolicy.AS_ROOT
     )
     @MemberOrder(sequence = "1")
-    public List<DemoOrder> listAll() {
+    public List<DemoOrder> listAllDemoOrders() {
         return container.allInstances(DemoOrder.class);
     }
 
@@ -48,7 +51,7 @@ public class DemoOrderMenu {
     // //////////////////////////////////////
     
     @MemberOrder(sequence = "2")
-    public DemoOrder create(
+    public DemoOrder createDemoOrder(
             final String orderNumber,
             final String customerName,
             final LocalDate orderDate,

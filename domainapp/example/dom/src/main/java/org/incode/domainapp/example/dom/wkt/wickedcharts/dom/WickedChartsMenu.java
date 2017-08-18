@@ -37,17 +37,15 @@ import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItemMenu;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "exampleWktWickedCharts.ChartingServiceForDemoToDoItem"
+        objectType = "exampleWktWickedCharts.WickedChartsMenu"
 )
 @DomainServiceLayout(
-        named = "WickedCharts",
+        named = "Wicked Charts",
         menuOrder = "15"
 )
-public class ChartingServiceForDemoToDoItem {
+public class WickedChartsMenu {
 
-    @Action(
-            semantics = SemanticsOf.SAFE
-    )
+    @Action(semantics = SemanticsOf.SAFE)
     public WickedChart pieChart() {
         
         Map<Category, AtomicInteger> byCategory = Maps.newTreeMap();
@@ -114,10 +112,6 @@ public class ChartingServiceForDemoToDoItem {
     }
 
     
-    // //////////////////////////////////////
-    // Injected services
-    // //////////////////////////////////////
-
     @javax.inject.Inject
     private DemoToDoItemMenu demoToDoItemMenu;
 

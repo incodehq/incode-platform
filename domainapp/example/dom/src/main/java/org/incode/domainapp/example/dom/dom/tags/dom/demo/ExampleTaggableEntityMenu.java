@@ -1,6 +1,7 @@
 package org.incode.domainapp.example.dom.dom.tags.dom.demo;
 
 import java.util.List;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
@@ -9,7 +10,6 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
@@ -23,30 +23,19 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 public class ExampleTaggableEntityMenu {
 
 
-    //region > listAll (action)
-    // //////////////////////////////////////
-
-    @Action(
-            semantics = SemanticsOf.SAFE
-    )
-    @ActionLayout(
-            bookmarking = BookmarkPolicy.AS_ROOT
-    )
+    @Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<ExampleTaggableEntity> listAll() {
+    public List<ExampleTaggableEntity> listAllTaggableEntities() {
         return container.allInstances(ExampleTaggableEntity.class);
     }
 
-    //endregion
 
-    //region > create (action)
-    // //////////////////////////////////////
-    
     @MemberOrder(sequence = "2")
-    public ExampleTaggableEntity create(
-            final @ParameterLayout(named="Name") String name,
-            final @ParameterLayout(named="Brand") String brand,
-            final @ParameterLayout(named="Sector") String sector) {
+    public ExampleTaggableEntity createTaggableEntity(
+            final String name,
+            final String brand,
+            final String sector) {
         final ExampleTaggableEntity obj = container.newTransientInstance(ExampleTaggableEntity.class);
         obj.setName(name);
         obj.setBrand(brand);
@@ -55,14 +44,9 @@ public class ExampleTaggableEntityMenu {
         return obj;
     }
 
-    //endregion
-
-    //region > injected services
-    // //////////////////////////////////////
 
     @javax.inject.Inject 
     DomainObjectContainer container;
 
-    //endregion
 
 }

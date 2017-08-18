@@ -73,7 +73,7 @@ public class T_unclassify_IntegTest extends ClassificationModuleIntegTestAbstrac
 
         // given "Other bar (in Paris)", that has no classifications
         // given
-        OtherObjectWithAtPath otherBarInFrance = otherObjectMenu.listAll()
+        OtherObjectWithAtPath otherBarInFrance = otherObjectMenu.listAllOtherObjectsWithAtPath()
                 .stream()
                 .filter(otherObject -> otherObject.getName().equals("Other bar (in France)"))
                 .findFirst()

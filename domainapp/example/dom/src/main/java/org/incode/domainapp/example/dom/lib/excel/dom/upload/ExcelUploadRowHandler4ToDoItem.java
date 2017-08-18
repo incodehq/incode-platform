@@ -45,7 +45,7 @@ public class ExcelUploadRowHandler4ToDoItem implements ExcelFixtureRowHandler {
     @Override
     public List<Object> handleRow(final FixtureScript.ExecutionContext executionContext, final ExcelFixture excelFixture, final Object previousRow) {
         //final ExcelModuleDemoToDoItem toDoItem = wrapperFactory.wrap(toDoItems).newToDo(
-        final DemoToDoItem toDoItem = toDoItems.newToDo(
+        final DemoToDoItem toDoItem = toDoItems.newToDoItem(
                 description,
                 Category.Professional,
                 Subcategory.valueOf(subCategory),

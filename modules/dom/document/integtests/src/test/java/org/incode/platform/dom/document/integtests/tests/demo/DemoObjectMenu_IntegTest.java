@@ -32,7 +32,7 @@ public class DemoObjectMenu_IntegTest extends DocumentModuleIntegTestAbstract {
     @Test
     public void listAll() throws Exception {
 
-        final List<DemoObjectWithUrl> demoObjects = wrap(demoObjectMenu).listAll();
+        final List<DemoObjectWithUrl> demoObjects = wrap(demoObjectMenu).listAllDemoObjectsWithUrl();
         Assertions.assertThat(demoObjects.size()).isEqualTo(NUMBER);
 
         for (DemoObjectWithUrl demoObject : demoObjects) {

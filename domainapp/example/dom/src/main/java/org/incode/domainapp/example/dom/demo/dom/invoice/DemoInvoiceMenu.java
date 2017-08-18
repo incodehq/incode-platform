@@ -11,12 +11,15 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
+/**
+ * as used by DocFragment
+ */
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
         objectType = "exampleDemo.DemoInvoiceMenu"
 )
 @DomainServiceLayout(
-        named = "DocFragment Invoices",
+        named = "Demo Invoices",
         menuOrder = "10"
 )
 public class DemoInvoiceMenu {
@@ -25,7 +28,7 @@ public class DemoInvoiceMenu {
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<DemoInvoice> listAll() {
+    public List<DemoInvoice> listAllDemoInvoices() {
         return demoInvoiceRepository.listAll();
     }
 
