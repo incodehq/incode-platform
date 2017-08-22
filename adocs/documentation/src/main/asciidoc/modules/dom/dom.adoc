@@ -9,11 +9,11 @@ All of these modules define their own set of persistent entities and supporting 
 [cols="2a,3a,1a, 1a", options="header"]
 |===
 
-| Module
-| Description
-| Implements +
+^.>| Module
+^.>| Description
+^.>| Implements +
 (SPI)
-| Requires +
+^.>| Requires +
 (API)
 
 | xref:alias/dom-alias.adoc#[Alias]
@@ -37,7 +37,7 @@ A given domain entity can only be associated with one `Category` per `Taxonomy`,
 | Provides the ability to attach communication channel objects (postal address, email or phone/fax number) to arbitrary domain entities.
 There are _no_ requirements for those objects to implement any interfaces.
 | (none)
-| xref:../wkt/gmap3/gmap3.adoc#[gmap3 wicket component]
+| xref:../wkt/gmap3/gmap3.adoc#[gmap3] (optional)
 
 
 |xref:communications/dom-communications.adoc#[Communications]
@@ -73,7 +73,7 @@ xref:../document/dom-document.adoc#[Document subdomain]
 | xref:note/dom-note.adoc#[Note]
 | Provides the ability to attach `Note` objects to arbitrary domain entities.
 | (none)
-| xref:../wkt/fullcalendar2/fullcalendar2.adoc#[gmap3 wicket component]
+| xref:../wkt/fullcalendar2/fullcalendar2.adoc#[fullcalendar2] (optional)
 
 | xref:settings/dom-settings.adoc#[Settings]
 | Provides the ability to persist application- and user- configuration settings.

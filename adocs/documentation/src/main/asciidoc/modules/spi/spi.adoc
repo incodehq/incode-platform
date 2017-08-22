@@ -6,54 +6,50 @@
 SPI modules provide implementations of SPIs defined by the Apache Isis framework itself.
 As the table below shows, these are typically for cross-cutting concerns such as auditing.
 
-[cols="2a,3a,1a, 1a", options="header"]
+[cols="2a,3a,1a,1a", options="header"]
 |===
 
-| Module
-| Description
-| Implements +
+^.>| Module
+^.>| Description
+^.>| Implements +
 (SPI)
-| Requires +
-(API)
+^.>| 3rd party dependencies
 
 
 |xref:audit/spi-audit.adoc#[Audit]
-| Provides an implementation of Isis' `AuditerService` SPI, persisting records of changes (one record per changed property) using an `AuditEntry` entity.
+| Persists records of changes (one record per changed property) using an `AuditEntry` entity.
+| http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_persistence-layer-spi_AuditerService[AuditerService]
 | (none)
-| (none)
-
 
 |xref:command/spi-command.adoc#[Command]
-| Provides an implementation of Isis' `CommandService` SPI that enables action invocations (`Command`s) to be persisted as entities.
-This provides profiling and (in conjunction with the xref:audit/spi-audit.adoc#[Audit] module) enhanced auditing.
-| (none)
+| Persist action invocations and property edits as `CommandJdo` entities.
+
+This enables profiling and (in conjunction with the xref:audit/spi-audit.adoc#[Audit] module) enhanced auditing.
+| link:http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_application-layer-spi_CommandService[CommandService]
 | (none)
 
 
 |xref:publishmq/spi-publishmq.adoc#[PublishMQ]
-| Provides an implementation of Apache Isis' `PublishingService` SPI that submits an XML representation of a member interactions to an link:http://activemq.apache.org[ActiveMQ] queue.
+| Submits an XML representation of member interactions (action invocations and property edits) to an _Apache ActiveMQ_ queue.
 
-| (none)
-| (none)
-
+| link:http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_persistence-layer-spi_PublisherService[PublisherService]
+| link:http://activemq.apache.org[ActiveMQ]
 
 |xref:security/spi-security.adoc#[Security]
-| Provides the ability to manage users, roles, and permissions.
+| Provides the ability to manage users, roles, and permissions, by way of an _Apache Shiro_ realm.
 
 Users have roles, roles have permissions, and permissions are associated with application features (derived from the Apache Isis metamodel).
 
 Permissions themselves can either _allow_ or _veto_ the ability to _view_ or _change_ any application feature.
 
-| (none)
-| (none)
-
+| link:http://isis.apache.org/guides/ugsec/ugsec.html#_ugsec_configuring-isis-to-use-shiro[Authenticator & Authorizor] SPIs
+| link:http://shiro.apache.org[Apache Shiro]
 
 |xref:sessionlogger/spi-sessionlogger.adoc#[SessionLogger]
-| Provides an implementation of Isis' `SessionLoggingService` API that persists session entries representing users logging in or out of the application.
+| Persists session entries representing users logging in or out of the application.
 
+| link:http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_presentation-layer-spi_SessionLoggingService[SessionLoggingService]
 | (none)
-| (none)
-
 
 
 

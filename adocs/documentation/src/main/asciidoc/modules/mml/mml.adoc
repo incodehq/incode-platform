@@ -4,22 +4,22 @@
 :_imagesdir: images/
 
 Metamodel facet modules extend the semantics of the Apache Isis metamodel, for example allowing new naming conventions to be recognised or additional semantics inferred.
+This is typically done by installing link:http://isis.apache.org/guides/ugbtb/ugbtb.html#_modifying_the_prog_model[additional facet factory](s)
 
-
-[cols="2a,3a,1a, 1a", options="header"]
+[cols="2a,3a", options="header"]
 |===
 
-| Module
-| Description
-| Implements +
-(SPI)
-| Requires +
-(API)
+^.>| Module
+^.>| Description
 
 |xref:paraname8/mml-paraname8.adoc#[Paraname8]
-|
-| (none)
-| (none)
+|Infers the name of action parameters from the parameter name itself; that is, there is no need to annotate the parameter.
+
+[NOTE]
+====
+This facet requires JDK 1.8.
+====
+
 
 
 

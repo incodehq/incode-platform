@@ -3,7 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 
-This module (`isis-module-quartz`) provides a wrapper around the Quartz scheduler.
+This module (`isis-module-quartz`) provides a wrapper around the link:http://www.quartz-scheduler.org/[Quartz] scheduler.
 
 
 == How to configure/use

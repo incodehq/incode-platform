@@ -6,21 +6,18 @@
 Wicket component modules extend the functionality of Apache Isis' link:http://isis.apache.org/guides/ugvw/ugvw.html[Wicket viewer], providing additional components for maps, calendars and so on.
 
 
-[cols="2a,3a,1a, 1a", options="header"]
+[cols="2a,3a,1a", options="header"]
 |===
 
 | Module
 | Description
-| Implements +
 (SPI)
-| Requires +
-(API)
+| 3rd party dependencies
 
 
 |xref:excel/spi-excel.adoc#[Excel]
 | Allows a collection of entities to be downloaded as an Excel spreadsheet.
 
-| (none)
 |link:http://poi.apache.org[Apache POI].
 
 
@@ -28,7 +25,6 @@ Wicket component modules extend the functionality of Apache Isis' link:http://is
 |xref:fullcalendar2/wkt-fullcalendar2.adoc#[Fullcalendar2]
 | renders events for a collection of entities within a fullpage calendar.
 
-| (none)
 |link:https://github.com/42Lines/wicket-fullcalendar[fullcalendar] widget.
 
 
@@ -36,26 +32,22 @@ Wicket component modules extend the functionality of Apache Isis' link:http://is
 |xref:gmap3/wkt-gmap3.adoc#[Gmap3]
 | Allows an entity or collection of entities to be rendered within a map.
 
-| (none)
 | https://developers.google.com/maps/documentation/javascript/[gmap3] (google).
 
 
 |xref:pdfjs/wkt-pdfjs.adoc#[Pdfjs]
 | Allows a BLOB containing an PDF to be rendered as a panel.
 
-| (none)
 | https://mozilla.github.io/pdf.js[pdf.js] (Mozilla)
 
 
 |xref:summernote/wkt-summernote.adoc#[Summernote]
 | Provides a WYSIWYG editor for notes.
-| (none)
 |link:http://summernote.org[Summernote editor].
 
 
 |xref:wickedcharts/wkt-wickedcharts.adoc#[Wickedcharts]
 | Low-level charting library.
-| (none)
 | link:https://code.google.com/p/wicked-charts/[Wicked Charts]; link:http://www.highcharts.com/[Highcharts] JS.
 
 

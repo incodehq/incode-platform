@@ -24,8 +24,8 @@ The modules fall into six categories: xref:modules/lib/lib.adoc#[libraries], xre
 | xref:modules/lib/lib.adoc#[Libraries]
 |
 | xref:modules/dom/dom.adoc#[Generic Subdomains]
-| xref:modules/spi/spi.adoc#[SPI implementations]
-| xref:modules/wkt/wkt.adoc#[Wicket components]
+| xref:modules/spi/spi.adoc#[SPI Implementations]
+| xref:modules/wkt/wkt.adoc#[Wicket Components]
 | xref:modules/mml/mml.adoc#[Metamodel Facets]
 | xref:modules/ext/ext.adoc#[Extensions]
 

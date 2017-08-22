@@ -6,30 +6,43 @@
 Extension modules sit "outside" the Apache Isis framework, extending the functionality of the overall webapp.
 
 
-[cols="2a,3a,1a, 1a", options="header"]
+[cols="2a,3a,1a,1a,1a", options="header"]
 |===
 
-| Module
-| Description
-| Implements +
+^.>| Module
+^.>| Description
+^.>| Implements +
 (SPI)
-| Requires +
+^.>| Requires +
 (API)
+^.>| 3rd party +
+dependencies
+
 
 |xref:flywaydb/ext-flywaydb.adoc#[FlywayDB]
-|
-| (none)
-| (none)
+|Uses _FlywayDB_ to automatically apply any database migration scripts prior to the bootstrapping of the rest of the Apache Isis runtime.
 
-| xrefquartz/ext-quartz.adoc#[Quartz]
-|
+|link:http://www.datanucleus.org/products/accessplatform_4_1/jdo/pmf.html[Persistence +
+Manager +
+Factory] (DataNucleus).
+
 | (none)
+| link:https://flywaydb.org[FlywayDB]
+
+
+| xref:quartz/ext-quartz.adoc#[Quartz]
+| Provides a wrapper around the _Quartz_ scheduler.
+| none; configured in `web.xml`
 | (none)
+| link:http://www.quartz-scheduler.org/[Quartz]
 
 | xref:togglz/ext-togglz.adoc#[Togglz]
-|
-| (none)
-| (none)
+| Integrates with _Togglz_ to provide a feature toggle capability.
+
+
+| none; configured in `web.xml`
+| xref:../../dom/settings/dom-settings.adoc#[settings subdomain] (for feature persistence).
+| link:http://www.togglz.org[Togglz]
 
 
 

@@ -7,7 +7,7 @@ This module (`isis-module-togglz`) provides an integration with http://www.toggl
 
 Courtesy of Togglz, this integration has an embedded console and has support for integration testing through a custom JUnit rule.
 
-The module integrates both Togglz and uses Isis Addons' xref:../../dom/settings/dom-settings.adoc#[settings subdomain] for feature persistence.
+The module integrates both Togglz and uses the xref:../../dom/settings/dom-settings.adoc#[settings subdomain] for feature persistence.
 
 == Screenshots
 
