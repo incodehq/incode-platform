@@ -1,0 +1,30 @@
+[[_dom_settings]]
+= Settings Subdomain
+:_basedir: ../../../
+:_imagesdir: images/
+
+
+* `1.14.0` - released against Isis 1.14.0
+* `1.13.0` - released against Isis 1.13.0
+* `1.12.1` - released against Isis 1.12.1
+* `1.12.0` - (no release)
+* `1.11.0` - released against Isis 1.11.0
+* `1.10.0` - released against Isis 1.10.0
+* `1.9.0` - released against Isis 1.9.0
+* `1.8.0` - released against Isis 1.8.0. Services are automatically registered; their UI can be suppressed using subscriptions.
+* `1.7.0` - released against Isis 1.7.0
+* `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.settings`
+
+
+== Relationship to Apache Isis Core
+
+Apache Isis Core 1.6.0 included the `org.apache.isis.module:isis-module-settings:1.6.0` Maven artifact (and its submodules, `isis-module-settings-applib` and `isis-module-settings-impl-jdo`. This module is a direct copy of that code, with the following changes:
+
+* package names have been altered from `org.apache.isis` to `org.isisaddons.module.settings`
+* the `persistent-unit` (in the JDO manifest) has changed from `isis-module-settings` to
+ `org-isisaddons-module-settings-dom`
+* for simplicity, the applib and impl submodules have been combined into a single module
+
+Otherwise the functionality is identical; warts and all!
+
+Isis 1.7.0 no longer ships with `org.apache.isis.module:isis-module-settings`; instead use this addon module.

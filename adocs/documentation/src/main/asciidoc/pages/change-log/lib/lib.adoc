@@ -1,0 +1,22 @@
+[[lib]]
+= Libraries
+:_basedir: ../../../
+:_imagesdir: images/
+
+
+include::_lib_base.adoc[leveloffset=+1]
+include::_lib_docrendering-freemarker.adoc[leveloffset=+1]
+include::_lib_docrendering-stringinterpolator.adoc[leveloffset=+1]
+include::_lib_docrendering-xdocreport.adoc[leveloffset=+1]
+include::_lib_docx.adoc[leveloffset=+1]
+include::_lib_excel.adoc[leveloffset=+1]
+include::_lib_fakedata.adoc[leveloffset=+1]
+include::_lib_fixturesupport.adoc[leveloffset=+1]
+include::_lib_freemarker.adoc[leveloffset=+1]
+include::_lib_integtestsupport.adoc[leveloffset=+1]
+include::_lib_pdfbox.adoc[leveloffset=+1]
+include::_lib_poly.adoc[leveloffset=+1]
+include::_lib_servletapi.adoc[leveloffset=+1]
+include::_lib_stringinterpolator.adoc[leveloffset=+1]
+include::_lib_unittestsupport.adoc[leveloffset=+1]
+include::_lib_xdocreport.adoc[leveloffset=+1]

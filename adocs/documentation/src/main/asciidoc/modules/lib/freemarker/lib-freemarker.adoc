@@ -100,15 +100,15 @@ It has the following API:
 public class FreeMarkerService {
     public String render(
             String templateName,                        // <1>
-            long version,                               // <2>
-            String templateChars,                       // <3>
-            Object dataModel)                           // <4>
+            long version,
+            String templateChars,                       // <2>
+            Object dataModel)                           // <3>
         throws IOException, TemplateException;
 }
 ----
 <1> the name/version of the template, corresponding directly to FreeMarker's "templateName".
-<3> the `templateChars` is the actual template text itself
-<4> the `dataModel` is the object whose values are interpolated by Freemarker into the template.
+<2> the `templateChars` is the actual template text itself
+<3> the `dataModel` is the object whose values are interpolated by Freemarker into the template.
 This can either be a strongly typed DTO or just a simple `Map`.
 
 

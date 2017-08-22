@@ -1,6 +1,6 @@
 [[spi]]
 = SPI Implementations
-:_basedir: ./
+:_basedir: ../../
 :_imagesdir: images/
 
 SPI modules provide implementations of SPIs defined by the Apache Isis framework itself.

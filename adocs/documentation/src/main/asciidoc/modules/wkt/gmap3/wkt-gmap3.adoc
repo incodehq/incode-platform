@@ -94,7 +94,7 @@ This property will need to be annotated as `@javax.jdo.annotations.Persistent`.
 
 For example:
 
-[sourcemjava]
+[source,java]
 ----
 import org.isisaddons.wicket.gmap3.cpt.applib.Locatable;
 import org.isisaddons.wicket.gmap3.cpt.applib.Location;

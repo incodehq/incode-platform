@@ -1,0 +1,11 @@
+[[spi]]
+= SPI Implementations
+:_basedir: ../../../
+:_imagesdir: images/
+
+
+include::_spi_audit.adoc[leveloffset=+1]
+include::_spi_command.adoc[leveloffset=+1]
+include::_spi_publishmq.adoc[leveloffset=+1]
+include::_spi_security.adoc[leveloffset=+1]
+include::_spi_sessionlogger.adoc[leveloffset=+1]

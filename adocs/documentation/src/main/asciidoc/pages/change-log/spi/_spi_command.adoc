@@ -1,0 +1,37 @@
+[[_spi_command]]
+= Command SPI Implementation
+
+:_basedir: ../../../
+:_imagesdir: images/
+
+
+
+* `1.14.0` - released against Isis 1.14.0
+* `1.13.2` - released against Isis 1.13.0, fixes link:https://github.com/isisaddons/isis-module-command/issues/10[#10], link:https://github.com/isisaddons/isis-module-command/issues/12[#12], link:https://github.com/isisaddons/isis-module-command/issues/13[#13]
+* `1.13.1` - released against Isis 1.13.0, fixes link:https://github.com/isisaddons/isis-module-command/issues/9[#9]
+* `1.13.0` - released against Isis 1.13.0
+* `1.12.1` - released against Isis 1.12.1; fixes link:https://github.com/isisaddons/isis-module-command/issues/7[#7]
+* `1.12.0` - released against Isis 1.12.0
+* `1.11.0` - released against Isis 1.11.0
+* `1.10.0` - released against Isis 1.10.0
+* `1.9.0` - released against Isis 1.9.0; changed mapping of entities to use 'isiscommand' schema; using LONGVARCHAR for blobs;
+* `1.8.1` - released against Isis 1.8.0 (fixed).
+* `1.8.0` - released against Isis 1.8.0 (nb: this was a bad release, incorrectly referenced -SNAPSHOT version of Isis core).
+* `1.7.0` - released against Isis 1.7.0
+* `1.6.1` - https://github.com/isisaddons/isis-module-command/issues/1[#1] (don't store bookmarks beyond 2000 characters)
+* `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.command`
+
+
+== Relationship to Apache Isis Core
+
+Isis Core 1.6.0 included the `org.apache.isis.module:isis-module-command-jdo:1.6.0` Maven artifact. This module is a
+direct copy of that code, with the following changes:
+
+* package names have been altered from `org.apache.isis` to `org.isisaddons.module.command`
+* the `persistent-unit` (in the JDO manifest) has changed from `isis-module-command-jdo` to
+ `org-isisaddons-module-command-dom`
+* a copy-n-paste error in some of the JDO queries for `CommandJdo` have been fixed
+
+Otherwise the functionality is identical; warts and all!
+
+Isis 1.7.0 (and later) no longer ships with `org.apache.isis.module:isis-module-command-jdo`; use this addon module instead.

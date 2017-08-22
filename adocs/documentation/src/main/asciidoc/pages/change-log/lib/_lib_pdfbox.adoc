@@ -1,0 +1,8 @@
+[[_lib_pdfbox]]
+= PDFBox Library
+:_basedir: ../../../
+:_imagesdir: images/
+
+
+* `1.14.0` - released against Isis 1.14.0
+* `1.13.0` - released against Isis 1.13.0

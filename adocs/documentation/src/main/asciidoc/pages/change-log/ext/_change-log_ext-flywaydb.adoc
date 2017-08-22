@@ -1,9 +1,0 @@
-[[_change-log_ext-flywaydb]]
-= FlywayDB Extension
-:_basedir: ../../../
-:_imagesdir: images/
-
-
-* `1.14.0` - released against Isis 1.14.0
-* `1.13.1` - Extending to support flyway properties (eg `outOfOrder`, `baselineOnMigrate`), allow DN to recreate constraints, support multiple DBs; docs on repeatable migrations and other features
-* `1.13.0` - First release, against Apache Isis 1.13.0

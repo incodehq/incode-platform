@@ -81,7 +81,7 @@
             </button>
 
             <a class="navbar-brand" href="<%= (attr :_basedir) %>index.html">
-                <img alt="Brand" src="<%= (attr :_basedir) %>images/incode-logo-66x50.png"/>
+                <img alt="Brand" src="<%= (attr :_basedir) %>images/incode-logo-66x52.png"/>
             </a>
 
             <a class="navbar-brand" href="<%= (attr :_basedir) %>index.html">Incode Platform</a>
@@ -92,7 +92,7 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modules<span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modules<span class="caret"></span></a>
                     <ul class="dropdown-menu">
 
                         <li><a href="<%= (attr :_basedir) %>modules/lib/lib.html">Libraries</a></li>
@@ -104,50 +104,34 @@
 
                     </ul>
                 </li>
-
-                <!--
-                <li class="dropdown  hidden-sm hidden-md">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Downloads<span class="caret"></span></a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Starter App<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="<%= (attr :_basedir) %>downloads.html">Downloads</a></li>
-                        <li><a href="<%= (attr :_basedir) %>release-notes/release-notes.html">Release Notes</a></li>
-                        <li><a href="<%= (attr :_basedir) %>migration-notes/migration-notes.html">Migration Notes</a></li>
 
-                        <li role="separator" class="divider"></li>
-                        <li><a href="<%= (attr :_basedir) %>guides/ugfun/ugfun.html#_ugfun_getting-started_simpleapp-archetype">Maven archetype</a></li>
+                        <li><a href="<%= (attr :_basedir) %>starter-app/starter-app.html">Starter app</a></li>
 
-                        <li role="separator" class="divider"></li>
-                        <li><a href="https://issues.apache.org/jira/browse/ISIS">ASF JIRA</a></li>
-                        <li><a href="https://github.com/apache/isis">Github mirror</a></li>
                     </ul>
                 </li>
 
-                <li class="dropdown  hidden-sm">
+                <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="<%= (attr :_basedir) %>support.html">Mailing lists</a></li>
-                        <li><a href="https://lists.apache.org/list.html?users&#0064;isis.apache.org">Archives (ASF Pony mail)</a></li>
-                        <li><a href="http://isis.markmail.org/search/?q=">Archives (Markmail)</a></li>
-                        <li><a href="http://stackoverflow.com/questions/tagged/isis">Stack Overflow</a></li>
-                        <li><a href="guides/dg.html/dg.html">How to contribute</a></li>
-                        <li><a href="<%= (attr :_basedir) %>help.html">Other resources</a></li>
-                    </ul>
-                </li>
 
-                <li class="dropdown hidden-sm hidden-md">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@ASF<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="http://www.apache.org/">Apache Homepage</a></li>
-                        <li><a href="http://www.apache.org/licenses/">Licenses</a></li>
-                        <li><a href="http://www.apache.org/security/">Security</a></li>
-                        <li><a href="http://www.apache.org/foundation/sponsorship.html/">Sponsorship</a></li>
-                        <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+                        <li class="dropdown-header">Source code</li>
+                        <li><a href="https://github.com/incodehq/incode-platform">Github</a></li>
+                        <li><a href="<%= (attr :_basedir) %>pages/change-log/change-log.html">Change Log</a></li>
 
                         <li role="separator" class="divider"></li>
-                        <li><a href="https://whimsy.apache.org/board/minutes/Isis.html">PMC board minutes</a></li>
+                        <li class="dropdown-header">Guides</li>
+                        <li><a href="<%= (attr :_basedir) %>pages/contributors-guide.html">Contributors guide</a></li>
+                        <li><a href="<%= (attr :_basedir) %>pages/committers-guide.html">Committers guide</a></li>
+
+                        <li role="separator" class="divider"></li>
+                        <li><a href="<%= (attr :_basedir) %>pages/license.html">License</a></li>
+                        <li><a href="<%= (attr :_basedir) %>pages/thanks.html">Thanks</a></li>
+
                     </ul>
                 </li>
-                -->
 
             </ul>
 
@@ -216,9 +200,7 @@
     <div class="container">
         <div class="row">
         <p class="text-center small text-muted">
-              Copyright &copy; 2010~2017 The Apache&nbsp;Software&nbsp;Foundation, licensed under the Apache&nbsp;License,&nbsp;v2.0.
-              <br/>
-              Apache, the Apache feather logo, Apache&nbsp;Isis, and the Apache&nbsp;Isis project logo are all trademarks of The&nbsp;Apache&nbsp;Software&nbsp;Foundation.
+              Copyright &copy; 2012~date Dan Haywood, licensed under the Apache&nbsp;License,&nbsp;v2.0.
         </p>
         </div>
     </div>

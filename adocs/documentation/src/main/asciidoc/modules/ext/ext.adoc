@@ -1,6 +1,6 @@
 [[ext]]
 = Extensions
-:_basedir: ./
+:_basedir: ../../
 :_imagesdir: images/
 
 Extension modules sit "outside" the Apache Isis framework, extending the functionality of the overall webapp.

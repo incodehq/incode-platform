@@ -1,0 +1,71 @@
+[[_spi_]]
+= Audit SPI Implementation
+:_basedir: ../../../
+:_imagesdir: images/
+
+
+* `1.14.1` - released against Isis 1.14.0, fixes https://github.com/isisaddons/isis-module-audit/issues/5[#5] and https://github.com/isisaddons/isis-module-audit/issues/6[#6].
+* `1.14.0` - released against Isis 1.14.0
+* `1.13.0` - updated for Isis 1.13.0, implementing the new `AuditerService` SPI rather than the now deprecated `AuditingService3` SPI.
+* `1.12.1` - released against Isis 1.12.1, providing 'Metadata' fieldset, also using lombok and mixins internally
+* `1.12.0` - released against Isis 1.12.0
+* `1.11.0` - released against Isis 1.11.0
+* `1.10.0` - released against Isis 1.10.0
+* `1.9.0` - released against Isis 1.9.0; changed mapped of entities to 'isisaudit' schema; updated to use AppManifest
+* `1.8.2` - released against Isis 1.8.0; closes <a href="https://github.com/isisaddons/isis-module-audit/issues/1">#1</a>
+* `1.8.1` - released against Isis 1.8.0 (fixed).
+* `1.8.0` - released against Isis 1.8.0 (nb: this was a bad release, incorrectly referenced -SNAPSHOT version of Isis core).
+* `1.7.0` - released against Isis 1.7.0
+* `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.audit`
+
+
+== Data Migration
+
+The format of the `AuditEntry` table has changed from `1.12.x` to `1.13.x`, incorporating a new `sequence` column
+(which is also part of the primary key).
+
+The following script updates the table (SQL Server syntax):
+
+[source,sql]
+----
+alter table isisaudit.AuditEntry
+  add "sequence" int
+go
+
+update isisaudit.AuditEntry
+   set "sequence" = 0
+ where "sequence" is null
+go
+
+alter table isisaudit.AuditEntry
+  alter column "sequence" not null
+go
+
+drop index AuditEntry_ak
+  on isisaudit.AuditEntry
+go
+
+create index AuditEntry_ak
+  on isisaudit.AuditEntry
+(
+   transactionId ASC,
+   "sequence"    ASC,
+   target        ASC,
+   propertyId    ASC
+)
+go
+----
+
+== Relationship to Apache Isis Core
+
+Apache Isis Core 1.6.0 included the `org.apache.isis.module:isis-module-audit-jdo:1.6.0` Maven artifact.
+This module is a direct copy of that code, with the following changes:
+
+* package names have been altered from `org.apache.isis` to `org.isisaddons.module.audit`
+* the `persistent-unit` (in the JDO manifest) has changed from `isis-module-audit-jdo` to
+ `org-isisaddons-module-audit-dom`
+
+Otherwise the functionality is identical.
+
+Apache Isis 1.7.0 (and later) no longer ships the `org.apache.isis.module:isis-module-audit-jdo` module; use this addon module instead.
+

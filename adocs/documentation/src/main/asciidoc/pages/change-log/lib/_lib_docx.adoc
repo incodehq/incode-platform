@@ -1,0 +1,16 @@
+[[_lib_docx]]
+= Docx (MS Word) Library
+:_basedir: ../../../
+:_imagesdir: images/
+
+
+* `1.14.0` - released against Isis 1.14.0
+* `1.13.0` - released against Isis 1.13.0
+* `1.12.0` - released against Isis 1.12.0
+* `1.11.0` - released against Isis 1.11.0
+* `1.10.0` - released against Isis 1.10.0
+* `1.9.0` - released against Isis 1.9.0
+* `1.8.1` - released against Isis 1.8.0, support for generate PDF (fixed).
+* `1.8.0` - released against Isis 1.8.0, support for generate PDF (nb: this was a bad release, incorrectly referenced -SNAPSHOT version of Isis core).
+* `1.7.0` - released against Isis 1.7.0
+* `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.docx`

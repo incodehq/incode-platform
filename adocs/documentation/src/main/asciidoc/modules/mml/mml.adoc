@@ -1,6 +1,6 @@
 [[mml]]
 = Metamodel Facets
-:_basedir: ./
+:_basedir: ../../
 :_imagesdir: images/
 
 Metamodel facet modules extend the semantics of the Apache Isis metamodel, for example allowing new naming conventions to be recognised or additional semantics inferred.

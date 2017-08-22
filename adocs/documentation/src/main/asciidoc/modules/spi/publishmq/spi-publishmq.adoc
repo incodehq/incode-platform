@@ -87,22 +87,22 @@ The example app defines the following Camel route (link:fixture/routing/src/main
 ----
 <camelContext xmlns="http://camel.apache.org/schema/spring">
   <route id="updateFakeSoapServiceRoute">
-    <from uri="activemq-broker:queue:memberInteractionsQueue"/>                 <!-- 1 -->
+    <from uri="activemq-broker:queue:memberInteractionsQueue"/>                 <!--1-->
     <unmarshal>
-      <jaxb contextPath="org.apache.isis.schema.ixn.v1" prettyPrint="true"/>    <!-- 2 -->
+      <jaxb contextPath="org.apache.isis.schema.ixn.v1" prettyPrint="true"/>    <!--2-->
     </unmarshal>
-    <camel:process ref="addExchangeHeaders"/>                                   <!-- 3 -->
+    <camel:process ref="addExchangeHeaders"/>                                   <!--3-->
     <camel:choice>
-      <camel:when>                                                              <!-- 4 -->
-        <camel:simple>                                                          <!-- 5 -->
+      <camel:when>                                                              <!--4-->
+        <camel:simple>                                                          <!--5-->
           ${header.ixn[execution$memberIdentifier]} ==
           'org.isisaddons.module.publishmq.fixture.dom.PublishMqDemoObject#updateName()'
         </camel:simple>
         <log message="updateName() received... "/>
-        <camel:process ref="attachDomCanonicalDtoUsingRestfulObjects"/>         <!-- 6 -->
-        <camel:process ref="postToFakeExternalSoapService"/>                    <!-- 7 -->
-        <log message="internalId: ${header.externalSystemInternalId}"/>         <!-- 8 -->
-        <camel:to uri="stream:out"/>                                            <!-- 9 -->
+        <camel:process ref="attachDomCanonicalDtoUsingRestfulObjects"/>         <!--6-->
+        <camel:process ref="postToFakeExternalSoapService"/>                    <!--7-->
+        <log message="internalId: ${header.externalSystemInternalId}"/>         <!--8-->
+        <camel:to uri="stream:out"/>                                            <!--9-->
       </camel:when>
       <camel:when>
         ...

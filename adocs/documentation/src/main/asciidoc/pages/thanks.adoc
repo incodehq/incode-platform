@@ -1,0 +1,10 @@
+[[thanks]]
+= Thanks
+:_basedir: ../
+:_imagesdir: images/
+
+
+== Icons
+
+The icons are provided by https://icons8.com/[Icons8].
+

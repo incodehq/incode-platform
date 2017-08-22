@@ -18,7 +18,7 @@ In other words (although Flyway as a tool supports it), this integration does _n
 
 
 [[__ext-flywaydb_what-happens-during-bootstrapping]]
-=== What happens during bootstrapping
+== What happens during bootstrapping
 :link-v1: link:webapp/src/main/resources/db/migration/V1__schema-simple.sql
 :link-v2: link:webapp/src/main/resources/db/migration/V2__table-simple_SimpleObject.sql
 

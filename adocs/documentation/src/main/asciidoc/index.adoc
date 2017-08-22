@@ -2,32 +2,31 @@
 = Incode Platform
 :_basedir: ./
 :_imagesdir: images/
+:notoc: true
 
 
-The Incode Platform provides a number of modules for use with the link:http://isis.apache.org[Apache Isis] framework.
-You can use these modules either "out of the box", or as a starting point to modify and adapt to your own requirements.
-Most modules are independent of all others.
+pass:[<br/>]
 
-[NOTE]
-====
-The platform combines the modules previously available as part of link:http://isisaddons.org[Isis Addons] and the link:http://catalog.incode.org[Incode Catalog].
-Whereas previously these modules each resided in their own git repo and were released separately, the modules in the platform all reside in a single git repo and are released together.
-Nevertheless, you can still pick-n-choose the modules as you require.
-====
-
-The modules fall into six categories: xref:modules/lib/lib.adoc#[libraries], xref:modules/dom/dom.adoc#[generic subdomains], xref:modules/spi/spi.adoc#[SPI implementations], xref:modules/wkt/wkt.adoc#[wicket components], xref:modules/ext/ext.adoc#[extensions] and xref:modules/mml/mml.adoc#[metamodel facets].
+The Incode Platform provides a number of _modules_ for use with the link:http://isis.apache.org[Apache Isis] framework.
+The platform also provides a _"starter app"_ which can be used as a quickly set up your own pre-configured applications.
 
 
-[cols="1, 1a,1a,1a,1a,1a,1a", options="header,", frame="none", grid="none"]
+[[modules]]
+== Modules
+
+Pick-n-mix the modules you need "out of the box", or fork the repo and use the source code as a starting point to adapt to your own requirements.
+Most modules are independent of others; see each for full details.
+
+[cols="^1a,^1a,^1a,^1a,^1a,^1a,^1a", options="header,footer", frame="all", grid="none"]
 |===
 
-| xref:modules/lib/lib.adoc#[Libraries]
-|
-| xref:modules/dom/dom.adoc#[Generic Subdomains]
-| xref:modules/spi/spi.adoc#[SPI Implementations]
-| xref:modules/wkt/wkt.adoc#[Wicket Components]
-| xref:modules/mml/mml.adoc#[Metamodel Facets]
-| xref:modules/ext/ext.adoc#[Extensions]
+2.+^.>| xref:modules/lib/lib.adoc#[_Libraries_]
+^.>| xref:modules/dom/dom.adoc#[_Generic Subdomains_]
+^.>| xref:modules/spi/spi.adoc#[_SPI +
+Implementations_]
+^.>| xref:modules/wkt/wkt.adoc#[_Wicket Components_]
+^.>| xref:modules/mml/mml.adoc#[_Metamodel Facets_]
+^.>| xref:modules/ext/ext.adoc#[_Extensions_]
 
 
 |
@@ -115,13 +114,10 @@ xref:modules/wkt/summernote/wkt-summernote.adoc#[Summernote]
 
 xref:modules/wkt/wickedcharts/wkt-wickedcharts.adoc#[Wickedcharts]
 
-|
+| xref:modules/mml/paraname8/mml-paraname8.adoc#[Paraname8]
 
-xref:modules/mml/paraname8/mml-paraname8.adoc#[Paraname8]
 
-|
-
-xref:modules/ext/flywaydb/ext-flywaydb.adoc#[FlywayDB]
+| xref:modules/ext/flywaydb/ext-flywaydb.adoc#[FlywayDB]
 
 xref:modules/ext/quartz/ext-quartz.adoc#[Quartz]
 
@@ -132,4 +128,10 @@ xref:modules/ext/togglz/ext-togglz.adoc#[Togglz]
 |===
 
 
+[[starter-app]]
+== Starter App
 
+The _starter app_ is intended to be used as a starting point for new apps, being preconfigured with the dependencies for all of the modules available in the Incode Platform.
+It also includes an example submodule (easily excluded) which demonstrates the usage of these modules.
+
+TODO: to document

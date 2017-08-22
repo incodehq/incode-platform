@@ -1,6 +1,6 @@
 [[dom]]
 = Generic Subdomains
-:_basedir: ./
+:_basedir: ../../
 :_imagesdir: images/
 
 Generic subdomain modules provide business functionality reusable in many different contexts, such as communications, documents and application/user settings.
@@ -17,12 +17,8 @@ All of these modules define their own set of persistent entities and supporting 
 (API)
 
 | xref:alias/dom-alias.adoc#[Alias]
-| Provides the ability to attach `Alias` objects to arbitrary domain entities, where "alias" means an alternative identifier for the object.
-Most commonly this is the identifier within some external system (in DDD terms: in some other bounded context).
+| Provides the ability to attach `Alias` objects to arbitrary domain entities, where "alias" means an alternative identifier for the entity.
 
-[NOTE]
-====
-====
 
 | (none)
 | (none)

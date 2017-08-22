@@ -1,6 +1,6 @@
 [[Libraries]]
 = Libraries
-:_basedir: ./
+:_basedir: ../../
 :_imagesdir: images/
 
 Most libraries mostly act as wrappers around some lower-level technology libraries such as link:http://freemarker.org/[Freemarker] or link:https://pdfbox.apache.org/[PdfBox].

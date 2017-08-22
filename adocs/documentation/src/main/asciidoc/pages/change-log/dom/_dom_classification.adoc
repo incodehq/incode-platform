@@ -1,0 +1,9 @@
+[[_dom_classification]]
+= Classification Subdomain
+:_basedir: ../../../
+:_imagesdir: images/
+
+
+
+* `1.13.1` - released against Isis 1.13.1, closes link:https://github.com/incodehq/incode-module-classification/issues/1[#1].
+* `1.13.0` - released against Isis 1.13.0

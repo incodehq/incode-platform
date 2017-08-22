@@ -1,6 +1,0 @@
-[[_change-log_wkt-pdfjs]]
-= Pdf.js Wicket Component
-:_basedir: ../../../
-:_imagesdir: images/
-
-(First released as part of the incode platform).

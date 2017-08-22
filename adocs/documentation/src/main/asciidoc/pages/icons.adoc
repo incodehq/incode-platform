@@ -1,8 +1,0 @@
-[[icons]]
-= Icons
-:_basedir: ../
-:_imagesdir: images/
-
-
-The icons are provided by https://icons8.com/[Icons8].
-
