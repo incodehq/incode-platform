@@ -3,7 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 
-This module (`isis-module-commchannel`) provides the ability to attach communication channel objects (postal address, email or phone/fax number) to arbitrary domain objects.
+This module (`isis-module-commchannel`) provides the ability to attach communication channel objects (postal address, email or phone/fax number) to arbitrary domain entities.
 There are _no_ requirements for those objects to implement any interfaces.
 A subclass of `CommunicationChannelOwnerLink` abstract class is required (about 50 lines of boilerplate), acting as the "glue" between the communication channel and its associated "owner" domain object.
 

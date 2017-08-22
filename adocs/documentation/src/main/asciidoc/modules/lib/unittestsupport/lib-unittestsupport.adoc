@@ -3,7 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 
-This module (`incode-module-unittestsupport`)provides a set of testing utilities to support unit testing.
+This module (`incode-module-unittestsupport`) provides a set of testing utilities to support unit testing.
 
 
 

@@ -4,7 +4,7 @@
 :_imagesdir: images/
 
 
-This module (`isis-module-tags`) provides the ability to add multiple tags (or labels) to any entity.
+This module (`isis-module-tags`) provides the ability to add multiple tags (or labels) to any domain entity.
 
 For example, an `Email` entity could be associated with a `priority` tag of 'urgent', 'normal' or 'low', and could also have a `category` tag of 'work', 'family', 'friends'.
 

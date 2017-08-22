@@ -5,6 +5,7 @@
 
 
 This module (`isis-module-stringinterpolator`) provides a mechanism to interpolate string templates with either Isis system properties or values obtained from a domain object.
+It uses link:https://github.com/jkuhnert/ognl[OGNL] under the covers.
 
 
 One use case for this service is in building URLs based on an object's state, parameterized by environment (prod/test/dev etc).

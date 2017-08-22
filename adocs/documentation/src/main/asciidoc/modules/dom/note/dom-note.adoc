@@ -3,7 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 
-This module (`incode-module-note`) provides the ability to attach `Note` objects to arbitrary domain objects.
+This module (`incode-module-note`) provides the ability to attach `Note` objects to arbitrary domain entities.
 There are _no_ requirements for those domain objects implement any interfaces.
 A subclass of the `NotableLink` abstract class is required (about 50 lines of boilerplate), acting as the "glue" between the note and the "notable" domain object.
 

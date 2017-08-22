@@ -1,0 +1,63 @@
+[[spi]]
+= SPI Implementations
+:_basedir: ./
+:_imagesdir: images/
+
+SPI modules provide implementations of SPIs defined by the Apache Isis framework itself.
+As the table below shows, these are typically for cross-cutting concerns such as auditing.
+
+[cols="2a,3a,1a, 1a", options="header"]
+|===
+
+| Module
+| Description
+| Implements +
+(SPI)
+| Requires +
+(API)
+
+
+|xref:audit/spi-audit.adoc#[Audit]
+| Provides an implementation of Isis' `AuditerService` SPI, persisting records of changes (one record per changed property) using an `AuditEntry` entity.
+| (none)
+| (none)
+
+
+|xref:command/spi-command.adoc#[Command]
+| Provides an implementation of Isis' `CommandService` SPI that enables action invocations (`Command`s) to be persisted as entities.
+This provides profiling and (in conjunction with the xref:audit/spi-audit.adoc#[Audit] module) enhanced auditing.
+| (none)
+| (none)
+
+
+|xref:publishmq/spi-publishmq.adoc#[PublishMQ]
+| Provides an implementation of Apache Isis' `PublishingService` SPI that submits an XML representation of a member interactions to an link:http://activemq.apache.org[ActiveMQ] queue.
+
+| (none)
+| (none)
+
+
+|xref:security/spi-security.adoc#[Security]
+| Provides the ability to manage users, roles, and permissions.
+
+Users have roles, roles have permissions, and permissions are associated with application features (derived from the Apache Isis metamodel).
+
+Permissions themselves can either _allow_ or _veto_ the ability to _view_ or _change_ any application feature.
+
+| (none)
+| (none)
+
+
+|xref:sessionlogger/spi-sessionlogger.adoc#[SessionLogger]
+| Provides an implementation of Isis' `SessionLoggingService` API that persists session entries representing users logging in or out of the application.
+
+| (none)
+| (none)
+
+
+
+
+|===
+
+
+

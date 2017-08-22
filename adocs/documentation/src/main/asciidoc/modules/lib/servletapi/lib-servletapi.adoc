@@ -6,8 +6,12 @@
 
 This module (`isis-module-servletapi`) provides access to various elements of the Servlet API, namely the `ServletContext`, the `HttpServletRequest` and the `HttpServletResponse`.
 
-
 For each of these APIs a corresponding "provider" domain service exists; for example `ServletContextProvider` service provides access to the `ServletContext`.
+
+[NOTE]
+====
+This module is only available for Wicket viewer, not the REST API.
+====
 
 
 

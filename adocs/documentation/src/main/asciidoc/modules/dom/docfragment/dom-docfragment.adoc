@@ -3,7 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 
-This module (`incode-module-docfragment`) is a simple wrapper around the xref:../../lib/freemarker/lib-freemarker.adoc#[freemarker] module to interpolate fragments of text with respect to a domain object.
+This module (`incode-module-docfragment`) is a simple wrapper around the xref:../../lib/freemarker/lib-freemarker.adoc#[Freemarker library] module to interpolate fragments of text with respect to a domain object.
 
 
 

@@ -3,7 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 
-This module (`incode-module-docrendering-stringinterpolator`) provides an implementation of the xref../../dom/document/dom-document.adoc#[Document subdomain] module's `Renderer` interface using the xref:../../lib/stringinterpolator/lib-stringinterpolator.adoc#[stringinterpolator library] module.
+This module (`incode-module-docrendering-stringinterpolator`) provides an implementation of the xref:../../dom/document/dom-document.adoc#[Document subdomain] module's `Renderer` interface using the xref:../../lib/stringinterpolator/lib-stringinterpolator.adoc#[stringinterpolator library] module.
 
 
 == API

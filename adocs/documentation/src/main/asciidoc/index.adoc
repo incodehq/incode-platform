@@ -1,37 +1,135 @@
+[[index]]
 = Incode Platform
 :_basedir: ./
 :_imagesdir: images/
 
 
+The Incode Platform provides a number of modules for use with the link:http://isis.apache.org[Apache Isis] framework.
+You can use these modules either "out of the box", or as a starting point to modify and adapt to your own requirements.
+Most modules are independent of all others.
 
-== Legal Stuff
+[NOTE]
+====
+The platform combines the modules previously available as part of link:http://isisaddons.org[Isis Addons] and the link:http://catalog.incode.org[Incode Catalog].
+Whereas previously these modules each resided in their own git repo and were released separately, the modules in the platform all reside in a single git repo and are released together.
+Nevertheless, you can still pick-n-choose the modules as you require.
+====
 
-=== License
-
-[source]
-----
-Copyright 2016 Dan Haywood
-
-Licensed under the Apache License, Version 2.0 (the
-"License"); you may not use this file except in compliance
-with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
-----
-
-=== Dependencies
-
-Each module indicates its own dependencies.
+The modules fall into six categories: xref:modules/lib/lib.adoc#[libraries], xref:modules/dom/dom.adoc#[generic subdomains], xref:modules/spi/spi.adoc#[SPI implementations], xref:modules/wkt/wkt.adoc#[wicket components], xref:modules/ext/ext.adoc#[extensions] and xref:modules/mml/mml.adoc#[metamodel facets].
 
 
-=== Icons
+[cols="1, 1a,1a,1a,1a,1a,1a", options="header,", frame="none", grid="none"]
+|===
 
-The icons are provided by https://icons8.com/[Icons8].
+| xref:modules/lib/lib.adoc#[Libraries]
+|
+| xref:modules/dom/dom.adoc#[Generic Subdomains]
+| xref:modules/spi/spi.adoc#[SPI implementations]
+| xref:modules/wkt/wkt.adoc#[Wicket components]
+| xref:modules/mml/mml.adoc#[Metamodel Facets]
+| xref:modules/ext/ext.adoc#[Extensions]
+
+
+|
+
+xref:modules/lib/base/lib-base.adoc#[Base]
+
+xref:modules/lib/docrendering-freemarker/lib-docrendering-freemarker.adoc#[Freemarker DocRendering]
+
+xref:modules/lib/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.adoc#[Stringinterpolator DoRendering]
+
+xref:modules/lib/docrendering-xdocreport/lib-docrendering-xdocreport.adoc#[Xdocreport DocRendering]
+
+xref:modules/lib/docx/lib-docx.adoc#[Docx (MS Word)]
+
+xref:modules/lib/excel/lib-excel.adoc#[Excel]
+
+xref:modules/lib/fakedata/lib-fakedata.adoc#[Fake Data]
+
+xref:modules/lib/fixturesupport/lib-fixturesupport.adoc#[Fixture Support]
+
+xref:modules/lib/freemarker/lib-freemarker.adoc#[FreeMarker]
+
+|
+
+xref:modules/lib/integtestsupport/lib-integtestsupport.adoc#[Integ Testing Support]
+
+xref:modules/lib/pdfbox/lib-pdfbox.adoc#[PDFBox]
+
+xref:modules/lib/poly/lib-poly.adoc#[Polymorphic Associations]
+
+xref:modules/lib/servletapi/lib-servletapi.adoc#[Servlet API]
+
+xref:modules/lib/stringinterpolator/lib-stringinterpolator.adoc#[StringInterpolator (OGNL)]
+
+xref:modules/lib/unittestsupport/lib-unittestsupport.adoc#[Unit Testing Support]
+
+xref:modules/lib/xdocreport/lib-xdocreport.adoc#[XDocReport]
+
+|
+
+xref:modules/dom/alias/dom-alias.adoc#[Alias]
+
+xref:modules/dom/classification/dom-classification.adoc#[Classification]
+
+xref:modules/dom/commchannel/dom-commchannel.adoc#[Comm Channel]
+
+xref:modules/dom/communications/dom-communications.adoc#[Communications]
+
+xref:modules/dom/country/dom-country.adoc#[Country]
+
+xref:modules/dom/docfragment/dom-docfragment.adoc#[Doc Fragment]
+
+xref:modules/dom/document/dom-document.adoc#[Document]
+
+xref:modules/dom/note/dom-note.adoc#[Note]
+
+xref:modules/dom/settings/dom-settings.adoc#[Settings]
+
+xref:modules/dom/tags/dom-tags.adoc#[Tags]
+
+
+|
+
+xref:modules/spi/audit/spi-audit.adoc#[Audit]
+
+xref:modules/spi/command/spi-command.adoc#[Command]
+
+xref:modules/spi/publishmq/spi-publishmq.adoc#[Publishmq]
+
+xref:modules/spi/security/spi-security.adoc#[Security]
+
+xref:modules/spi/sessionlogger/spi-sessionlogger.adoc#[Sessionlogger]
+
+|
+
+xref:modules/wkt/excel/wkt-excel.adoc#[Excel]
+
+xref:modules/wkt/fullcalendar2/wkt-fullcalendar2.adoc#[Fullcalendar2]
+
+xref:modules/wkt/gmap3/wkt-gmap3.adoc#[Gmap3]
+
+xref:modules/wkt/pdfjs/wkt-pdfjs.adoc#[Pdfjs]
+
+xref:modules/wkt/summernote/wkt-summernote.adoc#[Summernote]
+
+xref:modules/wkt/wickedcharts/wkt-wickedcharts.adoc#[Wickedcharts]
+
+|
+
+xref:modules/mml/paraname8/mml-paraname8.adoc#[Paraname8]
+
+|
+
+xref:modules/ext/flywaydb/ext-flywaydb.adoc#[FlywayDB]
+
+xref:modules/ext/quartz/ext-quartz.adoc#[Quartz]
+
+xref:modules/ext/togglz/ext-togglz.adoc#[Togglz]
+
+
+
+|===
+
+
 

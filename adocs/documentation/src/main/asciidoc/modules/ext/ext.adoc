@@ -1,0 +1,39 @@
+[[ext]]
+= Extensions
+:_basedir: ./
+:_imagesdir: images/
+
+Extension modules sit "outside" the Apache Isis framework, extending the functionality of the overall webapp.
+
+
+[cols="2a,3a,1a, 1a", options="header"]
+|===
+
+| Module
+| Description
+| Implements +
+(SPI)
+| Requires +
+(API)
+
+|xref:flywaydb/ext-flywaydb.adoc#[FlywayDB]
+|
+| (none)
+| (none)
+
+| xrefquartz/ext-quartz.adoc#[Quartz]
+|
+| (none)
+| (none)
+
+| xref:togglz/ext-togglz.adoc#[Togglz]
+|
+| (none)
+| (none)
+
+
+
+|===
+
+
+

@@ -8,13 +8,13 @@ This module (`incode-module-document`) provides the ability to create and attach
 
 ``Document``s can be rendered using a number of technologies:
 
-* link:http://freemarker.org/[Apache Freemarker] (using the xref:../../lib/docrendering-freemarker/lib-docrendering-freemarker.adoc#[Freemarker docrendering library] module)
+* link:http://freemarker.org/[Apache Freemarker] (using the xref:../../lib/docrendering-freemarker/lib-docrendering-freemarker.adoc#[Freemarker DocRendering library] module)
 
-* xref:../../lib/stringinterpolator/lib-stringinterpolator.adoc#[stringinterpolator] module to interpolate and download a URL (using the xref:../../lib/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.adoc#[StringInterpolator docrendering] module). +
+* xref:../../lib/stringinterpolator/lib-stringinterpolator.adoc#[stringinterpolator] module to interpolate and download a URL (using the xref:../../lib/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.adoc#[StringInterpolator DocRendering] module). +
 +
 This can be used to integrate with pre-existing reporting servers (for example Microsoft's link:https://msdn.microsoft.com/en-us/library/ms159106.aspx[SQL Server Reporting Services]).
 
-* link:https://github.com/opensagres/xdocreport[XDocReport] (using the xref:../../lib/docrendering-xdocreport/docrendering-xdocreport.adoc#[XDocReport docrendering] module).
+* link:https://github.com/opensagres/xdocreport[XDocReport] (using the xref:../../lib/docrendering-xdocreport/docrendering-xdocreport.adoc#[XDocReport DocRendering] module).
 
 The rendering mechanism is pluggable; additional implementations can be plugged in as required.
 

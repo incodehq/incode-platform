@@ -3,7 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 
-This module (`isis-module-freemarker`) provides a wrapper around Freemarker templating engine.
+This module (`isis-module-freemarker`) provides a wrapper around the link:http://freemarker.org[Freemarker] templating engine.
 
 
 
@@ -70,7 +70,7 @@ Freemarker's design is that templates are identified by a template name and a ve
 Freemarker's `TemplateLoader` SPI is used to lookup the template text and to check whether that template text is stale; Freemarker automatically caches any template text and only reads in new text if a "lastModified" property has changed.
 The sequence is:
 
-* calls `TemplateLoader#findTemplateSource(templateName) +
+* calls `TemplateLoader#findTemplateSource(templateName)` +
 +
 to look up an object that can act as the source of the template text (can return a reader).
 For example, this templateName might just be a file name.

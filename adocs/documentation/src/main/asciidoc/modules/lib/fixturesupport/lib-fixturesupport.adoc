@@ -1,5 +1,5 @@
 [[lib-fixturesupport]]
-= FixtureSupport Library
+= Fixture Support Library
 :_basedir: ../../../
 :_imagesdir: images/
 

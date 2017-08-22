@@ -3,7 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 
-This module (`incode-module-classification`) provides the ability to classify any (arbitrary) domain object as belonging to a pre-defined `Category` within a particular `Taxonomy`.
+This module (`incode-module-classification`) provides the ability to classify any (arbitrary) domain entity as belonging to a pre-defined `Category` within a particular `Taxonomy`.
 A given domain object can only be associated with one `Category` per `Taxonomy`, but each `Category` can optionally have child (sub-) categories.
 
 

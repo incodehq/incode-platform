@@ -3,12 +3,12 @@
 :_basedir: ../../../
 :_imagesdir: images/
 
-This module (`isis-module-command`) provides an implementation of Isis' `CommandService` API that enables action invocations (`Command`s) to be persisted using Isis' own (JDO) objectstore.
+This module (`isis-module-command`) provides an implementation of Apache Isis' `CommandService` SPI that enables action invocations (`Command`s) to be persisted using Apache Isis' own (JDO) objectstore.
 This supports two main use cases:
 
 * profiling: determine which actions are invoked most frequently, what is the elapsed time for each command)
 
-* enhanced auditing: the command represents the "cause" of a change to the system, while the related link:http://isisaddons.org[Audit module] captures the "effect" of the change.
+* enhanced auditing: the command represents the "cause" of a change to the system, while the related xref:../audit/spi-audit.adoc#[Audit module] captures the "effect" of the change.
 The two are correlated together using a unique transaction Id (a GUID).
 
 In addition, this module also provides an implementation of the `BackgroundCommandService` API.

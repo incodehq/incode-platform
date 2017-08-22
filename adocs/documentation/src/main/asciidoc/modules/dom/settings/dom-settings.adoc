@@ -4,7 +4,7 @@
 :_imagesdir: images/
 
 
-This module (`isis-module-settings`) provides two services provide the ability to persist configuration settings using Isis' own JDO Objectstore.
+This module (`isis-module-settings`) provides the ability to persist application- and user- configuration settings.
 
 With `ApplicationSettingsService` these settings have global scope; for the `UserSettingsService` the settings are scoped per user.
 

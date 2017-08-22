@@ -1,0 +1,105 @@
+[[Libraries]]
+= Libraries
+:_basedir: ./
+:_imagesdir: images/
+
+Most libraries mostly act as wrappers around some lower-level technology libraries such as link:http://freemarker.org/[Freemarker] or link:https://pdfbox.apache.org/[PdfBox].
+The three _docrendering_ libraries act as a "glue" between the xref:../dom/document/dom-document.adoc#[Document subdomain] and these lower-level libraries.
+
+[cols="2a,3a,1a, 1a", options="header"]
+|===
+
+| Module
+| Description
+| Implements +
+(SPI)
+| Requires +
+(API)
+
+| xref:base/lib-base.adoc#[Base]
+| Base library of utility classes.
+| (none)
+| (none)
+
+| xref:docrendering-freemarker/lib-docrendering-freemarker.adoc#[Freemarker Document Rendering Library]
+| Implements Document module's `Renderer` interface using Freemarker.
+| xref:../dom/document/dom-document.adoc#[Document subdomain]
+| xref:freemarker/lib-freemarker.adoc#[Freemarker library]
+
+| xref:docrendering-stringinterpolator/lib-docrendering-stringinterpolator.adoc#[Stringinterpolator Document Rendering Library]
+| Implements Document module's `Renderer` interface using StringInterpolator (ognl).
+| xref:../../dom/document/dom-document.adoc#[Document subdomain]
+| xref:stringinterpolator/lib-stringinterpolator.adoc#[StringInterpolator library]
+
+| xref:docrendering-xdocreport/lib-docrendering-xdocreport.adoc#[Xdocreport Document Rendering Library]
+| Implements Document module's `Renderer` interface using Xdocreport (ognl).
+| xref:../../dom/document/dom-document.adoc#[Document subdomain]
+| xref:xdocreport/lib-xdocreport.adoc#[Xdocreport library]
+
+| xref:docx/lib-docx.adoc#[Docx (MS Word) Library]
+| Provides a mail-merge capability of input data into an MS Word `.docx` templates, with the generated output document either Word `.docx` or Acrobat `.pdf`.
+| (none)
+| (none)
+
+| xref:excel/lib-excel.adoc#[Excel Library]
+| Provides a domain service so that a collection of (view model) object scan be exported to an Excel spreadsheet, or recreated by importing from Excel.
+| (none)
+| (none)
+
+| xref:fakedata/lib-fakedata.adoc#[Fake Data Library]
+| Provides a domain service that generates fake random data.
+The random values generated can then be used within unit and integration tests.
+| (none)
+| (none)
+
+| xref:fixturesupport/lib-fixturesupport.adoc#[Fixture Support Library]
+| Provides support for writing fixtures.
+| (none)
+| (none)
+
+| xref:freemarker/lib-freemarker.adoc#[FreeMarker Library]
+| Provides a wrapper around the link:http://freemarker.org[Freemarker] templating engine
+| (none)
+| (none)
+
+| xref:integtestsupport/lib-integtestsupport.adoc#[Integration Testing Support Library]
+| Provides a set of testing utilities to support integration testing
+| (none)
+| (none)
+
+| xref:pdfbox/lib-pdfbox.adoc#[PDFBox Library]
+| Provides a wrapper around link:https://pdfbox.apache.org[Apache PDFBox].
+| (none)
+| (none)
+
+| xref:poly/lib-poly.adoc#[Polymorphic Associations Library]
+| Provides a set of helpers to support the definition of polymorphic associations; that is: relationships from one persistent entity to another by means of a (Java) interface.
+| (none)
+| (none)
+
+| xref:servletapi/lib-servletapi.adoc#[Servlet API Library]
+| Provides access to various elements of the Servlet API, namely the `ServletContext`, the `HttpServletRequest` and the `HttpServletResponse`.
+
+Note that this module is only available through the Wicket viewer, not the REST API.
+| (none)
+| (none)
+
+| xref:stringinterpolator/lib-stringinterpolator.adoc#[String Interpolator (OGNL) Library]
+|Provides a mechanism to interpolate string templates with either Isis system properties or values obtained from a domain object, using link:https://github.com/jkuhnert/ognl[OGNL] library.
+| (none)
+| (none)
+
+| xref:unittestsupport/lib-unittestsupport.adoc#[Unit Testing Support Library]
+| Provides a set of testing utilities to support unit testing.
+| (none)
+| (none)
+
+| xref:xdocreport/lib-xdocreport.adoc#[XDocReport Library]
+| Provides a wrapper around link:https://github.com/opensagres/xdocreport[XDocReport], an API to merge XML documents into MS Office (`.docx`) or OpenOffice (`.odt`) files, optionally converting into another format (notably PDF).
+| (none)
+| (none)
+
+|===
+
+
+

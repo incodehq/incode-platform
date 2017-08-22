@@ -6,6 +6,15 @@
 
 This module (`isis-module-poly`) provides a set of helpers to support the definition of polymorphic associations; that is: relationships from one persistent entity to another by means of a (Java) interface.
 
+[NOTE]
+====
+Note that an library has has been superceded by a design pattern that does not require any supporting classes.
+Rather than emit events on the event bus, the design pattern suggests defining an SPI interface to be implemented.
+
+Modules that use the SPI pattern (as opposed to this module) include xref:../dom/alias/dom-alias.adoc#[Alias subdomain] and  xref:../dom/classification/dom-classification.adoc#[Classification subdomain].
+====
+
+
 
 == Rationale
 

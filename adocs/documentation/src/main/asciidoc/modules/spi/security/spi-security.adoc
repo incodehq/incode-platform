@@ -4,8 +4,8 @@
 :_imagesdir: images/
 
 
-This module (`isis-module-security`) provides the ability to manage *user*s, *role*s, and *permission*s.
-Users have roles, roles have permissions, and permissions are associated with *application feature*s.
+This module (`isis-module-security`) provides the ability to manage users, roles, and permissions.
+Users have roles, roles have permissions, and permissions are associated with application features.
 These features are derived from the Isis metamodel and can be scoped at either a _package_, _class_ or individual _class member_.
 Permissions themselves can either _allow_ or _veto_ the ability to _view_ or _change_ any application feature.
 
