@@ -1,6 +1,6 @@
 [[committers-guide]]
 = Committers Guide
-:_basedir: ../
+:_basedir: ../../
 :_imagesdir: images/
 
 

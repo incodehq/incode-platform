@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>incode-domainapp-example-app</artifactId>
-    <name>Incode Platform DomainApp Example: App (manifest)</name>
+    <name>Incode Platform DomainApp Ex: App (manifest)</name>
 
     <properties>
         <maven-checkstyle-plugin.configLocation>${project.parent.basedir}/_checks/checkstyle.xml</maven-checkstyle-plugin.configLocation>

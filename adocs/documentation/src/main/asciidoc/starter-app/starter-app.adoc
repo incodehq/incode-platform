@@ -7,12 +7,31 @@
 TODO: to update
 
 
+to omit `example` module (from command line):
+
+[source,bash]
+----
+mvn clean install -pl \!example/embeddedcamel,\!example/dom,\!example/canonical,\!example/app,\!example -o
+----
+
+
+or just comment out/remove:
+
+[source,xml]
+----
+<module>example</module>
+----
+
+
 
 The purpose of ...
 
 == Structure
 
 == Example Modules
+
+
+
 
 
 == How to run the Demo App

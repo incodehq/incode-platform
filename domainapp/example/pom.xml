@@ -19,12 +19,6 @@
         <dependencies>
 
             <dependency>
-                <groupId>org.incode</groupId>
-                <artifactId>incode-domainapp-example-publishmq-externalsystemadapter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>incode-domainapp-example-publishmq-canonical</artifactId>
                 <version>${project.version}</version>
@@ -49,12 +43,6 @@
             </dependency>
 
             <dependency>
-                <groupId>org.incode</groupId>
-                <artifactId>incode-domainapp-example-publishmq-embeddedcamel_to_externalsystem</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-web</artifactId>
                 <version>${spring.version}</version>
@@ -68,8 +56,6 @@
         <module>app</module>
         <module>dom</module>
         <module>embeddedcamel</module>
-        <module>embeddedcamel_to_externalsystem</module>
-        <module>externalsystemadapter</module>
     </modules>
 
 </project>

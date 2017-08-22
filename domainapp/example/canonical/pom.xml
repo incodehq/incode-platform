@@ -10,7 +10,7 @@
 
     <artifactId>incode-domainapp-example-publishmq-canonical</artifactId>
 
-    <name>Incode Platform DomainApp Example: PublishMQ Canonical DTOs</name>
+    <name>Incode Platform DomainApp Ex: PublishMQ Canonical</name>
     <description>
         Canonical DTOs for the example DOM
     </description>

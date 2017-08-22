@@ -9,8 +9,9 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
+
+import org.incode.domainapp.example.dom.ext.togglz.dom.TogglzDemoFeature;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
@@ -31,12 +32,17 @@ public class DemoObjectMenu {
     }
 
 
-
     @MemberOrder(sequence = "2")
-    public DemoObject createDemoObject(
-            @ParameterLayout(named = "Name")
-            final String name) {
+    public DemoObject createDemoObject(final String name) {
         return repository.create(name);
+    }
+
+    @MemberOrder(sequence = "3")
+    public List<DemoObject> findDemoObjectByName(final String name) {
+        return repository.findByName(name);
+    }
+    public boolean hideFindDemoObjectByName() {
+        return ! TogglzDemoFeature.findByName.isActive();
     }
 
 

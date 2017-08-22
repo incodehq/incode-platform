@@ -46,12 +46,15 @@ import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.note.dom.NoteModule;
 
 import domainapp.appdefn.services.DomainAppAppDefnServicesSubmodule;
+import domainapp.modules.simple.SimpleModule;
 
 public class DomainAppAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = Builder.forModules(
 
             DomainAppAppDefnServicesSubmodule.class,
+
+            SimpleModule.class,
 
             ExampleAppSubmodule.class,
             ExampleDomSubmodule.class,

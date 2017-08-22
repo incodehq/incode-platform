@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>incode-domainapp-example-publishmq-embeddedcamel</artifactId>
-    <name>Incode Platform DomainApp Example: PublishMQ Embedded Camel</name>
+    <name>Incode Platform DomainApp Ex: PublishMQ Embed'd Caml</name>
 
     <description>
         Contains routing and supporting beans for Camel

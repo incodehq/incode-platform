@@ -122,13 +122,6 @@
             <artifactId>isis-module-publishmq-dom-camel</artifactId>
         </dependency>
 
-        <!-- required by spi-security module -->
-        <dependency>
-            <groupId>org.mindrot</groupId>
-            <artifactId>jbcrypt</artifactId>
-            <version>${jbcrypt.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>org.apache.isis.mavendeps</groupId>
             <artifactId>isis-mavendeps-webapp</artifactId>
@@ -296,36 +289,6 @@
 
                 </dependencies>
             </dependencyManagement>
-        </profile>
-
-        <profile>
-            <id>externalsystemadapter-fakeserver</id>
-            <activation>
-                <property>
-                    <name>!skip.externalsystemadapter-fakeserver</name>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.incode</groupId>
-                    <artifactId>incode-domainapp-example-publishmq-externalsystemadapter-fakeserver</artifactId>
-                    <version>1.15.0-SNAPSHOT</version>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>org.apache.cxf</groupId>
-                            <artifactId>cxf-rt-transports-http-jetty</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>org.apache.cxf</groupId>
-                            <artifactId>cxf-rt-frontend-jaxws</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>org.apache.cxf</groupId>
-                            <artifactId>cxf-rt-transports-http</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-            </dependencies>
         </profile>
 
         <profile>

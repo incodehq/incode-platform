@@ -54,6 +54,20 @@
 
             <dependency>
                 <groupId>org.incode</groupId>
+                <artifactId>incode-domainapp-module-simple</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode</groupId>
+                <artifactId>incode-domainapp-module-simple</artifactId>
+                <scope>test</scope>
+                <type>test-jar</type>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode</groupId>
                 <artifactId>incode-domainapp-webapp</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -107,12 +121,17 @@
     </dependencyManagement>
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <modules>
         <module>appdefn</module>
         <module>example</module>
+        <module>module-simple</module>
         <module>webapp</module>
     </modules>
 
