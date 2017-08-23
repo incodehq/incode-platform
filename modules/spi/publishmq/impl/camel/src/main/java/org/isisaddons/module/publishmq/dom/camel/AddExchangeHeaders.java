@@ -67,6 +67,7 @@ public class AddExchangeHeaders implements Processor {
                 .put("execution$id", interactionDto.getTransactionId() + "." + executionDto.getSequence())
                 .put("execution$user", executionDto.getUser())
                 .put("execution$memberIdentifier", executionDto.getMemberIdentifier())
+                .put("execution$logicalMemberIdentifier", executionDto.getLogicalMemberIdentifier())
                 .put("execution$metrics$timings$startedAt", timings.getStartedAt())
                 .build();
 

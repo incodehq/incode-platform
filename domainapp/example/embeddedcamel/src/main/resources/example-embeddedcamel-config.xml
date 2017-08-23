@@ -19,7 +19,7 @@
                 <camel:when>
                     <camel:simple>${header.ixn[execution$logicalMemberIdentifier]} == 'simple.SimpleObject#updateName()'</camel:simple>
 
-                    <log message="action invocation: updateName() received... "/>
+                    <log message="updateName() received... "/>
 
                     <camel:process ref="attachCanonicalDtoUsingRestfulObjects"/>
 
@@ -27,9 +27,9 @@
                     <camel:to uri="stream:out"/>
                 </camel:when>
                 <camel:when>
-                    <camel:simple>${header.ixn[execution$logicalMemberIdentifier]} == 'SimpleObject#notes()'</camel:simple>
+                    <camel:simple>${header.ixn[execution$logicalMemberIdentifier]} == 'simple.SimpleObject#notes'</camel:simple>
 
-                    <log message="property edit: notes() received... "/>
+                    <log message="notes received... "/>
 
                     <camel:process ref="attachCanonicalDtoUsingRestfulObjects"/>
 
@@ -50,7 +50,7 @@
           class="org.isisaddons.module.publishmq.dom.camel.AddExchangeHeaders"/>
 
     <bean id="attachCanonicalDtoUsingRestfulObjects"
-          class="org.incode.domainapp.example.embeddedcamel.AttachSimpleObjectDto"
+          class="domainapp.example.embeddedcamel.processor.AttachSimpleObjectDto"
           init-method="init">
         <!-- see propertyPlaceholderConfigurer-config.xml -->
         <property name="base" value="${restful.base}"/>

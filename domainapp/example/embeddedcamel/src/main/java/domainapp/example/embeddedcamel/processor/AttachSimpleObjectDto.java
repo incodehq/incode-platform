@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.embeddedcamel;
+package domainapp.example.embeddedcamel.processor;
 
 import java.net.URI;
 

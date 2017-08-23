@@ -43,6 +43,7 @@ import org.incode.module.docrendering.xdocreport.dom.XDocReportDocRenderingModul
 import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.note.dom.NoteModule;
 
+import domainapp.example.embeddedcamel.EmbeddedCamelModule;
 import domainapp.modules.simple.SimpleModule;
 
 public class DomainAppAppManifest extends AppManifestAbstract {
@@ -52,6 +53,10 @@ public class DomainAppAppManifest extends AppManifestAbstract {
             DomainAppAppDefnModule.class,
 
             SimpleModule.class,
+
+            // Comment out to exclude example modules that set up embedded camel: START
+            EmbeddedCamelModule.class,
+            // Comment out to exclude example modules that set up embedded camel: END
 
             // extensions
             TogglzModule.class,

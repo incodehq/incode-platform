@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.spi.publishmq.dom.spiimpl;
+package domainapp.example.embeddedcamel.restful.mapping;
 
 import java.util.List;
 

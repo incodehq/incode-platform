@@ -63,7 +63,7 @@ public class StatusMessageClient {
      * Should be called once all properties have been injected.
      */
     public void init() {
-        this.uriBuilder = UriBuilder.fromUri(base + "services/StatusMessageService/actions/log/invoke");
+        this.uriBuilder = UriBuilder.fromUri(base + "services/isispublishmq.StatusMessageService/actions/log/invoke");
     }
 
     private void ensureInitialized() {
