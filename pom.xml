@@ -29,6 +29,11 @@
             </dependency>
             <dependency>
                 <groupId>org.incode</groupId>
+                <artifactId>incode-domainapp-module-simple</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode</groupId>
                 <artifactId>incode-domainapp-example-dom</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -51,6 +56,7 @@
             </activation>
             <modules>
                 <module>domainapp/example/dom</module>
+                <module>domainapp/module-simple</module>
 
                 <module>modules/dom/alias/impl</module>
                 <module>modules/dom/classification/impl</module>

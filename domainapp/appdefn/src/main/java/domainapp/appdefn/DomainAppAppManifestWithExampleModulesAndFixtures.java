@@ -5,14 +5,14 @@ import java.util.Map;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import org.incode.domainapp.example.app.fixtures.RecreateDemoFixtures;
+
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
-import domainapp.modules.simple.fixture.scenario.SimpleObject_createUpTo10;
 
-public class DomainAppAppManifestWithFixtures extends DomainAppAppManifest {
+public class DomainAppAppManifestWithExampleModulesAndFixtures extends DomainAppAppManifestWithExampleModules {
 
-    @Override
-    protected void overrideFixtures(final List<Class<? extends FixtureScript>> fixtureScripts) {
-        fixtureScripts.add(SimpleObject_createUpTo10.class);
+    @Override protected void overrideFixtures(final List<Class<? extends FixtureScript>> fixtureScripts) {
+        fixtureScripts.add(RecreateDemoFixtures.class);
         fixtureScripts.add(SeedSuperAdministratorRoleAndSvenSuperUser.class);
     }
 

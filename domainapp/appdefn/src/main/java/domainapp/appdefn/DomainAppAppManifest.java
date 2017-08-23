@@ -56,9 +56,6 @@ public class DomainAppAppManifest extends AppManifestAbstract {
 
             SimpleModule.class,
 
-            ExampleAppSubmodule.class,
-            ExampleDomSubmodule.class,
-
             // extensions
             TogglzModule.class,
 
