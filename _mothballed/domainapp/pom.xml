@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.incode</groupId>
+        <artifactId>incode-parent</artifactId>
+        <version>1.15.0-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+
+    <artifactId>incode-domainapp</artifactId>
+    <version>1.15.0-SNAPSHOT</version>
+
+    <name>Incode Platform DomainApp</name>
+    <description>Domain application leveraging the Incode Platform.</description>
+
+    <properties>
+
+        <isis.version>1.15.0</isis.version>
+        <incode-platform.version>1.15.0-SNAPSHOT</incode-platform.version>
+
+        <spring.version>4.1.9.RELEASE</spring.version>
+        <jetty.version>9.4.3.v20170317</jetty.version>
+        <activemq-web.version>5.14.3</activemq-web.version>
+        <camel.version>2.16.3</camel.version>
+
+        <!-- override properties inherited from incode-parent -->
+        <activemq.version>${activemq-web.version}</activemq.version>
+        <ognl.version>3.0.9</ognl.version>
+
+        <xbean-spring.version>4.3</xbean-spring.version>
+        <jackson.version>1.9.12</jackson.version>
+
+        <snakeyaml.version>1.13</snakeyaml.version>
+
+        <cxf.version>3.1.5</cxf.version>
+        <cxf.xjc-utils.version>3.0.3</cxf.xjc-utils.version>
+        <jaxb-impl.version>2.2.11</jaxb-impl.version>
+        <jquery-selectors.version>0.2.4</jquery-selectors.version>
+
+    </properties>
+
+    <packaging>pom</packaging>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.incode</groupId>
+                <artifactId>incode-domainapp-appdefn</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode</groupId>
+                <artifactId>incode-domainapp-module-base</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode</groupId>
+                <artifactId>incode-domainapp-module-simple</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode</groupId>
+                <artifactId>incode-domainapp-module-simple</artifactId>
+                <scope>test</scope>
+                <type>test-jar</type>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode</groupId>
+                <artifactId>incode-domainapp-webapp</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-domainapp-example-appdefn</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-domainapp-example-canonical</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-domainapp-example-dom</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-domainapp-example-embeddedcamel</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- 3rd party dependencies, as used by externalsystemadapter -->
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-frontend-jaxws</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http-jetty</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf.xjc-utils</groupId>
+                <artifactId>cxf-xjc-runtime</artifactId>
+                <version>${cxf.xjc-utils.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <modules>
+        <module>appdefn</module>
+        <module>example/appdefn</module>
+        <module>example/dom</module>
+        <module>example/embeddedcamel</module>
+        <module>example/canonical</module>
+        <module>example/embeddedcamel_to_externalsystem</module>
+        <module>example/externalsystemadapter</module>
+        <module>module-base</module>
+        <module>module-simple</module>
+        <module>webapp</module>
+    </modules>
+
+</project>

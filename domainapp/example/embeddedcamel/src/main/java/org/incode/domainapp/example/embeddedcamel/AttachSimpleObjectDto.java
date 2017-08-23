@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.publishmq.embeddedcamel.fixture.routing;
+package org.incode.domainapp.example.embeddedcamel;
 
 import java.net.URI;
 
@@ -21,21 +21,21 @@ import org.apache.isis.schema.ixn.v1.InteractionDto;
 import org.isisaddons.module.publishmq.dom.statusclient.StatusMessage;
 import org.isisaddons.module.publishmq.dom.statusclient.StatusMessageClient;
 
-import org.incode.domainapp.example.publishmq.canonical.DemoObjectDto;
+import org.incode.domainapp.example.canonical.SimpleObjectDto;
 
-public class AttachDemoObjectDto implements Processor {
+public class AttachSimpleObjectDto implements Processor {
 
     public static final MediaType MEDIA_TYPE = new MediaType("application", "xml",
             ImmutableMap.of(
                     "profile", "urn:org.restfulobjects:repr-types/object",
-                    "x-ro-domain-type", DemoObjectDto.class.getName()));
+                    "x-ro-domain-type", SimpleObjectDto.class.getName()));
 
     private final ClientBuilder clientBuilder;
     private UriBuilder objectInstanceUriBuilder;
 
     private StatusMessageClient statusMessageClient;
 
-    public AttachDemoObjectDto() {
+    public AttachSimpleObjectDto() {
         clientBuilder = ClientBuilder.newBuilder();
     }
 
@@ -68,9 +68,9 @@ public class AttachDemoObjectDto implements Processor {
         final String objectType = interactionDto.getExecution().getTarget().getType();
         final String objectIdentifier = interactionDto.getExecution().getTarget().getId();
 
-        if(!"PUBLISH_MQ_DEMO_OBJECT".equals(objectType)) {
+        if(!"simple.SimpleObject".equals(objectType)) {
             throw new IllegalArgumentException(String.format(
-                    "Expected target's object type to be 'PUBLISH_MQ_DEMO_OBJECT', instead was '%s'", objectType));
+                    "Expected target's object type to be 'simple.SimpleObject', instead was '%s'", objectType));
         }
 
         final String transactionId = interactionDto.getTransactionId();
@@ -106,8 +106,8 @@ public class AttachDemoObjectDto implements Processor {
 
             statusMessageClient.log(StatusMessage.builder(transactionId, "Retrieve object").withUri(uri));
 
-            final DemoObjectDto entity = response.readEntity(DemoObjectDto.class);
-            inMessage.setHeader(DemoObjectDto.class.getName(), entity);
+            final SimpleObjectDto entity = response.readEntity(SimpleObjectDto.class);
+            inMessage.setHeader(SimpleObjectDto.class.getName(), entity);
 
         } finally {
             closeQuietly(client);

@@ -43,14 +43,13 @@ import org.incode.module.docrendering.xdocreport.dom.XDocReportDocRenderingModul
 import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.note.dom.NoteModule;
 
-import domainapp.appdefn.services.DomainAppAppDefnServicesSubmodule;
 import domainapp.modules.simple.SimpleModule;
 
 public class DomainAppAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = Builder.forModules(
 
-            DomainAppAppDefnServicesSubmodule.class,
+            DomainAppAppDefnModule.class,
 
             SimpleModule.class,
 

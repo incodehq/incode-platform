@@ -97,12 +97,19 @@
             <artifactId>incode-domainapp-appdefn</artifactId>
         </dependency>
 
-        <!-- Comment out to exclude example modules: START -->
+        <!-- Comment out to exclude example modules demonstrating platform usage: START -->
         <dependency>
             <groupId>org.incode</groupId>
             <artifactId>incode-domainapp-example-appdefn</artifactId>
         </dependency>
-        <!-- Comment out to exclude example modules: END -->
+        <!-- Comment out to exclude example modules demonstrating platform usage: END -->
+
+        <!-- Comment out to exclude example modules that set up embedded camel: START -->
+        <dependency>
+            <groupId>org.incode</groupId>
+            <artifactId>incode-domainapp-example-embeddedcamel</artifactId>
+        </dependency>
+        <!-- Comment out to exclude example modules that set up embedded camel: END -->
 
         <dependency>
             <groupId>org.isisaddons.module.quartz</groupId>

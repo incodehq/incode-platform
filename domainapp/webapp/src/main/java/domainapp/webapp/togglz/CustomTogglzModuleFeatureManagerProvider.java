@@ -2,7 +2,7 @@ package domainapp.webapp.togglz;
 
 import org.isisaddons.module.togglz.glue.spi.TogglzModuleFeatureManagerProviderAbstract;
 
-import org.incode.domainapp.example.dom.ext.togglz.dom.TogglzDemoFeature;
+import domainapp.modules.base.togglz.TogglzFeature;
 
 /**
  * Registered in META-INF/services, as per http://www.togglz.org/documentation/advanced-config.html
@@ -10,7 +10,7 @@ import org.incode.domainapp.example.dom.ext.togglz.dom.TogglzDemoFeature;
 public class CustomTogglzModuleFeatureManagerProvider extends TogglzModuleFeatureManagerProviderAbstract {
 
     public CustomTogglzModuleFeatureManagerProvider() {
-        super(TogglzDemoFeature.class);
+        super(TogglzFeature.class);
     }
 
 }

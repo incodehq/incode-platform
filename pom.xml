@@ -20,34 +20,6 @@
         Aggregator POM for all of the Incode Platform (modules and supporting tests, docs)
     </description>
 
-<!--
-TODO: don't think these declarations are required...?
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.incode</groupId>
-                <artifactId>incode-domainapp-example-publishmq-canonical</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode</groupId>
-                <artifactId>incode-domainapp-module-simple</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode</groupId>
-                <artifactId>incode-domainapp-example-dom</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode</groupId>
-                <artifactId>incode-domainapp-example-publishmq-embeddedcamel</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
--->
-
     <profiles>
 
         <profile>

@@ -99,7 +99,7 @@
 
         <dependency>
             <groupId>org.incode</groupId>
-            <artifactId>incode-domainapp-example-publishmq-embeddedcamel</artifactId>
+            <artifactId>incode-domainapp-example-embeddedcamel</artifactId>
         </dependency>
 
         <dependency>

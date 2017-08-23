@@ -5,12 +5,13 @@
 
     <parent>
         <groupId>org.incode</groupId>
-        <artifactId>incode-domainapp-example</artifactId>
+        <artifactId>incode-domainapp</artifactId>
         <version>1.15.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>incode-domainapp-example-appdefn</artifactId>
-    <name>Incode Platform DomainApp Ex: App Definition</name>
+    <name>Incode Platform DomainApp Ex Usage: App Definition</name>
 
     <description>Extends the domainapp application (manifest) with example module</description>
 
@@ -138,7 +139,7 @@
             <dependencies>
                 <dependency>
                     <groupId>org.incode</groupId>
-                    <artifactId>incode-domainapp-example-publishmq-canonical</artifactId>
+                    <artifactId>incode-domainapp-example-canonical</artifactId>
                 </dependency>
                 <dependency>
                     <groupId>org.isisaddons.module.publishmq</groupId>

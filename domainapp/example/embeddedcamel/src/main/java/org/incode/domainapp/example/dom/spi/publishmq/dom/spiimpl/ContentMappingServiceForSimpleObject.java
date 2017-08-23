@@ -12,14 +12,14 @@ import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.schema.common.v1.OidDto;
 
-import org.incode.domainapp.example.publishmq.canonical.DemoObjectDto;
-import org.incode.domainapp.example.dom.spi.publishmq.dom.demo.PublishMqDemoObject;
+import org.incode.domainapp.example.canonical.SimpleObjectDto;
 
+import domainapp.modules.simple.dom.SimpleObject;
 
 @DomainService(
         nature = NatureOfService.DOMAIN
 )
-public class PublishMqDemoContentMappingService implements ContentMappingService {
+public class ContentMappingServiceForSimpleObject implements ContentMappingService {
 
     @Programmatic
     @Override
@@ -27,14 +27,14 @@ public class PublishMqDemoContentMappingService implements ContentMappingService
             final Object object,
             final List<MediaType> acceptableMediaTypes) {
 
-        if(object instanceof PublishMqDemoObject) {
-            final PublishMqDemoObject demoObject = (PublishMqDemoObject) object;
+        if(object instanceof SimpleObject) {
+            final SimpleObject simpleObject = (SimpleObject) object;
 
             final Bookmark bookmark = bookmarkService.bookmarkFor(object);
 
-            final DemoObjectDto dto = new DemoObjectDto();
-            dto.setName(demoObject.getName());
-            dto.setDescription(demoObject.getDescription());
+            final SimpleObjectDto dto = new SimpleObjectDto();
+            dto.setName(simpleObject.getName());
+            dto.setNotes(simpleObject.getNotes());
 
             final OidDto oidDto = bookmark.toOidDto();
 
@@ -47,6 +47,6 @@ public class PublishMqDemoContentMappingService implements ContentMappingService
     }
 
     @javax.inject.Inject
-    private BookmarkService bookmarkService;
+    BookmarkService bookmarkService;
 
 }

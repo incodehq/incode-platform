@@ -126,6 +126,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.incode</groupId>
+            <artifactId>incode-domainapp-module-base</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.incode.module.fixturesupport</groupId>
             <artifactId>incode-module-fixturesupport-dom</artifactId>
         </dependency>

@@ -35,11 +35,8 @@
 
         <snakeyaml.version>1.13</snakeyaml.version>
 
-        <cxf.version>3.1.5</cxf.version>
-        <cxf.xjc-utils.version>3.0.3</cxf.xjc-utils.version>
         <jaxb-impl.version>2.2.11</jaxb-impl.version>
         <jquery-selectors.version>0.2.4</jquery-selectors.version>
-
     </properties>
 
     <packaging>pom</packaging>
@@ -49,6 +46,12 @@
             <dependency>
                 <groupId>org.incode</groupId>
                 <artifactId>incode-domainapp-appdefn</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode</groupId>
+                <artifactId>incode-domainapp-module-base</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -73,31 +76,27 @@
             </dependency>
 
             <dependency>
-                <groupId>org.incode</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>incode-domainapp-example-appdefn</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- 3rd party dependencies, as used by externalsystemadapter -->
             <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-frontend-jaxws</artifactId>
-                <version>${cxf.version}</version>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-domainapp-example-canonical</artifactId>
+                <version>${project.version}</version>
             </dependency>
+
             <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-transports-http</artifactId>
-                <version>${cxf.version}</version>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-domainapp-example-dom</artifactId>
+                <version>${project.version}</version>
             </dependency>
+
             <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-transports-http-jetty</artifactId>
-                <version>${cxf.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.cxf.xjc-utils</groupId>
-                <artifactId>cxf-xjc-runtime</artifactId>
-                <version>${cxf.xjc-utils.version}</version>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-domainapp-example-embeddedcamel</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
         </dependencies>
@@ -112,10 +111,21 @@
     </dependencies>
 
     <modules>
-        <module>appdefn</module>
-        <module>example</module>
+        <module>module-base</module>
         <module>module-simple</module>
+        <module>appdefn</module>
         <module>webapp</module>
+
+        <!-- Comment out to exclude example modules that set up embedded camel: START -->
+        <module>example/canonical</module>
+        <module>example/embeddedcamel</module>
+        <!-- Comment out to exclude example modules that set up embedded camel: END -->
+
+        <!-- Comment out to exclude example modules demonstrating platform usage: START -->
+        <module>example/dom</module>
+        <module>example/appdefn</module>
+        <!-- Comment out to exclude example modules demonstrating platform usage: END -->
+
     </modules>
 
 </project>
