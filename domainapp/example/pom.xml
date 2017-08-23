@@ -26,7 +26,7 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-domainapp-example-app</artifactId>
+                <artifactId>incode-domainapp-example-appdefn</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

@@ -9,7 +9,7 @@
         <version>1.15.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>incode-domainapp-example-app</artifactId>
+    <artifactId>incode-domainapp-example-appdefn</artifactId>
     <name>Incode Platform DomainApp Ex: App (manifest)</name>
 
     <properties>
