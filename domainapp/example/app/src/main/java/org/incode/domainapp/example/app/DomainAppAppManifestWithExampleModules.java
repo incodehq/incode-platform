@@ -1,9 +1,10 @@
-package domainapp.appdefn;
+package org.incode.domainapp.example.app;
 
 import org.apache.isis.applib.AppManifestAbstract;
 
-import org.incode.domainapp.example.app.ExampleAppSubmodule;
 import org.incode.domainapp.example.dom.ExampleDomSubmodule;
+
+import domainapp.appdefn.DomainAppAppManifest;
 
 public class DomainAppAppManifestWithExampleModules extends AppManifestAbstract {
 

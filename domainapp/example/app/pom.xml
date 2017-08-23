@@ -55,7 +55,7 @@
 
         <dependency>
 			<groupId>org.incode</groupId>
-			<artifactId>incode-domainapp-example-dom</artifactId>
+			<artifactId>incode-domainapp-appdefn</artifactId>
         </dependency>
 
         <dependency>

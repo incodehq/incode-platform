@@ -30,8 +30,6 @@ import org.isisaddons.wicket.pdfjs.cpt.PdfjsCptModule;
 import org.isisaddons.wicket.summernote.cpt.ui.SummernoteUiModule;
 import org.isisaddons.wicket.wickedcharts.cpt.ui.WickedChartsUiModule;
 
-import org.incode.domainapp.example.app.ExampleAppSubmodule;
-import org.incode.domainapp.example.dom.ExampleDomSubmodule;
 import org.incode.module.alias.dom.AliasModule;
 import org.incode.module.base.services.BaseServicesModule;
 import org.incode.module.classification.dom.ClassificationModule;

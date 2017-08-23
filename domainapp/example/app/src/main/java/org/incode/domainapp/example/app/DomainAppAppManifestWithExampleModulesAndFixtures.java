@@ -1,4 +1,4 @@
-package domainapp.appdefn;
+package org.incode.domainapp.example.app;
 
 import java.util.List;
 import java.util.Map;
@@ -6,8 +6,7 @@ import java.util.Map;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.domainapp.example.app.fixtures.RecreateDemoFixtures;
-
-import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
+import org.incode.domainapp.example.app.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 
 public class DomainAppAppManifestWithExampleModulesAndFixtures extends DomainAppAppManifestWithExampleModules {
 
