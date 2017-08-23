@@ -20,6 +20,8 @@
         Aggregator POM for all of the Incode Platform (modules and supporting tests, docs)
     </description>
 
+<!--
+TODO: don't think these declarations are required...?
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -44,6 +46,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+-->
 
     <profiles>
 

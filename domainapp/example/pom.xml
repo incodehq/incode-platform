@@ -20,13 +20,13 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-domainapp-example-publishmq-canonical</artifactId>
+                <artifactId>incode-domainapp-example-appdefn</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-domainapp-example-appdefn</artifactId>
+                <artifactId>incode-domainapp-example-publishmq-canonical</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -52,8 +52,8 @@
     </dependencyManagement>
 
     <modules>
+        <module>appdefn</module>
         <module>canonical</module>
-        <module>app</module>
         <module>dom</module>
         <module>embeddedcamel</module>
     </modules>

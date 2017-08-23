@@ -67,7 +67,7 @@ public class SimpleObject_createUpTo10 extends FixtureScript {
         // execute
         for (int i = 0; i < number; i++) {
             final SimpleObject_data data = SimpleObject_data.values()[i];
-            final SimpleObject simpleObject =  data.createWith(wrap(simpleObjectMenu));
+            final SimpleObject simpleObject =  data.persistUsing(serviceRegistry);
             ec.addResult(this, simpleObject);
             simpleObjects.add(simpleObject);
         }

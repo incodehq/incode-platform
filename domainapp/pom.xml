@@ -72,26 +72,9 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- example modules in this application -->
             <dependency>
                 <groupId>org.incode</groupId>
-                <artifactId>incode-domainapp-example-publishmq-externalsystemadapter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode</groupId>
-                <artifactId>incode-domainapp-example-publishmq-canonical</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode</groupId>
-                <artifactId>incode-domainapp-example-dom</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode</groupId>
-                <artifactId>incode-domainapp-example-publishmq-embeddedcamel</artifactId>
+                <artifactId>incode-domainapp-example-appdefn</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

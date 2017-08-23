@@ -25,16 +25,13 @@ import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.services.wrapper.DisabledException;
 import org.apache.isis.applib.services.wrapper.InvalidException;
-import org.apache.isis.applib.services.xactn.TransactionService;
 import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusIdLong;
 import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusVersionTimestamp;
 
 import domainapp.modules.simple.dom.SimpleObject;
-import domainapp.modules.simple.dom.SimpleObjectMenu;
 import domainapp.modules.simple.fixture.scenario.SimpleObject_createUpTo10;
 import domainapp.modules.simple.fixture.scenario.data.SimpleObject_data;
 import domainapp.modules.simple.fixture.teardown.SimpleModule_tearDown;
@@ -43,12 +40,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SimpleObject_IntegTest extends SimpleModuleIntegTestAbstract {
 
-    @Inject
-    FixtureScripts fixtureScripts;
-    @Inject
-    SimpleObjectMenu simpleObjectMenu;
-    @Inject
-    TransactionService transactionService;
 
     SimpleObject simpleObject;
 
@@ -56,11 +47,11 @@ public class SimpleObject_IntegTest extends SimpleModuleIntegTestAbstract {
     public void setUp() throws Exception {
         // given
         fixtureScripts.runFixtureScript(new SimpleModule_tearDown(), null);
-        SimpleObject_createUpTo10 fs = new SimpleObject_createUpTo10().setNumber(1);
+        SimpleObject_createUpTo10 fs = new SimpleObject_createUpTo10().setNumber(10);
         fixtureScripts.runFixtureScript(fs, null);
         transactionService.nextTransaction();
 
-        simpleObject = SimpleObject_data.FOO.findWith(wrap(simpleObjectMenu));
+        simpleObject = fakeDataService.enums().anyOf(SimpleObject_data.class).findUsing(serviceRegistry);
 
         assertThat(simpleObject).isNotNull();
     }

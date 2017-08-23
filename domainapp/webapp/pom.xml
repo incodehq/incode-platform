@@ -97,10 +97,12 @@
             <artifactId>incode-domainapp-appdefn</artifactId>
         </dependency>
 
+        <!-- Comment out to exclude example modules: START -->
         <dependency>
             <groupId>org.incode</groupId>
-            <artifactId>incode-domainapp-example-publishmq-embeddedcamel</artifactId>
+            <artifactId>incode-domainapp-example-appdefn</artifactId>
         </dependency>
+        <!-- Comment out to exclude example modules: END -->
 
         <dependency>
             <groupId>org.isisaddons.module.quartz</groupId>

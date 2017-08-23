@@ -19,12 +19,15 @@
 
 package domainapp.modules.simple.fixture.scenario.data;
 
+import org.apache.isis.applib.services.registry.ServiceRegistry2;
+
+import org.incode.module.fixturesupport.dom.data.DemoData;
+
 import domainapp.modules.simple.dom.SimpleObject;
-import domainapp.modules.simple.dom.SimpleObjectMenu;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public enum SimpleObject_data {
+public enum SimpleObject_data implements DemoData<SimpleObject_data, SimpleObject> {
 
     FOO("Foo"),
     BAR("Bar"),
@@ -39,11 +42,19 @@ public enum SimpleObject_data {
 
     private final String name;
 
-    public SimpleObject createWith(final SimpleObjectMenu menu) {
-        return menu.create(name);
+    @Override
+    public SimpleObject asDomainObject() {
+        return SimpleObject.builder().name(name).build();
     }
 
-    public SimpleObject findWith(final SimpleObjectMenu menu) {
-        return menu.findByName(name).get(0);
+    @Override
+    public SimpleObject persistUsing(final ServiceRegistry2 serviceRegistry2) {
+        return Util.persist(this, serviceRegistry2);
     }
+
+    @Override
+    public SimpleObject findUsing(final ServiceRegistry2 serviceRegistry) {
+        return Util.findMatch(this, serviceRegistry);
+    }
+
 }

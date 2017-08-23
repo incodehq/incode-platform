@@ -18,9 +18,13 @@
  */
 package domainapp.modules.simple.integtests;
 
+import javax.inject.Inject;
+
 import org.junit.BeforeClass;
 
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
+
+import org.isisaddons.module.fakedata.dom.FakeDataService;
 
 import domainapp.modules.simple.SimpleModuleManifest;
 
@@ -30,5 +34,9 @@ public abstract class SimpleModuleIntegTestAbstract extends IntegrationTestAbstr
     public static void initSystem() {
         bootstrapUsing(SimpleModuleManifest.BUILDER.withConfigurationProperty("isis.objects.editing","false"));
     }
+
+    @Inject
+    protected FakeDataService fakeDataService;
+
 
 }

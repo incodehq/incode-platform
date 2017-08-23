@@ -10,7 +10,9 @@
     </parent>
 
     <artifactId>incode-domainapp-example-appdefn</artifactId>
-    <name>Incode Platform DomainApp Ex: App (manifest)</name>
+    <name>Incode Platform DomainApp Ex: App Definition</name>
+
+    <description>Extends the domainapp application (manifest) with example module</description>
 
     <properties>
         <maven-checkstyle-plugin.configLocation>${project.parent.basedir}/_checks/checkstyle.xml</maven-checkstyle-plugin.configLocation>
