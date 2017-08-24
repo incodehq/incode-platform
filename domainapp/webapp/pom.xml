@@ -79,14 +79,9 @@
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>docker</artifactId>
                         </mixin>
-                        <mixin>
-                            <groupId>org.incode.mavenmixin</groupId>
-                            <artifactId>incode-mavenmixin-swagger</artifactId>
-                        </mixin>
                     </mixins>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 

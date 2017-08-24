@@ -19,11 +19,6 @@
     <profiles>
         <profile>
             <id>isis-mavenmixin-swagger</id>
-            <activation>
-                <property>
-                    <name>isis-maven-plugin.swagger.appManifest</name>
-                </property>
-            </activation>
 
             <properties>
                 <isis-maven-plugin.swagger.appManifest>
