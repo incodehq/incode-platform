@@ -4,6 +4,7 @@
 bin/
 target/
 target-ide/
+activemq-data/
 logs/
 .settings/
 .project
