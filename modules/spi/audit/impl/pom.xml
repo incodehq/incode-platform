@@ -84,10 +84,13 @@
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>enforcerrelaxed</artifactId>
                         </mixin>
+                        <!--
+                        TODO: reinstate
                         <mixin>
                             <groupId>org.incode.mavenmixin</groupId>
                             <artifactId>incode-mavenmixin-validate</artifactId>
                         </mixin>
+                        -->
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>standard</artifactId>
@@ -95,10 +98,6 @@
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>sourceandjavadoc</artifactId>
-                        </mixin>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>surefire</artifactId>
                         </mixin>
                     </mixins>
                 </configuration>

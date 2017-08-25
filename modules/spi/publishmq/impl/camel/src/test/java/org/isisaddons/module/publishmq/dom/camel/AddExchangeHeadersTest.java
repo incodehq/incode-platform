@@ -46,6 +46,7 @@ public class AddExchangeHeadersTest  extends TestSupport {
                 .put("execution$sequence", sequence)
                 .put("execution$memberIdentifier", interactionDto.getExecution().getMemberIdentifier())
                 .put("execution$user", interactionDto.getExecution().getUser())
+                .put("execution$logicalMemberIdentifier", interactionDto.getExecution().getLogicalMemberIdentifier())
                 .put("execution$metrics$timings$startedAt", interactionDto.getExecution().getMetrics().getTimings().getStartedAt())
                 .build();
 

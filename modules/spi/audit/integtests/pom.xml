@@ -13,6 +13,12 @@
     <artifactId>incode-platform-spi-audit-integtests</artifactId>
     <name>Incode Platform SPI Audit IntegTests</name>
 
+    <properties>
+        <isis-maven-plugin.validate.appManifest>
+            org.incode.platform.spi.audit.integtests.app.AuditSpiAppManifest
+        </isis-maven-plugin.validate.appManifest>
+    </properties>
+
     <build>
         <plugins>
             <plugin>

@@ -77,6 +77,10 @@
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>cucumberreporting</artifactId>
                         </mixin>
+                        <mixin>
+                            <groupId>org.incode.mavenmixin</groupId>
+                            <artifactId>incode-mavenmixin-swagger</artifactId>
+                        </mixin>
                     </mixins>
                 </configuration>
             </plugin>
@@ -132,53 +136,6 @@
     </dependencies>
 
     <profiles>
-        <profile>
-            <id>swagger</id>
-            <activation>
-                <property>
-                    <name>swagger</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.isis.tool</groupId>
-                        <artifactId>isis-maven-plugin</artifactId>
-                        <version>1.15.0-SNAPSHOT</version>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>swagger</goal>
-                                </goals>
-                                <configuration>
-                                    <appManifest>${isis-maven-plugin.swagger.appManifest}</appManifest>
-                                    <visibilities>
-                                        <visibility>PUBLIC</visibility>
-                                        <visibility>PRIVATE</visibility>
-                                    </visibilities>
-                                    <format>JSON</format>
-                                    <fileNamePrefix>swagger</fileNamePrefix>
-                                </configuration>
-                            </execution>
-                        </executions>
-                        <dependencies>
-                            <dependency>
-                                <groupId>${project.groupId}</groupId>
-                                <artifactId>${project.artifactId}</artifactId>
-                                <version>${project.version}</version>
-                            </dependency>
-                            <dependency>
-                                <groupId>org.hsqldb</groupId>
-                                <artifactId>hsqldb</artifactId>
-                                <version>2.3.1</version>
-                            </dependency>
-                        </dependencies>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
         <profile>
             <id>ext-togglz</id>
             <activation>

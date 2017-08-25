@@ -9,6 +9,7 @@
             <com:objectIdentifier>0</com:objectIdentifier>
         </ixn:target>
         <ixn:memberIdentifier>org.isisaddons.module.publishmq.fixture.dom.DemoBankAccount#updateDescription()</ixn:memberIdentifier>
+        <ixn:logicalMemberIdentifier>demo.DemoBankAccount#updateDescription()</ixn:logicalMemberIdentifier>
         <ixn:user>sven</ixn:user>
         <ixn:title>PUBLISH_MQ_DEMO_OBJECT:0^1:sven:: updateDescription(java.lang.String)</ixn:title>
         <ixn:metrics>

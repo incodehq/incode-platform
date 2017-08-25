@@ -19,8 +19,14 @@
     <profiles>
         <profile>
             <id>isis-mavenmixin-swagger</id>
+            <activation>
+                <property>
+                    <name>!skip.isis-swagger</name>
+                </property>
+            </activation>
 
             <properties>
+                <isis.version>1.15.0</isis.version>
                 <isis-maven-plugin.swagger.appManifest>
                     domainapp.application.manifest.DomainAppAppManifest
                 </isis-maven-plugin.swagger.appManifest>
@@ -36,7 +42,7 @@
                     <plugin>
                         <groupId>org.apache.isis.tool</groupId>
                         <artifactId>isis-maven-plugin</artifactId>
-                        <version>1.15.0-SNAPSHOT</version>
+                        <version>${isis.version}</version>
                         <executions>
                             <execution>
                                 <phase>package</phase>

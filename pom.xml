@@ -418,7 +418,6 @@
             </activation>
             <modules>
 
-                <module>mavenmixins</module>
                 <module>modules</module>
 
                 <!-- domain app (to use as reference) -->
