@@ -17,6 +17,13 @@
         A module providing the persistence of published events.
     </description>
 
+    <properties>
+        <isis-maven-plugin.validate.appManifest>
+            org.isisaddons.module.publishmq.dom.jdo.PublishMqSpiJdoAppManifest
+        </isis-maven-plugin.validate.appManifest>
+    </properties>
+
+
     <build>
         <resources>
             <resource>
@@ -49,6 +56,10 @@
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>sourceandjavadoc</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>org.incode.mavenmixin</groupId>
+                            <artifactId>incode-mavenmixin-validate</artifactId>
                         </mixin>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>

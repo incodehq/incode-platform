@@ -1,1 +1,1 @@
-mvn clean install -pl domainapp/module-simple -o -Dskip.isis-validate
+mvn clean install -Dskip.isis-validate -Dskip.isis-swagger -o

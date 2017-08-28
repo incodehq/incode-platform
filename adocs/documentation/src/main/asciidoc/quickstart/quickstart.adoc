@@ -1,40 +1,34 @@
-[[starter-app]]
-= Starter App
+[[quickstart]]
+= Quickstart
 :_basedir: ../../
-:_imagesdir: images/
+:_imagesdir: _images/
 
 
-TODO: to update
+The starter app is a Maven archetype intended to be used as a starting point for new applications.
+
+Like the Apache Isis framework's own link:http://isis.apache.org#guides/ugfun/ugfun.html#_ugfun_getting-started_simpleapp-archetype[simpleapp archetype], the application also provides a `SimpleObject` to adapt and copy, along with supporting unit tests, integration tests and BDD (cucumber) specs.
+
+However, the application generated from the archetype is also preconfigured with the dependencies for all of the modules available in the Incode Platform.
+
+Moreover, the generated application also provides example code to:
+
+* bootstrap a _Spring Framework_ context alongside the Apache Isis framework, hosting embedded _Apache ActiveMQ_ and _Apache Camel_ instances
+
+* demonstrate usage of the various modules within the Incode Platform.
+
+The application also configures the _Quartz scheduler_ for background scheduling, and the _Jolokia_ servlet, allowing consoles such as _hawt.io_ to monitor the internal state of the webapp.
 
 
-to omit `example` module (from command line):
-
-[source,bash]
-----
-mvn clean install -pl \!example/embeddedcamel,\!example/dom,\!example/canonical,\!example/app,\!example -o
-----
-
-
-or just comment out/remove:
-
-[source,xml]
-----
-<module>example</module>
-----
-
-
-
-The purpose of ...
 
 == Structure
 
-== Example Modules
+The diagram below shows the basic structure of the starter app:
+
+image::{_imagesdir}module-dependencies.png[width="800px",link="{_imagesdir}module-dependencies.png"]
 
 
 
-
-
-== How to run the Demo App
+== How to run the Starter App
 
 TODO: out of date, this material copied from original READMEs.
 
@@ -61,6 +55,52 @@ mvn -pl webapp jetty:run
 ----
 
 Then log on using user: `sven`, password: `pass`
+
+
+
+
+
+
+== Example Modules
+
+
+image::{_imagesdir}module-dependencies-with-example-modules.png[width="800px",link="{_imagesdir}module-dependencies-with-example-modules.png"]
+
+
+=== Embedded Camel
+
+The
+
+
+[source,xml]
+----
+<!-- Comment out to exclude example modules that set up embedded camel: START -->
+
+...
+
+<!-- Comment out to exclude example modules that set up embedded camel: END -->
+----
+
+
+
+=== Module Usage
+
+[source,xml]
+----
+<!-- Comment in to include example modules demonstrating platform usage: START -->
+
+...
+
+<!-- Comment in to include example modules demonstrating platform usage: END -->
+----
+
+
+
+The purpose of ...
+
+
+
+
 
 
 

@@ -92,12 +92,12 @@
             <artifactId>incode-domainapp-appdefn</artifactId>
         </dependency>
 
-        <!-- Comment out to exclude example modules demonstrating platform usage: START -->
+        <!-- Comment in to include example modules demonstrating platform usage: START -->
         <dependency>
             <groupId>org.incode</groupId>
             <artifactId>incode-domainapp-example-appdefn</artifactId>
         </dependency>
-        <!-- Comment out to exclude example modules demonstrating platform usage: END -->
+        <!-- Comment in to include example modules demonstrating platform usage: END -->
 
         <dependency>
             <groupId>org.isisaddons.module.quartz</groupId>

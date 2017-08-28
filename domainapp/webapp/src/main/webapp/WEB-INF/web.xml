@@ -10,7 +10,7 @@
     </welcome-file-list>
 
 
-    <!-- Comment out to exclude example modules that set up embedded camel: START -->
+    <!-- Comment in to include example modules that set up embedded camel: START -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -29,6 +29,7 @@
         <param-name>spring.config.file</param-name>
         <param-value>classpath:spring.properties</param-value>
     </context-param>
+    <!-- Comment in to include example modules that set up embedded camel: END -->
 
 
     <servlet>
@@ -49,8 +50,6 @@
         <servlet-name>jolokia-agent</servlet-name>
         <url-pattern>/api/jolokia/*</url-pattern>
     </servlet-mapping>
-    <!-- Comment out to exclude example modules that set up embedded camel: END -->
-
 
 
 

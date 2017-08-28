@@ -116,15 +116,15 @@
         <module>appdefn</module>
         <module>webapp</module>
 
-        <!-- Comment out to exclude example modules that set up embedded camel: START -->
+        <!-- Comment in to include example modules that set up embedded camel: START -->
         <module>example/canonical</module>
         <module>example/embeddedcamel</module>
-        <!-- Comment out to exclude example modules that set up embedded camel: END -->
+        <!-- Comment in to include example modules that set up embedded camel: END -->
 
-        <!-- Comment out to exclude example modules demonstrating platform usage: START -->
+        <!-- Comment in to include example modules demonstrating platform usage: START -->
         <module>example/dom</module>
         <module>example/appdefn</module>
-        <!-- Comment out to exclude example modules demonstrating platform usage: END -->
+        <!-- Comment in to include example modules demonstrating platform usage: END -->
 
     </modules>
 

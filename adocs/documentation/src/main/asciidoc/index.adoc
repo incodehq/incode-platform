@@ -15,7 +15,9 @@ The platform also provides a _"starter app"_ which can be used as a quickly set 
 == Modules
 
 Pick-n-mix the modules you need "out of the box", or fork the repo and use the source code as a starting point to adapt to your own requirements.
-Most modules are independent of others; see each for full details.
+Most modules are independent of others, with the README for each explaininghow to configure your application to use it.
+
+The modules fall into five broad categories, summarised in the table below:
 
 [cols="^1a,^1a,^1a,^1a,^1a,^1a,^1a", options="header,footer", frame="all", grid="none"]
 |===
@@ -124,14 +126,23 @@ xref:modules/ext/quartz/ext-quartz.adoc#[Quartz]
 xref:modules/ext/togglz/ext-togglz.adoc#[Togglz]
 
 
-
 |===
 
 
-[[starter-app]]
-== Starter App
 
-The _starter app_ is intended to be used as a starting point for new apps, being preconfigured with the dependencies for all of the modules available in the Incode Platform.
-It also includes an example submodule (easily excluded) which demonstrates the usage of these modules.
+[[quickstart]]
+== Quickstart
 
-TODO: to document
+The quickstart app is a Maven archetype intended to be used as a starting point for new applications.
+
+Like the Apache Isis framework's own link:http://isis.apache.org#guides/ugfun/ugfun.html#_ugfun_getting-started_simpleapp-archetype[simpleapp archetype], the application also provides a `SimpleObject` to adapt and copy, along with supporting unit tests, integration tests and BDD (cucumber) specs.
+
+However, the application generated from the archetype is also preconfigured with the dependencies for all of the modules available in the Incode Platform.
+
+Moreover, the generated application also provides example code to:
+
+* bootstrap a _Spring Framework_ context alongside the Apache Isis framework, hosting embedded _Apache ActiveMQ_ and _Apache Camel_ instances
+
+* demonstrate usage of the various modules within the Incode Platform.
+
+The application also configures the _Quartz scheduler_ for background scheduling, and the _Jolokia_ servlet, allowing consoles such as _hawt.io_ to monitor the internal state of the webapp.

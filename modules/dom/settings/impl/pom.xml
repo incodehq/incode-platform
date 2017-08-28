@@ -54,6 +54,12 @@
         </developer>
     </developers>
 
+    <properties>
+        <isis-maven-plugin.validate.appManifest>
+            org.isisaddons.module.settings.SettingsManifest
+        </isis-maven-plugin.validate.appManifest>
+    </properties>
+
     <build>
         <resources>
             <resource>
@@ -83,13 +89,10 @@
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>enforcerrelaxed</artifactId>
                         </mixin>
-                        <!--
-                        TODO: reinstate
                         <mixin>
                             <groupId>org.incode.mavenmixin</groupId>
                             <artifactId>incode-mavenmixin-validate</artifactId>
                         </mixin>
-                        -->
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>standard</artifactId>

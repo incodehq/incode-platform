@@ -1,16 +1,25 @@
 package org.incode.module.alias.dom.impl;
 
+import java.util.Collection;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Lists;
-import org.apache.isis.applib.annotation.*;
+
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.Contributed;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Parameter;
+import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.SemanticsOf;
+
 import org.incode.module.alias.dom.AliasModule;
 import org.incode.module.alias.dom.spi.AliasType;
 import org.incode.module.alias.dom.spi.AliasTypeRepository;
 import org.incode.module.alias.dom.spi.ApplicationTenancyRepository;
-
-import javax.inject.Inject;
-import java.util.Collection;
-import java.util.List;
 
 public abstract class T_addAlias<T> {
 

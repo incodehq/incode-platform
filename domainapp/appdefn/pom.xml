@@ -95,12 +95,12 @@
             <version>${project.version}</version>
         </dependency>
 
-        <!-- Comment out to exclude example modules that set up embedded camel: START -->
+        <!-- Comment in to include example modules that set up embedded camel: START -->
         <dependency>
             <groupId>org.incode</groupId>
             <artifactId>incode-domainapp-example-embeddedcamel</artifactId>
         </dependency>
-        <!-- Comment out to exclude example modules that set up embedded camel: END -->
+        <!-- Comment in to include example modules that set up embedded camel: END -->
 
         <dependency>
             <groupId>org.incode</groupId>
