@@ -4,12 +4,6 @@ INCODEART=quickstart
 
 TOFIX=""
 
-env | grep INCODETMP >/dev/null
-if [ $? -ne 0 ]; then
-    echo "\$INCODETMP not set!"
-    TOFIX="$TOFIX\nexport INCODETMP=/c/tmp"
-fi
-
 env | grep INCODEREL >/dev/null
 if [ $? -ne 0 ]; then
     echo "\$INCODEREL not set!"
@@ -38,7 +32,7 @@ for a in .project .classpath .settings bin .idea neo4j_DB target-ide; do /bin/fi
 /bin/find . -name "pom.xml.*" -exec rm {} \;
 
 echo "mvn archetype:create-from-project ..."
-mvn archetype:create-from-project
+mvn archetype:create-from-project -o
 
 echo "groovy script to update archetypes ..."
 groovy ../scripts/updateGeneratedArchetypeSources.groovy -n $INCODEART -v $INCODEREL

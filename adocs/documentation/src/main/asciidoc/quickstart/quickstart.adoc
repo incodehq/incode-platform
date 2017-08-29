@@ -2,9 +2,10 @@
 = Quickstart
 :_basedir: ../../
 :_imagesdir: _images/
+:toc:
 
 
-The starter app is a Maven archetype intended to be used as a starting point for new applications.
+The quickstart is a Maven archetype intended to be used as a template for new applications.
 
 Like the Apache Isis framework's own link:http://isis.apache.org#guides/ugfun/ugfun.html#_ugfun_getting-started_simpleapp-archetype[simpleapp archetype], the application also provides a `SimpleObject` to adapt and copy, along with supporting unit tests, integration tests and BDD (cucumber) specs.
 
@@ -19,35 +20,180 @@ Moreover, the generated application also provides example code to:
 The application also configures the _Quartz scheduler_ for background scheduling, and the _Jolokia_ servlet, allowing consoles such as _hawt.io_ to monitor the internal state of the webapp.
 
 
-
-== Structure
-
-The diagram below shows the basic structure of the starter app:
-
-image::{_imagesdir}module-dependencies.png[width="800px",link="{_imagesdir}module-dependencies.png"]
-
-
-
-== How to run the Starter App
-
-TODO: out of date, this material copied from original READMEs.
+[[__quickstart_prerequisites]]
+== Prerequisites
 
 The prerequisite software is:
 
 * Java JDK 8
-* http://maven.apache.org[maven 3] (3.3.x or later is recommended).
+* http://maven.apache.org[maven 3] (3.5.0 or later is recommended).
 
-To build the demo app:
+
+We also strongly recommend an IDE;
+the Incode Platform developers use JetBrains IntelliJ Community Edition.
+
+
+[[__quickstart_running-the-archetype]]
+== Running the archetype
+
+Use Maven to generate your application from the `quickstart-archetype`:
+
+[source,bash]
+----
+mvn archetype:generate  \
+    -D archetypeGroupId=org.incode \
+    -D archetypeArtifactId=quickstart-archetype \
+    -D archetypeVersion=1.15.0 \
+    -D groupId=com.mycompany \
+    -D artifactId=myapp \
+    -D version=1.0-SNAPSHOT \
+    -B
+----
+
+Change the `groupId` and `artifactId` as required.
+
+The application will be generated in a directory named after the artifact (`myapp` in the example above):
 
 [source]
 ----
-git clone https://github.com/incodehq/isis-module-communications.git
-cd isis-module-communications
-mvn clean install
+cd myapp
 ----
 
 
-To run the demo app:
+
+[[__quickstart_project-structure]]
+== Project Structure
+
+The diagram below shows the basic structure of the quickstart app:
+
+image::{_imagesdir}module-dependencies.png[width="400px",link="{_imagesdir}module-dependencies.png"]
+
+
+TODO: screenshot of this codebase as loaded into IntelliJ.
+
+
+
+[[__quickstart_structure_maven-mixins]]
+=== Maven Mixins
+
+To minimize boilerplate, the Maven `pom.xml` files use the `com.github.odavid.maven.plugins:mixin-maven-plugin`.
+This allows other the `<build>` definitions of other `pom.xml` files to be "mixed in" to the consuming `pom.xml`.
+
+The maven mixins themselves used by the generated application are listed in the table below:
+
+
+.Table caption
+[cols=".<2a,3a", options="header"]
+|===
+
+| `groupId:artifactId` +
+github repo
+.>| Description
+
+
+|
+`com.danhaywood.mavenmixin:` +
+`cucumberreporting`
+
+link:https://github.com/danhaywood/java-mavenmixin-surefire[java-mavenmixin-cucumberreporting]
+
+| Configures the `net.masterthought:maven-cucumber-reporting` plugin, to generate HTML reports based on outputs of BDD specification tests.
+
+|
+`com.danhaywood.mavenmixin:` +
+`datanucleusenhance`
+
+link:https://github.com/danhaywood/java-mavenmixin-surefire[java-mavenmixin-datanucleusenhance]
+
+| Configures the `org.datanucleus:datanucleus-maven-plugin` to post-process (enhance) persistent entities according to the JDO spec.
+
+
+|
+`com.danhaywood.mavenmixin:` +
+`docker`
+
+link:https://github.com/danhaywood/java-mavenmixin-surefire[java-mavenmixin-docker]
+
+| Configures the `com.spotify:docker-maven-plugin` plugin to create Docker images and to upload these to a specified registry.
+
+|
+`com.danhaywood.mavenmixin:` +
+`enforcerrelaxed`
+
+link:https://github.com/danhaywood/java-mavenmixin-surefire[java-mavenmixin-enforcerrelaxed]
+
+| Configures the `maven-enforcer-plugin` plugin with a number of pre-defined rules (though _not_ dependency convergence checking).
+
+
+
+|
+`com.danhaywood.mavenmixin:` +
+`jettyconsole`
+
+link:https://github.com/danhaywood/java-mavenmixin-surefire[java-mavenmixin-jettyconsole]
+
+| Configures the `org.simplericity.jettyconsole:jetty-console-maven-plugin` to create a console app (with optional Swing UI) to bootstrap the application from the command line using an embedded Jetty instance.
+
+|
+`com.danhaywood.mavenmixin:` +
+`jettywar`
+
+link:https://github.com/danhaywood/java-mavenmixin-surefire[java-mavenmixin-jettywar]
+
+| Configures the `maven-war-plugin` to build a war (webapp archive), and the `  `org.eclipse.jetty:jetty-maven-plugin` to be able to run this from maven (using `mvn jetty:war`).
+
+
+|
+`com.danhaywood.mavenmixin:`
+`sourceandjavadoc`
+
+link:https://github.com/danhaywood/java-mavenmixin-surefire[java-mavenmixin-sourceandjavadoc]
+| Configures the `maven-javadoc-plugin` plugin to create Javadoc website and the `maven-jxr-plugin` to create a similar website of the source code (cross-referencing the Javadoc).
+
+
+|
+`com.danhaywood.mavenmixin:`
+`standard`
+
+link:https://github.com/danhaywood/java-mavenmixin-surefire[java-mavenmixin-standard]
+
+| Configures the standard `maven-clean-plugin`, `maven-resources-plugin` `maven-compiler-plugin`, maven-jar-plugin`, `maven-install-plugin`, `maven-deploy-plugin` and maven-site-plugin` plugins (mostly just setting their version).
+
+|
+`com.danhaywood.mavenmixin:`
+`staticanalysis`
+
+link:https://github.com/danhaywood/java-mavenmixin-surefire[java-mavenmixin-staticanalysis]
+
+| Configures the `maven-checkstyle-plugin`, maven-pmd-plugin`, `javancss-maven-plugin` and `jdepend-maven-plugin` plugins.
+The configuration files driving these plugins are specified as properties.
+
+
+|
+`com.danhaywood.mavenmixin:`
+`surefire`
+
+link:https://github.com/danhaywood/java-mavenmixin-surefire[java-mavenmixin-surefire]
+
+| Configures the `maven-surefire-plugin` with multiple executions to run unit tests, integration tests and BDD specifications.
+testing support is discussed further xref:quickstart.adoc#__quickstart_running-tests[below].
+
+
+|===
+
+
+
+[[__quickstart_building-and-running]]
+== Building and running
+
+To build the generated app:
+
+[source]
+----
+mvn clean install
+----
+
+To run your generated app:
 
 [source]
 ----
@@ -57,54 +203,118 @@ mvn -pl webapp jetty:run
 Then log on using user: `sven`, password: `pass`
 
 
+Using Apache Isis' `org.apache.isis.WebServer` you can also run as a command line application, useful when debugging from within an IDE.
 
+For example, here's the launch configuration to run the generated application from IntelliJ:
 
+image::{_imagesdir}intellij-run-configuration-with-fixtures.png[width="800px",link="{_imagesdir}intellij-run-configuration-with-fixtures.png"]
 
+That is to say:
 
-== Example Modules
+* main-class: `org.apache.isis.WebServer`
+* program args: `-m domainapp.appdefn.DomainAppAppManifest`
 
+using:
 
-image::{_imagesdir}module-dependencies-with-example-modules.png[width="800px",link="{_imagesdir}module-dependencies-with-example-modules.png"]
-
-
-=== Embedded Camel
-
-The
-
-
-[source,xml]
+[source,java]
 ----
-<!-- Comment out to exclude example modules that set up embedded camel: START -->
-
-...
-
-<!-- Comment out to exclude example modules that set up embedded camel: END -->
+mvn -Denhance -Dskip.default datanucleus:enhance -T1C -o
 ----
 
+run against the parent pom to enhance the JDO domain entities.
 
+See the Apache Isis documentation for further guidance on how to load up a generated app and run from the IDE.
 
-=== Module Usage
-
-[source,xml]
-----
-<!-- Comment in to include example modules demonstrating platform usage: START -->
-
-...
-
-<!-- Comment in to include example modules demonstrating platform usage: END -->
-----
+TODO: update x-ref ^^
 
 
 
-The purpose of ...
+[[__quickstart_running-tests]]
+== Running Tests
 
 
-
+as per https://github.com/danhaywood/java-mavenmixin-surefire:
+    -DskipUTs
+	-DskipITs
+  - bdd   (in the appdefn)
+    -DskipBSs
 
 
 
 
-== FlywayDB
+  - maven validate:
+    can disable using mvn clean test -pl module-simple -Dskip.validate
+
+
+  - swagger spec
+    : use mvn clean install -Dswagger -pl appdefn
+     (configured in the appdefn module, generates to target/generated-resources/isis-swagger)
+  - docker (in the webapp module) ... as per  https://github.com/danhaywood/java-mavenmixin-docker
+      on windows, enable 2375 using config file (see screenshots ... but can't get to work :-( )
+      mvn install -Dmavenmixin-docker -pl webapp -o
+	  docker run -d -p80:8080 DOCKER_REGISTRY_ACCOUNT/imageName
+
+
+
+[[__quickstart_features]]
+== Features
+
+
+
+
+[[__quickstart_features_security]]
+=== Security
+
+security seed data, xref togglz
+
+
+[[__quickstart_features_session-logger]]
+=== Session Logger
+
+
+[[__quickstart_features_commands]]
+=== Commands
+
+
+[[__quickstart_features_auditing]]
+=== Auditing
+
+
+
+[[__quickstart_features_publishing]]
+=== Publishing
+
+Configuring the quickstart app to run with xref:quickstart-with-embedded-camel.adoc#__quickstart-with-embedded-camel_including-the-example-modules[embedded camel] includes the `publishmq` module which publishes to an ActiveMQ queue.
+
+
+xref:quickstart-with-embedded-camel.adoc#__quickstart-with-embedded-camel_features_publishing[embedded camel]
+
+
+TODO: xref enhanced publishing in "embedded camel"
+
+
+[[__quickstart_features_togglz]]
+=== Togglz
+
+
+[[__quickstart_features_quartz]]
+=== Quartz
+
+
+
+
+=== Dynamic Reloading
+
+  - reload gradle
+
+
+
+
+
+
+
+[[__quickstart_features_flywaydb]]
+=== FlywayDB
 
 TODO: as per the flywaydb, generate the schema
 
@@ -115,8 +325,8 @@ Then log on using user: `sven`, password: `pass`
 
 
 
-[[__domain-app_running-against-sql-server]]
-== Running demo against SQL Server
+[[__quickstart_features_flywaydb__running-against-sql-server]]
+==== Running demo against SQL Server
 
 To run the demo application against SQL Server (as opposed to inmemory):
 
@@ -145,7 +355,7 @@ isis.persistor.datanucleus.impl.datanucleus.schema.validateConstraints=true
 
 
 
-== Icons
 
-The icons used in the domainapp are provided by https://icons8.com/[Icons8].
+
+
 

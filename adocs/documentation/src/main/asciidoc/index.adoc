@@ -8,7 +8,7 @@
 pass:[<br/>]
 
 The Incode Platform provides a number of _modules_ for use with the link:http://isis.apache.org[Apache Isis] framework.
-The platform also provides a _"starter app"_ which can be used as a quickly set up your own pre-configured applications.
+The platform also provides a _"quickstart"_ app which can be used as a quickly set up your own pre-configured applications.
 
 
 [[modules]]

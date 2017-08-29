@@ -132,16 +132,20 @@ metaDataFile.text =
 
 
 
+
 ///////////////////////////////////////////////////
 //
 // add empty supplemental-models.xml
 //
 ///////////////////////////////////////////////////
 
-def appendedResourcesDir = new File(BASE + "src/main/appended-resources")
-appendedResourcesDir.mkdir()
-def supplementalModelsFile=new File(appendedResourcesDir, "supplemental-models.xml")
-supplementalModelsFile.text = supplemental_models_text
+//
+// don't think this is required if not ASF
+
+//def appendedResourcesDir = new File(BASE + "src/main/appended-resources")
+//appendedResourcesDir.mkdir()
+//def supplementalModelsFile=new File(appendedResourcesDir, "supplemental-models.xml")
+//supplementalModelsFile.text = supplemental_models_text
 
 
 
