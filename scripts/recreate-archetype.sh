@@ -35,23 +35,23 @@ echo "mvn archetype:create-from-project ..."
 mvn archetype:create-from-project -o
 
 echo "groovy script to update archetypes ..."
-groovy ../scripts/updateGeneratedArchetypeSources.groovy -n $INCODEART -v $INCODEREL
+groovy ../../../scripts/updateGeneratedArchetypeSources.groovy -n $INCODEART -v $INCODEREL
 
 echo "deleting old archetype ..."
-git rm -rf domainapp-archetype
-rm -rf domainapp-archetype
-mkdir -p domainapp-archetype
+git rm -rf ../../archetype/$INCODEART
+rm -rf ../../archetype/$INCODEART
+mkdir -p ../../archetype
 
 
 echo "adding new archetype ..."
 ls target/generated-sources/archetype 
-ls  ../domainapp-archetype
+ls  ../../archetype/$INCODEART
 
-mv target/generated-sources/archetype ../domainapp-archetype
-git add ../domainapp-archetype
-git commit -m "$recreating quickstart archetype"
+mv target/generated-sources/archetype ../../archetype/$INCODEART
+git add ../../archetype/$INCODEART
+git commit -m "$recreating $INCODEART archetype"
 
 
 echo "building the newly created archetype ..."
-cd ../domainapp-archetype
+cd ../../archetype/$INCODEART
 mvn clean install

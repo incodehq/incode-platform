@@ -3,13 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.incode</groupId>
-        <artifactId>incode-domainapp</artifactId>
+        <groupId>org.incode.example.application</groupId>
+        <artifactId>incode-quickstart</artifactId>
         <version>1.15.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>incode-domainapp-appdefn</artifactId>
-    <name>Incode Platform DomainApp App Definition</name>
+    <artifactId>incode-quickstart-appdefn</artifactId>
+    <name>Incode Platform QuickStart App Definition</name>
 
     <description>This defines the application (manifest) and runs application-level fixtures and integration (smoke) tests</description>
 
@@ -90,26 +90,26 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.incode</groupId>
-            <artifactId>incode-domainapp-example-dom</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>incode-quickstart-example-dom</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <!-- Comment in to include example modules that set up embedded camel: START -->
         <dependency>
-            <groupId>org.incode</groupId>
-            <artifactId>incode-domainapp-example-embeddedcamel</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>incode-quickstart-example-embeddedcamel</artifactId>
         </dependency>
         <!-- Comment in to include example modules that set up embedded camel: END -->
 
         <dependency>
-            <groupId>org.incode</groupId>
-            <artifactId>incode-domainapp-module-simple</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>incode-quickstart-module-simple</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.incode</groupId>
-            <artifactId>incode-domainapp-module-simple</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>incode-quickstart-module-simple</artifactId>
             <scope>test</scope>
             <type>test-jar</type>
         </dependency>

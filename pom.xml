@@ -30,8 +30,8 @@
                 </property>
             </activation>
             <modules>
-                <module>domainapp/example/dom</module>
-                <module>domainapp/module-simple</module>
+                <module>example/application/quickstart/example/dom</module>
+                <module>example/application/quickstart/module-simple</module>
 
                 <module>modules/dom/alias/impl</module>
                 <module>modules/dom/classification/impl</module>
@@ -420,9 +420,9 @@
 
                 <module>modules</module>
 
-                <!-- domain app (to use as reference) -->
+                <!-- quickstart app (module fixtures/demo usage, basis of quickstart archetype) -->
 
-                <module>domainapp</module>
+                <module>example/application/quickstart</module>
 
                 <!-- per-module testing -->
 

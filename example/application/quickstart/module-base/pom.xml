@@ -3,13 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.incode</groupId>
-        <artifactId>incode-domainapp</artifactId>
+        <groupId>org.incode.example.application</groupId>
+        <artifactId>incode-quickstart</artifactId>
         <version>1.15.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>incode-domainapp-module-base</artifactId>
-    <name>Incode Platform DomainApp Base Module</name>
+    <artifactId>incode-quickstart-module-base</artifactId>
+    <name>Incode Platform QuickStart Base Module</name>
 
     <properties>
         <maven-checkstyle-plugin.configLocation>${project.parent.basedir}/_checks/checkstyle.xml</maven-checkstyle-plugin.configLocation>

@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.incode</groupId>
-        <artifactId>incode-domainapp</artifactId>
+        <groupId>org.incode.example.application</groupId>
+        <artifactId>incode-quickstart</artifactId>
         <version>1.15.0-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>incode-domainapp-example-embeddedcamel</artifactId>
-    <name>Incode Platform DomainApp Ex Camel: Embedded</name>
+    <artifactId>incode-quickstart-example-embeddedcamel</artifactId>
+    <name>Incode Platform QuickStart Ex Camel: Embedded</name>
 
     <description>
         Contains routing and supporting beans for Camel
@@ -62,13 +62,13 @@
         </dependency>
 
         <dependency>
-            <groupId>org.incode</groupId>
-            <artifactId>incode-domainapp-module-simple</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>incode-quickstart-module-simple</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.incode</groupId>
-            <artifactId>incode-domainapp-example-canonical</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>incode-quickstart-example-canonical</artifactId>
         </dependency>
 
         <dependency>

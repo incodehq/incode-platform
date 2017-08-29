@@ -4,14 +4,14 @@
 
 
     <parent>
-        <groupId>org.incode</groupId>
-        <artifactId>incode-domainapp</artifactId>
+        <groupId>org.incode.example.application</groupId>
+        <artifactId>incode-quickstart</artifactId>
         <version>1.15.0-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>incode-domainapp-example-dom</artifactId>
-    <name>Incode Platform DomainApp Ex Usage: DOM</name>
+    <artifactId>incode-quickstart-example-dom</artifactId>
+    <name>Incode Platform QuickStart Ex Usage: DOM</name>
 
     <properties>
         <isis-maven-plugin.validate.appManifest>
@@ -73,8 +73,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.incode</groupId>
-            <artifactId>incode-domainapp-module-base</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>incode-quickstart-module-base</artifactId>
         </dependency>
 
         <dependency>
