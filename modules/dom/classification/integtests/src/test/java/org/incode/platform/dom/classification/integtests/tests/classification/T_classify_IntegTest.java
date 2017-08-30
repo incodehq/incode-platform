@@ -14,9 +14,12 @@ import org.junit.rules.ExpectedException;
 import org.apache.isis.applib.services.factory.FactoryService;
 
 import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPath;
-import org.incode.domainapp.example.dom.dom.classification.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath_classify;
-import org.incode.domainapp.example.dom.dom.classification.dom.classification.otherwithatpath.ClassificationForOtherObjectWithAtPath_classify;
+import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPathMenu;
 import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPath;
+import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPathMenu;
+import org.incode.domainapp.example.dom.dom.classification.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath;
+import org.incode.domainapp.example.dom.dom.classification.dom.classification.otherwithatpath.ClassificationForOtherObjectWithAtPath;
+import org.incode.domainapp.example.dom.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_recreate3;
 import org.incode.module.classification.dom.impl.applicability.ApplicabilityRepository;
 import org.incode.module.classification.dom.impl.category.Category;
 import org.incode.module.classification.dom.impl.category.CategoryRepository;
@@ -24,9 +27,6 @@ import org.incode.module.classification.dom.impl.category.taxonomy.Taxonomy;
 import org.incode.module.classification.dom.impl.classification.Classification;
 import org.incode.module.classification.dom.impl.classification.ClassificationRepository;
 import org.incode.module.classification.dom.spi.ApplicationTenancyService;
-import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPathMenu;
-import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPathMenu;
-import org.incode.domainapp.example.dom.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_recreate3;
 import org.incode.platform.dom.classification.integtests.ClassificationModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -55,7 +55,7 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_recreate3(), null);
+        fixtureScripts.runFixtureScript(new DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_recreate3(), null);
     }
 
     @Test
@@ -69,7 +69,7 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
         assertThat(classificationRepository.findByClassified(demoBip)).isEmpty();
 
         // when
-        final ClassificationForDemoObjectWithAtPath_classify classification = factoryService.mixin(ClassificationForDemoObjectWithAtPath_classify.class, demoBip);
+        final ClassificationForDemoObjectWithAtPath.classify classification = factoryService.mixin(ClassificationForDemoObjectWithAtPath.classify.class, demoBip);
         Collection<Taxonomy> choices0Classify = classification.choices0Classify();
         assertThat(choices0Classify)
                 .extracting(Taxonomy::getName)
@@ -103,7 +103,7 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
                 .extracting(Category::getName)
                 .contains("Red", "Medium");
 
-        final ClassificationForDemoObjectWithAtPath_classify classification = factoryService.mixin(ClassificationForDemoObjectWithAtPath_classify.class, demoFooInItaly);
+        final ClassificationForDemoObjectWithAtPath.classify classification = factoryService.mixin(ClassificationForDemoObjectWithAtPath.classify.class, demoFooInItaly);
 
         // when
         final String message = classification.disableClassify().toString();
@@ -122,7 +122,7 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
                 .get();
         assertThat(applicabilityRepository.findByDomainTypeAndUnderAtPath(otherBaz.getClass(), otherBaz.getAtPath())).isEmpty();
 
-        final ClassificationForOtherObjectWithAtPath_classify classification = factoryService.mixin(ClassificationForOtherObjectWithAtPath_classify.class, otherBaz);
+        final ClassificationForOtherObjectWithAtPath.classify classification = factoryService.mixin(ClassificationForOtherObjectWithAtPath.classify.class, otherBaz);
 
         // when
         final String message = classification.disableClassify().toString();
@@ -141,7 +141,7 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
                 .get();
         assertThat(applicabilityRepository.findByDomainTypeAndUnderAtPath(otherBarInFrance.getClass(), otherBarInFrance.getAtPath())).isEmpty();
 
-        final ClassificationForOtherObjectWithAtPath_classify classification = factoryService.mixin(ClassificationForOtherObjectWithAtPath_classify.class, otherBarInFrance);
+        final ClassificationForOtherObjectWithAtPath.classify classification = factoryService.mixin(ClassificationForOtherObjectWithAtPath.classify.class, otherBarInFrance);
 
         // when
         final String message = classification.disableClassify().toString();

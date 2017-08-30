@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.incode</groupId>
-        <artifactId>incode-domainapp-example-publishmq-externalsystemadapter</artifactId>
+        <groupId>org.incode.example.application</groupId>
+        <artifactId>incode-quickstart-example-publishmq-externalsystemadapter</artifactId>
         <version>1.15.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>incode-domainapp-example-publishmq-externalsystemadapter-fakeserver</artifactId>
+    <artifactId>incode-quickstart-example-publishmq-externalsystemadapter-fakeserver</artifactId>
     <name>Incode Platform DomainApp Example: PublishMQ ExtSysAdapter Fakeserver</name>
 
     <packaging>jar</packaging>
@@ -40,8 +40,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.incode</groupId>
-            <artifactId>incode-domainapp-example-publishmq-externalsystemadapter-wsdlgen</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>incode-quickstart-example-publishmq-externalsystemadapter-wsdlgen</artifactId>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>

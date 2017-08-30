@@ -13,14 +13,14 @@ import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAt
 import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPathMenu;
 import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPath;
 import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPathMenu;
-import org.incode.domainapp.example.dom.dom.classification.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath_classify;
+import org.incode.domainapp.example.dom.dom.classification.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath;
 import org.incode.module.classification.dom.impl.category.Category;
 import org.incode.module.classification.dom.impl.category.CategoryRepository;
 import org.incode.module.classification.dom.impl.category.taxonomy.Taxonomy;
 
 import lombok.Getter;
 
-public class DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_create3
+public class DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_create3
         extends FixtureScript {
 
     @Getter
@@ -85,11 +85,11 @@ public class DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_
 
         // classify DemoObject
 
-        wrap(mixin(ClassificationForDemoObjectWithAtPath_classify.class, demoFooInItaly)).classify(italianColours, italianRed);
+        wrap(mixin(ClassificationForDemoObjectWithAtPath.classify.class, demoFooInItaly)).classify(italianColours, italianRed);
 
-        wrap(mixin(ClassificationForDemoObjectWithAtPath_classify.class, demoFooInItaly)).classify(globalSizes, medium);
+        wrap(mixin(ClassificationForDemoObjectWithAtPath.classify.class, demoFooInItaly)).classify(globalSizes, medium);
 
-        wrap(mixin(ClassificationForDemoObjectWithAtPath_classify.class, demoBarInFrance)).classify(globalSizes, smallSmaller);
+        wrap(mixin(ClassificationForDemoObjectWithAtPath.classify.class, demoBarInFrance)).classify(globalSizes, smallSmaller);
 
         // leave OtherObject unclassified
 

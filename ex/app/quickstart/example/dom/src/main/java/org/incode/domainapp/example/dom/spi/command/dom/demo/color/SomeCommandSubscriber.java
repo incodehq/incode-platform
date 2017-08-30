@@ -44,7 +44,7 @@ public class SomeCommandSubscriber extends AbstractSubscriber {
     void scheduleBackgroundCommandsToCopyColourOver(final SomeCommandAnnotatedObject scao) {
         // these will create new objects.
         backgroundService2.execute(scao).updateCopyOfColorUpdatedBySubscribedBackgroundDirectAction(scao.getColour());
-        backgroundService2.executeMixin(SomeCommandAnnotatedObject_updateCopyOfColorUpdatedBySubscribedBackgroundMixinAction.class, scao).$$(scao.getColour());
+        backgroundService2.executeMixin(SomeCommandAnnotatedObj_updateCopyOfColorBySubscribedBackgrndMixinAct.class, scao).$$(scao.getColour());
 
         // not supported
         // backgroundService2.execute(scao).setCopyOfColorUpdatedBySubscribedBackgroundPropertyEdit(scao.getColour());

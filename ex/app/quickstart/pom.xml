@@ -45,7 +45,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.incode.example.application</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>incode-quickstart-appdefn</artifactId>
                 <version>${project.version}</version>
             </dependency>

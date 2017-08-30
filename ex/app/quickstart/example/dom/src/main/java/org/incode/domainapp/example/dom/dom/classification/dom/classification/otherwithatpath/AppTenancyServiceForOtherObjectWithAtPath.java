@@ -7,7 +7,7 @@ import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWith
 import org.incode.module.classification.dom.spi.ApplicationTenancyService;
 
 @DomainService(nature = NatureOfService.DOMAIN)
-public class ApplicationTenancyServiceForOtherObjectWithAtPath implements ApplicationTenancyService {
+public class AppTenancyServiceForOtherObjectWithAtPath implements ApplicationTenancyService {
 
     @Override
     public String atPathFor(final Object domainObjectToClassify) {

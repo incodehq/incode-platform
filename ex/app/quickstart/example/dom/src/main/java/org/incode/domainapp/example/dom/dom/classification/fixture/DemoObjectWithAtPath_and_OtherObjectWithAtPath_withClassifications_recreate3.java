@@ -11,7 +11,7 @@ import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWith
 
 import lombok.Getter;
 
-public class DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_recreate3 extends
+public class DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_recreate3 extends
         FixtureScript {
 
     @Getter
@@ -24,9 +24,9 @@ public class DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_
     protected void execute(final ExecutionContext executionContext) {
         // prereqs
         executionContext.executeChild(this,
-                new DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_tearDown());
+                new DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_tearDown());
         executionContext.executeChild(this,
-                new DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_create3());
+                new DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_create3());
 
     }
 

@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.queryresultscache.QueryResultsCache;
 
-import org.incode.domainapp.example.dom.dom.communications.fixture.data.democust2.DemoObjectWithNote_and_DemoInvoiceWithAtPath_withComms_create3;
+import org.incode.domainapp.example.dom.dom.communications.fixture.data.democust2.DemoObjectWithNote_and_DemoInvoiceWithAtPath_create3;
 import org.incode.domainapp.example.dom.dom.communications.fixture.data.doctypes.DocumentType_and_DocumentTemplates_createSome;
 import org.incode.domainapp.example.dom.dom.communications.fixture.data.doctypes.RenderingStrategy_create1;
 import org.incode.module.country.fixture.CountriesRefData;
@@ -24,7 +24,7 @@ public class DemoModuleFixture extends FixtureScript {
         executionContext.executeChild(this, new DocumentType_and_DocumentTemplates_createSome());
     	queryResultsCache.resetForNextTransaction();
 
-    	executionContext.executeChild(this, new DemoObjectWithNote_and_DemoInvoiceWithAtPath_withComms_create3());
+    	executionContext.executeChild(this, new DemoObjectWithNote_and_DemoInvoiceWithAtPath_create3());
     }
 
     @Inject

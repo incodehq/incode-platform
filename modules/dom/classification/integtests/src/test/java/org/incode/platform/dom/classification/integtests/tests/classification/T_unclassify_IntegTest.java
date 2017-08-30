@@ -9,18 +9,18 @@ import org.junit.Test;
 
 import org.apache.isis.applib.services.factory.FactoryService;
 
-import org.incode.domainapp.example.dom.dom.classification.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath_unclassify;
-import org.incode.domainapp.example.dom.dom.classification.dom.classification.otherwithatpath.ClassificationForOtherObjectWithAtPath_unclassify;
+import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPath;
+import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPathMenu;
+import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPath;
+import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPathMenu;
+import org.incode.domainapp.example.dom.dom.classification.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath;
+import org.incode.domainapp.example.dom.dom.classification.dom.classification.otherwithatpath.ClassificationForOtherObjectWithAtPath;
+import org.incode.domainapp.example.dom.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_recreate3;
 import org.incode.module.classification.dom.impl.applicability.ApplicabilityRepository;
 import org.incode.module.classification.dom.impl.category.CategoryRepository;
 import org.incode.module.classification.dom.impl.classification.Classification;
 import org.incode.module.classification.dom.impl.classification.ClassificationRepository;
 import org.incode.module.classification.dom.spi.ApplicationTenancyService;
-import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPath;
-import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPathMenu;
-import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPath;
-import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPathMenu;
-import org.incode.domainapp.example.dom.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_recreate3;
 import org.incode.platform.dom.classification.integtests.ClassificationModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -46,7 +46,7 @@ public class T_unclassify_IntegTest extends ClassificationModuleIntegTestAbstrac
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_withCategories_recreate3(), null);
+        fixtureScripts.runFixtureScript(new DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_recreate3(), null);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class T_unclassify_IntegTest extends ClassificationModuleIntegTestAbstrac
         assertThat(byClassified).hasSize(2);
 
         // when
-        final ClassificationForDemoObjectWithAtPath_unclassify unclassify = factoryService.mixin(ClassificationForDemoObjectWithAtPath_unclassify.class, demoFooInItaly);
+        final ClassificationForDemoObjectWithAtPath.unclassify unclassify = factoryService.mixin(ClassificationForDemoObjectWithAtPath.unclassify.class, demoFooInItaly);
         wrap(unclassify).unclassify(byClassified.get(0));
 
         // then
@@ -80,7 +80,7 @@ public class T_unclassify_IntegTest extends ClassificationModuleIntegTestAbstrac
                 .get();
         assertThat(classificationRepository.findByClassified(otherBarInFrance)).isEmpty();
 
-        final ClassificationForOtherObjectWithAtPath_unclassify unclassify = factoryService.mixin(ClassificationForOtherObjectWithAtPath_unclassify.class, otherBarInFrance);
+        final ClassificationForOtherObjectWithAtPath.unclassify unclassify = factoryService.mixin(ClassificationForOtherObjectWithAtPath.unclassify.class, otherBarInFrance);
 
         // when
         final String message = unclassify.disableUnclassify().toString();
