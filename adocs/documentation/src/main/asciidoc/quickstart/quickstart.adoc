@@ -41,9 +41,10 @@ Use Maven to generate your application from the `quickstart-archetype`:
 [source,bash]
 ----
 mvn archetype:generate  \
-    -D archetypeGroupId=org.incode \
+    -D archetypeGroupId=org.incode.platform.archetype \
     -D archetypeArtifactId=quickstart-archetype \
     -D archetypeVersion=1.15.0 \
+    -D archetypeCatalog=local \
     -D groupId=com.mycompany \
     -D artifactId=myapp \
     -D version=1.0-SNAPSHOT \

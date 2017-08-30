@@ -9,6 +9,19 @@
 
 TODO: to update, copied verbatim from original READMEs
 
+== Recreating the archetype
+
+
+[source,bash]
+----
+export $INCODEREL=1.15.0
+cd example/application/quickstart
+sh ../../../scripts/recreate-archetype.sh
+----
+
+
+
+
 ==  Maven deploy notes
 
 Only the `dom` module is deployed, and is done so using Sonatype's OSS support (see

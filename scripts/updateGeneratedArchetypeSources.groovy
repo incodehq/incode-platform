@@ -20,15 +20,6 @@ cli.with {
 def BASE="target/generated-sources/archetype/"
 def ROOT=BASE + "src/main/resources/"
 
-def supplemental_models_text="""<?xml version="1.0" encoding="UTF-8"?>
-<supplementalDataModels 
-  xmlns="http://maven.apache.org/supplemental-model/1.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/supplemental-model/1.0.0 
-            http://maven.apache.org/xsd/supplemental-model-1.0.0.xsd">
-
-</supplementalDataModels>
-"""
 
 
 /////////////////////////////////////////////////////
@@ -59,15 +50,8 @@ println "updating ${pomFile.path}"
 def pomFileText = stripXmlPragma(pomFile)
 
 def pomXml = new XmlSlurper(false,true).parseText(pomFileText)
-pomXml.appendNode {
-  parent {
-    groupId("org.apache.isis.core")
-    artifactId("isis")
-    version(isis_version)
-    relativePath()
-  }
-}
-pomXml.groupId='org.apache.isis.archetype'
+pomXml.groupId='org.incode.platform.archetype'
+pomXml.artifactId='quickstart-archetype'
 
 def fragmentToAdd = new XmlSlurper( false, true ).parseText( '''<properties>
     <archetype.test.skip>true</archetype.test.skip>
@@ -126,26 +110,9 @@ tempFile.text = indentXml(metaDataSmb.toString())
 def metaDataXmlText = stripXmlPragma(tempFile)
 
 
-metaDataFile.text = 
-    metaDataXmlText
+metaDataFile.text = metaDataXmlText
 
 
-
-
-
-///////////////////////////////////////////////////
-//
-// add empty supplemental-models.xml
-//
-///////////////////////////////////////////////////
-
-//
-// don't think this is required if not ASF
-
-//def appendedResourcesDir = new File(BASE + "src/main/appended-resources")
-//appendedResourcesDir.mkdir()
-//def supplementalModelsFile=new File(appendedResourcesDir, "supplemental-models.xml")
-//supplementalModelsFile.text = supplemental_models_text
 
 
 

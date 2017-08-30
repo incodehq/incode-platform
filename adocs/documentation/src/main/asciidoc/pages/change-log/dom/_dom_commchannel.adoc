@@ -1,4 +1,4 @@
-[[_dom_comm-channel]]
+[[_dom_commchannel]]
 = Communication Channel Subdomain
 :_basedir: ../../../
 :_imagesdir: images/

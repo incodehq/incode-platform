@@ -6,7 +6,7 @@
 
 include::_dom_alias.adoc[leveloffset=+1]
 include::_dom_classification.adoc[leveloffset=+1]
-include::_dom_comm-channel.adoc[leveloffset=+1]
+include::_dom_commchannel.adoc[leveloffset=+1]
 include::_dom_communications.adoc[leveloffset=+1]
 include::_dom_country.adoc[leveloffset=+1]
 include::_dom_docfragment.adoc[leveloffset=+1]
