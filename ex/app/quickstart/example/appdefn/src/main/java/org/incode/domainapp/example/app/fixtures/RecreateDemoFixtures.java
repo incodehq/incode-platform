@@ -14,7 +14,7 @@ import org.incode.domainapp.example.dom.demo.fixture.setup.OtherObject_createUpT
 import org.incode.domainapp.example.dom.demo.fixture.teardown.DemoModuleTearDown;
 import org.incode.domainapp.example.dom.demo.fixture.todoitems.DemoToDoItem_create_usingExcelFixture;
 import org.incode.domainapp.example.dom.dom.classification.fixture.ClassificationModule_tearDown;
-import org.incode.domainapp.example.dom.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_create3;
+import org.incode.domainapp.example.dom.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3;
 import org.incode.domainapp.example.dom.dom.commchannel.fixture.CommChannelModule_tearDown;
 import org.incode.domainapp.example.dom.dom.communications.fixture.data.democust2.DemoObjectWithNote_and_DemoInvoiceWithAtPath_create3;
 import org.incode.domainapp.example.dom.dom.communications.fixture.data.doctypes.DocumentType_and_DocumentTemplates_createSome;
@@ -87,7 +87,7 @@ public class RecreateDemoFixtures extends DiscoverableFixtureScript {
 
         ec.executeChild(this, new DemoObject_createUpTo10_hardcodedData());
         ec.executeChild(this, new DemoObjectWithAll_recreate3());
-        ec.executeChild(this, new DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_create3());
+        ec.executeChild(this, new DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3());
         ec.executeChild(this, new DemoObjectWithBlob_createUpTo5_fakeData());
         ec.executeChild(this, new DemoObjectWithNote_and_DemoInvoiceWithAtPath_create3());
         ec.executeChild(this, new DemoObjectWithUrl_createUpTo5_fakeData());

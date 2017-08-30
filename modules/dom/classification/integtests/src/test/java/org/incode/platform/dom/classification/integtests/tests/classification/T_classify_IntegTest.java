@@ -19,7 +19,7 @@ import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWith
 import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPathMenu;
 import org.incode.domainapp.example.dom.dom.classification.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath;
 import org.incode.domainapp.example.dom.dom.classification.dom.classification.otherwithatpath.ClassificationForOtherObjectWithAtPath;
-import org.incode.domainapp.example.dom.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_recreate3;
+import org.incode.domainapp.example.dom.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_recreate3;
 import org.incode.module.classification.dom.impl.applicability.ApplicabilityRepository;
 import org.incode.module.classification.dom.impl.category.Category;
 import org.incode.module.classification.dom.impl.category.CategoryRepository;
@@ -55,7 +55,7 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_recreate3(), null);
+        fixtureScripts.runFixtureScript(new DemoObjectWithAtPath_and_OtherObjectWithAtPath_recreate3(), null);
     }
 
     @Test

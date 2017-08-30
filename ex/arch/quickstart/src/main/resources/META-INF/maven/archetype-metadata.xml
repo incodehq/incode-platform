@@ -1,0 +1,265 @@
+<archetype-descriptor xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0" name="incode-quickstart" xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileSets>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>example/appdefn</directory>
+            <includes>
+                <include>**/*.java</include>
+                <include>**/*.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>webapp</directory>
+            <includes>
+                <include>**/*.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>module-base/src</directory>
+            <includes>
+                <include>**/*.java</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>_checks</directory>
+            <includes>
+                <include>**/*.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>example/embeddedcamel_to_externalsystem</directory>
+            <includes>
+                <include>**/*.xml</include>
+                <include>**/*.properties</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>appdefn/src</directory>
+            <includes>
+                <include>**/*.java</include>
+                <include>**/*.properties</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>example/embeddedcamel</directory>
+            <includes>
+                <include>**/*.java</include>
+                <include>**/*.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>module-base</directory>
+            <includes>
+                <include>**/*.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>module-simple</directory>
+            <includes>
+                <include>**/*.xml</include>
+                <include>**/*.properties</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>webapp/src</directory>
+            <includes>
+                <include>**/*.java</include>
+                <include>**/*.xml</include>
+                <include>**/*.html</include>
+                <include>**/*.properties</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>module-simple/src</directory>
+            <includes>
+                <include>**/*.java</include>
+                <include>**/*.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>example/externalsystemadapter</directory>
+            <includes>
+                <include>**/*.java</include>
+                <include>**/*.xml</include>
+                <include>**/*.properties</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>example/dom</directory>
+            <includes>
+                <include>**/*.java</include>
+                <include>**/*.xml</include>
+                <include>**/*.html</include>
+                <include>**/*.properties</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>module-simple/target</directory>
+            <includes>
+                <include>**/*.java</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>appdefn</directory>
+            <includes>
+                <include>**/*.xml</include>
+                <include>**/*.properties</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>example/canonical</directory>
+            <includes>
+                <include>**/*.java</include>
+                <include>**/*.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory>example/appdefn</directory>
+            <includes>
+                <include>**/*.gitignore</include>
+                <include>**/*.png</include>
+                <include>**/*.iml</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory>webapp</directory>
+            <includes>
+                <include>**/*.gitignore</include>
+                <include>**/*.iml</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory>example/embeddedcamel_to_externalsystem</directory>
+            <includes>
+                <include>**/*.iml</include>
+                <include>**/*.jar</include>
+                <include>**/*.lst</include>
+                <include>**/*.class</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory>appdefn/src</directory>
+            <includes>
+                <include>**/*.feature</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory>example/embeddedcamel</directory>
+            <includes>
+                <include>**/*.iml</include>
+                <include>**/*.class</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory>module-base</directory>
+            <includes>
+                <include>**/*.iml</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory>module-simple</directory>
+            <includes>
+                <include>**/*.gradle</include>
+                <include>**/*.</include>
+                <include>**/*.bat</include>
+                <include>**/*.pot</include>
+                <include>**/*.gitignore</include>
+                <include>**/*.iml</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory>example</directory>
+            <includes>
+                <include>**/*.iml</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory>webapp/lib</directory>
+            <includes>
+                <include>**/*.gitignore</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory>webapp/src</directory>
+            <includes>
+                <include>**/*.</include>
+                <include>**/*.FeatureManagerProvider</include>
+                <include>**/*.css</include>
+                <include>**/*.ico</include>
+                <include>**/*.gif</include>
+                <include>**/*.ini</include>
+                <include>**/*.md</include>
+                <include>**/*.ttf</include>
+                <include>**/*.png</include>
+                <include>**/*.js</include>
+                <include>**/*.pdn</include>
+                <include>**/*.sql</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory>module-base/target</directory>
+            <includes>
+                <include>**/*.class</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory>module-simple/src</directory>
+            <includes>
+                <include>**/*.png</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory>example/externalsystemadapter</directory>
+            <includes>
+                <include>**/*.wsdl</include>
+                <include>**/*.EA622CDD1B6E501AD794DD69DC0ECB6AF49A3CA6</include>
+                <include>**/*.iml</include>
+                <include>**/*.jar</include>
+                <include>**/*.lst</include>
+                <include>**/*.class</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory>example/dom</directory>
+            <includes>
+                <include>**/*.xlsx</include>
+                <include>**/*.pdf</include>
+                <include>**/*.PDF</include>
+                <include>**/*.gitignore</include>
+                <include>**/*.png</include>
+                <include>**/*.iml</include>
+                <include>**/*.json</include>
+                <include>**/*.class</include>
+                <include>**/*.docx</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory>module-simple/target</directory>
+            <includes>
+                <include>**/*.class</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory>appdefn</directory>
+            <includes>
+                <include>**/*.pot</include>
+                <include>**/*.gitignore</include>
+                <include>**/*.iml</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory>example/canonical</directory>
+            <includes>
+                <include>**/*.iml</include>
+                <include>**/*.class</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory/>
+            <includes>
+                <include>.gitignore</include>
+                <include>incode-domainapp.iml</include>
+                <include>incode-quickstart.iml</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</archetype-descriptor>

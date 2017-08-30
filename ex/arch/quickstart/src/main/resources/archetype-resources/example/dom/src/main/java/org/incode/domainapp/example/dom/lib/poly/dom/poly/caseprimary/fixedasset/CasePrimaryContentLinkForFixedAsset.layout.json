@@ -1,0 +1,50 @@
+{
+    "columns": [
+        {
+            "span": 6,
+            "memberGroups": {
+                "Case": {
+                    "members": {
+                        "case": {
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "span": 0,
+            "memberGroups": {}
+        },
+        {
+            "span": 6,
+            "memberGroups": {
+                "Content": {
+                    "members": {
+                        "contentObjectType": {
+                            "propertyLayout": {
+                                "named": "Object Type",
+                                "labelPosition": "LEFT"
+                            }
+                        },
+                        "contentIdentifier": {
+                            "propertyLayout": {
+                                "named": "Identifier",
+                                "labelPosition": "LEFT"
+                            }
+                        }
+                    }
+                },
+                "Content (subtype)": {
+                    "members": {
+                        "fixedAsset": {}
+                    }
+                }
+            }
+        },
+        {
+            "span": 12,
+            "collections": {}
+        }
+    ],
+    "actions": {}
+}

@@ -1,0 +1,33 @@
+{
+  columns: [
+    {
+      span: 12,
+      memberGroups: {
+        General: {
+          members: {
+            description: {
+              typicalLength: {value: 50}
+            },
+            documentationPage: {
+              typicalLength: {value: 100},
+              actions: {
+                open: {}
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      span: 0
+    },
+    {
+      span: 0
+    },
+    {
+      span: 6,
+      collections: {}
+    }
+  ],
+  actions: {}
+}

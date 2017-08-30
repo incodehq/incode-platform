@@ -11,16 +11,16 @@ import org.junit.Test;
 
 import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPath;
 import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPathMenu;
-import org.incode.domainapp.example.dom.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_recreate3;
+import org.incode.domainapp.example.dom.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_recreate3;
 import org.incode.platform.dom.classification.integtests.ClassificationModuleIntegTestAbstract;
 
 public class DemoObjectMenu_IntegTest extends ClassificationModuleIntegTestAbstract {
 
-    DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_recreate3 fs;
+    DemoObjectWithAtPath_and_OtherObjectWithAtPath_recreate3 fs;
 
     @Before
     public void setUpData() throws Exception {
-        fs = new DemoObjectWithAtPath_and_OtherObjectWithAtPath_withClassifications_recreate3();
+        fs = new DemoObjectWithAtPath_and_OtherObjectWithAtPath_recreate3();
         fixtureScripts.runFixtureScript(fs, null);
     }
 

@@ -1,0 +1,55 @@
+{
+    "columns": [
+        {
+            "span": 6,
+            "memberGroups": {
+                "Case": {
+                    "members": {
+                        "contentTitle": {
+                            "propertyLayout": {
+                                "hidden": "NOWHERE"
+                            }
+                        },
+                        "case": {
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "span": 0,
+            "memberGroups": {}
+        },
+        {
+            "span": 6,
+            "memberGroups": {
+                "Content": {
+                    "members": {
+                        "contentObjectType": {
+                            "propertyLayout": {
+                                "named": "Object Type",
+                                "labelPosition": "LEFT"
+                            }
+                        },
+                        "contentIdentifier": {
+                            "propertyLayout": {
+                                "named": "Identifier",
+                                "labelPosition": "LEFT"
+                            }
+                        }
+                    }
+                },
+                "Content (subtype)": {
+                    "members": {
+                        "party": {}
+                    }
+                }
+            }
+        },
+        {
+            "span": 12,
+            "collections": {}
+        }
+    ],
+    "actions": {}
+}
