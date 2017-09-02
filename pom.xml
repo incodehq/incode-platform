@@ -424,6 +424,9 @@
 
                 <module>ex/app/quickstart</module>
 
+                <!-- quickstart archetype generated from ex/app/quickstart  -->
+                <module>ex/arch/quickstart</module>
+
                 <!-- per-module testing -->
 
                 <module>modules/ext/flywaydb/integtests</module>

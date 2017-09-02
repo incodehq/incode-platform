@@ -25,6 +25,7 @@
         <isis-maven-plugin.swagger.dependency.groupId>${project.groupId}</isis-maven-plugin.swagger.dependency.groupId>
         <isis-maven-plugin.swagger.dependency.artifactId>${project.parent.artifactId}-demo-application</isis-maven-plugin.swagger.dependency.artifactId>
 
+        <jetty-maven-plugin.version>${jetty.version}</jetty-maven-plugin.version>
         <jetty-console-maven-plugin.backgroundImage>${basedir}/src/main/jettyconsole/isis-banner.png</jetty-console-maven-plugin.backgroundImage>
 
 
@@ -407,17 +408,17 @@
                 </property>
             </activation>
 
-            mvn install:install-file -Dfile=sqljdbc4.jar \
-                                     -DgroupId=com.microsoft.sqlserver \
-                                     -DartifactId=jdbc \
-                                     -Dversion=4.0 \
-                                     -Dpackaging=jar
+            mvn install:install-file -Dfile=mssql-jdbc-6.2.1.jre8.jar \
+                                 -DgroupId=com.microsoft.sqlserver \
+                                 -DartifactId=jdbc \
+                                 -Dversion=6.2.1 \
+                                 -Dpackaging=jar
 
             <dependencies>
                <dependency>
                    <groupId>com.microsoft.sqlserver</groupId>
-                   <artifactId>sqljdbc4</artifactId>
-                   <version>4.0</version>
+                   <artifactId>jdbc</artifactId>
+                   <version>6.2.1</version>
                </dependency>
             </dependencies>
         </profile>

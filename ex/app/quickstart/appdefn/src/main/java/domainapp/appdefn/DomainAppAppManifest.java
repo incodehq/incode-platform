@@ -55,6 +55,7 @@ public class DomainAppAppManifest extends AppManifestAbstract {
             SimpleModule.class,
 
             /* Comment out to exclude example modules that set up embedded camel: START */
+            PublishMqModule.class,
             EmbeddedCamelModule.class,
             /* Comment out to exclude example modules that set up embedded camel: END */
 
@@ -91,7 +92,6 @@ public class DomainAppAppManifest extends AppManifestAbstract {
             // spi
             AuditModule.class,
             CommandModule.class,
-            PublishMqModule.class,
             SecurityModule.class,
             SessionLoggerModule.class,
 

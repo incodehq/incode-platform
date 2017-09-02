@@ -43,7 +43,7 @@ To include the Embedded Camel modules, just uncomment the relevant blocks surrou
 
 You should find there are two such blocks in the various `pom.xml` files, and one block in `web.xml`.
 
-
+There is also one block
 
 
 
@@ -60,6 +60,8 @@ You should find there are two such blocks in the various `pom.xml` files, and on
 [[__quickstart-with-embedded-camel_features_publishing]]
 === Publishing
 
-xref:quickstart.adoc#__quickstart_features_publishing
+The xref:xref:quickstart.adoc#__quickstart_features_publishing[basic quickstart supports publishing] only in so far as the default  implementation of link:http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_persistence-layer-spi_PublisherService[PublisherService] provided by Apache Isis itself.
 
-TODO: xref basic publishing in "quickstart"
+
+
+

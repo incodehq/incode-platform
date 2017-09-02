@@ -8,28 +8,35 @@
 pass:[<br/>]
 
 The Incode Platform provides a number of _modules_ for use with the link:http://isis.apache.org[Apache Isis] framework.
-The platform also provides a _"quickstart"_ app which can be used as a quickly set up your own pre-configured applications.
+The platform also provides a _"quickstart"_ app which can be used to quickly set up your own pre-configured applications.
 
 
 [[modules]]
 == Modules
 
-Pick-n-mix the modules you need "out of the box", or fork the repo and use the source code as a starting point to adapt to your own requirements.
-Most modules are independent of others, with the README for each explaininghow to configure your application to use it.
+Select the modules you need and use them "out of the box", or fork the repo and use the source code as a starting point to meet your own requirements.
+Most modules are independent of others, with the README for each explaining how to configure your application to use it.
 
-The modules fall into five broad categories, summarised in the table below:
+The modules fall into six broad categories, summarised in the table below:
 
 [cols="^1a,^1a,^1a,^1a,^1a,^1a,^1a", options="header,footer", frame="all", grid="none"]
 |===
 
-2.+^.>| xref:modules/lib/lib.adoc#[_Libraries_]
-^.>| xref:modules/dom/dom.adoc#[_Generic Subdomains_]
-^.>| xref:modules/spi/spi.adoc#[_SPI +
+2.+^.^| xref:modules/lib/lib.adoc#[_Libraries_]
+^.^| xref:modules/dom/dom.adoc#[_Generic Subdomains_]
+^.^| xref:modules/spi/spi.adoc#[_SPI +
 Implementations_]
-^.>| xref:modules/wkt/wkt.adoc#[_Wicket Components_]
-^.>| xref:modules/mml/mml.adoc#[_Metamodel Facets_]
-^.>| xref:modules/ext/ext.adoc#[_Extensions_]
+^.^| xref:modules/wkt/wkt.adoc#[_Wicket Components_]
+^.^| xref:modules/mml/mml.adoc#[_Metamodel Facets_]
+^.^| xref:modules/ext/ext.adoc#[_Extensions_]
 
+|
+|
+|
+|
+|
+|
+|
 
 |
 
@@ -133,16 +140,17 @@ xref:modules/ext/togglz/ext-togglz.adoc#[Togglz]
 [[quickstart]]
 == Quickstart
 
-The quickstart app is a Maven archetype intended to be used as a starting point for new applications.
+The xref:quickstart/quickstart.adoc#[quickstart app] is a Maven archetype intended to be used as a starting point for new applications.
 
-Like the Apache Isis framework's own link:http://isis.apache.org#guides/ugfun/ugfun.html#_ugfun_getting-started_simpleapp-archetype[simpleapp archetype], the application also provides a `SimpleObject` to adapt and copy, along with supporting unit tests, integration tests and BDD (cucumber) specs.
+Like the Apache Isis framework's own link:http://isis.apache.org#guides/ugfun/ugfun.html#_ugfun_getting-started_simpleapp-archetype[simpleapp archetype], the application provides a `SimpleObject` to adapt and copy, along with supporting unit tests, integration tests and BDD (cucumber) specs.
 
-However, the application generated from the archetype is also preconfigured with the dependencies for all of the modules available in the Incode Platform.
-
-Moreover, the generated application also provides example code to:
-
-* bootstrap a _Spring Framework_ context alongside the Apache Isis framework, hosting embedded _Apache ActiveMQ_ and _Apache Camel_ instances
-
-* demonstrate usage of the various modules within the Incode Platform.
-
+The application generated from the archetype is also preconfigured with the dependencies for all of the modules available in the Incode Platform, with xref:modules/spi/audit/spi-audit.adoc#[auditing], xref:modules/spi/command/spi-command.adoc#[command] profiling, xref:modules/spi/security/spi-security.adoc#[security], xref:modules/ext/flywaydb/ext-flywaydb.adoc#[flywaydb] and (feature) xref:modules/ext/togglz/ext-togglz.adoc#[togglz] enabled by default.
 The application also configures the _Quartz scheduler_ for background scheduling, and the _Jolokia_ servlet, allowing consoles such as _hawt.io_ to monitor the internal state of the webapp.
+
+The generated application also includes example code to:
+
+* xref:quickstart/quickstart-with-embedded-camel.adoc#[bootstrap] a _Spring Framework_ context alongside the Apache Isis framework, hosting embedded _Apache Camel_ and _Apache ActiveMQ_ instances
+
+* xref:quickstart/quickstart-with-example-usage.adoc#[demonstrate usage] of the various modules within the Incode Platform.
+
+These can be easily included or excluded just by commenting in/out small sections of code.

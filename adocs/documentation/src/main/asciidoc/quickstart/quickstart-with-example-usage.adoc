@@ -42,14 +42,18 @@ If you've uncommented out these example usage modules, then you will be able to 
 
 image::{_imagesdir}intellij-run-configuration-with-example-modules-and-fixtures.png[width="800px",link="{_imagesdir}intellij-run-configuration-with-example-modules-and-fixtures.png"]
 
+TODO: update screenshot for running with myapp ^^ ^^ ^^
+
 That is to say:
 
 * main-class: `org.apache.isis.WebServer`
 * program args: `-m org.incode.domainapp.example.app.DomainAppAppManifestWithExampleModulesAndFixtures`
 
+With a pre-launch mvn goal of:
 
+* mvn -Denhance -Dskip.default datanucleus:enhance -o
 
-
+running in the parent pom's directory.
 
 
 [[__quickstart-with-example-usage_features]]
