@@ -57,6 +57,10 @@ There is also one block
 
 **
 
+
+    java -jar hawtio-app-1.5.3.jar --port 9090
+
+
 [[__quickstart-with-embedded-camel_features_publishing]]
 === Publishing
 

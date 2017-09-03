@@ -711,7 +711,16 @@ image::{_imagesdir}features/audit/audit-entry.png[width="600px",link="{_imagesdi
 Publishing and xref:quickstart.adoc#__quickstart_features_commands[commands] share some similarities: both create an XML representation of an action invocation or property edit.
 However, whereas a `Command` represents the _intention_ to invoke the action, with publishing the serialized XML also captures the result of the invocation and some basic metrics.
 
-The main use case of the Apache Isis link:http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_persistence-layer-spi_PublisherService[`PublisherService`] SPI is to be able facilitate message exchange between external systems.
+The main use case of the publisher SPI is to be able facilitate message exchange between external systems.
+The quickstart app uses the xref:../modules/spi/publishmq/spi-publishmq.adoc#[publishmq] module which bootstraps an in-memory ActiveMQ instance and publishes to it.
+(It also persists each interaction to a database table to allow messages to be resent if required).
+
+[source,ini]
+.isis.properties (in webapp module)
+----
+isis.services.PublisherServiceUsingActiveMq.vmTransportUri=vm://broker
+isis.services.PublisherServiceUsingActiveMq.memberInteractionsQueue= memberInteractionsQueue
+----
 
 The quickstart app (when using the fixtures) disables publishing "globally" in the app manifest:
 
