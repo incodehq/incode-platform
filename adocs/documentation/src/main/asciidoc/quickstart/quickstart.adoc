@@ -719,7 +719,8 @@ The quickstart app uses the xref:../modules/spi/publishmq/spi-publishmq.adoc#[pu
 .isis.properties (in webapp module)
 ----
 isis.services.PublisherServiceUsingActiveMq.vmTransportUri=vm://broker
-isis.services.PublisherServiceUsingActiveMq.memberInteractionsQueue= memberInteractionsQueue
+isis.services.PublisherServiceUsingActiveMq.memberInteractionsQueue=\
+                                                           memberInteractionsQueue
 ----
 
 The quickstart app (when using the fixtures) disables publishing "globally" in the app manifest:
@@ -757,28 +758,31 @@ and for invoking the `updateName` action:
 public SimpleObject updateName( ... ) {  ... }
 ----
 
-The quickstart supports publishing] only in so far as it uses the default implementation of link:http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_persistence-layer-spi_PublisherService[PublisherService] provided by Apache Isis itself; which is to say that the published message is just logged.
+Using the link:http:http://hawt.io[hawt.io] console we can monitor the messages sent to the ActiveMQ message:
+Download the hawt.io JAR file and start using:
 
-The provided logging configuration:
-
-[source,ini]
-.WEB-INF/logging.properties
+[source,bash]
 ----
-...
-log4j.appender.PublisherServiceLogging=org.apache.log4j.FileAppender
-log4j.appender.PublisherServiceLogging.File=./logs/PublisherServiceLogging.log
-...
-log4j.logger.org.apache.isis.applib.services.publish.PublisherServiceLogging=DEBUG,PublisherServiceLogging
-...
+java -jar hawtio-app-1.5.3.jar --port 9090
 ----
 
-will log to the `webapp/logs` directory:
+Then connect to the jolokia servlet (configured in the quickstart's `web.xml`):
 
-image::{_imagesdir}features/publish/publish-log.png[width="600px",link="{_imagesdir}features/publish/publish-log.png"]
+image::{_imagesdir}features/publish/hawtio-jolokia-connect.png[width="600px",link="{_imagesdir}features/publish/hawtio-jolokia-connect.png"]
 
+with the port set to `8080` and the path set to `/api/jolokia`.
 
+Invoking the `updateName` action on `SimpleObject` will result in a message being sent to the ActiveMQ queue:
 
-Configuring the quickstart app to run with xref:quickstart-with-embedded-camel.adoc#__quickstart-with-embedded-camel_including-the-example-modules[embedded camel] includes the xref:../modules/spi/publishmq/spi-publishmq[publishmq] module which publishes to an ActiveMQ queue.
+image::{_imagesdir}features/publish/hawtio-activemq-interactions.png[width="600px",link="{_imagesdir}features/publish/hawtio-activemq-interactions.png"]
+
+and indeed the details of the message can be inspected:
+
+image::{_imagesdir}features/publish/hawtio-activemq-interaction.png[width="600px",link="{_imagesdir}features/publish/hawtio-activemq-interaction.png"]
+
+The same message is persisted as a `PublishedEvent` entity:
+
+image::{_imagesdir}features/publish/publish-object.png[width="600px",link="{_imagesdir}features/publish/publish-object.png"]
 
 
 
@@ -963,29 +967,51 @@ gradle -t --offline -b liveReload.gradle &
 [[__quickstart_features_flywaydb]]
 === FlywayDB
 
-TODO: as per the flywaydb, generate the schema
+The xref:../modules/ext/flywaydb/ext-flywaydb.adoc#[flywaydb extension] integrates FlywayDB to automatically handle database migrations.
+These ensure that the schema of the (production) database is in sync with that required by the domain entities.
 
-TODO: provide a simple flyway scripts, one to create the database with name set to varchar(30), then another alter table that changes to varchar(50).
+To demonstrate its usage, the quickstart app includes the `DomainAppAppManifestWithFlywayEnabledForSqlServer` manifest.
+This adds a number of configuration properties, the most important of which is:
 
-
-The app will bootstrap against an in-memory database, however it will be Flyway that sets up the database schema (rather than DataNucleus automatically creating the database as might normally be the case).
-This is discussed in a little more detail xref:what-happens-during-bootstrapping[below].
-
-Then log on using user: `sven`, password: `pass`
-
-
-
-* configure to auto-create schema/tables in empty database, by adding to `persistor_datanucleus.properties`: +
-+
-[source,properties]
+[source,java]
 ----
-isis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll=true
-isis.persistor.datanucleus.impl.datanucleus.schema.validateTables=true
-isis.persistor.datanucleus.impl.datanucleus.schema.validateConstraints=true
+configurationProperties.put(
+    "isis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll", "false");
 ----
 
+The other configuration properties indicate which schemas to track, and where to locate the migration scripts on the classpath.
+
+The migration scripts themselves are in the `webapp` module:
+
+image::{_imagesdir}features/flywaydb/migration-scripts.png[width="400px",link="{_imagesdir}features/flywaydb/migration-scripts.png"]
 
 
+Running the app with this manifest against an empty SQL Server database results in FlywayDB automatically creating the database tables:
+
+image::{_imagesdir}features/flywaydb/mssql-generated-tables.png[width="400px",link="{_imagesdir}features/flywaydb/mssql-generated-tables.png"]
+
+The `flyway.schema_version` table keeps track of the scripts that have been applied:
+
+image::{_imagesdir}features/flywaydb/schema_version.png[width="600px",link="{_imagesdir}features/flywaydb/schema_version.png"]
+
+
+
+There are a couple of other points worth making.
+
+First, the manifest uses the following configuration property:
+
+[source,ini]
+----
+configurationProperties.put(
+    "isis.persistor.datanucleus.impl.datanucleus.Mapping", "sqlserver");
+----
+
+to instruct DataNucleus to pick up any `-sqlserver.orm` files from the classpath.
+There are two such: `DocumentAbstract-sqlserver.orm` and `CommandJdo-sqlserver.orm`.
+
+
+Second, the quickstart app also provides a `beforeMigrate.sql` script to drop all index/constraints, and uses the `autoCreateConstraints` property so that DataNucleus will automatically re-create any indices.
+For large databases this would not be practicable, in which case the `beforeMigrate.sql` script should be removed.
 
 
 [[__quickstart_maven-mixins]]
