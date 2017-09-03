@@ -24,6 +24,7 @@ public class DomainAppAppManifestWithFixtures extends DomainAppAppManifest {
     protected void disableAuditingAndCommandAndPublishGlobally(final Map<String, String> configurationProperties) {
         configurationProperties.put("isis.services.audit.objects","none");
         configurationProperties.put("isis.services.command.actions","none");
+        configurationProperties.put("isis.services.command.properties","none");
         configurationProperties.put("isis.services.publish.objects","none");
         configurationProperties.put("isis.services.publish.actions","none");
         configurationProperties.put("isis.services.publish.properties","none");

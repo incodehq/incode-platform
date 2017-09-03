@@ -6,17 +6,12 @@ import org.togglz.core.context.FeatureContext;
 
 public enum TogglzFeature implements org.togglz.core.Feature {
 
-    @Label("Enable create")
+    @Label("Enable SimpleObject#create")
     @EnabledByDefault
-    create,
+    SimpleObject_create,
 
-    @Label("Enable findByName")
-    findByName,
-
-    @Label("Enable listAll")
-    @EnabledByDefault
-    listAll;
-
+    @Label("Enable SimpleObject#findByName")
+    SimpleObject_findByName;
 
     public boolean isActive() {
         return FeatureContext.getFeatureManager().isActive(this);

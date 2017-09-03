@@ -15,7 +15,7 @@ This builds on the (other) extension to xref:quickstart-with-embedded-camel.adoc
 The diagram below shows the extended structure of the application and how these example modules fit in:
 
 
-image::{_imagesdir}module-dependencies-with-embedded-camel-and-demo-usage.png[width="800px",link="{_imagesdir}module-dependencies-with-embedded-camel-and-demo-usage.png"]
+image::{_imagesdir}project-structure/module-dependencies/slide3.png[width="800px",link="{_imagesdir}project-structure/module-dependencies/slide3.png"]
 
 
 [[__quickstart-with-example-usage_including-the-example-modules]]

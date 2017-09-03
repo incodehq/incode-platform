@@ -17,7 +17,7 @@ This Spring context hosts an embedded _Apache ActiveMQ_ and _Apache Camel_ insta
 The diagram below shows how the structure of the application is extended to support this:
 
 
-image::{_imagesdir}module-dependencies-with-embedded-camel.png[width="800px",link="{_imagesdir}module-dependencies-with-embedded-camel.png"]
+image::{_imagesdir}project-structure/module-dependencies/slide2.png[width="800px",link="{_imagesdir}project-structure/module-dependencies/slide2.png"]
 
 
 

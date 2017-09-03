@@ -7,8 +7,9 @@ body > div.container {
 }
 
 .navbar-brand > img {
-    margin-top: -12px;
+    margin-top: -19px;
     margin-left: 12px;
+    height: 60px;
 }
 
 
