@@ -9,7 +9,44 @@
 TODO: fix up
 
 
-== Building an individual module
+[[__contributors-guide_building]]
+== Building
+
+The platform must be built in the following order:
+
+* maven mixins
+
++
+which is depended on by:
+
+* modules
+
++
+which is depended on by:
+
+* quickstart example app
+
++
+which is used as the template for:
+
+* archetype
+
+
+[[__contributors-guide_]]
+=== Building the mavenmixins
+
+These must be built first, because the modules depend upon them.
+
+[source,bash]
+----
+mvn clean install -Dskip.isis-validate -Dskip.isis-swagger -o
+----
+
+
+=== Building Modules
+
+
+==== Building an individual module
 
 
 [source,bash]
@@ -20,12 +57,13 @@ mvn clean install  -D dom-alias -Dskip.default -o
 
 [source,bash]
 ----
-mvn clean install  -D dom-alias -Dskip.default -o -Dskip.isis-validate
+mvn clean install  -D dom-alias -Dskip.default -o -Dskip.isis-validate -Dskip.isis-swagger
 ----
 
 
-
 TODO: sort out, material below copied verbatim from original READMEs
+
+
 
 
 == Forking the repo

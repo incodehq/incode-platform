@@ -20,9 +20,9 @@ image::{_imagesdir}project-structure/module-dependencies/slide3.png[width="800px
 
 where:
 
-* `quickstart-example-appdefn` ...
+* `quickstart-example-dom` provides a whole slew of additional domain classes that demonstrate the usage of the modules, and which are used in the integration tests of each module.
 
-* `quickstart-example-dom` ...
+* `quickstart-example-appdefn` provides additional app manifests that extends those provided base quickstart's, including the example modules.
 
 
 
@@ -50,32 +50,32 @@ the various `pom.xml` files.
 If you've uncommented out these example usage modules, then you will be able to run the application with an extended `AppManifest`:
 
 
-image::{_imagesdir}intellij-run-configuration-with-example-modules-and-fixtures.png[width="600px",link="{_imagesdir}intellij-run-configuration-with-example-modules-and-fixtures.png"]
+image::{_imagesdir}example-usage/running/ide/intellij-run-configuration-example-modules-and-fixtures.png[width="600px",link="{_imagesdir}example-usage/running/ide/intellij-run-configuration-example-modules-and-fixtures.png"]
 
-TODO: update screenshot for running with myapp ^^ ^^ ^^
 
 That is to say:
 
 * main-class: `org.apache.isis.WebServer`
 * program args: `-m org.incode.domainapp.example.app.DomainAppAppManifestWithExampleModulesAndFixtures`
 
-With a pre-launch mvn goal of:
+with a pre-launch mvn goal of:
 
 * mvn -Denhance -Dskip.default datanucleus:enhance -o
 
 running in the parent pom's directory.
 
 
-[[__quickstart-with-example-usage_features]]
-== Features
 
-
-[[__quickstart-with-example-usage_features_home-page]]
-=== Home Page
+[[__quickstart-with-example-usage_home-page]]
+== Home Page
 
 
 
-[[__quickstart-with-example-usage_features_generic-subdomains]]
+[[__quickstart-with-example-usage_modules]]
+== Modules
+
+
+[[__quickstart-with-example-usage_modules_generic-subdomains]]
 === Generic Subdomains
 
 
@@ -140,7 +140,7 @@ Also uses (and therefore demonstrates use of) the Document generic subdomain.
 
 
 
-[[__quickstart-with-example-usage_features_libraries]]
+[[__quickstart-with-example-usage_modules_libraries]]
 === Libraries
 
 
@@ -203,7 +203,7 @@ Also uses (and therefore demonstrates use of) the Document generic subdomain.
 
 
 
-[[__quickstart-with-example-usage_features_metamodel-facets]]
+[[__quickstart-with-example-usage_modules_metamodel-facets]]
 === MetaModel Facets
 
 .MetaModel Facets example usage
@@ -220,7 +220,7 @@ Also uses (and therefore demonstrates use of) the Document generic subdomain.
 
 
 
-[[__quickstart-with-example-usage_features_spi-implementations]]
+[[__quickstart-with-example-usage_modules_spi-implementations]]
 === SPI Implementations
 
 
@@ -249,7 +249,7 @@ Also uses (and therefore demonstrates use of) the Document generic subdomain.
 |===
 
 
-[[__quickstart-with-example-usage_features_wicket-components]]
+[[__quickstart-with-example-usage_modules_wicket-components]]
 === Wicket Components
 
 

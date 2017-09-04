@@ -14,11 +14,12 @@ import domainapp.appdefn.fixture.scenarios.DomainAppDemo;
 @DomainService(
         nature = NatureOfService.DOMAIN
 )
-public class DomainAppFixtureScriptsSpecificationProvider implements FixtureScriptsSpecificationProvider {
+public class DomainAppFixtureScriptsSpecProvider implements FixtureScriptsSpecificationProvider {
+
     @Override
     public FixtureScriptsSpecification getSpecification() {
         return FixtureScriptsSpecification
-                .builder(DomainAppFixtureScriptsSpecificationProvider.class)
+                .builder(DomainAppFixtureScriptsSpecProvider.class)
                 .with(FixtureScripts.MultipleExecutionStrategy.EXECUTE)
                 .withRunScriptDefault(DomainAppDemo.class)
                 .withRunScriptDropDown(FixtureScriptsSpecification.DropDownPolicy.CHOICES)

@@ -52,10 +52,10 @@ public class DomainAppAppManifestWithFlywayEnabledForSqlServer extends DomainApp
                 "com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
         /*
-        // specify remaining as required:
+        // specify remaining as system properties or uncomment and hard-code:
         configurationProperties.put(
                 "isis.persistor.datanucleus.impl.javax.jdo.option.ConnectionURL",
-                 "jdbc:sqlserver://localhost:1433;instance=.;databaseName=myappdb2");
+                 "jdbc:sqlserver://localhost:1433;instance=.;databaseName=myappdb");
         configurationProperties.put(
                 "isis.persistor.datanucleus.impl.javax.jdo.option.ConnectionUserName", "myappdbo");
         configurationProperties.put(

@@ -6,8 +6,6 @@
 :generate_pdf:
 
 
-TODO: should say something about how to exclude the supporting generic subdomains.
-
 
 The quickstart is a Maven archetype intended to be used as a template for new applications.
 
@@ -73,7 +71,7 @@ cd myapp
 The quickstart app consists of five Maven modules: a parent module and four submodules.
 The diagram below shows their dependencies:
 
-image::{_imagesdir}project-structure/module-dependencies/slide1.png[width="400px",link="{_imagesdir}project-structure/module-dependencies/slide1.png"]
+image::{_imagesdir}project-structure/module-dependencies/slide1.png[width="800px",link="{_imagesdir}project-structure/module-dependencies/slide1.png"]
 
 where:
 
@@ -89,7 +87,7 @@ The `quickstart-module-base` module is an ideal place for this, intended as a ba
 It is also where the example xref:../modules/ext/togglz/ext-togglz.adoc#[togglz] feature toggle `enum` class resides.
 
 * The `quickstart-appdefn` module holds the application's implementation of the link:http://isis.apache.org/guides/rgcms/rgcms.html#_rgcms_classes_AppManifest-bootstrapping[AppManifest] interface, which defines the modules that make up the application.
-The quickstart's implementation is `domainapp.appdefn.DomainAppAppManifest`.. +
+The quickstart's implementation is `domainapp.appdefn.DomainAppAppManifest`. +
 +
 It's also a useful place to define fixtures for demoing prototypes to the business, aw well as supporting services that might be needed to help configure modules.
 The quickstart includes implementations of services for both the xref:../modules/spi/security/spi-security.adoc#[security spi] module and the xref:../modules/ext/security/ext-togglz.adoc#[togglz] (feature toggle) module.
@@ -105,6 +103,18 @@ image::{_imagesdir}project-structure/quickstart-app-loaded-into-intellij.png[wid
 by default the `example` modules are excluded from the project:
 
 See the Apache Isis documentation for link:http://isis.apache.org/guides/dg/dg.html#__dg_ide_intellij_importing-maven-modules[further guidance].
+
+
+=== Removing unneeded modules
+
+By default the `DomainAppAppManifest` app manifest has dependencies on _all_ of the generic subdomains and SPI services.
+This means that the database when generated will include tables for the entities of these modules, even if the application doesn't integrate with them.
+For example, the xref:../modules/dom/document/dom-document.adoc#[document module] includes tables that map onto the `DocumentType`, `DocumentTemplate` and `Document` entities (among others).
+
+It's extremely unlikely that your application will need all of the modules in the platform.
+To exclude the modules that you don't require, simply delete or comment out of the app manifest.
+To keep things tidy, you should probably also remove the corresponding `<dependency>`s from your application's `pom.xml` files.
+
 
 
 
