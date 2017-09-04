@@ -1,0 +1,111 @@
+[[_quickstart_maven-mixins]]
+= Maven Mixins
+:_basedir: ../../
+:_imagesdir: _images/
+
+
+To minimize boilerplate, the Maven `pom.xml` files use the `com.github.odavid.maven.plugins:mixin-maven-plugin`.
+This allows the `<build>` definitions of other `pom.xml` files to be "mixed in to" (that is, included in) the consuming `pom.xml`.
+
+The maven mixins themselves used by the generated application are listed in the table below:
+
+
+[cols=".<2a,3a", options="header"]
+|===
+
+| `groupId:artifactId` +
+github repo
+.>| Description
+
+
+|
+`com.danhaywood.mavenmixin:` +
+`cucumberreporting`
+
+link:https://github.com/danhaywood/java-mavenmixin-surefire[java-mavenmixin-cucumberreporting]
+
+| Configures the `net.masterthought:maven-cucumber-reporting` plugin, to generate HTML reports based on outputs of BDD specification tests.
+
+|
+`com.danhaywood.mavenmixin:` +
+`datanucleusenhance`
+
+link:https://github.com/danhaywood/java-mavenmixin-surefire[java-mavenmixin-datanucleusenhance]
+
+| Configures the `org.datanucleus:datanucleus-maven-plugin` to post-process (enhance) persistent entities according to the JDO spec.
+
+
+|
+`com.danhaywood.mavenmixin:` +
+`docker`
+
+link:https://github.com/danhaywood/java-mavenmixin-surefire[java-mavenmixin-docker]
+
+| Configures the `com.spotify:docker-maven-plugin` plugin to create Docker images and to upload these to a specified registry.
+
+|
+`com.danhaywood.mavenmixin:` +
+`enforcerrelaxed`
+
+link:https://github.com/danhaywood/java-mavenmixin-surefire[java-mavenmixin-enforcerrelaxed]
+
+| Configures the `maven-enforcer-plugin` plugin with a number of pre-defined rules (though _not_ dependency convergence checking).
+
+
+
+|
+`com.danhaywood.mavenmixin:` +
+`jettyconsole`
+
+link:https://github.com/danhaywood/java-mavenmixin-surefire[java-mavenmixin-jettyconsole]
+
+| Configures the `org.simplericity.jettyconsole:jetty-console-maven-plugin` to create a console app (with optional Swing UI) to bootstrap the application from the command line using an embedded Jetty instance.
+
+|
+`com.danhaywood.mavenmixin:` +
+`jettywar`
+
+link:https://github.com/danhaywood/java-mavenmixin-surefire[java-mavenmixin-jettywar]
+
+| Configures the `maven-war-plugin` to build a war (webapp archive), and the `  `org.eclipse.jetty:jetty-maven-plugin` to be able to run this from maven (using `mvn jetty:war`).
+
+
+|
+`com.danhaywood.mavenmixin:`
+`sourceandjavadoc`
+
+link:https://github.com/danhaywood/java-mavenmixin-surefire[java-mavenmixin-sourceandjavadoc]
+| Configures the `maven-javadoc-plugin` plugin to create Javadoc website and the `maven-jxr-plugin` to create a similar website of the source code (cross-referencing the Javadoc).
+
+
+|
+`com.danhaywood.mavenmixin:`
+`standard`
+
+link:https://github.com/danhaywood/java-mavenmixin-surefire[java-mavenmixin-standard]
+
+| Configures the standard `maven-clean-plugin`, `maven-resources-plugin` `maven-compiler-plugin`, maven-jar-plugin`, `maven-install-plugin`, `maven-deploy-plugin` and maven-site-plugin` plugins (mostly just setting their version).
+
+|
+`com.danhaywood.mavenmixin:`
+`staticanalysis`
+
+link:https://github.com/danhaywood/java-mavenmixin-surefire[java-mavenmixin-staticanalysis]
+
+| Configures the `maven-checkstyle-plugin`, maven-pmd-plugin`, `javancss-maven-plugin` and `jdepend-maven-plugin` plugins.
+The configuration files driving these plugins are specified as properties.
+
+
+|
+`com.danhaywood.mavenmixin:`
+`surefire`
+
+link:https://github.com/danhaywood/java-mavenmixin-surefire[java-mavenmixin-surefire]
+
+| Configures the `maven-surefire-plugin` with multiple executions to run unit tests, integration tests and BDD specifications.
+testing support is discussed further xref:quickstart.adoc#_quickstart_running-tests[below].
+
+
+|===
+
+

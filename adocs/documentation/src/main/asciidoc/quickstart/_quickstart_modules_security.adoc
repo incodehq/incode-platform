@@ -1,0 +1,35 @@
+[[_quickstart_modules_security]]
+= Security
+:_basedir: ../../
+:_imagesdir: _images/
+
+
+The xref:../modules/spi/security/spi-security.adoc#[security module] provides authentication and authorisation, implemented by an link:http://shiro.apache.org[Apache Shiro] Realm:
+
+[source,ini]
+.WEB-INF/shiro.ini file
+----
+incodePlatformSpiSecurityRealm=org.isisaddons.module.security.shiro.IsisModuleSecurityRealm
+securityManager.realms = $incodePlatformSpiSecurityRealm
+
+authenticationStrategy=org.isisaddons.module.security.shiro.AuthenticationStrategyForIsisModuleSecurityRealm
+securityManager.authenticator.authenticationStrategy = $authenticationStrategy
+----
+
+Each logged-in user has a corresponding `ApplicationUser` account, accessible from the "me" menu item:
+
+image::{_imagesdir}modules/security/me-menu-item.png[width="600px",link="{_imagesdir}modules/security/me-menu-item.png"]
+
+which shows the current user:
+
+image::{_imagesdir}modules/security/application-user.png[width="600px",link="{_imagesdir}modules/security/application-user.png"]
+
+Other functionality is available from the security menu:
+
+image::{_imagesdir}modules/security/security-menu.png[width="600px",link="{_imagesdir}modules/security/security-menu.png"]
+
+
+Note that the security seed data (defined in the `SeedSuperAdministratorRoleAndSvenSuperUser` fixture) also sets up a role required by the xref:../modules/ext/togglz/ext-togglz.adoc#[togglz module], also see xref:quickstart.adoc#_quickstart_modules_togglz[below].
+
+
+

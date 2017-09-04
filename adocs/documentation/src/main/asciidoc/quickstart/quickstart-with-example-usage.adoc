@@ -70,6 +70,9 @@ running in the parent pom's directory.
 == Home Page
 
 
+TODO: discuss
+
+
 
 [[__quickstart-with-example-usage_modules]]
 == Modules
@@ -88,51 +91,50 @@ running in the parent pom's directory.
 
 
 | Alias
-| xref:../modules/dom/alias/dom-alias.adoc#__dom-alias_example-usage[example usage] (placeholder)
+| xref:../modules/dom/alias/dom-alias.adoc#__dom-alias_example-usage[example usage]
 
 
 | Classification
-| xref:../modules/dom/classification/dom-classification.adoc#__dom-classification_example-usage[example usage] (placeholder)
+| xref:../modules/dom/classification/dom-classification.adoc#__dom-classification_example-usage[example usage]
 
 
 
 | CommChannel
-| xref:../modules/dom/commchannel/dom-commchannel.adoc#__dom-commchannel_example-usage[example usage] (placeholder)
+| xref:../modules/dom/commchannel/dom-commchannel.adoc#__dom-commchannel_example-usage[example usage]
 
 
 | Communications
-| xref:../modules/dom/communications/dom-communications.adoc#__dom-communications_example-usage[example usage] (placeholder)
+| xref:../modules/dom/communications/dom-communications.adoc#__dom-communications_example-usage[example usage]
 
 Also uses (and therefore demonstrates use of) the Document generic subdomain.
 
 
 | Country
-| xref:../modules/dom/country/dom-country.adoc#__dom-country_example-usage[example usage] (placeholder)
+| xref:../modules/dom/country/dom-country.adoc#__dom-country_example-usage[example usage]
 
 
 | DocFragment
-| xref:../modules/dom/docfragment/dom-docfragment.adoc#__dom-docfragment_example-usage[example usage] (placeholder)
+| xref:../modules/dom/docfragment/dom-docfragment.adoc#__dom-docfragment_example-usage[example usage]
 
 
 
 | Document
-| xref:../modules/dom/document/dom-document.adoc#__dom-document_example-usage[example usage] (placeholder)
+| xref:../modules/dom/document/dom-document.adoc#__dom-document_example-usage[example usage]
 
 
 
 | Note
-| xref:../modules/dom/note/dom-note.adoc#__dom-note_example-usage[example usage] (placeholder)
+| xref:../modules/dom/note/dom-note.adoc#__dom-note_example-usage[example usage]
 
 
 
 | Settings
-| xref:../modules/dom/settings/dom-settings.adoc#__dom-settings_example-usage[example usage] (placeholder)
+| xref:../modules/dom/settings/dom-settings.adoc#__dom-settings_example-usage[example usage]
 
 
 
 | Tags
-| xref:../modules/dom/tags/dom-tags.adoc#__dom-tags_example-usage[example usage] (placeholder)
-
+| xref:../modules/dom/tags/dom-tags.adoc#__dom-tags_example-usage[example usage]
 
 
 
@@ -152,7 +154,7 @@ Also uses (and therefore demonstrates use of) the Document generic subdomain.
 ^| Usage
 
 | Base
-|
+| Used implicitly throughout.
 
 | DocRendering-FreeMarker
 |
@@ -173,13 +175,13 @@ Also uses (and therefore demonstrates use of) the Document generic subdomain.
 |
 
 | FixtureSupport
-|
+| Used in in the integration tests of various modules.
 
 | FreeMarker
 |
 
 | IntegTestSupport
-|
+| Used in in the integration tests of various modules.
 
 | PdfBox
 |
@@ -194,7 +196,7 @@ Also uses (and therefore demonstrates use of) the Document generic subdomain.
 |
 
 | UnitTestSupport
-|
+| Used in in the unit tests of various modules.
 
 | XDocReport
 |
@@ -214,7 +216,7 @@ Also uses (and therefore demonstrates use of) the Document generic subdomain.
 ^| Usage
 
 | Paraname8
-|
+| Configured in the quickstart app.
 
 |===
 
@@ -232,16 +234,16 @@ Also uses (and therefore demonstrates use of) the Document generic subdomain.
 ^| Usage
 
 | Audit
-|
+| Configured in the quickstart app, see
 
 | Command
-|
+| Configured in the quickstart app.
 
 | PublishMQ
-|
+| Configured in the quickstart app.
 
 | Security
-|
+| Configured in the quickstart app.
 
 | SessionLogger
 |

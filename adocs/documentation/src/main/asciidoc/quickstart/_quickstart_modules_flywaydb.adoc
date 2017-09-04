@@ -1,0 +1,58 @@
+[[_quickstart_modules_flywaydb]]
+= FlywayDB
+:_basedir: ../../
+:_imagesdir: _images/
+
+
+The xref:../modules/ext/flywaydb/ext-flywaydb.adoc#[flywaydb extension] integrates FlywayDB to automatically handle database migrations.
+These ensure that the schema of the (production) database is in sync with that required by the domain entities.
+
+To demonstrate its usage, the quickstart app includes the `DomainAppAppManifestWithFlywayEnabledForSqlServer` manifest.
+This adds a number of configuration properties, the most important of which is:
+
+[source,java]
+----
+configurationProperties.put(
+    "isis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll", "false");
+----
+
+This tells DataNucleus to _not_ automatically create the required database schema, so that it is instead created "manually" by Flyway running the provided SQL scripts.
+
+There are a number of other configuration properties also set in that manifest; thes indicate which schemas FlywayDB should track, and where to locate the migration scripts on the classpath.
+
+The migration scripts themselves are in the `webapp` module, in a subpackage of `db.migration`:
+
+image::{_imagesdir}modules/flywaydb/migration-scripts.png[width="400px",link="{_imagesdir}modules/flywaydb/migration-scripts.png"]
+
+
+Running the app with this manifest against an empty SQL Server database results in FlywayDB automatically creating the database tables:
+
+image::{_imagesdir}modules/flywaydb/mssql-generated-tables.png[width="400px",link="{_imagesdir}modules/flywaydb/mssql-generated-tables.png"]
+
+The `flyway.schema_version` table keeps track of the scripts that have been applied:
+
+image::{_imagesdir}modules/flywaydb/schema_version.png[width="600px",link="{_imagesdir}modules/flywaydb/schema_version.png"]
+
+
+
+There are a couple of other points worth making.
+
+* First, the manifest also uses the following configuration property:
+
++
+[source,ini]
+----
+configurationProperties.put(
+    "isis.persistor.datanucleus.impl.datanucleus.Mapping", "sqlserver");
+----
++
+to instruct DataNucleus to pick up any `-sqlserver.orm` files from the classpath.
+There are two such: `DocumentAbstract-sqlserver.orm` and `CommandJdo-sqlserver.orm`.
+
+* Second, the quickstart app also provides a `beforeMigrate.sql` script to drop all index/constraints, and uses the `autoCreateConstraints` property so that DataNucleus will automatically re-create any indices afterwards.
+
++
+For large databases this would not be practicable, in which case the `beforeMigrate.sql` script should be removed.
+Any changes to indices would therefore need to be provided in migration SQL scripts.
+
+

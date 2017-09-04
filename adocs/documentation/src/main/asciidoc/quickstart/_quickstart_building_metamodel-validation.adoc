@@ -1,0 +1,15 @@
+:_basedir: ../../
+:_imagesdir: _images/
+
+
+[[_quickstart_building_metamodel-validation]]
+= Metamodel validation
+
+The generated application also configures the link:http://isis.apache.org/guides/rgmvn/rgmvn.html[Apache Isis maven plugin] to link:http://isis.apache.org/guides/rgmvn/rgmvn.html#_rgmvn_validate[validate] the domain application.
+For example, if a supporting method for an action `findByName` is misspelt, then this will be reported and the build will fail.
+In the quickstart app the metamodel validation plugin is configured in the `module-simple` module.
+
+Running metamodel validation does require bootstrapping the application, so will lengthen the overall build time.
+If required, the metamodel validation can be skipped using `-Dskip.isis-validate`.
+
+The configuration in the Maven `pom.xml` project files is done using the _isis-validate mavenmixin_, discussed xref:quickstart.adoc#_quickstart_maven-mixins[below].

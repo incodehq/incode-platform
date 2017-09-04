@@ -1,0 +1,96 @@
+[[_quickstart_modules_quartz]]
+= Quartz
+:_basedir: ../../
+:_imagesdir: _images/
+
+
+The xref:../modules/ext/quartz/ext-quartz.adoc#[quartz extension] module provides an in-memory scheduler for running jobs according to a schedule.
+The quickstart app uses this to schedule background commands every 10 seconds.
+Its configuration could of course be extended to perform other tasks.
+
+The configuration is contained in `quartz-config.xml`:
+
+[source,xml]
+.quartz-config.xml (in the webapp module)
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<job-scheduling-data xmlns="http://www.quartz-scheduler.org/xml/JobSchedulingData" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.quartz-scheduler.org/xml/JobSchedulingData
+http://www.quartz-scheduler.org/xml/job_scheduling_data_1_8.xsd" version="1.8">
+
+    <schedule>
+
+        <job>
+            <name>RunBackgroundJobs</name>
+            <group>DomainApp</group>
+            <description>Runs all background jobs</description>
+            <job-class>org.isisaddons.module.quartz.dom.jobs.RunBackgroundCommandsJob</job-class>
+            <job-data-map>
+                <entry>
+                    <key>user</key>
+                    <value>scheduler_user</value>
+                </entry>
+                <entry>
+                    <key>roles</key>
+                    <value>admin_role</value>
+                </entry>
+            </job-data-map>
+        </job>
+
+        <trigger>
+            <cron>
+                <name>RunBackgroundJobsEvery10Seconds</name>
+                <job-name>RunBackgroundJobs</job-name>
+                <job-group>DomainApp</job-group>
+                <cron-expression>0/10 * * * * ?</cron-expression>
+            </cron>
+        </trigger>
+
+    </schedule>
+</job-scheduling-data>
+----
+
+where `RunBackgroundCommandsJob` is provided by the quartz module.
+
+To see this in use, add the follow mixin:
+
+[source,java]
+----
+@Mixin(method="act")
+public class SimpleObject_updateNameInBackground {
+    private final SimpleObject simpleObject;
+    public SimpleObject_updateNameInBackground(final SimpleObject simpleObject) {
+        this.simpleObject = simpleObject;
+    }
+
+    @MemberOrder(name = "name", sequence = "3")
+    public SimpleObject act(final String name) {
+        messageService.informUser("name will be updated in the next 10 seconds...");
+        backgroundService2.execute(simpleObject).updateName(name);
+        return simpleObject;
+    }
+
+    public String default0Act() {
+        return simpleObject.default0UpdateName();
+    }
+
+    @Inject
+    MessageService messageService;
+
+    @Inject
+    BackgroundService2 backgroundService2;
+}
+----
+
+which provides a new "updateNameInBackground" action:
+
+image::{_imagesdir}modules/quartz/updateNameInBackground.png[width="600px",link="{_imagesdir}modules/quartz/updateNameInBackground.png"]
+
+which when invoked does not immediately change the object's name but instead displays a message:
+
+image::{_imagesdir}modules/quartz/updateNameInBackground-result.png[width="600px",link="{_imagesdir}modules/quartz/updateNameInBackground-result.png"]
+
+Keep clicking on the object's title to reload; within 10 seconds the name should change.
+
+Listing all commands shows how the "updateNameInBackground" action is executed immediately (in the foreground), and as a side-effect creates a command for "updateName", executed in the background by the Quartz scheduler:
+
+image::{_imagesdir}modules/quartz/command-list.png[width="600px",link="{_imagesdir}modules/quartz/command-list.png"]

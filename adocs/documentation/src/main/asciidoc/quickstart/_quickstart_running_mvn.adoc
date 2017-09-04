@@ -1,0 +1,28 @@
+[[_quickstart_running_mvn]]
+= mvn (jetty:run)
+:_basedir: ../../
+:_imagesdir: _images/
+
+
+If you want to run the application without even loading it into the IDE, then you can do this using the maven Jetty plugin:
+
+[source]
+----
+mvn -pl webapp jetty:run
+----
+
+The "-pl webapp" argument indicates that the command is run in the "webapp" subdirectory/submodule.
+
+However, note that this will run with the standard `DomainAppAppManifest`, as configured in `WEB-INF/isis.properties`; the only user account is `isis-module-security-admin`.
+
+More than likely you'll want to override the manifest; you can do this using a system property.
+For example:
+
+[source]
+----
+ mvn -pl webapp jetty:run \
+         -Disis.appManifest=domainapp.appdefn.DomainAppAppManifestWithFixtures
+----
+
+
+The configuration in the Maven `pom.xml` project files for the jetty plugin that provides this feature is done using the _jettywar_ mavenmixin, discussed xref:quickstart.adoc#_quickstart_maven-mixins[below].

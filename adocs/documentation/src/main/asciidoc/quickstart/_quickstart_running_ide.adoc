@@ -1,0 +1,84 @@
+[[_quickstart_running_ide]]
+= IDE
+:_basedir: ../../
+:_imagesdir: _images/
+
+
+When developing an Apache Isis application, you'll typically want to run the app from within the IDE.
+Not only does this reduce the feedback loop (no need to package and deploy, for example), you can also very easily set up debugging breakpoints and the like.
+
+To run the app from the IDE, we use Apache Isis' `org.apache.isis.WebServer`, which runs the app as a command line application.
+This starts up an embedded Jetty instance configured to run the webapp.
+
+For example, here's the launch configuration to run the generated application from IntelliJ:
+
+image::{_imagesdir}running/ide/intellij-run-configuration.png[width="600px",link="{_imagesdir}running/ide/intellij-run-configuration.png"]
+
+That is to say:
+
+* main-class: `org.apache.isis.WebServer`
+* program args: `-m domainapp.appdefn.DomainAppAppManifest`
+
+using:
+
+[source,java]
+----
+mvn -Denhance -Dskip.default datanucleus:enhance -T1C -o
+----
+
+run against the parent pom to enhance the JDO domain entities.
+See the Apache Isis documentation for link:http://isis.apache.org/guides/dg/dg.html#http://isis.apache.org/guides/dg/dg.html#__dg_ide_intellij_running[further guidance].
+
+When the application is started this way, it runs without any fixtures, that is, using `domainapp.appdefn.DomainAppAppManifest` configured in `webapp/WEB-INF/isis.properties`.
+The only user account that is available therefore is the default superuser provided by the xref:../modules/spi/security/spi-security.adoc#[security module], namely `isis-module-security-admin`/`pass`.
+
+
+image::{_imagesdir}running/ide/run-app-login-isis-module-security-admin.png[width="600px",link="{_imagesdir}running/ide/run-app-login-isis-module-security-admin.png"]
+
+The home page shows only the security module's menu, not the domain app's entities (`SimpleObject`'s menu etc):
+
+image::{_imagesdir}running/ide/run-app-home-page-isis-module-security-admin.png[width="600px",link="{_imagesdir}running/ide/run-app-home-page-isis-module-security-admin.png"]
+
+
+Manually setting up a user and permissions to be able to access the business domain would be tedious to say the least.
+So instead we can use an extended version of the app manifest which will also run some fixtures.
+These set up a user account and also some dummy data.
+
+
+For example, here's the updated launch configuration using the app manifest:
+
+image::{_imagesdir}running/ide/intellij-run-configuration-with-fixtures.png[width="600px",link="{_imagesdir}running/ide/intellij-run-configuration-with-fixtures.png"]
+
+That is to say:
+
+* program args: `-m domainapp.appdefn.DomainAppAppManifestWithFixtures`
+
+which supplies additional fixtures using:
+
+[source,java]
+----
+@Override
+protected void overrideFixtures(final List<Class<? extends FixtureScript>> fixtureScripts) {
+    fixtureScripts.add(SimpleObject_data.PersistScript.class);
+    fixtureScripts.add(SeedSuperAdministratorRoleAndSvenSuperUser.class);
+}
+----
+
+When we run the app again, we can now log in using a new `sven/pass` user account:
+
+image::{_imagesdir}running/ide/run-app-login.png[width="600px",link="{_imagesdir}running/ide/run-app-login.png"]
+
+The home page now shows a `Simple Objects` menu:
+
+image::{_imagesdir}running/ide/run-app-home-page.png[width="600px",link="{_imagesdir}running/ide/run-app-home-page.png"]
+
+from whence we can access the ``SimpleObject``s also created by the fixture:
+
+image::{_imagesdir}running/ide/run-app-SimpleObject.png[width="600px",link="{_imagesdir}running/ide/run-app-SimpleObject.png"]
+
+Note also the additional menus on the right-hand side to access other modules set up and accessible to the `sven` superuser.
+These are discussed in more detail xref:quickstart.adoc#_quickstart_modules[below].
+
+
+
+

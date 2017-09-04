@@ -1,0 +1,69 @@
+[[_quickstart_modules_togglz]]
+= Togglz
+:_basedir: ../../
+:_imagesdir: _images/
+
+
+Feature toggles are a link:https://martinfowler.com/articles/feature-toggles.html[technique] with various use cases, one of which is to allow functionality to be rolled out partially, eg for feedback.
+The xref:../modules/ext/togglz/ext-togglz.adoc#[togglz module] provides support for this (leveraging the xref:../modules/dom/settings/dom-settings.adoc#[settings module] for feature persistence.
+
+The quickstart integrates this module, and demonstrates its usage in the `SimpleObjectMenu`:
+
+[source,java]
+.SimpleObjectMenu (in module-simple)
+----
+public class SimpleObjectMenu {
+
+    public List<SimpleObject> listAll() { ... }
+
+    public List<SimpleObject> findByName( ... ) { ... }
+    public boolean hideFindByName() {
+        return ! TogglzFeature.findByName.isActive();
+    }
+
+    public SimpleObject create( ... ) { ... }
+    public boolean hideCreate() {
+        return ! TogglzFeature.SimpleObject_create.isActive();
+    }
+
+    ...
+}
+----
+
+where `TogglzFeature` is this enum:
+
+[source,java]
+.TogglzFeature (in module-base)
+----
+public enum TogglzFeature implements org.togglz.core.Feature {
+
+    @Label("Enable SimpleObject#create")
+    @EnabledByDefault
+    SimpleObject_create,
+
+    @Label("Enable SimpleObject#findByName")
+    SimpleObject_findByName;
+
+    public boolean isActive() {
+        return FeatureContext.getFeatureManager().isActive(this);
+    }
+}
+----
+
+Because the `SimpleObject_findByName` feature toggle is disabled, the corresponding action is hidden:
+
+image::{_imagesdir}modules/togglz/feature-disabled.png[width="300px",link="{_imagesdir}modules/togglz/feature-disabled.png"]
+
+
+Users with the `isis-module-togglz-admin` role can change feature toggles dynamically:
+
+image::{_imagesdir}modules/togglz/feature-toggles-menu.png[width="300px",link="{_imagesdir}modules/togglz/feature-toggles-menu.png"]
+
+which brings up the togglz console:
+
+image::{_imagesdir}modules/togglz/togglz-console.png[width="600px",link="{_imagesdir}modules/togglz/togglz-console.png"]
+
+With the feature enabled, the "findByName" action become visible:
+
+image::{_imagesdir}modules/togglz/feature-enabled.png[width="300px",link="{_imagesdir}modules/togglz/feature-enabled.png"]
+

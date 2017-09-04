@@ -46,6 +46,20 @@ mvn clean install -Dskip.isis-validate -Dskip.isis-swagger -o
 === Building Modules
 
 
+==== Building all modules
+
+[source,bash]
+----
+mvn clean install -o
+----
+
+Running in parallel requires disabling the Apache Isis Maven plugin (it is currently not thread-safe):
+
+[source,bash]
+----
+mvn clean install -o -T1C -Dskip.isis-validate -Dskip.isis-swagger
+----
+
 ==== Building an individual module
 
 

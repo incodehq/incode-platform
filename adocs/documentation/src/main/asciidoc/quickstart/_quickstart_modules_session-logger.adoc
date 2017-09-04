@@ -1,0 +1,24 @@
+[[_quickstart_modules_session-logger]]
+= Session Logger
+:_basedir: ../../
+:_imagesdir: _images/
+
+
+The xref:../modules/ext/sessionlogger/ext-sessionlogger.adoc#[session logger] module records each user session as the user logs in or logs out (or is timed out automatically).
+
+The session logger menu items are on the _Activity_ menu:
+
+image::{_imagesdir}modules/sessionlogger/find-sessions.png[width="600px",link="{_imagesdir}modules/sessionlogger/find-sessions.png"]
+
+Sessions can be searched by date/time and user:
+
+image::{_imagesdir}modules/sessionlogger/find-sessions-prompt.png[width="600px",link="{_imagesdir}modules/sessionlogger/find-sessions-prompt.png"]
+
+returning matching sessions:
+
+image::{_imagesdir}modules/sessionlogger/session-list.png[width="600px",link="{_imagesdir}modules/sessionlogger/session-list.png"]
+
+which can be drilled into:
+
+image::{_imagesdir}modules/sessionlogger/session-object.png[width="600px",link="{_imagesdir}modules/sessionlogger/session-object.png"]
+

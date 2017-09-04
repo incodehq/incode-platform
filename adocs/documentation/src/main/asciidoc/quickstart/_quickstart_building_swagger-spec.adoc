@@ -1,0 +1,16 @@
+[[_quickstart_building_swagger-spec]]
+= Swagger spec
+:_basedir: ../../
+:_imagesdir: _images/
+
+
+The generated application also configures the link:http://isis.apache.org/guides/rgmvn/rgmvn.html[Apache Isis maven plugin] to link:http://isis.apache.org/guides/rgmvn/rgmvn.html#_rgmvn_swagger[generate a Swagger spec] file.
+This can, for example, be used to generate stubs in various programming languages.
+
+In the quickstart app, the plugin is configured to run in the `appdefn` module (so providing a single spec for the entire app).
+The configuration is done using the _isis-swagger_ mavenmixin, discussed xref:quickstart.adoc#_quickstart_maven-mixins[below].
+
+Generating the swagger spec does require bootstrapping the application, so will lengthen the overall build time.
+If reuired, the swagger generation can be skipped using `-Dskip.isis-swagger`.
+
+When run, it generates swagger files in `target/generated-resources/isis-swagger`, relative to module that configures the plugin.

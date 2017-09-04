@@ -1,0 +1,31 @@
+[[_quickstart_running-the-archetype]]
+= Running the archetype
+:_basedir: ../../
+:_imagesdir: _images/
+
+
+Use Maven to generate your application from the `quickstart-archetype`.
+For example:
+
+[source,bash]
+----
+mvn archetype:generate  \
+    -D archetypeGroupId=org.incode.platform.archetype \
+    -D archetypeArtifactId=quickstart-archetype \
+    -D archetypeVersion=1.15.0 \
+    -D groupId=com.mycompany \
+    -D artifactId=myapp \
+    -D version=1.0-SNAPSHOT \
+    -B
+----
+
+Change the `groupId` and `artifactId` as required.
+
+The application will be generated in a directory named after the artifact (`myapp` in the example above):
+
+[source]
+----
+cd myapp
+----
+
+

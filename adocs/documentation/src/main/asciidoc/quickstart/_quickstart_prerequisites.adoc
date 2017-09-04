@@ -1,0 +1,14 @@
+[[_quickstart_prerequisites]]
+= Prerequisites
+:_basedir: ../../
+:_imagesdir: _images/
+
+
+The prerequisite software is:
+
+* Java JDK 8
+* http://maven.apache.org[maven 3] (3.5.0 or later is recommended).
+
+
+We also strongly recommend an IDE;
+the Incode Platform developers use JetBrains IntelliJ Community Edition.

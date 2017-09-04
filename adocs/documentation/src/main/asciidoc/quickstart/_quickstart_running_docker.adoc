@@ -1,0 +1,71 @@
+[[_quickstart_running_docker]]
+= Docker
+:_basedir: ../../
+:_imagesdir: _images/
+
+
+Finally, it's also possible to package up and run the webapp as a Docker container.
+
+* to package the webapp as a Docker image:
++
+[source,bash]
+----
+mvn install \
+    -Dmavenmixin-docker -Ddocker-plugin.imageName=mycompany/myapp \
+    -DskipTests -Dskip.isis-vaidate -Dskip.isis-swagger
+----
++
+where "imageName" is anything you want. +
++
+The configuration for the docker plugin is done using the _docker_ mavenmixin, discussed xref:quickstart.adoc#_quickstart_maven-mixins[below].
+
+
+* and to run it:
+
++
+[source,bash]
+----
+docker container run -p 8080:8080 -d mycompany/myapp
+----
+
+
+[NOTE]
+====
+On Windows, you may need to enable the Docker daemon first, otherwise the "mvn install" command above will fail:
+
+image::{_imagesdir}running/docker/on-windows/010-docker-localhost-2375.png[width="400px",link="{_imagesdir}running/docker/on-windows/010-docker-localhost-2375.png"]
+
+You might also need to ensure that the "Unidentified networks" are configured to be private:
+
+image::{_imagesdir}running/docker/on-windows/026-docker-nat-private.png[width="400px",link="{_imagesdir}running/docker/on-windows/026-docker-nat-private.png"]
+
+This can be done using the "Local Security Policy" application.
+====
+
+
+This will bootstrap the application; `docker container ps` will show all running containers.
+Alternatively, Kitematic provides a simple UI to view and interact with running containers:
+
+image::{_imagesdir}running/docker/kitematic.png[width="600px",link="{_imagesdir}running/docker/kitematic.png"]
+
+When the application is started this way, it runs without any fixtures.
+There are a variety of ways to override this but these easiest is probably to use the `$ISIS_OPT` environment variable, a set of key:value pairs concatenated together.
+
+The `scripts/rundocker.sh` script is a simple wrapper that reads all properties from an externally specified configuration file and starts the docker container correctly.
+For example:
+
+[source,bash]
+----
+pushd scripts
+rundocker.sh test/myapp isis-overrides.properties -p 8080:8080
+popd
+----
+
+where
+
+* `test/myapp` is the name of the image to be run
+
+* `-p 8080:8080` is passed through to the `docker run` command
+
+
+See the Apache Isis docs for link:http://isis.apache.org/guides/ugbtb/ugbtb.html#_ugbtb_deployment_docker[further guidance] on deploying with Docker.

@@ -1,0 +1,54 @@
+[[_quickstart_building_tests]]
+= Tests
+:_basedir: ../../
+:_imagesdir: _images/
+
+
+The generated application includes unit tests, integration tests and BDD cucumber specifications.
+All of these are executed using the surefire plugin, which is configured to follow a naming convention:
+
+.Test configurations
+[cols="^.^2,^.^2a,<.^3a,<.^2a,<.^2a", options="header"]
+|===
+
+^.>| Test type
+^.>| Naming convention
+^.>| Used in Module(s)
+^.>| Disabled using
+^.>| Generated Reports
+
+| Unit tests
+| `*_Test`
+|`module-simple`
+| `-DskipUT`
+| `target/surefire-unittest-reports`
+
+| Integration tests
+| `*_IntegTest`
+| `module-simple`; `appdefn`
+| `-DskipIT`
+| `target/surefire-integtest-reports`
+
+| BDD specs
+| `*_IntegBddSpec`
+| `appdefn`
+| `-DskipBS`
+| `target/surefire-integbddspecs-reports`
+
+|===
+
+It's also possible to disable all tests using the usual `-DskipTests` flag.
+
+The reports are generated relative to the module that contains the tests.
+Such reports can be picked up by your continuous integration server.
+
+In addition, the BDD specs also generate a (very simple) website at `target/cucumber-html-report/index.html`, and a (much richer) website at `target/cucumber-reports/cucumber-html-reports/overview-features.html`.
+
+image::{_imagesdir}build/tests/cucumber-report.png[width="600px",link="{_imagesdir}build/tests/cucumber-report.png"]
+
+
+One thing to be aware of: if a unit test or integration test fails, then the build will break.
+However, note that if a BDD spec "fails" (eg due to a missing binding), then the build continues; the failure is shown in the generated cucumber report instead.
+
+The configuration of tests in the Maven `pom.xml` project files is done using the _surefire_ and _cucumberreporting_ maven mixins, discussed xref:quickstart.adoc#_quickstart_maven-mixins[below].
+

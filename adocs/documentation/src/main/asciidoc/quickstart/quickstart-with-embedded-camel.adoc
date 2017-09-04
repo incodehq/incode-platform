@@ -63,7 +63,7 @@ You should find there are two such blocks in the various `pom.xml` files, one bl
 [[__quickstart-with-embedded-camel_camel-route]]
 == Camel Route
 
-To monitor the Camel route, we can use the link:http://hawt.io[hawt.io] console (as also used for monitoring ActiveMQ messages, see the base quickstart's xref:quickstart.adoc#__quickstart_modules_publishing[publshing] support).
+To monitor the Camel route, we can use the link:http://hawt.io[hawt.io] console (as also used for monitoring ActiveMQ messages, see the base quickstart's xref:quickstart.adoc#_quickstart_modules_publishing[publshing] support).
 
 Download the hawt.io JAR file and start using:
 

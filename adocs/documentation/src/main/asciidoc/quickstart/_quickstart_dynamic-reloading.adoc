@@ -1,0 +1,22 @@
+[[_quickstart_dynamic-reloading]]
+= Dynamic Reloading
+:_basedir: ../../
+:_imagesdir: _images/
+
+
+The `module-simple` module includes `layout.gradle` and `liveReload.gradle` scripts, and the Wicket viewer is configured for live reloading:
+
+[source,properties]
+.viewer_wicket.properties (in appdefn module)
+----
+isis.viewer.wicket.liveReloadUrl=http://localhost:35729/livereload.js?snipver=1
+----
+
+The procedure described in the Apache Isis link:http://isis.apache.org/guides/dg/dg.html#__dg_ide_intellij_advanced_gradle-liveReload[documentation] explains that the two scripts should be run together:
+
+[source,bash]
+----
+gradle -t --offline -b layouts.gradle &
+gradle -t --offline -b liveReload.gradle &
+----
+

@@ -1,0 +1,46 @@
+[[_quickstart_running_standalone]]
+= Standalone
+:_basedir: ../../
+:_imagesdir: _images/
+
+
+Yet another alternative is to build the webapp to run standalone as a single "uber-jar", once again using Jetty as an embedded instance.
+This could be useful for example to distribute standalone prototype of your application for review.
+
+Building the standalone jar is done by setting the `-Dmavenmixin-jettyconsole` property.
+For example:
+
+[source,bash]
+----
+mvn install \
+    -Dmavenmixin-jettyconsole \
+    -DskipTests -Dskip.isis-validate -Dskip.isis-swagger
+----
+
+will result in a `xxx-webapp-1.0-SNAPSHOT-jetty-console.war` (where xxx is the project's `artifactId`) generated in `webapp/target`.
+This can then be running using java, for example:
+
+[source,bash]
+----
+java -jar webapp/target/myapp-webapp-1.0-SNAPSHOT-jetty-console.war
+----
+
+This displays a Swing UI from which the webapp can be started.
+
+image::{_imagesdir}running/jetty-console/jetty-console-ui.png[width="400px",link="{_imagesdir}running/jetty-console/jetty-console-ui.png"]
+
+
+It's also possible to run headless, or to change the port.
+And again, the manifest can be changed using a system property.
+For example:
+
+[source,bash]
+----
+java -Disis.appManifest=domainapp.appdefn.DomainAppAppManifestWithFixtures \
+     -jar webapp/target/myapp-webapp-1.0-SNAPSHOT-jetty-console.war \
+          --headless \
+          --port 9090
+----
+
+
+The configuration in the Maven `pom.xml` project files for the jettyconsole plugin that provides this feature is done using the _jettyconsole_ mavenmixin, discussed xref:quickstart.adoc#_quickstart_maven-mixins[below].

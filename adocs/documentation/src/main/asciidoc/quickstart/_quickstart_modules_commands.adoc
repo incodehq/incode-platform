@@ -1,0 +1,68 @@
+[[_quickstart_modules_commands]]
+= Commands
+:_basedir: ../../
+:_imagesdir: _images/
+
+
+The xref:../modules/ext/command/ext-command.adoc#[session logger] module captures actions and property edits as persistent `Command` objects.
+These commands represent the _intention_ to invoke the action/edit the property, rather than the action invocation/property edit itself.
+
+The quickstart app (when using the fixtures) disables commands "globally" in the app manifest:
+
+[source,ini]
+.DomainAppAppManifestWithFixtures
+----
+protected void disableAuditingAndCommandAndPublishGlobally(final Map<String, String> configurationProperties) {
+    ...
+    configurationProperties.put("isis.services.command.actions","none");
+    configurationProperties.put("isis.services.command.properties","none");
+    ...
+}
+----
+
+but the `SimpleObject` domain object re-enables command reification for both editing of the `notes` property;
+
+[source,java]
+----
+    @Property(
+            ...
+            command = CommandReification.ENABLED,
+            ...
+    )
+    private String notes;
+----
+
+and for invoking the `updateName` action:
+
+[source,java]
+----
+@Action(
+        ...
+        command = CommandReification.ENABLED,
+        ...
+)
+public SimpleObject updateName( ... ) {  ... }
+----
+
+Persisted `Command` objects can be accessed in several ways.
+One option is to use the _Activity_ menu:
+
+image::{_imagesdir}modules/command/find-commands.png[width="600px",link="{_imagesdir}modules/command/find-commands.png"]
+
+Alternatively, recent commands executed by an end-user can be found via their coresponding `ApplicationUser` object:
+
+image::{_imagesdir}modules/command/recent-commands-by-user.png[width="600px",link="{_imagesdir}modules/command/recent-commands-by-user.png"]
+
+
+For example, invoking the `SimpleObject#updateName()` action:
+
+image::{_imagesdir}modules/command/SimpleObject-updateName.png[width="600px",link="{_imagesdir}modules/command/SimpleObject-updateName.png"]
+
+results in this `Command`:
+
+image::{_imagesdir}modules/command/Command-object.png[width="600px",link="{_imagesdir}modules/command/Command-object.png"]
+
+
+
+Using commands it's also possible to defer their invocation to be run in the background, either using link:http://isis.apache.org/guides/rgant/rgant.html#_rgant-Action_command[`@Action#commandExecuteIn()`] or using the link:http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_spi_BackgroundService[`BackgroundService`].
+The xref:../modules/ext/quartz/ext-quartz.adoc#[quartz] module is configured in the webapp to run such background commands, see xref:quickstart.adoc#_quickstart_modules_quartz[below] for details.

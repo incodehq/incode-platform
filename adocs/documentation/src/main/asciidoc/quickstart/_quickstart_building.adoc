@@ -1,0 +1,21 @@
+[[_quickstart_building]]
+= Building (and tests)
+:_basedir: ../../
+:_imagesdir: _images/
+
+
+
+To build the generated app:
+
+[source]
+----
+mvn clean install
+----
+
+This will compile the code and automatically run all tests (discussed in more detail xref:quickstart.adoc#_quickstart_building_tests[below]), and it also package up the application as a WAR file (namely, `webapp/target/myapp.war`).
+
+
+include::_quickstart_building_tests.adoc[leveloffset=+1]
+include::_quickstart_building_metamodel-validation.adoc[leveloffset=+1]
+include::_quickstart_building_swagger-spec.adoc[leveloffset=+1]
+
