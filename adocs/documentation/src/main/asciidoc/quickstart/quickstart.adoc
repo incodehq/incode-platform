@@ -564,15 +564,15 @@ securityManager.authenticator.authenticationStrategy = $authenticationStrategy
 
 Each logged-in user has a corresponding `ApplicationUser` account, accessible from the "me" menu item:
 
-image::{_imagesdir}features/security/me-menu-item.png[width="600px",link="{_imagesdir}features/security/me-menu-item.png"]
+image::{_imagesdir}modules/security/me-menu-item.png[width="600px",link="{_imagesdir}modules/security/me-menu-item.png"]
 
 which shows the current user:
 
-image::{_imagesdir}features/security/application-user.png[width="600px",link="{_imagesdir}features/security/application-user.png"]
+image::{_imagesdir}modules/security/application-user.png[width="600px",link="{_imagesdir}modules/security/application-user.png"]
 
 Other functionality is available from the security menu:
 
-image::{_imagesdir}features/security/security-menu.png[width="600px",link="{_imagesdir}features/security/security-menu.png"]
+image::{_imagesdir}modules/security/security-menu.png[width="600px",link="{_imagesdir}modules/security/security-menu.png"]
 
 
 Note that the security seed data (defined in the `SeedSuperAdministratorRoleAndSvenSuperUser` fixture) also sets up a role required by the xref:../modules/ext/togglz/ext-togglz.adoc#[togglz module], also see xref:quickstart.adoc#__quickstart_modules_togglz[below].
@@ -586,19 +586,19 @@ The xref:../modules/ext/sessionlogger/ext-sessionlogger.adoc#[session logger] mo
 
 The session logger menu items are on the _Activity_ menu:
 
-image::{_imagesdir}features/sessionlogger/find-sessions.png[width="600px",link="{_imagesdir}features/sessionlogger/find-sessions.png"]
+image::{_imagesdir}modules/sessionlogger/find-sessions.png[width="600px",link="{_imagesdir}modules/sessionlogger/find-sessions.png"]
 
 Sessions can be searched by date/time and user:
 
-image::{_imagesdir}features/sessionlogger/find-sessions-prompt.png[width="600px",link="{_imagesdir}features/sessionlogger/find-sessions-prompt.png"]
+image::{_imagesdir}modules/sessionlogger/find-sessions-prompt.png[width="600px",link="{_imagesdir}modules/sessionlogger/find-sessions-prompt.png"]
 
 returning matching sessions:
 
-image::{_imagesdir}features/sessionlogger/session-list.png[width="600px",link="{_imagesdir}features/sessionlogger/session-list.png"]
+image::{_imagesdir}modules/sessionlogger/session-list.png[width="600px",link="{_imagesdir}modules/sessionlogger/session-list.png"]
 
 which can be drilled into:
 
-image::{_imagesdir}features/sessionlogger/session-object.png[width="600px",link="{_imagesdir}features/sessionlogger/session-object.png"]
+image::{_imagesdir}modules/sessionlogger/session-object.png[width="600px",link="{_imagesdir}modules/sessionlogger/session-object.png"]
 
 
 
@@ -649,20 +649,20 @@ public SimpleObject updateName( ... ) {  ... }
 Persisted `Command` objects can be accessed in several ways.
 One option is to use the _Activity_ menu:
 
-image::{_imagesdir}features/command/find-commands.png[width="600px",link="{_imagesdir}features/command/find-commands.png"]
+image::{_imagesdir}modules/command/find-commands.png[width="600px",link="{_imagesdir}modules/command/find-commands.png"]
 
 Alternatively, recent commands executed by an end-user can be found via their coresponding `ApplicationUser` object:
 
-image::{_imagesdir}features/command/recent-commands-by-user.png[width="600px",link="{_imagesdir}features/command/recent-commands-by-user.png"]
+image::{_imagesdir}modules/command/recent-commands-by-user.png[width="600px",link="{_imagesdir}modules/command/recent-commands-by-user.png"]
 
 
 For example, invoking the `SimpleObject#updateName()` action:
 
-image::{_imagesdir}features/command/SimpleObject-updateName.png[width="600px",link="{_imagesdir}features/command/SimpleObject-updateName.png"]
+image::{_imagesdir}modules/command/SimpleObject-updateName.png[width="600px",link="{_imagesdir}modules/command/SimpleObject-updateName.png"]
 
 results in this `Command`:
 
-image::{_imagesdir}features/command/Command-object.png[width="600px",link="{_imagesdir}features/command/Command-object.png"]
+image::{_imagesdir}modules/command/Command-object.png[width="600px",link="{_imagesdir}modules/command/Command-object.png"]
 
 
 
@@ -700,11 +700,11 @@ public class SimpleObject ...  { ... }
 
 For example, invoking the `SimpleObject#updateName()` action (the example given above while discussing xref:quickstart.adoc#__quickstart_modules_commands[command]s) persists a corresponding a `Command`, and which also shows the corresponding audit entries:
 
-image::{_imagesdir}features/audit/command-and-audit.png[width="600px",link="{_imagesdir}features/audit/command-and-audit.png"]
+image::{_imagesdir}modules/audit/command-and-audit.png[width="600px",link="{_imagesdir}modules/audit/command-and-audit.png"]
 
 In this case there is just one `AuditEntry` object:
 
-image::{_imagesdir}features/audit/audit-entry.png[width="600px",link="{_imagesdir}features/audit/audit-entry.png"]
+image::{_imagesdir}modules/audit/audit-entry.png[width="600px",link="{_imagesdir}modules/audit/audit-entry.png"]
 
 
 
@@ -773,23 +773,23 @@ java -jar hawtio-app-1.5.3.jar --port 9090
 
 Then connect to the jolokia servlet (configured in the quickstart's `web.xml`):
 
-image::{_imagesdir}features/publish/hawtio-jolokia-connect.png[width="600px",link="{_imagesdir}features/publish/hawtio-jolokia-connect.png"]
+image::{_imagesdir}modules/publish/hawtio-jolokia-connect.png[width="600px",link="{_imagesdir}modules/publish/hawtio-jolokia-connect.png"]
 
 with the port set to `8080` and the path set to `/api/jolokia`.
 
 Invoking the `updateName` action on `SimpleObject` will result in a message being sent to the ActiveMQ queue:
 
-image::{_imagesdir}features/publish/hawtio-activemq-interactions.png[width="600px",link="{_imagesdir}features/publish/hawtio-activemq-interactions.png"]
+image::{_imagesdir}modules/publish/hawtio-activemq-interactions.png[width="600px",link="{_imagesdir}modules/publish/hawtio-activemq-interactions.png"]
 
 and indeed the details of the message can be inspected:
 
-image::{_imagesdir}features/publish/hawtio-activemq-interaction.png[width="600px",link="{_imagesdir}features/publish/hawtio-activemq-interaction.png"]
+image::{_imagesdir}modules/publish/hawtio-activemq-interaction.png[width="600px",link="{_imagesdir}modules/publish/hawtio-activemq-interaction.png"]
 
 
 The publshmq also persists all interactions to a database table; this is to allow messages to be resent if required.
 The message can be seen persisted as a `PublishedEvent` entity (searchable from the _Activity_ menu):
 
-image::{_imagesdir}features/publish/publish-object.png[width="600px",link="{_imagesdir}features/publish/publish-object.png"]
+image::{_imagesdir}modules/publish/publish-object.png[width="600px",link="{_imagesdir}modules/publish/publish-object.png"]
 
 
 
@@ -844,20 +844,20 @@ public enum TogglzFeature implements org.togglz.core.Feature {
 
 Because the `SimpleObject_findByName` feature toggle is disabled, the corresponding action is hidden:
 
-image::{_imagesdir}features/togglz/feature-disabled.png[width="300px",link="{_imagesdir}features/togglz/feature-disabled.png"]
+image::{_imagesdir}modules/togglz/feature-disabled.png[width="300px",link="{_imagesdir}modules/togglz/feature-disabled.png"]
 
 
 Users with the `isis-module-togglz-admin` role can change feature toggles dynamically:
 
-image::{_imagesdir}features/togglz/feature-toggles-menu.png[width="300px",link="{_imagesdir}features/togglz/feature-toggles-menu.png"]
+image::{_imagesdir}modules/togglz/feature-toggles-menu.png[width="300px",link="{_imagesdir}modules/togglz/feature-toggles-menu.png"]
 
 which brings up the togglz console:
 
-image::{_imagesdir}features/togglz/togglz-console.png[width="600px",link="{_imagesdir}features/togglz/togglz-console.png"]
+image::{_imagesdir}modules/togglz/togglz-console.png[width="600px",link="{_imagesdir}modules/togglz/togglz-console.png"]
 
 With the feature enabled, the "findByName" action become visible:
 
-image::{_imagesdir}features/togglz/feature-enabled.png[width="300px",link="{_imagesdir}features/togglz/feature-enabled.png"]
+image::{_imagesdir}modules/togglz/feature-enabled.png[width="300px",link="{_imagesdir}modules/togglz/feature-enabled.png"]
 
 
 [[__quickstart_modules_quartz]]
@@ -942,17 +942,17 @@ public class SimpleObject_updateNameInBackground {
 
 which provides a new "updateNameInBackground" action:
 
-image::{_imagesdir}features/quartz/updateNameInBackground.png[width="600px",link="{_imagesdir}features/quartz/updateNameInBackground.png"]
+image::{_imagesdir}modules/quartz/updateNameInBackground.png[width="600px",link="{_imagesdir}modules/quartz/updateNameInBackground.png"]
 
 which when invoked does not immediately change the object's name but instead displays a message:
 
-image::{_imagesdir}features/quartz/updateNameInBackground-result.png[width="600px",link="{_imagesdir}features/quartz/updateNameInBackground-result.png"]
+image::{_imagesdir}modules/quartz/updateNameInBackground-result.png[width="600px",link="{_imagesdir}modules/quartz/updateNameInBackground-result.png"]
 
 Keep clicking on the object's title to reload; within 10 seconds the name should change.
 
 Listing all commands shows how the "updateNameInBackground" action is executed immediately (in the foreground), and as a side-effect creates a command for "updateName", executed in the background by the Quartz scheduler:
 
-image::{_imagesdir}features/quartz/command-list.png[width="600px",link="{_imagesdir}features/quartz/command-list.png"]
+image::{_imagesdir}modules/quartz/command-list.png[width="600px",link="{_imagesdir}modules/quartz/command-list.png"]
 
 
 
@@ -977,16 +977,16 @@ There are a number of other configuration properties also set in that manifest; 
 
 The migration scripts themselves are in the `webapp` module, in a subpackage of `db.migration`:
 
-image::{_imagesdir}features/flywaydb/migration-scripts.png[width="400px",link="{_imagesdir}features/flywaydb/migration-scripts.png"]
+image::{_imagesdir}modules/flywaydb/migration-scripts.png[width="400px",link="{_imagesdir}modules/flywaydb/migration-scripts.png"]
 
 
 Running the app with this manifest against an empty SQL Server database results in FlywayDB automatically creating the database tables:
 
-image::{_imagesdir}features/flywaydb/mssql-generated-tables.png[width="400px",link="{_imagesdir}features/flywaydb/mssql-generated-tables.png"]
+image::{_imagesdir}modules/flywaydb/mssql-generated-tables.png[width="400px",link="{_imagesdir}modules/flywaydb/mssql-generated-tables.png"]
 
 The `flyway.schema_version` table keeps track of the scripts that have been applied:
 
-image::{_imagesdir}features/flywaydb/schema_version.png[width="600px",link="{_imagesdir}features/flywaydb/schema_version.png"]
+image::{_imagesdir}modules/flywaydb/schema_version.png[width="600px",link="{_imagesdir}modules/flywaydb/schema_version.png"]
 
 
 
