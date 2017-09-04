@@ -18,20 +18,29 @@ The diagram below shows the extended structure of the application and how these 
 
 image::{_imagesdir}project-structure/module-dependencies/slide3.png[width="800px",link="{_imagesdir}project-structure/module-dependencies/slide3.png"]
 
+where:
+
+* `quickstart-example-appdefn` ...
+
+* `quickstart-example-dom` ...
+
+
 
 [[__quickstart-with-example-usage_including-the-example-modules]]
 == Including the Example Modules
 
-To include the modules that demonstrate usage of the platform modules, just uncomment the relevant blocks surrounded by these comments:
-
+To include the modules that demonstrate usage of the platform modules, just uncomment the relevant blocks surrounded by these words:
 
 [source,xml]
 ----
-<!-- Comment in to include example modules demonstrating platform usage: START -->
+Comment in to include example modules demonstrating platform usage: START
+----
 
-...
+and
 
-<!-- Comment in to include example modules demonstrating platform usage: END -->
+[source,xml]
+----
+Comment in to include example modules demonstrating platform usage: END
 ----
 
 You should find there are three such blocks in
