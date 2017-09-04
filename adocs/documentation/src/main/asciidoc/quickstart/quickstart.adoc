@@ -3,8 +3,7 @@
 :_basedir: ../../
 :_imagesdir: _images/
 :toc:
-
-
+:generate_pdf:
 
 The quickstart is a Maven archetype intended to be used as a template for new applications.
 
@@ -97,7 +96,7 @@ There's very little Java code in this module: the most significant class is `Dom
 
 You'll want to load the generated app into an IDE; the figure below shows the app as loaded into IntelliJ:
 
-image::{_imagesdir}project-structure/quickstart-app-loaded-into-intellij.png[width="800px",link="{_imagesdir}project-structure/quickstart-app-loaded-into-intellij.png"]
+image::{_imagesdir}project-structure/quickstart-app-loaded-into-intellij.png[width="600px",link="{_imagesdir}project-structure/quickstart-app-loaded-into-intellij.png"]
 
 by default the `example` modules are excluded from the project:
 
@@ -163,7 +162,7 @@ Such reports can be picked up by your continuous integration server.
 
 In addition, the BDD specs also generate a (very simple) website at `target/cucumber-html-report/index.html`, and a (much richer) website at `target/cucumber-reports/cucumber-html-reports/overview-features.html`.
 
-image::{_imagesdir}build/tests/cucumber-report.png[width="800px",link="{_imagesdir}build/tests/cucumber-report.png"]
+image::{_imagesdir}build/tests/cucumber-report.png[width="600px",link="{_imagesdir}build/tests/cucumber-report.png"]
 
 
 One thing to be aware of: if a unit test or integration test fails, then the build will break.
@@ -221,7 +220,7 @@ This starts up an embedded Jetty instance configured to run the webapp.
 
 For example, here's the launch configuration to run the generated application from IntelliJ:
 
-image::{_imagesdir}running/ide/intellij-run-configuration.png[width="800px",link="{_imagesdir}running/ide/intellij-run-configuration.png"]
+image::{_imagesdir}running/ide/intellij-run-configuration.png[width="600px",link="{_imagesdir}running/ide/intellij-run-configuration.png"]
 
 That is to say:
 
@@ -242,11 +241,11 @@ When the application is started this way, it runs without any fixtures, that is,
 The only user account that is available therefore is the default superuser provided by the xref:../modules/spi/security/spi-security.adoc#[security module], namely `isis-module-security-admin`/`pass`.
 
 
-image::{_imagesdir}running/ide/run-app-login-isis-module-security-admin.png[width="800px",link="{_imagesdir}running/ide/run-app-login-isis-module-security-admin.png"]
+image::{_imagesdir}running/ide/run-app-login-isis-module-security-admin.png[width="600px",link="{_imagesdir}running/ide/run-app-login-isis-module-security-admin.png"]
 
 The home page shows only the security module's menu, not the domain app's entities (`SimpleObject`'s menu etc):
 
-image::{_imagesdir}running/ide/run-app-home-page-isis-module-security-admin.png[width="800px",link="{_imagesdir}running/ide/run-app-home-page-isis-module-security-admin.png"]
+image::{_imagesdir}running/ide/run-app-home-page-isis-module-security-admin.png[width="600px",link="{_imagesdir}running/ide/run-app-home-page-isis-module-security-admin.png"]
 
 
 Manually setting up a user and permissions to be able to access the business domain would be tedious to say the least.
@@ -256,7 +255,7 @@ These set up a user account and also some dummy data.
 
 For example, here's the updated launch configuration using the app manifest:
 
-image::{_imagesdir}running/ide/intellij-run-configuration-with-fixtures.png[width="800px",link="{_imagesdir}running/ide/intellij-run-configuration-with-fixtures.png"]
+image::{_imagesdir}running/ide/intellij-run-configuration-with-fixtures.png[width="600px",link="{_imagesdir}running/ide/intellij-run-configuration-with-fixtures.png"]
 
 That is to say:
 
@@ -275,15 +274,15 @@ protected void overrideFixtures(final List<Class<? extends FixtureScript>> fixtu
 
 When we run the app again, we can now log in using a new `sven/pass` user account:
 
-image::{_imagesdir}running/ide/run-app-login.png[width="800px",link="{_imagesdir}running/ide/run-app-login.png"]
+image::{_imagesdir}running/ide/run-app-login.png[width="600px",link="{_imagesdir}running/ide/run-app-login.png"]
 
 The home page now shows a `Simple Objects` menu:
 
-image::{_imagesdir}running/ide/run-app-home-page.png[width="800px",link="{_imagesdir}running/ide/run-app-home-page.png"]
+image::{_imagesdir}running/ide/run-app-home-page.png[width="600px",link="{_imagesdir}running/ide/run-app-home-page.png"]
 
 from whence we can access the ``SimpleObject``s also created by the fixture:
 
-image::{_imagesdir}running/ide/run-app-SimpleObject.png[width="800px",link="{_imagesdir}running/ide/run-app-SimpleObject.png"]
+image::{_imagesdir}running/ide/run-app-SimpleObject.png[width="600px",link="{_imagesdir}running/ide/run-app-SimpleObject.png"]
 
 Note also the additional menus on the right-hand side to access other modules set up and accessible to the `sven` superuser.
 These are discussed in more detail xref:quickstart.adoc#__quickstart_modules[below].
@@ -708,12 +707,14 @@ image::{_imagesdir}features/audit/audit-entry.png[width="600px",link="{_imagesdi
 [[__quickstart_modules_publishing]]
 === Publishing
 
-Publishing and xref:quickstart.adoc#__quickstart_modules_commands[commands] share some similarities: both create an XML representation of an action invocation or property edit.
-However, whereas a `Command` represents the _intention_ to invoke the action, with publishing the serialized XML also captures the result of the invocation and some basic metrics.
+Publishing and commands share some similarities: both create an XML representation of an action invocation or property edit.
+However, whereas a Command represents only the _intention_ to invoke the action, with publishing the serialized XML also captures the result of the invocation and some basic metrics.
 
-The main use case of the publisher SPI is to be able facilitate message exchange between external systems.
+The main use case of publishing is to be able facilitate message exchange between external systems.
 The quickstart app uses the xref:../modules/spi/publishmq/spi-publishmq.adoc#[publishmq] module which bootstraps an in-memory ActiveMQ instance and publishes to it.
-(It also persists each interaction to a database table to allow messages to be resent if required).
+
+In fact, the publishmq module allows the location of the ActiveMQ queue to be overridden.
+The quickstart app configures these properties, but leaves them as their defaults (that is, connecting to an in-memory ActiveMQ instance):
 
 [source,ini]
 .isis.properties (in webapp module)
@@ -726,7 +727,7 @@ isis.services.PublisherServiceUsingActiveMq.memberInteractionsQueue=\
 The quickstart app (when using the fixtures) disables publishing "globally" in the app manifest:
 
 [source,ini]
-.DomainAppAppManifestWithFixtures
+.DomainAppAppManifestWithFixtures (in the appdefn module)
 ----
 protected void disableAuditingAndCommandAndPublishGlobally(final Map<String, String> configurationProperties) {
     ...
@@ -736,7 +737,7 @@ protected void disableAuditingAndCommandAndPublishGlobally(final Map<String, Str
 }
 ----
 
-but the `SimpleObject` domain object re-enables publishing for both editing of the `notes` property;
+but the `SimpleObject` domain object re-enables publishing for both editing of the `notes` property:
 
 [source,java]
 ----
@@ -780,7 +781,9 @@ and indeed the details of the message can be inspected:
 
 image::{_imagesdir}features/publish/hawtio-activemq-interaction.png[width="600px",link="{_imagesdir}features/publish/hawtio-activemq-interaction.png"]
 
-The same message is persisted as a `PublishedEvent` entity:
+
+The publshmq also persists all interactions to a database table; this is to allow messages to be resent if required.
+The message can be seen persisted as a `PublishedEvent` entity (searchable from the _Activity_ menu):
 
 image::{_imagesdir}features/publish/publish-object.png[width="600px",link="{_imagesdir}features/publish/publish-object.png"]
 
@@ -856,6 +859,11 @@ image::{_imagesdir}features/togglz/feature-enabled.png[width="300px",link="{_ima
 [[__quickstart_modules_quartz]]
 === Quartz
 
+The xref:../modules/ext/quartz/ext-quartz.adoc#[quartz extension] module provides an in-memory scheduler for running jobs according to a schedule.
+The quickstart app uses this to schedule background commands every 10 seconds.
+Its configuration could of course be extended to perform other tasks.
+
+The configuration is contained in `quartz-config.xml`:
 
 [source,xml]
 .quartz-config.xml (in the webapp module)
@@ -928,15 +936,15 @@ public class SimpleObject_updateNameInBackground {
 }
 ----
 
-provides a new action:
+which provides a new "updateNameInBackground" action:
 
 image::{_imagesdir}features/quartz/updateNameInBackground.png[width="600px",link="{_imagesdir}features/quartz/updateNameInBackground.png"]
 
-which when invoked does not immediately change the object's name:
+which when invoked does not immediately change the object's name but instead displays a message:
 
 image::{_imagesdir}features/quartz/updateNameInBackground-result.png[width="600px",link="{_imagesdir}features/quartz/updateNameInBackground-result.png"]
 
-When this new action is invoked, you should see that there is a delay between invoking the action (keep clicking on the title to reload).
+Keep clicking on the object's title to reload; within 10 seconds the name should change.
 
 Listing all commands shows how the "updateNameInBackground" action is executed immediately (in the foreground), and as a side-effect creates a command for "updateName", executed in the background by the Quartz scheduler:
 
@@ -959,9 +967,11 @@ configurationProperties.put(
     "isis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll", "false");
 ----
 
-The other configuration properties indicate which schemas to track, and where to locate the migration scripts on the classpath.
+This tells DataNucleus to _not_ automatically create the required database schema, so that it is instead created "manually" by Flyway running the provided SQL scripts.
 
-The migration scripts themselves are in the `webapp` module:
+There are a number of other configuration properties also set in that manifest; thes indicate which schemas FlywayDB should track, and where to locate the migration scripts on the classpath.
+
+The migration scripts themselves are in the `webapp` module, in a subpackage of `db.migration`:
 
 image::{_imagesdir}features/flywaydb/migration-scripts.png[width="400px",link="{_imagesdir}features/flywaydb/migration-scripts.png"]
 
@@ -978,20 +988,23 @@ image::{_imagesdir}features/flywaydb/schema_version.png[width="600px",link="{_im
 
 There are a couple of other points worth making.
 
-First, the manifest uses the following configuration property:
+* First, the manifest also uses the following configuration property:
 
++
 [source,ini]
 ----
 configurationProperties.put(
     "isis.persistor.datanucleus.impl.datanucleus.Mapping", "sqlserver");
 ----
-
++
 to instruct DataNucleus to pick up any `-sqlserver.orm` files from the classpath.
 There are two such: `DocumentAbstract-sqlserver.orm` and `CommandJdo-sqlserver.orm`.
 
+* Second, the quickstart app also provides a `beforeMigrate.sql` script to drop all index/constraints, and uses the `autoCreateConstraints` property so that DataNucleus will automatically re-create any indices afterwards.
 
-Second, the quickstart app also provides a `beforeMigrate.sql` script to drop all index/constraints, and uses the `autoCreateConstraints` property so that DataNucleus will automatically re-create any indices.
++
 For large databases this would not be practicable, in which case the `beforeMigrate.sql` script should be removed.
+Any changes to indices would therefore need to be provided in migration SQL scripts.
 
 
 

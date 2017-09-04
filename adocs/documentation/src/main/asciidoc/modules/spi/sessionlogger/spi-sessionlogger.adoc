@@ -2,7 +2,7 @@
 = SessionLogger SPI Implementation
 :_basedir: ../../../
 :_imagesdir: images/
-
+:generate_pdf:
 
 This module (`isis-module-sessionlogger`) provides an implementation of Apache Isis' `SessionLoggingService` API that persists session entries (representing users logging in or out of the application) using Isis' own (JDO) objectstore.
 Typically this will be to a relational database; the module's `SessionLogEntry` entity is mapped to the "IsisSessionLogEntry" table.

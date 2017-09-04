@@ -2,7 +2,7 @@
 = SummerNote Wicket Component
 :_basedir: ../../../
 :_imagesdir: images/
-
+:generate_pdf:
 
 This module (`isis-wicket-summernote`) integrates link:http://summernote.org[Summernote editor].
 _Summernote_ is a JavaScript library based on http://getbootstrap.com/[Bootstrap] that helps you create WYSIWYG editors online.

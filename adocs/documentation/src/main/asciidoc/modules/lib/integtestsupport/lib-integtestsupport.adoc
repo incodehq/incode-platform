@@ -2,6 +2,7 @@
 = Integration Testing Support Library
 :_basedir: ../../../
 :_imagesdir: images/
+:generate_pdf:
 
 This module (`incode-module-integtestsupport`) provides a set of testing utilities to support integration testing.
 

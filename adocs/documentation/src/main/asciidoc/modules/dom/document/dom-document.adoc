@@ -2,6 +2,7 @@
 = Document Subdomain
 :_basedir: ../../../
 :_imagesdir: images/
+:generate_pdf:
 
 This module (`incode-module-document`) provides the ability to create and attach `Document` objects to arbitrary domain objects from ``DocumentTemplate``s.
 

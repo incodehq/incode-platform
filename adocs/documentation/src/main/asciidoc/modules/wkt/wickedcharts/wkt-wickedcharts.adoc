@@ -2,7 +2,7 @@
 = WickedCharts Wicket Component
 :_basedir: ../../../
 :_imagesdir: images/
-
+:generate_pdf:
 
 This component (`isis-wicket-wickedcharts`) integrates link:https://code.google.com/p/wicked-charts/[Wicked Charts].
 *Wicked Charts* is in turn an integration between link:http://wicket.apache.org[Apache Wicket] and the link:http://www.highcharts.com/[Highcharts] JS charting library).

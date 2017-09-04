@@ -3,6 +3,7 @@
 :_basedir: ../../
 :_imagesdir: images/
 :toc:
+:generate_pdf:
 
 The Incode Platform combines the modules previously available as part of link:http://isisaddons.org[Isis Addons] and the link:http://catalog.incode.org[Incode Catalog].
 Whereas previously these modules each resided in their own git repo and were released separately, the modules in the platform all reside in a single git repo and are released together.

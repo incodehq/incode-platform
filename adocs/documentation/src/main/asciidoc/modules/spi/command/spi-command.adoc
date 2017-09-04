@@ -2,6 +2,7 @@
 = Command SPI Implementation
 :_basedir: ../../../
 :_imagesdir: images/
+:generate_pdf:
 
 This module (`isis-module-command`) provides an implementation of Apache Isis' `CommandService` SPI that enables action invocations (`Command`s) to be persisted using Apache Isis' own (JDO) objectstore.
 This supports two main use cases:

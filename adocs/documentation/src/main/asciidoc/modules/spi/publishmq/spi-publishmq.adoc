@@ -2,7 +2,7 @@
 = PublishMQ SPI Implementation
 :_basedir: ../../../
 :_imagesdir: images/
-
+:generate_pdf:
 
 This module (`isis-module-publishmq`) provides an implementation of Apache Isis' link:http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_persistence-layer-spi_PublisherService[`PublisherService`] SPI that submits an XML representation of an link:https://github.com/apache/isis/blob/master/core/schema/src/main/resources/org/apache/isis/schema/ixn/ixn.xsd[`MemberInteractionDto`]s to an link:http://activemq.apache.org[ActiveMQ] queue.
 

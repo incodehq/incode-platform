@@ -32,8 +32,8 @@
 
         <build.dir>${project.basedir}/target/site</build.dir>
 
-        <platform-site-content.dir>../../../platform-site/content</platform-site-content.dir>
-        <isis-site-search.dir>../../../isis-site/search</isis-site-search.dir>
+        <platform-site-content.dir>../../../incode-platform-site/content</platform-site-content.dir>
+        <platform-site-search.dir>../../../incode-platform-site/search</platform-site-search.dir>
         <message>updating content (built from adocs/documentation in isis.git repo)</message>
     </properties>
 
@@ -141,8 +141,7 @@
                                     <outputDirectory>${project.reporting.outputDirectory}/</outputDirectory>
 
                                     <!--
-                                    <sourceDocumentName>guides/ugvw/ugvw.adoc</sourceDocumentName>
-                                    <sourceDocumentName>guides/rgsvc/rgsvc.adoc</sourceDocumentName>
+                                    <sourceDocumentName>pages/quickstart.adoc</sourceDocumentName>
                                     -->
 
                                     <sourceHighlighter>coderay</sourceHighlighter>
@@ -244,7 +243,7 @@
                                         <echo message=""/>
                                         <echo message=""/>
                                         <echo message="using node to rebuild search index"/>
-                                        <exec executable="node" dir="${isis-site-search.dir}">
+                                        <exec executable="node" dir="${platform-site-search.dir}">
                                             <arg value="--max_old_space_size=2048"/>
                                             <arg value="_scripts/index.js"/>
                                             <arg value="../content/"/>
@@ -373,7 +372,7 @@
                                         <echo message="using node to rebuild search index"/>
                                         <exec executable="node" dir=".">
                                             <arg value="--max_old_space_size=2048"/>
-                                            <arg value="${isis-site-search.dir}/_scripts/index.js"/>
+                                            <arg value="${platform-site-search.dir}/_scripts/index.js"/>
                                             <arg value="target/site"/>
                                             <arg value="-o"/>
                                             <arg value="target/site/elasticlunr/index.json"/>
@@ -416,7 +415,7 @@
                                         def siteDir = new File("${platform-site-content.dir}", "..")
 
                                         "git add content --all".execute(null, siteDir).in.text
-                                        "git reset content/guides".execute(null, siteDir).in.text
+                                        "git reset content".execute(null, siteDir).in.text
 
                                         def gitStatusOutput = "git status --porcelain".execute(null, siteDir).in.text
 

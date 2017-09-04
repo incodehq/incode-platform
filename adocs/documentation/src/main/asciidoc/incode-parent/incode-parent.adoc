@@ -1,7 +1,7 @@
 = Incode Parent
 :_basedir: ../
 :_imagesdir: images/
-
+:generate_pdf:
 
 TODO: to update
 

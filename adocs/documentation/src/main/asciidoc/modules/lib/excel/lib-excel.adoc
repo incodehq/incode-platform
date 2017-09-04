@@ -2,6 +2,7 @@
 = Excel Library
 :_basedir: ../../../
 :_imagesdir: images/
+:generate_pdf:
 
 This module (`isis-module-excel`) provides a domain service so that a collection of (view model) object scan be exported to an Excel spreadsheet, or recreated by importing from Excel.
 

@@ -2,7 +2,7 @@
 = Freemarker Document Rendering Library
 :_basedir: ../../../
 :_imagesdir: images/
-
+:generate_pdf:
 
 This module (`incode-module-docrendering-freemarker`) provides an implementation of the xref:../../dom/document/dom-document.adoc#[Document subdomain] module's `Renderer` interface using the xref:../../lib/freemarker/lib-freemarker.adoc#[freemarker library] module.
 

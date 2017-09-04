@@ -1,6 +1,8 @@
 [[lib-xdocreport]]
 = XDocReport Library
-
+:_basedir: ../../../
+:_imagesdir: images/
+:generate_pdf:
 
 This module [`isis-module-xdocreport`] provides a wrapper around link:https://github.com/opensagres/xdocreport[XDocReport].
 XDocReport is an API to merge XML documents into MS Office (`.docx`) or OpenOffice (`.odt`) files, optionally converting into another format, notably PDF.

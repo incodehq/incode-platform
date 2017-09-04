@@ -2,6 +2,7 @@
 = Note Subdomain
 :_basedir: ../../../
 :_imagesdir: images/
+:generate_pdf:
 
 This module (`incode-module-note`) provides the ability to attach `Note` objects to arbitrary domain entities.
 There are _no_ requirements for those domain objects implement any interfaces.

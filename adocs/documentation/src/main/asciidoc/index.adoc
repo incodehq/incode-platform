@@ -4,7 +4,6 @@
 :_imagesdir: images/
 :notoc: true
 
-
 pass:[<br/>]
 
 The Incode Platform provides a number of _modules_ for use with the link:http://isis.apache.org[Apache Isis] framework.

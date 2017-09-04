@@ -2,6 +2,7 @@
 = Quartz Extension
 :_basedir: ../../../
 :_imagesdir: images/
+:generate_pdf:
 
 This module (`isis-module-quartz`) provides a wrapper around the link:http://www.quartz-scheduler.org/[Quartz] scheduler.
 

@@ -2,6 +2,7 @@
 = SPI Implementations
 :_basedir: ../../
 :_imagesdir: images/
+:generate_pdf:
 
 SPI modules provide implementations of SPIs defined by the Apache Isis framework itself.
 As the table below shows, these are typically for cross-cutting concerns such as auditing.

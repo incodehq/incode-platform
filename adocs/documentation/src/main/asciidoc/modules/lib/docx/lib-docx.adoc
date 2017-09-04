@@ -2,7 +2,7 @@
 = Docx (MS Word) Library
 :_basedir: ../../../
 :_imagesdir: images/
-
+:generate_pdf:
 
 This module (`isis-module-docx`) provides a mail-merge capability of input data into an MS Word `.docx` templates.
 The generated output document is either Word `.docx` or Acrobat `.pdf`.

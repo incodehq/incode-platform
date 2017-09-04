@@ -2,7 +2,8 @@
 = Committers Guide
 :_basedir: ../../
 :_imagesdir: images/
-
+:toc:
+:generate_pdf:
 
 
 == How to Release

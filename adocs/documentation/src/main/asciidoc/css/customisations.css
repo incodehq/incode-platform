@@ -48,3 +48,8 @@ table a:not(.btn), .table a:not(.btn) {
     float: right;
     padding-top: 20px;
 }
+
+.listingblock .title {
+    font-style: italic;
+    color: #AA3633;
+}

@@ -2,6 +2,7 @@
 = Fixture Support Library
 :_basedir: ../../../
 :_imagesdir: images/
+:generate_pdf:
 
 This module (`incode-module-fixturesupport`) provides support for writing fixtures.
 

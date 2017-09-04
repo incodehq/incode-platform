@@ -1,8 +1,8 @@
 [[lib-fakedata]]
 = Fake Data Library
-
 :_basedir: ../../../
 :_imagesdir: images/
+:generate_pdf:
 
 
 This module (`isis-module-fakedata`) provides a domain service that generates fake random data.

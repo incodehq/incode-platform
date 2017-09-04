@@ -2,6 +2,7 @@
 = Communication Channel Subdomain
 :_basedir: ../../../
 :_imagesdir: images/
+:generate_pdf:
 
 This module (`isis-module-commchannel`) provides the ability to attach communication channel objects (postal address, email or phone/fax number) to arbitrary domain entities.
 There are _no_ requirements for those objects to implement any interfaces.

@@ -2,6 +2,7 @@
 = Libraries
 :_basedir: ../../
 :_imagesdir: images/
+:generate_pdf:
 
 Most libraries mostly act as wrappers around some lower-level technology libraries such as link:http://freemarker.org/[Freemarker] or link:https://pdfbox.apache.org/[PdfBox].
 The three _docrendering_ libraries act as a "glue" between the xref:../dom/document/dom-document.adoc#[Document subdomain] and these lower-level libraries.

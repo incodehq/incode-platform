@@ -2,7 +2,7 @@
 = Base Library
 :_basedir: ../../../
 :_imagesdir: images/
-
+:generate_pdf:
 
 This module (`incode-module-base`) provides a base library of utility classes.
 

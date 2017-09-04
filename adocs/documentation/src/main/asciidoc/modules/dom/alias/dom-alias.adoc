@@ -2,6 +2,7 @@
 = Alias Subdomain
 :_basedir: ../../../
 :_imagesdir: images/
+:generate_pdf:
 
 This module (`incode-module-alias`) provides the ability to attach `Alias` objects to arbitrary domain entities, where "alias" means an alternative identifier for the entity.
 Most commonly this is the identifier within some external system (in DDD terms: in some other bounded context).

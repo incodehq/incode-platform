@@ -2,6 +2,7 @@
 = XDocReport Document Rendering Library
 :_basedir: ../../../
 :_imagesdir: images/
+:generate_pdf:
 
 This module (`incode-module-docrendering-xdocreport`) provides an implementation of the xref:../../dom/document/dom-document.adoc#[Document subdomain] module's `Renderer` interface using the xref:../../lib/xdocreport/lib-xdocreport.adoc#[xdocreport library] module.
 

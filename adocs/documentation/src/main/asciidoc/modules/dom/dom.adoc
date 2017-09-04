@@ -2,6 +2,7 @@
 = Generic Subdomains
 :_basedir: ../../
 :_imagesdir: images/
+:generate_pdf:
 
 Generic subdomain modules provide business functionality reusable in many different contexts, such as communications, documents and application/user settings.
 All of these modules define their own set of persistent entities and supporting services.

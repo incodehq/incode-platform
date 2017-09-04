@@ -2,7 +2,7 @@
 = String Interpolator (OGNL) Library
 :_basedir: ../../../
 :_imagesdir: images/
-
+:generate_pdf:
 
 This module (`isis-module-stringinterpolator`) provides a mechanism to interpolate string templates with either Isis system properties or values obtained from a domain object.
 It uses link:https://github.com/jkuhnert/ognl[OGNL] under the covers.

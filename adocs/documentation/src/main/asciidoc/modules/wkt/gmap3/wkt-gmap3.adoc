@@ -2,6 +2,7 @@
 = GMap3 Wicket Component
 :_basedir: ../../../
 :_imagesdir: images/
+:generate_pdf:
 
 This component (`isis-wicket-gmap3`) allows an entity or collection of entities to be rendered within a map (using google's https://developers.google.com/maps/documentation/javascript/[gmap3] API).
 
