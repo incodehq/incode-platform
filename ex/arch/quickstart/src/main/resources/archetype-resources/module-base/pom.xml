@@ -12,7 +12,7 @@
     </parent>
 
     <artifactId>${artifactId}-module-base</artifactId>
-    <name>Incode Platform QuickStart Base Module</name>
+    <name>Incode QuickStart Base Module</name>
 
     <properties>
         <maven-checkstyle-plugin.configLocation>${symbol_dollar}{project.parent.basedir}/_checks/checkstyle.xml</maven-checkstyle-plugin.configLocation>

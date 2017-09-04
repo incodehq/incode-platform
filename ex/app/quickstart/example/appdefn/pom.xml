@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>incode-quickstart-example-appdefn</artifactId>
-    <name>Incode Platform QuickStart Ex Usage: App Definition</name>
+    <name>Incode QuickStart Ex Usage: App Definition</name>
 
     <description>Extends the quickstart application (manifest) with example module</description>
 

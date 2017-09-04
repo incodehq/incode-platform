@@ -12,7 +12,7 @@
     </parent>
 
     <artifactId>${artifactId}-appdefn</artifactId>
-    <name>Incode Platform QuickStart App Definition</name>
+    <name>Incode QuickStart App Definition</name>
 
     <description>This defines the application (manifest) and runs application-level fixtures and integration (smoke) tests</description>
 

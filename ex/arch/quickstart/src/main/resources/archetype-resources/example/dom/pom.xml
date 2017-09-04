@@ -14,7 +14,7 @@
     </parent>
 
     <artifactId>${artifactId}-example-dom</artifactId>
-    <name>Incode Platform QuickStart Ex Usage: DOM</name>
+    <name>Incode QuickStart Ex Usage: DOM</name>
 
     <properties>
         <isis-maven-plugin.validate.appManifest>

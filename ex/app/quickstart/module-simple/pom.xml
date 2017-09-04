@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>incode-quickstart-module-simple</artifactId>
-    <name>Incode Platform QuickStart Simple Module</name>
+    <name>Incode QuickStart Simple Module</name>
 
     <properties>
         <isis-maven-plugin.validate.appManifest>

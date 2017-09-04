@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>incode-quickstart-example-embeddedcamel</artifactId>
-    <name>Incode Platform QuickStart Ex Camel: Embedded</name>
+    <name>Incode QuickStart Ex Camel: Embedded</name>
 
     <description>
         Contains routing and supporting beans for Camel

@@ -12,7 +12,7 @@
     <artifactId>${artifactId}</artifactId>
     <version>${version}</version>
 
-    <name>Incode Platform QuickStart</name>
+    <name>Incode QuickStart</name>
     <description>Domain application leveraging the Incode Platform.</description>
 
     <properties>

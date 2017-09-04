@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>incode-quickstart-webapp</artifactId>
-    <name>Incode Platform QuickStart Webapp</name>
+    <name>Incode QuickStart Webapp</name>
 
     <description>
         This assembles and runs all of the modules of the Incode Platform in a single webapp.

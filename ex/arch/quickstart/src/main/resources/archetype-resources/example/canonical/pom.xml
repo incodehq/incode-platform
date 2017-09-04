@@ -14,7 +14,7 @@
 
     <artifactId>${artifactId}-example-canonical</artifactId>
 
-    <name>Incode Platform QuickStart Ex Camel: Canonical</name>
+    <name>Incode QuickStart Ex Camel: Canonical</name>
     <description>
         Canonical DTOs for the example DOM
     </description>
