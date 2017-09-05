@@ -3,7 +3,6 @@ package domainapp.appdefn;
 import org.apache.isis.applib.AppManifestAbstract;
 
 import org.isisaddons.module.audit.AuditModule;
-import org.isisaddons.module.command.CommandModule;
 import org.isisaddons.module.docx.DocxModule;
 import org.isisaddons.module.excel.ExcelModule;
 import org.isisaddons.module.fakedata.FakeDataModule;
@@ -11,12 +10,8 @@ import org.isisaddons.module.freemarker.dom.FreeMarkerModule;
 import org.isisaddons.module.pdfbox.dom.PdfBoxModule;
 import org.isisaddons.module.poly.PolyModule;
 import org.isisaddons.module.publishmq.PublishMqModule;
-import org.isisaddons.module.security.SecurityModule;
-import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
-import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 import org.isisaddons.module.servletapi.ServletApiModule;
 import org.isisaddons.module.sessionlogger.SessionLoggerModule;
-import org.isisaddons.module.settings.SettingsModule;
 import org.isisaddons.module.stringinterpolator.StringInterpolatorModule;
 import org.isisaddons.module.tags.TagsModule;
 import org.isisaddons.module.togglz.TogglzModule;
@@ -47,13 +42,11 @@ import domainapp.modules.simple.SimpleModule;
 
 public class DomainAppAppManifest extends AppManifestAbstract {
 
-    public static final Builder BUILDER = Builder.forModules(
-
-            DomainAppAppDefnModule.class,
+    public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
             SimpleModule.class,
 
-            PublishMqModule.class,
+            DomainAppAppDefnModule.class,
 
             /* Comment in to include example modules that set up embedded camel: START */
             domainapp.example.embeddedcamel.EmbeddedCamelModule.class,
@@ -86,13 +79,11 @@ public class DomainAppAppManifest extends AppManifestAbstract {
             DocFragmentModuleDomModule.class,
             DocumentModule.class,
             NoteModule.class,
-            SettingsModule.class,
             TagsModule.class,
 
             // spi
             AuditModule.class,
-            CommandModule.class,
-            SecurityModule.class,
+            PublishMqModule.class,
             SessionLoggerModule.class,
 
             // cpt (wicket ui)
@@ -104,20 +95,7 @@ public class DomainAppAppManifest extends AppManifestAbstract {
             PdfjsCptModule.class,
             SummernoteUiModule.class,
             WickedChartsUiModule.class
-
-    )
-    .withAdditionalServices(
-            PasswordEncryptionServiceUsingJBcrypt.class,
-            PermissionsEvaluationServiceAllowBeatsVeto.class
-    )
-    .withConfigurationPropertiesFile(DomainAppAppManifest.class,
-            "isis.properties",
-            "authentication_shiro.properties",
-            "persistor_datanucleus.properties",
-            "viewer_restfulobjects.properties",
-            "viewer_wicket.properties"
-    )
-    .withConfigurationProperty("isis.viewer.wicket.rememberMe.cookieKey", "DomainAppEncryptionKey");
+    );
 
     public DomainAppAppManifest() {
         super(BUILDER);

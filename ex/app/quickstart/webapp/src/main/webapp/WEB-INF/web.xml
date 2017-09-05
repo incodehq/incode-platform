@@ -12,7 +12,7 @@
 
     <!-- Comment in to include example modules that set up embedded camel: START -->
     <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+        <listener-class>domainapp.webapp.spring.CustomSpringContextLoaderListener</listener-class>
     </listener>
 
     <context-param>

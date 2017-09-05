@@ -19,7 +19,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
         objectType = "exampleDemo.DemoCustomerMenu"
 )
 @DomainServiceLayout(
-        named = "More Demo",
+        named = "Dummy",
         menuOrder = "20.1"
 )
 public class DemoCustomerMenu {

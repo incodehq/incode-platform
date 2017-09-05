@@ -38,6 +38,7 @@ import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
 import org.isisaddons.module.excel.dom.ExcelService;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEvent;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
+import org.isisaddons.wicket.gmap3.cpt.applib.Locatable;
 import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 import org.isisaddons.wicket.gmap3.cpt.service.LocationLookupService;
 import org.isisaddons.wicket.summernote.cpt.applib.SummernoteEditor;
@@ -105,7 +106,7 @@ import lombok.Setter;
         bookmarking = BookmarkPolicy.AS_ROOT
 )
 @XmlJavaTypeAdapter(PersistentEntityAdapter.class)
-public class DemoToDoItem implements Comparable<DemoToDoItem>, CalendarEventable {
+public class DemoToDoItem implements Comparable<DemoToDoItem>, CalendarEventable, Locatable {
 
     //region > title, iconName
 
