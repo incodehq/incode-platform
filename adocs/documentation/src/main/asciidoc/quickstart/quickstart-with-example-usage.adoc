@@ -107,12 +107,12 @@ The table below outlines the app manifests to run to demonstrate usage of the li
 
 | xref:../modules/lib/docx/lib-excel.adoc#[Excel]
 | `org.incode.domainapp.example.app.modules.
-  ExampleDomLibDocxAppManifest`
+  ExampleDomLibExcelAppManifest`
 | TODO
 
 | xref:../modules/lib/docx/lib-fakedata.adoc#[FakeData]
 | `org.incode.domainapp.example.app.modules.
-  ExampleDomLibDocxAppManifest`
+  ExampleDomLibFakeDataAppManifest`
 | TODO
 
 | xref:../modules/lib/docx/lib-fixturesupport.adoc#[FixtureSupport]

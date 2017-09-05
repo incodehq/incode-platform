@@ -13,22 +13,22 @@ import org.apache.isis.applib.annotation.Nature;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.example.dom.spi.command.ExampleDomSpiCommandModule;
-import org.incode.domainapp.example.dom.spi.command.dom.demo.SomeCommandAnnotatedObject;
-import org.incode.domainapp.example.dom.spi.command.dom.demo.SomeCommandAnnotatedObjects;
-import org.incode.domainapp.example.dom.spi.command.fixture.SomeCommandAnnotatedObject_recreate3;
+import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObject;
+import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObjects;
+import org.incode.domainapp.example.dom.spi.audit.fixture.SomeAuditedObject_and_SomeNonAuditedObject_recreate3;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 
-public class ExampleDomSpiCommandAppManifest extends AppManifestAbstract {
+public class ExampleDomLibExcelAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
-            ExampleDomSpiCommandModule.class
+            // TODO
         )
         .withFixtureScripts(
-                SomeCommandAnnotatedObject_recreate3.class,
+                // TODO
+                SomeAuditedObject_and_SomeNonAuditedObject_recreate3.class,
                 SeedSuperAdministratorRoleAndSvenSuperUser.class
         )
         .withAdditionalServices(
@@ -38,7 +38,7 @@ public class ExampleDomSpiCommandAppManifest extends AppManifestAbstract {
                 PermissionsEvaluationServiceAllowBeatsVeto.class
         );
 
-    public ExampleDomSpiCommandAppManifest() {
+    public ExampleDomLibExcelAppManifest() {
         super(BUILDER);
     }
 
@@ -62,14 +62,14 @@ public class ExampleDomSpiCommandAppManifest extends AppManifestAbstract {
         public String title() { return "Home page"; }
 
         @CollectionLayout(defaultView = "table")
-        public List<SomeCommandAnnotatedObject> getCommandAnnotatedObjects() {
-            return someCommandAnnotatedObjects.listAllSomeCommandAnnotatedObjects();
+        public List<SomeAuditedObject> getAuditedObjects() {
+            return someAuditedObjects.listAllSomeAuditedObjects();
         }
 
+        // TODO
         @Inject
-        SomeCommandAnnotatedObjects someCommandAnnotatedObjects;
+        SomeAuditedObjects someAuditedObjects;
 
     }
-
 
 }

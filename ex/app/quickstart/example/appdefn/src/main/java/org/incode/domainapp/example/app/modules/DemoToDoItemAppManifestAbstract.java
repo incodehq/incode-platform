@@ -5,8 +5,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.isis.applib.AppManifestAbstract;
+import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.HomePage;
+import org.apache.isis.applib.annotation.Nature;
 
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
@@ -45,11 +47,29 @@ public abstract class DemoToDoItemAppManifestAbstract extends AppManifestAbstrac
     public static class HomePageProvider {
 
         @HomePage
-        public List<DemoToDoItem> homePage() {
-            return menu.allInstances();
+        public HomePageViewModel homePage() {
+            return new HomePageViewModel();
         }
         @Inject
         DemoToDoItemMenu menu;
+    }
+
+    @DomainObject(
+            nature = Nature.VIEW_MODEL,
+            objectType = "HomePageViewModel"
+    )
+    public static class HomePageViewModel {
+
+        public String title() { return "Home page"; }
+
+        @CollectionLayout(defaultView = "table")
+        public List<DemoToDoItem> getToDoItems() {
+            return menu.allInstances();
+        }
+
+        @Inject
+        DemoToDoItemMenu menu;
+
     }
 
 }
