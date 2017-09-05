@@ -10,6 +10,40 @@ The Incode Platform provides a number of _modules_ for use with the link:http://
 The platform also provides a _"quickstart"_ app which can be used to quickly set up your own pre-configured applications.
 
 
+
+[[quickstart]]
+== Quickstart
+
+The xref:quickstart/quickstart.adoc#[quickstart app] is a Maven archetype intended to be used as a starting point for new applications.
+
+[source,bash]
+----
+mvn archetype:generate  \
+    -D archetypeGroupId=org.incode.platform.archetype \
+    -D archetypeArtifactId=quickstart-archetype \
+    -D archetypeVersion=1.15.0 \
+    -D groupId=com.mycompany \
+    -D artifactId=myapp \
+    -D version=1.0-SNAPSHOT \
+    -B
+----
+Like the Apache Isis framework's own link:http://isis.apache.org#guides/ugfun/ugfun.html#_ugfun_getting-started_simpleapp-archetype[simpleapp archetype], the application provides a `SimpleObject` to adapt and copy, along with supporting unit tests, integration tests and BDD (cucumber) specs.
+
+The application generated from the archetype is also preconfigured with the dependencies for all of the modules available in the Incode Platform, with xref:modules/spi/audit/spi-audit.adoc#[auditing], xref:modules/spi/command/spi-command.adoc#[command] profiling, message xref:modules/spi/publishmq/spi-publishmq.adoc#[publishing], xref:modules/spi/security/spi-security.adoc#[security], xref:modules/ext/flywaydb/ext-flywaydb.adoc#[flywaydb], xref:modules/ext/quartz/ext-quartz.adoc#[quartz] scheduler and (feature) xref:modules/ext/togglz/ext-togglz.adoc#[togglz] enabled by default.
+The application also configures the _Jolokia_ servlet to allow consoles such as _hawt.io_ to monitor the internal state of the webapp.
+
+The generated application also includes example code to:
+
+* xref:quickstart/quickstart-with-embedded-camel.adoc#[bootstrap] a _Spring Framework_ context alongside the Apache Isis framework.
+
++
+This is configured to host an embedded _Apache Camel_ instance to consume published messages.
+
+* xref:quickstart/quickstart-with-example-usage.adoc#[demonstrate usage] of the various modules within the Incode Platform.
+
+These can be easily included or excluded just by commenting in/out small sections of code.
+
+
 [[modules]]
 == Modules
 
@@ -136,20 +170,3 @@ xref:modules/ext/togglz/ext-togglz.adoc#[Togglz]
 
 
 
-[[quickstart]]
-== Quickstart
-
-The xref:quickstart/quickstart.adoc#[quickstart app] is a Maven archetype intended to be used as a starting point for new applications.
-
-Like the Apache Isis framework's own link:http://isis.apache.org#guides/ugfun/ugfun.html#_ugfun_getting-started_simpleapp-archetype[simpleapp archetype], the application provides a `SimpleObject` to adapt and copy, along with supporting unit tests, integration tests and BDD (cucumber) specs.
-
-The application generated from the archetype is also preconfigured with the dependencies for all of the modules available in the Incode Platform, with xref:modules/spi/audit/spi-audit.adoc#[auditing], xref:modules/spi/command/spi-command.adoc#[command] profiling, xref:modules/spi/security/spi-security.adoc#[security], xref:modules/ext/flywaydb/ext-flywaydb.adoc#[flywaydb] and (feature) xref:modules/ext/togglz/ext-togglz.adoc#[togglz] enabled by default.
-The application also configures the _Quartz scheduler_ for background scheduling, and the _Jolokia_ servlet, allowing consoles such as _hawt.io_ to monitor the internal state of the webapp.
-
-The generated application also includes example code to:
-
-* xref:quickstart/quickstart-with-embedded-camel.adoc#[bootstrap] a _Spring Framework_ context alongside the Apache Isis framework, hosting embedded _Apache Camel_ and _Apache ActiveMQ_ instances
-
-* xref:quickstart/quickstart-with-example-usage.adoc#[demonstrate usage] of the various modules within the Incode Platform.
-
-These can be easily included or excluded just by commenting in/out small sections of code.
