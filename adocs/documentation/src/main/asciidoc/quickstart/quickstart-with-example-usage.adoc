@@ -49,112 +49,28 @@ You should find there are three such blocks in
 the various `pom.xml` files.
 
 
-If you've uncommented out these example usage modules, then you will be able to run the application with an extended `AppManifest`:
+If you've uncommented out these example usage modules, then you will be able to run the application with an specific `AppManifest`s to demonstrate the usage of each.
+These are documented in the sections xref:quickstart-with-example-usage.adoc#__quickstart-with-example-usage_modules[below].
 
+[NOTE]
+====
+There is also an "extended" manifest that will bootstrap all of the modules, namely `org.incode.domainapp.example.app.DomainAppAppManifestWithExampleModulesAndFixtures`.
 
-image::{_imagesdir}example-usage/running/ide/intellij-run-configuration-example-modules-and-fixtures.png[width="600px",link="{_imagesdir}example-usage/running/ide/intellij-run-configuration-example-modules-and-fixtures.png"]
-
-
-That is to say:
-
-* main-class: `org.apache.isis.WebServer`
-* program args: `-m org.incode.domainapp.example.app.DomainAppAppManifestWithExampleModulesAndFixtures`
-
-with a pre-launch mvn goal of:
-
-* mvn -Denhance -Dskip.default datanucleus:enhance -o
-
-running in the parent pom's directory.
-
-
-
-[[__quickstart-with-example-usage_home-page]]
-== Home Page
-
-
-TODO: discuss
-
+If you bootstrap with this manifest, it will set up a (rather complex) custom home page that provides access to the demo fixtures for pretty much all of the modules.
+====
 
 
 [[__quickstart-with-example-usage_modules]]
 == Modules
 
-
-[[__quickstart-with-example-usage_modules_generic-subdomains]]
-=== Generic Subdomains
-
-
-.Generic subdomain example usage
-[cols="2a,6a,3a", options="header"]
-|===
-
-^| Subdomain
-^| App Manifest
-^| Notes
-
-
-| xref:../modules/dom/alias/dom-alias.adoc#[Alias]
-|
-| TODO
-
-
-| xref:../modules/dom/classification/dom-classification.adoc#[Classification]
-|
-| TODO
-
-
-
-| xref:../modules/dom/commchannel/dom-commchannel.adoc#[CommChannel]
-|
-| TODO
-
-
-| xref:../modules/dom/commchannel/dom-communications.adoc#[Communications]
-|
-| TODO
-
-Also uses (and therefore demonstrates use of) the Document generic subdomain.
-
-
-| xref:../modules/dom/country/dom-country.adoc#[Country]
-|
-| TODO
-
-
-| xref:../modules/dom/docfragment/dom-docfragment.adoc#[DocFragment]
-|
-| TODO
-
-
-| xref:../modules/dom/document/dom-document.adoc#[Document]
-|
-| TODO
-
-
-| xref:../modules/dom/note/dom-note.adoc#[Note]
-|
-| TODO
-
-
-
-| xref:../modules/dom/settings/dom-settings.adoc#[Settings]
-|
-| TODO
-
-
-
-| xref:../modules/dom/tags/dom-tags.adoc#[Tags]
-|
-| TODO
-
-
-
-|===
+The following subsections identify the app manifest to use in order to demonstrate the usage of individual modules.
 
 
 
 [[__quickstart-with-example-usage_modules_libraries]]
 === Libraries
+
+The table below outlines the app manifests to run to demonstrate usage of the library modules.
 
 
 .Library example usage
@@ -167,74 +83,269 @@ Also uses (and therefore demonstrates use of) the Document generic subdomain.
 
 | Base
 | (none)
-| Used implicitly throughout.
+| Used throughout.
 
 | xref:../modules/lib/docrendering-freemarker/lib-docrendering-freemarker.adoc#[DocRendering-FreeMarker]
-|
-| TODO
+| `org.incode.domainapp.example.app.modules.
+  ExampleDomDomDocumentAppManifest`
+| As part of example usage of xref:../modules/dom/document/dom-document.adoc#[Document] module.
 
 | xref:../modules/lib/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.adoc#[DocRendering-StringInterpolator]
-|
-| TODO
+| `org.incode.domainapp.example.app.modules.
+  ExampleDomDomDocumentAppManifest`
+| As part of example usage of xref:../modules/dom/document/dom-document.adoc#[Document] module.
 
 | xref:../modules/lib/docrendering-xdocreport/lib-docrendering-xdocreport.adoc#[DocRendering-XDocReport]
-|
-| TODO
+| `org.incode.domainapp.example.app.modules.
+  ExampleDomDomDocumentAppManifest`
+| As part of example usage of xref:../modules/dom/document/dom-document.adoc#[Document] module.
 
 | xref:../modules/lib/docx/lib-docx.adoc#[Docx]
+| `org.incode.domainapp.example.app.modules.
+  ExampleDomLibDocxAppManifest`
 | TODO
-|
 
 | xref:../modules/lib/docx/lib-excel.adoc#[Excel]
+| `org.incode.domainapp.example.app.modules.
+  ExampleDomLibDocxAppManifest`
 | TODO
+
+| xref:../modules/lib/docx/lib-fakedata.adoc#[FakeData]
+| `org.incode.domainapp.example.app.modules.
+  ExampleDomLibDocxAppManifest`
+| TODO
+
+| xref:../modules/lib/docx/lib-fixturesupport.adoc#[FixtureSupport]
+| (none)
+| Used in the integration tests of various modules.
+
+| xref:../modules/lib/docx/lib-freemarker.adoc#[FreeMarker]
+| `org.incode.domainapp.example.app.modules.
+  ExampleDomDomDocFragmentAppManifest`
+| As part of example usage of xref:../modules/dom/docfragment/dom-docfragment.adoc#[DocFragment] module.
+
+| xref:../modules/lib/docx/lib-integtestsupport.adoc#[IntegTestSupport]
+| (none)
+| Used in the integration tests of various modules.
+
+| xref:../modules/lib/docx/lib-pdfbox.adoc#[PdfBox]
+| (none)
 |
 
-| FakeData
-| TODO
+| xref:../modules/lib/docx/lib-poly.adoc#[Poly]
+| `org.incode.domainapp.example.app.modules.
+  ExampleDomLibPolyAppManifest`
+| Also used in the implementation of the xref:../modules/dom/communications/dom-communications.adoc#[Communications] module (communication channels support).
+
+| xref:../modules/lib/docx/lib-servletapi.adoc#[ServletApi]
+| (none)
 |
 
-| FixtureSupport
-| TODO
-| Used in in the integration tests of various modules.
+| xref:../modules/lib/docx/lib-stringinterpolator.adoc#[StringInterpolator]
+| `org.incode.domainapp.example.app.modules.
+  ExampleDomLibStringInterpolatorAppManifest`
+| Also used by the xref:../modules/lib/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.adoc#[DocRendering-StringInterpolator] library.
 
-| FreeMarker
-| TODO
-|
+| xref:../modules/lib/docx/lib-unittestsupport.adoc#[UnitTestSupport]
+| (none)
+| Used in the unit tests of various modules.
 
-| IntegTestSupport
-| TODO
-| Used in in the integration tests of various modules.
-
-| PdfBox
-| TODO
-|
-
-| Poly
-| TODO
-|
-
-| ServletApi
-| TODO
-|
-
-| StringInterpolator
-| TODO
-|
-
-| UnitTestSupport
-| TODO
-| Used in in the unit tests of various modules.
-
-| XDocReport
-| TODO
-|
+| xref:../modules/lib/docx/lib-xdocreport.adoc#[XDocReport]
+| (none)
+| Also used by the xref:../modules/lib/docrendering-xdocreport/lib-docrendering-xdocreport.adoc#[DocRendering-XDocReport] library.
 
 |===
 
 
 
+[[__quickstart-with-example-usage_modules_generic-subdomains]]
+=== Generic Subdomains
+
+The table below outlines the app manifests to run to demonstrate usage of each of the generic subdomain modules.
+
+.Generic subdomain example usage
+[cols="2a,6a,3a", options="header"]
+|===
+
+^| Subdomain
+^| App Manifest
+^| Notes
+
+
+| xref:../modules/dom/alias/dom-alias.adoc#[Alias]
+| `org.incode.domainapp.example.app.modules.
+  ExampleDomDomAliasAppManifest`
+| TODO
+
+
+| xref:../modules/dom/classification/dom-classification.adoc#[Classification]
+| `org.incode.domainapp.example.app.modules.
+  ExampleDomDomClassificationAppManifest`
+| TODO
+
+
+
+| xref:../modules/dom/commchannel/dom-commchannel.adoc#[CommChannel]
+| `org.incode.domainapp.example.app.modules.
+  ExampleDomDomCommChannelAppManifest`
+| TODO
+
+
+| xref:../modules/dom/commchannel/dom-communications.adoc#[Communications]
+| `org.incode.domainapp.example.app.modules.
+  ExampleDomDomCommunicationsAppManifest`
+| TODO
+
+Also uses (and therefore demonstrates use of) the xref:../modules/dom/document/dom-document.adoc#[Document] module.
+
+
+| xref:../modules/dom/country/dom-country.adoc#[Country]
+| `org.incode.domainapp.example.app.modules.
+  ExampleDomDomCountryAppManifest`
+| TODO
+
+
+| xref:../modules/dom/docfragment/dom-docfragment.adoc#[DocFragment]
+| `org.incode.domainapp.example.app.modules.
+  ExampleDomDomDocFragmentAppManifest`
+| Also uses (and therefore demonstrates use of) the xref:../modules/lib/lib-freemarker/lib-freemarker.adoc#[FreeMarker] library.
+
+
+| xref:../modules/dom/document/dom-document.adoc#[Document]
+| `org.incode.domainapp.example.app.modules.
+ExampleDomDomDocumentAppManifest`
+| Also uses (and therefore demonstrates use of) the "DocRendering" libraries for xref:../modules/lib/docrendering-freemarker/lib-docrendering-freemarker.adoc#[FreeMarker], xref:../modules/lib/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.adoc#[StringInterpolator] and xref:../modules/lib/docrendering-xdocreport/lib-docrendering-xdocreport.adoc#[XDocReport].
+
+
+| xref:../modules/dom/note/dom-note.adoc#[Note]
+| `org.incode.domainapp.example.app.modules.
+  ExampleDomDomNoteAppManifest`
+| TODO
+
+
+
+| xref:../modules/dom/settings/dom-settings.adoc#[Settings]
+| `org.incode.domainapp.example.app.modules.
+  ExampleDomDomSettingsAppManifest`
+| TODO
+
+
+
+| xref:../modules/dom/tags/dom-tags.adoc#[Tags]
+| `org.incode.domainapp.example.app.modules.
+  ExampleDomDomTagAppManifest`
+| TODO
+
+
+|===
+
+
+[[__quickstart-with-example-usage_modules_spi-implementations]]
+=== SPI Implementations
+
+The table below outlines the app manifests to run to demonstrate usage of each of the spi implementation modules.
+
+.SPI Implementation example usage
+[cols="2a,6a,3a", options="header"]
+|===
+
+^| SPI Implementation
+^| App Manifest
+^| Notes
+
+
+| xref:../modules/spi/audit/spi-audit.adoc#[Audit]
+|`org.incode.domainapp.example.app.modules.
+ExampleDomSpiAuditAppManifest` +
+or +
+`domainapp.appdefn.DomainAppAppManifest`
+| Configured in base quickstart app; see xref:quickstart.adoc#__quickstart_modules_auditing[auditing].
+
+| xref:../modules/spi/audit/spi-command.adoc#[Command]
+|`org.incode.domainapp.example.app.modules.
+ExampleDomSpiCommandAppManifest` +
+or +
+`domainapp.appdefn.DomainAppAppManifest`
+
+| Configured in base quickstart app; see xref:quickstart.adoc#__quickstart_modules_commands[commands].
+
+| xref:../modules/spi/audit/spi-publishmq.adoc#[PublishMQ]
+|`org.incode.domainapp.example.app.modules.
+ExampleDomSpiPublishMqAppManifest` +
+or +
+`domainapp.appdefn.DomainAppAppManifest`
+
+| Configured in base quickstart app; see xref:quickstart.adoc#__quickstart_modules_publishing[publishing].
+
+Also, see the extended xref:quickstart-with-embedded-camel.adoc[embedded camel].
+
+| xref:../modules/spi/audit/spi-security.adoc#[Security]
+|`org.incode.domainapp.example.app.modules.
+ExampleDomSpiSecurityAppManifest` +
+or +
+`domainapp.appdefn.DomainAppAppManifest`
+
+| Configured in base quickstart app; see xref:quickstart.adoc#__quickstart_modules_security[security].
+
+| xref:../modules/spi/audit/spi-sessionlogger.adoc#[SessionLogger]
+|`domainapp.appdefn.DomainAppAppManifest`
+| Configured in base quickstart app; see xref:quickstart.adoc#__quickstart_modules_session-logger[session logger].
+
+|===
+
+
+[[__quickstart-with-example-usage_modules_wicket-components]]
+=== Wicket Components
+
+The table below outlines the app manifests to run to demonstrate usage of each of the wicket component modules.
+
+.Wicket Component example usage
+[cols="2a,6a,3a", options="header"]
+|===
+
+^| Wicket Component
+^| App Manifest
+^| Notes
+
+
+| xref:../modules/wkt/excel/wkt-excel.adoc#[Excel]
+|`org.incode.domainapp.example.app.modules.
+ExampleDomWktExcelAppManifest` +
+|
+
+| xref:../modules/wkt/fullcalendar2/wkt-fullcalendar2.adoc#[FullCalendar2]
+|`org.incode.domainapp.example.app.modules.
+ExampleDomWktFullCalendar2AppManifest` +
+|
+
+| xref:../modules/wkt/gmap3/wkt-gmap3.adoc#[Gmap3]
+|`org.incode.domainapp.example.app.modules.
+ExampleDomWktGmap3AppManifest` +
+|
+
+| xref:../modules/wkt/pdfjs/wkt-pdfjs.adoc#[pdf.js]
+|`org.incode.domainapp.example.app.modules.
+ExampleDomWktPdfJsAppManifest` +
+|
+
+| xref:../modules/wkt/summernote/wkt-summernote.adoc#[SummerNote]
+|`org.incode.domainapp.example.app.modules.
+ExampleDomWktSummerNoteAppManifest` +
+| TODO
+
+| xref:../modules/wkt/wickedcharts/wkt-wickedcharts.adoc#[WickedCharts]
+|`org.incode.domainapp.example.app.modules.
+ExampleDomWktWickedChartsAppManifest` +
+| TODO
+
+|===
+
+
 [[__quickstart-with-example-usage_modules_metamodel-facets]]
 === MetaModel Facets
+
+The table below outlines the app manifest to run to demonstrate usage of the metamodel facet modules.
+
 
 .MetaModel Facets example usage
 [cols="2a,6a,3a", options="header"]
@@ -249,105 +360,37 @@ Also uses (and therefore demonstrates use of) the Document generic subdomain.
 |`domainapp.appdefn.DomainAppAppManifest`
 | Configured in base quickstart app.
 
-
 |===
 
 
 
-[[__quickstart-with-example-usage_modules_spi-implementations]]
-=== SPI Implementations
+[[__quickstart-with-example-usage_modules_extensions]]
+=== Extensions
+
+The table below outlines the app manifest to run to demonstrate usage of the extension modules.
 
 
-.SPI Implementation example usage
+.Extension example usage
 [cols="2a,6a,3a", options="header"]
 |===
 
-^| SPI Implementation
+^| Metamodel facet
 ^| App Manifest
 ^| Notes
 
-
-| Audit
-|`org.incode.domainapp.example.app.modules.
-ExampleDomSpiAuditAppManifest` +
-or +
-`domainapp.appdefn.DomainAppAppManifest`
-| Configured in base quickstart app; see xref:quickstart.adoc#__quickstart_modules_auditing[auditing].
-
-| Command
-|`org.incode.domainapp.example.app.modules.
-ExampleDomSpiCommandAppManifest` +
-or +
-`domainapp.appdefn.DomainAppAppManifest`
-
-| Configured in base quickstart app; see xref:quickstart.adoc#__quickstart_modules_commands[commands].
-
-| PublishMQ
-|`org.incode.domainapp.example.app.modules.
-ExampleDomSpiPublishMqAppManifest` +
-or +
-`domainapp.appdefn.DomainAppAppManifest`
-
-| Configured in base quickstart app; see xref:quickstart.adoc#__quickstart_modules_publishing[publishing].
-
-Also, see the extended xref:quickstart-with-embedded-camel.adoc[embedded camel].
-
-| Security
-|`org.incode.domainapp.example.app.modules.
-ExampleDomSpiSecurityAppManifest` +
-or +
-`domainapp.appdefn.DomainAppAppManifest`
-
-| Configured in base quickstart app; see xref:quickstart.adoc#__quickstart_modules_security[security].
-
-| SessionLogger
+| xref:../modules/ext/flywaydb/ext-flywaydb.adoc#[FlywayDB]
 |`domainapp.appdefn.DomainAppAppManifest`
-| Configured in base quickstart app; see xref:quickstart.adoc#__quickstart_modules_session-logger[session logger].
+| Configured in base quickstart app; see xref:quickstart.adoc#_quickstart_modules_flywaydb[flywaydb].
+
+| xref:../modules/ext/quartz/ext-quartz.adoc#[Quartz]
+|`domainapp.appdefn.DomainAppAppManifest`
+| Configured in base quickstart app; see xref:quickstart.adoc#_quickstart_modules_quartz[quartz].
+
+| xref:../modules/ext/togglz/ext-togglz.adoc#[Togglz]
+|`domainapp.appdefn.DomainAppAppManifest`
+| Configured in base quickstart app; see xref:quickstart.adoc#_quickstart_modules_togglz[togglz].
 
 |===
 
 
-[[__quickstart-with-example-usage_modules_wicket-components]]
-=== Wicket Components
 
-
-.Wicket Component example usage
-[cols="2a,6a,3a", options="header"]
-|===
-
-^| Wicket Component
-^| App Manifest
-^| Notes
-
-
-| Excel
-|`org.incode.domainapp.example.app.
-modules.ExampleDomWktExcelAppManifest` +
-|
-
-| FullCalendar2
-|`org.incode.domainapp.example.app.modules.
-ExampleDomWktFullCalendar2AppManifest` +
-|
-
-| Gmap3
-|`org.incode.domainapp.example.app.modules.
-ExampleDomWktGmap3AppManifest` +
-|
-
-| pdf.js
-|`org.incode.domainapp.example.app.modules.
-ExampleDomWktPdfJsAppManifest` +
-|
-
-| SummerNote
-|`org.incode.domainapp.example.app.modules.
-ExampleDomWktSummerNoteAppManifest` +
-| TODO
-
-| WickedCharts
-|`org.incode.domainapp.example.app.modules.
-ExampleDomWktWickedChartsAppManifest` +
-| TODO
-
-|===

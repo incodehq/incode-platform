@@ -32,7 +32,8 @@ public abstract class DomainAppAppManifestAbstract extends AppManifestAbstract {
             "viewer_restfulobjects.properties",
             "viewer_wicket.properties"
     )
-    .withConfigurationProperty("isis.viewer.wicket.rememberMe.cookieKey", "DomainAppEncryptionKey");
+    .withConfigurationProperty("isis.viewer.wicket.rememberMe.cookieKey", "DomainAppEncryptionKey")
+    ;
 
     public DomainAppAppManifestAbstract() {
         super(BUILDER);

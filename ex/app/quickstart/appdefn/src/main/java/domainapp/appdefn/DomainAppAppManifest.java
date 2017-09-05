@@ -95,7 +95,10 @@ public class DomainAppAppManifest extends AppManifestAbstract {
             PdfjsCptModule.class,
             SummernoteUiModule.class,
             WickedChartsUiModule.class
-    );
+    )
+    // override as required
+    .withConfigurationProperty("isis.viewer.wicket.gmap3.apiKey","XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+    ;
 
     public DomainAppAppManifest() {
         super(BUILDER);

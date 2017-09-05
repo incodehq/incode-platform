@@ -10,7 +10,9 @@ public class ExampleDomWktGmap3AppManifest extends DemoToDoItemAppManifestAbstra
                 Gmap3ApplibModule.class,
                 Gmap3ServiceModule.class,
                 Gmap3UiModule.class
-    );
+    )
+    // override as required
+    .withConfigurationProperty("isis.viewer.wicket.gmap3.apiKey","XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 
     public ExampleDomWktGmap3AppManifest() {
         super(BUILDER);

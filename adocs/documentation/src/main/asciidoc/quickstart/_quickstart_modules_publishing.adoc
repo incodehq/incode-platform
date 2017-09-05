@@ -78,8 +78,15 @@ and indeed the details of the message can be inspected:
 
 image::{_imagesdir}modules/publish/hawtio-activemq-interaction.png[width="600px",link="{_imagesdir}modules/publish/hawtio-activemq-interaction.png"]
 
+[NOTE]
+====
+Note that these are only visible via hawt.io because there is nothing consuming the messages.
+For that, you need to configure a consumer,
+The xref:quickstart-with-embedded-camel.adoc#[embedded camel] extended example does precisely this.
+====
 
-The publshmq also persists all interactions to a database table; this is to allow messages to be resent if required.
+
+The publishmq module also persists all interactions to a database table; this is to allow messages to be resent if required.
 The message can be seen persisted as a `PublishedEvent` entity (searchable from the _Activity_ menu):
 
 image::{_imagesdir}modules/publish/publish-object.png[width="600px",link="{_imagesdir}modules/publish/publish-object.png"]
