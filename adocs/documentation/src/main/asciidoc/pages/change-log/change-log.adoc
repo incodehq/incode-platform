@@ -11,6 +11,8 @@ Whereas previously these modules each resided in their own git repo and were rel
 This page collates the change logs from the individual modules both collectively (as part of the platform) and previously.
 
 
+
+include::_change-log_incode-platform.adoc[leveloffset=+1]
 include::_change-log_incode-parent.adoc[leveloffset=+1]
 include::dom/dom.adoc[leveloffset=+1]
 include::ext/ext.adoc[leveloffset=+1]

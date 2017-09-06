@@ -1,0 +1,10 @@
+[[_change-log_incode-platform]]
+= Incode Platform
+:_basedir: ../../
+:_imagesdir: images/
+
+
+* 1.15.0 - first release as a single platform.
+
++
+Includes all the modules previously available via link:http://www.isisaddons.org[Isis Addons] and link:http://catalog.incode.org[Incode Catalog], mavenmixins (for isis:validate and isis:swagger) and a new xref:../../quickstart/quickstart.adoc#[quickstart] archetype.
