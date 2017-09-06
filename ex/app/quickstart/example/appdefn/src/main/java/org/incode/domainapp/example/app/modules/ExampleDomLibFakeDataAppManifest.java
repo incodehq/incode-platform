@@ -10,12 +10,14 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.HomePage;
 import org.apache.isis.applib.annotation.Nature;
 
+import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObject;
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObjects;
-import org.incode.domainapp.example.dom.spi.audit.fixture.SomeAuditedObject_and_SomeNonAuditedObject_recreate3;
+import org.incode.domainapp.example.dom.demo.dom.demowithall.DemoObjectWithAll;
+import org.incode.domainapp.example.dom.demo.dom.demowithall.DemoObjectWithAllMenu;
+import org.incode.domainapp.example.dom.lib.fakedata.ExampleDomLibFakeDataModule;
+import org.incode.domainapp.example.dom.lib.fakedata.fixture.DemoObjectWithAll_recreate3;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
@@ -24,11 +26,11 @@ public class ExampleDomLibFakeDataAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
-            // TODO
+            ExampleDomLibFakeDataModule.class,
+            FakeDataModule.class
         )
         .withFixtureScripts(
-                // TODO
-                SomeAuditedObject_and_SomeNonAuditedObject_recreate3.class,
+                DemoObjectWithAll_recreate3.class,
                 SeedSuperAdministratorRoleAndSvenSuperUser.class
         )
         .withAdditionalServices(
@@ -62,13 +64,12 @@ public class ExampleDomLibFakeDataAppManifest extends AppManifestAbstract {
         public String title() { return "Home page"; }
 
         @CollectionLayout(defaultView = "table")
-        public List<SomeAuditedObject> getAuditedObjects() {
-            return someAuditedObjects.listAllSomeAuditedObjects();
+        public List<DemoObjectWithAll> getDemoObjectsWithAll() {
+            return demoObjectWithAllMenu.listAllDemoObjectsWithAll();
         }
 
-        // TODO
         @Inject
-        SomeAuditedObjects someAuditedObjects;
+        DemoObjectWithAllMenu demoObjectWithAllMenu;
 
     }
 

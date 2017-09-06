@@ -138,7 +138,8 @@ The table below outlines the app manifests to run to demonstrate usage of the li
 | Also used in the implementation of the xref:../modules/dom/communications/dom-communications.adoc#[Communications] module (communication channels support).
 
 | xref:../modules/lib/docx/lib-servletapi.adoc#[ServletApi]
-| (none)
+| `org.incode.domainapp.example.app.modules.
+    ExampleDomLibServletApiAppManifest`
 |
 
 | xref:../modules/lib/docx/lib-stringinterpolator.adoc#[StringInterpolator]

@@ -10,31 +10,27 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.HomePage;
 import org.apache.isis.applib.annotation.Nature;
 
-import org.isisaddons.module.poly.PolyModule;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
+import org.isisaddons.module.servletapi.ServletApiModule;
 
-import org.incode.domainapp.example.dom.lib.poly.ExampleDomLibPolyModule;
-import org.incode.domainapp.example.dom.lib.poly.dom.democasemgmt.Case;
-import org.incode.domainapp.example.dom.lib.poly.dom.democasemgmt.Cases;
-import org.incode.domainapp.example.dom.lib.poly.dom.demofixedasset.FixedAsset;
-import org.incode.domainapp.example.dom.lib.poly.dom.demofixedasset.FixedAssets;
-import org.incode.domainapp.example.dom.lib.poly.dom.demoparty.Parties;
-import org.incode.domainapp.example.dom.lib.poly.dom.demoparty.Party;
-import org.incode.domainapp.example.dom.lib.poly.fixture.Case_FixedAsset_Party_recreateAll;
+import org.incode.domainapp.example.dom.lib.servletapi.ExampleDomLibServletApiModule;
+import org.incode.domainapp.example.dom.lib.servletapi.dom.demo.ServletApiDemoObject;
+import org.incode.domainapp.example.dom.lib.servletapi.dom.demo.ServletApiDemoObjects;
+import org.incode.domainapp.example.dom.lib.servletapi.fixture.ServletApiDemoObject_recreate3;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 
-public class ExampleDomLibPolyAppManifest extends AppManifestAbstract {
+public class ExampleDomLibServletApiAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
-            ExampleDomLibPolyModule.class,
-            PolyModule.class
+            ExampleDomLibServletApiModule.class,
+            ServletApiModule.class
         )
         .withFixtureScripts(
-                Case_FixedAsset_Party_recreateAll.class,
+                ServletApiDemoObject_recreate3.class,
                 SeedSuperAdministratorRoleAndSvenSuperUser.class
         )
         .withAdditionalServices(
@@ -44,7 +40,7 @@ public class ExampleDomLibPolyAppManifest extends AppManifestAbstract {
                 PermissionsEvaluationServiceAllowBeatsVeto.class
         );
 
-    public ExampleDomLibPolyAppManifest() {
+    public ExampleDomLibServletApiAppManifest() {
         super(BUILDER);
     }
 
@@ -68,28 +64,12 @@ public class ExampleDomLibPolyAppManifest extends AppManifestAbstract {
         public String title() { return "Home page"; }
 
         @CollectionLayout(defaultView = "table")
-        public List<Party> getParties() {
-            return parties.listAllParties();
-        }
-
-        @CollectionLayout(defaultView = "table")
-        public List<Case> getCases() {
-            return cases.listAllCases();
-        }
-
-        @CollectionLayout(defaultView = "table")
-        public List<FixedAsset> getFixedAssets() {
-            return fixedAssets.listAllFixedAssets();
+        public List<ServletApiDemoObject> getServletApiDemoObjects() {
+            return servletApiDemoObjects.listAllServletApiDemoObjects();
         }
 
         @Inject
-        Parties parties;
-
-        @Inject
-        Cases cases;
-
-        @Inject
-        FixedAssets fixedAssets;
+        ServletApiDemoObjects servletApiDemoObjects;
 
     }
 

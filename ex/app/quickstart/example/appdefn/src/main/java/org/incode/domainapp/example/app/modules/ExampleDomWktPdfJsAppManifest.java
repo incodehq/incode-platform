@@ -27,10 +27,8 @@ public class ExampleDomWktPdfJsAppManifest extends AppManifestAbstract {
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
             DemoObjectWithBlob.class,
-
             PdfjsCptModule.class,
-
-            FakeDataModule.class // used by the fixture (below)
+            FakeDataModule.class
         )
         .withFixtureScripts(
                 DemoObjectWithBlob_createUpTo5_fakeData.class,

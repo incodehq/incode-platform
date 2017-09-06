@@ -10,12 +10,14 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.HomePage;
 import org.apache.isis.applib.annotation.Nature;
 
+import org.isisaddons.module.excel.ExcelModule;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObject;
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObjects;
-import org.incode.domainapp.example.dom.spi.audit.fixture.SomeAuditedObject_and_SomeNonAuditedObject_recreate3;
+import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItem;
+import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItemMenu;
+import org.incode.domainapp.example.dom.demo.fixture.todoitems.DemoToDoItem_recreate_usingExcelFixture;
+import org.incode.domainapp.example.dom.lib.excel.ExampleDomLibExcelModule;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
@@ -24,11 +26,11 @@ public class ExampleDomLibExcelAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
-            // TODO
+            ExampleDomLibExcelModule.class,
+            ExcelModule.class
         )
         .withFixtureScripts(
-                // TODO
-                SomeAuditedObject_and_SomeNonAuditedObject_recreate3.class,
+                DemoToDoItem_recreate_usingExcelFixture.class,
                 SeedSuperAdministratorRoleAndSvenSuperUser.class
         )
         .withAdditionalServices(
@@ -62,13 +64,12 @@ public class ExampleDomLibExcelAppManifest extends AppManifestAbstract {
         public String title() { return "Home page"; }
 
         @CollectionLayout(defaultView = "table")
-        public List<SomeAuditedObject> getAuditedObjects() {
-            return someAuditedObjects.listAllSomeAuditedObjects();
+        public List<DemoToDoItem> getToDoItems() {
+            return demoToDoItemMenu.allInstances();
         }
 
-        // TODO
         @Inject
-        SomeAuditedObjects someAuditedObjects;
+        DemoToDoItemMenu demoToDoItemMenu;
 
     }
 
