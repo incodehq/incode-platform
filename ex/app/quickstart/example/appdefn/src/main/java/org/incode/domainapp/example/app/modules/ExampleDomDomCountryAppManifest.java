@@ -13,9 +13,14 @@ import org.apache.isis.applib.annotation.Nature;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObject;
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObjects;
-import org.incode.domainapp.example.dom.spi.audit.fixture.SomeAuditedObject_and_SomeNonAuditedObject_recreate3;
+import org.incode.module.country.dom.CountryModule;
+import org.incode.module.country.dom.impl.Country;
+import org.incode.module.country.dom.impl.CountryRepository;
+import org.incode.module.country.dom.impl.State;
+import org.incode.module.country.dom.impl.StateRepository;
+import org.incode.module.country.fixture.CountriesRefData;
+import org.incode.module.country.fixture.StatesRefData;
+import org.incode.module.country.fixture.teardown.CountryModule_tearDown;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
@@ -24,11 +29,12 @@ public class ExampleDomDomCountryAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
-            // TODO
+            CountryModule.class
         )
         .withFixtureScripts(
-                // TODO
-                SomeAuditedObject_and_SomeNonAuditedObject_recreate3.class,
+                CountryModule_tearDown.class,
+                CountriesRefData.class,
+                StatesRefData.class,
                 SeedSuperAdministratorRoleAndSvenSuperUser.class
         )
         .withAdditionalServices(
@@ -62,13 +68,20 @@ public class ExampleDomDomCountryAppManifest extends AppManifestAbstract {
         public String title() { return "Home page"; }
 
         @CollectionLayout(defaultView = "table")
-        public List<SomeAuditedObject> getAuditedObjects() {
-            return someAuditedObjects.listAllSomeAuditedObjects();
+        public List<Country> getCountries() {
+            return countryRepository.allCountries();
         }
 
-        // TODO
+        @CollectionLayout(defaultView = "table")
+        public List<State> getStates() {
+            return stateRepository.allStates();
+        }
+
         @Inject
-        SomeAuditedObjects someAuditedObjects;
+        CountryRepository countryRepository;
+
+        @Inject
+        StateRepository stateRepository;
 
     }
 

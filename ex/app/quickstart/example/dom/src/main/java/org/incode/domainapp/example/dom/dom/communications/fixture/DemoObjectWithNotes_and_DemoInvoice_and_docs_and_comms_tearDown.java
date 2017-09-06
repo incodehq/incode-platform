@@ -4,17 +4,19 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
 import org.incode.domainapp.example.dom.demo.fixture.teardown.DemoModuleTearDown;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoInvoice_tearDown;
+import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObjectWithNotes_tearDown;
 import org.incode.module.communications.fixture.teardown.CommunicationModule_tearDown;
 import org.incode.module.country.fixture.teardown.CountryModule_tearDown;
 import org.incode.module.document.fixture.teardown.DocumentModule_tearDown;
 
-public class DemoObjectWithNotes_and_DemoInvoice2_and_docs_and_comms_tearDown extends FixtureScript {
+public class DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_tearDown extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
 
         // communication & commchannel links
-        isisJdoSupport.executeUpdate("delete from \"exampleDomCommunications\".\"PaperclipForDemoInvoice2\"");
+        isisJdoSupport.executeUpdate("delete from \"exampleDomCommunications\".\"PaperclipForDemoInvoice\"");
 
         isisJdoSupport.executeUpdate("delete from \"exampleDomCommunications\".\"CommunicationChannelOwnerLinkForDemoObjectWithNotes\"");
 
@@ -24,7 +26,8 @@ public class DemoObjectWithNotes_and_DemoInvoice2_and_docs_and_comms_tearDown ex
         executionContext.executeChild(this, new CountryModule_tearDown());
 
         // demo objects
-        executionContext.executeChild(this, new DemoModuleTearDown());
+        executionContext.executeChild(this, new DemoInvoice_tearDown());
+        executionContext.executeChild(this, new DemoObjectWithNotes_tearDown());
 
     }
 

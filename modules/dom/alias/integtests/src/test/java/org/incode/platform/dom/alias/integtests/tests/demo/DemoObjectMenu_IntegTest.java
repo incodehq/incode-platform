@@ -13,7 +13,7 @@ import org.incode.platform.dom.alias.integtests.AliasModuleIntegTestAbstract;
 
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
-import org.incode.domainapp.example.dom.dom.alias.fixture.DemoObject_withAliases_create2;
+import org.incode.domainapp.example.dom.dom.alias.fixture.DemoObject_withAliases_recreate2;
 
 public class DemoObjectMenu_IntegTest extends AliasModuleIntegTestAbstract {
 
@@ -22,7 +22,7 @@ public class DemoObjectMenu_IntegTest extends AliasModuleIntegTestAbstract {
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new DemoObject_withAliases_create2(), null);
+        fixtureScripts.runFixtureScript(new DemoObject_withAliases_recreate2(), null);
     }
 
     @Test

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.example.dom.dom.docfragment.fixture.DemoCustomer_and_DemoInvoice_and_DocFragment_recreateSome;
+import org.incode.domainapp.example.dom.dom.docfragment.fixture.DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_recreate;
 
 /**
  * Run the app but without setting up any fixtures.
@@ -12,6 +12,6 @@ import org.incode.domainapp.example.dom.dom.docfragment.fixture.DemoCustomer_and
 public class DocFragmentAppAppManifestWithFixtures extends DocFragmentAppAppManifest {
 
     @Override protected void overrideFixtures(final List<Class<? extends FixtureScript>> fixtureScripts) {
-        fixtureScripts.add(DemoCustomer_and_DemoInvoice_and_DocFragment_recreateSome.class);
+        fixtureScripts.add(DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_recreate.class);
     }
 }

@@ -163,12 +163,7 @@ public class CustomerConfirmation {
 
     //region > helpers
 
-    private static final Function<String, String> TRIM = new Function<String, String>() {
-        @Override
-        public String apply(final String input) {
-            return input.trim();
-        }
-    };
+    private static final Function<String, String> TRIM = input -> input.trim();
 
     private static Iterable<String> preferencesFor(final DemoOrder order) {
         final String preferences = order.getPreferences();

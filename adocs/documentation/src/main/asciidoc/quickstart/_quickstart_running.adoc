@@ -7,9 +7,13 @@
 There are a number of ways that you can run your application.
 
 include::_quickstart_running_ide.adoc[leveloffset=+1]
+
 include::_quickstart_running_mvn.adoc[leveloffset=+1]
+
 include::_quickstart_running_webapp.adoc[leveloffset=+1]
+
 include::_quickstart_running_standalone.adoc[leveloffset=+1]
+
 include::_quickstart_running_docker.adoc[leveloffset=+1]
 
 

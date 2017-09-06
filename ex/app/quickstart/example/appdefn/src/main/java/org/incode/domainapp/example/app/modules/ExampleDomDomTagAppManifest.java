@@ -12,10 +12,12 @@ import org.apache.isis.applib.annotation.Nature;
 
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
+import org.isisaddons.module.tags.TagsModule;
 
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObject;
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObjects;
-import org.incode.domainapp.example.dom.spi.audit.fixture.SomeAuditedObject_and_SomeNonAuditedObject_recreate3;
+import org.incode.domainapp.example.dom.dom.tags.ExampleDomModuleTagsModule;
+import org.incode.domainapp.example.dom.dom.tags.dom.demo.DemoTaggableObject;
+import org.incode.domainapp.example.dom.dom.tags.dom.demo.DemoTaggableObjectMenu;
+import org.incode.domainapp.example.dom.dom.tags.fixture.DemoTaggableObject_withTags_recreate3;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
@@ -24,11 +26,12 @@ public class ExampleDomDomTagAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
-            // TODO
+            ExampleDomModuleTagsModule.class,
+            TagsModule.class
+
         )
         .withFixtureScripts(
-                // TODO
-                SomeAuditedObject_and_SomeNonAuditedObject_recreate3.class,
+                DemoTaggableObject_withTags_recreate3.class,
                 SeedSuperAdministratorRoleAndSvenSuperUser.class
         )
         .withAdditionalServices(
@@ -62,13 +65,12 @@ public class ExampleDomDomTagAppManifest extends AppManifestAbstract {
         public String title() { return "Home page"; }
 
         @CollectionLayout(defaultView = "table")
-        public List<SomeAuditedObject> getAuditedObjects() {
-            return someAuditedObjects.listAllSomeAuditedObjects();
+        public List<DemoTaggableObject> getTaggableObjects() {
+            return demoTaggableObjectMenu.listAllTaggableObjects();
         }
 
-        // TODO
         @Inject
-        SomeAuditedObjects someAuditedObjects;
+        DemoTaggableObjectMenu demoTaggableObjectMenu;
 
     }
 

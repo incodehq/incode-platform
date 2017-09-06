@@ -17,9 +17,6 @@ public class DemoObject_withCommChannels_create3 extends FixtureScript {
     @Override
     protected void execute(final ExecutionContext executionContext) {
 
-    // prereqs
-	executionContext.executeChild(this, new DemoObject_withCommChannels_tearDown());
-
         final DemoObject demoOwner = create("Foo", executionContext);
 
         wrap(addEmailAddress(demoOwner)).$$("foo@example.com", "Other Email", null);

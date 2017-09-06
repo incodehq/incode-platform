@@ -13,9 +13,13 @@ import org.apache.isis.applib.annotation.Nature;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObject;
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObjects;
-import org.incode.domainapp.example.dom.spi.audit.fixture.SomeAuditedObject_and_SomeNonAuditedObject_recreate3;
+import org.incode.domainapp.example.dom.demo.dom.customer.DemoCustomer;
+import org.incode.domainapp.example.dom.demo.dom.customer.DemoCustomerMenu;
+import org.incode.domainapp.example.dom.demo.dom.invoicewithatpath.DemoInvoiceWithAtPath;
+import org.incode.domainapp.example.dom.demo.dom.invoicewithatpath.DemoInvoiceWithAtPathMenu;
+import org.incode.domainapp.example.dom.dom.docfragment.ExampleDomModuleDocFragmentModule;
+import org.incode.domainapp.example.dom.dom.docfragment.fixture.DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_recreate;
+import org.incode.module.docfragment.dom.DocFragmentModuleDomModule;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
@@ -24,11 +28,12 @@ public class ExampleDomDomDocFragmentAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
-            // TODO
+            ExampleDomModuleDocFragmentModule.class,
+            DocFragmentModuleDomModule.class
+
         )
         .withFixtureScripts(
-                // TODO
-                SomeAuditedObject_and_SomeNonAuditedObject_recreate3.class,
+                DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_recreate.class,
                 SeedSuperAdministratorRoleAndSvenSuperUser.class
         )
         .withAdditionalServices(
@@ -62,13 +67,18 @@ public class ExampleDomDomDocFragmentAppManifest extends AppManifestAbstract {
         public String title() { return "Home page"; }
 
         @CollectionLayout(defaultView = "table")
-        public List<SomeAuditedObject> getAuditedObjects() {
-            return someAuditedObjects.listAllSomeAuditedObjects();
+        public List<DemoCustomer> getDemoCustomers() {
+            return demoCustomerMenu.listAllDemoCustomers();
         }
 
-        // TODO
-        @Inject
-        SomeAuditedObjects someAuditedObjects;
+        @CollectionLayout(defaultView = "table")
+        public List<DemoInvoiceWithAtPath> getDemoInvoicesWithAtPath() {
+            return demoInvoiceWithAtPathMenu.listAllDemoInvoices();
+        }
+
+        @Inject DemoCustomerMenu demoCustomerMenu;
+
+        @Inject DemoInvoiceWithAtPathMenu demoInvoiceWithAtPathMenu;
 
     }
 

@@ -17,10 +17,6 @@ public class DemoObject_withAliases_create2 extends FixtureScript {
     @Override
     protected void execute(final ExecutionContext executionContext) {
 
-        // prereqs
-        executionContext.executeChild(this, new DemoObject_withAliases_tearDown());
-        executionContext.executeChild(this, new DemoObjectData.PersistScript());
-
         final DemoObject foo = DemoObjectData.Foo.findUsing(serviceRegistry);
         final DemoObject bar = DemoObjectData.Bar.findUsing(serviceRegistry);
 

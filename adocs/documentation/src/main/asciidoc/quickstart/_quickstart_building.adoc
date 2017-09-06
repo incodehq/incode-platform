@@ -16,6 +16,8 @@ This will compile the code and automatically run all tests (discussed in more de
 
 
 include::_quickstart_building_tests.adoc[leveloffset=+1]
+
 include::_quickstart_building_metamodel-validation.adoc[leveloffset=+1]
+
 include::_quickstart_building_swagger-spec.adoc[leveloffset=+1]
 

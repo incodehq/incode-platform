@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.example.dom.dom.commchannel.fixture.DemoObject_withCommChannels_create3;
+import org.incode.domainapp.example.dom.dom.commchannel.fixture.DemoObject_withCommChannels_recreate3;
 
 /**
  * Run the app but without setting up any fixtures.
@@ -12,7 +12,7 @@ import org.incode.domainapp.example.dom.dom.commchannel.fixture.DemoObject_withC
 public class CommChannelModuleAppManifestWithFixtures extends CommChannelModuleAppManifest {
 
     @Override protected void overrideFixtures(final List<Class<? extends FixtureScript>> fixtureScripts) {
-        fixtureScripts.add(DemoObject_withCommChannels_create3.class);
+        fixtureScripts.add(DemoObject_withCommChannels_recreate3.class);
     }
 
 }

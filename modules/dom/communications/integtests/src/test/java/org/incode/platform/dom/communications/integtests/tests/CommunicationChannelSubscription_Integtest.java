@@ -12,8 +12,8 @@ import org.apache.isis.applib.services.xactn.TransactionService;
 
 import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotes;
 import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotesMenu;
-import org.incode.domainapp.example.dom.dom.communications.fixture.data.democust2.DemoObjectWithNote_and_DemoInvoiceWithAtPath_create3;
-import org.incode.domainapp.example.dom.dom.communications.fixture.DemoModuleFixture;
+import org.incode.domainapp.example.dom.dom.communications.fixture.data.democust2.DemoObjectWithNote_and_DemoInvoice_create3;
+import org.incode.domainapp.example.dom.dom.communications.fixture.DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_recreate;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwnerLinkRepository;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelRepository;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelType;
@@ -47,12 +47,12 @@ public class CommunicationChannelSubscription_Integtest extends CommunicationsIn
     public void setUp() throws Exception {
 
         // given
-        fixtureScripts.runFixtureScript(new DemoModuleFixture(), null);
+        fixtureScripts.runFixtureScript(new DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_recreate(), null);
         transactionService.nextTransaction();
 
         // and so given customer with an email
         final DemoObjectWithNotes fred = customerMenu.findDemoObjectsWithNotesByName(
-                DemoObjectWithNote_and_DemoInvoiceWithAtPath_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
+                DemoObjectWithNote_and_DemoInvoice_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
 
         final EmailAddress fredEmail = (EmailAddress) linkRepository
                 .findByOwnerAndCommunicationChannelType(fred, CommunicationChannelType.EMAIL_ADDRESS)
@@ -65,7 +65,7 @@ public class CommunicationChannelSubscription_Integtest extends CommunicationsIn
     public void replacement_provided() throws Exception {
         // Given
         final DemoObjectWithNotes owner = customerMenu.findDemoObjectsWithNotesByName(
-                DemoObjectWithNote_and_DemoInvoiceWithAtPath_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
+                DemoObjectWithNote_and_DemoInvoice_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
         final PostalAddress postalAddress = communicationChannelRepository.newPostal(
                 owner,
                 CommunicationChannelType.POSTAL_ADDRESS,
@@ -103,7 +103,7 @@ public class CommunicationChannelSubscription_Integtest extends CommunicationsIn
     public void validate_fails_when_no_replacement_is_provided() throws Exception {
         // Given
         final DemoObjectWithNotes owner = customerMenu.findDemoObjectsWithNotesByName(
-                DemoObjectWithNote_and_DemoInvoiceWithAtPath_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
+                DemoObjectWithNote_and_DemoInvoice_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
         final PostalAddress postalAddress = communicationChannelRepository.newPostal(
                 owner,
                 CommunicationChannelType.POSTAL_ADDRESS,

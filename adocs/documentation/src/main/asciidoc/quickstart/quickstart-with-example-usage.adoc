@@ -202,7 +202,8 @@ Also uses (and therefore demonstrates use of) the xref:../modules/dom/document/d
 | xref:../modules/dom/country/dom-country.adoc#[Country]
 | `org.incode.domainapp.example.app.modules.
   ExampleDomDomCountryAppManifest`
-| TODO
+| Also used in the implementation of the xref:../modules/dom/communications/dom-communications.adoc#[Communications] module (communication channels support).
+
 
 
 | xref:../modules/dom/docfragment/dom-docfragment.adoc#[DocFragment]

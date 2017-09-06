@@ -13,9 +13,11 @@ import org.apache.isis.applib.annotation.Nature;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObject;
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObjects;
-import org.incode.domainapp.example.dom.spi.audit.fixture.SomeAuditedObject_and_SomeNonAuditedObject_recreate3;
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
+import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
+import org.incode.domainapp.example.dom.dom.commchannel.ExampleDomModuleCommChannelModule;
+import org.incode.domainapp.example.dom.dom.commchannel.fixture.DemoObject_withCommChannels_recreate3;
+import org.incode.module.commchannel.dom.CommChannelModule;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
@@ -24,11 +26,11 @@ public class ExampleDomDomCommChannelAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
-            // TODO
+            ExampleDomModuleCommChannelModule.class,
+            CommChannelModule.class
         )
         .withFixtureScripts(
-                // TODO
-                SomeAuditedObject_and_SomeNonAuditedObject_recreate3.class,
+                DemoObject_withCommChannels_recreate3.class,
                 SeedSuperAdministratorRoleAndSvenSuperUser.class
         )
         .withAdditionalServices(
@@ -62,13 +64,12 @@ public class ExampleDomDomCommChannelAppManifest extends AppManifestAbstract {
         public String title() { return "Home page"; }
 
         @CollectionLayout(defaultView = "table")
-        public List<SomeAuditedObject> getAuditedObjects() {
-            return someAuditedObjects.listAllSomeAuditedObjects();
+        public List<DemoObject> getDemoObjects() {
+            return demoObjectMenu.listAllDemoObjects();
         }
 
-        // TODO
         @Inject
-        SomeAuditedObjects someAuditedObjects;
+        DemoObjectMenu demoObjectMenu;
 
     }
 

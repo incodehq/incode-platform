@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.example.dom.dom.communications.fixture.DemoModuleFixture;
+import org.incode.domainapp.example.dom.dom.communications.fixture.DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_recreate;
 
 /**
  * Run the app but without setting up any fixtures.
@@ -12,7 +12,7 @@ import org.incode.domainapp.example.dom.dom.communications.fixture.DemoModuleFix
 public class CommunicationsModuleAppManifestWithFixtures extends CommunicationsModuleAppManifest {
 
     @Override protected void overrideFixtures(final List<Class<? extends FixtureScript>> fixtureScripts) {
-        fixtureScripts.add(DemoModuleFixture.class);
+        fixtureScripts.add(DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_recreate.class);
     }
 
 }

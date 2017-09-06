@@ -6,12 +6,10 @@ import org.incode.domainapp.example.dom.demo.fixture.setup.DemoObjectWithUrl_cre
 import org.incode.domainapp.example.dom.demo.fixture.setup.OtherObject_createUpTo5_fakeData;
 import org.incode.domainapp.example.dom.dom.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
 
-public class DemoObjectWithUrl_and_OtherObject_and_DocTypesAndTemplates_recreateUpTo5 extends FixtureScript {
+public class DemoObjectWithUrl_and_OtherObject_and_docrefdata_create extends FixtureScript {
 
     @Override
     protected void execute(final ExecutionContext ec) {
-
-        ec.executeChild(this, new DemoModule_and_DocTypesAndTemplates_tearDown());
 
         ec.executeChild(this, new DocumentTypeAndTemplatesApplicableForDemoObjectFixture());
 

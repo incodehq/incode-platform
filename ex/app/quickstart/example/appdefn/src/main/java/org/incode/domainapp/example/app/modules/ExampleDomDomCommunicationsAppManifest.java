@@ -10,12 +10,20 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.HomePage;
 import org.apache.isis.applib.annotation.Nature;
 
+import org.isisaddons.module.freemarker.dom.FreeMarkerModule;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObject;
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObjects;
-import org.incode.domainapp.example.dom.spi.audit.fixture.SomeAuditedObject_and_SomeNonAuditedObject_recreate3;
+import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotes;
+import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotesMenu;
+import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoice;
+import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoiceRepository;
+import org.incode.domainapp.example.dom.dom.communications.ExampleDomModuleCommunicationsModule;
+import org.incode.domainapp.example.dom.dom.communications.fixture.DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_recreate;
+import org.incode.module.communications.dom.CommunicationsModule;
+import org.incode.module.country.dom.impl.Country;
+import org.incode.module.docrendering.freemarker.dom.FreemarkerDocRenderingModule;
+import org.incode.module.document.dom.DocumentModule;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
@@ -24,11 +32,15 @@ public class ExampleDomDomCommunicationsAppManifest extends AppManifestAbstract 
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
-            // TODO
+            ExampleDomModuleCommunicationsModule.class,
+            CommunicationsModule.class,
+            DocumentModule.class,
+            Country.class,
+            FreemarkerDocRenderingModule.class,
+            FreeMarkerModule.class
         )
         .withFixtureScripts(
-                // TODO
-                SomeAuditedObject_and_SomeNonAuditedObject_recreate3.class,
+                DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_recreate.class,
                 SeedSuperAdministratorRoleAndSvenSuperUser.class
         )
         .withAdditionalServices(
@@ -62,13 +74,18 @@ public class ExampleDomDomCommunicationsAppManifest extends AppManifestAbstract 
         public String title() { return "Home page"; }
 
         @CollectionLayout(defaultView = "table")
-        public List<SomeAuditedObject> getAuditedObjects() {
-            return someAuditedObjects.listAllSomeAuditedObjects();
+        public List<DemoObjectWithNotes> getDemoObjectsWithNotes() {
+            return demoObjectWithNotesMenu.listAllDemoObjectsWithNotes();
         }
 
-        // TODO
-        @Inject
-        SomeAuditedObjects someAuditedObjects;
+        @CollectionLayout(defaultView = "table")
+        public List<DemoInvoice> getDemoInvoices() {
+            return demoInvoiceRepository.listAll();
+        }
+
+        @Inject DemoObjectWithNotesMenu demoObjectWithNotesMenu;
+
+        @Inject DemoInvoiceRepository demoInvoiceRepository;
 
     }
 

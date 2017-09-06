@@ -19,8 +19,8 @@ import org.incode.platform.dom.communications.integtests.app.services.fakeemail.
 import org.incode.platform.dom.communications.integtests.app.services.fakeemail.FakeEmailService;
 import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotesMenu;
 import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoiceRepository;
-import org.incode.domainapp.example.dom.dom.communications.fixture.data.democust2.DemoObjectWithNote_and_DemoInvoiceWithAtPath_create3;
-import org.incode.domainapp.example.dom.dom.communications.fixture.DemoModuleFixture;
+import org.incode.domainapp.example.dom.dom.communications.fixture.data.democust2.DemoObjectWithNote_and_DemoInvoice_create3;
+import org.incode.domainapp.example.dom.dom.communications.fixture.DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_recreate;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannel;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwnerLinkRepository;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelType;
@@ -64,12 +64,12 @@ public class Smoke_IntegTest extends CommunicationsIntegTestAbstract {
     public void can_send_email() throws Exception {
 
         // given
-        fixtureScripts.runFixtureScript(new DemoModuleFixture(), null);
+        fixtureScripts.runFixtureScript(new DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_recreate(), null);
         transactionService.nextTransaction();
 
         // and so given customer with an email
         final DemoObjectWithNotes fred = customerMenu.findDemoObjectsWithNotesByName(
-                DemoObjectWithNote_and_DemoInvoiceWithAtPath_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
+                DemoObjectWithNote_and_DemoInvoice_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
 
         final EmailAddress fredEmail = (EmailAddress) linkRepository
                 .findByOwnerAndCommunicationChannelType(fred, CommunicationChannelType.EMAIL_ADDRESS)
@@ -129,12 +129,12 @@ public class Smoke_IntegTest extends CommunicationsIntegTestAbstract {
     public void can_create_postal_address() throws Exception {
 
         // given
-        fixtureScripts.runFixtureScript(new DemoModuleFixture(), null);
+        fixtureScripts.runFixtureScript(new DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_recreate(), null);
         transactionService.nextTransaction();
 
         // and so given customer with an email
         final DemoObjectWithNotes mary = customerMenu.findDemoObjectsWithNotesByName(
-                DemoObjectWithNote_and_DemoInvoiceWithAtPath_create3.MARY_HAS_PHONE_AND_POST).get(0);
+                DemoObjectWithNote_and_DemoInvoice_create3.MARY_HAS_PHONE_AND_POST).get(0);
 
         final PostalAddress maryPost = (PostalAddress) linkRepository
                 .findByOwnerAndCommunicationChannelType(mary, CommunicationChannelType.POSTAL_ADDRESS)

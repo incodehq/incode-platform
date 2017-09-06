@@ -22,14 +22,23 @@ The generated application also includes example code to:
 
 These can be easily included or excluded just by commenting in/out small sections of code.
 
+
 include::_quickstart_prerequisites.adoc[leveloffset=+1]
+
 include::_quickstart_running-the-archetype.adoc[leveloffset=+1]
+
 include::_quickstart_project-structure.adoc[leveloffset=+1]
+
 include::_quickstart_building.adoc[leveloffset=+1]
+
 include::_quickstart_running.adoc[leveloffset=+1]
+
 include::_quickstart_using-an-external-database.adoc[leveloffset=+1]
+
 include::_quickstart_modules.adoc[leveloffset=+1]
+
 include::_quickstart_dynamic-reloading.adoc[leveloffset=+1]
+
 include::_quickstart_maven-mixins.adoc[leveloffset=+1]
 
 

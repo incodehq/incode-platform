@@ -10,13 +10,11 @@ import com.google.common.io.Resources;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.value.Blob;
 
-import org.isisaddons.module.fakedata.dom.FakeDataService;
-
-import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoice;
-import org.incode.domainapp.example.dom.dom.communications.dom.apiimpl.DemoAppCommunicationChannelOwner_newChannelContributions;
 import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotes;
 import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotesMenu;
+import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoice;
 import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoiceRepository;
+import org.incode.domainapp.example.dom.dom.communications.dom.apiimpl.DemoAppCommunicationChannelOwner_newChannelContributions;
 import org.incode.domainapp.example.dom.dom.communications.dom.invoice.DemoInvoice_simulateRenderAsDoc;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwner;
 import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelType;
@@ -27,7 +25,7 @@ import org.incode.module.country.fixture.CountriesRefData;
 import org.incode.module.document.dom.impl.docs.Document;
 import org.incode.module.document.dom.impl.docs.Document_attachSupportingPdf;
 
-public class DemoObjectWithNote_and_DemoInvoiceWithAtPath_create3 extends FixtureScript {
+public class DemoObjectWithNote_and_DemoInvoice_create3 extends FixtureScript {
 
     public static final String FRED_HAS_EMAIL_AND_PHONE = "Fred HasEmailAndPhone";
     public static final String MARY_HAS_PHONE_AND_POST = "Mary HasPhoneAndPost";
@@ -103,7 +101,7 @@ public class DemoObjectWithNote_and_DemoInvoiceWithAtPath_create3 extends Fixtur
 
     private static byte[] loadResourceBytes(final String resourceName) {
         final URL templateUrl = Resources
-                .getResource(DemoObjectWithNote_and_DemoInvoiceWithAtPath_create3.class, resourceName);
+                .getResource(DemoObjectWithNote_and_DemoInvoice_create3.class, resourceName);
         try {
             return Resources.toByteArray(templateUrl);
         } catch (IOException e) {
@@ -135,10 +133,6 @@ public class DemoObjectWithNote_and_DemoInvoiceWithAtPath_create3 extends Fixtur
     }
 
 
-    // //////////////////////////////////////
-
-    // //////////////////////////////////////
-
     @Inject
     DemoObjectWithNotesMenu demoCustomerMenu;
 
@@ -148,11 +142,7 @@ public class DemoObjectWithNote_and_DemoInvoiceWithAtPath_create3 extends Fixtur
     @javax.inject.Inject
     DemoInvoiceRepository demoInvoiceRepository;
 
-    @javax.inject.Inject
-    FakeDataService fakeDataService;
-
     @Inject
     DemoAppCommunicationChannelOwner_newChannelContributions demoAppCommunicationChannelOwner_newChannelContributions;
-
 
 }

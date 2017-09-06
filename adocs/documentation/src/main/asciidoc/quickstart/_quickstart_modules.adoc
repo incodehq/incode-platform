@@ -7,10 +7,17 @@
 Now we've explored how to run the application, let's explore some of the features already configured in the quickstart.
 
 include::_quickstart_modules_security.adoc[leveloffset=+1]
+
 include::_quickstart_modules_session-logger.adoc[leveloffset=+1]
+
 include::_quickstart_modules_commands.adoc[leveloffset=+1]
+
 include::_quickstart_modules_auditing.adoc[leveloffset=+1]
+
 include::_quickstart_modules_publishing.adoc[leveloffset=+1]
+
 include::_quickstart_modules_togglz.adoc[leveloffset=+1]
+
 include::_quickstart_modules_quartz.adoc[leveloffset=+1]
+
 include::_quickstart_modules_flywaydb.adoc[leveloffset=+1]

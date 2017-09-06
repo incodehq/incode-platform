@@ -14,7 +14,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public enum DemoInvoiceData implements DemoData<DemoInvoiceData, DemoInvoiceWithAtPath> {
+public enum DemoInvoiceWithAtPathData implements DemoData<DemoInvoiceWithAtPathData, DemoInvoiceWithAtPath> {
 
     Invoice1(1, new LocalDate(2017,1,31), 30, "/"),
     Invoice2(2, new LocalDate(2017,1,20), 60, "/ITA"),
@@ -46,9 +46,9 @@ public enum DemoInvoiceData implements DemoData<DemoInvoiceData, DemoInvoiceWith
                     .build();
     }
 
-    public static class PersistScript extends DemoDataPersistAbstract<PersistScript, DemoInvoiceData, DemoInvoiceWithAtPath> {
+    public static class PersistScript extends DemoDataPersistAbstract<PersistScript, DemoInvoiceWithAtPathData, DemoInvoiceWithAtPath> {
         public PersistScript() {
-            super(DemoInvoiceData.class);
+            super(DemoInvoiceWithAtPathData.class);
         }
     }
 

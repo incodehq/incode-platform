@@ -12,10 +12,13 @@ import org.apache.isis.applib.annotation.Nature;
 
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
+import org.isisaddons.module.settings.dom.ApplicationSetting;
+import org.isisaddons.module.settings.dom.ApplicationSettingsServiceRW;
+import org.isisaddons.module.settings.dom.UserSetting;
+import org.isisaddons.module.settings.dom.UserSettingsServiceRW;
 
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObject;
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObjects;
-import org.incode.domainapp.example.dom.spi.audit.fixture.SomeAuditedObject_and_SomeNonAuditedObject_recreate3;
+import org.incode.domainapp.example.dom.dom.settings.ExampleDomModuleSettingsModule;
+import org.incode.domainapp.example.dom.dom.settings.fixture.ApplicationSetting_and_UserSetting_recreate5;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
@@ -24,11 +27,11 @@ public class ExampleDomDomSettingsAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
-            // TODO
+            ExampleDomModuleSettingsModule.class
+
         )
         .withFixtureScripts(
-                // TODO
-                SomeAuditedObject_and_SomeNonAuditedObject_recreate3.class,
+                ApplicationSetting_and_UserSetting_recreate5.class,
                 SeedSuperAdministratorRoleAndSvenSuperUser.class
         )
         .withAdditionalServices(
@@ -62,13 +65,20 @@ public class ExampleDomDomSettingsAppManifest extends AppManifestAbstract {
         public String title() { return "Home page"; }
 
         @CollectionLayout(defaultView = "table")
-        public List<SomeAuditedObject> getAuditedObjects() {
-            return someAuditedObjects.listAllSomeAuditedObjects();
+        public List<ApplicationSetting> getApplicationSettings() {
+            return applicationSettingsServiceRW.listAll();
         }
 
-        // TODO
+        @CollectionLayout(defaultView = "table")
+        public List<UserSetting> getUserSettings() {
+            return userSettingsServiceRW.listAll();
+        }
+
         @Inject
-        SomeAuditedObjects someAuditedObjects;
+        ApplicationSettingsServiceRW applicationSettingsServiceRW;
+
+        @Inject
+        UserSettingsServiceRW userSettingsServiceRW;
 
     }
 

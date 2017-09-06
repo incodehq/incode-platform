@@ -24,6 +24,7 @@ import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
 
+import org.incode.domainapp.example.dom.demo.fixture.data.DemoInvoiceWithAtPathData;
 import org.incode.module.docfragment.dom.api.DocFragmentService;
 import org.incode.module.docfragment.dom.types.AtPathType;
 
@@ -118,7 +119,7 @@ public class DemoInvoiceWithAtPath implements Comparable<DemoInvoiceWithAtPath> 
     }
 
     /**
-     *  required by {@link org.incode.domainapp.example.dom.demo.fixture.data.DemoInvoiceData#findUsing(ServiceRegistry2)}.
+     *  required by {@link DemoInvoiceWithAtPathData#findUsing(ServiceRegistry2)}.
      */
     @Override
     public boolean equals(final Object o) {
