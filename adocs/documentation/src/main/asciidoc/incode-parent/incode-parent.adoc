@@ -132,7 +132,7 @@ This has the effect of defining a number of `<properties>` (eg `${mavenmixin-sur
 [source,xml]
 ----
 <properties>
-    <isis.version>1.14.0</isis.version>
+    <isis.version>1.15.0</isis.version>
     ...
 </properties>
 ----

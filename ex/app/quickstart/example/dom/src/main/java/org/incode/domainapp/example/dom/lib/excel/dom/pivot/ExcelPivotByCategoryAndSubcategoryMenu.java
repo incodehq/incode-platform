@@ -23,7 +23,7 @@ import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItem;
         objectType = "exampleLibExcel.ExcelModuleDemoToDoItemPivotDemoMenu"
 )
 @DomainServiceLayout(
-        named = "Wicket Components",
+        named = "Excel",
         menuOrder = "60.1.2"
 )
 public class ExcelPivotByCategoryAndSubcategoryMenu {
@@ -43,7 +43,7 @@ public class ExcelPivotByCategoryAndSubcategoryMenu {
     )
     @MemberOrder(sequence="90.2")
     public Blob downloadDemoPivotsheet(){
-        return excelService.toExcelPivot(vm1list(), ExcelPivotByCategoryAndSubcategory.class, ExcelPivotByCategoryAndSubcategory.class.getSimpleName(), "demo-pivots.xlsx");
+        return excelService.toExcelPivot(vm1list(), ExcelPivotByCategoryAndSubcategory.class, "pivot-example", "demo-pivots.xlsx");
     }
 
     private List<ExcelPivotByCategoryAndSubcategory> vm1list(){

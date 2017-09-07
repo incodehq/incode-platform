@@ -13,6 +13,7 @@ import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.Collection;
+import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -47,6 +48,9 @@ public class BulkUpdateManagerForDemoToDoItem {
     public static final WorksheetSpec WORKSHEET_SPEC =
             new WorksheetSpec(BulkUpdateLineItemForDemoToDoItem.class, "line-items");
 
+    public BulkUpdateManagerForDemoToDoItem(){
+    }
+
 
     public String title() {
         return "Import/export manager";
@@ -54,34 +58,31 @@ public class BulkUpdateManagerForDemoToDoItem {
     
 
 
-    @Getter @Setter
+    @Getter @Setter @Nullable
     private String fileName;
 
-    //region > changeFileName (action)
+    @Getter @Setter @Nullable
+    private Category category;
+
+    @Getter @Setter @Nullable
+    private Subcategory subcategory;
+
+    @Getter @Setter @Nullable
+    private boolean complete;
+
+
     @Action(
             semantics = SemanticsOf.IDEMPOTENT
     )
     public BulkUpdateManagerForDemoToDoItem changeFileName(final String fileName) {
         setFileName(fileName);
-        return toDoItemExportImportService.newBulkUpdateManager(this);
+        return bulkUpdateMenuForDemoToDoItem.newBulkUpdateManager(this);
     }
     public String default0ChangeFileName() {
         return getFileName();
     }
 
-    //endregion
 
-
-    @Getter @Setter
-    private Category category;
-
-    @Getter @Setter
-    private Subcategory subcategory;
-
-    @Getter @Setter
-    private boolean complete;
-
-    //region > select (action)
 
     @Action
     public BulkUpdateManagerForDemoToDoItem select(
@@ -93,7 +94,7 @@ public class BulkUpdateManagerForDemoToDoItem {
         setCategory(category);
         setSubcategory(subcategory);
         setComplete(completed);
-        return toDoItemExportImportService.newBulkUpdateManager(this);
+        return bulkUpdateMenuForDemoToDoItem.newBulkUpdateManager(this);
     }
     public Category default0Select() {
         return getCategory();
@@ -119,25 +120,22 @@ public class BulkUpdateManagerForDemoToDoItem {
         return container.getUser().getName();
     }
 
-    //endregion
 
 
     //region > toDoItems (derived collection)
 
     @SuppressWarnings("unchecked")
     @Collection
+    @CollectionLayout(defaultView = "table")
     public List<DemoToDoItem> getToDoItems() {
         return container.allMatches(DemoToDoItem.class,
                 Predicates.and(
-                    DemoToDoItem.Predicates.thoseOwnedBy(currentUserName()),
+                    //DemoToDoItem.Predicates.thoseOwnedBy(currentUserName()),
                     DemoToDoItem.Predicates.thoseCompleted(isComplete()),
                     DemoToDoItem.Predicates.thoseCategorised(getCategory(), getSubcategory())));
     }
 
-    //endregion
 
-
-    //region > export (action)
     @Action(
             semantics = SemanticsOf.SAFE
     )
@@ -161,18 +159,13 @@ public class BulkUpdateManagerForDemoToDoItem {
     }
 
     private Function<DemoToDoItem, BulkUpdateLineItemForDemoToDoItem> toLineItem() {
-        return new Function<DemoToDoItem, BulkUpdateLineItemForDemoToDoItem>(){
-            @Override
-            public BulkUpdateLineItemForDemoToDoItem apply(final DemoToDoItem toDoItem) {
-                final BulkUpdateLineItemForDemoToDoItem template = new BulkUpdateLineItemForDemoToDoItem();
-                template.modifyToDoItem(toDoItem);
-                return toDoItemExportImportService.newLineItem(template);
-            }
+        return toDoItem -> {
+            final BulkUpdateLineItemForDemoToDoItem template = new BulkUpdateLineItemForDemoToDoItem();
+            template.modifyToDoItem(toDoItem);
+            return bulkUpdateMenuForDemoToDoItem.newLineItem(template);
         };
     }
-    //endregion
 
-    //region > import (action)
     @Action
     @ActionLayout(
             named = "Import"
@@ -187,20 +180,17 @@ public class BulkUpdateManagerForDemoToDoItem {
         container.informUser(lineItems.size() + " items imported");
         return lineItems;
     }
-    //endregion
 
 
-    //region > injected services
 
     @javax.inject.Inject
-    private DomainObjectContainer container;
+    DomainObjectContainer container;
 
     @javax.inject.Inject
-    private ExcelService excelService;
+    ExcelService excelService;
 
     @javax.inject.Inject
-    private BulkUpdateMenuForDemoToDoItem toDoItemExportImportService;
+    BulkUpdateMenuForDemoToDoItem bulkUpdateMenuForDemoToDoItem;
 
-    //endregion
 
 }

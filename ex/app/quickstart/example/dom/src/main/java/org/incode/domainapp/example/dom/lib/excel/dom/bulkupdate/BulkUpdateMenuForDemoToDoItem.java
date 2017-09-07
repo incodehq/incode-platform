@@ -29,7 +29,7 @@ import org.incode.domainapp.example.dom.demo.dom.todo.Subcategory;
         objectType = "exampleLibExcel.BulkUpdateMenuForDemoToDoItem"
 )
 @DomainServiceLayout(
-        named = "Wicket Components",
+        named = "Excel",
         menuOrder = "60.1.1"
 )
 public class BulkUpdateMenuForDemoToDoItem {

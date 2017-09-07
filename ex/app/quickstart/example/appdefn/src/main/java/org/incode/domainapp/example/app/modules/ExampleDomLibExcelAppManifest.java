@@ -26,6 +26,7 @@ public class ExampleDomLibExcelAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
+            DemoToDoItem.class,
             ExampleDomLibExcelModule.class,
             ExcelModule.class
         )

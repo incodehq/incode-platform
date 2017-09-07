@@ -26,7 +26,7 @@
             </activation>
 
             <properties>
-                <isis.version>1.15.0</isis.version>
+                <isis.version>1.15.0.20170907-1100</isis.version>
                 <isis-maven-plugin.swagger.appManifest>
                     domainapp.application.manifest.DomainAppAppManifest
                 </isis-maven-plugin.swagger.appManifest>
