@@ -25,7 +25,6 @@ The value of the application tenancy path of a domain object is provided through
 
 The following class diagram highlights the main concepts:
 
-
 [plantuml,images/class-diagram,png]
 --
 skinparam class {
@@ -39,6 +38,7 @@ skinparam class {
 	BackgroundColor<<MomentOfTime>> LightPink
 	BackgroundColor<<IntervalOfTime>> LightPink
 	BackgroundColor<<SPI>> Linen
+	BackgroundColor<<DomainObject>> White
 	BackgroundColor Lavender
 	ArrowColor Black
 	BorderColor Black
@@ -57,10 +57,10 @@ interface "ClassificationRepository.SubtypeProvider" as crsp<<SPI>> {
     subTypeFor()
 }
 
-class Object<<Role>> {
+class Object<<DomainObject>> {
 }
 
-class DemoObject {
+class DemoObject<<DomainObject>> {
 }
 
 class ClassificationForDemoObject {

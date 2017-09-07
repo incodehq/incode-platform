@@ -37,6 +37,7 @@ skinparam class {
 	BackgroundColor<<MomentOfTime>> LightPink
 	BackgroundColor<<IntervalOfTime>> LightPink
 	BackgroundColor<<SPI>> Linen
+	BackgroundColor<<DomainObject>> White
 	BackgroundColor Lavender
 	ArrowColor Black
 	BorderColor Black
@@ -57,10 +58,10 @@ class "CommunicationChannelOwnerLinkForDemoObject.\nSubtypeProvider" as ccdosp<<
     subTypeFor()
 }
 
-class Object<<Role>> {
+class Object<<DomainObject>> {
 }
 
-class DemoObject {
+class DemoObject<<DomainObject>> {
 }
 
 class CommunicationChannelOwnerLink<<MI>> {

@@ -2,7 +2,10 @@
 = Document Subdomain
 :_basedir: ../../../
 :_imagesdir: images/
+:toc:
 :generate_pdf:
+
+
 
 This module (`incode-module-document`) provides the ability to create and attach `Document` objects to arbitrary domain objects from ``DocumentTemplate``s.
 
@@ -314,15 +317,168 @@ image::{_imagesdir}204-supportingDocument.png[width="600px",link="{_imagesdir}20
 [[__dom-document_domain-model]]
 == Domain Model
 
-TODO: rework using plantuml
-
 
 [[__dom-document_domain-model_document-document-template-and-paperclip]]
 === Document, DocumentTemplate and Paperclip
 
 The following class diagram highlights the main concepts:
 
-image::http://yuml.me/699f70f8[link="http://yuml.me/699f70f8", width="600px"]
+
+[plantuml,images/class-diagram,png]
+--
+skinparam class {
+	BackgroundColor<<PPT>> LightGreen
+	BackgroundColor<<Party>> LightGreen
+	BackgroundColor<<Place>> LightGreen
+	BackgroundColor<<Thing>> LightGreen
+	BackgroundColor<<Role>> Khaki
+	BackgroundColor<<Desc>> LightSkyBlue
+	BackgroundColor<<MI>> LightPink
+	BackgroundColor<<MomentOfTime>> LightPink
+	BackgroundColor<<IntervalOfTime>> LightPink
+	BackgroundColor<<SPI>> Linen
+	BackgroundColor<<DomainObject>> White
+	BackgroundColor Lavender
+	ArrowColor Black
+	BorderColor Black
+}
+
+hide members
+show DocumentSort fields
+show DocumentType fields
+show DocumentNature fields
+show DocumentStorage fields
+show DocumentAbstract fields
+show DocumentTemplate fields
+show DocumentTemplate methods
+show DocumentType fields
+show Paperclip fields
+show Paperclip methods
+show Applicability fields
+show Applicability methods
+show RenderingStrategy methods
+show RenderingStrategy fields
+show RendererModelFactory methods
+show AttachmentAdvisor methods
+
+enum DocumentStorage<<Desc>> {
+    INTERNAL
+    EXTERNAL
+}
+enum DocumentSort<<Desc>> {
+    BLOB
+    CLOB
+    TEXT
+    EXTERNAL_BLOB
+    EXTERNAL_CLOB
+}
+enum DocumentNature<<Desc>> {
+    BYTES
+    CHARACTERS
+}
+class DocumentType<<Desc>> {
+    reference
+    name
+}
+class DocumentTemplate<<Thing>> {
+    date
+    nameText
+    previewOnly
+    changeDate()
+    uploadBlob()
+    uploadClob()
+    updateText()
+    updateNameText()
+    updatePreviewOnly()
+    download()
+    preview()
+    render()
+}
+class DocumentAbstract<<Thing>> {
+    atPath
+    name
+    mimeType
+    blob
+    clob
+    text
+}
+class Document<<Thing>> {
+    externalUrl
+    createdAt
+    movedToExternalUrl()
+}
+class Paperclip<<MI>> {
+    roleName
+    attachedToStr
+    documentCreatedAt
+    getAttachedTo()
+    delete()
+}
+class PaperclipForDocument<<MI>> {
+}
+class Object<<DomainObject>> {
+}
+class SomeObject<<DomainObject>> {
+}
+class PaperclipForSomeObject {
+}
+class Applicability<<Role>> {
+    domainClassName
+    renderedModelFactoryClassName
+    attachmentAdvisorClassName
+    newRendererModelFactory()
+    newAttachmentAdvisor()
+}
+class RenderingStrategy<<Desc>> {
+    rendererClassName
+    newRenderer()
+}
+interface Renderer {
+}
+class RendererModelFactory<<SPI>> {
+    newRendererModel()
+}
+class AttachmentAdvisor<<SPI>> {
+    newAttachmentAdvice()
+}
+
+class "Object" as rm<<RendererModell>> {
+}
+class "List<PaperclipSpec>" as lps<<AttachmentAdvice>> {
+}
+class RendererModelForSomeTemplate {
+}
+
+DocumentStorage <-- DocumentSort
+DocumentNature <-- DocumentSort
+DocumentType <-- "0..*" DocumentAbstract
+DocumentSort <--  DocumentAbstract
+DocumentAbstract ^--  Document
+DocumentAbstract ^--  DocumentTemplate
+DocumentAbstract <--> "*" Paperclip
+Paperclip ^-down- PaperclipForDocument
+Paperclip ^-down- PaperclipForSomeObject
+Object <-.- Paperclip : < attachedTo
+SomeObject <-- PaperclipForSomeObject : < attachedTo
+Object ^-- SomeObject
+
+RenderingStrategy -.-> Renderer
+
+Document <-- PaperclipForDocument
+
+DocumentTemplate --> RenderingStrategy: > name
+DocumentTemplate --> RenderingStrategy: > content
+DocumentTemplate --> "0..*" Applicability
+
+Applicability -.-> RendererModelFactory: > creates
+Applicability -.-> AttachmentAdvisor: > creates
+
+AttachmentAdvisor -.-> rm : > creates
+AttachmentAdvisor -.-> lps : > creates
+
+rm ^-- RendererModelForSomeTemplate
+--
+
 
 (The colours used in the diagram are - approximately - from link:https://en.wikipedia.org/wiki/Object_Modeling_in_Color[Object Modeling in Color]).
 
@@ -375,7 +531,123 @@ This can be scheduled using, for example, the xref:../../ext/quartz/ext-quartz.a
 
 The  `Renderer` interface has the following subtypes and (example) implementations:
 
-image::http://yuml.me/b63e782f[link="http://yuml.me/b63e782f", width="800px"]
+[plantuml,images/class-diagram-renderingstrategy-and-renderer,png]
+--
+skinparam class {
+	BackgroundColor<<PPT>> LightGreen
+	BackgroundColor<<Party>> LightGreen
+	BackgroundColor<<Place>> LightGreen
+	BackgroundColor<<Thing>> LightGreen
+	BackgroundColor<<Role>> Khaki
+	BackgroundColor<<Desc>> LightSkyBlue
+	BackgroundColor<<MI>> LightPink
+	BackgroundColor<<MomentOfTime>> LightPink
+	BackgroundColor<<IntervalOfTime>> LightPink
+	BackgroundColor<<SPI>> Linen
+	BackgroundColor<<DomainObject>> White
+	BackgroundColor Lavender
+	ArrowColor Black
+	BorderColor Black
+}
+
+hide members
+show DocumentNature fields
+show RenderingStrategy methods
+show RenderingStrategy fields
+
+enum DocumentNature {
+    BYTES
+    CHARACTERS
+}
+
+class RenderingStrategy<<Desc>> {
+    rendererClassName
+    newRenderer()
+}
+
+interface Renderer {
+}
+
+interface Renderer\nFromBytesToBytes {
+    renderBytesToBytes()
+}
+
+interface Renderer\nFromBytesToBytes\nWithPreviewToUrl {
+    previewBytesToBytes()
+}
+
+interface Renderer\nFromCharsToChars {
+    renderCharsToChars()
+}
+
+interface Renderer\nFromCharsToChars\nWithPreviewToUrl {
+    previewCharsToChars()
+}
+
+interface Renderer\nFromBytesToChars {
+    renderBytesToChars()
+}
+
+interface Renderer\nFromBytesToChars\nWithPreviewToUrl {
+    previewBytesToChars()
+}
+
+interface Renderer\nFromCharsToBytes {
+    renderCharsToBytes()
+}
+
+interface Renderer\nFromCharsToBytes\nWithPreviewToUrl {
+    previewCharsToBytes()
+}
+
+interface Renderer\nWithPreviewToUrl {
+}
+
+class Renderer\nForXDocReport\nAbstract<<Thing>> {
+}
+class Renderer\nForXDocReport\nDocx<<Thing>> {
+}
+class Renderer\nForXDocReport\nPdf<<Thing>> {
+}
+class Renderer\nForFreemarker<<Thing>> {
+}
+class Renderer\nUsingStringInterpolator\nCaptureUrl<<Thing>> {
+}
+class Renderer\nUsingStringInterpolator\nPreviewAndCaptureUrl<<Thing>> {
+}
+
+
+DocumentNature <-left- RenderingStrategy : < input
+DocumentNature <-left- RenderingStrategy : < output
+
+RenderingStrategy --> Renderer: > creates
+
+Renderer ^-- Renderer\nFromBytesToBytes
+Renderer ^-- Renderer\nFromCharsToChars
+Renderer ^-- Renderer\nFromCharsToBytes
+Renderer ^-- Renderer\nFromBytesToChars
+
+Renderer\nFromBytesToBytes ^-- Renderer\nFromBytesToBytes\nWithPreviewToUrl
+Renderer\nFromCharsToChars ^-- Renderer\nFromCharsToChars\nWithPreviewToUrl
+Renderer\nFromCharsToBytes ^-- Renderer\nFromCharsToBytes\nWithPreviewToUrl
+Renderer\nFromBytesToChars ^-- Renderer\nFromBytesToChars\nWithPreviewToUrl
+
+Renderer\nWithPreviewToUrl ^-up- Renderer\nFromBytesToBytes\nWithPreviewToUrl
+Renderer\nWithPreviewToUrl ^-up- Renderer\nFromCharsToChars\nWithPreviewToUrl
+Renderer\nWithPreviewToUrl ^-up- Renderer\nFromCharsToBytes\nWithPreviewToUrl
+Renderer\nWithPreviewToUrl ^-up- Renderer\nFromBytesToChars\nWithPreviewToUrl
+
+Renderer\nFromBytesToBytes ^-.- Renderer\nForXDocReport\nAbstract
+
+Renderer\nForXDocReport\nAbstract ^-- Renderer\nForXDocReport\nDocx
+Renderer\nForXDocReport\nAbstract ^-- Renderer\nForXDocReport\nPdf
+
+Renderer\nFromCharsToChars ^-.- Renderer\nForFreemarker
+
+Renderer\nFromCharsToBytes ^-.- Renderer\nUsingStringInterpolator\nCaptureUrl
+Renderer\nUsingStringInterpolator\nCaptureUrl ^-- Renderer\nUsingStringInterpolator\nPreviewAndCaptureUrl
+
+--
 
 The owning `RenderingStrategy` for each `Renderer` identifies the nature of the inputs and outputs (bytes or characters) of each `RenderingStrategy`; the associated `Renderer` implementation must meet those constraints.
 Note that a `Renderer` may produce nature of the inputs vs outputs may vary: a character template might result in byte array output.

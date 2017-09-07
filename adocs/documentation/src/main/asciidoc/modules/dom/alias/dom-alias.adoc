@@ -40,6 +40,7 @@ skinparam class {
 	BackgroundColor<<MI>> LightPink
 	BackgroundColor<<MomentOfTime>> LightPink
 	BackgroundColor<<IntervalOfTime>> LightPink
+	BackgroundColor<<DomainObject>> White
 	BackgroundColor<<SPI>> Linen
 	BackgroundColor Lavender
 	ArrowColor Black
@@ -59,13 +60,13 @@ class ApplicationTenancyRepositoryDemo {
 
 
 
-class DemoObject {
+class DemoObject<<DomainObject>> {
 }
 
 class AliasForDemoObject {
 }
 
-class Object<<Role>> {
+class Object<<DomainObject>> {
 }
 
 class DemoObject {

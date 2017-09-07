@@ -25,11 +25,74 @@ As currently implemented, a "notable" domain object can only have one `Note` per
 
 == Domain Model
 
-TODO: rework using plantuml
+The following class diagram highlights the main concepts:
 
-The following http://yuml.me[] class diagram highlights the main concepts:
 
-image::http://yuml.me/55b7eaab[link="http://yuml.me/55b7eaab"]
+[plantuml,images/class-diagram,png]
+--
+skinparam class {
+	BackgroundColor<<PPT>> LightGreen
+	BackgroundColor<<Party>> LightGreen
+	BackgroundColor<<Place>> LightGreen
+	BackgroundColor<<Thing>> LightGreen
+	BackgroundColor<<Role>> Khaki
+	BackgroundColor<<Desc>> LightSkyBlue
+	BackgroundColor<<MI>> LightPink
+	BackgroundColor<<MomentOfTime>> LightPink
+	BackgroundColor<<IntervalOfTime>> LightPink
+	BackgroundColor<<SPI>> Linen
+	BackgroundColor<<DomainObject>> White
+	BackgroundColor Lavender
+	ArrowColor Black
+	BorderColor Black
+}
+
+hide members
+show Note fields
+
+interface "NoteableLinkRepository.SubtypeProvider" as nlrsp<<SPI>> {
+    subTypeFor()
+}
+
+class Object<<DomainObject>> {
+}
+
+class DemoObject<<DomainObject>> {
+}
+
+class NotableLinkForDemoObject {
+}
+
+class NotableLink<<MI>> {
+}
+
+class Note<<Thing>> {
+    content: String
+    date: LocalDate
+    calendarName: String
+}
+
+class "NotableLinkForDemoObject.SubtypeProvider" as nlfdsp {
+}
+
+nlrsp ^-.- nlfdsp
+
+nlfdsp -.-.-left-> NotableLinkForDemoObject : > returns \nas type
+
+Object ^-- DemoObject
+
+NotableLink -up-> Note
+NotableLink -right-> "notableStr" Object : > bookmark
+
+NotableLink ^-- NotableLinkForDemoObject
+
+DemoObject <-- NotableLinkForDemoObject: < noted
+
+note bottom of nlfdsp
+  SPI implementation
+  for domain object
+end note
+--
 
 (The colours used in the diagram are - approximately - from link:https://en.wikipedia.org/wiki/Object_Modeling_in_Color[Object Modeling in Color]).
 

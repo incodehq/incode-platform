@@ -85,11 +85,10 @@ skinparam class {
 	BackgroundColor<<MomentOfTime>> LightPink
 	BackgroundColor<<IntervalOfTime>> LightPink
 	BackgroundColor<<SPI>> Linen
+	BackgroundColor<<DomainObject>> White
 	BackgroundColor Lavender
 	ArrowColor Black
 	BorderColor Black
-
-	BackgroundColor<<DomainObject>> Khaki
 }
 
 hide members
