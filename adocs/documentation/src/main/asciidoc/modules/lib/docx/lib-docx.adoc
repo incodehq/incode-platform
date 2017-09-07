@@ -32,18 +32,14 @@ Databinding to custom XML parts (the `.docx` file format's in-built support) is 
 
 == Screenshots and Usage
 
-[NOTE]
-====
-The screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
-====
+The following screenshots and code fragments show the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage].
 
-The following screenshots and code fragments show an example app's usage of the module.
+Run using `org.incode.domainapp.example.app.modules.ExampleDomLibDocxAppManifest`.
 
 
 === Installing the Fixture Data
 
-Installing fixture data...
-
+Home page when run the app:
 
 image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
 
@@ -55,14 +51,12 @@ image::{_imagesdir}020-order-entity.png[width="600px",link="{_imagesdir}020-orde
 === The `.docx` template
 
 The template `.docx` itself is marked up using smart tags, as specified on the
-[DEVELOPER](http://msdn.microsoft.com/en-us/library/bb608625.aspx "How to show the DEVELOPER tab in Word") tab.
+[DEVELOPER] tab (see link:http://msdn.microsoft.com/en-us/library/bb608625.aspx["How to show the DEVELOPER tab in Word"]).
 
 image::{_imagesdir}030-customer-confirmation-docx-template.png[width="600px",link="{_imagesdir}030-customer-confirmation-docx-template.png"]
 
 
-TODO: update ref below
-
-The actual `.docx` used in the example app can be found link:https://github.com/isisaddons/isis-module-docx/blob/master/fixture/src/main/java/org/isisaddons/module/docx/fixture/dom/templates/CustomerConfirmation.docx?raw=true).
+The actual `.docx` used in the example app can be found link:https://github.com/incodehq/incode-platform/blob/master/ex/app/quickstart/example/dom/src/main/java/org/incode/domainapp/example/dom/lib/docx/dom/custconfirm/CustomerConfirmation.docx?raw=true[here].
 
 
 === Generating the Document
@@ -127,7 +121,6 @@ image::{_imagesdir}100-customer-confirmation-generated-download.png[width="600px
 which when opened in MS Word looks like:
 
 image::{_imagesdir}110-customer-confirmation-generated-view.png[width="600px",link="{_imagesdir}110-customer-confirmation-generated-view.png"]
-
 
 
 A similar action downloads the generated document as a PDF:
