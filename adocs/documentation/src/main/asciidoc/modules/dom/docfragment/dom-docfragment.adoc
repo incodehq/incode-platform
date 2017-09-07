@@ -69,11 +69,77 @@ This is interpolated as a date, rather than as a generic Object.
 
 == Domain Model
 
-TODO: rework using plantuml
 
 The following class diagram highlights the main concepts:
 
-image::http://yuml.me/038077f9[link="http://yuml.me/038077f9", width="600px"]
+[plantuml,images/class-diagram,png]
+--
+skinparam class {
+	BackgroundColor<<PPT>> LightGreen
+	BackgroundColor<<Party>> LightGreen
+	BackgroundColor<<Place>> LightGreen
+	BackgroundColor<<Thing>> LightGreen
+	BackgroundColor<<Role>> Khaki
+	BackgroundColor<<Desc>> LightSkyBlue
+	BackgroundColor<<MI>> LightPink
+	BackgroundColor<<MomentOfTime>> LightPink
+	BackgroundColor<<IntervalOfTime>> LightPink
+	BackgroundColor<<SPI>> Linen
+	BackgroundColor Lavender
+	ArrowColor Black
+	BorderColor Black
+
+	BackgroundColor<<DomainObject>> Khaki
+}
+
+hide members
+show DocFragment fields
+show DocFragment methods
+show ApplicationTenancyService methods
+show DocFragmentService methods
+show DocFragmentRepository methods
+
+class Object<<DomainObject>> {
+}
+
+class DocFragment<<Thing>> {
+    objectType: String
+    name: String
+    atPath: String
+    templateText: String
+    render()
+    delete()
+}
+
+class DocFragmentRepository {
+    findByObjectTypeAndNameAndApplicableAtPath()
+    create()
+}
+
+interface ApplicationTenancyService<<SPI>> {
+    atPathFor()
+}
+
+class ApplicationTenancyServiceDemo {
+}
+class DemoObject {
+}
+class DocFragmentService {
+    render()
+}
+
+DocFragment <-.-- DocFragmentRepository
+DocFragmentRepository "find" <-.- DocFragmentService
+ApplicationTenancyService  <-.- DocFragmentService
+
+ApplicationTenancyService ^-- ApplicationTenancyServiceDemo
+
+
+Object ^-down- DemoObject
+
+DocFragment -.right-.-> Object: > context
+--
+
 
 The central concept is `DocFragment`, which holds some Freemarker template text with placeholders to be interpolated by the state of a domain object.
 It is identified by an `objectType`, a `name` and an `atPath`:
