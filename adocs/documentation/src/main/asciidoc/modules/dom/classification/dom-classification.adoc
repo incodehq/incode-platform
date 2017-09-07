@@ -23,12 +23,115 @@ The value of the application tenancy path of a domain object is provided through
 
 == Domain Model
 
-TODO: rework using plantuml
+The following class diagram highlights the main concepts:
 
-The following http://yuml.me[] class diagram highlights the main concepts:
 
-image::http://yuml.me/de618edc[link="http://yuml.me/de618edc"]
+[plantuml,images/class-diagram,png]
+--
+skinparam class {
+	BackgroundColor<<PPT>> LightGreen
+	BackgroundColor<<Party>> LightGreen
+	BackgroundColor<<Place>> LightGreen
+	BackgroundColor<<Thing>> LightGreen
+	BackgroundColor<<Role>> Khaki
+	BackgroundColor<<Desc>> LightSkyBlue
+	BackgroundColor<<MI>> LightPink
+	BackgroundColor<<MomentOfTime>> LightPink
+	BackgroundColor<<IntervalOfTime>> LightPink
+	BackgroundColor<<SPI>> Linen
+	BackgroundColor Lavender
+	ArrowColor Black
+	BorderColor Black
+}
 
+hide members
+show ApplicationTenancyService methods
+show Category fields
+show Applicability fields
+
+interface ApplicationTenancyService<<SPI>> {
+    atPathFor()
+}
+
+interface "ClassificationRepository.SubtypeProvider" as crsp<<SPI>> {
+    subTypeFor()
+}
+
+class Object<<Role>> {
+}
+
+class DemoObject {
+}
+
+class ClassificationForDemoObject {
+}
+
+class Classification<<MI>> {
+}
+
+class Category<<Thing>> {
+}
+
+class Taxonomy<<Thing>> {
+}
+
+class Applicability<<Desc>> {
+    atPath: String
+    domainType: String
+}
+
+class "ClassificationForDemoObject.ApplicationTenancyService" as cfdoats {
+}
+
+class "ClassificationForDemoObject.SubtypeProvider" as cfdosp {
+}
+
+ApplicationTenancyService ^-.- cfdoats
+crsp ^-.- cfdosp
+
+Object ^-- DemoObject
+
+Classification -right-> "classifiedStr" Object : > bookmark
+
+Classification ^-- ClassificationForDemoObject
+
+DemoObject <-- ClassificationForDemoObject: < classified
+
+Classification -up-> Category
+Classification -up-> "derived" Taxonomy
+
+cfdosp -.-.-left-> ClassificationForDemoObject : >returns \nas type
+
+Category <--> "0.*" Category : children >
+
+Category ^-down- Taxonomy
+
+Applicability <-right- Taxonomy
+
+note bottom of cfdosp
+  SPI implementation
+  for domain object
+end note
+
+note top of Taxonomy
+  root of
+  composite pattern
+end note
+
+note bottom of cfdoats
+  SPI implementation
+  for domain object
+end note
+
+note bottom of Classification
+  classified must be
+  applicable to taxonomy
+
+  ie. compatible domainType
+  and app tenancy
+end note
+
+--
 (The colours used in the diagram are - approximately - from link:https://en.wikipedia.org/wiki/Object_Modeling_in_Color[Object Modeling in Color]).
 
 

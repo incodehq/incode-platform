@@ -28,9 +28,94 @@ In both cases the list of alias types and application tenancy paths is per alias
 
 The following class diagram highlights the main concepts:
 
-TODO: rework using plantuml
+[plantuml,images/class-diagram,png]
+--
+skinparam class {
+	BackgroundColor<<PPT>> LightGreen
+	BackgroundColor<<Party>> LightGreen
+	BackgroundColor<<Place>> LightGreen
+	BackgroundColor<<Thing>> LightGreen
+	BackgroundColor<<Role>> Khaki
+	BackgroundColor<<Desc>> LightSkyBlue
+	BackgroundColor<<MI>> LightPink
+	BackgroundColor<<MomentOfTime>> LightPink
+	BackgroundColor<<IntervalOfTime>> LightPink
+	BackgroundColor<<SPI>> Linen
+	BackgroundColor Lavender
+	ArrowColor Black
+	BorderColor Black
+}
 
-image::http://yuml.me/b1ee9148[link="http://yuml.me/b1ee9148"]
+hide members
+show ApplicationTenancyRepository methods
+show AliasType fields
+show Alias fields
+
+interface ApplicationTenancyRepository<<SPI>> {
+    atPathsFor()
+}
+class ApplicationTenancyRepositoryDemo {
+}
+
+
+
+class DemoObject {
+}
+
+class AliasForDemoObject {
+}
+
+class Object<<Role>> {
+}
+
+class DemoObject {
+}
+
+class Alias<<MI>> {
+    aliasedStr:String
+    atPath:String
+}
+
+class AliasType<<Desc>> {
+    id: String
+}
+
+interface "AliasRepository.SubtypeProvider" as arsp<<SPI>> {
+    subTypeFor()
+}
+
+class "AliasForDemoObject.SubtypeProvider" as afdosp {
+}
+
+
+Object ^-- DemoObject
+
+Alias -right-> "aliasedStr" Object : > bookmark
+
+Alias ^-- AliasForDemoObject
+
+DemoObject <-- AliasForDemoObject: < aliased
+
+Alias -up-> AliasType
+
+arsp ^-.- afdosp
+
+afdosp -.-.-left-> AliasForDemoObject: > returns\nas type
+
+ApplicationTenancyRepository ^-.- ApplicationTenancyRepositoryDemo
+
+note bottom of afdosp
+  SPI implementation
+  for domain object
+end note
+
+note bottom of ApplicationTenancyRepositoryDemo
+  SPI implementation
+  for entire application
+end note
+
+
+--
 
 (The colours used in the diagram are - approximately - from link:https://en.wikipedia.org/wiki/Object_Modeling_in_Color[Object Modeling in Color]).
 

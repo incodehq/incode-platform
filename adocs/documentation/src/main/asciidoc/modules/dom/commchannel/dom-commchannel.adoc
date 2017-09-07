@@ -22,11 +22,101 @@ The list of purposes can vary by both the communication channel type (postal add
 
 == Domain Model
 
-TODO: rework using plantuml
+The following class diagram highlights the main concepts:
 
-The following http://yuml.me[] class diagram highlights the main concepts:
+[plantuml,images/class-diagram,png]
+--
+skinparam class {
+	BackgroundColor<<PPT>> LightGreen
+	BackgroundColor<<Party>> LightGreen
+	BackgroundColor<<Place>> LightGreen
+	BackgroundColor<<Thing>> LightGreen
+	BackgroundColor<<Role>> Khaki
+	BackgroundColor<<Desc>> LightSkyBlue
+	BackgroundColor<<MI>> LightPink
+	BackgroundColor<<MomentOfTime>> LightPink
+	BackgroundColor<<IntervalOfTime>> LightPink
+	BackgroundColor<<SPI>> Linen
+	BackgroundColor Lavender
+	ArrowColor Black
+	BorderColor Black
+}
 
-image::http://yuml.me/5f9a2489[link="http://yuml.me/5f9a2489"]
+hide members
+show CommunicationChannelType fields
+show CommunicationChannel fields
+show PhoneOrFaxNumber fields
+show EmailAddress fields
+show PostalAddress fields
+
+interface "CommunicationChannelOwnerLinkRepository.\nSubtypeProvider" as ccolsp<<SPI>> {
+    subTypeFor()
+}
+
+class "CommunicationChannelOwnerLinkForDemoObject.\nSubtypeProvider" as ccdosp<<SPI>> {
+    subTypeFor()
+}
+
+class Object<<Role>> {
+}
+
+class DemoObject {
+}
+
+class CommunicationChannelOwnerLink<<MI>> {
+}
+
+class CommunicationChannelOwnerLinkForDemoObject {
+}
+
+class CommunicationChannelType<<Desc>> {
+    name: String
+}
+
+class CommunicationChannel<<Thing>> {
+    name: String
+    purpose: String
+    notes: String
+}
+
+class PhoneOrFaxNumber {
+    phoneNumber: String
+}
+class PostalAddress {
+    addressLine1: String
+    addressLine2: String
+    addressLine3: String
+    postalCode: String
+    country: String
+    formattedAddress: String
+    latlng: String
+    addressComponents: String
+}
+
+class EmailAddress {
+    emailAddress: String
+}
+
+
+Object ^-- DemoObject
+
+CommunicationChannelOwnerLink ^-down- CommunicationChannelOwnerLinkForDemoObject
+
+Object <-.-down- CommunicationChannelOwnerLink
+ccolsp ^-.- ccdosp
+
+ CommunicationChannelOwnerLinkForDemoObject <-.-.-right- ccdosp  : < returns\nas type
+
+CommunicationChannelType <-- CommunicationChannel
+
+CommunicationChannelOwnerLink -right-> CommunicationChannel
+
+CommunicationChannelOwnerLinkForDemoObject -up-> DemoObject: >owner
+
+CommunicationChannel ^-down- PostalAddress
+CommunicationChannel ^-down- EmailAddress
+CommunicationChannel ^-down- PhoneOrFaxNumber
+--
 
 (The colours used in the diagram are - approximately - from link:https://en.wikipedia.org/wiki/Object_Modeling_in_Color[Object Modeling in Color]).
 
