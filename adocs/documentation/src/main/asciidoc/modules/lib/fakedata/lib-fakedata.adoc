@@ -23,7 +23,7 @@ Run using `org.incode.domainapp.example.app.modules.ExampleDomLibFakeDataAppMani
 
 The example app consists of a single domain entity that has a property for each of the value types supported by Isis.
 
-Installing the fixture scenario:
+Home page when run the app:
 
 image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
 
