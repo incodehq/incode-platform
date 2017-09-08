@@ -26,6 +26,7 @@ public class ExampleDomLibFakeDataAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
+            DemoObjectWithAll.class,
             ExampleDomLibFakeDataModule.class,
             FakeDataModule.class
         )
