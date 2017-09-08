@@ -12,9 +12,9 @@ public class DemoReminder_create4 extends FixtureScript {
     public void execute(final ExecutionContext ec) {
 
         createToDoItem("Documentation page - Review main Isis doc page", "documentation.html", ec);
-        createToDoItem("Screenshots - Review Isis screenshots", "intro/elevator-pitch/isis-in-pictures.html", ec);
-        createToDoItem("Lookup some Isis articles", "intro/learning-more/articles-and-presentations.html", ec);
-        createToDoItem("Learn about profiling in Isis", "reference/services/command-context.html", ec);
+        createToDoItem("Screenshots - Review Isis screenshots", "pages/isis-in-pictures/isis-in-pictures.html", ec);
+        createToDoItem("Lookup some Isis articles", "pages/articles-and-presentations//articles-and-presentations.html", ec);
+        createToDoItem("Learn about profiling in Isis", "guides/rgsvc/rgsvc.html#_rgsvc_application-layer-api_CommandContext", ec);
 
         transactionService.flushTransaction();
     }

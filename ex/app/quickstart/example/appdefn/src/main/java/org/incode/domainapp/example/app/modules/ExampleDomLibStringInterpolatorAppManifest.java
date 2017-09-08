@@ -8,7 +8,6 @@ import org.apache.isis.applib.AppManifestAbstract;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.HomePage;
-import org.apache.isis.applib.annotation.MemberGroupLayout;
 import org.apache.isis.applib.annotation.Nature;
 
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
@@ -27,6 +26,7 @@ public class ExampleDomLibStringInterpolatorAppManifest extends AppManifestAbstr
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
+            DemoReminder.class,
             ExampleDomLibStringInterpolatorModule.class,
             StringInterpolatorModule.class
         )
@@ -39,7 +39,8 @@ public class ExampleDomLibStringInterpolatorAppManifest extends AppManifestAbstr
                 // necessary because of ISIS-1710
                 PasswordEncryptionServiceUsingJBcrypt.class,
                 PermissionsEvaluationServiceAllowBeatsVeto.class
-        );
+        )
+        .withConfigurationProperty("isis.website", "http://isis.apache.org");
 
     public ExampleDomLibStringInterpolatorAppManifest() {
         super(BUILDER);

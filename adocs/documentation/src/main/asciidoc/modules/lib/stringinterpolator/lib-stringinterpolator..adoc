@@ -26,14 +26,14 @@ Apache Isis system properties are exposed as the `properties` map, while the tar
 
 == Screenshots
 
-[NOTE]
-====
-The screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
-====
+The following screenshots and code fragments show the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage].
 
-The screenshots below show an example app's usage of the _stringinterpolator_ module:
+Run using `org.incode.domainapp.example.app.modules.ExampleDomLibStringInterpolatorAppManifest`.
+
 
 === Install example fixtures
+
+Home page when run the app:
 
 image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
 
