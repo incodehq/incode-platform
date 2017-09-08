@@ -24,6 +24,7 @@ import org.incode.domainapp.example.dom.lib.poly.dom.demoparty.Party;
 import org.incode.domainapp.example.dom.lib.poly.fixture.Case_FixedAsset_Party_recreateAll;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
+import domainapp.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 
 public class ExampleDomLibPolyAppManifest extends AppManifestAbstract {
@@ -39,6 +40,7 @@ public class ExampleDomLibPolyAppManifest extends AppManifestAbstract {
         )
         .withAdditionalServices(
                 HomePageProvider.class,
+                DomainAppFixtureScriptsSpecProvider.class,
                 // necessary because of ISIS-1710
                 PasswordEncryptionServiceUsingJBcrypt.class,
                 PermissionsEvaluationServiceAllowBeatsVeto.class
@@ -92,5 +94,6 @@ public class ExampleDomLibPolyAppManifest extends AppManifestAbstract {
         FixedAssets fixedAssets;
 
     }
+
 
 }

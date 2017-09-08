@@ -28,9 +28,7 @@ The purpose of this module is therefore to provide helper classes that use a dif
 === Table of Two Halves Pattern
 
 The "table of two halves" pattern models the relationship tuple itself as a class hierarchy.
-The supertype table holds a generic polymorphic reference to the target object (leveraging Apache Isis' link:http://isis.apache.org/reference/services/bookmark-service.html[Bookmark Service]) while the subtype table holds a foreign key is held within the subtype.
-
-TODO: update link above, is stale
+The supertype table holds a generic polymorphic reference to the target object (leveraging Apache Isis' link:http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_integration-api_BookmarkService[Bookmark Service]) while the subtype table holds a foreign key is held within the subtype.
 
 It is quite possible to implement the "table of two halves" pattern without using the helpers provided by this module; indeed arguably there's more value in the demo application that accompanies this module (discussed below) than in the helpers themselves.
 Still, the helpers do provide useful structure to help implement the pattern.
@@ -39,9 +37,7 @@ Still, the helpers do provide useful structure to help implement the pattern.
 
 == Demo Application
 
-TODO: to update, x-ref domain-app
-
-This module has a comprehensive demo application that demonstrates four different polymorphic associations:
+This module has a comprehensive demo fixtures that demonstrates four different polymorphic associations:
 
 * 1-to-1 and n-to-1: a `CommunicationChannel` may be owned by a `CommunicationChannelOwner`.
 * 1-to-n: a `Case` may contain multiple `CaseContent`s
@@ -105,34 +101,27 @@ image::{_imagesdir}case-content-primary-rdbms.png[width="600px",link="{_imagesdi
 
 == Screenshots
 
-[NOTE]
-====
-The screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
-====
+The following screenshots and code fragments show the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage].
 
-The screenshots below show the demo app's usage of the _poly_ module.
-We start by installing some fixture data:
+Run using `org.incode.domainapp.example.app.modules.ExampleDomLibPolyAppManifest`.
 
-image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
+The screenshots below show the example app's usage of the _poly_ module.
 
-
-This sets up 3 parties, 3 fixed assets which between them have 9 communication channels.
-There are also 3 cases and the parties and fixed assets are variously contained within.
-This is summarized on the home page:
+Home page when run the app shows 3 parties, 3 fixed assets which between them have 9 communication channels.
+There are also 3 cases and the parties and fixed assets are variously contained within:
 
 image::{_imagesdir}020-dashboard.png[width="600px",link="{_imagesdir}020-dashboard.png"]
-
 
 If we navigate to the `Party` entity, we can see that it shows a collection of `CommunicationChannel`s that the party owns, and also a collection of the `Case`s within which the party is contained:
 
 image::{_imagesdir}030-party.png[width="600px",link="{_imagesdir}030-party.png"]
 
 
-
 The `FixedAsset` entity is similar in that it also has a collection of `Case`s.
 However, in our demo app we have a business rule that the fixed asset can own only a single `CommunicationChannel`.
 
 image::{_imagesdir}040-fixed-asset.png[width="600px",link="{_imagesdir}040-fixed-asset.png"]
+
 
 
 On the `Party` entity we can add (and remove) `CommunicationChannel`s:
@@ -150,6 +139,7 @@ image::{_imagesdir}060-party-add-to-case.png[width="600px",link="{_imagesdir}060
 
 Here the rule is slightly different: the `Case` already exists and so the party is merely associated with an existing case.
 
+
 From the `Case` entity's perspective, we can see its contents and also its primary content:
 
 image::{_imagesdir}070-case.png[width="600px",link="{_imagesdir}070-case.png"]
@@ -163,9 +153,7 @@ image::{_imagesdir}080-case-set-primary-contents.png[width="600px",link="{_image
 
 == Design
 
-TODO: update link below
-
-The key design idea is to leverage Isis' link:http://isis.apache.org/reference/services/event-bus-service.html[event bus service] to determine which concrete subtype should be created and persisted to hold the association.
+The key design idea is to leverage Isis' link:http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_core-domain-api_EventBusService[event bus service] to determine which concrete subtype should be created and persisted to hold the association.
 
 * when the association needs to be created, an event is posted to the event bus
 
