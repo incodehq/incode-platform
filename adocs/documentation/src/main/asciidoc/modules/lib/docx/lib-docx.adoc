@@ -33,14 +33,13 @@ Databinding to custom XML parts (the `.docx` file format's in-built support) is 
 
 == Screenshots and Usage
 
-The following screenshots and code fragments show the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage].
+The module's functionality can be explored by running the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage] using the `org.incode.domainapp.example.app.modules.ExampleDomLibDocxAppManifest`.
 
-Run using `org.incode.domainapp.example.app.modules.ExampleDomLibDocxAppManifest`.
 
 
 === Installing the Fixture Data
 
-Home page when run the app:
+A home page is displayed when the app is run:
 
 image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
 

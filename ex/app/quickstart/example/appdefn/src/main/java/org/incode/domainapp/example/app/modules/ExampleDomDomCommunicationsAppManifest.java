@@ -33,6 +33,9 @@ public class ExampleDomDomCommunicationsAppManifest extends AppManifestAbstract 
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
+            DemoObjectWithNotes.class,
+            DemoInvoice.class,
+
             ExampleDomModuleCommunicationsModule.class,
             CommunicationsModule.class,
             DocumentModule.class,

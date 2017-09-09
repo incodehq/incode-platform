@@ -29,7 +29,7 @@ import org.incode.module.document.dom.mixins.T_preview;
 @DomainObject(
         // objectType inferred from schema
 )
-public class PaperclipForDemoInvoice2 extends Paperclip {
+public class PaperclipForDemoInvoice extends Paperclip {
 
     //region > demoObject (property)
     private DemoInvoice demoInvoice;
@@ -70,7 +70,7 @@ public class PaperclipForDemoInvoice2 extends Paperclip {
     @DomainService(nature = NatureOfService.DOMAIN)
     public static class SubtypeProvider extends PaperclipRepository.SubtypeProviderAbstract {
         public SubtypeProvider() {
-            super(DemoInvoice.class, PaperclipForDemoInvoice2.class);
+            super(DemoInvoice.class, PaperclipForDemoInvoice.class);
         }
     }
     //endregion

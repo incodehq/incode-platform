@@ -18,13 +18,12 @@ In addition, this module also acts as a useful regression suite for DataNucleus'
 
 == Screenshots
 
-The following screenshots and code fragments show the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage].
+The module's functionality can be explored by running the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage] using the `org.incode.domainapp.example.app.modules.ExampleDomLibFakeDataAppManifest`.
 
-Run using `org.incode.domainapp.example.app.modules.ExampleDomLibFakeDataAppManifest`.
 
 The example app consists of a single domain entity that has a property for each of the value types supported by Isis.
 
-Home page when run the app:
+A home page is displayed when the app is run:
 
 image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
 

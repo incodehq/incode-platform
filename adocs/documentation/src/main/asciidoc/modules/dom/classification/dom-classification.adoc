@@ -186,9 +186,7 @@ The module does _not_ prevent an `Applicability` from being removed, even if the
 
 == Screenshots
 
-The following screenshots and code fragments show the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage].
-
-Run using `org.incode.domainapp.example.app.modules.ExampleDomDomClssificationAppManifest`.
+The module's functionality can be explored by running the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage] using the `org.incode.domainapp.example.app.modules.ExampleDomDomClassificationAppManifest`.
 
 This sets up a small hierarchy of app tenancies, namely "/" (global), "/ITA" (Italy)", "/FRA" (France) and two sub-tenancies of Italy and France, "/ITA/MIL" (Milan) and "/FRA/PAR" (Paris).
 
@@ -204,8 +202,7 @@ The "Italian Colour" taxonomy on the other hand applies to both `DemoObject` and
 
 === Taxonomies (reference data)
 
-Home page when run the app:
-
+A home page is displayed when the app is run:
 
 image::{_imagesdir}010-run-fixture-script.png[width="600px",link="{_imagesdir}010-run-fixture-script.png"]
 

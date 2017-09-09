@@ -29,6 +29,9 @@ public class ExampleDomDomDocFragmentAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
+            DemoCustomer.class,
+            DemoInvoiceWithAtPath.class,
+
             ExampleDomModuleDocFragmentModule.class,
             DocFragmentModuleDomModule.class
 

@@ -17,14 +17,12 @@ The underlying technology used is http://poi.apache.org[Apache POI].
 
 == Screenshots
 
-The following screenshots and code fragments show the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage].
-
-Run using `org.incode.domainapp.example.app.modules.ExampleDomLibExcelAppManifest`.
+The module's functionality can be explored by running the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage] using the `org.incode.domainapp.example.app.modules.ExampleDomLibExcelAppManifest`.
 
 
 === Installing the Fixture Data
 
-Home page when run the app:
+A home page is displayed when the app is run:
 
 image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
 

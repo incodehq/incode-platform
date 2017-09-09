@@ -18,11 +18,9 @@ This module is only available for Wicket viewer, not the REST API.
 
 == Screenshots
 
-The following screenshots and code fragments show the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage].
+The module's functionality can be explored by running the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage] using the `org.incode.domainapp.example.app.modules.ExampleDomLibServletApiAppManifest`.
 
-Run using `org.incode.domainapp.example.app.modules.ExampleDomLibServletApiAppManifest`.
-
-Home page when run the app:
+A home page is displayed when the app is run:
 
 image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
 

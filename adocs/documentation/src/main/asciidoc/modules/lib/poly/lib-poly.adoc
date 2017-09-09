@@ -102,12 +102,9 @@ image::{_imagesdir}case-content-primary-rdbms.png[width="600px",link="{_imagesdi
 
 == Screenshots
 
-The following screenshots and code fragments show the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage].
+The module's functionality can be explored by running the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage] using the `org.incode.domainapp.example.app.modules.ExampleDomLibPolyAppManifest`.
 
-Run using `org.incode.domainapp.example.app.modules.ExampleDomLibPolyAppManifest`.
-
-
-The home page when run the app shows 3 parties, 3 fixed assets which between them have 9 communication channels.
+The home page when the app is run shows 3 parties, 3 fixed assets which between them have 9 communication channels.
 There are also 3 cases and the parties and fixed assets are variously contained within:
 
 image::{_imagesdir}020-dashboard.png[width="600px",link="{_imagesdir}020-dashboard.png"]

@@ -38,14 +38,7 @@ These can be overridden using DataNucleus `.orm` files if required.
 [[__dom-communications_screenshots]]
 == Screenshots
 
-[NOTE]
-====
-The screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
-====
-
-We start off by creating some fixture data:
-
-image::{_imagesdir}010-run-fixture-script.png[width="600px",link="{_imagesdir}010-run-fixture-script.png"]
+The module's functionality can be explored by running the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage] using the `org.incode.domainapp.example.app.modules.ExampleDomDomCommunicationsAppManifest`.
 
 This creates:
 
@@ -69,10 +62,15 @@ This is referenced by the `DocumentTemplate`, instructing the document module to
 +
 This is required because `PostalAddress` communication channels reference the `Country`.
 
+
 The home page lists the demo customers and invoices:
 
 image::{_imagesdir}020-demo-customers-and-invoices.png[width="600px",link="{_imagesdir}020-demo-customers-and-invoices.png"]
 
+[NOTE]
+====
+The remaining screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
+====
 
 
 [[__dom-communications_screenshots_sending-an-email]]

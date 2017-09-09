@@ -125,12 +125,9 @@ end note
 
 == Screenshots
 
-The following screenshots and code fragments show the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage].
+The module's functionality can be explored by running the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage] using the `org.incode.domainapp.example.app.modules.ExampleDomDomAliasAppManifest`.
 
-Run using `org.incode.domainapp.example.app.modules.ExampleDomDomAliasAppManifest`.
-
-Home page when run the app:
-
+A home page is displayed when the app is run this way:
 
 image::{_imagesdir}010-run-fixture-script.png[width="600px",link="{_imagesdir}010-run-fixture-script.png"]
 

@@ -27,6 +27,7 @@ public class ExampleDomDomTagAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
+
             ExampleDomModuleTagsModule.class,
             TagsModule.class
 
