@@ -125,15 +125,17 @@ end note
 
 == Screenshots
 
+The following screenshots and code fragments show the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage].
 
+Run using `org.incode.domainapp.example.app.modules.ExampleDomDomAliasAppManifest`.
 
-The following screenshots show the demo app's usage of the module.
-We start by installing some demo fixture data:
+Home page when run the app:
+
 
 image::{_imagesdir}010-run-fixture-script.png[width="600px",link="{_imagesdir}010-run-fixture-script.png"]
 
-This installs some very simple (demo) domain objects, the first of which is returned.
-These aliasable objects have a (contributed) `aliases` collection, and we can also add new aliases using a (contributed) `addAlias(...)` action:
+
+These "aliasable" demo objects have a (contributed) `aliases` collection, and we can also add new aliases using a (contributed) `addAlias(...)` action:
 
 image::{_imagesdir}040-add-alias.png[width="600px",link="{_imagesdir}040-add-alias.png"]
 

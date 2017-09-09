@@ -26,6 +26,7 @@ public class ExampleDomDomAliasAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
+            DemoObject.class,
             ExampleDomModuleAliasModule.class,
             AliasModule.class
         )

@@ -106,9 +106,8 @@ The following screenshots and code fragments show the xref:../../../quickstart/q
 
 Run using `org.incode.domainapp.example.app.modules.ExampleDomLibPolyAppManifest`.
 
-The screenshots below show the example app's usage of the _poly_ module.
 
-Home page when run the app shows 3 parties, 3 fixed assets which between them have 9 communication channels.
+The home page when run the app shows 3 parties, 3 fixed assets which between them have 9 communication channels.
 There are also 3 cases and the parties and fixed assets are variously contained within:
 
 image::{_imagesdir}020-dashboard.png[width="600px",link="{_imagesdir}020-dashboard.png"]
