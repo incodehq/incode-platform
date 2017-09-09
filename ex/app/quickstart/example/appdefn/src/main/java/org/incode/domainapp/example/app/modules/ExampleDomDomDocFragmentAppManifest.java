@@ -20,6 +20,8 @@ import org.incode.domainapp.example.dom.demo.dom.invoicewithatpath.DemoInvoiceWi
 import org.incode.domainapp.example.dom.dom.docfragment.ExampleDomModuleDocFragmentModule;
 import org.incode.domainapp.example.dom.dom.docfragment.fixture.DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_recreate;
 import org.incode.module.docfragment.dom.DocFragmentModuleDomModule;
+import org.incode.module.docfragment.dom.impl.DocFragment;
+import org.incode.module.docfragment.dom.impl.DocFragmentRepository;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;
@@ -81,9 +83,16 @@ public class ExampleDomDomDocFragmentAppManifest extends AppManifestAbstract {
             return demoInvoiceWithAtPathMenu.listAllDemoInvoices();
         }
 
+        @CollectionLayout(defaultView = "table")
+        public List<DocFragment> getDocFragments() {
+            return docFragmentRepository.listAll();
+        }
+
         @Inject DemoCustomerMenu demoCustomerMenu;
 
         @Inject DemoInvoiceWithAtPathMenu demoInvoiceWithAtPathMenu;
+
+        @Inject DocFragmentRepository docFragmentRepository;
 
     }
 
