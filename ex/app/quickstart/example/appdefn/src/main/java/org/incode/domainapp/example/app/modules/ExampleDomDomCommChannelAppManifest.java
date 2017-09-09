@@ -27,6 +27,7 @@ public class ExampleDomDomCommChannelAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
+            DemoObject.class,
             ExampleDomModuleCommChannelModule.class,
             CommChannelModule.class
         )

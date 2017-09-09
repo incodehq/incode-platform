@@ -126,14 +126,11 @@ CommunicationChannel ^-down- PhoneOrFaxNumber
 
 == Screenshots
 
-[NOTE]
-====
-The screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
-====
+The following screenshots and code fragments show the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage].
 
-The following screenshots show an example app's usage of the module.
+Run using `org.incode.domainapp.example.app.modules.ExampleDomDomCommChannelAppManifest`.
 
-We start by installing some demo fixture data:
+Home page when run the app:
 
 image::{_imagesdir}020-recreate-fixtures.png[width="600px",link="{_imagesdir}020-recreate-fixtures.png"]
 
