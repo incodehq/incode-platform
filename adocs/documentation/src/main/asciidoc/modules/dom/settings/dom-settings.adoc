@@ -19,8 +19,6 @@ The module's functionality can be explored by running the xref:../../../quicksta
 
 
 
-=== Installing the Fixture Data
-
 A home page is displayed when the app is run:
 
 

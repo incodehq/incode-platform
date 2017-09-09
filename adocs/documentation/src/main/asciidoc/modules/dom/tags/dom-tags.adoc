@@ -17,19 +17,21 @@ As well as listing existing tags, new tags can of course also be created, and ex
 
 == Screenshots
 
-[NOTE]
-====
-The screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
-====
+The module's functionality can be explored by running the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage] using the `org.incode.domainapp.example.app.modules.ExampleDomTagsAppManifest`.
 
-The following screenshots show an example app's usage of the module with some sample fixture data:
 
-=== Install example fixtures
+A home page is displayed when the app is run:
 
 image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
 
-\... returning an example entity "Bip".  The class of this entity is not of interest, what _is_ of interest is that it
-has two properties, `brand` and `sector`, that correspond to `Tag`s:
+
+[NOTE]
+====
+The remaining screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
+====
+
+One of the demo objects created is "Bip".
+The class of this entity is not of interest, what _is_ of interest is that it has two properties, `brand` and `sector`, that correspond to `Tag`s:
 
 image::{_imagesdir}020-example-entity-with-two-tag-categories.png[width="600px",link="{_imagesdir}020-example-entity-with-two-tag-categories.png"]
 
