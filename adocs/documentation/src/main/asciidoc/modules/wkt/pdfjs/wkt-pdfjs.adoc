@@ -3,6 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 :generate_pdf:
+:toc:
 
 This component (`isis-wicket-pdfjs`) allows a BLOB containing an PDF to be rendered as a panel using https://mozilla.github.io/pdf.js[pdf.js].
  

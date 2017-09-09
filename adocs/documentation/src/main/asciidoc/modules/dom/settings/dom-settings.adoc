@@ -3,6 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 :generate_pdf:
+:toc:
 
 This module (`isis-module-settings`) provides the ability to persist application- and user- configuration settings.
 

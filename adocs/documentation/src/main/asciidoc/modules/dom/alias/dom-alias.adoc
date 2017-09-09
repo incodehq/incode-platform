@@ -3,6 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 :generate_pdf:
+:toc:
 
 This module (`incode-module-alias`) provides the ability to attach `Alias` objects to arbitrary domain entities, where "alias" means an alternative identifier for the entity.
 Most commonly this is the identifier within some external system (in DDD terms: in some other bounded context).
@@ -123,11 +124,6 @@ end note
 
 
 == Screenshots
-
-[NOTE]
-====
-The screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
-====
 
 
 

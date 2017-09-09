@@ -3,6 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 :generate_pdf:
+:toc:
 
 This module (`incode-module-docfragment`) is a simple wrapper around the xref:../../lib/freemarker/lib-freemarker.adoc#[Freemarker library] module to interpolate fragments of text with respect to a domain object.
 

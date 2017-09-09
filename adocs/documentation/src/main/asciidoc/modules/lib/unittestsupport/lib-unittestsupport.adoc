@@ -3,6 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 :generate_pdf:
+:toc:
 
 This module (`incode-module-unittestsupport`) provides a set of testing utilities to support unit testing.
 

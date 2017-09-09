@@ -3,6 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 :generate_pdf:
+:toc:
 
 
 This module (`isis-module-fakedata`) provides a domain service that generates fake random data.

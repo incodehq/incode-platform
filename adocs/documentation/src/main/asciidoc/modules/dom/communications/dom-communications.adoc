@@ -3,6 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 :generate_pdf:
+:toc:
 
 This module (`incode-module-communications`) defines ``CommunicationChannel``s (email address, postal address or phone/fax number), and also allows ``Document``s (implemented by the xref:../../dom/document/dom-document.adoc#[Document subdomain] module) to be sent as ``Communication``s either to an email address or to a postal address.
 

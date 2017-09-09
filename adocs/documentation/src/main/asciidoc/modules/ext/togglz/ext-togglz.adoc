@@ -3,6 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 :generate_pdf:
+:toc:
 
 This module (`isis-module-togglz`) provides an integration with http://www.togglz.org[Togglz] to provide a http://martinfowler.com/bliki/FeatureToggle.html[feature toggle] capability.
 

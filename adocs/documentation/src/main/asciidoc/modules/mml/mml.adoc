@@ -3,6 +3,7 @@
 :_basedir: ../../
 :_imagesdir: images/
 :generate_pdf:
+:toc:
 
 Metamodel facet modules extend the semantics of the Apache Isis metamodel, for example allowing new naming conventions to be recognised or additional semantics inferred.
 This is typically done by installing link:http://isis.apache.org/guides/ugbtb/ugbtb.html#_modifying_the_prog_model[additional facet factory](s)

@@ -3,6 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 :generate_pdf:
+:toc:
 
 This component (`isis-wicket-fullcalendar2`) renders events for a collection of entities within a fullpage calendar.
 Underneath the covers it uses this https://github.com/42Lines/wicket-fullcalendar[fullcalendar] widget.

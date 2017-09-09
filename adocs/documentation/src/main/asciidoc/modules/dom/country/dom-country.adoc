@@ -3,6 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 :generate_pdf:
+:toc:
 
 This module (`incode-module-country`) provides a `Country` and a `State` entity, for use as reference data.
 

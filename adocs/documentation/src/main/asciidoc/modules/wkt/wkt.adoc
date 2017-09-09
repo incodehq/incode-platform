@@ -3,6 +3,7 @@
 :_basedir: ../../
 :_imagesdir: images/
 :generate_pdf:
+:toc:
 
 Wicket component modules extend the functionality of Apache Isis' link:http://isis.apache.org/guides/ugvw/ugvw.html[Wicket viewer], providing additional components for maps, calendars and so on.
 

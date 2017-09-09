@@ -3,6 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 :generate_pdf:
+:toc:
 
 This module (`isis-module-freemarker`) provides a wrapper around the link:http://freemarker.org[Freemarker] templating engine.
 

@@ -3,6 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 :generate_pdf:
+:toc:
 
 This module (`isis-module-audit`) provides an implementation of Isis' `AuditerService` SPI (introduced in `1.13.0`, replacing the earlier `AuditingService3` SPI).
 The implementation persists audit entries using Isis' own (JDO) objectstore.

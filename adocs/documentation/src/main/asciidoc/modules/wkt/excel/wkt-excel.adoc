@@ -3,6 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 :generate_pdf:
+:toc:
 
 This component (`isis-wicket-excel`) allows a collection of entities to be downloaded as an Excel spreadsheet (using link:http://poi.apache.org[Apache POI]).
 

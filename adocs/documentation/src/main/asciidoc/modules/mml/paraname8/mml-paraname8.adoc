@@ -3,6 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 :generate_pdf:
+:toc:
 
 This extension (`isis-metamodel-paraname8`) for Apache Isis' metamodel support means that the name of action parameters can be inferred from the parameter name itself; that is, there is no need to annotate the parameter.
 

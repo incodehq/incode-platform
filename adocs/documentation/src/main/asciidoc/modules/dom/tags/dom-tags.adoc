@@ -3,6 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 :generate_pdf:
+:toc:
 
 This module (`isis-module-tags`) provides the ability to add multiple tags (or labels) to any domain entity.
 

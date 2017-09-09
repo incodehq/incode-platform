@@ -3,6 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 :generate_pdf:
+:toc:
 
 This module (`isis-module-servletapi`) provides access to various elements of the Servlet API, namely the `ServletContext`, the `HttpServletRequest` and the `HttpServletResponse`.
 

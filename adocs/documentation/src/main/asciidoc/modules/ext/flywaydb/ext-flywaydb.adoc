@@ -3,6 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 :generate_pdf:
+:toc:
 
 This module (`isis-module-flywaydb`) provides an implementation of the link:http://datanucleus.org/[DataNucleus] link:http://www.datanucleus.org/products/accessplatform_4_1/jdo/pmf.html[`PersistenceManagerFactory`] class.
 This uses link:https://flywaydb.org[Flyway] API to automatically apply any database migration scripts prior to the bootstrapping of the rest of the Apache Isis runtime.

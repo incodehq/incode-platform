@@ -3,6 +3,7 @@
 :_basedir: ../../../
 :_imagesdir: images/
 :generate_pdf:
+:toc:
 
 This module (`isis-module-security`) provides the ability to manage users, roles, and permissions.
 Users have roles, roles have permissions, and permissions are associated with application features.
