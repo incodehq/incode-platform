@@ -20,6 +20,7 @@ import org.incode.domainapp.example.dom.dom.commchannel.fixture.DemoObject_withC
 import org.incode.module.commchannel.dom.CommChannelModule;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
+import domainapp.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 
 public class ExampleDomDomCommChannelAppManifest extends AppManifestAbstract {
@@ -35,6 +36,7 @@ public class ExampleDomDomCommChannelAppManifest extends AppManifestAbstract {
         )
         .withAdditionalServices(
                 HomePageProvider.class,
+                DomainAppFixtureScriptsSpecProvider.class,
                 // necessary because of ISIS-1710
                 PasswordEncryptionServiceUsingJBcrypt.class,
                 PermissionsEvaluationServiceAllowBeatsVeto.class

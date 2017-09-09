@@ -20,6 +20,7 @@ import org.incode.domainapp.example.dom.dom.note.fixture.DemoObject_withNotes_re
 import org.incode.module.note.dom.NoteModule;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
+import domainapp.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 
 public class ExampleDomDomNoteAppManifest extends AppManifestAbstract {
@@ -35,6 +36,7 @@ public class ExampleDomDomNoteAppManifest extends AppManifestAbstract {
         )
         .withAdditionalServices(
                 HomePageProvider.class,
+                DomainAppFixtureScriptsSpecProvider.class,
                 // necessary because of ISIS-1710
                 PasswordEncryptionServiceUsingJBcrypt.class,
                 PermissionsEvaluationServiceAllowBeatsVeto.class

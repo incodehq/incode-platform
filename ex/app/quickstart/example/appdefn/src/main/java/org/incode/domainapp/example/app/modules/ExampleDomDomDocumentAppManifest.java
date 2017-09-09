@@ -29,6 +29,7 @@ import org.incode.module.docrendering.xdocreport.dom.XDocReportDocRenderingModul
 import org.incode.module.document.dom.DocumentModule;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
+import domainapp.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 
 public class ExampleDomDomDocumentAppManifest extends AppManifestAbstract {
@@ -55,6 +56,7 @@ public class ExampleDomDomDocumentAppManifest extends AppManifestAbstract {
         )
         .withAdditionalServices(
                 HomePageProvider.class,
+                DomainAppFixtureScriptsSpecProvider.class,
                 // necessary because of ISIS-1710
                 PasswordEncryptionServiceUsingJBcrypt.class,
                 PermissionsEvaluationServiceAllowBeatsVeto.class

@@ -20,6 +20,7 @@ import org.incode.domainapp.example.dom.demo.dom.demowithblob.DemoObjectWithBlob
 import org.incode.domainapp.example.dom.demo.fixture.setup.DemoObjectWithBlob_createUpTo5_fakeData;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
+import domainapp.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 
 public class ExampleDomWktPdfJsAppManifest extends AppManifestAbstract {
@@ -36,6 +37,7 @@ public class ExampleDomWktPdfJsAppManifest extends AppManifestAbstract {
         )
         .withAdditionalServices(
                 HomePageProvider.class,
+                DomainAppFixtureScriptsSpecProvider.class,
                 // necessary because of ISIS-1710
                 PasswordEncryptionServiceUsingJBcrypt.class,
                 PermissionsEvaluationServiceAllowBeatsVeto.class

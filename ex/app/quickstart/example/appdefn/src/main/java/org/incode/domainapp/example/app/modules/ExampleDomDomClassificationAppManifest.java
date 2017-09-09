@@ -22,11 +22,15 @@ import org.incode.domainapp.example.dom.dom.classification.fixture.DemoObjectWit
 import org.incode.module.classification.dom.ClassificationModule;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
+import domainapp.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 
 public class ExampleDomDomClassificationAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
+
+            DemoObjectWithAtPath.class,
+            OtherObjectWithAtPath.class,
 
             ExampleDomModuleClassificationModule.class,
             ClassificationModule.class
@@ -37,6 +41,7 @@ public class ExampleDomDomClassificationAppManifest extends AppManifestAbstract 
         )
         .withAdditionalServices(
                 HomePageProvider.class,
+                DomainAppFixtureScriptsSpecProvider.class,
                 // necessary because of ISIS-1710
                 PasswordEncryptionServiceUsingJBcrypt.class,
                 PermissionsEvaluationServiceAllowBeatsVeto.class

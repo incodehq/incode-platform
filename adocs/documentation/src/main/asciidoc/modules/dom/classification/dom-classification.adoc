@@ -186,13 +186,11 @@ The module does _not_ prevent an `Applicability` from being removed, even if the
 
 == Screenshots
 
-[NOTE]
-====
-The screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
-====
+The following screenshots and code fragments show the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage].
 
-The module's functionality is demonstrated/tested using a demo app.
-This has a small hierarchy of app tenancies, namely "/" (global), "/ITA" (Italy)", "/FRA" (France) and two sub-tenancies of Italy and France, "/ITA/MIL" (Milan) and "/FRA/PAR" (Paris).
+Run using `org.incode.domainapp.example.app.modules.ExampleDomDomClssificationAppManifest`.
+
+This sets up a small hierarchy of app tenancies, namely "/" (global), "/ITA" (Italy)", "/FRA" (France) and two sub-tenancies of Italy and France, "/ITA/MIL" (Milan) and "/FRA/PAR" (Paris).
 
 There are two separate domain object types, `DemoObject` and `OtherObject`.
 There are five instances of each, in the various app tenancies.
@@ -206,8 +204,8 @@ The "Italian Colour" taxonomy on the other hand applies to both `DemoObject` and
 
 === Taxonomies (reference data)
 
-The screenshots below show the demo app's usage of the module.
-We start by installing the demo fixture data:
+Home page when run the app:
+
 
 image::{_imagesdir}010-run-fixture-script.png[width="600px",link="{_imagesdir}010-run-fixture-script.png"]
 
@@ -354,13 +352,7 @@ image::{_imagesdir}120-demo-bar-classify-french-colours.png[width="600px",link="
 The "baz" `DemoObject` on the other hand starts off with no ``Classification``s.
 Because this has global app tenancy, only the "Sizes" `Taxonomy` applies:
 
-image::{_imagesdir}130-demo-baz-classify-only-size-available.png[width="600px",link="{_imagesdir}130-demo-baz-classify-only-size-available.png"]
-
-
-
-We can also view the `OtherObject` instances:
-
-image::{_imagesdir}140-view-others.png[width="600px",link="{_imagesdir}140-view-others.png"]
+image::{_imagesdir}130-demo-baz-global-classify.png[width="600px",link="{_imagesdir}130-demo-baz-global-classify.png"]
 
 
 
@@ -397,6 +389,11 @@ If the name or ordinal are changed then the fully qualified name/ordinal are aut
 
 image::{_imagesdir}200-change-name-ref-sorting-ordinal.png[width="600px",link="{_imagesdir}200-change-name-ref-sorting-ordinal.png"]
 
+[NOTE]
+====
+(As of 1.15.0), the `name` and `reference` properties can only be modified if the global `isis.objects.editing` is set to `true`.
+The `sortingOrdinal`, however, is always editable.
+====
 
 
 

@@ -23,6 +23,7 @@ import org.incode.module.country.fixture.StatesRefData;
 import org.incode.module.country.fixture.teardown.CountryModule_tearDown;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
+import domainapp.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 
 public class ExampleDomDomCountryAppManifest extends AppManifestAbstract {
@@ -39,6 +40,7 @@ public class ExampleDomDomCountryAppManifest extends AppManifestAbstract {
         )
         .withAdditionalServices(
                 HomePageProvider.class,
+                DomainAppFixtureScriptsSpecProvider.class,
                 // necessary because of ISIS-1710
                 PasswordEncryptionServiceUsingJBcrypt.class,
                 PermissionsEvaluationServiceAllowBeatsVeto.class

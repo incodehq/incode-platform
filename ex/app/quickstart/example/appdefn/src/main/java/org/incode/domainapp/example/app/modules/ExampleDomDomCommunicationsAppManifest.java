@@ -26,6 +26,7 @@ import org.incode.module.docrendering.freemarker.dom.FreemarkerDocRenderingModul
 import org.incode.module.document.dom.DocumentModule;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
+import domainapp.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 
 public class ExampleDomDomCommunicationsAppManifest extends AppManifestAbstract {
@@ -45,6 +46,7 @@ public class ExampleDomDomCommunicationsAppManifest extends AppManifestAbstract 
         )
         .withAdditionalServices(
                 HomePageProvider.class,
+                DomainAppFixtureScriptsSpecProvider.class,
                 // necessary because of ISIS-1710
                 PasswordEncryptionServiceUsingJBcrypt.class,
                 PermissionsEvaluationServiceAllowBeatsVeto.class

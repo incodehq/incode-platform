@@ -20,6 +20,7 @@ import org.incode.domainapp.example.dom.dom.tags.dom.demo.DemoTaggableObjectMenu
 import org.incode.domainapp.example.dom.dom.tags.fixture.DemoTaggableObject_withTags_recreate3;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
+import domainapp.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 
 public class ExampleDomDomTagAppManifest extends AppManifestAbstract {
@@ -36,6 +37,7 @@ public class ExampleDomDomTagAppManifest extends AppManifestAbstract {
         )
         .withAdditionalServices(
                 HomePageProvider.class,
+                DomainAppFixtureScriptsSpecProvider.class,
                 // necessary because of ISIS-1710
                 PasswordEncryptionServiceUsingJBcrypt.class,
                 PermissionsEvaluationServiceAllowBeatsVeto.class

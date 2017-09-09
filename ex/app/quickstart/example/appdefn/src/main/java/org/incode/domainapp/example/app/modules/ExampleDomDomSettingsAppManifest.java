@@ -21,6 +21,7 @@ import org.incode.domainapp.example.dom.dom.settings.ExampleDomModuleSettingsMod
 import org.incode.domainapp.example.dom.dom.settings.fixture.ApplicationSetting_and_UserSetting_recreate5;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
+import domainapp.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 
 public class ExampleDomDomSettingsAppManifest extends AppManifestAbstract {
@@ -36,6 +37,7 @@ public class ExampleDomDomSettingsAppManifest extends AppManifestAbstract {
         )
         .withAdditionalServices(
                 HomePageProvider.class,
+                DomainAppFixtureScriptsSpecProvider.class,
                 // necessary because of ISIS-1710
                 PasswordEncryptionServiceUsingJBcrypt.class,
                 PermissionsEvaluationServiceAllowBeatsVeto.class
