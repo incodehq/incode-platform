@@ -28,6 +28,9 @@
         <incode-asciidoctor-extension-monotree.version>0.0.2</incode-asciidoctor-extension-monotree.version>
         <incode-asciidoctor-extension-improvethisdoc.version>0.0.4</incode-asciidoctor-extension-improvethisdoc.version>
 
+        <incode-asciidoctor-extension-improvethisdoc.organisation>incodehq</incode-asciidoctor-extension-improvethisdoc.organisation>
+        <incode-asciidoctor-extension-improvethisdoc.repo>incode-platform</incode-asciidoctor-extension-improvethisdoc.repo>
+
         <jruby.version>9.1.8.0</jruby.version>
 
         <build.dir>${project.basedir}/target/site</build.dir>
