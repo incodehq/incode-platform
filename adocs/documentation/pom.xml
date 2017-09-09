@@ -28,8 +28,6 @@
         <incode-asciidoctor-extension-monotree.version>0.0.2</incode-asciidoctor-extension-monotree.version>
         <incode-asciidoctor-extension-improvethisdoc.version>0.0.4</incode-asciidoctor-extension-improvethisdoc.version>
 
-        <incode-asciidoctor-extension-improvethisdoc.organisation>incodehq</incode-asciidoctor-extension-improvethisdoc.organisation>
-        <incode-asciidoctor-extension-improvethisdoc.repo>incode-platform</incode-asciidoctor-extension-improvethisdoc.repo>
 
         <jruby.version>9.1.8.0</jruby.version>
 
@@ -163,8 +161,8 @@
 
                                         <improvethisdoc.rootDir>/adocs/documentation</improvethisdoc.rootDir>
                                         <improvethisdoc.srcDir>/src/main/asciidoc</improvethisdoc.srcDir>
-                                        <improvethisdoc.organisation>apache</improvethisdoc.organisation>
-                                        <improvethisdoc.repo>isis</improvethisdoc.repo>
+                                        <improvethisdoc.organisation>incodehq</improvethisdoc.organisation>
+                                        <improvethisdoc.repo>incode-platform</improvethisdoc.repo>
                                         <improvethisdoc.branch>master</improvethisdoc.branch>
                                         <improvethisdoc.label>Edit</improvethisdoc.label>
                                     </attributes>
