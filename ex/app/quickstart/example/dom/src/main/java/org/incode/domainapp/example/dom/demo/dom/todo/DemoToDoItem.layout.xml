@@ -15,7 +15,7 @@
         </bs3:col>
     </bs3:row>
     <bs3:row>
-        <bs3:col span="6">
+        <bs3:col span="4">
             <cpt:fieldSet name="General" id="general">
                 <cpt:property id="description"/>
                 <cpt:property id="category"/>
@@ -37,23 +37,38 @@
             </cpt:fieldSet>
 
         </bs3:col>
-        <bs3:col span="6">
-            <cpt:fieldSet name="Priority" id="priority">
-                <cpt:property id="dueBy"/>
-            </cpt:fieldSet>
-            <cpt:fieldSet name="Other" id="other" unreferencedProperties="true">
-                <cpt:property id="cost">
-                    <cpt:action id="updateCost" position="BELOW"/>
-                </cpt:property>
-                <cpt:property id="notes"/>
-                <cpt:property id="attachment"/>
-            </cpt:fieldSet>
-        </bs3:col>
-        <bs3:col span="6" unreferencedCollections="true">
-            <cpt:collection id="dependencies">
-                <cpt:action id="add"/>
-                <cpt:action id="remove"/>
-            </cpt:collection>
+        <bs3:col span="8">
+            <bs3:row>
+                <bs3:col span="6">
+                    <cpt:fieldSet name="Priority" id="priority">
+                        <cpt:property id="dueBy"/>
+                    </cpt:fieldSet>
+                    <cpt:fieldSet name="Cost">
+                        <cpt:property id="cost">
+                            <cpt:action id="updateCost" position="BELOW"/>
+                        </cpt:property>
+                        <cpt:property id="previousCost"/>
+                    </cpt:fieldSet>
+                </bs3:col>
+                <bs3:col span="6">
+                    <cpt:fieldSet name="Other" id="other" unreferencedProperties="true">
+                        <cpt:property id="notes"/>
+                        <cpt:property id="attachment"/>
+                    </cpt:fieldSet>
+                </bs3:col>
+            </bs3:row>
+            <bs3:row>
+                <bs3:col span="12">
+                    <cpt:collection id="dependencies" defaultView="table">
+                        <cpt:action id="add"/>
+                        <cpt:action id="remove"/>
+                    </cpt:collection>
+                </bs3:col>
+            </bs3:row>
         </bs3:col>
     </bs3:row>
+    <bs3:row>
+        <bs3:col span="12" unreferencedCollections="true"/>
+    </bs3:row>
+
 </bs3:grid>
