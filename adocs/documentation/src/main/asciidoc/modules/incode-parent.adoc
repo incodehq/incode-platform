@@ -3,11 +3,10 @@
 :_imagesdir: images/
 :generate_pdf:
 
-TODO: to update
+This module defines a standard parent POM that can be used as a parent for applications that use the Incode Platform modules.
 
-
-This module defines a standard parent POM to use for various Incode applications and modules.
 Its primary purpose is to make it easy to use a set up link:https://github.com/odavid/maven-plugins[maven mixin]s within child POMs; specifically to hold the required `<pluginManagement>` so that versions of plugins are locked down.
+The xref:../quickstart/quickstart.adoc#[quickstart app] inherits from this module.
 
 See below for details of the maven mixins so configured.
 
@@ -17,10 +16,10 @@ See below for details of the maven mixins so configured.
 This parent POM defines `<properties>` and `<pluginManagement>` for the plugins defined in the following maven mixins:
 
 
-[width="100%",cols="^1,^1,2,4m",options="header"]
+[width="100%",cols="^2a,^1m,4a,8m",options="header"]
 |====================
 ^|Module
-^|Version
+^|Ver.
 ^|Description
 ^|Mixin to add
 
@@ -121,7 +120,7 @@ To configure:
 <parent>
     <groupId>org.incode</groupId>
     <artifactId>incode-parent</artifactId>
-    <version>1.14.0</version>
+    <version>1.15.0</version>
 </parent>
 ----
 +
@@ -157,12 +156,7 @@ This has the effect of defining a number of `<properties>` (eg `${mavenmixin-sur
     </plugins>
 </build>
 ----
-<1> add in mixin reference here.
-
-[TIP]
-====
-Just copy-n-paste from the fourth column of the above table,
-====
+<1> add in mixin reference here - just copy-n-paste from the fourth column of the above table,
 
 For example, to enable the https://github.com/danhaywood/java-mavenmixin-surefire[surefire] mixin, just add:
 
