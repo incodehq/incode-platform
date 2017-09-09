@@ -32,15 +32,15 @@
 
         <build.dir>${project.basedir}/target/site</build.dir>
 
-        <platform-site-content.dir>../../../incode-platform-site/content</platform-site-content.dir>
-        <platform-site-search.dir>../../../incode-platform-site/search</platform-site-search.dir>
-        <message>updating content (built from adocs/documentation in isis.git repo)</message>
+        <platform-site-content.dir>../../../incodehq.github.io/content</platform-site-content.dir>
+        <platform-site-search.dir>../../../incodehq.github.io/search</platform-site-search.dir>
+        <message>updating content (built from adocs/documentation in incodehq/incodehq.github.io repo)</message>
     </properties>
 
     <scm>
-        <connection>scm:git:https://git-wip-us.apache.org/repos/asf/isis.git</connection>
-        <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/isis.git</developerConnection>
-        <url>https://git-wip-us.apache.org/repos/asf/isis.git</url>
+        <connection>scm:git:https://github.com/incodehq/incode-platform.git</connection>
+        <developerConnection>scm:git:https://github.com/incodehq/incode-platform.git</developerConnection>
+        <url>https://github.com/incodehq/incode-platform</url>
         <tag>HEAD</tag>
     </scm>
 
