@@ -22,18 +22,12 @@ The module provides a subclass of the `BackgroundCommandExecution` class (in Isi
 
 == Screenshots
 
-[NOTE]
-====
-The screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
-====
+The module's functionality can be explored by running the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage] using the `org.incode.domainapp.example.app.modules.ExampleDomSpiAuditAppManifest`.
 
-The following screenshots show an example app's usage of the module.
-
-=== Installing the Fixture Data
-
-Install some sample fixture data:
+A home page is displayed when the app is run:
 
 image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
+
 
 
 === Commands
@@ -41,6 +35,7 @@ image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-
 Commands can be associated with any object (as a polymorphic association utilizing the `BookmarkService`), and so the demo app lists the commands associated with the example entity:
 
 image::{_imagesdir}020-example-object.png[width="600px",link="{_imagesdir}020-example-object.png"]
+
 
 
 
@@ -74,6 +69,13 @@ image::{_imagesdir}050-change-name-result.png[width="600px",link="{_imagesdir}05
 identifying the action, captures the target and action arguments, also timings and user:
 
 image::{_imagesdir}060-change-name-command-persisted.png[width="600px",link="{_imagesdir}060-change-name-command-persisted.png"]
+
+
+[NOTE]
+====
+The remaining screenshots below *do* demonstrate (some of) the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
+====
+
 
 
 === Background Commands using the Background Service
