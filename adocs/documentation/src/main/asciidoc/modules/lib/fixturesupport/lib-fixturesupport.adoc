@@ -178,6 +178,14 @@ None known at this time.
 
 == Dependencies
 
-Other than Apache Isis, this module has no dependencies.
 
+[source,bash]
+----
+mvn dependency:list -o -pl modules/lib/fixturesupport/impl -D excludeTransitive=true
+----
 
+which, excluding Apache Isis itself, returns no direct compile/runtime dependencies.
+
+From the Incode Platform it uses:
+
+* xref:../../lib/base/lib-base.adoc#[base library] module

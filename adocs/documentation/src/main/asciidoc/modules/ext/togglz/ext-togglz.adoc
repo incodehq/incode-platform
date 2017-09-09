@@ -5,7 +5,7 @@
 :generate_pdf:
 :toc:
 
-This module (`isis-module-togglz`) provides an integration with http://www.togglz.org[Togglz] to provide a http://martinfowler.com/bliki/FeatureToggle.html[feature toggle] capability.
+This module (`isis-module-togglz`) provides an integration with link:http://www.togglz.org[Togglz] to provide a http://martinfowler.com/bliki/FeatureToggle.html[feature toggle] capability.
 
 Courtesy of Togglz, this integration has an embedded console and has support for integration testing through a custom JUnit rule.
 
@@ -367,8 +367,26 @@ None known at this time.
 
 == Dependencies
 
-TODO: dependencies to complete
 
+[source,bash]
+----
+mvn dependency:list -o -pl modules/ext/togglz/impl -D excludeTransitive=true
+----
 
-This service uses the Isis Addons' xref:../../dom/settings/dom-settings.adoc#[settings subdomain] module for feature persistence.
+which, excluding Apache Isis itself, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+com.google.code.gson:gson:jar:2.3.1:compile
+org.apache.geronimo.specs:geronimo-servlet_3.0_spec:jar:1.0
+org.togglz:togglz-servlet:jar:2.1.0.Final
+org.togglz:togglz-console:jar:2.1.0.Final
+org.togglz:togglz-core:jar:2.1.0.Final
+----
+
+For further details on 3rd-party dependencies, see:
+
+* link:http://www.togglz.org[Togglz]
+
+The xref:../../quickstart/quickstart.adoc#[quickstart app] uses xref:../../dom/settings/dom-settings.adoc#[settings subdomain] module for feature persistence.
 

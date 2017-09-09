@@ -67,7 +67,26 @@ None known at this time.
 
 
 
+
+== Related Modules
+
+See also the xref:../../lib/excel/lib-excel.adoc#[Excel library] module, which provides programmatic ability to export or import objects to/from an Excel spreadsheet.
+
+
+
 == Dependencies
+
+
+[source,bash]
+----
+mvn dependency:list -o -pl modules/dom/alias/impl -D excludeTransitive=true
+----
+
+which, excluding Apache Isis itself, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+----
 
 In addition to Apache Isis, this component depends on:
 
@@ -75,7 +94,3 @@ In addition to Apache Isis, this component depends on:
 * `org.apache.poi:poi-ooxml` (ASL v2.0 License)
 * `org.apache.poi:poi-ooxml-schemas` (ASL v2.0 License)
 
-
-== Related Modules
-
-See also the xref:../../lib/excel/lib-excel.adoc#[Excel library] module, which provides programmatic ability to export or import objects to/from an Excel spreadsheet.

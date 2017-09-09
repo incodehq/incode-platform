@@ -292,3 +292,18 @@ In addition to Apache Isis, this module also depends upon:
 This dependency is considered optional because it merely provides a supporting utility class (`AddExchangeHeaders`).
 
 
+== Dependencies
+
+Other than Apache Isis, this module has no other dependencies.
+
+
+[source,bash]
+----
+mvn dependency:list -o -pl modules/dom/alias/impl -D excludeTransitive=true
+----
+
+which, excluding Apache Isis itself, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+----

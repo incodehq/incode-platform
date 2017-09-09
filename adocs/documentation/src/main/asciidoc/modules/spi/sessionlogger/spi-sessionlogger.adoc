@@ -179,14 +179,27 @@ The Restful Objects viewer currently does not support this service.
 
 
 
+
 == Dependencies
 
-This module has no dependencies other than Apache Isis.
+Other than Apache Isis, this module has no other dependencies.
 
+
+[source,bash]
+----
+mvn dependency:list -o -pl modules/dom/alias/impl -D excludeTransitive=true
+----
+
+which, excluding Apache Isis itself, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+----
 
 
 == Related Modules/Services
 
 There is some overlap with the`AuditingService3` API, which audits changes to entities by end-users.
 Implementations of this service are referenced by the http://www.isisaddons.org[Isis Add-ons] website.
+
 

@@ -605,5 +605,13 @@ None known at this time.
 
 == Dependencies
 
-Other than Apache Isis, this module has no dependencies.
+[source,bash]
+----
+mvn dependency:list -o -pl modules/lib/poly/impl -D excludeTransitive=true
+----
 
+which, excluding Apache Isis itself, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+----

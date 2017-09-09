@@ -50,4 +50,15 @@ None known at this time.
 
 == Dependencies
 
-This module has no dependencies.
+[source,bash]
+----
+mvn dependency:list -o -pl modules/lib/base/impl -D excludeTransitive=true
+----
+
+which, excluding Apache Isis itself, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+org.apache.commons:commons-lang3:jar:3.1
+----
+

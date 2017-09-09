@@ -436,7 +436,12 @@ app shows how a view model can be used as a work-around.
 
 == Dependencies
 
-The module uses icons from link:https://icons8.com/[icons8].
-Other than Apache Isis, there are no other dependencies.
+[source,bash]
+----
+mvn dependency:list -o -pl modules/dom/alias/impl -D excludeTransitive=true
+----
 
+which, excluding the Apache Isis modules, returns no direct compile/runtime dependencies.
+
+The module _does_ use icons from link:https://icons8.com/[icons8].
 

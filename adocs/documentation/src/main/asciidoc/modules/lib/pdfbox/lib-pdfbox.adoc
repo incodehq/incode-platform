@@ -124,3 +124,13 @@ In addition to Apache Isis, this module depends upon:
 
 
 
+[source,bash]
+----
+mvn dependency:list -o -pl modules/lib/pdfbox/impl -D excludeTransitive=true
+----
+
+which, excluding Apache Isis itself, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+----

@@ -409,10 +409,6 @@ None known at this time.
 
 
 
-== Dependencies
-
-Other than Apache Isis, this module has no other dependencies.
-
 
 == Related Modules/Services
 
@@ -427,3 +423,20 @@ There are some similarities between publishing to auditing, but the publishing s
 
 If the all these services are configured - such that commands, audit entries and published events are all persisted, then the `transactionId` that is common to all enables seamless navigation between each.
 (This is implemented through contributed actions/properties/collections; `Command` implements the `HasTransactionId` interface in Isis' applib, and it is this interface that each module has services that contribute to).
+
+
+== Dependencies
+
+Other than Apache Isis, this module has no other dependencies.
+
+
+[source,bash]
+----
+mvn dependency:list -o -pl modules/dom/alias/impl -D excludeTransitive=true
+----
+
+which, excluding Apache Isis itself, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+----

@@ -135,5 +135,21 @@ None known at this time.
 
 == Dependencies
 
-TODO: dependencies to complete
+[source,bash]
+----
+mvn dependency:list -o -pl modules/ext/quartz/impl -D excludeTransitive=true
+----
+
+which, excluding the Incode Platform and Apache Isis modules, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+org.quartz-scheduler:quartz:jar:2.2.1
+org.quartz-scheduler:quartz-jobs:jar:2.2.1
+----
+
+
+For further details on 3rd-party dependencies, see:
+
+* link:http://www.quartz-scheduler.org/[Quartz]
 

@@ -1217,5 +1217,17 @@ Thus, setting to `postgres` will activate `DocumentAbstract-postgres.orm` and to
 
 === Dependencies
 
-The module uses icons from link:https://icons8.com/[icons8].
-There are other no third-party dependencies.
+[source,bash]
+----
+mvn dependency:list -o -pl modules/dom/document/impl -D excludeTransitive=true
+----
+
+which, excluding the Incode Platform and Apache Isis modules, returns no direct compile/runtime dependencies.
+
+From the Incode Platform it uses:
+
+* xref:../../lib/base/lib-base.adoc#[base library] module
+* xref:../../dom/command/spi-command.adoc#[command spi] module
+
+The module also uses icons from link:https://icons8.com/[icons8].
+

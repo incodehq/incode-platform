@@ -503,5 +503,22 @@ None known at this time.
 
 == Dependencies
 
-The module uses icons from link:https://icons8.com/[icons8].
-Other than Apache Isis, there are no other dependencies.
+[source,bash]
+----
+mvn dependency:list -o -pl modules/dom/commchannel/impl -D excludeTransitive=true
+----
+
+which, excluding Incode Platform and Apache Isis modules, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+com.google.code.gson:gson:jar:2.3.1
+org.apache.commons:commons-lang3:jar:3.1
+----
+
+From the Incode Platform it uses:
+
+* xref:../../wkt/gmap3/wkt-gmap3.adoc#[gmap3 wicket component].
+
+The module _also_ uses icons from link:https://icons8.com/[icons8].
+

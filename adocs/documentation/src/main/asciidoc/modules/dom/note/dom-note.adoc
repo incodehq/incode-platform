@@ -389,10 +389,18 @@ None known at this time.
 
 === Dependencies
 
-Depends upon these other modules of the Incode Platform:
+[source,bash]
+----
+mvn dependency:list -o -pl modules/dom/note/impl -D excludeTransitive=true
+----
+
+which, excluding the Incode Platform and Apache Isis modules, returns no direct compile/runtime dependencies.
+
+From the Incode Platform it uses:
 
 * xref:../../lib/poly/lib-poly.adoc#[poly library]
 * xref:../../wkt/fullcalendar2/wkt-fullcalendar2.adoc#[fullcalendar2 wicket component]
 
 The module also uses icons from link:https://icons8.com/[icons8].
-There are other no third-party dependencies.
+
+

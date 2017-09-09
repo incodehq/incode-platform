@@ -163,3 +163,14 @@ None known at this time.
 Other than Apache Isis, this module also depends upon:
 
 * link:https://github.com/opensagres/xdocreport[XDocReport]
+
+[source,bash]
+----
+mvn dependency:list -o -pl modules/lib/xdocreport/impl -D excludeTransitive=true
+----
+
+which, excluding Apache Isis itself, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+----

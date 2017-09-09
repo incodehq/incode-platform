@@ -89,3 +89,16 @@ None known at this time.
 == Dependencies
 
 TODO: dependencies to update.
+
+[source,bash]
+----
+mvn dependency:list -o -pl modules/lib/docrendering-freemarker/impl -D excludeTransitive=true
+----
+
+which, excluding Apache Isis itself, returns no direct compile/runtime dependencies:
+
+From the Incode Platform it uses:
+
+* xref:../../lib/base/lib-base.adoc#[base library] module
+* xref:../../lib/freemarker/lib-freemarker.adoc#[freemarker library] module
+* xref:../../dom/document/dom-document.adoc#[document generic subdomain] module

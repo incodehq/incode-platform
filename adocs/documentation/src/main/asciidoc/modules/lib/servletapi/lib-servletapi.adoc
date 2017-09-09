@@ -25,7 +25,7 @@ A home page is displayed when the app is run:
 image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
 
 
-The demo object has all of the various "provider" domain serviecs injected into it.
+The demo object has all of the various "provider" domain services injected into it.
 It uses the `ServletContextProvider` and the `HttpServletRequestProvider` services to simply show the servlet context name and user's locale:
 
 image::{_imagesdir}020-servlet-and-request.png[width="600px",link="{_imagesdir}020-servlet-and-request.png"]
@@ -128,3 +128,13 @@ The module implementation depends on Apache Isis, and in particular on Apache Is
 
 This means that it cannot be used within domain objects invoked from the REST API (Restful Objects viewer).
 
+[source,bash]
+----
+mvn dependency:list -o -pl modules/lib/servletapi/impl -D excludeTransitive=true
+----
+
+which, excluding Apache Isis itself, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+----

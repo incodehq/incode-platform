@@ -179,7 +179,13 @@ None known at this time.
 
 === Dependencies
 
-The module uses icons from link:https://icons8.com/[icons8].
-There are other no third-party dependencies.
+[source,bash]
+----
+mvn dependency:list -o -pl modules/dom/settings/impl -D excludeTransitive=true
+----
+
+which, excluding the Apache Isis modules, returns no direct compile/runtime dependencies.
+
+The module _does_ use icons from link:https://icons8.com/[icons8].
 
 

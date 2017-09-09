@@ -220,11 +220,58 @@ Each `Communication` relates to one or more ``CommunicationChannel``s by way of 
 [[__dom-communications_commchannel-mixins]]
 == (CommunicationChannel) Contributions
 
-TODO: to document
+The abstract `CommunicationChannelOwner_newChannelContributions` domain service contributes:
 
-The `CommunicationChannelOwner_newChannelContributions` ...
+* `communicationChannels` collection
+* `newPostalAddress` action
+* `newEmailAddress` action
+* `newPhoneOrFax` action
 
-The `CommunicationChannelOwner_emailAddressTitles` & `CommunicationChannelOwner_phoneNumberTitles` ...
+To use, the consuming application should create a subclass, for example:
+
+[source,java]
+----
+@DomainService(nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY)
+public class DemoAppCommunicationChannelOwner_newChannelContributions extends
+        CommunicationChannelOwner_newChannelContributions {
+
+    public DemoAppCommunicationChannelOwner_newChannelContributions() {
+        super(DemoAppCommunicationChannelOwner_newChannelContributions.class);
+    }
+}
+----
+
+
+The `CommunicationChannelOwner_emailAddressTitles` & `CommunicationChannelOwner_phoneNumberTitles` are abstract mixins that contribute properties for use in tables; these summarise (any and all of the) emails or phone numbers that a `CommunicationChannelOwner` might have, using a specified separator.
+
+For example:
+
+[source,java]
+----
+@Mixin(method = "prop")
+public class DemoObjectWithNotes_emailAddress extends
+        CommunicationChannelOwner_emailAddressTitles {
+    public DemoObjectWithNotes_emailAddress(
+            final DemoObjectWithNotes demoCustomer) {
+        super(demoCustomer, " | ");
+    }
+}
+----
+
+and
+
+[source,java]
+----
+@Mixin(method = "prop")
+public class DemoObjectWithNotes_phoneNumbers extends
+        CommunicationChannelOwner_phoneNumberTitles {
+    public DemoObjectWithNotes_phoneNumbers(
+            final DemoObjectWithNotes demoCustomer) {
+        super(demoCustomer, " | ");
+    }
+}
+----
+
 
 
 
@@ -415,8 +462,24 @@ None known at this time.
 
 == Dependencies
 
-The module uses icons from link:https://icons8.com/[icons8].
-Other than Apache Isis, there are no other dependencies.
 
 
+[source,bash]
+----
+mvn dependency:list -o -pl modules/dom/communications/impl -D excludeTransitive=true
+----
 
+which, excluding the Incode Platform and Apache Isis modules, returns no direct compile/runtime dependencies.
+
+From the Incode Platform it uses:
+
+* xref:../../lib/base/lib-base.adoc#[base library] module
+* xref:../../lib/poly/lib-poly.adoc#[poly library] module
+* xref:../../lib/pdfbox/lib-pdfbox.adoc#[pdfbox library] module
+* xref:../../dom/country/dom-country.adoc#[country generic subdomain] module
+* xref:../../dom/document/dom-document.adoc#[document generic subdomain] module
+* xref:../../dom/command/spi-command.adoc#[command spi] module
+* xref:../../spi/security/spi-security.adoc#[security spi] module
+
+
+The module _also_ uses icons from link:https://icons8.com/[icons8].

@@ -756,3 +756,18 @@ In addition to Apache Isis, this module depends on:
 * `org.mindrot:jbcrypt` (Apache-like license); only required if the `PasswordEncryptionServiceUsingJBcrypt` service is configured.
 
 
+== Dependencies
+
+Other than Apache Isis, this module has no other dependencies.
+
+
+[source,bash]
+----
+mvn dependency:list -o -pl modules/dom/alias/impl -D excludeTransitive=true
+----
+
+which, excluding Apache Isis itself, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+----

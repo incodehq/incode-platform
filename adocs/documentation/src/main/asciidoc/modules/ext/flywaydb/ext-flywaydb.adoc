@@ -533,6 +533,20 @@ None known at this time.
 
 == Dependencies
 
-In addition to Apache Isis, this module depends upon:
 
-* link:https://flywaydb.org[Flyway]
+[source,bash]
+----
+mvn dependency:list -o -pl modules/ext/flywaydb/impl -D excludeTransitive=true
+----
+
+which, excluding Apache Isis itself, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+org.flywaydb:flyway-core:jar:4.0.3
+----
+
+For further details on 3rd-party dependencies, see:
+
+* link:https://flywaydb.org[Flyway DB]
+

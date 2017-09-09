@@ -120,3 +120,15 @@ None known at this time.
 TODO: dependencies to update
 
 
+[source,bash]
+----
+mvn dependency:list -o -pl modules/lib/docrendering-xdocreport/impl -D excludeTransitive=true
+----
+
+which, excluding the Incode Platform and Apache Isis itself, returns no direct compile/runtime dependencies.
+
+From the Incode Platform it uses:
+
+* xref:../../lib/base/lib-base.adoc#[base library] module
+* xref:../../lib/xdocreport/lib-xdocreport.adoc#[freemarker library] module
+* xref:../../dom/document/dom-document.adoc#[document generic subdomain] module

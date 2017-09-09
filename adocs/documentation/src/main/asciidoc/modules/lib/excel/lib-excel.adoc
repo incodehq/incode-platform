@@ -530,3 +530,21 @@ In addition to Apache Isis, this module depends on:
 
 See also the xref:../../wkt/excel/wkt-excel.adoc#[Excel wicket component], which makes every collection downloadable as an Excel spreadsheet.
 
+
+[source,bash]
+----
+mvn dependency:list -o -pl modules/lib/excel/impl -D excludeTransitive=true
+----
+
+which, excluding Apache Isis itself, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+org.apache.poi:poi:jar:3.9
+org.apache.poi:poi-ooxml-schemas:jar:3.9
+org.apache.poi:poi-ooxml:jar:3.9
+----
+
+For further details on 3rd-party dependencies, see:
+
+* link:http://poi.apache.org[Apache POI]

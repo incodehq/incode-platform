@@ -281,6 +281,19 @@ This also means that the component should never be rendered in a table ("compact
 
 == Dependencies
 
+
+[source,bash]
+----
+mvn dependency:list -o -pl modules/dom/alias/impl -D excludeTransitive=true
+----
+
+which, excluding Apache Isis itself, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+----
+
+
 In addition to Apache Isis, this component depends on:
 
 TODO: dependencies to update

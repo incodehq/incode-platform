@@ -327,8 +327,21 @@ None known at this time.
 
 == Dependencies
 
-In addition to Apache Isis, this module depends on:
 
-* `org.docx4j:docx4j` (ASL v2.0 License)
-* `org.jdom:jdom2` (ASL v2.0 License)
-    
+[source,bash]
+----
+mvn dependency:list -o -pl modules/lib/docx/impl -D excludeTransitive=true
+----
+
+which, excluding Apache Isis itself, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+org.jdom:jdom2:jar:2.0.5
+org.docx4j:docx4j:jar:3.2.1
+----
+
+For further details on 3rd-party dependencies, see:
+
+* link:http://www.jdom.org[JDOM]
+* link:https://www.docx4java.org/[docx4j]

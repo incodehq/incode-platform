@@ -111,6 +111,17 @@ None known at this time.
 
 == Dependencies
 
+[source,bash]
+----
+mvn dependency:list -o -pl modules/dom/alias/impl -D excludeTransitive=true
+----
+
+which, excluding Apache Isis itself, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+----
+
 In addition to Apache Isis, this component depends on:
 
 * link:http://summernote.org[Summernote editor].

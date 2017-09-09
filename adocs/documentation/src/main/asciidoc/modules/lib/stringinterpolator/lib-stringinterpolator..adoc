@@ -283,3 +283,13 @@ In addition to Apache Isis, this module depends on:
 
 TODO: dependencies to update
 
+[source,bash]
+----
+mvn dependency:list -o -pl modules/lib/stringinterpolator/impl -D excludeTransitive=true
+----
+
+which, excluding Apache Isis itself, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+----

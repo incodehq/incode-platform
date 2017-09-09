@@ -230,10 +230,6 @@ Note that Apache Isis automatically performs a flush prior to any repository cal
 
 
 
-== Dependencies
-
-Other than Apache Isis, this module has no other dependencies.
-
 
 
 
@@ -260,3 +256,19 @@ The `CommandService` and `PublishingService` are optional; as with the `Auditing
 If all these services are configured - such that commands, audit entries and published events are all persisted, then the `transactionId` that is common to all enables seamless navigation between each.
 (This is implemented through contributed actions/properties/collections; `AuditEntry` implements the `HasTransactionId` interface in Isis' applib, and it is this interface that each module has services that contribute to).
 
+
+
+== Dependencies
+
+Other than Apache Isis, this module has no other dependencies.
+
+[source,bash]
+----
+mvn dependency:list -o -pl modules/dom/alias/impl -D excludeTransitive=true
+----
+
+which, excluding Apache Isis itself, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+----
