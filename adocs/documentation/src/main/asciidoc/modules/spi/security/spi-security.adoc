@@ -157,15 +157,16 @@ ApplicationMemberType <-left- ApplicationFeature
 
 == Screenshots
 
+The module's functionality can be explored by running the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage] using the `org.incode.domainapp.example.app.modules.ExampleDomSpiSecurityAppManifest`.
+
+A home page is displayed when the app is run:
+
+image::{_imagesdir}000-home-page.png[width="600px",link="{_imagesdir}000-home-page.png"]
+
 [NOTE]
 ====
-The screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
+The remaining screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
 ====
-
-
-The following screenshots show an example app's usage of the module, which includes all the services and entities (users, roles, permissions etc) provided by the module itself.
-
-
 
 === Automatically Seeds Roles
 

@@ -11,25 +11,26 @@ Typically this will be to a relational database; the module's `SessionLogEntry` 
 
 == Screenshots
 
-[NOTE]
-====
-The screenshots below *do* demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).
-====
+The module's functionality can be explored by running the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage] using the `org.incode.domainapp.example.app.modules.ExampleDomSpiSessionLoggerAppManifest`.
+
+A home page is displayed when the app is run:
+
+image::{_imagesdir}000-home-page.png[width="600px",link="{_imagesdir}000-home-page.png"]
+
+
 
 The sessionlogger module automatically creates log entries whenever a user logs on or logs out.
+The home page shows all session log entries, so shows one initially for the current user.
+
+
 The currently logged on users of the application (that is: those for whom there is a valid non-expired HTTP session) can be found from the activity menu:
+
 
 image::{_imagesdir}010-active-sessions.png[width="600px",link="{_imagesdir}010-active-sessions.png"]
 
-
-In the screenshot below there are two currently active users:
+If on another browser another user logs in, then this will show two currently active users:
 
 image::{_imagesdir}020-active-sessions-listed.png[width="600px",link="{_imagesdir}020-active-sessions-listed.png"]
-
-
-The module also allows current and previously active sessions to be searched for:
-
-image::{_imagesdir}030-find-sessions.png[width="600px",link="{_imagesdir}030-find-sessions.png"]
 
 
 The list of sessions can optionally be filtered by user and date range:
