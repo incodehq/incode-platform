@@ -1,6 +1,7 @@
 package org.incode.domainapp.example.app.modules;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -12,10 +13,10 @@ import org.apache.isis.applib.annotation.Nature;
 
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
-import org.isisaddons.module.settings.dom.ApplicationSetting;
 import org.isisaddons.module.settings.dom.ApplicationSettingsServiceRW;
-import org.isisaddons.module.settings.dom.UserSetting;
 import org.isisaddons.module.settings.dom.UserSettingsServiceRW;
+import org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo;
+import org.isisaddons.module.settings.dom.jdo.UserSettingJdo;
 
 import org.incode.domainapp.example.dom.dom.settings.ExampleDomModuleSettingsModule;
 import org.incode.domainapp.example.dom.dom.settings.fixture.ApplicationSetting_and_UserSetting_recreate5;
@@ -67,13 +68,21 @@ public class ExampleDomDomSettingsAppManifest extends AppManifestAbstract {
         public String title() { return "Home page"; }
 
         @CollectionLayout(defaultView = "table")
-        public List<ApplicationSetting> getApplicationSettings() {
-            return applicationSettingsServiceRW.listAll();
+        public List<ApplicationSettingJdo> getApplicationSettings() {
+            return applicationSettingsServiceRW.listAll()
+                    .stream()
+                    .filter(ApplicationSettingJdo.class::isInstance)
+                    .map(ApplicationSettingJdo.class::cast)
+                    .collect(Collectors.toList());
         }
 
         @CollectionLayout(defaultView = "table")
-        public List<UserSetting> getUserSettings() {
-            return userSettingsServiceRW.listAll();
+        public List<UserSettingJdo> getUserSettings() {
+            return userSettingsServiceRW.listAll()
+                    .stream()
+                    .filter(UserSettingJdo.class::isInstance)
+                    .map(UserSettingJdo.class::cast)
+                    .collect(Collectors.toList());
         }
 
         @Inject

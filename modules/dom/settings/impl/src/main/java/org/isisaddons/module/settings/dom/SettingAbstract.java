@@ -16,9 +16,7 @@ import org.apache.isis.applib.annotation.Where;
 /**
  * Convenience class to implement {@link Setting}.
  */
-@DomainObject(
-        editing = Editing.DISABLED
-)
+@DomainObject(editing = Editing.DISABLED)
 public abstract class SettingAbstract implements Setting {
 
     public final static DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd");
@@ -27,21 +25,15 @@ public abstract class SettingAbstract implements Setting {
     public abstract String getKey();
 
 
-    @Property(
-            optionality = Optionality.OPTIONAL
-    )
+    @Property(optionality = Optionality.OPTIONAL)
     public abstract String getDescription();
 
     public abstract SettingType getType();
 
-    // //////////////////////////////////////
 
-    @Property(
-            hidden = Where.OBJECT_FORMS
-    )
+    @Property(hidden = Where.OBJECT_FORMS)
     public abstract String getValueRaw();
 
-    // //////////////////////////////////////
 
     @Programmatic
     public String valueAsString() {
@@ -49,7 +41,6 @@ public abstract class SettingAbstract implements Setting {
         return getValueRaw();
     }
 
-    // //////////////////////////////////////
 
     @Programmatic
     public LocalDate valueAsLocalDate() {
@@ -61,7 +52,6 @@ public abstract class SettingAbstract implements Setting {
         return LocalDate.parse(getValueRaw(), DATE_FORMATTER);
     }
 
-    // //////////////////////////////////////
 
     @Programmatic
     public Integer valueAsInt() {
@@ -73,8 +63,7 @@ public abstract class SettingAbstract implements Setting {
         return Integer.parseInt(getValueRaw());
     }
 
-    // //////////////////////////////////////
-    
+
     @Programmatic
     public Long valueAsLong() {
         ensure(SettingType.LONG);
@@ -85,8 +74,7 @@ public abstract class SettingAbstract implements Setting {
         return Long.parseLong(getValueRaw());
     }
     
-    // //////////////////////////////////////
-    
+
     @Programmatic
     public Boolean valueAsBoolean() {
         ensure(SettingType.BOOLEAN);
@@ -97,75 +85,48 @@ public abstract class SettingAbstract implements Setting {
         return Boolean.parseBoolean(getValueRaw());
     }
 
-    // //////////////////////////////////////
-    
-    @Property(
-            hidden = Where.ALL_TABLES
-    )
+
+    @Property(hidden = Where.ALL_TABLES)
     public String getValueAsString() {
-        return getValueRaw();
+        return hideValueAsString() ? null : getValueRaw();
     }
     public boolean hideValueAsString() {
         return typeIsNot(SettingType.STRING);
     }
 
-    // //////////////////////////////////////
-
-    @Property(
-            hidden = Where.ALL_TABLES
-    )
+    @Property(hidden = Where.ALL_TABLES)
     public LocalDate getValueAsLocalDate() {
-        return parseValueAsLocalDate();
+        return hideValueAsLocalDate() ? null : parseValueAsLocalDate();
     }
     public boolean hideValueAsLocalDate() {
         return typeIsNot(SettingType.LOCAL_DATE);
     }
     
-    // //////////////////////////////////////
-
-
-    @Property(
-            hidden = Where.ALL_TABLES
-    )
+    @Property(hidden = Where.ALL_TABLES)
     public Integer getValueAsInt() {
-        return parseValueAsInt();
+        return hideValueAsInt() ? null : parseValueAsInt();
     }
     public boolean hideValueAsInt() {
         return typeIsNot(SettingType.INT);
     }
     
-    // //////////////////////////////////////
-
-
-
-    @Property(
-            hidden = Where.ALL_TABLES
-    )
+    @Property(hidden = Where.ALL_TABLES)
     public Long getValueAsLong() {
-        return parseValueAsLong();
+        return hideValueAsLong() ? null : parseValueAsLong();
     }
     public boolean hideValueAsLong() {
         return typeIsNot(SettingType.LONG);
     }
 
-    // //////////////////////////////////////
-
-
-
-    @Property(
-            hidden = Where.ALL_TABLES
-    )
-    @PropertyLayout(
-            named = "Value"
-    )
+    @Property(hidden = Where.ALL_TABLES)
+    @PropertyLayout(named = "Value")
     public Boolean getValueAsBoolean() {
-        return parseValueAsBoolean();
+        return hideValueAsBoolean() ? null : parseValueAsBoolean();
     }
     public boolean hideValueAsBoolean() {
         return typeIsNot(SettingType.BOOLEAN);
     }
 
-    // //////////////////////////////////////
 
     private void ensure(SettingType settingType) {
         if(typeIsNot(settingType)) {
