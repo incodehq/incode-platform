@@ -64,8 +64,6 @@ public Paraname8DemoObject create(
 
 === Compiler plugin
 
-TODO: if using mavenmixins...
-
 In your project's root `pom.xml`, update the `maven-compiler-plugin` definition (in `<build>/<pluginManagement>/<plugins>`) to compile with JDK8, and specify the `-parameters` argument:
 
 [source,xml]
@@ -91,6 +89,13 @@ In your project's root `pom.xml`, update the `maven-compiler-plugin` definition 
     </executions>
 </plugin>
 ----
+
+[TIP]
+====
+If using mavenmixins (as the xref:../../incode-parent.adoc#[parent pom] configures), then note that the link:https://github.com/danhaywood/java-mavenmixin-standard/blob/master/pom.xml[standard] mavenmixin already configures the `maven-compiler-plugin` for this, so no further configuration is necessary.
+====
+
+
 
 
 === Classpath

@@ -7,7 +7,7 @@
 
 This module (`isis-module-publishmq`) provides an implementation of Apache Isis' link:http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_persistence-layer-spi_PublisherService[`PublisherService`] SPI that submits an XML representation of an link:https://github.com/apache/isis/blob/master/core/schema/src/main/resources/org/apache/isis/schema/ixn/ixn.xsd[`MemberInteractionDto`]s to an link:http://activemq.apache.org[ActiveMQ] queue.
 
-The xref:../../../quickstart/quickstart-with-example-usage.adoc#[example app] also demonstrates how this member interaction event (action invocation or property edit) can be routed using link:http://camel.apache.org[Apache Camel], whereby the payload is enriched using Apache Isis' own link:http://isis.apache.org/guides/ug.html#_ug_restfulobjects-viewer[Restful Objects] viewer (obtaining additional information);
+The xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart] app also demonstrates how this member interaction event (action invocation or property edit) can be routed using link:http://camel.apache.org[Apache Camel], whereby the payload is enriched using Apache Isis' own link:http://isis.apache.org/guides/ug.html#_ug_restfulobjects-viewer[Restful Objects] viewer (obtaining additional information);
 
 The diagram below shows the moving parts:
 
@@ -85,11 +85,28 @@ image::images/048-published-event.png[width="600px",link="images/048-published-e
 
 You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements.
 
-The module itself consists of submodules:
+The module itself consists of several submodules:
 
-* `dom-servicespi`, containing the `PublishingService` SPI implementation
-* `dom-camel`, that provides utility class to help route messages.
-* `dom`, parent module
+* the `publishmq-dom-servicespi` submodule
+
++
+which contains the `PublishingService` SPI implementation that actually publishes to an ActiveMQ queue
+
+* the (optional, but recommended) `publishmq-dom-jdo` submodule
+
++
+which allows published events to be persisted as `PublishedEvent` entities
+
+* the (optional) `publishmq-dom-camel` submodule
+
++
+which provides utility class to help route messages
+
+* the (optional) `publishmq-dom-statusclient`
+
++
+that provides utility classes to log status messages with the originating system via the RestfulObjects viewer's REST API.
+
 
 
 
@@ -141,8 +158,11 @@ Update your classpath:
 </dependencies>
 ----
 
-TODO: update these words which xref the example app...  In the example app all the Camel routing can be found in the `-fixture-routing` module.
 
+[TIP]
+====
+Note that the xref:../../../quickstart/quickstart-with-embedded-camel.adoc#[quickstart with embedded camel] configures this already, so use as a guide if need be.
+====
 
 
 Check for later releases by searching http://search.maven.org/#search|ga|1|isis-module-publishmq-dom[Maven Central Repo].
@@ -175,9 +195,7 @@ You might also need to specify the package for any new services that you have wr
 
 Configure ActiveMQ so that the publishing service implementation can post to a queue called `memberInteractionsQueue`.
 
-TODO: update these words xref the example app
-
-In the example app this is done using Spring (link:webapp/src/main/resources/activemq-config.xml[activemq-config.xml]):
+In the xref:../../../quickstart/quickstart-with-embedded-camel.adoc#[quickstart with embedded camel] app this is done using Spring (link:webapp/src/main/resources/activemq-config.xml[activemq-config.xml]):
 +
 [source,xml]
 ----
@@ -221,9 +239,7 @@ This is bootstrapped in the `web.xml`:
 
 == Canonical DTOs
 
-TODO: update these words xref the example app
-
-The example app contains a few other little tricks that may be useful if you are looking to deploy a similar architecture for your own application.
+The xref:../../../quickstart/quickstart-with-embedded-camel.adoc#[quickstart with embedded camel] app contains a few other little tricks that may be useful if you are looking to deploy a similar architecture for your own application.
 
 
 === Generate Canonical DTO referencing Apache Isis' DTOs
@@ -260,14 +276,6 @@ updateExternalSystemAdapter.endpointAddress=http://localhost:8080/soap/ExternalS
 ----
 
 If necessary the location of this config file can be overridden; see link:http://isis.apache.org/guides/ug.html#_ug_deployment_externalized-configuration[this topic] in the Apache Isis user guide.
-
-
-=== WSDL to Java
-
-TODO: update link below
-
-Similar to the way in which the .xsd schemas are converted to Java, `wsdl2java` is used to convert the fake server's WSDL to Java stubs.
-This WSDL can be found link:externalsystemadapter/wsdl/src/main/resources/org/isisaddons/module/publishmq/externalsystemadapter/wsdl/DemoObject.wsdl[here]; the `pom.xml` configuration can be found link:https://github.com/isisaddons/isis-module-publishmq/blob/master/externalsystemadapter/wsdlgen/pom.xml#L76[here].
 
 
 

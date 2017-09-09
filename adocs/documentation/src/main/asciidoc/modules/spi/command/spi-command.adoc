@@ -280,79 +280,9 @@ The implementation is responsible for persisting the command such that it can be
 
 === BackgroundCommandExecutionFromBackgroundCommandServiceJdo
 
-TODO: xref the quartz module instead
-
 The `BackgroundCommandExecutionFromBackgroundCommandServiceJdo` utility class ultimately extends from Isis Core's `AbstractIsisSessionTemplate`, responsible for setting up an Isis session and obtaining commands.
 
-For example, a Quartz scheduler can be configured to run a job that uses this utility class:
-
-[source,java]
-----
-public class BackgroundCommandExecutionQuartzJob extends AbstractIsisQuartzJob {
-    public BackgroundCommandExecutionQuartzJob() {
-        super(new BackgroundCommandExecutionFromBackgroundCommandServiceJdo());
-    }
-}
-----
-
-where `AbstractIsisQuartzJob` is the following boilerplate:
-
-[source,java]
-----
-public class AbstractIsisQuartzJob implements Job {
-
-    public static enum ConcurrentInstancesPolicy {
-        SINGLE_INSTANCE_ONLY,
-        MULTIPLE_INSTANCES
-    }
-    
-    private final AbstractIsisSessionTemplate isisRunnable;
-
-    private final ConcurrentInstancesPolicy concurrentInstancesPolicy;
-    private boolean executing;
-
-    public AbstractIsisQuartzJob(AbstractIsisSessionTemplate isisRunnable) {
-        this(isisRunnable, ConcurrentInstancesPolicy.SINGLE_INSTANCE_ONLY);
-    }
-    public AbstractIsisQuartzJob(
-            AbstractIsisSessionTemplate isisRunnable, 
-            ConcurrentInstancesPolicy concurrentInstancesPolicy) {
-        this.isisRunnable = isisRunnable;
-        this.concurrentInstancesPolicy = concurrentInstancesPolicy;
-    }
-
-    /**
-     * Sets up an {@link IsisSession} then delegates to the 
-     * {@link #doExecute(JobExecutionContext) hook}. 
-     */
-    public void execute(final JobExecutionContext context) throws JobExecutionException {
-        final AuthenticationSession authSession = newAuthSession(context);
-        try {
-            if(executing &&
-               concurrentInstancesPolicy == ConcurrentInstancesPolicy.SINGLE_INSTANCE_ONLY) {
-                return;
-            }
-            executing = true;
-
-            isisRunnable.execute(authSession, context);
-        } finally {
-            executing = false;
-        }
-    }
-
-    AuthenticationSession newAuthSession(JobExecutionContext context) {
-        String user = getKey(context, SchedulerConstants.USER_KEY);
-        String rolesStr = getKey(context, SchedulerConstants.ROLES_KEY);
-        String[] roles = Iterables.toArray(
-                Splitter.on(",").split(rolesStr), String.class);
-        return new SimpleSession(user, roles);
-    }
-
-    String getKey(JobExecutionContext context, String key) {
-        return context.getMergedJobDataMap().getString(key);
-    }
-}
-----
+The xref:../../ext/quartz/ext-quartz.adoc#[quartz extension] module can be configured to run a job that uses this utility class.
 
 
 == Supporting Services and Mixins

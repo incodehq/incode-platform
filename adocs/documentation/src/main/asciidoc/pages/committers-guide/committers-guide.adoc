@@ -6,27 +6,39 @@
 :generate_pdf:
 
 
-== How to Release
+This guide contains procedures to be performed by committers/maintainers of this codebase.
 
-TODO: to update, copied verbatim from original READMEs
 
-== Recreating the archetype
+== Release process
 
+This section describes the steps to release the platform to Maven central.
+There are four stages:
+
+* release the maven mixins
+
+* release the modules
+
+* recreate the quickstart archetype (referencing the just-released modules)
+
+* release the quickstart archetype
+
+The release process uses Sonatype's OSS support (see
+link:http://central.sonatype.org/pages/apache-maven.html[user guide]); our thanks to them for providing this service.
+
+
+=== Prereqs
+
+First, set the `$INCODEREL` environment variable to the release.
+Generally speaking this should correspond to the version of Apache Isis.
 
 [source,bash]
 ----
 export $INCODEREL=1.15.0
-cd example/application/quickstart
-sh ../../../scripts/recreate-archetype.sh
 ----
-
-
 
 
 ==  Maven deploy notes
 
-Only the `dom` module is deployed, and is done so using Sonatype's OSS support (see
-http://central.sonatype.org/pages/apache-maven.html[user guide]).
 
 === Release to Sonatype's Snapshot Repo
 
@@ -109,4 +121,15 @@ before trying again.  Note that in the `dom`'s `pom.xml` the `nexus-staging-mave
 to set this to `false` if debugging an issue.
 
 According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update http://search.maven.org[search].
+
+
+
+=== Recreating the archetype
+
+[source,bash]
+----
+export $INCODEREL=1.15.0
+cd ex/app/quickstart
+sh ../../../scripts/recreate-archetype.sh
+----
 
