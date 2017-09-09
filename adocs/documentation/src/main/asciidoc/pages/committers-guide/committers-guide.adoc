@@ -37,49 +37,9 @@ export $INCODEREL=1.15.0
 ----
 
 
-==  Maven deploy notes
 
 
-=== Release to Sonatype's Snapshot Repo
-
-To deploy a snapshot, use:
-
-[source]
-----
-pushd dom
-mvn clean deploy
-popd
-----
-
-The artifacts should be available in Sonatype's
-https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
-
-
-=== Release an Interim Build
-
-If you have commit access to this project (or a fork of your own) then you can create interim releases using the `interim-release.sh` script.
-
-The idea is that this will - in a new branch - update the `dom/pom.xml` with a timestamped version (eg `1.14.0.20170227-0738`).
-It then pushes the branch (and a tag) to the specified remote.
-
-A CI server such as Jenkins can monitor the branches matching the wildcard `origin/interim/*` and create a build.
-These artifacts can then be published to a snapshot repository.
-
-For example:
-
-[source]
-----
-sh interim-release.sh 1.14.0 origin
-----
-
-where
-
-* `1.14.0` is the base release
-* `origin` is the name of the remote to which you have permissions to write to.
-
-
-
-=== Release to Maven Central
+== Release to Maven Central
 
 The `release.sh` script automates the release process. It performs the following:
 
@@ -132,4 +92,47 @@ export $INCODEREL=1.15.0
 cd ex/app/quickstart
 sh ../../../scripts/recreate-archetype.sh
 ----
+
+
+
+
+== Release an Interim Build
+
+If you have commit access to this project (or a fork of your own) then you can create interim releases using the `interim-release.sh` script.
+
+The idea is that this will - in a new branch - update the artifacts with a timestamped version (eg `1.15.0.20170927-0738`).
+It then pushes the branch (and a tag) to the specified remote.
+
+A CI server such as Jenkins can monitor the branches matching the wildcard `origin/interim/*` and create a build.
+These artifacts can then be published to a snapshot repository.
+
+For example:
+
+[source]
+----
+sh interim-release.sh 1.15.0 origin
+----
+
+where
+
+* `1.14.0` is the base release
+* `origin` is the name of the remote to which you have permissions to write to.
+
+
+
+
+== Release to Sonatype's Snapshot Repo
+
+To deploy a snapshot, use:
+
+[source]
+----
+pushd modules
+mvn clean deploy
+popd
+----
+
+The artifacts should be available in Sonatype's
+https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
+
 
