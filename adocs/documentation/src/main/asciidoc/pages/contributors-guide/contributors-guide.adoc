@@ -6,7 +6,7 @@
 :generate_pdf:
 
 
-TODO: fix up
+This guide provides guidance to those looking to build the platform from source, either to contribute back pull requests and enhancements, or just to fork for their own purposes.
 
 
 [[__contributors-guide_building]]
@@ -14,22 +14,13 @@ TODO: fix up
 
 The platform must be built in the following order:
 
-* maven mixins
+* `mavenmixins/` - maven mixins, which is depended on by:
 
-+
-which is depended on by:
+* `modules/` - modules, which is depended on by:
 
-* modules
+* `ex/app/quickstart/` - quickstart example app, which is used as the template for:
 
-+
-which is depended on by:
-
-* quickstart example app
-
-+
-which is used as the template for:
-
-* archetype
+* `ex/app/archetype/` - quickstart archetype
 
 
 [[__contributors-guide_]]
@@ -45,8 +36,7 @@ mvn clean install -Dskip.isis-validate -Dskip.isis-swagger -o
 
 === Building Modules
 
-
-==== Building all modules
+To build all modules, use:
 
 [source,bash]
 ----
@@ -60,79 +50,10 @@ Running in parallel requires disabling the Apache Isis Maven plugin (it is curre
 mvn clean install -o -T1C -Dskip.isis-validate -Dskip.isis-swagger
 ----
 
-==== Building an individual module
-
-
-[source,bash]
-----
-mvn clean install  -D dom-alias -Dskip.default -o
-----
-
+To build an individual module, use:
 
 [source,bash]
 ----
 mvn clean install  -D dom-alias -Dskip.default -o -Dskip.isis-validate -Dskip.isis-swagger
 ----
-
-
-TODO: sort out, material below copied verbatim from original READMEs
-
-
-
-
-== Forking the repo
-
-If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is
-structured as follows:
-
-* `pom.xml` - parent pom
-* `app` - the demo webapp's `AppManifest`
-* `dom` - the module implementation, depends on Isis applib
-* `fixture` - fixtures, holding a sample domain objects and fixture scripts; depends on `dom`
-* `integtests` - integration tests for the module; depends on `fixture`
-* `webapp` - demo webapp (see above screenshots); depends on `dom` and `fixture`
-
-Only the `dom` project is released to Maven Central Repo.  The versions of the other modules are purposely left at
-`0.0.1-SNAPSHOT` because they are not intended to be released.
-
-Note that the module uses link:https://projectlombok.org/[Project Lombok].  To compile the code within your IDE you will
-therefore require the appropriate Lombok plugin.  See the link:https://projectlombok.org/download.html[Lombok download page] for more information.
-
-
-== Using the `-SNAPSHOT` version
-
-If you want to use the current snapshot (development), then specify the appropriate `-SNAPSHOT` version, eg:
-
-[source,xml]
-----
-<version>1.14.0-SNAPSHOT</version>
-----
-
-Also, add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).
-We suggest defining the repository in a `<profile>`:
-
-
-[source,xml]
-----
-<profile>
-    <id>cloudbees-snapshots</id>
-    <activation>
-        <activeByDefault>true</activeByDefault>
-    </activation>
-    <repositories>
-        <repository>
-            <id>snapshots-repo</id>
-            <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-</profile>
-----
-
-
 

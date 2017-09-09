@@ -15,6 +15,12 @@ This is work-in-progress.
 
 
 
+== Build process
+
+To build the platform, see the xref:contributors-guide.adoc#[contributors' guide].
+
+
+
 == Release process
 
 This section describes the steps to release the platform to Maven central.
