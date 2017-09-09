@@ -177,6 +177,7 @@ public class DemoToDoItem implements Comparable<DemoToDoItem>, CalendarEventable
     @Getter @Setter
     @javax.jdo.annotations.Column(allowsNull="true", length=400)
     private String notes;
+    @Property(editing = Editing.ENABLED)
     @SummernoteEditor(height = 100, maxHeight = 300)
     public String getNotes() {
         return notes;
