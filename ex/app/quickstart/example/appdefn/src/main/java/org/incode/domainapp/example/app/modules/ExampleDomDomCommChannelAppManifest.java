@@ -12,6 +12,9 @@ import org.apache.isis.applib.annotation.Nature;
 
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
+import org.isisaddons.wicket.gmap3.cpt.applib.Gmap3ApplibModule;
+import org.isisaddons.wicket.gmap3.cpt.service.Gmap3ServiceModule;
+import org.isisaddons.wicket.gmap3.cpt.ui.Gmap3UiModule;
 
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
@@ -29,7 +32,14 @@ public class ExampleDomDomCommChannelAppManifest extends AppManifestAbstract {
 
             DemoObject.class,
             ExampleDomModuleCommChannelModule.class,
-            CommChannelModule.class
+            CommChannelModule.class,
+
+            Gmap3ApplibModule.class,
+            Gmap3UiModule.class,
+            Gmap3ServiceModule.class
+
+            // also add:
+            // -Disis.viewer.wicket.gmap3.apiKey=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
         )
         .withFixtureScripts(
                 DemoObject_withCommChannels_recreate3.class,
@@ -41,7 +51,9 @@ public class ExampleDomDomCommChannelAppManifest extends AppManifestAbstract {
                 // necessary because of ISIS-1710
                 PasswordEncryptionServiceUsingJBcrypt.class,
                 PermissionsEvaluationServiceAllowBeatsVeto.class
-        );
+        )    // override as required
+
+    ;
 
     public ExampleDomDomCommChannelAppManifest() {
         super(BUILDER);
