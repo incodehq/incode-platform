@@ -149,21 +149,33 @@ public class MyEntity {
 
 == Dependencies
 
+Maven can report modules dependencies using:
+
 [source,bash]
 ----
-mvn dependency:list -o -pl modules/dom/alias/impl -D excludeTransitive=true
+mvn dependency:list -o -pl modules/wkt/wickedcharts/impl -D excludeTransitive=true
 ----
 
 which, excluding Apache Isis itself, returns these compile/runtime dependencies:
 
 [source,bash]
 ----
+commons-codec:commons-codec:jar:1.7
+com.googlecode.wicked-charts:highcharts-wrapper:jar:2.0.1
+com.googlecode.wicked-charts:wicked-charts-wicket7:jar:2.0.1
 ----
 
-In addition to Apache Isis, this component depends on:
+For further details on 3rd-party dependencies, see:
 
-* `commons-codec:commons-codec` (ASL v2.0 License)
-* link:https://code.google.com/p/wicked-charts/[Wicked Charts], `com.googlecode.wicked-charts:wicked-charts-wicket6` (ASL v2.0 License)
-* link:http://www.highcharts.com/[Highcharts], http://highcharts.com/license (*commercial license required unless personal/open source project*)
+* link:https://commons.apache.org/proper/commons-codec/[Apache Commons] (Codec)
+* link:https://code.google.com/p/wicked-charts/[Wicked Charts]
+
+It also includes a Javascript dependency on link:http://www.highcharts.com/[Highcharts].
+
+[IMPORTANT]
+====
+Note that the link:http://highcharts.com/license[Highchart License] is commercial and must be purchased (unless in use for a personal/open source project).
+====
+
 
 

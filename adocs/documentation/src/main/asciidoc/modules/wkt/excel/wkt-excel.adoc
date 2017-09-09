@@ -76,21 +76,23 @@ See also the xref:../../lib/excel/lib-excel.adoc#[Excel library] module, which p
 
 == Dependencies
 
+Maven can report modules dependencies using:
+
 
 [source,bash]
 ----
-mvn dependency:list -o -pl modules/dom/alias/impl -D excludeTransitive=true
+mvn dependency:list -o -pl modules/wkt/excel/impl -D excludeTransitive=true
 ----
 
 which, excluding Apache Isis itself, returns these compile/runtime dependencies:
 
 [source,bash]
 ----
+org.apache.poi:poi:jar:3.9
+org.apache.poi:poi-ooxml-schemas:jar:3.9
+org.apache.poi:poi-ooxml:jar:3.9
 ----
 
-In addition to Apache Isis, this component depends on:
+For further details on 3rd-party dependencies, see:
 
-* `org.apache.poi:poi` (ASL v2.0 License), link:http://poi.apache.org[Apache POI]
-* `org.apache.poi:poi-ooxml` (ASL v2.0 License)
-* `org.apache.poi:poi-ooxml-schemas` (ASL v2.0 License)
-
+* link:http://poi.apache.org[Apache POI]

@@ -436,6 +436,8 @@ app shows how a view model can be used as a work-around.
 
 == Dependencies
 
+Maven can report modules dependencies using:
+
 [source,bash]
 ----
 mvn dependency:list -o -pl modules/dom/alias/impl -D excludeTransitive=true

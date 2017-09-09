@@ -150,16 +150,12 @@ None known at this time.
 
 == Dependencies
 
-Other than Apache Isis, this module has no other dependencies.
-
-
-[source,bash]
-----
-mvn dependency:list -o -pl modules/dom/alias/impl -D excludeTransitive=true
-----
-
-which, excluding Apache Isis itself, returns these compile/runtime dependencies:
+Maven can report modules dependencies using:
 
 [source,bash]
 ----
+mvn dependency:list -o -pl modules/mml/paraname8/impl -D excludeTransitive=true
 ----
+
+which, excluding Apache Isis itself, returns no direct compile/runtime dependencies.
+

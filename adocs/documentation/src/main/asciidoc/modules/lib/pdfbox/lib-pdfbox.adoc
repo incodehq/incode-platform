@@ -116,12 +116,7 @@ This in part is because Apache Isis' `Blob` datatype is just a wrapper around a 
 
 === Dependencies
 
-In addition to Apache Isis, this module depends upon:
-
-* link:https://pdfbox.apache.org[Apache PDFBox]
-
-* (optionally) link:http://www.bouncycastle.org/[Legion of the Bouncy Castle], to handle encrypted PDFs.
-
+Maven can report modules dependencies using:
 
 
 [source,bash]
@@ -133,4 +128,13 @@ which, excluding Apache Isis itself, returns these compile/runtime dependencies:
 
 [source,bash]
 ----
+org.javassist:javassist:jar:3.19.0-GA
+org.apache.pdfbox:pdfbox:jar:2.0.5
 ----
+
+For further details on 3rd-party dependencies, see:
+
+* link:https://pdfbox.apache.org[Apache PDFBox]
+* link:http://jboss-javassist.github.io/javassist/[Javassist]
+* (optionally) link:http://www.bouncycastle.org/[Legion of the Bouncy Castle], to handle encrypted PDFs.
+

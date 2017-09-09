@@ -218,23 +218,30 @@ None known at this time.
 
 == Dependencies
 
+Maven can report modules dependencies using:
+
+
 [source,bash]
 ----
-mvn dependency:list -o -pl modules/dom/alias/impl -D excludeTransitive=true
+mvn dependency:list -o -pl modules/wkt/fullcalendar2/impl -D excludeTransitive=true
 ----
 
 which, excluding Apache Isis itself, returns these compile/runtime dependencies:
 
 [source,bash]
 ----
+net.ftlines.wicket-fullcalendar:wicket-fullcalendar-core:jar:2.2.0
 ----
 
 
+For further details on 3rd-party dependencies, see:
 
-In addition to Apache Isis, this component depends on:
+* link:https://github.com/42Lines/wicket-fullcalendar[42Lines/wicket-fullcalendar]
 
-* `net.ftlines.wicket-fullcalendar:wicket-fullcalendar-core` (ASL v2.0 License)
-* http://arshaw.com/fullcalendar/[http://arshaw.com/fullcalendar/] (MIT License)
-* http://jquery.com[http://jquery.com] (MIT License)
++
+In turn, this uses Javascript components:
+
+** http://arshaw.com/fullcalendar/[http://arshaw.com/fullcalendar/] (MIT License)
+** http://jquery.com[http://jquery.com] (MIT License)
 
 

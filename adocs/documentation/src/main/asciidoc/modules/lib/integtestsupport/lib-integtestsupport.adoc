@@ -42,15 +42,30 @@ None known at this time.
 
 == Dependencies
 
-Other than Apache Isis itself, this module has no direct compile/runtime dependencies.
+Maven can report modules dependencies using:
 
 [source,bash]
 ----
 mvn dependency:list -o -pl modules/lib/integtestsupport/impl -D excludeTransitive=true
 ----
 
-which, excluding Apache Isis itself, returns these compile/runtime dependencies:
+which, excluding Incode Platform and Apache Isis modules, returns these compile/runtime dependencies:
+
 
 [source,bash]
 ----
+junit:junit:jar:4.12:compile
+org.jmock:jmock:jar:2.6.0:compile
+org.jmock:jmock-junit4:jar:2.6.0:compile
+org.picocontainer:picocontainer:jar:2.15:compile
+org.reflections:reflections:jar:0.9.10:compile
+org.assertj:assertj-core:jar:3.6.2:compile
+com.danhaywood.java:danhaywood-java-assertjext:jar:0.1.0
 ----
+
+From the Incode Platform it uses:
+
+* xref:../../lib/base/lib-base.adoc#[base library] module
+* xref:../../lib/base/lib-fakedata.adoc#[fakedata library] module
+* xref:../../lib/base/lib-fixturesupport.adoc#[fixturesupport library] module
+

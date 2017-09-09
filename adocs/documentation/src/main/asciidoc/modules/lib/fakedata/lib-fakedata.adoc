@@ -262,6 +262,9 @@ None known at this time.
 
 == Dependencies
 
+Maven can report modules dependencies using:
+
+
 [source,bash]
 ----
 mvn dependency:list -o -pl modules/lib/fakedata/impl -D excludeTransitive=true

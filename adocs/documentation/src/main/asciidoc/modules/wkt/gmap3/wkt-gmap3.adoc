@@ -241,18 +241,35 @@ None known at this time.
 == Dependencies
 
 
+Maven can report modules dependencies using:
+
 [source,bash]
 ----
-mvn dependency:list -o -pl modules/dom/alias/impl -D excludeTransitive=true
+mvn dependency:list -o -pl modules/wkt/gmap3/impl -D excludeTransitive=true
 ----
 
 which, excluding Apache Isis itself, returns these compile/runtime dependencies:
 
 [source,bash]
 ----
+org.jdom:jdom:jar:2.0.2
+org.wicketstuff:wicketstuff-gmap3:jar:7.8.0
+org.apache.httpcomponents:httpclient:jar:4.5.2
 ----
+
+For further details on 3rd-party dependencies, see:
+
+* link:https://github.com/42Lines/wicket-fullcalendar[42Lines/wicket-fullcalendar]
+
 
 In addition to Apache Isis, this component depends on:
 
-* `org.wicketstuff:wicketstuff-gmap3` (ASL v2.0 License)
+* link:https://github.com/wicketstuff/core/tree/master/gmap3-parent[wicketstuff/core] (gmap3 component)
+
++
+which integrates the link:https://developers.google.com/maps/documentation/javascript/[Google Maps Javascript API]
+
+* link:http://www.jdom.org[JDOM]
+* link:http://httpcomponents.apache.org[Apache HttpComponents]
+
 

@@ -178,13 +178,15 @@ None known at this time.
 
 == Dependencies
 
+Maven can report modules dependencies using:
+
 
 [source,bash]
 ----
 mvn dependency:list -o -pl modules/lib/fixturesupport/impl -D excludeTransitive=true
 ----
 
-which, excluding Apache Isis itself, returns no direct compile/runtime dependencies.
+which, excluding Incode Platform and Apache Isis modules, returns no direct compile/runtime dependencies.
 
 From the Incode Platform it uses:
 

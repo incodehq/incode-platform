@@ -281,19 +281,24 @@ This also means that the component should never be rendered in a table ("compact
 
 == Dependencies
 
+Maven can report modules dependencies using:
 
 [source,bash]
 ----
-mvn dependency:list -o -pl modules/dom/alias/impl -D excludeTransitive=true
+mvn dependency:list -o -pl modules/wkt/pdfjs/impl -D excludeTransitive=true
 ----
 
 which, excluding Apache Isis itself, returns these compile/runtime dependencies:
 
 [source,bash]
 ----
+de.agilecoders.wicket:wicket-bootstrap-core:jar:0.10.16
 ----
 
+For further details on 3rd-party dependencies, see:
 
-In addition to Apache Isis, this component depends on:
+* link:https://github.com/l0rdn1kk0n/wicket-bootstrap[l0rdn1kk0n/wicket-bootstrap]
 
-TODO: dependencies to update
+It also includes a Javascript dependency on link:https://mozilla.github.io/pdf.js/[Mozilla PDF.js].
+
+

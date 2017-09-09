@@ -749,25 +749,29 @@ We have the following ideas for future features:
 
 
 
-== Dependencies
-
-In addition to Apache Isis, this module depends on:
-
-* `org.mindrot:jbcrypt` (Apache-like license); only required if the `PasswordEncryptionServiceUsingJBcrypt` service is configured.
-
 
 == Dependencies
 
-Other than Apache Isis, this module has no other dependencies.
+Maven can report modules dependencies using:
 
 
 [source,bash]
 ----
-mvn dependency:list -o -pl modules/dom/alias/impl -D excludeTransitive=true
+mvn dependency:list -o -pl modules/spi/security/impl -D excludeTransitive=true
 ----
 
 which, excluding Apache Isis itself, returns these compile/runtime dependencies:
 
 [source,bash]
 ----
+org.apache.shiro:shiro-core:jar:1.2.3
+org.mindrot:jbcrypt:jar:0.3m
 ----
+
+For further details on 3rd-party dependencies, see:
+
+* link:https://shiro.apache.org/[Apache Shiro]
+* link:http://www.mindrot.org/projects/jBCrypt/[jBCrypt]
+
++
+(Apache-like license); only required if the `PasswordEncryptionServiceUsingJBcrypt` service is configured.

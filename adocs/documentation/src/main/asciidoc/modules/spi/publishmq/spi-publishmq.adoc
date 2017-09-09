@@ -289,21 +289,124 @@ In addition to Apache Isis, this module also depends upon:
 
 * (optional) link:http://camel.apache.org[Camel] +
 +
-This dependency is considered optional because it merely provides a supporting utility class (`AddExchangeHeaders`).
 
 
 == Dependencies
 
-Other than Apache Isis, this module has no other dependencies.
+The publishmq module actually consists of four distinct submodules, which can be used to some extend independently.
 
+=== publishmq/servicespi
 
-[source,bash]
-----
-mvn dependency:list -o -pl modules/dom/alias/impl -D excludeTransitive=true
-----
-
-which, excluding Apache Isis itself, returns these compile/runtime dependencies:
+Maven can report modules dependencies of this submodule using:
 
 [source,bash]
 ----
+mvn dependency:list -o -pl modules/spi/publishmq/impl/servicespi -D excludeTransitive=true
 ----
+
+which, excluding Incode Platform and Apache Isis modules, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+org.apache.activemq:activemq-all:jar:5.11.1
+----
+
+For further details on 3rd-party dependencies, see:
+
+* link:http://activemq.apache.org[Apache ActiveMQ]
+
+
+
+=== publishmq/jdo
+
+This submodule can be considered optional (though its use _is_ recommended).
+If not included then published messages are simply not persisted as JDO entities.
+
+
+Maven can report modules dependencies of this submodule using:
+
+[source,bash]
+----
+mvn dependency:list -o -pl modules/spi/publishmq/impl/jdo -D excludeTransitive=true
+----
+
+which, excluding Incode Platform and Apache Isis modules, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+org.slf4j:slf4j-api:jar:1.7.21
+----
+
+From the Incode Platform it uses:
+
+* `publishmq/servicespi` submodule, above.
+
+
+
+For further details on 3rd-party dependencies, see:
+
+* link:https://www.slf4j.org/[Slf4J]
+
+
+
+
+=== publishmq/camel
+
+This submodule is considered optional because it merely provides a supporting utility class (`AddExchangeHeaders`).
+
+Maven can report modules dependencies of this submodule using:
+
+[source,bash]
+----
+mvn dependency:list -o -pl modules/spi/publishmq/impl/camel -D excludeTransitive=true
+----
+
+which, excluding Apache Isis modules, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+org.apache.camel:camel-core:jar:2.15.2
+org.apache.camel:camel-spring:jar:2.15.2
+org.apache.camel:camel-spring-javaconfig:jar:2.15.2
+org.apache.camel:camel-jms:jar:2.15.2
+----
+
+For further details on 3rd-party dependencies, see:
+
+* link:https://camel.apache.org/[Apache Camel]
+
+
+
+=== publishmq/statusclient
+
+This submodule is considered optional; it provides the mechanism for a beans within a Camel route to report status back to the originating system via the RestfulObjects viewer's REST API.
+
+[NOTE]
+====
+Using the status client requires the originating system to have configured `publishmq/jdo` to persist the status messages.
+====
+
+Maven can report modules dependencies of this submodule using:
+
+[source,bash]
+----
+mvn dependency:list -o -pl modules/spi/publishmq/impl/statusclient -D excludeTransitive=true
+----
+
+which, excluding Apache Isis modules, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+org.slf4j:slf4j-api:jar:1.7.21
+org.jboss.spec.javax.ws.rs:jboss-jaxrs-api_2.0_spec:jar:1.0.0.Final
+com.fasterxml.jackson.core:jackson-databind:jar:2.8.0
+----
+
+For further details on 3rd-party dependencies, see:
+
+* link:https://www.slf4j.org/[Slf4J]
+* link:https://github.com/FasterXML/jackson/[Jackson]
+
+
+
+

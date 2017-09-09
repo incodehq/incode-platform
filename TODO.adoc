@@ -1,5 +1,11 @@
 = TODO
 
+
+* remove TODOs
+
+* remove references to isisaddons.org or catalog.incode.org
+
+
 * publish website to platform.incode.org
 
 * update original isisaddons.org/catalog.incode.org + github repos, refer to the new platform

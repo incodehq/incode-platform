@@ -281,7 +281,7 @@ In addition to Apache Isis, this module depends on:
 
 == Related Modules/Services
 
-TODO: dependencies to update
+Maven can report modules dependencies using:
 
 [source,bash]
 ----
@@ -292,4 +292,11 @@ which, excluding Apache Isis itself, returns these compile/runtime dependencies:
 
 [source,bash]
 ----
+org.javassist:javassist:jar:3.19.0-GA
+ognl:ognl:jar:3.0.8
 ----
+
+For further details on 3rd-party dependencies, see:
+
+* link:https://github.com/jkuhnert/ognl[OGNL]
+* link:http://jboss-javassist.github.io/javassist/[Javassist]

@@ -43,8 +43,7 @@ None known at this time.
 
 == Dependencies
 
-Other than Apache Isis, this module has no other dependencies.
-
+Maven can report modules dependencies using:
 
 [source,bash]
 ----
@@ -55,4 +54,17 @@ which, excluding Apache Isis itself, returns these compile/runtime dependencies:
 
 [source,bash]
 ----
+junit:junit:jar:4.12
+org.jmock:jmock:jar:2.6.0
+org.jmock:jmock-junit4:jar:2.6.0:compile
+org.picocontainer:picocontainer:jar:2.15
+org.reflections:reflections:jar
+org.assertj:assertj-core:jar:3.6.2
+com.danhaywood.java:danhaywood-java-assertjext:jar:0.1.0
 ----
+
+From the Incode Platform it uses:
+
+* xref:../../lib/base/lib-base.adoc#[base library] module
+* xref:../../lib/base/lib-fakedata.adoc#[fakedata library] module
+

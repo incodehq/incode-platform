@@ -50,6 +50,9 @@ None known at this time.
 
 == Dependencies
 
+Maven can report modules dependencies using:
+
+
 [source,bash]
 ----
 mvn dependency:list -o -pl modules/lib/base/impl -D excludeTransitive=true

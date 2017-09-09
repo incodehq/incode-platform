@@ -124,9 +124,10 @@ None known at this time.
 
 == Dependencies
 
-The module implementation depends on Apache Isis, and in particular on Apache Isis' Wicket viewer.
 
-This means that it cannot be used within domain objects invoked from the REST API (Restful Objects viewer).
+Maven can report modules dependencies using:
+
+
 
 [source,bash]
 ----
@@ -137,4 +138,13 @@ which, excluding Apache Isis itself, returns these compile/runtime dependencies:
 
 [source,bash]
 ----
+org.apache.geronimo.specs:geronimo-servlet_3.0_spec:jar:1.0
+org.apache.wicket:wicket-core:jar:7.8.0
 ----
+
+The direct Wicket dependency is because the module implementation depends on Apache Isis, and in particular on Apache Isis' Wicket viewer.
+This means that it cannot be used within domain objects invoked from the REST API (Restful Objects viewer).
+
+For further details on 3rd-party dependencies, see:
+
+* link:https://wicket.apache.org[Apache Wicket]

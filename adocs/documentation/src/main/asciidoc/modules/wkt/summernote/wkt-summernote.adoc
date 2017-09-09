@@ -109,19 +109,26 @@ isis.reflector.facets.include=\
 None known at this time.
 
 
+
 == Dependencies
+
+Maven can report modules dependencies using:
+
 
 [source,bash]
 ----
-mvn dependency:list -o -pl modules/dom/alias/impl -D excludeTransitive=true
+mvn dependency:list -o -pl modules/wkt/summernote/impl -D excludeTransitive=true
 ----
 
 which, excluding Apache Isis itself, returns these compile/runtime dependencies:
 
 [source,bash]
 ----
+commons-codec:commons-codec:jar:1.7
 ----
 
-In addition to Apache Isis, this component depends on:
+For further details on 3rd-party dependencies, see:
 
-* link:http://summernote.org[Summernote editor].
+* link:https://commons.apache.org/proper/commons-codec/[Apache Commons] (Codec)
+
+It also includes a Javascript dependency on link:http://summernote.org[Summernote editor].

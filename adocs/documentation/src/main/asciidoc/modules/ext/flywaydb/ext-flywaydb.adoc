@@ -533,6 +533,8 @@ None known at this time.
 
 == Dependencies
 
+Maven can report modules dependencies using:
+
 
 [source,bash]
 ----

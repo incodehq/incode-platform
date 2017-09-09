@@ -260,15 +260,12 @@ If all these services are configured - such that commands, audit entries and pub
 
 == Dependencies
 
-Other than Apache Isis, this module has no other dependencies.
+Maven can report modules dependencies using:
 
 [source,bash]
 ----
-mvn dependency:list -o -pl modules/dom/alias/impl -D excludeTransitive=true
+mvn dependency:list -o -pl modules/spi/audit/impl -D excludeTransitive=true
 ----
 
-which, excluding Apache Isis itself, returns these compile/runtime dependencies:
+which, excluding Apache Isis itself, returns no direct compile/runtime dependencies.
 
-[source,bash]
-----
-----

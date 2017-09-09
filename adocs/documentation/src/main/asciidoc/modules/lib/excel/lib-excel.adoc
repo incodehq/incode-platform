@@ -515,21 +515,15 @@ None known at this time.
 
 
 
-== Dependencies
-
-In addition to Apache Isis, this module depends on:
-
-* `org.apache.poi:poi` (ASL v2.0 License)
-* `org.apache.poi:poi-ooxml` (ASL v2.0 License)
-* `org.apache.poi:poi-ooxml-schemas` (ASL v2.0 License)
-
-
-
-
 == Related Modules
 
 See also the xref:../../wkt/excel/wkt-excel.adoc#[Excel wicket component], which makes every collection downloadable as an Excel spreadsheet.
 
+
+
+== Dependencies
+
+Maven can report modules dependencies using:
 
 [source,bash]
 ----

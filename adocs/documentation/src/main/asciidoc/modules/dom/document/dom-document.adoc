@@ -1217,6 +1217,9 @@ Thus, setting to `postgres` will activate `DocumentAbstract-postgres.orm` and to
 
 === Dependencies
 
+Maven can report modules dependencies using:
+
+
 [source,bash]
 ----
 mvn dependency:list -o -pl modules/dom/document/impl -D excludeTransitive=true
