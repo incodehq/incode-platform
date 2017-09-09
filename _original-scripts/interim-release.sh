@@ -4,7 +4,7 @@ REMOTE=$2
 
 if [ -z "$VERSION_BASE" -o -z "$REMOTE" ]; then
     echo "usage: $(basename $0) [base version] [remote]"
-    echo "   eg: $(basename $0) 1.13.0 origin"
+    echo "   eg: $(basename $0) 1.15.0 origin"
     exit 1
 fi
 
@@ -20,9 +20,7 @@ echo "checking out new branch $BRANCH"
 git checkout -b "$BRANCH"
 
 echo "updating version in all pom.xml files..."
-pushd dom >/dev/null
 mvn versions:set -DnewVersion=$VERSION > /dev/null
-popd >/dev/null
 
 echo "Committing changes"
 git commit -am "bumping to $VERSION"

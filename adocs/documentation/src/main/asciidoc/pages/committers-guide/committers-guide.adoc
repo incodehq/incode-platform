@@ -8,6 +8,12 @@
 
 This guide contains procedures to be performed by committers/maintainers of this codebase.
 
+[NOTE]
+====
+This is work-in-progress.
+====
+
+
 
 == Release process
 
@@ -108,22 +114,24 @@ These artifacts can then be published to a snapshot repository.
 
 For example:
 
-[source]
+[source,bash]
 ----
+pushd modules
 sh interim-release.sh 1.15.0 origin
+popd
 ----
 
 where
 
-* `1.14.0` is the base release
+* `1.15.0` is the base release
 * `origin` is the name of the remote to which you have permissions to write to.
 
 
 
 
-== Release to Sonatype's Snapshot Repo
+== Release Snapshot
 
-To deploy a snapshot, use:
+To deploy a snapshot (to Sonatype's snapshot repo), use:
 
 [source]
 ----
@@ -134,5 +142,47 @@ popd
 
 The artifacts should be available in Sonatype's
 https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
+
+
+
+== Docs & website
+
+The website resides in the `adocs/documentation` directory:
+
+[source,bash]
+----
+pushd adocs/documentation
+sh preview-html.sh
+popd
+----
+
+
+=== Preview
+
+Typically, use:
+
+[source,bash]
+----
+sh preview-html.sh
+----
+
+This will build the HTML website and then start python webserver to browse.
+However, to save time the corresponding PDFs will not be created.
+
+For a full preview (including PDFs), use:
+
+[source,bash]
+----
+sh preview-pdf.sh
+----
+
+=== Publishing the website
+
+Use:
+
+[source,bash]
+----
+sh publish.sh
+----
 
 
