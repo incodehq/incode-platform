@@ -38,7 +38,7 @@ In the latter, a "supports" mixin property points back to the `Document` being s
 [[__dom-document_screenshots]]
 == Screenshots
 
-The module's functionality can be explored by running the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage] using the `org.incode.domainapp.example.app.modules.ExampleDomDocumentAppManifest`.
+The module's functionality can be explored by running the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage] using the `org.incode.domainapp.example.app.modules.ExampleDomDomDocumentAppManifest`.
 
 
 A home page is displayed when the app is run:

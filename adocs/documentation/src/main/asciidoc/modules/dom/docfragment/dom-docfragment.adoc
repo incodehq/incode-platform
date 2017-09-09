@@ -16,7 +16,7 @@ The result of the interpolation is a simple string; normally the calling object 
 
 == Screenshots
 
-The module's functionality can be explored by running the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage] using the `org.incode.domainapp.example.app.modules.ExampleDomDocFragmentAppManifest`.
+The module's functionality can be explored by running the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage] using the `org.incode.domainapp.example.app.modules.ExampleDomDomDocFragmentAppManifest`.
 
 The home page shows some sample ``DocFragment``s, along with some ``DemoCustomer`` and ``DemoInvoice`` domain objects that use the module:
 

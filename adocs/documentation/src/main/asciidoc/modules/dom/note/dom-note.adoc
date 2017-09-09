@@ -103,7 +103,7 @@ end note
 == Screenshots
 
 
-The module's functionality can be explored by running the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage] using the `org.incode.domainapp.example.app.modules.ExampleDomNoteAppManifest`.
+The module's functionality can be explored by running the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage] using the `org.incode.domainapp.example.app.modules.ExampleDomDomNoteAppManifest`.
 
 
 A home page is displayed when the app is run:

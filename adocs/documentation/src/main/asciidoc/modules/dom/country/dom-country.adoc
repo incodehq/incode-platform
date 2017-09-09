@@ -9,7 +9,13 @@ This module (`incode-module-country`) provides a `Country` and a `State` entity,
 
 
 
+== Example App
+
+The module's functionality can be explored by running the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage] using the `org.incode.domainapp.example.app.modules.ExampleDomDomCountryAppManifest`.
+
+
 == How to configure/use
+
 
 === Classpath
 
