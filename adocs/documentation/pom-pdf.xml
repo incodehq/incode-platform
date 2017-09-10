@@ -32,8 +32,6 @@
         -->
 
         <build.dir>${project.basedir}/target/site</build.dir>
-
-        <message>updating content (built from adocs/documentation in isis.git repo)</message>
     </properties>
 
     <scm>
