@@ -52,15 +52,10 @@ export $INCODENEXT=1.16.0-SNAPSHOT
 
 
 
-== Release to Maven Central
+=== Release Maven Mixins
 
-[NOTE]
-====
-WIP - currently only have the version from isisaddons/incode catalog.
-====
-
-
-The `release.sh` script automates the release process. It performs the following:
+The `release.sh` script automates the release process.
+It performs the following:
 
 * performs a sanity check (`mvn clean install -o`) that everything builds ok
 * bumps the `pom.xml` to a specified release version, and tag
@@ -70,15 +65,18 @@ The `release.sh` script automates the release process. It performs the following
 
 For example:
 
-[source]
+[source,bash]
 ----
+pushd mavenmixins
 sh release.sh $INCODEREL \
               $INCODENEXT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
+popd
 ----
 
 where
+
 * `$1` is the release version
 * `$2` is the snapshot version
 * `$3` is the email of the secret key (`~/.gnupg/secring.gpg`) to use for signing
@@ -102,6 +100,9 @@ You may want to set this to `false` if debugging an issue.
 According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 hours to update http://search.maven.org[search].
 
 
+=== Release Modules
+
+TODO
 
 === Recreating the archetype
 
