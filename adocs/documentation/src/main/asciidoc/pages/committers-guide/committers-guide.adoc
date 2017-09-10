@@ -3,7 +3,6 @@
 :_basedir: ../../
 :_imagesdir: images/
 :toc:
-:generate_pdf:
 
 
 This guide contains procedures to be performed by committers/maintainers of this codebase.
@@ -166,6 +165,31 @@ The website resides in the `adocs` directory:
 * `template/` is the HTML template
 * `search/` holds node.js Javascript files to index the built site so that it is searchable
 
+The website is published to the link:https://github.com/incodehq/incodehq.github.io[incodehq/incodehq.github.io] github repository; a `CNAME` file (in the root directory) maps this to http://platform.catalog.org.
+
+To publish, this repository must also be cloned to your local computer.
+The scripts assume that the `incode-platform` repository (ie this repo) and the `incodehq.github.io` repository cloned at the same level, eg:
+
+[monotree]
+----
++
+ + incodehq
+  - incode-platform
+  - incodehq.github.io
+----
+
+=== Prerequisites
+
+Make sure that you've checked out the `incodehq/incodehq.github.io` repository alongside this one (see discussion above).
+
+You'll also need to install:
+
+* node (v7.10.0 or later) ... used to build the search index
+* python 3 ... used to preview
+
+The actual website generation uses AsciidoctorJ, which is called by Maven plugin.
+There are no other software prereqs.
+
 Normally you'll want to work in the `adocs/documentation` directory:
 
 [source,bash]
@@ -175,6 +199,7 @@ pushd adocs/documentation
 
 
 === Previewing the website
+
 
 To do a quick build the website and preview locally, use:
 
@@ -197,18 +222,6 @@ sh preview-html.sh
 
 === Publishing the website
 
-The website is published to the link:https://github.com/incodehq/incodehq.github.io[incodehq/incodehq.github.io] github repository; a `CNAME` file (in the root directory) maps this to http://platform.catalog.org.
-
-To publish, this repository must also be cloned to your local computer.
-The scripts assume that the `incode-platform` repository (ie this repo) and the `incodehq.github.io` repository cloned at the same level, eg:
-
-[monotree]
-----
-+
- + incodehq
-  - incode-platform
-  - incodehq.github.io
-----
 
 
 When you are ready to publish the website, use:
