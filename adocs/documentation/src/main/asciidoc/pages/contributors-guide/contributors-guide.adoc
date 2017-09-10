@@ -3,7 +3,6 @@
 :_basedir: ../../
 :_imagesdir: images/
 :toc:
-:generate_pdf:
 
 
 This guide provides guidance to those looking to build the platform from source, either to contribute back pull requests and enhancements, or just to fork for their own purposes.

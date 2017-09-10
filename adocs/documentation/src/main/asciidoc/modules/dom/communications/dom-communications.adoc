@@ -198,7 +198,7 @@ image::{_imagesdir}110-sendByPost-prompt.png[width="600px",link="{_imagesdir}110
 The only difference is that, when the ``Document``s are downloaded for printing via the `Communication`, for convenience the PDFs will be stitched together into a single PDF for printing.
 The action prompt suggests a filename based on the original `Document` and supporting ``Document``s.
 
-image::{_imagesdir}120-downloadPdfForPosting-prompt-prompt.png[width="600px",link="{_imagesdir}120-downloadPdfForPosting-prompt-prompt.png"]
+image::{_imagesdir}120-downloadPdfForPosting-prompt.png[width="600px",link="{_imagesdir}120-downloadPdfForPosting-prompt.png"]
 
 
 

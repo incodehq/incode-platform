@@ -21,7 +21,7 @@ image::{_imagesdir}010-home-page.png[width="600px",link="{_imagesdir}010-home-pa
 The component lets the user page through the PDF document, zoom in and out, and change the height of the panel.
 In addition, the user can download PDF and print the PDF.
 
-image::{_imagesdir}010-viewer.png[width="600px",link="{_imagesdir}010-viewer.png"]
+image::{_imagesdir}020-viewer.png[width="600px",link="{_imagesdir}020-viewer.png"]
 
 
 
