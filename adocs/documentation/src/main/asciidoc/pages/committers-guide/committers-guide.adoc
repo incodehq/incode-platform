@@ -160,42 +160,79 @@ https://oss.sonatype.org/content/repositories/snapshots[Snapshot Repo].
 
 == Docs & website
 
-The website resides in the `adocs/documentation` directory:
+The website resides in the `adocs` directory:
+
+* `documentation/` is the source for website itself (Asciidoctor)
+* `template/` is the HTML template
+* `search/` holds node.js Javascript files to index the built site so that it is searchable
+
+Normally you'll want to work in the `adocs/documentation` directory:
 
 [source,bash]
 ----
 pushd adocs/documentation
-sh preview-html.sh
-popd
 ----
 
 
-=== Preview
+=== Previewing the website
 
-Typically, use:
+To do a quick build the website and preview locally, use:
 
 [source,bash]
 ----
 sh preview-html.sh
 ----
 
-This will build the HTML website and then start python webserver to browse.
-However, to save time the corresponding PDFs will not be created.
+This builds the HTML and the search index, but omits building the PDFs.
+To enable you to preview the generated site, it starts a (python) webserver to browse.
 
-For a full preview (including PDFs), use:
+To also build the PDFs, use:
 
 [source,bash]
 ----
-sh preview-pdf.sh
+sh preview-html.sh
 ----
+
+
 
 === Publishing the website
 
-Use:
+The website is published to the link:https://github.com/incodehq/incodehq.github.io[incodehq/incodehq.github.io] github repository; a `CNAME` file (in the root directory) maps this to http://platform.catalog.org.
+
+To publish, this repository must also be cloned to your local computer.
+The scripts assume that the `incode-platform` repository (ie this repo) and the `incodehq.github.io` repository cloned at the same level, eg:
+
+[monotree]
+----
++
+ + incodehq
+  - incode-platform
+  - incodehq.github.io
+----
+
+
+When you are ready to publish the website, use:
 
 [source,bash]
 ----
 sh publish.sh
 ----
 
+This will remove all files in the `incodeh.github.io` directory and replace with the latest build.
+
+
+To check everything is ok:
+
+[source,bash]
+----
+pushd ../../../incodehq.github.io
+sh preview.sh
+----
+
+If all looks ok, then just push the changes:
+
+[source,bash]
+----
+git push
+----
 
