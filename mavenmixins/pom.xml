@@ -16,7 +16,6 @@
 
     <dependencyManagement>
         <dependencies>
-
             <dependency>
                 <groupId>org.incode.mavenmixin</groupId>
                 <artifactId>incode-mavenmixin-swagger</artifactId>
@@ -34,8 +33,42 @@
     </dependencyManagement>
 
     <profiles>
+
         <profile>
-            <id>sonatyperelease</id>
+            <id>release-plugin-boilerplate</id>
+            <activation>
+                <property>
+                    <name>!skip.release-plugin-boilerplate</name>
+                </property>
+            </activation>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.2</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+            </distributionManagement>
+
+        </profile>
+
+        <profile>
+            <id>release</id>
             <!--
             this profile is not part of the module, but is required to be defined as a profile
             in order to release this module pom.xml to Maven Central repo
@@ -71,6 +104,12 @@
                     </plugin>
                 </plugins>
             </build>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+            </distributionManagement>
         </profile>
         <profile>
             <id>cloudbees-snapshots</id>
@@ -99,11 +138,5 @@
         <module>mavenmixin-validate</module>
     </modules>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
 
 </project>
