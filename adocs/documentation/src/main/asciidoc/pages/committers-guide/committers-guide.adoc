@@ -105,12 +105,21 @@ According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 ho
 
 === Recreating the archetype
 
+using:
+
 [source,bash]
 ----
 pushd ex/app/quickstart
 sh ../../../scripts/recreate-archetype.sh
 ----
 
+
+[NOTE]
+====
+TODO: should post-edit the commented bits, to ensure commented out by default.
+
+also, change the <description> in incode-quickstart-archetype pom.xml
+====
 
 
 
