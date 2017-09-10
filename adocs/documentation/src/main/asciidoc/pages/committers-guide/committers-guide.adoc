@@ -7,11 +7,6 @@
 
 This guide contains procedures to be performed by committers/maintainers of this codebase.
 
-[NOTE]
-====
-This is work-in-progress.
-====
-
 
 
 == Build process
