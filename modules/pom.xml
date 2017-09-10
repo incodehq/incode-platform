@@ -57,7 +57,7 @@
     </developers>
 
     <properties>
-        <isis.version>1.15.0.20170907-1100</isis.version>
+        <isis.version>1.15.0</isis.version>
 
         <isis-maven-plugin.version>${isis.version}</isis-maven-plugin.version>
 
