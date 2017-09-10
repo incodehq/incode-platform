@@ -7,7 +7,7 @@
 The quickstart app consists of five Maven modules: a parent module and four submodules.
 The diagram below shows their dependencies:
 
-image::{_imagesdir}project-structure/module-dependencies/slide1.png[width="800px",link="{_imagesdir}project-structure/module-dependencies/slide1.png"]
+image::{_imagesdir}project-structure/module-dependencies/Slide1.PNG[width="800px",link="{_imagesdir}project-structure/module-dependencies/Slide1.PNG"]
 
 where:
 

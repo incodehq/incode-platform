@@ -17,7 +17,7 @@ This Spring context hosts an embedded _Apache Camel_ instance, configured to con
 The diagram below shows how the structure of the application is extended to support this:
 
 
-image::{_imagesdir}project-structure/module-dependencies/slide2.png[width="800px",link="{_imagesdir}project-structure/module-dependencies/slide2.png"]
+image::{_imagesdir}project-structure/module-dependencies/Slide2.PNG[width="800px",link="{_imagesdir}project-structure/module-dependencies/Slide2.PNG"]
 
 where:
 
