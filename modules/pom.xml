@@ -1085,6 +1085,52 @@
             -->
             <build>
                 <plugins>
+
+                    <plugin>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>2.1.2</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.9.1</version>
+                        <inherited>true</inherited>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <!-- as per http://stackoverflow.com/a/16743137/56880 -->
+                            <additionalparam>-Xdoclint:none</additionalparam>
+                            <debug>true</debug>
+                            <minmemory>128m</minmemory>
+                            <maxmemory>1024m</maxmemory>
+                            <quiet>true</quiet>
+                            <doctitle>${project.name} ${project.version}</doctitle>
+                            <windowtitle>${project.name} ${project.version}</windowtitle>
+                            <testDoctitle>${project.name} ${project.version} (TEST API)</testDoctitle>
+                            <testWindowtitle>${project.name} ${project.version} (TEST API)</testWindowtitle>
+                            <splitindex>true</splitindex>
+                            <encoding>${project.build.sourceEncoding}</encoding>
+                            <links>
+                                <link>http://docs.oracle.com/javase/7/docs/api/</link>
+                            </links>
+                            <linksource>true</linksource>
+                            <detectOfflineLinks>false</detectOfflineLinks>
+                        </configuration>
+                    </plugin>
+
                     <!-- http://central.sonatype.org/pages/apache-maven.html -->
                     <plugin>
                         <groupId>org.sonatype.plugins</groupId>
