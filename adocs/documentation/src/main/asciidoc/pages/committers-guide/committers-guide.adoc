@@ -45,8 +45,10 @@ Generally speaking this should correspond to the version of Apache Isis.
 
 [source,bash]
 ----
-export $INCODEREL=1.15.0
-export $INCODENEXT=1.16.0-SNAPSHOT
+export INCODEREL=1.15.0
+export INCODENEXT=1.16.0-SNAPSHOT
+
+env | grep ^INCODE
 ----
 
 
