@@ -91,8 +91,14 @@ If the script completes successfully, then push changes:
 
 [source]
 ----
-git push origin master && git push origin $INCODEREL
+git push origin master
 ----
+
+[NOTE]
+====
+The mavenmixins' `release.sh` does _not_ tag the repo; this is left until the modules have also been released.
+====
+
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue before trying again.
 Note that in the parent `pom.xml`, the `nexus-staging-maven-plugin` has the
@@ -104,9 +110,38 @@ According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 ho
 
 === Release Modules
 
-TODO
+The modules are released using their own `release.sh` script.
+This is very similar to that of the mavenmixins; the only substantive difference is that it also tags the repo with the release version.
+
+
+[source,bash]
+----
+pushd modules
+sh release.sh $INCODEREL \
+              $INCODENEXT \
+              dan@haywood-associates.co.uk \
+              "this is not really my passphrase"
+popd
+----
+
+If the script completes successfully, then push changes and the ta:
+
+[source]
+----
+git push origin master && git push origin $INCODEREL
+----
 
 === Recreating the archetype
+
+[NOTE]
+====
+TODO: this is still incomplete.
+
+should post-edit the commented bits, to ensure commented out by default.
+
+also, change the <description> in incode-quickstart-archetype pom.xml
+====
+
 
 using:
 
@@ -116,13 +151,6 @@ pushd ex/app/quickstart
 sh ../../../scripts/recreate-archetype.sh
 ----
 
-
-[NOTE]
-====
-TODO: should post-edit the commented bits, to ensure commented out by default.
-
-also, change the <description> in incode-quickstart-archetype pom.xml
-====
 
 
 
