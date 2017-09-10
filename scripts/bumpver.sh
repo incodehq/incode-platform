@@ -7,16 +7,22 @@ if [ ! "$VERSION" ]; then
 fi
 
 
-# edit dom's pom.xml
-echo "editing dom's pom.xml"
+echo ""
+echo "mvn versions:set -DnewVersion=$VERSION"
+echo ""
 mvn versions:set -DnewVersion=$VERSION > /dev/null
 
-echo "Committing changes"
+echo ""
+echo "git commit -am \"bumping to $VERSION\""
+echo ""
 git commit -am "bumping to $VERSION"
 
-# tag if not a snapshot
+
+# tag if not a SNAPSHOT version
 echo $VERSION | grep -v SNAPSHOT > /dev/null
 if [ $? = 0 ]; then
-    echo "tagging (not a snapshot version)"
+    echo ""
+    echo "git tag $VERSION"
+    echo ""
     git tag $VERSION
 fi

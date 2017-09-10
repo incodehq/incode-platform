@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 RELEASE_VERSION=$1
 shift
 SNAPSHOT_VERSION=$1
@@ -24,7 +25,7 @@ fi
 
 
 echo ""
-echo "sanity check (mvn clean install -T1C -o -Dskip.isis-swagger  -Dskip.isis-validate) "
+echo "sanity check (mvn clean install -T1C -o -Dskip.isis-swagger -Dskip.isis-validate) "
 echo ""
 mvn clean install -T1C -Dskip.isis-swagger  -Dskip.isis-validate -o >/dev/null
 if [ $? != 0 ]; then
@@ -72,6 +73,7 @@ if [ $? != 0 ]; then
     echo "... failed" >&2
     exit 1
 fi
+
 
 
 echo ""
