@@ -1,0 +1,14 @@
+{
+    "name": "s-knibbs.github.io",
+    "version": "1.0.0",
+    "devDependencies": {
+        "recursive-readdir": ">=2.0.0",
+        "command-line-args": ">=3.0.1",
+        "elasticlunr": "^0.9.0",
+        "cheerio": ">=0.22.0"
+    },
+    "scripts": {
+        "index": "node --max_old_space_size=2048 _scripts/index.js ../content/ -o ../content/elasticlunr/index.json -V"
+    }
+
+}
