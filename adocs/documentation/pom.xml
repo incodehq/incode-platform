@@ -431,7 +431,7 @@
                                         <echo message=""/>
                                         <exec executable="git" dir="${site.dir}">
                                             <arg value="commit"/>
-                                            <arg value="am"/>
+                                            <arg value="-m"/>
                                             <arg value="${message}"/>
                                         </exec>
 
