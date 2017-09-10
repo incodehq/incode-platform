@@ -17,7 +17,7 @@
     
     <name>Incode Platform (Parent POM)</name>
     <description>
-        This module build upon the incode-build standard parent POM, adding in additional Maven plugins for Apache Isis framework.
+        This module is the parent of the Incode Platform modules, and can also be used as the parent for applications that use the Incode Platform modules.  It builds upon the org.incode:incode-build standard parent POM, adding in additional Maven plugins for the Apache Isis framework.
     </description>
     
     <url>https://github.com/incodehq/incode-platform</url>
@@ -1076,8 +1076,9 @@
     </dependencyManagement>
 
     <profiles>
+
         <profile>
-            <id>sonatyperelease</id>
+            <id>release</id>
             <!--
             this profile is not part of the module, but is required to be defined as a profile
             in order to release this module pom.xml to Maven Central repo
