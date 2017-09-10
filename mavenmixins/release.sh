@@ -34,14 +34,24 @@ if [ $? != 0 ]; then
 fi
 
 
+
+
 echo ""
 echo "bumping version to $RELEASE_VERSION"
 echo ""
-sh ../scripts/bumpver.sh $RELEASE_VERSION
-if [ $? != 0 ]; then
-    echo "... failed" >&2
-    exit 1
-fi
+
+echo ""
+echo "... mvn versions:set -DnewVersion=$RELEASE_VERSION"
+echo ""
+mvn versions:set -DnewVersion=$RELEASE_VERSION > /dev/null
+
+echo ""
+echo "... git commit -am \"bumping to $RELEASE_VERSION\""
+echo ""
+git commit -am "bumping to $RELEASE_VERSION"
+
+
+
 
 
 echo ""
@@ -65,14 +75,21 @@ fi
 
 
 
+
+
 echo ""
 echo "bumping version to $SNAPSHOT_VERSION"
 echo ""
-sh ../scripts/bumpver.sh $SNAPSHOT_VERSION
-if [ $? != 0 ]; then
-    echo "... failed" >&2
-    exit 1
-fi
+
+echo ""
+echo "... mvn versions:set -DnewVersion=$SNAPSHOT_VERSION"
+echo ""
+mvn versions:set -DnewVersion=$SNAPSHOT_VERSION > /dev/null
+
+echo ""
+echo "... git commit -am \"bumping to $SNAPSHOT_VERSION\""
+echo ""
+git commit -am "bumping to $SNAPSHOT_VERSION"
 
 
 
