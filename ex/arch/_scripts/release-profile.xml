@@ -1,7 +1,3 @@
-<properties>
-    <archetype.test.skip>true</archetype.test.skip>
-</properties>
-
 <profiles>
     <profile>
         <id>release</id>
@@ -9,6 +5,9 @@
         this profile is not part of the module, but is required to be defined as a profile
         in order to release this module pom.xml to Maven Central repo
         -->
+        <properties>
+            <archetype.test.skip>true</archetype.test.skip>
+        </properties>
         <build>
             <plugins>
                 <!-- http://central.sonatype.org/pages/apache-maven.html -->

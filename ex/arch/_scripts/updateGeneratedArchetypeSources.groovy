@@ -30,7 +30,7 @@ pomXml.artifactId='quickstart-archetype'
 println "updating ${pomFile.path}"
 
 def scriptDir = new File(getClass().protectionDomain.codeSource.location.path).parent
-def releaseProfileFile=new File(scriptDir+"release-profile.xml")
+def releaseProfileFile=new File(scriptDir+"/release-profile.xml")
 def releaseProfileFileText = stripXmlPragma(releaseProfileFile)
 
 def fragmentToAdd = new XmlSlurper( false, true ).parseText(releaseProfileFileText)

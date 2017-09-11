@@ -150,34 +150,41 @@ For example:
 </properties>
 ----
 
-[NOTE]
+[TIP]
 ====
-TODO: if you forget to do this, the next script will check anyway.
+Don't worry if you forget to do this, the next script will double-check anyway.
 ====
 
-
-Recreate using:
+Staying in the same directory, recreate using:
 
 [source,bash]
 ----
-sh ../../../scripts/recreate-archetype.sh $INCODEREL
+sh ../arch/recreate-archetype.sh $INCODEREL
 ----
+
+And then:
+
+[source,bash]
+----
+popd
+----
+
+
 
 
 The build archetype is deployed using
 
 [source,bash]
 ----
-sh ../../../scripts/recreate-archetype.sh $INCODEREL
-----
-
-
-When finished:
-
-[source,bash]
-----
+pushd ex/arch/quickstart
+sh ../release.sh $INCODEREL \
+              $INCODENEXT \
+              dan@haywood-associates.co.uk \
+              "this is not really my passphrase"
 popd
 ----
+
+
 
 
 == Release an Interim Build
@@ -192,16 +199,16 @@ These artifacts can then be published to a snapshot repository.
 
 For example:
 
+
 [source,bash]
 ----
 pushd modules
-sh interim-release.sh 1.15.0 origin
+sh interim-release.sh $INCODEREL origin
 popd
 ----
 
 where
 
-* `1.15.0` is the base release
 * `origin` is the name of the remote to which you have permissions to write to.
 
 

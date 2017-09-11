@@ -57,14 +57,13 @@ mvn archetype:create-from-project -o
 echo ""
 echo ""
 echo "groovy script to update archetypes ..."
-groovy ../../../scripts/updateGeneratedArchetypeSources.groovy
+groovy ../arch/_scripts/updateGeneratedArchetypeSources.groovy
 
 echo ""
 echo ""
 echo "deleting old archetype ..."
-git rm -rf ../../arch/$INCODEART
-rm -rf ../../arch/$INCODEART
-mkdir -p ../../arch
+git rm -rf ../arch/$INCODEART
+rm -rf ../arch/$INCODEART
 
 echo ""
 echo ""
