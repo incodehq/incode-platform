@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+
+#
+# intended to be run from the ex/arch directory.
+#
+
+
 RELEASE_VERSION=$1
 shift
 SNAPSHOT_VERSION=$1

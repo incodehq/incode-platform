@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#
+# intended to be run from the ex/app/quickstart directory.
+#
+
 RELEASE_VERSION=$1
 shift
 
@@ -57,13 +61,13 @@ mvn archetype:create-from-project -o
 echo ""
 echo ""
 echo "groovy script to update archetypes ..."
-groovy ../arch/_scripts/updateGeneratedArchetypeSources.groovy
+groovy ../../arch/_scripts/updateGeneratedArchetypeSources.groovy
 
 echo ""
 echo ""
 echo "deleting old archetype ..."
-git rm -rf ../arch/$INCODEART
-rm -rf ../arch/$INCODEART
+git rm -rf ../../arch/$INCODEART
+rm -rf ../../arch/$INCODEART
 
 echo ""
 echo ""
@@ -74,7 +78,6 @@ mv target/generated-sources/archetype ../../arch/$INCODEART
 pushd ../../arch/$INCODEART
 /bin/find . -name "*.iml" -exec rm {} \;
 git add .
-#git commit -m "$recreating $INCODEART archetype"
 
 
 echo ""
