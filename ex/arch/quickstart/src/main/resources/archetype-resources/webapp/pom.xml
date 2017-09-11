@@ -96,12 +96,12 @@
             <artifactId>${artifactId}-appdefn</artifactId>
         </dependency>
 
-        <!-- Comment in to include example modules demonstrating platform usage: START -->
+        <!-- Comment in to include example modules demonstrating platform usage: START --> <!--
         <dependency>
             <groupId>${symbol_dollar}{project.groupId}</groupId>
             <artifactId>${artifactId}-example-appdefn</artifactId>
         </dependency>
-        <!-- Comment in to include example modules demonstrating platform usage: END -->
+        --> <!-- Comment in to include example modules demonstrating platform usage: END -->
 
         <dependency>
             <groupId>org.isisaddons.module.quartz</groupId>
