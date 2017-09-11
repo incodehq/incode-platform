@@ -4,16 +4,43 @@ import javax.xml.transform.TransformerFactory
 import javax.xml.transform.stream.StreamResult
 import javax.xml.transform.stream.StreamSource
 
+def cli = new CliBuilder(usage: 'updateGeneratedArchetypeSources.groovy -n [name] -v [version]')
+cli.with {
+    n(longOpt: 'name', args: 1, required: true, argName: 'name', 'Application name (eg \'quickstart\')')
+    v(longOpt: 'version', args: 1, required: true, argName: 'version', 'Isis core version to use as parent POM')
+}
 
+
+/////////////////////////////////////////////////////
+//
 // constants
+//
+/////////////////////////////////////////////////////
+
 def BASE="target/generated-sources/archetype/"
 def ROOT=BASE + "src/main/resources/"
 
 
 
+/////////////////////////////////////////////////////
+//
+// Parse command line
+//
+/////////////////////////////////////////////////////
+
+def options = cli.parse(args)
+if (!options) {
+    return
+}
+
+application_name=options.n
+isis_version=options.v
+
+/////////////////////////////////////////////////////
 //
 // update archetype's own pom.xml's groupId
 //
+/////////////////////////////////////////////////////
 
 def pomFile=new File(BASE+"pom.xml")
 
@@ -50,9 +77,12 @@ pomFile.text =
 
 
 
+/////////////////////////////////////////////////////
 //
 // update archetype-metadata.xml
 //
+/////////////////////////////////////////////////////
+
 
 def metaDataFile=new File(ROOT+"META-INF/maven/archetype-metadata.xml")
 
@@ -85,79 +115,12 @@ metaDataFile.text = metaDataXmlText
 
 
 
-//
-// ensure optional modules are commented out
-//
 
-def xmlCommentStart = ' <!--'
-def xmlCommentEnd = '--> '
-def javaCommentStart = ' /*'
-def javaCommentEnd = '*/ '
-
-
-def x1_find = '<!-- Comment in to include example modules demonstrating platform usage: START -->'
-def x1_replace = x1_find + xmlCommentStart
-
-def x2_find = '<!-- Comment in to include example modules demonstrating platform usage: END -->'
-def x2_replace = xmlCommentEnd + x2_find
-
-def x3_find = '<!-- Comment in to include example modules that set up embedded camel: START -->'
-def x3_replace = x3_find + xmlCommentStart
-
-def x4_find = '<!-- Comment in to include example modules that set up embedded camel: END -->'
-def x4_replace = xmlCommentEnd + x4_find
-
-def x5_find = '/* Comment in to include example modules that set up embedded camel: START */'
-def x5_replace = x5_find + javaCommentStart
-
-def x6_find = '/* Comment in to include example modules that set up embedded camel: END */'
-def x6_replace = javaCommentEnd + x6_find
-
-def x7_find = xmlCommentStart + xmlCommentStart
-def x7_replace = xmlCommentStart
-
-def x8_find = xmlCommentEnd + xmlCommentEnd
-def x8_replace = xmlCommentEnd
-
-def x9_find = javaCommentStart + javaCommentStart
-def x9_replace = javaCommentStart
-
-def xA_find = javaCommentEnd + javaCommentEnd
-def xA_replace = javaCommentEnd
-
-
-[ ROOT+"pom.xml",
-  ROOT+"appdefn/pom.xml",
-  ROOT+"appdefn/src/main/java/domainapp/appdefn/DomainAppAppManifest.java",
-  ROOT+"webapp/pom.xml",
-  ROOT+"webapp/src/main/webapp/WEB-INF/web.xml",
-].each {
-    def ant = new AntBuilder()
-    println it
-    ant.replace(file: it, token: x7_find, value: x7_replace)
-    ant.replace(file: it, token: x8_find, value: x8_replace)
-    ant.replace(file: it, token: x9_find, value: x9_replace)
-    ant.replace(file: it, token: xA_find, value: xA_replace)
-
-    ant.replace(file: it, token: x1_find, value: x1_replace)
-    ant.replace(file: it, token: x2_find, value: x2_replace)
-    ant.replace(file: it, token: x3_find, value: x3_replace)
-    ant.replace(file: it, token: x4_find, value: x4_replace)
-    ant.replace(file: it, token: x5_find, value: x5_replace)
-    ant.replace(file: it, token: x6_find, value: x6_replace)
-
-    ant.replace(file: it, token: x7_find, value: x7_replace)
-    ant.replace(file: it, token: x8_find, value: x8_replace)
-    ant.replace(file: it, token: x9_find, value: x9_replace)
-    ant.replace(file: it, token: xA_find, value: xA_replace)
-}
-
-
-
-
+///////////////////////////////////////////////////
 //
 // helper methods
 //
+///////////////////////////////////////////////////
 
 String indentXml(xml) {
     def factory = TransformerFactory.newInstance()

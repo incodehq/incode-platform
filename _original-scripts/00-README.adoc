@@ -1,5 +1,0 @@
-= README
-
-These are examples of the scripts that were used to release the isis addons/incode catalog when each resided in its own directory.
-
-They've been kept here for reference, to use to basis of new scripts that can be used to release *this* repo (though the new scripts will probably/hopefully be simpler).

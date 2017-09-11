@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 export INCODEREL=1.15.0-SNAPSHOT
 
 pushd ex/app/quickstart

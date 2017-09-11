@@ -8,6 +8,32 @@
 This guide provides guidance to those looking to build the platform from source, either to contribute back pull requests and enhancements, or just to fork for their own purposes.
 
 
+== Directory Structure
+
+[monotree]
+----
++ _mothballed/           # unused from previous demo apps (eg fake SOAP external system)
++ adocs/
+ - documentation/     # docs and website source
+ - search/            # node.js scripts to generate searchable index
+ - template/          # HTML template/styling for website
++ ex/
+ + app/
+  - quickstart/    # quickstart application
+ + arch/
+  - quickstart/    # quickstart archetype
+- mavenmixins/
++ modules/               # modules making up the platform
+ - pom.xml            # org.incode:incode-parent
+ - dom/               # generic subdomains
+ - ext/               # extensions
+ - lib/               # libraries
+ - mml/               # metamodel facets
+ - spi/               # Core framework SPI (hook) implementations
+ - wkt/               # Wicket viewer components
++ scripts/               # used to recreate the archetype (`ex/arch`)
+----
+
 [[__contributors-guide_building]]
 == Building
 
@@ -22,7 +48,7 @@ The platform must be built in the following order:
 * `ex/app/archetype/` - quickstart archetype
 
 
-[[__contributors-guide_]]
+[[__contributors-guide_building-the-mavenmixins]]
 === Building the mavenmixins
 
 These must be built first, because the modules depend upon them.
