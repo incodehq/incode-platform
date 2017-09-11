@@ -7,7 +7,8 @@ import javax.xml.transform.stream.StreamSource
 
 // constants
 def BASE="target/generated-sources/archetype/"
-def ROOT=BASE + "src/main/resources/archetype-resources/"
+def ROOT=BASE + "src/main/resources/"
+def ARCHROOT=ROOT + "archetype-resources/"
 
 
 
@@ -132,11 +133,11 @@ def xA_find = javaCommentEnd + javaCommentEnd
 def xA_replace = javaCommentEnd
 
 
-[ ROOT+"pom.xml",
-  ROOT+"appdefn/pom.xml",
-  ROOT+"appdefn/src/main/java/domainapp/appdefn/DomainAppAppManifest.java",
-  ROOT+"webapp/pom.xml",
-  ROOT+"webapp/src/main/webapp/WEB-INF/web.xml",
+[ ARCHROOT+"pom.xml",
+  ARCHROOT+"appdefn/pom.xml",
+  ARCHROOT+"appdefn/src/main/java/domainapp/appdefn/DomainAppAppManifest.java",
+  ARCHROOT+"webapp/pom.xml",
+  ARCHROOT+"webapp/src/main/webapp/WEB-INF/web.xml",
 ].each {
     def ant = new AntBuilder()
     println it
