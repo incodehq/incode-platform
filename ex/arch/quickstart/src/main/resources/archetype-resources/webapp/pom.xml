@@ -28,6 +28,7 @@
         <isis-maven-plugin.swagger.dependency.groupId>${symbol_dollar}{project.groupId}</isis-maven-plugin.swagger.dependency.groupId>
         <isis-maven-plugin.swagger.dependency.artifactId>${symbol_dollar}{project.parent.artifactId}-demo-application</isis-maven-plugin.swagger.dependency.artifactId>
 
+        <jetty-maven-plugin.version>${symbol_dollar}{jetty.version}</jetty-maven-plugin.version>
         <jetty-console-maven-plugin.backgroundImage>${symbol_dollar}{basedir}/src/main/jettyconsole/isis-banner.png</jetty-console-maven-plugin.backgroundImage>
 
 
@@ -95,12 +96,12 @@
             <artifactId>${artifactId}-appdefn</artifactId>
         </dependency>
 
-        <!-- Comment in to include example modules demonstrating platform usage: START --> <!--
+        <!-- Comment in to include example modules demonstrating platform usage: START -->
         <dependency>
             <groupId>${symbol_dollar}{project.groupId}</groupId>
             <artifactId>${artifactId}-example-appdefn</artifactId>
         </dependency>
-        --> <!-- Comment in to include example modules demonstrating platform usage: END -->
+        <!-- Comment in to include example modules demonstrating platform usage: END -->
 
         <dependency>
             <groupId>org.isisaddons.module.quartz</groupId>
@@ -410,17 +411,17 @@
                 </property>
             </activation>
 
-            mvn install:install-file -Dfile=sqljdbc4.jar ${symbol_escape}
-                                     -DgroupId=com.microsoft.sqlserver ${symbol_escape}
-                                     -DartifactId=jdbc ${symbol_escape}
-                                     -Dversion=4.0 ${symbol_escape}
-                                     -Dpackaging=jar
+            mvn install:install-file -Dfile=mssql-jdbc-6.2.1.jre8.jar ${symbol_escape}
+                                 -DgroupId=com.microsoft.sqlserver ${symbol_escape}
+                                 -DartifactId=jdbc ${symbol_escape}
+                                 -Dversion=6.2.1 ${symbol_escape}
+                                 -Dpackaging=jar
 
             <dependencies>
                <dependency>
                    <groupId>com.microsoft.sqlserver</groupId>
-                   <artifactId>sqljdbc4</artifactId>
-                   <version>4.0</version>
+                   <artifactId>jdbc</artifactId>
+                   <version>6.2.1</version>
                </dependency>
             </dependencies>
         </profile>

@@ -4,7 +4,7 @@
 package org.incode.domainapp.example.dom.dom.settings.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
-import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
+import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
 public class ApplicationSetting_and_UserSetting_tearDown extends FixtureScript {
 
@@ -16,6 +16,6 @@ public class ApplicationSetting_and_UserSetting_tearDown extends FixtureScript {
 
 
     @javax.inject.Inject
-    private IsisJdoSupport isisJdoSupport;
+    IsisJdoSupport isisJdoSupport;
 
 }

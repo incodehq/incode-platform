@@ -13,12 +13,13 @@ import com.google.common.base.Throwables;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.Rule;
 import org.junit.Test;
+import org.togglz.junit.TogglzRule;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
-import org.apache.isis.applib.fixturescripts.FixtureScripts;
-import org.apache.isis.applib.services.xactn.TransactionService;
 
+import domainapp.modules.base.togglz.TogglzFeature;
 import domainapp.modules.simple.dom.SimpleObject;
 import domainapp.modules.simple.dom.SimpleObjectMenu;
 import domainapp.modules.simple.fixture.scenario.SimpleObject_createUpTo10;
@@ -30,6 +31,9 @@ public class SimpleObjectMenu_IntegTest extends SimpleModuleIntegTestAbstract {
 
     @Inject
     SimpleObjectMenu menu;
+
+    @Rule
+    public TogglzRule togglzRule = TogglzRule.allEnabled(TogglzFeature.class);
 
     public static class ListAll extends SimpleObjectMenu_IntegTest {
 

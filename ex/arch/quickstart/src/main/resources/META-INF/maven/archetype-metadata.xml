@@ -26,13 +26,6 @@
             </includes>
         </fileSet>
         <fileSet filtered="true" encoding="UTF-8">
-            <directory>example/embeddedcamel_to_externalsystem</directory>
-            <includes>
-                <include>**/*.xml</include>
-                <include>**/*.properties</include>
-            </includes>
-        </fileSet>
-        <fileSet filtered="true" encoding="UTF-8">
             <directory>appdefn/src</directory>
             <includes>
                 <include>**/*.java</include>
@@ -60,6 +53,12 @@
             </includes>
         </fileSet>
         <fileSet filtered="true" encoding="UTF-8">
+            <directory>module-simple/.gradle</directory>
+            <includes>
+                <include>**/*.properties</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
             <directory>webapp/src</directory>
             <includes>
                 <include>**/*.java</include>
@@ -76,14 +75,6 @@
             </includes>
         </fileSet>
         <fileSet filtered="true" encoding="UTF-8">
-            <directory>example/externalsystemadapter</directory>
-            <includes>
-                <include>**/*.java</include>
-                <include>**/*.xml</include>
-                <include>**/*.properties</include>
-            </includes>
-        </fileSet>
-        <fileSet filtered="true" encoding="UTF-8">
             <directory>example/dom</directory>
             <includes>
                 <include>**/*.java</include>
@@ -93,9 +84,9 @@
             </includes>
         </fileSet>
         <fileSet filtered="true" encoding="UTF-8">
-            <directory>module-simple/target</directory>
+            <directory>scripts</directory>
             <includes>
-                <include>**/*.java</include>
+                <include>**/*.properties</include>
             </includes>
         </fileSet>
         <fileSet filtered="true" encoding="UTF-8">
@@ -128,25 +119,16 @@
             </includes>
         </fileSet>
         <fileSet encoding="UTF-8">
-            <directory>example/embeddedcamel_to_externalsystem</directory>
-            <includes>
-                <include>**/*.iml</include>
-                <include>**/*.jar</include>
-                <include>**/*.lst</include>
-                <include>**/*.class</include>
-            </includes>
-        </fileSet>
-        <fileSet encoding="UTF-8">
             <directory>appdefn/src</directory>
             <includes>
                 <include>**/*.feature</include>
+                <include>**/*.orm</include>
             </includes>
         </fileSet>
         <fileSet encoding="UTF-8">
             <directory>example/embeddedcamel</directory>
             <includes>
                 <include>**/*.iml</include>
-                <include>**/*.class</include>
             </includes>
         </fileSet>
         <fileSet encoding="UTF-8">
@@ -179,6 +161,13 @@
             </includes>
         </fileSet>
         <fileSet encoding="UTF-8">
+            <directory>module-simple/.gradle</directory>
+            <includes>
+                <include>**/*.bin</include>
+                <include>**/*.lock</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
             <directory>webapp/src</directory>
             <includes>
                 <include>**/*.</include>
@@ -196,26 +185,9 @@
             </includes>
         </fileSet>
         <fileSet encoding="UTF-8">
-            <directory>module-base/target</directory>
-            <includes>
-                <include>**/*.class</include>
-            </includes>
-        </fileSet>
-        <fileSet encoding="UTF-8">
             <directory>module-simple/src</directory>
             <includes>
                 <include>**/*.png</include>
-            </includes>
-        </fileSet>
-        <fileSet encoding="UTF-8">
-            <directory>example/externalsystemadapter</directory>
-            <includes>
-                <include>**/*.wsdl</include>
-                <include>**/*.EA622CDD1B6E501AD794DD69DC0ECB6AF49A3CA6</include>
-                <include>**/*.iml</include>
-                <include>**/*.jar</include>
-                <include>**/*.lst</include>
-                <include>**/*.class</include>
             </includes>
         </fileSet>
         <fileSet encoding="UTF-8">
@@ -228,14 +200,14 @@
                 <include>**/*.png</include>
                 <include>**/*.iml</include>
                 <include>**/*.json</include>
-                <include>**/*.class</include>
                 <include>**/*.docx</include>
             </includes>
         </fileSet>
         <fileSet encoding="UTF-8">
-            <directory>module-simple/target</directory>
+            <directory>scripts</directory>
             <includes>
-                <include>**/*.class</include>
+                <include>**/*.sh</include>
+                <include>**/*.adoc</include>
             </includes>
         </fileSet>
         <fileSet encoding="UTF-8">
@@ -250,15 +222,16 @@
             <directory>example/canonical</directory>
             <includes>
                 <include>**/*.iml</include>
-                <include>**/*.class</include>
             </includes>
         </fileSet>
         <fileSet encoding="UTF-8">
             <directory/>
             <includes>
                 <include>.gitignore</include>
+                <include>build-quick.sh</include>
                 <include>incode-domainapp.iml</include>
                 <include>incode-quickstart.iml</include>
+                <include>rundocker.sh</include>
             </includes>
         </fileSet>
     </fileSets>

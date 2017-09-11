@@ -48,7 +48,7 @@ public class SimpleObjectMenu {
     }
 
     public boolean hideFindByName() {
-        return ! TogglzFeature.findByName.isActive();
+        return ! TogglzFeature.SimpleObject_findByName.isActive();
     }
 
 
@@ -59,6 +59,9 @@ public class SimpleObjectMenu {
             @ParameterLayout(named="Name")
             final String name) {
         return simpleObjectRepository.create(name);
+    }
+    public boolean hideCreate() {
+        return ! TogglzFeature.SimpleObject_create.isActive();
     }
 
 

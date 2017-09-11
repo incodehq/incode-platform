@@ -6,7 +6,6 @@ package domainapp.appdefn;
 import org.apache.isis.applib.AppManifestAbstract;
 
 import org.isisaddons.module.audit.AuditModule;
-import org.isisaddons.module.command.CommandModule;
 import org.isisaddons.module.docx.DocxModule;
 import org.isisaddons.module.excel.ExcelModule;
 import org.isisaddons.module.fakedata.FakeDataModule;
@@ -14,12 +13,8 @@ import org.isisaddons.module.freemarker.dom.FreeMarkerModule;
 import org.isisaddons.module.pdfbox.dom.PdfBoxModule;
 import org.isisaddons.module.poly.PolyModule;
 import org.isisaddons.module.publishmq.PublishMqModule;
-import org.isisaddons.module.security.SecurityModule;
-import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
-import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 import org.isisaddons.module.servletapi.ServletApiModule;
 import org.isisaddons.module.sessionlogger.SessionLoggerModule;
-import org.isisaddons.module.settings.SettingsModule;
 import org.isisaddons.module.stringinterpolator.StringInterpolatorModule;
 import org.isisaddons.module.tags.TagsModule;
 import org.isisaddons.module.togglz.TogglzModule;
@@ -46,20 +41,19 @@ import org.incode.module.docrendering.xdocreport.dom.XDocReportDocRenderingModul
 import org.incode.module.document.dom.DocumentModule;
 import org.incode.module.note.dom.NoteModule;
 
-import domainapp.example.embeddedcamel.EmbeddedCamelModule;
 import domainapp.modules.simple.SimpleModule;
 
 public class DomainAppAppManifest extends AppManifestAbstract {
 
-    public static final Builder BUILDER = Builder.forModules(
-
-            DomainAppAppDefnModule.class,
+    public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
             SimpleModule.class,
 
-            /* Comment out to exclude example modules that set up embedded camel: START */
-            EmbeddedCamelModule.class,
-            /* Comment out to exclude example modules that set up embedded camel: END */
+            DomainAppAppDefnModule.class,
+
+            /* Comment in to include example modules that set up embedded camel: START */
+            domainapp.example.embeddedcamel.EmbeddedCamelModule.class,
+            /* Comment in to include example modules that set up embedded camel: END */
 
             // extensions
             TogglzModule.class,
@@ -88,14 +82,11 @@ public class DomainAppAppManifest extends AppManifestAbstract {
             DocFragmentModuleDomModule.class,
             DocumentModule.class,
             NoteModule.class,
-            SettingsModule.class,
             TagsModule.class,
 
             // spi
             AuditModule.class,
-            CommandModule.class,
             PublishMqModule.class,
-            SecurityModule.class,
             SessionLoggerModule.class,
 
             // cpt (wicket ui)
@@ -107,20 +98,10 @@ public class DomainAppAppManifest extends AppManifestAbstract {
             PdfjsCptModule.class,
             SummernoteUiModule.class,
             WickedChartsUiModule.class
-
     )
-    .withAdditionalServices(
-            PasswordEncryptionServiceUsingJBcrypt.class,
-            PermissionsEvaluationServiceAllowBeatsVeto.class
-    )
-    .withConfigurationPropertiesFile(DomainAppAppManifest.class,
-            "isis.properties",
-            "authentication_shiro.properties",
-            "persistor_datanucleus.properties",
-            "viewer_restfulobjects.properties",
-            "viewer_wicket.properties"
-    )
-    .withConfigurationProperty("isis.viewer.wicket.rememberMe.cookieKey", "DomainAppEncryptionKey");
+    // override as required
+    .withConfigurationProperty("isis.viewer.wicket.gmap3.apiKey","XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+    ;
 
     public DomainAppAppManifest() {
         super(BUILDER);

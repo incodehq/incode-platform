@@ -26,8 +26,7 @@
 
                     <camel:process ref="attachCanonicalDtoUsingRestfulObjects"/>
 
-                    <log message="internalId: ${symbol_dollar}{header.externalSystemInternalId}"/>
-                    <camel:to uri="stream:out"/>
+                    <log message="DTO: ${symbol_dollar}{header['org.incode.domainapp.example.canonical.SimpleObjectDto']}"/>
                 </camel:when>
                 <camel:when>
                     <camel:simple>${symbol_dollar}{header.ixn[execution${symbol_dollar}logicalMemberIdentifier]} == 'simple.SimpleObject${symbol_pound}notes'</camel:simple>
@@ -36,8 +35,7 @@
 
                     <camel:process ref="attachCanonicalDtoUsingRestfulObjects"/>
 
-                    <log message="internalId: ${symbol_dollar}{header.externalSystemInternalId}"/>
-                    <camel:to uri="stream:out" />
+                    <log message="DTO: ${symbol_dollar}{header['org.incode.domainapp.example.canonical.SimpleObjectDto']}"/>
                 </camel:when>
             </camel:choice>
 

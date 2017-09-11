@@ -9,7 +9,8 @@ import java.util.Map;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.domainapp.example.app.fixtures.RecreateDemoFixtures;
-import org.incode.domainapp.example.app.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
+
+import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 
 public class DomainAppAppManifestWithExampleModulesAndFixtures extends DomainAppAppManifestWithExampleModules {
 

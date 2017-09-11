@@ -19,9 +19,9 @@ import org.incode.domainapp.example.dom.demo.fixture.todoitems.DemoToDoItem_crea
 import org.incode.domainapp.example.dom.dom.classification.fixture.ClassificationModule_tearDown;
 import org.incode.domainapp.example.dom.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3;
 import org.incode.domainapp.example.dom.dom.commchannel.fixture.CommChannelModule_tearDown;
-import org.incode.domainapp.example.dom.dom.communications.fixture.data.democust2.DemoObjectWithNote_and_DemoInvoiceWithAtPath_create3;
+import org.incode.domainapp.example.dom.dom.communications.fixture.data.democust2.DemoObjectWithNote_and_DemoInvoice_create3;
 import org.incode.domainapp.example.dom.dom.communications.fixture.data.doctypes.DocumentType_and_DocumentTemplates_createSome;
-import org.incode.domainapp.example.dom.dom.docfragment.fixture.DemoCustomer_and_DemoInvoice_and_DocFragment_createSome;
+import org.incode.domainapp.example.dom.dom.docfragment.fixture.DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_create;
 import org.incode.domainapp.example.dom.dom.docfragment.fixture.sub.DocFragment_tearDown;
 import org.incode.domainapp.example.dom.dom.document.fixture.seed.RenderingStrategy_create6;
 import org.incode.domainapp.example.dom.dom.tags.fixture.DemoTaggableObject_withTags_create3;
@@ -92,12 +92,12 @@ public class RecreateDemoFixtures extends DiscoverableFixtureScript {
         ec.executeChild(this, new DemoObjectWithAll_recreate3());
         ec.executeChild(this, new DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3());
         ec.executeChild(this, new DemoObjectWithBlob_createUpTo5_fakeData());
-        ec.executeChild(this, new DemoObjectWithNote_and_DemoInvoiceWithAtPath_create3());
+        ec.executeChild(this, new DemoObjectWithNote_and_DemoInvoice_create3());
         ec.executeChild(this, new DemoObjectWithUrl_createUpTo5_fakeData());
 
         ec.executeChild(this, new OtherObject_createUpTo5_fakeData());
 
-        ec.executeChild(this, new DemoCustomer_and_DemoInvoice_and_DocFragment_createSome());
+        ec.executeChild(this, new DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_create());
         ec.executeChild(this, new DemoReminder_create4());
         ec.executeChild(this, new DemoToDoItem_create_usingExcelFixture("sven"));
 

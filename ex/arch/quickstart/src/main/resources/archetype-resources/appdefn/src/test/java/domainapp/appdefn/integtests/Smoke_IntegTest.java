@@ -7,15 +7,17 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.togglz.junit.TogglzRule;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
+import domainapp.appdefn.fixture.teardown.DomainAppTearDown;
+import domainapp.modules.base.togglz.TogglzFeature;
 import domainapp.modules.simple.dom.SimpleObject;
 import domainapp.modules.simple.dom.SimpleObjectMenu;
-
-import domainapp.appdefn.fixture.teardown.DomainAppTearDown;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class Smoke_IntegTest extends DomainAppIntegTestAbstract {
@@ -26,6 +28,10 @@ public class Smoke_IntegTest extends DomainAppIntegTestAbstract {
     TransactionService transactionService;
     @Inject
     SimpleObjectMenu menu;
+
+    @Rule
+    public TogglzRule togglzRule = TogglzRule.allEnabled(TogglzFeature.class);
+
 
     @Test
     public void create() throws Exception {

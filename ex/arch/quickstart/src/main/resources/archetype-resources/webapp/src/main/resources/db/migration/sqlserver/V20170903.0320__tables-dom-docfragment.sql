@@ -1,0 +1,30 @@
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+
+
+CREATE TABLE [incodeDocFragment].[DocFragment](
+	[id] [bigint] IDENTITY(1,1) NOT NULL,
+	[atPath] [varchar](255) NOT NULL,
+	[name] [varchar](120) NOT NULL,
+	[objectType] [varchar](254) NOT NULL,
+	[templateText] [varchar](4000) NOT NULL,
+	[version] [bigint] NOT NULL,
+ CONSTRAINT [DocFragment_PK] PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
+ CONSTRAINT [DocFragment_objectType_name_atPath_UNQ] UNIQUE NONCLUSTERED
+(
+	[objectType] ASC,
+	[name] ASC,
+	[atPath] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+

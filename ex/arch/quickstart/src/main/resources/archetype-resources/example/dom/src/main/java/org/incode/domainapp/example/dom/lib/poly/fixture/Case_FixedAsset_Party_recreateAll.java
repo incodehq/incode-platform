@@ -53,32 +53,43 @@ public class Case_FixedAsset_Party_recreateAll extends FixtureScript {
 
         // create comm channels
         int i=0;
-        parties.get(0).addCommunicationChannel(commChannelDetailsFor(i++));
-        parties.get(1).addCommunicationChannel(commChannelDetailsFor(i++));
-        parties.get(1).addCommunicationChannel(commChannelDetailsFor(i++));
-        parties.get(2).addCommunicationChannel(commChannelDetailsFor(i++));
-        parties.get(2).addCommunicationChannel(commChannelDetailsFor(i++));
-        parties.get(2).addCommunicationChannel(commChannelDetailsFor(i++));
+        final Party party0 = parties.get(0);
+        final Party party1 = parties.get(1);
+        final Party party2 = parties.get(2);
 
-        fixedAssets.get(0).createCommunicationChannel(commChannelDetailsFor(i++));
-        fixedAssets.get(1).createCommunicationChannel(commChannelDetailsFor(i++));
-        fixedAssets.get(2).createCommunicationChannel(commChannelDetailsFor(i++));
+        party0.addCommunicationChannel(commChannelDetailsFor(i++));
+        party1.addCommunicationChannel(commChannelDetailsFor(i++));
+        party1.addCommunicationChannel(commChannelDetailsFor(i++));
+        party2.addCommunicationChannel(commChannelDetailsFor(i++));
+        party2.addCommunicationChannel(commChannelDetailsFor(i++));
+        party2.addCommunicationChannel(commChannelDetailsFor(i++));
+
+        final FixedAsset fixedAsset0 = fixedAssets.get(0);
+        final FixedAsset fixedAsset1 = fixedAssets.get(1);
+        final FixedAsset fixedAsset2 = fixedAssets.get(2);
+
+        fixedAsset0.createCommunicationChannel(commChannelDetailsFor(i++));
+        fixedAsset1.createCommunicationChannel(commChannelDetailsFor(i++));
+        fixedAsset2.createCommunicationChannel(commChannelDetailsFor(i++));
 
         // add content to cases
-        caseContentContributions.addToCase(cases.get(0), parties.get(0));
-        caseContentContributions.addToCase(cases.get(0), parties.get(1));
-        caseContentContributions.addToCase(cases.get(0), fixedAssets.get(0));
-        caseContentContributions.addToCase(cases.get(0), fixedAssets.get(1));
+        final Case case0 = cases.get(0);
+        final Case case1 = cases.get(1);
 
-        caseContentContributions.addToCase(cases.get(1), parties.get(1));
-        caseContentContributions.addToCase(cases.get(1), fixedAssets.get(1));
+        caseContentContributions.addToCase(case0, party0);
+        caseContentContributions.addToCase(case0, party1);
+        caseContentContributions.addToCase(case0, fixedAsset0);
+        caseContentContributions.addToCase(case0, fixedAsset1);
 
-        caseContentContributions.addToCase(cases.get(2), parties.get(2));
-        caseContentContributions.addToCase(cases.get(2), fixedAssets.get(2));
+        caseContentContributions.addToCase(case1, party1);
+        caseContentContributions.addToCase(case1, fixedAsset1);
+
+        caseContentContributions.addToCase(cases.get(2), party2);
+        caseContentContributions.addToCase(cases.get(2), fixedAsset2);
 
         // assign a primary content for cases
-        casePrimaryContentContributions.makePrimary(cases.get(0), parties.get(1));
-        casePrimaryContentContributions.makePrimary(cases.get(1), fixedAssets.get(0));
+        casePrimaryContentContributions.makePrimary(case0, party1);
+        casePrimaryContentContributions.makePrimary(case1, fixedAsset0);
     }
 
     private static String commChannelDetailsFor(final int i) {

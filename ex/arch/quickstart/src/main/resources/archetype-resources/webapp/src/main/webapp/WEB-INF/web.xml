@@ -13,9 +13,9 @@
     </welcome-file-list>
 
 
-    <!-- Comment in to include example modules that set up embedded camel: START --> <!--
+    <!-- Comment in to include example modules that set up embedded camel: START -->
     <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+        <listener-class>domainapp.webapp.spring.CustomSpringContextLoaderListener</listener-class>
     </listener>
 
     <context-param>
@@ -32,7 +32,7 @@
         <param-name>spring.config.file</param-name>
         <param-value>classpath:spring.properties</param-value>
     </context-param>
-    --> <!-- Comment in to include example modules that set up embedded camel: END -->
+    <!-- Comment in to include example modules that set up embedded camel: END -->
 
 
     <servlet>

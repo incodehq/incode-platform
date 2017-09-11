@@ -14,8 +14,6 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import domainapp.modules.base.togglz.TogglzFeature;
-
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
         objectType = "exampleDemo.DemoObjectMenu"
@@ -44,10 +42,6 @@ public class DemoObjectMenu {
     public List<DemoObject> findDemoObjectByName(final String name) {
         return repository.findByName(name);
     }
-    public boolean hideFindDemoObjectByName() {
-        return ! TogglzFeature.findByName.isActive();
-    }
-
 
     @javax.inject.Inject 
     DemoObjectRepository repository;

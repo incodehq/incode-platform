@@ -24,15 +24,19 @@ public class DemoModuleTearDown extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
+
         executionContext.executeChild(this, new DemoCustomer_tearDown());
-        executionContext.executeChild(this, new DemoInvoice_tearDown());
         executionContext.executeChild(this, new DemoInvoiceWithAtPath_tearDown());
+
         executionContext.executeChild(this, new DemoObject_tearDown());
         executionContext.executeChild(this, new DemoObjectWithAll_tearDown());
         executionContext.executeChild(this, new DemoObjectWithAtPath_tearDown());
         executionContext.executeChild(this, new DemoObjectWithBlob_tearDown());
-        executionContext.executeChild(this, new DemoObjectWithNotes_tearDown());
         executionContext.executeChild(this, new DemoObjectWithUrl_tearDown());
+
+        executionContext.executeChild(this, new DemoObjectWithNotes_tearDown());
+        executionContext.executeChild(this, new DemoInvoice_tearDown());
+
         executionContext.executeChild(this, new DemoOrderAndOrderLine_tearDown());
         executionContext.executeChild(this, new DemoReminder_tearDown());
         executionContext.executeChild(this, new DemoToDoItem_tearDown());
