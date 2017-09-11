@@ -1,7 +1,7 @@
 [[quickstart-with-example-usage]]
 = Quickstart with Example Usage
 :_basedir: ../../
-:_imagesdir: _images/
+:_imagesdir: images/
 :toc:
 :generate_pdf:
 

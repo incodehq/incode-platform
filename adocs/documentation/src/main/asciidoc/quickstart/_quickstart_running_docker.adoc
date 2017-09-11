@@ -1,7 +1,7 @@
 [[_quickstart_running_docker]]
 = Docker
 :_basedir: ../../
-:_imagesdir: _images/
+:_imagesdir: images/
 
 
 Finally, it's also possible to package up and run the webapp as a Docker container.

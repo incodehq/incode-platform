@@ -1,7 +1,7 @@
 [[_quickstart_building_tests]]
 = Tests
 :_basedir: ../../
-:_imagesdir: _images/
+:_imagesdir: images/
 
 
 The generated application includes unit tests, integration tests and BDD cucumber specifications.

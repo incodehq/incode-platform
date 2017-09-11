@@ -1,7 +1,7 @@
 [[_quickstart_modules_session-logger]]
 = Session Logger
 :_basedir: ../../
-:_imagesdir: _images/
+:_imagesdir: images/
 
 
 The xref:../modules/ext/sessionlogger/ext-sessionlogger.adoc#[session logger] module records each user session as the user logs in or logs out (or is timed out automatically).

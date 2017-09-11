@@ -1,7 +1,7 @@
 [[_quickstart_running_ide]]
 = IDE
 :_basedir: ../../
-:_imagesdir: _images/
+:_imagesdir: images/
 
 
 When developing an Apache Isis application, you'll typically want to run the app from within the IDE.

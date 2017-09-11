@@ -1,7 +1,7 @@
 [[_quickstart_building]]
 = Building (and tests)
 :_basedir: ../../
-:_imagesdir: _images/
+:_imagesdir: images/
 
 
 

@@ -1,7 +1,7 @@
 [[_quickstart_running-the-archetype]]
 = Running the archetype
 :_basedir: ../../
-:_imagesdir: _images/
+:_imagesdir: images/
 
 
 Use Maven to generate your application from the `quickstart-archetype`.

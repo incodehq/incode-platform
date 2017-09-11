@@ -1,7 +1,7 @@
 [[_quickstart_dynamic-reloading]]
 = Dynamic Reloading
 :_basedir: ../../
-:_imagesdir: _images/
+:_imagesdir: images/
 
 
 The `module-simple` module includes `layout.gradle` and `liveReload.gradle` scripts, and the Wicket viewer is configured for live reloading:

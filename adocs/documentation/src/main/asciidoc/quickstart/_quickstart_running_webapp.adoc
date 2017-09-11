@@ -1,7 +1,7 @@
 [[_quickstart_running_webapp]]
 = Webapp
 :_basedir: ../../
-:_imagesdir: _images/
+:_imagesdir: images/
 
 
 The application can also be run in a servlet container, using the `.war` file generated from the usual build.

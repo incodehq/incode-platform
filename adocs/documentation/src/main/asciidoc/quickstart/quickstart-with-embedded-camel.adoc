@@ -1,7 +1,7 @@
 [[quickstart-with-embedded-camel]]
 = Quickstart with Embedded Camel
 :_basedir: ../../
-:_imagesdir: _images/
+:_imagesdir: images/
 :toc:
 :generate_pdf:
 

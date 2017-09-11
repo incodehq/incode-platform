@@ -1,7 +1,7 @@
 [[_quickstart_modules_security]]
 = Security
 :_basedir: ../../
-:_imagesdir: _images/
+:_imagesdir: images/
 
 
 The xref:../modules/spi/security/spi-security.adoc#[security module] provides authentication and authorisation, implemented by an link:http://shiro.apache.org[Apache Shiro] Realm:

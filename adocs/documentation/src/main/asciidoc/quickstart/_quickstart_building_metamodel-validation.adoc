@@ -1,5 +1,5 @@
 :_basedir: ../../
-:_imagesdir: _images/
+:_imagesdir: images/
 
 
 [[_quickstart_building_metamodel-validation]]

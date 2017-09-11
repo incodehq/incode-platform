@@ -1,7 +1,7 @@
 [[_quickstart_running_mvn]]
 = mvn (jetty:run)
 :_basedir: ../../
-:_imagesdir: _images/
+:_imagesdir: images/
 
 
 If you want to run the application without even loading it into the IDE, then you can do this using the maven Jetty plugin:

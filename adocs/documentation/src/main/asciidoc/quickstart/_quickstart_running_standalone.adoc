@@ -1,7 +1,7 @@
 [[_quickstart_running_standalone]]
 = Standalone
 :_basedir: ../../
-:_imagesdir: _images/
+:_imagesdir: images/
 
 
 Yet another alternative is to build the webapp to run standalone as a single "uber-jar", once again using Jetty as an embedded instance.

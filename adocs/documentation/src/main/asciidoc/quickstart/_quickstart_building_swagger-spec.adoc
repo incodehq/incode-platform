@@ -1,7 +1,7 @@
 [[_quickstart_building_swagger-spec]]
 = Swagger spec
 :_basedir: ../../
-:_imagesdir: _images/
+:_imagesdir: images/
 
 
 The generated application also configures the link:http://isis.apache.org/guides/rgmvn/rgmvn.html[Apache Isis maven plugin] to link:http://isis.apache.org/guides/rgmvn/rgmvn.html#_rgmvn_swagger[generate a Swagger spec] file.

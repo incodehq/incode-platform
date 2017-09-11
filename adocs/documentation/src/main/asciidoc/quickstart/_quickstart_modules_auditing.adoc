@@ -1,7 +1,7 @@
 [[_quickstart_modules_auditing]]
 = Auditing
 :_basedir: ../../
-:_imagesdir: _images/
+:_imagesdir: images/
 
 
 Where xref:quickstart.adoc#_quickstart_modules_commands[command]s capture the intention of a user to invoke an action/edit a property, audit records (as provided by the xref:../modules/spi/audit/spi-audit.adoc#[audit module]) capture the effect of performing such an interaction.

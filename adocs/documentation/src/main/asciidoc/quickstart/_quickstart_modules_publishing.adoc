@@ -1,7 +1,7 @@
 [[_quickstart_modules_publishing]]
 = Publishing
 :_basedir: ../../
-:_imagesdir: _images/
+:_imagesdir: images/
 
 
 Publishing and commands share some similarities: both create an XML representation of an action invocation or property edit.

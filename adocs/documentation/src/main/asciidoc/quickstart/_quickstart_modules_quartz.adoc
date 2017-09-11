@@ -1,7 +1,7 @@
 [[_quickstart_modules_quartz]]
 = Quartz
 :_basedir: ../../
-:_imagesdir: _images/
+:_imagesdir: images/
 
 
 The xref:../modules/ext/quartz/ext-quartz.adoc#[quartz extension] module provides an in-memory scheduler for running jobs according to a schedule.

@@ -1,7 +1,7 @@
 [[_quickstart_using-an-external-database]]
 = Using an external database
 :_basedir: ../../
-:_imagesdir: _images/
+:_imagesdir: images/
 
 
 All of the examples listed above run the application against an in-memory HSQLDB database.

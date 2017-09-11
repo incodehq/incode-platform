@@ -1,7 +1,7 @@
 [[_quickstart_modules]]
 = Modules
 :_basedir: ../../
-:_imagesdir: _images/
+:_imagesdir: images/
 
 
 Now we've explored how to run the application, let's explore some of the features already configured in the quickstart.

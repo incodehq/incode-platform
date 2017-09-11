@@ -1,7 +1,7 @@
 [[_quickstart_modules_togglz]]
 = Togglz
 :_basedir: ../../
-:_imagesdir: _images/
+:_imagesdir: images/
 
 
 Feature toggles are a link:https://martinfowler.com/articles/feature-toggles.html[technique] with various use cases, one of which is to allow functionality to be rolled out partially, eg for feedback.
