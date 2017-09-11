@@ -138,14 +138,26 @@ Switch to the quickstart _application_:
 pushd ex/app/quickstart
 ----
 
-Confirm that, in its parent `pom.xml`, the quickstart application references the release (non-SNAPSHOT) versions of both `isis.version` or `incode-platform.version`.
+Confirm that the parent `pom.xml` of the quickstart application inherits from the release version of `org.incode:incode-parent`.
 For example:
+
+[source,xml]
+----
+<parent>
+    <groupId>org.incode</groupId>
+    <artifactId>incode-parent</artifactId>
+    <version>1.15.0</version>
+    <relativePath/>
+</parent>
+----
+
+Also check that the parent `pom.xml` references the release (non-SNAPSHOT) versions of `isis.version`:
+
 
 [source,xml]
 ----
 <properties>
     <isis.version>1.15.0</isis.version>
-    <incode-platform.version>1.15.0</incode-platform.version>
     ...
 </properties>
 ----
@@ -159,7 +171,7 @@ Staying in the same directory, recreate using:
 
 [source,bash]
 ----
-sh ../arch/recreate-archetype.sh $INCODEREL
+sh ../../arch/recreate-archetype.sh $INCODEREL
 ----
 
 And then:
@@ -170,9 +182,10 @@ popd
 ----
 
 
+=== Releasing the archetype
 
 
-The build archetype is deployed using
+The archetype is deployed using:
 
 [source,bash]
 ----
@@ -183,7 +196,6 @@ sh ../release.sh $INCODEREL \
               "this is not really my passphrase"
 popd
 ----
-
 
 
 

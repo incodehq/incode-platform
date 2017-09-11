@@ -31,7 +31,6 @@ This guide provides guidance to those looking to build the platform from source,
  - mml/               # metamodel facets
  - spi/               # Core framework SPI (hook) implementations
  - wkt/               # Wicket viewer components
-+ scripts/               # used to recreate the archetype (`ex/arch`)
 ----
 
 [[__contributors-guide_building]]
