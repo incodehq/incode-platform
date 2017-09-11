@@ -138,9 +138,12 @@ Switch to the quickstart _application_:
 pushd ex/app/quickstart
 ----
 
-Confirm that the parent `pom.xml` of the quickstart application inherits from the release version of `org.incode:incode-parent`.
+Now check the application source code:
+
+* Confirm that the parent `pom.xml` of the quickstart application inherits from the release version of `org.incode:incode-parent`.
 For example:
 
++
 [source,xml]
 ----
 <parent>
@@ -151,9 +154,9 @@ For example:
 </parent>
 ----
 
-Also check that the parent `pom.xml` references the release (non-SNAPSHOT) versions of `isis.version`:
+* Also check that the parent `pom.xml` references the release (non-SNAPSHOT) versions of `isis.version`:
 
-
++
 [source,xml]
 ----
 <properties>
@@ -162,10 +165,11 @@ Also check that the parent `pom.xml` references the release (non-SNAPSHOT) versi
 </properties>
 ----
 
-[TIP]
-====
-Don't worry if you forget to do this, the next script will double-check anyway.
-====
+* Finally, ensure that the optional modules are *commented in*.
+
++
+Search for the phrase _"Comment in to include example modules"_
+
 
 Staying in the same directory, recreate using:
 
@@ -184,16 +188,92 @@ popd
 
 === Releasing the archetype
 
+We release in three steps:
 
-The archetype is deployed using:
+* build the archetype locally (analogous to `mvn release:prepare`)
+* check that an application can be built from the archetype
+* deploy the archetype (using `mvn deploy`).
+
+
+==== Prepare the archetype
+
+The archetype is prepared using:
 
 [source,bash]
 ----
 pushd ex/arch/quickstart
-sh ../release.sh $INCODEREL \
+sh ../release-prepare.sh $INCODEREL
+popd
+----
+
+
+==== Testing the archetype
+
+In a _different session_:
+
+[source,bash]
+----
+export INCODETMP=/c/tmp    # or as required
+export INCODEART=quickstart
+env | grep INCODE | sort
+----
+
+then:
+
+[source,bash]
+----
+rm -rf $INCODETMP/test-$INCODEART
+
+mkdir $INCODETMP/test-$INCODEART
+cd $INCODETMP/test-$INCODEART
+----
+
+then:
+
+[source,bash]
+----
+mvn archetype:generate  \
+    -D archetypeGroupId=org.incode.platform.archetype \
+    -D archetypeArtifactId=quickstart-archetype \
+    -D archetypeVersion=1.15.0 \
+    -D groupId=com.mycompany \
+    -D artifactId=myapp \
+    -D version=1.0-SNAPSHOT \
+    -D archetypeCatalog=local \
+    -B
+----
+
+and build and run using:
+
+[source,bash]
+----
+cd myapp
+mvn clean install
+
+mvn -pl webapp jetty:run \
+    -Disis.appManifest=domainapp.appdefn.DomainAppAppManifestWithFixtures
+----
+
+Login using sven/pass.
+The application generated should be the xref:../quickstart/quickstart.adoc#[Quickstart app].
+
+
+==== Deploying the archetype
+
+Back in the original session (in the `ex/arch/quickstart` directory), the archetype is released (deployed to Maven Central) using:
+
+[source,bash]
+----
+sh ../release-deploy.sh \
               $INCODENEXT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
+----
+
+Once done:
+
+[source,bash]
+----
 popd
 ----
 
