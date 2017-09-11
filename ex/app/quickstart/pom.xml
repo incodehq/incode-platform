@@ -19,8 +19,8 @@
 
     <properties>
 
-        <isis.version>1.15.0.20170907-1100</isis.version>
-        <incode-platform.version>1.15.0-SNAPSHOT</incode-platform.version>
+        <isis.version>1.15.0</isis.version>
+        <incode-platform.version>1.15.0</incode-platform.version>
 
         <spring.version>4.1.9.RELEASE</spring.version>
         <jetty.version>9.4.3.v20170317</jetty.version>

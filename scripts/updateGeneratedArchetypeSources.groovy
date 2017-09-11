@@ -26,10 +26,16 @@ def pomXml = new XmlSlurper(false,true).parseText(pomFileText)
 pomXml.groupId='org.incode.platform.archetype'
 pomXml.artifactId='quickstart-archetype'
 
-def fragmentToAdd = new XmlSlurper( false, true ).parseText( '''<properties>
-    <archetype.test.skip>true</archetype.test.skip>
-</properties>''' )
+
+println "updating ${pomFile.path}"
+
+def scriptDir = new File(getClass().protectionDomain.codeSource.location.path).parent
+def releaseProfileFile=new File(scriptDir+"release-profile.xml")
+def releaseProfileFileText = stripXmlPragma(releaseProfileFile)
+
+def fragmentToAdd = new XmlSlurper( false, true ).parseText(releaseProfileFileText)
 pomXml.appendNode(fragmentToAdd)
+
 
 def pomSmb = new groovy.xml.StreamingMarkupBuilder().bind {
     mkp.declareNamespace("":"http://maven.apache.org/POM/4.0.0")

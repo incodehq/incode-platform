@@ -128,25 +128,56 @@ git push origin master && git push origin $INCODEREL
 
 === Recreating the archetype
 
-[NOTE]
-====
-TODO: this is still incomplete.
+The quickstart archetype is re-created for each release from the current quickstart application.
+The generated archetype is then released by deploying up to Maven Central.
 
-should post-edit the commented bits, to ensure commented out by default.
-
-also, change the <description> in incode-quickstart-archetype pom.xml
-====
-
-
-using:
+Switch to the quickstart _application_:
 
 [source,bash]
 ----
 pushd ex/app/quickstart
-sh ../../../scripts/recreate-archetype.sh
+----
+
+Confirm that, in its parent `pom.xml`, the quickstart application references the release (non-SNAPSHOT) versions of both `isis.version` or `incode-platform.version`.
+For example:
+
+[source,xml]
+----
+<properties>
+    <isis.version>1.15.0</isis.version>
+    <incode-platform.version>1.15.0</incode-platform.version>
+    ...
+</properties>
+----
+
+[NOTE]
+====
+TODO: if you forget to do this, the next script will check anyway.
+====
+
+
+Recreate using:
+
+[source,bash]
+----
+sh ../../../scripts/recreate-archetype.sh $INCODEREL
 ----
 
 
+The build archetype is deployed using
+
+[source,bash]
+----
+sh ../../../scripts/recreate-archetype.sh $INCODEREL
+----
+
+
+When finished:
+
+[source,bash]
+----
+popd
+----
 
 
 == Release an Interim Build

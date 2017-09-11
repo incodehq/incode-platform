@@ -1,22 +1,40 @@
 #!/bin/bash
 
-INCODEART=quickstart
+RELEASE_VERSION=$1
+shift
 
-TOFIX=""
-
-env | grep INCODEREL >/dev/null
-if [ $? -ne 0 ]; then
-    echo "\$INCODEREL not set!"
-    TOFIX="$TOFIX\nexport INCODEREL=1.15.0"
-fi
-
-if [ "$TOFIX" != "" ]; then
-    echo -e $TOFIX
+if [ ! "$RELEASE_VERSION"  ]; then
+    echo "usage: $(basename $0) [release_version]" >&2
     exit 1
 fi
 
 
-env | grep INCODE | sort
+
+INCODEART=quickstart
+
+
+
+echo ""
+echo "checking no reference to isis.version of -SNAPSHOT"
+echo ""
+grep SNAPSHOT pom.xml | grep isis.version
+if [ $? == 0 ]; then
+    echo ""
+    echo "... failed" >&2
+    exit 1
+fi
+
+
+echo ""
+echo "checking reference to incode-platform.version matches provided release_version"
+echo ""
+grep "<incode-platform.version>$RELEASE_VERSION</incode-platform.version>" pom.xml >/dev/null
+if [ $? != 0 ]; then
+    echo ""
+    echo "... failed" >&2
+    exit 1
+fi
+
 
 
 echo ""
@@ -39,7 +57,7 @@ mvn archetype:create-from-project -o
 echo ""
 echo ""
 echo "groovy script to update archetypes ..."
-groovy ../../../scripts/updateGeneratedArchetypeSources.groovy -n $INCODEART -v $INCODEREL
+groovy ../../../scripts/updateGeneratedArchetypeSources.groovy
 
 echo ""
 echo ""
@@ -51,8 +69,6 @@ mkdir -p ../../arch
 echo ""
 echo ""
 echo "adding new archetype ..."
-#ls target/generated-sources/archetype
-#ls  ../../archetype/$INCODEART
 
 mv target/generated-sources/archetype ../../arch/$INCODEART
 
