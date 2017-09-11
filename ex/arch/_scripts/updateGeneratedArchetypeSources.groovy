@@ -7,7 +7,7 @@ import javax.xml.transform.stream.StreamSource
 
 // constants
 def BASE="target/generated-sources/archetype/"
-def ROOT=BASE + "src/main/resources/"
+def ROOT=BASE + "src/main/resources/archetype-resources/"
 
 
 
