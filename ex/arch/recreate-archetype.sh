@@ -19,7 +19,7 @@ INCODEART=quickstart
 
 
 echo ""
-echo "checking no reference to isis.version of -SNAPSHOT"
+echo "checking no isis.version reference to -SNAPSHOT"
 echo ""
 grep SNAPSHOT pom.xml | grep isis.version
 if [ $? == 0 ]; then
@@ -28,16 +28,6 @@ if [ $? == 0 ]; then
     exit 1
 fi
 
-
-echo ""
-echo "checking reference to incode-platform.version matches provided release_version"
-echo ""
-grep "<incode-platform.version>$RELEASE_VERSION</incode-platform.version>" pom.xml >/dev/null
-if [ $? != 0 ]; then
-    echo ""
-    echo "... failed" >&2
-    exit 1
-fi
 
 
 
