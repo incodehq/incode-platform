@@ -1,8 +1,8 @@
 <properties>
     <archetype.test.skip>true</archetype.test.skip>
 </properties>
-<profiles>
 
+<profiles>
     <profile>
         <id>release</id>
         <!--
@@ -46,26 +46,6 @@
                 <url>https://oss.sonatype.org/content/repositories/snapshots</url>
             </snapshotRepository>
         </distributionManagement>
-    </profile>
-    <profile>
-        <id>cloudbees-snapshots</id>
-        <activation>
-            <property>
-                <name>!skip.cloudbees-snapshots</name>
-            </property>
-        </activation>
-        <repositories>
-            <repository>
-                <id>snapshots-repo</id>
-                <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
-                <releases>
-                    <enabled>false</enabled>
-                </releases>
-                <snapshots>
-                    <enabled>true</enabled>
-                </snapshots>
-            </repository>
-        </repositories>
     </profile>
 </profiles>
 
