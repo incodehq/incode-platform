@@ -40,7 +40,7 @@ Generally speaking this should correspond to the version of Apache Isis.
 
 [source,bash]
 ----
-export INCODEREL=1.15.0
+export INCODEREL=1.15.1
 export INCODENEXT=1.16.0-SNAPSHOT
 
 env | grep ^INCODE
@@ -164,7 +164,7 @@ For example:
 <parent>
     <groupId>org.incode</groupId>
     <artifactId>incode-parent</artifactId>
-    <version>1.15.0</version>
+    <version>1.15.1</version>
     <relativePath/>
 </parent>
 ----
@@ -175,7 +175,7 @@ For example:
 [source,xml]
 ----
 <properties>
-    <isis.version>1.15.0</isis.version>
+    <isis.version>1.15.1</isis.version>
     ...
 </properties>
 ----
@@ -251,7 +251,7 @@ then:
 mvn archetype:generate  \
     -D archetypeGroupId=org.incode.platform.archetype \
     -D archetypeArtifactId=quickstart-archetype \
-    -D archetypeVersion=1.15.0 \
+    -D archetypeVersion=1.15.1 \
     -D groupId=com.mycompany \
     -D artifactId=myapp \
     -D version=1.0-SNAPSHOT \
