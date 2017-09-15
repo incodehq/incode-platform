@@ -4,7 +4,7 @@
 :_imagesdir: images/
 
 
-* 1.15.0.1 - patch release, fixes link:https://github.com/incodehq/incode-platform/issues/13[#13]: 
+* 1.15.0.1 - patch release, fixes link:https://github.com/incodehq/incode-platform/issues/13[#13]:
 
 +
 `-SNAPSHOT` reference in `incode-parent`, also breaks archetype.
