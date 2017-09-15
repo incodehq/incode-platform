@@ -108,22 +108,37 @@ According to Sonatype's guide, it takes about 10 minutes to sync, but up to 2 ho
 The modules are released using their own `release.sh` script.
 This is very similar to that of the mavenmixins; the only substantive difference is that it also tags the repo with the release version.
 
-
 [source,bash]
 ----
 pushd modules
+----
+
+Before doing so, update the `incode-parent` module's `pom.xml`, so that it references the (just released) non-SNAPSHOT version of the mavenmixins.
+
+[NOTE]
+====
+TODO: should automate this editing, put into the `release.sh` script instead.
+====
+
+Commit the changes.
+
+Then, release using:
+
+
+[source,bash]
+----
 sh release.sh $INCODEREL \
               $INCODENEXT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
-popd
 ----
 
-If the script completes successfully, then push changes and the ta:
+If the script completes successfully, then push changes and the tag:
 
 [source]
 ----
 git push origin master && git push origin $INCODEREL
+popd
 ----
 
 === Recreating the archetype
