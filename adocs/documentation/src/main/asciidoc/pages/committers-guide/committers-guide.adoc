@@ -193,11 +193,12 @@ Staying in the same directory, recreate using:
 sh ../../arch/recreate-archetype.sh $INCODEREL
 ----
 
-And then:
+Finally, commit any changes:
 
 [source,bash]
 ----
 popd
+git commit -am "recreates archetype for $INCODEREL"
 ----
 
 
@@ -279,17 +280,20 @@ Back in the original session (in the `ex/arch/quickstart` directory), the archet
 
 [source,bash]
 ----
+pushd ex/arch/quickstart
 sh ../release-deploy.sh \
               $INCODENEXT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
 ----
 
-Once done:
+This script should automatically commit changes.
+To finish up, just push:
 
 [source,bash]
 ----
 popd
+git push
 ----
 
 
