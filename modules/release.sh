@@ -5,7 +5,9 @@ SNAPSHOT_VERSION=$1
 shift
 KEYID=$1
 shift
-PASSPHRASE=$*
+PASSPHRASE=$1
+shift
+OTHER_ARGS=$*
 
 if [ ! "$RELEASE_VERSION" -o ! "$SNAPSHOT_VERSION" -o ! "$KEYID" -o ! "$PASSPHRASE" ]; then
     echo "usage: $(basename $0) [release_version] [snapshot_version] [keyid] [passphrase]" >&2
@@ -27,7 +29,7 @@ fi
 echo ""
 echo "sanity check (mvn clean install -T1C -o -DskipTests -Dskip.isis-swagger -Dskip.isis-validate) "
 echo ""
-mvn clean install -T1C -DskipTests -Dskip.isis-swagger -Dskip.isis-validate -o >/dev/null
+mvn clean install -T1C -DskipTests -Dskip.isis-swagger -Dskip.isis-validate -o $OTHER_ARGS >/dev/null
 if [ $? != 0 ]; then
     echo "... failed" >&2
     exit 1
@@ -57,7 +59,7 @@ git commit -am "bumping modules to release: $RELEASE_VERSION"
 echo ""
 echo "double-check (mvn clean install -T1C -o -DskipTests -Dskip.isis-swagger  -Dskip.isis-validate)"
 echo ""
-mvn clean install -T1C -DskipTests -Dskip.isis-swagger -Dskip.isis-validate -o >/dev/null
+mvn clean install -T1C -DskipTests -Dskip.isis-swagger -Dskip.isis-validate -o $OTHER_ARGS >/dev/null
 if [ $? != 0 ]; then
     echo "... failed" >&2
     exit 1
@@ -67,7 +69,7 @@ fi
 echo ""
 echo "releasing (mvn clean deploy -P release)"
 echo ""
-mvn clean deploy -Prelease -Dskip.isis-swagger  -Dskip.isis-validate -Dpgp.secretkey=keyring:id=$KEYID -Dpgp.passphrase="literal:$PASSPHRASE"
+mvn clean deploy -Prelease -Dskip.isis-swagger  -Dskip.isis-validate -Dpgp.secretkey=keyring:id=$KEYID -Dpgp.passphrase="literal:$PASSPHRASE" $OTHER_ARGS
 if [ $? != 0 ]; then
     echo "... failed" >&2
     exit 1
