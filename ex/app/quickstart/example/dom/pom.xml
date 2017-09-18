@@ -213,20 +213,6 @@
             </dependencies>
         </profile>
         <profile>
-            <id>metamodel-paraname8</id>
-            <activation>
-                <property>
-                    <name>!skip.metamodel-paraname8</name>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.isisaddons.metamodel.paraname8</groupId>
-                    <artifactId>isis-metamodel-paraname8-dom</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
             <id>module-alias</id>
             <activation>
                 <property>

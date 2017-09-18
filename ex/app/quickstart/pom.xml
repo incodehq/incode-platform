@@ -121,9 +121,9 @@
                 </property>
             </activation>
             <modules>
-                <!-- Comment in to include example modules demonstrating platform usage: START -->
+                <!-- Uncomment to include example modules demonstrating platform usage: START -->
                 <module>example/dom</module>
-                <!-- Comment in to include example modules demonstrating platform usage: END -->
+                <!-- Uncomment to include example modules demonstrating platform usage: END -->
                 <module>module-simple</module>
             </modules>
         </profile>
@@ -141,15 +141,15 @@
                 <module>appdefn</module>
                 <module>webapp</module>
 
-                <!-- Comment in to include example modules that set up embedded camel: START -->
+                <!-- Uncomment to include example modules that set up embedded camel: START -->
                 <module>example/canonical</module>
                 <module>example/embeddedcamel</module>
-                <!-- Comment in to include example modules that set up embedded camel: END -->
+                <!-- Uncomment to include example modules that set up embedded camel: END -->
 
-                <!-- Comment in to include example modules demonstrating platform usage: START -->
+                <!-- Uncomment to include example modules demonstrating platform usage: START -->
                 <module>example/dom</module>
                 <module>example/appdefn</module>
-                <!-- Comment in to include example modules demonstrating platform usage: END -->
+                <!-- Uncomment to include example modules demonstrating platform usage: END -->
 
             </modules>
         </profile>

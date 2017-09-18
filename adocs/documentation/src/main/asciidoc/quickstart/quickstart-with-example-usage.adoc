@@ -34,21 +34,21 @@ To include the modules that demonstrate usage of the platform modules, just unco
 
 [source,xml]
 ----
-Comment in to include example modules demonstrating platform usage: START
+Uncomment to include example modules demonstrating platform usage: START
 ----
 
 and
 
 [source,xml]
 ----
-Comment in to include example modules demonstrating platform usage: END
+Uncomment to include example modules demonstrating platform usage: END
 ----
 
 You should find there are three such blocks in
 the various `pom.xml` files.
 
 
-If you've uncommented out these example usage modules, then you will be able to run the application with an specific `AppManifest`s to demonstrate the usage of each.
+If you've included (uncommented) these example usage modules, then you will be able to run the application with an specific `AppManifest`s to demonstrate the usage of each.
 These are documented in the sections xref:quickstart-with-example-usage.adoc#__quickstart-with-example-usage_modules[below].
 
 [NOTE]

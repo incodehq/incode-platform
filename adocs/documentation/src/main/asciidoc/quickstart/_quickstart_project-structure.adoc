@@ -41,15 +41,17 @@ by default the `example` modules are excluded from the project:
 See the Apache Isis documentation for link:http://isis.apache.org/guides/dg/dg.html#__dg_ide_intellij_importing-maven-modules[further guidance].
 
 
-== Removing unneeded modules
+== Adding/removing modules
 
-By default the `DomainAppAppManifest` app manifest has dependencies on _all_ of the generic subdomains and SPI services.
-This means that the database when generated will include tables for the entities of these modules, even if the application doesn't integrate with them.
-For example, the xref:../modules/dom/document/dom-document.adoc#[document module] includes tables that map onto the `DocumentType`, `DocumentTemplate` and `Document` entities (among others).
+By default the `DomainAppAppManifest` app manifest has dependencies on _all_ of the xref:../modules/spi/spi.adoc#[SPI services], the (feature) xref:../modules/ext/togglz/ext-togglz.adoc#[togglz] extension module, the xref:../modules/dom/settings/dom-settings.adoc[settings subdomain] (used by the togglz extension), and the xref:../modules/mml/paraname8/mml-paraname8[paraname8] metamodel facet.
 
-It's extremely unlikely that your application will need all of the modules in the platform.
-To exclude the modules that you don't require, simply delete or comment out of the app manifest.
-To keep things tidy, you should probably also remove the corresponding `<dependency>`s from your application's `pom.xml` files.
+To exclude the modules that you don't require, delete or comment entries in the app manifest.
+To keep things tidy, you should probably also remove the corresponding ``<dependency>``s from your application's `pom.xml` files.
+
+Conversely, the application does _not_ include any of the xref:../modules/dom.adoc#[generic subdomains] nor xref:../modules/lib.adoc#[libraries].
+To include these, take a look at the xref:quickstart-with-example-usage.adoc#[quickstart with example usage], or just read the individual documentation for the required module(s).
+In many cases all that's required is to update the `pom.xml` to reference the required module, and reference its `XxxModule` class in your app manifest.
+
 
 
 

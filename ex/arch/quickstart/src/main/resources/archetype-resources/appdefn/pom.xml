@@ -98,12 +98,12 @@
             <version>${symbol_dollar}{project.version}</version>
         </dependency>
 
-        <!-- Comment in to include example modules that set up embedded camel: START --> <!--
+        <!-- Uncomment to include example modules that set up embedded camel: START --> <!--
         <dependency>
             <groupId>${symbol_dollar}{project.groupId}</groupId>
             <artifactId>${artifactId}-example-embeddedcamel</artifactId>
         </dependency>
-        --> <!-- Comment in to include example modules that set up embedded camel: END -->
+        --> <!-- Uncomment to include example modules that set up embedded camel: END -->
 
         <dependency>
             <groupId>${symbol_dollar}{project.groupId}</groupId>

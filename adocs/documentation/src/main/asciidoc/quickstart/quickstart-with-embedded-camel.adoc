@@ -46,13 +46,13 @@ To include the Embedded Camel modules, just uncomment the relevant blocks surrou
 
 [source]
 ----
-Comment in to include example modules that set up embedded camel: START
+Uncomment to include example modules that set up embedded camel: START
 ----
 
 to
 [source]
 ----
-Comment in to include example modules that set up embedded camel: END
+Uncomment to include example modules that set up embedded camel: END
 ----
 
 You should find there are two such blocks in the various `pom.xml` files, one block in `web.xml`, and one block in the `DomainAppAppManifest.java`.

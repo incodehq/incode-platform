@@ -247,7 +247,7 @@
             </modules>
         </profile>
         <profile>
-            <id>mml-paraname8dit</id>
+            <id>mml-paraname8</id>
             <activation>
                 <property>
                     <name>mml-paraname8/metamodel</name>

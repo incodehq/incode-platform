@@ -48,15 +48,13 @@ public class DomainAppAppManifest extends AppManifestAbstract {
 
             DomainAppAppDefnModule.class,
 
-            /* Comment in to include example modules that set up embedded camel: START */
+            /* Uncomment to include example modules that set up embedded camel: START */
             domainapp.example.embeddedcamel.EmbeddedCamelModule.class,
-            /* Comment in to include example modules that set up embedded camel: END */
+            /* Uncomment to include example modules that set up embedded camel: END */
 
-            // extensions
-            TogglzModule.class,
+            /* Uncomment to include example modules demonstrating platform usage: START */
 
             // lib
-            BaseServicesModule.class,
             FreemarkerDocRenderingModule.class,
             StringInterpolatorDocRenderingModule.class,
             XDocReportDocRenderingModule.class,
@@ -80,6 +78,14 @@ public class DomainAppAppManifest extends AppManifestAbstract {
             DocumentModule.class,
             NoteModule.class,
             TagsModule.class,
+
+            /* Uncomment to include example modules demonstrating platform usage: END */
+
+            // extensions
+            TogglzModule.class,
+
+            // lib
+            BaseServicesModule.class,
 
             // spi
             AuditModule.class,
