@@ -1,7 +1,7 @@
 #set( $symbol_pound = '#' )
 #set( $symbol_dollar = '$' )
 #set( $symbol_escape = '\' )
-package domainapp.appdefn.services.userreg;
+package org.incode.domainapp.example.app.services.userreg;
 
 import java.util.Collections;
 import java.util.Set;

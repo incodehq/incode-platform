@@ -26,6 +26,11 @@
     <build>
         <resources>
             <resource>
+                <filtering>false</filtering>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <filtering>false</filtering>
                 <directory>src/main/java</directory>
                 <includes>
                     <include>**</include>
@@ -63,6 +68,12 @@
 			<groupId>${symbol_dollar}{project.groupId}</groupId>
 			<artifactId>${artifactId}-appdefn</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>${symbol_dollar}{project.groupId}</groupId>
+            <artifactId>${artifactId}-example-dom</artifactId>
+        </dependency>
+
 
         <dependency>
             <groupId>org.isisaddons.module.fakedata</groupId>

@@ -92,12 +92,6 @@
     </build>
 
     <dependencies>
-        <dependency>
-            <groupId>${symbol_dollar}{project.groupId}</groupId>
-            <artifactId>${artifactId}-example-dom</artifactId>
-            <version>${symbol_dollar}{project.version}</version>
-        </dependency>
-
         <!-- Uncomment to include example modules that set up embedded camel: START --> <!--
         <dependency>
             <groupId>${symbol_dollar}{project.groupId}</groupId>
@@ -145,6 +139,20 @@
     </dependencies>
 
     <profiles>
+        <profile>
+            <id>metamodel-paraname8</id>
+            <activation>
+                <property>
+                    <name>!skip.metamodel-paraname8</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.isisaddons.metamodel.paraname8</groupId>
+                    <artifactId>isis-metamodel-paraname8-dom</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
         <profile>
             <id>ext-togglz</id>
             <activation>
@@ -289,20 +297,6 @@
             </dependencies>
         </profile>
         <profile>
-            <id>wicket-pdfjs</id>
-            <activation>
-                <property>
-                    <name>!skip.wicket-pdfjs</name>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.isisaddons.wicket.pdfjs</groupId>
-                    <artifactId>isis-wicket-pdfjs-cpt</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
             <id>wicket-summernote</id>
             <activation>
                 <property>
@@ -317,6 +311,20 @@
             </dependencies>
         </profile>
         <profile>
+            <id>wicket-pdfjs</id>
+            <activation>
+                <property>
+                    <name>!skip.wicket-pdfjs</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.isisaddons.wicket.pdfjs</groupId>
+                    <artifactId>isis-wicket-pdfjs-cpt</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
             <id>wicket-wickedcharts</id>
             <activation>
                 <property>
@@ -327,6 +335,20 @@
                 <dependency>
                     <groupId>org.isisaddons.wicket.wickedcharts</groupId>
                     <artifactId>isis-wicket-wickedcharts-cpt</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>module-settings</id>
+            <activation>
+                <property>
+                    <name>!skip.module-settings</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.isisaddons.module.settings</groupId>
+                    <artifactId>isis-module-settings-dom</artifactId>
                 </dependency>
             </dependencies>
         </profile>
