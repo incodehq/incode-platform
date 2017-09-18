@@ -15,7 +15,7 @@ To build the platform, see the xref:contributors-guide.adoc#[contributors' guide
 
 
 
-== Release process
+== Release to Maven Central
 
 This section describes the steps to release the platform to Maven central.
 There are four stages:
