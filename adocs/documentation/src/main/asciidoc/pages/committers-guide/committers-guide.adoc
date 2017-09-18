@@ -146,7 +146,18 @@ popd
 The quickstart archetype is re-created for each release from the current quickstart application.
 The generated archetype is then released by deploying up to Maven Central.
 
-Switch to the quickstart _application_:
+If necessary, setup environment variables:
+
+[source,bash]
+----
+export INCODEREL=1.15.1
+export INCODENEXT=1.16.0-SNAPSHOT
+
+env | grep ^INCODE
+----
+
+
+Then, switch to the quickstart _application_:
 
 [source,bash]
 ----
@@ -227,8 +238,11 @@ popd
 
 In a _different session_:
 
+First, setup environment variables:
+
 [source,bash]
 ----
+export INCODEREL=1.15.1
 export INCODETMP=/c/tmp    # or as required
 export INCODEART=quickstart
 env | grep INCODE | sort
@@ -251,7 +265,7 @@ then:
 mvn archetype:generate  \
     -D archetypeGroupId=org.incode.platform.archetype \
     -D archetypeArtifactId=quickstart-archetype \
-    -D archetypeVersion=1.15.1 \
+    -D archetypeVersion=$INCODEREL \
     -D groupId=com.mycompany \
     -D artifactId=myapp \
     -D version=1.0-SNAPSHOT \
