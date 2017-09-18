@@ -43,10 +43,27 @@ for a in .project .classpath .settings bin .idea activemq-data neo4j_DB target-i
 /bin/find . -name "*.log" -exec rm {} \;
 /bin/find . -name "pom.xml.*" -exec rm {} \;
 
+
+echo ""
+echo ""
+echo "Workaround: temporarily renaming Dockerfile"
+mv webapp/src/main/resources/docker/Dockerfile webapp/src/main/resources/docker/Dockerfile.txt
+
 echo ""
 echo ""
 echo "mvn archetype:create-from-project ..."
 mvn archetype:create-from-project -o
+
+echo ""
+echo ""
+echo "Renames Dockerfile in ex/app"
+mv webapp/src/main/resources/docker/Dockerfile.txt webapp/src/main/resources/docker/Dockerfile
+
+echo ""
+echo ""
+echo "Renames Dockerfile in generated-sources"
+mv target/generated-sources/archetype/src/main/resources/archetype-resources/webapp/src/main/resources/docker/Dockerfile.txt target/generated-sources/archetype/src/main/resources/archetype-resources/webapp/src/main/resources/docker/Dockerfile
+
 
 echo ""
 echo ""
