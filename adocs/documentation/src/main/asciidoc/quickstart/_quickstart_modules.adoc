@@ -4,7 +4,7 @@
 :_imagesdir: images/
 
 
-Now we've explored how to run the application, let's explore some of the features already configured in the quickstart.
+Now we've seen how to run the application, let's explore some of the features already configured in the quickstart.
 
 include::_quickstart_modules_security.adoc[leveloffset=+1]
 

@@ -23,6 +23,11 @@
     <build>
         <resources>
             <resource>
+                <filtering>false</filtering>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <filtering>false</filtering>
                 <directory>src/main/java</directory>
                 <includes>
                     <include>**</include>
@@ -60,6 +65,12 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>incode-quickstart-appdefn</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>incode-quickstart-example-dom</artifactId>
+        </dependency>
+
 
         <dependency>
             <groupId>org.isisaddons.module.fakedata</groupId>

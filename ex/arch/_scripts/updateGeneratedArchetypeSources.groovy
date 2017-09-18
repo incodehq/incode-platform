@@ -144,6 +144,7 @@ def xD_replace = javaCommentEnd
 [ ARCHROOT+"pom.xml",
   ARCHROOT+"appdefn/pom.xml",
   ARCHROOT+"appdefn/src/main/java/domainapp/appdefn/DomainAppAppManifest.java",
+  ARCHROOT+"appdefn/src/main/java/domainapp/appdefn/DomainAppAppManifestWithFlywayEnabledForSqlServer.java",
   ARCHROOT+"webapp/pom.xml",
   ARCHROOT+"webapp/src/main/webapp/WEB-INF/web.xml",
 ].each {

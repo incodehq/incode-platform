@@ -12,7 +12,7 @@ The quickstart app (when using the fixtures) disables commands "globally" in the
 [source,ini]
 .DomainAppAppManifestWithFixtures
 ----
-protected void disableAuditingAndCommandAndPublishGlobally(final Map<String, String> configurationProperties) {
+protected void disableAuditingAndCommandAndPublishGlobally(Map<String, String> configurationProperties) {
     ...
     configurationProperties.put("isis.services.command.actions","none");
     configurationProperties.put("isis.services.command.properties","none");

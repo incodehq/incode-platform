@@ -18,9 +18,9 @@ configurationProperties.put(
 
 This tells DataNucleus to _not_ automatically create the required database schema, so that it is instead created "manually" by Flyway running the provided SQL scripts.
 
-There are a number of other configuration properties also set in that manifest; thes indicate which schemas FlywayDB should track, and where to locate the migration scripts on the classpath.
+There are a number of other configuration properties also set in that manifest; these indicate which schemas FlywayDB should track, and where to locate the migration scripts on the classpath.
 
-The migration scripts themselves are in the `webapp` module, in a subpackage of `db.migration`:
+The migration scripts themselves are in the `appdefn` module, in a subpackage of `db.migration`:
 
 image::{_imagesdir}modules/flywaydb/migration-scripts.png[width="400px",link="{_imagesdir}modules/flywaydb/migration-scripts.png"]
 

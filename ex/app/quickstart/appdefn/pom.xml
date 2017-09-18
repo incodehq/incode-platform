@@ -89,15 +89,6 @@
     </build>
 
     <dependencies>
-
-        <!-- Uncomment to include example modules demonstrating platform usage: START -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>incode-quickstart-example-dom</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <!-- Uncomment to include example modules demonstrating platform usage: END -->
-
         <!-- Uncomment to include example modules that set up embedded camel: START -->
         <dependency>
             <groupId>${project.groupId}</groupId>

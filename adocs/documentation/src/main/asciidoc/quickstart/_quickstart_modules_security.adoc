@@ -9,10 +9,12 @@ The xref:../modules/spi/security/spi-security.adoc#[security module] provides au
 [source,ini]
 .WEB-INF/shiro.ini file
 ----
-incodePlatformSpiSecurityRealm=org.isisaddons.module.security.shiro.IsisModuleSecurityRealm
+incodePlatformSpiSecurityRealm = \
+    org.isisaddons.module.security.shiro.IsisModuleSecurityRealm
 securityManager.realms = $incodePlatformSpiSecurityRealm
 
-authenticationStrategy=org.isisaddons.module.security.shiro.AuthenticationStrategyForIsisModuleSecurityRealm
+authenticationStrategy = \
+    org.isisaddons.module.security.shiro.AuthenticationStrategyForIsisModuleSecurityRealm
 securityManager.authenticator.authenticationStrategy = $authenticationStrategy
 ----
 

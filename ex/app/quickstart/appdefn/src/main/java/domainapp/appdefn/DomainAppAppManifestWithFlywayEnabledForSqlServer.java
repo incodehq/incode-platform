@@ -24,6 +24,13 @@ public class DomainAppAppManifestWithFlywayEnabledForSqlServer extends DomainApp
                 "isis.persistor.datanucleus.impl.flyway.schemas",
                 Joiner.on(",").join(
                         "flyway",
+                        "isissettings",
+                        "isisaudit",
+                        "isiscommand",
+                        "isispublishmq",
+                        "isissecurity",
+                        "isissessionlogger",
+                        /* Uncomment to include example modules demonstrating platform usage: START */
                         "incodeAlias",
                         "incodeClassification",
                         "incodeCommChannel",
@@ -32,13 +39,8 @@ public class DomainAppAppManifestWithFlywayEnabledForSqlServer extends DomainApp
                         "incodeDocFragment",
                         "incodeDocuments",
                         "incodeNote",
-                        "isissettings",
                         "isistags",
-                        "isisaudit",
-                        "isiscommand",
-                        "isispublishmq",
-                        "isissecurity",
-                        "isissessionlogger",
+                        /* Uncomment to include example modules demonstrating platform usage: END */
                         "simple"
                 ));
 

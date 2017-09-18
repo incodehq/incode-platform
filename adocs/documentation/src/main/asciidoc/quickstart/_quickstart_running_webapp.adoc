@@ -13,12 +13,16 @@ mvn install \
      -DskipTests -Dskip.isis-validate -Dskip.isis-swagger
 ----
 
-will result in a `xxx-webapp-1.0-SNAPSHOT.war` (where xxx is the project's `artifactId`) generated in `webapp/target`.
+will result in a `xxx.war` (where xxx is the parent project's `artifactId`), generated in `webapp/target`.
 This can then be deployed to the servlet container in the normal way.
 For example, if deploying to http://tomcat.apache.org[Apache Tomcat], just copy to the `$TOMCAT_HOME/webapps/` directory.
 
-If you want to change the manifest (or any other property), it is possible to override the configuration externally.
+[TIP]
+====
+If you want to change any of the configuration properties (eg the app manifest to run on start up), note that it is possible to override the configuration externally.
 See the Apache Isis docs for link:http://isis.apache.org/guides/ugbtb/ugbtb.html#_ugbtb_deployment_tomcat[further guidance].
+====
+
 
 The configuration in the Maven `pom.xml` project files for maven's war plugin is done using the _jettywar_ mavenmixin, discussed xref:quickstart.adoc#_quickstart_maven-mixins[below].
 
