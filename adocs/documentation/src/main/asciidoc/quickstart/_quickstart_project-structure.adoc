@@ -43,7 +43,7 @@ See the Apache Isis documentation for link:http://isis.apache.org/guides/dg/dg.h
 
 == Adding/removing modules
 
-By default the `DomainAppAppManifest` app manifest has dependencies on _all_ of the xref:../modules/spi/spi.adoc#[SPI services], the (feature) xref:../modules/ext/togglz/ext-togglz.adoc#[togglz] extension module, the xref:../modules/dom/settings/dom-settings.adoc[settings subdomain] (used by the togglz extension), and the xref:../modules/mml/paraname8/mml-paraname8[paraname8] metamodel facet.
+By default the `DomainAppAppManifest` app manifest has dependencies on _all_ of the xref:../modules/spi/spi.adoc#[SPI services], _all_ of the xref:../modules/wkt/wkt.adoc#[wicket components], the (feature) xref:../modules/ext/togglz/ext-togglz.adoc#[togglz] extension module, the xref:../modules/dom/settings/dom-settings.adoc#[settings] subdomain (used by the togglz extension), and the xref:../modules/mml/paraname8/mml-paraname8.adoc#[paraname8] metamodel facet.
 
 To exclude the modules that you don't require, delete or comment entries in the app manifest.
 To keep things tidy, you should probably also remove the corresponding ``<dependency>``s from your application's `pom.xml` files.
