@@ -258,7 +258,15 @@ mkdir $INCODETMP/test-$INCODEART
 cd $INCODETMP/test-$INCODEART
 ----
 
-then:
+also, delete any test artifacts that might be in local cache:
+
+[source,bash]
+----
+rm -rf ~/.m2/repository/com/mycompany
+----
+
+
+Then, generate the app:
 
 [source,bash]
 ----
