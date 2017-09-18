@@ -12,7 +12,7 @@ For example:
 mvn archetype:generate  \
     -D archetypeGroupId=org.incode.platform.archetype \
     -D archetypeArtifactId=quickstart-archetype \
-    -D archetypeVersion=1.15.0.1 \
+    -D archetypeVersion=1.15.0.2 \
     -D groupId=com.mycompany \
     -D artifactId=myapp \
     -D version=1.0-SNAPSHOT \
