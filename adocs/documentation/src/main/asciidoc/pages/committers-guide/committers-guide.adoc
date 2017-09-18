@@ -293,7 +293,7 @@ mvn -pl webapp jetty:run \
 ----
 
 Login using sven/pass.
-The application generated should be the xref:../quickstart/quickstart.adoc#[Quickstart app].
+The application generated should be the xref:../../quickstart/quickstart.adoc#[Quickstart app].
 
 
 ==== Deploying the archetype

@@ -25,7 +25,16 @@ The migration scripts themselves are in the `appdefn` module, in a subpackage of
 image::{_imagesdir}modules/flywaydb/migration-scripts.png[width="400px",link="{_imagesdir}modules/flywaydb/migration-scripts.png"]
 
 
-Running the app with this manifest against an empty SQL Server database results in FlywayDB automatically creating the database tables:
+Before running the app, it may be necessary to manually create the schema for FlywayDB's own `schema_version` table:
+
+[source,sql]
+----
+CREATE TABLE flyway
+go
+----
+
+With this done, the app can be run against an (otherwise) empty SQL Server database.
+This results in FlywayDB automatically creating the database tables:
 
 image::{_imagesdir}modules/flywaydb/mssql-generated-tables.png[width="400px",link="{_imagesdir}modules/flywaydb/mssql-generated-tables.png"]
 
