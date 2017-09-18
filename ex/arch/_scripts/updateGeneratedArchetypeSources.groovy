@@ -91,6 +91,13 @@ metaDataFile.text = metaDataXmlText
 
 
 
+//
+// fix metadata for Dockerfile (when generated, was temporarily renamed to Dockerfile.txt since
+// archetype:create-from-project seems to ignore files with no extension
+//
+new AntBuilder().replace(file: metaDataFile, token: "<include>**/*.txt</include>", value: "<include>**/Dockerfile</include>")
+
+
 
 //
 // ensure optional modules are commented out
