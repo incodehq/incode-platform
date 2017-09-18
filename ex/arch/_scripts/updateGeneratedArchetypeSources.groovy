@@ -112,7 +112,7 @@ def x3_find = '/* Uncomment to include example modules demonstrating platform us
 def x3_replace = x3_find + javaCommentStart
 
 def x4_find = '/* Uncomment to include example modules demonstrating platform usage: END */'
-def x4_replace = javaCommentEnd + x6a_find
+def x4_replace = javaCommentEnd + x4_find
 
 
 def x5_find = '<!-- Uncomment to include example modules that set up embedded camel: START -->'

@@ -22,7 +22,6 @@ import org.isisaddons.wicket.gmap3.cpt.applib.Gmap3ApplibModule;
 import org.isisaddons.wicket.gmap3.cpt.service.Gmap3ServiceModule;
 import org.isisaddons.wicket.gmap3.cpt.ui.Gmap3UiModule;
 import org.isisaddons.wicket.pdfjs.cpt.PdfjsCptModule;
-import org.isisaddons.wicket.summernote.cpt.ui.SummernoteUiModule;
 import org.isisaddons.wicket.wickedcharts.cpt.ui.WickedChartsUiModule;
 
 import org.incode.module.alias.dom.AliasModule;
@@ -99,7 +98,6 @@ public class DomainAppAppManifest extends AppManifestAbstract {
             Gmap3ServiceModule.class,
             Gmap3UiModule.class,
             PdfjsCptModule.class,
-            SummernoteUiModule.class,
             WickedChartsUiModule.class
     )
     // override as required
