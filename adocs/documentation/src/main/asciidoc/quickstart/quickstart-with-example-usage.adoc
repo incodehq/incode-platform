@@ -30,7 +30,7 @@ where:
 [[__quickstart-with-example-usage_including-the-example-modules]]
 == Including the Example Modules
 
-To include the modules that demonstrate usage of the platform modules, just uncomment the relevant blocks surrounded by these words:
+To include the modules that demonstrate usage of the platform modules, just uncomment the blocks surrounded by these words:
 
 [source,xml]
 ----
@@ -44,8 +44,13 @@ and
 Uncomment to include example modules demonstrating platform usage: END
 ----
 
-You should find there are three such blocks in
-the various `pom.xml` files.
+The files that need updating are:
+
+* `pom.xml`
+* `webapp/pom.xml`
+* `appdefn/src/main/java/domainapp/appdefn/DomainAppAppManifestWithFlywayEnabledForSqlServer.java`
+
+We recommend you xref:quickstart.adoc#_quickstart_running_ide[load the application into an IDE] to easily do this search-and-replace.
 
 
 If you've included (uncommented) these example usage modules, then you will be able to run the application with an specific `AppManifest`s to demonstrate the usage of each.

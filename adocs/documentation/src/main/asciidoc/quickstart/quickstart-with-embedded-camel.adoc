@@ -42,7 +42,7 @@ That is, the `quickstart-exampe-embedded-camel` implements steps 5 through to 11
 == Including the Example Modules
 
 
-To include the Embedded Camel modules, just uncomment the relevant blocks surrounded by these words:
+To include the Embedded Camel modules, just uncomment the blocks surrounded by these words:
 
 [source]
 ----
@@ -55,8 +55,14 @@ to
 Uncomment to include example modules that set up embedded camel: END
 ----
 
-You should find there are two such blocks in the various `pom.xml` files, one block in `web.xml`, and one block in the `DomainAppAppManifest.java`.
+The files that need updating are:
 
+* `pom.xml`
+* `appdefn/pom.xml`
+* `appdefn/src/main/java/domainapp/appdefn/DomainAppAppManifest.java`
+* `webapp/src/main/webapp/WEB-INF/web.xml`
+
+We recommend you xref:quickstart.adoc#_quickstart_running_ide[load the application into an IDE] to easily do this search-and-replace.
 
 
 
