@@ -6,7 +6,6 @@ import org.apache.isis.applib.util.TitleBufferException;
 
 public class TitleBuilder {
     private static final String SPACE = " ";
-    private static final String SEPARATOR = ":";
     private static final String DELIMITER = "[]";
     private static final String PARENT_SEPARATOR = " > ";
 
@@ -83,6 +82,10 @@ public class TitleBuilder {
         return this;
     }
 
+    /**
+     * @deprecated  - this method does nothing...
+     */
+    @Deprecated
     public TitleBuilder withTupleElement(Object object) {
         return this;
     }
