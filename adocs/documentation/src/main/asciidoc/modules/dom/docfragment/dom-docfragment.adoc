@@ -219,9 +219,9 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 [source,xml]
 ----
 <dependency>
-    <groupId>org.incode.module.communications</groupId>
-    <artifactId>incode-module-communications-dom</artifactId>
-    <version>1.15.0</version>
+    <groupId>org.incode.module.docfragment</groupId>
+    <artifactId>incode-module-docfragment-dom</artifactId>
+    <version>1.15.1.1</version>
 </dependency>
 ----
 

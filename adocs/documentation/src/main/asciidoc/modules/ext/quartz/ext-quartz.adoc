@@ -22,7 +22,7 @@ Update your classpath by adding this dependency in your *`webapp`*'s project's `
 <dependency>
     <groupId>org.isisaddons.module.quartz</groupId>
     <artifactId>isis-module-quartz-dom</artifactId>
-    <version>1.15.0</version>
+    <version>1.15.1.1</version>
 </dependency>
 ----
 

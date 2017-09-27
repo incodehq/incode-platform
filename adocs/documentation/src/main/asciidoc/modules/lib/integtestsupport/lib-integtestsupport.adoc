@@ -20,7 +20,7 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 <dependency>
     <groupId>org.incode.module.integtestsupport</groupId>
     <artifactId>incode-module-integtestsupport-dom</artifactId>
-    <version>1.15.0</version>
+    <version>1.15.1.1</version>
     <scope>test</scope>
 </dependency>
 ----

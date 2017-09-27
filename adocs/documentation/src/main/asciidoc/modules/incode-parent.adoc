@@ -120,7 +120,7 @@ To configure:
 <parent>
     <groupId>org.incode</groupId>
     <artifactId>incode-parent</artifactId>
-    <version>1.15.0</version>
+    <version>1.15.1.1</version>
 </parent>
 ----
 +
@@ -131,7 +131,7 @@ This has the effect of defining a number of `<properties>` (eg `${mavenmixin-sur
 [source,xml]
 ----
 <properties>
-    <isis.version>1.15.0</isis.version>
+    <isis.version>1.15.1</isis.version>
     ...
 </properties>
 ----

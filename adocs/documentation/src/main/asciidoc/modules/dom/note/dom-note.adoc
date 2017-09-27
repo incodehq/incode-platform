@@ -183,7 +183,7 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 <dependency>
     <groupId>org.incode.module.note</groupId>
     <artifactId>incode-module-note-dom</artifactId>
-    <version>1.15.0</version>
+    <version>1.15.1.1</version>
 </dependency>
 ----
 

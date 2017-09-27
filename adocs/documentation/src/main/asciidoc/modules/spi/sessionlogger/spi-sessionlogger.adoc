@@ -55,7 +55,7 @@ Update your classpath by adding this dependency in your project's `dom` module's
 <dependency>
     <groupId>org.isisaddons.module.sessionlogger</groupId>
     <artifactId>isis-module-sessionlogger-dom</artifactId>
-    <version>1.15.0</version>
+    <version>1.15.1.1</version>
 </dependency>
 ----
 

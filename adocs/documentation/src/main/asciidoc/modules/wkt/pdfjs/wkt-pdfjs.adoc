@@ -137,7 +137,7 @@ Add the component to your project's `dom` module's `pom.xml`:
 <dependency>
     <groupId>com.eurocommercialproperties.pdfjsdemo</groupId>
     <artifactId>ecp-wicket-pdfjs-cpt</artifactId>
-    <version>1.15.0</version>
+    <version>1.15.1.1</version>
 </dependency>
 ----
 

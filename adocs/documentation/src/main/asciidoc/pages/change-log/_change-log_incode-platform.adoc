@@ -15,6 +15,20 @@
 ^.>| Apache Isis version
 ^| Notes
 
+| 1.15.1.1
+| Y
+| Y
+| Y
+| 1.15.1
+| Updates to Apache Isis 1.15.1
+
+| 1.15.1
+| Y
+|
+|
+| 1.15.0
+| Aborted release due to error made in mavenmixin.
+
 | 1.15.0.2
 |
 |
