@@ -56,7 +56,14 @@ The `release.sh` script automates the release process.
 Before running, update the two `pom.xml` files to reference the correct version of Apache Isis:
 
 * `mavenmixin-swagger/pom.xml`
+
++
+edit `<isis.version>` property
+
 * `mavenmixin-validate/pom.xml`
+
++
+edit `<isis.version>` property
 
 And commit the changes.
 
@@ -128,7 +135,12 @@ This is very similar to that of the mavenmixins; the only substantive difference
 pushd modules
 ----
 
-Before doing so, update the `incode-parent` module's `pom.xml`, so that it references the (just released) non-SNAPSHOT version of the mavenmixins.
+Before doing so, update the `incode-parent` module's `pom.xml`, so that it references the correct version of Apache Isis and also the (just released) non-SNAPSHOT version of the mavenmixins:
+
+* edit `<isis.version>` property
+* edit `<incode-mavenmixin.version>` property
+
+and commit these changes.
 
 [NOTE]
 ====
