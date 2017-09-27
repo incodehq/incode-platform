@@ -34,7 +34,7 @@
 |
 | Y
 | 1.15.0
-| Fixes to archetype only, runs against `1.15.0.1 of modules
+| Fixes to archetype only, runs against 1.15.0.1 of modules
 
 | 1.15.0.1
 | Y
