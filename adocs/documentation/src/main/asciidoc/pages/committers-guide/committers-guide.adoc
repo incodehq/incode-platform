@@ -52,13 +52,28 @@ env | grep ^INCODE
 === Release Maven Mixins
 
 The `release.sh` script automates the release process.
-It performs the following:
+
+Before running, update the two `pom.xml` files to reference the correct version of Apache Isis:
+
+* `mavenmixin-swagger/pom.xml`
+* `mavenmixin-validate/pom.xml`
+
+And commit the changes.
+
+[NOTE]
+====
+TODO: should automate this editing, put into the `release.sh` script instead.
+====
+
+The `release.sh` script itself performs the following:
 
 * performs a sanity check (`mvn clean install -o`) that everything builds ok
 * bumps the `pom.xml` to a specified release version, and tag
 * performs a double check (`mvn clean install -o`) that everything still builds ok
 * releases the code using `mvn clean deploy`
 * bumps the `pom.xml` to a specified release version
+
+
 
 For example:
 
