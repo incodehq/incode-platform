@@ -279,7 +279,7 @@ The archetype is prepared using:
 
 [source,bash]
 ----
-pushd ex/arch/quickstart
+pushd ex/arch
 sh ../release-prepare.sh $INCODEREL
 popd
 ----
@@ -353,7 +353,7 @@ Back in the original session (in the `ex/arch/quickstart` directory), the archet
 
 [source,bash]
 ----
-pushd ex/arch/quickstart
+pushd ex/arch
 sh ../release-deploy.sh \
               $INCODENEXT \
               dan@haywood-associates.co.uk \
