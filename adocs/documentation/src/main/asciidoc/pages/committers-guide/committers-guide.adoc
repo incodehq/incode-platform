@@ -58,14 +58,32 @@ Before running, update the two `pom.xml` files to reference the correct version 
 * `mavenmixin-swagger/pom.xml`
 
 +
-edit `<isis.version>` property
+edit `<isis.version>` property:
+
++
+[source,xml]
+----
+<properties>
+    <isis.version>1.15.1</isis.version>
+    ...
+</properties>
+----
 
 * `mavenmixin-validate/pom.xml`
 
 +
-edit `<isis.version>` property
+likewise, edit `<isis.version>` property:
 
-And commit the changes.
++
+[source,xml]
+----
+<properties>
+    <isis.version>1.15.1</isis.version>
+    ...
+</properties>
+----
+
+Commit these changes.
 
 [NOTE]
 ====
@@ -137,10 +155,16 @@ pushd modules
 
 Before doing so, update the `incode-parent` module's `pom.xml`, so that it references the correct version of Apache Isis and also the (just released) non-SNAPSHOT version of the mavenmixins:
 
-* edit `<isis.version>` property
-* edit `<incode-mavenmixin.version>` property
+[source,xml]
+----
+<properties>
+    <isis.version>1.15.1</isis.version>
+    <incode-mavenmixin.version>1.15.1.1</incode-mavenmixin.version>
+    ...
+</properties>
+----
 
-and commit these changes.
+Commit these changes.
 
 [NOTE]
 ====
