@@ -371,6 +371,18 @@ git push
 
 
 
+=== Update the website
+
+Update the website, in particular:
+
+* running the archetype
+** home page
+** quickstart page
+* change log
+
+and republish.
+
+
 == Release an Interim Build
 
 If you have commit access to this project (or a fork of your own) then you can create interim releases using the `interim-release.sh` script.
