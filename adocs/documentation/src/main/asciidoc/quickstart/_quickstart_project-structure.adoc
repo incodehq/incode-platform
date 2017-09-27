@@ -25,7 +25,7 @@ It is also where the example xref:../modules/ext/togglz/ext-togglz.adoc#[togglz]
 * The `quickstart-appdefn` module holds the application's implementation of the link:http://isis.apache.org/guides/rgcms/rgcms.html#_rgcms_classes_AppManifest-bootstrapping[AppManifest] interface, which defines the modules that make up the application.
 The quickstart's implementation is `domainapp.appdefn.DomainAppAppManifest`. +
 +
-It's also a useful place to define fixtures for demoing prototypes to the business, aw well as supporting services that might be needed to help configure modules.
+It's also a useful place to define fixtures for demoing prototypes to the business, as well as supporting services that might be needed to help configure modules.
 The quickstart includes implementations of services for both the xref:../modules/spi/security/spi-security.adoc#[security spi] module and the xref:../modules/ext/security/ext-togglz.adoc#[togglz] (feature toggle) module.
 
 * Finally, the `quickstart-webapp` module is what packages up the application as a `.war` file (the `WEB-INF/web.xml` shown in the diagram actually lives in this module).
