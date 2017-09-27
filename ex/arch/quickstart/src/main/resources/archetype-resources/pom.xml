@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>1.15.0.1</version>
+        <version>1.15.1.1</version>
     </parent>
 
     <groupId>${groupId}</groupId>
@@ -17,7 +17,7 @@
 
     <properties>
 
-        <isis.version>1.15.0</isis.version>
+        <isis.version>1.15.1</isis.version>
         <incode-platform.version>${project.parent.version}</incode-platform.version>
 
         <spring.version>4.1.9.RELEASE</spring.version>
