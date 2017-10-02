@@ -54,7 +54,7 @@ public class CommunicationChannelOwner_addPhoneOrFaxNumber_IntegTest extends Com
 
             // when
             wrap(mixinNewPhoneOrFaxNumber(fredDemoOwner)).$$(
-                    CommunicationChannelType.PHONE_NUMBER, "0207 999 8888", "Work", "Fred's work number");
+                    CommunicationChannelType.PHONE_NUMBER, "0207 999 8888", "Work", "Fred's work number", true);
 
             // then
             final SortedSet<CommunicationChannel> communicationChannelsAfter =
@@ -68,6 +68,7 @@ public class CommunicationChannelOwner_addPhoneOrFaxNumber_IntegTest extends Com
             assertThat(communicationChannel.getType()).isEqualTo(CommunicationChannelType.PHONE_NUMBER);
             assertThat(communicationChannel.getLocation()).isNull();
             assertThat(communicationChannel.getId()).isNotNull();
+            assertThat(communicationChannel.getCurrent()).isTrue();
 
             assertThat(communicationChannel).isInstanceOf(PhoneOrFaxNumber.class);
             final PhoneOrFaxNumber phoneOrFaxNumber = (PhoneOrFaxNumber)communicationChannel;
@@ -87,7 +88,8 @@ public class CommunicationChannelOwner_addPhoneOrFaxNumber_IntegTest extends Com
                     CommunicationChannelType.EMAIL_ADDRESS,
                     "0207 111 2222",
                     "Fred's home phone or fax",
-                    "... but attempted to create using wrong comm channel type");
+                    "... but attempted to create using wrong comm channel type",
+                    true);
         }
     }
 
@@ -135,7 +137,7 @@ public class CommunicationChannelOwner_addPhoneOrFaxNumber_IntegTest extends Com
         public void happy_case() throws Exception {
 
             wrap(mixinNewPhoneOrFaxNumber(fredDemoOwner)).$$(
-                    CommunicationChannelType.PHONE_NUMBER, "0207 999 8888", "Work", "Fred's work number");
+                    CommunicationChannelType.PHONE_NUMBER, "0207 999 8888", "Work", "Fred's work number", true);
 
             assertThat(testSubscriber.ev).isNotNull();
             assertThat(testSubscriber.ev.getSource().getCommunicationChannelOwner()).isSameAs(fredDemoOwner);

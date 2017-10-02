@@ -54,7 +54,7 @@ public class CommunicationChannelOwner_addPostalAddress_IntegTest extends CommCh
             // when
             wrap(mixinNewPostalAddress(fredDemoOwner)).$$(
                     "Flat 2a", "45 Penny Lane", "Allerton", "Liverpool", "L39 5AA", "UK", "Home", "Fred Smith's home",
-                    false);
+                    false, true);
 
             // then
             final SortedSet<CommunicationChannel> channelsAfter = wrap(mixinCommunicationChannels(fredDemoOwner)).$$();
@@ -83,6 +83,7 @@ public class CommunicationChannelOwner_addPostalAddress_IntegTest extends CommCh
             assertThat(postalAddress.getLatLng()).isNull();
             assertThat(postalAddress.getPlaceId()).isNull();
             assertThat(postalAddress.getAddressComponents()).isNull();
+            assertThat(postalAddress.getCurrent()).isTrue();
         }
 
         @Test
@@ -96,7 +97,7 @@ public class CommunicationChannelOwner_addPostalAddress_IntegTest extends CommCh
 
             // when
             wrap(mixinNewPostalAddress(fredDemoOwner)).$$(
-                    "45", "High Street", "Oxford", "Oxfordshire", "OX1", "UK", "Work", "Fred Smith's work", true);
+                    "45", "High Street", "Oxford", "Oxfordshire", "OX1", "UK", "Work", "Fred Smith's work", true, true);
 
             // then
             final SortedSet<CommunicationChannel> channelsAfter = wrap(mixinCommunicationChannels(fredDemoOwner)).$$();
@@ -116,6 +117,7 @@ public class CommunicationChannelOwner_addPostalAddress_IntegTest extends CommCh
             assertThat(postalAddress.getLatLng()).matches("51.752[\\d][\\d][\\d][\\d],-1.250[\\d][\\d][\\d][\\d]");
             assertThat(postalAddress.getPlaceId()).isEqualTo("Eho0NSBIaWdoIFN0LCBPeGZvcmQgT1gxLCBVSw");
             assertThat(postalAddress.getAddressComponents()).isNotNull();
+            assertThat(postalAddress.getCurrent()).isTrue();
         }
     }
 
@@ -139,7 +141,7 @@ public class CommunicationChannelOwner_addPostalAddress_IntegTest extends CommCh
 
             wrap(mixinNewPostalAddress(fredDemoOwner)).$$(
                     "Flat 2a", "45 Penny Lane", "Allerton", "Liverpool", "L39 5AA", "UK", "Home", "Fred Smith's home",
-                    false);
+                    false, true);
 
             assertThat(testSubscriber.ev).isNotNull();
         }

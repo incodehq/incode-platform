@@ -70,14 +70,17 @@ public abstract class T_addPostalAddress<T> {
             final String notes,
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Lookup geocode")
-            final Boolean lookupGeocode) {
+            final Boolean lookupGeocode,
+            @Parameter(optionality = Optionality.MANDATORY)
+            @ParameterLayout(named = "Current")
+            final Boolean current) {
 
         final PostalAddress postalAddress =
                 postalAddressRepository.newPostal(
                         this.communicationChannelOwner,
                         addressLine1, addressLine2, addressLine3, addressLine4,
                         postalCode, country,
-                        purpose, notes
+                        purpose, notes, current
                 );
 
         mixinUpdate(postalAddress).lookupAndUpdateGeocode(
@@ -94,6 +97,10 @@ public abstract class T_addPostalAddress<T> {
     public String default6$$() {
         final Collection<String> purposes = choices6$$();
         return purposes.isEmpty()? null : purposes.iterator().next();
+    }
+
+    public Boolean default9$$() {
+        return Boolean.TRUE;
     }
 
     //endregion

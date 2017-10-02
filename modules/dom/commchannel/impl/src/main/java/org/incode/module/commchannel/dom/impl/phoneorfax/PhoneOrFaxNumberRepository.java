@@ -36,7 +36,8 @@ public class PhoneOrFaxNumberRepository {
             final CommunicationChannelType type,
             final String number,
             final String description,
-            final String notes) {
+            final String notes,
+            final Boolean current) {
         final PhoneOrFaxNumber pn = container.newTransientInstance(PhoneOrFaxNumber.class);
         pn.setType(type);
         pn.setPhoneNumber(number);
@@ -44,6 +45,7 @@ public class PhoneOrFaxNumberRepository {
 
         pn.setPurpose(description);
         pn.setNotes(notes);
+        pn.setCurrent(current);
 
         container.persistIfNotAlready(pn);
         return pn;

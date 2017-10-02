@@ -71,7 +71,10 @@ public class PostalAddress_update {
             final String country,
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Lookup geocode")
-            final Boolean lookupGeocode) {
+            final Boolean lookupGeocode,
+            @Parameter(optionality = Optionality.MANDATORY)
+            @ParameterLayout(named = "Current")
+            final Boolean current) {
 
         this.postalAddress.setAddressLine1(addressLine1);
         this.postalAddress.setAddressLine2(addressLine2);
@@ -79,6 +82,7 @@ public class PostalAddress_update {
         this.postalAddress.setAddressLine4(addressLine4);
         this.postalAddress.setPostalCode(postalCode);
         this.postalAddress.setCountry(country);
+        this.postalAddress.setCurrent(current);
 
         lookupAndUpdateGeocode(
                 lookupGeocode,
@@ -135,6 +139,9 @@ public class PostalAddress_update {
     }
     public Boolean default6$$() {
         return this.postalAddress.getPlaceId() != null ? true: null;
+    }
+    public Boolean default7$$() {
+        return this.postalAddress.getCurrent();
     }
 
 

@@ -57,8 +57,11 @@ public abstract class T_addEmailAddress<T> {
             final String purpose,
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Notes", multiLine = 10)
-            final String notes) {
-        emailAddressRepository.newEmail(this.communicationChannelOwner, email, purpose, notes);
+            final String notes,
+            @Parameter(optionality = Optionality.MANDATORY)
+            @ParameterLayout(named = "Current")
+            final Boolean current) {
+        emailAddressRepository.newEmail(this.communicationChannelOwner, email, purpose, notes, current);
         return this.communicationChannelOwner;
     }
 
@@ -70,6 +73,10 @@ public abstract class T_addEmailAddress<T> {
     public String default1$$() {
         final Collection<String> purposes = choices1$$();
         return purposes.isEmpty()? null : purposes.iterator().next();
+    }
+
+    public Boolean default3$$() {
+        return Boolean.TRUE;
     }
 
     //endregion

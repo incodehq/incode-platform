@@ -45,7 +45,7 @@ public class PostalAddress_lookupGeocode_IntegTest extends CommChannelModuleInte
         fredDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Fred");
 
         wrap(mixinNewPostalAddress(fredDemoOwner)).$$(
-                "45", "High Street", "Oxford", null, "OX1", "UK", "Work", "Fred Smith's work", false);
+                "45", "High Street", "Oxford", null, "OX1", "UK", "Work", "Fred Smith's work", false, true);
 
         final SortedSet<CommunicationChannel> communicationChannels = wrap(mixinCommunicationChannels(fredDemoOwner)).$$();
         postalAddress = (PostalAddress) communicationChannels.first();
@@ -77,6 +77,7 @@ public class PostalAddress_lookupGeocode_IntegTest extends CommChannelModuleInte
             assertThat(postalAddress.getLatLng()).matches("51.752[\\d][\\d][\\d][\\d],-1.250[\\d][\\d][\\d][\\d]");
             assertThat(postalAddress.getPlaceId()).isEqualTo("Eho0NSBIaWdoIFN0LCBPeGZvcmQgT1gxLCBVSw");
             assertThat(postalAddress.getAddressComponents()).isNotNull();
+            assertThat(postalAddress.getCurrent()).isTrue();
 
         }
     }

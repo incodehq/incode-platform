@@ -138,6 +138,15 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
     }
 
 
+    public static class CurrentDomainEvent extends PropertyDomainEvent<CommunicationChannel,Boolean> { }
+    @Getter @Setter
+    @Column(allowsNull = "false")
+    @Property(
+            domainEvent = CurrentDomainEvent.class,
+            editing = Editing.DISABLED,
+            optionality = Optionality.MANDATORY)
+    public Boolean current;
+
     public static class NotesDomainEvent extends PropertyDomainEvent<CommunicationChannel,String> { }
     @Getter @Setter
     @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB")

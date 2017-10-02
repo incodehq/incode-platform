@@ -41,7 +41,7 @@ public class EmailAddress_update_IntegTest extends CommChannelModuleIntegTestAbs
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Fred");
         wrap(mixinNewEmailAddress(fredDemoOwner)).$$(
-                "fred@gmail.com", "Home", "Fred Smith's home email");
+                "fred@gmail.com", "Home", "Fred Smith's home email", true);
 
         final SortedSet<CommunicationChannel> communicationChannels = wrap(mixinCommunicationChannels(fredDemoOwner)).$$();
         fredEmail = (EmailAddress)communicationChannels.first();
@@ -52,10 +52,18 @@ public class EmailAddress_update_IntegTest extends CommChannelModuleIntegTestAbs
             EmailAddress_update_IntegTest {
 
         @Test
-        public void happy_case() throws Exception {
-            final EmailAddress returned = wrap(mixinUpdate(fredEmail)).$$("frederick@yahoo.com");
+        public void update_email() throws Exception {
+            final EmailAddress returned = wrap(mixinUpdate(fredEmail)).$$("frederick@yahoo.com", null);
 
             assertThat(wrap(fredEmail).getEmailAddress()).isEqualTo("frederick@yahoo.com");
+            assertThat(returned).isSameAs(fredEmail);
+        }
+
+        @Test
+        public void no_longer_current() throws Exception {
+            final EmailAddress returned = wrap(mixinUpdate(fredEmail)).$$(null, false);
+
+            assertThat(wrap(fredEmail).getCurrent()).isFalse();
             assertThat(returned).isSameAs(fredEmail);
         }
     }
@@ -90,10 +98,11 @@ public class EmailAddress_update_IntegTest extends CommChannelModuleIntegTestAbs
         public void happy_case() throws Exception {
 
             final String newAddress = "frederick@yahoo.com";
-            wrap(mixinUpdate(fredEmail)).$$(newAddress);
+            wrap(mixinUpdate(fredEmail)).$$(newAddress, fredEmail.getCurrent());
 
             assertThat(testSubscriber.ev.getSource().getEmailAddress()).isSameAs(fredEmail);
             assertThat(testSubscriber.ev.getArguments().get(0)).isEqualTo(newAddress);
+            assertThat(testSubscriber.ev.getArguments().get(1)).isEqualTo(fredEmail.getCurrent());
         }
     }
 

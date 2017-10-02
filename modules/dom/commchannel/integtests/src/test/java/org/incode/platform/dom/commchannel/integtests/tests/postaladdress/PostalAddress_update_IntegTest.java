@@ -47,7 +47,7 @@ public class PostalAddress_update_IntegTest extends CommChannelModuleIntegTestAb
 
         wrap(mixinNewPostalAddress(fredDemoOwner)).$$(
                 "Flat 2a", "45 Penny Lane", "Allerton", "Liverpool", "L39 5AA", "UK", "Work", "Fred Smith's work",
-                false);
+                false, true);
 
         final SortedSet<CommunicationChannel> communicationChannels = wrap(mixinCommunicationChannels(fredDemoOwner)).$$();
         fredPostalAddress = (PostalAddress) communicationChannels.first();
@@ -67,7 +67,7 @@ public class PostalAddress_update_IntegTest extends CommChannelModuleIntegTestAb
             // when
             wrap(mixinUpdate(fredPostalAddress)).$$(
                     "45", "High Street", "Oxford", null, "OX1",
-                    "UK", true);
+                    "UK", true, false);
 
             // then
             assertThat(fredPostalAddress.getName()).isEqualTo("45 High St, Oxford OX1, UK");
@@ -76,11 +76,12 @@ public class PostalAddress_update_IntegTest extends CommChannelModuleIntegTestAb
             assertThat(fredPostalAddress.getLatLng()).matches("51.752[\\d][\\d][\\d][\\d],-1.250[\\d][\\d][\\d][\\d]");
             assertThat(fredPostalAddress.getPlaceId()).isEqualTo("Eho0NSBIaWdoIFN0LCBPeGZvcmQgT1gxLCBVSw");
             assertThat(fredPostalAddress.getAddressComponents()).isNotNull();
+            assertThat(fredPostalAddress.getCurrent()).isFalse();
 
             // and when
             wrap(mixinUpdate(fredPostalAddress)).$$(
                     "Flat 2a", "45 Penny Lane", "Allerton", "Liverpool", "L39 5AA",
-                    "UK", false);
+                    "UK", false, false);
 
             // then
             assertThat(fredPostalAddress.getAddressLine1()).isEqualTo("Flat 2a");
@@ -94,6 +95,7 @@ public class PostalAddress_update_IntegTest extends CommChannelModuleIntegTestAb
             assertThat(fredPostalAddress.getLatLng()).isNull();
             assertThat(fredPostalAddress.getPlaceId()).isNull();
             assertThat(fredPostalAddress.getAddressComponents()).isNull();
+            assertThat(fredPostalAddress.getCurrent()).isFalse();
         }
     }
 
@@ -131,7 +133,7 @@ public class PostalAddress_update_IntegTest extends CommChannelModuleIntegTestAb
             // given
             wrap(mixinUpdate(fredPostalAddress)).$$(
                     "45", "High Street", "Oxford", null, "OX1",
-                    "UK", true);
+                    "UK", true, true);
 
             // when
             final Boolean defaultPlaceId = mixinUpdate(fredPostalAddress).default6$$();
@@ -165,7 +167,7 @@ public class PostalAddress_update_IntegTest extends CommChannelModuleIntegTestAb
             final String newLine3 = fakeDataService.addresses().city();
             final String newCountry = fakeDataService.addresses().country();
             wrap(mixinUpdate(fredPostalAddress)).$$(
-                    newLine1, newLine2, newLine3, null, null, newCountry, true);
+                    newLine1, newLine2, newLine3, null, null, newCountry, true, true);
 
             assertThat(testSubscriber.ev.getSource().getPostalAddress()).isSameAs(fredPostalAddress);
             assertThat(testSubscriber.ev.getArguments().get(0)).isEqualTo(newLine1);
@@ -175,6 +177,7 @@ public class PostalAddress_update_IntegTest extends CommChannelModuleIntegTestAb
             assertThat(testSubscriber.ev.getArguments().get(4)).isNull();
             assertThat(testSubscriber.ev.getArguments().get(5)).isEqualTo(newCountry);
             assertThat(testSubscriber.ev.getArguments().get(6)).isEqualTo(true);
+            assertThat(testSubscriber.ev.getArguments().get(7)).isEqualTo(true);
         }
     }
 

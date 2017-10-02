@@ -45,7 +45,8 @@ public class PostalAddressRepository {
             final String postalCode,
             final String country,
             final String purpose,
-            final String notes) {
+            final String notes,
+            final Boolean current) {
 
         final PostalAddress pa = factoryService.instantiate(PostalAddress.class);
         pa.setType(CommunicationChannelType.POSTAL_ADDRESS);
@@ -58,6 +59,7 @@ public class PostalAddressRepository {
         pa.setPostalCode(postalCode);
         pa.setNotes(notes);
         pa.setCountry(country);
+        pa.setCurrent(current);
 
         repositoryService.persist(pa);
         return pa;

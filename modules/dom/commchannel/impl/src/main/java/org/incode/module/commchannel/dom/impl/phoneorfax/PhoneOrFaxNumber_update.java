@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.Mixin;
+import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -42,9 +43,13 @@ public class PhoneOrFaxNumber_update {
                     maxLength = CommChannelModule.JdoColumnLength.PHONE_NUMBER,
                     regexPattern = CommChannelModule.Regex.PHONE_NUMBER
             )
-            final String phoneNumber) {
+            final String phoneNumber,
+            @Parameter(optionality = Optionality.MANDATORY)
+            @ParameterLayout(named = "Current")
+            final Boolean current) {
         this.phoneOrFaxNumber.setType(type);
         this.phoneOrFaxNumber.setPhoneNumber(phoneNumber);
+        this.phoneOrFaxNumber.setCurrent(current);
 
         return this.phoneOrFaxNumber;
     }
@@ -59,6 +64,10 @@ public class PhoneOrFaxNumber_update {
 
     public String default1$$() {
         return this.phoneOrFaxNumber.getPhoneNumber();
+    }
+
+    public Boolean default2$$() {
+        return this.phoneOrFaxNumber.getCurrent();
     }
 
 

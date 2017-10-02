@@ -35,7 +35,8 @@ public class EmailAddressRepository {
             final Object owner,
             final String address,
             final String purpose,
-            final String notes) {
+            final String notes,
+            final Boolean current) {
 
         final EmailAddress ea = repositoryService.instantiate(EmailAddress.class);
         ea.setType(CommunicationChannelType.EMAIL_ADDRESS);
@@ -44,6 +45,7 @@ public class EmailAddressRepository {
 
         ea.setPurpose(purpose);
         ea.setNotes(notes);
+        ea.setCurrent(current);
 
         repositoryService.persist(ea);
 

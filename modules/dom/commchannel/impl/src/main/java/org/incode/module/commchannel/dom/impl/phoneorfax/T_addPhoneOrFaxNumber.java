@@ -62,8 +62,11 @@ public abstract class T_addPhoneOrFaxNumber<T> {
             final String purpose,
             @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(named = "Notes", multiLine = 10)
-            final String notes) {
-        phoneOrFaxNumberRepository.newPhoneOrFax(this.communicationChannelOwner, type, phoneNumber, purpose, notes);
+            final String notes,
+            @Parameter(optionality = Optionality.MANDATORY)
+            @ParameterLayout(named = "Current")
+            final Boolean current) {
+        phoneOrFaxNumberRepository.newPhoneOrFax(this.communicationChannelOwner, type, phoneNumber, purpose, notes, current);
         return this.communicationChannelOwner;
     }
 
@@ -86,6 +89,10 @@ public abstract class T_addPhoneOrFaxNumber<T> {
 
     public String default2$$() {
         return communicationChannelPurposeService.defaultIfNoSpi();
+    }
+
+    public Boolean default4$$() {
+        return Boolean.TRUE;
     }
 
     //endregion

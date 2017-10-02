@@ -48,7 +48,7 @@ public class CommunicationChannelOwner_addEmailAddress_IntegTest extends CommCha
             assertThat(channelsBefore).hasSize(0);
 
             // when
-            wrap(mixinNewEmailAddress(fredDemoOwner)).$$("fred@gmail.com", "Home", "Fred Smith's home email");
+            wrap(mixinNewEmailAddress(fredDemoOwner)).$$("fred@gmail.com", "Home", "Fred Smith's home email", true);
 
             // then
             final SortedSet<CommunicationChannel> channelsAfter = wrap(mixinCommunicationChannels(fredDemoOwner)).$$();
@@ -62,6 +62,7 @@ public class CommunicationChannelOwner_addEmailAddress_IntegTest extends CommCha
             assertThat(communicationChannel.getType()).isEqualTo(CommunicationChannelType.EMAIL_ADDRESS);
             assertThat(communicationChannel.getLocation()).isNull();
             assertThat(communicationChannel.getId()).isNotNull();
+            assertThat(communicationChannel.getCurrent()).isTrue();
 
             assertThat(communicationChannel).isInstanceOf(EmailAddress.class);
             final EmailAddress emailAddress = (EmailAddress)communicationChannel;
@@ -88,7 +89,7 @@ public class CommunicationChannelOwner_addEmailAddress_IntegTest extends CommCha
         @Test
         public void happy_case() throws Exception {
 
-            wrap(mixinNewEmailAddress(fredDemoOwner)).$$("fred@gmail.com", "Home", "Fred Smith's home email");
+            wrap(mixinNewEmailAddress(fredDemoOwner)).$$("fred@gmail.com", "Home", "Fred Smith's home email", true);
 
             assertThat(testSubscriber.ev).isNotNull();
             assertThat(testSubscriber.ev.getSource().getCommunicationChannelOwner()).isSameAs(fredDemoOwner);
