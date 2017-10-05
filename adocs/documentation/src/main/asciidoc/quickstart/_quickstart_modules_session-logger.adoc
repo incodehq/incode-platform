@@ -4,7 +4,7 @@
 :_imagesdir: images/
 
 
-The xref:../modules/ext/sessionlogger/ext-sessionlogger.adoc#[session logger] module records each user session as the user logs in or logs out (or is timed out automatically).
+The xref:../modules/spi/sessionlogger/spi-sessionlogger.adoc#[session logger] module records each user session as the user logs in or logs out (or is timed out automatically).
 
 The session logger menu items are on the _Activity_ menu:
 
