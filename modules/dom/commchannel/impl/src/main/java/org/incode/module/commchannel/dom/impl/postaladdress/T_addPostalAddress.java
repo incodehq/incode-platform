@@ -4,6 +4,8 @@ import java.util.Collection;
 
 import javax.inject.Inject;
 
+import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
@@ -12,6 +14,7 @@ import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
@@ -72,15 +75,18 @@ public abstract class T_addPostalAddress<T> {
             @ParameterLayout(named = "Lookup geocode")
             final Boolean lookupGeocode,
             @Parameter(optionality = Optionality.MANDATORY)
-            @ParameterLayout(named = "Current")
-            final Boolean current) {
+            @ParameterLayout(named = "Start Date")
+            final LocalDate startDate,
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "End Date")
+            final LocalDate endDate) {
 
         final PostalAddress postalAddress =
                 postalAddressRepository.newPostal(
                         this.communicationChannelOwner,
                         addressLine1, addressLine2, addressLine3, addressLine4,
                         postalCode, country,
-                        purpose, notes, current
+                        purpose, notes, startDate, endDate
                 );
 
         mixinUpdate(postalAddress).lookupAndUpdateGeocode(
@@ -99,8 +105,8 @@ public abstract class T_addPostalAddress<T> {
         return purposes.isEmpty()? null : purposes.iterator().next();
     }
 
-    public Boolean default9$$() {
-        return Boolean.TRUE;
+    public LocalDate default9$$() {
+        return clockService.now();
     }
 
     //endregion
@@ -118,6 +124,8 @@ public abstract class T_addPostalAddress<T> {
     CommunicationChannelPurposeService communicationChannelPurposeService;
     @Inject
     FactoryService factoryService;
+    @Inject
+    ClockService clockService;
     //endregion
 
 

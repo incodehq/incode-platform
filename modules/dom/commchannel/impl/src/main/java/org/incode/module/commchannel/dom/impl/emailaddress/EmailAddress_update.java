@@ -1,5 +1,7 @@
 package org.incode.module.commchannel.dom.impl.emailaddress;
 
+import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Optionality;
@@ -39,10 +41,14 @@ public class EmailAddress_update {
             @ParameterLayout(named = "Email Address")
             final String address,
             @Parameter(optionality = Optionality.MANDATORY)
-            @ParameterLayout(named = "Current")
-            final Boolean current) {
+            @ParameterLayout(named = "Start Date")
+            final LocalDate startDate,
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "End Date")
+            final LocalDate endDate) {
         this.emailAddress.setEmailAddress(address);
-        this.emailAddress.setCurrent(current);
+        this.emailAddress.setStartDate(startDate);
+        this.emailAddress.setEndDate(endDate);
         return this.emailAddress;
     }
 
@@ -50,8 +56,8 @@ public class EmailAddress_update {
         return this.emailAddress.getEmailAddress();
     }
 
-    public Boolean default1$$() {
-        return this.emailAddress.getCurrent();
+    public LocalDate default1$$() {
+        return this.emailAddress.getStartDate();
     }
 
 }

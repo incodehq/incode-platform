@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import com.google.common.eventbus.Subscribe;
 
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,7 +39,7 @@ public class CommunicationChannel_setNotes_IntegTest extends CommChannelModuleIn
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Foo");
 
-        wrap(mixinNewEmailAddress(fredDemoOwner)).$$("fred@gmail.com", "Home Email", "Fred Smith's home email");
+        wrap(mixinNewEmailAddress(fredDemoOwner)).$$("fred@gmail.com", "Home Email", "Fred Smith's home email", new LocalDate(2017, 1, 1), null);
 
         fredChannels = communicationChannelRepository.findByOwner(fredDemoOwner);
     }

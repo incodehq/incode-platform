@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import com.google.common.eventbus.Subscribe;
 
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -48,7 +49,7 @@ public class CommunicationChannelOwner_addEmailAddress_IntegTest extends CommCha
             assertThat(channelsBefore).hasSize(0);
 
             // when
-            wrap(mixinNewEmailAddress(fredDemoOwner)).$$("fred@gmail.com", "Home", "Fred Smith's home email", true);
+            wrap(mixinNewEmailAddress(fredDemoOwner)).$$("fred@gmail.com", "Home", "Fred Smith's home email", new LocalDate(2017, 1, 1), null);
 
             // then
             final SortedSet<CommunicationChannel> channelsAfter = wrap(mixinCommunicationChannels(fredDemoOwner)).$$();
@@ -62,7 +63,8 @@ public class CommunicationChannelOwner_addEmailAddress_IntegTest extends CommCha
             assertThat(communicationChannel.getType()).isEqualTo(CommunicationChannelType.EMAIL_ADDRESS);
             assertThat(communicationChannel.getLocation()).isNull();
             assertThat(communicationChannel.getId()).isNotNull();
-            assertThat(communicationChannel.getCurrent()).isTrue();
+            assertThat(communicationChannel.getStartDate()).isEqualTo(new LocalDate(2017, 1, 1));
+            assertThat(communicationChannel.getEndDate()).isNull();
 
             assertThat(communicationChannel).isInstanceOf(EmailAddress.class);
             final EmailAddress emailAddress = (EmailAddress)communicationChannel;
@@ -89,7 +91,7 @@ public class CommunicationChannelOwner_addEmailAddress_IntegTest extends CommCha
         @Test
         public void happy_case() throws Exception {
 
-            wrap(mixinNewEmailAddress(fredDemoOwner)).$$("fred@gmail.com", "Home", "Fred Smith's home email", true);
+            wrap(mixinNewEmailAddress(fredDemoOwner)).$$("fred@gmail.com", "Home", "Fred Smith's home email", new LocalDate(2017, 1, 1), null);
 
             assertThat(testSubscriber.ev).isNotNull();
             assertThat(testSubscriber.ev.getSource().getCommunicationChannelOwner()).isSameAs(fredDemoOwner);

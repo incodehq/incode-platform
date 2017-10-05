@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import com.google.common.eventbus.Subscribe;
 
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -54,7 +55,7 @@ public class CommunicationChannelOwner_addPhoneOrFaxNumber_IntegTest extends Com
 
             // when
             wrap(mixinNewPhoneOrFaxNumber(fredDemoOwner)).$$(
-                    CommunicationChannelType.PHONE_NUMBER, "0207 999 8888", "Work", "Fred's work number", true);
+                    CommunicationChannelType.PHONE_NUMBER, "0207 999 8888", "Work", "Fred's work number", new LocalDate(2017, 1, 1), null);
 
             // then
             final SortedSet<CommunicationChannel> communicationChannelsAfter =
@@ -68,7 +69,8 @@ public class CommunicationChannelOwner_addPhoneOrFaxNumber_IntegTest extends Com
             assertThat(communicationChannel.getType()).isEqualTo(CommunicationChannelType.PHONE_NUMBER);
             assertThat(communicationChannel.getLocation()).isNull();
             assertThat(communicationChannel.getId()).isNotNull();
-            assertThat(communicationChannel.getCurrent()).isTrue();
+            assertThat(communicationChannel.getStartDate()).isEqualTo(new LocalDate(2017, 1, 1));
+            assertThat(communicationChannel.getEndDate()).isNull();
 
             assertThat(communicationChannel).isInstanceOf(PhoneOrFaxNumber.class);
             final PhoneOrFaxNumber phoneOrFaxNumber = (PhoneOrFaxNumber)communicationChannel;
@@ -89,7 +91,8 @@ public class CommunicationChannelOwner_addPhoneOrFaxNumber_IntegTest extends Com
                     "0207 111 2222",
                     "Fred's home phone or fax",
                     "... but attempted to create using wrong comm channel type",
-                    true);
+                    new LocalDate(2017, 1, 1),
+                    null);
         }
     }
 
@@ -137,7 +140,7 @@ public class CommunicationChannelOwner_addPhoneOrFaxNumber_IntegTest extends Com
         public void happy_case() throws Exception {
 
             wrap(mixinNewPhoneOrFaxNumber(fredDemoOwner)).$$(
-                    CommunicationChannelType.PHONE_NUMBER, "0207 999 8888", "Work", "Fred's work number", true);
+                    CommunicationChannelType.PHONE_NUMBER, "0207 999 8888", "Work", "Fred's work number", new LocalDate(2017, 1, 1), null);
 
             assertThat(testSubscriber.ev).isNotNull();
             assertThat(testSubscriber.ev.getSource().getCommunicationChannelOwner()).isSameAs(fredDemoOwner);

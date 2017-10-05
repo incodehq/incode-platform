@@ -158,6 +158,7 @@
                 </property>
             </activation>
             <modules>
+                <module>ex/app/quickstart/example/dom</module>
                 <module>modules/dom/commchannel/impl</module>
                 <module>modules/dom/commchannel/integtests</module>
             </modules>

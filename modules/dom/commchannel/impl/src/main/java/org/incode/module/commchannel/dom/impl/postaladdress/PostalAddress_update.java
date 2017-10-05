@@ -2,6 +2,8 @@ package org.incode.module.commchannel.dom.impl.postaladdress;
 
 import javax.inject.Inject;
 
+import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.Mixin;
@@ -73,8 +75,11 @@ public class PostalAddress_update {
             @ParameterLayout(named = "Lookup geocode")
             final Boolean lookupGeocode,
             @Parameter(optionality = Optionality.MANDATORY)
-            @ParameterLayout(named = "Current")
-            final Boolean current) {
+            @ParameterLayout(named = "Start Date")
+            final LocalDate startDate,
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "End Date")
+            final LocalDate endDate) {
 
         this.postalAddress.setAddressLine1(addressLine1);
         this.postalAddress.setAddressLine2(addressLine2);
@@ -82,7 +87,8 @@ public class PostalAddress_update {
         this.postalAddress.setAddressLine4(addressLine4);
         this.postalAddress.setPostalCode(postalCode);
         this.postalAddress.setCountry(country);
-        this.postalAddress.setCurrent(current);
+        this.postalAddress.setStartDate(startDate);
+        this.postalAddress.setEndDate(endDate);
 
         lookupAndUpdateGeocode(
                 lookupGeocode,
@@ -140,8 +146,8 @@ public class PostalAddress_update {
     public Boolean default6$$() {
         return this.postalAddress.getPlaceId() != null ? true: null;
     }
-    public Boolean default7$$() {
-        return this.postalAddress.getCurrent();
+    public LocalDate default7$$() {
+        return this.postalAddress.getStartDate();
     }
 
 

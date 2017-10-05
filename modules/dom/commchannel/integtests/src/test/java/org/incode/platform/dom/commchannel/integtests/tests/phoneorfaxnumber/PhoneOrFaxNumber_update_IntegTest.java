@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import com.google.common.eventbus.Subscribe;
 
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -42,7 +43,7 @@ public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTes
         fredDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Fred");
         wrap(mixinNewPhoneOrFaxNumber(fredDemoOwner))
                 .$$(CommunicationChannelType.PHONE_NUMBER, "0207 999 8888", "Home",
-                        "Fred Smith's home phone", true);
+                        "Fred Smith's home phone", new LocalDate(2017, 1, 1), null);
         fredPhone = (PhoneOrFaxNumber) wrap(mixinCommunicationChannels(fredDemoOwner))
                 .$$().first();
     }
@@ -54,7 +55,7 @@ public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTes
         public void update_phone_number() throws Exception {
 
             final PhoneOrFaxNumber returned =
-                    wrap(mixinUpdate(fredPhone)).$$(CommunicationChannelType.FAX_NUMBER, "0207 111 2222", null);
+                    wrap(mixinUpdate(fredPhone)).$$(CommunicationChannelType.FAX_NUMBER, "0207 111 2222", fredPhone.getStartDate(), null);
 
             assertThat(fredPhone.getPhoneNumber()).isEqualTo("0207 111 2222");
             assertThat(fredPhone.getType()).isEqualTo(CommunicationChannelType.FAX_NUMBER);
@@ -63,13 +64,12 @@ public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTes
         }
 
         @Test
-        public void no_longer_current() throws Exception {
+        public void update_end_date() throws Exception {
 
             final PhoneOrFaxNumber returned =
-                    wrap(mixinUpdate(fredPhone)).$$(CommunicationChannelType.FAX_NUMBER, null, false);
+                    wrap(mixinUpdate(fredPhone)).$$(CommunicationChannelType.FAX_NUMBER, null, fredPhone.getStartDate(), fredPhone.getStartDate().plusMonths(3));
 
-            assertThat(fredPhone.getCurrent()).isFalse();
-
+            assertThat(fredPhone.getEndDate()).isEqualTo(fredPhone.getStartDate().plusMonths(3));
             assertThat(returned).isSameAs(fredPhone);
         }
     }
@@ -86,7 +86,7 @@ public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTes
         }
     }
 
-    public static class Default1IntegrationTest extends PhoneOrFaxNumber_update_IntegTest {
+    public static class Default0IntegrationTest extends PhoneOrFaxNumber_update_IntegTest {
 
         @Test
         public void should_default_to_current_type() throws Exception {
@@ -98,13 +98,23 @@ public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTes
 
     }
 
-    public static class Default2IntegrationTest extends PhoneOrFaxNumber_update_IntegTest {
+    public static class Default1IntegrationTest extends PhoneOrFaxNumber_update_IntegTest {
 
         @Test
         public void should_default_to_current_number() throws Exception {
             final String defaultNumber = mixinUpdate(fredPhone).default1$$();
 
             assertThat(defaultNumber).isEqualTo(fredPhone.getPhoneNumber());
+        }
+    }
+
+    public static class Default2IntegrationTest extends PhoneOrFaxNumber_update_IntegTest {
+
+        @Test
+        public void should_default_to_current_start_date() throws Exception {
+            final LocalDate defaultStartDate = mixinUpdate(fredPhone).default2$$();
+
+            assertThat(defaultStartDate).isEqualTo(fredPhone.getStartDate());
         }
     }
 
@@ -127,12 +137,13 @@ public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTes
         public void happy_case() throws Exception {
 
             final String newPhoneNumber = "0207 111 2222";
-            wrap(mixinUpdate(fredPhone)).$$(CommunicationChannelType.FAX_NUMBER, newPhoneNumber, true);
+            wrap(mixinUpdate(fredPhone)).$$(CommunicationChannelType.FAX_NUMBER, newPhoneNumber, new LocalDate(2017, 1, 1), null);
 
             assertThat(testSubscriber.ev.getSource().getPhoneOrFaxNumber()).isSameAs(fredPhone);
             assertThat(testSubscriber.ev.getArguments().get(0)).isEqualTo(CommunicationChannelType.FAX_NUMBER);
             assertThat(testSubscriber.ev.getArguments().get(1)).isEqualTo(newPhoneNumber);
-            assertThat(testSubscriber.ev.getArguments().get(2)).isEqualTo(true);
+            assertThat(testSubscriber.ev.getArguments().get(2)).isEqualTo(new LocalDate(2017, 1, 1));
+            assertThat(testSubscriber.ev.getArguments().get(3)).isNull();
         }
     }
 

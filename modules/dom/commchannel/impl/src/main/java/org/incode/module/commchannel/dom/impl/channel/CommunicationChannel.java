@@ -11,6 +11,8 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.VersionStrategy;
 
+import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
@@ -138,14 +140,27 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
     }
 
 
-    public static class CurrentDomainEvent extends PropertyDomainEvent<CommunicationChannel,Boolean> { }
+    public static class StartDateDomainEvent extends PropertyDomainEvent<CommunicationChannel,LocalDate> { }
     @Getter @Setter
     @Column(allowsNull = "false")
     @Property(
-            domainEvent = CurrentDomainEvent.class,
+            domainEvent = StartDateDomainEvent.class,
             editing = Editing.DISABLED,
-            optionality = Optionality.MANDATORY)
-    public Boolean current;
+            optionality = Optionality.MANDATORY
+    )
+    public LocalDate startDate;
+
+
+    public static class EndDateDomainEvent extends PropertyDomainEvent<CommunicationChannel,LocalDate> { }
+    @Getter @Setter
+    @Column(allowsNull = "true")
+    @Property(
+            domainEvent = EndDateDomainEvent.class,
+            editing = Editing.DISABLED,
+            optionality = Optionality.OPTIONAL
+    )
+    public LocalDate endDate;
+
 
     public static class NotesDomainEvent extends PropertyDomainEvent<CommunicationChannel,String> { }
     @Getter @Setter

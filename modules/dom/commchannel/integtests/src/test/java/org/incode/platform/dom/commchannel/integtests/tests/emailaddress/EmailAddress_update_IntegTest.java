@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import com.google.common.eventbus.Subscribe;
 
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -41,7 +42,7 @@ public class EmailAddress_update_IntegTest extends CommChannelModuleIntegTestAbs
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Fred");
         wrap(mixinNewEmailAddress(fredDemoOwner)).$$(
-                "fred@gmail.com", "Home", "Fred Smith's home email", true);
+                "fred@gmail.com", "Home", "Fred Smith's home email", new LocalDate(2017, 1, 1), null);
 
         final SortedSet<CommunicationChannel> communicationChannels = wrap(mixinCommunicationChannels(fredDemoOwner)).$$();
         fredEmail = (EmailAddress)communicationChannels.first();
@@ -53,28 +54,40 @@ public class EmailAddress_update_IntegTest extends CommChannelModuleIntegTestAbs
 
         @Test
         public void update_email() throws Exception {
-            final EmailAddress returned = wrap(mixinUpdate(fredEmail)).$$("frederick@yahoo.com", null);
+            final EmailAddress returned = wrap(mixinUpdate(fredEmail)).$$("frederick@yahoo.com", fredEmail.getStartDate(), null);
 
             assertThat(wrap(fredEmail).getEmailAddress()).isEqualTo("frederick@yahoo.com");
             assertThat(returned).isSameAs(fredEmail);
         }
 
         @Test
-        public void no_longer_current() throws Exception {
-            final EmailAddress returned = wrap(mixinUpdate(fredEmail)).$$(null, false);
+        public void update_end_date() throws Exception {
+            final EmailAddress returned = wrap(mixinUpdate(fredEmail)).$$(null, fredEmail.getStartDate(), fredEmail.getStartDate().plusMonths(3));
 
-            assertThat(wrap(fredEmail).getCurrent()).isFalse();
+            assertThat(wrap(fredEmail).getEndDate()).isEqualTo(fredEmail.getStartDate().plusMonths(3));
             assertThat(returned).isSameAs(fredEmail);
         }
     }
 
-    public static class DefaultIntegrationTest extends EmailAddress_update_IntegTest {
+
+    public static class Default0IntegrationTest extends EmailAddress_update_IntegTest {
 
         @Test
         public void should_default_to_current_email_address() throws Exception {
             final String defaultEmail = mixinUpdate(fredEmail).default0$$();
 
             assertThat(defaultEmail).isEqualTo(fredEmail.getEmailAddress());
+        }
+    }
+
+
+    public static class Default1IntegrationTest extends EmailAddress_update_IntegTest {
+
+        @Test
+        public void should_default_to_current_start_date() throws Exception {
+            final LocalDate defaultStartDate = mixinUpdate(fredEmail).default1$$();
+
+            assertThat(defaultStartDate).isEqualTo(fredEmail.getStartDate());
         }
     }
 
@@ -98,11 +111,12 @@ public class EmailAddress_update_IntegTest extends CommChannelModuleIntegTestAbs
         public void happy_case() throws Exception {
 
             final String newAddress = "frederick@yahoo.com";
-            wrap(mixinUpdate(fredEmail)).$$(newAddress, fredEmail.getCurrent());
+            wrap(mixinUpdate(fredEmail)).$$(newAddress, fredEmail.getStartDate(), null);
 
             assertThat(testSubscriber.ev.getSource().getEmailAddress()).isSameAs(fredEmail);
             assertThat(testSubscriber.ev.getArguments().get(0)).isEqualTo(newAddress);
-            assertThat(testSubscriber.ev.getArguments().get(1)).isEqualTo(fredEmail.getCurrent());
+            assertThat(testSubscriber.ev.getArguments().get(1)).isEqualTo(fredEmail.getStartDate());
+            assertThat(testSubscriber.ev.getArguments().get(2)).isNull();
         }
     }
 

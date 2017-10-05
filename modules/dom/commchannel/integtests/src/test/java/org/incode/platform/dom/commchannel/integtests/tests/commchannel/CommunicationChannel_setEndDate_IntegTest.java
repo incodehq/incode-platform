@@ -1,7 +1,5 @@
 package org.incode.platform.dom.commchannel.integtests.tests.commchannel;
 
-import java.util.Collection;
-import java.util.Objects;
 import java.util.SortedSet;
 
 import javax.inject.Inject;
@@ -25,7 +23,7 @@ import org.incode.platform.dom.commchannel.integtests.CommChannelModuleIntegTest
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CommunicationChannel_setPurpose_IntegTest extends CommChannelModuleIntegTestAbstract {
+public class CommunicationChannel_setEndDate_IntegTest extends CommChannelModuleIntegTestAbstract {
 
     @Inject
     DemoObjectMenu commChannelDemoObjectMenu;
@@ -47,32 +45,28 @@ public class CommunicationChannel_setPurpose_IntegTest extends CommChannelModule
     }
 
 
-    public static class ActionImplementationIntegrationTest extends
-            CommunicationChannel_setPurpose_IntegTest {
+    public static class ActionImplementationIntegrationTest extends CommunicationChannel_setEndDate_IntegTest {
 
         @Test
         public void happy_case() throws Exception {
             final CommunicationChannel communicationChannel = fredChannels.first();
+            final LocalDate endDate = communicationChannel.getStartDate().plusMonths(3);
 
-            final Collection<String> choices = communicationChannel.choicesPurpose();
-            final String newPurpose = fakeDataService.collections().anyOfExcept(
-                    choices, s -> Objects.equals(s, communicationChannel.getPurpose()) );
+            wrap(communicationChannel).setEndDate(endDate);
 
-            wrap(communicationChannel).setPurpose(newPurpose);
-
-            assertThat(communicationChannel.getPurpose()).isEqualTo(newPurpose);
+            assertThat(communicationChannel.getEndDate()).isEqualTo(endDate);
         }
 
     }
 
-    public static class RaisesEventIntegrationTest extends CommunicationChannel_setPurpose_IntegTest {
+    public static class RaisesEventIntegrationTest extends CommunicationChannel_setEndDate_IntegTest {
 
         @DomainService(nature = NatureOfService.DOMAIN)
         public static class TestSubscriber extends AbstractSubscriber {
-            CommunicationChannel.PurposeDomainEvent ev;
+            CommunicationChannel.EndDateDomainEvent ev;
 
             @Subscribe
-            public void on(CommunicationChannel.PurposeDomainEvent ev) {
+            public void on(CommunicationChannel.EndDateDomainEvent ev) {
                 this.ev = ev;
             }
         }
@@ -83,17 +77,11 @@ public class CommunicationChannel_setPurpose_IntegTest extends CommChannelModule
         @Test
         public void happy_case() throws Exception {
             final CommunicationChannel channel = fredChannels.first();
+            final LocalDate endDate = channel.getStartDate().plusMonths(3);
+            wrap(channel).setEndDate(endDate);
 
-            final Collection<String> choices = channel.choicesPurpose();
-            final String newPurpose = fakeDataService.collections().anyOf(choices.toArray(new String[] {}));
-
-            wrap(channel).setPurpose(newPurpose);
-
-            assertThat(testSubscriber.ev.getSource()).isSameAs(channel);
-            assertThat(testSubscriber.ev.getNewValue()).isEqualTo(newPurpose);
+            assertThat(testSubscriber.ev).isNotNull();
         }
     }
 
-
 }
-

@@ -4,6 +4,7 @@ import java.util.SortedSet;
 
 import javax.inject.Inject;
 
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -40,15 +41,15 @@ public class CommunicationChannel_owner_IntegTest extends CommChannelModuleInteg
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Fred");
         wrap(mixinNewEmailAddress(fredDemoOwner))
-                .$$("fred@gmail.com", "Home Email", "Fred Smith's home email");
+                .$$("fred@gmail.com", "Home Email", "Fred Smith's home email", new LocalDate(2017, 1, 1), null);
         wrap(mixinNewEmailAddress(fredDemoOwner))
-                .$$("fred.smith@somecompany.com", "Work Email", "Fred Smith's work email");
+                .$$("fred.smith@somecompany.com", "Work Email", "Fred Smith's work email", new LocalDate(2017, 1, 1), null);
         fredChannels = communicationChannelRepository.findByOwner(fredDemoOwner);
         assertThat(fredChannels).hasSize(2);
 
         billDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Bill");
         wrap(mixinNewEmailAddress(billDemoOwner))
-                .$$("bill@yahoo.com", "Home Email", "Bill Jones' home email");
+                .$$("bill@yahoo.com", "Home Email", "Bill Jones' home email", new LocalDate(2017, 2, 1), null);
         billChannels = communicationChannelRepository.findByOwner(billDemoOwner);
         assertThat(billChannels).hasSize(1);
     }

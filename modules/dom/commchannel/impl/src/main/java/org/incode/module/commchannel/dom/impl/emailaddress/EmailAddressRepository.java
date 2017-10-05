@@ -8,6 +8,8 @@ import javax.inject.Inject;
 import com.google.common.base.Optional;
 import com.google.common.collect.Iterables;
 
+import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -36,7 +38,8 @@ public class EmailAddressRepository {
             final String address,
             final String purpose,
             final String notes,
-            final Boolean current) {
+            final LocalDate startDate,
+            final LocalDate endDate) {
 
         final EmailAddress ea = repositoryService.instantiate(EmailAddress.class);
         ea.setType(CommunicationChannelType.EMAIL_ADDRESS);
@@ -45,7 +48,8 @@ public class EmailAddressRepository {
 
         ea.setPurpose(purpose);
         ea.setNotes(notes);
-        ea.setCurrent(current);
+        ea.setStartDate(startDate);
+        ea.setEndDate(endDate);
 
         repositoryService.persist(ea);
 

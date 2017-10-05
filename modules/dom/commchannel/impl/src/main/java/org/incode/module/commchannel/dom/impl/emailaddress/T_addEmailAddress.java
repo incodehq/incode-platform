@@ -4,6 +4,8 @@ import java.util.Collection;
 
 import javax.inject.Inject;
 
+import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
@@ -13,6 +15,7 @@ import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.services.clock.ClockService;
 
 import org.incode.module.commchannel.dom.CommChannelModule;
 import org.incode.module.commchannel.dom.impl.purpose.CommunicationChannelPurposeService;
@@ -59,9 +62,12 @@ public abstract class T_addEmailAddress<T> {
             @ParameterLayout(named = "Notes", multiLine = 10)
             final String notes,
             @Parameter(optionality = Optionality.MANDATORY)
-            @ParameterLayout(named = "Current")
-            final Boolean current) {
-        emailAddressRepository.newEmail(this.communicationChannelOwner, email, purpose, notes, current);
+            @ParameterLayout(named = "Start Date")
+            final LocalDate startDate,
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "End Date")
+            final LocalDate endDate) {
+        emailAddressRepository.newEmail(this.communicationChannelOwner, email, purpose, notes, startDate, endDate);
         return this.communicationChannelOwner;
     }
 
@@ -75,8 +81,8 @@ public abstract class T_addEmailAddress<T> {
         return purposes.isEmpty()? null : purposes.iterator().next();
     }
 
-    public Boolean default3$$() {
-        return Boolean.TRUE;
+    public LocalDate default3$$() {
+        return clockService.now();
     }
 
     //endregion
@@ -86,6 +92,8 @@ public abstract class T_addEmailAddress<T> {
     CommunicationChannelPurposeService communicationChannelPurposeService;
     @Inject
     EmailAddressRepository emailAddressRepository;
+    @Inject
+    ClockService clockService;
     //endregion
 
 

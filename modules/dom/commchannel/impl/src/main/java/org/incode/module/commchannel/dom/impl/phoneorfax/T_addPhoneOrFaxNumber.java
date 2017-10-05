@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
@@ -14,6 +16,7 @@ import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.services.clock.ClockService;
 
 import org.incode.module.commchannel.dom.CommChannelModule;
 import org.incode.module.commchannel.dom.impl.purpose.CommunicationChannelPurposeService;
@@ -64,9 +67,12 @@ public abstract class T_addPhoneOrFaxNumber<T> {
             @ParameterLayout(named = "Notes", multiLine = 10)
             final String notes,
             @Parameter(optionality = Optionality.MANDATORY)
-            @ParameterLayout(named = "Current")
-            final Boolean current) {
-        phoneOrFaxNumberRepository.newPhoneOrFax(this.communicationChannelOwner, type, phoneNumber, purpose, notes, current);
+            @ParameterLayout(named = "Start Date")
+            final LocalDate startDate,
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "End Date")
+            final LocalDate endDate) {
+        phoneOrFaxNumberRepository.newPhoneOrFax(this.communicationChannelOwner, type, phoneNumber, purpose, notes, startDate, endDate);
         return this.communicationChannelOwner;
     }
 
@@ -91,8 +97,8 @@ public abstract class T_addPhoneOrFaxNumber<T> {
         return communicationChannelPurposeService.defaultIfNoSpi();
     }
 
-    public Boolean default4$$() {
-        return Boolean.TRUE;
+    public LocalDate default4$$() {
+        return clockService.now();
     }
 
     //endregion
@@ -102,6 +108,8 @@ public abstract class T_addPhoneOrFaxNumber<T> {
     CommunicationChannelPurposeService communicationChannelPurposeService;
     @Inject
     PhoneOrFaxNumberRepository phoneOrFaxNumberRepository;
+    @Inject
+    ClockService clockService;
     //endregion
 
 }

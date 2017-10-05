@@ -7,6 +7,8 @@ import javax.inject.Inject;
 import com.google.common.base.Optional;
 import com.google.common.collect.Iterables;
 
+import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -37,7 +39,8 @@ public class PhoneOrFaxNumberRepository {
             final String number,
             final String description,
             final String notes,
-            final Boolean current) {
+            final LocalDate startDate,
+            final LocalDate endDate) {
         final PhoneOrFaxNumber pn = container.newTransientInstance(PhoneOrFaxNumber.class);
         pn.setType(type);
         pn.setPhoneNumber(number);
@@ -45,7 +48,8 @@ public class PhoneOrFaxNumberRepository {
 
         pn.setPurpose(description);
         pn.setNotes(notes);
-        pn.setCurrent(current);
+        pn.setStartDate(startDate);
+        pn.setEndDate(endDate);
 
         container.persistIfNotAlready(pn);
         return pn;

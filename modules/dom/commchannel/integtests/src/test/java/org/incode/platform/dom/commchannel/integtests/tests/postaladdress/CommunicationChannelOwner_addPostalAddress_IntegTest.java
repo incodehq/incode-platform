@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import com.google.common.eventbus.Subscribe;
 
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -54,7 +55,7 @@ public class CommunicationChannelOwner_addPostalAddress_IntegTest extends CommCh
             // when
             wrap(mixinNewPostalAddress(fredDemoOwner)).$$(
                     "Flat 2a", "45 Penny Lane", "Allerton", "Liverpool", "L39 5AA", "UK", "Home", "Fred Smith's home",
-                    false, true);
+                    false, new LocalDate(2017, 1, 1), null);
 
             // then
             final SortedSet<CommunicationChannel> channelsAfter = wrap(mixinCommunicationChannels(fredDemoOwner)).$$();
@@ -83,7 +84,8 @@ public class CommunicationChannelOwner_addPostalAddress_IntegTest extends CommCh
             assertThat(postalAddress.getLatLng()).isNull();
             assertThat(postalAddress.getPlaceId()).isNull();
             assertThat(postalAddress.getAddressComponents()).isNull();
-            assertThat(postalAddress.getCurrent()).isTrue();
+            assertThat(postalAddress.getStartDate()).isEqualTo(new LocalDate(2017, 1, 1));
+            assertThat(postalAddress.getEndDate()).isNull();
         }
 
         @Test
@@ -97,7 +99,7 @@ public class CommunicationChannelOwner_addPostalAddress_IntegTest extends CommCh
 
             // when
             wrap(mixinNewPostalAddress(fredDemoOwner)).$$(
-                    "45", "High Street", "Oxford", "Oxfordshire", "OX1", "UK", "Work", "Fred Smith's work", true, true);
+                    "45", "High Street", "Oxford", "Oxfordshire", "OX1", "UK", "Work", "Fred Smith's work", true, new LocalDate(2017, 1, 1), null);
 
             // then
             final SortedSet<CommunicationChannel> channelsAfter = wrap(mixinCommunicationChannels(fredDemoOwner)).$$();
@@ -117,7 +119,8 @@ public class CommunicationChannelOwner_addPostalAddress_IntegTest extends CommCh
             assertThat(postalAddress.getLatLng()).matches("51.752[\\d][\\d][\\d][\\d],-1.250[\\d][\\d][\\d][\\d]");
             assertThat(postalAddress.getPlaceId()).isEqualTo("Eho0NSBIaWdoIFN0LCBPeGZvcmQgT1gxLCBVSw");
             assertThat(postalAddress.getAddressComponents()).isNotNull();
-            assertThat(postalAddress.getCurrent()).isTrue();
+            assertThat(postalAddress.getStartDate()).isEqualTo(new LocalDate(2017, 1, 1));
+            assertThat(postalAddress.getEndDate()).isNull();
         }
     }
 
@@ -141,7 +144,7 @@ public class CommunicationChannelOwner_addPostalAddress_IntegTest extends CommCh
 
             wrap(mixinNewPostalAddress(fredDemoOwner)).$$(
                     "Flat 2a", "45 Penny Lane", "Allerton", "Liverpool", "L39 5AA", "UK", "Home", "Fred Smith's home",
-                    false, true);
+                    false, new LocalDate(2017, 1, 1), null);
 
             assertThat(testSubscriber.ev).isNotNull();
         }

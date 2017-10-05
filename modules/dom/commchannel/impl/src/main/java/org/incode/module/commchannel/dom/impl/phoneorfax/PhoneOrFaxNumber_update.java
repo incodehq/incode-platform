@@ -2,6 +2,8 @@ package org.incode.module.commchannel.dom.impl.phoneorfax;
 
 import java.util.List;
 
+import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Optionality;
@@ -45,11 +47,15 @@ public class PhoneOrFaxNumber_update {
             )
             final String phoneNumber,
             @Parameter(optionality = Optionality.MANDATORY)
-            @ParameterLayout(named = "Current")
-            final Boolean current) {
+            @ParameterLayout(named = "Start Date")
+            final LocalDate startDate,
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "End Date")
+            final LocalDate endDate) {
         this.phoneOrFaxNumber.setType(type);
         this.phoneOrFaxNumber.setPhoneNumber(phoneNumber);
-        this.phoneOrFaxNumber.setCurrent(current);
+        this.phoneOrFaxNumber.setStartDate(startDate);
+        this.phoneOrFaxNumber.setEndDate(endDate);
 
         return this.phoneOrFaxNumber;
     }
@@ -66,8 +72,8 @@ public class PhoneOrFaxNumber_update {
         return this.phoneOrFaxNumber.getPhoneNumber();
     }
 
-    public Boolean default2$$() {
-        return this.phoneOrFaxNumber.getCurrent();
+    public LocalDate default2$$() {
+        return this.phoneOrFaxNumber.getStartDate();
     }
 
 

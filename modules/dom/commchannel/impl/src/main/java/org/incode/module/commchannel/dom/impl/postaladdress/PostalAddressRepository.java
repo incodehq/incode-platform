@@ -8,6 +8,8 @@ import javax.inject.Inject;
 import com.google.common.base.Optional;
 import com.google.common.collect.Iterables;
 
+import org.joda.time.LocalDate;
+
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -46,7 +48,8 @@ public class PostalAddressRepository {
             final String country,
             final String purpose,
             final String notes,
-            final Boolean current) {
+            final LocalDate startDate,
+            final LocalDate endDate) {
 
         final PostalAddress pa = factoryService.instantiate(PostalAddress.class);
         pa.setType(CommunicationChannelType.POSTAL_ADDRESS);
@@ -59,7 +62,8 @@ public class PostalAddressRepository {
         pa.setPostalCode(postalCode);
         pa.setNotes(notes);
         pa.setCountry(country);
-        pa.setCurrent(current);
+        pa.setStartDate(startDate);
+        pa.setEndDate(endDate);
 
         repositoryService.persist(pa);
         return pa;

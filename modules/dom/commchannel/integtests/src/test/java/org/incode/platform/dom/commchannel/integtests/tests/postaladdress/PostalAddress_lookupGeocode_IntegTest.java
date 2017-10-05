@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import com.google.common.eventbus.Subscribe;
 
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -45,7 +46,7 @@ public class PostalAddress_lookupGeocode_IntegTest extends CommChannelModuleInte
         fredDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Fred");
 
         wrap(mixinNewPostalAddress(fredDemoOwner)).$$(
-                "45", "High Street", "Oxford", null, "OX1", "UK", "Work", "Fred Smith's work", false, true);
+                "45", "High Street", "Oxford", null, "OX1", "UK", "Work", "Fred Smith's work", false, new LocalDate(2017, 1, 1), null);
 
         final SortedSet<CommunicationChannel> communicationChannels = wrap(mixinCommunicationChannels(fredDemoOwner)).$$();
         postalAddress = (PostalAddress) communicationChannels.first();
@@ -77,7 +78,8 @@ public class PostalAddress_lookupGeocode_IntegTest extends CommChannelModuleInte
             assertThat(postalAddress.getLatLng()).matches("51.752[\\d][\\d][\\d][\\d],-1.250[\\d][\\d][\\d][\\d]");
             assertThat(postalAddress.getPlaceId()).isEqualTo("Eho0NSBIaWdoIFN0LCBPeGZvcmQgT1gxLCBVSw");
             assertThat(postalAddress.getAddressComponents()).isNotNull();
-            assertThat(postalAddress.getCurrent()).isTrue();
+            assertThat(postalAddress.getStartDate()).isEqualTo(new LocalDate(2017, 1, 1));
+            assertThat(postalAddress.getEndDate()).isNull();
 
         }
     }
