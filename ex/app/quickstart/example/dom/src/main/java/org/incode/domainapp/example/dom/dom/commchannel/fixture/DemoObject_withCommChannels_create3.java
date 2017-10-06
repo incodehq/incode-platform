@@ -9,7 +9,6 @@ import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
 import org.incode.domainapp.example.dom.dom.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addEmailAddress;
 import org.incode.domainapp.example.dom.dom.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addPhoneOrFaxNumber;
 import org.incode.domainapp.example.dom.dom.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addPostalAddress;
-
 import org.incode.module.commchannel.dom.impl.emailaddress.T_addEmailAddress;
 import org.incode.module.commchannel.dom.impl.phoneorfax.T_addPhoneOrFaxNumber;
 import org.incode.module.commchannel.dom.impl.postaladdress.T_addPostalAddress;
@@ -22,13 +21,13 @@ public class DemoObject_withCommChannels_create3 extends FixtureScript {
 
         final DemoObject demoOwner = create("Foo", executionContext);
 
-        wrap(addEmailAddress(demoOwner)).$$("foo@example.com", "Other Email", null);
-        wrap(addPhoneOrFaxNumber(demoOwner)).$$(CommunicationChannelType.PHONE_NUMBER, "555 1234", "Home Number", null);
-        wrap(addPhoneOrFaxNumber(demoOwner)).$$(CommunicationChannelType.FAX_NUMBER, "555 4321", "Work Fax", null);
+        wrap(addEmailAddress(demoOwner)).$$("foo@example.com", "Other Email", null, LocalDate.now(), null);
+        wrap(addPhoneOrFaxNumber(demoOwner)).$$(CommunicationChannelType.PHONE_NUMBER, "555 1234", "Home Number", null, LocalDate.now(), null);
+        wrap(addPhoneOrFaxNumber(demoOwner)).$$(CommunicationChannelType.FAX_NUMBER, "555 4321", "Work Fax", null, LocalDate.now(), null);
 
         final DemoObject bar = create("Bar", executionContext);
         wrap(addPostalAddress(demoOwner)).$$(
-                "45", "High Street", "Oxford", null, null, "UK", "Shipping Address", null, false);
+                "45", "High Street", "Oxford", null, null, "UK", "Shipping Address", null, false, LocalDate.now(), null);
 
         final DemoObject baz = create("Baz", executionContext);
     }
