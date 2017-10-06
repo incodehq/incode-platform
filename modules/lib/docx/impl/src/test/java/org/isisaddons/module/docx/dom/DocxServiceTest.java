@@ -255,7 +255,6 @@ public class DocxServiceTest {
             assumeThat(System.getenv("JENKINS_URL"), is(nullValue()));
         }
 
-        @Ignore("Expected:  within 10% in size of array with 84424 bytes, but: was <70740>")
         @Test
         public void exactMatch() throws Exception {
 

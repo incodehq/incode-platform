@@ -7,7 +7,6 @@ import com.google.common.collect.ImmutableMap;
 import org.jmock.Expectations;
 import org.jmock.auto.Mock;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -40,11 +39,11 @@ public class FreeMarkerService_Joda_Test {
         service = new FreeMarkerService();
         service.configurationService = mockConfigurationService;
 
-        properties = ImmutableMap.<String,Object>of(
-                "jodaDateTime", new org.joda.time.DateTime(2017,2,1,14,30),
-                "jodaLocalDateTime", new org.joda.time.LocalDateTime(2017,2,1,14,30),
-                "jodaLocalDate", new org.joda.time.LocalDate(2017,2,1),
-                "jodaLocalTime", new org.joda.time.LocalTime(14,30,45)
+        properties = ImmutableMap.<String, Object>of(
+                "jodaDateTime", new org.joda.time.DateTime(2017, 2, 1, 14, 30),
+                "jodaLocalDateTime", new org.joda.time.LocalDateTime(2017, 2, 1, 14, 30),
+                "jodaLocalDate", new org.joda.time.LocalDate(2017, 2, 1),
+                "jodaLocalTime", new org.joda.time.LocalTime(14, 30, 45)
         );
     }
 
@@ -92,7 +91,6 @@ public class FreeMarkerService_Joda_Test {
         // given
         service.init(ImmutableMap.of(FreeMarkerService.JODA_SUPPORT_KEY, "true"));
 
-
         // when
         String merged = service.render(
                 "WelcomeUserTemplate:/GBR:",
@@ -123,7 +121,6 @@ public class FreeMarkerService_Joda_Test {
 
         // given
         service.init(ImmutableMap.of(FreeMarkerService.JODA_SUPPORT_KEY, "true"));
-
 
         // when
         String merged = service.render(
@@ -163,6 +160,5 @@ public class FreeMarkerService_Joda_Test {
         // then
         assertThat(merged, is("result: 14:30:45"));
     }
-
 
 }

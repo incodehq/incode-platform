@@ -36,7 +36,6 @@ public class GeocodingServiceTest {
             geocodingService.configurationService = mockConfigurationService;
         }
 
-        @Ignore("GeocodingServiceTest$LookupTest.normal_mode:49 expected:<O[K]> but was:<O[VER_QUERY_LIMIT]>")
         @Test
         public void normal_mode() throws Exception {
 
