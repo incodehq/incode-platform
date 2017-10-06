@@ -56,7 +56,7 @@ and for invoking the `updateName` action:
 public SimpleObject updateName( ... ) {  ... }
 ----
 
-Using the link:http:http://hawt.io[hawt.io] console we can monitor the messages sent to the ActiveMQ message.
+Using the link:http://hawt.io[hawt.io] console we can monitor the messages sent to the ActiveMQ message.
 Download the hawt.io JAR file and start using:
 
 [source,bash]
