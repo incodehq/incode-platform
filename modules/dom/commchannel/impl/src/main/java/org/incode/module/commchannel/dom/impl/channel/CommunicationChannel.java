@@ -145,7 +145,6 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
     @Column(allowsNull = "false")
     @Property(
             domainEvent = StartDateDomainEvent.class,
-            editing = Editing.DISABLED,
             optionality = Optionality.MANDATORY
     )
     public LocalDate startDate;
@@ -156,7 +155,6 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
     @Column(allowsNull = "true")
     @Property(
             domainEvent = EndDateDomainEvent.class,
-            editing = Editing.DISABLED,
             optionality = Optionality.OPTIONAL
     )
     public LocalDate endDate;

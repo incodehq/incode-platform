@@ -62,7 +62,7 @@ public class EmailAddress_update_IntegTest extends CommChannelModuleIntegTestAbs
 
         @Test
         public void update_end_date() throws Exception {
-            final EmailAddress returned = wrap(mixinUpdate(fredEmail)).$$(null, fredEmail.getStartDate(), fredEmail.getStartDate().plusMonths(3));
+            final EmailAddress returned = wrap(mixinUpdate(fredEmail)).$$(fredEmail.getEmailAddress(), fredEmail.getStartDate(), fredEmail.getStartDate().plusMonths(3));
 
             assertThat(wrap(fredEmail).getEndDate()).isEqualTo(fredEmail.getStartDate().plusMonths(3));
             assertThat(returned).isSameAs(fredEmail);

@@ -67,7 +67,7 @@ public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTes
         public void update_end_date() throws Exception {
 
             final PhoneOrFaxNumber returned =
-                    wrap(mixinUpdate(fredPhone)).$$(CommunicationChannelType.FAX_NUMBER, null, fredPhone.getStartDate(), fredPhone.getStartDate().plusMonths(3));
+                    wrap(mixinUpdate(fredPhone)).$$(CommunicationChannelType.FAX_NUMBER, fredPhone.getPhoneNumber(), fredPhone.getStartDate(), fredPhone.getStartDate().plusMonths(3));
 
             assertThat(fredPhone.getEndDate()).isEqualTo(fredPhone.getStartDate().plusMonths(3));
             assertThat(returned).isSameAs(fredPhone);

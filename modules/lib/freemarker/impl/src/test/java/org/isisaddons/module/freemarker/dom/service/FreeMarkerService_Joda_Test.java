@@ -7,6 +7,7 @@ import com.google.common.collect.ImmutableMap;
 import org.jmock.Expectations;
 import org.jmock.auto.Mock;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
