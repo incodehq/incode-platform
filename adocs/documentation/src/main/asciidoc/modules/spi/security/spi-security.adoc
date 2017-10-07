@@ -526,7 +526,7 @@ isisModuleSecurityRealm.autoCreateUser=false
 
 === Bootstrapping
 
-In the `AppManifest`, update its `getModules()` method and `getAdditionalServices()` method, eg:
+If implementing `AppManifest` interface directly, then update its `getModules()` method and `getAdditionalServices()` method, eg:
 
 [source,java]
 ----
@@ -551,6 +551,25 @@ If required, any other implementation can be supplied.
 <2> is an implementation of the `PermissionsEvaluationService` that determines how to resolve conflicting permissions at the same scope.
 This service is optional; if not presentthen the module will default to an allow-beats-veto strategy.
 An alternative implementation of `PermissionsEvaluationServiceVetoBeatsAllow` is also available for use if required; or any other implementation of this interface can be supplied.
+
+Or, if using 1.15.x or later, you can subclass from `AppManifestAbstract` and use the `AppManifestAbstract.Builder`, by calling `withModules()` and `withAdditionalServices()`, eg:
+
+[source,java]
+----
+public class MyAppManifest extends AppManifestAbstract {
+
+    public static final Builder BUILDER = Builder.forModules(
+            ...
+            org.isisaddons.module.security.SecurityModule.class,
+    )
+    .withAdditionalServices(
+            org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt.class
+           ,org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto.class
+    )
+
+    ...
+}
+----
 
 There is further discussion of the `PasswordEncryptionService` and `PermissionsEvaluationService` below.
 
