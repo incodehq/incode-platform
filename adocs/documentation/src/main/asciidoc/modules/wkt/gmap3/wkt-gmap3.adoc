@@ -101,7 +101,7 @@ public class ToDoItem implements Locatable {
     private Location location;
 
     @MemberOrder(name="Detail", sequence = "10")
-    @Optional
+    @Nullable
     public Location getLocation() { 
         return location;
     }
