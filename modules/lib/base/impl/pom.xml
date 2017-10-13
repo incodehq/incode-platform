@@ -101,7 +101,6 @@
             <optional>true</optional>
         </dependency>
 
-
         <!-- test -->
         <dependency>
             <groupId>org.isisaddons.module.fakedata</groupId>
@@ -109,11 +108,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-unittestsupport</artifactId>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-metamodel</artifactId>
