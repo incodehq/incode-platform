@@ -55,6 +55,7 @@
             </modules>
         </profile>
 
+        <!-- for use by top-level build.sh -->
         <profile>
             <id>lib-docx</id>
             <activation>
@@ -410,7 +411,8 @@
         </profile>
 
         <profile>
-            <id>default-modules</id>
+            <!-- everything (so can import all in one go into the IDE) -->
+            <id>default</id>
             <activation>
                 <property>
                     <name>!skip.default</name>
@@ -421,14 +423,12 @@
                 <module>modules</module>
 
                 <!-- quickstart app (module fixtures/demo usage, basis of quickstart archetype) -->
-
                 <module>ex/app/quickstart</module>
 
                 <!-- quickstart archetype generated from ex/app/quickstart  -->
                 <module>ex/arch/quickstart</module>
 
                 <!-- per-module testing -->
-
                 <module>modules/ext/flywaydb/integtests</module>
                 <module>modules/ext/togglz/integtests</module>
 
@@ -461,16 +461,54 @@
         </profile>
 
         <profile>
-            <id>release-platform</id>
+            <id>mavenmixins</id>
             <activation>
                 <property>
-                    <name>release-platform</name>
+                    <name>mavenmixins</name>
+                </property>
+            </activation>
+            <modules>
+                <module>mavenmixins</module>
+            </modules>
+        </profile>
+
+
+        <profile>
+            <id>modules</id>
+            <activation>
+                <property>
+                    <name>modules</name>
                 </property>
             </activation>
             <modules>
                 <module>modules</module>
             </modules>
         </profile>
+
+        <profile>
+            <id>quickstart</id>
+            <activation>
+                <property>
+                    <name>archetype</name>
+                </property>
+            </activation>
+            <modules>
+                <module>ex/arch/quickstart</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>archetype</id>
+            <activation>
+                <property>
+                    <name>archetype</name>
+                </property>
+            </activation>
+            <modules>
+                <module>ex/arch/quickstart</module>
+            </modules>
+        </profile>
+
     </profiles>
 
 
