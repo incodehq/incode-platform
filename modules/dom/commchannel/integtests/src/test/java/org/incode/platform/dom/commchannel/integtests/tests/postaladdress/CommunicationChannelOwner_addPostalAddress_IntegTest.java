@@ -12,10 +12,12 @@ import org.junit.Test;
 import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.services.config.ConfigurationService;
 
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
 import org.incode.domainapp.example.dom.dom.commchannel.fixture.DemoObject_withCommChannels_tearDown;
+import org.incode.module.commchannel.dom.api.GeocodingService;
 import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress;
 import org.incode.module.commchannel.dom.impl.postaladdress.T_addPostalAddress;
@@ -24,12 +26,15 @@ import org.incode.platform.dom.commchannel.integtests.CommChannelModuleIntegTest
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assume.assumeThat;
 
 public class CommunicationChannelOwner_addPostalAddress_IntegTest extends CommChannelModuleIntegTestAbstract {
 
     @Inject
     DemoObjectMenu commChannelDemoObjectMenu;
+    @Inject
+    ConfigurationService configurationService;
 
     DemoObject fredDemoOwner;
 
@@ -89,6 +94,7 @@ public class CommunicationChannelOwner_addPostalAddress_IntegTest extends CommCh
         public void can_create_postal_address_and_also_look_up_geocode() throws Exception {
 
             assumeThat(isInternetReachable(), is(true));
+            assumeThat(configurationService.getProperty(GeocodingService.class.getName() + ".apiKey"), is(notNullValue()));
 
             // given
             final SortedSet<CommunicationChannel> channelsBefore = wrap(mixinCommunicationChannels(fredDemoOwner)).$$();

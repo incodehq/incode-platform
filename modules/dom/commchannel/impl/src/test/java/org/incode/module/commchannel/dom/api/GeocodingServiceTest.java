@@ -16,6 +16,7 @@ import org.apache.isis.core.unittestsupport.jmocking.JUnitRuleMockery2;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assume.assumeThat;
 
 public class GeocodingServiceTest {
@@ -39,6 +40,15 @@ public class GeocodingServiceTest {
         public void normal_mode() throws Exception {
 
             assumeThat(isInternetReachable(), is(true));
+            final String apiKeyKey = GeocodingService.class.getCanonicalName() + ".apiKey";
+            final String apiKeyValue = System.getProperty(apiKeyKey);
+            assumeThat(apiKeyValue, is(notNullValue()));
+
+            context.checking(new Expectations() {{
+                allowing(mockConfigurationService).getProperty(apiKeyKey);
+                will(returnValue(apiKeyKey));
+                allowing(mockConfigurationService);
+            }});
 
             // when
             final String address = geocodingService.combine(GeocodingService.Encoding.ENCODED, "45 High Street, Wheatley, Oxford", null, "UK");
