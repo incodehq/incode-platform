@@ -35,28 +35,9 @@ image::{_imagesdir}030-view-collection-in-gmap3-next-update-location.png[width="
 
 === Update location using service
 
-The previous screenshot shows the todo item also provides an "update location" action:
-
-[source,java]
-----
-public Gmap3WicketToDoItem updateLocation(
-        @ParameterLayout(named="Address")
-        final String address) {
-    final Location location = this.locationLookupService.lookup(address);
-    setLocation(location);
-    return this;
-}
-----
-
-When invoked:
-
-image::{_imagesdir}040-update-location-invoke.png[width="600px",link="{_imagesdir}040-update-location-invoke.png"]
-
-
-\... it updates the location:
-
-image::{_imagesdir}050-location-updated.png[width="600px",link="{_imagesdir}050-location-updated.png"]
-
+This module previously provided a "LocationLookupService".
+This has been removed, since the underlying gmap3 geocoding service requires an .apiKey.
+A similar `GeocodingService`, providing a superset of functionality, is available in xref:../../dom/commchannel/dom-commchannel.adoc#[commchannel module] (though this may move into its own library in the future, see link:https://github.com/incodehq/incode-platform/issues/57[#57]).
 
 === Standalone location as gmap
 
@@ -112,31 +93,6 @@ public class ToDoItem implements Locatable {
 ----
 
 You should then find that any collections of entities that have `Locatable` properties (either returned from an action, or as a parented collection) will be rendered in a map.
-
-
-=== `LocationLookupService`
-
-By injecting the provided `LocationLookupService` domain service, you can write an action to lookup ``Location``s.
-
-For example:
-
-[source,java]
-----
-public void lookupLocation(
-        @ParameterLayout(named="Description")
-        final String description) {
-    setLocation(locationLookupService.lookup(description));
-}
-----
-
-To use this the `LocationLookupService` needs to be registered; see below.
-
-[NOTE]
-====
-Alternatively, the `Location` can also be specified directly as a string.
-The format is `mmm.mmm;nnn.nnn`, where `mmm.mmm` is the latitude, and `nnn.nnn` is the longitude
-====
-
 
 
 === `LocationDereferencingService`
@@ -206,12 +162,11 @@ public List<Class<?>> getModules() {
     return Arrays.asList(
             ...
             org.isisaddons.wicket.gmap3.cpt.applib.Gmap3ApplibModule.class,
-            org.isisaddons.wicket.gmap3.cpt.service.Gmap3ServiceModule.class,
+            ...
     );
 }
 ----
 
-This will register the `LocationLookupService`.
 
 
 
@@ -229,6 +184,10 @@ Configure the key in `WEB-INF/viewer_wicket.properties` (or `WEB-INF/isis.proper
 isis.viewer.wicket.gmap3.apiKey=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-XXXXXX
 ----
 
+[NOTE]
+====
+The xref:../../dom/commchannel/dom-commchannel.adoc#[commchannel] module also requires the same configuration, though under a different configuration property.
+====
 
 
 == Known issues

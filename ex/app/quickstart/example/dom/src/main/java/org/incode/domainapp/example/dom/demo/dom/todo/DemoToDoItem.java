@@ -35,12 +35,10 @@ import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
 
-import org.isisaddons.module.excel.dom.ExcelService;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEvent;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
 import org.isisaddons.wicket.gmap3.cpt.applib.Locatable;
 import org.isisaddons.wicket.gmap3.cpt.applib.Location;
-import org.isisaddons.wicket.gmap3.cpt.service.LocationLookupService;
 import org.isisaddons.wicket.summernote.cpt.applib.SummernoteEditor;
 
 import lombok.Getter;
@@ -350,14 +348,6 @@ public class DemoToDoItem implements Comparable<DemoToDoItem>, CalendarEventable
     //region > Programmatic Helpers
     private static final long ONE_WEEK_IN_MILLIS = 7 * 24 * 60 * 60 * 1000L;
 
-    @Programmatic // excluded from the framework's metamodel
-    public boolean isDue() {
-        if (getDueBy() == null) {
-            return false;
-        }
-        return !isMoreThanOneWeekInPast(getDueBy());
-    }
-
     private static boolean isMoreThanOneWeekInPast(final LocalDate dueBy) {
         return dueBy.toDateTimeAtStartOfDay().getMillis() < Clock.getTime() - ONE_WEEK_IN_MILLIS;
     }
@@ -373,22 +363,6 @@ public class DemoToDoItem implements Comparable<DemoToDoItem>, CalendarEventable
         public static Predicate<DemoToDoItem> thoseCompleted(
                 final boolean completed) {
             return t -> Objects.equal(t.isComplete(), completed);
-        }
-
-        public static Predicate<DemoToDoItem> thoseWithSimilarDescription(final String description) {
-            return t -> t.getDescription().contains(description);
-        }
-
-        @SuppressWarnings("unchecked")
-        public static Predicate<DemoToDoItem> thoseSimilarTo(final DemoToDoItem toDoItem) {
-            return com.google.common.base.Predicates.and(
-                    thoseNot(toDoItem),
-                    thoseOwnedBy(toDoItem.getOwnedBy()),
-                    thoseCategorised(toDoItem.getCategory()));
-        }
-
-        public static Predicate<DemoToDoItem> thoseNot(final DemoToDoItem toDoItem) {
-            return t -> t != toDoItem;
         }
 
         public static Predicate<DemoToDoItem> thoseCategorised(final Category category) {
@@ -426,14 +400,10 @@ public class DemoToDoItem implements Comparable<DemoToDoItem>, CalendarEventable
     //region > dependencies
 
     @javax.inject.Inject
-    private DomainObjectContainer container;
+    DomainObjectContainer container;
 
     @javax.inject.Inject
-    private DemoToDoItemMenu toDoItems;
-
-    @javax.inject.Inject
-    private ExcelService excelService;
-
+    DemoToDoItemMenu toDoItems;
     //endregion
 
 
@@ -474,14 +444,12 @@ public class DemoToDoItem implements Comparable<DemoToDoItem>, CalendarEventable
     }
 
     @MemberOrder(name="location", sequence="1")
-    public DemoToDoItem updateLocation(final String address) {
-        final Location location = this.locationLookupService.lookup(address);
-        setLocation(location);
+    public DemoToDoItem updateLocation(final Double longitude, final Double latitude) {
+        locationLatitude = latitude;
+        locationLongitude = longitude;
         return this;
     }
 
-    @javax.inject.Inject
-    private LocationLookupService locationLookupService;
 
     //endregion
 

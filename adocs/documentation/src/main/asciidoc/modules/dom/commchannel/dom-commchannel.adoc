@@ -11,6 +11,8 @@ A subclass of `CommunicationChannelOwnerLink` abstract class is required (about 
 
 
 
+
+
 For postal address, the geocoding data can be looked up by invoking the link:https://developers.google.com/maps/documentation/geocoding[Google Geocoding] API.
 This allows free-form text entry of an address to be converted into its geocoded equivalent, including latitude and longitude.
 This in turn allows each postal address object to implement the `Location` interface (from
@@ -301,6 +303,24 @@ public List<Class<?>> getModules() {
     );
 }
 ----
+
+
+=== Configuration Properties
+
+In order to use the `GeocodingService` an API key is required.
+See the link:https://developers.google.com/maps/documentation/javascript/get-api-key#key[google documentation] for instructions as to how to do this; a free key (with quite generous daily limits) can be used.
+
+Configure the key in `WEB-INF/viewer_wicket.properties` (or `WEB-INF/isis.properties`):
+
+[source,ini]
+----
+org.incode.module.commchannel.dom.api.GeocodingService.apiKey=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-XXXXXX
+----
+
+[NOTE]
+====
+The xref:../../wkt/gmap3/wkt-gmap3.adoc#[wicket gmap3] component also requires the same configuration, though under a different configuration property.
+====
 
 
 === For each domain object...
