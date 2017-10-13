@@ -10,9 +10,11 @@ Finally, it's also possible to package up and run the webapp as a Docker contain
 +
 [source,bash]
 ----
-mvn install \
-    -Dmavenmixin-docker -Ddocker-plugin.imageName=mycompany/myapp \
-    -DskipTests -Dskip.isis-vaidate -Dskip.isis-swagger
+mvn -pl webapp \
+    -o \
+    -Dmavenmixin-docker \
+    -Ddocker-plugin.imageName=mycompany/myapp \
+    docker:build
 ----
 +
 where "imageName" is anything you want. +
