@@ -109,6 +109,11 @@
             <optional>true</optional>
         </dependency>
 
+        <dependency>
+            <groupId>org.incode.module.base</groupId>
+            <artifactId>incode-module-base-dom</artifactId>
+        </dependency>
+
         <!-- test -->
         <dependency>
             <groupId>com.danhaywood.java</groupId>
@@ -119,6 +124,13 @@
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-unittestsupport</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode.module.base</groupId>
+            <artifactId>incode-module-base-dom</artifactId>
+            <scope>test</scope>
+            <type>test-jar</type>
         </dependency>
 
         <dependency>

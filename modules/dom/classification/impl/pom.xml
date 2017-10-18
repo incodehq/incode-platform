@@ -125,6 +125,11 @@
             <optional>true</optional>
         </dependency>
 
+        <dependency>
+            <groupId>org.incode.module.base</groupId>
+            <artifactId>incode-module-base-dom</artifactId>
+        </dependency>
+
         <!-- test -->
         <dependency>
             <groupId>org.isisaddons.module.fakedata</groupId>
@@ -143,6 +148,13 @@
             <groupId>com.danhaywood.java</groupId>
             <artifactId>danhaywood-java-assertjext</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode.module.base</groupId>
+            <artifactId>incode-module-base-dom</artifactId>
+            <scope>test</scope>
+            <type>test-jar</type>
         </dependency>
 
         <!-- provided -->

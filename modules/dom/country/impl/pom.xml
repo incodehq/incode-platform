@@ -123,6 +123,11 @@
             <artifactId>incode-module-base-dom</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.incode.module.base</groupId>
+            <artifactId>incode-module-base-dom</artifactId>
+        </dependency>
+
         <!-- testing -->
         <dependency>
             <groupId>org.isisaddons.module.fakedata</groupId>
@@ -154,6 +159,13 @@
             <groupId>org.incode.module.unittestsupport</groupId>
             <artifactId>incode-module-unittestsupport-dom</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode.module.base</groupId>
+            <artifactId>incode-module-base-dom</artifactId>
+            <scope>test</scope>
+            <type>test-jar</type>
         </dependency>
 
         <dependency>

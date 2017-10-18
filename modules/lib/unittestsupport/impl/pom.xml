@@ -86,11 +86,6 @@
 
     <dependencies>
 
-        <dependency>
-            <groupId>org.incode.module.base</groupId>
-            <artifactId>incode-module-base-dom</artifactId>
-        </dependency>
-
         <!-- note that these are *not* test dependencies -->
         <dependency>
             <groupId>org.isisaddons.module.fakedata</groupId>

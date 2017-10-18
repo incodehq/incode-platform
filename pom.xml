@@ -411,7 +411,7 @@
         </profile>
 
         <profile>
-            <!-- everything (so can import all in one go into the IDE) -->
+            <!-- everything except mavenmixins (so can import all in one go into the IDE) -->
             <id>default</id>
             <activation>
                 <property>
@@ -419,6 +419,13 @@
                 </property>
             </activation>
             <modules>
+
+                <!--
+                mavenmixins are excluded because they can only be built by specifying additional flags
+                (-Dskip.isis-validate -Dskip.isis-swagger) and we want to be able to run 'mvn clean install' at the root.
+
+                <module>mavenmixins</module>
+                -->
 
                 <module>modules</module>
 

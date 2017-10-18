@@ -137,6 +137,11 @@
             <optional>true</optional>
         </dependency>
 
+        <dependency>
+            <groupId>org.incode.module.base</groupId>
+            <artifactId>incode-module-base-dom</artifactId>
+        </dependency>
+
         <!-- test -->
         <dependency>
             <groupId>org.apache.isis.core</groupId>
@@ -153,6 +158,13 @@
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-core</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode.module.base</groupId>
+            <artifactId>incode-module-base-dom</artifactId>
+            <scope>test</scope>
+            <type>test-jar</type>
         </dependency>
 
         <!-- provided -->

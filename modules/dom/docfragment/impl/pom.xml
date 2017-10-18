@@ -127,6 +127,11 @@
             <artifactId>isis-module-freemarker-dom</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.incode.module.base</groupId>
+            <artifactId>incode-module-base-dom</artifactId>
+        </dependency>
+
         <!-- testing -->
         <dependency>
             <groupId>org.apache.isis.mavendeps</groupId>
@@ -153,6 +158,13 @@
             <groupId>org.incode.module.integtestsupport</groupId>
             <artifactId>incode-module-integtestsupport-dom</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode.module.base</groupId>
+            <artifactId>incode-module-base-dom</artifactId>
+            <scope>test</scope>
+            <type>test-jar</type>
         </dependency>
 
         <dependency>
