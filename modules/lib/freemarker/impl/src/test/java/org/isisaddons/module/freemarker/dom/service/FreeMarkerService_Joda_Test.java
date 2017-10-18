@@ -1,11 +1,13 @@
 package org.isisaddons.module.freemarker.dom.service;
 
+import java.util.Locale;
 import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 
 import org.jmock.Expectations;
 import org.jmock.auto.Mock;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -56,7 +58,7 @@ public class FreeMarkerService_Joda_Test {
         // when
         String merged = service.render(
                 "WelcomeUserTemplate:/GBR:",
-                "result: ${jodaDateTime}", properties);
+                "result: ${jodaDateTime?string[\"dd-MMM-yyyy HH:mm:ss\"]}", properties);
 
         // then
         assertThat(merged, is("result: 01-Feb-2017 14:30:00"));
@@ -95,7 +97,7 @@ public class FreeMarkerService_Joda_Test {
         // when
         String merged = service.render(
                 "WelcomeUserTemplate:/GBR:",
-                "result: ${jodaDateTime?date}", properties);
+                "result: ${jodaDateTime?string[\"dd-MMM-yyyy\"]}", properties);
 
         // then
         assertThat(merged, is("result: 01-Feb-2017"));
@@ -103,7 +105,7 @@ public class FreeMarkerService_Joda_Test {
         // when
         merged = service.render(
                 "WelcomeUserTemplate:/GBR2:",
-                "result: ${jodaDateTime?datetime}", properties);
+                "result: ${jodaDateTime?string[\"dd-MMM-yyyy HH:mm:ss\"]}", properties);
 
         // then
         assertThat(merged, is("result: 01-Feb-2017 14:30:00"));
@@ -111,7 +113,7 @@ public class FreeMarkerService_Joda_Test {
         // when
         merged = service.render(
                 "WelcomeUserTemplate:/GBR3:",
-                "result: ${jodaDateTime?time}", properties);
+                "result: ${jodaDateTime?string[\"HH:mm:ss\"]}", properties);
 
         // then
         assertThat(merged, is("result: 14:30:00"));
@@ -127,7 +129,7 @@ public class FreeMarkerService_Joda_Test {
         // when
         String merged = service.render(
                 "WelcomeUserTemplate:/GBR:",
-                "result: ${jodaLocalDateTime}", properties);
+                "result: ${jodaLocalDateTime?string[\"dd-MMM-yyyy HH:mm:ss\"]}", properties);
 
         // then
         assertThat(merged, is("result: 01-Feb-2017 14:30:00"));
@@ -142,7 +144,7 @@ public class FreeMarkerService_Joda_Test {
         // when
         String merged = service.render(
                 "WelcomeUserTemplate:/GBR:",
-                "result: ${jodaLocalDate}", properties);
+                "result: ${jodaLocalDate?string[\"dd-MMM-yyyy\"]}", properties);
 
         // then
         assertThat(merged, is("result: 01-Feb-2017"));
@@ -157,7 +159,7 @@ public class FreeMarkerService_Joda_Test {
         // when
         String merged = service.render(
                 "WelcomeUserTemplate:/GBR:",
-                "result: ${jodaLocalTime}", properties);
+                "result: ${jodaLocalTime?string[\"HH:mm:ss\"]}", properties);
 
         // then
         assertThat(merged, is("result: 14:30:45"));

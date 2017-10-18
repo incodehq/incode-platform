@@ -1,7 +1,10 @@
 package org.incode.platform.dom.docfragment.integtests.tests;
 
+import java.util.Locale;
+
 import javax.inject.Inject;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,10 +32,22 @@ public class DocFragmentService_IntegTest extends DocFragmentModuleIntegTestAbst
 
     @Before
     public void setUp() throws Exception {
+
         // given
         fixtureScripts.runFixtureScript(new DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_recreate(), null);
         transactionService.nextTransaction();
+
+        defaultLocale = Locale.getDefault();
+        Locale.setDefault(Locale.ITALY);
     }
+
+    Locale defaultLocale;
+
+    @After
+    public void tearDown() throws Exception {
+        Locale.setDefault(defaultLocale);
+    }
+
 
 
     public static class Render2 extends DocFragmentService_IntegTest {
