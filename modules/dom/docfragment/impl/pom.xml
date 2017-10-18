@@ -127,11 +127,6 @@
             <artifactId>isis-module-freemarker-dom</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.incode.module.base</groupId>
-            <artifactId>incode-module-base-dom</artifactId>
-        </dependency>
-
         <!-- testing -->
         <dependency>
             <groupId>org.apache.isis.mavendeps</groupId>
