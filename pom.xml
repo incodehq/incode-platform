@@ -39,6 +39,7 @@
                 <module>modules/dom/commchannel/impl</module>
 
                 <module>modules/dom/country/impl</module>
+                <module>modules/dom/mailchimp/impl</module>
 
                 <module>modules/dom/docfragment/impl</module>
                 <module>modules/dom/document/impl</module>
@@ -185,6 +186,18 @@
             <modules>
                 <module>modules/dom/country/impl</module>
                 <module>modules/dom/country/integtests</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>dom-mailchimp</id>
+            <activation>
+                <property>
+                    <name>dom-mailchimp</name>
+                </property>
+            </activation>
+            <modules>
+                <module>modules/dom/mailchimp/impl</module>
+                <module>modules/dom/mailchimp/integtests</module>
             </modules>
         </profile>
         <profile>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bs3:grid xmlns:bs3="http://isis.apache.org/applib/layout/grid/bootstrap3" xmlns:cpt="http://isis.apache.org/applib/layout/component" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://isis.apache.org/applib/layout/component http://isis.apache.org/applib/layout/component/component.xsd http://isis.apache.org/applib/layout/grid/bootstrap3 http://isis.apache.org/applib/layout/grid/bootstrap3/bootstrap3.xsd">
+    <bs3:row>
+        <bs3:col span="12" unreferencedActions="true">
+            <cpt:domainObject/>
+        </bs3:col>
+    </bs3:row>
+    <bs3:row>
+        <bs3:col span="5">
+            <bs3:tabGroup>
+                <bs3:tab name="MailChimpListMemberLink">
+                    <bs3:row>
+                        <bs3:col span="12">
+                            <cpt:fieldSet name="Link" id="link">
+                                <cpt:property id="list"/>
+                                <cpt:property id="member"/>
+                                <cpt:property id="status"/>
+                            </cpt:fieldSet>
+                            <cpt:fieldSet name="Sync details" id="sync">
+                                <cpt:property id="newLocal"/>
+                                <cpt:property id="markedForDeletion"/>
+                                <cpt:property id="isDeletedRemote"/>
+                            </cpt:fieldSet>
+                        </bs3:col>
+                    </bs3:row>
+                </bs3:tab>
+                <bs3:tab name="Metadata">
+                    <bs3:row>
+                        <bs3:col span="12">
+                            <cpt:fieldSet name="Algemeen" id="algemeen" unreferencedProperties="true" />
+                            <cpt:fieldSet name="Metadata" id="metadata">
+                                <cpt:action id="recentAuditEntries" position="PANEL_DROPDOWN"/>
+                                <cpt:action id="clearHints" position="PANEL_DROPDOWN"/>
+                                <cpt:action id="downloadLayoutXml" position="PANEL_DROPDOWN"/>
+                                <cpt:action id="downloadJdoMetadata" position="PANEL_DROPDOWN"/>
+                                <cpt:action id="rebuildMetamodel" position="PANEL_DROPDOWN"/>
+                                <cpt:property id="historicId"/>
+                                <cpt:property id="datanucleusVersionLong"/>
+                                <cpt:property id="datanucleusIdLong"/>
+                                <cpt:property id="datanucleusVersionTimestamp"/>
+                                <cpt:action id="compare"/>
+                                <cpt:action id="thenComparingInt"/>
+                                <cpt:action id="thenComparingLong"/>
+                                <cpt:action id="thenComparing"/>
+                                <cpt:action id="thenComparingDouble"/>
+                                <cpt:action id="reversed"/>
+                            </cpt:fieldSet>
+                        </bs3:col>
+                    </bs3:row>
+                </bs3:tab>
+            </bs3:tabGroup>
+        </bs3:col>
+        <bs3:col span="7" unreferencedCollections="true">
+            <cpt:collection id="members" defaultView="table">
+                <cpt:action id="syncWithMailChimp" position="PANEL"/>
+            </cpt:collection>
+        </bs3:col>
+    </bs3:row>
+</bs3:grid>

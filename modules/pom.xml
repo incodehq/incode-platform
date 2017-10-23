@@ -1222,6 +1222,7 @@
         <module>dom/commchannel/impl</module>
         <module>dom/communications/impl</module>
         <module>dom/country/impl</module>
+        <module>dom/mailchimp/impl</module>
         <module>dom/docfragment/impl</module>
         <module>dom/document/impl</module>
         <module>dom/note/impl</module>
@@ -1242,6 +1243,7 @@
         <module>wkt/pdfjs/impl</module>
         <module>wkt/summernote/impl</module>
         <module>wkt/wickedcharts/impl</module>
+        <module>dom/mailchimp/impl</module>
     </modules>
 
 </project>
