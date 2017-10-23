@@ -26,7 +26,6 @@ public class MailChimpListRepository_test extends MailchimpModuleIntegTestAbstra
     @Before
     public void setUp() throws Exception {
         // given
-//        fixtureScripts.runFixtureScript(new TtiTearDown(), null);
         list = mailChimpListRepository.findOrCreate("list1", "List 1");
     }
 

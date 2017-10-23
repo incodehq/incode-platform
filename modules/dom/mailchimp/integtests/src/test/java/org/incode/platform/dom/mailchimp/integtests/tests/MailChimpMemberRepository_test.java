@@ -3,7 +3,6 @@ package org.incode.platform.dom.mailchimp.integtests.tests;
 import javax.inject.Inject;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Before;
 import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
@@ -32,12 +31,6 @@ public class MailChimpMemberRepository_test extends MailchimpModuleIntegTestAbst
 
     MailChimpList list;
     MailChimpMember member;
-
-    @Before
-    public void setUp() throws Exception {
-        // given
-//        fixtureScripts.runFixtureScript(new TtiTearDown(), null);
-    }
 
     @Test
     public void findOrCreate_works() throws Exception {

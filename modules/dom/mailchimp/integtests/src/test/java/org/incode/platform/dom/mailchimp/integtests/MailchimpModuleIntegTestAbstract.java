@@ -6,6 +6,7 @@ import org.junit.BeforeClass;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 
 import org.incode.module.mailchimp.MailchimpModuleDomManifest;
+import org.incode.module.mailchimp.fixture.teardown.MailChimpModule_tearDown;
 
 public abstract class MailchimpModuleIntegTestAbstract extends IntegrationTestAbstract2 {
 
@@ -19,7 +20,7 @@ public abstract class MailchimpModuleIntegTestAbstract extends IntegrationTestAb
 
     @Before
     public void cleanUpFromPreviousTest() {
-        // TODO ....
+        runFixtureScript(new MailChimpModule_tearDown());
     }
 
 }

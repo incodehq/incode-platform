@@ -39,7 +39,6 @@ public class MailChimpListMemberLinkRepository_test extends MailchimpModuleInteg
     @Before
     public void setUp() throws Exception {
         // given
-//        fixtureScripts.runFixtureScript(new TtiTearDown(), null);
         list = mailChimpListRepository.findOrCreate("list1", "List 1");
         member = mailChimpMemberRepository.findOrCreateFromRemote("1", list, "", "last name", "test@email.com", "some status");
     }
