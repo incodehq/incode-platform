@@ -462,6 +462,7 @@
                 <module>modules/dom/classification/integtests</module>
                 <module>modules/dom/commchannel/integtests</module>
                 <module>modules/dom/country/integtests</module>
+                <module>modules/dom/mailchimp/integtests</module>
                 <module>modules/dom/communications/integtests</module>
                 <module>modules/dom/docfragment/integtests</module>
                 <module>modules/dom/document/integtests</module>
