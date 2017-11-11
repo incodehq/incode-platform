@@ -352,7 +352,7 @@ The security module also provides its own built-in mechanism for determining app
 
 [NOTE]
 ====
-This is this design is designed for hierarchical tenancies, eg where a tenancy corresponds to a country or region and a user cannot reside in multiple regions concurrently.
+This is designed for hierarchical tenancies, eg where a tenancy corresponds to a country or region and a user cannot reside in multiple regions concurrently.
 If this does not suit your requirements, then use the more general purpose `ApplicationTenancyEvaluator` SPI service described above.
 ====
 
