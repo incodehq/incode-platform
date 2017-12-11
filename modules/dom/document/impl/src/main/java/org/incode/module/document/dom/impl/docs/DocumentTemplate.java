@@ -22,6 +22,7 @@ import javax.jdo.annotations.Uniques;
 import com.google.common.collect.FluentIterable;
 import com.google.common.eventbus.Subscribe;
 
+import org.apache.commons.lang3.StringUtils;
 import org.axonframework.eventhandling.annotation.EventHandler;
 import org.joda.time.LocalDate;
 
@@ -897,7 +898,7 @@ public class DocumentTemplate extends DocumentAbstract<DocumentTemplate> {
             return trim(documentName, NameType.Meta.MAX_LEN);
         }
         else {
-            return trim(documentName, NameType.Meta.MAX_LEN - suffixWithDot.length()) + suffixWithDot;
+            return StringUtils.stripEnd(trim(documentName, NameType.Meta.MAX_LEN - suffixWithDot.length()),".") + suffixWithDot;
         }
     }
 

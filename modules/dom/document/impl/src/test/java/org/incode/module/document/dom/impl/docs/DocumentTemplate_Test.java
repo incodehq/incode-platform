@@ -334,9 +334,8 @@ public class DocumentTemplate_Test {
 
         @Test
         public void ends_with_dot() throws Exception {
-            final String docName = template.withFileSuffix("foo.");
-
-            assertThat(docName).isEqualTo("foo..pdf");
+            final String docName = template.withFileSuffix("foo...");
+            assertThat(docName).isEqualTo("foo.pdf");
         }
     }
 }
