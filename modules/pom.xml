@@ -10,6 +10,7 @@
         <relativePath/>
     </parent>
 
+    <groupId>org.incode</groupId>
     <artifactId>incode-parent</artifactId>
     <version>1.16.0-SNAPSHOT</version>
 
