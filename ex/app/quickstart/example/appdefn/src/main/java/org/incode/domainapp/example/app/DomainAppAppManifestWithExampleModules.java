@@ -25,6 +25,7 @@ import org.incode.module.docrendering.freemarker.dom.FreemarkerDocRenderingModul
 import org.incode.module.docrendering.stringinterpolator.dom.StringInterpolatorDocRenderingModule;
 import org.incode.module.docrendering.xdocreport.dom.XDocReportDocRenderingModule;
 import org.incode.module.document.dom.DocumentModule;
+import org.incode.module.mailchimp.dom.MailchimpModule;
 import org.incode.module.note.dom.NoteModule;
 
 import domainapp.appdefn.DomainAppAppManifest;
@@ -60,9 +61,26 @@ public class DomainAppAppManifestWithExampleModules extends AppManifestAbstract 
                     DocFragmentModuleDomModule.class,
                     DocumentModule.class,
                     NoteModule.class,
-                    TagsModule.class
+                    TagsModule.class,
+                    MailchimpModule.class
 
-            );
+            )
+            // required by Maichimp Module
+            .withConfigurationProperty("isis.service.mailchimp.base-url","https://us6.api.mailchimp.com/3.0")
+            .withConfigurationProperty("isis.service.mailchimp.secret","e22a20f29430c3df0d2b7840af9921d6-us6")
+            .withConfigurationProperty("isis.service.mailchimp.connect-timeout","2000")
+            .withConfigurationProperty("isis.service.mailchimp.read-timeout","30000")
+            .withConfigurationProperty("isis.service.mailchimp.company","MyCompany")
+            .withConfigurationProperty("isis.service.mailchimp.address1","My Street 1")
+            .withConfigurationProperty("isis.service.mailchimp.city","MyCity")
+            .withConfigurationProperty("isis.service.mailchimp.state","MyState")
+            .withConfigurationProperty("isis.service.mailchimp.zip","MyZip")
+            .withConfigurationProperty("isis.service.mailchimp.country","MyCountry")
+            .withConfigurationProperty("isis.service.mailchimp.from_name","MyCompany - mySlogan")
+            .withConfigurationProperty("isis.service.mailchimp.from_email","my@email.com")
+            .withConfigurationProperty("isis.service.mailchimp.language","en")
+            .withConfigurationProperty("isis.service.mailchimp.permissionreminder","You are receiving this mail because .....")
+            ;
 
     public DomainAppAppManifestWithExampleModules() {
         super(BUILDER);

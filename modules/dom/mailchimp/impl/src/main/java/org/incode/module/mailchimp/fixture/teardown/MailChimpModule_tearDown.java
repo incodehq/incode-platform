@@ -7,9 +7,9 @@ public class MailChimpModule_tearDown extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"mailchimp\".\"MailChimpListMemberLink\"");
-        isisJdoSupport.executeUpdate("delete from \"mailchimp\".\"MailChimpMember\"");
-        isisJdoSupport.executeUpdate("delete from \"mailchimp\".\"MailChimpList\"");
+        isisJdoSupport.executeUpdate("delete from \"incodeMailchimp\".\"MailChimpListMemberLink\"");
+        isisJdoSupport.executeUpdate("delete from \"incodeMailchimp\".\"MailChimpMember\"");
+        isisJdoSupport.executeUpdate("delete from \"incodeMailchimp\".\"MailChimpList\"");
     }
 
 

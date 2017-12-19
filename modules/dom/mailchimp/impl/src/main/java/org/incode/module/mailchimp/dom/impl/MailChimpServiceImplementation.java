@@ -235,6 +235,9 @@ public class MailChimpServiceImplementation {
 
     @Programmatic
     public void deleteListLocal(final MailChimpList list){
+        for (MailChimpListMemberLink link : mailChimpListMemberLinkRepository.findByList(list)){
+            link.remove();
+        }
         mailChimpListRepository.remove(list);
     }
 

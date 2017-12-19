@@ -42,7 +42,7 @@ public class MailChimpMemberRepository_test extends MailchimpModuleIntegTestAbst
         member = mailChimpMemberRepository.create("1", "", "last name", "test@email.com");
         mailChimpListMemberLinkRepository.findOrCreateFromRemote(list, member, "some status");
         // when
-        memberFound = mailChimpMemberRepository.findOrCreateFromRemote("1", list, "tralala", "tralala", "tralala", "tralala");
+        memberFound = mailChimpMemberRepository.findOrCreateFromRemote("1", list, "tralala", "tralala", "test@email.com", "tralala");
         // then
         Assertions.assertThat(memberFound).isNotNull();
         Assertions.assertThat(memberFound).isEqualTo(member);
@@ -51,7 +51,7 @@ public class MailChimpMemberRepository_test extends MailchimpModuleIntegTestAbst
 
         // and when
         MailChimpList list2 = mailChimpListRepository.findOrCreate("list2", "List 2");
-        memberFound = mailChimpMemberRepository.findOrCreateFromRemote("1", list2, "tralala", "tralala", "tralala", "tralala");
+        memberFound = mailChimpMemberRepository.findOrCreateFromRemote("1", list2, "tralala", "tralala", "test@email.com", "tralala");
         // then
         Assertions.assertThat(memberFound).isEqualTo(member);
         Assertions.assertThat(mailChimpMemberRepository.listAll().size()).isEqualTo(1);

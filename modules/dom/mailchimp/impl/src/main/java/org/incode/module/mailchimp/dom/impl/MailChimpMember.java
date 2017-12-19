@@ -30,7 +30,7 @@ import lombok.Setter;
 
 @PersistenceCapable(
         identityType = IdentityType.DATASTORE,
-        schema = "mailchimp"
+        schema = "incodeMailchimp"
 )
 @DatastoreIdentity(
         strategy = IdGeneratorStrategy.IDENTITY,
@@ -43,12 +43,12 @@ import lombok.Setter;
         @Query(
                 name = "findByEmail", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM domainapp.dom.mailchimpintegration.module.impl.MailChimpMember "
+                        + "FROM org.incode.module.mailchimp.dom.impl.MailChimpMember "
                         + "WHERE emailAddress == :email "),
         @Query(
                 name = "findByParty", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM domainapp.dom.mailchimpintegration.module.impl.MailChimpMember "
+                        + "FROM org.incode.module.mailchimp.dom.impl.MailChimpMember "
                         + "WHERE party == :party ")
 
 })

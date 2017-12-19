@@ -21,6 +21,7 @@ import org.incode.domainapp.example.dom.dom.communications.fixture.data.doctypes
 import org.incode.domainapp.example.dom.dom.docfragment.fixture.DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_create;
 import org.incode.domainapp.example.dom.dom.docfragment.fixture.sub.DocFragment_tearDown;
 import org.incode.domainapp.example.dom.dom.document.fixture.seed.RenderingStrategy_create6;
+import org.incode.domainapp.example.dom.dom.mailchimp.fixture.DemoParties_forMailChimp_create;
 import org.incode.domainapp.example.dom.dom.tags.fixture.DemoTaggableObject_withTags_create3;
 import org.incode.domainapp.example.dom.lib.fakedata.fixture.DemoObjectWithAll_recreate3;
 import org.incode.domainapp.example.dom.lib.poly.fixture.Case_FixedAsset_Party_andLinks_tearDown;
@@ -97,6 +98,8 @@ public class RecreateDemoFixtures extends DiscoverableFixtureScript {
         ec.executeChild(this, new DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_create());
         ec.executeChild(this, new DemoReminder_create4());
         ec.executeChild(this, new DemoToDoItem_create_usingExcelFixture("sven"));
+
+        ec.executeChild(this, new DemoParties_forMailChimp_create());
 
     }
 

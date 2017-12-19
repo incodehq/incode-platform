@@ -35,7 +35,7 @@ import lombok.Setter;
 
 @PersistenceCapable(
         identityType = IdentityType.DATASTORE,
-        schema = "mailchimp"
+        schema = "incodeMailchimp"
 )
 @DatastoreIdentity(
         strategy = IdGeneratorStrategy.IDENTITY,
@@ -47,17 +47,17 @@ import lombok.Setter;
         @Query(
                 name = "findByListId", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM domainapp.dom.mailchimpintegration.module.impl.MailChimpList "
+                        + "FROM org.incode.module.mailchimp.dom.impl.MailChimpList "
                         + "WHERE listId == :listId "),
         @Query(
                 name = "findByName", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM domainapp.dom.mailchimpintegration.module.impl.MailChimpList "
+                        + "FROM org.incode.module.mailchimp.dom.impl.MailChimpList "
                         + "WHERE name == :name "),
         @Query(
                 name = "findByNameContains", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM domainapp.dom.mailchimpintegration.module.impl.MailChimpList "
+                        + "FROM org.incode.module.mailchimp.dom.impl.MailChimpList "
                         + "WHERE name.toLowerCase().indexOf(:searchString.toLowerCase()) >= 0 ")
 })
 @Unique(name = "MailChimpList_listId_UNQ", members = { "listId" })

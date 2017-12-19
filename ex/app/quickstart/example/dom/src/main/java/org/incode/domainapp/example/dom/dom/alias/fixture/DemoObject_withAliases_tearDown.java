@@ -11,8 +11,10 @@ public class DemoObject_withAliases_tearDown extends FixtureScript {
     protected void execute(final ExecutionContext executionContext) {
 
         // aliases
-        isisJdoSupport.executeUpdate("delete from \"exampleDomAlias\".\"AliasForDemoObject\"");
-        isisJdoSupport.executeUpdate("delete from \"incodeAlias\".\"Alias\"");
+        isisJdoSupport.executeUpdate("delete from \"exampleDomMailchimp\".\"DemoParty\"");
+        isisJdoSupport.executeUpdate("delete from \"incodeMailchimp\".\"MailChimpListMemberLink\"");
+        isisJdoSupport.executeUpdate("delete from \"incodeMailchimp\".\"MailChimpMember\"");
+        isisJdoSupport.executeUpdate("delete from \"incodeMailchimp\".\"MailChimpList\"");
 
         // demo objects
         executionContext.executeChild(this, new DemoObject_tearDown());

@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.registry.ServiceRegistry;
 
 import org.incode.module.mailchimp.dom.impl.MailChimpList;
@@ -297,6 +298,37 @@ public class MailChimpService {
         return mailChimpList;
     }
 
+    /**
+     * Harmonizes a list of IMailChimpParty and members of a list "offline" - no sync with mailchimp; use setMembersToCorrespondWithPartyList in normal cases
+     * @param partyList
+     * @param mailChimpList
+     * @return
+     */
+    public MailChimpList setMembersToCorrespondWithPartyListNoSync(final List<IMailChimpParty> partyList, final MailChimpList mailChimpList){
+
+        //first check members to delete from list
+        List<MailChimpMember> membersToRemainInlist = mapPartyListToMemberList(partyList);
+        for (MailChimpMember memberInList : mailChimpList.getMembers()){
+            boolean found = false;
+            for (MailChimpMember mailChimpMember : membersToRemainInlist){
+                if (mailChimpMember.getEmailAddress().equals(memberInList.getEmailAddress())){
+                    found=true;
+                    break;
+                }
+            }
+            if (!found){
+                mailChimpListMemberLinkRepository.findUnique(mailChimpList, memberInList).deleteLocal();
+            }
+        }
+
+        // then add membes corresponding to parties if needed
+        for (IMailChimpParty party : partyList){
+            mailChimpMemberRepository.findOrCreateLocal(party, mailChimpList);
+        }
+
+        return mailChimpList;
+    }
+
     List<MailChimpMember> mapPartyListToMemberList(final List<IMailChimpParty> partyList){
         List<MailChimpMember> result = new ArrayList<>();
         for (IMailChimpParty party : partyList){
@@ -326,6 +358,8 @@ public class MailChimpService {
         return mailChimpListRepository.findByNameContains(search);
     }
 
+
+    @Programmatic
     public List<MailChimpList> getAllLists() {
         return mailChimpListRepository.listAll();
     }
