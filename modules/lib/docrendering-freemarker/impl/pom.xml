@@ -9,12 +9,12 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.incode.module.docrendering</groupId>
-    <artifactId>incode-module-docrendering-freemarker-dom</artifactId>
+    <groupId>org.incode.example.docrendering</groupId>
+    <artifactId>incode-example-docrendering-freemarker-dom</artifactId>
 
     <packaging>jar</packaging>
     
-    <name>Incode Platform Lib DocRendering Freemarker Impl</name>
+    <name>Incode Platform Example DocRenderingFreemarker Impl</name>
     <description>
         A module providing renderers for the Document module using Freemarker.
     </description>

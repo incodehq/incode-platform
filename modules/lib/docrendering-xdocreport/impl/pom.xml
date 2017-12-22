@@ -9,12 +9,12 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.incode.module.docrendering</groupId>
-    <artifactId>incode-module-docrendering-xdocreport-dom</artifactId>
+    <groupId>org.incode.example.docrendering</groupId>
+    <artifactId>incode-example-docrendering-xdocreport-dom</artifactId>
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Lib DocRendering XDocReport Impl</name>
+    <name>Incode Platform Example DocRenderingXDocReport Impl</name>
     <description>
         A rendering strategy implementation using XDocReport.
     </description>

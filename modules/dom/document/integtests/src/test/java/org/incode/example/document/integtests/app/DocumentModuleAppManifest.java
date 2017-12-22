@@ -8,9 +8,9 @@ import org.isisaddons.module.freemarker.dom.FreeMarkerModule;
 import org.isisaddons.module.stringinterpolator.StringInterpolatorModule;
 import org.isisaddons.module.xdocreport.dom.XDocReportModule;
 
-import org.incode.module.docrendering.freemarker.dom.FreemarkerDocRenderingModule;
-import org.incode.module.docrendering.stringinterpolator.dom.StringInterpolatorDocRenderingModule;
-import org.incode.module.docrendering.xdocreport.dom.XDocReportDocRenderingModule;
+import org.incode.example.docrendering.freemarker.dom.FreemarkerDocRenderingModule;
+import org.incode.example.docrendering.stringinterpolator.dom.StringInterpolatorDocRenderingModule;
+import org.incode.example.docrendering.xdocreport.dom.XDocReportDocRenderingModule;
 import org.incode.example.document.dom.DocumentModule;
 
 import org.incode.domainapp.example.dom.dom.document.ExampleDomModuleDocumentModule;
