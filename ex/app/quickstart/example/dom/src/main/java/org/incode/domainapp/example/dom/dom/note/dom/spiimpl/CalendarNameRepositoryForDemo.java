@@ -12,7 +12,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
-import org.incode.module.note.dom.spi.CalendarNameRepository;
+import org.incode.example.note.dom.spi.CalendarNameRepository;
 
 @DomainService(
     nature = NatureOfService.DOMAIN

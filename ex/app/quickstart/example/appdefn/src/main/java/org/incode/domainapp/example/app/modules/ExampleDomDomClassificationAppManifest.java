@@ -19,7 +19,7 @@ import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWith
 import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPathMenu;
 import org.incode.domainapp.example.dom.dom.classification.ExampleDomModuleClassificationModule;
 import org.incode.domainapp.example.dom.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_recreate3;
-import org.incode.module.classification.dom.ClassificationModule;
+import org.incode.example.classification.dom.ClassificationModule;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;

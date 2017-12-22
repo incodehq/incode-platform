@@ -9,8 +9,9 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>incode-platform-dom-docfragment-integtests</artifactId>
-    <name>Incode Platform Subdomain DocFragment IntegTests</name>
+    <groupId>org.incode.example.docfragment</groupId>
+    <artifactId>incode-example-docfragment-integtests</artifactId>
+    <name>Incode Platform Example DocFragment IntegTests</name>
 
     <properties>
         <!--
@@ -45,8 +46,8 @@
 
         <!-- this app -->
         <dependency>
-            <groupId>org.incode.module.docfragment</groupId>
-            <artifactId>incode-module-docfragment-dom</artifactId>
+            <groupId>org.incode.example.docfragment</groupId>
+            <artifactId>incode-example-docfragment-dom</artifactId>
         </dependency>
 
         <dependency>
@@ -80,8 +81,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.incode.module.docfragment</groupId>
-            <artifactId>incode-module-docfragment-dom</artifactId>
+            <groupId>org.incode.example.docfragment</groupId>
+            <artifactId>incode-example-docfragment-dom</artifactId>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>

@@ -20,8 +20,8 @@ import org.isisaddons.module.fakedata.dom.FakeDataService;
 
 import org.incode.domainapp.example.dom.dom.docfragment.fixture.DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_recreate;
 import org.incode.platform.dom.docfragment.integtests.DocFragmentModuleIntegTestAbstract;
-import org.incode.module.docfragment.dom.impl.DocFragment;
-import org.incode.module.docfragment.dom.impl.DocFragmentRepository;
+import org.incode.example.docfragment.dom.impl.DocFragment;
+import org.incode.example.docfragment.dom.impl.DocFragmentRepository;
 import org.incode.domainapp.example.dom.dom.docfragment.fixture.data.DocFragmentData;
 import org.incode.domainapp.example.dom.dom.docfragment.fixture.sub.DocFragment_tearDown;
 

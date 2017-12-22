@@ -3,8 +3,8 @@ package org.incode.domainapp.example.dom.dom.docfragment.fixture.data;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 
-import org.incode.module.docfragment.dom.impl.DocFragment;
-import org.incode.module.docfragment.dom.impl.DocFragmentRepository;
+import org.incode.example.docfragment.dom.impl.DocFragment;
+import org.incode.example.docfragment.dom.impl.DocFragmentRepository;
 import org.incode.module.fixturesupport.dom.data.DemoData;
 import org.incode.module.fixturesupport.dom.data.DemoDataPersistAbstract;
 

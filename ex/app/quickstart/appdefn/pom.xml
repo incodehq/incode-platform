@@ -344,8 +344,8 @@
             </activation>
             <dependencies>
                 <dependency>
-                    <groupId>org.isisaddons.module.settings</groupId>
-                    <artifactId>isis-module-settings-dom</artifactId>
+                    <groupId>org.incode</groupId>
+                    <artifactId>incode-example-settings-dom</artifactId>
                 </dependency>
             </dependencies>
         </profile>

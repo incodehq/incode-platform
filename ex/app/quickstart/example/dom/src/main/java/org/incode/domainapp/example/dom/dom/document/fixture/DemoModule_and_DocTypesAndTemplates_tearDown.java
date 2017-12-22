@@ -5,7 +5,7 @@ import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
 import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObjectWithUrl_tearDown;
 import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.OtherObject_tearDown;
-import org.incode.module.document.fixture.teardown.DocumentModule_tearDown;
+import org.incode.example.document.fixture.teardown.DocumentModule_tearDown;
 
 public class DemoModule_and_DocTypesAndTemplates_tearDown extends FixtureScript {
 

@@ -10,9 +10,9 @@ import org.isisaddons.module.xdocreport.dom.service.OutputType;
 import org.isisaddons.module.xdocreport.dom.service.XDocReportModel;
 import org.isisaddons.module.xdocreport.dom.service.XDocReportService;
 
-import org.incode.module.document.dom.impl.docs.DocumentRepository;
-import org.incode.module.document.dom.impl.renderers.RendererFromBytesToBytes;
-import org.incode.module.document.dom.impl.types.DocumentType;
+import org.incode.example.document.dom.impl.docs.DocumentRepository;
+import org.incode.example.document.dom.impl.renderers.RendererFromBytesToBytes;
+import org.incode.example.document.dom.impl.types.DocumentType;
 
 public abstract class RendererForXDocReportAbstract implements RendererFromBytesToBytes {
 

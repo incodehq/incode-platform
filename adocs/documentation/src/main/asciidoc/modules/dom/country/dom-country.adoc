@@ -24,8 +24,8 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 [source,xml]
 ----
 <dependency>
-    <groupId>org.incode.module.country</groupId>
-    <artifactId>incode-module-country-dom</artifactId>
+    <groupId>org.incode.example.country</groupId>
+    <artifactId>incode-example-country-dom</artifactId>
     <version>1.14.0</version>
 </dependency>
 ----
@@ -45,7 +45,7 @@ In the `AppManifest`, update its `getModules()` method, eg:
 public List<Class<?>> getModules() {
     return Arrays.asList(
             ...
-            org.incode.module.country.dom.CountryModule.class,
+            org.incode.example.country.dom.CountryModule.class,
     );
 }
 ----

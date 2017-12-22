@@ -14,9 +14,9 @@ import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAt
 import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPath;
 import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPathMenu;
 import org.incode.domainapp.example.dom.dom.classification.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath;
-import org.incode.module.classification.dom.impl.category.Category;
-import org.incode.module.classification.dom.impl.category.CategoryRepository;
-import org.incode.module.classification.dom.impl.category.taxonomy.Taxonomy;
+import org.incode.example.classification.dom.impl.category.Category;
+import org.incode.example.classification.dom.impl.category.CategoryRepository;
+import org.incode.example.classification.dom.impl.category.taxonomy.Taxonomy;
 
 import lombok.Getter;
 

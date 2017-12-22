@@ -37,11 +37,11 @@ import org.isisaddons.module.security.dom.tenancy.ApplicationTenancyMenu;
 import org.isisaddons.module.security.dom.user.ApplicationUser;
 import org.isisaddons.module.security.dom.user.ApplicationUserMenu;
 import org.isisaddons.module.sessionlogger.dom.SessionLogEntry;
-import org.isisaddons.module.settings.dom.ApplicationSetting;
-import org.isisaddons.module.settings.dom.ApplicationSettingsServiceRW;
-import org.isisaddons.module.settings.dom.UserSetting;
-import org.isisaddons.module.settings.dom.UserSettingsServiceRW;
-import org.isisaddons.module.tags.dom.Tag;
+import org.incode.example.settings.dom.ApplicationSetting;
+import org.incode.example.settings.dom.ApplicationSettingsServiceRW;
+import org.incode.example.settings.dom.UserSetting;
+import org.incode.example.settings.dom.UserSettingsServiceRW;
+import org.incode.example.tags.dom.Tag;
 import org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewer;
 
 import org.incode.domainapp.example.dom.demo.dom.customer.DemoCustomer;
@@ -97,31 +97,31 @@ import org.incode.domainapp.example.dom.spi.security.dom.demo.nontenanted.NonTen
 import org.incode.domainapp.example.dom.spi.security.dom.demo.nontenanted.NonTenantedEntity;
 import org.incode.domainapp.example.dom.spi.security.dom.demo.tenanted.TenantedEntities;
 import org.incode.domainapp.example.dom.spi.security.dom.demo.tenanted.TenantedEntity;
-import org.incode.module.alias.dom.impl.Alias;
-import org.incode.module.alias.dom.impl.AliasRepository;
-import org.incode.module.alias.dom.spi.AliasTypeRepository;
-import org.incode.module.classification.dom.impl.applicability.Applicability;
-import org.incode.module.classification.dom.impl.category.Category;
-import org.incode.module.classification.dom.impl.classification.Classification;
-import org.incode.module.commchannel.dom.impl.emailaddress.EmailAddress;
-import org.incode.module.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber;
-import org.incode.module.commchannel.dom.impl.postaladdress.PostalAddress;
-import org.incode.module.communications.dom.impl.comms.CommChannelRole;
-import org.incode.module.communications.dom.impl.comms.Communication;
-import org.incode.module.communications.dom.impl.paperclips.PaperclipForCommunication;
-import org.incode.module.country.dom.impl.Country;
-import org.incode.module.country.dom.impl.State;
-import org.incode.module.docfragment.dom.impl.DocFragment;
-import org.incode.module.docfragment.dom.impl.DocFragmentRepository;
-import org.incode.module.document.dom.impl.docs.DocumentAbstract;
-import org.incode.module.document.dom.impl.docs.DocumentRepository;
-import org.incode.module.document.dom.impl.docs.DocumentTemplate;
-import org.incode.module.document.dom.impl.docs.DocumentTemplateRepository;
-import org.incode.module.document.dom.impl.rendering.RenderingStrategy;
-import org.incode.module.document.dom.impl.rendering.RenderingStrategyRepository;
-import org.incode.module.document.dom.impl.types.DocumentType;
-import org.incode.module.note.dom.impl.note.Note;
-import org.incode.module.note.dom.impl.note.NoteRepository;
+import org.incode.example.alias.dom.impl.Alias;
+import org.incode.example.alias.dom.impl.AliasRepository;
+import org.incode.example.alias.dom.spi.AliasTypeRepository;
+import org.incode.example.classification.dom.impl.applicability.Applicability;
+import org.incode.example.classification.dom.impl.category.Category;
+import org.incode.example.classification.dom.impl.classification.Classification;
+import org.incode.example.commchannel.dom.impl.emailaddress.EmailAddress;
+import org.incode.example.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber;
+import org.incode.example.commchannel.dom.impl.postaladdress.PostalAddress;
+import org.incode.example.communications.dom.impl.comms.CommChannelRole;
+import org.incode.example.communications.dom.impl.comms.Communication;
+import org.incode.example.communications.dom.impl.paperclips.PaperclipForCommunication;
+import org.incode.example.country.dom.impl.Country;
+import org.incode.example.country.dom.impl.State;
+import org.incode.example.docfragment.dom.impl.DocFragment;
+import org.incode.example.docfragment.dom.impl.DocFragmentRepository;
+import org.incode.example.document.dom.impl.docs.DocumentAbstract;
+import org.incode.example.document.dom.impl.docs.DocumentRepository;
+import org.incode.example.document.dom.impl.docs.DocumentTemplate;
+import org.incode.example.document.dom.impl.docs.DocumentTemplateRepository;
+import org.incode.example.document.dom.impl.rendering.RenderingStrategy;
+import org.incode.example.document.dom.impl.rendering.RenderingStrategyRepository;
+import org.incode.example.document.dom.impl.types.DocumentType;
+import org.incode.example.note.dom.impl.note.Note;
+import org.incode.example.note.dom.impl.note.NoteRepository;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -305,16 +305,16 @@ public class HomePageViewModel {
         return repositoryService.allInstances(CommChannelRole.class);
     }
 
-    public List<org.incode.module.communications.dom.impl.commchannel.PostalAddress> getPostalAddresses() {
-        return repositoryService.allInstances(org.incode.module.communications.dom.impl.commchannel.PostalAddress.class);
+    public List<org.incode.example.communications.dom.impl.commchannel.PostalAddress> getPostalAddresses() {
+        return repositoryService.allInstances(org.incode.example.communications.dom.impl.commchannel.PostalAddress.class);
     }
 
-    public List<org.incode.module.communications.dom.impl.commchannel.EmailAddress> getEmailAddresses() {
-        return repositoryService.allInstances(org.incode.module.communications.dom.impl.commchannel.EmailAddress.class);
+    public List<org.incode.example.communications.dom.impl.commchannel.EmailAddress> getEmailAddresses() {
+        return repositoryService.allInstances(org.incode.example.communications.dom.impl.commchannel.EmailAddress.class);
     }
 
-    public List<org.incode.module.communications.dom.impl.commchannel.PhoneOrFaxNumber> getPhoneOrFaxNumbers() {
-        return repositoryService.allInstances(org.incode.module.communications.dom.impl.commchannel.PhoneOrFaxNumber.class);
+    public List<org.incode.example.communications.dom.impl.commchannel.PhoneOrFaxNumber> getPhoneOrFaxNumbers() {
+        return repositoryService.allInstances(org.incode.example.communications.dom.impl.commchannel.PhoneOrFaxNumber.class);
     }
 
     public List<PaperclipForCommunication> getPaperclipForCommunications() {
@@ -365,8 +365,8 @@ public class HomePageViewModel {
         return documentTemplateRepository.allTemplates();
     }
 
-    public List<org.incode.module.document.dom.impl.applicability.Applicability> getDocumentApplicabilities() {
-        return repositoryService.allInstances(org.incode.module.document.dom.impl.applicability.Applicability.class);
+    public List<org.incode.example.document.dom.impl.applicability.Applicability> getDocumentApplicabilities() {
+        return repositoryService.allInstances(org.incode.example.document.dom.impl.applicability.Applicability.class);
     }
 
 

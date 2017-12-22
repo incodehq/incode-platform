@@ -10,22 +10,22 @@ import org.isisaddons.module.pdfbox.dom.PdfBoxModule;
 import org.isisaddons.module.poly.PolyModule;
 import org.isisaddons.module.servletapi.ServletApiModule;
 import org.isisaddons.module.stringinterpolator.StringInterpolatorModule;
-import org.isisaddons.module.tags.TagsModule;
+import org.incode.example.tags.TagsModule;
 import org.isisaddons.module.xdocreport.dom.XDocReportModule;
 
 import org.incode.domainapp.example.dom.ExampleDomSubmodule;
 import org.incode.domainapp.example.dom.demo.ExampleDomDemoDomSubmodule;
-import org.incode.module.alias.dom.AliasModule;
-import org.incode.module.classification.dom.ClassificationModule;
-import org.incode.module.commchannel.dom.CommChannelModule;
-import org.incode.module.communications.dom.CommunicationsModuleDomModule;
-import org.incode.module.country.dom.CountryModule;
-import org.incode.module.docfragment.dom.DocFragmentModuleDomModule;
+import org.incode.example.alias.dom.AliasModule;
+import org.incode.example.classification.dom.ClassificationModule;
+import org.incode.example.commchannel.dom.CommChannelModule;
+import org.incode.example.communications.dom.CommunicationsModuleDomModule;
+import org.incode.example.country.dom.CountryModule;
+import org.incode.example.docfragment.dom.DocFragmentModuleDomModule;
 import org.incode.module.docrendering.freemarker.dom.FreemarkerDocRenderingModule;
 import org.incode.module.docrendering.stringinterpolator.dom.StringInterpolatorDocRenderingModule;
 import org.incode.module.docrendering.xdocreport.dom.XDocReportDocRenderingModule;
-import org.incode.module.document.dom.DocumentModule;
-import org.incode.module.note.dom.NoteModule;
+import org.incode.example.document.dom.DocumentModule;
+import org.incode.example.note.dom.NoteModule;
 
 import domainapp.appdefn.DomainAppAppManifest;
 

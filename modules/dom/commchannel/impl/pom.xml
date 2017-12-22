@@ -9,12 +9,12 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.incode.module.commchannel</groupId>
-    <artifactId>incode-module-commchannel-dom</artifactId>
+    <groupId>org.incode.example.commchannel</groupId>
+    <artifactId>incode-example-commchannel-dom</artifactId>
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Subdomain CommChannel Impl</name>
+    <name>Incode Platform Example CommChannel Impl</name>
     <description>
         A module providing commchannel.
     </description>
@@ -55,7 +55,7 @@
 
     <properties>
         <isis-maven-plugin.validate.appManifest>
-            org.incode.module.commchannel.dom.CommChannelModuleDomManifest
+            org.incode.example.commchannel.dom.CommChannelModuleDomManifest
         </isis-maven-plugin.validate.appManifest>
     </properties>
 

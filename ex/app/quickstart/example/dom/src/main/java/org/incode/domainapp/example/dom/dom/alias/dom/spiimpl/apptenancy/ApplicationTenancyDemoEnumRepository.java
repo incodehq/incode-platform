@@ -9,7 +9,7 @@ import com.google.common.collect.Lists;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
-import org.incode.module.alias.dom.spi.ApplicationTenancyRepository;
+import org.incode.example.alias.dom.spi.ApplicationTenancyRepository;
 
 /**
  * Mandatory implementation of the {@link ApplicationTenancyRepository} SPI.

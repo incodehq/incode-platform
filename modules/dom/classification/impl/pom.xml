@@ -9,12 +9,12 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.incode.module.classification</groupId>
-    <artifactId>incode-module-classification-dom</artifactId>
+    <groupId>org.incode.example.classification</groupId>
+    <artifactId>incode-example-classification-dom</artifactId>
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Subdomain Classification Impl</name>
+    <name>Incode Platform Example Classification Impl</name>
     <description>
         A module providing event.
     </description>
@@ -55,7 +55,7 @@
 
     <properties>
         <isis-maven-plugin.validate.appManifest>
-            org.incode.module.classification.dom.ClassificationModuleDomManifest
+            org.incode.example.classification.dom.ClassificationModuleDomManifest
         </isis-maven-plugin.validate.appManifest>
     </properties>
 

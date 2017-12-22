@@ -10,8 +10,9 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>incode-platform-dom-settings-integtests</artifactId>
-    <name>Incode Platform Subdomain Settings IntegTests</name>
+    <groupId>org.incode.example.settings</groupId>
+    <artifactId>incode-example-settings-integtests</artifactId>
+    <name>Incode Platform Example Settings IntegTests</name>
 
     <build>
         <plugins>

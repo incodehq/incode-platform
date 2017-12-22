@@ -3,8 +3,8 @@ package org.incode.module.docrendering.stringinterpolator.dom.impl;
 import java.io.IOException;
 import java.net.URL;
 
-import org.incode.module.document.dom.impl.renderers.RendererFromCharsToBytesWithPreviewToUrl;
-import org.incode.module.document.dom.impl.types.DocumentType;
+import org.incode.example.document.dom.impl.renderers.RendererFromCharsToBytesWithPreviewToUrl;
+import org.incode.example.document.dom.impl.types.DocumentType;
 
 public class RendererForStringInterpolatorPreviewAndCaptureUrl extends RendererForStringInterpolatorCaptureUrl
         implements RendererFromCharsToBytesWithPreviewToUrl {

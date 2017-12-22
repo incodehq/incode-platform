@@ -6,11 +6,11 @@ import javax.inject.Inject;
 
 import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotes;
 import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoice;
-import org.incode.module.document.dom.impl.applicability.RendererModelFactoryAbstract;
-import org.incode.module.document.dom.impl.docs.Document;
-import org.incode.module.document.dom.impl.docs.DocumentTemplate;
-import org.incode.module.document.dom.impl.paperclips.Paperclip;
-import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
+import org.incode.example.document.dom.impl.applicability.RendererModelFactoryAbstract;
+import org.incode.example.document.dom.impl.docs.Document;
+import org.incode.example.document.dom.impl.docs.DocumentTemplate;
+import org.incode.example.document.dom.impl.paperclips.Paperclip;
+import org.incode.example.document.dom.impl.paperclips.PaperclipRepository;
 
 import lombok.Value;
 

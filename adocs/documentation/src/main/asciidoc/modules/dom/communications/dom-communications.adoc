@@ -427,8 +427,8 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 [source,xml]
 ----
 <dependency>
-    <groupId>org.incode.module.communications</groupId>
-    <artifactId>incode-module-communications-dom</artifactId>
+    <groupId>org.incode.example.communications</groupId>
+    <artifactId>incode-example-communications-dom</artifactId>
     <version>1.15.1.1</version>
 </dependency>
 ----
@@ -448,7 +448,7 @@ In the `AppManifest`, update its `getModules()` method, eg:
 public List<Class<?>> getModules() {
     return Arrays.asList(
             ...
-            org.incode.module.communications.dom.CommunicationsModule.class,
+            org.incode.example.communications.dom.CommunicationsModule.class,
     );
 }
 ----

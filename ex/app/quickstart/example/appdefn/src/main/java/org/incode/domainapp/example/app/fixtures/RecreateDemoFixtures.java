@@ -35,11 +35,11 @@ import org.incode.domainapp.example.dom.spi.command.fixture.teardown.SomeCommand
 import org.incode.domainapp.example.dom.spi.publishmq.fixture.PublishMqDemoObject_create3;
 import org.incode.domainapp.example.dom.spi.publishmq.fixture.teardown.PublishMqDemoObject_tearDown;
 import org.incode.domainapp.example.dom.spi.security.fixture.SecurityModuleAppSetUp;
-import org.incode.module.communications.fixture.teardown.CommunicationModule_tearDown;
+import org.incode.example.communications.fixture.teardown.CommunicationModule_tearDown;
 import org.incode.module.country.fixture.CountriesRefData;
 import org.incode.module.country.fixture.StatesRefData;
 import org.incode.module.country.fixture.teardown.CountryModule_tearDown;
-import org.incode.module.document.fixture.teardown.DocumentModule_tearDown;
+import org.incode.example.document.fixture.teardown.DocumentModule_tearDown;
 
 public class RecreateDemoFixtures extends DiscoverableFixtureScript {
 

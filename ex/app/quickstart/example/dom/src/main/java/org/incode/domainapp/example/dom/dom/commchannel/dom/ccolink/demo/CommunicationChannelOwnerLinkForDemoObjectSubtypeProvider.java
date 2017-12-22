@@ -4,7 +4,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
-import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
+import org.incode.example.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
 
 @DomainService(nature = NatureOfService.DOMAIN)
 public class CommunicationChannelOwnerLinkForDemoObjectSubtypeProvider extends CommunicationChannelOwnerLinkRepository.SubtypeProviderAbstract {

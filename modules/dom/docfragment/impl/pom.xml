@@ -9,12 +9,12 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.incode.module.docfragment</groupId>
-    <artifactId>incode-module-docfragment-dom</artifactId>
+    <groupId>org.incode.example.docfragment</groupId>
+    <artifactId>incode-example-docfragment-dom</artifactId>
 
     <packaging>jar</packaging>
     
-    <name>Incode Platform Subdomain DocFragment Impl</name>
+    <name>Incode Platform Example DocFragment Impl</name>
     <description>
         A module providing docfragment
     </description>
@@ -55,7 +55,7 @@
 
     <properties>
         <isis-maven-plugin.validate.appManifest>
-            org.incode.module.docfragment.DocFragmentModuleDomManifest
+            org.incode.example.docfragment.DocFragmentModuleDomManifest
         </isis-maven-plugin.validate.appManifest>
     </properties>
 

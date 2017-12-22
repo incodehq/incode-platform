@@ -10,9 +10,9 @@ import com.google.common.io.Resources;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.module.country.dom.impl.Country;
-import org.incode.module.country.dom.impl.CountryRepository;
-import org.incode.module.country.dom.impl.StateRepository;
+import org.incode.example.country.dom.impl.Country;
+import org.incode.example.country.dom.impl.CountryRepository;
+import org.incode.example.country.dom.impl.StateRepository;
 
 public class AllCountries extends FixtureScript {
 

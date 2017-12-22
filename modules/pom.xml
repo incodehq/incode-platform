@@ -202,13 +202,13 @@
             </dependency>
 
             <dependency>
-                <groupId>org.incode.module.alias</groupId>
-                <artifactId>incode-module-alias-dom</artifactId>
+                <groupId>org.incode.example.alias</groupId>
+                <artifactId>incode-example-alias-dom</artifactId>
                 <version>1.16.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>org.incode.module.alias</groupId>
-                <artifactId>incode-module-alias-dom</artifactId>
+                <groupId>org.incode.example.alias</groupId>
+                <artifactId>incode-example-alias-dom</artifactId>
                 <version>1.16.0-SNAPSHOT</version>
                 <type>test-jar</type>
                 <scope>test</scope>
@@ -228,65 +228,65 @@
             </dependency>
 
             <dependency>
-                <groupId>org.incode.module.classification</groupId>
-                <artifactId>incode-module-classification-dom</artifactId>
+                <groupId>org.incode.example.classification</groupId>
+                <artifactId>incode-example-classification-dom</artifactId>
                 <version>1.16.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>org.incode.module.classification</groupId>
-                <artifactId>incode-module-classification-dom</artifactId>
-                <version>1.16.0-SNAPSHOT</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.module.commchannel</groupId>
-                <artifactId>incode-module-commchannel-dom</artifactId>
-                <version>1.16.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.module.commchannel</groupId>
-                <artifactId>incode-module-commchannel-dom</artifactId>
+                <groupId>org.incode.example.classification</groupId>
+                <artifactId>incode-example-classification-dom</artifactId>
                 <version>1.16.0-SNAPSHOT</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
 
             <dependency>
-                <groupId>org.incode.module.communications</groupId>
-                <artifactId>incode-module-communications-dom</artifactId>
+                <groupId>org.incode.example.commchannel</groupId>
+                <artifactId>incode-example-commchannel-dom</artifactId>
                 <version>1.16.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>org.incode.module.communications</groupId>
-                <artifactId>incode-module-communications-dom</artifactId>
-                <version>1.16.0-SNAPSHOT</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.module.country</groupId>
-                <artifactId>incode-module-country-dom</artifactId>
-                <version>1.16.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.module.country</groupId>
-                <artifactId>incode-module-country-dom</artifactId>
+                <groupId>org.incode.example.commchannel</groupId>
+                <artifactId>incode-example-commchannel-dom</artifactId>
                 <version>1.16.0-SNAPSHOT</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
 
             <dependency>
-                <groupId>org.incode.module.docfragment</groupId>
-                <artifactId>incode-module-docfragment-dom</artifactId>
+                <groupId>org.incode.example.communications</groupId>
+                <artifactId>incode-example-communications-dom</artifactId>
                 <version>1.16.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>org.incode.module.docfragment</groupId>
-                <artifactId>incode-module-docfragment-dom</artifactId>
+                <groupId>org.incode.example.communications</groupId>
+                <artifactId>incode-example-communications-dom</artifactId>
+                <version>1.16.0-SNAPSHOT</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.example.country</groupId>
+                <artifactId>incode-example-country-dom</artifactId>
+                <version>1.16.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.country</groupId>
+                <artifactId>incode-example-country-dom</artifactId>
+                <version>1.16.0-SNAPSHOT</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.example.docfragment</groupId>
+                <artifactId>incode-example-docfragment-dom</artifactId>
+                <version>1.16.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.docfragment</groupId>
+                <artifactId>incode-example-docfragment-dom</artifactId>
                 <version>1.16.0-SNAPSHOT</version>
                 <type>test-jar</type>
                 <scope>test</scope>
@@ -332,13 +332,13 @@
             </dependency>
 
             <dependency>
-                <groupId>org.incode.module.document</groupId>
-                <artifactId>incode-module-document-dom</artifactId>
+                <groupId>org.incode.example.document</groupId>
+                <artifactId>incode-example-document-dom</artifactId>
                 <version>1.16.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>org.incode.module.document</groupId>
-                <artifactId>incode-module-document-dom</artifactId>
+                <groupId>org.incode.example.document</groupId>
+                <artifactId>incode-example-document-dom</artifactId>
                 <version>1.16.0-SNAPSHOT</version>
                 <type>test-jar</type>
                 <scope>test</scope>
@@ -371,13 +371,13 @@
             </dependency>
 
             <dependency>
-                <groupId>org.incode.module.note</groupId>
-                <artifactId>incode-module-note-dom</artifactId>
+                <groupId>org.incode.example.note</groupId>
+                <artifactId>incode-example-note-dom</artifactId>
                 <version>1.16.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>org.incode.module.note</groupId>
-                <artifactId>incode-module-note-dom</artifactId>
+                <groupId>org.incode.example.note</groupId>
+                <artifactId>incode-example-note-dom</artifactId>
                 <version>1.16.0-SNAPSHOT</version>
                 <type>test-jar</type>
                 <scope>test</scope>
@@ -620,13 +620,13 @@
             </dependency>
 
             <dependency>
-                <groupId>org.isisaddons.module.settings</groupId>
-                <artifactId>isis-module-settings-dom</artifactId>
+                <groupId>org.incode</groupId>
+                <artifactId>incode-example-settings-dom</artifactId>
                 <version>1.16.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>org.isisaddons.module.settings</groupId>
-                <artifactId>isis-module-settings-dom</artifactId>
+                <groupId>org.incode</groupId>
+                <artifactId>incode-example-settings-dom</artifactId>
                 <version>1.16.0-SNAPSHOT</version>
                 <type>test-jar</type>
                 <scope>test</scope>
@@ -646,13 +646,13 @@
             </dependency>
 
             <dependency>
-                <groupId>org.isisaddons.module.tags</groupId>
-                <artifactId>isis-module-tags-dom</artifactId>
+                <groupId>org.incode</groupId>
+                <artifactId>incode-example-tags-dom</artifactId>
                 <version>1.16.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>org.isisaddons.module.tags</groupId>
-                <artifactId>isis-module-tags-dom</artifactId>
+                <groupId>org.incode</groupId>
+                <artifactId>incode-example-tags-dom</artifactId>
                 <version>1.16.0-SNAPSHOT</version>
                 <type>test-jar</type>
                 <scope>test</scope>

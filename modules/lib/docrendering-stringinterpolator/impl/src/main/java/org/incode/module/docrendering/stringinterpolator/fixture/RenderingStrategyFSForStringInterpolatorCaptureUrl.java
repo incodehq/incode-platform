@@ -1,7 +1,7 @@
 package org.incode.module.docrendering.stringinterpolator.fixture;
 
-import org.incode.module.document.dom.impl.docs.DocumentNature;
-import org.incode.module.document.fixture.RenderingStrategyFSAbstract;
+import org.incode.example.document.dom.impl.docs.DocumentNature;
+import org.incode.example.document.fixture.RenderingStrategyFSAbstract;
 
 import org.incode.module.docrendering.stringinterpolator.dom.impl.RendererForStringInterpolatorCaptureUrl;
 

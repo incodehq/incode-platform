@@ -13,10 +13,10 @@ import org.apache.isis.applib.annotation.Nature;
 
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
-import org.isisaddons.module.settings.dom.ApplicationSettingsServiceRW;
-import org.isisaddons.module.settings.dom.UserSettingsServiceRW;
-import org.isisaddons.module.settings.dom.jdo.ApplicationSettingJdo;
-import org.isisaddons.module.settings.dom.jdo.UserSettingJdo;
+import org.incode.example.settings.dom.ApplicationSettingsServiceRW;
+import org.incode.example.settings.dom.UserSettingsServiceRW;
+import org.incode.example.settings.dom.jdo.ApplicationSettingJdo;
+import org.incode.example.settings.dom.jdo.UserSettingJdo;
 
 import org.incode.domainapp.example.dom.dom.settings.ExampleDomModuleSettingsModule;
 import org.incode.domainapp.example.dom.dom.settings.fixture.ApplicationSetting_and_UserSetting_recreate5;

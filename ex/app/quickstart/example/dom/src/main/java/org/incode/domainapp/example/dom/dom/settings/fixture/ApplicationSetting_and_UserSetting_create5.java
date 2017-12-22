@@ -4,8 +4,8 @@ import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.isisaddons.module.settings.dom.ApplicationSettingsServiceRW;
-import org.isisaddons.module.settings.dom.UserSettingsServiceRW;
+import org.incode.example.settings.dom.ApplicationSettingsServiceRW;
+import org.incode.example.settings.dom.UserSettingsServiceRW;
 
 public class ApplicationSetting_and_UserSetting_create5 extends FixtureScript {
 

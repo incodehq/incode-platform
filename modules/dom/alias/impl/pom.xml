@@ -9,12 +9,12 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.incode.module.alias</groupId>
-    <artifactId>incode-module-alias-dom</artifactId>
+    <groupId>org.incode.example.alias</groupId>
+    <artifactId>incode-example-alias-dom</artifactId>
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Subdomain Alias Impl</name>
+    <name>Incode Platform Example Alias Impl</name>
     <description>
         A module providing aliases.
     </description>
@@ -55,7 +55,7 @@
 
     <properties>
         <isis-maven-plugin.validate.appManifest>
-            org.incode.module.alias.dom.AliasModuleDomManifest
+            org.incode.example.alias.dom.AliasModuleDomManifest
         </isis-maven-plugin.validate.appManifest>
     </properties>
 

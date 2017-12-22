@@ -3,7 +3,7 @@ package org.incode.platform.ext.togglz.integtests.app;
 import org.apache.isis.applib.AppManifestAbstract;
 
 import org.isisaddons.module.security.SecurityModule;
-import org.isisaddons.module.settings.SettingsModule;
+import org.incode.example.settings.SettingsModule;
 import org.isisaddons.module.togglz.TogglzModule;
 import org.incode.domainapp.example.dom.ext.togglz.ExampleDomExtTogglzModule;
 

@@ -4,7 +4,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPath;
-import org.incode.module.classification.dom.spi.ApplicationTenancyService;
+import org.incode.example.classification.dom.spi.ApplicationTenancyService;
 
 @DomainService(nature = NatureOfService.DOMAIN)
 public class AppTenancyServiceForDemoObjectWithAtPath implements ApplicationTenancyService {

@@ -4,7 +4,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.domainapp.example.dom.demo.fixture.data.DemoObjectData;
 import org.incode.domainapp.example.dom.dom.alias.dom.AliasForDemoObject;
-import org.incode.module.alias.dom.impl.T_addAlias;
+import org.incode.example.alias.dom.impl.T_addAlias;
 
 public class DemoObject_withAliases_recreate2 extends FixtureScript {
 

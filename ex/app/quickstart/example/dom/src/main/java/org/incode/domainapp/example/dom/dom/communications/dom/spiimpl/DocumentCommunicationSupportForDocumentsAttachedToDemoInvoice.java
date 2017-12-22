@@ -10,19 +10,19 @@ import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotes;
 import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoice;
-import org.incode.module.communications.dom.impl.commchannel.CommunicationChannel;
-import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwnerLink;
-import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwnerLinkRepository;
-import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelType;
-import org.incode.module.communications.dom.spi.CommHeaderAbstract;
-import org.incode.module.communications.dom.spi.CommHeaderForEmail;
-import org.incode.module.communications.dom.spi.CommHeaderForPost;
-import org.incode.module.communications.dom.spi.DocumentCommunicationSupport;
-import org.incode.module.document.dom.impl.docs.Document;
-import org.incode.module.document.dom.impl.paperclips.Paperclip;
-import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
-import org.incode.module.document.dom.impl.types.DocumentType;
-import org.incode.module.document.dom.impl.types.DocumentTypeRepository;
+import org.incode.example.communications.dom.impl.commchannel.CommunicationChannel;
+import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelOwnerLink;
+import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelOwnerLinkRepository;
+import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelType;
+import org.incode.example.communications.dom.spi.CommHeaderAbstract;
+import org.incode.example.communications.dom.spi.CommHeaderForEmail;
+import org.incode.example.communications.dom.spi.CommHeaderForPost;
+import org.incode.example.communications.dom.spi.DocumentCommunicationSupport;
+import org.incode.example.document.dom.impl.docs.Document;
+import org.incode.example.document.dom.impl.paperclips.Paperclip;
+import org.incode.example.document.dom.impl.paperclips.PaperclipRepository;
+import org.incode.example.document.dom.impl.types.DocumentType;
+import org.incode.example.document.dom.impl.types.DocumentTypeRepository;
 
 import org.incode.domainapp.example.dom.dom.communications.fixture.data.doctypes.DocumentType_and_DocumentTemplates_createSome;
 

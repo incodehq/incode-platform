@@ -10,8 +10,9 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>incode-platform-dom-country-integtests</artifactId>
-    <name>Incode Platform Subdomain Country IntegTests</name>
+    <groupId>org.incode.example.country</groupId>
+    <artifactId>incode-example-country-integtests</artifactId>
+    <name>Incode Platform Example Country IntegTests</name>
 
     <build>
         <plugins>

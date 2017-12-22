@@ -12,12 +12,12 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Property;
 
-import org.incode.module.document.dom.impl.paperclips.Paperclip;
-import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
-import org.incode.module.document.dom.mixins.T_createAndAttachDocumentAndRender;
-import org.incode.module.document.dom.mixins.T_createAndAttachDocumentAndScheduleRender;
-import org.incode.module.document.dom.mixins.T_documents;
-import org.incode.module.document.dom.mixins.T_preview;
+import org.incode.example.document.dom.impl.paperclips.Paperclip;
+import org.incode.example.document.dom.impl.paperclips.PaperclipRepository;
+import org.incode.example.document.dom.mixins.T_createAndAttachDocumentAndRender;
+import org.incode.example.document.dom.mixins.T_createAndAttachDocumentAndScheduleRender;
+import org.incode.example.document.dom.mixins.T_documents;
+import org.incode.example.document.dom.mixins.T_preview;
 import org.incode.domainapp.example.dom.demo.dom.other.OtherObject;
 
 @javax.jdo.annotations.PersistenceCapable(

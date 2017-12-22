@@ -10,8 +10,9 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>incode-platform-dom-commchannel-integtests</artifactId>
-    <name>Incode Platform Subdomain CommChannel IntegTests</name>
+    <groupId>org.incode.example.commchannel</groupId>
+    <artifactId>incode-example-commchannel-integtests</artifactId>
+    <name>Incode Platform Example CommChannel IntegTests</name>
 
     <build>
         <plugins>

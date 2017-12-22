@@ -25,8 +25,8 @@ import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
 
 import org.incode.domainapp.example.dom.demo.fixture.data.DemoInvoiceWithAtPathData;
-import org.incode.module.docfragment.dom.api.DocFragmentService;
-import org.incode.module.docfragment.dom.types.AtPathType;
+import org.incode.example.docfragment.dom.api.DocFragmentService;
+import org.incode.example.docfragment.dom.types.AtPathType;
 
 import freemarker.template.TemplateException;
 import lombok.Builder;

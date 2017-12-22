@@ -7,8 +7,8 @@ import com.google.common.collect.ImmutableMap;
 import org.isisaddons.module.xdocreport.dom.service.XDocReportModel;
 
 import org.incode.domainapp.example.dom.demo.dom.demowithurl.DemoObjectWithUrl;
-import org.incode.module.document.dom.impl.applicability.RendererModelFactoryAbstract;
-import org.incode.module.document.dom.impl.docs.DocumentTemplate;
+import org.incode.example.document.dom.impl.applicability.RendererModelFactoryAbstract;
+import org.incode.example.document.dom.impl.docs.DocumentTemplate;
 
 import lombok.Getter;
 

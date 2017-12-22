@@ -6,8 +6,8 @@ import javax.inject.Inject;
 
 import org.isisaddons.module.stringinterpolator.dom.StringInterpolatorService;
 
-import org.incode.module.document.dom.impl.renderers.RendererFromCharsToChars;
-import org.incode.module.document.dom.impl.types.DocumentType;
+import org.incode.example.document.dom.impl.renderers.RendererFromCharsToChars;
+import org.incode.example.document.dom.impl.types.DocumentType;
 
 public class RendererForStringInterpolator implements RendererFromCharsToChars {
 

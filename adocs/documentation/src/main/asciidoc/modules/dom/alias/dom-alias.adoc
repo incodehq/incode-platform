@@ -173,8 +173,8 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 [source,xml]
 ----
 <dependency>
-    <groupId>org.incode.module.alias</groupId>
-    <artifactId>incode-module-alias-dom</artifactId>
+    <groupId>org.incode.example.alias</groupId>
+    <artifactId>incode-example-alias-dom</artifactId>
     <version>1.15.1.1</version>
 </dependency>
 ----
@@ -194,7 +194,7 @@ In the `AppManifest`, update its `getModules()` method, eg:
 public List<Class<?>> getModules() {
     return Arrays.asList(
             ...
-            org.incode.module.alias.dom.AliasModule.class,
+            org.incode.example.alias.dom.AliasModule.class,
     );
 }
 ----

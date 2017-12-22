@@ -181,8 +181,8 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 [source,xml]
 ----
 <dependency>
-    <groupId>org.incode.module.note</groupId>
-    <artifactId>incode-module-note-dom</artifactId>
+    <groupId>org.incode.example.note</groupId>
+    <artifactId>incode-example-note-dom</artifactId>
     <version>1.15.1.1</version>
 </dependency>
 ----
@@ -202,7 +202,7 @@ in the `AppManifest`, update its `getModules()` method, eg:
 public List<Class<?>> getModules() {
     return Arrays.asList(
             ...
-            org.incode.module.note.dom.NoteModule.class,
+            org.incode.example.note.dom.NoteModule.class,
     );
 }
 ----

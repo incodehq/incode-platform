@@ -695,8 +695,8 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 [source,xml]
 ----
 <dependency>
-    <groupId>org.incode.module.document</groupId>
-    <artifactId>incode-module-document-dom</artifactId>
+    <groupId>org.incode.example.document</groupId>
+    <artifactId>incode-example-document-dom</artifactId>
     <version>1.15.1.1</version>
 </dependency>
 ----
@@ -716,7 +716,7 @@ In the `AppManifest`, update its `getModules()` method:
 public List<Class<?>> getModules() {
     return Arrays.asList(
             ...
-            org.incode.module.document.dom.DocumentModule.class,
+            org.incode.example.document.dom.DocumentModule.class,
     );
 }
 ----

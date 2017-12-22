@@ -6,8 +6,8 @@ import java.util.Collection;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
-import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
-import org.incode.module.commchannel.dom.spi.CommunicationChannelPurposeRepository;
+import org.incode.example.commchannel.dom.impl.type.CommunicationChannelType;
+import org.incode.example.commchannel.dom.spi.CommunicationChannelPurposeRepository;
 
 @DomainService(nature = NatureOfService.DOMAIN)
 public class CommunicationChannelPurposeRepositoryForDemo implements CommunicationChannelPurposeRepository {

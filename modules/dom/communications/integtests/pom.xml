@@ -9,8 +9,9 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>incode-platform-dom-communications-integtests</artifactId>
-    <name>Incode Platform Subdomain Communications IntegTests</name>
+    <groupId>org.incode.example.communications</groupId>
+    <artifactId>incode-example-communications-integtests</artifactId>
+    <name>Incode Platform Example Communications IntegTests</name>
 
     <build>
         <plugins>
@@ -38,8 +39,8 @@
     <dependencies>
 
         <dependency>
-            <groupId>org.incode.module.communications</groupId>
-            <artifactId>incode-module-communications-dom</artifactId>
+            <groupId>org.incode.example.communications</groupId>
+            <artifactId>incode-example-communications-dom</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -69,8 +70,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.incode.module.communications</groupId>
-            <artifactId>incode-module-communications-dom</artifactId>
+            <groupId>org.incode.example.communications</groupId>
+            <artifactId>incode-example-communications-dom</artifactId>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>

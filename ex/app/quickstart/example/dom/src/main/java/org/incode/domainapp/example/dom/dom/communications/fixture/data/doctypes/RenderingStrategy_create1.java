@@ -1,7 +1,7 @@
 package org.incode.domainapp.example.dom.dom.communications.fixture.data.doctypes;
 
 import org.incode.module.docrendering.freemarker.fixture.RenderingStrategyFSForFreemarker;
-import org.incode.module.document.fixture.DocumentTemplateFSAbstract;
+import org.incode.example.document.fixture.DocumentTemplateFSAbstract;
 
 public class RenderingStrategy_create1 extends DocumentTemplateFSAbstract {
 

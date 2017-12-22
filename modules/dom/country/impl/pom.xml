@@ -9,12 +9,12 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.incode.module.country</groupId>
-    <artifactId>incode-module-country-dom</artifactId>
+    <groupId>org.incode.example.country</groupId>
+    <artifactId>incode-example-country-dom</artifactId>
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Subdomain Country Impl</name>
+    <name>Incode Platform Example Country Impl</name>
     <description>
         A module defining Country and State entities (reference data)
     </description>

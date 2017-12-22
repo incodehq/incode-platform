@@ -9,8 +9,8 @@ import com.google.common.collect.Lists;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
-import org.incode.module.alias.dom.spi.AliasType;
-import org.incode.module.alias.dom.spi.AliasTypeRepository;
+import org.incode.example.alias.dom.spi.AliasType;
+import org.incode.example.alias.dom.spi.AliasTypeRepository;
 
 /**
  * Mandatory implementation of the {@link AliasTypeRepository} SPI.

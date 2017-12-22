@@ -19,10 +19,10 @@ import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 import org.apache.isis.core.metamodel.spec.ObjectSpecification;
 import org.apache.isis.core.metamodel.specloader.SpecificationLoader;
 
-import org.incode.module.docfragment.dom.impl.DocFragment;
-import org.incode.module.docfragment.dom.impl.DocFragmentRepository;
-import org.incode.module.docfragment.dom.spi.ApplicationTenancyService;
-import org.incode.module.docfragment.dom.types.TemplateTextType;
+import org.incode.example.docfragment.dom.impl.DocFragment;
+import org.incode.example.docfragment.dom.impl.DocFragmentRepository;
+import org.incode.example.docfragment.dom.spi.ApplicationTenancyService;
+import org.incode.example.docfragment.dom.types.TemplateTextType;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,

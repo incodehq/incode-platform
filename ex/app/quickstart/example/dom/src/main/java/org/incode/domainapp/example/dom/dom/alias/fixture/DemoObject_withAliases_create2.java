@@ -6,7 +6,7 @@ import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
 import org.incode.domainapp.example.dom.demo.fixture.data.DemoObjectData;
 import org.incode.domainapp.example.dom.dom.alias.dom.AliasForDemoObject;
 import org.incode.domainapp.example.dom.dom.alias.dom.spiimpl.aliastype.AliasTypeDemoEnum;
-import org.incode.module.alias.dom.impl.T_addAlias;
+import org.incode.example.alias.dom.impl.T_addAlias;
 
 public class DemoObject_withAliases_create2 extends FixtureScript {
 

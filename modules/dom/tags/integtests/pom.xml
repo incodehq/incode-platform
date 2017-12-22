@@ -10,8 +10,9 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>incode-platform-dom-tags-integtests</artifactId>
-    <name>Incode Platform Subdomain Tags Demo IntegTests</name>
+    <groupId>org.incode.example.tags</groupId>
+    <artifactId>incode-example-tags-integtests</artifactId>
+    <name>Incode Platform Example Tags Demo IntegTests</name>
 
     <build>
         <plugins>

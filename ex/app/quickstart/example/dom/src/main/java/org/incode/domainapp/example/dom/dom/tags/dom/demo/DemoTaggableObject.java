@@ -15,8 +15,8 @@ import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.Where;
 
-import org.isisaddons.module.tags.dom.Tag;
-import org.isisaddons.module.tags.dom.Tags;
+import org.incode.example.tags.dom.Tag;
+import org.incode.example.tags.dom.Tags;
 
 import lombok.Getter;
 import lombok.Setter;

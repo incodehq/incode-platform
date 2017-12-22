@@ -82,8 +82,8 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 [source,xml]
 ----
 <dependency>
-    <groupId>org.isisaddons.module.tags</groupId>
-    <artifactId>isis-module-tags-dom</artifactId>
+    <groupId>org.incode</groupId>
+    <artifactId>incode-example-tags-dom</artifactId>
     <version>1.15.1.1</version>
 </dependency>
 ----
@@ -103,7 +103,7 @@ In the `AppManifest`, update its `getModules()` method, eg:
 public List<Class<?>> getModules() {
     return Arrays.asList(
             ...
-            org.isisaddons.module.tags.TagsModule.class,
+            org.incode.example.tags.TagsModule.class,
             ...
     );
 }

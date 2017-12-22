@@ -8,7 +8,7 @@ import org.apache.isis.applib.services.clock.ClockService;
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
 import org.incode.domainapp.example.dom.dom.note.dom.demolink.NotableLinkForDemoObject_addNote;
-import org.incode.module.note.dom.impl.note.T_addNote;
+import org.incode.example.note.dom.impl.note.T_addNote;
 
 public class DemoObject_withNotes_create3 extends FixtureScript {
 

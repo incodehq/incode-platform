@@ -77,8 +77,8 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 [source,xml]
 ----
 <dependency>
-    <groupId>org.isisaddons.module.settings</groupId>
-    <artifactId>isis-module-settings-dom</artifactId>
+    <groupId>org.incode</groupId>
+    <artifactId>incode-example-settings-dom</artifactId>
     <version>1.15.1.1</version>
 </dependency>
 ----
@@ -98,7 +98,7 @@ In the `AppManifest`, update its `getModules()` method, eg:
 public List<Class<?>> getModules() {
     return Arrays.asList(
             ...
-            org.isisaddons.module.settings.SettingsModule.class,
+            org.incode.example.settings.SettingsModule.class,
             ...
     );
 }

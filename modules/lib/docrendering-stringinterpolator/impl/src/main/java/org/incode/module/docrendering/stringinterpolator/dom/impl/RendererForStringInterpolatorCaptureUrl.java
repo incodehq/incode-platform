@@ -11,8 +11,8 @@ import org.apache.isis.applib.services.config.ConfigurationService;
 import org.isisaddons.module.stringinterpolator.dom.StringInterpolatorService;
 
 import org.incode.module.docrendering.stringinterpolator.dom.spi.UrlDownloaderService;
-import org.incode.module.document.dom.impl.renderers.RendererFromCharsToBytes;
-import org.incode.module.document.dom.impl.types.DocumentType;
+import org.incode.example.document.dom.impl.renderers.RendererFromCharsToBytes;
+import org.incode.example.document.dom.impl.types.DocumentType;
 
 public class RendererForStringInterpolatorCaptureUrl implements RendererFromCharsToBytes {
 

@@ -219,8 +219,8 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 [source,xml]
 ----
 <dependency>
-    <groupId>org.incode.module.docfragment</groupId>
-    <artifactId>incode-module-docfragment-dom</artifactId>
+    <groupId>org.incode.example.docfragment</groupId>
+    <artifactId>incode-example-docfragment-dom</artifactId>
     <version>1.15.1.1</version>
 </dependency>
 ----
@@ -240,7 +240,7 @@ In the `AppManifest`, update its `getModules()` method, eg:
 public List<Class<?>> getModules() {
     return Arrays.asList(
             ...
-            org.incode.module.docfragment.dom.DocFragmentModuleDomModule.class,
+            org.incode.example.docfragment.dom.DocFragmentModuleDomModule.class,
     );
 }
 ----

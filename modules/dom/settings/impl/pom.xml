@@ -9,12 +9,12 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.isisaddons.module.settings</groupId>
-    <artifactId>isis-module-settings-dom</artifactId>
+    <groupId>org.incode.example.settings</groupId>
+    <artifactId>incode-example-settings-dom</artifactId>
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Subdomain Settings Impl</name>
+    <name>Incode Platform Example Settings Impl</name>
     <description>
         A module providing settings persistence, enabling profiling, background execution and
         extended auditing capabilities.
@@ -56,7 +56,7 @@
 
     <properties>
         <isis-maven-plugin.validate.appManifest>
-            org.isisaddons.module.settings.SettingsManifest
+            org.incode.example.settings.SettingsManifest
         </isis-maven-plugin.validate.appManifest>
     </properties>
 

@@ -17,7 +17,7 @@ import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
 import org.incode.domainapp.example.dom.dom.note.ExampleDomModuleNoteModule;
 import org.incode.domainapp.example.dom.dom.note.fixture.DemoObject_withNotes_recreate3;
-import org.incode.module.note.dom.NoteModule;
+import org.incode.example.note.dom.NoteModule;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;

@@ -1,8 +1,8 @@
 package org.incode.module.docrendering.xdocreport.fixture;
 
 import org.incode.module.docrendering.xdocreport.dom.impl.RendererForXDocReportToDocx;
-import org.incode.module.document.dom.impl.docs.DocumentNature;
-import org.incode.module.document.fixture.RenderingStrategyFSAbstract;
+import org.incode.example.document.dom.impl.docs.DocumentNature;
+import org.incode.example.document.fixture.RenderingStrategyFSAbstract;
 
 public class RenderingStrategyFSForXDocReportToDocx extends RenderingStrategyFSAbstract {
 

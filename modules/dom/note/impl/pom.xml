@@ -9,12 +9,12 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.incode.module.note</groupId>
-    <artifactId>incode-module-note-dom</artifactId>
+    <groupId>org.incode.example.note</groupId>
+    <artifactId>incode-example-note-dom</artifactId>
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Subdomain Note Impl</name>
+    <name>Incode Platform Example Note Impl</name>
     <description>
         A module allowing notes (optionally asociated with dates/calendar).
     </description>
@@ -55,7 +55,7 @@
 
     <properties>
         <isis-maven-plugin.validate.appManifest>
-            org.incode.module.note.dom.NoteModuleDomManifest
+            org.incode.example.note.dom.NoteModuleDomManifest
         </isis-maven-plugin.validate.appManifest>
     </properties>
 

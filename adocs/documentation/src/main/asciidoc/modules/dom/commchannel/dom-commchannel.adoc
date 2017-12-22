@@ -278,8 +278,8 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`
 [source,xml]
 ----
 <dependency>
-    <groupId>org.incode.module.commchannel</groupId>
-    <artifactId>incode-module-commchannel-dom</artifactId>
+    <groupId>org.incode.example.commchannel</groupId>
+    <artifactId>incode-example-commchannel-dom</artifactId>
     <version>1.15.1.1</version>
 </dependency>
 ----
@@ -299,7 +299,7 @@ In the `AppManifest`, update its `getModules()` method:
 public List<Class<?>> getModules() {
     return Arrays.asList(
             ...
-            org.incode.module.commchannel.dom.CommChannelModule.class,
+            org.incode.example.commchannel.dom.CommChannelModule.class,
     );
 }
 ----
@@ -314,7 +314,7 @@ Configure the key in `WEB-INF/viewer_wicket.properties` (or `WEB-INF/isis.proper
 
 [source,ini]
 ----
-org.incode.module.commchannel.dom.api.GeocodingService.apiKey=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-XXXXXX
+GeocodingService.apiKey=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-XXXXXX
 ----
 
 [NOTE]
