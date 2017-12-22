@@ -13,8 +13,8 @@ import org.incode.example.country.dom.impl.CountryRepository;
 import org.incode.example.country.dom.impl.State;
 import org.incode.example.country.dom.impl.StateRepository;
 import org.incode.example.country.integtests.CountryModuleIntegTestAbstract;
-import org.incode.module.country.fixture.CountriesRefData;
-import org.incode.module.country.fixture.StatesRefData;
+import org.incode.example.country.fixture.CountriesRefData;
+import org.incode.example.country.fixture.StatesRefData;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

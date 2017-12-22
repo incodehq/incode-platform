@@ -12,7 +12,7 @@ public class WithTitleComparableContractForIncodeModuleTest_compareTo extends
         ComparableByTitleContractTestAbstract_compareTo {
 
     public WithTitleComparableContractForIncodeModuleTest_compareTo() {
-        super("org.isisaddons.module.tags", ImmutableMap.<Class<?>,Class<?>>of());
+        super("org.incode.example.tags", ImmutableMap.<Class<?>,Class<?>>of());
     }
 
 }

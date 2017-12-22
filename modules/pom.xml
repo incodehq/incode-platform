@@ -620,12 +620,12 @@
             </dependency>
 
             <dependency>
-                <groupId>org.incode</groupId>
+                <groupId>org.incode.example.settings</groupId>
                 <artifactId>incode-example-settings-dom</artifactId>
                 <version>1.16.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>org.incode</groupId>
+                <groupId>org.incode.example.settings</groupId>
                 <artifactId>incode-example-settings-dom</artifactId>
                 <version>1.16.0-SNAPSHOT</version>
                 <type>test-jar</type>
@@ -646,12 +646,12 @@
             </dependency>
 
             <dependency>
-                <groupId>org.incode</groupId>
+                <groupId>org.incode.example.tags</groupId>
                 <artifactId>incode-example-tags-dom</artifactId>
                 <version>1.16.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>org.incode</groupId>
+                <groupId>org.incode.example.tags</groupId>
                 <artifactId>incode-example-tags-dom</artifactId>
                 <version>1.16.0-SNAPSHOT</version>
                 <type>test-jar</type>

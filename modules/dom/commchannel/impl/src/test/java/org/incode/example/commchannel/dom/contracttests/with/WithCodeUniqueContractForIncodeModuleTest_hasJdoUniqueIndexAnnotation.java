@@ -7,7 +7,7 @@ public class WithCodeUniqueContractForIncodeModuleTest_hasJdoUniqueIndexAnnotati
         WithFieldUniqueContractTestAllAbstract<WithCodeUnique> {
 
     public WithCodeUniqueContractForIncodeModuleTest_hasJdoUniqueIndexAnnotation() {
-        super("org.incode.module.commchannel", "code", WithCodeUnique.class);
+        super("org.incode.example.commchannel", "code", WithCodeUnique.class);
     }
 
 }

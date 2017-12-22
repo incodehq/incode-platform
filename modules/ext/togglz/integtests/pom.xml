@@ -58,7 +58,7 @@
         </dependency>
 
         <dependency>
-            <groupId>org.incode</groupId>
+            <groupId>org.incode.example.settings</groupId>
             <artifactId>incode-example-settings-dom</artifactId>
             <scope>test</scope>
         </dependency>

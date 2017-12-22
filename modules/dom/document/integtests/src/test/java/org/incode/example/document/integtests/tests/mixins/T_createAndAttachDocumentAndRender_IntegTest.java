@@ -64,9 +64,9 @@ public class T_createAndAttachDocumentAndRender_IntegTest extends DocumentModule
 
         /**
          * TODO: ignored because seem to be hitting java.lang.NoClassDefFoundError: org/apache/poi/xwpf/usermodel/IRunBody
-         at org.incode.module.document.integtests.mixins.T_createAndAttachDocumentAndRender_IntegTest$ActionImplementation_IntegTest.can_create_document(T_createAndAttachDocumentAndRender_IntegTest.java:98)
+         at org.incode.example.document.integtests.mixins.T_createAndAttachDocumentAndRender_IntegTest$ActionImplementation_IntegTest.can_create_document(T_createAndAttachDocumentAndRender_IntegTest.java:98)
          Caused by: java.lang.ClassNotFoundException: org.apache.poi.xwpf.usermodel.IRunBody
-         at org.incode.module.document.integtests.mixins.T_createAndAttachDocumentAndRender_IntegTest$ActionImplementation_IntegTest.can_create_document(T_createAndAttachDocumentAndRender_IntegTest.java:98)
+         at org.incode.example.document.integtests.mixins.T_createAndAttachDocumentAndRender_IntegTest$ActionImplementation_IntegTest.can_create_document(T_createAndAttachDocumentAndRender_IntegTest.java:98)
 
          *
          */

@@ -12,7 +12,7 @@ public class WithDescriptionComparableContractForIncodeModuleTest_compareTo exte
         ComparableByDescriptionContractTestAbstract_compareTo {
 
     public WithDescriptionComparableContractForIncodeModuleTest_compareTo() {
-        super("org.incode.module.commchannel", ImmutableMap.<Class<?>,Class<?>>of());
+        super("org.incode.example.commchannel", ImmutableMap.<Class<?>,Class<?>>of());
     }
 
 }

@@ -7,7 +7,7 @@ public class WithReferenceUniqueContractForIncodeModuleTest_hasJdoUniqueIndexAnn
         WithFieldUniqueContractTestAllAbstract<WithReferenceUnique> {
 
     public WithReferenceUniqueContractForIncodeModuleTest_hasJdoUniqueIndexAnnotation() {
-        super("org.isisaddons.module.settings", "reference", WithReferenceUnique.class);
+        super("org.incode.example.settings", "reference", WithReferenceUnique.class);
     }
 
 }

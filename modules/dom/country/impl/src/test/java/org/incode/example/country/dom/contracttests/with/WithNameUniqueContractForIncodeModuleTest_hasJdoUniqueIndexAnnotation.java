@@ -7,7 +7,7 @@ public class WithNameUniqueContractForIncodeModuleTest_hasJdoUniqueIndexAnnotati
         WithFieldUniqueContractTestAllAbstract<WithNameUnique> {
 
     public WithNameUniqueContractForIncodeModuleTest_hasJdoUniqueIndexAnnotation() {
-        super("org.incode.module.country", "name", WithNameUnique.class);
+        super("org.incode.example.country", "name", WithNameUnique.class);
     }
 
 }

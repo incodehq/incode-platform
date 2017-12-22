@@ -1,4 +1,4 @@
-package org.incode.module.country.fixture.teardown;
+package org.incode.example.country.fixture.teardown;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;

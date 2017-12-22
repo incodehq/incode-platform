@@ -7,7 +7,7 @@ public class WithReferenceUniqueContractForIncodeModuleTest_hasJdoUniqueIndexAnn
         WithFieldUniqueContractTestAllAbstract<WithReferenceUnique> {
 
     public WithReferenceUniqueContractForIncodeModuleTest_hasJdoUniqueIndexAnnotation() {
-        super("org.incode.module.alias", "reference", WithReferenceUnique.class);
+        super("org.incode.example.alias", "reference", WithReferenceUnique.class);
     }
 
 }

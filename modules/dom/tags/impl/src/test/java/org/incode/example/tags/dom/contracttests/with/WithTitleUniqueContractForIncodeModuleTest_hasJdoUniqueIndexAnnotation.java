@@ -7,7 +7,7 @@ public class WithTitleUniqueContractForIncodeModuleTest_hasJdoUniqueIndexAnnotat
         WithFieldUniqueContractTestAllAbstract<WithTitleUnique> {
 
     public WithTitleUniqueContractForIncodeModuleTest_hasJdoUniqueIndexAnnotation() {
-        super("org.isisaddons.module.tags", "title", WithTitleUnique.class);
+        super("org.incode.example.tags", "title", WithTitleUnique.class);
     }
 
 }

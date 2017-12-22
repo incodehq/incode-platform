@@ -1,4 +1,4 @@
-package org.incode.module.country;
+package org.incode.example.country;
 
 import org.apache.isis.applib.AppManifestAbstract;
 

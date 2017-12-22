@@ -13,7 +13,7 @@ public class WithNameComparableContractForIncodeModuleTest_compareTo extends
         ComparableByNameContractTestAbstract_compareTo {
 
     public WithNameComparableContractForIncodeModuleTest_compareTo() {
-        super("org.incode.module.commchannel", ImmutableMap.<Class<?>, Class<?>>of());
+        super("org.incode.example.commchannel", ImmutableMap.<Class<?>, Class<?>>of());
     }
 
 }

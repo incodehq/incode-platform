@@ -5,8 +5,8 @@ import org.junit.BeforeClass;
 
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 
-import org.incode.module.country.CountryModuleDomManifest;
-import org.incode.module.country.fixture.teardown.CountryModule_tearDown;
+import org.incode.example.country.CountryModuleDomManifest;
+import org.incode.example.country.fixture.teardown.CountryModule_tearDown;
 
 public abstract class CountryModuleIntegTestAbstract extends IntegrationTestAbstract2 {
 
@@ -28,7 +28,7 @@ public abstract class CountryModuleIntegTestAbstract extends IntegrationTestAbst
 //    public static class ModuleFixtureScriptsSpecificationProvider implements FixtureScriptsSpecificationProvider {
 //        @Override
 //        public FixtureScriptsSpecification getSpecification() {
-//            return FixtureScriptsSpecification.builder("org.incode.module.country").with(
+//            return FixtureScriptsSpecification.builder("org.incode.example.country").with(
 //                    FixtureScripts.MultipleExecutionStrategy.EXECUTE_ONCE_BY_VALUE).build();
 //        }
 //    }

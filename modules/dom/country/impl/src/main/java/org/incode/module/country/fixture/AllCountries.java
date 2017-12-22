@@ -1,4 +1,4 @@
-package org.incode.module.country.fixture;
+package org.incode.example.country.fixture;
 
 import java.io.IOException;
 import java.net.URL;

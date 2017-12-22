@@ -7,7 +7,7 @@ public class WithDescriptionUniqueContractForIncodeModuleTest_hasJdoUniqueIndexA
         WithFieldUniqueContractTestAllAbstract<WithDescriptionUnique> {
 
     public WithDescriptionUniqueContractForIncodeModuleTest_hasJdoUniqueIndexAnnotation() {
-        super("org.isisaddons.module.settings", "description", WithDescriptionUnique.class);
+        super("org.incode.example.settings", "description", WithDescriptionUnique.class);
     }
 
 }

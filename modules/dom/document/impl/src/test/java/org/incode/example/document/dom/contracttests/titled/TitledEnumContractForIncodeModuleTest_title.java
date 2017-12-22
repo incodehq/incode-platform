@@ -9,7 +9,7 @@ import org.incode.module.base.dom.titled.TitledEnumContractTestAbstract_title;
 public class TitledEnumContractForIncodeModuleTest_title extends TitledEnumContractTestAbstract_title {
 
     public TitledEnumContractForIncodeModuleTest_title() {
-        super("org.incode.module.document");
+        super("org.incode.example.document");
     }
 }
 

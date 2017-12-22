@@ -9,7 +9,7 @@ import org.togglz.core.Feature;
 import org.togglz.core.repository.FeatureState;
 
 /**
- * Intermediary between Togglz's {@link FeatureState} and the JSON that is stored as an {@link org.isisaddons.module.settings.dom.ApplicationSetting} using the {@link org.isisaddons.module.settings.dom.ApplicationSettingsService}.
+ * Intermediary between Togglz's {@link FeatureState} and the JSON that is stored as an {@link org.incode.example.settings.dom.ApplicationSetting} using the {@link org.incode.example.settings.dom.ApplicationSettingsService}.
  */
 class FeatureStateJson {
 
