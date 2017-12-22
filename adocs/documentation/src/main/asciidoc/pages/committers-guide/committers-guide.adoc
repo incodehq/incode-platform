@@ -11,7 +11,7 @@ This guide contains procedures to be performed by committers/maintainers of this
 
 == Build process
 
-To build the platform, see the xref:contributors-guide.adoc#[contributors' guide].
+To build the platform, see the xref:../contributors-guide/contributors-guide.adoc#[contributors' guide].
 
 
 

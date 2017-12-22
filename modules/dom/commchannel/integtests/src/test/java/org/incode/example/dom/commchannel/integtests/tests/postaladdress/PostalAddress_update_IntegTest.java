@@ -23,6 +23,7 @@ import org.incode.example.dom.commchannel.integtests.CommChannelModuleIntegTestA
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assume.assumeThat;
 
 public class PostalAddress_update_IntegTest extends CommChannelModuleIntegTestAbstract {
@@ -127,6 +128,7 @@ public class PostalAddress_update_IntegTest extends CommChannelModuleIntegTestAb
         public void default_for_place_id_parameter_when_has_been_looked_up() throws Exception {
 
             assumeThat(isInternetReachable(), is(true));
+            assumeThat(fredPostalAddress.getPlaceId(), is(notNullValue()));
 
             // given
             wrap(mixinUpdate(fredPostalAddress)).$$(
