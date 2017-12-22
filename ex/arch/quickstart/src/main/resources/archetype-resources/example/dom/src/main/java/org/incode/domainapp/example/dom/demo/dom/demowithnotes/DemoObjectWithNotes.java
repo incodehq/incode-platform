@@ -19,7 +19,7 @@ import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
 
-import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwner;
+import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelOwner;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

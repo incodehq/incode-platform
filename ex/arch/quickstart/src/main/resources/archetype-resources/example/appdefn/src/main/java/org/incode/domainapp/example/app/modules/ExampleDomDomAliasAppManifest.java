@@ -20,7 +20,7 @@ import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
 import org.incode.domainapp.example.dom.dom.alias.ExampleDomModuleAliasModule;
 import org.incode.domainapp.example.dom.dom.alias.fixture.DemoObject_withAliases_recreate2;
-import org.incode.module.alias.dom.AliasModule;
+import org.incode.example.alias.dom.AliasModule;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;

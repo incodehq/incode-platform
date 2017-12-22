@@ -9,7 +9,7 @@ import org.isisaddons.module.command.CommandModule;
 import org.isisaddons.module.security.SecurityModule;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
-import org.isisaddons.module.settings.SettingsModule;
+import org.incode.example.settings.SettingsModule;
 
 import domainapp.appdefn.services.DomainAppAppDefnServicesSubModule;
 

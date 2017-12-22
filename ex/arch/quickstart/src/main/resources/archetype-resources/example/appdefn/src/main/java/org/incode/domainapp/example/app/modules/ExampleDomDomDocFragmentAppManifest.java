@@ -22,9 +22,9 @@ import org.incode.domainapp.example.dom.demo.dom.invoicewithatpath.DemoInvoiceWi
 import org.incode.domainapp.example.dom.demo.dom.invoicewithatpath.DemoInvoiceWithAtPathMenu;
 import org.incode.domainapp.example.dom.dom.docfragment.ExampleDomModuleDocFragmentModule;
 import org.incode.domainapp.example.dom.dom.docfragment.fixture.DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_recreate;
-import org.incode.module.docfragment.dom.DocFragmentModuleDomModule;
-import org.incode.module.docfragment.dom.impl.DocFragment;
-import org.incode.module.docfragment.dom.impl.DocFragmentRepository;
+import org.incode.example.docfragment.dom.DocFragmentModuleDomModule;
+import org.incode.example.docfragment.dom.impl.DocFragment;
+import org.incode.example.docfragment.dom.impl.DocFragmentRepository;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;

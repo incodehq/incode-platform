@@ -55,7 +55,7 @@ This is referenced by the demo app's implementation of the `DocumentCommunicatio
 
 ** A corresponding `DocumentTemplate` for email cover notes
 
-** The Freemarker rendering strategy (from the xref:../../lib/docrendering-freemarker/lib-docrendering-freemarker.adoc#[Freemarker DocRendering library] module).
+** The Freemarker rendering strategy (from the xref:../../dom/docrendering-freemarker/lib-docrendering-freemarker.adoc#[Freemarker DocRendering library] module).
 This is referenced by the `DocumentTemplate`, instructing the document module to render the email cover note using freemarker.
 
 * `Country` ref data (from the xref:../../dom/country/dom-country.adoc#[Country subdomain] module). +

@@ -23,9 +23,9 @@ import org.incode.domainapp.example.dom.demo.dom.other.OtherObject;
 import org.incode.domainapp.example.dom.demo.dom.other.OtherObjectMenu;
 import org.incode.domainapp.example.dom.dom.document.ExampleDomModuleDocumentModule;
 import org.incode.domainapp.example.dom.dom.document.fixture.DemoObjectWithUrl_and_OtherObject_and_docrefdata_recreate;
-import org.incode.module.docrendering.freemarker.dom.FreemarkerDocRenderingModule;
-import org.incode.module.docrendering.stringinterpolator.dom.StringInterpolatorDocRenderingModule;
-import org.incode.module.docrendering.xdocreport.dom.XDocReportDocRenderingModule;
+import org.incode.example.docrendering.freemarker.dom.FreemarkerDocRenderingModule;
+import org.incode.example.docrendering.stringinterpolator.dom.StringInterpolatorDocRenderingModule;
+import org.incode.example.docrendering.xdocreport.dom.XDocReportDocRenderingModule;
 import org.incode.example.document.dom.DocumentModule;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;

@@ -6,7 +6,7 @@ package org.incode.domainapp.example.dom.dom.commchannel.dom.ccolink.demo;
 import org.apache.isis.applib.annotation.Mixin;
 
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
-import org.incode.module.commchannel.dom.impl.channel.T_communicationChannels;
+import org.incode.example.commchannel.dom.impl.channel.T_communicationChannels;
 
 @Mixin
 public class CommunicationChannelOwnerLinkForDemoObject_communicationChannels

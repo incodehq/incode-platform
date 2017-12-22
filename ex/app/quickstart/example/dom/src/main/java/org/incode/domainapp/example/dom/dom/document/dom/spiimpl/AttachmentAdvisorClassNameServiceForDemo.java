@@ -18,7 +18,7 @@ public class AttachmentAdvisorClassNameServiceForDemo extends ClassNameServiceAb
         AttachmentAdvisorClassNameService {
 
     public AttachmentAdvisorClassNameServiceForDemo() {
-        super(AttachmentAdvisor.class, "org.incode.module.document.fixture");
+        super(AttachmentAdvisor.class, "org.incode.example.document.fixture");
     }
 
     @Programmatic

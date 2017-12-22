@@ -21,14 +21,14 @@ import org.apache.isis.applib.value.Blob;
 
 import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoice;
 import org.incode.domainapp.example.dom.dom.communications.fixture.data.doctypes.DocumentType_and_DocumentTemplates_createSome;
-import org.incode.module.document.dom.impl.docs.Document;
-import org.incode.module.document.dom.impl.docs.DocumentRepository;
-import org.incode.module.document.dom.impl.docs.DocumentSort;
-import org.incode.module.document.dom.impl.docs.DocumentState;
-import org.incode.module.document.dom.impl.docs.Document_attachSupportingPdf;
-import org.incode.module.document.dom.impl.paperclips.PaperclipRepository;
-import org.incode.module.document.dom.impl.types.DocumentType;
-import org.incode.module.document.dom.impl.types.DocumentTypeRepository;
+import org.incode.example.document.dom.impl.docs.Document;
+import org.incode.example.document.dom.impl.docs.DocumentRepository;
+import org.incode.example.document.dom.impl.docs.DocumentSort;
+import org.incode.example.document.dom.impl.docs.DocumentState;
+import org.incode.example.document.dom.impl.docs.Document_attachSupportingPdf;
+import org.incode.example.document.dom.impl.paperclips.PaperclipRepository;
+import org.incode.example.document.dom.impl.types.DocumentType;
+import org.incode.example.document.dom.impl.types.DocumentTypeRepository;
 
 /**
  * Being lazy here... don't want to set up all the ref data etc to actually render this DemoInvoice as some sort of

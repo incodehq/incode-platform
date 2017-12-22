@@ -7,10 +7,10 @@ import java.util.Collections;
 import java.util.List;
 
 import org.incode.domainapp.example.dom.demo.dom.demowithurl.DemoObjectWithUrl;
-import org.incode.module.document.dom.impl.applicability.AttachmentAdvisor;
-import org.incode.module.document.dom.impl.applicability.AttachmentAdvisorAbstract;
-import org.incode.module.document.dom.impl.docs.Document;
-import org.incode.module.document.dom.impl.docs.DocumentTemplate;
+import org.incode.example.document.dom.impl.applicability.AttachmentAdvisor;
+import org.incode.example.document.dom.impl.applicability.AttachmentAdvisorAbstract;
+import org.incode.example.document.dom.impl.docs.Document;
+import org.incode.example.document.dom.impl.docs.DocumentTemplate;
 
 import lombok.Value;
 

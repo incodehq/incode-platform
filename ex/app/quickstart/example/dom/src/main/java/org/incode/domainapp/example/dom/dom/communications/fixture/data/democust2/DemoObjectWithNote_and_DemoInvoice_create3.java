@@ -21,7 +21,7 @@ import org.incode.example.communications.dom.impl.commchannel.CommunicationChann
 import org.incode.example.country.dom.impl.Country;
 import org.incode.example.country.dom.impl.CountryRepository;
 import org.incode.example.country.dom.impl.State;
-import org.incode.module.country.fixture.CountriesRefData;
+import org.incode.example.country.fixture.CountriesRefData;
 import org.incode.example.document.dom.impl.docs.Document;
 import org.incode.example.document.dom.impl.docs.Document_attachSupportingPdf;
 

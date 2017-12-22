@@ -18,7 +18,7 @@ public class RendererModelFactoryClassNameServiceForDemo extends ClassNameServic
         RendererModelFactoryClassNameService {
 
     public RendererModelFactoryClassNameServiceForDemo() {
-        super(RendererModelFactory.class, "org.incode.module.document.fixture");
+        super(RendererModelFactory.class, "org.incode.example.document.fixture");
     }
 
     @Programmatic

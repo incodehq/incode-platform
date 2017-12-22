@@ -10,7 +10,7 @@ import javax.jdo.annotations.InheritanceStrategy;
 import org.apache.isis.applib.annotation.DomainObject;
 
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
-import org.incode.module.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
+import org.incode.example.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
 
 import lombok.Getter;
 import lombok.Setter;

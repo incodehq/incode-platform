@@ -21,9 +21,9 @@ import org.incode.example.commchannel.dom.CommChannelModule;
 import org.incode.example.communications.dom.CommunicationsModuleDomModule;
 import org.incode.example.country.dom.CountryModule;
 import org.incode.example.docfragment.dom.DocFragmentModuleDomModule;
-import org.incode.module.docrendering.freemarker.dom.FreemarkerDocRenderingModule;
-import org.incode.module.docrendering.stringinterpolator.dom.StringInterpolatorDocRenderingModule;
-import org.incode.module.docrendering.xdocreport.dom.XDocReportDocRenderingModule;
+import org.incode.example.docrendering.freemarker.dom.FreemarkerDocRenderingModule;
+import org.incode.example.docrendering.stringinterpolator.dom.StringInterpolatorDocRenderingModule;
+import org.incode.example.docrendering.xdocreport.dom.XDocReportDocRenderingModule;
 import org.incode.example.document.dom.DocumentModule;
 import org.incode.example.note.dom.NoteModule;
 

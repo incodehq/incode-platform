@@ -18,11 +18,11 @@ import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
 
 import org.incode.domainapp.example.dom.demo.dom.demowithurl.DemoObjectWithUrl;
-import org.incode.module.document.dom.impl.docs.DocumentTemplate;
-import org.incode.module.document.dom.impl.rendering.RenderingStrategy;
-import org.incode.module.document.dom.impl.rendering.RenderingStrategyRepository;
-import org.incode.module.document.dom.impl.types.DocumentType;
-import org.incode.module.document.fixture.DocumentTemplateFSAbstract;
+import org.incode.example.document.dom.impl.docs.DocumentTemplate;
+import org.incode.example.document.dom.impl.rendering.RenderingStrategy;
+import org.incode.example.document.dom.impl.rendering.RenderingStrategyRepository;
+import org.incode.example.document.dom.impl.types.DocumentType;
+import org.incode.example.document.fixture.DocumentTemplateFSAbstract;
 import org.incode.domainapp.example.dom.dom.document.dom.applicability.aa.ForDemoObjectAlsoAttachToFirstOtherObject;
 import org.incode.domainapp.example.dom.dom.document.dom.applicability.aa.ForDemoObjectAttachToSame;
 import org.incode.domainapp.example.dom.dom.document.dom.applicability.rmf.FreemarkerModelOfDemoObject;

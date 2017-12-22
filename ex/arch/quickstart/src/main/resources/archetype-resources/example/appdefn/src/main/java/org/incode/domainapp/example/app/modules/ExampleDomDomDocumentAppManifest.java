@@ -29,7 +29,7 @@ import org.incode.domainapp.example.dom.dom.document.fixture.DemoObjectWithUrl_a
 import org.incode.module.docrendering.freemarker.dom.FreemarkerDocRenderingModule;
 import org.incode.module.docrendering.stringinterpolator.dom.StringInterpolatorDocRenderingModule;
 import org.incode.module.docrendering.xdocreport.dom.XDocReportDocRenderingModule;
-import org.incode.module.document.dom.DocumentModule;
+import org.incode.example.document.dom.DocumentModule;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;

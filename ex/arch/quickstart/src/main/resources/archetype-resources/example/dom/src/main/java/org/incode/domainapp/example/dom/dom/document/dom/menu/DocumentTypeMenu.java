@@ -14,8 +14,8 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.module.document.dom.impl.types.DocumentType;
-import org.incode.module.document.dom.impl.types.DocumentTypeRepository;
+import org.incode.example.document.dom.impl.types.DocumentType;
+import org.incode.example.document.dom.impl.types.DocumentTypeRepository;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,

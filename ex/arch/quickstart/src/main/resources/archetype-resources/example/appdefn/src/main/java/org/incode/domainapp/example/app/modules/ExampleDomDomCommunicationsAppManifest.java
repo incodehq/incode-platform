@@ -23,10 +23,10 @@ import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoice;
 import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoiceRepository;
 import org.incode.domainapp.example.dom.dom.communications.ExampleDomModuleCommunicationsModule;
 import org.incode.domainapp.example.dom.dom.communications.fixture.DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_recreate;
-import org.incode.module.communications.dom.CommunicationsModule;
-import org.incode.module.country.dom.impl.Country;
+import org.incode.example.communications.dom.CommunicationsModule;
+import org.incode.example.country.dom.impl.Country;
 import org.incode.module.docrendering.freemarker.dom.FreemarkerDocRenderingModule;
-import org.incode.module.document.dom.DocumentModule;
+import org.incode.example.document.dom.DocumentModule;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;

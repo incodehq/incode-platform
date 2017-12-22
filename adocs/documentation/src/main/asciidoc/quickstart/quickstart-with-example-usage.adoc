@@ -89,17 +89,17 @@ The table below outlines the app manifests to run to demonstrate usage of the li
 | (none)
 | Used throughout.
 
-| xref:../modules/lib/docrendering-freemarker/lib-docrendering-freemarker.adoc#[DocRendering-FreeMarker]
+| xref:../modules/dom/docrendering-freemarker/lib-docrendering-freemarker.adoc#[DocRendering-FreeMarker]
 | `org.incode.domainapp.example.app.modules.
   ExampleDomDomDocumentAppManifest`
 | As part of example usage of xref:../modules/dom/document/dom-document.adoc#[Document] module.
 
-| xref:../modules/lib/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.adoc#[DocRendering-StringInterpolator]
+| xref:../modules/dom/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.adoc#[DocRendering-StringInterpolator]
 | `org.incode.domainapp.example.app.modules.
   ExampleDomDomDocumentAppManifest`
 | As part of example usage of xref:../modules/dom/document/dom-document.adoc#[Document] module.
 
-| xref:../modules/lib/docrendering-xdocreport/lib-docrendering-xdocreport.adoc#[DocRendering-XDocReport]
+| xref:../modules/dom/docrendering-xdocreport/lib-docrendering-xdocreport.adoc#[DocRendering-XDocReport]
 | `org.incode.domainapp.example.app.modules.
   ExampleDomDomDocumentAppManifest`
 | As part of example usage of xref:../modules/dom/document/dom-document.adoc#[Document] module.
@@ -149,7 +149,7 @@ The table below outlines the app manifests to run to demonstrate usage of the li
 | xref:../modules/lib/docx/lib-stringinterpolator.adoc#[StringInterpolator]
 | `org.incode.domainapp.example.app.modules.
   ExampleDomLibStringInterpolatorAppManifest`
-| Also used by the xref:../modules/lib/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.adoc#[DocRendering-StringInterpolator] library.
+| Also used by the xref:../modules/dom/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.adoc#[DocRendering-StringInterpolator] library.
 
 | xref:../modules/lib/docx/lib-unittestsupport.adoc#[UnitTestSupport]
 | (none)
@@ -157,7 +157,7 @@ The table below outlines the app manifests to run to demonstrate usage of the li
 
 | xref:../modules/lib/docx/lib-xdocreport.adoc#[XDocReport]
 | (none)
-| Also used by the xref:../modules/lib/docrendering-xdocreport/lib-docrendering-xdocreport.adoc#[DocRendering-XDocReport] library.
+| Also used by the xref:../modules/dom/docrendering-xdocreport/lib-docrendering-xdocreport.adoc#[DocRendering-XDocReport] library.
 
 |===
 
@@ -220,7 +220,7 @@ Also uses (and therefore demonstrates use of) the xref:../modules/dom/document/d
 | xref:../modules/dom/document/dom-document.adoc#[Document]
 | `org.incode.domainapp.example.app.modules.
 ExampleDomDomDocumentAppManifest`
-| Also uses (and therefore demonstrates use of) the "DocRendering" libraries for xref:../modules/lib/docrendering-freemarker/lib-docrendering-freemarker.adoc#[FreeMarker], xref:../modules/lib/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.adoc#[StringInterpolator] and xref:../modules/lib/docrendering-xdocreport/lib-docrendering-xdocreport.adoc#[XDocReport].
+| Also uses (and therefore demonstrates use of) the "DocRendering" libraries for xref:../modules/dom/docrendering-freemarker/lib-docrendering-freemarker.adoc#[FreeMarker], xref:../modules/dom/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.adoc#[StringInterpolator] and xref:../modules/dom/docrendering-xdocreport/lib-docrendering-xdocreport.adoc#[XDocReport].
 
 
 | xref:../modules/dom/note/dom-note.adoc#[Note]

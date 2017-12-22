@@ -15,7 +15,7 @@ import org.apache.isis.applib.annotation.Nature;
 
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
-import org.isisaddons.module.tags.TagsModule;
+import org.incode.example.tags.TagsModule;
 
 import org.incode.domainapp.example.dom.dom.tags.ExampleDomModuleTagsModule;
 import org.incode.domainapp.example.dom.dom.tags.dom.demo.DemoTaggableObject;

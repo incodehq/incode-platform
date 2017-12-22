@@ -11,13 +11,13 @@ This module (`incode-module-document`) provides the ability to create and attach
 
 ``Document``s can be rendered using a number of technologies:
 
-* link:http://freemarker.org/[Apache Freemarker] (using the xref:../../lib/docrendering-freemarker/lib-docrendering-freemarker.adoc#[Freemarker DocRendering library] module)
+* link:http://freemarker.org/[Apache Freemarker] (using the xref:../../dom/docrendering-freemarker/lib-docrendering-freemarker.adoc#[Freemarker DocRendering library] module)
 
-* xref:../../lib/stringinterpolator/lib-stringinterpolator.adoc#[stringinterpolator] module to interpolate and download a URL (using the xref:../../lib/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.adoc#[StringInterpolator DocRendering] module). +
+* xref:../../lib/stringinterpolator/lib-stringinterpolator.adoc#[stringinterpolator] module to interpolate and download a URL (using the xref:../../dom/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.adoc#[StringInterpolator DocRendering] module). +
 +
 This can be used to integrate with pre-existing reporting servers (for example Microsoft's link:https://msdn.microsoft.com/en-us/library/ms159106.aspx[SQL Server Reporting Services]).
 
-* link:https://github.com/opensagres/xdocreport[XDocReport] (using the xref:../../lib/docrendering-xdocreport/docrendering-xdocreport.adoc#[XDocReport DocRendering] module).
+* link:https://github.com/opensagres/xdocreport[XDocReport] (using the xref:../../dom/docrendering-xdocreport/docrendering-xdocreport.adoc#[XDocReport DocRendering] module).
 
 The rendering mechanism is pluggable; additional implementations can be plugged in as required.
 
@@ -61,7 +61,7 @@ These are reference data:
 image::{_imagesdir}020-list-all-document-types.png[width="600px",link="{_imagesdir}020-list-all-document-types.png"]
 
 
-Four example ``DocumentType``s are set up, showcasing the four ``RenderingStrategy``s provided by the xref:../../lib/docrendering-freemarker/lib-docrendering-freemarker.adoc#[Freemarker docrendering library], xref:../../lib/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.adoc#[StringInterpolator docrendering library] and xref:../../lib/docrendering-xdocreport/lib-docrendering-xdocreport.adoc#[XDocReport docrendering library] modules:
+Four example ``DocumentType``s are set up, showcasing the four ``RenderingStrategy``s provided by the xref:../../dom/docrendering-freemarker/lib-docrendering-freemarker.adoc#[Freemarker docrendering library], xref:../../dom/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.adoc#[StringInterpolator docrendering library] and xref:../../dom/docrendering-xdocreport/lib-docrendering-xdocreport.adoc#[XDocReport docrendering library] modules:
 
 image::{_imagesdir}025-all-document-types.png[width="600px",link="{_imagesdir}025-all-document-types.png"]
 
@@ -162,7 +162,7 @@ This Word file uses Freemarker placeholders.
 
 [NOTE]
 ====
-While XDocReport itself as a technology supports both Freemarker and Velocity, the integration here (in xref:../../lib/docrendering-xdocreport/lib-docrendering-xdocreport.adoc#[XDocReport docrendering library] module) allows only Freemarker to be used.
+While XDocReport itself as a technology supports both Freemarker and Velocity, the integration here (in xref:../../dom/docrendering-xdocreport/lib-docrendering-xdocreport.adoc#[XDocReport docrendering library] module) allows only Freemarker to be used.
 ====
 
 

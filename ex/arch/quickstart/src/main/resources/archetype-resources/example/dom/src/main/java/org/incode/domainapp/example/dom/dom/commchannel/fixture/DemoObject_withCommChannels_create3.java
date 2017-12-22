@@ -10,10 +10,10 @@ import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
 import org.incode.domainapp.example.dom.dom.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addEmailAddress;
 import org.incode.domainapp.example.dom.dom.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addPhoneOrFaxNumber;
 import org.incode.domainapp.example.dom.dom.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addPostalAddress;
-import org.incode.module.commchannel.dom.impl.emailaddress.T_addEmailAddress;
-import org.incode.module.commchannel.dom.impl.phoneorfax.T_addPhoneOrFaxNumber;
-import org.incode.module.commchannel.dom.impl.postaladdress.T_addPostalAddress;
-import org.incode.module.commchannel.dom.impl.type.CommunicationChannelType;
+import org.incode.example.commchannel.dom.impl.emailaddress.T_addEmailAddress;
+import org.incode.example.commchannel.dom.impl.phoneorfax.T_addPhoneOrFaxNumber;
+import org.incode.example.commchannel.dom.impl.postaladdress.T_addPostalAddress;
+import org.incode.example.commchannel.dom.impl.type.CommunicationChannelType;
 
 public class DemoObject_withCommChannels_create3 extends FixtureScript {
 

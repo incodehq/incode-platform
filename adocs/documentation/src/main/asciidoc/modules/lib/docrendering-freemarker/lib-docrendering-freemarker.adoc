@@ -47,8 +47,8 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 [source,xml]
 ----
 <dependency>
-    <groupId>org.incode.module.docrendering</groupId>
-    <artifactId>incode-module-docrendering-freemarker-dom</artifactId>
+    <groupId>org.incode.example.docrendering</groupId>
+    <artifactId>incode-example-docrendering-freemarker-dom</artifactId>
     <version>1.15.1.1</version>
 </dependency>
 ----
@@ -71,7 +71,7 @@ In the `AppManifest`, update its `getModules()` method:
 public List<Class<?>> getModules() {
     return Arrays.asList(
             ...
-            org.incode.module.docrendering.freemarker.dom.FreemarkerDocRenderingModule.class,
+            org.incode.example.docrendering.freemarker.dom.FreemarkerDocRenderingModule.class,
     );
 }
 ----
@@ -92,7 +92,7 @@ Maven can report modules dependencies using:
 
 [source,bash]
 ----
-mvn dependency:list -o -pl modules/lib/docrendering-freemarker/impl -D excludeTransitive=true
+mvn dependency:list -o -pl modules/dom/docrendering-freemarker/impl -D excludeTransitive=true
 ----
 
 which, excluding Apache Isis itself, returns no direct compile/runtime dependencies:

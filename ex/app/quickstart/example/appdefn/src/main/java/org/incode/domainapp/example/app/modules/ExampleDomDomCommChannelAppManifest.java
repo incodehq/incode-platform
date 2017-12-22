@@ -40,7 +40,7 @@ public class ExampleDomDomCommChannelAppManifest extends AppManifestAbstract {
 
             // also add:
             // -Disis.viewer.wicket.gmap3.apiKey=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-            // -Dorg.incode.module.commchannel.dom.api.GeocodingService.apiKey=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            // -Dorg.incode.example.commchannel.dom.api.GeocodingService.apiKey=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
         )
         .withFixtureScripts(
                 DemoObject_withCommChannels_recreate3.class,

@@ -9,10 +9,10 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
-import org.incode.module.document.dom.impl.applicability.AttachmentAdvisor;
-import org.incode.module.document.dom.services.ClassNameServiceAbstract;
-import org.incode.module.document.dom.services.ClassNameViewModel;
-import org.incode.module.document.dom.spi.AttachmentAdvisorClassNameService;
+import org.incode.example.document.dom.impl.applicability.AttachmentAdvisor;
+import org.incode.example.document.dom.services.ClassNameServiceAbstract;
+import org.incode.example.document.dom.services.ClassNameViewModel;
+import org.incode.example.document.dom.spi.AttachmentAdvisorClassNameService;
 
 @DomainService(
     nature = NatureOfService.DOMAIN
@@ -21,7 +21,7 @@ public class AttachmentAdvisorClassNameServiceForDemo extends ClassNameServiceAb
         AttachmentAdvisorClassNameService {
 
     public AttachmentAdvisorClassNameServiceForDemo() {
-        super(AttachmentAdvisor.class, "org.incode.module.document.fixture");
+        super(AttachmentAdvisor.class, "org.incode.example.document.fixture");
     }
 
     @Programmatic

@@ -16,14 +16,14 @@ import org.apache.isis.applib.annotation.Nature;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.module.country.dom.CountryModule;
-import org.incode.module.country.dom.impl.Country;
-import org.incode.module.country.dom.impl.CountryRepository;
-import org.incode.module.country.dom.impl.State;
-import org.incode.module.country.dom.impl.StateRepository;
-import org.incode.module.country.fixture.CountriesRefData;
-import org.incode.module.country.fixture.StatesRefData;
-import org.incode.module.country.fixture.teardown.CountryModule_tearDown;
+import org.incode.example.country.dom.CountryModule;
+import org.incode.example.country.dom.impl.Country;
+import org.incode.example.country.dom.impl.CountryRepository;
+import org.incode.example.country.dom.impl.State;
+import org.incode.example.country.dom.impl.StateRepository;
+import org.incode.example.country.fixture.CountriesRefData;
+import org.incode.example.country.fixture.StatesRefData;
+import org.incode.example.country.fixture.teardown.CountryModule_tearDown;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;

@@ -9,9 +9,9 @@ import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 import org.incode.domainapp.example.dom.demo.fixture.teardown.DemoModuleTearDown;
 import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoInvoice_tearDown;
 import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObjectWithNotes_tearDown;
-import org.incode.module.communications.fixture.teardown.CommunicationModule_tearDown;
-import org.incode.module.country.fixture.teardown.CountryModule_tearDown;
-import org.incode.module.document.fixture.teardown.DocumentModule_tearDown;
+import org.incode.example.communications.fixture.teardown.CommunicationModule_tearDown;
+import org.incode.example.country.fixture.teardown.CountryModule_tearDown;
+import org.incode.example.document.fixture.teardown.DocumentModule_tearDown;
 
 public class DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_tearDown extends FixtureScript {
 

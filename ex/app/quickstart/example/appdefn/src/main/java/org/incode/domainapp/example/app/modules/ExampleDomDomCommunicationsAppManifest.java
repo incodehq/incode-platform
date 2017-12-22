@@ -22,7 +22,7 @@ import org.incode.domainapp.example.dom.dom.communications.ExampleDomModuleCommu
 import org.incode.domainapp.example.dom.dom.communications.fixture.DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_recreate;
 import org.incode.example.communications.dom.CommunicationsModule;
 import org.incode.example.country.dom.impl.Country;
-import org.incode.module.docrendering.freemarker.dom.FreemarkerDocRenderingModule;
+import org.incode.example.docrendering.freemarker.dom.FreemarkerDocRenderingModule;
 import org.incode.example.document.dom.DocumentModule;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;

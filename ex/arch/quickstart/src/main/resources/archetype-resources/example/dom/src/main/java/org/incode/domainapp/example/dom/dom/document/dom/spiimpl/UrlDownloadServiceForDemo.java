@@ -8,8 +8,8 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
 
-import org.incode.module.document.dom.impl.docs.Document;
-import org.incode.module.document.dom.spi.UrlDownloadService;
+import org.incode.example.document.dom.impl.docs.Document;
+import org.incode.example.document.dom.spi.UrlDownloadService;
 
 @DomainService(
     nature = NatureOfService.DOMAIN

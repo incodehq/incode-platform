@@ -56,30 +56,17 @@ The modules fall into six broad categories, summarised in the table below:
 |===
 
 2.+^.^| xref:modules/lib/lib.adoc#[_Libraries_]
-^.^| xref:modules/dom/dom.adoc#[_Generic Subdomains_]
 ^.^| xref:modules/spi/spi.adoc#[_SPI +
 Implementations_]
 ^.^| xref:modules/wkt/wkt.adoc#[_Wicket Components_]
-^.^| xref:modules/mml/mml.adoc#[_Metamodel Facets_]
 ^.^| xref:modules/ext/ext.adoc#[_Extensions_]
+2.+^.^| xref:modules/dom/dom.adoc#[_Example +
+Subdomains & Libraries_]
 
-|
-|
-|
-|
-|
-|
-|
 
 |
 
 xref:modules/lib/base/lib-base.adoc#[Base]
-
-xref:modules/lib/docrendering-freemarker/lib-docrendering-freemarker.adoc#[Freemarker DocRendering]
-
-xref:modules/lib/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.adoc#[Stringinterpolator DoRendering]
-
-xref:modules/lib/docrendering-xdocreport/lib-docrendering-xdocreport.adoc#[Xdocreport DocRendering]
 
 xref:modules/lib/docx/lib-docx.adoc#[Docx (MS Word)]
 
@@ -91,9 +78,9 @@ xref:modules/lib/fixturesupport/lib-fixturesupport.adoc#[Fixture Support]
 
 xref:modules/lib/freemarker/lib-freemarker.adoc#[FreeMarker]
 
-|
+xref:modules/lib/integtestsupport/lib-integtestsupport.adoc#[IntegTesting Support]
 
-xref:modules/lib/integtestsupport/lib-integtestsupport.adoc#[Integ Testing Support]
+|
 
 xref:modules/lib/pdfbox/lib-pdfbox.adoc#[PDFBox]
 
@@ -106,29 +93,6 @@ xref:modules/lib/stringinterpolator/lib-stringinterpolator.adoc#[StringInterpola
 xref:modules/lib/unittestsupport/lib-unittestsupport.adoc#[Unit Testing Support]
 
 xref:modules/lib/xdocreport/lib-xdocreport.adoc#[XDocReport]
-
-|
-
-xref:modules/dom/alias/dom-alias.adoc#[Alias]
-
-xref:modules/dom/classification/dom-classification.adoc#[Classification]
-
-xref:modules/dom/commchannel/dom-commchannel.adoc#[Comm Channel]
-
-xref:modules/dom/communications/dom-communications.adoc#[Communications]
-
-xref:modules/dom/country/dom-country.adoc#[Country]
-
-xref:modules/dom/docfragment/dom-docfragment.adoc#[Doc Fragment]
-
-xref:modules/dom/document/dom-document.adoc#[Document]
-
-xref:modules/dom/note/dom-note.adoc#[Note]
-
-xref:modules/dom/settings/dom-settings.adoc#[Settings]
-
-xref:modules/dom/tags/dom-tags.adoc#[Tags]
-
 
 |
 
@@ -156,7 +120,6 @@ xref:modules/wkt/summernote/wkt-summernote.adoc#[Summernote]
 
 xref:modules/wkt/wickedcharts/wkt-wickedcharts.adoc#[Wickedcharts]
 
-| xref:modules/mml/paraname8/mml-paraname8.adoc#[Paraname8]
 
 
 | xref:modules/ext/flywaydb/ext-flywaydb.adoc#[FlywayDB]
@@ -164,6 +127,38 @@ xref:modules/wkt/wickedcharts/wkt-wickedcharts.adoc#[Wickedcharts]
 xref:modules/ext/quartz/ext-quartz.adoc#[Quartz]
 
 xref:modules/ext/togglz/ext-togglz.adoc#[Togglz]
+
+
+|
+
+xref:modules/dom/alias/dom-alias.adoc#[Alias]
+
+xref:modules/dom/classification/dom-classification.adoc#[Classification]
+
+xref:modules/dom/commchannel/dom-commchannel.adoc#[Comm Channel]
+
+xref:modules/dom/communications/dom-communications.adoc#[Communications]
+
+xref:modules/dom/country/dom-country.adoc#[Country]
+
+xref:modules/dom/docfragment/dom-docfragment.adoc#[Doc Fragment]
+
+xref:modules/dom/docrendering-freemarker/lib-docrendering-freemarker.adoc#[Freemarker DocRendering]
+
+|
+xref:modules/dom/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.adoc#[Stringinterpolator DoRendering]
+
+xref:modules/dom/docrendering-xdocreport/lib-docrendering-xdocreport.adoc#[Xdocreport DocRendering]
+
+
+xref:modules/dom/document/dom-document.adoc#[Document]
+
+xref:modules/dom/note/dom-note.adoc#[Note]
+
+xref:modules/dom/settings/dom-settings.adoc#[Settings]
+
+xref:modules/dom/tags/dom-tags.adoc#[Tags]
+
 
 
 |===

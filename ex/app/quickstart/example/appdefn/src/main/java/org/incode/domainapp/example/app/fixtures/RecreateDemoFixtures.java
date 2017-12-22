@@ -36,9 +36,9 @@ import org.incode.domainapp.example.dom.spi.publishmq.fixture.PublishMqDemoObjec
 import org.incode.domainapp.example.dom.spi.publishmq.fixture.teardown.PublishMqDemoObject_tearDown;
 import org.incode.domainapp.example.dom.spi.security.fixture.SecurityModuleAppSetUp;
 import org.incode.example.communications.fixture.teardown.CommunicationModule_tearDown;
-import org.incode.module.country.fixture.CountriesRefData;
-import org.incode.module.country.fixture.StatesRefData;
-import org.incode.module.country.fixture.teardown.CountryModule_tearDown;
+import org.incode.example.country.fixture.CountriesRefData;
+import org.incode.example.country.fixture.StatesRefData;
+import org.incode.example.country.fixture.teardown.CountryModule_tearDown;
 import org.incode.example.document.fixture.teardown.DocumentModule_tearDown;
 
 public class RecreateDemoFixtures extends DiscoverableFixtureScript {

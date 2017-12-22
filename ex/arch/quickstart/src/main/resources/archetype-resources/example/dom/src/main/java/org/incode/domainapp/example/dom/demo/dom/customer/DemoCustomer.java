@@ -25,8 +25,8 @@ import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
 
-import org.incode.module.docfragment.dom.api.DocFragmentService;
-import org.incode.module.docfragment.dom.types.AtPathType;
+import org.incode.example.docfragment.dom.api.DocFragmentService;
+import org.incode.example.docfragment.dom.types.AtPathType;
 
 import freemarker.template.TemplateException;
 import lombok.Builder;

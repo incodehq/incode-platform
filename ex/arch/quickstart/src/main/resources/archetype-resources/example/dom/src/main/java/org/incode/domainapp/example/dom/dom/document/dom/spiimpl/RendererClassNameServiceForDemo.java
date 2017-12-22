@@ -11,11 +11,11 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
-import org.incode.module.document.dom.impl.docs.DocumentNature;
-import org.incode.module.document.dom.impl.renderers.Renderer;
-import org.incode.module.document.dom.services.ClassNameServiceAbstract;
-import org.incode.module.document.dom.services.ClassNameViewModel;
-import org.incode.module.document.dom.spi.RendererClassNameService;
+import org.incode.example.document.dom.impl.docs.DocumentNature;
+import org.incode.example.document.dom.impl.renderers.Renderer;
+import org.incode.example.document.dom.services.ClassNameServiceAbstract;
+import org.incode.example.document.dom.services.ClassNameViewModel;
+import org.incode.example.document.dom.spi.RendererClassNameService;
 
 @DomainService(
     nature = NatureOfService.DOMAIN
@@ -24,7 +24,7 @@ public class RendererClassNameServiceForDemo extends ClassNameServiceAbstract<Re
         RendererClassNameService {
 
     public RendererClassNameServiceForDemo() {
-        super(Renderer.class, "org.incode.module.document.fixture");
+        super(Renderer.class, "org.incode.example.document.fixture");
     }
 
     @Programmatic

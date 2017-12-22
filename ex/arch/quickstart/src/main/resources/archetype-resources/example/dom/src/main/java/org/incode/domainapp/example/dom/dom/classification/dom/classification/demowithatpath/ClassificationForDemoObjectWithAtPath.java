@@ -15,11 +15,11 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Property;
 
 import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPath;
-import org.incode.module.classification.dom.impl.classification.Classification;
-import org.incode.module.classification.dom.impl.classification.ClassificationRepository;
-import org.incode.module.classification.dom.impl.classification.T_classifications;
-import org.incode.module.classification.dom.impl.classification.T_classify;
-import org.incode.module.classification.dom.impl.classification.T_unclassify;
+import org.incode.example.classification.dom.impl.classification.Classification;
+import org.incode.example.classification.dom.impl.classification.ClassificationRepository;
+import org.incode.example.classification.dom.impl.classification.T_classifications;
+import org.incode.example.classification.dom.impl.classification.T_classify;
+import org.incode.example.classification.dom.impl.classification.T_unclassify;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -19,14 +19,14 @@ import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoice;
 import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoiceRepository;
 import org.incode.domainapp.example.dom.dom.communications.dom.apiimpl.DemoAppCommunicationChannelOwner_newChannelContributions;
 import org.incode.domainapp.example.dom.dom.communications.dom.invoice.DemoInvoice_simulateRenderAsDoc;
-import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelOwner;
-import org.incode.module.communications.dom.impl.commchannel.CommunicationChannelType;
-import org.incode.module.country.dom.impl.Country;
-import org.incode.module.country.dom.impl.CountryRepository;
-import org.incode.module.country.dom.impl.State;
-import org.incode.module.country.fixture.CountriesRefData;
-import org.incode.module.document.dom.impl.docs.Document;
-import org.incode.module.document.dom.impl.docs.Document_attachSupportingPdf;
+import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelOwner;
+import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelType;
+import org.incode.example.country.dom.impl.Country;
+import org.incode.example.country.dom.impl.CountryRepository;
+import org.incode.example.country.dom.impl.State;
+import org.incode.example.country.fixture.CountriesRefData;
+import org.incode.example.document.dom.impl.docs.Document;
+import org.incode.example.document.dom.impl.docs.Document_attachSupportingPdf;
 
 public class DemoObjectWithNote_and_DemoInvoice_create3 extends FixtureScript {
 

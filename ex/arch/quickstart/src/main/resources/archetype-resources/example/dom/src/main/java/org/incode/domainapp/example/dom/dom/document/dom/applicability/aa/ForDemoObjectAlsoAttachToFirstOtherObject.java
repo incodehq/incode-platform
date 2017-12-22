@@ -12,10 +12,10 @@ import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.services.repository.RepositoryService;
 
-import org.incode.module.document.dom.impl.applicability.AttachmentAdvisor;
-import org.incode.module.document.dom.impl.applicability.AttachmentAdvisorAbstract;
-import org.incode.module.document.dom.impl.docs.Document;
-import org.incode.module.document.dom.impl.docs.DocumentTemplate;
+import org.incode.example.document.dom.impl.applicability.AttachmentAdvisor;
+import org.incode.example.document.dom.impl.applicability.AttachmentAdvisorAbstract;
+import org.incode.example.document.dom.impl.docs.Document;
+import org.incode.example.document.dom.impl.docs.DocumentTemplate;
 import org.incode.domainapp.example.dom.demo.dom.demowithurl.DemoObjectWithUrl;
 import org.incode.domainapp.example.dom.demo.dom.other.OtherObject;
 

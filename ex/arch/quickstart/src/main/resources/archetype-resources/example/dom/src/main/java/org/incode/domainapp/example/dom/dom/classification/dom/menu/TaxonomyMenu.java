@@ -14,8 +14,8 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.module.classification.dom.impl.category.Category;
-import org.incode.module.classification.dom.impl.category.CategoryRepository;
+import org.incode.example.classification.dom.impl.category.Category;
+import org.incode.example.classification.dom.impl.category.CategoryRepository;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,

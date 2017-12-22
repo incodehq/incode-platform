@@ -9,7 +9,7 @@ import org.incode.module.docrendering.stringinterpolator.fixture.RenderingStrate
 import org.incode.module.docrendering.stringinterpolator.fixture.RenderingStrategyFSForStringInterpolatorPreviewAndCaptureUrl;
 import org.incode.module.docrendering.xdocreport.fixture.RenderingStrategyFSForXDocReportToDocx;
 import org.incode.module.docrendering.xdocreport.fixture.RenderingStrategyFSForXDocReportToPdf;
-import org.incode.module.document.fixture.DocumentTemplateFSAbstract;
+import org.incode.example.document.fixture.DocumentTemplateFSAbstract;
 
 public class RenderingStrategy_create6 extends DocumentTemplateFSAbstract {
 

@@ -5,7 +5,7 @@ package org.incode.domainapp.example.dom.dom.alias.dom.spiimpl.aliastype;
 
 import org.apache.isis.applib.annotation.Title;
 
-import org.incode.module.alias.dom.spi.AliasType;
+import org.incode.example.alias.dom.spi.AliasType;
 
 import lombok.Getter;
 

@@ -7,7 +7,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.domainapp.example.dom.demo.dom.invoicewithatpath.DemoInvoiceWithAtPath;
-import org.incode.module.docfragment.dom.spi.ApplicationTenancyService;
+import org.incode.example.docfragment.dom.spi.ApplicationTenancyService;
 
 import org.incode.domainapp.example.dom.demo.dom.customer.DemoCustomer;
 

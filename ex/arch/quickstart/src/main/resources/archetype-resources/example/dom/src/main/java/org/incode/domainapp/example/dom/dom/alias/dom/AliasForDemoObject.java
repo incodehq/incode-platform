@@ -14,11 +14,11 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Property;
 
-import org.incode.module.alias.dom.impl.Alias;
-import org.incode.module.alias.dom.impl.AliasRepository;
-import org.incode.module.alias.dom.impl.T_addAlias;
-import org.incode.module.alias.dom.impl.T_aliases;
-import org.incode.module.alias.dom.impl.T_removeAlias;
+import org.incode.example.alias.dom.impl.Alias;
+import org.incode.example.alias.dom.impl.AliasRepository;
+import org.incode.example.alias.dom.impl.T_addAlias;
+import org.incode.example.alias.dom.impl.T_aliases;
+import org.incode.example.alias.dom.impl.T_removeAlias;
 
 import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
 

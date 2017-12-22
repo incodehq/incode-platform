@@ -1,11 +1,11 @@
 package org.incode.domainapp.example.dom.dom.document.fixture.seed;
 
-import org.incode.module.docrendering.freemarker.fixture.RenderingStrategyFSForFreemarker;
-import org.incode.module.docrendering.stringinterpolator.fixture.RenderingStrategyFSForStringInterpolator;
-import org.incode.module.docrendering.stringinterpolator.fixture.RenderingStrategyFSForStringInterpolatorCaptureUrl;
-import org.incode.module.docrendering.stringinterpolator.fixture.RenderingStrategyFSForStringInterpolatorPreviewAndCaptureUrl;
-import org.incode.module.docrendering.xdocreport.fixture.RenderingStrategyFSForXDocReportToDocx;
-import org.incode.module.docrendering.xdocreport.fixture.RenderingStrategyFSForXDocReportToPdf;
+import org.incode.example.docrendering.freemarker.fixture.RenderingStrategyFSForFreemarker;
+import org.incode.example.docrendering.stringinterpolator.fixture.RenderingStrategyFSForStringInterpolator;
+import org.incode.example.docrendering.stringinterpolator.fixture.RenderingStrategyFSForStringInterpolatorCaptureUrl;
+import org.incode.example.docrendering.stringinterpolator.fixture.RenderingStrategyFSForStringInterpolatorPreviewAndCaptureUrl;
+import org.incode.example.docrendering.xdocreport.fixture.RenderingStrategyFSForXDocReportToDocx;
+import org.incode.example.docrendering.xdocreport.fixture.RenderingStrategyFSForXDocReportToPdf;
 import org.incode.example.document.fixture.DocumentTemplateFSAbstract;
 
 public class RenderingStrategy_create6 extends DocumentTemplateFSAbstract {

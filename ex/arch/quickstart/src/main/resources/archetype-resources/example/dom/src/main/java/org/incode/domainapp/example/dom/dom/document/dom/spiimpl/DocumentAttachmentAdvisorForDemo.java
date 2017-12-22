@@ -12,10 +12,10 @@ import com.google.common.collect.Lists;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
-import org.incode.module.document.dom.impl.docs.Document;
-import org.incode.module.document.dom.impl.types.DocumentType;
-import org.incode.module.document.dom.impl.types.DocumentTypeRepository;
-import org.incode.module.document.dom.spi.DocumentAttachmentAdvisor;
+import org.incode.example.document.dom.impl.docs.Document;
+import org.incode.example.document.dom.impl.types.DocumentType;
+import org.incode.example.document.dom.impl.types.DocumentTypeRepository;
+import org.incode.example.document.dom.spi.DocumentAttachmentAdvisor;
 import org.incode.domainapp.example.dom.dom.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
 
 @DomainService(nature = NatureOfService.DOMAIN)

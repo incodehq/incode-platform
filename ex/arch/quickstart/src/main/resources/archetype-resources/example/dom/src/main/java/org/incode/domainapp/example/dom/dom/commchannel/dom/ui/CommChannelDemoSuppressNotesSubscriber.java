@@ -9,7 +9,7 @@ import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
-import org.incode.module.commchannel.dom.impl.channel.CommunicationChannel;
+import org.incode.example.commchannel.dom.impl.channel.CommunicationChannel;
 
 @DomainService(nature = NatureOfService.DOMAIN)
 public class CommChannelDemoSuppressNotesSubscriber extends AbstractSubscriber {

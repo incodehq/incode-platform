@@ -21,7 +21,7 @@
 
         <maven-war-plugin.warName>${project.parent.artifactId}</maven-war-plugin.warName>
 
-        <isis-maven-plugin.swagger.appManifest>org.incode.module.communications.demo.application.manifest.DemoAppAppManifest</isis-maven-plugin.swagger.appManifest>
+        <isis-maven-plugin.swagger.appManifest>org.incode.example.communications.demo.application.manifest.DemoAppAppManifest</isis-maven-plugin.swagger.appManifest>
         <isis-maven-plugin.swagger.dependency.groupId>${project.groupId}</isis-maven-plugin.swagger.dependency.groupId>
         <isis-maven-plugin.swagger.dependency.artifactId>${project.parent.artifactId}-demo-application</isis-maven-plugin.swagger.dependency.artifactId>
 
