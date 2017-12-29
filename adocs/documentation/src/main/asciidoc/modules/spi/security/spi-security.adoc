@@ -352,7 +352,7 @@ The security module also provides its own built-in mechanism for determining app
 
 [NOTE]
 ====
-This is this design is designed for hierarchical tenancies, eg where a tenancy corresponds to a country or region and a user cannot reside in multiple regions concurrently.
+This is designed for hierarchical tenancies, eg where a tenancy corresponds to a country or region and a user cannot reside in multiple regions concurrently.
 If this does not suit your requirements, then use the more general purpose `ApplicationTenancyEvaluator` SPI service described above.
 ====
 
@@ -472,7 +472,7 @@ If using the `PasswordEncryptionServiceUsingJBcrypt` service (discussed below), 
 
 Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-security-dom).
 
-For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide/contributors-guide.adoc#[contributors guide].
 
 
 [[__spi-security_shiro-configuration]]
