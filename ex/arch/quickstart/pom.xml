@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.incode.platform.archetype</groupId>
     <artifactId>quickstart-archetype</artifactId>
-    <version>2.0.0-M1-SNAPSHOT</version>
+    <version>1.16.0</version>
     <packaging>maven-archetype</packaging>
     <name>incode-quickstart-archetype</name>
     <build>
