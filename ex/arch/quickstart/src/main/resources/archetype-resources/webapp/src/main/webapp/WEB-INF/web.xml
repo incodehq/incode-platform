@@ -13,28 +13,6 @@
     </welcome-file-list>
 
 
-    <!-- Uncomment to include example modules that set up embedded camel: START --> <!--
-    <listener>
-        <listener-class>domainapp.webapp.spring.CustomSpringContextLoaderListener</listener-class>
-    </listener>
-
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>
-            classpath:activemq-config.xml,
-            classpath:example-embeddedcamel-config.xml,
-            classpath:propertyPlaceholderConfigurer-config.xml
-        </param-value>
-    </context-param>
-
-
-    <context-param>
-        <param-name>spring.config.file</param-name>
-        <param-value>classpath:spring.properties</param-value>
-    </context-param>
-    --> <!-- Uncomment to include example modules that set up embedded camel: END -->
-
-
     <servlet>
         <servlet-name>jolokia-agent</servlet-name>
         <servlet-class>org.jolokia.http.AgentServlet</servlet-class>

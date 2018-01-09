@@ -92,12 +92,6 @@
     </build>
 
     <dependencies>
-        <!-- Uncomment to include example modules that set up embedded camel: START --> <!--
-        <dependency>
-            <groupId>${symbol_dollar}{project.groupId}</groupId>
-            <artifactId>${artifactId}-example-embeddedcamel</artifactId>
-        </dependency>
-        --> <!-- Uncomment to include example modules that set up embedded camel: END -->
 
         <dependency>
             <groupId>${symbol_dollar}{project.groupId}</groupId>
@@ -347,7 +341,7 @@
             </activation>
             <dependencies>
                 <dependency>
-                    <groupId>org.incode</groupId>
+                    <groupId>org.incode.example.settings</groupId>
                     <artifactId>incode-example-settings-dom</artifactId>
                 </dependency>
             </dependencies>

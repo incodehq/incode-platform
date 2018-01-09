@@ -96,13 +96,6 @@
             <artifactId>${artifactId}-appdefn</artifactId>
         </dependency>
 
-        <!-- Uncomment to include example modules demonstrating platform usage: START --> <!--
-        <dependency>
-            <groupId>${symbol_dollar}{project.groupId}</groupId>
-            <artifactId>${artifactId}-example-appdefn</artifactId>
-        </dependency>
-        --> <!-- Uncomment to include example modules demonstrating platform usage: END -->
-
         <dependency>
             <groupId>org.isisaddons.module.quartz</groupId>
             <artifactId>isis-module-quartz-dom</artifactId>

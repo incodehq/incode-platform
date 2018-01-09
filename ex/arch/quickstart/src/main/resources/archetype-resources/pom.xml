@@ -5,7 +5,8 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>1.15.1.1</version>
+        <version>2.0.0-M1-SNAPSHOT</version>
+        <relativePath>../../../modules/pom.xml</relativePath>
     </parent>
 
     <groupId>${groupId}</groupId>
@@ -17,7 +18,7 @@
 
     <properties>
 
-        <isis.version>1.15.1</isis.version>
+        <isis.version>1.16.0</isis.version>
         <incode-platform.version>${project.parent.version}</incode-platform.version>
 
         <spring.version>4.1.9.RELEASE</spring.version>
@@ -76,26 +77,26 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>${rootArtifactId}-example-appdefn</artifactId>
-                <version>${version}</version>
+                <artifactId>incode-extended-example-appdefn</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>${rootArtifactId}-example-canonical</artifactId>
-                <version>${version}</version>
+                <artifactId>incode-extended-example-canonical</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>${rootArtifactId}-example-dom</artifactId>
-                <version>${version}</version>
+                <artifactId>incode-extended-example-dom</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>${rootArtifactId}-example-embeddedcamel</artifactId>
-                <version>${version}</version>
+                <artifactId>incode-extended-example-embeddedcamel</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
         </dependencies>
@@ -119,9 +120,6 @@
                 </property>
             </activation>
             <modules>
-                <!-- Uncomment to include example modules demonstrating platform usage: START --> <!--
-                <module>example/dom</module>
-                --> <!-- Uncomment to include example modules demonstrating platform usage: END -->
                 <module>module-simple</module>
             </modules>
         </profile>
@@ -138,17 +136,6 @@
                 <module>module-simple</module>
                 <module>appdefn</module>
                 <module>webapp</module>
-
-                <!-- Uncomment to include example modules that set up embedded camel: START --> <!--
-                <module>example/canonical</module>
-                <module>example/embeddedcamel</module>
-                --> <!-- Uncomment to include example modules that set up embedded camel: END -->
-
-                <!-- Uncomment to include example modules demonstrating platform usage: START --> <!--
-                <module>example/dom</module>
-                <module>example/appdefn</module>
-                --> <!-- Uncomment to include example modules demonstrating platform usage: END -->
-
             </modules>
         </profile>
     </profiles>

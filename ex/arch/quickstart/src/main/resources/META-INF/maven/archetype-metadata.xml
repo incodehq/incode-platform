@@ -1,16 +1,25 @@
 <archetype-descriptor xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0" name="incode-quickstart" xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <fileSets>
         <fileSet filtered="true" encoding="UTF-8">
-            <directory>example/appdefn</directory>
+            <directory>webapp</directory>
             <includes>
-                <include>**/*.java</include>
                 <include>**/*.xml</include>
             </includes>
         </fileSet>
         <fileSet filtered="true" encoding="UTF-8">
-            <directory>webapp</directory>
+            <directory>module-simple/.gradle</directory>
             <includes>
+                <include>**/*.properties</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>webapp/src</directory>
+            <includes>
+                <include>**/Dockerfile</include>
+                <include>**/*.java</include>
                 <include>**/*.xml</include>
+                <include>**/*.html</include>
+                <include>**/*.properties</include>
             </includes>
         </fileSet>
         <fileSet filtered="true" encoding="UTF-8">
@@ -33,42 +42,6 @@
             </includes>
         </fileSet>
         <fileSet filtered="true" encoding="UTF-8">
-            <directory>example/embeddedcamel</directory>
-            <includes>
-                <include>**/*.java</include>
-                <include>**/*.xml</include>
-            </includes>
-        </fileSet>
-        <fileSet filtered="true" encoding="UTF-8">
-            <directory>module-base</directory>
-            <includes>
-                <include>**/*.xml</include>
-            </includes>
-        </fileSet>
-        <fileSet filtered="true" encoding="UTF-8">
-            <directory>module-simple</directory>
-            <includes>
-                <include>**/*.xml</include>
-                <include>**/*.properties</include>
-            </includes>
-        </fileSet>
-        <fileSet filtered="true" encoding="UTF-8">
-            <directory>module-simple/.gradle</directory>
-            <includes>
-                <include>**/*.properties</include>
-            </includes>
-        </fileSet>
-        <fileSet filtered="true" encoding="UTF-8">
-            <directory>webapp/src</directory>
-            <includes>
-                <include>**/Dockerfile</include>
-                <include>**/*.java</include>
-                <include>**/*.xml</include>
-                <include>**/*.html</include>
-                <include>**/*.properties</include>
-            </includes>
-        </fileSet>
-        <fileSet filtered="true" encoding="UTF-8">
             <directory>module-simple/src</directory>
             <includes>
                 <include>**/*.java</include>
@@ -76,18 +49,15 @@
             </includes>
         </fileSet>
         <fileSet filtered="true" encoding="UTF-8">
-            <directory>example/dom</directory>
+            <directory>scripts</directory>
             <includes>
-                <include>**/*.java</include>
-                <include>**/*.xml</include>
-                <include>**/*.html</include>
                 <include>**/*.properties</include>
             </includes>
         </fileSet>
         <fileSet filtered="true" encoding="UTF-8">
-            <directory>scripts</directory>
+            <directory>module-base</directory>
             <includes>
-                <include>**/*.properties</include>
+                <include>**/*.xml</include>
             </includes>
         </fileSet>
         <fileSet filtered="true" encoding="UTF-8">
@@ -98,62 +68,16 @@
             </includes>
         </fileSet>
         <fileSet filtered="true" encoding="UTF-8">
-            <directory>example/canonical</directory>
+            <directory>module-simple</directory>
             <includes>
-                <include>**/*.java</include>
                 <include>**/*.xml</include>
-            </includes>
-        </fileSet>
-        <fileSet encoding="UTF-8">
-            <directory>example/appdefn</directory>
-            <includes>
-                <include>**/*.gitignore</include>
-                <include>**/*.png</include>
-                <include>**/*.iml</include>
-                <include>**/*.sql</include>
+                <include>**/*.properties</include>
             </includes>
         </fileSet>
         <fileSet encoding="UTF-8">
             <directory>webapp</directory>
             <includes>
                 <include>**/*.gitignore</include>
-                <include>**/*.iml</include>
-            </includes>
-        </fileSet>
-        <fileSet encoding="UTF-8">
-            <directory>appdefn/src</directory>
-            <includes>
-                <include>**/*.feature</include>
-                <include>**/*.orm</include>
-                <include>**/*.sql</include>
-            </includes>
-        </fileSet>
-        <fileSet encoding="UTF-8">
-            <directory>example/embeddedcamel</directory>
-            <includes>
-                <include>**/*.iml</include>
-            </includes>
-        </fileSet>
-        <fileSet encoding="UTF-8">
-            <directory>module-base</directory>
-            <includes>
-                <include>**/*.iml</include>
-            </includes>
-        </fileSet>
-        <fileSet encoding="UTF-8">
-            <directory>module-simple</directory>
-            <includes>
-                <include>**/*.gradle</include>
-                <include>**/*.</include>
-                <include>**/*.bat</include>
-                <include>**/*.pot</include>
-                <include>**/*.gitignore</include>
-                <include>**/*.iml</include>
-            </includes>
-        </fileSet>
-        <fileSet encoding="UTF-8">
-            <directory>example</directory>
-            <includes>
                 <include>**/*.iml</include>
             </includes>
         </fileSet>
@@ -186,22 +110,17 @@
             </includes>
         </fileSet>
         <fileSet encoding="UTF-8">
-            <directory>module-simple/src</directory>
+            <directory>appdefn/src</directory>
             <includes>
-                <include>**/*.png</include>
+                <include>**/*.feature</include>
+                <include>**/*.orm</include>
+                <include>**/*.sql</include>
             </includes>
         </fileSet>
         <fileSet encoding="UTF-8">
-            <directory>example/dom</directory>
+            <directory>module-simple/src</directory>
             <includes>
-                <include>**/*.xlsx</include>
-                <include>**/*.pdf</include>
-                <include>**/*.PDF</include>
-                <include>**/*.gitignore</include>
                 <include>**/*.png</include>
-                <include>**/*.iml</include>
-                <include>**/*.json</include>
-                <include>**/*.docx</include>
             </includes>
         </fileSet>
         <fileSet encoding="UTF-8">
@@ -209,6 +128,12 @@
             <includes>
                 <include>**/*.sh</include>
                 <include>**/*.adoc</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory>module-base</directory>
+            <includes>
+                <include>**/*.iml</include>
             </includes>
         </fileSet>
         <fileSet encoding="UTF-8">
@@ -220,8 +145,13 @@
             </includes>
         </fileSet>
         <fileSet encoding="UTF-8">
-            <directory>example/canonical</directory>
+            <directory>module-simple</directory>
             <includes>
+                <include>**/*.gradle</include>
+                <include>**/*.</include>
+                <include>**/*.bat</include>
+                <include>**/*.pot</include>
+                <include>**/*.gitignore</include>
                 <include>**/*.iml</include>
             </includes>
         </fileSet>

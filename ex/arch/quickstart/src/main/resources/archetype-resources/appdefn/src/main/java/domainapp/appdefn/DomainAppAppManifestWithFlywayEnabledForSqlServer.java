@@ -33,17 +33,6 @@ public class DomainAppAppManifestWithFlywayEnabledForSqlServer extends DomainApp
                         "isispublishmq",
                         "isissecurity",
                         "isissessionlogger",
-                        /* Uncomment to include example modules demonstrating platform usage: START */ /*
-                        "incodeAlias",
-                        "incodeClassification",
-                        "incodeCommChannel",
-                        "IncodeCommunications",
-                        "incodeCountry",
-                        "incodeDocFragment",
-                        "incodeDocuments",
-                        "incodeNote",
-                        "isistags",
-                        */ /* Uncomment to include example modules demonstrating platform usage: END */
                         "simple"
                 ));
 
