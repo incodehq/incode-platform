@@ -1,0 +1,11 @@
+# rundocker.sh
+
+Example usage:
+
+    rundocker.sh test/myapp isis-overrides.properties -p 8080:8080
+
+where
+
+* `test/myapp` is the name of the image to be run (use `docker image ls` to find images)
+
+* `-p 8080:8080` is passed through to the `docker run` command

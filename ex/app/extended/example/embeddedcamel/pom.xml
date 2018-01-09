@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.incode.example.application</groupId>
+        <artifactId>incode-extended</artifactId>
+        <version>1.16.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>incode-extended-example-embeddedcamel</artifactId>
+    <name>Incode Extended Ex Camel: Embedded</name>
+
+    <description>
+        Contains routing and supporting beans for Camel
+    </description>
+
+    <packaging>jar</packaging>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.odavid.maven.plugins</groupId>
+                <artifactId>mixin-maven-plugin</artifactId>
+                <version>0.1-alpha-39</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <mixins>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>standard</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>surefire</artifactId>
+                        </mixin>
+                    </mixins>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-applib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-schema</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.module.publishmq</groupId>
+            <artifactId>isis-module-publishmq-dom-camel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.isisaddons.module.publishmq</groupId>
+            <artifactId>isis-module-publishmq-dom-statusclient</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>incode-extended-module-simple</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>incode-extended-example-canonical</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>camel-test</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+            <properties>
+            </properties>
+
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-test</artifactId>
+                    <scope>test</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-spring</artifactId>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-spring-javaconfig</artifactId>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-test-spring</artifactId>
+                    <scope>test</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-test</artifactId>
+                    <scope>test</scope>
+                </dependency>
+        </dependencies>
+        </profile>
+
+        <profile>
+            <id>camel-with-cxf-overrides</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+            <properties>
+                <cxf-core.version>3.1.1</cxf-core.version>
+            </properties>
+
+            <dependencies>
+
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-core</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-spring</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-jms</artifactId>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-stream</artifactId>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-ognl</artifactId>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>javassist</groupId>
+                            <artifactId>javassist</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-jaxb</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-jackson</artifactId>
+                </dependency>
+
+                <!-- override old dependencies in org.apache.camel:camel-cxf:jar -->
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-cxf</artifactId>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>org.apache.cxf</groupId>
+                            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>org.apache.cxf</groupId>
+                            <artifactId>cxf-rt-bindings-soap</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>org.apache.cxf</groupId>
+                            <artifactId>cxf-rt-rs-client</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.cxf</groupId>
+                    <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+                    <version>${cxf-core.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.cxf</groupId>
+                    <artifactId>cxf-rt-bindings-soap</artifactId>
+                    <version>${cxf-core.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.cxf</groupId>
+                    <artifactId>cxf-rt-rs-client</artifactId>
+                    <version>${cxf-core.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+
+</project>
