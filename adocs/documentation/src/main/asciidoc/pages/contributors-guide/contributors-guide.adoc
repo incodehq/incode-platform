@@ -20,6 +20,7 @@ This guide provides guidance to those looking to build the platform from source,
 + ex/
  + app/
   - quickstart/    # quickstart application
+  - extended/      # extended quickstart, with example subdomain modules
  + arch/
   - quickstart/    # quickstart archetype
 - mavenmixins/
@@ -54,6 +55,7 @@ These must be built first, because the modules depend upon them.
 
 [source,bash]
 ----
+cd mavenmixins
 mvn clean install -Dskip.isis-validate -Dskip.isis-swagger -o
 ----
 
@@ -64,6 +66,7 @@ To build all modules, use:
 
 [source,bash]
 ----
+cd modules
 mvn clean install -o
 ----
 
@@ -79,5 +82,15 @@ To build an individual module, use:
 [source,bash]
 ----
 mvn clean install  -D dom-alias -Dskip.default -o -Dskip.isis-validate -Dskip.isis-swagger
+----
+
+=== Building Quickstart App
+
+Finally, build the example quickstart app
+
+[source,bash]
+----
+cd ex/app/quickstart
+mvn clean install -o
 ----
 
