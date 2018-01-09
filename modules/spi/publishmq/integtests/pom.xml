@@ -55,14 +55,14 @@
 
             <dependency>
                 <groupId>org.incode.example.application</groupId>
-                <artifactId>incode-quickstart-example-publishmq-externalsystemadapter</artifactId>
+                <artifactId>incode-extended-example-publishmq-externalsystemadapter</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- can these children be declared in -fix parent ? -->
             <dependency>
                 <groupId>org.incode.example.application</groupId>
-                <artifactId>incode-quickstart-example-embeddedcamel</artifactId>
+                <artifactId>incode-extended-example-embeddedcamel</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -79,14 +79,14 @@
 
         <dependency>
             <groupId>org.incode.example.application</groupId>
-            <artifactId>incode-quickstart-example-dom</artifactId>
+            <artifactId>incode-extended-example-dom</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.incode.example.application</groupId>
-            <artifactId>incode-quickstart-example-embeddedcamel</artifactId>
+            <artifactId>incode-extended-example-embeddedcamel</artifactId>
             <scope>test</scope>
         </dependency>
 

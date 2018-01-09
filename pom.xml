@@ -30,8 +30,9 @@
                 </property>
             </activation>
             <modules>
-                <module>ex/app/quickstart/example/dom</module>
                 <module>ex/app/quickstart/module-simple</module>
+                <module>ex/app/extended/example/dom</module>
+                <module>ex/app/extended/module-simple</module>
 
                 <module>modules/dom/alias/impl</module>
                 <module>modules/dom/classification/impl</module>
@@ -431,6 +432,9 @@
 
                 <!-- quickstart app (module fixtures/demo usage, basis of quickstart archetype) -->
                 <module>ex/app/quickstart</module>
+
+                <!-- extended version of quickstart app -->
+                <module>ex/app/extended</module>
 
                 <!-- quickstart archetype generated from ex/app/quickstart  -->
                 <module>ex/arch/quickstart</module>

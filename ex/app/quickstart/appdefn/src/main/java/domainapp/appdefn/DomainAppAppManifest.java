@@ -27,10 +27,6 @@ public class DomainAppAppManifest extends AppManifestAbstract {
 
             DomainAppAppDefnModule.class,
 
-            /* Uncomment to include example modules that set up embedded camel: START */
-            domainapp.example.embeddedcamel.EmbeddedCamelModule.class,
-            /* Uncomment to include example modules that set up embedded camel: END */
-
             // extensions
             TogglzModule.class,
 

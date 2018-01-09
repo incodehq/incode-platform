@@ -4,11 +4,11 @@
 
     <parent>
         <groupId>org.incode.example.application</groupId>
-        <artifactId>incode-quickstart-example</artifactId>
+        <artifactId>incode-extended-example</artifactId>
         <version>1.15.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>incode-quickstart-example-publishmq-embeddedcamel_to_externalsystem</artifactId>
+    <artifactId>incode-extended-example-publishmq-embeddedcamel_to_externalsystem</artifactId>
 
     <name>Incode Platform DomainApp Example: PublishMQ Routing</name>
     <description>
@@ -53,13 +53,13 @@
 
         <dependency>
             <groupId>${project.groupId</groupId>
-            <artifactId>incode-quickstart-example-dom</artifactId>
+            <artifactId>incode-extended-example-dom</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>${project.groupId</groupId>
-            <artifactId>incode-quickstart-example-publishmq-externalsystemadapter-wsdlgen</artifactId>
+            <artifactId>incode-extended-example-publishmq-externalsystemadapter-wsdlgen</artifactId>
             <version>${project.version}</version>
         </dependency>
 

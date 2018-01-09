@@ -78,25 +78,25 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-quickstart-example-appdefn</artifactId>
+                <artifactId>incode-extended-example-appdefn</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-quickstart-example-canonical</artifactId>
+                <artifactId>incode-extended-example-canonical</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-quickstart-example-dom</artifactId>
+                <artifactId>incode-extended-example-dom</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-quickstart-example-embeddedcamel</artifactId>
+                <artifactId>incode-extended-example-embeddedcamel</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -121,9 +121,6 @@
                 </property>
             </activation>
             <modules>
-                <!-- Uncomment to include example modules demonstrating platform usage: START -->
-                <module>example/dom</module>
-                <!-- Uncomment to include example modules demonstrating platform usage: END -->
                 <module>module-simple</module>
             </modules>
         </profile>
@@ -140,17 +137,6 @@
                 <module>module-simple</module>
                 <module>appdefn</module>
                 <module>webapp</module>
-
-                <!-- Uncomment to include example modules that set up embedded camel: START -->
-                <module>example/canonical</module>
-                <module>example/embeddedcamel</module>
-                <!-- Uncomment to include example modules that set up embedded camel: END -->
-
-                <!-- Uncomment to include example modules demonstrating platform usage: START -->
-                <module>example/dom</module>
-                <module>example/appdefn</module>
-                <!-- Uncomment to include example modules demonstrating platform usage: END -->
-
             </modules>
         </profile>
     </profiles>

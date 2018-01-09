@@ -13,9 +13,9 @@ This page collates the change logs from the individual modules both collectively
 
 include::_change-log_incode-platform.adoc[leveloffset=+1]
 include::_change-log_incode-parent.adoc[leveloffset=+1]
-include::dom/dom.adoc[leveloffset=+1]
 include::ext/ext.adoc[leveloffset=+1]
 include::lib/lib.adoc[leveloffset=+1]
 include::mml/mml.adoc[leveloffset=+1]
 include::spi/spi.adoc[leveloffset=+1]
 include::wkt/wkt.adoc[leveloffset=+1]
+include::dom/dom.adoc[leveloffset=+1]

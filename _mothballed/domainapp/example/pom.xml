@@ -9,7 +9,7 @@
         <version>1.15.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>incode-quickstart-example</artifactId>
+    <artifactId>incode-extended-example</artifactId>
     <name>Incode Platform DomainApp Example (parent)</name>
     <description>Example modules demonstrating use of the Incode Platform.</description>
 
@@ -20,37 +20,37 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-quickstart-example-publishmq-externalsystemadapter</artifactId>
+                <artifactId>incode-extended-example-publishmq-externalsystemadapter</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-quickstart-example-canonical</artifactId>
+                <artifactId>incode-extended-example-canonical</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-quickstart-example-appdefn</artifactId>
+                <artifactId>incode-extended-example-appdefn</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-quickstart-example-dom</artifactId>
+                <artifactId>incode-extended-example-dom</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-quickstart-example-embeddedcamel</artifactId>
+                <artifactId>incode-extended-example-embeddedcamel</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-quickstart-example-publishmq-embeddedcamel_to_externalsystem</artifactId>
+                <artifactId>incode-extended-example-publishmq-embeddedcamel_to_externalsystem</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

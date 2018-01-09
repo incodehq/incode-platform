@@ -41,7 +41,7 @@
 
         <dependency>
             <groupId>org.incode.example.application</groupId>
-            <artifactId>incode-quickstart-example-dom</artifactId>
+            <artifactId>incode-extended-example-dom</artifactId>
             <scope>test</scope>
             <version>${project.version}</version>
         </dependency>

@@ -15,6 +15,17 @@
 ^.>| Apache Isis version
 ^| Notes
 
+| 1.16.0
+| Y
+| Y
+| Y
+| 1.16.0
+| Updates to Apache Isis 1.16.0.
+
+Generic subdomains renamed as "example subdomains"
+
+Quickstart archetype simplified (removed spring and extended example appdefn/dom)
+
 | 1.15.1.1
 | Y
 | Y
@@ -48,7 +59,7 @@
 | Y
 | Y
 | 1.15.0
-| First release as a single platform.
+| First release as a single platform, against Apache Isis 1.15.0.
 
 Includes all the modules previously available via link:http://www.isisaddons.org[Isis Addons] and link:http://catalog.incode.org[Incode Catalog], mavenmixins (for isis:validate and isis:swagger).
 

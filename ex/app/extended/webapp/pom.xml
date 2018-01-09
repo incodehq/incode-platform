@@ -93,12 +93,10 @@
             <artifactId>incode-extended-appdefn</artifactId>
         </dependency>
 
-        <!-- Uncomment to include example modules demonstrating platform usage: START -->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>incode-extended-example-appdefn</artifactId>
         </dependency>
-        <!-- Uncomment to include example modules demonstrating platform usage: END -->
 
         <dependency>
             <groupId>org.isisaddons.module.quartz</groupId>

@@ -80,25 +80,25 @@
 
             <dependency>
                 <groupId>org.incode.example.application</groupId>
-                <artifactId>incode-quickstart-example-appdefn</artifactId>
+                <artifactId>incode-extended-example-appdefn</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.incode.example.application</groupId>
-                <artifactId>incode-quickstart-example-canonical</artifactId>
+                <artifactId>incode-extended-example-canonical</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.incode.example.application</groupId>
-                <artifactId>incode-quickstart-example-dom</artifactId>
+                <artifactId>incode-extended-example-dom</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.incode.example.application</groupId>
-                <artifactId>incode-quickstart-example-embeddedcamel</artifactId>
+                <artifactId>incode-extended-example-embeddedcamel</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

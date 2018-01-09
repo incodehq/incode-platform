@@ -89,12 +89,10 @@
     </build>
 
     <dependencies>
-        <!-- Uncomment to include example modules that set up embedded camel: START -->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>incode-extended-example-embeddedcamel</artifactId>
         </dependency>
-        <!-- Uncomment to include example modules that set up embedded camel: END -->
 
         <dependency>
             <groupId>${project.groupId}</groupId>

@@ -52,7 +52,7 @@
 
         <dependency>
             <groupId>org.incode.example.application</groupId>
-            <artifactId>incode-quickstart-example-dom</artifactId>
+            <artifactId>incode-extended-example-dom</artifactId>
             <version>${project.version}</version>
         </dependency>
 

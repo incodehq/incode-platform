@@ -4,11 +4,11 @@
 
     <parent>
         <groupId>org.incode.example.application</groupId>
-        <artifactId>incode-quickstart-example-publishmq-externalsystemadapter</artifactId>
+        <artifactId>incode-extended-example-publishmq-externalsystemadapter</artifactId>
         <version>1.15.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>incode-quickstart-example-publishmq-externalsystemadapter-wsdl</artifactId>
+    <artifactId>incode-extended-example-publishmq-externalsystemadapter-wsdl</artifactId>
     <name>Incode Platform DomainApp Example: PublishMQ ExtSysAdapter WSDL</name>
 
     <build>
