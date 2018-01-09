@@ -58,12 +58,12 @@
     </developers>
 
     <properties>
-        <isis.version>1.15.1</isis.version>
+        <isis.version>1.16.0</isis.version>
         <!--
         this needs to be a released version rather than -SNAPSHOT
         (cannot build the mixins and then consume them within the same maven 'reactor')
         -->
-        <incode-mavenmixin.version>1.15.1.1</incode-mavenmixin.version>
+        <incode-mavenmixin.version>1.16.0</incode-mavenmixin.version>
 
         <isis-maven-plugin.version>${isis.version}</isis-maven-plugin.version>
 

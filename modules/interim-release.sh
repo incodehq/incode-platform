@@ -4,7 +4,7 @@ REMOTE=$2
 
 if [ -z "$VERSION_BASE" -o -z "$REMOTE" ]; then
     echo "usage: $(basename $0) [base version] [remote]"
-    echo "   eg: $(basename $0) 1.15.0 origin"
+    echo "   eg: $(basename $0) 1.16.0 origin"
     exit 1
 fi
 
