@@ -435,7 +435,7 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 
 Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-communications-dom[Maven Central Repo].
 
-For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide/contributors-guide.adoc#[contributors guide].
 
 
 === Bootstrapping
@@ -476,8 +476,8 @@ From the Incode Platform it uses:
 * xref:../../lib/base/lib-base.adoc#[base library] module
 * xref:../../lib/poly/lib-poly.adoc#[poly library] module
 * xref:../../lib/pdfbox/lib-pdfbox.adoc#[pdfbox library] module
-* xref:../../dom/country/dom-country.adoc#[country generic subdomain] module
-* xref:../../dom/document/dom-document.adoc#[document generic subdomain] module
+* xref:../../dom/country/dom-country.adoc#[country example subdomain] module
+* xref:../../dom/document/dom-document.adoc#[document example subdomain] module
 * xref:../../dom/command/spi-command.adoc#[command spi] module
 * xref:../../spi/security/spi-security.adoc#[security spi] module
 

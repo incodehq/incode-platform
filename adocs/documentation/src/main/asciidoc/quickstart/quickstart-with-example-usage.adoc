@@ -163,12 +163,12 @@ The table below outlines the app manifests to run to demonstrate usage of the li
 
 
 
-[[__quickstart-with-example-usage_modules_generic-subdomains]]
-=== Generic Subdomains
+[[__quickstart-with-example-usage_modules_example-subdomains]]
+=== Example Subdomains
 
-The table below outlines the app manifests to run to demonstrate usage of each of the generic subdomain modules.
+The table below outlines the app manifests to run to demonstrate usage of each of the example subdomain modules.
 
-.Generic subdomain example usage
+.Example subdomain usage
 [cols="2a,6a,3a", options="header"]
 |===
 

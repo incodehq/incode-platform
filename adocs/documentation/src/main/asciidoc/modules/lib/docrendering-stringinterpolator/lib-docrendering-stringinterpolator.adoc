@@ -149,7 +149,7 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 
 Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-docrendering-stringinterpolator-dom[Maven Central Repo].
 
-For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide.adoc#[contributors guide].
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide/contributors-guide.adoc#[contributors guide].
 
 
 === Bootstrapping
@@ -198,4 +198,4 @@ From the Incode Platform it uses:
 
 * xref:../../lib/base/lib-base.adoc#[base library] module
 * xref:../../lib/stringinterpolator/lib-stringinterpolator.adoc#[stringinterpolator library] module
-* xref:../../dom/document/dom-document.adoc#[document generic subdomain] module
+* xref:../../dom/document/dom-document.adoc#[document example subdomain] module

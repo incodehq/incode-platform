@@ -1,11 +1,11 @@
 [[dom]]
-= Generic Subdomains
+= Example Subdomains
 :_basedir: ../../
 :_imagesdir: images/
 :generate_pdf:
 :toc:
 
-Generic subdomain modules provide business functionality reusable in many different contexts, such as communications, documents and application/user settings.
+Example subdomain modules provide business functionality reusable in many different contexts, such as communications, documents and application/user settings.
 All of these modules define their own set of persistent entities and supporting services.
 
 [cols="2a,3a,1a, 1a", options="header"]

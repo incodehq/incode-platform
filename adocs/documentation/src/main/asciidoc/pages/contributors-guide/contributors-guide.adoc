@@ -25,7 +25,7 @@ This guide provides guidance to those looking to build the platform from source,
 - mavenmixins/
 + modules/               # modules making up the platform
  - pom.xml            # org.incode:incode-parent
- - dom/               # generic subdomains
+ - dom/               # example subdomains
  - ext/               # extensions
  - lib/               # libraries
  - mml/               # metamodel facets
