@@ -242,11 +242,6 @@ For example:
 </properties>
 ----
 
-* Finally, ensure that the optional modules are *commented in*.
-
-+
-Search for the phrase _"Uncomment to include example modules"_
-
 
 Staying in the same directory, recreate using:
 
