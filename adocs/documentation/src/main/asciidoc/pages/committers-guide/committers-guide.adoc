@@ -479,7 +479,7 @@ To also build the PDFs, use:
 
 [source,bash]
 ----
-sh preview-html.sh
+sh preview-pdf.sh
 ----
 
 
