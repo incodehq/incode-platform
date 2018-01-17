@@ -1,6 +1,6 @@
 package domainapp.modules.base;
 
-public final class BaseModule {
-    private BaseModule(){}
+import org.apache.isis.applib.ModuleAbstract;
 
+public class BaseModule extends ModuleAbstract {
 }
