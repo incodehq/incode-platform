@@ -21,7 +21,7 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 <dependency>
     <groupId>org.incode.module.unittestsupport</groupId>
     <artifactId>incode-module-unittestsupport-dom</artifactId>
-    <version>1.15.1.1</version>
+    <version>1.16.0</version>
     <scope>test</scope>
 </dependency>
 ----

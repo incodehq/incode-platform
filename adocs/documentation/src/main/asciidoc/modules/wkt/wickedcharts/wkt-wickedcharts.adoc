@@ -110,7 +110,7 @@ Add the component to your project's `dom` module's `pom.xml`:
 <dependency>
     <groupId>org.isisaddons.wicket.wickedcharts</groupId>
     <artifactId>isis-wicket-wickedcharts-cpt</artifactId>
-    <version>1.15.1.1</version>
+    <version>1.16.0</version>
 </dependency>
 ----
 

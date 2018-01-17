@@ -569,7 +569,7 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 <dependency>
     <groupId>org.isisaddons.module.poly</groupId>
     <artifactId>isis-module-poly-dom</artifactId>
-    <version>1.15.1.1</version>
+    <version>1.16.0</version>
 </dependency>
 ----
 
