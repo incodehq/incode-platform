@@ -46,7 +46,7 @@ Simply add this component to your classpath, eg:
 <dependency>
     <groupId>org.isisaddons.wicket.excel</groupId>
     <artifactId>isis-wicket-excel-cpt</artifactId>
-    <version>1.16.0</version>
+    <version>1.16.1</version>
 </dependency>
 ----
 

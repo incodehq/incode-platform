@@ -84,7 +84,7 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 <dependency>
     <groupId>org.incode</groupId>
     <artifactId>incode-example-tags-dom</artifactId>
-    <version>1.16.0</version>
+    <version>1.16.1</version>
 </dependency>
 ----
 

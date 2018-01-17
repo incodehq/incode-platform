@@ -429,7 +429,7 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 <dependency>
     <groupId>org.incode.example.communications</groupId>
     <artifactId>incode-example-communications-dom</artifactId>
-    <version>1.16.0</version>
+    <version>1.16.1</version>
 </dependency>
 ----
 

@@ -73,7 +73,7 @@ Update your classpath by adding this dependency in your project's `dom` module's
 <dependency>
     <groupId>org.isisaddons.module.audit</groupId>
     <artifactId>isis-module-audit-dom</artifactId>
-    <version>1.16.0</version>
+    <version>1.16.1</version>
 </dependency>
 ----
 
