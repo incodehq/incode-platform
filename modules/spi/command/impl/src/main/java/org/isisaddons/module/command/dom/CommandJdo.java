@@ -40,12 +40,16 @@ import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.command.Command;
 import org.apache.isis.applib.services.command.Command3;
+import org.apache.isis.applib.services.command.CommandWithDto;
 import org.apache.isis.applib.services.eventbus.ActionInteractionEvent;
+import org.apache.isis.applib.services.jaxb.JaxbService;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 import org.apache.isis.objectstore.jdo.applib.service.Util;
+import org.apache.isis.schema.cmd.v1.CommandDto;
+import org.apache.isis.schema.cmd.v1.MapDto;
 
 import org.isisaddons.module.command.CommandModule;
 
@@ -150,6 +154,12 @@ import lombok.Setter;
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE timestamp <= :to "
                     + "ORDER BY timestamp DESC"),
+        @javax.jdo.annotations.Query(
+                name="findByTimestampAfterExcludingAndAscending", language="JDOQL",
+                value="SELECT "
+                        + "FROM org.isisaddons.module.command.dom.CommandJdo "
+                        + "WHERE timestamp > :from "
+                        + "ORDER BY timestamp ASC"),
     @javax.jdo.annotations.Query(
             name="find", language="JDOQL",
             value="SELECT "
@@ -181,10 +191,15 @@ import lombok.Setter;
         columnSpans={6,0,6,12}, 
         left={"Identifiers","Target","Notes", "Metadata"},
         right={"Detail","Timings","Results"})
-public class CommandJdo extends DomainChangeJdoAbstract implements Command3, HasUsername {
+public class CommandJdo extends DomainChangeJdoAbstract implements Command3, HasUsername, CommandWithDto {
 
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(CommandJdo.class);
+
+    static final String DTO_USERDATA_KEY_TARGET_CLASS = "targetClass";
+    static final String DTO_USERDATA_KEY_TARGET_ACTION = "targetAction";
+    static final String DTO_USERDATA_KEY_ARGUMENTS = "arguments";
+    static final String DTO_USERDATA_KEY_TIMESTAMP_TIME = "timestampTime";
 
     //region > domain event superclasses
     public static abstract class PropertyDomainEvent<T> extends CommandModule.PropertyDomainEvent<CommandJdo, T> { }
@@ -478,6 +493,47 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     public boolean isLegacyMemento() {
         return getMemento() != null && getMemento().startsWith("<memento");
     }
+    //endregion
+
+    //region > asDto (CommandWithDto api programmatic)
+    @Override
+    public CommandDto asDto() {
+        if(getMemento() == null) {
+            return null;
+        }
+        if(isLegacyMemento()) {
+            return null;
+        }
+        final CommandDto commandDto = jaxbService.fromXml(CommandDto.class, getMemento());
+
+        // for some reason this isn't being persisted initially, so patch it in.  TODO: should fix this
+        commandDto.setUser(getUser());
+
+        putUserData(commandDto, DTO_USERDATA_KEY_TARGET_CLASS, getTargetClass());
+        putUserData(commandDto, DTO_USERDATA_KEY_TARGET_ACTION, getTargetAction());
+        putUserData(commandDto, DTO_USERDATA_KEY_ARGUMENTS, getArguments());
+        putUserData(commandDto, DTO_USERDATA_KEY_TIMESTAMP_TIME, Long.toString(getTimestamp().getTime()));
+
+        return commandDto;
+    }
+
+    private static void putUserData(final CommandDto commandDto, final String key, final String value) {
+        final MapDto userData = userDataFor(commandDto);
+        final MapDto.Entry entry = new MapDto.Entry();
+        entry.setKey(key);
+        entry.setValue(value);
+        userData.getEntry().add(entry);
+    }
+
+    private static MapDto userDataFor(final CommandDto commandDto) {
+        MapDto userData = commandDto.getUserData();
+        if(userData == null) {
+            userData = new MapDto();
+            commandDto.setUserData(userData);
+        }
+        return userData;
+    }
+
     //endregion
 
 
@@ -869,6 +925,9 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
 
     @javax.inject.Inject
     private DomainObjectContainer container;
+
+    @javax.inject.Inject
+    private JaxbService jaxbService;
     //endregion
 
 }

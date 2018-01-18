@@ -12,7 +12,6 @@ import org.apache.isis.applib.annotation.Command.Persistence;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.command.Command;
 import org.apache.isis.applib.services.command.Command.Executor;
 import org.apache.isis.applib.services.command.spi.CommandService;
@@ -124,7 +123,5 @@ public class CommandServiceJdo implements CommandService {
     RepositoryService repositoryService;
     @Inject
     FactoryService factoryService;
-    @Inject
-    ClockService clockService;
 
 }

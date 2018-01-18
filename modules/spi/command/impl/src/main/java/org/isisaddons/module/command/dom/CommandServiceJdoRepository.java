@@ -2,8 +2,11 @@ package org.isisaddons.module.command.dom;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
+import org.datanucleus.query.typesafe.TypesafeQuery;
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.annotation.DomainService;
@@ -14,7 +17,12 @@ import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.command.Command;
 import org.apache.isis.applib.services.command.CommandContext;
+import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 import org.apache.isis.applib.services.repository.RepositoryService;
+import org.apache.isis.schema.cmd.v1.CommandDto;
+import org.apache.isis.schema.cmd.v1.MapDto;
+import org.apache.isis.schema.common.v1.OidDto;
+import org.apache.isis.schema.utils.CommandDtoUtils;
 
 /**
  * Provides supporting functionality for querying and persisting
@@ -70,6 +78,7 @@ public class CommandServiceJdoRepository {
     @Programmatic
     public CommandJdo findByTransactionId(final UUID transactionId) {
         persistCurrentCommandIfRequired();
+        // TODO: delegate to type-safe query in findByTransactionIdElseNull helper method
         return repositoryService.firstMatch(
                 new QueryDefault<>(CommandJdo.class,
                         "findByTransactionId", 
@@ -187,15 +196,96 @@ public class CommandServiceJdoRepository {
     }
     //endregion
 
+    public List<CommandJdo> findAfter(final UUID transactionId, final Integer count) {
+        final CommandJdo from = findByTransactionIdElseNull(transactionId);
+        if(from == null) {
+            return null;
+        }
+        return findSince(from.getStartedAt(), count);
+    }
+
+    private CommandJdo findByTransactionIdElseNull(final UUID transactionId) {
+        TypesafeQuery<CommandJdo> q = isisJdoSupport.newTypesafeQuery(CommandJdo.class);
+        final QCommandJdo cand = QCommandJdo.candidate();
+        q = q.filter(
+                cand.transactionId.eq(q.parameter("transactionId", UUID.class))
+        );
+        q.setParameter("transactionId", transactionId);
+        return q.executeUnique();
+    }
+
+    private List<CommandJdo> findSince(final Timestamp from, final Integer count) {
+        final QueryDefault<CommandJdo> q = new QueryDefault<>(
+                CommandJdo.class,
+                "findByTimestampAfterExcludingAndAscending",
+                "from", from);
+        if(count != null) {
+            q.withCount(count);
+        }
+        return repositoryService.allMatches(q);
+    }
+
+    @Programmatic
+    public void save(final CommandDto dto) {
+
+        final String targetClass;
+        final String targetAction;
+        final String arguments;
+        final Timestamp timestamp;
+
+        final MapDto userData = dto.getUserData();
+        if (userData == null) {
+            throw new IllegalStateException(String.format(
+                    "Can only persist DTOs with additional userData; got: \n%s",
+                    CommandDtoUtils.toXml(dto)));
+        }
+
+        final Map<String, String> userDataMap =
+                userData.getEntry().stream()
+                        .collect(Collectors.toMap(MapDto.Entry::getKey, MapDto.Entry::getValue));
+        targetClass = userDataMap.get(CommandJdo.DTO_USERDATA_KEY_TARGET_CLASS);
+        targetAction = userDataMap.get(CommandJdo.DTO_USERDATA_KEY_TARGET_ACTION);
+        arguments = userDataMap.get(CommandJdo.DTO_USERDATA_KEY_ARGUMENTS);
+        timestamp = new Timestamp(Long.parseLong(userDataMap.get(CommandJdo.DTO_USERDATA_KEY_TIMESTAMP_TIME)));
+
+        final CommandJdo commandJdo = repositoryService.instantiate(CommandJdo.class);
+
+        final UUID transactionId = UUID.fromString(dto.getTransactionId());
+        commandJdo.setTransactionId(transactionId);
+
+        final String user = dto.getUser();
+        commandJdo.setUser(user);
+
+        commandJdo.setTimestamp(timestamp);
+
+        // TODO: perhaps we should introduce some other sort of mode, eg REPLAY ?
+        commandJdo.setExecuteIn(org.apache.isis.applib.annotation.Command.ExecuteIn.BACKGROUND);
+
+        commandJdo.setTargetClass(targetClass);
+        commandJdo.setTargetAction(targetAction);
+
+        commandJdo.setArguments(arguments);
+
+        commandJdo.setPersistHint(true);
+
+        final OidDto firstTarget = dto.getTargets().getOid().get(0);
+        commandJdo.setTargetStr(Bookmark.from(firstTarget).toString());
+        commandJdo.setMemento(CommandDtoUtils.toXml(dto));
+        commandJdo.setMemberIdentifier(dto.getMember().getMemberIdentifier());
+
+        repositoryService.persist(commandJdo);
+    }
 
     @javax.inject.Inject
-    private CommandServiceJdo commandService;
+    CommandServiceJdo commandService;
     
     @javax.inject.Inject
-    private CommandContext commandContext;
+    CommandContext commandContext;
 
     @javax.inject.Inject
-    private RepositoryService repositoryService;
+    RepositoryService repositoryService;
 
+    @javax.inject.Inject
+    IsisJdoSupport isisJdoSupport;
 
 }

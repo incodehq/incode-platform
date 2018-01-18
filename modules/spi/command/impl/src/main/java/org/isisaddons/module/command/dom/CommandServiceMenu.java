@@ -3,8 +3,11 @@ package org.isisaddons.module.command.dom;
 import java.util.List;
 import java.util.UUID;
 
+import javax.annotation.Nullable;
+
 import org.joda.time.LocalDate;
 
+import org.apache.isis.applib.ApplicationException;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
@@ -17,6 +20,11 @@ import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.clock.ClockService;
+import org.apache.isis.applib.services.jaxb.JaxbService;
+import org.apache.isis.applib.services.message.MessageService;
+import org.apache.isis.applib.value.Clob;
+import org.apache.isis.schema.cmd.v1.CommandDto;
+import org.apache.isis.schema.cmd.v1.CommandsDto;
 
 import org.isisaddons.module.command.CommandModule;
 
@@ -124,10 +132,10 @@ public class CommandServiceMenu {
 
 
     @javax.inject.Inject
-    private CommandServiceJdoRepository commandServiceRepository;
+    CommandServiceJdoRepository commandServiceRepository;
 
     @javax.inject.Inject
-    private ClockService clockService;
+    ClockService clockService;
 
 }
 
