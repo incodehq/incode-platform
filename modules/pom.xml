@@ -75,6 +75,7 @@
         <commons-codec.version>1.7</commons-codec.version>
         <commons-lang3.version>3.1</commons-lang3.version>
         <commons-logging.version>1.1.1</commons-logging.version>
+        <cxf-rt-rs-client.version>3.1.5</cxf-rt-rs-client.version>
         <danhaywood-java-assertjext.version>0.1.0</danhaywood-java-assertjext.version>
         <danhaywood-java-testsupport.version>1.0.0</danhaywood-java-testsupport.version>
         <docx4j.version>3.2.1</docx4j.version>
@@ -98,6 +99,8 @@
         <shiro-core.version>1.2.3</shiro-core.version>
         <spring.version>4.1.6.RELEASE</spring.version>
         <togglz.version>2.1.0.Final</togglz.version>
+
+
 
         <wicked-charts.version>2.0.1</wicked-charts.version>
 
@@ -482,6 +485,19 @@
             <dependency>
                 <groupId>org.isisaddons.module.freemarker</groupId>
                 <artifactId>isis-module-freemarker-dom</artifactId>
+                <version>1.16.1-SNAPSHOT</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.isisaddons.module.jaxrsclient</groupId>
+                <artifactId>isis-module-jaxrsclient-dom</artifactId>
+                <version>1.16.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.jaxrsclient</groupId>
+                <artifactId>isis-module-jaxrsclient-dom</artifactId>
                 <version>1.16.1-SNAPSHOT</version>
                 <type>test-jar</type>
                 <scope>test</scope>
@@ -1208,6 +1224,7 @@
         <module>lib/fixturesupport/impl</module>
         <module>lib/freemarker/impl</module>
         <module>lib/integtestsupport/impl</module>
+        <module>lib/jaxrsclient/impl</module>
         <module>lib/pdfbox/impl</module>
         <module>lib/poly/impl</module>
         <module>lib/servletapi/impl</module>
