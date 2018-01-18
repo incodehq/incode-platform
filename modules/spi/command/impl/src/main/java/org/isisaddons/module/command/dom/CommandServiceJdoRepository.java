@@ -196,12 +196,44 @@ public class CommandServiceJdoRepository {
     }
     //endregion
 
-    public List<CommandJdo> findAfter(final UUID transactionId, final Integer count) {
+    //region > findSince
+
+    /**
+     * Intended to support the replay of commands on a slave instance of the application.
+     *
+     * This finder returns all {@link CommandJdo}s started after the command with the specified transaction.
+     * The number of commands returned can be limited so that they can be applied in batches.
+     *
+     * If the transactionId is null, then only a single Command is returned.  This is intended to support the case
+     * when the slave does not yet have any Commands replicated.  In practice this is unlikely; typically we expect
+     * that the slave will be set up to run against a copy of the master instance's DB (restored from a backup), in
+     * which case there will already be a Command representing the current high water mark on the slave.
+     *
+     * If the transaction id is not null but the corresponding Command is not found, then <tt>null</tt> is returned.
+     * In the replay scenario the caller will probably interpret this as an error because it means that the high
+     * water mark on the slave is inaccurate, referring to a non-existent Command on the master.
+     *
+     * @param transactionId
+     * @param count
+     * @return
+     */
+    public List<CommandJdo> findSince(final UUID transactionId, final Integer count) {
+        if(transactionId == null) {
+            return findFirst();
+        }
         final CommandJdo from = findByTransactionIdElseNull(transactionId);
         if(from == null) {
             return null;
         }
         return findSince(from.getStartedAt(), count);
+    }
+
+    private List<CommandJdo> findFirst() {
+        final QueryDefault<CommandJdo> q = new QueryDefault<>(
+                CommandJdo.class,
+                "findAscending")
+            .withCount(1);
+        return repositoryService.allMatches(q);
     }
 
     private CommandJdo findByTransactionIdElseNull(final UUID transactionId) {
@@ -224,6 +256,9 @@ public class CommandServiceJdoRepository {
         }
         return repositoryService.allMatches(q);
     }
+    //endregion
+
+    //region > save (CommandDTO)
 
     @Programmatic
     public void save(final CommandDto dto) {
@@ -275,6 +310,8 @@ public class CommandServiceJdoRepository {
 
         repositoryService.persist(commandJdo);
     }
+
+    //endregion
 
     @javax.inject.Inject
     CommandServiceJdo commandService;

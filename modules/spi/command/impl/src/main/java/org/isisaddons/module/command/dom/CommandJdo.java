@@ -62,7 +62,7 @@ import lombok.Setter;
         table="Command")
 @javax.jdo.annotations.Queries( {
     @javax.jdo.annotations.Query(
-            name="findByTransactionId", language="JDOQL",  
+            name="findByTransactionId", language="JDOQL",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE transactionId == :transactionId "),
@@ -165,6 +165,11 @@ import lombok.Setter;
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "ORDER BY timestamp DESC"),
+    @javax.jdo.annotations.Query(
+            name="findAscending", language="JDOQL",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
+                    + "ORDER BY timestamp ASC "),
     @javax.jdo.annotations.Query(
             name="findRecentByUser", language="JDOQL",
             value="SELECT "

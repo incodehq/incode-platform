@@ -79,13 +79,14 @@ public class CommandReplayMenu {
     )
     @MemberOrder(sequence="40")
     public List<CommandJdo> findCommandsSince(
+            @Nullable
             @ParameterLayout(named="Transaction Id")
             final UUID transactionId,
             @Nullable
             @ParameterLayout(named="Count")
             final Integer count)
             throws NotFoundException {
-        final List<CommandJdo> commands = commandServiceRepository.findAfter(transactionId, count);
+        final List<CommandJdo> commands = commandServiceRepository.findSince(transactionId, count);
         if(commands == null) {
             throw new NotFoundException(transactionId);
         }
@@ -117,6 +118,7 @@ public class CommandReplayMenu {
     )
     @MemberOrder(sequence="50")
     public Clob downloadCommandsSince(
+            @Nullable
             @ParameterLayout(named="Transaction Id")
             final UUID transactionId,
             @Nullable
@@ -124,7 +126,7 @@ public class CommandReplayMenu {
             final Integer count,
             @ParameterLayout(named="Filename prefix")
             final String fileNamePrefix) {
-        final List<CommandJdo> commands = commandServiceRepository.findAfter(transactionId, count);
+        final List<CommandJdo> commands = commandServiceRepository.findSince(transactionId, count);
         if(commands == null) {
             messageService.informUser("No commands found");
         }
@@ -135,11 +137,17 @@ public class CommandReplayMenu {
             commandsDto.getCommandDto().add(commandDto);
         }
 
-        final String fileName = String.format("%s_%s.xml", fileNamePrefix, transactionId.toString());
+        final String fileName = String.format(
+                "%s_%s.xml", fileNamePrefix, elseDefault(transactionId));
 
         final String xml = jaxbService.toXml(commandsDto);
         return new Clob(fileName, "application/xml", xml);
     }
+
+    private String elseDefault(final UUID transactionId) {
+        return transactionId != null ? transactionId.toString() : "00000000-0000-0000-0000-000000000000";
+    }
+
     public String default2DownloadCommandsSince() {
         return "commands";
     }
