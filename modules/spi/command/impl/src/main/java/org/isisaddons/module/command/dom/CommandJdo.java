@@ -166,10 +166,11 @@ import lombok.Setter;
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
-            name="findAscending", language="JDOQL",
+            name="findFirst", language="JDOQL",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
-                    + "ORDER BY timestamp ASC "),
+                    + "ORDER BY timestamp ASC "
+                    + "RANGE 0,1"),
     @javax.jdo.annotations.Query(
             name="findRecentByUser", language="JDOQL",
             value="SELECT "

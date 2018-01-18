@@ -229,11 +229,8 @@ public class CommandServiceJdoRepository {
     }
 
     private List<CommandJdo> findFirst() {
-        final QueryDefault<CommandJdo> q = new QueryDefault<>(
-                CommandJdo.class,
-                "findAscending")
-            .withCount(1);
-        return repositoryService.allMatches(q);
+        return repositoryService.allMatches(
+                new QueryDefault<>(CommandJdo.class, "findFirst"));
     }
 
     private CommandJdo findByTransactionIdElseNull(final UUID transactionId) {
