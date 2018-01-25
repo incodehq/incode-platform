@@ -48,13 +48,23 @@ public class BackgroundCommandServiceJdoRepository {
                         "parent", parent));
     }
 
+    /**
+     * @deprecated - replaced by {@link #findBackgroundOrReplayableCommandsNotYetStarted()}.
+     */
+    @Deprecated
     @Programmatic
     public List<CommandJdo> findBackgroundCommandsNotYetStarted() {
+        return findBackgroundOrReplayableCommandsNotYetStarted();
+    }
+
+    @Programmatic
+    public List<CommandJdo> findBackgroundOrReplayableCommandsNotYetStarted() {
         return repositoryService.allMatches(
                 new QueryDefault<>(CommandJdo.class,
-                        "findBackgroundCommandsNotYetStarted"));
+                        "findBackgroundOrReplayableCommandsNotYetStarted"));
     }
 
     @Inject
     RepositoryService repositoryService;
+
 }

@@ -60,6 +60,8 @@
         <dependency>
             <groupId>org.isisaddons.module.settings</groupId>
             <artifactId>isis-module-settings-dom</artifactId>
+            <!-- we have to use an old version because this module was removed in 1.16.0 -->
+            <version>1.15.1.1</version>
             <scope>test</scope>
         </dependency>
 

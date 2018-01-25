@@ -24,29 +24,29 @@ import org.isisaddons.module.command.CommandModule;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "isiscommand.CommandReplayMenu"
+        objectType = "isiscommand.CommandReplayOnMasterService"
 )
 @DomainServiceLayout(
         named = "Activity",
         menuBar = DomainServiceLayout.MenuBar.SECONDARY,
         menuOrder = "20.2"
 )
-public class CommandReplayMenu {
+public class CommandReplayOnMasterService {
 
     public static abstract class PropertyDomainEvent<T>
-            extends CommandModule.PropertyDomainEvent<CommandReplayMenu, T> { }
+            extends CommandModule.PropertyDomainEvent<CommandReplayOnMasterService, T> { }
 
     public static abstract class CollectionDomainEvent<T>
-            extends CommandModule.CollectionDomainEvent<CommandReplayMenu, T> { }
+            extends CommandModule.CollectionDomainEvent<CommandReplayOnMasterService, T> { }
 
     public static abstract class ActionDomainEvent
-            extends CommandModule.ActionDomainEvent<CommandReplayMenu> {
+            extends CommandModule.ActionDomainEvent<CommandReplayOnMasterService> {
     }
 
 
-    //region > findCommandsSince
+    //region > findCommandsOnMasterSince
 
-    public static class FindCommandsSinceDomainEvent extends ActionDomainEvent { }
+    public static class FindCommandsOnMasterSinceDomainEvent extends ActionDomainEvent { }
 
     public static class NotFoundException extends ApplicationException {
         private static final long serialVersionUID = 1L;
@@ -65,28 +65,28 @@ public class CommandReplayMenu {
      * <code>application/xml;profile="urn:org.restfulobjects:repr-types/action-result";x-ro-domain-type="org.apache.isis.schema.cmd.v1.CommandsDto"</code>
      *
      * @param transactionId - to search from.  This transactionId will <i>not</i> be included in the response.
-     * @param count - the maximum number of commands to return.  If not specified, all found will be returned.
+     * @param batchSize - the maximum number of commands to return.  If not specified, all found will be returned.
      *
      * @return
      * @throws NotFoundException - if the command with specified transaction cannot be found.
      */
     @Action(
-            domainEvent = FindCommandsSinceDomainEvent.class,
+            domainEvent = FindCommandsOnMasterSinceDomainEvent.class,
             semantics = SemanticsOf.SAFE
     )
     @ActionLayout(
             cssClassFa = "fa-files-o"
     )
     @MemberOrder(sequence="40")
-    public List<CommandJdo> findCommandsSince(
+    public List<CommandJdo> findCommandsOnMasterSince(
             @Nullable
             @ParameterLayout(named="Transaction Id")
             final UUID transactionId,
             @Nullable
-            @ParameterLayout(named="Count")
-            final Integer count)
+            @ParameterLayout(named="Batch size")
+            final Integer batchSize)
             throws NotFoundException {
-        final List<CommandJdo> commands = commandServiceRepository.findSince(transactionId, count);
+        final List<CommandJdo> commands = commandServiceRepository.findToReplicateSince(transactionId, batchSize);
         if(commands == null) {
             throw new NotFoundException(transactionId);
         }
@@ -95,38 +95,38 @@ public class CommandReplayMenu {
 
     //endregion
 
-    //region > downloadCommandsSince
+    //region > downloadCommandsOnMasterSince
 
-    public static class DownloadCommandsSinceDomainEvent extends ActionDomainEvent { }
+    public static class DownloadCommandsOnMasterSinceDomainEvent extends ActionDomainEvent { }
 
     /**
      * These actions should be called with HTTP Accept Header set to:
      * <code>application/xml;profile="urn:org.restfulobjects:repr-types/action-result";x-ro-domain-type="org.apache.isis.schema.cmd.v1.CommandsDto"</code>
      *
      * @param transactionId - to search from.  This transactionId will <i>not</i> be included in the response.
-     * @param count - the maximum number of commands to return.  If not specified, all found will be returned.
+     * @param batchSize - the maximum number of commands to return.  If not specified, all found will be returned.
      *
      * @return
      * @throws NotFoundException - if the command with specified transaction cannot be found.
      */
     @Action(
-            domainEvent = DownloadCommandsSinceDomainEvent.class,
+            domainEvent = DownloadCommandsOnMasterSinceDomainEvent.class,
             semantics = SemanticsOf.SAFE
     )
     @ActionLayout(
             cssClassFa = "fa-download"
     )
     @MemberOrder(sequence="50")
-    public Clob downloadCommandsSince(
+    public Clob downloadCommandsOnMasterSince(
             @Nullable
             @ParameterLayout(named="Transaction Id")
             final UUID transactionId,
             @Nullable
-            @ParameterLayout(named="Count")
-            final Integer count,
+            @ParameterLayout(named="Batch size")
+            final Integer batchSize,
             @ParameterLayout(named="Filename prefix")
             final String fileNamePrefix) {
-        final List<CommandJdo> commands = commandServiceRepository.findSince(transactionId, count);
+        final List<CommandJdo> commands = commandServiceRepository.findToReplicateSince(transactionId, batchSize);
         if(commands == null) {
             messageService.informUser("No commands found");
         }
@@ -148,35 +148,11 @@ public class CommandReplayMenu {
         return transactionId != null ? transactionId.toString() : "00000000-0000-0000-0000-000000000000";
     }
 
-    public String default2DownloadCommandsSince() {
+    public String default2DownloadCommandsOnMasterSince() {
         return "commands";
     }
 
     //endregion
-
-    //region > uploadCommands
-
-    public static class UploadCommandsDomainEvent extends ActionDomainEvent { }
-
-    @Action(
-            domainEvent = UploadCommandsDomainEvent.class,
-            semantics = SemanticsOf.NON_IDEMPOTENT
-    )
-    @ActionLayout(
-            cssClassFa = "fa-upload"
-    )
-    @MemberOrder(sequence="60")
-    public void uploadCommands(final Clob commandsDtoAsXml) {
-        final CharSequence chars = commandsDtoAsXml.getChars();
-        final CommandsDto commandsDto = jaxbService.fromXml(CommandsDto.class, chars.toString());
-        final List<CommandDto> commandDtoList = commandsDto.getCommandDto();
-        for (final CommandDto commandDto : commandDtoList) {
-            commandServiceRepository.save(commandDto);
-        }
-    }
-
-    //endregion
-
 
     @javax.inject.Inject
     CommandServiceJdoRepository commandServiceRepository;

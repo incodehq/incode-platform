@@ -33,7 +33,7 @@ public class FakeScheduler {
             @ParameterLayout(named = "Wait for (ms)")
             final Integer waitFor) throws InterruptedException {
 
-        List<CommandJdo> commands = backgroundCommandRepository.findBackgroundCommandsNotYetStarted();
+        List<CommandJdo> commands = backgroundCommandRepository.findBackgroundOrReplayableCommandsNotYetStarted();
         if(commands.isEmpty()) {
             throw new IllegalStateException("There are no commands not yet started");
         }
@@ -49,7 +49,7 @@ public class FakeScheduler {
 
         thread.join(waitFor);
 
-        commands = backgroundCommandRepository.findBackgroundCommandsNotYetStarted();
+        commands = backgroundCommandRepository.findBackgroundOrReplayableCommandsNotYetStarted();
         if(!commands.isEmpty()) {
             throw new IllegalStateException("There are still " + commands.size() + " not yet started");
         }
@@ -57,7 +57,7 @@ public class FakeScheduler {
 
     // using a validateXxx rather than a hideXxx because of https://issues.apache.org/jira/browse/ISIS-1593
     public String validateRunBackgroundCommands(final Integer waitFor) {
-        List<CommandJdo> commands = backgroundCommandRepository.findBackgroundCommandsNotYetStarted();
+        List<CommandJdo> commands = backgroundCommandRepository.findBackgroundOrReplayableCommandsNotYetStarted();
         return commands.isEmpty() ? "No background commands to run" : null;
     }
 

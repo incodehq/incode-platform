@@ -133,8 +133,6 @@ public class BackgroundCommandServiceJdo extends AbstractService implements Back
 
 
     @Inject
-    JaxbService jaxbService;
-    @Inject
     ClockService clockService;
 
 }

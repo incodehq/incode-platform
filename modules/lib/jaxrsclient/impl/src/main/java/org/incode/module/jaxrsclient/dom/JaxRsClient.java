@@ -1,4 +1,4 @@
-package org.isisaddons.module.jaxrsclient.dom;
+package org.incode.module.jaxrsclient.dom;
 
 import java.net.URI;
 
@@ -12,12 +12,25 @@ import javax.ws.rs.core.Response;
 
 import com.google.common.collect.ImmutableMap;
 
-/**
- * Originally introduced so can be mocked out in tests.
- */
 public interface JaxRsClient {
 
+    enum ReprType {
+        OBJECT("object"),
+        ACTION_RESULT("action-result");
+        private final String suffix;
+        ReprType(final String suffix) {
+            this.suffix = suffix;
+        }
+    }
+
+    /**
+     * @deprecated - use{@link #get(URI, Class, ReprType, String, String)}.
+     * @return
+     */
+    @Deprecated
     JaxRsResponse invoke(URI uri, Class<?> dtoClass, String username, String password);
+
+    JaxRsResponse get(URI uri, Class<?> dtoClass, ReprType reprType, String username, String password);
 
     JaxRsResponse post(URI uri, String bodyJson, String username, String password);
 
@@ -29,6 +42,15 @@ public interface JaxRsClient {
             clientBuilder = ClientBuilder.newBuilder();
         }
 
+        /**
+         * @deprecated - use{@link #get(URI, Class, ReprType, String, String)} with reprType of {@link ReprType#OBJECT}.
+         *
+         * @param uri - the URI returning an 'object' representation type.
+         * @param dtoClass - used to build the Accept header
+         * @param username
+         * @param password
+         */
+        @Deprecated
         @Override
         public JaxRsResponse invoke(
                 final URI uri,
@@ -36,6 +58,23 @@ public interface JaxRsClient {
                 final String username,
                 final String password) {
 
+            return get(uri, dtoClass, ReprType.OBJECT, username, password);
+        }
+
+        /**
+         * @param uri - the URI returning an representation type in line with the reprType parameter.
+         * @param dtoClass - used to build the Accept header
+         * @param reprType - used to build the Accept header
+         * @param username
+         * @param password
+         */
+        @Override
+        public JaxRsResponse get(
+                final URI uri,
+                final Class<?> dtoClass,
+                final ReprType reprType,
+                final String username,
+                final String password) {
             final Client client = this.clientBuilder.build();
 
             try {
@@ -43,7 +82,7 @@ public interface JaxRsClient {
                 configureInvocationBuilder(webTarget);
 
                 final Invocation.Builder invocationBuilder = webTarget.request();
-                invocationBuilder.accept(mediaTypeFor(dtoClass));
+                invocationBuilder.accept(mediaTypeFor(dtoClass, reprType));
                 addBasicAuth(username, password, invocationBuilder);
 
                 final Invocation invocation = invocationBuilder.buildGet();
@@ -98,10 +137,14 @@ public interface JaxRsClient {
         protected void configureInvocationBuilder(final Object invocationBuilder) {
         }
 
-        private static MediaType mediaTypeFor(final Class<?> dtoClass) {
+        private static MediaType mediaTypeFor(final Class<?> dtoClass, final ReprType reprType) {
+            return mediaTypeFor(dtoClass, reprType.suffix);
+        }
+        private static MediaType mediaTypeFor(final Class<?> dtoClass, final String reprType) {
+            // application/xml;profile="urn:org.restfulobjects:repr-types/action-result";x-ro-domain-type="org.apache.isis.schema.cmd.v1.CommandsDto"
             return new MediaType("application", "xml",
                     ImmutableMap.of(
-                            "profile", "urn:org.restfulobjects:repr-types/object",
+                            "profile", "urn:org.restfulobjects:repr-types/" + reprType,
                             "x-ro-domain-type", dtoClass.getName()));
         }
 

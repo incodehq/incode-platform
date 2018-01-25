@@ -10,14 +10,15 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.incode.module.jaxrsclient</groupId>
-    <artifactId>incode-module-jaxrsclient-dom</artifactId>
+    <groupId>org.isisaddons.module.command</groupId>
+    <artifactId>isis-module-command-replay</artifactId>
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Lib JAX-RS Client Impl</name>
+    <name>Incode Platform SPI Command Replay</name>
     <description>
-        A module providing a client for invoking RESTful services.
+        A module providing a Quartz Job to run on a slave app, 
+		for obtaining commands from a master and saving them so that they are replayed.
     </description>
 
     <url>https://github.com/incodehq/incode-platform</url>
@@ -106,17 +107,17 @@
 
         <dependency>
             <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-applib</artifactId>
+            <artifactId>isis-core-runtime</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-rs-client</artifactId>
+            <groupId>org.incode.module.jaxrsclient</groupId>
+            <artifactId>incode-module-jaxrsclient-dom</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
+            <groupId>org.isisaddons.module.quartz</groupId>
+            <artifactId>isis-module-quartz-dom</artifactId>
         </dependency>
 
         <!-- test -->

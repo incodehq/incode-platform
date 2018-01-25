@@ -88,7 +88,7 @@ public class SomeCommandAnnotatedObjects_IntegTest extends CommandModuleIntegTes
             nextTransaction();
 
             // then
-            final List<CommandJdo> commands = backgroundCommandServiceJdoRepository.findBackgroundCommandsNotYetStarted();
+            final List<CommandJdo> commands = backgroundCommandServiceJdoRepository.findBackgroundOrReplayableCommandsNotYetStarted();
             assertThat(commands.size(), is(2)); // one for the command, one for the background command
 
             assertThat(entity.getName(), is("Foo")); // unchanged
@@ -107,7 +107,7 @@ public class SomeCommandAnnotatedObjects_IntegTest extends CommandModuleIntegTes
             nextTransaction();
 
             // then
-            final List<CommandJdo> commands = backgroundCommandServiceJdoRepository.findBackgroundCommandsNotYetStarted();
+            final List<CommandJdo> commands = backgroundCommandServiceJdoRepository.findBackgroundOrReplayableCommandsNotYetStarted();
             assertThat(commands.size(), is(1)); // one for the background command
 
             assertThat(entity.getName(), is("Foo")); // unchanged
@@ -126,7 +126,7 @@ public class SomeCommandAnnotatedObjects_IntegTest extends CommandModuleIntegTes
             nextTransaction();
 
             // then
-            final List<CommandJdo> commands = backgroundCommandServiceJdoRepository.findBackgroundCommandsNotYetStarted();
+            final List<CommandJdo> commands = backgroundCommandServiceJdoRepository.findBackgroundOrReplayableCommandsNotYetStarted();
             assertThat(commands.size(), is(0)); // none persisted
 
             assertThat(entity.getName(), is("Changed!"));

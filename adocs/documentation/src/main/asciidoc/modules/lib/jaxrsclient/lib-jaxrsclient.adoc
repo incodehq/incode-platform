@@ -1,0 +1,151 @@
+[[lib-jaxrsclient]]
+= Jax-RS Client Library
+:_basedir: ../../../
+:_imagesdir: images/
+:generate_pdf:
+:toc:
+
+This module (`incode-module-jaxrsclient-dom`) provides a wrapper around the JAX-RS Client API, as implemented by link:http://cxf.apache.org/docs/jax-rs-client-api.html[Apache CXF].
+
+
+
+== How to configure/use
+
+=== Classpath
+
+Update your classpath by adding this dependency in your dom project's `pom.xml`:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.incode.module.jaxrsclient</groupId>
+    <artifactId>incode-module-jaxrsclient-dom</artifactId>
+    <version>1.16.1</version>
+</dependency>
+----
+
+
+Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-jaxrsclient-dom[Maven Central Repo].
+
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide/contributors-guide.adoc#[contributors guide].
+
+
+=== Bootstrapping
+
+In the `AppManifest`, update its `getModules()` method, eg:
+
+[source,java]
+----
+@Override
+public List<Class<?>> getModules() {
+    return Arrays.asList(
+            ...
+            org.incode.module.jaxrsclient.JaxRsClientModule.class,
+            ...
+    );
+}
+----
+
+
+=== Configuration Properties
+
+There are no configuration properties - the URL a
+
+
+
+
+== API and Implementation
+
+The API is:
+
+[source,java]
+----
+public interface JaxRsClient {
+
+    enum ReprType {
+        OBJECT,
+        ACTION_RESULT;
+    }
+
+    JaxRsResponse invoke(
+        URI uri, Class<?> dtoClass,
+        String username, String password);
+
+    JaxRsResponse get(
+        URI uri,
+        Class<?> dtoClass, ReprType reprType,
+        String username, String password);
+
+    JaxRsResponse post(
+        URI uri,
+        String bodyJson,
+        String username, String password);
+
+}
+----
+<1>
+<2>
+<3>
+
+The library also provides an implementation of this API, namely `JaxRsClient.Default`.
+
+
+
+== Example Usage
+
+From the unit tests:
+
+
+[source,java]
+----
+UriBuilder uriBuilder =
+        UriBuilder.fromUri(
+                "http://jsonplaceholder.typicode.com/posts/2");
+final URI uri = uriBuilder.build();
+
+JaxRsClient jaxRsClient = new JaxRsClient.Default();
+
+final String user = null; // or whatever
+final String password = null; // or whatever
+final JaxRsResponse invoke = jaxRsClient.invoke(uri, SomeDto.class, user, password);
+
+final int status = invoke.getStatus();
+assertThat(status).isEqualTo(200);
+
+final String entity = invoke.readEntity(String.class);
+
+System.out.println(entity);
+----
+
+
+
+
+
+== Known issues
+
+None known at this time.
+
+
+
+== Dependencies
+
+Maven can report modules dependencies using:
+
+
+[source,bash]
+----
+mvn dependency:list -o -pl modules/lib/jaxrsclient/impl -D excludeTransitive=true
+----
+
+which, excluding Apache Isis itself, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+com.google.guava:guava:jar:19.0
+org.apache.cxf:cxf-rt-rs-client:jar:3.1.5
+----
+
+For further details on 3rd-party dependencies, see:
+
+* link:https://github.com/google/guava[Guava]
+* link:http://cxf.apache.org/docs/jax-rs-client-api.html[Apache CXF]

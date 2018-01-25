@@ -9,7 +9,7 @@ http://www.quartz-scheduler.org/xml/job_scheduling_data_1_8.xsd" version="1.8">
         -->
 
         <job>
-            <name>RunBackgroundJobs</name>
+            <name>RunBackgroundCommandsJob</name>
             <group>DomainApp</group>
             <description>Runs all background jobs</description>
             <job-class>org.isisaddons.module.quartz.dom.jobs.RunBackgroundCommandsJob</job-class>
@@ -29,7 +29,33 @@ http://www.quartz-scheduler.org/xml/job_scheduling_data_1_8.xsd" version="1.8">
         <trigger>
             <cron>
                 <name>RunBackgroundJobsEvery10Seconds</name>
-                <job-name>RunBackgroundJobs</job-name>
+                <job-name>RunBackgroundCommandsJob</job-name>
+                <job-group>DomainApp</job-group>
+                <cron-expression>0/10 * * * * ?</cron-expression>
+            </cron>
+        </trigger>
+
+        <job>
+            <name>ReplicateCommandsToReplayJob</name>
+            <group>DomainApp</group>
+            <description>Runs all background jobs</description>
+            <job-class>org.isisaddons.module.command.replay.impl.ReplicateCommandsToReplayJob</job-class>
+            <job-data-map>
+                <entry>
+                    <key>user</key>
+                    <value>scheduler_user</value>
+                </entry>
+                <entry>
+                    <key>roles</key>
+                    <value>admin_role</value>
+                </entry>
+            </job-data-map>
+        </job>
+
+        <trigger>
+            <cron>
+                <name>ReplicateCommandsToReplayJobEvery10Seconds</name>
+                <job-name>ReplicateCommandsToReplayJob</job-name>
                 <job-group>DomainApp</job-group>
                 <cron-expression>0/10 * * * * ?</cron-expression>
             </cron>

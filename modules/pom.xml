@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-build</artifactId>
-        <version>2</version>
+        <version>2.1</version>
         <relativePath/>
     </parent>
 
@@ -426,6 +426,19 @@
             </dependency>
 
             <dependency>
+                <groupId>org.isisaddons.module.command</groupId>
+                <artifactId>isis-module-command-replay</artifactId>
+                <version>1.16.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.command</groupId>
+                <artifactId>isis-module-command-replay</artifactId>
+                <version>1.16.1-SNAPSHOT</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>org.isisaddons.module.docx</groupId>
                 <artifactId>isis-module-docx-dom</artifactId>
                 <version>1.16.1-SNAPSHOT</version>
@@ -491,13 +504,13 @@
             </dependency>
 
             <dependency>
-                <groupId>org.isisaddons.module.jaxrsclient</groupId>
-                <artifactId>isis-module-jaxrsclient-dom</artifactId>
+                <groupId>org.incode.module.jaxrsclient</groupId>
+                <artifactId>incode-module-jaxrsclient-dom</artifactId>
                 <version>1.16.1-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>org.isisaddons.module.jaxrsclient</groupId>
-                <artifactId>isis-module-jaxrsclient-dom</artifactId>
+                <groupId>org.incode.module.jaxrsclient</groupId>
+                <artifactId>incode-module-jaxrsclient-dom</artifactId>
                 <version>1.16.1-SNAPSHOT</version>
                 <type>test-jar</type>
                 <scope>test</scope>
@@ -912,6 +925,11 @@
                 <version>${gson.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-rs-client</artifactId>
+                <version>${cxf-rt-rs-client.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
                 <version>${httpclient.version}</version>
@@ -1109,6 +1127,7 @@
                 <plugins>
 
                     <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
                         <version>2.1.2</version>
                         <executions>
@@ -1250,6 +1269,7 @@
 
         <module>spi/audit/impl</module>
         <module>spi/command/impl</module>
+        <module>spi/command/replay</module>
         <module>spi/publishmq/impl</module>
         <module>spi/security/impl</module>
         <module>spi/sessionlogger/impl</module>

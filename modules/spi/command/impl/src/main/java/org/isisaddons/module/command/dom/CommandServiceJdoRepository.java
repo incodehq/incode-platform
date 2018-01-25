@@ -1,10 +1,13 @@
 package org.isisaddons.module.command.dom;
 
 import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import javax.annotation.Nullable;
 
 import org.datanucleus.query.typesafe.TypesafeQuery;
 import org.joda.time.LocalDate;
@@ -20,9 +23,12 @@ import org.apache.isis.applib.services.command.CommandContext;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.schema.cmd.v1.CommandDto;
+import org.apache.isis.schema.cmd.v1.CommandsDto;
 import org.apache.isis.schema.cmd.v1.MapDto;
 import org.apache.isis.schema.common.v1.OidDto;
+import org.apache.isis.schema.common.v1.PeriodDto;
 import org.apache.isis.schema.utils.CommandDtoUtils;
+import org.apache.isis.schema.utils.jaxbadapters.JavaSqlTimestampXmlGregorianCalendarAdapter;
 
 /**
  * Provides supporting functionality for querying and persisting
@@ -196,41 +202,51 @@ public class CommandServiceJdoRepository {
     }
     //endregion
 
-    //region > findSince
+    //region > findToReplicateSince
 
     /**
      * Intended to support the replay of commands on a slave instance of the application.
      *
-     * This finder returns all {@link CommandJdo}s started after the command with the specified transaction.
-     * The number of commands returned can be limited so that they can be applied in batches.
+     * This finder returns all (completed) {@link CommandJdo}s started after the command with the specified
+     * transaction Id.  The number of commands returned can be limited so that they can be applied in batches.
      *
-     * If the transactionId is null, then only a single Command is returned.  This is intended to support the case
-     * when the slave does not yet have any Commands replicated.  In practice this is unlikely; typically we expect
-     * that the slave will be set up to run against a copy of the master instance's DB (restored from a backup), in
-     * which case there will already be a Command representing the current high water mark on the slave.
+     * If the provided transactionId is null, then only a single {@link CommandJdo command} is returned.  This is
+     * intended to support the case when the slave does not yet have any {@link CommandJdo command}s replicated.
+     * In practice this is unlikely; typically we expect that the slave will be set up to run against a copy of the
+     * master instance's DB (restored from a backup), in which case there will already be a {@link CommandJdo command}
+     * representing the current high water mark on the slave.
      *
-     * If the transaction id is not null but the corresponding Command is not found, then <tt>null</tt> is returned.
-     * In the replay scenario the caller will probably interpret this as an error because it means that the high
-     * water mark on the slave is inaccurate, referring to a non-existent Command on the master.
+     * If the transaction id is not null but the corresponding {@link CommandJdo command} is not found, then
+     * <tt>null</tt> is returned. In the replay scenario the caller will probably interpret this as an error because
+     * it means that the high water mark on the slave is inaccurate, referring to a non-existent
+     * {@link CommandJdo command} on the master.
      *
-     * @param transactionId
-     * @param count
+     * @param transactionId - the identifier of the {@link CommandJdo command} being the replay hwm (using {@link #findReplayHwm()} on the slave), or null if no HWM was found there.
+     * @param batchSize - to restrict the number returned (so that replay commands can be batched).
+     *
      * @return
      */
-    public List<CommandJdo> findSince(final UUID transactionId, final Integer count) {
+    public List<CommandJdo> findToReplicateSince(final UUID transactionId, final Integer batchSize) {
         if(transactionId == null) {
-            return findFirst();
+            return findToReplicateFirst();
         }
         final CommandJdo from = findByTransactionIdElseNull(transactionId);
         if(from == null) {
             return null;
         }
-        return findSince(from.getStartedAt(), count);
+        return findToReplicateSince(from.getStartedAt(), batchSize);
     }
 
-    private List<CommandJdo> findFirst() {
-        return repositoryService.allMatches(
-                new QueryDefault<>(CommandJdo.class, "findFirst"));
+    private List<CommandJdo> findToReplicateFirst() {
+        CommandJdo firstCommandIfAny = repositoryService.firstMatch(
+                new QueryDefault<>(CommandJdo.class, "findToReplicateFirst"));
+        return asList(firstCommandIfAny);
+    }
+
+    private static <T> List<T> asList(@Nullable final T objIfAny) {
+        return objIfAny != null
+                ? Collections.singletonList(objIfAny)
+                : Collections.emptyList();
     }
 
     private CommandJdo findByTransactionIdElseNull(final UUID transactionId) {
@@ -243,42 +259,69 @@ public class CommandServiceJdoRepository {
         return q.executeUnique();
     }
 
-    private List<CommandJdo> findSince(final Timestamp from, final Integer count) {
+    private List<CommandJdo> findToReplicateSince(final Timestamp from, final Integer batchSize) {
         final QueryDefault<CommandJdo> q = new QueryDefault<>(
                 CommandJdo.class,
-                "findByTimestampAfterExcludingAndAscending",
+                "findToReplicateSince",
                 "from", from);
-        if(count != null) {
-            q.withCount(count);
+        if(batchSize != null) {
+            q.withCount(batchSize);
         }
         return repositoryService.allMatches(q);
     }
     //endregion
 
-    //region > save (CommandDTO)
+    //region > findReplayHwm
+    @Programmatic
+    public CommandJdo findReplayHwm() {
+
+        // most recent replayable command, replicated from master to slave
+        CommandJdo replayableHwm = repositoryService.firstMatch(
+                new QueryDefault<>(CommandJdo.class, "findReplayableHwm"));
+        if(replayableHwm != null) {
+            return replayableHwm;
+        }
+
+        // otherwise, the most recent completed command, run in the foreground
+        // on the slave, this corresponds to a command restored from a copy of the production database
+        CommandJdo restoredFromDbHwm = repositoryService.firstMatch(
+                new QueryDefault<>(CommandJdo.class, "findForegroundHwm"));
+
+        return restoredFromDbHwm;
+    }
+
+    //endregion
+
+    //region > saveForReplay (CommandDTO)
 
     @Programmatic
-    public void save(final CommandDto dto) {
+    public void saveForReplay(final CommandsDto commandsDto) {
+        List<CommandDto> commandDto = commandsDto.getCommandDto();
+        for (final CommandDto dto : commandDto) {
+            saveForReplay(dto);
+        }
+    }
 
-        final String targetClass;
-        final String targetAction;
-        final String arguments;
-        final Timestamp timestamp;
+    @Programmatic
+    public void saveForReplay(final CommandDto dto) {
+
 
         final MapDto userData = dto.getUserData();
-        if (userData == null) {
+        final PeriodDto timings = dto.getTimings();
+        if (userData == null || timings == null) {
             throw new IllegalStateException(String.format(
-                    "Can only persist DTOs with additional userData; got: \n%s",
+                    "Can only persist DTOs with additional timings and userData; got: \n%s",
                     CommandDtoUtils.toXml(dto)));
         }
 
         final Map<String, String> userDataMap =
                 userData.getEntry().stream()
                         .collect(Collectors.toMap(MapDto.Entry::getKey, MapDto.Entry::getValue));
-        targetClass = userDataMap.get(CommandJdo.DTO_USERDATA_KEY_TARGET_CLASS);
-        targetAction = userDataMap.get(CommandJdo.DTO_USERDATA_KEY_TARGET_ACTION);
-        arguments = userDataMap.get(CommandJdo.DTO_USERDATA_KEY_ARGUMENTS);
-        timestamp = new Timestamp(Long.parseLong(userDataMap.get(CommandJdo.DTO_USERDATA_KEY_TIMESTAMP_TIME)));
+
+        final String targetClass = userDataMap.get(CommandJdo.DTO_USERDATA_KEY_TARGET_CLASS);
+        final String targetAction = userDataMap.get(CommandJdo.DTO_USERDATA_KEY_TARGET_ACTION);
+        final String arguments = userDataMap.get(CommandJdo.DTO_USERDATA_KEY_ARGUMENTS);
+        final Timestamp startedAt = JavaSqlTimestampXmlGregorianCalendarAdapter.parse(timings.getStartedAt());
 
         final CommandJdo commandJdo = repositoryService.instantiate(CommandJdo.class);
 
@@ -288,10 +331,11 @@ public class CommandServiceJdoRepository {
         final String user = dto.getUser();
         commandJdo.setUser(user);
 
-        commandJdo.setTimestamp(timestamp);
+        // use the startedAt time on the master as the timestamp for this command on the slave,
+        // to (try to) ensure that commands are executed in the same order.
+        commandJdo.setTimestamp(startedAt);
 
-        // TODO: perhaps we should introduce some other sort of mode, eg REPLAY ?
-        commandJdo.setExecuteIn(org.apache.isis.applib.annotation.Command.ExecuteIn.BACKGROUND);
+        commandJdo.setExecuteIn(org.apache.isis.applib.annotation.Command.ExecuteIn.REPLAYABLE);
 
         commandJdo.setTargetClass(targetClass);
         commandJdo.setTargetAction(targetAction);

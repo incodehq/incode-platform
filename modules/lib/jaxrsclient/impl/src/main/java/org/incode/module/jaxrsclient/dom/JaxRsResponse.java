@@ -1,4 +1,4 @@
-package org.isisaddons.module.jaxrsclient.dom;
+package org.incode.module.jaxrsclient.dom;
 
 import javax.ws.rs.core.Response;
 

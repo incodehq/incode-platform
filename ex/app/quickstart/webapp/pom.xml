@@ -99,6 +99,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.isisaddons.module.command</groupId>
+            <artifactId>isis-module-command-replay</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.isisaddons.module.togglz</groupId>
             <artifactId>isis-module-togglz-glue</artifactId>
         </dependency>

@@ -1,4 +1,4 @@
-package org.isisaddons.module.jaxrsclient.dom;
+package org.incode.module.jaxrsclient.dom;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

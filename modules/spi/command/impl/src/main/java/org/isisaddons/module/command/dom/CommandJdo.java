@@ -50,6 +50,8 @@ import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 import org.apache.isis.objectstore.jdo.applib.service.Util;
 import org.apache.isis.schema.cmd.v1.CommandDto;
 import org.apache.isis.schema.cmd.v1.MapDto;
+import org.apache.isis.schema.common.v1.PeriodDto;
+import org.apache.isis.schema.utils.jaxbadapters.JavaSqlTimestampXmlGregorianCalendarAdapter;
 
 import org.isisaddons.module.command.CommandModule;
 
@@ -62,45 +64,37 @@ import lombok.Setter;
         table="Command")
 @javax.jdo.annotations.Queries( {
     @javax.jdo.annotations.Query(
-            name="findByTransactionId", language="JDOQL",
+            name="findByTransactionId",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE transactionId == :transactionId "),
     @javax.jdo.annotations.Query(
-            name="findBackgroundCommandByTransactionId", language="JDOQL",  
+            name="findBackgroundCommandByTransactionId",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE transactionId == :transactionId "
                     + "&& executeIn == 'BACKGROUND'"),
     @javax.jdo.annotations.Query(
-            name="findBackgroundCommandsByParent", language="JDOQL",  
+            name="findBackgroundCommandsByParent",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE parent == :parent "
                     + "&& executeIn == 'BACKGROUND'"),
     @javax.jdo.annotations.Query(
-            name="findBackgroundCommandsNotYetStarted", language="JDOQL",  
-            value="SELECT "
-                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
-                    + "WHERE executeIn == 'BACKGROUND' "
-                    + "&& startedAt == null "
-                    + "ORDER BY timestamp ASC "
-                    ),
-    @javax.jdo.annotations.Query(
-            name="findCurrent", language="JDOQL",  
+            name="findCurrent",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE completedAt == null "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
-            name="findCompleted", language="JDOQL",  
+            name="findCompleted",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE completedAt != null "
                     + "&& executeIn == 'FOREGROUND' "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
-            name="findRecentBackgroundByTarget", language="JDOQL",
+            name="findRecentBackgroundByTarget",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE targetStr == :targetStr "
@@ -108,7 +102,7 @@ import lombok.Setter;
                     + "ORDER BY timestamp DESC, transactionId DESC "
                     + "RANGE 0,30"),
     @javax.jdo.annotations.Query(
-            name="findByTargetAndTimestampBetween", language="JDOQL",  
+            name="findByTargetAndTimestampBetween",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE targetStr == :targetStr " 
@@ -116,75 +110,113 @@ import lombok.Setter;
                     + "&& timestamp <= :to "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
-            name="findByTargetAndTimestampAfter", language="JDOQL",  
+            name="findByTargetAndTimestampAfter",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE targetStr == :targetStr " 
                     + "&& timestamp >= :from "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
-            name="findByTargetAndTimestampBefore", language="JDOQL",  
+            name="findByTargetAndTimestampBefore",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE targetStr == :targetStr " 
                     + "&& timestamp <= :to "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
-            name="findByTarget", language="JDOQL",  
+            name="findByTarget",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE targetStr == :targetStr " 
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
-            name="findByTimestampBetween", language="JDOQL",  
+            name="findByTimestampBetween",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE timestamp >= :from " 
                     + "&&    timestamp <= :to "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
-            name="findByTimestampAfter", language="JDOQL",  
+            name="findByTimestampAfter",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE timestamp >= :from "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
-            name="findByTimestampBefore", language="JDOQL",  
+            name="findByTimestampBefore",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE timestamp <= :to "
                     + "ORDER BY timestamp DESC"),
-        @javax.jdo.annotations.Query(
-                name="findByTimestampAfterExcludingAndAscending", language="JDOQL",
-                value="SELECT "
-                        + "FROM org.isisaddons.module.command.dom.CommandJdo "
-                        + "WHERE timestamp > :from "
-                        + "ORDER BY timestamp ASC"),
     @javax.jdo.annotations.Query(
-            name="find", language="JDOQL",
+            name="find",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
-            name="findFirst", language="JDOQL",
-            value="SELECT "
-                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
-                    + "ORDER BY timestamp ASC "
-                    + "RANGE 0,1"),
-    @javax.jdo.annotations.Query(
-            name="findRecentByUser", language="JDOQL",
+            name="findRecentByUser",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE user == :user "
                     + "ORDER BY timestamp DESC "
                     + "RANGE 0,30"),
     @javax.jdo.annotations.Query(
-            name="findRecentByTarget", language="JDOQL",
+            name="findRecentByTarget",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE targetStr == :targetStr "
                     + "ORDER BY timestamp DESC, transactionId DESC "
-                    + "RANGE 0,30")
+                    + "RANGE 0,30"),
+    @javax.jdo.annotations.Query(
+            name="findToReplicateFirst",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
+                    + "WHERE executeIn == 'FOREGROUND' "
+                    + "   && startedAt   != null "
+                    + "   && completedAt != null "
+                    + "ORDER BY startedAt ASC "
+                    + "RANGE 0,2"),
+        // this should be RANGE 0,1 but results in DataNucleus submitting "FETCH NEXT ROW ONLY"
+        // which SQL Server doesn't understand.  However, as workaround, SQL Server *does* understand FETCH NEXT 2 ROWS ONLY
+    @javax.jdo.annotations.Query(
+            name="findToReplicateSince",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
+                    + "WHERE executeIn == 'FOREGROUND' "
+                    + "   && startedAt > :from "
+                    + "   && completedAt != null "
+                    + "ORDER BY startedAt ASC"),
+    @javax.jdo.annotations.Query(
+            name="findReplayableHwm",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
+                    + "WHERE executeIn == 'REPLAYABLE' "
+                    + "ORDER BY timestamp DESC "
+                    + "RANGE 0,2"),
+        // this should be RANGE 0,1 but results in DataNucleus submitting "FETCH NEXT ROW ONLY"
+        // which SQL Server doesn't understand.  However, as workaround, SQL Server *does* understand FETCH NEXT 2 ROWS ONLY
+    @javax.jdo.annotations.Query(
+            name="findForegroundHwm",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
+                    + "WHERE executeIn == 'FOREGROUND' "
+                    + "   && startedAt   != null "
+                    + "   && completedAt != null "
+                    + "ORDER BY startedAt DESC " // similar to findToReplicateFirst, but DESC not ASC (slave vs master)
+                    + "RANGE 0,2"),
+        // this should be RANGE 0,1 but results in DataNucleus submitting "FETCH NEXT ROW ONLY"
+        // which SQL Server doesn't understand.  However, as workaround, SQL Server *does* understand FETCH NEXT 2 ROWS ONLY
+    @javax.jdo.annotations.Query(
+            name="findBackgroundOrReplayableCommandsNotYetStarted",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
+                    + "WHERE (executeIn == 'BACKGROUND' || executeIn == 'REPLAYABLE') "
+                    + "&& startedAt == null "
+                    + "ORDER BY timestamp ASC "),
+})
+@javax.jdo.annotations.Indices({
+        @javax.jdo.annotations.Index(name = "CommandJdo_timestamp_e_s_IDX", members = {"timestamp", "executeIn", "startedAt"}),
+        @javax.jdo.annotations.Index(name = "CommandJdo_startedAt_e_c_IDX", members = {"startedAt", "executeIn", "completedAt"}),
 })
 @DomainObject(
         objectType = "isiscommand.Command",
@@ -205,7 +237,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     static final String DTO_USERDATA_KEY_TARGET_CLASS = "targetClass";
     static final String DTO_USERDATA_KEY_TARGET_ACTION = "targetAction";
     static final String DTO_USERDATA_KEY_ARGUMENTS = "arguments";
-    static final String DTO_USERDATA_KEY_TIMESTAMP_TIME = "timestampTime";
 
     //region > domain event superclasses
     public static abstract class PropertyDomainEvent<T> extends CommandModule.PropertyDomainEvent<CommandJdo, T> { }
@@ -518,7 +549,13 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
         putUserData(commandDto, DTO_USERDATA_KEY_TARGET_CLASS, getTargetClass());
         putUserData(commandDto, DTO_USERDATA_KEY_TARGET_ACTION, getTargetAction());
         putUserData(commandDto, DTO_USERDATA_KEY_ARGUMENTS, getArguments());
-        putUserData(commandDto, DTO_USERDATA_KEY_TIMESTAMP_TIME, Long.toString(getTimestamp().getTime()));
+        PeriodDto timings = commandDto.getTimings();
+        if(timings == null) {
+            timings = new PeriodDto();
+            commandDto.setTimings(timings);
+        }
+        timings.setStartedAt(JavaSqlTimestampXmlGregorianCalendarAdapter.print(getStartedAt()));
+        timings.setCompletedAt(JavaSqlTimestampXmlGregorianCalendarAdapter.print(getCompletedAt()));
 
         return commandDto;
     }

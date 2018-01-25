@@ -1,4 +1,4 @@
-package org.isisaddons.module.jaxrsclient;
+package org.incode.module.jaxrsclient;
 
 import org.apache.isis.applib.ModuleAbstract;
 

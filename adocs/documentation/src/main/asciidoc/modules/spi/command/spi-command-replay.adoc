@@ -1,0 +1,190 @@
+[[spi-command]]
+= Command Replay
+:_basedir: ../../../
+:_imagesdir: images/
+:generate_pdf:
+:toc:
+
+The "replay" library (introduced in `1.16.1`) allows commands on a master server to be replayed against a slave.
+
+One use case for this is for regression testing or A/B testing of two different versions of an application (eg after a system upgrade, or after a refactoring of business logic).
+
+
+== Manual synchronisation
+
+Commands can be replayed from master to slave manually.
+This is useful when getting started with replay, to check that commands are replaying correctly.
+
+For example, assume that the slave has a backup of your production database from a couple of days ago, and you want to apply all the commands that have occurred in production to the slave.
+
+* On the *_slave_*, use `findReplayHwmOnSlave` action (from the `CommandReplayOnSlaveService`) to obtain the "high water mark".
+
++
+If the backup has just been restored, then this will be the most recent foreground command that was run on the production system before the backup was taken.
+
++
+If any commands have been replayed, then this will be that most recent replayed command.
+
++
+For this command, find its unique transaction Id (a UUID).
+
+* On the *_master_*, use `downloadCommandsOnMasterSince` action (from the `CommandReplayOnMasterService` to download commands since the transaction id of the high water mark obtained in the previous step.
+These are returned in XML format.
+
++
+By default this will return all commands, but they can be batched.
+
++
+The similar `findCommandsOnMasterSince` will just return a regular list.
+
+* Back on the *_slave_*, use `uploadCommandsToSlave` action (again from the `CommandReplayOnSlaveService` to upload the XML events downloaded from master.
+
+The upload action just persists these commands, it doesn't execute them.
+They are actually executed by the background command service (scheduled by quartz).
+
+
+== Automatic synchronisation
+
+The above steps can also be automated, with a Quartz job replicating commands every 10 seconds.
+
+How this works is:
+
+* replicate commands to replay every 10 seconds.
+* commands replayed by the same mechanism that runs background commands, also every 10 seconds
+
+Therefore it could nominally be up to ~20 seconds delay in replaying a command on the master to the slave.
+
+
+=== Configuration
+
+The commands are "pulled" by the slave to the master.
+As such, no configuration is required on the master, only on the slave.
+
+=== Classpath
+
+Update your classpath by adding this dependency in your webapp project's `pom.xml`:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.isisaddons.module.command</groupId>
+    <artifactId>isis-module-command-replay</artifactId>
+    <version>1.16.1</version>
+</dependency>
+----
+
+Check for later releases by searching http://search.maven.org/#search|ga|1|isis-module-command-replay[Maven Central Repo].
+
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide/contributors-guide.adoc#[contributors guide].
+
+
+
+=== Bootstrapping
+
+In the `AppManifest`, update its `getModules()` method, eg:
+
+[source,java]
+----
+@Override
+public List<Class<?>> getModules() {
+    return Arrays.asList(
+            ...
+            org.isisaddons.module.command.replay.CommandReplayModule.class,
+    );
+}
+----
+
+
+=== Quartz job
+
+Use Quartz scheduler to run the `ReplciateCommandsToReplayJob` job every 10 seconds:
+
+[source,xml]
+.quartz-config.xml
+----
+<job-scheduling-data ... version="1.8">
+  <schedule>
+    ...
+    <job>
+      <name>ReplicateCommandsToReplayJob</name>
+      <group>DomainApp</group>
+      <description>Runs all background jobs</description>
+      <job-class>
+        org.isisaddons.module.command.replay.impl.ReplicateCommandsToReplayJob
+      </job-class>
+      <job-data-map>
+        <entry>
+          <key>user</key>
+          <value>scheduler_user</value>
+        </entry>
+        <entry>
+          <key>roles</key>
+          <value>admin_role</value>
+        </entry>
+      </job-data-map>
+    </job>
+    <trigger>
+      <cron>
+        <name>ReplicateCommandsToReplayJobEvery10Seconds</name>
+        <job-name>ReplicateCommandsToReplayJob</job-name>
+        <job-group>DomainApp</job-group>
+        <cron-expression>0/10 * * * * ?</cron-expression>
+      </cron>
+    </trigger>
+    ...
+  </schedule>
+</job-scheduling-data>
+----
+
+
+=== Isis Configuration
+
+The slave uses the master Restful Objects REST API (it invokes the same `downloadCommandsOnMasterSince` action as discussed above).
+This requires the following configuration properties to be set:
+
+[source,ini]
+----
+isis.command.replay.master.baseUrl=http://localhost:8080/restful
+isis.command.replay.master.user=sven
+isis.command.replay.master.password=pass
+----
+
+Adjust as necessary.
+
+The following can also be set, but have defaults:
+
+[source,ini]
+----
+isis.command.replay.slave.maxNumberBatches=5    // <1>
+isis.command.replay.slave.batchSize=10          // <2>
+----
+<1> the number of time the slave will loop obtaining batches
+<2> the number of commands the slave will request in each batch
+
+The defaults are as shown, meaning that the slave will copy over no more than 50 commands every 10 seconds (assuming that the replicate job is scheduled to run every 10 seconds).
+
+
+
+
+== Dependencies
+
+Maven can report modules dependencies using:
+
+[source,bash]
+----
+mvn dependency:list -o -pl modules/spi/command/replay -D excludeTransitive=true
+----
+
+which, excluding Apache Isis itself, returns these compile/runtime dependencies on other modules in the Incode platform:
+
+[source,bash]
+----
+org.incode.module.jaxrsclient:incode-module-jaxrsclient-dom
+org.isisaddons.module.quartz:isis-module-quartz-dom
+----
+
+For further details on these dependencies, see:
+
+* xref:../../lib/lib-jaxrsclient.adoc#[JAX-RS Client library]
+* xref:../../ext/ext-quartz.adoc#[Quartz extension]
+
