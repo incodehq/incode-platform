@@ -1,9 +1,13 @@
 package org.isisaddons.module.command.dom;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Ordering;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,9 +63,34 @@ public class BackgroundCommandServiceJdoRepository {
 
     @Programmatic
     public List<CommandJdo> findBackgroundOrReplayableCommandsNotYetStarted() {
+
+        final List<CommandJdo> failedReplayableCommands = repositoryService.allMatches(
+                new QueryDefault<>(CommandJdo.class,
+                        "findAnyFailedReplayableCommands"));
+
+        if(failedReplayableCommands.isEmpty()) {
+            // combine both replayable and background
+            final List<CommandJdo> commands = Lists.newArrayList();
+            commands.addAll(findReplayableCommandsNotYetStarted());
+            commands.addAll(doFindBackgroundCommandsNotYetStarted());
+            Collections.sort(commands, Ordering.natural().onResultOf(CommandJdo::getTimestamp));
+            return commands;
+        } else {
+            // just background
+            return doFindBackgroundCommandsNotYetStarted();
+        }
+    }
+
+    private List<CommandJdo> findReplayableCommandsNotYetStarted() {
         return repositoryService.allMatches(
                 new QueryDefault<>(CommandJdo.class,
-                        "findBackgroundOrReplayableCommandsNotYetStarted"));
+                        "findReplayableCommandsNotYetStarted"));
+    }
+
+    private List<CommandJdo> doFindBackgroundCommandsNotYetStarted() {
+        return repositoryService.allMatches(
+                new QueryDefault<>(CommandJdo.class,
+                        "findBackgroundCommandsNotYetStarted"));
     }
 
     @Inject

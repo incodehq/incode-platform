@@ -207,12 +207,28 @@ import lombok.Setter;
         // this should be RANGE 0,1 but results in DataNucleus submitting "FETCH NEXT ROW ONLY"
         // which SQL Server doesn't understand.  However, as workaround, SQL Server *does* understand FETCH NEXT 2 ROWS ONLY
     @javax.jdo.annotations.Query(
-            name="findBackgroundOrReplayableCommandsNotYetStarted",
+            name="findBackgroundCommandsNotYetStarted",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
-                    + "WHERE (executeIn == 'BACKGROUND' || executeIn == 'REPLAYABLE') "
-                    + "&& startedAt == null "
+                    + "WHERE executeIn == 'BACKGROUND' "
+                    + "   && startedAt == null "
                     + "ORDER BY timestamp ASC "),
+    @javax.jdo.annotations.Query(
+            name="findReplayableCommandsNotYetStarted",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
+                    + "WHERE executeIn == 'REPLAYABLE' "
+                    + "   && startedAt == null "
+                    + "ORDER BY timestamp ASC "),
+    @javax.jdo.annotations.Query(
+            name="findAnyFailedReplayableCommands",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
+                    + "WHERE executeIn   == 'REPLAYABLE' "
+                    + "   && startedAt   != null "
+                    + "   && completedAt != null "
+                    + "   && exception   != null "
+                    + "RANGE 0,2"),
 })
 @javax.jdo.annotations.Indices({
         @javax.jdo.annotations.Index(name = "CommandJdo_timestamp_e_s_IDX", members = {"timestamp", "executeIn", "startedAt"}),

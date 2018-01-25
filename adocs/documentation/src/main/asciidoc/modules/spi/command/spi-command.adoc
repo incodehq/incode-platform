@@ -316,6 +316,15 @@ This will therefore display all commands that occurred in a given transaction, i
 
 * `CommandJdo_childCommands` mixin provides the `childCommands` contributed collection, while `CommandJdo_siblingCommands` mixin provides the `siblingCommands` contributed collection
 
+* `CommandJdo_retry` mixin allows commands to be resubmitted.
+
+* `CommandJdo_exclude` mixin allows failing replayable commands to be ignored.
+
++
+Once any replayable command hits an exception, no further replayable commands are run.
+This mixin is intended to allow the administrator to choose to skip/ignore any such command.
+
+
 
 In addition, the `T_backgroundCommands` abstract mixin can be used to contribute a `backgroundCommands` collection to any object that can be used as the target of a command, returning the 30 most recent background commands.
 For example:
