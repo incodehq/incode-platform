@@ -4,6 +4,7 @@ import java.net.URI;
 
 import javax.ws.rs.core.UriBuilder;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.apache.isis.applib.services.jaxb.JaxbService;
@@ -14,6 +15,7 @@ import org.incode.module.jaxrsclient.dom.JaxRsResponse;
 
 public class ReplicateCommandsToReplayJob_Test {
 
+    @Ignore
     @Test
     public void testing_the_unmarshalling() throws Exception {
         JaxRsClient.Default jaxRsClient = new JaxRsClient.Default();
