@@ -7,6 +7,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.bookmark.BookmarkService2;
 import org.apache.isis.applib.services.iactn.Interaction;
+import org.apache.isis.applib.services.publish.EventMetadata;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.schema.common.v1.InteractionType;
@@ -57,7 +58,11 @@ public class InteractionExecutionRepositoryJdo implements InteractionExecutionRe
         buf.append(titleService.titleOf(publishedEvent.getEventType()))
             .append(" of '").append(publishedEvent.getTargetAction())
             .append("' on ").append(titleService.titleOf(execution.getTarget()));
-        return buf.toString();
+        String s = buf.toString();
+        if (s.length() > EventMetadata.TitleType.Meta.MAX_LEN) {
+            return s.substring(0, EventMetadata.TitleType.Meta.MAX_LEN - 3) + "...";
+        }
+        return s;
     }
 
     private PublishedEventType eventTypeFor(final InteractionType interactionType) {
