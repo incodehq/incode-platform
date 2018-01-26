@@ -22,6 +22,7 @@ import org.apache.isis.applib.services.command.Command;
 import org.apache.isis.applib.services.command.CommandContext;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 import org.apache.isis.applib.services.repository.RepositoryService;
+import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 import org.apache.isis.schema.cmd.v1.CommandDto;
 import org.apache.isis.schema.cmd.v1.CommandsDto;
 import org.apache.isis.schema.cmd.v1.MapDto;
@@ -349,7 +350,33 @@ public class CommandServiceJdoRepository {
         commandJdo.setMemento(CommandDtoUtils.toXml(dto));
         commandJdo.setMemberIdentifier(dto.getMember().getMemberIdentifier());
 
+        persist(commandJdo);
+    }
+
+    @Programmatic
+    public void persist(final CommandJdo commandJdo) {
+
+        withSafeTargetStr(commandJdo);
+
         repositoryService.persist(commandJdo);
+    }
+
+    @Programmatic
+    public void persistIfHinted(final CommandJdo commandJdo) {
+        withSafeTargetStr(commandJdo);
+
+        if(commandJdo.shouldPersist()) {
+            repositoryService.persist(commandJdo);
+        }
+
+    }
+
+    private CommandJdo withSafeTargetStr(final CommandJdo commandJdo) {
+        // can't store target if too long (eg view models)
+        if (commandJdo.getTargetStr() != null && commandJdo.getTargetStr().length() > JdoColumnLength.BOOKMARK) {
+            commandJdo.setTargetStr(null);
+        }
+        return commandJdo;
     }
 
     //endregion

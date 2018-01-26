@@ -17,8 +17,7 @@ import org.apache.isis.applib.services.background.BackgroundCommandService2;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.command.Command;
-import org.apache.isis.applib.services.jaxb.JaxbService;
-import org.apache.isis.applib.services.repository.RepositoryService;
+import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.schema.cmd.v1.CommandDto;
 import org.apache.isis.schema.common.v1.OidDto;
 import org.apache.isis.schema.utils.CommandDtoUtils;
@@ -67,7 +66,7 @@ public class BackgroundCommandServiceJdo extends AbstractService implements Back
         backgroundCommand.setMemento(aim.asMementoString());
         backgroundCommand.setMemberIdentifier(aim.getActionId());
 
-        repositoryService.persist(backgroundCommand);
+        commandServiceJdoRepository.persist(backgroundCommand);
     }
 
     @Override
@@ -86,8 +85,7 @@ public class BackgroundCommandServiceJdo extends AbstractService implements Back
         backgroundCommand.setMemento(CommandDtoUtils.toXml(dto));
         backgroundCommand.setMemberIdentifier(dto.getMember().getMemberIdentifier());
 
-        repositoryService.persist(backgroundCommand);
-
+        commandServiceJdoRepository.persist(backgroundCommand);
     }
 
     private CommandJdo newBackgroundCommand(
@@ -96,7 +94,7 @@ public class BackgroundCommandServiceJdo extends AbstractService implements Back
             final String targetActionName,
             final String targetArgs) {
 
-        final CommandJdo backgroundCommand = repositoryService.instantiate(CommandJdo.class);
+        final CommandJdo backgroundCommand = factoryService.instantiate(CommandJdo.class);
 
         backgroundCommand.setParent(parentCommand);
 
@@ -126,11 +124,13 @@ public class BackgroundCommandServiceJdo extends AbstractService implements Back
     }
 
 
-    @Inject
-    RepositoryService repositoryService;
-
     //endregion
 
+    @Inject
+    CommandServiceJdoRepository commandServiceJdoRepository;
+
+    @Inject
+    FactoryService factoryService;
 
     @Inject
     ClockService clockService;
