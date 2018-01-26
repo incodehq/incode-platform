@@ -49,7 +49,7 @@ public class CommandReplayOnSlaveService {
     @ActionLayout(
             cssClassFa = "fa-upload"
     )
-    @MemberOrder(sequence="60")
+    @MemberOrder(sequence="60.2")
     public void uploadCommandsToSlave(final Clob commandsDtoAsXml) {
         final CharSequence chars = commandsDtoAsXml.getChars();
         final CommandsDto commandsDto = jaxbService.fromXml(CommandsDto.class, chars.toString());
@@ -72,15 +72,36 @@ public class CommandReplayOnSlaveService {
     @ActionLayout(
             cssClassFa = "fa-bath"
     )
-    @MemberOrder(sequence="60")
+    @MemberOrder(sequence="60.1")
     public CommandJdo findReplayHwmOnSlave() {
         return commandServiceRepository.findReplayHwm();
     }
 
     //endregion
 
+    //region > findBlockedOnSlave
+
+    public static class FindBlockedOnSlaveDomainEvent extends ActionDomainEvent { }
+
+    @Action(
+            domainEvent = FindBlockedOnSlaveDomainEvent.class,
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            cssClassFa = "fa-lock"
+    )
+    @MemberOrder(sequence="60.3")
+    public List<CommandJdo> findBlockedOnSlave() {
+        return backgroundCommandServiceJdoRepository.findAnyFailedReplayableCommands();
+    }
+
+    //endregion
+
     @javax.inject.Inject
     CommandServiceJdoRepository commandServiceRepository;
+
+    @javax.inject.Inject
+    BackgroundCommandServiceJdoRepository backgroundCommandServiceJdoRepository;
 
     @javax.inject.Inject
     JaxbService jaxbService;

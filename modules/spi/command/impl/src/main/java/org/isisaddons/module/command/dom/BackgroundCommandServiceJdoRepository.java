@@ -64,9 +64,7 @@ public class BackgroundCommandServiceJdoRepository {
     @Programmatic
     public List<CommandJdo> findBackgroundOrReplayableCommandsNotYetStarted() {
 
-        final List<CommandJdo> failedReplayableCommands = repositoryService.allMatches(
-                new QueryDefault<>(CommandJdo.class,
-                        "findAnyFailedReplayableCommands"));
+        final List<CommandJdo> failedReplayableCommands = findAnyFailedReplayableCommands();
 
         if(failedReplayableCommands.isEmpty()) {
             // combine both replayable and background
@@ -79,6 +77,13 @@ public class BackgroundCommandServiceJdoRepository {
             // just background
             return doFindBackgroundCommandsNotYetStarted();
         }
+    }
+
+    @Programmatic
+    public List<CommandJdo> findAnyFailedReplayableCommands() {
+        return repositoryService.allMatches(
+                    new QueryDefault<>(CommandJdo.class,
+                            "findAnyFailedReplayableCommands"));
     }
 
     private List<CommandJdo> findReplayableCommandsNotYetStarted() {

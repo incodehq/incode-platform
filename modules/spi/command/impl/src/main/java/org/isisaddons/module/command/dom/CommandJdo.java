@@ -228,7 +228,8 @@ import lombok.Setter;
                     + "   && startedAt   != null "
                     + "   && completedAt != null "
                     + "   && exception   != null "
-                    + "RANGE 0,2"),
+                    + "ORDER BY startedAt DESC "
+                    + "RANGE 0,10"),
 })
 @javax.jdo.annotations.Indices({
         @javax.jdo.annotations.Index(name = "CommandJdo_timestamp_e_s_IDX", members = {"timestamp", "executeIn", "startedAt"}),
