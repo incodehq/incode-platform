@@ -139,16 +139,23 @@ public class ReplicateCommandsToReplayJob implements Job {
             final URI uri = uriBuilder.build();
             LOG.debug("batch {}: uri = {}", batchNum, uri);
 
+            final JaxRsResponse response;
             final JaxRsClient jaxRsClient = new JaxRsClient.Default();
-            final JaxRsResponse response = jaxRsClient.get(uri, CommandsDto.class, JaxRsClient.ReprType.ACTION_RESULT, masterUser, masterPassword);
-            int status = response.getStatus();
-            if(status != Response.Status.OK.getStatusCode()) {
-                final String entity = readEntityFrom(response);
-                if(entity != null) {
-                    LOG.warn("batch {}: status: {}, entity: \n{}", batchNum, status, entity);
-                } else {
-                    LOG.warn("batch {}: status: {}, unable to read entity from response", batchNum, status);
+            try {
+                response = jaxRsClient.get(uri, CommandsDto.class, JaxRsClient.ReprType.ACTION_RESULT, masterUser, masterPassword);
+                int status = response.getStatus();
+                if(status != Response.Status.OK.getStatusCode()) {
+                    final String entity = readEntityFrom(response);
+                    if(entity != null) {
+                        LOG.warn("batch {}: status: {}, entity: \n{}", batchNum, status, entity);
+                    } else {
+                        LOG.warn("batch {}: status: {}, unable to read entity from response", batchNum, status);
+                    }
+                    setMode(quartzContext, Mode.REST_CALL_FAILING);
+                    return;
                 }
+            } catch(Exception ex) {
+                LOG.warn("batch {}: rest call failed", batchNum, ex);
                 setMode(quartzContext, Mode.REST_CALL_FAILING);
                 return;
             }
