@@ -80,6 +80,10 @@ public class CommandJdo_retry<T> {
         }
     }
 
+    public Mode default0Act() {
+        return choices0Act().get(0);
+    }
+
     public String disableAct() {
         if (!commandJdo.isCausedException()) {
             return "Only failed commands can be retried";
