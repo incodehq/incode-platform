@@ -11,12 +11,12 @@ import org.apache.isis.core.runtime.services.background.BackgroundCommandExecuti
 import org.isisaddons.module.command.dom.CommandJdo;
 import org.isisaddons.module.command.dom.ReplayableCommandServiceJdoRepository;
 
-public class ReplicatedCommandExecutionFromReplayableCommandServiceJdo extends BackgroundCommandExecution {
+public class ReplayableCommandExecutionFromReplayableCommandServiceJdo extends BackgroundCommandExecution {
 
     @SuppressWarnings("unused")
-    private final static Logger LOG = LoggerFactory.getLogger(ReplicatedCommandExecutionFromReplayableCommandServiceJdo.class);
+    private final static Logger LOG = LoggerFactory.getLogger(ReplayableCommandExecutionFromReplayableCommandServiceJdo.class);
 
-    public ReplicatedCommandExecutionFromReplayableCommandServiceJdo() {
+    public ReplayableCommandExecutionFromReplayableCommandServiceJdo() {
         super(OnExceptionPolicy.QUIT);
     }
 

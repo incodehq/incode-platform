@@ -14,6 +14,7 @@ import javax.jdo.annotations.NotPersistent;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Ordering;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -162,24 +163,26 @@ import lombok.Setter;
                     + "ORDER BY timestamp DESC, transactionId DESC "
                     + "RANGE 0,30"),
     @javax.jdo.annotations.Query(
-            name="findToReplicateFirst",
+            name="findForegroundFirst",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE executeIn == 'FOREGROUND' "
+                    + "   && timestamp   != null "
                     + "   && startedAt   != null "
                     + "   && completedAt != null "
-                    + "ORDER BY startedAt ASC "
+                    + "ORDER BY timestamp ASC "
                     + "RANGE 0,2"),
         // this should be RANGE 0,1 but results in DataNucleus submitting "FETCH NEXT ROW ONLY"
         // which SQL Server doesn't understand.  However, as workaround, SQL Server *does* understand FETCH NEXT 2 ROWS ONLY
     @javax.jdo.annotations.Query(
-            name="findToReplicateSince",
+            name="findForegroundSince",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE executeIn == 'FOREGROUND' "
-                    + "   && startedAt > :from "
+                    + "   && timestamp > :timestamp "
+                    + "   && startedAt != null "
                     + "   && completedAt != null "
-                    + "ORDER BY startedAt ASC"),
+                    + "ORDER BY timestamp ASC"),
     @javax.jdo.annotations.Query(
             name="findReplayableHwm",
             value="SELECT "
@@ -222,7 +225,7 @@ import lombok.Setter;
                     + "   && startedAt   != null "
                     + "   && completedAt != null "
                     + "   && exception   != null "
-                    + "ORDER BY startedAt DESC "
+                    + "ORDER BY startedAt ASC "
                     + "RANGE 0,10"),
     @javax.jdo.annotations.Query(
             name="findReplayableMostRecentStarted",
@@ -231,7 +234,7 @@ import lombok.Setter;
                     + "WHERE executeIn == 'REPLAYABLE' "
                     + "   && startedAt != null "
                     + "ORDER BY timestamp DESC "
-                    + "RANGE 0,30"),
+                    + "RANGE 0,5"),
     @javax.jdo.annotations.Query(
             name="findReplayableNotYetStarted",
             value="SELECT "
@@ -255,7 +258,7 @@ import lombok.Setter;
         columnSpans={6,0,6,12}, 
         left={"Identifiers","Target","Notes", "Metadata"},
         right={"Detail","Timings","Results"})
-public class CommandJdo extends DomainChangeJdoAbstract implements Command3, HasUsername, CommandWithDto {
+public class CommandJdo extends DomainChangeJdoAbstract implements Command3, HasUsername, CommandWithDto, Comparable<CommandJdo> {
 
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(CommandJdo.class);
@@ -264,7 +267,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     static final String DTO_USERDATA_KEY_TARGET_ACTION = "targetAction";
     static final String DTO_USERDATA_KEY_ARGUMENTS = "arguments";
     static final String DTO_USERDATA_KEY_RETURN_VALUE = "returnValue";
-    static final String DTO_USERDATA_KEY_REPLAY_HINT = "replayHint";
 
     //region > domain event superclasses
     public static abstract class PropertyDomainEvent<T> extends CommandModule.PropertyDomainEvent<CommandJdo, T> { }
@@ -1006,6 +1008,14 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     public String toString() {
         return ObjectContracts.toString(this, "targetStr","memberIdentifier","user","startedAt","completedAt","duration","transactionId");
     }
+
+    private final static Ordering<CommandJdo> COMPARATOR = Ordering.natural().onResultOf(CommandJdo::getTimestamp);
+
+    @Override
+    public int compareTo(final CommandJdo o) {
+        return COMPARATOR.compare(this, o);
+    }
+
 
     //endregion
 

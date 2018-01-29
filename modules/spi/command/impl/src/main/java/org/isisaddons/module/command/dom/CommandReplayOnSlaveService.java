@@ -2,6 +2,7 @@ package org.isisaddons.module.command.dom;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.SortedSet;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
@@ -91,38 +92,20 @@ public class CommandReplayOnSlaveService {
 
     //endregion
 
-    //region > findBlockedOnSlave
+    //region findReplayQueueOnSlave
 
-    public static class FindBlockedOnSlaveDomainEvent extends ActionDomainEvent { }
+    public static class FindReplayQueueOnSlaveDomainEvent extends ActionDomainEvent { }
 
     @Action(
-            domainEvent = FindBlockedOnSlaveDomainEvent.class,
+            domainEvent = FindReplayQueueOnSlaveDomainEvent.class,
             semantics = SemanticsOf.SAFE
     )
     @ActionLayout(
-            cssClassFa = "fa-lock"
+            cssClassFa = "fa-bus"
     )
     @MemberOrder(sequence="60.3")
-    public List<CommandJdo> findBlockedOnSlave() {
-        return commandServiceRepository.findAnyFailedReplayableCommands();
-    }
-
-    //endregion
-
-    //region > findMostRecentReplayableOnSlave
-
-    public static class FindMostRecentReplayableOnSlaveDomainEvent extends ActionDomainEvent { }
-
-    @Action(
-            domainEvent = FindMostRecentReplayableOnSlaveDomainEvent.class,
-            semantics = SemanticsOf.SAFE
-    )
-    @ActionLayout(
-            cssClassFa = "fa-lock"
-    )
-    @MemberOrder(sequence="60.3")
-    public List<CommandJdo> findMostRecentReplayableOnSlave() {
-        return commandServiceRepository.findRecentReplayable();
+    public SortedSet<CommandJdo> findReplayQueueOnSlave() {
+        return commandServiceRepository.findReplayQueueOnSlave();
     }
 
     //endregion

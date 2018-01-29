@@ -63,7 +63,7 @@ http://www.quartz-scheduler.org/xml/job_scheduling_data_1_8.xsd" version="1.8">
             <name>RunReplicatedCommandsJob</name>
             <group>CommandModule</group>
             <description>Runs all replicated commands (if not blocked)</description>
-            <job-class>org.isisaddons.module.command.replay.impl.RunReplicatedCommandsJob</job-class>
+            <job-class>org.isisaddons.module.command.replay.impl.RunReplayableCommandsJob</job-class>
             <job-data-map>
                 <entry>
                     <key>user</key>

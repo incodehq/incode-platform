@@ -14,13 +14,13 @@ import org.apache.isis.core.runtime.authentication.standard.SimpleSession;
 
 import org.isisaddons.module.quartz.dom.jobs.RunBackgroundCommandsJob;
 
-public class RunReplicatedCommandsJob implements Job {
+public class RunReplayableCommandsJob implements Job {
 
     private static final Logger LOG = LoggerFactory.getLogger(RunBackgroundCommandsJob.class);
 
     public void execute(final JobExecutionContext context) throws JobExecutionException {
 
-        final ReplicatedCommandExecutionFromReplayableCommandServiceJdo exec = new ReplicatedCommandExecutionFromReplayableCommandServiceJdo();
+        final ReplayableCommandExecutionFromReplayableCommandServiceJdo exec = new ReplayableCommandExecutionFromReplayableCommandServiceJdo();
 
         final AuthenticationSession authSession = newAuthSession(context);
 

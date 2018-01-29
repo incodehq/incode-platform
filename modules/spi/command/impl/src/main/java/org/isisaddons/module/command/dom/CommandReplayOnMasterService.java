@@ -89,7 +89,7 @@ public class CommandReplayOnMasterService {
             @ParameterLayout(named="Batch size")
             final Integer batchSize)
             throws NotFoundException {
-        final List<CommandJdo> commands = commandServiceRepository.findToReplicateSince(transactionId, batchSize);
+        final List<CommandJdo> commands = commandServiceRepository.findForegroundSince(transactionId, batchSize);
         if(commands == null) {
             throw new NotFoundException(transactionId);
         }
@@ -132,7 +132,7 @@ public class CommandReplayOnMasterService {
             final Integer batchSize,
             @ParameterLayout(named="Filename prefix")
             final String fileNamePrefix) {
-        final List<CommandJdo> commands = commandServiceRepository.findToReplicateSince(transactionId, batchSize);
+        final List<CommandJdo> commands = commandServiceRepository.findForegroundSince(transactionId, batchSize);
         if(commands == null) {
             messageService.informUser("No commands found");
         }

@@ -4,13 +4,14 @@ import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
+import com.google.common.collect.Sets;
 
 import org.datanucleus.query.typesafe.TypesafeQuery;
 import org.joda.time.LocalDate;
@@ -206,7 +207,7 @@ public class CommandServiceJdoRepository {
     }
     //endregion
 
-    //region > findToReplicateSince
+    //region > findForegroundSince
 
     /**
      * Intended to support the replay of commands on a slave instance of the application.
@@ -230,20 +231,20 @@ public class CommandServiceJdoRepository {
      *
      * @return
      */
-    public List<CommandJdo> findToReplicateSince(final UUID transactionId, final Integer batchSize) {
+    public List<CommandJdo> findForegroundSince(final UUID transactionId, final Integer batchSize) {
         if(transactionId == null) {
-            return findToReplicateFirst();
+            return findForegroundFirst();
         }
         final CommandJdo from = findByTransactionIdElseNull(transactionId);
         if(from == null) {
             return null;
         }
-        return findToReplicateSince(from.getStartedAt(), batchSize);
+        return findForegroundSince(from.getTimestamp(), batchSize);
     }
 
-    private List<CommandJdo> findToReplicateFirst() {
+    private List<CommandJdo> findForegroundFirst() {
         CommandJdo firstCommandIfAny = repositoryService.firstMatch(
-                new QueryDefault<>(CommandJdo.class, "findToReplicateFirst"));
+                new QueryDefault<>(CommandJdo.class, "findForegroundFirst"));
         return asList(firstCommandIfAny);
     }
 
@@ -263,11 +264,11 @@ public class CommandServiceJdoRepository {
         return q.executeUnique();
     }
 
-    private List<CommandJdo> findToReplicateSince(final Timestamp from, final Integer batchSize) {
+    private List<CommandJdo> findForegroundSince(final Timestamp timestamp, final Integer batchSize) {
         final QueryDefault<CommandJdo> q = new QueryDefault<>(
                 CommandJdo.class,
-                "findToReplicateSince",
-                "from", from);
+                "findForegroundSince",
+                "timestamp", timestamp);
         if(batchSize != null) {
             q.withCount(batchSize);
         }
@@ -339,18 +340,34 @@ public class CommandServiceJdoRepository {
 
     //endregion
 
-    //region > findRecentReplayable
+    //region > findReplayQueueOnSlave
     @Programmatic
-    public List<CommandJdo> findRecentReplayable() {
+    public SortedSet<CommandJdo> findReplayQueueOnSlave() {
 
-        List<CommandJdo> commandJdos = Lists.newArrayList();
+        // timestamp ASCending, so that if there are any blocked then they'll be near the top.
+        SortedSet<CommandJdo> commandJdos = Sets.newTreeSet(Ordering.natural().onResultOf(CommandJdo::getTimestamp));
 
-        commandJdos.addAll(repositoryService.allMatches(
-                new QueryDefault<>(CommandJdo.class, "findReplayableMostRecentStarted")));
+        final List<CommandJdo> anyFailed = findAnyFailedReplayableCommands();
+        if (!anyFailed.isEmpty()) {
+            // we expect at most only one failed command because the Replay job is meant to fail-fast
+            // if an exception is encountered
+            commandJdos.addAll(anyFailed);
+
+            // these are the commands that are blocked.
+            final CommandJdo firstFailed = anyFailed.get(0);
+            final List<CommandJdo> commandsSince = findForegroundSince(firstFailed.getTransactionId(),
+                    Integer.MAX_VALUE);
+            commandJdos.addAll(commandsSince);
+        }
+
+        // add in the 5 most recent replayed
+        final List<CommandJdo> mostRecent = repositoryService.allMatches(
+                new QueryDefault<>(CommandJdo.class, "findReplayableMostRecentStarted"));
+        commandJdos.addAll(mostRecent);
+
+        // all commands still to replay
         commandJdos.addAll(repositoryService.allMatches(
                 new QueryDefault<>(CommandJdo.class, "findReplayableNotYetStarted")));
-
-        Collections.sort(commandJdos, Ordering.natural().onResultOf(CommandJdo::getTimestamp).reverse());
 
         return commandJdos;
     }
@@ -445,9 +462,10 @@ public class CommandServiceJdoRepository {
 
     //endregion
 
+    //region > injected services
     @javax.inject.Inject
     CommandServiceJdo commandService;
-    
+
     @javax.inject.Inject
     CommandContext commandContext;
 
@@ -456,5 +474,6 @@ public class CommandServiceJdoRepository {
 
     @javax.inject.Inject
     IsisJdoSupport isisJdoSupport;
+    //endregion
 
 }
