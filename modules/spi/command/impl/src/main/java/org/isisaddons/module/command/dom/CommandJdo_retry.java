@@ -10,6 +10,7 @@ import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Command;
 import org.apache.isis.applib.annotation.Contributed;
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.command.CommandContext;
@@ -43,6 +44,7 @@ public class CommandJdo_retry<T> {
     @ActionLayout(
             contributed = Contributed.AS_ACTION
     )
+    @MemberOrder(name = "exception", sequence = "3")
     public CommandJdo act(final Mode mode) {
 
         switch (mode) {
@@ -93,6 +95,10 @@ public class CommandJdo_retry<T> {
         }
 
         return null;
+    }
+
+    public boolean hideAct() {
+        return commandJdo.getExecuteIn().isExcluded();
     }
 
 

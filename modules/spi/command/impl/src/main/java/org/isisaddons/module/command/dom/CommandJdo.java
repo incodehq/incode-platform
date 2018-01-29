@@ -789,33 +789,30 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
 
     //endregion
 
-    //region > exception (property), causedException (derived property), showException (associated action)
+    //region > exception (property), causedException (derived property)
 
-    private String exception;
+    public static class ExceptionDomainEvent extends PropertyDomainEvent<String> { }
 
     /**
      * Stack trace of any exception that might have occurred if this interaction/transaction aborted.
      * 
      * <p>
-     * Not visible in the UI, but accessible 
-     * <p>
      * Not part of the applib API, because the default implementation is not persistent
      * and so there's no object that can be accessed to be annotated.
      */
     @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB")
-    @Programmatic
-    @Override
-    public String getException() {
-        return exception;
-    }
+    @Property(
+            domainEvent = ExceptionDomainEvent.class
+    )
+    @PropertyLayout(
+            hidden = Where.ALL_TABLES,
+            multiLine = 5,
+            named = "Exception (if any)"
+    )
+    @Getter @Setter
+    @MemberOrder(name="Results", sequence="31")
+    private String exception;
 
-    @Override
-    public void setException(final String exception) {
-        this.exception = exception;
-    }
-    
-    
-    // //////////////////////////////////////
 
     public static class IsCausedExceptionDomainEvent extends PropertyDomainEvent<Boolean> { }
 
@@ -824,29 +821,13 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             domainEvent = IsCausedExceptionDomainEvent.class
     )
     @PropertyLayout(
-            hidden = Where.ALL_TABLES
+            hidden = Where.OBJECT_FORMS
     )
     @MemberOrder(name="Results",sequence = "30")
     public boolean isCausedException() {
         return getException() != null;
     }
 
-    
-    // //////////////////////////////////////
-
-    public static class ShowExceptionDomainEvent extends ActionDomainEvent { }
-
-    @Action(
-            domainEvent = ShowExceptionDomainEvent.class,
-            semantics = SemanticsOf.SAFE
-    )
-    @MemberOrder(name="causedException", sequence = "1")
-    public String showException() {
-        return getException();
-    }
-    public boolean hideShowException() {
-        return !isCausedException();
-    }
 
     //endregion
 

@@ -1,15 +1,12 @@
 package org.isisaddons.module.command.dom;
 
-import javax.inject.Inject;
-
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Command;
 import org.apache.isis.applib.annotation.Contributed;
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
-import org.apache.isis.applib.services.command.CommandContext;
-import org.apache.isis.applib.services.jaxb.JaxbService;
 
 import org.isisaddons.module.command.CommandModule;
 
@@ -33,6 +30,7 @@ public class CommandJdo_exclude<T> {
     @ActionLayout(
             contributed = Contributed.AS_ACTION
     )
+    @MemberOrder(name = "exception", sequence = "2")
     public CommandJdo act() {
 
         commandJdo.setExecuteIn(Command.ExecuteIn.EXCLUDED);
