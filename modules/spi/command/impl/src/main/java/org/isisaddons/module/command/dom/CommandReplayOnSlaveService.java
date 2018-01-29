@@ -1,9 +1,11 @@
 package org.isisaddons.module.command.dom;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.CommandReification;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -43,6 +45,7 @@ public class CommandReplayOnSlaveService {
     public static class UploadCommandsToSlaveDomainEvent extends ActionDomainEvent { }
 
     @Action(
+            command = CommandReification.DISABLED,
             domainEvent = UploadCommandsToSlaveDomainEvent.class,
             semantics = SemanticsOf.NON_IDEMPOTENT
     )
@@ -52,8 +55,17 @@ public class CommandReplayOnSlaveService {
     @MemberOrder(sequence="60.2")
     public void uploadCommandsToSlave(final Clob commandsDtoAsXml) {
         final CharSequence chars = commandsDtoAsXml.getChars();
-        final CommandsDto commandsDto = jaxbService.fromXml(CommandsDto.class, chars.toString());
-        final List<CommandDto> commandDtoList = commandsDto.getCommandDto();
+        List<CommandDto> commandDtoList;
+
+        try {
+            final CommandsDto commandsDto = jaxbService.fromXml(CommandsDto.class, chars.toString());
+            commandDtoList = commandsDto.getCommandDto();
+
+        } catch(Exception ex) {
+            final CommandDto commandDto = jaxbService.fromXml(CommandDto.class, chars.toString());
+            commandDtoList = Collections.singletonList(commandDto);
+        }
+
         for (final CommandDto commandDto : commandDtoList) {
             commandServiceRepository.saveForReplay(commandDto);
         }
@@ -92,7 +104,25 @@ public class CommandReplayOnSlaveService {
     )
     @MemberOrder(sequence="60.3")
     public List<CommandJdo> findBlockedOnSlave() {
-        return backgroundCommandServiceJdoRepository.findAnyFailedReplayableCommands();
+        return commandServiceRepository.findAnyFailedReplayableCommands();
+    }
+
+    //endregion
+
+    //region > findMostRecentReplayableOnSlave
+
+    public static class FindMostRecentReplayableOnSlaveDomainEvent extends ActionDomainEvent { }
+
+    @Action(
+            domainEvent = FindMostRecentReplayableOnSlaveDomainEvent.class,
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            cssClassFa = "fa-lock"
+    )
+    @MemberOrder(sequence="60.3")
+    public List<CommandJdo> findMostRecentReplayableOnSlave() {
+        return commandServiceRepository.findRecentReplayable();
     }
 
     //endregion

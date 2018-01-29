@@ -64,40 +64,24 @@ public class BackgroundCommandServiceJdoRepository {
     @Programmatic
     public List<CommandJdo> findBackgroundOrReplayableCommandsNotYetStarted() {
 
-        final List<CommandJdo> failedReplayableCommands = findAnyFailedReplayableCommands();
+        final List<CommandJdo> failedReplayableCommands = commandServiceRepository.findAnyFailedReplayableCommands();
 
         if(failedReplayableCommands.isEmpty()) {
             // combine both replayable and background
             final List<CommandJdo> commands = Lists.newArrayList();
-            commands.addAll(findReplayableCommandsNotYetStarted());
-            commands.addAll(doFindBackgroundCommandsNotYetStarted());
+            commands.addAll(commandServiceRepository.findReplayableCommandsNotYetStarted());
+            commands.addAll(commandServiceRepository.findBackgroundCommandsNotYetStarted());
             Collections.sort(commands, Ordering.natural().onResultOf(CommandJdo::getTimestamp));
             return commands;
         } else {
             // just background
-            return doFindBackgroundCommandsNotYetStarted();
+            return commandServiceRepository.findBackgroundCommandsNotYetStarted();
         }
     }
 
-    @Programmatic
-    public List<CommandJdo> findAnyFailedReplayableCommands() {
-        return repositoryService.allMatches(
-                    new QueryDefault<>(CommandJdo.class,
-                            "findAnyFailedReplayableCommands"));
-    }
 
-    private List<CommandJdo> findReplayableCommandsNotYetStarted() {
-        return repositoryService.allMatches(
-                new QueryDefault<>(CommandJdo.class,
-                        "findReplayableCommandsNotYetStarted"));
-    }
-
-    private List<CommandJdo> doFindBackgroundCommandsNotYetStarted() {
-        return repositoryService.allMatches(
-                new QueryDefault<>(CommandJdo.class,
-                        "findBackgroundCommandsNotYetStarted"));
-    }
-
+    @Inject
+    CommandServiceJdoRepository commandServiceRepository;
     @Inject
     RepositoryService repositoryService;
 

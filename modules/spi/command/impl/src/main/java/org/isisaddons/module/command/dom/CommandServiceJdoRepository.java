@@ -9,6 +9,9 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Ordering;
+
 import org.datanucleus.query.typesafe.TypesafeQuery;
 import org.joda.time.LocalDate;
 
@@ -289,6 +292,56 @@ public class CommandServiceJdoRepository {
                 new QueryDefault<>(CommandJdo.class, "findForegroundHwm"));
 
         return restoredFromDbHwm;
+    }
+
+    //endregion
+
+    //region > findAnyFailedReplayableCommands
+
+    @Programmatic
+    public List<CommandJdo> findAnyFailedReplayableCommands() {
+        return repositoryService.allMatches(
+                new QueryDefault<>(CommandJdo.class,
+                        "findAnyFailedReplayableCommands"));
+    }
+
+    //endregion
+
+    //region > findReplayableCommandsNotYetStarted
+
+    @Programmatic
+    public List<CommandJdo> findReplayableCommandsNotYetStarted() {
+        return repositoryService.allMatches(
+                new QueryDefault<>(CommandJdo.class,
+                        "findReplayableCommandsNotYetStarted"));
+    }
+    //endregion
+
+    //region > findBackgroundCommandsNotYetStarted
+
+    @Programmatic
+    public List<CommandJdo> findBackgroundCommandsNotYetStarted() {
+        return repositoryService.allMatches(
+                new QueryDefault<>(CommandJdo.class,
+                        "findBackgroundCommandsNotYetStarted"));
+    }
+    //endregion
+
+
+    //region > findRecentReplayable
+    @Programmatic
+    public List<CommandJdo> findRecentReplayable() {
+
+        List<CommandJdo> commandJdos = Lists.newArrayList();
+
+        commandJdos.addAll(repositoryService.allMatches(
+                new QueryDefault<>(CommandJdo.class, "findReplayableMostRecentStarted")));
+        commandJdos.addAll(repositoryService.allMatches(
+                new QueryDefault<>(CommandJdo.class, "findReplayableNotYetStarted")));
+
+        Collections.sort(commandJdos, Ordering.natural().onResultOf(CommandJdo::getTimestamp).reverse());
+
+        return commandJdos;
     }
 
     //endregion

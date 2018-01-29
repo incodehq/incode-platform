@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
+import javax.inject.Inject;
 
 import org.apache.isis.applib.ApplicationException;
 import org.apache.isis.applib.annotation.Action;
@@ -14,6 +15,8 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.conmap.ContentMappingServiceForCommandDto;
+import org.apache.isis.applib.conmap.ContentMappingServiceForCommandsDto;
 import org.apache.isis.applib.services.jaxb.JaxbService;
 import org.apache.isis.applib.services.message.MessageService;
 import org.apache.isis.applib.value.Clob;
@@ -92,6 +95,9 @@ public class CommandReplayOnMasterService {
         }
         return commands;
     }
+    public Integer default1FindCommandsOnMasterSince() {
+        return 25;
+    }
 
     //endregion
 
@@ -131,11 +137,8 @@ public class CommandReplayOnMasterService {
             messageService.informUser("No commands found");
         }
 
-        final CommandsDto commandsDto = new CommandsDto();
-        for (final CommandJdo commandJdo : commands) {
-            final CommandDto commandDto = commandJdo.asDto();
-            commandsDto.getCommandDto().add(commandDto);
-        }
+        final CommandsDto commandsDto =
+                contentMappingServiceForCommandsDto.map(commands);
 
         final String fileName = String.format(
                 "%s_%s.xml", fileNamePrefix, elseDefault(transactionId));
@@ -148,8 +151,58 @@ public class CommandReplayOnMasterService {
         return transactionId != null ? transactionId.toString() : "00000000-0000-0000-0000-000000000000";
     }
 
+    public Integer default1DownloadCommandsOnMasterSince() {
+        return 25;
+    }
     public String default2DownloadCommandsOnMasterSince() {
-        return "commands";
+        return "commands_since";
+    }
+
+    //endregion
+
+    //region > downloadCommandById
+
+    public static class DownloadCommandOnMasterDomainEvent extends ActionDomainEvent { }
+
+    /**
+     * This action should be called with HTTP Accept Header set to:
+     * <code>application/xml;profile="urn:org.restfulobjects:repr-types/action-result";x-ro-domain-type="org.apache.isis.schema.cmd.v1.CommandDto"</code>
+     *
+     * @param transactionId - to download.
+     *
+     * @return
+     * @throws NotFoundException - if the command with specified transaction cannot be found.
+     */
+    @Action(
+            domainEvent = DownloadCommandOnMasterDomainEvent.class,
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            cssClassFa = "fa-download"
+    )
+    @MemberOrder(sequence="50")
+    public Clob downloadCommandById(
+            @ParameterLayout(named="Transaction Id")
+            final UUID transactionId,
+            @ParameterLayout(named="Filename prefix")
+            final String fileNamePrefix) {
+        final CommandJdo commandJdo = commandServiceRepository.findByTransactionId(transactionId);
+        if(commandJdo == null) {
+            messageService.informUser("No command found");
+        }
+
+        final CommandDto commandDto =
+                contentMappingServiceForCommandDto.map(commandJdo);
+
+        final String fileName = String.format(
+                "%s_%s.xml", fileNamePrefix, elseDefault(transactionId));
+
+        final String xml = jaxbService.toXml(commandDto);
+        return new Clob(fileName, "application/xml", xml);
+    }
+
+    public String default1DownloadCommandById() {
+        return "command";
     }
 
     //endregion
@@ -163,5 +216,10 @@ public class CommandReplayOnMasterService {
     @javax.inject.Inject
     MessageService messageService;
 
+    @Inject
+    ContentMappingServiceForCommandsDto contentMappingServiceForCommandsDto;
+
+    @Inject
+    ContentMappingServiceForCommandDto contentMappingServiceForCommandDto;
 }
 

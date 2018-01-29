@@ -230,6 +230,21 @@ import lombok.Setter;
                     + "   && exception   != null "
                     + "ORDER BY startedAt DESC "
                     + "RANGE 0,10"),
+    @javax.jdo.annotations.Query(
+            name="findReplayableMostRecentStarted",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
+                    + "WHERE executeIn == 'REPLAYABLE' "
+                    + "   && startedAt != null "
+                    + "ORDER BY timestamp DESC "
+                    + "RANGE 0,30"),
+    @javax.jdo.annotations.Query(
+            name="findReplayableNotYetStarted",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
+                    + "WHERE executeIn == 'REPLAYABLE' "
+                    + "   && startedAt == null "
+                    + "ORDER BY timestamp DESC "),
 })
 @javax.jdo.annotations.Indices({
         @javax.jdo.annotations.Index(name = "CommandJdo_timestamp_e_s_IDX", members = {"timestamp", "executeIn", "startedAt"}),
@@ -254,6 +269,8 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     static final String DTO_USERDATA_KEY_TARGET_CLASS = "targetClass";
     static final String DTO_USERDATA_KEY_TARGET_ACTION = "targetAction";
     static final String DTO_USERDATA_KEY_ARGUMENTS = "arguments";
+    static final String DTO_USERDATA_KEY_RETURN_VALUE = "returnValue";
+    static final String DTO_USERDATA_KEY_REPLAY_HINT = "replayHint";
 
     //region > domain event superclasses
     public static abstract class PropertyDomainEvent<T> extends CommandModule.PropertyDomainEvent<CommandJdo, T> { }
@@ -550,8 +567,19 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     //endregion
 
     //region > asDto (CommandWithDto api programmatic)
+
+    // locally cached
+    private transient CommandDto commandDto;
+
     @Override
     public CommandDto asDto() {
+        if(commandDto == null) {
+            this.commandDto = buildCommandDto();
+        }
+        return this.commandDto;
+    }
+
+    private CommandDto buildCommandDto() {
         if(getMemento() == null) {
             return null;
         }
@@ -566,6 +594,7 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
         putUserData(commandDto, DTO_USERDATA_KEY_TARGET_CLASS, getTargetClass());
         putUserData(commandDto, DTO_USERDATA_KEY_TARGET_ACTION, getTargetAction());
         putUserData(commandDto, DTO_USERDATA_KEY_ARGUMENTS, getArguments());
+        putUserData(commandDto, DTO_USERDATA_KEY_RETURN_VALUE, getReturnValue());
         PeriodDto timings = commandDto.getTimings();
         if(timings == null) {
             timings = new PeriodDto();
@@ -578,6 +607,9 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     }
 
     private static void putUserData(final CommandDto commandDto, final String key, final String value) {
+        if(value == null) {
+            return;
+        }
         final MapDto userData = userDataFor(commandDto);
         final MapDto.Entry entry = new MapDto.Entry();
         entry.setKey(key);
@@ -592,6 +624,10 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             commandDto.setUserData(userData);
         }
         return userData;
+    }
+
+    private String getReturnValue() {
+        return getResultStr();
     }
 
     //endregion
