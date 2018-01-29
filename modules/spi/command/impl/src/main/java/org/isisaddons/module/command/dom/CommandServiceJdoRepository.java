@@ -327,6 +327,17 @@ public class CommandServiceJdoRepository {
     }
     //endregion
 
+    //region > findBackgroundCommandsByParent
+
+    @Programmatic
+    public List<CommandJdo> findBackgroundCommandsByParent(final CommandJdo parent) {
+        return repositoryService.allMatches(
+                new QueryDefault<>(CommandJdo.class,
+                        "findBackgroundCommandsByParent",
+                        "parent", parent));
+    }
+
+    //endregion
 
     //region > findRecentReplayable
     @Programmatic

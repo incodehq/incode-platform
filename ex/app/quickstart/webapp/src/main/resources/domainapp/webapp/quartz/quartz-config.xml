@@ -10,7 +10,7 @@ http://www.quartz-scheduler.org/xml/job_scheduling_data_1_8.xsd" version="1.8">
 
         <job>
             <name>RunBackgroundCommandsJob</name>
-            <group>DomainApp</group>
+            <group>CommandModule</group>
             <description>Runs all background jobs</description>
             <job-class>org.isisaddons.module.quartz.dom.jobs.RunBackgroundCommandsJob</job-class>
             <job-data-map>
@@ -25,12 +25,11 @@ http://www.quartz-scheduler.org/xml/job_scheduling_data_1_8.xsd" version="1.8">
             </job-data-map>
         </job>
 
-
         <trigger>
             <cron>
                 <name>RunBackgroundJobsEvery10Seconds</name>
                 <job-name>RunBackgroundCommandsJob</job-name>
-                <job-group>DomainApp</job-group>
+                <job-group>CommandModule</job-group>
                 <cron-expression>0/10 * * * * ?</cron-expression>
             </cron>
         </trigger>
@@ -38,8 +37,33 @@ http://www.quartz-scheduler.org/xml/job_scheduling_data_1_8.xsd" version="1.8">
         <job>
             <name>ReplicateCommandsToReplayJob</name>
             <group>DomainApp</group>
-            <description>Runs all background jobs</description>
+            <description>Retrieves executed commands (as XML) from master and persists as new unexecuted commands on slave</description>
             <job-class>org.isisaddons.module.command.replay.impl.ReplicateCommandsToReplayJob</job-class>
+            <job-data-map>
+                <entry>
+                    <key>user</key>
+                    <value>scheduler_user</value>
+                </entry>
+                <entry>
+                    <key>roles</key>
+                    <value>admin_role</value>
+                </entry>
+            </job-data-map>
+        </job>
+        <trigger>
+            <cron>
+                <name>ReplicateCommandsToReplayJobEvery10Seconds</name>
+                <job-name>ReplicateCommandsToReplayJob</job-name>
+                <job-group>DomainApp</job-group>
+                <cron-expression>3/10 * * * * ?</cron-expression>
+            </cron>
+        </trigger>
+
+        <job>
+            <name>RunReplicatedCommandsJob</name>
+            <group>CommandModule</group>
+            <description>Runs all replicated commands (if not blocked)</description>
+            <job-class>org.isisaddons.module.command.replay.impl.RunReplicatedCommandsJob</job-class>
             <job-data-map>
                 <entry>
                     <key>user</key>
@@ -54,10 +78,10 @@ http://www.quartz-scheduler.org/xml/job_scheduling_data_1_8.xsd" version="1.8">
 
         <trigger>
             <cron>
-                <name>ReplicateCommandsToReplayJobEvery10Seconds</name>
-                <job-name>ReplicateCommandsToReplayJob</job-name>
-                <job-group>DomainApp</job-group>
-                <cron-expression>0/10 * * * * ?</cron-expression>
+                <name>RunReplicatedJobsEvery10Seconds</name>
+                <job-name>RunReplicatedCommandsJob</job-name>
+                <job-group>CommandModule</job-group>
+                <cron-expression>7/10 * * * * ?</cron-expression>
             </cron>
         </trigger>
 

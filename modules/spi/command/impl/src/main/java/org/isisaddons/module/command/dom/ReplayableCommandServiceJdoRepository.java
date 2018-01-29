@@ -1,5 +1,6 @@
 package org.isisaddons.module.command.dom;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -18,26 +19,25 @@ import org.apache.isis.applib.annotation.Programmatic;
  *
  * <p>
  * This supporting service with no UI and no side-effects, and is there are no other implementations of the service,
- * thus has been annotated with {@link org.apache.isis.applib.annotation.DomainService}.  This means that there is no
+ * thus has been annotated with {@link DomainService}.  This means that there is no
  * need to explicitly register it as a service (eg in <tt>isis.properties</tt>).
  */
 @DomainService(
         nature = NatureOfService.DOMAIN
 )
-public class BackgroundCommandServiceJdoRepository {
+public class ReplayableCommandServiceJdoRepository {
 
     @SuppressWarnings("unused")
-    private static final Logger LOG = LoggerFactory.getLogger(BackgroundCommandServiceJdoRepository.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ReplayableCommandServiceJdoRepository.class);
 
     @Programmatic
-    public List<CommandJdo> findByParent(CommandJdo parent) {
-        return commandServiceRepository.findBackgroundCommandsByParent(parent);
+    public List<CommandJdo> findReplayableCommandsNotYetStartedUnlessBlocked() {
+        final List<CommandJdo> failedReplayableCommands = commandServiceRepository.findAnyFailedReplayableCommands();
+        return failedReplayableCommands.isEmpty()
+                ? commandServiceRepository.findReplayableCommandsNotYetStarted()
+                : Collections.emptyList();
     }
 
-    @Programmatic
-    public List<CommandJdo> findBackgroundCommandsNotYetStarted() {
-        return commandServiceRepository.findBackgroundCommandsNotYetStarted();
-    }
 
     @Inject
     CommandServiceJdoRepository commandServiceRepository;

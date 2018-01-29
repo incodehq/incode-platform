@@ -69,12 +69,6 @@ import lombok.Setter;
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE transactionId == :transactionId "),
     @javax.jdo.annotations.Query(
-            name="findBackgroundCommandByTransactionId",
-            value="SELECT "
-                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
-                    + "WHERE transactionId == :transactionId "
-                    + "&& executeIn == 'BACKGROUND'"),
-    @javax.jdo.annotations.Query(
             name="findBackgroundCommandsByParent",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "

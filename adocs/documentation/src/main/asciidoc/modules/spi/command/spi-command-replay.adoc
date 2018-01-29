@@ -95,9 +95,10 @@ public List<Class<?>> getModules() {
 ----
 
 
-=== Quartz job
+=== Quartz jobs
 
-Use Quartz scheduler to run the `ReplciateCommandsToReplayJob` job every 10 seconds:
+Use Quartz scheduler to run the `ReplicateCommandsToReplayJob` job every 10 seconds.
+This job makes the REST call from slave to client, unmarshals the XML, and saves as new not-yet-executed ``Command``s on the slave:
 
 [source,xml]
 .quartz-config.xml
@@ -107,8 +108,11 @@ Use Quartz scheduler to run the `ReplciateCommandsToReplayJob` job every 10 seco
     ...
     <job>
       <name>ReplicateCommandsToReplayJob</name>
-      <group>DomainApp</group>
-      <description>Runs all background jobs</description>
+      <group>CommandModule</group>
+      <description>
+        Retrieves executed commands (as XML) from master and
+        persists as new unexecuted commands on slave
+      </description>
       <job-class>
         org.isisaddons.module.command.replay.impl.ReplicateCommandsToReplayJob
       </job-class>
@@ -128,13 +132,69 @@ Use Quartz scheduler to run the `ReplciateCommandsToReplayJob` job every 10 seco
         <name>ReplicateCommandsToReplayJobEvery10Seconds</name>
         <job-name>ReplicateCommandsToReplayJob</job-name>
         <job-group>DomainApp</job-group>
-        <cron-expression>0/10 * * * * ?</cron-expression>
+        <cron-expression>3/10 * * * * ?</cron-expression>
       </cron>
     </trigger>
     ...
   </schedule>
 </job-scheduling-data>
 ----
+
+A further job is required to actually run the replicated commands, also run every 10 seconds:
+
+[source,xml]
+.quartz-config.xml
+----
+<job-scheduling-data ... version="1.8">
+  <schedule>
+    ...
+    <job>
+      <name>RunReplicatedCommandsJob</name>
+      <group>CommandModule</group>
+      <description>Runs all replicated commands (if not blocked)</description>
+      <job-class>
+        org.isisaddons.module.command.replay.impl.RunReplicatedCommandsJob
+      </job-class>
+      <job-data-map>
+        <entry>
+        <key>user</key>
+        <value>scheduler_user</value>
+        </entry>
+        <entry>
+        <key>roles</key>
+        <value>admin_role</value>
+        </entry>
+      </job-data-map>
+    </job>
+    <trigger>
+      <cron>
+        <name>RunReplicatedJobsEvery10Seconds</name>
+        <job-name>RunReplicatedCommandsJob</job-name>
+        <job-group>CommandModule</job-group>
+        <cron-expression>7/10 * * * * ?</cron-expression>
+      </cron>
+    </trigger>
+    ...
+  </schedule>
+</job-scheduling-data>
+----
+
+This is very similar to the job for running background commands, finding all commands to be replayed and executing them in turn until are are completed.
+However, it will "fail-fast":
+
+* if an attempt to run a replicated command fails, then the job will break out of its loop of commands to run, and not run any further commands
+
+* when Quartz scheduler executes the job 10 seconds later, then the repository query to find replayable commands will return none because it will detect the failed command.
+
+The administrator can "unblock" the replication in one of two ways, either:
+
+* by ``retry()``ing the replayable command so that it will be replayed again.
+This action removes the evidence of the previous atteempt (`startedAt`, `completedAt`, `exception`) so that the picked up the next time the job runs; or
+
+* by ``exclude()``ing the replayable command.
+This changes its state so that it ignored and the job resumes on the next command found.
+
+Note that the first job, `ReplicateCommandsToReplayJob`, will continue to retrieve ``Command``s from the master _even if_ the second job, `RunReplicatedJobs`, has hit an exception.
 
 
 === Isis Configuration

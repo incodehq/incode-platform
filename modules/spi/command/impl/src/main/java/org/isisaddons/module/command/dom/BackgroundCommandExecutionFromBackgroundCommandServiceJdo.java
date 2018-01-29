@@ -8,9 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.apache.isis.applib.services.command.Command;
 import org.apache.isis.core.runtime.services.background.BackgroundCommandExecution;
 
-/**
- * If used, ensure that <code>org.apache.isis.module:isis-module-background</code> is also included on classpath.
- */
 public class BackgroundCommandExecutionFromBackgroundCommandServiceJdo extends BackgroundCommandExecution {
 
     @SuppressWarnings("unused")
@@ -18,7 +15,7 @@ public class BackgroundCommandExecutionFromBackgroundCommandServiceJdo extends B
 
     @Override
     protected List<? extends Command> findBackgroundCommandsToExecute() {
-        final List<CommandJdo> commands = backgroundCommandRepository.findBackgroundOrReplayableCommandsNotYetStarted();
+        final List<CommandJdo> commands = backgroundCommandRepository.findBackgroundCommandsNotYetStarted();
         LOG.debug("Found {} to execute", commands.size());
         return commands; 
     }
