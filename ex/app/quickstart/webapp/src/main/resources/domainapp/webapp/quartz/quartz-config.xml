@@ -36,7 +36,7 @@ http://www.quartz-scheduler.org/xml/job_scheduling_data_1_8.xsd" version="1.8">
 
         <job>
             <name>ReplicateCommandsToReplayJob</name>
-            <group>DomainApp</group>
+            <group>CommandModule</group>
             <description>Retrieves executed commands (as XML) from master and persists as new unexecuted commands on slave</description>
             <job-class>org.isisaddons.module.command.replay.impl.ReplicateCommandsToReplayJob</job-class>
             <job-data-map>
@@ -54,7 +54,7 @@ http://www.quartz-scheduler.org/xml/job_scheduling_data_1_8.xsd" version="1.8">
             <cron>
                 <name>ReplicateCommandsToReplayJobEvery10Seconds</name>
                 <job-name>ReplicateCommandsToReplayJob</job-name>
-                <job-group>DomainApp</job-group>
+                <job-group>CommandModule</job-group>
                 <cron-expression>3/10 * * * * ?</cron-expression>
             </cron>
         </trigger>
