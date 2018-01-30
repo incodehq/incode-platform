@@ -12,7 +12,7 @@
 
     <groupId>org.incode</groupId>
     <artifactId>incode-parent</artifactId>
-    <version>1.16.1-SNAPSHOT</version>
+    <version>1.16.0.20180130-1206</version>
 
     <packaging>pom</packaging>
     
@@ -194,12 +194,12 @@
             <dependency>
                 <groupId>org.isisaddons.metamodel.paraname8</groupId>
                 <artifactId>isis-metamodel-paraname8-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.metamodel.paraname8</groupId>
                 <artifactId>isis-metamodel-paraname8-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -207,12 +207,12 @@
             <dependency>
                 <groupId>org.incode.example.alias</groupId>
                 <artifactId>incode-example-alias-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.example.alias</groupId>
                 <artifactId>incode-example-alias-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -220,12 +220,12 @@
             <dependency>
                 <groupId>org.incode.module.base</groupId>
                 <artifactId>incode-module-base-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.module.base</groupId>
                 <artifactId>incode-module-base-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -233,12 +233,12 @@
             <dependency>
                 <groupId>org.incode.example.classification</groupId>
                 <artifactId>incode-example-classification-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.example.classification</groupId>
                 <artifactId>incode-example-classification-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -246,12 +246,12 @@
             <dependency>
                 <groupId>org.incode.example.commchannel</groupId>
                 <artifactId>incode-example-commchannel-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.example.commchannel</groupId>
                 <artifactId>incode-example-commchannel-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -259,12 +259,12 @@
             <dependency>
                 <groupId>org.incode.example.communications</groupId>
                 <artifactId>incode-example-communications-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.example.communications</groupId>
                 <artifactId>incode-example-communications-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -272,12 +272,12 @@
             <dependency>
                 <groupId>org.incode.example.country</groupId>
                 <artifactId>incode-example-country-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.example.country</groupId>
                 <artifactId>incode-example-country-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -285,12 +285,12 @@
             <dependency>
                 <groupId>org.incode.example.docfragment</groupId>
                 <artifactId>incode-example-docfragment-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.example.docfragment</groupId>
                 <artifactId>incode-example-docfragment-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -298,12 +298,12 @@
             <dependency>
                 <groupId>org.incode.example.docrendering</groupId>
                 <artifactId>incode-example-docrendering-freemarker-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.example.docrendering</groupId>
                 <artifactId>incode-example-docrendering-freemarker-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -311,12 +311,12 @@
             <dependency>
                 <groupId>org.incode.example.docrendering</groupId>
                 <artifactId>incode-example-docrendering-stringinterpolator-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.example.docrendering</groupId>
                 <artifactId>incode-example-docrendering-stringinterpolator-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -324,12 +324,12 @@
             <dependency>
                 <groupId>org.incode.example.docrendering</groupId>
                 <artifactId>incode-example-docrendering-xdocreport-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.example.docrendering</groupId>
                 <artifactId>incode-example-docrendering-xdocreport-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -337,12 +337,12 @@
             <dependency>
                 <groupId>org.incode.example.document</groupId>
                 <artifactId>incode-example-document-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.example.document</groupId>
                 <artifactId>incode-example-document-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -350,12 +350,12 @@
             <dependency>
                 <groupId>org.incode.module.fixturesupport</groupId>
                 <artifactId>incode-module-fixturesupport-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.module.fixturesupport</groupId>
                 <artifactId>incode-module-fixturesupport-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -363,12 +363,12 @@
             <dependency>
                 <groupId>org.incode.module.integtestsupport</groupId>
                 <artifactId>incode-module-integtestsupport-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.module.integtestsupport</groupId>
                 <artifactId>incode-module-integtestsupport-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -376,12 +376,12 @@
             <dependency>
                 <groupId>org.incode.example.note</groupId>
                 <artifactId>incode-example-note-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.example.note</groupId>
                 <artifactId>incode-example-note-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -389,12 +389,12 @@
             <dependency>
                 <groupId>org.incode.module.unittestsupport</groupId>
                 <artifactId>incode-module-unittestsupport-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.module.unittestsupport</groupId>
                 <artifactId>incode-module-unittestsupport-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -402,12 +402,12 @@
             <dependency>
                 <groupId>org.isisaddons.module.audit</groupId>
                 <artifactId>isis-module-audit-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.audit</groupId>
                 <artifactId>isis-module-audit-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -415,12 +415,12 @@
             <dependency>
                 <groupId>org.isisaddons.module.command</groupId>
                 <artifactId>isis-module-command-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.command</groupId>
                 <artifactId>isis-module-command-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -428,12 +428,12 @@
             <dependency>
                 <groupId>org.isisaddons.module.command</groupId>
                 <artifactId>isis-module-command-replay</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.command</groupId>
                 <artifactId>isis-module-command-replay</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -441,12 +441,12 @@
             <dependency>
                 <groupId>org.isisaddons.module.docx</groupId>
                 <artifactId>isis-module-docx-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.docx</groupId>
                 <artifactId>isis-module-docx-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -454,12 +454,12 @@
             <dependency>
                 <groupId>org.isisaddons.module.excel</groupId>
                 <artifactId>isis-module-excel-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.excel</groupId>
                 <artifactId>isis-module-excel-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -467,12 +467,12 @@
             <dependency>
                 <groupId>org.isisaddons.module.fakedata</groupId>
                 <artifactId>isis-module-fakedata-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.fakedata</groupId>
                 <artifactId>isis-module-fakedata-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -480,12 +480,12 @@
             <dependency>
                 <groupId>org.isisaddons.module.flywaydb</groupId>
                 <artifactId>isis-module-flywaydb-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.flywaydb</groupId>
                 <artifactId>isis-module-flywaydb-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -493,12 +493,12 @@
             <dependency>
                 <groupId>org.isisaddons.module.freemarker</groupId>
                 <artifactId>isis-module-freemarker-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.freemarker</groupId>
                 <artifactId>isis-module-freemarker-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -506,12 +506,12 @@
             <dependency>
                 <groupId>org.incode.module.jaxrsclient</groupId>
                 <artifactId>incode-module-jaxrsclient-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.module.jaxrsclient</groupId>
                 <artifactId>incode-module-jaxrsclient-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -519,12 +519,12 @@
             <dependency>
                 <groupId>org.isisaddons.module.pdfbox</groupId>
                 <artifactId>isis-module-pdfbox-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.pdfbox</groupId>
                 <artifactId>isis-module-pdfbox-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -532,12 +532,12 @@
             <dependency>
                 <groupId>org.isisaddons.module.poly</groupId>
                 <artifactId>isis-module-poly-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.poly</groupId>
                 <artifactId>isis-module-poly-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -545,53 +545,53 @@
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom-jdo</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom-jdo</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom-camel</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom-camel</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom-statusclient</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom-statusclient</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -599,12 +599,12 @@
             <dependency>
                 <groupId>org.isisaddons.module.quartz</groupId>
                 <artifactId>isis-module-quartz-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.quartz</groupId>
                 <artifactId>isis-module-quartz-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -612,12 +612,12 @@
             <dependency>
                 <groupId>org.isisaddons.module.security</groupId>
                 <artifactId>isis-module-security-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.security</groupId>
                 <artifactId>isis-module-security-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -625,12 +625,12 @@
             <dependency>
                 <groupId>org.isisaddons.module.servletapi</groupId>
                 <artifactId>isis-module-servletapi-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.servletapi</groupId>
                 <artifactId>isis-module-servletapi-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -638,12 +638,12 @@
             <dependency>
                 <groupId>org.isisaddons.module.sessionlogger</groupId>
                 <artifactId>isis-module-sessionlogger-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.sessionlogger</groupId>
                 <artifactId>isis-module-sessionlogger-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -651,12 +651,12 @@
             <dependency>
                 <groupId>org.incode.example.settings</groupId>
                 <artifactId>incode-example-settings-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.example.settings</groupId>
                 <artifactId>incode-example-settings-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -664,12 +664,12 @@
             <dependency>
                 <groupId>org.isisaddons.module.stringinterpolator</groupId>
                 <artifactId>isis-module-stringinterpolator-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.stringinterpolator</groupId>
                 <artifactId>isis-module-stringinterpolator-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -677,12 +677,12 @@
             <dependency>
                 <groupId>org.incode.example.tags</groupId>
                 <artifactId>incode-example-tags-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.example.tags</groupId>
                 <artifactId>incode-example-tags-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -690,12 +690,12 @@
             <dependency>
                 <groupId>org.isisaddons.module.togglz</groupId>
                 <artifactId>isis-module-togglz-glue</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.togglz</groupId>
                 <artifactId>isis-module-togglz-glue</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -703,12 +703,12 @@
             <dependency>
                 <groupId>org.isisaddons.module.xdocreport</groupId>
                 <artifactId>isis-module-xdocreport-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.xdocreport</groupId>
                 <artifactId>isis-module-xdocreport-dom</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -716,12 +716,12 @@
             <dependency>
                 <groupId>org.isisaddons.wicket.excel</groupId>
                 <artifactId>isis-wicket-excel-cpt</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.wicket.excel</groupId>
                 <artifactId>isis-wicket-excel-cpt</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -729,12 +729,12 @@
             <dependency>
                 <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
                 <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
                 <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -742,12 +742,12 @@
             <dependency>
                 <groupId>org.isisaddons.wicket.gmap3</groupId>
                 <artifactId>isis-wicket-gmap3-cpt</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.wicket.gmap3</groupId>
                 <artifactId>isis-wicket-gmap3-cpt</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -755,12 +755,12 @@
             <dependency>
                 <groupId>org.isisaddons.wicket.pdfjs</groupId>
                 <artifactId>isis-wicket-pdfjs-cpt</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.wicket.pdfjs</groupId>
                 <artifactId>isis-wicket-pdfjs-cpt</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -768,12 +768,12 @@
             <dependency>
                 <groupId>org.isisaddons.wicket.summernote</groupId>
                 <artifactId>isis-wicket-summernote-cpt</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.wicket.summernote</groupId>
                 <artifactId>isis-wicket-summernote-cpt</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -781,12 +781,12 @@
             <dependency>
                 <groupId>org.isisaddons.wicket.wickedcharts</groupId>
                 <artifactId>isis-wicket-wickedcharts-cpt</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.wicket.wickedcharts</groupId>
                 <artifactId>isis-wicket-wickedcharts-cpt</artifactId>
-                <version>1.16.1-SNAPSHOT</version>
+                <version>1.16.0.20180130-1206</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
