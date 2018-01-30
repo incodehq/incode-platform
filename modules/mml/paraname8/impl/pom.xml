@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>1.16.1-SNAPSHOT</version>
+        <version>1.16.0.20180130-1114</version>
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
