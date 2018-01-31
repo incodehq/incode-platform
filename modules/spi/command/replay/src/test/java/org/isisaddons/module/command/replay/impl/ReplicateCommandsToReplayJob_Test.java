@@ -22,7 +22,7 @@ public class ReplicateCommandsToReplayJob_Test {
         final UriBuilder uriBuilder = UriBuilder.fromUri(
                         String.format(
                         "%s%s?batchSize=%d",
-                        "http://localhost:8080/restful/", ReplicateCommandsToReplayJob.URL_SUFFIX, 10)
+                        "http://localhost:8080/restful/", Constants.URL_SUFFIX, 10)
         );
         URI uri = uriBuilder.build();
         JaxRsResponse invoke = jaxRsClient.get(uri, CommandsDto.class, JaxRsClient.ReprType.ACTION_RESULT, "sven", "pass");

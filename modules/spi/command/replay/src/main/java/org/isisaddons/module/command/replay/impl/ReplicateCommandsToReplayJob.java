@@ -40,26 +40,6 @@ public class ReplicateCommandsToReplayJob implements Job {
 
     private static final Logger LOG = LoggerFactory.getLogger(ReplicateCommandsToReplayJob.class);
 
-    private static final String SLAVE_USER_QUARTZ_KEY  = "user";
-    private static final String SLAVE_USER_DEFAULT     = "replay_user";
-    private static final String SLAVE_ROLES_QUARTZ_KEY = "roles";
-    private static final String SLAVE_ROLES_DEFAULT    = "replay_role";
-
-    private static final String ISIS_KEY_PREFIX = "isis.command.replay.";
-
-    private static final String MASTER_USER_ISIS_KEY              = ISIS_KEY_PREFIX + "master.user";
-    private static final String MASTER_PASSWORD_ISIS_KEY          = ISIS_KEY_PREFIX + "master.password";
-    // eg "http://localhost:8080/restful/"
-    private static final String MASTER_BASE_URL_ISIS_KEY          = ISIS_KEY_PREFIX + "master.baseUrl";
-
-    private static final String SLAVE_MAX_NUMBER_BATCHES_ISIS_KEY = ISIS_KEY_PREFIX + "slave.maxNumberBatches";
-    private static final int    SLAVE_MAX_NUMBER_BATCHES_DEFAULT  = 5;
-    private static final String SLAVE_BATCH_SIZE_ISIS_KEY         = ISIS_KEY_PREFIX + "slave.batchSize";
-    private static final int    SLAVE_BATCH_SIZE_DEFAULT          = 10;
-
-    static final String URL_SUFFIX =
-            "services/isiscommand.CommandReplayOnMasterService/actions/findCommandsOnMasterSince/invoke";
-
     enum Mode {
         OK,
         MISSING_ISIS_CONFIGURATION,
@@ -80,8 +60,8 @@ public class ReplicateCommandsToReplayJob implements Job {
         }
 
         // create a session to interact with Isis runtime
-        String slaveUser = getStringValue(quartzContext, SLAVE_USER_QUARTZ_KEY, SLAVE_USER_DEFAULT);
-        String slaveRolesStr = getStringValue(quartzContext, SLAVE_ROLES_QUARTZ_KEY, SLAVE_ROLES_DEFAULT);
+        String slaveUser = getStringValue(quartzContext, Constants.SLAVE_USER_QUARTZ_KEY, Constants.SLAVE_USER_DEFAULT);
+        String slaveRolesStr = getStringValue(quartzContext, Constants.SLAVE_ROLES_QUARTZ_KEY, Constants.SLAVE_ROLES_DEFAULT);
         String[] slaveRoles = Iterables.toArray(Splitter.on(",").split(slaveRolesStr), String.class);
         final AuthenticationSession authSession = new SimpleSession(slaveUser, slaveRoles);
 
@@ -89,9 +69,9 @@ public class ReplicateCommandsToReplayJob implements Job {
         Map<String, String> isisConfigAsMap = lookupIsisConfigurationAsMap(authSession);
 
         // lookup remaining configuration properties from isis
-        String masterUser = getStringValueElseNull(isisConfigAsMap, MASTER_USER_ISIS_KEY);
-        String masterPassword = getStringValueElseNull(isisConfigAsMap, MASTER_PASSWORD_ISIS_KEY);
-        String masterBaseUrl = getStringValueElseNull(isisConfigAsMap, MASTER_BASE_URL_ISIS_KEY);
+        String masterUser = getStringValueElseNull(isisConfigAsMap, Constants.MASTER_USER_ISIS_KEY);
+        String masterPassword = getStringValueElseNull(isisConfigAsMap, Constants.MASTER_PASSWORD_ISIS_KEY);
+        String masterBaseUrl = getStringValueElseNull(isisConfigAsMap, Constants.MASTER_BASE_URL_ISIS_KEY);
 
         if(masterUser == null || masterPassword == null || masterBaseUrl == null) {
             // issue will already have been logged
@@ -103,9 +83,9 @@ public class ReplicateCommandsToReplayJob implements Job {
         }
 
         final int maxNumberBatches =
-                getIntValue(isisConfigAsMap, SLAVE_MAX_NUMBER_BATCHES_ISIS_KEY, SLAVE_MAX_NUMBER_BATCHES_DEFAULT);
+                getIntValue(isisConfigAsMap, Constants.SLAVE_MAX_NUMBER_BATCHES_ISIS_KEY, Constants.SLAVE_MAX_NUMBER_BATCHES_DEFAULT);
         final int batchSize =
-                getIntValue(isisConfigAsMap, SLAVE_BATCH_SIZE_ISIS_KEY, SLAVE_BATCH_SIZE_DEFAULT);
+                getIntValue(isisConfigAsMap, Constants.SLAVE_BATCH_SIZE_ISIS_KEY, Constants.SLAVE_BATCH_SIZE_DEFAULT);
 
         final JaxbService jaxbService = new JaxbService.Simple();
 
@@ -131,10 +111,10 @@ public class ReplicateCommandsToReplayJob implements Job {
                     transactionId != null
                         ? String.format(
                                 "%s%s?transactionId=%s&batchSize=%d",
-                                masterBaseUrl, URL_SUFFIX, transactionId, batchSize)
+                                masterBaseUrl, Constants.URL_SUFFIX, transactionId, batchSize)
                         : String.format(
                                 "%s%s?batchSize=%d",
-                                masterBaseUrl, URL_SUFFIX, batchSize)
+                                masterBaseUrl, Constants.URL_SUFFIX, batchSize)
             );
             final URI uri = uriBuilder.build();
             LOG.debug("batch {}: uri = {}", batchNum, uri);
