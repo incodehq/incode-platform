@@ -38,7 +38,7 @@ public class HasUsername_recentEventsPublishedByUser {
     @CollectionLayout(
             defaultView = "table"
     )
-    @MemberOrder(sequence = "200.100")
+    @MemberOrder(name="user", sequence = "4")
     public List<PublishedEvent> $$() {
         if(hasUsername.getUsername() == null) {
             return Collections.emptyList();
