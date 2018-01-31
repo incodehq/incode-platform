@@ -29,6 +29,38 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 )
 public class AuditingServiceRepository {
 
+    @Programmatic
+    public AuditEntry findFirstByTarget(final Bookmark target) {
+        final String targetStr = target.toString();
+        return findFirstByTarget(targetStr);
+    }
+
+    @Programmatic
+    public AuditEntry findFirstByTarget(final String targetStr) {
+        final List<AuditEntry> matches = repositoryService.allMatches(
+                new QueryDefault<>(AuditEntry.class,
+                        "findFirstByTarget",
+                        "targetStr", targetStr
+                ));
+        return matches.isEmpty() ? null : matches.get(0);
+    }
+
+    @Programmatic
+    public List<AuditEntry> findRecentByTarget(final Bookmark target) {
+        final String targetStr = target.toString();
+        return findRecentByTarget(targetStr);
+    }
+
+    @Programmatic
+    public List<AuditEntry> findRecentByTarget(final String targetStr) {
+        return repositoryService.allMatches(
+                new QueryDefault<>(AuditEntry.class,
+                        "findRecentByTarget",
+                        "targetStr", targetStr
+                ));
+    }
+
+    @Programmatic
     public List<AuditEntry> findRecentByTargetAndPropertyId(
             final Bookmark target,
             final String propertyId) {
@@ -127,6 +159,5 @@ public class AuditingServiceRepository {
 
     @Inject
     RepositoryService repositoryService;
-
 
 }

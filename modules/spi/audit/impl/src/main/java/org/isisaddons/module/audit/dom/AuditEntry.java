@@ -43,6 +43,20 @@ import lombok.Setter;
         column="id")
 @javax.jdo.annotations.Queries( {
     @javax.jdo.annotations.Query(
+            name="findFirstByTarget", language="JDOQL",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.audit.dom.AuditEntry "
+                    + "WHERE targetStr == :targetStr "
+                    + "ORDER BY timestamp ASC "
+                    + "RANGE 0,2"),
+    @javax.jdo.annotations.Query(
+            name="findRecentByTarget", language="JDOQL",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.audit.dom.AuditEntry "
+                    + "WHERE targetStr == :targetStr "
+                    + "ORDER BY timestamp DESC "
+                    + "RANGE 0,100"),
+    @javax.jdo.annotations.Query(
             name="findRecentByTargetAndPropertyId", language="JDOQL",
             value="SELECT "
                     + "FROM org.isisaddons.module.audit.dom.AuditEntry "
@@ -115,7 +129,9 @@ import lombok.Setter;
                 @javax.jdo.annotations.Column(name="sequence"),
                 @javax.jdo.annotations.Column(name="target"),
                 @javax.jdo.annotations.Column(name="propertyId")
-                })
+                }),
+    @Index(name="AuditEntry_target_ts_IDX", unique="false",
+            members={ "targetStr", "timestamp" }),
 })
 @DomainObject(
         editing = Editing.DISABLED,
