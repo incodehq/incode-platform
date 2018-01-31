@@ -10,7 +10,7 @@ import org.isisaddons.module.command.dom.ReplayableCommandServiceJdoRepository;
 public class ReplayableCommandExecutionFromReplayableCommandServiceJdo extends BackgroundCommandExecution {
 
     public ReplayableCommandExecutionFromReplayableCommandServiceJdo() {
-        super(OnExceptionPolicy.QUIT);
+        super(OnExceptionPolicy.QUIT, SudoPolicy.SWITCH);
     }
 
     @Override
