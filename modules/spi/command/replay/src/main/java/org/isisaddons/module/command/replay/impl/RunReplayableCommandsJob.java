@@ -5,7 +5,6 @@ import com.google.common.collect.Iterables;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,15 +17,12 @@ public class RunReplayableCommandsJob implements Job {
 
     private static final Logger LOG = LoggerFactory.getLogger(RunBackgroundCommandsJob.class);
 
-    public void execute(final JobExecutionContext context) throws JobExecutionException {
-
-        final ReplayableCommandExecutionFromReplayableCommandServiceJdo exec = new ReplayableCommandExecutionFromReplayableCommandServiceJdo();
+    public void execute(final JobExecutionContext context) {
 
         final AuthenticationSession authSession = newAuthSession(context);
 
-        LOG.debug("Running replicate commands");
-        exec.execute(authSession, null);
-
+        LOG.debug("Running replayable commands");
+        new ReplayableCommandExecutionFromReplayableCommandServiceJdo().execute(authSession, null);
     }
 
     protected String getKey(JobExecutionContext context, String key) {

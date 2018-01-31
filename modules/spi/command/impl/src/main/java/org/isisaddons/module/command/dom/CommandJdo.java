@@ -50,9 +50,6 @@ import org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 import org.apache.isis.objectstore.jdo.applib.service.Util;
 import org.apache.isis.schema.cmd.v1.CommandDto;
-import org.apache.isis.schema.cmd.v1.MapDto;
-import org.apache.isis.schema.common.v1.PeriodDto;
-import org.apache.isis.schema.utils.jaxbadapters.JavaSqlTimestampXmlGregorianCalendarAdapter;
 
 import org.isisaddons.module.command.CommandModule;
 
@@ -262,11 +259,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
 
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(CommandJdo.class);
-
-    static final String DTO_USERDATA_KEY_TARGET_CLASS = "targetClass";
-    static final String DTO_USERDATA_KEY_TARGET_ACTION = "targetAction";
-    static final String DTO_USERDATA_KEY_ARGUMENTS = "arguments";
-    static final String DTO_USERDATA_KEY_RETURN_VALUE = "returnValue";
 
     //region > domain event superclasses
     public static abstract class PropertyDomainEvent<T> extends CommandModule.PropertyDomainEvent<CommandJdo, T> { }
@@ -582,48 +574,8 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
         if(isLegacyMemento()) {
             return null;
         }
-        final CommandDto commandDto = jaxbService.fromXml(CommandDto.class, getMemento());
 
-        // for some reason this isn't being persisted initially, so patch it in.  TODO: should fix this
-        commandDto.setUser(getUser());
-
-        putUserData(commandDto, DTO_USERDATA_KEY_TARGET_CLASS, getTargetClass());
-        putUserData(commandDto, DTO_USERDATA_KEY_TARGET_ACTION, getTargetAction());
-        putUserData(commandDto, DTO_USERDATA_KEY_ARGUMENTS, getArguments());
-        putUserData(commandDto, DTO_USERDATA_KEY_RETURN_VALUE, getReturnValue());
-        PeriodDto timings = commandDto.getTimings();
-        if(timings == null) {
-            timings = new PeriodDto();
-            commandDto.setTimings(timings);
-        }
-        timings.setStartedAt(JavaSqlTimestampXmlGregorianCalendarAdapter.print(getStartedAt()));
-        timings.setCompletedAt(JavaSqlTimestampXmlGregorianCalendarAdapter.print(getCompletedAt()));
-
-        return commandDto;
-    }
-
-    private static void putUserData(final CommandDto commandDto, final String key, final String value) {
-        if(value == null) {
-            return;
-        }
-        final MapDto userData = userDataFor(commandDto);
-        final MapDto.Entry entry = new MapDto.Entry();
-        entry.setKey(key);
-        entry.setValue(value);
-        userData.getEntry().add(entry);
-    }
-
-    private static MapDto userDataFor(final CommandDto commandDto) {
-        MapDto userData = commandDto.getUserData();
-        if(userData == null) {
-            userData = new MapDto();
-            commandDto.setUserData(userData);
-        }
-        return userData;
-    }
-
-    private String getReturnValue() {
-        return getResultStr();
+        return jaxbService.fromXml(CommandDto.class, getMemento());
     }
 
     //endregion

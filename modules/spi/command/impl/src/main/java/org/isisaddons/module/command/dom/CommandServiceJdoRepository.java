@@ -3,10 +3,8 @@ package org.isisaddons.module.command.dom;
 import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.SortedSet;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 
@@ -24,6 +22,7 @@ import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.command.Command;
 import org.apache.isis.applib.services.command.CommandContext;
+import org.apache.isis.applib.services.command.CommandWithDto;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
@@ -31,7 +30,6 @@ import org.apache.isis.schema.cmd.v1.CommandDto;
 import org.apache.isis.schema.cmd.v1.CommandsDto;
 import org.apache.isis.schema.cmd.v1.MapDto;
 import org.apache.isis.schema.common.v1.OidDto;
-import org.apache.isis.schema.common.v1.PeriodDto;
 import org.apache.isis.schema.utils.CommandDtoUtils;
 import org.apache.isis.schema.utils.jaxbadapters.JavaSqlTimestampXmlGregorianCalendarAdapter;
 
@@ -389,40 +387,22 @@ public class CommandServiceJdoRepository {
 
 
         final MapDto userData = dto.getUserData();
-        final PeriodDto timings = dto.getTimings();
-        if (userData == null || timings == null) {
+        if (userData == null ) {
             throw new IllegalStateException(String.format(
-                    "Can only persist DTOs with additional timings and userData; got: \n%s",
+                    "Can only persist DTOs with additional userData; got: \n%s",
                     CommandDtoUtils.toXml(dto)));
         }
 
-        final Map<String, String> userDataMap =
-                userData.getEntry().stream()
-                        .collect(Collectors.toMap(MapDto.Entry::getKey, MapDto.Entry::getValue));
-
-        final String targetClass = userDataMap.get(CommandJdo.DTO_USERDATA_KEY_TARGET_CLASS);
-        final String targetAction = userDataMap.get(CommandJdo.DTO_USERDATA_KEY_TARGET_ACTION);
-        final String arguments = userDataMap.get(CommandJdo.DTO_USERDATA_KEY_ARGUMENTS);
-        final Timestamp startedAt = JavaSqlTimestampXmlGregorianCalendarAdapter.parse(timings.getStartedAt());
-
         final CommandJdo commandJdo = repositoryService.instantiate(CommandJdo.class);
 
-        final UUID transactionId = UUID.fromString(dto.getTransactionId());
-        commandJdo.setTransactionId(transactionId);
-
-        final String user = dto.getUser();
-        commandJdo.setUser(user);
-
-        // use the startedAt time on the master as the timestamp for this command on the slave,
-        // to (try to) ensure that commands are executed in the same order.
-        commandJdo.setTimestamp(startedAt);
-
+        commandJdo.setTransactionId(UUID.fromString(dto.getTransactionId()));
+        commandJdo.setTimestamp(JavaSqlTimestampXmlGregorianCalendarAdapter.parse(dto.getTimestamp()));
+        commandJdo.setUser(dto.getUser());
         commandJdo.setExecuteIn(org.apache.isis.applib.annotation.Command.ExecuteIn.REPLAYABLE);
 
-        commandJdo.setTargetClass(targetClass);
-        commandJdo.setTargetAction(targetAction);
-
-        commandJdo.setArguments(arguments);
+        commandJdo.setTargetClass(CommandDtoUtils.getUserData(dto, CommandWithDto.USERDATA_KEY_TARGET_CLASS));
+        commandJdo.setTargetAction(CommandDtoUtils.getUserData(dto, CommandWithDto.USERDATA_KEY_TARGET_ACTION));
+        commandJdo.setArguments(CommandDtoUtils.getUserData(dto, CommandWithDto.USERDATA_KEY_ARGUMENTS));
 
         commandJdo.setPersistHint(true);
 
