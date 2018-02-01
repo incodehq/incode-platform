@@ -57,8 +57,9 @@
     </developers>
 
     <properties>
-        <jar-plugin.automaticModuleName>org.incode.platform.parent</jar-plugin.automaticModuleName>
-        <git-plugin.propertiesDir>org/incode/platform/parent</git-plugin.propertiesDir>
+        <!-- modules that inherit from this should override -->
+        <jar-plugin.automaticModuleName></jar-plugin.automaticModuleName>
+        <git-plugin.propertiesDir></git-plugin.propertiesDir>
 
         <isis.version>1.16.1-SNAPSHOT</isis.version>
         <!--
