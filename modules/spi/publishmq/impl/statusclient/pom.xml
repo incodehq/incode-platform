@@ -17,6 +17,13 @@
         A module providing helper classes for logging status messages
     </description>
 
+    <properties>
+        <jar-plugin.automaticModuleName>org.incode.platform.spi.publishmq.statusclient</jar-plugin.automaticModuleName>
+        <git-plugin.propertiesDir>org/incode/platform/spi/publishmq/statusclient</git-plugin.propertiesDir>
+
+        <git-plugin.gitDir>${project.basedir}/../../../../../.git</git-plugin.gitDir>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
@@ -44,6 +51,10 @@
                         </mixin>
                     </mixins>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

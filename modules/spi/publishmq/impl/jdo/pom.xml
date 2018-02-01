@@ -21,8 +21,12 @@
         <isis-maven-plugin.validate.appManifest>
             org.isisaddons.module.publishmq.dom.jdo.PublishMqSpiJdoAppManifest
         </isis-maven-plugin.validate.appManifest>
-    </properties>
 
+        <jar-plugin.automaticModuleName>org.incode.platform.spi.publishmq.jdo</jar-plugin.automaticModuleName>
+        <git-plugin.propertiesDir>org/incode/platform/spi/publishmq/jdo</git-plugin.propertiesDir>
+
+        <git-plugin.gitDir>${project.basedir}/../../../../../.git</git-plugin.gitDir>
+    </properties>
 
     <build>
         <resources>
@@ -73,6 +77,10 @@
                         </mixin>
                     </mixins>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

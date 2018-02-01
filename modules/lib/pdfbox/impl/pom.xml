@@ -54,6 +54,13 @@
         </developer>
     </developers>
 
+    <properties>
+        <jar-plugin.automaticModuleName>org.incode.platform.lib.pdfbox</jar-plugin.automaticModuleName>
+        <git-plugin.propertiesDir>org/incode/platform/lib/pdfbox</git-plugin.propertiesDir>
+
+        <git-plugin.gitDir>${project.basedir}/../../../../.git</git-plugin.gitDir>
+    </properties>
+
     <build>
         <testResources>
             <testResource>
@@ -98,6 +105,10 @@
                         </mixin>
                     </mixins>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

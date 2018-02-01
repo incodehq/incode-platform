@@ -59,6 +59,11 @@
         <isis-maven-plugin.validate.appManifest>
             org.isisaddons.module.audit.AuditSpiAppManifest
         </isis-maven-plugin.validate.appManifest>
+
+        <jar-plugin.automaticModuleName>org.incode.platform.spi.audit</jar-plugin.automaticModuleName>
+        <git-plugin.propertiesDir>org/incode/platform/spi/audit</git-plugin.propertiesDir>
+
+        <git-plugin.gitDir>${project.basedir}/../../../../.git</git-plugin.gitDir>
     </properties>
 
     <build>
@@ -106,6 +111,10 @@
                         </mixin>
                     </mixins>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

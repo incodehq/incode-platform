@@ -57,6 +57,11 @@
         <isis-maven-plugin.validate.appManifest>
             org.incode.example.tags.TagsManifest
         </isis-maven-plugin.validate.appManifest>
+
+        <jar-plugin.automaticModuleName>org.incode.example.tags</jar-plugin.automaticModuleName>
+        <git-plugin.propertiesDir>org/incode/example/settings</git-plugin.propertiesDir>
+
+        <git-plugin.gitDir>${project.basedir}/../../../../.git</git-plugin.gitDir>
     </properties>
 
 
@@ -110,6 +115,10 @@
                         </mixin>
                     </mixins>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
