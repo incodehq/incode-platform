@@ -1,6 +1,7 @@
 package org.isisaddons.module.command.replay.impl;
 
 import java.sql.Timestamp;
+import java.util.Map;
 import java.util.concurrent.Callable;
 
 import javax.annotation.PostConstruct;
@@ -47,7 +48,18 @@ public class TickingClockService {
     }
 
     private boolean notDefined(final String key) {
-        return configurationServiceInternal.getProperty(key) == null;
+        return getConfigProperties().get(key) == null;
+    }
+
+    /**
+     * lazily loaded
+     */
+    private Map<String, String> configProperties;
+    private Map<String, String> getConfigProperties() {
+        if(configProperties == null) {
+            configProperties = configurationServiceInternal.asMap();
+        }
+        return configProperties;
     }
 
     @Programmatic
