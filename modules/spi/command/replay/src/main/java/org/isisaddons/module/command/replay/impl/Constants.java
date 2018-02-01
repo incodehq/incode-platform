@@ -14,7 +14,7 @@ class Constants {
     static final String URL_SUFFIX =
             "services/isiscommand.CommandReplayOnMasterService/actions/findCommandsOnMasterSince/invoke";
 
-    private static final String ISIS_KEY_PREFIX = "isis.command.replay.";
+    static final String ISIS_KEY_PREFIX = "isis.command.replay.";
 
     static final String SLAVE_BATCH_SIZE_ISIS_KEY         = ISIS_KEY_PREFIX + "slave.batchSize";
     static final int    SLAVE_BATCH_SIZE_DEFAULT          = 10;
