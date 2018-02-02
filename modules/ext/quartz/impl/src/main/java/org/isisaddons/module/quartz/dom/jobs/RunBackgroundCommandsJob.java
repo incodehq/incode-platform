@@ -29,11 +29,12 @@ public class RunBackgroundCommandsJob implements Job {
         return context.getMergedJobDataMap().getString(key);
     }
 
-    AuthenticationSession newAuthSession(JobExecutionContext context) {
+    protected AuthenticationSession newAuthSession(JobExecutionContext context) {
         String user = getKey(context, "user");
         String rolesStr = getKey(context, "roles");
         String[] roles = Iterables.toArray(Splitter.on(",").split(rolesStr), String.class);
         return new SimpleSession(user, roles);
     }
+
 
 }

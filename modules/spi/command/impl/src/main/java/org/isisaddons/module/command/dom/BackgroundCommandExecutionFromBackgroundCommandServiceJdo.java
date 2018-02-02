@@ -8,7 +8,7 @@ import org.apache.isis.core.runtime.services.background.BackgroundCommandExecuti
 public class BackgroundCommandExecutionFromBackgroundCommandServiceJdo extends BackgroundCommandExecution {
 
     public BackgroundCommandExecutionFromBackgroundCommandServiceJdo() {
-        super(OnExceptionPolicy.CONTINUE, SudoPolicy.NO_SWITCH);
+        super(SudoPolicy.NO_SWITCH);
     }
 
     @Override

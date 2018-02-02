@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 
@@ -267,10 +268,15 @@ public class CommandServiceJdoRepository {
                 CommandJdo.class,
                 "findForegroundSince",
                 "timestamp", timestamp);
+
+        // DN generates incorrect SQL for SQL Server if count set to 1; so we set to 2 and then trim
         if(batchSize != null) {
-            q.withCount(batchSize);
+            q.withCount(batchSize == 1 ? 2 : batchSize);
         }
-        return repositoryService.allMatches(q);
+        final List<CommandJdo> commandJdos = repositoryService.allMatches(q);
+        return batchSize == 1 && commandJdos.size() > 1
+                    ? commandJdos.subList(0,1)
+                    : commandJdos;
     }
     //endregion
 
@@ -293,27 +299,6 @@ public class CommandServiceJdoRepository {
         return restoredFromDbHwm;
     }
 
-    //endregion
-
-    //region > findAnyFailedReplayableCommands
-
-    @Programmatic
-    public List<CommandJdo> findAnyFailedReplayableCommands() {
-        return repositoryService.allMatches(
-                new QueryDefault<>(CommandJdo.class,
-                        "findAnyFailedReplayableCommands"));
-    }
-
-    //endregion
-
-    //region > findReplayableCommandsNotYetStarted
-
-    @Programmatic
-    public List<CommandJdo> findReplayableCommandsNotYetStarted() {
-        return repositoryService.allMatches(
-                new QueryDefault<>(CommandJdo.class,
-                        "findReplayableCommandsNotYetStarted"));
-    }
     //endregion
 
     //region > findBackgroundCommandsNotYetStarted
@@ -342,30 +327,23 @@ public class CommandServiceJdoRepository {
     @Programmatic
     public SortedSet<CommandJdo> findReplayQueueOnSlave() {
 
-        // timestamp ASCending, so that if there are any blocked then they'll be near the top.
-        SortedSet<CommandJdo> commandJdos = Sets.newTreeSet(Ordering.natural().onResultOf(CommandJdo::getTimestamp));
+        // by timestamp desc, so most recent is at top
+        SortedSet<CommandJdo> commandJdos = Sets.newTreeSet(Ordering.natural().onResultOf(CommandJdo::getTimestamp).reversed());
 
-        final List<CommandJdo> anyFailed = findAnyFailedReplayableCommands();
-        if (!anyFailed.isEmpty()) {
+        final List<CommandJdo> mostRecentInErr = repositoryService.allMatches(
+                new QueryDefault<>(CommandJdo.class, "findReplayableInErrorMostRecent"));
+        if (!mostRecentInErr.isEmpty()) {
             // we expect at most only one failed command because the Replay job is meant to fail-fast
             // if an exception is encountered
-            commandJdos.addAll(anyFailed);
-
             // these are the commands that are blocked.
-            final CommandJdo firstFailed = anyFailed.get(0);
-            final List<CommandJdo> commandsSince = findForegroundSince(firstFailed.getTransactionId(),
-                    Integer.MAX_VALUE);
-            commandJdos.addAll(commandsSince);
+            final CommandJdo firstFailed = mostRecentInErr.get(0);
+            commandJdos.add(firstFailed);
         }
 
         // add in the 5 most recent replayed
         final List<CommandJdo> mostRecent = repositoryService.allMatches(
                 new QueryDefault<>(CommandJdo.class, "findReplayableMostRecentStarted"));
         commandJdos.addAll(mostRecent);
-
-        // all commands still to replay
-        commandJdos.addAll(repositoryService.allMatches(
-                new QueryDefault<>(CommandJdo.class, "findReplayableNotYetStarted")));
 
         return commandJdos;
     }
@@ -375,16 +353,17 @@ public class CommandServiceJdoRepository {
     //region > saveForReplay (CommandDTO)
 
     @Programmatic
-    public void saveForReplay(final CommandsDto commandsDto) {
+    public List<CommandJdo> saveForReplay(final CommandsDto commandsDto) {
         List<CommandDto> commandDto = commandsDto.getCommandDto();
+        List<CommandJdo> commands = Lists.newArrayList();
         for (final CommandDto dto : commandDto) {
-            saveForReplay(dto);
+            commands.add(saveForReplay(dto));
         }
+        return commands;
     }
 
     @Programmatic
-    public void saveForReplay(final CommandDto dto) {
-
+    public CommandJdo saveForReplay(final CommandDto dto) {
 
         final MapDto userData = dto.getUserData();
         if (userData == null ) {
@@ -404,6 +383,7 @@ public class CommandServiceJdoRepository {
         commandJdo.setTargetAction(CommandDtoUtils.getUserData(dto, CommandWithDto.USERDATA_KEY_TARGET_ACTION));
         commandJdo.setArguments(CommandDtoUtils.getUserData(dto, CommandWithDto.USERDATA_KEY_ARGUMENTS));
 
+        commandJdo.setReplayState(ReplayState.PENDING);
         commandJdo.setPersistHint(true);
 
         final OidDto firstTarget = dto.getTargets().getOid().get(0);
@@ -412,6 +392,8 @@ public class CommandServiceJdoRepository {
         commandJdo.setMemberIdentifier(dto.getMember().getMemberIdentifier());
 
         persist(commandJdo);
+
+        return commandJdo;
     }
 
     @Programmatic

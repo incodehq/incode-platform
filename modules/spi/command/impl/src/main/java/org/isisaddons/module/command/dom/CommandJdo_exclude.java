@@ -2,7 +2,6 @@ package org.isisaddons.module.command.dom;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
-import org.apache.isis.applib.annotation.Command;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Mixin;
@@ -33,28 +32,19 @@ public class CommandJdo_exclude<T> {
     @MemberOrder(name = "exception", sequence = "2")
     public CommandJdo act() {
 
-        commandJdo.setExecuteIn(Command.ExecuteIn.EXCLUDED);
+        commandJdo.setReplayState(ReplayState.EXCLUDED);
         return commandJdo;
     }
 
     public boolean hideAct() {
-        return commandNotReplayable();
+        return commandJdo.getReplayState() == null;
     }
-
     public String disableAct() {
-        if (commandNotReplayable()) {
-            return "Only replayable commands can be excluded";
-        }
-        if (!commandJdo.isCausedException()) {
-            return "Only failed commands can be excluded";
-        }
-
-        return null;
-    }
-
-    private boolean commandNotReplayable() {
-        boolean replayable = commandJdo.getExecuteIn().isReplayable();
-        return !replayable;
+        final boolean notInError =
+                commandJdo.getReplayState() == null || !commandJdo.getReplayState().representsError();
+        return notInError
+                ? "This command cannot be excluded."
+                : null;
     }
 
 }

@@ -13,7 +13,7 @@ import org.apache.isis.schema.cmd.v1.CommandsDto;
 import org.incode.module.jaxrsclient.dom.JaxRsClient;
 import org.incode.module.jaxrsclient.dom.JaxRsResponse;
 
-public class ReplicateCommandsToReplayJob_Test {
+public class RunBackgroundCommandsWithReplicationAndReplayJob_Test {
 
     @Ignore
     @Test

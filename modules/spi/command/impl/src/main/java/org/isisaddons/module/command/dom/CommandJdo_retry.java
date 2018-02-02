@@ -86,20 +86,17 @@ public class CommandJdo_retry<T> {
         return choices0Act().get(0);
     }
 
-    public String disableAct() {
-        if (!commandJdo.isCausedException()) {
-            return "Only failed commands can be retried";
-        }
-        if (commandJdo.isLegacyMemento()) {
-            return "Only non-legacy commands can be retried";
-        }
-
-        return null;
-    }
-
     public boolean hideAct() {
-        return commandJdo.getExecuteIn().isExcluded();
+        return commandJdo.getReplayState() == null;
     }
+    public String disableAct() {
+        final boolean notInError =
+                commandJdo.getReplayState() == null || !commandJdo.getReplayState().representsError();
+        return notInError
+                ? "This command cannot be retried."
+                : null;
+    }
+
 
 
     @Inject

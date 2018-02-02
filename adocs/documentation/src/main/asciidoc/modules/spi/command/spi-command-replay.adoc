@@ -114,7 +114,7 @@ This job makes the REST call from slave to client, unmarshals the XML, and saves
         persists as new unexecuted commands on slave
       </description>
       <job-class>
-        org.isisaddons.module.command.replay.impl.ReplicateCommandsToReplayJob
+        org.isisaddons.module.command.replay.impl.RunBackgroundCommandsWithReplicationAndReplayJob
       </job-class>
       <job-data-map>
         <entry>

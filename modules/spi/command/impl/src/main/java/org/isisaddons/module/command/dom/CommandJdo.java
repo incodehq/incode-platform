@@ -207,23 +207,16 @@ import lombok.Setter;
                     + "WHERE executeIn == 'BACKGROUND' "
                     + "   && startedAt == null "
                     + "ORDER BY timestamp ASC "),
-    @javax.jdo.annotations.Query(
-            name="findReplayableCommandsNotYetStarted",
-            value="SELECT "
-                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
-                    + "WHERE executeIn == 'REPLAYABLE' "
-                    + "   && startedAt == null "
-                    + "ORDER BY timestamp ASC "),
-    @javax.jdo.annotations.Query(
-            name="findAnyFailedReplayableCommands",
-            value="SELECT "
-                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
-                    + "WHERE executeIn   == 'REPLAYABLE' "
-                    + "   && startedAt   != null "
-                    + "   && completedAt != null "
-                    + "   && exception   != null "
-                    + "ORDER BY startedAt ASC "
-                    + "RANGE 0,10"),
+        @javax.jdo.annotations.Query(
+                name="findReplayableInErrorMostRecent",
+                value="SELECT "
+                        + "FROM org.isisaddons.module.command.dom.CommandJdo "
+                        + "WHERE executeIn   == 'REPLAYABLE' "
+                        + "  && (replayState != 'PENDING' || "
+                        + "      replayState != 'OK'      || "
+                        + "      replayState != 'EXCLUDED'   ) "
+                        + "ORDER BY timestamp DESC "
+                        + "RANGE 0,2"),
     @javax.jdo.annotations.Query(
             name="findReplayableMostRecentStarted",
             value="SELECT "
@@ -232,13 +225,6 @@ import lombok.Setter;
                     + "   && startedAt != null "
                     + "ORDER BY timestamp DESC "
                     + "RANGE 0,5"),
-    @javax.jdo.annotations.Query(
-            name="findReplayableNotYetStarted",
-            value="SELECT "
-                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
-                    + "WHERE executeIn == 'REPLAYABLE' "
-                    + "   && startedAt == null "
-                    + "ORDER BY timestamp DESC "),
 })
 @javax.jdo.annotations.Indices({
         @javax.jdo.annotations.Index(name = "CommandJdo_timestamp_e_s_IDX", members = {"timestamp", "executeIn", "startedAt"}),
@@ -254,11 +240,13 @@ import lombok.Setter;
 @MemberGroupLayout(
         columnSpans={6,0,6,12}, 
         left={"Identifiers","Target","Notes", "Metadata"},
-        right={"Detail","Timings","Results"})
+        right={"Detail","Execution","Timings","Results"})
 public class CommandJdo extends DomainChangeJdoAbstract implements Command3, HasUsername, CommandWithDto, Comparable<CommandJdo> {
 
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(CommandJdo.class);
+
+    public static final String USERDATA_KEY_NUMBER_CHILD_COMMANDS = "numberChildCommands";
 
     //region > domain event superclasses
     public static abstract class PropertyDomainEvent<T> extends CommandModule.PropertyDomainEvent<CommandJdo, T> { }
@@ -354,10 +342,31 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             domainEvent = ExecuteInDomainEvent.class
     )
     @Getter @Setter
-    @MemberOrder(name="Identifiers", sequence = "32")
+    @MemberOrder(name="Execution", sequence = "32")
     private ExecuteIn executeIn;
 
     //endregion
+
+    //region > replayState (property)
+
+    public static class ReplayStateDomainEvent extends PropertyDomainEvent<ReplayState> { }
+
+
+    /**
+     * For a replayed command, what the outcome was.
+     *
+     * <b>NOT API</b>.
+     */
+    @javax.jdo.annotations.Column(allowsNull="true", length=30)
+    @Property(
+            domainEvent = ReplayStateDomainEvent.class
+    )
+    @Getter @Setter
+    @MemberOrder(name="Execution", sequence = "34")
+    private ReplayState replayState;
+
+    //endregion
+
 
     //region > parent (property)
 
@@ -547,13 +556,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
 
     //endregion
 
-    //region > isLegacyMemento (programmatic)
-    @Programmatic
-    public boolean isLegacyMemento() {
-        return getMemento() != null && getMemento().startsWith("<memento");
-    }
-    //endregion
-
     //region > asDto (CommandWithDto api programmatic)
 
     // locally cached
@@ -569,9 +571,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
 
     private CommandDto buildCommandDto() {
         if(getMemento() == null) {
-            return null;
-        }
-        if(isLegacyMemento()) {
             return null;
         }
 
@@ -954,13 +953,13 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
 
     //region > dependencies
     @javax.inject.Inject
-    private BookmarkService bookmarkService;
+    BookmarkService bookmarkService;
 
     @javax.inject.Inject
-    private DomainObjectContainer container;
+    DomainObjectContainer container;
 
     @javax.inject.Inject
-    private JaxbService jaxbService;
+    JaxbService jaxbService;
     //endregion
 
 }
