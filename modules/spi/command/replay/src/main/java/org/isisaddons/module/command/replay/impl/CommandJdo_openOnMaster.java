@@ -51,8 +51,8 @@ public class CommandJdo_openOnMaster<T> {
     }
 
     private String lookupBaseUrlPrefix() {
-        String masterBaseUrlEndUser = configurationServiceInternal
-                .getProperty(Constants.MASTER_BASE_URL_END_USER_URL_ISIS_KEY);
+        String masterBaseUrlEndUser = configurationServiceInternal.asMap()
+                .get(Constants.MASTER_BASE_URL_END_USER_URL_ISIS_KEY);
         if(masterBaseUrlEndUser == null) {
             return null;
         }
