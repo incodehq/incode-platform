@@ -1,4 +1,4 @@
-package org.isisaddons.module.command.dom;
+package org.isisaddons.module.command.replay.impl;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,6 +24,8 @@ import org.apache.isis.schema.cmd.v1.CommandDto;
 import org.apache.isis.schema.cmd.v1.CommandsDto;
 
 import org.isisaddons.module.command.CommandModule;
+import org.isisaddons.module.command.dom.CommandJdo;
+import org.isisaddons.module.command.dom.CommandServiceJdoRepository;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,

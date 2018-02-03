@@ -196,7 +196,7 @@ import lombok.Setter;
                     + "WHERE executeIn == 'FOREGROUND' "
                     + "   && startedAt   != null "
                     + "   && completedAt != null "
-                    + "ORDER BY startedAt DESC " // similar to findToReplicateFirst, but DESC not ASC (slave vs master)
+                    + "ORDER BY timestamp DESC " // similar to findToReplicateFirst, but DESC not ASC (slave vs master)
                     + "RANGE 0,2"),
         // this should be RANGE 0,1 but results in DataNucleus submitting "FETCH NEXT ROW ONLY"
         // which SQL Server doesn't understand.  However, as workaround, SQL Server *does* understand FETCH NEXT 2 ROWS ONLY

@@ -20,11 +20,11 @@ import org.apache.isis.schema.cmd.v1.CommandDto;
 import org.isisaddons.module.command.CommandModule;
 
 @Mixin(method = "act")
-public class CommandJdo_retry<T> {
+public class CommandJdo_retry {
 
     public static enum Mode {
-        ScheduleNew,
-        Reuse
+        SCHEDULE_NEW,
+        REUSE
     }
 
     private final CommandJdo commandJdo;
@@ -48,18 +48,19 @@ public class CommandJdo_retry<T> {
     public CommandJdo act(final Mode mode) {
 
         switch (mode) {
-        case ScheduleNew:
+        case SCHEDULE_NEW:
             final String memento = commandJdo.getMemento();
             final CommandDto dto = jaxbService.fromXml(CommandDto.class, memento);
             backgroundCommandServiceJdo.schedule(
                     dto, commandContext.getCommand(), commandJdo.getTargetClass(), commandJdo.getTargetAction(), commandJdo.getArguments());
             break;
-        case Reuse:
+        case REUSE:
             // will cause it to be picked up next time around
             commandJdo.setStartedAt(null);
             commandJdo.setException(null);
             commandJdo.setResult(null);
             commandJdo.setCompletedAt(null);
+            commandJdo.setReplayState(null);
             break;
         default:
             // shouldn't occur
@@ -73,9 +74,9 @@ public class CommandJdo_retry<T> {
         switch (executeIn){
         case FOREGROUND:
         case BACKGROUND:
-            return Arrays.asList(Mode.ScheduleNew, Mode.Reuse);
+            return Arrays.asList(Mode.SCHEDULE_NEW, Mode.REUSE);
         case REPLAYABLE:
-            return Collections.singletonList(Mode.Reuse);
+            return Collections.singletonList(Mode.REUSE);
         default:
             // shouldn't occur
             throw new IllegalStateException(String.format("Probable framework error, unknown executeIn: %s", executeIn));
@@ -87,16 +88,8 @@ public class CommandJdo_retry<T> {
     }
 
     public boolean hideAct() {
-        return commandJdo.getReplayState() == null;
+        return !commandJdo.isComplete();
     }
-    public String disableAct() {
-        final boolean notInError =
-                commandJdo.getReplayState() == null || !commandJdo.getReplayState().representsError();
-        return notInError
-                ? "This command cannot be retried."
-                : null;
-    }
-
 
 
     @Inject

@@ -285,6 +285,7 @@ public class CommandServiceJdoRepository {
     public CommandJdo findReplayHwm() {
 
         // most recent replayable command, replicated from master to slave
+        // this may or may not
         CommandJdo replayableHwm = repositoryService.firstMatch(
                 new QueryDefault<>(CommandJdo.class, "findReplayableHwm"));
         if(replayableHwm != null) {

@@ -1,4 +1,4 @@
-package org.isisaddons.module.command.replay.impl;
+package org.isisaddons.module.command.replay.impl.mixins;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,6 +17,7 @@ import org.apache.isis.core.metamodel.services.configinternal.ConfigurationServi
 
 import org.isisaddons.module.command.CommandModule;
 import org.isisaddons.module.command.dom.CommandJdo;
+import org.isisaddons.module.command.replay.impl.ConfigurationKeys;
 
 @Mixin(method = "act")
 public class CommandJdo_openOnMaster<T> {
@@ -28,7 +29,7 @@ public class CommandJdo_openOnMaster<T> {
 
     public static class ActionDomainEvent extends CommandModule.ActionDomainEvent<CommandJdo_openOnMaster> { }
     @Action(
-            semantics = SemanticsOf.NON_IDEMPOTENT_ARE_YOU_SURE,
+            semantics = SemanticsOf.SAFE,
             domainEvent = ActionDomainEvent.class
     )
     @ActionLayout(
@@ -52,7 +53,7 @@ public class CommandJdo_openOnMaster<T> {
 
     private String lookupBaseUrlPrefix() {
         String masterBaseUrlEndUser = configurationServiceInternal.asMap()
-                .get(Constants.MASTER_BASE_URL_END_USER_URL_ISIS_KEY);
+                .get(ConfigurationKeys.MASTER_BASE_URL_END_USER_URL_ISIS_KEY);
         if(masterBaseUrlEndUser == null) {
             return null;
         }

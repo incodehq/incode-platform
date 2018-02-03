@@ -21,10 +21,10 @@ import org.apache.isis.core.runtime.sessiontemplate.AbstractIsisSessionTemplate;
 
 import org.isisaddons.module.command.dom.BackgroundCommandExecutionFromBackgroundCommandServiceJdo;
 
-import static org.isisaddons.module.command.replay.impl.Constants.SLAVE_ROLES_DEFAULT;
-import static org.isisaddons.module.command.replay.impl.Constants.SLAVE_ROLES_QUARTZ_KEY;
-import static org.isisaddons.module.command.replay.impl.Constants.SLAVE_USER_DEFAULT;
-import static org.isisaddons.module.command.replay.impl.Constants.SLAVE_USER_QUARTZ_KEY;
+import static org.isisaddons.module.command.replay.impl.ConfigurationKeys.SLAVE_ROLES_DEFAULT;
+import static org.isisaddons.module.command.replay.impl.ConfigurationKeys.SLAVE_ROLES_QUARTZ_KEY;
+import static org.isisaddons.module.command.replay.impl.ConfigurationKeys.SLAVE_USER_DEFAULT;
+import static org.isisaddons.module.command.replay.impl.ConfigurationKeys.SLAVE_USER_QUARTZ_KEY;
 
 @DisallowConcurrentExecution
 @PersistJobDataAfterExecution
