@@ -82,7 +82,7 @@ public class ReplayableCommandExecution
                 //
                 final CommandDto commandDto = commandFetcher.fetchCommand(hwmCommand, slaveConfig);
                 if (commandDto == null) {
-                    LOG.debug("No more commands found, breaking out");
+                    LOG.info("No more commands found, breaking out");
                     return;
                 }
 
@@ -92,7 +92,7 @@ public class ReplayableCommandExecution
             }
 
 
-            LOG.debug("next HWM transactionId = {}", hwmCommand.getTransactionId());
+            LOG.info("next HWM transactionId = {}", hwmCommand.getTransactionId());
 
 
 
