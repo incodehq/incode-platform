@@ -77,10 +77,11 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 [source,xml]
 ----
 <dependency>
-    <groupId>org.incode</groupId>
+    <groupId>org.incode.example.settings</groupId>
     <artifactId>incode-example-settings-dom</artifactId>
     <version>1.16.0</version>
 </dependency>
+
 ----
 
 Check for later releases by searching http://search.maven.org/#search|ga|1|isis-module-settings[Maven Central Repo].
