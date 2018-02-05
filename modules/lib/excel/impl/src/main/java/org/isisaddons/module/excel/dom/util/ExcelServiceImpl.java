@@ -2,11 +2,12 @@ package org.isisaddons.module.excel.dom.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.value.Blob;
@@ -27,8 +28,7 @@ public class ExcelServiceImpl {
 
 
     /**
-     * Creates a Blob holding a single-sheet spreadsheet of the domain objects.  The sheet name is derived from the
-     * class name.
+     * Creates a Blob holding a single-sheet spreadsheet of the domain objects.
      *
      * <p>
      *     There are no specific restrictions on the domain objects; they can be either persistable entities or
@@ -48,6 +48,23 @@ public class ExcelServiceImpl {
             final String fileName) {
         return toExcel(new WorksheetContent(domainObjects, new WorksheetSpec(cls, sheetName)), fileName);
     }
+    
+    /**
+     * As {@link #toExcel(List, Class, String, String)}, but appends a single-sheet spreadsheet of the domain objects to 
+     * an existing workbook instead of creating one.  
+     *
+     * @param sheetName - must be 31 chars or less
+     * @param in - an existing excel workbook to which this sheet will be appended
+     */
+    @Programmatic
+    public <T> Blob toExcel(
+            final List<T> domainObjects,
+            final Class<T> cls,
+            final String sheetName,
+            final String fileName,
+            final InputStream in) {
+        return toExcel(new WorksheetContent(domainObjects, new WorksheetSpec(cls, sheetName)), fileName, in);
+    }
 
     /**
      * As {@link #toExcel(List, Class, String, String)}, but with the domain objects, class and sheet name provided using a
@@ -57,6 +74,15 @@ public class ExcelServiceImpl {
     public <T> Blob toExcel(WorksheetContent worksheetContent, final String fileName) {
         return toExcel(Collections.singletonList(worksheetContent), fileName);
     }
+    
+    /**
+     * As {@link #toExcel(List, Class, String, String)}, but with the domain objects, class and sheet name provided using a
+     * {@link WorksheetContent} and with an input stream.
+     */
+    @Programmatic
+    public <T> Blob toExcel(WorksheetContent worksheetContent, final String fileName, final InputStream in) {
+        return toExcel(Collections.singletonList(worksheetContent), fileName, in);
+    }
 
     /**
      * As {@link #toExcel(WorksheetContent, String)}, but with multiple sheets.
@@ -64,7 +90,20 @@ public class ExcelServiceImpl {
     @Programmatic
     public Blob toExcel(final List<WorksheetContent> worksheetContents, final String fileName) {
         try {
-            final File file = newExcelConverter().appendSheet(worksheetContents);
+            final File file = newExcelConverter().appendSheet(worksheetContents, new XSSFWorkbook());
+            return excelFileBlobConverter.toBlob(fileName, file);
+        } catch (final IOException ex) {
+            throw new ExcelService.Exception(ex);
+        }
+    }
+    
+    /**
+     * As {@link #toExcel(WorksheetContent, String)}, but with multiple sheets and an input stream.
+     */
+    @Programmatic
+    public Blob toExcel(final List<WorksheetContent> worksheetContents, final String fileName, final InputStream in) {
+        try {
+            final File file = newExcelConverter().appendSheet(worksheetContents, new XSSFWorkbook(in));
             return excelFileBlobConverter.toBlob(fileName, file);
         } catch (final IOException ex) {
             throw new ExcelService.Exception(ex);

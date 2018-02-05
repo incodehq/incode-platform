@@ -3,7 +3,6 @@ package org.isisaddons.module.excel.dom.util;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
-import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.ss.usermodel.*;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
@@ -35,7 +34,7 @@ final class CellMarshaller {
         
         // null
         if (propertyAdapter == null) {
-            cell.setCellType(HSSFCell.CELL_TYPE_BLANK);
+            cell.setCellType(Cell.CELL_TYPE_BLANK);
             return;
         }
         
@@ -63,7 +62,7 @@ final class CellMarshaller {
 
     private boolean setCellValue(final Cell cell, final Object valueAsObj) {
         if(valueAsObj == null) {
-            cell.setCellType(HSSFCell.CELL_TYPE_BLANK);
+            cell.setCellType(Cell.CELL_TYPE_BLANK);
             return true;
         }
         
@@ -78,7 +77,7 @@ final class CellMarshaller {
         if(valueAsObj instanceof Boolean) {
             Boolean value = (Boolean) valueAsObj;
             cell.setCellValue(value);
-            cell.setCellType(HSSFCell.CELL_TYPE_BOOLEAN);
+            cell.setCellType(Cell.CELL_TYPE_BOOLEAN);
             return true;
         } 
         
@@ -170,7 +169,7 @@ final class CellMarshaller {
 
     private static void setCellValueForString(final Cell cell, final String objectAsStr) {
         cell.setCellValue(objectAsStr);
-        cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+        cell.setCellType(Cell.CELL_TYPE_STRING);
     }
 
     private void setCellValueForBookmark(final Cell cell, final Object propertyAsObject, final String propertyAsTitle) {
@@ -178,7 +177,7 @@ final class CellMarshaller {
         setCellComment(cell, bookmark.toString());
         
         cell.setCellValue(propertyAsTitle);
-        cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+        cell.setCellType(Cell.CELL_TYPE_STRING);
     }
 
     private static void setCellComment(final Cell cell, final String commentText) {
@@ -204,12 +203,12 @@ final class CellMarshaller {
 
     private static <E extends Enum<E>> void setCellValueForEnum(final Cell cell, final Enum<E> objectAsStr) {
         cell.setCellValue(objectAsStr.name());
-        cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+        cell.setCellType(Cell.CELL_TYPE_STRING);
     }
     
     private static void setCellValueForDouble(final Cell cell, double value) {
         cell.setCellValue(value);
-        cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
+        cell.setCellType(Cell.CELL_TYPE_NUMERIC);
     }
 
     private static void setCellValueForDate(final Cell cell, Date date, CellStyle dateCellStyle) {
@@ -225,7 +224,7 @@ final class CellMarshaller {
 
         final int cellType = cell.getCellType();
 
-        if(cellType == HSSFCell.CELL_TYPE_BLANK) {
+        if(cellType == Cell.CELL_TYPE_BLANK) {
             return null;
         }
 
@@ -250,7 +249,7 @@ final class CellMarshaller {
         final int cellType = cell.getCellType();
 
         if(requiredType == boolean.class || requiredType == Boolean.class) {
-            if(cellType == HSSFCell.CELL_TYPE_BOOLEAN) {
+            if(cellType == Cell.CELL_TYPE_BOOLEAN) {
                 boolean booleanCellValue = cell.getBooleanCellValue();
                 return (T) Boolean.valueOf(booleanCellValue);
             } else {
@@ -300,7 +299,7 @@ final class CellMarshaller {
         
         // number
         if(requiredType == double.class || requiredType == Double.class) {
-            if(cellType == HSSFCell.CELL_TYPE_NUMERIC) {
+            if(cellType == Cell.CELL_TYPE_NUMERIC) {
                 double doubleValue = cell.getNumericCellValue();
                 return (T) Double.valueOf(doubleValue);
             } else {
@@ -309,7 +308,7 @@ final class CellMarshaller {
         } 
         
         if(requiredType == float.class || requiredType == Float.class) {
-            if(cellType == HSSFCell.CELL_TYPE_NUMERIC) {
+            if(cellType == Cell.CELL_TYPE_NUMERIC) {
                 float floatValue = (float)cell.getNumericCellValue();
                 return (T) Float.valueOf(floatValue);
             } else {
@@ -318,7 +317,7 @@ final class CellMarshaller {
         } 
         
         if(requiredType == BigDecimal.class) {
-            if(cellType == HSSFCell.CELL_TYPE_NUMERIC) {
+            if(cellType == Cell.CELL_TYPE_NUMERIC) {
                 double doubleValue = cell.getNumericCellValue();
                 return (T) BigDecimal.valueOf(doubleValue);
             } else {
@@ -327,7 +326,7 @@ final class CellMarshaller {
         } 
         
         if(requiredType == BigInteger.class) {
-            if(cellType == HSSFCell.CELL_TYPE_NUMERIC) {
+            if(cellType == Cell.CELL_TYPE_NUMERIC) {
                 long longValue = (long)cell.getNumericCellValue();
                 return (T) BigInteger.valueOf(longValue);
             } else {
@@ -336,7 +335,7 @@ final class CellMarshaller {
         } 
 
         if(requiredType == long.class || requiredType == Long.class) {
-            if(cellType == HSSFCell.CELL_TYPE_NUMERIC) {
+            if(cellType == Cell.CELL_TYPE_NUMERIC) {
                 long longValue = (long) cell.getNumericCellValue();
                 return (T) Long.valueOf(longValue);
             } else {
@@ -345,7 +344,7 @@ final class CellMarshaller {
         } 
         
         if(requiredType == int.class || requiredType == Integer.class) {
-            if(cellType == HSSFCell.CELL_TYPE_NUMERIC) {
+            if(cellType == Cell.CELL_TYPE_NUMERIC) {
                 int intValue = (int) cell.getNumericCellValue();
                 return (T) Integer.valueOf(intValue);
             } else {
@@ -354,7 +353,7 @@ final class CellMarshaller {
         } 
         
         if(requiredType == short.class || requiredType == Short.class) {
-            if(cellType == HSSFCell.CELL_TYPE_NUMERIC) {
+            if(cellType == Cell.CELL_TYPE_NUMERIC) {
                 short shortValue = (short) cell.getNumericCellValue();
                 return (T) Short.valueOf(shortValue);
             } else {
@@ -363,7 +362,7 @@ final class CellMarshaller {
         } 
         
         if(requiredType == byte.class || requiredType == Byte.class) {
-            if(cellType == HSSFCell.CELL_TYPE_NUMERIC) {
+            if(cellType == Cell.CELL_TYPE_NUMERIC) {
                 byte byteValue = (byte) cell.getNumericCellValue();
                 return (T) Byte.valueOf(byteValue);
             } else {
@@ -372,14 +371,36 @@ final class CellMarshaller {
         } 
 
         if(requiredType == String.class) {
-            if(cellType == HSSFCell.CELL_TYPE_STRING) {
+            if(cellType == Cell.CELL_TYPE_STRING) {
                 return (T) cell.getStringCellValue();
+            } else if(cellType == Cell.CELL_TYPE_NUMERIC) {
+            	/*
+            	 * In some cases, when editing a string type cell in excel and 
+            	 * when the cell content is just a number excel will silently 
+            	 * convert the cell type to numeric. To remedy unexpected 
+            	 * behavior we check whether we can recover numeric cells as 
+            	 * text, accounting for the fact that an integer number is 
+            	 * also stored with a floating point in excel, whereby
+            	 * a textual representation as such may be undesired.
+            	 * 
+            	 * @ see https://stackoverflow.com/questions/9898512/how-to-test-if-a-double-is-an-integer
+            	 * @see https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html#floor-double-
+            	 * - If the argument value is already equal to a mathematical integer, then the result is the same as the argument.
+            	 * - If the argument is NaN or an infinity or positive zero or negative zero, then the result is the same as the argument.
+            	 */
+            	double val = cell.getNumericCellValue();
+        		if((val == Math.floor(val)) && !Double.isInfinite(val)) {        		
+        			return (T) Integer.toString((int) val);
+        		}
+        		return (T) Double.toString(val);
             } else {
-                return null;
-            }
+            	return null;
+            }            
         }
+        
         return null;
     }
+       
 
     private Object getCellComment(final Cell cell, final Class<?> requiredType) {
         final Comment comment = cell.getCellComment();

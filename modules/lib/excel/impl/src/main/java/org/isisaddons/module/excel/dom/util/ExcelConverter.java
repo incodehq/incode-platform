@@ -96,7 +96,7 @@ class ExcelConverter {
 
     // //////////////////////////////////////
 
-    File appendSheet(final List<WorksheetContent> worksheetContents) throws IOException {
+    File appendSheet(final List<WorksheetContent> worksheetContents, XSSFWorkbook workbook) throws IOException {
         final ImmutableSet<String> worksheetNames = FluentIterable.from(worksheetContents)
                 .transform(new Function<WorksheetContent, String>() {
                     @Nullable @Override public String apply(@Nullable final WorksheetContent worksheetContent) {
@@ -114,7 +114,6 @@ class ExcelConverter {
             }
         }
 
-        final XSSFWorkbook workbook = new XSSFWorkbook();
         final File tempFile =
                 File.createTempFile(ExcelConverter.class.getName(), UUID.randomUUID().toString() + XLSX_SUFFIX);
         final FileOutputStream fos = new FileOutputStream(tempFile);

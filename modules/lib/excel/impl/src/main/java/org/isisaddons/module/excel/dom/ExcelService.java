@@ -2,6 +2,7 @@ package org.isisaddons.module.excel.dom;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -79,6 +80,15 @@ public class ExcelService {
             final String fileName) throws ExcelService.Exception {
         return excelServiceImpl.toExcel(domainObjects, cls, sheetName, fileName);
     }
+    
+    public <T> Blob toExcel(
+            final List<T> domainObjects,
+            final Class<T> cls,
+            final String sheetName,
+            final String fileName,
+            final InputStream in) throws ExcelService.Exception {
+        return excelServiceImpl.toExcel(domainObjects, cls, sheetName, fileName, in);
+    }
 
     @Programmatic
     public <T> Blob toExcel(
@@ -86,14 +96,29 @@ public class ExcelService {
             final String fileName) throws ExcelService.Exception {
         return excelServiceImpl.toExcel(worksheetContent, fileName);
     }
+    
+    @Programmatic
+    public <T> Blob toExcel(
+            final WorksheetContent worksheetContent,
+            final String fileName,
+            final InputStream in) throws ExcelService.Exception {
+        return excelServiceImpl.toExcel(worksheetContent, fileName, in);
+    }
 
     @Programmatic
     public Blob toExcel(
             final List<WorksheetContent> worksheetContents,
             final String fileName) throws ExcelService.Exception {
-
         return excelServiceImpl.toExcel(worksheetContents, fileName);
     }
+    
+    @Programmatic
+    public Blob toExcel(
+            final List<WorksheetContent> worksheetContents,
+            final String fileName,
+            final InputStream in) throws ExcelService.Exception {
+        return excelServiceImpl.toExcel(worksheetContents, fileName, in);
+    }    
 
     @Programmatic
     public <T> Blob toExcelPivot(
