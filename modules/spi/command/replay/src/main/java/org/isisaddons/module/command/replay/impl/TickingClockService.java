@@ -86,12 +86,14 @@ public class TickingClockService {
         ensureInitialized();
 
         final TickingFixtureClock instance = (TickingFixtureClock) TickingFixtureClock.getInstance();
-        final Timestamp previous = TickingFixtureClock.getTimeAsJavaSqlTimestamp();
+        final long previous = TickingFixtureClock.getTimeAsMillis();
+        final long wallTime0 = System.currentTimeMillis();
         try {
             instance.setTime(timestamp);
             runnable.run();
         } finally {
-            instance.setTime(previous);
+            final long wallTime1 = System.currentTimeMillis();
+            instance.setTime(previous + wallTime1 - wallTime0);
         }
     }
 

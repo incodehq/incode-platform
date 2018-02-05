@@ -44,7 +44,7 @@ public class CommandJdo_retry {
     @ActionLayout(
             contributed = Contributed.AS_ACTION
     )
-    @MemberOrder(name = "exception", sequence = "3")
+    @MemberOrder(name = "executeIn", sequence = "1")
     public CommandJdo act(final Mode mode) {
 
         switch (mode) {
@@ -87,8 +87,14 @@ public class CommandJdo_retry {
         return choices0Act().get(0);
     }
 
-    public boolean hideAct() {
-        return !commandJdo.isComplete();
+    public String disableAct() {
+        if (!commandJdo.isComplete()) {
+            return "Not yet completed";
+        }
+        if (commandJdo.getExecuteIn().isReplayable() && commandJdo.getReplayState() == ReplayState.OK) {
+            return "Replayed OK";
+        }
+        return null;
     }
 
 

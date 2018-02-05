@@ -17,4 +17,6 @@ public class ConfigurationKeys {
     public static final String MASTER_PASSWORD_ISIS_KEY              = ISIS_KEY_PREFIX + "master.password";
     public static final String MASTER_USER_ISIS_KEY                  = ISIS_KEY_PREFIX + "master.user";
     public static final String MASTER_BASE_URL_END_USER_URL_ISIS_KEY = ISIS_KEY_PREFIX + "master.baseUrlEndUser";
+    public static final String MASTER_BATCH_SIZE_ISIS_KEY = ISIS_KEY_PREFIX + "master.batchSize";
+    public static final int MASTER_BATCH_SIZE_ISIS_DEFAULT = 10;
 }

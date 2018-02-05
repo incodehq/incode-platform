@@ -33,7 +33,7 @@ public class CommandJdo_exclude {
     @ActionLayout(
             contributed = Contributed.AS_ACTION
     )
-    @MemberOrder(name = "exception", sequence = "2")
+    @MemberOrder(name = "executeIn", sequence = "2")
     public CommandJdo act() {
 
         commandJdo.setReplayState(ReplayState.EXCLUDED);

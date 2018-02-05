@@ -46,7 +46,7 @@ public class CommandJdo_replayNext {
     @ActionLayout(
             contributed = Contributed.AS_ACTION
     )
-    @MemberOrder(name = "exception", sequence = "1")
+    @MemberOrder(name = "executeIn", sequence = "3")
     public CommandJdo act() throws StatusException {
 
         // double check this is still the HWM

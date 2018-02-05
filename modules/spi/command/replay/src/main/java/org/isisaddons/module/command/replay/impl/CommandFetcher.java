@@ -51,7 +51,7 @@ public class CommandFetcher {
 
         LOG.debug("finding command on master ...");
 
-        final CommandsDto commandsDto = fetchCommands(previousHwm, 1, slaveConfig);
+        final CommandsDto commandsDto = fetchCommands(previousHwm, slaveConfig);
 
         if (commandsDto == null) {
             return null;
@@ -69,13 +69,12 @@ public class CommandFetcher {
      */
     private CommandsDto fetchCommands(
             final Command previousHwm,
-            final int batchSize,
             final SlaveConfiguration slaveConfig) throws StatusException {
         final UUID transactionId = previousHwm != null ? previousHwm.getTransactionId() : null;
 
         LOG.debug("finding commands on master ...");
 
-        final URI uri = buildUri(transactionId, batchSize, slaveConfig);
+        final URI uri = buildUri(transactionId, slaveConfig);
 
         final JaxRsResponse response = callMaster(slaveConfig, uri);
 
@@ -90,15 +89,15 @@ public class CommandFetcher {
 
 
 
-    private URI buildUri(final UUID transactionId, final int batchSize, final SlaveConfiguration slaveConfig) {
+    private URI buildUri(final UUID transactionId, final SlaveConfiguration slaveConfig) {
         final UriBuilder uriBuilder = UriBuilder.fromUri(
                 transactionId != null
                         ? String.format(
                         "%s%s?transactionId=%s&batchSize=%d",
-                        slaveConfig.masterBaseUrl, URL_SUFFIX, transactionId, batchSize)
+                        slaveConfig.masterBaseUrl, URL_SUFFIX, transactionId, slaveConfig.masterBatchSize)
                         : String.format(
                         "%s%s?batchSize=%d",
-                        slaveConfig.masterBaseUrl, URL_SUFFIX, batchSize)
+                        slaveConfig.masterBaseUrl, URL_SUFFIX, slaveConfig.masterBatchSize)
         );
         final URI uri = uriBuilder.build();
         LOG.debug("uri = {}", uri);
