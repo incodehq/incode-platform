@@ -10,7 +10,7 @@ import org.isisaddons.module.pdfbox.dom.PdfBoxModule;
 import org.incode.domainapp.example.dom.dom.communications.ExampleDomModuleCommunicationsModule;
 import org.incode.example.communications.dom.CommunicationsModuleDomModule;
 import org.incode.example.communications.integtests.app.services.DemoAppApplicationModuleServicesSubmodule;
-import org.incode.example.country.dom.CountryModule;
+import org.incode.example.country.dom.CountryExample;
 import org.incode.example.document.dom.DocumentModule;
 
 /**
@@ -20,7 +20,7 @@ public class CommunicationsModuleAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = Builder.forModules(CommunicationsModuleDomModule.class,
             DocumentModule.class,
-            CountryModule.class,
+            CountryExample.class,
             ExampleDomModuleCommunicationsModule.class,
             DemoAppApplicationModuleServicesSubmodule.class,
             PdfBoxModule.class,

@@ -2,6 +2,7 @@ package org.incode.domainapp.example.app;
 
 import org.apache.isis.applib.AppManifestAbstract;
 
+import org.incode.example.country.dom.CountryExample;
 import org.isisaddons.module.docx.DocxModule;
 import org.isisaddons.module.excel.ExcelModule;
 import org.isisaddons.module.fakedata.FakeDataModule;
@@ -19,7 +20,6 @@ import org.incode.example.alias.dom.AliasModule;
 import org.incode.example.classification.dom.ClassificationModule;
 import org.incode.example.commchannel.dom.CommChannelModule;
 import org.incode.example.communications.dom.CommunicationsModuleDomModule;
-import org.incode.example.country.dom.CountryModule;
 import org.incode.example.docfragment.dom.DocFragmentModuleDomModule;
 import org.incode.example.docrendering.freemarker.dom.FreemarkerDocRenderingModule;
 import org.incode.example.docrendering.stringinterpolator.dom.StringInterpolatorDocRenderingModule;
@@ -56,7 +56,7 @@ public class DomainAppAppManifestWithExampleModules extends AppManifestAbstract 
                     ClassificationModule.class,
                     CommChannelModule.class,
                     CommunicationsModuleDomModule.class,
-                    CountryModule.class,
+                    CountryExample.class,
                     DocFragmentModuleDomModule.class,
                     DocumentModule.class,
                     NoteModule.class,

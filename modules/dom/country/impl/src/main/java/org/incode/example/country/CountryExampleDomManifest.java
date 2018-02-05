@@ -2,16 +2,16 @@ package org.incode.example.country;
 
 import org.apache.isis.applib.AppManifestAbstract;
 
-import org.incode.example.country.dom.CountryModule;
+import org.incode.example.country.dom.CountryExample;
 
 /**
  * Used by <code>isis-maven-plugin</code> (build-time validation of the module) and also by module-level integration tests.
  */
-public class CountryModuleDomManifest extends AppManifestAbstract {
+public class CountryExampleDomManifest extends AppManifestAbstract {
 
-    public static final Builder BUILDER = Builder.forModules(CountryModule.class);
+    public static final Builder BUILDER = Builder.forModules(CountryExample.class);
 
-    public CountryModuleDomManifest() {
+    public CountryExampleDomManifest() {
         super(BUILDER);
     }
 

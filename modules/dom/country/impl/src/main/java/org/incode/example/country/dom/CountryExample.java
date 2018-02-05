@@ -1,8 +1,8 @@
 package org.incode.example.country.dom;
 
-public final class CountryModule {
+public final class CountryExample {
 
-    private CountryModule(){}
+    private CountryExample(){}
 
     //region > ui event classes
     public abstract static class TitleUiEvent<S>
