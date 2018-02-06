@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.isis.applib.services.command.Command;
 import org.apache.isis.core.runtime.services.background.BackgroundCommandExecution;
-import org.apache.isis.core.runtime.services.background.CommandExecutorService;
+import org.apache.isis.applib.services.command.CommandExecutorService;
 
 public class BackgroundCommandExecutionFromBackgroundCommandServiceJdo extends BackgroundCommandExecution {
 

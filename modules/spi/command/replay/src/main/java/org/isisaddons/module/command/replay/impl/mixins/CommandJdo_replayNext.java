@@ -11,16 +11,16 @@ import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.services.command.CommandExecutorService;
 import org.apache.isis.applib.services.message.MessageService;
 import org.apache.isis.core.metamodel.services.configinternal.ConfigurationServiceInternal;
-import org.apache.isis.core.runtime.services.background.CommandExecutorService;
 import org.apache.isis.schema.cmd.v1.CommandDto;
 
 import org.isisaddons.module.command.CommandModule;
 import org.isisaddons.module.command.dom.CommandJdo;
 import org.isisaddons.module.command.dom.CommandServiceJdoRepository;
 import org.isisaddons.module.command.replay.impl.CommandFetcher;
-import org.isisaddons.module.command.replay.impl.CommandReplayAnalyser;
+import org.isisaddons.module.command.replay.impl.CommandReplayAnalysisService;
 import org.isisaddons.module.command.replay.impl.SlaveConfiguration;
 import org.isisaddons.module.command.replay.impl.StatusException;
 
@@ -64,7 +64,7 @@ public class CommandJdo_replayNext {
 
         execute(nextHwm);
 
-        commandReplayAnalyser.analyze(nextHwm);
+        analysisService.analyze(nextHwm);
 
         return nextHwm;
     }
@@ -96,7 +96,7 @@ public class CommandJdo_replayNext {
         if(commandJdo != replayHwm) {
             return "This action can only be performed against the 'HWM' command on the slave";
         }
-        if(commandJdo.getExecuteIn().isReplayable() && commandJdo.getReplayState() != null && commandJdo.getReplayState().representsError()) {
+        if(commandJdo.getExecuteIn().isReplayable() && commandJdo.getReplayState() != null && commandJdo.getReplayState().isFailed()) {
             return "Replayable command is in error.  Exclude the command to continue.";
         }
         if(!commandJdo.isComplete()) {
@@ -142,5 +142,5 @@ public class CommandJdo_replayNext {
     MessageService messageService;
 
     @Inject
-    CommandReplayAnalyser commandReplayAnalyser;
+    CommandReplayAnalysisService analysisService;
 }

@@ -246,8 +246,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(CommandJdo.class);
 
-    public static final String USERDATA_KEY_NUMBER_CHILD_COMMANDS = "numberChildCommands";
-
     //region > domain event superclasses
     public static abstract class PropertyDomainEvent<T> extends CommandModule.PropertyDomainEvent<CommandJdo, T> { }
 
@@ -357,13 +355,42 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
      *
      * <b>NOT API</b>.
      */
-    @javax.jdo.annotations.Column(allowsNull="true", length=30)
+    @javax.jdo.annotations.Column(allowsNull="true", length=10)
     @Property(
             domainEvent = ReplayStateDomainEvent.class
     )
     @Getter @Setter
     @MemberOrder(name="Execution", sequence = "34")
     private ReplayState replayState;
+    @Getter @Setter
+
+    //endregion
+
+    //region > replayState (property)
+
+    public static class ReplayStateFailureReasonDomainEvent extends PropertyDomainEvent<ReplayState> { }
+
+
+    /**
+     * For a {@link ReplayState#FAILED failed} replayed command, what the reason was for the failure.
+     *
+     * <b>NOT API</b>.
+     */
+    @javax.jdo.annotations.Column(allowsNull="true", length=30)
+    @Property(
+            domainEvent = ReplayStateFailureReasonDomainEvent.class
+    )
+    @PropertyLayout(
+            hidden = Where.ALL_TABLES,
+            multiLine = 5
+    )
+    @Getter @Setter
+    @MemberOrder(name="Execution", sequence = "255")
+    private String replayStateFailureReason;
+
+    public boolean hideReplayStateFailureReason() {
+        return !getReplayState().isFailed();
+    }
 
     //endregion
 

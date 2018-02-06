@@ -21,7 +21,8 @@ import java.util.List;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.command.Command;
-import org.apache.isis.core.runtime.services.background.CommandExecutorService;
+import org.apache.isis.applib.services.command.CommandExecutorService;
+import org.apache.isis.applib.services.command.CommandWithDto;
 
 /**
  * Override of {@link CommandExecutorService} that also sets the time (using the {@link TickingClockService}) to that
@@ -39,9 +40,9 @@ public class CommandExecutorServiceWithTime implements CommandExecutorService {
 
 
     @Override
-    public void executeCommand(final SudoPolicy sudoPolicy, final Command command) {
-        tickingClockService.at(command.getTimestamp(),
-                () -> getDelegate().executeCommand(sudoPolicy, command));
+    public void executeCommand(final SudoPolicy sudoPolicy, final CommandWithDto commandWithDto) {
+        tickingClockService.at(commandWithDto.getTimestamp(),
+                () -> getDelegate().executeCommand(sudoPolicy, commandWithDto));
     }
 
 

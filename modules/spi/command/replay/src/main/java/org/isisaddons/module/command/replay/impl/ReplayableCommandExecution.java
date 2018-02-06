@@ -7,8 +7,8 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.apache.isis.applib.services.command.CommandExecutorService;
 import org.apache.isis.core.runtime.services.background.CommandExecutionAbstract;
-import org.apache.isis.core.runtime.services.background.CommandExecutorService;
 import org.apache.isis.core.runtime.system.persistence.PersistenceSession;
 import org.apache.isis.core.runtime.system.transaction.IsisTransactionManager;
 import org.apache.isis.schema.cmd.v1.CommandDto;
@@ -72,7 +72,7 @@ public class ReplayableCommandExecution
                 //
                 // check that the current HWM was replayed successfully, otherwise break out
                 //
-                if(hwmCommand.getReplayState().representsError()) {
+                if(hwmCommand.getReplayState().isFailed()) {
                     LOG.info("Command xactnId={} hit replay error", hwmCommand.getTransactionId());
                     return;
                 }
@@ -118,14 +118,14 @@ public class ReplayableCommandExecution
             // if hit an issue, then mark this as in error.
             // this will effectively block the running of any further commands until the adminstrator fixes
             //
-            transactionManager.executeWithinTransaction(() -> commandReplayAnalyser.analyze(parent));
+            transactionManager.executeWithinTransaction(() -> analyssisService.analyze(parent));
         }
     }
 
     private boolean hitReplayError(final CommandJdo commandJdo) {
         return  commandJdo != null &&
                 commandJdo.getReplayState() != null &&
-                commandJdo.getReplayState().representsError();
+                commandJdo.getReplayState().isFailed();
     }
 
     @Inject
@@ -135,6 +135,6 @@ public class ReplayableCommandExecution
     CommandServiceJdoRepository commandServiceJdoRepository;
 
     @Inject
-    CommandReplayAnalyser commandReplayAnalyser;
+    CommandReplayAnalysisService analyssisService;
 
 }

@@ -91,9 +91,6 @@ public class CommandJdo_retry {
         if (!commandJdo.isComplete()) {
             return "Not yet completed";
         }
-        if (commandJdo.getExecuteIn().isReplayable() && commandJdo.getReplayState() == ReplayState.OK) {
-            return "Replayed OK";
-        }
         return null;
     }
 

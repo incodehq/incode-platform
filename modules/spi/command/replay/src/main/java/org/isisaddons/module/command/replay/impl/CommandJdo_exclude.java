@@ -45,7 +45,7 @@ public class CommandJdo_exclude {
     }
     public String disableAct() {
         final boolean notInError =
-                commandJdo.getReplayState() == null || !commandJdo.getReplayState().representsError();
+                commandJdo.getReplayState() == null || !commandJdo.getReplayState().isFailed();
         return notInError
                 ? "This command is not in error, so cannot be excluded."
                 : null;
