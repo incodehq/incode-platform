@@ -376,7 +376,7 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
      *
      * <b>NOT API</b>.
      */
-    @javax.jdo.annotations.Column(allowsNull="true", length=30)
+    @javax.jdo.annotations.Column(allowsNull="true", length=255)
     @Property(
             domainEvent = ReplayStateFailureReasonDomainEvent.class
     )
@@ -385,7 +385,7 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             multiLine = 5
     )
     @Getter @Setter
-    @MemberOrder(name="Execution", sequence = "255")
+    @MemberOrder(name="Execution", sequence = "35")
     private String replayStateFailureReason;
 
     public boolean hideReplayStateFailureReason() {
