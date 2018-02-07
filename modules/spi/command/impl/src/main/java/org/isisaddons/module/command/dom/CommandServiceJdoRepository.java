@@ -3,14 +3,11 @@ package org.isisaddons.module.command.dom;
 import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.List;
-import java.util.SortedSet;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Ordering;
-import com.google.common.collect.Sets;
 
 import org.datanucleus.query.typesafe.TypesafeQuery;
 import org.joda.time.LocalDate;
@@ -324,29 +321,11 @@ public class CommandServiceJdoRepository {
 
     //endregion
 
-    //region > findReplayQueueOnSlave
+    //region > findReplayedOnSlave
     @Programmatic
-    public SortedSet<CommandJdo> findReplayQueueOnSlave() {
-
-        // by timestamp desc, so most recent is at top
-        SortedSet<CommandJdo> commandJdos = Sets.newTreeSet(Ordering.natural().onResultOf(CommandJdo::getTimestamp).reversed());
-
-        final List<CommandJdo> mostRecentInErr = repositoryService.allMatches(
-                new QueryDefault<>(CommandJdo.class, "findReplayableInErrorMostRecent"));
-        if (!mostRecentInErr.isEmpty()) {
-            // we expect at most only one failed command because the Replay job is meant to fail-fast
-            // if an exception is encountered
-            // these are the commands that are blocked.
-            final CommandJdo firstFailed = mostRecentInErr.get(0);
-            commandJdos.add(firstFailed);
-        }
-
-        // add in the 5 most recent replayed
-        final List<CommandJdo> mostRecent = repositoryService.allMatches(
+    public List<CommandJdo> findReplayedOnSlave() {
+        return repositoryService.allMatches(
                 new QueryDefault<>(CommandJdo.class, "findReplayableMostRecentStarted"));
-        commandJdos.addAll(mostRecent);
-
-        return commandJdos;
     }
 
     //endregion

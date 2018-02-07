@@ -1,6 +1,6 @@
 package org.isisaddons.module.command.replay.impl;
 
-import java.util.SortedSet;
+import java.util.List;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
@@ -55,7 +55,7 @@ public class CommandReplayOnSlaveService {
     //endregion
 
 
-    //region findReplayQueueOnSlave
+    //region findReplayedOnSlave
 
     public static class FindReplayQueueOnSlaveDomainEvent extends ActionDomainEvent { }
 
@@ -67,8 +67,8 @@ public class CommandReplayOnSlaveService {
             cssClassFa = "fa-bus"
     )
     @MemberOrder(sequence="60.3")
-    public SortedSet<CommandJdo> findReplayQueueOnSlave() {
-        return commandServiceJdoRepository.findReplayQueueOnSlave();
+    public List<CommandJdo> findReplayedOnSlave() {
+        return commandServiceJdoRepository.findReplayedOnSlave();
     }
 
     //endregion

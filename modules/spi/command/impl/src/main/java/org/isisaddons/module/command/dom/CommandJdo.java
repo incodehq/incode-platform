@@ -224,7 +224,7 @@ import lombok.Setter;
                     + "WHERE executeIn == 'REPLAYABLE' "
                     + "   && startedAt != null "
                     + "ORDER BY this.timestamp DESC "
-                    + "RANGE 0,5"),
+                    + "RANGE 0,20"),
 })
 @javax.jdo.annotations.Indices({
         @javax.jdo.annotations.Index(name = "CommandJdo_timestamp_e_s_IDX", members = {"timestamp", "executeIn", "startedAt"}),
