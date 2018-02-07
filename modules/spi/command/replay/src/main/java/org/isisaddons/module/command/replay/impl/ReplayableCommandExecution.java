@@ -15,6 +15,7 @@ import org.apache.isis.schema.cmd.v1.CommandDto;
 
 import org.isisaddons.module.command.dom.CommandJdo;
 import org.isisaddons.module.command.dom.CommandServiceJdoRepository;
+import org.isisaddons.module.command.replay.spi.ReplayCommandExecutionController;
 
 public class ReplayableCommandExecution
         extends CommandExecutionAbstract {
@@ -45,7 +46,12 @@ public class ReplayableCommandExecution
         final IsisTransactionManager transactionManager = getTransactionManager(persistenceSession);
 
         CommandJdo hwmCommand = null;
-        while(true) {
+        if(!isRunning()) {
+            LOG.info("ReplayableCommandExecution is paused");
+            return;
+        }
+
+        while(isRunning()) {
 
             if(hwmCommand == null) {
                 // first time through the loop we need to find the HWM command
@@ -59,24 +65,45 @@ public class ReplayableCommandExecution
                 return;
 
             }
-            LOG.debug("current hwm transactionId = {}", hwmCommand.getTransactionId());
 
-            if(hwmCommand.getReplayState() == null) {
+            LOG.debug("current hwm transactionId = {} {} {} {}",
+                    hwmCommand.getTransactionId(), hwmCommand.getTimestamp(),
+                    hwmCommand.getExecuteIn(), hwmCommand.getMemberIdentifier());
 
-                // the HWM has not been replayed.
-                // this might be because it has been marked for retry by the administrator.
-                // we just use it
 
-            } else {
+            boolean fetchNext;
+            switch (hwmCommand.getExecuteIn()) {
+            case FOREGROUND:
+                fetchNext = true;
+                break;
+            case REPLAYABLE:
+                if(hwmCommand.getReplayState() == null) {
 
-                //
-                // check that the current HWM was replayed successfully, otherwise break out
-                //
-                if(hwmCommand.getReplayState().isFailed()) {
-                    LOG.info("Command xactnId={} hit replay error", hwmCommand.getTransactionId());
-                    return;
+                    // the HWM has not been replayed.
+                    // this might be because it has been marked for retry by the administrator.
+                    // so, we will just use it directly
+
+                    fetchNext = false;
+                } else {
+                    //
+                    // check that the current HWM was replayed successfully, otherwise break out
+                    //
+                    if(hwmCommand.getReplayState().isFailed()) {
+                        LOG.info("Command xactnId={} hit replay error", hwmCommand.getTransactionId());
+                        return;
+                    }
+                    fetchNext = true;
                 }
+                break;
+            case BACKGROUND:
+            default:
+                LOG.error(
+                        "HWM command xactnId={} should be either FOREGROUND or REPLAYABLE but is instead {}; aborting",
+                        hwmCommand.getTransactionId(), hwmCommand.getExecuteIn());
+                return;
+            }
 
+            if(fetchNext) {
                 //
                 // replicate next command from master (if any)
                 //
@@ -88,11 +115,9 @@ public class ReplayableCommandExecution
 
                 hwmCommand = transactionManager.executeWithinTransaction(
                         () -> commandServiceJdoRepository.saveForReplay(commandDto));
-
             }
 
-
-            LOG.info("next HWM transactionId = {}", hwmCommand.getTransactionId());
+            LOG.info("next HWM transactionId = {} {} {} {}", hwmCommand.getTransactionId());
 
 
 
@@ -122,10 +147,19 @@ public class ReplayableCommandExecution
         }
     }
 
-    private boolean hitReplayError(final CommandJdo commandJdo) {
-        return  commandJdo != null &&
-                commandJdo.getReplayState() != null &&
-                commandJdo.getReplayState().isFailed();
+    private boolean isRunning() {
+        // if no controller implementation provided, then just continue
+        if (controller == null) {
+            return true;
+        }
+
+        final ReplayCommandExecutionController.State state = controller.getState();
+        // if null, then not yet initialized, so fail back to not running
+        if(state == null) {
+            return false;
+        }
+
+        return state == ReplayCommandExecutionController.State.RUNNING;
     }
 
     @Inject
@@ -137,4 +171,6 @@ public class ReplayableCommandExecution
     @Inject
     CommandReplayAnalysisService analyssisService;
 
+    @Inject
+    ReplayCommandExecutionController controller;
 }

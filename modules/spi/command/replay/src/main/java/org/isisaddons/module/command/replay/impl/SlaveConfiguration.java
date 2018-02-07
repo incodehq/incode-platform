@@ -34,7 +34,7 @@ public class SlaveConfiguration {
         }
     }
 
-    boolean isConfigured() {
+    public boolean isConfigured() {
         return masterUser != null &&
                masterPassword != null &&
                masterBaseUrl != null;
