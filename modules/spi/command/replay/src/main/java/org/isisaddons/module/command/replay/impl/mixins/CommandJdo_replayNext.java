@@ -7,14 +7,15 @@ import javax.inject.Inject;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.CommandPersistence;
-import org.apache.isis.applib.annotation.CommandReification;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.command.CommandExecutorService;
 import org.apache.isis.applib.services.message.MessageService;
+import org.apache.isis.applib.services.xactn.TransactionService;
 import org.apache.isis.core.metamodel.services.configinternal.ConfigurationServiceInternal;
+import org.apache.isis.core.runtime.system.context.IsisContext;
 import org.apache.isis.schema.cmd.v1.CommandDto;
 
 import org.isisaddons.module.command.CommandModule;
@@ -81,6 +82,7 @@ public class CommandJdo_replayNext {
     }
 
     private void execute(final CommandJdo hwmCommand) {
+
         // execute the hwm command
         commandExecutorService.executeCommand(CommandExecutorService.SudoPolicy.SWITCH, hwmCommand);
 

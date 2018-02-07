@@ -4,7 +4,6 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
-import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
@@ -18,9 +17,6 @@ import org.apache.isis.applib.services.command.Command;
 import org.apache.isis.applib.services.jaxb.JaxbService;
 import org.apache.isis.schema.cmd.v1.CommandDto;
 import org.apache.isis.schema.cmd.v1.CommandsDto;
-
-import org.isisaddons.module.command.dom.CommandJdo;
-import org.isisaddons.module.command.dom.CommandServiceJdoRepository;
 
 import org.incode.module.jaxrsclient.dom.JaxRsClient;
 import org.incode.module.jaxrsclient.dom.JaxRsResponse;
@@ -78,7 +74,7 @@ public class CommandFetcher {
 
         final JaxRsResponse response = callMaster(slaveConfig, uri);
 
-        final CommandsDto commandsDto = unmarshal(response);
+        final CommandsDto commandsDto = unmarshal(response, uri);
 
         final int size = commandsDto.getCommandDto().size();
         if(size == 0) {
@@ -100,7 +96,7 @@ public class CommandFetcher {
                         slaveConfig.masterBaseUrl, URL_SUFFIX, slaveConfig.masterBatchSize)
         );
         final URI uri = uriBuilder.build();
-        LOG.debug("uri = {}", uri);
+        LOG.info("uri = {}", uri);
         return uri;
     }
 
@@ -128,7 +124,7 @@ public class CommandFetcher {
         return response;
     }
 
-    private CommandsDto unmarshal(final JaxRsResponse response) throws StatusException {
+    private CommandsDto unmarshal(final JaxRsResponse response, final URI uri) throws StatusException {
         CommandsDto commandsDto;
         String entity = "<unable to read from response entity>";
         try {
@@ -137,7 +133,7 @@ public class CommandFetcher {
             commandsDto = jaxbService.fromXml(CommandsDto.class, entity);
             LOG.debug("commands:\n{}", entity);
         } catch(Exception ex) {
-            LOG.warn("unable to unmarshal entity to CommandsDto.class; was:\n{}", entity);
+            LOG.warn("unable to unmarshal entity from {} to CommandsDto.class; was:\n{}", uri, entity);
             throw new StatusException(SlaveStatus.FAILED_TO_UNMARSHALL_RESPONSE, ex);
         }
         return commandsDto;
@@ -150,14 +146,5 @@ public class CommandFetcher {
             return null;
         }
     }
-
-    private List<CommandJdo> saveCommandsForReplay(final CommandsDto commandsDto) {
-        LOG.debug("saving commands for replay ...");
-
-        return commandServiceJdoRepository.saveForReplay(commandsDto);
-    }
-
-    @Inject
-    CommandServiceJdoRepository commandServiceJdoRepository;
 
 }

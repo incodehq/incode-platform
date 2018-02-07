@@ -148,12 +148,18 @@ public class ReplayableCommandExecution
     }
 
     private boolean isRunning() {
+
         // if no controller implementation provided, then just continue
         if (controller == null) {
             return true;
         }
 
-        final ReplayCommandExecutionController.State state = controller.getState();
+        final IsisTransactionManager transactionManager =
+                getTransactionManager(getPersistenceSession());
+
+        final ReplayCommandExecutionController.State state =
+                transactionManager.executeWithinTransaction(() -> controller.getState());
+
         // if null, then not yet initialized, so fail back to not running
         if(state == null) {
             return false;
