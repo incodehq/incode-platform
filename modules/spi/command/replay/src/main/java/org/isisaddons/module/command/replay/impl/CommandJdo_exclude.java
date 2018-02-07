@@ -2,6 +2,7 @@ package org.isisaddons.module.command.replay.impl;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.CommandPersistence;
 import org.apache.isis.applib.annotation.CommandReification;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -28,7 +29,7 @@ public class CommandJdo_exclude {
     @Action(
             semantics = SemanticsOf.NON_IDEMPOTENT_ARE_YOU_SURE,
             domainEvent = ActionDomainEvent.class,
-            command = CommandReification.DISABLED
+            commandPersistence = CommandPersistence.NOT_PERSISTED
     )
     @ActionLayout(
             contributed = Contributed.AS_ACTION

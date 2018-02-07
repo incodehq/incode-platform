@@ -47,7 +47,7 @@ public class ReplayableCommandExecution
 
         CommandJdo hwmCommand = null;
         if(!isRunning()) {
-            LOG.info("ReplayableCommandExecution is paused");
+            LOG.debug("ReplayableCommandExecution is paused");
             return;
         }
 

@@ -5,7 +5,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import org.apache.isis.applib.annotation.Action;
-import org.apache.isis.applib.annotation.CommandReification;
+import org.apache.isis.applib.annotation.CommandPersistence;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Optionality;
@@ -32,7 +32,7 @@ public class StatusMessageService {
 
     @Action(
             semantics = SemanticsOf.NON_IDEMPOTENT,
-            command = CommandReification.DISABLED,
+            commandPersistence = CommandPersistence.NOT_PERSISTED,
             publishing = Publishing.DISABLED
     )
     public void log(

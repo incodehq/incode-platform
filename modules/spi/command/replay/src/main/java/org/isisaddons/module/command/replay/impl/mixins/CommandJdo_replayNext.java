@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.CommandPersistence;
 import org.apache.isis.applib.annotation.CommandReification;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -41,7 +42,7 @@ public class CommandJdo_replayNext {
     @Action(
             semantics = SemanticsOf.NON_IDEMPOTENT,
             domainEvent = ActionDomainEvent.class,
-            command = CommandReification.DISABLED
+            commandPersistence = CommandPersistence.NOT_PERSISTED
     )
     @ActionLayout(
             contributed = Contributed.AS_ACTION
