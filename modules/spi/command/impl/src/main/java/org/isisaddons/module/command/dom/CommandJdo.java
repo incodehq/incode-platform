@@ -77,21 +77,21 @@ import lombok.Setter;
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE completedAt == null "
-                    + "ORDER BY timestamp DESC"),
+                    + "ORDER BY this.timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findCompleted",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE completedAt != null "
                     + "&& executeIn == 'FOREGROUND' "
-                    + "ORDER BY timestamp DESC"),
+                    + "ORDER BY this.timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findRecentBackgroundByTarget",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE targetStr == :targetStr "
                     + "&& executeIn == 'BACKGROUND' "
-                    + "ORDER BY timestamp DESC, transactionId DESC "
+                    + "ORDER BY this.timestamp DESC, transactionId DESC "
                     + "RANGE 0,30"),
     @javax.jdo.annotations.Query(
             name="findByTargetAndTimestampBetween",
@@ -100,64 +100,64 @@ import lombok.Setter;
                     + "WHERE targetStr == :targetStr " 
                     + "&& timestamp >= :from " 
                     + "&& timestamp <= :to "
-                    + "ORDER BY timestamp DESC"),
+                    + "ORDER BY this.timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTargetAndTimestampAfter",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE targetStr == :targetStr " 
                     + "&& timestamp >= :from "
-                    + "ORDER BY timestamp DESC"),
+                    + "ORDER BY this.timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTargetAndTimestampBefore",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE targetStr == :targetStr " 
                     + "&& timestamp <= :to "
-                    + "ORDER BY timestamp DESC"),
+                    + "ORDER BY this.timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTarget",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE targetStr == :targetStr " 
-                    + "ORDER BY timestamp DESC"),
+                    + "ORDER BY this.timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTimestampBetween",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE timestamp >= :from " 
                     + "&&    timestamp <= :to "
-                    + "ORDER BY timestamp DESC"),
+                    + "ORDER BY this.timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTimestampAfter",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE timestamp >= :from "
-                    + "ORDER BY timestamp DESC"),
+                    + "ORDER BY this.timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTimestampBefore",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE timestamp <= :to "
-                    + "ORDER BY timestamp DESC"),
+                    + "ORDER BY this.timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="find",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
-                    + "ORDER BY timestamp DESC"),
+                    + "ORDER BY this.timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findRecentByUser",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE user == :user "
-                    + "ORDER BY timestamp DESC "
+                    + "ORDER BY this.timestamp DESC "
                     + "RANGE 0,30"),
     @javax.jdo.annotations.Query(
             name="findRecentByTarget",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE targetStr == :targetStr "
-                    + "ORDER BY timestamp DESC, transactionId DESC "
+                    + "ORDER BY this.timestamp DESC, transactionId DESC "
                     + "RANGE 0,30"),
     @javax.jdo.annotations.Query(
             name="findForegroundFirst",
@@ -167,7 +167,7 @@ import lombok.Setter;
                     + "   && timestamp   != null "
                     + "   && startedAt   != null "
                     + "   && completedAt != null "
-                    + "ORDER BY timestamp ASC "
+                    + "ORDER BY this.timestamp ASC "
                     + "RANGE 0,2"),
         // this should be RANGE 0,1 but results in DataNucleus submitting "FETCH NEXT ROW ONLY"
         // which SQL Server doesn't understand.  However, as workaround, SQL Server *does* understand FETCH NEXT 2 ROWS ONLY
@@ -179,13 +179,13 @@ import lombok.Setter;
                     + "   && timestamp > :timestamp "
                     + "   && startedAt != null "
                     + "   && completedAt != null "
-                    + "ORDER BY timestamp ASC"),
+                    + "ORDER BY this.timestamp ASC"),
     @javax.jdo.annotations.Query(
             name="findReplayableHwm",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE executeIn == 'REPLAYABLE' "
-                    + "ORDER BY timestamp DESC "
+                    + "ORDER BY this.timestamp DESC "
                     + "RANGE 0,2"),
         // this should be RANGE 0,1 but results in DataNucleus submitting "FETCH NEXT ROW ONLY"
         // which SQL Server doesn't understand.  However, as workaround, SQL Server *does* understand FETCH NEXT 2 ROWS ONLY
@@ -196,7 +196,7 @@ import lombok.Setter;
                     + "WHERE executeIn == 'FOREGROUND' "
                     + "   && startedAt   != null "
                     + "   && completedAt != null "
-                    + "ORDER BY timestamp DESC "
+                    + "ORDER BY this.timestamp DESC "
                     + "RANGE 0,2"),
         // this should be RANGE 0,1 but results in DataNucleus submitting "FETCH NEXT ROW ONLY"
         // which SQL Server doesn't understand.  However, as workaround, SQL Server *does* understand FETCH NEXT 2 ROWS ONLY
@@ -206,7 +206,7 @@ import lombok.Setter;
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE executeIn == 'BACKGROUND' "
                     + "   && startedAt == null "
-                    + "ORDER BY timestamp ASC "),
+                    + "ORDER BY this.timestamp ASC "),
         @javax.jdo.annotations.Query(
                 name="findReplayableInErrorMostRecent",
                 value="SELECT "
@@ -215,7 +215,7 @@ import lombok.Setter;
                         + "  && (replayState != 'PENDING' || "
                         + "      replayState != 'OK'      || "
                         + "      replayState != 'EXCLUDED'   ) "
-                        + "ORDER BY timestamp DESC "
+                        + "ORDER BY this.timestamp DESC "
                         + "RANGE 0,2"),
     @javax.jdo.annotations.Query(
             name="findReplayableMostRecentStarted",
@@ -223,7 +223,7 @@ import lombok.Setter;
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE executeIn == 'REPLAYABLE' "
                     + "   && startedAt != null "
-                    + "ORDER BY timestamp DESC "
+                    + "ORDER BY this.timestamp DESC "
                     + "RANGE 0,5"),
 })
 @javax.jdo.annotations.Indices({
