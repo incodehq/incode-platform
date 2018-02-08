@@ -61,7 +61,7 @@
             <groupId>org.isisaddons.module.settings</groupId>
             <artifactId>isis-module-settings-dom</artifactId>
             <scope>test</scope>
-            <version>1.6.0</version>
+            <version>${isis.version}</version>
         </dependency>
 
         <dependency>
