@@ -19,8 +19,9 @@
 
     <properties>
 
-        <isis.version>1.16.1-SNAPSHOT</isis.version>
+        <isis.version>1.16.0.20180208-1754</isis.version>
         <!--
+        <isis.version>1.16.1-SNAPSHOT</isis.version>
         <isis.version>1.16.0.20180130-1145</isis.version>
         -->
         <incode-platform.version>${project.parent.version}</incode-platform.version>
