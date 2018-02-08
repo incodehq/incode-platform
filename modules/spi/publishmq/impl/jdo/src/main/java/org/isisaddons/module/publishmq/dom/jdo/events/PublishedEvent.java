@@ -1,28 +1,23 @@
 package org.isisaddons.module.publishmq.dom.jdo.events;
 
+import java.text.SimpleDateFormat;
 import java.util.UUID;
 
 import javax.jdo.annotations.IdentityType;
-import javax.jdo.annotations.NotPersistent;
 
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
-import org.apache.isis.applib.annotation.LabelPosition;
-import org.apache.isis.applib.annotation.MemberGroupLayout;
-import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
-import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.HasTransactionId;
 import org.apache.isis.applib.services.HasUsername;
-import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.publish.EventType;
-import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.util.ObjectContracts;
+import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 import org.apache.isis.objectstore.jdo.applib.service.Util;
@@ -117,10 +112,6 @@ import lombok.Setter;
                     + "ORDER BY timestamp DESC, transactionId DESC, sequence DESC "
                     + "RANGE 0,30")
 })
-@MemberGroupLayout(
-        columnSpans={6,0,6,12},
-        left={"Identifiers","Target","Metadata"},
-        right={"Detail","State"})
 @DomainObject(
         editing = Editing.DISABLED,
         objectType = "isispublishmq.PublishedEvent"
@@ -151,12 +142,25 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
     }
     //endregion
 
-    //region > title (hidden property)
+    //region > title
+    public String title() {
+
+        // nb: not thread-safe
+        // formats defined in https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+        final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        final TitleBuffer buf = new TitleBuffer();
+        buf.append(format.format(getTimestamp()));
+        buf.append(" ").append(getMemberIdentifier());
+        return buf.toString();
+    }
+    //endregion
+
+    //region > title (hidden property, unused)
     public static class TitleDomainEvent extends PropertyDomainEvent<String> { }
 
     @javax.jdo.annotations.Column(allowsNull="false", length=255)
     @Property(hidden = Where.EVERYWHERE)
-    @Title
     @Getter @Setter
     private String title;
     //endregion
@@ -168,7 +172,6 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
     @Property(
             domainEvent = UserDomainEvent.class
     )
-    @MemberOrder(name="Identifiers", sequence = "10")
     @Getter @Setter
     private String user;
 
@@ -189,7 +192,6 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
             domainEvent = TimestampDomainEvent.class
     )
     @Getter @Setter
-    @MemberOrder(name="Identifiers", sequence = "20")
     private java.sql.Timestamp timestamp;
     //endregion
 
@@ -213,7 +215,6 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
     @PropertyLayout(
             typicalLength = JdoColumnLength.TRANSACTION_ID
     )
-    @MemberOrder(name="Identifiers", sequence = "30")
     @Getter @Setter
     private UUID transactionId;
 
@@ -235,7 +236,6 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
     @Property(
             domainEvent = SequenceDomainEvent.class
     )
-    @MemberOrder(name="Identifiers", sequence = "40")
     @Getter @Setter
     private int sequence;
 
@@ -250,7 +250,6 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
     @Property(
             domainEvent = EventTypeDomainEvent.class
     )
-    @MemberOrder(name="Identifiers",sequence = "50")
     @Getter @Setter
     private PublishedEventType eventType;
     //endregion
@@ -267,7 +266,6 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
             named = "Class",
             typicalLength = 30
     )
-    @MemberOrder(name="Target", sequence = "10")
     @Getter
     private String targetClass;
 
@@ -293,7 +291,6 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
             typicalLength = 30
     )
     @Getter
-    @MemberOrder(name="Target", sequence = "20")
     private String targetAction;
 
     public void setTargetAction(final String targetAction) {
@@ -313,7 +310,6 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
     @PropertyLayout(
             named = "Object"
     )
-    @MemberOrder(name="Target", sequence="30")
     @Getter @Setter
     private String targetStr;
 
@@ -345,7 +341,6 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
             hidden = Where.ALL_TABLES,
             typicalLength = 60
     )
-    @MemberOrder(name="Detail",sequence = "20")
     @Getter
     private String memberIdentifier;
     
@@ -366,31 +361,12 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
             domainEvent = SerializedFormDomainEvent.class
     )
     @Getter @Setter
-    @MemberOrder(name="Detail", sequence = "40")
     @PropertyLayout(
             hidden = Where.ALL_TABLES,
             multiLine = 14
     )
     private String serializedForm;
 
-    //endregion
-
-    //region > metadata region dummy property
-
-    public static class MetadataRegionDummyPropertyDomainEvent extends PropertyDomainEvent<String> { }
-
-    /**
-     * Exists just that the Wicket viewer will render an (almost) empty metadata region (on which the
-     * framework contributed mixin actions will be attached).  The field itself can optionally be hidden
-     * using CSS.
-     */
-    @NotPersistent
-    @Property(domainEvent = MetadataRegionDummyPropertyDomainEvent.class, notPersisted = true)
-    @PropertyLayout(labelPosition = LabelPosition.NONE, hidden = Where.ALL_TABLES)
-    @MemberOrder(name="Metadata", sequence = "1")
-    public String getMetadataRegionDummyProperty() {
-        return null;
-    }
     //endregion
 
     //region > toString
@@ -401,14 +377,5 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
     }
     //endregion
 
-    //region > injected services
-
-    @javax.inject.Inject
-    private BookmarkService bookmarkService;
-
-    @javax.inject.Inject
-    private RepositoryService repositoryService;
-
-    //endregion
 
 }

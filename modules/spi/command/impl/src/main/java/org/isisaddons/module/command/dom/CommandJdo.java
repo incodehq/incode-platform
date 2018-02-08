@@ -2,6 +2,7 @@ package org.isisaddons.module.command.dom;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,8 +28,6 @@ import org.apache.isis.applib.annotation.Command.Persistence;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
-import org.apache.isis.applib.annotation.LabelPosition;
-import org.apache.isis.applib.annotation.MemberGroupLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -237,10 +236,6 @@ import lombok.Setter;
 @DomainObjectLayout(
         named = "Command"
 )
-@MemberGroupLayout(
-        columnSpans={6,0,6,12}, 
-        left={"Identifiers","Target","Notes", "Metadata"},
-        right={"Detail","Execution","Timings","Results"})
 public class CommandJdo extends DomainChangeJdoAbstract implements Command3, HasUsername, CommandWithDto, Comparable<CommandJdo> {
 
     @SuppressWarnings("unused")
@@ -260,8 +255,12 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
 
     //region > identification
     public String title() {
+        // nb: not thread-safe
+        // formats defined in https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+        final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
         final TitleBuffer buf = new TitleBuffer();
-        buf.append(getTargetStr());
+        buf.append(format.format(getTimestamp()));
         buf.append(" ").append(getMemberIdentifier());
         return buf.toString();
     }
@@ -276,7 +275,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             domainEvent = UserDomainEvent.class
     )
     @Getter @Setter
-    @MemberOrder(name="Identifiers", sequence = "10")
     private String user;
 
 
@@ -305,7 +303,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             domainEvent = TimestampDomainEvent.class
     )
     @Getter @Setter
-    @MemberOrder(name="Identifiers", sequence = "20")
     private Timestamp timestamp;
 
     //endregion
@@ -340,7 +337,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             domainEvent = ExecuteInDomainEvent.class
     )
     @Getter @Setter
-    @MemberOrder(name="Execution", sequence = "32")
     private ExecuteIn executeIn;
 
     //endregion
@@ -360,7 +356,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             domainEvent = ReplayStateDomainEvent.class
     )
     @Getter @Setter
-    @MemberOrder(name="Execution", sequence = "34")
     private ReplayState replayState;
     @Getter @Setter
 
@@ -385,7 +380,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             multiLine = 5
     )
     @Getter @Setter
-    @MemberOrder(name="Execution", sequence = "35")
     private String replayStateFailureReason;
 
     public boolean hideReplayStateFailureReason() {
@@ -409,7 +403,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             hidden = Where.ALL_TABLES
     )
     @Getter @Setter
-    @MemberOrder(name="Identifiers",sequence = "40")
     private Command parent;
 
     //endregion
@@ -436,7 +429,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             typicalLength = JdoColumnLength.TRANSACTION_ID
     )
     @Getter @Setter
-    @MemberOrder(name="Identifiers",sequence = "50")
     private UUID transactionId;
 
     //endregion
@@ -454,7 +446,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             typicalLength = 30
     )
     @Getter
-    @MemberOrder(name="Target", sequence = "10")
     private String targetClass;
 
     public void setTargetClass(final String targetClass) {
@@ -479,7 +470,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             named = "Action"
     )
     @Getter
-    @MemberOrder(name="Target", sequence = "20")
     private String targetAction;
 
     public void setTargetAction(final String targetAction) {
@@ -501,7 +491,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             named = "Object"
     )
     @Getter @Setter
-    @MemberOrder(name="Target", sequence="30")
     private String targetStr;
 
     //endregion
@@ -520,27 +509,8 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             hidden = Where.ALL_TABLES
     )
     @Getter @Setter
-    @MemberOrder(name="Target",sequence = "40")
     private String arguments;
 
-    //endregion
-
-    //region > metadata region dummy property
-
-    public static class MetadataRegionDummyPropertyDomainEvent extends PropertyDomainEvent<String> { }
-
-    /**
-     * Exists just that the Wicket viewer will render an (almost) empty metadata region (on which the
-     * framework contributed mixin actions will be attached).  The field itself can optionally be hidden
-     * using CSS.
-     */
-    @NotPersistent
-    @Property(domainEvent = MetadataRegionDummyPropertyDomainEvent.class, notPersisted = true)
-    @PropertyLayout(labelPosition = LabelPosition.NONE, hidden = Where.ALL_TABLES)
-    @MemberOrder(name="Metadata", sequence = "1")
-    public String getMetadataRegionDummyProperty() {
-        return null;
-    }
     //endregion
 
     //region > memberIdentifier (property)
@@ -556,7 +526,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             hidden = Where.ALL_TABLES
     )
     @Getter
-    @MemberOrder(name="Detail",sequence = "1")
     private String memberIdentifier;
 
     public void setMemberIdentifier(final String memberIdentifier) {
@@ -578,7 +547,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             hidden = Where.ALL_TABLES
     )
     @Getter @Setter
-    @MemberOrder(name="Detail",sequence = "30")
     private String memento;
 
     //endregion
@@ -622,7 +590,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             domainEvent = StartedAtDomainEvent.class
     )
     @Getter @Setter
-    @MemberOrder(name="Timings", sequence = "3")
     private Timestamp startedAt;
 
     //endregion
@@ -640,7 +607,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             domainEvent = CompletedAtDomainEvent.class
     )
     @Getter @Setter
-    @MemberOrder(name="Timings", sequence = "4")
     private Timestamp completedAt;
 
     //endregion
@@ -662,7 +628,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     @PropertyLayout(
             named = "Duration"
     )
-    @MemberOrder(name="Timings", sequence = "7")
     public BigDecimal getDuration() {
         return Util.durationBetween(getStartedAt(), getCompletedAt());
     }
@@ -680,7 +645,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     @PropertyLayout(
             hidden = Where.OBJECT_FORMS
     )
-    @MemberOrder(name="Timings", sequence = "8")
     public boolean isComplete() {
         return getCompletedAt() != null;
     }
@@ -691,7 +655,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     public static class ResultSummaryDomainEvent extends PropertyDomainEvent<String> { }
 
     @javax.jdo.annotations.NotPersistent
-    @MemberOrder(name="Results",sequence = "10")
     @Property(
             domainEvent = ResultSummaryDomainEvent.class
     )
@@ -743,7 +706,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             named = "Result Bookmark"
     )
     @Getter @Setter
-    @MemberOrder(name="Results", sequence="25")
     private String resultStr;
 
     // //////////////////////////////////////
@@ -788,7 +750,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             named = "Exception (if any)"
     )
     @Getter @Setter
-    @MemberOrder(name="Results", sequence="31")
     private String exception;
 
 
@@ -801,7 +762,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     @PropertyLayout(
             hidden = Where.OBJECT_FORMS
     )
-    @MemberOrder(name="Results",sequence = "30")
     public boolean isCausedException() {
         return getException() != null;
     }

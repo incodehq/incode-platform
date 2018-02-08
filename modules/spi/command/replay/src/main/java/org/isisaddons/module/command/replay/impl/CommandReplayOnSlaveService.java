@@ -1,7 +1,5 @@
 package org.isisaddons.module.command.replay.impl;
 
-import java.util.List;
-
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.DomainService;
@@ -54,24 +52,6 @@ public class CommandReplayOnSlaveService {
 
     //endregion
 
-
-    //region findReplayedOnSlave
-
-    public static class FindReplayQueueOnSlaveDomainEvent extends ActionDomainEvent { }
-
-    @Action(
-            domainEvent = FindReplayQueueOnSlaveDomainEvent.class,
-            semantics = SemanticsOf.SAFE
-    )
-    @ActionLayout(
-            cssClassFa = "fa-bus"
-    )
-    @MemberOrder(sequence="60.3")
-    public List<CommandJdo> findReplayedOnSlave() {
-        return commandServiceJdoRepository.findReplayedOnSlave();
-    }
-
-    //endregion
 
 
     @javax.inject.Inject

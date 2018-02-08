@@ -1,17 +1,29 @@
 package org.isisaddons.module.sessionlogger.dom;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.apache.isis.applib.annotation.*;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import javax.jdo.annotations.IdentityType;
+
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
+import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.PropertyLayout;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.HasUsername;
 import org.apache.isis.applib.services.session.SessionLoggingService;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
+
 import org.isisaddons.module.sessionlogger.SessionLoggerModule;
 
-import javax.jdo.annotations.IdentityType;
-import java.sql.Timestamp;
-import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.APPLICATION,
@@ -114,11 +126,6 @@ import java.util.List;
         editing = Editing.DISABLED
 )
 @DomainObjectLayout(named = "Session Log Entry")
-@MemberGroupLayout(
-        columnSpans={4,4,4,12},
-        left={"Identifiers", "Metadata"},
-        middle={"Login"},
-        right={"Logout"})
 public class SessionLogEntry implements HasUsername, Comparable<SessionLogEntry> {
 
     //region > domain events
@@ -134,8 +141,13 @@ public class SessionLogEntry implements HasUsername, Comparable<SessionLogEntry>
 
     //region > title, icon etc
     public String title() {
+
+        // nb: not thread-safe
+        // formats defined in https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+        final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
         return String.format("%s: %s logged %s %s",
-                getLoginTimestamp(),
+                format.format(getLoginTimestamp()),
                 getUser(),
                 getLogoutTimestamp() == null ? "in": "out",
                 getCausedBy() == SessionLoggingService.CausedBy.SESSION_EXPIRATION ? "(session expired)" : "");
@@ -164,7 +176,6 @@ public class SessionLogEntry implements HasUsername, Comparable<SessionLogEntry>
     @Property(
             domainEvent = CausedByDomainEvent.class
     )
-    @MemberOrder(name="Identifiers",sequence = "12")
     @Getter @Setter
     private String sessionId;
 
@@ -180,7 +191,6 @@ public class SessionLogEntry implements HasUsername, Comparable<SessionLogEntry>
     @Property(
             domainEvent = UsernameDomainEvent.class
     )
-    @MemberOrder(name="Identifiers",sequence = "10")
     @Getter @Setter
     private String user;
 
@@ -201,7 +211,6 @@ public class SessionLogEntry implements HasUsername, Comparable<SessionLogEntry>
     @Property(
             domainEvent = LoginTimestampDomainEvent.class
     )
-    @MemberOrder(name="Login",sequence = "10")
     @Getter @Setter
     private Timestamp loginTimestamp;
 
@@ -217,7 +226,6 @@ public class SessionLogEntry implements HasUsername, Comparable<SessionLogEntry>
     @Property(
             domainEvent = LogoutTimestampDomainEvent.class
     )
-    @MemberOrder(name="Logout",sequence = "10")
     @Getter @Setter
     private Timestamp logoutTimestamp;
 
@@ -249,7 +257,6 @@ public class SessionLogEntry implements HasUsername, Comparable<SessionLogEntry>
     @PropertyLayout(
             named = "Caused by"
     )
-    @MemberOrder(name="Logout",sequence = "20")
     @Getter @Setter
     private CausedBy2 causedBy2; // until Isis 1.13.1 is extended
 
@@ -292,7 +299,6 @@ public class SessionLogEntry implements HasUsername, Comparable<SessionLogEntry>
             cssClassFa = "fa-step-forward",
             cssClassFaPosition = ActionLayout.CssClassFaPosition.RIGHT
     )
-    @MemberOrder(sequence = "2")
     public SessionLogEntry next() {
         final List<SessionLogEntry> after = sessionLogEntryRepository.findByUserAndStrictlyAfter(getUser(), getLoginTimestamp());
         return !after.isEmpty() ? after.get(0) : this;
@@ -315,7 +321,6 @@ public class SessionLogEntry implements HasUsername, Comparable<SessionLogEntry>
     @ActionLayout(
             cssClassFa = "fa-step-backward"
     )
-    @MemberOrder(sequence = "1")
     public SessionLogEntry previous() {
         final List<SessionLogEntry> before = sessionLogEntryRepository.findByUserAndStrictlyBefore(getUser(), getLoginTimestamp());
         return !before.isEmpty() ? before.get(0) : this;
@@ -342,8 +347,7 @@ public class SessionLogEntry implements HasUsername, Comparable<SessionLogEntry>
 
     //region > Injected services
     @javax.inject.Inject
-    private SessionLogEntryRepository sessionLogEntryRepository;
-
+    SessionLogEntryRepository sessionLogEntryRepository;
     //endregion
 
 

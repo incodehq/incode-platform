@@ -7,22 +7,16 @@ import java.util.UUID;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Index;
 import javax.jdo.annotations.Indices;
-import javax.jdo.annotations.NotPersistent;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
-import org.apache.isis.applib.annotation.LabelPosition;
-import org.apache.isis.applib.annotation.MemberGroupLayout;
-import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.HasTransactionId;
 import org.apache.isis.applib.services.HasUsername;
-import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract;
@@ -137,10 +131,6 @@ import lombok.Setter;
         editing = Editing.DISABLED,
         objectType = "isisaudit.AuditEntry"
 )
-@MemberGroupLayout(
-        columnSpans={6,0,6,12},
-        left={"Identifiers","Target"},
-        right={"Detail","Metadata"})
 public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactionId, HasUsername {
 
     //region > domain events
@@ -162,8 +152,7 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
 
         final TitleBuffer buf = new TitleBuffer();
         buf.append(format.format(getTimestamp()));
-        buf.append(" - ", getTargetStr());
-        buf.append(", ", getPropertyId());
+        buf.append(" ").append(getMemberIdentifier());
         return buf.toString();
     }
 
@@ -180,7 +169,6 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
     @PropertyLayout(
             hidden = Where.PARENTED_TABLES
     )
-    @MemberOrder(name="Identifiers",sequence = "10")
     @Getter @Setter
     private String user;
 
@@ -202,7 +190,6 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
     @PropertyLayout(
             hidden = Where.PARENTED_TABLES
     )
-    @MemberOrder(name="Identifiers",sequence = "20")
     @Getter @Setter
     private Timestamp timestamp;
 
@@ -235,7 +222,6 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
             hidden=Where.PARENTED_TABLES,
             typicalLength = 36
     )
-    @MemberOrder(name="Identifiers",sequence = "30")
     @Getter @Setter
     private UUID transactionId;
 
@@ -267,7 +253,6 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
     @PropertyLayout(
             hidden=Where.PARENTED_TABLES
     )
-    @MemberOrder(name="Identifiers",sequence = "40")
     @Getter @Setter
     private int sequence;
 
@@ -286,7 +271,6 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
             named = "Class",
             typicalLength = 30
     )
-    @MemberOrder(name="Target", sequence = "10")
     @Getter
     private String targetClass;
 
@@ -308,7 +292,6 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
     @PropertyLayout(
             named = "Object"
     )
-    @MemberOrder(name="Target", sequence="30")
     @Getter @Setter
     private String targetStr;
     //endregion
@@ -330,7 +313,6 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
             typicalLength = 60,
             hidden = Where.ALL_TABLES
     )
-    @MemberOrder(name="Detail",sequence = "1")
     @Getter
     private String memberIdentifier;
 
@@ -354,7 +336,6 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
     @PropertyLayout(
             hidden = Where.NOWHERE
     )
-    @MemberOrder(name="Target",sequence = "20")
     @Getter
     private String propertyId;
 
@@ -376,7 +357,6 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
     @PropertyLayout(
             hidden = Where.NOWHERE
     )
-    @MemberOrder(name="Detail",sequence = "6")
     @Getter
     private String preValue;
 
@@ -397,7 +377,6 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
     @PropertyLayout(
             hidden = Where.NOWHERE
     )
-    @MemberOrder(name="Detail",sequence = "7")
     @Getter
     private String postValue;
 
@@ -407,38 +386,12 @@ public class AuditEntry extends DomainChangeJdoAbstract implements HasTransactio
 
     //endregion
 
-    //region > metadata region dummy property
-
-    public static class MetadataRegionDummyPropertyDomainEvent extends PropertyDomainEvent<String> { }
-
-    /**
-     * Exists just that the Wicket viewer will render an (almost) empty metadata region (on which the
-     * framework contributed mixin actions will be attached).  The field itself can optionally be hidden
-     * using CSS.
-     */
-    @NotPersistent
-    @Property(domainEvent = MetadataRegionDummyPropertyDomainEvent.class, notPersisted = true)
-    @PropertyLayout(labelPosition = LabelPosition.NONE, hidden = Where.ALL_TABLES)
-    @MemberOrder(name="Metadata", sequence = "1")
-    public String getMetadataRegionDummyProperty() {
-        return null;
-    }
-    //endregion
-
     //region > helpers: toString
 
     @Override
     public String toString() {
         return ObjectContracts.toString(this, "timestamp,user,targetStr,memberIdentifier");
     }
-    //endregion
-
-    //region > Injected services
-    @javax.inject.Inject
-    private BookmarkService bookmarkService;
-
-    @javax.inject.Inject
-    private DomainObjectContainer container;
     //endregion
 
 }

@@ -380,6 +380,7 @@ public class CommandServiceJdoRepository {
     public void persist(final CommandJdo commandJdo) {
 
         withSafeTargetStr(commandJdo);
+        withSafeResultStr(commandJdo);
 
         repositoryService.persist(commandJdo);
     }
@@ -387,6 +388,7 @@ public class CommandServiceJdoRepository {
     @Programmatic
     public void persistIfHinted(final CommandJdo commandJdo) {
         withSafeTargetStr(commandJdo);
+        withSafeResultStr(commandJdo);
 
         if(commandJdo.shouldPersist()) {
             repositoryService.persist(commandJdo);
@@ -394,12 +396,20 @@ public class CommandServiceJdoRepository {
 
     }
 
-    private CommandJdo withSafeTargetStr(final CommandJdo commandJdo) {
-        // can't store target if too long (eg view models)
-        if (commandJdo.getTargetStr() != null && commandJdo.getTargetStr().length() > JdoColumnLength.BOOKMARK) {
+    private static void withSafeTargetStr(final CommandJdo commandJdo) {
+        if (tooLong(commandJdo.getTargetStr())) {
             commandJdo.setTargetStr(null);
         }
-        return commandJdo;
+    }
+    private static void withSafeResultStr(final CommandJdo commandJdo) {
+        if (tooLong(commandJdo.getResultStr())) {
+            commandJdo.setResultStr(null);
+        }
+    }
+
+    // can't store result if too long (eg view models)
+    private static boolean tooLong(final String str) {
+        return str != null && str.length() > JdoColumnLength.BOOKMARK;
     }
 
     //endregion

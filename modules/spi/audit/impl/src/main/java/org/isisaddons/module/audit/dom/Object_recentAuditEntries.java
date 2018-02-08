@@ -69,7 +69,7 @@ public class Object_recentAuditEntries {
 
     public boolean hideAct() {
         MetaModelService2.Sort sort = metaModelService3.sortOf(domainObject.getClass(), MetaModelService3.Mode.RELAXED);
-        return !(sort.isJdoEntity() || domainObject instanceof HasTransactionId);
+        return !sort.isJdoEntity() || domainObject instanceof HasTransactionId;
     }
 
     static final Predicate<String> excludedProperties = new Predicate<String>() {

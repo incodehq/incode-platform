@@ -143,7 +143,7 @@ public class ReplayableCommandExecution
             // if hit an issue, then mark this as in error.
             // this will effectively block the running of any further commands until the adminstrator fixes
             //
-            transactionManager.executeWithinTransaction(() -> analyssisService.analyze(parent));
+            transactionManager.executeWithinTransaction(() -> analysisService.analyze(parent));
         }
     }
 
@@ -175,7 +175,7 @@ public class ReplayableCommandExecution
     CommandServiceJdoRepository commandServiceJdoRepository;
 
     @Inject
-    CommandReplayAnalysisService analyssisService;
+    CommandReplayAnalysisService analysisService;
 
     @Inject
     ReplayCommandExecutionController controller;
