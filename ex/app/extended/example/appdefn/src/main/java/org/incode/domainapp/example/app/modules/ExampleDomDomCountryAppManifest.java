@@ -10,10 +10,10 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.HomePage;
 import org.apache.isis.applib.annotation.Nature;
 
+import org.incode.example.country.dom.CountryExample;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.example.country.dom.CountryModule;
 import org.incode.example.country.dom.impl.Country;
 import org.incode.example.country.dom.impl.CountryRepository;
 import org.incode.example.country.dom.impl.State;
@@ -30,7 +30,7 @@ public class ExampleDomDomCountryAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
-            CountryModule.class
+            CountryExample.class
         )
         .withFixtureScripts(
                 CountryModule_tearDown.class,
