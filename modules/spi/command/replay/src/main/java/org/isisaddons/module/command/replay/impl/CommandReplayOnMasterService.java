@@ -191,6 +191,7 @@ public class CommandReplayOnMasterService {
         final CommandJdo commandJdo = commandServiceRepository.findByTransactionId(transactionId);
         if(commandJdo == null) {
             messageService.informUser("No command found");
+            return null;
         }
 
         final CommandDto commandDto =

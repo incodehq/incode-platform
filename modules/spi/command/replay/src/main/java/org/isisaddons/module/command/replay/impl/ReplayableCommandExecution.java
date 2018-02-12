@@ -15,6 +15,7 @@ import org.apache.isis.schema.cmd.v1.CommandDto;
 
 import org.isisaddons.module.command.dom.CommandJdo;
 import org.isisaddons.module.command.dom.CommandServiceJdoRepository;
+import org.isisaddons.module.command.dom.ReplayState;
 import org.isisaddons.module.command.replay.spi.ReplayCommandExecutionController;
 
 public class ReplayableCommandExecution
@@ -77,7 +78,7 @@ public class ReplayableCommandExecution
                 fetchNext = true;
                 break;
             case REPLAYABLE:
-                if(hwmCommand.getReplayState() == null) {
+                if(hwmCommand.getReplayState() == null || hwmCommand.getReplayState() == ReplayState.PENDING) {
 
                     // the HWM has not been replayed.
                     // this might be because it has been marked for retry by the administrator.
@@ -143,7 +144,7 @@ public class ReplayableCommandExecution
             // if hit an issue, then mark this as in error.
             // this will effectively block the running of any further commands until the adminstrator fixes
             //
-            transactionManager.executeWithinTransaction(() -> analysisService.analyze(parent));
+            transactionManager.executeWithinTransaction(() -> analysisService.analyse(parent));
         }
     }
 

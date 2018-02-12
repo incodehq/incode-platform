@@ -63,7 +63,7 @@ public class CommandJdo_replayNext {
 
         execute(nextHwm);
 
-        analysisService.analyze(nextHwm);
+        analysisService.analyse(nextHwm);
 
         return nextHwm;
     }
@@ -109,6 +109,10 @@ public class CommandJdo_replayNext {
         }
 
         return null;
+    }
+
+    public boolean hideAct() {
+        return !getSlaveConfig().isConfigured();
     }
 
     // //////////////////////////////////////
