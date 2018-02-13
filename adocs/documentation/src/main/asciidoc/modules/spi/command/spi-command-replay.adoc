@@ -64,7 +64,7 @@ public interface CommandDtoProcessor {
 }
 ----
 
-This is specified using the xref:../rgant/rgant.adoc#_rgant_Action_commandDtoProcessor[`@Action#commandDtoProcessor()`] or xref:../rgant/rgant.adoc#_rgant_Property_commandDtoProcessor[`@Property#commandDtoProcessor()`] attribute.
+This is specified using the xref:../rgant/rgant.adoc#_rgant-Action_commandDtoProcessor[`@Action#commandDtoProcessor()`] or xref:../rgant/rgant.adoc#_rgant-Property_commandDtoProcessor[`@Property#commandDtoProcessor()`] attribute.
 For example:
 
 [source,java]
