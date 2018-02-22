@@ -798,6 +798,19 @@
             </dependency>
 
             <dependency>
+                <groupId>org.incode.module.zip</groupId>
+                <artifactId>incode-module-zip-dom</artifactId>
+                <version>1.16.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.zip</groupId>
+                <artifactId>incode-module-zip-dom</artifactId>
+                <version>1.16.1-SNAPSHOT</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>org.isisaddons.wicket.excel</groupId>
                 <artifactId>isis-wicket-excel-cpt</artifactId>
                 <version>1.16.1-SNAPSHOT</version>
@@ -1341,6 +1354,7 @@
         <module>lib/stringinterpolator/impl</module>
         <module>lib/unittestsupport/impl</module>
         <module>lib/xdocreport/impl</module>
+        <module>lib/zip/impl</module>
 
         <module>dom/alias/impl</module>
         <module>dom/classification/impl</module>
