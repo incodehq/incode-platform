@@ -785,6 +785,19 @@
             </dependency>
 
             <dependency>
+                <groupId>org.incode.module.userimpersonate</groupId>
+                <artifactId>incode-module-userimpersonate-dom</artifactId>
+                <version>1.16.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.userimpersonate</groupId>
+                <artifactId>incode-module-userimpersonate-dom</artifactId>
+                <version>1.16.1-SNAPSHOT</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>org.isisaddons.module.xdocreport</groupId>
                 <artifactId>isis-module-xdocreport-dom</artifactId>
                 <version>1.16.1-SNAPSHOT</version>
@@ -1380,6 +1393,7 @@
         <module>spi/publishmq/impl</module>
         <module>spi/security/impl</module>
         <module>spi/sessionlogger/impl</module>
+        <module>spi/userimpersonate/impl</module>
 
         <module>wkt/excel/impl</module>
         <module>wkt/fullcalendar2/impl</module>
