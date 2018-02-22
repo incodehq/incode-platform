@@ -24,13 +24,13 @@ public class HttpSessionProvider {
     @Programmatic
     public <T> Optional<T> getAttribute(
             final String httpSessionKey,
-            final Class<T> userMementoClass) {
+            final Class<T> clazz) {
         try {
             return getHttpSession()
                     .filter(Objects::nonNull)
                     .map(httpSession -> httpSession.getAttribute(httpSessionKey))
-                    .filter(userMementoClass::isInstance)
-                    .map(userMementoClass::cast);
+                    .filter(clazz::isInstance)
+                    .map(clazz::cast);
         } catch (Exception e) {
             // bit hacky; to clean this up will require changes to servletapi module.
             return Optional.empty();

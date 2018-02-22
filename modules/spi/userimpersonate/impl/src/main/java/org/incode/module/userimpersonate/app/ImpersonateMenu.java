@@ -20,7 +20,6 @@ import org.isisaddons.module.security.dom.role.ApplicationRole;
 import org.isisaddons.module.security.dom.user.ApplicationUser;
 
 import org.incode.module.userimpersonate.UserImpersonateModule;
-import org.incode.module.userimpersonate.contributions.Object_impersonateUser;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
@@ -33,7 +32,7 @@ import org.incode.module.userimpersonate.contributions.Object_impersonateUser;
 public class ImpersonateMenu {
 
     public static class ImpersonateDomainEvent
-        extends UserImpersonateModule.ActionDomainEvent<Object_impersonateUser> {}
+        extends UserImpersonateModule.ActionDomainEvent<ImpersonateMenu> {}
 
     @Action(
             domainEvent = ImpersonateDomainEvent.class,
@@ -61,7 +60,7 @@ public class ImpersonateMenu {
 
 
     public static class StopImpersonatingDomainEvent
-        extends UserImpersonateModule.ActionDomainEvent<Object_impersonateUser> {}
+        extends UserImpersonateModule.ActionDomainEvent<ImpersonateMenu> {}
 
     @Action(
             domainEvent = StopImpersonatingDomainEvent.class,

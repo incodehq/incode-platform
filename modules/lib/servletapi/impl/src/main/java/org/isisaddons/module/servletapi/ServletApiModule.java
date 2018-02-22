@@ -1,5 +1,9 @@
 package org.isisaddons.module.servletapi;
 
-public final class ServletApiModule {
-    private ServletApiModule(){}
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class ServletApiModule extends ModuleAbstract {
 }

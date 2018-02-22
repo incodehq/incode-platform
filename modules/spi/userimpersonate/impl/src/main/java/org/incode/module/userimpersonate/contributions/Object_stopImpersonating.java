@@ -21,7 +21,7 @@ public class Object_stopImpersonating {
     }
 
     public static class ActionDomainEvent
-            extends UserImpersonateModule.ActionDomainEvent<Object_impersonateUser> {}
+            extends UserImpersonateModule.ActionDomainEvent<Object_stopImpersonating> {}
 
     @Action(
             domainEvent = ActionDomainEvent.class,

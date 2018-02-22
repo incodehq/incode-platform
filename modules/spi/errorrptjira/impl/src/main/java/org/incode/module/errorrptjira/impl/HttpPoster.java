@@ -1,4 +1,4 @@
-package org.incode.module.jira.impl;
+package org.incode.module.errorrptjira.impl;
 
 import java.util.Optional;
 

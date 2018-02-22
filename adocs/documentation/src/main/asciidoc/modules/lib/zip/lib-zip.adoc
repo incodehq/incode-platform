@@ -1,0 +1,94 @@
+[[dom-zip]]
+= Zip Library
+:_basedir: ../../../
+:_imagesdir: images/
+:generate_pdf:
+:toc:
+
+This module (`incode-module-zip-dom`) allows a zip to be created from a collection of files.
+
+
+== API & Implementation
+
+The `ZipService` defines the following API:
+
+[source,java]
+----
+public class ZipService {
+
+    @lombok.Data                                                        // <1>
+    public static class FileAndName {
+        private final String name;
+        private final File file;
+    }
+
+    public byte[] zip(final List<FileAndName> fileAndNameList) { ... }  // <2>
+    public byte[] zipFiles(final List<File> fileList) { ... }           // <3>
+}
+----
+<1> immutable value type
+<2> Returns a byte array which is a zip of the collection of files.
+Rather than use the name of the file (which might be temporary files, for example), the name of each file to use (in its zip "entry") is provided.
+<3> Similar to `zip(...)`, but uses each file's name as the zip entry (rather than providing it explicitly).
+
+These actions are all programmatic and do not appear in the UI.
+
+
+
+== How to configure/use
+
+=== Classpath
+
+Update your classpath by adding this dependency in your `dom` project's `pom.xml`:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.incode.module.zip</groupId>
+    <artifactId>incode-module-zip-dom</artifactId>
+    <version>1.16.1</version>
+</dependency>
+----
+
+Check for later releases by searching link:http://search.maven.org/#search|ga|1|incode-module-zip-dom[Maven Central Repo].
+
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide/contributors-guide.adoc#[contributors guide].
+
+
+
+=== Bootstrapping
+
+In the `AppManifest`, update its `getDependencies()` method, eg:
+
+[source,java]
+----
+@Override
+public Set<Module> getDependencies() {
+    return Sets.newHashSet(
+            ...
+            new org.incode.module.zip.ZipModule(),
+            ...
+    );
+}
+----
+
+
+
+
+== Known issues
+
+None known at this time.
+
+
+
+
+== Dependencies
+
+Maven can report modules dependencies using:
+
+[source,bash]
+----
+mvn dependency:list -o -pl modules/lib/zip/impl -D excludeTransitive=true
+----
+
+This shows no additional compile/runtime dependencies (other than Apache Isis itself).

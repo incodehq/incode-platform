@@ -455,6 +455,6 @@ org.isisaddons.module.quartz:isis-module-quartz-dom
 
 For further details on these dependencies, see:
 
-* xref:../../lib/lib-jaxrsclient.adoc#[JAX-RS Client library]
-* xref:../../ext/ext-quartz.adoc#[Quartz extension]
+* xref:../../lib/jaxrsclient/lib-jaxrsclient.adoc#[JAX-RS Client library]
+* xref:../../ext/quartz/ext-quartz.adoc#[Quartz extension]
 

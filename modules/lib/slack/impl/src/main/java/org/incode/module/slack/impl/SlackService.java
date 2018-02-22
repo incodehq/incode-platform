@@ -21,7 +21,6 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.core.commons.config.IsisConfiguration;
-import org.apache.isis.core.commons.config.IsisConfigurationDefault;
 
 import lombok.Setter;
 
@@ -56,7 +55,7 @@ public class SlackService {
     /**
      * For testing purposes only.
      */
-    public SlackService(final IsisConfigurationDefault configuration) {
+    public SlackService(final IsisConfiguration configuration) {
         this.configuration = configuration;
     }
 

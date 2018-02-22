@@ -91,16 +91,18 @@ It has the following API:
 public class PdfBoxService {
 
     public byte[] merge(byte[]... pdfByteArrays) throws IOException { }     // <1>
+    public byte[] merge(List<File> fileList) throws IOException { ... }     // <2>
+    public byte[] merge(File... files) throws IOException { ... }
 
-    public void merge(                                                      // <2>
+    public void merge(                                                      // <3>
             OutputStream outputStream,
             InputStream... inputStreams
         ) throws IOException { }
 }
 ----
 <1> merge an arbitrary number of PDFs, represented as arrays of bytes, to another byte array
-<2> merge an arbitrary number of PDFs, represented as an input stream, to an output stream
-
+<2> merge a list of files (to avoid memory issues)
+<3> merge an arbitrary number of PDFs, represented as an input stream, to an output stream
 
 
 

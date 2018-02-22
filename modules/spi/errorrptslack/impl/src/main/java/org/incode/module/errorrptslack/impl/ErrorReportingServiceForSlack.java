@@ -1,4 +1,4 @@
-package org.incode.module.slack.impl;
+package org.incode.module.errorrptslack.impl;
 
 import java.util.List;
 import java.util.Objects;
@@ -30,6 +30,8 @@ import org.apache.isis.applib.services.error.Ticket;
 import org.apache.isis.applib.services.user.UserService;
 import org.apache.isis.core.commons.config.IsisConfiguration;
 
+import org.incode.module.slack.impl.SlackService;
+
 import lombok.Setter;
 
 @DomainService(nature = NatureOfService.DOMAIN, menuOrder = "100")
@@ -40,7 +42,7 @@ public class ErrorReportingServiceForSlack implements ErrorReportingService {
     private static final String CONFIG_KEY_PREFIX = "isis.service.errorReporting.slack.";
     private static final String USER_MESSAGE_DEFAULT = "Our apologies, an error has occurred.  The development team has been notified (via the Slack messaging system).";
     private static final String DETAILS_DEFAULT =
-                      "The reference identifier below gives us more "
+                      "Quote the reference below to point us to more "
                     + "detailed information about the problem.\n"
                     + "\n"
                     + "In the meantime, and by way of an apology, \n"

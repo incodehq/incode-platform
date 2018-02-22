@@ -1,8 +1,11 @@
 package org.isisaddons.module.security;
 
-public final class SecurityModule {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private SecurityModule(){}
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class SecurityModule extends ModuleAbstract {
 
     public abstract static class ActionDomainEvent<S>
             extends org.apache.isis.applib.services.eventbus.ActionDomainEvent<S> { }

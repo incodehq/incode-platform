@@ -32,7 +32,7 @@ public class ZipService {
      *
      */
     @Programmatic
-    public byte[] zip(final List<FileAndName> fileAndNameList) throws IOException {
+    public byte[] zip(final List<FileAndName> fileAndNameList) {
 
         final byte[] bytes;
         try {
@@ -56,7 +56,7 @@ public class ZipService {
      * As per {@link #zip(List)}, but using each file's name as the zip entry (rather than providing it).
      */
     @Programmatic
-    public byte[] zipFiles(final List<File> fileList) throws IOException {
+    public byte[] zipFiles(final List<File> fileList) {
         return zip(fileList.stream()
                            .map(file -> new FileAndName(file.getName(), file))
                            .collect(Collectors.toList())

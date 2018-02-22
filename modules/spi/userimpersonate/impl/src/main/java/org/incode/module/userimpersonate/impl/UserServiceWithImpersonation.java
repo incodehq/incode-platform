@@ -57,23 +57,29 @@ public class UserServiceWithImpersonation implements UserService {
 
     @Programmatic
     public boolean isAvailable() {
-        return httpSessionProvider.getHttpSession().isPresent();
+        return httpSessionProvider != null && httpSessionProvider.getHttpSession().isPresent();
     }
-
 
     private UserService delegateUserService;
     private UserService delegateUserService() {
         if (delegateUserService == null) {
+            // there will always be at least one other user service, namely UserServiceDefault provided by the framework itself
             delegateUserService = userServiceList.stream().filter(x -> x != UserServiceWithImpersonation.this).findFirst().get();
         }
         return delegateUserService;
     }
 
     private Optional<UserMemento> getImpersonatedUserIfAny() {
-            return httpSessionProvider.getAttribute(HTTP_SESSION_KEY, UserMemento.class);
+        if(!isAvailable()) {
+            return Optional.empty();
+        }
+        return httpSessionProvider.getAttribute(HTTP_SESSION_KEY, UserMemento.class);
     }
 
     private void setImpersonatedUser(UserMemento overrideUser) {
+        if(!isAvailable()) {
+            return;
+        }
         httpSessionProvider.setAttribute(HTTP_SESSION_KEY, overrideUser);
     }
 
