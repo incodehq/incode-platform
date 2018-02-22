@@ -9,8 +9,8 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.incode.module.slack</groupId>
-    <artifactId>incode-module-slack-dom</artifactId>
+    <groupId>org.incode.module.errorrptslack</groupId>
+    <artifactId>incode-module-errorrptslack-impl</artifactId>
 
     <packaging>jar</packaging>
 
@@ -97,13 +97,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-metamodel</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.ullink.slack</groupId>
-            <artifactId>simpleslackapi</artifactId>
+            <groupId>org.incode.module.slack</groupId>
+            <artifactId>incode-module-slack-dom</artifactId>
         </dependency>
 
         <!-- test -->
@@ -119,6 +114,5 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-
 
 </project>

@@ -21,22 +21,22 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.core.commons.config.IsisConfiguration;
+import org.apache.isis.core.commons.config.IsisConfigurationDefault;
 
 import lombok.Setter;
-import static org.incode.module.slack.impl.ErrorReportingServiceForSlack.CONFIG_KEY_PREFIX;
 
 @DomainService(nature = NatureOfService.DOMAIN)
 public class SlackService {
 
     private static final Logger LOG = LoggerFactory.getLogger(SlackService.class);
 
-    /** Mandatory ... either set or specify as configuration property. */
-    @Setter
-    private String authToken;
+    public static final String CONFIG_KEY_PREFIX = "isis.service.slack.";
+    private static final String HTTP_PROXY_PORT = "http.proxyPort";
+    private static final String HTTP_PROXY_HOST = "http.proxyHost";
 
     /** Mandatory ... either set or specify as configuration property. */
     @Setter
-    private String channel;
+    private String authToken;
 
     private boolean configured;
 
@@ -44,28 +44,36 @@ public class SlackService {
      * Populated only if {@link #isConfigured()}.
      */
     private SlackSession slackSession;
-    private SlackChannel slackChannel;
+
+    /**
+     * Populated only if {@link #isConfigured()}.
+     */
+    private ChannelCache channelCache;
+
+    public SlackService() {
+    }
+
+    /**
+     * For testing purposes only.
+     */
+    public SlackService(final IsisConfigurationDefault configuration) {
+        this.configuration = configuration;
+    }
 
     @PostConstruct
     @Programmatic
     public void init() {
         this.authToken = asSetElseConfigured(this.authToken, "authToken");
-        this.channel = asSetElseConfigured(this.channel, "channel");
-
-        boolean requiredConfiguration =
-                !Strings.isNullOrEmpty(authToken) &&
-                        !Strings.isNullOrEmpty(channel);
-
+        final boolean requiredConfiguration = !Strings.isNullOrEmpty(authToken);
         if(!requiredConfiguration) {
             return;
         }
 
         final SlackSessionFactory.SlackSessionFactoryBuilder builder =
                 SlackSessionFactory.getSlackSessionBuilder(authToken);
-        final String proxyHost = System.getProperty("http.proxyHost");
-        if(proxyHost != null) {
-            final Integer proxyPort = Integer.parseInt(System.getProperty("http.proxyPort"));
-            builder.withProxy(Proxy.Type.HTTP,proxyHost, proxyPort).build();
+
+        if (!configureHttpProxyIfSet(builder)) {
+            return;
         }
 
         final SlackSession slackSession = builder.build();
@@ -75,16 +83,43 @@ public class SlackService {
             LOG.warn("Failed to connect to Slack", e);
             return;
         }
-        final SlackChannel slackChannel = slackSession.findChannelByName(channel);
-        if(slackChannel == null) {
-            disconnect(slackSession);
-            return;
-        }
 
         this.slackSession = slackSession;
-        this.slackChannel = slackChannel;
-
+        this.channelCache = new ChannelCache(slackSession);
         this.configured = true;
+    }
+
+    static boolean configureHttpProxyIfSet(
+            final SlackSessionFactory.SlackSessionFactoryBuilder builder) {
+        final String httpProxyHost = System.getProperty(HTTP_PROXY_HOST);
+        if (httpProxyHost == null) {
+            return true;
+        }
+        final Integer proxyPort = parseProxyPort();
+        if (proxyPort == null) {
+            return false;
+        }
+        builder.withProxy(Proxy.Type.HTTP,httpProxyHost, proxyPort);
+        return true;
+    }
+
+    static Integer parseProxyPort() {
+        final String proxyPortStr = System.getProperty(HTTP_PROXY_PORT);
+        if(proxyPortStr == null) {
+            LOG.warn(String.format(
+                    "System property '%s' was set, but '%s' was not; not initialized",
+                    HTTP_PROXY_HOST, HTTP_PROXY_PORT));
+            return null;
+        }
+
+        final Integer proxyPort;
+        try {
+            proxyPort = Integer.parseInt(proxyPortStr);
+        } catch (NumberFormatException e) {
+            LOG.warn("Failed to parse system property 'http.proxyPort' as an integer (was " + proxyPortStr + "); not initialized");
+            return null;
+        }
+        return proxyPort;
     }
 
     @Programmatic
@@ -93,12 +128,16 @@ public class SlackService {
     }
 
     @Programmatic
-    public String getChannel() {
-        return channel;
+    public boolean channelExists(final String channelName) {
+        return isConfigured() &&
+               channelName != null &&
+               channelCache.findChannel(channelName) != null;
     }
 
     @Programmatic
-    public void sendMessage(final String message) {
+    public void sendMessage(
+            final String channelName,
+            final String message) {
 
         final SlackPreparedMessage preparedMessage =
                 new SlackPreparedMessage.Builder()
@@ -107,13 +146,25 @@ public class SlackService {
                         .withLinkNames(true)
                         .build();
 
-        sendMessage(preparedMessage);
+        sendMessage(channelName, preparedMessage);
     }
 
-    public SlackMessageHandle<SlackMessageReply> sendMessage(final SlackPreparedMessage preparedMessage) {
+    @Programmatic
+    public SlackMessageHandle<SlackMessageReply> sendMessage(
+            final String channelName,
+            final SlackPreparedMessage preparedMessage) {
+        final SlackChannel slackChannel = findChannel(channelName);
+
         return slackSession.sendMessage(slackChannel, preparedMessage);
     }
 
+    private SlackChannel findChannel(final String channelName) {
+        final SlackChannel slackChannel = channelCache.findChannel(channelName);
+        if(slackChannel == null) {
+            throw new IllegalArgumentException(String.format("Could not find channel '%s'", channelName));
+        }
+        return slackChannel;
+    }
 
     @PreDestroy
     public void destroy() {
@@ -135,21 +186,11 @@ public class SlackService {
     }
 
     private String asSetElseConfigured(final String field, final String configKeySuffix) {
-        return coalesce(field, configValue(configKeySuffix));
+        return Util.coalesce(field, configValue(configKeySuffix));
     }
 
     private String configValue(final String configKeySuffix) {
         return configuration.getString(CONFIG_KEY_PREFIX + configKeySuffix);
-    }
-
-    private static String coalesce(String... values) {
-        for (String value : values) {
-            if (!Strings.isNullOrEmpty(value)) {
-                return value;
-            }
-
-        }
-        return null;
     }
 
     @javax.inject.Inject

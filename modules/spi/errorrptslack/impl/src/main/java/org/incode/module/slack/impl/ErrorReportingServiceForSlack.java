@@ -37,17 +37,21 @@ public class ErrorReportingServiceForSlack implements ErrorReportingService {
 
     private static final Logger LOG = LoggerFactory.getLogger(ErrorReportingServiceForSlack.class);
 
-    public static final String CONFIG_KEY_PREFIX = "isis.service.errorReporting.slack.";
-    public static final String USER_MESSAGE_DEFAULT = "Our apologies, an error has occurred.  The development team has been notified (via Slack messaging system).";
-    public static final String DETAILS_DEFAULT =
+    private static final String CONFIG_KEY_PREFIX = "isis.service.errorReporting.slack.";
+    private static final String USER_MESSAGE_DEFAULT = "Our apologies, an error has occurred.  The development team has been notified (via the Slack messaging system).";
+    private static final String DETAILS_DEFAULT =
                       "The reference identifier below gives us more "
                     + "detailed information about the problem.\n"
                     + "\n"
                     + "In the meantime, and by way of an apology, \n"
                     + "here's a picture of a kitten for you to look at.";
 
-    private static final long TIMEOUT_IN_MS = 5000;
-    public static final String KITTEN_URL = "http://www.randomkittengenerator.com/cats/rotator.php";
+    private static final String KITTEN_URL_DEFAULT = "http://www.randomkittengenerator.com/cats/rotator.php";
+    private static final long TIMEOUT_IN_MS_DEFAULT = 5000;
+
+    /** Optional, will default */
+    @Setter
+    private String channel;
 
     /** Optional, will default */
     @Setter
@@ -57,16 +61,27 @@ public class ErrorReportingServiceForSlack implements ErrorReportingService {
     @Setter
     private String details;
 
+    /** Optional, will default */
+    @Setter
+    private String kittenUrl;
+
+    /** Optional, will default */
+    @Setter
+    private long timeoutMs;
+
     @PostConstruct
     @Programmatic
     public void init() {
+        channel = asConfiguredElseDefault("channel", null);
         userMessage = asConfiguredElseDefault("userMessage", USER_MESSAGE_DEFAULT);
         details = asConfiguredElseDefault("details", DETAILS_DEFAULT);
+        kittenUrl = asConfiguredElseDefault("kittenUrl", KITTEN_URL_DEFAULT);
+        timeoutMs = asConfiguredElseDefault("timeoutMs", TIMEOUT_IN_MS_DEFAULT);
     }
 
     @Programmatic
     public boolean isInitialized() {
-        return slackService.isConfigured();
+        return slackService.isConfigured() && slackService.channelExists(channel);
     }
 
     @Programmatic
@@ -112,14 +127,14 @@ public class ErrorReportingServiceForSlack implements ErrorReportingService {
                         .withUnfurl(false)
                         .withLinkNames(true)
                         .withAttachments(slackAttachments).build();
-        final SlackMessageHandle<SlackMessageReply> handle = slackService.sendMessage(preparedMessage);
+        final SlackMessageHandle<SlackMessageReply> handle = slackService.sendMessage(channel, preparedMessage);
 
         if(handle == null) {
             logFailure("handle: SlackMessageHandle<SlackMessageReply> == null", ticketSummaryMember, combined);
             return null;
         }
 
-        handle.waitForReply(TIMEOUT_IN_MS, TimeUnit.MILLISECONDS);
+        handle.waitForReply(timeoutMs, TimeUnit.MILLISECONDS);
 
         final SlackMessageReply reply = handle.getReply();
         if(reply == null) {
@@ -127,7 +142,7 @@ public class ErrorReportingServiceForSlack implements ErrorReportingService {
             return null;
         }
 
-        return new Ticket(transactionId, userMessage, details, KITTEN_URL);
+        return new Ticket(transactionId, userMessage, details, kittenUrl);
     }
 
     private String determineTransactionId() {
@@ -187,6 +202,14 @@ public class ErrorReportingServiceForSlack implements ErrorReportingService {
 
     private String asConfiguredElseDefault(final String configKeySuffix, final String fallback) {
         return coalesce(configValue(configKeySuffix), fallback);
+    }
+
+    private long asConfiguredElseDefault(final String configKeySuffix, final long fallback) {
+        try {
+            return Integer.parseInt(configValue(configKeySuffix));
+        } catch (Exception ex) {
+            return fallback;
+        }
     }
 
     private String configValue(final String configKeySuffix) {

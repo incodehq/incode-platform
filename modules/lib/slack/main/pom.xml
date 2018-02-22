@@ -9,14 +9,14 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.incode.module.slack</groupId>
-    <artifactId>incode-module-slack-dom</artifactId>
+    <groupId>org.incode.module.errorrpt</groupId>
+    <artifactId>incode-module-errorrpt-slack</artifactId>
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Lib Slack API Impl</name>
+    <name>Incode Platform SPI Error Reporting to Slack</name>
     <description>
-        A module for posting to Slack channels.
+        Implementation of ErrorReporting SPI that posts errors to Slack channel.
     </description>
 
     <url>https://github.com/incodehq/incode-platform</url>
@@ -81,10 +81,6 @@
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>sourceandjavadoc</artifactId>
                         </mixin>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>surefire</artifactId>
-                        </mixin>
                     </mixins>
                 </configuration>
             </plugin>
@@ -92,33 +88,45 @@
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>org.incode.module.slack.main.SlackMain</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-metamodel</artifactId>
+			<groupId>org.incode.module.slack</groupId>
+			<artifactId>incode-module-slack-dom</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.ullink.slack</groupId>
-            <artifactId>simpleslackapi</artifactId>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <scope>compile</scope>
         </dependency>
-
-        <!-- test -->
         <dependency>
-            <groupId>org.incode.module.unittestsupport</groupId>
-            <artifactId>incode-module-unittestsupport-dom</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
         </dependency>
     </dependencies>
-
 
 </project>

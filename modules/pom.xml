@@ -491,6 +491,19 @@
             </dependency>
 
             <dependency>
+                <groupId>org.incode.module.errorrptslack</groupId>
+                <artifactId>incode-module-errorrptslack-impl</artifactId>
+                <version>1.16.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.errorrptslack</groupId>
+                <artifactId>incode-module-errorrptslack-impl</artifactId>
+                <version>1.16.1-SNAPSHOT</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>org.isisaddons.module.excel</groupId>
                 <artifactId>isis-module-excel-dom</artifactId>
                 <version>1.16.1-SNAPSHOT</version>
@@ -724,6 +737,12 @@
                 <version>1.16.1-SNAPSHOT</version>
                 <type>test-jar</type>
                 <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.module.slack</groupId>
+                <artifactId>incode-module-slack-main</artifactId>
+                <version>1.16.1-SNAPSHOT</version>
             </dependency>
 
             <dependency>
@@ -1305,6 +1324,7 @@
         <module>lib/poly/impl</module>
         <module>lib/servletapi/impl</module>
         <module>lib/slack/impl</module>
+        <module>lib/slack/main</module>
         <module>lib/stringinterpolator/impl</module>
         <module>lib/unittestsupport/impl</module>
         <module>lib/xdocreport/impl</module>
@@ -1328,6 +1348,7 @@
         <module>spi/audit/impl</module>
         <module>spi/command/impl</module>
         <module>spi/command/replay</module>
+        <module>spi/errorrptslack/impl</module>
         <module>spi/publishmq/impl</module>
         <module>spi/security/impl</module>
         <module>spi/sessionlogger/impl</module>
