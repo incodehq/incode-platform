@@ -1,4 +1,4 @@
-package org.incode.module.slack.impl;
+package org.estatio.webapp.services.jira;
 
 import java.util.Collections;
 import java.util.List;
@@ -16,6 +16,9 @@ import org.apache.isis.applib.services.error.Ticket;
 import org.apache.isis.core.commons.config.IsisConfiguration;
 import org.apache.isis.core.unittestsupport.jmocking.JUnitRuleMockery2;
 import org.apache.isis.viewer.wicket.ui.errors.ExceptionModel;
+import org.apache.isis.viewer.wicket.ui.errors.StackTraceDetail;
+
+import org.incode.module.jira.impl.ErrorReportingServiceForJira;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -25,13 +28,16 @@ import static org.junit.Assume.assumeTrue;
 /**
  * run using:
 
- -Disis.service.slack.authToken=XXXXXX
- -Disis.service.errorReporting.slack.channel=ecp-estatio-error-tst
+ -Disis.service.errorReporting.jira.username=XXXXXX
+ -Disis.service.errorReporting.jira.password=XXXXXX
+ -Disis.service.errorReporting.jira.base=https://incodehq.atlassian.net/
+ -Disis.service.errorReporting.jira.projectKey=SUP
+ -Disis.service.errorReporting.jira.issueType="IT Help"
 
  */
-public class ErrorReportingServiceForSlack_Test {
+public class ErrorReportingServiceForJira_Test {
 
-    ErrorReportingServiceForSlack errorReportingService;
+    ErrorReportingServiceForJira errorReportingService;
 
     @Rule
     public JUnitRuleMockery2 context = JUnitRuleMockery2.createFor(JUnitRuleMockery2.Mode.INTERFACES_AND_CLASSES);
@@ -41,19 +47,20 @@ public class ErrorReportingServiceForSlack_Test {
 
     @Before
     public void setUp() throws Exception {
-        errorReportingService = new ErrorReportingServiceForSlack();
-        errorReportingService.configuration = mockIsisConfiguration;
-        errorReportingService.slackService = new SlackService();
+        errorReportingService = new ErrorReportingServiceForJira(mockIsisConfiguration);
 
         context.checking(new Expectations() {{
-            allowingGetStringReturnSystemProperty("isis.service.slack.authToken");
-            allowingGetStringReturnSystemProperty("isis.service.errorReporting.slack.channel");
+            allowingGetStringReturnSystemProperty("base");
+            allowingGetStringReturnSystemProperty("username");
+            allowingGetStringReturnSystemProperty("password");
+            allowingGetStringReturnSystemProperty("projectKey");
+            allowingGetStringReturnSystemProperty("issueType");
             allowing(mockIsisConfiguration);
         }
 
-        private void allowingGetStringReturnSystemProperty(final String property) {
-                allowing(mockIsisConfiguration).getString(property);
-                will(returnValue(System.getProperty(property)));
+        private void allowingGetStringReturnSystemProperty(final String suffix) {
+                allowing(mockIsisConfiguration).getString("isis.service.errorReporting.jira." + suffix);
+                will(returnValue(System.getProperty("isis.service.errorReporting.jira." + suffix)));
             }
         });
 
@@ -63,7 +70,7 @@ public class ErrorReportingServiceForSlack_Test {
         assumeTrue(initialized);
     }
 
-    public static class reportError extends ErrorReportingServiceForSlack_Test {
+    public static class reportError extends ErrorReportingServiceForJira_Test {
 
         @Test
         public void happy_case() throws Exception {
@@ -85,10 +92,8 @@ public class ErrorReportingServiceForSlack_Test {
             final ExceptionModel model = ExceptionModel.create(message, dummy);
             return model.getStackTrace()
                     .stream()
-                    .map(org.apache.isis.viewer.wicket.ui.errors.StackTraceDetail::getLine)
+                    .map(StackTraceDetail::getLine)
                     .collect(Collectors.toList());
         }
     }
-
 }
-

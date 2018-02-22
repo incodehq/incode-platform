@@ -9,14 +9,14 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.incode.module.errorrptslack</groupId>
-    <artifactId>incode-module-errorrptslack-impl</artifactId>
+    <groupId>org.incode.module.errorrptjira</groupId>
+    <artifactId>incode-module-errorrptjira-impl</artifactId>
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform SPI Error Reporting Slack Impl</name>
+    <name>Incode Platform SPI Error Reporting Jira Impl</name>
     <description>
-        An implementation of the ErrorReportingService SPI that posts to a Slak channel
+        An implementation of the ErrorReportingService SPI that raises a JIRA issue.
     </description>
 
     <url>https://github.com/incodehq/incode-platform</url>
@@ -96,9 +96,15 @@
     </build>
 
     <dependencies>
+
         <dependency>
-            <groupId>org.incode.module.slack</groupId>
-            <artifactId>incode-module-slack-dom</artifactId>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-metamodel</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
         </dependency>
 
         <!-- test -->
