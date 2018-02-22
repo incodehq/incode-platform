@@ -105,6 +105,7 @@
         <pdfbox.version>2.0.5</pdfbox.version>
         <poi.version>3.9</poi.version>
         <shiro-core.version>1.2.3</shiro-core.version>
+        <simpleslackapi.version>1.2.0</simpleslackapi.version>
         <spring.version>4.1.6.RELEASE</spring.version>
         <togglz.version>2.1.0.Final</togglz.version>
 
@@ -713,6 +714,19 @@
             </dependency>
 
             <dependency>
+                <groupId>org.incode.module.slack</groupId>
+                <artifactId>incode-module-slack-dom</artifactId>
+                <version>1.16.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.slack</groupId>
+                <artifactId>incode-module-slack-dom</artifactId>
+                <version>1.16.1-SNAPSHOT</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>org.incode.example.tags</groupId>
                 <artifactId>incode-example-tags-dom</artifactId>
                 <version>1.16.1-SNAPSHOT</version>
@@ -961,6 +975,11 @@
                 <groupId>com.google.code.gson</groupId>
                 <artifactId>gson</artifactId>
                 <version>${gson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ullink.slack</groupId>
+                <artifactId>simpleslackapi</artifactId>
+                <version>${simpleslackapi.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.cxf</groupId>
@@ -1285,6 +1304,7 @@
         <module>lib/pdfbox/impl</module>
         <module>lib/poly/impl</module>
         <module>lib/servletapi/impl</module>
+        <module>lib/slack/impl</module>
         <module>lib/stringinterpolator/impl</module>
         <module>lib/unittestsupport/impl</module>
         <module>lib/xdocreport/impl</module>
