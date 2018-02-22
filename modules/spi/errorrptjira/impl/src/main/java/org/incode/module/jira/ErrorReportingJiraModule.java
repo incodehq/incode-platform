@@ -1,4 +1,4 @@
-package org.incode.module.slack;
+package org.incode.module.jira;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
