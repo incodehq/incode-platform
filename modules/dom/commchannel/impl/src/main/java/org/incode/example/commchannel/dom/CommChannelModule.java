@@ -39,8 +39,6 @@ public class CommChannelModule extends ModuleAbstract {
     }
 
 
-    private CommChannelModule(){}
-
 
     //region > ui event classes
     public abstract static class TitleUiEvent<S>

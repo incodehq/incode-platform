@@ -22,10 +22,6 @@ public class AliasModule extends ModuleAbstract {
 
     //endregion
 
-    //region > constructor
-    private AliasModule(){}
-    //endregion
-
     //region > ui event classes
     public abstract static class TitleUiEvent<S>
             extends org.apache.isis.applib.services.eventbus.TitleUiEvent<S> { }
