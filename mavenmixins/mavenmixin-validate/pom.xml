@@ -31,8 +31,9 @@
             </activation>
 
             <properties>
-                <isis.version>1.16.1</isis.version>
+                <isis.version>1.16.1.20180223-1715</isis.version>
                 <!--
+                <isis.version>1.16.2-SNAPSHOT</isis.version>
                 <isis.version>1.16.0.20180212-1738</isis.version>
                 -->
                 <isis-maven-plugin.validate.appManifest>
