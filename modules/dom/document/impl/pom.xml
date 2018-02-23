@@ -5,13 +5,13 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>1.16.1-SNAPSHOT</version>
+        <version>1.16.1.20180223-1739</version>
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
     <groupId>org.incode.example.document</groupId>
     <artifactId>incode-example-document-dom</artifactId>
-    <version>1.16.1-SNAPSHOT</version>
+    <version>1.16.1.20180223-1739</version>
 
     <packaging>jar</packaging>
 

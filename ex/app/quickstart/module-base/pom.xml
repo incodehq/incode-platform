@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.incode.example.application</groupId>
         <artifactId>incode-quickstart</artifactId>
-        <version>1.16.1-SNAPSHOT</version>
+        <version>1.16.1.20180223-1739</version>
     </parent>
 
     <artifactId>incode-quickstart-module-base</artifactId>
