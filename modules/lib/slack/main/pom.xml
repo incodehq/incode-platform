@@ -9,14 +9,14 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.incode.module.errorrpt</groupId>
-    <artifactId>incode-module-errorrpt-slack</artifactId>
+    <groupId>org.incode.module.slack</groupId>
+    <artifactId>incode-module-slack-main</artifactId>
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform SPI Error Reporting to Slack</name>
+    <name>Incode Platform Slack Library CLI</name>
     <description>
-        Implementation of ErrorReporting SPI that posts errors to Slack channel.
+        Command line utility to post messages to Slack.
     </description>
 
     <url>https://github.com/incodehq/incode-platform</url>
@@ -91,6 +91,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
+                <version>3.1.0</version>
                 <executions>
                     <execution>
                         <goals>
