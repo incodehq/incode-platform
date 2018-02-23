@@ -383,7 +383,7 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     private String replayStateFailureReason;
 
     public boolean hideReplayStateFailureReason() {
-        return !getReplayState().isFailed();
+        return getReplayState() == null || !getReplayState().isFailed();
     }
 
     //endregion
