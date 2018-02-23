@@ -1,7 +1,9 @@
 package org.incode.platform.lib.excel.integtests.app;
 
-public final class ExcelAppModule {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private ExcelAppModule(){}
+import org.apache.isis.applib.ModuleAbstract;
 
+@XmlRootElement(name = "module")
+public class ExcelAppModule extends ModuleAbstract {
 }

@@ -1,6 +1,9 @@
 package domainapp.modules.base;
 
-public final class BaseModule {
-    private BaseModule(){}
+import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class BaseModule extends ModuleAbstract {
 }

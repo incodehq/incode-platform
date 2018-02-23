@@ -15,7 +15,8 @@ import org.isisaddons.module.servletapi.ServletApiModule;
 @XmlRootElement(name = "module")
 public class UserImpersonateModule extends ModuleAbstract {
 
-    @Override public Set<Module> getDependencies() {
+    @Override
+    public Set<Module> getDependencies() {
         return Sets.newHashSet(
                 new SecurityModule(),
                 new ServletApiModule()

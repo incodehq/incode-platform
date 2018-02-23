@@ -1,4 +1,9 @@
 package org.incode.module.base.services;
 
-public class BaseServicesModule {
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class BaseServicesModule extends ModuleAbstract {
 }

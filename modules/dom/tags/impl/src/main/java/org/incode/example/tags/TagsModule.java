@@ -1,11 +1,14 @@
 package org.incode.example.tags;
 
 import java.util.List;
+
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.apache.isis.applib.Identifier;
+import org.apache.isis.applib.ModuleAbstract;
 
-public final class TagsModule {
-
-    private TagsModule(){}
+@XmlRootElement(name = "module")
+public class TagsModule extends ModuleAbstract {
 
     public abstract static class ActionDomainEvent<S> extends org.apache.isis.applib.services.eventbus.ActionDomainEvent<S> {
         public ActionDomainEvent(final S source, final Identifier identifier) {

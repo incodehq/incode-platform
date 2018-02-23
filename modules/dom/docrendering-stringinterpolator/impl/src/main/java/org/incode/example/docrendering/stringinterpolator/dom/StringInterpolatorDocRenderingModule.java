@@ -1,6 +1,9 @@
 package org.incode.example.docrendering.stringinterpolator.dom;
 
-public class StringInterpolatorDocRenderingModule {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private StringInterpolatorDocRenderingModule(){}
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class StringInterpolatorDocRenderingModule extends ModuleAbstract {
 }

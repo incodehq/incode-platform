@@ -1,7 +1,9 @@
 package org.incode.domainapp.example.dom.dom.note;
 
-public final class ExampleDomModuleNoteModule {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private ExampleDomModuleNoteModule(){}
+import org.apache.isis.applib.ModuleAbstract;
 
+@XmlRootElement(name = "module")
+public class ExampleDomModuleNoteModule extends ModuleAbstract {
 }

@@ -1,7 +1,9 @@
 package org.incode.platform.lib.docx.integtests.app;
 
-public final class DocxAppModule {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private DocxAppModule(){}
+import org.apache.isis.applib.ModuleAbstract;
 
+@XmlRootElement(name = "module")
+public class DocxAppModule extends ModuleAbstract {
 }

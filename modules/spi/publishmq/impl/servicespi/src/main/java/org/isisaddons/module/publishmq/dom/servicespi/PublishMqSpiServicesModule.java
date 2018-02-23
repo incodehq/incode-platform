@@ -1,9 +1,10 @@
-package org.isisaddons.wicket.excel.cpt.ui;
+package org.isisaddons.module.publishmq.dom.servicespi;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.isis.applib.ModuleAbstract;
 
 @XmlRootElement(name = "module")
-public class ExcelUiModule extends ModuleAbstract {
+public class PublishMqSpiServicesModule extends ModuleAbstract {
+
 }

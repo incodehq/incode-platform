@@ -1,6 +1,11 @@
 package org.incode.example.commchannel.dom;
 
-public final class CommChannelModule {
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class CommChannelModule extends ModuleAbstract {
 
     public static class JdoColumnLength {
 

@@ -1,7 +1,9 @@
 package org.isisaddons.metamodel.paraname8.app;
 
-public final class Paraname8AppModule {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private Paraname8AppModule(){}
+import org.apache.isis.applib.ModuleAbstract;
 
+@XmlRootElement(name = "module")
+public class Paraname8AppModule extends ModuleAbstract {
 }

@@ -1,6 +1,11 @@
 package org.incode.example.note.dom;
 
-public final class NoteModule {
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class NoteModule extends ModuleAbstract {
 
     //region > constants
 
@@ -21,10 +26,6 @@ public final class NoteModule {
         public static final int NOTES = 20;
     }
 
-    //endregion
-
-    //region > constructor
-    private NoteModule(){}
     //endregion
 
     //region > ui event classes

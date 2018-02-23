@@ -1,5 +1,9 @@
 package org.isisaddons.wicket.wickedcharts.cpt.ui;
 
-public final class WickedChartsUiModule {
-    private WickedChartsUiModule(){}
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class WickedChartsUiModule extends ModuleAbstract {
 }

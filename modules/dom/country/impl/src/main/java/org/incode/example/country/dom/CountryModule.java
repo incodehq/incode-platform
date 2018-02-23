@@ -1,8 +1,11 @@
 package org.incode.example.country.dom;
 
-public final class CountryModule {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private CountryModule(){}
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class CountryModule extends ModuleAbstract {
 
     //region > ui event classes
     public abstract static class TitleUiEvent<S>

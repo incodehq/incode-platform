@@ -6,5 +6,4 @@ import org.apache.isis.applib.ModuleAbstract;
 
 @XmlRootElement(name = "module")
 public class ErrorReportingJiraModule extends ModuleAbstract {
-
 }

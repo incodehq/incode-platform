@@ -1,7 +1,9 @@
 package org.incode.platform.lib.poly.integtests.app;
 
-public final class PolyAppModule {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private PolyAppModule(){}
+import org.apache.isis.applib.ModuleAbstract;
 
+@XmlRootElement(name = "module")
+public class PolyAppModule extends ModuleAbstract {
 }

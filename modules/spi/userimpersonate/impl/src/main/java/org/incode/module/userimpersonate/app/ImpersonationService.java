@@ -1,5 +1,6 @@
 package org.incode.module.userimpersonate.app;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,18 +24,23 @@ public class ImpersonationService {
     @Programmatic
     public void impersonate(
             final ApplicationUser applicationUser,
-            final List<ApplicationRole> applicationRoleList) {
+            final boolean useExplicitRoles,
+            final Collection<ApplicationRole> applicationRoleList) {
 
         if(userServiceWithImpersonation.isImpersonating()) {
             stopImpersonating();
         }
 
-        final List<String> roleNames = asRoleNames(applicationRoleList);
+        final Collection<ApplicationRole> applicationRoles =
+                useExplicitRoles ? applicationRoleList : applicationUser.getRoles();
+
+        final List<String> roleNames = asRoleNames(applicationRoles);
 
         userServiceWithImpersonation.setUser(applicationUser.getUsername(), roleNames);
 
     }
-    private List<String> asRoleNames(final List<ApplicationRole> applicationRoleList) {
+
+    private List<String> asRoleNames(final Collection<ApplicationRole> applicationRoleList) {
         if(applicationRoleList == null) {
             return Collections.emptyList();
         }

@@ -1,5 +1,9 @@
 package org.incode.domainapp.example.dom.dom.docfragment;
 
-public final class ExampleDomModuleDocFragmentModule {
-    private ExampleDomModuleDocFragmentModule(){}
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class ExampleDomModuleDocFragmentModule extends ModuleAbstract {
 }

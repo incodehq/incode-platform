@@ -1,6 +1,10 @@
 
 package org.isisaddons.module.xdocreport.dom;
 
-public final class XDocReportModule {
-    private XDocReportModule(){}
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class XDocReportModule extends ModuleAbstract{
 }

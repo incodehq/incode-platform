@@ -1,5 +1,9 @@
 package org.isisaddons.wicket.gmap3.cpt.applib;
 
-public final class Gmap3ApplibModule {
-    private Gmap3ApplibModule(){}
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class Gmap3ApplibModule extends ModuleAbstract {
 }

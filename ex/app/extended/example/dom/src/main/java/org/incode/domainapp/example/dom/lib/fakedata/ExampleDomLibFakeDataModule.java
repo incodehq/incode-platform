@@ -1,7 +1,9 @@
 package org.incode.domainapp.example.dom.lib.fakedata;
 
-public final class ExampleDomLibFakeDataModule {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private ExampleDomLibFakeDataModule(){}
+import org.apache.isis.applib.ModuleAbstract;
 
+@XmlRootElement(name = "module")
+public class ExampleDomLibFakeDataModule extends ModuleAbstract {
 }

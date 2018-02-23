@@ -5,16 +5,15 @@ import java.util.List;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
-import com.google.common.collect.Lists;
-
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.CommandPersistence;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Mixin;
+import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.RestrictTo;
 
-import org.isisaddons.module.security.app.user.MeService;
 import org.isisaddons.module.security.dom.role.ApplicationRole;
+import org.isisaddons.module.security.dom.role.ApplicationRoleRepository;
 import org.isisaddons.module.security.dom.user.ApplicationUser;
 
 import org.incode.module.userimpersonate.UserImpersonateModule;
@@ -40,14 +39,20 @@ public class Object_impersonateUser {
     @MemberOrder(sequence = "90.1")
     public Object act(
             final ApplicationUser applicationUser,
+            @ParameterLayout(describedAs = "If set, then the roles specified below are used.  Otherwise uses roles of the user.")
+            final boolean useExplicitRolesBelow,
+            @ParameterLayout(describedAs = "Only used if 'useExplicitRolesBelow' is set, otherwise is ignored.")
             @Nullable
             final List<ApplicationRole> applicationRoleList) {
 
-        impersonationService.impersonate(applicationUser, applicationRoleList);
+        impersonationService.impersonate(applicationUser, useExplicitRolesBelow, applicationRoleList);
         return object;
     }
-    public List<ApplicationRole> default1Act() {
-        return Lists.newArrayList(meService.me().getRoles());
+    public boolean default1Act() {
+        return false;
+    }
+    public List<ApplicationRole> default2Act() {
+        return applicationRoleRepository.allRoles();
     }
     public boolean hideAct() {
         return impersonationService.hideImpersonate();
@@ -55,8 +60,8 @@ public class Object_impersonateUser {
 
 
     @Inject
-    MeService meService;
-    @Inject
     ImpersonationService impersonationService;
+    @Inject
+    ApplicationRoleRepository applicationRoleRepository;
 
 }

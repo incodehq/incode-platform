@@ -1,7 +1,9 @@
 package org.incode.domainapp.example.dom.dom.classification;
 
-public final class ExampleDomModuleClassificationModule {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private ExampleDomModuleClassificationModule(){}
+import org.apache.isis.applib.ModuleAbstract;
 
+@XmlRootElement(name = "module")
+public class ExampleDomModuleClassificationModule extends ModuleAbstract {
 }

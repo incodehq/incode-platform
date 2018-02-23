@@ -1,7 +1,11 @@
 package org.incode.example.docfragment.dom;
 
-public final class DocFragmentModuleDomModule {
-    private DocFragmentModuleDomModule(){}
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class DocFragmentModuleDomModule extends ModuleAbstract {
 
     //region > ui event classes
     public abstract static class TitleUiEvent<S>

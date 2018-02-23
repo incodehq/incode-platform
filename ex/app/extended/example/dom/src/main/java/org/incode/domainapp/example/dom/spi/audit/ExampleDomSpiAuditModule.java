@@ -1,7 +1,10 @@
 package org.incode.domainapp.example.dom.spi.audit;
 
-public final class ExampleDomSpiAuditModule {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private ExampleDomSpiAuditModule(){}
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class ExampleDomSpiAuditModule extends ModuleAbstract {
 
 }

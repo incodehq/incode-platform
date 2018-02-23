@@ -5,18 +5,17 @@ import java.util.List;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
-import com.google.common.collect.Lists;
-
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.RestrictTo;
 import org.apache.isis.applib.services.message.MessageService;
 
-import org.isisaddons.module.security.app.user.MeService;
 import org.isisaddons.module.security.dom.role.ApplicationRole;
+import org.isisaddons.module.security.dom.role.ApplicationRoleRepository;
 import org.isisaddons.module.security.dom.user.ApplicationUser;
 
 import org.incode.module.userimpersonate.UserImpersonateModule;
@@ -41,15 +40,22 @@ public class ImpersonateMenu {
     @MemberOrder(sequence = "1")
     public void impersonate(
             final ApplicationUser applicationUser,
+            @ParameterLayout(describedAs = "If set, then the roles specified below are used.  Otherwise uses roles of the user.")
+            final boolean useExplicitRolesBelow,
+            @ParameterLayout(describedAs = "Only used if 'useExplicitRolesBelow' is set, otherwise is ignored.")
             @Nullable
             final List<ApplicationRole> applicationRoleList) {
 
-        impersonationService.impersonate(applicationUser, applicationRoleList);
+        impersonationService.impersonate(applicationUser, useExplicitRolesBelow, applicationRoleList);
 
         messageService.informUser("Now impersonating " + applicationUser.getName());
     }
-    public List<ApplicationRole> default1Impersonate() {
-        return Lists.newArrayList(meService.me().getRoles());
+
+    public boolean default1Impersonate() {
+        return false;
+    }
+    public List<ApplicationRole> default2Impersonate() {
+        return applicationRoleRepository.allRoles();
     }
 
     public boolean hideImpersonate() {
@@ -88,6 +94,6 @@ public class ImpersonateMenu {
     MessageService messageService;
 
     @Inject
-    MeService meService;
+    ApplicationRoleRepository applicationRoleRepository;
 
 }

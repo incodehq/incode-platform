@@ -1,5 +1,9 @@
 package org.isisaddons.module.excel;
 
-public final class ExcelModule {
-    private ExcelModule(){}
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class ExcelModule extends ModuleAbstract {
 }

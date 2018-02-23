@@ -1,8 +1,9 @@
 package domainapp.appdefn;
 
-public class DomainAppAppDefnModule {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private DomainAppAppDefnModule(){}
+import org.apache.isis.applib.ModuleAbstract;
 
-
+@XmlRootElement(name = "module")
+public class DomainAppAppDefnModule extends ModuleAbstract {
 }

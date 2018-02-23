@@ -1,8 +1,11 @@
 package org.incode.example.settings;
 
-public final class SettingsModule {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private SettingsModule(){}
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class SettingsModule extends ModuleAbstract {
 
     public abstract static class ActionDomainEvent<S>
             extends org.apache.isis.applib.services.eventbus.ActionDomainEvent<S> {

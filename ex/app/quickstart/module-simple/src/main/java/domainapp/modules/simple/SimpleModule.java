@@ -2,6 +2,8 @@ package domainapp.modules.simple;
 
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.google.common.collect.Sets;
 
 import org.apache.isis.applib.Module;
@@ -9,6 +11,7 @@ import org.apache.isis.applib.ModuleAbstract;
 
 import domainapp.modules.base.BaseModule;
 
+@XmlRootElement(name = "module")
 public class SimpleModule extends ModuleAbstract {
 
     @Override

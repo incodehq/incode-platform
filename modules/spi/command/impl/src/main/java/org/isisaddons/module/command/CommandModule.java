@@ -1,5 +1,9 @@
 package org.isisaddons.module.command;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.isis.applib.ModuleAbstract;
+
 import org.isisaddons.module.command.dom.CommandDomModule;
 
 /**
@@ -9,9 +13,8 @@ import org.isisaddons.module.command.dom.CommandDomModule;
  *     Alternatively, use {@link CommandDomModule} and <tt>CommandReplayModule</tt> separately.
  * </p>
  */
-public final class CommandModule {
-
-    private CommandModule(){}
+@XmlRootElement(name = "module")
+public class CommandModule extends ModuleAbstract {
 
     public abstract static class ActionDomainEvent<S>
             extends org.apache.isis.applib.services.eventbus.ActionDomainEvent<S> { }

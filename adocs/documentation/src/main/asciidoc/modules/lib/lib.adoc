@@ -82,6 +82,13 @@ The random values generated can then be used within unit and integration tests.
 | (none)
 | (none)
 
+| xref:jaxrsclient/lib-jaxrsclient.adoc#[JAX-RS Client Library]
+| Provides a wrapper around the JAX-RS Client API (as implemented by Apache CXF).
+| (none)
+| (none)
+| link:http://cxf.apache.org/docs/jax-rs-client-api.html[Apache CXF]
+
+
 | xref:pdfbox/lib-pdfbox.adoc#[PDFBox Library]
 | Provides a wrapper around _Apache PDFBox_.
 | (none)

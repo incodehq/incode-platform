@@ -1,5 +1,9 @@
 package org.isisaddons.module.quartz.dom;
 
-public final class QuartzModule {
-    private QuartzModule(){}
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class QuartzModule extends ModuleAbstract {
 }

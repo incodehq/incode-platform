@@ -1,7 +1,9 @@
 package org.incode.platform.spi.publishmq.integtests.app;
 
-public final class PublishMqAppModule {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private PublishMqAppModule(){}
+import org.apache.isis.applib.ModuleAbstract;
 
+@XmlRootElement(name = "module")
+public class PublishMqAppModule extends ModuleAbstract {
 }

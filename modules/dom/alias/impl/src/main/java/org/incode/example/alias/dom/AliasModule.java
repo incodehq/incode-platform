@@ -1,6 +1,11 @@
 package org.incode.example.alias.dom;
 
-public final class AliasModule {
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class AliasModule extends ModuleAbstract {
 
     //region > constants
 
