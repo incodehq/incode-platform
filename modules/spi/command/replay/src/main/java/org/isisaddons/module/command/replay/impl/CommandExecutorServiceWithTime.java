@@ -41,10 +41,19 @@ public class CommandExecutorServiceWithTime implements CommandExecutorService {
 
     @Override
     public void executeCommand(final SudoPolicy sudoPolicy, final CommandWithDto commandWithDto) {
-        tickingClockService.at(commandWithDto.getTimestamp(),
-                () -> getDelegate().executeCommand(sudoPolicy, commandWithDto));
+        if(tickingClockService.isInitialized()) {
+            tickingClockService.at(commandWithDto.getTimestamp(),
+                    () -> executeViaDelegate(sudoPolicy, commandWithDto));
+        } else {
+            executeViaDelegate(sudoPolicy, commandWithDto);
+        }
     }
 
+    private void executeViaDelegate(
+            final SudoPolicy sudoPolicy,
+            final CommandWithDto commandWithDto) {
+        getDelegate().executeCommand(sudoPolicy, commandWithDto);
+    }
 
     // //////////////////////////////////////
 
