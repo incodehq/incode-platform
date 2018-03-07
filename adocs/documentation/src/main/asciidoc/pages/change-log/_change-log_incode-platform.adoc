@@ -4,21 +4,34 @@
 :_imagesdir: images/
 
 
-.Releases
-[cols="^2a,1a,^1a,^1a,^2a,4a", options="header"]
+The table below summarises the releases of the incode platform modules (as a single consolidated codebase) to date.
+
+
+[cols="^2a,^3a,^2a,^2a,8a", options="header"]
 |===
 
 ^.>| Release
-^.>| Mixins?
-^.>| Modules?
-^.>| Archetype?
+^.>| Date
+^.>| What?
 ^.>| Apache Isis version
 ^| Notes
 
+| 1.16.2
+| 7 Mar 2018
+| Mixins, Modules, Archetype
+| 1.16.2
+| Command replay and several other enhancements.
+
+For full details, see xref:change-log.adoc#_change-log_incode-platform_1.16.2[1.16.2] below.
+[NOTE]
+====
+There was no release for 1.16.1
+====
+
+
 | 1.16.0
-| Y
-| Y
-| Y
+| 9 Jan 2018
+| Mixins, Modules, Archetype
 | 1.16.0
 | Updates to Apache Isis 1.16.0.
 
@@ -27,37 +40,32 @@ Generic subdomains renamed as "example subdomains"
 Quickstart archetype simplified (removed spring and extended example appdefn/dom)
 
 | 1.15.1.1
-| Y
-| Y
-| Y
+| 27 Sep 2017
+| Mixins, Modules, Archetype
 | 1.15.1
 | Updates to Apache Isis 1.15.1
 
 | 1.15.1
-| Y
-|
-|
+| 27 Sep 2017
+| Mixins only
 | 1.15.0
 | Aborted release due to error made in mavenmixin.
 
 | 1.15.0.2
-|
-|
-| Y
+| 18 Sep 2017
+| Archetype only
 | 1.15.0
 | Fixes to archetype only, runs against 1.15.0.1 of modules
 
 | 1.15.0.1
-| Y
-| Y
-| Y
+| 15 Sep 2017
+| Mixins, Modules, Archetype
 | 1.15.0
 | Fixes link:https://github.com/incodehq/incode-platform/issues/13[#13]
 
 | 1.15.0
-| Y
-| Y
-| Y
+| 10 Sep 2017
+| Mixins, Modules, Archetype
 | 1.15.0
 | First release as a single platform, against Apache Isis 1.15.0.
 
@@ -67,3 +75,28 @@ Also provides a new xref:../../quickstart/quickstart.adoc#[quickstart] archetype
 
 |===
 
+
+[[_change-log_incode-platform_1.16.2]]
+== 1.16.2
+
+* link:https://github.com/incodehq/incode-platform/issues/7[\#7] - extensions to xref:../modules/lib/servletapi/lib-servletapi.adoc#[Servlet API] library
+
+* link:https://github.com/incodehq/incode-platform/issues/8[\#8] - new xref:../modules/spi/userimpersonate/lib-userimpersonate.adoc#[User Impersonate] SPI
+
+* link:https://github.com/incodehq/incode-platform/issues/47[\#47] - extensions to xref:../modules/lib/pdfbox/lib-pdfbox.adoc#[PDFBox] library
+
+* link:https://github.com/incodehq/incode-platform/issues/62[\#62] - new xref:../modules/lib/zip/lib-zip.adoc#[ZIP] library
+
+* link:https://github.com/incodehq/incode-platform/issues/69[#69] - new xref:../modules/spi/command/spi-command-replay.adoc[command replay] library
+
+* link:https://github.com/incodehq/incode-platform/issues/70[\#70] - new xref:../modules/lib/jaxrsclient/lib-jaxrsclient.adoc#[JAX-RS Client] library
+
+* link:https://github.com/incodehq/incode-platform/issues/73[#73] - `Automatic-Module-Name` for Java 9 compatibility
+
+* link:https://github.com/incodehq/incode-platform/issues/74[\#74] - new xref:../modules/lib/slack/lib-slack.adoc#[Slack client] library
+
+* link:https://github.com/incodehq/incode-platform/issues/75[\#75] - new xref:../modules/spi/errorrptslack/spi-errorrptslack.adoc#[ErrorReportingService] SPI for Slack
+
+* link:https://github.com/incodehq/incode-platform/issues/76[\#76] - new xref:../modules/spi/errorrptjira/spi-errorrptjira.adoc#[ErrorReportingService] SPI for Jira
+
+* link:https://github.com/incodehq/incode-platform/issues/79[#79] - bug fix for command replay library
