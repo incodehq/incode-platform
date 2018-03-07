@@ -6,13 +6,13 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>1.16.1-SNAPSHOT</version>
+        <version>1.16.2</version>
         <relativePath>../../../modules/pom.xml</relativePath>
     </parent>
 
     <groupId>org.incode.example.application</groupId>
     <artifactId>incode-extended</artifactId>
-    <version>1.16.1-SNAPSHOT</version>
+    <version>1.16.2</version>
 
     <name>Incode Extended</name>
     <description>Domain application with example subdomains.</description>
