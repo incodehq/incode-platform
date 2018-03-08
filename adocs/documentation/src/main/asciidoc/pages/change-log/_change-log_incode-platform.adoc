@@ -79,24 +79,24 @@ Also provides a new xref:../../quickstart/quickstart.adoc#[quickstart] archetype
 [[_change-log_incode-platform_1.16.2]]
 == 1.16.2
 
-* link:https://github.com/incodehq/incode-platform/issues/7[\#7] - extensions to xref:../modules/lib/servletapi/lib-servletapi.adoc#[Servlet API] library
+* link:https://github.com/incodehq/incode-platform/issues/7[\#7] - extensions to xref:../../modules/lib/servletapi/lib-servletapi.adoc#[Servlet API] library
 
-* link:https://github.com/incodehq/incode-platform/issues/8[\#8] - new xref:../modules/spi/userimpersonate/lib-userimpersonate.adoc#[User Impersonate] SPI
+* link:https://github.com/incodehq/incode-platform/issues/8[\#8] - new xref:../../modules/spi/userimpersonate/spi-userimpersonate.adoc#[User Impersonate] SPI
 
-* link:https://github.com/incodehq/incode-platform/issues/47[\#47] - extensions to xref:../modules/lib/pdfbox/lib-pdfbox.adoc#[PDFBox] library
+* link:https://github.com/incodehq/incode-platform/issues/47[\#47] - extensions to xref:../../modules/lib/pdfbox/lib-pdfbox.adoc#[PDFBox] library
 
-* link:https://github.com/incodehq/incode-platform/issues/62[\#62] - new xref:../modules/lib/zip/lib-zip.adoc#[ZIP] library
+* link:https://github.com/incodehq/incode-platform/issues/62[\#62] - new xref:../../modules/lib/zip/lib-zip.adoc#[ZIP] library
 
-* link:https://github.com/incodehq/incode-platform/issues/69[#69] - new xref:../modules/spi/command/spi-command-replay.adoc[command replay] library
+* link:https://github.com/incodehq/incode-platform/issues/69[\#69] - new xref:../../modules/spi/command/spi-command-replay.adoc#[command replay] library
 
-* link:https://github.com/incodehq/incode-platform/issues/70[\#70] - new xref:../modules/lib/jaxrsclient/lib-jaxrsclient.adoc#[JAX-RS Client] library
+* link:https://github.com/incodehq/incode-platform/issues/70[\#70] - new xref:../../modules/lib/jaxrsclient/lib-jaxrsclient.adoc#[JAX-RS Client] library
 
 * link:https://github.com/incodehq/incode-platform/issues/73[#73] - `Automatic-Module-Name` for Java 9 compatibility
 
-* link:https://github.com/incodehq/incode-platform/issues/74[\#74] - new xref:../modules/lib/slack/lib-slack.adoc#[Slack client] library
+* link:https://github.com/incodehq/incode-platform/issues/74[\#74] - new xref:../../modules/lib/slack/lib-slack.adoc#[Slack client] library
 
-* link:https://github.com/incodehq/incode-platform/issues/75[\#75] - new xref:../modules/spi/errorrptslack/spi-errorrptslack.adoc#[ErrorReportingService] SPI for Slack
+* link:https://github.com/incodehq/incode-platform/issues/75[\#75] - new xref:../../modules/spi/errorrptslack/spi-errorrptslack.adoc#[ErrorReportingService] SPI for Slack
 
-* link:https://github.com/incodehq/incode-platform/issues/76[\#76] - new xref:../modules/spi/errorrptjira/spi-errorrptjira.adoc#[ErrorReportingService] SPI for Jira
+* link:https://github.com/incodehq/incode-platform/issues/76[\#76] - new xref:../../modules/spi/errorrptjira/spi-errorrptjira.adoc#[ErrorReportingService] SPI for Jira
 
 * link:https://github.com/incodehq/incode-platform/issues/79[#79] - bug fix for command replay library
