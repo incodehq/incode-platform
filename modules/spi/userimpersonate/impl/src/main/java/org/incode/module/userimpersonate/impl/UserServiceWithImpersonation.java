@@ -1,0 +1,92 @@
+package org.incode.module.userimpersonate.impl;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import javax.inject.Inject;
+
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.security.RoleMemento;
+import org.apache.isis.applib.security.UserMemento;
+import org.apache.isis.applib.services.user.UserService;
+
+import org.isisaddons.module.servletapi.dom.HttpSessionProvider;
+
+@DomainService(nature = NatureOfService.DOMAIN)
+@DomainServiceLayout(menuBar = DomainServiceLayout.MenuBar.TERTIARY)
+public class UserServiceWithImpersonation implements UserService {
+
+    public static final String HTTP_SESSION_KEY = UserServiceWithImpersonation.class.getName() + "#" + "impersonatedUserMemento";
+
+    @Programmatic
+    @Override
+    public UserMemento getUser() {
+        final Optional<UserMemento> impersonatedUserIfAny = getImpersonatedUserIfAny();
+        return impersonatedUserIfAny.orElse(delegateUserService().getUser());
+    }
+
+    @Programmatic
+    public void setUser(final String userName) {
+        setImpersonatedUser(new UserMemento(userName));
+    }
+
+    @Programmatic
+    public void setUser(final String userName, final String... roles) {
+        setUser(userName, Arrays.asList(roles));
+    }
+
+    @Programmatic
+    public void setUser(final String userName, final List<String> roles) {
+        setImpersonatedUser(new UserMemento(userName, roles.stream().map(RoleMemento::new).collect(Collectors.toList())));
+    }
+
+    @Programmatic
+    public void reset() {
+        setImpersonatedUser(null);
+    }
+
+    @Programmatic
+    public boolean isImpersonating() {
+        return getImpersonatedUserIfAny().isPresent();
+    }
+
+    @Programmatic
+    public boolean isAvailable() {
+        return httpSessionProvider != null && httpSessionProvider.getHttpSession().isPresent();
+    }
+
+    private UserService delegateUserService;
+    private UserService delegateUserService() {
+        if (delegateUserService == null) {
+            // there will always be at least one other user service, namely UserServiceDefault provided by the framework itself
+            delegateUserService = userServiceList.stream().filter(x -> x != UserServiceWithImpersonation.this).findFirst().get();
+        }
+        return delegateUserService;
+    }
+
+    private Optional<UserMemento> getImpersonatedUserIfAny() {
+        if(!isAvailable()) {
+            return Optional.empty();
+        }
+        return httpSessionProvider.getAttribute(HTTP_SESSION_KEY, UserMemento.class);
+    }
+
+    private void setImpersonatedUser(UserMemento overrideUser) {
+        if(!isAvailable()) {
+            return;
+        }
+        httpSessionProvider.setAttribute(HTTP_SESSION_KEY, overrideUser);
+    }
+
+    @javax.inject.Inject
+    List<UserService> userServiceList;
+
+    @Inject
+    HttpSessionProvider httpSessionProvider;
+
+}

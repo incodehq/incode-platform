@@ -12,13 +12,11 @@ import org.apache.isis.applib.annotation.Command.Persistence;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.services.command.Command;
 import org.apache.isis.applib.services.command.Command.Executor;
 import org.apache.isis.applib.services.command.spi.CommandService;
 import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.repository.RepositoryService;
-import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 
 /**
  *
@@ -68,18 +66,7 @@ public class CommandServiceJdo implements CommandService {
             return;
         }
 
-        //
-        // prior to 1.13.0 there was a guard here to not persist the command if the completedAt had been set.
-        // as of 1.13.0, this field is populated by the framework, so the guard no longer makes sense.
-        //
-        // can't store target if too long (eg view models)
-        if (commandJdo.getTargetStr() != null && commandJdo.getTargetStr().length() > JdoColumnLength.BOOKMARK) {
-            commandJdo.setTargetStr(null);
-        }
-
-        if(commandJdo.shouldPersist()) {
-            repositoryService.persist(commandJdo);
-        }
+        commandServiceJdoRepository.persistIfHinted(commandJdo);
 
     }
 
@@ -122,9 +109,11 @@ public class CommandServiceJdo implements CommandService {
 
     @Inject
     RepositoryService repositoryService;
+
+    @Inject
+    CommandServiceJdoRepository commandServiceJdoRepository;
+
     @Inject
     FactoryService factoryService;
-    @Inject
-    ClockService clockService;
 
 }

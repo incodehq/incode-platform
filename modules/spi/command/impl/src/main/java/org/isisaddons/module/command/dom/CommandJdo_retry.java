@@ -1,16 +1,31 @@
 package org.isisaddons.module.command.dom;
 
-import org.apache.isis.applib.annotation.*;
-import org.apache.isis.applib.services.command.CommandContext;
-import org.apache.isis.applib.services.jaxb.JaxbService;
-import org.apache.isis.schema.cmd.v1.CommandDto;
-import org.isisaddons.module.command.CommandModule;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import javax.inject.Inject;
 
-@Mixin
-public class CommandJdo_retry<T> {
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.Command;
+import org.apache.isis.applib.annotation.Contributed;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Mixin;
+import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.services.command.CommandContext;
+import org.apache.isis.applib.services.jaxb.JaxbService;
+import org.apache.isis.schema.cmd.v1.CommandDto;
 
+import org.isisaddons.module.command.CommandModule;
+
+@Mixin(method = "act")
+public class CommandJdo_retry {
+
+    public static enum Mode {
+        SCHEDULE_NEW,
+        REUSE
+    }
 
     private final CommandJdo commandJdo;
 
@@ -29,24 +44,53 @@ public class CommandJdo_retry<T> {
     @ActionLayout(
             contributed = Contributed.AS_ACTION
     )
-    public CommandJdo $$() {
+    @MemberOrder(name = "executeIn", sequence = "1")
+    public CommandJdo act(final Mode mode) {
 
-        final String memento = commandJdo.getMemento();
-        final CommandDto dto = jaxbService.fromXml(CommandDto.class, memento);
-        backgroundCommandServiceJdo.schedule(
-                dto, commandContext.getCommand(), commandJdo.getTargetClass(), commandJdo.getTargetAction(), commandJdo.getArguments());
-
+        switch (mode) {
+        case SCHEDULE_NEW:
+            final String memento = commandJdo.getMemento();
+            final CommandDto dto = jaxbService.fromXml(CommandDto.class, memento);
+            backgroundCommandServiceJdo.schedule(
+                    dto, commandContext.getCommand(), commandJdo.getTargetClass(), commandJdo.getTargetAction(), commandJdo.getArguments());
+            break;
+        case REUSE:
+            // will cause it to be picked up next time around
+            commandJdo.setStartedAt(null);
+            commandJdo.setException(null);
+            commandJdo.setResult(null);
+            commandJdo.setCompletedAt(null);
+            commandJdo.setReplayState(null);
+            break;
+        default:
+            // shouldn't occur
+            throw new IllegalStateException(String.format("Probable framework error, unknown mode: %s", mode));
+        }
         return commandJdo;
     }
 
-    public String disable$$() {
-        if (!commandJdo.isCausedException()) {
-            return "Only failed commands can be retried";
+    public List<Mode> choices0Act() {
+        Command.ExecuteIn executeIn = commandJdo.getExecuteIn();
+        switch (executeIn){
+        case FOREGROUND:
+        case BACKGROUND:
+            return Arrays.asList(Mode.SCHEDULE_NEW, Mode.REUSE);
+        case REPLAYABLE:
+            return Collections.singletonList(Mode.REUSE);
+        default:
+            // shouldn't occur
+            throw new IllegalStateException(String.format("Probable framework error, unknown executeIn: %s", executeIn));
         }
-        if (commandJdo.isLegacyMemento()) {
-            return "Only non-legacy commands can be retried";
-        }
+    }
 
+    public Mode default0Act() {
+        return choices0Act().get(0);
+    }
+
+    public String disableAct() {
+        if (!commandJdo.isComplete()) {
+            return "Not yet completed";
+        }
         return null;
     }
 

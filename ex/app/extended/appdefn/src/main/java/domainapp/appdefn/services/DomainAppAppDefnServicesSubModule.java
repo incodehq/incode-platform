@@ -1,8 +1,9 @@
 package domainapp.appdefn.services;
 
-public class DomainAppAppDefnServicesSubModule {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private DomainAppAppDefnServicesSubModule(){}
+import org.apache.isis.applib.ModuleAbstract;
 
-
+@XmlRootElement(name = "module")
+public class DomainAppAppDefnServicesSubModule extends ModuleAbstract {
 }

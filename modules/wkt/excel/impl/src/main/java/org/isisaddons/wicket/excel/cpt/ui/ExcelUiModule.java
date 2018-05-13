@@ -1,5 +1,9 @@
 package org.isisaddons.wicket.excel.cpt.ui;
 
-public final class ExcelUiModule {
-    private ExcelUiModule(){}
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class ExcelUiModule extends ModuleAbstract {
 }

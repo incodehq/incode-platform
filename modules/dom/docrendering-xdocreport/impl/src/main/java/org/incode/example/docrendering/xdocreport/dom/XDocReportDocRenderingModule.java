@@ -1,6 +1,9 @@
 package org.incode.example.docrendering.xdocreport.dom;
 
-public class XDocReportDocRenderingModule {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private XDocReportDocRenderingModule(){}
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class XDocReportDocRenderingModule extends ModuleAbstract {
 }

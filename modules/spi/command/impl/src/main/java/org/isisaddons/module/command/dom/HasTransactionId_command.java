@@ -62,7 +62,7 @@ public class HasTransactionId_command {
 
 
     @javax.inject.Inject
-    private CommandServiceJdoRepository commandServiceRepository;
+    CommandServiceJdoRepository commandServiceRepository;
 
 
 }

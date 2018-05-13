@@ -1,7 +1,9 @@
 package org.incode.domainapp.example.dom.lib.docx;
 
-public final class ExampleDomLibDocxModule {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private ExampleDomLibDocxModule(){}
+import org.apache.isis.applib.ModuleAbstract;
 
+@XmlRootElement(name = "module")
+public class ExampleDomLibDocxModule extends ModuleAbstract {
 }

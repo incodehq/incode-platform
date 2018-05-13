@@ -2,6 +2,7 @@ package org.isisaddons.module.command.dom;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.jdo.annotations.NotPersistent;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Ordering;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,8 +28,6 @@ import org.apache.isis.applib.annotation.Command.Persistence;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
-import org.apache.isis.applib.annotation.LabelPosition;
-import org.apache.isis.applib.annotation.MemberGroupLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -40,12 +40,15 @@ import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.command.Command;
 import org.apache.isis.applib.services.command.Command3;
+import org.apache.isis.applib.services.command.CommandWithDto;
 import org.apache.isis.applib.services.eventbus.ActionInteractionEvent;
+import org.apache.isis.applib.services.jaxb.JaxbService;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 import org.apache.isis.objectstore.jdo.applib.service.Util;
+import org.apache.isis.schema.cmd.v1.CommandDto;
 
 import org.isisaddons.module.command.CommandModule;
 
@@ -58,117 +61,173 @@ import lombok.Setter;
         table="Command")
 @javax.jdo.annotations.Queries( {
     @javax.jdo.annotations.Query(
-            name="findByTransactionId", language="JDOQL",  
+            name="findByTransactionId",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE transactionId == :transactionId "),
     @javax.jdo.annotations.Query(
-            name="findBackgroundCommandByTransactionId", language="JDOQL",  
-            value="SELECT "
-                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
-                    + "WHERE transactionId == :transactionId "
-                    + "&& executeIn == 'BACKGROUND'"),
-    @javax.jdo.annotations.Query(
-            name="findBackgroundCommandsByParent", language="JDOQL",  
+            name="findBackgroundCommandsByParent",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE parent == :parent "
                     + "&& executeIn == 'BACKGROUND'"),
     @javax.jdo.annotations.Query(
-            name="findBackgroundCommandsNotYetStarted", language="JDOQL",  
-            value="SELECT "
-                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
-                    + "WHERE executeIn == 'BACKGROUND' "
-                    + "&& startedAt == null "
-                    + "ORDER BY timestamp ASC "
-                    ),
-    @javax.jdo.annotations.Query(
-            name="findCurrent", language="JDOQL",  
+            name="findCurrent",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE completedAt == null "
-                    + "ORDER BY timestamp DESC"),
+                    + "ORDER BY this.timestamp DESC"),
     @javax.jdo.annotations.Query(
-            name="findCompleted", language="JDOQL",  
+            name="findCompleted",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE completedAt != null "
                     + "&& executeIn == 'FOREGROUND' "
-                    + "ORDER BY timestamp DESC"),
+                    + "ORDER BY this.timestamp DESC"),
     @javax.jdo.annotations.Query(
-            name="findRecentBackgroundByTarget", language="JDOQL",
+            name="findRecentBackgroundByTarget",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE targetStr == :targetStr "
                     + "&& executeIn == 'BACKGROUND' "
-                    + "ORDER BY timestamp DESC, transactionId DESC "
+                    + "ORDER BY this.timestamp DESC, transactionId DESC "
                     + "RANGE 0,30"),
     @javax.jdo.annotations.Query(
-            name="findByTargetAndTimestampBetween", language="JDOQL",  
+            name="findByTargetAndTimestampBetween",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE targetStr == :targetStr " 
                     + "&& timestamp >= :from " 
                     + "&& timestamp <= :to "
-                    + "ORDER BY timestamp DESC"),
+                    + "ORDER BY this.timestamp DESC"),
     @javax.jdo.annotations.Query(
-            name="findByTargetAndTimestampAfter", language="JDOQL",  
+            name="findByTargetAndTimestampAfter",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE targetStr == :targetStr " 
                     + "&& timestamp >= :from "
-                    + "ORDER BY timestamp DESC"),
+                    + "ORDER BY this.timestamp DESC"),
     @javax.jdo.annotations.Query(
-            name="findByTargetAndTimestampBefore", language="JDOQL",  
+            name="findByTargetAndTimestampBefore",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE targetStr == :targetStr " 
                     + "&& timestamp <= :to "
-                    + "ORDER BY timestamp DESC"),
+                    + "ORDER BY this.timestamp DESC"),
     @javax.jdo.annotations.Query(
-            name="findByTarget", language="JDOQL",  
+            name="findByTarget",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE targetStr == :targetStr " 
-                    + "ORDER BY timestamp DESC"),
+                    + "ORDER BY this.timestamp DESC"),
     @javax.jdo.annotations.Query(
-            name="findByTimestampBetween", language="JDOQL",  
+            name="findByTimestampBetween",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE timestamp >= :from " 
                     + "&&    timestamp <= :to "
-                    + "ORDER BY timestamp DESC"),
+                    + "ORDER BY this.timestamp DESC"),
     @javax.jdo.annotations.Query(
-            name="findByTimestampAfter", language="JDOQL",  
+            name="findByTimestampAfter",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE timestamp >= :from "
-                    + "ORDER BY timestamp DESC"),
+                    + "ORDER BY this.timestamp DESC"),
     @javax.jdo.annotations.Query(
-            name="findByTimestampBefore", language="JDOQL",  
+            name="findByTimestampBefore",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE timestamp <= :to "
-                    + "ORDER BY timestamp DESC"),
+                    + "ORDER BY this.timestamp DESC"),
     @javax.jdo.annotations.Query(
-            name="find", language="JDOQL",
+            name="find",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
-                    + "ORDER BY timestamp DESC"),
+                    + "ORDER BY this.timestamp DESC"),
     @javax.jdo.annotations.Query(
-            name="findRecentByUser", language="JDOQL",
+            name="findRecentByUser",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE user == :user "
-                    + "ORDER BY timestamp DESC "
+                    + "ORDER BY this.timestamp DESC "
                     + "RANGE 0,30"),
     @javax.jdo.annotations.Query(
-            name="findRecentByTarget", language="JDOQL",
+            name="findRecentByTarget",
             value="SELECT "
                     + "FROM org.isisaddons.module.command.dom.CommandJdo "
                     + "WHERE targetStr == :targetStr "
-                    + "ORDER BY timestamp DESC, transactionId DESC "
-                    + "RANGE 0,30")
+                    + "ORDER BY this.timestamp DESC, transactionId DESC "
+                    + "RANGE 0,30"),
+    @javax.jdo.annotations.Query(
+            name="findForegroundFirst",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
+                    + "WHERE executeIn == 'FOREGROUND' "
+                    + "   && timestamp   != null "
+                    + "   && startedAt   != null "
+                    + "   && completedAt != null "
+                    + "ORDER BY this.timestamp ASC "
+                    + "RANGE 0,2"),
+        // this should be RANGE 0,1 but results in DataNucleus submitting "FETCH NEXT ROW ONLY"
+        // which SQL Server doesn't understand.  However, as workaround, SQL Server *does* understand FETCH NEXT 2 ROWS ONLY
+    @javax.jdo.annotations.Query(
+            name="findForegroundSince",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
+                    + "WHERE executeIn == 'FOREGROUND' "
+                    + "   && timestamp > :timestamp "
+                    + "   && startedAt != null "
+                    + "   && completedAt != null "
+                    + "ORDER BY this.timestamp ASC"),
+    @javax.jdo.annotations.Query(
+            name="findReplayableHwm",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
+                    + "WHERE executeIn == 'REPLAYABLE' "
+                    + "ORDER BY this.timestamp DESC "
+                    + "RANGE 0,2"),
+        // this should be RANGE 0,1 but results in DataNucleus submitting "FETCH NEXT ROW ONLY"
+        // which SQL Server doesn't understand.  However, as workaround, SQL Server *does* understand FETCH NEXT 2 ROWS ONLY
+    @javax.jdo.annotations.Query(
+            name="findForegroundHwm",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
+                    + "WHERE executeIn == 'FOREGROUND' "
+                    + "   && startedAt   != null "
+                    + "   && completedAt != null "
+                    + "ORDER BY this.timestamp DESC "
+                    + "RANGE 0,2"),
+        // this should be RANGE 0,1 but results in DataNucleus submitting "FETCH NEXT ROW ONLY"
+        // which SQL Server doesn't understand.  However, as workaround, SQL Server *does* understand FETCH NEXT 2 ROWS ONLY
+    @javax.jdo.annotations.Query(
+            name="findBackgroundCommandsNotYetStarted",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
+                    + "WHERE executeIn == 'BACKGROUND' "
+                    + "   && startedAt == null "
+                    + "ORDER BY this.timestamp ASC "),
+        @javax.jdo.annotations.Query(
+                name="findReplayableInErrorMostRecent",
+                value="SELECT "
+                        + "FROM org.isisaddons.module.command.dom.CommandJdo "
+                        + "WHERE executeIn   == 'REPLAYABLE' "
+                        + "  && (replayState != 'PENDING' || "
+                        + "      replayState != 'OK'      || "
+                        + "      replayState != 'EXCLUDED'   ) "
+                        + "ORDER BY this.timestamp DESC "
+                        + "RANGE 0,2"),
+    @javax.jdo.annotations.Query(
+            name="findReplayableMostRecentStarted",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.command.dom.CommandJdo "
+                    + "WHERE executeIn == 'REPLAYABLE' "
+                    + "   && startedAt != null "
+                    + "ORDER BY this.timestamp DESC "
+                    + "RANGE 0,20"),
+})
+@javax.jdo.annotations.Indices({
+        @javax.jdo.annotations.Index(name = "CommandJdo_timestamp_e_s_IDX", members = {"timestamp", "executeIn", "startedAt"}),
+        @javax.jdo.annotations.Index(name = "CommandJdo_startedAt_e_c_IDX", members = {"startedAt", "executeIn", "completedAt"}),
 })
 @DomainObject(
         objectType = "isiscommand.Command",
@@ -177,11 +236,7 @@ import lombok.Setter;
 @DomainObjectLayout(
         named = "Command"
 )
-@MemberGroupLayout(
-        columnSpans={6,0,6,12}, 
-        left={"Identifiers","Target","Notes", "Metadata"},
-        right={"Detail","Timings","Results"})
-public class CommandJdo extends DomainChangeJdoAbstract implements Command3, HasUsername {
+public class CommandJdo extends DomainChangeJdoAbstract implements Command3, HasUsername, CommandWithDto, Comparable<CommandJdo> {
 
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(CommandJdo.class);
@@ -200,8 +255,12 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
 
     //region > identification
     public String title() {
+        // nb: not thread-safe
+        // formats defined in https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+        final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
         final TitleBuffer buf = new TitleBuffer();
-        buf.append(getTargetStr());
+        buf.append(format.format(getTimestamp()));
         buf.append(" ").append(getMemberIdentifier());
         return buf.toString();
     }
@@ -216,7 +275,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             domainEvent = UserDomainEvent.class
     )
     @Getter @Setter
-    @MemberOrder(name="Identifiers", sequence = "10")
     private String user;
 
 
@@ -245,7 +303,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             domainEvent = TimestampDomainEvent.class
     )
     @Getter @Setter
-    @MemberOrder(name="Identifiers", sequence = "20")
     private Timestamp timestamp;
 
     //endregion
@@ -280,10 +337,57 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             domainEvent = ExecuteInDomainEvent.class
     )
     @Getter @Setter
-    @MemberOrder(name="Identifiers", sequence = "32")
     private ExecuteIn executeIn;
 
     //endregion
+
+    //region > replayState (property)
+
+    public static class ReplayStateDomainEvent extends PropertyDomainEvent<ReplayState> { }
+
+
+    /**
+     * For a replayed command, what the outcome was.
+     *
+     * <b>NOT API</b>.
+     */
+    @javax.jdo.annotations.Column(allowsNull="true", length=10)
+    @Property(
+            domainEvent = ReplayStateDomainEvent.class
+    )
+    @Getter @Setter
+    private ReplayState replayState;
+    @Getter @Setter
+
+    //endregion
+
+    //region > replayState (property)
+
+    public static class ReplayStateFailureReasonDomainEvent extends PropertyDomainEvent<ReplayState> { }
+
+
+    /**
+     * For a {@link ReplayState#FAILED failed} replayed command, what the reason was for the failure.
+     *
+     * <b>NOT API</b>.
+     */
+    @javax.jdo.annotations.Column(allowsNull="true", length=255)
+    @Property(
+            domainEvent = ReplayStateFailureReasonDomainEvent.class
+    )
+    @PropertyLayout(
+            hidden = Where.ALL_TABLES,
+            multiLine = 5
+    )
+    @Getter @Setter
+    private String replayStateFailureReason;
+
+    public boolean hideReplayStateFailureReason() {
+        return getReplayState() == null || !getReplayState().isFailed();
+    }
+
+    //endregion
+
 
     //region > parent (property)
 
@@ -299,7 +403,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             hidden = Where.ALL_TABLES
     )
     @Getter @Setter
-    @MemberOrder(name="Identifiers",sequence = "40")
     private Command parent;
 
     //endregion
@@ -326,7 +429,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             typicalLength = JdoColumnLength.TRANSACTION_ID
     )
     @Getter @Setter
-    @MemberOrder(name="Identifiers",sequence = "50")
     private UUID transactionId;
 
     //endregion
@@ -344,7 +446,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             typicalLength = 30
     )
     @Getter
-    @MemberOrder(name="Target", sequence = "10")
     private String targetClass;
 
     public void setTargetClass(final String targetClass) {
@@ -369,7 +470,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             named = "Action"
     )
     @Getter
-    @MemberOrder(name="Target", sequence = "20")
     private String targetAction;
 
     public void setTargetAction(final String targetAction) {
@@ -391,7 +491,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             named = "Object"
     )
     @Getter @Setter
-    @MemberOrder(name="Target", sequence="30")
     private String targetStr;
 
     //endregion
@@ -410,27 +509,8 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             hidden = Where.ALL_TABLES
     )
     @Getter @Setter
-    @MemberOrder(name="Target",sequence = "40")
     private String arguments;
 
-    //endregion
-
-    //region > metadata region dummy property
-
-    public static class MetadataRegionDummyPropertyDomainEvent extends PropertyDomainEvent<String> { }
-
-    /**
-     * Exists just that the Wicket viewer will render an (almost) empty metadata region (on which the
-     * framework contributed mixin actions will be attached).  The field itself can optionally be hidden
-     * using CSS.
-     */
-    @NotPersistent
-    @Property(domainEvent = MetadataRegionDummyPropertyDomainEvent.class, notPersisted = true)
-    @PropertyLayout(labelPosition = LabelPosition.NONE, hidden = Where.ALL_TABLES)
-    @MemberOrder(name="Metadata", sequence = "1")
-    public String getMetadataRegionDummyProperty() {
-        return null;
-    }
     //endregion
 
     //region > memberIdentifier (property)
@@ -446,7 +526,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             hidden = Where.ALL_TABLES
     )
     @Getter
-    @MemberOrder(name="Detail",sequence = "1")
     private String memberIdentifier;
 
     public void setMemberIdentifier(final String memberIdentifier) {
@@ -468,16 +547,31 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             hidden = Where.ALL_TABLES
     )
     @Getter @Setter
-    @MemberOrder(name="Detail",sequence = "30")
     private String memento;
 
     //endregion
 
-    //region > isLegacyMemento (programmatic)
-    @Programmatic
-    public boolean isLegacyMemento() {
-        return getMemento() != null && getMemento().startsWith("<memento");
+    //region > asDto (CommandWithDto api programmatic)
+
+    // locally cached
+    private transient CommandDto commandDto;
+
+    @Override
+    public CommandDto asDto() {
+        if(commandDto == null) {
+            this.commandDto = buildCommandDto();
+        }
+        return this.commandDto;
     }
+
+    private CommandDto buildCommandDto() {
+        if(getMemento() == null) {
+            return null;
+        }
+
+        return jaxbService.fromXml(CommandDto.class, getMemento());
+    }
+
     //endregion
 
 
@@ -496,7 +590,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             domainEvent = StartedAtDomainEvent.class
     )
     @Getter @Setter
-    @MemberOrder(name="Timings", sequence = "3")
     private Timestamp startedAt;
 
     //endregion
@@ -514,7 +607,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             domainEvent = CompletedAtDomainEvent.class
     )
     @Getter @Setter
-    @MemberOrder(name="Timings", sequence = "4")
     private Timestamp completedAt;
 
     //endregion
@@ -536,7 +628,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     @PropertyLayout(
             named = "Duration"
     )
-    @MemberOrder(name="Timings", sequence = "7")
     public BigDecimal getDuration() {
         return Util.durationBetween(getStartedAt(), getCompletedAt());
     }
@@ -554,7 +645,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     @PropertyLayout(
             hidden = Where.OBJECT_FORMS
     )
-    @MemberOrder(name="Timings", sequence = "8")
     public boolean isComplete() {
         return getCompletedAt() != null;
     }
@@ -565,7 +655,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
     public static class ResultSummaryDomainEvent extends PropertyDomainEvent<String> { }
 
     @javax.jdo.annotations.NotPersistent
-    @MemberOrder(name="Results",sequence = "10")
     @Property(
             domainEvent = ResultSummaryDomainEvent.class
     )
@@ -617,7 +706,6 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             named = "Result Bookmark"
     )
     @Getter @Setter
-    @MemberOrder(name="Results", sequence="25")
     private String resultStr;
 
     // //////////////////////////////////////
@@ -641,33 +729,29 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
 
     //endregion
 
-    //region > exception (property), causedException (derived property), showException (associated action)
+    //region > exception (property), causedException (derived property)
 
-    private String exception;
+    public static class ExceptionDomainEvent extends PropertyDomainEvent<String> { }
 
     /**
      * Stack trace of any exception that might have occurred if this interaction/transaction aborted.
      * 
      * <p>
-     * Not visible in the UI, but accessible 
-     * <p>
      * Not part of the applib API, because the default implementation is not persistent
      * and so there's no object that can be accessed to be annotated.
      */
     @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB")
-    @Programmatic
-    @Override
-    public String getException() {
-        return exception;
-    }
+    @Property(
+            domainEvent = ExceptionDomainEvent.class
+    )
+    @PropertyLayout(
+            hidden = Where.ALL_TABLES,
+            multiLine = 5,
+            named = "Exception (if any)"
+    )
+    @Getter @Setter
+    private String exception;
 
-    @Override
-    public void setException(final String exception) {
-        this.exception = exception;
-    }
-    
-    
-    // //////////////////////////////////////
 
     public static class IsCausedExceptionDomainEvent extends PropertyDomainEvent<Boolean> { }
 
@@ -676,29 +760,12 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
             domainEvent = IsCausedExceptionDomainEvent.class
     )
     @PropertyLayout(
-            hidden = Where.ALL_TABLES
+            hidden = Where.OBJECT_FORMS
     )
-    @MemberOrder(name="Results",sequence = "30")
     public boolean isCausedException() {
         return getException() != null;
     }
 
-    
-    // //////////////////////////////////////
-
-    public static class ShowExceptionDomainEvent extends ActionDomainEvent { }
-
-    @Action(
-            domainEvent = ShowExceptionDomainEvent.class,
-            semantics = SemanticsOf.SAFE
-    )
-    @MemberOrder(name="causedException", sequence = "1")
-    public String showException() {
-        return getException();
-    }
-    public boolean hideShowException() {
-        return !isCausedException();
-    }
 
     //endregion
 
@@ -861,14 +928,25 @@ public class CommandJdo extends DomainChangeJdoAbstract implements Command3, Has
         return ObjectContracts.toString(this, "targetStr","memberIdentifier","user","startedAt","completedAt","duration","transactionId");
     }
 
+    private final static Ordering<CommandJdo> COMPARATOR = Ordering.natural().onResultOf(CommandJdo::getTimestamp);
+
+    @Override
+    public int compareTo(final CommandJdo o) {
+        return COMPARATOR.compare(this, o);
+    }
+
+
     //endregion
 
     //region > dependencies
     @javax.inject.Inject
-    private BookmarkService bookmarkService;
+    BookmarkService bookmarkService;
 
     @javax.inject.Inject
-    private DomainObjectContainer container;
+    DomainObjectContainer container;
+
+    @javax.inject.Inject
+    JaxbService jaxbService;
     //endregion
 
 }

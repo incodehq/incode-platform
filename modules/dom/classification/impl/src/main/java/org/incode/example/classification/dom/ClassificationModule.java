@@ -1,6 +1,11 @@
 package org.incode.example.classification.dom;
 
-public final class ClassificationModule {
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class ClassificationModule extends ModuleAbstract {
 
     //region > constants
 
@@ -22,10 +27,6 @@ public final class ClassificationModule {
     }
 
 
-    //endregion
-
-    //region > constructor
-    private ClassificationModule(){}
     //endregion
 
     //region > ui event classes

@@ -4,20 +4,14 @@ import java.sql.Timestamp;
 import java.util.UUID;
 
 import javax.jdo.annotations.IdentityType;
-import javax.jdo.annotations.NotPersistent;
 
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
-import org.apache.isis.applib.annotation.LabelPosition;
-import org.apache.isis.applib.annotation.MemberGroupLayout;
-import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.HasTransactionId;
-import org.apache.isis.applib.services.bookmark.BookmarkService;
-import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 import org.apache.isis.objectstore.jdo.applib.service.Util;
@@ -70,10 +64,6 @@ import lombok.Setter;
                     + "FROM org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage "
                     + "ORDER BY timestamp DESC, transactionId DESC")
 })
-@MemberGroupLayout(
-        columnSpans={6,0,6,12},
-        left={"Identifiers","Target","Metadata"},
-        right={"Detail","State"})
 @DomainObject(
         editing = Editing.DISABLED,
         objectType = "isispublishmq.StatusMessage"
@@ -115,7 +105,6 @@ public class StatusMessage implements HasTransactionId {
             domainEvent = TimestampDomainEvent.class
     )
     @Getter @Setter
-    @MemberOrder(name="Identifiers", sequence = "10")
     private Timestamp timestamp;
     //endregion
 
@@ -140,7 +129,6 @@ public class StatusMessage implements HasTransactionId {
             typicalLength = JdoColumnLength.TRANSACTION_ID,
             hidden = Where.PARENTED_TABLES
     )
-    @MemberOrder(name="Identifiers", sequence = "20")
     @Getter @Setter
     private UUID transactionId;
 
@@ -159,7 +147,6 @@ public class StatusMessage implements HasTransactionId {
             hidden = Where.OBJECT_FORMS,
             typicalLength = 60
     )
-    @MemberOrder(name="Identifiers",sequence = "30")
     @Getter
     private String message;
 
@@ -176,7 +163,6 @@ public class StatusMessage implements HasTransactionId {
             hidden = Where.ALL_TABLES,
             typicalLength = 60
     )
-    @MemberOrder(name="Detail",sequence = "30")
     public String getMessageOnForm() {
         return getMessage();
     }
@@ -194,7 +180,6 @@ public class StatusMessage implements HasTransactionId {
             domainEvent = OidDomainEvent.class
     )
     @Getter @Setter
-    @MemberOrder(name="Oid", sequence = "40")
     private String oid;
 
     //endregion
@@ -209,7 +194,6 @@ public class StatusMessage implements HasTransactionId {
             domainEvent = UriDomainEvent.class
     )
     @Getter @Setter
-    @MemberOrder(name="Uri", sequence = "50")
     private String uri;
 
     //endregion
@@ -224,7 +208,6 @@ public class StatusMessage implements HasTransactionId {
             domainEvent = StatusDomainEvent.class
     )
     @Getter @Setter
-    @MemberOrder(name="Status", sequence = "60")
     private Integer status;
 
     //endregion
@@ -239,7 +222,6 @@ public class StatusMessage implements HasTransactionId {
             domainEvent = DetailDomainEvent.class
     )
     @Getter @Setter
-    @MemberOrder(name="Detail", sequence = "70")
     @PropertyLayout(
             hidden = Where.ALL_TABLES,
             multiLine = 14
@@ -248,40 +230,12 @@ public class StatusMessage implements HasTransactionId {
 
     //endregion
 
-    //region > metadata region dummy property
-
-    public static class MetadataRegionDummyPropertyDomainEvent extends PropertyDomainEvent<String> { }
-
-    /**
-     * Exists just that the Wicket viewer will render an (almost) empty metadata region (on which the
-     * framework contributed mixin actions will be attached).  The field itself can optionally be hidden
-     * using CSS.
-     */
-    @NotPersistent
-    @Property(domainEvent = MetadataRegionDummyPropertyDomainEvent.class, notPersisted = true)
-    @PropertyLayout(labelPosition = LabelPosition.NONE, hidden = Where.ALL_TABLES)
-    @MemberOrder(name="Metadata", sequence = "1")
-    public String getMetadataRegionDummyProperty() {
-        return null;
-    }
-    //endregion
-
     //region > toString
 
     @Override
     public String toString() {
         return ObjectContracts.toString(this, "timestamp","transactionId","message");
     }
-    //endregion
-
-    //region > injected services
-
-    @javax.inject.Inject
-    private BookmarkService bookmarkService;
-
-    @javax.inject.Inject
-    private RepositoryService repositoryService;
-
     //endregion
 
 }

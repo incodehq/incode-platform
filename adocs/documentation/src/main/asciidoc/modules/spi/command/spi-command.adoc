@@ -1,5 +1,5 @@
 [[spi-command]]
-= Command SPI Implementation
+= Command SPI Implementation + Replay
 :_basedir: ../../../
 :_imagesdir: images/
 :generate_pdf:
@@ -18,6 +18,10 @@ This enables commands to be persisted but the action not invoked.
 A scheduler can then be used to pick up the scheduled background commands and invoke them at some later time.
 The module provides a subclass of the `BackgroundCommandExecution` class (in Isis core) to make it easy to write such scheduler jobs.
 
+As of `1.16.1` this module also provides a companion "replay" library.
+This allows commands on a master server to be replayed against a slave.
+One use case for this is for regression testing or A/B testing of two different versions of an application (eg after a system upgrade, or after a refactoring of business logic).
+For more details, see the xref:spi-command-replay.adoc#[replay library] page.
 
 
 == Screenshots
@@ -195,7 +199,7 @@ In the `AppManifest`, update its `getModules()` method, eg:
 public List<Class<?>> getModules() {
     return Arrays.asList(
             ...
-            org.isisaddons.module.command.CommandModule.class,
+            org.isisaddons.module.command.dom.CommandDomModule.class,
     );
 }
 ----
@@ -287,21 +291,40 @@ The xref:../../ext/quartz/ext-quartz.adoc#[quartz extension] module can be confi
 
 == Supporting Services and Mixins
 
-As well as the `CommandService` and `BackgroundCommandService` implementations, the module also a number of other domain services/mixins.
-These include:
+As well as the `CommandService` and `BackgroundCommandService` implementations, the module also a number of other domain services and mixins.
+
+The domain services are:
 
 * `CommandServiceJdoRepository` provides the ability to search for persisted (foreground) `Command`s.
 None of its actions are visible in the user interface (they are all `@Programmatic`) and so this service is automatically registered.
 
-* In 1.8.x, the `CommandServiceMenu` provides actions to search for `Command`s, underneath an 'Activity' menu on the secondary menu bar.
+* (As of `1.8.x`) the `CommandServiceMenu` provides actions to search for `Command`s, underneath an 'Activity' menu on the secondary menu bar.
 
-* `BackgroundCommandServiceJdoRepository` provides the ability to search for persisted (background) `Command`s.
+* `BackgroundCommandServiceJdoRepository` provides the ability to search for persisted (background) `Command`s and xref:spi-command-replay.adoc#[replayable] commands.
 None of its actions are visible in the user interface (they are all `@Programmatic`) and so this service is automatically registered.
+
+* (As of `1.16.1`) the `CommandReplayOnMasterService` and `CommandReplayOnSlaveService` menu services provide actions to support the xref:spi-command-replay.adoc#[replay] library.
+
+** `CommandReplayOnMasterService` provides actions to find and to manually download ``Command``s since a specified transaction Id (ie as determined from the slave)
+
+** `CommandReplayOnSlaveService` provides actions to find the most recently replicated ``Command`` on the slave (the so-called "high water mark") and to manually upload ``Command``s obtained from the master
+
+The mixins are:
 
 * `HasTransactionId_command` mixin provides the `command` action to the `HasTransactionId` interface.
 This will therefore display all commands that occurred in a given transaction, in other words whenever a command, or also (if configured) a published event or an audit entry is displayed.
 
 * `CommandJdo_childCommands` mixin provides the `childCommands` contributed collection, while `CommandJdo_siblingCommands` mixin provides the `siblingCommands` contributed collection
+
+* `CommandJdo_retry` mixin allows commands to be resubmitted.
+
+* `CommandJdo_exclude` mixin allows failing replayable commands to be ignored.
+
++
+Once any replayable command hits an exception, no further replayable commands are run.
+This mixin is intended to allow the administrator to choose to skip/ignore any such command.
+
+
 
 In addition, the `T_backgroundCommands` abstract mixin can be used to contribute a `backgroundCommands` collection to any object that can be used as the target of a command, returning the 30 most recent background commands.
 For example:
@@ -318,7 +341,7 @@ public class SomeObject_backgroundCommands extends T_backgroundCommands<SomeObje
 
 where `SomeObject` is the class of the target domain class.
 
-(As of 1.8.x and later) these various services are automatically registered, meaning that any UI functionality they provide will appear in the user interface.
+(As of `1.8.x` and later) these various services are automatically registered, meaning that any UI functionality they provide will appear in the user interface.
 If this is not required, then either use security permissions or write a vetoing subscriber on the event bus to hide this functionality, eg:
 
 [source,java]

@@ -1,7 +1,9 @@
 package org.incode.domainapp.example.dom.wkt.wickedcharts;
 
-public final class ExampleDomWicketWickedChartsModule {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private ExampleDomWicketWickedChartsModule(){}
+import org.apache.isis.applib.ModuleAbstract;
 
+@XmlRootElement(name = "module")
+public class ExampleDomWicketWickedChartsModule extends ModuleAbstract {
 }

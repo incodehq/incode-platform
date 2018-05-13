@@ -78,7 +78,10 @@ public class TitleBuilder {
     }
 
     public TitleBuilder withName(final Object object) {
-        nameString.append(titleFor(object));
+        final String title = titleFor(object);
+        if(title != null) {
+            nameString.append(title);
+        }
         return this;
     }
 

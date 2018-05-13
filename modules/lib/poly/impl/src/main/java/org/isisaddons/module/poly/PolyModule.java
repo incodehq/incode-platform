@@ -1,11 +1,14 @@
 package org.isisaddons.module.poly;
 
 import java.util.List;
+
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.apache.isis.applib.Identifier;
+import org.apache.isis.applib.ModuleAbstract;
 
-public final class PolyModule {
-
-    private PolyModule(){}
+@XmlRootElement(name = "module")
+public class PolyModule extends ModuleAbstract {
 
     public abstract static class ActionDomainEvent<S> extends org.apache.isis.applib.services.eventbus.ActionDomainEvent<S> {
         public ActionDomainEvent(final S source, final Identifier identifier) {

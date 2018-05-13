@@ -85,9 +85,9 @@ org.quartz.plugin.jobInitializer.failOnFileNotFound = true
 
     <schedule>
         <job>
-            <name>RunBackgroundJobs</name>
-            <group>DemoApp</group>
-            <description>Runs all background jobs</description>
+            <name>RunBackgroundCommandsJob</name>
+            <group>CommandModule</group>
+            <description>Runs all background commands</description>
             <job-class>org.isisaddons.module.quartz.dom.jobs.RunBackgroundCommandsJob</job-class>
             <job-data-map>
                 <entry>
@@ -104,8 +104,8 @@ org.quartz.plugin.jobInitializer.failOnFileNotFound = true
         <trigger>
             <cron>
                 <name>RunBackgroundJobsEvery10Seconds</name>
-                <job-name>RunBackgroundJobs</job-name>
-                <job-group>DemoApp</job-group>
+                <job-name>RunBackgroundCommandsJob</job-name>
+                <job-group>CommandModule</job-group>
                 <cron-expression>0/10 * * * * ?</cron-expression>
             </cron>
         </trigger>

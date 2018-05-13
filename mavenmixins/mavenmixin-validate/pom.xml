@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-mavenmixin</artifactId>
-        <version>2.0.0-M1-SNAPSHOT</version>
+        <version>1.16.3-SNAPSHOT</version>
     </parent>
 
     <groupId>org.incode.mavenmixin</groupId>
@@ -31,7 +31,7 @@
             </activation>
 
             <properties>
-                <isis.version>1.16.0</isis.version>
+                <isis.version>1.16.2</isis.version>
                 <isis-maven-plugin.validate.appManifest>
                     domainapp.modules.simple.SimpleModuleManifest
                 </isis-maven-plugin.validate.appManifest>

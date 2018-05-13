@@ -1,6 +1,9 @@
 package org.incode.example.docrendering.freemarker.dom;
 
-public class FreemarkerDocRenderingModule {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private FreemarkerDocRenderingModule(){}
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class FreemarkerDocRenderingModule extends ModuleAbstract {
 }

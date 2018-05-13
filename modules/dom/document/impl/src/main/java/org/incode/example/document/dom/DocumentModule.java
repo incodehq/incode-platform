@@ -1,6 +1,11 @@
 package org.incode.example.document.dom;
 
-public final class DocumentModule {
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class DocumentModule extends ModuleAbstract {
 
     //region > constants
 
@@ -13,10 +18,6 @@ public final class DocumentModule {
     }
 
 
-    //endregion
-
-    //region > constructor
-    private DocumentModule(){}
     //endregion
 
     //region > ui event classes

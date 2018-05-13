@@ -1,0 +1,135 @@
+[[dom-slack]]
+= Slack Library
+:_basedir: ../../../
+:_imagesdir: images/
+:generate_pdf:
+:toc:
+
+This module (`incode-module-slack-dom`) provides the ability to post to a Slack channel (with Slack running on the Cloud).
+
+
+
+== API & Implementation
+
+The `SlackService` defines the following API:
+
+[source,java]
+----
+public class SlackService {
+    public boolean isConfigured() { ... }                       // <1>
+    public boolean channelExists(String channelName) { ... }    // <2>
+
+    public void sendMessage(                                    // <3>
+            String channelName,
+            String message) { ... }
+    public SlackMessageHandle<SlackMessageReply> sendMessage(   // <4>
+            String channelName,
+            SlackPreparedMessage preparedMessage) { ... }
+}
+----
+<1> whether the service is available for use.
+If not configured, then the `sendMessage(...)` methods will silently no-op.
+<2> allows consumers to check whether a channel exists (before attempting to use it in the `sendMessage(...)`.
+If the servicew is not configured, then returns `false`.
+<3> Sends a message to the specified channel.
+If no such channel exists, then an `IllegalArgumentException` will be thrown.
+<4> Allows more sophisticated messages to be sent (using the API of the underlying implementation library, link:https://github.com/Ullink/simple-slack-api[Simple Slack API].
+
+These actions are all programmatic and do not appear in the UI.
+
+
+
+== How to configure/use
+
+=== Classpath
+
+Update your classpath by adding this dependency in your `dom` project's `pom.xml`:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.incode.module.slack</groupId>
+    <artifactId>incode-module-slack-dom</artifactId>
+    <version>1.16.1</version>
+</dependency>
+----
+
+Check for later releases by searching link:http://search.maven.org/#search|ga|1|incode-module-slack-dom[Maven Central Repo].
+
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide/contributors-guide.adoc#[contributors guide].
+
+
+=== Configuration Properties
+
+There is one mandatory configuration property.
+
+[source,properties]
+----
+isis.service.slack.authToken=xxxxx
+----
+
+The `authToken` can be obtained by logging into your http://slack.com[slack.com] account, on the settings page for bots.
+This token represents the credentials of the bot posting to the channel, so obviously should be kept private and not be shared around.
+
+
+=== System Properties
+
+Optionally, an http/s proxy can be set, by setting two system properties:
+
+[source,properties]
+----
+-Dhttp.proxyPort=...
+-Dhttp.proxyHost=...
+----
+
+[NOTE]
+====
+Note that the system properties for SSL (`https.proxyHost` and `https.proxyPort`) are *NOT* checked.
+====
+
+
+=== Bootstrapping
+
+In the `AppManifest`, update its `getDependencies()` method, eg:
+
+[source,java]
+----
+@Override
+public Set<Module> getDependencies() {
+    return Sets.newHashSet(
+            ...
+            new org.incode.module.slack.SlackModule(),
+            ...
+    );
+}
+----
+
+
+
+
+== Known issues
+
+None known at this time.
+
+
+
+
+== Dependencies
+
+
+Maven can report modules dependencies using:
+
+
+
+[source,bash]
+----
+mvn dependency:list -o -pl modules/lib/slack/impl -D excludeTransitive=true
+----
+
+which, excluding Apache Isis itself, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+com.ullink.slack:simpleslackapi:jar:1.2.0
+----
+

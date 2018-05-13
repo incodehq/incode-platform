@@ -1,6 +1,11 @@
 package org.incode.example.alias.dom;
 
-public final class AliasModule {
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class AliasModule extends ModuleAbstract {
 
     //region > constants
 
@@ -15,10 +20,6 @@ public final class AliasModule {
         public static final int BOOKMARK = 2000;
     }
 
-    //endregion
-
-    //region > constructor
-    private AliasModule(){}
     //endregion
 
     //region > ui event classes

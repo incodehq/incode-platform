@@ -1,11 +1,13 @@
 package domainapp.appdefn;
 
+import java.util.List;
+
 import org.apache.isis.applib.AppManifestAbstract2;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.audit.AuditModule;
 import org.isisaddons.module.command.CommandModule;
 import org.isisaddons.module.fakedata.FakeDataModule;
-import org.isisaddons.module.publishmq.PublishMqModule;
 import org.isisaddons.module.security.SecurityModule;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
@@ -23,6 +25,8 @@ import org.isisaddons.wicket.wickedcharts.cpt.ui.WickedChartsUiModule;
 import org.incode.example.settings.SettingsModule;
 import org.incode.module.base.services.BaseServicesModule;
 
+import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
+
 public class DomainAppAppManifest extends AppManifestAbstract2 {
 
     public static final AppManifestAbstract2.Builder BUILDER =
@@ -36,11 +40,6 @@ public class DomainAppAppManifest extends AppManifestAbstract2 {
                 SettingsModule.class,        // expected by togglz
 
 
-
-                
-
-                
-
                 // extensions
                 TogglzModule.class,
 
@@ -50,7 +49,7 @@ public class DomainAppAppManifest extends AppManifestAbstract2 {
 
                 // spi
                 AuditModule.class,
-                PublishMqModule.class,
+                //PublishMqModule.class,
                 SessionLoggerModule.class,
 
                 // cpt (wicket ui)
@@ -86,11 +85,18 @@ public class DomainAppAppManifest extends AppManifestAbstract2 {
             .withConfigurationProperty("isis.services.command.properties","none")
             .withConfigurationProperty("isis.services.publish.objects","none")
             .withConfigurationProperty("isis.services.publish.actions","none")
-            .withConfigurationProperty("isis.services.publish.properties","none");
+            .withConfigurationProperty("isis.services.publish.properties","none")
+            //.withFixtureScripts(SeedSuperAdministratorRoleAndSvenSuperUser.class)
             ;
 
     public DomainAppAppManifest() {
         super(BUILDER);
+    }
+
+    @Override
+    protected void overrideFixtures(final List<Class<? extends FixtureScript>> fixtureScripts) {
+        // using withFixtureScripts(...) is broken in 1.16.0
+        fixtureScripts.add(SeedSuperAdministratorRoleAndSvenSuperUser.class);
     }
 
 }

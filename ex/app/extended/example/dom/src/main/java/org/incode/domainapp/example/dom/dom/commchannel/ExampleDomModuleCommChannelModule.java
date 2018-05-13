@@ -1,7 +1,9 @@
 package org.incode.domainapp.example.dom.dom.commchannel;
 
-public final class ExampleDomModuleCommChannelModule {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private ExampleDomModuleCommChannelModule(){}
+import org.apache.isis.applib.ModuleAbstract;
 
+@XmlRootElement(name = "module")
+public class ExampleDomModuleCommChannelModule extends ModuleAbstract {
 }

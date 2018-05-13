@@ -45,7 +45,7 @@ In the `AppManifest`, update its `getModules()` method, eg:
 public List<Class<?>> getModules() {
     return Arrays.asList(
             ...
-            org.incode.example.country.dom.CountryExample.class,
+            org.incode.example.country.dom.CountryModule.class,
     );
 }
 ----

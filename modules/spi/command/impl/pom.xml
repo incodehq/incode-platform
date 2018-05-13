@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>2.0.0-M1-SNAPSHOT</version>
+        <version>1.16.3-SNAPSHOT</version>
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
@@ -59,6 +59,11 @@
         <isis-maven-plugin.validate.appManifest>
             org.isisaddons.module.command.CommandSpiAppManifest
         </isis-maven-plugin.validate.appManifest>
+
+        <jar-plugin.automaticModuleName>org.incode.platform.spi.command</jar-plugin.automaticModuleName>
+        <git-plugin.propertiesDir>org/incode/platform/spi/command</git-plugin.propertiesDir>
+
+        <git-plugin.gitDir>${project.basedir}/../../../../.git</git-plugin.gitDir>
     </properties>
 
     <build>
@@ -110,6 +115,10 @@
                         </mixin>
                     </mixins>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

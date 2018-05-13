@@ -30,6 +30,18 @@ This enables profiling and (in conjunction with the xref:audit/spi-audit.adoc#[A
 | link:http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_application-layer-spi_CommandService[CommandService]
 | (none)
 
+|xref:errorrptjira/spi-errorrptjira.adoc#[ErrorReportingJira]
+| Whenever the error page is displayed to the user, automatically log the details in JIRA and provide the ticket details to the end-user.
+| link:http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_presentation-layer-spi_ErrorReportingService[ErrorReportingService]
+| link:http://github.com/FasterXML/jackson-databind[Jackson]
+
+|xref:errorrptslack/spi-errorrptslack.adoc#[ErrorReportingSlack]
+| Whenever the error page is displayed to the user, automatically post the details to a Slack channel and display an random image.
+
+The default implementation shows a random kitten (!), but this can be customised.
+| link:http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_presentation-layer-spi_ErrorReportingService[ErrorReportingService]
+| xref:../../lib/slack/lib-slack.adoc#[Slack module]
+
 
 |xref:publishmq/spi-publishmq.adoc#[PublishMQ]
 | Submits an XML representation of member interactions (action invocations and property edits) to an _Apache ActiveMQ_ queue.
@@ -53,6 +65,11 @@ Permissions themselves can either _allow_ or _veto_ the ability to _view_ or _ch
 | link:http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_presentation-layer-spi_SessionLoggingService[SessionLoggingService]
 | (none)
 
+|xref:userimpersonate/spi-userimpersonate.adoc#[UserImpersonate]
+| Allow the logged-in user to be switched dynamically, ie to impersonate some other user.
+Intended for prototyping and demos only.
+| link:http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_core-domain-api_UserService[UserService]
+| xref:../../lib/servletapi/lib-servletapi.adoc#[ServletAPI module];  xref:../../spi/security/spi-security.adoc#[Security SPI module]
 
 
 |===

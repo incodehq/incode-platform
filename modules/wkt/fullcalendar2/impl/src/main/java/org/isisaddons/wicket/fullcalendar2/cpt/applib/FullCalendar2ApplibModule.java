@@ -1,5 +1,9 @@
 package org.isisaddons.wicket.fullcalendar2.cpt.applib;
 
-public final class FullCalendar2ApplibModule {
-    private FullCalendar2ApplibModule(){}
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class FullCalendar2ApplibModule extends ModuleAbstract {
 }

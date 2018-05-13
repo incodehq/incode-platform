@@ -1,7 +1,6 @@
 package org.isisaddons.module.command.dom;
 
 import java.util.List;
-import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -11,8 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.query.QueryDefault;
-import org.apache.isis.applib.services.repository.RepositoryService;
 
 /**
  * Provides supporting functionality for querying
@@ -33,28 +30,16 @@ public class BackgroundCommandServiceJdoRepository {
     private static final Logger LOG = LoggerFactory.getLogger(BackgroundCommandServiceJdoRepository.class);
 
     @Programmatic
-    public List<CommandJdo> findByTransactionId(final UUID transactionId) {
-        return repositoryService.allMatches(
-                new QueryDefault<>(CommandJdo.class,
-                        "findBackgroundCommandByTransactionId",
-                        "transactionId", transactionId));
-    }
-
-    @Programmatic
     public List<CommandJdo> findByParent(CommandJdo parent) {
-        return repositoryService.allMatches(
-                new QueryDefault<>(CommandJdo.class,
-                        "findBackgroundCommandsByParent",
-                        "parent", parent));
+        return commandServiceRepository.findBackgroundCommandsByParent(parent);
     }
 
     @Programmatic
     public List<CommandJdo> findBackgroundCommandsNotYetStarted() {
-        return repositoryService.allMatches(
-                new QueryDefault<>(CommandJdo.class,
-                        "findBackgroundCommandsNotYetStarted"));
+        return commandServiceRepository.findBackgroundCommandsNotYetStarted();
     }
 
     @Inject
-    RepositoryService repositoryService;
+    CommandServiceJdoRepository commandServiceRepository;
+
 }

@@ -101,7 +101,7 @@ public class HttpServletRequestProvider {
 }
 ----
 
-And finally the `HttpServletResponseProvider` defines the following API:
+The `HttpServletResponseProvider` defines the following API:
 
 [source,java]
 ----
@@ -109,6 +109,20 @@ public class HttpServletResponseProvider {
     public HttpServletResponse getHttpServletResponse() { ... }
 }
 ----
+
+And finally, the `HttpSessionProvider` defines the following API:
+
+[source,java]
+----
+@DomainService(nature = NatureOfService.DOMAIN)
+public class HttpSessionProvider {
+    public Optional<HttpSession> getHttpSession() { ... }
+    public <T> Optional<T> getAttribute(String key, Class<T> clazz) { ... } // <1>
+    public <T> void setAttribute( String key, T value) { ... }
+    public void removeAttribute(String key) { ... }
+}
+----
+<1> obtains an attribute (previous set) by key, cast to the specified class
 
 These actions are all programmatic and do not appear in the UI.
 

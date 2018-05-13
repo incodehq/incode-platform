@@ -1,5 +1,9 @@
 package org.isisaddons.module.stringinterpolator;
 
-public final class StringInterpolatorModule {
-    private StringInterpolatorModule(){}
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class StringInterpolatorModule extends ModuleAbstract {
 }

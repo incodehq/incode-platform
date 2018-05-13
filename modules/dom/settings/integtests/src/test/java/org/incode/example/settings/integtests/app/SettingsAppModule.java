@@ -1,7 +1,9 @@
 package org.incode.example.settings.integtests.app;
 
-public final class SettingsAppModule {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private SettingsAppModule(){}
+import org.apache.isis.applib.ModuleAbstract;
 
+@XmlRootElement(name = "module")
+public class SettingsAppModule extends ModuleAbstract {
 }

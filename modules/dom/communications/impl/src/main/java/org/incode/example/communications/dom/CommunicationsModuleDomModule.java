@@ -1,7 +1,11 @@
 package org.incode.example.communications.dom;
 
-public final class CommunicationsModuleDomModule {
-    private CommunicationsModuleDomModule(){}
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class CommunicationsModuleDomModule extends ModuleAbstract {
 
     public static class PropertyDomainEvent<S,T>
             extends org.apache.isis.applib.services.eventbus.PropertyDomainEvent<S,T> {}

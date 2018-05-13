@@ -21,7 +21,7 @@ The xref:quickstart/quickstart.adoc#[quickstart app] is a Maven archetype intend
 mvn archetype:generate  \
     -D archetypeGroupId=org.incode.platform.archetype \
     -D archetypeArtifactId=quickstart-archetype \
-    -D archetypeVersion=1.16.0 \
+    -D archetypeVersion=1.16.2 \
     -D groupId=com.mycompany \
     -D artifactId=myapp \
     -D version=1.0-SNAPSHOT \
@@ -69,6 +69,10 @@ xref:modules/lib/freemarker/lib-freemarker.adoc#[FreeMarker]
 
 xref:modules/lib/integtestsupport/lib-integtestsupport.adoc#[IntegTesting Support]
 
+xref:modules/lib/jaxrsclient/lib-jaxrsclient.adoc#[JAX-RS Client]
+
+xref:modules/lib/slack/lib-slack.adoc#[Slack]
+
 |
 
 xref:modules/lib/pdfbox/lib-pdfbox.adoc#[PDFBox]
@@ -83,17 +87,25 @@ xref:modules/lib/unittestsupport/lib-unittestsupport.adoc#[Unit Testing Support]
 
 xref:modules/lib/xdocreport/lib-xdocreport.adoc#[XDocReport]
 
+xref:modules/lib/zip/lib-zip.adoc#[Zip]
+
 |
 
 xref:modules/spi/audit/spi-audit.adoc#[Audit]
 
-xref:modules/spi/command/spi-command.adoc#[Command]
+xref:modules/spi/command/spi-command.adoc#[Command + Replay]
+
+xref:modules/spi/errorrptjira/spi-errorrptjira.adoc#[Error Report (JIRA)]
+
+xref:modules/spi/errorrptslack/spi-errorrptslack.adoc#[Error Report (Slack)]
 
 xref:modules/spi/publishmq/spi-publishmq.adoc#[Publishmq]
 
 xref:modules/spi/security/spi-security.adoc#[Security]
 
 xref:modules/spi/sessionlogger/spi-sessionlogger.adoc#[Sessionlogger]
+
+xref:modules/spi/userimpersonate/spi-userimpersonate.adoc#[User Impersonation]
 
 |
 
@@ -134,11 +146,11 @@ xref:modules/dom/docfragment/dom-docfragment.adoc#[Doc Fragment]
 
 xref:modules/dom/docrendering-freemarker/lib-docrendering-freemarker.adoc#[Freemarker DocRendering]
 
+xref:modules/dom/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.adoc#[StringInterpolator DocRendering]
+
+xref:modules/dom/docrendering-xdocreport/lib-docrendering-xdocreport.adoc#[XdocReport DocRendering]
+
 |
-xref:modules/dom/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.adoc#[Stringinterpolator DoRendering]
-
-xref:modules/dom/docrendering-xdocreport/lib-docrendering-xdocreport.adoc#[Xdocreport DocRendering]
-
 
 xref:modules/dom/document/dom-document.adoc#[Document]
 

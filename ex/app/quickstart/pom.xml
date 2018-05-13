@@ -6,20 +6,20 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>1.16.0</version>
+        <version>1.16.2</version>
         <relativePath>../../../modules/pom.xml</relativePath>
     </parent>
 
     <groupId>org.incode.example.application</groupId>
     <artifactId>incode-quickstart</artifactId>
-    <version>2.0.0-M1-SNAPSHOT</version>
+    <version>1.16.2-SNAPSHOT</version>
 
     <name>Incode QuickStart</name>
     <description>Domain application leveraging the Incode Platform.</description>
 
     <properties>
 
-        <isis.version>1.16.0</isis.version>
+        <isis.version>1.16.2</isis.version>
         <incode-platform.version>${project.parent.version}</incode-platform.version>
 
         <spring.version>4.1.9.RELEASE</spring.version>

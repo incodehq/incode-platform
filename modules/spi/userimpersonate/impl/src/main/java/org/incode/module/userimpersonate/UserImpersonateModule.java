@@ -1,8 +1,27 @@
-package org.incode.example.country.dom;
+package org.incode.module.userimpersonate;
 
-public final class CountryExample {
+import java.util.Set;
 
-    private CountryExample(){}
+import javax.xml.bind.annotation.XmlRootElement;
+
+import com.google.common.collect.Sets;
+
+import org.apache.isis.applib.Module;
+import org.apache.isis.applib.ModuleAbstract;
+
+import org.isisaddons.module.security.SecurityModule;
+import org.isisaddons.module.servletapi.ServletApiModule;
+
+@XmlRootElement(name = "module")
+public class UserImpersonateModule extends ModuleAbstract {
+
+    @Override
+    public Set<Module> getDependencies() {
+        return Sets.newHashSet(
+                new SecurityModule(),
+                new ServletApiModule()
+        );
+    }
 
     //region > ui event classes
     public abstract static class TitleUiEvent<S>
@@ -20,6 +39,7 @@ public final class CountryExample {
             extends org.apache.isis.applib.services.eventbus.CollectionDomainEvent<S,T> { }
     public abstract static class PropertyDomainEvent<S,T>
             extends org.apache.isis.applib.services.eventbus.PropertyDomainEvent<S,T> { }
+
     //endregion
 
 }

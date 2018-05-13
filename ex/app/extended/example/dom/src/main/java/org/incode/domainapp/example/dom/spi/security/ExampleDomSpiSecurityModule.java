@@ -1,7 +1,9 @@
 package org.incode.domainapp.example.dom.spi.security;
 
-public final class ExampleDomSpiSecurityModule {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private ExampleDomSpiSecurityModule(){}
+import org.apache.isis.applib.ModuleAbstract;
 
+@XmlRootElement(name = "module")
+public class ExampleDomSpiSecurityModule extends ModuleAbstract {
 }

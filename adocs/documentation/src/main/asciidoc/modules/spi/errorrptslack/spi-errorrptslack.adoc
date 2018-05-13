@@ -1,0 +1,163 @@
+[[spi-errorrptslack]]
+= ErrorReporting SPI for Slack
+:_basedir: ../../../
+:_imagesdir: images/
+:generate_pdf:
+:toc:
+
+This module (`incode-module-errorrptslack-impl`) provides an implementation of Apache Isis' link:http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_presentation-layer-spi_ErrorReportingService[`ErrorReportingService`] SPI.
+Whenever an error page is displayed to the user, the implementation will generate a unique id (a guid) and post a message to a specified Slack channel (to notify production support).
+It will also display a random image.
+
+
+== API & Implementation
+
+This module provides `ErrorReportingServiceForSlack` domain service as an implementation of the `ErrorReportingService`:
+
+[source,java]
+----
+public interface ErrorReportingService {
+    Ticket reportError(final ErrorDetails errorDetails);
+}
+----
+
+where the returned `Ticket` determines what is shown on the error page for the end-user.
+In the case of this implementation:
+
+[source,java]
+----
+public class Ticket implements Serializable {
+    private final String reference;                     // <1>
+    private final String userMessage;                   // <2>
+    private final String details;                       // <3>
+    private final StackTracePolicy stackTracePolicy;    // <4>
+    private final String kittenUrl;                     // <5>
+    ...
+}
+----
+<1> the random UUID.
+This is posted to the Slack also, so if the user quotes this number then the support team can find additional details (such as the stack trace)
+<2> the main error message to display to the user.
+This will default to:
+
++
+_"Our apologies, an error has occurred.
+The development team has been notified (via the Slack messaging system)._
+
++
+but can be configured to something else if required (see below).
+
+<3> optionally, additional details (shown in a smaller font).
+This defaults to:
+
++
+_"Quote the reference below to point us to more
+detailed information about the problem.
+\
+In the meantime, and by way of an apology,
+here's a picture of a kitten for you to look at._
+
++
+but can be configured to something else if required (see below).
+
+<4> whether the end user should be able to view the stack trace.
+This implementation ALWAYS HIDES the stack trace.
+<5> the URL of an image to display, if any.
+This will default to:
+
++
+link:http://www.randomkittengenerator.com/cats/rotator.php[]
+
++
+but can be configured to something else if required (see below).
+
+
+
+
+== How to configure/use
+
+=== Classpath
+
+Update your classpath by adding this dependency in your `dom` project's `pom.xml`:
+
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.incode.module.errorrptslack</groupId>
+    <artifactId>incode-module-errorrptslack-impl</artifactId>
+    <version>1.16.1</version>
+</dependency>
+----
+
+
+Check for later releases by searching link:http://search.maven.org/#search|ga|1|incode-module-errorrptslack-impl[Maven Central Repo].
+
+For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide/contributors-guide.adoc#[contributors guide].
+
+
+
+=== Configuration Properties
+
+The following configuration properties are required (either in `isis.properties` or through the `AppManifest`):
+
+[source,properties]
+----
+isis.service.slack.authToken=XXXXXX                     // <1>
+isis.service.errorReporting.slack.channel=ProdSupport
+----
+<1> there is no "errorReporting" part to this config property; it is to configure the underlying xref:../../lib/slack/lib-slack.adoc#[Slack Module].
+
+Optionally the message text and details can be changed:
+
+[source,properties]
+----
+isis.service.errorReporting.slack.userMessage=...
+isis.service.errorReporting.slack.details=...
+isis.service.errorReporting.slack.kittenUrl=...
+----
+
+The timeout for waiting for Slack to acknowledge the message can also be tweaked:
+
+[source,properties]
+----
+isis.service.errorReporting.slack.timeoutMs=500
+----
+
+=== Bootstrapping
+
+In the `AppManifest`, update its `getDependencies()` method, eg:
+
+[source,java]
+----
+@Override
+public Set<Module> getDependencies() {
+    return Sets.newHashSet(
+            ...
+            new org.incode.module.errorrptjira.ErrorReportingSlackModule(),
+            ...
+    );
+}
+----
+
+
+
+
+== Known issues
+
+None known at this time.
+
+
+
+
+== Dependencies
+
+Maven can report modules dependencies using:
+
+[source,bash]
+----
+mvn dependency:list -o -pl modules/spi/errorrptslack/impl -D excludeTransitive=true
+----
+
+which, excluding Apache Isis itself, depends only on the xref:../../lib/slack/lib-slack.adoc[Slack module].
+

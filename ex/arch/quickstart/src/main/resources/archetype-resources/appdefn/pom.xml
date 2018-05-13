@@ -106,6 +106,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.isisaddons.module.fakedata</groupId>
+            <artifactId>isis-module-fakedata-dom</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.togglz</groupId>
             <artifactId>togglz-junit</artifactId>
             <scope>test</scope>
@@ -121,8 +126,13 @@
             <artifactId>datanucleus-core</artifactId>
             <optional>true</optional>
         </dependency>
-	
-    	<!-- test -->
+
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-wrapper</artifactId>
+        </dependency>
+
+        <!-- test -->
 	    <dependency>
             <groupId>org.apache.isis.mavendeps</groupId>
             <artifactId>isis-mavendeps-testing</artifactId>

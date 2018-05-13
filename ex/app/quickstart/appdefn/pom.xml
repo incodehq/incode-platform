@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.incode.example.application</groupId>
         <artifactId>incode-quickstart</artifactId>
-        <version>2.0.0-M1-SNAPSHOT</version>
+        <version>1.16.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>incode-quickstart-appdefn</artifactId>
@@ -123,8 +123,13 @@
             <artifactId>datanucleus-core</artifactId>
             <optional>true</optional>
         </dependency>
-	
-    	<!-- test -->
+
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-wrapper</artifactId>
+        </dependency>
+
+        <!-- test -->
 	    <dependency>
             <groupId>org.apache.isis.mavendeps</groupId>
             <artifactId>isis-mavendeps-testing</artifactId>

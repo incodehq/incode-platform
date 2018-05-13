@@ -82,6 +82,13 @@ The random values generated can then be used within unit and integration tests.
 | (none)
 | (none)
 
+| xref:jaxrsclient/lib-jaxrsclient.adoc#[JAX-RS Client Library]
+| Provides a wrapper around the JAX-RS Client API (as implemented by Apache CXF).
+| (none)
+| (none)
+| link:http://cxf.apache.org/docs/jax-rs-client-api.html[Apache CXF]
+
+
 | xref:pdfbox/lib-pdfbox.adoc#[PDFBox Library]
 | Provides a wrapper around _Apache PDFBox_.
 | (none)
@@ -102,6 +109,13 @@ Note that this module is only available through the Wicket viewer, not the REST 
 | (none)
 | (none)
 
+| xref:slack/lib-slack.adoc#[Slack Library]
+| Provides the ability to post to a Slack channel.
+
+| (none)
+| (none)
+| link:https://github.com/Ullink/simple-slack-api[Simple Slack API]
+
 | xref:stringinterpolator/lib-stringinterpolator.adoc#[String Interpolator (OGNL) Library]
 |Provides a mechanism to interpolate string templates with either Isis system properties or values obtained from a domain object, using _OGNL_ library.
 
@@ -120,6 +134,13 @@ Note that this module is only available through the Wicket viewer, not the REST 
 | (none)
 | (none)
 | link:https://github.com/opensagres/xdocreport[XDocReport]
+
+| xref:zip/lib-zip.adoc#[Zip Library]
+| Zips up a collection of files.
+
+| (none)
+| (none)
+| (none)
 
 |===
 

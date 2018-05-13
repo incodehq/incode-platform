@@ -6,20 +6,25 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>2.0.0-M1-SNAPSHOT</version>
+        <version>1.16.3-SNAPSHOT</version>
         <relativePath>../../../modules/pom.xml</relativePath>
     </parent>
 
     <groupId>org.incode.example.application</groupId>
     <artifactId>incode-extended</artifactId>
-    <version>2.0.0-M1-SNAPSHOT</version>
+    <version>1.16.3-SNAPSHOT</version>
 
     <name>Incode Extended</name>
     <description>Domain application with example subdomains.</description>
 
     <properties>
 
-        <isis.version>1.16.0</isis.version>
+        <isis.version>1.16.1.20180228-1118</isis.version>
+        <!--
+        <isis.version>1.16.1.20180223-1715</isis.version>
+        <isis.version>1.16.2-SNAPSHOT</isis.version>
+        <isis.version>1.16.0.20180212-1738</isis.version>
+        -->
         <incode-platform.version>${project.parent.version}</incode-platform.version>
 
         <spring.version>4.1.9.RELEASE</spring.version>

@@ -11,7 +11,7 @@ public class DomainAppAppManifestWithFixtures extends DomainAppAppManifest {
 
     @Override
     protected void overrideFixtures(final List<Class<? extends FixtureScript>> fixtureScripts) {
-        fixtureScripts.add(SeedSuperAdministratorRoleAndSvenSuperUser.class);
+        super.overrideFixtures(fixtureScripts);
         fixtureScripts.add(SimpleObject_data.PersistScript.class);
     }
 

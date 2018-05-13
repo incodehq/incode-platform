@@ -40,7 +40,7 @@ public class HasUsername_recentSessionsForUser extends AbstractService {
     @CollectionLayout(
             defaultView = "table"
     )
-    @MemberOrder(name = "user", sequence = "1")
+    @MemberOrder(name = "user", sequence = "2")
     public List<SessionLogEntry> $$() {
         if(hasUsername == null || hasUsername.getUsername() == null) {
             return Collections.emptyList();

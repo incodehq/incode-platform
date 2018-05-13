@@ -1,12 +1,14 @@
 package org.incode.domainapp.example.dom.ext.togglz;
 
-import org.apache.isis.applib.Identifier;
-
 import java.util.List;
 
-public final class ExampleDomExtTogglzModule {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private ExampleDomExtTogglzModule(){}
+import org.apache.isis.applib.Identifier;
+import org.apache.isis.applib.ModuleAbstract;
+
+@XmlRootElement(name = "module")
+public class ExampleDomExtTogglzModule extends ModuleAbstract {
 
     public abstract static class ActionDomainEvent<S> extends org.apache.isis.applib.services.eventbus.ActionDomainEvent<S> {
         public ActionDomainEvent(final S source, final Identifier identifier) {

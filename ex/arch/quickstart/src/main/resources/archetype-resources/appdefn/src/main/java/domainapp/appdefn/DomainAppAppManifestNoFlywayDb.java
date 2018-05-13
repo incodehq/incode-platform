@@ -3,9 +3,9 @@
 #set( $symbol_escape = '\' )
 package domainapp.appdefn;
 
-import org.apache.isis.applib.AppManifestAbstract;
+import org.apache.isis.applib.AppManifestAbstract2;
 
-public class DomainAppAppManifestNoFlywayDb extends AppManifestAbstract {
+public class DomainAppAppManifestNoFlywayDb extends AppManifestAbstract2 {
 
     public static final Builder BUILDER = DomainAppAppManifest.BUILDER
             .withConfigurationProperty(

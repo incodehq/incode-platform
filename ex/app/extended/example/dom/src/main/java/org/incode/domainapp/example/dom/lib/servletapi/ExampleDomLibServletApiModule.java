@@ -1,7 +1,9 @@
 package org.incode.domainapp.example.dom.lib.servletapi;
 
-public final class ExampleDomLibServletApiModule {
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private ExampleDomLibServletApiModule(){}
+import org.apache.isis.applib.ModuleAbstract;
 
+@XmlRootElement(name = "module")
+public class ExampleDomLibServletApiModule extends ModuleAbstract {
 }

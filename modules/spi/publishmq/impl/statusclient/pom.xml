@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.isisaddons.module.publishmq</groupId>
         <artifactId>isis-module-publishmq-dom</artifactId>
-        <version>2.0.0-M1-SNAPSHOT</version>
+        <version>1.16.3-SNAPSHOT</version>
     </parent>
 
     <artifactId>isis-module-publishmq-dom-statusclient</artifactId>
@@ -16,6 +16,13 @@
     <description>
         A module providing helper classes for logging status messages
     </description>
+
+    <properties>
+        <jar-plugin.automaticModuleName>org.incode.platform.spi.publishmq.statusclient</jar-plugin.automaticModuleName>
+        <git-plugin.propertiesDir>org/incode/platform/spi/publishmq/statusclient</git-plugin.propertiesDir>
+
+        <git-plugin.gitDir>${project.basedir}/../../../../../.git</git-plugin.gitDir>
+    </properties>
 
     <build>
         <plugins>
@@ -44,6 +51,10 @@
                         </mixin>
                     </mixins>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
