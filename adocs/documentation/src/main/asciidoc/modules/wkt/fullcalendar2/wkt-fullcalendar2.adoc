@@ -197,7 +197,7 @@ Add this component to your project's `dom` module's `pom.xml`, eg:
 <dependency>
     <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
     <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
-    <version>1.15.1.1</version>
+    <version>2.0.0-M1</version>
 </dependency>
 ----
 

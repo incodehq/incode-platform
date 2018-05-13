@@ -20,7 +20,7 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 <dependency>
     <groupId>org.isisaddons.module.xdocreport</groupId>
     <artifactId>isis-module-xdocreport-dom</artifactId>
-    <version>1.15.1.1</version>
+    <version>2.0.0-M1</version>
 </dependency>
 ----
 

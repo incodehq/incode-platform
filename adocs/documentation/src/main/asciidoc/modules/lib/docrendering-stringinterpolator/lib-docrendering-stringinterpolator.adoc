@@ -142,7 +142,7 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 <dependency>
     <groupId>org.incode.example.docrendering</groupId>
     <artifactId>incode-example-docrendering-stringinterpolator-dom</artifactId>
-    <version>1.15.1.1</version>
+    <version>2.0.0-M1</version>
 </dependency>
 ----
 

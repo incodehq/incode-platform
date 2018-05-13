@@ -85,7 +85,7 @@ Often a user may need to browse through many documents at a time, for example to
 To fit their particular screen, they may want to adjust the zoom level and/or height of the panel.
 It would however be very tiresome of the next document viewed reset to the defaults specified in the `@PdfJsViewer`.
 
-Related, support a user views a first document and navigate to some other page.
+Related, suppose a user views a first document and navigate to some other page.
 She then moves on to second document, and then goes back to the first document once more.
 It would again be annoying if she had start back at page 1 and navigate once more to the page they were previously at.
 
@@ -135,9 +135,9 @@ Add the component to your project's `dom` module's `pom.xml`:
 [source,xml]
 ----
 <dependency>
-    <groupId>com.eurocommercialproperties.pdfjsdemo</groupId>
-    <artifactId>ecp-wicket-pdfjs-cpt</artifactId>
-    <version>1.15.1.1</version>
+    <groupId>org.isisaddons.wicket.pdfjs</groupId>
+    <artifactId>isis-wicket-pdfjs-cpt</artifactId>
+    <version>2.0.0-M1</version>
 </dependency>
 ----
 
@@ -163,7 +163,7 @@ public List<Class<?>> getModules() {
 ----
 
 
-=== Configuration Proeprties
+=== Configuration Properties
 
 Set up the facet factory in `isis.properties` (or in the `AppManifest#getConfigurationProperties()`):
 
@@ -174,6 +174,7 @@ isis.reflector.facets.include=\
     org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewerFacetFromAnnotationFactory
 ----
 
+Alternatively, this can be specified in the `AppManifest`.
 
 
 

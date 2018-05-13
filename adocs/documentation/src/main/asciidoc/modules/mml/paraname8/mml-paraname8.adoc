@@ -107,7 +107,7 @@ Update your classpath in the `pom.xml` of your project's `integtests` module and
 <dependency>
     <groupId>org.isisaddons.metamodel.paraname8</groupId>
     <artifactId>isis-metamodel-paraname8-dom</artifactId>
-    <version>1.15.1.1</version>
+    <version>2.0.0-M1</version>
 </dependency>
 ----
 
