@@ -11,6 +11,7 @@ import org.apache.isis.core.unittestsupport.jmocking.JUnitRuleMockery2;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.isisaddons.module.security.dom.FixtureDatumFactories.tenancies;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 public class ApplicationUserTest {
@@ -180,6 +181,36 @@ public class ApplicationUserTest {
             PojoTester.relaxed()
                     .withFixture(tenancies())
                     .exercise(new ApplicationUser());
+        }
+
+    }
+
+    public static class MultipleAtPaths extends ApplicationUserTest {
+
+        @Test
+        public void first_AtPath_Using_Seperator_works() throws Exception {
+
+            // when
+            applicationUser.setAtPath("/FRA;/BEL");
+            // then
+            assertThat(applicationUser.getFirstAtPathUsingSeperator(';'), is("/FRA"));
+
+            // when
+            applicationUser.setAtPath("/FRA");
+            // then
+            assertThat(applicationUser.getFirstAtPathUsingSeperator(';'), is("/FRA"));
+
+            // when
+            applicationUser.setAtPath("/;");
+            // then
+            assertThat(applicationUser.getFirstAtPathUsingSeperator(';'), is("/"));
+
+            // when
+            applicationUser.setAtPath(null);
+            // then
+            assertNull(applicationUser.getFirstAtPathUsingSeperator(';'));
+
+
         }
 
     }

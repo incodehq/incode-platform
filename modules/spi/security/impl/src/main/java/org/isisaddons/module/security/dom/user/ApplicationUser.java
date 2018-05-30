@@ -10,7 +10,9 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.VersionStrategy;
 
+import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
+import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 
@@ -475,6 +477,25 @@ public class ApplicationUser implements Comparable<ApplicationUser>, HasUsername
     @MemberOrder(name="atPath", sequence = "3.4")
     @Getter @Setter
     private String atPath;
+
+    @Programmatic
+    public String getFirstAtPathUsingSeperator(final char seperator){
+        if (getAtPath()!=null) {
+            List<String> userTenancyPaths = split(getAtPath(), seperator);
+            if (userTenancyPaths.size() > 0) {
+                return userTenancyPaths.get(0);
+            }
+        }
+        return getAtPath();
+    }
+
+    private static List<String> split(final String objectTenancyPath, final char separator) {
+        return FluentIterable.from(Splitter.on(separator)
+                .split(objectTenancyPath))
+                .filter(s -> !com.google.common.base.Strings.isNullOrEmpty(s))
+                .transform(s -> s.trim())
+                .toList();
+    }
 
     //endregion
 
