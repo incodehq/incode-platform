@@ -479,7 +479,7 @@ public class ApplicationUser implements Comparable<ApplicationUser>, HasUsername
     private String atPath;
 
     @Programmatic
-    public String getFirstAtPathUsingSeperator(final char seperator){
+    public String getFirstAtPathUsingSeparator(final char seperator){
         if (getAtPath()!=null) {
             List<String> userTenancyPaths = split(getAtPath(), seperator);
             if (userTenancyPaths.size() > 0) {
