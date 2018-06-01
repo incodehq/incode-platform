@@ -3,11 +3,24 @@ package org.isisaddons.module.excel.dom.util;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
+
 import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.ClientAnchor;
+import org.apache.poi.ss.usermodel.Comment;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.Drawing;
+import org.apache.poi.ss.usermodel.Hyperlink;
+import org.apache.poi.ss.usermodel.RichTextString;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFHyperlink;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
+
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
@@ -59,6 +72,39 @@ final class CellMarshaller {
         // fallback, best effort
         setCellValueForString(cell, propertyAsTitle);
         return;
+    }
+
+    void setCellValueForHyperlink(
+            final ObjectAdapter objectAdapter,
+            final OneToOneAssociation otoa,
+            final Cell cell) {
+
+        final ObjectAdapter propertyAdapter = otoa.get(objectAdapter);
+
+        // null
+        if (propertyAdapter == null) {
+            cell.setCellType(HSSFCell.CELL_TYPE_BLANK);
+            return;
+        }
+
+        // only String type expected
+        if(propertyAdapter.getObject() instanceof String) {
+
+            String stringValue = (String) propertyAdapter.getObject();
+
+            cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+            cell.setCellValue(stringValue);
+
+            CreationHelper createHelper = cell.getSheet().getWorkbook().getCreationHelper();
+            XSSFHyperlink link = (XSSFHyperlink)createHelper.createHyperlink(Hyperlink.LINK_URL);
+            link.setAddress(stringValue);
+            cell.setHyperlink((XSSFHyperlink) link);
+
+        } else {
+            // silently ignore annotation and fall back
+            setCellValue(objectAdapter, otoa, cell);
+        }
+
     }
 
     private boolean setCellValue(final Cell cell, final Object valueAsObj) {

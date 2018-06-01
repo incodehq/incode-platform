@@ -47,6 +47,7 @@ import org.apache.isis.core.metamodel.specloader.SpecificationLoader;
 import org.isisaddons.module.excel.dom.AggregationType;
 import org.isisaddons.module.excel.dom.ExcelMetaDataEnabled;
 import org.isisaddons.module.excel.dom.ExcelService;
+import org.isisaddons.module.excel.dom.HyperLink;
 import org.isisaddons.module.excel.dom.PivotColumn;
 import org.isisaddons.module.excel.dom.PivotDecoration;
 import org.isisaddons.module.excel.dom.PivotRow;
@@ -141,10 +142,20 @@ class ExcelConverter {
         @SuppressWarnings("deprecation")
         final List<? extends ObjectAssociation> propertyList = objectSpec.getAssociations(VISIBLE_PROPERTIES);
 
+        List<ObjectAssociation> annotatedAsHyperlink = new ArrayList<>();
+        for (Field f : fieldsAnnotatedWith(factory.getCls(), HyperLink.class)){
+            for (ObjectAssociation oa :propertyList){
+                if (oa.getId().equals(f.getName())){
+                    annotatedAsHyperlink.add(oa);
+                }
+            }
+        }
+
         final Sheet sheet = ((Workbook) workbook).createSheet(sheetName);
 
         final RowFactory rowFactory = new RowFactory(sheet);
         final Row headerRow = rowFactory.newRow();
+
 
         // header row
         int i = 0;
@@ -162,7 +173,11 @@ class ExcelConverter {
             for (final ObjectAssociation oa : propertyList) {
                 final Cell cell = detailRow.createCell((short) i++);
                 final OneToOneAssociation otoa = (OneToOneAssociation) oa;
-                cellMarshaller.setCellValue(objectAdapter, otoa, cell);
+                if (annotatedAsHyperlink.contains(oa)){
+                    cellMarshaller.setCellValueForHyperlink(objectAdapter, otoa, cell);
+                } else {
+                    cellMarshaller.setCellValue(objectAdapter, otoa, cell);
+                }
             }
         }
 
