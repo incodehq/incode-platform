@@ -188,6 +188,40 @@ public class ApplicationUserTest {
     public static class MultipleAtPaths extends ApplicationUserTest {
 
         @Test
+        public void all_atPaths_Using_Separator_works() throws Exception {
+
+            // when
+            applicationUser.setAtPath("/FRA;/BEL");
+            // then
+            assertThat(applicationUser.getAllAtPathsUsingSeparator(';').get(0), is("/FRA"));
+            assertThat(applicationUser.getAllAtPathsUsingSeparator(';').get(1), is("/BEL"));
+
+            // when
+            applicationUser.setAtPath("/FRA/AT;/BEL/WO;");
+            // then
+            assertThat(applicationUser.getAllAtPathsUsingSeparator(';').size(), is(2));
+            assertThat(applicationUser.getAllAtPathsUsingSeparator(';').get(0), is("/FRA/AT"));
+            assertThat(applicationUser.getAllAtPathsUsingSeparator(';').get(1), is("/BEL/WO"));
+
+            // when
+            applicationUser.setAtPath("/FRA");
+            // then
+            assertThat(applicationUser.getAllAtPathsUsingSeparator(';').get(0), is("/FRA"));
+
+            // when
+            applicationUser.setAtPath("/;");
+            // then
+            assertThat(applicationUser.getAllAtPathsUsingSeparator(';').size(), is(1));
+            assertThat(applicationUser.getAllAtPathsUsingSeparator(';').get(0), is("/"));
+
+            // when
+            applicationUser.setAtPath(null);
+            // then
+            assertThat(applicationUser.getAllAtPathsUsingSeparator(';').size(), is(0));
+
+        }
+
+        @Test
         public void first_AtPath_Using_Separator_works() throws Exception {
 
             // when

@@ -1,5 +1,6 @@
 package org.isisaddons.module.security.dom.user;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.SortedSet;
@@ -480,13 +481,22 @@ public class ApplicationUser implements Comparable<ApplicationUser>, HasUsername
 
     @Programmatic
     public String getFirstAtPathUsingSeparator(final char seperator){
-        if (getAtPath()!=null) {
-            List<String> userTenancyPaths = split(getAtPath(), seperator);
-            if (userTenancyPaths.size() > 0) {
-                return userTenancyPaths.get(0);
-            }
+
+        List<String> userTenancyPaths = getAllAtPathsUsingSeparator(seperator);
+        if (userTenancyPaths.size() > 0) {
+            return userTenancyPaths.get(0);
         }
+
         return getAtPath();
+    }
+
+    @Programmatic
+    public List<String> getAllAtPathsUsingSeparator(final char seperator){
+        if (getAtPath()!=null){
+            return split(getAtPath(), seperator);
+        } else {
+            return Collections.emptyList();
+        }
     }
 
     private static List<String> split(final String objectTenancyPath, final char separator) {
