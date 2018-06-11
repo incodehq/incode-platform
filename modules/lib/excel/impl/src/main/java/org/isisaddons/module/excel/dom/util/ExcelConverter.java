@@ -19,6 +19,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -584,7 +585,8 @@ class ExcelConverter {
 
     protected CellMarshaller newCellMarshaller(final Workbook wb) {
         final CellStyle dateCellStyle = createDateFormatCellStyle(wb);
-        final CellMarshaller cellMarshaller = new CellMarshaller(bookmarkService, dateCellStyle);
+        final CellStyle defaultCellStyle = defaultCellStyle(wb);
+        final CellMarshaller cellMarshaller = new CellMarshaller(bookmarkService, dateCellStyle, defaultCellStyle);
         return cellMarshaller;
     }
 
@@ -593,7 +595,14 @@ class ExcelConverter {
         final short dateFormat = createHelper.createDataFormat().getFormat("yyyy-mm-dd");
         final CellStyle dateCellStyle = wb.createCellStyle();
         dateCellStyle.setDataFormat(dateFormat);
+        dateCellStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_TOP);
         return dateCellStyle;
+    }
+
+    protected CellStyle defaultCellStyle(final Workbook wb) {
+        final CellStyle defaultCellStyle = wb.createCellStyle();
+        defaultCellStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_TOP);
+        return defaultCellStyle;
     }
 
 }
