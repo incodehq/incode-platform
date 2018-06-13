@@ -19,6 +19,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -47,6 +48,7 @@ import org.apache.isis.core.metamodel.specloader.SpecificationLoader;
 import org.isisaddons.module.excel.dom.AggregationType;
 import org.isisaddons.module.excel.dom.ExcelMetaDataEnabled;
 import org.isisaddons.module.excel.dom.ExcelService;
+import org.isisaddons.module.excel.dom.HyperLink;
 import org.isisaddons.module.excel.dom.PivotColumn;
 import org.isisaddons.module.excel.dom.PivotDecoration;
 import org.isisaddons.module.excel.dom.PivotRow;
@@ -140,10 +142,20 @@ class ExcelConverter {
         @SuppressWarnings("deprecation")
         final List<? extends ObjectAssociation> propertyList = objectSpec.getAssociations(VISIBLE_PROPERTIES);
 
+        List<ObjectAssociation> annotatedAsHyperlink = new ArrayList<>();
+        for (Field f : fieldsAnnotatedWith(factory.getCls(), HyperLink.class)){
+            for (ObjectAssociation oa :propertyList){
+                if (oa.getId().equals(f.getName())){
+                    annotatedAsHyperlink.add(oa);
+                }
+            }
+        }
+
         final Sheet sheet = ((Workbook) workbook).createSheet(sheetName);
 
         final RowFactory rowFactory = new RowFactory(sheet);
         final Row headerRow = rowFactory.newRow();
+
 
         // header row
         int i = 0;
@@ -161,7 +173,11 @@ class ExcelConverter {
             for (final ObjectAssociation oa : propertyList) {
                 final Cell cell = detailRow.createCell((short) i++);
                 final OneToOneAssociation otoa = (OneToOneAssociation) oa;
-                cellMarshaller.setCellValue(objectAdapter, otoa, cell);
+                if (annotatedAsHyperlink.contains(oa)){
+                    cellMarshaller.setCellValueForHyperlink(objectAdapter, otoa, cell);
+                } else {
+                    cellMarshaller.setCellValue(objectAdapter, otoa, cell);
+                }
             }
         }
 
@@ -568,7 +584,8 @@ class ExcelConverter {
 
     protected CellMarshaller newCellMarshaller(final Workbook wb) {
         final CellStyle dateCellStyle = createDateFormatCellStyle(wb);
-        final CellMarshaller cellMarshaller = new CellMarshaller(bookmarkService, dateCellStyle);
+        final CellStyle defaultCellStyle = defaultCellStyle(wb);
+        final CellMarshaller cellMarshaller = new CellMarshaller(bookmarkService, dateCellStyle, defaultCellStyle);
         return cellMarshaller;
     }
 
@@ -577,7 +594,14 @@ class ExcelConverter {
         final short dateFormat = createHelper.createDataFormat().getFormat("yyyy-mm-dd");
         final CellStyle dateCellStyle = wb.createCellStyle();
         dateCellStyle.setDataFormat(dateFormat);
+        dateCellStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_TOP);
         return dateCellStyle;
+    }
+
+    protected CellStyle defaultCellStyle(final Workbook wb) {
+        final CellStyle defaultCellStyle = wb.createCellStyle();
+        defaultCellStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_TOP);
+        return defaultCellStyle;
     }
 
 }

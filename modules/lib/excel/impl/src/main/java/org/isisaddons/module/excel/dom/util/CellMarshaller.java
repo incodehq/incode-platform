@@ -3,10 +3,26 @@ package org.isisaddons.module.excel.dom.util;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
-import org.apache.poi.ss.usermodel.*;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.ClientAnchor;
+import org.apache.poi.ss.usermodel.Comment;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.Drawing;
+import org.apache.poi.ss.usermodel.Hyperlink;
+import org.apache.poi.ss.usermodel.RichTextString;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFHyperlink;
+
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
+
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
@@ -16,13 +32,16 @@ import org.apache.isis.core.metamodel.spec.feature.OneToOneAssociation;
 final class CellMarshaller {
 
     private final CellStyle dateCellStyle;
+    private final CellStyle defaultCellStyle;
     private final BookmarkService bookmarkService;
 
     CellMarshaller(
             final BookmarkService bookmarkService, 
-            final CellStyle dateCellStyle){
+            final CellStyle dateCellStyle,
+            final CellStyle defaultCellStyle){
         this.bookmarkService = bookmarkService;
         this.dateCellStyle = dateCellStyle;
+        this.defaultCellStyle = defaultCellStyle;
     }
     
     void setCellValue(
@@ -34,7 +53,8 @@ final class CellMarshaller {
         
         // null
         if (propertyAdapter == null) {
-            cell.setCellType(Cell.CELL_TYPE_BLANK);
+            cell.setCellType(HSSFCell.CELL_TYPE_BLANK);
+            cell.setCellStyle(defaultCellStyle);
             return;
         }
         
@@ -51,25 +71,62 @@ final class CellMarshaller {
         
         // reference types
         if(!propertySpec.isParentedOrFreeCollection()) {
-            setCellValueForBookmark(cell, propertyAsObj, propertyAsTitle);
+            setCellValueForBookmark(cell, propertyAsObj, propertyAsTitle, defaultCellStyle);
             return;
         }
 
         // fallback, best effort
-        setCellValueForString(cell, propertyAsTitle);
+        setCellValueForString(cell, propertyAsTitle, defaultCellStyle);
         return;
+    }
+
+    void setCellValueForHyperlink(
+            final ObjectAdapter objectAdapter,
+            final OneToOneAssociation otoa,
+            final Cell cell) {
+
+        final ObjectAdapter propertyAdapter = otoa.get(objectAdapter);
+
+        // null
+        if (propertyAdapter == null) {
+            cell.setCellType(HSSFCell.CELL_TYPE_BLANK);
+            cell.setCellStyle(defaultCellStyle);
+            return;
+        }
+
+        // only String type expected
+        if(propertyAdapter.getObject() instanceof String) {
+
+            String stringValue = (String) propertyAdapter.getObject();
+
+            cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+            cell.setCellValue(stringValue);
+
+            CreationHelper createHelper = cell.getSheet().getWorkbook().getCreationHelper();
+            XSSFHyperlink link = (XSSFHyperlink)createHelper.createHyperlink(Hyperlink.LINK_URL);
+            link.setAddress(stringValue);
+            cell.setHyperlink((XSSFHyperlink) link);
+
+            cell.setCellStyle(defaultCellStyle);
+
+        } else {
+            // silently ignore annotation and fall back
+            setCellValue(objectAdapter, otoa, cell);
+        }
+
     }
 
     private boolean setCellValue(final Cell cell, final Object valueAsObj) {
         if(valueAsObj == null) {
-            cell.setCellType(Cell.CELL_TYPE_BLANK);
+            cell.setCellType(HSSFCell.CELL_TYPE_BLANK);
+            cell.setCellStyle(defaultCellStyle);
             return true;
         }
         
         // string
         if(valueAsObj instanceof String) {
             String value = (String) valueAsObj;
-            setCellValueForString(cell, value);
+            setCellValueForString(cell, value, defaultCellStyle);
             return true;
         } 
 
@@ -77,7 +134,8 @@ final class CellMarshaller {
         if(valueAsObj instanceof Boolean) {
             Boolean value = (Boolean) valueAsObj;
             cell.setCellValue(value);
-            cell.setCellType(Cell.CELL_TYPE_BOOLEAN);
+            cell.setCellType(HSSFCell.CELL_TYPE_BOOLEAN);
+            cell.setCellStyle(defaultCellStyle);
             return true;
         } 
         
@@ -121,63 +179,73 @@ final class CellMarshaller {
         // number
         if(valueAsObj instanceof Double) {
             Double value = (Double) valueAsObj;
-            setCellValueForDouble(cell, (double)value);
+            setCellValueForDouble(cell, (double)value, defaultCellStyle);
             return true;
         }
         if(valueAsObj instanceof Float) {
             Float value = (Float) valueAsObj;
-            setCellValueForDouble(cell, (double)value);
+            setCellValueForDouble(cell, (double)value, defaultCellStyle);
             return true;
         } 
         if(valueAsObj instanceof BigDecimal) {
             BigDecimal value = (BigDecimal) valueAsObj;
-            setCellValueForDouble(cell, value.doubleValue());
+            setCellValueForDouble(cell, value.doubleValue(), defaultCellStyle);
             return true;
         } 
         if(valueAsObj instanceof BigInteger) {
             BigInteger value = (BigInteger) valueAsObj;
-            setCellValueForDouble(cell, value.doubleValue());
+            setCellValueForDouble(cell, value.doubleValue(), defaultCellStyle);
             return true;
         } 
         if(valueAsObj instanceof Long) {
             Long value = (Long) valueAsObj;
-            setCellValueForDouble(cell, (double)value);
+            setCellValueForDouble(cell, (double)value, defaultCellStyle);
             return true;
         } 
         if(valueAsObj instanceof Integer) {
             Integer value = (Integer) valueAsObj;
-            setCellValueForDouble(cell, (double)value);
+            setCellValueForDouble(cell, (double)value, defaultCellStyle);
             return true;
         } 
         if(valueAsObj instanceof Short) {
             Short value = (Short) valueAsObj;
-            setCellValueForDouble(cell, (double)value);
+            setCellValueForDouble(cell, (double)value, defaultCellStyle);
             return true;
         } 
         if(valueAsObj instanceof Byte) {
             Byte value = (Byte) valueAsObj;
-            setCellValueForDouble(cell, (double)value);
+            setCellValueForDouble(cell, (double)value, defaultCellStyle);
             return true;
         }
         if(valueAsObj instanceof Enum) {
             Enum<?> value = (Enum<?>) valueAsObj;
-            setCellValueForEnum(cell, (Enum<?>)value);
+            setCellValueForEnum(cell, (Enum<?>)value, defaultCellStyle);
             return true;
         }
         return false;
     }
 
-    private static void setCellValueForString(final Cell cell, final String objectAsStr) {
+    private static void setCellValueForString(final Cell cell, final String objectAsStr, CellStyle cellStyle) {
+        // char 10 is for linebreak within a cell; to display correctly wrap text needs to be set to true
+        if (objectAsStr.contains(Character.toString((char)10))) {
+            CellStyle wrappedCellStyle = cell.getSheet().getWorkbook().createCellStyle();
+            wrappedCellStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_TOP);
+            wrappedCellStyle.setWrapText(true);
+            cell.setCellStyle(wrappedCellStyle);
+        } else {
+            cell.setCellStyle(cellStyle);
+        }
         cell.setCellValue(objectAsStr);
         cell.setCellType(Cell.CELL_TYPE_STRING);
     }
 
-    private void setCellValueForBookmark(final Cell cell, final Object propertyAsObject, final String propertyAsTitle) {
+    private void setCellValueForBookmark(final Cell cell, final Object propertyAsObject, final String propertyAsTitle, final CellStyle cellStyle) {
         Bookmark bookmark = bookmarkService.bookmarkFor(propertyAsObject);
         setCellComment(cell, bookmark.toString());
         
         cell.setCellValue(propertyAsTitle);
-        cell.setCellType(Cell.CELL_TYPE_STRING);
+        cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+        cell.setCellStyle(cellStyle);
     }
 
     private static void setCellComment(final Cell cell, final String commentText) {
@@ -201,14 +269,16 @@ final class CellMarshaller {
         cell.setCellComment(comment);
     }
 
-    private static <E extends Enum<E>> void setCellValueForEnum(final Cell cell, final Enum<E> objectAsStr) {
+    private static <E extends Enum<E>> void setCellValueForEnum(final Cell cell, final Enum<E> objectAsStr, final CellStyle cellStyle) {
         cell.setCellValue(objectAsStr.name());
-        cell.setCellType(Cell.CELL_TYPE_STRING);
+        cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+        cell.setCellStyle(cellStyle);
     }
     
-    private static void setCellValueForDouble(final Cell cell, double value) {
+    private static void setCellValueForDouble(final Cell cell, double value, final CellStyle cellStyle) {
         cell.setCellValue(value);
-        cell.setCellType(Cell.CELL_TYPE_NUMERIC);
+        cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
+        cell.setCellStyle(cellStyle);
     }
 
     private static void setCellValueForDate(final Cell cell, Date date, CellStyle dateCellStyle) {
