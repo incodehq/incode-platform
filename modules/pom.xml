@@ -1378,9 +1378,23 @@
 
     <modules>
 
-        <module>ext/flywaydb/impl</module>
-        <module>ext/quartz/impl</module>
-        <module>ext/togglz/impl</module>
+        <module>examples/alias</module>
+        <module>examples/classification</module>
+        <module>examples/commchannel</module>
+        <module>examples/communications</module>
+        <module>examples/country</module>
+        <module>examples/docfragment</module>
+        <module>examples/docrendering-freemarker</module>
+        <module>examples/docrendering-stringinterpolator</module>
+        <module>examples/docrendering-xdocreport</module>
+        <module>examples/document</module>
+        <module>examples/note</module>
+        <module>examples/settings</module>
+        <module>examples/tags</module>
+
+        <module>ext/flywaydb</module>
+        <module>ext/quartz</module>
+        <module>ext/togglz</module>
 
         <module>lib/base/impl</module>
         <module>lib/docx/impl</module>
@@ -1399,20 +1413,6 @@
         <module>lib/unittestsupport/impl</module>
         <module>lib/xdocreport/impl</module>
         <module>lib/zip/impl</module>
-
-        <module>examples/alias</module>
-        <module>examples/classification</module>
-        <module>examples/commchannel</module>
-        <module>examples/communications</module>
-        <module>examples/country</module>
-        <module>examples/docfragment</module>
-        <module>examples/docrendering-freemarker</module>
-        <module>examples/docrendering-stringinterpolator</module>
-        <module>examples/docrendering-xdocreport</module>
-        <module>examples/document</module>
-        <module>examples/note</module>
-        <module>examples/settings</module>
-        <module>examples/tags</module>
 
         <module>mml/paraname8/impl</module>
 
