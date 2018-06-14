@@ -1415,22 +1415,22 @@
 
         <module>mml/paraname8</module>
 
-        <module>spi/audit/impl</module>
-        <module>spi/command/impl</module>
-        <module>spi/command/replay</module>
-        <module>spi/errorrptjira/impl</module>
-        <module>spi/errorrptslack/impl</module>
-        <module>spi/publishmq/impl</module>
-        <module>spi/security/impl</module>
-        <module>spi/sessionlogger/impl</module>
-        <module>spi/userimpersonate/impl</module>
+        <module>spi/audit</module>
+        <module>spi/command</module>
+        <module>spi/commandreplay</module>
+        <module>spi/errorrptjira</module>
+        <module>spi/errorrptslack</module>
+        <module>spi/publishmq</module>
+        <module>spi/security</module>
+        <module>spi/sessionlogger</module>
+        <module>spi/userimpersonate</module>
 
-        <module>wkt/excel/impl</module>
-        <module>wkt/fullcalendar2/impl</module>
-        <module>wkt/gmap3/impl</module>
-        <module>wkt/pdfjs/impl</module>
-        <module>wkt/summernote/impl</module>
-        <module>wkt/wickedcharts/impl</module>
+        <module>wkt/excel</module>
+        <module>wkt/fullcalendar2</module>
+        <module>wkt/gmap3</module>
+        <module>wkt/pdfjs</module>
+        <module>wkt/summernote</module>
+        <module>wkt/wickedcharts</module>
     </modules>
 
 </project>
