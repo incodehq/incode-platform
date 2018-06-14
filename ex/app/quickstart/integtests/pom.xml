@@ -1,19 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.incode</groupId>
-        <artifactId>incode-parent</artifactId>
-        <version>${revision}</version>
-        <relativePath>../../../pom.xml</relativePath>
+        <groupId>org.incode.example.application</groupId>
+        <artifactId>incode-quickstart</artifactId>
+        <version>1.16.2-SNAPSHOT</version>
     </parent>
 
-    <artifactId>incode-platform-ext-togglz-integtests</artifactId>
-    <name>Incode Platform Extension Togglz IntegTests</name>
+    <artifactId>incode-quickstart-integtests</artifactId>
+    <name>Incode Quickstart IntegTests</name>
+
+    <properties>
+        <isis-maven-plugin.validate.appManifest>domainapp.modules.simple.DomainappDomManifest</isis-maven-plugin.validate.appManifest>
+
+        <maven-checkstyle-plugin.configLocation>${project.parent.basedir}/_checks/checkstyle.xml</maven-checkstyle-plugin.configLocation>
+        <maven-pmd-plugin.ruleset>${project.parent.basedir}/_checks/pmd.xml</maven-pmd-plugin.ruleset>
+    </properties>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>com.github.odavid.maven.plugins</groupId>
@@ -24,11 +40,23 @@
                     <mixins>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>enforcerrelaxed</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>sourceandjavadoc</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>standard</artifactId>
                         </mixin>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>surefire</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>cucumberreporting</artifactId>
                         </mixin>
                     </mixins>
                 </configuration>
@@ -52,6 +80,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-applib</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.isisaddons.module.security</groupId>
             <artifactId>isis-module-security-dom</artifactId>
             <scope>test</scope>
@@ -66,15 +100,21 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.isis.mavendeps</groupId>
-            <artifactId>isis-mavendeps-testing</artifactId>
-            <type>pom</type>
+            <groupId>org.isisaddons.module.flywaydb</groupId>
+            <artifactId>isis-module-flywaydb-dom</artifactId>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-wrapper</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.isis.mavendeps</groupId>
+            <artifactId>isis-mavendeps-testing</artifactId>
+            <type>pom</type>
             <scope>test</scope>
         </dependency>
 
