@@ -1396,25 +1396,24 @@
         <module>ext/quartz</module>
         <module>ext/togglz</module>
 
-        <module>lib/base/impl</module>
-        <module>lib/docx/impl</module>
-        <module>lib/excel/impl</module>
-        <module>lib/fakedata/impl</module>
-        <module>lib/fixturesupport/impl</module>
-        <module>lib/freemarker/impl</module>
-        <module>lib/integtestsupport/impl</module>
-        <module>lib/jaxrsclient/impl</module>
-        <module>lib/pdfbox/impl</module>
-        <module>lib/poly/impl</module>
-        <module>lib/servletapi/impl</module>
-        <module>lib/slack/impl</module>
-        <module>lib/slack/main</module>
-        <module>lib/stringinterpolator/impl</module>
-        <module>lib/unittestsupport/impl</module>
-        <module>lib/xdocreport/impl</module>
-        <module>lib/zip/impl</module>
+        <module>lib/base</module>
+        <module>lib/docx</module>
+        <module>lib/excel</module>
+        <module>lib/fakedata</module>
+        <module>lib/fixturesupport</module>
+        <module>lib/freemarker</module>
+        <module>lib/integtestsupport</module>
+        <module>lib/jaxrsclient</module>
+        <module>lib/pdfbox</module>
+        <module>lib/poly</module>
+        <module>lib/servletapi</module>
+        <module>lib/slack</module>
+        <module>lib/stringinterpolator</module>
+        <module>lib/unittestsupport</module>
+        <module>lib/xdocreport</module>
+        <module>lib/zip</module>
 
-        <module>mml/paraname8/impl</module>
+        <module>mml/paraname8</module>
 
         <module>spi/audit/impl</module>
         <module>spi/command/impl</module>

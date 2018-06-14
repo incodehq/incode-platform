@@ -136,7 +136,9 @@
             <modules>
                 <module>module-base</module>
                 <module>module-simple</module>
+                <module>main-slack</module>
                 <module>appdefn</module>
+                <module>integtests</module>
                 <module>webapp</module>
             </modules>
         </profile>

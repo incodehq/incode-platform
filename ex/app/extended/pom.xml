@@ -139,6 +139,7 @@
             <modules>
                 <module>module-base</module>
                 <module>module-simple</module>
+                <module>integtests</module>
                 <module>appdefn</module>
                 <module>webapp</module>
 
