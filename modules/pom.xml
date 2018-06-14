@@ -1400,19 +1400,19 @@
         <module>lib/xdocreport/impl</module>
         <module>lib/zip/impl</module>
 
-        <module>dom/alias/impl</module>
-        <module>dom/classification/impl</module>
-        <module>dom/commchannel/impl</module>
-        <module>dom/communications/impl</module>
-        <module>dom/country/impl</module>
-        <module>dom/docfragment/impl</module>
-        <module>dom/docrendering-freemarker/impl</module>
-        <module>dom/docrendering-stringinterpolator/impl</module>
-        <module>dom/docrendering-xdocreport/impl</module>
-        <module>dom/document/impl</module>
-        <module>dom/note/impl</module>
-        <module>dom/settings/impl</module>
-        <module>dom/tags/impl</module>
+        <module>examples/alias</module>
+        <module>examples/classification</module>
+        <module>examples/commchannel</module>
+        <module>examples/communications</module>
+        <module>examples/country</module>
+        <module>examples/docfragment</module>
+        <module>examples/docrendering-freemarker</module>
+        <module>examples/docrendering-stringinterpolator</module>
+        <module>examples/docrendering-xdocreport</module>
+        <module>examples/document</module>
+        <module>examples/note</module>
+        <module>examples/settings</module>
+        <module>examples/tags</module>
 
         <module>mml/paraname8/impl</module>
 

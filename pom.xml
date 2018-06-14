@@ -34,25 +34,21 @@
                 <module>ex/app/extended/example/dom</module>
                 <module>ex/app/extended/module-simple</module>
 
-                <module>modules/dom/alias/impl</module>
-                <module>modules/dom/classification/impl</module>
-                <module>modules/dom/communications/impl</module>
-                <module>modules/dom/commchannel/impl</module>
-
-                <module>modules/dom/country/impl</module>
-
-                <module>modules/dom/docfragment/impl</module>
-                <module>modules/dom/document/impl</module>
-                <module>modules/dom/note/impl</module>
-
-                <module>modules/dom/settings/impl</module>
-                <module>modules/dom/tags/impl</module>
-
-                <module>modules/spi/audit/impl</module>
-                <module>modules/spi/command/impl</module>
+                <module>modules/examples/alias</module>
+                <module>modules/examples/classification</module>
+                <module>modules/examples/communications</module>
+                <module>modules/examples/commchannel</module>
+                <module>modules/examples/country</module>
+                <module>modules/examples/docfragment</module>
+                <module>modules/examples/document</module>
+                <module>modules/examples/note</module>
+                <module>modules/examples/settings</module>
+                <module>modules/examples/tags</module>
+                <module>modules/spi/audit</module>
+                <module>modules/spi/command</module>
                 <module>modules/spi/publishmq/impl/jdo</module>
-                <module>modules/spi/security/impl</module>
-                <module>modules/spi/sessionlogger/impl</module>
+                <module>modules/spi/security</module>
+                <module>modules/spi/sessionlogger</module>
             </modules>
         </profile>
 
