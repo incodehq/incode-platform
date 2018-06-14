@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>1.16.3-SNAPSHOT</version>
+        <version>${revision}</version>
         <relativePath>../../../modules/pom.xml</relativePath>
     </parent>
 
@@ -19,11 +19,11 @@
 
     <properties>
 
-        <isis.version>1.16.2</isis.version>
-        <!--
-        <isis.version>1.16.1.20180223-1715</isis.version>
-        -->
-        <incode-platform.version>${project.parent.version}</incode-platform.version>
+        <revision>1.16.3-SNAPSHOT</revision>
+        <isisVersion>1.16.2</isisVersion>
+
+        <isis.version>${isisVersion}</isis.version>
+        <incode-platform.version>${revision}</incode-platform.version>
 
         <spring.version>4.1.9.RELEASE</spring.version>
         <jetty.version>9.4.3.v20170317</jetty.version>

@@ -19,6 +19,7 @@
 
     <properties>
 
+
         <isis.version>1.16.2</isis.version>
         <incode-platform.version>${project.parent.version}</incode-platform.version>
 
