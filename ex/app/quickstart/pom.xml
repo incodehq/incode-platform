@@ -77,31 +77,13 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
+                <artifactId>incode-quickstart-main-slack</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>incode-quickstart-webapp</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-example-appdefn</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-example-canonical</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-example-dom</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-example-embeddedcamel</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -142,7 +124,6 @@
                 <module>module-simple</module>
                 <module>main-slack</module>
                 <module>appdefn</module>
-                <module>integtests</module>
                 <module>webapp</module>
             </modules>
         </profile>

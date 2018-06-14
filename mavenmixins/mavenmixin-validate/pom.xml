@@ -31,7 +31,7 @@
             </activation>
 
             <properties>
-                <isis.version>1.16.2</isis.version>
+                <isis.version>${isisVersion}</isis.version>
                 <isis-maven-plugin.validate.appManifest>
                     domainapp.modules.simple.SimpleModuleManifest
                 </isis-maven-plugin.validate.appManifest>
