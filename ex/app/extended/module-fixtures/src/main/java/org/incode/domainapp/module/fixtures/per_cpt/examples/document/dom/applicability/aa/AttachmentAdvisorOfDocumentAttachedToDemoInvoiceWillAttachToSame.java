@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.document.dom.applicability.aa;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.document.dom.applicability.aa;
 
 import java.util.Collections;
 import java.util.List;

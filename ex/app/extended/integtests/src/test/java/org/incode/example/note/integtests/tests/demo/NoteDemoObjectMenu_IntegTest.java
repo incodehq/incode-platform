@@ -8,7 +8,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.incode.domainapp.example.dom.dom.note.fixture.DemoObject_withNotes_recreate3;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.note.fixture.DemoObject_withNotes_recreate3;
 import org.incode.domainapp.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.domainapp.module.fixtures.shared.demo.dom.DemoObjectMenu;
 import org.incode.example.note.integtests.NoteModuleIntegTestAbstract;

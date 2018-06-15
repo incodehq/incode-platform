@@ -7,7 +7,7 @@ import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.freemarker.dom.FreeMarkerModule;
 import org.isisaddons.module.pdfbox.dom.PdfBoxModule;
 
-import org.incode.domainapp.example.dom.dom.communications.ExampleDomModuleCommunicationsModule;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.communications.ExampleDomModuleCommunicationsModule;
 import org.incode.example.communications.dom.CommunicationsModuleDomModule;
 import org.incode.example.communications.integtests.app.services.DemoAppApplicationModuleServicesSubmodule;
 import org.incode.example.country.dom.CountryModule;

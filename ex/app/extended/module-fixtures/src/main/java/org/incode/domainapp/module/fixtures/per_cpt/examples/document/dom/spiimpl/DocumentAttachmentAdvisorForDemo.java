@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.document.dom.spiimpl;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.document.dom.spiimpl;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import org.incode.example.document.dom.impl.docs.Document;
 import org.incode.example.document.dom.impl.types.DocumentType;
 import org.incode.example.document.dom.impl.types.DocumentTypeRepository;
 import org.incode.example.document.dom.spi.DocumentAttachmentAdvisor;
-import org.incode.domainapp.example.dom.dom.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
 
 @DomainService(nature = NatureOfService.DOMAIN)
 public class DocumentAttachmentAdvisorForDemo implements DocumentAttachmentAdvisor {

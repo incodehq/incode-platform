@@ -1,9 +1,9 @@
-package org.incode.domainapp.example.dom.lib.poly.fixture.data.demoparty;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.poly.fixture.data.demoparty;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.example.dom.lib.poly.dom.demoparty.Parties;
-import org.incode.domainapp.example.dom.lib.poly.dom.demoparty.Party;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.demoparty.Parties;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.demoparty.Party;
 
 import lombok.Getter;
 import lombok.Setter;

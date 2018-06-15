@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.spi.security.fixture.userrole;
+package org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.userrole;
 
 import java.util.Arrays;
 import java.util.Collections;

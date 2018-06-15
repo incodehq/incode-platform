@@ -16,8 +16,8 @@ import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleu
 
 import org.incode.platform.dom.docfragment.integtests.DocFragmentModuleIntegTestAbstract;
 import org.incode.example.docfragment.dom.impl.DocFragment;
-import org.incode.domainapp.example.dom.dom.docfragment.fixture.data.DocFragmentData;
-import org.incode.domainapp.example.dom.dom.docfragment.fixture.sub.DocFragment_tearDown;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.docfragment.fixture.data.DocFragmentData;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.docfragment.fixture.sub.DocFragment_tearDown;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

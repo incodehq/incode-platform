@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.spi.command.fixture.teardown;
+package org.incode.domainapp.module.fixtures.per_cpt.spi.command.fixture.teardown;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;

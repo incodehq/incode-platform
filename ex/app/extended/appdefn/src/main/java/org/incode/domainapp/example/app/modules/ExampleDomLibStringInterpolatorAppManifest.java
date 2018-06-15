@@ -14,7 +14,7 @@ import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsin
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 import org.isisaddons.module.stringinterpolator.StringInterpolatorModule;
 
-import org.incode.domainapp.example.dom.lib.stringinterpolator.ExampleDomLibStringInterpolatorModule;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.stringinterpolator.ExampleDomLibStringInterpolatorModule;
 import org.incode.domainapp.module.fixtures.shared.reminder.dom.DemoReminder;
 import org.incode.domainapp.module.fixtures.shared.reminder.dom.DemoReminderMenu;
 import org.incode.domainapp.module.fixtures.shared.reminder.fixture.DemoReminder_recreate4;

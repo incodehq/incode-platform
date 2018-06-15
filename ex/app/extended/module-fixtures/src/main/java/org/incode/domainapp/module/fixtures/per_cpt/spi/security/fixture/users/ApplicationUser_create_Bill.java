@@ -13,3 +13,6 @@ public class ApplicationUser_create_Bill extends AbstractUserFixtureScript {
         applicationUser.updateName("Non-tenant", "William", "Bill");
         applicationUser.updatePassword("pass");
         applicationUser.unlock();
+    }
+
+}

@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.lib.poly.fixture.data.demoparty;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.poly.fixture.data.demoparty;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -8,8 +8,8 @@ import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.example.dom.lib.poly.dom.demoparty.Party;
-import org.incode.domainapp.example.dom.lib.poly.fixture.Case_FixedAsset_Party_andLinks_tearDown;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.demoparty.Party;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.fixture.Case_FixedAsset_Party_andLinks_tearDown;
 
 import lombok.Getter;
 import lombok.Setter;

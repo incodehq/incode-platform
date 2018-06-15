@@ -14,10 +14,10 @@ import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsin
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 import org.isisaddons.module.servletapi.ServletApiModule;
 
-import org.incode.domainapp.example.dom.lib.servletapi.ExampleDomLibServletApiModule;
-import org.incode.domainapp.example.dom.lib.servletapi.dom.demo.ServletApiDemoObject;
-import org.incode.domainapp.example.dom.lib.servletapi.dom.demo.ServletApiDemoObjects;
-import org.incode.domainapp.example.dom.lib.servletapi.fixture.ServletApiDemoObject_recreate3;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.servletapi.ExampleDomLibServletApiModule;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.servletapi.dom.demo.ServletApiDemoObject;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.servletapi.dom.demo.ServletApiDemoObjects;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.servletapi.fixture.ServletApiDemoObject_recreate3;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;

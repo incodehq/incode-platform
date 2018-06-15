@@ -62,3 +62,5 @@ public class NonTenantedEntity implements Comparable<NonTenantedEntity> {
     @Override
     public int compareTo(final NonTenantedEntity o) {
         return Ordering.natural().onResultOf(NonTenantedEntity::getName).compare(this, o);
+    }
+}

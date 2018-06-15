@@ -17,8 +17,8 @@ import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServic
 import org.isisaddons.module.stringinterpolator.StringInterpolatorModule;
 import org.isisaddons.module.xdocreport.dom.XDocReportModule;
 
-import org.incode.domainapp.example.dom.dom.document.ExampleDomModuleDocumentModule;
-import org.incode.domainapp.example.dom.dom.document.fixture.DemoObjectWithUrl_and_OtherObject_and_docrefdata_recreate;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.document.ExampleDomModuleDocumentModule;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.document.fixture.DemoObjectWithUrl_and_OtherObject_and_docrefdata_recreate;
 import org.incode.domainapp.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
 import org.incode.domainapp.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrlMenu;
 import org.incode.domainapp.module.fixtures.shared.other.dom.OtherObject;

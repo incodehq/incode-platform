@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.document.fixture;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.document.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 

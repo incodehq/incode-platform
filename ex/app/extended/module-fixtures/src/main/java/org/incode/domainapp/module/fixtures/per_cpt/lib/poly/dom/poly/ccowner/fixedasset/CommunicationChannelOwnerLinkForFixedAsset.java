@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.lib.poly.dom.poly.ccowner.fixedasset;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.ccowner.fixedasset;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
@@ -15,9 +15,9 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 
-import org.incode.domainapp.example.dom.lib.poly.dom.demofixedasset.FixedAsset;
-import org.incode.domainapp.example.dom.lib.poly.dom.poly.ccowner.CommunicationChannelOwner;
-import org.incode.domainapp.example.dom.lib.poly.dom.poly.ccowner.CommunicationChannelOwnerLink;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.demofixedasset.FixedAsset;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.ccowner.CommunicationChannelOwner;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.ccowner.CommunicationChannelOwnerLink;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType = IdentityType.DATASTORE,

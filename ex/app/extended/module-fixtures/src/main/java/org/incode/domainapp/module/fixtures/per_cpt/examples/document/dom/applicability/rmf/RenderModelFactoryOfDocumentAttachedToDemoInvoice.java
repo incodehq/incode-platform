@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.document.dom.applicability.rmf;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.document.dom.applicability.rmf;
 
 import java.util.List;
 

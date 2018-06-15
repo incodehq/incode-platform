@@ -13,9 +13,9 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.domainapp.example.dom.dom.note.dom.demolink.NotableLinkForDemoObject_addNote;
-import org.incode.domainapp.example.dom.dom.note.dom.demolink.NotableLinkForDemoObject_notes;
-import org.incode.domainapp.example.dom.dom.note.dom.demolink.NotableLinkForDemoObject_removeNote;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.note.dom.demolink.NotableLinkForDemoObject_addNote;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.note.dom.demolink.NotableLinkForDemoObject_notes;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.note.dom.demolink.NotableLinkForDemoObject_removeNote;
 import org.incode.domainapp.module.fixtures.shared.ExampleDomDemoDomSubmodule;
 import org.incode.domainapp.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.example.note.dom.impl.note.Note;

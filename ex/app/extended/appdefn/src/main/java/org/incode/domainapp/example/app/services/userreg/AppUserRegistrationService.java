@@ -12,8 +12,8 @@ import org.isisaddons.module.security.dom.role.ApplicationRole;
 import org.isisaddons.module.security.dom.role.ApplicationRoleRepository;
 import org.isisaddons.module.security.userreg.SecurityModuleAppUserRegistrationServiceAbstract;
 
-import org.incode.domainapp.example.dom.spi.security.fixture.roles.sub.RoleAndPermissions_create_exampleFixtureScripts;
-import org.incode.domainapp.example.dom.spi.security.fixture.roles.sub.RoleAndPermissions_create_exampleRegularRole;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.roles.sub.RoleAndPermissions_create_exampleFixtureScripts;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.roles.sub.RoleAndPermissions_create_exampleRegularRole;
 
 /**
  * An override of the default impl of {@link org.apache.isis.applib.services.userreg.UserRegistrationService}

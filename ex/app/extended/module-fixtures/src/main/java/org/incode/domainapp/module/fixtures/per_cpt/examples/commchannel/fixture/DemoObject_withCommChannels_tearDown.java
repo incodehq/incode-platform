@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.commchannel.fixture;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.commchannel.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;

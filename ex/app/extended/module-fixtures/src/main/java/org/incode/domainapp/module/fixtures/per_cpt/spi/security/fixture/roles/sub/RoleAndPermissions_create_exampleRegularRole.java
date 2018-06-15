@@ -1,11 +1,11 @@
-package org.incode.domainapp.example.dom.spi.security.fixture.roles.sub;
+package org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.roles.sub;
 
 import org.isisaddons.module.security.dom.permission.ApplicationPermissionMode;
 import org.isisaddons.module.security.dom.permission.ApplicationPermissionRule;
 import org.isisaddons.module.security.seed.scripts.AbstractRoleAndPermissionsFixtureScript;
 
-import org.incode.domainapp.example.dom.spi.security.dom.demo.nontenanted.NonTenantedEntity;
-import org.incode.domainapp.example.dom.spi.security.dom.demo.tenanted.TenantedEntity;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.security.dom.demo.nontenanted.NonTenantedEntity;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.security.dom.demo.tenanted.TenantedEntity;
 
 public class RoleAndPermissions_create_exampleRegularRole extends AbstractRoleAndPermissionsFixtureScript {
 

@@ -5,8 +5,8 @@ import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.incode.domainapp.example.dom.dom.document.fixture.DemoModule_and_DocTypesAndTemplates_tearDown;
-import org.incode.domainapp.example.dom.dom.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.document.fixture.DemoModule_and_DocTypesAndTemplates_tearDown;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
 import org.incode.domainapp.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
 import org.incode.domainapp.module.fixtures.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;
 import org.incode.domainapp.module.fixtures.shared.other.dom.OtherObject;

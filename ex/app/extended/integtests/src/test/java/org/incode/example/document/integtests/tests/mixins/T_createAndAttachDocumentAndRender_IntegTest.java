@@ -15,9 +15,9 @@ import org.junit.Test;
 import org.apache.isis.applib.services.queryresultscache.QueryResultsCache;
 import org.apache.isis.applib.services.wrapper.HiddenException;
 
-import org.incode.domainapp.example.dom.dom.document.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
-import org.incode.domainapp.example.dom.dom.document.fixture.DemoModule_and_DocTypesAndTemplates_tearDown;
-import org.incode.domainapp.example.dom.dom.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.document.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.document.fixture.DemoModule_and_DocTypesAndTemplates_tearDown;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
 import org.incode.domainapp.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
 import org.incode.domainapp.module.fixtures.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;
 import org.incode.domainapp.module.fixtures.shared.other.dom.OtherObject;

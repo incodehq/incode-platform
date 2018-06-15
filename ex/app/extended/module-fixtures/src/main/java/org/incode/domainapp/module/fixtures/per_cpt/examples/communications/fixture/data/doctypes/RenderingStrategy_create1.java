@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.communications.fixture.data.doctypes;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.communications.fixture.data.doctypes;
 
 import org.incode.example.docrendering.freemarker.fixture.RenderingStrategyFSForFreemarker;
 import org.incode.example.document.fixture.DocumentTemplateFSAbstract;

@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.communications.fixture;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.communications.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;

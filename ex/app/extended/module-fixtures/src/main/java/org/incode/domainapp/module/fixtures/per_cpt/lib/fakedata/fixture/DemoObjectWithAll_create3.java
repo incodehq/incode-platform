@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.lib.fakedata.fixture;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.fakedata.fixture;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
 import org.incode.domainapp.module.fixtures.shared.demowithall.dom.DemoObjectWithAll;
-import org.incode.domainapp.example.dom.lib.fakedata.fixture.data.DemoObjectWithAll_create_withFakeData;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.fakedata.fixture.data.DemoObjectWithAll_create_withFakeData;
 
 import lombok.Getter;
 import lombok.Setter;

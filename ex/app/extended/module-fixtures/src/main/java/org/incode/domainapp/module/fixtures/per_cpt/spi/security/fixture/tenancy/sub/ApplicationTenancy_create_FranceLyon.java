@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.spi.security.fixture.tenancy.sub;
+package org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.tenancy.sub;
 
 public class ApplicationTenancy_create_FranceLyon extends AbstractTenancyFixtureScript {
 

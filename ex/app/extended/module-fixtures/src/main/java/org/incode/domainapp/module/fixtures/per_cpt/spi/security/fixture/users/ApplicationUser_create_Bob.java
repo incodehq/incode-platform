@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.spi.security.fixture.users;
+package org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.users;
 
 import org.isisaddons.module.security.dom.user.AccountType;
 

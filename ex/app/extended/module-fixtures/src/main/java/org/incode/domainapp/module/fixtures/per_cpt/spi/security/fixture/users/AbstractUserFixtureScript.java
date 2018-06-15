@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.spi.security.fixture.users;
+package org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.users;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.value.Password;
@@ -7,7 +7,7 @@ import org.isisaddons.module.security.dom.role.ApplicationRole;
 import org.isisaddons.module.security.dom.user.AccountType;
 import org.isisaddons.module.security.dom.user.ApplicationUser;
 import org.isisaddons.module.security.dom.user.ApplicationUserRepository;
-import org.incode.domainapp.example.dom.spi.security.fixture.Util;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.Util;
 
 public abstract class AbstractUserFixtureScript extends FixtureScript {
 

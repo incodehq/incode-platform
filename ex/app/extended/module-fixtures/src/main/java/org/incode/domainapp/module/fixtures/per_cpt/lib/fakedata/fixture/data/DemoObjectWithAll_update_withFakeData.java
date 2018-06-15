@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.lib.fakedata.fixture.data;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.fakedata.fixture.data;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

@@ -1,11 +1,11 @@
-package org.incode.domainapp.example.dom.spi.command.dom.demo.excep;
+package org.incode.domainapp.module.fixtures.per_cpt.spi.command.dom.demo.excep;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.CommandReification;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.domainapp.example.dom.spi.command.dom.demo.SomeCommandAnnotatedObject;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.command.dom.demo.SomeCommandAnnotatedObject;
 
 @Mixin
 public class SomeCommandAnnotatedObject_throwsUnrecognizedException {

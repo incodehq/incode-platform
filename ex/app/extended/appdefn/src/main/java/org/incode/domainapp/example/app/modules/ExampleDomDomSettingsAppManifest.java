@@ -18,8 +18,8 @@ import org.incode.example.settings.dom.UserSettingsServiceRW;
 import org.incode.example.settings.dom.jdo.ApplicationSettingJdo;
 import org.incode.example.settings.dom.jdo.UserSettingJdo;
 
-import org.incode.domainapp.example.dom.dom.settings.ExampleDomModuleSettingsModule;
-import org.incode.domainapp.example.dom.dom.settings.fixture.ApplicationSetting_and_UserSetting_recreate5;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.settings.ExampleDomModuleSettingsModule;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.settings.fixture.ApplicationSetting_and_UserSetting_recreate5;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;

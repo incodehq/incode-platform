@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.lib.poly;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.poly;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

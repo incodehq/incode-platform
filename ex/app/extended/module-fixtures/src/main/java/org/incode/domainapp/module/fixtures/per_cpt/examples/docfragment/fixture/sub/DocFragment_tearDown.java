@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.docfragment.fixture.sub;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.docfragment.fixture.sub;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;

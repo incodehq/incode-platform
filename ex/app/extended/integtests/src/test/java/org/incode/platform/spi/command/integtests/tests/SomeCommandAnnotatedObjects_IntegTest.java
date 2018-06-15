@@ -16,9 +16,9 @@ import org.isisaddons.module.command.dom.CommandJdo;
 import org.isisaddons.module.command.dom.CommandServiceJdoRepository;
 import org.incode.platform.spi.command.integtests.CommandModuleIntegTestAbstract;
 
-import org.incode.domainapp.example.dom.spi.command.dom.demo.SomeCommandAnnotatedObject;
-import org.incode.domainapp.example.dom.spi.command.dom.demo.SomeCommandAnnotatedObjects;
-import org.incode.domainapp.example.dom.spi.command.fixture.SomeCommandAnnotatedObject_recreate3;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.command.dom.demo.SomeCommandAnnotatedObject;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.command.dom.demo.SomeCommandAnnotatedObjects;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.command.fixture.SomeCommandAnnotatedObject_recreate3;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.empty;

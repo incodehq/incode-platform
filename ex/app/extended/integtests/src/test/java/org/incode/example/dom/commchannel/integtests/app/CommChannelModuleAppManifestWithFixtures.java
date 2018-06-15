@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.example.dom.dom.commchannel.fixture.DemoObject_withCommChannels_recreate3;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.commchannel.fixture.DemoObject_withCommChannels_recreate3;
 
 /**
  * Run the app but without setting up any fixtures.

@@ -1,12 +1,12 @@
-package org.incode.domainapp.example.dom.dom.tags.fixture;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.tags.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.example.dom.dom.tags.dom.demo.DemoTaggableObjectMenu;
-import org.incode.domainapp.example.dom.dom.tags.fixture.data.DemoTaggableObject_Bar_Pepsi_Drink;
-import org.incode.domainapp.example.dom.dom.tags.fixture.data.DemoTaggableObject_Baz_McDonalds_FastFood;
-import org.incode.domainapp.example.dom.dom.tags.fixture.data.DemoTaggableObject_Bip_CocaCola_Drink;
-import org.incode.domainapp.example.dom.dom.tags.fixture.data.DemoTaggableObject_Bop_Levis_Clothing;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObjectMenu;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.tags.fixture.data.DemoTaggableObject_Bar_Pepsi_Drink;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.tags.fixture.data.DemoTaggableObject_Baz_McDonalds_FastFood;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.tags.fixture.data.DemoTaggableObject_Bip_CocaCola_Drink;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.tags.fixture.data.DemoTaggableObject_Bop_Levis_Clothing;
 
 public class DemoTaggableObject_withTags_create3 extends FixtureScript {
 

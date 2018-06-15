@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.spi.audit.dom.demo.notaudited;
+package org.incode.domainapp.module.fixtures.per_cpt.spi.audit.dom.demo.notaudited;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObject;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.audit.dom.demo.audited.SomeAuditedObject;
 
 @DomainService (
         nature = NatureOfService.VIEW_MENU_ONLY,

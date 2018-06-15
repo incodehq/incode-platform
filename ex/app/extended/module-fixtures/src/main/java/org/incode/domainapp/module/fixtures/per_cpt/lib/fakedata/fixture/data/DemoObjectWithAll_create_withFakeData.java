@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.lib.fakedata.fixture.data;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.fakedata.fixture.data;
 
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.fixturescripts.FixtureScript;

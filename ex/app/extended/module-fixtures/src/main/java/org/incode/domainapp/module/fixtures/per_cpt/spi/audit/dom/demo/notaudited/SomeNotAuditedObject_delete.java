@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.spi.audit.dom.demo.notaudited;
+package org.incode.domainapp.module.fixtures.per_cpt.spi.audit.dom.demo.notaudited;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.Mixin;

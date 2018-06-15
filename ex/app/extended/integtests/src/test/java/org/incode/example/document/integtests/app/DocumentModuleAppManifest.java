@@ -13,7 +13,7 @@ import org.incode.example.docrendering.stringinterpolator.dom.StringInterpolator
 import org.incode.example.docrendering.xdocreport.dom.XDocReportDocRenderingModule;
 import org.incode.example.document.dom.DocumentModule;
 
-import org.incode.domainapp.example.dom.dom.document.ExampleDomModuleDocumentModule;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.document.ExampleDomModuleDocumentModule;
 
 /**
  * Bootstrap the application.

@@ -1,9 +1,9 @@
-package org.incode.domainapp.example.dom.lib.poly.fixture.data.demofixedasset;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.poly.fixture.data.demofixedasset;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.example.dom.lib.poly.dom.demofixedasset.FixedAsset;
-import org.incode.domainapp.example.dom.lib.poly.dom.demofixedasset.FixedAssets;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.demofixedasset.FixedAsset;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.demofixedasset.FixedAssets;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -50,4 +50,7 @@ public class DemoTaggableObjectMenu {
     @javax.inject.Inject
     RepositoryService repositoryService;
 
-    @javax.inject.Inject TransactionService transaction
+    @javax.inject.Inject TransactionService transactionService;
+
+
+}

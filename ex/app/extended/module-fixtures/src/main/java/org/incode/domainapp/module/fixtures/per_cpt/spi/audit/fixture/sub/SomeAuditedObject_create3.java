@@ -1,9 +1,9 @@
-package org.incode.domainapp.example.dom.spi.audit.fixture.sub;
+package org.incode.domainapp.module.fixtures.per_cpt.spi.audit.fixture.sub;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObject;
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObjects;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.audit.dom.demo.audited.SomeAuditedObject;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.audit.dom.demo.audited.SomeAuditedObjects;
 
 public class SomeAuditedObject_create3 extends FixtureScript {
 

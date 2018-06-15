@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.lib.servletapi.dom.demo;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.servletapi.dom.demo;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.lib.poly.dom.poly.caseprimary;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.caseprimary;
 
 import java.util.List;
 import javax.inject.Inject;
@@ -10,9 +10,9 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.domainapp.example.dom.lib.poly.dom.democasemgmt.Case;
-import org.incode.domainapp.example.dom.lib.poly.dom.poly.casecontent.CaseContent;
-import org.incode.domainapp.example.dom.lib.poly.dom.poly.casecontent.CaseContentContributions;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Case;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.casecontent.CaseContent;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.casecontent.CaseContentContributions;
 
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY

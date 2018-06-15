@@ -10,3 +10,6 @@ public class ApplicationUser_create_Sven extends AbstractUserFixtureScript {
     @Override
     protected void execute(ExecutionContext executionContext) {
         create(USER_NAME, EMAIL, AccountType.LOCAL, null, executionContext);
+    }
+
+}

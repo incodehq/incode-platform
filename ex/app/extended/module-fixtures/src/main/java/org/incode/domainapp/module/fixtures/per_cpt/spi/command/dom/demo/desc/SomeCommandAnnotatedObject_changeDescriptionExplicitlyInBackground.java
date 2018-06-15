@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.spi.command.dom.demo.desc;
+package org.incode.domainapp.module.fixtures.per_cpt.spi.command.dom.demo.desc;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.CommandReification;
@@ -10,7 +10,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.background.BackgroundService2;
 import org.apache.isis.applib.services.factory.FactoryService;
 
-import org.incode.domainapp.example.dom.spi.command.dom.demo.SomeCommandAnnotatedObject;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.command.dom.demo.SomeCommandAnnotatedObject;
 
 @Mixin
 public class SomeCommandAnnotatedObject_changeDescriptionExplicitlyInBackground {

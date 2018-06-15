@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.document;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.document;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

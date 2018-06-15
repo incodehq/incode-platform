@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.spi.audit.dom.entries;
+package org.incode.domainapp.module.fixtures.per_cpt.spi.audit.dom.entries;
 
 import java.util.List;
 

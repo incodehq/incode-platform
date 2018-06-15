@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.lib.poly.dom.demofixedasset;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.demofixedasset;
 
 import java.util.List;
 
@@ -23,11 +23,11 @@ import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.util.ObjectContracts;
 
-import org.incode.domainapp.example.dom.lib.poly.dom.democommchannel.CommunicationChannel;
-import org.incode.domainapp.example.dom.lib.poly.dom.poly.casecontent.CaseContent;
-import org.incode.domainapp.example.dom.lib.poly.dom.poly.ccowner.CommunicationChannelOwner;
-import org.incode.domainapp.example.dom.lib.poly.dom.poly.ccowner.CommunicationChannelOwnerLink;
-import org.incode.domainapp.example.dom.lib.poly.dom.poly.ccowner.CommunicationChannelOwnerLinks;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.democommchannel.CommunicationChannel;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.casecontent.CaseContent;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.ccowner.CommunicationChannelOwner;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.ccowner.CommunicationChannelOwnerLink;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.ccowner.CommunicationChannelOwnerLinks;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
@@ -43,7 +43,7 @@ import org.incode.domainapp.example.dom.lib.poly.dom.poly.ccowner.CommunicationC
         @javax.jdo.annotations.Query(
                 name = "find", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.domainapp.example.dom.lib.poly.dom.demofixedasset.FixedAsset ")
+                        + "FROM org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.demofixedasset.FixedAsset ")
 })
 @javax.jdo.annotations.Unique(name="FixedAsset_name_UNQ", members = {"name"})
 @DomainObject(

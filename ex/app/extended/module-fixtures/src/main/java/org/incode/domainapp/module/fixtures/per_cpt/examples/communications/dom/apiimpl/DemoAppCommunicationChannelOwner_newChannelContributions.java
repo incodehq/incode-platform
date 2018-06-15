@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.communications.dom.apiimpl;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.communications.dom.apiimpl;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;

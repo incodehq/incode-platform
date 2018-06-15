@@ -14,10 +14,10 @@ import org.isisaddons.module.audit.AuditModule;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.example.dom.spi.audit.ExampleDomSpiAuditModule;
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObject;
-import org.incode.domainapp.example.dom.spi.audit.dom.demo.audited.SomeAuditedObjects;
-import org.incode.domainapp.example.dom.spi.audit.fixture.SomeAuditedObject_and_SomeNonAuditedObject_recreate3;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.audit.ExampleDomSpiAuditModule;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.audit.dom.demo.audited.SomeAuditedObject;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.audit.dom.demo.audited.SomeAuditedObjects;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.audit.fixture.SomeAuditedObject_and_SomeNonAuditedObject_recreate3;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;

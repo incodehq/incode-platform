@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.example.dom.spi.security.fixture.SecurityModuleAppSetUp;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.SecurityModuleAppSetUp;
 
 public class SecuritySpiAppManifestWithFixtures extends SecuritySpiAppManifest {
 

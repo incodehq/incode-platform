@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.communications.dom.demowithnotes;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.communications.dom.demowithnotes;
 
 import java.util.List;
 

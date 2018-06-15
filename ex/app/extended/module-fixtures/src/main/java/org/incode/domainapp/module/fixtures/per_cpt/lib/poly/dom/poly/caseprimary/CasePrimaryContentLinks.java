@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.lib.poly.dom.poly.caseprimary;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.caseprimary;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 
 import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 
-import org.incode.domainapp.example.dom.lib.poly.dom.democasemgmt.Case;
-import org.incode.domainapp.example.dom.lib.poly.dom.poly.casecontent.CaseContent;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Case;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.casecontent.CaseContent;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,

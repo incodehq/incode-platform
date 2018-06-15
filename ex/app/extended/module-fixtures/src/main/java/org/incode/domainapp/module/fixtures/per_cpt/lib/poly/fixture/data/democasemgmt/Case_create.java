@@ -1,9 +1,9 @@
-package org.incode.domainapp.example.dom.lib.poly.fixture.data.democasemgmt;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.poly.fixture.data.democasemgmt;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.example.dom.lib.poly.dom.democasemgmt.Case;
-import org.incode.domainapp.example.dom.lib.poly.dom.democasemgmt.Cases;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Case;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Cases;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -12,7 +12,7 @@ import org.junit.rules.ExpectedException;
 
 import org.isisaddons.module.security.dom.tenancy.ApplicationTenancy;
 import org.isisaddons.module.security.dom.tenancy.ApplicationTenancyRepository;
-import org.incode.domainapp.example.dom.spi.security.fixture.SecurityModuleAppTearDown;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.SecurityModuleAppTearDown;
 import org.incode.platform.spi.security.integtests.SecurityModuleAppIntegTestAbstract;
 
 import static org.hamcrest.CoreMatchers.not;

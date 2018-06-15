@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.lib.poly.dom.democommchannel;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.democommchannel;
 
 import java.util.List;
 import org.apache.isis.applib.DomainObjectContainer;

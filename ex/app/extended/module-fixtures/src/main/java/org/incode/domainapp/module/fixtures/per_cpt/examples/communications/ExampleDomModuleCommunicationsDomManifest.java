@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.communications;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.communications;
 
 import org.apache.isis.applib.AppManifestAbstract;
 

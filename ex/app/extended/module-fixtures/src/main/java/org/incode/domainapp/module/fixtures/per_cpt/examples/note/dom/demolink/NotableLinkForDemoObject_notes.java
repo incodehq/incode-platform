@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.note.dom.demolink;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.note.dom.demolink;
 
 import org.apache.isis.applib.annotation.Mixin;
 

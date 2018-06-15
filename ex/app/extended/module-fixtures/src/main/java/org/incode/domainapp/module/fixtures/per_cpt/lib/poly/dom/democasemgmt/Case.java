@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.lib.poly.dom.democasemgmt;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.democasemgmt;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
@@ -14,7 +14,7 @@ import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.util.ObjectContracts;
 
-import org.incode.domainapp.example.dom.lib.poly.dom.poly.casecontent.CaseContentLinks;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.casecontent.CaseContentLinks;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
@@ -30,11 +30,11 @@ import org.incode.domainapp.example.dom.lib.poly.dom.poly.casecontent.CaseConten
         @javax.jdo.annotations.Query(
                 name = "find", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.domainapp.example.dom.lib.poly.dom.democasemgmt.Case "),
+                        + "FROM org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Case "),
         @javax.jdo.annotations.Query(
                 name = "findByName", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.domainapp.example.dom.lib.poly.dom.democasemgmt.Case "
+                        + "FROM org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Case "
                         + "WHERE name.indexOf(:name) >= 0 ")
 })
 @DomainObject()

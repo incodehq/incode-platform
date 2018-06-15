@@ -7,7 +7,7 @@ import org.isisaddons.module.freemarker.dom.FreeMarkerModule;
 import org.incode.platform.dom.docfragment.integtests.app.fixture.DemoAppApplicationModuleFixtureSubmodule;
 import org.incode.example.docfragment.dom.DocFragmentModuleDomModule;
 
-import org.incode.domainapp.example.dom.dom.docfragment.ExampleDomModuleDocFragmentModule;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.docfragment.ExampleDomModuleDocFragmentModule;
 
 /**
  * Bootstrap the application.

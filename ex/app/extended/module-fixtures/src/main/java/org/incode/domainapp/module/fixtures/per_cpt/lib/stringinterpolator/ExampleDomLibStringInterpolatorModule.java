@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.lib.stringinterpolator;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.stringinterpolator;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

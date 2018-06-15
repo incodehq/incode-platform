@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.spi.command.dom.demo;
+package org.incode.domainapp.module.fixtures.per_cpt.spi.command.dom.demo;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.docfragment.fixture.data;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.docfragment.fixture.data;
 
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;

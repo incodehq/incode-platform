@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.spi.security.dom.demo.nontenanted;
+package org.incode.domainapp.module.fixtures.per_cpt.spi.security.dom.demo.nontenanted;
 
 import java.util.List;
 

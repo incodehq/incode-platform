@@ -1,10 +1,10 @@
-package org.incode.domainapp.example.dom.dom.document.fixture;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.document.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.domainapp.module.fixtures.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;
 import org.incode.domainapp.module.fixtures.shared.other.fixture.OtherObject_createUpTo5_fakeData;
-import org.incode.domainapp.example.dom.dom.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
 
 public class DemoObjectWithUrl_and_OtherObject_and_docrefdata_create extends FixtureScript {
 

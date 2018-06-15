@@ -1,4 +1,4 @@
-package org.incode.domainapp.module.fixtures.per_cpt.wkt.wicketcharts.wickedcharts;
+package org.incode.domainapp.module.fixtures.per_cpt.wkt.wicketcharts;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

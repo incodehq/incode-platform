@@ -1,7 +1,7 @@
-package org.incode.domainapp.example.dom.spi.security.fixture.userrole;
+package org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.userrole;
 
-import org.incode.domainapp.example.dom.spi.security.fixture.roles.sub.RoleAndPermissions_create_exampleRegularRole;
-import org.incode.domainapp.example.dom.spi.security.fixture.users.ApplicationUser_create_Bert_in_Italy;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.roles.sub.RoleAndPermissions_create_exampleRegularRole;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.users.ApplicationUser_create_Bert_in_Italy;
 
 public class UserRole_create_Bert_exampleRegularRole extends AbstractUserRoleFixtureScript {
     public UserRole_create_Bert_exampleRegularRole() {

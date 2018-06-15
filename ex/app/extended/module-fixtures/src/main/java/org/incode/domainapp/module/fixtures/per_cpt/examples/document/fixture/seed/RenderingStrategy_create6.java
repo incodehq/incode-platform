@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.document.fixture.seed;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.document.fixture.seed;
 
 import org.incode.example.docrendering.freemarker.fixture.RenderingStrategyFSForFreemarker;
 import org.incode.example.docrendering.stringinterpolator.fixture.RenderingStrategyFSForStringInterpolator;

@@ -1,8 +1,8 @@
-package org.incode.domainapp.example.dom.spi.command.fixture;
+package org.incode.domainapp.module.fixtures.per_cpt.spi.command.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.example.dom.spi.command.fixture.teardown.SomeCommandAnnotatedObjects_tearDown;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.command.fixture.teardown.SomeCommandAnnotatedObjects_tearDown;
 
 public class SomeCommandAnnotatedObject_recreate3 extends FixtureScript {
 

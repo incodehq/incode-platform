@@ -4,7 +4,7 @@ import org.apache.isis.applib.AppManifestAbstract;
 
 import org.isisaddons.module.poly.PolyModule;
 
-import org.incode.domainapp.example.dom.lib.poly.ExampleDomLibPolyModule;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.ExampleDomLibPolyModule;
 
 public class PolyLibAppManifest extends AppManifestAbstract {
 

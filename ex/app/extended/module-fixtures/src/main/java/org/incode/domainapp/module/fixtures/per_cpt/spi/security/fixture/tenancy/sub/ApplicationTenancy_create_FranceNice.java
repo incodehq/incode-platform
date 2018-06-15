@@ -12,3 +12,6 @@ public class ApplicationTenancy_create_FranceNice extends AbstractTenancyFixture
         executionContext.executeChild(this, new ApplicationTenancy_create_France());
 
         create(TENANCY_NAME, TENANCY_PATH, ApplicationTenancy_create_France.TENANCY_PATH, executionContext);
+    }
+
+}

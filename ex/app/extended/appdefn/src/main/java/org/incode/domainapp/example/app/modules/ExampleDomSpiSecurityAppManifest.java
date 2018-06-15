@@ -13,12 +13,12 @@ import org.apache.isis.applib.annotation.Nature;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.example.dom.spi.security.ExampleDomSpiSecurityModule;
-import org.incode.domainapp.example.dom.spi.security.dom.demo.nontenanted.NonTenantedEntities;
-import org.incode.domainapp.example.dom.spi.security.dom.demo.nontenanted.NonTenantedEntity;
-import org.incode.domainapp.example.dom.spi.security.dom.demo.tenanted.TenantedEntities;
-import org.incode.domainapp.example.dom.spi.security.dom.demo.tenanted.TenantedEntity;
-import org.incode.domainapp.example.dom.spi.security.fixture.SecurityModuleAppSetUp;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.security.ExampleDomSpiSecurityModule;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.security.dom.demo.nontenanted.NonTenantedEntities;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.security.dom.demo.nontenanted.NonTenantedEntity;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.security.dom.demo.tenanted.TenantedEntities;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.security.dom.demo.tenanted.TenantedEntity;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.SecurityModuleAppSetUp;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;

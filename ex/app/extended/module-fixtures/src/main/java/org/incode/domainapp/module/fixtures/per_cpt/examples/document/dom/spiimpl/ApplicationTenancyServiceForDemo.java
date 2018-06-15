@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.document.dom.spiimpl;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.document.dom.spiimpl;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;

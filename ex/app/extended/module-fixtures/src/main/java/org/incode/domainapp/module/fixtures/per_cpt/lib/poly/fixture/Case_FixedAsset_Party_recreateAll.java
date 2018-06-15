@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.lib.poly.fixture;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.poly.fixture;
 
 import java.util.List;
 
@@ -6,15 +6,15 @@ import javax.inject.Inject;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.example.dom.lib.poly.dom.demofixedasset.FixedAsset;
-import org.incode.domainapp.example.dom.lib.poly.dom.demoparty.Party;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.demofixedasset.FixedAsset;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.demoparty.Party;
 
-import org.incode.domainapp.example.dom.lib.poly.dom.democasemgmt.Case;
-import org.incode.domainapp.example.dom.lib.poly.dom.poly.casecontent.CaseContentContributions;
-import org.incode.domainapp.example.dom.lib.poly.dom.poly.caseprimary.CasePrimaryContentContributions;
-import org.incode.domainapp.example.dom.lib.poly.fixture.data.democasemgmt.Case_recreate3;
-import org.incode.domainapp.example.dom.lib.poly.fixture.data.demofixedasset.FixedAsset_recreate6;
-import org.incode.domainapp.example.dom.lib.poly.fixture.data.demoparty.Party_recreate3;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Case;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.casecontent.CaseContentContributions;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.caseprimary.CasePrimaryContentContributions;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.fixture.data.democasemgmt.Case_recreate3;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.fixture.data.demofixedasset.FixedAsset_recreate6;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.fixture.data.demoparty.Party_recreate3;
 
 public class Case_FixedAsset_Party_recreateAll extends FixtureScript {
 

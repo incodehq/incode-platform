@@ -1,10 +1,10 @@
-package org.incode.domainapp.example.dom.dom.docfragment.fixture;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.docfragment.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.domainapp.module.fixtures.shared.customer.fixture.DemoCustomerData;
 import org.incode.domainapp.module.fixtures.shared.invoicewithatpath.fixture.DemoInvoiceWithAtPathData;
-import org.incode.domainapp.example.dom.dom.docfragment.fixture.data.DocFragmentData;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.docfragment.fixture.data.DocFragmentData;
 
 public class DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_create extends FixtureScript {
 

@@ -13,4 +13,7 @@ public class ApplicationUser_create_Bert_in_Italy extends AbstractUserFixtureScr
         final ApplicationUser applicationUser = create(USER_NAME, AccountType.LOCAL, ApplicationTenancy_create_Italy.TENANCY_PATH, executionContext);
         applicationUser.updateName("Tenant", "Bertrand", "Bert");
         applicationUser.updatePassword("pass");
-        applicationUser
+        applicationUser.unlock();
+    }
+
+}

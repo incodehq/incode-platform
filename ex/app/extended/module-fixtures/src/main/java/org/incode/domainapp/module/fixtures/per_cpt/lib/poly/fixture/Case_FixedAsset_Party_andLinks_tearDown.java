@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.lib.poly.fixture;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.poly.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;

@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.commchannel;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.commchannel;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

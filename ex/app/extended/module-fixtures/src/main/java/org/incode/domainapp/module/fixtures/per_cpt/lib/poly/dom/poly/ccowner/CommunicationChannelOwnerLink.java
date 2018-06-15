@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.lib.poly.dom.poly.ccowner;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.ccowner;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -12,7 +12,7 @@ import org.apache.isis.applib.annotation.Programmatic;
 
 import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 
-import org.incode.domainapp.example.dom.lib.poly.dom.democommchannel.CommunicationChannel;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.democommchannel.CommunicationChannel;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
@@ -25,12 +25,12 @@ import org.incode.domainapp.example.dom.lib.poly.dom.democommchannel.Communicati
         @javax.jdo.annotations.Query(
                 name = "findByCommunicationChannel", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.domainapp.example.dom.lib.poly.dom.poly.ccowner.CommunicationChannelOwnerLink "
+                        + "FROM org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.ccowner.CommunicationChannelOwnerLink "
                         + "WHERE communicationChannel == :communicationChannel"),
         @javax.jdo.annotations.Query(
                 name = "findByOwner", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.domainapp.example.dom.lib.poly.dom.poly.ccowner.CommunicationChannelOwnerLink "
+                        + "FROM org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.ccowner.CommunicationChannelOwnerLink "
                         + "WHERE ownerObjectType == :ownerObjectType "
                         + "   && ownerIdentifier == :ownerIdentifier ")
 })

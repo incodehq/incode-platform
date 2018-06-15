@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.lib.servletapi.fixture;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.servletapi.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;

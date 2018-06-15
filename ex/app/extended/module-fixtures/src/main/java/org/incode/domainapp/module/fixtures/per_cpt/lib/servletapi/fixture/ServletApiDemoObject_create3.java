@@ -1,9 +1,9 @@
-package org.incode.domainapp.example.dom.lib.servletapi.fixture;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.servletapi.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.example.dom.lib.servletapi.dom.demo.ServletApiDemoObject;
-import org.incode.domainapp.example.dom.lib.servletapi.dom.demo.ServletApiDemoObjects;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.servletapi.dom.demo.ServletApiDemoObject;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.servletapi.dom.demo.ServletApiDemoObjects;
 
 public class ServletApiDemoObject_create3 extends FixtureScript {
 

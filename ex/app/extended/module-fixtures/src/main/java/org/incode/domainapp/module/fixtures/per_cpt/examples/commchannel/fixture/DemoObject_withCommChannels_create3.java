@@ -1,12 +1,12 @@
-package org.incode.domainapp.example.dom.dom.commchannel.fixture;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.commchannel.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.domainapp.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.domainapp.module.fixtures.shared.demo.dom.DemoObjectMenu;
-import org.incode.domainapp.example.dom.dom.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addEmailAddress;
-import org.incode.domainapp.example.dom.dom.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addPhoneOrFaxNumber;
-import org.incode.domainapp.example.dom.dom.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addPostalAddress;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addEmailAddress;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addPhoneOrFaxNumber;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addPostalAddress;
 import org.incode.example.commchannel.dom.impl.emailaddress.T_addEmailAddress;
 import org.incode.example.commchannel.dom.impl.phoneorfax.T_addPhoneOrFaxNumber;
 import org.incode.example.commchannel.dom.impl.postaladdress.T_addPostalAddress;

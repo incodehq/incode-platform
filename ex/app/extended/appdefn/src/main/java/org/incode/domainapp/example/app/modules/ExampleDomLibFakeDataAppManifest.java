@@ -14,8 +14,8 @@ import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.example.dom.lib.fakedata.ExampleDomLibFakeDataModule;
-import org.incode.domainapp.example.dom.lib.fakedata.fixture.DemoObjectWithAll_recreate3;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.fakedata.ExampleDomLibFakeDataModule;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.fakedata.fixture.DemoObjectWithAll_recreate3;
 import org.incode.domainapp.module.fixtures.shared.demowithall.dom.DemoObjectWithAll;
 import org.incode.domainapp.module.fixtures.shared.demowithall.dom.DemoObjectWithAllMenu;
 

@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.spi.audit;
+package org.incode.domainapp.module.fixtures.per_cpt.spi.audit;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

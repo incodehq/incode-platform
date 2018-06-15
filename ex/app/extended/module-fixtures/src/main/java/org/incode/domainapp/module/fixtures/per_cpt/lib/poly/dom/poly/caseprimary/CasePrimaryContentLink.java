@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.lib.poly.dom.poly.caseprimary;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.caseprimary;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -13,8 +13,8 @@ import org.apache.isis.applib.annotation.Programmatic;
 
 import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 
-import org.incode.domainapp.example.dom.lib.poly.dom.democasemgmt.Case;
-import org.incode.domainapp.example.dom.lib.poly.dom.poly.casecontent.CaseContent;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Case;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.casecontent.CaseContent;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
@@ -27,18 +27,18 @@ import org.incode.domainapp.example.dom.lib.poly.dom.poly.casecontent.CaseConten
         @javax.jdo.annotations.Query(
                 name = "findByCase", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.domainapp.example.dom.lib.poly.dom.poly.caseprimary.CasePrimaryContentLink "
+                        + "FROM org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.caseprimary.CasePrimaryContentLink "
                         + "WHERE case == :case"),
         @javax.jdo.annotations.Query(
                 name = "findByContent", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.domainapp.example.dom.lib.poly.dom.poly.caseprimary.CasePrimaryContentLink "
+                        + "FROM org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.caseprimary.CasePrimaryContentLink "
                         + "WHERE contentObjectType == :contentObjectType "
                         + "   && contentIdentifier == :contentIdentifier "),
         @javax.jdo.annotations.Query(
                 name = "findByCaseAndContent", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.domainapp.example.dom.lib.poly.dom.poly.caseprimary.CasePrimaryContentLink "
+                        + "FROM org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.caseprimary.CasePrimaryContentLink "
                         + "WHERE case == :case "
                         + "   && contentObjectType == :contentObjectType "
                         + "   && contentIdentifier == :contentIdentifier ")

@@ -1,12 +1,12 @@
-package org.incode.domainapp.example.dom.spi.security.fixture.example.nontenanted;
+package org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.example.nontenanted;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.example.dom.spi.security.dom.demo.nontenanted.NonTenantedEntities;
-import org.incode.domainapp.example.dom.spi.security.fixture.example.nontenanted.sub.NonTenantedEntity_createBar;
-import org.incode.domainapp.example.dom.spi.security.fixture.example.nontenanted.sub.NonTenantedEntity_createBaz;
-import org.incode.domainapp.example.dom.spi.security.fixture.example.nontenanted.sub.NonTenantedEntity_createBip;
-import org.incode.domainapp.example.dom.spi.security.fixture.example.nontenanted.sub.NonTenantedEntity_createBop;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.security.dom.demo.nontenanted.NonTenantedEntities;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.example.nontenanted.sub.NonTenantedEntity_createBar;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.example.nontenanted.sub.NonTenantedEntity_createBaz;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.example.nontenanted.sub.NonTenantedEntity_createBip;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.example.nontenanted.sub.NonTenantedEntity_createBop;
 
 public class NonTenantedEntity_create4 extends FixtureScript {
 

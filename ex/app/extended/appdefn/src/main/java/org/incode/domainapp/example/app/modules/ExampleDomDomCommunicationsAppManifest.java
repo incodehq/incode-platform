@@ -14,8 +14,8 @@ import org.isisaddons.module.freemarker.dom.FreeMarkerModule;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.example.dom.dom.communications.ExampleDomModuleCommunicationsModule;
-import org.incode.domainapp.example.dom.dom.communications.fixture.DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_recreate;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.communications.ExampleDomModuleCommunicationsModule;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.communications.fixture.DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_recreate;
 import org.incode.domainapp.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotes;
 import org.incode.domainapp.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotesMenu;
 import org.incode.domainapp.module.fixtures.shared.invoice.dom.DemoInvoice;

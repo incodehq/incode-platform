@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.lib.poly.dom.poly.casecontent;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.casecontent;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -13,7 +13,7 @@ import org.apache.isis.applib.annotation.Programmatic;
 
 import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 
-import org.incode.domainapp.example.dom.lib.poly.dom.democasemgmt.Case;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Case;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
@@ -26,12 +26,12 @@ import org.incode.domainapp.example.dom.lib.poly.dom.democasemgmt.Case;
         @javax.jdo.annotations.Query(
                 name = "findByCase", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.domainapp.example.dom.lib.poly.dom.poly.casecontent.CaseContentLink "
+                        + "FROM org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.casecontent.CaseContentLink "
                         + "WHERE case == :case"),
         @javax.jdo.annotations.Query(
                 name = "findByContent", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.domainapp.example.dom.lib.poly.dom.poly.casecontent.CaseContentLink "
+                        + "FROM org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.casecontent.CaseContentLink "
                         + "WHERE contentObjectType == :contentObjectType "
                         + "   && contentIdentifier == :contentIdentifier ")
 })

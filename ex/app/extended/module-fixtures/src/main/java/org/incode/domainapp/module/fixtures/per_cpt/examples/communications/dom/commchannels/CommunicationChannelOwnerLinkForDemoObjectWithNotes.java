@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.communications.dom.commchannels;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.communications.dom.commchannels;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;

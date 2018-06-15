@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.spi.audit.dom.demo.audited;
+package org.incode.domainapp.module.fixtures.per_cpt.spi.audit.dom.demo.audited;
 
 import javax.annotation.Nullable;
 

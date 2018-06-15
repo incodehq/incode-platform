@@ -1,4 +1,4 @@
-package org.incode.domainapp.module.fixtures.per_cpt.wkt.wicketcharts.wickedcharts.dom;
+package org.incode.domainapp.module.fixtures.per_cpt.wkt.wicketcharts.dom;
 
 import java.util.List;
 import java.util.Map;

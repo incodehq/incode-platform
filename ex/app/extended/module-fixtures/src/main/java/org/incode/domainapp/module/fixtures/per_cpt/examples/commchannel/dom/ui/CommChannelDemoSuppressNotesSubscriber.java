@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.commchannel.dom.ui;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.commchannel.dom.ui;
 
 import com.google.common.eventbus.Subscribe;
 

@@ -1,9 +1,9 @@
-package org.incode.domainapp.example.dom.spi.security.fixture.users;
+package org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.users;
 
 import org.isisaddons.module.security.dom.user.AccountType;
 
-import org.incode.domainapp.example.dom.spi.security.fixture.roles.sub.RoleAndPermissions_create_exampleGuest;
-import org.incode.domainapp.example.dom.spi.security.fixture.roles.sub.RoleAndPremissions_create_exampleNoGuest;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.roles.sub.RoleAndPermissions_create_exampleGuest;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.roles.sub.RoleAndPremissions_create_exampleNoGuest;
 
 /**
  * Intended to be assigned to roles ({@link RoleAndPermissions_create_exampleGuest} and

@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.note.dom.spiimpl;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.note.dom.spiimpl;
 
 import java.util.Collection;
 import java.util.List;

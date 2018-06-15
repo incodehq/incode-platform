@@ -6,8 +6,8 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 
 import org.isisaddons.module.fakedata.FakeDataModule;
 
-import org.incode.domainapp.example.dom.dom.document.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
-import org.incode.domainapp.example.dom.dom.document.dom.paperclips.other.PaperclipForOtherObject;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.document.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.document.dom.paperclips.other.PaperclipForOtherObject;
 import org.incode.domainapp.module.fixtures.shared.ExampleDomDemoDomSubmodule;
 import org.incode.domainapp.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
 import org.incode.domainapp.module.fixtures.shared.other.dom.OtherObject;

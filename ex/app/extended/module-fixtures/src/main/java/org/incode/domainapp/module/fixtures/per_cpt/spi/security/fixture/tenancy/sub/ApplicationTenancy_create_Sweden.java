@@ -1,8 +1,8 @@
-package org.incode.domainapp.example.dom.spi.security.fixture.tenancy.sub;
+package org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.tenancy.sub;
 
 import org.isisaddons.module.security.seed.scripts.GlobalTenancy;
 
-import org.incode.domainapp.example.dom.spi.security.fixture.tenancy.sub.AbstractTenancyFixtureScript;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.tenancy.sub.AbstractTenancyFixtureScript;
 
 public class ApplicationTenancy_create_Sweden extends AbstractTenancyFixtureScript {
 

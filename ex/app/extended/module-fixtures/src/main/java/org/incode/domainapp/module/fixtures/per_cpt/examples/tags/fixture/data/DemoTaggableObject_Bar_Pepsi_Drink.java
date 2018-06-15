@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.tags.fixture.data;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.tags.fixture.data;
 
 public class DemoTaggableObject_Bar_Pepsi_Drink extends AbstractTaggableObjectFixture {
 

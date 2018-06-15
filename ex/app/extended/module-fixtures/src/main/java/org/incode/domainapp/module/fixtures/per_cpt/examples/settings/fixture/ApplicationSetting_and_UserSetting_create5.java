@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.settings.fixture;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.settings.fixture;
 
 import org.joda.time.LocalDate;
 

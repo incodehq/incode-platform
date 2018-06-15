@@ -10,8 +10,8 @@ import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.incode.domainapp.example.dom.dom.note.dom.spiimpl.CalendarNameRepositoryForDemo;
-import org.incode.domainapp.example.dom.dom.note.fixture.DemoModule_withNotes_tearDown;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.note.dom.spiimpl.CalendarNameRepositoryForDemo;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.note.fixture.DemoModule_withNotes_tearDown;
 import org.incode.domainapp.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.domainapp.module.fixtures.shared.demo.dom.DemoObjectMenu;
 import org.incode.example.note.dom.impl.notablelink.NotableLink;

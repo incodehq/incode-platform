@@ -38,4 +38,7 @@ public class NotableLinkForDemoObject extends NotableLink {
 
     @Override
     protected void setNotable(final Object object) {
-        setDemoObject((DemoObject) objec
+        setDemoObject((DemoObject) object);
+    }
+
+}

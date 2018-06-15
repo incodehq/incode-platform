@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.lib.fakedata;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.fakedata;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

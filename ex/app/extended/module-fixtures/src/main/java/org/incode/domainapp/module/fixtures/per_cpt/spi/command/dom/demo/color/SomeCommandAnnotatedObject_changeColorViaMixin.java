@@ -1,9 +1,9 @@
-package org.incode.domainapp.example.dom.spi.command.dom.demo.color;
+package org.incode.domainapp.module.fixtures.per_cpt.spi.command.dom.demo.color;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.Mixin;
 
-import org.incode.domainapp.example.dom.spi.command.dom.demo.SomeCommandAnnotatedObject;
+import org.incode.domainapp.module.fixtures.per_cpt.spi.command.dom.demo.SomeCommandAnnotatedObject;
 
 @Mixin
 public class SomeCommandAnnotatedObject_changeColorViaMixin {

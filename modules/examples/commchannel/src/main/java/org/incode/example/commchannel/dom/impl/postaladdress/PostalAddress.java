@@ -72,9 +72,6 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
     )
     @Getter @Setter
     private String addressLine1;
-    public String getAddressLine1() {
-        return addressLine1;
-    }
 
     public static class AddressLine2DomainEvent extends PropertyDomainEvent<PostalAddress,String> { }
     @javax.jdo.annotations.Column(
@@ -88,9 +85,6 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
     )
     @Getter @Setter
     private String addressLine2;
-    public String getAddressLine2() {
-        return addressLine2;
-    }
 
     public static class AddressLine3DomainEvent extends PropertyDomainEvent<PostalAddress,String> { }
     @javax.jdo.annotations.Column(
@@ -104,9 +98,6 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
     )
     @Getter @Setter
     private String addressLine3;
-    public String getAddressLine3() {
-        return addressLine3;
-    }
 
     public static class AddressLine4DomainEvent extends PropertyDomainEvent<PostalAddress,String> { }
     @javax.jdo.annotations.Column(
@@ -120,9 +111,6 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
     )
     @Getter @Setter
     private String addressLine4;
-    public String getAddressLine4() {
-        return addressLine4;
-    }
 
     public static class PostalCodeDomainEvent extends PropertyDomainEvent<PostalAddress,String> { }
     @javax.jdo.annotations.Column(
@@ -152,9 +140,6 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
     )
     @Getter @Setter
     private String country;
-    public String getCountry() {
-        return country;
-    }
 
     public static class FormattedAddressDomainEvent extends PropertyDomainEvent<PostalAddress, String> {}
     @javax.jdo.annotations.Column(allowsNull = "false", length = CommChannelModule.JdoColumnLength.FORMATTED_ADDRESS)
@@ -177,9 +162,6 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
     )
     @Getter @Setter
     private String placeId;
-    public String getPlaceId() {
-        return placeId;
-    }
 
     public static class LatLngDomainEvent extends PropertyDomainEvent<PostalAddress,String> { }
     @javax.jdo.annotations.Column(allowsNull = "true") // optional only because of superclass inheritance strategy=SUPERCLASS_TABLE
@@ -189,9 +171,6 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
     )
     @Getter @Setter
     private String latLng;
-    public String getLatLng() {
-        return latLng;
-    }
 
     public static class AddressComponentsDomainEvent extends PropertyDomainEvent<PostalAddress,PostalAddress> { }
     @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB")
@@ -203,9 +182,6 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
     @PropertyLayout(multiLine = 10)
     @Getter @Setter
     private String addressComponents;
-    public String getAddressComponents() {
-        return addressComponents;
-    }
 
     public static class GeocodeApiResponseAsJsonDomainEvent extends PropertyDomainEvent<PostalAddress,String> { }
     @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB")
@@ -218,9 +194,6 @@ public class PostalAddress extends CommunicationChannel<PostalAddress> {
     )
     @Getter @Setter
     private String geocodeApiResponseAsJson;
-    public String getGeocodeApiResponseAsJson() {
-        return geocodeApiResponseAsJson;
-    }
 
     //region > Locatable API
     @Programmatic

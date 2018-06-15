@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.spi.command.dom.mixin;
+package org.incode.domainapp.module.fixtures.per_cpt.spi.command.dom.mixin;
 
 import java.util.List;
 

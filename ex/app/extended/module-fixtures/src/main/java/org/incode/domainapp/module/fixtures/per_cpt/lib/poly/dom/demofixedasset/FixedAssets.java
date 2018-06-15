@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.lib.poly.dom.demofixedasset;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.demofixedasset;
 
 import java.util.List;
 

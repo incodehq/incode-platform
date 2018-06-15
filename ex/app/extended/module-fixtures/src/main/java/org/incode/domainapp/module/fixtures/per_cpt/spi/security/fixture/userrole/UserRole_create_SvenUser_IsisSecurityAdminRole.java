@@ -5,4 +5,6 @@ import org.isisaddons.module.security.seed.scripts.IsisModuleSecurityAdminRoleAn
 
 public class UserRole_create_SvenUser_IsisSecurityAdminRole extends AbstractUserRoleFixtureScript {
     public UserRole_create_SvenUser_IsisSecurityAdminRole() {
-        super(ApplicationUser_create_Sven.USER_NAME, IsisModuleSecurityAdminRoleAndPermissions
+        super(ApplicationUser_create_Sven.USER_NAME, IsisModuleSecurityAdminRoleAndPermissions.ROLE_NAME);
+    }
+}

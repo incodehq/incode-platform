@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.document.dom.paperclips.other;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.document.dom.paperclips.other;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;

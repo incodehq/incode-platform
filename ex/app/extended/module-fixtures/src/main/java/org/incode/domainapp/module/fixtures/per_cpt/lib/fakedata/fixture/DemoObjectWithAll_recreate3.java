@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.lib.fakedata.fixture;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.fakedata.fixture;
 
 import java.util.List;
 

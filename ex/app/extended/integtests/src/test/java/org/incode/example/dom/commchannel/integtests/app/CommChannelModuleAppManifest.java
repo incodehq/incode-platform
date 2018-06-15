@@ -7,7 +7,7 @@ import org.isisaddons.wicket.gmap3.cpt.ui.Gmap3UiModule;
 
 import org.incode.example.commchannel.dom.CommChannelModule;
 
-import org.incode.domainapp.example.dom.dom.commchannel.ExampleDomModuleCommChannelModule;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.commchannel.ExampleDomModuleCommChannelModule;
 
 /**
  * Bootstrap the application.

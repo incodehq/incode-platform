@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.commchannel.dom.ccolink.demo;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.commchannel.dom.ccolink.demo;
 
 import org.apache.isis.applib.annotation.Mixin;
 

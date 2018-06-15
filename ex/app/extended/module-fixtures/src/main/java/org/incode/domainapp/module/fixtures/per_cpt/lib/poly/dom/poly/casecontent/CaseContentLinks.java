@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.lib.poly.dom.poly.casecontent;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.poly.casecontent;
 
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -11,7 +11,7 @@ import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 
-import org.incode.domainapp.example.dom.lib.poly.dom.democasemgmt.Case;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Case;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,

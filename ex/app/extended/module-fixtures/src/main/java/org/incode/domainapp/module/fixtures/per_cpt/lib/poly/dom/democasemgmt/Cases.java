@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.lib.poly.dom.democasemgmt;
+package org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.democasemgmt;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.communications.dom.invoice;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.communications.dom.invoice;
 
 import java.io.IOException;
 
@@ -17,7 +17,7 @@ import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.value.Blob;
 
 import org.incode.domainapp.module.fixtures.shared.invoice.dom.DemoInvoice;
-import org.incode.domainapp.example.dom.dom.communications.fixture.data.doctypes.DocumentType_and_DocumentTemplates_createSome;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.communications.fixture.data.doctypes.DocumentType_and_DocumentTemplates_createSome;
 import org.incode.example.document.dom.impl.docs.Document;
 import org.incode.example.document.dom.impl.docs.DocumentRepository;
 import org.incode.example.document.dom.impl.docs.DocumentSort;

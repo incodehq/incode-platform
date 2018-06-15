@@ -13,8 +13,8 @@ import org.apache.isis.applib.annotation.Nature;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.example.dom.dom.docfragment.ExampleDomModuleDocFragmentModule;
-import org.incode.domainapp.example.dom.dom.docfragment.fixture.DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_recreate;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.docfragment.ExampleDomModuleDocFragmentModule;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.docfragment.fixture.DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_recreate;
 import org.incode.domainapp.module.fixtures.shared.customer.dom.DemoCustomer;
 import org.incode.domainapp.module.fixtures.shared.customer.dom.DemoCustomerMenu;
 import org.incode.domainapp.module.fixtures.shared.invoicewithatpath.dom.DemoInvoiceWithAtPath;

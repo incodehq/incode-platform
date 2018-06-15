@@ -1,4 +1,4 @@
-package org.incode.domainapp.example.dom.dom.communications.fixture.data.democust2;
+package org.incode.domainapp.module.fixtures.per_cpt.examples.communications.fixture.data.democust2;
 
 import java.io.IOException;
 import java.net.URL;
@@ -14,8 +14,8 @@ import org.incode.domainapp.module.fixtures.shared.demowithnotes.dom.DemoObjectW
 import org.incode.domainapp.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotesMenu;
 import org.incode.domainapp.module.fixtures.shared.invoice.dom.DemoInvoice;
 import org.incode.domainapp.module.fixtures.shared.invoice.dom.DemoInvoiceRepository;
-import org.incode.domainapp.example.dom.dom.communications.dom.apiimpl.DemoAppCommunicationChannelOwner_newChannelContributions;
-import org.incode.domainapp.example.dom.dom.communications.dom.invoice.DemoInvoice_simulateRenderAsDoc;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.communications.dom.apiimpl.DemoAppCommunicationChannelOwner_newChannelContributions;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.communications.dom.invoice.DemoInvoice_simulateRenderAsDoc;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelOwner;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelType;
 import org.incode.example.country.dom.impl.Country;
