@@ -5,14 +5,9 @@
     
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.incode</groupId>
-        <artifactId>incode-mavenmixin</artifactId>
-        <version>${revision}</version>
-    </parent>
-
     <groupId>org.incode.mavenmixin</groupId>
     <artifactId>incode-mavenmixin-swagger</artifactId>
+    <version>${revision}</version>
 
     <packaging>pom</packaging>
     
@@ -20,6 +15,47 @@
     <description>
         Maven mixin providing the ability to run isis:swagger goal for an Apache Isis domain application.
     </description>
+
+    <properties>
+        <isisVersion>1.16.2</isisVersion>
+        <revision>1.16.3-SNAPSHOT</revision>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <pomElements>
+                        <parent>resolve</parent>
+                        <name>resolve</name>
+                        <description>resolve</description>
+                        <dependencies>resolve</dependencies>
+                        <profiles>resolve</profiles>
+                    </pomElements>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
     <profiles>
         <profile>
@@ -32,6 +68,7 @@
 
             <properties>
                 <isis.version>${isisVersion}</isis.version>
+
                 <isis-maven-plugin.swagger.appManifest>
                     domainapp.application.manifest.DomainAppAppManifest
                 </isis-maven-plugin.swagger.appManifest>

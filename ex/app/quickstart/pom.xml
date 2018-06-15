@@ -22,6 +22,7 @@
         <isisVersion>1.16.2</isisVersion>
         <incodeMavenmixinVersion>1.16.3-SNAPSHOT</incodeMavenmixinVersion>
         <incodePlatformVersion>1.16.3-SNAPSHOT</incodePlatformVersion>
+
         <revision>1.16.3-SNAPSHOT</revision>
 
         <isis.version>${isisVersion}</isis.version>
