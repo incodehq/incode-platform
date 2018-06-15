@@ -108,18 +108,19 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
 
 
     public static class TypeDomainEvent extends PropertyDomainEvent<CommunicationChannel,CommunicationChannelType> { }
-    @Getter @Setter
     @Column(allowsNull = "false", length = CommChannelModule.JdoColumnLength.TYPE_ENUM)
     @Property(
             domainEvent = TypeDomainEvent.class,
             editing = Editing.DISABLED,
             hidden = Where.EVERYWHERE
     )
+    @Getter @Setter
     private CommunicationChannelType type;
-
+    public CommunicationChannelType getType() {
+        return type;
+    }
 
     public static class PurposeDomainEvent extends PropertyDomainEvent<CommunicationChannel,String> { }
-    @Getter @Setter
     @Column(allowsNull = "false", length = CommChannelModule.JdoColumnLength.PURPOSE)
     @Property(
             domainEvent = PurposeDomainEvent.class,
@@ -127,7 +128,11 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
             maxLength = CommChannelModule.JdoColumnLength.PURPOSE,
             optionality = Optionality.MANDATORY
     )
+    @Getter @Setter
     private String purpose;
+    public String getPurpose() {
+        return purpose;
+    }
 
     public Collection<String> choicesPurpose() {
         return communicationChannelPurposeService.purposesFor(getType(), mixinOwner().$$());
@@ -139,7 +144,6 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
 
 
     public static class NotesDomainEvent extends PropertyDomainEvent<CommunicationChannel,String> { }
-    @Getter @Setter
     @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB")
     @Property(
             domainEvent = NotesDomainEvent.class,
@@ -147,9 +151,11 @@ public abstract class CommunicationChannel<T extends CommunicationChannel<T>> im
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(multiLine = 10)
+    @Getter @Setter
     private String notes;
-
-
+    public String getNotes() {
+        return notes;
+    }
     //region > Locatable API
 
     /**
