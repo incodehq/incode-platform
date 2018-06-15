@@ -1,10 +1,10 @@
-package org.incode.platform.dom.docfragment.integtests.app;
+package org.incode.extended.integtests.examples.docfragment.app;
 
 import org.apache.isis.applib.AppManifestAbstract;
 
 import org.isisaddons.module.freemarker.dom.FreeMarkerModule;
 
-import org.incode.platform.dom.docfragment.integtests.app.fixture.DemoAppApplicationModuleFixtureSubmodule;
+import org.incode.extended.integtests.examples.docfragment.app.fixture.DemoAppApplicationModuleFixtureSubmodule;
 import org.incode.example.docfragment.dom.DocFragmentModuleDomModule;
 
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.docfragment.ExampleDomModuleDocFragmentModule;

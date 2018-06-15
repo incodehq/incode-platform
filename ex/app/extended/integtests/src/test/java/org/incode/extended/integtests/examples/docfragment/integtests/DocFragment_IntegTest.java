@@ -1,4 +1,4 @@
-package org.incode.platform.dom.docfragment.integtests.tests;
+package org.incode.extended.integtests.examples.docfragment.integtests;
 
 import javax.inject.Inject;
 
@@ -14,7 +14,7 @@ import org.apache.isis.applib.services.xactn.TransactionService;
 import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusIdLong;
 import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusVersionLong;
 
-import org.incode.platform.dom.docfragment.integtests.DocFragmentModuleIntegTestAbstract;
+import org.incode.extended.integtests.examples.docfragment.DocFragmentModuleIntegTestAbstract;
 import org.incode.example.docfragment.dom.impl.DocFragment;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.docfragment.fixture.data.DocFragmentData;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.docfragment.fixture.sub.DocFragment_tearDown;

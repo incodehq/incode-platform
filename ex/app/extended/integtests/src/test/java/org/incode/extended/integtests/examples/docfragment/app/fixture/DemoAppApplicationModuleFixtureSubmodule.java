@@ -1,4 +1,4 @@
-package org.incode.platform.dom.docfragment.integtests.app.fixture;
+package org.incode.extended.integtests.examples.docfragment.app.fixture;
 
 public final class DemoAppApplicationModuleFixtureSubmodule {
     private DemoAppApplicationModuleFixtureSubmodule(){}

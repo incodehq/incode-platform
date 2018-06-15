@@ -1,4 +1,4 @@
-package org.incode.platform.dom.docfragment.integtests.app;
+package org.incode.extended.integtests.examples.docfragment.app;
 
 /**
  * Bypasses security, meaning any user/password combination can be used to login.

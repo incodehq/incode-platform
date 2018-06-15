@@ -1,4 +1,4 @@
-package org.incode.platform.dom.docfragment.integtests.app;
+package org.incode.extended.integtests.examples.docfragment.app;
 
 import java.util.List;
 

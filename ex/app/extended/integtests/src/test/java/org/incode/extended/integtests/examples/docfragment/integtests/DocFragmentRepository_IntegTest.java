@@ -1,4 +1,4 @@
-package org.incode.platform.dom.docfragment.integtests.tests;
+package org.incode.extended.integtests.examples.docfragment.integtests;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
@@ -19,7 +19,7 @@ import org.apache.isis.applib.services.xactn.TransactionService;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.docfragment.fixture.DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_recreate;
-import org.incode.platform.dom.docfragment.integtests.DocFragmentModuleIntegTestAbstract;
+import org.incode.extended.integtests.examples.docfragment.DocFragmentModuleIntegTestAbstract;
 import org.incode.example.docfragment.dom.impl.DocFragment;
 import org.incode.example.docfragment.dom.impl.DocFragmentRepository;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.docfragment.fixture.data.DocFragmentData;

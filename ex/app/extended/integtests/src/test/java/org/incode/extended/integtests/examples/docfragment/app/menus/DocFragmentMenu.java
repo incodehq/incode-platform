@@ -1,4 +1,4 @@
-package org.incode.platform.dom.docfragment.integtests.app.menus;
+package org.incode.extended.integtests.examples.docfragment.app.menus;
 
 import java.util.Collection;
 import java.util.List;
