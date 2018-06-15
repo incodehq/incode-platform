@@ -31,8 +31,8 @@ import org.incode.example.communications.dom.impl.comms.Communication_downloadPd
 import org.incode.example.communications.dom.mixins.Document_sendByEmail;
 import org.incode.example.communications.dom.mixins.Document_sendByPost;
 import org.incode.extended.integtests.examples.communications.CommunicationsIntegTestAbstract;
-import org.incode.extended.integtests.examples.communications.app.services.fakeemail.EmailMessage;
-import org.incode.extended.integtests.examples.communications.app.services.fakeemail.FakeEmailService;
+import org.incode.extended.integtests.examples.communications.appservices.fakeemail.EmailMessage;
+import org.incode.extended.integtests.examples.communications.appservices.fakeemail.FakeEmailService;
 import org.incode.example.document.dom.impl.docs.DocumentAbstract;
 import org.incode.example.document.dom.impl.paperclips.Paperclip;
 import org.incode.example.document.dom.impl.paperclips.PaperclipRepository;

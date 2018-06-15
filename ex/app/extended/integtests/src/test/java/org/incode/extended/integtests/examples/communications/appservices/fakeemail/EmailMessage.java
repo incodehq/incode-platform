@@ -1,4 +1,4 @@
-package org.incode.extended.integtests.examples.communications.app.services.fakeemail;
+package org.incode.extended.integtests.examples.communications.appservices.fakeemail;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package org.incode.extended.integtests.examples.communications.app.services.fakesched;
+package org.incode.extended.integtests.examples.communications.appservices.fakesched;
 
 import java.util.List;
 

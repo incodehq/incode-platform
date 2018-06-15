@@ -1,4 +1,4 @@
-package org.incode.extended.integtests.examples.communications.app.services;
+package org.incode.extended.integtests.examples.communications.appservices;
 
 public final class DemoAppApplicationModuleServicesSubmodule {
     private DemoAppApplicationModuleServicesSubmodule(){}

@@ -1,4 +1,4 @@
-package org.incode.platform.ext.togglz.integtests.app;
+package org.incode.extended.integtests.ext.togglz.app;
 
 import org.apache.isis.applib.AppManifestAbstract;
 

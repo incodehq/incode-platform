@@ -9,7 +9,7 @@ import org.isisaddons.module.pdfbox.dom.PdfBoxModule;
 
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.communications.ExampleDomModuleCommunicationsModule;
 import org.incode.example.communications.dom.CommunicationsModuleDomModule;
-import org.incode.extended.integtests.examples.communications.app.services.DemoAppApplicationModuleServicesSubmodule;
+import org.incode.extended.integtests.examples.communications.appservices.DemoAppApplicationModuleServicesSubmodule;
 import org.incode.example.country.dom.CountryModule;
 import org.incode.example.document.dom.DocumentModule;
 

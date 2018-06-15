@@ -1,4 +1,4 @@
-package org.incode.platform.ext.togglz.integtests.tests;
+package org.incode.extended.integtests.ext.togglz.integtests;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.ext.togglz.fixture.DemoObject_recreate3;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
-import org.incode.platform.ext.togglz.integtests.TogglzModuleIntegTestAbstract;
+import org.incode.extended.integtests.ext.togglz.TogglzModuleIntegTestAbstract;
 
 
 public class TogglzDemoObjects_IntegTest extends TogglzModuleIntegTestAbstract {

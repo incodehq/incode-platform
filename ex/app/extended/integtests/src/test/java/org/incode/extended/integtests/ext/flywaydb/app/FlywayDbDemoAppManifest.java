@@ -1,4 +1,4 @@
-package org.incode.platform.ext.flywaydb.integtests.app;
+package org.incode.extended.integtests.ext.flywaydb.app;
 
 import org.apache.isis.applib.AppManifestAbstract;
 

@@ -1,4 +1,4 @@
-package org.incode.platform.ext.flywaydb.integtests.tests;
+package org.incode.extended.integtests.ext.flywaydb.integtests;
 
 import java.util.List;
 

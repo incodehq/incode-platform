@@ -1,10 +1,10 @@
-package org.incode.platform.ext.flywaydb.integtests.tests;
+package org.incode.extended.integtests.ext.flywaydb.integtests;
 
 import org.junit.BeforeClass;
 
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 
-import org.incode.platform.ext.flywaydb.integtests.app.FlywayDbDemoAppManifest;
+import org.incode.extended.integtests.ext.flywaydb.app.FlywayDbDemoAppManifest;
 
 public abstract class DomainAppIntegTestAbstract extends IntegrationTestAbstract2 {
 
