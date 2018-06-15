@@ -1,4 +1,4 @@
-package org.incode.example.communications.integtests.app.services.fakecueap;
+package org.incode.extended.integtests.per_cpt.examples.communications.app.services.fakecueap;
 
 import javax.inject.Inject;
 

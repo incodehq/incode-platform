@@ -1,4 +1,4 @@
-package org.incode.example.communications.integtests.tests;
+package org.incode.extended.integtests.per_cpt.examples.communications.integtests;
 
 import java.util.List;
 import java.util.Objects;
@@ -30,9 +30,9 @@ import org.incode.example.communications.dom.impl.comms.CommunicationState;
 import org.incode.example.communications.dom.impl.comms.Communication_downloadPdfForPosting;
 import org.incode.example.communications.dom.mixins.Document_sendByEmail;
 import org.incode.example.communications.dom.mixins.Document_sendByPost;
-import org.incode.example.communications.integtests.CommunicationsIntegTestAbstract;
-import org.incode.example.communications.integtests.app.services.fakeemail.EmailMessage;
-import org.incode.example.communications.integtests.app.services.fakeemail.FakeEmailService;
+import org.incode.extended.integtests.per_cpt.examples.communications.CommunicationsIntegTestAbstract;
+import org.incode.extended.integtests.per_cpt.examples.communications.app.services.fakeemail.EmailMessage;
+import org.incode.extended.integtests.per_cpt.examples.communications.app.services.fakeemail.FakeEmailService;
 import org.incode.example.document.dom.impl.docs.DocumentAbstract;
 import org.incode.example.document.dom.impl.paperclips.Paperclip;
 import org.incode.example.document.dom.impl.paperclips.PaperclipRepository;

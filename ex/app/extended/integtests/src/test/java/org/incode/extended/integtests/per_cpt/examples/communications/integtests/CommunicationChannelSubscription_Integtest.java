@@ -1,4 +1,4 @@
-package org.incode.example.communications.integtests.tests;
+package org.incode.extended.integtests.per_cpt.examples.communications.integtests;
 
 import javax.inject.Inject;
 
@@ -21,7 +21,7 @@ import org.incode.example.communications.dom.impl.commchannel.EmailAddress;
 import org.incode.example.communications.dom.impl.commchannel.PostalAddress;
 import org.incode.example.communications.dom.impl.comms.Communication;
 import org.incode.example.communications.dom.impl.comms.CommunicationRepository;
-import org.incode.example.communications.integtests.CommunicationsIntegTestAbstract;
+import org.incode.extended.integtests.per_cpt.examples.communications.CommunicationsIntegTestAbstract;
 
 public class CommunicationChannelSubscription_Integtest extends CommunicationsIntegTestAbstract {
 

@@ -1,4 +1,4 @@
-package org.incode.example.communications.integtests.app;
+package org.incode.extended.integtests.per_cpt.examples.communications.app;
 
 import org.apache.isis.applib.AppManifestAbstract;
 
@@ -9,7 +9,7 @@ import org.isisaddons.module.pdfbox.dom.PdfBoxModule;
 
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.communications.ExampleDomModuleCommunicationsModule;
 import org.incode.example.communications.dom.CommunicationsModuleDomModule;
-import org.incode.example.communications.integtests.app.services.DemoAppApplicationModuleServicesSubmodule;
+import org.incode.extended.integtests.per_cpt.examples.communications.app.services.DemoAppApplicationModuleServicesSubmodule;
 import org.incode.example.country.dom.CountryModule;
 import org.incode.example.document.dom.DocumentModule;
 

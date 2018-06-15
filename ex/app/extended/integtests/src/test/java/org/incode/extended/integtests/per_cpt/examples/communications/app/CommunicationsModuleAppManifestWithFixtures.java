@@ -1,4 +1,4 @@
-package org.incode.example.communications.integtests.app;
+package org.incode.extended.integtests.per_cpt.examples.communications.app;
 
 import java.util.List;
 
