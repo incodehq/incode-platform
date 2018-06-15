@@ -9,7 +9,7 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.domainapp.module.fixtures.shared.ExampleDomDemoDomSubmodule;
+import org.incode.domainapp.extended.module.fixtures.shared.ExampleDomDemoDomSubmodule;
 import org.incode.example.classification.dom.impl.classification.T_classifications;
 import org.incode.example.classification.dom.impl.classification.T_classify;
 import org.incode.example.classification.dom.impl.classification.T_unclassify;

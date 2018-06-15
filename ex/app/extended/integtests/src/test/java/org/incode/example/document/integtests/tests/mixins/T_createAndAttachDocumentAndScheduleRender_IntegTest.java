@@ -9,10 +9,10 @@ import org.apache.isis.applib.services.background.BackgroundCommandService;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.wrapper.DisabledException;
 
-import org.incode.domainapp.module.fixtures.per_cpt.examples.document.fixture.DemoModule_and_DocTypesAndTemplates_tearDown;
-import org.incode.domainapp.module.fixtures.per_cpt.examples.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
-import org.incode.domainapp.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
-import org.incode.domainapp.module.fixtures.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.fixture.DemoModule_and_DocTypesAndTemplates_tearDown;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;
 import org.incode.example.document.dom.impl.docs.DocumentTemplate;
 import org.incode.example.document.integtests.DocumentModuleIntegTestAbstract;
 

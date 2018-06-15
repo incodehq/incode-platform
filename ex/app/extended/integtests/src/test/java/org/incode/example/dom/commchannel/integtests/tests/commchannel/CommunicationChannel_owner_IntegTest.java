@@ -7,9 +7,9 @@ import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.incode.domainapp.module.fixtures.per_cpt.examples.commchannel.fixture.DemoObject_withCommChannels_tearDown;
-import org.incode.domainapp.module.fixtures.shared.demo.dom.DemoObject;
-import org.incode.domainapp.module.fixtures.shared.demo.dom.DemoObjectMenu;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.fixture.DemoObject_withCommChannels_tearDown;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
 import org.incode.example.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.example.commchannel.dom.impl.channel.CommunicationChannelRepository;
 import org.incode.example.commchannel.dom.impl.channel.CommunicationChannel_owner;

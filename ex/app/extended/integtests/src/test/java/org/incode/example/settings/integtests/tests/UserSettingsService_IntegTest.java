@@ -9,7 +9,7 @@ import org.incode.example.settings.dom.UserSetting;
 import org.incode.example.settings.dom.UserSettingsServiceRW;
 import org.incode.example.settings.integtests.SettingsModuleIntegTestAbstract;
 
-import org.incode.domainapp.module.fixtures.per_cpt.examples.settings.fixture.ApplicationSetting_and_UserSetting_recreate5;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.settings.fixture.ApplicationSetting_and_UserSetting_recreate5;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 

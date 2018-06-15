@@ -13,12 +13,12 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.domainapp.module.fixtures.per_cpt.examples.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addEmailAddress;
-import org.incode.domainapp.module.fixtures.per_cpt.examples.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addPhoneOrFaxNumber;
-import org.incode.domainapp.module.fixtures.per_cpt.examples.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addPostalAddress;
-import org.incode.domainapp.module.fixtures.per_cpt.examples.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_communicationChannels;
-import org.incode.domainapp.module.fixtures.shared.ExampleDomDemoDomSubmodule;
-import org.incode.domainapp.module.fixtures.shared.demo.dom.DemoObject;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addEmailAddress;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addPhoneOrFaxNumber;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addPostalAddress;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_communicationChannels;
+import org.incode.domainapp.extended.module.fixtures.shared.ExampleDomDemoDomSubmodule;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.example.commchannel.dom.api.GeocodingService;
 import org.incode.example.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.example.commchannel.dom.impl.channel.CommunicationChannel_remove1;

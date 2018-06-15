@@ -17,9 +17,9 @@ import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 import org.incode.example.tags.dom.Tag;
 import org.incode.example.tags.dom.Tags;
 
-import org.incode.domainapp.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObject;
-import org.incode.domainapp.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObjectMenu;
-import org.incode.domainapp.module.fixtures.per_cpt.examples.tags.fixture.DemoTaggableObject_withTags_recreate3;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObject;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObjectMenu;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.fixture.DemoTaggableObject_withTags_recreate3;
 import org.incode.example.tags.integtests.TagsModuleIntegTestAbstract;
 
 import static org.hamcrest.CoreMatchers.is;

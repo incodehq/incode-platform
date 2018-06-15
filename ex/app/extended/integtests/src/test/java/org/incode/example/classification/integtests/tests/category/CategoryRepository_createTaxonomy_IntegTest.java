@@ -8,9 +8,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import org.incode.domainapp.module.fixtures.per_cpt.examples.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_recreate3;
-import org.incode.domainapp.module.fixtures.per_cpt.examples.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_tearDown;
-import org.incode.domainapp.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPathMenu;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_recreate3;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_tearDown;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPathMenu;
 import org.incode.example.classification.dom.impl.applicability.ApplicabilityRepository;
 import org.incode.example.classification.dom.impl.category.CategoryRepository;
 import org.incode.example.classification.dom.impl.category.taxonomy.Taxonomy;

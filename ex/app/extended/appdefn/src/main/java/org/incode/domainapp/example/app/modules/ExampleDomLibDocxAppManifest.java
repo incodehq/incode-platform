@@ -14,10 +14,10 @@ import org.isisaddons.module.docx.DocxModule;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.module.fixtures.per_cpt.lib.docx.ExampleDomLibDocxModule;
-import org.incode.domainapp.module.fixtures.shared.order.dom.DemoOrder;
-import org.incode.domainapp.module.fixtures.shared.order.dom.DemoOrderMenu;
-import org.incode.domainapp.module.fixtures.shared.order.fixture.DemoOrderAndOrderLine_create4_hardcodedData;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.docx.ExampleDomLibDocxModule;
+import org.incode.domainapp.extended.module.fixtures.shared.order.dom.DemoOrder;
+import org.incode.domainapp.extended.module.fixtures.shared.order.dom.DemoOrderMenu;
+import org.incode.domainapp.extended.module.fixtures.shared.order.fixture.DemoOrderAndOrderLine_create4_hardcodedData;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;

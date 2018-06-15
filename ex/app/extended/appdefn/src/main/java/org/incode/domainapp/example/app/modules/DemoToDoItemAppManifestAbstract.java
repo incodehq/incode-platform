@@ -13,9 +13,9 @@ import org.apache.isis.applib.annotation.Nature;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.module.fixtures.shared.todo.dom.DemoToDoItem;
-import org.incode.domainapp.module.fixtures.shared.todo.dom.DemoToDoItemMenu;
-import org.incode.domainapp.module.fixtures.shared.todo.fixture.DemoToDoItem_recreate5_forSven;
+import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItem;
+import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItemMenu;
+import org.incode.domainapp.extended.module.fixtures.shared.todo.fixture.DemoToDoItem_recreate5_forSven;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;

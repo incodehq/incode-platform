@@ -13,12 +13,12 @@ import org.junit.Test;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
-import org.incode.domainapp.module.fixtures.per_cpt.examples.communications.fixture.DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_recreate;
-import org.incode.domainapp.module.fixtures.per_cpt.examples.communications.fixture.data.democust2.DemoObjectWithNote_and_DemoInvoice_create3;
-import org.incode.domainapp.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotes;
-import org.incode.domainapp.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotesMenu;
-import org.incode.domainapp.module.fixtures.shared.invoice.dom.DemoInvoice;
-import org.incode.domainapp.module.fixtures.shared.invoice.dom.DemoInvoiceRepository;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.communications.fixture.DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_recreate;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.communications.fixture.data.democust2.DemoObjectWithNote_and_DemoInvoice_create3;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotes;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotesMenu;
+import org.incode.domainapp.extended.module.fixtures.shared.invoice.dom.DemoInvoice;
+import org.incode.domainapp.extended.module.fixtures.shared.invoice.dom.DemoInvoiceRepository;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannel;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelOwnerLinkRepository;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelType;

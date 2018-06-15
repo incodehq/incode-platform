@@ -9,10 +9,10 @@ import org.junit.Test;
 
 import org.apache.isis.core.commons.config.IsisConfiguration;
 
-import org.incode.domainapp.module.fixtures.per_cpt.lib.stringinterpolator.dom.DemoReminderStringInterpolatorContributions;
-import org.incode.domainapp.module.fixtures.shared.reminder.dom.DemoReminder;
-import org.incode.domainapp.module.fixtures.shared.reminder.dom.DemoReminderMenu;
-import org.incode.domainapp.module.fixtures.shared.reminder.fixture.DemoReminder_recreate4;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.stringinterpolator.dom.DemoReminderStringInterpolatorContributions;
+import org.incode.domainapp.extended.module.fixtures.shared.reminder.dom.DemoReminder;
+import org.incode.domainapp.extended.module.fixtures.shared.reminder.dom.DemoReminderMenu;
+import org.incode.domainapp.extended.module.fixtures.shared.reminder.fixture.DemoReminder_recreate4;
 import org.incode.platform.lib.stringinterpolator.integtests.StringInterpolatorDemoIntegTestAbstract;
 
 import static org.hamcrest.CoreMatchers.is;

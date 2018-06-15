@@ -4,7 +4,7 @@ import org.apache.isis.applib.AppManifestAbstract;
 
 import org.incode.example.note.dom.NoteModule;
 
-import org.incode.domainapp.module.fixtures.per_cpt.examples.note.ExampleDomModuleNoteModule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.ExampleDomModuleNoteModule;
 
 /**
  * Bootstrap the application.

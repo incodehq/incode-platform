@@ -2,7 +2,7 @@ package org.incode.domainapp.example.app.modules;
 
 import org.isisaddons.wicket.wickedcharts.cpt.ui.WickedChartsUiModule;
 
-import org.incode.domainapp.module.fixtures.per_cpt.wkt.wicketcharts.ExampleDomWicketWickedChartsModule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.wkt.wicketcharts.ExampleDomWicketWickedChartsModule;
 
 public class ExampleDomWktWickedChartsAppManifest extends DemoToDoItemAppManifestAbstract {
 

@@ -6,11 +6,11 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 
 import org.isisaddons.module.fakedata.FakeDataModule;
 
-import org.incode.domainapp.module.fixtures.per_cpt.examples.document.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
-import org.incode.domainapp.module.fixtures.per_cpt.examples.document.dom.paperclips.other.PaperclipForOtherObject;
-import org.incode.domainapp.module.fixtures.shared.ExampleDomDemoDomSubmodule;
-import org.incode.domainapp.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
-import org.incode.domainapp.module.fixtures.shared.other.dom.OtherObject;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.paperclips.other.PaperclipForOtherObject;
+import org.incode.domainapp.extended.module.fixtures.shared.ExampleDomDemoDomSubmodule;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
+import org.incode.domainapp.extended.module.fixtures.shared.other.dom.OtherObject;
 import org.incode.example.document.dom.impl.docs.Document;
 import org.incode.example.document.dom.impl.docs.Document_delete;
 import org.incode.example.document.integtests.app.DocumentModuleAppManifest;

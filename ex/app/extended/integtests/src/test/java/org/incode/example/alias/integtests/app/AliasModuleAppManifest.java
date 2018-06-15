@@ -2,7 +2,7 @@ package org.incode.example.alias.integtests.app;
 
 import org.apache.isis.applib.AppManifestAbstract;
 
-import org.incode.domainapp.module.fixtures.per_cpt.examples.alias.ExampleDomModuleAliasModule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.ExampleDomModuleAliasModule;
 import org.incode.example.alias.dom.AliasModule;
 
 

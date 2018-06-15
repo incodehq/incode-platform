@@ -4,7 +4,7 @@ import org.apache.isis.applib.AppManifestAbstract;
 
 import org.isisaddons.module.fakedata.FakeDataModule;
 
-import org.incode.domainapp.module.fixtures.per_cpt.lib.fakedata.ExampleDomLibFakeDataModule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.ExampleDomLibFakeDataModule;
 
 public class FakedataLibAppManifest extends AppManifestAbstract {
 

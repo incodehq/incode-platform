@@ -2,7 +2,7 @@ package org.isisaddons.metamodel.paraname8.app;
 
 import org.apache.isis.applib.AppManifestAbstract;
 
-import org.incode.domainapp.module.fixtures.shared.ExampleDomDemoDomSubmodule;
+import org.incode.domainapp.extended.module.fixtures.shared.ExampleDomDemoDomSubmodule;
 
 public class Paraname8MetaModelAppManifest extends AppManifestAbstract {
 

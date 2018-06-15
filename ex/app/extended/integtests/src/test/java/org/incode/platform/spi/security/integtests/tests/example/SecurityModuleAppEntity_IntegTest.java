@@ -11,13 +11,13 @@ import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
 import org.incode.platform.spi.security.integtests.SecurityModuleAppIntegTestAbstract;
 
-import org.incode.domainapp.module.fixtures.per_cpt.spi.security.dom.demo.nontenanted.NonTenantedEntities;
-import org.incode.domainapp.module.fixtures.per_cpt.spi.security.dom.demo.nontenanted.NonTenantedEntity;
-import org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.SecurityModuleAppTearDown;
-import org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.example.nontenanted.sub.NonTenantedEntity_createBar;
-import org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.example.nontenanted.sub.NonTenantedEntity_createBaz;
-import org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.example.nontenanted.sub.NonTenantedEntity_createBip;
-import org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.example.nontenanted.sub.NonTenantedEntity_createBop;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.demo.nontenanted.NonTenantedEntities;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.demo.nontenanted.NonTenantedEntity;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixture.SecurityModuleAppTearDown;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixture.example.nontenanted.sub.NonTenantedEntity_createBar;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixture.example.nontenanted.sub.NonTenantedEntity_createBaz;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixture.example.nontenanted.sub.NonTenantedEntity_createBip;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixture.example.nontenanted.sub.NonTenantedEntity_createBop;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 

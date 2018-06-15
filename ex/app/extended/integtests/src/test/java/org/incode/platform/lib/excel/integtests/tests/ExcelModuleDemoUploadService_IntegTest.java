@@ -15,10 +15,10 @@ import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.util.ExcelFileBlobConverter;
 
-import org.incode.domainapp.module.fixtures.per_cpt.lib.excel.dom.upload.ExcelUploadServiceForDemoToDoItem;
-import org.incode.domainapp.module.fixtures.shared.todo.dom.DemoToDoItem;
-import org.incode.domainapp.module.fixtures.shared.todo.dom.DemoToDoItemMenu;
-import org.incode.domainapp.module.fixtures.shared.todo.fixture.DemoToDoItem_tearDown;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.upload.ExcelUploadServiceForDemoToDoItem;
+import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItem;
+import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItemMenu;
+import org.incode.domainapp.extended.module.fixtures.shared.todo.fixture.DemoToDoItem_tearDown;
 import org.incode.platform.lib.excel.integtests.ExcelModuleModuleIntegTestAbstract;
 
 import static org.hamcrest.core.Is.is;

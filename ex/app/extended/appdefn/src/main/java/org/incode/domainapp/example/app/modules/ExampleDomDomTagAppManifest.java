@@ -14,10 +14,10 @@ import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsin
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 import org.incode.example.tags.TagsModule;
 
-import org.incode.domainapp.module.fixtures.per_cpt.examples.tags.ExampleDomModuleTagsModule;
-import org.incode.domainapp.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObject;
-import org.incode.domainapp.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObjectMenu;
-import org.incode.domainapp.module.fixtures.per_cpt.examples.tags.fixture.DemoTaggableObject_withTags_recreate3;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.ExampleDomModuleTagsModule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObject;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObjectMenu;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.fixture.DemoTaggableObject_withTags_recreate3;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;

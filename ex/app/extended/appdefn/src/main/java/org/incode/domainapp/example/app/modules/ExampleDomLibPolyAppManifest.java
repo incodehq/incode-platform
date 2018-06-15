@@ -14,14 +14,14 @@ import org.isisaddons.module.poly.PolyModule;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.ExampleDomLibPolyModule;
-import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Case;
-import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Cases;
-import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.demofixedasset.FixedAsset;
-import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.demofixedasset.FixedAssets;
-import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.demoparty.Parties;
-import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.dom.demoparty.Party;
-import org.incode.domainapp.module.fixtures.per_cpt.lib.poly.fixture.Case_FixedAsset_Party_recreateAll;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.ExampleDomLibPolyModule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Case;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Cases;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.demofixedasset.FixedAsset;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.demofixedasset.FixedAssets;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.demoparty.Parties;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.demoparty.Party;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.fixture.Case_FixedAsset_Party_recreateAll;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;

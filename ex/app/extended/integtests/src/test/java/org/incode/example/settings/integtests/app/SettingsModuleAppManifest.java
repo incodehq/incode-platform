@@ -4,7 +4,7 @@ import org.apache.isis.applib.AppManifestAbstract;
 
 import org.incode.example.settings.SettingsModule;
 
-import org.incode.domainapp.module.fixtures.per_cpt.examples.settings.ExampleDomModuleSettingsModule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.settings.ExampleDomModuleSettingsModule;
 
 public class SettingsModuleAppManifest extends AppManifestAbstract {
 

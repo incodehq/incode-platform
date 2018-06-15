@@ -14,10 +14,10 @@ import org.isisaddons.module.publishmq.PublishMqModule;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.module.fixtures.per_cpt.spi.publishmq.ExampleDomSpiPublishMqModule;
-import org.incode.domainapp.module.fixtures.per_cpt.spi.publishmq.dom.demo.PublishMqDemoObject;
-import org.incode.domainapp.module.fixtures.per_cpt.spi.publishmq.dom.demo.PublishMqDemoObjects;
-import org.incode.domainapp.module.fixtures.per_cpt.spi.publishmq.fixture.PublishMqDemoObject_recreate3;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.publishmq.ExampleDomSpiPublishMqModule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.publishmq.dom.demo.PublishMqDemoObject;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.publishmq.dom.demo.PublishMqDemoObjects;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.publishmq.fixture.PublishMqDemoObject_recreate3;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;

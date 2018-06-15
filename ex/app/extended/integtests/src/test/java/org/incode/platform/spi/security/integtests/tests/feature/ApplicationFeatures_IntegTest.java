@@ -24,7 +24,7 @@ import org.apache.isis.core.metamodel.services.appfeat.ApplicationFeatureReposit
 
 import org.incode.platform.spi.security.integtests.SecurityModuleAppIntegTestAbstract;
 
-import org.incode.domainapp.module.fixtures.per_cpt.spi.security.fixture.SecurityModuleAppTearDown;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixture.SecurityModuleAppTearDown;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.greaterThan;
@@ -57,11 +57,11 @@ public class ApplicationFeatures_IntegTest extends SecurityModuleAppIntegTestAbs
 
             assertThat(packages, transformedBy(ApplicationFeature.Functions.GET_ID, containsAtLeast(
                     ApplicationFeatureId.newPackage("org.incode.domainapp.example.dom"),
-                    ApplicationFeatureId.newPackage("org.incode.domainapp.module.fixtures.per_cpt.spi"),
-                    ApplicationFeatureId.newPackage("org.incode.domainapp.module.fixtures.per_cpt.spi.security"),
-                    ApplicationFeatureId.newPackage("org.incode.domainapp.module.fixtures.per_cpt.spi.security.dom"),
-                    ApplicationFeatureId.newPackage("org.incode.domainapp.module.fixtures.per_cpt.spi.security.dom.demo.tenanted"),
-                    ApplicationFeatureId.newPackage("org.incode.domainapp.module.fixtures.per_cpt.spi.security.dom.demo.nontenanted")
+                    ApplicationFeatureId.newPackage("org.incode.domainapp.extended.module.fixtures.per_cpt.spi"),
+                    ApplicationFeatureId.newPackage("org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security"),
+                    ApplicationFeatureId.newPackage("org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom"),
+                    ApplicationFeatureId.newPackage("org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.demo.tenanted"),
+                    ApplicationFeatureId.newPackage("org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.demo.nontenanted")
             )));
         }
 

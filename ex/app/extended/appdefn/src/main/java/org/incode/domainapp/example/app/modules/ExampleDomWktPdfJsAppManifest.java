@@ -15,9 +15,9 @@ import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsin
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 import org.isisaddons.wicket.pdfjs.cpt.PdfjsCptModule;
 
-import org.incode.domainapp.module.fixtures.shared.demowithblob.dom.DemoObjectWithBlob;
-import org.incode.domainapp.module.fixtures.shared.demowithblob.dom.DemoObjectWithBlobMenu;
-import org.incode.domainapp.module.fixtures.shared.demowithblob.fixture.DemoObjectWithBlob_createUpTo5_fakeData;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithblob.dom.DemoObjectWithBlob;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithblob.dom.DemoObjectWithBlobMenu;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithblob.fixture.DemoObjectWithBlob_createUpTo5_fakeData;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;

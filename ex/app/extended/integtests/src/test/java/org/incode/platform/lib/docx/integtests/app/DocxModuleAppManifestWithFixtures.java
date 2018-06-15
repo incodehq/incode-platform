@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.module.fixtures.shared.order.fixture.DemoOrderAndOrderLine_recreate4_hardcodedData;
+import org.incode.domainapp.extended.module.fixtures.shared.order.fixture.DemoOrderAndOrderLine_recreate4_hardcodedData;
 
 public class DocxModuleAppManifestWithFixtures extends DocxModuleAppManifest {
 

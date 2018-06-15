@@ -11,10 +11,10 @@ import org.junit.Test;
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
 
-import org.incode.domainapp.module.fixtures.per_cpt.lib.docx.dom.CustomerConfirmation;
-import org.incode.domainapp.module.fixtures.shared.order.dom.DemoOrder;
-import org.incode.domainapp.module.fixtures.shared.order.dom.DemoOrderMenu;
-import org.incode.domainapp.module.fixtures.shared.order.fixture.DemoOrderAndOrderLine_recreate4_hardcodedData;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.docx.dom.CustomerConfirmation;
+import org.incode.domainapp.extended.module.fixtures.shared.order.dom.DemoOrder;
+import org.incode.domainapp.extended.module.fixtures.shared.order.dom.DemoOrderMenu;
+import org.incode.domainapp.extended.module.fixtures.shared.order.fixture.DemoOrderAndOrderLine_recreate4_hardcodedData;
 import org.incode.platform.lib.docx.integtests.DocxModuleIntegTestAbstract;
 
 import static org.hamcrest.CoreMatchers.is;

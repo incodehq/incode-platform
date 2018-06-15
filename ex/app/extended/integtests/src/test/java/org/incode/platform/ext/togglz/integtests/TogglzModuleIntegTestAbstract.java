@@ -6,7 +6,7 @@ import org.togglz.junit.TogglzRule;
 
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 
-import org.incode.domainapp.module.fixtures.shared.ExampleDomDemoDomSubmodule;
+import org.incode.domainapp.extended.module.fixtures.shared.ExampleDomDemoDomSubmodule;
 import org.incode.platform.ext.togglz.integtests.app.TogglzExtAppManifest;
 
 import domainapp.modules.base.togglz.TogglzFeature;

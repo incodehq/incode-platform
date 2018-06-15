@@ -13,13 +13,13 @@ import org.junit.rules.ExpectedException;
 
 import org.apache.isis.applib.services.factory.FactoryService;
 
-import org.incode.domainapp.module.fixtures.per_cpt.examples.classification.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath;
-import org.incode.domainapp.module.fixtures.per_cpt.examples.classification.dom.classification.otherwithatpath.ClassificationForOtherObjectWithAtPath;
-import org.incode.domainapp.module.fixtures.per_cpt.examples.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_recreate3;
-import org.incode.domainapp.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPath;
-import org.incode.domainapp.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPathMenu;
-import org.incode.domainapp.module.fixtures.shared.otherwithatpath.dom.OtherObjectWithAtPath;
-import org.incode.domainapp.module.fixtures.shared.otherwithatpath.dom.OtherObjectWithAtPathMenu;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.classification.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.classification.dom.classification.otherwithatpath.ClassificationForOtherObjectWithAtPath;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_recreate3;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPath;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPathMenu;
+import org.incode.domainapp.extended.module.fixtures.shared.otherwithatpath.dom.OtherObjectWithAtPath;
+import org.incode.domainapp.extended.module.fixtures.shared.otherwithatpath.dom.OtherObjectWithAtPathMenu;
 import org.incode.example.classification.dom.impl.applicability.ApplicabilityRepository;
 import org.incode.example.classification.dom.impl.category.Category;
 import org.incode.example.classification.dom.impl.category.CategoryRepository;

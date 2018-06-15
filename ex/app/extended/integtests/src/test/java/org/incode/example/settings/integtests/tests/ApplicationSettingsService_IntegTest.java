@@ -5,7 +5,7 @@ import org.incode.example.settings.dom.ApplicationSetting;
 import org.incode.example.settings.dom.ApplicationSettingsServiceRW;
 import org.incode.example.settings.integtests.SettingsModuleIntegTestAbstract;
 
-import org.incode.domainapp.module.fixtures.per_cpt.examples.settings.fixture.ApplicationSetting_and_UserSetting_recreate5;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.settings.fixture.ApplicationSetting_and_UserSetting_recreate5;
 import org.junit.Before;
 import org.junit.Test;
 
