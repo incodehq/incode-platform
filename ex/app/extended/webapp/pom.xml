@@ -94,11 +94,6 @@
         </dependency>
 
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>incode-extended-example-appdefn</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.isisaddons.module.quartz</groupId>
             <artifactId>isis-module-quartz-dom</artifactId>
         </dependency>

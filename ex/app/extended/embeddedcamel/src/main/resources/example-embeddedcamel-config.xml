@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <camelContext xmlns="http://camel.apache.org/schema/spring">
+
+        <route id="handleMemberInteractions">
+            <from uri="activemq-broker:queue:memberInteractionsQueue"/>
+            <unmarshal>
+                <jaxb contextPath="org.apache.isis.schema.ixn.v1" prettyPrint="true"/>
+            </unmarshal>
+            <camel:process ref="addExchangeHeaders"/>
+
+            <camel:choice>
+                <camel:when>
+                    <camel:simple>${header.ixn[execution$logicalMemberIdentifier]} == 'simple.SimpleObject#updateName()'</camel:simple>
+
+                    <log message="updateName() received... "/>
+
+                    <camel:process ref="attachCanonicalDtoUsingRestfulObjects"/>
+
+                    <log message="DTO: ${header['org.incode.domainapp.example.canonical.SimpleObjectDto']}"/>
+                </camel:when>
+                <camel:when>
+                    <camel:simple>${header.ixn[execution$logicalMemberIdentifier]} == 'simple.SimpleObject#notes'</camel:simple>
+
+                    <log message="notes received... "/>
+
+                    <camel:process ref="attachCanonicalDtoUsingRestfulObjects"/>
+
+                    <log message="DTO: ${header['org.incode.domainapp.example.canonical.SimpleObjectDto']}"/>
+                </camel:when>
+            </camel:choice>
+
+        </route>
+    </camelContext>
+
+    <bean id="activemq-broker"
+          class="org.apache.activemq.camel.component.ActiveMQComponent">
+        <property name="brokerURL" value="vm://broker?create=false&amp;waitForStart=5000"/>
+    </bean>
+
+    <bean id="addExchangeHeaders"
+          class="org.isisaddons.module.publishmq.dom.camel.AddExchangeHeaders"/>
+
+    <bean id="attachCanonicalDtoUsingRestfulObjects"
+          class="domainapp.example.embeddedcamel.processor.AttachSimpleObjectDto"
+          init-method="init">
+        <!-- see propertyPlaceholderConfigurer-config.xml -->
+        <property name="base" value="${restful.base}"/>
+        <property name="username" value="${restful.username}"/>
+        <property name="password" value="${restful.password}"/>
+    </bean>
+
+</beans>

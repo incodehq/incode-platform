@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.incode.example.application</groupId>
-  <artifactId>incode-quickstart-main-slack</artifactId>
+  <artifactId>incode-extended-main-slack</artifactId>
   <version>1.16.3-SNAPSHOT</version>
   <licenses>
     <license>
@@ -16,46 +16,71 @@
     <dependencies>
       <dependency>
         <groupId>org.incode.example.application</groupId>
-        <artifactId>incode-quickstart-appdefn</artifactId>
+        <artifactId>incode-extended-appdefn</artifactId>
         <version>1.16.3-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.incode.example.application</groupId>
-        <artifactId>incode-quickstart-module-base</artifactId>
+        <artifactId>incode-extended-module-base</artifactId>
         <version>1.16.3-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.incode.example.application</groupId>
-        <artifactId>incode-quickstart-module-simple</artifactId>
+        <artifactId>incode-extended-module-simple</artifactId>
         <version>1.16.3-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.incode.example.application</groupId>
-        <artifactId>incode-quickstart-module-simple</artifactId>
+        <artifactId>incode-extended-module-simple</artifactId>
         <version>1.16.3-SNAPSHOT</version>
         <type>test-jar</type>
         <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.incode.example.application</groupId>
-        <artifactId>incode-quickstart-main-slack</artifactId>
+        <artifactId>incode-extended-webapp</artifactId>
         <version>1.16.3-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.incode.example.application</groupId>
-        <artifactId>incode-quickstart-webapp</artifactId>
+        <artifactId>incode-extended-integtests</artifactId>
         <version>1.16.3-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.incode.example.application</groupId>
+        <artifactId>incode-extended-main-slack</artifactId>
+        <version>1.16.3-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.incode.example.application</groupId>
+        <artifactId>incode-extended-example-appdefn</artifactId>
+        <version>1.16.3-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.incode.example.application</groupId>
+        <artifactId>incode-extended-canonical</artifactId>
+        <version>1.16.3-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.incode.example.application</groupId>
+        <artifactId>incode-extended-embeddedcamel</artifactId>
+        <version>1.16.3-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+        <version>4.1.9.RELEASE</version>
       </dependency>
       <dependency>
         <groupId>org.incode.mavenmixin</groupId>
         <artifactId>incode-mavenmixin-swagger</artifactId>
-        <version>1.16.3-SNAPSHOT</version>
+        <version>1.16.2</version>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.incode.mavenmixin</groupId>
         <artifactId>incode-mavenmixin-validate</artifactId>
-        <version>1.16.3-SNAPSHOT</version>
+        <version>1.16.2</version>
         <type>pom</type>
       </dependency>
       <dependency>

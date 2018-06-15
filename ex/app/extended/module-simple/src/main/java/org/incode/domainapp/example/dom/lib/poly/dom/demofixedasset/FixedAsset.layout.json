@@ -1,0 +1,73 @@
+{
+    "columns": [
+        {
+            "span": 4,
+            "memberGroups": {
+                "General": {
+                    "members": {
+                        "name": {
+                            "actions": {
+                                "updateName": {
+                                    "actionLayout": {
+                                        "position": "BOTTOM"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "span": 4,
+            "memberGroups": {
+                "Comms": {
+                    "members": {
+                        "communicationChannel": {
+                            "actions": {
+                                "createCommunicationChannel": {
+                                    "actionLayout": {
+                                        "named": "Create"
+                                    }
+                                },
+                                "deleteCommunicationChannel": {
+                                    "actionLayout": {
+                                        "named": "Delete"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "span": 0,
+            "memberGroups": {
+            }
+        },
+        {
+            "span": 4,
+            "collections": {
+                "cases": {
+                    "collectionLayout": {
+                        "render": "EAGERLY"
+                    },
+                    "actions": {
+                        "addToCase": {
+                            "actionLayout": {
+                                "named": "Add"
+                            }
+                        },
+                        "removeFromCase": {
+                            "actionLayout": {
+                                "named": "Remove"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ],
+    "actions": {}
+}

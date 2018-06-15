@@ -1,0 +1,49 @@
+{
+    "columns": [
+        {
+            "span": 6,
+            "memberGroups": {
+                "General": {
+                    "members": {
+                        "details": {
+                            "actions": {
+                                "updateDetails": {
+                                    "actionLayout": {
+                                        "position": "BOTTOM"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "span": 0,
+            "memberGroups": {}
+        },
+        {
+            "span": 6,
+            "memberGroups": {
+                "Owner": {
+                    "members": {
+                        "owner": {
+                            "actions": {
+                                "ownerLink": {
+                                    "actionLayout": {
+                                        "hidden": "NOWHERE"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "span": 12,
+            "collections": {}
+        }
+    ],
+    "actions": {}
+}

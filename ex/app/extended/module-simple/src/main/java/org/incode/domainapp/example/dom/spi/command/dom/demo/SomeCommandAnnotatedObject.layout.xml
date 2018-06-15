@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bs3:grid xsi:schemaLocation="http://isis.apache.org/applib/layout/component http://isis.apache.org/applib/layout/component/component.xsd http://isis.apache.org/applib/layout/grid/bootstrap3 http://isis.apache.org/applib/layout/grid/bootstrap3/bootstrap3.xsd" xmlns:bs3="http://isis.apache.org/applib/layout/grid/bootstrap3" xmlns:cpt="http://isis.apache.org/applib/layout/component" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <bs3:row>
+        <bs3:col span="12" unreferencedActions="true">
+            <cpt:domainObject/>
+        </bs3:col>
+    </bs3:row>
+    <bs3:row>
+        <bs3:col span="4">
+            <cpt:fieldSet name="General" id="general">
+                <cpt:property id="name">
+                    <cpt:describedAs>property changed through regular actions</cpt:describedAs>
+                    <cpt:action id="changeName" position="BELOW"/>
+                    <cpt:action id="changeNameExplicitlyInBackgroundUsingDirectAction" position="BELOW"/>
+                    <cpt:action id="changeNameExplicitlyInBackgroundUsingPropertyEdit"/>
+                    <cpt:action id="changeNameImplicitlyInBackground" position="BELOW"/>
+                    <cpt:action id="changeNameWithSafeSemantics" position="BELOW"/>
+                    <cpt:action id="changeNameCommandNotPersisted" position="BELOW"/>
+                </cpt:property>
+            </cpt:fieldSet>
+            <cpt:fieldSet name="Description" id="description">
+                <cpt:property id="description">
+                    <cpt:describedAs>property changed through mixins</cpt:describedAs>
+                    <cpt:action id="changeDescription" position="BELOW"/>
+                    <cpt:action id="changeDescriptionExplicitlyInBackground" position="BELOW"/>
+                    <cpt:action id="changeDescriptionImplicitlyInBackground" position="BELOW"/>
+                </cpt:property>
+            </cpt:fieldSet>
+            <cpt:fieldSet name="Other" id="other" unreferencedProperties="true">
+            </cpt:fieldSet>
+        </bs3:col>
+        <bs3:col span="4">
+            <cpt:fieldSet name="Color" id="color">
+                <cpt:property id="colour">
+                    <cpt:action id="changeColor"/>
+                    <cpt:action id="changeColorViaMixin"/>
+                </cpt:property>
+                <cpt:property id="copyOfColorUpdatedBySubscribedBackgroundMixinAction">
+                    <cpt:action id="updateCopyOfColorUpdatedBySubscribedBackgroundMixinAction"/>
+                </cpt:property>
+                <cpt:property id="copyOfColorUpdatedBySubscribedBackgroundDirectAction"/>
+                <cpt:property id="copyOfColorUpdatedBySubscribedBackgroundPropertyEdit"/>
+            </cpt:fieldSet>
+            <cpt:fieldSet name="Flag" id="flag">
+                <cpt:property id="flag">
+                    <cpt:action id="toggleForBulkActions"/>
+                    <cpt:action id="toggleViaMixin"/>
+                </cpt:property>
+            </cpt:fieldSet>
+        </bs3:col>
+        <bs3:col span="4">
+            <cpt:fieldSet name="Address" id="address">
+                <cpt:property id="addressImplicitlyEditBackground"/>
+            </cpt:fieldSet>
+            <cpt:fieldSet name="Metadata" id="metadata">
+                <cpt:action id="clearHints" position="PANEL_DROPDOWN"/>
+                <cpt:action id="downloadLayoutXml" position="PANEL_DROPDOWN"/>
+                <cpt:action id="downloadJdoMetadata" position="PANEL_DROPDOWN"/>
+                <cpt:action id="rebuildMetamodel" position="PANEL_DROPDOWN"/>
+                <cpt:property id="datanucleusIdLong"/>
+                <cpt:property id="datanucleusVersionLong"/>
+                <cpt:property id="datanucleusVersionTimestamp"/>
+            </cpt:fieldSet>
+        </bs3:col>
+        <bs3:col span="12" unreferencedCollections="true">
+        </bs3:col>
+        <bs3:col span="12" unreferencedCollections="true">
+            <cpt:collection id="commands"/>
+        </bs3:col>
+    </bs3:row>
+</bs3:grid>

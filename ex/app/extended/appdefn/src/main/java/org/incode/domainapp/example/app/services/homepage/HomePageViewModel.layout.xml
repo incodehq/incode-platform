@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bs3:grid xsi:schemaLocation="http://isis.apache.org/applib/layout/component http://isis.apache.org/applib/layout/component/component.xsd http://isis.apache.org/applib/layout/grid/bootstrap3 http://isis.apache.org/applib/layout/grid/bootstrap3/bootstrap3.xsd" xmlns="http://isis.apache.org/applib/layout/component" xmlns:bs3="http://isis.apache.org/applib/layout/grid/bootstrap3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <bs3:row>
+        <bs3:col span="12" unreferencedCollections="true">
+            <bs3:tabGroup>
+                <bs3:tab name="Demo">
+                    <bs3:row>
+                        <bs3:col span="6">
+                            <collection id="demoObjects"/>
+                        </bs3:col>
+                        <bs3:col span="6">
+                            <collection id="demoObjectsWithAtPath"/>
+                        </bs3:col>
+                        <bs3:col span="4">
+                            <collection id="demoObjectsWithBlob"/>
+                        </bs3:col>
+                        <bs3:col span="4">
+                            <collection id="demoObjectWithNotes"/>
+                        </bs3:col>
+                        <bs3:col span="4">
+                            <collection id="demoObjectsWithUrl"/>
+                        </bs3:col>
+                        <bs3:col span="12">
+                            <collection id="demoObjectsWithAll"/>
+                        </bs3:col>
+                    </bs3:row>
+                </bs3:tab>
+                <bs3:tab name="Other">
+                    <bs3:row>
+                        <bs3:col span="6">
+                            <collection id="otherObjects"/>
+                        </bs3:col>
+                        <bs3:col span="6">
+                            <collection id="otherObjectsWithAtPath"/>
+                        </bs3:col>
+                    </bs3:row>
+                </bs3:tab>
+                <bs3:tab name="More demo">
+                    <bs3:row>
+                        <bs3:col span="6">
+                            <collection id="demoCustomers"/>
+                            <collection id="demoOrders"/>
+                            <collection id="demoReminders"/>
+                        </bs3:col>
+                        <bs3:col span="6">
+                            <collection id="demoInvoices"/>
+                            <collection id="demoInvoicesWithAtPath"/>
+                        </bs3:col>
+                        <bs3:col span="12">
+                            <collection id="demoToDoItems"/>
+                        </bs3:col>
+                    </bs3:row>
+                </bs3:tab>
+                <bs3:tab name="Subdomains (dom)">
+                    <bs3:row>
+                        <bs3:col span="12">
+                            <bs3:tabGroup>
+                                <bs3:tab name="Alias">
+                                    <bs3:row>
+                                        <bs3:col span="6">
+                                            <collection id="demoObjects" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <collection id="aliases" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="Classification">
+                                    <bs3:row>
+                                        <bs3:col span="6">
+                                            <collection id="taxonomies" defaultView="table"/>
+                                            <collection id="classifications" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <collection id="categories" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <collection id="demoObjectsWithAtPath" defaultView="table"/>
+                                            <collection id="classificationApplicabilities" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <collection id="otherObjectsWithAtPath" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="CommChannel">
+                                    <bs3:row>
+                                        <bs3:col span="6">
+                                            <collection id="ccEmailAddresses" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <collection id="ccPhoneOrFaxNumbers" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="12">
+                                            <collection id="ccPostalAddresses" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="12">
+                                            <collection id="demoObjects" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="Communications">
+                                    <bs3:row>
+                                        <bs3:col span="6">
+                                            <collection id="commChannelRoles" defaultView="table"/>
+                                            <collection id="documentTypes" defaultView="table"/>
+                                            <collection id="documentTemplates" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <collection id="renderingStrategies" defaultView="table"/>
+                                            <collection id="documentApplicabilities" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                    <bs3:row>
+                                        <bs3:col span="6">
+                                            <collection id="emailAddresses" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <collection id="phoneOrFaxNumbers" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="12">
+                                            <collection id="postalAddresses" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <collection id="demoObjectWithNotes" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <collection id="demoInvoices" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <collection id="communications" defaultView="table"/>
+                                            <collection id="paperclipForCommunications" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <collection id="documents" defaultView="table"/>
+                                        </bs3:col>
+
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="Country">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <collection id="countries" defaultView="table"/>
+                                            <collection id="states" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="DocFragment">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <collection id="docFragments" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                    <bs3:row>
+                                        <bs3:col span="6">
+                                            <collection id="demoCustomers" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <collection id="demoInvoicesWithAtPath" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="Document">
+                                    <bs3:row>
+                                        <bs3:col span="6">
+                                            <collection id="documentTypes" defaultView="table"/>
+                                            <collection id="documentTemplates" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <collection id="renderingStrategies" defaultView="table"/>
+                                            <collection id="documentApplicabilities" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                    <bs3:row>
+                                        <bs3:col span="6">
+                                            <collection id="demoObjectsWithUrl" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <collection id="otherObjects" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <collection id="documents" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="Note">
+                                    <bs3:row>
+                                        <bs3:col span="6">
+                                            <collection id="demoObjects" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <collection id="notes" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="Settings">
+                                    <bs3:row>
+                                        <bs3:col span="6">
+                                            <collection id="applicationSettings" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <collection id="userSettings" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="Tags">
+                                    <bs3:row>
+                                        <bs3:col span="6">
+                                            <collection id="demoTaggableObjects" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <collection id="tags" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                            </bs3:tabGroup>
+                        </bs3:col>
+                    </bs3:row>
+                </bs3:tab>
+                <bs3:tab name="Extensions (ext)">
+                    <bs3:row>
+                        <bs3:col span="12">
+                            <bs3:tabGroup>
+                                <bs3:tab name="flywaydb">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <!-- nothing to see here... -->
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="quartz">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <!-- nothing to see here... -->
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="togglz">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <!-- nothing to see here... -->
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                            </bs3:tabGroup>
+                        </bs3:col>
+                    </bs3:row>
+                </bs3:tab>
+                <bs3:tab name="Libraries (lib)">
+                    <bs3:row>
+                        <bs3:col span="12">
+                            <bs3:tabGroup>
+                                <bs3:tab name="docx">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <collection id="demoOrders" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="excel">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <collection id="demoToDoItems" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="fakedata">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <collection id="demoObjectsWithAll" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="poly">
+                                    <bs3:row>
+                                        <bs3:col span="6">
+                                            <collection id="parties" defaultView="table"/>
+                                            <collection id="communicationChannels" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <collection id="fixedAssets" defaultView="table"/>
+                                            <collection id="cases" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="servlet api">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <collection id="servletApiDemoObjects" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="string interpolator">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <collection id="demoReminders" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                            </bs3:tabGroup>
+                        </bs3:col>
+                    </bs3:row>
+                </bs3:tab>
+                <bs3:tab name="SPI">
+                    <bs3:row>
+                        <bs3:col span="12">
+                            <bs3:tabGroup>
+                                <bs3:tab name="audit">
+                                    <bs3:row>
+                                        <bs3:col span="6">
+                                            <collection id="someAuditedObjects" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <collection id="someNotAuditedObjects" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="12">
+                                            <collection id="auditEntries" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="command">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <collection id="someCommandAnnotatedObjects" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="12">
+                                            <collection id="commands" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="publishmq">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <collection id="publishMqDemoObjects" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="12">
+                                            <collection id="publishedEvents" defaultView="table"/>
+                                            <collection id="statusMessages" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="security">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <collection id="applicationUsers" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <collection id="applicationRoles" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <collection id="applicationTenancies" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="12">
+                                            <collection id="applicationPermissions" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <collection id="tenantedEntities" defaultView="table"/>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <collection id="nonTenantedEntities" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="sessionlogger">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <collection id="sessionLogEntries" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                            </bs3:tabGroup>
+                        </bs3:col>
+                    </bs3:row>
+                </bs3:tab>
+                <bs3:tab name="Wicket Components (wkt)">
+                    <bs3:row>
+                        <bs3:col span="12">
+                            <bs3:tabGroup>
+                                <bs3:tab name="excel">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <collection id="demoToDoItemsNotYetComplete" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="fullcalendar2">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <collection id="demoToDoItemsNotYetComplete" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="gmap3">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <collection id="demoToDoItemsNotYetComplete" defaultView="table"/>
+                                            <collection id="demoToDoItemsComplete" defaultView="table"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="pdf.js">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <collection id="demoObjectsWithBlob" defaultView="table"/>
+                                        </bs3:col>
+
+                                        <bs3:col span="6">
+                                            <bs3:row>
+                                                <bs3:col span="12">
+                                                    <collection id="demoObjectsWithBlob" defaultView="table">
+                                                        <action id="previous"/>
+                                                        <action id="next"/>
+                                                    </collection>
+                                                </bs3:col>
+                                            </bs3:row>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <fieldSet name="Documents" unreferencedProperties="true">
+                                                <property id="blob"/>
+                                                <property id="idx" hidden="OBJECT_FORMS"/>
+                                                <property id="selected" hidden="OBJECT_FORMS"/>
+                                            </fieldSet>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="summernote">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <collection id="demoToDoItemsNotYetComplete"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="wickedcharts">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <!-- nothing to see here -->
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                            </bs3:tabGroup>
+                        </bs3:col>
+                    </bs3:row>
+                </bs3:tab>
+            </bs3:tabGroup>
+        </bs3:col>
+    </bs3:row>
+    <bs3:row>
+        <bs3:col span="6">
+            <fieldSet name="General" id="general" unreferencedProperties="true" unreferencedActions="true"/>
+        </bs3:col>
+        <bs3:col span="6" unreferencedCollections="true"/>
+    </bs3:row>
+</bs3:grid>

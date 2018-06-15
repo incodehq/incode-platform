@@ -81,6 +81,18 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
+                <artifactId>incode-extended-integtests</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-extended-main-slack</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>incode-extended-example-appdefn</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -93,14 +105,14 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-example-dom</artifactId>
+                <artifactId>incode-extended-embeddedcamel</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-embeddedcamel</artifactId>
-                <version>${project.version}</version>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
             </dependency>
 
         </dependencies>
@@ -124,7 +136,6 @@
                 </property>
             </activation>
             <modules>
-                <module>example/dom</module>
                 <module>module-simple</module>
             </modules>
         </profile>
@@ -137,6 +148,9 @@
                 </property>
             </activation>
             <modules>
+                <module>canonical</module>
+                <module>embeddedcamel</module>
+
                 <module>module-base</module>
                 <module>module-simple</module>
                 <module>integtests</module>
@@ -144,11 +158,6 @@
                 <module>webapp</module>
 
                 <module>main-slack</module>
-
-                <module>canonical</module>
-                <module>embeddedcamel</module>
-
-
             </modules>
         </profile>
     </profiles>

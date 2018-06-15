@@ -287,12 +287,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.datanucleus</groupId>
-            <artifactId>datanucleus-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-
     </dependencies>
 
 </project>
