@@ -23,13 +23,12 @@ import org.apache.isis.applib.value.Password;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.domainapp.example.dom.demo.dom.demowithall.DemoObjectWithAll;
-import org.incode.platform.lib.fakedata.integtests.FakeDataModuleIntegTestAbstract;
-
-import org.incode.domainapp.example.dom.demo.dom.demowithall.EnumOf3;
-import org.incode.domainapp.example.dom.demo.dom.demowithall.DemoObjectWithAllMenu;
 import org.incode.domainapp.example.dom.lib.fakedata.fixture.DemoObjectWithAll_recreate3;
 import org.incode.domainapp.example.dom.lib.fakedata.fixture.data.DemoObjectWithAll_update_withFakeData;
+import org.incode.domainapp.module.fixtures.shared.demowithall.dom.DemoObjectWithAll;
+import org.incode.domainapp.module.fixtures.shared.demowithall.dom.DemoObjectWithAllMenu;
+import org.incode.domainapp.module.fixtures.shared.demowithall.dom.EnumOf3;
+import org.incode.platform.lib.fakedata.integtests.FakeDataModuleIntegTestAbstract;
 
 public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstract {
 

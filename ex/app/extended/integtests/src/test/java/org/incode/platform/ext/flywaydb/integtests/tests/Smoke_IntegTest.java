@@ -9,9 +9,9 @@ import org.junit.Test;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
-import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
-import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
-import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObject_tearDown;
+import org.incode.domainapp.module.fixtures.shared.demo.dom.DemoObject;
+import org.incode.domainapp.module.fixtures.shared.demo.dom.DemoObjectMenu;
+import org.incode.domainapp.module.fixtures.shared.demo.fixture.DemoObject_tearDown;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

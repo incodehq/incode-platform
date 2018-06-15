@@ -11,12 +11,12 @@ import org.junit.Test;
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
 
+import org.incode.domainapp.module.fixtures.per_cpt.lib.docx.dom.CustomerConfirmation;
+import org.incode.domainapp.module.fixtures.shared.order.dom.DemoOrder;
+import org.incode.domainapp.module.fixtures.shared.order.dom.DemoOrderMenu;
+import org.incode.domainapp.module.fixtures.shared.order.fixture.DemoOrderAndOrderLine_recreate4_hardcodedData;
 import org.incode.platform.lib.docx.integtests.DocxModuleIntegTestAbstract;
 
-import org.incode.domainapp.example.dom.demo.dom.order.DemoOrder;
-import org.incode.domainapp.example.dom.demo.dom.order.DemoOrderMenu;
-import org.incode.domainapp.example.dom.lib.docx.dom.custconfirm.CustomerConfirmation;
-import org.incode.domainapp.example.dom.demo.fixture.setup.DemoOrderAndOrderLine_recreate4_hardcodedData;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertThat;

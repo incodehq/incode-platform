@@ -9,13 +9,13 @@ import org.junit.Test;
 
 import org.apache.isis.applib.services.factory.FactoryService;
 
-import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPath;
-import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPathMenu;
-import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPath;
-import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPathMenu;
-import org.incode.domainapp.example.dom.dom.classification.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath;
-import org.incode.domainapp.example.dom.dom.classification.dom.classification.otherwithatpath.ClassificationForOtherObjectWithAtPath;
-import org.incode.domainapp.example.dom.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_recreate3;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.classification.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.classification.dom.classification.otherwithatpath.ClassificationForOtherObjectWithAtPath;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_recreate3;
+import org.incode.domainapp.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPath;
+import org.incode.domainapp.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPathMenu;
+import org.incode.domainapp.module.fixtures.shared.otherwithatpath.dom.OtherObjectWithAtPath;
+import org.incode.domainapp.module.fixtures.shared.otherwithatpath.dom.OtherObjectWithAtPathMenu;
 import org.incode.example.classification.dom.impl.applicability.ApplicabilityRepository;
 import org.incode.example.classification.dom.impl.category.CategoryRepository;
 import org.incode.example.classification.dom.impl.classification.Classification;

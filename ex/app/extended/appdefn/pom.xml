@@ -96,7 +96,7 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>incode-extended-module-simple</artifactId>
+            <artifactId>incode-extended-module-fixtures</artifactId>
         </dependency>
 
         <dependency>
@@ -213,7 +213,7 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>incode-extended-module-simple</artifactId>
+            <artifactId>incode-extended-module-fixtures</artifactId>
             <scope>test</scope>
             <type>test-jar</type>
         </dependency>

@@ -7,10 +7,10 @@ import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
-import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
-import org.incode.domainapp.example.dom.demo.fixture.data.DemoObjectData;
-import org.incode.domainapp.example.dom.demo.fixture.teardown.sub.DemoObject_tearDown;
+import org.incode.domainapp.module.fixtures.shared.demo.dom.DemoObject;
+import org.incode.domainapp.module.fixtures.shared.demo.dom.DemoObjectMenu;
+import org.incode.domainapp.module.fixtures.shared.demo.fixture.DemoObjectData;
+import org.incode.domainapp.module.fixtures.shared.demo.fixture.DemoObject_tearDown;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

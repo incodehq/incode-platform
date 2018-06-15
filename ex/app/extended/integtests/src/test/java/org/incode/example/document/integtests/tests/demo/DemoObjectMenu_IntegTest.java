@@ -8,11 +8,11 @@ import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.incode.domainapp.example.dom.demo.dom.demowithurl.DemoObjectWithUrl;
-import org.incode.domainapp.example.dom.demo.dom.demowithurl.DemoObjectWithUrlMenu;
-import org.incode.domainapp.example.dom.demo.fixture.setup.DemoObjectWithUrl_createUpTo5_fakeData;
 import org.incode.domainapp.example.dom.dom.document.fixture.DemoModule_and_DocTypesAndTemplates_tearDown;
 import org.incode.domainapp.example.dom.dom.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
+import org.incode.domainapp.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
+import org.incode.domainapp.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrlMenu;
+import org.incode.domainapp.module.fixtures.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;
 import org.incode.example.document.integtests.DocumentModuleIntegTestAbstract;
 
 public class DemoObjectMenu_IntegTest extends DocumentModuleIntegTestAbstract {

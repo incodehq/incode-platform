@@ -16,10 +16,10 @@ import org.isisaddons.wicket.gmap3.cpt.applib.Gmap3ApplibModule;
 import org.isisaddons.wicket.gmap3.cpt.service.Gmap3ServiceModule;
 import org.isisaddons.wicket.gmap3.cpt.ui.Gmap3UiModule;
 
-import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
-import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
 import org.incode.domainapp.example.dom.dom.commchannel.ExampleDomModuleCommChannelModule;
 import org.incode.domainapp.example.dom.dom.commchannel.fixture.DemoObject_withCommChannels_recreate3;
+import org.incode.domainapp.module.fixtures.shared.demo.dom.DemoObject;
+import org.incode.domainapp.module.fixtures.shared.demo.dom.DemoObjectMenu;
 import org.incode.example.commchannel.dom.CommChannelModule;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;

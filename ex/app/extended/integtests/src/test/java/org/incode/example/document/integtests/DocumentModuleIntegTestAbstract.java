@@ -6,15 +6,14 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 
 import org.isisaddons.module.fakedata.FakeDataModule;
 
-import org.incode.domainapp.example.dom.demo.ExampleDomDemoDomSubmodule;
 import org.incode.domainapp.example.dom.dom.document.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
-import org.incode.example.document.integtests.app.DocumentModuleAppManifest;
+import org.incode.domainapp.example.dom.dom.document.dom.paperclips.other.PaperclipForOtherObject;
+import org.incode.domainapp.module.fixtures.shared.ExampleDomDemoDomSubmodule;
+import org.incode.domainapp.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
+import org.incode.domainapp.module.fixtures.shared.other.dom.OtherObject;
 import org.incode.example.document.dom.impl.docs.Document;
 import org.incode.example.document.dom.impl.docs.Document_delete;
-
-import org.incode.domainapp.example.dom.demo.dom.demowithurl.DemoObjectWithUrl;
-import org.incode.domainapp.example.dom.demo.dom.other.OtherObject;
-import org.incode.domainapp.example.dom.dom.document.dom.paperclips.other.PaperclipForOtherObject;
+import org.incode.example.document.integtests.app.DocumentModuleAppManifest;
 
 public abstract class DocumentModuleIntegTestAbstract extends IntegrationTestAbstract2 {
 

@@ -13,12 +13,12 @@ import org.apache.isis.applib.annotation.Nature;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPath;
-import org.incode.domainapp.example.dom.demo.dom.demowithatpath.DemoObjectWithAtPathMenu;
-import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPath;
-import org.incode.domainapp.example.dom.demo.dom.otherwithatpath.OtherObjectWithAtPathMenu;
-import org.incode.domainapp.example.dom.dom.classification.ExampleDomModuleClassificationModule;
-import org.incode.domainapp.example.dom.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_recreate3;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.classification.ExampleDomModuleClassificationModule;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_recreate3;
+import org.incode.domainapp.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPath;
+import org.incode.domainapp.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPathMenu;
+import org.incode.domainapp.module.fixtures.shared.otherwithatpath.dom.OtherObjectWithAtPath;
+import org.incode.domainapp.module.fixtures.shared.otherwithatpath.dom.OtherObjectWithAtPathMenu;
 import org.incode.example.classification.dom.ClassificationModule;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;

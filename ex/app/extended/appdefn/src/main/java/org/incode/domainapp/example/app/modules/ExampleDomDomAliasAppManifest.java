@@ -13,10 +13,10 @@ import org.apache.isis.applib.annotation.Nature;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
-import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
-import org.incode.domainapp.example.dom.dom.alias.ExampleDomModuleAliasModule;
-import org.incode.domainapp.example.dom.dom.alias.fixture.DemoObject_withAliases_recreate2;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.alias.fixture.DemoObject_withAliases_recreate2;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.alias.ExampleDomModuleAliasModule;
+import org.incode.domainapp.module.fixtures.shared.demo.dom.DemoObject;
+import org.incode.domainapp.module.fixtures.shared.demo.dom.DemoObjectMenu;
 import org.incode.example.alias.dom.AliasModule;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;

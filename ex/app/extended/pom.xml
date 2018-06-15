@@ -25,6 +25,8 @@
         <isis.version>${isisVersion}</isis.version>
         <incode-platform.version>${revision}</incode-platform.version>
 
+        <lombok.version>1.16.20</lombok.version>
+
         <spring.version>4.1.9.RELEASE</spring.version>
         <jetty.version>9.4.3.v20170317</jetty.version>
         <activemq-web.version>5.14.3</activemq-web.version>
@@ -61,13 +63,13 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-module-simple</artifactId>
+                <artifactId>incode-extended-module-fixtures</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-module-simple</artifactId>
+                <artifactId>incode-extended-module-fixtures</artifactId>
                 <scope>test</scope>
                 <type>test-jar</type>
                 <version>${project.version}</version>
@@ -136,7 +138,7 @@
                 </property>
             </activation>
             <modules>
-                <module>module-simple</module>
+                <module>module-fixtures</module>
             </modules>
         </profile>
 
@@ -152,7 +154,7 @@
                 <module>embeddedcamel</module>
 
                 <module>module-base</module>
-                <module>module-simple</module>
+                <module>module-fixtures</module>
                 <module>integtests</module>
                 <module>appdefn</module>
                 <module>webapp</module>

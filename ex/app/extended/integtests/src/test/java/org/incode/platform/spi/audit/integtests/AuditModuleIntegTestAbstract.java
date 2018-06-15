@@ -4,7 +4,7 @@ import org.junit.BeforeClass;
 
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 
-import org.incode.domainapp.example.dom.demo.ExampleDomDemoDomSubmodule;
+import org.incode.domainapp.module.fixtures.shared.ExampleDomDemoDomSubmodule;
 import org.incode.platform.spi.audit.integtests.app.AuditSpiAppManifest;
 
 public abstract class AuditModuleIntegTestAbstract extends IntegrationTestAbstract2 {

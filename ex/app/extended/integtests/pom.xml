@@ -62,9 +62,10 @@
 
     <dependencies>
 
+
         <dependency>
             <groupId>org.incode.example.application</groupId>
-            <artifactId>incode-extended-module-simple</artifactId>
+            <artifactId>incode-extended-module-fixtures</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>

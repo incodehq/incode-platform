@@ -9,12 +9,12 @@ import org.junit.Test;
 
 import org.apache.isis.core.commons.config.IsisConfiguration;
 
-import org.incode.domainapp.example.dom.demo.dom.reminder.DemoReminder;
+import org.incode.domainapp.example.dom.lib.stringinterpolator.dom.DemoReminderStringInterpolatorContributions;
+import org.incode.domainapp.module.fixtures.shared.reminder.dom.DemoReminder;
+import org.incode.domainapp.module.fixtures.shared.reminder.dom.DemoReminderMenu;
+import org.incode.domainapp.module.fixtures.shared.reminder.fixture.DemoReminder_recreate4;
 import org.incode.platform.lib.stringinterpolator.integtests.StringInterpolatorDemoIntegTestAbstract;
 
-import org.incode.domainapp.example.dom.lib.stringinterpolator.dom.DemoReminderStringInterpolatorContributions;
-import org.incode.domainapp.example.dom.demo.dom.reminder.DemoReminderMenu;
-import org.incode.domainapp.example.dom.demo.fixture.reminders.DemoReminder_recreate4;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 

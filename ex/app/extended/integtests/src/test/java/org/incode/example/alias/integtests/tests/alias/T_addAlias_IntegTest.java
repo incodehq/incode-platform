@@ -16,6 +16,8 @@ import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
+import org.incode.domainapp.module.fixtures.per_cpt.examples.alias.fixture.DemoObject_withAliases_tearDown;
+import org.incode.domainapp.module.fixtures.shared.demo.dom.DemoObjectMenu;
 import org.incode.example.alias.dom.impl.Alias;
 import org.incode.example.alias.dom.impl.T_addAlias;
 import org.incode.example.alias.dom.spi.AliasType;
@@ -23,8 +25,6 @@ import org.incode.example.alias.dom.spi.AliasTypeRepository;
 import org.incode.example.alias.dom.spi.ApplicationTenancyRepository;
 import org.incode.example.alias.integtests.AliasModuleIntegTestAbstract;
 
-import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
-import org.incode.domainapp.example.dom.dom.alias.fixture.DemoObject_withAliases_tearDown;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class T_addAlias_IntegTest extends AliasModuleIntegTestAbstract {

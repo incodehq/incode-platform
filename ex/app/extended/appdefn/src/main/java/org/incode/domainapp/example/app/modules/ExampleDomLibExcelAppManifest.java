@@ -14,10 +14,10 @@ import org.isisaddons.module.excel.ExcelModule;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItem;
-import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItemMenu;
-import org.incode.domainapp.example.dom.demo.fixture.todoitems.DemoToDoItem_recreate_usingExcelFixture;
-import org.incode.domainapp.example.dom.lib.excel.ExampleDomLibExcelModule;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.excel.ExampleDomLibExcelModule;
+import org.incode.domainapp.module.fixtures.shared.todo.dom.DemoToDoItem;
+import org.incode.domainapp.module.fixtures.shared.todo.dom.DemoToDoItemMenu;
+import org.incode.domainapp.module.fixtures.shared.todo.fixture.DemoToDoItem_recreate_usingExcelFixture;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;

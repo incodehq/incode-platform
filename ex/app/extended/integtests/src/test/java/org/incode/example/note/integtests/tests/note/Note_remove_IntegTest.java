@@ -14,10 +14,10 @@ import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
-import org.incode.domainapp.example.dom.demo.dom.demo.DemoObject;
-import org.incode.domainapp.example.dom.demo.dom.demo.DemoObjectMenu;
 import org.incode.domainapp.example.dom.dom.note.dom.spiimpl.CalendarNameRepositoryForDemo;
 import org.incode.domainapp.example.dom.dom.note.fixture.DemoModule_withNotes_tearDown;
+import org.incode.domainapp.module.fixtures.shared.demo.dom.DemoObject;
+import org.incode.domainapp.module.fixtures.shared.demo.dom.DemoObjectMenu;
 import org.incode.example.note.dom.impl.note.Note;
 import org.incode.example.note.dom.impl.note.Note_remove;
 import org.incode.example.note.integtests.NoteModuleIntegTestAbstract;

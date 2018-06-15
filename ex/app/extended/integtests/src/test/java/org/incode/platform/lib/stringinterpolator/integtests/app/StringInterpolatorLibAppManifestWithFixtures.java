@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.example.dom.demo.fixture.reminders.DemoReminder_recreate4;
+import org.incode.domainapp.module.fixtures.shared.reminder.fixture.DemoReminder_recreate4;
 
 public class StringInterpolatorLibAppManifestWithFixtures extends StringInterpolatorLibAppManifest {
 

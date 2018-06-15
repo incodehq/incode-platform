@@ -14,10 +14,10 @@ import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.example.dom.demo.dom.demowithall.DemoObjectWithAll;
-import org.incode.domainapp.example.dom.demo.dom.demowithall.DemoObjectWithAllMenu;
 import org.incode.domainapp.example.dom.lib.fakedata.ExampleDomLibFakeDataModule;
 import org.incode.domainapp.example.dom.lib.fakedata.fixture.DemoObjectWithAll_recreate3;
+import org.incode.domainapp.module.fixtures.shared.demowithall.dom.DemoObjectWithAll;
+import org.incode.domainapp.module.fixtures.shared.demowithall.dom.DemoObjectWithAllMenu;
 
 import domainapp.appdefn.DomainAppAppManifestAbstract;
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;

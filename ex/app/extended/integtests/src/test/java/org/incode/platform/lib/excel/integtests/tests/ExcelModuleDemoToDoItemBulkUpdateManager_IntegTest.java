@@ -20,13 +20,13 @@ import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.ExcelService;
 
-import org.incode.domainapp.example.dom.demo.dom.todo.DemoToDoItemMenu;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.excel.dom.bulkupdate.BulkUpdateLineItemForDemoToDoItem;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.excel.dom.bulkupdate.BulkUpdateManagerForDemoToDoItem;
+import org.incode.domainapp.module.fixtures.per_cpt.lib.excel.dom.bulkupdate.BulkUpdateMenuForDemoToDoItem;
+import org.incode.domainapp.module.fixtures.shared.todo.dom.DemoToDoItemMenu;
+import org.incode.domainapp.module.fixtures.shared.todo.fixture.DemoToDoItem_recreate_usingExcelFixture;
 import org.incode.platform.lib.excel.integtests.ExcelModuleModuleIntegTestAbstract;
 
-import org.incode.domainapp.example.dom.lib.excel.dom.bulkupdate.BulkUpdateLineItemForDemoToDoItem;
-import org.incode.domainapp.example.dom.lib.excel.dom.bulkupdate.BulkUpdateManagerForDemoToDoItem;
-import org.incode.domainapp.example.dom.lib.excel.dom.bulkupdate.BulkUpdateMenuForDemoToDoItem;
-import org.incode.domainapp.example.dom.demo.fixture.todoitems.DemoToDoItem_recreate_usingExcelFixture;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 

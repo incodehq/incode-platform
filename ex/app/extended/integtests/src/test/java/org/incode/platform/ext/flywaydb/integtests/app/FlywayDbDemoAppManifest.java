@@ -2,7 +2,7 @@ package org.incode.platform.ext.flywaydb.integtests.app;
 
 import org.apache.isis.applib.AppManifestAbstract;
 
-import org.incode.domainapp.example.dom.demo.ExampleDomDemoDomSubmodule;
+import org.incode.domainapp.module.fixtures.shared.ExampleDomDemoDomSubmodule;
 
 /**
  * Bootstrap the application.

@@ -13,9 +13,9 @@ import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
 import org.incode.domainapp.example.dom.dom.docfragment.fixture.DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_recreate;
+import org.incode.domainapp.module.fixtures.shared.invoicewithatpath.dom.DemoInvoiceWithAtPath;
+import org.incode.domainapp.module.fixtures.shared.invoicewithatpath.fixture.DemoInvoiceWithAtPathData;
 import org.incode.platform.dom.docfragment.integtests.DocFragmentModuleIntegTestAbstract;
-import org.incode.domainapp.example.dom.demo.dom.invoicewithatpath.DemoInvoiceWithAtPath;
-import org.incode.domainapp.example.dom.demo.fixture.data.DemoInvoiceWithAtPathData;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

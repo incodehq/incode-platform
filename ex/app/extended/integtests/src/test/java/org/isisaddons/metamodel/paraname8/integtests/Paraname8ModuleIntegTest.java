@@ -6,7 +6,7 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 
 import org.isisaddons.metamodel.paraname8.app.Paraname8MetaModelAppManifest;
 
-import org.incode.domainapp.example.dom.demo.ExampleDomDemoDomSubmodule;
+import org.incode.domainapp.module.fixtures.shared.ExampleDomDemoDomSubmodule;
 
 public abstract class Paraname8ModuleIntegTest extends IntegrationTestAbstract2 {
 

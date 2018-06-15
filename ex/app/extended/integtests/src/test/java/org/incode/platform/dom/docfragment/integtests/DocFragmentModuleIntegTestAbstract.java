@@ -7,7 +7,7 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 import org.isisaddons.module.freemarker.dom.service.FreeMarkerService;
 
-import org.incode.domainapp.example.dom.demo.ExampleDomDemoDomSubmodule;
+import org.incode.domainapp.module.fixtures.shared.ExampleDomDemoDomSubmodule;
 import org.incode.platform.dom.docfragment.integtests.app.DocFragmentAppAppManifest;
 
 public abstract class DocFragmentModuleIntegTestAbstract extends IntegrationTestAbstract2 {

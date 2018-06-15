@@ -14,12 +14,12 @@ import org.isisaddons.module.freemarker.dom.FreeMarkerModule;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotes;
-import org.incode.domainapp.example.dom.demo.dom.demowithnotes.DemoObjectWithNotesMenu;
-import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoice;
-import org.incode.domainapp.example.dom.demo.dom.invoice.DemoInvoiceRepository;
 import org.incode.domainapp.example.dom.dom.communications.ExampleDomModuleCommunicationsModule;
 import org.incode.domainapp.example.dom.dom.communications.fixture.DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_recreate;
+import org.incode.domainapp.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotes;
+import org.incode.domainapp.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotesMenu;
+import org.incode.domainapp.module.fixtures.shared.invoice.dom.DemoInvoice;
+import org.incode.domainapp.module.fixtures.shared.invoice.dom.DemoInvoiceRepository;
 import org.incode.example.communications.dom.CommunicationsModule;
 import org.incode.example.country.dom.impl.Country;
 import org.incode.example.docrendering.freemarker.dom.FreemarkerDocRenderingModule;

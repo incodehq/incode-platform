@@ -17,12 +17,12 @@ import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServic
 import org.isisaddons.module.stringinterpolator.StringInterpolatorModule;
 import org.isisaddons.module.xdocreport.dom.XDocReportModule;
 
-import org.incode.domainapp.example.dom.demo.dom.demowithurl.DemoObjectWithUrl;
-import org.incode.domainapp.example.dom.demo.dom.demowithurl.DemoObjectWithUrlMenu;
-import org.incode.domainapp.example.dom.demo.dom.other.OtherObject;
-import org.incode.domainapp.example.dom.demo.dom.other.OtherObjectMenu;
 import org.incode.domainapp.example.dom.dom.document.ExampleDomModuleDocumentModule;
 import org.incode.domainapp.example.dom.dom.document.fixture.DemoObjectWithUrl_and_OtherObject_and_docrefdata_recreate;
+import org.incode.domainapp.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
+import org.incode.domainapp.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrlMenu;
+import org.incode.domainapp.module.fixtures.shared.other.dom.OtherObject;
+import org.incode.domainapp.module.fixtures.shared.other.dom.OtherObjectMenu;
 import org.incode.example.docrendering.freemarker.dom.FreemarkerDocRenderingModule;
 import org.incode.example.docrendering.stringinterpolator.dom.StringInterpolatorDocRenderingModule;
 import org.incode.example.docrendering.xdocreport.dom.XDocReportDocRenderingModule;

@@ -9,10 +9,9 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.domainapp.example.dom.demo.ExampleDomDemoDomSubmodule;
+import org.incode.domainapp.module.fixtures.per_cpt.examples.alias.dom.AliasForDemoObject;
+import org.incode.domainapp.module.fixtures.shared.ExampleDomDemoDomSubmodule;
 import org.incode.example.alias.integtests.app.AliasModuleAppManifest;
-
-import org.incode.domainapp.example.dom.dom.alias.dom.AliasForDemoObject;
 
 public abstract class AliasModuleIntegTestAbstract extends IntegrationTestAbstract2 {
 
