@@ -1,4 +1,4 @@
-package org.incode.example.alias.integtests.app;
+package org.incode.extended.integtests.per_cpt.examples.alias.app;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

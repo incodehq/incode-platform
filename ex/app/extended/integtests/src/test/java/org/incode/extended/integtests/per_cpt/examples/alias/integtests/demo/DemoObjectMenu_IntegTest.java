@@ -1,4 +1,4 @@
-package org.incode.example.alias.integtests.tests.demo;
+package org.incode.extended.integtests.per_cpt.examples.alias.integtests.demo;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.fixt
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.fixture.DemoObjectData;
-import org.incode.example.alias.integtests.AliasModuleIntegTestAbstract;
+import org.incode.extended.integtests.per_cpt.examples.alias.AliasModuleIntegTestAbstract;
 
 public class DemoObjectMenu_IntegTest extends AliasModuleIntegTestAbstract {
 

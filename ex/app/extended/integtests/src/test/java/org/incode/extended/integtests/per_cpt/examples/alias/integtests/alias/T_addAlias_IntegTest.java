@@ -1,4 +1,4 @@
-package org.incode.example.alias.integtests.tests.alias;
+package org.incode.extended.integtests.per_cpt.examples.alias.integtests.alias;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collection;
@@ -23,7 +23,7 @@ import org.incode.example.alias.dom.impl.T_addAlias;
 import org.incode.example.alias.dom.spi.AliasType;
 import org.incode.example.alias.dom.spi.AliasTypeRepository;
 import org.incode.example.alias.dom.spi.ApplicationTenancyRepository;
-import org.incode.example.alias.integtests.AliasModuleIntegTestAbstract;
+import org.incode.extended.integtests.per_cpt.examples.alias.AliasModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
