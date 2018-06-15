@@ -31,8 +31,7 @@
             </activation>
             <modules>
                 <module>ex/app/quickstart/module-simple</module>
-                <module>ex/app/extended/example/dom</module>
-                <module>ex/app/extended/module-simple</module>
+                <module>ex/app/extended/module-fixtures</module>
 
                 <module>modules/examples/alias</module>
                 <module>modules/examples/classification</module>
@@ -46,7 +45,7 @@
                 <module>modules/examples/tags</module>
                 <module>modules/spi/audit</module>
                 <module>modules/spi/command</module>
-                <module>modules/spi/publishmq/impl/jdo</module>
+                <module>modules/spi/publishmq/jdo</module>
                 <module>modules/spi/security</module>
                 <module>modules/spi/sessionlogger</module>
             </modules>
@@ -62,13 +61,6 @@
             </activation>
             <modules>
 
-                <!--
-                mavenmixins are excluded because they can only be built by specifying additional flags
-                (-Dskip.isis-validate -Dskip.isis-swagger) and we want to be able to run 'mvn clean install' at the root.
-
-                <module>mavenmixins</module>
-                -->
-
                 <module>modules</module>
 
                 <!-- quickstart app (module fixtures/demo usage, basis of quickstart archetype) -->
@@ -82,19 +74,6 @@
 
             </modules>
         </profile>
-
-        <profile>
-            <id>mavenmixins</id>
-            <activation>
-                <property>
-                    <name>mavenmixins</name>
-                </property>
-            </activation>
-            <modules>
-                <module>mavenmixins</module>
-            </modules>
-        </profile>
-
 
         <profile>
             <id>modules</id>
@@ -132,7 +111,19 @@
             </modules>
         </profile>
 
-    </profiles>
+        <profile>
+            <id>extended</id>
+            <activation>
+                <property>
+                    <name>extended</name>
+                </property>
+            </activation>
+            <modules>
+                <module>ex/app/extended</module>
+            </modules>
+        </profile>
+
+	</profiles>
 
 
 </project>
