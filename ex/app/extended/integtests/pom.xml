@@ -72,7 +72,7 @@
             <!-- can these children be declared in -fix parent ? -->
             <dependency>
                 <groupId>org.incode.example.application</groupId>
-                <artifactId>incode-extended-example-embeddedcamel</artifactId>
+                <artifactId>incode-extended-embeddedcamel</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -96,7 +96,7 @@
 
         <dependency>
             <groupId>org.incode.example.application</groupId>
-            <artifactId>incode-extended-example-embeddedcamel</artifactId>
+            <artifactId>incode-extended-embeddedcamel</artifactId>
             <scope>test</scope>
         </dependency>
 

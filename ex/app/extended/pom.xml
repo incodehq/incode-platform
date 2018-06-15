@@ -87,7 +87,7 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-example-canonical</artifactId>
+                <artifactId>incode-extended-canonical</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -99,7 +99,7 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-example-embeddedcamel</artifactId>
+                <artifactId>incode-extended-embeddedcamel</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -143,11 +143,11 @@
                 <module>appdefn</module>
                 <module>webapp</module>
 
-                <module>example/canonical</module>
-                <module>example/embeddedcamel</module>
+                <module>main-slack</module>
 
-                <module>example/dom</module>
-                <module>example/appdefn</module>
+                <module>canonical</module>
+                <module>embeddedcamel</module>
+
 
             </modules>
         </profile>

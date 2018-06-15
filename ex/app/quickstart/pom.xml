@@ -122,7 +122,6 @@
             <modules>
                 <module>module-base</module>
                 <module>module-simple</module>
-                <module>main-slack</module>
                 <module>appdefn</module>
                 <module>webapp</module>
             </modules>

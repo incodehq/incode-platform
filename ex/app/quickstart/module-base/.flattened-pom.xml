@@ -38,27 +38,12 @@
       </dependency>
       <dependency>
         <groupId>org.incode.example.application</groupId>
+        <artifactId>incode-quickstart-main-slack</artifactId>
+        <version>1.16.3-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.incode.example.application</groupId>
         <artifactId>incode-quickstart-webapp</artifactId>
-        <version>1.16.3-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.incode.example.application</groupId>
-        <artifactId>incode-extended-example-appdefn</artifactId>
-        <version>1.16.3-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.incode.example.application</groupId>
-        <artifactId>incode-extended-example-canonical</artifactId>
-        <version>1.16.3-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.incode.example.application</groupId>
-        <artifactId>incode-extended-example-dom</artifactId>
-        <version>1.16.3-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.incode.example.application</groupId>
-        <artifactId>incode-extended-example-embeddedcamel</artifactId>
         <version>1.16.3-SNAPSHOT</version>
       </dependency>
       <dependency>

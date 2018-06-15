@@ -13,7 +13,7 @@
 
     <properties>
         <isis-maven-plugin.validate.appManifest>
-            domainapp.modules.simple.SimpleModuleManifest
+            org.incode.domainapp.example.dom.ExampleDomManifest
         </isis-maven-plugin.validate.appManifest>
 
         <maven-checkstyle-plugin.configLocation>${project.parent.basedir}/_checks/checkstyle.xml</maven-checkstyle-plugin.configLocation>
@@ -102,6 +102,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-wrapper</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>incode-extended-module-base</artifactId>
         </dependency>
@@ -112,9 +117,160 @@
         </dependency>
 
         <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.axonframework</groupId>
+            <artifactId>axon-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.togglz</groupId>
+            <artifactId>togglz-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.module.docx</groupId>
+            <artifactId>isis-module-docx-dom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom2</artifactId>
+            <version>2.0.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.module.excel</groupId>
+            <artifactId>isis-module-excel-dom</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.isisaddons.module.fakedata</groupId>
             <artifactId>isis-module-fakedata-dom</artifactId>
-            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.module.poly</groupId>
+            <artifactId>isis-module-poly-dom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.module.servletapi</groupId>
+            <artifactId>isis-module-servletapi-dom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.module.stringinterpolator</groupId>
+            <artifactId>isis-module-stringinterpolator-dom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode.example.alias</groupId>
+            <artifactId>incode-example-alias-dom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode.example.classification</groupId>
+            <artifactId>incode-example-classification-dom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode.example.commchannel</groupId>
+            <artifactId>incode-example-commchannel-dom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode.example.communications</groupId>
+            <artifactId>incode-example-communications-dom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode.example.docfragment</groupId>
+            <artifactId>incode-example-docfragment-dom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode.example.document</groupId>
+            <artifactId>incode-example-document-dom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.incode.example.docrendering</groupId>
+            <artifactId>incode-example-docrendering-stringinterpolator-dom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.incode.example.docrendering</groupId>
+            <artifactId>incode-example-docrendering-freemarker-dom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.incode.example.docrendering</groupId>
+            <artifactId>incode-example-docrendering-xdocreport-dom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode.example.note</groupId>
+            <artifactId>incode-example-note-dom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode.example.settings</groupId>
+            <artifactId>incode-example-settings-dom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode.example.tags</groupId>
+            <artifactId>incode-example-tags-dom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.module.audit</groupId>
+            <artifactId>isis-module-audit-dom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.module.command</groupId>
+            <artifactId>isis-module-command-dom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.module.publishmq</groupId>
+            <artifactId>isis-module-publishmq-dom-jdo</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.module.security</groupId>
+            <artifactId>isis-module-security-dom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.module.sessionlogger</groupId>
+            <artifactId>isis-module-sessionlogger-dom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
+            <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.wicket.gmap3</groupId>
+            <artifactId>isis-wicket-gmap3-cpt</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.wicket.pdfjs</groupId>
+            <artifactId>isis-wicket-pdfjs-cpt</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.wicket.summernote</groupId>
+            <artifactId>isis-wicket-summernote-cpt</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.wicket.wickedcharts</groupId>
+            <artifactId>isis-wicket-wickedcharts-cpt</artifactId>
         </dependency>
 
         <!-- test -->
@@ -137,11 +293,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
 </project>
