@@ -9,7 +9,7 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 import org.incode.domainapp.extended.module.fixtures.shared.ExampleDomDemoDomSubmodule;
 import org.incode.extended.integtests.ext.togglz.app.TogglzExtAppManifest;
 
-import domainapp.modules.base.togglz.TogglzFeature;
+import org.incode.domainapp.extended.module.base.togglz.TogglzFeature;
 
 public abstract class TogglzModuleIntegTestAbstract extends IntegrationTestAbstract2 {
 

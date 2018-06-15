@@ -23,7 +23,7 @@
 
                     <camel:process ref="attachCanonicalDtoUsingRestfulObjects"/>
 
-                    <log message="DTO: ${header['org.incode.domainapp.example.canonical.SimpleObjectDto']}"/>
+                    <log message="DTO: ${header['org.incode.domainapp.extended.canonical.SimpleObjectDto']}"/>
                 </camel:when>
                 <camel:when>
                     <camel:simple>${header.ixn[execution$logicalMemberIdentifier]} == 'simple.SimpleObject#notes'</camel:simple>
@@ -32,7 +32,7 @@
 
                     <camel:process ref="attachCanonicalDtoUsingRestfulObjects"/>
 
-                    <log message="DTO: ${header['org.incode.domainapp.example.canonical.SimpleObjectDto']}"/>
+                    <log message="DTO: ${header['org.incode.domainapp.extended.canonical.SimpleObjectDto']}"/>
                 </camel:when>
             </camel:choice>
 
@@ -48,7 +48,7 @@
           class="org.isisaddons.module.publishmq.dom.camel.AddExchangeHeaders"/>
 
     <bean id="attachCanonicalDtoUsingRestfulObjects"
-          class="domainapp.example.embeddedcamel.processor.AttachSimpleObjectDto"
+          class="org.incode.domainapp.extended.embeddedcamel.processor.AttachSimpleObjectDto"
           init-method="init">
         <!-- see propertyPlaceholderConfigurer-config.xml -->
         <property name="base" value="${restful.base}"/>

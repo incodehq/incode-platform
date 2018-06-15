@@ -11,7 +11,7 @@
 
 
     <listener>
-        <listener-class>domainapp.webapp.spring.CustomSpringContextLoaderListener</listener-class>
+        <listener-class>org.incode.domainapp.extended.webapp.spring.CustomSpringContextLoaderListener</listener-class>
     </listener>
 
     <context-param>
@@ -267,7 +267,7 @@
         <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
         <init-param>
             <param-name>applicationClassName</param-name>
-            <param-value>domainapp.webapp.DomainAppWicketApplication</param-value>
+            <param-value>org.incode.domainapp.extended.webapp.DomainAppWicketApplication</param-value>
         </init-param>
     </filter>
     <filter-mapping>

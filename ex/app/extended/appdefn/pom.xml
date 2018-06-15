@@ -17,7 +17,7 @@
 
     <properties>
         <isis-maven-plugin.swagger.appManifest>
-            domainapp.appdefn.DomainAppAppManifestNoFlywayDb
+            org.incode.domainapp.extended.appdefn.DomainAppAppManifestNoFlywayDb
         </isis-maven-plugin.swagger.appManifest>
     </properties>
     <build>
