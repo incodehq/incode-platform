@@ -30,7 +30,7 @@ import lombok.Setter;
         @javax.jdo.annotations.Query(
                 name = "findByName", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.domainapp.example.dom.demo.dom.demo.DemoObject "
+                        + "FROM org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject "
                         + "WHERE name.indexOf(:name) >= 0 ")
 })
 
