@@ -1,24 +1,40 @@
 package org.incode.extended.integtests.examples.docfragment;
 
-import org.junit.BeforeClass;
+import java.util.Set;
 
-import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
+import javax.xml.bind.annotation.XmlRootElement;
 
-import org.isisaddons.module.fakedata.dom.FakeDataService;
+import com.google.common.collect.Sets;
+
+import org.apache.isis.applib.ModuleAbstract;
+import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;
+
+import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.freemarker.dom.service.FreeMarkerService;
 
-import org.incode.domainapp.extended.module.fixtures.shared.ExampleDomDemoDomSubmodule;
-import org.incode.extended.integtests.examples.docfragment.app.DocFragmentAppAppManifest;
+import org.incode.extended.integtests.examples.docfragment.dom.docfragment.DocFragmentModuleIntegrationSubmodule;
 
-public abstract class DocFragmentModuleIntegTestAbstract extends IntegrationTestAbstract2 {
+public abstract class DocFragmentModuleIntegTestAbstract extends IntegrationTestAbstract3 {
 
-    @BeforeClass
-    public static void initSystem() {
-        bootstrapUsing(DocFragmentAppAppManifest.BUILDER
-                .withAdditionalModules(ExampleDomDemoDomSubmodule.class)
-                .withConfigurationProperty(FreeMarkerService.JODA_SUPPORT_KEY, "true")
-                .withAdditionalServices(FakeDataService.class)
-        );
+    @XmlRootElement(name = "module")
+    public static class MyModule extends DocFragmentModuleIntegrationSubmodule {
+        @Override
+        public Set<org.apache.isis.applib.Module> getDependencies() {
+            final Set<org.apache.isis.applib.Module> dependencies = super.getDependencies();
+            dependencies.addAll(Sets.newHashSet(
+                    new FakeDataModule()
+            ));
+            return dependencies;
+        }
+    }
+
+    public static ModuleAbstract module() {
+        return new MyModule()
+                .withConfigurationProperty(FreeMarkerService.JODA_SUPPORT_KEY, "true");
+    }
+
+    protected DocFragmentModuleIntegTestAbstract() {
+        super(module());
     }
 
 }

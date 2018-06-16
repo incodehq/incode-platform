@@ -1,38 +1,49 @@
 package org.incode.extended.integtests.examples.classification;
 
+import java.util.Set;
+
 import javax.inject.Inject;
+import javax.xml.bind.annotation.XmlRootElement;
 
-import org.junit.BeforeClass;
+import com.google.common.collect.Sets;
 
-import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
+import org.apache.isis.applib.ModuleAbstract;
+import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;
 
 import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.domainapp.extended.module.fixtures.shared.ExampleDomDemoDomSubmodule;
 import org.incode.example.classification.dom.impl.classification.T_classifications;
 import org.incode.example.classification.dom.impl.classification.T_classify;
 import org.incode.example.classification.dom.impl.classification.T_unclassify;
-import org.incode.extended.integtests.examples.classification.app.ClassificationModuleAppManifest;
+import org.incode.extended.integtests.examples.classification.app.ClassificationAppModule;
+import org.incode.extended.integtests.examples.classification.dom.classification.ClassificationModuleIntegrationSubmodule;
 
-public abstract class ClassificationModuleIntegTestAbstract extends IntegrationTestAbstract2 {
+public abstract class ClassificationModuleIntegTestAbstract extends IntegrationTestAbstract3 {
 
-    @BeforeClass
-    public static void initClass() {
-        bootstrapUsing(
-                ClassificationModuleAppManifest.BUILDER
-                    .withAdditionalModules(
-                            ExampleDomDemoDomSubmodule.class,
-                            ClassificationModuleIntegTestAbstract.class,
-                            FakeDataModule.class
-                    )
-                    .build()
-        ) ;
+    @XmlRootElement(name = "module")
+    public static class MyModule extends ClassificationModuleIntegrationSubmodule {
+        @Override
+        public Set<org.apache.isis.applib.Module> getDependencies() {
+            final Set<org.apache.isis.applib.Module> dependencies = super.getDependencies();
+            dependencies.addAll(Sets.newHashSet(
+                    new ClassificationAppModule(),
+                    new FakeDataModule()
+            ));
+            return dependencies;
+        }
+    }
+
+    public static ModuleAbstract module() {
+        return new MyModule();
+    }
+
+    protected ClassificationModuleIntegTestAbstract() {
+        super(module());
     }
 
     @Inject
     protected FakeDataService fakeData;
-
 
     protected T_classify mixinClassify(final Object classifiable) {
         return mixin(T_classify.class, classifiable);

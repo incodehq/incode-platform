@@ -1,34 +1,56 @@
 package org.incode.extended.integtests.examples.document;
 
-import org.junit.BeforeClass;
+import java.util.Set;
 
-import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import com.google.common.collect.Sets;
+
+import org.apache.isis.applib.ModuleAbstract;
+import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;
+
+import org.isisaddons.module.command.CommandModule;
 import org.isisaddons.module.fakedata.FakeDataModule;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.paperclips.other.PaperclipForOtherObject;
-import org.incode.domainapp.extended.module.fixtures.shared.ExampleDomDemoDomSubmodule;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
-import org.incode.domainapp.extended.module.fixtures.shared.other.dom.OtherObject;
+import org.incode.example.docrendering.freemarker.dom.FreemarkerDocRenderingModule;
+import org.incode.example.docrendering.stringinterpolator.dom.StringInterpolatorDocRenderingModule;
+import org.incode.example.docrendering.xdocreport.dom.XDocReportDocRenderingModule;
 import org.incode.example.document.dom.impl.docs.Document;
 import org.incode.example.document.dom.impl.docs.Document_delete;
-import org.incode.extended.integtests.examples.document.app.DocumentModuleAppManifest;
+import org.incode.extended.integtests.examples.document.app.DocumentAppModule;
+import org.incode.extended.integtests.examples.document.demo.dom.demowithurl.DemoObjectWithUrl;
+import org.incode.extended.integtests.examples.document.demo.dom.other.OtherObject;
+import org.incode.extended.integtests.examples.document.dom.document.DocumentModuleIntegrationSubmodule;
+import org.incode.extended.integtests.examples.document.dom.document.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
+import org.incode.extended.integtests.examples.document.dom.document.dom.paperclips.other.PaperclipForOtherObject;
 
-public abstract class DocumentModuleIntegTestAbstract extends IntegrationTestAbstract2 {
+public abstract class DocumentModuleIntegTestAbstract extends IntegrationTestAbstract3 {
 
-    @BeforeClass
-    public static void initClass() {
-        bootstrapUsing(
-                DocumentModuleAppManifest.BUILDER.
-                        withAdditionalModules(
-                                ExampleDomDemoDomSubmodule.class,
-                                DocumentModuleIntegTestAbstract.class,
-                                FakeDataModule.class
-                        )
-                        .build());
+    @XmlRootElement(name = "module")
+    public static class MyModule extends DocumentModuleIntegrationSubmodule {
+        @Override
+        public Set<org.apache.isis.applib.Module> getDependencies() {
+            final Set<org.apache.isis.applib.Module> dependencies = super.getDependencies();
+            dependencies.addAll(Sets.newHashSet(
+                    new FreemarkerDocRenderingModule(),
+                    new StringInterpolatorDocRenderingModule(),
+                    new XDocReportDocRenderingModule(),
+                    new CommandModule(),
+                    new DocumentAppModule(),
+                    new FakeDataModule()
+            ));
+            return dependencies;
+        }
     }
 
+    public static ModuleAbstract module() {
+        return new MyModule()
+                .withAdditionalModules(DocumentModuleIntegTestAbstract.class);
+    }
+
+    protected DocumentModuleIntegTestAbstract() {
+        super(module());
+    }
 
     protected Document_delete _delete(final Document document) {
         return mixin(Document_delete.class, document);
@@ -65,7 +87,5 @@ public abstract class DocumentModuleIntegTestAbstract extends IntegrationTestAbs
     protected PaperclipForOtherObject._documents _documents(final OtherObject domainObject) {
         return mixin(PaperclipForOtherObject._documents.class, domainObject);
     }
-
-
 
 }

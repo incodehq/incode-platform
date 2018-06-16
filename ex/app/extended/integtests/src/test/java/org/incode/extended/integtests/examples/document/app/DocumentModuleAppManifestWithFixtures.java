@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.fixture.DemoObjectWithUrl_and_OtherObject_and_docrefdata_recreate;
+import org.incode.extended.integtests.examples.document.dom.document.fixture.DemoObjectWithUrl_and_OtherObject_and_docrefdata_recreate;
 
 /**
  * Run the app but without setting up any fixtures.
