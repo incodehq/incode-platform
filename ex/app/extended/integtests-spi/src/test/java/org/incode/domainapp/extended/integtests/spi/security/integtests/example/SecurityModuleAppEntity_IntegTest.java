@@ -1,4 +1,4 @@
-package org.incode.extended.integtests.spi.security.integtests.example;
+package org.incode.domainapp.extended.integtests.spi.security.integtests.example;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-import org.incode.extended.integtests.spi.security.SecurityModuleAppIntegTestAbstract;
+import org.incode.domainapp.extended.integtests.spi.security.SecurityModuleAppIntegTestAbstract;
 
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.demo.nontenanted.NonTenantedEntities;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.demo.nontenanted.NonTenantedEntity;

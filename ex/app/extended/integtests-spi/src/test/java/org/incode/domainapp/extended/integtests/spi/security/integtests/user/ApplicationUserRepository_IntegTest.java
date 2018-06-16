@@ -1,4 +1,4 @@
-package org.incode.extended.integtests.spi.security.integtests.user;
+package org.incode.domainapp.extended.integtests.spi.security.integtests.user;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import org.isisaddons.module.security.dom.user.ApplicationUser;
 import org.isisaddons.module.security.dom.user.ApplicationUserMenu;
 import org.isisaddons.module.security.dom.user.ApplicationUserRepository;
 
-import org.incode.extended.integtests.spi.security.SecurityModuleAppIntegTestAbstract;
+import org.incode.domainapp.extended.integtests.spi.security.SecurityModuleAppIntegTestAbstract;
 
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixture.SecurityModuleAppTearDown;
 import static org.hamcrest.CoreMatchers.not;

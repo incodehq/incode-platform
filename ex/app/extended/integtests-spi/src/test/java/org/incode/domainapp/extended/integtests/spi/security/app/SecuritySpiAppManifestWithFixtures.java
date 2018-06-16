@@ -1,4 +1,4 @@
-package org.incode.extended.integtests.spi.security.app;
+package org.incode.domainapp.extended.integtests.spi.security.app;
 
 import java.util.List;
 

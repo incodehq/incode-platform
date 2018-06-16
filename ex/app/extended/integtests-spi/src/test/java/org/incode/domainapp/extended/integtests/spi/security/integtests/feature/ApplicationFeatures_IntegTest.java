@@ -1,4 +1,4 @@
-package org.incode.extended.integtests.spi.security.integtests.feature;
+package org.incode.domainapp.extended.integtests.spi.security.integtests.feature;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -22,7 +22,7 @@ import org.apache.isis.core.metamodel.services.appfeat.ApplicationFeature;
 import org.apache.isis.core.metamodel.services.appfeat.ApplicationFeatureId;
 import org.apache.isis.core.metamodel.services.appfeat.ApplicationFeatureRepositoryDefault;
 
-import org.incode.extended.integtests.spi.security.SecurityModuleAppIntegTestAbstract;
+import org.incode.domainapp.extended.integtests.spi.security.SecurityModuleAppIntegTestAbstract;
 
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixture.SecurityModuleAppTearDown;
 import static org.hamcrest.CoreMatchers.is;

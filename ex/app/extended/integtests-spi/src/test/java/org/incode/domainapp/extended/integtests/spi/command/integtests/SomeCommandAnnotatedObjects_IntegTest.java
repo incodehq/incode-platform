@@ -1,4 +1,4 @@
-package org.incode.extended.integtests.spi.command.integtests;
+package org.incode.domainapp.extended.integtests.spi.command.integtests;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.isisaddons.module.command.dom.BackgroundCommandServiceJdoRepository;
 import org.isisaddons.module.command.dom.CommandJdo;
 import org.isisaddons.module.command.dom.CommandServiceJdoRepository;
-import org.incode.extended.integtests.spi.command.CommandModuleIntegTestAbstract;
+import org.incode.domainapp.extended.integtests.spi.command.CommandModuleIntegTestAbstract;
 
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.command.dom.demo.SomeCommandAnnotatedObject;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.command.dom.demo.SomeCommandAnnotatedObjects;

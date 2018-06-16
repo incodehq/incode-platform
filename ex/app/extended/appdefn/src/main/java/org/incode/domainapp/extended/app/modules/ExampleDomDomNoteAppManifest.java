@@ -13,7 +13,7 @@ import org.apache.isis.applib.annotation.Nature;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.FixturesModuleExamplesNoteSubmodule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.FixturesModuleExamplesNoteIntegrationSubmodule;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.fixture.DemoObject_withNotes_recreate3;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
@@ -29,7 +29,7 @@ public class ExampleDomDomNoteAppManifest extends AppManifestAbstract {
 
             DemoObject.class,
 
-            FixturesModuleExamplesNoteSubmodule.class,
+            FixturesModuleExamplesNoteIntegrationSubmodule.class,
             NoteModule.class
         )
         .withFixtureScripts(

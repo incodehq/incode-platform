@@ -1,4 +1,4 @@
-package org.incode.extended.integtests.spi.command.app;
+package org.incode.domainapp.extended.integtests.spi.command.app;
 
 import java.util.List;
 

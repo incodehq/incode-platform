@@ -1,4 +1,4 @@
-package org.incode.extended.integtests.spi.audit.integtests.notaudited;
+package org.incode.domainapp.extended.integtests.spi.audit.integtests.notaudited;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,7 +23,7 @@ import org.isisaddons.module.audit.dom.AuditingServiceRepository;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.dom.demo.notaudited.SomeNotAuditedObject;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.dom.demo.notaudited.SomeNotAuditedObjects;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.fixture.SomeAuditedObject_and_SomeNonAuditedObject_recreate3;
-import org.incode.extended.integtests.spi.audit.AuditModuleIntegTestAbstract;
+import org.incode.domainapp.extended.integtests.spi.audit.AuditModuleIntegTestAbstract;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;

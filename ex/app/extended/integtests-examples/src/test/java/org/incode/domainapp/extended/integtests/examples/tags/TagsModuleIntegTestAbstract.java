@@ -1,19 +1,38 @@
 package org.incode.domainapp.extended.integtests.examples.tags;
 
-import org.junit.BeforeClass;
+import java.util.Set;
 
-import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
+import javax.xml.bind.annotation.XmlRootElement;
 
-import org.incode.domainapp.extended.module.fixtures.shared.FixturesModuleSharedSubmodule;
-import org.incode.domainapp.extended.integtests.examples.tags.app.TagsModuleAppManifest;
+import com.google.common.collect.Sets;
 
-public abstract class TagsModuleIntegTestAbstract extends IntegrationTestAbstract2 {
+import org.apache.isis.applib.Module;
+import org.apache.isis.applib.ModuleAbstract;
+import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;
 
-    @BeforeClass
-    public static void initClass() {
-        bootstrapUsing(TagsModuleAppManifest.BUILDER
-                .withAdditionalModules(FixturesModuleSharedSubmodule.class)
-        );
+import org.isisaddons.module.fakedata.FakeDataModule;
+
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.FixturesModuleExamplesTagsIntegrationSubmodule;
+
+public abstract class TagsModuleIntegTestAbstract extends IntegrationTestAbstract3 {
+
+    @XmlRootElement(name = "module")
+    public static class MyModule extends ModuleAbstract {
+        @Override
+        public Set<Module> getDependencies() {
+            return Sets.newHashSet(
+                    new FixturesModuleExamplesTagsIntegrationSubmodule(),
+                    new FakeDataModule()
+            );
+        }
+    }
+
+    public static ModuleAbstract module() {
+        return new TagsModuleIntegTestAbstract.MyModule();
+    }
+
+    protected TagsModuleIntegTestAbstract() {
+        super(module());
     }
 
 }

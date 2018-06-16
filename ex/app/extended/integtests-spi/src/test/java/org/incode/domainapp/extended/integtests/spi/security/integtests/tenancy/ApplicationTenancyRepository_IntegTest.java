@@ -1,4 +1,4 @@
-package org.incode.extended.integtests.spi.security.integtests.tenancy;
+package org.incode.domainapp.extended.integtests.spi.security.integtests.tenancy;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import org.junit.rules.ExpectedException;
 import org.isisaddons.module.security.dom.tenancy.ApplicationTenancy;
 import org.isisaddons.module.security.dom.tenancy.ApplicationTenancyRepository;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixture.SecurityModuleAppTearDown;
-import org.incode.extended.integtests.spi.security.SecurityModuleAppIntegTestAbstract;
+import org.incode.domainapp.extended.integtests.spi.security.SecurityModuleAppIntegTestAbstract;
 
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;

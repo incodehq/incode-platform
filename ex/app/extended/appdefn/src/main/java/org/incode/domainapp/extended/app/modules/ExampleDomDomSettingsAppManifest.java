@@ -13,17 +13,16 @@ import org.apache.isis.applib.annotation.Nature;
 
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
-import org.incode.example.settings.dom.ApplicationSettingsServiceRW;
-import org.incode.example.settings.dom.UserSettingsServiceRW;
-import org.incode.example.settings.dom.jdo.ApplicationSettingJdo;
-import org.incode.example.settings.dom.jdo.UserSettingJdo;
-
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.settings.FixturesModuleExamplesSettingsSubmodule;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.settings.fixture.ApplicationSetting_and_UserSetting_recreate5;
 
 import org.incode.domainapp.extended.appdefn.DomainAppAppManifestAbstract;
 import org.incode.domainapp.extended.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;
 import org.incode.domainapp.extended.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.settings.FixturesModuleExamplesSettingsSubmodule;
+import org.incode.example.settings.dom.ApplicationSettingsServiceRW;
+import org.incode.example.settings.dom.UserSettingsServiceRW;
+import org.incode.example.settings.dom.jdo.ApplicationSettingJdo;
+import org.incode.example.settings.dom.jdo.UserSettingJdo;
+import org.incode.example.settings.fixture.ApplicationSetting_and_UserSetting_create5;
 
 public class ExampleDomDomSettingsAppManifest extends AppManifestAbstract {
 
@@ -33,7 +32,7 @@ public class ExampleDomDomSettingsAppManifest extends AppManifestAbstract {
 
         )
         .withFixtureScripts(
-                ApplicationSetting_and_UserSetting_recreate5.class,
+                ApplicationSetting_and_UserSetting_create5.class,
                 SeedSuperAdministratorRoleAndSvenSuperUser.class
         )
         .withAdditionalServices(

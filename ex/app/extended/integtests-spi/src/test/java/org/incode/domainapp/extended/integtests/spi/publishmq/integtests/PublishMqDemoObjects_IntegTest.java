@@ -1,4 +1,4 @@
-package org.incode.extended.integtests.spi.publishmq.integtests;
+package org.incode.domainapp.extended.integtests.spi.publishmq.integtests;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
-import org.incode.extended.integtests.spi.publishmq.PublishMqModuleIntegTestAbstract;
+import org.incode.domainapp.extended.integtests.spi.publishmq.PublishMqModuleIntegTestAbstract;
 
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.publishmq.dom.demo.PublishMqDemoObject;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.publishmq.dom.demo.PublishMqDemoObjects;

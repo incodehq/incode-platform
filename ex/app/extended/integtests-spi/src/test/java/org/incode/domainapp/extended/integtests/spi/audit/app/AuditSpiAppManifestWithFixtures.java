@@ -1,4 +1,4 @@
-package org.incode.extended.integtests.spi.audit.app;
+package org.incode.domainapp.extended.integtests.spi.audit.app;
 
 import java.util.List;
 

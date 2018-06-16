@@ -4,9 +4,9 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addEmailAddress;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addPhoneOrFaxNumber;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addPostalAddress;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.contributions.DemoObject_addEmailAddress;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.contributions.DemoObject_addPhoneOrFaxNumber;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.contributions.DemoObject_addPostalAddress;
 import org.incode.example.commchannel.dom.impl.emailaddress.T_addEmailAddress;
 import org.incode.example.commchannel.dom.impl.phoneorfax.T_addPhoneOrFaxNumber;
 import org.incode.example.commchannel.dom.impl.postaladdress.T_addPostalAddress;
@@ -32,15 +32,15 @@ public class DemoObject_withCommChannels_create3 extends FixtureScript {
 
 
     T_addEmailAddress addEmailAddress(final DemoObject demoOwner) {
-        return mixin(CommunicationChannelOwnerLinkForDemoObject_addEmailAddress.class, demoOwner);
+        return mixin(DemoObject_addEmailAddress.class, demoOwner);
     }
 
     T_addPhoneOrFaxNumber addPhoneOrFaxNumber(final DemoObject demoOwner) {
-        return mixin(CommunicationChannelOwnerLinkForDemoObject_addPhoneOrFaxNumber.class, demoOwner);
+        return mixin(DemoObject_addPhoneOrFaxNumber.class, demoOwner);
     }
 
     T_addPostalAddress addPostalAddress(final DemoObject demoOwner) {
-        return mixin(CommunicationChannelOwnerLinkForDemoObject_addPostalAddress.class, demoOwner);
+        return mixin(DemoObject_addPostalAddress.class, demoOwner);
     }
 
 

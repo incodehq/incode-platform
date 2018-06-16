@@ -1,4 +1,4 @@
-package org.incode.extended.integtests.spi.audit.integtests.audited;
+package org.incode.domainapp.extended.integtests.spi.audit.integtests.audited;
 
 import java.sql.Timestamp;
 import java.util.Collections;
@@ -23,7 +23,7 @@ import org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract;
 
 import org.isisaddons.module.audit.dom.AuditEntry;
 import org.isisaddons.module.audit.dom.AuditingServiceRepository;
-import org.incode.extended.integtests.spi.audit.AuditModuleIntegTestAbstract;
+import org.incode.domainapp.extended.integtests.spi.audit.AuditModuleIntegTestAbstract;
 
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.dom.demo.audited.SomeAuditedObject;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.dom.demo.audited.SomeAuditedObjects;

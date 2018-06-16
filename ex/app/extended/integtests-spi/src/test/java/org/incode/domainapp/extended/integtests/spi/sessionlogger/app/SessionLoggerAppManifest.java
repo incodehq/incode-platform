@@ -1,4 +1,4 @@
-package org.incode.extended.integtests.spi.sessionlogger.app;
+package org.incode.domainapp.extended.integtests.spi.sessionlogger.app;
 
 import org.apache.isis.applib.AppManifestAbstract;
 

@@ -1,4 +1,4 @@
-package org.incode.extended.integtests.spi.security.integtests.user;
+package org.incode.domainapp.extended.integtests.spi.security.integtests.user;
 
 import javax.inject.Inject;
 
@@ -24,7 +24,7 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixtur
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixture.tenancy.sub.ApplicationTenancy_create_France;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixture.tenancy.sub.ApplicationTenancy_create_Sweden;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixture.users.ApplicationUser_create_Sven;
-import org.incode.extended.integtests.spi.security.SecurityModuleAppIntegTestAbstract;
+import org.incode.domainapp.extended.integtests.spi.security.SecurityModuleAppIntegTestAbstract;
 import org.isisaddons.module.security.seed.scripts.IsisModuleSecurityAdminRoleAndPermissions;
 
 import static org.hamcrest.CoreMatchers.allOf;

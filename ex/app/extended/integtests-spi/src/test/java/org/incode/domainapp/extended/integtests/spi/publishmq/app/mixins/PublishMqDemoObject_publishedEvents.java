@@ -1,4 +1,4 @@
-package org.incode.extended.integtests.spi.publishmq.app.mixins;
+package org.incode.domainapp.extended.integtests.spi.publishmq.app.mixins;
 
 import java.util.List;
 

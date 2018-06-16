@@ -1,11 +1,11 @@
-package org.incode.extended.integtests.spi.publishmq;
+package org.incode.domainapp.extended.integtests.spi.publishmq;
 
 import org.junit.BeforeClass;
 
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 
 import org.incode.domainapp.extended.module.fixtures.shared.FixturesModuleSharedSubmodule;
-import org.incode.extended.integtests.spi.publishmq.app.PublishMqSpiAppManifest;
+import org.incode.domainapp.extended.integtests.spi.publishmq.app.PublishMqSpiAppManifest;
 
 public abstract class PublishMqModuleIntegTestAbstract extends IntegrationTestAbstract2 {
 

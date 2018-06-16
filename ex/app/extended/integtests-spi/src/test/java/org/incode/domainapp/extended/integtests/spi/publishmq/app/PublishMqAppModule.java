@@ -1,4 +1,4 @@
-package org.incode.extended.integtests.spi.publishmq.app;
+package org.incode.domainapp.extended.integtests.spi.publishmq.app;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

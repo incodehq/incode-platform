@@ -1,4 +1,4 @@
-package org.incode.extended.integtests.spi.security.integtests.permission;
+package org.incode.domainapp.extended.integtests.spi.security.integtests.permission;
 
 import javax.inject.Inject;
 
@@ -10,7 +10,7 @@ import org.junit.rules.ExpectedException;
 
 import org.isisaddons.module.security.dom.permission.ApplicationPermissionRepository;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixture.SecurityModuleAppTearDown;
-import org.incode.extended.integtests.spi.security.SecurityModuleAppIntegTestAbstract;
+import org.incode.domainapp.extended.integtests.spi.security.SecurityModuleAppIntegTestAbstract;
 
 public class ApplicationPermissions_IntegTest extends SecurityModuleAppIntegTestAbstract {
 

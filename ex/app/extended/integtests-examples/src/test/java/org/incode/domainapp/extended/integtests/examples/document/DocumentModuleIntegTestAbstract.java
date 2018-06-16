@@ -33,8 +33,7 @@ public abstract class DocumentModuleIntegTestAbstract extends IntegrationTestAbs
     }
 
     public static ModuleAbstract module() {
-        return new MyModule()
-                .withAdditionalModules(DocumentModuleIntegTestAbstract.class);
+        return new MyModule();
     }
 
     protected DocumentModuleIntegTestAbstract() {

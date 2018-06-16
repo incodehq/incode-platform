@@ -1,4 +1,4 @@
-package org.incode.extended.integtests.spi.security.integtests.role;
+package org.incode.domainapp.extended.integtests.spi.security.integtests.role;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import org.junit.rules.ExpectedException;
 import org.isisaddons.module.security.dom.role.ApplicationRole;
 import org.isisaddons.module.security.dom.role.ApplicationRoleRepository;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixture.SecurityModuleAppTearDown;
-import org.incode.extended.integtests.spi.security.SecurityModuleAppIntegTestAbstract;
+import org.incode.domainapp.extended.integtests.spi.security.SecurityModuleAppIntegTestAbstract;
 
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
