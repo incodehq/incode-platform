@@ -14,11 +14,12 @@ import org.incode.example.document.dom.spi.RendererModelFactoryClassNameService;
 @DomainService(
     nature = NatureOfService.DOMAIN
 )
-public class RendererModelFactoryClassNameServiceForDemo extends ClassNameServiceAbstract<RendererModelFactory> implements
+public class RendererModelFactoryClassNameServiceForDemo extends ClassNameServiceAbstract<RendererModelFactory>
+        implements
         RendererModelFactoryClassNameService {
 
     public RendererModelFactoryClassNameServiceForDemo() {
-        super(RendererModelFactory.class, "org.incode.example.document.fixture");
+        super(RendererModelFactory.class, "org.incode.module.document.fixture");
     }
 
     @Programmatic

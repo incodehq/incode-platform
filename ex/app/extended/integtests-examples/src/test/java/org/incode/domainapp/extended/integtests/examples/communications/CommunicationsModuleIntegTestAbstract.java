@@ -12,30 +12,21 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;
 
 import org.isisaddons.module.command.dom.CommandDomModule;
 import org.isisaddons.module.fakedata.FakeDataModule;
-import org.isisaddons.module.freemarker.dom.FreeMarkerModule;
-import org.isisaddons.module.pdfbox.dom.PdfBoxModule;
 
-import org.incode.domainapp.extended.integtests.examples.communications.app.services.DemoAppApplicationModuleServicesSubmodule;
-import org.incode.domainapp.extended.integtests.examples.communications.app.services.fakesched.FakeScheduler;
-import org.incode.domainapp.extended.integtests.examples.communications.dom.communications.CommunicationsModuleIntegrationSubmodule;
-import org.incode.domainapp.extended.integtests.examples.communications.dom.document.ClassificationsModuleDocumentDomModule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.communications.FixturesModuleExamplesCommunicationsIntegrationSubmodule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.communications.app.fakesched.FakeScheduler;
 
 public abstract class CommunicationsModuleIntegTestAbstract extends IntegrationTestAbstract3 {
 
     @XmlRootElement(name = "module")
-    public static class MyModule extends CommunicationsModuleIntegrationSubmodule {
+    public static class MyModule extends ModuleAbstract {
         @Override
         public Set<org.apache.isis.applib.Module> getDependencies() {
-            final Set<org.apache.isis.applib.Module> dependencies = super.getDependencies();
-            dependencies.addAll(Sets.newHashSet(
-                    new DemoAppApplicationModuleServicesSubmodule(),
-                    new ClassificationsModuleDocumentDomModule(),
-                    new PdfBoxModule(),
+            return Sets.newHashSet(
+                    new FixturesModuleExamplesCommunicationsIntegrationSubmodule(),
                     new CommandDomModule(),
-                    new FreeMarkerModule(),
                     new FakeDataModule()
-            ));
-            return dependencies;
+            );
         }
     }
 

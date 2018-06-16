@@ -18,6 +18,15 @@ import org.isisaddons.module.command.dom.BackgroundCommandServiceJdoRepository;
 import org.isisaddons.module.command.dom.CommandDomModule;
 import org.isisaddons.module.command.dom.CommandJdo;
 
+import org.incode.domainapp.extended.integtests.examples.communications.CommunicationsModuleIntegTestAbstract;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.communications.app.fakeemail.EmailMessage;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.communications.app.fakeemail.FakeEmailService;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.communications.fixture.DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_create;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.communications.fixture.demoobjwithnote.DemoObjectWithNote_and_DemoInvoice_create3;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoInvoice;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoInvoiceRepository;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotes;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotesMenu;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannel;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelOwnerLinkRepository;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelType;
@@ -32,16 +41,6 @@ import org.incode.example.communications.dom.mixins.Document_sendByPost;
 import org.incode.example.document.dom.impl.docs.DocumentAbstract;
 import org.incode.example.document.dom.impl.paperclips.Paperclip;
 import org.incode.example.document.dom.impl.paperclips.PaperclipRepository;
-import org.incode.domainapp.extended.integtests.examples.communications.CommunicationsModuleIntegTestAbstract;
-import org.incode.domainapp.extended.integtests.examples.communications.app.services.fakeemail.EmailMessage;
-import org.incode.domainapp.extended.integtests.examples.communications.app.services.fakeemail.FakeEmailService;
-import org.incode.domainapp.extended.integtests.examples.communications.demo.dom.demowithnotes.DemoObjectWithNotes;
-import org.incode.domainapp.extended.integtests.examples.communications.demo.dom.demowithnotes.DemoObjectWithNotesMenu;
-import org.incode.domainapp.extended.integtests.examples.communications.demo.dom.invoice.DemoInvoice;
-import org.incode.domainapp.extended.integtests.examples.communications.demo.dom.invoice.DemoInvoiceRepository;
-import org.incode.domainapp.extended.integtests.examples.communications.dom.communications.fixture.DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_create;
-import org.incode.domainapp.extended.integtests.examples.communications.dom.communications.fixture.DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_recreate;
-import org.incode.domainapp.extended.integtests.examples.communications.dom.communications.fixture.data.democust2.DemoObjectWithNote_and_DemoInvoice_create3;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
@@ -141,7 +140,7 @@ public class Smoke_IntegTest extends CommunicationsModuleIntegTestAbstract {
     public void can_create_postal_address() throws Exception {
 
         // given
-        fixtureScripts.runFixtureScript(new DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_recreate(), null);
+        fixtureScripts.runFixtureScript(new DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_create(), null);
         transactionService.nextTransaction();
 
         // and so given customer with an email

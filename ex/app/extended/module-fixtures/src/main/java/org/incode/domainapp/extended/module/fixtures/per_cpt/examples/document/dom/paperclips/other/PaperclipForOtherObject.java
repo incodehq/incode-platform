@@ -97,7 +97,8 @@ public class PaperclipForOtherObject extends Paperclip {
     }
 
     @Mixin
-    public static class _createAndAttachDocumentAndScheduleRender extends T_createAndAttachDocumentAndScheduleRender<OtherObject> {
+    public static class _createAndAttachDocumentAndScheduleRender extends
+            T_createAndAttachDocumentAndScheduleRender<OtherObject> {
         public _createAndAttachDocumentAndScheduleRender(final OtherObject otherObject) {
             super(otherObject);
         }

@@ -90,14 +90,16 @@ public class PaperclipForDemoObjectWithUrl extends Paperclip {
     }
 
     @Mixin
-    public static class _createAndAttachDocumentAndRender extends T_createAndAttachDocumentAndRender<DemoObjectWithUrl> {
+    public static class _createAndAttachDocumentAndRender extends
+            T_createAndAttachDocumentAndRender<DemoObjectWithUrl> {
         public _createAndAttachDocumentAndRender(final DemoObjectWithUrl demoObject) {
             super(demoObject);
         }
     }
 
     @Mixin
-    public static class _createAndAttachDocumentAndScheduleRender extends T_createAndAttachDocumentAndScheduleRender<DemoObjectWithUrl> {
+    public static class _createAndAttachDocumentAndScheduleRender extends
+            T_createAndAttachDocumentAndScheduleRender<DemoObjectWithUrl> {
         public _createAndAttachDocumentAndScheduleRender(final DemoObjectWithUrl demoObject) {
             super(demoObject);
         }

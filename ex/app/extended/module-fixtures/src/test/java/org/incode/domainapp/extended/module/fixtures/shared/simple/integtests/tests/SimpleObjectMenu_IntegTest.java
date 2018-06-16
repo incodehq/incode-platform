@@ -19,8 +19,8 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.incode.domainapp.extended.module.base.togglz.TogglzFeature;
 import org.incode.domainapp.extended.module.fixtures.shared.simple.dom.SimpleObject;
 import org.incode.domainapp.extended.module.fixtures.shared.simple.dom.SimpleObjectMenu;
-import org.incode.domainapp.extended.module.fixtures.shared.simple.fixture.scenario.SimpleObject_createUpTo10;
-import org.incode.domainapp.extended.module.fixtures.shared.simple.fixture.teardown.SimpleModule_tearDown;
+import org.incode.domainapp.extended.module.fixtures.shared.simple.fixture.SimpleObject_createUpTo10;
+import org.incode.domainapp.extended.module.fixtures.shared.simple.fixture.SimpleObject_tearDown;
 import org.incode.domainapp.extended.module.fixtures.shared.simple.integtests.SimpleModuleIntegTestAbstract;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -38,7 +38,7 @@ public class SimpleObjectMenu_IntegTest extends SimpleModuleIntegTestAbstract {
         public void happyCase() throws Exception {
 
             // given
-            fixtureScripts.runFixtureScript(new SimpleModule_tearDown(), null);
+            fixtureScripts.runFixtureScript(new SimpleObject_tearDown(), null);
             SimpleObject_createUpTo10 fs = new SimpleObject_createUpTo10();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
@@ -57,7 +57,7 @@ public class SimpleObjectMenu_IntegTest extends SimpleModuleIntegTestAbstract {
         public void whenNone() throws Exception {
 
             // given
-            FixtureScript fs = new SimpleModule_tearDown();
+            FixtureScript fs = new SimpleObject_tearDown();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 
@@ -75,7 +75,7 @@ public class SimpleObjectMenu_IntegTest extends SimpleModuleIntegTestAbstract {
         public void happyCase() throws Exception {
 
             // given
-            FixtureScript fs = new SimpleModule_tearDown();
+            FixtureScript fs = new SimpleObject_tearDown();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 
@@ -91,7 +91,7 @@ public class SimpleObjectMenu_IntegTest extends SimpleModuleIntegTestAbstract {
         public void whenAlreadyExists() throws Exception {
 
             // given
-            FixtureScript fs = new SimpleModule_tearDown();
+            FixtureScript fs = new SimpleObject_tearDown();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
             wrap(menu).create("Faz");

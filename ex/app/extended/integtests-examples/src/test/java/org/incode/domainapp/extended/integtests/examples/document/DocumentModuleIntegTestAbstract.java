@@ -9,37 +9,26 @@ import com.google.common.collect.Sets;
 import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;
 
-import org.isisaddons.module.command.CommandModule;
 import org.isisaddons.module.fakedata.FakeDataModule;
 
-import org.incode.example.docrendering.freemarker.dom.FreemarkerDocRenderingModule;
-import org.incode.example.docrendering.stringinterpolator.dom.StringInterpolatorDocRenderingModule;
-import org.incode.example.docrendering.xdocreport.dom.XDocReportDocRenderingModule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.FixturesModuleExamplesDocumentIntegrationSubmodule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.paperclips.other.PaperclipForOtherObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
+import org.incode.domainapp.extended.module.fixtures.shared.other.dom.OtherObject;
 import org.incode.example.document.dom.impl.docs.Document;
 import org.incode.example.document.dom.impl.docs.Document_delete;
-import org.incode.domainapp.extended.integtests.examples.document.app.DocumentAppModule;
-import org.incode.domainapp.extended.integtests.examples.document.demo.dom.demowithurl.DemoObjectWithUrl;
-import org.incode.domainapp.extended.integtests.examples.document.demo.dom.other.OtherObject;
-import org.incode.domainapp.extended.integtests.examples.document.dom.document.DocumentModuleIntegrationSubmodule;
-import org.incode.domainapp.extended.integtests.examples.document.dom.document.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
-import org.incode.domainapp.extended.integtests.examples.document.dom.document.dom.paperclips.other.PaperclipForOtherObject;
 
 public abstract class DocumentModuleIntegTestAbstract extends IntegrationTestAbstract3 {
 
     @XmlRootElement(name = "module")
-    public static class MyModule extends DocumentModuleIntegrationSubmodule {
+    public static class MyModule extends ModuleAbstract {
         @Override
         public Set<org.apache.isis.applib.Module> getDependencies() {
-            final Set<org.apache.isis.applib.Module> dependencies = super.getDependencies();
-            dependencies.addAll(Sets.newHashSet(
-                    new FreemarkerDocRenderingModule(),
-                    new StringInterpolatorDocRenderingModule(),
-                    new XDocReportDocRenderingModule(),
-                    new CommandModule(),
-                    new DocumentAppModule(),
+            return Sets.newHashSet(
+                    new FixturesModuleExamplesDocumentIntegrationSubmodule(),
                     new FakeDataModule()
-            ));
-            return dependencies;
+            );
         }
     }
 

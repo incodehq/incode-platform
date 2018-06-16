@@ -1,17 +1,15 @@
 package org.incode.domainapp.extended.module.fixtures.shared.demowithurl.fixture;
 
-import org.apache.isis.applib.fixturescripts.FixtureScript;
-import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
+import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
-public class DemoObjectWithUrl_tearDown extends FixtureScript {
+import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
+
+public class DemoObjectWithUrl_tearDown extends TeardownFixtureAbstract2 {
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"exampleDemo\".\"DemoObjectWithUrl\"");
+        deleteFrom(DemoObjectWithUrl.class);
     }
 
-
-    @javax.inject.Inject
-    IsisJdoSupport isisJdoSupport;
 
 }

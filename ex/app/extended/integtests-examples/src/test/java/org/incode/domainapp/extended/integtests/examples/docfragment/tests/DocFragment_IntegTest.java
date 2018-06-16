@@ -14,10 +14,10 @@ import org.apache.isis.applib.services.xactn.TransactionService;
 import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusIdLong;
 import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusVersionLong;
 
-import org.incode.example.docfragment.dom.impl.DocFragment;
 import org.incode.domainapp.extended.integtests.examples.docfragment.DocFragmentModuleIntegTestAbstract;
-import org.incode.domainapp.extended.integtests.examples.docfragment.dom.docfragment.fixture.data.DocFragmentData;
-import org.incode.domainapp.extended.integtests.examples.docfragment.dom.docfragment.fixture.sub.DocFragment_tearDown;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.docfragment.fixture.DocFragmentData;
+import org.incode.example.docfragment.dom.impl.DocFragment;
+import org.incode.example.docfragment.fixture.DocFragment_tearDown;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

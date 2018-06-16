@@ -16,7 +16,7 @@ import org.incode.example.classification.dom.impl.classification.ClassificationR
 import org.incode.example.classification.dom.spi.ApplicationTenancyService;
 import org.incode.domainapp.extended.integtests.examples.classification.ClassificationModuleIntegTestAbstract;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPathMenu;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_recreate3;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -39,7 +39,7 @@ public class Category_reference_IntegTest extends ClassificationModuleIntegTestA
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new DemoObjectWithAtPath_and_OtherObjectWithAtPath_recreate3(), null);
+        fixtureScripts.runFixtureScript(new DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3(), null);
     }
 
     @Test

@@ -8,12 +8,11 @@ import org.junit.Test;
 import org.incode.example.document.dom.impl.docs.Document;
 import org.incode.example.document.dom.impl.paperclips.PaperclipRepository;
 import org.incode.domainapp.extended.integtests.examples.document.DocumentModuleIntegTestAbstract;
-import org.incode.domainapp.extended.integtests.examples.document.demo.dom.demowithurl.DemoObjectWithUrl;
-import org.incode.domainapp.extended.integtests.examples.document.demo.dom.other.OtherObject;
-import org.incode.domainapp.extended.integtests.examples.document.demo.fixture.setup.DemoObjectWithUrl_createUpTo5_fakeData;
-import org.incode.domainapp.extended.integtests.examples.document.demo.fixture.setup.OtherObject_createUpTo5_fakeData;
-import org.incode.domainapp.extended.integtests.examples.document.dom.document.fixture.DemoModule_and_DocTypesAndTemplates_tearDown;
-import org.incode.domainapp.extended.integtests.examples.document.dom.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
+import org.incode.domainapp.extended.module.fixtures.shared.other.dom.OtherObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;
+import org.incode.domainapp.extended.module.fixtures.shared.other.fixture.OtherObject_createUpTo5_fakeData;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -30,7 +29,7 @@ public class Document_delete_IntegTest extends DocumentModuleIntegTestAbstract {
     @Before
     public void setUpData() throws Exception {
 
-        fixtureScripts.runFixtureScript(new DemoModule_and_DocTypesAndTemplates_tearDown(), null);
+//        fixtureScripts.runFixtureScript(new DemoModule_and_DocTypesAndTemplates_tearDown(), null);
 
         // types + templates
         templateFixture = new DocumentTypeAndTemplatesApplicableForDemoObjectFixture();

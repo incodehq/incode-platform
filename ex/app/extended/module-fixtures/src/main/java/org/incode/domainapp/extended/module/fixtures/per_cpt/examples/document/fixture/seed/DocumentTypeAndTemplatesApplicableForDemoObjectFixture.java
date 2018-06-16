@@ -14,12 +14,12 @@ import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
 
-import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
 import org.incode.example.document.dom.impl.docs.DocumentTemplate;
 import org.incode.example.document.dom.impl.rendering.RenderingStrategy;
 import org.incode.example.document.dom.impl.rendering.RenderingStrategyRepository;
 import org.incode.example.document.dom.impl.types.DocumentType;
 import org.incode.example.document.fixture.DocumentTemplateFSAbstract;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.applicability.aa.ForDemoObjectAlsoAttachToFirstOtherObject;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.applicability.aa.ForDemoObjectAttachToSame;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.applicability.rmf.FreemarkerModelOfDemoObject;

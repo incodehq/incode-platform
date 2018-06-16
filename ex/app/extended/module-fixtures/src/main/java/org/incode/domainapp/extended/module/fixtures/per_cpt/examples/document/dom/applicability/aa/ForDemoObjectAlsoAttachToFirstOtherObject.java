@@ -24,18 +24,18 @@ public class ForDemoObjectAlsoAttachToFirstOtherObject extends
     }
 
     @Override
-    protected List<AttachmentAdvisor.PaperclipSpec> doAdvise(
+    protected List<PaperclipSpec> doAdvise(
             final DocumentTemplate documentTemplate,
             final DemoObjectWithUrl demoObject,
             final Document createdDocument) {
         return determinePaperclipSpecs(demoObject, createdDocument);
     }
 
-    protected List<AttachmentAdvisor.PaperclipSpec> determinePaperclipSpecs(
+    protected List<PaperclipSpec> determinePaperclipSpecs(
             final Object domainObject,
             final Document createdDocument) {
 
-        final List<AttachmentAdvisor.PaperclipSpec> attachTo = Lists.newArrayList();
+        final List<PaperclipSpec> attachTo = Lists.newArrayList();
 
         attachTo.add(new AttachmentAdvisor.PaperclipSpec(null, domainObject, createdDocument));
 

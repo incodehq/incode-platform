@@ -1,17 +1,15 @@
 package org.incode.domainapp.extended.module.fixtures.shared.demowithblob.fixture;
 
-import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-public class DemoObjectWithBlob_tearDown extends FixtureScript {
+import org.incode.domainapp.extended.module.fixtures.shared.demowithblob.dom.DemoObjectWithBlob;
+
+public class DemoObjectWithBlob_tearDown extends TeardownFixtureAbstract2 {
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"exampleDemo\".\"DemoObjectWithBlob\"");
+        deleteFrom(DemoObjectWithBlob.class);
     }
-
-
-    @javax.inject.Inject
-    IsisJdoSupport isisJdoSupport;
 
 }

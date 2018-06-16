@@ -14,9 +14,9 @@ import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleu
 import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusVersionTimestamp;
 
 import org.incode.domainapp.extended.module.fixtures.shared.simple.dom.SimpleObject;
-import org.incode.domainapp.extended.module.fixtures.shared.simple.fixture.scenario.SimpleObject_createUpTo10;
-import org.incode.domainapp.extended.module.fixtures.shared.simple.fixture.scenario.data.SimpleObject_data;
-import org.incode.domainapp.extended.module.fixtures.shared.simple.fixture.teardown.SimpleModule_tearDown;
+import org.incode.domainapp.extended.module.fixtures.shared.simple.fixture.SimpleObject_createUpTo10;
+import org.incode.domainapp.extended.module.fixtures.shared.simple.fixture.data.SimpleObject_data;
+import org.incode.domainapp.extended.module.fixtures.shared.simple.fixture.SimpleObject_tearDown;
 import org.incode.domainapp.extended.module.fixtures.shared.simple.integtests.SimpleModuleIntegTestAbstract;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,7 +28,7 @@ public class SimpleObject_IntegTest extends SimpleModuleIntegTestAbstract {
     @Before
     public void setUp() throws Exception {
         // given
-        fixtureScripts.runFixtureScript(new SimpleModule_tearDown(), null);
+        fixtureScripts.runFixtureScript(new SimpleObject_tearDown(), null);
         SimpleObject_createUpTo10 fs = new SimpleObject_createUpTo10().setNumber(10);
         fixtureScripts.runFixtureScript(fs, null);
         transactionService.nextTransaction();

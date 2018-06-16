@@ -78,7 +78,7 @@ import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.De
 import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotesRepository;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrlMenu;
-import org.incode.domainapp.extended.module.fixtures.shared.invoice.dom.DemoInvoice;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoInvoice;
 import org.incode.domainapp.extended.module.fixtures.shared.invoice.dom.DemoInvoiceRepository;
 import org.incode.domainapp.extended.module.fixtures.shared.invoicewithatpath.dom.DemoInvoiceWithAtPath;
 import org.incode.domainapp.extended.module.fixtures.shared.invoicewithatpath.dom.DemoInvoiceWithAtPathRepository;

@@ -3,7 +3,7 @@ package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
-import org.incode.example.document.dom.spi.ApplicationTenancyService;
+import org.incode.example.classification.dom.spi.ApplicationTenancyService;
 
 @DomainService(
     nature = NatureOfService.DOMAIN

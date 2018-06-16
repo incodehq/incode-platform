@@ -12,13 +12,13 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Property;
 
-import org.incode.domainapp.extended.module.fixtures.shared.invoice.dom.DemoInvoice;
 import org.incode.example.document.dom.impl.paperclips.Paperclip;
 import org.incode.example.document.dom.impl.paperclips.PaperclipRepository;
 import org.incode.example.document.dom.mixins.T_createAndAttachDocumentAndRender;
 import org.incode.example.document.dom.mixins.T_createAndAttachDocumentAndScheduleRender;
 import org.incode.example.document.dom.mixins.T_documents;
 import org.incode.example.document.dom.mixins.T_preview;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoInvoice;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType= IdentityType.DATASTORE,
@@ -99,7 +99,8 @@ public class PaperclipForDemoInvoice extends Paperclip {
     }
 
     @Mixin
-    public static class _createAndAttachDocumentAndScheduleRender extends T_createAndAttachDocumentAndScheduleRender<DemoInvoice> {
+    public static class _createAndAttachDocumentAndScheduleRender extends
+            T_createAndAttachDocumentAndScheduleRender<DemoInvoice> {
         public _createAndAttachDocumentAndScheduleRender(final DemoInvoice demoInvoice) {
             super(demoInvoice);
         }

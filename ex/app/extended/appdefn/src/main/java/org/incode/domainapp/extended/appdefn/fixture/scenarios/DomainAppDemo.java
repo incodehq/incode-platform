@@ -4,7 +4,7 @@ import javax.annotation.Nullable;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.extended.module.fixtures.shared.simple.fixture.scenario.SimpleObject_createUpTo10;
+import org.incode.domainapp.extended.module.fixtures.shared.simple.fixture.SimpleObject_createUpTo10;
 
 import org.incode.domainapp.extended.appdefn.fixture.teardown.DomainAppTearDown;
 import lombok.Getter;

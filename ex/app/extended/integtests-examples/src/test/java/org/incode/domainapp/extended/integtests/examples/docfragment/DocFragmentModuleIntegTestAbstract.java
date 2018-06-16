@@ -12,25 +12,28 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;
 import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.freemarker.dom.service.FreeMarkerService;
 
-import org.incode.domainapp.extended.integtests.examples.docfragment.dom.docfragment.DocFragmentModuleIntegrationSubmodule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.docfragment.FixturesModuleExamplesDocFragmentIntegrationSubmodule;
 
 public abstract class DocFragmentModuleIntegTestAbstract extends IntegrationTestAbstract3 {
 
     @XmlRootElement(name = "module")
-    public static class MyModule extends DocFragmentModuleIntegrationSubmodule {
+    public static class MyModule extends ModuleAbstract {
+
+        public MyModule() {
+            withConfigurationProperty(FreeMarkerService.JODA_SUPPORT_KEY, "true");
+        }
+
         @Override
         public Set<org.apache.isis.applib.Module> getDependencies() {
-            final Set<org.apache.isis.applib.Module> dependencies = super.getDependencies();
-            dependencies.addAll(Sets.newHashSet(
+            return Sets.newHashSet(
+                    new FixturesModuleExamplesDocFragmentIntegrationSubmodule(),
                     new FakeDataModule()
-            ));
-            return dependencies;
+            );
         }
     }
 
     public static ModuleAbstract module() {
-        return new MyModule()
-                .withConfigurationProperty(FreeMarkerService.JODA_SUPPORT_KEY, "true");
+        return new MyModule();
     }
 
     protected DocFragmentModuleIntegTestAbstract() {

@@ -21,7 +21,7 @@ public class RendererClassNameServiceForDemo extends ClassNameServiceAbstract<Re
         RendererClassNameService {
 
     public RendererClassNameServiceForDemo() {
-        super(Renderer.class, "org.incode.example.document.fixture");
+        super(Renderer.class, "org.incode.module.document.fixture");
     }
 
     @Programmatic

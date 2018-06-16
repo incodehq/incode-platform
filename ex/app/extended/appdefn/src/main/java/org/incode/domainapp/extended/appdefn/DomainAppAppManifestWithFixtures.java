@@ -6,7 +6,7 @@ import java.util.Map;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.domainapp.extended.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
-import org.incode.domainapp.extended.module.fixtures.shared.simple.fixture.scenario.data.SimpleObject_data;
+import org.incode.domainapp.extended.module.fixtures.shared.simple.fixture.data.SimpleObject_data;
 
 public class DomainAppAppManifestWithFixtures extends DomainAppAppManifest {
 

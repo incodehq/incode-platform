@@ -4,13 +4,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotes;
-import org.incode.domainapp.extended.module.fixtures.shared.invoice.dom.DemoInvoice;
 import org.incode.example.document.dom.impl.applicability.RendererModelFactoryAbstract;
 import org.incode.example.document.dom.impl.docs.Document;
 import org.incode.example.document.dom.impl.docs.DocumentTemplate;
 import org.incode.example.document.dom.impl.paperclips.Paperclip;
 import org.incode.example.document.dom.impl.paperclips.PaperclipRepository;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotes;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoInvoice;
 
 import lombok.Value;
 

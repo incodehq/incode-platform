@@ -18,12 +18,12 @@ import org.apache.isis.applib.services.xactn.TransactionService;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
+import org.incode.domainapp.extended.integtests.examples.docfragment.DocFragmentModuleIntegTestAbstract;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.docfragment.fixture.DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_create;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.docfragment.fixture.DocFragmentData;
 import org.incode.example.docfragment.dom.impl.DocFragment;
 import org.incode.example.docfragment.dom.impl.DocFragmentRepository;
-import org.incode.domainapp.extended.integtests.examples.docfragment.DocFragmentModuleIntegTestAbstract;
-import org.incode.domainapp.extended.integtests.examples.docfragment.dom.docfragment.fixture.DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_create;
-import org.incode.domainapp.extended.integtests.examples.docfragment.dom.docfragment.fixture.data.DocFragmentData;
-import org.incode.domainapp.extended.integtests.examples.docfragment.dom.docfragment.fixture.sub.DocFragment_tearDown;
+import org.incode.example.docfragment.fixture.DocFragment_tearDown;
 
 import static org.apache.isis.core.integtestsupport.ThrowableMatchers.causedBy;
 import static org.assertj.core.api.Assertions.assertThat;

@@ -14,7 +14,7 @@ import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsin
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.classification.FixturesModuleExamplesClassificationIntegrationSubmodule;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_recreate3;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPath;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPathMenu;
 import org.incode.domainapp.extended.module.fixtures.shared.otherwithatpath.dom.OtherObjectWithAtPath;
@@ -36,7 +36,7 @@ public class ExampleDomDomClassificationAppManifest extends AppManifestAbstract 
             ClassificationModule.class
         )
         .withFixtureScripts(
-                DemoObjectWithAtPath_and_OtherObjectWithAtPath_recreate3.class,
+                DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3.class,
                 SeedSuperAdministratorRoleAndSvenSuperUser.class
         )
         .withAdditionalServices(
