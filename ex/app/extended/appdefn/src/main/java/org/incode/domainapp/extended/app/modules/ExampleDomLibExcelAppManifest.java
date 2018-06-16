@@ -14,7 +14,7 @@ import org.isisaddons.module.excel.ExcelModule;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.ExampleDomLibExcelModule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.FixturesModuleLibExcelSubmodule;
 import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItem;
 import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItemMenu;
 import org.incode.domainapp.extended.module.fixtures.shared.todo.fixture.DemoToDoItem_recreate_usingExcelFixture;
@@ -27,7 +27,7 @@ public class ExampleDomLibExcelAppManifest extends AppManifestAbstract {
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
             DemoToDoItem.class,
-            ExampleDomLibExcelModule.class,
+            FixturesModuleLibExcelSubmodule.class,
             ExcelModule.class
         )
         .withFixtureScripts(

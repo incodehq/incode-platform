@@ -17,7 +17,7 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchanne
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addPhoneOrFaxNumber;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_addPostalAddress;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.dom.ccolink.demo.CommunicationChannelOwnerLinkForDemoObject_communicationChannels;
-import org.incode.domainapp.extended.module.fixtures.shared.ExampleDomDemoDomSubmodule;
+import org.incode.domainapp.extended.module.fixtures.shared.FixturesModuleSharedSubmodule;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.example.commchannel.dom.api.GeocodingService;
 import org.incode.example.commchannel.dom.impl.channel.CommunicationChannel;
@@ -37,7 +37,7 @@ public abstract class CommChannelModuleIntegTestAbstract extends IntegrationTest
     public static void initClass() {
         bootstrapUsing(CommChannelModuleAppManifest.BUILDER
                 .withAdditionalModules(
-                        ExampleDomDemoDomSubmodule.class,
+                        FixturesModuleSharedSubmodule.class,
                         CommChannelModuleIntegTestAbstract.class,
                         FakeDataModule.class
                 )

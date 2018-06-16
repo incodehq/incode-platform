@@ -62,7 +62,6 @@
 
     <dependencies>
 
-
         <dependency>
             <groupId>org.incode.example.application</groupId>
             <artifactId>incode-extended-module-fixtures</artifactId>
@@ -71,14 +70,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.incode.example.application</groupId>
-            <artifactId>incode-extended-embeddedcamel</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.incode.example.docfragment</groupId>
             <artifactId>incode-example-docfragment-dom</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.incode.example.docfragment</groupId>
@@ -86,6 +80,13 @@
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.incode.example.communications</groupId>
+            <artifactId>incode-example-communications-dom</artifactId>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+
 
         <dependency>
             <groupId>org.apache.isis.mavendeps</groupId>
@@ -114,13 +115,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.incode.example.communications</groupId>
-            <artifactId>incode-example-communications-dom</artifactId>
-            <type>test-jar</type>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.incode.module.integtestsupport</groupId>
             <artifactId>incode-module-integtestsupport-dom</artifactId>
             <scope>test</scope>
@@ -145,73 +139,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.isisaddons.module.command</groupId>
-            <artifactId>isis-module-command-dom</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.isisaddons.module.sessionlogger</groupId>
-            <artifactId>isis-module-sessionlogger-dom</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.isisaddons.module.publishmq</groupId>
-            <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.isisaddons.module.publishmq</groupId>
-            <artifactId>isis-module-publishmq-dom-jdo</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.isisaddons.module.publishmq</groupId>
-            <artifactId>isis-module-publishmq-dom-camel</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.isisaddons.module.audit</groupId>
-            <artifactId>isis-module-audit-dom</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.isisaddons.module.togglz</groupId>
-            <artifactId>isis-module-togglz-glue</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.isisaddons.module.security</groupId>
-            <artifactId>isis-module-security-dom</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.isisaddons.module.settings</groupId>
-            <artifactId>isis-module-settings-dom</artifactId>
-            <!-- we have to use an old version because this module was removed in 1.16.0 -->
-            <version>1.15.1.1</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.isisaddons.module.flywaydb</groupId>
-            <artifactId>isis-module-flywaydb-dom</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.isisaddons.metamodel.paraname8</groupId>
-            <artifactId>isis-metamodel-paraname8-dom</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.togglz</groupId>
             <artifactId>togglz-junit</artifactId>
             <scope>test</scope>
@@ -221,12 +148,6 @@
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
         </dependency>
 
     </dependencies>

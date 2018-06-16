@@ -17,13 +17,13 @@ import org.isisaddons.wicket.wickedcharts.cpt.ui.WickedChartsUiModule;
 
 import org.incode.module.base.services.BaseServicesModule;
 
-import org.incode.domainapp.extended.module.fixtures.shared.simple.SimpleModule;
+import org.incode.domainapp.extended.module.fixtures.shared.simple.FixturesModuleSharedSimpleSubmodule;
 
 public class DomainAppAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
-            SimpleModule.class,
+            FixturesModuleSharedSimpleSubmodule.class,
 
             DomainAppAppDefnModule.class,
 

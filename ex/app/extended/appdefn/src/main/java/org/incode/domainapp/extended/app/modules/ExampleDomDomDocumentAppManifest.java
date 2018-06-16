@@ -17,7 +17,7 @@ import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServic
 import org.isisaddons.module.stringinterpolator.StringInterpolatorModule;
 import org.isisaddons.module.xdocreport.dom.XDocReportModule;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.ExampleDomModuleDocumentModule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.FixturesModuleExamplesDocumentSubmodule;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.fixture.DemoObjectWithUrl_and_OtherObject_and_docrefdata_recreate;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrlMenu;
@@ -39,7 +39,7 @@ public class ExampleDomDomDocumentAppManifest extends AppManifestAbstract {
             DemoObjectWithUrl.class,
             OtherObject.class,
 
-            ExampleDomModuleDocumentModule.class,
+            FixturesModuleExamplesDocumentSubmodule.class,
             DocumentModule.class,
 
             FreemarkerDocRenderingModule.class,

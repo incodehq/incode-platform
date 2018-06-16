@@ -18,7 +18,7 @@ import org.incode.example.settings.dom.UserSettingsServiceRW;
 import org.incode.example.settings.dom.jdo.ApplicationSettingJdo;
 import org.incode.example.settings.dom.jdo.UserSettingJdo;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.settings.ExampleDomModuleSettingsModule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.settings.FixturesModuleExamplesSettingsSubmodule;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.settings.fixture.ApplicationSetting_and_UserSetting_recreate5;
 
 import org.incode.domainapp.extended.appdefn.DomainAppAppManifestAbstract;
@@ -29,7 +29,7 @@ public class ExampleDomDomSettingsAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
-            ExampleDomModuleSettingsModule.class
+            FixturesModuleExamplesSettingsSubmodule.class
 
         )
         .withFixtureScripts(

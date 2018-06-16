@@ -4,14 +4,14 @@ import org.apache.isis.applib.AppManifestAbstract;
 
 import org.incode.example.settings.SettingsModule;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.settings.ExampleDomModuleSettingsModule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.settings.FixturesModuleExamplesSettingsSubmodule;
 
 public class SettingsModuleAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER =
             Builder.forModules(
                     SettingsModule.class,
-                    ExampleDomModuleSettingsModule.class,
+                    FixturesModuleExamplesSettingsSubmodule.class,
                     SettingsAppModule.class);
 
     public SettingsModuleAppManifest() {

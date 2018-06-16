@@ -14,7 +14,7 @@ import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsin
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 import org.isisaddons.module.servletapi.ServletApiModule;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.servletapi.ExampleDomLibServletApiModule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.servletapi.FixturesModuleLibServletApiSubmodule;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.servletapi.dom.demo.ServletApiDemoObject;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.servletapi.dom.demo.ServletApiDemoObjects;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.servletapi.fixture.ServletApiDemoObject_recreate3;
@@ -26,7 +26,7 @@ public class ExampleDomLibServletApiAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
-            ExampleDomLibServletApiModule.class,
+            FixturesModuleLibServletApiSubmodule.class,
             ServletApiModule.class
         )
         .withFixtureScripts(

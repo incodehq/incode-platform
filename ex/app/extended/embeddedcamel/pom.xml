@@ -125,10 +125,6 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
 
-            <properties>
-                <cxf-core.version>3.1.1</cxf-core.version>
-            </properties>
-
             <dependencies>
 
                 <dependency>

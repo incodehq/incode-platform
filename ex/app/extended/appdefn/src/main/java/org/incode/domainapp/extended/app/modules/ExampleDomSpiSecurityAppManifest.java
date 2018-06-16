@@ -13,7 +13,7 @@ import org.apache.isis.applib.annotation.Nature;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.ExampleDomSpiSecurityModule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.FixturesModuleSpiSecuritySubmodule;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.demo.nontenanted.NonTenantedEntities;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.demo.nontenanted.NonTenantedEntity;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.demo.tenanted.TenantedEntities;
@@ -27,7 +27,7 @@ public class ExampleDomSpiSecurityAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
-            ExampleDomSpiSecurityModule.class
+            FixturesModuleSpiSecuritySubmodule.class
         )
         .withFixtureScripts(
                 SecurityModuleAppSetUp.class,

@@ -1,19 +1,40 @@
 package org.incode.domainapp.extended.integtests.lib.fakedata;
 
-import org.junit.BeforeClass;
+import java.util.Set;
 
-import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
+import javax.xml.bind.annotation.XmlRootElement;
 
-import org.incode.domainapp.extended.module.fixtures.shared.ExampleDomDemoDomSubmodule;
-import org.incode.domainapp.extended.integtests.lib.fakedata.app.FakedataLibAppManifest;
+import com.google.common.collect.Sets;
 
-public abstract class FakeDataModuleIntegTestAbstract extends IntegrationTestAbstract2 {
+import org.apache.isis.applib.Module;
+import org.apache.isis.applib.ModuleAbstract;
+import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;
 
-    @BeforeClass
-    public static void initClass() {
-        bootstrapUsing(FakedataLibAppManifest.BUILDER
-                .withAdditionalModules(ExampleDomDemoDomSubmodule.class)
-        );
+import org.isisaddons.module.fakedata.FakeDataModule;
+
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.FixturesModuleLibFakeDataSubmodule;
+
+public abstract class FakeDataModuleIntegTestAbstract extends IntegrationTestAbstract3 {
+
+    public static ModuleAbstract module() {
+        return new FakeDataModuleIntegTestAbstract.MyModule();
+    }
+
+    @XmlRootElement(name = "module")
+    public static class MyModule extends ModuleAbstract {
+        @Override
+        public Set<Module> getDependencies() {
+            final Set<Module> dependencies = super.getDependencies();
+            dependencies.addAll(Sets.newHashSet(
+                    new FakeDataModule(),
+                    new FixturesModuleLibFakeDataSubmodule()
+            ));
+            return dependencies;
+        }
+    }
+
+    protected FakeDataModuleIntegTestAbstract() {
+        super(module());
     }
 
 }

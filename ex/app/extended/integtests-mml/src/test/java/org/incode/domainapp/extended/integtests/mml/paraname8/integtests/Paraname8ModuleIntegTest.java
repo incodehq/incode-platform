@@ -6,14 +6,14 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 
 import org.incode.extended.integtests.mml.paraname8.app.Paraname8MetaModelAppManifest;
 
-import org.incode.domainapp.extended.module.fixtures.shared.ExampleDomDemoDomSubmodule;
+import org.incode.domainapp.extended.module.fixtures.shared.FixturesModuleSharedSubmodule;
 
 public abstract class Paraname8ModuleIntegTest extends IntegrationTestAbstract2 {
 
     @BeforeClass
     public static void initClass() {
         bootstrapUsing(Paraname8MetaModelAppManifest.BUILDER
-                .withAdditionalModules(ExampleDomDemoDomSubmodule.class)
+                .withAdditionalModules(FixturesModuleSharedSubmodule.class)
         );
     }
 

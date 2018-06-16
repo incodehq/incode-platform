@@ -14,7 +14,7 @@ import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsin
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 import org.isisaddons.module.stringinterpolator.StringInterpolatorModule;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.stringinterpolator.ExampleDomLibStringInterpolatorModule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.stringinterpolator.FixturesModuleLibStringInterpolatorSubmodule;
 import org.incode.domainapp.extended.module.fixtures.shared.reminder.dom.DemoReminder;
 import org.incode.domainapp.extended.module.fixtures.shared.reminder.dom.DemoReminderMenu;
 import org.incode.domainapp.extended.module.fixtures.shared.reminder.fixture.DemoReminder_recreate4;
@@ -27,7 +27,7 @@ public class ExampleDomLibStringInterpolatorAppManifest extends AppManifestAbstr
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
             DemoReminder.class,
-            ExampleDomLibStringInterpolatorModule.class,
+            FixturesModuleLibStringInterpolatorSubmodule.class,
             StringInterpolatorModule.class
         )
         .withFixtureScripts(

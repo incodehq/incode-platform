@@ -14,7 +14,7 @@ import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsin
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 import org.incode.example.tags.TagsModule;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.ExampleDomModuleTagsModule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.FixturesModuleExamplesTagsSubmodule;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObject;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObjectMenu;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.fixture.DemoTaggableObject_withTags_recreate3;
@@ -28,7 +28,7 @@ public class ExampleDomDomTagAppManifest extends AppManifestAbstract {
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
 
-            ExampleDomModuleTagsModule.class,
+            FixturesModuleExamplesTagsSubmodule.class,
             TagsModule.class
 
         )

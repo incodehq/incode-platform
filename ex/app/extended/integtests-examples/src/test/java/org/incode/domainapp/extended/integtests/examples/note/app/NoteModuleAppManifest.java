@@ -4,7 +4,7 @@ import org.apache.isis.applib.AppManifestAbstract;
 
 import org.incode.example.note.dom.NoteModule;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.ExampleDomModuleNoteModule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.FixturesModuleExamplesNoteSubmodule;
 
 /**
  * Bootstrap the application.
@@ -13,7 +13,7 @@ public class NoteModuleAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = Builder.forModules(
             NoteModule.class, // dom module
-            ExampleDomModuleNoteModule.class,
+            FixturesModuleExamplesNoteSubmodule.class,
             NoteAppModule.class
     );
 

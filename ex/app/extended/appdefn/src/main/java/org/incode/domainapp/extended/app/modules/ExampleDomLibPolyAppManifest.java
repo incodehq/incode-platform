@@ -14,7 +14,7 @@ import org.isisaddons.module.poly.PolyModule;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.ExampleDomLibPolyModule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.FixturesModuleLibPolySubmodule;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Case;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Cases;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.demofixedasset.FixedAsset;
@@ -31,7 +31,7 @@ public class ExampleDomLibPolyAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
-            ExampleDomLibPolyModule.class,
+            FixturesModuleLibPolySubmodule.class,
             PolyModule.class
         )
         .withFixtureScripts(

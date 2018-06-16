@@ -16,7 +16,7 @@ import org.isisaddons.module.fakedata.dom.FakeDataService;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.dom.demolink.NotableLinkForDemoObject_addNote;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.dom.demolink.NotableLinkForDemoObject_notes;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.dom.demolink.NotableLinkForDemoObject_removeNote;
-import org.incode.domainapp.extended.module.fixtures.shared.ExampleDomDemoDomSubmodule;
+import org.incode.domainapp.extended.module.fixtures.shared.FixturesModuleSharedSubmodule;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.example.note.dom.impl.note.Note;
 import org.incode.example.note.dom.impl.note.Note_changeDate;
@@ -34,7 +34,7 @@ public abstract class NoteModuleIntegTestAbstract extends IntegrationTestAbstrac
         bootstrapUsing(
                 NoteModuleAppManifest.BUILDER
                         .withAdditionalModules(
-                                ExampleDomDemoDomSubmodule.class,
+                                FixturesModuleSharedSubmodule.class,
                                 NoteModuleIntegTestAbstract.class,
                                 FakeDataModule.class
                         )

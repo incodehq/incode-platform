@@ -32,6 +32,8 @@
         <activemq-web.version>5.14.3</activemq-web.version>
         <camel.version>2.16.3</camel.version>
 
+        <cxf-core.version>3.1.1</cxf-core.version>
+
         <!-- override properties inherited from incode-parent -->
         <activemq.version>${activemq-web.version}</activemq.version>
         <ognl.version>3.0.9</ognl.version>
@@ -43,6 +45,8 @@
 
         <jaxb-impl.version>2.2.11</jaxb-impl.version>
         <jquery-selectors.version>0.2.4</jquery-selectors.version>
+
+
     </properties>
 
     <packaging>pom</packaging>
@@ -139,6 +143,8 @@
             </activation>
             <modules>
                 <module>module-fixtures</module>
+                <module>integtests-examples</module>
+                <module>integtests-spi</module>
             </modules>
         </profile>
 
@@ -166,6 +172,66 @@
                 <module>webapp</module>
 
                 <module>main-slack</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>integtests-examples</id>
+            <activation>
+                <property>
+                    <name>integtests-examples</name>
+                </property>
+            </activation>
+            <modules>
+                <module>integtests-examples</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>integtests-ext</id>
+            <activation>
+                <property>
+                    <name>integtests-ext</name>
+                </property>
+            </activation>
+            <modules>
+                <module>integtests-ext</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>integtests-lib</id>
+            <activation>
+                <property>
+                    <name>integtests-lib</name>
+                </property>
+            </activation>
+            <modules>
+                <module>integtests-lib</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>integtests-mml</id>
+            <activation>
+                <property>
+                    <name>integtests-mml</name>
+                </property>
+            </activation>
+            <modules>
+                <module>integtests-mml</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>integtests-spi</id>
+            <activation>
+                <property>
+                    <name>integtests-spi</name>
+                </property>
+            </activation>
+            <modules>
+                <module>integtests-spi</module>
             </modules>
         </profile>
     </profiles>

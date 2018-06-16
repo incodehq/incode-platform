@@ -56,7 +56,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
 
             fixtureScripts.runFixtureScript(scenario, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -116,7 +116,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
 
             fixtureScripts.runFixtureScript(fs, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
             final List<DemoObjectWithAll> all = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll();
             fakeDataDemoObject = all.get(0);
@@ -134,7 +134,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             updateScript.setFakeDataDemoObject(fakeDataDemoObject);
             fixtureScripts.runFixtureScript(updateScript, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -188,7 +188,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             updateScript.setSomeBoolean(true);
 
             fixtureScripts.runFixtureScript(updateScript, null);
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -206,7 +206,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             updateScript.setSomeBoolean(false);
 
             fixtureScripts.runFixtureScript(updateScript, null);
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -237,7 +237,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             updateScript.setSomeChar(theChar);
             fixtureScripts.runFixtureScript(updateScript, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -267,7 +267,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             updateScript.setSomeByte(theByte);
             fixtureScripts.runFixtureScript(updateScript, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -298,7 +298,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             updateScript.setSomeShort(theShort);
             fixtureScripts.runFixtureScript(updateScript, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -330,7 +330,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             updateScript.setSomeInt(theInt);
             fixtureScripts.runFixtureScript(updateScript, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -361,7 +361,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             updateScript.setSomeLong(theLong);
             fixtureScripts.runFixtureScript(updateScript, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -391,7 +391,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             updateScript.setSomeFloat(theFloat);
             fixtureScripts.runFixtureScript(updateScript, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -423,7 +423,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             updateScript.setSomeDouble(theDouble);
             fixtureScripts.runFixtureScript(updateScript, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -454,7 +454,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             updateScript.setSomeString(theString);
             fixtureScripts.runFixtureScript(updateScript, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -484,7 +484,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             updateScript.setSomePassword(thePassword);
             fixtureScripts.runFixtureScript(updateScript, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -515,7 +515,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             updateScript.setSomeBigDecimal(theBigDecimal);
             fixtureScripts.runFixtureScript(updateScript, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -545,7 +545,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             updateScript.setSomeBigInteger(theBigInteger);
             fixtureScripts.runFixtureScript(updateScript, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -575,7 +575,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
 
             fixtureScripts.runFixtureScript(updateScript, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -606,7 +606,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
 
             fixtureScripts.runFixtureScript(updateScript, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -636,7 +636,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
 
             fixtureScripts.runFixtureScript(updateScript, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -667,7 +667,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
 
             fixtureScripts.runFixtureScript(updateScript, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -698,7 +698,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
 
             fixtureScripts.runFixtureScript(updateScript, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -729,7 +729,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
 
             fixtureScripts.runFixtureScript(updateScript, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -759,7 +759,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
 
             fixtureScripts.runFixtureScript(updateScript, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -790,7 +790,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
 
             fixtureScripts.runFixtureScript(updateScript, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -821,7 +821,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
 
             fixtureScripts.runFixtureScript(updateScript, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -855,7 +855,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
 
             fixtureScripts.runFixtureScript(updateScript, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //
@@ -888,7 +888,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
 
             fixtureScripts.runFixtureScript(updateScript, null);
 
-            nextTransaction();
+            transactionService.nextTransaction();
 
 
             //

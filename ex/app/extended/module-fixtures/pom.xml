@@ -13,7 +13,7 @@
 
     <properties>
         <isis-maven-plugin.validate.appManifest>
-            org.incode.domainapp.extended.module.fixtures.ExampleDomManifest
+            org.incode.domainapp.extended.module.fixtures.FixturesManifest
         </isis-maven-plugin.validate.appManifest>
 
         <maven-checkstyle-plugin.configLocation>${project.parent.basedir}/_checks/checkstyle.xml</maven-checkstyle-plugin.configLocation>

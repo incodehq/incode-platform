@@ -16,7 +16,7 @@ import org.isisaddons.wicket.gmap3.cpt.applib.Gmap3ApplibModule;
 import org.isisaddons.wicket.gmap3.cpt.service.Gmap3ServiceModule;
 import org.isisaddons.wicket.gmap3.cpt.ui.Gmap3UiModule;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.ExampleDomModuleCommChannelModule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.FixturesModuleExamplesCommChannelSubmodule;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.fixture.DemoObject_withCommChannels_recreate3;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
@@ -31,7 +31,7 @@ public class ExampleDomDomCommChannelAppManifest extends AppManifestAbstract {
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
             DemoObject.class,
-            ExampleDomModuleCommChannelModule.class,
+            FixturesModuleExamplesCommChannelSubmodule.class,
             CommChannelModule.class,
 
             Gmap3ApplibModule.class,

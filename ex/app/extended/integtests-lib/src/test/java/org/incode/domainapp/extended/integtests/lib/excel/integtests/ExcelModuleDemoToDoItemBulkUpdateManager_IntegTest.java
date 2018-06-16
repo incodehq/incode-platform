@@ -25,16 +25,16 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.bulku
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.bulkupdate.BulkUpdateMenuForDemoToDoItem;
 import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItemMenu;
 import org.incode.domainapp.extended.module.fixtures.shared.todo.fixture.DemoToDoItem_recreate_usingExcelFixture;
-import org.incode.domainapp.extended.integtests.lib.excel.ExcelModuleModuleIntegTestAbstract;
+import org.incode.domainapp.extended.integtests.lib.excel.ExcelModuleIntegTestAbstract;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class ExcelModuleDemoToDoItemBulkUpdateManager_IntegTest extends ExcelModuleModuleIntegTestAbstract {
+public class ExcelModuleDemoToDoItemBulkUpdateManager_IntegTest extends ExcelModuleIntegTestAbstract {
 
     @Before
     public void setUpData() throws Exception {
-        scenarioExecution().install(new DemoToDoItem_recreate_usingExcelFixture());
+        runFixtureScript(new DemoToDoItem_recreate_usingExcelFixture());
     }
 
     @Inject

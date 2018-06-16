@@ -13,7 +13,7 @@ import org.apache.isis.applib.annotation.Nature;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.docfragment.ExampleDomModuleDocFragmentModule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.docfragment.FixturesModuleExamplesDocFragmentSubmodule;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.docfragment.fixture.DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_recreate;
 import org.incode.domainapp.extended.module.fixtures.shared.customer.dom.DemoCustomer;
 import org.incode.domainapp.extended.module.fixtures.shared.customer.dom.DemoCustomerMenu;
@@ -34,7 +34,7 @@ public class ExampleDomDomDocFragmentAppManifest extends AppManifestAbstract {
             DemoCustomer.class,
             DemoInvoiceWithAtPath.class,
 
-            ExampleDomModuleDocFragmentModule.class,
+            FixturesModuleExamplesDocFragmentSubmodule.class,
             DocFragmentModuleDomModule.class
 
         )

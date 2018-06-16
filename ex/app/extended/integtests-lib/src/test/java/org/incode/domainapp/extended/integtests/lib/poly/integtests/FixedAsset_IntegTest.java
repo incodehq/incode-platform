@@ -13,7 +13,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.wrapper.DisabledException;
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
-import org.incode.domainapp.extended.integtests.lib.poly.PolyAppIntegTestAbstract;
+import org.incode.domainapp.extended.integtests.lib.poly.PolyModuleIntegTestAbstract;
 
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democommchannel.CommunicationChannel;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democommchannel.CommunicationChannels;
@@ -23,7 +23,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
-public class FixedAsset_IntegTest extends PolyAppIntegTestAbstract {
+public class FixedAsset_IntegTest extends PolyModuleIntegTestAbstract {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
@@ -41,7 +41,7 @@ public class FixedAsset_IntegTest extends PolyAppIntegTestAbstract {
 
         fs = new FixedAsset_recreate6();
         fixtureScripts.runFixtureScript(fs, null);
-        nextTransaction();
+        transactionService.nextTransaction();
 
         fixedAsset = fs.getFixedAssets().get(0);
     }
@@ -54,7 +54,7 @@ public class FixedAsset_IntegTest extends PolyAppIntegTestAbstract {
 
             // when
             wrap(fixedAsset).createCommunicationChannel("0207 123 4567");
-            nextTransaction();
+            transactionService.nextTransaction();
 
             // then
             final List<CommunicationChannel> all = communicationChannelsMenu.listAllCommunicationChannels();
@@ -69,7 +69,7 @@ public class FixedAsset_IntegTest extends PolyAppIntegTestAbstract {
 
             // given
             wrap(fixedAsset).createCommunicationChannel("0207 123 4567");
-            nextTransaction();
+            transactionService.nextTransaction();
 
             // then expect
             expectedException.expect(DisabledException.class);
@@ -77,7 +77,7 @@ public class FixedAsset_IntegTest extends PolyAppIntegTestAbstract {
 
             // when
             wrap(fixedAsset).createCommunicationChannel("0207 123 4567");
-            nextTransaction();
+            transactionService.nextTransaction();
         }
 
         @Test
@@ -99,11 +99,11 @@ public class FixedAsset_IntegTest extends PolyAppIntegTestAbstract {
 
             // given
             wrap(fixedAsset).createCommunicationChannel("0207 123 4567");
-            nextTransaction();
+            transactionService.nextTransaction();
 
             // when
             wrap(fixedAsset).deleteCommunicationChannel();
-            nextTransaction();
+            transactionService.nextTransaction();
 
             // then
             assertThat(wrap(fixedAsset).getCommunicationChannel(), is(nullValue()));

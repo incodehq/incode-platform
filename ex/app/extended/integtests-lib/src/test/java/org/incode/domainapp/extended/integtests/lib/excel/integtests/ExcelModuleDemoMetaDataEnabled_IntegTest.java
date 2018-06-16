@@ -14,12 +14,12 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
 import org.incode.domainapp.extended.module.fixtures.shared.todo.fixture.DemoFixture_extending_ExcelFixture2;
 import org.incode.domainapp.extended.module.fixtures.shared.todo.fixture.DemoToDoItemRowHandler2;
-import org.incode.domainapp.extended.integtests.lib.excel.ExcelModuleModuleIntegTestAbstract;
+import org.incode.domainapp.extended.integtests.lib.excel.ExcelModuleIntegTestAbstract;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class ExcelModuleDemoMetaDataEnabled_IntegTest extends ExcelModuleModuleIntegTestAbstract {
+public class ExcelModuleDemoMetaDataEnabled_IntegTest extends ExcelModuleIntegTestAbstract {
 
     List<FixtureResult> fixtureResults;
 

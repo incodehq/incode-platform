@@ -12,8 +12,8 @@ import org.isisaddons.module.servletapi.ServletApiModule;
 import org.isisaddons.module.stringinterpolator.StringInterpolatorModule;
 import org.isisaddons.module.xdocreport.dom.XDocReportModule;
 
-import org.incode.domainapp.extended.module.fixtures.ExampleDomSubmodule;
-import org.incode.domainapp.extended.module.fixtures.shared.ExampleDomDemoDomSubmodule;
+import org.incode.domainapp.extended.module.fixtures.FixturesModule;
+import org.incode.domainapp.extended.module.fixtures.shared.FixturesModuleSharedSubmodule;
 import org.incode.example.alias.dom.AliasModule;
 import org.incode.example.classification.dom.ClassificationModule;
 import org.incode.example.commchannel.dom.CommChannelModule;
@@ -34,8 +34,8 @@ public class DomainAppAppManifestWithExampleModules extends AppManifestAbstract 
     public static final Builder BUILDER = DomainAppAppManifest.BUILDER
             .withAdditionalModules(
                     ExampleAppSubmodule.class,
-                    ExampleDomSubmodule.class,
-                    ExampleDomDemoDomSubmodule.class,
+                    FixturesModule.class,
+                    FixturesModuleSharedSubmodule.class,
 
                     // lib
                     FreemarkerDocRenderingModule.class,

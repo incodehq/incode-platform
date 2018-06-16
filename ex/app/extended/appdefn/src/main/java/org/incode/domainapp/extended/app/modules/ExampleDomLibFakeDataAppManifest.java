@@ -14,7 +14,7 @@ import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.ExampleDomLibFakeDataModule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.FixturesModuleLibFakeDataSubmodule;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.fixture.DemoObjectWithAll_recreate3;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.DemoObjectWithAll;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.DemoObjectWithAllMenu;
@@ -27,7 +27,7 @@ public class ExampleDomLibFakeDataAppManifest extends AppManifestAbstract {
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
             DemoObjectWithAll.class,
-            ExampleDomLibFakeDataModule.class,
+            FixturesModuleLibFakeDataSubmodule.class,
             FakeDataModule.class
         )
         .withFixtureScripts(

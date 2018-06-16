@@ -4,7 +4,7 @@ import org.junit.BeforeClass;
 
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 
-import org.incode.domainapp.extended.module.fixtures.shared.ExampleDomDemoDomSubmodule;
+import org.incode.domainapp.extended.module.fixtures.shared.FixturesModuleSharedSubmodule;
 import org.incode.extended.integtests.spi.audit.app.AuditSpiAppManifest;
 
 public abstract class AuditModuleIntegTestAbstract extends IntegrationTestAbstract2 {
@@ -12,7 +12,7 @@ public abstract class AuditModuleIntegTestAbstract extends IntegrationTestAbstra
     @BeforeClass
     public static void initClass() {
         bootstrapUsing(AuditSpiAppManifest.BUILDER
-                .withAdditionalModules(ExampleDomDemoDomSubmodule.class)
+                .withAdditionalModules(FixturesModuleSharedSubmodule.class)
         );
     }
 

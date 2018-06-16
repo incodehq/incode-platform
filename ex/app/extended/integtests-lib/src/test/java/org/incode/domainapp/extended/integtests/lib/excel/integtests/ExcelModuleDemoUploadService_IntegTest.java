@@ -19,19 +19,19 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.uploa
 import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItem;
 import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItemMenu;
 import org.incode.domainapp.extended.module.fixtures.shared.todo.fixture.DemoToDoItem_tearDown;
-import org.incode.domainapp.extended.integtests.lib.excel.ExcelModuleModuleIntegTestAbstract;
+import org.incode.domainapp.extended.integtests.lib.excel.ExcelModuleIntegTestAbstract;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class ExcelModuleDemoUploadService_IntegTest extends ExcelModuleModuleIntegTestAbstract {
+public class ExcelModuleDemoUploadService_IntegTest extends ExcelModuleIntegTestAbstract {
 
     @Inject
     private ExcelUploadServiceForDemoToDoItem uploadService;
 
     @Before
     public void setUpData() throws Exception {
-        scenarioExecution().install(new DemoToDoItem_tearDown());
+        runFixtureScript(new DemoToDoItem_tearDown());
     }
 
     @Before

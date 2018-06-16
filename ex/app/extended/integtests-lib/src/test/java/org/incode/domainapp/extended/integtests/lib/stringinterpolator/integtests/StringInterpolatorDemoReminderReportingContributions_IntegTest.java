@@ -13,16 +13,17 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.stringinterpola
 import org.incode.domainapp.extended.module.fixtures.shared.reminder.dom.DemoReminder;
 import org.incode.domainapp.extended.module.fixtures.shared.reminder.dom.DemoReminderMenu;
 import org.incode.domainapp.extended.module.fixtures.shared.reminder.fixture.DemoReminder_recreate4;
-import org.incode.domainapp.extended.integtests.lib.stringinterpolator.StringInterpolatorDemoIntegTestAbstract;
+import org.incode.domainapp.extended.integtests.lib.stringinterpolator.StringInterpolatorModuleIntegTestAbstract;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class StringInterpolatorDemoReminderReportingContributions_IntegTest extends StringInterpolatorDemoIntegTestAbstract {
+public class StringInterpolatorDemoReminderReportingContributions_IntegTest extends
+        StringInterpolatorModuleIntegTestAbstract {
 
     @Before
     public void setUpData() throws Exception {
-        scenarioExecution().install(new DemoReminder_recreate4());
+        runFixtureScript(new DemoReminder_recreate4());
     }
 
     @Inject

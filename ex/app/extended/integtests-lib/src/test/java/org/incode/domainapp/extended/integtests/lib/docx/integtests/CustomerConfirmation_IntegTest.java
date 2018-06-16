@@ -25,7 +25,7 @@ public class CustomerConfirmation_IntegTest extends DocxModuleIntegTestAbstract 
 
     @Before
     public void setUpData() throws Exception {
-        scenarioExecution().install(new DemoOrderAndOrderLine_recreate4_hardcodedData());
+        runFixtureScript(new DemoOrderAndOrderLine_recreate4_hardcodedData());
     }
 
     @Inject

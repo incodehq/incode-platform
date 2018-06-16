@@ -12,7 +12,7 @@ import org.junit.rules.ExpectedException;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
-import org.incode.domainapp.extended.integtests.lib.poly.PolyAppIntegTestAbstract;
+import org.incode.domainapp.extended.integtests.lib.poly.PolyModuleIntegTestAbstract;
 
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democommchannel.CommunicationChannel;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democommchannel.CommunicationChannels;
@@ -21,7 +21,7 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.fixture.da
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class Party_IntegTest extends PolyAppIntegTestAbstract {
+public class Party_IntegTest extends PolyModuleIntegTestAbstract {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
@@ -42,7 +42,7 @@ public class Party_IntegTest extends PolyAppIntegTestAbstract {
             // given
             fs = new Party_recreate3();
             fixtureScripts.runFixtureScript(fs, null);
-            nextTransaction();
+            transactionService.nextTransaction();
 
             party = fs.getParties().get(0);
         }
@@ -90,7 +90,7 @@ public class Party_IntegTest extends PolyAppIntegTestAbstract {
 
             // when
             wrap(party).addCommunicationChannel("0207 123 4567");
-            nextTransaction();
+            transactionService.nextTransaction();
         }
     }
 
@@ -105,7 +105,7 @@ public class Party_IntegTest extends PolyAppIntegTestAbstract {
             // given
             fs = new Party_recreate3();
             fixtureScripts.runFixtureScript(fs, null);
-            nextTransaction();
+            transactionService.nextTransaction();
 
             party = fs.getParties().get(0);
 
@@ -123,7 +123,7 @@ public class Party_IntegTest extends PolyAppIntegTestAbstract {
 
             // when
             wrap(party).removeCommunicationChannel(communicationChannel);
-            nextTransaction();
+            transactionService.nextTransaction();
 
             // then
             communicationChannels = party.getCommunicationChannels();

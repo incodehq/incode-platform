@@ -6,7 +6,7 @@ import org.togglz.junit.TogglzRule;
 
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 
-import org.incode.domainapp.extended.module.fixtures.shared.ExampleDomDemoDomSubmodule;
+import org.incode.domainapp.extended.module.fixtures.shared.FixturesModuleSharedSubmodule;
 import org.incode.domainapp.extended.integtests.togglz.app.TogglzExtAppManifest;
 
 import org.incode.domainapp.extended.module.base.togglz.TogglzFeature;
@@ -20,7 +20,7 @@ public abstract class TogglzModuleIntegTestAbstract extends IntegrationTestAbstr
     public static void initClass() {
         bootstrapUsing(
                 TogglzExtAppManifest.BUILDER
-                        .withAdditionalModules(ExampleDomDemoDomSubmodule.class)
+                        .withAdditionalModules(FixturesModuleSharedSubmodule.class)
         );
     }
 
