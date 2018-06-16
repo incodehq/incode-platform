@@ -13,17 +13,18 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;
 import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.domainapp.extended.integtests.examples.alias.integration.AliasModuleIntegrationSubmodule;
-import org.incode.domainapp.extended.integtests.examples.alias.integration.dom.AliasForDemoObject;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.FixturesModuleExamplesAliasIntegrationSubmodule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.dom.AliasForDemoObject;
 
 public abstract class AliasModuleIntegTestAbstract extends IntegrationTestAbstract3 {
 
     @XmlRootElement(name = "module")
-    public static class MyModule extends AliasModuleIntegrationSubmodule {
+    public static class MyModule extends ModuleAbstract {
         @Override
         public Set<org.apache.isis.applib.Module> getDependencies() {
             final Set<org.apache.isis.applib.Module> dependencies = super.getDependencies();
             dependencies.addAll(Sets.newHashSet(
+                    new FixturesModuleExamplesAliasIntegrationSubmodule(),
                     new FakeDataModule()
             ));
             return dependencies;

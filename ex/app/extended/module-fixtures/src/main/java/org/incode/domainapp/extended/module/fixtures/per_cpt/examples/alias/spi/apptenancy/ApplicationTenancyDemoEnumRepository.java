@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.examples.alias.integration.spi.apptenancy;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.spi.apptenancy;
 
 import java.util.Arrays;
 import java.util.Collection;

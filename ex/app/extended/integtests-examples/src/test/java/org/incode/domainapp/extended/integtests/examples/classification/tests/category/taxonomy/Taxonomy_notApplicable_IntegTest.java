@@ -15,8 +15,8 @@ import org.incode.example.classification.dom.impl.classification.Classification;
 import org.incode.example.classification.dom.impl.classification.ClassificationRepository;
 import org.incode.example.classification.dom.spi.ApplicationTenancyService;
 import org.incode.domainapp.extended.integtests.examples.classification.ClassificationModuleIntegTestAbstract;
-import org.incode.domainapp.extended.integtests.examples.classification.demo.dom.demowithatpath.DemoObjectWithAtPath;
-import org.incode.domainapp.extended.integtests.examples.classification.demo.dom.demowithatpath.DemoObjectWithAtPathMenu;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPath;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPathMenu;
 import org.incode.domainapp.extended.integtests.examples.classification.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_recreate3;
 import org.incode.domainapp.extended.integtests.examples.classification.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_tearDown;
 

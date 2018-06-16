@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.spiimpl.aliastype;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.spi.aliastype;
 
 import org.apache.isis.applib.annotation.Title;
 

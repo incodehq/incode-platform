@@ -16,7 +16,7 @@ import org.incode.example.classification.dom.impl.classification.ClassificationR
 import org.incode.example.classification.dom.impl.classification.T_classifications;
 import org.incode.example.classification.dom.impl.classification.T_classify;
 import org.incode.example.classification.dom.impl.classification.T_unclassify;
-import org.incode.domainapp.extended.integtests.examples.classification.demo.dom.demowithatpath.DemoObjectWithAtPath;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPath;
 
 import lombok.Getter;
 import lombok.Setter;

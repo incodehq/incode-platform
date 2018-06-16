@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.examples.alias.integration.spi.aliastype;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.spi.aliastype;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

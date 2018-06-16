@@ -8,8 +8,8 @@ import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.spiimpl.aliastype.AliasTypeDemoEnum;
 import org.incode.example.alias.dom.impl.Alias;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.spi.aliastype.AliasTypeDemoEnum;
 
 @DomainService(nature = NatureOfService.DOMAIN )
 public class AliasUiSubscriber extends AbstractSubscriber {

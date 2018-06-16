@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.spiimpl.apptenancy;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.spi.apptenancy;
 
 import lombok.Getter;
 

@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.examples.alias.integration;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias;
 
 import java.util.Set;
 
@@ -11,12 +11,12 @@ import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
-import org.incode.domainapp.extended.integtests.examples.alias.integration.dom.AliasForDemoObject;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.dom.AliasForDemoObject;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.FixturesModuleSharedDemoSubmodule;
 import org.incode.example.alias.dom.AliasModule;
 
 @XmlRootElement(name = "module")
-public class AliasModuleIntegrationSubmodule extends ModuleAbstract {
+public class FixturesModuleExamplesAliasIntegrationSubmodule extends ModuleAbstract {
 
     @Override
     public Set<Module> getDependencies() {
@@ -35,4 +35,5 @@ public class AliasModuleIntegrationSubmodule extends ModuleAbstract {
             }
         };
     }
+
 }

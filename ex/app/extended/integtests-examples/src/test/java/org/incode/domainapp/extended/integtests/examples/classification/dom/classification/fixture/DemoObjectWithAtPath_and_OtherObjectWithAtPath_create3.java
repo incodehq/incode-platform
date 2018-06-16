@@ -12,10 +12,10 @@ import org.apache.isis.applib.services.factory.FactoryService;
 import org.incode.example.classification.dom.impl.category.Category;
 import org.incode.example.classification.dom.impl.category.CategoryRepository;
 import org.incode.example.classification.dom.impl.category.taxonomy.Taxonomy;
-import org.incode.domainapp.extended.integtests.examples.classification.demo.dom.demowithatpath.DemoObjectWithAtPath;
-import org.incode.domainapp.extended.integtests.examples.classification.demo.dom.demowithatpath.DemoObjectWithAtPathMenu;
-import org.incode.domainapp.extended.integtests.examples.classification.demo.dom.otherwithatpath.OtherObjectWithAtPath;
-import org.incode.domainapp.extended.integtests.examples.classification.demo.dom.otherwithatpath.OtherObjectWithAtPathMenu;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPath;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPathMenu;
+import org.incode.domainapp.extended.module.fixtures.shared.otherwithatpath.dom.OtherObjectWithAtPath;
+import org.incode.domainapp.extended.module.fixtures.shared.otherwithatpath.dom.OtherObjectWithAtPathMenu;
 import org.incode.domainapp.extended.integtests.examples.classification.dom.classification.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath;
 
 import lombok.Getter;

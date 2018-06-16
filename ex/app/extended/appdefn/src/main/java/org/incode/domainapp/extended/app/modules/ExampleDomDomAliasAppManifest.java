@@ -14,7 +14,7 @@ import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsin
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.fixture.DemoObject_withAliases_recreate2;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.FixturesModuleExamplesAliasSubmodule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.FixturesModuleExamplesAliasIntegrationSubmodule;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
 import org.incode.example.alias.dom.AliasModule;
@@ -27,7 +27,7 @@ public class ExampleDomDomAliasAppManifest extends AppManifestAbstract {
     public static final Builder BUILDER = DomainAppAppManifestAbstract.BUILDER.withAdditionalModules(
 
             DemoObject.class,
-            FixturesModuleExamplesAliasSubmodule.class,
+            FixturesModuleExamplesAliasIntegrationSubmodule.class,
             AliasModule.class
         )
         .withFixtureScripts(

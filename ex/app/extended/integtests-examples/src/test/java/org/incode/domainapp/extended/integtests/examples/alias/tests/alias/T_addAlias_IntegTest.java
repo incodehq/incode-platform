@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.apache.isis.applib.AbstractSubscriber;
 
 import org.incode.domainapp.extended.integtests.examples.alias.AliasModuleIntegTestAbstract;
-import org.incode.domainapp.extended.integtests.examples.alias.integration.fixture.DemoObject_withAliases_tearDown;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.fixture.DemoObject_withAliases_tearDown;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
 import org.incode.example.alias.dom.impl.Alias;
 import org.incode.example.alias.dom.impl.T_addAlias;

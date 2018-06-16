@@ -6,8 +6,8 @@ import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.extended.integtests.examples.classification.demo.dom.demowithatpath.DemoObjectWithAtPath;
-import org.incode.domainapp.extended.integtests.examples.classification.demo.dom.otherwithatpath.OtherObjectWithAtPath;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPath;
+import org.incode.domainapp.extended.module.fixtures.shared.otherwithatpath.dom.OtherObjectWithAtPath;
 
 import lombok.Getter;
 

@@ -2,9 +2,9 @@ package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.fix
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import org.incode.example.alias.dom.impl.T_addAlias;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.fixture.DemoObjectData;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.dom.AliasForDemoObject;
-import org.incode.example.alias.dom.impl.T_addAlias;
 
 public class DemoObject_withAliases_recreate2 extends FixtureScript {
 

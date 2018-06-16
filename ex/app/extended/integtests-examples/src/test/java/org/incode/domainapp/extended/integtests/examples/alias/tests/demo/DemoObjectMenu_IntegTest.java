@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import org.incode.domainapp.extended.integtests.examples.alias.AliasModuleIntegTestAbstract;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.fixture.DemoObjectData;
-import org.incode.domainapp.extended.integtests.examples.alias.integration.fixture.DemoObject_withAliases_recreate2;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.fixture.DemoObject_withAliases_recreate2;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
 
