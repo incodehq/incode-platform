@@ -1,10 +1,10 @@
-package org.incode.domainapp.extended.integtests.examples.alias.dom.alias.fixture;
+package org.incode.domainapp.extended.integtests.examples.alias.integration.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.example.alias.dom.impl.T_addAlias;
-import org.incode.domainapp.extended.integtests.examples.alias.demo.fixture.data.DemoObjectData;
-import org.incode.domainapp.extended.integtests.examples.alias.dom.alias.dom.AliasForDemoObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.fixture.DemoObjectData;
+import org.incode.domainapp.extended.integtests.examples.alias.integration.dom.AliasForDemoObject;
 
 public class DemoObject_withAliases_recreate2 extends FixtureScript {
 

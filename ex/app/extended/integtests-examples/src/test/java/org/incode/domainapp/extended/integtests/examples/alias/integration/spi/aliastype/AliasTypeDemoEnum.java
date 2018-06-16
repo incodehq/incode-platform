@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.examples.alias.dom.alias.dom.spiimpl.aliastype;
+package org.incode.domainapp.extended.integtests.examples.alias.integration.spi.aliastype;
 
 import org.apache.isis.applib.annotation.Title;
 

@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.examples.alias.dom.alias.dom;
+package org.incode.domainapp.extended.integtests.examples.alias.integration.dom;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;

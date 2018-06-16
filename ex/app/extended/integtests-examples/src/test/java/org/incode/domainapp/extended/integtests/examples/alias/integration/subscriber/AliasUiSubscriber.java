@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.examples.alias.dom.alias.dom.ui;
+package org.incode.domainapp.extended.integtests.examples.alias.integration.subscriber;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -9,7 +9,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.example.alias.dom.impl.Alias;
-import org.incode.domainapp.extended.integtests.examples.alias.dom.alias.dom.spiimpl.aliastype.AliasTypeDemoEnum;
+import org.incode.domainapp.extended.integtests.examples.alias.integration.spi.aliastype.AliasTypeDemoEnum;
 
 @DomainService(nature = NatureOfService.DOMAIN )
 public class AliasUiSubscriber extends AbstractSubscriber {

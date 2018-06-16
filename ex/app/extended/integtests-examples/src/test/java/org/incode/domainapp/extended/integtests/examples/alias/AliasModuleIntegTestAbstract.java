@@ -13,9 +13,8 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;
 import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.domainapp.extended.integtests.examples.alias.dom.alias.AliasModuleIntegrationSubmodule;
-import org.incode.domainapp.extended.integtests.examples.alias.dom.alias.dom.AliasForDemoObject;
-import org.incode.domainapp.extended.module.fixtures.shared.demo.FixturesModuleSharedDemoSubmodule;
+import org.incode.domainapp.extended.integtests.examples.alias.integration.AliasModuleIntegrationSubmodule;
+import org.incode.domainapp.extended.integtests.examples.alias.integration.dom.AliasForDemoObject;
 
 public abstract class AliasModuleIntegTestAbstract extends IntegrationTestAbstract3 {
 
@@ -25,7 +24,6 @@ public abstract class AliasModuleIntegTestAbstract extends IntegrationTestAbstra
         public Set<org.apache.isis.applib.Module> getDependencies() {
             final Set<org.apache.isis.applib.Module> dependencies = super.getDependencies();
             dependencies.addAll(Sets.newHashSet(
-                    new FixturesModuleSharedDemoSubmodule(),
                     new FakeDataModule()
             ));
             return dependencies;

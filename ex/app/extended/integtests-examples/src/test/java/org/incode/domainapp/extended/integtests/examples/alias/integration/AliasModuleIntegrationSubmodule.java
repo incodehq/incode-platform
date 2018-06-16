@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.examples.alias.dom.alias;
+package org.incode.domainapp.extended.integtests.examples.alias.integration;
 
 import java.util.Set;
 
@@ -11,9 +11,9 @@ import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
+import org.incode.domainapp.extended.integtests.examples.alias.integration.dom.AliasForDemoObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.FixturesModuleSharedDemoSubmodule;
 import org.incode.example.alias.dom.AliasModule;
-import org.incode.domainapp.extended.integtests.examples.alias.demo.AliasModuleDemoDomSubmodule;
-import org.incode.domainapp.extended.integtests.examples.alias.dom.alias.dom.AliasForDemoObject;
 
 @XmlRootElement(name = "module")
 public class AliasModuleIntegrationSubmodule extends ModuleAbstract {
@@ -21,7 +21,7 @@ public class AliasModuleIntegrationSubmodule extends ModuleAbstract {
     @Override
     public Set<Module> getDependencies() {
         return Sets.newHashSet(
-                new AliasModuleDemoDomSubmodule(),
+                new FixturesModuleSharedDemoSubmodule(),
                 new AliasModule()
         );
     }
