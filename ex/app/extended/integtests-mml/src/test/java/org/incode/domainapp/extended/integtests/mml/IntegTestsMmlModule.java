@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.lib;
+package org.incode.domainapp.extended.integtests.mml;
 
 import java.util.Set;
 
@@ -9,23 +9,14 @@ import com.google.common.collect.Sets;
 import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 
-import org.incode.domainapp.extended.integtests.lib.docx.DocxModuleIntegTestAbstract;
-import org.incode.domainapp.extended.integtests.lib.excel.ExcelModuleIntegTestAbstract;
-import org.incode.domainapp.extended.integtests.lib.fakedata.FakeDataModuleIntegTestAbstract;
-import org.incode.domainapp.extended.integtests.lib.poly.PolyModuleIntegTestAbstract;
-import org.incode.domainapp.extended.integtests.lib.stringinterpolator.StringInterpolatorModuleIntegTestAbstract;
+import org.incode.domainapp.extended.integtests.mml.paraname8.integtests.Paraname8ModuleIntegTestAbstract;
 
 @XmlRootElement(name = "module")
-public class IntegTestsLibModule extends ModuleAbstract {
+public class IntegTestsMmlModule extends ModuleAbstract {
 
     @Override public Set<Module> getDependencies() {
         return Sets.newHashSet(
-                DocxModuleIntegTestAbstract.module(),
-                ExcelModuleIntegTestAbstract.module(),
-                FakeDataModuleIntegTestAbstract.module(),
-                PolyModuleIntegTestAbstract.module(),
-                StringInterpolatorModuleIntegTestAbstract.module()
-
+                Paraname8ModuleIntegTestAbstract.module()
         );
     }
 }

@@ -60,6 +60,12 @@
         </plugins>
     </build>
 
+    <properties>
+        <isis.integTest.module>
+            org.incode.domainapp.extended.integtests.spi.IntegTestsSpiModule
+        </isis.integTest.module>
+    </properties>
+
     <dependencies>
 
         <dependency>

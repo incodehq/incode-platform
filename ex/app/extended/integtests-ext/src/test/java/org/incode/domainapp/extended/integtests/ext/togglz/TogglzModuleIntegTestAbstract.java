@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.togglz;
+package org.incode.domainapp.extended.integtests.ext.togglz;
 
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -7,7 +7,7 @@ import org.togglz.junit.TogglzRule;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
 
 import org.incode.domainapp.extended.module.fixtures.shared.FixturesModuleSharedSubmodule;
-import org.incode.domainapp.extended.integtests.togglz.app.TogglzExtAppManifest;
+import org.incode.domainapp.extended.integtests.ext.togglz.app.TogglzExtAppManifest;
 
 import org.incode.domainapp.extended.module.base.togglz.TogglzFeature;
 

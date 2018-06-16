@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.togglz.app.fixtures;
+package org.incode.domainapp.extended.integtests.ext.togglz.app.fixtures;
 
 import javax.inject.Inject;
 

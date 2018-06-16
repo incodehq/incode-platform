@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.togglz.app;
+package org.incode.domainapp.extended.integtests.ext.togglz.app;
 
 import java.util.List;
 

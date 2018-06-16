@@ -26,7 +26,7 @@ import org.apache.isis.applib.Module;
 import org.apache.isis.applib.services.jaxb.JaxbService;
 import org.apache.isis.applib.services.metamodel.MetaModelService4;
 
-public class DocxModuleBootstrapIntegTest extends DocxModuleIntegTestAbstract {
+public class Paraname8ModuleBootstrapIntegTest extends Paraname8ModuleIntegTestAbstract {
 
     @Test
     public void serializes_module() throws Exception {

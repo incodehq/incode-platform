@@ -1,4 +1,4 @@
-package org.incode.extended.integtests.mml.paraname8.integtests;
+package org.incode.domainapp.extended.integtests.mml.paraname8.integtests;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import org.incode.domainapp.extended.module.fixtures.shared.demo.fixture.DemoObj
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class Paraname8DemoObjects_IntegTest extends Paraname8ModuleIntegTest {
+public class Paraname8DemoObjects_IntegTest extends Paraname8ModuleIntegTestAbstract {
 
     @Before
     public void setUpData() throws Exception {

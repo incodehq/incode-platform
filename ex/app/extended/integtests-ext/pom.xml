@@ -60,9 +60,13 @@
         </plugins>
     </build>
 
+    <properties>
+        <isis.integTest.module>
+            org.incode.domainapp.extended.integtests.ext.IntegTestsExtModule
+        </isis.integTest.module>
+    </properties>
+
     <dependencies>
-
-
         <dependency>
             <groupId>org.incode.example.application</groupId>
             <artifactId>incode-extended-module-fixtures</artifactId>

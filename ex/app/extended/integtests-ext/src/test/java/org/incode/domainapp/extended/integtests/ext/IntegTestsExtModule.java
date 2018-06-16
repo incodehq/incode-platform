@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.spi;
+package org.incode.domainapp.extended.integtests.ext;
 
 import java.util.Set;
 
@@ -10,7 +10,7 @@ import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 
 @XmlRootElement(name = "module")
-public class IntegTestsSpiModule extends ModuleAbstract {
+public class IntegTestsExtModule extends ModuleAbstract {
 
     @Override public Set<Module> getDependencies() {
         return Sets.newHashSet(
