@@ -13,24 +13,25 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;
 import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.classification.FixturesModuleExamplesClassificationIntegrationSubmodule;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.FixturesModuleSharedDemoWithAtPathSubmodule;
+import org.incode.domainapp.extended.module.fixtures.shared.otherwithatpath.FixturesModuleSharedOtherWithAtPathSubmodule;
 import org.incode.example.classification.dom.impl.classification.T_classifications;
 import org.incode.example.classification.dom.impl.classification.T_classify;
 import org.incode.example.classification.dom.impl.classification.T_unclassify;
-import org.incode.domainapp.extended.integtests.examples.classification.app.ClassificationAppModule;
-import org.incode.domainapp.extended.integtests.examples.classification.dom.classification.ClassificationModuleIntegrationSubmodule;
 
 public abstract class ClassificationModuleIntegTestAbstract extends IntegrationTestAbstract3 {
 
     @XmlRootElement(name = "module")
-    public static class MyModule extends ClassificationModuleIntegrationSubmodule {
+    public static class MyModule extends ModuleAbstract {
         @Override
         public Set<org.apache.isis.applib.Module> getDependencies() {
-            final Set<org.apache.isis.applib.Module> dependencies = super.getDependencies();
-            dependencies.addAll(Sets.newHashSet(
-                    new ClassificationAppModule(),
+            return Sets.newHashSet(
+                    new FixturesModuleSharedDemoWithAtPathSubmodule(),
+                    new FixturesModuleSharedOtherWithAtPathSubmodule(),
+                    new FixturesModuleExamplesClassificationIntegrationSubmodule(),
                     new FakeDataModule()
-            ));
-            return dependencies;
+            );
         }
     }
 

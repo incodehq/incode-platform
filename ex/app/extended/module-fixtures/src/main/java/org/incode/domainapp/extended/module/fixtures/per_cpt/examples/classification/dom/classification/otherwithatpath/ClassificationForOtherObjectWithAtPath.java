@@ -11,12 +11,12 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Property;
 
-import org.incode.domainapp.extended.module.fixtures.shared.otherwithatpath.dom.OtherObjectWithAtPath;
 import org.incode.example.classification.dom.impl.classification.Classification;
 import org.incode.example.classification.dom.impl.classification.ClassificationRepository;
 import org.incode.example.classification.dom.impl.classification.T_classifications;
 import org.incode.example.classification.dom.impl.classification.T_classify;
 import org.incode.example.classification.dom.impl.classification.T_unclassify;
+import org.incode.domainapp.extended.module.fixtures.shared.otherwithatpath.dom.OtherObjectWithAtPath;
 
 import lombok.Getter;
 import lombok.Setter;

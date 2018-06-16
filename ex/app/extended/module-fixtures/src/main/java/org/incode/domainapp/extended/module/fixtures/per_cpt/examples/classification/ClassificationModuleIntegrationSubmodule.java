@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.examples.classification.dom.classification;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.classification;
 
 import java.util.Set;
 
@@ -11,10 +11,9 @@ import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.classification.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.classification.dom.classification.otherwithatpath.ClassificationForOtherObjectWithAtPath;
 import org.incode.example.classification.dom.ClassificationModule;
-import org.incode.domainapp.extended.integtests.examples.classification.demo.ClassificationModuleDemoDomSubmodule;
-import org.incode.domainapp.extended.integtests.examples.classification.dom.classification.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath;
-import org.incode.domainapp.extended.integtests.examples.classification.dom.classification.dom.classification.otherwithatpath.ClassificationForOtherObjectWithAtPath;
 
 @XmlRootElement(name = "module")
 public class ClassificationModuleIntegrationSubmodule extends ModuleAbstract {
@@ -22,7 +21,7 @@ public class ClassificationModuleIntegrationSubmodule extends ModuleAbstract {
     @Override
     public Set<Module> getDependencies() {
         return Sets.newHashSet(
-                new ClassificationModuleDemoDomSubmodule(),
+//                new ClassificationModuleDemoDomSubmodule(),
                 new ClassificationModule()
         );
     }

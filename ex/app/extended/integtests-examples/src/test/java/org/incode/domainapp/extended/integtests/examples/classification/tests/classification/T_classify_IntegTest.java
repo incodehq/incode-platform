@@ -25,9 +25,9 @@ import org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.dom.D
 import org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPathMenu;
 import org.incode.domainapp.extended.module.fixtures.shared.otherwithatpath.dom.OtherObjectWithAtPath;
 import org.incode.domainapp.extended.module.fixtures.shared.otherwithatpath.dom.OtherObjectWithAtPathMenu;
-import org.incode.domainapp.extended.integtests.examples.classification.dom.classification.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath;
-import org.incode.domainapp.extended.integtests.examples.classification.dom.classification.dom.classification.otherwithatpath.ClassificationForOtherObjectWithAtPath;
-import org.incode.domainapp.extended.integtests.examples.classification.dom.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_recreate3;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.classification.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.classification.dom.classification.otherwithatpath.ClassificationForOtherObjectWithAtPath;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_recreate3;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

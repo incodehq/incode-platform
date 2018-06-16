@@ -22,12 +22,10 @@ public abstract class AliasModuleIntegTestAbstract extends IntegrationTestAbstra
     public static class MyModule extends ModuleAbstract {
         @Override
         public Set<org.apache.isis.applib.Module> getDependencies() {
-            final Set<org.apache.isis.applib.Module> dependencies = super.getDependencies();
-            dependencies.addAll(Sets.newHashSet(
+            return Sets.newHashSet(
                     new FixturesModuleExamplesAliasIntegrationSubmodule(),
                     new FakeDataModule()
-            ));
-            return dependencies;
+            );
         }
     }
 

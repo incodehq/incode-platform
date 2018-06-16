@@ -11,7 +11,7 @@ public class DemoObjectWithAtPath_and_OtherObjectWithAtPath_tearDown extends Fix
     @Override
     protected void execute(final ExecutionContext executionContext) {
 
-        executionContext.executeChild(this, new ClassificationModule_tearDown());
+        executionContext.executeChild(this, new Classifications_tearDown());
 
         executionContext.executeChild(this, new DemoObjectWithAtPath_tearDown());
         executionContext.executeChild(this, new OtherObjectWithAtPath_tearDown());

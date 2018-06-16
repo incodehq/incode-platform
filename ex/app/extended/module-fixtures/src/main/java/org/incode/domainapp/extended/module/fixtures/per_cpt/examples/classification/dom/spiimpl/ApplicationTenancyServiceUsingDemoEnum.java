@@ -3,9 +3,9 @@ package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.classific
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
-import org.incode.domainapp.extended.module.fixtures.shared.otherwithatpath.dom.OtherObjectWithAtPath;
 import org.incode.example.classification.dom.spi.ApplicationTenancyService;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPath;
+import org.incode.domainapp.extended.module.fixtures.shared.otherwithatpath.dom.OtherObjectWithAtPath;
 
 @DomainService(
     nature = NatureOfService.DOMAIN

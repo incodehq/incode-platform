@@ -13,7 +13,7 @@ import org.apache.isis.applib.annotation.Nature;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.classification.FixturesModuleExamplesClassificationSubmodule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.classification.FixturesModuleExamplesClassificationIntegrationSubmodule;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_recreate3;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPath;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPathMenu;
@@ -32,7 +32,7 @@ public class ExampleDomDomClassificationAppManifest extends AppManifestAbstract 
             DemoObjectWithAtPath.class,
             OtherObjectWithAtPath.class,
 
-            FixturesModuleExamplesClassificationSubmodule.class,
+            FixturesModuleExamplesClassificationIntegrationSubmodule.class,
             ClassificationModule.class
         )
         .withFixtureScripts(
