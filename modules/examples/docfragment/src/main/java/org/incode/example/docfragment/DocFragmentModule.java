@@ -9,11 +9,10 @@ import com.google.common.collect.Sets;
 import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
-import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
 import org.isisaddons.module.freemarker.dom.FreeMarkerModule;
 
-import org.incode.example.docfragment.dom.impl.DocFragment;
+import org.incode.example.docfragment.fixture.DocFragment_tearDown;
 
 @XmlRootElement(name = "module")
 public class DocFragmentModule extends ModuleAbstract {
@@ -24,12 +23,7 @@ public class DocFragmentModule extends ModuleAbstract {
 
     @Override
     public FixtureScript getTeardownFixture() {
-        return new TeardownFixtureAbstract2() {
-            @Override
-            protected void execute(FixtureScript.ExecutionContext executionContext) {
-                deleteFrom(DocFragment.class);
-            }
-        };
+        return new DocFragment_tearDown();
     }
 
     //region > ui event classes

@@ -3,6 +3,12 @@ package org.incode.example.classification.dom;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.isis.applib.ModuleAbstract;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
+
+import org.incode.example.classification.dom.impl.applicability.Applicability;
+import org.incode.example.classification.dom.impl.category.Category;
+import org.incode.example.classification.dom.impl.classification.Classification;
 
 @XmlRootElement(name = "module")
 public class ClassificationModule extends ModuleAbstract {
@@ -26,7 +32,6 @@ public class ClassificationModule extends ModuleAbstract {
         public static final int BOOKMARK = 2000;
     }
 
-
     //endregion
 
     //region > ui event classes
@@ -47,4 +52,20 @@ public class ClassificationModule extends ModuleAbstract {
             extends org.apache.isis.applib.services.eventbus.PropertyDomainEvent<S,T> { }
     //endregion
 
+    @Override
+    public FixtureScript getTeardownFixture() {
+        return new TeardownFixtureAbstract2() {
+            @Override
+            protected void execute(final FixtureScript.ExecutionContext executionContext) {
+                deleteFrom(Classification.class);
+                //deleteFrom(Taxonomy.class);
+                deleteFrom(Applicability.class);
+                deleteFrom(Category.class);
+            }
+        };
+    }
+
+
 }
+
+
