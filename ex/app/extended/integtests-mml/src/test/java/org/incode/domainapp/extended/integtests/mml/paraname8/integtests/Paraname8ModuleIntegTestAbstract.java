@@ -22,6 +22,7 @@ public abstract class Paraname8ModuleIntegTestAbstract extends IntegrationTestAb
 
     @XmlRootElement(name = "module")
     public static class MyModule extends ModuleAbstract {
+
         @Override
         public Set<Module> getDependencies() {
             final Set<Module> dependencies = super.getDependencies();

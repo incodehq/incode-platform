@@ -9,13 +9,14 @@ import org.junit.Test;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
+import org.incode.domainapp.extended.integtests.ext.flywaydb.FlywayDbModuleIntegTestAbstract;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.fixture.DemoObject_tearDown;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class Smoke_IntegTest extends DomainAppIntegTestAbstract {
+public class Smoke_IntegTest extends FlywayDbModuleIntegTestAbstract {
 
     @Inject
     FixtureScripts fixtureScripts;
