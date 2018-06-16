@@ -2,9 +2,8 @@ package org.incode.extended.integtests.examples.alias.app;
 
 import org.apache.isis.applib.AppManifestAbstract;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.ExampleDomModuleAliasModule;
 import org.incode.example.alias.dom.AliasModule;
-
+import org.incode.extended.integtests.examples.alias.dom.alias.AliasModuleIntegrationSubmodule;
 
 /**
  * Bootstrap the application.
@@ -13,7 +12,7 @@ public class AliasModuleAppManifest extends AppManifestAbstract {
 
     public static final Builder BUILDER = Builder.forModules(
             AliasModule.class, // dom module
-            ExampleDomModuleAliasModule.class,
+            AliasModuleIntegrationSubmodule.class,
             AliasAppModule.class
     );
 
