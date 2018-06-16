@@ -9,8 +9,8 @@
         <version>1.16.3-SNAPSHOT</version>
     </parent>
 
-    <artifactId>incode-extended-integtests</artifactId>
-    <name>Incode Extended IntegTests</name>
+    <artifactId>incode-extended-integtests-mml</artifactId>
+    <name>Incode Extended IntegTests for MML</name>
 
     <build>
         <resources>

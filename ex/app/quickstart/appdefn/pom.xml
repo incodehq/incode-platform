@@ -198,10 +198,6 @@
             <artifactId>isis-module-security-dom</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mindrot</groupId>
-            <artifactId>jbcrypt</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.isisaddons.module.sessionlogger</groupId>
             <artifactId>isis-module-sessionlogger-dom</artifactId>
         </dependency>

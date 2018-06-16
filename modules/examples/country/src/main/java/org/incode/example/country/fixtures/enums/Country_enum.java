@@ -1,14 +1,12 @@
-package org.incode.module.country.fixtures.enums;
+package org.incode.example.country.fixtures.enums;
 
 import org.apache.isis.applib.fixturescripts.PersonaWithBuilderScript;
 import org.apache.isis.applib.fixturescripts.PersonaWithFinder;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 
-import org.incode.module.country.dom.impl.Country;
-import org.incode.module.country.dom.impl.CountryRepository;
-import org.incode.module.country.fixtures.builders.CountryBuilder;
-
-import org.incode.module.apptenancy.fixtures.enums.ApplicationTenancy_enum;
+import org.incode.example.country.dom.impl.Country;
+import org.incode.example.country.dom.impl.CountryRepository;
+import org.incode.example.country.fixtures.builders.CountryBuilder;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,20 +17,15 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public enum Country_enum implements PersonaWithBuilderScript<Country, CountryBuilder>, PersonaWithFinder<Country> {
 
-    GBR("GBR", "GB", "United Kingdom",  ApplicationTenancy_enum.Gb),
-    NLD("NLD", "NL", "The Netherlands", ApplicationTenancy_enum.Nl),
-    ITA("ITA", "IT", "Italy",           ApplicationTenancy_enum.It),
-    FRA("FRA", "FR", "France",          ApplicationTenancy_enum.Fr),
-    SWE("SWE", "SE", "Sweden",          ApplicationTenancy_enum.Se);
+    GBR("GBR", "GB", "United Kingdom"),
+    NLD("NLD", "NL", "The Netherlands"),
+    ITA("ITA", "IT", "Italy"),
+    FRA("FRA", "FR", "France"),
+    SWE("SWE", "SE", "Sweden");
 
     private final String ref3;
     private final String ref2;
     private final String name;
-    private final ApplicationTenancy_enum applicationTenancy_d;
-
-    public String getAtPath(){
-        return applicationTenancy_d.getPath();
-    }
 
     @Override
     public Country findUsing(final ServiceRegistry2 serviceRegistry) {

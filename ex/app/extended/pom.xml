@@ -155,7 +155,13 @@
 
                 <module>module-base</module>
                 <module>module-fixtures</module>
-                <module>integtests</module>
+
+                <module>integtests-examples</module>
+                <module>integtests-ext</module>
+                <module>integtests-lib</module>
+                <module>integtests-spi</module>
+                <module>integtests-mml</module>
+
                 <module>appdefn</module>
                 <module>webapp</module>
 
