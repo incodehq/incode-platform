@@ -2,8 +2,8 @@ package org.incode.domainapp.extended.integtests.examples.alias.demo.fixture.set
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.extended.integtests.examples.alias.demo.dom.demo.DemoObject;
-import org.incode.domainapp.extended.integtests.examples.alias.demo.dom.demo.DemoObjectMenu;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
 
 import lombok.Getter;
 import lombok.Setter;

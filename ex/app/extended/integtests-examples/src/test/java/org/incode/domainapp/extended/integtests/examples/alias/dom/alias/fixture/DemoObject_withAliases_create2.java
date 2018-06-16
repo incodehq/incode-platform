@@ -2,11 +2,11 @@ package org.incode.domainapp.extended.integtests.examples.alias.dom.alias.fixtur
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.example.alias.dom.impl.T_addAlias;
-import org.incode.domainapp.extended.integtests.examples.alias.demo.dom.demo.DemoObject;
 import org.incode.domainapp.extended.integtests.examples.alias.demo.fixture.data.DemoObjectData;
 import org.incode.domainapp.extended.integtests.examples.alias.dom.alias.dom.AliasForDemoObject;
 import org.incode.domainapp.extended.integtests.examples.alias.dom.alias.dom.spiimpl.aliastype.AliasTypeDemoEnum;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
+import org.incode.example.alias.dom.impl.T_addAlias;
 
 public class DemoObject_withAliases_create2 extends FixtureScript {
 

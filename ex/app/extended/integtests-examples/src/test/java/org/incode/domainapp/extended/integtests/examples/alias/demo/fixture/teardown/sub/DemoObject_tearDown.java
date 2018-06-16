@@ -2,7 +2,7 @@ package org.incode.domainapp.extended.integtests.examples.alias.demo.fixture.tea
 
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
-import org.incode.domainapp.extended.integtests.examples.alias.demo.dom.demo.DemoObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 
 public class DemoObject_tearDown extends TeardownFixtureAbstract2 {
 

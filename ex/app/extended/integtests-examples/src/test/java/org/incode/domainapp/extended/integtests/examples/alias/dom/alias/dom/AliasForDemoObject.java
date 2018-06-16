@@ -11,12 +11,12 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Property;
 
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.example.alias.dom.impl.Alias;
 import org.incode.example.alias.dom.impl.AliasRepository;
 import org.incode.example.alias.dom.impl.T_addAlias;
 import org.incode.example.alias.dom.impl.T_aliases;
 import org.incode.example.alias.dom.impl.T_removeAlias;
-import org.incode.domainapp.extended.integtests.examples.alias.demo.dom.demo.DemoObject;
 
 import lombok.Getter;
 import lombok.Setter;

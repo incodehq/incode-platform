@@ -3,9 +3,9 @@ package org.incode.domainapp.extended.integtests.examples.alias.demo.fixture.dat
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.module.fixturesupport.dom.data.DemoData;
 import org.incode.module.fixturesupport.dom.data.DemoDataPersistAbstract;
-import org.incode.domainapp.extended.integtests.examples.alias.demo.dom.demo.DemoObject;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

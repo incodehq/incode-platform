@@ -15,6 +15,7 @@ import org.isisaddons.module.fakedata.dom.FakeDataService;
 
 import org.incode.domainapp.extended.integtests.examples.alias.dom.alias.AliasModuleIntegrationSubmodule;
 import org.incode.domainapp.extended.integtests.examples.alias.dom.alias.dom.AliasForDemoObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.FixturesModuleSharedDemoSubmodule;
 
 public abstract class AliasModuleIntegTestAbstract extends IntegrationTestAbstract3 {
 
@@ -24,11 +25,10 @@ public abstract class AliasModuleIntegTestAbstract extends IntegrationTestAbstra
         public Set<org.apache.isis.applib.Module> getDependencies() {
             final Set<org.apache.isis.applib.Module> dependencies = super.getDependencies();
             dependencies.addAll(Sets.newHashSet(
+                    new FixturesModuleSharedDemoSubmodule(),
                     new FakeDataModule()
             ));
             return dependencies;
-            // TODO: reinstate if we ever bring in alias.  For now, having to comment out this subscriber because it is causing the 'isis.reflector.validator.checkModuleExtent' check to fail.
-            // .withAdditionalServices(T_addAlias_IntegTest.DomainEventIntegTest.Subscriber.class)
         }
     }
 

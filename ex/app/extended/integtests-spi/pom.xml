@@ -52,6 +52,10 @@
                         </mixin>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>datanucleusenhance</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>surefire</artifactId>
                         </mixin>
                     </mixins>
@@ -67,6 +71,14 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-applib</artifactId>
+            <!--
+            scope=compile for benefit of datanucleus enhancer (to bring in datanucleus-jdo-api dependency)
+            -->
+        </dependency>
 
         <dependency>
             <groupId>org.isisaddons.module.audit</groupId>
@@ -172,12 +184,6 @@
         <dependency>
             <groupId>com.danhaywood.java</groupId>
             <artifactId>danhaywood-java-assertjext</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-applib</artifactId>
             <scope>test</scope>
         </dependency>
 

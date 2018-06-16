@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-mvn datanucleus:enhance -Denhance -Dskip.default -T1C -o
+mvn datanucleus:enhance@process-classes datanucleus:enhance@process-test-classes -Denhance -Dskip.default -o $*
 

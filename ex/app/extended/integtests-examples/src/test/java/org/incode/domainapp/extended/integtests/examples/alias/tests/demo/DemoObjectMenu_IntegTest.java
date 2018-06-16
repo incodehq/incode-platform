@@ -9,10 +9,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.incode.domainapp.extended.integtests.examples.alias.AliasModuleIntegTestAbstract;
-import org.incode.domainapp.extended.integtests.examples.alias.demo.dom.demo.DemoObject;
-import org.incode.domainapp.extended.integtests.examples.alias.demo.dom.demo.DemoObjectMenu;
 import org.incode.domainapp.extended.integtests.examples.alias.demo.fixture.data.DemoObjectData;
 import org.incode.domainapp.extended.integtests.examples.alias.dom.alias.fixture.DemoObject_withAliases_recreate2;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
 
 public class DemoObjectMenu_IntegTest extends AliasModuleIntegTestAbstract {
 

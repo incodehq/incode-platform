@@ -8,9 +8,9 @@ import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.extended.integtests.examples.alias.demo.dom.demo.DemoObject;
 import org.incode.domainapp.extended.integtests.examples.alias.demo.fixture.setup.sub.DemoObject_create;
 import org.incode.domainapp.extended.integtests.examples.alias.demo.fixture.teardown.sub.DemoObject_tearDown;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 
 import lombok.Getter;
 import lombok.Setter;

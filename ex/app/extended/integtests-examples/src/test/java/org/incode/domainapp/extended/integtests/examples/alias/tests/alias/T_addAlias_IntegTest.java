@@ -15,14 +15,14 @@ import org.junit.Test;
 
 import org.apache.isis.applib.AbstractSubscriber;
 
+import org.incode.domainapp.extended.integtests.examples.alias.AliasModuleIntegTestAbstract;
+import org.incode.domainapp.extended.integtests.examples.alias.dom.alias.fixture.DemoObject_withAliases_tearDown;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
 import org.incode.example.alias.dom.impl.Alias;
 import org.incode.example.alias.dom.impl.T_addAlias;
 import org.incode.example.alias.dom.spi.AliasType;
 import org.incode.example.alias.dom.spi.AliasTypeRepository;
 import org.incode.example.alias.dom.spi.ApplicationTenancyRepository;
-import org.incode.domainapp.extended.integtests.examples.alias.AliasModuleIntegTestAbstract;
-import org.incode.domainapp.extended.integtests.examples.alias.demo.dom.demo.DemoObjectMenu;
-import org.incode.domainapp.extended.integtests.examples.alias.dom.alias.fixture.DemoObject_withAliases_tearDown;
 
 import static org.apache.isis.core.integtestsupport.ThrowableMatchers.causedBy;
 import static org.assertj.core.api.Assertions.assertThat;
